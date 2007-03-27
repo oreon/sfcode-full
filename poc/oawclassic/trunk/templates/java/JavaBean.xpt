@@ -1,0 +1,24 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT java»
+«EXTENSION java::NamingConventions»
+	
+«DEFINE BeanClass FOR Class»
+«FILE packagePath()+"/"+NameS+".java"»  
+
+package «packageName()»;
+
+«getClassDeclaration()»{
+		
+			«EXPAND Attribute::PropertyDeclaration FOREACH Attribute»
+			«EXPAND Attribute::Getter FOREACH Attribute»
+			«EXPAND Attribute::Setter FOREACH Attribute»
+			
+			«EXPAND Association::ReferenceVariables»
+			«EXPAND Association::AccessorMethods»
+			
+			«generateInterfaceImplementation()»
+						
+			«EXPAND Attribute::Generator FOREACH Operation»
+		} 
+	«ENDFILE»
+«ENDDEFINE»

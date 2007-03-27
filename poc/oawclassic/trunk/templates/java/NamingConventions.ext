@@ -1,0 +1,36 @@
+import org::openarchitectureware::meta::uml;
+import org::openarchitectureware::meta::uml::classifier;
+import org::openarchitectureware::meta::uml::classifier::Class;
+
+String asParameter (ModelElement elem) :
+"p"+elem.NameS.toFirstUpper();
+
+String asSetter (ModelElement elem) :
+"set"+elem.NameS.toFirstUpper();
+
+String asGetter (ModelElement elem) :
+"get"+elem.NameS.toFirstUpper();
+
+String asInstanceVar (ModelElement elem) :
+elem.NameS.toFirstLower();
+
+
+String packageName (Class cls) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getPackageName(org.openarchitectureware.meta.uml.classifier.Class);
+
+String operationHelper (Operation operation) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.operationHelper(org.openarchitectureware.meta.uml.classifier.Operation);
+
+String generateInterfaceImplementation (Class cls) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.generateOperationsForImplementedInterfaces(org.openarchitectureware.meta.uml.classifier.Class);
+
+String getClassDeclaration (Class cls) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getClassDeclaration(org.openarchitectureware.meta.uml.classifier.Class);
+
+
+String packagePath (Class cls) :
+packageName(cls).replaceAll("\\.", "/");
+
+String fqn (Class cls) :
+packageName(cls).length>0 ? packageName(cls)+"."+cls.NameS :
+cls.NameS;

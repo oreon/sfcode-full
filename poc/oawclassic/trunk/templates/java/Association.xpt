@@ -1,0 +1,48 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+
+«DEFINE ReferenceVariables FOR Class»
+«FOREACH AssociationEnd.Opposite.select(ae|ae.isNavigable) AS ae»
+private «ae.fqn()»  ;
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE AccessorMethods FOR Class»
+«EXPAND ToOneAccessorMethods FOREACH
+AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable)»
+«EXPAND ToManyAccessorMethods FOREACH
+AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable)»
+«ENDDEFINE»
+
+«DEFINE ToOneAccessorMethods FOR AssociationEnd»
+public void «asSetter()» («Class.fqn()» «asParameter()») {
+this.«asInstanceVar()» = «asParameter()»;
+}
+public «Class.fqn()» «asGetter()» () {
+return this.«asInstanceVar()»;
+}
+«ENDDEFINE»
+«DEFINE ToManyAccessorMethods FOR AssociationEnd»
+public void add«NameS.toFirstUpper()» («Class.fqn()»
+«asParameter()») {
+«asParameter()».«Opposite.asSetter()»(this);
+this.«asInstanceVar()».add(«asParameter()»);
+}
+public void remove«NameS.toFirstUpper()» («Class.fqn()»
+«asParameter()») {
+this.«asInstanceVar()».remove(«asParameter()»);
+}
+
+public java.util.Collection<«Class.fqn()»> «asGetter()» () {
+return this.«asInstanceVar()»;
+}
+
+public void «asSetter()» (java.util.Collection<«Class.fqn()»> «asParameter()») {
+	this.«asInstanceVar()» = «asParameter()»;
+}
+
+public «iterator()» «asGetter()»Iterator () {
+return this.«asInstanceVar()».iterator();
+}
+«ENDDEFINE»
