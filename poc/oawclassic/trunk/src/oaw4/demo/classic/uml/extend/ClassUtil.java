@@ -4,25 +4,43 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.openarchitectureware.core.frontends.xmi.mapping.Mapping.ModelElement;
+import org.apache.commons.lang.WordUtils;
+import org.openarchitectureware.core.meta.core.Element;
 import org.openarchitectureware.meta.uml.classifier.AssociationEnd;
 import org.openarchitectureware.meta.uml.classifier.Attribute;
 import org.openarchitectureware.meta.uml.classifier.Class;
+import org.openarchitectureware.meta.uml.classifier.Enumeration;
 import org.openarchitectureware.meta.uml.classifier.Interface;
 import org.openarchitectureware.meta.uml.classifier.Operation;
 import org.openarchitectureware.meta.uml.classifier.Package;
 import org.openarchitectureware.meta.uml.classifier.Parameter;
-import org.openarchitectureware.type.Type;
-
-import sun.security.krb5.internal.crypto.Aes128;
 
 public class ClassUtil {
+	
+	//Entity mappings for hibernate cfg 
+	static StringBuffer entityMappings = new StringBuffer();
+	
+	/** Returns the package name of the given 
+	 * @param cls
+	 * @return
+	 */
+	public static String getPackageName(Enumeration enm) {
 
+		String result = "";
+		/*
+		for (Package pck = (Package) enm.Namespace(); pck != null; pck = pck.SuperPackage()) {
+			result = pck.NameS() + (result.length() > 0 ? "." + result : "");
+		}*/
+
+		return enm.Namespace().NameS();
+	}
+	
+
+	/** Returns the package name of the given 
+	 * @param cls
+	 * @return
+	 */
 	public static String getPackageName(Class cls) {
-
-		AssociationEnd ae;
-		Operation operation;
-		// operation.Parameter()
 
 		String result = "";
 		for (Package pck = cls.Package(); pck != null; pck = pck.SuperPackage()) {
@@ -30,10 +48,7 @@ public class ClassUtil {
 			// System.out.print(pck.)
 		}
 
-		// cls.Interface().isEmpty()
-
 		return result;
-
 	}
 
 	public static String operationHelper(Operation operation) {
@@ -111,11 +126,19 @@ public class ClassUtil {
 
 		if (cls.hasSuperClass())
 			buffer.append(" extends " + cls.SuperClass().NameS());
+		else if (StereoTypeManager.isEntity(cls) || 
+				StereoTypeManager.isMappedSuperClass(cls)){
+			buffer.append(" extends BusinessEntity " );
+		}
+		
 		List<Interface> interfaces = cls.Interface().toList();
 
-		if (!interfaces.isEmpty())
-			buffer.append(" implements ");
+		//if (!interfaces.isEmpty())
+		buffer.append(" implements java.io.Serializable");
 
+		if (!interfaces.isEmpty())
+			buffer.append(", ");
+		
 		for (int i = 0; i < interfaces.size(); i++) {
 			buffer.append(interfaces.get(i).NameS());
 
@@ -139,10 +162,20 @@ public class ClassUtil {
 	 * @param cls
 	 */
 	private static String addEntityIfApplies(Class cls) {
-		if (StringUtils.equalsIgnoreCase(cls.Package().NameS(), "bizobjects"))
+		//if (StringUtils.equalsIgnoreCase(cls.Package().NameS(), "bizobjects"))
+		AssociationEnd ae ;
+		
+		if(cls.getMetaClass().getSimpleName().equals("Class"))
+			return "";
+		
+		if (cls.getMetaClass().getSimpleName().equals("Entity") ){
+			entityMappings.append("<mapping class=\"" + fullyQualifiedName(cls) + "\"/>\n");
+			//cls.add
+			System.out.println(entityMappings);
 			return "@Entity\n";
+		}
 		else
-			return new String();
+			return "@" + cls.getMetaClass().getSimpleName() + "\n";
 	}
 
 	private static String createComment(String string) {
@@ -170,7 +203,13 @@ public class ClassUtil {
 	 * @return
 	 */
 	public static String getPropertyDeclaration(Attribute attribute) {
-		String declaration = "private " + attribute.Type().NameS() + " "
+		
+		String declaration = new String();
+		
+		//if(attribute.getMetaClass().getName().equals("oaw4.demo.classic.uml.meta.Key"))
+		//	declaration += "//" + attribute.getMetaClass().getName();
+		
+		 declaration += "private " + attribute.Type().NameS() + " "
 				+ attribute.NameS();
 
 		if (attribute.InitValue() != null)
@@ -180,5 +219,47 @@ public class ClassUtil {
 
 		return declaration;
 	}
+	
+	public static String fullyQualifiedName(Class cls){
+		return cls.Package().NameS() + "."  + cls.NameS();
+	}
 
+	public static String manyToOne(AssociationEnd ae){
+		if(StereoTypeManager.isEntity(ae.Class()) )
+			return "@ManyToOne";
+		else
+			return "";
+	}
+	
+	/**
+	 * @return input firstName - output First Name
+	 */
+	public static String getViewLabelFromVariable(String varName){
+		char[] characters = varName.toCharArray();
+		for(char ch : characters){
+			if(Character.isUpperCase(ch))
+				varName = varName.replace(new String(ch + ""), " " + ch);
+		}
+		return WordUtils.capitalizeFully(varName);
+	}
+	
+	/** Makes the first letter small case
+	 * @param varName
+	 * @return
+	 */
+	public static String asVariable(String varName){
+		return StringUtils.uncapitalize(varName);
+	}
+	
+	public static String generateEnumLiterals(Enumeration enm){
+		StringBuffer buffer = new StringBuffer();
+		
+		for(int i = 0; i < enm.Literal().size(); i++){
+			buffer.append(enm.Literal(i).NameS());
+			if( i < (enm.Literal().size() - 1 ) )
+				buffer.append(", ");
+		}
+		
+		return buffer.toString();
+	}
 }
