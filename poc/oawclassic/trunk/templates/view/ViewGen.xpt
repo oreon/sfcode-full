@@ -1,0 +1,19 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT java»
+«EXTENSION view::ViewExtensions»
+
+	
+«DEFINE ViewGen FOR Class»
+
+«IF getMetaClass.getSimpleName == "Entity"»
+
+«FILE "webapp"+"/"+NameS+".xhtml"»  
+«getViewXHTML()»		
+«ENDFILE»
+
+«FILE "webapp"+"/"+NameS+"List.xhtml"»  
+«getListViewXHTML()»		
+«ENDFILE»
+
+«ENDIF»
+«ENDDEFINE»

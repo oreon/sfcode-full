@@ -1,0 +1,77 @@
+#macro( generateAttributes $cls )
+	  			#foreach( $attribute in $cls.Attribute())			
+		  	  #attributeInputHtm($attribute)     			  
+		  				#end
+#end 
+
+#macro( createTD $val )
+   <td>$val</td> 
+#end  
+
+#macro( asVaraible $cls )
+  ${utils.asVariable($cls.NameS())}
+#end
+
+#macro( attributeInputHtm $attribute )
+   <tr><td>${utils.getViewLabelFromVariable($attribute.NameS())} </td>
+   <td> <h:inputText value="#{${utils.asVariable($clazz.NameS())}.${attribute.NameS()}}" required="true" /> </td></tr>
+#end 
+
+#macro( attributeInputHtm2 $parent $attribute )
+   <tr><td>${utils.getViewLabelFromVariable($attribute.NameS())} </td>
+   <td> <h:inputText value="#{$parent.${attribute.NameS()}}" required="true" /> </td></tr>
+#end 
+
+<?xml version="1.0"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" 
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:s="http://jboss.com/products/seam/taglib"
+          xmlns="http://www.w3.org/1999/xhtml"
+          version="2.0">
+  <jsp:output doctype-root-element="html"
+              doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+              doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+  <jsp:directive.page contentType="text/html"/>
+  <html>
+  <head>
+    <title>Register New User</title>
+  </head>
+  <body>
+    <f:view>
+      <h:form>
+        <table border="0">
+          <s:validateAll>
+           
+           		
+		  			      #foreach( $superclass in ${manager.getSuperClasses($clazz)} )			
+		  	        			#foreach( $attribute in $superclass.Attribute())			
+		  	       			   #attributeInputHtm($attribute) 
+		  	        			#end
+		  	        			
+		  	        #foreach( $component in ${manager.getComponents($superclass)} )			
+		  	        	 #generateAttributes($component)
+		  	        			#end			
+		  	        			
+		  	      			#end			
+		  			
+		  	       		#generateAttributes($clazz)
+		  	       
+		  	       #foreach( $component in ${manager.getComponents($clazz)} )			
+		  	        #generateAttributes($component)
+		  	       			#end
+		  	       
+           
+          </s:validateAll>
+        </table>
+        <h:messages/>
+        <h:commandButton value="Register" action="#{register.register}"/>
+      </h:form>
+    </f:view>
+  </body>
+  </html>
+</jsp:root>
+
+
+		  	   
+

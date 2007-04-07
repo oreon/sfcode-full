@@ -1,0 +1,58 @@
+##A template to list all entities of a given kind
+
+#macro(generateDataColumnForClass $cls $clsName)
+	         		#generateDataColumn($cls $clsName)
+		  	       
+		  	       #set($componentMap = ${manager.getComponents($cls)} )
+		  	       
+		  	       #foreach( $component in ${componentMap.keySet()} )
+		  	        #set($compClass = ${componentMap.get($component)})
+		  	        #set($compName = "$clsName.${component}")			
+		  	        #generateDataColumn(  $compClass $compName )
+		  	       			#end
+#end
+
+
+#macro( generateDataColumn $cls $clsName)
+	  			#foreach( $attribute in $cls.Attribute())			
+		  	  #generateAttributeColumn($attribute $clsName)     			  
+		  				#end
+#end 
+
+##Generate columns for the data table using entity's attributes
+#macro( generateAttributeColumn $attribute $clsName)
+			   <h:column>
+				   <f:facet name="header">
+					     <h:outputText value="${utils.getViewLabelFromVariable($attribute.NameS())}" />
+				   </f:facet>
+				   <h:outputText value="#{${clsName}.${attribute.NameS()}}" />
+				   </h:column>
+#end 
+
+
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
+<html>
+    <head>
+        <title>Hello World</title>
+    </head>
+    <body>
+    <f:view>
+            <h:form id="form">
+              #set($clsName = ${utils.asVariable($clazz.NameS() )} )
+            
+            <h:dataTable var="$clsName" value="#{${clsName}s}" rendered="#{${clsName}s.rowCount>0}">
+		                
+            
+				  #foreach( $superclass in ${manager.getSuperClasses($clazz)} )			
+ 		  	#generateDataColumnForClass($superclass $clsName)       			
+  				#end			
+		  			
+		  	#generateDataColumnForClass($clazz $clsName)  
+				
+		</h:dataTable>
+		</h:form>
+	
+  </f:view>
+    </body>
+</html>

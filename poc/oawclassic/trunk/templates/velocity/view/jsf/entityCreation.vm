@@ -1,0 +1,51 @@
+
+##Generates attributes for the given class and all its components
+#macro(generateAttributesForClass $cls $clsName)
+	         		#generateAttributes($cls $clsName)
+		  	       
+		  	       #set($componentMap = ${manager.getComponents($cls)} )
+		  	       
+		  	       #foreach( $component in ${componentMap.keySet()} )
+		  	        #set($compClass = ${componentMap.get($component)})
+		  	        #set($compName = "$clsName.${component}")			
+		  	        #generateAttributes(  $compClass $compName )
+		  	       			#end
+#end
+
+
+#macro( generateAttributes $cls $clsName)
+	  			#foreach( $attribute in $cls.Attribute())			
+		  	  #attributeInputHtm($attribute $clsName)     			  
+		  				#end
+#end 
+
+#macro( attributeInputHtm $attribute $clsName)
+		   <tr><td>${utils.getViewLabelFromVariable($attribute.NameS())} </td>
+   <td> <h:inputText value="#{$clsName.${attribute.NameS()}}" required="true" /> </td></tr>
+#end 
+
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
+<html>
+    <head>
+        <title>Hello World</title>
+    </head>
+    <body>
+    <f:view>
+            <h:form id="form">
+				  				               <table>
+				  ##set the current class name e.g. customer 
+				  #set($clsName = ${utils.asVariable($clazz.NameS() )} )
+				  
+				  #foreach( $superclass in ${manager.getSuperClasses($clazz)} )			
+ 		  	#generateAttributesForClass($superclass $clsName)       			
+  				#end			
+		  			
+		  	#generateAttributesForClass($clazz $clsName)       			      
+				                  </table>
+             </h:form>
+        </f:view>
+    </body>
+</html>
+						
+		

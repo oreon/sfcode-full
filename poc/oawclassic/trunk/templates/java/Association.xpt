@@ -16,9 +16,12 @@ AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable)»
 «ENDDEFINE»
 
 «DEFINE ToOneAccessorMethods FOR AssociationEnd»
+
 public void «asSetter()» («Class.fqn()» «asParameter()») {
 this.«asInstanceVar()» = «asParameter()»;
 }
+
+«manyToOne()»
 public «Class.fqn()» «asGetter()» () {
 return this.«asInstanceVar()»;
 }
@@ -26,7 +29,8 @@ return this.«asInstanceVar()»;
 «DEFINE ToManyAccessorMethods FOR AssociationEnd»
 public void add«NameS.toFirstUpper()» («Class.fqn()»
 «asParameter()») {
-«asParameter()».«Opposite.asSetter()»(this);
+«IF Opposite.isNavigable »
+«asParameter()».«Opposite.asSetter()»(this);«ENDIF»
 this.«asInstanceVar()».add(«asParameter()»);
 }
 public void remove«NameS.toFirstUpper()» («Class.fqn()»
@@ -34,14 +38,21 @@ public void remove«NameS.toFirstUpper()» («Class.fqn()»
 this.«asInstanceVar()».remove(«asParameter()»);
 }
 
-public java.util.Collection<«Class.fqn()»> «asGetter()» () {
+«IF Opposite.isNavigable »
+@OneToMany(mappedBy="«Opposite.asParameter()»", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+«ELSE»
+@OneToMany
+@JoinColumn(name="«Opposite.NameS»_ID", nullable=false)
+«ENDIF»
+public java.util.Set<«Class.fqn()»> «asGetter()» () {
 return this.«asInstanceVar()»;
 }
 
-public void «asSetter()» (java.util.Collection<«Class.fqn()»> «asParameter()») {
+public void «asSetter()» (java.util.Set<«Class.fqn()»> «asParameter()») {
 	this.«asInstanceVar()» = «asParameter()»;
 }
 
+@Transient
 public «iterator()» «asGetter()»Iterator () {
 return this.«asInstanceVar()».iterator();
 }

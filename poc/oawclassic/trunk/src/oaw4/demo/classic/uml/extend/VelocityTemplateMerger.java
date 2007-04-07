@@ -25,7 +25,6 @@ public class VelocityTemplateMerger {
 	}
 	
 	public static String merge(VelocityContext context, String templateFile){
-		
 
 		Template template = null;
 
