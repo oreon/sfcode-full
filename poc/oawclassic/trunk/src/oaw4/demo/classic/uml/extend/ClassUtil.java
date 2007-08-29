@@ -17,6 +17,7 @@ import org.openarchitectureware.meta.uml.classifier.Parameter;
 
 public class ClassUtil {
 	
+	private static final String BUSINESS_ENTITY = "org.witchcraft.model.support.BusinessEntity";
 	//Entity mappings for hibernate cfg 
 	static StringBuffer entityMappings = new StringBuffer();
 	
@@ -93,15 +94,21 @@ public class ClassUtil {
 		List<Interface> interfaces = cls.Interface().toList();
 
 		StringBuffer buffer = new StringBuffer();
-
+		
 		for (int i = 0; i < interfaces.size(); i++) {
 
 			List<Operation> operations = interfaces.get(i).Operation().toList();
-
+			
+			buffer.append(GenericUtils.createSingleLineComment("Implementing interface " +  interfaces.get(i).Name()));
+			
 			for (int j = 0; j < operations.size(); j++) {
 				buffer.append(getOperationDeclaration(operations.get(j)));
 				buffer.append(getOperationBody(operations.get(j)));
 			}
+			
+			buffer.append(GenericUtils.createSingleLineComment
+					("*****Done Implementing interface " +  interfaces.get(i).Name() + " ****"));
+
 		}
 
 		return buffer.toString();
@@ -121,14 +128,14 @@ public class ClassUtil {
 		buffer.append(addEntityIfApplies(cls));
 
 		buffer.append("public class ");
-		buffer.append(createComment(cls.Stereotype().size() + " "));
+		buffer.append(GenericUtils.createComment(cls.Stereotype().size() + " "));
 		buffer.append(cls.NameS());
 
 		if (cls.hasSuperClass())
 			buffer.append(" extends " + cls.SuperClass().NameS());
 		else if (StereoTypeManager.isEntity(cls) || 
 				StereoTypeManager.isMappedSuperClass(cls)){
-			buffer.append(" extends BusinessEntity " );
+			buffer.append(" extends " + BUSINESS_ENTITY );
 		}
 		
 		List<Interface> interfaces = cls.Interface().toList();
@@ -151,7 +158,7 @@ public class ClassUtil {
 
 	private static void addDocumentation(Class cls, StringBuffer buffer) {
 		if (cls.Documentation() != null)
-			buffer.append(createComment(cls.Documentation()) + "\n");
+			buffer.append(GenericUtils.createComment(cls.Documentation()) + "\n");
 	}
 
 	/**
@@ -178,12 +185,6 @@ public class ClassUtil {
 			return "@" + cls.getMetaClass().getSimpleName() + "\n";
 	}
 
-	private static String createComment(String string) {
-		// TODO Auto-generated method stub
-		//System.out.println("returning " + "/*" + string + "*/");
-		return "/*" + string + "*/";
-	}
-
 	/**
 	 * Creates method body
 	 * 
@@ -193,7 +194,7 @@ public class ClassUtil {
 	private static String getOperationBody(Operation operation) {
 		if (operation.hasReturnType()) {
 			return "{ return null; " + "\n //should return "
-					+ operation.ReturnType().NameS() + "\n}";
+					+ operation.ReturnType().NameS() + "\n}\n";
 		} else
 			return "{ }";
 	}
