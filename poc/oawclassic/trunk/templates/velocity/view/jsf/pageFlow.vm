@@ -1,0 +1,20 @@
+##Generates the navigation flow
+<?xml version="1.0"?>
+<faces-config>
+#foreach( $state in $states)
+
+#if ( !${state.NameS().equalsIgnoreCase("top")} && ${state.NameS()})
+<navigation-rule>
+  <from-view-id>${state.NameS()}.jsp</from-view-id>
+ 
+  #foreach ($transition in ${state.OutTransition()} )
+  <navigation-case>
+    <from-outcome>${transition.NameS()}</from-outcome>
+    <to-view-id>/${transition.TargetVertex().NameS()}.jsp</to-view-id>
+  </navigation-case>
+  #end
+  
+</navigation-rule>
+#end  ## for the if clause
+#end
+</faces-config>

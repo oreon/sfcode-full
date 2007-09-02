@@ -27,7 +27,7 @@
 	</component>
 	-->
 	
-<!--  	
+
 	<component id="generator"
 		class="org.openarchitectureware.xpand2.Generator">
 		<metaModel
@@ -45,7 +45,6 @@
 			class="org.openarchitectureware.xpand2.output.XmlBeautifier" />
 		<fileEncoding value="ISO-8859-1" />
 	</component>
--->	
 	
 	<component id="pageFlowGenerator"
 		class="org.openarchitectureware.xpand2.Generator">
@@ -55,9 +54,9 @@
 				class="org.openarchitectureware.type.impl.oawclassic.OAWClassicStrategy"
 				convertPropertiesToLowerCase="false" />
 		</metaModel>
-		<expand value="PageFlow::Root FOREACH me.getElements('Model')" />
-		<genPath value="${srcGenPath}/" />
-		<srcPath value="${srcGenPath}/" />
+		<expand value="PageFlow::file FOREACH me.getElements('StateMachine')" />
+		<genPath value="${webGenPath}/" />
+		<srcPath value="${webGenPath}/" />
 		<beautifier
 			class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
 		<beautifier

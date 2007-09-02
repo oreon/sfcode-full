@@ -1,0 +1,31 @@
+
+
+import org::openarchitectureware::meta::uml;
+import org::openarchitectureware::meta::uml::classifier::Class;
+import org::openarchitectureware::meta::uml::state;
+import org::openarchitectureware::core::meta::visitor;
+
+ModelElementVisitor getVisitor(StateMachine sm):  TypeCollectingVisitor(sm, State.class); 
+
+String basePath()    : basePackage().replaceAll("\\.","/");
+String basePackage() : "de.jax";
+
+String constantName(ModelElement this): NameS.toUpperCase();
+String methodName(Action this) : NameS.toFirstLower();
+   
+String implBaseClassName(StateMachine this)  : "Abstract"+NameS.toFirstUpper();   
+String implClassName(StateMachine this)      : NameS.toFirstUpper();   
+String fqImplBaseClassName(StateMachine this): basePackage()+"."+implBaseClassName();
+String fqImplClassName(StateMachine this)    : basePackage()+"."+implClassName();
+
+String actionsInterfaceName(StateMachine this): NameS.toFirstUpper()+"Actions";   
+String eventsEnumName(StateMachine this)      : NameS.toFirstUpper()+"Events";   
+String statesEnumName(StateMachine this)      : NameS.toFirstUpper()+"States";   
+
+String actionsInterfaceFileName(StateMachine this): basePath()+"/"+actionsInterfaceName()+".java";
+String eventsEnumFileName(StateMachine this)      : basePath()+"/"+eventsEnumName()+".java";
+String statesEnumFileName(StateMachine this)      : basePath()+"/"+statesEnumName()+".java";
+
+String shortStateId(State this)           : constantName();
+String stateId(State this, StateMachine m): m.statesEnumName()+"."+constantName();
+String eventId(Event this, StateMachine m): m.eventsEnumName()+"."+constantName();

@@ -1,9 +1,17 @@
 
 import org::openarchitectureware::meta::uml::classifier;
 import org::openarchitectureware::meta::uml::classifier::Class;
+import org::openarchitectureware::meta::uml::state;
 
 String getViewXHTML(Class cls) :
 JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getView(org.openarchitectureware.meta.uml.classifier.Class);
 
 String getListViewXHTML(Class cls) :
 JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getList(org.openarchitectureware.meta.uml.classifier.Class);
+
+
+String getStateMachine(StateMachine stateMachine) :
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.createStateMachine(org.openarchitectureware.meta.uml.state.StateMachine);
+
+ElementSet getStates(StateMachine stateMachine) :
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getStates(org.openarchitectureware.meta.uml.state.StateMachine);

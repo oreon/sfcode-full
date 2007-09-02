@@ -7,8 +7,15 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.velocity.VelocityContext;
+import org.openarchitectureware.core.meta.core.ElementSet;
+import org.openarchitectureware.core.meta.visitor.ModelElementVisitor;
+import org.openarchitectureware.core.meta.visitor.TypeCollectingVisitor;
+import org.openarchitectureware.meta.uml.ModelElement;
 import org.openarchitectureware.meta.uml.classifier.AssociationEnd;
 import org.openarchitectureware.meta.uml.classifier.Class;
+import org.openarchitectureware.meta.uml.state.State;
+import org.openarchitectureware.meta.uml.state.StateMachine;
+import org.openarchitectureware.meta.uml.state.Transition;
 
 /**
  * To generate a basic view layer
@@ -75,6 +82,49 @@ public class ViewLayerGenerator {
 		}
 
 		return superClasses;
+	}
+	
+	public static ElementSet getStates(StateMachine stateMachine){
+		ModelElementVisitor visitor = new TypeCollectingVisitor(stateMachine, State.class);
+		//stateMachine.visit(visitor);
+		ElementSet states = ((TypeCollectingVisitor)visitor).getCollectedElements();
+		return states;
+	}
+	
+	public static String generateJspFromStateMachine(StateMachine stateMachine){
+				
+		String template= "templates/velocity/view/jsf/pageFlow.vm";
+		
+		VelocityContext context = new VelocityContext();
+		context.put("states", getStates(stateMachine));
+		String output =  VelocityTemplateMerger.merge(context, template);
+		//System.out.println("GENERATEING STATEMACHINE :" +  output);
+		
+		return output;
+	}
+	
+	/** This method will create page flow xml from the given state machine
+	 * @param stateMachine
+	 * @return
+	 */
+	public static String createStateMachine(StateMachine stateMachine){
+				
+		String template= "templates/velocity/view/jsf/pageFlow.vm";
+		
+		VelocityContext context = new VelocityContext();
+		context.put("states", getStates(stateMachine));
+		String output =  VelocityTemplateMerger.merge(context, template);
+		
+		return output;
+	}
+	
+	private static void dumpSet(ElementSet set){
+		for (Object object : set) {
+			Transition transition = (Transition)object;
+			//System.out.println( ((ModelElement)object).NameS());
+			System.out.println( transition.NameS() + "-> " +  transition.TargetVertex().NameS());
+		}
+		System.out.println("-------------------------------------");
 	}
 
 }

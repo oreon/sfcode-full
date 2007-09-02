@@ -169,20 +169,22 @@ public class ClassUtil {
 	 * @param cls
 	 */
 	private static String addEntityIfApplies(Class cls) {
-		//if (StringUtils.equalsIgnoreCase(cls.Package().NameS(), "bizobjects"))
-		AssociationEnd ae ;
 		
 		if(cls.getMetaClass().getSimpleName().equals("Class"))
 			return "";
 		
 		if (cls.getMetaClass().getSimpleName().equals("Entity") ){
 			entityMappings.append("<mapping class=\"" + fullyQualifiedName(cls) + "\"/>\n");
-			//cls.add
-			System.out.println(entityMappings);
-			return "@Entity\n";
+			//System.out.println(entityMappings);
+			return "" /*"@Entity\n"*/;
 		}
 		else
 			return "@" + cls.getMetaClass().getSimpleName() + "\n";
+	}
+	
+	public static boolean isEntity(Class cls){
+		boolean res = cls.getMetaClass().getSimpleName().equals("Entity");
+		return cls.getMetaClass().getSimpleName().equals("Entity"); 
 	}
 
 	/**

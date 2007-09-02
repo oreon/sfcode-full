@@ -1,5 +1,6 @@
 «IMPORT org::openarchitectureware::meta::uml::classifier»
 «IMPORT java»
+«IMPORT oaw4::demo::classic::uml::meta»
 «EXTENSION java::NamingConventions»
 	
 «DEFINE BeanClass FOR Class»
@@ -24,3 +25,29 @@ import javax.persistence.*;
 		} 
 	«ENDFILE»
 «ENDDEFINE»
+
+
+«DEFINE EntityGen FOR Entity»
+«FILE packagePath()+"/"+NameS+".java"»  
+
+package «packageName()»;
+
+import javax.persistence.*;
+
+@Entity
+«getClassDeclaration()»{
+		
+			«EXPAND Attribute::PropertyDeclaration FOREACH Attribute»
+			«EXPAND Attribute::Getter FOREACH Attribute»
+			«EXPAND Attribute::Setter FOREACH Attribute»
+			
+			«EXPAND Association::ReferenceVariables»
+			«EXPAND Association::AccessorMethods»
+			
+			«generateInterfaceImplementation()»
+						
+			«EXPAND Attribute::Generator FOREACH Operation»
+		} 
+	«ENDFILE»
+«ENDDEFINE»
+

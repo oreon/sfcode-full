@@ -1,12 +1,41 @@
 «IMPORT org::openarchitectureware::core::meta::core»
-«IMPORT org::openarchitectureware::meta::uml»
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT org::openarchitectureware::meta::uml::state»
+
+«EXTENSION view::ViewExtensions»
+«EXTENSION templates::GeneratorUtil»
 
 
-«DEFINE Root FOR Model»
-	«EXPAND Root FOREACH OwnedElement»
-«ENDDEFINE»
-
-
-«DEFINE Root FOR uml::State»
+«DEFINE file FOR StateMachine»
 	
+	«FILE "../WEB-INF/faces-config.xml"»
+	   «EXPAND GeneratePageFlow»
+	«ENDFILE»
+	
+	«EXPAND GenerateJsps»
+
 «ENDDEFINE»
+
+
+«DEFINE GeneratePageFlow FOR StateMachine»
+	«getStateMachine()»
+«ENDDEFINE»
+
+«DEFINE GenerateJsps FOR StateMachine»
+	 «EXPAND GenJsp FOREACH getStates()»
+«ENDDEFINE»
+
+
+«DEFINE GenJsp FOR State»
+	«FILE NameS +".jsp"»
+	«REM»
+		«PROTECT CSTART  "//" CEND "//" ID this.Name»
+			here goes some content
+		«ENDPROTECT»
+	«ENDREM»
+	«ENDFILE»
+«ENDDEFINE»
+
+
+
+

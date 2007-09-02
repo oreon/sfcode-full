@@ -1,23 +1,27 @@
 «IMPORT org::openarchitectureware::core::meta::core»
 «IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
 
 «DEFINE Root FOR Model»
 	«EXPAND Root FOREACH OwnedElement»
 «ENDDEFINE»
 
 «DEFINE Root FOR Package»
-	«EXPAND Root FOREACH OwnedElement»
+	«IF NameS.startsWith("java")»
+	«ELSE»
+		«EXPAND Root FOREACH OwnedElement»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE Root FOR Entity»
+	«EXPAND java::JavaBean::EntityGen»
+	«EXPAND java::DaoGen::GenerateDao»
 «ENDDEFINE»
 
 «DEFINE Root FOR Class»
 	«EXPAND java::JavaBean::BeanClass»
 	«EXPAND view::ViewGen::ViewGen»
 «ENDDEFINE»
-
-«DEFINE Root FOR Entity»
-	«EXPAND java::JavaBean::EntityClass»
-«ENDDEFINE»
-
 
 «DEFINE Root FOR Enumeration»
 	«EXPAND java::EnumGen::EnumGen»
@@ -30,7 +34,6 @@
 
 
 «DEFINE Root FOR Findable»
-	«EXPAND java::JavaBean::BeanClass»
 «ENDDEFINE»
 
 «DEFINE Root FOR Object»
