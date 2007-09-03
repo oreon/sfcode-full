@@ -4,6 +4,7 @@
 
 «DEFINE Root FOR Model»
 	«EXPAND Root FOREACH OwnedElement»
+	«EXPAND java::DaoGen::GenerateConfig»
 «ENDDEFINE»
 
 «DEFINE Root FOR Package»
@@ -16,11 +17,11 @@
 «DEFINE Root FOR Entity»
 	«EXPAND java::JavaBean::EntityGen»
 	«EXPAND java::DaoGen::GenerateDao»
+	«EXPAND view::ViewGen::ViewGen»
 «ENDDEFINE»
 
 «DEFINE Root FOR Class»
 	«EXPAND java::JavaBean::BeanClass»
-	«EXPAND view::ViewGen::ViewGen»
 «ENDDEFINE»
 
 «DEFINE Root FOR Enumeration»

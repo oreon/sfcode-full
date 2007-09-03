@@ -4,6 +4,7 @@
 #foreach( $state in $states)
 
 #if ( !${state.NameS().equalsIgnoreCase("top")} && ${state.NameS()})
+<!-- navigation rules for ${state.NameS()}.jsp -->
 <navigation-rule>
   <from-view-id>${state.NameS()}.jsp</from-view-id>
  
@@ -11,10 +12,11 @@
   <navigation-case>
     <from-outcome>${transition.NameS()}</from-outcome>
     <to-view-id>/${transition.TargetVertex().NameS()}.jsp</to-view-id>
-  </navigation-case>
+  </navigation-case>   
   #end
   
 </navigation-rule>
+
 #end  ## for the if clause
 #end
 </faces-config>

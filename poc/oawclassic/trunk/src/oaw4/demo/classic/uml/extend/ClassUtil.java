@@ -19,8 +19,13 @@ public class ClassUtil {
 	
 	private static final String BUSINESS_ENTITY = "org.witchcraft.model.support.BusinessEntity";
 	//Entity mappings for hibernate cfg 
-	static StringBuffer entityMappings = new StringBuffer();
+	private static StringBuffer entityMappings = new StringBuffer();
 	
+	public static StringBuffer getEntityMappings() {
+		return entityMappings;
+	}
+
+
 	/** Returns the package name of the given 
 	 * @param cls
 	 * @return

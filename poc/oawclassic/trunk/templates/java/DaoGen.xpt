@@ -1,5 +1,6 @@
 «IMPORT org::openarchitectureware::meta::uml::classifier»
 «IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
 «IMPORT java»
 «EXTENSION java::NamingConventions»
 
@@ -38,5 +39,23 @@
 «DEFINE GenerateFinder FOR Findable»
 	public void findBy«NameS»() { }
 «ENDDEFINE»
+
+«DEFINE GenerateConfig FOR Model»
+	«FILE "../resources/hibernate.cfg.xml"»
+		<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+       	«getEntityMappings()»
+    </session-factory>
+</hibernate-configuration>
+	
+	«ENDFILE»
+«ENDDEFINE»
+
+
+
+
 
 

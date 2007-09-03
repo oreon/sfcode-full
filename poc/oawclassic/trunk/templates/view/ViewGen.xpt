@@ -1,17 +1,19 @@
+«IMPORT org::openarchitectureware::core::meta::core»
 «IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
 «IMPORT java»
 «EXTENSION view::ViewExtensions»
 
 	
-«DEFINE ViewGen FOR Class»
+«DEFINE ViewGen FOR Entity»
 
 «IF getMetaClass.getSimpleName == "Entity"»
 
-«FILE "webapp"+"/"+NameS+".xhtml"»  
+«FILE "../webapp/crud/" + NameS+".xhtml"»  
 «getViewXHTML()»		
 «ENDFILE»
 
-«FILE "webapp"+"/"+NameS+"List.xhtml"»  
+«FILE "../webapp/crud/"+NameS+"List.xhtml"»  
 «getListViewXHTML()»		
 «ENDFILE»
 
