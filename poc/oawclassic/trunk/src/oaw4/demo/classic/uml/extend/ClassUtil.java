@@ -285,7 +285,7 @@ public class ClassUtil {
 	 * @return
 	 */
 	public static String getRequired(Attribute attribute) {
-		return isAttributeRequired(attribute) ? " required=true ":"" ;
+		return isAttributeRequired(attribute) ? " required=\"true\" ":"" ;
 	}
 	
 	/** Returns a required indicator (e.g "*" for mandatory fields )
