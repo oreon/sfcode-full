@@ -20,15 +20,23 @@
 #end 
 
 #macro( attributeInputHtm $attribute $clsName)
-		   <tr><td>${utils.getViewLabelFromVariable($attribute.NameS())} </td>
-   <td> <h:inputText value="#{$clsName.${attribute.NameS()}}" required="true" /> </td></tr>
+		   <tr><td>${utils.getViewLabel($attribute)} </td>
+   <td> <h:inputText value="#{${utils.asVariable($clazz.NameS() )}CrudBacking.$clsName.${attribute.NameS()}}" ${utils.getRequired($attribute)} /> 
+   </td></tr>
 #end 
 
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
-<html>
-    <head>
-        <title>Hello World</title>
+
+
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<head>
+        <title>Manage $clazz.NameS()</title>
     </head>
     <body>
     <f:view>
@@ -41,7 +49,11 @@
  		  	#generateAttributesForClass($superclass $clsName)       			
   				#end			
 		  			
-		  	#generateAttributesForClass($clazz $clsName)       			      
+		  	#generateAttributesForClass($clazz $clsName)      
+		  			<tr><td colspan="2"> 
+		  							   <h:commandButton id="button1" value="Submit" action="#{${clsName}CrudBacking.update}"/> 
+		  							</td></tr>	
+		  	 			      
 				                  </table>
              </h:form>
         </f:view>

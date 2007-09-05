@@ -3,6 +3,8 @@ package oaw4.demo.classic.uml.extend;
 import java.util.Iterator;
 import java.util.List;
 
+import oaw4.demo.classic.uml.meta.Column;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.openarchitectureware.core.meta.core.Element;
@@ -15,18 +17,22 @@ import org.openarchitectureware.meta.uml.classifier.Operation;
 import org.openarchitectureware.meta.uml.classifier.Package;
 import org.openarchitectureware.meta.uml.classifier.Parameter;
 
+import sun.security.krb5.internal.tools.Kinit;
+
 public class ClassUtil {
-	
+
 	private static final String BUSINESS_ENTITY = "org.witchcraft.model.support.BusinessEntity";
-	//Entity mappings for hibernate cfg 
+
+	// Entity mappings for hibernate cfg
 	private static StringBuffer entityMappings = new StringBuffer();
-	
+
 	public static StringBuffer getEntityMappings() {
 		return entityMappings;
 	}
 
-
-	/** Returns the package name of the given 
+	/**
+	 * Returns the package name of the given
+	 * 
 	 * @param cls
 	 * @return
 	 */
@@ -34,15 +40,17 @@ public class ClassUtil {
 
 		String result = "";
 		/*
-		for (Package pck = (Package) enm.Namespace(); pck != null; pck = pck.SuperPackage()) {
-			result = pck.NameS() + (result.length() > 0 ? "." + result : "");
-		}*/
+		 * for (Package pck = (Package) enm.Namespace(); pck != null; pck =
+		 * pck.SuperPackage()) { result = pck.NameS() + (result.length() > 0 ?
+		 * "." + result : ""); }
+		 */
 
 		return enm.Namespace().NameS();
 	}
-	
 
-	/** Returns the package name of the given 
+	/**
+	 * Returns the package name of the given
+	 * 
 	 * @param cls
 	 * @return
 	 */
@@ -73,9 +81,11 @@ public class ClassUtil {
 	 * @return
 	 */
 	private static String getOperationDeclaration(Operation operation) {
-		String opText = operation.Visibility() + " "
-				+ operation.ReturnType().NameS() + " " + operation.NameS()
-				+ "(";
+		String opText = new String();
+		if (operation.Documentation() != null)
+			opText += operation.Documentation() + "\n";
+		opText += operation.Visibility() + " " + operation.ReturnType().NameS()
+				+ " " + operation.NameS() + "(";
 
 		for (Iterator<Parameter> iter = operation.Parameter().iterator(); iter
 				.hasNext();) {
@@ -99,20 +109,24 @@ public class ClassUtil {
 		List<Interface> interfaces = cls.Interface().toList();
 
 		StringBuffer buffer = new StringBuffer();
-		
+
 		for (int i = 0; i < interfaces.size(); i++) {
 
 			List<Operation> operations = interfaces.get(i).Operation().toList();
-			
-			buffer.append(GenericUtils.createSingleLineComment("Implementing interface " +  interfaces.get(i).Name()));
-			
+
+			buffer.append(GenericUtils
+					.createSingleLineComment("Implementing interface "
+							+ interfaces.get(i).Name()));
+
 			for (int j = 0; j < operations.size(); j++) {
 				buffer.append(getOperationDeclaration(operations.get(j)));
 				buffer.append(getOperationBody(operations.get(j)));
 			}
-			
-			buffer.append(GenericUtils.createSingleLineComment
-					("*****Done Implementing interface " +  interfaces.get(i).Name() + " ****"));
+
+			buffer
+					.append(GenericUtils
+							.createSingleLineComment("*****Done Implementing interface "
+									+ interfaces.get(i).Name() + " ****"));
 
 		}
 
@@ -133,24 +147,26 @@ public class ClassUtil {
 		buffer.append(addEntityIfApplies(cls));
 
 		buffer.append("public class ");
-		buffer.append(GenericUtils.createComment(cls.Stereotype().size() + " "));
+		buffer
+				.append(GenericUtils.createComment(cls.Stereotype().size()
+						+ " "));
 		buffer.append(cls.NameS());
 
 		if (cls.hasSuperClass())
 			buffer.append(" extends " + cls.SuperClass().NameS());
-		else if (StereoTypeManager.isEntity(cls) || 
-				StereoTypeManager.isMappedSuperClass(cls)){
-			buffer.append(" extends " + BUSINESS_ENTITY );
+		else if (StereoTypeManager.isEntity(cls)
+				|| StereoTypeManager.isMappedSuperClass(cls)) {
+			buffer.append(" extends " + BUSINESS_ENTITY);
 		}
-		
+
 		List<Interface> interfaces = cls.Interface().toList();
 
-		//if (!interfaces.isEmpty())
+		// if (!interfaces.isEmpty())
 		buffer.append(" implements java.io.Serializable");
 
 		if (!interfaces.isEmpty())
 			buffer.append(", ");
-		
+
 		for (int i = 0; i < interfaces.size(); i++) {
 			buffer.append(interfaces.get(i).NameS());
 
@@ -163,7 +179,8 @@ public class ClassUtil {
 
 	private static void addDocumentation(Class cls, StringBuffer buffer) {
 		if (cls.Documentation() != null)
-			buffer.append(GenericUtils.createComment(cls.Documentation()) + "\n");
+			buffer.append(GenericUtils.createComment(cls.Documentation())
+					+ "\n");
 	}
 
 	/**
@@ -174,22 +191,22 @@ public class ClassUtil {
 	 * @param cls
 	 */
 	private static String addEntityIfApplies(Class cls) {
-		
-		if(cls.getMetaClass().getSimpleName().equals("Class"))
+
+		if (cls.getMetaClass().getSimpleName().equals("Class"))
 			return "";
-		
-		if (cls.getMetaClass().getSimpleName().equals("Entity") ){
-			entityMappings.append("<mapping class=\"" + fullyQualifiedName(cls) + "\"/>\n");
-			//System.out.println(entityMappings);
-			return "" /*"@Entity\n"*/;
-		}
-		else
+
+		if (cls.getMetaClass().getSimpleName().equals("Entity")) {
+			entityMappings.append("<mapping class=\"" + fullyQualifiedName(cls)
+					+ "\"/>\n");
+			// System.out.println(entityMappings);
+			return "" /* "@Entity\n" */;
+		} else
 			return "@" + cls.getMetaClass().getSimpleName() + "\n";
 	}
-	
-	public static boolean isEntity(Class cls){
+
+	public static boolean isEntity(Class cls) {
 		boolean res = cls.getMetaClass().getSimpleName().equals("Entity");
-		return cls.getMetaClass().getSimpleName().equals("Entity"); 
+		return cls.getMetaClass().getSimpleName().equals("Entity");
 	}
 
 	/**
@@ -206,18 +223,20 @@ public class ClassUtil {
 			return "{ }";
 	}
 
-	/** Get property declaration  - e.g private String firstName = "" ;
+	/**
+	 * Get property declaration - e.g private String firstName = "" ;
+	 * 
 	 * @param attribute
 	 * @return
 	 */
 	public static String getPropertyDeclaration(Attribute attribute) {
-		
+
 		String declaration = new String();
-		
-		//if(attribute.getMetaClass().getName().equals("oaw4.demo.classic.uml.meta.Key"))
-		//	declaration += "//" + attribute.getMetaClass().getName();
-		
-		 declaration += "private " + attribute.Type().NameS() + " "
+
+		// if(attribute.getMetaClass().getName().equals("oaw4.demo.classic.uml.meta.Key"))
+		// declaration += "//" + attribute.getMetaClass().getName();
+
+		declaration += "private " + attribute.Type().NameS() + " "
 				+ attribute.NameS();
 
 		if (attribute.InitValue() != null)
@@ -227,47 +246,91 @@ public class ClassUtil {
 
 		return declaration;
 	}
-	
-	public static String fullyQualifiedName(Class cls){
-		return cls.Package().NameS() + "."  + cls.NameS();
+
+	public static String fullyQualifiedName(Class cls) {
+		return cls.Package().NameS() + "." + cls.NameS();
 	}
 
-	public static String manyToOne(AssociationEnd ae){
-		if(StereoTypeManager.isEntity(ae.Class()) )
+	public static String manyToOne(AssociationEnd ae) {
+		if (StereoTypeManager.isEntity(ae.Class()))
 			return "@ManyToOne";
 		else
 			return "";
 	}
+
+	public static String getViewLabel(Attribute attribute){
+		return getViewLabelFromVariable(attribute.NameS()) + getIndicatorForRequiredAttribute(attribute) ;
+	}
 	
 	/**
+	 * This function tries to split a camel case variable name into space
+	 * delimited user displayable string e.g.
+	 * 
 	 * @return input firstName - output First Name
 	 */
-	public static String getViewLabelFromVariable(String varName){
+	public static String getViewLabelFromVariable(String varName) {
 		char[] characters = varName.toCharArray();
-		for(char ch : characters){
-			if(Character.isUpperCase(ch))
+		for (char ch : characters) {
+			if (Character.isUpperCase(ch))
 				varName = varName.replace(new String(ch + ""), " " + ch);
 		}
 		return WordUtils.capitalizeFully(varName);
 	}
+
+	/**
+	 * Will output a string "required=true" or blank depending upon whether a
+	 * variable is required or not.
+	 * 
+	 * @param attribute
+	 * @return
+	 */
+	public static String getRequired(Attribute attribute) {
+		return isAttributeRequired(attribute) ? " required=true ":"" ;
+	}
 	
-	/** Makes the first letter small case
+	/** Returns a required indicator (e.g "*" for mandatory fields )
+	 * @param attribute
+	 * @return
+	 */
+	private static String getIndicatorForRequiredAttribute(Attribute attribute) {
+		return isAttributeRequired(attribute) ? " * " : "";
+	}
+
+	/**
+	 * This function returns if the attribute must be supplied by user in the
+	 * user interface
+	 * 
+	 * @param attribute
+	 * @return
+	 */
+	public static boolean isAttributeRequired(Attribute attribute) {
+		boolean defRequired = false;
+		if (attribute instanceof Column) {
+			Column column = (Column) attribute;
+			return column.isNullable() ? false : true;
+		}
+		return defRequired;
+	}
+
+	/**
+	 * Makes the first letter small case
+	 * 
 	 * @param varName
 	 * @return
 	 */
-	public static String asVariable(String varName){
+	public static String asVariable(String varName) {
 		return StringUtils.uncapitalize(varName);
 	}
-	
-	public static String generateEnumLiterals(Enumeration enm){
+
+	public static String generateEnumLiterals(Enumeration enm) {
 		StringBuffer buffer = new StringBuffer();
-		
-		for(int i = 0; i < enm.Literal().size(); i++){
+
+		for (int i = 0; i < enm.Literal().size(); i++) {
 			buffer.append(enm.Literal(i).NameS());
-			if( i < (enm.Literal().size() - 1 ) )
+			if (i < (enm.Literal().size() - 1))
 				buffer.append(", ");
 		}
-		
+
 		return buffer.toString();
 	}
 }

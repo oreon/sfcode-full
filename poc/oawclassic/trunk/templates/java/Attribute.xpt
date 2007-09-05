@@ -1,5 +1,6 @@
 «IMPORT org::openarchitectureware::meta::uml::classifier»
 «EXTENSION java::NamingConventions»
+«IMPORT oaw4::demo::classic::uml::meta»
 
 «DEFINE PropertyDeclaration FOR Attribute»
 «getPropertyDeclaration()»
@@ -8,9 +9,17 @@
 
 «DEFINE Getter FOR Attribute»
 public «Type.NameS» get«NameS.toFirstUpper()» () {
-return this.«NameS»;
-} «
-ENDDEFINE»
+	return this.«NameS»;
+} 
+«ENDDEFINE»
+
+
+«DEFINE Getter FOR Column»
+	@Column(nullable=«isNullable», unique=«isUnique»)
+	public «Type.NameS» get«NameS.toFirstUpper()» () {
+		return this.«NameS»;
+	} 
+«ENDDEFINE»
 
 
 «DEFINE Setter FOR Attribute»
@@ -20,6 +29,7 @@ this.«NameS» = «NameS»;
 «ENDDEFINE»
 
 «DEFINE Generator FOR Operation»
+	«Documentation»
 	«operationHelper()»
 «ENDDEFINE»
 

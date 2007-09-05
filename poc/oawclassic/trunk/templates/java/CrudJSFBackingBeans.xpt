@@ -1,0 +1,44 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+«EXTENSION java::NamingConventions»
+
+
+«DEFINE GenerateBackingBean FOR Entity»
+	
+	«FILE packagePath()+"/web/jsf/"+NameS+"BackingBean.java"»  
+
+	package «packageName()».web.jsf;
+	
+	import «packageName()». «asParameter()»;
+	
+	
+	public class «asParameter()»BackingBean{
+	
+			private «asParameter()» «asInstanceVar()» = new «asParameter()»();
+	
+			public «asParameter()» get«asParameter()»(«asParameter()» «asInstanceVar()») {
+				return «asInstanceVar()»;
+			}
+			
+			public void set(«asParameter()» «asInstanceVar()») {
+				this.«asInstanceVar()» = «asInstanceVar()»;
+			}			
+			
+			public String update() {
+				return "success";
+			}
+	
+			
+		} 
+	«ENDFILE»
+	
+	
+«ENDDEFINE»
+
+
+
+
+
+
