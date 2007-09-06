@@ -1,0 +1,59 @@
+  
+
+
+
+
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<head>
+						        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />  
+        <title>Manage Employee</title>
+        <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/screen.css"/>
+    </head>
+    <body>
+    <f:view>
+            <h:form id="form">
+				  				               <h:panelGrid columns="3" >
+				  				  
+				   		  		         			  					  	  		    <h:outputText value="First Name" styleClass="formLabel" /> 
+    <h:inputText id="employee_firstName" value="#{employeeCrudBacking.employee.firstName}"  /> 
+    <h:message for="employee_firstName" />
+		  						  	  		    <h:outputText value="Last Name" styleClass="formLabel" /> 
+    <h:inputText id="employee_lastName" value="#{employeeCrudBacking.employee.lastName}"  /> 
+    <h:message for="employee_lastName" />
+		  						  	       
+		  	       		  	       
+		  	       		  	        	  					  	  		    <h:outputText value="Street Address" styleClass="formLabel" /> 
+    <h:inputText id="employee_primaryAddress_streetAddress" value="#{employeeCrudBacking.employee.primaryAddress.streetAddress}"  /> 
+    <h:message for="employee_primaryAddress_streetAddress" />
+		  						  	  		    <h:outputText value="City" styleClass="formLabel" /> 
+    <h:inputText id="employee_primaryAddress_city" value="#{employeeCrudBacking.employee.primaryAddress.city}"  /> 
+    <h:message for="employee_primaryAddress_city" />
+		  						  	  		    <h:outputText value="Zip" styleClass="formLabel" /> 
+    <h:inputText id="employee_primaryAddress_zip" value="#{employeeCrudBacking.employee.primaryAddress.zip}"  /> 
+    <h:message for="employee_primaryAddress_zip" />
+		  						  	  		    <h:outputText value="Email * " styleClass="formLabel" /> 
+    <h:inputText id="employee_primaryAddress_email" value="#{employeeCrudBacking.employee.primaryAddress.email}"  required="true"  /> 
+    <h:message for="employee_primaryAddress_email" />
+		  						  	       			  						  			
+		  		         			  					  	  		    <h:outputText value="Code" styleClass="formLabel" /> 
+    <h:inputText id="employee_code" value="#{employeeCrudBacking.employee.code}"  /> 
+    <h:message for="employee_code" />
+		  						  	       
+		  	       		  	       
+		  	       		  
+		  							   <h:commandButton id="button1" value="Submit" action="#{employeeCrudBacking.update}"/> 
+		  		
+				                  </h:panelGrid>
+             </h:form>
+        </f:view>
+    </body>
+</html>
+						
+				

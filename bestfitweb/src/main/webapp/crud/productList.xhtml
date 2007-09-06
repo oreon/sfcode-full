@@ -1,0 +1,48 @@
+  
+
+
+
+
+
+
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
+<html>
+    <head>
+        <title>Hello World</title>
+    </head>
+    <body>
+    <f:view>
+            <h:form id="form">
+                          
+            <h:dataTable var="product" value="#{products}" rendered="#{products.rowCount>0}">
+		                
+            
+				  		  			
+		  		         			  					  	  			   <h:column>
+				   <f:facet name="header">
+					     <h:outputText value="Name" />
+				   </f:facet>
+				   <h:outputText value="#{product.name}" />
+				   </h:column>
+		  						  	  			   <h:column>
+				   <f:facet name="header">
+					     <h:outputText value="Brand" />
+				   </f:facet>
+				   <h:outputText value="#{product.brand}" />
+				   </h:column>
+		  						  	  			   <h:column>
+				   <f:facet name="header">
+					     <h:outputText value="List Price" />
+				   </f:facet>
+				   <h:outputText value="#{product.listPrice}" />
+				   </h:column>
+		  						  	       
+		  	       		  	       
+		  	       				
+		</h:dataTable>
+		</h:form>
+	
+  </f:view>
+    </body>
+</html>		

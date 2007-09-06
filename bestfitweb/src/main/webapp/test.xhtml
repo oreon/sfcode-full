@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [     <!ENTITY nbsp "&#160;">  ]>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/WEB-INF/template/template.xhtml">
+
+	<ui:define name="content">
+		<f:view>
+			<h:form id="form">
+				<h:panelGrid columns="3">
+
+					<h:outputText value="First Name" styleClass="formLabel" />
+					<h:inputText id="customer_firstName"
+						value="#{customerCrudBacking.customer.firstName}" />
+					<h:message for="customer_firstName" />
+					<h:outputText value="Last Name" styleClass="formLabel" />
+					<h:inputText id="customer_lastName"
+						value="#{customerCrudBacking.customer.lastName}" />
+					<h:message for="customer_lastName" />
+
+
+					<h:outputText value="Street Address" styleClass="formLabel" />
+					<h:inputText id="customer_primaryAddress_streetAddress"
+						value="#{customerCrudBacking.customer.primaryAddress.streetAddress}" />
+					<h:message for="customer_primaryAddress_streetAddress" />
+					<h:outputText value="City" styleClass="formLabel" />
+					<h:inputText id="customer_primaryAddress_city"
+						value="#{customerCrudBacking.customer.primaryAddress.city}" />
+					<h:message for="customer_primaryAddress_city" />
+					<h:outputText value="Zip" styleClass="formLabel" />
+					<h:inputText id="customer_primaryAddress_zip"
+						value="#{customerCrudBacking.customer.primaryAddress.zip}" />
+					<h:message for="customer_primaryAddress_zip" />
+					<h:outputText value="Email * " styleClass="formLabel" />
+					<h:inputText id="customer_primaryAddress_email"
+						value="#{customerCrudBacking.customer.primaryAddress.email}"
+						required="true" />
+					<h:message for="customer_primaryAddress_email" />
+
+					<h:outputText value="Remarks" styleClass="formLabel" />
+					<h:inputText id="customer_remarks"
+						value="#{customerCrudBacking.customer.remarks}" />
+					<h:message for="customer_remarks" />
+
+
+
+					<h:commandButton id="button1" value="Submit"
+						action="#{customerCrudBacking.update}" />
+
+
+				</h:panelGrid>
+			</h:form>
+		</f:view>
+	</ui:define>
+
+
+</ui:composition>

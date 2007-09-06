@@ -1,0 +1,39 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title> Customers</title>
+<link rel="stylesheet" type="text/css"
+	href="#{facesContext.externalContext.requestContextPath}/css/screen.css" />
+</head>
+<body>
+<f:view>
+	Following customers have registered :
+
+	<h:form id="form">
+
+		<h:dataTable var="customer" value="#{customerCrudBacking.customers}">
+
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="First Name" />
+				</f:facet>
+				<h:outputText value="#{customer.firstName}" />
+			</h:column>
+		
+
+
+		</h:dataTable>
+	</h:form>
+
+</f:view>
+</body>
+</html>

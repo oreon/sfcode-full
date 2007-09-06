@@ -1,0 +1,76 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title> Customers</title>
+<link rel="stylesheet" type="text/css"
+	href="#{facesContext.externalContext.requestContextPath}/css/screen.css" />
+</head>
+<body>
+<f:view>
+	Following customers have registered :
+
+	<h:form id="form">
+
+		<t:dataTable var="customer" value="#{customerCrudBacking.customers}" rows="5" styleClass="dataTable" rowClasses="odd, even" >
+
+			<t:column>
+				<f:facet name="header">
+					<t:outputText value="First Name" />
+				</f:facet>
+				<t:outputText value="#{customer.firstName}" />
+			</t:column>
+			<t:column>
+				<f:facet name="header">
+					<t:outputText value="Last Name" />
+				</f:facet>
+				<t:outputText value="#{customer.lastName}" />
+			</t:column>
+
+
+			<t:column>
+				<f:facet name="header">
+					<t:outputText value="Street Address" />
+				</f:facet>
+				<t:outputText value="#{customer.primaryAddress.streetAddress}" />
+			</t:column>
+			<t:column>
+				<f:facet name="header">
+					<t:outputText value="City" />
+				</f:facet>
+				<t:outputText value="#{customer.primaryAddress.city}" />
+			</t:column>
+			<t:column>
+				<f:facet name="header">
+					<t:outputText value="Zip" />
+				</f:facet>
+				<t:outputText value="#{customer.primaryAddress.zip}" />
+			</t:column>
+			<t:column>
+				<f:facet name="header">
+					<t:outputText value="Email" />
+				</f:facet>
+				<t:outputText value="#{customer.primaryAddress.email}" />
+			</t:column>
+
+			<t:column>
+				<f:facet name="header">
+					<t:outputText value="Remarks" />
+				</f:facet>
+				<t:outputText value="#{customer.remarks}" />
+			</t:column>
+
+		</t:dataTable>
+	</h:form>
+
+</f:view>
+</body>
+</html>
