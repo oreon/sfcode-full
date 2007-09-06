@@ -31,8 +31,7 @@
 			«EXPAND GenerateFinder FOREACH Findable» 
 			
 		} 
-	«ENDFILE»
-	
+	«ENDFILE»	
 	
 «ENDDEFINE»
 
@@ -55,6 +54,41 @@
 «ENDDEFINE»
 
 
+
+«DEFINE GenerateDaoTest FOR Entity»
+	
+	«FILE "../../test/java/" + packagePath() + "/dao/" + NameS + "DaoTest.java"»  
+
+	package «packageName()».dao;
+	
+	import «packageName()». «asParameter()»;
+	import javax.persistence.*;
+	
+	public class «asParameter()»DaoTest{
+	
+			public void testSave() {
+				//test saving a new record and updating an existing record;
+			}
+			
+			public void testDelete() {
+				//return false;
+			}			
+			
+			public void testLoad() {
+				//return null;
+			}
+			
+			«EXPAND GenerateFinderTest FOREACH Findable» 
+			
+		} 
+	«ENDFILE»
+	
+	
+«ENDDEFINE»
+
+«DEFINE GenerateFinderTest FOR Findable»
+	public void testFindBy«NameS»() { }
+«ENDDEFINE»
 
 
 

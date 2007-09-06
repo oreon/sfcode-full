@@ -12,16 +12,17 @@
 		  	       			#end
 #end
 
-#macro( generateAttributes $cls $clsName)
+#macro( generateAttributes $cls $clsName )
 	  			#foreach( $attribute in $cls.Attribute())			
-		  	  #attributeInputHtm($attribute $clsName)     			  
+		  	  #attributeInputHtm($attribute $clsName )     			  
 		  				#end
 #end 
 
-#macro( attributeInputHtm $attribute $clsName)
-		   <tr><td><div class="formLabel">${utils.getViewLabel($attribute)} </div></td>
-   <td> <h:inputText value="#{${utils.asVariable($clazz.NameS() )}CrudBacking.$clsName.${attribute.NameS()}}" ${utils.getRequired($attribute)} /> 
-   </td></tr>
+## e.g values attribute - city clsName - customer.primaryAddress component-primaryAddress 
+#macro( attributeInputHtm $attribute $clsName )
+		    <h:outputText value="${utils.getViewLabel($attribute)}" styleClass="formLabel" /> 
+    <h:inputText id="${clsName.replace('.', '_')}_${attribute.NameS()}" value="#{${utils.asVariable($clazz.NameS() )}CrudBacking.$clsName.${attribute.NameS()}}" ${utils.getRequired($attribute)} /> 
+    <h:message for="${clsName.replace('.', '_')}_${attribute.NameS()}" />
 #end 
 
  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
@@ -40,7 +41,7 @@
     <body>
     <f:view>
             <h:form id="form">
-				  				               <table>
+				  				               <h:panelGrid columns="3" >
 				  ##set the current class name e.g. customer 
 				  #set($clsName = ${utils.asVariable($clazz.NameS() )} )
 				  
@@ -49,11 +50,11 @@
   				#end			
 		  			
 		  	#generateAttributesForClass($clazz $clsName)      
-		  			<tr><td colspan="2"> 
+		  
 		  							   <h:commandButton id="button1" value="Submit" action="#{${clsName}CrudBacking.update}"/> 
-		  							</td></tr>	
+		  			
 		  	 			      
-				                  </table>
+				                  </h:panelGrid>
              </h:form>
         </f:view>
     </body>
