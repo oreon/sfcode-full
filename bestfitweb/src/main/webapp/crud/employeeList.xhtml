@@ -5,70 +5,75 @@
 
 
 
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
-<html>
-    <head>
-        <title>Hello World</title>
-    </head>
-    <body>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="/WEB-INF/template/templateCrud.xhtml">
+
+	<ui:define name="content">
+
     <f:view>
             <h:form id="form">
                           
-            <h:dataTable var="employee" value="#{employees}" rendered="#{employees.rowCount>0}">
+            <t:dataTable var="employee" value="#{employeeCrudBacking. employees}" >
 		                
             
-				   		  		         			  					  	  			   <h:column>
+				   		  		         			  					  	  			   <t:column>
 				   <f:facet name="header">
-					     <h:outputText value="First Name" />
+					     <t:outputText value="First Name" />
 				   </f:facet>
-				   <h:outputText value="#{employee.firstName}" />
-				   </h:column>
-		  						  	  			   <h:column>
+				   <t:outputText value="#{employee.firstName}" />
+				   </t:column>
+		  						  	  			   <t:column>
 				   <f:facet name="header">
-					     <h:outputText value="Last Name" />
+					     <t:outputText value="Last Name" />
 				   </f:facet>
-				   <h:outputText value="#{employee.lastName}" />
-				   </h:column>
+				   <t:outputText value="#{employee.lastName}" />
+				   </t:column>
 		  						  	       
 		  	       		  	       
-		  	       		  	        	  					  	  			   <h:column>
+		  	       		  	        	  					  	  			   <t:column>
 				   <f:facet name="header">
-					     <h:outputText value="Street Address" />
+					     <t:outputText value="Street Address" />
 				   </f:facet>
-				   <h:outputText value="#{employee.primaryAddress.streetAddress}" />
-				   </h:column>
-		  						  	  			   <h:column>
+				   <t:outputText value="#{employee.primaryAddress.streetAddress}" />
+				   </t:column>
+		  						  	  			   <t:column>
 				   <f:facet name="header">
-					     <h:outputText value="City" />
+					     <t:outputText value="City" />
 				   </f:facet>
-				   <h:outputText value="#{employee.primaryAddress.city}" />
-				   </h:column>
-		  						  	  			   <h:column>
+				   <t:outputText value="#{employee.primaryAddress.city}" />
+				   </t:column>
+		  						  	  			   <t:column>
 				   <f:facet name="header">
-					     <h:outputText value="Zip" />
+					     <t:outputText value="Zip" />
 				   </f:facet>
-				   <h:outputText value="#{employee.primaryAddress.zip}" />
-				   </h:column>
-		  						  	  			   <h:column>
+				   <t:outputText value="#{employee.primaryAddress.zip}" />
+				   </t:column>
+		  						  	  			   <t:column>
 				   <f:facet name="header">
-					     <h:outputText value="Email" />
+					     <t:outputText value="Email" />
 				   </f:facet>
-				   <h:outputText value="#{employee.primaryAddress.email}" />
-				   </h:column>
+				   <t:outputText value="#{employee.primaryAddress.email}" />
+				   </t:column>
 		  						  	       			  						  			
-		  		         			  					  	  			   <h:column>
+		  		         			  					  	  			   <t:column>
 				   <f:facet name="header">
-					     <h:outputText value="Code" />
+					     <t:outputText value="Code" />
 				   </f:facet>
-				   <h:outputText value="#{employee.code}" />
-				   </h:column>
+				   <t:outputText value="#{employee.code}" />
+				   </t:column>
 		  						  	       
 		  	       		  	       
 		  	       				
-		</h:dataTable>
+		</t:dataTable>
 		</h:form>
 	
   </f:view>
-    </body>
-</html>		
+    </ui:define>
+</ui:composition>		
