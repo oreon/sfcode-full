@@ -1,13 +1,14 @@
 package oaw4.demo.classic.uml.extend;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import oaw4.demo.classic.uml.meta.Column;
+import oaw4.demo.classic.uml.meta.Entity;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
-import org.openarchitectureware.core.meta.core.Element;
 import org.openarchitectureware.meta.uml.classifier.AssociationEnd;
 import org.openarchitectureware.meta.uml.classifier.Attribute;
 import org.openarchitectureware.meta.uml.classifier.Class;
@@ -17,14 +18,14 @@ import org.openarchitectureware.meta.uml.classifier.Operation;
 import org.openarchitectureware.meta.uml.classifier.Package;
 import org.openarchitectureware.meta.uml.classifier.Parameter;
 
-import sun.security.krb5.internal.tools.Kinit;
-
 public class ClassUtil {
 
 	private static final String BUSINESS_ENTITY = "org.witchcraft.model.support.BusinessEntity";
 
 	// Entity mappings for hibernate cfg
 	private static StringBuffer entityMappings = new StringBuffer();
+	
+	private static List<Entity> entities = new ArrayList();
 
 	public static StringBuffer getEntityMappings() {
 		return entityMappings;
@@ -196,9 +197,13 @@ public class ClassUtil {
 			return "";
 
 		if (cls.getMetaClass().getSimpleName().equals("Entity")) {
+			
+//			This is a hack - we need to find a more elegant 
+//			way to get all entities form model
+			entities.add((Entity)cls); 
+			
 			entityMappings.append("<mapping class=\"" + fullyQualifiedName(cls)
 					+ "\"/>\n");
-			// System.out.println(entityMappings);
 			return "" /* "@Entity\n" */;
 		} else
 			return "@" + cls.getMetaClass().getSimpleName() + "\n";
