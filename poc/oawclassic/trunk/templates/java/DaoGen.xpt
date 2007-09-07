@@ -46,11 +46,15 @@
 
 <hibernate-configuration>
     <session-factory>
-       	«getEntityMappings()»
+       	«EXPAND GenerateEntityMapping FOREACH getEntities()»
     </session-factory>
 </hibernate-configuration>
 	
 	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE GenerateEntityMapping FOR Entity»
+	<mapping class="«fqn()»" />
 «ENDDEFINE»
 
 

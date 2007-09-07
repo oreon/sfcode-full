@@ -25,10 +25,10 @@ public class ClassUtil {
 	// Entity mappings for hibernate cfg
 	private static StringBuffer entityMappings = new StringBuffer();
 	
-	private static List<Entity> entities = new ArrayList();
+	private static List<Entity> entities = new ArrayList<Entity>();
 
-	public static StringBuffer getEntityMappings() {
-		return entityMappings;
+	public static List<Entity> getEntities() {
+		return entities;
 	}
 
 	/**

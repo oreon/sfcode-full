@@ -1,0 +1,27 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+«EXTENSION java::NamingConventions»
+
+«DEFINE GenerateConfig FOR Model»
+	«FILE "../webapp/crud/leftNavBar.xhtml"»
+		<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	
+       	«EXPAND GenerateEntityNavLink FOREACH getEntities()»
+    
+    </ui:define>
+</ui:composition>
+	
+	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE GenerateEntityNavLink FOR Entity»
+	<a href="«asInstanceVar()».xhtml" /> «NameS» </a>
+«ENDDEFINE»
