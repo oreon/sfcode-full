@@ -8,7 +8,7 @@ public class Person extends org.witchcraft.model.support.BusinessEntity
     implements java.io.Serializable {
     private String firstName;
     private String lastName;
-    private bizobjects.Address primaryAddress;
+    private bizobjects.Address primaryAddress = new bizobjects.Address();
 
     public String getFirstName() {
         return this.firstName;
