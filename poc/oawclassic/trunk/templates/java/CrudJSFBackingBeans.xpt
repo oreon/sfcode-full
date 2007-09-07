@@ -47,11 +47,65 @@
 		} 
 	«ENDFILE»
 	
+«ENDDEFINE»
+
+
+«DEFINE GenerateManagedBeanDefs FOR Model »
+	
+«FILE "../webapp/WEB-INF/genCrud-config.xml" » 		
+<?xml version="1.0"?>
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_1.dtd" >
+
+<faces-config>
+
+	<!-- Managed beans for the crud operations -->
+	«EXPAND GenerateManagedBeanDef FOREACH getEntities()»
+	
+	<!-- Navigation Rules  -->
+	«EXPAND GenerateNavRules FOREACH getEntities()»
+			
+</faces-config>
+	
+«ENDFILE»
 	
 «ENDDEFINE»
 
 
+«DEFINE GenerateManagedBeanDef FOR Entity»
 
+	<managed-bean>
+		<managed-bean-name>«asInstanceVar()»CrudBacking</managed-bean-name>
+		<managed-bean-class>«Package.NameS».web.jsf.«NameS»BackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean> 
+
+«ENDDEFINE»
+	
+	
+«DEFINE GenerateNavRules FOR Entity»
+	<navigation-rule>
+  		<from-view-id>/crud/«asInstanceVar()».xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/«asInstanceVar()»List.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/«asInstanceVar()»List.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/«asInstanceVar()».xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+«ENDDEFINE»		 
 
 
 

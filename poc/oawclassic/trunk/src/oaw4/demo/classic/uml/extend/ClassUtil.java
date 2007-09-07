@@ -256,11 +256,26 @@ public class ClassUtil {
 		return cls.Package().NameS() + "." + cls.NameS();
 	}
 
+	/** REturn if manyto one applies 
+	 * @param ae
+	 * @return
+	 */
 	public static String manyToOne(AssociationEnd ae) {
 		if (StereoTypeManager.isEntity(ae.Class()))
 			return "@ManyToOne";
 		else
 			return "";
+	}
+	
+	/** For compositions with 1 multiplicity we instantiate the composed entity e.g
+	 * if Person contains address then we declare Address address = <b> new Address() </b>
+	 * @param ae 
+	 * @return
+	 */
+	public static String getInstantiationIfComposition(AssociationEnd ae){
+		if(ae.Opposite().isComposition())
+			return " = new " + fullyQualifiedName(ae.Class()) +  "()";
+		return "";	
 	}
 
 	public static String getViewLabel(Attribute attribute){
