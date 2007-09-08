@@ -1,6 +1,7 @@
 package hibernate.mgr;
 
-import org.hibernate.*;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import bizobjects.Address;
 import bizobjects.Customer;

@@ -1,5 +1,7 @@
 package bizobjects;
 
+import javax.persistence.Transient;
+
 public interface User {
     @Transient
     public String getUserId();
