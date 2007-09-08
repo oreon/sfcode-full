@@ -2,8 +2,6 @@ package bizobjects.dao;
 
 import bizobjects.PlacedOrder;
 
-import javax.persistence.*;
-
 
 public class PlacedOrderDao {
     public PlacedOrder save(PlacedOrder placedOrder) {

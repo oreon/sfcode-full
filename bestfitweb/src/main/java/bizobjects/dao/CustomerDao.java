@@ -2,8 +2,6 @@ package bizobjects.dao;
 
 import bizobjects.Customer;
 
-import javax.persistence.*;
-
 
 public class CustomerDao {
     public Customer save(Customer customer) {

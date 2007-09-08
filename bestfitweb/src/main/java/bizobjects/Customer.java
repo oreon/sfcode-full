@@ -1,6 +1,11 @@
 package bizobjects;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 
 /*Represents a customer - customer can log in and place orders.*/

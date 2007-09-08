@@ -2,8 +2,6 @@ package bizobjects.dao;
 
 import bizobjects.Employee;
 
-import javax.persistence.*;
-
 
 public class EmployeeDao {
     public Employee save(Employee employee) {

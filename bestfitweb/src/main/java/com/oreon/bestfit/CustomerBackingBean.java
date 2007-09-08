@@ -8,6 +8,7 @@ import bizobjects.Customer;
 
 public class CustomerBackingBean {
     private Customer customer = new Customer();
+	
 
     public Customer getCustomer() {
         return customer;
@@ -21,19 +22,15 @@ public class CustomerBackingBean {
         return "success";
     }
     
-    public String loadForEdit(){
-    	return "edit";
-    }
+    private long count;
     
     /**Get a list of all 
      * @return
      */
     public List<Customer> getCustomers(){
     	List<Customer> customers = new ArrayList<Customer>();
-    	Customer customer = new Customer();
-    	customer.setFirstName("Eric");
-    	customer.setLastName("Euler");
-    	customers.add(customer);
+    	
+    	customers.add(createCustomer("Eric", "Regis"));
     	customers.add(createCustomer("Huy", "Mokys"));
     	customers.add(createCustomer("Levi", "Mokys"));
     	customers.add(createCustomer("Sukh", "Bal"));
@@ -42,6 +39,9 @@ public class CustomerBackingBean {
     	return customers;
     }
     
+    
+ 
+    	 
     /**
      * @param fn
      * @param ln
@@ -49,6 +49,7 @@ public class CustomerBackingBean {
      */
     private Customer createCustomer(String fn, String ln){
     	Customer cust = new Customer();
+    	cust.setId(++count);
     	cust.setFirstName(fn);
     	cust.setLastName(ln);
     	cust.getPrimaryAddress().setCity("Burlington");

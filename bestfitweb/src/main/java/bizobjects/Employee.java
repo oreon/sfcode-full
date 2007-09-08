@@ -1,6 +1,7 @@
 package bizobjects;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 
 @Entity

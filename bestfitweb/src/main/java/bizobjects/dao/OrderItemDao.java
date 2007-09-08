@@ -2,8 +2,6 @@ package bizobjects.dao;
 
 import bizobjects.OrderItem;
 
-import javax.persistence.*;
-
 
 public class OrderItemDao {
     public OrderItem save(OrderItem orderItem) {
