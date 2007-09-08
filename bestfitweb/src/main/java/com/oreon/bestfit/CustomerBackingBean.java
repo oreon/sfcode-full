@@ -21,6 +21,10 @@ public class CustomerBackingBean {
         return "success";
     }
     
+    public String loadForEdit(){
+    	return "edit";
+    }
+    
     /**Get a list of all 
      * @return
      */
