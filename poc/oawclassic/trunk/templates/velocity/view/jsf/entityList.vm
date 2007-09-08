@@ -27,41 +27,12 @@
 					       <t:outputText value="${utils.getViewLabelFromVariable($attribute.NameS())}" />
 					     </t:commandSortHeader>
 				   </f:facet>
-				   <t:commandLink action="#{customerCrudBacking.loadForEdit}">
-				   <t:outputText value="#{${clsName}.${attribute.NameS()}}" />
-				   </<t:commandLink>
-				   </t:column>
+				      <t:outputText value="#{${clsName}.${attribute.NameS()}}" />
+						   </t:column>
 #end 
 
-
-
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	template="/WEB-INF/template/templateCrud.xhtml">
-
-	<ui:define name="content">
-
-    <f:view>
-            <h:form id="form">
-              #set($clsName = ${utils.asVariable($clazz.NameS() )} )
-            
-            <t:dataTable id="data" var="$clsName" value="#{${clsName}CrudBacking. ${clsName}s}" >
-		                
-            
-				  #foreach( $superclass in ${manager.getSuperClasses($clazz)} )			
- 		  	#generateDataColumnForClass($superclass $clsName)       			
-  				#end			
-		  			
-		  	#generateDataColumnForClass($clazz $clsName)  
-				
-		</t:dataTable>
-		
-				<t:dataScroller id="scroll_1" for="data" fastStep="10"
+#macro( generateDataScroller )
+			  <t:dataScroller id="scroll_1" for="data" fastStep="10"
 					pageCountVar="pageCount" pageIndexVar="pageIndex"
 					styleClass="scroller" paginator="true" paginatorMaxPages="9"
 					paginatorTableClass="paginator"
@@ -90,9 +61,64 @@
 						<t:graphicImage url="/images/dataScroller/arrow-fr.gif" border="1" />
 					</f:facet>
 				</t:dataScroller>
+#end 
+
+## We need to generate columns that have edit, delete link etc. 
+#macro( generateEditColumns )
+	   		<t:column>
+								                    <f:facet name="header">
+							                      <t:commandSortHeader columnName="id" arrow="true">
+								                        <t:outputText value=" " />
+							                      </t:commandSortHeader>
+						                    </f:facet>
+						                    <t:commandLink action="#{${clsName}CrudBacking.select}"  
+						                            actionListener="#{${clsName}CrudBacking.selectEntity}"  >
+							                      <t:outputText value=" Edit " />
+							                      <f:param id="editId" 
+		                         	 						name="id" 
+    	 					                  value="#{${clsName}.id}" />
+						                    </t:commandLink>
+					                </t:column>
+#end
+
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="/WEB-INF/template/templateCrud.xhtml">
+
+	<ui:define name="content">
+
+    <f:view>
+            <h:form id="form">
+              #set($clsName = ${utils.asVariable($clazz.NameS() )} )
+            
+            <t:dataTable id="data" var="$clsName" value="#{${clsName}CrudBacking. ${clsName}s}" >
+		               
+            
+				  #foreach( $superclass in ${manager.getSuperClasses($clazz)} )			
+ 		  	#generateDataColumnForClass($superclass $clsName)       			
+  				#end			
+		  			
+		  	#generateDataColumnForClass($clazz $clsName)  
+		  
+			  #generateEditColumns() 
+		             
+				
+		</t:dataTable>
+		
+					 #generateDataScroller()
 		
 		</h:form>
 	
   </f:view>
     </ui:define>
 </ui:composition>
+
+
+
