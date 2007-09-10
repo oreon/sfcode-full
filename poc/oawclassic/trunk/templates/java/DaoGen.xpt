@@ -43,8 +43,8 @@
 			//// FINDERS ///// 
 			
 			«FOREACH Findable AS e»
-				public List<«NameS»> findBy«e.NameS»(Object «NameS») { 
-					return getJpaTemplate().find("select c from «NameS» c where c.«e.NameS» = ?1",  «NameS»);
+				public List<«NameS»> findBy«e.NameS»(Object «e.NameS») { 
+					return getJpaTemplate().find("select c from «NameS» c where c.«e.NameS» = ?1",  «e.NameS»);
 				}
 			«ENDFOREACH»
 			

@@ -1,0 +1,91 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+«EXTENSION java::NamingConventions»
+
+«REM» This artifact generates service layer interfaces and implementations.  «ENDREM»
+«DEFINE GenerateService FOR Entity»
+	
+	«EXPAND GenerateServiceInterface»
+	
+	«EXPAND GenerateServiceImpl»
+
+«ENDDEFINE»	
+
+«DEFINE GenerateServiceImpl FOR Entity»
+
+	«FILE packagePath()+"/service/impl/"+NameS+"ServiceImpl.java"»  
+
+	package «packageName()».service.impl;
+	
+	import «packageName()».«NameS»;
+	import «packageName()».service.«NameS»Service;
+	import «packageName()».dao.«NameS»Dao;
+	import java.util.List;
+	import «packageName()».service.«NameS»Service;
+	import org.springframework.transaction.annotation.Transactional;
+
+
+	@Transactional
+	public class «NameS»ServiceImpl implements «NameS»Service{
+	
+		private «NameS»Dao «asInstanceVar()»Dao;
+	
+			public void set«NameS»Dao(«NameS»Dao «asInstanceVar()»Dao) {
+				this.«asInstanceVar()»Dao = «asInstanceVar()»Dao;
+			}
+			
+			//// Delegate all crud operations to the Dao ////
+			
+			public «NameS» save(«NameS» «asInstanceVar()») {
+				return «asInstanceVar()»Dao.save(«asInstanceVar()»);
+			}
+			
+			public void delete(«NameS» «asInstanceVar()») {
+				«asInstanceVar()»Dao.delete(«asInstanceVar()»);
+			}			
+			
+			public «NameS» load(Long id) {
+				return «asInstanceVar()»Dao.load(id);
+			}
+			
+		    public List<«NameS»> loadAll() {
+		    	return «asInstanceVar()»Dao.loadAll();
+		    }
+		    
+		    «FOREACH Findable AS e»
+				public List<«NameS»> findBy«e.NameS»(Object «e.NameS») { 
+					return «asInstanceVar()»Dao.findBy«e.NameS»(«e.NameS»);
+				}
+			«ENDFOREACH»
+		
+			/*
+			public List query(String queryString, Object... params) {
+				return basicDAO.query(queryString, params);
+			}*/
+	
+	}
+	
+	«ENDFILE»	
+	
+«ENDDEFINE»
+
+
+«DEFINE GenerateServiceInterface FOR Entity»
+
+	«FILE packagePath() + "/service/" + NameS + "Service.java"» 
+	
+	package «packageName()».service;
+	
+	import «packageName()».«NameS»;
+	import «packageName()».dao.«NameS»Dao;
+	
+	public interface «NameS»Service extends  «NameS»Dao  {
+		
+			
+	}		
+	
+	«ENDFILE»	
+«ENDDEFINE»
+	
