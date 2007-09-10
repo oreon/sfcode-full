@@ -1,10 +1,17 @@
 package bizobjects.web.jsf;
 
+import hibernate.mgr.IBasicController;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.component.UIParameter;
 import javax.faces.event.ActionEvent;
+import javax.servlet.ServletContext;
+
+import org.apache.myfaces.context.FacesContextWrapper;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import bizobjects.Customer;
 
@@ -25,6 +32,10 @@ public class CustomerBackingBean {
 	 * @return - a list of
 	 */
 	public String update() {
+		ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext
+			((ServletContext) FacesContextWrapper.getCurrentInstance().getExternalContext().getContext());
+		IBasicController controller = (IBasicController) context.getBean("basicController");
+		controller.save(customer);
 		return "success";
 	}
 

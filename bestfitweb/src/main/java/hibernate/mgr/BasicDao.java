@@ -8,13 +8,13 @@ import javax.persistence.Query;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
 import org.witchcraft.model.support.BusinessEntity;
 
-public class BasicDao extends JpaDaoSupport {
+public class BasicDao<T> extends JpaDaoSupport {
 
 	private EntityManager entityManager;
 
 	public List query(String queryString, final Object... params) {
 		Query query = entityManager.createQuery(queryString);
-		//entityManager.setParameters(query, params);
+		//entityManager.T(query, params);
 		return query.getResultList();
 	}
 
@@ -22,4 +22,9 @@ public class BasicDao extends JpaDaoSupport {
 		getJpaTemplate().persist(businessEntity);
 		return businessEntity;
 	}
+	
+	public T findById(long id, Class theclazz) {
+		
+	    return getJpaTemplate().find(t.getClass(), id);
+	  }
 }
