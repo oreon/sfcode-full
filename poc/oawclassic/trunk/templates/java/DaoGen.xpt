@@ -13,70 +13,68 @@
 
 	package «packageName()».dao;
 	
-	import «packageName()». «asParameter()»;
+	import «packageName()».«NameS»;
 	import org.springframework.orm.jpa.support.JpaDaoSupport;
 	import java.util.List;
 	
-	public class «asParameter()»DaoImpl extends JpaDaoSupport implements «asParameter()»Dao {
+	public class «NameS»DaoImpl extends JpaDaoSupport implements «NameS»Dao {
 	
-			public «asParameter()» save(«asParameter()» «asInstanceVar()») {
+			public «NameS» save(«NameS» «asInstanceVar()») {
 				getJpaTemplate().persist(«asInstanceVar()»);
 				return «asInstanceVar()»;
 			}
 			
-			public void delete(«asParameter()» «asInstanceVar()») {
+			public void delete(«NameS» «asInstanceVar()») {
 				getJpaTemplate().remove(«asInstanceVar()»);
 			}			
 			
-			public «asParameter()» load(Long id) {
-				return getJpaTemplate().find(«asParameter()».class, id);
+			public «NameS» load(Long id) {
+				return getJpaTemplate().find(«NameS».class, id);
 			}
 			
 		    /* 
 			 * loads all records for this entity 
 			 */
-		    public List<«asParameter()»> loadAll() {
-		    	return getJpaTemplate().find("select «asInstanceVar()» from «asParameter()» «asInstanceVar()»");
+		    public List<«NameS»> loadAll() {
+		    	return getJpaTemplate().find("select «asInstanceVar()» from «NameS» «asInstanceVar()»");
 		    }
 			
+			//// FINDERS ///// 
 			
-			«EXPAND GenerateFinder FOREACH Findable» 
+			«FOREACH Findable AS e»
+				public List<«NameS»> findBy«e.NameS»(Object «NameS») { 
+					return getJpaTemplate().find("select c from «NameS» c where c.«NameS» = ?1",  «NameS»);
+				}
+			«ENDFOREACH»
 			
 		} 
 	«ENDFILE»	
 	
 «ENDDEFINE»
 
-«DEFINE GenerateFinderDef FOR Findable»
-	public List<«Class.NameS»> findBy«NameS»(String «NameS»);
-«ENDDEFINE»
-
-«DEFINE GenerateFinder FOR Findable»
-	public List<«Class.NameS»> findBy«NameS»(String «NameS») { 
-		return getJpaTemplate().find("select c from «Class.NameS» c where c.«NameS» = ?1",  «NameS»);
-	}
-«ENDDEFINE»
 
 «DEFINE GenerateDaoInterface FOR Entity»
 	«FILE packagePath()+"/dao/"+NameS+"Dao.java"» 
 	
 	package «packageName()».dao;
 	
-	import «packageName()». «asParameter()»;
+	import «packageName()». «NameS»;
 	import org.springframework.orm.jpa.support.JpaDaoSupport;
 	import java.util.List;
 	
-	public interface «asParameter()»Dao  {
+	public interface «NameS»Dao  {
 	
-			public «asParameter()» save(«asParameter()» «asInstanceVar()»);
+			public «NameS» save(«NameS» «asInstanceVar()»);
 		
-			public void delete(«asParameter()» «asInstanceVar()»);			
+			public void delete(«NameS» «asInstanceVar()»);			
 			
-			public «asParameter()» load(Long id);
+			public «NameS» load(Long id);
 			
-		    public List<«asParameter()»> loadAll();
+		    public List<«NameS»> loadAll();
 		    
-		    «EXPAND GenerateFinderDef FOREACH Findable» 
+		    «FOREACH Findable AS e»
+				public List<«NameS»> findBy«e.NameS»(Object «e.NameS»);
+			«ENDFOREACH»
 	}		
 	
 	«ENDFILE»	
@@ -109,10 +107,10 @@
 
 	package «packageName()».dao;
 	
-	import «packageName()». «asParameter()»;
+	import «packageName()». «NameS»;
 	import javax.persistence.*;
 	
-	public class «asParameter()»DaoTest{
+	public class «NameS»DaoTest{
 	
 			public void testSave() {
 				//test saving a new record and updating an existing record;
