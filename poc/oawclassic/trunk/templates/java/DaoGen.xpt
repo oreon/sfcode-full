@@ -7,26 +7,38 @@
 
 «DEFINE GenerateDao FOR Entity»
 	
-	«FILE packagePath()+"/dao/"+NameS+"Dao.java"»  
+	«EXPAND GenerateDaoInterface»
+	
+	«FILE packagePath()+"/dao/"+NameS+"DaoImpl.java"»  
 
 	package «packageName()».dao;
 	
 	import «packageName()». «asParameter()»;
-	import javax.persistence.*;
+	import org.springframework.orm.jpa.support.JpaDaoSupport;
+	import java.util.List;
 	
-	public class «asParameter()»Dao{
+	public class «asParameter()»DaoImpl extends JpaDaoSupport implements «asParameter()»Dao {
 	
 			public «asParameter()» save(«asParameter()» «asInstanceVar()») {
-				return null;
+				getJpaTemplate().persist(«asInstanceVar()»);
+				return «asInstanceVar()»;
 			}
 			
-			public boolean delete(«asParameter()» «asInstanceVar()») {
-				return false;
+			public void delete(«asParameter()» «asInstanceVar()») {
+				getJpaTemplate().remove(«asInstanceVar()»);
 			}			
 			
 			public «asParameter()» load(Long id) {
-				return null;
+				return getJpaTemplate().find(«asParameter()».class, id);
 			}
+			
+		    /* 
+			 * loads all records for this entity 
+			 */
+		    public List<«asParameter()»> loadAll() {
+		    	return getJpaTemplate().find("select «asInstanceVar()» from «asParameter()» «asInstanceVar()»");
+		    }
+			
 			
 			«EXPAND GenerateFinder FOREACH Findable» 
 			
@@ -35,9 +47,41 @@
 	
 «ENDDEFINE»
 
-«DEFINE GenerateFinder FOR Findable»
-	public void findBy«NameS»() { }
+«DEFINE GenerateFinderDef FOR Findable»
+	public List<«Class.NameS»> findBy«NameS»(String «NameS»);
 «ENDDEFINE»
+
+«DEFINE GenerateFinder FOR Findable»
+	public List<«Class.NameS»> findBy«NameS»(String «NameS») { 
+		return getJpaTemplate().find("select c from «Class.NameS» c where c.«NameS» = ?1",  «NameS»);
+	}
+«ENDDEFINE»
+
+«DEFINE GenerateDaoInterface FOR Entity»
+	«FILE packagePath()+"/dao/"+NameS+"Dao.java"» 
+	
+	package «packageName()».dao;
+	
+	import «packageName()». «asParameter()»;
+	import org.springframework.orm.jpa.support.JpaDaoSupport;
+	import java.util.List;
+	
+	public interface «asParameter()»Dao  {
+	
+			public «asParameter()» save(«asParameter()» «asInstanceVar()»);
+		
+			public void delete(«asParameter()» «asInstanceVar()»);			
+			
+			public «asParameter()» load(Long id);
+			
+		    public List<«asParameter()»> loadAll();
+		    
+		    «EXPAND GenerateFinderDef FOREACH Findable» 
+	}		
+	
+	«ENDFILE»	
+«ENDDEFINE»
+
 
 «DEFINE GenerateConfig FOR Model»
 	«FILE "../resources/hibernate.cfg.xml"»
