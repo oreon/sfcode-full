@@ -22,6 +22,12 @@
 	public class «asParameter()»BackingBean{
 	
 			private «asParameter()» «asInstanceVar()» = new «asParameter()»();
+			
+			private	«asParameter()»Service «asInstanceVar()»Service;
+			
+			private void set«NameS»Service(«asParameter()»Service «asInstanceVar()»Service){
+				this.«asInstanceVar()»Service = «asInstanceVar()»Service;
+			}
 	
 			public «asParameter()» get«asParameter()»() {
 				return «asInstanceVar()»;
@@ -33,12 +39,18 @@
 			
 			
 			/**Write values to the database 
-            * @return - a list of 
+            * @return - "success" if everthing goes fine
             */
 			public String update() {
+				«asInstanceVar()»Service.save(«asInstanceVar()»);
 				return "success";
 			}
 			
+			/** Returns a success string upon selection of an entity in model - majority of work is done
+			 * in the actionListener selectEntity
+            * @return - "success" if everthing goes fine
+            * @see - 
+            */
 			 public String select(){
     			return "edit";
     		}
@@ -54,13 +66,15 @@
 			
 	    	// parse the value of the UIParameter component    	 
 	    	long id = Long.parseLong(component.getValue().toString());
+	    	
+	    	«asInstanceVar()» = «asInstanceVar()»Service.load(id);
 	    }
 			
 			/**Get a list of all «asInstanceVar()»s 
             * @return - a list of «asInstanceVar()»s 
             */
    			public List<«asParameter()»> get«asParameter()»s(){
-    			List<«asParameter()»> «asInstanceVar()»s = new ArrayList<«asParameter()»>();
+    			List<«asParameter()»> «asInstanceVar()»s = «asInstanceVar()»Service.loadAll();
     			return «asInstanceVar()»s;
     		}
 	
@@ -80,6 +94,13 @@
 
 <faces-config>
 
+	<!--  Spring variable resolver -->
+	<application>
+		<variable-resolver>
+			org.springframework.web.jsf.DelegatingVariableResolver
+		</variable-resolver>
+	</application>
+
 	<!-- Managed beans for the crud operations -->
 	«EXPAND GenerateManagedBeanDef FOREACH getEntities()»
 	
@@ -98,9 +119,13 @@
 	<managed-bean>
 		<managed-bean-name>«asInstanceVar()»CrudBacking</managed-bean-name>
 		<managed-bean-class>«Package.NameS».web.jsf.«NameS»BackingBean</managed-bean-class>
+		<managed-property>
+			<property-name>«asInstanceVar()»Service</property-name>
+			<value>#{«asInstanceVar()»Service}</value>
+		</managed-property>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean> 
-
+ 	
 «ENDDEFINE»
 	
 	

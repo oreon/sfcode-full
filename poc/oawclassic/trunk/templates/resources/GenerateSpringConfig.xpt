@@ -2,7 +2,7 @@
 «IMPORT oaw4::demo::classic::uml::meta»
 «IMPORT org::openarchitectureware::core::meta::core»
 «IMPORT java»
-
+«EXTENSION java::NamingConventions»
 
 «DEFINE SpringConfig FOR Model»
 
@@ -50,10 +50,25 @@
   <bean id="basicDAO" class="com.acme.dao.BasicDao" />
 
   <bean id="basicController" class="com.acme.service.BasicController"/>
+  
+  <!-- Service Beans  -->
+  «EXPAND GenerateServiceBeanDef FOREACH getEntities()»
+  
+  <!-- Dao Beans  -->
+  «EXPAND GenerateDaoBeanDef FOREACH getEntities()»
  
 </beans>
 
 	
 «ENDFILE»
 
+
+«ENDDEFINE»
+
+«DEFINE GenerateServiceBeanDef FOR Entity»
+	<bean id="«asInstanceVar()»Service" class="«Package.NameS».service.impl.«NameS»ServiceImpl" />
+«ENDDEFINE»
+
+«DEFINE GenerateDaoBeanDef FOR Entity»
+	<bean id="«asInstanceVar()»Dao" class="«Package.NameS».dao.impl.«NameS»Dao" />
 «ENDDEFINE»

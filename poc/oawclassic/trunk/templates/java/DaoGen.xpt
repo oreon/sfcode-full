@@ -9,13 +9,14 @@
 	
 	«EXPAND GenerateDaoInterface»
 	
-	«FILE packagePath()+"/dao/"+NameS+"DaoImpl.java"»  
+	«FILE packagePath()+"/dao/impl/"+NameS+"DaoImpl.java"»  
 
-	package «packageName()».dao;
+	package «packageName()».dao.impl;
 	
 	import «packageName()».«NameS»;
 	import org.springframework.orm.jpa.support.JpaDaoSupport;
 	import java.util.List;
+	import «packageName()».dao.«NameS»Dao;
 	
 	public class «NameS»DaoImpl extends JpaDaoSupport implements «NameS»Dao {
 	
@@ -43,7 +44,7 @@
 			
 			«FOREACH Findable AS e»
 				public List<«NameS»> findBy«e.NameS»(Object «NameS») { 
-					return getJpaTemplate().find("select c from «NameS» c where c.«NameS» = ?1",  «NameS»);
+					return getJpaTemplate().find("select c from «NameS» c where c.«e.NameS» = ?1",  «NameS»);
 				}
 			«ENDFOREACH»
 			
@@ -108,10 +109,23 @@
 	package «packageName()».dao;
 	
 	import «packageName()». «NameS»;
-	import javax.persistence.*;
+	import org.springframework.test.jpa.AbstractJpaTests;
 	
-	public class «NameS»DaoTest{
 	
+	public class «NameS»DaoTest extends AbstractJpaTests {
+			
+			private «NameS»Dao «asInstanceVar()»Dao;
+	
+		    public void set«NameS»Dao(«NameS»Dao «asInstanceVar()»Dao) {
+				this.«asInstanceVar()»Dao = «asInstanceVar()»Dao;
+			}
+		    
+		    @Override
+			protected String[] getConfigLocations() {
+				return new String[]{"classpath:/applicationContext.xml"};
+			}
+			
+		
 			public void testSave() {
 				//test saving a new record and updating an existing record;
 			}
