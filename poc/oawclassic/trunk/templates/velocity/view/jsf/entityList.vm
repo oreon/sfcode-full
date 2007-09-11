@@ -3,12 +3,20 @@
 #macro(generateDataColumnForClass $cls $clsName)
 	         		#generateDataColumn($cls $clsName)
 		  	       
-		  	       #set($componentMap = ${manager.getComponents($cls)} )
+		  	       ## get all the embeddable components 
+		  	       #set($componentMap = ${manager.getComponents($cls).get("components")} )
 		  	       
 		  	       #foreach( $component in ${componentMap.keySet()} )
 		  	        #set($compClass = ${componentMap.get($component)})
 		  	        #set($compName = "$clsName.${component}")			
 		  	        #generateDataColumn(  $compClass $compName )
+		  	       			#end
+		  	       			
+		  	       			## get all the associations 
+		  	       			 #set($associationsMap = ${manager.getComponents($cls).get("associations")} )
+		  	       			 #foreach( $assocName in ${associationsMap.keySet()} )
+		  	        #set($attrib = ${componentMap.get($assocName)})			
+		  	        #generateAssocAttributeColumn($assocName $clsName)
 		  	       			#end
 #end
 
@@ -19,8 +27,21 @@
 		  				#end
 #end 
 
+##Generate Association attribute columns e.g for an order we might want to show customer this order belongs to
+#macro( generateAssocAttributeColumn $assocName $clsName)
+			   <t:column>
+				   <f:facet name="header">
+				     <t:commandSortHeader columnName="#{${clsName}.${assocName}}" arrow="true">
+					       <t:outputText value="${utils.getViewLabelFromVariable($assocName)}" />
+					     </t:commandSortHeader>
+				   </f:facet>
+				      <t:outputText value="#{${clsName}.${assocName}.id}" />
+						   </t:column>
+#end 
+
+
 ##Generate columns for the data table using entity's attributes
-#macro( generateAttributeColumn $attribute $clsName)
+#macro( generateAttributeColumn  $attribute $clsName)
 			   <t:column>
 				   <f:facet name="header">
 				     <t:commandSortHeader columnName="${clsName}.${attribute.NameS()}" arrow="true">
@@ -116,6 +137,9 @@
 					 #generateDataScroller()
 		
 		</h:form>
+		
+		<hr/>
+		<a href="${utils.asVariable($clazz.NameS() )}.jsf"> Add New </a>
 	
   </f:view>
     </ui:define>

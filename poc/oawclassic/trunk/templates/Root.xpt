@@ -11,8 +11,7 @@
 «ENDDEFINE»
 
 «DEFINE Root FOR Package»
-	«IF NameS.startsWith("java")»
-	«ELSE»
+	«IF! NameS.startsWith("java")»
 		«EXPAND Root FOREACH OwnedElement»
 	«ENDIF»
 «ENDDEFINE»
@@ -27,7 +26,9 @@
 «ENDDEFINE»
 
 «DEFINE Root FOR Class»
-	«EXPAND java::JavaBean::BeanClass»
+	«IF ! NameS.startsWith("java")»
+		«EXPAND java::JavaBean::BeanClass»
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE Root FOR Enumeration»

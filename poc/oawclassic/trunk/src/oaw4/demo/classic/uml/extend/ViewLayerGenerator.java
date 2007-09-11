@@ -12,10 +12,12 @@ import org.openarchitectureware.core.meta.visitor.ModelElementVisitor;
 import org.openarchitectureware.core.meta.visitor.TypeCollectingVisitor;
 import org.openarchitectureware.meta.uml.ModelElement;
 import org.openarchitectureware.meta.uml.classifier.AssociationEnd;
+import org.openarchitectureware.meta.uml.classifier.Attribute;
 import org.openarchitectureware.meta.uml.classifier.Class;
 import org.openarchitectureware.meta.uml.state.State;
 import org.openarchitectureware.meta.uml.state.StateMachine;
 import org.openarchitectureware.meta.uml.state.Transition;
+import org.witchcraft.htmlinput.jsf.InputComponentFactory;
 
 /**
  * To generate a basic view layer
@@ -51,18 +53,38 @@ public class ViewLayerGenerator {
 	/**
 	 * @returns a collection of the embeddable components of a given class
 	 */
-	public Map<String, Class> getComponents(Class cls) {
+	public Map getComponents(Class cls) {
 
 		Map<String, Class> components = new HashMap<String, Class>();
+		
+		Map<String, Attribute> associations = new HashMap<String, Attribute>();
 
 		for (Iterator iter = cls.AssociationEnd().iterator(); iter.hasNext();) {
 			AssociationEnd ae = (AssociationEnd) iter.next();
+			//if embeddable we need all the attributes of the contained class
 			if (StereoTypeManager.isEmbeddable(ae.Opposite().Class()))
-				components.put(
-						ae.Opposite().NameS(), ae.Opposite().Class());
+				components.put(ae.Opposite().NameS(), ae.Opposite().Class());
+			else if ( ae.Opposite().MultiplicityMaxAsInt() == 1 && ae.Opposite().isNavigable()) {
+				System.out.println("Adding assoc for class " + cls.NameS() + "::"  + ae.NameS() + "--" + ae.Opposite().Name());
+				associations.put( ae.Opposite().NameS(), (Attribute) ae.Opposite().Class().Attribute().get(0));
+			}
 		}
-
-		return components;
+		
+		Map retMaps = new HashMap(); //<K, V>
+		retMaps.put("components", components);
+		retMaps.put("associations", associations);
+		return retMaps;
+	}
+	
+	Attribute getIdAttribute(Class cls){
+		ElementSet attributes = cls.Attribute();
+		for ( Object object : attributes) {
+			Attribute attribute = (Attribute)object;
+			if(attribute.Name().equals("id") )
+				return attribute;
+		}
+		System.out.println("No id declared for this entity");
+		return null;
 	}
 
 	/**
@@ -125,6 +147,14 @@ public class ViewLayerGenerator {
 			System.out.println( transition.NameS() + "-> " +  transition.TargetVertex().NameS());
 		}
 		System.out.println("-------------------------------------");
+	}
+	
+	public static String getInputComponentContent(Attribute attribute){
+		return InputComponentFactory.getRenderer(attribute).getContent(attribute);
+	}
+	
+	public static String getInputComponentType(Attribute attribute){
+		return InputComponentFactory.getRenderer(attribute).getType(attribute);
 	}
 
 }
