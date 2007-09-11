@@ -56,8 +56,14 @@
     <f:view>
             <h:form id="form">
 				  				               <h:panelGrid columns="3" >
-				  ##set the current class name e.g. customer 
-				  #set($clsName = ${utils.asVariable($clazz.NameS() )} )
+				  				               
+				  				   ##set the current class name e.g. customer 
+				  #set($clsName = ${utils.asVariable($clazz.NameS() )} )             
+				  				               
+				  				               ## We need to have a hidden text field to store the id of the record being edited		
+				  				               			<h:inputHidden id="${clsName}_id" value="#{${clsName}CrudBacking.${clsName}.id}" />
+	 
+				 
 				  
 				  #foreach( $superclass in ${manager.getSuperClasses($clazz)} )			
  		  	#generateAttributesForClass($superclass $clsName)       			

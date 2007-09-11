@@ -20,8 +20,15 @@
 	
 	public class «NameS»DaoImpl extends JpaDaoSupport implements «NameS»Dao {
 	
+			/**
+			* This method saves or updates the given entity based upon whether the id is null
+			*/
 			public «NameS» save(«NameS» «asInstanceVar()») {
-				getJpaTemplate().persist(«asInstanceVar()»);
+				if(«asInstanceVar()».getId() == null )
+					getJpaTemplate().persist(«asInstanceVar()»);
+				else 
+					getJpaTemplate().merge(«asInstanceVar()»);
+					
 				return «asInstanceVar()»;
 			}
 			
