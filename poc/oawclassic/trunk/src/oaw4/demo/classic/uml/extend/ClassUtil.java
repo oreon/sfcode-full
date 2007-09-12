@@ -261,8 +261,10 @@ public class ClassUtil {
 	 * @return
 	 */
 	public static String manyToOne(AssociationEnd ae) {
-		if (StereoTypeManager.isEntity(ae.Class()))
-			return "@ManyToOne";
+		if (StereoTypeManager.isEntity(ae.Class())){
+			String nullable = ae.MultiplicityMinAsInt() >= 1?"false":"true";
+			return "@ManyToOne\n @JoinColumn(name=\"" + ae.NameS() + "_ID\", nullable=" + nullable + ")" ;
+		}
 		else
 			return "";
 	}

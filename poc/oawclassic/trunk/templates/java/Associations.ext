@@ -6,3 +6,9 @@ String fqn (AssociationEnd ae) : !ae.isMultiple ? ae.Class.fqn() + " " + ae.asIn
 
 String iterator (AssociationEnd ae) :
 "java.util.Iterator<"+ae.Class.fqn()+">";
+
+String manyToOne(AssociationEnd ae) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.manyToOne(org.openarchitectureware.meta.uml.classifier.AssociationEnd);
+
+String getInstantiationIfComposition(AssociationEnd ae):
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getInstantiationIfComposition(org.openarchitectureware.meta.uml.classifier.AssociationEnd);

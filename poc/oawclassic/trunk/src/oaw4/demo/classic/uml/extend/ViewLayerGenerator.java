@@ -64,7 +64,7 @@ public class ViewLayerGenerator {
 			//if embeddable we need all the attributes of the contained class
 			if (StereoTypeManager.isEmbeddable(ae.Opposite().Class()))
 				components.put(ae.Opposite().NameS(), ae.Opposite().Class());
-			else if ( ae.Opposite().MultiplicityMaxAsInt() == 1 && ae.Opposite().isNavigable()) {
+			else if ( ae.Opposite().MultiplicityMaxAsInt() == 1 && ae.Opposite().NameS() != null ) {
 				System.out.println("Adding assoc for class " + cls.NameS() + "::"  + ae.NameS() + "--" + ae.Opposite().Name());
 				associations.put( ae.Opposite().NameS(), (Attribute) ae.Opposite().Class().Attribute().get(0));
 			}

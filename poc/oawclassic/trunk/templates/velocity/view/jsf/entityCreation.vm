@@ -31,14 +31,14 @@
     <${manager.getInputComponentType($attribute)} id="${clsName.replace('.', '_')}_${attribute.NameS()}" value="#{${utils.asVariable($clazz.NameS() )}CrudBacking.$clsName.${attribute.NameS()}}" ${utils.getRequired($attribute)} >
     			  ${manager.getInputComponentContent($attribute)}
     </${manager.getInputComponentType($attribute)}> 
-    <h:message for="${clsName.replace('.', '_')}_${attribute.NameS()}" />
+    <h:message for="${clsName.replace('.', '_')}_${attribute.NameS()}" styleClass="errMessage" />
 #end 
 
 ## e.g values attribute - city clsName - customer.primaryAddress component-primaryAddress 
 #macro( assocInputHtm $assocName $clsName )
 		    <h:outputText value="${utils.getViewLabel($assocName)}" styleClass="formLabel" /> 
     <h:inputText id="${clsName.replace('.', '_')}_$assocName" value="#{${utils.asVariable($clazz.NameS() )}CrudBacking.$clsName.${assocName}.id}" ${utils.getRequired($attribute)} /> 
-    <h:message for="${clsName.replace('.', '_')}_$assocName" />
+    <h:message for="${clsName.replace('.', '_')}_$assocName" styleClass="errMessage" />
 #end 
 
 
@@ -53,6 +53,9 @@
 	template="/WEB-INF/template/templateCrud.xhtml">
 
 	<ui:define name="content">
+	
+			    <h:messages layout="list" globalOnly="true" showDetail="true" styleClass="messages" />
+	
     <f:view>
             <h:form id="form">
 				  				               <h:panelGrid columns="3" >
@@ -60,8 +63,7 @@
 				  				   ##set the current class name e.g. customer 
 				  #set($clsName = ${utils.asVariable($clazz.NameS() )} )             
 				  				               
-				  				               ## We need to have a hidden text field to store the id of the record being edited		
-				  				               			<h:inputHidden id="${clsName}_id" value="#{${clsName}CrudBacking.${clsName}.id}" />
+				  				              
 	 
 				 
 				  
@@ -70,8 +72,12 @@
   				#end			
 		  			
 		  	#generateAttributesForClass($clazz $clsName)      
+		  	
+		  		    ## We need to have a hidden text field to store the id of the record being edited		
+				  				     	<h:inputHidden id="${clsName}_id" value="#{${clsName}CrudBacking.${clsName}.id}" />
 		  
 		  							   <h:commandButton id="button1" value="Submit" action="#{${clsName}CrudBacking.update}"/> 
+		  							    <h:commandButton id="button2" value="Cancel" action="#{${clsName}CrudBacking.cancelUpdate}" immediate="true"/> 
 		  		
 				                  </h:panelGrid>
              </h:form>
