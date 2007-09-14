@@ -49,6 +49,12 @@ public class ViewLayerGenerator {
 		VelocityContext context = createVelocityContext(cls);
 		return VelocityTemplateMerger.merge(context, template);
 	}
+	
+	public static String getSearchPage(Class cls) {
+		String template= "templates/velocity/view/jsf/entitySearch.vm";
+		VelocityContext context = createVelocityContext(cls);
+		return VelocityTemplateMerger.merge(context, template);
+	}
 
 	/**
 	 * @returns a collection of the embeddable components of a given class

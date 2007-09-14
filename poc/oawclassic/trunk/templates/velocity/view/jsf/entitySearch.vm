@@ -1,3 +1,4 @@
+
 ##Generates attributes for the given class and all its components
 #macro(generateAttributesForClass $cls $clsName)
 	         		#generateAttributes($cls $clsName)
@@ -27,7 +28,7 @@
 ## e.g values attribute - city clsName - customer.primaryAddress component-primaryAddress 
 #macro( attributeInputHtm $attribute $clsName )
 		    <h:outputText value="${utils.getViewLabel($attribute)}" styleClass="formLabel" /> 
-    <${manager.getInputComponentType($attribute)} id="${clsName.replace('.', '_')}_${attribute.NameS()}" value="#{${utils.asVariable($clazz.NameS() )}CrudBacking.$clsName.${attribute.NameS()}}" ${utils.getRequired($attribute)} >
+    <${manager.getInputComponentType($attribute)} id="${clsName.replace('.', '_')}_${attribute.NameS()}" value="#{${utils.asVariable($clazz.NameS() )}CrudBacking.$clsName.${attribute.NameS()}}"  >
     			  ${manager.getInputComponentContent($attribute)}
     </${manager.getInputComponentType($attribute)}> 
     <h:message for="${clsName.replace('.', '_')}_${attribute.NameS()}" styleClass="errMessage" />
@@ -36,10 +37,9 @@
 ## e.g values attribute - city clsName - customer.primaryAddress component-primaryAddress 
 #macro( assocInputHtm $assocName $clsName )
 		    <h:outputText value="${utils.getViewLabel($assocName)}" styleClass="formLabel" /> 
-    <h:inputText id="${clsName.replace('.', '_')}_$assocName" value="#{${utils.asVariable($clazz.NameS() )}CrudBacking.$clsName.${assocName}.id}" ${utils.getRequired($attribute)} /> 
+    <h:inputText id="${clsName.replace('.', '_')}_$assocName" value="#{${utils.asVariable($clazz.NameS() )}CrudBacking.$clsName.${assocName}.id}"  /> 
     <h:message for="${clsName.replace('.', '_')}_$assocName" styleClass="errMessage" />
 #end 
-
 
 #include("templates/velocity/view/jsf/xmlns.vm")
 
@@ -51,25 +51,24 @@
             <h:form id="form">
 				  				               <h:panelGrid columns="3" styleClass="formTable" >
 				  				               <f:facet name="header">
-   					 	                 <h:outputText value="${clazz.NameS()} Information" styleClass="formHeaderText"/>
+   					 	                 <h:outputText value="${clazz.NameS()} Search" styleClass="formHeaderText"/>
   				               </f:facet>
-				  				               
+			               
+		  				               
 				  				   ##set the current class name e.g. customer 
 				  #set($clsName = ${utils.asVariable($clazz.NameS() )} )             
 				  				               
-				  				          
-				 
-				  #foreach( $superclass in ${manager.getSuperClasses($clazz)} )			
+							          
+		  #foreach( $superclass in ${manager.getSuperClasses($clazz)} )			
  		  	#generateAttributesForClass($superclass $clsName)       			
   				#end			
 		  			
 		  	#generateAttributesForClass($clazz $clsName)      
 		  	
 		  		
-		  							   <h:commandButton id="button1" value="Submit" action="#{${clsName}CrudBacking.update}"/> 
+		  							   <h:commandButton id="button1" value="Search" action="#{${clsName}CrudBacking.search}"/> 
 		  							    <h:commandButton id="button2" value="Cancel" action="#{${clsName}CrudBacking.cancelUpdate}" immediate="true"/> 
-		  				    ## We need to have a hidden text field to store the id of the record being edited		
-				  				     	<h:inputHidden id="${clsName}_id" value="#{${clsName}CrudBacking.${clsName}.id}" />
+		  				   
 		  		
 				                  </h:panelGrid>
              </h:form>
