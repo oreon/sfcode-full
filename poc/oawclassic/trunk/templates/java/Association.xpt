@@ -39,7 +39,7 @@ this.«asInstanceVar()».remove(«asParameter()»);
 }
 
 «IF Opposite.isNavigable »
-@OneToMany(mappedBy="«Opposite.asParameter()»", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+@OneToMany(mappedBy="«Opposite.asParameter()»", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 «ELSE»
 @OneToMany
 @JoinColumn(name="«Opposite.NameS»_ID", nullable=false)

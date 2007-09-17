@@ -18,6 +18,10 @@
 	import java.util.List;
 	import «packageName()».dao.«NameS»Dao;
 	
+	import org.hibernate.Criteria;
+	import org.hibernate.Session;
+	import org.hibernate.criterion.Example;
+	
 	public class «NameS»DaoImpl extends JpaDaoSupport implements «NameS»Dao {
 	
 			/**
@@ -55,6 +59,18 @@
 				}
 			«ENDFOREACH»
 			
+			public List<«NameS»> findByExample(«NameS» «asInstanceVar()») {
+				Criteria criteria = session.createCriteria(«NameS».class).add(
+				Example.create(customer)
+				.enableLike()
+				.ignoreCase()
+				.excludeZeroes()
+				.excludeProperty("dateModified")
+				.excludeProperty("dateCreated"));
+				return customers = criteria.list();
+		    }
+			
+			
 		} 
 	«ENDFILE»	
 	
@@ -83,6 +99,8 @@
 		    «FOREACH Findable AS e»
 				public List<«NameS»> findBy«e.NameS»(Object «e.NameS»);
 			«ENDFOREACH»
+			
+			public List<«NameS»> findByExample(«NameS» «asInstanceVar()»);
 	}		
 	
 	«ENDFILE»	
