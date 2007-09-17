@@ -61,13 +61,13 @@
 			
 			public List<«NameS»> findByExample(«NameS» «asInstanceVar()») {
 				Criteria criteria = session.createCriteria(«NameS».class).add(
-				Example.create(customer)
+				Example.create(«asInstanceVar()»)
 				.enableLike()
 				.ignoreCase()
 				.excludeZeroes()
 				.excludeProperty("dateModified")
 				.excludeProperty("dateCreated"));
-				return customers = criteria.list();
+				return criteria.list();
 		    }
 			
 			
