@@ -159,11 +159,12 @@
 	<managed-bean>
 		<managed-bean-name>«asInstanceVar()»CrudBacking</managed-bean-name>
 		<managed-bean-class>«Package.NameS».web.jsf.«NameS»BackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
 		<managed-property>
 			<property-name>«asInstanceVar()»Service</property-name>
 			<value>#{«asInstanceVar()»Service}</value>
 		</managed-property>
-		<managed-bean-scope>request</managed-bean-scope>
+		
 	</managed-bean> 
  	
 «ENDDEFINE»
@@ -201,6 +202,16 @@
 		  <navigation-case>
 		    <from-outcome>search</from-outcome>
 		    <to-view-id>/crud/«asInstanceVar()»Serach.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/«asInstanceVar()»Search.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/«asInstanceVar()»List.xhtml</to-view-id>
 		  </navigation-case>   
     
 	</navigation-rule>
