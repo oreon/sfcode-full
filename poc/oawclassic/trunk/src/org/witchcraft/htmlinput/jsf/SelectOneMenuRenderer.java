@@ -3,7 +3,7 @@ package org.witchcraft.htmlinput.jsf;
 import org.openarchitectureware.meta.uml.classifier.Attribute;
 import org.openarchitectureware.meta.uml.classifier.Enumeration;
 
-public class SelectOneMenuRenderer implements InputComponentRenderer{
+public class SelectOneMenuRenderer extends AbstractInputComponentRenderer{
 
 	public String getContent(Attribute attribute) {
 		// TODO Auto-generated method stub

@@ -25,6 +25,10 @@ import org.witchcraft.htmlinput.jsf.InputComponentFactory;
  * @author jsingh
  * 
  */
+/**
+ * @author jsingh
+ *
+ */
 public class ViewLayerGenerator {
 
 	// String templateFlie = "templates/velocity/view/xhtm.vm";
@@ -162,5 +166,14 @@ public class ViewLayerGenerator {
 	public static String getInputComponentType(Attribute attribute){
 		return InputComponentFactory.getRenderer(attribute).getType(attribute);
 	}
+	
+	/** Get the attributes for this component type
+	 * @param attribute
+	 * @return
+	 */
+	public static String getInputComponentAttributes(Attribute attribute){
+		return InputComponentFactory.getRenderer(attribute).getAttributes(attribute);
+	}
+	
 
 }

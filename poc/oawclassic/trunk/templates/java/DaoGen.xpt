@@ -22,7 +22,17 @@
 	import org.hibernate.Session;
 	import org.hibernate.criterion.Example;
 	
+	import org.hibernate.SessionFactory;
+	import org.hibernate.Transaction;
+	import org.springframework.orm.hibernate3.HibernateTemplate;
+	
 	public class «NameS»DaoImpl extends JpaDaoSupport implements «NameS»Dao {
+	
+			private HibernateTemplate hibernateTemplate;
+
+			public void setSessionFactory(SessionFactory sessionFactory) {
+				this.hibernateTemplate = new HibernateTemplate(sessionFactory);
+			}
 	
 			/**
 			* This method saves or updates the given entity based upon whether the id is null
@@ -59,18 +69,35 @@
 				}
 			«ENDFOREACH»
 			
-			public List<«NameS»> findByExample(«NameS» «asInstanceVar()») {
-				/*
-				Criteria criteria = session.createCriteria(«NameS».class).add(
-				Example.create(«asInstanceVar()»)
-				.enableLike()
-				.ignoreCase()
-				.excludeZeroes()
-				.excludeProperty("dateModified")
-				.excludeProperty("dateCreated"));
-				return criteria.list(); */ 
+			public List<«NameS»> searchByExample(«NameS» «asInstanceVar()») {
 				
-				return null;
+				Session session = hibernateTemplate.getSessionFactory().openSession();
+
+				try {
+		
+					Transaction tx = session.beginTransaction();
+				
+					Criteria criteria = session.createCriteria(«NameS».class).add(
+					Example.create(«asInstanceVar()»)
+					.enableLike()
+					.ignoreCase()
+					.excludeZeroes()
+					.excludeProperty("dateModified")
+					.excludeProperty("id")
+					.excludeProperty("dateCreated"));
+					
+					List<«NameS»> entities =  criteria.list();
+			
+					tx.commit();
+			
+					return entities;	
+				} catch (Throwable t) {
+					//TODO : Log error 
+					return null;
+				} finally {
+					session.close();
+				}
+				
 		    }
 			
 			
@@ -103,7 +130,7 @@
 				public List<«NameS»> findBy«e.NameS»(Object «e.NameS»);
 			«ENDFOREACH»
 			
-			public List<«NameS»> findByExample(«NameS» «asInstanceVar()»);
+			public List<«NameS»> searchByExample(«NameS» «asInstanceVar()»);
 	}		
 	
 	«ENDFILE»	

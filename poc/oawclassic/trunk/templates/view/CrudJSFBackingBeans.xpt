@@ -31,6 +31,10 @@
 			
 			private	«asParameter()»Service «asInstanceVar()»Service;
 			
+			private String action ; //whether action is search or update/add new 
+			
+			 private static final String SEARCH = "SEARCH";
+			
 			public void set«NameS»Service(«asParameter()»Service «asInstanceVar()»Service){
 				this.«asInstanceVar()»Service = «asInstanceVar()»Service;
 			}
@@ -75,6 +79,7 @@
 			}
 			
 			public String search(){
+				action=SEARCH;
 				return "search";
 			}
 			
@@ -111,11 +116,17 @@
 	    	«asInstanceVar()» = «asInstanceVar()»Service.load(id);
 	    }
 			
-			/**Get a list of all «asInstanceVar()»s 
+			/**Get a list of  «asInstanceVar()»s - if action is search , get a subset otherwise
+			* get all
             * @return - a list of «asInstanceVar()»s 
             */
-   			public List<«asParameter()»> get«asParameter()»s(){
-    			List<«asParameter()»> «asInstanceVar()»s = «asInstanceVar()»Service.loadAll();
+   			public List<«NameS»> get«asParameter()»s(){
+   				List<«NameS»> «asInstanceVar()»s = null; 
+		        if(action !=  null && action.equals(SEARCH))
+		        	«asInstanceVar()»s = «asInstanceVar()»Service.searchByExample(«asInstanceVar()»);
+		        else
+		        	«asInstanceVar()»s = «asInstanceVar()»Service.loadAll();
+   			
     			return «asInstanceVar()»s;
     		}
 	

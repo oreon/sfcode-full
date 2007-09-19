@@ -8,4 +8,14 @@ public abstract class AbstractInputComponentRenderer implements InputComponentRe
 		// TODO Auto-generated method stub
 		return "";
 	}
+
+	/** The additional attributes for the rendere 
+	 * @param attribute
+	 * @return nothing for default
+	 */
+	public String getAttributes(Attribute attribute) {
+		return "" ; // e.g renderAsPopup=\"true\" renderPopupButtonAsImage=\"true\"";
+	}
+	
+	
 }
