@@ -18,9 +18,10 @@
 	
 	import javax.faces.component.UIParameter;
 	import javax.faces.event.ActionEvent;
+	import javax.faces.context.FacesContext;
 	
 	import javax.faces.application.FacesMessage;
-	import org.apache.myfaces.context.FacesContextWrapper;
+	
 	import org.springframework.dao.DataAccessException;
 	
 	
@@ -50,7 +51,7 @@
 				try{
 		        «asInstanceVar()»Service.save(«asInstanceVar()»);
 		    	}catch(DataAccessException dae){
-		    		FacesContextWrapper.getCurrentInstance().addMessage
+		    		FacesContext.getCurrentInstance().addMessage
 		    			(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Update Error: " , dae.getMessage()));
 		    		return "failure";
 		    	}
@@ -65,7 +66,7 @@
 				try{
 		        «asInstanceVar()»Service.delete(«asInstanceVar()»);
 		    	}catch(DataAccessException dae){
-		    		FacesContextWrapper.getCurrentInstance().addMessage
+		    		FacesContext.getCurrentInstance().addMessage
 		    			(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Delete Error: " , dae.getMessage()));
 		    		return "failure";
 		    	}
