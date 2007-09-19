@@ -19,6 +19,29 @@
   <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>  
   <tx:annotation-driven/>  
   <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>  
-  <bean id="basicDAO" class="hibernate.mgr.BasicDao"/>  
-  <bean id="basicController" class="hibernate.mgr.BasicController"/> 
+  
+  <bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=org.hibernate.dialect.MySQLDialect
+			</value>
+		</property>
+ </bean>
+  
+  
+  <!-- Service Beans  -->  
+  <bean id="customerService" class="bizobjects.service.impl.CustomerServiceImpl"/>  
+  <bean id="employeeService" class="bizobjects.service.impl.EmployeeServiceImpl"/>  
+  <bean id="placedOrderService" class="bizobjects.service.impl.PlacedOrderServiceImpl"/>  
+  <bean id="productService" class="bizobjects.service.impl.ProductServiceImpl"/>  
+  <bean id="orderItemService" class="bizobjects.service.impl.OrderItemServiceImpl"/>  
+  <!-- Dao Beans  -->  
+  <bean id="customerDao" class="bizobjects.dao.impl.CustomerDaoImpl"/>  
+  <bean id="employeeDao" class="bizobjects.dao.impl.EmployeeDaoImpl"/>  
+  <bean id="placedOrderDao" class="bizobjects.dao.impl.PlacedOrderDaoImpl"/>  
+  <bean id="productDao" class="bizobjects.dao.impl.ProductDaoImpl"/>  
+  <bean id="orderItemDao" class="bizobjects.dao.impl.OrderItemDaoImpl"/> 
 </beans>
