@@ -18,6 +18,8 @@ import org.openarchitectureware.meta.uml.state.State;
 import org.openarchitectureware.meta.uml.state.StateMachine;
 import org.openarchitectureware.meta.uml.state.Transition;
 import org.witchcraft.htmlinput.jsf.InputComponentFactory;
+import org.witchcraft.htmlinput.jsf.InputComponentRenderer;
+import org.witchcraft.htmlinput.jsf.RenderContext;
 
 /**
  * To generate a basic view layer
@@ -159,21 +161,32 @@ public class ViewLayerGenerator {
 		System.out.println("-------------------------------------");
 	}
 	
-	public static String getInputComponentContent(Attribute attribute){
-		return InputComponentFactory.getRenderer(attribute).getContent(attribute);
+	public static String getInputComponentContent(Attribute attribute, RenderContext renderContext){
+		return InputComponentFactory.getRenderer(attribute, renderContext).getContent(attribute);
 	}
 	
-	public static String getInputComponentType(Attribute attribute){
-		return InputComponentFactory.getRenderer(attribute).getType(attribute);
+	public static String getInputComponentType(Attribute attribute, RenderContext renderContext){
+		return InputComponentFactory.getRenderer(attribute, renderContext).getType(attribute);
 	}
 	
 	/** Get the attributes for this component type
 	 * @param attribute
 	 * @return
 	 */
-	public static String getInputComponentAttributes(Attribute attribute){
-		return InputComponentFactory.getRenderer(attribute).getAttributes(attribute);
+	public static String getInputComponentAttributes(Attribute attribute, RenderContext renderContext){
+		return InputComponentFactory.getRenderer(attribute, renderContext).getAttributes(attribute);
 	}
 	
+	public static  InputComponentRenderer getInputComponent(Attribute attribute, RenderContext renderContext){
+		return InputComponentFactory.getRenderer(attribute, renderContext);
+	}
+	
+	public  RenderContext createSearchContext(){
+		return RenderContext.Search;
+	}
+	
+	public RenderContext createCreateContext(){
+		return RenderContext.Create;
+	}
 
 }

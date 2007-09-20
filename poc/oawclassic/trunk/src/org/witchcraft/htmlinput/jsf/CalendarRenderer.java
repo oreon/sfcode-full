@@ -11,7 +11,8 @@ public class CalendarRenderer extends AbstractInputComponentRenderer{
 	
 	public String getAttributes(Attribute attribute) {
 		// TODO Auto-generated method stub
-		return " renderAsPopup=\"true\" renderPopupButtonAsImage=\"true\" ";
+		return super.getAttributes(attribute) +  
+			" renderAsPopup=\"true\" renderPopupButtonAsImage=\"true\" ";
 	}
 
 }

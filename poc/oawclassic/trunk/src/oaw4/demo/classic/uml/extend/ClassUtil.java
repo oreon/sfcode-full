@@ -281,7 +281,7 @@ public class ClassUtil {
 	}
 
 	public static String getViewLabel(Attribute attribute){
-		return getViewLabelFromVariable(attribute.NameS()) + getIndicatorForRequiredAttribute(attribute) ;
+		return getViewLabelFromVariable(attribute.NameS()); //+ getIndicatorForRequiredAttribute(attribute) ;
 	}
 	
 	public static String getViewLabel(String name){
@@ -307,40 +307,7 @@ public class ClassUtil {
 		return WordUtils.capitalizeFully(varName);
 	}
 
-	/**
-	 * Will output a string "required=true" or blank depending upon whether a
-	 * variable is required or not.
-	 * 
-	 * @param attribute
-	 * @return
-	 */
-	public static String getRequired(Attribute attribute) {
-		return isAttributeRequired(attribute) ? " required=\"true\" ":"" ;
-	}
 	
-	/** Returns a required indicator (e.g "*" for mandatory fields )
-	 * @param attribute
-	 * @return
-	 */
-	private static String getIndicatorForRequiredAttribute(Attribute attribute) {
-		return isAttributeRequired(attribute) ? " * " : "";
-	}
-
-	/**
-	 * This function returns if the attribute must be supplied by user in the
-	 * user interface
-	 * 
-	 * @param attribute
-	 * @return
-	 */
-	public static boolean isAttributeRequired(Attribute attribute) {
-		boolean defRequired = false;
-		if (attribute instanceof Column) {
-			Column column = (Column) attribute;
-			return column.isNullable() ? false : true;
-		}
-		return defRequired;
-	}
 
 	/**
 	 * Makes the first letter small case

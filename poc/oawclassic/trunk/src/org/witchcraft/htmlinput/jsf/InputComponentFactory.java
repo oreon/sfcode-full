@@ -9,11 +9,13 @@ import org.openarchitectureware.meta.uml.classifier.Attribute;
  */
 public class InputComponentFactory {
 	
+
+	
 	/** Get the right renderer for this attribute type
 	 * @param attribute
 	 * @return
 	 */
-	public static InputComponentRenderer getRenderer(Attribute attribute){
+	public static InputComponentRenderer getRenderer(Attribute attribute, RenderContext renderContext){
 		if(attribute == null){
 			System.out.println("Warning : null attribute");
 		}
@@ -25,6 +27,20 @@ public class InputComponentFactory {
 			return null;
 		}
 		
+		InputComponentRenderer renderer =  getBasicRenderer(attribute, type);
+		
+		if(renderContext == RenderContext.Search)
+			return new SearchRendererDecorator(renderer);
+		
+		return renderer; //return default
+	}
+
+	/** The renderer returned form this class will be decorated by the public getrenderer method 
+	 * @param attribute
+	 * @param type
+	 * @return
+	 */
+	private static InputComponentRenderer getBasicRenderer(Attribute attribute, String type) {
 		//System.out.println("Getting textRenderer for attribute " + attribute.NameS() + " of type "  + attribute.Type().getMetaClass().getSimpleName());
 		if(type.equals("String")){
 			return new InputTextRenderer();
