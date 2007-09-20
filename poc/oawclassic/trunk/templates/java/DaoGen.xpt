@@ -71,34 +71,21 @@
 				}
 			«ENDFOREACH»
 			
-			public List<«NameS»> searchByExample(«NameS» «asInstanceVar()») {
+			public List<«NameS»> searchByExample(final «NameS» «asInstanceVar()») {
 				
-				Session session = hibernateTemplate.getSessionFactory().openSession();
+				return getJpaTemplate().executeFind(new JpaCallback() {
 
-				try {
+					public Object doInJpa(EntityManager em) throws PersistenceException {
+						Session session = (Session) em.getDelegate();
 		
-					Transaction tx = session.beginTransaction();
-				
-					Criteria criteria = session.createCriteria(«NameS».class).add(
-					Example.create(«asInstanceVar()»)
-					.enableLike(MatchMode.START)
-					.ignoreCase()
-					.excludeZeroes()
-					.excludeProperty("dateModified")
-					.excludeProperty("id")
-					.excludeProperty("dateCreated"));
-					
-					List<«NameS»> entities =  criteria.list();
-			
-					tx.commit();
-			
-					return entities;	
-				} catch (Throwable t) {
-					//TODO : Log error 
-					return null;
-				} finally {
-					session.close();
-				}
+						Criteria criteria = session.createCriteria(Customer.class).add(
+								Example.create(«asInstanceVar()»).enableLike(MatchMode.START)
+										.ignoreCase().excludeZeroes().excludeProperty(
+												"dateModified").excludeProperty("id")
+										.excludeProperty("dateCreated"));
+						return criteria.list();
+					}
+				});
 				
 		    }
 			
