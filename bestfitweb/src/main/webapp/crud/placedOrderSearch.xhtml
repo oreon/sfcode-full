@@ -1,11 +1,5 @@
   
 
- 
-
-
-
-
-
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -16,22 +10,22 @@
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	template="/WEB-INF/template/templateCrud.xhtml">
+
 	<ui:define name="content">
 	
 			    <h:messages layout="list" globalOnly="true" showDetail="true" styleClass="messages" />
 	
     <f:view>
-            <a4j:form id="form">
-            		  <rich:panel >
-				  				               <h:panelGrid columns="3" styleClass="formTable" >
+            <h:form id="form">
+				  				               <h:panelGrid columns="6" styleClass="formTable" >
 				  				               <f:facet name="header">
-   					 	                 <h:outputText value="PlacedOrder Information" styleClass="formHeaderText"/>
+   					 	                 <h:outputText value="PlacedOrder Search" styleClass="formHeaderText"/>
   				               </f:facet>
+			                             
+				  								            
 				  				               
-				  				   				  				               
-				  				          
-				 
-				  		  			
+							          
+		  		  			
 		  		         			  					  	  		    <h:outputText value="Remarks" styleClass="formLabel" /> 
 		        <h:inputText  required="false"  
     		     id="placedOrder_remarks" value="#{placedOrderCrudBacking.placedOrder.remarks}"  >
@@ -58,13 +52,12 @@
     <h:message for="placedOrder_customer" styleClass="errMessage" />
 		  	       			 		  	
 		  		
-		  							   <h:commandButton id="button1" value="Submit" action="#{placedOrderCrudBacking.update}"/> 
-		  							    <h:commandButton id="button2" value="Cancel" action="#{placedOrderCrudBacking.cancelUpdate}" immediate="true"/> 
-		  				    				  				     	<h:inputHidden id="placedOrder_id" value="#{placedOrderCrudBacking.placedOrder.id}" />
+		  							   <h:commandButton id="button1" value="Search" action="#{placedOrderCrudBacking.search}"/> 
+		  							    <h:commandButton id="button2" value="Cancel" action="#{placedOrderCrudBacking.cancelSearch}" immediate="true"/> 
+		  				   
 		  		
 				                  </h:panelGrid>
-				                   </rich:panel>
-             </a4j:form>
+             </h:form>
         </f:view>
     
     </ui:define>

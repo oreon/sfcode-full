@@ -1,0 +1,105 @@
+
+
+
+
+
+
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="/WEB-INF/template/templateCrud.xhtml">
+
+	<ui:define name="content">
+
+		<h:messages layout="list" globalOnly="true" showDetail="true"
+			styleClass="messages" />
+
+		<f:view>
+		  <h3> Search for a cusotmer </h3>
+			<h:form id="form">
+				<h:panelGrid columns="3">
+
+
+					<h:inputHidden id="customer_id"
+						value="#{customerCrudBacking.customer.id}" />
+
+
+
+					<h:outputText value="First Name" styleClass="formLabel" />
+					<h:inputText id="customer_firstName"
+						value="#{customerCrudBacking.customer.firstName}">
+
+					</h:inputText>
+					<h:message for="customer_firstName" styleClass="errMessage" />
+					<h:outputText value="Last Name" styleClass="formLabel" />
+					<h:inputText id="customer_lastName"
+						value="#{customerCrudBacking.customer.lastName}">
+
+					</h:inputText>
+					<h:message for="customer_lastName" styleClass="errMessage" />
+					<h:outputText value="Dob" styleClass="formLabel" />
+					<t:inputDate id="customer_dob"
+						value="#{customerCrudBacking.customer.dob}">
+
+					</t:inputDate>
+					<h:message for="customer_dob" styleClass="errMessage" />
+
+
+					<h:outputText value="Street Address" styleClass="formLabel" />
+					<h:inputText id="customer_primaryAddress_streetAddress"
+						value="#{customerCrudBacking.customer.primaryAddress.streetAddress}">
+
+					</h:inputText>
+					<h:message for="customer_primaryAddress_streetAddress"
+						styleClass="errMessage" />
+					<h:outputText value="City" styleClass="formLabel" />
+					<h:inputText id="customer_primaryAddress_city"
+						value="#{customerCrudBacking.customer.primaryAddress.city}">
+
+					</h:inputText>
+					<h:message for="customer_primaryAddress_city"
+						styleClass="errMessage" />
+					<h:outputText value="Zip" styleClass="formLabel" />
+					<h:inputText id="customer_primaryAddress_zip"
+						value="#{customerCrudBacking.customer.primaryAddress.zip}">
+
+					</h:inputText>
+					<h:message for="customer_primaryAddress_zip"
+						styleClass="errMessage" />
+					<h:outputText value="Email * " styleClass="formLabel" />
+					<h:inputText id="customer_primaryAddress_email"
+						value="#{customerCrudBacking.customer.primaryAddress.email}"
+						required="true">
+
+					</h:inputText>
+					<h:message for="customer_primaryAddress_email"
+						styleClass="errMessage" />
+
+
+					<h:outputText value="Remarks" styleClass="formLabel" />
+					<h:inputText id="customer_remarks"
+						value="#{customerCrudBacking.customer.remarks}">
+
+					</h:inputText>
+					<h:message for="customer_remarks" styleClass="errMessage" />
+
+
+
+
+					<h:commandButton id="button1" value="Submit"
+						action="#{customerCrudBacking.update}" />
+
+				</h:panelGrid>
+			</h:form>
+		</f:view>
+
+	</ui:define>
+</ui:composition>
+
+

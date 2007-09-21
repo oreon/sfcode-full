@@ -8,6 +8,7 @@
 
 
 
+
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -15,14 +16,16 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	template="/WEB-INF/template/templateCrud.xhtml">
-
 	<ui:define name="content">
 
     <f:view>
-            <h:form id="form">
+            <a4j:form id="form">
                           
-            <t:dataTable id="data" var="orderItem" value="#{orderItemCrudBacking. orderItems}" >
+            <t:dataTable id="data" var="orderItem" value="#{orderItemCrudBacking. orderItems}"
+            	  rows="30" rowClasses="odd, even" styleClass="dataTable" >
 		               
             
 				  		  			
@@ -44,7 +47,24 @@
 						   </t:column>
 		  						  	       
 		  	       		  	       
-		  	       		  
+		  	       		  	       			
+		  	       					  	       			 		  	        			   <t:column>
+				   <f:facet name="header">
+				     <t:commandSortHeader columnName="#{orderItem.product}" arrow="true">
+					       <t:outputText value="Product" />
+					     </t:commandSortHeader>
+				   </f:facet>
+				      <t:outputText value="#{orderItem.product.id}" />
+						   </t:column>
+		  	       					  	        			   <t:column>
+				   <f:facet name="header">
+				     <t:commandSortHeader columnName="#{orderItem.order}" arrow="true">
+					       <t:outputText value="Order" />
+					     </t:commandSortHeader>
+				   </f:facet>
+				      <t:outputText value="#{orderItem.order.id}" />
+						   </t:column>
+		  	       					  
 			  	   		<t:column>
 								                    <f:facet name="header">
 							                      <t:commandSortHeader columnName="id" arrow="true">
@@ -93,7 +113,13 @@
 					</f:facet>
 				</t:dataScroller>
 		
-		</h:form>
+		</a4j:form>
+		
+		<br/>
+		<hr/>
+		<a href="orderItem.jsf"> Add New </a>
+		<a href="orderItemSearch.jsf"> Search </a>
+				 	<hr/>
 	
   </f:view>
     </ui:define>

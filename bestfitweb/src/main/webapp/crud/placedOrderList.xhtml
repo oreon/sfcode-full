@@ -8,6 +8,7 @@
 
 
 
+
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -15,14 +16,16 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	template="/WEB-INF/template/templateCrud.xhtml">
-
 	<ui:define name="content">
 
     <f:view>
-            <h:form id="form">
+            <a4j:form id="form">
                           
-            <t:dataTable id="data" var="placedOrder" value="#{placedOrderCrudBacking. placedOrders}" >
+            <t:dataTable id="data" var="placedOrder" value="#{placedOrderCrudBacking. placedOrders}"
+            	  rows="30" rowClasses="odd, even" styleClass="dataTable" >
 		               
             
 				  		  			
@@ -52,7 +55,16 @@
 						   </t:column>
 		  						  	       
 		  	       		  	       
-		  	       		  
+		  	       		  	       			
+		  	       					  	       			 		  	        			   <t:column>
+				   <f:facet name="header">
+				     <t:commandSortHeader columnName="#{placedOrder.customer}" arrow="true">
+					       <t:outputText value="Customer" />
+					     </t:commandSortHeader>
+				   </f:facet>
+				      <t:outputText value="#{placedOrder.customer.id}" />
+						   </t:column>
+		  	       					  
 			  	   		<t:column>
 								                    <f:facet name="header">
 							                      <t:commandSortHeader columnName="id" arrow="true">
@@ -101,7 +113,13 @@
 					</f:facet>
 				</t:dataScroller>
 		
-		</h:form>
+		</a4j:form>
+		
+		<br/>
+		<hr/>
+		<a href="placedOrder.jsf"> Add New </a>
+		<a href="placedOrderSearch.jsf"> Search </a>
+				 	<hr/>
 	
   </f:view>
     </ui:define>

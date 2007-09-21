@@ -8,19 +8,22 @@
 
 	<table cellspacing="0" cellpadding="0" width="99%">
 		<tr>
-			<td><img src="/bestfitweb/images/parts/searchbar_begin.gif" width="6"
-				height="31" alt="" /></td>
+			<td><img src="/bestfitweb/images/parts/searchbar_begin.gif"
+				width="6" height="31" alt="" /></td>
 
 
 			<td width="100%"
 				style="background-image: url(/bestfitweb/images/parts/searchbar_bg.gif)">
 
+			<h:form>
 			<table width="100%">
 				<tr>
-					<td style='padding-top:2px' align="left"><img
-						src="/bestfitweb/images/icons/logout.gif" border="0" alt="Log out"
-						title="Log out" style='cursor:pointer' /> <a href="logout">Log
-					Out &lt;UserName&gt; </a></td>
+					<td style='padding-top:2px' align="left">
+						<img src="/bestfitweb/images/icons/logout.gif" border="0"
+							alt="Log out" title="Log out" style='cursor:pointer' />
+						<h:commandLink action="logout"
+							actionListener="#{authenticationController.logout}">Log
+					Out <h:outputText value=" " /> <h:outputText value="#{authenticationController.username}" /> </h:commandLink></td>
 
 					<td style='padding-top:2px' align="right"><input type="text" />
 					<a><img src="/bestfitweb/images/icons/search_icon.gif" alt="" /></a></td>
@@ -29,10 +32,11 @@
 						src="/bestfitweb/images/icons/help_icon.gif" alt="" /></a></td>
 				</tr>
 			</table>
+			</h:form>
 
 			</td>
-			<td><img src="/bestfitweb/images/parts/searchbar_end.gif" width="6"
-				height="31" alt="" /></td>
+			<td><img src="/bestfitweb/images/parts/searchbar_end.gif"
+				width="6" height="31" alt="" /></td>
 		</tr>
 	</table>
 </ui:composition>

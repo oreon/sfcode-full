@@ -8,6 +8,7 @@
 
 
 
+
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -15,138 +16,115 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	template="/WEB-INF/template/templateCrud.xhtml">
-
 	<ui:define name="content">
 
 		<f:view>
-			<h:form id="form">
+			<a4j:form id="form">
 
-				<t:dataTable id="data" var="customer"
-					value="#{customerCrudBacking. customers}" 
-					rows="30" rowClasses="odd, even" styleClass="dataTable" >
+				<rich:dataTable id="data"
+					onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+					cellpadding="0" cellspacing="0" width="700" border="0" var="customer"
+					rows="6" sortMode="single"
+					value="#{customerCrudBacking.customers}">
 
-
-					<t:column>
+					<rich:column sortable="true">
 						<f:facet name="header">
-							<t:commandSortHeader columnName="customer.firstName" arrow="true">
-								<t:outputText value="First Name" />
-							</t:commandSortHeader>
+							<h:outputText value="First Name" />
 						</f:facet>
-						<t:outputText value="#{customer.firstName}" />
-					</t:column>
-					<t:column>
+						<h:outputText value="#{customer.firstName}" />
+					</rich:column>
+					
+					<rich:column>
 						<f:facet name="header">
-							<t:commandSortHeader columnName="customer.lastName" arrow="true">
-								<t:outputText value="Last Name" />
-							</t:commandSortHeader>
+							<h:outputText value="Last Name" />
 						</f:facet>
-						<t:outputText value="#{customer.lastName}" />
-					</t:column>
-					<t:column>
+						<h:outputText value="#{customer.lastName}" />
+					</rich:column>
+					
+					<rich:column>
 						<f:facet name="header">
-							<t:commandSortHeader columnName="customer.dob" arrow="true">
-								<t:outputText value="Dob" />
-							</t:commandSortHeader>
+							<h:outputText value="Dob" />
 						</f:facet>
-						<t:outputText value="#{customer.dob}" />
-					</t:column>
+						<h:outputText value="#{customer.dob}" />
+					</rich:column>
 
 
-					<t:column>
+					<rich:column>
 						<f:facet name="header">
-							<t:commandSortHeader
-								columnName="customer.primaryAddress.streetAddress" arrow="true">
-								<t:outputText value="Street Address" />
-							</t:commandSortHeader>
+
+							<h:outputText value="Street Address" />
+
 						</f:facet>
-						<t:outputText value="#{customer.primaryAddress.streetAddress}" />
-					</t:column>
-					<t:column>
+						<h:outputText value="#{customer.primaryAddress.streetAddress}" />
+					</rich:column>
+					<rich:column>
 						<f:facet name="header">
-							<t:commandSortHeader columnName="customer.primaryAddress.city"
+							
 								arrow="true">
-								<t:outputText value="City" />
-							</t:commandSortHeader>
+								<h:outputText value="City" />
+
 						</f:facet>
-						<t:outputText value="#{customer.primaryAddress.city}" />
-					</t:column>
-					<t:column>
+						<h:outputText value="#{customer.primaryAddress.city}" />
+					</rich:column>
+					<rich:column>
 						<f:facet name="header">
-							<t:commandSortHeader columnName="customer.primaryAddress.zip"
+							
 								arrow="true">
-								<t:outputText value="Zip" />
-							</t:commandSortHeader>
+								<h:outputText value="Zip" />
+
 						</f:facet>
-						<t:outputText value="#{customer.primaryAddress.zip}" />
-					</t:column>
-					<t:column>
+						<h:outputText value="#{customer.primaryAddress.zip}" />
+					</rich:column>
+					<rich:column>
 						<f:facet name="header">
-							<t:commandSortHeader columnName="customer.primaryAddress.email"
+							
 								arrow="true">
-								<t:outputText value="Email" />
-							</t:commandSortHeader>
+								<h:outputText value="Email" />
+
 						</f:facet>
-						<t:outputText value="#{customer.primaryAddress.email}" />
-					</t:column>
+						<h:outputText value="#{customer.primaryAddress.email}" />
+					</rich:column>
 
-					<t:column>
+
+					<rich:column>
 						<f:facet name="header">
-							<t:commandSortHeader columnName="customer.remarks" arrow="true">
-								<t:outputText value="Remarks" />
-							</t:commandSortHeader>
+							<h:outputText value="Remarks" />
 						</f:facet>
-						<t:outputText value="#{customer.remarks}" />
-					</t:column>
+						<h:outputText value="#{customer.remarks}" />
+					</rich:column>
 
 
 
-					<t:column>
+
+					<rich:column>
 						<f:facet name="header">
-							<t:commandSortHeader columnName="id" arrow="true">
-								<t:outputText value=" " />
-							</t:commandSortHeader>
+
+							<h:outputText value=" " />
+
 						</f:facet>
 						<t:commandLink action="#{customerCrudBacking.select}"
 							actionListener="#{customerCrudBacking.selectEntity}">
-							<t:outputText value=" Edit " />
+							<h:outputText value=" Edit " />
 							<f:param id="editId" name="id" value="#{customer.id}" />
 						</t:commandLink>
-					</t:column>
+					</rich:column>
 
 
-				</t:dataTable>
+				</rich:dataTable>
+				 <rich:spacer height="30" />
+				 <rich:datascroller align="center"  for="data" maxPages="20" />
+				
+			</a4j:form>
 
-				<t:dataScroller id="scroll_1" for="data" fastStep="10"
-					pageCountVar="pageCount" pageIndexVar="pageIndex"
-					styleClass="scroller" paginator="true" paginatorMaxPages="9"
-					paginatorTableClass="paginator"
-					paginatorActiveColumnStyle="font-weight:bold;" immediate="true">
-					<f:facet name="first">
-						<t:graphicImage url="/images/dataScroller/arrow-first.gif"
-							border="1" />
-					</f:facet>
-					<f:facet name="last">
-						<t:graphicImage url="/images/dataScroller/arrow-last.gif"
-							border="1" />
-					</f:facet>
-					<f:facet name="previous">
-						<t:graphicImage url="/images/dataScroller/arrow-previous.gif"
-							border="1" />
-					</f:facet>
-					<f:facet name="next">
-						<t:graphicImage url="/images/dataScroller/arrow-next.gif"
-							border="1" />
-					</f:facet>
-					<f:facet name="fastforward">
-						<t:graphicImage url="/images/dataScroller/arrow-ff.gif" border="1" />
-					</f:facet>
-					<f:facet name="fastrewind">
-						<t:graphicImage url="/images/dataScroller/arrow-fr.gif" border="1" />
-					</f:facet>
-				</t:dataScroller>
-
-			</h:form>
+			<br />
+			<hr />
+			<a href="customer.jsf"> Add New </a>
+			<a href="customerSearch.jsf"> Search </a>
+			<hr />
 
 		</f:view>
 	</ui:define>

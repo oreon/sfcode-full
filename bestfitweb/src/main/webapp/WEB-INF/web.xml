@@ -1,10 +1,8 @@
-<?xml version="1.0"?>
-<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-	version="2.4">
-
-	<description>bestfitweb Web</description>
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>VMC</display-name>
 
 	<context-param>
 		<description>
@@ -14,102 +12,88 @@
 			/WEB-INF/faces-config.xml in here.
 		</description>
 		<param-name>javax.faces.CONFIG_FILES</param-name>
-		<param-value>/WEB-INF/genCrud-config.xml</param-value>
+		<param-value>/WEB-INF/genCrud-config.xml, </param-value>
 	</context-param>
 
-<!--  Need this for facelets integration with tomahawk -->
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:/applicationContext.xml, classpath:/securityContext.xml
+			/WEB-INF/remoting-servlet.xml
+		</param-value>
+	</context-param>
 	<context-param>
 		<param-name>facelets.LIBRARIES</param-name>
 		<param-value>/WEB-INF/tomahawk.taglib.xml</param-value>
 	</context-param>
-
-
-<!--  Need this for Srping integration -->
 	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
-			classpath:/applicationContext.xml
-		</param-value>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
 	</context-param>
+	<context-param>
+		<param-name>facelets.REFRESH_PERIOD</param-name>
+		<param-value>2</param-value>
+	</context-param>
+	<context-param>
+		<param-name>facelets.DEVELOPMENT</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>facelets.SKIP_COMMENTS</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>facelets.DEBUG</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>server</param-value>
+	</context-param>
+	<context-param>
+		<param-name>com.sun.faces.validateXml</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>com.sun.faces.verifyObjects</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>org.ajax4jsf.SKIN</param-name>
+		<param-value>blueSky</param-value>
+	</context-param>
+	<context-param>
+		<param-name>org.ajax4jsf.VIEW_HANDLERS</param-name>
+		<param-value>com.sun.facelets.FaceletViewHandler</param-value>
+	</context-param>
+	<context-param>
+		<param-name>org.ajax4jsf.COMPRESS_SCRIPT</param-name>
+		<param-value>false</param-value>
+	</context-param>
+
 	<listener>
 		<listener-class>
 			org.springframework.web.context.ContextLoaderListener
 		</listener-class>
 	</listener>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.request.RequestContextListener
+		</listener-class>
+	</listener>
 
 
-	<context-param>
-		<description>
-			State saving method: "client" or "server" (= default) See
-			JSF Specification 2.5.3
-		</description>
-		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-		<param-value>client</param-value>
-	</context-param>
-
-	<context-param>
-		<description>
-			This parameter tells MyFaces if javascript code should be
-			allowed in the rendered HTML output. If javascript is
-			allowed, command_link anchors will have javascript code that
-			submits the corresponding form. If javascript is not
-			allowed, the state saving info and nested parameters will be
-			added as url parameters. Default: "true"
-		</description>
-		<param-name>org.apache.myfaces.ALLOW_JAVASCRIPT</param-name>
-		<param-value>true</param-value>
-	</context-param>
-	<context-param>
-		<param-name>org.apache.myfaces.DETECT_JAVASCRIPT</param-name>
-		<param-value>false</param-value>
-	</context-param>
-	<context-param>
-		<description>
-			If true, rendered HTML code will be formatted, so that it is
-			"human readable". i.e. additional line separators and
-			whitespace will be written, that do not influence the HTML
-			code. Default: "true"
-		</description>
-		<param-name>org.apache.myfaces.PRETTY_HTML</param-name>
-		<param-value>true</param-value>
-	</context-param>
-	<context-param>
-		<param-name>javax.faces.request.charset</param-name>
-		<param-value>UTF-8</param-value>
-	</context-param>
-	<context-param>
-		<description>
-			Used for encrypting view state. Only relevant for client
-			side state saving. See MyFaces wiki/web site documentation
-			for instructions on how to configure an application for
-			diffenent encryption strengths.
-		</description>
-		<param-name>org.apache.myfaces.SECRET</param-name>
-		<param-value>NzY1NDMyMTA=</param-value>
-	</context-param>
-
-	<context-param>
-		<description>
-			Validate managed beans, navigation rules and ensure that
-			forms are not nested.
-		</description>
-		<param-name>org.apache.myfaces.VALIDATE</param-name>
-		<param-value>true</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
-		<param-value>.xhtml</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>facelets.DEVELOPMENT</param-name>
-		<param-value>true</param-value>
-	</context-param>
-
-	<!-- Extensions Filter -->
+	<!-- 
+	-->
 	<filter>
-		<filter-name>extensionsFilter</filter-name>
+		<display-name>Ajax4jsf Filter</display-name>
+		<filter-name>ajax4jsf</filter-name>
+		<filter-class>org.ajax4jsf.Filter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>MyFacesExtensionsFilter</filter-name>
 		<filter-class>
 			org.apache.myfaces.webapp.filter.ExtensionsFilter
 		</filter-class>
@@ -134,49 +118,74 @@
 		</init-param>
 	</filter>
 
-	<!--  
-		<filter>
-		<filter-name>RewriterFilter</filter-name>
-		<filter-class>cz.softeu.rewriter.RewriterFilter</filter-class>
-		</filter>
-		<filter-mapping>
-		<filter-name>RewriterFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-		</filter-mapping>
-	-->
 	<filter-mapping>
-		<filter-name>extensionsFilter</filter-name>
+		<filter-name>ajax4jsf</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>MyFacesExtensionsFilter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+	</filter-mapping>
+	<!-- extension mapping for serving page-independent resources (javascript, stylesheets, images, etc.)  -->
+	<filter-mapping>
+		<filter-name>MyFacesExtensionsFilter</filter-name>
+		<url-pattern>/faces/myFacesExtensionResource/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>MyFacesExtensionsFilter</filter-name>
 		<url-pattern>*.jsf</url-pattern>
 	</filter-mapping>
-	<filter-mapping>
-		<filter-name>extensionsFilter</filter-name>
-		<url-pattern>/faces/*</url-pattern>
-	</filter-mapping>
 
-	<!-- Listener, to allow serving MyFaces apps -->
-	<listener>
-		<listener-class>
-			org.apache.myfaces.webapp.StartupServletContextListener
-		</listener-class>
-	</listener>
-
-	<!-- Faces Servlet -->
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
-	<!-- Faces Servlet Mapping -->
+	<!--
+		<servlet>
+		<servlet-name>ChangeApplicationContextServlet</servlet-name>
+		<servlet-class>org.crank.core.spring.support.ChangeApplicationContextServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+		</servlet>
+	-->
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>/faces/*</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.jsf</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.faces</url-pattern>
+	</servlet-mapping>
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
 
-	<!-- Welcome files -->
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>index.html</welcome-file>
-	</welcome-file-list>
+	<filter>
+		<filter-name>Acegi Filter Chain Proxy</filter-name>
+		<filter-class>
+			org.acegisecurity.util.FilterToBeanProxy
+		</filter-class>
+		<init-param>
+			<param-name>targetClass</param-name>
+			<param-value>
+				org.acegisecurity.util.FilterChainProxy
+			</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>Acegi Filter Chain Proxy</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 </web-app>

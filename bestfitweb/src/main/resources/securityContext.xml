@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+                       "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+	
+
+	<bean id="acegiFilterChainProxy"
+		class="org.acegisecurity.util.FilterChainProxy">
+		<property name="filterInvocationDefinitionSource">
+			<value>
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				PATTERN_TYPE_APACHE_ANT 
+				/**=httpSessionContextIntegrationFilter,securityRequestFilter,exceptionTranslationFilter,filterSecurityInterceptor
+			</value>
+		</property>
+	</bean>
+	
+	<bean id="httpSessionContextIntegrationFilter"
+		class="org.acegisecurity.context.HttpSessionContextIntegrationFilter">
+		<property name="context">
+			<value>org.acegisecurity.context.SecurityContextImpl</value>
+		</property>
+	</bean>
+	
+	<bean id="securityRequestFilter"
+		class="org.acegisecurity.wrapper.SecurityContextHolderAwareRequestFilter" />
+	<bean id="exceptionTranslationFilter"
+		class="org.acegisecurity.ui.ExceptionTranslationFilter">
+		<property name="authenticationEntryPoint">
+			<bean
+				class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+				<property name="loginFormUrl">
+					<value>/login.jsf</value>
+				</property>
+				<property name="forceHttps">
+					<value>false</value>
+				</property>
+			</bean>
+		</property>
+		<property name="accessDeniedHandler">
+			<bean
+				class="org.acegisecurity.ui.AccessDeniedHandlerImpl">
+				<property name="errorPage">
+					<value>/accessDenied.jsf</value>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="filterSecurityInterceptor"
+		class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
+		<property name="authenticationManager">
+			<ref local="authenticationManager" />
+		</property>
+		<property name="accessDecisionManager">
+			<!--
+				The AffirmativeBased voter allows access if at least one voter votes
+				to grant access. Use the UnanimousBased voter if you only want to
+				grant access if no voter votes to deny access. -->
+			<bean class="org.acegisecurity.vote.AffirmativeBased">
+				<property name="decisionVoters">
+					<list>
+						<bean
+							class="org.acegisecurity.vote.RoleVoter">
+							<!--  Reset the role prefix to "", default is ROLE_ -->
+							<property name="rolePrefix">
+								<value>ROLE_</value>
+							</property>
+						</bean>
+						<!--
+							The authenticated voter grant access if e.g.
+							IS_AUTHENTICATED_FULLY is an attribute -->
+						<bean
+							class="org.acegisecurity.vote.AuthenticatedVoter" />
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="objectDefinitionSource">
+			<value>
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				PATTERN_TYPE_APACHE_ANT 
+			</value>
+		</property>
+	</bean>
+	
+	<bean class="org.acegisecurity.providers.ProviderManager"
+		id="authenticationManager">
+		<property name="providers">
+			<list>
+				<ref local="daoAuthenticationProvider" />
+				<bean
+					class="org.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
+					<property name="key" value="changeThis" />
+				</bean>
+				<bean
+					class="org.acegisecurity.providers.rememberme.RememberMeAuthenticationProvider">
+					<property name="key" value="changeThis" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean
+		class="org.acegisecurity.providers.dao.DaoAuthenticationProvider"
+		id="daoAuthenticationProvider">
+		<!--  <property name="userDetailsService" ref="asiDaoImpl" /> -->
+		<property name="userDetailsService" ref="inMemoryDaoImpl" /> 
+		<property name="userCache">
+			<bean
+				class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
+				<property name="cache">
+					<bean
+						class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+						<property name="cacheManager">
+							<bean
+								class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" />
+						</property>
+						<property name="cacheName" value="userCache" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	
+	<bean id="inMemoryDaoImpl"
+		class="org.acegisecurity.userdetails.memory.InMemoryDaoImpl">
+		<property name="userMap">
+			<value>
+				marissa=koala,ROLE_TELLER,ROLE_SUPERVISOR
+				dianne=emu,ROLE_TELLER scott=wombat,ROLE_TELLER
+				peter=opal,disabled,ROLE_TELLER
+			</value>
+		</property>
+	</bean>
+	
+	<!--  
+	<bean class="com.asi.bo.Users" id="asiDaoImpl" />
+	<bean class="org.acegisecurity.userdetails.jdbc.JdbcDaoImpl"
+		id="jdbcDaoImpl">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+	<bean class="org.springframework.jndi.JndiObjectFactoryBean"
+		id="dataSource">
+		<property name="jndiName" value="java:/comp/env/jdbc/ASi" />
+	</bean> 
+	-->
+	
+	<bean
+		class="org.acegisecurity.providers.anonymous.AnonymousProcessingFilter"
+		id="anonymousProcessingFilter">
+		<property name="key" value="anonymous" />
+		<property name="userAttribute"
+			value="anonymousUser,ROLE_ANONYMOUS" />
+	</bean>
+	<!-- This bean is optional; it isn't used by any other bean as it only listens and logs -->
+	<bean class="org.acegisecurity.event.authentication.LoggerListener"
+		id="loggerListener" />
+</beans>
