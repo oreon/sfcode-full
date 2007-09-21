@@ -1,10 +1,3 @@
-  
-
-
-
-
-
-
 
 
 
@@ -18,112 +11,121 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:authz="http://acegisecurity.org/authz" 
 	template="/WEB-INF/template/templateCrud.xhtml">
 	<ui:define name="content">
 
-    <f:view>
-            <a4j:form id="form">
-                          
-            <t:dataTable id="data" var="employee" value="#{employeeCrudBacking. employees}"
-            	  rows="30" rowClasses="odd, even" styleClass="dataTable" >
-		               
-            
-				   		  		         			  					  	  			   <t:column>
-				   <f:facet name="header">
-				     <t:commandSortHeader columnName="employee.firstName" arrow="true">
-					       <t:outputText value="First Name" />
-					     </t:commandSortHeader>
-				   </f:facet>
-				      <t:outputText value="#{employee.firstName}" />
-						   </t:column>
-		  						  	  			   <t:column>
-				   <f:facet name="header">
-				     <t:commandSortHeader columnName="employee.lastName" arrow="true">
-					       <t:outputText value="Last Name" />
-					     </t:commandSortHeader>
-				   </f:facet>
-				      <t:outputText value="#{employee.lastName}" />
-						   </t:column>
-		  						  	  			   <t:column>
-				   <f:facet name="header">
-				     <t:commandSortHeader columnName="employee.dob" arrow="true">
-					       <t:outputText value="Dob" />
-					     </t:commandSortHeader>
-				   </f:facet>
-				      <t:outputText value="#{employee.dob}" />
-						   </t:column>
-		  						  	       
-		  	       		  	       
-		  	       		  	        	  					  	  			   <t:column>
-				   <f:facet name="header">
-				     <t:commandSortHeader columnName="employee.primaryAddress.streetAddress" arrow="true">
-					       <t:outputText value="Street Address" />
-					     </t:commandSortHeader>
-				   </f:facet>
-				      <t:outputText value="#{employee.primaryAddress.streetAddress}" />
-						   </t:column>
-		  						  	  			   <t:column>
-				   <f:facet name="header">
-				     <t:commandSortHeader columnName="employee.primaryAddress.city" arrow="true">
-					       <t:outputText value="City" />
-					     </t:commandSortHeader>
-				   </f:facet>
-				      <t:outputText value="#{employee.primaryAddress.city}" />
-						   </t:column>
-		  						  	  			   <t:column>
-				   <f:facet name="header">
-				     <t:commandSortHeader columnName="employee.primaryAddress.zip" arrow="true">
-					       <t:outputText value="Zip" />
-					     </t:commandSortHeader>
-				   </f:facet>
-				      <t:outputText value="#{employee.primaryAddress.zip}" />
-						   </t:column>
-		  						  	  			   <t:column>
-				   <f:facet name="header">
-				     <t:commandSortHeader columnName="employee.primaryAddress.email" arrow="true">
-					       <t:outputText value="Email" />
-					     </t:commandSortHeader>
-				   </f:facet>
-				      <t:outputText value="#{employee.primaryAddress.email}" />
-						   </t:column>
-		  						  	       					  	       			
-		  	       					  	       			   						  			
-		  		         			  					  	  			   <t:column>
-				   <f:facet name="header">
-				     <t:commandSortHeader columnName="employee.code" arrow="true">
-					       <t:outputText value="Code" />
-					     </t:commandSortHeader>
-				   </f:facet>
-				      <t:outputText value="#{employee.code}" />
-						   </t:column>
-		  						  	       
-		  	       		  	       
-		  	       		  	       			
-		  	       					  	       			 		  
-			  	   		<t:column>
-								                    <f:facet name="header">
-							                      <t:commandSortHeader columnName="id" arrow="true">
-								                        <t:outputText value=" " />
-							                      </t:commandSortHeader>
-						                    </f:facet>
-						                    <t:commandLink action="#{employeeCrudBacking.select}"  
-						                            actionListener="#{employeeCrudBacking.selectEntity}"  >
-							                      <t:outputText value=" Edit " />
-							                      <f:param id="editId" 
-		                         	 						name="id" 
-    	 					                  value="#{employee.id}" />
-						                    </t:commandLink>
-					                </t:column>
-		             
-				
-		</t:dataTable>
-		
-					 			  <t:dataScroller id="scroll_1" for="data" fastStep="10"
+		<f:view>
+			<a4j:form id="form">
+
+				<t:dataTable id="data" var="employee"
+					value="#{employeeCrudBacking. employees}" rows="30"
+					rowClasses="odd, even" styleClass="dataTable">
+
+
+					<t:column>
+						<f:facet name="header">
+							<t:commandSortHeader columnName="employee.firstName" arrow="true">
+								<t:outputText value="First Name" />
+							</t:commandSortHeader>
+						</f:facet>
+						<t:outputText value="#{employee.firstName}" />
+					</t:column>
+					<t:column>
+						<f:facet name="header">
+							<t:commandSortHeader columnName="employee.lastName" arrow="true">
+								<t:outputText value="Last Name" />
+							</t:commandSortHeader>
+						</f:facet>
+						<t:outputText value="#{employee.lastName}" />
+					</t:column>
+					<t:column>
+						<f:facet name="header">
+							<t:commandSortHeader columnName="employee.dob" arrow="true">
+								<t:outputText value="Dob" />
+							</t:commandSortHeader>
+						</f:facet>
+						<t:outputText value="#{employee.dob}" />
+					</t:column>
+
+
+					<t:column>
+						<f:facet name="header">
+							<t:commandSortHeader
+								columnName="employee.primaryAddress.streetAddress" arrow="true">
+								<t:outputText value="Street Address" />
+							</t:commandSortHeader>
+						</f:facet>
+						<t:outputText value="#{employee.primaryAddress.streetAddress}" />
+					</t:column>
+					<t:column>
+						<f:facet name="header">
+							<t:commandSortHeader columnName="employee.primaryAddress.city"
+								arrow="true">
+								<t:outputText value="City" />
+							</t:commandSortHeader>
+						</f:facet>
+						<t:outputText value="#{employee.primaryAddress.city}" />
+					</t:column>
+					<t:column>
+						<f:facet name="header">
+							<t:commandSortHeader columnName="employee.primaryAddress.zip"
+								arrow="true">
+								<t:outputText value="Zip" />
+							</t:commandSortHeader>
+						</f:facet>
+						<t:outputText value="#{employee.primaryAddress.zip}" />
+					</t:column>
+					<t:column>
+						<f:facet name="header">
+							<t:commandSortHeader columnName="employee.primaryAddress.email"
+								arrow="true">
+								<t:outputText value="Email" />
+							</t:commandSortHeader>
+						</f:facet>
+						<t:outputText value="#{employee.primaryAddress.email}" />
+					</t:column>
+
+
+					<t:column>
+						<f:facet name="header">
+							<t:commandSortHeader columnName="employee.code" arrow="true">
+								<t:outputText value="Code" />
+							</t:commandSortHeader>
+						</f:facet>
+						<t:outputText value="#{employee.code}" />
+					</t:column>
+
+
+
+
+					<t:column>
+						<f:facet name="header">
+							<t:commandSortHeader columnName="id" arrow="true">
+								<t:outputText value=" " />
+							</t:commandSortHeader>
+						</f:facet>
+						
+						<authz:authorize ifAllGranted="ROLE_SUPERVISOR">
+						
+						<t:commandLink action="#{employeeCrudBacking.select}"
+							actionListener="#{employeeCrudBacking.selectEntity}">
+							<t:outputText value=" Edit " />
+							<f:param id="editId" name="id" value="#{employee.id}" />
+						</t:commandLink>
+						
+						</authz:authorize>
+						
+					</t:column>
+
+
+				</t:dataTable>
+
+				<t:dataScroller id="scroll_1" for="data" fastStep="10"
 					pageCountVar="pageCount" pageIndexVar="pageIndex"
 					styleClass="scroller" paginator="true" paginatorMaxPages="9"
 					paginatorTableClass="paginator"
-					paginatorActiveColumnStyle="font-weight:bold;" immediate="true"
-					>
+					paginatorActiveColumnStyle="font-weight:bold;" immediate="true">
 					<f:facet name="first">
 						<t:graphicImage url="/images/dataScroller/arrow-first.gif"
 							border="1" />
@@ -147,19 +149,19 @@
 						<t:graphicImage url="/images/dataScroller/arrow-fr.gif" border="1" />
 					</f:facet>
 				</t:dataScroller>
-		
-		</a4j:form>
-		
-		<br/>
-		<hr/>
-		<a href="employee.jsf"> Add New </a>
-		<a href="employeeSearch.jsf"> Search </a>
-				 	<hr/>
-	
-  </f:view>
-    </ui:define>
+
+			</a4j:form>
+
+			<br />
+			<hr />
+			<a href="employee.jsf"> Add New </a>
+			<a href="employeeSearch.jsf"> Search </a>
+			<hr />
+
+		</f:view>
+	</ui:define>
 </ui:composition>
 
 
 
-		
+
