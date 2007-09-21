@@ -1,96 +1,124 @@
 package bizobjects.web.jsf;
 
-import hibernate.mgr.IBasicController;
+import bizobjects.Customer;
+
+import bizobjects.service.CustomerService;
+
+import org.springframework.dao.DataAccessException;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIParameter;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.servlet.ServletContext;
 
-import org.apache.myfaces.context.FacesContextWrapper;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-
-import bizobjects.Customer;
 
 public class CustomerBackingBean {
-	private Customer customer = new Customer();
+    private static final String SEARCH = "SEARCH";
+    private Customer customer = new Customer();
+    private CustomerService customerService;
+    private String action; //whether action is search or update/add new 
 
-	public Customer getCustomer() {
-		return customer;
-	}
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
-	public void set(Customer customer) {
-		this.customer = customer;
-	}
+    public Customer getCustomer() {
+        return customer;
+    }
 
-	/**
-	 * Write values to the database
-	 * 
-	 * @return - a list of
-	 */
-	public String update() {
-		ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext
-			((ServletContext) FacesContextWrapper.getCurrentInstance().getExternalContext().getContext());
-		IBasicController controller = (IBasicController) context.getBean("basicController");
-		controller.save(customer);
-		return "success";
-	}
+    public void set(Customer customer) {
+        this.customer = customer;
+    }
 
-	public String select() {
-		return "edit";
-	}
+    /**Write values to the database
+    * @return - "success" if everthing goes fine
+    */
+    public String update() {
+        try {
+            customerService.save(customer);
+        } catch (DataAccessException dae) {
+            FacesContext.getCurrentInstance()
+                        .addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Update Error: ",
+                    dae.getMessage()));
 
-	/**
-	 * This action Listener Method is called when a row is clicked in the
-	 * dataTable
-	 * 
-	 * @param event
-	 *            contians the database id of the row being selected
-	 */
-	public void selectEntity(ActionEvent event) {
-		UIParameter component = (UIParameter) event.getComponent()
-				.findComponent("editId");
+            return "failure";
+        }
 
-		// parse the value of the UIParameter component
-		long id = Long.parseLong(component.getValue().toString());
-		
-		customer = getCustomers().get(0);
-	}
+        return "success";
+    }
 
-	private long count;
+    /**Write values to the database
+    * @return - "success" if everthing goes fine
+    */
+    public String delete() {
+        try {
+            customerService.delete(customer);
+        } catch (DataAccessException dae) {
+            FacesContext.getCurrentInstance()
+                        .addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Delete Error: ",
+                    dae.getMessage()));
 
-	/**
-	 * Get a list of all
-	 * 
-	 * @return
-	 */
-	public List<Customer> getCustomers() {
-		List<Customer> customers = new ArrayList<Customer>();
+            return "failure";
+        }
 
-		customers.add(createCustomer("Eric", "Regis"));
-		customers.add(createCustomer("Huy", "Mokys"));
-		customers.add(createCustomer("Levi", "Mokys"));
-		customers.add(createCustomer("Sukh", "Bal"));
-		customers.add(createCustomer("Amrita", "Bal"));
+        return "success";
+    }
 
-		return customers;
-	}
+    public String search() {
+        action = SEARCH;
 
-	/**
-	 * @param fn
-	 * @param ln
-	 * @return
-	 */
-	private Customer createCustomer(String fn, String ln) {
-		Customer cust = new Customer();
-		cust.setId(++count);
-		cust.setFirstName(fn);
-		cust.setLastName(ln);
-		cust.getPrimaryAddress().setCity("Burlington");
-		cust.getPrimaryAddress().setEmail("ton@yahoo.com");
-		return cust;
-	}
+        return "search";
+    }
+
+    /**If update is canceled we go to the listing page - invoked in response to clicking cancel
+    * on save/edit record form
+    * @return - "success" (always)
+    */
+    public String cancelUpdate() {
+        return "success";
+    }
+
+    /** Returns a success string upon selection of an entity in model - majority of work is done
+     * in the actionListener selectEntity
+    * @return - "success" if everthing goes fine
+    * @see -
+    */
+    public String select() {
+        return "edit";
+    }
+
+    /** This action Listener Method is called when a row is clicked in the dataTable
+     *
+     * @param event contians the database id of the row being selected
+     */
+    public void selectEntity(ActionEvent event) {
+        UIParameter component = (UIParameter) event.getComponent()
+                                                   .findComponent("editId");
+
+        // parse the value of the UIParameter component    	 
+        long id = Long.parseLong(component.getValue().toString());
+
+        customer = customerService.load(id);
+    }
+
+    /**Get a list of  customers - if action is search , get a subset otherwise
+    * get all
+    * @return - a list of customers
+    */
+    public List<Customer> getCustomers() {
+        List<Customer> customers = null;
+
+        if ((action != null) && action.equals(SEARCH)) {
+            customers = customerService.searchByExample(customer);
+        } else {
+            customers = customerService.loadAll();
+        }
+
+        return customers;
+    }
 }
