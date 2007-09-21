@@ -1,15 +1,12 @@
 package bizobjects;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 
 @Entity
 public class PlacedOrder extends org.witchcraft.model.support.BusinessEntity
     implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private String remarks;
     private String paymentMethod;
     private OrderStatus status = OrderStatus.NEW;
@@ -45,6 +42,7 @@ public class PlacedOrder extends org.witchcraft.model.support.BusinessEntity
     }
 
     @ManyToOne
+    @JoinColumn(name = "customer_ID", nullable = false)
     public bizobjects.Customer getCustomer() {
         return this.customer;
     }

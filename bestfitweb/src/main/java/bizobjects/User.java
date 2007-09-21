@@ -1,6 +1,7 @@
 package bizobjects;
 
-import javax.persistence.Transient;
+import javax.persistence.*;
+
 
 public interface User {
     @Transient

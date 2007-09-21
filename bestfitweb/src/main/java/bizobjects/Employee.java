@@ -1,11 +1,11 @@
 package bizobjects;
 
-import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 
 @Entity
 public class Employee extends Person implements java.io.Serializable, User {
+    private static final long serialVersionUID = 1L;
     private int code;
 
     public int getCode() {

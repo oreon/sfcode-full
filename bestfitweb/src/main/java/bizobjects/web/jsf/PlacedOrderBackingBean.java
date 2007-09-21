@@ -1,16 +1,29 @@
 package bizobjects.web.jsf;
 
+import bizobjects.PlacedOrder;
+
+import bizobjects.service.PlacedOrderService;
+
+import org.springframework.dao.DataAccessException;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIParameter;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-
-import bizobjects.PlacedOrder;
 
 
 public class PlacedOrderBackingBean {
+    private static final String SEARCH = "SEARCH";
     private PlacedOrder placedOrder = new PlacedOrder();
+    private PlacedOrderService placedOrderService;
+    private String action; //whether action is search or update/add new 
+
+    public void setPlacedOrderService(PlacedOrderService placedOrderService) {
+        this.placedOrderService = placedOrderService;
+    }
 
     public PlacedOrder getPlacedOrder() {
         return placedOrder;
@@ -21,12 +34,60 @@ public class PlacedOrderBackingBean {
     }
 
     /**Write values to the database
-    * @return - a list of
+    * @return - "success" if everthing goes fine
     */
     public String update() {
+        try {
+            placedOrderService.save(placedOrder);
+        } catch (DataAccessException dae) {
+            FacesContext.getCurrentInstance()
+                        .addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Update Error: ",
+                    dae.getMessage()));
+
+            return "failure";
+        }
+
         return "success";
     }
 
+    /**Write values to the database
+    * @return - "success" if everthing goes fine
+    */
+    public String delete() {
+        try {
+            placedOrderService.delete(placedOrder);
+        } catch (DataAccessException dae) {
+            FacesContext.getCurrentInstance()
+                        .addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Delete Error: ",
+                    dae.getMessage()));
+
+            return "failure";
+        }
+
+        return "success";
+    }
+
+    public String search() {
+        action = SEARCH;
+
+        return "search";
+    }
+
+    /**If update is canceled we go to the listing page - invoked in response to clicking cancel
+    * on save/edit record form
+    * @return - "success" (always)
+    */
+    public String cancelUpdate() {
+        return "success";
+    }
+
+    /** Returns a success string upon selection of an entity in model - majority of work is done
+     * in the actionListener selectEntity
+    * @return - "success" if everthing goes fine
+    * @see -
+    */
     public String select() {
         return "edit";
     }
@@ -41,13 +102,22 @@ public class PlacedOrderBackingBean {
 
         // parse the value of the UIParameter component    	 
         long id = Long.parseLong(component.getValue().toString());
+
+        placedOrder = placedOrderService.load(id);
     }
 
-    /**Get a list of all placedOrders
+    /**Get a list of  placedOrders - if action is search , get a subset otherwise
+    * get all
     * @return - a list of placedOrders
     */
     public List<PlacedOrder> getPlacedOrders() {
-        List<PlacedOrder> placedOrders = new ArrayList<PlacedOrder>();
+        List<PlacedOrder> placedOrders = null;
+
+        if ((action != null) && action.equals(SEARCH)) {
+            placedOrders = placedOrderService.searchByExample(placedOrder);
+        } else {
+            placedOrders = placedOrderService.loadAll();
+        }
 
         return placedOrders;
     }

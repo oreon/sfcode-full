@@ -1,12 +1,12 @@
 package bizobjects;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 
 @Entity
 public class OrderItem extends org.witchcraft.model.support.BusinessEntity
     implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private double salePrice;
     private int quantity = 1;
     private bizobjects.Product product;
@@ -32,6 +32,7 @@ public class OrderItem extends org.witchcraft.model.support.BusinessEntity
     }
 
     @ManyToOne
+    @JoinColumn(name = "product_ID", nullable = false)
     public bizobjects.Product getProduct() {
         return this.product;
     }

@@ -1,11 +1,12 @@
 package bizobjects;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 
 @Entity
 public class Product extends org.witchcraft.model.support.BusinessEntity
     implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private String name;
     private String brand;
     private double listPrice;

@@ -1,16 +1,12 @@
 package bizobjects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 
 /*Represents a customer - customer can log in and place orders.*/
 @Entity
 public class Customer extends Person implements java.io.Serializable, User {
+    private static final long serialVersionUID = 1L;
     private String remarks;
     private java.util.Set<bizobjects.PlacedOrder> orders = new java.util.HashSet<bizobjects.PlacedOrder>();
 
@@ -32,7 +28,7 @@ public class Customer extends Person implements java.io.Serializable, User {
         this.orders.remove(orders);
     }
 
-    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public java.util.Set<bizobjects.PlacedOrder> getOrders() {
         return this.orders;
     }
