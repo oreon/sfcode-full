@@ -14,20 +14,24 @@
 	package «packageName()».dao.impl;
 	
 	import «packageName()».«NameS»;
-	import org.springframework.orm.jpa.support.JpaDaoSupport;
-	import java.util.List;
 	import «packageName()».dao.«NameS»Dao;
+	
+	import java.util.List;
+
+	import javax.persistence.EntityManager;
+	import javax.persistence.PersistenceException;
 	
 	import org.hibernate.Criteria;
 	import org.hibernate.Session;
-	import org.hibernate.criterion.Example;
-	
-	
 	import org.hibernate.SessionFactory;
-	import org.hibernate.Transaction;
-	import org.springframework.orm.hibernate3.HibernateTemplate;
+	import org.hibernate.criterion.Example;
 	import org.hibernate.criterion.MatchMode;
+	import org.springframework.orm.hibernate3.HibernateTemplate;
+	import org.springframework.orm.jpa.JpaCallback;
+	import org.springframework.orm.jpa.support.JpaDaoSupport;
+	import org.springframework.stereotype.Repository;
 	
+	@Repository
 	public class «NameS»DaoImpl extends JpaDaoSupport implements «NameS»Dao {
 	
 			private HibernateTemplate hibernateTemplate;
@@ -78,7 +82,7 @@
 					public Object doInJpa(EntityManager em) throws PersistenceException {
 						Session session = (Session) em.getDelegate();
 		
-						Criteria criteria = session.createCriteria(Customer.class).add(
+						Criteria criteria = session.createCriteria(«NameS».class).add(
 								Example.create(«asInstanceVar()»).enableLike(MatchMode.START)
 										.ignoreCase().excludeZeroes().excludeProperty(
 												"dateModified").excludeProperty("id")

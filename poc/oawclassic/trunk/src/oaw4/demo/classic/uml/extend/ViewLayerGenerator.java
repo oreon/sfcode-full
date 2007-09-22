@@ -98,25 +98,6 @@ public class ViewLayerGenerator {
 		System.out.println("No id declared for this entity");
 		return null;
 	}
-
-	/**
-	 * @returns a collection of the all superclasses of the given class
-	 */
-	public Set<Class> getSuperClasses(Class cls) {
-
-		Set<Class> superClasses = new HashSet<Class>();
-
-		Class tempClass = cls;
-
-		// cls.NameS().
-
-		while (tempClass.hasSuperClass()) {
-			superClasses.add(tempClass.SuperClass());
-			tempClass = tempClass.SuperClass();
-		}
-
-		return superClasses;
-	}
 	
 	public static ElementSet getStates(StateMachine stateMachine){
 		ModelElementVisitor visitor = new TypeCollectingVisitor(stateMachine, State.class);

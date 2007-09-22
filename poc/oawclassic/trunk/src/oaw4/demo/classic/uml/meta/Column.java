@@ -12,7 +12,15 @@ public class Column extends Attribute{
 	private boolean nullable;
 	private String name;
 	private int maxLength;
+	private int minLength;
 	
+	
+	public int getMinLength() {
+		return minLength;
+	}
+	public void setMinLength(int minLength) {
+		this.minLength = minLength;
+	}
 	public int getMaxLength() {
 		return maxLength;
 	}

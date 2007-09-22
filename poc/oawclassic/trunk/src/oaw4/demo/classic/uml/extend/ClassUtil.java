@@ -17,6 +17,7 @@ import org.openarchitectureware.meta.uml.classifier.Interface;
 import org.openarchitectureware.meta.uml.classifier.Operation;
 import org.openarchitectureware.meta.uml.classifier.Package;
 import org.openarchitectureware.meta.uml.classifier.Parameter;
+import org.witchcraft.model.helper.ClassHelper;
 
 public class ClassUtil {
 
@@ -24,29 +25,11 @@ public class ClassUtil {
 
 	// Entity mappings for hibernate cfg
 	private static StringBuffer entityMappings = new StringBuffer();
-	
+
 	private static List<Entity> entities = new ArrayList<Entity>();
 
 	public static List<Entity> getEntities() {
 		return entities;
-	}
-
-	/**
-	 * Returns the package name of the given
-	 * 
-	 * @param cls
-	 * @return
-	 */
-	public static String getPackageName(Enumeration enm) {
-
-		String result = "";
-		/*
-		 * for (Package pck = (Package) enm.Namespace(); pck != null; pck =
-		 * pck.SuperPackage()) { result = pck.NameS() + (result.length() > 0 ?
-		 * "." + result : ""); }
-		 */
-
-		return enm.Namespace().NameS();
 	}
 
 	/**
@@ -64,6 +47,10 @@ public class ClassUtil {
 		}
 
 		return result;
+	}
+
+	public static String getPackageName(Enumeration enm) {
+		return enm.Namespace().NameS();
 	}
 
 	public static String operationHelper(Operation operation) {
@@ -120,8 +107,15 @@ public class ClassUtil {
 							+ interfaces.get(i).Name()));
 
 			for (int j = 0; j < operations.size(); j++) {
-				buffer.append(getOperationDeclaration(operations.get(j)));
-				buffer.append(getOperationBody(operations.get(j)));
+				Operation operation = operations.get(j);
+				if (!classContainsOperation(cls, operation)) { // if the
+																// operation is
+																// already
+																// implemented
+																// by the class
+					buffer.append(getOperationDeclaration(operation));
+					buffer.append(getOperationBody(operation));
+				}
 			}
 
 			buffer
@@ -132,6 +126,30 @@ public class ClassUtil {
 		}
 
 		return buffer.toString();
+	}
+
+	private static boolean classContainsOperation(Class cls, Operation operation) {
+		for (int j = 0; j < cls.Operation().size(); j++) {
+			Operation operationInClass = (Operation) cls.Operation().get(j);
+			if (operationInClass.Name().equals(operation.Name())) // TODO add
+																	// signature
+																	// comaprison
+				return true;
+		}
+		// For attributes we add getters and setters programatically
+		// We need to comapre these methods too
+		List<Attribute> attribs = ClassHelper.getAllAttributes(cls);
+		for (Attribute attribute : attribs) {
+			//System.out.println("Comparing " + operation.Name() + " with "
+			//		+ attribute.NameS());
+			if (operation.Name().equals(
+					ClassHelper.getterFor(attribute.NameS()))
+					|| operation.Name().equals(
+							ClassHelper.setterFor(attribute.NameS())))
+				return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -197,11 +215,11 @@ public class ClassUtil {
 			return "";
 
 		if (cls.getMetaClass().getSimpleName().equals("Entity")) {
-			
-//			This is a hack - we need to find a more elegant 
-//			way to get all entities form model
-			entities.add((Entity)cls); 
-			
+
+			// This is a hack - we need to find a more elegant
+			// way to get all entities form model
+			entities.add((Entity) cls);
+
 			entityMappings.append("<mapping class=\"" + fullyQualifiedName(cls)
 					+ "\"/>\n");
 			return "" /* "@Entity\n" */;
@@ -256,38 +274,47 @@ public class ClassUtil {
 		return cls.Package().NameS() + "." + cls.NameS();
 	}
 
-	/** REturn if manyto one applies 
+	/**
+	 * REturn if manyto one applies
+	 * 
 	 * @param ae
 	 * @return
 	 */
 	public static String manyToOne(AssociationEnd ae) {
-		if (StereoTypeManager.isEntity(ae.Class())){
-			String nullable = ae.MultiplicityMinAsInt() >= 1?"false":"true";
-			return "@ManyToOne\n @JoinColumn(name=\"" + ae.NameS() + "_ID\", nullable=" + nullable + ")" ;
-		}
-		else
+		if (StereoTypeManager.isEntity(ae.Class())) {
+			String nullable = ae.MultiplicityMinAsInt() >= 1 ? "false" : "true";
+			return "@ManyToOne\n @JoinColumn(name=\"" + ae.NameS()
+					+ "_ID\", nullable=" + nullable + ")";
+		} else
 			return "";
 	}
-	
-	/** For compositions with 1 multiplicity we instantiate the composed entity e.g
-	 * if Person contains address then we declare Address address = <b> new Address() </b>
-	 * @param ae 
+
+	/**
+	 * For compositions with 1 multiplicity we instantiate the composed entity
+	 * e.g if Person contains address then we declare Address address = <b> new
+	 * Address() </b>
+	 * 
+	 * @param ae
 	 * @return
 	 */
-	public static String getInstantiationIfComposition(AssociationEnd ae){
-		if(ae.Opposite().isComposition())
-			return " = new " + fullyQualifiedName(ae.Class()) +  "()";
-		return "";	
+	public static String getInstantiationIfComposition(AssociationEnd ae) {
+		if (ae.Opposite().isComposition())
+			return " = new " + fullyQualifiedName(ae.Class()) + "()";
+		return "";
 	}
 
-	public static String getViewLabel(Attribute attribute){
-		return getViewLabelFromVariable(attribute.NameS()); //+ getIndicatorForRequiredAttribute(attribute) ;
+	public static String getViewLabel(Attribute attribute) {
+		return getViewLabelFromVariable(attribute.NameS()); // +
+															// getIndicatorForRequiredAttribute(attribute)
+															// ;
 	}
-	
-	public static String getViewLabel(String name){
-		return getViewLabelFromVariable(name); //+ getIndicatorForRequiredAttribute(attribute) ;
+
+	public static String getViewLabel(String name) {
+		return getViewLabelFromVariable(name); // +
+												// getIndicatorForRequiredAttribute(attribute)
+												// ;
 	}
-	
+
 	/**
 	 * This function tries to split a camel case variable name into space
 	 * delimited user displayable string e.g.
@@ -295,8 +322,8 @@ public class ClassUtil {
 	 * @return input firstName - output First Name
 	 */
 	public static String getViewLabelFromVariable(String varName) {
-		if(varName == null){
-			System.out.println("Warn: null variable in getViewLabel " );
+		if (varName == null) {
+			System.out.println("Warn: null variable in getViewLabel ");
 			return "";
 		}
 		char[] characters = varName.toCharArray();
@@ -306,8 +333,6 @@ public class ClassUtil {
 		}
 		return WordUtils.capitalizeFully(varName);
 	}
-
-	
 
 	/**
 	 * Makes the first letter small case
@@ -330,4 +355,5 @@ public class ClassUtil {
 
 		return buffer.toString();
 	}
+
 }
