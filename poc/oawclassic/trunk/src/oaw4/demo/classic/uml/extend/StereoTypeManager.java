@@ -1,5 +1,6 @@
 package oaw4.demo.classic.uml.extend;
 
+import org.openarchitectureware.meta.uml.classifier.Attribute;
 import org.openarchitectureware.meta.uml.classifier.Class;
 
 /** This class mostly containly convenince methods to determine if 
@@ -24,5 +25,7 @@ public class StereoTypeManager {
 	public static boolean isEntity(Class cls) {
 		return cls.getMetaClass().getSimpleName().equals(ENTITY);
 	}
+	
+	
 
 }

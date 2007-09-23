@@ -1,4 +1,5 @@
 import org::openarchitectureware::meta::uml::classifier;
+import oaw4::demo::classic::uml::meta;
 extension java::NamingConventions;
 
 String fqn (AssociationEnd ae) : !ae.isMultiple ? ae.Class.fqn() + " " + ae.asInstanceVar()  + ae.getInstantiationIfComposition():
@@ -6,6 +7,10 @@ String fqn (AssociationEnd ae) : !ae.isMultiple ? ae.Class.fqn() + " " + ae.asIn
 
 String iterator (AssociationEnd ae) :
 "java.util.Iterator<"+ae.Class.fqn()+">";
+
+ElementSet getEmebeddedComponents(AbstractEntity entity):
+entity.AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable 
+				&& ae.Opposite.isComposition );
 
 String manyToOne(AssociationEnd ae) :
 JAVA oaw4.demo.classic.uml.extend.ClassUtil.manyToOne(org.openarchitectureware.meta.uml.classifier.AssociationEnd);

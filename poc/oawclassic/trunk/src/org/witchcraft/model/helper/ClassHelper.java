@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 import oaw4.demo.classic.uml.extend.GenericUtils;
+import oaw4.demo.classic.uml.extend.StereoTypeManager;
+import oaw4.demo.classic.uml.meta.Entity;
 
 import org.apache.commons.lang.StringUtils;
 import org.openarchitectureware.meta.uml.classifier.AssociationEnd;
@@ -56,6 +58,28 @@ public class ClassHelper {
 			attributes.add(attribute);
 		}
 		
+		return attributes;
+	}
+	
+	/** Return the unique attributes e.g (Email) - searches 
+	 * in the entity, superclasses and all embeddable components
+	 * @param cls
+	 * @return
+	 */
+	public static List getUnique(Entity cls){
+		List<Attribute> attributes = new ArrayList<Attribute>();
+		attributes.addAll(cls.Attribute());
+		//superclasses
+		for (Class superCls : getSuperClasses(cls)) {
+			attributes.addAll(superCls.Attribute());
+		}
+		//associations
+		for (Iterator iter = cls.AssociationEnd().iterator(); iter.hasNext();) {
+			AssociationEnd ae = (AssociationEnd) iter.next();
+			//if embeddable we need all the attributes of the contained class
+			if (StereoTypeManager.isEmbeddable(ae.Opposite().Class()))
+				attributes.addAll( ae.Opposite().Class().Attribute());
+		}
 		return attributes;
 	}
 	

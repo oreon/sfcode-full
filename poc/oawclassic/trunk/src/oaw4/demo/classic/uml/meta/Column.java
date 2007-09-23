@@ -13,8 +13,14 @@ public class Column extends Attribute{
 	private String name;
 	private int maxLength;
 	private int minLength;
+	private boolean searchable;
 	
-	
+	public boolean isSearchable() {
+		return searchable;
+	}
+	public void setSearchable(boolean searchable) {
+		this.searchable = searchable;
+	}
 	public int getMinLength() {
 		return minLength;
 	}

@@ -2,12 +2,16 @@
 «IMPORT oaw4::demo::classic::uml::meta»
 «IMPORT org::openarchitectureware::core::meta::core»
 «IMPORT java»
+
 «EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
 
 
 «DEFINE GenerateDao FOR Entity»
 	
 	«EXPAND GenerateDaoInterface»
+	
+	«LET NameS AS entityName»«ENDLET»
 	
 	«FILE packagePath()+"/dao/impl/"+NameS+"DaoImpl.java"»  
 
@@ -60,21 +64,25 @@
 				return getJpaTemplate().find(«NameS».class, id);
 			}
 			
-		    /* 
-			 * loads all records for this entity 
+		    /**
+			 * Loads all records for this entity 
 			 */
+			 @SuppressWarnings("unchecked")
 		    public List<«NameS»> loadAll() {
 		    	return getJpaTemplate().find("select «asInstanceVar()» from «NameS» «asInstanceVar()»");
 		    }
 			
 			//// FINDERS ///// 
 			
-			«FOREACH Findable AS e»
-				public List<«NameS»> findBy«e.NameS»(Object «e.NameS») { 
-					return getJpaTemplate().find("select c from «NameS» c where c.«e.NameS» = ?1",  «e.NameS»);
-				}
-			«ENDFOREACH»
+			«EXPAND FinderImpl(this, null) FOREACH Findable SEPARATOR ","»
 			
+			«EXPAND FinderImpl(this) FOREACH getEmebeddedComponents() SEPARATOR ","»
+				
+			«FOREACH SuperClasss AS e»
+					«EXPAND FinderImpl(this) FOREACH e.getEmebeddedComponents() SEPARATOR ","»			
+			«ENDFOREACH»	
+			
+			@SuppressWarnings("unchecked")
 			public List<«NameS»> searchByExample(final «NameS» «asInstanceVar()») {
 				
 				return getJpaTemplate().executeFind(new JpaCallback() {
@@ -100,6 +108,44 @@
 «ENDDEFINE»
 
 
+«DEFINE FinderImpl(AbstractEntity entity) FOR AssociationEnd»
+	//finders for «NameS»
+	«EXPAND FinderImpl (entity, NameS) FOREACH Class.Findable SEPARATOR ","»
+	
+«ENDDEFINE»
+
+
+«DEFINE FinderImpl(AbstractEntity entity, String embeddableName) FOR Column»
+	@SuppressWarnings("unchecked")
+	public
+		«IF isUnique»
+			«entity.NameS» findBy«NameS.toFirstUpper()»(«Type.NameS» «NameS») { 
+				List<«entity.NameS»> list = getJpaTemplate().find("select c from «entity.NameS» c where c.«embeddableName != null ? embeddableName + ".":""»«NameS» = ?1",  «NameS»);
+				return list.isEmpty()?null:list.get(0);
+			}		
+		«ELSE»
+			
+			List<«entity.NameS»> findBy«NameS.toFirstUpper()»(«Type.NameS» «NameS») { 
+				List<«entity.NameS»> list = getJpaTemplate().find("select c from «entity.NameS» c where c.«embeddableName != null ? embeddableName + ".":""»«NameS» = ?1",  «NameS»);
+				return list;
+			}		
+		«ENDIF»
+«ENDDEFINE»
+
+«DEFINE FinderDeclaration(AbstractEntity entity) FOR Column»
+	public
+		«IF isUnique»
+			«entity.NameS» findBy«NameS.toFirstUpper()»(«Type.NameS» «NameS»);
+		«ELSE»
+			List<«entity.NameS»> findBy«NameS.toFirstUpper()»(«Type.NameS» «NameS»);
+		«ENDIF»
+«ENDDEFINE»
+
+«DEFINE FinderDeclaration(AbstractEntity entity) FOR AssociationEnd»
+	«EXPAND FinderDeclaration (entity) FOREACH Class.Findable SEPARATOR ","»
+«ENDDEFINE»
+
+
 «DEFINE GenerateDaoInterface FOR Entity»
 	«FILE packagePath()+"/dao/"+NameS+"Dao.java"» 
 	
@@ -119,8 +165,12 @@
 			
 		    public List<«NameS»> loadAll();
 		    
-		    «FOREACH Findable AS e»
-				public List<«NameS»> findBy«e.NameS»(Object «e.NameS»);
+		    «EXPAND FinderDeclaration(this) FOREACH Findable »
+			
+			«EXPAND FinderDeclaration(this) FOREACH getEmebeddedComponents() »
+				
+			«FOREACH SuperClasss AS e»
+					«EXPAND FinderDeclaration(this) FOREACH e.getEmebeddedComponents() »			
 			«ENDFOREACH»
 			
 			public List<«NameS»> searchByExample(«NameS» «asInstanceVar()»);
@@ -194,10 +244,15 @@
 				//return null;
 			}
 			
-			«EXPAND GenerateFinderTest FOREACH Findable» 
+			«EXPAND FinderTest(this) FOREACH Findable »
+			
+			«EXPAND FinderTest(this) FOREACH getEmebeddedComponents() »
+				
+			«FOREACH SuperClasss AS e»
+					«EXPAND FinderTest(this) FOREACH e.getEmebeddedComponents() »			
+			«ENDFOREACH» 
 			
 			public void testSearchByExample(){
-				
 		    	«NameS» «asInstanceVar()» = new «NameS»();
 		    	//«asInstanceVar()».setFirstName("Eri");
 		    	List<«NameS»> «asInstanceVar()»s = «asInstanceVar()»Service.searchByExample(«asInstanceVar()»);
@@ -210,8 +265,25 @@
 	
 «ENDDEFINE»
 
-«DEFINE GenerateFinderTest FOR Findable»
-	public void testFindBy«NameS»() { }
+
+«DEFINE FinderTest(AbstractEntity entity) FOR Column»
+	public void testFindBy«NameS.toFirstUpper()»(«Type.NameS» «NameS»){
+		«IF isUnique»
+			assertNotNull("Couldn't find a «entity.NameS» with «NameS» XXX", «asInstanceVar()»Service.findBy«NameS»("XXX"));
+			assertNull("Found a «entity.NameS» with «NameS» YYY", «asInstanceVar()»Service.findBy«NameS»("YYY"));			
+		«ELSE»
+			List<«NameS»> «asInstanceVar()»s = «asInstanceVar()»Service.findBy«NameS»("XXX");
+		    assertTrue(!«asInstanceVar()»s.isEmpty()); 
+		    
+		    //negative test
+		    List<«NameS»> «asInstanceVar()»s = «asInstanceVar()»Service.findBy«NameS»("YYY");
+		    assertTrue(«asInstanceVar()»s.isEmpty()); 
+		«ENDIF»
+	}
+«ENDDEFINE»
+
+«DEFINE FinderTest(AbstractEntity entity) FOR AssociationEnd»
+	«EXPAND FinderTest (entity) FOREACH Class.Findable SEPARATOR ","»
 «ENDDEFINE»
 
 

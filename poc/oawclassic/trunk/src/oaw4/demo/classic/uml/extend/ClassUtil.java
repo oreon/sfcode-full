@@ -136,6 +136,7 @@ public class ClassUtil {
 																	// comaprison
 				return true;
 		}
+		
 		// For attributes we add getters and setters programatically
 		// We need to comapre these methods too
 		List<Attribute> attribs = ClassHelper.getAllAttributes(cls);

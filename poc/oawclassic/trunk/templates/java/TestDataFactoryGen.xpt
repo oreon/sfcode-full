@@ -1,0 +1,47 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+«EXTENSION java::NamingConventions»
+
+
+«DEFINE GenerateTestDataFactory FOR Model»
+	«FILE "../../test/java/" + "/testdata/" +  "TestDataFactory.java"»  
+
+	package testdata;
+	
+	«EXPAND GenImports FOREACH getEntities()»
+	import org.springframework.test.jpa.AbstractJpaTests;
+	import java.util.List;
+	
+	
+	public class TestDataFactory {
+       	«EXPAND GenerateTestDataFactory FOREACH getEntities()»
+    }
+	
+	«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE GenerateTestDataFactory FOR Entity»
+	public static «NameS» create«NameS»(){
+		«NameS» «asInstanceVar()» = new «NameS»();
+		«FOREACH Attribute AS attrib»
+			«asInstanceVar()».set«attrib.NameS»("«attrib.NameS»1");
+		«ENDFOREACH»
+		
+		return «asInstanceVar()»;
+	}
+«ENDDEFINE»
+
+«DEFINE GenImports FOR Entity»
+	import «packageName()».«NameS»;
+«ENDDEFINE»
+
+«DEFINE GenerateFinderTest FOR Findable»
+	public void testFindBy«NameS»() { }
+«ENDDEFINE»
+
+
+
+

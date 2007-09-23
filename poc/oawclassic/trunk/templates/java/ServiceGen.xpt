@@ -2,7 +2,9 @@
 «IMPORT oaw4::demo::classic::uml::meta»
 «IMPORT org::openarchitectureware::core::meta::core»
 «IMPORT java»
+
 «EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
 
 «REM» This artifact generates service layer interfaces and implementations.  «ENDREM»
 «DEFINE GenerateService FOR Entity»
@@ -54,10 +56,12 @@
 		    	return «asInstanceVar()»Dao.loadAll();
 		    }
 		    
-		    «FOREACH Findable AS e»
-				public List<«NameS»> findBy«e.NameS»(Object «e.NameS») { 
-					return «asInstanceVar()»Dao.findBy«e.NameS»(«e.NameS»);
-				}
+		   «EXPAND FinderDeclaration(this) FOREACH Findable »
+			
+			«EXPAND FinderDeclaration(this) FOREACH getEmebeddedComponents() »
+				
+			«FOREACH SuperClasss AS e»
+					«EXPAND FinderDeclaration(this) FOREACH e.getEmebeddedComponents() »			
 			«ENDFOREACH»
 			
 			public List<«NameS»> searchByExample(«NameS» «asInstanceVar()») {
@@ -74,6 +78,19 @@
 	«ENDFILE»	
 	
 «ENDDEFINE»
+
+«DEFINE FinderDeclaration(AbstractEntity entity) FOR Column»
+	public
+		« isUnique? entity.NameS : "List<" + entity.NameS + ">" »
+			findBy«NameS.toFirstUpper()»(«Type.NameS» «NameS»){
+			return «entity.asInstanceVar()»Dao.findBy«NameS.toFirstUpper()»(«NameS»);
+		}
+«ENDDEFINE»
+
+«DEFINE FinderDeclaration(AbstractEntity entity) FOR AssociationEnd»
+	«EXPAND FinderDeclaration (entity) FOREACH Class.Findable »
+«ENDDEFINE»
+
 
 
 «DEFINE GenerateServiceInterface FOR Entity»
