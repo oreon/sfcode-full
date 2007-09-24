@@ -142,21 +142,7 @@ public class ViewLayerGenerator {
 		System.out.println("-------------------------------------");
 	}
 	
-	public static String getInputComponentContent(Attribute attribute, RenderContext renderContext){
-		return InputComponentFactory.getRenderer(attribute, renderContext).getContent(attribute);
-	}
 	
-	public static String getInputComponentType(Attribute attribute, RenderContext renderContext){
-		return InputComponentFactory.getRenderer(attribute, renderContext).getType(attribute);
-	}
-	
-	/** Get the attributes for this component type
-	 * @param attribute
-	 * @return
-	 */
-	public static String getInputComponentAttributes(Attribute attribute, RenderContext renderContext){
-		return InputComponentFactory.getRenderer(attribute, renderContext).getAttributes(attribute);
-	}
 	
 	public static  InputComponentRenderer getInputComponent(Attribute attribute, RenderContext renderContext){
 		return InputComponentFactory.getRenderer(attribute, renderContext);
