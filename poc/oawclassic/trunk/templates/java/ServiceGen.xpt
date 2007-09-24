@@ -41,9 +41,42 @@
 			//// Delegate all crud operations to the Dao ////
 			
 			public «NameS» save(«NameS» «asInstanceVar()») {
+				«Unique.isEmpty?"":"checkUniqueConstraints("+asInstanceVar() +");"»
 				return «asInstanceVar()»Dao.save(«asInstanceVar()»);
 			}
 			
+			«IF !Unique.isEmpty»
+			
+			/** Before saving a record we need to ensure that no unique constraints
+			 * will be violated. 
+			 * @param customer
+			 */
+			private void checkUniqueConstraints(«NameS» «asInstanceVar()») {
+			«NameS»
+			«FOREACH Unique AS e»
+				 existing«NameS» = «asInstanceVar()»Dao.findBy«e.NameS.toFirstUpper()»
+					(«asInstanceVar()»«e.getContainerName == null?"":
+					".get" + e.getContainerName.toFirstUpper() + "()" »
+					.get«e.NameS.toFirstUpper()»());
+				ensureUnique(«asInstanceVar()», existing«NameS», "Entity.exists.with«e.NameS.toFirstUpper()»");
+			«ENDFOREACH»
+			}
+			
+			private void ensureUnique(«NameS» «asInstanceVar()», «NameS» existing«NameS», String exceptionId){
+				if (existing«NameS» == null)
+					return; //no customer exists with the given email - no need to check unique constraint violation
+				
+				if («asInstanceVar()».getId() == null) { // for a new entity
+						throw new RuntimeException(exceptionId);
+				}else{//for updating an existing entiy
+					if(existing«NameS».getId() != «asInstanceVar()».getId())
+						throw new RuntimeException(exceptionId);
+				}
+			
+			}
+			
+			«ENDIF»
+		
 			public void delete(«NameS» «asInstanceVar()») {
 				«asInstanceVar()»Dao.delete(«asInstanceVar()»);
 			}			
@@ -58,11 +91,6 @@
 		    
 		   «EXPAND FinderDeclaration(this) FOREACH Findable »
 			
-			«EXPAND FinderDeclaration(this) FOREACH getEmebeddedComponents() »
-				
-			«FOREACH SuperClasss AS e»
-					«EXPAND FinderDeclaration(this) FOREACH e.getEmebeddedComponents() »			
-			«ENDFOREACH»
 			
 			public List<«NameS»> searchByExample(«NameS» «asInstanceVar()») {
 				return «asInstanceVar()»Dao.searchByExample(«asInstanceVar()»);
@@ -86,11 +114,6 @@
 			return «entity.asInstanceVar()»Dao.findBy«NameS.toFirstUpper()»(«NameS»);
 		}
 «ENDDEFINE»
-
-«DEFINE FinderDeclaration(AbstractEntity entity) FOR AssociationEnd»
-	«EXPAND FinderDeclaration (entity) FOREACH Class.Findable »
-«ENDDEFINE»
-
 
 
 «DEFINE GenerateServiceInterface FOR Entity»

@@ -74,14 +74,8 @@
 			
 			//// FINDERS ///// 
 			
-			«EXPAND FinderImpl(this, null) FOREACH Findable SEPARATOR ","»
-			
-			«EXPAND FinderImpl(this) FOREACH getEmebeddedComponents() SEPARATOR ","»
-				
-			«FOREACH SuperClasss AS e»
-					«EXPAND FinderImpl(this) FOREACH e.getEmebeddedComponents() SEPARATOR ","»			
-			«ENDFOREACH»	
-			
+			«EXPAND FinderImpl(this) FOREACH Findable »
+					
 			@SuppressWarnings("unchecked")
 			public List<«NameS»> searchByExample(final «NameS» «asInstanceVar()») {
 				
@@ -108,25 +102,18 @@
 «ENDDEFINE»
 
 
-«DEFINE FinderImpl(AbstractEntity entity) FOR AssociationEnd»
-	//finders for «NameS»
-	«EXPAND FinderImpl (entity, NameS) FOREACH Class.Findable SEPARATOR ","»
-	
-«ENDDEFINE»
-
-
-«DEFINE FinderImpl(AbstractEntity entity, String embeddableName) FOR Column»
+«DEFINE FinderImpl(AbstractEntity entity) FOR Column»
 	@SuppressWarnings("unchecked")
 	public
 		«IF isUnique»
 			«entity.NameS» findBy«NameS.toFirstUpper()»(«Type.NameS» «NameS») { 
-				List<«entity.NameS»> list = getJpaTemplate().find("select c from «entity.NameS» c where c.«embeddableName != null ? embeddableName + ".":""»«NameS» = ?1",  «NameS»);
+				List<«entity.NameS»> list = getJpaTemplate().find("select c from «entity.NameS» c where c.«getContainerName != null ? getContainerName + ".":""»«NameS» = ?1",  «NameS»);
 				return list.isEmpty()?null:list.get(0);
 			}		
 		«ELSE»
 			
 			List<«entity.NameS»> findBy«NameS.toFirstUpper()»(«Type.NameS» «NameS») { 
-				List<«entity.NameS»> list = getJpaTemplate().find("select c from «entity.NameS» c where c.«embeddableName != null ? embeddableName + ".":""»«NameS» = ?1",  «NameS»);
+				List<«entity.NameS»> list = getJpaTemplate().find("select c from «entity.NameS» c where c.«getContainerName != null ? getContainerName + ".":""»«NameS» = ?1",  «NameS»);
 				return list;
 			}		
 		«ENDIF»
@@ -139,10 +126,6 @@
 		«ELSE»
 			List<«entity.NameS»> findBy«NameS.toFirstUpper()»(«Type.NameS» «NameS»);
 		«ENDIF»
-«ENDDEFINE»
-
-«DEFINE FinderDeclaration(AbstractEntity entity) FOR AssociationEnd»
-	«EXPAND FinderDeclaration (entity) FOREACH Class.Findable SEPARATOR ","»
 «ENDDEFINE»
 
 
@@ -166,12 +149,6 @@
 		    public List<«NameS»> loadAll();
 		    
 		    «EXPAND FinderDeclaration(this) FOREACH Findable »
-			
-			«EXPAND FinderDeclaration(this) FOREACH getEmebeddedComponents() »
-				
-			«FOREACH SuperClasss AS e»
-					«EXPAND FinderDeclaration(this) FOREACH e.getEmebeddedComponents() »			
-			«ENDFOREACH»
 			
 			public List<«NameS»> searchByExample(«NameS» «asInstanceVar()»);
 	}		
@@ -246,12 +223,6 @@
 			
 			«EXPAND FinderTest(this) FOREACH Findable »
 			
-			«EXPAND FinderTest(this) FOREACH getEmebeddedComponents() »
-				
-			«FOREACH SuperClasss AS e»
-					«EXPAND FinderTest(this) FOREACH e.getEmebeddedComponents() »			
-			«ENDFOREACH» 
-			
 			public void testSearchByExample(){
 		    	«NameS» «asInstanceVar()» = new «NameS»();
 		    	//«asInstanceVar()».setFirstName("Eri");
@@ -282,9 +253,6 @@
 	}
 «ENDDEFINE»
 
-«DEFINE FinderTest(AbstractEntity entity) FOR AssociationEnd»
-	«EXPAND FinderTest (entity) FOREACH Class.Findable SEPARATOR ","»
-«ENDDEFINE»
 
 
 

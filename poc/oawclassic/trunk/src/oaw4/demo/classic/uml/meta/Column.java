@@ -15,6 +15,9 @@ public class Column extends Attribute{
 	private int minLength;
 	private boolean searchable;
 	
+	
+	private String containerName;
+	
 	public boolean isSearchable() {
 		return searchable;
 	}
@@ -51,6 +54,12 @@ public class Column extends Attribute{
 	}
 	public void setUnique(boolean unique) {
 		this.unique = unique;
+	}
+	public String getContainerName() {
+		return containerName;
+	}
+	public void setContainerName(String containerName) {
+		this.containerName = containerName;
 	} 
 	
 
