@@ -8,10 +8,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-	xmlns:authz="http://acegisecurity.org/authz" 
+	
 	template="/WEB-INF/template/templateCrud.xhtml">
 	<ui:define name="content">
 
@@ -105,17 +106,17 @@
 								<t:outputText value=" " />
 							</t:commandSortHeader>
 						</f:facet>
-						
-						<authz:authorize ifAllGranted="ROLE_SUPERVISOR">
-						
+
+
+						<acegijsf:authorize ifAllGranted="ROLE_SUPERVISOR">
 						<t:commandLink action="#{employeeCrudBacking.select}"
 							actionListener="#{employeeCrudBacking.selectEntity}">
 							<t:outputText value=" Edit " />
 							<f:param id="editId" name="id" value="#{employee.id}" />
 						</t:commandLink>
-						
-						</authz:authorize>
-						
+						</acegijsf:authorize>
+
+
 					</t:column>
 
 
@@ -154,7 +155,9 @@
 
 			<br />
 			<hr />
-			<a href="employee.jsf"> Add New </a>
+			<acegijsf:authorize ifAllGranted="ROLE_SUPERVISOR">
+				<a href="employee.jsf"> Add New </a>
+			</acegijsf:authorize>
 			<a href="employeeSearch.jsf"> Search </a>
 			<hr />
 

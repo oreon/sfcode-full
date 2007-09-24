@@ -74,7 +74,7 @@ public class CustomerDaoImpl extends JpaDaoSupport implements CustomerDao {
 
 			public Object doInJpa(EntityManager em) throws PersistenceException {
 				Session session = (Session) em.getDelegate();
-
+	
 				Criteria criteria = session.createCriteria(Customer.class).add(
 						Example.create(customer).enableLike(MatchMode.START)
 								.ignoreCase().excludeZeroes().excludeProperty(

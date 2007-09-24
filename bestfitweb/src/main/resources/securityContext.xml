@@ -2,26 +2,26 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
                        "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
-	
+
 
 	<bean id="acegiFilterChainProxy"
 		class="org.acegisecurity.util.FilterChainProxy">
 		<property name="filterInvocationDefinitionSource">
 			<value>
 				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-				PATTERN_TYPE_APACHE_ANT 
+				PATTERN_TYPE_APACHE_ANT
 				/**=httpSessionContextIntegrationFilter,securityRequestFilter,exceptionTranslationFilter,filterSecurityInterceptor
 			</value>
 		</property>
 	</bean>
-	
+
 	<bean id="httpSessionContextIntegrationFilter"
 		class="org.acegisecurity.context.HttpSessionContextIntegrationFilter">
 		<property name="context">
 			<value>org.acegisecurity.context.SecurityContextImpl</value>
 		</property>
 	</bean>
-	
+
 	<bean id="securityRequestFilter"
 		class="org.acegisecurity.wrapper.SecurityContextHolderAwareRequestFilter" />
 	<bean id="exceptionTranslationFilter"
@@ -79,11 +79,15 @@
 		<property name="objectDefinitionSource">
 			<value>
 				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-				PATTERN_TYPE_APACHE_ANT 
+				PATTERN_TYPE_APACHE_ANT
+				/admin/**=ROLE_ADMINISTRATOR
+				/crud/**=ROLE_TELLER, ROLE_SUPERVISOR
+			      /menu.jsp=ROLE_REQUESTER
+			      
 			</value>
 		</property>
 	</bean>
-	
+
 	<bean class="org.acegisecurity.providers.ProviderManager"
 		id="authenticationManager">
 		<property name="providers">
@@ -100,12 +104,12 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean
 		class="org.acegisecurity.providers.dao.DaoAuthenticationProvider"
 		id="daoAuthenticationProvider">
-		<!--  <property name="userDetailsService" ref="asiDaoImpl" /> -->
-		<property name="userDetailsService" ref="inMemoryDaoImpl" /> 
+			  <property name="userDetailsService" ref="userDetailsService" />
+			 <!--   <property name="userDetailsService" ref="inMemoryDaoImpl" /> -->
 		<property name="userCache">
 			<bean
 				class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
@@ -122,8 +126,8 @@
 			</bean>
 		</property>
 	</bean>
-	
-	
+
+
 	<bean id="inMemoryDaoImpl"
 		class="org.acegisecurity.userdetails.memory.InMemoryDaoImpl">
 		<property name="userMap">
@@ -134,21 +138,31 @@
 			</value>
 		</property>
 	</bean>
-	
-	<!--  
-	<bean class="com.asi.bo.Users" id="asiDaoImpl" />
-	<bean class="org.acegisecurity.userdetails.jdbc.JdbcDaoImpl"
-		id="jdbcDaoImpl">
+
+	<bean id="userDetailsService" class="org.witchcraft.model.support.AuthenticationJdbcDaoImpl">
 		<property name="dataSource">
 			<ref bean="dataSource" />
 		</property>
+	<!--  
+		<property name="entityManagerFactory">
+			<ref bean="dataSource" />
+		</property> -->
 	</bean>
-	<bean class="org.springframework.jndi.JndiObjectFactoryBean"
+
+	<!--  
+		<bean class="com.asi.bo.Users" id="asiDaoImpl" />
+		<bean class="org.acegisecurity.userdetails.jdbc.JdbcDaoImpl"
+		id="jdbcDaoImpl">
+		<property name="dataSource">
+		<ref bean="dataSource" />
+		</property>
+		</bean>
+		<bean class="org.springframework.jndi.JndiObjectFactoryBean"
 		id="dataSource">
 		<property name="jndiName" value="java:/comp/env/jdbc/ASi" />
-	</bean> 
+		</bean> 
 	-->
-	
+
 	<bean
 		class="org.acegisecurity.providers.anonymous.AnonymousProcessingFilter"
 		id="anonymousProcessingFilter">

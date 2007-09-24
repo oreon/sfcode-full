@@ -12,20 +12,22 @@
 			/WEB-INF/faces-config.xml in here.
 		</description>
 		<param-name>javax.faces.CONFIG_FILES</param-name>
-		<param-value>/WEB-INF/genCrud-config.xml </param-value>
+		<param-value>/WEB-INF/genCrud-config.xml</param-value>
 	</context-param>
 
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			classpath:/applicationContext.xml, classpath:/securityContext.xml
-			/WEB-INF/remoting-servlet.xml
+			classpath:/applicationContext.xml,
+			classpath:/securityContext.xml /WEB-INF/remoting-servlet.xml
 		</param-value>
 	</context-param>
 	<context-param>
 		<param-name>facelets.LIBRARIES</param-name>
-		<param-value>/WEB-INF/tomahawk.taglib.xml, /WEB-INF/acegi.taglib.xml</param-value>
+		<param-value>
+			/WEB-INF/acegijsf.taglib.xml; /WEB-INF/tomahawk.taglib.xml
+		</param-value>
 	</context-param>
 	<context-param>
 		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
@@ -186,6 +188,10 @@
 	<filter-mapping>
 		<filter-name>Acegi Filter Chain Proxy</filter-name>
 		<url-pattern>/*</url-pattern>
+	<!-- 	
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+	 -->
 	</filter-mapping>
 
 </web-app>

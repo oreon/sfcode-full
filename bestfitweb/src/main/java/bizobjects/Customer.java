@@ -2,6 +2,8 @@ package bizobjects;
 
 import javax.persistence.*;
 
+import org.witchcraft.model.support.User;
+
 
 /*Represents a customer - customer can log in and place orders.*/
 @Entity
