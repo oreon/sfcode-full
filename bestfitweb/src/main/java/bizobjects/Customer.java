@@ -5,12 +5,25 @@ import javax.persistence.*;
 
 /*Represents a customer - customer can log in and place orders.*/
 @Entity
-public class Customer extends Person implements java.io.Serializable, User {
+public class Customer extends Person implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
     private String remarks;
     private java.util.Set<bizobjects.PlacedOrder> orders = new java.util.HashSet<bizobjects.PlacedOrder>();
 
-    @Column(nullable = true, unique = false)
+   
+    private User userAccount;
+    
+    @OneToOne
+    @JoinColumn(name = "user_ID", nullable = false)
+    public User getUserAccount() {
+		return userAccount;
+	}
+
+	public void setUserAccount(User userAccount) {
+		this.userAccount = userAccount;
+	}
+
+	@Column(nullable = true, unique = false)
     public String getRemarks() {
         return this.remarks;
     }
@@ -42,27 +55,5 @@ public class Customer extends Person implements java.io.Serializable, User {
         return this.orders.iterator();
     }
 
-    //Implementing interface User
-    @Transient
-    public String getUserId() {
-        return null;
-
-        //should return String
-    }
-
-    @Transient
-    public String getPassword() {
-        return null;
-
-        //should return String
-    }
-
-    @Transient
-    public String getRole() {
-        return null;
-
-        //should return String
-    }
-
-    //*****Done Implementing interface User ****
+   
 }
