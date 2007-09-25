@@ -9,7 +9,6 @@ public abstract class AbstractInputComponentRenderer implements InputComponentRe
 	private RenderContext renderContext;
 	
 	public String getContent(Attribute attribute) {
-		// TODO Auto-generated method stub
 		return "";
 	}
 

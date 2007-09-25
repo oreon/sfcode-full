@@ -20,20 +20,17 @@ public abstract class AbstractEntity extends
 		for (Object object : attributes) {
 			Attribute attribute = (Attribute) object;
 
-			if (attribute.getMetaClass().getSimpleName().equals("Column")) // TODO
-				// hardocoding
-				// -
-				// find
-				// a
-				// better
-				// way
+			// TODO hardocoding find a better way to determine this
+			if (isAttributeColumn(attribute))
 				columns.add(attribute);
 		}
-		
+
 		return columns;
 	}
 
-	
+	private boolean isAttributeColumn(Attribute attribute) {
+		return attribute.getMetaClass().getSimpleName().equals("Column");
+	}
 
 	/**
 	 * @return - All columns which have searchable set to true
@@ -77,13 +74,7 @@ public abstract class AbstractEntity extends
 	 * @return
 	 */
 	public ElementSet getAllAttributes() {
-		ElementSet attributes = new ElementSet();
-		Class cls = this;
-
-		do {
-			attributes.addAll(cls.Attribute());
-			cls = cls.SuperClass();
-		} while (cls != null);
+		ElementSet attributes = getAttributesForThisClassAndSuperClasses();
 
 		ElementSet embeddables = getAllContianedAssociations();
 
@@ -94,6 +85,37 @@ public abstract class AbstractEntity extends
 
 		System.out.println(NameS() + " has " + attributes.size());
 		return attributes;
+	}
+
+	private ElementSet getAttributesForThisClassAndSuperClasses() {
+		ElementSet attributes = new ElementSet();
+		Class cls = this;
+
+		do {
+			attributes.addAll(cls.Attribute());
+			cls = cls.SuperClass();
+		} while (cls != null);
+		return attributes;
+	}
+
+	/**
+	 * This method returns all attributes which are not Columns
+	 * superclasses
+	 * 
+	 * @return
+	 */
+	public ElementSet NonColumnAttribute() {
+		ElementSet attributes = getAttributesForThisClassAndSuperClasses();
+		ElementSet nonColAttribs = new ElementSet();
+
+		for (Object object : attributes) {
+			Attribute attribute = (Attribute) object;
+
+			if (!isAttributeColumn(attribute))
+				nonColAttribs.add(attribute);
+		}
+
+		return nonColAttribs;
 	}
 
 	/**
@@ -118,7 +140,7 @@ public abstract class AbstractEntity extends
 		ElementSet embeddables = new ElementSet();
 		for (Object object : associations) {
 			AssociationEnd ae = (AssociationEnd) object;
-			
+
 			if ((!ae.isMultiple()) && ae.Opposite().isNavigable()
 					&& ae.isComposition()) {
 				embeddables.add(ae.Opposite());
@@ -126,10 +148,11 @@ public abstract class AbstractEntity extends
 				ElementSet attribs = ae.Opposite().Class().Attribute();
 				for (int i = 0; i < attribs.size(); i++) {
 					Attribute attrib = (Attribute) attribs.get(i);
-					if(attrib instanceof Column){
-						((Column)attrib).setContainerName(ae.Opposite().NameS());
+					if (attrib instanceof Column) {
+						((Column) attrib).setContainerName(ae.Opposite()
+								.NameS());
 					}
-					
+
 				}
 			}
 		}

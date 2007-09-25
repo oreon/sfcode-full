@@ -1,6 +1,7 @@
 «IMPORT org::openarchitectureware::core::meta::core»
 «IMPORT org::openarchitectureware::meta::uml::classifier»
 «IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::meta::uml»
 
 «DEFINE Root FOR Model»
 	«EXPAND Root FOREACH OwnedElement»
@@ -31,6 +32,10 @@
 	«IF ! NameS.startsWith("java")»
 		«EXPAND java::JavaBean::BeanClass»
 	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE Root FOR Actor»
+	Handling usecase «NameS»
 «ENDDEFINE»
 
 «DEFINE Root FOR Enumeration»

@@ -20,7 +20,49 @@ public class InputTextRenderer extends AbstractInputComponentRenderer {
 	public String getContent(Attribute attribute){
 		if(attribute instanceof Column ){
 			Column column = (Column) attribute;
+			
+			String columnType = column.Type().NameS();
+			String validatorType = getValidatorType(columnType);
+			
+			int min = column.getMinLength();
+			int max = column.getMaxLength();
+			
+			if(validatorType != null)
+			return "<" + validatorType + ((min > 0 )?" minimum=\""  + min + "\"":"")
+			+ ((max > 0 )?" maximum=\""  + max:"") + 
+					"\" >";
+			
 		}
 		return " ";
 	}
+
+	private String getValidatorType(String columnType) {
+		String validatorType = null;
+		
+		if(columnType.equalsIgnoreCase("int") || columnType.equalsIgnoreCase("long")){
+			validatorType = "f:validateLongRange";
+		}else if (columnType.equalsIgnoreCase("double") || columnType.equalsIgnoreCase("BigDecimal")){
+			validatorType = "f:validateDoubleRange";
+		}else if(columnType.equalsIgnoreCase("String")){
+			validatorType = "f:validateLength";
+		}
+		return validatorType;
+	}
+	
+	@Override
+	public String getAttributes(Attribute attribute) {
+		
+		String attrib = "";
+		
+		if(attribute instanceof Column && 
+				((Column)attribute).getMaxLength() > 0  ){
+			System.out.println();
+			attrib = " maxLength=\"" + ((Column)attribute).getMaxLength() + "\" ";
+		}
+		return attrib + super.getAttributes(attribute);
+	}
+	
+	
+	
+	
 }

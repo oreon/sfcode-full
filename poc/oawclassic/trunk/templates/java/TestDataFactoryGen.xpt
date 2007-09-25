@@ -16,30 +16,61 @@
 	
 	
 	public class TestDataFactory {
-       	«EXPAND GenerateTestDataFactory FOREACH getEntities()»
+       	«EXPAND GenerateTestData FOREACH getEntities()-»
+       	
+       	«EXPAND GenerateTestDataForAuthority-»
     }
 	
 	«ENDFILE»
 «ENDDEFINE»
 
 
-«DEFINE GenerateTestDataFactory FOR Entity»
+«DEFINE GenerateTestData FOR Entity»
+
 	public static «NameS» create«NameS»(){
 		«NameS» «asInstanceVar()» = new «NameS»();
-		«FOREACH Attribute AS attrib»
-			«asInstanceVar()».set«attrib.NameS»("«attrib.NameS»1");
+		
+		«FOREACH Column AS c-»
+			«asInstanceVar()».«c.getContainerName != null ? "get" + c.getContainerName.toFirstUpper() + "().":""»
+			set«c.NameS.toFirstUpper()»("«c.NameS»1");
 		«ENDFOREACH»
+		
+		«FOREACH NonColumnAttribute AS a-»
+			«asInstanceVar()».set«a.NameS.toFirstUpper()»("«a.NameS»1");
+		«ENDFOREACH»
+		
+		«FOREACH AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable) AS ae-»
+			«asInstanceVar()».set«ae.NameS.toFirstUpper()»(load«ae.Class.NameS»());
+		«ENDFOREACH»
+		
+		«IF isUser || getDefaultRole != null»
+			//Give the user an authority
+			createAuthorityFor«NameS»(«asInstanceVar()»);
+		«ENDIF»
 		
 		return «asInstanceVar()»;
 	}
+	
+	public static «NameS» load«NameS»(){
+		«NameS» «asInstanceVar()» = «asInstanceVar()»Service.load(1L);		
+		return «asInstanceVar()»;
+	}
+	
+	«IF isUser || getDefaultRole != null»
+		public Authority createAuthorityFor«NameS»(«NameS» «asInstanceVar()») { 
+			Authority authroirty = new Authority(«asInstanceVar()», "«getDefaultRole»" );	
+			return authroirty;
+		}		
+	«ENDIF»
+	
 «ENDDEFINE»
 
 «DEFINE GenImports FOR Entity»
 	import «packageName()».«NameS»;
 «ENDDEFINE»
 
-«DEFINE GenerateFinderTest FOR Findable»
-	public void testFindBy«NameS»() { }
+«DEFINE GenerateTestDataForAuthority FOR Model»
+	
 «ENDDEFINE»
 
 
