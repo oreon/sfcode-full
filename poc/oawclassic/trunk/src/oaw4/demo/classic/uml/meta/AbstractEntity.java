@@ -2,6 +2,7 @@ package oaw4.demo.classic.uml.meta;
 
 import org.openarchitectureware.core.meta.core.ElementSet;
 import org.openarchitectureware.core.xpand.EvaluationException;
+import org.openarchitectureware.meta.uml.Type;
 import org.openarchitectureware.meta.uml.classifier.AssociationEnd;
 import org.openarchitectureware.meta.uml.classifier.Attribute;
 import org.openarchitectureware.meta.uml.classifier.Class;
@@ -28,9 +29,11 @@ public abstract class AbstractEntity extends
 				// way
 				columns.add(attribute);
 		}
-
+		
 		return columns;
 	}
+
+	
 
 	/**
 	 * @return - All columns which have searchable set to true
@@ -126,8 +129,7 @@ public abstract class AbstractEntity extends
 					if(attrib instanceof Column){
 						((Column)attrib).setContainerName(ae.Opposite().NameS());
 					}
-					//FIXME: We are currently setting name of the parent in meta env view
-					attrib.getMetaEnvironment().setCurrentView(ae.Opposite().NameS());
+					
 				}
 			}
 		}

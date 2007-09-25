@@ -34,6 +34,10 @@ package «packageName()»;
 
 import javax.persistence.*;
 
+«IF isUser || getDefaultRole != null»
+import org.witchcraft.model.support.User;
+«ENDIF»
+
 @Entity
 «getClassDeclaration()»{
 
@@ -50,9 +54,12 @@ import javax.persistence.*;
 						
 			«EXPAND Attribute::Generator FOREACH Operation»
 			
-			«IF isUser»
-				private User userAccount; \\store user's account info			
+			«REM»For some reason oaw is not reading isUser tag from xmi «ENDREM»
+			«IF isUser || getDefaultRole != null»
+				private User userAccount; 			
 			
+				@OneToOne(cascade=CascadeType.ALL)
+			    @JoinColumn(name = "user_ID", nullable = false)
 				public User getUserAccount() {
 					return userAccount;
 				}
