@@ -74,6 +74,7 @@ public class AuthenticationController {
 	         session.setAttribute( HttpSessionContextIntegrationFilter.ACEGI_SECURITY_CONTEXT_KEY, secCtx );
 	      
 	         outcome = "success";
+	         System.out.println("Successfully authenticated " + userName);
 	      
 	     } catch ( Exception e ) {
 	         outcome = "failure";
