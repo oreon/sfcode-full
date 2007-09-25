@@ -49,6 +49,18 @@ import javax.persistence.*;
 			«generateInterfaceImplementation()»
 						
 			«EXPAND Attribute::Generator FOREACH Operation»
+			
+			«IF isUser»
+				private User userAccount; \\store user's account info			
+			
+				public User getUserAccount() {
+					return userAccount;
+				}
+			
+				public void setUserAccount(User userAccount) {
+					this.userAccount = userAccount;
+				}	
+			«ENDIF»
 		} 
 	«ENDFILE»
 «ENDDEFINE»
