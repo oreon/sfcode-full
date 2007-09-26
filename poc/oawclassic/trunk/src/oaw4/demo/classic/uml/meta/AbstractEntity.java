@@ -18,7 +18,7 @@ public abstract class AbstractEntity extends
 
 		for (Object object : attributes) {
 			Attribute attribute = (Attribute) object;
-
+			
 			// TODO hardocoding find a better way to determine this
 			if (isAttributeColumn(attribute))
 				columns.add(attribute);
@@ -79,6 +79,13 @@ public abstract class AbstractEntity extends
 
 		for (Object object : embeddables) {
 			AssociationEnd ae = (AssociationEnd) object;
+			
+			ElementSet assocAttributes = ae.Class().Attribute();
+			for (Object obj : assocAttributes) {
+				Attribute attribute = (Attribute) obj;
+				attribute.setTypeModifier(ae.NameS());
+			}
+			
 			attributes.addAll(ae.Class().Attribute());
 		}
 
@@ -86,14 +93,18 @@ public abstract class AbstractEntity extends
 		return attributes;
 	}
 
-	private ElementSet getAttributesForThisClassAndSuperClasses() {
+	public ElementSet getAttributesForThisClassAndSuperClasses() {
 		ElementSet attributes = new ElementSet();
-		Class cls = this;
-
-		do {
-			attributes.addAll(cls.Attribute());
-			cls = cls.SuperClass();
-		} while (cls != null);
+	
+		ElementSet superClasses = SuperClasss();
+		
+		for (Object object : superClasses) {
+			Class clazz = (Class) object;
+			attributes.addAll(clazz.Attribute());
+		}
+		
+		attributes.addAll(Attribute());
+		
 		return attributes;
 	}
 

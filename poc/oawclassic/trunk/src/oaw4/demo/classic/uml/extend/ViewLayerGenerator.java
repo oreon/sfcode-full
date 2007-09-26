@@ -148,11 +148,25 @@ public class ViewLayerGenerator {
 		return InputComponentFactory.getRenderer(attribute, renderContext);
 	}
 	
-	public  RenderContext createSearchContext(){
+	public static String getElementContent(Attribute attribute){
+		return InputComponentFactory.getRenderer(attribute, createCreateContext() ).getContent(attribute);
+	}
+	
+	public static String getElementType(Attribute attribute){
+		return InputComponentFactory.getRenderer(attribute, createCreateContext() )
+			.getType(attribute);
+	}
+	
+	public static String getElementAttributes(Attribute attribute){
+		return InputComponentFactory.getRenderer(attribute, createCreateContext() )
+			.getAttributes(attribute);
+	}
+	
+	public static RenderContext createSearchContext(){
 		return RenderContext.Search;
 	}
 	
-	public RenderContext createCreateContext(){
+	public static RenderContext createCreateContext(){
 		return RenderContext.Create;
 	}
 

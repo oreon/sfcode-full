@@ -12,7 +12,7 @@ public class InputTextRenderer extends AbstractInputComponentRenderer {
 		if(attribute instanceof Column && 
 				((Column)attribute).getMaxLength() > LENGTH_FOR_TEXTAREA  ){
 			System.out.println(((Column)attribute).getMaxLength());
-			return "h:inputArea";
+			return "h:inputTextarea";
 		}
 		return "h:inputText" ;
 	}
@@ -27,10 +27,13 @@ public class InputTextRenderer extends AbstractInputComponentRenderer {
 			int min = column.getMinLength();
 			int max = column.getMaxLength();
 			
+			if(min == 0 && max == 0) 
+				return "";
+			
 			if(validatorType != null)
 			return "<" + validatorType + ((min > 0 )?" minimum=\""  + min + "\"":"")
 			+ ((max > 0 )?" maximum=\""  + max:"") + 
-					"\" >";
+					"\" />";
 			
 		}
 		return " ";
