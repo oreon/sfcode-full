@@ -15,7 +15,7 @@ public class SearchRendererDecorator implements InputComponentRenderer{
 	}
 	
 	/** 
-	 * For Search views we dont need to show the required attributes as mandatory 
+	 * For Search views we don't need to show the required attributes as mandatory 
 	 * @see org.witchcraft.htmlinput.jsf.AbstractInputComponentRenderer#getRequired(org.openarchitectureware.meta.uml.classifier.Attribute)
 	 */
 	public Boolean isRequired(Attribute attribute) {
