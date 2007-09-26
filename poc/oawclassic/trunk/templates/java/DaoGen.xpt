@@ -11,8 +11,6 @@
 	
 	«EXPAND GenerateDaoInterface»
 	
-	«LET NameS AS entityName»«ENDLET»
-	
 	«FILE packagePath()+"/dao/impl/"+NameS+"DaoImpl.java"»  
 
 	package «packageName()».dao.impl;
@@ -237,18 +235,18 @@
 «ENDDEFINE»
 
 
-«DEFINE FinderTest(AbstractEntity entity) FOR Column»
-	public void testFindBy«NameS.toFirstUpper()»(«Type.NameS» «NameS»){
+«DEFINE FinderTest(AbstractEntity e) FOR Column»
+	public void testFindBy«NameS.toFirstUpper()»(){
 		«IF isUnique»
-			assertNotNull("Couldn't find a «entity.NameS» with «NameS» XXX", «asInstanceVar()»Service.findBy«NameS»("XXX"));
-			assertNull("Found a «entity.NameS» with «NameS» YYY", «asInstanceVar()»Service.findBy«NameS»("YYY"));			
+			assertNotNull("Couldn't find a «e.NameS» with «NameS» XXX", «e.asInstanceVar()»Service.findBy«NameS.toFirstUpper()»("XXX"));
+			assertNull("Found a «e.NameS» with «NameS» YYY", «e.asInstanceVar()»Service.findBy«NameS.toFirstUpper()»("YYY"));			
 		«ELSE»
-			List<«NameS»> «asInstanceVar()»s = «asInstanceVar()»Service.findBy«NameS»("XXX");
-		    assertTrue(!«asInstanceVar()»s.isEmpty()); 
+			List<«e.NameS»> «e.asInstanceVar()»s = «e.asInstanceVar()»Service.findBy«NameS.toFirstUpper()»("XXX");
+		    assertTrue(!«e.asInstanceVar()»s.isEmpty()); 
 		    
 		    //negative test
-		    List<«NameS»> «asInstanceVar()»s = «asInstanceVar()»Service.findBy«NameS»("YYY");
-		    assertTrue(«asInstanceVar()»s.isEmpty()); 
+		    «e.asInstanceVar()»s = «e.asInstanceVar()»Service.findBy«NameS.toFirstUpper()»("YYY");
+		    assertTrue(«e.asInstanceVar()»s.isEmpty()); 
 		«ENDIF»
 	}
 «ENDDEFINE»

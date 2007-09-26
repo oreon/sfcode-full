@@ -27,7 +27,7 @@
 	</component>
 	-->
 
-	<component id="generator"
+	<component id="generator"  
 		class="org.openarchitectureware.xpand2.Generator">
 		<metaModel
 			class="org.openarchitectureware.type.impl.java.JavaMetaModel">
@@ -36,8 +36,8 @@
 				convertPropertiesToLowerCase="false" />
 		</metaModel>
 		<expand value="Root::Root FOREACH me.getElements('Model')" />
-		<genPath value="${srcGenPath}/" />
-		<srcPath value="${srcGenPath}/" />
+		<outlet path="${srcGenPath}/" />
+		<srcPath value="${srcGenPath}/"  />
 		<beautifier
 			class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
 		<beautifier
@@ -46,7 +46,7 @@
 	</component>
 	
 	<component id="pageFlowGenerator"
-		class="org.openarchitectureware.xpand2.Generator">
+		class="org.openarchitectureware.xpand2.Generator"  >
 		<metaModel
 			class="org.openarchitectureware.type.impl.java.JavaMetaModel">
 			<typeStrategy
@@ -54,8 +54,9 @@
 				convertPropertiesToLowerCase="false" />
 		</metaModel>
 		<expand value="PageFlow::file FOREACH me.getElements('StateMachine')" />
-		<genPath value="${webGenPath}/" />
-		<srcPath value="${webGenPath}/" />
+		<outlet path="${srcGenPath}/" overwrite="false"  />
+		<srcPath value="${webGenPath}/"  />
+		
 		<beautifier
 			class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
 		<beautifier
