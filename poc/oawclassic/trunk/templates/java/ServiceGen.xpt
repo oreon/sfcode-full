@@ -55,9 +55,7 @@
 			«NameS»
 			«FOREACH Unique AS e»
 				 existing«NameS» = «asInstanceVar()»Dao.findBy«e.NameS.toFirstUpper()»
-					(«asInstanceVar()»«e.getContainerName == null?"":
-					".get" + e.getContainerName.toFirstUpper() + "()" »
-					.get«e.NameS.toFirstUpper()»());
+					(«asInstanceVar()».«e.getContainerGetter()»get«e.NameS.toFirstUpper()»());
 				ensureUnique(«asInstanceVar()», existing«NameS», "Entity.exists.with«e.NameS.toFirstUpper()»");
 			«ENDFOREACH»
 			

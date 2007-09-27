@@ -40,6 +40,7 @@ public class Entity extends AbstractEntity {
 	 */
 	private void addUserIdIfApplies(ElementSet columns) {
 
+		/*
 		if(isUser || getDefaultRole() != null){
 			Column column = new Column();
 			column.setName("username");
@@ -51,7 +52,7 @@ public class Entity extends AbstractEntity {
 			column.setUnique(true);
 			column.setSearchable(true);
 			columns.add(column);
-		}
+		}*/
 		
 	}
 	

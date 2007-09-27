@@ -31,22 +31,18 @@
 	public static «NameS» create«NameS»(){
 		«NameS» «asInstanceVar()» = new «NameS»();
 		
-		«FOREACH Column AS c-»
-			«asInstanceVar()».«c.getContainerName != null ? "get" + c.getContainerName.toFirstUpper() + "().":""»
-			set«c.NameS.toFirstUpper()»("«c.NameS»1");
+		«FOREACH getAllAttributes AS attrib-»
+			«asInstanceVar()».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»("«attrib.NameS»1");
 		«ENDFOREACH»
 		
-		«FOREACH NonColumnAttribute AS a-»
-			«asInstanceVar()».set«a.NameS.toFirstUpper()»("«a.NameS»1");
-		«ENDFOREACH»
 		
 		«FOREACH AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable) AS ae-»
 			«asInstanceVar()».set«ae.NameS.toFirstUpper()»(load«ae.Class.NameS»());
 		«ENDFOREACH»
 		
 		«IF isUser || getDefaultRole != null»
-			//Give the user an authority
-			createAuthorityFor«NameS»(«asInstanceVar()»);
+		//Give the user an authority
+		createAuthorityFor«NameS»(«asInstanceVar()»);
 		«ENDIF»
 		
 		return «asInstanceVar()»;

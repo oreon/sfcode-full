@@ -1,5 +1,7 @@
 package oaw4.demo.classic.uml.meta;
 
+import oaw4.demo.classic.uml.extend.ClassUtil;
+
 import org.openarchitectureware.core.meta.core.ElementSet;
 import org.openarchitectureware.meta.uml.Type;
 import org.openarchitectureware.meta.uml.classifier.AssociationEnd;
@@ -18,8 +20,8 @@ public abstract class AbstractEntity extends
 
 		for (Object object : attributes) {
 			Attribute attribute = (Attribute) object;
-			
-			// TODO hardocoding find a better way to determine this
+
+			// TODO hardcoding find a better way to determine this
 			if (isAttributeColumn(attribute))
 				columns.add(attribute);
 		}
@@ -73,19 +75,34 @@ public abstract class AbstractEntity extends
 	 * @return
 	 */
 	public ElementSet getAllAttributes() {
+
+		if (NameS().equalsIgnoreCase("User")) {
+			System.out.println("user ---");
+		}
+
 		ElementSet attributes = getAttributesForThisClassAndSuperClasses();
+
+		//clear existing type modifiers
+		for (Object obj : attributes) {
+			Attribute attribute = (Attribute) obj;
+			attribute.setTypeModifier(null);
+		}
 
 		ElementSet embeddables = getAllContianedAssociations();
 
 		for (Object object : embeddables) {
 			AssociationEnd ae = (AssociationEnd) object;
-			
+
 			ElementSet assocAttributes = ae.Class().Attribute();
 			for (Object obj : assocAttributes) {
 				Attribute attribute = (Attribute) obj;
 				attribute.setTypeModifier(ae.NameS());
 			}
-			
+
+			if (NameS().equalsIgnoreCase("User")) {
+				System.out.println("user has assoc " + assocAttributes.size());
+			}
+
 			attributes.addAll(ae.Class().Attribute());
 		}
 
@@ -95,22 +112,21 @@ public abstract class AbstractEntity extends
 
 	public ElementSet getAttributesForThisClassAndSuperClasses() {
 		ElementSet attributes = new ElementSet();
-	
+
 		ElementSet superClasses = SuperClasss();
-		
+
 		for (Object object : superClasses) {
 			Class clazz = (Class) object;
 			attributes.addAll(clazz.Attribute());
 		}
-		
+
 		attributes.addAll(Attribute());
-		
+
 		return attributes;
 	}
 
 	/**
-	 * This method returns all attributes which are not Columns
-	 * superclasses
+	 * This method returns all attributes which are not Columns superclasses
 	 * 
 	 * @return
 	 */
@@ -145,25 +161,23 @@ public abstract class AbstractEntity extends
 		return embeddables;
 	}
 
+	/**
+	 * We look for all embedded components and one on associations
+	 * 
+	 * @param cls
+	 * @return
+	 */
 	private ElementSet getContainedAssociations(Class cls) {
 		ElementSet associations = cls.AssociationEnd();
 		ElementSet embeddables = new ElementSet();
 		for (Object object : associations) {
 			AssociationEnd ae = (AssociationEnd) object;
 
-			if ((!ae.isMultiple()) && ae.Opposite().isNavigable()
-					&& ae.isComposition()) {
+			if (((!ae.isMultiple()) && ae.Opposite().isNavigable() && ae
+					.isComposition())
+					|| (ClassUtil.isAssociationOneOnOne(ae) && ae.Opposite()
+							.isNavigable())) {
 				embeddables.add(ae.Opposite());
-
-				ElementSet attribs = ae.Opposite().Class().Attribute();
-				for (int i = 0; i < attribs.size(); i++) {
-					Attribute attrib = (Attribute) attribs.get(i);
-					if (attrib instanceof Column) {
-						((Column) attrib).setContainerName(ae.Opposite()
-								.NameS());
-					}
-
-				}
 			}
 		}
 		return embeddables;

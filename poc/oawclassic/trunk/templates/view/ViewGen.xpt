@@ -53,27 +53,6 @@
 							
 							«ENDFOREACH»
 							
-							«IF isUser || getDefaultRole != null»
-								<h:outputText value="--UserName--" />
-
-								<h:inputText maxLength="12"  id="employee_userAccount_username"
-									value="#{employeeCrudBacking.employee.userAccount.username}">
-									<f:validateLength minimum="5" maximum="12" />
-								</h:inputText>
-								
-								<h:message for="employee_userAccount_username" styleClass="errMessage" />
-							
-							
-								<h:outputText value="--Password--" />
-
-								<h:inputText maxLength="12"  id="employee_userAccount_password"
-									value="#{employeeCrudBacking.employee.userAccount.password}">
-									<f:validateLength minimum="3" maximum="12" />
-								</h:inputText>
-								
-								<h:message for="employee_userAccount_password" styleClass="errMessage" />
-							«ENDIF»
-							
   						   <h:commandButton id="button1" value="Submit" action="#{«asInstanceVar()»CrudBacking.update}"/> 
   						    <h:commandButton id="button2" value="Cancel" action="#{«asInstanceVar()»CrudBacking.cancelUpdate}" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
@@ -138,8 +117,8 @@
 
 						<br />
 						<hr />
-						<a href="customer.jsf"> Add New </a>
-						<a href="customerSearch.jsf"> Search </a>
+						<a href="«asInstanceVar()».jsf"> Add New </a>
+						<a href="«asInstanceVar()»Search.jsf"> Search </a>
 						<hr />
 
 		</f:view>

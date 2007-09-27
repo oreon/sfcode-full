@@ -284,14 +284,18 @@ public class ClassUtil {
 	public static String manyToOne(AssociationEnd ae) {
 		if (StereoTypeManager.isEntity(ae.Class())) {
 			String nullable = ae.MultiplicityMinAsInt() >= 1 ? "false" : "true";
-			return "@ManyToOne\n @JoinColumn(name=\"" + ae.NameS()
+			AssociationEnd opposite = ae.Opposite();
+			String multiplicity = (opposite.MultiplicityMinAsInt() == 1 && opposite.MultiplicityMaxAsInt() == 1 )? 
+					"OneToOne": "ManyToOne";
+			return "@" + multiplicity +"\n @JoinColumn(name=\"" + ae.NameS()
 					+ "_ID\", nullable=" + nullable + ")";
 		} else
 			return "";
 	}
 
 	/**
-	 * For compositions with 1 multiplicity we instantiate the composed entity
+	 * For compositions with 1 multiplicity and one to one relationships 
+	 * we instantiate the composed entity
 	 * e.g if Person contains address then we declare Address address = <b> new
 	 * Address() </b>
 	 * 
@@ -301,7 +305,14 @@ public class ClassUtil {
 	public static String getInstantiationIfComposition(AssociationEnd ae) {
 		if (ae.Opposite().isComposition())
 			return " = new " + fullyQualifiedName(ae.Class()) + "()";
+		if(isAssociationOneOnOne(ae))
+			return " = new " + fullyQualifiedName(ae.Class()) + "()";
 		return "";
+	}
+
+	public static boolean isAssociationOneOnOne(AssociationEnd ae) {
+		return ae.MultiplicityMinAsInt() == 1 && ae.MultiplicityMaxAsInt() == 1 && 
+				ae.Opposite().MultiplicityMinAsInt() == 1 && ae.Opposite().MultiplicityMaxAsInt() == 1;
 	}
 
 	public static String getViewLabel(Attribute attribute) {
