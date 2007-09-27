@@ -18,81 +18,20 @@
 	import «packageName()».«NameS»;
 	import «packageName()».dao.«NameS»Dao;
 	
-	import java.util.List;
-
-	import javax.persistence.EntityManager;
-	import javax.persistence.PersistenceException;
+	import bizobjects.Customer;
+	import bizobjects.dao.CustomerDao;
 	
-	import org.hibernate.Criteria;
-	import org.hibernate.Session;
-	import org.hibernate.SessionFactory;
-	import org.hibernate.criterion.Example;
-	import org.hibernate.criterion.MatchMode;
-	import org.springframework.orm.hibernate3.HibernateTemplate;
-	import org.springframework.orm.jpa.JpaCallback;
-	import org.springframework.orm.jpa.support.JpaDaoSupport;
+	import java.util.List;
+	
 	import org.springframework.stereotype.Repository;
+	import org.witchcraft.model.support.dao.BaseDao;
 	
 	@Repository
-	public class «NameS»DaoImpl extends JpaDaoSupport implements «NameS»Dao {
+	public class «NameS»DaoImpl extends BaseDao<«NameS»> implements «NameS»Dao {
 	
-			private HibernateTemplate hibernateTemplate;
-
-			public void setSessionFactory(SessionFactory sessionFactory) {
-				this.hibernateTemplate = new HibernateTemplate(sessionFactory);
-			}
-	
-			/**
-			* This method saves or updates the given entity based upon whether the id is null
-			*/
-			public «NameS» save(«NameS» «asInstanceVar()») {
-				if(«asInstanceVar()».getId() == null )
-					getJpaTemplate().persist(«asInstanceVar()»);
-				else 
-					getJpaTemplate().merge(«asInstanceVar()»);
-					
-				return «asInstanceVar()»;
-			}
-			
-			public void delete(«NameS» «asInstanceVar()») {
-				getJpaTemplate().remove(«asInstanceVar()»);
-			}			
-			
-			public «NameS» load(Long id) {
-				return getJpaTemplate().find(«NameS».class, id);
-			}
-			
-		    /**
-			 * Loads all records for this entity 
-			 */
-			 @SuppressWarnings("unchecked")
-		    public List<«NameS»> loadAll() {
-		    	return getJpaTemplate().find("select «asInstanceVar()» from «NameS» «asInstanceVar()»");
-		    }
-			
 			//// FINDERS ///// 
 			
-			«EXPAND FinderImpl(this) FOREACH Findable »
-					
-			@SuppressWarnings("unchecked")
-			public List<«NameS»> searchByExample(final «NameS» «asInstanceVar()») {
-				
-				return getJpaTemplate().executeFind(new JpaCallback() {
-
-					public Object doInJpa(EntityManager em) throws PersistenceException {
-						Session session = (Session) em.getDelegate();
-		
-						Criteria criteria = session.createCriteria(«NameS».class).add(
-								Example.create(«asInstanceVar()»).enableLike(MatchMode.START)
-										.ignoreCase().excludeZeroes().excludeProperty(
-												"dateModified").excludeProperty("id")
-										.excludeProperty("dateCreated"));
-						return criteria.list();
-					}
-				});
-				
-		    }
-			
+			«EXPAND FinderImpl(this) FOREACH Findable-»
 			
 		} 
 	«ENDFILE»	
@@ -136,19 +75,10 @@
 	import org.springframework.orm.jpa.support.JpaDaoSupport;
 	import java.util.List;
 	
-	public interface «NameS»Dao  {
-	
-			public «NameS» save(«NameS» «asInstanceVar()»);
-		
-			public void delete(«NameS» «asInstanceVar()»);			
-			
-			public «NameS» load(Long id);
-			
-		    public List<«NameS»> loadAll();
+	public interface «NameS»Dao extends GenericDAO<«NameS»> {
 		    
 		    «EXPAND FinderDeclaration(this) FOREACH Findable »
 			
-			public List<«NameS»> searchByExample(«NameS» «asInstanceVar()»);
 	}		
 	
 	«ENDFILE»	
