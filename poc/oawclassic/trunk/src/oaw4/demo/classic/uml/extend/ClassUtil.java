@@ -1,6 +1,7 @@
 package oaw4.demo.classic.uml.extend;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -366,6 +367,12 @@ public class ClassUtil {
 		}
 
 		return buffer.toString();
+	}
+	
+	private static String[] arrString = {"One", "Two", "Three" , "Four" , "Five"};
+	
+	public static List getCounters(Class cls){
+		return Arrays.asList(arrString);
 	}
 
 }

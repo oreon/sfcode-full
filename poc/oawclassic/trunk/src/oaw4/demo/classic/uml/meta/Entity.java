@@ -14,7 +14,14 @@ public class Entity extends AbstractEntity {
 	
 	private String defaultRole;
 	private boolean isUser;
+	private String tableName;
 	
+	public String getTableName() {
+		return tableName;
+	}
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
 	public String getDefaultRole() {
 		return defaultRole;
 	}

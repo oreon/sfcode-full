@@ -162,6 +162,12 @@ public class ViewLayerGenerator {
 			.getAttributes(attribute);
 	}
 	
+	public static boolean getElementRequired(Attribute attribute){
+		return InputComponentFactory.getRenderer(attribute, createCreateContext() )
+			.isRequired(attribute);
+	}
+	
+	
 	public static RenderContext createSearchContext(){
 		return RenderContext.Search;
 	}

@@ -32,8 +32,8 @@ public class InputTextRenderer extends AbstractInputComponentRenderer {
 			
 			if(validatorType != null)
 			return "<" + validatorType + ((min > 0 )?" minimum=\""  + min + "\"":"")
-			+ ((max > 0 )?" maximum=\""  + max:"") + 
-					"\" />";
+			+ ((max > 0 )?" maximum=\""  + max + "\"" :"") 
+					+ "/>";
 			
 		}
 		return " ";

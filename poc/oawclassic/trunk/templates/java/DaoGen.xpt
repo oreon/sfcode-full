@@ -105,13 +105,13 @@
 	public
 		«IF isUnique»
 			«entity.NameS» findBy«NameS.toFirstUpper()»(«Type.NameS» «NameS») { 
-				List<«entity.NameS»> list = getJpaTemplate().find("select c from «entity.NameS» c where c.«getContainerName != null ? getContainerName + ".":""»«NameS» = ?1",  «NameS»);
+				List<«entity.NameS»> list = getJpaTemplate().find("select c from «entity.NameS» c where c.«fullName()» = ?1",  «NameS»);
 				return list.isEmpty()?null:list.get(0);
 			}		
 		«ELSE»
 			
 			List<«entity.NameS»> findBy«NameS.toFirstUpper()»(«Type.NameS» «NameS») { 
-				List<«entity.NameS»> list = getJpaTemplate().find("select c from «entity.NameS» c where c.«getContainerName != null ? getContainerName + ".":""»«NameS» = ?1",  «NameS»);
+				List<«entity.NameS»> list = getJpaTemplate().find("select c from «entity.NameS» c where c.«fullName()» = ?1",  «NameS»);
 				return list;
 			}		
 		«ENDIF»

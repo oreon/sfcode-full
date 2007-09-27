@@ -76,10 +76,6 @@ public abstract class AbstractEntity extends
 	 */
 	public ElementSet getAllAttributes() {
 
-		if (NameS().equalsIgnoreCase("User")) {
-			System.out.println("user ---");
-		}
-
 		ElementSet attributes = getAttributesForThisClassAndSuperClasses();
 
 		//clear existing type modifiers
@@ -99,9 +95,8 @@ public abstract class AbstractEntity extends
 				attribute.setTypeModifier(ae.NameS());
 			}
 
-			if (NameS().equalsIgnoreCase("User")) {
-				System.out.println("user has assoc " + assocAttributes.size());
-			}
+			
+			System.out.println(NameS() + " has assoc " + assocAttributes.size());
 
 			attributes.addAll(ae.Class().Attribute());
 		}
@@ -173,13 +168,23 @@ public abstract class AbstractEntity extends
 		for (Object object : associations) {
 			AssociationEnd ae = (AssociationEnd) object;
 
-			if (((!ae.isMultiple()) && ae.Opposite().isNavigable() && ae
-					.isComposition())
-					|| (ClassUtil.isAssociationOneOnOne(ae) && ae.Opposite()
-							.isNavigable())) {
+			if (ClassUtil.isAssociationOneOnOne(ae) && ae.Opposite().isNavigable()) {
 				embeddables.add(ae.Opposite());
 			}
 		}
 		return embeddables;
+	}
+
+	/**
+	 * @param ae
+	 * @return
+	 */
+	private boolean isAssociationEmbeddableContainment(AssociationEnd ae) {
+		
+		boolean result = ClassUtil.isAssociationOneOnOne(ae) && ae.Opposite().isNavigable() && ae
+				.isComposition();
+	
+		
+		return result;
 	}
 }

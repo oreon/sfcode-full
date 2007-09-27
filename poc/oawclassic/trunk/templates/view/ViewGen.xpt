@@ -37,14 +37,15 @@
 				<rich:panel>
 					<h:panelGrid columns="3" styleClass="formTable">
 						<f:facet name="header">
-							<h:outputText value="Customer Information"
+							<h:outputText value="«NameS» Information"
 								styleClass="formHeaderText"   />
 						</f:facet>
 						
 							«FOREACH getAllAttributes AS attrib-»
-							<h:outputText value="«attrib.NameS.toFirstUpper()»" />
+							<h:outputText value="«attrib.NameS.toFirstUpper() + (attrib.getElementRequired()?"*":"") »" styleClass="formLabel" />
 							
-							<«attrib.getElementType()»  «attrib.getElementAttributes()» id="«asInstanceVar()»_«attrib.TypeModifier»_«attrib.NameS»"
+							<«attrib.getElementType()»  «attrib.getElementAttributes()»  required="«attrib.getElementRequired()»" 
+								id="«asInstanceVar()»_«attrib.TypeModifier»_«attrib.NameS»"
 								value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«attrib.fullName()»}">
 								«attrib.getElementContent()»
 							</«attrib.getElementType()»>

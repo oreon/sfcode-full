@@ -1,6 +1,8 @@
 «IMPORT org::openarchitectureware::meta::uml::classifier»
 «IMPORT oaw4::demo::classic::uml::meta»
 «IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::util::stdlib::counter»
+
 «IMPORT java»
 «EXTENSION java::NamingConventions»
 
@@ -14,25 +16,36 @@
 	import org.springframework.test.jpa.AbstractJpaTests;
 	import java.util.List;
 	
+	import java.text.SimpleDateFormat;
+	
 	
 	public class TestDataFactory {
-		/*
+	
+		private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss z");
+		
+		
+		
        	«EXPAND GenerateTestData FOREACH getEntities()-»
        	
-       	«EXPAND GenerateTestDataForAuthority-» */
+       
+       	«EXPAND GenerateTestDataForAuthority-» 
     }
 	
 	«ENDFILE»
 «ENDDEFINE»
 
 
-«DEFINE GenerateTestData FOR Entity»
+«DEFINE GenerateTestData FOR Entity-»
 
-	public static «NameS» create«NameS»(){
+	«FOREACH getCounters() AS counter»
+
+	public static «NameS» create«NameS»«counter»(){
 		«NameS» «asInstanceVar()» = new «NameS»();
 		
+		try{
+		
 		«FOREACH getAllAttributes AS attrib-»
-			«asInstanceVar()».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»("«attrib.NameS»1");
+			«asInstanceVar()».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»(«attrib.getRandValue()»);
 		«ENDFOREACH»
 		
 		
@@ -42,11 +55,17 @@
 		
 		«IF isUser || getDefaultRole != null»
 		//Give the user an authority
-		createAuthorityFor«NameS»(«asInstanceVar()»);
+		//createAuthorityFor«NameS»(«asInstanceVar()»);
 		«ENDIF»
+		
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
 		
 		return «asInstanceVar()»;
 	}
+	
+	«ENDFOREACH»
 	
 	public static «NameS» load«NameS»(){
 		«NameS» «asInstanceVar()» = «asInstanceVar()»Service.load(1L);		
@@ -54,10 +73,12 @@
 	}
 	
 	«IF isUser || getDefaultRole != null»
+	/*
 		public Authority createAuthorityFor«NameS»(«NameS» «asInstanceVar()») { 
 			Authority authroirty = new Authority(«asInstanceVar()», "«getDefaultRole»" );	
 			return authroirty;
-		}		
+		}
+	*/		
 	«ENDIF»
 	
 «ENDDEFINE»
