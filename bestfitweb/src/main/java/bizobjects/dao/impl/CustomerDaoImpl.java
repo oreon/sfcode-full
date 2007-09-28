@@ -1,88 +1,62 @@
 package bizobjects.dao.impl;
 
 import bizobjects.Customer;
-
 import bizobjects.dao.CustomerDao;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-
-import org.hibernate.criterion.Example;
-import org.hibernate.criterion.MatchMode;
-
-import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.orm.jpa.JpaCallback;
-import org.springframework.orm.jpa.support.JpaDaoSupport;
+import bizobjects.Customer;
+import bizobjects.dao.CustomerDao;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
-public class CustomerDaoImpl extends JpaDaoSupport implements CustomerDao {
-	private HibernateTemplate hibernateTemplate;
+import org.springframework.stereotype.Repository;
+import org.witchcraft.model.support.dao.BaseDao;
 
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.hibernateTemplate = new HibernateTemplate(sessionFactory);
+@Repository
+public class CustomerDaoImpl extends BaseDao<Customer> implements CustomerDao {
+
+	// // FINDERS /////
+
+	@SuppressWarnings("unchecked")
+	public List<Customer> findByLastName(String lastName) {
+		Query query = entityManager.createQuery(
+				"select c from Customer c where c.lastName = ?1").setParameter(
+				1, lastName);
+
+		return query.getResultList();
 	}
 
 	/**
-	 * This method saves or updates the given entity based upon whether the id
-	 * is null
+	 * Since username is unique, will try to return a single customer by the
+	 * username - if no customer is found null will be returned
+	 * 
+	 * @see bizobjects.dao.CustomerDao#findByUsername(java.lang.String)
 	 */
-	public Customer save(Customer customer) {
-		if (customer.getId() == null) {
-			getJpaTemplate().persist(customer);
-		} else {
-			getJpaTemplate().merge(customer);
+	@SuppressWarnings("unchecked")
+	public Customer findByUsername(String username) {
+		String qryString = "select c from Customer c where c.userAccount.username = ?1";
+
+		Query query = entityManager.createQuery(qryString).setParameter(1,
+				username);
+		try {
+			return (Customer) query.getSingleResult();
+		} catch (NoResultException nre) {
+			return null;
 		}
-
-		return customer;
 	}
 
-	public void delete(Customer customer) {
-		getJpaTemplate().remove(customer);
-	}
-
-	public Customer load(Long id) {
-		return getJpaTemplate().find(Customer.class, id);
-	}
-
-	/*
-	 * loads all records for this entity
-	 */
-	public List<Customer> loadAll() {
-		return getJpaTemplate().find("select customer from Customer customer");
-	}
-
-	// // FINDERS /////
-	public List<Customer> findByfirstName(Object firstName) {
-		return getJpaTemplate().find(
-				"select c from Customer c where c.firstName = ?1", firstName);
-	}
-
-	public List<Customer> findBylastName(Object lastName) {
-		return getJpaTemplate().find(
-				"select c from Customer c where c.lastName = ?1", lastName);
-	}
-
-	public List<Customer> searchByExample(final Customer customer) {
-
-		return getJpaTemplate().executeFind(new JpaCallback() {
-
-			public Object doInJpa(EntityManager em) throws PersistenceException {
-				Session session = (Session) em.getDelegate();
-	
-				Criteria criteria = session.createCriteria(Customer.class).add(
-						Example.create(customer).enableLike(MatchMode.START)
-								.ignoreCase().excludeZeroes().excludeProperty(
-										"dateModified").excludeProperty("id")
-								.excludeProperty("dateCreated"));
-				return criteria.list();
-			}
-		});
+	@SuppressWarnings("unchecked")
+	public Customer findByEmail(String email) {
+		Query query = entityManager.createQuery(
+				"select c from Customer c where c.primaryAddress.email = ?1")
+				.setParameter(1, email);
+		try {
+			return (Customer) query.getSingleResult();
+		} catch (NoResultException nre) {
+			return null;
+		}
 	}
 
 }
