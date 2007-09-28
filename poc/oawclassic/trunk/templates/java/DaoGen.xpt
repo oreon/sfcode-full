@@ -21,6 +21,9 @@
 	import bizobjects.Customer;
 	import bizobjects.dao.CustomerDao;
 	
+	import javax.persistence.NoResultException;
+	import javax.persistence.Query;
+	
 	import java.util.List;
 	
 	import org.springframework.stereotype.Repository;
@@ -43,15 +46,30 @@
 	@SuppressWarnings("unchecked")
 	public
 		«IF isUnique»
+			/**
+			 * Since «NameS» is unique, will try to return a single «entity.NameS» by the
+			 * «NameS» - if no record is found null will be returned
+			 * 
+			 */
 			«entity.NameS» findBy«NameS.toFirstUpper()»(«Type.NameS» «NameS») { 
-				List<«entity.NameS»> list = getJpaTemplate().find("select c from «entity.NameS» c where c.«fullName()» = ?1",  «NameS»);
-				return list.isEmpty()?null:list.get(0);
+			
+				String qryString = "select c from «entity.NameS» c where c.«fullName()» = ?1";
+		
+				Query query = entityManager.createQuery(qryString).setParameter(1, «NameS»);
+				try {
+					return («entity.NameS») query.getSingleResult();
+				} catch (NoResultException nre) {
+					return null;
+				}
+		
 			}		
 		«ELSE»
 			
 			List<«entity.NameS»> findBy«NameS.toFirstUpper()»(«Type.NameS» «NameS») { 
-				List<«entity.NameS»> list = getJpaTemplate().find("select c from «entity.NameS» c where c.«fullName()» = ?1",  «NameS»);
-				return list;
+				String qryString = "select c from «entity.NameS» c where c.«fullName()» = ?1";
+				Query query = entityManager.createQuery(qryString).setParameter(1, «NameS»);
+		
+				return query.getResultList();
 			}		
 		«ENDIF»
 «ENDDEFINE»

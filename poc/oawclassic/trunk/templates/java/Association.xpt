@@ -26,13 +26,15 @@ public «Class.fqn()» «asGetter()» () {
 return this.«asInstanceVar()»;
 }
 «ENDDEFINE»
+
 «DEFINE ToManyAccessorMethods FOR AssociationEnd»
-public void add«NameS.toFirstUpper()» («Class.fqn()»
-«asParameter()») {
-«IF Opposite.isNavigable »
-«asParameter()».«Opposite.asSetter()»(this);«ENDIF»
-this.«asInstanceVar()».add(«asParameter()»);
+public void add«NameS.toFirstUpper()» («Class.fqn()» «asParameter()») {
+	«IF Opposite.isNavigable »
+		«asParameter()».«Opposite.asSetter()»(this);
+	«ENDIF»
+	this.«asInstanceVar()».add(«asParameter()»);
 }
+
 public void remove«NameS.toFirstUpper()» («Class.fqn()»
 «asParameter()») {
 this.«asInstanceVar()».remove(«asParameter()»);

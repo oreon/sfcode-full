@@ -62,7 +62,9 @@
   
   <!-- Dao Beans  -->
   «EXPAND GenerateDaoBeanDef FOREACH getEntities()»
- 
+  
+  <!-- TestDataFactories -->
+  «EXPAND GenerateTestDataFactoryBeanDef FOREACH getEntities()»
 </beans>
 
 	
@@ -77,4 +79,8 @@
 
 «DEFINE GenerateDaoBeanDef FOR Entity»
 	<bean id="«asInstanceVar()»Dao" class="«Package.NameS».dao.impl.«NameS»DaoImpl" />
+«ENDDEFINE»
+
+«DEFINE GenerateTestDataFactoryBeanDef FOR Entity»
+	<bean id="«asInstanceVar()»TestDataFactory" class="«Package.NameS».«NameS»TestDataFactory" />
 «ENDDEFINE»

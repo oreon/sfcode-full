@@ -7,19 +7,61 @@
 «EXTENSION java::NamingConventions»
 
 
-«DEFINE GenerateTestDataFactory FOR Entity»
-	«FILE "../../test/java/" + "/testdata/" + NameS + "TestDataFactory.java"»  
+«DEFINE GenerateInitialData FOR Model»
 
-	package testdata;
+«FILE "initialsetup" + "/InitialDataSetup.java"»
 	
-	«EXPAND GenImports FOREACH getEntities()»
-	import org.springframework.test.jpa.AbstractJpaTests;
-	import java.util.List;
+package initialsetup;
+
+«EXPAND GenImports FOREACH getEntities()»
+
+
+/** 
+ * @author jsingh
+ *
+ */
+public class InitialDataSetup {
+
+	public static void main(String args[]){
+		
+		«FOREACH getEntities() AS e-»
+			«EXPAND genBeanLookup FOR e»
+			«e.NameS.toFirstLower()»TestDataFactory.persistAll();
+		«ENDFOREACH»
+				
+	}
+}
+
+«ENDFILE»
+
+
+«ENDDEFINE»
+
+«DEFINE genBeanLookup FOR Class»
+	«NameS»TestDataFactory «NameS.toFirstLower()»TestDataFactory  = («NameS»TestDataFactory) BeanHelper.getBean("«NameS.toFirstLower()»TestDataFactory") ;
+«ENDDEFINE»
+
+
+
+«DEFINE GenerateTestDataFactory FOR Entity»
+	«FILE "../../test/java/" + packagePath()+ "/" + NameS + "TestDataFactory.java"»  
+
+	package «packageName()»;
+	
 	
 	import java.text.SimpleDateFormat;
+	import java.util.List;
+	import java.util.Random;
+	import java.util.ArrayList;
+	import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
+	import org.witchcraft.model.support.AbstractTestDataFactory;
 	
+	import  «packageName()».service.«NameS»Service;
 	
-	public class «NameS»TestDataFactory {
+
+	public class «NameS»TestDataFactory extends AbstractTestDataFactory {
+	
+		List<«NameS»>  «asInstanceVar()»s = new ArrayList<«NameS»>();
 	
 		private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss z");
 		
@@ -33,53 +75,88 @@
 			this.«asInstanceVar()»Service = «asInstanceVar()»Service;
 		}
 		
-       	«FOREACH getCounters() AS counter-»
-
-		public static «NameS» create«NameS»«counter»(){
-		«NameS» «asInstanceVar()» = new «NameS»();
-		
-		try{
-		
-		«FOREACH getAllAttributes AS attrib-»
-			«asInstanceVar()».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»(«attrib.getRandValue()»);
-		«ENDFOREACH»
-		
-		«REM»The associated entites for e.g an order would need a customer «ENDREM»
-		«FOREACH AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable) AS ae-»
-			«asInstanceVar()».set«ae.NameS.toFirstUpper()»(load«ae.Class.NameS»());
-		«ENDFOREACH»
-		
-		«REM»Composed collections  «ENDREM»
-		«FOREACH AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable && ae.isComposition) AS ae-»
-			«asInstanceVar()».set«ae.NameS.toFirstUpper()»(load«ae.Class.NameS»());
-		«ENDFOREACH»
-		
-		
-		}catch(Exception ex){
-			ex.printStackTrace();
+		public void register(«NameS» «asInstanceVar()»){
+			«asInstanceVar()»s.add(«asInstanceVar()»);
 		}
 		
-		return «asInstanceVar()»;
-	}
+	«FOREACH getCounters() AS counter-»
+
+		public  «NameS» create«NameS»«counter»(){
+			«NameS» «asInstanceVar()» = new «NameS»();
+			
+			try{
+			
+			«FOREACH getAllAttributes AS attrib-»
+				«asInstanceVar()».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»(«attrib.getRandValue()»);
+			«ENDFOREACH»
+			
+			«REM»The associated entites for e.g an order would need a customer «ENDREM»
+			«FOREACH AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) AS ae-»
+				«EXPAND genBeanLookup FOR ae.Class»
+				«asInstanceVar()».set«ae.NameS.toFirstUpper()»(«ae.Class.NameS.toFirstLower()»TestDataFactory.load«ae.Class.NameS-»());
+			«ENDFOREACH»
+			
+			«REM»Composed collections e.g an order contains orderitems «ENDREM»
+			«FOREACH AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable && ae.Opposite.isComposition) AS ae-»
+				«EXPAND genBeanLookup FOR ae.Class»
+				«ae.Class.NameS.toFirstLower()»TestDataFactory.setPersistable(false);
+				«asInstanceVar()».get«ae.NameS.toFirstUpper()»().addAll(«ae.Class.NameS.toFirstLower()»TestDataFactory.getFew());
+			«ENDFOREACH»
+			
+			register(«asInstanceVar()» );
+			
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+			
+			return «asInstanceVar()»;
+		}
 	
 	«ENDFOREACH»
        
-       public static «NameS» load«NameS»() {
+       public  «NameS» load«NameS»() {
 			List<«NameS»> «asInstanceVar()»s = «asInstanceVar()»Service.loadAll();
 			
 			if(«asInstanceVar()»s.isEmpty()){
-				persist«NameS»s();
+				persistAll();
 				«asInstanceVar()»s = «asInstanceVar()»Service.loadAll();
 			}
 			
 			return «asInstanceVar()»s.get(new Random().nextInt(«asInstanceVar()»s.size()));
 		}
 		
-		public static void persistCustomers(){
-			customerService.save(createCustomerOne());
-			customerService.save(createCustomerTwo());
-			customerService.save(createCustomerThree());
-			customerService.save(createCustomerFour());
+		List<«NameS»> getAllAsList(){
+			return «asInstanceVar()»s;
+		}
+		
+		public  void persistAll(){
+			if(!isPersistable())
+				return;
+				
+			for («NameS» «asInstanceVar()» : «asInstanceVar()»s) {
+				«asInstanceVar()»Service.save(«asInstanceVar()»);
+			}
+		}
+		
+		/** Will return a random number of PlacedOrders
+		 * @return
+		 */
+		List<«NameS»> getFew(){
+			List<«NameS»> all = getAllAsList();
+			int numToChoose = new Random(1212343).nextInt(all.size() - 1) + 1;
+			
+			List allClone = new ArrayList<«NameS»>();
+			List returnList = new ArrayList<«NameS»>();
+			
+			allClone.addAll(all);
+			
+			while(returnList.size() < numToChoose){
+				int indexToAdd = new Random(1212343).nextInt(allClone.size());
+				returnList.add(allClone.get(indexToAdd));
+				allClone.remove(numToChoose);
+			}
+			
+			return returnList;
 		}
 	
     }
@@ -89,7 +166,7 @@
 
 
 «DEFINE GenImports FOR Entity»
-	import «packageName()».«NameS»;
+	import «packageName()».«NameS»TestDataFactory;
 «ENDDEFINE»
 
 
