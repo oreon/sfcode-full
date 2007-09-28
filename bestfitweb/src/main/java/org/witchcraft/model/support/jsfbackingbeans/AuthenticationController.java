@@ -1,4 +1,4 @@
-package bizobjects.web.jsf;
+package org.witchcraft.model.support.jsfbackingbeans;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;

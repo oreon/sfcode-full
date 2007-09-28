@@ -6,10 +6,10 @@ import bizobjects.dao.CustomerDao;
 import bizobjects.Customer;
 import bizobjects.dao.CustomerDao;
 
-import java.util.List;
-
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 import org.witchcraft.model.support.dao.BaseDao;
@@ -17,25 +17,25 @@ import org.witchcraft.model.support.dao.BaseDao;
 @Repository
 public class CustomerDaoImpl extends BaseDao<Customer> implements CustomerDao {
 
-	// // FINDERS /////
+	//// FINDERS ///// 
 
 	@SuppressWarnings("unchecked")
 	public List<Customer> findByLastName(String lastName) {
-		Query query = entityManager.createQuery(
-				"select c from Customer c where c.lastName = ?1").setParameter(
-				1, lastName);
+		String qryString = "select c from Customer c where c.lastName = ?1";
+		Query query = entityManager.createQuery(qryString).setParameter(1,
+				lastName);
 
 		return query.getResultList();
 	}
 
-	/**
-	 * Since username is unique, will try to return a single customer by the
-	 * username - if no customer is found null will be returned
-	 * 
-	 * @see bizobjects.dao.CustomerDao#findByUsername(java.lang.String)
-	 */
 	@SuppressWarnings("unchecked")
-	public Customer findByUsername(String username) {
+	public/**
+	 * Since username is unique, will try to return a single Customer by the
+	 * username - if no record is found null will be returned
+	 * 
+	 */
+	Customer findByUsername(String username) {
+
 		String qryString = "select c from Customer c where c.userAccount.username = ?1";
 
 		Query query = entityManager.createQuery(qryString).setParameter(1,
@@ -45,18 +45,27 @@ public class CustomerDaoImpl extends BaseDao<Customer> implements CustomerDao {
 		} catch (NoResultException nre) {
 			return null;
 		}
+
 	}
 
 	@SuppressWarnings("unchecked")
-	public Customer findByEmail(String email) {
-		Query query = entityManager.createQuery(
-				"select c from Customer c where c.primaryAddress.email = ?1")
-				.setParameter(1, email);
+	public/**
+	 * Since email is unique, will try to return a single Customer by the
+	 * email - if no record is found null will be returned
+	 * 
+	 */
+	Customer findByEmail(String email) {
+
+		String qryString = "select c from Customer c where c.primaryAddress.email = ?1";
+
+		Query query = entityManager.createQuery(qryString).setParameter(1,
+				email);
 		try {
 			return (Customer) query.getSingleResult();
 		} catch (NoResultException nre) {
 			return null;
 		}
+
 	}
 
 }

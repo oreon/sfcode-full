@@ -1,45 +1,50 @@
 package bizobjects;
 
-import javax.persistence.*;
-
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
 @Embeddable
-public class Address implements java.io.Serializable {
-    private String streetAddress;
-    private String city;
-    private String zip;
-    private String email;
+public class /*0 */Address implements java.io.Serializable {
 
-    public String getStreetAddress() {
-        return this.streetAddress;
-    }
+	private String streetAddress;
 
-    public String getCity() {
-        return this.city;
-    }
+	private String city;
 
-    public String getZip() {
-        return this.zip;
-    }
+	private String zip;
 
-    @Column(nullable = false, unique = true)
-    public String getEmail() {
-        return this.email;
-    }
+	private String email;
 
-    public void setStreetAddress(String streetAddress) {
-        this.streetAddress = streetAddress;
-    }
+	public String getStreetAddress() {
+		return this.streetAddress;
+	}
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+	public String getCity() {
+		return this.city;
+	}
 
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
+	public String getZip() {
+		return this.zip;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	@Column(nullable = false, unique = true)
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setStreetAddress(String streetAddress) {
+		this.streetAddress = streetAddress;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 }

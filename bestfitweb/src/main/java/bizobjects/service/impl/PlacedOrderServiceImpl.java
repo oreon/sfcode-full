@@ -1,48 +1,51 @@
 package bizobjects.service.impl;
 
 import bizobjects.PlacedOrder;
-
+import bizobjects.service.PlacedOrderService;
 import bizobjects.dao.PlacedOrderDao;
-
-import bizobjects.service.PlacedOrderService;
-import bizobjects.service.PlacedOrderService;
-
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
-
+import bizobjects.service.PlacedOrderService;
+import org.springframework.transaction.annotation.Transactional;
+import org.apache.log4j.Logger;
 
 @Transactional
 public class PlacedOrderServiceImpl implements PlacedOrderService {
-    private PlacedOrderDao placedOrderDao;
 
-    public void setPlacedOrderDao(PlacedOrderDao placedOrderDao) {
-        this.placedOrderDao = placedOrderDao;
-    }
+	protected static final Logger log = Logger
+			.getLogger(PlacedOrderServiceImpl.class);
 
-    //// Delegate all crud operations to the Dao ////
-    public PlacedOrder save(PlacedOrder placedOrder) {
-        return placedOrderDao.save(placedOrder);
-    }
+	private PlacedOrderDao placedOrderDao;
 
-    public void delete(PlacedOrder placedOrder) {
-        placedOrderDao.delete(placedOrder);
-    }
+	public void setPlacedOrderDao(PlacedOrderDao placedOrderDao) {
+		this.placedOrderDao = placedOrderDao;
+	}
 
-    public PlacedOrder load(Long id) {
-        return placedOrderDao.load(id);
-    }
+	//// Delegate all crud operations to the Dao ////
 
-    public List<PlacedOrder> loadAll() {
-        return placedOrderDao.loadAll();
-    }
+	public PlacedOrder save(PlacedOrder placedOrder) {
 
-    public List<PlacedOrder> searchByExample(PlacedOrder placedOrder) {
-        return placedOrderDao.searchByExample(placedOrder);
-    }
+		return placedOrderDao.save(placedOrder);
+	}
 
-    /*
-    public List query(String queryString, Object... params) {
-            return basicDAO.query(queryString, params);
-    }*/
+	public void delete(PlacedOrder placedOrder) {
+		placedOrderDao.delete(placedOrder);
+	}
+
+	public PlacedOrder load(Long id) {
+		return placedOrderDao.load(id);
+	}
+
+	public List<PlacedOrder> loadAll() {
+		return placedOrderDao.loadAll();
+	}
+
+	public List<PlacedOrder> searchByExample(PlacedOrder placedOrder) {
+		return placedOrderDao.searchByExample(placedOrder);
+	}
+
+	/*
+	public List query(String queryString, Object... params) {
+		return basicDAO.query(queryString, params);
+	}*/
+
 }

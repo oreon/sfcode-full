@@ -1,100 +1,88 @@
 package bizobjects.dao.impl;
 
-import bizobjects.Employee;
-
-import bizobjects.dao.EmployeeDao;
-
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-
-import org.hibernate.criterion.Example;
-import org.hibernate.criterion.MatchMode;
-
-import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.orm.jpa.support.JpaDaoSupport;
-
 import java.util.List;
 
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
-public class EmployeeDaoImpl extends JpaDaoSupport implements EmployeeDao {
-    private HibernateTemplate hibernateTemplate;
+import org.springframework.stereotype.Repository;
+import org.witchcraft.model.support.dao.BaseDao;
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.hibernateTemplate = new HibernateTemplate(sessionFactory);
-    }
+import bizobjects.Employee;
+import bizobjects.dao.EmployeeDao;
 
-    /**
-    * This method saves or updates the given entity based upon whether the id is null
-    */
-    public Employee save(Employee employee) {
-        if (employee.getId() == null) {
-            getJpaTemplate().persist(employee);
-        } else {
-            getJpaTemplate().merge(employee);
-        }
+@Repository
+public class EmployeeDaoImpl extends BaseDao<Employee> implements EmployeeDao {
 
-        return employee;
-    }
+	//// FINDERS ///// 
 
-    public void delete(Employee employee) {
-        getJpaTemplate().remove(employee);
-    }
+	@SuppressWarnings("unchecked")
+	public List<Employee> findByLastName(String lastName) {
+		String qryString = "select c from Employee c where c.lastName = ?1";
+		Query query = entityManager.createQuery(qryString).setParameter(1,
+				lastName);
 
-    public Employee load(Long id) {
-        return getJpaTemplate().find(Employee.class, id);
-    }
+		return query.getResultList();
+	}
 
-    /*
-         * loads all records for this entity
-         */
-    public List<Employee> loadAll() {
-        return getJpaTemplate().find("select employee from Employee employee");
-    }
+	@SuppressWarnings("unchecked")
+	public/**
+	 * Since code is unique, will try to return a single Employee by the
+	 * code - if no record is found null will be returned
+	 * 
+	 */
+	Employee findByCode(int code) {
 
-    //// FINDERS ///// 
-    public List<Employee> findBycode(Object code) {
-        return getJpaTemplate()
-                   .find("select c from Employee c where c.code = ?1", code);
-    }
+		String qryString = "select c from Employee c where c.code = ?1";
 
-    public List<Employee> findByfirstName(Object firstName) {
-        return getJpaTemplate()
-                   .find("select c from Employee c where c.firstName = ?1",
-            firstName);
-    }
+		Query query = entityManager.createQuery(qryString)
+				.setParameter(1, code);
+		try {
+			return (Employee) query.getSingleResult();
+		} catch (NoResultException nre) {
+			return null;
+		}
 
-    public List<Employee> findBylastName(Object lastName) {
-        return getJpaTemplate()
-                   .find("select c from Employee c where c.lastName = ?1",
-            lastName);
-    }
+	}
 
-    public List<Employee> searchByExample(Employee employee) {
-        Session session = hibernateTemplate.getSessionFactory().openSession();
+	@SuppressWarnings("unchecked")
+	public/**
+	 * Since username is unique, will try to return a single Employee by the
+	 * username - if no record is found null will be returned
+	 * 
+	 */
+	Employee findByUsername(String username) {
 
-        try {
-            Transaction tx = session.beginTransaction();
+		String qryString = "select c from Employee c where c.userAccount.username = ?1";
 
-            Criteria criteria = session.createCriteria(Employee.class)
-                                       .add(Example.create(employee)
-                                                   .enableLike(MatchMode.START)
-                                                   .ignoreCase().excludeZeroes()
-                                                   .excludeProperty("dateModified")
-                                                   .excludeProperty("id")
-                                                   .excludeProperty("dateCreated"));
+		Query query = entityManager.createQuery(qryString).setParameter(1,
+				username);
+		try {
+			return (Employee) query.getSingleResult();
+		} catch (NoResultException nre) {
+			return null;
+		}
 
-            List<Employee> entities = criteria.list();
+	}
 
-            tx.commit();
+	@SuppressWarnings("unchecked")
+	public/**
+	 * Since email is unique, will try to return a single Employee by the
+	 * email - if no record is found null will be returned
+	 * 
+	 */
+	Employee findByEmail(String email) {
 
-            return entities;
-        } catch (Throwable t) {
-            //TODO : Log error 
-            return null;
-        } finally {
-            session.close();
-        }
-    }
+		String qryString = "select c from Employee c where c.primaryAddress.email = ?1";
+
+		Query query = entityManager.createQuery(qryString).setParameter(1,
+				email);
+		try {
+			return (Employee) query.getSingleResult();
+		} catch (NoResultException nre) {
+			return null;
+		}
+
+	}
+
 }

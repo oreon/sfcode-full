@@ -6,38 +6,25 @@ import bizobjects.dao.CustomerDao;
 import java.util.List;
 import bizobjects.service.CustomerService;
 import org.springframework.transaction.annotation.Transactional;
-
-import usermanagement.Authority;
-import usermanagement.service.AuthorityService;
+import org.apache.log4j.Logger;
 
 @Transactional
 public class CustomerServiceImpl implements CustomerService {
+
+	protected static final Logger log = Logger
+			.getLogger(CustomerServiceImpl.class);
 
 	private CustomerDao customerDao;
 
 	public void setCustomerDao(CustomerDao customerDao) {
 		this.customerDao = customerDao;
 	}
-	
-	private AuthorityService authorityService;
 
-	public void setAuthorityService(AuthorityService authorityService) {
-		this.authorityService = authorityService;
-	}
+	//// Delegate all crud operations to the Dao ////
 
 	public Customer save(Customer customer) {
 		checkUniqueConstraints(customer);
-		customerDao.save(customer);
-		assignDefaultAuthority(customer);
-		
-		return customer;
-	}
-
-	private void assignDefaultAuthority(Customer customer) {
-		Authority authority = new Authority();
-		authority.setUser(customer.getUserAccount());
-		authority.setAuthority("role_customer");
-		authorityService.save(authority);
+		return customerDao.save(customer);
 	}
 
 	/** Before saving a record we need to ensure that no unique constraints
@@ -45,7 +32,6 @@ public class CustomerServiceImpl implements CustomerService {
 	 * @param customer
 	 */
 	private void checkUniqueConstraints(Customer customer) {
-		
 		Customer
 
 		existingCustomer = customerDao.findByUsername(customer.getUserAccount()
@@ -54,7 +40,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 		existingCustomer = customerDao.findByEmail(customer.getPrimaryAddress()
 				.getEmail());
-		ensureUnique(customer, existingCustomer, "Entity.exists.withEmail"); 
+		ensureUnique(customer, existingCustomer, "Entity.exists.withEmail");
 
 	}
 

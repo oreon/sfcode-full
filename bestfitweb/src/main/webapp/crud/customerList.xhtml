@@ -1,15 +1,6 @@
-
-
-
-
-
-
-
-
-
-
-
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		
+	
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -19,117 +10,137 @@
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	template="/WEB-INF/template/templateCrud.xhtml">
+	
 	<ui:define name="content">
 
 		<f:view>
+			<h:messages layout="list" globalOnly="true" showDetail="true"
+			styleClass="messages" />
+		
 			<a4j:form id="form">
-
-				<rich:dataTable id="data"
-					onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-					cellpadding="0" cellspacing="0" width="700" border="0" var="customer"
-					rows="6" sortMode="single"
-					value="#{customerCrudBacking.customers}">
-
-					<rich:column sortable="true">
-						<f:facet name="header">
-							<h:outputText value="First Name" />
-						</f:facet>
-						<h:outputText value="#{customer.firstName}" />
-					</rich:column>
-					
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Last Name" />
-						</f:facet>
-						<h:outputText value="#{customer.lastName}" />
-					</rich:column>
-					
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Dob" />
-						</f:facet>
-						<h:outputText value="#{customer.dob}" />
-					</rich:column>
-
-
-					<rich:column>
-						<f:facet name="header">
-
-							<h:outputText value="Street Address" />
-
-						</f:facet>
-						<h:outputText value="#{customer.primaryAddress.streetAddress}" />
-					</rich:column>
-					<rich:column>
-						<f:facet name="header">
+				<rich:panel>
+					<t:dataTable id="data" var="customer"
+						value="#{customerCrudBacking.customers}" rows="30"
+					rowClasses="odd, even" styleClass="dataTable">
+						
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="FirstName" arrow="true">
+										<t:outputText value="FirstName" />
+									</t:commandSortHeader>
+								</f:facet>
+								<t:outputText value="#{customerCrudBacking.customer.firstName}" />
+							</t:column>
 							
-								arrow="true">
-								<h:outputText value="City" />
-
-						</f:facet>
-						<h:outputText value="#{customer.primaryAddress.city}" />
-					</rich:column>
-					<rich:column>
-						<f:facet name="header">
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="LastName" arrow="true">
+										<t:outputText value="LastName" />
+									</t:commandSortHeader>
+								</f:facet>
+								<t:outputText value="#{customerCrudBacking.customer.lastName}" />
+							</t:column>
 							
-								arrow="true">
-								<h:outputText value="Zip" />
-
-						</f:facet>
-						<h:outputText value="#{customer.primaryAddress.zip}" />
-					</rich:column>
-					<rich:column>
-						<f:facet name="header">
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="Dob" arrow="true">
+										<t:outputText value="Dob" />
+									</t:commandSortHeader>
+								</f:facet>
+								<t:outputText value="#{customerCrudBacking.customer.dob}" />
+							</t:column>
 							
-								arrow="true">
-								<h:outputText value="Email" />
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="Remarks" arrow="true">
+										<t:outputText value="Remarks" />
+									</t:commandSortHeader>
+								</f:facet>
+								<t:outputText value="#{customerCrudBacking.customer.remarks}" />
+							</t:column>
+							
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="Username" arrow="true">
+										<t:outputText value="Username" />
+									</t:commandSortHeader>
+								</f:facet>
+								<t:outputText value="#{customerCrudBacking.customer.userAccount.username}" />
+							</t:column>
+							
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="Password" arrow="true">
+										<t:outputText value="Password" />
+									</t:commandSortHeader>
+								</f:facet>
+								<t:outputText value="#{customerCrudBacking.customer.userAccount.password}" />
+							</t:column>
+							
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="StreetAddress" arrow="true">
+										<t:outputText value="StreetAddress" />
+									</t:commandSortHeader>
+								</f:facet>
+								<t:outputText value="#{customerCrudBacking.customer.primaryAddress.streetAddress}" />
+							</t:column>
+							
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="City" arrow="true">
+										<t:outputText value="City" />
+									</t:commandSortHeader>
+								</f:facet>
+								<t:outputText value="#{customerCrudBacking.customer.primaryAddress.city}" />
+							</t:column>
+							
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="Zip" arrow="true">
+										<t:outputText value="Zip" />
+									</t:commandSortHeader>
+								</f:facet>
+								<t:outputText value="#{customerCrudBacking.customer.primaryAddress.zip}" />
+							</t:column>
+							
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="Email" arrow="true">
+										<t:outputText value="Email" />
+									</t:commandSortHeader>
+								</f:facet>
+								<t:outputText value="#{customerCrudBacking.customer.primaryAddress.email}" />
+							</t:column>
+							
+							
+							
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="id" arrow="true">
+										<t:outputText value=" " />
+									</t:commandSortHeader>
+								</f:facet>
+								<t:commandLink action="#{customerCrudBacking.select}"
+									actionListener="#{customerCrudBacking.selectEntity}">
+									<t:outputText value=" Edit " />
+									<f:param id="editId" name="id" value="#{customer.id}" />
+								</t:commandLink>
+							</t:column>
+							
+							 	</t:dataTable>	
+							</rich:panel>
+  						 </a4j:form>
 
-						</f:facet>
-						<h:outputText value="#{customer.primaryAddress.email}" />
-					</rich:column>
-
-
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Remarks" />
-						</f:facet>
-						<h:outputText value="#{customer.remarks}" />
-					</rich:column>
-
-
-
-
-					<rich:column>
-						<f:facet name="header">
-
-							<h:outputText value=" " />
-
-						</f:facet>
-						<t:commandLink action="#{customerCrudBacking.select}"
-							actionListener="#{customerCrudBacking.selectEntity}">
-							<h:outputText value=" Edit " />
-							<f:param id="editId" name="id" value="#{customer.id}" />
-						</t:commandLink>
-					</rich:column>
-
-
-				</rich:dataTable>
-				 <rich:spacer height="30" />
-				 <rich:datascroller align="center"  for="data" maxPages="20" />
-				
-			</a4j:form>
-
-			<br />
-			<hr />
-			<a href="customer.jsf"> Add New </a>
-			<a href="customerSearch.jsf"> Search </a>
-			<hr />
+						<br />
+						<hr />
+						<a href="customer.jsf"> Add New </a>
+						<a href="customerSearch.jsf"> Search </a>
+						<hr />
 
 		</f:view>
+
 	</ui:define>
 </ui:composition>
 
-
-
-
+		

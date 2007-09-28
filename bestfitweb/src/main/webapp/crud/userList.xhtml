@@ -1,0 +1,74 @@
+		
+	
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	template="/WEB-INF/template/templateCrud.xhtml">
+	
+	<ui:define name="content">
+
+		<f:view>
+			<h:messages layout="list" globalOnly="true" showDetail="true"
+			styleClass="messages" />
+		
+			<a4j:form id="form">
+				<rich:panel>
+					<t:dataTable id="data" var="user"
+						value="#{userCrudBacking.users}" rows="30"
+					rowClasses="odd, even" styleClass="dataTable">
+						
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="Username" arrow="true">
+										<t:outputText value="Username" />
+									</t:commandSortHeader>
+								</f:facet>
+								<t:outputText value="#{userCrudBacking.user.username}" />
+							</t:column>
+							
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="Password" arrow="true">
+										<t:outputText value="Password" />
+									</t:commandSortHeader>
+								</f:facet>
+								<t:outputText value="#{userCrudBacking.user.password}" />
+							</t:column>
+							
+							
+							
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="id" arrow="true">
+										<t:outputText value=" " />
+									</t:commandSortHeader>
+								</f:facet>
+								<t:commandLink action="#{userCrudBacking.select}"
+									actionListener="#{userCrudBacking.selectEntity}">
+									<t:outputText value=" Edit " />
+									<f:param id="editId" name="id" value="#{user.id}" />
+								</t:commandLink>
+							</t:column>
+							
+							 	</t:dataTable>	
+							</rich:panel>
+  						 </a4j:form>
+
+						<br />
+						<hr />
+						<a href="user.jsf"> Add New </a>
+						<a href="userSearch.jsf"> Search </a>
+						<hr />
+
+		</f:view>
+
+	</ui:define>
+</ui:composition>
+
+		

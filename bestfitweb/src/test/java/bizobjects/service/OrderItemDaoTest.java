@@ -1,47 +1,47 @@
 package bizobjects.service;
 
 import bizobjects.OrderItem;
-
 import org.springframework.test.jpa.AbstractJpaTests;
-
 import java.util.List;
 
-
 public class OrderItemDaoTest extends AbstractJpaTests {
-    private OrderItemService orderItemService;
 
-    public void setOrderItemService(OrderItemService orderItemService) {
-        this.orderItemService = orderItemService;
-    }
+	private OrderItemService orderItemService;
 
-    @Override
-    protected String[] getConfigLocations() {
-        return new String[] { "classpath:/applicationContext.xml" };
-    }
+	public void setOrderItemService(OrderItemService orderItemService) {
+		this.orderItemService = orderItemService;
+	}
 
-    /**
-    * Do the setup before the test in this method
-    **/
-    protected void onSetUpInTransaction() throws Exception {
-    }
+	@Override
+	protected String[] getConfigLocations() {
+		return new String[]{"classpath:/applicationContext.xml"};
+	}
 
-    public void testSave() {
-        //test saving a new record and updating an existing record;
-    }
+	/**
+	 * Do the setup before the test in this method
+	 **/
+	protected void onSetUpInTransaction() throws Exception {
 
-    public void testDelete() {
-        //return false;
-    }
+	}
 
-    public void testLoad() {
-        //return null;
-    }
+	public void testSave() {
+		//test saving a new record and updating an existing record;
+	}
 
-    public void testSearchByExample() {
-        OrderItem orderItem = new OrderItem();
+	public void testDelete() {
+		//return false;
+	}
 
-        //orderItem.setFirstName("Eri");
-        List<OrderItem> orderItems = orderItemService.searchByExample(orderItem);
-        //assertTrue(!orderItems.isEmpty());
-    }
+	public void testLoad() {
+		//return null;
+	}
+
+	public void testSearchByExample() {
+		OrderItem orderItem = new OrderItem();
+		//orderItem.setFirstName("Eri");
+		List<OrderItem> orderItems = orderItemService
+				.searchByExample(orderItem);
+		assertTrue(!orderItems.isEmpty());
+	}
+
 }

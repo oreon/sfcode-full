@@ -1,61 +1,68 @@
 package bizobjects;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
-import org.witchcraft.model.support.User;
-
-
-/*Represents a customer - customer can log in and place orders.*/
 @Entity
-public class Customer extends Person implements java.io.Serializable {
-    private static final long serialVersionUID = 1L;
-    private String remarks;
-    private java.util.Set<bizobjects.PlacedOrder> orders = new java.util.HashSet<bizobjects.PlacedOrder>();
+/*Represents a customer - customer can log in and place orders.*/
+public class /*0 */Customer extends Person implements java.io.Serializable {
 
-   
-    private User userAccount;
-    
-    @OneToOne
-    @JoinColumn(name = "user_ID", nullable = false)
-    public User getUserAccount() {
-		return userAccount;
+	private static final long serialVersionUID = 1L;
+
+	private String remarks;
+
+	@Column(nullable = true, unique = false)
+	public String getRemarks() {
+		return this.remarks;
 	}
 
-	public void setUserAccount(User userAccount) {
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	private usermanagement.User userAccount = new usermanagement.User();
+
+	private java.util.Set<bizobjects.PlacedOrder> orders = new java.util.HashSet<bizobjects.PlacedOrder>();
+
+	public void setUserAccount(usermanagement.User userAccount) {
 		this.userAccount = userAccount;
 	}
 
-	@Column(nullable = true, unique = false)
-    public String getRemarks() {
-        return this.remarks;
-    }
+	@OneToOne
+	@JoinColumn(name = "userAccount_ID", nullable = false)
+	public usermanagement.User getUserAccount() {
+		return this.userAccount;
+	}
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
+	public void addOrders(bizobjects.PlacedOrder orders) {
 
-    public void addOrders(bizobjects.PlacedOrder orders) {
-        orders.setCustomer(this);
-        this.orders.add(orders);
-    }
+		orders.setCustomer(this);
 
-    public void removeOrders(bizobjects.PlacedOrder orders) {
-        this.orders.remove(orders);
-    }
+		this.orders.add(orders);
+	}
 
-    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public java.util.Set<bizobjects.PlacedOrder> getOrders() {
-        return this.orders;
-    }
+	public void removeOrders(bizobjects.PlacedOrder orders) {
+		this.orders.remove(orders);
+	}
 
-    public void setOrders(java.util.Set<bizobjects.PlacedOrder> orders) {
-        this.orders = orders;
-    }
+	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	public java.util.Set<bizobjects.PlacedOrder> getOrders() {
+		return this.orders;
+	}
 
-    @Transient
-    public java.util.Iterator<bizobjects.PlacedOrder> getOrdersIterator() {
-        return this.orders.iterator();
-    }
+	public void setOrders(java.util.Set<bizobjects.PlacedOrder> orders) {
+		this.orders = orders;
+	}
 
-   
+	@Transient
+	public java.util.Iterator<bizobjects.PlacedOrder> getOrdersIterator() {
+		return this.orders.iterator();
+	}
+
 }

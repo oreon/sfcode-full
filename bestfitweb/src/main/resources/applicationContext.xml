@@ -1,62 +1,86 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-autowire="byName" xsi:schemaLocation="http://www.springframework.org/schema/beans     http://www.springframework.org/schema/beans/spring-beans.xsd     http://www.springframework.org/schema/tx     http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans     http://www.springframework.org/schema/beans/spring-beans.xsd     http://www.springframework.org/schema/tx     http://www.springframework.org/schema/tx/spring-tx.xsd"
-	default-autowire="byName">
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="jpaVendorAdapter">
-			<bean
-				class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="showSql" value="true" />
-				<property name="generateDdl" value="true" />
-				<property name="databasePlatform"
-					value="org.hibernate.dialect.MySQLDialect" />
-			</bean>
-		</property>
-	</bean>
-	<bean id="dataSource"
-		class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql:///ecomm" />
-		<property name="username" value="root" />
-		<property name="password" value="root" />
-	</bean>
-	
-	<bean id="transactionManager"
-		class="org.springframework.orm.jpa.JpaTransactionManager" />
-	<tx:annotation-driven />
-	
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation">
-			<value>classpath:/hibernate.cfg.xml</value>
-		</property>
-	</bean>
+  <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
+     <property name="jpaVendorAdapter">
+        <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+           <property name="showSql" value="true"/>
+           <property name="generateDdl" value="true"/>
+           <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect"/>
+        </bean>
+     </property>
+  </bean>
 
-	<bean
-		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
-	<!-- Service Beans  -->
-	<bean id="customerService"
-		class="bizobjects.service.impl.CustomerServiceImpl" />
-	<bean id="employeeService"
-		class="bizobjects.service.impl.EmployeeServiceImpl" />
-	<bean id="placedOrderService"
-		class="bizobjects.service.impl.PlacedOrderServiceImpl" />
-	<bean id="productService"
-		class="bizobjects.service.impl.ProductServiceImpl" />
-	<bean id="orderItemService"
-		class="bizobjects.service.impl.OrderItemServiceImpl" />
-	<!-- Dao Beans  -->
-	<bean id="customerDao" class="bizobjects.dao.impl.CustomerDaoImpl" />
-	<bean id="employeeDao" class="bizobjects.dao.impl.EmployeeDaoImpl" />
-	<bean id="placedOrderDao"
-		class="bizobjects.dao.impl.PlacedOrderDaoImpl" />
-	<bean id="productDao" class="bizobjects.dao.impl.ProductDaoImpl" />
-	<bean id="orderItemDao"
-		class="bizobjects.dao.impl.OrderItemDaoImpl" />
+  <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql:///ecomm"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+  </bean>
+
+  <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager"/>
+  
+  <tx:annotation-driven/>
+  
+  <bean class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean" id="sessionFactory">
+		<property name="dataSource" ref="dataSource"/>
+
+		<property name="configLocation"> 
+     		 <value>classpath:/hibernate.cfg.xml</value> 
+    	</property>
+  </bean>
+
+  <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+ 
+  
+  <!-- Service Beans  -->
+  
+	<bean class="bizobjects.service.impl.CustomerServiceImpl" id="customerService"/>
+
+	<bean class="bizobjects.service.impl.EmployeeServiceImpl" id="employeeService"/>
+
+	<bean class="bizobjects.service.impl.PlacedOrderServiceImpl" id="placedOrderService"/>
+
+	<bean class="bizobjects.service.impl.ProductServiceImpl" id="productService"/>
+
+	<bean class="bizobjects.service.impl.OrderItemServiceImpl" id="orderItemService"/>
+
+	<bean class="usermanagement.service.impl.UserServiceImpl" id="userService"/>
+
+	<bean class="usermanagement.service.impl.AuthorityServiceImpl" id="authorityService"/>
+
+  
+  <!-- Dao Beans  -->
+  
+	<bean class="bizobjects.dao.impl.CustomerDaoImpl" id="customerDao"/>
+
+	<bean class="bizobjects.dao.impl.EmployeeDaoImpl" id="employeeDao"/>
+
+	<bean class="bizobjects.dao.impl.PlacedOrderDaoImpl" id="placedOrderDao"/>
+
+	<bean class="bizobjects.dao.impl.ProductDaoImpl" id="productDao"/>
+
+	<bean class="bizobjects.dao.impl.OrderItemDaoImpl" id="orderItemDao"/>
+
+	<bean class="usermanagement.dao.impl.UserDaoImpl" id="userDao"/>
+
+	<bean class="usermanagement.dao.impl.AuthorityDaoImpl" id="authorityDao"/>
+
+  
+  <!-- TestDataFactories -->
+  
+	<bean class="bizobjects.CustomerTestDataFactory" id="customerTestDataFactory"/>
+
+	<bean class="bizobjects.EmployeeTestDataFactory" id="employeeTestDataFactory"/>
+
+	<bean class="bizobjects.PlacedOrderTestDataFactory" id="placedOrderTestDataFactory"/>
+
+	<bean class="bizobjects.ProductTestDataFactory" id="productTestDataFactory"/>
+
+	<bean class="bizobjects.OrderItemTestDataFactory" id="orderItemTestDataFactory"/>
+
+	<bean class="usermanagement.UserTestDataFactory" id="userTestDataFactory"/>
+
+	<bean class="usermanagement.AuthorityTestDataFactory" id="authorityTestDataFactory"/>
+
 </beans>

@@ -6,12 +6,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 
 @MappedSuperclass
 public class BusinessEntity {
 	private Long id;
 	private Date dateCreated;
 	private Date dateModified = new Date();
+	
+	@Version //For otimistic locking
+    protected int version;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +41,14 @@ public class BusinessEntity {
 	}
 	public void setDateModified(Date dateModified) {
 		this.dateModified = dateModified;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 	
 }

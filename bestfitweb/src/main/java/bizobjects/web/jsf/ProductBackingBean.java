@@ -1,12 +1,5 @@
 package bizobjects.web.jsf;
 
-import bizobjects.Product;
-
-import bizobjects.service.ProductService;
-
-import org.springframework.dao.DataAccessException;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -14,111 +7,120 @@ import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import org.springframework.dao.DataAccessException;
+
+import bizobjects.Product;
+import bizobjects.service.ProductService;
 
 public class ProductBackingBean {
-    private static final String SEARCH = "SEARCH";
-    private Product product = new Product();
-    private ProductService productService;
-    private String action; //whether action is search or update/add new 
 
-    public void setProductService(ProductService productService) {
-        this.productService = productService;
-    }
+	private Product product = new Product();
 
-    public Product getProduct() {
-        return product;
-    }
+	private ProductService productService;
 
-    public void set(Product product) {
-        this.product = product;
-    }
+	private String action; //whether action is search or update/add new 
 
-    /**Write values to the database
-    * @return - "success" if everthing goes fine
-    */
-    public String update() {
-        try {
-            productService.save(product);
-        } catch (DataAccessException dae) {
-            FacesContext.getCurrentInstance()
-                        .addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Update Error: ",
-                    dae.getMessage()));
+	private static final String SEARCH = "SEARCH";
 
-            return "failure";
-        }
+	public void setProductService(ProductService productService) {
+		this.productService = productService;
+	}
 
-        return "success";
-    }
+	public Product getProduct() {
+		return product;
+	}
 
-    /**Write values to the database
-    * @return - "success" if everthing goes fine
-    */
-    public String delete() {
-        try {
-            productService.delete(product);
-        } catch (DataAccessException dae) {
-            FacesContext.getCurrentInstance()
-                        .addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Delete Error: ",
-                    dae.getMessage()));
+	public void set(Product product) {
+		this.product = product;
+	}
 
-            return "failure";
-        }
+	/**Write values to the database 
+	 * @return - "success" if everthing goes fine
+	 */
+	public String update() {
+		try {
+			productService.save(product);
+		} catch (DataAccessException dae) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Update Error: ", dae.getMessage()));
+			return "failure";
+		}
 
-        return "success";
-    }
+		return "success";
+	}
 
-    public String search() {
-        action = SEARCH;
+	/**Write values to the database 
+	 * @return - "success" if everthing goes fine
+	 */
+	public String delete() {
+		try {
+			productService.delete(product);
+		} catch (DataAccessException dae) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Delete Error: ", dae.getMessage()));
+			return "failure";
+		}
 
-        return "search";
-    }
+		return "success";
+	}
 
-    /**If update is canceled we go to the listing page - invoked in response to clicking cancel
-    * on save/edit record form
-    * @return - "success" (always)
-    */
-    public String cancelUpdate() {
-        return "success";
-    }
+	public String search() {
+		action = SEARCH;
+		return "search";
+	}
 
-    /** Returns a success string upon selection of an entity in model - majority of work is done
-     * in the actionListener selectEntity
-    * @return - "success" if everthing goes fine
-    * @see -
-    */
-    public String select() {
-        return "edit";
-    }
+	/**If update is canceled we go to the listing page - invoked in response to clicking cancel 
+	 * on save/edit record form
+	 * @return - "success" (always)
+	 */
+	public String cancelUpdate() {
+		return "success";
+	}
 
-    /** This action Listener Method is called when a row is clicked in the dataTable
-     *
-     * @param event contians the database id of the row being selected
-     */
-    public void selectEntity(ActionEvent event) {
-        UIParameter component = (UIParameter) event.getComponent()
-                                                   .findComponent("editId");
+	public String cancelSearch() {
+		return "success";
+	}
 
-        // parse the value of the UIParameter component    	 
-        long id = Long.parseLong(component.getValue().toString());
+	/** Returns a success string upon selection of an entity in model - majority of work is done
+	 * in the actionListener selectEntity
+	 * @return - "success" if everthing goes fine
+	 * @see - 
+	 */
+	public String select() {
+		return "edit";
+	}
 
-        product = productService.load(id);
-    }
+	/** This action Listener Method is called when a row is clicked in the dataTable
+	 *  
+	 * @param event contians the database id of the row being selected 
+	 */
+	public void selectEntity(ActionEvent event) {
 
-    /**Get a list of  products - if action is search , get a subset otherwise
-    * get all
-    * @return - a list of products
-    */
-    public List<Product> getProducts() {
-        List<Product> products = null;
+		UIParameter component = (UIParameter) event.getComponent()
+				.findComponent("editId");
 
-        if ((action != null) && action.equals(SEARCH)) {
-            products = productService.searchByExample(product);
-        } else {
-            products = productService.loadAll();
-        }
+		// parse the value of the UIParameter component    	 
+		long id = Long.parseLong(component.getValue().toString());
 
-        return products;
-    }
+		product = productService.load(id);
+	}
+
+	/**Get a list of  products - if action is search , get a subset otherwise
+	 * get all
+	 * @return - a list of products 
+	 */
+	public List<Product> getProducts() {
+		List<Product> products = null;
+		if (action != null && action.equals(SEARCH))
+			products = productService.searchByExample(product);
+		else
+			products = productService.loadAll();
+
+		return products;
+	}
+
 }

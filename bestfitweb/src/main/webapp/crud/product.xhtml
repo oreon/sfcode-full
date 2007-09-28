@@ -1,12 +1,6 @@
-  
-
- 
-
-
-
-
-
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		
+	
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -16,55 +10,65 @@
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	template="/WEB-INF/template/templateCrud.xhtml">
+	
 	<ui:define name="content">
-	
-			    <h:messages layout="list" globalOnly="true" showDetail="true" styleClass="messages" />
-	
-    <f:view>
-            <a4j:form id="form">
-            		  <rich:panel >
-				  				               <h:panelGrid columns="3" styleClass="formTable" >
-				  				               <f:facet name="header">
-   					 	                 <h:outputText value="Product Information" styleClass="formHeaderText"/>
-  				               </f:facet>
-				  				               
-				  				   				  				               
-				  				          
-				 
-				  		  			
-		  		         			  					  	  		    <h:outputText value="Name" styleClass="formLabel" /> 
-		        <h:inputText  required="false"  
-    		     id="product_name" value="#{productCrudBacking.product.name}"  >
-    			  
-    </h:inputText> 
-    <h:message for="product_name" styleClass="errMessage" />
-		  						  	  		    <h:outputText value="Brand" styleClass="formLabel" /> 
-		        <h:inputText  required="false"  
-    		     id="product_brand" value="#{productCrudBacking.product.brand}"  >
-    			  
-    </h:inputText> 
-    <h:message for="product_brand" styleClass="errMessage" />
-		  						  	  		    <h:outputText value="List Price" styleClass="formLabel" /> 
-		        <h:inputText  required="false"  
-    		     id="product_listPrice" value="#{productCrudBacking.product.listPrice}"  >
-    			  
-    </h:inputText> 
-    <h:message for="product_listPrice" styleClass="errMessage" />
-		  						  	       
-		  	          	       
-		  	       		  	       			
-		  	       			 					  	       			 		  	
-		  		
-		  							   <h:commandButton id="button1" value="Submit" action="#{productCrudBacking.update}"/> 
-		  							    <h:commandButton id="button2" value="Cancel" action="#{productCrudBacking.cancelUpdate}" immediate="true"/> 
-		  				    				  				     	<h:inputHidden id="product_id" value="#{productCrudBacking.product.id}" />
-		  		
-				                  </h:panelGrid>
-				                   </rich:panel>
-             </a4j:form>
-        </f:view>
-    
-    </ui:define>
-</ui:composition>
+
+		<f:view>
+			<h:messages layout="list" globalOnly="true" showDetail="true"
+			styleClass="messages" />
+		
+			<a4j:form id="form">
+				<rich:panel>
+					<h:panelGrid columns="3" styleClass="formTable">
+						<f:facet name="header">
+							<h:outputText value="Product Information"
+								styleClass="formHeaderText"   />
+						</f:facet>
 						
-				
+							<h:outputText value="Name" styleClass="formLabel" />
+							
+							<h:inputText    required="false" 
+								id="product__name"
+								value="#{productCrudBacking.product.name}">
+								 
+							</h:inputText>
+							
+							<h:message for="product__name" styleClass="errMessage" />
+							
+							<h:outputText value="Brand" styleClass="formLabel" />
+							
+							<h:inputText    required="false" 
+								id="product__brand"
+								value="#{productCrudBacking.product.brand}">
+								 
+							</h:inputText>
+							
+							<h:message for="product__brand" styleClass="errMessage" />
+							
+							<h:outputText value="ListPrice" styleClass="formLabel" />
+							
+							<h:inputText    required="false" 
+								id="product__listPrice"
+								value="#{productCrudBacking.product.listPrice}">
+								 
+							</h:inputText>
+							
+							<h:message for="product__listPrice" styleClass="errMessage" />
+							
+							
+							
+  						   <h:commandButton id="button1" value="Submit" action="#{productCrudBacking.update}"/> 
+  						    <h:commandButton id="button2" value="Cancel" action="#{productCrudBacking.cancelUpdate}" immediate="true"/> 
+  				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
+		  				   	<h:inputHidden id="product_id" value="#{productCrudBacking.product.id}" />
+
+						
+						</h:panelGrid>
+				</rich:panel>
+			</a4j:form>
+		</f:view>
+
+	</ui:define>
+</ui:composition>
+
+		

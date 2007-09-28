@@ -1,15 +1,6 @@
-  
-
-
-
-
-
-
-
-
-
-
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		
+	
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -19,104 +10,74 @@
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	template="/WEB-INF/template/templateCrud.xhtml">
+	
 	<ui:define name="content">
 
-    <f:view>
-            <a4j:form id="form">
-                          
-            <t:dataTable id="data" var="product" value="#{productCrudBacking. products}"
-            	  rows="30" rowClasses="odd, even" styleClass="dataTable" >
-		               
-            
-				  		  			
-		  		         			  					  	  			   <t:column>
-				   <f:facet name="header">
-				     <t:commandSortHeader columnName="product.name" arrow="true">
-					       <t:outputText value="Name" />
-					     </t:commandSortHeader>
-				   </f:facet>
-				      <t:outputText value="#{product.name}" />
-						   </t:column>
-		  						  	  			   <t:column>
-				   <f:facet name="header">
-				     <t:commandSortHeader columnName="product.brand" arrow="true">
-					       <t:outputText value="Brand" />
-					     </t:commandSortHeader>
-				   </f:facet>
-				      <t:outputText value="#{product.brand}" />
-						   </t:column>
-		  						  	  			   <t:column>
-				   <f:facet name="header">
-				     <t:commandSortHeader columnName="product.listPrice" arrow="true">
-					       <t:outputText value="List Price" />
-					     </t:commandSortHeader>
-				   </f:facet>
-				      <t:outputText value="#{product.listPrice}" />
-						   </t:column>
-		  						  	       
-		  	       		  	       
-		  	       		  	       			
-		  	       					  	       			 		  
-			  	   		<t:column>
-								                    <f:facet name="header">
-							                      <t:commandSortHeader columnName="id" arrow="true">
-								                        <t:outputText value=" " />
-							                      </t:commandSortHeader>
-						                    </f:facet>
-						                    <t:commandLink action="#{productCrudBacking.select}"  
-						                            actionListener="#{productCrudBacking.selectEntity}"  >
-							                      <t:outputText value=" Edit " />
-							                      <f:param id="editId" 
-		                         	 						name="id" 
-    	 					                  value="#{product.id}" />
-						                    </t:commandLink>
-					                </t:column>
-		             
-				
-		</t:dataTable>
+		<f:view>
+			<h:messages layout="list" globalOnly="true" showDetail="true"
+			styleClass="messages" />
 		
-					 			  <t:dataScroller id="scroll_1" for="data" fastStep="10"
-					pageCountVar="pageCount" pageIndexVar="pageIndex"
-					styleClass="scroller" paginator="true" paginatorMaxPages="9"
-					paginatorTableClass="paginator"
-					paginatorActiveColumnStyle="font-weight:bold;" immediate="true"
-					>
-					<f:facet name="first">
-						<t:graphicImage url="/images/dataScroller/arrow-first.gif"
-							border="1" />
-					</f:facet>
-					<f:facet name="last">
-						<t:graphicImage url="/images/dataScroller/arrow-last.gif"
-							border="1" />
-					</f:facet>
-					<f:facet name="previous">
-						<t:graphicImage url="/images/dataScroller/arrow-previous.gif"
-							border="1" />
-					</f:facet>
-					<f:facet name="next">
-						<t:graphicImage url="/images/dataScroller/arrow-next.gif"
-							border="1" />
-					</f:facet>
-					<f:facet name="fastforward">
-						<t:graphicImage url="/images/dataScroller/arrow-ff.gif" border="1" />
-					</f:facet>
-					<f:facet name="fastrewind">
-						<t:graphicImage url="/images/dataScroller/arrow-fr.gif" border="1" />
-					</f:facet>
-				</t:dataScroller>
-		
-		</a4j:form>
-		
-		<br/>
-		<hr/>
-		<a href="product.jsf"> Add New </a>
-		<a href="productSearch.jsf"> Search </a>
-				 	<hr/>
-	
-  </f:view>
-    </ui:define>
+			<a4j:form id="form">
+				<rich:panel>
+					<t:dataTable id="data" var="product"
+						value="#{productCrudBacking.products}" rows="30"
+					rowClasses="odd, even" styleClass="dataTable">
+						
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="Name" arrow="true">
+										<t:outputText value="Name" />
+									</t:commandSortHeader>
+								</f:facet>
+								<t:outputText value="#{productCrudBacking.product.name}" />
+							</t:column>
+							
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="Brand" arrow="true">
+										<t:outputText value="Brand" />
+									</t:commandSortHeader>
+								</f:facet>
+								<t:outputText value="#{productCrudBacking.product.brand}" />
+							</t:column>
+							
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="ListPrice" arrow="true">
+										<t:outputText value="ListPrice" />
+									</t:commandSortHeader>
+								</f:facet>
+								<t:outputText value="#{productCrudBacking.product.listPrice}" />
+							</t:column>
+							
+							
+							
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="id" arrow="true">
+										<t:outputText value=" " />
+									</t:commandSortHeader>
+								</f:facet>
+								<t:commandLink action="#{productCrudBacking.select}"
+									actionListener="#{productCrudBacking.selectEntity}">
+									<t:outputText value=" Edit " />
+									<f:param id="editId" name="id" value="#{product.id}" />
+								</t:commandLink>
+							</t:column>
+							
+							 	</t:dataTable>	
+							</rich:panel>
+  						 </a4j:form>
+
+						<br />
+						<hr />
+						<a href="product.jsf"> Add New </a>
+						<a href="productSearch.jsf"> Search </a>
+						<hr />
+
+		</f:view>
+
+	</ui:define>
 </ui:composition>
-
-
 
 		

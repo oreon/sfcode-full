@@ -1,39 +1,48 @@
 package bizobjects;
 
-import javax.persistence.*;
-
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class OrderItem extends org.witchcraft.model.support.BusinessEntity
-    implements java.io.Serializable {
-    private static final long serialVersionUID = 1L;
-    private double salePrice;
-    private int quantity = 1;
-    private bizobjects.Product product;
+public class /*0 */OrderItem
+		extends
+			org.witchcraft.model.support.BusinessEntity
+		implements
+			java.io.Serializable {
 
-    public double getSalePrice() {
-        return this.salePrice;
-    }
+	private static final long serialVersionUID = 1L;
 
-    public int getQuantity() {
-        return this.quantity;
-    }
+	private double salePrice;
 
-    public void setSalePrice(double salePrice) {
-        this.salePrice = salePrice;
-    }
+	private int quantity = 1;
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+	public double getSalePrice() {
+		return this.salePrice;
+	}
 
-    public void setProduct(bizobjects.Product product) {
-        this.product = product;
-    }
+	public int getQuantity() {
+		return this.quantity;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "product_ID", nullable = false)
-    public bizobjects.Product getProduct() {
-        return this.product;
-    }
+	public void setSalePrice(double salePrice) {
+		this.salePrice = salePrice;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	private bizobjects.Product product;
+
+	public void setProduct(bizobjects.Product product) {
+		this.product = product;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "product_ID", nullable = false)
+	public bizobjects.Product getProduct() {
+		return this.product;
+	}
+
 }

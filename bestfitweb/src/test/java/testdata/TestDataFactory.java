@@ -34,6 +34,8 @@ public class TestDataFactory {
 	
 	protected static ApplicationContext context;
 	
+	
+
 	public TestDataFactory(){
 		context = new ClassPathXmlApplicationContext("classpath:/applicationContext.xml");
 	}

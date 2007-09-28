@@ -1,5 +1,4 @@
-  
-
+	
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -26,31 +25,8 @@
 				  				               
 							          
 		  		  			
-		  		         			  					  	  		    <h:outputText value="Remarks" styleClass="formLabel" /> 
-		        <h:inputText  required="false"  
-    		     id="placedOrder_remarks" value="#{placedOrderCrudBacking.placedOrder.remarks}"  >
-    			  
-    </h:inputText> 
-    <h:message for="placedOrder_remarks" styleClass="errMessage" />
-		  						  	  		    <h:outputText value="Payment Method" styleClass="formLabel" /> 
-		        <h:inputText  required="false"  
-    		     id="placedOrder_paymentMethod" value="#{placedOrderCrudBacking.placedOrder.paymentMethod}"  >
-    			  
-    </h:inputText> 
-    <h:message for="placedOrder_paymentMethod" styleClass="errMessage" />
-		  						  	  		    <h:outputText value="Status" styleClass="formLabel" /> 
-		        <t:selectOneMenu  required="false"  
-    		     id="placedOrder_status" value="#{placedOrderCrudBacking.placedOrder.status}"  >
-    			  <f:selectItem itemLabel="NEW" itemValue="NEW" /><f:selectItem itemLabel="COMPLETED" itemValue="COMPLETED" /><f:selectItem itemLabel="SHIPPED" itemValue="SHIPPED" />
-    </t:selectOneMenu> 
-    <h:message for="placedOrder_status" styleClass="errMessage" />
-		  						  	       
-		  	          	       
-		  	       		  	       			
-		  	       			 					  	       			 		  	         		    <h:outputText value="Customer" styleClass="formLabel" /> 
-    <h:inputText id="placedOrder_customer" value="#{placedOrderCrudBacking.placedOrder.customer.id}"  /> 
-    <h:message for="placedOrder_customer" styleClass="errMessage" />
-		  	       			 		  	
+		  	#generateAttributesForClass(<<Entity>> PlacedOrder placedOrder)      
+		  	
 		  		
 		  							   <h:commandButton id="button1" value="Search" action="#{placedOrderCrudBacking.search}"/> 
 		  							    <h:commandButton id="button2" value="Cancel" action="#{placedOrderCrudBacking.cancelSearch}" immediate="true"/> 

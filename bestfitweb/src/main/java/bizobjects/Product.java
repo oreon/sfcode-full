@@ -1,37 +1,42 @@
 package bizobjects;
 
-import javax.persistence.*;
-
+import javax.persistence.Entity;
 
 @Entity
-public class Product extends org.witchcraft.model.support.BusinessEntity
-    implements java.io.Serializable {
-    private static final long serialVersionUID = 1L;
-    private String name;
-    private String brand;
-    private double listPrice;
+public class /*0 */Product extends org.witchcraft.model.support.BusinessEntity
+		implements
+			java.io.Serializable {
 
-    public String getName() {
-        return this.name;
-    }
+	private static final long serialVersionUID = 1L;
 
-    public String getBrand() {
-        return this.brand;
-    }
+	private String name;
 
-    public double getListPrice() {
-        return this.listPrice;
-    }
+	private String brand;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	private double listPrice;
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
+	public String getName() {
+		return this.name;
+	}
 
-    public void setListPrice(double listPrice) {
-        this.listPrice = listPrice;
-    }
+	public String getBrand() {
+		return this.brand;
+	}
+
+	public double getListPrice() {
+		return this.listPrice;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	public void setListPrice(double listPrice) {
+		this.listPrice = listPrice;
+	}
+
 }

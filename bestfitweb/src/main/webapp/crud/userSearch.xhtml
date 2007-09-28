@@ -1,0 +1,42 @@
+	
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	template="/WEB-INF/template/templateCrud.xhtml">
+
+	<ui:define name="content">
+	
+			    <h:messages layout="list" globalOnly="true" showDetail="true" styleClass="messages" />
+	
+    <f:view>
+            <h:form id="form">
+				  				               <h:panelGrid columns="6" styleClass="formTable" >
+				  				               <f:facet name="header">
+   					 	                 <h:outputText value="User Search" styleClass="formHeaderText"/>
+  				               </f:facet>
+			                             
+				  								            
+				  				               
+							          
+		  		  			
+		  	#generateAttributesForClass(<<Entity>> User user)      
+		  	
+		  		
+		  							   <h:commandButton id="button1" value="Search" action="#{userCrudBacking.search}"/> 
+		  							    <h:commandButton id="button2" value="Cancel" action="#{userCrudBacking.cancelSearch}" immediate="true"/> 
+		  				   
+		  		
+				                  </h:panelGrid>
+             </h:form>
+        </f:view>
+    
+    </ui:define>
+</ui:composition>
+						
+				

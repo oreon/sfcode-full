@@ -1,216 +1,431 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config>
 
-<faces-config> 
-  <!--  Spring variable resolver -->  
-  <application> 
-    <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver> 
-  </application>  
-  <!-- Managed beans for the crud operations -->  
-  <managed-bean> 
-    <managed-bean-name>customerCrudBacking</managed-bean-name>  
-    <managed-bean-class>bizobjects.web.jsf.CustomerBackingBean</managed-bean-class>  
-    <managed-bean-scope>request</managed-bean-scope>  
-    <managed-property> 
-      <property-name>customerService</property-name>  
-      <value>#{customerService}</value> 
-    </managed-property> 
-  </managed-bean>  
-  <managed-bean> 
-    <managed-bean-name>employeeCrudBacking</managed-bean-name>  
-    <managed-bean-class>bizobjects.web.jsf.EmployeeBackingBean</managed-bean-class>  
-    <managed-bean-scope>request</managed-bean-scope>  
-    <managed-property> 
-      <property-name>employeeService</property-name>  
-      <value>#{employeeService}</value> 
-    </managed-property> 
-  </managed-bean>  
-  <managed-bean> 
-    <managed-bean-name>placedOrderCrudBacking</managed-bean-name>  
-    <managed-bean-class>bizobjects.web.jsf.PlacedOrderBackingBean</managed-bean-class>  
-    <managed-bean-scope>request</managed-bean-scope>  
-    <managed-property> 
-      <property-name>placedOrderService</property-name>  
-      <value>#{placedOrderService}</value> 
-    </managed-property> 
-  </managed-bean>  
-  <managed-bean> 
-    <managed-bean-name>productCrudBacking</managed-bean-name>  
-    <managed-bean-class>bizobjects.web.jsf.ProductBackingBean</managed-bean-class>  
-    <managed-bean-scope>request</managed-bean-scope>  
-    <managed-property> 
-      <property-name>productService</property-name>  
-      <value>#{productService}</value> 
-    </managed-property> 
-  </managed-bean>  
-  <managed-bean> 
-    <managed-bean-name>orderItemCrudBacking</managed-bean-name>  
-    <managed-bean-class>bizobjects.web.jsf.OrderItemBackingBean</managed-bean-class>  
-    <managed-bean-scope>request</managed-bean-scope>  
-    <managed-property> 
-      <property-name>orderItemService</property-name>  
-      <value>#{orderItemService}</value> 
-    </managed-property> 
-  </managed-bean>  
-  <!-- Navigation Rules  -->  
-  <navigation-rule> 
-    <from-view-id>/crud/customer.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>success</from-outcome>  
-      <to-view-id>/crud/customerList.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule>  
-  <navigation-rule> 
-    <from-view-id>/crud/customerSearch.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>search</from-outcome>  
-      <to-view-id>/crud/customerList.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule>  
-  <navigation-rule> 
-    <from-view-id>/crud/customerList.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>edit</from-outcome>  
-      <to-view-id>/crud/customer.xhtml</to-view-id> 
-    </navigation-case>  
-    <navigation-case> 
-      <from-outcome>search</from-outcome>  
-      <to-view-id>/crud/customerSerach.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule>  
-  <navigation-rule> 
-    <from-view-id>/crud/customerSearch.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>search</from-outcome>  
-      <to-view-id>/crud/customerList.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule>  
-  <navigation-rule> 
-    <from-view-id>/crud/employee.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>success</from-outcome>  
-      <to-view-id>/crud/employeeList.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule>  
-  <navigation-rule> 
-    <from-view-id>/crud/employeeSearch.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>search</from-outcome>  
-      <to-view-id>/crud/employeeList.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule>  
-  <navigation-rule> 
-    <from-view-id>/crud/employeeList.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>edit</from-outcome>  
-      <to-view-id>/crud/employee.xhtml</to-view-id> 
-    </navigation-case>  
-    <navigation-case> 
-      <from-outcome>search</from-outcome>  
-      <to-view-id>/crud/employeeSerach.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule>  
-  <navigation-rule> 
-    <from-view-id>/crud/employeeSearch.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>search</from-outcome>  
-      <to-view-id>/crud/employeeList.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule>  
-  <navigation-rule> 
-    <from-view-id>/crud/placedOrder.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>success</from-outcome>  
-      <to-view-id>/crud/placedOrderList.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule>  
-  <navigation-rule> 
-    <from-view-id>/crud/placedOrderSearch.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>search</from-outcome>  
-      <to-view-id>/crud/placedOrderList.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule>  
-  <navigation-rule> 
-    <from-view-id>/crud/placedOrderList.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>edit</from-outcome>  
-      <to-view-id>/crud/placedOrder.xhtml</to-view-id> 
-    </navigation-case>  
-    <navigation-case> 
-      <from-outcome>search</from-outcome>  
-      <to-view-id>/crud/placedOrderSerach.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule>  
-  <navigation-rule> 
-    <from-view-id>/crud/placedOrderSearch.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>search</from-outcome>  
-      <to-view-id>/crud/placedOrderList.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule>  
-  <navigation-rule> 
-    <from-view-id>/crud/product.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>success</from-outcome>  
-      <to-view-id>/crud/productList.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule>  
-  <navigation-rule> 
-    <from-view-id>/crud/productSearch.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>search</from-outcome>  
-      <to-view-id>/crud/productList.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule>  
-  <navigation-rule> 
-    <from-view-id>/crud/productList.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>edit</from-outcome>  
-      <to-view-id>/crud/product.xhtml</to-view-id> 
-    </navigation-case>  
-    <navigation-case> 
-      <from-outcome>search</from-outcome>  
-      <to-view-id>/crud/productSerach.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule>  
-  <navigation-rule> 
-    <from-view-id>/crud/productSearch.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>search</from-outcome>  
-      <to-view-id>/crud/productList.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule>  
-  <navigation-rule> 
-    <from-view-id>/crud/orderItem.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>success</from-outcome>  
-      <to-view-id>/crud/orderItemList.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule>  
-  <navigation-rule> 
-    <from-view-id>/crud/orderItemSearch.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>search</from-outcome>  
-      <to-view-id>/crud/orderItemList.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule>  
-  <navigation-rule> 
-    <from-view-id>/crud/orderItemList.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>edit</from-outcome>  
-      <to-view-id>/crud/orderItem.xhtml</to-view-id> 
-    </navigation-case>  
-    <navigation-case> 
-      <from-outcome>search</from-outcome>  
-      <to-view-id>/crud/orderItemSerach.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule>  
-  <navigation-rule> 
-    <from-view-id>/crud/orderItemSearch.xhtml</from-view-id>  
-    <navigation-case> 
-      <from-outcome>search</from-outcome>  
-      <to-view-id>/crud/orderItemList.xhtml</to-view-id> 
-    </navigation-case> 
-  </navigation-rule> 
+	<!--  Spring variable resolver -->
+	<application>
+		<variable-resolver>
+			org.springframework.web.jsf.DelegatingVariableResolver
+		</variable-resolver>
+	</application>
+
+	<!-- Managed beans for the crud operations -->
+	
+
+	<managed-bean>
+		<managed-bean-name>customerCrudBacking</managed-bean-name>
+		<managed-bean-class>bizobjects.web.jsf.CustomerBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>customerService</property-name>
+			<value>#{customerService}</value>
+		</managed-property>
+		
+	</managed-bean> 
+ 	
+
+
+	<managed-bean>
+		<managed-bean-name>employeeCrudBacking</managed-bean-name>
+		<managed-bean-class>bizobjects.web.jsf.EmployeeBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>employeeService</property-name>
+			<value>#{employeeService}</value>
+		</managed-property>
+		
+	</managed-bean> 
+ 	
+
+
+	<managed-bean>
+		<managed-bean-name>placedOrderCrudBacking</managed-bean-name>
+		<managed-bean-class>bizobjects.web.jsf.PlacedOrderBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>placedOrderService</property-name>
+			<value>#{placedOrderService}</value>
+		</managed-property>
+		
+	</managed-bean> 
+ 	
+
+
+	<managed-bean>
+		<managed-bean-name>productCrudBacking</managed-bean-name>
+		<managed-bean-class>bizobjects.web.jsf.ProductBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>productService</property-name>
+			<value>#{productService}</value>
+		</managed-property>
+		
+	</managed-bean> 
+ 	
+
+
+	<managed-bean>
+		<managed-bean-name>orderItemCrudBacking</managed-bean-name>
+		<managed-bean-class>bizobjects.web.jsf.OrderItemBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>orderItemService</property-name>
+			<value>#{orderItemService}</value>
+		</managed-property>
+		
+	</managed-bean> 
+ 	
+
+
+	<managed-bean>
+		<managed-bean-name>userCrudBacking</managed-bean-name>
+		<managed-bean-class>usermanagement.web.jsf.UserBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>userService</property-name>
+			<value>#{userService}</value>
+		</managed-property>
+		
+	</managed-bean> 
+ 	
+
+
+	<managed-bean>
+		<managed-bean-name>authorityCrudBacking</managed-bean-name>
+		<managed-bean-class>usermanagement.web.jsf.AuthorityBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>authorityService</property-name>
+			<value>#{authorityService}</value>
+		</managed-property>
+		
+	</managed-bean> 
+ 	
+
+	
+	<!-- Navigation Rules  -->
+	
+	<navigation-rule>
+  		<from-view-id>/crud/customer.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/customerList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/customerSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/customerList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/customerList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/customer.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/customerSerach.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/customerSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/customerList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+
+	<navigation-rule>
+  		<from-view-id>/crud/employee.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/employeeList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/employeeSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/employeeList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/employeeList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/employee.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/employeeSerach.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/employeeSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/employeeList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+
+	<navigation-rule>
+  		<from-view-id>/crud/placedOrder.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/placedOrderList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/placedOrderSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/placedOrderList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/placedOrderList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/placedOrder.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/placedOrderSerach.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/placedOrderSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/placedOrderList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+
+	<navigation-rule>
+  		<from-view-id>/crud/product.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/productList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/productSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/productList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/productList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/product.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/productSerach.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/productSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/productList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+
+	<navigation-rule>
+  		<from-view-id>/crud/orderItem.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/orderItemList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/orderItemSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/orderItemList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/orderItemList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/orderItem.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/orderItemSerach.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/orderItemSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/orderItemList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+
+	<navigation-rule>
+  		<from-view-id>/crud/user.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/userList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/userSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/userList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/userList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/user.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/userSerach.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/userSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/userList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+
+	<navigation-rule>
+  		<from-view-id>/crud/authority.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/authorityList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/authoritySearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/authorityList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/authorityList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/authority.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/authoritySerach.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/authoritySearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/authorityList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+
+			
 </faces-config>

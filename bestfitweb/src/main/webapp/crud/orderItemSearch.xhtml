@@ -1,5 +1,4 @@
-  
-
+	
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -26,28 +25,8 @@
 				  				               
 							          
 		  		  			
-		  		         			  					  	  		    <h:outputText value="Sale Price" styleClass="formLabel" /> 
-		        <h:inputText  required="false"  
-    		     id="orderItem_salePrice" value="#{orderItemCrudBacking.orderItem.salePrice}"  >
-    			  
-    </h:inputText> 
-    <h:message for="orderItem_salePrice" styleClass="errMessage" />
-		  						  	  		    <h:outputText value="Quantity" styleClass="formLabel" /> 
-		        <h:inputText  required="false"  
-    		     id="orderItem_quantity" value="#{orderItemCrudBacking.orderItem.quantity}"  >
-    			  
-    </h:inputText> 
-    <h:message for="orderItem_quantity" styleClass="errMessage" />
-		  						  	       
-		  	          	       
-		  	       		  	       			
-		  	       			 					  	       			 		  	         		    <h:outputText value="Product" styleClass="formLabel" /> 
-    <h:inputText id="orderItem_product" value="#{orderItemCrudBacking.orderItem.product.id}"  /> 
-    <h:message for="orderItem_product" styleClass="errMessage" />
-		  	       			 		  	         		    <h:outputText value="Order" styleClass="formLabel" /> 
-    <h:inputText id="orderItem_order" value="#{orderItemCrudBacking.orderItem.order.id}"  /> 
-    <h:message for="orderItem_order" styleClass="errMessage" />
-		  	       			 		  	
+		  	#generateAttributesForClass(<<Entity>> OrderItem orderItem)      
+		  	
 		  		
 		  							   <h:commandButton id="button1" value="Search" action="#{orderItemCrudBacking.search}"/> 
 		  							    <h:commandButton id="button2" value="Cancel" action="#{orderItemCrudBacking.cancelSearch}" immediate="true"/> 

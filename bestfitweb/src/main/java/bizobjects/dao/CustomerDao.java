@@ -1,12 +1,10 @@
 package bizobjects.dao;
 
+import bizobjects.Customer;
+import org.witchcraft.model.support.dao.GenericDAO;
 import java.util.List;
 
-import org.witchcraft.model.support.dao.GenericDAO;
-
-import bizobjects.Customer;
-
-public interface CustomerDao extends GenericDAO<Customer>{
+public interface CustomerDao extends GenericDAO<Customer> {
 
 	public List<Customer> findByLastName(String lastName);
 

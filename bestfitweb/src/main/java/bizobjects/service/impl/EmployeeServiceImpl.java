@@ -1,60 +1,101 @@
 package bizobjects.service.impl;
 
 import bizobjects.Employee;
-
+import bizobjects.service.EmployeeService;
 import bizobjects.dao.EmployeeDao;
-
-import bizobjects.service.EmployeeService;
-import bizobjects.service.EmployeeService;
-
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
-
+import bizobjects.service.EmployeeService;
+import org.springframework.transaction.annotation.Transactional;
+import org.apache.log4j.Logger;
 
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService {
-    private EmployeeDao employeeDao;
 
-    public void setEmployeeDao(EmployeeDao employeeDao) {
-        this.employeeDao = employeeDao;
-    }
+	protected static final Logger log = Logger
+			.getLogger(EmployeeServiceImpl.class);
 
-    //// Delegate all crud operations to the Dao ////
-    public Employee save(Employee employee) {
-        return employeeDao.save(employee);
-    }
+	private EmployeeDao employeeDao;
 
-    public void delete(Employee employee) {
-        employeeDao.delete(employee);
-    }
+	public void setEmployeeDao(EmployeeDao employeeDao) {
+		this.employeeDao = employeeDao;
+	}
 
-    public Employee load(Long id) {
-        return employeeDao.load(id);
-    }
+	//// Delegate all crud operations to the Dao ////
 
-    public List<Employee> loadAll() {
-        return employeeDao.loadAll();
-    }
+	public Employee save(Employee employee) {
+		checkUniqueConstraints(employee);
+		return employeeDao.save(employee);
+	}
 
-    public List<Employee> findBycode(Object code) {
-        return employeeDao.findBycode(code);
-    }
+	/** Before saving a record we need to ensure that no unique constraints
+	 * will be violated. 
+	 * @param customer
+	 */
+	private void checkUniqueConstraints(Employee employee) {
+		Employee
 
-    public List<Employee> findByfirstName(Object firstName) {
-        return employeeDao.findByfirstName(firstName);
-    }
+		existingEmployee = employeeDao.findByCode(employee.getCode());
+		ensureUnique(employee, existingEmployee, "Entity.exists.withCode");
 
-    public List<Employee> findBylastName(Object lastName) {
-        return employeeDao.findBylastName(lastName);
-    }
+		existingEmployee = employeeDao.findByUsername(employee.getUserAccount()
+				.getUsername());
+		ensureUnique(employee, existingEmployee, "Entity.exists.withUsername");
 
-    public List<Employee> searchByExample(Employee employee) {
-        return employeeDao.searchByExample(employee);
-    }
+		existingEmployee = employeeDao.findByEmail(employee.getPrimaryAddress()
+				.getEmail());
+		ensureUnique(employee, existingEmployee, "Entity.exists.withEmail");
 
-    /*
-    public List query(String queryString, Object... params) {
-            return basicDAO.query(queryString, params);
-    }*/
+	}
+
+	private void ensureUnique(Employee employee, Employee existingEmployee,
+			String exceptionId) {
+		if (existingEmployee == null)
+			return; //no customer exists with the given email - no need to check unique constraint violation
+
+		if (employee.getId() == null) { // for a new entity
+			throw new RuntimeException(exceptionId);
+		} else {//for updating an existing entiy
+			if (existingEmployee.getId() != employee.getId())
+				throw new RuntimeException(exceptionId);
+		}
+
+	}
+
+	public void delete(Employee employee) {
+		employeeDao.delete(employee);
+	}
+
+	public Employee load(Long id) {
+		return employeeDao.load(id);
+	}
+
+	public List<Employee> loadAll() {
+		return employeeDao.loadAll();
+	}
+
+	public List<Employee> findByLastName(String lastName) {
+		return employeeDao.findByLastName(lastName);
+	}
+
+	public Employee findByCode(int code) {
+		return employeeDao.findByCode(code);
+	}
+
+	public Employee findByUsername(String username) {
+		return employeeDao.findByUsername(username);
+	}
+
+	public Employee findByEmail(String email) {
+		return employeeDao.findByEmail(email);
+	}
+
+	public List<Employee> searchByExample(Employee employee) {
+		return employeeDao.searchByExample(employee);
+	}
+
+	/*
+	public List query(String queryString, Object... params) {
+		return basicDAO.query(queryString, params);
+	}*/
+
 }

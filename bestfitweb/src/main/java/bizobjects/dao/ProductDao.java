@@ -1,20 +1,9 @@
 package bizobjects.dao;
 
+import org.witchcraft.model.support.dao.GenericDAO;
+
 import bizobjects.Product;
 
-import org.springframework.orm.jpa.support.JpaDaoSupport;
+public interface ProductDao extends GenericDAO<Product> {
 
-import java.util.List;
-
-
-public interface ProductDao {
-    public Product save(Product product);
-
-    public void delete(Product product);
-
-    public Product load(Long id);
-
-    public List<Product> loadAll();
-
-    public List<Product> searchByExample(Product product);
 }

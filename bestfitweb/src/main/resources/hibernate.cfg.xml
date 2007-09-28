@@ -1,14 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
-
-<hibernate-configuration> 
-  <session-factory> 
-  
-  	 <!-- Database connection settings -->
-  	 
-  	 	
-  	 
-        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+<hibernate-configuration>
+    <session-factory>
+    	       <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.url">jdbc:mysql:///ecomm</property>
         <property name="connection.username">root</property>
         <property name="connection.password">root</property>
@@ -30,18 +24,15 @@
 
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>
-  
-  
-  
-    <mapping class="bizobjects.Customer"/>  
-    <mapping class="bizobjects.Employee"/>  
-    <mapping class="bizobjects.PlacedOrder"/>  
-    <mapping class="bizobjects.Product"/>  
-    <mapping class="bizobjects.OrderItem"/> 
-    <mapping class="org.witchcraft.model.support.User"/>
-    <mapping class="org.witchcraft.model.support.Authority"/> 
     
-    
-    
-  </session-factory> 
+	<mapping class="bizobjects.Customer"/>
+	<mapping class="bizobjects.Employee"/>
+	<mapping class="bizobjects.PlacedOrder"/>
+	<mapping class="bizobjects.Product"/>
+	<mapping class="bizobjects.OrderItem"/>
+	<mapping class="usermanagement.User"/>
+	<mapping class="usermanagement.Authority"/>
+       	
+       	
+    </session-factory>
 </hibernate-configuration>

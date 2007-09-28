@@ -1,56 +1,84 @@
 package bizobjects.service;
 
 import bizobjects.Employee;
-
 import org.springframework.test.jpa.AbstractJpaTests;
-
 import java.util.List;
 
-
 public class EmployeeDaoTest extends AbstractJpaTests {
-    private EmployeeService employeeService;
 
-    public void setEmployeeService(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
+	private EmployeeService employeeService;
 
-    @Override
-    protected String[] getConfigLocations() {
-        return new String[] { "classpath:/applicationContext.xml" };
-    }
+	public void setEmployeeService(EmployeeService employeeService) {
+		this.employeeService = employeeService;
+	}
 
-    /**
-    * Do the setup before the test in this method
-    **/
-    protected void onSetUpInTransaction() throws Exception {
-    }
+	@Override
+	protected String[] getConfigLocations() {
+		return new String[]{"classpath:/applicationContext.xml"};
+	}
 
-    public void testSave() {
-        //test saving a new record and updating an existing record;
-    }
+	/**
+	 * Do the setup before the test in this method
+	 **/
+	protected void onSetUpInTransaction() throws Exception {
 
-    public void testDelete() {
-        //return false;
-    }
+	}
 
-    public void testLoad() {
-        //return null;
-    }
+	public void testSave() {
+		//test saving a new record and updating an existing record;
+	}
 
-    public void testFindBycode() {
-    }
+	public void testDelete() {
+		//return false;
+	}
 
-    public void testFindByfirstName() {
-    }
+	public void testLoad() {
+		//return null;
+	}
 
-    public void testFindBylastName() {
-    }
+	public void testFindByLastName() {
 
-    public void testSearchByExample() {
-        Employee employee = new Employee();
+		List<Employee> employees = employeeService.findByLastName("XXX");
+		assertTrue(!employees.isEmpty());
 
-        //employee.setFirstName("Eri");
-        List<Employee> employees = employeeService.searchByExample(employee);
-        assertTrue(!employees.isEmpty());
-    }
+		//negative test
+		employees = employeeService.findByLastName("YYY");
+		assertTrue(employees.isEmpty());
+
+	}
+
+	public void testFindByCode() {
+
+		assertNotNull("Couldn't find a Employee with code XXX", employeeService
+				.findByCode("XXX"));
+		assertNull("Found a Employee with code YYY", employeeService
+				.findByCode("YYY"));
+
+	}
+
+	public void testFindByUsername() {
+
+		assertNotNull("Couldn't find a Employee with username XXX",
+				employeeService.findByUsername("XXX"));
+		assertNull("Found a Employee with username YYY", employeeService
+				.findByUsername("YYY"));
+
+	}
+
+	public void testFindByEmail() {
+
+		assertNotNull("Couldn't find a Employee with email XXX",
+				employeeService.findByEmail("XXX"));
+		assertNull("Found a Employee with email YYY", employeeService
+				.findByEmail("YYY"));
+
+	}
+
+	public void testSearchByExample() {
+		Employee employee = new Employee();
+		//employee.setFirstName("Eri");
+		List<Employee> employees = employeeService.searchByExample(employee);
+		assertTrue(!employees.isEmpty());
+	}
+
 }

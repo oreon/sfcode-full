@@ -1,6 +1,7 @@
 package bizobjects;
 
-public enum OrderStatus {NEW,
-    COMPLETED,
-    SHIPPED;
+public enum OrderStatus {
+
+	NEW, COMPLETED, SHIPPED
+
 }
