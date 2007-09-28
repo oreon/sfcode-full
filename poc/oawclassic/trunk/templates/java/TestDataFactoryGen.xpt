@@ -128,6 +128,13 @@ public class InitialDataSetup {
 		}
 		
 		List<«NameS»> getAllAsList(){
+			
+			if(«asInstanceVar()»s.isEmpty()){
+				«FOREACH getCounters() AS counter-»
+					create«NameS»«counter»();
+				«ENDFOREACH»
+			}
+		
 			return «asInstanceVar()»s;
 		}
 		
