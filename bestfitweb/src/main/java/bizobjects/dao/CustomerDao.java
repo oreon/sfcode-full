@@ -1,24 +1,17 @@
 package bizobjects.dao;
 
-import bizobjects.Customer;
-
-import org.springframework.orm.jpa.support.JpaDaoSupport;
-
 import java.util.List;
 
+import org.witchcraft.model.support.dao.GenericDAO;
 
-public interface CustomerDao {
-    public Customer save(Customer customer);
+import bizobjects.Customer;
 
-    public void delete(Customer customer);
+public interface CustomerDao extends GenericDAO<Customer>{
 
-    public Customer load(Long id);
+	public List<Customer> findByLastName(String lastName);
 
-    public List<Customer> loadAll();
+	public Customer findByUsername(String username);
 
-    public List<Customer> findByfirstName(Object firstName);
+	public Customer findByEmail(String email);
 
-    public List<Customer> findBylastName(Object lastName);
-
-    public List<Customer> searchByExample(Customer customer);
 }
