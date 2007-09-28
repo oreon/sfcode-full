@@ -39,7 +39,7 @@ public class RandomValueGenerator {
 			
 			return "dateFormat.parse(\"" + dateFormat.format(cal.getTime()) + "\")"; 
 		}else if (typeName.equalsIgnoreCase("int") ){
-			return (attribute.InitValue() == null )? generator.nextInt(1000): attribute.InitValue();
+			return (attribute.InitValue() == null )? new Random().nextInt(10000): attribute.InitValue();
 		}else if (typeName.equalsIgnoreCase("double") || typeName.equalsIgnoreCase("BigDecimal") ){
 			return (attribute.InitValue() == null )? 100 * generator.nextDouble(): attribute.InitValue();
 		}else if (attribute.Type().getMetaClass().getSimpleName().equalsIgnoreCase("Enumeration")){
