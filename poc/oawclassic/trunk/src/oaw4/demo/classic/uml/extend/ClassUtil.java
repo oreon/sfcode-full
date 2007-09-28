@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+
+
 import oaw4.demo.classic.uml.meta.Column;
 import oaw4.demo.classic.uml.meta.Entity;
 
@@ -288,7 +290,7 @@ public class ClassUtil {
 			AssociationEnd opposite = ae.Opposite();
 			String multiplicity = (opposite.MultiplicityMinAsInt() == 1 && opposite.MultiplicityMaxAsInt() == 1 )? 
 					"OneToOne": "ManyToOne";
-			return "@" + multiplicity +"\n @JoinColumn(name=\"" + ae.NameS()
+			return "@" + multiplicity +"(cascade=CascadeType.ALL)\n @JoinColumn(name=\"" + ae.NameS()
 					+ "_ID\", nullable=" + nullable + ")";
 		} else
 			return "";
