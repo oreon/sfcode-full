@@ -7,8 +7,8 @@
 «EXTENSION java::NamingConventions»
 
 
-«DEFINE GenerateTestDataFactory FOR Model»
-	«FILE "../../test/java/" + "/testdata/" +  "TestDataFactory.java"»  
+«DEFINE GenerateTestDataFactory FOR Entity»
+	«FILE "../../test/java/" + "/testdata/" + NameS + "TestDataFactory.java"»  
 
 	package testdata;
 	
@@ -19,27 +19,23 @@
 	import java.text.SimpleDateFormat;
 	
 	
-	public class TestDataFactory {
+	public class «NameS»TestDataFactory {
 	
 		private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss z");
 		
-		
-		
-       	«EXPAND GenerateTestData FOREACH getEntities()-»
-       	
-       
-       	«EXPAND GenerateTestDataForAuthority-» 
-    }
+		«NameS»Service «asInstanceVar()»Service;
 	
-	«ENDFILE»
-«ENDDEFINE»
+		public «NameS»Service get«NameS»Service() {
+			return «asInstanceVar()»Service;
+		}
+	
+		public void set«NameS»Service(«NameS»Service «asInstanceVar()»Service) {
+			this.«asInstanceVar()»Service = «asInstanceVar()»Service;
+		}
+		
+       	«FOREACH getCounters() AS counter-»
 
-
-«DEFINE GenerateTestData FOR Entity-»
-
-	«FOREACH getCounters() AS counter»
-
-	public static «NameS» create«NameS»«counter»(){
+		public static «NameS» create«NameS»«counter»(){
 		«NameS» «asInstanceVar()» = new «NameS»();
 		
 		try{
@@ -48,15 +44,16 @@
 			«asInstanceVar()».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»(«attrib.getRandValue()»);
 		«ENDFOREACH»
 		
-		
+		«REM»The associated entites for e.g an order would need a customer «ENDREM»
 		«FOREACH AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable) AS ae-»
 			«asInstanceVar()».set«ae.NameS.toFirstUpper()»(load«ae.Class.NameS»());
 		«ENDFOREACH»
 		
-		«IF isUser || getDefaultRole != null»
-		//Give the user an authority
-		//createAuthorityFor«NameS»(«asInstanceVar()»);
-		«ENDIF»
+		«REM»Composed collections  «ENDREM»
+		«FOREACH AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable && ae.isComposition) AS ae-»
+			«asInstanceVar()».set«ae.NameS.toFirstUpper()»(load«ae.Class.NameS»());
+		«ENDFOREACH»
+		
 		
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -66,29 +63,33 @@
 	}
 	
 	«ENDFOREACH»
-	
-	public static «NameS» load«NameS»(){
-		«NameS» «asInstanceVar()» = «asInstanceVar()»Service.load(1L);		
-		return «asInstanceVar()»;
-	}
-	
-	«IF isUser || getDefaultRole != null»
-	/*
-		public Authority createAuthorityFor«NameS»(«NameS» «asInstanceVar()») { 
-			Authority authroirty = new Authority(«asInstanceVar()», "«getDefaultRole»" );	
-			return authroirty;
+       
+       public static «NameS» load«NameS»() {
+			List<«NameS»> «asInstanceVar()»s = «asInstanceVar()»Service.loadAll();
+			
+			if(«asInstanceVar()»s.isEmpty()){
+				persist«NameS»s();
+				«asInstanceVar()»s = «asInstanceVar()»Service.loadAll();
+			}
+			
+			return «asInstanceVar()»s.get(new Random().nextInt(«asInstanceVar()»s.size()));
 		}
-	*/		
-	«ENDIF»
+		
+		public static void persistCustomers(){
+			customerService.save(createCustomerOne());
+			customerService.save(createCustomerTwo());
+			customerService.save(createCustomerThree());
+			customerService.save(createCustomerFour());
+		}
 	
+    }
+	
+	«ENDFILE»
 «ENDDEFINE»
+
 
 «DEFINE GenImports FOR Entity»
 	import «packageName()».«NameS»;
-«ENDDEFINE»
-
-«DEFINE GenerateTestDataForAuthority FOR Model»
-	
 «ENDDEFINE»
 
 
