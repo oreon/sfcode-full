@@ -5,13 +5,11 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-
-
-import oaw4.demo.classic.uml.meta.Column;
 import oaw4.demo.classic.uml.meta.Entity;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
+import org.openarchitectureware.meta.uml.Type;
 import org.openarchitectureware.meta.uml.classifier.AssociationEnd;
 import org.openarchitectureware.meta.uml.classifier.Attribute;
 import org.openarchitectureware.meta.uml.classifier.Class;
@@ -75,19 +73,38 @@ public class ClassUtil {
 		String opText = new String();
 		if (operation.Documentation() != null)
 			opText += operation.Documentation() + "\n";
-		opText += operation.Visibility() + " " + operation.ReturnType().NameS()
+		opText += operation.Visibility() + " " + getParamTypeString(operation, operation.ReturnType())
 				+ " " + operation.NameS() + "(";
 
 		for (Iterator<Parameter> iter = operation.Parameter().iterator(); iter
 				.hasNext();) {
 			Parameter param = iter.next();
-			opText += param.Type().NameS() + " " + param.NameS();
+			
+			String paramType = getParamTypeString(operation, param.Type());
+			
+			opText += paramType + " " + param.NameS();
 			if (iter.hasNext())
 				opText += ",";
 		}
 
 		opText += ")";
 		return opText;
+	}
+
+	/** Returns operation param type name - fully qualified if the param doesnt
+	 * belong to this operation's package
+	 * @param operation
+	 * @param param
+	 * @return
+	 */
+	private static String getParamTypeString(Operation operation,
+			Type type) {
+		String paramType = type.NameS();
+		
+		if(! type.Namespace().NameS().equals( operation.Class().Namespace.NameS() )){
+			paramType = type.Namespace().NameS() + "." + paramType;
+		}
+		return paramType;
 	}
 
 	/**
