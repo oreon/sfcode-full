@@ -1,10 +1,11 @@
 package org.witchcraft.model.support;
+
  
 /** This class is the base for test data factories for various entities 
  * @author jsingh
  *
  */
-public abstract class AbstractTestDataFactory {
+public abstract class AbstractTestDataFactory implements TestDataFactory{
 	
 	private boolean persistable = true;
 

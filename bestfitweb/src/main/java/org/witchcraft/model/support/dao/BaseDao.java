@@ -11,10 +11,9 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
+import org.witchcraft.model.support.BusinessEntity;
 
-import bizobjects.Customer;
-
-public class BaseDao<T>  implements GenericDAO<T> {
+public class BaseDao<T> implements GenericDAO<T> {
 
 	private Class<T> persistentClass;
 	// private Session session;
@@ -42,10 +41,17 @@ public class BaseDao<T>  implements GenericDAO<T> {
 	 */
 	public T save(T entity) {
 
-		if (!entityManager.contains(entity))
-			entityManager.persist(entity);
-		else
+		/*
+		 * FIXME : This code will make if (!entityManager.contains(entity))
+		 * entityManager.persist(entity); else entityManager.merge(entity);
+		 */
+
+		BusinessEntity be = (BusinessEntity) entity;
+
+		if (be.getId() != null)
 			entityManager.merge(entity);
+		else
+			entityManager.persist(entity);
 
 		return entity;
 	}
@@ -56,7 +62,8 @@ public class BaseDao<T>  implements GenericDAO<T> {
 
 	@SuppressWarnings("unchecked")
 	public List<T> loadAll() {
-		String qryString = "select e from " + getPersistentClass().getSimpleName() + "  e ";
+		String qryString = "select e from "
+				+ getPersistentClass().getSimpleName() + "  e ";
 		Query query = entityManager.createQuery(qryString);
 		return query.getResultList();
 	}
@@ -65,19 +72,25 @@ public class BaseDao<T>  implements GenericDAO<T> {
 		entityManager.remove(entity);
 	}
 
+	private String excludedProperties[] = { "dateModified", "dateCreated", "id" };
+
 	@SuppressWarnings("unchecked")
 	public List<T> searchByExample(T exampleInstance) {
-		
+
 		Session session = (Session) entityManager.getDelegate();
 
-		Criteria criteria = session.createCriteria(Customer.class).add(
-				Example.create(getPersistentClass()).enableLike(
-						MatchMode.START).ignoreCase().excludeZeroes()
-						.excludeProperty("dateModified")
-						.excludeProperty("id").excludeProperty(
-								"dateCreated"));
-		return criteria.list();
-		
-	}
+		Example example = Example.create(exampleInstance).enableLike(
+				MatchMode.START).ignoreCase().excludeZeroes();
 
+		Criteria criteria = session.createCriteria(getPersistentClass()).add(
+				example);
+
+		for (String exclude : excludedProperties) {
+			example.excludeProperty(exclude);
+		}
+
+		List list = criteria.list();
+
+		return list;
+	}
 }
