@@ -9,7 +9,7 @@
 
 «DEFINE GenerateInitialData FOR Model»
 
-«FILE "initialsetup" + "/InitialDataSetup.java"»
+«FILE "../../test/java/initialsetup" + "/InitialDataSetup.java"»
 	
 package initialsetup;
 
@@ -58,9 +58,12 @@ public class InitialDataSetup {
 	import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 	import org.witchcraft.model.support.AbstractTestDataFactory;
 	
+	
+	import org.springframework.transaction.annotation.Transactional;
+	
 	import  «packageName()».service.«NameS»Service;
 	
-
+	@Transactional
 	public class «NameS»TestDataFactory extends AbstractTestDataFactory {
 	
 		List<«NameS»>  «asInstanceVar()»s = new ArrayList<«NameS»>();

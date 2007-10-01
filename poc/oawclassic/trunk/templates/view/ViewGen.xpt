@@ -17,7 +17,7 @@
 «ENDFILE»
 
 «FILE "../webapp/crud/" + NameS.toFirstLower() + "Search.xhtml"-»  
-	«getSearchViewXHTML()»		
+	«EXPAND genSearchView»		
 «ENDFILE»
 
 «ENDDEFINE»
@@ -61,6 +61,22 @@
 
 						
 						</h:panelGrid>
+						
+						«REM»Composed collections e.g an order contains orderitems «ENDREM»
+						«FOREACH AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable && ae.Opposite.isComposition) AS ae-»
+							<t:dataTable id="data" var="rows"
+								value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.NameS»}" rows="10"
+							rowClasses="odd, even" styleClass="dataTable">
+							
+							«EXPAND genTableRow(ae.Class) FOREACH ae.Class.getAllAttributes -»
+							
+							«REM»The associated entites for e.g an order would need a customer «ENDREM»
+							«EXPAND genTableRow(ae.Class) FOREACH ae.Class.AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) -»
+						
+							</t:dataTable>
+							
+						«ENDFOREACH»
+						
 				</rich:panel>
 			</a4j:form>
 		</f:view>
@@ -69,6 +85,57 @@
 </ui:composition>
 
 «ENDDEFINE»
+
+«REM» Create the view/update xhtml page for an entity «ENDREM»
+«DEFINE genSearchView FOR Entity-»
+	
+	«EXPAND genIncludes-»
+	
+	<ui:define name="content">
+
+		<f:view>
+			<h:messages layout="list" globalOnly="true" showDetail="true"
+			styleClass="messages" />
+		
+			<a4j:form id="form">
+				<rich:panel>
+					<h:panelGrid columns="6" styleClass="formTable">
+						<f:facet name="header">
+							<h:outputText value="«NameS» Information"
+								styleClass="formHeaderText"   />
+						</f:facet>
+						
+							«FOREACH getAllAttributes AS attrib-»
+							<h:outputText value="«attrib.NameS.toFirstUpper() »" styleClass="formLabel" />
+							
+							<«attrib.getElementType()»  «attrib.getElementAttributes()»  
+								id="«asInstanceVar()»_«attrib.TypeModifier»_«attrib.NameS»"
+								value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«attrib.fullName()»}">
+								«attrib.getElementContent()»
+							</«attrib.getElementType()»>
+							
+							<h:message for="«asInstanceVar()»_«attrib.TypeModifier»_«attrib.NameS»" styleClass="errMessage" />
+							
+							«ENDFOREACH»
+							
+  						   <h:commandButton id="button1" value="Submit" action="#{«asInstanceVar()»CrudBacking.search}"/> 
+  						    <h:commandButton id="button2" value="Cancel" action="#{«asInstanceVar()»CrudBacking.cancelSearch}" immediate="true"/> 
+  				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
+		  				   	<h:inputHidden id="«asInstanceVar()»_id" value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».id}" />
+
+						</h:panelGrid>
+						
+						
+						
+				</rich:panel>
+			</a4j:form>
+		</f:view>
+
+	</ui:define>
+</ui:composition>
+
+«ENDDEFINE»
+
 
 «REM» Create the tabular view xhtml page for an entity «ENDREM»
 «DEFINE genTabularView FOR Entity-»
@@ -87,17 +154,10 @@
 						value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()»s}" rows="30"
 					rowClasses="odd, even" styleClass="dataTable">
 						
-							«FOREACH getAllAttributes AS attrib-»
-							<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="«attrib.NameS.toFirstUpper()»" arrow="true">
-										<t:outputText value="«attrib.NameS.toFirstUpper()»" />
-									</t:commandSortHeader>
-								</f:facet>
-								<t:outputText value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«attrib.fullName()»}" />
-							</t:column>
+							«EXPAND genTableRow(this) FOREACH getAllAttributes -»
 							
-							«ENDFOREACH»
+							«REM»The associated entites for e.g an order would need a customer «ENDREM»
+							«EXPAND genTableRow(this) FOREACH AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) -»
 							
 							<t:column>
 								<f:facet name="header">
@@ -128,6 +188,30 @@
 </ui:composition>
 
 «ENDDEFINE»
+
+
+«DEFINE genTableRow(Class c) FOR Attribute»
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="«NameS.toFirstUpper()»" arrow="true"> -->
+				<t:outputText value="«NameS.toFirstUpper()»" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{«c.asInstanceVar()».«fullName()»}" />
+	</t:column>
+«ENDDEFINE»
+
+«DEFINE genTableRow(Class c) FOR AssociationEnd»
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="«NameS.toFirstUpper()»" arrow="true"> -->
+				<t:outputText value="«NameS.toFirstUpper()»" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{«c.asInstanceVar()».«NameS»}" />
+	</t:column>
+«ENDDEFINE»
+
 
 
 «DEFINE genIncludes FOR Entity»

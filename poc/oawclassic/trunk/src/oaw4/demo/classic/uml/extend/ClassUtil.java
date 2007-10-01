@@ -306,8 +306,8 @@ public class ClassUtil {
 			String nullable = ae.MultiplicityMinAsInt() >= 1 ? "false" : "true";
 			AssociationEnd opposite = ae.Opposite();
 			String multiplicity = (opposite.MultiplicityMinAsInt() == 1 && opposite.MultiplicityMaxAsInt() == 1 )? 
-					"OneToOne": "ManyToOne";
-			return "@" + multiplicity +"(cascade=CascadeType.ALL)\n @JoinColumn(name=\"" + ae.NameS()
+					"OneToOne(cascade=CascadeType.ALL)": "ManyToOne";
+			return "@" + multiplicity +"\n @JoinColumn(name=\"" + ae.NameS()
 					+ "_ID\", nullable=" + nullable + ")";
 		} else
 			return "";
