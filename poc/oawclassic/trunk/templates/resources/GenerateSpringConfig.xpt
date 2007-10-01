@@ -1,8 +1,10 @@
 «IMPORT org::openarchitectureware::meta::uml::classifier»
 «IMPORT oaw4::demo::classic::uml::meta»
 «IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT oaw4::demo::classic::uml::extend»
 «IMPORT java»
 «EXTENSION java::NamingConventions»
+«EXTENSION java::DBAttributes»
 
 «DEFINE SpringConfig FOR Model»
 
@@ -33,10 +35,10 @@
   <bean id="dataSource"
      class="org.apache.commons.dbcp.BasicDataSource"
      destroy-method="close">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql:///ecomm" />
-        <property name="username" value="root" />
-        <property name="password" value="root" />
+        <property name="driverClassName" value="«getDriverClass()»" />
+        <property name="url" value="jdbc:mysql://«getHost()»/«getDBName()»" />
+        <property name="username" value="«getUsername()»"  />
+        <property name="password" value="«getPassword()»" />
   </bean>
 
   <bean id="transactionManager"
