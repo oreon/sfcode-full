@@ -15,6 +15,8 @@ package initialsetup;
 
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 
+import org.witchcraft.model.support.TestDataFactory;
+
 «EXPAND GenImports FOREACH getEntities()»
 
 
@@ -40,7 +42,7 @@ public class InitialDataSetup {
 «ENDDEFINE»
 
 «DEFINE genBeanLookup FOR Class»
-	«NameS»TestDataFactory «NameS.toFirstLower()»TestDataFactory  = («NameS»TestDataFactory) BeanHelper.getBean("«NameS.toFirstLower()»TestDataFactory") ;
+	TestDataFactory «NameS.toFirstLower()»TestDataFactory  = (TestDataFactory) BeanHelper.getBean("«NameS.toFirstLower()»TestDataFactory") ;
 «ENDDEFINE»
 
 
@@ -58,13 +60,15 @@ public class InitialDataSetup {
 	import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 	import org.witchcraft.model.support.AbstractTestDataFactory;
 	
+	import org.witchcraft.model.support.TestDataFactory;
+	
 	
 	import org.springframework.transaction.annotation.Transactional;
 	
 	import  «packageName()».service.«NameS»Service;
 	
 	@Transactional
-	public class «NameS»TestDataFactory extends AbstractTestDataFactory {
+	public class «NameS»TestDataFactory extends AbstractTestDataFactory<«NameS»> {
 	
 		List<«NameS»>  «asInstanceVar()»s = new ArrayList<«NameS»>();
 	
@@ -98,14 +102,14 @@ public class InitialDataSetup {
 			«REM»The associated entites for e.g an order would need a customer «ENDREM»
 			«FOREACH AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) AS ae-»
 				«EXPAND genBeanLookup FOR ae.Class»
-				«asInstanceVar()».set«ae.NameS.toFirstUpper()»(«ae.Class.NameS.toFirstLower()»TestDataFactory.load«ae.Class.NameS-»());
+				«asInstanceVar()».set«ae.NameS.toFirstUpper()»((«ae.Class.NameS»)«ae.Class.NameS.toFirstLower()»TestDataFactory.loadOneRecord());
 			«ENDFOREACH»
 			
 			«REM»Composed collections e.g an order contains orderitems «ENDREM»
 			«FOREACH AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable && ae.Opposite.isComposition) AS ae-»
 				«EXPAND genBeanLookup FOR ae.Class»
 				«ae.Class.NameS.toFirstLower()»TestDataFactory.setPersistable(false);
-				«asInstanceVar()».get«ae.NameS.toFirstUpper()»().addAll(«ae.Class.NameS.toFirstLower()»TestDataFactory.getFew());
+				«asInstanceVar()».get«ae.NameS.toFirstUpper()»().addAll(«ae.Class.NameS.toFirstLower()»TestDataFactory.createFewRecords());
 			«ENDFOREACH»
 			
 			register(«asInstanceVar()» );
@@ -119,7 +123,7 @@ public class InitialDataSetup {
 	
 	«ENDFOREACH»
        
-       public  «NameS» load«NameS»() {
+       public  «NameS» loadOneRecord() {
 			List<«NameS»> «asInstanceVar()»s = «asInstanceVar()»Service.loadAll();
 			
 			if(«asInstanceVar()»s.isEmpty()){
@@ -130,7 +134,7 @@ public class InitialDataSetup {
 			return «asInstanceVar()»s.get(new Random().nextInt(«asInstanceVar()»s.size()));
 		}
 		
-		List<«NameS»> getAllAsList(){
+		public List<«NameS»> getAllAsList(){
 			
 			if(«asInstanceVar()»s.isEmpty()){
 				«FOREACH getCounters() AS counter-»
@@ -142,35 +146,16 @@ public class InitialDataSetup {
 		}
 		
 		public  void persistAll(){
-			if(!isPersistable())
-				return;
+			if (!isPersistable() || alreadyPersisted)
+			return;
 				
 			getAllAsList();
 				
 			for («NameS» «asInstanceVar()» : «asInstanceVar()»s) {
 				«asInstanceVar()»Service.save(«asInstanceVar()»);
 			}
-		}
-		
-		/** Will return a random number of PlacedOrders
-		 * @return
-		 */
-		List<«NameS»> getFew(){
-			List<«NameS»> all = getAllAsList();
-			int numToChoose = new Random(1212343).nextInt(all.size() - 1) + 1;
 			
-			List allClone = new ArrayList<«NameS»>();
-			List returnList = new ArrayList<«NameS»>();
-			
-			allClone.addAll(all);
-			
-			while(returnList.size() < numToChoose){
-				int indexToAdd = new Random(1212343).nextInt(allClone.size());
-				returnList.add(allClone.get(indexToAdd));
-				allClone.remove(indexToAdd);
-			}
-			
-			return returnList;
+			alreadyPersisted = true;
 		}
 	
     }

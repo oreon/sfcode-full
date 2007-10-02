@@ -43,7 +43,7 @@ this.«asInstanceVar()».remove(«asParameter()»);
 «IF Opposite.isNavigable »
 @OneToMany(mappedBy="«Opposite.asParameter()»", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 «ELSE»
-@OneToMany
+@OneToMany«Opposite.isComposition?"(cascade=CascadeType.ALL)":""»
 @JoinColumn(name="«Opposite.NameS»_ID", nullable=false)
 «ENDIF»
 public java.util.Set<«Class.fqn()»> «asGetter()» () {
