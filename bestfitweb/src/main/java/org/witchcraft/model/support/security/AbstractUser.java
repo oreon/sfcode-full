@@ -8,13 +8,14 @@ import javax.persistence.Transient;
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.GrantedAuthorityImpl;
 import org.acegisecurity.userdetails.UserDetails;
+import org.witchcraft.model.support.BusinessEntity;
 
 
 /**
  * @author jsingh
  *
  */
-public abstract class AbstractUser implements UserDetails {
+public abstract class AbstractUser extends BusinessEntity implements UserDetails {
 	
 	 	@Transient
 	    public GrantedAuthority[] getAuthorities() {
@@ -30,7 +31,24 @@ public abstract class AbstractUser implements UserDetails {
 	        return grantedAuthorities;
 	    }
 	 	
-	 	public abstract Set<AbstractAuthority> getUserAuthorities();
+	 	@SuppressWarnings("unchecked")
+		public abstract Set getUserAuthorities();
+
+	 	@Transient
+		public boolean isAccountNonExpired() {
+			return true;
+		}
+
+	 	@Transient
+		public boolean isAccountNonLocked() {
+			return true;
+		}
+
+	 	@Transient
+		public boolean isCredentialsNonExpired() {
+			return true;
+		}
+
 	 
 	 	
 }
