@@ -3,6 +3,8 @@
 «IMPORT org::openarchitectureware::core::meta::core»
 «IMPORT java»
 
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
 
 «DEFINE GenPersistenceContext FOR Model»
 
@@ -17,13 +19,15 @@
 
     <persistence-unit name="acme" transaction-type="RESOURCE_LOCAL">
     
-    «FOREACH getEntities() AS e»
-    	<class> «e.fqn()» </class>
-    «ENDFOREACH»
+    «EXPAND GenerateEntityMapping FOREACH getEntities()-»
     
     </persistence-unit>
     
 </persistence>
 
 «ENDFILE»
+«ENDDEFINE»
+
+«DEFINE GenerateEntityMapping FOR Entity-»
+	<class> «fqn()» </class>
 «ENDDEFINE»
