@@ -95,9 +95,12 @@
 			«IF isEntityUser()»
 			
 				private void assignDefaultAuthority(«NameS» «asInstanceVar()») {
+					if(«asInstanceVar()».getId() == null )
+						return;
+				
 					Authority authority = new Authority();
 					authority.setUser(«asInstanceVar()».getUserAccount());
-					authority.setAuthority("«getDefaultRole != null? getDefaultRole : "role_" +  asInstanceVar()»");
+					authority.setAuthority("«getDefaultRole != null? getDefaultRole : "ROLE_" +  NameS.toUpper»");
 					authorityService.save(authority);
 				}
 			

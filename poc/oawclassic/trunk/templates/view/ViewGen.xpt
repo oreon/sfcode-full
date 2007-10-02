@@ -168,11 +168,13 @@
 										<t:outputText value=" " />
 									</t:commandSortHeader>
 								</f:facet>
+								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE"> 
 								<t:commandLink action="#{«asInstanceVar()»CrudBacking.select}"
 									actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}">
 									<t:outputText value=" Edit " />
 									<f:param id="editId" name="id" value="#{«asInstanceVar()».id}" />
 								</t:commandLink>
+								</acegijsf:authorize> 
 							</t:column>
 							
 							 	</t:dataTable>	
@@ -227,5 +229,6 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
 «ENDDEFINE»

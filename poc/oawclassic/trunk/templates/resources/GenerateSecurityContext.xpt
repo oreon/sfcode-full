@@ -13,6 +13,7 @@
                        "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
 
+
 	<bean id="acegiFilterChainProxy"
 		class="org.acegisecurity.util.FilterChainProxy">
 		<property name="filterInvocationDefinitionSource">
@@ -90,9 +91,8 @@
 				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
 				PATTERN_TYPE_APACHE_ANT
 				/admin/**=ROLE_ADMINISTRATOR
-				/crud/**=ROLE_TELLER, ROLE_SUPERVISOR
-			      /menu.jsp=ROLE_REQUESTER
-			      
+				/crud/**=ROLE_CUSTOMER, ROLE_EMPLOYEE
+			      /index.jsf=ROLE_REQUESTER, ROLE_TELLER, ROLE_SUPERVISOR
 			</value>
 		</property>
 	</bean>
@@ -148,19 +148,7 @@
 		</property>
 	</bean>
 
-	<bean id="userDetailsService" class="org.witchcraft.model.support.AuthenticationJdbcDaoImpl">
-		<property name="dataSource">
-			<ref bean="dataSource" />
-		</property>
-	
-		<property name="entityManagerFactory">
-			<ref bean="entityManagerFactory" />
-		</property> 
-		
-		<property name="authoritiesByUsernameQuery">
-			<value>SELECT authority, username FROM authorities a, users u where a.user_id = u.id and a.userid = ?;</value>
-		</property>
-	</bean>
+	<bean id="userDetailsService" class="org.witchcraft.model.support.security.HibernateDaoImpl"/>
 
 	<bean
 		class="org.acegisecurity.providers.anonymous.AnonymousProcessingFilter"
@@ -170,8 +158,9 @@
 			value="anonymousUser,ROLE_ANONYMOUS" />
 	</bean>
 	<!-- This bean is optional; it isn't used by any other bean as it only listens and logs -->
+<!--  
 	<bean class="org.acegisecurity.event.authentication.LoggerListener"
-		id="loggerListener" />
+		id="loggerListener" /> -->	
 </beans>
 
 	
