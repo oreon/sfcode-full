@@ -156,6 +156,10 @@
 		<property name="entityManagerFactory">
 			<ref bean="entityManagerFactory" />
 		</property> 
+		
+		<property name="authoritiesByUsernameQueryString">
+			<value>SELECT authority, username FROM authorities a, users u where a.user_id = u.id and a.userid = ?;</value>
+		</property>
 	</bean>
 
 	<bean

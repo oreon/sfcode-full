@@ -28,54 +28,78 @@
 	import «packageName()».service.«NameS»Service;
 	import org.springframework.transaction.annotation.Transactional;
 	import org.apache.log4j.Logger;
+	
+	import usermanagement.Authority;
+	import usermanagement.service.AuthorityService;
+	
 
 
 	@Transactional
 	public class «NameS»ServiceImpl implements «NameS»Service{
 	
-		protected static final Logger log = Logger.getLogger(«NameS»ServiceImpl.class);
-		
-		private «NameS»Dao «asInstanceVar()»Dao;
+			protected static final Logger log = Logger.getLogger(«NameS»ServiceImpl.class);
+			
+			private «NameS»Dao «asInstanceVar()»Dao;
 	
 			public void set«NameS»Dao(«NameS»Dao «asInstanceVar()»Dao) {
 				this.«asInstanceVar()»Dao = «asInstanceVar()»Dao;
 			}
 			
+			«IF isEntityUser()»
+				private AuthorityService authorityService;
+		
+				public void setAuthorityService(AuthorityService authorityService) {
+					this.authorityService = authorityService;
+				}
+			«ENDIF»
 			//// Delegate all crud operations to the Dao ////
 			
 			public «NameS» save(«NameS» «asInstanceVar()») {
 				«Unique.isEmpty?"":"checkUniqueConstraints("+asInstanceVar() +");"»
-				return «asInstanceVar()»Dao.save(«asInstanceVar()»);
+				«asInstanceVar()»Dao.save(«asInstanceVar()»);
+				«isEntityUser()?"assignDefaultAuthority(" +  asInstanceVar()  + ");":""»
+				return «asInstanceVar()»;
 			}
 			
 			«IF !Unique.isEmpty»
 			
-			/** Before saving a record we need to ensure that no unique constraints
-			 * will be violated. 
-			 * @param customer
-			 */
-			private void checkUniqueConstraints(«NameS» «asInstanceVar()») {
-			«NameS»
-			«FOREACH Unique AS e»
-				 existing«NameS» = «asInstanceVar()»Dao.findBy«e.NameS.toFirstUpper()»
-					(«asInstanceVar()».«e.getContainerGetter()»get«e.NameS.toFirstUpper()»());
-				ensureUnique(«asInstanceVar()», existing«NameS», "Entity.exists.with«e.NameS.toFirstUpper()»");
-			«ENDFOREACH»
-			
-			}
-			
-			private void ensureUnique(«NameS» «asInstanceVar()», «NameS» existing«NameS», String exceptionId){
-				if (existing«NameS» == null)
-					return; //no customer exists with the given email - no need to check unique constraint violation
+				/** Before saving a record we need to ensure that no unique constraints
+				 * will be violated. 
+				 * @param customer
+				 */
+				private void checkUniqueConstraints(«NameS» «asInstanceVar()») {
+				«NameS»
+				«FOREACH Unique AS e»
+					 existing«NameS» = «asInstanceVar()»Dao.findBy«e.NameS.toFirstUpper()»
+						(«asInstanceVar()».«e.getContainerGetter()»get«e.NameS.toFirstUpper()»());
+					ensureUnique(«asInstanceVar()», existing«NameS», "Entity.exists.with«e.NameS.toFirstUpper()»");
+				«ENDFOREACH»
 				
-				if («asInstanceVar()».getId() == null) { // for a new entity
-						throw new RuntimeException(exceptionId);
-				}else{//for updating an existing entiy
-					if(existing«NameS».getId().longValue() != «asInstanceVar()».getId().longValue())
-						throw new RuntimeException(exceptionId);
+				}
+				
+				private void ensureUnique(«NameS» «asInstanceVar()», «NameS» existing«NameS», String exceptionId){
+					if (existing«NameS» == null)
+						return; //no customer exists with the given email - no need to check unique constraint violation
+					
+					if («asInstanceVar()».getId() == null) { // for a new entity
+							throw new RuntimeException(exceptionId);
+					}else{//for updating an existing entiy
+						if(existing«NameS».getId().longValue() != «asInstanceVar()».getId().longValue())
+							throw new RuntimeException(exceptionId);
+					}
+				
 				}
 			
-			}
+			«ENDIF»
+			
+			«IF isEntityUser()»
+			
+				private void assignDefaultAuthority(«NameS» «asInstanceVar()») {
+					Authority authority = new Authority();
+					authority.setUser(«asInstanceVar()».getUserAccount());
+					authority.setAuthority("«getDefaultRole != null? getDefaultRole : "role_" +  asInstanceVar()»");
+					authorityService.save(authority);
+				}
 			
 			«ENDIF»
 		
