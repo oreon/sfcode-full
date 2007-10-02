@@ -10,7 +10,7 @@
 
 «FILE "../resources/applicationContext.xml" »  
 	
-	<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:tx="http://www.springframework.org/schema/tx"
@@ -65,15 +65,37 @@
   <!-- Dao Beans  -->
   «EXPAND GenerateDaoBeanDef FOREACH getEntities()»
   
-  <!-- TestDataFactories -->
-  «EXPAND GenerateTestDataFactoryBeanDef FOREACH getEntities()»
+  
 </beans>
 
 	
 «ENDFILE»
 
+«ENDDEFINE»
+
+«DEFINE TestDataFactories FOR Model»
+
+«FILE "../resources/applicationContext.xml" »  
+	
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd" 
+  default-autowire="byName">
+  
+  <!-- TestDataFactories -->
+  «EXPAND GenerateTestDataFactoryBeanDef FOREACH getEntities()»
+ 
+ </beans>
+  
+«ENDFILE»
 
 «ENDDEFINE»
+
 
 «DEFINE GenerateServiceBeanDef FOR Entity»
 	<bean id="«asInstanceVar()»Service" class="«Package.NameS».service.impl.«NameS»ServiceImpl" />

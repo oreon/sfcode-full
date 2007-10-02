@@ -1,5 +1,6 @@
 package org.witchcraft.model.helper;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -16,7 +17,8 @@ public class RandomValueGenerator {
 	
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss z");
 	
-	static String randStrings[] = {"alpha", "beta", "gamma", "delta",  "theta", "zeta", "epsilon", "pi" };
+	static String randStrings[] = {"alpha", "beta", "gamma", "delta",  "theta", "zeta", "epsilon", "pi" , 
+		"John" , "Wilson", "Mark", "Eric", "Malissa", "Lavendar"};
 	
 	public static Object getRandomValue(Attribute attribute){
 		
@@ -41,7 +43,13 @@ public class RandomValueGenerator {
 		}else if (typeName.equalsIgnoreCase("int") ){
 			return (attribute.InitValue() == null )? new Random().nextInt(10000): attribute.InitValue();
 		}else if (typeName.equalsIgnoreCase("double") || typeName.equalsIgnoreCase("BigDecimal") ){
-			return (attribute.InitValue() == null )? 100 * generator.nextDouble(): attribute.InitValue();
+			DecimalFormat decimalFormat = new DecimalFormat();
+			
+			return (attribute.InitValue() == null )? Math.round(100 * 100 * new Random().nextDouble()) /100.00
+					: attribute.InitValue();
+		}else if (typeName.equalsIgnoreCase("boolean")){
+			return (attribute.InitValue() == null )? new Random().nextBoolean()
+					: attribute.InitValue();
 		}else if (attribute.Type().getMetaClass().getSimpleName().equalsIgnoreCase("Enumeration")){
 			ElementSet literals = ((Enumeration) attribute.Type()).Literal();
 			Element element = (Element) literals.get(generator.nextInt(literals.size()));

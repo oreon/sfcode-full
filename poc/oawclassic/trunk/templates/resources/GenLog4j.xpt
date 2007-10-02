@@ -8,7 +8,23 @@
 
 «DEFINE GenerateLogConfig FOR Model»
 
-«FILE "../resources/log4j.xml"» 
+«FILE "../resources/log4j.properties"» 
+
+# Set root logger level to INFO and its only appender to A1.
+log4j.rootLogger=WARN, A1
+# A1 is set to be a ConsoleAppender.
+log4j.appender.A1=org.apache.log4j.ConsoleAppender
+# A1 uses PatternLayout.
+log4j.appender.A1.layout=org.apache.log4j.PatternLayout
+log4j.appender.A1.layout.ConversionPattern=%-4r %-5p %m%n
+
+
+«ENDFILE»
+
+«ENDDEFINE»
+
+
+«DEFINE genLogConfigXML FOR Model»
 
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
@@ -76,7 +92,5 @@
 	
     
 </log4j:configuration>
-
-«ENDFILE»
 
 «ENDDEFINE»
