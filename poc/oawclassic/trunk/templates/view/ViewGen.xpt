@@ -62,9 +62,12 @@
 						
 						</h:panelGrid>
 						
+						<br/>
+						<br/>
+						
 						«REM»Composed collections e.g an order contains orderitems «ENDREM»
 						«FOREACH AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable && ae.Opposite.isComposition) AS ae-»
-							<t:dataTable id="data" var="rows"
+							<t:dataTable id="data" var="«ae.Class.asInstanceVar()»"
 								value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.NameS»}" rows="10"
 							rowClasses="odd, even" styleClass="dataTable">
 							
