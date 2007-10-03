@@ -161,8 +161,9 @@ public class InitialDataSetup {
 	«REM»The associated entites for e.g an order would need a customer «ENDREM»
 	«FOREACH AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) AS ae-»
 		«EXPAND genBeanLookup FOR ae.Class»
-		«name».set«ae.NameS.toFirstUpper()»((«ae.Class.NameS»)«ae.Class.NameS.toFirstLower()»TestDataFactory.loadOneRecord());
+		«name».set«ae.NameS.toFirstUpper()»((«ae.Class.fqn()»)«ae.Class.NameS.toFirstLower()»TestDataFactory.loadOneRecord());
 	«ENDFOREACH»
+
 	
 	«REM»Composed collections e.g an order contains orderitems «ENDREM»
 	«FOREACH AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable && ae.Opposite.isComposition) AS ae-»

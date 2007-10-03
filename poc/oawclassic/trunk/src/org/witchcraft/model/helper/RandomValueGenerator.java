@@ -52,8 +52,9 @@ public class RandomValueGenerator {
 					: attribute.InitValue();
 		}else if (attribute.Type().getMetaClass().getSimpleName().equalsIgnoreCase("Enumeration")){
 			ElementSet literals = ((Enumeration) attribute.Type()).Literal();
-			Element element = (Element) literals.get(generator.nextInt(literals.size()));
-			return attribute.Type().Name() + "." + element.NameS();	
+			Element element = (Element) literals.get(new Random().nextInt(literals.size()));
+			return attribute.Type().Namespace().NameS() + "." +
+				attribute.Type().Name() + "." + element.NameS();	
 		}
 		
 		System.out.println("attrib type " + attribute.Type().getMetaClass().getSimpleName());
