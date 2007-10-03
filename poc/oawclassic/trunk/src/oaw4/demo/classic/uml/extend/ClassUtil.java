@@ -194,7 +194,9 @@ public class ClassUtil {
 
 		if (cls.hasSuperClass())
 			buffer.append(" extends " + cls.SuperClass().NameS());
-		else if (StereoTypeManager.isEntity(cls)
+		else if (StereoTypeManager.isEntity(cls) && ((Entity)cls).getBaseClass() != null  ){
+			buffer.append(" extends " + ((Entity)cls).getBaseClass());
+		}else if (StereoTypeManager.isEntity(cls)
 				|| StereoTypeManager.isMappedSuperClass(cls)) {
 			buffer.append(" extends " + BUSINESS_ENTITY);
 		}
