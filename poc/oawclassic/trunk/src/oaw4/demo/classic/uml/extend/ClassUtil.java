@@ -192,6 +192,8 @@ public class ClassUtil {
 						+ " "));
 		buffer.append(cls.NameS());
 
+		
+		
 		if (cls.hasSuperClass())
 			buffer.append(" extends " + cls.SuperClass().NameS());
 		else if (StereoTypeManager.isEntity(cls) && ((Entity)cls).getBaseClass() != null  ){

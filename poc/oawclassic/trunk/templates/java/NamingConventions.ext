@@ -2,6 +2,7 @@ import org::openarchitectureware::meta::uml;
 import org::openarchitectureware::meta::uml::classifier;
 import org::openarchitectureware::meta::uml::classifier::Class;
 import oaw4::demo::classic::uml::meta;
+import java;
 
 String asParameter (ModelElement elem) :
 elem.NameS;
@@ -71,4 +72,7 @@ JAVA oaw4.demo.classic.uml.extend.ClassUtil.getCounters(org.openarchitectureware
 
 boolean isEntityUser(Entity entity):
 entity.isUser || entity.getDefaultRole != null ;
+
+String getGetter(Type type):
+type.NameS == "boolean"?"is":"get";
 
