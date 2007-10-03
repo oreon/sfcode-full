@@ -9,6 +9,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
 	
 	<ui:define name="content">
@@ -64,6 +65,49 @@
 
 						
 						</h:panelGrid>
+						
+						<br/>
+						<br/>
+						
+						
+							<t:dataTable id="data" var="orderItem"
+								value="#{placedOrderCrudBacking.placedOrder.orderItems}" rows="10"
+							rowClasses="odd, even" styleClass="dataTable">
+							
+							
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="SalePrice" arrow="true"> -->
+				<t:outputText value="SalePrice" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{orderItem.salePrice}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="Quantity" arrow="true"> -->
+				<t:outputText value="Quantity" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{orderItem.quantity}" />
+	</t:column>
+							
+							
+							
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="Product" arrow="true"> -->
+				<t:outputText value="Product" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{orderItem.product}" />
+	</t:column>
+						
+							</t:dataTable>
+							
+						
+						
 				</rich:panel>
 			</a4j:form>
 		</f:view>

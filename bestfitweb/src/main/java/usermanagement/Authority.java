@@ -1,10 +1,9 @@
 package usermanagement;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "authorities")
 public class /*0 */Authority
 		extends
 			org.witchcraft.model.support.BusinessEntity

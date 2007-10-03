@@ -81,9 +81,8 @@
 				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
 				PATTERN_TYPE_APACHE_ANT
 				/admin/**=ROLE_ADMINISTRATOR
-				/crud/**=ROLE_TELLER, ROLE_SUPERVISOR
-			      /index.jsf=ROLE_REQUESTER, ROLE_TELLER, ROLE_SUPERVISOR
-			      
+				/crud/**=ROLE_CUSTOMER, ROLE_EMPLOYEE
+			      /index.jsf=ROLE_CUSTOMER, ROLE_EMPLOYEE, ROLE_SUPERVISOR
 			</value>
 		</property>
 	</bean>
@@ -139,30 +138,7 @@
 		</property>
 	</bean>
 
-	<bean id="userDetailsService" class="org.witchcraft.model.support.AuthenticationJdbcDaoImpl">
-		<property name="dataSource">
-			<ref bean="dataSource" />
-		</property>
-		
-	<!--  
-		<property name="entityManagerFactory">
-			<ref bean="dataSource" />
-		</property> -->
-	</bean>
-
-	<!--  
-		<bean class="com.asi.bo.Users" id="asiDaoImpl" />
-		<bean class="org.acegisecurity.userdetails.jdbc.JdbcDaoImpl"
-		id="jdbcDaoImpl">
-		<property name="dataSource">
-		<ref bean="dataSource" />
-		</property>
-		</bean>
-		<bean class="org.springframework.jndi.JndiObjectFactoryBean"
-		id="dataSource">
-		<property name="jndiName" value="java:/comp/env/jdbc/ASi" />
-		</bean> 
-	-->
+	<bean id="userDetailsService" class="org.witchcraft.model.support.security.HibernateDaoImpl"/>
 
 	<bean
 		class="org.acegisecurity.providers.anonymous.AnonymousProcessingFilter"
@@ -172,6 +148,7 @@
 			value="anonymousUser,ROLE_ANONYMOUS" />
 	</bean>
 	<!-- This bean is optional; it isn't used by any other bean as it only listens and logs -->
+<!--  
 	<bean class="org.acegisecurity.event.authentication.LoggerListener"
-		id="loggerListener" />
+		id="loggerListener" /> -->	
 </beans>

@@ -8,6 +8,9 @@ import bizobjects.service.CustomerService;
 import org.springframework.transaction.annotation.Transactional;
 import org.apache.log4j.Logger;
 
+import usermanagement.Authority;
+import usermanagement.service.AuthorityService;
+
 @Transactional
 public class CustomerServiceImpl implements CustomerService {
 
@@ -20,11 +23,19 @@ public class CustomerServiceImpl implements CustomerService {
 		this.customerDao = customerDao;
 	}
 
+	private AuthorityService authorityService;
+
+	public void setAuthorityService(AuthorityService authorityService) {
+		this.authorityService = authorityService;
+	}
+
 	//// Delegate all crud operations to the Dao ////
 
 	public Customer save(Customer customer) {
 		checkUniqueConstraints(customer);
-		return customerDao.save(customer);
+		customerDao.save(customer);
+		assignDefaultAuthority(customer);
+		return customer;
 	}
 
 	/** Before saving a record we need to ensure that no unique constraints
@@ -52,10 +63,21 @@ public class CustomerServiceImpl implements CustomerService {
 		if (customer.getId() == null) { // for a new entity
 			throw new RuntimeException(exceptionId);
 		} else {//for updating an existing entiy
-			if (existingCustomer.getId() != customer.getId())
+			if (existingCustomer.getId().longValue() != customer.getId()
+					.longValue())
 				throw new RuntimeException(exceptionId);
 		}
 
+	}
+
+	private void assignDefaultAuthority(Customer customer) {
+		if (customer.getId() != null)
+			return;
+
+		Authority authority = new Authority();
+		authority.setUser(customer.getUserAccount());
+		authority.setAuthority("role_customer");
+		authorityService.save(authority);
 	}
 
 	public void delete(Customer customer) {

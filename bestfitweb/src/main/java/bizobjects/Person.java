@@ -1,7 +1,6 @@
 package bizobjects;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
 public class /*0 */Person extends org.witchcraft.model.support.BusinessEntity

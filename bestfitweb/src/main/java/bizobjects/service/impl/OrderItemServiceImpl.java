@@ -8,6 +8,9 @@ import bizobjects.service.OrderItemService;
 import org.springframework.transaction.annotation.Transactional;
 import org.apache.log4j.Logger;
 
+import usermanagement.Authority;
+import usermanagement.service.AuthorityService;
+
 @Transactional
 public class OrderItemServiceImpl implements OrderItemService {
 
@@ -24,7 +27,9 @@ public class OrderItemServiceImpl implements OrderItemService {
 
 	public OrderItem save(OrderItem orderItem) {
 
-		return orderItemDao.save(orderItem);
+		orderItemDao.save(orderItem);
+
+		return orderItem;
 	}
 
 	public void delete(OrderItem orderItem) {

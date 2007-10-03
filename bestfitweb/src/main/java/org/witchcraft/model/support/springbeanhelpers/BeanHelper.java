@@ -12,7 +12,8 @@ public class BeanHelper {
 	private static ApplicationContext applicationContext;
 	
 	static {
-		applicationContext =  new ClassPathXmlApplicationContext("classpath:/applicationContext.xml");
+		applicationContext =  new ClassPathXmlApplicationContext
+			(new String[]{"classpath:/applicationContext.xml", "classpath:/testDataFactories.xml"});
 	}
 	
 	public static Object getBean(String beanName){

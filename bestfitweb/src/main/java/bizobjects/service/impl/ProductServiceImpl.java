@@ -8,6 +8,9 @@ import bizobjects.service.ProductService;
 import org.springframework.transaction.annotation.Transactional;
 import org.apache.log4j.Logger;
 
+import usermanagement.Authority;
+import usermanagement.service.AuthorityService;
+
 @Transactional
 public class ProductServiceImpl implements ProductService {
 
@@ -24,7 +27,9 @@ public class ProductServiceImpl implements ProductService {
 
 	public Product save(Product product) {
 
-		return productDao.save(product);
+		productDao.save(product);
+
+		return product;
 	}
 
 	public void delete(Product product) {

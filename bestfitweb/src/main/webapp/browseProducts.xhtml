@@ -1,5 +1,5 @@
 
-		<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -8,12 +8,18 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-	template="/WEB-INF/template/templateCrud.xhtml">
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	
+	template="/WEB-INF/template/templateCrud.xhtml">
+
 	<ui:define name="content">
 		<f:view>
-	
+		
+			
+			<acegijsf:authorize ifAnyGranted="ROLE_CUSTOMER,ROLE_EMPLOYEE"> 
+				<a> Edit me  </a>
+			</acegijsf:authorize>
+
 		</f:view>
-	 </ui:define>	
-	</ui:composition>
-	
+	</ui:define>
+</ui:composition>

@@ -9,6 +9,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
 	
 	<ui:define name="content">
@@ -23,16 +24,26 @@
 						value="#{authorityCrudBacking.authoritys}" rows="30"
 					rowClasses="odd, even" styleClass="dataTable">
 						
-							<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="Authority" arrow="true">
-										<t:outputText value="Authority" />
-									</t:commandSortHeader>
-								</f:facet>
-								<t:outputText value="#{authorityCrudBacking.authority.authority}" />
-							</t:column>
+							
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="Authority" arrow="true"> -->
+				<t:outputText value="Authority" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{authority.authority}" />
+	</t:column>
 							
 							
+							
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="User" arrow="true"> -->
+				<t:outputText value="User" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{authority.user}" />
+	</t:column>
 							
 							<t:column>
 								<f:facet name="header">
@@ -40,11 +51,13 @@
 										<t:outputText value=" " />
 									</t:commandSortHeader>
 								</f:facet>
+								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE"> 
 								<t:commandLink action="#{authorityCrudBacking.select}"
 									actionListener="#{authorityCrudBacking.selectEntity}">
 									<t:outputText value=" Edit " />
 									<f:param id="editId" name="id" value="#{authority.id}" />
 								</t:commandLink>
+								</acegijsf:authorize> 
 							</t:column>
 							
 							 	</t:dataTable>	

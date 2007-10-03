@@ -7,9 +7,14 @@ import java.util.ArrayList;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 import org.witchcraft.model.support.AbstractTestDataFactory;
 
+import org.witchcraft.model.support.TestDataFactory;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import usermanagement.service.UserService;
 
-public class UserTestDataFactory extends AbstractTestDataFactory {
+@Transactional
+public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 	List<User> users = new ArrayList<User>();
 
@@ -35,8 +40,9 @@ public class UserTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			user.setUsername("theta88074");
-			user.setPassword("pi");
+			user.setUsername("theta93939");
+			user.setPassword("alpha");
+			user.setEnabled(true);
 
 			register(user);
 
@@ -52,8 +58,9 @@ public class UserTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			user.setUsername("delta39367");
-			user.setPassword("epsilon");
+			user.setUsername("John44634");
+			user.setPassword("gamma");
+			user.setEnabled(true);
 
 			register(user);
 
@@ -69,8 +76,9 @@ public class UserTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			user.setUsername("pi83468");
-			user.setPassword("pi");
+			user.setUsername("Lavendar14131");
+			user.setPassword("gamma");
+			user.setEnabled(true);
 
 			register(user);
 
@@ -86,8 +94,9 @@ public class UserTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			user.setUsername("epsilon86642");
-			user.setPassword("epsilon");
+			user.setUsername("gamma94200");
+			user.setPassword("Wilson");
+			user.setEnabled(true);
 
 			register(user);
 
@@ -103,8 +112,9 @@ public class UserTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			user.setUsername("pi81549");
-			user.setPassword("alpha");
+			user.setUsername("theta57772");
+			user.setPassword("Eric");
+			user.setEnabled(true);
 
 			register(user);
 
@@ -115,7 +125,7 @@ public class UserTestDataFactory extends AbstractTestDataFactory {
 		return user;
 	}
 
-	public User loadUser() {
+	public User loadOneRecord() {
 		List<User> users = userService.loadAll();
 
 		if (users.isEmpty()) {
@@ -126,7 +136,7 @@ public class UserTestDataFactory extends AbstractTestDataFactory {
 		return users.get(new Random().nextInt(users.size()));
 	}
 
-	List<User> getAllAsList() {
+	public List<User> getAllAsList() {
 
 		if (users.isEmpty()) {
 			createUserOne();
@@ -141,33 +151,16 @@ public class UserTestDataFactory extends AbstractTestDataFactory {
 	}
 
 	public void persistAll() {
-		if (!isPersistable())
+		if (!isPersistable() || alreadyPersisted)
 			return;
+
+		getAllAsList();
 
 		for (User user : users) {
 			userService.save(user);
 		}
-	}
 
-	/** Will return a random number of PlacedOrders
-	 * @return
-	 */
-	List<User> getFew() {
-		List<User> all = getAllAsList();
-		int numToChoose = new Random(1212343).nextInt(all.size() - 1) + 1;
-
-		List allClone = new ArrayList<User>();
-		List returnList = new ArrayList<User>();
-
-		allClone.addAll(all);
-
-		while (returnList.size() < numToChoose) {
-			int indexToAdd = new Random(1212343).nextInt(allClone.size());
-			returnList.add(allClone.get(indexToAdd));
-			allClone.remove(numToChoose);
-		}
-
-		return returnList;
+		alreadyPersisted = true;
 	}
 
 }

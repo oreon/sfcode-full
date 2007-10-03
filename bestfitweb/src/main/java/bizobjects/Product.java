@@ -1,6 +1,6 @@
 package bizobjects;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 public class /*0 */Product extends org.witchcraft.model.support.BusinessEntity

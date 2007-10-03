@@ -11,8 +11,10 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
+import org.springframework.stereotype.Repository;
 import org.witchcraft.model.support.BusinessEntity;
 
+@Repository
 public class BaseDao<T> implements GenericDAO<T> {
 
 	private Class<T> persistentClass;

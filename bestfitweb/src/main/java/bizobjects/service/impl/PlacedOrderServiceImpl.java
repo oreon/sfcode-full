@@ -8,6 +8,9 @@ import bizobjects.service.PlacedOrderService;
 import org.springframework.transaction.annotation.Transactional;
 import org.apache.log4j.Logger;
 
+import usermanagement.Authority;
+import usermanagement.service.AuthorityService;
+
 @Transactional
 public class PlacedOrderServiceImpl implements PlacedOrderService {
 
@@ -24,7 +27,9 @@ public class PlacedOrderServiceImpl implements PlacedOrderService {
 
 	public PlacedOrder save(PlacedOrder placedOrder) {
 
-		return placedOrderDao.save(placedOrder);
+		placedOrderDao.save(placedOrder);
+
+		return placedOrder;
 	}
 
 	public void delete(PlacedOrder placedOrder) {

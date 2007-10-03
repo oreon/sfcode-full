@@ -7,9 +7,16 @@ import java.util.ArrayList;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 import org.witchcraft.model.support.AbstractTestDataFactory;
 
+import org.witchcraft.model.support.TestDataFactory;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import usermanagement.service.AuthorityService;
 
-public class AuthorityTestDataFactory extends AbstractTestDataFactory {
+@Transactional
+public class AuthorityTestDataFactory
+		extends
+			AbstractTestDataFactory<Authority> {
 
 	List<Authority> authoritys = new ArrayList<Authority>();
 
@@ -37,10 +44,11 @@ public class AuthorityTestDataFactory extends AbstractTestDataFactory {
 
 			authority.setAuthority("zeta");
 
-			UserTestDataFactory userTestDataFactory = (UserTestDataFactory) BeanHelper
+			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
 
-			authority.setUser(userTestDataFactory.loadUser());
+			authority.setUser((usermanagement.User) userTestDataFactory
+					.loadOneRecord());
 
 			register(authority);
 
@@ -56,12 +64,13 @@ public class AuthorityTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			authority.setAuthority("delta");
+			authority.setAuthority("Eric");
 
-			UserTestDataFactory userTestDataFactory = (UserTestDataFactory) BeanHelper
+			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
 
-			authority.setUser(userTestDataFactory.loadUser());
+			authority.setUser((usermanagement.User) userTestDataFactory
+					.loadOneRecord());
 
 			register(authority);
 
@@ -77,12 +86,13 @@ public class AuthorityTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			authority.setAuthority("epsilon");
+			authority.setAuthority("Wilson");
 
-			UserTestDataFactory userTestDataFactory = (UserTestDataFactory) BeanHelper
+			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
 
-			authority.setUser(userTestDataFactory.loadUser());
+			authority.setUser((usermanagement.User) userTestDataFactory
+					.loadOneRecord());
 
 			register(authority);
 
@@ -98,12 +108,13 @@ public class AuthorityTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			authority.setAuthority("delta");
+			authority.setAuthority("pi");
 
-			UserTestDataFactory userTestDataFactory = (UserTestDataFactory) BeanHelper
+			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
 
-			authority.setUser(userTestDataFactory.loadUser());
+			authority.setUser((usermanagement.User) userTestDataFactory
+					.loadOneRecord());
 
 			register(authority);
 
@@ -119,12 +130,13 @@ public class AuthorityTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			authority.setAuthority("pi");
+			authority.setAuthority("epsilon");
 
-			UserTestDataFactory userTestDataFactory = (UserTestDataFactory) BeanHelper
+			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
 
-			authority.setUser(userTestDataFactory.loadUser());
+			authority.setUser((usermanagement.User) userTestDataFactory
+					.loadOneRecord());
 
 			register(authority);
 
@@ -135,7 +147,7 @@ public class AuthorityTestDataFactory extends AbstractTestDataFactory {
 		return authority;
 	}
 
-	public Authority loadAuthority() {
+	public Authority loadOneRecord() {
 		List<Authority> authoritys = authorityService.loadAll();
 
 		if (authoritys.isEmpty()) {
@@ -146,7 +158,7 @@ public class AuthorityTestDataFactory extends AbstractTestDataFactory {
 		return authoritys.get(new Random().nextInt(authoritys.size()));
 	}
 
-	List<Authority> getAllAsList() {
+	public List<Authority> getAllAsList() {
 
 		if (authoritys.isEmpty()) {
 			createAuthorityOne();
@@ -161,33 +173,16 @@ public class AuthorityTestDataFactory extends AbstractTestDataFactory {
 	}
 
 	public void persistAll() {
-		if (!isPersistable())
+		if (!isPersistable() || alreadyPersisted)
 			return;
+
+		getAllAsList();
 
 		for (Authority authority : authoritys) {
 			authorityService.save(authority);
 		}
-	}
 
-	/** Will return a random number of PlacedOrders
-	 * @return
-	 */
-	List<Authority> getFew() {
-		List<Authority> all = getAllAsList();
-		int numToChoose = new Random(1212343).nextInt(all.size() - 1) + 1;
-
-		List allClone = new ArrayList<Authority>();
-		List returnList = new ArrayList<Authority>();
-
-		allClone.addAll(all);
-
-		while (returnList.size() < numToChoose) {
-			int indexToAdd = new Random(1212343).nextInt(allClone.size());
-			returnList.add(allClone.get(indexToAdd));
-			allClone.remove(numToChoose);
-		}
-
-		return returnList;
+		alreadyPersisted = true;
 	}
 
 }

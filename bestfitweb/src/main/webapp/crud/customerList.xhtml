@@ -9,6 +9,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
 	
 	<ui:define name="content">
@@ -23,95 +24,105 @@
 						value="#{customerCrudBacking.customers}" rows="30"
 					rowClasses="odd, even" styleClass="dataTable">
 						
-							<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="FirstName" arrow="true">
-										<t:outputText value="FirstName" />
-									</t:commandSortHeader>
-								</f:facet>
-								<t:outputText value="#{customerCrudBacking.customer.firstName}" />
-							</t:column>
 							
-							<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="LastName" arrow="true">
-										<t:outputText value="LastName" />
-									</t:commandSortHeader>
-								</f:facet>
-								<t:outputText value="#{customerCrudBacking.customer.lastName}" />
-							</t:column>
-							
-							<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="Dob" arrow="true">
-										<t:outputText value="Dob" />
-									</t:commandSortHeader>
-								</f:facet>
-								<t:outputText value="#{customerCrudBacking.customer.dob}" />
-							</t:column>
-							
-							<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="Remarks" arrow="true">
-										<t:outputText value="Remarks" />
-									</t:commandSortHeader>
-								</f:facet>
-								<t:outputText value="#{customerCrudBacking.customer.remarks}" />
-							</t:column>
-							
-							<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="Username" arrow="true">
-										<t:outputText value="Username" />
-									</t:commandSortHeader>
-								</f:facet>
-								<t:outputText value="#{customerCrudBacking.customer.userAccount.username}" />
-							</t:column>
-							
-							<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="Password" arrow="true">
-										<t:outputText value="Password" />
-									</t:commandSortHeader>
-								</f:facet>
-								<t:outputText value="#{customerCrudBacking.customer.userAccount.password}" />
-							</t:column>
-							
-							<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="StreetAddress" arrow="true">
-										<t:outputText value="StreetAddress" />
-									</t:commandSortHeader>
-								</f:facet>
-								<t:outputText value="#{customerCrudBacking.customer.primaryAddress.streetAddress}" />
-							</t:column>
-							
-							<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="City" arrow="true">
-										<t:outputText value="City" />
-									</t:commandSortHeader>
-								</f:facet>
-								<t:outputText value="#{customerCrudBacking.customer.primaryAddress.city}" />
-							</t:column>
-							
-							<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="Zip" arrow="true">
-										<t:outputText value="Zip" />
-									</t:commandSortHeader>
-								</f:facet>
-								<t:outputText value="#{customerCrudBacking.customer.primaryAddress.zip}" />
-							</t:column>
-							
-							<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="Email" arrow="true">
-										<t:outputText value="Email" />
-									</t:commandSortHeader>
-								</f:facet>
-								<t:outputText value="#{customerCrudBacking.customer.primaryAddress.email}" />
-							</t:column>
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="FirstName" arrow="true"> -->
+				<t:outputText value="FirstName" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{customer.firstName}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="LastName" arrow="true"> -->
+				<t:outputText value="LastName" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{customer.lastName}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="Dob" arrow="true"> -->
+				<t:outputText value="Dob" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{customer.dob}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="Remarks" arrow="true"> -->
+				<t:outputText value="Remarks" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{customer.remarks}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="Username" arrow="true"> -->
+				<t:outputText value="Username" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{customer.userAccount.username}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="Password" arrow="true"> -->
+				<t:outputText value="Password" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{customer.userAccount.password}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="Enabled" arrow="true"> -->
+				<t:outputText value="Enabled" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{customer.userAccount.enabled}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="StreetAddress" arrow="true"> -->
+				<t:outputText value="StreetAddress" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{customer.primaryAddress.streetAddress}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="City" arrow="true"> -->
+				<t:outputText value="City" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{customer.primaryAddress.city}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="Zip" arrow="true"> -->
+				<t:outputText value="Zip" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{customer.primaryAddress.zip}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="Email" arrow="true"> -->
+				<t:outputText value="Email" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{customer.primaryAddress.email}" />
+	</t:column>
 							
 							
 							
@@ -121,11 +132,13 @@
 										<t:outputText value=" " />
 									</t:commandSortHeader>
 								</f:facet>
+								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE"> 
 								<t:commandLink action="#{customerCrudBacking.select}"
 									actionListener="#{customerCrudBacking.selectEntity}">
 									<t:outputText value=" Edit " />
 									<f:param id="editId" name="id" value="#{customer.id}" />
 								</t:commandLink>
+								</acegijsf:authorize> 
 							</t:column>
 							
 							 	</t:dataTable>	

@@ -9,6 +9,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
 	
 	<ui:define name="content">
@@ -23,23 +24,33 @@
 						value="#{userCrudBacking.users}" rows="30"
 					rowClasses="odd, even" styleClass="dataTable">
 						
-							<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="Username" arrow="true">
-										<t:outputText value="Username" />
-									</t:commandSortHeader>
-								</f:facet>
-								<t:outputText value="#{userCrudBacking.user.username}" />
-							</t:column>
 							
-							<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="Password" arrow="true">
-										<t:outputText value="Password" />
-									</t:commandSortHeader>
-								</f:facet>
-								<t:outputText value="#{userCrudBacking.user.password}" />
-							</t:column>
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="Username" arrow="true"> -->
+				<t:outputText value="Username" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{user.username}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="Password" arrow="true"> -->
+				<t:outputText value="Password" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{user.password}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="Enabled" arrow="true"> -->
+				<t:outputText value="Enabled" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{user.enabled}" />
+	</t:column>
 							
 							
 							
@@ -49,11 +60,13 @@
 										<t:outputText value=" " />
 									</t:commandSortHeader>
 								</f:facet>
+								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE"> 
 								<t:commandLink action="#{userCrudBacking.select}"
 									actionListener="#{userCrudBacking.selectEntity}">
 									<t:outputText value=" Edit " />
 									<f:param id="editId" name="id" value="#{user.id}" />
 								</t:commandLink>
+								</acegijsf:authorize> 
 							</t:column>
 							
 							 	</t:dataTable>	

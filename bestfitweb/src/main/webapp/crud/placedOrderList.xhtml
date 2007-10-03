@@ -9,6 +9,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
 	
 	<ui:define name="content">
@@ -23,34 +24,44 @@
 						value="#{placedOrderCrudBacking.placedOrders}" rows="30"
 					rowClasses="odd, even" styleClass="dataTable">
 						
-							<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="Remarks" arrow="true">
-										<t:outputText value="Remarks" />
-									</t:commandSortHeader>
-								</f:facet>
-								<t:outputText value="#{placedOrderCrudBacking.placedOrder.remarks}" />
-							</t:column>
 							
-							<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="PaymentMethod" arrow="true">
-										<t:outputText value="PaymentMethod" />
-									</t:commandSortHeader>
-								</f:facet>
-								<t:outputText value="#{placedOrderCrudBacking.placedOrder.paymentMethod}" />
-							</t:column>
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="Remarks" arrow="true"> -->
+				<t:outputText value="Remarks" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{placedOrder.remarks}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="PaymentMethod" arrow="true"> -->
+				<t:outputText value="PaymentMethod" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{placedOrder.paymentMethod}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="Status" arrow="true"> -->
+				<t:outputText value="Status" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{placedOrder.status}" />
+	</t:column>
 							
-							<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="Status" arrow="true">
-										<t:outputText value="Status" />
-									</t:commandSortHeader>
-								</f:facet>
-								<t:outputText value="#{placedOrderCrudBacking.placedOrder.status}" />
-							</t:column>
 							
 							
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="Customer" arrow="true"> -->
+				<t:outputText value="Customer" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{placedOrder.customer}" />
+	</t:column>
 							
 							<t:column>
 								<f:facet name="header">
@@ -58,11 +69,13 @@
 										<t:outputText value=" " />
 									</t:commandSortHeader>
 								</f:facet>
+								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE"> 
 								<t:commandLink action="#{placedOrderCrudBacking.select}"
 									actionListener="#{placedOrderCrudBacking.selectEntity}">
 									<t:outputText value=" Edit " />
 									<f:param id="editId" name="id" value="#{placedOrder.id}" />
 								</t:commandLink>
+								</acegijsf:authorize> 
 							</t:column>
 							
 							 	</t:dataTable>	

@@ -9,6 +9,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
 	
 	<ui:define name="content">
@@ -23,25 +24,35 @@
 						value="#{orderItemCrudBacking.orderItems}" rows="30"
 					rowClasses="odd, even" styleClass="dataTable">
 						
-							<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="SalePrice" arrow="true">
-										<t:outputText value="SalePrice" />
-									</t:commandSortHeader>
-								</f:facet>
-								<t:outputText value="#{orderItemCrudBacking.orderItem.salePrice}" />
-							</t:column>
 							
-							<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="Quantity" arrow="true">
-										<t:outputText value="Quantity" />
-									</t:commandSortHeader>
-								</f:facet>
-								<t:outputText value="#{orderItemCrudBacking.orderItem.quantity}" />
-							</t:column>
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="SalePrice" arrow="true"> -->
+				<t:outputText value="SalePrice" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{orderItem.salePrice}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="Quantity" arrow="true"> -->
+				<t:outputText value="Quantity" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{orderItem.quantity}" />
+	</t:column>
 							
 							
+							
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="Product" arrow="true"> -->
+				<t:outputText value="Product" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{orderItem.product}" />
+	</t:column>
 							
 							<t:column>
 								<f:facet name="header">
@@ -49,11 +60,13 @@
 										<t:outputText value=" " />
 									</t:commandSortHeader>
 								</f:facet>
+								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE"> 
 								<t:commandLink action="#{orderItemCrudBacking.select}"
 									actionListener="#{orderItemCrudBacking.selectEntity}">
 									<t:outputText value=" Edit " />
 									<f:param id="editId" name="id" value="#{orderItem.id}" />
 								</t:commandLink>
+								</acegijsf:authorize> 
 							</t:column>
 							
 							 	</t:dataTable>	

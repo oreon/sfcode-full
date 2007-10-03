@@ -8,6 +8,9 @@ import usermanagement.service.UserService;
 import org.springframework.transaction.annotation.Transactional;
 import org.apache.log4j.Logger;
 
+import usermanagement.Authority;
+import usermanagement.service.AuthorityService;
+
 @Transactional
 public class UserServiceImpl implements UserService {
 
@@ -23,7 +26,9 @@ public class UserServiceImpl implements UserService {
 
 	public User save(User user) {
 		checkUniqueConstraints(user);
-		return userDao.save(user);
+		userDao.save(user);
+
+		return user;
 	}
 
 	/** Before saving a record we need to ensure that no unique constraints
@@ -45,7 +50,7 @@ public class UserServiceImpl implements UserService {
 		if (user.getId() == null) { // for a new entity
 			throw new RuntimeException(exceptionId);
 		} else {//for updating an existing entiy
-			if (existingUser.getId() != user.getId())
+			if (existingUser.getId().longValue() != user.getId().longValue())
 				throw new RuntimeException(exceptionId);
 		}
 

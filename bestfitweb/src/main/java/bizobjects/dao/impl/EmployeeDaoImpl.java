@@ -1,15 +1,18 @@
 package bizobjects.dao.impl;
 
-import java.util.List;
+import bizobjects.Employee;
+import bizobjects.dao.EmployeeDao;
+
+import bizobjects.Customer;
+import bizobjects.dao.CustomerDao;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 import org.witchcraft.model.support.dao.BaseDao;
-
-import bizobjects.Employee;
-import bizobjects.dao.EmployeeDao;
 
 @Repository
 public class EmployeeDaoImpl extends BaseDao<Employee> implements EmployeeDao {

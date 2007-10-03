@@ -1,16 +1,17 @@
 package bizobjects.web.jsf;
 
+import bizobjects.OrderItem;
+import java.util.ArrayList;
 import java.util.List;
+import bizobjects.service.OrderItemService;
+
+import javax.faces.component.UIParameter;
+import javax.faces.event.ActionEvent;
+import javax.faces.context.FacesContext;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIParameter;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 
 import org.springframework.dao.DataAccessException;
-
-import bizobjects.OrderItem;
-import bizobjects.service.OrderItemService;
 
 public class OrderItemBackingBean {
 

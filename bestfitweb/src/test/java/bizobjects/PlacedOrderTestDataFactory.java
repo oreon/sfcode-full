@@ -7,9 +7,16 @@ import java.util.ArrayList;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 import org.witchcraft.model.support.AbstractTestDataFactory;
 
+import org.witchcraft.model.support.TestDataFactory;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import bizobjects.service.PlacedOrderService;
 
-public class PlacedOrderTestDataFactory extends AbstractTestDataFactory {
+@Transactional
+public class PlacedOrderTestDataFactory
+		extends
+			AbstractTestDataFactory<PlacedOrder> {
 
 	List<PlacedOrder> placedOrders = new ArrayList<PlacedOrder>();
 
@@ -35,21 +42,23 @@ public class PlacedOrderTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			placedOrder.setRemarks("pi");
-			placedOrder.setPaymentMethod("theta");
-			placedOrder.setStatus(OrderStatus.SHIPPED);
+			placedOrder.setRemarks("Eric");
+			placedOrder.setPaymentMethod("John");
+			placedOrder.setStatus(bizobjects.OrderStatus.NEW);
 
-			CustomerTestDataFactory customerTestDataFactory = (CustomerTestDataFactory) BeanHelper
+			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
 
-			placedOrder.setCustomer(customerTestDataFactory.loadCustomer());
+			placedOrder
+					.setCustomer((bizobjects.Customer) customerTestDataFactory
+							.loadOneRecord());
 
-			OrderItemTestDataFactory orderItemTestDataFactory = (OrderItemTestDataFactory) BeanHelper
+			TestDataFactory orderItemTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("orderItemTestDataFactory");
 
 			orderItemTestDataFactory.setPersistable(false);
 			placedOrder.getOrderItems().addAll(
-					orderItemTestDataFactory.getFew());
+					orderItemTestDataFactory.createFewRecords());
 
 			register(placedOrder);
 
@@ -65,21 +74,23 @@ public class PlacedOrderTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			placedOrder.setRemarks("zeta");
-			placedOrder.setPaymentMethod("theta");
-			placedOrder.setStatus(OrderStatus.SHIPPED);
+			placedOrder.setRemarks("pi");
+			placedOrder.setPaymentMethod("zeta");
+			placedOrder.setStatus(bizobjects.OrderStatus.COMPLETED);
 
-			CustomerTestDataFactory customerTestDataFactory = (CustomerTestDataFactory) BeanHelper
+			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
 
-			placedOrder.setCustomer(customerTestDataFactory.loadCustomer());
+			placedOrder
+					.setCustomer((bizobjects.Customer) customerTestDataFactory
+							.loadOneRecord());
 
-			OrderItemTestDataFactory orderItemTestDataFactory = (OrderItemTestDataFactory) BeanHelper
+			TestDataFactory orderItemTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("orderItemTestDataFactory");
 
 			orderItemTestDataFactory.setPersistable(false);
 			placedOrder.getOrderItems().addAll(
-					orderItemTestDataFactory.getFew());
+					orderItemTestDataFactory.createFewRecords());
 
 			register(placedOrder);
 
@@ -95,21 +106,23 @@ public class PlacedOrderTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			placedOrder.setRemarks("theta");
-			placedOrder.setPaymentMethod("alpha");
-			placedOrder.setStatus(OrderStatus.SHIPPED);
+			placedOrder.setRemarks("Eric");
+			placedOrder.setPaymentMethod("zeta");
+			placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
 
-			CustomerTestDataFactory customerTestDataFactory = (CustomerTestDataFactory) BeanHelper
+			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
 
-			placedOrder.setCustomer(customerTestDataFactory.loadCustomer());
+			placedOrder
+					.setCustomer((bizobjects.Customer) customerTestDataFactory
+							.loadOneRecord());
 
-			OrderItemTestDataFactory orderItemTestDataFactory = (OrderItemTestDataFactory) BeanHelper
+			TestDataFactory orderItemTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("orderItemTestDataFactory");
 
 			orderItemTestDataFactory.setPersistable(false);
 			placedOrder.getOrderItems().addAll(
-					orderItemTestDataFactory.getFew());
+					orderItemTestDataFactory.createFewRecords());
 
 			register(placedOrder);
 
@@ -125,21 +138,23 @@ public class PlacedOrderTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			placedOrder.setRemarks("alpha");
-			placedOrder.setPaymentMethod("alpha");
-			placedOrder.setStatus(OrderStatus.SHIPPED);
+			placedOrder.setRemarks("gamma");
+			placedOrder.setPaymentMethod("Lavendar");
+			placedOrder.setStatus(bizobjects.OrderStatus.COMPLETED);
 
-			CustomerTestDataFactory customerTestDataFactory = (CustomerTestDataFactory) BeanHelper
+			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
 
-			placedOrder.setCustomer(customerTestDataFactory.loadCustomer());
+			placedOrder
+					.setCustomer((bizobjects.Customer) customerTestDataFactory
+							.loadOneRecord());
 
-			OrderItemTestDataFactory orderItemTestDataFactory = (OrderItemTestDataFactory) BeanHelper
+			TestDataFactory orderItemTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("orderItemTestDataFactory");
 
 			orderItemTestDataFactory.setPersistable(false);
 			placedOrder.getOrderItems().addAll(
-					orderItemTestDataFactory.getFew());
+					orderItemTestDataFactory.createFewRecords());
 
 			register(placedOrder);
 
@@ -155,21 +170,23 @@ public class PlacedOrderTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			placedOrder.setRemarks("gamma");
-			placedOrder.setPaymentMethod("alpha");
-			placedOrder.setStatus(OrderStatus.SHIPPED);
+			placedOrder.setRemarks("Lavendar");
+			placedOrder.setPaymentMethod("Eric");
+			placedOrder.setStatus(bizobjects.OrderStatus.NEW);
 
-			CustomerTestDataFactory customerTestDataFactory = (CustomerTestDataFactory) BeanHelper
+			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
 
-			placedOrder.setCustomer(customerTestDataFactory.loadCustomer());
+			placedOrder
+					.setCustomer((bizobjects.Customer) customerTestDataFactory
+							.loadOneRecord());
 
-			OrderItemTestDataFactory orderItemTestDataFactory = (OrderItemTestDataFactory) BeanHelper
+			TestDataFactory orderItemTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("orderItemTestDataFactory");
 
 			orderItemTestDataFactory.setPersistable(false);
 			placedOrder.getOrderItems().addAll(
-					orderItemTestDataFactory.getFew());
+					orderItemTestDataFactory.createFewRecords());
 
 			register(placedOrder);
 
@@ -180,7 +197,7 @@ public class PlacedOrderTestDataFactory extends AbstractTestDataFactory {
 		return placedOrder;
 	}
 
-	public PlacedOrder loadPlacedOrder() {
+	public PlacedOrder loadOneRecord() {
 		List<PlacedOrder> placedOrders = placedOrderService.loadAll();
 
 		if (placedOrders.isEmpty()) {
@@ -191,7 +208,7 @@ public class PlacedOrderTestDataFactory extends AbstractTestDataFactory {
 		return placedOrders.get(new Random().nextInt(placedOrders.size()));
 	}
 
-	List<PlacedOrder> getAllAsList() {
+	public List<PlacedOrder> getAllAsList() {
 
 		if (placedOrders.isEmpty()) {
 			createPlacedOrderOne();
@@ -206,33 +223,16 @@ public class PlacedOrderTestDataFactory extends AbstractTestDataFactory {
 	}
 
 	public void persistAll() {
-		if (!isPersistable())
+		if (!isPersistable() || alreadyPersisted)
 			return;
+
+		getAllAsList();
 
 		for (PlacedOrder placedOrder : placedOrders) {
 			placedOrderService.save(placedOrder);
 		}
-	}
 
-	/** Will return a random number of PlacedOrders
-	 * @return
-	 */
-	List<PlacedOrder> getFew() {
-		List<PlacedOrder> all = getAllAsList();
-		int numToChoose = new Random(1212343).nextInt(all.size() - 1) + 1;
-
-		List allClone = new ArrayList<PlacedOrder>();
-		List returnList = new ArrayList<PlacedOrder>();
-
-		allClone.addAll(all);
-
-		while (returnList.size() < numToChoose) {
-			int indexToAdd = new Random(1212343).nextInt(allClone.size());
-			returnList.add(allClone.get(indexToAdd));
-			allClone.remove(numToChoose);
-		}
-
-		return returnList;
+		alreadyPersisted = true;
 	}
 
 }

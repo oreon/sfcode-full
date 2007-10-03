@@ -1,13 +1,18 @@
 package usermanagement.dao.impl;
 
+import usermanagement.User;
+import usermanagement.dao.UserDao;
+
+import bizobjects.Customer;
+import bizobjects.dao.CustomerDao;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 import org.witchcraft.model.support.dao.BaseDao;
-
-import usermanagement.User;
-import usermanagement.dao.UserDao;
 
 @Repository
 public class UserDaoImpl extends BaseDao<User> implements UserDao {

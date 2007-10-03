@@ -1,7 +1,6 @@
 package bizobjects;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
 @Embeddable
 public class /*0 */Address implements java.io.Serializable {

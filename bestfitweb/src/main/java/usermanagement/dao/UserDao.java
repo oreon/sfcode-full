@@ -1,8 +1,8 @@
 package usermanagement.dao;
 
-import org.witchcraft.model.support.dao.GenericDAO;
-
 import usermanagement.User;
+import org.witchcraft.model.support.dao.GenericDAO;
+import java.util.List;
 
 public interface UserDao extends GenericDAO<User> {
 

@@ -8,6 +8,9 @@ import usermanagement.service.AuthorityService;
 import org.springframework.transaction.annotation.Transactional;
 import org.apache.log4j.Logger;
 
+import usermanagement.Authority;
+import usermanagement.service.AuthorityService;
+
 @Transactional
 public class AuthorityServiceImpl implements AuthorityService {
 
@@ -24,7 +27,9 @@ public class AuthorityServiceImpl implements AuthorityService {
 
 	public Authority save(Authority authority) {
 
-		return authorityDao.save(authority);
+		authorityDao.save(authority);
+
+		return authority;
 	}
 
 	public void delete(Authority authority) {

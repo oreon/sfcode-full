@@ -1,8 +1,8 @@
 package bizobjects.dao;
 
-import org.witchcraft.model.support.dao.GenericDAO;
-
 import bizobjects.PlacedOrder;
+import org.witchcraft.model.support.dao.GenericDAO;
+import java.util.List;
 
 public interface PlacedOrderDao extends GenericDAO<PlacedOrder> {
 

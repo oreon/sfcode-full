@@ -7,9 +7,16 @@ import java.util.ArrayList;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 import org.witchcraft.model.support.AbstractTestDataFactory;
 
+import org.witchcraft.model.support.TestDataFactory;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import bizobjects.service.OrderItemService;
 
-public class OrderItemTestDataFactory extends AbstractTestDataFactory {
+@Transactional
+public class OrderItemTestDataFactory
+		extends
+			AbstractTestDataFactory<OrderItem> {
 
 	List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
@@ -35,13 +42,14 @@ public class OrderItemTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			orderItem.setSalePrice(2.454532713340274);
+			orderItem.setSalePrice(26.85);
 			orderItem.setQuantity(1);
 
-			ProductTestDataFactory productTestDataFactory = (ProductTestDataFactory) BeanHelper
+			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("productTestDataFactory");
 
-			orderItem.setProduct(productTestDataFactory.loadProduct());
+			orderItem.setProduct((bizobjects.Product) productTestDataFactory
+					.loadOneRecord());
 
 			register(orderItem);
 
@@ -57,13 +65,14 @@ public class OrderItemTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			orderItem.setSalePrice(2.454532713340274);
+			orderItem.setSalePrice(13.93);
 			orderItem.setQuantity(1);
 
-			ProductTestDataFactory productTestDataFactory = (ProductTestDataFactory) BeanHelper
+			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("productTestDataFactory");
 
-			orderItem.setProduct(productTestDataFactory.loadProduct());
+			orderItem.setProduct((bizobjects.Product) productTestDataFactory
+					.loadOneRecord());
 
 			register(orderItem);
 
@@ -79,13 +88,14 @@ public class OrderItemTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			orderItem.setSalePrice(2.454532713340274);
+			orderItem.setSalePrice(23.38);
 			orderItem.setQuantity(1);
 
-			ProductTestDataFactory productTestDataFactory = (ProductTestDataFactory) BeanHelper
+			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("productTestDataFactory");
 
-			orderItem.setProduct(productTestDataFactory.loadProduct());
+			orderItem.setProduct((bizobjects.Product) productTestDataFactory
+					.loadOneRecord());
 
 			register(orderItem);
 
@@ -101,13 +111,14 @@ public class OrderItemTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			orderItem.setSalePrice(2.454532713340274);
+			orderItem.setSalePrice(76.38);
 			orderItem.setQuantity(1);
 
-			ProductTestDataFactory productTestDataFactory = (ProductTestDataFactory) BeanHelper
+			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("productTestDataFactory");
 
-			orderItem.setProduct(productTestDataFactory.loadProduct());
+			orderItem.setProduct((bizobjects.Product) productTestDataFactory
+					.loadOneRecord());
 
 			register(orderItem);
 
@@ -123,13 +134,14 @@ public class OrderItemTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			orderItem.setSalePrice(2.454532713340274);
+			orderItem.setSalePrice(43.87);
 			orderItem.setQuantity(1);
 
-			ProductTestDataFactory productTestDataFactory = (ProductTestDataFactory) BeanHelper
+			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("productTestDataFactory");
 
-			orderItem.setProduct(productTestDataFactory.loadProduct());
+			orderItem.setProduct((bizobjects.Product) productTestDataFactory
+					.loadOneRecord());
 
 			register(orderItem);
 
@@ -140,7 +152,7 @@ public class OrderItemTestDataFactory extends AbstractTestDataFactory {
 		return orderItem;
 	}
 
-	public OrderItem loadOrderItem() {
+	public OrderItem loadOneRecord() {
 		List<OrderItem> orderItems = orderItemService.loadAll();
 
 		if (orderItems.isEmpty()) {
@@ -151,7 +163,7 @@ public class OrderItemTestDataFactory extends AbstractTestDataFactory {
 		return orderItems.get(new Random().nextInt(orderItems.size()));
 	}
 
-	List<OrderItem> getAllAsList() {
+	public List<OrderItem> getAllAsList() {
 
 		if (orderItems.isEmpty()) {
 			createOrderItemOne();
@@ -166,33 +178,16 @@ public class OrderItemTestDataFactory extends AbstractTestDataFactory {
 	}
 
 	public void persistAll() {
-		if (!isPersistable())
+		if (!isPersistable() || alreadyPersisted)
 			return;
+
+		getAllAsList();
 
 		for (OrderItem orderItem : orderItems) {
 			orderItemService.save(orderItem);
 		}
-	}
 
-	/** Will return a random number of PlacedOrders
-	 * @return
-	 */
-	List<OrderItem> getFew() {
-		List<OrderItem> all = getAllAsList();
-		int numToChoose = new Random(1212343).nextInt(all.size() - 1) + 1;
-
-		List allClone = new ArrayList<OrderItem>();
-		List returnList = new ArrayList<OrderItem>();
-
-		allClone.addAll(all);
-
-		while (returnList.size() < numToChoose) {
-			int indexToAdd = new Random(1212343).nextInt(allClone.size());
-			returnList.add(allClone.get(indexToAdd));
-			allClone.remove(numToChoose);
-		}
-
-		return returnList;
+		alreadyPersisted = true;
 	}
 
 }

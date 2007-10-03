@@ -8,6 +8,9 @@ import bizobjects.service.EmployeeService;
 import org.springframework.transaction.annotation.Transactional;
 import org.apache.log4j.Logger;
 
+import usermanagement.Authority;
+import usermanagement.service.AuthorityService;
+
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -20,11 +23,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 		this.employeeDao = employeeDao;
 	}
 
+	private AuthorityService authorityService;
+
+	public void setAuthorityService(AuthorityService authorityService) {
+		this.authorityService = authorityService;
+	}
+
 	//// Delegate all crud operations to the Dao ////
 
 	public Employee save(Employee employee) {
 		checkUniqueConstraints(employee);
-		return employeeDao.save(employee);
+		employeeDao.save(employee);
+		assignDefaultAuthority(employee);
+		return employee;
 	}
 
 	/** Before saving a record we need to ensure that no unique constraints
@@ -55,10 +66,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 		if (employee.getId() == null) { // for a new entity
 			throw new RuntimeException(exceptionId);
 		} else {//for updating an existing entiy
-			if (existingEmployee.getId() != employee.getId())
+			if (existingEmployee.getId().longValue() != employee.getId()
+					.longValue())
 				throw new RuntimeException(exceptionId);
 		}
 
+	}
+
+	private void assignDefaultAuthority(Employee employee) {
+		if (employee.getId() != null)
+			return;
+
+		Authority authority = new Authority();
+		authority.setUser(employee.getUserAccount());
+		authority.setAuthority("role_employee");
+		authorityService.save(authority);
 	}
 
 	public void delete(Employee employee) {

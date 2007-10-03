@@ -1,9 +1,6 @@
 package bizobjects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class /*0 */Employee extends Person implements java.io.Serializable {
@@ -27,7 +24,7 @@ public class /*0 */Employee extends Person implements java.io.Serializable {
 		this.userAccount = userAccount;
 	}
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "userAccount_ID", nullable = false)
 	public usermanagement.User getUserAccount() {
 		return this.userAccount;

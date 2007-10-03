@@ -1,10 +1,6 @@
 package bizobjects;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
 public class /*0 */PlacedOrder
@@ -68,7 +64,7 @@ public class /*0 */PlacedOrder
 		this.orderItems.remove(orderItems);
 	}
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "order_ID", nullable = false)
 	public java.util.Set<bizobjects.OrderItem> getOrderItems() {
 		return this.orderItems;

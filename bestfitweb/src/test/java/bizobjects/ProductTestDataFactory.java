@@ -7,9 +7,14 @@ import java.util.ArrayList;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 import org.witchcraft.model.support.AbstractTestDataFactory;
 
+import org.witchcraft.model.support.TestDataFactory;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import bizobjects.service.ProductService;
 
-public class ProductTestDataFactory extends AbstractTestDataFactory {
+@Transactional
+public class ProductTestDataFactory extends AbstractTestDataFactory<Product> {
 
 	List<Product> products = new ArrayList<Product>();
 
@@ -35,9 +40,9 @@ public class ProductTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			product.setName("alpha");
-			product.setBrand("gamma");
-			product.setListPrice(2.454532713340274);
+			product.setName("pi");
+			product.setBrand("pi");
+			product.setListPrice(3.19);
 
 			register(product);
 
@@ -53,9 +58,9 @@ public class ProductTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			product.setName("delta");
-			product.setBrand("gamma");
-			product.setListPrice(2.454532713340274);
+			product.setName("zeta");
+			product.setBrand("John");
+			product.setListPrice(29.44);
 
 			register(product);
 
@@ -71,9 +76,9 @@ public class ProductTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			product.setName("pi");
-			product.setBrand("gamma");
-			product.setListPrice(2.454532713340274);
+			product.setName("epsilon");
+			product.setBrand("Mark");
+			product.setListPrice(7.09);
 
 			register(product);
 
@@ -89,9 +94,9 @@ public class ProductTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			product.setName("epsilon");
-			product.setBrand("alpha");
-			product.setListPrice(2.454532713340274);
+			product.setName("zeta");
+			product.setBrand("Wilson");
+			product.setListPrice(21.84);
 
 			register(product);
 
@@ -108,8 +113,8 @@ public class ProductTestDataFactory extends AbstractTestDataFactory {
 		try {
 
 			product.setName("delta");
-			product.setBrand("delta");
-			product.setListPrice(2.454532713340274);
+			product.setBrand("Wilson");
+			product.setListPrice(37.22);
 
 			register(product);
 
@@ -120,7 +125,7 @@ public class ProductTestDataFactory extends AbstractTestDataFactory {
 		return product;
 	}
 
-	public Product loadProduct() {
+	public Product loadOneRecord() {
 		List<Product> products = productService.loadAll();
 
 		if (products.isEmpty()) {
@@ -131,7 +136,7 @@ public class ProductTestDataFactory extends AbstractTestDataFactory {
 		return products.get(new Random().nextInt(products.size()));
 	}
 
-	List<Product> getAllAsList() {
+	public List<Product> getAllAsList() {
 
 		if (products.isEmpty()) {
 			createProductOne();
@@ -146,33 +151,16 @@ public class ProductTestDataFactory extends AbstractTestDataFactory {
 	}
 
 	public void persistAll() {
-		if (!isPersistable())
+		if (!isPersistable() || alreadyPersisted)
 			return;
+
+		getAllAsList();
 
 		for (Product product : products) {
 			productService.save(product);
 		}
-	}
 
-	/** Will return a random number of PlacedOrders
-	 * @return
-	 */
-	List<Product> getFew() {
-		List<Product> all = getAllAsList();
-		int numToChoose = new Random(1212343).nextInt(all.size() - 1) + 1;
-
-		List allClone = new ArrayList<Product>();
-		List returnList = new ArrayList<Product>();
-
-		allClone.addAll(all);
-
-		while (returnList.size() < numToChoose) {
-			int indexToAdd = new Random(1212343).nextInt(allClone.size());
-			returnList.add(allClone.get(indexToAdd));
-			allClone.remove(numToChoose);
-		}
-
-		return returnList;
+		alreadyPersisted = true;
 	}
 
 }

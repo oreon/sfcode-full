@@ -7,9 +7,14 @@ import java.util.ArrayList;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 import org.witchcraft.model.support.AbstractTestDataFactory;
 
+import org.witchcraft.model.support.TestDataFactory;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import bizobjects.service.CustomerService;
 
-public class CustomerTestDataFactory extends AbstractTestDataFactory {
+@Transactional
+public class CustomerTestDataFactory extends AbstractTestDataFactory<Customer> {
 
 	List<Customer> customers = new ArrayList<Customer>();
 
@@ -35,16 +40,17 @@ public class CustomerTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			customer.setFirstName("alpha");
-			customer.setLastName("epsilon");
-			customer.setDob(dateFormat.parse("2007.10.19 08:47:57 EDT"));
-			customer.setRemarks("alpha");
-			customer.getUserAccount().setUsername("alpha99105");
-			customer.getUserAccount().setPassword("delta");
-			customer.getPrimaryAddress().setStreetAddress("zeta");
-			customer.getPrimaryAddress().setCity("zeta");
+			customer.setFirstName("epsilon");
+			customer.setLastName("John");
+			customer.setDob(dateFormat.parse("2007.09.15 10:03:06 EDT"));
+			customer.setRemarks("Eric");
+			customer.getUserAccount().setUsername("theta13651");
+			customer.getUserAccount().setPassword("John");
+			customer.getUserAccount().setEnabled(true);
+			customer.getPrimaryAddress().setStreetAddress("alpha");
+			customer.getPrimaryAddress().setCity("alpha");
 			customer.getPrimaryAddress().setZip("theta");
-			customer.getPrimaryAddress().setEmail("gamma85046");
+			customer.getPrimaryAddress().setEmail("theta43626");
 
 			register(customer);
 
@@ -60,16 +66,17 @@ public class CustomerTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			customer.setFirstName("beta");
-			customer.setLastName("pi");
-			customer.setDob(dateFormat.parse("2007.10.21 14:41:17 EDT"));
-			customer.setRemarks("epsilon");
-			customer.getUserAccount().setUsername("gamma65455");
-			customer.getUserAccount().setPassword("epsilon");
-			customer.getPrimaryAddress().setStreetAddress("gamma");
-			customer.getPrimaryAddress().setCity("zeta");
-			customer.getPrimaryAddress().setZip("beta");
-			customer.getPrimaryAddress().setEmail("beta69186");
+			customer.setFirstName("epsilon");
+			customer.setLastName("John");
+			customer.setDob(dateFormat.parse("2007.10.16 15:19:13 EDT"));
+			customer.setRemarks("zeta");
+			customer.getUserAccount().setUsername("Malissa57274");
+			customer.getUserAccount().setPassword("Lavendar");
+			customer.getUserAccount().setEnabled(true);
+			customer.getPrimaryAddress().setStreetAddress("zeta");
+			customer.getPrimaryAddress().setCity("Mark");
+			customer.getPrimaryAddress().setZip("Mark");
+			customer.getPrimaryAddress().setEmail("Eric4431");
 
 			register(customer);
 
@@ -85,16 +92,17 @@ public class CustomerTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			customer.setFirstName("delta");
-			customer.setLastName("epsilon");
-			customer.setDob(dateFormat.parse("2007.09.26 09:07:57 EDT"));
-			customer.setRemarks("beta");
-			customer.getUserAccount().setUsername("alpha33020");
-			customer.getUserAccount().setPassword("delta");
-			customer.getPrimaryAddress().setStreetAddress("epsilon");
-			customer.getPrimaryAddress().setCity("pi");
-			customer.getPrimaryAddress().setZip("zeta");
-			customer.getPrimaryAddress().setEmail("pi4137");
+			customer.setFirstName("gamma");
+			customer.setLastName("Eric");
+			customer.setDob(dateFormat.parse("2007.10.25 13:55:53 EDT"));
+			customer.setRemarks("pi");
+			customer.getUserAccount().setUsername("beta53754");
+			customer.getUserAccount().setPassword("John");
+			customer.getUserAccount().setEnabled(true);
+			customer.getPrimaryAddress().setStreetAddress("Mark");
+			customer.getPrimaryAddress().setCity("theta");
+			customer.getPrimaryAddress().setZip("delta");
+			customer.getPrimaryAddress().setEmail("pi78340");
 
 			register(customer);
 
@@ -111,15 +119,16 @@ public class CustomerTestDataFactory extends AbstractTestDataFactory {
 		try {
 
 			customer.setFirstName("gamma");
-			customer.setLastName("epsilon");
-			customer.setDob(dateFormat.parse("2007.10.01 20:24:37 EDT"));
-			customer.setRemarks("zeta");
-			customer.getUserAccount().setUsername("theta3688");
-			customer.getUserAccount().setPassword("alpha");
-			customer.getPrimaryAddress().setStreetAddress("epsilon");
-			customer.getPrimaryAddress().setCity("zeta");
-			customer.getPrimaryAddress().setZip("gamma");
-			customer.getPrimaryAddress().setEmail("zeta47472");
+			customer.setLastName("Malissa");
+			customer.setDob(dateFormat.parse("2007.10.20 02:29:13 EDT"));
+			customer.setRemarks("beta");
+			customer.getUserAccount().setUsername("beta11575");
+			customer.getUserAccount().setPassword("pi");
+			customer.getUserAccount().setEnabled(true);
+			customer.getPrimaryAddress().setStreetAddress("Malissa");
+			customer.getPrimaryAddress().setCity("Eric");
+			customer.getPrimaryAddress().setZip("theta");
+			customer.getPrimaryAddress().setEmail("epsilon46714");
 
 			register(customer);
 
@@ -135,16 +144,17 @@ public class CustomerTestDataFactory extends AbstractTestDataFactory {
 
 		try {
 
-			customer.setFirstName("alpha");
-			customer.setLastName("theta");
-			customer.setDob(dateFormat.parse("2007.09.14 19:04:04 EDT"));
-			customer.setRemarks("pi");
-			customer.getUserAccount().setUsername("delta85510");
-			customer.getUserAccount().setPassword("theta");
-			customer.getPrimaryAddress().setStreetAddress("delta");
-			customer.getPrimaryAddress().setCity("theta");
-			customer.getPrimaryAddress().setZip("epsilon");
-			customer.getPrimaryAddress().setEmail("alpha73215");
+			customer.setFirstName("epsilon");
+			customer.setLastName("epsilon");
+			customer.setDob(dateFormat.parse("2007.09.15 16:37:31 EDT"));
+			customer.setRemarks("beta");
+			customer.getUserAccount().setUsername("gamma14482");
+			customer.getUserAccount().setPassword("epsilon");
+			customer.getUserAccount().setEnabled(true);
+			customer.getPrimaryAddress().setStreetAddress("Wilson");
+			customer.getPrimaryAddress().setCity("John");
+			customer.getPrimaryAddress().setZip("zeta");
+			customer.getPrimaryAddress().setEmail("theta69667");
 
 			register(customer);
 
@@ -155,7 +165,7 @@ public class CustomerTestDataFactory extends AbstractTestDataFactory {
 		return customer;
 	}
 
-	public Customer loadCustomer() {
+	public Customer loadOneRecord() {
 		List<Customer> customers = customerService.loadAll();
 
 		if (customers.isEmpty()) {
@@ -166,7 +176,7 @@ public class CustomerTestDataFactory extends AbstractTestDataFactory {
 		return customers.get(new Random().nextInt(customers.size()));
 	}
 
-	List<Customer> getAllAsList() {
+	public List<Customer> getAllAsList() {
 
 		if (customers.isEmpty()) {
 			createCustomerOne();
@@ -181,34 +191,16 @@ public class CustomerTestDataFactory extends AbstractTestDataFactory {
 	}
 
 	public void persistAll() {
-		if (!isPersistable())
+		if (!isPersistable() || alreadyPersisted)
 			return;
 
 		getAllAsList();
+
 		for (Customer customer : customers) {
 			customerService.save(customer);
 		}
-	}
 
-	/** Will return a random number of PlacedOrders
-	 * @return
-	 */
-	List<Customer> getFew() {
-		List<Customer> all = getAllAsList();
-		int numToChoose = new Random(1212343).nextInt(all.size() - 1) + 1;
-
-		List allClone = new ArrayList<Customer>();
-		List returnList = new ArrayList<Customer>();
-
-		allClone.addAll(all);
-
-		while (returnList.size() < numToChoose) {
-			int indexToAdd = new Random(1212343).nextInt(allClone.size());
-			returnList.add(allClone.get(indexToAdd));
-			allClone.remove(numToChoose);
-		}
-
-		return returnList;
+		alreadyPersisted = true;
 	}
 
 }
