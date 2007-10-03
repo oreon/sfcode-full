@@ -158,30 +158,80 @@
 	import org.springframework.test.jpa.AbstractJpaTests;
 	import java.util.List;
 	
+	import org.witchcraft.model.support.TestDataFactory;
+	import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
+	
+	import java.text.SimpleDateFormat;
+		
 	
 	public class «NameS»DaoTest extends AbstractJpaTests {
 			
+			«NameS» «asInstanceVar()»Instance = new «NameS»();
+			
 			private «NameS»Service «asInstanceVar()»Service;
+			
+			private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss z");
+		
 	
 		    public void set«NameS»Service(«NameS»Service «asInstanceVar()»Service) {
 				this.«asInstanceVar()»Service = «asInstanceVar()»Service;
 			}
+			
+			protected TestDataFactory «asInstanceVar()»TestDataFactory = (TestDataFactory) BeanHelper
+		.getBean("«asInstanceVar()»TestDataFactory");
 		    
 		    @Override
 			protected String[] getConfigLocations() {
-				return new String[]{"classpath:/applicationContext.xml"};
+				return new String[]{"classpath:/applicationContext.xml", "classpath:/testDataFactories.xml"};
 			}
 			
 			/**
 			* Do the setup before the test in this method
 			**/
 			protected void onSetUpInTransaction() throws Exception {
+				try{
+					
+					«EXPAND java::TestDataFactoryGen::createRandomObject(asInstanceVar() + "Instance") FOR this»
+					
+					«asInstanceVar()»Service.save(«asInstanceVar()»Instance);
+				}catch(Exception e){
+					fail(e.getMessage());
+				}
 			
 			}
 			
-		
+			//test saving a new record and updating an existing record;
 			public void testSave() {
-				//test saving a new record and updating an existing record;
+				try{
+					«NameS» «asInstanceVar()» = new «NameS»();
+					
+					try{
+						«EXPAND java::TestDataFactoryGen::createRandomObject(asInstanceVar()) FOR this»
+					}catch(Exception ex){
+						ex.printStackTrace();
+					}
+					
+					«asInstanceVar()»Service.save(«asInstanceVar()»);
+					assertNotNull(«asInstanceVar()».getId());
+				}catch(Exception e){
+					fail(e.getMessage());
+				}
+			}
+			
+			public void testEdit(){
+				try{
+					//test saving a new record and updating an existing record;
+					«NameS» «asInstanceVar()» = («NameS»)«asInstanceVar()»TestDataFactory.loadOneRecord();
+					
+					«FOREACH getAllAttributes AS attrib-»
+						«asInstanceVar()».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»(«attrib.getRandValue()»);
+					«ENDFOREACH»
+									
+					«asInstanceVar()»Service.save(«asInstanceVar()»);
+				
+				}catch(Exception e){
+					fail(e.getMessage());
+				}
 			}
 			
 			public void testDelete() {
@@ -189,15 +239,18 @@
 			}			
 			
 			public void testLoad() {
-				//return null;
+				try{
+					«NameS» «asInstanceVar()» =  «asInstanceVar()»Service.load(«asInstanceVar()»Instance.getId());
+					assertNotNull(«asInstanceVar()».getId());
+				}catch(Exception e){
+					fail(e.getMessage());
+				}
 			}
 			
 			«EXPAND FinderTest(this) FOREACH Findable »
 			
 			public void testSearchByExample(){
-		    	«NameS» «asInstanceVar()» = new «NameS»();
-		    	//«asInstanceVar()».setFirstName("Eri");
-		    	List<«NameS»> «asInstanceVar()»s = «asInstanceVar()»Service.searchByExample(«asInstanceVar()»);
+		    	List<«NameS»> «asInstanceVar()»s = «asInstanceVar()»Service.searchByExample(«asInstanceVar()»Instance);
 		    	assertTrue(!«asInstanceVar()»s.isEmpty()); 
 		    }
 			
@@ -210,20 +263,25 @@
 
 «DEFINE FinderTest(AbstractEntity e) FOR Column»
 	public void testFindBy«NameS.toFirstUpper()»(){
-	/*
+	
 		«IF isUnique»
-			assertNotNull("Couldn't find a «e.NameS» with «NameS» XXX", «e.asInstanceVar()»Service.findBy«NameS.toFirstUpper()»("XXX"));
-			assertNull("Found a «e.NameS» with «NameS» YYY", «e.asInstanceVar()»Service.findBy«NameS.toFirstUpper()»("YYY"));			
+			assertNotNull("Couldn't find a «e.NameS» with «NameS» ", «EXPAND finderInvoke(e) FOR this» );
+			//assertNull("Found a «e.NameS» with «NameS» YYY", «e.asInstanceVar()»Service.findBy«NameS.toFirstUpper()»("YYY"));			
 		«ELSE»
-			List<«e.NameS»> «e.asInstanceVar()»s = «e.asInstanceVar()»Service.findBy«NameS.toFirstUpper()»("XXX");
+			List<«e.NameS»> «e.asInstanceVar()»s = «EXPAND finderInvoke(e) FOR this»;
 		    assertTrue(!«e.asInstanceVar()»s.isEmpty()); 
 		    
 		    //negative test
-		    «e.asInstanceVar()»s = «e.asInstanceVar()»Service.findBy«NameS.toFirstUpper()»("YYY");
-		    assertTrue(«e.asInstanceVar()»s.isEmpty()); 
+		    //«e.asInstanceVar()»s = «EXPAND finderInvoke(e) FOR this»;
+		    //assertTrue(«e.asInstanceVar()»s.isEmpty()); 
 		«ENDIF»
-	*/
+	
 	}
+«ENDDEFINE»
+
+
+«DEFINE finderInvoke(AbstractEntity e) FOR Column»
+	«e.asInstanceVar()»Service.findBy«NameS.toFirstUpper()»(«e.asInstanceVar()»Instance.«getContainerGetter()»get«NameS.toFirstUpper()»())
 «ENDDEFINE»
 
 

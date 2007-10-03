@@ -95,22 +95,7 @@ public class InitialDataSetup {
 			
 			try{
 			
-			«FOREACH getAllAttributes AS attrib-»
-				«asInstanceVar()».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»(«attrib.getRandValue()»);
-			«ENDFOREACH»
-			
-			«REM»The associated entites for e.g an order would need a customer «ENDREM»
-			«FOREACH AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) AS ae-»
-				«EXPAND genBeanLookup FOR ae.Class»
-				«asInstanceVar()».set«ae.NameS.toFirstUpper()»((«ae.Class.NameS»)«ae.Class.NameS.toFirstLower()»TestDataFactory.loadOneRecord());
-			«ENDFOREACH»
-			
-			«REM»Composed collections e.g an order contains orderitems «ENDREM»
-			«FOREACH AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable && ae.Opposite.isComposition) AS ae-»
-				«EXPAND genBeanLookup FOR ae.Class»
-				«ae.Class.NameS.toFirstLower()»TestDataFactory.setPersistable(false);
-				«asInstanceVar()».get«ae.NameS.toFirstUpper()»().addAll(«ae.Class.NameS.toFirstLower()»TestDataFactory.createFewRecords());
-			«ENDFOREACH»
+			«EXPAND createRandomObject(asInstanceVar()) FOR this»
 			
 			register(«asInstanceVar()» );
 			
@@ -166,6 +151,25 @@ public class InitialDataSetup {
 
 «DEFINE GenImports FOR Entity»
 	import «packageName()».«NameS»TestDataFactory;
+«ENDDEFINE»
+
+«DEFINE createRandomObject(String name) FOR Entity»
+	«FOREACH getAllAttributes AS attrib-»
+		«name».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»(«attrib.getRandValue()»);
+	«ENDFOREACH»
+	
+	«REM»The associated entites for e.g an order would need a customer «ENDREM»
+	«FOREACH AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) AS ae-»
+		«EXPAND genBeanLookup FOR ae.Class»
+		«name».set«ae.NameS.toFirstUpper()»((«ae.Class.NameS»)«ae.Class.NameS.toFirstLower()»TestDataFactory.loadOneRecord());
+	«ENDFOREACH»
+	
+	«REM»Composed collections e.g an order contains orderitems «ENDREM»
+	«FOREACH AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable && ae.Opposite.isComposition) AS ae-»
+		«EXPAND genBeanLookup FOR ae.Class»
+		«ae.Class.NameS.toFirstLower()»TestDataFactory.setPersistable(false);
+		«name».get«ae.NameS.toFirstUpper()»().addAll(«ae.Class.NameS.toFirstLower()»TestDataFactory.createFewRecords());
+	«ENDFOREACH»
 «ENDDEFINE»
 
 
