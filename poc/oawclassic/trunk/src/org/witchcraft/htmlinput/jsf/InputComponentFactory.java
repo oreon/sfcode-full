@@ -46,6 +46,8 @@ public class InputComponentFactory {
 			return new InputTextRenderer();
 		}else if (type.equals("java.util.Date") || type.equals("Date") ){
 			return new CalendarRenderer();
+		}else if (type.equals("java.lang.Boolean") || type.equalsIgnoreCase("Boolean") ){
+			return new BooleanCheckBoxRenderer();
 		}else if (attribute.Type().getMetaClass().getSimpleName().equals("Enumeration")){
 			return new SelectOneMenuRenderer();
 		}else{//default to input text 
