@@ -7,7 +7,7 @@
 «DEFINE BeanClass FOR Class»
 «FILE packagePath()+"/"+NameS+"Base.java"»  
 
-«EXPAND ManualFileGen::genManualFile("", "")»
+«EXPAND ManualFileGen::genManualFile("", "", "")»
 
 package «packageName()»;
 
@@ -21,20 +21,19 @@ import javax.persistence.*;
 
 
 «DEFINE EntityGen FOR Entity»
-«FILE packagePath()+"/"+NameS+"Base.java"»  
-
-«EXPAND ManualFileGen::genManualFile("", "", )»
-
-package «packageName()»;
-
-import javax.persistence.*;
-
-@Entity
-«getTableName == null ? "": "@Table(name=\"" + getTableName + "\")"»
-«getClassDeclaration()»{
-
-			«EXPAND classBody FOR this
-			«EXPAND displayName FOR this»
+	«FILE packagePath()+"/"+NameS+"Base.java"»  
+	
+		«EXPAND ManualFileGen::genManualFile("", "", getAnnotaitons())»
+		
+		package «packageName()»;
+		
+		import javax.persistence.*;
+		
+		«getAnnotaitons()»
+		«getClassDeclaration()»{
+		
+				«EXPAND classBody FOR this»
+				«EXPAND displayName FOR this»
 		} 
 	«ENDFILE»
 «ENDDEFINE»
@@ -51,8 +50,8 @@ import javax.persistence.*;
 		
 		@MappedSuperclass
 		«getClassDeclaration()»{
-			«EXPAND classBody FOR this
-			«EXPAND displayName FOR this»
+			«EXPAND classBody FOR this»
+			
 		} 
 	«ENDFILE»
 «ENDDEFINE»
@@ -60,7 +59,7 @@ import javax.persistence.*;
 «DEFINE EntityGen FOR Embeddable»
 	«FILE packagePath()+"/"+NameS+"Base.java"»  
 	
-		«EXPAND ManualFileGen::genManualFile("", "", "@MappedSuperclass")»
+		«EXPAND ManualFileGen::genManualFile("", "", "@Embeddable")»
 		
 		package «packageName()»;
 		
@@ -68,8 +67,8 @@ import javax.persistence.*;
 		
 		@Embeddable
 		«getClassDeclaration()»{
-			«EXPAND classBody FOR this
-			«EXPAND displayName FOR this»
+			«EXPAND classBody FOR this»
+			
 		} 
 	«ENDFILE»
 «ENDDEFINE»

@@ -19,7 +19,8 @@
 
 	«FILE packagePath()+"/service/impl" + "/"+NameS+"ServiceImplBase.java"»  
 	
-	«EXPAND ManualFileGen::genManualFile("/service/impl", "ServiceImpl")»
+	«EXPAND ManualFileGen::genManualFile("/service/impl", "ServiceImpl",
+		 "@Transactional(readOnly=false, propagation=Propagation.REQUIRED)")»
 
 	package «packageName()».service.impl;
 	 
@@ -36,7 +37,7 @@
 	
 
 
-	@Transactional
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
 	public class «NameS»ServiceImplBase implements «NameS»Service{
 	
 			protected static final Logger log = Logger.getLogger(«NameS»ServiceImpl.class);
