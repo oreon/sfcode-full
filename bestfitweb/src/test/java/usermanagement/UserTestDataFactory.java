@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
-import org.witchcraft.model.support.AbstractTestDataFactory;
+import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 
-import org.witchcraft.model.support.TestDataFactory;
+import org.witchcraft.model.support.testing.TestDataFactory;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,8 +40,8 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUsername("zeta32522");
-			user.setPassword("John");
+			user.setUsername("zeta52513");
+			user.setPassword("Mark");
 			user.setEnabled(true);
 
 			register(user);
@@ -58,8 +58,8 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUsername("gamma2879");
-			user.setPassword("alpha");
+			user.setUsername("Malissa22226");
+			user.setPassword("theta");
 			user.setEnabled(true);
 
 			register(user);
@@ -76,8 +76,8 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUsername("pi76636");
-			user.setPassword("pi");
+			user.setUsername("Lavendar43508");
+			user.setPassword("Malissa");
 			user.setEnabled(true);
 
 			register(user);
@@ -94,8 +94,8 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUsername("zeta72729");
-			user.setPassword("Wilson");
+			user.setUsername("epsilon53000");
+			user.setPassword("alpha");
 			user.setEnabled(true);
 
 			register(user);
@@ -112,8 +112,8 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUsername("Lavendar24978");
-			user.setPassword("gamma");
+			user.setUsername("Mark32259");
+			user.setPassword("Eric");
 			user.setEnabled(true);
 
 			register(user);

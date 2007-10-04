@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
-import org.witchcraft.model.support.AbstractTestDataFactory;
+import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 
-import org.witchcraft.model.support.TestDataFactory;
+import org.witchcraft.model.support.testing.TestDataFactory;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,7 +42,7 @@ public class OrderItemTestDataFactory
 
 		try {
 
-			orderItem.setSalePrice(41.38);
+			orderItem.setSalePrice(89.6);
 			orderItem.setQuantity(1);
 
 			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
@@ -65,7 +65,7 @@ public class OrderItemTestDataFactory
 
 		try {
 
-			orderItem.setSalePrice(71.19);
+			orderItem.setSalePrice(29.25);
 			orderItem.setQuantity(1);
 
 			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
@@ -88,7 +88,7 @@ public class OrderItemTestDataFactory
 
 		try {
 
-			orderItem.setSalePrice(34.67);
+			orderItem.setSalePrice(87.49);
 			orderItem.setQuantity(1);
 
 			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
@@ -111,7 +111,7 @@ public class OrderItemTestDataFactory
 
 		try {
 
-			orderItem.setSalePrice(8.14);
+			orderItem.setSalePrice(55.36);
 			orderItem.setQuantity(1);
 
 			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
@@ -134,7 +134,7 @@ public class OrderItemTestDataFactory
 
 		try {
 
-			orderItem.setSalePrice(69.1);
+			orderItem.setSalePrice(3.19);
 			orderItem.setQuantity(1);
 
 			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper

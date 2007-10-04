@@ -4,7 +4,7 @@ import bizobjects.PlacedOrder;
 import org.springframework.test.jpa.AbstractJpaTests;
 import java.util.List;
 
-import org.witchcraft.model.support.TestDataFactory;
+import org.witchcraft.model.support.testing.TestDataFactory;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 
 import java.text.SimpleDateFormat;
@@ -49,8 +49,8 @@ public class PlacedOrderDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			placedOrderInstance.setRemarks("gamma");
-			placedOrderInstance.setPaymentMethod("theta");
+			placedOrderInstance.setRemarks("Malissa");
+			placedOrderInstance.setPaymentMethod("delta");
 			placedOrderInstance.setStatus(bizobjects.OrderStatus.SHIPPED);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
@@ -89,8 +89,8 @@ public class PlacedOrderDaoTest extends AbstractJpaTests {
 
 			try {
 
-				placedOrder.setRemarks("Lavendar");
-				placedOrder.setPaymentMethod("Mark");
+				placedOrder.setRemarks("gamma");
+				placedOrder.setPaymentMethod("John");
 				placedOrder.setStatus(bizobjects.OrderStatus.NEW);
 
 				TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
@@ -126,8 +126,8 @@ public class PlacedOrderDaoTest extends AbstractJpaTests {
 					.loadOneRecord();
 
 			placedOrder.setRemarks("Mark");
-			placedOrder.setPaymentMethod("Wilson");
-			placedOrder.setStatus(bizobjects.OrderStatus.COMPLETED);
+			placedOrder.setPaymentMethod("Eric");
+			placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
 
 			placedOrderService.save(placedOrder);
 

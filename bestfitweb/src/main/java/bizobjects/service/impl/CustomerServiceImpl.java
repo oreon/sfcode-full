@@ -1,19 +1,18 @@
-package usermanagement.service.impl;
+package bizobjects.service.impl;
 
 import javax.persistence.*;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import org.apache.log4j.Logger;
-import org.witchcraft.model.support.errorhandling.BusinessException;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-public class AuthorityServiceImpl extends AuthorityServiceImplBase {
+public class CustomerServiceImpl extends CustomerServiceImplBase {
 
 	private static final Logger log = Logger
-			.getLogger(AuthorityServiceImpl.class);
+			.getLogger(CustomerServiceImpl.class);
 
-	public AuthorityServiceImpl authorityServiceImplInstance() {
+	public CustomerServiceImpl customerServiceImplInstance() {
 		return this;
 	}
 }

@@ -4,7 +4,7 @@ import usermanagement.User;
 import org.springframework.test.jpa.AbstractJpaTests;
 import java.util.List;
 
-import org.witchcraft.model.support.TestDataFactory;
+import org.witchcraft.model.support.testing.TestDataFactory;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 
 import java.text.SimpleDateFormat;
@@ -49,8 +49,8 @@ public class UserDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			userInstance.setUsername("Malissa2828");
-			userInstance.setPassword("Mark");
+			userInstance.setUsername("alpha11548");
+			userInstance.setPassword("beta");
 			userInstance.setEnabled(true);
 
 			userService.save(userInstance);
@@ -75,8 +75,8 @@ public class UserDaoTest extends AbstractJpaTests {
 
 			try {
 
-				user.setUsername("theta84598");
-				user.setPassword("beta");
+				user.setUsername("John6795");
+				user.setPassword("theta");
 				user.setEnabled(true);
 
 			} catch (Exception ex) {
@@ -96,8 +96,8 @@ public class UserDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			User user = (User) userTestDataFactory.loadOneRecord();
 
-			user.setUsername("Wilson20463");
-			user.setPassword("Lavendar");
+			user.setUsername("Wilson9095");
+			user.setPassword("beta");
 			user.setEnabled(true);
 
 			userService.save(user);

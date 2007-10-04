@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
-import org.witchcraft.model.support.AbstractTestDataFactory;
+import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 
-import org.witchcraft.model.support.TestDataFactory;
+import org.witchcraft.model.support.testing.TestDataFactory;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,9 +42,9 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("Wilson");
-			placedOrder.setPaymentMethod("alpha");
-			placedOrder.setStatus(bizobjects.OrderStatus.NEW);
+			placedOrder.setRemarks("Mark");
+			placedOrder.setPaymentMethod("zeta");
+			placedOrder.setStatus(bizobjects.OrderStatus.COMPLETED);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
@@ -74,9 +74,9 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("Mark");
-			placedOrder.setPaymentMethod("epsilon");
-			placedOrder.setStatus(bizobjects.OrderStatus.NEW);
+			placedOrder.setRemarks("John");
+			placedOrder.setPaymentMethod("Wilson");
+			placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
@@ -106,8 +106,8 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("pi");
-			placedOrder.setPaymentMethod("Wilson");
+			placedOrder.setRemarks("epsilon");
+			placedOrder.setPaymentMethod("delta");
 			placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
@@ -138,8 +138,8 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("John");
-			placedOrder.setPaymentMethod("John");
+			placedOrder.setRemarks("theta");
+			placedOrder.setPaymentMethod("epsilon");
 			placedOrder.setStatus(bizobjects.OrderStatus.COMPLETED);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
@@ -170,8 +170,8 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("epsilon");
-			placedOrder.setPaymentMethod("Lavendar");
+			placedOrder.setRemarks("Malissa");
+			placedOrder.setPaymentMethod("beta");
 			placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper

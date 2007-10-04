@@ -4,7 +4,7 @@ import usermanagement.Authority;
 import org.springframework.test.jpa.AbstractJpaTests;
 import java.util.List;
 
-import org.witchcraft.model.support.TestDataFactory;
+import org.witchcraft.model.support.testing.TestDataFactory;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 
 import java.text.SimpleDateFormat;
@@ -49,7 +49,7 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			authorityInstance.setAuthority("theta");
+			authorityInstance.setAuthority("beta");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -105,7 +105,7 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 			Authority authority = (Authority) authorityTestDataFactory
 					.loadOneRecord();
 
-			authority.setAuthority("John");
+			authority.setAuthority("beta");
 
 			authorityService.save(authority);
 

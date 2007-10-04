@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
-import org.witchcraft.model.support.AbstractTestDataFactory;
+import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 
-import org.witchcraft.model.support.TestDataFactory;
+import org.witchcraft.model.support.testing.TestDataFactory;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,7 +42,7 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setAuthority("epsilon");
+			authority.setAuthority("Lavendar");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -64,7 +64,7 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setAuthority("pi");
+			authority.setAuthority("Malissa");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -86,7 +86,7 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setAuthority("gamma");
+			authority.setAuthority("Eric");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -108,7 +108,7 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setAuthority("zeta");
+			authority.setAuthority("Eric");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");

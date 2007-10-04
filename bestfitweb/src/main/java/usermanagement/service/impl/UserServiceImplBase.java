@@ -14,6 +14,8 @@ import org.apache.log4j.Logger;
 import usermanagement.Authority;
 import usermanagement.service.AuthorityService;
 
+import org.witchcraft.model.support.errorhandling.BusinessException;
+
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 public class UserServiceImplBase implements UserService {
 
@@ -52,10 +54,10 @@ public class UserServiceImplBase implements UserService {
 			return; //no customer exists with the given email - no need to check unique constraint violation
 
 		if (user.getId() == null) { // for a new entity
-			throw new RuntimeException(exceptionId);
+			throw new BusinessException(exceptionId);
 		} else {//for updating an existing entiy
 			if (existingUser.getId().longValue() != user.getId().longValue())
-				throw new RuntimeException(exceptionId);
+				throw new BusinessException(exceptionId);
 		}
 
 	}

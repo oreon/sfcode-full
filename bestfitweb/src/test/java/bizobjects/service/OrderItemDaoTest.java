@@ -4,7 +4,7 @@ import bizobjects.OrderItem;
 import org.springframework.test.jpa.AbstractJpaTests;
 import java.util.List;
 
-import org.witchcraft.model.support.TestDataFactory;
+import org.witchcraft.model.support.testing.TestDataFactory;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 
 import java.text.SimpleDateFormat;
@@ -49,7 +49,7 @@ public class OrderItemDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			orderItemInstance.setSalePrice(67.83);
+			orderItemInstance.setSalePrice(82.89);
 			orderItemInstance.setQuantity(1);
 
 			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
@@ -81,7 +81,7 @@ public class OrderItemDaoTest extends AbstractJpaTests {
 
 			try {
 
-				orderItem.setSalePrice(72.48);
+				orderItem.setSalePrice(81.7);
 				orderItem.setQuantity(1);
 
 				TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
@@ -109,7 +109,7 @@ public class OrderItemDaoTest extends AbstractJpaTests {
 			OrderItem orderItem = (OrderItem) orderItemTestDataFactory
 					.loadOneRecord();
 
-			orderItem.setSalePrice(72.67);
+			orderItem.setSalePrice(27.79);
 			orderItem.setQuantity(1);
 
 			orderItemService.save(orderItem);

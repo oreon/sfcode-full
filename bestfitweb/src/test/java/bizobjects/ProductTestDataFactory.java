@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
-import org.witchcraft.model.support.AbstractTestDataFactory;
+import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 
-import org.witchcraft.model.support.TestDataFactory;
+import org.witchcraft.model.support.testing.TestDataFactory;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,9 +40,9 @@ public class ProductTestDataFactory extends AbstractTestDataFactory<Product> {
 
 		try {
 
-			product.setName("gamma");
-			product.setBrand("delta");
-			product.setListPrice(55.39);
+			product.setName("theta");
+			product.setBrand("zeta");
+			product.setListPrice(30.71);
 
 			register(product);
 
@@ -58,9 +58,9 @@ public class ProductTestDataFactory extends AbstractTestDataFactory<Product> {
 
 		try {
 
-			product.setName("Wilson");
-			product.setBrand("gamma");
-			product.setListPrice(46.3);
+			product.setName("gamma");
+			product.setBrand("theta");
+			product.setListPrice(0.81);
 
 			register(product);
 
@@ -76,9 +76,9 @@ public class ProductTestDataFactory extends AbstractTestDataFactory<Product> {
 
 		try {
 
-			product.setName("zeta");
-			product.setBrand("Malissa");
-			product.setListPrice(75.4);
+			product.setName("epsilon");
+			product.setBrand("pi");
+			product.setListPrice(62.27);
 
 			register(product);
 
@@ -94,9 +94,9 @@ public class ProductTestDataFactory extends AbstractTestDataFactory<Product> {
 
 		try {
 
-			product.setName("theta");
-			product.setBrand("John");
-			product.setListPrice(64.83);
+			product.setName("zeta");
+			product.setBrand("beta");
+			product.setListPrice(97.56);
 
 			register(product);
 
@@ -114,7 +114,7 @@ public class ProductTestDataFactory extends AbstractTestDataFactory<Product> {
 
 			product.setName("theta");
 			product.setBrand("Wilson");
-			product.setListPrice(1.21);
+			product.setListPrice(4.84);
 
 			register(product);
 

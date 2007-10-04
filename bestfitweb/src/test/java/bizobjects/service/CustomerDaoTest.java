@@ -4,7 +4,7 @@ import bizobjects.Customer;
 import org.springframework.test.jpa.AbstractJpaTests;
 import java.util.List;
 
-import org.witchcraft.model.support.TestDataFactory;
+import org.witchcraft.model.support.testing.TestDataFactory;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 
 import java.text.SimpleDateFormat;
@@ -49,18 +49,18 @@ public class CustomerDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			customerInstance.setFirstName("zeta");
-			customerInstance.setLastName("zeta");
+			customerInstance.setFirstName("theta");
+			customerInstance.setLastName("John");
 			customerInstance
-					.setDob(dateFormat.parse("2007.10.23 03:55:18 EDT"));
+					.setDob(dateFormat.parse("2007.10.04 07:58:16 EDT"));
 			customerInstance.setRemarks("alpha");
-			customerInstance.getUserAccount().setUsername("pi8865");
-			customerInstance.getUserAccount().setPassword("Mark");
+			customerInstance.getUserAccount().setUsername("delta79236");
+			customerInstance.getUserAccount().setPassword("Malissa");
 			customerInstance.getUserAccount().setEnabled(true);
-			customerInstance.getPrimaryAddress().setStreetAddress("delta");
-			customerInstance.getPrimaryAddress().setCity("pi");
-			customerInstance.getPrimaryAddress().setZip("Malissa");
-			customerInstance.getPrimaryAddress().setEmail("John14022");
+			customerInstance.getPrimaryAddress().setStreetAddress("pi");
+			customerInstance.getPrimaryAddress().setCity("Malissa");
+			customerInstance.getPrimaryAddress().setZip("pi");
+			customerInstance.getPrimaryAddress().setEmail("beta68");
 
 			customerService.save(customerInstance);
 		} catch (PersistenceException pe) {
@@ -84,17 +84,17 @@ public class CustomerDaoTest extends AbstractJpaTests {
 
 			try {
 
-				customer.setFirstName("gamma");
-				customer.setLastName("Mark");
-				customer.setDob(dateFormat.parse("2007.10.12 19:30:16 EDT"));
-				customer.setRemarks("Mark");
-				customer.getUserAccount().setUsername("delta8775");
-				customer.getUserAccount().setPassword("Mark");
+				customer.setFirstName("Eric");
+				customer.setLastName("Malissa");
+				customer.setDob(dateFormat.parse("2007.10.22 19:29:21 EDT"));
+				customer.setRemarks("alpha");
+				customer.getUserAccount().setUsername("Eric56803");
+				customer.getUserAccount().setPassword("John");
 				customer.getUserAccount().setEnabled(true);
-				customer.getPrimaryAddress().setStreetAddress("Malissa");
-				customer.getPrimaryAddress().setCity("Malissa");
-				customer.getPrimaryAddress().setZip("zeta");
-				customer.getPrimaryAddress().setEmail("Eric94750");
+				customer.getPrimaryAddress().setStreetAddress("Wilson");
+				customer.getPrimaryAddress().setCity("zeta");
+				customer.getPrimaryAddress().setZip("Eric");
+				customer.getPrimaryAddress().setEmail("zeta28452");
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -114,17 +114,17 @@ public class CustomerDaoTest extends AbstractJpaTests {
 			Customer customer = (Customer) customerTestDataFactory
 					.loadOneRecord();
 
-			customer.setFirstName("alpha");
-			customer.setLastName("delta");
-			customer.setDob(dateFormat.parse("2007.10.29 00:05:18 EDT"));
-			customer.setRemarks("John");
-			customer.getUserAccount().setUsername("Lavendar79895");
-			customer.getUserAccount().setPassword("Mark");
+			customer.setFirstName("Malissa");
+			customer.setLastName("gamma");
+			customer.setDob(dateFormat.parse("2007.10.01 22:46:01 EDT"));
+			customer.setRemarks("epsilon");
+			customer.getUserAccount().setUsername("gamma20877");
+			customer.getUserAccount().setPassword("zeta");
 			customer.getUserAccount().setEnabled(true);
-			customer.getPrimaryAddress().setStreetAddress("epsilon");
-			customer.getPrimaryAddress().setCity("Wilson");
-			customer.getPrimaryAddress().setZip("beta");
-			customer.getPrimaryAddress().setEmail("gamma68947");
+			customer.getPrimaryAddress().setStreetAddress("John");
+			customer.getPrimaryAddress().setCity("Mark");
+			customer.getPrimaryAddress().setZip("epsilon");
+			customer.getPrimaryAddress().setEmail("Eric93991");
 
 			customerService.save(customer);
 

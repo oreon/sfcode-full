@@ -13,6 +13,8 @@ import javax.faces.application.FacesMessage;
 
 import org.springframework.dao.DataAccessException;
 
+import org.witchcraft.model.support.errorhandling.BusinessException;
+
 public class OrderItemBackingBean {
 
 	private OrderItem orderItem = new OrderItem();
@@ -41,11 +43,23 @@ public class OrderItemBackingBean {
 	public String update() {
 		try {
 			orderItemService.save(orderItem);
+		} catch (BusinessException be) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Update Error: ", be.getMessage()));
+			return "failure";
 		} catch (DataAccessException dae) {
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR,
 							"Update Error: ", dae.getMessage()));
+			return "failure";
+		} catch (Exception ex) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Update Error: ", ex.getMessage()));
 			return "failure";
 		}
 

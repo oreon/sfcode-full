@@ -4,7 +4,7 @@ import bizobjects.Product;
 import org.springframework.test.jpa.AbstractJpaTests;
 import java.util.List;
 
-import org.witchcraft.model.support.TestDataFactory;
+import org.witchcraft.model.support.testing.TestDataFactory;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 
 import java.text.SimpleDateFormat;
@@ -49,9 +49,9 @@ public class ProductDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			productInstance.setName("zeta");
-			productInstance.setBrand("pi");
-			productInstance.setListPrice(39.05);
+			productInstance.setName("alpha");
+			productInstance.setBrand("alpha");
+			productInstance.setListPrice(0.84);
 
 			productService.save(productInstance);
 		} catch (PersistenceException pe) {
@@ -75,9 +75,9 @@ public class ProductDaoTest extends AbstractJpaTests {
 
 			try {
 
-				product.setName("Wilson");
-				product.setBrand("Malissa");
-				product.setListPrice(95.71);
+				product.setName("Eric");
+				product.setBrand("Lavendar");
+				product.setListPrice(14.54);
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -96,9 +96,9 @@ public class ProductDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Product product = (Product) productTestDataFactory.loadOneRecord();
 
-			product.setName("Eric");
-			product.setBrand("Malissa");
-			product.setListPrice(81.2);
+			product.setName("John");
+			product.setBrand("pi");
+			product.setListPrice(11.35);
 
 			productService.save(product);
 

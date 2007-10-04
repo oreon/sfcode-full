@@ -14,6 +14,8 @@ import org.apache.log4j.Logger;
 import usermanagement.Authority;
 import usermanagement.service.AuthorityService;
 
+import org.witchcraft.model.support.errorhandling.BusinessException;
+
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 public class ProductServiceImplBase implements ProductService {
 

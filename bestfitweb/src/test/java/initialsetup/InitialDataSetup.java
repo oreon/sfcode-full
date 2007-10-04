@@ -2,7 +2,7 @@ package initialsetup;
 
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 
-import org.witchcraft.model.support.TestDataFactory;
+import org.witchcraft.model.support.testing.TestDataFactory;
 
 import bizobjects.CustomerTestDataFactory;
 
