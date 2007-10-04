@@ -29,7 +29,7 @@ import javax.persistence.*;
 		
 		import javax.persistence.*;
 		
-		«getAnnotaitons()»
+		@MappedSuperclass
 		«getClassDeclaration()»{
 		
 				«EXPAND classBody FOR this»
@@ -59,16 +59,17 @@ import javax.persistence.*;
 «DEFINE EntityGen FOR Embeddable»
 	«FILE packagePath()+"/"+NameS+"Base.java"»  
 	
+		
 		«EXPAND ManualFileGen::genManualFile("", "", "@Embeddable")»
+		
 		
 		package «packageName()»;
 		
 		import javax.persistence.*;
 		
-		@Embeddable
+		@MappedSuperclass
 		«getClassDeclaration()»{
 			«EXPAND classBody FOR this»
-			
 		} 
 	«ENDFILE»
 «ENDDEFINE»

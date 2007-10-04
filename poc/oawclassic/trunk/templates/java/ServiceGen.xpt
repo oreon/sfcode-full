@@ -29,109 +29,111 @@
 	import «packageName()».dao.«NameS»Dao;
 	import java.util.List;
 	import «packageName()».service.«NameS»Service;
+	
 	import org.springframework.transaction.annotation.Transactional;
+	import org.springframework.transaction.annotation.Propagation;
+	
 	import org.apache.log4j.Logger;
 	
 	import usermanagement.Authority;
 	import usermanagement.service.AuthorityService;
 	
 
-
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
 	public class «NameS»ServiceImplBase implements «NameS»Service{
 	
-			protected static final Logger log = Logger.getLogger(«NameS»ServiceImpl.class);
-			
-			private «NameS»Dao «asInstanceVar()»Dao;
+		private static final Logger log = Logger.getLogger(«NameS»ServiceImplBase.class);
+		
+		private «NameS»Dao «asInstanceVar()»Dao;
+
+		public void set«NameS»Dao(«NameS»Dao «asInstanceVar()»Dao) {
+			this.«asInstanceVar()»Dao = «asInstanceVar()»Dao;
+		}
+		
+		«IF isEntityUser()»
+			private AuthorityService authorityService;
 	
-			public void set«NameS»Dao(«NameS»Dao «asInstanceVar()»Dao) {
-				this.«asInstanceVar()»Dao = «asInstanceVar()»Dao;
+			public void setAuthorityService(AuthorityService authorityService) {
+				this.authorityService = authorityService;
 			}
+		«ENDIF»
+		//// Delegate all crud operations to the Dao ////
 			
-			«IF isEntityUser()»
-				private AuthorityService authorityService;
+		public «NameS» save(«NameS» «asInstanceVar()») {
+			«Unique.isEmpty?"":"checkUniqueConstraints("+asInstanceVar() +");"»
+			«asInstanceVar()»Dao.save(«asInstanceVar()»);
+			«isEntityUser()?"assignDefaultAuthority(" +  asInstanceVar()  + ");":""»
+			return «asInstanceVar()»;
+		}
 		
-				public void setAuthorityService(AuthorityService authorityService) {
-					this.authorityService = authorityService;
-				}
-			«ENDIF»
-			//// Delegate all crud operations to the Dao ////
-			
-			public «NameS» save(«NameS» «asInstanceVar()») {
-				«Unique.isEmpty?"":"checkUniqueConstraints("+asInstanceVar() +");"»
-				«asInstanceVar()»Dao.save(«asInstanceVar()»);
-				«isEntityUser()?"assignDefaultAuthority(" +  asInstanceVar()  + ");":""»
-				return «asInstanceVar()»;
-			}
-			
-			«IF !Unique.isEmpty»
-			
-				/** Before saving a record we need to ensure that no unique constraints
-				 * will be violated. 
-				 * @param customer
-				 */
-				private void checkUniqueConstraints(«NameS» «asInstanceVar()») {
-				«NameS»
-				«FOREACH Unique AS e»
-					 existing«NameS» = «asInstanceVar()»Dao.findBy«e.NameS.toFirstUpper()»
-						(«asInstanceVar()».«e.getContainerGetter()»get«e.NameS.toFirstUpper()»());
-					ensureUnique(«asInstanceVar()», existing«NameS», "Entity.exists.with«e.NameS.toFirstUpper()»");
-				«ENDFOREACH»
-				
-				}
-				
-				private void ensureUnique(«NameS» «asInstanceVar()», «NameS» existing«NameS», String exceptionId){
-					if (existing«NameS» == null)
-						return; //no customer exists with the given email - no need to check unique constraint violation
-					
-					if («asInstanceVar()».getId() == null) { // for a new entity
-							throw new RuntimeException(exceptionId);
-					}else{//for updating an existing entiy
-						if(existing«NameS».getId().longValue() != «asInstanceVar()».getId().longValue())
-							throw new RuntimeException(exceptionId);
-					}
-				
-				}
-			
-			«ENDIF»
-			
-			«IF isEntityUser()»
-			
-				private void assignDefaultAuthority(«NameS» «asInstanceVar()») {
-					if(«asInstanceVar()».getId() != null )
-						return;
-				
-					Authority authority = new Authority();
-					authority.setUser(«asInstanceVar()».getUserAccount());
-					authority.setAuthority("«getDefaultRole != null? getDefaultRole : "ROLE_" +  NameS.toUpper»");
-					authorityService.save(authority);
-				}
-			
-			«ENDIF»
+		«IF !Unique.isEmpty»
 		
-			public void delete(«NameS» «asInstanceVar()») {
-				«asInstanceVar()»Dao.delete(«asInstanceVar()»);
-			}			
+			/** Before saving a record we need to ensure that no unique constraints
+			 * will be violated. 
+			 * @param customer
+			 */
+			private void checkUniqueConstraints(«NameS» «asInstanceVar()») {
+			«NameS»
+			«FOREACH Unique AS e»
+				 existing«NameS» = «asInstanceVar()»Dao.findBy«e.NameS.toFirstUpper()»
+					(«asInstanceVar()».«e.getContainerGetter()»get«e.NameS.toFirstUpper()»());
+				ensureUnique(«asInstanceVar()», existing«NameS», "Entity.exists.with«e.NameS.toFirstUpper()»");
+			«ENDFOREACH»
 			
-			public «NameS» load(Long id) {
-				return «asInstanceVar()»Dao.load(id);
 			}
 			
-		    public List<«NameS»> loadAll() {
-		    	return «asInstanceVar()»Dao.loadAll();
-		    }
-		    
-		   «EXPAND FinderDeclaration(this) FOREACH Findable »
+			private void ensureUnique(«NameS» «asInstanceVar()», «NameS» existing«NameS», String exceptionId){
+				if (existing«NameS» == null)
+					return; //no customer exists with the given email - no need to check unique constraint violation
+				
+				if («asInstanceVar()».getId() == null) { // for a new entity
+						throw new RuntimeException(exceptionId);
+				}else{//for updating an existing entiy
+					if(existing«NameS».getId().longValue() != «asInstanceVar()».getId().longValue())
+						throw new RuntimeException(exceptionId);
+				}
 			
-			
-			public List<«NameS»> searchByExample(«NameS» «asInstanceVar()») {
-				return «asInstanceVar()»Dao.searchByExample(«asInstanceVar()»);
 			}
 		
-			/*
-			public List query(String queryString, Object... params) {
-				return basicDAO.query(queryString, params);
-			}*/
+		«ENDIF»
+			
+		«IF isEntityUser()»
+		
+			private void assignDefaultAuthority(«NameS» «asInstanceVar()») {
+				if(«asInstanceVar()».getId() != null )
+					return;
+			
+				Authority authority = new Authority();
+				authority.setUser(«asInstanceVar()».getUserAccount());
+				authority.setAuthority("«getDefaultRole != null? getDefaultRole : "ROLE_" +  NameS.toUpper»");
+				authorityService.save(authority);
+			}
+		
+		«ENDIF»
+	
+		public void delete(«NameS» «asInstanceVar()») {
+			«asInstanceVar()»Dao.delete(«asInstanceVar()»);
+		}			
+		
+		public «NameS» load(Long id) {
+			return «asInstanceVar()»Dao.load(id);
+		}
+		
+	    public List<«NameS»> loadAll() {
+	    	return «asInstanceVar()»Dao.loadAll();
+	    }
+	    
+	   «EXPAND FinderDeclaration(this) FOREACH Findable »
+		
+		
+		public List<«NameS»> searchByExample(«NameS» «asInstanceVar()») {
+			return «asInstanceVar()»Dao.searchByExample(«asInstanceVar()»);
+		}
+	
+		/*
+		public List query(String queryString, Object... params) {
+			return basicDAO.query(queryString, params);
+		}*/
 	
 	}
 	

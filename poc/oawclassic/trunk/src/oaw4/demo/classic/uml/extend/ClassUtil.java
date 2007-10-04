@@ -187,7 +187,7 @@ public class ClassUtil {
 
 		addDocumentation(cls, buffer);
 
-		//buffer.append(addEntityIfApplies(cls));
+		addEntityIfApplies(cls);
 
 		buffer.append("public abstract class ");
 
