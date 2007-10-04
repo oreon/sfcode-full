@@ -2,8 +2,8 @@ package bizobjects;
 
 import javax.persistence.*;
 
-@Entity
-public class /*0 */OrderItem
+@MappedSuperclass
+public abstract class OrderItemBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
 		implements
@@ -11,9 +11,9 @@ public class /*0 */OrderItem
 
 	private static final long serialVersionUID = 1L;
 
-	private double salePrice;
+	protected double salePrice;
 
-	private int quantity = 1;
+	protected int quantity = 1;
 
 	public double getSalePrice() {
 		return this.salePrice;
@@ -41,6 +41,13 @@ public class /*0 */OrderItem
 	@JoinColumn(name = "product_ID", nullable = false)
 	public bizobjects.Product getProduct() {
 		return this.product;
+	}
+
+	public abstract OrderItem orderItemInstance();
+
+	@Transient
+	public String getDisplayName() {
+		return product + "";
 	}
 
 }

@@ -2,16 +2,18 @@ package bizobjects;
 
 import javax.persistence.*;
 
-@Embeddable
-public class /*0 */Address implements java.io.Serializable {
+@MappedSuperclass
+public abstract class AddressBase implements java.io.Serializable {
 
-	private String streetAddress;
+	private static final long serialVersionUID = 1L;
 
-	private String city;
+	protected String streetAddress;
 
-	private String zip;
+	protected String city;
 
-	private String email;
+	protected String zip;
+
+	protected String email;
 
 	public String getStreetAddress() {
 		return this.streetAddress;
@@ -45,5 +47,7 @@ public class /*0 */Address implements java.io.Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public abstract Address addressInstance();
 
 }

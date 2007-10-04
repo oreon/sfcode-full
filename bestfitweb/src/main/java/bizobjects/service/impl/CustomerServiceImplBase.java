@@ -5,17 +5,20 @@ import bizobjects.service.CustomerService;
 import bizobjects.dao.CustomerDao;
 import java.util.List;
 import bizobjects.service.CustomerService;
+
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Propagation;
+
 import org.apache.log4j.Logger;
 
 import usermanagement.Authority;
 import usermanagement.service.AuthorityService;
 
-@Transactional
-public class CustomerServiceImpl implements CustomerService {
+@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+public class CustomerServiceImplBase implements CustomerService {
 
-	protected static final Logger log = Logger
-			.getLogger(CustomerServiceImpl.class);
+	private static final Logger log = Logger
+			.getLogger(CustomerServiceImplBase.class);
 
 	private CustomerDao customerDao;
 

@@ -1,24 +1,18 @@
 package bizobjects.dao.impl;
 
-import bizobjects.PlacedOrder;
-import bizobjects.dao.PlacedOrderDao;
+import javax.persistence.*;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import bizobjects.Customer;
-import bizobjects.dao.CustomerDao;
+import org.apache.log4j.Logger;
 
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
+@org.springframework.stereotype.Repository
+public class PlacedOrderDaoImpl extends PlacedOrderDaoImplBase {
 
-import java.util.List;
+	private static final Logger log = Logger
+			.getLogger(PlacedOrderDaoImpl.class);
 
-import org.springframework.stereotype.Repository;
-import org.witchcraft.model.support.dao.BaseDao;
-
-@Repository
-public class PlacedOrderDaoImpl extends BaseDao<PlacedOrder>
-		implements
-			PlacedOrderDao {
-
-	//// FINDERS ///// 
-
+	public PlacedOrderDaoImpl placedOrderDaoImplInstance() {
+		return this;
+	}
 }

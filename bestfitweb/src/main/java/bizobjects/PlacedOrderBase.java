@@ -2,8 +2,8 @@ package bizobjects;
 
 import javax.persistence.*;
 
-@Entity
-public class /*0 */PlacedOrder
+@MappedSuperclass
+public abstract class PlacedOrderBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
 		implements
@@ -11,11 +11,11 @@ public class /*0 */PlacedOrder
 
 	private static final long serialVersionUID = 1L;
 
-	private String remarks;
+	protected String remarks;
 
-	private String paymentMethod;
+	protected String paymentMethod;
 
-	private OrderStatus status = OrderStatus.NEW;
+	protected OrderStatus status = OrderStatus.NEW;
 
 	public String getRemarks() {
 		return this.remarks;
@@ -77,6 +77,13 @@ public class /*0 */PlacedOrder
 	@Transient
 	public java.util.Iterator<bizobjects.OrderItem> getOrderItemsIterator() {
 		return this.orderItems.iterator();
+	}
+
+	public abstract PlacedOrder placedOrderInstance();
+
+	@Transient
+	public String getDisplayName() {
+		return customer + ":" + dateCreated + "";
 	}
 
 }

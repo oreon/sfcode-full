@@ -3,15 +3,19 @@ package bizobjects;
 import javax.persistence.*;
 
 @MappedSuperclass
-public class /*0 */Person extends org.witchcraft.model.support.BusinessEntity
+public abstract class PersonBase
+		extends
+			org.witchcraft.model.support.BusinessEntity
 		implements
 			java.io.Serializable {
 
-	private String firstName;
+	private static final long serialVersionUID = 1L;
 
-	private String lastName;
+	protected String firstName;
 
-	private java.util.Date dob;
+	protected String lastName;
+
+	protected java.util.Date dob;
 
 	@Column(nullable = false, unique = false)
 	public String getFirstName() {
@@ -48,5 +52,7 @@ public class /*0 */Person extends org.witchcraft.model.support.BusinessEntity
 	public bizobjects.Address getPrimaryAddress() {
 		return this.primaryAddress;
 	}
+
+	public abstract Person personInstance();
 
 }

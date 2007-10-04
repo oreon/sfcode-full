@@ -1,17 +1,17 @@
 package managers;
 
 import javax.persistence.*;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-public class /*0 */CustomerManagerImpl
-		implements
-			java.io.Serializable,
-			CustomerManager {
+import org.apache.log4j.Logger;
 
-	//Implementing interface CustomerManager
-	public bizobjects.Customer addCustomer(bizobjects.Customer customer) {
-		return null;
-		//should return Customer
+public class CustomerManagerImpl extends CustomerManagerImplBase {
+
+	private static final Logger log = Logger
+			.getLogger(CustomerManagerImpl.class);
+
+	public CustomerManagerImpl customerManagerImplInstance() {
+		return this;
 	}
-	//*****Done Implementing interface CustomerManager ****
-
 }

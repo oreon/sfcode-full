@@ -1,22 +1,17 @@
 package bizobjects.dao.impl;
 
-import bizobjects.Product;
-import bizobjects.dao.ProductDao;
+import javax.persistence.*;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import bizobjects.Customer;
-import bizobjects.dao.CustomerDao;
+import org.apache.log4j.Logger;
 
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
+@org.springframework.stereotype.Repository
+public class ProductDaoImpl extends ProductDaoImplBase {
 
-import java.util.List;
+	private static final Logger log = Logger.getLogger(ProductDaoImpl.class);
 
-import org.springframework.stereotype.Repository;
-import org.witchcraft.model.support.dao.BaseDao;
-
-@Repository
-public class ProductDaoImpl extends BaseDao<Product> implements ProductDao {
-
-	//// FINDERS ///// 
-
+	public ProductDaoImpl productDaoImplInstance() {
+		return this;
+	}
 }

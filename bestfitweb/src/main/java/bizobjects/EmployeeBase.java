@@ -2,12 +2,14 @@ package bizobjects;
 
 import javax.persistence.*;
 
-@Entity
-public class /*0 */Employee extends Person implements java.io.Serializable {
+@MappedSuperclass
+public abstract class EmployeeBase extends Person
+		implements
+			java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private int code;
+	protected int code;
 
 	@Column(nullable = false, unique = true)
 	public int getCode() {
@@ -28,6 +30,13 @@ public class /*0 */Employee extends Person implements java.io.Serializable {
 	@JoinColumn(name = "userAccount_ID", nullable = false)
 	public usermanagement.User getUserAccount() {
 		return this.userAccount;
+	}
+
+	public abstract Employee employeeInstance();
+
+	@Transient
+	public String getDisplayName() {
+		return lastName + ", " + firstName + "";
 	}
 
 }

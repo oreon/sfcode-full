@@ -2,17 +2,16 @@ package usermanagement;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "authorities")
-public class /*0 */Authority
+@MappedSuperclass
+public abstract class AuthorityBase
 		extends
-			org.witchcraft.model.support.BusinessEntity
+			org.witchcraft.model.support.security.AbstractAuthority
 		implements
 			java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String authority;
+	protected String authority;
 
 	public String getAuthority() {
 		return this.authority;
@@ -33,5 +32,7 @@ public class /*0 */Authority
 	public usermanagement.User getUser() {
 		return this.user;
 	}
+
+	public abstract Authority authorityInstance();
 
 }

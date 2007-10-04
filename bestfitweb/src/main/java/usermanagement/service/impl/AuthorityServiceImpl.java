@@ -1,56 +1,18 @@
 package usermanagement.service.impl;
 
-import usermanagement.Authority;
-import usermanagement.service.AuthorityService;
-import usermanagement.dao.AuthorityDao;
-import java.util.List;
-import usermanagement.service.AuthorityService;
+import javax.persistence.*;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 import org.apache.log4j.Logger;
 
-import usermanagement.Authority;
-import usermanagement.service.AuthorityService;
+@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+public class AuthorityServiceImpl extends AuthorityServiceImplBase {
 
-@Transactional
-public class AuthorityServiceImpl implements AuthorityService {
-
-	protected static final Logger log = Logger
+	private static final Logger log = Logger
 			.getLogger(AuthorityServiceImpl.class);
 
-	private AuthorityDao authorityDao;
-
-	public void setAuthorityDao(AuthorityDao authorityDao) {
-		this.authorityDao = authorityDao;
+	public AuthorityServiceImpl authorityServiceImplInstance() {
+		return this;
 	}
-
-	//// Delegate all crud operations to the Dao ////
-
-	public Authority save(Authority authority) {
-
-		authorityDao.save(authority);
-
-		return authority;
-	}
-
-	public void delete(Authority authority) {
-		authorityDao.delete(authority);
-	}
-
-	public Authority load(Long id) {
-		return authorityDao.load(id);
-	}
-
-	public List<Authority> loadAll() {
-		return authorityDao.loadAll();
-	}
-
-	public List<Authority> searchByExample(Authority authority) {
-		return authorityDao.searchByExample(authority);
-	}
-
-	/*
-	public List query(String queryString, Object... params) {
-		return basicDAO.query(queryString, params);
-	}*/
-
 }

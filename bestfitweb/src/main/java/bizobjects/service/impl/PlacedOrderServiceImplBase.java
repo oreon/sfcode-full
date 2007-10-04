@@ -5,17 +5,20 @@ import bizobjects.service.PlacedOrderService;
 import bizobjects.dao.PlacedOrderDao;
 import java.util.List;
 import bizobjects.service.PlacedOrderService;
+
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Propagation;
+
 import org.apache.log4j.Logger;
 
 import usermanagement.Authority;
 import usermanagement.service.AuthorityService;
 
-@Transactional
-public class PlacedOrderServiceImpl implements PlacedOrderService {
+@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+public class PlacedOrderServiceImplBase implements PlacedOrderService {
 
-	protected static final Logger log = Logger
-			.getLogger(PlacedOrderServiceImpl.class);
+	private static final Logger log = Logger
+			.getLogger(PlacedOrderServiceImplBase.class);
 
 	private PlacedOrderDao placedOrderDao;
 

@@ -6,12 +6,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 @MappedSuperclass
 public class BusinessEntity {
 	private Long id;
-	private Date dateCreated;
+	protected Date dateCreated;
 	private Date dateModified = new Date();
 	
 	@Version //For otimistic locking
@@ -49,6 +50,11 @@ public class BusinessEntity {
 
 	public void setVersion(int version) {
 		this.version = version;
+	}
+	
+	@Transient
+	public String getDisplayName(){
+		return toString();
 	}
 	
 }

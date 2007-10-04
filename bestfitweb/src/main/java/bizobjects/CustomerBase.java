@@ -2,13 +2,15 @@ package bizobjects;
 
 import javax.persistence.*;
 
-@Entity
+@MappedSuperclass
 /*Represents a customer - customer can log in and place orders.*/
-public class /*0 */Customer extends Person implements java.io.Serializable {
+public abstract class CustomerBase extends Person
+		implements
+			java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String remarks;
+	protected String remarks;
 
 	@Column(nullable = true, unique = false)
 	public String getRemarks() {
@@ -35,7 +37,7 @@ public class /*0 */Customer extends Person implements java.io.Serializable {
 
 	public void addOrders(bizobjects.PlacedOrder orders) {
 
-		orders.setCustomer(this);
+		orders.setCustomer(customerInstance());
 
 		this.orders.add(orders);
 	}
@@ -56,6 +58,13 @@ public class /*0 */Customer extends Person implements java.io.Serializable {
 	@Transient
 	public java.util.Iterator<bizobjects.PlacedOrder> getOrdersIterator() {
 		return this.orders.iterator();
+	}
+
+	public abstract Customer customerInstance();
+
+	@Transient
+	public String getDisplayName() {
+		return lastName + ", " + firstName + "";
 	}
 
 }

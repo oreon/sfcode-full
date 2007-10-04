@@ -2,19 +2,20 @@ package usermanagement;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "users")
-public class /*0 */User extends org.witchcraft.model.support.BusinessEntity
+@MappedSuperclass
+public abstract class UserBase
+		extends
+			org.witchcraft.model.support.security.AbstractUser
 		implements
 			java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String username;
+	protected String username;
 
-	private String password;
+	protected String password;
 
-	private boolean enabled = true;
+	protected boolean enabled = true;
 
 	@Column(nullable = false, unique = true)
 	public String getUsername() {
@@ -26,7 +27,7 @@ public class /*0 */User extends org.witchcraft.model.support.BusinessEntity
 		return this.password;
 	}
 
-	public boolean getEnabled() {
+	public boolean isEnabled() {
 		return this.enabled;
 	}
 
@@ -46,7 +47,7 @@ public class /*0 */User extends org.witchcraft.model.support.BusinessEntity
 
 	public void addUserAuthorities(usermanagement.Authority userAuthorities) {
 
-		userAuthorities.setUser(this);
+		userAuthorities.setUser(userInstance());
 
 		this.userAuthorities.add(userAuthorities);
 	}
@@ -69,5 +70,7 @@ public class /*0 */User extends org.witchcraft.model.support.BusinessEntity
 	public java.util.Iterator<usermanagement.Authority> getUserAuthoritiesIterator() {
 		return this.userAuthorities.iterator();
 	}
+
+	public abstract User userInstance();
 
 }

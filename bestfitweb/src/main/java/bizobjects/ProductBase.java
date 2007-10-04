@@ -2,18 +2,20 @@ package bizobjects;
 
 import javax.persistence.*;
 
-@Entity
-public class /*0 */Product extends org.witchcraft.model.support.BusinessEntity
+@MappedSuperclass
+public abstract class ProductBase
+		extends
+			org.witchcraft.model.support.BusinessEntity
 		implements
 			java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String name;
+	protected String name;
 
-	private String brand;
+	protected String brand;
 
-	private double listPrice;
+	protected double listPrice;
 
 	public String getName() {
 		return this.name;
@@ -37,6 +39,13 @@ public class /*0 */Product extends org.witchcraft.model.support.BusinessEntity
 
 	public void setListPrice(double listPrice) {
 		this.listPrice = listPrice;
+	}
+
+	public abstract Product productInstance();
+
+	@Transient
+	public String getDisplayName() {
+		return name + "";
 	}
 
 }

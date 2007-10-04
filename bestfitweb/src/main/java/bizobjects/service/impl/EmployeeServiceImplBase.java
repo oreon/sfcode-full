@@ -5,17 +5,20 @@ import bizobjects.service.EmployeeService;
 import bizobjects.dao.EmployeeDao;
 import java.util.List;
 import bizobjects.service.EmployeeService;
+
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Propagation;
+
 import org.apache.log4j.Logger;
 
 import usermanagement.Authority;
 import usermanagement.service.AuthorityService;
 
-@Transactional
-public class EmployeeServiceImpl implements EmployeeService {
+@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+public class EmployeeServiceImplBase implements EmployeeService {
 
-	protected static final Logger log = Logger
-			.getLogger(EmployeeServiceImpl.class);
+	private static final Logger log = Logger
+			.getLogger(EmployeeServiceImplBase.class);
 
 	private EmployeeDao employeeDao;
 

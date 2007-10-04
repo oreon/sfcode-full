@@ -42,8 +42,8 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("Eric");
-			placedOrder.setPaymentMethod("John");
+			placedOrder.setRemarks("Wilson");
+			placedOrder.setPaymentMethod("alpha");
 			placedOrder.setStatus(bizobjects.OrderStatus.NEW);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
@@ -74,9 +74,9 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("pi");
-			placedOrder.setPaymentMethod("zeta");
-			placedOrder.setStatus(bizobjects.OrderStatus.COMPLETED);
+			placedOrder.setRemarks("Mark");
+			placedOrder.setPaymentMethod("epsilon");
+			placedOrder.setStatus(bizobjects.OrderStatus.NEW);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
@@ -106,8 +106,8 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("Eric");
-			placedOrder.setPaymentMethod("zeta");
+			placedOrder.setRemarks("pi");
+			placedOrder.setPaymentMethod("Wilson");
 			placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
@@ -138,8 +138,8 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("gamma");
-			placedOrder.setPaymentMethod("Lavendar");
+			placedOrder.setRemarks("John");
+			placedOrder.setPaymentMethod("John");
 			placedOrder.setStatus(bizobjects.OrderStatus.COMPLETED);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
@@ -170,9 +170,9 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("Lavendar");
-			placedOrder.setPaymentMethod("Eric");
-			placedOrder.setStatus(bizobjects.OrderStatus.NEW);
+			placedOrder.setRemarks("epsilon");
+			placedOrder.setPaymentMethod("Lavendar");
+			placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");

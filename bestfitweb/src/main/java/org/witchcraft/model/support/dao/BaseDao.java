@@ -1,6 +1,7 @@
 package org.witchcraft.model.support.dao;
 
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -29,8 +30,17 @@ public class BaseDao<T> implements GenericDAO<T> {
 
 	@SuppressWarnings("unchecked")
 	public BaseDao() {
-		this.persistentClass = (Class<T>) ((ParameterizedType) getClass()
-				.getGenericSuperclass()).getActualTypeArguments()[0];
+
+		try {
+			Type superclass = ((Class) getClass().getGenericSuperclass())
+					.getGenericSuperclass();
+
+			this.persistentClass = (Class<T>) ((ParameterizedType) superclass)
+					.getActualTypeArguments()[0];
+		} catch (ClassCastException cce) {
+			this.persistentClass = (Class<T>) ((ParameterizedType) ((Class) getClass())
+					.getGenericSuperclass()).getActualTypeArguments()[0];
+		}
 	}
 
 	public Class<T> getPersistentClass() {
