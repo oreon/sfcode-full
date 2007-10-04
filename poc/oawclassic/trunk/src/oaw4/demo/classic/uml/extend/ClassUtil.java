@@ -73,15 +73,16 @@ public class ClassUtil {
 		String opText = new String();
 		if (operation.Documentation() != null)
 			opText += operation.Documentation() + "\n";
-		opText += operation.Visibility() + " " + getParamTypeString(operation, operation.ReturnType())
-				+ " " + operation.NameS() + "(";
+		opText += operation.Visibility() + " "
+				+ getParamTypeString(operation, operation.ReturnType()) + " "
+				+ operation.NameS() + "(";
 
 		for (Iterator<Parameter> iter = operation.Parameter().iterator(); iter
 				.hasNext();) {
 			Parameter param = iter.next();
-			
+
 			String paramType = getParamTypeString(operation, param.Type());
-			
+
 			opText += paramType + " " + param.NameS();
 			if (iter.hasNext())
 				opText += ",";
@@ -91,17 +92,19 @@ public class ClassUtil {
 		return opText;
 	}
 
-	/** Returns operation param type name - fully qualified if the param doesnt
+	/**
+	 * Returns operation param type name - fully qualified if the param doesnt
 	 * belong to this operation's package
+	 * 
 	 * @param operation
 	 * @param param
 	 * @return
 	 */
-	private static String getParamTypeString(Operation operation,
-			Type type) {
+	private static String getParamTypeString(Operation operation, Type type) {
 		String paramType = type.NameS();
-		
-		if(! type.Namespace().NameS().equals( operation.Class().Namespace.NameS() )){
+
+		if (!type.Namespace().NameS().equals(
+				operation.Class().Namespace.NameS())) {
 			paramType = type.Namespace().NameS() + "." + paramType;
 		}
 		return paramType;
@@ -129,10 +132,10 @@ public class ClassUtil {
 			for (int j = 0; j < operations.size(); j++) {
 				Operation operation = operations.get(j);
 				if (!classContainsOperation(cls, operation)) { // if the
-																// operation is
-																// already
-																// implemented
-																// by the class
+					// operation is
+					// already
+					// implemented
+					// by the class
 					buffer.append(getOperationDeclaration(operation));
 					buffer.append(getOperationBody(operation));
 				}
@@ -152,17 +155,17 @@ public class ClassUtil {
 		for (int j = 0; j < cls.Operation().size(); j++) {
 			Operation operationInClass = (Operation) cls.Operation().get(j);
 			if (operationInClass.Name().equals(operation.Name())) // TODO add
-																	// signature
-																	// comaprison
+				// signature
+				// comaprison
 				return true;
 		}
-		
+
 		// For attributes we add getters and setters programatically
 		// We need to comapre these methods too
 		List<Attribute> attribs = ClassHelper.getAllAttributes(cls);
 		for (Attribute attribute : attribs) {
-			//System.out.println("Comparing " + operation.Name() + " with "
-			//		+ attribute.NameS());
+			// System.out.println("Comparing " + operation.Name() + " with "
+			// + attribute.NameS());
 			if (operation.Name().equals(
 					ClassHelper.getterFor(attribute.NameS()))
 					|| operation.Name().equals(
@@ -184,21 +187,18 @@ public class ClassUtil {
 
 		addDocumentation(cls, buffer);
 
-		buffer.append(addEntityIfApplies(cls));
+		//buffer.append(addEntityIfApplies(cls));
 
-		buffer.append("public class ");
-		buffer
-				.append(GenericUtils.createComment(cls.Stereotype().size()
-						+ " "));
-		buffer.append(cls.NameS());
+		buffer.append("public abstract class ");
 
-		
-		
+		buffer.append(cls.NameS() + "Base");
+
 		if (cls.hasSuperClass())
 			buffer.append(" extends " + cls.SuperClass().NameS());
-		else if (StereoTypeManager.isEntity(cls) && ((Entity)cls).getBaseClass() != null  ){
-			buffer.append(" extends " + ((Entity)cls).getBaseClass());
-		}else if (StereoTypeManager.isEntity(cls)
+		else if (StereoTypeManager.isEntity(cls)
+				&& ((Entity) cls).getBaseClass() != null) {
+			buffer.append(" extends " + ((Entity) cls).getBaseClass());
+		} else if (StereoTypeManager.isEntity(cls)
 				|| StereoTypeManager.isMappedSuperClass(cls)) {
 			buffer.append(" extends " + BUSINESS_ENTITY);
 		}
@@ -284,7 +284,7 @@ public class ClassUtil {
 		// if(attribute.getMetaClass().getName().equals("oaw4.demo.classic.uml.meta.Key"))
 		// declaration += "//" + attribute.getMetaClass().getName();
 
-		declaration += "private " + attribute.Type().NameS() + " "
+		declaration += "protected " + attribute.Type().NameS() + " "
 				+ attribute.NameS();
 
 		if (attribute.InitValue() != null)
@@ -309,19 +309,19 @@ public class ClassUtil {
 		if (StereoTypeManager.isEntity(ae.Class())) {
 			String nullable = ae.MultiplicityMinAsInt() >= 1 ? "false" : "true";
 			AssociationEnd opposite = ae.Opposite();
-			String multiplicity = (opposite.MultiplicityMinAsInt() == 1 && opposite.MultiplicityMaxAsInt() == 1 )? 
-					"OneToOne(cascade=CascadeType.ALL)": "ManyToOne";
-			return "@" + multiplicity +"\n @JoinColumn(name=\"" + ae.NameS()
+			String multiplicity = (opposite.MultiplicityMinAsInt() == 1 && opposite
+					.MultiplicityMaxAsInt() == 1) ? "OneToOne(cascade=CascadeType.ALL)"
+					: "ManyToOne";
+			return "@" + multiplicity + "\n @JoinColumn(name=\"" + ae.NameS()
 					+ "_ID\", nullable=" + nullable + ")";
 		} else
 			return "";
 	}
 
 	/**
-	 * For compositions with 1 multiplicity and one to one relationships 
-	 * we instantiate the composed entity
-	 * e.g if Person contains address then we declare Address address = <b> new
-	 * Address() </b>
+	 * For compositions with 1 multiplicity and one to one relationships we
+	 * instantiate the composed entity e.g if Person contains address then we
+	 * declare Address address = <b> new Address() </b>
 	 * 
 	 * @param ae
 	 * @return
@@ -329,26 +329,27 @@ public class ClassUtil {
 	public static String getInstantiationIfComposition(AssociationEnd ae) {
 		if (ae.Opposite().isComposition())
 			return " = new " + fullyQualifiedName(ae.Class()) + "()";
-		if(isAssociationOneOnOne(ae))
+		if (isAssociationOneOnOne(ae))
 			return " = new " + fullyQualifiedName(ae.Class()) + "()";
 		return "";
 	}
 
 	public static boolean isAssociationOneOnOne(AssociationEnd ae) {
-		return ae.MultiplicityMinAsInt() == 1 && ae.MultiplicityMaxAsInt() == 1 && 
-				ae.Opposite().MultiplicityMinAsInt() == 1 && ae.Opposite().MultiplicityMaxAsInt() == 1;
+		return ae.MultiplicityMinAsInt() == 1 && ae.MultiplicityMaxAsInt() == 1
+				&& ae.Opposite().MultiplicityMinAsInt() == 1
+				&& ae.Opposite().MultiplicityMaxAsInt() == 1;
 	}
 
 	public static String getViewLabel(Attribute attribute) {
 		return getViewLabelFromVariable(attribute.NameS()); // +
-															// getIndicatorForRequiredAttribute(attribute)
-															// ;
+		// getIndicatorForRequiredAttribute(attribute)
+		// ;
 	}
 
 	public static String getViewLabel(String name) {
 		return getViewLabelFromVariable(name); // +
-												// getIndicatorForRequiredAttribute(attribute)
-												// ;
+		// getIndicatorForRequiredAttribute(attribute)
+		// ;
 	}
 
 	/**
@@ -391,11 +392,15 @@ public class ClassUtil {
 
 		return buffer.toString();
 	}
-	
-	private static String[] arrString = {"One", "Two", "Three" , "Four" , "Five"};
-	
-	public static List getCounters(Class cls){
+
+	private static String[] arrString = { "One", "Two", "Three", "Four", "Five" };
+
+	public static List getCounters(Class cls) {
 		return Arrays.asList(arrString);
+	}
+
+	public static String replaceSlashesWithDots(String source) {
+		return source.replace('/', '.');
 	}
 
 }

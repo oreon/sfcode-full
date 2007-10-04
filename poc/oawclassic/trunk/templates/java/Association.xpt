@@ -17,37 +17,37 @@ AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable)»
 
 «DEFINE ToOneAccessorMethods FOR AssociationEnd»
 
-public void «asSetter()» («Class.fqn()» «asParameter()») {
-this.«asInstanceVar()» = «asParameter()»;
-}
-
-«manyToOne()»
-public «Class.fqn()» «asGetter()» () {
-return this.«asInstanceVar()»;
-}
+	public void «asSetter()» («Class.fqn()» «asParameter()») {
+		this.«asInstanceVar()» = «asParameter()»;
+	}
+	
+	«manyToOne()»
+	public «Class.fqn()» «asGetter()» () {
+		return this.«asInstanceVar()»;
+	}
 «ENDDEFINE»
 
 «DEFINE ToManyAccessorMethods FOR AssociationEnd»
 public void add«NameS.toFirstUpper()» («Class.fqn()» «asParameter()») {
 	«IF Opposite.isNavigable »
-		«asParameter()».«Opposite.asSetter()»(this);
+		«asParameter()».«Opposite.asSetter()»(«Opposite.Class.NameS.toFirstLower()»Instance());
 	«ENDIF»
 	this.«asInstanceVar()».add(«asParameter()»);
 }
 
 public void remove«NameS.toFirstUpper()» («Class.fqn()»
-«asParameter()») {
-this.«asInstanceVar()».remove(«asParameter()»);
+	«asParameter()») {
+	this.«asInstanceVar()».remove(«asParameter()»);
 }
 
 «IF Opposite.isNavigable »
-@OneToMany(mappedBy="«Opposite.asParameter()»", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="«Opposite.asParameter()»", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 «ELSE»
-@OneToMany«Opposite.isComposition?"(cascade=CascadeType.ALL)":""»
-@JoinColumn(name="«Opposite.NameS»_ID", nullable=false)
+	@OneToMany«Opposite.isComposition?"(cascade=CascadeType.ALL)":""»
+	@JoinColumn(name="«Opposite.NameS»_ID", nullable=false)
 «ENDIF»
 public java.util.Set<«Class.fqn()»> «asGetter()» () {
-return this.«asInstanceVar()»;
+	return this.«asInstanceVar()»;
 }
 
 public void «asSetter()» (java.util.Set<«Class.fqn()»> «asParameter()») {
@@ -56,6 +56,6 @@ public void «asSetter()» (java.util.Set<«Class.fqn()»> «asParameter()») {
 
 @Transient
 public «iterator()» «asGetter()»Iterator () {
-return this.«asInstanceVar()».iterator();
+	return this.«asInstanceVar()».iterator();
 }
 «ENDDEFINE»

@@ -1,34 +1,29 @@
 «IMPORT org::openarchitectureware::meta::uml::classifier»
-«IMPORT java»
 «IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
 «EXTENSION java::NamingConventions»
 	
 «DEFINE BeanClass FOR Class»
-«FILE packagePath()+"/"+NameS+".java"»  
+«FILE packagePath()+"/"+NameS+"Base.java"»  
+
+«EXPAND ManualFileGen::genManualFile("", "")»
 
 package «packageName()»;
 
 import javax.persistence.*;
 
 «getClassDeclaration()»{
-		
-			«EXPAND Attribute::PropertyDeclaration FOREACH Attribute»
-			«EXPAND Attribute::Getter FOREACH Attribute»
-			«EXPAND Attribute::Setter FOREACH Attribute»
-			
-			«EXPAND Association::ReferenceVariables»
-			«EXPAND Association::AccessorMethods»
-			
-			«generateInterfaceImplementation()»
-						
-			«EXPAND Attribute::Generator FOREACH Operation»
-		} 
+		«EXPAND classBody FOR this»
+} 
 	«ENDFILE»
 «ENDDEFINE»
 
 
 «DEFINE EntityGen FOR Entity»
-«FILE packagePath()+"/"+NameS+".java"»  
+«FILE packagePath()+"/"+NameS+"Base.java"»  
+
+«EXPAND ManualFileGen::genManualFile("", "", )»
 
 package «packageName()»;
 
@@ -38,21 +33,77 @@ import javax.persistence.*;
 «getTableName == null ? "": "@Table(name=\"" + getTableName + "\")"»
 «getClassDeclaration()»{
 
-			private static final long serialVersionUID = 1L;
-		
-			«EXPAND Attribute::PropertyDeclaration FOREACH Attribute»
-			«EXPAND Attribute::Getter FOREACH Attribute»
-			«EXPAND Attribute::Setter FOREACH Attribute»
-			
-			«EXPAND Association::ReferenceVariables»
-			«EXPAND Association::AccessorMethods»
-			
-			«generateInterfaceImplementation()»
-						
-			«EXPAND Attribute::Generator FOREACH Operation»
-			
-			
+			«EXPAND classBody FOR this
+			«EXPAND displayName FOR this»
 		} 
 	«ENDFILE»
 «ENDDEFINE»
+
+
+«DEFINE EntityGen FOR MappedSuperclass»
+	«FILE packagePath()+"/"+NameS+"Base.java"»  
+	
+		«EXPAND ManualFileGen::genManualFile("", "", "@MappedSuperclass")»
+		
+		package «packageName()»;
+		
+		import javax.persistence.*;
+		
+		@MappedSuperclass
+		«getClassDeclaration()»{
+			«EXPAND classBody FOR this
+			«EXPAND displayName FOR this»
+		} 
+	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE EntityGen FOR Embeddable»
+	«FILE packagePath()+"/"+NameS+"Base.java"»  
+	
+		«EXPAND ManualFileGen::genManualFile("", "", "@MappedSuperclass")»
+		
+		package «packageName()»;
+		
+		import javax.persistence.*;
+		
+		@Embeddable
+		«getClassDeclaration()»{
+			«EXPAND classBody FOR this
+			«EXPAND displayName FOR this»
+		} 
+	«ENDFILE»
+«ENDDEFINE»
+
+
+
+«DEFINE displayName FOR Entity»
+	«IF getDisplayName != null»
+		@Transient
+		public String getDisplayName(){
+			return «getDisplayName» + "";
+		}
+	«ENDIF»
+
+«ENDDEFINE»
+
+
+«DEFINE classBody FOR Class»
+	private static final long serialVersionUID = 1L;
+
+	«EXPAND Attribute::PropertyDeclaration FOREACH Attribute»
+	«EXPAND Attribute::Getter FOREACH Attribute»
+	«EXPAND Attribute::Setter FOREACH Attribute»
+	
+	«EXPAND Association::ReferenceVariables»
+	«EXPAND Association::AccessorMethods»
+	
+	«generateInterfaceImplementation()»
+				
+	«EXPAND Attribute::Generator FOREACH Operation»
+	
+	public abstract «NameS» «asInstanceVar()»Instance();
+«ENDDEFINE»
+
+
+
 

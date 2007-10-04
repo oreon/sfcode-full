@@ -17,10 +17,12 @@
 
 «DEFINE GenerateServiceImpl FOR Entity»
 
-	«FILE packagePath()+"/service/impl/"+NameS+"ServiceImpl.java"»  
+	«FILE packagePath()+"/service/impl" + "/"+NameS+"ServiceImplBase.java"»  
+	
+	«EXPAND ManualFileGen::genManualFile("/service/impl", "ServiceImpl")»
 
 	package «packageName()».service.impl;
-	
+	 
 	import «packageName()».«NameS»;
 	import «packageName()».service.«NameS»Service;
 	import «packageName()».dao.«NameS»Dao;
@@ -35,7 +37,7 @@
 
 
 	@Transactional
-	public class «NameS»ServiceImpl implements «NameS»Service{
+	public class «NameS»ServiceImplBase implements «NameS»Service{
 	
 			protected static final Logger log = Logger.getLogger(«NameS»ServiceImpl.class);
 			

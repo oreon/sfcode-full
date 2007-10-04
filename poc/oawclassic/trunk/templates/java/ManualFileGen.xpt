@@ -1,0 +1,22 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+«EXTENSION java::NamingConventions»
+
+«REM»This file will be written once and is to meant for manual programming «ENDREM»
+«DEFINE genManualFile(String extensionPath, String extensionName, String annotations) FOR Class»
+
+	«FILE packagePath() + extensionPath + "/" + NameS + extensionName + ".java" man_path»
+		package «packageName()  + extensionPath.replaceSlashesWithDots()»;
+		
+		import javax.persistence.*;
+	
+		public class «NameS + extensionName» extends «NameS + extensionName»Base{
+			
+			public «NameS + extensionName» «NameS.toFirstLower() + extensionName»Instance(){
+				return this;
+			}
+		}  
+	«ENDFILE» 
+«ENDDEFINE»
