@@ -14,7 +14,7 @@ public class SelectOneMenuRenderer extends AbstractInputComponentRenderer{
 	public String getType(Attribute attribute) {
 		
 		// TODO Auto-generated method stub
-		return "t:selectOneMenu";
+		return "h:selectOneMenu";
 	}
 	
 	public static String generateEnumLiterals(Enumeration enm) {

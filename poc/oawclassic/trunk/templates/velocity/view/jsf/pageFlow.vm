@@ -4,14 +4,14 @@
 #foreach( $state in $states)
 
 #if ( !${state.NameS().equalsIgnoreCase("top")} && ${state.NameS()})
-<!-- navigation rules for ${state.NameS()}.jsp -->
+<!-- navigation rules for ${state.NameS()}.jsf -->
 <navigation-rule>
-  <from-view-id>${state.NameS()}.jsp</from-view-id>
+  <from-view-id>${state.NameS()}.xhtml</from-view-id>
  
   #foreach ($transition in ${state.OutTransition()} )
   <navigation-case>
     <from-outcome>${transition.NameS()}</from-outcome>
-    <to-view-id>/${transition.TargetVertex().NameS()}.jsp</to-view-id>
+    <to-view-id>/${transition.TargetVertex().NameS()}.xhtml</to-view-id>
   </navigation-case>   
   #end
   
