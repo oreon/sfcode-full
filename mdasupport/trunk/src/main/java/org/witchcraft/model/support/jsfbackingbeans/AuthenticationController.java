@@ -17,6 +17,10 @@ import org.acegisecurity.ui.WebAuthenticationDetails;
 import org.acegisecurity.ui.webapp.AuthenticationProcessingFilter;
 import org.springframework.beans.factory.annotation.Required;
 
+/** This is the JSF backing bean for authenticating users 
+ * @author jsingh
+ *
+ */
 public class AuthenticationController {
 	
 	private String _username;

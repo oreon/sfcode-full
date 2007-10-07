@@ -3,6 +3,7 @@ package org.witchcraft.model.support.security;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
 import org.acegisecurity.GrantedAuthority;
@@ -15,6 +16,7 @@ import org.witchcraft.model.support.BusinessEntity;
  * @author jsingh
  *
  */
+
 public abstract class AbstractUser extends BusinessEntity implements UserDetails {
 	
 	 	@Transient

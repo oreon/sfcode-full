@@ -9,11 +9,13 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.hibernate.Criteria;
+import org.hibernate.Interceptor;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.springframework.stereotype.Repository;
 import org.witchcraft.model.support.BusinessEntity;
+import org.witchcraft.model.support.audit.EntityAuditLogInterceptor;
 
 @Repository
 public class BaseDao<T> implements GenericDAO<T> {
@@ -22,10 +24,14 @@ public class BaseDao<T> implements GenericDAO<T> {
 	// private Session session;
 
 	protected EntityManager entityManager;
+	
+	protected Interceptor interceptor = new EntityAuditLogInterceptor();
 
 	@PersistenceContext
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
+		Session session = (Session) entityManager.getDelegate();
+		session.getSessionFactory().openSession(interceptor);
 	}
 
 	@SuppressWarnings("unchecked")
