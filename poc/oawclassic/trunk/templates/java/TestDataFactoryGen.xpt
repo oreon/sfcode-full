@@ -151,15 +151,19 @@
 	«REM»The associated entites for e.g an order would need a customer «ENDREM»
 	«FOREACH AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) AS ae-»
 		«EXPAND genBeanLookup FOR ae»
-		«name».set«ae.NameS.toFirstUpper()»((«ae.Class.fqn()»)«ae.NameS.toFirstLower()»TestDataFactory.loadOneRecord());
+		«IF ae.Class.NameS != NameS»
+			«name».set«ae.NameS.toFirstUpper()»((«ae.Class.fqn()»)«ae.NameS.toFirstLower()»TestDataFactory.loadOneRecord());
+		«ENDIF»
 	«ENDFOREACH»
 
 	
 	«REM»Composed collections e.g an order contains orderitems «ENDREM»
 	«FOREACH AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable && ae.Opposite.isComposition) AS ae-»
-		«EXPAND genBeanLookup FOR ae»
-		«ae.NameS.toFirstLower()»TestDataFactory.setPersistable(false);
-		«name».get«ae.NameS.toFirstUpper()»().addAll(«ae.NameS.toFirstLower()»TestDataFactory.createFewRecords());
+		«IF !ae.Opposite.isNavigable»	
+			«EXPAND genBeanLookup FOR ae»
+			«ae.NameS.toFirstLower()»TestDataFactory.setPersistable(false);
+			«name».get«ae.NameS.toFirstUpper()»().addAll(«ae.NameS.toFirstLower()»TestDataFactory.createFewRecords());
+		«ENDIF»
 	«ENDFOREACH»
 «ENDDEFINE»
 

@@ -3,16 +3,16 @@
 «EXTENSION java::Associations»
 
 «DEFINE ReferenceVariables FOR Class»
-«FOREACH AssociationEnd.Opposite.select(ae|ae.isNavigable) AS ae»
-private «ae.fqn()»  ;
-«ENDFOREACH»
+	«FOREACH AssociationEnd.Opposite.select(ae|ae.isNavigable) AS ae»
+		private «ae.fqn()»  ;
+	«ENDFOREACH»
 «ENDDEFINE»
 
 «DEFINE AccessorMethods FOR Class»
-«EXPAND ToOneAccessorMethods FOREACH
-AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable)»
-«EXPAND ToManyAccessorMethods FOREACH
-AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable)»
+	«EXPAND ToOneAccessorMethods FOREACH
+		AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable)»
+	«EXPAND ToManyAccessorMethods FOREACH
+		AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable)»
 «ENDDEFINE»
 
 «DEFINE ToOneAccessorMethods FOR AssociationEnd»
