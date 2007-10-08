@@ -183,6 +183,9 @@ public class ViewLayerGenerator {
 		return RenderContext.Create;
 	}
 
+	/** Get the left nav entities 
+	 * @return
+	 */
 	public static String getEntitiesLeftNavMenu() {
 		List<Entity> entites = ClassUtil.getEntities();
 		StringBuffer data = new StringBuffer();
@@ -191,26 +194,42 @@ public class ViewLayerGenerator {
 
 		for (Entity entity : entites) {
 
-			if (!entity.Namespace().NameS().equals( prevNameSpace)) {
-				//Check if a prev namespace just ended
-				if(prevNameSpace != null)
+			if (!entity.Namespace().NameS().equals(prevNameSpace)) {
+				// Check if a prev namespace just ended
+				if (prevNameSpace != null)
 					data.append("</rich:panelMenuGroup>");
 				data.append("<rich:panelMenuGroup label=\""
-						+ entity.Namespace().NameS() + "\">");
+						+ getImmediatePackage(entity.Namespace().NameS())
+						+ "\">");
 			}
-			
+
 			data.append(" <rich:panelMenuItem><h:outputLink value=\""
 					+ entity.NameS() + "List.jsf\">");
 			data.append("<h:outputText value=\"" + entity.NameS()
 					+ "\" /></h:outputLink></rich:panelMenuItem>");
-			
+
 			prevNameSpace = entity.Namespace().NameS();
 		}
-		
-		if(!entites.isEmpty())
+
+		if (!entites.isEmpty())
 			data.append("</rich:panelMenuGroup>");
-		
+
 		return data.toString();
+	}
+
+	/**
+	 * returns the immediate parent package i.e for org.withchraft.model.dao it
+	 * will return dao
+	 * 
+	 * @param nameS
+	 * @return
+	 */
+	private static String getImmediatePackage(String nameS) {
+		if (nameS.indexOf(".") > 0) {
+			String arr[] = nameS.split("\\.");
+			return arr[arr.length - 1]; // return the last item
+		} 
+		return nameS;
 	}
 
 }
