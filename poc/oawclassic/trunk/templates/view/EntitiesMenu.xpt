@@ -2,18 +2,24 @@
 «IMPORT oaw4::demo::classic::uml::meta»
 «IMPORT org::openarchitectureware::core::meta::core»
 «IMPORT java»
-«EXTENSION java::NamingConventions»
 
+«EXTENSION java::NamingConventions»
+«EXTENSION view::ViewExtensions»
+
+«REM»This function generates the left navigation bar on the entites screen«ENDREM»
 «DEFINE GenerateEntitiesNav FOR Model»
 	«FILE "../webapp/crud/leftNavBar.xhtml"»
 	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	
-	<table width="100%" style="border-right: 1px dashed #aaa; height: 520 px"  >
+	<table width="100%" style="border-right: 1px dotted #bbb; "  >
 	<tr><td>
 	<table cellspacing="0" cellpadding="0" height="100%">
 		<tr>
@@ -32,9 +38,12 @@
 	</tr>
 	<tr>
 	<td>
-		<table>
-	       	«EXPAND GenerateEntityNavLink FOREACH getEntities()»    
-    	</table>
+		<rich:panelMenu style="width:140px" mode="ajax"
+				iconExpandedGroup="disc" iconCollapsedGroup="disc"
+				iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right"
+				iconCollapsedTopGroup="chevronDown" iconCollapsedTopPosition="right">
+	       	«getEntitiesLeftNavMenu()»    
+    	</rich:panelMenu>
 	</td>
 	</tr>
 	</table>
@@ -45,5 +54,9 @@
 «ENDDEFINE»
 
 «DEFINE GenerateEntityNavLink FOR Entity»
+	<rich:panelMenuGroup label="Users">
+					<rich:panelMenuItem> User </rich:panelMenuItem>
+					<rich:panelMenuItem> Authority </rich:panelMenuItem>
+	</rich:panelMenuGroup>
 	<tr class="entityNavTable"><td><a href="«asInstanceVar()»List.jsf" > «NameS» </a> </td></tr>
 «ENDDEFINE»

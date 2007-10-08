@@ -8,15 +8,23 @@
 
 
 «DEFINE Getter FOR Attribute»
-public «Type.NameS» «getGetter(Type)»«NameS.toFirstUpper()» () {
-	return this.«NameS»;
-} 
+	public «Type.NameS» «getGetter(Type)»«NameS.toFirstUpper()» () {
+		return this.«NameS»;
+	} 
 «ENDDEFINE»
 
 
 «DEFINE Getter FOR Column»
-	@Column(nullable=«isNullable», unique=«isUnique»)
+	«IF getDerived != null»
+		@Transient
+	«ELSE»
+		@Column(nullable=«isNullable», unique=«isUnique»)
+	«ENDIF»
 	public «Type.NameS» «getGetter(Type)»«NameS.toFirstUpper()» () {
+		«IF getDerived != null»
+			«NameS» = 0.0;
+			«getDerived»
+		«ENDIF»
 		return this.«NameS»;
 	} 
 «ENDDEFINE»

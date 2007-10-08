@@ -12,6 +12,7 @@
 package «packageName()»;
 
 import javax.persistence.*;
+import java.util.Date;
 
 «getClassDeclaration()»{
 		«EXPAND classBody FOR this»
@@ -28,12 +29,13 @@ import javax.persistence.*;
 		package «packageName()»;
 		
 		import javax.persistence.*;
+		import java.util.Date;
 		
 		@MappedSuperclass
 		«getClassDeclaration()»{
-		
 				«EXPAND classBody FOR this»
 				«EXPAND displayName FOR this»
+				
 		} 
 	«ENDFILE»
 «ENDDEFINE»
@@ -103,6 +105,7 @@ import javax.persistence.*;
 	
 	public abstract «NameS» «asInstanceVar()»Instance();
 «ENDDEFINE»
+
 
 
 

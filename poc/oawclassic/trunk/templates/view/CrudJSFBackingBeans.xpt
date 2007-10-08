@@ -19,12 +19,15 @@
 	import javax.faces.component.UIParameter;
 	import javax.faces.event.ActionEvent;
 	import javax.faces.context.FacesContext;
+	import javax.faces.model.SelectItem;
 	
 	import javax.faces.application.FacesMessage;
 	
 	import org.springframework.dao.DataAccessException;
 	
 	import org.witchcraft.model.support.errorhandling.BusinessException;
+	import org.witchcraft.model.jsf.JSFUtils;
+	
 	
 	
 	public class «asParameter()»BackingBean{
@@ -130,21 +133,26 @@
 	    	«asInstanceVar()» = «asInstanceVar()»Service.load(id);
 	    }
 			
-			/**Get a list of  «asInstanceVar()»s - if action is search , get a subset otherwise
-			* get all
-            * @return - a list of «asInstanceVar()»s 
+		/**Get a list of  «asInstanceVar()»s - if action is search , get a subset otherwise
+		* get all
+        * @return - a list of «asInstanceVar()»s 
             */
-   			public List<«NameS»> get«asParameter()»s(){
-   				List<«NameS»> «asInstanceVar()»s = null; 
-		        if(action !=  null && action.equals(SEARCH))
-		        	«asInstanceVar()»s = «asInstanceVar()»Service.searchByExample(«asInstanceVar()»);
-		        else
-		        	«asInstanceVar()»s = «asInstanceVar()»Service.loadAll();
-   			
-    			return «asInstanceVar()»s;
-    		}
-	
-		} 
+   		public List<«NameS»> get«asParameter()»s(){
+   			List<«NameS»> «asInstanceVar()»s = null; 
+	        if(action !=  null && action.equals(SEARCH))
+	        	«asInstanceVar()»s = «asInstanceVar()»Service.searchByExample(«asInstanceVar()»);
+	        else
+	        	«asInstanceVar()»s = «asInstanceVar()»Service.loadAll();
+	   			
+	    	return «asInstanceVar()»s;
+		}
+		
+		public List<SelectItem> getAsSelectItems(){
+			List<«NameS»> «asInstanceVar()»s =  «asInstanceVar()»Service.loadAll();
+			return JSFUtils.getAsSelectItems(«asInstanceVar()»s);
+		}	
+
+	} 
 	«ENDFILE»
 	
 «ENDDEFINE»

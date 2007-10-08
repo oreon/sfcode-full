@@ -9,42 +9,32 @@
 
 «DEFINE GenerateInitialData FOR Model»
 
-«FILE "../../test/java/initialsetup" + "/InitialDataSetup.java"»
+	«FILE "../../test/java/initialsetup" + "/InitialDataSetup.java"»
 	
-package initialsetup;
-
-import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
-
-import org.witchcraft.model.support.testing.TestDataFactory;
-
-«EXPAND GenImports FOREACH getEntities()»
-
-
-/** 
- * @author jsingh
- *
- */
-public class InitialDataSetup {
-
-	public static void main(String args[]){
-		
-		«FOREACH getEntities() AS e-»
-			«EXPAND genBeanLookup FOR e»
-			«e.NameS.toFirstLower()»TestDataFactory.persistAll();
-		«ENDFOREACH»
-				
+	package initialsetup;
+	
+	import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
+	import org.witchcraft.model.support.testing.TestDataFactory;
+	
+	«EXPAND GenImports FOREACH getEntities()»
+	/** 
+	 * This class populates the database with some initial data
+	 *
+	 */
+	public class InitialDataSetup {
+	
+		public static void main(String args[]){
+			
+			«FOREACH getEntities() AS e-»
+				«EXPAND genBeanLookup FOR e»
+				«e.NameS.toFirstLower()»TestDataFactory.persistAll();
+			«ENDFOREACH»
+		}
 	}
-}
-
-«ENDFILE»
-
+	
+	«ENDFILE»
 
 «ENDDEFINE»
-
-«DEFINE genBeanLookup FOR Class»
-	TestDataFactory «NameS.toFirstLower()»TestDataFactory  = (TestDataFactory) BeanHelper.getBean("«NameS.toFirstLower()»TestDataFactory") ;
-«ENDDEFINE»
-
 
 
 «DEFINE GenerateTestDataFactory FOR Entity»
@@ -160,18 +150,27 @@ public class InitialDataSetup {
 	
 	«REM»The associated entites for e.g an order would need a customer «ENDREM»
 	«FOREACH AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) AS ae-»
-		«EXPAND genBeanLookup FOR ae.Class»
-		«name».set«ae.NameS.toFirstUpper()»((«ae.Class.fqn()»)«ae.Class.NameS.toFirstLower()»TestDataFactory.loadOneRecord());
+		«EXPAND genBeanLookup FOR ae»
+		«name».set«ae.NameS.toFirstUpper()»((«ae.Class.fqn()»)«ae.NameS.toFirstLower()»TestDataFactory.loadOneRecord());
 	«ENDFOREACH»
 
 	
 	«REM»Composed collections e.g an order contains orderitems «ENDREM»
 	«FOREACH AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable && ae.Opposite.isComposition) AS ae-»
-		«EXPAND genBeanLookup FOR ae.Class»
-		«ae.Class.NameS.toFirstLower()»TestDataFactory.setPersistable(false);
-		«name».get«ae.NameS.toFirstUpper()»().addAll(«ae.Class.NameS.toFirstLower()»TestDataFactory.createFewRecords());
+		«EXPAND genBeanLookup FOR ae»
+		«ae.NameS.toFirstLower()»TestDataFactory.setPersistable(false);
+		«name».get«ae.NameS.toFirstUpper()»().addAll(«ae.NameS.toFirstLower()»TestDataFactory.createFewRecords());
 	«ENDFOREACH»
 «ENDDEFINE»
+
+«DEFINE genBeanLookup FOR Class»
+	TestDataFactory «NameS.toFirstLower()»TestDataFactory  = (TestDataFactory) BeanHelper.getBean("«NameS.toFirstLower()»TestDataFactory") ;
+«ENDDEFINE»
+
+«DEFINE genBeanLookup FOR AssociationEnd»
+	TestDataFactory «NameS.toFirstLower()»TestDataFactory  = (TestDataFactory) BeanHelper.getBean("«Class.NameS.toFirstLower()»TestDataFactory") ;
+«ENDDEFINE»
+
 
 
 

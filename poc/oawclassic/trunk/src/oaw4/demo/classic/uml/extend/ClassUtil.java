@@ -102,6 +102,8 @@ public class ClassUtil {
 	 */
 	private static String getParamTypeString(Operation operation, Type type) {
 		String paramType = type.NameS();
+		if(paramType.equals("void"))
+			return paramType;
 
 		if (!type.Namespace().NameS().equals(
 				operation.Class().Namespace.NameS())) {
@@ -264,7 +266,7 @@ public class ClassUtil {
 	 * @return
 	 */
 	private static String getOperationBody(Operation operation) {
-		if (operation.hasReturnType()) {
+		if (operation.hasReturnType() && !operation.ReturnType().NameS().equals("void")) {
 			return "{ return null; " + "\n //should return "
 					+ operation.ReturnType().NameS() + "\n}\n";
 		} else
@@ -307,7 +309,8 @@ public class ClassUtil {
 	 */
 	public static String manyToOne(AssociationEnd ae) {
 		if (StereoTypeManager.isEntity(ae.Class())) {
-			String nullable = ae.MultiplicityMinAsInt() >= 1 ? "false" : "true";
+			String nullable = new Boolean(isAssocNullable(ae)).toString();
+			
 			AssociationEnd opposite = ae.Opposite();
 			String multiplicity = (opposite.MultiplicityMinAsInt() == 1 && opposite
 					.MultiplicityMaxAsInt() == 1) ? "OneToOne(cascade=CascadeType.ALL)"
@@ -316,6 +319,15 @@ public class ClassUtil {
 					+ "_ID\", nullable=" + nullable + ")";
 		} else
 			return "";
+	}
+
+	/** Whether an association can be null - if the multiplicty is greater than
+	 * or equal to 1 it is not nullable.
+	 * @param ae
+	 * @return
+	 */
+	public static boolean isAssocNullable(AssociationEnd ae) {
+		return ae.MultiplicityMinAsInt() >= 1 ? false : true;
 	}
 
 	/**

@@ -4,46 +4,26 @@
 «IMPORT java»
 «EXTENSION java::NamingConventions»
 
-«DEFINE SpringConfig FOR Model»
+«DEFINE SpringConfig FOR ScheduledTask»
 
-«FILE "../resources/applicationContextScheduler.xml" »  
-	
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:tx="http://www.springframework.org/schema/tx"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans.xsd
-    http://www.springframework.org/schema/tx
-    http://www.springframework.org/schema/tx/spring-tx.xsd" 
-  default-autowire="byName">
-
-  <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-    <property name="jobDetail" ref="exampleJob" />
-    <!-- run every morning at 6 AM -->
-    <property name="cronExpression" value="0 0 6 * * ?" />
+  <bean id="«NameS.toFirstLower()»cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    <property name="«NameS.toFirstLower()»jobDetail" ref="exampleJob" />
+    <property name="cronExpression" value="«getCronExpression»" />
   </bean>
   
   <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
     <property name="triggers">
         <list>
-            <ref bean="cronTrigger" />
+            <ref bean="«NameS.toFirstLower()»cronTrigger" />
         </list>
     </property>
    </bean>
 
-	<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	<bean id="«NameS.toFirstLower()»JobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 	  <property name="targetObject" ref="exampleBusinessObject" />
 	  <property name="targetMethod" value="doIt" />
 	  <property name="concurrent" value="false" />
 	</bean>
-
-
-</beans>
-
-	
-«ENDFILE»
-
 
 «ENDDEFINE»
 

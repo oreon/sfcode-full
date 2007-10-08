@@ -14,6 +14,7 @@ public class Column extends Attribute{
 	private int maxLength;
 	private int minLength;
 	private boolean searchable;
+	private String derived; 
 	
 	
 	private String containerName;
@@ -60,6 +61,16 @@ public class Column extends Attribute{
 	}
 	public void setContainerName(String containerName) {
 		this.containerName = containerName;
+	}
+	/** This property if not null indicates that the attirbute is transient 
+	 *  and the java experession for calculating it is provided. 
+	 * @return
+	 */
+	public String getDerived() {
+		return derived;
+	}
+	public void setDerived(String derived) {
+		this.derived = derived;
 	} 
 	
 

@@ -61,10 +61,20 @@
 	«EXPAND java::JavaInterface::IntfClass»
 «ENDDEFINE»
 
+«DEFINE Root FOR ScheduledTask»
+	«FILE "../resources/applicationContextScheduler.xml" »
+		«REM»«EXPAND GenerateSpringConfig::SpringNameSpaces FOR Model»«ENDREM»
+		«EXPAND resources::GenerateQuartzSpring::SpringConfig»
+		</beans>
+	«ENDFILE»
+«ENDDEFINE»
+
 
 «DEFINE Root FOR StateMachine»
 	«EXPAND PageFlow::file»
 «ENDDEFINE»
+
+
 
 «DEFINE Root FOR Object»
 «ENDDEFINE»
