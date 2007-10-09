@@ -3,6 +3,7 @@ package org.witchcraft.model.support.audit;
 import java.io.Serializable;
 import java.lang.reflect.Type;
 
+import org.acegisecurity.Authentication;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.apache.commons.logging.Log;
@@ -50,12 +51,12 @@ public class EntityAuditLogInterceptor extends EmptyInterceptor {
 		
 		if (entity instanceof Auditable) {
 			
-			SecurityContext securityContext = SecurityContextHolder.getContext();
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			
 			AuditLog auditLog = new AuditLog(action, 
 					entity.toString(),
 					entity.getClass().getCanonicalName(),
-					securityContext.getAuthentication().getDetails().toString()
+					authentication == null ? "UNKNOWN" : authentication.getDetails().toString()
 			);
 			
 			auditLogDao.save(auditLog);

@@ -25,13 +25,13 @@ public class BaseDao<T> implements GenericDAO<T> {
 
 	protected EntityManager entityManager;
 	
-	protected Interceptor interceptor = new EntityAuditLogInterceptor();
+	protected Interceptor entityAuditLogInterceptor;
 
 	@PersistenceContext
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 		Session session = (Session) entityManager.getDelegate();
-		session = session.getSessionFactory().openSession(interceptor);
+		session = session.getSessionFactory().openSession(entityAuditLogInterceptor);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -64,17 +64,20 @@ public class BaseDao<T> implements GenericDAO<T> {
 		 * entityManager.persist(entity); else entityManager.merge(entity);
 		 */
 		
-		Session session = (Session) entityManager.getDelegate();
-		session = session.getSessionFactory().openSession(interceptor);
+		//Session session = (Session) entityManager.getDelegate();
+		//session = session.getSessionFactory().openSession(interceptor);
 
 		BusinessEntity be = (BusinessEntity) entity;
 
-		if (be.getId() != null)
+		if (be.getId() != null){
 			entity = entityManager.merge(entity);
-		else
+			entityAuditLogInterceptor.onFlushDirty(entity, "TESTUSER",  null, null , null, null );
+		}
+		else{
 			entityManager.persist(entity);
-
-		interceptor.onSave(entity, "TESTUSER",  null, null , null );
+			entityAuditLogInterceptor.onSave(entity, "TESTUSER",  null, null , null );
+		}
+		
 		
 		return entity;
 	}
@@ -117,5 +120,13 @@ public class BaseDao<T> implements GenericDAO<T> {
 		List list = criteria.list();
 
 		return list;
+	}
+
+	public Interceptor getEntityAuditLogInterceptor() {
+		return entityAuditLogInterceptor;
+	}
+
+	public void setEntityAuditLogInterceptor(Interceptor entityAuditLogInterceptor) {
+		this.entityAuditLogInterceptor = entityAuditLogInterceptor;
 	}
 }

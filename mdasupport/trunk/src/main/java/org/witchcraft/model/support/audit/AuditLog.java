@@ -11,7 +11,7 @@ import org.witchcraft.model.support.BusinessEntity;
  *
  */
 @Entity
-@Table(uniqueConstraints={@UniqueConstraint(columnNames={"dateCreated","username"})})
+//@Table(uniqueConstraints={@UniqueConstraint(columnNames={"dateCreated","username"})})
 public class AuditLog extends BusinessEntity{
 	private AuditAction action;
 	private String record;
