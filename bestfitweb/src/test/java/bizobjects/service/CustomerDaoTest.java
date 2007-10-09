@@ -49,18 +49,20 @@ public class CustomerDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			customerInstance.setFirstName("theta");
-			customerInstance.setLastName("John");
+			customerInstance.setFirstName("Eric");
+			customerInstance.setLastName("beta");
 			customerInstance
-					.setDob(dateFormat.parse("2007.10.04 07:58:16 EDT"));
-			customerInstance.setRemarks("alpha");
-			customerInstance.getUserAccount().setUsername("delta79236");
-			customerInstance.getUserAccount().setPassword("Malissa");
+					.setDob(dateFormat.parse("2007.10.24 20:20:44 EDT"));
+			customerInstance.setRemarks("zeta");
+			customerInstance.getUserAccount().setUsername("alpha67208");
+			customerInstance.getUserAccount().setPassword("John");
 			customerInstance.getUserAccount().setEnabled(true);
-			customerInstance.getPrimaryAddress().setStreetAddress("pi");
-			customerInstance.getPrimaryAddress().setCity("Malissa");
-			customerInstance.getPrimaryAddress().setZip("pi");
-			customerInstance.getPrimaryAddress().setEmail("beta68");
+			customerInstance.getPrimaryAddress().setStreetAddress("Lavendar");
+			customerInstance.getPrimaryAddress().setCity("Wilson");
+			customerInstance.getPrimaryAddress().setZip("John");
+			customerInstance.getPrimaryAddress().setEmail("delta99016");
+			customerInstance.getPrimaryAddress().setCountry("alpha");
+			customerInstance.getPrimaryAddress().setState("zeta");
 
 			customerService.save(customerInstance);
 		} catch (PersistenceException pe) {
@@ -84,17 +86,19 @@ public class CustomerDaoTest extends AbstractJpaTests {
 
 			try {
 
-				customer.setFirstName("Eric");
-				customer.setLastName("Malissa");
-				customer.setDob(dateFormat.parse("2007.10.22 19:29:21 EDT"));
-				customer.setRemarks("alpha");
-				customer.getUserAccount().setUsername("Eric56803");
-				customer.getUserAccount().setPassword("John");
+				customer.setFirstName("delta");
+				customer.setLastName("Wilson");
+				customer.setDob(dateFormat.parse("2007.10.27 16:43:31 EDT"));
+				customer.setRemarks("zeta");
+				customer.getUserAccount().setUsername("Lavendar16323");
+				customer.getUserAccount().setPassword("gamma");
 				customer.getUserAccount().setEnabled(true);
-				customer.getPrimaryAddress().setStreetAddress("Wilson");
-				customer.getPrimaryAddress().setCity("zeta");
-				customer.getPrimaryAddress().setZip("Eric");
-				customer.getPrimaryAddress().setEmail("zeta28452");
+				customer.getPrimaryAddress().setStreetAddress("gamma");
+				customer.getPrimaryAddress().setCity("beta");
+				customer.getPrimaryAddress().setZip("alpha");
+				customer.getPrimaryAddress().setEmail("alpha5760");
+				customer.getPrimaryAddress().setCountry("theta");
+				customer.getPrimaryAddress().setState("Lavendar");
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -114,17 +118,19 @@ public class CustomerDaoTest extends AbstractJpaTests {
 			Customer customer = (Customer) customerTestDataFactory
 					.loadOneRecord();
 
-			customer.setFirstName("Malissa");
-			customer.setLastName("gamma");
-			customer.setDob(dateFormat.parse("2007.10.01 22:46:01 EDT"));
-			customer.setRemarks("epsilon");
-			customer.getUserAccount().setUsername("gamma20877");
-			customer.getUserAccount().setPassword("zeta");
+			customer.setFirstName("Lavendar");
+			customer.setLastName("delta");
+			customer.setDob(dateFormat.parse("2007.09.20 14:17:57 EDT"));
+			customer.setRemarks("zeta");
+			customer.getUserAccount().setUsername("beta19496");
+			customer.getUserAccount().setPassword("delta");
 			customer.getUserAccount().setEnabled(true);
-			customer.getPrimaryAddress().setStreetAddress("John");
-			customer.getPrimaryAddress().setCity("Mark");
-			customer.getPrimaryAddress().setZip("epsilon");
-			customer.getPrimaryAddress().setEmail("Eric93991");
+			customer.getPrimaryAddress().setStreetAddress("Malissa");
+			customer.getPrimaryAddress().setCity("John");
+			customer.getPrimaryAddress().setZip("John");
+			customer.getPrimaryAddress().setEmail("alpha9999");
+			customer.getPrimaryAddress().setCountry("Lavendar");
+			customer.getPrimaryAddress().setState("Lavendar");
 
 			customerService.save(customer);
 

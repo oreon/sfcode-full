@@ -19,7 +19,8 @@
 			styleClass="messages" />
 		
 			<a4j:form id="form">
-				<rich:panel>
+				<rich:tabPanel switchType="client">
+					<rich:tab label="Basic" >
 					<h:panelGrid columns="6" styleClass="formTable">
 						<f:facet name="header">
 							<h:outputText value="Customer Information"
@@ -78,11 +79,11 @@
 							
 							<h:outputText value="Password" styleClass="formLabel" />
 							
-							<h:inputText    
+							<h:inputSecret    
 								id="customer_userAccount_password"
 								value="#{customerCrudBacking.customer.userAccount.password}">
 								<f:validateLength minimum="3"/>
-							</h:inputText>
+							</h:inputSecret>
 							
 							<h:message for="customer_userAccount_password" styleClass="errMessage" />
 							
@@ -101,7 +102,7 @@
 							<h:inputText    
 								id="customer_primaryAddress_streetAddress"
 								value="#{customerCrudBacking.customer.primaryAddress.streetAddress}">
-								 
+								
 							</h:inputText>
 							
 							<h:message for="customer_primaryAddress_streetAddress" styleClass="errMessage" />
@@ -111,7 +112,7 @@
 							<h:inputText    
 								id="customer_primaryAddress_city"
 								value="#{customerCrudBacking.customer.primaryAddress.city}">
-								 
+								
 							</h:inputText>
 							
 							<h:message for="customer_primaryAddress_city" styleClass="errMessage" />
@@ -121,7 +122,7 @@
 							<h:inputText    
 								id="customer_primaryAddress_zip"
 								value="#{customerCrudBacking.customer.primaryAddress.zip}">
-								 
+								
 							</h:inputText>
 							
 							<h:message for="customer_primaryAddress_zip" styleClass="errMessage" />
@@ -136,18 +137,52 @@
 							
 							<h:message for="customer_primaryAddress_email" styleClass="errMessage" />
 							
+							<h:outputText value="Country" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="customer_primaryAddress_country"
+								value="#{customerCrudBacking.customer.primaryAddress.country}">
+								
+							</h:inputText>
+							
+							<h:message for="customer_primaryAddress_country" styleClass="errMessage" />
+							
+							<h:outputText value="State" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="customer_primaryAddress_state"
+								value="#{customerCrudBacking.customer.primaryAddress.state}">
+								
+							</h:inputText>
+							
+							<h:message for="customer_primaryAddress_state" styleClass="errMessage" />
 							
 							
-  						   <h:commandButton id="button1" value="Submit" action="#{customerCrudBacking.search}"/> 
+							
+  						   <h:commandButton id="button1" value="Submit" action="#{customerCrudBacking.search}"  /> 
   						    <h:commandButton id="button2" value="Cancel" action="#{customerCrudBacking.cancelSearch}" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="customer_id" value="#{customerCrudBacking.customer.id}" />
 
 						</h:panelGrid>
+						</rich:tab>
+						<rich:tab label="Advanced">
+							<h:outputText value="Creation Date" styleClass="formLabel" />
+							
+							<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
+								id="customer__creation"
+								value="#{customerCrudBacking.customer.dateCreated}">
+								
+							</t:inputCalendar >
+							
+							<h:message for="customer__dob" styleClass="errMessage" />
+				
+						
+						</rich:tab>
 						
 						
-						
-				</rich:panel>
+				</rich:tabPanel>
+					
 			</a4j:form>
 		</f:view>
 

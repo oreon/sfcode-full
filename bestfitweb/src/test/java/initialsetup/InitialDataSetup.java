@@ -1,7 +1,6 @@
 package initialsetup;
 
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
-
 import org.witchcraft.model.support.testing.TestDataFactory;
 
 import bizobjects.CustomerTestDataFactory;
@@ -14,12 +13,20 @@ import bizobjects.ProductTestDataFactory;
 
 import bizobjects.OrderItemTestDataFactory;
 
+import bizobjects.RegisteredUserTestDataFactory;
+
 import usermanagement.UserTestDataFactory;
 
 import usermanagement.AuthorityTestDataFactory;
 
+import com.publicfountain.domain.TopicTestDataFactory;
+
+import com.publicfountain.domain.CategoryTestDataFactory;
+
+import com.publicfountain.domain.CommentTestDataFactory;
+
 /** 
- * @author jsingh
+ * This class populates the database with some initial data
  *
  */
 public class InitialDataSetup {
@@ -51,6 +58,11 @@ public class InitialDataSetup {
 
 		orderItemTestDataFactory.persistAll();
 
+		TestDataFactory registeredUserTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("registeredUserTestDataFactory");
+
+		registeredUserTestDataFactory.persistAll();
+
 		TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 				.getBean("userTestDataFactory");
 
@@ -60,6 +72,21 @@ public class InitialDataSetup {
 				.getBean("authorityTestDataFactory");
 
 		authorityTestDataFactory.persistAll();
+
+		TestDataFactory topicTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("topicTestDataFactory");
+
+		topicTestDataFactory.persistAll();
+
+		TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("categoryTestDataFactory");
+
+		categoryTestDataFactory.persistAll();
+
+		TestDataFactory commentTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("commentTestDataFactory");
+
+		commentTestDataFactory.persistAll();
 
 	}
 }

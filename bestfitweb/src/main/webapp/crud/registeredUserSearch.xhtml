@@ -1,0 +1,202 @@
+		
+	
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	template="/WEB-INF/template/templateCrud.xhtml">
+	
+	<ui:define name="content">
+
+		<f:view>
+			<h:messages layout="list" globalOnly="true" showDetail="true"
+			styleClass="messages" />
+		
+			<a4j:form id="form">
+				<rich:tabPanel switchType="client">
+					<rich:tab label="Basic" >
+					<h:panelGrid columns="6" styleClass="formTable">
+						<f:facet name="header">
+							<h:outputText value="RegisteredUser Information"
+								styleClass="formHeaderText"   />
+						</f:facet>
+						
+							<h:outputText value="FirstName" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="registeredUser__firstName"
+								value="#{registeredUserCrudBacking.registeredUser.firstName}">
+								
+							</h:inputText>
+							
+							<h:message for="registeredUser__firstName" styleClass="errMessage" />
+							
+							<h:outputText value="LastName" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="registeredUser__lastName"
+								value="#{registeredUserCrudBacking.registeredUser.lastName}">
+								
+							</h:inputText>
+							
+							<h:message for="registeredUser__lastName" styleClass="errMessage" />
+							
+							<h:outputText value="Dob" styleClass="formLabel" />
+							
+							<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
+								id="registeredUser__dob"
+								value="#{registeredUserCrudBacking.registeredUser.dob}">
+								
+							</t:inputCalendar >
+							
+							<h:message for="registeredUser__dob" styleClass="errMessage" />
+							
+							<h:outputText value="Gender" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="registeredUser__gender"
+								value="#{registeredUserCrudBacking.registeredUser.gender}">
+								
+							</h:inputText>
+							
+							<h:message for="registeredUser__gender" styleClass="errMessage" />
+							
+							<h:outputText value="Image" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="registeredUser__image"
+								value="#{registeredUserCrudBacking.registeredUser.image}">
+								
+							</h:inputText>
+							
+							<h:message for="registeredUser__image" styleClass="errMessage" />
+							
+							<h:outputText value="Username" styleClass="formLabel" />
+							
+							<h:inputText   maxLength="14"   
+								id="registeredUser_userAccount_username"
+								value="#{registeredUserCrudBacking.registeredUser.userAccount.username}">
+								<f:validateLength maximum="14"/>
+							</h:inputText>
+							
+							<h:message for="registeredUser_userAccount_username" styleClass="errMessage" />
+							
+							<h:outputText value="Password" styleClass="formLabel" />
+							
+							<h:inputSecret    
+								id="registeredUser_userAccount_password"
+								value="#{registeredUserCrudBacking.registeredUser.userAccount.password}">
+								<f:validateLength minimum="3"/>
+							</h:inputSecret>
+							
+							<h:message for="registeredUser_userAccount_password" styleClass="errMessage" />
+							
+							<h:outputText value="Enabled" styleClass="formLabel" />
+							
+							<h:selectBooleanCheckbox    title="enabled"  
+								id="registeredUser_userAccount_enabled"
+								value="#{registeredUserCrudBacking.registeredUser.userAccount.enabled}">
+								
+							</h:selectBooleanCheckbox >
+							
+							<h:message for="registeredUser_userAccount_enabled" styleClass="errMessage" />
+							
+							<h:outputText value="StreetAddress" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="registeredUser_primaryAddress_streetAddress"
+								value="#{registeredUserCrudBacking.registeredUser.primaryAddress.streetAddress}">
+								
+							</h:inputText>
+							
+							<h:message for="registeredUser_primaryAddress_streetAddress" styleClass="errMessage" />
+							
+							<h:outputText value="City" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="registeredUser_primaryAddress_city"
+								value="#{registeredUserCrudBacking.registeredUser.primaryAddress.city}">
+								
+							</h:inputText>
+							
+							<h:message for="registeredUser_primaryAddress_city" styleClass="errMessage" />
+							
+							<h:outputText value="Zip" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="registeredUser_primaryAddress_zip"
+								value="#{registeredUserCrudBacking.registeredUser.primaryAddress.zip}">
+								
+							</h:inputText>
+							
+							<h:message for="registeredUser_primaryAddress_zip" styleClass="errMessage" />
+							
+							<h:outputText value="Email" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="registeredUser_primaryAddress_email"
+								value="#{registeredUserCrudBacking.registeredUser.primaryAddress.email}">
+								
+							</h:inputText>
+							
+							<h:message for="registeredUser_primaryAddress_email" styleClass="errMessage" />
+							
+							<h:outputText value="Country" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="registeredUser_primaryAddress_country"
+								value="#{registeredUserCrudBacking.registeredUser.primaryAddress.country}">
+								
+							</h:inputText>
+							
+							<h:message for="registeredUser_primaryAddress_country" styleClass="errMessage" />
+							
+							<h:outputText value="State" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="registeredUser_primaryAddress_state"
+								value="#{registeredUserCrudBacking.registeredUser.primaryAddress.state}">
+								
+							</h:inputText>
+							
+							<h:message for="registeredUser_primaryAddress_state" styleClass="errMessage" />
+							
+							
+							
+  						   <h:commandButton id="button1" value="Submit" action="#{registeredUserCrudBacking.search}"  /> 
+  						    <h:commandButton id="button2" value="Cancel" action="#{registeredUserCrudBacking.cancelSearch}" immediate="true"/> 
+  				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
+		  				   	<h:inputHidden id="registeredUser_id" value="#{registeredUserCrudBacking.registeredUser.id}" />
+
+						</h:panelGrid>
+						</rich:tab>
+						<rich:tab label="Advanced">
+							<h:outputText value="Creation Date" styleClass="formLabel" />
+							
+							<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
+								id="customer__creation"
+								value="#{registeredUserCrudBacking.registeredUser.dateCreated}">
+								
+							</t:inputCalendar >
+							
+							<h:message for="customer__dob" styleClass="errMessage" />
+				
+						
+						</rich:tab>
+						
+						
+				</rich:tabPanel>
+					
+			</a4j:form>
+		</f:view>
+
+	</ui:define>
+</ui:composition>
+
+		

@@ -8,12 +8,14 @@ import bizobjects.service.ProductService;
 import javax.faces.component.UIParameter;
 import javax.faces.event.ActionEvent;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import javax.faces.application.FacesMessage;
 
 import org.springframework.dao.DataAccessException;
 
 import org.witchcraft.model.support.errorhandling.BusinessException;
+import org.witchcraft.model.jsf.JSFUtils;
 
 public class ProductBackingBean {
 
@@ -136,6 +138,11 @@ public class ProductBackingBean {
 			products = productService.loadAll();
 
 		return products;
+	}
+
+	public List<SelectItem> getAsSelectItems() {
+		List<Product> products = productService.loadAll();
+		return JSFUtils.getAsSelectItems(products);
 	}
 
 }

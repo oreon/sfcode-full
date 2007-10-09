@@ -26,42 +26,54 @@
 								styleClass="formHeaderText"   />
 						</f:facet>
 						
-							<h:outputText value="Username*" styleClass="formLabel" />
-							
-							<h:inputText   maxLength="14"   required="true" 
-								id="user__username"
-								value="#{userCrudBacking.user.username}">
-								<f:validateLength maximum="14"/>
-							</h:inputText>
-							
-							<h:message for="user__username" styleClass="errMessage" />
-							
-							<h:outputText value="Password*" styleClass="formLabel" />
-							
-							<h:inputText    required="true" 
-								id="user__password"
-								value="#{userCrudBacking.user.password}">
-								<f:validateLength minimum="3"/>
-							</h:inputText>
-							
-							<h:message for="user__password" styleClass="errMessage" />
-							
-							<h:outputText value="Enabled" styleClass="formLabel" />
-							
-							<h:selectBooleanCheckbox    title="enabled"  required="false" 
-								id="user__enabled"
-								value="#{userCrudBacking.user.enabled}">
 								
-							</h:selectBooleanCheckbox >
+								<h:outputText value="Username*" styleClass="formLabel" />
+								
+								<h:inputText   maxLength="14"   required="true" 
+									id="user__username"
+									value="#{userCrudBacking.user.username}">
+									<f:validateLength maximum="14"/>
+								</h:inputText>
+								
+								<h:message for="user__username" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="Password*" styleClass="formLabel" />
+								
+								<h:inputSecret    required="true" 
+									id="user__password"
+									value="#{userCrudBacking.user.password}">
+									<f:validateLength minimum="3"/>
+								</h:inputSecret>
+								
+								<h:message for="user__password" styleClass="errMessage" />
+								
+								
+								<acegijsf:authorize ifAnyGranted="all=ROLE_ADMIN">
+								<h:outputText value="Enabled*" styleClass="formLabel" />
+								
+								<h:selectBooleanCheckbox    title="enabled"  required="true" 
+									id="user__enabled"
+									value="#{userCrudBacking.user.enabled}">
+									
+								</h:selectBooleanCheckbox >
+								
+								<h:message for="user__enabled" styleClass="errMessage" />
+								
+								</acegijsf:authorize>
 							
-							<h:message for="user__enabled" styleClass="errMessage" />
 							
 							
+							
+						
 							
   						   <h:commandButton id="button1" value="Submit" action="#{userCrudBacking.update}"/> 
   						    <h:commandButton id="button2" value="Cancel" action="#{userCrudBacking.cancelUpdate}" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="user_id" value="#{userCrudBacking.user.id}" />
+		  				   	
+		  				   	
 
 						
 						</h:panelGrid>

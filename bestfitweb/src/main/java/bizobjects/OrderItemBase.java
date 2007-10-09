@@ -1,6 +1,7 @@
 package bizobjects;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @MappedSuperclass
 public abstract class OrderItemBase
@@ -15,6 +16,8 @@ public abstract class OrderItemBase
 
 	protected int quantity = 1;
 
+	protected double total;
+
 	public double getSalePrice() {
 		return this.salePrice;
 	}
@@ -23,12 +26,25 @@ public abstract class OrderItemBase
 		return this.quantity;
 	}
 
+	@Transient
+	public double getTotal() {
+
+		total = 0.0;
+		total = quantity * salePrice;
+
+		return this.total;
+	}
+
 	public void setSalePrice(double salePrice) {
 		this.salePrice = salePrice;
 	}
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
 	private bizobjects.Product product;

@@ -8,12 +8,14 @@ import usermanagement.service.UserService;
 import javax.faces.component.UIParameter;
 import javax.faces.event.ActionEvent;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import javax.faces.application.FacesMessage;
 
 import org.springframework.dao.DataAccessException;
 
 import org.witchcraft.model.support.errorhandling.BusinessException;
+import org.witchcraft.model.jsf.JSFUtils;
 
 public class UserBackingBean {
 
@@ -136,6 +138,11 @@ public class UserBackingBean {
 			users = userService.loadAll();
 
 		return users;
+	}
+
+	public List<SelectItem> getAsSelectItems() {
+		List<User> users = userService.loadAll();
+		return JSFUtils.getAsSelectItems(users);
 	}
 
 }

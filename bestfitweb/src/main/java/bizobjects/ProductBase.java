@@ -1,6 +1,7 @@
 package bizobjects;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @MappedSuperclass
 public abstract class ProductBase

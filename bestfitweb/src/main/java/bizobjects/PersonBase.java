@@ -19,11 +19,13 @@ public abstract class PersonBase
 
 	@Column(nullable = false, unique = false)
 	public String getFirstName() {
+
 		return this.firstName;
 	}
 
 	@Column(nullable = false, unique = false)
 	public String getLastName() {
+
 		return this.lastName;
 	}
 

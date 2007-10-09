@@ -8,12 +8,14 @@ import bizobjects.service.EmployeeService;
 import javax.faces.component.UIParameter;
 import javax.faces.event.ActionEvent;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import javax.faces.application.FacesMessage;
 
 import org.springframework.dao.DataAccessException;
 
 import org.witchcraft.model.support.errorhandling.BusinessException;
+import org.witchcraft.model.jsf.JSFUtils;
 
 public class EmployeeBackingBean {
 
@@ -136,6 +138,11 @@ public class EmployeeBackingBean {
 			employees = employeeService.loadAll();
 
 		return employees;
+	}
+
+	public List<SelectItem> getAsSelectItems() {
+		List<Employee> employees = employeeService.loadAll();
+		return JSFUtils.getAsSelectItems(employees);
 	}
 
 }

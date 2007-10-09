@@ -1,6 +1,7 @@
 package bizobjects;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @MappedSuperclass
 public abstract class PlacedOrderBase
@@ -17,6 +18,8 @@ public abstract class PlacedOrderBase
 
 	protected OrderStatus status = OrderStatus.NEW;
 
+	protected double total;
+
 	public String getRemarks() {
 		return this.remarks;
 	}
@@ -29,6 +32,16 @@ public abstract class PlacedOrderBase
 		return this.status;
 	}
 
+	@Transient
+	public double getTotal() {
+
+		total = 0.0;
+		for (OrderItem orderItem : orderItems)
+			total += orderItem.getTotal();
+
+		return this.total;
+	}
+
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
@@ -39,6 +52,10 @@ public abstract class PlacedOrderBase
 
 	public void setStatus(OrderStatus status) {
 		this.status = status;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
 	private bizobjects.Customer customer;

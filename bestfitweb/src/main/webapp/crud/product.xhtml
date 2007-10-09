@@ -26,42 +26,54 @@
 								styleClass="formHeaderText"   />
 						</f:facet>
 						
-							<h:outputText value="Name" styleClass="formLabel" />
+								
+								<h:outputText value="Name" styleClass="formLabel" />
+								
+								<h:inputText    required="false" 
+									id="product__name"
+									value="#{productCrudBacking.product.name}">
+									
+								</h:inputText>
+								
+								<h:message for="product__name" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="Brand" styleClass="formLabel" />
+								
+								<h:inputText    required="false" 
+									id="product__brand"
+									value="#{productCrudBacking.product.brand}">
+									
+								</h:inputText>
+								
+								<h:message for="product__brand" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="ListPrice" styleClass="formLabel" />
+								
+								<h:inputText    required="false" 
+									id="product__listPrice"
+									value="#{productCrudBacking.product.listPrice}">
+									
+								</h:inputText>
+								
+								<h:message for="product__listPrice" styleClass="errMessage" />
+								
+								
 							
-							<h:inputText    required="false" 
-								id="product__name"
-								value="#{productCrudBacking.product.name}">
-								 
-							</h:inputText>
-							
-							<h:message for="product__name" styleClass="errMessage" />
-							
-							<h:outputText value="Brand" styleClass="formLabel" />
-							
-							<h:inputText    required="false" 
-								id="product__brand"
-								value="#{productCrudBacking.product.brand}">
-								 
-							</h:inputText>
-							
-							<h:message for="product__brand" styleClass="errMessage" />
-							
-							<h:outputText value="ListPrice" styleClass="formLabel" />
-							
-							<h:inputText    required="false" 
-								id="product__listPrice"
-								value="#{productCrudBacking.product.listPrice}">
-								 
-							</h:inputText>
-							
-							<h:message for="product__listPrice" styleClass="errMessage" />
 							
 							
+							
+						
 							
   						   <h:commandButton id="button1" value="Submit" action="#{productCrudBacking.update}"/> 
   						    <h:commandButton id="button2" value="Cancel" action="#{productCrudBacking.cancelUpdate}" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="product_id" value="#{productCrudBacking.product.id}" />
+		  				   	
+		  				   	
 
 						
 						</h:panelGrid>

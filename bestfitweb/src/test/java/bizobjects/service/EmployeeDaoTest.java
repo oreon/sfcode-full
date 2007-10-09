@@ -49,18 +49,20 @@ public class EmployeeDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			employeeInstance.setFirstName("gamma");
-			employeeInstance.setLastName("beta");
+			employeeInstance.setFirstName("Eric");
+			employeeInstance.setLastName("gamma");
 			employeeInstance
-					.setDob(dateFormat.parse("2007.10.09 17:04:56 EDT"));
-			employeeInstance.setCode(2008);
-			employeeInstance.getUserAccount().setUsername("Malissa15400");
-			employeeInstance.getUserAccount().setPassword("Wilson");
+					.setDob(dateFormat.parse("2007.10.10 12:47:57 EDT"));
+			employeeInstance.setCode(5135);
+			employeeInstance.getUserAccount().setUsername("beta25943");
+			employeeInstance.getUserAccount().setPassword("Eric");
 			employeeInstance.getUserAccount().setEnabled(true);
-			employeeInstance.getPrimaryAddress().setStreetAddress("Malissa");
-			employeeInstance.getPrimaryAddress().setCity("Malissa");
+			employeeInstance.getPrimaryAddress().setStreetAddress("pi");
+			employeeInstance.getPrimaryAddress().setCity("beta");
 			employeeInstance.getPrimaryAddress().setZip("beta");
-			employeeInstance.getPrimaryAddress().setEmail("pi20829");
+			employeeInstance.getPrimaryAddress().setEmail("Wilson81868");
+			employeeInstance.getPrimaryAddress().setCountry("pi");
+			employeeInstance.getPrimaryAddress().setState("Lavendar");
 
 			employeeService.save(employeeInstance);
 		} catch (PersistenceException pe) {
@@ -84,17 +86,19 @@ public class EmployeeDaoTest extends AbstractJpaTests {
 
 			try {
 
-				employee.setFirstName("Malissa");
-				employee.setLastName("zeta");
-				employee.setDob(dateFormat.parse("2007.09.13 06:23:15 EDT"));
-				employee.setCode(2247);
-				employee.getUserAccount().setUsername("theta13286");
-				employee.getUserAccount().setPassword("Malissa");
+				employee.setFirstName("beta");
+				employee.setLastName("Mark");
+				employee.setDob(dateFormat.parse("2007.10.01 14:49:02 EDT"));
+				employee.setCode(2992);
+				employee.getUserAccount().setUsername("John69471");
+				employee.getUserAccount().setPassword("beta");
 				employee.getUserAccount().setEnabled(true);
-				employee.getPrimaryAddress().setStreetAddress("pi");
-				employee.getPrimaryAddress().setCity("John");
-				employee.getPrimaryAddress().setZip("theta");
-				employee.getPrimaryAddress().setEmail("alpha18524");
+				employee.getPrimaryAddress().setStreetAddress("Wilson");
+				employee.getPrimaryAddress().setCity("Wilson");
+				employee.getPrimaryAddress().setZip("Wilson");
+				employee.getPrimaryAddress().setEmail("Eric46294");
+				employee.getPrimaryAddress().setCountry("John");
+				employee.getPrimaryAddress().setState("theta");
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -114,17 +118,19 @@ public class EmployeeDaoTest extends AbstractJpaTests {
 			Employee employee = (Employee) employeeTestDataFactory
 					.loadOneRecord();
 
-			employee.setFirstName("zeta");
-			employee.setLastName("John");
-			employee.setDob(dateFormat.parse("2007.10.07 06:04:24 EDT"));
-			employee.setCode(6729);
-			employee.getUserAccount().setUsername("Lavendar47346");
-			employee.getUserAccount().setPassword("delta");
+			employee.setFirstName("Mark");
+			employee.setLastName("Mark");
+			employee.setDob(dateFormat.parse("2007.09.15 15:04:04 EDT"));
+			employee.setCode(5929);
+			employee.getUserAccount().setUsername("John13");
+			employee.getUserAccount().setPassword("pi");
 			employee.getUserAccount().setEnabled(true);
-			employee.getPrimaryAddress().setStreetAddress("epsilon");
-			employee.getPrimaryAddress().setCity("John");
-			employee.getPrimaryAddress().setZip("Mark");
-			employee.getPrimaryAddress().setEmail("delta74437");
+			employee.getPrimaryAddress().setStreetAddress("gamma");
+			employee.getPrimaryAddress().setCity("pi");
+			employee.getPrimaryAddress().setZip("John");
+			employee.getPrimaryAddress().setEmail("gamma41301");
+			employee.getPrimaryAddress().setCountry("Mark");
+			employee.getPrimaryAddress().setState("epsilon");
 
 			employeeService.save(employee);
 

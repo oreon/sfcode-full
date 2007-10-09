@@ -26,122 +26,175 @@
 								styleClass="formHeaderText"   />
 						</f:facet>
 						
-							<h:outputText value="FirstName*" styleClass="formLabel" />
-							
-							<h:inputText    required="true" 
-								id="employee__firstName"
-								value="#{employeeCrudBacking.employee.firstName}">
 								
-							</h:inputText>
-							
-							<h:message for="employee__firstName" styleClass="errMessage" />
-							
-							<h:outputText value="LastName*" styleClass="formLabel" />
-							
-							<h:inputText    required="true" 
-								id="employee__lastName"
-								value="#{employeeCrudBacking.employee.lastName}">
+								<h:outputText value="FirstName*" styleClass="formLabel" />
 								
-							</h:inputText>
-							
-							<h:message for="employee__lastName" styleClass="errMessage" />
-							
-							<h:outputText value="Dob" styleClass="formLabel" />
-							
-							<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   required="false" 
-								id="employee__dob"
-								value="#{employeeCrudBacking.employee.dob}">
+								<h:inputText    required="true" 
+									id="employee__firstName"
+									value="#{employeeCrudBacking.employee.firstName}">
+									
+								</h:inputText>
 								
-							</t:inputCalendar >
-							
-							<h:message for="employee__dob" styleClass="errMessage" />
-							
-							<h:outputText value="Code*" styleClass="formLabel" />
-							
-							<h:inputText    required="true" 
-								id="employee__code"
-								value="#{employeeCrudBacking.employee.code}">
-								<f:validateLongRange minimum="3"/>
-							</h:inputText>
-							
-							<h:message for="employee__code" styleClass="errMessage" />
-							
-							<h:outputText value="Username*" styleClass="formLabel" />
-							
-							<h:inputText   maxLength="14"   required="true" 
-								id="employee_userAccount_username"
-								value="#{employeeCrudBacking.employee.userAccount.username}">
-								<f:validateLength maximum="14"/>
-							</h:inputText>
-							
-							<h:message for="employee_userAccount_username" styleClass="errMessage" />
-							
-							<h:outputText value="Password*" styleClass="formLabel" />
-							
-							<h:inputText    required="true" 
-								id="employee_userAccount_password"
-								value="#{employeeCrudBacking.employee.userAccount.password}">
-								<f:validateLength minimum="3"/>
-							</h:inputText>
-							
-							<h:message for="employee_userAccount_password" styleClass="errMessage" />
-							
-							<h:outputText value="Enabled" styleClass="formLabel" />
-							
-							<h:selectBooleanCheckbox    title="enabled"  required="false" 
-								id="employee_userAccount_enabled"
-								value="#{employeeCrudBacking.employee.userAccount.enabled}">
+								<h:message for="employee__firstName" styleClass="errMessage" />
 								
-							</h:selectBooleanCheckbox >
-							
-							<h:message for="employee_userAccount_enabled" styleClass="errMessage" />
-							
-							<h:outputText value="StreetAddress" styleClass="formLabel" />
-							
-							<h:inputText    required="false" 
-								id="employee_primaryAddress_streetAddress"
-								value="#{employeeCrudBacking.employee.primaryAddress.streetAddress}">
-								 
-							</h:inputText>
-							
-							<h:message for="employee_primaryAddress_streetAddress" styleClass="errMessage" />
-							
-							<h:outputText value="City" styleClass="formLabel" />
-							
-							<h:inputText    required="false" 
-								id="employee_primaryAddress_city"
-								value="#{employeeCrudBacking.employee.primaryAddress.city}">
-								 
-							</h:inputText>
-							
-							<h:message for="employee_primaryAddress_city" styleClass="errMessage" />
-							
-							<h:outputText value="Zip" styleClass="formLabel" />
-							
-							<h:inputText    required="false" 
-								id="employee_primaryAddress_zip"
-								value="#{employeeCrudBacking.employee.primaryAddress.zip}">
-								 
-							</h:inputText>
-							
-							<h:message for="employee_primaryAddress_zip" styleClass="errMessage" />
-							
-							<h:outputText value="Email*" styleClass="formLabel" />
-							
-							<h:inputText    required="true" 
-								id="employee_primaryAddress_email"
-								value="#{employeeCrudBacking.employee.primaryAddress.email}">
 								
-							</h:inputText>
+								
+								<h:outputText value="LastName*" styleClass="formLabel" />
+								
+								<h:inputText    required="true" 
+									id="employee__lastName"
+									value="#{employeeCrudBacking.employee.lastName}">
+									
+								</h:inputText>
+								
+								<h:message for="employee__lastName" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="Dob" styleClass="formLabel" />
+								
+								<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   required="false" 
+									id="employee__dob"
+									value="#{employeeCrudBacking.employee.dob}">
+									
+								</t:inputCalendar >
+								
+								<h:message for="employee__dob" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="Code*" styleClass="formLabel" />
+								
+								<h:inputText    required="true" 
+									id="employee__code"
+									value="#{employeeCrudBacking.employee.code}">
+									<f:validateLongRange minimum="3"/>
+								</h:inputText>
+								
+								<h:message for="employee__code" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="Username*" styleClass="formLabel" />
+								
+								<h:inputText   maxLength="14"   required="true" 
+									id="employee_userAccount_username"
+									value="#{employeeCrudBacking.employee.userAccount.username}">
+									<f:validateLength maximum="14"/>
+								</h:inputText>
+								
+								<h:message for="employee_userAccount_username" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="Password*" styleClass="formLabel" />
+								
+								<h:inputSecret    required="true" 
+									id="employee_userAccount_password"
+									value="#{employeeCrudBacking.employee.userAccount.password}">
+									<f:validateLength minimum="3"/>
+								</h:inputSecret>
+								
+								<h:message for="employee_userAccount_password" styleClass="errMessage" />
+								
+								
+								<acegijsf:authorize ifAnyGranted="all=ROLE_ADMIN">
+								<h:outputText value="Enabled*" styleClass="formLabel" />
+								
+								<h:selectBooleanCheckbox    title="enabled"  required="true" 
+									id="employee_userAccount_enabled"
+									value="#{employeeCrudBacking.employee.userAccount.enabled}">
+									
+								</h:selectBooleanCheckbox >
+								
+								<h:message for="employee_userAccount_enabled" styleClass="errMessage" />
+								
+								</acegijsf:authorize>
+								
+								<h:outputText value="StreetAddress" styleClass="formLabel" />
+								
+								<h:inputText    required="false" 
+									id="employee_primaryAddress_streetAddress"
+									value="#{employeeCrudBacking.employee.primaryAddress.streetAddress}">
+									
+								</h:inputText>
+								
+								<h:message for="employee_primaryAddress_streetAddress" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="City" styleClass="formLabel" />
+								
+								<h:inputText    required="false" 
+									id="employee_primaryAddress_city"
+									value="#{employeeCrudBacking.employee.primaryAddress.city}">
+									
+								</h:inputText>
+								
+								<h:message for="employee_primaryAddress_city" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="Zip" styleClass="formLabel" />
+								
+								<h:inputText    required="false" 
+									id="employee_primaryAddress_zip"
+									value="#{employeeCrudBacking.employee.primaryAddress.zip}">
+									
+								</h:inputText>
+								
+								<h:message for="employee_primaryAddress_zip" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="Email*" styleClass="formLabel" />
+								
+								<h:inputText    required="true" 
+									id="employee_primaryAddress_email"
+									value="#{employeeCrudBacking.employee.primaryAddress.email}">
+									
+								</h:inputText>
+								
+								<h:message for="employee_primaryAddress_email" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="Country" styleClass="formLabel" />
+								
+								<h:inputText    required="false" 
+									id="employee_primaryAddress_country"
+									value="#{employeeCrudBacking.employee.primaryAddress.country}">
+									
+								</h:inputText>
+								
+								<h:message for="employee_primaryAddress_country" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="State" styleClass="formLabel" />
+								
+								<h:inputText    required="false" 
+									id="employee_primaryAddress_state"
+									value="#{employeeCrudBacking.employee.primaryAddress.state}">
+									
+								</h:inputText>
+								
+								<h:message for="employee_primaryAddress_state" styleClass="errMessage" />
+								
+								
 							
-							<h:message for="employee_primaryAddress_email" styleClass="errMessage" />
 							
 							
+							
+						
 							
   						   <h:commandButton id="button1" value="Submit" action="#{employeeCrudBacking.update}"/> 
   						    <h:commandButton id="button2" value="Cancel" action="#{employeeCrudBacking.cancelUpdate}" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="employee_id" value="#{employeeCrudBacking.employee.id}" />
+		  				   	
+								<h:inputHidden id="userAccount_id" value="#{employeeCrudBacking.employee.userAccount.id}" />
+							
 
 						
 						</h:panelGrid>

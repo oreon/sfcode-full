@@ -1,6 +1,7 @@
 package usermanagement;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @MappedSuperclass
 public abstract class UserBase
@@ -19,15 +20,19 @@ public abstract class UserBase
 
 	@Column(nullable = false, unique = true)
 	public String getUsername() {
+
 		return this.username;
 	}
 
 	@Column(nullable = false, unique = false)
 	public String getPassword() {
+
 		return this.password;
 	}
 
+	@Column(nullable = false, unique = false)
 	public boolean isEnabled() {
+
 		return this.enabled;
 	}
 

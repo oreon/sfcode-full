@@ -26,122 +26,175 @@
 								styleClass="formHeaderText"   />
 						</f:facet>
 						
-							<h:outputText value="FirstName*" styleClass="formLabel" />
-							
-							<h:inputText    required="true" 
-								id="customer__firstName"
-								value="#{customerCrudBacking.customer.firstName}">
 								
-							</h:inputText>
-							
-							<h:message for="customer__firstName" styleClass="errMessage" />
-							
-							<h:outputText value="LastName*" styleClass="formLabel" />
-							
-							<h:inputText    required="true" 
-								id="customer__lastName"
-								value="#{customerCrudBacking.customer.lastName}">
+								<h:outputText value="FirstName*" styleClass="formLabel" />
 								
-							</h:inputText>
-							
-							<h:message for="customer__lastName" styleClass="errMessage" />
-							
-							<h:outputText value="Dob" styleClass="formLabel" />
-							
-							<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   required="false" 
-								id="customer__dob"
-								value="#{customerCrudBacking.customer.dob}">
+								<h:inputText    required="true" 
+									id="customer__firstName"
+									value="#{customerCrudBacking.customer.firstName}">
+									
+								</h:inputText>
 								
-							</t:inputCalendar >
-							
-							<h:message for="customer__dob" styleClass="errMessage" />
-							
-							<h:outputText value="Remarks" styleClass="formLabel" />
-							
-							<h:inputTextarea   maxLength="1000"   required="false" 
-								id="customer__remarks"
-								value="#{customerCrudBacking.customer.remarks}">
-								<f:validateLength maximum="1000"/>
-							</h:inputTextarea>
-							
-							<h:message for="customer__remarks" styleClass="errMessage" />
-							
-							<h:outputText value="Username*" styleClass="formLabel" />
-							
-							<h:inputText   maxLength="14"   required="true" 
-								id="customer_userAccount_username"
-								value="#{customerCrudBacking.customer.userAccount.username}">
-								<f:validateLength maximum="14"/>
-							</h:inputText>
-							
-							<h:message for="customer_userAccount_username" styleClass="errMessage" />
-							
-							<h:outputText value="Password*" styleClass="formLabel" />
-							
-							<h:inputText    required="true" 
-								id="customer_userAccount_password"
-								value="#{customerCrudBacking.customer.userAccount.password}">
-								<f:validateLength minimum="3"/>
-							</h:inputText>
-							
-							<h:message for="customer_userAccount_password" styleClass="errMessage" />
-							
-							<h:outputText value="Enabled" styleClass="formLabel" />
-							
-							<h:selectBooleanCheckbox    title="enabled"  required="false" 
-								id="customer_userAccount_enabled"
-								value="#{customerCrudBacking.customer.userAccount.enabled}">
+								<h:message for="customer__firstName" styleClass="errMessage" />
 								
-							</h:selectBooleanCheckbox >
-							
-							<h:message for="customer_userAccount_enabled" styleClass="errMessage" />
-							
-							<h:outputText value="StreetAddress" styleClass="formLabel" />
-							
-							<h:inputText    required="false" 
-								id="customer_primaryAddress_streetAddress"
-								value="#{customerCrudBacking.customer.primaryAddress.streetAddress}">
-								 
-							</h:inputText>
-							
-							<h:message for="customer_primaryAddress_streetAddress" styleClass="errMessage" />
-							
-							<h:outputText value="City" styleClass="formLabel" />
-							
-							<h:inputText    required="false" 
-								id="customer_primaryAddress_city"
-								value="#{customerCrudBacking.customer.primaryAddress.city}">
-								 
-							</h:inputText>
-							
-							<h:message for="customer_primaryAddress_city" styleClass="errMessage" />
-							
-							<h:outputText value="Zip" styleClass="formLabel" />
-							
-							<h:inputText    required="false" 
-								id="customer_primaryAddress_zip"
-								value="#{customerCrudBacking.customer.primaryAddress.zip}">
-								 
-							</h:inputText>
-							
-							<h:message for="customer_primaryAddress_zip" styleClass="errMessage" />
-							
-							<h:outputText value="Email*" styleClass="formLabel" />
-							
-							<h:inputText    required="true" 
-								id="customer_primaryAddress_email"
-								value="#{customerCrudBacking.customer.primaryAddress.email}">
 								
-							</h:inputText>
+								
+								<h:outputText value="LastName*" styleClass="formLabel" />
+								
+								<h:inputText    required="true" 
+									id="customer__lastName"
+									value="#{customerCrudBacking.customer.lastName}">
+									
+								</h:inputText>
+								
+								<h:message for="customer__lastName" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="Dob" styleClass="formLabel" />
+								
+								<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   required="false" 
+									id="customer__dob"
+									value="#{customerCrudBacking.customer.dob}">
+									
+								</t:inputCalendar >
+								
+								<h:message for="customer__dob" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="Remarks" styleClass="formLabel" />
+								
+								<h:inputTextarea   maxLength="1000"   required="false" 
+									id="customer__remarks"
+									value="#{customerCrudBacking.customer.remarks}">
+									<f:validateLength maximum="1000"/>
+								</h:inputTextarea>
+								
+								<h:message for="customer__remarks" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="Username*" styleClass="formLabel" />
+								
+								<h:inputText   maxLength="14"   required="true" 
+									id="customer_userAccount_username"
+									value="#{customerCrudBacking.customer.userAccount.username}">
+									<f:validateLength maximum="14"/>
+								</h:inputText>
+								
+								<h:message for="customer_userAccount_username" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="Password*" styleClass="formLabel" />
+								
+								<h:inputSecret    required="true" 
+									id="customer_userAccount_password"
+									value="#{customerCrudBacking.customer.userAccount.password}">
+									<f:validateLength minimum="3"/>
+								</h:inputSecret>
+								
+								<h:message for="customer_userAccount_password" styleClass="errMessage" />
+								
+								
+								<acegijsf:authorize ifAnyGranted="all=ROLE_ADMIN">
+								<h:outputText value="Enabled*" styleClass="formLabel" />
+								
+								<h:selectBooleanCheckbox    title="enabled"  required="true" 
+									id="customer_userAccount_enabled"
+									value="#{customerCrudBacking.customer.userAccount.enabled}">
+									
+								</h:selectBooleanCheckbox >
+								
+								<h:message for="customer_userAccount_enabled" styleClass="errMessage" />
+								
+								</acegijsf:authorize>
+								
+								<h:outputText value="StreetAddress" styleClass="formLabel" />
+								
+								<h:inputText    required="false" 
+									id="customer_primaryAddress_streetAddress"
+									value="#{customerCrudBacking.customer.primaryAddress.streetAddress}">
+									
+								</h:inputText>
+								
+								<h:message for="customer_primaryAddress_streetAddress" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="City" styleClass="formLabel" />
+								
+								<h:inputText    required="false" 
+									id="customer_primaryAddress_city"
+									value="#{customerCrudBacking.customer.primaryAddress.city}">
+									
+								</h:inputText>
+								
+								<h:message for="customer_primaryAddress_city" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="Zip" styleClass="formLabel" />
+								
+								<h:inputText    required="false" 
+									id="customer_primaryAddress_zip"
+									value="#{customerCrudBacking.customer.primaryAddress.zip}">
+									
+								</h:inputText>
+								
+								<h:message for="customer_primaryAddress_zip" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="Email*" styleClass="formLabel" />
+								
+								<h:inputText    required="true" 
+									id="customer_primaryAddress_email"
+									value="#{customerCrudBacking.customer.primaryAddress.email}">
+									
+								</h:inputText>
+								
+								<h:message for="customer_primaryAddress_email" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="Country" styleClass="formLabel" />
+								
+								<h:inputText    required="false" 
+									id="customer_primaryAddress_country"
+									value="#{customerCrudBacking.customer.primaryAddress.country}">
+									
+								</h:inputText>
+								
+								<h:message for="customer_primaryAddress_country" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="State" styleClass="formLabel" />
+								
+								<h:inputText    required="false" 
+									id="customer_primaryAddress_state"
+									value="#{customerCrudBacking.customer.primaryAddress.state}">
+									
+								</h:inputText>
+								
+								<h:message for="customer_primaryAddress_state" styleClass="errMessage" />
+								
+								
 							
-							<h:message for="customer_primaryAddress_email" styleClass="errMessage" />
 							
 							
+							
+						
 							
   						   <h:commandButton id="button1" value="Submit" action="#{customerCrudBacking.update}"/> 
   						    <h:commandButton id="button2" value="Cancel" action="#{customerCrudBacking.cancelUpdate}" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="customer_id" value="#{customerCrudBacking.customer.id}" />
+		  				   	
+								<h:inputHidden id="userAccount_id" value="#{customerCrudBacking.customer.userAccount.id}" />
+							
 
 						
 						</h:panelGrid>

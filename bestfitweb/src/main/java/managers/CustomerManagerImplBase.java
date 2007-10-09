@@ -1,6 +1,7 @@
 package managers;
 
 import javax.persistence.*;
+import java.util.Date;
 
 public abstract class CustomerManagerImplBase
 		implements

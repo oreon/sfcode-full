@@ -1,6 +1,7 @@
 package bizobjects;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @MappedSuperclass
 /*Represents a customer - customer can log in and place orders.*/
@@ -14,6 +15,7 @@ public abstract class CustomerBase extends Person
 
 	@Column(nullable = true, unique = false)
 	public String getRemarks() {
+
 		return this.remarks;
 	}
 

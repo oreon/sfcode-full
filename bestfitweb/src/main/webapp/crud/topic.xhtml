@@ -1,0 +1,128 @@
+		
+	
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	template="/WEB-INF/template/templateCrud.xhtml">
+	
+	<ui:define name="content">
+
+		<f:view>
+			<h:messages layout="list" globalOnly="true" showDetail="true"
+			styleClass="messages" />
+		
+			<a4j:form id="form">
+				<rich:panel>
+					<h:panelGrid columns="3" styleClass="formTable">
+						<f:facet name="header">
+							<h:outputText value="Topic Information"
+								styleClass="formHeaderText"   />
+						</f:facet>
+						
+								
+								<h:outputText value="Name" styleClass="formLabel" />
+								
+								<h:inputText    required="false" 
+									id="topic__name"
+									value="#{topicCrudBacking.topic.name}">
+									
+								</h:inputText>
+								
+								<h:message for="topic__name" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="Expiry" styleClass="formLabel" />
+								
+								<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   required="false" 
+									id="topic__expiry"
+									value="#{topicCrudBacking.topic.expiry}">
+									
+								</t:inputCalendar >
+								
+								<h:message for="topic__expiry" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="Status" styleClass="formLabel" />
+								
+								<h:selectOneMenu    required="false" 
+									id="topic__status"
+									value="#{topicCrudBacking.topic.status}">
+									<f:selectItem itemLabel="Active" itemValue="Active" /><f:selectItem itemLabel="Inactive" itemValue="Inactive" /><f:selectItem itemLabel="Archived" itemValue="Archived" />
+								</h:selectOneMenu>
+								
+								<h:message for="topic__status" styleClass="errMessage" />
+								
+								
+								
+								<h:outputText value="TopicType" styleClass="formLabel" />
+								
+								<h:selectOneMenu    required="false" 
+									id="topic__topicType"
+									value="#{topicCrudBacking.topic.topicType}">
+									<f:selectItem itemLabel="TopicOfDay" itemValue="TopicOfDay" /><f:selectItem itemLabel="Video" itemValue="Video" /><f:selectItem itemLabel="Image" itemValue="Image" /><f:selectItem itemLabel="Edtiorial" itemValue="Edtiorial" /><f:selectItem itemLabel="CustomOpinion" itemValue="CustomOpinion" />
+								</h:selectOneMenu>
+								
+								<h:message for="topic__topicType" styleClass="errMessage" />
+								
+								
+							
+							
+							
+								<h:outputText value="TopicCreator*" styleClass="formLabel" />
+			
+								<h:selectOneMenu  required="true" 
+									id="topic_topicCreator"
+									value="#{topicCrudBacking.topic.topicCreator}">
+									<f:selectItem itemLabel="Select" />
+									<f:selectItems value="#{registeredUserCrudBacking.asSelectItems}" />
+								</h:selectOneMenu>
+											
+								<h:message for="topic_topicCreator" styleClass="errMessage" />
+				
+								<h:outputText value="Category*" styleClass="formLabel" />
+			
+								<h:selectOneMenu  required="true" 
+									id="topic_category"
+									value="#{topicCrudBacking.topic.category}">
+									<f:selectItem itemLabel="Select" />
+									<f:selectItems value="#{categoryCrudBacking.asSelectItems}" />
+								</h:selectOneMenu>
+											
+								<h:message for="topic_category" styleClass="errMessage" />
+				
+							
+						
+							
+  						   <h:commandButton id="button1" value="Submit" action="#{topicCrudBacking.update}"/> 
+  						    <h:commandButton id="button2" value="Cancel" action="#{topicCrudBacking.cancelUpdate}" immediate="true"/> 
+  				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
+		  				   	<h:inputHidden id="topic_id" value="#{topicCrudBacking.topic.id}" />
+		  				   	
+		  				   	
+
+						
+						</h:panelGrid>
+						
+						<br/>
+						<br/>
+						
+						
+						
+						
+				</rich:panel>
+			</a4j:form>
+		</f:view>
+
+	</ui:define>
+</ui:composition>
+
+		

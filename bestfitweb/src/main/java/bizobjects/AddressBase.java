@@ -15,6 +15,10 @@ public abstract class AddressBase implements java.io.Serializable {
 
 	protected String email;
 
+	protected String country;
+
+	protected String state;
+
 	public String getStreetAddress() {
 		return this.streetAddress;
 	}
@@ -29,7 +33,16 @@ public abstract class AddressBase implements java.io.Serializable {
 
 	@Column(nullable = false, unique = true)
 	public String getEmail() {
+
 		return this.email;
+	}
+
+	public String getCountry() {
+		return this.country;
+	}
+
+	public String getState() {
+		return this.state;
 	}
 
 	public void setStreetAddress(String streetAddress) {
@@ -46,6 +59,14 @@ public abstract class AddressBase implements java.io.Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 
 	public abstract Address addressInstance();

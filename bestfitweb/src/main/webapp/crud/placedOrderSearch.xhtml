@@ -19,7 +19,8 @@
 			styleClass="messages" />
 		
 			<a4j:form id="form">
-				<rich:panel>
+				<rich:tabPanel switchType="client">
+					<rich:tab label="Basic" >
 					<h:panelGrid columns="6" styleClass="formTable">
 						<f:facet name="header">
 							<h:outputText value="PlacedOrder Information"
@@ -31,7 +32,7 @@
 							<h:inputText    
 								id="placedOrder__remarks"
 								value="#{placedOrderCrudBacking.placedOrder.remarks}">
-								 
+								
 							</h:inputText>
 							
 							<h:message for="placedOrder__remarks" styleClass="errMessage" />
@@ -41,33 +42,57 @@
 							<h:inputText    
 								id="placedOrder__paymentMethod"
 								value="#{placedOrderCrudBacking.placedOrder.paymentMethod}">
-								 
+								
 							</h:inputText>
 							
 							<h:message for="placedOrder__paymentMethod" styleClass="errMessage" />
 							
 							<h:outputText value="Status" styleClass="formLabel" />
 							
-							<t:selectOneMenu    
+							<h:selectOneMenu    
 								id="placedOrder__status"
 								value="#{placedOrderCrudBacking.placedOrder.status}">
 								<f:selectItem itemLabel="NEW" itemValue="NEW" /><f:selectItem itemLabel="COMPLETED" itemValue="COMPLETED" /><f:selectItem itemLabel="SHIPPED" itemValue="SHIPPED" />
-							</t:selectOneMenu>
+							</h:selectOneMenu>
 							
 							<h:message for="placedOrder__status" styleClass="errMessage" />
 							
+							<h:outputText value="Total" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="placedOrder__total"
+								value="#{placedOrderCrudBacking.placedOrder.total}">
+								
+							</h:inputText>
+							
+							<h:message for="placedOrder__total" styleClass="errMessage" />
 							
 							
-  						   <h:commandButton id="button1" value="Submit" action="#{placedOrderCrudBacking.search}"/> 
+							
+  						   <h:commandButton id="button1" value="Submit" action="#{placedOrderCrudBacking.search}"  /> 
   						    <h:commandButton id="button2" value="Cancel" action="#{placedOrderCrudBacking.cancelSearch}" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="placedOrder_id" value="#{placedOrderCrudBacking.placedOrder.id}" />
 
 						</h:panelGrid>
+						</rich:tab>
+						<rich:tab label="Advanced">
+							<h:outputText value="Creation Date" styleClass="formLabel" />
+							
+							<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
+								id="customer__creation"
+								value="#{placedOrderCrudBacking.placedOrder.dateCreated}">
+								
+							</t:inputCalendar >
+							
+							<h:message for="customer__dob" styleClass="errMessage" />
+				
+						
+						</rich:tab>
 						
 						
-						
-				</rich:panel>
+				</rich:tabPanel>
+					
 			</a4j:form>
 		</f:view>
 

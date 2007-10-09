@@ -19,7 +19,8 @@
 			styleClass="messages" />
 		
 			<a4j:form id="form">
-				<rich:panel>
+				<rich:tabPanel switchType="client">
+					<rich:tab label="Basic" >
 					<h:panelGrid columns="6" styleClass="formTable">
 						<f:facet name="header">
 							<h:outputText value="User Information"
@@ -38,11 +39,11 @@
 							
 							<h:outputText value="Password" styleClass="formLabel" />
 							
-							<h:inputText    
+							<h:inputSecret    
 								id="user__password"
 								value="#{userCrudBacking.user.password}">
 								<f:validateLength minimum="3"/>
-							</h:inputText>
+							</h:inputSecret>
 							
 							<h:message for="user__password" styleClass="errMessage" />
 							
@@ -58,16 +59,30 @@
 							
 							
 							
-  						   <h:commandButton id="button1" value="Submit" action="#{userCrudBacking.search}"/> 
+  						   <h:commandButton id="button1" value="Submit" action="#{userCrudBacking.search}"  /> 
   						    <h:commandButton id="button2" value="Cancel" action="#{userCrudBacking.cancelSearch}" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="user_id" value="#{userCrudBacking.user.id}" />
 
 						</h:panelGrid>
+						</rich:tab>
+						<rich:tab label="Advanced">
+							<h:outputText value="Creation Date" styleClass="formLabel" />
+							
+							<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
+								id="customer__creation"
+								value="#{userCrudBacking.user.dateCreated}">
+								
+							</t:inputCalendar >
+							
+							<h:message for="customer__dob" styleClass="errMessage" />
+				
+						
+						</rich:tab>
 						
 						
-						
-				</rich:panel>
+				</rich:tabPanel>
+					
 			</a4j:form>
 		</f:view>
 

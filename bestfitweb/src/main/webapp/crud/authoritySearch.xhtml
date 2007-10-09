@@ -19,7 +19,8 @@
 			styleClass="messages" />
 		
 			<a4j:form id="form">
-				<rich:panel>
+				<rich:tabPanel switchType="client">
+					<rich:tab label="Basic" >
 					<h:panelGrid columns="6" styleClass="formTable">
 						<f:facet name="header">
 							<h:outputText value="Authority Information"
@@ -31,23 +32,37 @@
 							<h:inputText    
 								id="authority__authority"
 								value="#{authorityCrudBacking.authority.authority}">
-								 
+								
 							</h:inputText>
 							
 							<h:message for="authority__authority" styleClass="errMessage" />
 							
 							
 							
-  						   <h:commandButton id="button1" value="Submit" action="#{authorityCrudBacking.search}"/> 
+  						   <h:commandButton id="button1" value="Submit" action="#{authorityCrudBacking.search}"  /> 
   						    <h:commandButton id="button2" value="Cancel" action="#{authorityCrudBacking.cancelSearch}" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="authority_id" value="#{authorityCrudBacking.authority.id}" />
 
 						</h:panelGrid>
+						</rich:tab>
+						<rich:tab label="Advanced">
+							<h:outputText value="Creation Date" styleClass="formLabel" />
+							
+							<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
+								id="customer__creation"
+								value="#{authorityCrudBacking.authority.dateCreated}">
+								
+							</t:inputCalendar >
+							
+							<h:message for="customer__dob" styleClass="errMessage" />
+				
+						
+						</rich:tab>
 						
 						
-						
-				</rich:panel>
+				</rich:tabPanel>
+					
 			</a4j:form>
 		</f:view>
 

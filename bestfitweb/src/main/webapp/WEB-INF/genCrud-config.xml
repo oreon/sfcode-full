@@ -78,6 +78,19 @@
 
 
 	<managed-bean>
+		<managed-bean-name>registeredUserCrudBacking</managed-bean-name>
+		<managed-bean-class>bizobjects.web.jsf.RegisteredUserBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>registeredUserService</property-name>
+			<value>#{registeredUserService}</value>
+		</managed-property>
+		
+	</managed-bean> 
+ 	
+
+
+	<managed-bean>
 		<managed-bean-name>userCrudBacking</managed-bean-name>
 		<managed-bean-class>usermanagement.web.jsf.UserBackingBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
@@ -97,6 +110,45 @@
 		<managed-property>
 			<property-name>authorityService</property-name>
 			<value>#{authorityService}</value>
+		</managed-property>
+		
+	</managed-bean> 
+ 	
+
+
+	<managed-bean>
+		<managed-bean-name>topicCrudBacking</managed-bean-name>
+		<managed-bean-class>com.publicfountain.domain.web.jsf.TopicBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>topicService</property-name>
+			<value>#{topicService}</value>
+		</managed-property>
+		
+	</managed-bean> 
+ 	
+
+
+	<managed-bean>
+		<managed-bean-name>categoryCrudBacking</managed-bean-name>
+		<managed-bean-class>com.publicfountain.domain.web.jsf.CategoryBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>categoryService</property-name>
+			<value>#{categoryService}</value>
+		</managed-property>
+		
+	</managed-bean> 
+ 	
+
+
+	<managed-bean>
+		<managed-bean-name>commentCrudBacking</managed-bean-name>
+		<managed-bean-class>com.publicfountain.domain.web.jsf.CommentBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>commentService</property-name>
+			<value>#{commentService}</value>
 		</managed-property>
 		
 	</managed-bean> 
@@ -336,6 +388,52 @@
 	
 
 	<navigation-rule>
+  		<from-view-id>/crud/registeredUser.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/registeredUserList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/registeredUserSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/registeredUserList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/registeredUserList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/registeredUser.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/registeredUserSerach.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/registeredUserSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/registeredUserList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+
+	<navigation-rule>
   		<from-view-id>/crud/user.xhtml</from-view-id>
   
 		  <navigation-case>
@@ -422,6 +520,144 @@
 		  <navigation-case>
 		    <from-outcome>search</from-outcome>
 		    <to-view-id>/crud/authorityList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+
+	<navigation-rule>
+  		<from-view-id>/crud/topic.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/topicList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/topicSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/topicList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/topicList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/topic.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/topicSerach.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/topicSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/topicList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+
+	<navigation-rule>
+  		<from-view-id>/crud/category.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/categoryList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/categorySearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/categoryList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/categoryList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/category.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/categorySerach.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/categorySearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/categoryList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+
+	<navigation-rule>
+  		<from-view-id>/crud/comment.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/commentList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/commentSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/commentList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/commentList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/comment.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/commentSerach.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/commentSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/commentList.xhtml</to-view-id>
 		  </navigation-case>   
     
 	</navigation-rule>

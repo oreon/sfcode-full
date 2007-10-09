@@ -8,12 +8,14 @@ import bizobjects.service.PlacedOrderService;
 import javax.faces.component.UIParameter;
 import javax.faces.event.ActionEvent;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import javax.faces.application.FacesMessage;
 
 import org.springframework.dao.DataAccessException;
 
 import org.witchcraft.model.support.errorhandling.BusinessException;
+import org.witchcraft.model.jsf.JSFUtils;
 
 public class PlacedOrderBackingBean {
 
@@ -136,6 +138,11 @@ public class PlacedOrderBackingBean {
 			placedOrders = placedOrderService.loadAll();
 
 		return placedOrders;
+	}
+
+	public List<SelectItem> getAsSelectItems() {
+		List<PlacedOrder> placedOrders = placedOrderService.loadAll();
+		return JSFUtils.getAsSelectItems(placedOrders);
 	}
 
 }

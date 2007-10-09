@@ -42,9 +42,10 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("Mark");
-			placedOrder.setPaymentMethod("zeta");
+			placedOrder.setRemarks("Malissa");
+			placedOrder.setPaymentMethod("Eric");
 			placedOrder.setStatus(bizobjects.OrderStatus.COMPLETED);
+			placedOrder.setTotal(9.07);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
@@ -53,12 +54,12 @@ public class PlacedOrderTestDataFactory
 					.setCustomer((bizobjects.Customer) customerTestDataFactory
 							.loadOneRecord());
 
-			TestDataFactory orderItemTestDataFactory = (TestDataFactory) BeanHelper
+			TestDataFactory orderItemsTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("orderItemTestDataFactory");
 
-			orderItemTestDataFactory.setPersistable(false);
+			orderItemsTestDataFactory.setPersistable(false);
 			placedOrder.getOrderItems().addAll(
-					orderItemTestDataFactory.createFewRecords());
+					orderItemsTestDataFactory.createFewRecords());
 
 			register(placedOrder);
 
@@ -74,9 +75,10 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("John");
+			placedOrder.setRemarks("theta");
 			placedOrder.setPaymentMethod("Wilson");
 			placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
+			placedOrder.setTotal(95.96);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
@@ -85,12 +87,12 @@ public class PlacedOrderTestDataFactory
 					.setCustomer((bizobjects.Customer) customerTestDataFactory
 							.loadOneRecord());
 
-			TestDataFactory orderItemTestDataFactory = (TestDataFactory) BeanHelper
+			TestDataFactory orderItemsTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("orderItemTestDataFactory");
 
-			orderItemTestDataFactory.setPersistable(false);
+			orderItemsTestDataFactory.setPersistable(false);
 			placedOrder.getOrderItems().addAll(
-					orderItemTestDataFactory.createFewRecords());
+					orderItemsTestDataFactory.createFewRecords());
 
 			register(placedOrder);
 
@@ -106,9 +108,10 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("epsilon");
-			placedOrder.setPaymentMethod("delta");
+			placedOrder.setRemarks("theta");
+			placedOrder.setPaymentMethod("gamma");
 			placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
+			placedOrder.setTotal(5.9);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
@@ -117,12 +120,12 @@ public class PlacedOrderTestDataFactory
 					.setCustomer((bizobjects.Customer) customerTestDataFactory
 							.loadOneRecord());
 
-			TestDataFactory orderItemTestDataFactory = (TestDataFactory) BeanHelper
+			TestDataFactory orderItemsTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("orderItemTestDataFactory");
 
-			orderItemTestDataFactory.setPersistable(false);
+			orderItemsTestDataFactory.setPersistable(false);
 			placedOrder.getOrderItems().addAll(
-					orderItemTestDataFactory.createFewRecords());
+					orderItemsTestDataFactory.createFewRecords());
 
 			register(placedOrder);
 
@@ -139,8 +142,9 @@ public class PlacedOrderTestDataFactory
 		try {
 
 			placedOrder.setRemarks("theta");
-			placedOrder.setPaymentMethod("epsilon");
-			placedOrder.setStatus(bizobjects.OrderStatus.COMPLETED);
+			placedOrder.setPaymentMethod("alpha");
+			placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
+			placedOrder.setTotal(41.3);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
@@ -149,12 +153,12 @@ public class PlacedOrderTestDataFactory
 					.setCustomer((bizobjects.Customer) customerTestDataFactory
 							.loadOneRecord());
 
-			TestDataFactory orderItemTestDataFactory = (TestDataFactory) BeanHelper
+			TestDataFactory orderItemsTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("orderItemTestDataFactory");
 
-			orderItemTestDataFactory.setPersistable(false);
+			orderItemsTestDataFactory.setPersistable(false);
 			placedOrder.getOrderItems().addAll(
-					orderItemTestDataFactory.createFewRecords());
+					orderItemsTestDataFactory.createFewRecords());
 
 			register(placedOrder);
 
@@ -170,9 +174,10 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("Malissa");
-			placedOrder.setPaymentMethod("beta");
-			placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
+			placedOrder.setRemarks("gamma");
+			placedOrder.setPaymentMethod("Mark");
+			placedOrder.setStatus(bizobjects.OrderStatus.COMPLETED);
+			placedOrder.setTotal(97.92);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
@@ -181,12 +186,12 @@ public class PlacedOrderTestDataFactory
 					.setCustomer((bizobjects.Customer) customerTestDataFactory
 							.loadOneRecord());
 
-			TestDataFactory orderItemTestDataFactory = (TestDataFactory) BeanHelper
+			TestDataFactory orderItemsTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("orderItemTestDataFactory");
 
-			orderItemTestDataFactory.setPersistable(false);
+			orderItemsTestDataFactory.setPersistable(false);
 			placedOrder.getOrderItems().addAll(
-					orderItemTestDataFactory.createFewRecords());
+					orderItemsTestDataFactory.createFewRecords());
 
 			register(placedOrder);
 

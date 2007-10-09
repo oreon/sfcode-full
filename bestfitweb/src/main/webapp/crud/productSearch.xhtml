@@ -19,7 +19,8 @@
 			styleClass="messages" />
 		
 			<a4j:form id="form">
-				<rich:panel>
+				<rich:tabPanel switchType="client">
+					<rich:tab label="Basic" >
 					<h:panelGrid columns="6" styleClass="formTable">
 						<f:facet name="header">
 							<h:outputText value="Product Information"
@@ -31,7 +32,7 @@
 							<h:inputText    
 								id="product__name"
 								value="#{productCrudBacking.product.name}">
-								 
+								
 							</h:inputText>
 							
 							<h:message for="product__name" styleClass="errMessage" />
@@ -41,7 +42,7 @@
 							<h:inputText    
 								id="product__brand"
 								value="#{productCrudBacking.product.brand}">
-								 
+								
 							</h:inputText>
 							
 							<h:message for="product__brand" styleClass="errMessage" />
@@ -51,23 +52,37 @@
 							<h:inputText    
 								id="product__listPrice"
 								value="#{productCrudBacking.product.listPrice}">
-								 
+								
 							</h:inputText>
 							
 							<h:message for="product__listPrice" styleClass="errMessage" />
 							
 							
 							
-  						   <h:commandButton id="button1" value="Submit" action="#{productCrudBacking.search}"/> 
+  						   <h:commandButton id="button1" value="Submit" action="#{productCrudBacking.search}"  /> 
   						    <h:commandButton id="button2" value="Cancel" action="#{productCrudBacking.cancelSearch}" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="product_id" value="#{productCrudBacking.product.id}" />
 
 						</h:panelGrid>
+						</rich:tab>
+						<rich:tab label="Advanced">
+							<h:outputText value="Creation Date" styleClass="formLabel" />
+							
+							<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
+								id="customer__creation"
+								value="#{productCrudBacking.product.dateCreated}">
+								
+							</t:inputCalendar >
+							
+							<h:message for="customer__dob" styleClass="errMessage" />
+				
+						
+						</rich:tab>
 						
 						
-						
-				</rich:panel>
+				</rich:tabPanel>
+					
 			</a4j:form>
 		</f:view>
 

@@ -1,0 +1,26 @@
+
+		
+		
+
+  <bean id="promotionsMailerTaskcronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    <property name="promotionsMailerTaskjobDetail" ref="exampleJob" />
+    <property name="cronExpression" value="0 15 4 ? * MON-FRI" />
+  </bean>
+  
+  <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+    <property name="triggers">
+        <list>
+            <ref bean="promotionsMailerTaskcronTrigger" />
+        </list>
+    </property>
+   </bean>
+
+	<bean id="promotionsMailerTaskJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	  <property name="targetObject" ref="exampleBusinessObject" />
+	  <property name="targetMethod" value="doIt" />
+	  <property name="concurrent" value="false" />
+	</bean>
+
+
+		</beans>
+	

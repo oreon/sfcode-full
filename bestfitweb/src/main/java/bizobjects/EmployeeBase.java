@@ -1,6 +1,7 @@
 package bizobjects;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @MappedSuperclass
 public abstract class EmployeeBase extends Person
@@ -13,6 +14,7 @@ public abstract class EmployeeBase extends Person
 
 	@Column(nullable = false, unique = true)
 	public int getCode() {
+
 		return this.code;
 	}
 

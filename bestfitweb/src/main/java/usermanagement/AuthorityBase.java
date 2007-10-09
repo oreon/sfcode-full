@@ -1,6 +1,7 @@
 package usermanagement;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @MappedSuperclass
 public abstract class AuthorityBase
