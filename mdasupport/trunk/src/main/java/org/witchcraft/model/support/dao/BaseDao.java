@@ -31,7 +31,7 @@ public class BaseDao<T> implements GenericDAO<T> {
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 		Session session = (Session) entityManager.getDelegate();
-		session.getSessionFactory().openSession(interceptor);
+		session = session.getSessionFactory().openSession(interceptor);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -67,7 +67,7 @@ public class BaseDao<T> implements GenericDAO<T> {
 		BusinessEntity be = (BusinessEntity) entity;
 
 		if (be.getId() != null)
-			entityManager.merge(entity);
+			entity = entityManager.merge(entity);
 		else
 			entityManager.persist(entity);
 
@@ -96,6 +96,8 @@ public class BaseDao<T> implements GenericDAO<T> {
 	public List<T> searchByExample(T exampleInstance) {
 
 		Session session = (Session) entityManager.getDelegate();
+		
+		
 
 		Example example = Example.create(exampleInstance).enableLike(
 				MatchMode.START).ignoreCase().excludeZeroes();
