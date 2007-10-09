@@ -20,26 +20,34 @@ public class EntityAuditLogInterceptor extends EmptyInterceptor {
 
 	private AuditLogDao auditLogDao;
 
+	@Override
 	public boolean onSave(Object entity, Serializable id, Object[] state,
-			String[] propertyNames, Type[] types) {
+			String[] propertyNames, org.hibernate.type.Type[] types) {
 		
 		saveAuditLog(entity, AuditAction.CREATE);
 		return false;
 	}
+	
 
+	@Override
 	public boolean onFlushDirty(Object entity, Serializable id,
 			Object[] currentState, Object[] previousState,
-			String[] propertyNames, Type[] types) {
+			String[] propertyNames, org.hibernate.type.Type[] types) {
+		// TODO Auto-generated method stub
 		saveAuditLog(entity, AuditAction.EDIT);
 		return false;
 	}
-	
+		
+	@Override
 	public void onDelete(Object entity, Serializable id, Object[] state,
-			String[] propertyNames, Type[] types) {
+			String[] propertyNames, org.hibernate.type.Type[] types) {
 		saveAuditLog(entity, AuditAction.DELETE);
 	}
 	
 	private void saveAuditLog(Object entity, AuditAction action) {
+		
+		System.out.println("SAVE AUDIT LOG CALLED");
+		
 		if (entity instanceof Auditable) {
 			
 			SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -52,6 +60,10 @@ public class EntityAuditLogInterceptor extends EmptyInterceptor {
 			
 			auditLogDao.save(auditLog);
 		}
+	}
+
+	public void setAuditLogDao(AuditLogDao auditLogDao) {
+		this.auditLogDao = auditLogDao;
 	}
 
 	

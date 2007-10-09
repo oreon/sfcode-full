@@ -63,6 +63,9 @@ public class BaseDao<T> implements GenericDAO<T> {
 		 * FIXME : This code will make if (!entityManager.contains(entity))
 		 * entityManager.persist(entity); else entityManager.merge(entity);
 		 */
+		
+		Session session = (Session) entityManager.getDelegate();
+		session = session.getSessionFactory().openSession(interceptor);
 
 		BusinessEntity be = (BusinessEntity) entity;
 
@@ -71,6 +74,8 @@ public class BaseDao<T> implements GenericDAO<T> {
 		else
 			entityManager.persist(entity);
 
+		interceptor.onSave(entity, "TESTUSER",  null, null , null );
+		
 		return entity;
 	}
 
