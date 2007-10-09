@@ -15,7 +15,10 @@ public class Column extends Attribute{
 	private int minLength;
 	private boolean searchable;
 	private String derived; 
-	
+	//View properties
+	private String validator;
+	private String inputType;
+	private String access;
 	
 	private String containerName;
 	
@@ -71,6 +74,24 @@ public class Column extends Attribute{
 	}
 	public void setDerived(String derived) {
 		this.derived = derived;
+	}
+	public String getValidator() {
+		return validator;
+	}
+	public void setValidator(String validator) {
+		this.validator = validator;
+	}
+	public String getInputType() {
+		return inputType;
+	}
+	public void setInputType(String inputType) {
+		this.inputType = inputType;
+	}
+	public String getAccess() {
+		return access;
+	}
+	public void setAccess(String access) {
+		this.access = access;
 	} 
 	
 

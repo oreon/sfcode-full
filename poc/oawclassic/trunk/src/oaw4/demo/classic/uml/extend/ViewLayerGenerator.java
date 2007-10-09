@@ -210,12 +210,15 @@ public class ViewLayerGenerator {
 
 			prevNameSpace = entity.Namespace().NameS();
 		}
-
+	
 		if (!entites.isEmpty())
 			data.append("</rich:panelMenuGroup>");
-
+	
+		
 		return data.toString();
 	}
+
+	
 
 	/**
 	 * returns the immediate parent package i.e for org.withchraft.model.dao it

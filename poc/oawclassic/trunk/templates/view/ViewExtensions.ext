@@ -2,6 +2,7 @@
 import org::openarchitectureware::meta::uml::classifier;
 import org::openarchitectureware::meta::uml::classifier::Class;
 import org::openarchitectureware::meta::uml::state;
+import  oaw4::demo::classic::uml::meta;
 
 String getViewXHTML(Class cls) :
 JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getView(org.openarchitectureware.meta.uml.classifier.Class);
@@ -31,6 +32,18 @@ JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getElementAttributes(org.op
 
 String getElementRequired (Attribute attribute) :
 JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getElementRequired(org.openarchitectureware.meta.uml.classifier.Attribute);
+
+String getAccessControlBegin(Column column):
+column.getAccess != null ?"<acegijsf:authorize ifAnyGranted=\"" +  column.getAccess + "\">":"";
+
+String getAccessControlBegin (Attribute attribute):
+"";
+
+String getAccessControlEnd (Attribute attribute):
+"";
+
+String getAccessControlEnd (Column column):
+column.getAccess != null ?"</acegijsf:authorize>":"";
 
 String getEntitiesLeftNavMenu():
 JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getEntitiesLeftNavMenu();

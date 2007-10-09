@@ -43,16 +43,18 @@
 						</f:facet>
 						
 							«FOREACH getAllAttributes AS attrib-»
-							<h:outputText value="«attrib.NameS.toFirstUpper() + (attrib.getElementRequired()?"*":"") »" styleClass="formLabel" />
-							
-							<«attrib.getElementType()»  «attrib.getElementAttributes()»  required="«attrib.getElementRequired()»" 
-								id="«asInstanceVar()»_«attrib.TypeModifier»_«attrib.NameS»"
-								value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«attrib.fullName()»}">
-								«attrib.getElementContent()»
-							</«attrib.getElementType()»>
-							
-							<h:message for="«asInstanceVar()»_«attrib.TypeModifier»_«attrib.NameS»" styleClass="errMessage" />
-							
+								«attrib.getAccessControlBegin()»
+								<h:outputText value="«attrib.NameS.toFirstUpper() + (attrib.getElementRequired()?"*":"") »" styleClass="formLabel" />
+								
+								<«attrib.getElementType()»  «attrib.getElementAttributes()»  required="«attrib.getElementRequired()»" 
+									id="«asInstanceVar()»_«attrib.TypeModifier»_«attrib.NameS»"
+									value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«attrib.fullName()»}">
+									«attrib.getElementContent()»
+								</«attrib.getElementType()»>
+								
+								<h:message for="«asInstanceVar()»_«attrib.TypeModifier»_«attrib.NameS»" styleClass="errMessage" />
+								
+								«attrib.getAccessControlEnd()»
 							«ENDFOREACH»
 							
 							«REM»The associated entites for e.g an order would need a customer «ENDREM»
@@ -61,7 +63,7 @@
 			
 								<h:selectOneMenu  required="«!ae.isAssocNullable()»" 
 									id="«asInstanceVar()»_«ae.NameS»"
-									value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.NameS».id}">
+									value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.NameS»}">
 									<f:selectItem itemLabel="Select" />
 									<f:selectItems value="#{«ae.Class.NameS.toFirstLower()»CrudBacking.asSelectItems}" />
 								</h:selectOneMenu>
@@ -75,6 +77,10 @@
   						    <h:commandButton id="button2" value="Cancel" action="#{«asInstanceVar()»CrudBacking.cancelUpdate}" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="«asInstanceVar()»_id" value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».id}" />
+		  				   	«REM»We need to have hidden ids of all one to one associations «ENDREM»
+		  				   	«FOREACH AssociationEnd.select(ae| ae.Opposite.isNavigable && ae.isOneOnOne()) AS ae-»
+								<h:inputHidden id="«ae.Opposite.NameS»_id" value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.Opposite.NameS».id}" />
+							«ENDFOREACH»
 
 						
 						</h:panelGrid>
@@ -85,7 +91,7 @@
 						«REM»Composed collections e.g an order contains orderitems «ENDREM»
 						«FOREACH AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable && ae.Opposite.isComposition) AS ae-»
 							<rich:simpleTogglePanel switchType="client" label="«ae.NameS.toFirstUpper()»">
-							<t:dataTable id="data" var="«ae.Class.asInstanceVar()»"
+							<t:dataTable id="«ae.NameS»_data" var="«ae.Class.asInstanceVar()»"
 								value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.NameS»}" rows="10"
 							rowClasses="odd, even" styleClass="dataTable">
 							
@@ -96,6 +102,7 @@
 						
 							</t:dataTable>
 							</rich:simpleTogglePanel>
+							<br/>
 							
 						«ENDFOREACH»
 						
@@ -141,7 +148,7 @@
 							
 							«ENDFOREACH»
 							
-  						   <h:commandButton id="button1" value="Submit" action="#{«asInstanceVar()»CrudBacking.search}"/> 
+  						   <h:commandButton id="button1" value="Submit" action="#{«asInstanceVar()»CrudBacking.search}"  /> 
   						    <h:commandButton id="button2" value="Cancel" action="#{«asInstanceVar()»CrudBacking.cancelSearch}" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="«asInstanceVar()»_id" value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».id}" />

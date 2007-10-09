@@ -10,6 +10,8 @@ import org.openarchitectureware.meta.uml.classifier.Class;
 
 public abstract class AbstractEntity extends
 		org.openarchitectureware.meta.uml.classifier.Class {
+	
+	private String displayName;
 
 	/**
 	 * @return All elements which have Column stereotype applied
@@ -186,5 +188,18 @@ public abstract class AbstractEntity extends
 	
 		
 		return result;
+	}
+	
+	/** This value indicates how entitie's should be shown in associations
+	 * for instance for a person it can be "lastName, firstName" for product
+	 * it can be the product name
+	 * @return
+	 */
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 }

@@ -18,7 +18,7 @@ public class Entity extends AbstractEntity {
 	// should have this flag turned on
 	private boolean isUser;
 	private String tableName;
-	private String displayName;
+	
 
 	// this is needed when we need to manually supply a base class
 	// e.g for usermanagement the User class's base class has to be withcraft
@@ -90,17 +90,6 @@ public class Entity extends AbstractEntity {
 		this.baseClass = baseClass;
 	}
 
-	/** This value indicates how entitie's should be shown in associations
-	 * for instance for a person it can be "lastName, firstName" for product
-	 * it can be the product name
-	 * @return
-	 */
-	public String getDisplayName() {
-		return displayName;
-	}
-
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
-	}
+	
 
 }
