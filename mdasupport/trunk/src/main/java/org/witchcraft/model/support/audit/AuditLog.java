@@ -1,30 +1,30 @@
 package org.witchcraft.model.support.audit;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.witchcraft.model.support.BusinessEntity;
-import org.witchcraft.model.support.security.AbstractUser;
 
 /** This class represents an audit log entry
  * @author jsingh
  *
  */
 @Entity
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"dateCreated","username"})})
 public class AuditLog extends BusinessEntity{
 	private AuditAction action;
 	private String record;
-	private String table;
+	private String entityName;
 	private String username;
 	/*private AbstractUser user; */ 
 	
-	public AuditLog(AuditAction action, String record, String table,
+	public AuditLog(AuditAction action, String record, String entityName,
 			String username) {
 		super();
 		this.action = action;
 		this.record = record;
-		this.table = table;
+		this.entityName = entityName;
 		this.username = username;
 	}
 	
@@ -40,11 +40,11 @@ public class AuditLog extends BusinessEntity{
 	public void setRecord(String record) {
 		this.record = record;
 	}
-	public String getTable() {
-		return table;
+	public String getEntityName() {
+		return entityName;
 	}
-	public void setTable(String table) {
-		this.table = table; 
+	public void setEntityName(String entityName) {
+		this.entityName = entityName; 
 	}
 	/*
 	@ManyToOne
