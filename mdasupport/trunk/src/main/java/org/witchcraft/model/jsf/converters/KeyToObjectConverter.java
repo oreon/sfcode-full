@@ -2,13 +2,14 @@ package org.witchcraft.model.jsf.converters;
 
 import java.util.logging.Logger;
 
+import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import javax.servlet.ServletContext;
 
+import org.apache.commons.lang.StringUtils;
 import org.witchcraft.model.support.BusinessEntity;
 
 public class KeyToObjectConverter implements Converter {
@@ -20,8 +21,6 @@ public class KeyToObjectConverter implements Converter {
 
 	public String getAsString(FacesContext facesContext,
 			UIComponent uiComponent, Object obj) {
-		// log.severe("Object recieved was: " + obj + " Type: "
-		// + obj.getClass().getName());
 
 		System.out.println("returning " + obj);
 
@@ -33,33 +32,48 @@ public class KeyToObjectConverter implements Converter {
 	}
 
 	public Object getAsObject(FacesContext facesContext,
-			UIComponent uiComponent, String str) throws ConverterException {
+			UIComponent component, String value) throws ConverterException {
+		
+		if (value == null || value.equals(StringUtils.EMPTY)) {
+			return null;
+		}
+ 
+		long id;
+		try {
+			id = Long.parseLong(value);
+		} catch (NumberFormatException e) {
+			id = 0;
+			e.printStackTrace();
+		}
+	
+		
+		if (((UIInput) component).getValue() == null) {
+			return createNewValue(facesContext, component, id);
+		} else {
+			BusinessEntity be = (BusinessEntity) ((UIInput) component).getValue();
+			
+			//To be sure the valueChangeListener is called
+			if(be.getId() != id){
+				return createNewValue(facesContext, component, id);
+			}
+			return be;
+		}
 
-		ServletContext context = (ServletContext) facesContext.getCurrentInstance().getExternalContext();
-		//HttpSession session = context.get
-		BusinessEntity be = (BusinessEntity) ((UIInput) uiComponent).getValue();
-
-		System.out.println("get as objet returning "
-				+ (be != null ? be.getId() : ""));
-
-		return be;
 	}
 
-	/*
+
 	private Object createNewValue(FacesContext context, UIComponent component,
 			long id) {
-		component.get
+		//component.get
 		ValueExpression ve = component.getValueExpression("value");
 		try {
-			PersistentBean pk = (PersistentBean) ve.getType(
+			BusinessEntity pk = (BusinessEntity) ve.getType(
 					context.getELContext()).newInstance();
 			pk.setId(id);
 			return pk;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new RuntimeException(
-					"pbConverer error could not instanciate the assignable object of the persistent bean",
-					e);
+			throw new RuntimeException("Converer error could not instantiate the assignable object", e);
 		}
-	}*/
+	}
 }
