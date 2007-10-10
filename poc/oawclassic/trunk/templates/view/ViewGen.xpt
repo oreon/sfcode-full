@@ -62,7 +62,7 @@
 								<h:outputText value="«ae.NameS.toFirstUpper() + (ae.isAssocNullable()?"":"*") »" styleClass="formLabel" />
 			
 								<h:selectOneMenu  required="«!ae.isAssocNullable()»" 
-									id="«asInstanceVar()»_«ae.NameS»"
+									id="«asInstanceVar()»_«ae.NameS»" converter="keyToObjectConverter"
 									value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.NameS»}">
 									<f:selectItem itemLabel="Select" />
 									<f:selectItems value="#{«ae.Class.NameS.toFirstLower()»CrudBacking.asSelectItems}" />

@@ -43,7 +43,7 @@ public void remove«NameS.toFirstUpper()» («Class.fqn()»
 «IF Opposite.isNavigable »
 	@OneToMany(mappedBy="«Opposite.asParameter()»", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 «ELSE»
-	@OneToMany«Opposite.isComposition?"(cascade=CascadeType.ALL)":""»
+	@OneToMany«Opposite.isComposition?"(cascade=CascadeType.ALL)\n@Cascade({org.hibernate.annotations.CascadeType.DELETE_ORPHAN})":""»
 	@JoinColumn(name="«Opposite.NameS»_ID", nullable=false)
 «ENDIF»
 public java.util.Set<«Class.fqn()»> «asGetter()» () {
