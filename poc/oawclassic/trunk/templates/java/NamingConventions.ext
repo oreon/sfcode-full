@@ -81,6 +81,13 @@ String replaceSlashesWithDots(String source):
 JAVA oaw4.demo.classic.uml.extend.ClassUtil.replaceSlashesWithDots(java.lang.String);
 
 String getAnnotaitons(Entity entity):
-"@Entity\n" + (entity.getTableName == null ? "": "@Table(name=\"" + entity.getTableName + "\")");
+"@Entity\n@Table(" + getTableName(entity) + "," + getTableConstraints(entity) + ")";
+
+String getTableName(Entity entity):
+"name=\"" + (entity.getTableName == null ? entity.NameS: entity.getTableName) + "\"";
+
+String getTableConstraints(Entity entity):
+"uniqueConstraints={@UniqueConstraint(columnNames={\"" + (entity.getUniqueConstraints == null ? "": entity.getUniqueConstraints )+  "\"})}";
+
 
 

@@ -19,6 +19,8 @@ public class Entity extends AbstractEntity {
 	private boolean isUser;
 	private String tableName;
 	
+	private String uniqueConstraints;
+	
 
 	// this is needed when we need to manually supply a base class
 	// e.g for usermanagement the User class's base class has to be withcraft
@@ -88,6 +90,14 @@ public class Entity extends AbstractEntity {
 
 	public void setBaseClass(String baseClass) {
 		this.baseClass = baseClass;
+	}
+
+	public String getUniqueConstraints() {
+		return uniqueConstraints;
+	}
+
+	public void setUniqueConstraints(String uniqueConstraints) {
+		this.uniqueConstraints = uniqueConstraints;
 	}
 
 	
