@@ -27,6 +27,7 @@
 	
 	import org.witchcraft.model.support.errorhandling.BusinessException;
 	import org.witchcraft.model.jsf.JSFUtils;
+	import org.witchcraft.model.support.audit.AuditLog;
 	
 	
 	
@@ -96,6 +97,8 @@
 				return "search";
 			}
 			
+			
+			
 			/**If update is canceled we go to the listing page - invoked in response to clicking cancel 
 			* on save/edit record form
             * @return - "success" (always)
@@ -118,6 +121,11 @@
     			return "edit";
     		}
     
+    
+    	public List<AuditLog<«NameS»>> getAuditLog(){
+			return «asInstanceVar()»Service.getAuditLogs();
+		}
+
     
 	    /** This action Listener Method is called when a row is clicked in the dataTable
 	     *  

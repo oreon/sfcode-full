@@ -38,11 +38,13 @@
 	import usermanagement.Authority;
 	import usermanagement.service.AuthorityService;
 	
+	import org.witchcraft.model.support.dao.GenericDAO;
 	import org.witchcraft.model.support.errorhandling.BusinessException;
+	import org.witchcraft.model.support.service.BaseServiceImpl;
 	
 
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
-	public class «NameS»ServiceImplBase implements «NameS»Service{
+	public class «NameS»ServiceImplBase extends BaseServiceImpl<«NameS»> implements «NameS»Service{
 	
 		private static final Logger log = Logger.getLogger(«NameS»ServiceImplBase.class);
 		
@@ -50,6 +52,11 @@
 
 		public void set«NameS»Dao(«NameS»Dao «asInstanceVar()»Dao) {
 			this.«asInstanceVar()»Dao = «asInstanceVar()»Dao;
+		}
+		
+		@Override
+		public GenericDAO<«NameS»> getDao() {
+			return «asInstanceVar()»Dao;
 		}
 		
 		«IF isEntityUser()»
@@ -84,18 +91,6 @@
 			
 			}
 			
-			private void ensureUnique(«NameS» «asInstanceVar()», «NameS» existing«NameS», String exceptionId){
-				if (existing«NameS» == null)
-					return; //no customer exists with the given email - no need to check unique constraint violation
-				
-				if («asInstanceVar()».getId() == null) { // for a new entity
-						throw new BusinessException(exceptionId);
-				}else{//for updating an existing entiy
-					if(existing«NameS».getId().longValue() != «asInstanceVar()».getId().longValue())
-						throw new BusinessException(exceptionId);
-				}
-			
-			}
 		
 		«ENDIF»
 			
@@ -160,8 +155,9 @@
 	
 	import «packageName()».«NameS»;
 	import «packageName()».dao.«NameS»Dao;
+	import org.witchcraft.model.support.service.BaseService;
 	
-	public interface «NameS»Service extends  «NameS»Dao  {
+	public interface «NameS»Service extends  «NameS»Dao, BaseService  {
 		
 			
 	}		
