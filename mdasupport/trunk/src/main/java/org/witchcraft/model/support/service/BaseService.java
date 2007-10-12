@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.witchcraft.model.support.audit.AuditLog;
 
-public interface BaseService {
+public interface BaseService<T> {
 	
 	 /** Get the audit logs for this entity
      * @param <T>
      * @return
      */
-    public <T> List<AuditLog<T>> getAuditLogs();
+    public List<AuditLog<T>> getAuditLogs();
 
 }

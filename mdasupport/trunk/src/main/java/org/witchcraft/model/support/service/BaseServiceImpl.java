@@ -1,6 +1,8 @@
 package org.witchcraft.model.support.service;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +19,26 @@ import org.witchcraft.model.support.errorhandling.BusinessException;
  * @author jsingh
  *
  */
-public abstract class BaseServiceImpl {
+public abstract class BaseServiceImpl<T extends BusinessEntity> {
 	
 	private AuditLogDao auditLogDao;
+	
+	private Class<T> persistentService;
+	
+	@SuppressWarnings("unchecked")
+	public BaseServiceImpl() {
+
+		try {
+			Type superclass = ((Class) getClass().getGenericSuperclass())
+					.getGenericSuperclass();
+
+			this.persistentService = (Class<T>) ((ParameterizedType) superclass)
+					.getActualTypeArguments()[0];
+		} catch (ClassCastException cce) {
+			this.persistentService = (Class<T>) ((ParameterizedType) ((Class) getClass())
+					.getGenericSuperclass()).getActualTypeArguments()[0];
+		}
+	}
 
 	public void setAuditLogDao(AuditLogDao auditLogDao) {
 		this.auditLogDao = auditLogDao;
@@ -28,20 +47,18 @@ public abstract class BaseServiceImpl {
 	/** All concrete service classes extending from BaseServiceImpl should implement this method
  	 * @return
 	 */
-	public abstract <T> GenericDAO<T> getDao();
+	public abstract  GenericDAO<T> getDao();
 	
 	/** Returns the auditlogs for the entity T
 	 * @param <T>
 	 * @return
 	 */
 	@Transient
-	public <T> List<AuditLog<T>> getAuditLogs(){
-		
-		Class<T> t = (Class<T>) getMethodByName("getAuditLogs").getGenericReturnType();
-		String name= t.getCanonicalName();
+	public  List<AuditLog<T>> getAuditLogs(){
 		
 		List<AuditLog<T>> list = new ArrayList<AuditLog<T>>();
-		List<AuditLog> auditLogs =  auditLogDao.getAuditLogsForEntity(name);
+		List<AuditLog> auditLogs =  auditLogDao.getAuditLogsForEntity
+			(persistentService.getCanonicalName());
 		
 			
 		for (AuditLog auditLog : auditLogs) {
@@ -61,7 +78,7 @@ public abstract class BaseServiceImpl {
 		return null;
 	}
 	
-	protected <T extends BusinessEntity> void ensureUnique(T entity, T existingEntity,
+	protected  void ensureUnique(T entity, T existingEntity,
 			String exceptionId) {
 		if (existingEntity == null)
 			return; //no Entity exists with the given email - no need to check unique constraint violation
