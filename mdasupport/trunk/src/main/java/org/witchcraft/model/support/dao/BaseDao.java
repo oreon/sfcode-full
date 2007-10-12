@@ -78,7 +78,6 @@ public class BaseDao<T> implements GenericDAO<T> {
 			entityAuditLogInterceptor.onSave(entity, "TESTUSER",  null, null , null );
 		}
 		
-		
 		return entity;
 	}
 

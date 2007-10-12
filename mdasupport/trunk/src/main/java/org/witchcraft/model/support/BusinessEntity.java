@@ -1,5 +1,6 @@
 package org.witchcraft.model.support;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.GeneratedValue;
@@ -10,7 +11,7 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 
 @MappedSuperclass
-public class BusinessEntity {
+public class BusinessEntity implements Serializable{
 	private Long id;
 	protected Date dateCreated;
 	private Date dateModified = new Date();
@@ -55,6 +56,18 @@ public class BusinessEntity {
 	@Transient
 	public String getDisplayName(){
 		return toString();
+	}
+	
+	//TODO: Find a better equals strategy
+	@Override
+	public boolean equals(Object object) {
+		if (this == object){
+			return true;
+		}
+		if ((object == null) || !(object instanceof BusinessEntity)){
+			return false;
+		}
+		return ((BusinessEntity) object).getId().longValue() == getId().longValue();
 	}
 	
 }
