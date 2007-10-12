@@ -90,7 +90,16 @@ public class BaseDao<T> implements GenericDAO<T> {
 		String qryString = "select e from "
 				+ getPersistentClass().getSimpleName() + "  e ";
 		Query query = entityManager.createQuery(qryString);
+	
 		return query.getResultList();
+	}
+	
+	public int getCount(){
+		
+		String qryString = "select count(e) from "
+			+ getPersistentClass().getSimpleName() + "  e ";
+		 
+		return ((Integer)entityManager.createQuery(qryString).getSingleResult());
 	}
 
 	public void delete(T entity) {
@@ -104,8 +113,6 @@ public class BaseDao<T> implements GenericDAO<T> {
 
 		Session session = (Session) entityManager.getDelegate();
 		
-		
-
 		Example example = Example.create(exampleInstance).enableLike(
 				MatchMode.START).ignoreCase().excludeZeroes();
 

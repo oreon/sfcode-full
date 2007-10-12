@@ -14,7 +14,7 @@ import org.witchcraft.model.support.BusinessEntity;
  */
 @Entity
 //@Table(uniqueConstraints={@UniqueConstraint(columnNames={"dateCreated","username"})})
-public class AuditLog extends BusinessEntity{
+public class AuditLog<T> extends BusinessEntity{
 	private AuditAction action;
 	@Basic
 	private BusinessEntity record;
@@ -72,7 +72,7 @@ public class AuditLog extends BusinessEntity{
 	}
 	
 	@Transient
-	public <T> T getEntity(){
+	public  T getEntity(){
 		return (T) getRecord();
 	}
 	
