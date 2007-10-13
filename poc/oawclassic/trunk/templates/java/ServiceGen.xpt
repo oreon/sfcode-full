@@ -69,9 +69,14 @@
 		//// Delegate all crud operations to the Dao ////
 			
 		public «NameS» save(«NameS» «asInstanceVar()») {
+			Long id = «asInstanceVar()».getId();
 			«Unique.isEmpty?"":"checkUniqueConstraints("+asInstanceVar() +");"»
 			«asInstanceVar()»Dao.save(«asInstanceVar()»);
-			«isEntityUser()?"assignDefaultAuthority(" +  asInstanceVar()  + ");":""»
+			«IF isEntityUser()»
+			if(id == null) //creating user for first time, assign authority
+				assignDefaultAuthority(«asInstanceVar()»);
+			«ENDIF»
+			
 			return «asInstanceVar()»;
 		}
 		
@@ -97,9 +102,6 @@
 		«IF isEntityUser()»
 		
 			private void assignDefaultAuthority(«NameS» «asInstanceVar()») {
-				if(«asInstanceVar()».getId() != null )
-					return;
-			
 				Authority authority = new Authority();
 				authority.setUser(«asInstanceVar()».getUserAccount());
 				authority.setAuthority("«getDefaultRole != null? getDefaultRole : "ROLE_" +  NameS.toUpper»");
