@@ -40,10 +40,11 @@ public class TopicTestDataFactory extends AbstractTestDataFactory<Topic> {
 
 		try {
 
-			topic.setName("Malissa");
-			topic.setExpiry(dateFormat.parse("2007.10.26 04:36:00 EDT"));
-			topic.setStatus(com.publicfountain.domain.Status.Archived);
-			topic.setTopicType(com.publicfountain.domain.TopicType.Edtiorial);
+			topic.setName("delta");
+			topic.setExpiry(dateFormat.parse("2007.10.04 21:41:46 EDT"));
+			topic.setStatus(com.publicfountain.domain.Status.Active);
+			topic
+					.setTopicType(com.publicfountain.domain.TopicType.CustomOpinion);
 
 			TestDataFactory topicCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");
@@ -73,10 +74,10 @@ public class TopicTestDataFactory extends AbstractTestDataFactory<Topic> {
 
 		try {
 
-			topic.setName("John");
-			topic.setExpiry(dateFormat.parse("2007.09.25 12:57:05 EDT"));
-			topic.setStatus(com.publicfountain.domain.Status.Inactive);
-			topic.setTopicType(com.publicfountain.domain.TopicType.TopicOfDay);
+			topic.setName("beta");
+			topic.setExpiry(dateFormat.parse("2007.10.27 23:36:15 EDT"));
+			topic.setStatus(com.publicfountain.domain.Status.Archived);
+			topic.setTopicType(com.publicfountain.domain.TopicType.Edtiorial);
 
 			TestDataFactory topicCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");
@@ -106,10 +107,11 @@ public class TopicTestDataFactory extends AbstractTestDataFactory<Topic> {
 
 		try {
 
-			topic.setName("gamma");
-			topic.setExpiry(dateFormat.parse("2007.09.21 23:21:31 EDT"));
+			topic.setName("theta");
+			topic.setExpiry(dateFormat.parse("2007.11.08 10:40:41 EST"));
 			topic.setStatus(com.publicfountain.domain.Status.Inactive);
-			topic.setTopicType(com.publicfountain.domain.TopicType.TopicOfDay);
+			topic
+					.setTopicType(com.publicfountain.domain.TopicType.CustomOpinion);
 
 			TestDataFactory topicCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");
@@ -140,8 +142,8 @@ public class TopicTestDataFactory extends AbstractTestDataFactory<Topic> {
 		try {
 
 			topic.setName("epsilon");
-			topic.setExpiry(dateFormat.parse("2007.11.08 07:04:18 EST"));
-			topic.setStatus(com.publicfountain.domain.Status.Archived);
+			topic.setExpiry(dateFormat.parse("2007.09.27 14:23:28 EDT"));
+			topic.setStatus(com.publicfountain.domain.Status.Inactive);
 			topic.setTopicType(com.publicfountain.domain.TopicType.Video);
 
 			TestDataFactory topicCreatorTestDataFactory = (TestDataFactory) BeanHelper
@@ -172,10 +174,10 @@ public class TopicTestDataFactory extends AbstractTestDataFactory<Topic> {
 
 		try {
 
-			topic.setName("Mark");
-			topic.setExpiry(dateFormat.parse("2007.11.05 11:53:45 EST"));
+			topic.setName("delta");
+			topic.setExpiry(dateFormat.parse("2007.11.06 05:16:48 EST"));
 			topic.setStatus(com.publicfountain.domain.Status.Inactive);
-			topic.setTopicType(com.publicfountain.domain.TopicType.TopicOfDay);
+			topic.setTopicType(com.publicfountain.domain.TopicType.Video);
 
 			TestDataFactory topicCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");

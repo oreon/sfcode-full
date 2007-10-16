@@ -49,9 +49,9 @@ public class OrderItemDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			orderItemInstance.setSalePrice(97.06);
+			orderItemInstance.setSalePrice(21.19);
 			orderItemInstance.setQuantity(1);
-			orderItemInstance.setTotal(88.47);
+			orderItemInstance.setTotal(32.77);
 
 			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("productTestDataFactory");
@@ -82,9 +82,9 @@ public class OrderItemDaoTest extends AbstractJpaTests {
 
 			try {
 
-				orderItem.setSalePrice(25.67);
+				orderItem.setSalePrice(52.63);
 				orderItem.setQuantity(1);
-				orderItem.setTotal(30.29);
+				orderItem.setTotal(79.36);
 
 				TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("productTestDataFactory");
@@ -111,9 +111,9 @@ public class OrderItemDaoTest extends AbstractJpaTests {
 			OrderItem orderItem = (OrderItem) orderItemTestDataFactory
 					.loadOneRecord();
 
-			orderItem.setSalePrice(83.97);
+			orderItem.setSalePrice(96.86);
 			orderItem.setQuantity(1);
-			orderItem.setTotal(17.36);
+			orderItem.setTotal(56.6);
 
 			orderItemService.save(orderItem);
 

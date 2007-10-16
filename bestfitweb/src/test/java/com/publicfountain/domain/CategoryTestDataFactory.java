@@ -40,7 +40,7 @@ public class CategoryTestDataFactory extends AbstractTestDataFactory<Category> {
 
 		try {
 
-			category.setName("Malissa");
+			category.setName("Wilson");
 
 			TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -59,7 +59,7 @@ public class CategoryTestDataFactory extends AbstractTestDataFactory<Category> {
 
 		try {
 
-			category.setName("Malissa");
+			category.setName("Wilson");
 
 			TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -78,7 +78,7 @@ public class CategoryTestDataFactory extends AbstractTestDataFactory<Category> {
 
 		try {
 
-			category.setName("alpha");
+			category.setName("beta");
 
 			TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -97,7 +97,7 @@ public class CategoryTestDataFactory extends AbstractTestDataFactory<Category> {
 
 		try {
 
-			category.setName("Lavendar");
+			category.setName("zeta");
 
 			TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
