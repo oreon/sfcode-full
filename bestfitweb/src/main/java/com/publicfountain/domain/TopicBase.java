@@ -1,9 +1,12 @@
 package com.publicfountain.domain;
 
 import javax.persistence.*;
+import org.hibernate.annotations.Cascade;
 import java.util.Date;
 
 @MappedSuperclass
+/*@Entity
+@Table(name="Topic",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
 public abstract class TopicBase
 		extends
 			org.witchcraft.model.support.BusinessEntity

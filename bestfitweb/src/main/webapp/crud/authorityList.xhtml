@@ -28,9 +28,7 @@
 							
 	<t:column>
 		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Authority" arrow="true"> -->
 				<t:outputText value="Authority" /> 
-			<!-- </t:commandSortHeader> -->
 		</f:facet>
 		<t:outputText value="#{authority.authority}" />
 	</t:column>
@@ -68,7 +66,49 @@
 							 </rich:tab>
 							 
 							 <rich:tab label="Audit" >
-							 	<b> Show the audit view here </b>
+							 	<t:dataTable id="dataAudit" var="log"
+							value="#{productCrudBacking.auditLog}" rows="30"
+							rowClasses="odd, even" styleClass="dataTable">
+							
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
+									<t:outputText value="Date" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.dateCreated}" />
+							</t:column>
+							
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="Brand" arrow="true"> -->
+									<t:outputText value="Action" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.action}" />
+							</t:column>
+
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
+									<t:outputText value="User" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.username}" />
+							</t:column>
+							
+							
+							
+							
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="Authority" /> 
+		</f:facet>
+		<t:outputText value="#{log.entity.authority}" />
+	</t:column>
+							
+							
+							</t:dataTable>
 							 </rich:tab>
 							 
 							</rich:tabPanel>

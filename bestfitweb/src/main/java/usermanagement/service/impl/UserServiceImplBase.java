@@ -14,10 +14,14 @@ import org.apache.log4j.Logger;
 import usermanagement.Authority;
 import usermanagement.service.AuthorityService;
 
+import org.witchcraft.model.support.dao.GenericDAO;
 import org.witchcraft.model.support.errorhandling.BusinessException;
+import org.witchcraft.model.support.service.BaseServiceImpl;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-public class UserServiceImplBase implements UserService {
+public class UserServiceImplBase extends BaseServiceImpl<User>
+		implements
+			UserService {
 
 	private static final Logger log = Logger
 			.getLogger(UserServiceImplBase.class);
@@ -28,9 +32,15 @@ public class UserServiceImplBase implements UserService {
 		this.userDao = userDao;
 	}
 
+	@Override
+	public GenericDAO<User> getDao() {
+		return userDao;
+	}
+
 	//// Delegate all crud operations to the Dao ////
 
 	public User save(User user) {
+		Long id = user.getId();
 		checkUniqueConstraints(user);
 		userDao.save(user);
 
@@ -46,19 +56,6 @@ public class UserServiceImplBase implements UserService {
 
 		existingUser = userDao.findByUsername(user.getUsername());
 		ensureUnique(user, existingUser, "Entity.exists.withUsername");
-
-	}
-
-	private void ensureUnique(User user, User existingUser, String exceptionId) {
-		if (existingUser == null)
-			return; //no customer exists with the given email - no need to check unique constraint violation
-
-		if (user.getId() == null) { // for a new entity
-			throw new BusinessException(exceptionId);
-		} else {//for updating an existing entiy
-			if (existingUser.getId().longValue() != user.getId().longValue())
-				throw new BusinessException(exceptionId);
-		}
 
 	}
 

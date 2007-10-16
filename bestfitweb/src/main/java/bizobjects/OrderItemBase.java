@@ -1,9 +1,12 @@
 package bizobjects;
 
 import javax.persistence.*;
+import org.hibernate.annotations.Cascade;
 import java.util.Date;
 
 @MappedSuperclass
+/*@Entity
+@Table(name="OrderItem",uniqueConstraints={@UniqueConstraint(columnNames={product_id, order_id})})*/
 public abstract class OrderItemBase
 		extends
 			org.witchcraft.model.support.BusinessEntity

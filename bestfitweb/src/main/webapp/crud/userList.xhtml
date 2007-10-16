@@ -28,27 +28,21 @@
 							
 	<t:column>
 		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Username" arrow="true"> -->
 				<t:outputText value="Username" /> 
-			<!-- </t:commandSortHeader> -->
 		</f:facet>
 		<t:outputText value="#{user.username}" />
 	</t:column>
 
 	<t:column>
 		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Password" arrow="true"> -->
 				<t:outputText value="Password" /> 
-			<!-- </t:commandSortHeader> -->
 		</f:facet>
 		<t:outputText value="#{user.password}" />
 	</t:column>
 
 	<t:column>
 		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Enabled" arrow="true"> -->
 				<t:outputText value="Enabled" /> 
-			<!-- </t:commandSortHeader> -->
 		</f:facet>
 		<t:outputText value="#{user.enabled}" />
 	</t:column>
@@ -77,7 +71,63 @@
 							 </rich:tab>
 							 
 							 <rich:tab label="Audit" >
-							 	<b> Show the audit view here </b>
+							 	<t:dataTable id="dataAudit" var="log"
+							value="#{productCrudBacking.auditLog}" rows="30"
+							rowClasses="odd, even" styleClass="dataTable">
+							
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
+									<t:outputText value="Date" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.dateCreated}" />
+							</t:column>
+							
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="Brand" arrow="true"> -->
+									<t:outputText value="Action" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.action}" />
+							</t:column>
+
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
+									<t:outputText value="User" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.username}" />
+							</t:column>
+							
+							
+							
+							
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="Username" /> 
+		</f:facet>
+		<t:outputText value="#{log.entity.username}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="Password" /> 
+		</f:facet>
+		<t:outputText value="#{log.entity.password}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="Enabled" /> 
+		</f:facet>
+		<t:outputText value="#{log.entity.enabled}" />
+	</t:column>
+							
+							
+							</t:dataTable>
 							 </rich:tab>
 							 
 							</rich:tabPanel>

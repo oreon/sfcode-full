@@ -26,63 +26,63 @@
 								styleClass="formHeaderText"   />
 						</f:facet>
 						
-								
-								<h:outputText value="SalePrice" styleClass="formLabel" />
-								
-								<h:inputText    required="false" 
-									id="orderItem__salePrice"
-									value="#{orderItemCrudBacking.orderItem.salePrice}">
-									
-								</h:inputText>
-								
-								<h:message for="orderItem__salePrice" styleClass="errMessage" />
-								
-								
-								
-								<h:outputText value="Quantity" styleClass="formLabel" />
-								
-								<h:inputText    required="false" 
-									id="orderItem__quantity"
-									value="#{orderItemCrudBacking.orderItem.quantity}">
-									
-								</h:inputText>
-								
-								<h:message for="orderItem__quantity" styleClass="errMessage" />
-								
-								
-								
-								<h:outputText value="Total*" styleClass="formLabel" />
-								
-								<h:inputText    required="true" 
-									id="orderItem__total"
-									value="#{orderItemCrudBacking.orderItem.total}">
-									
-								</h:inputText>
-								
-								<h:message for="orderItem__total" styleClass="errMessage" />
-								
-								
-							
-							
 							
 								<h:outputText value="Product*" styleClass="formLabel" />
-			
-								<h:selectOneMenu  required="true" 
-									id="orderItem_product"
-									value="#{orderItemCrudBacking.orderItem.product}">
-									<f:selectItem itemLabel="Select" />
-									<f:selectItems value="#{productCrudBacking.asSelectItems}" />
-								</h:selectOneMenu>
-											
-								<h:message for="orderItem_product" styleClass="errMessage" />
+								
+	<h:selectOneMenu  required="true" 
+		id="orderItem_product" converter="keyToObjectConverter"
+		value="#{orderItemCrudBacking.orderItem.product}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{productCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<h:message for="orderItem_product" styleClass="errMessage" />
+
+							
+							
+							
+	
+	<h:outputText value="SalePrice" styleClass="formLabel" />
+	
+	<h:inputText    required="false" 
+		id="orderItem__salePrice"
+		value="#{orderItemCrudBacking.orderItem.salePrice}">
+		
+	</h:inputText>
+
+	<h:message for="salePrice__salePrice" styleClass="errMessage" />
+	
+
+	
+	<h:outputText value="Quantity" styleClass="formLabel" />
+	
+	<h:inputText    required="false" 
+		id="orderItem__quantity"
+		value="#{orderItemCrudBacking.orderItem.quantity}">
+		
+	</h:inputText>
+
+	<h:message for="quantity__quantity" styleClass="errMessage" />
+	
+
+	
+	<h:outputText value="Total*" styleClass="formLabel" />
+	
+	<h:inputText    required="true" 
+		id="orderItem__total"
+		value="#{orderItemCrudBacking.orderItem.total}">
+		
+	</h:inputText>
+
+	<h:message for="total__total" styleClass="errMessage" />
+	
+					
 				
-							
-						
-							
   						   <h:commandButton id="button1" value="Submit" action="#{orderItemCrudBacking.update}"/> 
   						    <h:commandButton id="button2" value="Cancel" action="#{orderItemCrudBacking.cancelUpdate}" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="orderItem_id" value="#{orderItemCrudBacking.orderItem.id}" />
+		  				   	
 		  				   	
 		  				   	
 

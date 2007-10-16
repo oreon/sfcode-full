@@ -1,9 +1,12 @@
 package bizobjects;
 
 import javax.persistence.*;
+import org.hibernate.annotations.Cascade;
 import java.util.Date;
 
 @MappedSuperclass
+/*@Entity
+@Table(name="PlacedOrder",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
 public abstract class PlacedOrderBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
@@ -82,6 +85,7 @@ public abstract class PlacedOrderBase
 	}
 
 	@OneToMany(cascade = CascadeType.ALL)
+	@Cascade({org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
 	@JoinColumn(name = "order_ID", nullable = false)
 	public java.util.Set<bizobjects.OrderItem> getOrderItems() {
 		return this.orderItems;

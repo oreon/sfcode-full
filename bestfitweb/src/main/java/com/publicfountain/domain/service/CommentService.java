@@ -2,7 +2,8 @@ package com.publicfountain.domain.service;
 
 import com.publicfountain.domain.Comment;
 import com.publicfountain.domain.dao.CommentDao;
+import org.witchcraft.model.support.service.BaseService;
 
-public interface CommentService extends CommentDao {
+public interface CommentService extends CommentDao, BaseService {
 
 }

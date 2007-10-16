@@ -28,36 +28,28 @@
 							
 	<t:column>
 		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Remarks" arrow="true"> -->
 				<t:outputText value="Remarks" /> 
-			<!-- </t:commandSortHeader> -->
 		</f:facet>
 		<t:outputText value="#{placedOrder.remarks}" />
 	</t:column>
 
 	<t:column>
 		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="PaymentMethod" arrow="true"> -->
 				<t:outputText value="PaymentMethod" /> 
-			<!-- </t:commandSortHeader> -->
 		</f:facet>
 		<t:outputText value="#{placedOrder.paymentMethod}" />
 	</t:column>
 
 	<t:column>
 		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Status" arrow="true"> -->
 				<t:outputText value="Status" /> 
-			<!-- </t:commandSortHeader> -->
 		</f:facet>
 		<t:outputText value="#{placedOrder.status}" />
 	</t:column>
 
 	<t:column>
 		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Total" arrow="true"> -->
 				<t:outputText value="Total" /> 
-			<!-- </t:commandSortHeader> -->
 		</f:facet>
 		<t:outputText value="#{placedOrder.total}" />
 	</t:column>
@@ -95,7 +87,70 @@
 							 </rich:tab>
 							 
 							 <rich:tab label="Audit" >
-							 	<b> Show the audit view here </b>
+							 	<t:dataTable id="dataAudit" var="log"
+							value="#{productCrudBacking.auditLog}" rows="30"
+							rowClasses="odd, even" styleClass="dataTable">
+							
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
+									<t:outputText value="Date" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.dateCreated}" />
+							</t:column>
+							
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="Brand" arrow="true"> -->
+									<t:outputText value="Action" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.action}" />
+							</t:column>
+
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
+									<t:outputText value="User" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.username}" />
+							</t:column>
+							
+							
+							
+							
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="Remarks" /> 
+		</f:facet>
+		<t:outputText value="#{log.entity.remarks}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="PaymentMethod" /> 
+		</f:facet>
+		<t:outputText value="#{log.entity.paymentMethod}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="Status" /> 
+		</f:facet>
+		<t:outputText value="#{log.entity.status}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="Total" /> 
+		</f:facet>
+		<t:outputText value="#{log.entity.total}" />
+	</t:column>
+							
+							
+							</t:dataTable>
 							 </rich:tab>
 							 
 							</rich:tabPanel>

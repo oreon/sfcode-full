@@ -16,6 +16,7 @@ import org.springframework.dao.DataAccessException;
 
 import org.witchcraft.model.support.errorhandling.BusinessException;
 import org.witchcraft.model.jsf.JSFUtils;
+import org.witchcraft.model.support.audit.AuditLog;
 
 public class EmployeeBackingBean {
 
@@ -109,6 +110,10 @@ public class EmployeeBackingBean {
 	 */
 	public String select() {
 		return "edit";
+	}
+
+	public List<AuditLog<Employee>> getAuditLog() {
+		return employeeService.getAuditLogs();
 	}
 
 	/** This action Listener Method is called when a row is clicked in the dataTable

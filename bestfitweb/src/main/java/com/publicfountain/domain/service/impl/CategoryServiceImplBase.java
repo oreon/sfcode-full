@@ -14,10 +14,14 @@ import org.apache.log4j.Logger;
 import usermanagement.Authority;
 import usermanagement.service.AuthorityService;
 
+import org.witchcraft.model.support.dao.GenericDAO;
 import org.witchcraft.model.support.errorhandling.BusinessException;
+import org.witchcraft.model.support.service.BaseServiceImpl;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-public class CategoryServiceImplBase implements CategoryService {
+public class CategoryServiceImplBase extends BaseServiceImpl<Category>
+		implements
+			CategoryService {
 
 	private static final Logger log = Logger
 			.getLogger(CategoryServiceImplBase.class);
@@ -28,9 +32,15 @@ public class CategoryServiceImplBase implements CategoryService {
 		this.categoryDao = categoryDao;
 	}
 
+	@Override
+	public GenericDAO<Category> getDao() {
+		return categoryDao;
+	}
+
 	//// Delegate all crud operations to the Dao ////
 
 	public Category save(Category category) {
+		Long id = category.getId();
 
 		categoryDao.save(category);
 

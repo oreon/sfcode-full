@@ -1,9 +1,12 @@
 package usermanagement;
 
 import javax.persistence.*;
+import org.hibernate.annotations.Cascade;
 import java.util.Date;
 
 @MappedSuperclass
+/*@Entity
+@Table(name="users",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
 public abstract class UserBase
 		extends
 			org.witchcraft.model.support.security.AbstractUser

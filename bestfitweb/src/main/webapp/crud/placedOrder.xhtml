@@ -26,75 +26,75 @@
 								styleClass="formHeaderText"   />
 						</f:facet>
 						
-								
-								<h:outputText value="Remarks" styleClass="formLabel" />
-								
-								<h:inputText    required="false" 
-									id="placedOrder__remarks"
-									value="#{placedOrderCrudBacking.placedOrder.remarks}">
-									
-								</h:inputText>
-								
-								<h:message for="placedOrder__remarks" styleClass="errMessage" />
-								
-								
-								
-								<h:outputText value="PaymentMethod" styleClass="formLabel" />
-								
-								<h:inputText    required="false" 
-									id="placedOrder__paymentMethod"
-									value="#{placedOrderCrudBacking.placedOrder.paymentMethod}">
-									
-								</h:inputText>
-								
-								<h:message for="placedOrder__paymentMethod" styleClass="errMessage" />
-								
-								
-								
-								<h:outputText value="Status" styleClass="formLabel" />
-								
-								<h:selectOneMenu    required="false" 
-									id="placedOrder__status"
-									value="#{placedOrderCrudBacking.placedOrder.status}">
-									<f:selectItem itemLabel="NEW" itemValue="NEW" /><f:selectItem itemLabel="COMPLETED" itemValue="COMPLETED" /><f:selectItem itemLabel="SHIPPED" itemValue="SHIPPED" />
-								</h:selectOneMenu>
-								
-								<h:message for="placedOrder__status" styleClass="errMessage" />
-								
-								
-								
-								<h:outputText value="Total*" styleClass="formLabel" />
-								
-								<h:inputText    required="true" 
-									id="placedOrder__total"
-									value="#{placedOrderCrudBacking.placedOrder.total}">
-									
-								</h:inputText>
-								
-								<h:message for="placedOrder__total" styleClass="errMessage" />
-								
-								
-							
-							
 							
 								<h:outputText value="Customer*" styleClass="formLabel" />
-			
-								<h:selectOneMenu  required="true" 
-									id="placedOrder_customer"
-									value="#{placedOrderCrudBacking.placedOrder.customer}">
-									<f:selectItem itemLabel="Select" />
-									<f:selectItems value="#{customerCrudBacking.asSelectItems}" />
-								</h:selectOneMenu>
-											
-								<h:message for="placedOrder_customer" styleClass="errMessage" />
+								
+	<h:selectOneMenu  required="true" 
+		id="placedOrder_customer" converter="keyToObjectConverter"
+		value="#{placedOrderCrudBacking.placedOrder.customer}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{customerCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<h:message for="placedOrder_customer" styleClass="errMessage" />
+
+							
+							
+							
+	
+	<h:outputText value="Remarks" styleClass="formLabel" />
+	
+	<h:inputText    required="false" 
+		id="placedOrder__remarks"
+		value="#{placedOrderCrudBacking.placedOrder.remarks}">
+		
+	</h:inputText>
+
+	<h:message for="remarks__remarks" styleClass="errMessage" />
+	
+
+	
+	<h:outputText value="PaymentMethod" styleClass="formLabel" />
+	
+	<h:inputText    required="false" 
+		id="placedOrder__paymentMethod"
+		value="#{placedOrderCrudBacking.placedOrder.paymentMethod}">
+		
+	</h:inputText>
+
+	<h:message for="paymentMethod__paymentMethod" styleClass="errMessage" />
+	
+
+	
+	<h:outputText value="Status" styleClass="formLabel" />
+	
+	<h:selectOneMenu    required="false" 
+		id="placedOrder__status"
+		value="#{placedOrderCrudBacking.placedOrder.status}">
+		<f:selectItem itemLabel="NEW" itemValue="NEW" /><f:selectItem itemLabel="COMPLETED" itemValue="COMPLETED" /><f:selectItem itemLabel="SHIPPED" itemValue="SHIPPED" />
+	</h:selectOneMenu>
+
+	<h:message for="status__status" styleClass="errMessage" />
+	
+
+	
+	<h:outputText value="Total*" styleClass="formLabel" />
+	
+	<h:inputText    required="true" 
+		id="placedOrder__total"
+		value="#{placedOrderCrudBacking.placedOrder.total}">
+		
+	</h:inputText>
+
+	<h:message for="total__total" styleClass="errMessage" />
+	
+					
 				
-							
-						
-							
   						   <h:commandButton id="button1" value="Submit" action="#{placedOrderCrudBacking.update}"/> 
   						    <h:commandButton id="button2" value="Cancel" action="#{placedOrderCrudBacking.cancelUpdate}" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="placedOrder_id" value="#{placedOrderCrudBacking.placedOrder.id}" />
+		  				   	
 		  				   	
 		  				   	
 
@@ -110,45 +110,61 @@
 								value="#{placedOrderCrudBacking.placedOrder.orderItems}" rows="10"
 							rowClasses="odd, even" styleClass="dataTable">
 							
+							 
 							
 	<t:column>
 		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="SalePrice" arrow="true"> -->
-				<t:outputText value="SalePrice" /> 
-			<!-- </t:commandSortHeader> -->
-		</f:facet>
-		<t:outputText value="#{orderItem.salePrice}" />
-	</t:column>
-
-	<t:column>
-		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Quantity" arrow="true"> -->
-				<t:outputText value="Quantity" /> 
-			<!-- </t:commandSortHeader> -->
-		</f:facet>
-		<t:outputText value="#{orderItem.quantity}" />
-	</t:column>
-
-	<t:column>
-		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Total" arrow="true"> -->
-				<t:outputText value="Total" /> 
-			<!-- </t:commandSortHeader> -->
-		</f:facet>
-		<t:outputText value="#{orderItem.total}" />
-	</t:column>
-							
-							
-							
-	<t:column>
-		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Product" arrow="true"> -->
 				<t:outputText value="Product" /> 
-			<!-- </t:commandSortHeader> -->
 		</f:facet>
-		<t:outputText value="#{orderItem.product.displayName}" />
+		
+	<h:selectOneMenu  required="true" 
+		id="orderItem_product" converter="keyToObjectConverter"
+		value="#{orderItem.product}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{productCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<h:message for="orderItem_product" styleClass="errMessage" />
+
 	</t:column>
-						
+										
+							
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="SalePrice" /> 
+		</f:facet>
+		<h:inputText    required="false" 
+			id="orderItem__salePrice"
+			value="#{orderItem.salePrice}">
+			
+		</h:inputText>
+		<h:message for="orderItem__salePrice" styleClass="errMessage" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="Quantity" /> 
+		</f:facet>
+		<h:inputText    required="false" 
+			id="orderItem__quantity"
+			value="#{orderItem.quantity}">
+			
+		</h:inputText>
+		<h:message for="orderItem__quantity" styleClass="errMessage" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="Total" /> 
+		</f:facet>
+		<h:inputText    required="true" 
+			id="orderItem__total"
+			value="#{orderItem.total}">
+			
+		</h:inputText>
+		<h:message for="orderItem__total" styleClass="errMessage" />
+	</t:column>
+							
 							</t:dataTable>
 							</rich:simpleTogglePanel>
 							<br/>

@@ -28,36 +28,28 @@
 							
 	<t:column>
 		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Name" arrow="true"> -->
 				<t:outputText value="Name" /> 
-			<!-- </t:commandSortHeader> -->
 		</f:facet>
 		<t:outputText value="#{topic.name}" />
 	</t:column>
 
 	<t:column>
 		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Expiry" arrow="true"> -->
 				<t:outputText value="Expiry" /> 
-			<!-- </t:commandSortHeader> -->
 		</f:facet>
 		<t:outputText value="#{topic.expiry}" />
 	</t:column>
 
 	<t:column>
 		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Status" arrow="true"> -->
 				<t:outputText value="Status" /> 
-			<!-- </t:commandSortHeader> -->
 		</f:facet>
 		<t:outputText value="#{topic.status}" />
 	</t:column>
 
 	<t:column>
 		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="TopicType" arrow="true"> -->
 				<t:outputText value="TopicType" /> 
-			<!-- </t:commandSortHeader> -->
 		</f:facet>
 		<t:outputText value="#{topic.topicType}" />
 	</t:column>
@@ -104,7 +96,70 @@
 							 </rich:tab>
 							 
 							 <rich:tab label="Audit" >
-							 	<b> Show the audit view here </b>
+							 	<t:dataTable id="dataAudit" var="log"
+							value="#{productCrudBacking.auditLog}" rows="30"
+							rowClasses="odd, even" styleClass="dataTable">
+							
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
+									<t:outputText value="Date" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.dateCreated}" />
+							</t:column>
+							
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="Brand" arrow="true"> -->
+									<t:outputText value="Action" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.action}" />
+							</t:column>
+
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
+									<t:outputText value="User" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.username}" />
+							</t:column>
+							
+							
+							
+							
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="Name" /> 
+		</f:facet>
+		<t:outputText value="#{log.entity.name}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="Expiry" /> 
+		</f:facet>
+		<t:outputText value="#{log.entity.expiry}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="Status" /> 
+		</f:facet>
+		<t:outputText value="#{log.entity.status}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="TopicType" /> 
+		</f:facet>
+		<t:outputText value="#{log.entity.topicType}" />
+	</t:column>
+							
+							
+							</t:dataTable>
 							 </rich:tab>
 							 
 							</rich:tabPanel>

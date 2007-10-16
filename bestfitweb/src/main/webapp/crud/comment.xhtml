@@ -26,62 +26,62 @@
 								styleClass="formHeaderText"   />
 						</f:facet>
 						
-								
-								<h:outputText value="Text*" styleClass="formLabel" />
-								
-								<h:inputTextarea   maxLength="200"   required="true" 
-									id="comment__text"
-									value="#{commentCrudBacking.comment.text}">
-									<f:validateLength maximum="200"/>
-								</h:inputTextarea>
-								
-								<h:message for="comment__text" styleClass="errMessage" />
-								
-								
-								
-								<h:outputText value="UserDisplayName" styleClass="formLabel" />
-								
-								<h:inputText    required="false" 
-									id="comment__userDisplayName"
-									value="#{commentCrudBacking.comment.userDisplayName}">
-									
-								</h:inputText>
-								
-								<h:message for="comment__userDisplayName" styleClass="errMessage" />
-								
-								
-							
-							
 							
 								<h:outputText value="CommentCreator" styleClass="formLabel" />
-			
-								<h:selectOneMenu  required="false" 
-									id="comment_commentCreator"
-									value="#{commentCrudBacking.comment.commentCreator}">
-									<f:selectItem itemLabel="Select" />
-									<f:selectItems value="#{registeredUserCrudBacking.asSelectItems}" />
-								</h:selectOneMenu>
-											
-								<h:message for="comment_commentCreator" styleClass="errMessage" />
-				
+								
+	<h:selectOneMenu  required="false" 
+		id="comment_commentCreator" converter="keyToObjectConverter"
+		value="#{commentCrudBacking.comment.commentCreator}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{registeredUserCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<h:message for="comment_commentCreator" styleClass="errMessage" />
+
 								<h:outputText value="Topic*" styleClass="formLabel" />
-			
-								<h:selectOneMenu  required="true" 
-									id="comment_topic"
-									value="#{commentCrudBacking.comment.topic}">
-									<f:selectItem itemLabel="Select" />
-									<f:selectItems value="#{topicCrudBacking.asSelectItems}" />
-								</h:selectOneMenu>
-											
-								<h:message for="comment_topic" styleClass="errMessage" />
+								
+	<h:selectOneMenu  required="true" 
+		id="comment_topic" converter="keyToObjectConverter"
+		value="#{commentCrudBacking.comment.topic}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{topicCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<h:message for="comment_topic" styleClass="errMessage" />
+
+							
+							
+							
+	
+	<h:outputText value="Text*" styleClass="formLabel" />
+	
+	<h:inputTextarea   maxLength="200"   required="true" 
+		id="comment__text"
+		value="#{commentCrudBacking.comment.text}">
+		<f:validateLength maximum="200"/>
+	</h:inputTextarea>
+
+	<h:message for="text__text" styleClass="errMessage" />
+	
+
+	
+	<h:outputText value="UserDisplayName" styleClass="formLabel" />
+	
+	<h:inputText    required="false" 
+		id="comment__userDisplayName"
+		value="#{commentCrudBacking.comment.userDisplayName}">
+		
+	</h:inputText>
+
+	<h:message for="userDisplayName__userDisplayName" styleClass="errMessage" />
+	
+					
 				
-							
-						
-							
   						   <h:commandButton id="button1" value="Submit" action="#{commentCrudBacking.update}"/> 
   						    <h:commandButton id="button2" value="Cancel" action="#{commentCrudBacking.cancelUpdate}" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="comment_id" value="#{commentCrudBacking.comment.id}" />
+		  				   	
 		  				   	
 		  				   	
 

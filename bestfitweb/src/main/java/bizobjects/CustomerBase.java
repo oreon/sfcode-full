@@ -1,9 +1,12 @@
 package bizobjects;
 
 import javax.persistence.*;
+import org.hibernate.annotations.Cascade;
 import java.util.Date;
 
 @MappedSuperclass
+/*@Entity
+@Table(name="Customer",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
 /*Represents a customer - customer can log in and place orders.*/
 public abstract class CustomerBase extends Person
 		implements

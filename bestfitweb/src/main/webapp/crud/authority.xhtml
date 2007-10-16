@@ -26,39 +26,39 @@
 								styleClass="formHeaderText"   />
 						</f:facet>
 						
-								
-								<h:outputText value="Authority" styleClass="formLabel" />
-								
-								<h:inputText    required="false" 
-									id="authority__authority"
-									value="#{authorityCrudBacking.authority.authority}">
-									
-								</h:inputText>
-								
-								<h:message for="authority__authority" styleClass="errMessage" />
-								
-								
-							
-							
 							
 								<h:outputText value="User*" styleClass="formLabel" />
-			
-								<h:selectOneMenu  required="true" 
-									id="authority_user"
-									value="#{authorityCrudBacking.authority.user}">
-									<f:selectItem itemLabel="Select" />
-									<f:selectItems value="#{userCrudBacking.asSelectItems}" />
-								</h:selectOneMenu>
-											
-								<h:message for="authority_user" styleClass="errMessage" />
+								
+	<h:selectOneMenu  required="true" 
+		id="authority_user" converter="keyToObjectConverter"
+		value="#{authorityCrudBacking.authority.user}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{userCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<h:message for="authority_user" styleClass="errMessage" />
+
+							
+							
+							
+	
+	<h:outputText value="Authority" styleClass="formLabel" />
+	
+	<h:inputText    required="false" 
+		id="authority__authority"
+		value="#{authorityCrudBacking.authority.authority}">
+		
+	</h:inputText>
+
+	<h:message for="authority__authority" styleClass="errMessage" />
+	
+					
 				
-							
-						
-							
   						   <h:commandButton id="button1" value="Submit" action="#{authorityCrudBacking.update}"/> 
   						    <h:commandButton id="button2" value="Cancel" action="#{authorityCrudBacking.cancelUpdate}" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="authority_id" value="#{authorityCrudBacking.authority.id}" />
+		  				   	
 		  				   	
 		  				   	
 

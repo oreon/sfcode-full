@@ -1,9 +1,12 @@
 package bizobjects;
 
 import javax.persistence.*;
+import org.hibernate.annotations.Cascade;
 import java.util.Date;
 
 @MappedSuperclass
+/*@Entity
+@Table(name="Employee",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
 public abstract class EmployeeBase extends Person
 		implements
 			java.io.Serializable {

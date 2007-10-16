@@ -26,86 +26,86 @@
 								styleClass="formHeaderText"   />
 						</f:facet>
 						
-								
-								<h:outputText value="Name" styleClass="formLabel" />
-								
-								<h:inputText    required="false" 
-									id="topic__name"
-									value="#{topicCrudBacking.topic.name}">
-									
-								</h:inputText>
-								
-								<h:message for="topic__name" styleClass="errMessage" />
-								
-								
-								
-								<h:outputText value="Expiry" styleClass="formLabel" />
-								
-								<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   required="false" 
-									id="topic__expiry"
-									value="#{topicCrudBacking.topic.expiry}">
-									
-								</t:inputCalendar >
-								
-								<h:message for="topic__expiry" styleClass="errMessage" />
-								
-								
-								
-								<h:outputText value="Status" styleClass="formLabel" />
-								
-								<h:selectOneMenu    required="false" 
-									id="topic__status"
-									value="#{topicCrudBacking.topic.status}">
-									<f:selectItem itemLabel="Active" itemValue="Active" /><f:selectItem itemLabel="Inactive" itemValue="Inactive" /><f:selectItem itemLabel="Archived" itemValue="Archived" />
-								</h:selectOneMenu>
-								
-								<h:message for="topic__status" styleClass="errMessage" />
-								
-								
-								
-								<h:outputText value="TopicType" styleClass="formLabel" />
-								
-								<h:selectOneMenu    required="false" 
-									id="topic__topicType"
-									value="#{topicCrudBacking.topic.topicType}">
-									<f:selectItem itemLabel="TopicOfDay" itemValue="TopicOfDay" /><f:selectItem itemLabel="Video" itemValue="Video" /><f:selectItem itemLabel="Image" itemValue="Image" /><f:selectItem itemLabel="Edtiorial" itemValue="Edtiorial" /><f:selectItem itemLabel="CustomOpinion" itemValue="CustomOpinion" />
-								</h:selectOneMenu>
-								
-								<h:message for="topic__topicType" styleClass="errMessage" />
-								
-								
-							
-							
 							
 								<h:outputText value="TopicCreator*" styleClass="formLabel" />
-			
-								<h:selectOneMenu  required="true" 
-									id="topic_topicCreator"
-									value="#{topicCrudBacking.topic.topicCreator}">
-									<f:selectItem itemLabel="Select" />
-									<f:selectItems value="#{registeredUserCrudBacking.asSelectItems}" />
-								</h:selectOneMenu>
-											
-								<h:message for="topic_topicCreator" styleClass="errMessage" />
-				
+								
+	<h:selectOneMenu  required="true" 
+		id="topic_topicCreator" converter="keyToObjectConverter"
+		value="#{topicCrudBacking.topic.topicCreator}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{registeredUserCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<h:message for="topic_topicCreator" styleClass="errMessage" />
+
 								<h:outputText value="Category*" styleClass="formLabel" />
-			
-								<h:selectOneMenu  required="true" 
-									id="topic_category"
-									value="#{topicCrudBacking.topic.category}">
-									<f:selectItem itemLabel="Select" />
-									<f:selectItems value="#{categoryCrudBacking.asSelectItems}" />
-								</h:selectOneMenu>
-											
-								<h:message for="topic_category" styleClass="errMessage" />
+								
+	<h:selectOneMenu  required="true" 
+		id="topic_category" converter="keyToObjectConverter"
+		value="#{topicCrudBacking.topic.category}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{categoryCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<h:message for="topic_category" styleClass="errMessage" />
+
+							
+							
+							
+	
+	<h:outputText value="Name" styleClass="formLabel" />
+	
+	<h:inputText    required="false" 
+		id="topic__name"
+		value="#{topicCrudBacking.topic.name}">
+		
+	</h:inputText>
+
+	<h:message for="name__name" styleClass="errMessage" />
+	
+
+	
+	<h:outputText value="Expiry" styleClass="formLabel" />
+	
+	<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   required="false" 
+		id="topic__expiry"
+		value="#{topicCrudBacking.topic.expiry}">
+		
+	</t:inputCalendar >
+
+	<h:message for="expiry__expiry" styleClass="errMessage" />
+	
+
+	
+	<h:outputText value="Status" styleClass="formLabel" />
+	
+	<h:selectOneMenu    required="false" 
+		id="topic__status"
+		value="#{topicCrudBacking.topic.status}">
+		<f:selectItem itemLabel="Active" itemValue="Active" /><f:selectItem itemLabel="Inactive" itemValue="Inactive" /><f:selectItem itemLabel="Archived" itemValue="Archived" />
+	</h:selectOneMenu>
+
+	<h:message for="status__status" styleClass="errMessage" />
+	
+
+	
+	<h:outputText value="TopicType" styleClass="formLabel" />
+	
+	<h:selectOneMenu    required="false" 
+		id="topic__topicType"
+		value="#{topicCrudBacking.topic.topicType}">
+		<f:selectItem itemLabel="TopicOfDay" itemValue="TopicOfDay" /><f:selectItem itemLabel="Video" itemValue="Video" /><f:selectItem itemLabel="Image" itemValue="Image" /><f:selectItem itemLabel="Edtiorial" itemValue="Edtiorial" /><f:selectItem itemLabel="CustomOpinion" itemValue="CustomOpinion" />
+	</h:selectOneMenu>
+
+	<h:message for="topicType__topicType" styleClass="errMessage" />
+	
+					
 				
-							
-						
-							
   						   <h:commandButton id="button1" value="Submit" action="#{topicCrudBacking.update}"/> 
   						    <h:commandButton id="button2" value="Cancel" action="#{topicCrudBacking.cancelUpdate}" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="topic_id" value="#{topicCrudBacking.topic.id}" />
+		  				   	
 		  				   	
 		  				   	
 

@@ -28,18 +28,14 @@
 							
 	<t:column>
 		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Text" arrow="true"> -->
 				<t:outputText value="Text" /> 
-			<!-- </t:commandSortHeader> -->
 		</f:facet>
 		<t:outputText value="#{comment.text}" />
 	</t:column>
 
 	<t:column>
 		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="UserDisplayName" arrow="true"> -->
 				<t:outputText value="UserDisplayName" /> 
-			<!-- </t:commandSortHeader> -->
 		</f:facet>
 		<t:outputText value="#{comment.userDisplayName}" />
 	</t:column>
@@ -86,7 +82,56 @@
 							 </rich:tab>
 							 
 							 <rich:tab label="Audit" >
-							 	<b> Show the audit view here </b>
+							 	<t:dataTable id="dataAudit" var="log"
+							value="#{productCrudBacking.auditLog}" rows="30"
+							rowClasses="odd, even" styleClass="dataTable">
+							
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
+									<t:outputText value="Date" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.dateCreated}" />
+							</t:column>
+							
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="Brand" arrow="true"> -->
+									<t:outputText value="Action" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.action}" />
+							</t:column>
+
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
+									<t:outputText value="User" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.username}" />
+							</t:column>
+							
+							
+							
+							
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="Text" /> 
+		</f:facet>
+		<t:outputText value="#{log.entity.text}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="UserDisplayName" /> 
+		</f:facet>
+		<t:outputText value="#{log.entity.userDisplayName}" />
+	</t:column>
+							
+							
+							</t:dataTable>
 							 </rich:tab>
 							 
 							</rich:tabPanel>

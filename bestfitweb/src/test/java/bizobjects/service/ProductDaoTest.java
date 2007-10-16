@@ -49,9 +49,9 @@ public class ProductDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			productInstance.setName("beta");
-			productInstance.setBrand("Lavendar");
-			productInstance.setListPrice(24.0);
+			productInstance.setName("epsilon");
+			productInstance.setBrand("Eric");
+			productInstance.setListPrice(45.73);
 
 			productService.save(productInstance);
 		} catch (PersistenceException pe) {
@@ -75,9 +75,9 @@ public class ProductDaoTest extends AbstractJpaTests {
 
 			try {
 
-				product.setName("epsilon");
-				product.setBrand("alpha");
-				product.setListPrice(79.88);
+				product.setName("Malissa");
+				product.setBrand("zeta");
+				product.setListPrice(57.51);
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -96,9 +96,9 @@ public class ProductDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Product product = (Product) productTestDataFactory.loadOneRecord();
 
-			product.setName("Mark");
-			product.setBrand("beta");
-			product.setListPrice(14.77);
+			product.setName("pi");
+			product.setBrand("Wilson");
+			product.setListPrice(46.37);
 
 			productService.save(product);
 

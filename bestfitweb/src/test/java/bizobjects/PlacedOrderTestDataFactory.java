@@ -42,10 +42,10 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("Malissa");
-			placedOrder.setPaymentMethod("Eric");
-			placedOrder.setStatus(bizobjects.OrderStatus.COMPLETED);
-			placedOrder.setTotal(9.07);
+			placedOrder.setRemarks("beta");
+			placedOrder.setPaymentMethod("pi");
+			placedOrder.setStatus(bizobjects.OrderStatus.NEW);
+			placedOrder.setTotal(18.32);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
@@ -75,10 +75,10 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("theta");
-			placedOrder.setPaymentMethod("Wilson");
-			placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
-			placedOrder.setTotal(95.96);
+			placedOrder.setRemarks("beta");
+			placedOrder.setPaymentMethod("Malissa");
+			placedOrder.setStatus(bizobjects.OrderStatus.COMPLETED);
+			placedOrder.setTotal(10.01);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
@@ -108,10 +108,10 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("theta");
-			placedOrder.setPaymentMethod("gamma");
-			placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
-			placedOrder.setTotal(5.9);
+			placedOrder.setRemarks("Lavendar");
+			placedOrder.setPaymentMethod("theta");
+			placedOrder.setStatus(bizobjects.OrderStatus.COMPLETED);
+			placedOrder.setTotal(3.39);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
@@ -141,10 +141,10 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("theta");
-			placedOrder.setPaymentMethod("alpha");
+			placedOrder.setRemarks("epsilon");
+			placedOrder.setPaymentMethod("epsilon");
 			placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
-			placedOrder.setTotal(41.3);
+			placedOrder.setTotal(99.42);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
@@ -174,10 +174,10 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("gamma");
-			placedOrder.setPaymentMethod("Mark");
-			placedOrder.setStatus(bizobjects.OrderStatus.COMPLETED);
-			placedOrder.setTotal(97.92);
+			placedOrder.setRemarks("pi");
+			placedOrder.setPaymentMethod("zeta");
+			placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
+			placedOrder.setTotal(18.96);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");

@@ -50,21 +50,21 @@ public class RegisteredUserDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			registeredUserInstance.setFirstName("John");
-			registeredUserInstance.setLastName("pi");
+			registeredUserInstance.setFirstName("delta");
+			registeredUserInstance.setLastName("Malissa");
 			registeredUserInstance.setDob(dateFormat
-					.parse("2007.09.15 09:30:45 EDT"));
-			registeredUserInstance.setGender("alpha");
-			registeredUserInstance.setImage("Eric");
-			registeredUserInstance.getUserAccount().setUsername("delta45277");
-			registeredUserInstance.getUserAccount().setPassword("John");
+					.parse("2007.10.17 11:37:05 EDT"));
+			registeredUserInstance.setGender("John");
+			registeredUserInstance.setImage("epsilon");
+			registeredUserInstance.getUserAccount().setUsername("theta29716");
+			registeredUserInstance.getUserAccount().setPassword("Wilson");
 			registeredUserInstance.getUserAccount().setEnabled(true);
-			registeredUserInstance.getPrimaryAddress().setStreetAddress("pi");
-			registeredUserInstance.getPrimaryAddress().setCity("Lavendar");
-			registeredUserInstance.getPrimaryAddress().setZip("Malissa");
-			registeredUserInstance.getPrimaryAddress().setEmail("Wilson67395");
-			registeredUserInstance.getPrimaryAddress().setCountry("alpha");
-			registeredUserInstance.getPrimaryAddress().setState("Wilson");
+			registeredUserInstance.getPrimaryAddress().setStreetAddress("Eric");
+			registeredUserInstance.getPrimaryAddress().setCity("epsilon");
+			registeredUserInstance.getPrimaryAddress().setZip("Wilson");
+			registeredUserInstance.getPrimaryAddress().setEmail("beta12537");
+			registeredUserInstance.getPrimaryAddress().setCountry("gamma");
+			registeredUserInstance.getPrimaryAddress().setState("delta");
 
 			registeredUserService.save(registeredUserInstance);
 		} catch (PersistenceException pe) {
@@ -88,21 +88,21 @@ public class RegisteredUserDaoTest extends AbstractJpaTests {
 
 			try {
 
-				registeredUser.setFirstName("Mark");
-				registeredUser.setLastName("gamma");
+				registeredUser.setFirstName("zeta");
+				registeredUser.setLastName("beta");
 				registeredUser.setDob(dateFormat
-						.parse("2007.10.10 23:41:18 EDT"));
+						.parse("2007.10.22 13:10:25 EDT"));
 				registeredUser.setGender("gamma");
-				registeredUser.setImage("Wilson");
-				registeredUser.getUserAccount().setUsername("alpha40124");
-				registeredUser.getUserAccount().setPassword("John");
+				registeredUser.setImage("Eric");
+				registeredUser.getUserAccount().setUsername("zeta90170");
+				registeredUser.getUserAccount().setPassword("Mark");
 				registeredUser.getUserAccount().setEnabled(true);
-				registeredUser.getPrimaryAddress().setStreetAddress("alpha");
+				registeredUser.getPrimaryAddress().setStreetAddress("theta");
 				registeredUser.getPrimaryAddress().setCity("Mark");
-				registeredUser.getPrimaryAddress().setZip("Wilson");
-				registeredUser.getPrimaryAddress().setEmail("alpha57801");
-				registeredUser.getPrimaryAddress().setCountry("Lavendar");
-				registeredUser.getPrimaryAddress().setState("beta");
+				registeredUser.getPrimaryAddress().setZip("Mark");
+				registeredUser.getPrimaryAddress().setEmail("John67081");
+				registeredUser.getPrimaryAddress().setCountry("pi");
+				registeredUser.getPrimaryAddress().setState("alpha");
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -122,20 +122,20 @@ public class RegisteredUserDaoTest extends AbstractJpaTests {
 			RegisteredUser registeredUser = (RegisteredUser) registeredUserTestDataFactory
 					.loadOneRecord();
 
-			registeredUser.setFirstName("zeta");
-			registeredUser.setLastName("Mark");
-			registeredUser.setDob(dateFormat.parse("2007.10.31 15:39:03 EDT"));
-			registeredUser.setGender("pi");
-			registeredUser.setImage("gamma");
-			registeredUser.getUserAccount().setUsername("beta41817");
-			registeredUser.getUserAccount().setPassword("delta");
+			registeredUser.setFirstName("gamma");
+			registeredUser.setLastName("pi");
+			registeredUser.setDob(dateFormat.parse("2007.11.02 15:23:12 EDT"));
+			registeredUser.setGender("John");
+			registeredUser.setImage("Mark");
+			registeredUser.getUserAccount().setUsername("John38076");
+			registeredUser.getUserAccount().setPassword("epsilon");
 			registeredUser.getUserAccount().setEnabled(true);
-			registeredUser.getPrimaryAddress().setStreetAddress("beta");
-			registeredUser.getPrimaryAddress().setCity("pi");
-			registeredUser.getPrimaryAddress().setZip("Lavendar");
-			registeredUser.getPrimaryAddress().setEmail("epsilon91780");
-			registeredUser.getPrimaryAddress().setCountry("alpha");
-			registeredUser.getPrimaryAddress().setState("Malissa");
+			registeredUser.getPrimaryAddress().setStreetAddress("zeta");
+			registeredUser.getPrimaryAddress().setCity("zeta");
+			registeredUser.getPrimaryAddress().setZip("delta");
+			registeredUser.getPrimaryAddress().setEmail("zeta92765");
+			registeredUser.getPrimaryAddress().setCountry("Eric");
+			registeredUser.getPrimaryAddress().setState("John");
 
 			registeredUserService.save(registeredUser);
 

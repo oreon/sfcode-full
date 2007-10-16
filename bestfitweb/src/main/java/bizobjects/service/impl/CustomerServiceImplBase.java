@@ -14,10 +14,14 @@ import org.apache.log4j.Logger;
 import usermanagement.Authority;
 import usermanagement.service.AuthorityService;
 
+import org.witchcraft.model.support.dao.GenericDAO;
 import org.witchcraft.model.support.errorhandling.BusinessException;
+import org.witchcraft.model.support.service.BaseServiceImpl;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-public class CustomerServiceImplBase implements CustomerService {
+public class CustomerServiceImplBase extends BaseServiceImpl<Customer>
+		implements
+			CustomerService {
 
 	private static final Logger log = Logger
 			.getLogger(CustomerServiceImplBase.class);
@@ -26,6 +30,11 @@ public class CustomerServiceImplBase implements CustomerService {
 
 	public void setCustomerDao(CustomerDao customerDao) {
 		this.customerDao = customerDao;
+	}
+
+	@Override
+	public GenericDAO<Customer> getDao() {
+		return customerDao;
 	}
 
 	private AuthorityService authorityService;
@@ -37,9 +46,13 @@ public class CustomerServiceImplBase implements CustomerService {
 	//// Delegate all crud operations to the Dao ////
 
 	public Customer save(Customer customer) {
+		Long id = customer.getId();
 		checkUniqueConstraints(customer);
 		customerDao.save(customer);
-		assignDefaultAuthority(customer);
+
+		if (id == null) //creating user for first time, assign authority
+			assignDefaultAuthority(customer);
+
 		return customer;
 	}
 
@@ -60,25 +73,7 @@ public class CustomerServiceImplBase implements CustomerService {
 
 	}
 
-	private void ensureUnique(Customer customer, Customer existingCustomer,
-			String exceptionId) {
-		if (existingCustomer == null)
-			return; //no customer exists with the given email - no need to check unique constraint violation
-
-		if (customer.getId() == null) { // for a new entity
-			throw new BusinessException(exceptionId);
-		} else {//for updating an existing entiy
-			if (existingCustomer.getId().longValue() != customer.getId()
-					.longValue())
-				throw new BusinessException(exceptionId);
-		}
-
-	}
-
 	private void assignDefaultAuthority(Customer customer) {
-		if (customer.getId() != null)
-			return;
-
 		Authority authority = new Authority();
 		authority.setUser(customer.getUserAccount());
 		authority.setAuthority("role_customer");

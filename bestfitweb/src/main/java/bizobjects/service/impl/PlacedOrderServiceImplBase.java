@@ -14,10 +14,14 @@ import org.apache.log4j.Logger;
 import usermanagement.Authority;
 import usermanagement.service.AuthorityService;
 
+import org.witchcraft.model.support.dao.GenericDAO;
 import org.witchcraft.model.support.errorhandling.BusinessException;
+import org.witchcraft.model.support.service.BaseServiceImpl;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-public class PlacedOrderServiceImplBase implements PlacedOrderService {
+public class PlacedOrderServiceImplBase extends BaseServiceImpl<PlacedOrder>
+		implements
+			PlacedOrderService {
 
 	private static final Logger log = Logger
 			.getLogger(PlacedOrderServiceImplBase.class);
@@ -28,9 +32,15 @@ public class PlacedOrderServiceImplBase implements PlacedOrderService {
 		this.placedOrderDao = placedOrderDao;
 	}
 
+	@Override
+	public GenericDAO<PlacedOrder> getDao() {
+		return placedOrderDao;
+	}
+
 	//// Delegate all crud operations to the Dao ////
 
 	public PlacedOrder save(PlacedOrder placedOrder) {
+		Long id = placedOrder.getId();
 
 		placedOrderDao.save(placedOrder);
 

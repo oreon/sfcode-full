@@ -14,10 +14,14 @@ import org.apache.log4j.Logger;
 import usermanagement.Authority;
 import usermanagement.service.AuthorityService;
 
+import org.witchcraft.model.support.dao.GenericDAO;
 import org.witchcraft.model.support.errorhandling.BusinessException;
+import org.witchcraft.model.support.service.BaseServiceImpl;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-public class RegisteredUserServiceImplBase implements RegisteredUserService {
+public class RegisteredUserServiceImplBase
+		extends
+			BaseServiceImpl<RegisteredUser> implements RegisteredUserService {
 
 	private static final Logger log = Logger
 			.getLogger(RegisteredUserServiceImplBase.class);
@@ -28,9 +32,15 @@ public class RegisteredUserServiceImplBase implements RegisteredUserService {
 		this.registeredUserDao = registeredUserDao;
 	}
 
+	@Override
+	public GenericDAO<RegisteredUser> getDao() {
+		return registeredUserDao;
+	}
+
 	//// Delegate all crud operations to the Dao ////
 
 	public RegisteredUser save(RegisteredUser registeredUser) {
+		Long id = registeredUser.getId();
 		checkUniqueConstraints(registeredUser);
 		registeredUserDao.save(registeredUser);
 
@@ -53,21 +63,6 @@ public class RegisteredUserServiceImplBase implements RegisteredUserService {
 				.getPrimaryAddress().getEmail());
 		ensureUnique(registeredUser, existingRegisteredUser,
 				"Entity.exists.withEmail");
-
-	}
-
-	private void ensureUnique(RegisteredUser registeredUser,
-			RegisteredUser existingRegisteredUser, String exceptionId) {
-		if (existingRegisteredUser == null)
-			return; //no customer exists with the given email - no need to check unique constraint violation
-
-		if (registeredUser.getId() == null) { // for a new entity
-			throw new BusinessException(exceptionId);
-		} else {//for updating an existing entiy
-			if (existingRegisteredUser.getId().longValue() != registeredUser
-					.getId().longValue())
-				throw new BusinessException(exceptionId);
-		}
 
 	}
 

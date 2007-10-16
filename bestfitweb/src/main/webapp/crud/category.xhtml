@@ -26,39 +26,39 @@
 								styleClass="formHeaderText"   />
 						</f:facet>
 						
-								
-								<h:outputText value="Name" styleClass="formLabel" />
-								
-								<h:inputText    required="false" 
-									id="category__name"
-									value="#{categoryCrudBacking.category.name}">
-									
-								</h:inputText>
-								
-								<h:message for="category__name" styleClass="errMessage" />
-								
-								
-							
-							
 							
 								<h:outputText value="Parent" styleClass="formLabel" />
-			
-								<h:selectOneMenu  required="false" 
-									id="category_parent"
-									value="#{categoryCrudBacking.category.parent}">
-									<f:selectItem itemLabel="Select" />
-									<f:selectItems value="#{categoryCrudBacking.asSelectItems}" />
-								</h:selectOneMenu>
-											
-								<h:message for="category_parent" styleClass="errMessage" />
+								
+	<h:selectOneMenu  required="false" 
+		id="category_parent" converter="keyToObjectConverter"
+		value="#{categoryCrudBacking.category.parent}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{categoryCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<h:message for="category_parent" styleClass="errMessage" />
+
+							
+							
+							
+	
+	<h:outputText value="Name" styleClass="formLabel" />
+	
+	<h:inputText    required="false" 
+		id="category__name"
+		value="#{categoryCrudBacking.category.name}">
+		
+	</h:inputText>
+
+	<h:message for="name__name" styleClass="errMessage" />
+	
+					
 				
-							
-						
-							
   						   <h:commandButton id="button1" value="Submit" action="#{categoryCrudBacking.update}"/> 
   						    <h:commandButton id="button2" value="Cancel" action="#{categoryCrudBacking.cancelUpdate}" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="category_id" value="#{categoryCrudBacking.category.id}" />
+		  				   	
 		  				   	
 		  				   	
 
@@ -74,63 +74,89 @@
 								value="#{categoryCrudBacking.category.topics}" rows="10"
 							rowClasses="odd, even" styleClass="dataTable">
 							
+							 
 							
 	<t:column>
 		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Name" arrow="true"> -->
-				<t:outputText value="Name" /> 
-			<!-- </t:commandSortHeader> -->
-		</f:facet>
-		<t:outputText value="#{topic.name}" />
-	</t:column>
-
-	<t:column>
-		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Expiry" arrow="true"> -->
-				<t:outputText value="Expiry" /> 
-			<!-- </t:commandSortHeader> -->
-		</f:facet>
-		<t:outputText value="#{topic.expiry}" />
-	</t:column>
-
-	<t:column>
-		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Status" arrow="true"> -->
-				<t:outputText value="Status" /> 
-			<!-- </t:commandSortHeader> -->
-		</f:facet>
-		<t:outputText value="#{topic.status}" />
-	</t:column>
-
-	<t:column>
-		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="TopicType" arrow="true"> -->
-				<t:outputText value="TopicType" /> 
-			<!-- </t:commandSortHeader> -->
-		</f:facet>
-		<t:outputText value="#{topic.topicType}" />
-	</t:column>
-							
-							
-							
-	<t:column>
-		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="TopicCreator" arrow="true"> -->
 				<t:outputText value="TopicCreator" /> 
-			<!-- </t:commandSortHeader> -->
 		</f:facet>
-		<t:outputText value="#{topic.topicCreator.displayName}" />
+		
+	<h:selectOneMenu  required="true" 
+		id="topic_topicCreator" converter="keyToObjectConverter"
+		value="#{topic.topicCreator}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{registeredUserCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<h:message for="topic_topicCreator" styleClass="errMessage" />
+
 	</t:column>
 
 	<t:column>
 		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Category" arrow="true"> -->
 				<t:outputText value="Category" /> 
-			<!-- </t:commandSortHeader> -->
 		</f:facet>
-		<t:outputText value="#{topic.category.displayName}" />
+		
+	<h:selectOneMenu  required="true" 
+		id="topic_category" converter="keyToObjectConverter"
+		value="#{topic.category}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{categoryCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<h:message for="topic_category" styleClass="errMessage" />
+
 	</t:column>
-						
+										
+							
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="Name" /> 
+		</f:facet>
+		<h:inputText    required="false" 
+			id="topic__name"
+			value="#{topic.name}">
+			
+		</h:inputText>
+		<h:message for="topic__name" styleClass="errMessage" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="Expiry" /> 
+		</f:facet>
+		<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   required="false" 
+			id="topic__expiry"
+			value="#{topic.expiry}">
+			
+		</t:inputCalendar >
+		<h:message for="topic__expiry" styleClass="errMessage" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="Status" /> 
+		</f:facet>
+		<h:selectOneMenu    required="false" 
+			id="topic__status"
+			value="#{topic.status}">
+			<f:selectItem itemLabel="Active" itemValue="Active" /><f:selectItem itemLabel="Inactive" itemValue="Inactive" /><f:selectItem itemLabel="Archived" itemValue="Archived" />
+		</h:selectOneMenu>
+		<h:message for="topic__status" styleClass="errMessage" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="TopicType" /> 
+		</f:facet>
+		<h:selectOneMenu    required="false" 
+			id="topic__topicType"
+			value="#{topic.topicType}">
+			<f:selectItem itemLabel="TopicOfDay" itemValue="TopicOfDay" /><f:selectItem itemLabel="Video" itemValue="Video" /><f:selectItem itemLabel="Image" itemValue="Image" /><f:selectItem itemLabel="Edtiorial" itemValue="Edtiorial" /><f:selectItem itemLabel="CustomOpinion" itemValue="CustomOpinion" />
+		</h:selectOneMenu>
+		<h:message for="topic__topicType" styleClass="errMessage" />
+	</t:column>
+							
 							</t:dataTable>
 							</rich:simpleTogglePanel>
 							<br/>
@@ -140,27 +166,37 @@
 								value="#{categoryCrudBacking.category.subcategories}" rows="10"
 							rowClasses="odd, even" styleClass="dataTable">
 							
+							 
 							
 	<t:column>
 		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Name" arrow="true"> -->
-				<t:outputText value="Name" /> 
-			<!-- </t:commandSortHeader> -->
-		</f:facet>
-		<t:outputText value="#{category.name}" />
-	</t:column>
-							
-							
-							
-	<t:column>
-		<f:facet name="header">
-			<!-- <t:commandSortHeader columnName="Parent" arrow="true"> -->
 				<t:outputText value="Parent" /> 
-			<!-- </t:commandSortHeader> -->
 		</f:facet>
-		<t:outputText value="#{category.parent.displayName}" />
+		
+	<h:selectOneMenu  required="false" 
+		id="category_parent" converter="keyToObjectConverter"
+		value="#{category.parent}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{categoryCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<h:message for="category_parent" styleClass="errMessage" />
+
 	</t:column>
-						
+										
+							
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="Name" /> 
+		</f:facet>
+		<h:inputText    required="false" 
+			id="category__name"
+			value="#{category.name}">
+			
+		</h:inputText>
+		<h:message for="category__name" styleClass="errMessage" />
+	</t:column>
+							
 							</t:dataTable>
 							</rich:simpleTogglePanel>
 							<br/>

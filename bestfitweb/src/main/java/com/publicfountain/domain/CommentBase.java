@@ -1,9 +1,12 @@
 package com.publicfountain.domain;
 
 import javax.persistence.*;
+import org.hibernate.annotations.Cascade;
 import java.util.Date;
 
 @MappedSuperclass
+/*@Entity
+@Table(name="Comment",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
 public abstract class CommentBase
 		extends
 			org.witchcraft.model.support.BusinessEntity

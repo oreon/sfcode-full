@@ -99,7 +99,7 @@ public class CategoryDaoTest extends AbstractJpaTests {
 			Category category = (Category) categoryTestDataFactory
 					.loadOneRecord();
 
-			category.setName("John");
+			category.setName("pi");
 
 			categoryService.save(category);
 

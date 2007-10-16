@@ -49,7 +49,7 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			authorityInstance.setAuthority("Mark");
+			authorityInstance.setAuthority("Malissa");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -79,7 +79,7 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 
 			try {
 
-				authority.setAuthority("Mark");
+				authority.setAuthority("epsilon");
 
 				TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("userTestDataFactory");
@@ -105,7 +105,7 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 			Authority authority = (Authority) authorityTestDataFactory
 					.loadOneRecord();
 
-			authority.setAuthority("John");
+			authority.setAuthority("Malissa");
 
 			authorityService.save(authority);
 

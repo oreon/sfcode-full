@@ -14,10 +14,14 @@ import org.apache.log4j.Logger;
 import usermanagement.Authority;
 import usermanagement.service.AuthorityService;
 
+import org.witchcraft.model.support.dao.GenericDAO;
 import org.witchcraft.model.support.errorhandling.BusinessException;
+import org.witchcraft.model.support.service.BaseServiceImpl;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-public class EmployeeServiceImplBase implements EmployeeService {
+public class EmployeeServiceImplBase extends BaseServiceImpl<Employee>
+		implements
+			EmployeeService {
 
 	private static final Logger log = Logger
 			.getLogger(EmployeeServiceImplBase.class);
@@ -26,6 +30,11 @@ public class EmployeeServiceImplBase implements EmployeeService {
 
 	public void setEmployeeDao(EmployeeDao employeeDao) {
 		this.employeeDao = employeeDao;
+	}
+
+	@Override
+	public GenericDAO<Employee> getDao() {
+		return employeeDao;
 	}
 
 	private AuthorityService authorityService;
@@ -37,9 +46,13 @@ public class EmployeeServiceImplBase implements EmployeeService {
 	//// Delegate all crud operations to the Dao ////
 
 	public Employee save(Employee employee) {
+		Long id = employee.getId();
 		checkUniqueConstraints(employee);
 		employeeDao.save(employee);
-		assignDefaultAuthority(employee);
+
+		if (id == null) //creating user for first time, assign authority
+			assignDefaultAuthority(employee);
+
 		return employee;
 	}
 
@@ -63,25 +76,7 @@ public class EmployeeServiceImplBase implements EmployeeService {
 
 	}
 
-	private void ensureUnique(Employee employee, Employee existingEmployee,
-			String exceptionId) {
-		if (existingEmployee == null)
-			return; //no customer exists with the given email - no need to check unique constraint violation
-
-		if (employee.getId() == null) { // for a new entity
-			throw new BusinessException(exceptionId);
-		} else {//for updating an existing entiy
-			if (existingEmployee.getId().longValue() != employee.getId()
-					.longValue())
-				throw new BusinessException(exceptionId);
-		}
-
-	}
-
 	private void assignDefaultAuthority(Employee employee) {
-		if (employee.getId() != null)
-			return;
-
 		Authority authority = new Authority();
 		authority.setUser(employee.getUserAccount());
 		authority.setAuthority("role_employee");

@@ -14,10 +14,14 @@ import org.apache.log4j.Logger;
 import usermanagement.Authority;
 import usermanagement.service.AuthorityService;
 
+import org.witchcraft.model.support.dao.GenericDAO;
 import org.witchcraft.model.support.errorhandling.BusinessException;
+import org.witchcraft.model.support.service.BaseServiceImpl;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-public class AuthorityServiceImplBase implements AuthorityService {
+public class AuthorityServiceImplBase extends BaseServiceImpl<Authority>
+		implements
+			AuthorityService {
 
 	private static final Logger log = Logger
 			.getLogger(AuthorityServiceImplBase.class);
@@ -28,9 +32,15 @@ public class AuthorityServiceImplBase implements AuthorityService {
 		this.authorityDao = authorityDao;
 	}
 
+	@Override
+	public GenericDAO<Authority> getDao() {
+		return authorityDao;
+	}
+
 	//// Delegate all crud operations to the Dao ////
 
 	public Authority save(Authority authority) {
+		Long id = authority.getId();
 
 		authorityDao.save(authority);
 
