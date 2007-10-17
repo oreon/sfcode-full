@@ -108,6 +108,14 @@ public class ViewLayerGenerator {
 		// stateMachine.visit(visitor);
 		ElementSet states = ((TypeCollectingVisitor) visitor)
 				.getCollectedElements();
+		
+		Transition t;
+		State s;
+		
+		
+		//t.Action().
+		//t.Trigger().
+		
 		return states;
 	}
 

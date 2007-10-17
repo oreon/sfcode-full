@@ -60,21 +60,28 @@
 			public String update() {
 				try{
 		        «asInstanceVar()»Service.save(«asInstanceVar()»);
-		    	}catch(BusinessException be){
-		    		FacesContext.getCurrentInstance().addMessage
-		    			(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Update Error: " , be.getMessage()));
-		    		return "failure";
-		    	}catch(DataAccessException dae){
-		    		FacesContext.getCurrentInstance().addMessage
-		    			(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Update Error: " , dae.getMessage()));
-		    		return "failure";
-		    	}catch(Exception ex){
-		    		FacesContext.getCurrentInstance().addMessage
-		    			(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Update Error: " , ex.getMessage()));
-		    		return "failure";
-		    	}
-		       
+		    	} catch (BusinessException be) {
+					createErrorMessage(be.getMessage(), "Update Error");
+					return "failure";
+				} catch (DataAccessException dae) {
+					createErrorMessage(dae.getMessage(), "Update Error");
+					return "failure";
+				} catch (Exception ex) {
+					createErrorMessage(ex.getMessage(), "Update Error");
+					return "failure";
+				}
+				    	
 				return "success";
+			}
+			
+			/** Creates and add an error message to the faces context
+			 * @param errorDetail
+			 * @param errorTitle
+			 */
+			private void createErrorMessage(String errorDetail, String errorTitle) {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, errorTitle, 
+								errorDetail));
 			}
 			
 			/**Write values to the database 

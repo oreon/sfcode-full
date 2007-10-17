@@ -4,6 +4,8 @@
 
 «EXTENSION view::ViewExtensions»
 «EXTENSION templates::GeneratorUtil»
+«EXTENSION java::NamingConventions»
+
 
 
 «DEFINE file FOR StateMachine»
@@ -12,42 +14,113 @@
 	   «EXPAND GeneratePageFlow»
 	«ENDFILE»
 	
-	«EXPAND GenerateJsps»
+	«EXPAND GenXHTML»
 
 «ENDDEFINE»
 
 
 «DEFINE GeneratePageFlow FOR StateMachine»
-	«getStateMachine()»
+<?xml version="1.0"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config>
+	«EXPAND GenFacesNav FOREACH getStates()»
+</faces-config>
 «ENDDEFINE»
 
-«DEFINE GenerateJsps FOR StateMachine»
-	 «EXPAND GenJsp FOREACH getStates()»
+«DEFINE GenFacesNav FOR State»
+	<navigation-rule>
+	  	<from-view-id>/«StateMachine.NameS»/«NameS».xhtml</from-view-id>
+		«FOREACH OutTransition AS transition»
+		  <navigation-case>
+		    <from-outcome> «transition.Trigger.NameS»</from-outcome>
+		    <to-view-id>/«StateMachine.NameS»/«transition.TargetVertex.NameS».xhtml</to-view-id>
+		  </navigation-case>   
+		«ENDFOREACH» 
+	</navigation-rule>
 «ENDDEFINE»
 
 
-«DEFINE GenJsp FOR State»
-	«FILE "../webapp/gen" + NameS +".xhtml"»
-		<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
-	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-	template="/WEB-INF/template/default.xhtml">
+«DEFINE GenXHTML FOR StateMachine»
+	 «EXPAND GenXHTML FOREACH getStates()»
+	 «EXPAND GenBeanClass FOREACH getStates()»
+«ENDDEFINE»
+
+«REM» This function generates xhtml for the given state «ENDREM»
+«DEFINE GenXHTML FOR State»
+	«FILE "../webapp/" +  StateMachine.NameS + "/" +NameS +".xhtml"»
+	«EXPAND view::ViewGen::genIncludes("default.xhtml")-»
 	
 	<ui:define name="content">
 		<f:view>
-	ljkljlkjkljlkjkljlkjlk
+		«FOREACH OutTransition AS transition»
+			<h:form>
+				<h:panelGrid>
+			«IF transition.Trigger != null && transition.Trigger.hasParameter»
+				
+					<h:inputText value="«transition.Trigger.Parameter»" />
+					<h:commandButton id="button1" value="Submit" 
+						action="#{«StateMachine.NameS»SMBacking.«transition.Guard»}"/>  
+				
+			«ELSE»	
+				<h:commandLink value="«transition.Trigger.NameS»"
+					action="«transition.Trigger.NameS»" /> 
+			«ENDIF»
+				</h:panelGrid>
+			</h:form>
+		«ENDFOREACH» 
 		</f:view>
 	 </ui:define>	
 	</ui:composition>
 	«ENDFILE»
 «ENDDEFINE»
 
+«REM» If any transition in a state has a guard we need to generate a backing bean for it «ENDREM»
+«DEFINE GenBeanClass FOR State»
+	«FOREACH OutTransition AS transition»
+			«IF transition.Trigger != null && transition.Guard != null»
+				«EXPAND BeanClass FOR this»
+			«ENDIF»
+	«ENDFOREACH» 
+«ENDDEFINE»
+	
+
+
+«DEFINE BeanClass FOR State»
+	«FILE "states/web/jsf" +"/"+ NameS.toFirstUpper() +"BeanBase.java"»  
+	
+		«EXPAND java::ManualFileGen::genManualFile("states/web/jsf", "Bean", "")»
+		
+		package states.web.jsf;
+		
+		import java.util.Date;
+		
+		import org.apache.log4j.Logger;
+		
+		public abstract class «NameS.toFirstUpper()»BeanBase{
+			
+		«FOREACH OutTransition AS transition»
+			«IF transition.Trigger != null && transition.Guard != null»
+			
+				private static final Logger log = 
+					Logger.getLogger(«NameS.toFirstUpper()»BeanBase.class);
+			
+				public String  «transition.Guard»{
+					try{
+						return do«transition.Guard.toFirstUpper()»;
+					}catch(Throwable t ){
+						log.error(t);
+						return "failure";
+					}
+				}
+				
+				public abstract String do«transition.Guard.toFirstUpper()»;
+					
+			«ENDIF»
+		«ENDFOREACH» 
+	
+		} 
+	«ENDFILE»
+«ENDDEFINE»
 
 
 

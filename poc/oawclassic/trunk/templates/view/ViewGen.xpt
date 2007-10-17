@@ -26,7 +26,7 @@
 «REM» Create the view/update xhtml page for an entity «ENDREM»
 «DEFINE genEditView FOR Entity-»
 	
-	«EXPAND genIncludes-»
+	«EXPAND genIncludes("templateCrud.xhtml")-»
 	
 	<ui:define name="content">
 
@@ -97,7 +97,7 @@
 «REM» Create the view/update xhtml page for an entity «ENDREM»
 «DEFINE genSearchView FOR Entity-»
 	
-	«EXPAND genIncludes-»
+	«EXPAND genIncludes("templateCrud.xhtml")-»
 	
 	<ui:define name="content">
 
@@ -163,7 +163,7 @@
 «REM» Create the tabular view xhtml page for an entity «ENDREM»
 «DEFINE genTabularView FOR Entity-»
 	
-	«EXPAND genIncludes-»
+	«EXPAND genIncludes("templateCrud.xhtml")-»
 	
 	<ui:define name="content">
 
@@ -178,7 +178,7 @@
 						value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()»s}" rows="30"
 					rowClasses="odd, even" styleClass="dataTable">
 						
-							«EXPAND genTableRow(this) FOREACH getAllAttributes -»
+							«EXPAND genTableRow(asInstanceVar()) FOREACH getAllAttributes -»
 							
 							«REM»The associated entites for e.g an order would need a customer «ENDREM»
 							«EXPAND genTableRow(this) FOREACH AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) -»
@@ -203,9 +203,45 @@
 							 <rich:tab label="Tree" >
 							 	<b> Show the tree view here </b>
 							 </rich:tab>
-							 
+						«REM» The audit log table goes here«ENDREM»	 
 							 <rich:tab label="Audit" >
-							 	<b> Show the audit view here </b>
+							 	<t:dataTable id="dataAudit" var="log"
+							value="#{productCrudBacking.auditLog}" rows="30"
+							rowClasses="odd, even" styleClass="dataTable">
+							
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
+									<t:outputText value="Date" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.dateCreated}" />
+							</t:column>
+							
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="Brand" arrow="true"> -->
+									<t:outputText value="Action" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.action}" />
+							</t:column>
+
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
+									<t:outputText value="User" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.username}" />
+							</t:column>
+							
+							
+							
+							«EXPAND genTableRow("log.entity") FOREACH getAllAttributes -»
+							
+							
+							</t:dataTable>
 							 </rich:tab>
 							 
 							</rich:tabPanel>
@@ -280,12 +316,12 @@
 
 
 
-«DEFINE genTableRow(Class c) FOR Attribute»
+«DEFINE genTableRow(String parent) FOR Attribute»
 	<t:column>
 		<f:facet name="header">
 				<t:outputText value="«NameS.toFirstUpper()»" /> 
 		</f:facet>
-		<t:outputText value="#{«c.asInstanceVar()».«fullName()»}" />
+		<t:outputText value="#{«parent».«fullName()»}" />
 	</t:column>
 «ENDDEFINE»
 
@@ -301,8 +337,8 @@
 «ENDDEFINE»
 
 
-
-«DEFINE genIncludes FOR Entity»
+«REM» Common taglibs for all xhtml pages - template can be specified«ENDREM»
+«DEFINE genIncludes(String template) FOR Element»
 	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -313,5 +349,5 @@
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
-	template="/WEB-INF/template/templateCrud.xhtml">
+	template="/WEB-INF/template/«template»">
 «ENDDEFINE»
