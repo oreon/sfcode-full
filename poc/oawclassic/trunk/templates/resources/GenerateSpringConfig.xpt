@@ -54,12 +54,17 @@
   <!-- Service Beans  -->
   «EXPAND GenerateServiceBeanDef FOREACH getEntities()»
   
+  <!-- Service Facade -->
+    <bean id="serviceFacade" class="facades.ServiceFacade" />
+ 
+  
   <!-- Dao Beans  -->
   «EXPAND GenerateDaoBeanDef FOREACH getEntities()»
   
    	<!-- Audit logging -->
   	<bean class="org.witchcraft.model.support.audit.AuditLogDaoImpl" id="auditLogDao"/>
  
+  
   
   
 </beans>

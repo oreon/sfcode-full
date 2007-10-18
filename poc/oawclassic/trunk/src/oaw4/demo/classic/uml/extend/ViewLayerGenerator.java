@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.openarchitectureware.core.meta.core.ElementSet;
 import org.openarchitectureware.core.meta.visitor.ModelElementVisitor;
@@ -112,11 +113,35 @@ public class ViewLayerGenerator {
 		Transition t;
 		State s;
 		
-		
 		//t.Action().
 		//t.Trigger().
 		
 		return states;
+	}
+	
+	/** For all states that have even one guard - we need to generate backing beans - this 
+	 * function gets a list of such states
+	 * @param stateMachine
+	 * @return
+	 */
+	public static ElementSet getStatesWithGuards(StateMachine stateMachine) {
+		ElementSet statesWithGuards = new ElementSet();
+		ElementSet states = getStates(stateMachine);
+		
+		for (Object object : states) {
+			State state = (State)object;
+			for ( Object trans: state.OutTransition()){
+				Transition transition = (Transition)trans;
+				if(transition != null && transition.Guard() != null && !StringUtils.EMPTY.equals(transition.Guard())){
+					System.out.println(" adding transition with guard " + transition.Guard());
+					statesWithGuards.add(state);
+					break;
+				}
+					
+			}
+		}
+		
+		return statesWithGuards;
 	}
 
 	public static String generateJspFromStateMachine(StateMachine stateMachine) {

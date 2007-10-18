@@ -148,6 +148,22 @@
 		}
 «ENDDEFINE»
 
+«DEFINE GenServiceFacade FOR Model»
+	«FILE  "facades/" + "ServiceFacade.java"» 
+	
+		package facades;
+		
+		«FOREACH getEntities() AS e»
+			import «e.packageName()+".service." +  e.NameS + "Service"-»;
+		«ENDFOREACH»
+	
+		public class ServiceFacade{
+			«EXPAND CommonUtils::genDeclGetterSetter("Service") FOREACH getEntities()»
+		}
+	
+	«ENDFILE»
+«ENDDEFINE»
+
 
 «DEFINE GenerateServiceInterface FOR Entity»
 

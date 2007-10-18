@@ -98,12 +98,9 @@ public abstract class AbstractEntity extends
 			}
 
 			
-			System.out.println(NameS() + " has assoc " + assocAttributes.size());
-
+			//System.out.println(NameS() + " has assoc " + assocAttributes.size());
 			attributes.addAll(ae.Class().Attribute());
 		}
-
-		System.out.println(NameS() + " has " + attributes.size());
 		return attributes;
 	}
 
