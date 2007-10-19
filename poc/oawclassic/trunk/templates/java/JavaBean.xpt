@@ -5,18 +5,34 @@
 «EXTENSION java::NamingConventions»
 	
 «DEFINE BeanClass FOR Class»
-«FILE packagePath()+"/"+NameS+"Base.java"»  
+	«FILE packagePath()+"/"+NameS+"Base.java"»  
+	
+	«EXPAND ManualFileGen::genManualFile("", "", "")»
+	
+	package «packageName()»;
+	
+	import javax.persistence.*;
+	import java.util.Date;
+	
+	«getClassDeclaration()»{
+			«EXPAND classBody FOR this»
+	} 
+	«ENDFILE»
+«ENDDEFINE»
 
-«EXPAND ManualFileGen::genManualFile("", "", "")»
-
-package «packageName()»;
-
-import javax.persistence.*;
-import java.util.Date;
-
-«getClassDeclaration()»{
-		«EXPAND classBody FOR this»
-} 
+«DEFINE BeanClass FOR MailerTask»
+	«FILE packagePath()+"/"+NameS+"Base.java"»  
+	
+	«EXPAND ManualFileGen::genManualFile("", "", "")»
+	
+	package «packageName()»;
+	
+	import javax.persistence.*;
+	import java.util.Date;
+	
+	public abstract class «NameS»Base extends AbstractMailerTask{
+			«EXPAND classBody FOR this»
+	} 
 	«ENDFILE»
 «ENDDEFINE»
 

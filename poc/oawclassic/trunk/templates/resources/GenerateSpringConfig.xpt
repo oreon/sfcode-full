@@ -50,6 +50,17 @@
   <bean
      class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
  
+ <!-- Velocity -->
+ <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+    <property name="velocityProperties">
+        <props>
+            <prop key="resource.loader">class</prop>
+            <prop key="class.resource.loader.class">
+                org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+            </prop>
+        </props>
+    </property>
+</bean>
   
   <!-- Service Beans  -->
   «EXPAND GenerateServiceBeanDef FOREACH getEntities()»
