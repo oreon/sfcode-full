@@ -23,56 +23,46 @@
 					<rich:tab label="Basic" >
 					<h:panelGrid columns="6" styleClass="formTable">
 						<f:facet name="header">
-							<h:outputText value="PlacedOrder Information"
+							<h:outputText value="Product Information"
 								styleClass="formHeaderText"   />
 						</f:facet>
 						
-							<h:outputText value="Remarks" styleClass="formLabel" />
+							<h:outputText value="Name" styleClass="formLabel" />
 							
 							<h:inputText    
-								id="placedOrder__remarks"
-								value="#{placedOrderCrudBacking.placedOrder.remarks}">
+								id="product__name"
+								value="#{productCrudBacking.product.name}">
 								
 							</h:inputText>
 							
-							<h:message for="placedOrder__remarks" styleClass="errMessage" />
+							<h:message for="product__name" styleClass="errMessage" />
 							
-							<h:outputText value="PaymentMethod" styleClass="formLabel" />
+							<h:outputText value="Brand" styleClass="formLabel" />
 							
 							<h:inputText    
-								id="placedOrder__paymentMethod"
-								value="#{placedOrderCrudBacking.placedOrder.paymentMethod}">
+								id="product__brand"
+								value="#{productCrudBacking.product.brand}">
 								
 							</h:inputText>
 							
-							<h:message for="placedOrder__paymentMethod" styleClass="errMessage" />
+							<h:message for="product__brand" styleClass="errMessage" />
 							
-							<h:outputText value="Status" styleClass="formLabel" />
-							
-							<h:selectOneMenu    
-								id="placedOrder__status"
-								value="#{placedOrderCrudBacking.placedOrder.status}">
-								<f:selectItem itemLabel="NEW" itemValue="NEW" /><f:selectItem itemLabel="COMPLETED" itemValue="COMPLETED" /><f:selectItem itemLabel="SHIPPED" itemValue="SHIPPED" />
-							</h:selectOneMenu>
-							
-							<h:message for="placedOrder__status" styleClass="errMessage" />
-							
-							<h:outputText value="Total" styleClass="formLabel" />
+							<h:outputText value="ListPrice" styleClass="formLabel" />
 							
 							<h:inputText    
-								id="placedOrder__total"
-								value="#{placedOrderCrudBacking.placedOrder.total}">
+								id="product__listPrice"
+								value="#{productCrudBacking.product.listPrice}">
 								
 							</h:inputText>
 							
-							<h:message for="placedOrder__total" styleClass="errMessage" />
+							<h:message for="product__listPrice" styleClass="errMessage" />
 							
 							
 							
-  						   <h:commandButton id="button1" value="Submit" action="#{placedOrderCrudBacking.search}"  /> 
-  						    <h:commandButton id="button2" value="Cancel" action="success" immediate="true"/> 
+  						   <h:commandButton id="button1" value="Submit" action="#{productCrudBacking.search}"  /> 
+  						    <h:commandButton id="button2" value="Cancel" action="cancel" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
-		  				   	<h:inputHidden id="placedOrder_id" value="#{placedOrderCrudBacking.placedOrder.id}" />
+		  				   	<h:inputHidden id="product_id" value="#{productCrudBacking.product.id}" />
 
 						</h:panelGrid>
 						</rich:tab>
@@ -81,7 +71,7 @@
 							
 							<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
 								id="customer__creation"
-								value="#{placedOrderCrudBacking.placedOrder.dateCreated}">
+								value="#{productCrudBacking.product.dateCreated}">
 								
 							</t:inputCalendar >
 							
