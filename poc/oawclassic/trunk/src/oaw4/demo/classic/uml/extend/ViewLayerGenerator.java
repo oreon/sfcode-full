@@ -132,10 +132,17 @@ public class ViewLayerGenerator {
 			State state = (State)object;
 			for ( Object trans: state.OutTransition()){
 				Transition transition = (Transition)trans;
-				if(transition != null && transition.Guard() != null && !StringUtils.EMPTY.equals(transition.Guard())){
-					System.out.println(" adding transition with guard " + transition.Guard());
-					statesWithGuards.add(state);
-					break;
+				if(transition == null)
+					continue;
+				String guard = transition.Guard();
+				if(guard != null && !StringUtils.EMPTY.equals(transition.Guard())){
+					if(guard.contains(".")){//this guard is using a crud backing bean
+						System.out.println("Gurard uses backing bean");
+					}else{
+						System.out.println(" adding transition with guard " + transition.Guard());
+						statesWithGuards.add(state);
+						break;
+					}
 				}
 					
 			}
@@ -266,6 +273,19 @@ public class ViewLayerGenerator {
 			return arr[arr.length - 1]; // return the last item
 		} 
 		return nameS;
+	}
+	
+	/** If a string has ending braces '()' - this function will
+	 * remove them
+	 * @param arguement
+	 * @return
+	 */
+	public static String removeEndingBraces(String arguement){
+		if(arguement.endsWith("()")){
+			return arguement.substring(0, arguement.lastIndexOf("()"));
+		}
+				
+		return arguement;
 	}
 
 }

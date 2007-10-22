@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8' ?>
-<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Fri Oct 19 15:30:01 EDT 2007'>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Sat Oct 20 19:28:22 EDT 2007'>
   <XMI.header>    <XMI.documentation>
       <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
       <XMI.exporterVersion>0.24(5) revised on $Date: 2006-11-06 19:55:22 +0100 (Mon, 06 Nov 2006) $ </XMI.exporterVersion>
@@ -1371,8 +1371,8 @@
             <UML:Stereotype xmi.id = '-64--88-1-101--4c916593:11190ba037c:-8000:0000000000000971'
               name = 'Key' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
               isAbstract = 'false'>
-              <UML:Stereotype.baseClass>Package</UML:Stereotype.baseClass>
               <UML:Stereotype.baseClass>Attribute</UML:Stereotype.baseClass>
+              <UML:Stereotype.baseClass>Package</UML:Stereotype.baseClass>
             </UML:Stereotype>
             <UML:Stereotype xmi.id = '127-0-0-1--365c185a:11577ab37c1:-8000:0000000000000997'
               name = 'ScheduledTask' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
@@ -1381,8 +1381,8 @@
               <UML:Stereotype.baseClass>ActionExpression</UML:Stereotype.baseClass>
               <UML:Stereotype.baseClass>Class</UML:Stereotype.baseClass>
               <UML:Stereotype.baseClass>CallEvent</UML:Stereotype.baseClass>
-              <UML:Stereotype.baseClass>CallAction</UML:Stereotype.baseClass>
               <UML:Stereotype.baseClass>CallState</UML:Stereotype.baseClass>
+              <UML:Stereotype.baseClass>CallAction</UML:Stereotype.baseClass>
               <UML:Stereotype.baseClass>Package</UML:Stereotype.baseClass>
               <UML:Stereotype.definedTag>
                 <UML:TagDefinition xmi.id = '127-0-0-1--365c185a:11577ab37c1:-8000:0000000000000998'
@@ -1421,8 +1421,8 @@
               name = 'MailerTask' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
               isAbstract = 'false'>
               <UML:Stereotype.baseClass>CallAction</UML:Stereotype.baseClass>
-              <UML:Stereotype.baseClass>Package</UML:Stereotype.baseClass>
               <UML:Stereotype.baseClass>Parameter</UML:Stereotype.baseClass>
+              <UML:Stereotype.baseClass>Package</UML:Stereotype.baseClass>
               <UML:Stereotype.baseClass>Class</UML:Stereotype.baseClass>
               <UML:Stereotype.definedTag>
                 <UML:TagDefinition xmi.id = '127-0-0-1--76e83599:115b9aa551b:-8000:0000000000000A2B'
@@ -2613,8 +2613,17 @@
                 </UML:Transition>
                 <UML:Transition xmi.id = '127-0-0-1--60e15751:115aafcfd87:-8000:00000000000009F1'
                   isSpecification = 'false'>
+                  <UML:Transition.guard>
+                    <UML:Guard xmi.id = '127-0-0-1--6a286f86:115bfa90490:-8000:0000000000000A1B'
+                      name = 'anon' isSpecification = 'false'>
+                      <UML:Guard.expression>
+                        <UML:BooleanExpression xmi.id = '127-0-0-1--6a286f86:115bfa90490:-8000:0000000000000A1C'
+                          language = '' body = 'customerCrudBacking.update()'/>
+                      </UML:Guard.expression>
+                    </UML:Guard>
+                  </UML:Transition.guard>
                   <UML:Transition.trigger>
-                    <UML:CallEvent xmi.idref = '127-0-0-1--60e15751:115aafcfd87:-8000:00000000000009F2'/>
+                    <UML:CallEvent xmi.idref = '127-0-0-1--6a286f86:115bfa90490:-8000:0000000000000A18'/>
                   </UML:Transition.trigger>
                   <UML:Transition.source>
                     <UML:SimpleState xmi.idref = '127-0-0-1--60e15751:115aafcfd87:-8000:00000000000009DB'/>
@@ -2666,11 +2675,15 @@
                 </UML:Parameter>
               </UML:Event.parameter>
             </UML:CallEvent>
-            <UML:CallEvent xmi.id = '127-0-0-1--60e15751:115aafcfd87:-8000:00000000000009F2'
+            <UML:CallEvent xmi.id = '127-0-0-1--6a286f86:115bfa90490:-8000:0000000000000A18'
               name = 'doRegister' isSpecification = 'false'>
               <UML:Event.parameter>
-                <UML:Parameter xmi.id = '127-0-0-1--60e15751:115aafcfd87:-8000:00000000000009F3'
-                  name = 'customer' isSpecification = 'false' kind = 'in'/>
+                <UML:Parameter xmi.id = '127-0-0-1--6a286f86:115bfa90490:-8000:0000000000000A19'
+                  name = 'customer' isSpecification = 'false' kind = 'in'>
+                  <UML:Parameter.type>
+                    <UML:Class xmi.idref = '127-0-0-1--6a286f86:115bfa90490:-8000:0000000000000A1A'/>
+                  </UML:Parameter.type>
+                </UML:Parameter>
               </UML:Event.parameter>
             </UML:CallEvent>
           </UML:Namespace.ownedElement>
@@ -3156,16 +3169,16 @@
                   name = 'from' visibility = 'public' isSpecification = 'false' ownerScope = 'instance'
                   changeability = 'changeable' targetScope = 'instance'>
                   <UML:StructuralFeature.multiplicity>
-                    <UML:Multiplicity xmi.id = '127-0-0-1--76e83599:115b9aa551b:-8000:0000000000000A0E'>
+                    <UML:Multiplicity xmi.id = '127-0-0-1--76e83599:115b9aa551b:-8000:0000000000000A33'>
                       <UML:Multiplicity.range>
-                        <UML:MultiplicityRange xmi.id = '127-0-0-1--76e83599:115b9aa551b:-8000:0000000000000A0D'
+                        <UML:MultiplicityRange xmi.id = '127-0-0-1--76e83599:115b9aa551b:-8000:0000000000000A32'
                           lower = '1' upper = '1'/>
                       </UML:Multiplicity.range>
                     </UML:Multiplicity>
                   </UML:StructuralFeature.multiplicity>
                   <UML:Attribute.initialValue>
-                    <UML:Expression xmi.id = '127-0-0-1--76e83599:115b9aa551b:-8000:0000000000000A1F'
-                      language = '' body = 'pufountatin admin'/>
+                    <UML:Expression xmi.id = '127-0-0-1--76e83599:115b9aa551b:-8000:0000000000000A35'
+                      language = '' body = '&quot;pufountatin admin&quot;'/>
                   </UML:Attribute.initialValue>
                   <UML:StructuralFeature.type>
                     <UML:Class xmi.idref = '127-0-0-1-42b4f0f6:111657faf04:-8000:000000000000078E'/>
@@ -3175,6 +3188,9 @@
             </UML:Class>
           </UML:Namespace.ownedElement>
         </UML:Package>
+        <UML:Class xmi.id = '127-0-0-1--6a286f86:115bfa90490:-8000:0000000000000A1A'
+          name = 'bizobjects.Customer' visibility = 'public' isSpecification = 'false'
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'/>
       </UML:Namespace.ownedElement>
     </UML:Model>
   </XMI.content>
