@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Transient;
@@ -93,8 +94,12 @@ public abstract class BaseServiceImpl<T extends BusinessEntity> {
 
 	}
 	
-	public int getCount() {
+	public long getCount() {
 		return getDao().getCount();
+	}
+	
+	public long getCount(Date fromDate, Date toDate){
+		return getDao().getCount(fromDate, toDate);
 	}
 	
 	

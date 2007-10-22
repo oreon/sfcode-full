@@ -2,6 +2,7 @@ package org.witchcraft.model.support.dao;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -75,7 +76,7 @@ public class BaseDao<T> implements GenericDAO<T> {
 		}
 		else{
 			entityManager.persist(entity);
-			entityAuditLogInterceptor.onSave(entity, "TESTUSER",  null, null , null );
+			//entityAuditLogInterceptor.onSave(entity, "TESTUSER",  null, null , null );
 		}
 		
 		return entity;
@@ -94,12 +95,8 @@ public class BaseDao<T> implements GenericDAO<T> {
 		return query.getResultList();
 	}
 	
-	public int getCount(){
-		
-		String qryString = "select count(e) from "
-			+ getPersistentClass().getSimpleName() + "  e ";
-		 
-		return ((Integer)entityManager.createQuery(qryString).getSingleResult());
+	public long getCount(){
+		return getCount(null, null);
 	}
 
 	public void delete(T entity) {
@@ -134,5 +131,26 @@ public class BaseDao<T> implements GenericDAO<T> {
 
 	public void setEntityAuditLogInterceptor(Interceptor entityAuditLogInterceptor) {
 		this.entityAuditLogInterceptor = entityAuditLogInterceptor;
+	}
+
+	public long getCount(Date fromDate, Date toDate) {
+		String qryString = "select count(e) from "
+			+ getPersistentClass().getSimpleName() + " e ";
+		if (fromDate != null || toDate != null){
+			qryString += " WHERE ";
+			if(fromDate != null)
+				qryString += " e.dateCreated >= '" + fromDate + "'";
+			
+			if(fromDate != null && toDate != null)
+				qryString += " AND ";
+			
+			if(toDate != null)
+				qryString += " e.dateCreated <= '" + toDate + "'";
+		}
+		
+		Object result = entityManager.createQuery(qryString).getSingleResult();
+		 
+		return ((Long)entityManager.createQuery(qryString).getSingleResult());
+
 	}
 }

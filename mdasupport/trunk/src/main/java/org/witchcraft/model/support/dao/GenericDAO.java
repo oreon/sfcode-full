@@ -1,8 +1,7 @@
 package org.witchcraft.model.support.dao;
 
+import java.util.Date;
 import java.util.List;
-
-import org.witchcraft.model.support.audit.AuditLog;
 
 public interface GenericDAO<T> {
 
@@ -20,7 +19,15 @@ public interface GenericDAO<T> {
     /** Get the count of records
      * @return - the count
      */
-    public int getCount();
+    public long getCount();
+    
+    /** The number of records created between fromdate and todate -
+     * the dates can be null indicating the upper/lower bound is not set
+     * @param fromDate - 
+     * @param toDate
+     * @return The number of records created between fromdate and todate
+     */
+    public long getCount(Date fromDate, Date toDate);
     
    
 
