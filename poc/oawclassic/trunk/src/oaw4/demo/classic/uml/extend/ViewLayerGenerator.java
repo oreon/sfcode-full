@@ -281,8 +281,16 @@ public class ViewLayerGenerator {
 	 * @return
 	 */
 	public static String removeEndingBraces(String arguement){
-		if(arguement.endsWith("()")){
-			return arguement.substring(0, arguement.lastIndexOf("()"));
+		return removeTrailing(arguement, "()" );
+	}
+	
+	public static String removeTrailingS(String arguement){
+		return removeTrailing(arguement, "s");
+	}
+	
+	public static String removeTrailing(String arguement, String trailingPartToRemove){
+		if(arguement.endsWith(trailingPartToRemove)){
+			return arguement.substring(0, arguement.lastIndexOf(trailingPartToRemove));
 		}
 				
 		return arguement;
