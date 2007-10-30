@@ -12,10 +12,10 @@
 	«EXPAND view::CrudJSFBackingBeans::GenerateManagedBeanDefs»
 	«EXPAND resources::GenResources::GenerateResources»
 	
+	
 	«EXPAND java::TestDataFactoryGen::GenerateInitialData»
 	«EXPAND java::ServiceGen::GenServiceFacade»
-	
-	
+	«EXPAND java::SchemaGen::Gen»
 «ENDDEFINE»
 
 «DEFINE Root FOR Package»
@@ -52,11 +52,18 @@
 	«EXPAND java::JavaBean::BeanClass»
 «ENDDEFINE»
 
-
-
-«DEFINE Root FOR Actor»
-	Handling usecase «NameS»
+«DEFINE Root FOR uml::Actor»
+	«FILE NameS»
+		«NameS»
+	«ENDFILE»
 «ENDDEFINE»
+
+«DEFINE Root FOR uml::UseCase»
+	«FILE NameS»
+		«NameS»
+	«ENDFILE»
+«ENDDEFINE»
+
 
 «DEFINE Root FOR Enumeration»
 	«EXPAND java::EnumGen::EnumGen»

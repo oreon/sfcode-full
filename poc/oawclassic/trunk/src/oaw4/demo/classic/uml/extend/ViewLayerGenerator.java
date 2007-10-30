@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import oaw4.demo.classic.uml.meta.Entity;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.openarchitectureware.core.meta.core.ElementSet;
@@ -13,14 +15,13 @@ import org.openarchitectureware.core.meta.visitor.TypeCollectingVisitor;
 import org.openarchitectureware.meta.uml.classifier.AssociationEnd;
 import org.openarchitectureware.meta.uml.classifier.Attribute;
 import org.openarchitectureware.meta.uml.classifier.Class;
+import org.openarchitectureware.meta.uml.state.Action;
 import org.openarchitectureware.meta.uml.state.State;
 import org.openarchitectureware.meta.uml.state.StateMachine;
 import org.openarchitectureware.meta.uml.state.Transition;
 import org.witchcraft.htmlinput.jsf.InputComponentFactory;
 import org.witchcraft.htmlinput.jsf.InputComponentRenderer;
 import org.witchcraft.htmlinput.jsf.RenderContext;
-
-import oaw4.demo.classic.uml.meta.Entity;
 
 /**
  * To generate a basic view layer
@@ -113,6 +114,10 @@ public class ViewLayerGenerator {
 		Transition t;
 		State s;
 		
+		//Action a = t.Action();
+		
+		//org.openarchitectureware.meta.uml.
+		
 		//t.Action().
 		//t.Trigger().
 		
@@ -134,6 +139,9 @@ public class ViewLayerGenerator {
 				Transition transition = (Transition)trans;
 				if(transition == null)
 					continue;
+				if(transition.hasAction())
+					System.out.println(transition.NameS() + " - action - " + transition.Action().NameS());
+				
 				String guard = transition.Guard();
 				if(guard != null && !StringUtils.EMPTY.equals(transition.Guard())){
 					if(guard.contains(".")){//this guard is using a crud backing bean

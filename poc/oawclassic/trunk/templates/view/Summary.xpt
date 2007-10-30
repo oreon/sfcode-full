@@ -24,12 +24,32 @@
 		<f:view>
 		<h:messages layout="list" globalOnly="true" showDetail="true"
 			styleClass="messages" />
+			
+			<a4j:form id="form">
+			
 			<rich:panel>
 				<h:panelGrid columns="1" styleClass="formTable">
 						<f:facet name="header">
 							<h:outputText value="Summary"
 								styleClass="formHeaderText"   />
 						</f:facet>	
+						
+					<h:panelGrid columns="5">
+						<h:outputText value="From" />
+						<t:inputCalendar renderAsPopup="true"
+							renderPopupButtonAsImage="true" required="false" id="from_Date">
+						</t:inputCalendar>
+
+						<h:outputText value="To" />
+						<t:inputCalendar renderAsPopup="true"
+							renderPopupButtonAsImage="true" required="false" id="to_Date">
+						</t:inputCalendar>
+
+
+						<h:commandButton id="button1" value="Submit" action="search" />
+
+					</h:panelGrid>
+						
 			
 						«EXPAND GenerateSummaryForEntity FOREACH getEntities()»			
 			
@@ -38,10 +58,8 @@
 				<br/>
 				<br/>
 						
-						
-						
-						
-			</rich:panel>	
+			 </rich:panel>	
+			</a4j:form>
 		</f:view>
 
 	</ui:define>

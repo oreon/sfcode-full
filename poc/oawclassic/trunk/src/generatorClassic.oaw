@@ -20,62 +20,67 @@
 		file="org/openarchitectureware/workflow/oawclassic/classicinit.oaw">
 		<metaEnvironmentSlot value="me" />
 	</cartridge>
-	
-	<!--  
+
+
+<!--  
 	<component id="dirCleaner"
-		class="org.openarchitectureware.workflow.common.DirectoryCleaner">
-		<directories value="${srcGenPath}" />
+	class="org.openarchitectureware.workflow.common.DirectoryCleaner">
+	<directories value="${srcGenPath}" />
 	</component>
-	-->
+-->
 
-	<component id="generator"  
-		class="org.openarchitectureware.xpand2.Generator">
-		<metaModel
-			class="org.openarchitectureware.type.impl.java.JavaMetaModel">
-			<typeStrategy
-				class="org.openarchitectureware.type.impl.oawclassic.OAWClassicStrategy"
-				convertPropertiesToLowerCase="false" />
-		</metaModel>
-		<expand value="Root::Root FOREACH me.getElements('Model')" />
-		<outlet path="${srcGenPath}/" />
-		<srcPath value="${srcGenPath}/"  />
-		<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
-		<beautifier
-			class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
-		<beautifier
-			class="org.openarchitectureware.xpand2.output.XmlBeautifier" />
-		<globalVarDef name="dbName" value="'${database.connection.dbname}'" />
-		<globalVarDef name="userName" value="'${database.connection.username}'" />
-		<globalVarDef name="password" value="'${database.connection.password}'" />
-		<globalVarDef name="host" value="'${database.connection.host}'" />
-		<globalVarDef name="driverClass" value="'${database.connection.driver.class}'" />
-		<fileEncoding value="ISO-8859-1" />
-		
-	</component>
-	
-	<component id="pageFlowGenerator"
-		class="org.openarchitectureware.xpand2.Generator"  >
-		<metaModel
-			class="org.openarchitectureware.type.impl.java.JavaMetaModel">
-			<typeStrategy
-				class="org.openarchitectureware.type.impl.oawclassic.OAWClassicStrategy"
-				convertPropertiesToLowerCase="false" />
-		</metaModel>
-		<expand value="PageFlow::file FOREACH me.getElements('StateMachine')" />
-		
-		<srcPath value="${srcGenPath}/"  />
-		<outlet path="${srcGenPath}/" />
-		<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
-		<beautifier
-			class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
-		<beautifier
-			class="org.openarchitectureware.xpand2.output.XmlBeautifier" />
-		<fileEncoding value="ISO-8859-1" />
-	</component>
+<component id="generator"
+	class="org.openarchitectureware.xpand2.Generator">
+	<metaModel
+		class="org.openarchitectureware.type.impl.java.JavaMetaModel">
+		<typeStrategy
+			class="org.openarchitectureware.type.impl.oawclassic.OAWClassicStrategy"
+			convertPropertiesToLowerCase="false" />
+	</metaModel>
+	<expand value="Root::Root FOREACH me.getElements('Model')" />
+	<outlet path="${srcGenPath}/" />
+	<srcPath value="${srcGenPath}/" />
+	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
+	<beautifier
+		class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
+	<beautifier
+		class="org.openarchitectureware.xpand2.output.XmlBeautifier" />
+	<globalVarDef name="dbName" value="'${database.connection.dbname}'" />
+	<globalVarDef name="userName"
+		value="'${database.connection.username}'" />
+	<globalVarDef name="password"
+		value="'${database.connection.password}'" />
+	<globalVarDef name="host" value="'${database.connection.host}'" />
+	<globalVarDef name="driverClass"
+		value="'${database.connection.driver.class}'" />
+	<fileEncoding value="ISO-8859-1" />
 
-	<cartridge
-		file="org/openarchitectureware/workflow/oawclassic/classicfinish.oaw">
-		<instantiatorEnvironmentSlot value="ie" />
-		<dumpfile value="${dumpfile}" />
-	</cartridge>
+</component>
+
+<component id="pageFlowGenerator"
+	class="org.openarchitectureware.xpand2.Generator">
+	<metaModel
+		class="org.openarchitectureware.type.impl.java.JavaMetaModel">
+		<typeStrategy
+			class="org.openarchitectureware.type.impl.oawclassic.OAWClassicStrategy"
+			convertPropertiesToLowerCase="false" />
+	</metaModel>
+	<expand
+		value="PageFlow::file FOREACH me.getElements('StateMachine')" />
+
+	<srcPath value="${srcGenPath}/" />
+	<outlet path="${srcGenPath}/" />
+	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
+	<beautifier
+		class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
+	<beautifier
+		class="org.openarchitectureware.xpand2.output.XmlBeautifier" />
+	<fileEncoding value="ISO-8859-1" />
+</component>
+
+<cartridge
+	file="org/openarchitectureware/workflow/oawclassic/classicfinish.oaw">
+	<instantiatorEnvironmentSlot value="ie" />
+	<dumpfile value="${dumpfile}" />
+</cartridge>
 </workflow>
