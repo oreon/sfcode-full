@@ -1,0 +1,187 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT oaw4::demo::classic::uml::meta::GroupSummaryField»
+
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+«EXTENSION java::NamingConventions»
+«EXTENSION reports::ReportExt»
+
+«DEFINE Gen FOR ReportTask»
+
+«FILE "../resources/reports/" +NameS + ".jrxml" -»
+<?xml version="1.0"?>
+<!DOCTYPE jasperReport
+PUBLIC "-//JasperReports//DTD Report Design//EN"
+"http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport name="«NameS»">
+
+	<queryString language="«getQueryLanguage»">
+		<![CDATA[«getQuery»]]>
+	</queryString>
+
+	«EXPAND FieldDec FOREACH Attribute-»
+	
+	«EXPAND GenGroupCounter FOREACH Attribute-»
+	
+	«EXPAND GenGroupSummaryVar FOREACH Attribute-»
+	
+	«EXPAND GroupGen FOREACH Attribute-»
+	«resetCounter()-»
+	<pageHeader>
+		<band height="20">
+			<rectangle>
+				<reportElement x="0" y="5" width="515" height="15" forecolor="#333333" backcolor="#333333"/>
+				<graphicElement/>
+			</rectangle>
+			«EXPAND FieldHdr FOREACH Attribute-»
+			«resetCounter()-»
+		</band>
+	</pageHeader>
+	
+	<detail>
+	 	<band height="30">
+		«EXPAND FieldGen FOREACH Attribute-»
+		«resetCounter()-»
+	 	</band>
+	</detail> 	
+	
+
+</jasperReport>
+«ENDFILE»
+
+«ENDDEFINE»  
+
+«REM» Generate the  field declarations «ENDREM»
+«DEFINE FieldDec FOR ReportField-»
+	«IF getFieldExpression == null-»
+	<field name="«NameS»" class="«Type.fqn()»"/>
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE FieldDec FOR Attribute-»
+	<field name="«NameS»" class="«Type.fqn()-»"/>
+«ENDDEFINE»
+
+«REM» Generate the displayed fields «ENDREM»
+«DEFINE FieldGen FOR ReportGroup-»
+«ENDDEFINE»
+
+«DEFINE FieldGen FOR ReportField-»
+	«IF isVisible»
+		<textField>
+			<reportElement x="«getCounter() * 65»" y="0" width="69" height="24"/>
+			<textFieldExpression class="«Type.fqn()»">
+				<![CDATA[«getFieldExpression != null ? getFieldExpression :"$F{" + NameS + "}"»]]>
+			</textFieldExpression>
+		</textField>
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE FieldGen FOR Attribute»
+		<textField>
+			<reportElement x="«getCounter() * 65»" y="0" width="69" height="24"/>
+			<textFieldExpression class="«Type.fqn()»">
+				<![CDATA[«"$F{" + NameS + "}"»]]>
+			</textFieldExpression>
+		</textField>
+«ENDDEFINE»
+
+«REM» Generate the  field headers «ENDREM»
+«DEFINE FieldHdr FOR ReportGroup-»
+«ENDDEFINE»
+
+«DEFINE FieldHdr FOR ReportField-»
+	«IF isVisible»
+			<staticText>
+				<reportElement mode="Opaque" x="«getCounter() * 65»" y="5" width="205" height="15" forecolor="#ffffff" backcolor="#333333" />
+				<text><![CDATA[«NameS»]]></text>
+			</staticText>
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE FieldHdr FOR Attribute-»
+			<staticText>
+				<reportElement mode="Opaque" x="«getCounter() * 65»" y="5" width="205" height="15" forecolor="#ffffff" backcolor="#333333" />
+				<text><![CDATA[«NameS»]]></text>
+			</staticText>
+«ENDDEFINE»
+
+«DEFINE GroupGen FOR ReportGroup»
+	<group name="Group«NameS»" minHeightToStartNewPage="60">
+		<groupExpression><![CDATA[$F{«NameS»}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField evaluationTime="Group" evaluationGroup="Group«NameS»" bookmarkLevel="1">
+					<reportElement mode="Opaque" x="0" y="5" width="515" height="15" backcolor="#c0c0c0" />
+					<box leftPadding="10" bottomBorder="1Point"/>
+					<textFieldExpression class="java.lang.String">
+						<![CDATA["  " + String.valueOf($V{Group«NameS»Counter}) + ". " + String.valueOf($F{«NameS»})]]>
+					</textFieldExpression>
+					<anchorNameExpression><![CDATA[String.valueOf($F{«NameS»})]]></anchorNameExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		
+		<groupFooter>
+			<band height="20">
+				«FOREACH getSummaryFieldsList AS s»
+				<staticText>
+					<reportElement x="«((515/65) - (getSummaryFieldsList.size * 2) + getCounter()) * 65»" y="1" width="60" height="15" />
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[«s.getMessage»]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="«((515/65) - (getSummaryFieldsList.size * 2) + getCounter()) * 65 »" y="1" width="30" height="15" />
+					<textElement textAlignment="Right"/>
+					<textFieldExpression class="java.lang.Integer">
+						<![CDATA[$V{Group«NameS»_«s.getOperationName»}]]>
+					</textFieldExpression>
+				</textField>
+				«ENDFOREACH»
+			</band>	
+		</groupFooter> 
+	</group>
+«ENDDEFINE»
+
+«DEFINE GroupGen FOR Attribute-»
+«ENDDEFINE»
+
+«DEFINE GenGroupCounter FOR ReportGroup-»
+	<variable name="Group«NameS»Counter" class="java.lang.Integer" incrementType="Group" 
+		incrementGroup="Group«NameS»" calculation="Count">
+		<variableExpression><![CDATA[Boolean.TRUE]]></variableExpression>
+	</variable>
+«ENDDEFINE»
+
+«DEFINE GenGroupCounter FOR Attribute-»
+«ENDDEFINE»
+
+
+«REM» for group summary variables«ENDREM»
+
+«DEFINE GenGroupSummaryVar FOR ReportGroup-»
+	«FOREACH getSummaryFieldsList AS s»
+	«IF s.getOperation != "COUNT"»
+	<variable name="Group«NameS»_«s.getOperationName»" class="java.lang.Integer"
+		calculation="Average" resetType="Group" resetGroup="Group«NameS»">
+		<variableExpression>
+			<![CDATA[$F{«s.getVariable»}]]>
+		</variableExpression>
+	</variable>
+	
+	<variable name="«s.getOperationName»" class="java.lang.Integer"
+		calculation="«s.getOperation»" >
+		<variableExpression>
+			<![CDATA[$F{«s.getVariable»}]]>
+		</variableExpression>
+	</variable>
+	«ENDIF»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE GenGroupSummaryVar FOR Attribute-»
+«ENDDEFINE»
+
+
+

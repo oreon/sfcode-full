@@ -407,12 +407,23 @@ public class ClassUtil {
 
 	private static String[] arrString = { "One", "Two", "Three", "Four", "Five" };
 
+	private static int count = 0;
+
 	public static List getCounters(Class cls) {
 		return Arrays.asList(arrString);
 	}
 
 	public static String replaceSlashesWithDots(String source) {
 		return source.replace('/', '.');
+	}
+	
+	public static int getCounter(){
+		return count++ ;
+	}
+	
+	public static String resetCounter(){
+		count = 0;
+		return "";
 	}
 
 }

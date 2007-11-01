@@ -15,14 +15,14 @@
 
 
 «DEFINE Getter FOR Column»
-	«IF getDerived != null»
+	«IF getDerived != null-»
 		@Transient
 	«ELSE»
-		@Column(nullable=«isNullable», unique=«isUnique»)
+		@Column(nullable=«isNullable», unique=«isUnique-»)
 	«ENDIF»
 	public «Type.NameS» «getGetter(Type)»«NameS.toFirstUpper()» () {
 		«IF getDerived != null»
-			«NameS» = 0.0;
+			«NameS» = 0;
 			«getDerived»
 		«ENDIF»
 		return this.«NameS»;

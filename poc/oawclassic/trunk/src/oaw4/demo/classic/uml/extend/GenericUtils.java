@@ -20,5 +20,9 @@ public class GenericUtils {
 	public static String toFirstUpper(String string){
 		return WordUtils.capitalizeFully(string);
 	}
+	
+	public static String toUpper(String string){
+		return string.toUpperCase();
+	}
 
 }
