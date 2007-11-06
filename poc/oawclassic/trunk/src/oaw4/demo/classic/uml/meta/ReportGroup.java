@@ -29,6 +29,10 @@ public class ReportGroup extends Attribute{
 	 */
 	public  ElementSet getSummaryFieldsList(){
 		ElementSet fields = new ElementSet();
+		
+		if(summaryFields == null || summaryFields.length() == 0)
+			return fields;
+		
 		String fldsArray[] = summaryFields.split(Constants.STD_CONCAT);
 		for (String field : fldsArray) {
 			GroupSummaryField groupSummaryField = new GroupSummaryField(field.trim());
@@ -38,6 +42,9 @@ public class ReportGroup extends Attribute{
 	}
 	
 	public static void main(String args[]){
+		String s = "[wow]";
+		
+		System.out.println(s);
 		ReportGroup grp = new ReportGroup();
 		grp.setSummaryFields("Average(age); count");
 		ElementSet set = grp.getSummaryFieldsList();

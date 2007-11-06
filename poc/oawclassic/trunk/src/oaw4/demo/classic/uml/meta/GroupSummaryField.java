@@ -57,8 +57,11 @@ public class GroupSummaryField extends Element{
 		if(isCount)
 			return operation;
 		else	
-			return operation + "_" + GenericUtils.toFirstUpper(variable); 
+			return GenericUtils.toFirstUpper(operation) + "_" + GenericUtils.toFirstUpper(variable); 
 		
 	}
 
+	public boolean isCount(){
+		return isCount;
+	}
 }

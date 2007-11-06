@@ -62,4 +62,13 @@ public void «asSetter()» (java.util.Set<«Class.fqn()»> «asParameter()») {
 public «iterator()» «asGetter()»Iterator () {
 	return this.«asInstanceVar()».iterator();
 }
+
+	/** Method size on the set doesn't work with technologies requiring 
+	 *  java beans get/set  interface so we provide a getter method 
+	 * @return
+	 */
+	@Transient
+	public int «asGetter()»Count(){
+		return this.«asInstanceVar()».size();
+	}
 «ENDDEFINE»

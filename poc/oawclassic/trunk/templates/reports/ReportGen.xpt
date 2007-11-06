@@ -16,6 +16,8 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport name="«NameS»">
 
+	<parameter name="ReportTitle" class="java.lang.String"/>
+
 	<queryString language="«getQueryLanguage»">
 		<![CDATA[«getQuery»]]>
 	</queryString>
@@ -28,6 +30,9 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 	
 	«EXPAND GroupGen FOREACH Attribute-»
 	«resetCounter()-»
+	
+	«EXPAND GenTitle FOR this»
+	
 	<pageHeader>
 		<band height="20">
 			<rectangle>
@@ -45,6 +50,18 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 		«resetCounter()-»
 	 	</band>
 	</detail> 	
+	
+	<summary>
+		<band height="«20 + (AssociationEnd.size * 300) »">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="1" width="515" height="15" backcolor="#c0c0c0" />
+				<box leftPadding="10" bottomBorder="1Point"/>
+				<text><![CDATA[Summary]]> </text>
+			</staticText>
+			«EXPAND SummaryGen FOREACH Attribute-»
+			«EXPAND ChartGen FOREACH AssociationEnd.Opposite.select(ae|ae.isNavigable).Class»
+		</band>
+	</summary>
 	
 
 </jasperReport>
@@ -71,6 +88,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 	«IF isVisible»
 		<textField>
 			<reportElement x="«getCounter() * 65»" y="0" width="69" height="24"/>
+			<textElement textAlignment="Center"/>
 			<textFieldExpression class="«Type.fqn()»">
 				<![CDATA[«getFieldExpression != null ? getFieldExpression :"$F{" + NameS + "}"»]]>
 			</textFieldExpression>
@@ -81,6 +99,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 «DEFINE FieldGen FOR Attribute»
 		<textField>
 			<reportElement x="«getCounter() * 65»" y="0" width="69" height="24"/>
+			<textElement textAlignment="Center"/>
 			<textFieldExpression class="«Type.fqn()»">
 				<![CDATA[«"$F{" + NameS + "}"»]]>
 			</textFieldExpression>
@@ -95,7 +114,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 	«IF isVisible»
 			<staticText>
 				<reportElement mode="Opaque" x="«getCounter() * 65»" y="5" width="205" height="15" forecolor="#ffffff" backcolor="#333333" />
-				<text><![CDATA[«NameS»]]></text>
+				<text><![CDATA[«NameS.getSimpleName().toFirstUpper()»]]></text>
 			</staticText>
 	«ENDIF»
 «ENDDEFINE»
@@ -103,7 +122,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 «DEFINE FieldHdr FOR Attribute-»
 			<staticText>
 				<reportElement mode="Opaque" x="«getCounter() * 65»" y="5" width="205" height="15" forecolor="#ffffff" backcolor="#333333" />
-				<text><![CDATA[«NameS»]]></text>
+				<text><![CDATA[«NameS.getSimpleName().toFirstUpper()»]]></text>
 			</staticText>
 «ENDDEFINE»
 
@@ -134,7 +153,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 				<textField>
 					<reportElement x="«((515/65) - (getSummaryFieldsList.size * 2) + getCounter()) * 65 »" y="1" width="30" height="15" />
 					<textElement textAlignment="Right"/>
-					<textFieldExpression class="java.lang.Integer">
+					<textFieldExpression class="«s.isCount?"java.lang.Integer":Class.getElementType(s.getVariable)»">
 						<![CDATA[$V{Group«NameS»_«s.getOperationName»}]]>
 					</textFieldExpression>
 				</textField>
@@ -163,14 +182,14 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 «DEFINE GenGroupSummaryVar FOR ReportGroup-»
 	«FOREACH getSummaryFieldsList AS s»
 	«IF s.getOperation != "COUNT"»
-	<variable name="Group«NameS»_«s.getOperationName»" class="java.lang.Integer"
-		calculation="Average" resetType="Group" resetGroup="Group«NameS»">
+	<variable name="Group«NameS»_«s.getOperationName»" class="«Class.getElementType(s.getVariable)»"
+		calculation="«s.getOperation»" resetType="Group" resetGroup="Group«NameS»">
 		<variableExpression>
 			<![CDATA[$F{«s.getVariable»}]]>
 		</variableExpression>
 	</variable>
 	
-	<variable name="«s.getOperationName»" class="java.lang.Integer"
+	<variable name="«s.getOperationName»" class="«Class.getElementType(s.getVariable)»"
 		calculation="«s.getOperation»" >
 		<variableExpression>
 			<![CDATA[$F{«s.getVariable»}]]>
@@ -183,5 +202,73 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 «DEFINE GenGroupSummaryVar FOR Attribute-»
 «ENDDEFINE»
 
+«DEFINE SummaryGen FOR Attribute-»
+«ENDDEFINE»
 
+«DEFINE SummaryGen FOR ReportGroup-»
+	«FOREACH getSummaryFieldsList AS s»
+	«IF s.getOperation != "COUNT"»
+			<textField>
+				<reportElement x="420" y="1" width="30" height="15" />
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="«Class.getElementType(s.getVariable)»">
+					<![CDATA[$V{«s.getOperationName»}]]>
+				</textFieldExpression>
+			</textField>
+	«ELSE»	
+			<textField>
+				<reportElement x="460" y="1" width="30" height="15" />
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+	 «ENDIF»	
+	 «ENDFOREACH»
+«ENDDEFINE»
+		
+		
+«DEFINE GenTitle FOR ReportTask»
+	<title>
+		<band height="70">
+			<line>
+				<reportElement x="0" y="0" width="515" height="1"/>
+				<graphicElement/>
+			</line>
+			<textField isBlankWhenNull="true" bookmarkLevel="1">
+				<reportElement x="0" y="10" width="515" height="30" />
+				<textElement textAlignment="Center">
+					<font size="22"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ReportTitle}]]></textFieldExpression>
+				<anchorNameExpression><![CDATA["Title"]]></anchorNameExpression>
+			</textField>
+			
+		</band>
+	</title>
+«ENDDEFINE»		
+
+
+«DEFINE ChartGen FOR ReportChart»
+			<«getChartType»Chart>
+				<chart evaluationTime="Report">
+					<reportElement x="135" y="0" width="270" height="270"/>
+				</chart>
+				<«getChartTypeWithoutD»Dataset>
+					<dataset incrementType="None"/>
+					«IF ! isPie »
+						<seriesExpression>
+							<![CDATA[$F{«getSeriesExpression»}]]>
+						</seriesExpression>
+					«ENDIF»
+					<«getCategoryExpressionName»>
+						<![CDATA[$F{«getCategoryExpression»}]]>
+					</«getCategoryExpressionName»>
+					<valueExpression>
+						<![CDATA[$V{«getValueExpression»}]]>
+					</valueExpression>
+				</«getChartTypeWithoutD»Dataset>
+				<«getChartType»Plot>
+					<plot/>
+				</«getChartType»Plot>
+			</«getChartType»Chart>
+«ENDDEFINE»
 

@@ -8,6 +8,7 @@ public class ReportTask extends
 	private String fields;
 	private String params;
 	private String title;
+	private String defaultAlignment;
 	//private String 
 	
 	

@@ -52,6 +52,7 @@
 	
 	import org.witchcraft.model.support.testing.TestDataFactory;
 	
+	import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
 	
 	import org.springframework.transaction.annotation.Transactional;
 	
@@ -65,6 +66,7 @@
 		private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss z");
 		
 		«NameS»Service «asInstanceVar()»Service;
+	
 	
 		public «NameS»Service get«NameS»Service() {
 			return «asInstanceVar()»Service;
@@ -132,6 +134,32 @@
 			
 			alreadyPersisted = true;
 		}
+		
+		/** Execute this method to manually generate additional orders
+		 * @param args
+		 */
+		public static void main(String args[]){
+			
+			int recordsTocreate = 30;
+		
+			TestDataFactory placedOrderTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("placedOrderTestDataFactory");
+			
+			placedOrderTestDataFactory.createAndSaveRecords(recordsTocreate);	
+		}
+	
+		public void createAndSaveRecords(int recordsTocreate) {
+			for(int i = 0; i < recordsTocreate; i++){
+				«NameS» «asInstanceVar()» = createRandom«NameS»();
+				«asInstanceVar()»Service.save(«asInstanceVar()»);
+			}
+		}
+	
+		public «NameS» createRandom«NameS»(){
+			«NameS» «asInstanceVar()» = new «NameS»();
+			«EXPAND createDynamicRandomObject(asInstanceVar()) FOR this»
+			return «asInstanceVar()»;
+		}
 	
     }
 	
@@ -143,11 +171,25 @@
 	import «packageName()».«NameS»TestDataFactory;
 «ENDDEFINE»
 
+«REM» Create a random object using random value generator (static) «ENDREM»
 «DEFINE createRandomObject(String name) FOR Entity»
 	«FOREACH getAllAttributes AS attrib-»
 		«name».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»(«attrib.getRandValue()»);
 	«ENDFOREACH»
 	
+	«EXPAND addDependencies(name) FOR this-»
+«ENDDEFINE»
+
+«DEFINE createDynamicRandomObject(String name) FOR Entity»
+	«FOREACH getAllAttributes AS attrib-»
+		«name».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»((«attrib.Type.NameS.getObjectTypeFromPrimitive()»)RandomValueGeneratorFactory.createInstance("«attrib.Type.NameS»"));
+	«ENDFOREACH»
+	
+	«EXPAND addDependencies(name) FOR this-»
+«ENDDEFINE»
+
+
+«DEFINE addDependencies(String name) FOR Entity»
 	«REM»The associated entites for e.g an order would need a customer «ENDREM»
 	«FOREACH AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) AS ae-»
 		«EXPAND genBeanLookup FOR ae»
