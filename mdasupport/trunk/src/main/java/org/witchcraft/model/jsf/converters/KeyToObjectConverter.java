@@ -22,8 +22,6 @@ public class KeyToObjectConverter implements Converter {
 	public String getAsString(FacesContext facesContext,
 			UIComponent uiComponent, Object obj) {
 
-		System.out.println("returning " + obj);
-
 		if (obj == null) {
 
 			return "";
@@ -53,9 +51,9 @@ public class KeyToObjectConverter implements Converter {
 			BusinessEntity be = (BusinessEntity) ((UIInput) component).getValue();
 			
 			//To be sure the valueChangeListener is called
-			if(be.getId() != id){
-				return createNewValue(facesContext, component, id);
-			}
+			//if(be.getId().longValue() != id){
+			//	return createNewValue(facesContext, component, id);
+			//}
 			return be;
 		}
 

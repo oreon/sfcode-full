@@ -27,6 +27,11 @@ public interface TestDataFactory<T> {
 	public List<T> getAllAsList();
 
 	public void setPersistable(boolean b);
+
+	/** Creates the given number or records, typically run on demand
+	 * @param recordsTocreate
+	 */
+	public void createAndSaveRecords(int recordsTocreate);
 	
 	
 }
