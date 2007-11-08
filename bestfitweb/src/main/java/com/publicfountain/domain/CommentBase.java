@@ -1,3 +1,10 @@
+
+/**
+ * This is generated code - to edit code or override methods use - Comment class
+ * @author witchCraft Code Generator
+ * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
+ */
+
 package com.publicfountain.domain;
 
 import javax.persistence.*;

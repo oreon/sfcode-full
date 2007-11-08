@@ -1,3 +1,10 @@
+
+/**
+ * This is generated code - to edit code or override methods use - Person class
+ * @author witchCraft Code Generator
+ * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
+ */
+
 package bizobjects;
 
 import javax.persistence.*;
@@ -17,6 +24,8 @@ public abstract class PersonBase
 
 	protected java.util.Date dob;
 
+	protected int age;
+
 	@Column(nullable = false, unique = false)
 	public String getFirstName() {
 
@@ -33,6 +42,15 @@ public abstract class PersonBase
 		return this.dob;
 	}
 
+	@Transient
+	public int getAge() {
+
+		age = 0;
+		age = org.witchcraft.model.utils.DateUtils.calcAge(dob);
+
+		return this.age;
+	}
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -43,6 +61,10 @@ public abstract class PersonBase
 
 	public void setDob(java.util.Date dob) {
 		this.dob = dob;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
 	}
 
 	private bizobjects.Address primaryAddress = new bizobjects.Address();

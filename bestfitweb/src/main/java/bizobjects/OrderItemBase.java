@@ -1,3 +1,10 @@
+
+/**
+ * This is generated code - to edit code or override methods use - OrderItem class
+ * @author witchCraft Code Generator
+ * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
+ */
+
 package bizobjects;
 
 import javax.persistence.*;
@@ -32,7 +39,7 @@ public abstract class OrderItemBase
 	@Transient
 	public double getTotal() {
 
-		total = 0.0;
+		total = 0;
 		total = quantity * salePrice;
 
 		return this.total;

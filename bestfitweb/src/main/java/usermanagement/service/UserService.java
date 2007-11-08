@@ -4,6 +4,10 @@ import usermanagement.User;
 import usermanagement.dao.UserDao;
 import org.witchcraft.model.support.service.BaseService;
 
-public interface UserService extends UserDao, BaseService {
+/** The Service interface for entity - User
+ * @author - Witchcraft Generated {Do not Modify } 
+ * 
+ */
+public interface UserService extends UserDao, BaseService<User> {
 
 }

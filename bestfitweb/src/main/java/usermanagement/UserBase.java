@@ -1,3 +1,10 @@
+
+/**
+ * This is generated code - to edit code or override methods use - User class
+ * @author witchCraft Code Generator
+ * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
+ */
+
 package usermanagement;
 
 import javax.persistence.*;
@@ -53,14 +60,14 @@ public abstract class UserBase
 
 	private java.util.Set<usermanagement.Authority> userAuthorities = new java.util.HashSet<usermanagement.Authority>();
 
-	public void addUserAuthorities(usermanagement.Authority userAuthorities) {
+	public void addUserAuthoritie(usermanagement.Authority userAuthorities) {
 
 		userAuthorities.setUser(userInstance());
 
 		this.userAuthorities.add(userAuthorities);
 	}
 
-	public void removeUserAuthorities(usermanagement.Authority userAuthorities) {
+	public void removeUserAuthoritie(usermanagement.Authority userAuthorities) {
 		this.userAuthorities.remove(userAuthorities);
 	}
 
@@ -77,6 +84,15 @@ public abstract class UserBase
 	@Transient
 	public java.util.Iterator<usermanagement.Authority> getUserAuthoritiesIterator() {
 		return this.userAuthorities.iterator();
+	}
+
+	/** Method size on the set doesn't work with technologies requiring 
+	 *  java beans get/set  interface so we provide a getter method 
+	 * @return
+	 */
+	@Transient
+	public int getUserAuthoritiesCount() {
+		return this.userAuthorities.size();
 	}
 
 	public abstract User userInstance();

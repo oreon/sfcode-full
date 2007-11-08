@@ -1,32 +1,19 @@
 package usermanagement.web.jsf;
 
-import usermanagement.User;
-import java.util.ArrayList;
-import java.util.List;
-import usermanagement.service.UserService;
-
 import javax.faces.component.UIParameter;
 import javax.faces.event.ActionEvent;
-import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
 
-import javax.faces.application.FacesMessage;
+import org.witchcraft.model.jsf.BaseBackingBean;
+import org.witchcraft.model.support.service.BaseService;
 
-import org.springframework.dao.DataAccessException;
+import usermanagement.User;
+import usermanagement.service.UserService;
 
-import org.witchcraft.model.support.errorhandling.BusinessException;
-import org.witchcraft.model.jsf.JSFUtils;
-import org.witchcraft.model.support.audit.AuditLog;
-
-public class UserBackingBean {
+public class UserBackingBean extends BaseBackingBean<User> {
 
 	private User user = new User();
 
 	private UserService userService;
-
-	private String action; //whether action is search or update/add new 
-
-	private static final String SEARCH = "SEARCH";
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
@@ -40,67 +27,18 @@ public class UserBackingBean {
 		this.user = user;
 	}
 
-	/**Write values to the database 
-	 * @return - "success" if everthing goes fine
-	 */
-	public String update() {
-		try {
-			userService.save(user);
-		} catch (BusinessException be) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR,
-							"Update Error: ", be.getMessage()));
-			return "failure";
-		} catch (DataAccessException dae) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR,
-							"Update Error: ", dae.getMessage()));
-			return "failure";
-		} catch (Exception ex) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR,
-							"Update Error: ", ex.getMessage()));
-			return "failure";
-		}
-
-		return "success";
+	@SuppressWarnings("unchecked")
+	public BaseService<User> getBaseService() {
+		return userService;
 	}
 
-	/**Write values to the database 
-	 * @return - "success" if everthing goes fine
-	 */
-	public String delete() {
-		try {
-			userService.delete(user);
-		} catch (DataAccessException dae) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR,
-							"Delete Error: ", dae.getMessage()));
-			return "failure";
-		}
-
-		return "success";
+	public User getEntity() {
+		return getUser();
 	}
 
 	public String search() {
 		action = SEARCH;
 		return "search";
-	}
-
-	/**If update is canceled we go to the listing page - invoked in response to clicking cancel 
-	 * on save/edit record form
-	 * @return - "success" (always)
-	 */
-	public String cancelUpdate() {
-		return "success";
-	}
-
-	public String cancelSearch() {
-		return "success";
 	}
 
 	/** Returns a success string upon selection of an entity in model - majority of work is done
@@ -112,13 +50,9 @@ public class UserBackingBean {
 		return "edit";
 	}
 
-	public List<AuditLog<User>> getAuditLog() {
-		return userService.getAuditLogs();
-	}
-
 	/** This action Listener Method is called when a row is clicked in the dataTable
 	 *  
-	 * @param event contians the database id of the row being selected 
+	 * @param event contains the database id of the row being selected 
 	 */
 	public void selectEntity(ActionEvent event) {
 
@@ -129,25 +63,6 @@ public class UserBackingBean {
 		long id = Long.parseLong(component.getValue().toString());
 
 		user = userService.load(id);
-	}
-
-	/**Get a list of  users - if action is search , get a subset otherwise
-	 * get all
-	 * @return - a list of users 
-	 */
-	public List<User> getUsers() {
-		List<User> users = null;
-		if (action != null && action.equals(SEARCH))
-			users = userService.searchByExample(user);
-		else
-			users = userService.loadAll();
-
-		return users;
-	}
-
-	public List<SelectItem> getAsSelectItems() {
-		List<User> users = userService.loadAll();
-		return JSFUtils.getAsSelectItems(users);
 	}
 
 }

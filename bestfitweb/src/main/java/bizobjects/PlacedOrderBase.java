@@ -1,3 +1,10 @@
+
+/**
+ * This is generated code - to edit code or override methods use - PlacedOrder class
+ * @author witchCraft Code Generator
+ * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
+ */
+
 package bizobjects;
 
 import javax.persistence.*;
@@ -38,7 +45,7 @@ public abstract class PlacedOrderBase
 	@Transient
 	public double getTotal() {
 
-		total = 0.0;
+		total = 0;
 		for (OrderItem orderItem : orderItems)
 			total += orderItem.getTotal();
 
@@ -75,12 +82,12 @@ public abstract class PlacedOrderBase
 		return this.customer;
 	}
 
-	public void addOrderItems(bizobjects.OrderItem orderItems) {
+	public void addOrderItem(bizobjects.OrderItem orderItems) {
 
 		this.orderItems.add(orderItems);
 	}
 
-	public void removeOrderItems(bizobjects.OrderItem orderItems) {
+	public void removeOrderItem(bizobjects.OrderItem orderItems) {
 		this.orderItems.remove(orderItems);
 	}
 
@@ -98,6 +105,15 @@ public abstract class PlacedOrderBase
 	@Transient
 	public java.util.Iterator<bizobjects.OrderItem> getOrderItemsIterator() {
 		return this.orderItems.iterator();
+	}
+
+	/** Method size on the set doesn't work with technologies requiring 
+	 *  java beans get/set  interface so we provide a getter method 
+	 * @return
+	 */
+	@Transient
+	public int getOrderItemsCount() {
+		return this.orderItems.size();
 	}
 
 	public abstract PlacedOrder placedOrderInstance();

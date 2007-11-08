@@ -3,9 +3,6 @@ package usermanagement.dao.impl;
 import usermanagement.Authority;
 import usermanagement.dao.AuthorityDao;
 
-import bizobjects.Customer;
-import bizobjects.dao.CustomerDao;
-
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 

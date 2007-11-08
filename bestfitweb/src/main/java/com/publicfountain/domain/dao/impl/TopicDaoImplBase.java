@@ -3,9 +3,6 @@ package com.publicfountain.domain.dao.impl;
 import com.publicfountain.domain.Topic;
 import com.publicfountain.domain.dao.TopicDao;
 
-import bizobjects.Customer;
-import bizobjects.dao.CustomerDao;
-
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 

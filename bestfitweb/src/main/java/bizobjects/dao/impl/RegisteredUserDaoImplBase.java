@@ -3,9 +3,6 @@ package bizobjects.dao.impl;
 import bizobjects.RegisteredUser;
 import bizobjects.dao.RegisteredUserDao;
 
-import bizobjects.Customer;
-import bizobjects.dao.CustomerDao;
-
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 

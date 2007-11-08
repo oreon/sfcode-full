@@ -1,3 +1,10 @@
+
+/**
+ * This is generated code - to edit code or override methods use - Category class
+ * @author witchCraft Code Generator
+ * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
+ */
+
 package com.publicfountain.domain;
 
 import javax.persistence.*;
@@ -41,14 +48,14 @@ public abstract class CategoryBase
 		return this.parent;
 	}
 
-	public void addTopics(com.publicfountain.domain.Topic topics) {
+	public void addTopic(com.publicfountain.domain.Topic topics) {
 
 		topics.setCategory(categoryInstance());
 
 		this.topics.add(topics);
 	}
 
-	public void removeTopics(com.publicfountain.domain.Topic topics) {
+	public void removeTopic(com.publicfountain.domain.Topic topics) {
 		this.topics.remove(topics);
 	}
 
@@ -66,15 +73,23 @@ public abstract class CategoryBase
 		return this.topics.iterator();
 	}
 
-	public void addSubcategories(
-			com.publicfountain.domain.Category subcategories) {
+	/** Method size on the set doesn't work with technologies requiring 
+	 *  java beans get/set  interface so we provide a getter method 
+	 * @return
+	 */
+	@Transient
+	public int getTopicsCount() {
+		return this.topics.size();
+	}
+
+	public void addSubcategorie(com.publicfountain.domain.Category subcategories) {
 
 		subcategories.setParent(categoryInstance());
 
 		this.subcategories.add(subcategories);
 	}
 
-	public void removeSubcategories(
+	public void removeSubcategorie(
 			com.publicfountain.domain.Category subcategories) {
 		this.subcategories.remove(subcategories);
 	}
@@ -92,6 +107,15 @@ public abstract class CategoryBase
 	@Transient
 	public java.util.Iterator<com.publicfountain.domain.Category> getSubcategoriesIterator() {
 		return this.subcategories.iterator();
+	}
+
+	/** Method size on the set doesn't work with technologies requiring 
+	 *  java beans get/set  interface so we provide a getter method 
+	 * @return
+	 */
+	@Transient
+	public int getSubcategoriesCount() {
+		return this.subcategories.size();
 	}
 
 	public abstract Category categoryInstance();

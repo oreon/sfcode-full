@@ -1,3 +1,10 @@
+
+/**
+ * This is generated code - to edit code or override methods use - Authority class
+ * @author witchCraft Code Generator
+ * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
+ */
+
 package usermanagement;
 
 import javax.persistence.*;

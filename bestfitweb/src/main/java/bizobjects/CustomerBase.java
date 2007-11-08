@@ -1,3 +1,10 @@
+
+/**
+ * This is generated code - to edit code or override methods use - Customer class
+ * @author witchCraft Code Generator
+ * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
+ */
+
 package bizobjects;
 
 import javax.persistence.*;
@@ -40,14 +47,14 @@ public abstract class CustomerBase extends Person
 		return this.userAccount;
 	}
 
-	public void addOrders(bizobjects.PlacedOrder orders) {
+	public void addOrder(bizobjects.PlacedOrder orders) {
 
 		orders.setCustomer(customerInstance());
 
 		this.orders.add(orders);
 	}
 
-	public void removeOrders(bizobjects.PlacedOrder orders) {
+	public void removeOrder(bizobjects.PlacedOrder orders) {
 		this.orders.remove(orders);
 	}
 
@@ -63,6 +70,15 @@ public abstract class CustomerBase extends Person
 	@Transient
 	public java.util.Iterator<bizobjects.PlacedOrder> getOrdersIterator() {
 		return this.orders.iterator();
+	}
+
+	/** Method size on the set doesn't work with technologies requiring 
+	 *  java beans get/set  interface so we provide a getter method 
+	 * @return
+	 */
+	@Transient
+	public int getOrdersCount() {
+		return this.orders.size();
 	}
 
 	public abstract Customer customerInstance();
