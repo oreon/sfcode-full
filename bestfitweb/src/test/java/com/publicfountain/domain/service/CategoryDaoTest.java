@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 
 import javax.persistence.PersistenceException;
 import org.hibernate.PropertyValueException;
+import java.util.Date;
 
 public class CategoryDaoTest extends AbstractJpaTests {
 
@@ -49,7 +50,7 @@ public class CategoryDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			categoryInstance.setName("gamma");
+			categoryInstance.setName("delta");
 
 			TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -76,7 +77,7 @@ public class CategoryDaoTest extends AbstractJpaTests {
 
 			try {
 
-				category.setName("theta");
+				category.setName("Malissa");
 
 				TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("categoryTestDataFactory");
@@ -99,13 +100,17 @@ public class CategoryDaoTest extends AbstractJpaTests {
 			Category category = (Category) categoryTestDataFactory
 					.loadOneRecord();
 
-			category.setName("Eric");
+			category.setName("Lavendar");
 
 			categoryService.save(category);
 
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
+	}
+
+	public void testCount() {
+		assertTrue(categoryService.getCount() > 0);
 	}
 
 	public void testDelete() {

@@ -9,6 +9,8 @@ import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 
 import org.witchcraft.model.support.testing.TestDataFactory;
 
+import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import bizobjects.service.RegisteredUserService;
@@ -43,20 +45,21 @@ public class RegisteredUserTestDataFactory
 
 		try {
 
-			registeredUser.setFirstName("Eric");
-			registeredUser.setLastName("alpha");
-			registeredUser.setDob(dateFormat.parse("2007.11.09 17:26:15 EST"));
-			registeredUser.setGender("alpha");
-			registeredUser.setImage("delta");
-			registeredUser.getUserAccount().setUsername("alpha60564");
+			registeredUser.setFirstName("Mark");
+			registeredUser.setLastName("Lavendar");
+			registeredUser.setDob(dateFormat.parse("2007.11.05 18:37:37 EST"));
+			registeredUser.setAge(1625);
+			registeredUser.setGender("Eric");
+			registeredUser.setImage("John");
+			registeredUser.getUserAccount().setUsername("alpha32776");
 			registeredUser.getUserAccount().setPassword("epsilon");
 			registeredUser.getUserAccount().setEnabled(true);
 			registeredUser.getPrimaryAddress().setStreetAddress("Eric");
-			registeredUser.getPrimaryAddress().setCity("epsilon");
-			registeredUser.getPrimaryAddress().setZip("zeta");
-			registeredUser.getPrimaryAddress().setEmail("pi24642");
-			registeredUser.getPrimaryAddress().setCountry("pi");
-			registeredUser.getPrimaryAddress().setState("John");
+			registeredUser.getPrimaryAddress().setCity("Wilson");
+			registeredUser.getPrimaryAddress().setZip("John");
+			registeredUser.getPrimaryAddress().setEmail("Malissa84551");
+			registeredUser.getPrimaryAddress().setCountry("beta");
+			registeredUser.getPrimaryAddress().setState("delta");
 
 			register(registeredUser);
 
@@ -72,20 +75,21 @@ public class RegisteredUserTestDataFactory
 
 		try {
 
-			registeredUser.setFirstName("theta");
-			registeredUser.setLastName("gamma");
-			registeredUser.setDob(dateFormat.parse("2007.09.25 12:04:00 EDT"));
-			registeredUser.setGender("gamma");
-			registeredUser.setImage("Malissa");
-			registeredUser.getUserAccount().setUsername("Malissa713");
-			registeredUser.getUserAccount().setPassword("beta");
+			registeredUser.setFirstName("zeta");
+			registeredUser.setLastName("pi");
+			registeredUser.setDob(dateFormat.parse("2007.10.23 05:18:09 EDT"));
+			registeredUser.setAge(8516);
+			registeredUser.setGender("beta");
+			registeredUser.setImage("Eric");
+			registeredUser.getUserAccount().setUsername("zeta72666");
+			registeredUser.getUserAccount().setPassword("Lavendar");
 			registeredUser.getUserAccount().setEnabled(true);
-			registeredUser.getPrimaryAddress().setStreetAddress("Mark");
-			registeredUser.getPrimaryAddress().setCity("Wilson");
-			registeredUser.getPrimaryAddress().setZip("zeta");
-			registeredUser.getPrimaryAddress().setEmail("Mark28943");
-			registeredUser.getPrimaryAddress().setCountry("Eric");
-			registeredUser.getPrimaryAddress().setState("Malissa");
+			registeredUser.getPrimaryAddress().setStreetAddress("Malissa");
+			registeredUser.getPrimaryAddress().setCity("alpha");
+			registeredUser.getPrimaryAddress().setZip("Malissa");
+			registeredUser.getPrimaryAddress().setEmail("delta94964");
+			registeredUser.getPrimaryAddress().setCountry("Malissa");
+			registeredUser.getPrimaryAddress().setState("zeta");
 
 			register(registeredUser);
 
@@ -101,20 +105,21 @@ public class RegisteredUserTestDataFactory
 
 		try {
 
-			registeredUser.setFirstName("Mark");
-			registeredUser.setLastName("Eric");
-			registeredUser.setDob(dateFormat.parse("2007.10.09 11:31:13 EDT"));
-			registeredUser.setGender("Wilson");
-			registeredUser.setImage("alpha");
-			registeredUser.getUserAccount().setUsername("John78651");
+			registeredUser.setFirstName("delta");
+			registeredUser.setLastName("delta");
+			registeredUser.setDob(dateFormat.parse("2007.11.28 14:53:11 EST"));
+			registeredUser.setAge(6047);
+			registeredUser.setGender("zeta");
+			registeredUser.setImage("Mark");
+			registeredUser.getUserAccount().setUsername("Wilson66497");
 			registeredUser.getUserAccount().setPassword("Lavendar");
 			registeredUser.getUserAccount().setEnabled(true);
-			registeredUser.getPrimaryAddress().setStreetAddress("Mark");
-			registeredUser.getPrimaryAddress().setCity("John");
-			registeredUser.getPrimaryAddress().setZip("delta");
-			registeredUser.getPrimaryAddress().setEmail("alpha84103");
-			registeredUser.getPrimaryAddress().setCountry("alpha");
-			registeredUser.getPrimaryAddress().setState("Mark");
+			registeredUser.getPrimaryAddress().setStreetAddress("zeta");
+			registeredUser.getPrimaryAddress().setCity("delta");
+			registeredUser.getPrimaryAddress().setZip("gamma");
+			registeredUser.getPrimaryAddress().setEmail("John78468");
+			registeredUser.getPrimaryAddress().setCountry("zeta");
+			registeredUser.getPrimaryAddress().setState("Lavendar");
 
 			register(registeredUser);
 
@@ -130,20 +135,21 @@ public class RegisteredUserTestDataFactory
 
 		try {
 
-			registeredUser.setFirstName("epsilon");
-			registeredUser.setLastName("epsilon");
-			registeredUser.setDob(dateFormat.parse("2007.11.06 19:51:13 EST"));
-			registeredUser.setGender("Mark");
-			registeredUser.setImage("gamma");
-			registeredUser.getUserAccount().setUsername("gamma82726");
-			registeredUser.getUserAccount().setPassword("Lavendar");
+			registeredUser.setFirstName("Eric");
+			registeredUser.setLastName("delta");
+			registeredUser.setDob(dateFormat.parse("2007.11.17 02:32:02 EST"));
+			registeredUser.setAge(7104);
+			registeredUser.setGender("Wilson");
+			registeredUser.setImage("Malissa");
+			registeredUser.getUserAccount().setUsername("zeta4981");
+			registeredUser.getUserAccount().setPassword("pi");
 			registeredUser.getUserAccount().setEnabled(true);
-			registeredUser.getPrimaryAddress().setStreetAddress("Wilson");
-			registeredUser.getPrimaryAddress().setCity("epsilon");
-			registeredUser.getPrimaryAddress().setZip("zeta");
-			registeredUser.getPrimaryAddress().setEmail("Eric13454");
-			registeredUser.getPrimaryAddress().setCountry("gamma");
-			registeredUser.getPrimaryAddress().setState("Lavendar");
+			registeredUser.getPrimaryAddress().setStreetAddress("beta");
+			registeredUser.getPrimaryAddress().setCity("Mark");
+			registeredUser.getPrimaryAddress().setZip("epsilon");
+			registeredUser.getPrimaryAddress().setEmail("zeta7417");
+			registeredUser.getPrimaryAddress().setCountry("delta");
+			registeredUser.getPrimaryAddress().setState("pi");
 
 			register(registeredUser);
 
@@ -159,19 +165,20 @@ public class RegisteredUserTestDataFactory
 
 		try {
 
-			registeredUser.setFirstName("epsilon");
-			registeredUser.setLastName("alpha");
-			registeredUser.setDob(dateFormat.parse("2007.10.16 06:08:26 EDT"));
-			registeredUser.setGender("Lavendar");
-			registeredUser.setImage("epsilon");
-			registeredUser.getUserAccount().setUsername("delta35390");
-			registeredUser.getUserAccount().setPassword("delta");
+			registeredUser.setFirstName("Lavendar");
+			registeredUser.setLastName("Lavendar");
+			registeredUser.setDob(dateFormat.parse("2007.11.06 13:20:57 EST"));
+			registeredUser.setAge(1109);
+			registeredUser.setGender("John");
+			registeredUser.setImage("Malissa");
+			registeredUser.getUserAccount().setUsername("Wilson64132");
+			registeredUser.getUserAccount().setPassword("zeta");
 			registeredUser.getUserAccount().setEnabled(true);
-			registeredUser.getPrimaryAddress().setStreetAddress("John");
-			registeredUser.getPrimaryAddress().setCity("alpha");
-			registeredUser.getPrimaryAddress().setZip("delta");
-			registeredUser.getPrimaryAddress().setEmail("Lavendar28832");
-			registeredUser.getPrimaryAddress().setCountry("Malissa");
+			registeredUser.getPrimaryAddress().setStreetAddress("alpha");
+			registeredUser.getPrimaryAddress().setCity("delta");
+			registeredUser.getPrimaryAddress().setZip("Eric");
+			registeredUser.getPrimaryAddress().setEmail("alpha33937");
+			registeredUser.getPrimaryAddress().setCountry("theta");
 			registeredUser.getPrimaryAddress().setState("John");
 
 			register(registeredUser);
@@ -220,6 +227,65 @@ public class RegisteredUserTestDataFactory
 		}
 
 		alreadyPersisted = true;
+	}
+
+	/** Execute this method to manually generate additional orders
+	 * @param args
+	 */
+	public static void main(String args[]) {
+
+		int recordsTocreate = 30;
+
+		TestDataFactory placedOrderTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("placedOrderTestDataFactory");
+
+		placedOrderTestDataFactory.createAndSaveRecords(recordsTocreate);
+	}
+
+	public void createAndSaveRecords(int recordsTocreate) {
+		for (int i = 0; i < recordsTocreate; i++) {
+			RegisteredUser registeredUser = createRandomRegisteredUser();
+			registeredUserService.save(registeredUser);
+		}
+	}
+
+	public RegisteredUser createRandomRegisteredUser() {
+		RegisteredUser registeredUser = new RegisteredUser();
+
+		registeredUser.setFirstName((String) RandomValueGeneratorFactory
+				.createInstance("String"));
+		registeredUser.setLastName((String) RandomValueGeneratorFactory
+				.createInstance("String"));
+		registeredUser.setDob((java.util.Date) RandomValueGeneratorFactory
+				.createInstance("java.util.Date"));
+		registeredUser.setAge((Integer) RandomValueGeneratorFactory
+				.createInstance("int"));
+		registeredUser.setGender((String) RandomValueGeneratorFactory
+				.createInstance("String"));
+		registeredUser.setImage((String) RandomValueGeneratorFactory
+				.createInstance("String"));
+		registeredUser.getUserAccount().setUsername(
+				(String) RandomValueGeneratorFactory.createInstance("String"));
+		registeredUser.getUserAccount().setPassword(
+				(String) RandomValueGeneratorFactory.createInstance("String"));
+		registeredUser.getUserAccount()
+				.setEnabled(
+						(Boolean) RandomValueGeneratorFactory
+								.createInstance("boolean"));
+		registeredUser.getPrimaryAddress().setStreetAddress(
+				(String) RandomValueGeneratorFactory.createInstance("String"));
+		registeredUser.getPrimaryAddress().setCity(
+				(String) RandomValueGeneratorFactory.createInstance("String"));
+		registeredUser.getPrimaryAddress().setZip(
+				(String) RandomValueGeneratorFactory.createInstance("String"));
+		registeredUser.getPrimaryAddress().setEmail(
+				(String) RandomValueGeneratorFactory.createInstance("String"));
+		registeredUser.getPrimaryAddress().setCountry(
+				(String) RandomValueGeneratorFactory.createInstance("String"));
+		registeredUser.getPrimaryAddress().setState(
+				(String) RandomValueGeneratorFactory.createInstance("String"));
+
+		return registeredUser;
 	}
 
 }

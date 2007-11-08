@@ -9,6 +9,8 @@ import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 
 import org.witchcraft.model.support.testing.TestDataFactory;
 
+import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import com.publicfountain.domain.service.CategoryService;
@@ -40,7 +42,7 @@ public class CategoryTestDataFactory extends AbstractTestDataFactory<Category> {
 
 		try {
 
-			category.setName("Wilson");
+			category.setName("alpha");
 
 			TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -78,7 +80,7 @@ public class CategoryTestDataFactory extends AbstractTestDataFactory<Category> {
 
 		try {
 
-			category.setName("beta");
+			category.setName("Wilson");
 
 			TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -97,7 +99,7 @@ public class CategoryTestDataFactory extends AbstractTestDataFactory<Category> {
 
 		try {
 
-			category.setName("zeta");
+			category.setName("Mark");
 
 			TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -116,7 +118,7 @@ public class CategoryTestDataFactory extends AbstractTestDataFactory<Category> {
 
 		try {
 
-			category.setName("gamma");
+			category.setName("delta");
 
 			TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -166,6 +168,38 @@ public class CategoryTestDataFactory extends AbstractTestDataFactory<Category> {
 		}
 
 		alreadyPersisted = true;
+	}
+
+	/** Execute this method to manually generate additional orders
+	 * @param args
+	 */
+	public static void main(String args[]) {
+
+		int recordsTocreate = 30;
+
+		TestDataFactory placedOrderTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("placedOrderTestDataFactory");
+
+		placedOrderTestDataFactory.createAndSaveRecords(recordsTocreate);
+	}
+
+	public void createAndSaveRecords(int recordsTocreate) {
+		for (int i = 0; i < recordsTocreate; i++) {
+			Category category = createRandomCategory();
+			categoryService.save(category);
+		}
+	}
+
+	public Category createRandomCategory() {
+		Category category = new Category();
+
+		category.setName((String) RandomValueGeneratorFactory
+				.createInstance("String"));
+
+		TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("categoryTestDataFactory");
+
+		return category;
 	}
 
 }

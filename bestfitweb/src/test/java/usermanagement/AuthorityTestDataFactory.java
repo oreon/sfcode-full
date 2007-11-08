@@ -9,6 +9,8 @@ import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 
 import org.witchcraft.model.support.testing.TestDataFactory;
 
+import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import usermanagement.service.AuthorityService;
@@ -42,7 +44,7 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setAuthority("Wilson");
+			authority.setAuthority("Eric");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -64,7 +66,7 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setAuthority("zeta");
+			authority.setAuthority("John");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -86,7 +88,7 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setAuthority("Wilson");
+			authority.setAuthority("zeta");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -108,7 +110,7 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setAuthority("beta");
+			authority.setAuthority("John");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -130,7 +132,7 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setAuthority("Eric");
+			authority.setAuthority("gamma");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -183,6 +185,41 @@ public class AuthorityTestDataFactory
 		}
 
 		alreadyPersisted = true;
+	}
+
+	/** Execute this method to manually generate additional orders
+	 * @param args
+	 */
+	public static void main(String args[]) {
+
+		int recordsTocreate = 30;
+
+		TestDataFactory placedOrderTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("placedOrderTestDataFactory");
+
+		placedOrderTestDataFactory.createAndSaveRecords(recordsTocreate);
+	}
+
+	public void createAndSaveRecords(int recordsTocreate) {
+		for (int i = 0; i < recordsTocreate; i++) {
+			Authority authority = createRandomAuthority();
+			authorityService.save(authority);
+		}
+	}
+
+	public Authority createRandomAuthority() {
+		Authority authority = new Authority();
+
+		authority.setAuthority((String) RandomValueGeneratorFactory
+				.createInstance("String"));
+
+		TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("userTestDataFactory");
+
+		authority.setUser((usermanagement.User) userTestDataFactory
+				.loadOneRecord());
+
+		return authority;
 	}
 
 }

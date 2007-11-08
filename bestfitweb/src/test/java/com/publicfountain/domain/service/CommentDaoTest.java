@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 
 import javax.persistence.PersistenceException;
 import org.hibernate.PropertyValueException;
+import java.util.Date;
 
 public class CommentDaoTest extends AbstractJpaTests {
 
@@ -49,8 +50,8 @@ public class CommentDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			commentInstance.setText("Wilson");
-			commentInstance.setUserDisplayName("Malissa");
+			commentInstance.setText("gamma");
+			commentInstance.setUserDisplayName("delta");
 
 			TestDataFactory commentCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");
@@ -88,8 +89,8 @@ public class CommentDaoTest extends AbstractJpaTests {
 
 			try {
 
-				comment.setText("pi");
-				comment.setUserDisplayName("beta");
+				comment.setText("zeta");
+				comment.setUserDisplayName("zeta");
 
 				TestDataFactory commentCreatorTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("registeredUserTestDataFactory");
@@ -123,13 +124,17 @@ public class CommentDaoTest extends AbstractJpaTests {
 			Comment comment = (Comment) commentTestDataFactory.loadOneRecord();
 
 			comment.setText("Mark");
-			comment.setUserDisplayName("epsilon");
+			comment.setUserDisplayName("Eric");
 
 			commentService.save(comment);
 
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
+	}
+
+	public void testCount() {
+		assertTrue(commentService.getCount() > 0);
 	}
 
 	public void testDelete() {

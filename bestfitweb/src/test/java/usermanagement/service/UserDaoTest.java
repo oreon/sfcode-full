@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 
 import javax.persistence.PersistenceException;
 import org.hibernate.PropertyValueException;
+import java.util.Date;
 
 public class UserDaoTest extends AbstractJpaTests {
 
@@ -49,8 +50,8 @@ public class UserDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			userInstance.setUsername("zeta83989");
-			userInstance.setPassword("gamma");
+			userInstance.setUsername("theta68085");
+			userInstance.setPassword("beta");
 			userInstance.setEnabled(true);
 
 			userService.save(userInstance);
@@ -75,8 +76,8 @@ public class UserDaoTest extends AbstractJpaTests {
 
 			try {
 
-				user.setUsername("Wilson86180");
-				user.setPassword("Mark");
+				user.setUsername("gamma68170");
+				user.setPassword("Malissa");
 				user.setEnabled(true);
 
 			} catch (Exception ex) {
@@ -96,8 +97,8 @@ public class UserDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			User user = (User) userTestDataFactory.loadOneRecord();
 
-			user.setUsername("gamma1814");
-			user.setPassword("Eric");
+			user.setUsername("Mark83112");
+			user.setPassword("pi");
 			user.setEnabled(true);
 
 			userService.save(user);
@@ -105,6 +106,10 @@ public class UserDaoTest extends AbstractJpaTests {
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
+	}
+
+	public void testCount() {
+		assertTrue(userService.getCount() > 0);
 	}
 
 	public void testDelete() {

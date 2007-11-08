@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 
 import javax.persistence.PersistenceException;
 import org.hibernate.PropertyValueException;
+import java.util.Date;
 
 public class OrderItemDaoTest extends AbstractJpaTests {
 
@@ -49,9 +50,9 @@ public class OrderItemDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			orderItemInstance.setSalePrice(21.19);
+			orderItemInstance.setSalePrice(86.62);
 			orderItemInstance.setQuantity(1);
-			orderItemInstance.setTotal(32.77);
+			orderItemInstance.setTotal(40.88);
 
 			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("productTestDataFactory");
@@ -82,9 +83,9 @@ public class OrderItemDaoTest extends AbstractJpaTests {
 
 			try {
 
-				orderItem.setSalePrice(52.63);
+				orderItem.setSalePrice(69.5);
 				orderItem.setQuantity(1);
-				orderItem.setTotal(79.36);
+				orderItem.setTotal(9.87);
 
 				TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("productTestDataFactory");
@@ -111,15 +112,19 @@ public class OrderItemDaoTest extends AbstractJpaTests {
 			OrderItem orderItem = (OrderItem) orderItemTestDataFactory
 					.loadOneRecord();
 
-			orderItem.setSalePrice(96.86);
+			orderItem.setSalePrice(92.29);
 			orderItem.setQuantity(1);
-			orderItem.setTotal(56.6);
+			orderItem.setTotal(11.66);
 
 			orderItemService.save(orderItem);
 
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
+	}
+
+	public void testCount() {
+		assertTrue(orderItemService.getCount() > 0);
 	}
 
 	public void testDelete() {

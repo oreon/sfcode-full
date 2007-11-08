@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 
 import javax.persistence.PersistenceException;
 import org.hibernate.PropertyValueException;
+import java.util.Date;
 
 public class PlacedOrderDaoTest extends AbstractJpaTests {
 
@@ -49,10 +50,10 @@ public class PlacedOrderDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			placedOrderInstance.setRemarks("Mark");
+			placedOrderInstance.setRemarks("theta");
 			placedOrderInstance.setPaymentMethod("Eric");
-			placedOrderInstance.setStatus(bizobjects.OrderStatus.NEW);
-			placedOrderInstance.setTotal(77.12);
+			placedOrderInstance.setStatus(bizobjects.OrderStatus.SHIPPED);
+			placedOrderInstance.setTotal(82.13);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
@@ -90,10 +91,10 @@ public class PlacedOrderDaoTest extends AbstractJpaTests {
 
 			try {
 
-				placedOrder.setRemarks("alpha");
-				placedOrder.setPaymentMethod("delta");
-				placedOrder.setStatus(bizobjects.OrderStatus.NEW);
-				placedOrder.setTotal(35.94);
+				placedOrder.setRemarks("pi");
+				placedOrder.setPaymentMethod("John");
+				placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
+				placedOrder.setTotal(38.11);
 
 				TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("customerTestDataFactory");
@@ -127,16 +128,20 @@ public class PlacedOrderDaoTest extends AbstractJpaTests {
 			PlacedOrder placedOrder = (PlacedOrder) placedOrderTestDataFactory
 					.loadOneRecord();
 
-			placedOrder.setRemarks("gamma");
-			placedOrder.setPaymentMethod("Eric");
-			placedOrder.setStatus(bizobjects.OrderStatus.COMPLETED);
-			placedOrder.setTotal(0.18);
+			placedOrder.setRemarks("Malissa");
+			placedOrder.setPaymentMethod("gamma");
+			placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
+			placedOrder.setTotal(46.82);
 
 			placedOrderService.save(placedOrder);
 
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
+	}
+
+	public void testCount() {
+		assertTrue(placedOrderService.getCount() > 0);
 	}
 
 	public void testDelete() {

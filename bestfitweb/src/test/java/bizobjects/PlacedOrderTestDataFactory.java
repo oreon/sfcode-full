@@ -9,6 +9,8 @@ import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 
 import org.witchcraft.model.support.testing.TestDataFactory;
 
+import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import bizobjects.service.PlacedOrderService;
@@ -42,10 +44,10 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("Lavendar");
-			placedOrder.setPaymentMethod("Mark");
+			placedOrder.setRemarks("Mark");
+			placedOrder.setPaymentMethod("beta");
 			placedOrder.setStatus(bizobjects.OrderStatus.NEW);
-			placedOrder.setTotal(17.36);
+			placedOrder.setTotal(27.01);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
@@ -75,10 +77,10 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("John");
-			placedOrder.setPaymentMethod("Lavendar");
+			placedOrder.setRemarks("zeta");
+			placedOrder.setPaymentMethod("delta");
 			placedOrder.setStatus(bizobjects.OrderStatus.NEW);
-			placedOrder.setTotal(37.83);
+			placedOrder.setTotal(18.58);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
@@ -108,10 +110,10 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("John");
-			placedOrder.setPaymentMethod("pi");
-			placedOrder.setStatus(bizobjects.OrderStatus.NEW);
-			placedOrder.setTotal(3.94);
+			placedOrder.setRemarks("beta");
+			placedOrder.setPaymentMethod("Mark");
+			placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
+			placedOrder.setTotal(16.86);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
@@ -141,10 +143,10 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("John");
-			placedOrder.setPaymentMethod("Lavendar");
-			placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
-			placedOrder.setTotal(28.39);
+			placedOrder.setRemarks("epsilon");
+			placedOrder.setPaymentMethod("Mark");
+			placedOrder.setStatus(bizobjects.OrderStatus.NEW);
+			placedOrder.setTotal(78.73);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
@@ -174,10 +176,10 @@ public class PlacedOrderTestDataFactory
 
 		try {
 
-			placedOrder.setRemarks("Lavendar");
-			placedOrder.setPaymentMethod("Mark");
-			placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
-			placedOrder.setTotal(10.76);
+			placedOrder.setRemarks("zeta");
+			placedOrder.setPaymentMethod("Wilson");
+			placedOrder.setStatus(bizobjects.OrderStatus.COMPLETED);
+			placedOrder.setTotal(20.87);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
@@ -238,6 +240,54 @@ public class PlacedOrderTestDataFactory
 		}
 
 		alreadyPersisted = true;
+	}
+
+	/** Execute this method to manually generate additional orders
+	 * @param args
+	 */
+	public static void main(String args[]) {
+
+		int recordsTocreate = 30;
+
+		TestDataFactory placedOrderTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("placedOrderTestDataFactory");
+
+		placedOrderTestDataFactory.createAndSaveRecords(recordsTocreate);
+	}
+
+	public void createAndSaveRecords(int recordsTocreate) {
+		for (int i = 0; i < recordsTocreate; i++) {
+			PlacedOrder placedOrder = createRandomPlacedOrder();
+			placedOrderService.save(placedOrder);
+		}
+	}
+
+	public PlacedOrder createRandomPlacedOrder() {
+		PlacedOrder placedOrder = new PlacedOrder();
+
+		placedOrder.setRemarks((String) RandomValueGeneratorFactory
+				.createInstance("String"));
+		placedOrder.setPaymentMethod((String) RandomValueGeneratorFactory
+				.createInstance("String"));
+		placedOrder.setStatus((OrderStatus) RandomValueGeneratorFactory
+				.createInstance("OrderStatus"));
+		placedOrder.setTotal((Double) RandomValueGeneratorFactory
+				.createInstance("double"));
+
+		TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("customerTestDataFactory");
+
+		placedOrder.setCustomer((bizobjects.Customer) customerTestDataFactory
+				.loadOneRecord());
+
+		TestDataFactory orderItemsTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("orderItemTestDataFactory");
+
+		orderItemsTestDataFactory.setPersistable(false);
+		placedOrder.getOrderItems().addAll(
+				orderItemsTestDataFactory.createFewRecords());
+
+		return placedOrder;
 	}
 
 }

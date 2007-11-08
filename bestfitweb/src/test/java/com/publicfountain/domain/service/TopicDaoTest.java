@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 
 import javax.persistence.PersistenceException;
 import org.hibernate.PropertyValueException;
+import java.util.Date;
 
 public class TopicDaoTest extends AbstractJpaTests {
 
@@ -49,10 +50,10 @@ public class TopicDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			topicInstance.setName("John");
+			topicInstance.setName("epsilon");
 			topicInstance
-					.setExpiry(dateFormat.parse("2007.10.02 19:50:41 EDT"));
-			topicInstance.setStatus(com.publicfountain.domain.Status.Archived);
+					.setExpiry(dateFormat.parse("2007.10.15 14:38:10 EDT"));
+			topicInstance.setStatus(com.publicfountain.domain.Status.Active);
 			topicInstance
 					.setTopicType(com.publicfountain.domain.TopicType.Edtiorial);
 
@@ -92,10 +93,11 @@ public class TopicDaoTest extends AbstractJpaTests {
 
 			try {
 
-				topic.setName("zeta");
-				topic.setExpiry(dateFormat.parse("2007.10.02 17:22:55 EDT"));
+				topic.setName("Lavendar");
+				topic.setExpiry(dateFormat.parse("2007.11.10 14:34:17 EST"));
 				topic.setStatus(com.publicfountain.domain.Status.Inactive);
-				topic.setTopicType(com.publicfountain.domain.TopicType.Image);
+				topic
+						.setTopicType(com.publicfountain.domain.TopicType.CustomOpinion);
 
 				TestDataFactory topicCreatorTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("registeredUserTestDataFactory");
@@ -128,16 +130,21 @@ public class TopicDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Topic topic = (Topic) topicTestDataFactory.loadOneRecord();
 
-			topic.setName("zeta");
-			topic.setExpiry(dateFormat.parse("2007.10.26 15:52:55 EDT"));
-			topic.setStatus(com.publicfountain.domain.Status.Active);
-			topic.setTopicType(com.publicfountain.domain.TopicType.TopicOfDay);
+			topic.setName("Malissa");
+			topic.setExpiry(dateFormat.parse("2007.11.27 08:33:12 EST"));
+			topic.setStatus(com.publicfountain.domain.Status.Archived);
+			topic
+					.setTopicType(com.publicfountain.domain.TopicType.CustomOpinion);
 
 			topicService.save(topic);
 
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
+	}
+
+	public void testCount() {
+		assertTrue(topicService.getCount() > 0);
 	}
 
 	public void testDelete() {

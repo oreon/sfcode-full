@@ -9,6 +9,8 @@ import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 
 import org.witchcraft.model.support.testing.TestDataFactory;
 
+import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import com.publicfountain.domain.service.TopicService;
@@ -40,11 +42,10 @@ public class TopicTestDataFactory extends AbstractTestDataFactory<Topic> {
 
 		try {
 
-			topic.setName("delta");
-			topic.setExpiry(dateFormat.parse("2007.10.04 21:41:46 EDT"));
-			topic.setStatus(com.publicfountain.domain.Status.Active);
-			topic
-					.setTopicType(com.publicfountain.domain.TopicType.CustomOpinion);
+			topic.setName("Malissa");
+			topic.setExpiry(dateFormat.parse("2007.11.24 02:04:50 EST"));
+			topic.setStatus(com.publicfountain.domain.Status.Archived);
+			topic.setTopicType(com.publicfountain.domain.TopicType.Image);
 
 			TestDataFactory topicCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");
@@ -74,9 +75,9 @@ public class TopicTestDataFactory extends AbstractTestDataFactory<Topic> {
 
 		try {
 
-			topic.setName("beta");
-			topic.setExpiry(dateFormat.parse("2007.10.27 23:36:15 EDT"));
-			topic.setStatus(com.publicfountain.domain.Status.Archived);
+			topic.setName("Eric");
+			topic.setExpiry(dateFormat.parse("2007.10.26 02:28:43 EDT"));
+			topic.setStatus(com.publicfountain.domain.Status.Inactive);
 			topic.setTopicType(com.publicfountain.domain.TopicType.Edtiorial);
 
 			TestDataFactory topicCreatorTestDataFactory = (TestDataFactory) BeanHelper
@@ -107,11 +108,10 @@ public class TopicTestDataFactory extends AbstractTestDataFactory<Topic> {
 
 		try {
 
-			topic.setName("theta");
-			topic.setExpiry(dateFormat.parse("2007.11.08 10:40:41 EST"));
+			topic.setName("Lavendar");
+			topic.setExpiry(dateFormat.parse("2007.11.14 07:48:43 EST"));
 			topic.setStatus(com.publicfountain.domain.Status.Inactive);
-			topic
-					.setTopicType(com.publicfountain.domain.TopicType.CustomOpinion);
+			topic.setTopicType(com.publicfountain.domain.TopicType.Image);
 
 			TestDataFactory topicCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");
@@ -141,10 +141,10 @@ public class TopicTestDataFactory extends AbstractTestDataFactory<Topic> {
 
 		try {
 
-			topic.setName("epsilon");
-			topic.setExpiry(dateFormat.parse("2007.09.27 14:23:28 EDT"));
-			topic.setStatus(com.publicfountain.domain.Status.Inactive);
-			topic.setTopicType(com.publicfountain.domain.TopicType.Video);
+			topic.setName("gamma");
+			topic.setExpiry(dateFormat.parse("2007.10.17 10:58:10 EDT"));
+			topic.setStatus(com.publicfountain.domain.Status.Archived);
+			topic.setTopicType(com.publicfountain.domain.TopicType.Image);
 
 			TestDataFactory topicCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");
@@ -174,8 +174,8 @@ public class TopicTestDataFactory extends AbstractTestDataFactory<Topic> {
 
 		try {
 
-			topic.setName("delta");
-			topic.setExpiry(dateFormat.parse("2007.11.06 05:16:48 EST"));
+			topic.setName("Mark");
+			topic.setExpiry(dateFormat.parse("2007.11.11 00:50:57 EST"));
 			topic.setStatus(com.publicfountain.domain.Status.Inactive);
 			topic.setTopicType(com.publicfountain.domain.TopicType.Video);
 
@@ -238,6 +238,55 @@ public class TopicTestDataFactory extends AbstractTestDataFactory<Topic> {
 		}
 
 		alreadyPersisted = true;
+	}
+
+	/** Execute this method to manually generate additional orders
+	 * @param args
+	 */
+	public static void main(String args[]) {
+
+		int recordsTocreate = 30;
+
+		TestDataFactory placedOrderTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("placedOrderTestDataFactory");
+
+		placedOrderTestDataFactory.createAndSaveRecords(recordsTocreate);
+	}
+
+	public void createAndSaveRecords(int recordsTocreate) {
+		for (int i = 0; i < recordsTocreate; i++) {
+			Topic topic = createRandomTopic();
+			topicService.save(topic);
+		}
+	}
+
+	public Topic createRandomTopic() {
+		Topic topic = new Topic();
+
+		topic.setName((String) RandomValueGeneratorFactory
+				.createInstance("String"));
+		topic.setExpiry((java.util.Date) RandomValueGeneratorFactory
+				.createInstance("Date"));
+		topic.setStatus((Status) RandomValueGeneratorFactory
+				.createInstance("Status"));
+		topic.setTopicType((TopicType) RandomValueGeneratorFactory
+				.createInstance("TopicType"));
+
+		TestDataFactory topicCreatorTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("registeredUserTestDataFactory");
+
+		topic
+				.setTopicCreator((bizobjects.RegisteredUser) topicCreatorTestDataFactory
+						.loadOneRecord());
+
+		TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("categoryTestDataFactory");
+
+		topic
+				.setCategory((com.publicfountain.domain.Category) categoryTestDataFactory
+						.loadOneRecord());
+
+		return topic;
 	}
 
 }

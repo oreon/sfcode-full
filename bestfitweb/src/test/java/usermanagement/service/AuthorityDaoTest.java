@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 
 import javax.persistence.PersistenceException;
 import org.hibernate.PropertyValueException;
+import java.util.Date;
 
 public class AuthorityDaoTest extends AbstractJpaTests {
 
@@ -49,7 +50,7 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			authorityInstance.setAuthority("alpha");
+			authorityInstance.setAuthority("beta");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -79,7 +80,7 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 
 			try {
 
-				authority.setAuthority("Wilson");
+				authority.setAuthority("pi");
 
 				TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("userTestDataFactory");
@@ -105,13 +106,17 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 			Authority authority = (Authority) authorityTestDataFactory
 					.loadOneRecord();
 
-			authority.setAuthority("Mark");
+			authority.setAuthority("Lavendar");
 
 			authorityService.save(authority);
 
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
+	}
+
+	public void testCount() {
+		assertTrue(authorityService.getCount() > 0);
 	}
 
 	public void testDelete() {

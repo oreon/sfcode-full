@@ -9,6 +9,8 @@ import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 
 import org.witchcraft.model.support.testing.TestDataFactory;
 
+import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import bizobjects.service.OrderItemService;
@@ -42,9 +44,9 @@ public class OrderItemTestDataFactory
 
 		try {
 
-			orderItem.setSalePrice(22.77);
+			orderItem.setSalePrice(65.8);
 			orderItem.setQuantity(1);
-			orderItem.setTotal(7.46);
+			orderItem.setTotal(43.25);
 
 			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("productTestDataFactory");
@@ -66,9 +68,9 @@ public class OrderItemTestDataFactory
 
 		try {
 
-			orderItem.setSalePrice(5.87);
+			orderItem.setSalePrice(68.78);
 			orderItem.setQuantity(1);
-			orderItem.setTotal(7.58);
+			orderItem.setTotal(31.96);
 
 			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("productTestDataFactory");
@@ -90,9 +92,9 @@ public class OrderItemTestDataFactory
 
 		try {
 
-			orderItem.setSalePrice(76.68);
+			orderItem.setSalePrice(36.62);
 			orderItem.setQuantity(1);
-			orderItem.setTotal(47.75);
+			orderItem.setTotal(85.76);
 
 			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("productTestDataFactory");
@@ -114,9 +116,9 @@ public class OrderItemTestDataFactory
 
 		try {
 
-			orderItem.setSalePrice(99.3);
+			orderItem.setSalePrice(16.97);
 			orderItem.setQuantity(1);
-			orderItem.setTotal(13.59);
+			orderItem.setTotal(96.43);
 
 			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("productTestDataFactory");
@@ -138,9 +140,9 @@ public class OrderItemTestDataFactory
 
 		try {
 
-			orderItem.setSalePrice(20.68);
+			orderItem.setSalePrice(3.66);
 			orderItem.setQuantity(1);
-			orderItem.setTotal(37.79);
+			orderItem.setTotal(61.76);
 
 			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("productTestDataFactory");
@@ -193,6 +195,45 @@ public class OrderItemTestDataFactory
 		}
 
 		alreadyPersisted = true;
+	}
+
+	/** Execute this method to manually generate additional orders
+	 * @param args
+	 */
+	public static void main(String args[]) {
+
+		int recordsTocreate = 30;
+
+		TestDataFactory placedOrderTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("placedOrderTestDataFactory");
+
+		placedOrderTestDataFactory.createAndSaveRecords(recordsTocreate);
+	}
+
+	public void createAndSaveRecords(int recordsTocreate) {
+		for (int i = 0; i < recordsTocreate; i++) {
+			OrderItem orderItem = createRandomOrderItem();
+			orderItemService.save(orderItem);
+		}
+	}
+
+	public OrderItem createRandomOrderItem() {
+		OrderItem orderItem = new OrderItem();
+
+		orderItem.setSalePrice((Double) RandomValueGeneratorFactory
+				.createInstance("double"));
+		orderItem.setQuantity((Integer) RandomValueGeneratorFactory
+				.createInstance("int"));
+		orderItem.setTotal((Double) RandomValueGeneratorFactory
+				.createInstance("double"));
+
+		TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("productTestDataFactory");
+
+		orderItem.setProduct((bizobjects.Product) productTestDataFactory
+				.loadOneRecord());
+
+		return orderItem;
 	}
 
 }

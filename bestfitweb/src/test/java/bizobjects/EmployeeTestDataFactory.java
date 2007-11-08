@@ -9,6 +9,8 @@ import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 
 import org.witchcraft.model.support.testing.TestDataFactory;
 
+import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import bizobjects.service.EmployeeService;
@@ -40,18 +42,19 @@ public class EmployeeTestDataFactory extends AbstractTestDataFactory<Employee> {
 
 		try {
 
-			employee.setFirstName("Eric");
-			employee.setLastName("delta");
-			employee.setDob(dateFormat.parse("2007.10.27 03:51:12 EDT"));
-			employee.setCode(2548);
-			employee.getUserAccount().setUsername("pi99910");
-			employee.getUserAccount().setPassword("Mark");
+			employee.setFirstName("gamma");
+			employee.setLastName("theta");
+			employee.setDob(dateFormat.parse("2007.11.21 21:58:41 EST"));
+			employee.setAge(8799);
+			employee.setCode(4516);
+			employee.getUserAccount().setUsername("Eric88925");
+			employee.getUserAccount().setPassword("gamma");
 			employee.getUserAccount().setEnabled(true);
-			employee.getPrimaryAddress().setStreetAddress("zeta");
-			employee.getPrimaryAddress().setCity("pi");
-			employee.getPrimaryAddress().setZip("zeta");
-			employee.getPrimaryAddress().setEmail("zeta51790");
-			employee.getPrimaryAddress().setCountry("Eric");
+			employee.getPrimaryAddress().setStreetAddress("Eric");
+			employee.getPrimaryAddress().setCity("alpha");
+			employee.getPrimaryAddress().setZip("John");
+			employee.getPrimaryAddress().setEmail("alpha83085");
+			employee.getPrimaryAddress().setCountry("pi");
 			employee.getPrimaryAddress().setState("delta");
 
 			register(employee);
@@ -68,19 +71,20 @@ public class EmployeeTestDataFactory extends AbstractTestDataFactory<Employee> {
 
 		try {
 
-			employee.setFirstName("Lavendar");
-			employee.setLastName("pi");
-			employee.setDob(dateFormat.parse("2007.10.17 07:30:40 EDT"));
-			employee.setCode(8580);
-			employee.getUserAccount().setUsername("gamma32785");
-			employee.getUserAccount().setPassword("pi");
+			employee.setFirstName("epsilon");
+			employee.setLastName("Eric");
+			employee.setDob(dateFormat.parse("2007.11.07 09:47:36 EST"));
+			employee.setAge(4955);
+			employee.setCode(7601);
+			employee.getUserAccount().setUsername("epsilon84009");
+			employee.getUserAccount().setPassword("Wilson");
 			employee.getUserAccount().setEnabled(true);
-			employee.getPrimaryAddress().setStreetAddress("gamma");
-			employee.getPrimaryAddress().setCity("Mark");
-			employee.getPrimaryAddress().setZip("Wilson");
-			employee.getPrimaryAddress().setEmail("Wilson32212");
-			employee.getPrimaryAddress().setCountry("Wilson");
-			employee.getPrimaryAddress().setState("delta");
+			employee.getPrimaryAddress().setStreetAddress("zeta");
+			employee.getPrimaryAddress().setCity("pi");
+			employee.getPrimaryAddress().setZip("theta");
+			employee.getPrimaryAddress().setEmail("beta24975");
+			employee.getPrimaryAddress().setCountry("Mark");
+			employee.getPrimaryAddress().setState("zeta");
 
 			register(employee);
 
@@ -96,19 +100,20 @@ public class EmployeeTestDataFactory extends AbstractTestDataFactory<Employee> {
 
 		try {
 
-			employee.setFirstName("Lavendar");
-			employee.setLastName("pi");
-			employee.setDob(dateFormat.parse("2007.10.25 13:16:14 EDT"));
-			employee.setCode(4748);
-			employee.getUserAccount().setUsername("epsilon70020");
-			employee.getUserAccount().setPassword("Eric");
+			employee.setFirstName("alpha");
+			employee.setLastName("gamma");
+			employee.setDob(dateFormat.parse("2007.11.18 16:57:03 EST"));
+			employee.setAge(5189);
+			employee.setCode(2539);
+			employee.getUserAccount().setUsername("Malissa16761");
+			employee.getUserAccount().setPassword("Mark");
 			employee.getUserAccount().setEnabled(true);
-			employee.getPrimaryAddress().setStreetAddress("epsilon");
-			employee.getPrimaryAddress().setCity("Eric");
-			employee.getPrimaryAddress().setZip("alpha");
-			employee.getPrimaryAddress().setEmail("zeta99778");
-			employee.getPrimaryAddress().setCountry("alpha");
-			employee.getPrimaryAddress().setState("epsilon");
+			employee.getPrimaryAddress().setStreetAddress("beta");
+			employee.getPrimaryAddress().setCity("Malissa");
+			employee.getPrimaryAddress().setZip("Lavendar");
+			employee.getPrimaryAddress().setEmail("Mark8964");
+			employee.getPrimaryAddress().setCountry("Mark");
+			employee.getPrimaryAddress().setState("pi");
 
 			register(employee);
 
@@ -124,19 +129,20 @@ public class EmployeeTestDataFactory extends AbstractTestDataFactory<Employee> {
 
 		try {
 
-			employee.setFirstName("Mark");
-			employee.setLastName("zeta");
-			employee.setDob(dateFormat.parse("2007.09.29 04:49:34 EDT"));
-			employee.setCode(7151);
-			employee.getUserAccount().setUsername("zeta53284");
-			employee.getUserAccount().setPassword("pi");
+			employee.setFirstName("alpha");
+			employee.setLastName("Lavendar");
+			employee.setDob(dateFormat.parse("2007.11.11 05:27:03 EST"));
+			employee.setAge(5649);
+			employee.setCode(2692);
+			employee.getUserAccount().setUsername("epsilon47776");
+			employee.getUserAccount().setPassword("zeta");
 			employee.getUserAccount().setEnabled(true);
-			employee.getPrimaryAddress().setStreetAddress("gamma");
-			employee.getPrimaryAddress().setCity("John");
-			employee.getPrimaryAddress().setZip("pi");
-			employee.getPrimaryAddress().setEmail("beta60681");
-			employee.getPrimaryAddress().setCountry("Wilson");
-			employee.getPrimaryAddress().setState("Lavendar");
+			employee.getPrimaryAddress().setStreetAddress("epsilon");
+			employee.getPrimaryAddress().setCity("pi");
+			employee.getPrimaryAddress().setZip("John");
+			employee.getPrimaryAddress().setEmail("beta52301");
+			employee.getPrimaryAddress().setCountry("alpha");
+			employee.getPrimaryAddress().setState("epsilon");
 
 			register(employee);
 
@@ -152,19 +158,20 @@ public class EmployeeTestDataFactory extends AbstractTestDataFactory<Employee> {
 
 		try {
 
-			employee.setFirstName("epsilon");
-			employee.setLastName("Lavendar");
-			employee.setDob(dateFormat.parse("2007.10.01 22:06:14 EDT"));
-			employee.setCode(2203);
-			employee.getUserAccount().setUsername("Mark35089");
-			employee.getUserAccount().setPassword("epsilon");
+			employee.setFirstName("Eric");
+			employee.setLastName("Wilson");
+			employee.setDob(dateFormat.parse("2007.10.22 12:47:03 EDT"));
+			employee.setAge(2403);
+			employee.setCode(2366);
+			employee.getUserAccount().setUsername("John4182");
+			employee.getUserAccount().setPassword("theta");
 			employee.getUserAccount().setEnabled(true);
-			employee.getPrimaryAddress().setStreetAddress("Mark");
-			employee.getPrimaryAddress().setCity("beta");
-			employee.getPrimaryAddress().setZip("pi");
-			employee.getPrimaryAddress().setEmail("epsilon32586");
-			employee.getPrimaryAddress().setCountry("epsilon");
-			employee.getPrimaryAddress().setState("Malissa");
+			employee.getPrimaryAddress().setStreetAddress("alpha");
+			employee.getPrimaryAddress().setCity("theta");
+			employee.getPrimaryAddress().setZip("Eric");
+			employee.getPrimaryAddress().setEmail("beta59456");
+			employee.getPrimaryAddress().setCountry("delta");
+			employee.getPrimaryAddress().setState("delta");
 
 			register(employee);
 
@@ -211,6 +218,63 @@ public class EmployeeTestDataFactory extends AbstractTestDataFactory<Employee> {
 		}
 
 		alreadyPersisted = true;
+	}
+
+	/** Execute this method to manually generate additional orders
+	 * @param args
+	 */
+	public static void main(String args[]) {
+
+		int recordsTocreate = 30;
+
+		TestDataFactory placedOrderTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("placedOrderTestDataFactory");
+
+		placedOrderTestDataFactory.createAndSaveRecords(recordsTocreate);
+	}
+
+	public void createAndSaveRecords(int recordsTocreate) {
+		for (int i = 0; i < recordsTocreate; i++) {
+			Employee employee = createRandomEmployee();
+			employeeService.save(employee);
+		}
+	}
+
+	public Employee createRandomEmployee() {
+		Employee employee = new Employee();
+
+		employee.setFirstName((String) RandomValueGeneratorFactory
+				.createInstance("String"));
+		employee.setLastName((String) RandomValueGeneratorFactory
+				.createInstance("String"));
+		employee.setDob((java.util.Date) RandomValueGeneratorFactory
+				.createInstance("java.util.Date"));
+		employee.setAge((Integer) RandomValueGeneratorFactory
+				.createInstance("int"));
+		employee.setCode((Integer) RandomValueGeneratorFactory
+				.createInstance("int"));
+		employee.getUserAccount().setUsername(
+				(String) RandomValueGeneratorFactory.createInstance("String"));
+		employee.getUserAccount().setPassword(
+				(String) RandomValueGeneratorFactory.createInstance("String"));
+		employee.getUserAccount()
+				.setEnabled(
+						(Boolean) RandomValueGeneratorFactory
+								.createInstance("boolean"));
+		employee.getPrimaryAddress().setStreetAddress(
+				(String) RandomValueGeneratorFactory.createInstance("String"));
+		employee.getPrimaryAddress().setCity(
+				(String) RandomValueGeneratorFactory.createInstance("String"));
+		employee.getPrimaryAddress().setZip(
+				(String) RandomValueGeneratorFactory.createInstance("String"));
+		employee.getPrimaryAddress().setEmail(
+				(String) RandomValueGeneratorFactory.createInstance("String"));
+		employee.getPrimaryAddress().setCountry(
+				(String) RandomValueGeneratorFactory.createInstance("String"));
+		employee.getPrimaryAddress().setState(
+				(String) RandomValueGeneratorFactory.createInstance("String"));
+
+		return employee;
 	}
 
 }

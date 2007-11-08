@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 
 import javax.persistence.PersistenceException;
 import org.hibernate.PropertyValueException;
+import java.util.Date;
 
 public class ProductDaoTest extends AbstractJpaTests {
 
@@ -50,8 +51,8 @@ public class ProductDaoTest extends AbstractJpaTests {
 		try {
 
 			productInstance.setName("Eric");
-			productInstance.setBrand("beta");
-			productInstance.setListPrice(6.99);
+			productInstance.setBrand("theta");
+			productInstance.setListPrice(4.52);
 
 			productService.save(productInstance);
 		} catch (PersistenceException pe) {
@@ -75,9 +76,9 @@ public class ProductDaoTest extends AbstractJpaTests {
 
 			try {
 
-				product.setName("Wilson");
-				product.setBrand("zeta");
-				product.setListPrice(94.74);
+				product.setName("Lavendar");
+				product.setBrand("John");
+				product.setListPrice(6.01);
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -96,15 +97,19 @@ public class ProductDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Product product = (Product) productTestDataFactory.loadOneRecord();
 
-			product.setName("John");
+			product.setName("alpha");
 			product.setBrand("Mark");
-			product.setListPrice(76.55);
+			product.setListPrice(36.01);
 
 			productService.save(product);
 
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
+	}
+
+	public void testCount() {
+		assertTrue(productService.getCount() > 0);
 	}
 
 	public void testDelete() {

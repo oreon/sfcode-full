@@ -9,6 +9,8 @@ import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 
 import org.witchcraft.model.support.testing.TestDataFactory;
 
+import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import com.publicfountain.domain.service.CommentService;
@@ -40,8 +42,8 @@ public class CommentTestDataFactory extends AbstractTestDataFactory<Comment> {
 
 		try {
 
-			comment.setText("gamma");
-			comment.setUserDisplayName("gamma");
+			comment.setText("beta");
+			comment.setUserDisplayName("theta");
 
 			TestDataFactory commentCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");
@@ -71,8 +73,8 @@ public class CommentTestDataFactory extends AbstractTestDataFactory<Comment> {
 
 		try {
 
-			comment.setText("gamma");
-			comment.setUserDisplayName("delta");
+			comment.setText("Mark");
+			comment.setUserDisplayName("John");
 
 			TestDataFactory commentCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");
@@ -102,8 +104,8 @@ public class CommentTestDataFactory extends AbstractTestDataFactory<Comment> {
 
 		try {
 
-			comment.setText("beta");
-			comment.setUserDisplayName("gamma");
+			comment.setText("theta");
+			comment.setUserDisplayName("Wilson");
 
 			TestDataFactory commentCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");
@@ -133,8 +135,8 @@ public class CommentTestDataFactory extends AbstractTestDataFactory<Comment> {
 
 		try {
 
-			comment.setText("pi");
-			comment.setUserDisplayName("gamma");
+			comment.setText("Mark");
+			comment.setUserDisplayName("pi");
 
 			TestDataFactory commentCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");
@@ -164,8 +166,8 @@ public class CommentTestDataFactory extends AbstractTestDataFactory<Comment> {
 
 		try {
 
-			comment.setText("Lavendar");
-			comment.setUserDisplayName("Lavendar");
+			comment.setText("beta");
+			comment.setUserDisplayName("delta");
 
 			TestDataFactory commentCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");
@@ -226,6 +228,50 @@ public class CommentTestDataFactory extends AbstractTestDataFactory<Comment> {
 		}
 
 		alreadyPersisted = true;
+	}
+
+	/** Execute this method to manually generate additional orders
+	 * @param args
+	 */
+	public static void main(String args[]) {
+
+		int recordsTocreate = 30;
+
+		TestDataFactory placedOrderTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("placedOrderTestDataFactory");
+
+		placedOrderTestDataFactory.createAndSaveRecords(recordsTocreate);
+	}
+
+	public void createAndSaveRecords(int recordsTocreate) {
+		for (int i = 0; i < recordsTocreate; i++) {
+			Comment comment = createRandomComment();
+			commentService.save(comment);
+		}
+	}
+
+	public Comment createRandomComment() {
+		Comment comment = new Comment();
+
+		comment.setText((String) RandomValueGeneratorFactory
+				.createInstance("String"));
+		comment.setUserDisplayName((String) RandomValueGeneratorFactory
+				.createInstance("String"));
+
+		TestDataFactory commentCreatorTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("registeredUserTestDataFactory");
+
+		comment
+				.setCommentCreator((bizobjects.RegisteredUser) commentCreatorTestDataFactory
+						.loadOneRecord());
+
+		TestDataFactory topicTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("topicTestDataFactory");
+
+		comment.setTopic((com.publicfountain.domain.Topic) topicTestDataFactory
+				.loadOneRecord());
+
+		return comment;
 	}
 
 }

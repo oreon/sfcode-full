@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 
 import javax.persistence.PersistenceException;
 import org.hibernate.PropertyValueException;
+import java.util.Date;
 
 public class CustomerDaoTest extends AbstractJpaTests {
 
@@ -49,20 +50,21 @@ public class CustomerDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			customerInstance.setFirstName("theta");
-			customerInstance.setLastName("Lavendar");
+			customerInstance.setFirstName("epsilon");
+			customerInstance.setLastName("Wilson");
 			customerInstance
-					.setDob(dateFormat.parse("2007.10.19 12:17:19 EDT"));
-			customerInstance.setRemarks("beta");
-			customerInstance.getUserAccount().setUsername("gamma39178");
-			customerInstance.getUserAccount().setPassword("pi");
+					.setDob(dateFormat.parse("2007.10.25 12:49:14 EDT"));
+			customerInstance.setAge(2123);
+			customerInstance.setRemarks("gamma");
+			customerInstance.getUserAccount().setUsername("Mark29738");
+			customerInstance.getUserAccount().setPassword("theta");
 			customerInstance.getUserAccount().setEnabled(true);
-			customerInstance.getPrimaryAddress().setStreetAddress("Wilson");
-			customerInstance.getPrimaryAddress().setCity("zeta");
-			customerInstance.getPrimaryAddress().setZip("Wilson");
-			customerInstance.getPrimaryAddress().setEmail("pi30745");
-			customerInstance.getPrimaryAddress().setCountry("gamma");
-			customerInstance.getPrimaryAddress().setState("Malissa");
+			customerInstance.getPrimaryAddress().setStreetAddress("epsilon");
+			customerInstance.getPrimaryAddress().setCity("Mark");
+			customerInstance.getPrimaryAddress().setZip("pi");
+			customerInstance.getPrimaryAddress().setEmail("delta42684");
+			customerInstance.getPrimaryAddress().setCountry("zeta");
+			customerInstance.getPrimaryAddress().setState("pi");
 
 			customerService.save(customerInstance);
 		} catch (PersistenceException pe) {
@@ -86,19 +88,20 @@ public class CustomerDaoTest extends AbstractJpaTests {
 
 			try {
 
-				customer.setFirstName("Eric");
-				customer.setLastName("beta");
-				customer.setDob(dateFormat.parse("2007.10.09 09:56:46 EDT"));
-				customer.setRemarks("Wilson");
-				customer.getUserAccount().setUsername("delta92620");
-				customer.getUserAccount().setPassword("pi");
+				customer.setFirstName("Mark");
+				customer.setLastName("Eric");
+				customer.setDob(dateFormat.parse("2007.11.10 19:25:21 EST"));
+				customer.setAge(8373);
+				customer.setRemarks("alpha");
+				customer.getUserAccount().setUsername("Wilson56695");
+				customer.getUserAccount().setPassword("zeta");
 				customer.getUserAccount().setEnabled(true);
-				customer.getPrimaryAddress().setStreetAddress("pi");
+				customer.getPrimaryAddress().setStreetAddress("gamma");
 				customer.getPrimaryAddress().setCity("zeta");
-				customer.getPrimaryAddress().setZip("Eric");
-				customer.getPrimaryAddress().setEmail("Eric55078");
-				customer.getPrimaryAddress().setCountry("Wilson");
-				customer.getPrimaryAddress().setState("alpha");
+				customer.getPrimaryAddress().setZip("gamma");
+				customer.getPrimaryAddress().setEmail("Lavendar67335");
+				customer.getPrimaryAddress().setCountry("zeta");
+				customer.getPrimaryAddress().setState("delta");
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -118,25 +121,30 @@ public class CustomerDaoTest extends AbstractJpaTests {
 			Customer customer = (Customer) customerTestDataFactory
 					.loadOneRecord();
 
-			customer.setFirstName("alpha");
-			customer.setLastName("John");
-			customer.setDob(dateFormat.parse("2007.10.24 11:53:26 EDT"));
-			customer.setRemarks("Lavendar");
-			customer.getUserAccount().setUsername("beta63800");
-			customer.getUserAccount().setPassword("gamma");
+			customer.setFirstName("Mark");
+			customer.setLastName("Eric");
+			customer.setDob(dateFormat.parse("2007.10.20 19:41:28 EDT"));
+			customer.setAge(7953);
+			customer.setRemarks("John");
+			customer.getUserAccount().setUsername("Malissa13106");
+			customer.getUserAccount().setPassword("epsilon");
 			customer.getUserAccount().setEnabled(true);
-			customer.getPrimaryAddress().setStreetAddress("Lavendar");
-			customer.getPrimaryAddress().setCity("Wilson");
-			customer.getPrimaryAddress().setZip("beta");
-			customer.getPrimaryAddress().setEmail("Wilson99287");
-			customer.getPrimaryAddress().setCountry("theta");
-			customer.getPrimaryAddress().setState("theta");
+			customer.getPrimaryAddress().setStreetAddress("John");
+			customer.getPrimaryAddress().setCity("Mark");
+			customer.getPrimaryAddress().setZip("alpha");
+			customer.getPrimaryAddress().setEmail("Lavendar9455");
+			customer.getPrimaryAddress().setCountry("Mark");
+			customer.getPrimaryAddress().setState("alpha");
 
 			customerService.save(customer);
 
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
+	}
+
+	public void testCount() {
+		assertTrue(customerService.getCount() > 0);
 	}
 
 	public void testDelete() {

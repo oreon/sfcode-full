@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 
 import javax.persistence.PersistenceException;
 import org.hibernate.PropertyValueException;
+import java.util.Date;
 
 public class EmployeeDaoTest extends AbstractJpaTests {
 
@@ -49,20 +50,21 @@ public class EmployeeDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			employeeInstance.setFirstName("alpha");
-			employeeInstance.setLastName("beta");
+			employeeInstance.setFirstName("Malissa");
+			employeeInstance.setLastName("John");
 			employeeInstance
-					.setDob(dateFormat.parse("2007.11.07 20:27:52 EST"));
-			employeeInstance.setCode(4636);
-			employeeInstance.getUserAccount().setUsername("beta52255");
-			employeeInstance.getUserAccount().setPassword("Eric");
+					.setDob(dateFormat.parse("2007.11.22 00:55:21 EST"));
+			employeeInstance.setAge(7173);
+			employeeInstance.setCode(5956);
+			employeeInstance.getUserAccount().setUsername("Mark93563");
+			employeeInstance.getUserAccount().setPassword("pi");
 			employeeInstance.getUserAccount().setEnabled(true);
-			employeeInstance.getPrimaryAddress().setStreetAddress("beta");
-			employeeInstance.getPrimaryAddress().setCity("theta");
-			employeeInstance.getPrimaryAddress().setZip("delta");
-			employeeInstance.getPrimaryAddress().setEmail("Mark69068");
-			employeeInstance.getPrimaryAddress().setCountry("alpha");
-			employeeInstance.getPrimaryAddress().setState("zeta");
+			employeeInstance.getPrimaryAddress().setStreetAddress("Eric");
+			employeeInstance.getPrimaryAddress().setCity("beta");
+			employeeInstance.getPrimaryAddress().setZip("Eric");
+			employeeInstance.getPrimaryAddress().setEmail("John58751");
+			employeeInstance.getPrimaryAddress().setCountry("beta");
+			employeeInstance.getPrimaryAddress().setState("Mark");
 
 			employeeService.save(employeeInstance);
 		} catch (PersistenceException pe) {
@@ -86,19 +88,20 @@ public class EmployeeDaoTest extends AbstractJpaTests {
 
 			try {
 
-				employee.setFirstName("Mark");
-				employee.setLastName("theta");
-				employee.setDob(dateFormat.parse("2007.10.12 01:27:19 EDT"));
-				employee.setCode(3010);
-				employee.getUserAccount().setUsername("Malissa49116");
-				employee.getUserAccount().setPassword("beta");
+				employee.setFirstName("John");
+				employee.setLastName("epsilon");
+				employee.setDob(dateFormat.parse("2007.11.21 15:41:29 EST"));
+				employee.setAge(193);
+				employee.setCode(8281);
+				employee.getUserAccount().setUsername("alpha22327");
+				employee.getUserAccount().setPassword("Mark");
 				employee.getUserAccount().setEnabled(true);
 				employee.getPrimaryAddress().setStreetAddress("Lavendar");
-				employee.getPrimaryAddress().setCity("alpha");
-				employee.getPrimaryAddress().setZip("beta");
-				employee.getPrimaryAddress().setEmail("gamma16233");
-				employee.getPrimaryAddress().setCountry("beta");
-				employee.getPrimaryAddress().setState("epsilon");
+				employee.getPrimaryAddress().setCity("gamma");
+				employee.getPrimaryAddress().setZip("delta");
+				employee.getPrimaryAddress().setEmail("Wilson10151");
+				employee.getPrimaryAddress().setCountry("John");
+				employee.getPrimaryAddress().setState("delta");
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -118,25 +121,30 @@ public class EmployeeDaoTest extends AbstractJpaTests {
 			Employee employee = (Employee) employeeTestDataFactory
 					.loadOneRecord();
 
-			employee.setFirstName("zeta");
-			employee.setLastName("gamma");
-			employee.setDob(dateFormat.parse("2007.10.07 21:47:52 EDT"));
-			employee.setCode(1534);
-			employee.getUserAccount().setUsername("zeta91541");
-			employee.getUserAccount().setPassword("Lavendar");
+			employee.setFirstName("gamma");
+			employee.setLastName("theta");
+			employee.setDob(dateFormat.parse("2007.11.24 14:17:36 EST"));
+			employee.setAge(3293);
+			employee.setCode(4656);
+			employee.getUserAccount().setUsername("epsilon85484");
+			employee.getUserAccount().setPassword("gamma");
 			employee.getUserAccount().setEnabled(true);
-			employee.getPrimaryAddress().setStreetAddress("theta");
-			employee.getPrimaryAddress().setCity("alpha");
-			employee.getPrimaryAddress().setZip("Malissa");
-			employee.getPrimaryAddress().setEmail("epsilon64747");
-			employee.getPrimaryAddress().setCountry("Malissa");
-			employee.getPrimaryAddress().setState("beta");
+			employee.getPrimaryAddress().setStreetAddress("Mark");
+			employee.getPrimaryAddress().setCity("zeta");
+			employee.getPrimaryAddress().setZip("John");
+			employee.getPrimaryAddress().setEmail("Eric26546");
+			employee.getPrimaryAddress().setCountry("delta");
+			employee.getPrimaryAddress().setState("theta");
 
 			employeeService.save(employee);
 
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
+	}
+
+	public void testCount() {
+		assertTrue(employeeService.getCount() > 0);
 	}
 
 	public void testDelete() {

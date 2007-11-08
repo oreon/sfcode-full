@@ -9,6 +9,8 @@ import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 
 import org.witchcraft.model.support.testing.TestDataFactory;
 
+import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import usermanagement.service.UserService;
@@ -40,8 +42,8 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUsername("beta76613");
-			user.setPassword("gamma");
+			user.setUsername("Malissa96391");
+			user.setPassword("Lavendar");
 			user.setEnabled(true);
 
 			register(user);
@@ -58,7 +60,7 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUsername("beta67979");
+			user.setUsername("Mark44666");
 			user.setPassword("Malissa");
 			user.setEnabled(true);
 
@@ -76,8 +78,8 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUsername("alpha41921");
-			user.setPassword("delta");
+			user.setUsername("epsilon12376");
+			user.setPassword("Lavendar");
 			user.setEnabled(true);
 
 			register(user);
@@ -94,8 +96,8 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUsername("epsilon69225");
-			user.setPassword("Mark");
+			user.setUsername("beta93985");
+			user.setPassword("Eric");
 			user.setEnabled(true);
 
 			register(user);
@@ -112,8 +114,8 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUsername("John16027");
-			user.setPassword("John");
+			user.setUsername("John41739");
+			user.setPassword("pi");
 			user.setEnabled(true);
 
 			register(user);
@@ -161,6 +163,39 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 		}
 
 		alreadyPersisted = true;
+	}
+
+	/** Execute this method to manually generate additional orders
+	 * @param args
+	 */
+	public static void main(String args[]) {
+
+		int recordsTocreate = 30;
+
+		TestDataFactory placedOrderTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("placedOrderTestDataFactory");
+
+		placedOrderTestDataFactory.createAndSaveRecords(recordsTocreate);
+	}
+
+	public void createAndSaveRecords(int recordsTocreate) {
+		for (int i = 0; i < recordsTocreate; i++) {
+			User user = createRandomUser();
+			userService.save(user);
+		}
+	}
+
+	public User createRandomUser() {
+		User user = new User();
+
+		user.setUsername((String) RandomValueGeneratorFactory
+				.createInstance("String"));
+		user.setPassword((String) RandomValueGeneratorFactory
+				.createInstance("String"));
+		user.setEnabled((Boolean) RandomValueGeneratorFactory
+				.createInstance("boolean"));
+
+		return user;
 	}
 
 }
