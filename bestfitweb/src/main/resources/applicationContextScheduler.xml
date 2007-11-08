@@ -1,26 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
 
-		
-		
 
-  <bean id="promotionsMailerTaskcronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-    <property name="promotionsMailerTaskjobDetail" ref="exampleJob" />
-    <property name="cronExpression" value="0 15 4 ? * MON-FRI" />
+  <bean class="org.springframework.scheduling.quartz.CronTriggerBean" id="promotionsMailerTaskcronTrigger">
+    <property name="promotionsMailerTaskjobDetail" ref="exampleJob"/>
+    <property name="cronExpression" value="0 15 4 ? * MON-FRI"/>
   </bean>
   
   <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
     <property name="triggers">
         <list>
-            <ref bean="promotionsMailerTaskcronTrigger" />
+            <ref bean="promotionsMailerTaskcronTrigger"/>
         </list>
     </property>
    </bean>
 
-	<bean id="promotionsMailerTaskJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-	  <property name="targetObject" ref="exampleBusinessObject" />
-	  <property name="targetMethod" value="doIt" />
-	  <property name="concurrent" value="false" />
+	<bean class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean" id="promotionsMailerTaskJobDetail">
+	  <property name="targetObject" ref="exampleBusinessObject"/>
+	  <property name="targetMethod" value="doIt"/>
+	  <property name="concurrent" value="false"/>
 	</bean>
 
 
+
 		</beans>
-	
