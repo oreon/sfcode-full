@@ -42,9 +42,9 @@ public class ProductTestDataFactory extends AbstractTestDataFactory<Product> {
 
 		try {
 
-			product.setName("delta");
-			product.setBrand("theta");
-			product.setListPrice(9.61);
+			product.setName("Wilson");
+			product.setBrand("Mark");
+			product.setListPrice(68.46);
 
 			register(product);
 
@@ -60,9 +60,9 @@ public class ProductTestDataFactory extends AbstractTestDataFactory<Product> {
 
 		try {
 
-			product.setName("beta");
-			product.setBrand("theta");
-			product.setListPrice(71.9);
+			product.setName("Lavendar");
+			product.setBrand("John");
+			product.setListPrice(81.47);
 
 			register(product);
 
@@ -78,9 +78,9 @@ public class ProductTestDataFactory extends AbstractTestDataFactory<Product> {
 
 		try {
 
-			product.setName("delta");
-			product.setBrand("zeta");
-			product.setListPrice(12.8);
+			product.setName("Eric");
+			product.setBrand("epsilon");
+			product.setListPrice(39.05);
 
 			register(product);
 
@@ -96,9 +96,9 @@ public class ProductTestDataFactory extends AbstractTestDataFactory<Product> {
 
 		try {
 
-			product.setName("zeta");
-			product.setBrand("pi");
-			product.setListPrice(88.7);
+			product.setName("Malissa");
+			product.setBrand("delta");
+			product.setListPrice(47.87);
 
 			register(product);
 
@@ -114,9 +114,9 @@ public class ProductTestDataFactory extends AbstractTestDataFactory<Product> {
 
 		try {
 
-			product.setName("Lavendar");
-			product.setBrand("Lavendar");
-			product.setListPrice(60.16);
+			product.setName("Malissa");
+			product.setBrand("Mark");
+			product.setListPrice(68.46);
 
 			register(product);
 

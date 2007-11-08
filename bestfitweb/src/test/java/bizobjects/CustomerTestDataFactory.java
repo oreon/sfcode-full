@@ -42,20 +42,20 @@ public class CustomerTestDataFactory extends AbstractTestDataFactory<Customer> {
 
 		try {
 
-			customer.setFirstName("zeta");
-			customer.setLastName("delta");
-			customer.setDob(dateFormat.parse("2007.11.29 04:11:28 EST"));
-			customer.setAge(6089);
-			customer.setRemarks("delta");
-			customer.getUserAccount().setUsername("Wilson57186");
-			customer.getUserAccount().setPassword("Malissa");
+			customer.setFirstName("Malissa");
+			customer.setLastName("alpha");
+			customer.setDob(dateFormat.parse("2007.10.27 08:49:15 EDT"));
+			customer.setAge(1595);
+			customer.setRemarks("alpha");
+			customer.getUserAccount().setUsername("zeta44399");
+			customer.getUserAccount().setPassword("Eric");
 			customer.getUserAccount().setEnabled(true);
-			customer.getPrimaryAddress().setStreetAddress("Mark");
-			customer.getPrimaryAddress().setCity("delta");
+			customer.getPrimaryAddress().setStreetAddress("epsilon");
+			customer.getPrimaryAddress().setCity("zeta");
 			customer.getPrimaryAddress().setZip("Malissa");
-			customer.getPrimaryAddress().setEmail("beta78355");
-			customer.getPrimaryAddress().setCountry("John");
-			customer.getPrimaryAddress().setState("zeta");
+			customer.getPrimaryAddress().setEmail("Mark50850");
+			customer.getPrimaryAddress().setCountry("Mark");
+			customer.getPrimaryAddress().setState("gamma");
 
 			register(customer);
 
@@ -72,19 +72,19 @@ public class CustomerTestDataFactory extends AbstractTestDataFactory<Customer> {
 		try {
 
 			customer.setFirstName("epsilon");
-			customer.setLastName("Lavendar");
-			customer.setDob(dateFormat.parse("2007.11.08 20:25:21 EST"));
-			customer.setAge(8540);
-			customer.setRemarks("Wilson");
-			customer.getUserAccount().setUsername("theta21114");
-			customer.getUserAccount().setPassword("pi");
+			customer.setLastName("theta");
+			customer.setDob(dateFormat.parse("2007.10.31 09:15:23 EDT"));
+			customer.setAge(5293);
+			customer.setRemarks("gamma");
+			customer.getUserAccount().setUsername("Wilson83084");
+			customer.getUserAccount().setPassword("Lavendar");
 			customer.getUserAccount().setEnabled(true);
-			customer.getPrimaryAddress().setStreetAddress("Lavendar");
-			customer.getPrimaryAddress().setCity("pi");
-			customer.getPrimaryAddress().setZip("Malissa");
-			customer.getPrimaryAddress().setEmail("Mark94742");
-			customer.getPrimaryAddress().setCountry("John");
-			customer.getPrimaryAddress().setState("theta");
+			customer.getPrimaryAddress().setStreetAddress("delta");
+			customer.getPrimaryAddress().setCity("beta");
+			customer.getPrimaryAddress().setZip("zeta");
+			customer.getPrimaryAddress().setEmail("alpha72863");
+			customer.getPrimaryAddress().setCountry("zeta");
+			customer.getPrimaryAddress().setState("John");
 
 			register(customer);
 
@@ -100,20 +100,20 @@ public class CustomerTestDataFactory extends AbstractTestDataFactory<Customer> {
 
 		try {
 
-			customer.setFirstName("Mark");
-			customer.setLastName("gamma");
-			customer.setDob(dateFormat.parse("2007.11.21 02:38:41 EST"));
-			customer.setAge(7691);
-			customer.setRemarks("gamma");
-			customer.getUserAccount().setUsername("Wilson3357");
-			customer.getUserAccount().setPassword("Mark");
+			customer.setFirstName("gamma");
+			customer.setLastName("John");
+			customer.setDob(dateFormat.parse("2007.11.29 04:07:01 EST"));
+			customer.setAge(9996);
+			customer.setRemarks("delta");
+			customer.getUserAccount().setUsername("John8532");
+			customer.getUserAccount().setPassword("gamma");
 			customer.getUserAccount().setEnabled(true);
-			customer.getPrimaryAddress().setStreetAddress("gamma");
-			customer.getPrimaryAddress().setCity("gamma");
-			customer.getPrimaryAddress().setZip("Eric");
-			customer.getPrimaryAddress().setEmail("Malissa99467");
-			customer.getPrimaryAddress().setCountry("Lavendar");
-			customer.getPrimaryAddress().setState("pi");
+			customer.getPrimaryAddress().setStreetAddress("Wilson");
+			customer.getPrimaryAddress().setCity("Wilson");
+			customer.getPrimaryAddress().setZip("Wilson");
+			customer.getPrimaryAddress().setEmail("John73967");
+			customer.getPrimaryAddress().setCountry("Malissa");
+			customer.getPrimaryAddress().setState("gamma");
 
 			register(customer);
 
@@ -129,20 +129,20 @@ public class CustomerTestDataFactory extends AbstractTestDataFactory<Customer> {
 
 		try {
 
-			customer.setFirstName("Eric");
-			customer.setLastName("delta");
-			customer.setDob(dateFormat.parse("2007.11.03 17:38:08 EDT"));
-			customer.setAge(1959);
-			customer.setRemarks("gamma");
-			customer.getUserAccount().setUsername("zeta77219");
-			customer.getUserAccount().setPassword("zeta");
+			customer.setFirstName("beta");
+			customer.setLastName("Lavendar");
+			customer.setDob(dateFormat.parse("2007.12.03 05:25:23 EST"));
+			customer.setAge(8923);
+			customer.setRemarks("John");
+			customer.getUserAccount().setUsername("alpha16952");
+			customer.getUserAccount().setPassword("alpha");
 			customer.getUserAccount().setEnabled(true);
-			customer.getPrimaryAddress().setStreetAddress("theta");
-			customer.getPrimaryAddress().setCity("John");
-			customer.getPrimaryAddress().setZip("Lavendar");
-			customer.getPrimaryAddress().setEmail("beta95415");
-			customer.getPrimaryAddress().setCountry("John");
-			customer.getPrimaryAddress().setState("Wilson");
+			customer.getPrimaryAddress().setStreetAddress("Eric");
+			customer.getPrimaryAddress().setCity("Mark");
+			customer.getPrimaryAddress().setZip("alpha");
+			customer.getPrimaryAddress().setEmail("Malissa57888");
+			customer.getPrimaryAddress().setCountry("zeta");
+			customer.getPrimaryAddress().setState("delta");
 
 			register(customer);
 
@@ -158,20 +158,20 @@ public class CustomerTestDataFactory extends AbstractTestDataFactory<Customer> {
 
 		try {
 
-			customer.setFirstName("Wilson");
-			customer.setLastName("zeta");
-			customer.setDob(dateFormat.parse("2007.12.01 11:35:21 EST"));
-			customer.setAge(862);
-			customer.setRemarks("Mark");
-			customer.getUserAccount().setUsername("alpha71198");
-			customer.getUserAccount().setPassword("pi");
+			customer.setFirstName("alpha");
+			customer.setLastName("beta");
+			customer.setDob(dateFormat.parse("2007.11.08 01:34:14 EST"));
+			customer.setAge(8938);
+			customer.setRemarks("beta");
+			customer.getUserAccount().setUsername("alpha3544");
+			customer.getUserAccount().setPassword("Lavendar");
 			customer.getUserAccount().setEnabled(true);
-			customer.getPrimaryAddress().setStreetAddress("Eric");
+			customer.getPrimaryAddress().setStreetAddress("John");
 			customer.getPrimaryAddress().setCity("pi");
-			customer.getPrimaryAddress().setZip("Lavendar");
-			customer.getPrimaryAddress().setEmail("epsilon40031");
-			customer.getPrimaryAddress().setCountry("Malissa");
-			customer.getPrimaryAddress().setState("beta");
+			customer.getPrimaryAddress().setZip("epsilon");
+			customer.getPrimaryAddress().setEmail("epsilon55846");
+			customer.getPrimaryAddress().setCountry("zeta");
+			customer.getPrimaryAddress().setState("alpha");
 
 			register(customer);
 

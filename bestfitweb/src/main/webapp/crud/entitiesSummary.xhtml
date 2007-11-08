@@ -14,46 +14,55 @@
 		<f:view>
 		<h:messages layout="list" globalOnly="true" showDetail="true"
 			styleClass="messages" />
+			
+			<a4j:form id="form">
+			
 			<rich:panel>
 				<h:panelGrid columns="1" styleClass="formTable">
 						<f:facet name="header">
 							<h:outputText value="Summary"
 								styleClass="formHeaderText"   />
 						</f:facet>	
+						
+					<h:panelGrid columns="5">
+						<h:outputText value="From" />
+						<t:inputCalendar renderAsPopup="true"
+							renderPopupButtonAsImage="true" required="false" id="from_Date">
+						</t:inputCalendar>
+
+						<h:outputText value="To" />
+						<t:inputCalendar renderAsPopup="true"
+							renderPopupButtonAsImage="true" required="false" id="to_Date">
+						</t:inputCalendar>
+
+
+						<h:commandButton id="button1" value="Submit" action="search" />
+
+					</h:panelGrid>
+						
 			
 						
-		<h:outputText styleClass="formLabel" value="Customer(#{customerCrudBacking.customers})"/>
-			
+		<h:outputText styleClass="formLabel" value="Customer(#{customerCrudBacking.count})"/>
 
-		<h:outputText styleClass="formLabel" value="Employee(#{employeeCrudBacking.employees})"/>
-			
+		<h:outputText styleClass="formLabel" value="Employee(#{employeeCrudBacking.count})"/>
 
-		<h:outputText styleClass="formLabel" value="PlacedOrder(#{placedOrderCrudBacking.placedOrders})"/>
-			
+		<h:outputText styleClass="formLabel" value="PlacedOrder(#{placedOrderCrudBacking.count})"/>
 
-		<h:outputText styleClass="formLabel" value="Product(#{productCrudBacking.products})"/>
-			
+		<h:outputText styleClass="formLabel" value="Product(#{productCrudBacking.count})"/>
 
-		<h:outputText styleClass="formLabel" value="OrderItem(#{orderItemCrudBacking.orderItems})"/>
-			
+		<h:outputText styleClass="formLabel" value="OrderItem(#{orderItemCrudBacking.count})"/>
 
-		<h:outputText styleClass="formLabel" value="RegisteredUser(#{registeredUserCrudBacking.registeredUsers})"/>
-			
+		<h:outputText styleClass="formLabel" value="RegisteredUser(#{registeredUserCrudBacking.count})"/>
 
-		<h:outputText styleClass="formLabel" value="User(#{userCrudBacking.users})"/>
-			
+		<h:outputText styleClass="formLabel" value="User(#{userCrudBacking.count})"/>
 
-		<h:outputText styleClass="formLabel" value="Authority(#{authorityCrudBacking.authoritys})"/>
-			
+		<h:outputText styleClass="formLabel" value="Authority(#{authorityCrudBacking.count})"/>
 
-		<h:outputText styleClass="formLabel" value="Topic(#{topicCrudBacking.topics})"/>
-			
+		<h:outputText styleClass="formLabel" value="Topic(#{topicCrudBacking.count})"/>
 
-		<h:outputText styleClass="formLabel" value="Category(#{categoryCrudBacking.categorys})"/>
-			
+		<h:outputText styleClass="formLabel" value="Category(#{categoryCrudBacking.count})"/>
 
-		<h:outputText styleClass="formLabel" value="Comment(#{commentCrudBacking.comments})"/>
-			
+		<h:outputText styleClass="formLabel" value="Comment(#{commentCrudBacking.count})"/>
 			
 			
 				</h:panelGrid>
@@ -61,10 +70,8 @@
 				<br/>
 				<br/>
 						
-						
-						
-						
-			</rich:panel>	
+			 </rich:panel>	
+			</a4j:form>
 		</f:view>
 
 	</ui:define>

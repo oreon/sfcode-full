@@ -1,6 +1,6 @@
-		
-	
-	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -11,166 +11,157 @@
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
-	
+
 	<ui:define name="content">
 
 		<f:view>
 			<h:messages layout="list" globalOnly="true" showDetail="true"
-			styleClass="messages" />
-		
+				styleClass="messages" />
+
 			<a4j:form id="form">
 				<rich:panel>
 					<h:panelGrid columns="3" styleClass="formTable">
 						<f:facet name="header">
 							<h:outputText value="PlacedOrder Information"
-								styleClass="formHeaderText"   />
+								styleClass="formHeaderText" />
 						</f:facet>
-						
-							
-								<h:outputText value="Customer*" styleClass="formLabel" />
-								
-	<h:selectOneMenu  required="true" 
-		id="placedOrder_customer" converter="keyToObjectConverter"
-		value="#{placedOrderCrudBacking.placedOrder.customer}">
-		<f:selectItem itemLabel="Select" />
-		<f:selectItems value="#{customerCrudBacking.asSelectItems}" />
-	</h:selectOneMenu>
-										
-	<h:message for="placedOrder_customer" styleClass="errMessage" />
 
-							
-							
-							
-	
-	<h:outputText value="Remarks" styleClass="formLabel" />
-	
-	<h:inputText    required="false" 
-		id="placedOrder__remarks"
-		value="#{placedOrderCrudBacking.placedOrder.remarks}">
-		
-	</h:inputText>
 
-	<h:message for="remarks__remarks" styleClass="errMessage" />
-	
+						<h:outputText value="Customer*" styleClass="formLabel" />
 
-	
-	<h:outputText value="PaymentMethod" styleClass="formLabel" />
-	
-	<h:inputText    required="false" 
-		id="placedOrder__paymentMethod"
-		value="#{placedOrderCrudBacking.placedOrder.paymentMethod}">
-		
-	</h:inputText>
+						<h:selectOneMenu required="true" id="placedOrder_customer" 
+							converter="keyToObjectConverter"
+							value="#{placedOrderCrudBacking.placedOrder.customer}">
+							<f:selectItem itemLabel="Select" />
+							<f:selectItems value="#{customerCrudBacking.asSelectItems}" />
+						</h:selectOneMenu>
 
-	<h:message for="paymentMethod__paymentMethod" styleClass="errMessage" />
-	
+						<h:message for="placedOrder_customer" styleClass="errMessage" />
 
-	
-	<h:outputText value="Status" styleClass="formLabel" />
-	
-	<h:selectOneMenu    required="false" 
-		id="placedOrder__status"
-		value="#{placedOrderCrudBacking.placedOrder.status}">
-		<f:selectItem itemLabel="NEW" itemValue="NEW" /><f:selectItem itemLabel="COMPLETED" itemValue="COMPLETED" /><f:selectItem itemLabel="SHIPPED" itemValue="SHIPPED" />
-	</h:selectOneMenu>
 
-	<h:message for="status__status" styleClass="errMessage" />
-	
 
-	
-	<h:outputText value="Total*" styleClass="formLabel" />
-	
-	<h:inputText    required="true" 
-		id="placedOrder__total"
-		value="#{placedOrderCrudBacking.placedOrder.total}">
-		
-	</h:inputText>
 
-	<h:message for="total__total" styleClass="errMessage" />
-	
-					
-				
-  						   <h:commandButton id="button1" value="Submit" action="#{placedOrderCrudBacking.update}"/> 
-  						    <h:commandButton id="button2" value="Cancel" action="success" immediate="true"/> 
-  				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
-		  				   	<h:inputHidden id="placedOrder_id" value="#{placedOrderCrudBacking.placedOrder.id}" />
-		  				   	
-		  				   	
-		  				   	
+
+						<h:outputText value="Remarks" styleClass="formLabel" />
+
+						<h:inputText required="false" id="placedOrder__remarks"
+							value="#{placedOrderCrudBacking.placedOrder.remarks}">
+
+						</h:inputText>
 
 						
-						</h:panelGrid>
-						
-						<br/>
-						<br/>
-						
-						
-							<rich:simpleTogglePanel switchType="client" label="OrderItems">
-							<t:dataTable id="orderItems_data" var="orderItem"
-								value="#{placedOrderCrudBacking.placedOrder.orderItems}" rows="10"
-							rowClasses="odd, even" styleClass="dataTable">
-							
-							 
-							
-	<t:column>
-		<f:facet name="header">
-				<t:outputText value="Product" /> 
-		</f:facet>
-		
-	<h:selectOneMenu  required="true" 
-		id="orderItem_product" converter="keyToObjectConverter"
-		value="#{orderItem.product}">
-		<f:selectItem itemLabel="Select" />
-		<f:selectItems value="#{productCrudBacking.asSelectItems}" />
-	</h:selectOneMenu>
-										
-	<h:message for="orderItem_product" styleClass="errMessage" />
 
-	</t:column>
-										
-							
-	<t:column>
-		<f:facet name="header">
-				<t:outputText value="SalePrice" /> 
-		</f:facet>
-		<h:inputText    required="false" 
-			id="orderItem__salePrice"
-			value="#{orderItem.salePrice}">
+
+
+						<h:outputText value="PaymentMethod" styleClass="formLabel" />
+
+						<h:inputText required="false" id="placedOrder__paymentMethod"
+							value="#{placedOrderCrudBacking.placedOrder.paymentMethod}">
+
+						</h:inputText>
+
+
+
+
+						<h:outputText value="Status" styleClass="formLabel" />
+
+						<h:selectOneMenu required="false" id="placedOrder__status"
+							value="#{placedOrderCrudBacking.placedOrder.status}">
+							<f:selectItem itemLabel="NEW" itemValue="NEW" />
+							<f:selectItem itemLabel="COMPLETED" itemValue="COMPLETED" />
+							<f:selectItem itemLabel="SHIPPED" itemValue="SHIPPED" />
+						</h:selectOneMenu>
+
+
+
+						<h:outputText value="Total*" styleClass="formLabel" />
+
+						<h:inputText required="true" id="placedOrder__total"
+							value="#{placedOrderCrudBacking.placedOrder.total}" disabled="true">
+
+						</h:inputText>
+
 			
-		</h:inputText>
-		<h:message for="orderItem__salePrice" styleClass="errMessage" />
-	</t:column>
 
-	<t:column>
-		<f:facet name="header">
-				<t:outputText value="Quantity" /> 
-		</f:facet>
-		<h:inputText    required="false" 
-			id="orderItem__quantity"
-			value="#{orderItem.quantity}">
-			
-		</h:inputText>
-		<h:message for="orderItem__quantity" styleClass="errMessage" />
-	</t:column>
 
-	<t:column>
-		<f:facet name="header">
-				<t:outputText value="Total" /> 
-		</f:facet>
-		<h:inputText    required="true" 
-			id="orderItem__total"
-			value="#{orderItem.total}">
-			
-		</h:inputText>
-		<h:message for="orderItem__total" styleClass="errMessage" />
-	</t:column>
-							
-							</t:dataTable>
-							</rich:simpleTogglePanel>
-							<br/>
-							
-						
-						
+
+					</h:panelGrid>
+
+					<br />
+					<br />
+
+
+					<rich:simpleTogglePanel switchType="client" label="OrderItems">
+						<t:dataTable id="orderItems_data" var="orderItem" binding="#{placedOrderCrudBacking.itemsTable}"
+							value="#{placedOrderCrudBacking.orderItems}"
+							rows="10" rowClasses="odd, even" styleClass="dataTable"  >
+
+							<t:column>
+								<f:facet name="header">
+									<t:outputText value="Product" />
+								</f:facet>
+
+								<h:selectOneMenu  id="orderItem_product" onchange="this.form.submit()" 
+									converter="keyToObjectConverter" value="#{orderItem.product}" binding="#{placedOrderCrudBacking.productSelectOneMenu}"
+									valueChangeListener="#{placedOrderCrudBacking.orderItemUpdateListener}" >
+									<f:selectItem itemLabel="Select" />
+									<f:selectItems value="#{productCrudBacking.asSelectItems}" />
+								</h:selectOneMenu>
+
+								<h:message for="orderItem_product" styleClass="errMessage" />
+
+							</t:column>
+
+
+							<t:column>
+								<f:facet name="header">
+									<t:outputText value="SalePrice" />
+								</f:facet>
+								<h:inputText required="false" id="orderItem__salePrice" 
+								valueChangeListener="#{placedOrderCrudBacking.orderItemUpdateListener}"
+									value="#{orderItem.salePrice}" onchange="this.form.submit()"
+									>
+
+								</h:inputText>
+								<h:message for="orderItem__salePrice" styleClass="errMessage" />
+							</t:column>
+
+							<t:column>
+								<f:facet name="header">
+									<t:outputText value="Quantity" />
+								</f:facet>
+								<h:inputText required="false" id="orderItem__quantity"
+									value="#{orderItem.quantity}">
+
+								</h:inputText>
+								<h:message for="orderItem__quantity" styleClass="errMessage" />
+							</t:column>
+
+							<t:column>
+								<f:facet name="header">
+									<t:outputText value="Total" />
+								</f:facet>
+								<h:inputText required="true" id="orderItem__total"
+									value="#{orderItem.total}" binding="#{placedOrderCrudBacking.orderItemTotalInput}">
+
+								</h:inputText>
+								<h:message for="orderItem__total" styleClass="errMessage" />
+							</t:column>
+
+						</t:dataTable>
+					</rich:simpleTogglePanel>
+					<br />
+
+					<h:panelGrid columns="2" >
+						<h:commandButton id="button1" value="Submit"
+							action="#{placedOrderCrudBacking.update}" />
+						<h:commandButton id="button2" value="Cancel" action="success"
+							immediate="true" />
+						<!-- We need to have a hidden text field to store the id of the record being edited -->
+						<h:inputHidden id="placedOrder_id"
+							value="#{placedOrderCrudBacking.placedOrder.id}" />
+					</h:panelGrid>
+
 				</rich:panel>
 			</a4j:form>
 		</f:view>
@@ -178,4 +169,4 @@
 	</ui:define>
 </ui:composition>
 
-		
+

@@ -52,7 +52,7 @@ public class TopicDaoTest extends AbstractJpaTests {
 
 			topicInstance.setName("epsilon");
 			topicInstance
-					.setExpiry(dateFormat.parse("2007.10.15 14:38:10 EDT"));
+					.setExpiry(dateFormat.parse("2007.11.05 17:50:57 EST"));
 			topicInstance.setStatus(com.publicfountain.domain.Status.Active);
 			topicInstance
 					.setTopicType(com.publicfountain.domain.TopicType.Edtiorial);
@@ -93,11 +93,10 @@ public class TopicDaoTest extends AbstractJpaTests {
 
 			try {
 
-				topic.setName("Lavendar");
-				topic.setExpiry(dateFormat.parse("2007.11.10 14:34:17 EST"));
-				topic.setStatus(com.publicfountain.domain.Status.Inactive);
-				topic
-						.setTopicType(com.publicfountain.domain.TopicType.CustomOpinion);
+				topic.setName("delta");
+				topic.setExpiry(dateFormat.parse("2007.10.17 08:37:37 EDT"));
+				topic.setStatus(com.publicfountain.domain.Status.Active);
+				topic.setTopicType(com.publicfountain.domain.TopicType.Image);
 
 				TestDataFactory topicCreatorTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("registeredUserTestDataFactory");
@@ -130,8 +129,8 @@ public class TopicDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Topic topic = (Topic) topicTestDataFactory.loadOneRecord();
 
-			topic.setName("Malissa");
-			topic.setExpiry(dateFormat.parse("2007.11.27 08:33:12 EST"));
+			topic.setName("John");
+			topic.setExpiry(dateFormat.parse("2007.12.01 21:09:19 EST"));
 			topic.setStatus(com.publicfountain.domain.Status.Archived);
 			topic
 					.setTopicType(com.publicfountain.domain.TopicType.CustomOpinion);

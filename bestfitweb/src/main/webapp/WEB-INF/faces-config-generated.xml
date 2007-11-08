@@ -1,29 +1,226 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
 <faces-config>
 	
+	<managed-bean>
+		<managed-bean-name>indexBean</managed-bean-name>
+		<managed-bean-class>states.web.jsf.IndexBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>serviceFacade</property-name>
+			<value>#{serviceFacade}</value>
+		</managed-property>
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>loginBean</managed-bean-name>
+		<managed-bean-class>states.web.jsf.LoginBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>serviceFacade</property-name>
+			<value>#{serviceFacade}</value>
+		</managed-property>
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>browseProductsBean</managed-bean-name>
+		<managed-bean-class>states.web.jsf.BrowseProductsBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>serviceFacade</property-name>
+			<value>#{serviceFacade}</value>
+		</managed-property>
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>viewCartBean</managed-bean-name>
+		<managed-bean-class>states.web.jsf.ViewCartBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>serviceFacade</property-name>
+			<value>#{serviceFacade}</value>
+		</managed-property>
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>ccinfoAndshipAddressBean</managed-bean-name>
+		<managed-bean-class>states.web.jsf.CcinfoAndshipAddressBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>serviceFacade</property-name>
+			<value>#{serviceFacade}</value>
+		</managed-property>
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>forgotPasswordBean</managed-bean-name>
+		<managed-bean-class>states.web.jsf.ForgotPasswordBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>serviceFacade</property-name>
+			<value>#{serviceFacade}</value>
+		</managed-property>
+	</managed-bean> 
+
+	
 	<navigation-rule>
-	  	<from-view-id>top.xhtml</from-view-id>
+	  	<from-view-id>/login/top.xhtml</from-view-id>
 		 
 	</navigation-rule>
 
 	<navigation-rule>
-	  	<from-view-id>commentsPage.xhtml</from-view-id>
+	  	<from-view-id>/login/index.xhtml</from-view-id>
 		
 		  <navigation-case>
-		    <from-outcome> addComment</from-outcome>
-		    <to-view-id>commentsPage.xhtml</to-view-id>
+		    <from-outcome> register</from-outcome>
+		    <to-view-id>/login/register.xhtml</to-view-id>
 		  </navigation-case>   
 		
 		  <navigation-case>
-		    <from-outcome> </from-outcome>
-		    <to-view-id>commentsPage.xhtml</to-view-id>
+		    <from-outcome> forgotPass</from-outcome>
+		    <to-view-id>/login/forgotPassword.xhtml</to-view-id>
 		  </navigation-case>   
 		
 		  <navigation-case>
-		    <from-outcome> </from-outcome>
-		    <to-view-id>commentsPage.xhtml</to-view-id>
+		    <from-outcome> login</from-outcome>
+		    <to-view-id>/login/welcome.xhtml</to-view-id>
 		  </navigation-case>   
 		 
 	</navigation-rule>
 
-	</faces-config>
+	<navigation-rule>
+	  	<from-view-id>/login/register.xhtml</from-view-id>
+		
+		  <navigation-case>
+		    <from-outcome> register</from-outcome>
+		    <to-view-id>/login/registerationConfirmed.xhtml</to-view-id>
+		  </navigation-case>   
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/login/registerationConfirmed.xhtml</from-view-id>
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/login/register.xhtml</from-view-id>
+		
+		  <navigation-case>
+		    <from-outcome> register</from-outcome>
+		    <to-view-id>/login/registerationConfirmed.xhtml</to-view-id>
+		  </navigation-case>   
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/login/RegisterOrLogin.xhtml</from-view-id>
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/login/login.xhtml</from-view-id>
+		
+		  <navigation-case>
+		    <from-outcome> </from-outcome>
+		    <to-view-id>/login/viewCart.xhtml</to-view-id>
+		  </navigation-case>   
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/login/browseProducts.xhtml</from-view-id>
+		
+		  <navigation-case>
+		    <from-outcome> viewProduct</from-outcome>
+		    <to-view-id>/login/viewProductDetail.xhtml</to-view-id>
+		  </navigation-case>   
+		
+		  <navigation-case>
+		    <from-outcome> addPrdouct</from-outcome>
+		    <to-view-id>/login/isLoggedIn.xhtml</to-view-id>
+		  </navigation-case>   
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/login/viewCart.xhtml</from-view-id>
+		
+		  <navigation-case>
+		    <from-outcome> </from-outcome>
+		    <to-view-id>/login/browseProducts.xhtml</to-view-id>
+		  </navigation-case>   
+		
+		  <navigation-case>
+		    <from-outcome> </from-outcome>
+		    <to-view-id>/login/ccinfoAndshipAddress.xhtml</to-view-id>
+		  </navigation-case>   
+		
+		  <navigation-case>
+		    <from-outcome> removeItem</from-outcome>
+		    <to-view-id>/login/viewCart.xhtml</to-view-id>
+		  </navigation-case>   
+		
+		  <navigation-case>
+		    <from-outcome> </from-outcome>
+		    <to-view-id>/login/viewCart.xhtml</to-view-id>
+		  </navigation-case>   
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/login/ccinfoAndshipAddress.xhtml</from-view-id>
+		
+		  <navigation-case>
+		    <from-outcome> </from-outcome>
+		    <to-view-id>/login/thanksForShopping.xhtml</to-view-id>
+		  </navigation-case>   
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/login/thanksForShopping.xhtml</from-view-id>
+		
+		  <navigation-case>
+		    <from-outcome> </from-outcome>
+		    <to-view-id>/login/.xhtml</to-view-id>
+		  </navigation-case>   
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/login/viewProductDetail.xhtml</from-view-id>
+		
+		  <navigation-case>
+		    <from-outcome> addPrdouct</from-outcome>
+		    <to-view-id>/login/isLoggedIn.xhtml</to-view-id>
+		  </navigation-case>   
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/login/forgotPassword.xhtml</from-view-id>
+		
+		  <navigation-case>
+		    <from-outcome> emailPass</from-outcome>
+		    <to-view-id>/login/passwordSent.xhtml</to-view-id>
+		  </navigation-case>   
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/login/passwordSent.xhtml</from-view-id>
+		
+		  <navigation-case>
+		    <from-outcome> </from-outcome>
+		    <to-view-id>/login/.xhtml</to-view-id>
+		  </navigation-case>   
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/login/welcome.xhtml</from-view-id>
+		 
+	</navigation-rule>
+
+</faces-config>

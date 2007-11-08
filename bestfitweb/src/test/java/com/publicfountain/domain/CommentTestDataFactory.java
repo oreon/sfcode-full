@@ -42,8 +42,8 @@ public class CommentTestDataFactory extends AbstractTestDataFactory<Comment> {
 
 		try {
 
-			comment.setText("beta");
-			comment.setUserDisplayName("theta");
+			comment.setText("Mark");
+			comment.setUserDisplayName("alpha");
 
 			TestDataFactory commentCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");
@@ -74,7 +74,7 @@ public class CommentTestDataFactory extends AbstractTestDataFactory<Comment> {
 		try {
 
 			comment.setText("Mark");
-			comment.setUserDisplayName("John");
+			comment.setUserDisplayName("Wilson");
 
 			TestDataFactory commentCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");
@@ -104,8 +104,8 @@ public class CommentTestDataFactory extends AbstractTestDataFactory<Comment> {
 
 		try {
 
-			comment.setText("theta");
-			comment.setUserDisplayName("Wilson");
+			comment.setText("Lavendar");
+			comment.setUserDisplayName("delta");
 
 			TestDataFactory commentCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");
@@ -135,8 +135,8 @@ public class CommentTestDataFactory extends AbstractTestDataFactory<Comment> {
 
 		try {
 
-			comment.setText("Mark");
-			comment.setUserDisplayName("pi");
+			comment.setText("beta");
+			comment.setUserDisplayName("Mark");
 
 			TestDataFactory commentCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");
@@ -166,8 +166,8 @@ public class CommentTestDataFactory extends AbstractTestDataFactory<Comment> {
 
 		try {
 
-			comment.setText("beta");
-			comment.setUserDisplayName("delta");
+			comment.setText("Mark");
+			comment.setUserDisplayName("beta");
 
 			TestDataFactory commentCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");
