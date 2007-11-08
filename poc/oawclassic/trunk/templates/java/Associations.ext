@@ -8,6 +8,23 @@ String fqn (AssociationEnd ae) : !ae.isMultiple ? ae.Class.fqn() + " " + ae.asIn
 String iterator (AssociationEnd ae) :
 "java.util.Iterator<"+ae.Class.fqn()+">";
 
+String asSetter (AssociationEnd ae) :
+"set"+associationName(ae).toFirstUpper();
+
+String asGetter (AssociationEnd ae) :
+"get"+associationName(ae).toFirstUpper();
+
+String asInstanceVar (AssociationEnd ae) :
+associationName(ae).toFirstLower();
+
+String asParameter (AssociationEnd ae) :
+associationName(ae);
+
+//If association has no name we use the class's name
+String associationName(AssociationEnd ae) :
+ae.NameS != null ?ae.NameS: ae.Class.NameS.toFirstLower();
+
+
 ElementSet getEmebeddedComponents(AbstractEntity entity):
 entity.AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable 
 				&& ae.Opposite.isComposition );
