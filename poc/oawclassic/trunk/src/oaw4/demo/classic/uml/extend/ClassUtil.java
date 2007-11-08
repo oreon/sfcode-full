@@ -323,10 +323,14 @@ public class ClassUtil {
 			String multiplicity = (opposite.MultiplicityMinAsInt() == 1 && opposite
 					.MultiplicityMaxAsInt() == 1) ? "OneToOne(cascade=CascadeType.ALL)"
 					: "ManyToOne";
-			return "@" + multiplicity + "\n @JoinColumn(name=\"" + ae.NameS()
+			return "@" + multiplicity + "\n @JoinColumn(name=\"" + getAssocName(ae)
 					+ "_ID\", nullable=" + nullable + ")";
 		} else
 			return "";
+	}
+	
+	public static String getAssocName(AssociationEnd ae){
+		return ae.NameS() == null ?  ae.Class().NameS():ae.NameS();
 	}
 
 	/** Whether an association can be null - if the multiplicty is greater than
