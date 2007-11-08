@@ -9,6 +9,7 @@ import oaw4.demo.classic.uml.meta.Entity;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
+import org.openarchitectureware.core.meta.core.Element;
 import org.openarchitectureware.meta.uml.Type;
 import org.openarchitectureware.meta.uml.classifier.AssociationEnd;
 import org.openarchitectureware.meta.uml.classifier.Attribute;
@@ -41,8 +42,15 @@ public class ClassUtil {
 	 */
 	public static String getPackageName(Class cls) {
 
+		Package beginPack = cls.Package();
+		
+		return getPackageName(beginPack);
+	}
+
+	private static String getPackageName(Package beginPack) {
 		String result = "";
-		for (Package pck = cls.Package(); pck != null; pck = pck.SuperPackage()) {
+		
+		for (Package pck = beginPack; pck != null; pck = pck.SuperPackage()) {
 			result = pck.NameS() + (result.length() > 0 ? "." + result : "");
 			// System.out.print(pck.)
 		}
@@ -51,7 +59,7 @@ public class ClassUtil {
 	}
 
 	public static String getPackageName(Enumeration enm) {
-		return enm.Namespace().NameS();
+		return getPackageName((Package)enm.Namespace());
 	}
 
 	public static String operationHelper(Operation operation) {
