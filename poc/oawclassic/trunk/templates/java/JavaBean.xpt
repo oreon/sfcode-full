@@ -7,7 +7,7 @@
 «DEFINE BeanClass FOR Class»
 	«FILE packagePath()+"/"+NameS+"Base.java"»  
 	
-	«EXPAND ManualFileGen::genManualFile("", "", "")»
+	«EXPAND ManualFileGen::genManualFile("/" + Package.NameS, "", "")»
 	«EXPAND GenCodeWarning»
 	
 	package «packageName()»;
@@ -15,6 +15,9 @@
 	
 	import java.util.Date;
 	import org.apache.log4j.Logger;
+	
+	//«findStereotypeByName("Entity").NameS»
+
 	
 	«getClassDeclaration()»{
 			«getLoggerDeclaration(NameS + "Base")»;
@@ -45,7 +48,7 @@
 «DEFINE EntityGen FOR Entity»
 	«FILE packagePath()+"/"+NameS+"Base.java"»  
 	
-		«EXPAND ManualFileGen::genManualFile("", "", "@Entity")»
+		«EXPAND ManualFileGen::genManualFile("/" + Package.NameS, "", "@Entity")»
 		«EXPAND GenCodeWarning»
 		
 		package «packageName()»;
@@ -68,12 +71,14 @@
 «DEFINE EntityGen FOR MappedSuperclass»
 	«FILE packagePath()+"/"+NameS+"Base.java"»  
 	
-		«EXPAND ManualFileGen::genManualFile("", "", "@MappedSuperclass")»
+		«EXPAND ManualFileGen::genManualFile("/" + Package.NameS, "", "@MappedSuperclass")»
 		«EXPAND GenCodeWarning»
 		
 		package «packageName()»;
 		
 		import javax.persistence.*;
+		import java.util.Date;
+		import org.hibernate.annotations.Cascade;
 		
 		@MappedSuperclass
 		«getClassDeclaration()»{
@@ -85,7 +90,7 @@
 «DEFINE EntityGen FOR Embeddable»
 	«FILE packagePath()+"/"+NameS+"Base.java"»  
 	
-		«EXPAND ManualFileGen::genManualFile("", "", "@Embeddable")»
+		«EXPAND ManualFileGen::genManualFile("/" + Package.NameS, "", "@Embeddable")»
 		«EXPAND GenCodeWarning»
 		
 		package «packageName()»;

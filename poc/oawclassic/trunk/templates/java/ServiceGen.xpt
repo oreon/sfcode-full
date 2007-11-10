@@ -17,12 +17,12 @@
 
 «DEFINE GenerateServiceImpl FOR Entity»
 
-	«FILE packagePath()+"/service/impl" + "/"+NameS+"ServiceImplBase.java"»  
+	«FILE parentPackagePath()+"/service/impl" + "/"+NameS+"ServiceImplBase.java"»  
 	
 	«EXPAND ManualFileGen::genManualFile("/service/impl", "ServiceImpl",
 		 "@Transactional(readOnly=false, propagation=Propagation.REQUIRED)")»
 
-	package «packageName()».service.impl;
+	package «parentPackageName()».service.impl;
 	 
 	import «packageName()».«NameS»;
 	import «packageName()».service.«NameS»Service;
@@ -35,8 +35,10 @@
 	
 	import org.apache.log4j.Logger;
 	
+	«IF isEntityUser()»
 	import usermanagement.Authority;
 	import usermanagement.service.AuthorityService;
+	«ENDIF»
 	
 	import org.witchcraft.model.support.dao.GenericDAO;
 	import org.witchcraft.model.support.errorhandling.BusinessException;
@@ -167,9 +169,9 @@
 
 «DEFINE GenerateServiceInterface FOR Entity»
 
-	«FILE packagePath() + "/service/" + NameS + "Service.java"» 
+	«FILE parentPackagePath() + "/service/" + NameS + "Service.java"» 
 	
-	package «packageName()».service;
+	package «parentPackageName()».service;
 	
 	import «packageName()».«NameS»;
 	import «packageName()».dao.«NameS»Dao;

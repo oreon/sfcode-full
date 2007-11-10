@@ -28,6 +28,10 @@ JAVA oaw4.demo.classic.uml.extend.ClassUtil.generateEnumLiterals(org.openarchite
 String packageName (Class cls) :
 JAVA oaw4.demo.classic.uml.extend.ClassUtil.getPackageName(org.openarchitectureware.meta.uml.classifier.Class);
 
+String parentPackageName (Class cls) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getParentPackageName(org.openarchitectureware.meta.uml.classifier.Class);
+
+
 String packageName (Enumeration enm) :
 JAVA oaw4.demo.classic.uml.extend.ClassUtil.getPackageName(org.openarchitectureware.meta.uml.classifier.Enumeration);
 
@@ -54,6 +58,11 @@ JAVA oaw4.demo.classic.uml.extend.ClassUtil.getEntities();
 
 String packagePath (Class cls) :
 packageName(cls).replaceAll("\\.", "/");
+
+//Returns the parent package's path - if this class is com.xyz.domain.Person This method 
+//will return com.xyz.
+String parentPackagePath(Class cls) :
+parentPackageName(cls).replaceAll("\\.", "/");
 
 String packagePath (Enumeration enm) :
 packageName(enm).replaceAll("\\.", "/");

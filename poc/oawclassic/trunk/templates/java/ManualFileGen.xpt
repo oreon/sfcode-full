@@ -8,14 +8,11 @@
 «REM»This file will be written once and is to meant for manual programming «ENDREM»
 «DEFINE genManualFile(String extensionPath, String extensionName, String annotations) FOR Element»
 
-	«FILE packagePath() + extensionPath + "/" + NameS + extensionName + ".java" man_path»
-		package «packageName()  + extensionPath.replaceSlashesWithDots()»;
+	«FILE parentPackagePath() + extensionPath + "/" + NameS + extensionName + ".java" man_path»
 		
-		import javax.persistence.*;
-		import org.springframework.transaction.annotation.Propagation;
-		import org.springframework.transaction.annotation.Transactional;
-
-		import org.apache.log4j.Logger;
+		package «parentPackageName()  + extensionPath.replaceSlashesWithDots()»;
+		
+		«EXPAND GenImports FOR this»
 		
 		«annotations»
 		public class «NameS + extensionName» extends «NameS + extensionName»Base{
@@ -27,6 +24,17 @@
 			}
 		}  
 	«ENDFILE» 
+«ENDDEFINE»
+
+
+
+
+«DEFINE GenImports FOR Element»
+	import javax.persistence.*;
+	import org.springframework.transaction.annotation.Propagation;
+	import org.springframework.transaction.annotation.Transactional;
+
+	import org.apache.log4j.Logger;
 «ENDDEFINE»
 
 

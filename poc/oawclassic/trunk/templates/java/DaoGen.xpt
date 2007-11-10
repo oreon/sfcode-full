@@ -11,11 +11,11 @@
 	
 	«EXPAND GenerateDaoInterface»
 	
-	«FILE packagePath()+"/dao/impl/"+NameS+"DaoImplBase.java"»  
+	«FILE parentPackagePath()+"/dao/impl/"+NameS+"DaoImplBase.java"»  
 	
 	«EXPAND ManualFileGen::genManualFile("/dao/impl", "DaoImpl", "@org.springframework.stereotype.Repository")»
 
-	package «packageName()».dao.impl;
+	package «parentPackageName()».dao.impl;
 	
 	import «packageName()».«NameS»;
 	import «packageName()».dao.«NameS»Dao;
@@ -85,9 +85,9 @@
 
 
 «DEFINE GenerateDaoInterface FOR Entity»
-	«FILE packagePath()+"/dao/"+NameS+"Dao.java"» 
+	«FILE parentPackagePath()+"/dao/"+NameS+"Dao.java"» 
 	
-	package «packageName()».dao;
+	package «parentPackageName()».dao;
 	
 	import «packageName()». «NameS»;
 	import org.witchcraft.model.support.dao.GenericDAO;
@@ -150,9 +150,9 @@
 
 «DEFINE GenerateDaoTest FOR Entity»
 	
-	«FILE "../../test/java/" + packagePath() + "/service/" + NameS + "DaoTest.java"»  
+	«FILE "../../test/java/" + parentPackagePath() + "/service/" + NameS + "DaoTest.java"»  
 
-	package «packageName()».service;
+	package «parentPackageName()».service;
 	
 	import «packageName()».«NameS»;
 	import org.springframework.test.jpa.AbstractJpaTests;
