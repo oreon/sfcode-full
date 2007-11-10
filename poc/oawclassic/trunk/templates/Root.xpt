@@ -24,6 +24,16 @@
 	«ENDIF»
 «ENDDEFINE»
 
+«DEFINE Root FOR EntitiesPackage»
+	«FOREACH Class AS c»
+		
+	«ENDFOREACH»
+	«IF NameS!= null && !NameS.startsWith("java")»
+		«EXPAND Root FOREACH OwnedElement»
+	«ENDIF»
+«ENDDEFINE»
+
+
 «DEFINE Root FOR Entity»
 	«EXPAND java::JavaBean::EntityGen»
 	«EXPAND java::DaoGen::GenerateDao»
