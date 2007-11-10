@@ -57,10 +57,19 @@ public class ClassUtil {
 
 		return result;
 	}
+	
+	public static String getParentPackageName(Class cls){
+		if(cls.Package().SuperPackage() != null){
+			return getPackageName(cls.Package().SuperPackage());
+		}else 
+			return "";
+	}
 
 	public static String getPackageName(Enumeration enm) {
 		return getPackageName((Package)enm.Namespace());
 	}
+	
+	
 
 	public static String operationHelper(Operation operation) {
 		String opText = getOperationDeclaration(operation);
@@ -304,8 +313,12 @@ public class ClassUtil {
 
 		return declaration;
 	}
+	
+	
 
 	public static String fullyQualifiedName(Class cls) {
+		//cls.addStereotype()
+		//System.out.println(cls.findStereotypeByName("Entity").NameS());
 		return cls.Package().NameS() + "." + cls.NameS();
 	}
 
