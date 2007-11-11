@@ -22,6 +22,14 @@ public class Column extends Attribute{
 	
 	private String containerName;
 	
+	private String testSeed;
+	
+	public String getTestSeed() {
+		return testSeed;
+	}
+	public void setTestSeed(String testSeed) {
+		this.testSeed = testSeed;
+	}
 	public boolean isSearchable() {
 		return searchable;
 	}

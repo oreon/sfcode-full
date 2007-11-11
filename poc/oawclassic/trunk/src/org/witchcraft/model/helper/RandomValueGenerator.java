@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Random;
 
+import oaw4.demo.classic.uml.extend.ClassUtil;
 import oaw4.demo.classic.uml.meta.Column;
 
 import org.openarchitectureware.core.meta.core.Element;
@@ -40,7 +41,7 @@ public class RandomValueGenerator {
 			cal.setTimeInMillis(new Date().getTime() - new Random().nextInt(100000) * 200000);
 			
 			return "dateFormat.parse(\"" + dateFormat.format(cal.getTime()) + "\")"; 
-		}else if (typeName.equalsIgnoreCase("int") ){
+		}else if (typeName.equalsIgnoreCase("int") || typeName.equalsIgnoreCase("Integer") ){
 			return (attribute.InitValue() == null )? new Random().nextInt(10000): attribute.InitValue();
 		}else if (typeName.equalsIgnoreCase("double") || typeName.equalsIgnoreCase("BigDecimal") ){
 			DecimalFormat decimalFormat = new DecimalFormat();
@@ -53,11 +54,11 @@ public class RandomValueGenerator {
 		}else if (attribute.Type().getMetaClass().getSimpleName().equalsIgnoreCase("Enumeration")){
 			ElementSet literals = ((Enumeration) attribute.Type()).Literal();
 			Element element = (Element) literals.get(new Random().nextInt(literals.size()));
-			return attribute.Type().Namespace().NameS() + "." +
+			return ClassUtil.getPackageName((Enumeration)attribute.Type()) + "." +
 				attribute.Type().Name() + "." + element.NameS();	
 		}
 		
-		System.out.println("attrib type " + attribute.Type().getMetaClass().getSimpleName());
+		System.out.println("attrib type:" + attribute.Type().Name());
 		return "\"unknown attrib type\"";
 		
 	}

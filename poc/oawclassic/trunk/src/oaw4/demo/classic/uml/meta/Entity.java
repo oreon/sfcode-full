@@ -21,6 +21,8 @@ public class Entity extends AbstractEntity {
 	
 	private String uniqueConstraints;
 	
+	private String inheritanceStrategy;
+	
 
 	// this is needed when we need to manually supply a base class
 	// e.g for usermanagement the User class's base class has to be withcraft

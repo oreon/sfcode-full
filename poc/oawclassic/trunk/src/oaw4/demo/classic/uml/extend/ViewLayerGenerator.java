@@ -293,10 +293,14 @@ public class ViewLayerGenerator {
 	}
 	
 	public static String removeTrailingS(String arguement){
+		
 		return removeTrailing(arguement, "s");
 	}
 	
 	public static String removeTrailing(String arguement, String trailingPartToRemove){
+		if(arguement == null)
+			return null;
+		
 		if(arguement.endsWith(trailingPartToRemove)){
 			return arguement.substring(0, arguement.lastIndexOf(trailingPartToRemove));
 		}

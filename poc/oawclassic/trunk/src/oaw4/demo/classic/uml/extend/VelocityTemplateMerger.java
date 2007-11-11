@@ -11,6 +11,10 @@ import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 
+/** This class is obsolete - do not use
+ * @author jsingh
+ * @deprecated
+ */
 public class VelocityTemplateMerger {
 	
 	private static final Logger log = Logger.getLogger(VelocityTemplateMerger.class);

@@ -137,7 +137,36 @@ public abstract class AbstractEntity extends
 
 		return nonColAttribs;
 	}
+	
+	/** Get all outgoing associations for this class and its superclasses, i.e. for an order it would get customer
+	 * and other references 
+	 * @return
+	 */
+	public ElementSet getAllOutgoingAssociations(){
+		ElementSet outgoingAssoc = new ElementSet();
+		outgoingAssoc.addAll(getOutgoingAssociations(this));
 
+		ElementSet superclasses = SuperClasss();
+		for (Object object : superclasses) {
+			outgoingAssoc.addAll(getOutgoingAssociations((Class) object));
+		}
+
+		return outgoingAssoc;
+	}
+
+	private ElementSet getOutgoingAssociations(Class cls) {
+		ElementSet associations = cls.AssociationEnd();
+		ElementSet embeddables = new ElementSet();
+		for (Object object : associations) {
+			AssociationEnd ae = (AssociationEnd) object;
+			System.out.println(cls.NameS() + " -->"  + ae.Opposite().Name());
+			if ( !ae.Opposite().isMultiple()&& ae.Opposite().isNavigable()) {
+				embeddables.add(ae.Opposite());
+			}
+		}
+		return embeddables;
+	}
+	
 	/**
 	 * Get all contained associations of this class and all superclasses
 	 * 
