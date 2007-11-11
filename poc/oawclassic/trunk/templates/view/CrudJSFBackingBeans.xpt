@@ -9,7 +9,7 @@
 	
 	«FILE parentPackagePath()+"/web/jsf/"+NameS+"BackingBean.java"»  
 
-	package «packageName()».web.jsf;
+	package «parentPackageName()».web.jsf;
 	
 	import javax.faces.component.UIParameter;
 	import javax.faces.event.ActionEvent;
@@ -70,9 +70,9 @@
 		     *  
 		     * @param event contains the database id of the row being selected 
 		     */
-		    public void selectEntity(ActionEvent event){
+		    public void selectEntity(ActionEvent actionEvent){
 		    	
-		    	UIParameter component = (UIParameter) event.getComponent().findComponent("editId");
+		    	UIParameter component = (UIParameter) actionEvent.getComponent().findComponent("editId");
 				
 		    	// parse the value of the UIParameter component    	 
 		    	long id = Long.parseLong(component.getValue().toString());

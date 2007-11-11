@@ -5,6 +5,7 @@
 
 «IMPORT java»
 «EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
 
 
 «DEFINE GenerateInitialData FOR Model»
@@ -56,7 +57,7 @@
 	
 	import org.springframework.transaction.annotation.Transactional;
 	
-	import  «packageName()».service.«NameS»Service;
+	import  «parentPackageName()».service.«NameS»Service;
 	
 	@Transactional
 	public class «NameS»TestDataFactory extends AbstractTestDataFactory<«NameS»> {
@@ -191,10 +192,10 @@
 
 «DEFINE addDependencies(String name) FOR Entity»
 	«REM»The associated entites for e.g an order would need a customer «ENDREM»
-	«FOREACH AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) AS ae-»
+	«FOREACH getAllOutgoingAssociations AS ae-»
 		«EXPAND genBeanLookup FOR ae»
 		«IF ae.Class.NameS != NameS»
-			«name».set«ae.NameS.toFirstUpper()»((«ae.Class.fqn()»)«ae.NameS.toFirstLower()»TestDataFactory.loadOneRecord());
+			«name».set«associationName(ae).toFirstUpper()»((«ae.Class.fqn()»)«ae.associationName().toFirstLower()»TestDataFactory.loadOneRecord());
 		«ENDIF»
 	«ENDFOREACH»
 
@@ -214,7 +215,7 @@
 «ENDDEFINE»
 
 «DEFINE genBeanLookup FOR AssociationEnd»
-	TestDataFactory «NameS.toFirstLower()»TestDataFactory  = (TestDataFactory) BeanHelper.getBean("«Class.NameS.toFirstLower()»TestDataFactory") ;
+	TestDataFactory «associationName().toFirstLower()»TestDataFactory  = (TestDataFactory) BeanHelper.getBean("«Class.NameS.toFirstLower()»TestDataFactory") ;
 «ENDDEFINE»
 
 
