@@ -50,8 +50,10 @@ public class EntityAuditLogInterceptor extends EmptyInterceptor {
 
 	private void saveAuditLog(Object entity, AuditAction action) {
 
+		logger.info("SAVE AUDIT LOG CALLED FOR " + action);
+		
 		if (entity instanceof Auditable) {
-			System.out.println("SAVE AUDIT LOG CALLED");
+			
 			Authentication authentication = SecurityContextHolder.getContext()
 					.getAuthentication();
 

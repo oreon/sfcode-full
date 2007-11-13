@@ -12,6 +12,12 @@ import javax.faces.convert.ConverterException;
 import org.apache.commons.lang.StringUtils;
 import org.witchcraft.model.support.BusinessEntity;
 
+/**
+ * This class is used to convert to and from objects and strings in
+ * controls such as selectonemenu
+ * @author jsingh
+ *
+ */
 public class KeyToObjectConverter implements Converter {
 
 	protected Logger log = Logger.getLogger("com.crazysquirrel");
@@ -51,9 +57,9 @@ public class KeyToObjectConverter implements Converter {
 			BusinessEntity be = (BusinessEntity) ((UIInput) component).getValue();
 			
 			//To be sure the valueChangeListener is called
-			//if(be.getId().longValue() != id){
-			//	return createNewValue(facesContext, component, id);
-			//}
+			if(be.getId().longValue() != id){
+				return createNewValue(facesContext, component, id);
+			}
 			return be;
 		}
 

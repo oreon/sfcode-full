@@ -61,25 +61,34 @@ public class BaseDao<T> implements GenericDAO<T> {
 	public T save(T entity) {
 
 		/*
-		 * FIXME : This code will make if (!entityManager.contains(entity))
+		 * FIXME : This code will make
 		 * entityManager.persist(entity); else entityManager.merge(entity);
 		 */
 		
 		//Session session = (Session) entityManager.getDelegate();
 		//session = session.getSessionFactory().openSession(interceptor);
 
-		BusinessEntity be = (BusinessEntity) entity;
-
-		if (be.getId() != null){
+		if ( isPersistedBefore(entity)){
 			entity = entityManager.merge(entity);
 			entityAuditLogInterceptor.onFlushDirty(entity, "TESTUSER",  null, null , null, null );
 		}
 		else{
 			entityManager.persist(entity);
-			//entityAuditLogInterceptor.onSave(entity, "TESTUSER",  null, null , null );
+			entityAuditLogInterceptor.onSave(entity, "TESTUSER",  null, null , null );
 		}
 		
 		return entity;
+	}
+	
+	/** This method indicates wheteher this entity has been saved 
+	 *  before 
+	 * @param entity
+	 * @return
+	 */
+	public boolean isPersistedBefore(T entity){
+		//return entityManager.contains(entity);
+		BusinessEntity be = (BusinessEntity) entity;
+		return be.getId() != null ;
 	}
 
 	public T load(Long id) {
@@ -100,6 +109,7 @@ public class BaseDao<T> implements GenericDAO<T> {
 	}
 
 	public void delete(T entity) {
+		entityAuditLogInterceptor.onDelete(entity, "TESTUSER",  null, null , null );
 		entityManager.remove(entity);
 	}
 
