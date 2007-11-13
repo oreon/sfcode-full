@@ -48,7 +48,8 @@
 «DEFINE EntityGen FOR Entity»
 	«FILE packagePath()+"/"+NameS+"Base.java"»  
 	
-		«EXPAND ManualFileGen::genManualFile("/" + Package.NameS, "", "@Entity")»
+		«EXPAND ManualFileGen::genManualFile("/" + Package.NameS, "", "@Entity\n" 
+			+  genInheritanceStrategy() )»
 		«EXPAND GenCodeWarning»
 		
 		package «packageName()»;
@@ -56,6 +57,10 @@
 		import javax.persistence.*;
 		import org.hibernate.annotations.Cascade;
 		import java.util.Date;
+		
+		«REM»
+			«hasSuperClass? SuperClass.NameS: "BusinessEntity"»
+		«ENDREM»
 		
 		@MappedSuperclass
 		/*«getAnnotaitons()»*/
@@ -107,10 +112,10 @@
 
 
 «DEFINE displayName FOR Entity»
-	«IF getDisplayName != null»
+	«IF getDisplayName != null || Attribute.size == 1»
 		@Transient
 		public String getDisplayName(){
-			return «getDisplayName» + "";
+			return «getDisplayName != null ? getDisplayName: Attribute(0).NameS» + "";
 		}
 	«ENDIF»
 

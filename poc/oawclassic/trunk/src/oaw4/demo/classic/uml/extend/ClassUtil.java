@@ -43,13 +43,13 @@ public class ClassUtil {
 	public static String getPackageName(Class cls) {
 
 		Package beginPack = cls.Package();
-		
+
 		return getPackageName(beginPack);
 	}
 
 	private static String getPackageName(Package beginPack) {
 		String result = "";
-		
+
 		for (Package pck = beginPack; pck != null; pck = pck.SuperPackage()) {
 			result = pck.NameS() + (result.length() > 0 ? "." + result : "");
 			// System.out.print(pck.)
@@ -57,19 +57,17 @@ public class ClassUtil {
 
 		return result;
 	}
-	
-	public static String getParentPackageName(Class cls){
-		if(cls.Package().SuperPackage() != null){
+
+	public static String getParentPackageName(Class cls) {
+		if (cls.Package().SuperPackage() != null) {
 			return getPackageName(cls.Package().SuperPackage());
-		}else 
+		} else
 			return "";
 	}
 
 	public static String getPackageName(Enumeration enm) {
-		return getPackageName((Package)enm.Namespace());
+		return getPackageName((Package) enm.Namespace());
 	}
-	
-	
 
 	public static String operationHelper(Operation operation) {
 		String opText = getOperationDeclaration(operation);
@@ -119,7 +117,7 @@ public class ClassUtil {
 	 */
 	private static String getParamTypeString(Operation operation, Type type) {
 		String paramType = type.NameS();
-		if(paramType.equals("void"))
+		if (paramType.equals("void"))
 			return paramType;
 
 		if (!type.Namespace().NameS().equals(
@@ -204,37 +202,44 @@ public class ClassUtil {
 
 		StringBuffer buffer = new StringBuffer();
 
-		addDocumentation(cls, buffer);
+		try {
+			addDocumentation(cls, buffer);
 
-		addEntityIfApplies(cls);
+			addEntityIfApplies(cls);
 
-		buffer.append("public abstract class ");
+			buffer.append("public abstract class ");
 
-		buffer.append(cls.NameS() + "Base");
+			buffer.append(cls.NameS() + "Base");
 
-		if (cls.hasSuperClass())
-			buffer.append(" extends " + cls.SuperClass().NameS());
-		else if (StereoTypeManager.isEntity(cls)
-				&& ((Entity) cls).getBaseClass() != null) {
-			buffer.append(" extends " + ((Entity) cls).getBaseClass());
-		} else if (StereoTypeManager.isEntity(cls)
-				|| StereoTypeManager.isMappedSuperClass(cls)) {
-			buffer.append(" extends " + BUSINESS_ENTITY);
-		}
+			if (cls.hasSuperClass())
+				buffer.append(" extends " + cls.SuperClass().NameS());
+			else if (StereoTypeManager.isEntity(cls)
+					&& ((Entity) cls).getBaseClass() != null) {
+				buffer.append(" extends " + ((Entity) cls).getBaseClass());
+			} else if (StereoTypeManager.isEntity(cls)
+					|| StereoTypeManager.isMappedSuperClass(cls)) {
+				buffer.append(" extends " + BUSINESS_ENTITY);
+			}
 
-		List<Interface> interfaces = cls.Interface().toList();
+			List<Interface> interfaces = cls.Interface().toList();
 
-		// if (!interfaces.isEmpty())
-		buffer.append(" implements java.io.Serializable");
+			// if (!interfaces.isEmpty())
+			buffer.append(" implements java.io.Serializable");
 
-		if (!interfaces.isEmpty())
-			buffer.append(", ");
-
-		for (int i = 0; i < interfaces.size(); i++) {
-			buffer.append(interfaces.get(i).NameS());
-
-			if (i < (interfaces.size() - 1)) // add comma to all but last
+			if (!interfaces.isEmpty())
 				buffer.append(", ");
+
+			for (int i = 0; i < interfaces.size(); i++) {
+				buffer.append(interfaces.get(i).NameS());
+
+				if (i < (interfaces.size() - 1)) // add comma to all but last
+					buffer.append(", ");
+			}
+
+			System.out.println("returning " + buffer.toString());
+		} catch (Exception e) {
+			System.out.println("Exception getting class name " + cls.NameS() + ":" + buffer);
+			e.printStackTrace();
 		}
 
 		return buffer.toString();
@@ -283,7 +288,8 @@ public class ClassUtil {
 	 * @return
 	 */
 	private static String getOperationBody(Operation operation) {
-		if (operation.hasReturnType() && !operation.ReturnType().NameS().equals("void")) {
+		if (operation.hasReturnType()
+				&& !operation.ReturnType().NameS().equals("void")) {
 			return "{ return null; " + "\n //should return "
 					+ operation.ReturnType().NameS() + "\n}\n";
 		} else
@@ -313,13 +319,11 @@ public class ClassUtil {
 
 		return declaration;
 	}
-	
-	
 
 	public static String fullyQualifiedName(Class cls) {
-		//cls.addStereotype()
-		//System.out.println(cls.findStereotypeByName("Entity").NameS());
-		return cls.Package().NameS() + "." + cls.NameS();
+		// cls.addStereotype()
+		// System.out.println(cls.findStereotypeByName("Entity").NameS());
+		return getPackageName(cls) + "." + cls.NameS();
 	}
 
 	/**
@@ -331,23 +335,25 @@ public class ClassUtil {
 	public static String manyToOne(AssociationEnd ae) {
 		if (StereoTypeManager.isEntity(ae.Class())) {
 			String nullable = new Boolean(isAssocNullable(ae)).toString();
-			
+
 			AssociationEnd opposite = ae.Opposite();
 			String multiplicity = (opposite.MultiplicityMinAsInt() == 1 && opposite
 					.MultiplicityMaxAsInt() == 1) ? "OneToOne(cascade=CascadeType.ALL)"
 					: "ManyToOne";
-			return "@" + multiplicity + "\n @JoinColumn(name=\"" + getAssocName(ae)
-					+ "_ID\", nullable=" + nullable + ")";
+			return "@" + multiplicity + "\n @JoinColumn(name=\""
+					+ getAssocName(ae) + "_ID\", nullable=" + nullable + ")";
 		} else
 			return "";
 	}
-	
-	public static String getAssocName(AssociationEnd ae){
-		return ae.NameS() == null ?  ae.Class().NameS():ae.NameS();
+
+	public static String getAssocName(AssociationEnd ae) {
+		return ae.NameS() == null ? ae.Class().NameS() : ae.NameS();
 	}
 
-	/** Whether an association can be null - if the multiplicty is greater than
+	/**
+	 * Whether an association can be null - if the multiplicty is greater than
 	 * or equal to 1 it is not nullable.
+	 * 
 	 * @param ae
 	 * @return
 	 */
@@ -364,7 +370,7 @@ public class ClassUtil {
 	 * @return
 	 */
 	public static String getInstantiationIfComposition(AssociationEnd ae) {
-		if (ae.Opposite().isComposition())
+		if (ae.Opposite().isComposition() )
 			return " = new " + fullyQualifiedName(ae.Class()) + "()";
 		if (isAssociationOneOnOne(ae))
 			return " = new " + fullyQualifiedName(ae.Class()) + "()";
@@ -441,12 +447,12 @@ public class ClassUtil {
 	public static String replaceSlashesWithDots(String source) {
 		return source.replace('/', '.');
 	}
-	
-	public static int getCounter(){
-		return count++ ;
+
+	public static int getCounter() {
+		return count++;
 	}
-	
-	public static String resetCounter(){
+
+	public static String resetCounter() {
 		count = 0;
 		return "";
 	}

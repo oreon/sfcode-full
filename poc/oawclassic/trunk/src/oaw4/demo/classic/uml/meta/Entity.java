@@ -21,7 +21,7 @@ public class Entity extends AbstractEntity {
 	
 	private String uniqueConstraints;
 	
-	private String inheritanceStrategy;
+	private String inheritanceStrategy ;
 	
 
 	// this is needed when we need to manually supply a base class
@@ -100,6 +100,16 @@ public class Entity extends AbstractEntity {
 
 	public void setUniqueConstraints(String uniqueConstraints) {
 		this.uniqueConstraints = uniqueConstraints;
+	}
+
+	public String getInheritanceStrategy() {
+		System.out.println("inheritance " + inheritanceStrategy );
+		return  inheritanceStrategy;
+	}
+
+	public void setInheritanceStrategy(String inheritanceStrategy) {
+		this.inheritanceStrategy = inheritanceStrategy;
+		//System.out.println("inheritance " + inheritanceStrategy != null ?inheritanceStrategy.toString():" is null ");
 	}
 
 	

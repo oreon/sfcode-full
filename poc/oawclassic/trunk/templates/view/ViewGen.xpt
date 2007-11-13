@@ -43,7 +43,7 @@
 						</f:facet>
 						
 							«REM»The associated entites for e.g an order would need a customer «ENDREM»
-							«FOREACH AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) AS ae -»
+							«FOREACH getAllOutgoingAssociations AS ae -»
 								<h:outputText value="«ae.NameS.toFirstUpper() + (ae.isAssocNullable()?"":"*") »" styleClass="formLabel" />
 								«EXPAND genDropDown(this, true) FOR ae»
 							«ENDFOREACH»
@@ -127,7 +127,12 @@
 							
 							«ENDFOREACH»
 							
-  						   <h:commandButton id="button1" value="Submit" action="#{«asInstanceVar()»CrudBacking.search}"  /> 
+							«FOREACH getAllOutgoingAssociations AS ae -»
+								<h:outputText value="«ae.NameS.toFirstUpper()»" styleClass="formLabel" />
+								«EXPAND genDropDown(this, true) FOR ae»
+							«ENDFOREACH»
+							
+  						   <h:commandButton id="button1" value="Search" action="#{«asInstanceVar()»CrudBacking.search}"  /> 
   						    <h:commandButton id="button2" value="Cancel" action="cancel" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="«asInstanceVar()»_id" value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».id}" />
@@ -181,7 +186,7 @@
 							«EXPAND genTableRow(asInstanceVar()) FOREACH getAllAttributes -»
 							
 							«REM»The associated entites for e.g an order would need a customer «ENDREM»
-							«EXPAND genTableRow(this) FOREACH AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) -»
+							«EXPAND genTableRow(this) FOREACH getAllOutgoingAssociations -»
 							
 							<t:column>
 								<f:facet name="header">
@@ -189,13 +194,17 @@
 										<t:outputText value=" " />
 									</t:commandSortHeader>
 								</f:facet>
-								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE"> 
+								<!--
+								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+								--> 
 								<t:commandLink action="#{«asInstanceVar()»CrudBacking.select}"
 									actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}">
 									<t:outputText value=" Edit " />
 									<f:param id="editId" name="id" value="#{«asInstanceVar()».id}" />
 								</t:commandLink>
-								</acegijsf:authorize> 
+								<!--
+								</acegijsf:authorize>
+								--> 
 							</t:column>
 							
 							 	</t:dataTable>	
@@ -305,13 +314,13 @@
 
 «DEFINE genDropDown(Class e, boolean useBackingBean) FOR AssociationEnd»
 	<h:selectOneMenu  required="«!isAssocNullable()»" 
-		id="«e.asInstanceVar()»_«NameS»" converter="keyToObjectConverter"
-		value="#{«useBackingBean?e.asInstanceVar() + "CrudBacking.":""»«e.asInstanceVar()».«NameS»}">
+		id="«e.asInstanceVar()»_«associationName()»" converter="keyToObjectConverter"
+		value="#{«useBackingBean?e.asInstanceVar() + "CrudBacking.":""»«e.asInstanceVar()».«associationName()»}">
 		<f:selectItem itemLabel="Select" />
 		<f:selectItems value="#{«Class.NameS.toFirstLower()»CrudBacking.asSelectItems}" />
 	</h:selectOneMenu>
 										
-	<h:message for="«e.asInstanceVar()»_«NameS»" styleClass="errMessage" />
+	<h:message for="«e.asInstanceVar()»_«associationName()»" styleClass="errMessage" />
 «ENDDEFINE»
 
 
@@ -332,7 +341,7 @@
 				<t:outputText value="«NameS.toFirstUpper()»" /> 
 			<!-- </t:commandSortHeader> -->
 		</f:facet>
-		<t:outputText value="#{«c.asInstanceVar()».«NameS».displayName}" />
+		<t:outputText value="#{«c.asInstanceVar()».«associationName()».displayName}" />
 	</t:column>
 «ENDDEFINE»
 
