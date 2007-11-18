@@ -81,6 +81,17 @@
 			«asInstanceVar()»s.add(«asInstanceVar()»);
 		}
 		
+	«IF getTestSeed != null» 
+		«FOREACH getTestSeedAsCollection AS e»
+			public  «NameS» create«NameS»«e.removeSpacesAndQuotes() »(){
+				«NameS» «asInstanceVar()» = new «NameS»();
+				«EXPAND createObjectFromValue(asInstanceVar(), e)»
+				register(«asInstanceVar()» );
+				return «asInstanceVar()»;
+			}
+		«ENDFOREACH»	
+	«ELSE»
+
 	«FOREACH getCounters() AS counter-»
 
 		public  «NameS» create«NameS»«counter»(){
@@ -100,6 +111,7 @@
 		}
 	
 	«ENDFOREACH»
+	«ENDIF»
        
        public  «NameS» loadOneRecord() {
 			List<«NameS»> «asInstanceVar()»s = «asInstanceVar()»Service.loadAll();
@@ -115,9 +127,15 @@
 		public List<«NameS»> getAllAsList(){
 			
 			if(«asInstanceVar()»s.isEmpty()){
-				«FOREACH getCounters() AS counter-»
-					create«NameS»«counter»();
-				«ENDFOREACH»
+				«IF getTestSeed != null» 
+					«FOREACH getTestSeedAsCollection AS e»
+						create«NameS»«e.removeSpacesAndQuotes() »();
+					«ENDFOREACH»	
+				«ELSE»
+					«FOREACH getCounters() AS counter-»
+						create«NameS»«counter»();
+					«ENDFOREACH»
+				«ENDIF»
 			}
 		
 			return «asInstanceVar()»s;
@@ -176,6 +194,15 @@
 «DEFINE createRandomObject(String name) FOR Entity»
 	«FOREACH getAllAttributes AS attrib-»
 		«name».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»(«attrib.getRandValue()»);
+	«ENDFOREACH»
+	
+	«EXPAND addDependencies(name) FOR this-»
+«ENDDEFINE»
+
+«REM» Create an object from the given value for the given attribute «ENDREM»
+«DEFINE createObjectFromValue(String name, String value) FOR Entity»
+	«FOREACH getAllAttributes AS attrib-»
+		«name».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»(«value»);
 	«ENDFOREACH»
 	
 	«EXPAND addDependencies(name) FOR this-»

@@ -1,8 +1,10 @@
 package oaw4.demo.classic.uml.meta;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.openarchitectureware.core.meta.core.ElementSet;
-import org.openarchitectureware.meta.uml.Type;
-import org.openarchitectureware.meta.uml.classifier.Class;
 
 public class Entity extends AbstractEntity {
 
@@ -18,11 +20,12 @@ public class Entity extends AbstractEntity {
 	// should have this flag turned on
 	private boolean isUser;
 	private String tableName;
-	
+
 	private String uniqueConstraints;
+
+	private String inheritanceStrategy;
 	
-	private String inheritanceStrategy ;
-	
+	private String testSeed;
 
 	// this is needed when we need to manually supply a base class
 	// e.g for usermanagement the User class's base class has to be withcraft
@@ -103,15 +106,58 @@ public class Entity extends AbstractEntity {
 	}
 
 	public String getInheritanceStrategy() {
-		System.out.println("inheritance " + inheritanceStrategy );
-		return  inheritanceStrategy;
+		System.out.println("inheritance " + inheritanceStrategy);
+		return inheritanceStrategy;
 	}
 
 	public void setInheritanceStrategy(String inheritanceStrategy) {
 		this.inheritanceStrategy = inheritanceStrategy;
-		//System.out.println("inheritance " + inheritanceStrategy != null ?inheritanceStrategy.toString():" is null ");
+		// System.out.println("inheritance " + inheritanceStrategy != null
+		// ?inheritanceStrategy.toString():" is null ");
 	}
 
 	
+
+	/**
+	 * @return if testseed is applied on any of the attribs, returns testseed of the first 
+	 * attribute with non null testseed 
+	 */
+	public String getTestSeed() {
+		ElementSet allAttribs = getAllAttributes();
+		for (Object object : allAttribs) {
+			if(object instanceof Column){
+				Column column = (Column)object;
+				if(column.getTestSeed() != null){
+					setTestSeed(column.getTestSeed());
+					return column.getTestSeed();
+				}
+					
+			}
+		}
+		return testSeed;
+	}
+
+	public void setTestSeed(String testSeed) {
+		if(testSeed != null)
+			testSeed.trim();
+		this.testSeed = testSeed;
+	}
+	
+	public List<String> getTestSeedAsCollection(){
+		
+		if(testSeed.startsWith("{") && testSeed.endsWith("}") ){
+			String[] testSeedArray = testSeed.split("[ ]*,[ ]*|\\}|\\{");
+			List<String> lst = new ArrayList<String>();
+			
+			for (String arrArg : testSeedArray) {
+				if(!StringUtils.isEmpty(arrArg))
+					lst.add(arrArg);
+			}
+			return lst;
+		}
+		
+		//FIXME: Throw exception
+		return null;
+	}
 
 }

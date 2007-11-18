@@ -92,5 +92,14 @@ public class GenericUtils {
 		else 
 			return toFirstUpper(arg);
 	}
+	
+	public static String removeSpacesAndQuotes(String target){
+		String arg = target;
+		arg = arg.replace('"', ' ');
+		arg = arg.replace(" ", "");
+		arg.trim();
+		System.out.println("after removing spaces & quotes returning " + arg);
+		return arg;
+	}
 
 }
