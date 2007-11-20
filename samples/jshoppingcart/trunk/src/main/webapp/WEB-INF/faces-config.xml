@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN" "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+<!-- This file is editable -->
+<faces-config>
+	
+	<!--  Spring variable resolver -->  
+  <application> 
+    <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver> 
+    <message-bundle>messages</message-bundle>
+  </application>  
+  
+  <!-- A converter for combo boxes (selectOneMenus ) to convert objects to and from ids -->
+  <converter>
+  		<converter-id>keyToObjectConverter</converter-id>
+		<converter-class>org.witchcraft.model.jsf.converters.KeyToObjectConverter</converter-class>
+  </converter>
+  
+  <managed-bean>
+		<managed-bean-name>authenticationController</managed-bean-name>
+		<managed-bean-class>
+			org.witchcraft.model.support.jsfbackingbeans.AuthenticationController
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>authenticationManager</property-name>
+			<value>#{authenticationManager}</value>
+		</managed-property>
+	</managed-bean>
+
+	<navigation-rule>
+		<from-view-id>/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>
+				#{authenticationController.authenticate}
+			</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-action>
+				#{authenticationController.authenticate}
+			</from-action>
+			<from-outcome>failure</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-action>logout</from-action>
+			<to-view-id>/login.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/crud/*</from-view-id>
+		<navigation-case>
+			<from-action>reports</from-action>
+			<to-view-id>/reports/index.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>tasks</from-action>
+			<to-view-id>/tasks/index.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>preferences</from-action>
+			<to-view-id>/preferences/index.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>entities</from-action>
+			<to-view-id>/crud/index.xhtml</to-view-id>
+		</navigation-case>
+		
+		
+	</navigation-rule>
+	
+	
+	
+ 
+</faces-config>

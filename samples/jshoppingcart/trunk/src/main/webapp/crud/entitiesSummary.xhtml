@@ -1,0 +1,62 @@
+
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="/WEB-INF/template/templateCrud.xhtml">
+	
+	<ui:define name="content">
+
+		<f:view>
+		<h:messages layout="list" globalOnly="true" showDetail="true"
+			styleClass="messages" />
+			
+			<a4j:form id="form">
+			
+			<rich:panel>
+				<h:panelGrid columns="1" styleClass="formTable">
+						<f:facet name="header">
+							<h:outputText value="Summary"
+								styleClass="formHeaderText"   />
+						</f:facet>	
+						
+					<h:panelGrid columns="5">
+						<h:outputText value="From" />
+						<t:inputCalendar renderAsPopup="true"
+							renderPopupButtonAsImage="true" required="false" id="from_Date">
+						</t:inputCalendar>
+
+						<h:outputText value="To" />
+						<t:inputCalendar renderAsPopup="true"
+							renderPopupButtonAsImage="true" required="false" id="to_Date">
+						</t:inputCalendar>
+
+
+						<h:commandButton id="button1" value="Submit" action="search" />
+
+					</h:panelGrid>
+						
+			
+						
+		<h:outputText styleClass="formLabel" value="Customer(#{customerCrudBacking.count})"/>
+
+		<h:outputText styleClass="formLabel" value="Employee(#{employeeCrudBacking.count})"/>
+			
+			
+				</h:panelGrid>
+						
+				<br/>
+				<br/>
+						
+			 </rich:panel>	
+			</a4j:form>
+		</f:view>
+
+	</ui:define>
+</ui:composition>
+	
+	
