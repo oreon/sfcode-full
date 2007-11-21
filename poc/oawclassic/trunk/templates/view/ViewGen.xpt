@@ -51,6 +51,9 @@
 							«EXPAND genEditEntry(this) FOREACH getAllAttributes -»
 					
 				
+					<f:facet name="footer">
+  						<h:panelGroup>
+    
   						   <h:commandButton id="button1" value="Submit" action="#{«asInstanceVar()»CrudBacking.update}"/> 
   						    <h:commandButton id="button2" value="Cancel" action="success" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
@@ -60,7 +63,9 @@
 		  				   	«FOREACH AssociationEnd.select(ae| ae.Opposite.isNavigable && ae.isOneOnOne()) AS ae-»
 								<h:inputHidden id="«ae.Opposite.NameS»_id" value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.Opposite.NameS».id}" />
 							«ENDFOREACH»
-
+							
+						 </h:panelGroup>
+  					</f:facet>
 						
 						</h:panelGrid>
 						
@@ -275,7 +280,14 @@
 	«getAccessControlBegin()»
 	<h:outputText value="«NameS.toFirstUpper() + (getElementRequired()?"*":"") »" styleClass="formLabel" />
 	«EXPAND genInputControl(e) FOR this»
-	<h:message for="«e.asInstanceVar()»_«TypeModifier»_«NameS»" styleClass="errMessage" />
+	<rich:message for="«e.asInstanceVar()»_«TypeModifier»_«NameS»" styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+		<f:facet name="passedMarker">
+			<h:graphicImage url="/images/icons/accept.png" />
+		</f:facet>
+	</rich:message>
 	«getAccessControlEnd()»
 «ENDDEFINE»
 
@@ -343,6 +355,17 @@
 		</f:facet>
 		<t:outputText value="#{«c.asInstanceVar()».«associationName()».displayName}" />
 	</t:column>
+«ENDDEFINE»
+
+«DEFINE definionName FOR Type»
+	<rich:message for="firstName">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/clock.png"/>
+		</f:facet>
+		<f:facet name="passedMarker">
+			<h:graphicImage url="/images/icons/group.png"/>
+		</f:facet>
+	</rich:message>
 «ENDDEFINE»
 
 
