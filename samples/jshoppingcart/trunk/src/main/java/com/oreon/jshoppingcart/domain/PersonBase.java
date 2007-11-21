@@ -24,11 +24,15 @@ public abstract class PersonBase
 
 	protected String lastName;
 
+	@Column(nullable = true, unique = false)
 	public String getFirstName() {
+
 		return this.firstName;
 	}
 
+	@Column(nullable = false, unique = false)
 	public String getLastName() {
+
 		return this.lastName;
 	}
 

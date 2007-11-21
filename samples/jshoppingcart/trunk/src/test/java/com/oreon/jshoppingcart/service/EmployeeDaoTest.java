@@ -50,9 +50,9 @@ public class EmployeeDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			employeeInstance.setFirstName("Eric");
-			employeeInstance.setLastName("zeta");
-			employeeInstance.setEmpCode(3964);
+			employeeInstance.setFirstName("Mark");
+			employeeInstance.setLastName("pi");
+			employeeInstance.setEmpCode(4049);
 
 			employeeService.save(employeeInstance);
 		} catch (PersistenceException pe) {
@@ -76,9 +76,9 @@ public class EmployeeDaoTest extends AbstractJpaTests {
 
 			try {
 
-				employee.setFirstName("Mark");
-				employee.setLastName("Wilson");
-				employee.setEmpCode(3780);
+				employee.setFirstName("theta");
+				employee.setLastName("pi");
+				employee.setEmpCode(306);
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -99,8 +99,8 @@ public class EmployeeDaoTest extends AbstractJpaTests {
 					.loadOneRecord();
 
 			employee.setFirstName("gamma");
-			employee.setLastName("Malissa");
-			employee.setEmpCode(7331);
+			employee.setLastName("epsilon");
+			employee.setEmpCode(9778);
 
 			employeeService.save(employee);
 

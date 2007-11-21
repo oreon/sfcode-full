@@ -39,19 +39,33 @@
 		
 	</h:inputText>
 
-	<h:message for="customer__firstName" styleClass="errMessage" />
+	<rich:message for="customer__firstName" styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+		<f:facet name="passedMarker">
+			<h:graphicImage url="/images/icons/accept.png" />
+		</f:facet>
+	</rich:message>
 	
 
 	
-	<h:outputText value="LastName" styleClass="formLabel" />
+	<h:outputText value="LastName*" styleClass="formLabel" />
 	
-	<h:inputText    required="false" 
+	<h:inputText    required="true" 
 		id="customer__lastName"
 		value="#{customerCrudBacking.customer.lastName}">
-		
+		<f:validateLength minimum="3"/>
 	</h:inputText>
 
-	<h:message for="customer__lastName" styleClass="errMessage" />
+	<rich:message for="customer__lastName" styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+		<f:facet name="passedMarker">
+			<h:graphicImage url="/images/icons/accept.png" />
+		</f:facet>
+	</rich:message>
 	
 
 	
@@ -63,10 +77,20 @@
 		
 	</h:inputText>
 
-	<h:message for="customer__remarks" styleClass="errMessage" />
+	<rich:message for="customer__remarks" styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+		<f:facet name="passedMarker">
+			<h:graphicImage url="/images/icons/accept.png" />
+		</f:facet>
+	</rich:message>
 	
 					
 				
+					<f:facet name="footer">
+  						<h:panelGroup>
+    
   						   <h:commandButton id="button1" value="Submit" action="#{customerCrudBacking.update}"/> 
   						    <h:commandButton id="button2" value="Cancel" action="success" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
@@ -74,7 +98,9 @@
 		  				   	
 		  				   	
 		  				   	
-
+							
+						 </h:panelGroup>
+  					</f:facet>
 						
 						</h:panelGrid>
 						

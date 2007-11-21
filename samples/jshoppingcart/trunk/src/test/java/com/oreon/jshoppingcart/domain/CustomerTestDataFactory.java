@@ -42,9 +42,9 @@ public class CustomerTestDataFactory extends AbstractTestDataFactory<Customer> {
 
 		try {
 
-			customer.setFirstName("epsilon");
-			customer.setLastName("beta");
-			customer.setRemarks("Malissa");
+			customer.setFirstName("delta");
+			customer.setLastName("zeta");
+			customer.setRemarks("delta");
 
 			register(customer);
 
@@ -60,8 +60,8 @@ public class CustomerTestDataFactory extends AbstractTestDataFactory<Customer> {
 
 		try {
 
-			customer.setFirstName("zeta");
-			customer.setLastName("Lavendar");
+			customer.setFirstName("Mark");
+			customer.setLastName("zeta");
 			customer.setRemarks("beta");
 
 			register(customer);
@@ -78,9 +78,9 @@ public class CustomerTestDataFactory extends AbstractTestDataFactory<Customer> {
 
 		try {
 
-			customer.setFirstName("pi");
-			customer.setLastName("epsilon");
-			customer.setRemarks("zeta");
+			customer.setFirstName("epsilon");
+			customer.setLastName("pi");
+			customer.setRemarks("beta");
 
 			register(customer);
 
@@ -96,9 +96,9 @@ public class CustomerTestDataFactory extends AbstractTestDataFactory<Customer> {
 
 		try {
 
-			customer.setFirstName("Malissa");
-			customer.setLastName("zeta");
-			customer.setRemarks("Wilson");
+			customer.setFirstName("Mark");
+			customer.setLastName("epsilon");
+			customer.setRemarks("Eric");
 
 			register(customer);
 
@@ -114,9 +114,9 @@ public class CustomerTestDataFactory extends AbstractTestDataFactory<Customer> {
 
 		try {
 
-			customer.setFirstName("zeta");
-			customer.setLastName("pi");
-			customer.setRemarks("theta");
+			customer.setFirstName("alpha");
+			customer.setLastName("epsilon");
+			customer.setRemarks("pi");
 
 			register(customer);
 
