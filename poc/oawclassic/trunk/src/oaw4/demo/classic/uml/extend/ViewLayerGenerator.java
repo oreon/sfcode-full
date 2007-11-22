@@ -252,7 +252,7 @@ public class ViewLayerGenerator {
 			}
 
 			data.append(" <rich:panelMenuItem><h:outputLink value=\""
-					 + entity.NameS() + "List.jsf\">");
+					 + entity.NameS().toLowerCase() + "List.jsf\">");
 			data.append("<h:outputText value=\"" + entity.NameS()
 					+ "\" /></h:outputLink></rich:panelMenuItem>");
 
