@@ -1,0 +1,251 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::util::stdlib::counter»
+
+«IMPORT java»
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+
+
+«DEFINE GenerateInitialData FOR Model»
+
+	«FILE "../../test/java/initialsetup" + "/InitialDataSetup.java"»
+	
+	package initialsetup;
+	
+	import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
+	import org.witchcraft.model.support.testing.TestDataFactory;
+	
+	«EXPAND GenImports FOREACH getEntities()»
+	/** 
+	 * This class populates the database with some initial data
+	 *
+	 */
+	public class InitialDataSetup {
+	
+		public static void main(String args[]){
+			
+			«FOREACH getEntities() AS e-»
+				«EXPAND genBeanLookup FOR e»
+				«e.NameS.toFirstLower()»TestDataFactory.persistAll();
+			«ENDFOREACH»
+		}
+	}
+	
+	«ENDFILE»
+
+«ENDDEFINE»
+
+
+«DEFINE GenerateTestDataFactory FOR Entity»
+	«FILE "../../test/java/" + packagePath()+ "/" + NameS + "TestDataFactory.java"»  
+
+	package «packageName()»;
+	
+	
+	import java.text.SimpleDateFormat;
+	import java.util.List;
+	import java.util.Random;
+	import java.util.ArrayList;
+	import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
+	import org.witchcraft.model.support.testing.AbstractTestDataFactory;
+	
+	import org.witchcraft.model.support.testing.TestDataFactory;
+	
+	import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
+	
+	import org.springframework.transaction.annotation.Transactional;
+	
+	import  «parentPackageName()».service.«NameS»Service;
+	
+	@Transactional
+	public class «NameS»TestDataFactory extends AbstractTestDataFactory<«NameS»> {
+	
+		List<«NameS»>  «asInstanceVar()»s = new ArrayList<«NameS»>();
+	
+		private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss z");
+		
+		«NameS»Service «asInstanceVar()»Service;
+	
+	
+		public «NameS»Service get«NameS»Service() {
+			return «asInstanceVar()»Service;
+		}
+	
+		public void set«NameS»Service(«NameS»Service «asInstanceVar()»Service) {
+			this.«asInstanceVar()»Service = «asInstanceVar()»Service;
+		}
+		
+		public void register(«NameS» «asInstanceVar()»){
+			«asInstanceVar()»s.add(«asInstanceVar()»);
+		}
+		
+	«IF getTestSeed != null» 
+		«FOREACH getTestSeedAsCollection AS e»
+			public  «NameS» create«NameS»«e.removeSpacesAndQuotes() »(){
+				«NameS» «asInstanceVar()» = new «NameS»();
+				«EXPAND createObjectFromValue(asInstanceVar(), e)»
+				register(«asInstanceVar()» );
+				return «asInstanceVar()»;
+			}
+		«ENDFOREACH»	
+	«ELSE»
+
+	«FOREACH getCounters() AS counter-»
+
+		public  «NameS» create«NameS»«counter»(){
+			«NameS» «asInstanceVar()» = new «NameS»();
+			
+			try{
+			
+			«EXPAND createRandomObject(asInstanceVar()) FOR this»
+			
+			register(«asInstanceVar()» );
+			
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+			
+			return «asInstanceVar()»;
+		}
+	
+	«ENDFOREACH»
+	«ENDIF»
+       
+       public  «NameS» loadOneRecord() {
+			List<«NameS»> «asInstanceVar()»s = «asInstanceVar()»Service.loadAll();
+			
+			if(«asInstanceVar()»s.isEmpty()){
+				persistAll();
+				«asInstanceVar()»s = «asInstanceVar()»Service.loadAll();
+			}
+			
+			return «asInstanceVar()»s.get(new Random().nextInt(«asInstanceVar()»s.size()));
+		}
+		
+		public List<«NameS»> getAllAsList(){
+			
+			if(«asInstanceVar()»s.isEmpty()){
+				«IF getTestSeed != null» 
+					«FOREACH getTestSeedAsCollection AS e»
+						create«NameS»«e.removeSpacesAndQuotes() »();
+					«ENDFOREACH»	
+				«ELSE»
+					«FOREACH getCounters() AS counter-»
+						create«NameS»«counter»();
+					«ENDFOREACH»
+				«ENDIF»
+			}
+		
+			return «asInstanceVar()»s;
+		}
+		
+		public  void persistAll(){
+			if (!isPersistable() || alreadyPersisted)
+			return;
+				
+			getAllAsList();
+				
+			for («NameS» «asInstanceVar()» : «asInstanceVar()»s) {
+				«asInstanceVar()»Service.save(«asInstanceVar()»);
+			}
+			
+			alreadyPersisted = true;
+		}
+		
+		/** Execute this method to manually generate additional orders
+		 * @param args
+		 */
+		public static void main(String args[]){
+			
+			int recordsTocreate = 30;
+		
+			TestDataFactory placedOrderTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("placedOrderTestDataFactory");
+			
+			placedOrderTestDataFactory.createAndSaveRecords(recordsTocreate);	
+		}
+	
+		public void createAndSaveRecords(int recordsTocreate) {
+			for(int i = 0; i < recordsTocreate; i++){
+				«NameS» «asInstanceVar()» = createRandom«NameS»();
+				«asInstanceVar()»Service.save(«asInstanceVar()»);
+			}
+		}
+	
+		public «NameS» createRandom«NameS»(){
+			«NameS» «asInstanceVar()» = new «NameS»();
+			«EXPAND createDynamicRandomObject(asInstanceVar()) FOR this»
+			return «asInstanceVar()»;
+		}
+	
+    }
+	
+	«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE GenImports FOR Entity»
+	import «packageName()».«NameS»TestDataFactory;
+«ENDDEFINE»
+
+«REM» Create a random object using random value generator (static) «ENDREM»
+«DEFINE createRandomObject(String name) FOR Entity»
+	«FOREACH getAllAttributes AS attrib-»
+		«name».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»(«attrib.getRandValue()»);
+	«ENDFOREACH»
+	
+	«EXPAND addDependencies(name) FOR this-»
+«ENDDEFINE»
+
+«REM» Create an object from the given value for the given attribute «ENDREM»
+«DEFINE createObjectFromValue(String name, String value) FOR Entity»
+	«FOREACH getAllAttributes AS attrib-»
+		«name».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»(«value»);
+	«ENDFOREACH»
+	
+	«EXPAND addDependencies(name) FOR this-»
+«ENDDEFINE»
+
+«DEFINE createDynamicRandomObject(String name) FOR Entity»
+	«FOREACH getAllAttributes AS attrib-»
+		«name».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»((«attrib.Type.NameS.getObjectTypeFromPrimitive()»)RandomValueGeneratorFactory.createInstance("«attrib.Type.NameS»"));
+	«ENDFOREACH»
+	
+	«EXPAND addDependencies(name) FOR this-»
+«ENDDEFINE»
+
+
+«DEFINE addDependencies(String name) FOR Entity»
+	«REM»The associated entites for e.g an order would need a customer «ENDREM»
+	«FOREACH getAllOutgoingAssociations AS ae-»
+		«EXPAND genBeanLookup FOR ae»
+		«IF ae.Class.NameS != NameS»
+			«name».set«associationName(ae).toFirstUpper()»((«ae.Class.fqn()»)«ae.associationName().toFirstLower()»TestDataFactory.loadOneRecord());
+		«ENDIF»
+	«ENDFOREACH»
+
+	
+	«REM»Composed collections e.g an order contains orderitems «ENDREM»
+	«FOREACH AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable && ae.Opposite.isComposition) AS ae-»
+		«IF !ae.Opposite.isNavigable»	
+			«EXPAND genBeanLookup FOR ae»
+			«ae.NameS.toFirstLower()»TestDataFactory.setPersistable(false);
+			«name».get«ae.NameS.toFirstUpper()»().addAll(«ae.NameS.toFirstLower()»TestDataFactory.createFewRecords());
+		«ENDIF»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE genBeanLookup FOR Class»
+	TestDataFactory «NameS.toFirstLower()»TestDataFactory  = (TestDataFactory) BeanHelper.getBean("«NameS.toFirstLower()»TestDataFactory") ;
+«ENDDEFINE»
+
+«DEFINE genBeanLookup FOR AssociationEnd»
+	TestDataFactory «associationName().toFirstLower()»TestDataFactory  = (TestDataFactory) BeanHelper.getBean("«Class.NameS.toFirstLower()»TestDataFactory") ;
+«ENDDEFINE»
+
+
+
+
+

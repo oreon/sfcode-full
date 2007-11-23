@@ -1,0 +1,192 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+«EXTENSION java::NamingConventions»
+
+
+«DEFINE GenerateBackingBean FOR Entity»
+	
+	«FILE parentPackagePath()+"/web/jsf/"+NameS+"BackingBean.java"»  
+
+	package «parentPackageName()».web.jsf;
+	
+	import javax.faces.component.UIParameter;
+	import javax.faces.event.ActionEvent;
+	
+	import org.witchcraft.model.jsf.BaseBackingBean;
+	import org.witchcraft.model.support.service.BaseService;
+
+	import «packageName()». «asParameter()»;
+	import «parentPackageName()».service.«NameS»Service;
+	
+	
+	public class «asParameter()»BackingBean extends BaseBackingBean<«NameS»>{
+	
+			private «asParameter()» «asInstanceVar()» = new «asParameter()»();
+			
+			private	«asParameter()»Service «asInstanceVar()»Service;
+			
+			
+			public void set«NameS»Service(«asParameter()»Service «asInstanceVar()»Service){
+				this.«asInstanceVar()»Service = «asInstanceVar()»Service;
+			}
+	
+			public «asParameter()» get«asParameter()»() {
+				return «asInstanceVar()»;
+			}
+			
+			public void set(«asParameter()» «asInstanceVar()») {
+				this.«asInstanceVar()» = «asInstanceVar()»;
+			}
+			
+			@SuppressWarnings("unchecked")
+			public BaseService<«NameS»> getBaseService(){
+				return «asInstanceVar()»Service;
+			}	
+			
+			public «NameS» getEntity(){
+				return get«NameS»();
+			}			
+			
+			
+			public String search(){
+				action=SEARCH;
+				return "search";
+			}
+			
+	
+			/** Returns a success string upon selection of an entity in model - majority of work is done
+			 * in the actionListener selectEntity
+            * @return - "success" if everthing goes fine
+            * @see - 
+            */
+			 public String select(){
+    			return "edit";
+    		}
+
+    
+		    /** This action Listener Method is called when a row is clicked in the dataTable
+		     *  
+		     * @param event contains the database id of the row being selected 
+		     */
+		    public void selectEntity(ActionEvent actionEvent){
+		    	
+		    	UIParameter component = (UIParameter) actionEvent.getComponent().findComponent("editId");
+				
+		    	// parse the value of the UIParameter component    	 
+		    	long id = Long.parseLong(component.getValue().toString());
+		    	
+		    	«asInstanceVar()» = «asInstanceVar()»Service.load(id);
+		    }
+
+	} 
+	«ENDFILE»
+	
+«ENDDEFINE»
+
+
+«DEFINE GenerateManagedBeanDefs FOR Model »
+	
+«FILE "../webapp/WEB-INF/genCrud-config.xml" » 		
+<?xml version="1.0"?>
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_1.dtd" >
+
+<faces-config>
+
+	<!--  Spring variable resolver -->
+	<application>
+		<variable-resolver>
+			org.springframework.web.jsf.DelegatingVariableResolver
+		</variable-resolver>
+	</application>
+
+	<!-- Managed beans for the crud operations -->
+	«EXPAND GenerateManagedBeanDef FOREACH getEntities()»
+	
+	<!-- Navigation Rules  -->
+	«EXPAND GenerateNavRules FOREACH getEntities()»
+	<navigation-rule>
+  		<from-view-id>/crud/entitiesSummary.xhtml</from-view-id>
+	</navigation-rule>
+			
+</faces-config>
+	
+«ENDFILE»
+	
+«ENDDEFINE»
+
+
+«DEFINE GenerateManagedBeanDef FOR Entity»
+
+	<managed-bean>
+		<managed-bean-name>«asInstanceVar()»CrudBacking</managed-bean-name>
+		<managed-bean-class>«parentPackageName()».web.jsf.«NameS»BackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>«asInstanceVar()»Service</property-name>
+			<value>#{«asInstanceVar()»Service}</value>
+		</managed-property>
+		
+	</managed-bean> 
+ 	
+«ENDDEFINE»
+	
+	
+«DEFINE GenerateNavRules FOR Entity»
+	<navigation-rule>
+  		<from-view-id>/crud/«Package.NameS»/«asInstanceVar()».xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/«Package.NameS»/«asInstanceVar()»Search.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()».xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»Serach.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/«Package.NameS»/«asInstanceVar()»Search.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>cancel</from-outcome>
+		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+«ENDDEFINE»		 
+
+
+

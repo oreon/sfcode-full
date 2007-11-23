@@ -1,0 +1,96 @@
+«REM»Generates a log4j.xml «ENDREM»
+
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+«EXTENSION java::NamingConventions»
+
+«DEFINE GenerateLogConfig FOR Model»
+
+«FILE "../resources/log4j.properties" man_path» 
+
+# Set root logger level to INFO and its only appender to A1.
+log4j.rootLogger=WARN, A1
+# A1 is set to be a ConsoleAppender.
+log4j.appender.A1=org.apache.log4j.ConsoleAppender
+# A1 uses PatternLayout.
+log4j.appender.A1.layout=org.apache.log4j.PatternLayout
+log4j.appender.A1.layout.ConversionPattern=%-4r %-5p %m%n
+
+
+«ENDFILE»
+
+«ENDDEFINE»
+
+
+«DEFINE genLogConfigXML FOR Model»
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration>
+
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+              value="[%d{ISO8601}] %-5p %c %m %n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="DEBUG"/>
+            <param name="LevelMax" value="INFO"/>
+        </filter>
+    </appender>
+    
+    <appender name="STDERR"  class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.err" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+              value="[%d{ISO8601}] %-5p %c %m %n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="WARN"/>
+            <param name="LevelMax" value="FATAL"/>
+        </filter>
+    </appender>
+
+    <!--                          -->
+    <!-- Declare the SMTPAppender -->
+    <!--                          -->
+    <appender name="EMAIL"  class="org.apache.log4j.net.SMTPAppender">
+        <param name="BufferSize" value="512" />
+        <param name="SMTPHost" value="smtp.foobar.com" />
+        <param name="From" value="log4j@server5" />
+        <param name="To" value="neo@foobar.com" />
+        <param name="Subject" value="[SMTPAppender] Application message" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+              value="[%d{ISO8601}]%n%n%-5p%n%n%c%n%n%m%n%n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="ERROR"/>
+            <param name="LevelMax" value="FATAL"/>
+        </filter>
+    </appender>
+
+    <!--                           -->
+    <!-- setup log4j's root logger -->
+    <!--                           -->
+    <root additivity="false">
+        <priority value ="warn" />        
+        <appender-ref ref="STDERR"/>
+        <appender-ref ref="EMAIL" />
+    </root>
+    
+	
+	<logger name="bizobjects">
+  		<level value="info"/> 
+  		<appender-ref ref="STDOUT"/>
+        <appender-ref ref="STDERR"/>
+        <appender-ref ref="EMAIL" />
+	</logger>
+	
+    
+</log4j:configuration>
+
+«ENDDEFINE»

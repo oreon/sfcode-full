@@ -1,0 +1,190 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+
+«REM» This artifact generates service layer interfaces and implementations.  «ENDREM»
+«DEFINE GenerateService FOR Entity»
+	
+	«EXPAND GenerateServiceInterface»
+	
+	«EXPAND GenerateServiceImpl»
+
+«ENDDEFINE»	
+
+«DEFINE GenerateServiceImpl FOR Entity»
+
+	«FILE parentPackagePath()+"/service/impl" + "/"+NameS+"ServiceImplBase.java"»  
+	
+	«EXPAND ManualFileGen::genManualFile("/service/impl", "ServiceImpl",
+		 "@Transactional(readOnly=false, propagation=Propagation.REQUIRED)")»
+
+	package «parentPackageName()».service.impl;
+	 
+	import «packageName()».«NameS»;
+	import «parentPackageName()».service.«NameS»Service;
+	import «parentPackageName()».dao.«NameS»Dao;
+	import java.util.List;
+	
+	import org.springframework.transaction.annotation.Transactional;
+	import org.springframework.transaction.annotation.Propagation;
+	
+	import org.apache.log4j.Logger;
+	
+	«IF isEntityUser()»
+	import usermanagement.Authority;
+	import usermanagement.service.AuthorityService;
+	«ENDIF»
+	
+	import org.witchcraft.model.support.dao.GenericDAO;
+	import org.witchcraft.model.support.errorhandling.BusinessException;
+	import org.witchcraft.model.support.service.BaseServiceImpl;
+	
+
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
+	public class «NameS»ServiceImplBase extends BaseServiceImpl<«NameS»> implements «NameS»Service{
+	
+		private static final Logger log = Logger.getLogger(«NameS»ServiceImplBase.class);
+		
+		private «NameS»Dao «asInstanceVar()»Dao;
+
+		public void set«NameS»Dao(«NameS»Dao «asInstanceVar()»Dao) {
+			this.«asInstanceVar()»Dao = «asInstanceVar()»Dao;
+		}
+		
+		@Override
+		public GenericDAO<«NameS»> getDao() {
+			return «asInstanceVar()»Dao;
+		}
+		
+		«IF isEntityUser()»
+			private AuthorityService authorityService;
+	
+			public void setAuthorityService(AuthorityService authorityService) {
+				this.authorityService = authorityService;
+			}
+		«ENDIF»
+		//// Delegate all crud operations to the Dao ////
+			
+		public «NameS» save(«NameS» «asInstanceVar()») {
+			Long id = «asInstanceVar()».getId();
+			«Unique.isEmpty?"":"checkUniqueConstraints("+asInstanceVar() +");"»
+			«asInstanceVar()»Dao.save(«asInstanceVar()»);
+			«IF isEntityUser()»
+			if(id == null) //creating user for first time, assign authority
+				assignDefaultAuthority(«asInstanceVar()»);
+			«ENDIF»
+			
+			return «asInstanceVar()»;
+		}
+		
+		«IF !Unique.isEmpty»
+		
+			/** Before saving a record we need to ensure that no unique constraints
+			 * will be violated. 
+			 * @param customer
+			 */
+			private void checkUniqueConstraints(«NameS» «asInstanceVar()») {
+			«NameS»
+			«FOREACH Unique AS e»
+				 existing«NameS» = «asInstanceVar()»Dao.findBy«e.NameS.toFirstUpper()»
+					(«asInstanceVar()».«e.getContainerGetter()»get«e.NameS.toFirstUpper()»());
+				ensureUnique(«asInstanceVar()», existing«NameS», "Entity.exists.with«e.NameS.toFirstUpper()»");
+			«ENDFOREACH»
+			
+			}
+			
+		
+		«ENDIF»
+			
+		«IF isEntityUser()»
+		
+			private void assignDefaultAuthority(«NameS» «asInstanceVar()») {
+				Authority authority = new Authority();
+				authority.setUser(«asInstanceVar()».getUserAccount());
+				authority.setAuthority("«getDefaultRole != null? getDefaultRole : "ROLE_" +  NameS.toUpper»");
+				authorityService.save(authority);
+			}
+		
+		«ENDIF»
+	
+		public void delete(«NameS» «asInstanceVar()») {
+			«asInstanceVar()»Dao.delete(«asInstanceVar()»);
+		}			
+		
+		public «NameS» load(Long id) {
+			return «asInstanceVar()»Dao.load(id);
+		}
+		
+	    public List<«NameS»> loadAll() {
+	    	return «asInstanceVar()»Dao.loadAll();
+	    }
+	    
+	   «EXPAND FinderDeclaration(this) FOREACH Findable »
+		
+		
+		public List<«NameS»> searchByExample(«NameS» «asInstanceVar()») {
+			return «asInstanceVar()»Dao.searchByExample(«asInstanceVar()»);
+		}
+	
+		/*
+		public List query(String queryString, Object... params) {
+			return basicDAO.query(queryString, params);
+		}*/
+	
+	}
+	
+	«ENDFILE»	
+	
+«ENDDEFINE»
+
+«DEFINE FinderDeclaration(AbstractEntity entity) FOR Column»
+	public
+		« isUnique? entity.NameS : "List<" + entity.NameS + ">" »
+			findBy«NameS.toFirstUpper()»(«Type.NameS» «NameS»){
+			return «entity.asInstanceVar()»Dao.findBy«NameS.toFirstUpper()»(«NameS»);
+		}
+«ENDDEFINE»
+
+«DEFINE GenServiceFacade FOR Model»
+	«FILE  "facades/" + "ServiceFacade.java"» 
+	
+		package facades;
+		
+		«FOREACH getEntities() AS e»
+			import «e.parentPackageName()+".service." +  e.NameS + "Service"-»;
+		«ENDFOREACH»
+	
+		public class ServiceFacade{
+			«EXPAND CommonUtils::genDeclGetterSetter("Service") FOREACH getEntities()»
+		}
+	
+	«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE GenerateServiceInterface FOR Entity»
+
+	«FILE parentPackagePath() + "/service/" + NameS + "Service.java"» 
+	
+	package «parentPackageName()».service;
+	
+	import «packageName()».«NameS»;
+	import «parentPackageName()».dao.«NameS»Dao;
+	import org.witchcraft.model.support.service.BaseService;
+	
+	/** The Service interface for entity - «NameS»
+	 * @author - Witchcraft Generated {Do not Modify } 
+	 * 
+	 */
+	public interface «NameS»Service extends «NameS»Dao, BaseService<«NameS»>  {
+		
+			
+	}		
+	
+	«ENDFILE»	
+«ENDDEFINE»
+	

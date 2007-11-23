@@ -1,0 +1,128 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT oaw4::demo::classic::uml::extend»
+«IMPORT java»
+«EXTENSION java::NamingConventions»
+«EXTENSION java::DBAttributes»
+
+«DEFINE SpringConfig FOR Model»
+
+«FILE "../resources/applicationContext.xml" »  
+	
+«EXPAND SpringNameSpaces»
+
+	<bean id="propertyPlaceholder"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location"
+			value="classpath:project.properties" />
+	</bean>
+
+
+  <bean id="entityManagerFactory"
+     class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+     <property name="jpaVendorAdapter">
+        <bean
+        class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+           <property name="showSql" value="${hibernate.showsql}" />
+           <property name="generateDdl" value="${hibernate.generateddl}" />
+           <property name="databasePlatform" value="${hibernate.dialect}" />
+        </bean>
+     </property>
+  </bean>
+
+  <bean class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" id="dataSource">
+		<property name="driverClassName" value="${hibernate.connection.driver_class}" />
+		<property name="url" value="${hibernate.connection.url}" />
+		<property name="username" value="${hibernate.connection.username}" />
+		<property name="password" value="${hibernate.connection.password}" />
+ </bean>
+
+  <bean id="transactionManager"
+     class="org.springframework.orm.jpa.JpaTransactionManager" />
+  
+  <tx:annotation-driven />
+
+
+  <bean
+     class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+ 
+ <!-- Velocity -->
+ <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+    <property name="velocityProperties">
+        <props>
+            <prop key="resource.loader">class</prop>
+            <prop key="class.resource.loader.class">
+                org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+            </prop>
+        </props>
+    </property>
+</bean>
+  
+  <!-- Service Beans  -->
+  «EXPAND GenerateServiceBeanDef FOREACH getEntities()»
+  
+  <!-- Service Facade -->
+    <bean id="serviceFacade" class="facades.ServiceFacade" />
+ 
+  
+  <!-- Dao Beans  -->
+  «EXPAND GenerateDaoBeanDef FOREACH getEntities()»
+  
+   	<!-- Audit logging -->
+  	<bean class="org.witchcraft.model.support.audit.AuditLogDaoImpl" id="auditLogDao"/>
+ 
+  	<bean id="entityAuditLogInterceptor" 
+  		class="org.witchcraft.model.support.audit.EntityAuditLogInterceptor" />
+  
+</beans>
+
+	
+«ENDFILE»
+
+«ENDDEFINE»
+
+«DEFINE TestDataFactories FOR Model»
+
+«FILE "../resources/testDataFactories.xml" »  
+  
+  «EXPAND SpringNameSpaces»
+  
+  <!-- TestDataFactories -->
+  «EXPAND GenerateTestDataFactoryBeanDef FOREACH getEntities()»
+  
+ 
+ </beans>
+  
+«ENDFILE»
+
+«ENDDEFINE»
+
+
+«DEFINE GenerateServiceBeanDef FOR Entity»
+	<bean id="«asInstanceVar()»Service" class="«parentPackageName()».service.impl.«NameS»ServiceImpl" />
+«ENDDEFINE»
+
+«DEFINE GenerateDaoBeanDef FOR Entity»
+	<bean id="«asInstanceVar()»Dao" class="«parentPackageName()».dao.impl.«NameS»DaoImpl" />
+«ENDDEFINE»
+
+«DEFINE GenerateTestDataFactoryBeanDef FOR Entity»
+	<bean id="«asInstanceVar()»TestDataFactory" class="«fqn()»TestDataFactory" />
+«ENDDEFINE»
+
+
+
+«DEFINE SpringNameSpaces FOR Element»
+	<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd" 
+  default-autowire="byName">
+
+«ENDDEFINE»

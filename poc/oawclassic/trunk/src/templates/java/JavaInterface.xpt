@@ -1,0 +1,17 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT java»
+«EXTENSION java::NamingConventions»
+	
+«DEFINE IntfClass FOR Class»
+«FILE packagePath()+"/"+NameS+".java"»  
+
+package «packageName()»;
+«REM» Remove - KLUDGE «ENDREM»
+import javax.persistence.*;
+
+public interface «NameS» «IF hasSuperClass»extends «SuperClass.fqn()» «ENDIF»{
+								
+		«EXPAND Attribute::Generator FOREACH Operation»
+} 
+«ENDFILE»
+«ENDDEFINE»

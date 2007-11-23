@@ -1,0 +1,37 @@
+«REM» Generates an xsd schema for the given domain «ENDREM»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::meta::uml»
+
+«IMPORT java»
+«EXTENSION java::NamingConventions»
+
+«DEFINE Gen FOR Model»
+	
+	«FILE "../resources/schema.xml" »
+
+	<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:hr="http://mycompany.com/hr/schemas"
+        elementFormDefault="qualified"
+        targetNamespace="http://mycompany.com/hr/schemas">
+        
+    	«EXPAND GenElement FOREACH getEntities()»
+    
+    </xs:schema>    
+    
+    «ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE GenElement FOR AbstractEntity»
+	<xs:element name="«NameS»">
+        <xs:complexType>
+            <xs:all>
+            	«FOREACH getAllAttributes AS a-»
+            		<xs:element name="«a.NameS»" type="xs:«a.Type.NameS»"/>	
+            	«ENDFOREACH»
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+«ENDDEFINE»

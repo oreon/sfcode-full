@@ -1,0 +1,19 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::meta::uml::state»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+«EXTENSION java::NamingConventions»
+
+«REM» Generates getter, setter and declaration for given variable «ENDREM»
+«DEFINE genDeclGetterSetter(String extension) FOR Element»
+	private «NameS + extension» «NameS.toFirstLower() + extension»;
+	
+	public «NameS + extension» get«NameS + extension»(){
+		return «NameS.toFirstLower() + extension»;
+	} 
+	
+	public void set«NameS + extension»(«NameS + extension» «NameS.toFirstLower() + extension»){
+		this.«NameS.toFirstLower() + extension» = «NameS.toFirstLower() + extension»;
+	}
+«ENDDEFINE»

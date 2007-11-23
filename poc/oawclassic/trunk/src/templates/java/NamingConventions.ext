@@ -1,0 +1,123 @@
+import org::openarchitectureware::meta::uml;
+import org::openarchitectureware::meta::uml::classifier;
+import org::openarchitectureware::meta::uml::classifier::Class;
+import oaw4::demo::classic::uml::meta;
+import java;
+import java::lang;
+
+String asParameter (ModelElement elem) :
+elem.NameS;
+
+String asSetter (ModelElement elem) :
+"set"+elem.NameS.toFirstUpper();
+
+String asGetter (ModelElement elem) :
+"get"+elem.NameS.toFirstUpper();
+
+
+String asInstanceVar (ModelElement elem) :
+elem.NameS.toFirstLower();
+
+
+
+
+String generateEnumLiterals (Enumeration enm) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.generateEnumLiterals(org.openarchitectureware.meta.uml.classifier.Enumeration);
+
+
+String packageName (Class cls) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getPackageName(org.openarchitectureware.meta.uml.classifier.Class);
+
+String parentPackageName (Class cls) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getParentPackageName(org.openarchitectureware.meta.uml.classifier.Class);
+
+
+String packageName (Enumeration enm) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getPackageName(org.openarchitectureware.meta.uml.classifier.Enumeration);
+
+
+String operationHelper (Operation operation) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.operationHelper(org.openarchitectureware.meta.uml.classifier.Operation);
+
+String generateInterfaceImplementation (Class cls) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.generateOperationsForImplementedInterfaces(org.openarchitectureware.meta.uml.classifier.Class);
+
+String getClassDeclaration (Class cls) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getClassDeclaration(org.openarchitectureware.meta.uml.classifier.Class);
+
+String getPropertyDeclaration (Attribute attribute) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getPropertyDeclaration(org.openarchitectureware.meta.uml.classifier.Attribute);
+
+String getRandValue (Attribute attribute) :
+JAVA org.witchcraft.model.helper.RandomValueGenerator.getRandomValue(org.openarchitectureware.meta.uml.classifier.Attribute);
+
+
+String getEntities() :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getEntities();
+
+
+String packagePath (Class cls) :
+packageName(cls).replaceAll("\\.", "/");
+
+//Returns the parent package's path - if this class is com.xyz.domain.Person This method 
+//will return com.xyz.
+String parentPackagePath(Class cls) :
+parentPackageName(cls).replaceAll("\\.", "/");
+
+String packagePath (Enumeration enm) :
+packageName(enm).replaceAll("\\.", "/");
+
+
+String fqn (Class cls) :
+packageName(cls).length>0 ? packageName(cls)+"."+cls.NameS :
+cls.NameS;
+
+boolean isEntity(Class cls) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.isEntity(org.openarchitectureware.meta.uml.classifier.Class);
+
+String fullName(Attribute attribute ):
+attribute.TypeModifier == null ? attribute.NameS:attribute.TypeModifier + "."  + attribute.NameS;
+
+String getContainerGetter(Attribute attribute ):
+attribute.TypeModifier == null  ? "":"get"+ attribute.TypeModifier.toFirstUpper() + "()." ;
+
+List getCounters(Class cls):
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getCounters(org.openarchitectureware.meta.uml.classifier.Class);
+
+boolean isEntityUser(Entity entity):
+entity.isUser || entity.getDefaultRole != null ;
+
+String getGetter(Type type):
+type.NameS == "boolean"?"is":"get";
+
+String replaceSlashesWithDots(String source):
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.replaceSlashesWithDots(java.lang.String);
+
+String getAnnotaitons(Entity entity):
+"@Entity\n@Table(" + getTableName(entity) + "," + getTableConstraints(entity) + ")";
+
+String getTableName(Entity entity):
+"name=\"" + (entity.getTableName == null ? entity.NameS: entity.getTableName) + "\"";
+
+String getTableConstraints(Entity entity):
+"uniqueConstraints={@UniqueConstraint(columnNames={" + (entity.getUniqueConstraints == null ? "": entity.getUniqueConstraints )+  "})}";
+
+
+String getLoggerDeclaration(String className):
+"private static final Logger log = Logger.getLogger(" + className + ".class)";
+	
+String removeTrailingS(String arg):
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.removeTrailingS(java.lang.String);
+
+//takes a java primitive type and returns an object type e.g int -> Integer
+String getObjectTypeFromPrimitive(String primitiveTypeName):
+JAVA oaw4.demo.classic.uml.extend.GenericUtils.getObjectTypeFromPrimitive(java.lang.String);
+
+String genInheritanceStrategy(Entity entity):
+entity.getInheritanceStrategy == null?  "": "@Inheritance(strategy=InheritanceType." + entity.getInheritanceStrategy + ")";
+
+String removeSpacesAndQuotes(String arg):
+JAVA oaw4.demo.classic.uml.extend.GenericUtils.removeSpacesAndQuotes(java.lang.String);
+
+
+
