@@ -13,6 +13,7 @@
 	
 	import javax.faces.component.UIParameter;
 	import javax.faces.event.ActionEvent;
+	import javax.faces.context.FacesContext;
 	
 	import org.witchcraft.model.jsf.BaseBackingBean;
 	import org.witchcraft.model.support.service.BaseService;
@@ -72,10 +73,15 @@
 		     */
 		    public void selectEntity(ActionEvent actionEvent){
 		    	
+		    	FacesContext ctx = FacesContext.getCurrentInstance();
+				String idStr = (String)ctx.getExternalContext().getRequestParameterMap().get("id");
+				long id = Long.parseLong(idStr);
+		    	
+		    	/*
 		    	UIParameter component = (UIParameter) actionEvent.getComponent().findComponent("editId");
-				
 		    	// parse the value of the UIParameter component    	 
 		    	long id = Long.parseLong(component.getValue().toString());
+		    	*/
 		    	
 		    	«asInstanceVar()» = «asInstanceVar()»Service.load(id);
 		    }
