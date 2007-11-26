@@ -18,6 +18,11 @@ import org.springframework.stereotype.Repository;
 import org.witchcraft.model.support.BusinessEntity;
 import org.witchcraft.model.support.audit.EntityAuditLogInterceptor;
 
+/**
+ * @author jsingh
+ *
+ * @param <T> The type of entity to be persisted
+ */
 @Repository
 public class BaseDao<T> implements GenericDAO<T> {
 
