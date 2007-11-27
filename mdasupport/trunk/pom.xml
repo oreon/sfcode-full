@@ -38,20 +38,21 @@
 					<encoding>utf-8</encoding>
 				</configuration>
 			</plugin>
-
-			<plugin>
+			<!-- 
+				<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-scm-plugin</artifactId>
 				<executions>
-					<execution>
-						<phase>validate</phase>
-						<id>getting-scm.revision</id>
-						<goals>
-							<goal>update</goal>
-						</goals>
-					</execution>
+				<execution>
+				<phase>validate</phase>
+				<id>getting-scm.revision</id>
+				<goals>
+				<goal>update</goal>
+				</goals>
+				</execution>
 				</executions>
-			</plugin>
+				</plugin>
+			-->
 		</plugins>
 	</build>
 	<repositories>
@@ -62,9 +63,9 @@
 			</url>
 			<layout>legacy</layout>
 		</repository>
-		
-		
-		
+
+
+
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
@@ -143,6 +144,27 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.richfaces.ui</groupId>
+			<artifactId>richfaces-ui</artifactId>
+			<version>3.1.0-rc6</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>xercesImpl</artifactId>
+					<groupId>xerces</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>xmlParserAPIs</artifactId>
+					<groupId>xerces</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
 		<dependency>
 			<groupId>org.acegisecurity</groupId>
 			<artifactId>acegi-security</artifactId>
@@ -200,13 +222,13 @@
 			<version>2.0.2</version>
 		</dependency>
 
-<!--  
-		<dependency>
+		<!--  
+			<dependency>
 			<groupId>acegi-jsf</groupId>
 			<artifactId>acegi-jsf</artifactId>
 			<version>1.1.3</version>
-		</dependency>
--->
+			</dependency>
+		-->
 		<dependency>
 			<groupId>asm</groupId>
 			<artifactId>asm</artifactId>
@@ -221,6 +243,11 @@
 			<groupId>org.apache.geronimo.specs</groupId>
 			<artifactId>geronimo-servlet_2.4_spec</artifactId>
 			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.jsf-comp</groupId>
+			<artifactId>acegi-jsf</artifactId>
+			<version>1.1.3</version>
 		</dependency>
 
 

@@ -1,0 +1,121 @@
+package org.witchcraft.model.jsf;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+import javax.faces.FacesException;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import org.richfaces.component.UITree;
+import org.richfaces.event.NodeSelectedEvent;
+
+import org.richfaces.model.TreeNode;
+
+import org.richfaces.model.TreeNodeImpl;
+
+public class SimpleTreeBean {
+
+	private TreeNode rootNode = null;
+
+	private String nodeTitle;
+
+	private static final String DATA_PATH = "/richfaces/tree/examples/simple-tree-data.properties";
+
+	private void addNodes(String path, TreeNode node, Properties properties) {
+
+		boolean end = false;
+		int counter = 1;
+		while (!end) {
+
+			String key = path != null ? path + '.' + counter : String
+					.valueOf(counter);
+
+			String value = properties.getProperty(key);
+
+			if (value != null) {
+
+				TreeNodeImpl nodeImpl = new TreeNodeImpl();
+
+				nodeImpl.setData(value);
+
+				node.addChild(new Integer(counter), nodeImpl);
+
+				addNodes(key, nodeImpl, properties);
+
+				counter++;
+
+			} else {
+
+				end = true;
+
+			}
+
+		}
+
+	}
+
+	private void loadTree() {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		ExternalContext externalContext = facesContext.getExternalContext();
+
+		InputStream dataStream = externalContext.getResourceAsStream(DATA_PATH);
+
+		try {
+
+			Properties properties = new Properties();
+
+			properties.load(dataStream);
+
+			rootNode = new TreeNodeImpl();
+
+			addNodes(null, rootNode, properties);
+
+		} catch (IOException e) {
+
+			throw new FacesException(e.getMessage(), e);
+
+		} finally {
+
+			if (dataStream != null) {
+
+				try {
+
+					dataStream.close();
+
+				} catch (IOException e) {
+
+					externalContext.log(e.getMessage(), e);
+
+				}
+
+			}
+
+		}
+
+	}
+
+	public TreeNode getTreeNode() {
+
+		if (rootNode == null) {
+			loadTree();
+		}
+
+		return rootNode;
+	}
+
+	public void processSelection(NodeSelectedEvent event) {
+		UITree tree = (UITree) event.getComponent();
+		nodeTitle = (String) tree.getRowData();
+	}
+
+	public String getNodeTitle() {
+		return nodeTitle;
+	}
+
+	public void setNodeTitle(String nodeTitle) {
+		this.nodeTitle = nodeTitle;
+	}
+
+}

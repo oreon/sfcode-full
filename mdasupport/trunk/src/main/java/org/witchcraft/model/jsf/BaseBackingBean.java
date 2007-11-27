@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.witchcraft.model.support.audit.AuditLog;
 import org.witchcraft.model.support.errorhandling.BusinessException;
@@ -21,6 +22,8 @@ import org.witchcraft.model.support.service.BaseService;
 public abstract class BaseBackingBean<T> {
 	private Date fromDate;
 	private Date toDate;
+	
+	private static Logger log = Logger.getLogger(BaseBackingBean.class);
 	
 	protected String action; //whether action is search or update/add new 
 	protected static final String SEARCH = "SEARCH";
@@ -51,7 +54,7 @@ public abstract class BaseBackingBean<T> {
 		try {
 			getBaseService().delete(getEntity());
 		} catch (DataAccessException dae) {
-			createErrorMessage(dae.getMessage(), "Delete Error");
+			createErrorMessage(dae.getMessage(), "Delete Error", dae);
 			return "failure";
 		}
 
@@ -65,13 +68,13 @@ public abstract class BaseBackingBean<T> {
 		try {
 			getBaseService().save(getEntity());
 		} catch (BusinessException be) {
-			createErrorMessage(be.getMessage(), "Update Error");
+			createErrorMessage(be.getMessage(), "Business Exception", be);
 			return "failure";
 		} catch (DataAccessException dae) {
-			createErrorMessage(dae.getMessage(), "Update Error");
+			createErrorMessage(dae.getMessage(), "DB Error updating", dae);
 			return "failure";
 		} catch (Exception ex) {
-			createErrorMessage(ex.getMessage(), "Update Error");
+			createErrorMessage(ex.getMessage(), "Critical Error updating", ex);
 			return "failure";
 		}
 
@@ -105,7 +108,8 @@ public abstract class BaseBackingBean<T> {
 	 * @param errorDetail
 	 * @param errorTitle
 	 */
-	protected void createErrorMessage(String errorDetail, String errorTitle) {
+	protected void createErrorMessage(String errorDetail, String errorTitle, Throwable throwable) {
+		log.error(errorDetail, throwable);
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_ERROR, errorTitle, 
 						errorDetail));
