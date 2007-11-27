@@ -50,8 +50,8 @@ public class CommentDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			commentInstance.setText("Lavendar");
-			commentInstance.setUserDisplayName("Wilson");
+			commentInstance.setText("epsilon");
+			commentInstance.setUserDisplayName("epsilon");
 
 			TestDataFactory commentCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");
@@ -89,8 +89,8 @@ public class CommentDaoTest extends AbstractJpaTests {
 
 			try {
 
-				comment.setText("John");
-				comment.setUserDisplayName("Malissa");
+				comment.setText("Eric");
+				comment.setUserDisplayName("Eric");
 
 				TestDataFactory commentCreatorTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("registeredUserTestDataFactory");
@@ -123,8 +123,8 @@ public class CommentDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Comment comment = (Comment) commentTestDataFactory.loadOneRecord();
 
-			comment.setText("Wilson");
-			comment.setUserDisplayName("alpha");
+			comment.setText("epsilon");
+			comment.setUserDisplayName("pi");
 
 			commentService.save(comment);
 

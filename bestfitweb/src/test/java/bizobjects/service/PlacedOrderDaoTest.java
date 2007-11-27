@@ -50,10 +50,10 @@ public class PlacedOrderDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			placedOrderInstance.setRemarks("alpha");
-			placedOrderInstance.setPaymentMethod("Wilson");
-			placedOrderInstance.setStatus(bizobjects.OrderStatus.SHIPPED);
-			placedOrderInstance.setTotal(86.03);
+			placedOrderInstance.setRemarks("beta");
+			placedOrderInstance.setPaymentMethod("Mark");
+			placedOrderInstance.setStatus(bizobjects.OrderStatus.NEW);
+			placedOrderInstance.setTotal(45.41);
 
 			TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("customerTestDataFactory");
@@ -91,10 +91,10 @@ public class PlacedOrderDaoTest extends AbstractJpaTests {
 
 			try {
 
-				placedOrder.setRemarks("alpha");
-				placedOrder.setPaymentMethod("alpha");
-				placedOrder.setStatus(bizobjects.OrderStatus.SHIPPED);
-				placedOrder.setTotal(87.21);
+				placedOrder.setRemarks("zeta");
+				placedOrder.setPaymentMethod("epsilon");
+				placedOrder.setStatus(bizobjects.OrderStatus.COMPLETED);
+				placedOrder.setTotal(54.42);
 
 				TestDataFactory customerTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("customerTestDataFactory");
@@ -129,9 +129,9 @@ public class PlacedOrderDaoTest extends AbstractJpaTests {
 					.loadOneRecord();
 
 			placedOrder.setRemarks("Wilson");
-			placedOrder.setPaymentMethod("epsilon");
+			placedOrder.setPaymentMethod("beta");
 			placedOrder.setStatus(bizobjects.OrderStatus.COMPLETED);
-			placedOrder.setTotal(56.36);
+			placedOrder.setTotal(85.47);
 
 			placedOrderService.save(placedOrder);
 

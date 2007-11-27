@@ -50,21 +50,21 @@ public class CustomerDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			customerInstance.setFirstName("beta");
-			customerInstance.setLastName("pi");
+			customerInstance.setFirstName("Mark");
+			customerInstance.setLastName("John");
 			customerInstance
-					.setDob(dateFormat.parse("2007.10.18 10:32:35 EDT"));
-			customerInstance.setAge(6260);
-			customerInstance.setRemarks("pi");
-			customerInstance.getUserAccount().setUsername("Mark56275");
-			customerInstance.getUserAccount().setPassword("Wilson");
+					.setDob(dateFormat.parse("2007.11.03 14:37:45 EDT"));
+			customerInstance.setAge(5567);
+			customerInstance.setRemarks("alpha");
+			customerInstance.getUserAccount().setUsername("delta49493");
+			customerInstance.getUserAccount().setPassword("alpha");
 			customerInstance.getUserAccount().setEnabled(true);
-			customerInstance.getPrimaryAddress().setStreetAddress("zeta");
-			customerInstance.getPrimaryAddress().setCity("alpha");
-			customerInstance.getPrimaryAddress().setZip("epsilon");
-			customerInstance.getPrimaryAddress().setEmail("Lavendar70560");
-			customerInstance.getPrimaryAddress().setCountry("Malissa");
-			customerInstance.getPrimaryAddress().setState("epsilon");
+			customerInstance.getPrimaryAddress().setStreetAddress("Lavendar");
+			customerInstance.getPrimaryAddress().setCity("delta");
+			customerInstance.getPrimaryAddress().setZip("Malissa");
+			customerInstance.getPrimaryAddress().setEmail("gamma50672");
+			customerInstance.getPrimaryAddress().setCountry("Mark");
+			customerInstance.getPrimaryAddress().setState("delta");
 
 			customerService.save(customerInstance);
 		} catch (PersistenceException pe) {
@@ -89,19 +89,19 @@ public class CustomerDaoTest extends AbstractJpaTests {
 			try {
 
 				customer.setFirstName("epsilon");
-				customer.setLastName("John");
-				customer.setDob(dateFormat.parse("2007.11.25 19:05:55 EST"));
-				customer.setAge(8305);
-				customer.setRemarks("zeta");
-				customer.getUserAccount().setUsername("theta93656");
-				customer.getUserAccount().setPassword("Mark");
+				customer.setLastName("Malissa");
+				customer.setDob(dateFormat.parse("2007.10.23 01:40:32 EDT"));
+				customer.setAge(1747);
+				customer.setRemarks("Mark");
+				customer.getUserAccount().setUsername("zeta76872");
+				customer.getUserAccount().setPassword("Wilson");
 				customer.getUserAccount().setEnabled(true);
-				customer.getPrimaryAddress().setStreetAddress("Wilson");
-				customer.getPrimaryAddress().setCity("gamma");
-				customer.getPrimaryAddress().setZip("Wilson");
-				customer.getPrimaryAddress().setEmail("alpha94626");
-				customer.getPrimaryAddress().setCountry("zeta");
-				customer.getPrimaryAddress().setState("alpha");
+				customer.getPrimaryAddress().setStreetAddress("pi");
+				customer.getPrimaryAddress().setCity("Lavendar");
+				customer.getPrimaryAddress().setZip("zeta");
+				customer.getPrimaryAddress().setEmail("Wilson5318");
+				customer.getPrimaryAddress().setCountry("John");
+				customer.getPrimaryAddress().setState("zeta");
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -122,19 +122,19 @@ public class CustomerDaoTest extends AbstractJpaTests {
 					.loadOneRecord();
 
 			customer.setFirstName("John");
-			customer.setLastName("alpha");
-			customer.setDob(dateFormat.parse("2007.11.26 21:12:35 EST"));
-			customer.setAge(3397);
-			customer.setRemarks("gamma");
-			customer.getUserAccount().setUsername("theta66384");
-			customer.getUserAccount().setPassword("Eric");
+			customer.setLastName("Malissa");
+			customer.setDob(dateFormat.parse("2007.11.06 23:14:58 EST"));
+			customer.setAge(7165);
+			customer.setRemarks("theta");
+			customer.getUserAccount().setUsername("theta83704");
+			customer.getUserAccount().setPassword("Malissa");
 			customer.getUserAccount().setEnabled(true);
-			customer.getPrimaryAddress().setStreetAddress("gamma");
-			customer.getPrimaryAddress().setCity("beta");
+			customer.getPrimaryAddress().setStreetAddress("epsilon");
+			customer.getPrimaryAddress().setCity("epsilon");
 			customer.getPrimaryAddress().setZip("Eric");
-			customer.getPrimaryAddress().setEmail("Wilson31948");
-			customer.getPrimaryAddress().setCountry("Malissa");
-			customer.getPrimaryAddress().setState("Mark");
+			customer.getPrimaryAddress().setEmail("theta39223");
+			customer.getPrimaryAddress().setCountry("alpha");
+			customer.getPrimaryAddress().setState("gamma");
 
 			customerService.save(customer);
 

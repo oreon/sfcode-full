@@ -44,9 +44,9 @@ public class OrderItemTestDataFactory
 
 		try {
 
-			orderItem.setSalePrice(39.87);
+			orderItem.setSalePrice(82.01);
 			orderItem.setQuantity(1);
-			orderItem.setTotal(58.0);
+			orderItem.setTotal(45.69);
 
 			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("productTestDataFactory");
@@ -68,9 +68,9 @@ public class OrderItemTestDataFactory
 
 		try {
 
-			orderItem.setSalePrice(41.12);
+			orderItem.setSalePrice(46.47);
 			orderItem.setQuantity(1);
-			orderItem.setTotal(60.91);
+			orderItem.setTotal(53.35);
 
 			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("productTestDataFactory");
@@ -92,9 +92,9 @@ public class OrderItemTestDataFactory
 
 		try {
 
-			orderItem.setSalePrice(80.35);
+			orderItem.setSalePrice(50.63);
 			orderItem.setQuantity(1);
-			orderItem.setTotal(34.3);
+			orderItem.setTotal(18.32);
 
 			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("productTestDataFactory");
@@ -116,9 +116,9 @@ public class OrderItemTestDataFactory
 
 		try {
 
-			orderItem.setSalePrice(77.96);
+			orderItem.setSalePrice(40.94);
 			orderItem.setQuantity(1);
-			orderItem.setTotal(43.61);
+			orderItem.setTotal(70.43);
 
 			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("productTestDataFactory");
@@ -140,9 +140,9 @@ public class OrderItemTestDataFactory
 
 		try {
 
-			orderItem.setSalePrice(11.83);
+			orderItem.setSalePrice(67.35);
 			orderItem.setQuantity(1);
-			orderItem.setTotal(87.86);
+			orderItem.setTotal(21.39);
 
 			TestDataFactory productTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("productTestDataFactory");

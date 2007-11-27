@@ -1,107 +1,165 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-autowire="byName" xsi:schemaLocation="http://www.springframework.org/schema/beans     http://www.springframework.org/schema/beans/spring-beans.xsd     http://www.springframework.org/schema/tx     http://www.springframework.org/schema/tx/spring-tx.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	default-autowire="byName"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+	   http://www.springframework.org/schema/beans/spring-beans.xsd
+	    http://www.springframework.org/schema/tx   
+	    http://www.springframework.org/schema/tx/spring-tx.xsd
+	    http://www.springframework.org/schema/aop 
+	    http://www.springframework.org/schema/aop/spring-aop.xsd
+	     ">
 
 
 
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" id="propertyPlaceholder">
-		<property name="location" value="classpath:project.properties"/>
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+		id="propertyPlaceholder">
+		<property name="location" value="classpath:project.properties" />
 	</bean>
 
 
-  <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
-     <property name="jpaVendorAdapter">
-        <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-           <property name="showSql" value="${hibernate.showsql}"/>
-           <property name="generateDdl" value="${hibernate.generateddl}"/>
-           <property name="databasePlatform" value="${hibernate.dialect}"/>
-        </bean>
-     </property>
-  </bean>
+	<bean
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		id="entityManagerFactory">
+		<property name="jpaVendorAdapter">
+			<bean
+				class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="${hibernate.showsql}" />
+				<property name="generateDdl"
+					value="${hibernate.generateddl}" />
+				<property name="databasePlatform"
+					value="${hibernate.dialect}" />
+			</bean>
+		</property>
+	</bean>
 
-  <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
-		<property name="driverClassName" value="${hibernate.connection.driver_class}"/>
-		<property name="url" value="${hibernate.connection.url}"/>
-		<property name="username" value="${hibernate.connection.username}"/>
-		<property name="password" value="${hibernate.connection.password}"/>
- </bean>
+	<bean class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" id="dataSource">
+		<property name="driverClassName"
+			value="${hibernate.connection.driver_class}" />
+		<property name="url" value="${hibernate.connection.url}" />
+		<property name="username"
+			value="${hibernate.connection.username}" />
+		<property name="password"
+			value="${hibernate.connection.password}" />
+	</bean>
 
-  <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager"/>
-  
-  <tx:annotation-driven/>
+	<bean class="org.springframework.orm.jpa.JpaTransactionManager"
+		id="transactionManager" />
+
+	<tx:annotation-driven />
+<!--  
+	<aop:conifg>
+		<aop:aspect ref="messagePrinter">
+			<aop:before method="printMessage" 
+				pointcut="execution(* save(..))"/>
+		</aop:aspect>
+	</aop:conifg>
+	
+	<bean id="messagePrinter" class="bizobjects.service.impl.MessagePrinter" />
+-->	
+
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<!-- Velocity -->
+<!--  
+	<bean
+		class="org.springframework.ui.velocity.VelocityEngineFactoryBean"
+		id="velocityEngine">
+		<property name="velocityProperties">
+			<props>
+				<prop key="resource.loader">class</prop>
+				<prop key="class.resource.loader.class">
+					org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+				</prop>
+			</props>
+		</property>
+	</bean>
+-->	
+
+	<!-- Service Beans  -->
+
+	<bean class="bizobjects.service.impl.CustomerServiceImpl"
+		id="customerService" />
+
+	<bean class="bizobjects.service.impl.EmployeeServiceImpl"
+		id="employeeService" />
+
+	<bean class="bizobjects.service.impl.PlacedOrderServiceImpl"
+		id="placedOrderService" />
+
+	<bean class="bizobjects.service.impl.ProductServiceImpl"
+		id="productService" />
+
+	<bean class="bizobjects.service.impl.OrderItemServiceImpl"
+		id="orderItemService" />
+
+	<bean class="bizobjects.service.impl.RegisteredUserServiceImpl"
+		id="registeredUserService" />
+
+	<bean class="usermanagement.service.impl.UserServiceImpl"
+		id="userService" />
+
+	<bean class="usermanagement.service.impl.AuthorityServiceImpl"
+		id="authorityService" />
+
+	<bean
+		class="com.publicfountain.domain.service.impl.TopicServiceImpl"
+		id="topicService" />
+
+	<bean
+		class="com.publicfountain.domain.service.impl.CategoryServiceImpl"
+		id="categoryService" />
+
+	<bean
+		class="com.publicfountain.domain.service.impl.CommentServiceImpl"
+		id="commentService" />
 
 
-  <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
- 
- <!-- Velocity -->
- <bean class="org.springframework.ui.velocity.VelocityEngineFactoryBean" id="velocityEngine">
-    <property name="velocityProperties">
-        <props>
-            <prop key="resource.loader">class</prop>
-            <prop key="class.resource.loader.class">
-                org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
-            </prop>
-        </props>
-    </property>
-</bean>
-  
-  <!-- Service Beans  -->
-  
-	<bean class="bizobjects.service.impl.CustomerServiceImpl" id="customerService"/>
+	<!-- Service Facade -->
+	<bean class="facades.ServiceFacade" id="serviceFacade" />
 
-	<bean class="bizobjects.service.impl.EmployeeServiceImpl" id="employeeService"/>
 
-	<bean class="bizobjects.service.impl.PlacedOrderServiceImpl" id="placedOrderService"/>
+	<!-- Dao Beans  -->
 
-	<bean class="bizobjects.service.impl.ProductServiceImpl" id="productService"/>
+	<bean class="bizobjects.dao.impl.CustomerDaoImpl" id="customerDao" />
 
-	<bean class="bizobjects.service.impl.OrderItemServiceImpl" id="orderItemService"/>
+	<bean class="bizobjects.dao.impl.EmployeeDaoImpl" id="employeeDao" />
 
-	<bean class="bizobjects.service.impl.RegisteredUserServiceImpl" id="registeredUserService"/>
+	<bean class="bizobjects.dao.impl.PlacedOrderDaoImpl"
+		id="placedOrderDao" />
 
-	<bean class="usermanagement.service.impl.UserServiceImpl" id="userService"/>
+	<bean class="bizobjects.dao.impl.ProductDaoImpl" id="productDao" />
 
-	<bean class="usermanagement.service.impl.AuthorityServiceImpl" id="authorityService"/>
+	<bean class="bizobjects.dao.impl.OrderItemDaoImpl"
+		id="orderItemDao" />
 
-	<bean class="com.publicfountain.domain.service.impl.TopicServiceImpl" id="topicService"/>
+	<bean class="bizobjects.dao.impl.RegisteredUserDaoImpl"
+		id="registeredUserDao" />
 
-	<bean class="com.publicfountain.domain.service.impl.CategoryServiceImpl" id="categoryService"/>
+	<bean class="usermanagement.dao.impl.UserDaoImpl" id="userDao" />
 
-	<bean class="com.publicfountain.domain.service.impl.CommentServiceImpl" id="commentService"/>
+	<bean class="usermanagement.dao.impl.AuthorityDaoImpl"
+		id="authorityDao" />
 
-  
-  <!-- Service Facade -->
-    <bean class="facades.ServiceFacade" id="serviceFacade"/>
- 
-  
-  <!-- Dao Beans  -->
-  
-	<bean class="bizobjects.dao.impl.CustomerDaoImpl" id="customerDao"/>
+	<bean class="com.publicfountain.domain.dao.impl.TopicDaoImpl"
+		id="topicDao" />
 
-	<bean class="bizobjects.dao.impl.EmployeeDaoImpl" id="employeeDao"/>
+	<bean class="com.publicfountain.domain.dao.impl.CategoryDaoImpl"
+		id="categoryDao" />
 
-	<bean class="bizobjects.dao.impl.PlacedOrderDaoImpl" id="placedOrderDao"/>
+	<bean class="com.publicfountain.domain.dao.impl.CommentDaoImpl"
+		id="commentDao" />
 
-	<bean class="bizobjects.dao.impl.ProductDaoImpl" id="productDao"/>
 
-	<bean class="bizobjects.dao.impl.OrderItemDaoImpl" id="orderItemDao"/>
+	<!-- Audit logging -->
+	<bean class="org.witchcraft.model.support.audit.AuditLogDaoImpl"
+		id="auditLogDao" />
 
-	<bean class="bizobjects.dao.impl.RegisteredUserDaoImpl" id="registeredUserDao"/>
+	<bean id="entityAuditLogInterceptor" class="org.witchcraft.model.support.audit.EntityAuditLogInterceptor" />
 
-	<bean class="usermanagement.dao.impl.UserDaoImpl" id="userDao"/>
 
-	<bean class="usermanagement.dao.impl.AuthorityDaoImpl" id="authorityDao"/>
-
-	<bean class="com.publicfountain.domain.dao.impl.TopicDaoImpl" id="topicDao"/>
-
-	<bean class="com.publicfountain.domain.dao.impl.CategoryDaoImpl" id="categoryDao"/>
-
-	<bean class="com.publicfountain.domain.dao.impl.CommentDaoImpl" id="commentDao"/>
-
-  
-   	<!-- Audit logging -->
-  	<bean class="org.witchcraft.model.support.audit.AuditLogDaoImpl" id="auditLogDao"/>
- 
-  
-  
-  
 </beans>

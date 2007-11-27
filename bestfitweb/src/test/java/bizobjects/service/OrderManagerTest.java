@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 public class OrderManagerTest extends TestCase{
 	
 	public void testSendMail(){
-		((OrderManager)BeanHelper.getBean("orderManager")).placeOrder();
+		//((OrderManager)BeanHelper.getBean("orderManager")).placeOrder();
 	}
 
 }

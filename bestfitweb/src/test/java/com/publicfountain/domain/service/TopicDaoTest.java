@@ -50,12 +50,12 @@ public class TopicDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			topicInstance.setName("epsilon");
+			topicInstance.setName("Wilson");
 			topicInstance
-					.setExpiry(dateFormat.parse("2007.11.05 17:50:57 EST"));
-			topicInstance.setStatus(com.publicfountain.domain.Status.Active);
+					.setExpiry(dateFormat.parse("2007.11.18 20:35:33 EST"));
+			topicInstance.setStatus(com.publicfountain.domain.Status.Inactive);
 			topicInstance
-					.setTopicType(com.publicfountain.domain.TopicType.Edtiorial);
+					.setTopicType(com.publicfountain.domain.TopicType.CustomOpinion);
 
 			TestDataFactory topicCreatorTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("registeredUserTestDataFactory");
@@ -93,10 +93,10 @@ public class TopicDaoTest extends AbstractJpaTests {
 
 			try {
 
-				topic.setName("delta");
-				topic.setExpiry(dateFormat.parse("2007.10.17 08:37:37 EDT"));
-				topic.setStatus(com.publicfountain.domain.Status.Active);
-				topic.setTopicType(com.publicfountain.domain.TopicType.Image);
+				topic.setName("beta");
+				topic.setExpiry(dateFormat.parse("2007.10.19 08:46:05 EDT"));
+				topic.setStatus(com.publicfountain.domain.Status.Inactive);
+				topic.setTopicType(com.publicfountain.domain.TopicType.Video);
 
 				TestDataFactory topicCreatorTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("registeredUserTestDataFactory");
@@ -130,10 +130,9 @@ public class TopicDaoTest extends AbstractJpaTests {
 			Topic topic = (Topic) topicTestDataFactory.loadOneRecord();
 
 			topic.setName("John");
-			topic.setExpiry(dateFormat.parse("2007.12.01 21:09:19 EST"));
+			topic.setExpiry(dateFormat.parse("2007.10.29 16:46:05 EDT"));
 			topic.setStatus(com.publicfountain.domain.Status.Archived);
-			topic
-					.setTopicType(com.publicfountain.domain.TopicType.CustomOpinion);
+			topic.setTopicType(com.publicfountain.domain.TopicType.Video);
 
 			topicService.save(topic);
 

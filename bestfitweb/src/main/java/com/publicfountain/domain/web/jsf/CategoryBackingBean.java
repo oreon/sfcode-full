@@ -1,8 +1,16 @@
 package com.publicfountain.domain.web.jsf;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+
 import javax.faces.component.UIParameter;
 import javax.faces.event.ActionEvent;
 
+import org.richfaces.component.UITree;
+import org.richfaces.event.NodeSelectedEvent;
+import org.richfaces.model.TreeNode;
+import org.richfaces.model.TreeNodeImpl;
 import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
 
@@ -14,6 +22,8 @@ public class CategoryBackingBean extends BaseBackingBean<Category> {
 	private Category category = new Category();
 
 	private CategoryService categoryService;
+	
+	TreeNode root = null;
 
 	public void setCategoryService(CategoryService categoryService) {
 		this.categoryService = categoryService;
@@ -64,5 +74,35 @@ public class CategoryBackingBean extends BaseBackingBean<Category> {
 
 		category = categoryService.load(id);
 	}
+	
+	public TreeNode getTree() {
+		if(root == null){
+			root = new TreeNodeImpl();
+			List<Category> categories = categoryService.findTopLevelCategories();
+			addCategories(categories, root);
+		}
+		return root;
+	}
+
+	private void addCategories(Collection<Category> categories, TreeNode currentNode) {
+		int counter = 1;
+		for (Category category : categories) {
+			System.out.println(category.getName());
+			
+			TreeNodeImpl nodeImpl = new TreeNodeImpl();
+
+			nodeImpl.setData(category.getName());
+			currentNode.addChild(category, nodeImpl);
+			
+			Set<Category> subcategories = category.getSubcategories();
+			addCategories(subcategories, nodeImpl);
+			counter++;
+		}
+	}
+	
+	public void processSelection(NodeSelectedEvent event) {
+        UITree tree = (UITree) event.getComponent();
+        //nodeTitle = (String) tree.getRowData();
+    }
 
 }

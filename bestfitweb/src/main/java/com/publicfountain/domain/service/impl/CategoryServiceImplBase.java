@@ -63,6 +63,10 @@ public class CategoryServiceImplBase extends BaseServiceImpl<Category>
 		return categoryDao.searchByExample(category);
 	}
 
+	public List<Category> findTopLevelCategories() {
+		return categoryDao.findTopLevelCategories();
+	}
+
 	/*
 	public List query(String queryString, Object... params) {
 		return basicDAO.query(queryString, params);

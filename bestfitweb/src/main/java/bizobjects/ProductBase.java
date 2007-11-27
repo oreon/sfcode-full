@@ -9,6 +9,8 @@ package bizobjects;
 
 import javax.persistence.*;
 import org.hibernate.annotations.Cascade;
+import org.witchcraft.model.support.audit.Auditable;
+
 import java.util.Date;
 
 @MappedSuperclass
@@ -18,7 +20,7 @@ public abstract class ProductBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
 		implements
-			java.io.Serializable {
+			java.io.Serializable, Auditable {
 
 	private static final long serialVersionUID = 1L;
 

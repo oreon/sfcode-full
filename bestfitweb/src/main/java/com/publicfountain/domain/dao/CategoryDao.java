@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface CategoryDao extends GenericDAO<Category> {
 
+	public List<Category> findTopLevelCategories();
 }

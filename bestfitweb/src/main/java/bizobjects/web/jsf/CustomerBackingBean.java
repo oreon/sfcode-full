@@ -64,5 +64,9 @@ public class CustomerBackingBean extends BaseBackingBean<Customer> {
 
 		customer = customerService.load(id);
 	}
+	
+	public void validate(){
+		
+	}
 
 }
