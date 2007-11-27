@@ -9,6 +9,7 @@ import java.lang.reflect.Type;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
+import org.acegisecurity.userdetails.UserDetails;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.EmptyInterceptor;
@@ -59,7 +60,8 @@ public class EntityAuditLogInterceptor extends EmptyInterceptor {
 
 			AuditLog auditLog = new AuditLog(action, (BusinessEntity) entity, entity.getClass()
 					.getCanonicalName(), authentication == null ? "UNKNOWN"
-					: authentication.getDetails().toString());
+					: ((UserDetails)authentication.getPrincipal()).getUsername());
+			
 
 			auditLogDao.save(auditLog);
 		}
