@@ -1,0 +1,78 @@
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT java»
+
+«EXTENSION view::ViewExtensions»
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+
+«REM» Create the view/update xhtml page for an entity «ENDREM»
+«DEFINE genSearchView FOR Entity-»
+	
+	«EXPAND ViewGen::genIncludes("templateCrud.xhtml")-»
+	
+	<ui:define name="content">
+
+		<f:view>
+			<h:messages layout="list" globalOnly="true" showDetail="true"
+			styleClass="messages" />
+		
+			<a4j:form id="form">
+				<rich:tabPanel switchType="client">
+					<rich:tab label="Basic" >
+					<h:panelGrid columns="6" styleClass="formTable">
+						<f:facet name="header">
+							<h:outputText value="«NameS» Information"
+								styleClass="formHeaderText"   />
+						</f:facet>
+						
+							«FOREACH getAllAttributes AS attrib-»
+							<h:outputText value="«attrib.NameS.toFirstUpper() »" styleClass="formLabel" />
+							
+							<«attrib.getElementType()»  «attrib.getElementAttributes()»  
+								id="«asInstanceVar()»_«attrib.TypeModifier»_«attrib.NameS»"
+								value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«attrib.fullName()»}">
+								«attrib.getElementContent()»
+							</«attrib.getElementType()»>
+							
+							<h:message for="«asInstanceVar()»_«attrib.TypeModifier»_«attrib.NameS»" styleClass="errMessage" />
+							
+							«ENDFOREACH»
+							
+							«FOREACH getAllOutgoingAssociations AS ae -»
+								<h:outputText value="«ae.NameS.toFirstUpper()»" styleClass="formLabel" />
+								«EXPAND ViewGen::genDropDown(this, true) FOR ae»
+							«ENDFOREACH»
+							
+  						   <h:commandButton id="button1" value="Search" action="#{«asInstanceVar()»CrudBacking.search}"  /> 
+  						    <h:commandButton id="button2" value="Cancel" action="cancel" immediate="true"/> 
+  				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
+		  				   	<h:inputHidden id="«asInstanceVar()»_id" value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».id}" />
+
+						</h:panelGrid>
+						</rich:tab>
+						<rich:tab label="Advanced">
+							<h:outputText value="Creation Date" styleClass="formLabel" />
+							
+							<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
+								id="customer__creation"
+								value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».dateCreated}">
+								
+							</t:inputCalendar >
+							
+							<h:message for="customer__dob" styleClass="errMessage" />
+				
+						
+						</rich:tab>
+						
+						
+				</rich:tabPanel>
+					
+			</a4j:form>
+		</f:view>
+
+	</ui:define>
+</ui:composition>
+
+«ENDDEFINE»

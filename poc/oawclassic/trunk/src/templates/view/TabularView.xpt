@@ -1,0 +1,139 @@
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT java»
+
+«EXTENSION view::ViewExtensions»
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+
+«REM» Create the tabular view xhtml page for an entity «ENDREM»
+«DEFINE genTabularView FOR Entity-»
+	
+	«EXPAND ViewGen::genIncludes("templateCrud.xhtml")-»
+	
+	<ui:define name="content">
+
+		<f:view>
+			<h:messages layout="list" globalOnly="true" showDetail="true"
+			styleClass="messages" />
+		
+			<a4j:form id="form">
+				<rich:tabPanel  switchType="ajax">
+					<rich:tab label="Tabular" >
+					<t:dataTable id="data" var="«asInstanceVar()»"
+						value="#{«asInstanceVar()»CrudBacking.records}" rows="30"
+					rowClasses="odd, even" styleClass="dataTable">
+						
+							«EXPAND genTableRow(asInstanceVar()) FOREACH getAllAttributes -»
+							
+							«REM»The associated entites for e.g an order would need a customer «ENDREM»
+							«EXPAND genTableRow(this) FOREACH getAllOutgoingAssociations -»
+							
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="id" arrow="true">
+										<t:outputText value=" " />
+									</t:commandSortHeader>
+								</f:facet>
+								<!--
+								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+								--> 
+								<t:commandLink action="#{«asInstanceVar()»CrudBacking.select}"
+									actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}">
+									<t:outputText value=" Edit " />
+									<f:param id="editId" name="id" value="#{«asInstanceVar()».id}" />
+								</t:commandLink>
+								<!--
+								</acegijsf:authorize>
+								--> 
+							</t:column>
+							
+							 	</t:dataTable>	
+							 </rich:tab>
+							 «IF getTreeFields != null»
+							 <rich:tab label="Tree" >
+							 	<rich:tree value="#{«asInstanceVar()»CrudBacking.tree}" 
+								var="data" switchType="client" 
+								nodeSelectListener="#{«asInstanceVar()»CrudBacking.processTreeSelection}"
+								/>
+							 </rich:tab>
+							 
+							 «ENDIF»
+						«REM» The audit log table goes here«ENDREM»	 
+							 <rich:tab label="Audit" >
+							 	<t:dataTable id="dataAudit" var="log"
+							value="#{productCrudBacking.auditLog}" rows="30"
+							rowClasses="odd, even" styleClass="dataTable">
+							
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
+									<t:outputText value="Date" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.dateCreated}" />
+							</t:column>
+							
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="Brand" arrow="true"> -->
+									<t:outputText value="Action" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.action}" />
+							</t:column>
+
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
+									<t:outputText value="User" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.username}" />
+							</t:column>
+							
+							
+							
+							«EXPAND genTableRow("log.entity") FOREACH getAllAttributes -»
+							
+							
+							</t:dataTable>
+							 </rich:tab>
+							 
+							</rich:tabPanel>
+  						 </a4j:form>
+
+						<br />
+						<hr />
+						<a href="«asInstanceVar()».jsf"> Add New </a>
+						<a href="«asInstanceVar()»Search.jsf"> Search </a>
+						<hr />
+
+		</f:view>
+
+	</ui:define>
+</ui:composition>
+
+«ENDDEFINE»
+
+
+«DEFINE genTableRow(String parent) FOR Attribute»
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="«NameS.toFirstUpper()»" /> 
+		</f:facet>
+		<t:outputText value="#{«parent».«fullName()»}" />
+	</t:column>
+«ENDDEFINE»
+
+«DEFINE genTableRow(Class c) FOR AssociationEnd»
+	<t:column>
+		<f:facet name="header">
+			<!-- <t:commandSortHeader columnName="«NameS.toFirstUpper()»" arrow="true"> -->
+				<t:outputText value="«NameS.toFirstUpper()»" /> 
+			<!-- </t:commandSortHeader> -->
+		</f:facet>
+		<t:outputText value="#{«c.asInstanceVar()».«associationName()».displayName}" />
+	</t:column>
+«ENDDEFINE»
