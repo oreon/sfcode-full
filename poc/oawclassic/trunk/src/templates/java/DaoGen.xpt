@@ -36,6 +36,18 @@
 			
 			«EXPAND FinderImpl(this) FOREACH Findable-»
 			
+			 «IF getTreeFields != null»
+			 /**
+			 * For tree view , this method returns top level
+			 * elements (whose parent is null )
+			 */ 
+			 public List<«NameS»> findTopLevelElements(){
+			 	String queryStr = "Select c from «NameS» c where c.«getTreeTopLevel» is null";
+				Query query = entityManager.createQuery(queryStr);
+				return query.getResultList();
+			 }
+			 «ENDIF»
+			
 		} 
 	«ENDFILE»	
 	
@@ -96,6 +108,14 @@
 	public interface «NameS»Dao extends GenericDAO<«NameS»> {
 		    
 		«EXPAND FinderDeclaration(this) FOREACH Findable -»
+		
+		 «IF getTreeFields != null»
+		 /**
+		 * For tree view , this method returns top level
+		 * elements (whose parent is null )
+		 */ 
+		 public List<Category> findTopLevelElements();
+		 «ENDIF»
 			
 	}		
 	

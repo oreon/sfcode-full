@@ -370,6 +370,10 @@ public class ClassUtil {
 	 * @return
 	 */
 	public static String getInstantiationIfComposition(AssociationEnd ae) {
+		//for self referencing associations we dont need instantion
+		if(ae.Opposite().Class().equals(ae.Class()))
+			return "";
+		
 		if (ae.Opposite().isComposition() )
 			return " = new " + fullyQualifiedName(ae.Class()) + "()";
 		if (isAssociationOneOnOne(ae))

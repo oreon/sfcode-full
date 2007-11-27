@@ -129,6 +129,16 @@
 		public List<«NameS»> searchByExample(«NameS» «asInstanceVar()») {
 			return «asInstanceVar()»Dao.searchByExample(«asInstanceVar()»);
 		}
+		
+		«IF getTreeFields != null»
+			 /**
+			 * For tree view , this method returns top level
+			 * elements (whose parent is null )
+			 */ 
+			 public List<«NameS»> findTopLevelElements(){
+			 	return «asInstanceVar()»Dao.findTopLevelElements();
+			 }
+		«ENDIF»
 	
 		/*
 		public List query(String queryString, Object... params) {

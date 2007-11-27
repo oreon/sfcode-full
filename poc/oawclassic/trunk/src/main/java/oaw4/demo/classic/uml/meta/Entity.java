@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.openarchitectureware.core.meta.core.ElementSet;
+import org.witchcraft.generator.GeneratorEngineException;
 
 public class Entity extends AbstractEntity {
 
@@ -19,6 +20,7 @@ public class Entity extends AbstractEntity {
 	// that will log in and use the system
 	// should have this flag turned on
 	private boolean isUser;
+	
 	private String tableName;
 
 	private String uniqueConstraints;
@@ -26,6 +28,10 @@ public class Entity extends AbstractEntity {
 	private String inheritanceStrategy;
 	
 	private String testSeed;
+	
+	private String treeFields;
+	
+	private String namedQueries;
 
 	// this is needed when we need to manually supply a base class
 	// e.g for usermanagement the User class's base class has to be withcraft
@@ -144,9 +150,17 @@ public class Entity extends AbstractEntity {
 	}
 	
 	public List<String> getTestSeedAsCollection(){
-		
-		if(testSeed.startsWith("{") && testSeed.endsWith("}") ){
-			String[] testSeedArray = testSeed.split("[ ]*,[ ]*|\\}|\\{");
+		return stringArrayAsList(testSeed);
+	}
+
+	/** Takes a string of the form {val1, val2, ...} and returns 
+	 *  a list consisting of val1, val2...
+	 * @param target
+	 * @return
+	 */
+	private List<String> stringArrayAsList(String target) {
+		//if(target.startsWith("{") && target.endsWith("}") ){
+			String[] testSeedArray = target.split("[ ]*,[ ]*|\\}|\\{");
 			List<String> lst = new ArrayList<String>();
 			
 			for (String arrArg : testSeedArray) {
@@ -154,10 +168,32 @@ public class Entity extends AbstractEntity {
 					lst.add(arrArg);
 			}
 			return lst;
-		}
-		
-		//FIXME: Throw exception
-		return null;
+		//}//else
+		//	throw new GeneratorEngineException(target + " should be of the form {val1, val2}");
+	}
+
+	public String getTreeFields() {
+		return treeFields;
+	}
+	
+	public List<String> getTreeFieldsAsCollection(){
+		return stringArrayAsList(treeFields);
+	}
+	
+	public String getTreeTopLevel(){
+		return getTreeFieldsAsCollection().get(0);
+	}
+
+	public void setTreeFields(String treeFields) {
+		this.treeFields = treeFields;
+	}
+
+	public String getNamedQueries() {
+		return namedQueries;
+	}
+
+	public void setNamedQueries(String namedQueries) {
+		this.namedQueries = namedQueries;
 	}
 
 }
