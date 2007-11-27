@@ -1,8 +1,7 @@
 package org.witchcraft.model.support.audit;
 
-import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import javax.persistence.Transient;
 
@@ -16,7 +15,7 @@ import org.witchcraft.model.support.BusinessEntity;
 //@Table(uniqueConstraints={@UniqueConstraint(columnNames={"dateCreated","username"})})
 public class AuditLog<T> extends BusinessEntity{
 	private AuditAction action;
-	@Basic
+	
 	private BusinessEntity record;
 	private String entityName;
 	private String username;
@@ -40,7 +39,8 @@ public class AuditLog<T> extends BusinessEntity{
 		this.action = action;
 	}
 	
-	
+	@Lob
+	@Column(length=1048576)
 	public BusinessEntity getRecord() {
 		return record;
 	}
