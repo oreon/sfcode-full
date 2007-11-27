@@ -21,6 +21,14 @@
 	import «packageName()». «asParameter()»;
 	import «parentPackageName()».service.«NameS»Service;
 	
+	«IF getTreeFields != null»
+		import java.util.Collection;
+		import org.richfaces.component.UITree;
+		import org.richfaces.event.NodeSelectedEvent;
+		import org.richfaces.model.TreeNode;
+		import org.richfaces.model.TreeNodeImpl;
+	«ENDIF»
+	
 	
 	public class «asParameter()»BackingBean extends BaseBackingBean<«NameS»>{
 	
@@ -28,6 +36,9 @@
 			
 			private	«asParameter()»Service «asInstanceVar()»Service;
 			
+			«IF getTreeFields != null»
+			private TreeNode root = null;
+			«ENDIF»
 			
 			public void set«NameS»Service(«asParameter()»Service «asInstanceVar()»Service){
 				this.«asInstanceVar()»Service = «asInstanceVar()»Service;
@@ -85,6 +96,39 @@
 		    	
 		    	«asInstanceVar()» = «asInstanceVar()»Service.load(id);
 		    }
+		    
+		 «IF getTreeFields != null»
+		  
+			public TreeNode getTree() {
+				if(root == null){
+					root = new TreeNodeImpl();
+					Collection<«NameS»> «asInstanceVar()»s = 
+					 	«asInstanceVar()»Service.findTopLevelElements();
+					addChildren(«asInstanceVar()»s, root);
+					return root;
+				}
+				return root;
+			}
+		
+			private void addChildren(Collection<«NameS»> «asInstanceVar()»s, TreeNode currentNode) {
+			
+				for («NameS» currentEntity : «asInstanceVar()»s) {
+					
+					TreeNodeImpl nodeImpl = new TreeNodeImpl();
+
+					nodeImpl.setData(currentEntity.getDisplayName());
+					currentNode.addChild(currentEntity, nodeImpl);
+		
+					Collection<Category> childEntites = currentEntity.getChildren();
+					addChildren(childEntites, nodeImpl);
+				}
+			}
+			
+			public void processSelection(NodeSelectedEvent event) {
+		        UITree tree = (UITree) event.getComponent();
+		        //nodeTitle = (String) tree.getRowData();
+		    }
+		«ENDIF»
 
 	} 
 	«ENDFILE»
