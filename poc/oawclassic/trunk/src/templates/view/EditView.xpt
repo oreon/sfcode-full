@@ -27,7 +27,7 @@
 	
 							«REM»The associated entites for e.g an order would need a customer «ENDREM»
 							«FOREACH getAllOutgoingAssociations AS ae -»
-								<h:outputText value="«ae.NameS.toFirstUpper() + (ae.isAssocNullable()?"":"*") »" styleClass="formLabel" />
+								<h:outputText value="«ae.associationName().toFirstUpper() + (ae.isAssocNullable()?"":"*") »" styleClass="formLabel" />
 								«EXPAND ViewGen::genDropDown(this, true) FOR ae»
 							«ENDFOREACH»
 							

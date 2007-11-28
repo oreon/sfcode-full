@@ -31,23 +31,15 @@
 
 
 «DEFINE Setter FOR Attribute»
-public void set«NameS.toFirstUpper()» («Type.NameS» «NameS») {
-this.«NameS» = «NameS»;
-}
+	public void set«NameS.toFirstUpper()» («Type.NameS» «NameS») {
+		this.«NameS» = «NameS»;
+	}
 «ENDDEFINE»
 
 «DEFINE Generator FOR Operation»
 	«operationHelper()»
 «ENDDEFINE»
 
-«DEFINE Generator2 FOR Operation»
-public  «ReturnType.NameS» «NameS» («EXPAND ParametersGen FOREACH  Parameter») {
-//Todo: autogen methods
-	«IF hasReturnType»
-		return null;
-	«ENDIF»
-}
-«ENDDEFINE»
 
 «DEFINE ParametersGen FOR Parameter»
 	 «Type.NameS» «NameS» 

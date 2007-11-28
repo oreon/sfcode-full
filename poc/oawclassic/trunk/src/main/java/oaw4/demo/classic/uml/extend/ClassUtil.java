@@ -6,10 +6,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import oaw4.demo.classic.uml.meta.Entity;
+import oaw4.demo.classic.uml.meta.Service;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
-import org.openarchitectureware.core.meta.core.Element;
 import org.openarchitectureware.meta.uml.Type;
 import org.openarchitectureware.meta.uml.classifier.AssociationEnd;
 import org.openarchitectureware.meta.uml.classifier.Attribute;
@@ -29,6 +29,9 @@ public class ClassUtil {
 	private static StringBuffer entityMappings = new StringBuffer();
 
 	private static List<Entity> entities = new ArrayList<Entity>();
+	
+	private static List<Service> services = new ArrayList<Service>();
+	
 
 	public static List<Entity> getEntities() {
 		return entities;
@@ -84,7 +87,7 @@ public class ClassUtil {
 	 * @param operation
 	 * @return
 	 */
-	private static String getOperationDeclaration(Operation operation) {
+	public static String getOperationDeclaration(Operation operation) {
 		String opText = new String();
 		if (operation.Documentation() != null)
 			opText += operation.Documentation() + "\n";
@@ -122,7 +125,8 @@ public class ClassUtil {
 
 		if (!type.Namespace().NameS().equals(
 				operation.Class().Namespace.NameS())) {
-			paramType = type.Namespace().NameS() + "." + paramType;
+			if(!type.Namespace().NameS().equals("datatypes"))
+				paramType = getPackageName((Class)type) + "." + paramType;
 		}
 		return paramType;
 	}
@@ -148,18 +152,14 @@ public class ClassUtil {
 
 			for (int j = 0; j < operations.size(); j++) {
 				Operation operation = operations.get(j);
-				if (!classContainsOperation(cls, operation)) { // if the
-					// operation is
-					// already
-					// implemented
-					// by the class
+				// if the operation is  already implemented by the class
+				if (!classContainsOperation(cls, operation)) { 
 					buffer.append(getOperationDeclaration(operation));
 					buffer.append(getOperationBody(operation));
 				}
 			}
 
-			buffer
-					.append(GenericUtils
+			buffer.append(GenericUtils
 							.createSingleLineComment("*****Done Implementing interface "
 									+ interfaces.get(i).Name() + " ****"));
 
@@ -251,6 +251,7 @@ public class ClassUtil {
 					+ "\n");
 	}
 
+
 	/**
 	 * This method returns if the given class is an entity - for now it just
 	 * checks for a hardcoded package name called "bizobjects" - in production
@@ -287,7 +288,7 @@ public class ClassUtil {
 	 * @param operation
 	 * @return
 	 */
-	private static String getOperationBody(Operation operation) {
+	public static String getOperationBody(Operation operation) {
 		if (operation.hasReturnType()
 				&& !operation.ReturnType().NameS().equals("void")) {
 			return "{ return null; " + "\n //should return "
@@ -311,6 +312,7 @@ public class ClassUtil {
 
 		declaration += "protected " + attribute.Type().NameS() + " "
 				+ attribute.NameS();
+		
 
 		if (attribute.InitValue() != null)
 			declaration += " = " + attribute.InitValue();
@@ -459,6 +461,14 @@ public class ClassUtil {
 	public static String resetCounter() {
 		count = 0;
 		return "";
+	}
+
+	public static List<Service> getServices() {
+		return services;
+	}
+	
+	public static void addService(Service service){
+		services.add(service);
 	}
 
 }

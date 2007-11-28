@@ -27,6 +27,24 @@
 «ENDDEFINE»
 
 
+«DEFINE genManualFileServiceTest(String extensionPath, String extensionName, String annotations) FOR Service»
+
+	«FILE extensionPath + "/" + packagePath()+  "/" + NameS + extensionName + ".java" man_path»
+		
+		package «packageName()»;
+		
+		«EXPAND GenImports FOR this»
+		
+		«annotations»
+		public class «NameS + extensionName» extends «NameS + extensionName»Base{
+			
+			«getLoggerDeclaration(NameS + extensionName)»;
+	
+		}  
+	«ENDFILE» 
+«ENDDEFINE»
+
+
 
 
 «DEFINE GenImports FOR Element»

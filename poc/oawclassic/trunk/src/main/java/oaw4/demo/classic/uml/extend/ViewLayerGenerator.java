@@ -113,14 +113,7 @@ public class ViewLayerGenerator {
 		
 		Transition t;
 		State s;
-		
-		//Action a = t.Action();
-		
-		//org.openarchitectureware.meta.uml.
-		
-		//t.Action().
-		//t.Trigger().
-		
+				
 		return states;
 	}
 	
@@ -275,7 +268,7 @@ public class ViewLayerGenerator {
 	 * @param nameS
 	 * @return
 	 */
-	private static String getImmediatePackage(String nameS) {
+	public static String getImmediatePackage(String nameS) {
 		if (nameS.indexOf(".") > 0) {
 			String arr[] = nameS.split("\\.");
 			return arr[arr.length - 1]; // return the last item

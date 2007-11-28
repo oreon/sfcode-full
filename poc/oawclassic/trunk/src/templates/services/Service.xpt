@@ -1,0 +1,77 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+«EXTENSION services::Service»
+
+«REM» This artifact generates service layer interfaces and implementations.  «ENDREM»
+«DEFINE GenService FOR Service»
+	«addService()»
+	«EXPAND GenerateServiceInterface»
+	«EXPAND GenerateServiceImpl»
+	«EXPAND Tests::GenerateTest»
+«ENDDEFINE»	
+
+«DEFINE GenerateServiceImpl FOR Service»
+
+	«FILE packagePath() + "/impl/"+ NameS +"ImplBase.java"»  
+	«EXPAND JavaBean::GenCodeWarning-»
+	
+	«EXPAND ManualFileGen::genManualFile( "/" + Namespace.NameS + "/impl", "Impl",
+		 "@Transactional(readOnly=false, propagation=Propagation.REQUIRED)")»
+
+	package «packageName()».impl;
+	import «packageName()».«NameS»;
+	
+	import org.springframework.transaction.annotation.Transactional;
+	import org.springframework.transaction.annotation.Propagation;
+	
+	import org.apache.log4j.Logger;
+
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
+	public class «NameS»ImplBase implements «NameS»{
+	
+		private static final Logger log = Logger.getLogger(«NameS»ImplBase.class);
+		
+		«EXPAND java::Attribute::PropertyDeclaration FOREACH Attribute»
+		
+		«EXPAND java::Attribute::Getter FOREACH Attribute»
+		
+		«EXPAND java::Attribute::Setter FOREACH Attribute»
+		
+		«FOREACH Operation AS o»
+			«o.getOperationDeclaration()»
+			«o.getOperationBody()»
+		«ENDFOREACH»
+		
+			
+	}
+	
+	«ENDFILE»	
+	
+«ENDDEFINE»
+
+
+«DEFINE GenerateServiceInterface FOR Service»
+
+	«FILE packagePath() + "/" + NameS + ".java"» 
+		
+	package «packageName()»;
+	
+	/**
+	 * «Documentation»
+	 */
+	public interface «NameS»{
+		
+		«FOREACH Operation AS o»
+			«o.getOperationDeclaration()»;
+		«ENDFOREACH»
+			
+	}		
+	
+	«ENDFILE»	
+«ENDDEFINE»
+	

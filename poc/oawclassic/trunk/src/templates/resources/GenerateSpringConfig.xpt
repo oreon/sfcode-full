@@ -5,6 +5,7 @@
 «IMPORT java»
 «EXTENSION java::NamingConventions»
 «EXTENSION java::DBAttributes»
+«EXTENSION services::Service»
 
 «DEFINE SpringConfig FOR Model»
 
@@ -60,11 +61,14 @@
     </property>
 </bean>
   
-  <!-- Service Beans  -->
+  <!-- Service Beans For entities-->
   «EXPAND GenerateServiceBeanDef FOREACH getEntities()»
   
   <!-- Service Facade -->
     <bean id="serviceFacade" class="facades.ServiceFacade" />
+    
+    <!-- Service Beans  -->
+  «EXPAND GenerateServiceBeanDef FOREACH getServices()»
  
   
   <!-- Dao Beans  -->
@@ -110,6 +114,14 @@
 
 «DEFINE GenerateTestDataFactoryBeanDef FOR Entity»
 	<bean id="«asInstanceVar()»TestDataFactory" class="«fqn()»TestDataFactory" />
+«ENDDEFINE»
+
+«DEFINE GenerateServiceBeanDef FOR Service-»
+	<bean id="«asInstanceVar()»" class="«packageName()».impl.«NameS»Impl" >
+	«FOREACH getAllAttribs AS a-»
+		<property name="«a.NameS»" value="«a.InitValue»" /> 
+	«ENDFOREACH»
+	</bean>
 «ENDDEFINE»
 
 

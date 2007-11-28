@@ -22,7 +22,7 @@ associationName(ae);
 
 //If association has no name we use the class's name
 String associationName(AssociationEnd ae) :
-ae.NameS != null ?ae.NameS: ae.Class.NameS.toFirstLower();
+ae.NameS != null && ae.NameS != ""?ae.NameS: ae.Class.NameS.toFirstLower();
 
 
 ElementSet getEmebeddedComponents(AbstractEntity entity):
