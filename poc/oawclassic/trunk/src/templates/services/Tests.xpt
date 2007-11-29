@@ -27,7 +27,14 @@
  			«FOREACH Operation AS o»
  				@Test
 				public void «o.NameS»Test(){
-				
+					/*
+					«FOREACH Parameter AS p»
+						«p.Type» «p.NameS» = «p.NameS».TestDataFactory.createRandom«NameS»(); 
+					«ENDFOREACH»
+					
+					«o.ReturnType» result =  «NameS.toFirstLower()».«o.NameS»();		
+					assertEquals(result, expected);
+					*/ 
 				}
 			«ENDFOREACH»
 	
