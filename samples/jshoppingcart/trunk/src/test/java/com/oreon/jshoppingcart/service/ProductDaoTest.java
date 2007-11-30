@@ -51,7 +51,7 @@ public class ProductDaoTest extends AbstractJpaTests {
 		try {
 
 			productInstance.setName("Lavendar");
-			productInstance.setPrice(75.16);
+			productInstance.setPrice(42.52);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -82,8 +82,8 @@ public class ProductDaoTest extends AbstractJpaTests {
 
 			try {
 
-				product.setName("theta");
-				product.setPrice(19.55);
+				product.setName("Wilson");
+				product.setPrice(26.83);
 
 				TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("categoryTestDataFactory");
@@ -110,7 +110,7 @@ public class ProductDaoTest extends AbstractJpaTests {
 			Product product = (Product) productTestDataFactory.loadOneRecord();
 
 			product.setName("theta");
-			product.setPrice(53.27);
+			product.setPrice(99.86);
 
 			productService.save(product);
 

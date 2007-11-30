@@ -42,8 +42,8 @@ public class ProductTestDataFactory extends AbstractTestDataFactory<Product> {
 
 		try {
 
-			product.setName("Lavendar");
-			product.setPrice(4.14);
+			product.setName("John");
+			product.setPrice(13.79);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -66,8 +66,8 @@ public class ProductTestDataFactory extends AbstractTestDataFactory<Product> {
 
 		try {
 
-			product.setName("epsilon");
-			product.setPrice(21.78);
+			product.setName("John");
+			product.setPrice(74.86);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -90,8 +90,8 @@ public class ProductTestDataFactory extends AbstractTestDataFactory<Product> {
 
 		try {
 
-			product.setName("gamma");
-			product.setPrice(53.17);
+			product.setName("pi");
+			product.setPrice(12.46);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -115,7 +115,7 @@ public class ProductTestDataFactory extends AbstractTestDataFactory<Product> {
 		try {
 
 			product.setName("pi");
-			product.setPrice(79.6);
+			product.setPrice(55.9);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -138,8 +138,8 @@ public class ProductTestDataFactory extends AbstractTestDataFactory<Product> {
 
 		try {
 
-			product.setName("delta");
-			product.setPrice(46.69);
+			product.setName("theta");
+			product.setPrice(62.25);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -201,7 +201,7 @@ public class ProductTestDataFactory extends AbstractTestDataFactory<Product> {
 	 */
 	public static void main(String args[]) {
 
-		int recordsTocreate = 200;
+		int recordsTocreate = 30;
 
 		TestDataFactory placedOrderTestDataFactory = (TestDataFactory) BeanHelper
 				.getBean("placedOrderTestDataFactory");

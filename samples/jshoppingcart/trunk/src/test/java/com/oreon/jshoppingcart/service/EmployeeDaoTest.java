@@ -50,10 +50,10 @@ public class EmployeeDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			employeeInstance.setFirstName("John");
-			employeeInstance.setLastName("Lavendar");
-			employeeInstance.setEmpCode(9799);
-			employeeInstance.setEmail("pi70257");
+			employeeInstance.setFirstName("beta");
+			employeeInstance.setLastName("theta");
+			employeeInstance.setEmpCode(7054);
+			employeeInstance.setEmail("epsilon55821");
 
 			employeeService.save(employeeInstance);
 		} catch (PersistenceException pe) {
@@ -77,10 +77,10 @@ public class EmployeeDaoTest extends AbstractJpaTests {
 
 			try {
 
-				employee.setFirstName("beta");
-				employee.setLastName("theta");
-				employee.setEmpCode(2252);
-				employee.setEmail("beta18581");
+				employee.setFirstName("delta");
+				employee.setLastName("John");
+				employee.setEmpCode(4704);
+				employee.setEmail("Eric25414");
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -100,10 +100,10 @@ public class EmployeeDaoTest extends AbstractJpaTests {
 			Employee employee = (Employee) employeeTestDataFactory
 					.loadOneRecord();
 
-			employee.setFirstName("zeta");
-			employee.setLastName("Malissa");
-			employee.setEmpCode(7359);
-			employee.setEmail("theta96714");
+			employee.setFirstName("Lavendar");
+			employee.setLastName("Mark");
+			employee.setEmpCode(4745);
+			employee.setEmail("theta38193");
 
 			employeeService.save(employee);
 
