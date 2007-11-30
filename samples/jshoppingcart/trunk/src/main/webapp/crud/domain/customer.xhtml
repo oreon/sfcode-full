@@ -19,13 +19,12 @@
 			styleClass="messages" />
 		
 			<a4j:form id="form">
-				<rich:panel>
-					<h:panelGrid columns="3" styleClass="formTable">
-						<f:facet name="header">
-							<h:outputText value="Customer Information"
-								styleClass="formHeaderText"   />
-						</f:facet>
-						
+				<rich:panel header="Customer Information">
+					<h:outputText value="Please correct the following issues !" 
+				rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
+				
+					<h:panelGrid columns="2" styleClass="formTableCustom">
+	
 							
 							
 							
@@ -33,58 +32,70 @@
 	
 	<h:outputText value="FirstName" styleClass="formLabel" />
 	
+	<h:panelGroup>
+	<a4j:region>
+		
 	<h:inputText    required="false" 
 		id="customer__firstName"
 		value="#{customerCrudBacking.customer.firstName}">
 		
+		<a4j:support event="onkeyup" delay="900"  />
 	</h:inputText>
-
+		
 	<rich:message for="customer__firstName" styleClass="errMessage">
 		<f:facet name="errorMarker">
 			<h:graphicImage url="/images/icons/bullet_error.png" />
 		</f:facet>
-		<f:facet name="passedMarker">
-			<h:graphicImage url="/images/icons/accept.png" />
-		</f:facet>
-	</rich:message>
+	</rich:message> 
+		</a4j:region>
+	</h:panelGroup>
+							
 	
 
 	
 	<h:outputText value="LastName*" styleClass="formLabel" />
 	
+	<h:panelGroup>
+	<a4j:region>
+		
 	<h:inputText    required="true" 
 		id="customer__lastName"
 		value="#{customerCrudBacking.customer.lastName}">
 		<f:validateLength minimum="3"/>
+		<a4j:support event="onkeyup" delay="900"  />
 	</h:inputText>
-
+		
 	<rich:message for="customer__lastName" styleClass="errMessage">
 		<f:facet name="errorMarker">
 			<h:graphicImage url="/images/icons/bullet_error.png" />
 		</f:facet>
-		<f:facet name="passedMarker">
-			<h:graphicImage url="/images/icons/accept.png" />
-		</f:facet>
-	</rich:message>
+	</rich:message> 
+		</a4j:region>
+	</h:panelGroup>
+							
 	
 
 	
 	<h:outputText value="Remarks" styleClass="formLabel" />
 	
+	<h:panelGroup>
+	<a4j:region>
+		
 	<h:inputText    required="false" 
 		id="customer__remarks"
 		value="#{customerCrudBacking.customer.remarks}">
 		
+		<a4j:support event="onkeyup" delay="900"  />
 	</h:inputText>
-
+		
 	<rich:message for="customer__remarks" styleClass="errMessage">
 		<f:facet name="errorMarker">
 			<h:graphicImage url="/images/icons/bullet_error.png" />
 		</f:facet>
-		<f:facet name="passedMarker">
-			<h:graphicImage url="/images/icons/accept.png" />
-		</f:facet>
-	</rich:message>
+	</rich:message> 
+		</a4j:region>
+	</h:panelGroup>
+							
 	
 					
 				

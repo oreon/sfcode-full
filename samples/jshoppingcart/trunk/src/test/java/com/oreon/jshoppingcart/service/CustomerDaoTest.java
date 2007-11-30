@@ -50,9 +50,9 @@ public class CustomerDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			customerInstance.setFirstName("theta");
-			customerInstance.setLastName("gamma");
-			customerInstance.setRemarks("theta");
+			customerInstance.setFirstName("epsilon");
+			customerInstance.setLastName("Malissa");
+			customerInstance.setRemarks("John");
 
 			customerService.save(customerInstance);
 		} catch (PersistenceException pe) {
@@ -76,9 +76,9 @@ public class CustomerDaoTest extends AbstractJpaTests {
 
 			try {
 
-				customer.setFirstName("delta");
-				customer.setLastName("theta");
-				customer.setRemarks("theta");
+				customer.setFirstName("gamma");
+				customer.setLastName("John");
+				customer.setRemarks("alpha");
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -98,9 +98,9 @@ public class CustomerDaoTest extends AbstractJpaTests {
 			Customer customer = (Customer) customerTestDataFactory
 					.loadOneRecord();
 
-			customer.setFirstName("Eric");
-			customer.setLastName("Mark");
-			customer.setRemarks("zeta");
+			customer.setFirstName("Malissa");
+			customer.setLastName("alpha");
+			customer.setRemarks("epsilon");
 
 			customerService.save(customer);
 

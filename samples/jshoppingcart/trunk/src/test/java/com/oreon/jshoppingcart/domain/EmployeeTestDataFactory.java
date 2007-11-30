@@ -42,9 +42,10 @@ public class EmployeeTestDataFactory extends AbstractTestDataFactory<Employee> {
 
 		try {
 
-			employee.setFirstName("pi");
-			employee.setLastName("theta");
-			employee.setEmpCode(4842);
+			employee.setFirstName("Eric");
+			employee.setLastName("alpha");
+			employee.setEmpCode(4637);
+			employee.setEmail("Lavendar34490");
 
 			register(employee);
 
@@ -60,9 +61,10 @@ public class EmployeeTestDataFactory extends AbstractTestDataFactory<Employee> {
 
 		try {
 
-			employee.setFirstName("epsilon");
+			employee.setFirstName("zeta");
 			employee.setLastName("Malissa");
-			employee.setEmpCode(1017);
+			employee.setEmpCode(2493);
+			employee.setEmail("theta53955");
 
 			register(employee);
 
@@ -78,9 +80,10 @@ public class EmployeeTestDataFactory extends AbstractTestDataFactory<Employee> {
 
 		try {
 
-			employee.setFirstName("theta");
-			employee.setLastName("John");
-			employee.setEmpCode(2034);
+			employee.setFirstName("Eric");
+			employee.setLastName("Malissa");
+			employee.setEmpCode(8929);
+			employee.setEmail("Wilson61203");
 
 			register(employee);
 
@@ -96,9 +99,10 @@ public class EmployeeTestDataFactory extends AbstractTestDataFactory<Employee> {
 
 		try {
 
-			employee.setFirstName("Eric");
+			employee.setFirstName("Mark");
 			employee.setLastName("Wilson");
-			employee.setEmpCode(936);
+			employee.setEmpCode(1415);
+			employee.setEmail("beta46415");
 
 			register(employee);
 
@@ -114,9 +118,10 @@ public class EmployeeTestDataFactory extends AbstractTestDataFactory<Employee> {
 
 		try {
 
-			employee.setFirstName("Eric");
-			employee.setLastName("pi");
-			employee.setEmpCode(6020);
+			employee.setFirstName("John");
+			employee.setLastName("Wilson");
+			employee.setEmpCode(1529);
+			employee.setEmail("Malissa15653");
 
 			register(employee);
 
@@ -195,6 +200,8 @@ public class EmployeeTestDataFactory extends AbstractTestDataFactory<Employee> {
 				.createInstance("String"));
 		employee.setEmpCode((Integer) RandomValueGeneratorFactory
 				.createInstance("Integer"));
+		employee.setEmail((String) RandomValueGeneratorFactory
+				.createInstance("String"));
 
 		return employee;
 	}

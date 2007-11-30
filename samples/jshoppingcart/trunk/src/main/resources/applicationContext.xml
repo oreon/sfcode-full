@@ -44,15 +44,27 @@
     </property>
 </bean>
   
-  <!-- Service Beans  -->
+  <!-- Service Beans For entities-->
   
 	<bean class="com.oreon.jshoppingcart.service.impl.CustomerServiceImpl" id="customerService"/>
 
 	<bean class="com.oreon.jshoppingcart.service.impl.EmployeeServiceImpl" id="employeeService"/>
 
+	<bean class="com.oreon.jshoppingcart.service.impl.CategoryServiceImpl" id="categoryService"/>
+
+	<bean class="com.oreon.jshoppingcart.service.impl.ProductServiceImpl" id="productService"/>
+
   
   <!-- Service Facade -->
     <bean class="facades.ServiceFacade" id="serviceFacade"/>
+    
+    <!-- Service Beans  -->
+	<bean class="com.oreon.jshoppingcart.businessservice.impl.ShoppingCartServiceImpl" id="shoppingCartService">
+		<property name="additionalTax" value=""/> 
+		<property name="maxItemsMessage" value=""/> 
+	
+	</bean>
+
  
   
   <!-- Dao Beans  -->
@@ -60,6 +72,10 @@
 	<bean class="com.oreon.jshoppingcart.dao.impl.CustomerDaoImpl" id="customerDao"/>
 
 	<bean class="com.oreon.jshoppingcart.dao.impl.EmployeeDaoImpl" id="employeeDao"/>
+
+	<bean class="com.oreon.jshoppingcart.dao.impl.CategoryDaoImpl" id="categoryDao"/>
+
+	<bean class="com.oreon.jshoppingcart.dao.impl.ProductDaoImpl" id="productDao"/>
 
   
    	<!-- Audit logging -->

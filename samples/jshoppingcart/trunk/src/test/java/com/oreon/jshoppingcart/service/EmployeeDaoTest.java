@@ -50,9 +50,10 @@ public class EmployeeDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			employeeInstance.setFirstName("Mark");
-			employeeInstance.setLastName("pi");
-			employeeInstance.setEmpCode(4049);
+			employeeInstance.setFirstName("John");
+			employeeInstance.setLastName("Lavendar");
+			employeeInstance.setEmpCode(9799);
+			employeeInstance.setEmail("pi70257");
 
 			employeeService.save(employeeInstance);
 		} catch (PersistenceException pe) {
@@ -76,9 +77,10 @@ public class EmployeeDaoTest extends AbstractJpaTests {
 
 			try {
 
-				employee.setFirstName("theta");
-				employee.setLastName("pi");
-				employee.setEmpCode(306);
+				employee.setFirstName("beta");
+				employee.setLastName("theta");
+				employee.setEmpCode(2252);
+				employee.setEmail("beta18581");
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -98,9 +100,10 @@ public class EmployeeDaoTest extends AbstractJpaTests {
 			Employee employee = (Employee) employeeTestDataFactory
 					.loadOneRecord();
 
-			employee.setFirstName("gamma");
-			employee.setLastName("epsilon");
-			employee.setEmpCode(9778);
+			employee.setFirstName("zeta");
+			employee.setLastName("Malissa");
+			employee.setEmpCode(7359);
+			employee.setEmail("theta96714");
 
 			employeeService.save(employee);
 
@@ -125,6 +128,16 @@ public class EmployeeDaoTest extends AbstractJpaTests {
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
+	}
+
+	public void testFindByEmail() {
+		if (!bTest)
+			return;
+
+		assertNotNull("Couldn't find a Employee with email ", employeeService
+				.findByEmail(employeeInstance.getEmail()));
+		//assertNull("Found a Employee with email YYY", employeeService.findByEmail("YYY"));			
+
 	}
 
 	public void testSearchByExample() {

@@ -19,13 +19,12 @@
 			styleClass="messages" />
 		
 			<a4j:form id="form">
-				<rich:panel>
-					<h:panelGrid columns="3" styleClass="formTable">
-						<f:facet name="header">
-							<h:outputText value="Employee Information"
-								styleClass="formHeaderText"   />
-						</f:facet>
-						
+				<rich:panel header="Employee Information">
+					<h:outputText value="Please correct the following issues !" 
+				rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
+				
+					<h:panelGrid columns="2" styleClass="formTableCustom">
+	
 							
 							
 							
@@ -33,58 +32,93 @@
 	
 	<h:outputText value="FirstName" styleClass="formLabel" />
 	
+	<h:panelGroup>
+	<a4j:region>
+		
 	<h:inputText    required="false" 
 		id="employee__firstName"
 		value="#{employeeCrudBacking.employee.firstName}">
 		
+		<a4j:support event="onkeyup" delay="900"  />
 	</h:inputText>
-
+		
 	<rich:message for="employee__firstName" styleClass="errMessage">
 		<f:facet name="errorMarker">
 			<h:graphicImage url="/images/icons/bullet_error.png" />
 		</f:facet>
-		<f:facet name="passedMarker">
-			<h:graphicImage url="/images/icons/accept.png" />
-		</f:facet>
-	</rich:message>
+	</rich:message> 
+		</a4j:region>
+	</h:panelGroup>
+							
 	
 
 	
 	<h:outputText value="LastName*" styleClass="formLabel" />
 	
+	<h:panelGroup>
+	<a4j:region>
+		
 	<h:inputText    required="true" 
 		id="employee__lastName"
 		value="#{employeeCrudBacking.employee.lastName}">
 		<f:validateLength minimum="3"/>
+		<a4j:support event="onkeyup" delay="900"  />
 	</h:inputText>
-
+		
 	<rich:message for="employee__lastName" styleClass="errMessage">
 		<f:facet name="errorMarker">
 			<h:graphicImage url="/images/icons/bullet_error.png" />
 		</f:facet>
-		<f:facet name="passedMarker">
-			<h:graphicImage url="/images/icons/accept.png" />
-		</f:facet>
-	</rich:message>
+	</rich:message> 
+		</a4j:region>
+	</h:panelGroup>
+							
 	
 
 	
 	<h:outputText value="EmpCode" styleClass="formLabel" />
 	
+	<h:panelGroup>
+	<a4j:region>
+		
 	<h:inputText    required="false" 
 		id="employee__empCode"
 		value="#{employeeCrudBacking.employee.empCode}">
 		
+		<a4j:support event="onkeyup" delay="900"  />
 	</h:inputText>
-
+		
 	<rich:message for="employee__empCode" styleClass="errMessage">
 		<f:facet name="errorMarker">
 			<h:graphicImage url="/images/icons/bullet_error.png" />
 		</f:facet>
-		<f:facet name="passedMarker">
-			<h:graphicImage url="/images/icons/accept.png" />
+	</rich:message> 
+		</a4j:region>
+	</h:panelGroup>
+							
+	
+
+	
+	<h:outputText value="Email*" styleClass="formLabel" />
+	
+	<h:panelGroup>
+	<a4j:region>
+		
+	<h:inputText    required="true" 
+		id="employee__email"
+		value="#{employeeCrudBacking.employee.email}">
+		
+		<a4j:support event="onkeyup" delay="900"  />
+	</h:inputText>
+		
+	<rich:message for="employee__email" styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
 		</f:facet>
-	</rich:message>
+	</rich:message> 
+		</a4j:region>
+	</h:panelGroup>
+							
 	
 					
 				
