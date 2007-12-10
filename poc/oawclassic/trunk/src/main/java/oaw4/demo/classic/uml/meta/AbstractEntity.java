@@ -10,7 +10,7 @@ import org.openarchitectureware.meta.uml.classifier.Class;
 
 public abstract class AbstractEntity extends
 		org.openarchitectureware.meta.uml.classifier.Class {
-	
+
 	private String displayName;
 
 	/**
@@ -80,7 +80,7 @@ public abstract class AbstractEntity extends
 
 		ElementSet attributes = getAttributesForThisClassAndSuperClasses();
 
-		//clear existing type modifiers
+		// clear existing type modifiers
 		for (Object obj : attributes) {
 			Attribute attribute = (Attribute) obj;
 			attribute.setTypeModifier(null);
@@ -97,8 +97,8 @@ public abstract class AbstractEntity extends
 				attribute.setTypeModifier(ae.NameS());
 			}
 
-			
-			//System.out.println(NameS() + " has assoc " + assocAttributes.size());
+			// System.out.println(NameS() + " has assoc " +
+			// assocAttributes.size());
 			attributes.addAll(ae.Class().Attribute());
 		}
 		return attributes;
@@ -137,12 +137,14 @@ public abstract class AbstractEntity extends
 
 		return nonColAttribs;
 	}
-	
-	/** Get all outgoing associations for this class and its superclasses, i.e. for an order it would get customer
-	 * and other references 
+
+	/**
+	 * Get all outgoing associations for this class and its superclasses, i.e.
+	 * for an order it would get customer and other references
+	 * 
 	 * @return
 	 */
-	public ElementSet getAllOutgoingAssociations(){
+	public ElementSet getAllOutgoingAssociations() {
 		ElementSet outgoingAssoc = new ElementSet();
 		outgoingAssoc.addAll(getOutgoingAssociations(this));
 
@@ -159,14 +161,23 @@ public abstract class AbstractEntity extends
 		ElementSet embeddables = new ElementSet();
 		for (Object object : associations) {
 			AssociationEnd ae = (AssociationEnd) object;
-			System.out.println(cls.NameS() + " -->"  + ae.Opposite().Name());
-			if ( !ae.Opposite().isMultiple()&& ae.Opposite().isNavigable()) {
-				embeddables.add(ae.Opposite());
+			System.out.println(cls.NameS() + " -->" + ae.Opposite().Name());
+			AssociationEnd opposite = ae.Opposite();
+
+			if (!opposite.isMultiple() && opposite.isNavigable()) {
+				//System.out.println(opposite.Class().getMetaClass().getName());
+				if (!opposite.Class().getMetaClass().getName().equalsIgnoreCase(
+						"oaw4.demo.classic.uml.meta.Embeddable"))
+					embeddables.add(ae.Opposite());
+				else
+					System.out.println("Ignoring embeddable "
+							+ opposite.Class().Name());
+
 			}
 		}
 		return embeddables;
 	}
-	
+
 	/**
 	 * Get all contained associations of this class and all superclasses
 	 * 
@@ -196,7 +207,8 @@ public abstract class AbstractEntity extends
 		for (Object object : associations) {
 			AssociationEnd ae = (AssociationEnd) object;
 
-			if (ClassUtil.isAssociationOneOnOne(ae) && ae.Opposite().isNavigable()) {
+			if (ClassUtil.isAssociationOneOnOne(ae)
+					&& ae.Opposite().isNavigable()) {
 				embeddables.add(ae.Opposite());
 			}
 		}
@@ -208,17 +220,18 @@ public abstract class AbstractEntity extends
 	 * @return
 	 */
 	private boolean isAssociationEmbeddableContainment(AssociationEnd ae) {
-		
-		boolean result = ClassUtil.isAssociationOneOnOne(ae) && ae.Opposite().isNavigable() && ae
-				.isComposition();
-	
-		
+
+		boolean result = ClassUtil.isAssociationOneOnOne(ae)
+				&& ae.Opposite().isNavigable() && ae.isComposition();
+
 		return result;
 	}
-	
-	/** This value indicates how entitie's should be shown in associations
-	 * for instance for a person it can be "lastName, firstName" for product
-	 * it can be the product name
+
+	/**
+	 * This value indicates how entitie's should be shown in associations for
+	 * instance for a person it can be "lastName, firstName" for product it can
+	 * be the product name
+	 * 
 	 * @return
 	 */
 	public String getDisplayName() {
