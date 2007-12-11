@@ -10,16 +10,16 @@ public class InputTextRenderer extends AbstractInputComponentRenderer {
 	public final static int LENGTH_FOR_TEXTAREA = 50;
 
 	public String getType(Attribute attribute) {
-		if (attribute instanceof Column ){
-			Column column = (Column) attribute; 
-			
-			if(column.getMaxLength() > LENGTH_FOR_TEXTAREA) 
+		if (attribute instanceof Column) {
+			Column column = (Column) attribute;
+
+			if (column.getMaxLength() > LENGTH_FOR_TEXTAREA)
 				return "h:inputTextarea";
-			
-			if(("secret").equalsIgnoreCase(column.getInputType()) )
+
+			if (("secret").equalsIgnoreCase(column.getInputType()))
 				return "h:inputSecret";
-			
-			if(("file").equalsIgnoreCase(column.getInputType()) )
+
+			if (("file").equalsIgnoreCase(column.getInputType()))
 				return "t:inputFileUpload";
 		}
 		return "h:inputText";
@@ -31,30 +31,42 @@ public class InputTextRenderer extends AbstractInputComponentRenderer {
 
 		if (attribute instanceof Column) {
 			Column column = (Column) attribute;
+			retMessage += getColumnValidator(column);
 
 			String columnType = column.Type().NameS();
 			String validatorType = getValidatorType(columnType);
+			
 
 			int min = column.getMinLength();
 			int max = column.getMaxLength();
 
 			if (min == 0 && max == 0)
-				return "";
+				return retMessage;
 
 			if (validatorType != null)
 				retMessage = "<" + validatorType
 						+ ((min > 0) ? " minimum=\"" + min + "\"" : "")
 						+ ((max > 0) ? " maximum=\"" + max + "\"" : "") + "/>";
 
-			retMessage += getColumnValidator(column);
+			
 		}
 
 		return retMessage;
 	}
 
+	/** Function appends columns validator
+	 * @param column
+	 * @return
+	 */
 	private String getColumnValidator(Column column) {
-		if (("email").equalsIgnoreCase(column.getValidator()))
+
+		String validator = column.getValidator();
+		System.out.println(column.NameS() + " validator is "  + validator);
+
+		if (Validator.EMAIL.toString().equalsIgnoreCase(validator))
 			return "<t:validateEmail />";
+		else if (Validator.CREDIT_CARD.toString().equalsIgnoreCase(validator))
+			return "<t:validateCreditCard  />";
 
 		return StringUtils.EMPTY;
 	}
