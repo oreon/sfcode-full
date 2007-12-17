@@ -24,6 +24,10 @@
 «ENDDEFINE»
 
 «DEFINE genDropDown(Class e, boolean useBackingBean) FOR AssociationEnd»
+	
+	<h:panelGroup>
+	<a4j:region>
+
 	<h:selectOneMenu  required="«!isAssocNullable()»" 
 		id="«e.asInstanceVar()»_«associationName()»" converter="keyToObjectConverter"
 		value="#{«useBackingBean?e.asInstanceVar() + "CrudBacking.":""»«e.asInstanceVar()».«associationName()»}">
@@ -31,7 +35,14 @@
 		<f:selectItems value="#{«Class.NameS.toFirstLower()»CrudBacking.asSelectItems}" />
 	</h:selectOneMenu>
 										
-	<h:message for="«e.asInstanceVar()»_«associationName()»" styleClass="errMessage" />
+	<rich:message for="«e.asInstanceVar()»_«associationName()»" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
 «ENDDEFINE»
 
 
