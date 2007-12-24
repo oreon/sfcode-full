@@ -1,6 +1,7 @@
 «IMPORT org::openarchitectureware::core::meta::core»
 «IMPORT org::openarchitectureware::meta::uml::classifier»
 «IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::witchcraft::model::jsf»
 «IMPORT java»
 
 «EXTENSION view::ViewExtensions»
@@ -24,7 +25,7 @@
 					<t:dataTable id="data" var="«asInstanceVar()»"
 						value="#{«asInstanceVar()»CrudBacking.records}" rows="30"
 					rowClasses="odd, even" styleClass="dataTable" preserveSort="true"   sortable="true">
-						
+											
 							«EXPAND genTableRow(asInstanceVar()) FOREACH getAllAttributes -»
 							
 							«REM»The associated entites for e.g an order would need a customer «ENDREM»
@@ -38,17 +39,34 @@
 								</f:facet>
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
-								--> 
-								<t:commandLink action="#{«asInstanceVar()»CrudBacking.select}"
+								--> 								
+									<t:commandLink action="#{«asInstanceVar()»CrudBacking.select}"													
 									actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}">
-									<t:outputText value=" Edit " />
-									<f:param id="editId" name="id" value="#{«asInstanceVar()».id}" />
-								</t:commandLink>
+																				<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
+										<f:param id="editId" name="id" value="#{«asInstanceVar()».id}" />								
+									</t:commandLink>		
 								<!--
 								</acegijsf:authorize>
 								--> 
 							</t:column>
-							
+							<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="id" arrow="true">
+										<t:outputText value=" " />
+									</t:commandSortHeader>
+								</f:facet>
+								<!--
+								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+								--> 		
+								<t:commandLink action="#{«asInstanceVar()»CrudBacking.delete}"	
+								actionListener="#{«asInstanceVar()»CrudBacking.removeItem}">												
+										<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>
+										<f:param id="deleteId" name="id" value="#{«asInstanceVar()».id}" />								
+									</t:commandLink>
+								<!--
+								</acegijsf:authorize>
+								--> 
+							</t:column>
 							 	</t:dataTable>	
 							 </rich:tab>
 							 «IF getTreeFields != null»
