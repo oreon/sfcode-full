@@ -1,10 +1,12 @@
 package org.witchcraft.model.jsf;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -13,41 +15,48 @@ import org.witchcraft.model.support.audit.AuditLog;
 import org.witchcraft.model.support.errorhandling.BusinessException;
 import org.witchcraft.model.support.service.BaseService;
 
-
-/** Base class of all crud backing beans
+/**
+ * Base class of all crud backing beans
+ * 
  * @author jsingh
- *
- * @param <T> - The BusinessEntity 
+ * 
+ * @param <T> -
+ *            The BusinessEntity
  */
 public abstract class BaseBackingBean<T> {
 	private Date fromDate;
 	private Date toDate;
-	
+
 	private static Logger log = Logger.getLogger(BaseBackingBean.class);
-	
-	protected String action; //whether action is search or update/add new 
+
+	protected String action; // whether action is search or update/add new
 	protected static final String SEARCH = "SEARCH";
-	
+
 	public abstract BaseService<T> getBaseService();
-	
+
 	public abstract T getEntity();
-	
-	
-	/** Get all instances of this entity as a drop down list of 
-	 *  selectable items - useful when this entity is being refereced
-	 *  from an association
+
+	private String sortField = null;
+	private boolean sortAscending = true;
+
+	/**
+	 * Get all instances of this entity as a drop down list of selectable items -
+	 * useful when this entity is being refereced from an association
+	 * 
 	 * @return
 	 */
 	public List<SelectItem> getAsSelectItems() {
 		List<T> entities = getBaseService().loadAll();
 		return JSFUtils.getAsSelectItems(entities);
 	}
-	
-	public long getCount(){
+
+	public long getCount() {
 		return getBaseService().getCount();
 	}
-	
-	/**Write values to the database 
+
+	/**
+	 * Write values to the database
+	 * 
 	 * @return - "success" if everthing goes fine
 	 */
 	public String delete() {
@@ -60,8 +69,10 @@ public abstract class BaseBackingBean<T> {
 
 		return "success";
 	}
-	
-	/**Write values to the database 
+
+	/**
+	 * Write values to the database
+	 * 
 	 * @return - "success" if everthing goes fine
 	 */
 	public String update() {
@@ -80,18 +91,22 @@ public abstract class BaseBackingBean<T> {
 
 		return "success";
 	}
-	
-	/** Get the audit logs for this entity
+
+	/**
+	 * Get the audit logs for this entity
+	 * 
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	public List<AuditLog<T>> getAuditLog() {
 		return getBaseService().getAuditLogs();
 	}
-	
-	/**Get a list of  Records - if action is search, get a subset otherwise
-	 * get all
-	 * @return - a list of records of type T 
+
+	/**
+	 * Get a list of Records - if action is search, get a subset otherwise get
+	 * all
+	 * 
+	 * @return - a list of records of type T
 	 */
 	public List<T> getRecords() {
 		List<T> entities = null;
@@ -100,20 +115,63 @@ public abstract class BaseBackingBean<T> {
 		else
 			entities = getBaseService().loadAll();
 
+		// Sort results.
+		if (sortField != null) {
+			Collections.sort(entities, new DTOComparator(sortField,
+					sortAscending));
+		}
 		return entities;
 	}
-	
-	
-	/** Creates and add an error message to the faces context
+
+	/**
+	 * Creates and add an error message to the faces context
+	 * 
 	 * @param errorDetail
 	 * @param errorTitle
 	 */
-	protected void createErrorMessage(String errorDetail, String errorTitle, Throwable throwable) {
+	protected void createErrorMessage(String errorDetail, String errorTitle,
+			Throwable throwable) {
 		log.error(errorDetail, throwable);
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_ERROR, errorTitle, 
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_ERROR, errorTitle,
 						errorDetail));
 	}
+
 	
-	
+	public void sortDataList(ActionEvent event) {
+		String sortFieldAttribute = getAttribute(event, "sortField");
+		System.out.println(sortField + " :: " + sortFieldAttribute);
+
+		// Get and set sort field and sort order.
+		if (sortField != null && sortField.equals(sortFieldAttribute)) {
+			sortAscending = !sortAscending;
+		} else {
+			sortField = sortFieldAttribute;
+			sortAscending = true;
+		}
+
+	}
+
+	public String getSortField() {
+		return sortField;
+	}
+
+	public boolean getSortAscending() {
+		return sortAscending;
+	}
+
+	public void setSortField(String sortField) {
+		this.sortField = sortField;
+	}
+
+	public void setSortAscending(boolean sortAscending) {
+		this.sortAscending = sortAscending;
+	}
+
+
+	private static String getAttribute(ActionEvent event, String name) {
+		return (String) event.getComponent().getAttributes().get(name);
+	}
+
 }
