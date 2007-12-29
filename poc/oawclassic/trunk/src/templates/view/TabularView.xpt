@@ -24,7 +24,7 @@
 					<rich:tab label="Tabular" >
 					<t:dataTable id="data" var="«asInstanceVar()»"
 						value="#{«asInstanceVar()»CrudBacking.records}" rows="30"
-					rowClasses="odd, even" styleClass="dataTable" preserveSort="true"   sortable="true">
+					rowClasses="odd, even" styleClass="dataTable" >
 											
 							«EXPAND genTableRow(asInstanceVar()) FOREACH getAllAttributes -»
 							
@@ -68,6 +68,8 @@
 								--> 
 							</t:column>
 							 	</t:dataTable>	
+							 	<t:inputHidden value="#{«asInstanceVar()»CrudBacking.sortField}" />
+    							<t:inputHidden value="#{«asInstanceVar()»CrudBacking.sortAscending}" />
 							 </rich:tab>
 							 «IF getTreeFields != null»
 							 <rich:tab label="Tree" >
@@ -139,7 +141,10 @@
 «DEFINE genTableRow(String parent) FOR Attribute»
 	<t:column>
 		<f:facet name="header">
+			<t:commandLink actionListener="#{«parent»CrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="«NameS.toFirstUpper()»" />
 				<t:outputText value="«NameS.toFirstUpper()»" /> 
+			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{«parent».«fullName()»}" />
 	</t:column>
@@ -148,9 +153,12 @@
 «DEFINE genTableRow(Class c) FOR AssociationEnd»
 	<t:column>
 		<f:facet name="header">
+		<t:commandLink actionListener="#{«c.asInstanceVar()»CrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="«associationName()».displayName" />
 			<!-- <t:commandSortHeader columnName="«NameS.toFirstUpper()»" arrow="true"> -->
 				<t:outputText value="«NameS.toFirstUpper()»" /> 
 			<!-- </t:commandSortHeader> -->
+		</t:commandLink>	
 		</f:facet>
 		<t:outputText value="#{«c.asInstanceVar()».«associationName()».displayName}" />
 	</t:column>
