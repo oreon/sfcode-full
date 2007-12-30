@@ -62,7 +62,9 @@
 	@Transactional
 	public class «NameS»TestDataFactory extends AbstractTestDataFactory<«NameS»> {
 	
-		List<«NameS»>  «asInstanceVar()»s = new ArrayList<«NameS»>();
+		private List<«NameS»>  «asInstanceVar()»s = new ArrayList<«NameS»>();
+		
+		private static int RECORDS_TO_CREATE = 30;
 	
 		private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss z");
 		
@@ -159,12 +161,10 @@
 		 */
 		public static void main(String args[]){
 			
-			int recordsTocreate = 30;
-		
 			TestDataFactory placedOrderTestDataFactory = (TestDataFactory) BeanHelper
 				.getBean("placedOrderTestDataFactory");
 			
-			placedOrderTestDataFactory.createAndSaveRecords(recordsTocreate);	
+			placedOrderTestDataFactory.createAndSaveRecords(RECORDS_TO_CREATE);	
 		}
 	
 		public void createAndSaveRecords(int recordsTocreate) {

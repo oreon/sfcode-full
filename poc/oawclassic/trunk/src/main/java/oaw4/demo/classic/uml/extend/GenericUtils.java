@@ -30,6 +30,14 @@ public class GenericUtils {
 		return WordUtils.capitalizeFully(string);
 	}
 	
+	/** First letter will be made small case
+	 * @param arg
+	 * @return
+	 */
+	public static String toFirstLower(String arg){
+		return WordUtils.uncapitalize(arg);
+	}
+	
 	public static String toUpper(String string){
 		return string.toUpperCase();
 	}

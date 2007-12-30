@@ -20,7 +20,9 @@
 	«FILE parentPackagePath()+"/service/impl" + "/"+NameS+"ServiceImplBase.java"»  
 	
 	«EXPAND ManualFileGen::genManualFile("/service/impl", "ServiceImpl",
-		 "@Transactional(readOnly=false, propagation=Propagation.REQUIRED)")»
+		 "@Transactional(readOnly=false, propagation=Propagation.REQUIRED)\n" + 
+		 
+		 "@WebService(endpointInterface=\"" + parentPackageName() + ".service." + NameS + "Service\", serviceName=\"" + NameS + "Service\")" )»
 
 	«EXPAND JavaBean::GenCodeWarning»
 	package «parentPackageName()».service.impl;
@@ -44,7 +46,8 @@
 	import org.witchcraft.model.support.errorhandling.BusinessException;
 	import org.witchcraft.model.support.service.BaseServiceImpl;
 	
-
+	import javax.jws.WebService;
+	
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
 	public class «NameS»ServiceImplBase extends BaseServiceImpl<«NameS»> implements «NameS»Service{
 	
@@ -187,10 +190,14 @@
 	import «parentPackageName()».dao.«NameS»Dao;
 	import org.witchcraft.model.support.service.BaseService;
 	
+	import javax.jws.WebParam;
+	import javax.jws.WebService;
+		
 	/** The Service interface for entity - «NameS»
 	 * @author - Witchcraft Generated {Do not Modify } 
 	 * 
 	 */
+	 @WebService
 	public interface «NameS»Service extends «NameS»Dao, BaseService<«NameS»>  {
 		
 			

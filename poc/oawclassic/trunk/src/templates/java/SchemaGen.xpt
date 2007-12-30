@@ -6,13 +6,14 @@
 
 «IMPORT java»
 «EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
 
 «DEFINE Gen FOR Model»
 	
-	«FILE "../resources/schema.xml" »
+	«FILE "../resources/schema.xsd" »
 
 	<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-        xmlns:hr="http://mycompany.com/hr/schemas"
+        xmlns:ws="http://mycompany.com/hr/schemas"
         elementFormDefault="qualified"
         targetNamespace="http://mycompany.com/hr/schemas">
         
@@ -25,13 +26,24 @@
 
 
 «DEFINE GenElement FOR AbstractEntity»
-	<xs:element name="«NameS»">
-        <xs:complexType>
-            <xs:all>
-            	«FOREACH getAllAttributes AS a-»
-            		<xs:element name="«a.NameS»" type="xs:«a.Type.NameS»"/>	
-            	«ENDFOREACH»
-            </xs:all>
-        </xs:complexType>
-    </xs:element>
+    <xs:complexType name="«NameS»">
+        <xs:all>
+        	«FOREACH getAttributesForThisClassAndSuperClasses AS a-»
+        		<xs:element name="«a.NameS»" type="xs:«a.Type.NameS.toFirstLower()»"/>	
+        	«ENDFOREACH»
+        	«FOREACH getAllOutgoingAssociations AS a-»
+        		<xs:element name="«a.associationName()»" type="ws:«a.Class.NameS»"/>
+        	«ENDFOREACH»
+        </xs:all>
+    </xs:complexType>
 «ENDDEFINE»
+
+«REM»comment
+<xs:simpleType name="carType">
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="Audi"/>
+    <xs:enumeration value="Golf"/>
+    <xs:enumeration value="BMW"/>
+  </xs:restriction>
+</xs:simpleType>
+«ENDREM»

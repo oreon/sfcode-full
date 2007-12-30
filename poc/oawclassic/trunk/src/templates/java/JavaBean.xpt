@@ -64,7 +64,18 @@
 		
 		@MappedSuperclass
 		/*«getAnnotaitons()»*/
+		/* 
+			«FOREACH Constraint AS c»
+				«c.NameS»
+			«ENDFOREACH»
+			There are «Constraint.size» constraints.
+		*/
 		«getClassDeclaration()»{
+		
+				«FOREACH getNq AS e»
+					«e»
+				«ENDFOREACH»
+				//named queries : «getNq.size»
 				«EXPAND classBody FOR this»
 				«EXPAND displayName FOR this»
 				

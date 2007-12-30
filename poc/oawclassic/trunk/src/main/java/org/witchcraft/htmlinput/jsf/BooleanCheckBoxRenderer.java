@@ -8,8 +8,6 @@ public class BooleanCheckBoxRenderer extends AbstractInputComponentRenderer{
 		return "h:selectBooleanCheckbox ";
 	}
 	
-
-	
 	public String getAttributes(Attribute attribute) {
 		return super.getAttributes(attribute)+ " title=\"" + attribute.getNameProperty() + "\"";
 	}

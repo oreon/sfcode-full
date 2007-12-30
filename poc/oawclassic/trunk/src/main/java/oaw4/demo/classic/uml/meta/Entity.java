@@ -1,6 +1,7 @@
 package oaw4.demo.classic.uml.meta;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -32,6 +33,8 @@ public class Entity extends AbstractEntity {
 	private String treeFields;
 	
 	private String namedQueries;
+	
+	private Collection nq = new ArrayList();
 
 	// this is needed when we need to manually supply a base class
 	// e.g for usermanagement the User class's base class has to be withcraft
@@ -48,6 +51,7 @@ public class Entity extends AbstractEntity {
 
 	public String getDefaultRole() {
 		return defaultRole;
+	
 	}
 
 	public void setDefaultRole(String defaultRole) {
@@ -64,6 +68,7 @@ public class Entity extends AbstractEntity {
 
 	@Override
 	public ElementSet Column() {
+		
 		ElementSet columns = super.Column();
 		addUserIdIfApplies(columns);
 		return columns;
@@ -76,6 +81,8 @@ public class Entity extends AbstractEntity {
 	 * @param columns
 	 */
 	private void addUserIdIfApplies(ElementSet columns) {
+		
+
 
 		/*
 		 * if(isUser || getDefaultRole() != null){ Column column = new Column();
@@ -159,6 +166,9 @@ public class Entity extends AbstractEntity {
 	 * @return
 	 */
 	private List<String> stringArrayAsList(String target) {
+		
+	
+	
 		//if(target.startsWith("{") && target.endsWith("}") ){
 			String[] testSeedArray = target.split("[ ]*,[ ]*|\\}|\\{");
 			List<String> lst = new ArrayList<String>();
@@ -194,6 +204,14 @@ public class Entity extends AbstractEntity {
 
 	public void setNamedQueries(String namedQueries) {
 		this.namedQueries = namedQueries;
+	}
+
+	public Collection getNq() {
+		return nq;
+	}
+
+	public void setNq(Collection nq) {
+		this.nq = nq;
 	}
 
 }

@@ -8,82 +8,116 @@
 «EXTENSION services::Service»
 
 «DEFINE SpringConfig FOR Model»
+	«EXPAND SpringConfigSvc FOR this»
+	«EXPAND SpringConfigWebSvc FOR this»
+«ENDDEFINE»
 
-«FILE "../resources/applicationContext.xml" »  
+«REM» Create web service definitions «ENDREM»
+«DEFINE SpringConfigWebSvc FOR Model»
+
+	«FILE "../resources/webServicesContext.xml" » 
+		<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 	
-«EXPAND SpringNameSpaces»
+	<!-- Service Beans For entities-->
+	 «EXPAND GenerateWebServiceBeanDef FOREACH getEntities()»
+	
+	<!--
+	<bean id="wss4jInConfiguration" class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor"/>
+	-->
+	
+	</beans>
+	«ENDFILE»
+	
+«ENDDEFINE»
 
-	<bean id="propertyPlaceholder"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location"
-			value="classpath:project.properties" />
+
+«REM» Generate service definitions «ENDREM»
+«DEFINE SpringConfigSvc FOR Model»
+
+	«FILE "../resources/applicationContext.xml" »  
+		
+	«EXPAND SpringNameSpaces»
+	
+		<bean id="propertyPlaceholder"
+			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="location"
+				value="classpath:project.properties" />
+		</bean>
+	
+	
+	  <bean id="entityManagerFactory"
+	     class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	     <property name="jpaVendorAdapter">
+	        <bean
+	        class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+	           <property name="showSql" value="${hibernate.showsql}" />
+	           <property name="generateDdl" value="${hibernate.generateddl}" />
+	           <property name="databasePlatform" value="${hibernate.dialect}" />
+	        </bean>
+	     </property>
+	  </bean>
+	
+	  <bean class="org.apache.commons.dbcp.BasicDataSource"
+			destroy-method="close" id="dataSource">
+			<property name="driverClassName" value="${hibernate.connection.driver_class}" />
+			<property name="url" value="${hibernate.connection.url}" />
+			<property name="username" value="${hibernate.connection.username}" />
+			<property name="password" value="${hibernate.connection.password}" />
+	 </bean>
+	
+	  <bean id="transactionManager"
+	     class="org.springframework.orm.jpa.JpaTransactionManager" />
+	  
+	  <tx:annotation-driven />
+	
+	
+	  <bean
+	     class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+	 
+	 <!-- Velocity -->
+	 <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+	    <property name="velocityProperties">
+	        <props>
+	            <prop key="resource.loader">class</prop>
+	            <prop key="class.resource.loader.class">
+	                org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+	            </prop>
+	        </props>
+	    </property>
 	</bean>
-
-
-  <bean id="entityManagerFactory"
-     class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-     <property name="jpaVendorAdapter">
-        <bean
-        class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-           <property name="showSql" value="${hibernate.showsql}" />
-           <property name="generateDdl" value="${hibernate.generateddl}" />
-           <property name="databasePlatform" value="${hibernate.dialect}" />
-        </bean>
-     </property>
-  </bean>
-
-  <bean class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close" id="dataSource">
-		<property name="driverClassName" value="${hibernate.connection.driver_class}" />
-		<property name="url" value="${hibernate.connection.url}" />
-		<property name="username" value="${hibernate.connection.username}" />
-		<property name="password" value="${hibernate.connection.password}" />
- </bean>
-
-  <bean id="transactionManager"
-     class="org.springframework.orm.jpa.JpaTransactionManager" />
-  
-  <tx:annotation-driven />
-
-
-  <bean
-     class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
- 
- <!-- Velocity -->
- <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
-    <property name="velocityProperties">
-        <props>
-            <prop key="resource.loader">class</prop>
-            <prop key="class.resource.loader.class">
-                org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
-            </prop>
-        </props>
-    </property>
-</bean>
-  
-  <!-- Service Beans For entities-->
-  «EXPAND GenerateServiceBeanDef FOREACH getEntities()»
-  
-  <!-- Service Facade -->
-    <bean id="serviceFacade" class="facades.ServiceFacade" />
-    
-    <!-- Service Beans  -->
-  «EXPAND GenerateServiceBeanDef FOREACH getServices()»
- 
-  
-  <!-- Dao Beans  -->
-  «EXPAND GenerateDaoBeanDef FOREACH getEntities()»
-  
-   	<!-- Audit logging -->
-  	<bean class="org.witchcraft.model.support.audit.AuditLogDaoImpl" id="auditLogDao"/>
- 
-  	<bean id="entityAuditLogInterceptor" 
-  		class="org.witchcraft.model.support.audit.EntityAuditLogInterceptor" />
-  
-</beans>
-
+	  
+	  <!-- Service Beans For entities-->
+	  «EXPAND GenerateServiceBeanDef FOREACH getEntities()»
+	  
+	  <!-- Service Facade -->
+	    <bean id="serviceFacade" class="facades.ServiceFacade" />
+	    
+	    <!-- Service Beans  -->
+	  «EXPAND GenerateServiceBeanDef FOREACH getServices()»
+	 
+	  
+	  <!-- Dao Beans  -->
+	  «EXPAND GenerateDaoBeanDef FOREACH getEntities()»
+	  
+	   	<!-- Audit logging -->
+	  	<bean class="org.witchcraft.model.support.audit.AuditLogDaoImpl" id="auditLogDao"/>
+	 
+	  	<bean id="entityAuditLogInterceptor" 
+	  		class="org.witchcraft.model.support.audit.EntityAuditLogInterceptor" />
+	  
+	</beans>
 	
-«ENDFILE»
+		
+	«ENDFILE»
 
 «ENDDEFINE»
 
@@ -106,6 +140,21 @@
 
 «DEFINE GenerateServiceBeanDef FOR Entity»
 	<bean id="«asInstanceVar()»Service" class="«parentPackageName()».service.impl.«NameS»ServiceImpl" />
+«ENDDEFINE»
+
+«DEFINE GenerateWebServiceBeanDef FOR Entity»
+	<jaxws:endpoint id="«asInstanceVar()»WebService"  implementor="#«asInstanceVar()»Service"
+	 address="/«asInstanceVar()»Service" implementorClass="«parentPackageName()».service.impl.«NameS»ServiceImpl"/>
+«REM»Security - will implement later	 
+	 <jaxws:features>
+	   <bean class="org.apache.cxf.feature.LoggingFeature"/>
+	</jaxws:features>
+	<jaxws:ininterceptors>
+	   <bean class="org.apache.cxf.binding.soap.saaj.SAAJInInterceptor"/>
+	   <ref bean="wss4jInConfiguration"/>
+	</jaxws:ininterceptors>
+</jaxws:endpoint>
+«ENDREM»
 «ENDDEFINE»
 
 «DEFINE GenerateDaoBeanDef FOR Entity»

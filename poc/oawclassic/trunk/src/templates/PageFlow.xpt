@@ -3,7 +3,7 @@
 «IMPORT org::openarchitectureware::meta::uml::state»
 
 «EXTENSION view::ViewExtensions»
-«EXTENSION templates::GeneratorUtil»
+
 «EXTENSION java::NamingConventions»
 
 
@@ -33,7 +33,7 @@
 	  	<from-view-id>/«StateMachine.NameS»/«NameS».xhtml</from-view-id>
 		«FOREACH OutTransition AS transition»
 		  <navigation-case>
-		    <from-outcome> «transition.Trigger.NameS»</from-outcome>
+		    <from-outcome> «transition.Guard»</from-outcome>
 		    <to-view-id>/«StateMachine.NameS»/«transition.TargetVertex.NameS».xhtml</to-view-id>
 		  </navigation-case>   
 		«ENDFOREACH» 
@@ -61,14 +61,21 @@
 «REM» This function generates xhtml for the given state «ENDREM»
 «DEFINE GenXHTML FOR State»
 	«FILE "../webapp/" +  StateMachine.NameS + "/" +NameS +".xhtml"»
+	
+	
 	«EXPAND view::ViewGen::genIncludes("default.xhtml")-»
 	
 	<ui:define name="content">
 		<f:view>
+		«PROTECT CSTART '<!--' CEND '-->' ID 123 »
+					This is protectable
+		«ENDPROTECT»
 			<h:messages layout="list" globalOnly="true" showDetail="true"
 				styleClass="messages" />
+			<h:outputText value="«Documentation»" styleClass="message" />		
+				
 		«FOREACH OutTransition AS transition»
-			<h:outputText value="«Documentation»" styleClass="message" />
+			
 			<h:form>
 				<h:panelGrid>
 					

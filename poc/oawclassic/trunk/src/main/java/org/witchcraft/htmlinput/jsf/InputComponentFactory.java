@@ -48,6 +48,8 @@ public class InputComponentFactory {
 			return new CalendarRenderer();
 		}else if (type.equals("java.lang.Boolean") || type.equalsIgnoreCase("Boolean") ){
 			return new BooleanCheckBoxRenderer();
+		}else if (type.equals("Image")){
+			return new FileUploadRenderer();
 		}else if (attribute.Type().getMetaClass().getSimpleName().equals("Enumeration")){
 			return new SelectOneMenuRenderer();
 		}else{//default to input text 
