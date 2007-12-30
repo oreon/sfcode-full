@@ -8,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
@@ -41,7 +42,7 @@ public abstract class BaseBackingBean<T> {
 
 	/**
 	 * Get all instances of this entity as a drop down list of selectable items -
-	 * useful when this entity is being refereced from an association
+	 * useful when this entity is being referenced from an association
 	 * 
 	 * @return
 	 */
@@ -172,6 +173,20 @@ public abstract class BaseBackingBean<T> {
 
 	private static String getAttribute(ActionEvent event, String name) {
 		return (String) event.getComponent().getAttributes().get(name);
+	}
+	
+	/** This method is needed by backing beans which need to show uploaded images. 
+	 * @return
+	 */
+	public Class getImageRendererCls() {
+		return UploadedImageRenderer.class;
+	}
+	
+	/** Utility method to get current http session 
+	 * @return - session associated with current context - will create a new session if one doesn't exist
+	 */
+	protected HttpSession getSession(){
+		return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 	}
 
 }
