@@ -1,7 +1,5 @@
 package org.witchcraft.model.jsf.converters;
 
-import java.util.logging.Logger;
-
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -10,6 +8,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.witchcraft.model.support.BusinessEntity;
 
 /**
@@ -20,7 +19,7 @@ import org.witchcraft.model.support.BusinessEntity;
  */
 public class KeyToObjectConverter implements Converter {
 
-	protected Logger log = Logger.getLogger("com.crazysquirrel");
+	protected Logger log = Logger.getLogger(KeyToObjectConverter.class);
 
 	public KeyToObjectConverter() {
 	}
@@ -57,7 +56,7 @@ public class KeyToObjectConverter implements Converter {
 			BusinessEntity be = (BusinessEntity) ((UIInput) component).getValue();
 			
 			//To be sure the valueChangeListener is called
-			if(be.getId().longValue() != id){
+			if(be == null || be.getId() == null || be.getId().longValue() != id){
 				return createNewValue(facesContext, component, id);
 			}
 			return be;

@@ -12,7 +12,7 @@ import javax.persistence.Version;
 
 @MappedSuperclass
 public class BusinessEntity implements Serializable{
-	private Long id;
+	private Long id ;
 	protected Date dateCreated;
 	private Date dateModified = new Date();
 	
@@ -67,6 +67,10 @@ public class BusinessEntity implements Serializable{
 		if ((object == null) || !(object instanceof BusinessEntity)){
 			return false;
 		}
+		
+		if(getId() == null || ((BusinessEntity) object).getId() == null)
+			return false;
+		
 		return ((BusinessEntity) object).getId().longValue() == getId().longValue();
 	}
 	

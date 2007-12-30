@@ -3,6 +3,9 @@ package org.witchcraft.model.support.dao;
 import java.util.Date;
 import java.util.List;
 
+import javax.jws.WebService;
+
+
 public interface GenericDAO<T> {
 
     T load(Long id);
