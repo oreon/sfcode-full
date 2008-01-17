@@ -56,8 +56,11 @@
 		
 		import javax.persistence.*;
 		import org.hibernate.annotations.Cascade;
+		«REM» TODO: The image import should be conditional «ENDREM»
+		import org.witchcraft.model.jsf.Image;
 		import java.util.Date;
 		
+		import javax.xml.bind.annotation.XmlTransient;
 		«REM»
 			«hasSuperClass? SuperClass.NameS: "BusinessEntity"»
 		«ENDREM»
@@ -96,6 +99,8 @@
 		import java.util.Date;
 		import org.hibernate.annotations.Cascade;
 		
+		import javax.xml.bind.annotation.XmlTransient;
+		
 		@MappedSuperclass
 		«getClassDeclaration()»{
 			«EXPAND classBody FOR this»
@@ -112,6 +117,7 @@
 		package «packageName()»;
 		
 		import javax.persistence.*;
+		import javax.xml.bind.annotation.XmlTransient;
 		
 		@MappedSuperclass
 		«getClassDeclaration()»{

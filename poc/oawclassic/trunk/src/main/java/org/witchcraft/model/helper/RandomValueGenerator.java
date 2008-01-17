@@ -58,8 +58,7 @@ public class RandomValueGenerator {
 				attribute.Type().Name() + "." + element.NameS();	
 		}
 		
-		System.out.println("attrib type:" + attribute.Type().Name());
-		return "\"unknown attrib type\"";
+		return "null" + "/*unknown attrib type*/";
 		
 	}
 

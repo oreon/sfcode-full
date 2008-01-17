@@ -209,7 +209,7 @@
 «ENDDEFINE»
 
 «DEFINE createDynamicRandomObject(String name) FOR Entity»
-	«FOREACH getAllAttributes AS attrib-»
+	«FOREACH getAllAttributes.select(attrib| attrib.Type.NameS != "Image" )AS attrib-»
 		«name».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»((«attrib.Type.NameS.getObjectTypeFromPrimitive()»)RandomValueGeneratorFactory.createInstance("«attrib.Type.NameS»"));
 	«ENDFOREACH»
 	

@@ -8,6 +8,9 @@
 
 
 «DEFINE Getter FOR Attribute»
+	«IF Type.Name == "Image"»
+		@XmlTransient
+	«ENDIF»
 	public «Type.NameS» «getGetter(Type)»«NameS.toFirstUpper()» () {
 		return this.«NameS»;
 	} 
@@ -20,6 +23,10 @@
 	«ELSE»
 		@Column(nullable=«isNullable», unique=«isUnique-»)
 	«ENDIF»
+	«IF Type.Name == "Image"»
+		@XmlTransient
+	«ENDIF»
+	
 	public «Type.NameS» «getGetter(Type)»«NameS.toFirstUpper()» () {
 		«IF getDerived != null»
 			«NameS» = 0;

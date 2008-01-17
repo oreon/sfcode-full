@@ -32,6 +32,11 @@
 	<navigation-rule>
 	  	<from-view-id>/«StateMachine.NameS»/«NameS».xhtml</from-view-id>
 		«FOREACH OutTransition AS transition»
+		<!--
+			«transition.Action.NameS»
+			«transition.Trigger.NameS»
+		
+		-->
 		  <navigation-case>
 		    <from-outcome> «transition.Guard»</from-outcome>
 		    <to-view-id>/«StateMachine.NameS»/«transition.TargetVertex.NameS».xhtml</to-view-id>
@@ -67,7 +72,7 @@
 	
 	<ui:define name="content">
 		<f:view>
-		«PROTECT CSTART '<!--' CEND '-->' ID 123 »
+		«PROTECT CSTART '<!--' CEND '-->' ID "USER_CREATED" »
 					This is protectable
 		«ENDPROTECT»
 			<h:messages layout="list" globalOnly="true" showDetail="true"
