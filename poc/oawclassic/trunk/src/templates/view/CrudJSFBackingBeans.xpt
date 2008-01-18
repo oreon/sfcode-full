@@ -87,6 +87,9 @@
 		    	FacesContext ctx = FacesContext.getCurrentInstance();
 				String idStr = (String)ctx.getExternalContext().getRequestParameterMap().get("id");
 				long id = Long.parseLong(idStr);
+				«asInstanceVar()» = «asInstanceVar()»Service.load(id);
+		    	
+		    	
 		    	
 		    	/*
 		    	UIParameter component = (UIParameter) actionEvent.getComponent().findComponent("editId");
@@ -94,7 +97,7 @@
 		    	long id = Long.parseLong(component.getValue().toString());
 		    	*/
 		    	
-		    	«asInstanceVar()» = «asInstanceVar()»Service.load(id);
+		   
 		    }
 		    
 		 «IF getTreeFields != null»
@@ -213,6 +216,11 @@
 		    <from-outcome>edit</from-outcome>
 		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()».xhtml</to-view-id>
 		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>delete</from-outcome>
+		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()».xhtml</to-view-id>
+		  </navigation-case> 
 		  
 		  <navigation-case>
 		    <from-outcome>search</from-outcome>
