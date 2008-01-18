@@ -26,9 +26,10 @@
 					<h:panelGrid columns="2" styleClass="formTableCustom">
 	
 							«REM»The associated entites for e.g an order would need a customer «ENDREM»
-							«FOREACH getAllOutgoingAssociations AS ae -»
+							«FOREACH getAllOutgoingAssociations.select(ae|!(ae.MultiplicityMaxAsInt == 1 
+							&& ae.Opposite.MultiplicityMaxAsInt ==1 ) ) AS ae -»
 								<h:outputText value="«ae.associationName().toFirstUpper() + (ae.isAssocNullable()?"":"*") »" styleClass="formLabel" />
-								«EXPAND ViewGen::genDropDown(this, true) FOR ae»
+								«EXPAND ViewGen::genDropDown(this, true, true) FOR ae»
 							«ENDFOREACH»
 							
 							«EXPAND genEditEntry(this) FOREACH getAllAttributes -»

@@ -21,62 +21,74 @@
 		<metaEnvironmentSlot value="me" />
 	</cartridge>
 
-
-<!--  
-	<component id="dirCleaner"
-	class="org.openarchitectureware.workflow.common.DirectoryCleaner">
-	<directories value="${srcGenPath}" />
+	<component class="org.openarchitectureware.check.CheckComponent">
+		<metaModel
+			class="org.openarchitectureware.type.impl.java.JavaMetaModel">
+			<typeStrategy
+				class="org.openarchitectureware.type.impl.oawclassic.OAWClassicStrategy"
+				convertPropertiesToLowerCase="false" />
+		</metaModel>
+		<checkFile value="java::AssociationCheck" />
+		<expression value="me.getElements('ModelElement')" />
+		<abortOnError value="true" />
 	</component>
--->
 
-<component id="generator"
-	class="org.openarchitectureware.xpand2.Generator">
-	<metaModel
-		class="org.openarchitectureware.type.impl.java.JavaMetaModel">
-		<typeStrategy
-			class="org.openarchitectureware.type.impl.oawclassic.OAWClassicStrategy"
-			convertPropertiesToLowerCase="false" />
-	</metaModel>
-	<expand value="Root::Root FOREACH me.getElements('Model')" />
-	<outlet path="${srcGenPath}/" />
-	<srcPath value="${srcGenPath}/" />
-	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
-	
-	<beautifier
-		class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
-	<beautifier
-		class="org.openarchitectureware.xpand2.output.XmlBeautifier" />
-	
-	<fileEncoding value="ISO-8859-1" />
 
-</component>
+	<!--  
+		<component id="dirCleaner"
+		class="org.openarchitectureware.workflow.common.DirectoryCleaner">
+		<directories value="${srcGenPath}" />
+		</component>
+	-->
 
-<component id="pageFlowGenerator"
-	class="org.openarchitectureware.xpand2.Generator">
-	<metaModel
-		class="org.openarchitectureware.type.impl.java.JavaMetaModel">
-		<typeStrategy
-			class="org.openarchitectureware.type.impl.oawclassic.OAWClassicStrategy"
-			convertPropertiesToLowerCase="false" />
-	</metaModel>
-	<expand
-		value="PageFlow::file FOREACH me.getElements('StateMachine')" />
+	<component id="generator"
+		class="org.openarchitectureware.xpand2.Generator">
+		<metaModel
+			class="org.openarchitectureware.type.impl.java.JavaMetaModel">
+			<typeStrategy
+				class="org.openarchitectureware.type.impl.oawclassic.OAWClassicStrategy"
+				convertPropertiesToLowerCase="false" />
+		</metaModel>
+		<expand value="Root::Root FOREACH me.getElements('Model')" />
+		<outlet path="${srcGenPath}/" />
+		<srcPath value="${srcGenPath}/" />
+		<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
 
-	<srcPath value="${srcGenPath}/" />
-	<outlet path="${srcGenPath}/" />
-	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
-	<prSrcPaths value="${srcGenPath}/"/>
-		<prExcludes value=", *.xml, *.hbm"/>
-	<beautifier
-		class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
-	<beautifier
-		class="org.openarchitectureware.xpand2.output.XmlBeautifier" />
-	<fileEncoding value="ISO-8859-1" />
-</component>
+		<beautifier
+			class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
+		<beautifier
+			class="org.openarchitectureware.xpand2.output.XmlBeautifier" />
 
-<cartridge
-	file="org/openarchitectureware/workflow/oawclassic/classicfinish.oaw">
-	<instantiatorEnvironmentSlot value="ie" />
-	<dumpfile value="${dumpfile}" />
-</cartridge>
+		<fileEncoding value="ISO-8859-1" />
+
+	</component>
+
+	<component id="pageFlowGenerator"
+		class="org.openarchitectureware.xpand2.Generator">
+		<metaModel
+			class="org.openarchitectureware.type.impl.java.JavaMetaModel">
+			<typeStrategy
+				class="org.openarchitectureware.type.impl.oawclassic.OAWClassicStrategy"
+				convertPropertiesToLowerCase="false" />
+		</metaModel>
+		<expand
+			value="PageFlow::file FOREACH me.getElements('StateMachine')" />
+
+		<srcPath value="${srcGenPath}/" />
+		<outlet path="${srcGenPath}/" />
+		<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
+		<prSrcPaths value="${srcGenPath}/" />
+		<prExcludes value=", *.xml, *.hbm" />
+		<beautifier
+			class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
+		<beautifier
+			class="org.openarchitectureware.xpand2.output.XmlBeautifier" />
+		<fileEncoding value="ISO-8859-1" />
+	</component>
+
+	<cartridge
+		file="org/openarchitectureware/workflow/oawclassic/classicfinish.oaw">
+		<instantiatorEnvironmentSlot value="ie" />
+		<dumpfile value="${dumpfile}" />
+	</cartridge>
 </workflow>

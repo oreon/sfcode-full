@@ -42,7 +42,7 @@
 							
 							«FOREACH getAllOutgoingAssociations AS ae -»
 								<h:outputText value="«ae.NameS.toFirstUpper()»" styleClass="formLabel" />
-								«EXPAND ViewGen::genDropDown(this, true) FOR ae»
+								«EXPAND ViewGen::genDropDown(this, true, false) FOR ae»
 							«ENDFOREACH»
 							
   						   <h:commandButton id="button1" value="Search" action="#{«asInstanceVar()»CrudBacking.search}"  /> 
