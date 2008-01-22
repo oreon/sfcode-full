@@ -283,9 +283,24 @@
 				assertTrue(«asInstanceVar()»Service.getCount() > 0 );
 			}
 			
+			//count the number of records - delete one - check count==-1 after delete
 			public void testDelete() {
-				//return false;
-			}			
+				try{
+				if(«asInstanceVar()»Service.getCount() > 0){
+					long count=«asInstanceVar()»Service.getCount();
+					«NameS» «asInstanceVar()» = («NameS»)«asInstanceVar()»TestDataFactory.loadOneRecord();					
+					«asInstanceVar()»Service.delete(«asInstanceVar()»);
+					long newCount=«asInstanceVar()»Service.getCount();
+					long diff=newCount-count;
+					assertTrue(diff==1);			
+				}
+				assertTrue(«asInstanceVar()»Service.getCount() <1);
+				}catch(Exception e){
+					fail(e.getMessage());
+				}
+				
+			}		
+			
 			
 			public void testLoad() {
 			
