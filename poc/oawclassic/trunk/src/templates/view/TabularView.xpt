@@ -48,8 +48,8 @@
 								<!--
 								</acegijsf:authorize>
 								--> 
-							</t:column>
-							<t:column>
+								</t:column>
+								<t:column>
 								<f:facet name="header">
 									<t:commandSortHeader columnName="id" arrow="true">
 										<t:outputText value=" " />
@@ -59,15 +59,15 @@
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 		
 								<t:commandLink action="#{«asInstanceVar()»CrudBacking.delete}"	
-								actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}">												
+								actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}" immediate="true">												
 										<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>
 										<f:param id="deleteId" name="id" value="#{«asInstanceVar()».id}" />								
 									</t:commandLink>
 								<!--
 								</acegijsf:authorize>
 								--> 
-							</t:column>
-							 	</t:dataTable>	
+								</t:column>
+						</t:dataTable>	
 							 	<t:inputHidden value="#{«asInstanceVar()»CrudBacking.sortField}" />
     							<t:inputHidden value="#{«asInstanceVar()»CrudBacking.sortAscending}" />
 							 </rich:tab>
