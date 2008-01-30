@@ -19,6 +19,7 @@ public class Column extends Attribute{
 	private String validator;
 	private String inputType;
 	private String access;
+	private boolean repeat = false; 
 	
 	private String containerName;
 	
@@ -100,6 +101,16 @@ public class Column extends Attribute{
 	}
 	public void setAccess(String access) {
 		this.access = access;
+	}
+	
+	/** This property tells whether the field should be repeated e.g. password
+	 * @return
+	 */
+	public boolean isRepeat() {
+		return repeat;
+	}
+	public void setRepeat(boolean repeat) {
+		this.repeat = repeat;
 	} 
 	
 

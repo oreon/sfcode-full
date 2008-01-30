@@ -41,7 +41,7 @@ script>
 							«EXPAND genTableRow(asInstanceVar()) FOREACH getAllAttributes -»
 							
 							«REM»The associated entites for e.g an order would need a customer «ENDREM»
-							«EXPAND genTableRow(this) FOREACH getAllOutgoingAssociations -»
+							«EXPAND genTableRow(this) FOREACH getNonOneToOneOutgoingAssociations() -»
 							
 							<t:column>
 								<f:facet name="header">

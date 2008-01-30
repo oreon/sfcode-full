@@ -36,6 +36,15 @@ public class ClassUtil {
 	public static List<Entity> getEntities() {
 		return entities;
 	}
+	
+	/**
+	 * @return - the entity out of the list of entities
+	 */
+	/*
+	public static Entity getEntityByName(String name){
+		for(int i = 0; i)
+		
+	}*/
 
 	/**
 	 * Returns the package name of the given

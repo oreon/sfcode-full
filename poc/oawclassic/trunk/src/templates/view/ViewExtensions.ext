@@ -48,6 +48,20 @@ String getAccessControlEnd (Attribute attribute):
 String getAccessControlEnd (Column column):
 column.getAccess != null ?"</acegijsf:authorize>":"";
 
+boolean getRepeat(Column column):
+column.isRepeat;
+
+boolean getRepeat(Attribute column):
+false;
+
+//Generate the JSF control id for a given control 
+String controlId(Attribute attr, Class e):
+e.NameS.toFirstLower() + "_" + attr.TypeModifier + "_" + attr.NameS;
+
+String repeatControlId(Attribute attr, Class e):
+e.NameS.toFirstLower() + "_" + attr.TypeModifier + "_repeat" + attr.NameS.toFirstUpper();
+
+
 String getEntitiesLeftNavMenu():
 JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getEntitiesLeftNavMenu();
 

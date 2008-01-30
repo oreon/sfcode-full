@@ -25,6 +25,8 @@ public class Entity extends AbstractEntity {
 	private String tableName;
 
 	private String uniqueConstraints;
+	
+	
 
 	private String inheritanceStrategy;
 	

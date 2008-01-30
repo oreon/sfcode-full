@@ -26,8 +26,7 @@
 					<h:panelGrid columns="2" styleClass="formTableCustom">
 	
 							«REM»The associated entites for e.g an order would need a customer «ENDREM»
-							«FOREACH getAllOutgoingAssociations.select(ae|!(ae.MultiplicityMaxAsInt == 1 
-							&& ae.Opposite.MultiplicityMaxAsInt ==1 ) ) AS ae -»
+							«FOREACH getNonOneToOneOutgoingAssociations() AS ae -»
 								<h:outputText value="«ae.associationName().toFirstUpper() + (ae.isAssocNullable()?"":"*") »" styleClass="formLabel" />
 								«EXPAND ViewGen::genDropDown(this, true, true) FOR ae»
 							«ENDFOREACH»
@@ -89,12 +88,26 @@
 «REM» Create an edit entry e.g firstNAme <input > <errMessage > «ENDREM»
 «DEFINE genEditEntry(Class e) FOR Attribute»
 	«getAccessControlBegin()»
-	<h:outputText value="«NameS.toFirstUpper() + (getElementRequired()?"*":"") »" styleClass="formLabel" />
+		«EXPAND genEditEntry(e, false) FOR this»
+		«IF getRepeat()»
+			«EXPAND genEditEntry(e, true) FOR this»
+		«ENDIF»					
+	«getAccessControlEnd()»
+«ENDDEFINE»
+
+«DEFINE genEditEntry(Class e, boolean repeat) FOR Attribute»
+	<h:outputText value="«repeat ? "Repeat ":""»«NameS.toFirstUpper() + (getElementRequired()?"*":"") »" styleClass="formLabel" />
 	
 	<h:panelGroup>
 	<a4j:region>
-	«EXPAND genInputControl(e) FOR this»
-		<rich:message for="«e.asInstanceVar()»_«TypeModifier»_«NameS»" styleClass="errMessage">
+	«IF repeat»
+		«EXPAND genRepeatInputControl(e) FOR this»
+	«ELSE»
+		«EXPAND genInputControl(e) FOR this»
+	«ENDIF»
+	
+		<rich:message for="«repeat ? repeatControlId(e): controlId(e)»"
+			 styleClass="errMessage">
 			<f:facet name="errorMarker">
 				<h:graphicImage url="/images/icons/bullet_error.png" />
 			</f:facet>
@@ -102,16 +115,25 @@
 		
 		</a4j:region>
 	</h:panelGroup>
-							
-	«getAccessControlEnd()»
+	
 «ENDDEFINE»
 
 «REM» Create an input control like text input, date - calendar, check box etc «ENDREM»
 «DEFINE genInputControl(Class e) FOR Attribute»
 	<«getElementType()»  «getElementAttributes()»  required="«getElementRequired()»" 
-		id="«e.asInstanceVar()»_«TypeModifier»_«NameS»"
+		id="«controlId(e)»"
 		value="#{«e.asInstanceVar()»CrudBacking.«e.asInstanceVar()».«fullName()»}">
 		«getElementContent()»
+	</«getElementType()»>
+«ENDDEFINE»
+
+«REM» Create an input control like text input, date - calendar, check box etc «ENDREM»
+«DEFINE genRepeatInputControl(Class e) FOR Attribute»
+	<«getElementType()»  «getElementAttributes()»  required="«getElementRequired()»" 
+		id="«repeatControlId(e)»"
+		value="#{«e.asInstanceVar()»CrudBacking.repeat«NameS.toFirstUpper()»}">
+		«getElementContent()»
+		<t:validateEqual for="«e.asInstanceVar()»_«TypeModifier»_«NameS»" />
 	</«getElementType()»>
 «ENDDEFINE»
 

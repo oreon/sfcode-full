@@ -28,7 +28,7 @@
 </faces-config>
 «ENDDEFINE»
 
-«DEFINE GenFacesNav FOR State»
+«DEFINE GenFacesNav FOR ViewState»
 	<navigation-rule>
 	  	<from-view-id>/«StateMachine.NameS»/«NameS».xhtml</from-view-id>
 		«FOREACH OutTransition AS transition»
@@ -45,7 +45,7 @@
 	</navigation-rule>
 «ENDDEFINE»
 
-«DEFINE GenManagedBean FOR State»
+«DEFINE GenManagedBean FOR ViewState»
 	<managed-bean>
 		<managed-bean-name>«NameS.toFirstLower()»Bean</managed-bean-name>
 		<managed-bean-class>states.web.jsf.«NameS.toFirstUpper()»Bean</managed-bean-class>
@@ -64,11 +64,11 @@
 «ENDDEFINE»
 
 «REM» This function generates xhtml for the given state «ENDREM»
-«DEFINE GenXHTML FOR State»
+«DEFINE GenXHTML FOR ViewState»
 	«FILE "../webapp/" +  StateMachine.NameS + "/" +NameS +".xhtml"»
 	
 	
-	«EXPAND view::ViewGen::genIncludes("default.xhtml")-»
+	«EXPAND view::ViewGen::genIncludes(getStateMachine.getTemplate)-»
 	
 	<ui:define name="content">
 		<f:view>
@@ -77,7 +77,7 @@
 		«ENDPROTECT»
 			<h:messages layout="list" globalOnly="true" showDetail="true"
 				styleClass="messages" />
-			<h:outputText value="«Documentation»" styleClass="message" />		
+			<h:outputText value="«getMessage»" styleClass="message" />		
 				
 		«FOREACH OutTransition AS transition»
 			
@@ -107,7 +107,7 @@
 	
 
 «REM» If any transition in a state has a guard we need to generate a backing bean for it «ENDREM»
-«DEFINE GenBeanClass FOR State»
+«DEFINE GenBeanClass FOR ViewState»
 	«FILE "states/web/jsf" +"/"+ NameS.toFirstUpper() +"BeanBase.java"»  
 	
 		«EXPAND java::ManualFileGen::genManualFile("states/web/jsf", "Bean", "")»

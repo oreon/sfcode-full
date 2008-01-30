@@ -28,6 +28,10 @@ ae.NameS != null && ae.NameS != ""?ae.NameS: ae.Class.NameS.toFirstLower();
 ElementSet getEmebeddedComponents(AbstractEntity entity):
 entity.AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable 
 				&& ae.Opposite.isComposition );
+				
+ElementSet getNonOneToOneOutgoingAssociations(AbstractEntity entity):
+entity.getAllOutgoingAssociations.select(ae|!(ae.MultiplicityMaxAsInt == 1 
+							&& ae.Opposite.MultiplicityMaxAsInt ==1 ) );				
 
 String manyToOne(AssociationEnd ae) :
 JAVA oaw4.demo.classic.uml.extend.ClassUtil.manyToOne(org.openarchitectureware.meta.uml.classifier.AssociationEnd);

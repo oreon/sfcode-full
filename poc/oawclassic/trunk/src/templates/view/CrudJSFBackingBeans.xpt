@@ -2,8 +2,9 @@
 «IMPORT oaw4::demo::classic::uml::meta»
 «IMPORT org::openarchitectureware::core::meta::core»
 «IMPORT java»
-«EXTENSION java::NamingConventions»
 
+«EXTENSION java::NamingConventions»
+«EXTENSION view::ViewExtensions»
 
 «DEFINE GenerateBackingBean FOR Entity»
 	
@@ -39,6 +40,8 @@
 			«IF getTreeFields != null»
 			private TreeNode root = null;
 			«ENDIF»
+			
+			«EXPAND GenRepeatAttributes FOR this»
 			
 			public void set«NameS»Service(«asParameter()»Service «asInstanceVar()»Service){
 				this.«asInstanceVar()»Service = «asInstanceVar()»Service;
@@ -139,6 +142,25 @@
 	} 
 	«ENDFILE»
 	
+«ENDDEFINE»
+
+«REM» The repeat attributes like password need to have a variable in the backing bean«ENDREM»
+«DEFINE GenRepeatAttributes FOR Entity»
+
+«FOREACH getAllAttributes AS attribute»
+	«IF attribute.getRepeat()»
+		private String repeat«attribute.NameS.toFirstUpper()»; 
+		
+		public String getRepeat«attribute.NameS.toFirstUpper()»(){
+			return repeat«attribute.NameS.toFirstUpper()»;
+		}
+		
+		public void setRepeat«attribute.NameS.toFirstUpper()»(String repeat«attribute.NameS»){
+			this.repeat«attribute.NameS.toFirstUpper()» = repeat«attribute.NameS»;
+		}
+	«ENDIF»
+«ENDFOREACH»
+
 «ENDDEFINE»
 
 
