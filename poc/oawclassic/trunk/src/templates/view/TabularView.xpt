@@ -7,19 +7,7 @@
 «EXTENSION view::ViewExtensions»
 «EXTENSION java::NamingConventions»
 «EXTENSION java::Associations»
-script>
 
-//<![CDATA[
-
-		 function getRightTop(ref) {
-		   var position = new Object();
-		   position.top = 0; //ref.offsetTop;
-		   position.left =0; // ref.offsetLeft+ref.clientWidth+6;
-		   return position;
-		 }
-		
-//]]>
-</script>
 «REM» Create the tabular view xhtml page for an entity «ENDREM»
 «DEFINE genTabularView FOR Entity-»
 	
@@ -53,7 +41,7 @@ script>
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 								
 									<t:commandLink action="#{«asInstanceVar()»CrudBacking.select}"													
-									actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}">
+										actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}">
 										<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
 										<f:param id="editId" name="id" value="#{«asInstanceVar()».id}" />								
 									</t:commandLink>		
@@ -72,13 +60,11 @@ script>
 								--> 		
 								<a4j:commandLink action="#{«asInstanceVar()»CrudBacking.delete}"	
 									onclick="if(window.confirm('Are You Sure?')==false){return false}"
-								actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}" immediate="true">	
-										
-																		
-										<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>
-										
-										<f:param id="deleteId" name="id" value="#{«asInstanceVar()».id}" />								
-									</a4j:commandLink>
+									actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}" immediate="true" focus="content">												
+									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>			
+									<f:param id="deleteId" name="id" value="#{«asInstanceVar()».id}" />	
+																
+								</a4j:commandLink>
 								<!--
 								</acegijsf:authorize>
 								--> 
@@ -147,106 +133,9 @@ script>
 						<hr />
 
 		</f:view>
-<div id="mp" style="display: none;">
-<input id="mpOpenedState" name="mpOpenedState" type="hidden" />
-<div class="rich-modalpanel " id="mpContainer" style="position: absolute; 
-display: none; z-index: 2000; background-color: inherit;">
-<div class="dr-mpnl-mask-div rich-mpnl-mask-div" id="mpDiv" 
-style="z-index: 1;"></div><div class="dr-mpnl-mask-div rich-mpnl-mask-div" 
-id="mpCursorDiv" style="filter: alpha(opacity=1); z-index: -200">
-</div><div class="dr-mpnl-panel rich-mpnl_panel" id="mpCDiv"
- style="width: 1px; height: 1px; z-index: 2;">
- <div class="dr-mpnl-resizer rich-mpnl-resizer" 
- id="mpResizerNWU" style="width: 40px; height: 4px;
- z-index: 13;">
- </div><div class="dr-mpnl-resizer rich-mpnl-resizer" 
- id="mpResizerN" style="width: 40px; height: 4px;z-index: 03;">
- </div><div class="dr-mpnl-resizer rich-mpnl-resizer" id="mpResizerNEU" 
- style="width: 40px; height: 4px;z-index: 13;">
- </div><div class="dr-mpnl-resizer rich-mpnl-resizer" 
- id="mpResizerNEL" style="height: 40px; width: 4px;
- z-index: 13;"></div><div class="dr-mpnl-resizer rich-mpnl-resizer" 
- id="mpResizerE" style="height: 40px; width: 4px;z-index: 03;">
- </div>
- <div class="dr-mpnl-resizer rich-mpnl-resizer" id="mpResizerSEU" 
- style="height: 40px; width: 4px;z-index: 13;">
- </div>
- <div class="dr-mpnl-resizer rich-mpnl-resizer" id="mpResizerSEL" 
- style="width: 40px; height: 4px;z-index: 13;">
- </div>
- <div class="dr-mpnl-resizer rich-mpnl-resizer" id="mpResizerS" 
- style="width: 40px; height: 4px;z-index: 03;">
- </div>
- <div class="dr-mpnl-resizer rich-mpnl-resizer" id="mpResizerSWL" 
- style="width: 40px; height: 4px;z-index: 13;">
- </div>
- <div class="dr-mpnl-resizer rich-mpnl-resizer" id="mpResizerSWU" 
- style="height: 40px; width: 4px;z-index: 13;">
- </div>
- <div class="dr-mpnl-resizer rich-mpnl-resizer" id="mpResizerW" 
- style="height: 40px; width: 4px;z-index: 03;">
- </div>
- <div class="dr-mpnl-resizer rich-mpnl-resizer" id="mpResizerNWL" 
- style="height: 40px; width: 4px;z-index: 13;">
- </div>
- <div class="dr-mpnl-shadow rich-mpnl-shadow" id="mpShadowDiv" 
- style="top: 4px; left: 4px; opacity:0.1; 
- filter:alpha(opacity=10);">
- </div>
- <table border="0" cellpadding="0" cellspacing="0" 
- id="mpContentTable" style="position: absolute; z-index: 2; 
- width: 450px; height: 200px; ;">
- <tbody>
- <tr>
- <td class="dr-mpnl-pnl">
- <div class="rich-mp-content" id="mpContentDiv" style="overflow: hidden;">
- <a class="dr-mpnl-pnl-a" href="#" id="mpFirstHref">_</a>
- <table border="0" cellpadding="0" cellspacing="0" style="height: 
- 100%; width: 100%;"><tr style="height: 1%;">
- <td class="dr-mpnl-header rich-mpnl-header-cell">
- <div class="dr-mpnl-pnl-text rich-mpnl-text rich-mpnl-controls " 
- style="float:right; padding-top: 3px; padding-right: 3px">
- <img src="/richfaces-demo/images/modal/close.png" 
- alt="" onclick="Richfaces.hideModalPanel('mp')" 
- style="cursor:pointer" />
- </div>
- <div class="dr-mpnl-pnl-text dr-mpnl-pnl-h rich-mpnl-text rich-mpnl-header " 
- id="mpHeader" style="white-space: nowrap;
- ">Modal Panel Title
- </div>
- </td>
- </tr>
- <tr style="height: 99%">
- <td class="dr-mpnl-pnl-b rich-mpnl-body" valign="top">
-				<p>Any JSF content might be inside the panel. In case of using 
-				Facelets or JSF 1.2, it might be any mixed content.</p>			
-				<p>The RichFaces modal panel is good with &lt;a4j:include&gt; to create
-				a wizard like behavior.</p>
-				<p>The model panel is open and closed from the javascript function
-				on <i>Richfaces</i> object. The following code 
-				<a href="javascript:Richfaces.hideModalPanel('mp')">hide this panel</a>:
-				Richfaces.hideModalPanel('mp')</p><a class="dr-mpnl-pnl-a" href="#" 
-				id="mpLastHref">_</a></td></tr>
-				</table></div></td></tr>
-				</tbody></table></div><script type="text/javascript">
 
-//<![CDATA[
-new ModalPanel('mp',
-				{
-					width: 500, height: 200,
-					minWidth: 450, minHeight: 200,
-					resizeable: true, moveable: true,
-					left: "auto", top: "auto",
-					zindex: 2000,
-					onhide: '',													
-					keepVisualState: false,
-					showWhenRendered: false,
-					selectBehavior: "disable",
-					autosized: false
-				});
-//]]>
-</script></div></div>
 	</ui:define>
+      
 </ui:composition>
 
 «ENDDEFINE»
