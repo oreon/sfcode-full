@@ -17,38 +17,38 @@
 
 		<f:view>
 			<h:messages layout="list" globalOnly="true" showDetail="true"
-			styleClass="messages" />
-		
+			styleClass="messages" />	
 			<a4j:form id="form">
 				<rich:tabPanel  switchType="ajax">
 					<rich:tab label="Tabular" >
 					<t:dataTable id="data" var="«asInstanceVar()»"
 						value="#{«asInstanceVar()»CrudBacking.records}" rows="30"
-					rowClasses="odd, even" styleClass="dataTable" >
-											
+					rowClasses="odd, even" styleClass="dataTable" >						
 							«EXPAND genTableRow(asInstanceVar()) FOREACH getAllAttributes -»
 							
 							«REM»The associated entites for e.g an order would need a customer «ENDREM»
 							«EXPAND genTableRow(this) FOREACH getNonOneToOneOutgoingAssociations() -»
 							
-							<t:column>
+							<rich:column>
 								<f:facet name="header">
 									<t:commandSortHeader columnName="id" arrow="true">
 										<t:outputText value=" " />
 									</t:commandSortHeader>
 								</f:facet>
+								
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 								
-									<t:commandLink action="#{«asInstanceVar()»CrudBacking.select}"													
+									<t:commandLink action="#{«asInstanceVar()»CrudBacking.select}"																					
 										actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}">
+										<rich:toolTip direction="bottom-left"  style="toolTip" value="Click to Edit Row"  mode="client"/>	
 										<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
 										<f:param id="editId" name="id" value="#{«asInstanceVar()».id}" />								
 									</t:commandLink>		
 								<!--
 								</acegijsf:authorize>
 								--> 
-								</t:column>
+								</rich:column>
 								<t:column>
 								<f:facet name="header">
 									<t:commandSortHeader columnName="id" arrow="true">
@@ -61,6 +61,7 @@
 								<a4j:commandLink action="#{«asInstanceVar()»CrudBacking.delete}"	
 									onclick="if(window.confirm('Are You Sure?')==false){return false}"
 									actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}" immediate="true">												
+									<rich:toolTip direction="bottom-right"  style="toolTip" value="Click to Delete Entire Row"  mode="client"/>	
 									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>			
 									<f:param id="deleteId" name="id" value="#{«asInstanceVar()».id}" />	
 																
