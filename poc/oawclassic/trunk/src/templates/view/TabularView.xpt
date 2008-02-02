@@ -41,7 +41,7 @@
 								--> 								
 									<t:commandLink action="#{«asInstanceVar()»CrudBacking.select}"																					
 										actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}">
-										<rich:toolTip direction="bottom-left"  style="toolTip" value="Click to Edit Row"  mode="client"/>	
+										<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
 										<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
 										<f:param id="editId" name="id" value="#{«asInstanceVar()».id}" />								
 									</t:commandLink>		
@@ -60,11 +60,10 @@
 								--> 		
 								<a4j:commandLink action="#{«asInstanceVar()»CrudBacking.delete}"	
 									onclick="if(window.confirm('Are You Sure?')==false){return false}"
-									actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}" immediate="true">												
-									<rich:toolTip direction="bottom-right"  style="toolTip" value="Click to Delete Entire Row"  mode="client"/>	
-									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>			
-									<f:param id="deleteId" name="id" value="#{«asInstanceVar()».id}" />	
-																
+									actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}" immediate="true">														
+									<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
+									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
+									<f:param id="deleteId" name="id" value="#{«asInstanceVar()».id}" />												
 								</a4j:commandLink>
 								<!--
 								</acegijsf:authorize>
