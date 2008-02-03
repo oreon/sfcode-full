@@ -283,25 +283,17 @@
 				assertTrue(«asInstanceVar()»Service.getCount() > 0 );
 			}
 			
-			//count the number of records - delete one - check count==-1 after delete
-			public void testDelete() {
-				
-				/*if(«asInstanceVar()»Service.getCount() > 0){
-					long count=«asInstanceVar()»Service.getCount();
-					«NameS» «asInstanceVar()» = («NameS»)«asInstanceVar()»TestDataFactory.loadOneRecord();					
-					«asInstanceVar()»Service.delete(«asInstanceVar()»);
-					long newCount=«asInstanceVar()»Service.getCount();
-					long diff=newCount-count;
-					assertTrue(diff==1);			
-				}
-			
-				assertTrue(«asInstanceVar()»Service.getCount() <1);
-				
-				}*/
+			//count the number of records - add one delete it - check count is same after delete
+					public void testDelete() {
+						long count,newCount,diff=0;			
+							count=«asInstanceVar()»Service.getCount();
+							«NameS» «asInstanceVar()» = («NameS»)«asInstanceVar()»TestDataFactory.loadOneRecord();					
+							«asInstanceVar()»Service.delete(«asInstanceVar()»);
+							newCount=«asInstanceVar()»Service.getCount();
+							diff=newCount-count;					
 				try{
-				assertTrue(true);
-				}catch(Exception e){fail(e.getMessage());}
-			}		
+					assertEquals(diff,0);
+				}catch(Exception e){fail(e.getMessage());}}	
 			
 			
 			public void testLoad() {
