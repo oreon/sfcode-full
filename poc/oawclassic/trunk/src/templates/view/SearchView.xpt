@@ -53,13 +53,33 @@
 						</h:panelGrid>
 						</rich:tab>
 						<rich:tab label="Advanced">
-							<h:outputText value="Creation Date" styleClass="formLabel" />
+						   
+<f:facet name="header">
+							<h:outputText value="«NameS» Information"
+								styleClass="formHeaderText"   />
+</f:facet>						
+<rich:dropDownMenu>
+                <f:facet name="label">                                       
+                        <h:outputText value="Choose" />
+                        <h:graphicImage value="/images/icons/date_go.png" style="border: 0px"/>                
+                		
+                </f:facet>
+                
+                <rich:menuItem value="On" submitMode="none" onclick="dateOp='ON'">             
+                </rich:menuItem>               
+                <rich:menuItem submitMode="none" value="Before" onclick="dateOp='BEFORE'">
+                </rich:menuItem>                               
+                <rich:menuItem submitMode="none" value="After" onclick="dateOp='AFTER'">
+                </rich:menuItem>                 
+                <rich:menuItem submitMode="none" value="Between" onclick="dateOp='BETWEEN'">
+            	</rich:menuItem>    
+</rich:dropDownMenu>
 							
-							<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
+<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
 								id="customer__creation"
 								value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».dateCreated}">
 								
-							</t:inputCalendar >
+</t:inputCalendar >
 							
 							<h:message for="customer__dob" styleClass="errMessage" />
 				
