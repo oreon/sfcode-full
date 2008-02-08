@@ -15,6 +15,7 @@
 	import javax.faces.component.UIParameter;
 	import javax.faces.event.ActionEvent;
 	import javax.faces.context.FacesContext;
+	import javax.faces.component.UIOutput;
 	
 	import org.witchcraft.model.jsf.BaseBackingBean;
 	import org.witchcraft.model.support.service.BaseService;
@@ -28,6 +29,7 @@
 		import org.richfaces.event.NodeSelectedEvent;
 		import org.richfaces.model.TreeNode;
 		import org.richfaces.model.TreeNodeImpl;
+		import org.richfaces.component.html.HtmlMenuItem;
 	«ENDIF»
 	
 	
@@ -69,6 +71,13 @@
 				action=SEARCH;
 				return "search";
 			}
+			//functions for advanced search
+			String dateOp;
+			public void doAdvancedSearch(String dateOp){
+				this.dateOp=dateOp;
+			}
+
+			
 			
 	
 			/** Returns a success string upon selection of an entity in model - majority of work is done
@@ -85,25 +94,18 @@
 		     *  
 		     * @param event contains the database id of the row being selected 
 		     */
-		    public void selectEntity(ActionEvent actionEvent){
-		    	
+		    public void selectEntity(ActionEvent actionEvent){		    	
 		    	FacesContext ctx = FacesContext.getCurrentInstance();
 				String idStr = (String)ctx.getExternalContext().getRequestParameterMap().get("id");
 				long id = Long.parseLong(idStr);
 				«asInstanceVar()» = «asInstanceVar()»Service.load(id);
 		    	if(actionEvent.getComponent().getId()=="deleteId"){
-		    		getBaseService().delete(«asInstanceVar()»);	
-		    		
-		    	}
-		    	
-		    	
+		    		getBaseService().delete(«asInstanceVar()»);	}
 		    	/*
 		    	UIParameter component = (UIParameter) actionEvent.getComponent().findComponent("editId");
 		    	// parse the value of the UIParameter component    	 
 		    	long id = Long.parseLong(component.getValue().toString());
 		    	*/
-		    	
-		   
 		    }
 		    
 		 «IF getTreeFields != null»
@@ -182,6 +184,9 @@
 	</application>
 
 	<!-- Managed beans for the crud operations -->
+
+	
+	
 	«EXPAND GenerateManagedBeanDef FOREACH getEntities()»
 	
 	<!-- Navigation Rules  -->
@@ -207,6 +212,8 @@
 			<property-name>«asInstanceVar()»Service</property-name>
 			<value>#{«asInstanceVar()»Service}</value>
 		</managed-property>
+		
+		
 		
 	</managed-bean> 
  	
