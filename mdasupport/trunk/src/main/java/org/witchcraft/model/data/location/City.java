@@ -5,22 +5,26 @@ import javax.persistence.Entity;
 import org.witchcraft.model.support.BusinessEntity;
 
 @Entity
-public class State extends BusinessEntity{
+public class City extends BusinessEntity{
 	
-	private Country country;
+	private State state;
+	
 	private String name;
-	
-	public Country getCountry() {
-		return country;
+
+	public State getState() {
+		return state;
 	}
-	public void setCountry(Country country) {
-		this.country = country;
+
+	public void setState(State state) {
+		this.state = state;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
 }

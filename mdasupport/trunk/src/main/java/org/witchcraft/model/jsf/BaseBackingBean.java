@@ -58,7 +58,7 @@ public abstract class BaseBackingBean<T> {
 	/**
 	 * Write values to the database
 	 * 
-	 * @return - "success" if everthing goes fine
+	 * @return - "success" if everthing goes fine 	 	
 	 */
 	public String delete() {
 		try {
@@ -68,7 +68,7 @@ public abstract class BaseBackingBean<T> {
 			return "failure";
 		}
 
-		return "success";
+		return "successDelete";
 	}
 
 	/**

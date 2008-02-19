@@ -1,6 +1,8 @@
 package org.witchcraft.model.data.location;
 
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Entity;
+
+import org.witchcraft.model.support.BusinessEntity;
 
 /**
  * Class representing countries , A class in a uml model deriving 
@@ -9,8 +11,8 @@ import javax.persistence.MappedSuperclass;
  * @author jsingh
  *
  */
-@MappedSuperclass
-public class Country {
+@Entity
+public class Country extends BusinessEntity{
 	
 	private String countryName;
 	private String isoCode;
