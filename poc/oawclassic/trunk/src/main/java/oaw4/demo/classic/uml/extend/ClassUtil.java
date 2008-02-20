@@ -358,7 +358,7 @@ public class ClassUtil {
 	}
 
 	public static String getAssocName(AssociationEnd ae) {
-		return ae.NameS() == null ? ae.Class().NameS() : ae.NameS();
+		return ae.NameS() == null ? WordUtils.uncapitalize(ae.Class().NameS()) : ae.NameS();
 	}
 
 	/**
@@ -387,7 +387,7 @@ public class ClassUtil {
 		
 		if (ae.Opposite().isComposition() )
 			return " = new " + fullyQualifiedName(ae.Class()) + "()";
-		if (isAssociationOneOnOne(ae))
+		else if (isAssociationOneOnOne(ae) || StereoTypeManager.isEmbeddable(ae.Class()))
 			return " = new " + fullyQualifiedName(ae.Class()) + "()";
 		return "";
 	}

@@ -219,7 +219,7 @@
 
 «DEFINE addDependencies(String name) FOR Entity»
 	«REM»The associated entites for e.g an order would need a customer «ENDREM»
-	«FOREACH getAllOutgoingAssociations AS ae-»
+	«FOREACH getOutgoingAssociationsExceptOneOnOne AS ae-»
 		«EXPAND genBeanLookup FOR ae»
 		«IF ae.Class.NameS != NameS»
 			«name».set«associationName(ae).toFirstUpper()»((«ae.Class.fqn()»)«ae.associationName().toFirstLower()»TestDataFactory.loadOneRecord());

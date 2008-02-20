@@ -1,7 +1,9 @@
 package oaw4.demo.classic.uml.meta;
 
 import oaw4.demo.classic.uml.extend.ClassUtil;
+import oaw4.demo.classic.uml.extend.StereoTypeManager;
 
+import org.apache.log4j.Logger;
 import org.openarchitectureware.core.meta.core.ElementSet;
 import org.openarchitectureware.meta.uml.Type;
 import org.openarchitectureware.meta.uml.classifier.AssociationEnd;
@@ -12,6 +14,8 @@ public abstract class AbstractEntity extends
 		org.openarchitectureware.meta.uml.classifier.Class {
 
 	private String displayName;
+	
+	private static final Logger logger = Logger.getLogger(AbstractEntity.class);
 
 	/**
 	 * @return All elements which have Column stereotype applied
@@ -94,11 +98,10 @@ public abstract class AbstractEntity extends
 			ElementSet assocAttributes = ae.Class().Attribute();
 			for (Object obj : assocAttributes) {
 				Attribute attribute = (Attribute) obj;
-				attribute.setTypeModifier(ae.NameS());
+				attribute.setTypeModifier(ClassUtil.getAssocName(ae));
+				logger.info("Applying typeModifier " + ClassUtil.getAssocName(ae)  + " to " + attribute.NameS()  );
 			}
 
-			// System.out.println(NameS() + " has assoc " +
-			// assocAttributes.size());
 			attributes.addAll(ae.Class().Attribute());
 		}
 		return attributes;
@@ -137,6 +140,22 @@ public abstract class AbstractEntity extends
 
 		return nonColAttribs;
 	}
+	
+	/**
+	 * @return all outgoing associations other than one on one 
+	 */
+	public ElementSet getOutgoingAssociationsExceptOneOnOne() {
+		ElementSet outgoingAssoc = new ElementSet();
+		ElementSet allAssoc = getAllOutgoingAssociations();
+
+		for (Object object : allAssoc) {
+			AssociationEnd ae = (AssociationEnd)object;
+			if(!ClassUtil.isAssociationOneOnOne(ae))
+				outgoingAssoc.add(ae);
+		}
+
+		return outgoingAssoc;
+	}
 
 	/**
 	 * Get all outgoing associations for this class and its superclasses, i.e.
@@ -170,7 +189,7 @@ public abstract class AbstractEntity extends
 						"oaw4.demo.classic.uml.meta.Embeddable"))
 					embeddables.add(ae.Opposite());
 				else
-					System.out.println("Ignoring embeddable "
+					logger.info("Ignoring embeddable :context outgoingassociaitons "
 							+ opposite.Class().Name());
 
 			}
@@ -189,6 +208,7 @@ public abstract class AbstractEntity extends
 
 		ElementSet superclasses = SuperClasss();
 		for (Object object : superclasses) {
+			//logger.debug("adding " + )
 			embeddables.addAll(getContainedAssociations((Class) object));
 		}
 
@@ -196,7 +216,7 @@ public abstract class AbstractEntity extends
 	}
 
 	/**
-	 * We look for all embedded components and one on associations
+	 * We look for all embedded components and One on One associations
 	 * 
 	 * @param cls
 	 * @return
@@ -209,6 +229,8 @@ public abstract class AbstractEntity extends
 
 			if (ClassUtil.isAssociationOneOnOne(ae)
 					&& ae.Opposite().isNavigable()) {
+				embeddables.add(ae.Opposite());
+			}else if (StereoTypeManager.isEmbeddable(ae.Opposite().Class()) ){
 				embeddables.add(ae.Opposite());
 			}
 		}
