@@ -1,0 +1,222 @@
+		
+	
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:s="http://myfaces.apache.org/sandbox"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	template="/WEB-INF/template/templateCrud.xhtml">
+	
+	<ui:define name="content">
+
+		<f:view>
+			<h:messages layout="list" globalOnly="true" showDetail="true"
+			styleClass="messages" />	
+			<a4j:form id="form">
+				<rich:tabPanel  switchType="ajax">
+					<rich:tab label="Tabular" >
+					<t:dataTable id="data" var="exam"
+						value="#{examCrudBacking.records}" rows="30"
+					rowClasses="odd, even" styleClass="dataTable" >						
+							
+	<t:column>
+		<f:facet name="header">
+			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="Description" />
+				<t:outputText value="Description" /> 
+			</t:commandLink>		
+		</f:facet>
+		<t:outputText value="#{exam.description}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="Name" />
+				<t:outputText value="Name" /> 
+			</t:commandLink>		
+		</f:facet>
+		<t:outputText value="#{exam.name}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="Questions" />
+				<t:outputText value="Questions" /> 
+			</t:commandLink>		
+		</f:facet>
+		<t:outputText value="#{exam.questions}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="Duration" />
+				<t:outputText value="Duration" /> 
+			</t:commandLink>		
+		</f:facet>
+		<t:outputText value="#{exam.duration}" />
+	</t:column>
+							
+							
+							
+	<t:column>
+		<f:facet name="header">
+		<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="examCreator.displayName" />
+			<!-- <t:commandSortHeader columnName="" arrow="true"> -->
+				<t:outputText value="" /> 
+			<!-- </t:commandSortHeader> -->
+		</t:commandLink>	
+		</f:facet>
+		<t:outputText value="#{exam.examCreator.displayName}" />
+	</t:column>
+							
+							<rich:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="id" arrow="true">
+										<t:outputText value=" " />
+									</t:commandSortHeader>
+								</f:facet>
+								
+								<!--
+								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+								--> 								
+									<t:commandLink action="#{examCrudBacking.select}"																					
+										actionListener="#{examCrudBacking.selectEntity}">
+										<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
+										<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
+										<f:param id="editId" name="id" value="#{exam.id}" />								
+									</t:commandLink>		
+								<!--
+								</acegijsf:authorize>
+								--> 
+								</rich:column>
+								<t:column>
+								<f:facet name="header">
+									<t:commandSortHeader columnName="id" arrow="true">
+										<t:outputText value=" " />
+									</t:commandSortHeader>
+								</f:facet>
+								<!--
+								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+								--> 		
+								<a4j:commandLink action="#{examCrudBacking.delete}"	
+									onclick="if(window.confirm('Are You Sure?')==false){return false}"
+									actionListener="#{examCrudBacking.selectEntity}" immediate="true">														
+									<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
+									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
+									<f:param id="deleteId" name="id" value="#{exam.id}" />												
+								</a4j:commandLink>
+								<!--
+								</acegijsf:authorize>
+								--> 
+								</t:column>
+						</t:dataTable>	
+							 	<t:inputHidden value="#{examCrudBacking.sortField}" />
+    							<t:inputHidden value="#{examCrudBacking.sortAscending}" />
+							 </rich:tab>
+							 
+							 
+							 <rich:tab label="Audit" >
+							 	<t:dataTable id="dataAudit" var="log"
+							value="#{productCrudBacking.auditLog}" rows="30"
+							rowClasses="odd, even" styleClass="dataTable">
+							
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
+									<t:outputText value="Date" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.dateCreated}" />
+							</t:column>
+							
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="Brand" arrow="true"> -->
+									<t:outputText value="Action" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.action}" />
+							</t:column>
+
+							<t:column>
+								<f:facet name="header">
+									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
+									<t:outputText value="User" />
+									<!-- </t:commandSortHeader> -->
+								</f:facet>
+								<t:outputText value="#{log.username}" />
+							</t:column>
+							
+							
+							
+							
+	<t:column>
+		<f:facet name="header">
+			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="Description" />
+				<t:outputText value="Description" /> 
+			</t:commandLink>		
+		</f:facet>
+		<t:outputText value="#{log.entity.description}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="Name" />
+				<t:outputText value="Name" /> 
+			</t:commandLink>		
+		</f:facet>
+		<t:outputText value="#{log.entity.name}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="Questions" />
+				<t:outputText value="Questions" /> 
+			</t:commandLink>		
+		</f:facet>
+		<t:outputText value="#{log.entity.questions}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="Duration" />
+				<t:outputText value="Duration" /> 
+			</t:commandLink>		
+		</f:facet>
+		<t:outputText value="#{log.entity.duration}" />
+	</t:column>
+							
+							
+							</t:dataTable>
+							 </rich:tab>
+							 
+							</rich:tabPanel>
+  						 </a4j:form>
+
+						<br />
+						<hr />
+						<a href="exam.jsf"> Add New </a>
+						<a href="examSearch.jsf"> Search </a>
+						<hr />
+
+		</f:view>
+
+	</ui:define>
+      
+</ui:composition>
+
+		

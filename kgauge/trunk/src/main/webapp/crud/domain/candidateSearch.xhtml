@@ -1,0 +1,217 @@
+		
+	
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:s="http://myfaces.apache.org/sandbox"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	template="/WEB-INF/template/templateCrud.xhtml">
+	
+	<ui:define name="content">
+
+		<f:view>
+			<h:messages layout="list" globalOnly="true" showDetail="true"
+			styleClass="messages" />
+		
+			<a4j:form id="form">
+				<rich:tabPanel switchType="client">
+					<rich:tab label="Basic" >
+					<h:panelGrid columns="6" styleClass="formTable">
+						<f:facet name="header">
+							<h:outputText value="Candidate Information"
+								styleClass="formHeaderText"   />
+						</f:facet>
+						
+							<h:outputText value="FirstName" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="candidate__firstName"
+								value="#{candidateCrudBacking.candidate.firstName}">
+								
+							</h:inputText>
+							
+							<h:message for="candidate__firstName" styleClass="errMessage" />
+							
+							<h:outputText value="LastName" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="candidate__lastName"
+								value="#{candidateCrudBacking.candidate.lastName}">
+								
+							</h:inputText>
+							
+							<h:message for="candidate__lastName" styleClass="errMessage" />
+							
+							<h:outputText value="DateOfBirth" styleClass="formLabel" />
+							
+							<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
+								id="candidate__dateOfBirth"
+								value="#{candidateCrudBacking.candidate.dateOfBirth}">
+								
+							</t:inputCalendar >
+							
+							<h:message for="candidate__dateOfBirth" styleClass="errMessage" />
+							
+							<h:outputText value="UserName" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="candidate_user_userName"
+								value="#{candidateCrudBacking.candidate.user.userName}">
+								
+							</h:inputText>
+							
+							<h:message for="candidate_user_userName" styleClass="errMessage" />
+							
+							<h:outputText value="Password" styleClass="formLabel" />
+							
+							<h:inputSecret   maxLength="12"   
+								id="candidate_user_password"
+								value="#{candidateCrudBacking.candidate.user.password}">
+								<f:validateLength minimum="5" maximum="12"/>
+							</h:inputSecret>
+							
+							<h:message for="candidate_user_password" styleClass="errMessage" />
+							
+							<h:outputText value="Enabled" styleClass="formLabel" />
+							
+							<h:selectBooleanCheckbox    title="enabled"  
+								id="candidate_user_enabled"
+								value="#{candidateCrudBacking.candidate.user.enabled}">
+								
+							</h:selectBooleanCheckbox >
+							
+							<h:message for="candidate_user_enabled" styleClass="errMessage" />
+							
+							<h:outputText value="StreetAddress" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="candidate_contactDetails_streetAddress"
+								value="#{candidateCrudBacking.candidate.contactDetails.streetAddress}">
+								
+							</h:inputText>
+							
+							<h:message for="candidate_contactDetails_streetAddress" styleClass="errMessage" />
+							
+							<h:outputText value="City" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="candidate_contactDetails_city"
+								value="#{candidateCrudBacking.candidate.contactDetails.city}">
+								
+							</h:inputText>
+							
+							<h:message for="candidate_contactDetails_city" styleClass="errMessage" />
+							
+							<h:outputText value="State" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="candidate_contactDetails_state"
+								value="#{candidateCrudBacking.candidate.contactDetails.state}">
+								
+							</h:inputText>
+							
+							<h:message for="candidate_contactDetails_state" styleClass="errMessage" />
+							
+							<h:outputText value="Country" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="candidate_contactDetails_country"
+								value="#{candidateCrudBacking.candidate.contactDetails.country}">
+								
+							</h:inputText>
+							
+							<h:message for="candidate_contactDetails_country" styleClass="errMessage" />
+							
+							<h:outputText value="Zip" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="candidate_contactDetails_zip"
+								value="#{candidateCrudBacking.candidate.contactDetails.zip}">
+								
+							</h:inputText>
+							
+							<h:message for="candidate_contactDetails_zip" styleClass="errMessage" />
+							
+							<h:outputText value="Phone" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="candidate_contactDetails_phone"
+								value="#{candidateCrudBacking.candidate.contactDetails.phone}">
+								
+							</h:inputText>
+							
+							<h:message for="candidate_contactDetails_phone" styleClass="errMessage" />
+							
+							<h:outputText value="Email" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="candidate_contactDetails_email"
+								value="#{candidateCrudBacking.candidate.contactDetails.email}">
+								<t:validateEmail />
+							</h:inputText>
+							
+							<h:message for="candidate_contactDetails_email" styleClass="errMessage" />
+							
+							
+							
+								<h:outputText value="" styleClass="formLabel" />
+								
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="false" 
+		id="candidate_user" converter="keyToObjectConverter"
+		value="#{candidateCrudBacking.candidate.user}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{userCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="candidate_user" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+
+							
+							
+  						   <h:commandButton id="button1" value="Search" action="#{candidateCrudBacking.search}"  /> 
+  						    <h:commandButton id="button2" value="Cancel" action="cancel" immediate="true"/> 
+  				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
+		  				   	<h:inputHidden id="candidate_id" value="#{candidateCrudBacking.candidate.id}" />
+
+						</h:panelGrid>
+						</rich:tab>
+						<rich:tab label="Advanced">
+							<h:outputText value="Creation Date" styleClass="formLabel" />
+							
+							<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
+								id="customer__creation"
+								value="#{candidateCrudBacking.candidate.dateCreated}">
+								
+							</t:inputCalendar >
+							
+							<h:message for="customer__dob" styleClass="errMessage" />
+				
+						
+						</rich:tab>
+						
+						
+				</rich:tabPanel>
+					
+			</a4j:form>
+		</f:view>
+
+	</ui:define>
+</ui:composition>
+
+		
