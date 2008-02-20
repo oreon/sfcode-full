@@ -50,10 +50,10 @@ public class ExamDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			examInstance.setDescription("epsilon");
-			examInstance.setName("pi");
-			examInstance.setQuestions(41);
-			examInstance.setDuration(7881);
+			examInstance.setDescription("delta");
+			examInstance.setName("John");
+			examInstance.setQuestions(147);
+			examInstance.setDuration(9094);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -98,10 +98,10 @@ public class ExamDaoTest extends AbstractJpaTests {
 
 			try {
 
-				exam.setDescription("delta");
-				exam.setName("theta");
-				exam.setQuestions(9157);
-				exam.setDuration(1122);
+				exam.setDescription("Lavendar");
+				exam.setName("pi");
+				exam.setQuestions(8265);
+				exam.setDuration(8799);
 
 				TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("questionTestDataFactory");
@@ -141,10 +141,10 @@ public class ExamDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Exam exam = (Exam) examTestDataFactory.loadOneRecord();
 
-			exam.setDescription("alpha");
-			exam.setName("epsilon");
-			exam.setQuestions(3974);
-			exam.setDuration(9684);
+			exam.setDescription("Mark");
+			exam.setName("gamma");
+			exam.setQuestions(3870);
+			exam.setDuration(4384);
 
 			examService.save(exam);
 

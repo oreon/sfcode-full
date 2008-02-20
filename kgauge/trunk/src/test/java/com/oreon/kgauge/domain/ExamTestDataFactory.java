@@ -44,10 +44,10 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setDescription("epsilon");
-			exam.setName("pi");
-			exam.setQuestions(8108);
-			exam.setDuration(6567);
+			exam.setDescription("delta");
+			exam.setName("beta");
+			exam.setQuestions(8862);
+			exam.setDuration(608);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -84,10 +84,10 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setDescription("beta");
-			exam.setName("delta");
-			exam.setQuestions(7007);
-			exam.setDuration(2543);
+			exam.setDescription("pi");
+			exam.setName("epsilon");
+			exam.setQuestions(2179);
+			exam.setDuration(412);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -124,10 +124,10 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setDescription("Eric");
-			exam.setName("Mark");
-			exam.setQuestions(4168);
-			exam.setDuration(4382);
+			exam.setDescription("epsilon");
+			exam.setName("delta");
+			exam.setQuestions(1943);
+			exam.setDuration(2713);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -166,8 +166,8 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 			exam.setDescription("beta");
 			exam.setName("beta");
-			exam.setQuestions(8327);
-			exam.setDuration(9838);
+			exam.setQuestions(9626);
+			exam.setDuration(469);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -204,10 +204,10 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setDescription("alpha");
-			exam.setName("gamma");
-			exam.setQuestions(458);
-			exam.setDuration(6463);
+			exam.setDescription("John");
+			exam.setName("Mark");
+			exam.setQuestions(4241);
+			exam.setDuration(291);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
