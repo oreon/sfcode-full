@@ -53,43 +53,55 @@
 						</h:panelGrid>
 						</rich:tab>
 	<rich:tab label="Advanced">
+	
 		<h:inputHidden id="dateOperation" value="{'Any'}"/>
 			
-		<h:panelGrid columns="6" styleClass="formTable">
+		<h:panelGrid id="advGrid" columns="6" styleClass="formTable">
 			
 		
 			<f:facet name="header">
 				<h:outputText value="«NameS» Information" styleClass="formHeaderText"   />
-			</f:facet>					   
-			<h:column>	
+			</f:facet>
+							   
+			<h:column id="ddcol">	
+				<h:form id="ddform">	
 				<!--plan:when a date operation is selected it stores the value in dateOperation-->
 				<!--The value in dOp should be rendered with value of dateOperation-->
 				<!--When the search button is clicked dateOperation etc will be passed to a method in backing bean-->				
-				<rich:dropDownMenu id="dateOp" value="dateOperation" mode="ajax" onitemselect="render='dOp'" immediate="true"><!--this component ignores action and actionlistener attributes--> 
+				<rich:dropDownMenu id="ddmenu" submitMode="ajax"  onitemselect="render='form.dOp'" immediate="true" action="#{«asInstanceVar()»CrudBacking.setDateOp}">
                 	<f:facet name="label"> 
                 	    <h:panelGrid id="pg" cellpadding="0" cellspacing="0" columns="2" style="vertical-align:middle">
                          	<h:graphicImage value="/images/icons/date_go.png" style="border: 0px"/>
-                        	<h:outputText id="top" value="Date" />
+                        	<h:outputText id="t" value="Date" />
                     	</h:panelGrid>                                                                		
                 	</f:facet>               
-                	<rich:menuItem id="On" value="On"  onclick="dateOperation='On'" submitMode="ajax" icon="/images/icons/flag_blue.png" onselect="document.outCol.panelOut.dOp{'On'}" immediate="true">             
-                	
+                	<rich:menuItem  value="On" binding="#{«asInstanceVar()»CrudBacking.dateOp}" reRender='form.dOp' icon="/images/icons/flag_blue.png" >             		
+                		<f:param id="On" name="id" value="On" />					
                 	</rich:menuItem>               
-                	<rich:menuItem id="Before" value="Before"  onclick="dateOperation='Before'" icon="/images/icons/resultset_previous.png"    >    
+                	<rich:menuItem  onclick="setDateOp('Before')" value="Before"  icon="/images/icons/resultset_previous.png"    >    
+                	<f:param id="Before" name="id" value="Before" />	
+                	
                 	</rich:menuItem>                   	
-                	<rich:menuItem id="After" value="After" onselect="dateOperation='After'" icon="/images/icons/resultset_next.png"  > 
+                	<rich:menuItem  value="After"   icon="/images/icons/resultset_next.png"  > 
+                	<f:param id="After" name="id" value="After" />				
                 	
                 	</rich:menuItem>                 
-                	<rich:menuItem id="Between"  value="Between" onselect="dateOperation='Between'" icon="/images/icons/tag.png">
+                	<rich:menuItem  value="Between"  immediate="true" icon="/images/icons/tag.png">
+                	<f:param id="Between" name="id" value="Between" />	
             		</rich:menuItem>      
-            		<rich:menuItem id="Any"  value="Any" onselect="dateOperation='Any'">
+            		
+            		<rich:menuItem   value="Any"  >
+            		<f:param id="Any" name="id" value="Any" />	
             		</rich:menuItem>                               	 
 				</rich:dropDownMenu>
-			</h:column>			
-			<h:column id="outCol">
-				<a4j:outputPanel id="panelOut" ajaxRendered="true"> 
-				   <h:outputText id="dOp" value="#{dateOperation}"/>	<!--need to find fqn of dateOperation?-->			
-    			</a4j:outputPanel>
+				
+				</h:form>
+				</h:column>		
+			<h:column id="outCol" styleClass="header">
+			
+				   <h:outputText id="dOp" name="dateOp" style="font-weight:bold"  immediate="true" value="#{«asInstanceVar()»CrudBacking.dateOp}" />				
+    				
+    		
 			</h:column>		
 			<h:column>		
 				<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
@@ -99,12 +111,16 @@
 			</h:column>				
 							<h:message for="fromDate" styleClass="errMessage" />
 		</h:panelGrid>		
-						
+	<h:commandButton value="Search" action="submit" />						
 	</rich:tab>
 						
 						
 				</rich:tabPanel>
-					
+				<a4j:jsFunction name="setDateOp" reRender="dOp">
+	            <a4j:actionparam name="op"  />                  
+
+	        </a4j:jsFunction>
+				
 			</a4j:form>
 		</f:view>
 
