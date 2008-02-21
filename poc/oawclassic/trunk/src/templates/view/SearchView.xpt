@@ -54,7 +54,7 @@
 						</rich:tab>
 	<rich:tab label="Advanced">
 	
-		<h:inputHidden id="dateOperation" value="{'Any'}"/>
+		<h:inputHidden id="dateOperation" value="#{«asInstanceVar()»CrudBacking.dateOp}"/>
 			
 		<h:panelGrid id="advGrid" columns="6" styleClass="formTable">
 			
@@ -68,29 +68,29 @@
 				<!--plan:when a date operation is selected it stores the value in dateOperation-->
 				<!--The value in dOp should be rendered with value of dateOperation-->
 				<!--When the search button is clicked dateOperation etc will be passed to a method in backing bean-->				
-				<rich:dropDownMenu id="ddmenu" submitMode="ajax"  onitemselect="render='form.dOp'" immediate="true" action="#{«asInstanceVar()»CrudBacking.setDateOp}">
+				<rich:dropDownMenu id="ddmenu" submitMode="ajax" binding="#{«asInstanceVar()»CrudBacking.dateOp}" onitemselect="render='form.dOp'" immediate="true" >
                 	<f:facet name="label"> 
                 	    <h:panelGrid id="pg" cellpadding="0" cellspacing="0" columns="2" style="vertical-align:middle">
                          	<h:graphicImage value="/images/icons/date_go.png" style="border: 0px"/>
                         	<h:outputText id="t" value="Date" />
                     	</h:panelGrid>                                                                		
                 	</f:facet>               
-                	<rich:menuItem  value="On" binding="#{«asInstanceVar()»CrudBacking.dateOp}" reRender='form.dOp' icon="/images/icons/flag_blue.png" >             		
-                		<f:param id="On" name="id" value="On" />					
+                	<rich:menuItem  value="On"  reRender="form.dOp" icon="/images/icons/flag_blue.png" >             		
+                	<f:param id="On" name="id" value="On" />						
                 	</rich:menuItem>               
-                	<rich:menuItem  onclick="setDateOp('Before')" value="Before"  icon="/images/icons/resultset_previous.png"    >    
-                	<f:param id="Before" name="id" value="Before" />	
+                	<rich:menuItem    value="Before" icon="/images/icons/resultset_previous.png"    >    
+                	<f:param id="Before" name="id" value="Before" />		
                 	
                 	</rich:menuItem>                   	
-                	<rich:menuItem  value="After"   icon="/images/icons/resultset_next.png"  > 
+                	<rich:menuItem  value="After"  icon="/images/icons/resultset_next.png"  > 
                 	<f:param id="After" name="id" value="After" />				
                 	
                 	</rich:menuItem>                 
-                	<rich:menuItem  value="Between"  immediate="true" icon="/images/icons/tag.png">
+                	<rich:menuItem  value="Between" immediate="true" icon="/images/icons/tag.png">
                 	<f:param id="Between" name="id" value="Between" />	
             		</rich:menuItem>      
             		
-            		<rich:menuItem   value="Any"  >
+            		<rich:menuItem    value="Any"  >
             		<f:param id="Any" name="id" value="Any" />	
             		</rich:menuItem>                               	 
 				</rich:dropDownMenu>
@@ -98,9 +98,9 @@
 				</h:form>
 				</h:column>		
 			<h:column id="outCol" styleClass="header">
-			
-				   <h:outputText id="dOp" name="dateOp" style="font-weight:bold"  immediate="true" value="#{«asInstanceVar()»CrudBacking.dateOp}" />				
-    				
+			 
+				   <h:outputText id="dOp" render="true" ajaxRendered="true" name="dateOp" style="font-weight:bold"  immediate="true" value="#{«asInstanceVar()»CrudBacking.dateOp}"  />				
+			 	
     		
 			</h:column>		
 			<h:column>		
@@ -116,10 +116,7 @@
 						
 						
 				</rich:tabPanel>
-				<a4j:jsFunction name="setDateOp" reRender="dOp">
-	            <a4j:actionparam name="op"  />                  
-
-	        </a4j:jsFunction>
+				
 				
 			</a4j:form>
 		</f:view>
