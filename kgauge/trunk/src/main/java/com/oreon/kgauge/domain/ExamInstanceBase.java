@@ -16,12 +16,7 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
-/*@Entity
-@Table(name="ExamInstance",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
-/* 
-	
-	There are 0 constraints.
- */
+/*This is the result of an exam actually being written by a candidate.*/
 public abstract class ExamInstanceBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
@@ -36,7 +31,7 @@ public abstract class ExamInstanceBase
 
 	private com.oreon.kgauge.domain.Exam exam;
 
-	private com.oreon.kgauge.domain.Question question;
+	private java.util.Set<com.oreon.kgauge.domain.AnsweredQuestion> answeredQuestion = new java.util.HashSet<com.oreon.kgauge.domain.AnsweredQuestion>();
 
 	public void setCandidate(com.oreon.kgauge.domain.Candidate candidate) {
 		this.candidate = candidate;
@@ -58,14 +53,43 @@ public abstract class ExamInstanceBase
 		return this.exam;
 	}
 
-	public void setQuestion(com.oreon.kgauge.domain.Question question) {
-		this.question = question;
+	public void add(com.oreon.kgauge.domain.AnsweredQuestion answeredQuestion) {
+
+		this.answeredQuestion.add(answeredQuestion);
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "question_ID", nullable = true)
-	public com.oreon.kgauge.domain.Question getQuestion() {
-		return this.question;
+	public void remove(com.oreon.kgauge.domain.AnsweredQuestion answeredQuestion) {
+		this.answeredQuestion.remove(answeredQuestion);
+	}
+
+	@OneToMany
+	@JoinColumn(name = "ExamInstance_ID", nullable = false)
+	public java.util.Set<com.oreon.kgauge.domain.AnsweredQuestion> getAnsweredQuestion() {
+		return this.answeredQuestion;
+	}
+
+	public void setAnsweredQuestion(
+			java.util.Set<com.oreon.kgauge.domain.AnsweredQuestion> answeredQuestion) {
+		this.answeredQuestion = answeredQuestion;
+	}
+
+	@Transient
+	public java.util.Iterator<com.oreon.kgauge.domain.AnsweredQuestion> getAnsweredQuestionIterator() {
+		return this.answeredQuestion.iterator();
+	}
+
+	/** Method size on the set doesn't work with technologies requiring 
+	 *  java beans get/set  interface so we provide a getter method 
+	 * @return
+	 */
+	@Transient
+	public int getAnsweredQuestionCount() {
+		return this.answeredQuestion.size();
+	}
+
+	public Integer calculateScore() {
+		return null;
+		//should return Integer
 	}
 
 	public abstract ExamInstance examInstanceInstance();

@@ -1,6 +1,6 @@
 package com.oreon.kgauge.service;
 
-import com.oreon.kgauge.domain.Exam;
+import com.oreon.kgauge.domain.AnsweredQuestion;
 import org.springframework.test.jpa.AbstractJpaTests;
 import java.util.List;
 
@@ -13,23 +13,24 @@ import javax.persistence.PersistenceException;
 import org.hibernate.PropertyValueException;
 import java.util.Date;
 
-public class ExamDaoTest extends AbstractJpaTests {
+public class AnsweredQuestionDaoTest extends AbstractJpaTests {
 
-	protected Exam examInstance = new Exam();
+	protected AnsweredQuestion answeredQuestionInstance = new AnsweredQuestion();
 
-	protected ExamService examService;
+	protected AnsweredQuestionService answeredQuestionService;
 
 	protected boolean bTest = true;
 
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat(
 			"yyyy.MM.dd HH:mm:ss z");
 
-	public void setExamService(ExamService examService) {
-		this.examService = examService;
+	public void setAnsweredQuestionService(
+			AnsweredQuestionService answeredQuestionService) {
+		this.answeredQuestionService = answeredQuestionService;
 	}
 
-	protected TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
-			.getBean("examTestDataFactory");
+	protected TestDataFactory answeredQuestionTestDataFactory = (TestDataFactory) BeanHelper
+			.getBean("answeredQuestionTestDataFactory");
 
 	@Override
 	protected String[] getConfigLocations() {
@@ -50,26 +51,14 @@ public class ExamDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			examInstance.setDescription("Malissa");
-			examInstance.setName("Wilson");
-			examInstance.setQuestions(881);
-			examInstance.setDuration(5401);
+			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("questionTestDataFactory");
 
-			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("categoryTestDataFactory");
-
-			examInstance
-					.setCategory((com.oreon.kgauge.domain.Category) categoryTestDataFactory
+			answeredQuestionInstance
+					.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
 							.loadOneRecord());
 
-			TestDataFactory examCreatorTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("examCreatorTestDataFactory");
-
-			examInstance
-					.setExamCreator((com.oreon.kgauge.domain.ExamCreator) examCreatorTestDataFactory
-							.loadOneRecord());
-
-			examService.save(examInstance);
+			answeredQuestionService.save(answeredQuestionInstance);
 		} catch (PersistenceException pe) {
 			//if this instance can't be created due to back references e.g an orderItem needs an Order - 
 			// - we will simply skip generated tests.
@@ -87,35 +76,23 @@ public class ExamDaoTest extends AbstractJpaTests {
 	public void testSave() {
 
 		try {
-			Exam exam = new Exam();
+			AnsweredQuestion answeredQuestion = new AnsweredQuestion();
 
 			try {
 
-				exam.setDescription("Eric");
-				exam.setName("epsilon");
-				exam.setQuestions(6669);
-				exam.setDuration(8154);
+				TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
+						.getBean("questionTestDataFactory");
 
-				TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
-						.getBean("categoryTestDataFactory");
-
-				exam
-						.setCategory((com.oreon.kgauge.domain.Category) categoryTestDataFactory
-								.loadOneRecord());
-
-				TestDataFactory examCreatorTestDataFactory = (TestDataFactory) BeanHelper
-						.getBean("examCreatorTestDataFactory");
-
-				exam
-						.setExamCreator((com.oreon.kgauge.domain.ExamCreator) examCreatorTestDataFactory
+				answeredQuestion
+						.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
 								.loadOneRecord());
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
 
-			examService.save(exam);
-			assertNotNull(exam.getId());
+			answeredQuestionService.save(answeredQuestion);
+			assertNotNull(answeredQuestion.getId());
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
@@ -125,14 +102,10 @@ public class ExamDaoTest extends AbstractJpaTests {
 
 		try {
 			//test saving a new record and updating an existing record;
-			Exam exam = (Exam) examTestDataFactory.loadOneRecord();
+			AnsweredQuestion answeredQuestion = (AnsweredQuestion) answeredQuestionTestDataFactory
+					.loadOneRecord();
 
-			exam.setDescription("John");
-			exam.setName("zeta");
-			exam.setQuestions(9166);
-			exam.setDuration(5585);
-
-			examService.save(exam);
+			answeredQuestionService.save(answeredQuestion);
 
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -140,16 +113,17 @@ public class ExamDaoTest extends AbstractJpaTests {
 	}
 
 	public void testCount() {
-		assertTrue(examService.getCount() > 0);
+		assertTrue(answeredQuestionService.getCount() > 0);
 	}
 
 	//count the number of records - add one delete it - check count is same after delete
 	public void testDelete() {
 		long count, newCount, diff = 0;
-		count = examService.getCount();
-		Exam exam = (Exam) examTestDataFactory.loadOneRecord();
-		examService.delete(exam);
-		newCount = examService.getCount();
+		count = answeredQuestionService.getCount();
+		AnsweredQuestion answeredQuestion = (AnsweredQuestion) answeredQuestionTestDataFactory
+				.loadOneRecord();
+		answeredQuestionService.delete(answeredQuestion);
+		newCount = answeredQuestionService.getCount();
 		diff = newCount - count;
 		try {
 			assertEquals(diff, 0);
@@ -161,8 +135,9 @@ public class ExamDaoTest extends AbstractJpaTests {
 	public void testLoad() {
 
 		try {
-			Exam exam = examService.load(examInstance.getId());
-			assertNotNull(exam.getId());
+			AnsweredQuestion answeredQuestion = answeredQuestionService
+					.load(answeredQuestionInstance.getId());
+			assertNotNull(answeredQuestion.getId());
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
@@ -170,8 +145,9 @@ public class ExamDaoTest extends AbstractJpaTests {
 
 	public void testSearchByExample() {
 		try {
-			List<Exam> exams = examService.searchByExample(examInstance);
-			assertTrue(!exams.isEmpty());
+			List<AnsweredQuestion> answeredQuestions = answeredQuestionService
+					.searchByExample(answeredQuestionInstance);
+			assertTrue(!answeredQuestions.isEmpty());
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}

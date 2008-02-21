@@ -30,20 +30,20 @@
 						
 							<h:outputText value="Description" styleClass="formLabel" />
 							
-							<h:inputText    
+							<h:inputTextarea   maxLength="1045"   
 								id="exam__description"
 								value="#{examCrudBacking.exam.description}">
-								
-							</h:inputText>
+								<f:validateLength maximum="1045"/>
+							</h:inputTextarea>
 							
 							<h:message for="exam__description" styleClass="errMessage" />
 							
 							<h:outputText value="Name" styleClass="formLabel" />
 							
-							<h:inputTextarea   maxLength="245"   
+							<h:inputTextarea   maxLength="120"   
 								id="exam__name"
 								value="#{examCrudBacking.exam.name}">
-								<f:validateLength minimum="3" maximum="245"/>
+								<f:validateLength minimum="3" maximum="120"/>
 							</h:inputTextarea>
 							
 							<h:message for="exam__name" styleClass="errMessage" />
@@ -70,28 +70,6 @@
 							
 							
 							
-								<h:outputText value="" styleClass="formLabel" />
-								
-	
-	<h:panelGroup>
-	<a4j:region>
-
-	<h:selectOneMenu  required="false" 
-		id="exam_question" converter="keyToObjectConverter"
-		value="#{examCrudBacking.exam.question}">
-		<f:selectItem itemLabel="Select" />
-		<f:selectItems value="#{questionCrudBacking.asSelectItems}" />
-	</h:selectOneMenu>
-										
-	<rich:message for="exam_question" styleClass="errMessage">
-			<f:facet name="errorMarker">
-				<h:graphicImage url="/images/icons/bullet_error.png" />
-			</f:facet>
-		</rich:message>
-	
-	</a4j:region>
-	</h:panelGroup>
-
 								<h:outputText value="" styleClass="formLabel" />
 								
 	

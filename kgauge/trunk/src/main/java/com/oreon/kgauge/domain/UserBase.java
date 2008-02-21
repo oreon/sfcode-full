@@ -16,12 +16,6 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
-/*@Entity
-@Table(name="User",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
-/* 
-	
-	There are 0 constraints.
- */
 public abstract class UserBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
@@ -39,17 +33,26 @@ public abstract class UserBase
 	protected Boolean enabled;
 
 	@Column(nullable = false, unique = true)
+	/*
+	
+	 */
 	public String getUserName() {
 
 		return this.userName;
 	}
 
 	@Column(nullable = false, unique = false)
+	/*
+	
+	 */
 	public String getPassword() {
 
 		return this.password;
 	}
 
+	/*
+	
+	 */
 	public Boolean getEnabled() {
 		return this.enabled;
 	}
@@ -103,5 +106,10 @@ public abstract class UserBase
 	}
 
 	public abstract User userInstance();
+
+	@Transient
+	public String getDisplayName() {
+		return userName + "";
+	}
 
 }

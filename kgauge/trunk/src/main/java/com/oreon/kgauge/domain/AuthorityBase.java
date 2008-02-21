@@ -16,12 +16,6 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
-/*@Entity
-@Table(name="Authority",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
-/* 
-	
-	There are 0 constraints.
- */
 public abstract class AuthorityBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
@@ -35,6 +29,9 @@ public abstract class AuthorityBase
 	protected String name;
 
 	@Column(nullable = false, unique = true)
+	/*
+	
+	 */
 	public String getName() {
 
 		return this.name;

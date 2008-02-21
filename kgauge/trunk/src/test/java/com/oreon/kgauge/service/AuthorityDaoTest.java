@@ -50,7 +50,7 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			authorityInstance.setName("gamma54943");
+			authorityInstance.setName("John96832");
 
 			authorityService.save(authorityInstance);
 		} catch (PersistenceException pe) {
@@ -74,7 +74,7 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 
 			try {
 
-				authority.setName("gamma89683");
+				authority.setName("delta82429");
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -94,7 +94,7 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 			Authority authority = (Authority) authorityTestDataFactory
 					.loadOneRecord();
 
-			authority.setName("pi32354");
+			authority.setName("zeta6849");
 
 			authorityService.save(authority);
 

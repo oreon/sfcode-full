@@ -54,17 +54,17 @@
 							
 	
 		
-	<h:outputText value="Description" styleClass="formLabel" />
+	<h:outputText value="Description*" styleClass="formLabel" />
 	
 	<h:panelGroup>
 	<a4j:region>
 	
 		
-	<h:inputText    required="false" 
+	<h:inputTextarea   maxLength="1045"   required="true" 
 		id="exam_null_description"
 		value="#{examCrudBacking.exam.description}">
-		
-	</h:inputText>
+		<f:validateLength maximum="1045"/>
+	</h:inputTextarea>
 
 	
 	
@@ -90,10 +90,10 @@
 	<a4j:region>
 	
 		
-	<h:inputTextarea   maxLength="245"   required="true" 
+	<h:inputTextarea   maxLength="120"   required="true" 
 		id="exam_null_name"
 		value="#{examCrudBacking.exam.name}">
-		<f:validateLength minimum="3" maximum="245"/>
+		<f:validateLength minimum="3" maximum="120"/>
 	</h:inputTextarea>
 
 	

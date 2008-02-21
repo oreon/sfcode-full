@@ -25,6 +25,16 @@
 						value="#{categoryCrudBacking.records}" rows="30"
 					rowClasses="odd, even" styleClass="dataTable" >						
 							
+	<t:column>
+		<f:facet name="header">
+			<t:commandLink actionListener="#{categoryCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="Name" />
+				<t:outputText value="Name" /> 
+			</t:commandLink>		
+		</f:facet>
+		<t:outputText value="#{category.name}" />
+	</t:column>
+							
 							
 							
 	<t:column>
@@ -119,6 +129,16 @@
 							
 							
 							
+							
+	<t:column>
+		<f:facet name="header">
+			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="Name" />
+				<t:outputText value="Name" /> 
+			</t:commandLink>		
+		</f:facet>
+		<t:outputText value="#{log.entity.name}" />
+	</t:column>
 							
 							
 							</t:dataTable>

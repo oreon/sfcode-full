@@ -16,12 +16,6 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
-/*@Entity
-@Table(name="Category",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
-/* 
-	
-	There are 0 constraints.
- */
 public abstract class CategoryBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
@@ -31,6 +25,19 @@ public abstract class CategoryBase
 	//named queries : 0
 
 	private static final long serialVersionUID = 1L;
+
+	protected String name;
+
+	/*
+	
+	 */
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	private com.oreon.kgauge.domain.Category parent;
 
@@ -83,5 +90,10 @@ public abstract class CategoryBase
 	}
 
 	public abstract Category categoryInstance();
+
+	@Transient
+	public String getDisplayName() {
+		return name + "";
+	}
 
 }

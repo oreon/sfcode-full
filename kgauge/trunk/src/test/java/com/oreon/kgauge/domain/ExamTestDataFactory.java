@@ -45,16 +45,9 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 		try {
 
 			exam.setDescription("delta");
-			exam.setName("beta");
-			exam.setQuestions(8862);
-			exam.setDuration(608);
-
-			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("questionTestDataFactory");
-
-			exam
-					.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
-							.loadOneRecord());
+			exam.setName("zeta");
+			exam.setQuestions(3492);
+			exam.setDuration(8277);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -84,17 +77,10 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setDescription("pi");
-			exam.setName("epsilon");
-			exam.setQuestions(2179);
-			exam.setDuration(412);
-
-			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("questionTestDataFactory");
-
-			exam
-					.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
-							.loadOneRecord());
+			exam.setDescription("John");
+			exam.setName("beta");
+			exam.setQuestions(4096);
+			exam.setDuration(2263);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -124,17 +110,10 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setDescription("epsilon");
-			exam.setName("delta");
-			exam.setQuestions(1943);
-			exam.setDuration(2713);
-
-			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("questionTestDataFactory");
-
-			exam
-					.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
-							.loadOneRecord());
+			exam.setDescription("Lavendar");
+			exam.setName("Eric");
+			exam.setQuestions(1188);
+			exam.setDuration(5265);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -164,17 +143,10 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setDescription("beta");
-			exam.setName("beta");
-			exam.setQuestions(9626);
-			exam.setDuration(469);
-
-			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("questionTestDataFactory");
-
-			exam
-					.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
-							.loadOneRecord());
+			exam.setDescription("Lavendar");
+			exam.setName("Mark");
+			exam.setQuestions(5275);
+			exam.setDuration(9227);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -204,17 +176,10 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setDescription("John");
-			exam.setName("Mark");
-			exam.setQuestions(4241);
-			exam.setDuration(291);
-
-			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("questionTestDataFactory");
-
-			exam
-					.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
-							.loadOneRecord());
+			exam.setDescription("Eric");
+			exam.setName("theta");
+			exam.setQuestions(4896);
+			exam.setDuration(771);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -307,13 +272,6 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 				.createInstance("Integer"));
 		exam.setDuration((Integer) RandomValueGeneratorFactory
 				.createInstance("Integer"));
-
-		TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
-				.getBean("questionTestDataFactory");
-
-		exam
-				.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
-						.loadOneRecord());
 
 		TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 				.getBean("categoryTestDataFactory");

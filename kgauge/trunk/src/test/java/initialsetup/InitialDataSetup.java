@@ -21,6 +21,8 @@ import com.oreon.kgauge.domain.UserTestDataFactory;
 
 import com.oreon.kgauge.domain.AuthorityTestDataFactory;
 
+import com.oreon.kgauge.domain.AnsweredQuestionTestDataFactory;
+
 /** 
  * This class populates the database with some initial data
  *
@@ -73,6 +75,11 @@ public class InitialDataSetup {
 				.getBean("authorityTestDataFactory");
 
 		authorityTestDataFactory.persistAll();
+
+		TestDataFactory answeredQuestionTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("answeredQuestionTestDataFactory");
+
+		answeredQuestionTestDataFactory.persistAll();
 
 	}
 }

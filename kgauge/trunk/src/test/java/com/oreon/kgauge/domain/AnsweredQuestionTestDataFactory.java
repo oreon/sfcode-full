@@ -13,178 +13,166 @@ import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.oreon.kgauge.service.AnswerChoiceService;
+import com.oreon.kgauge.service.AnsweredQuestionService;
 
 @Transactional
-public class AnswerChoiceTestDataFactory
+public class AnsweredQuestionTestDataFactory
 		extends
-			AbstractTestDataFactory<AnswerChoice> {
+			AbstractTestDataFactory<AnsweredQuestion> {
 
-	private List<AnswerChoice> answerChoices = new ArrayList<AnswerChoice>();
+	private List<AnsweredQuestion> answeredQuestions = new ArrayList<AnsweredQuestion>();
 
 	private static int RECORDS_TO_CREATE = 30;
 
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat(
 			"yyyy.MM.dd HH:mm:ss z");
 
-	AnswerChoiceService answerChoiceService;
+	AnsweredQuestionService answeredQuestionService;
 
-	public AnswerChoiceService getAnswerChoiceService() {
-		return answerChoiceService;
+	public AnsweredQuestionService getAnsweredQuestionService() {
+		return answeredQuestionService;
 	}
 
-	public void setAnswerChoiceService(AnswerChoiceService answerChoiceService) {
-		this.answerChoiceService = answerChoiceService;
+	public void setAnsweredQuestionService(
+			AnsweredQuestionService answeredQuestionService) {
+		this.answeredQuestionService = answeredQuestionService;
 	}
 
-	public void register(AnswerChoice answerChoice) {
-		answerChoices.add(answerChoice);
+	public void register(AnsweredQuestion answeredQuestion) {
+		answeredQuestions.add(answeredQuestion);
 	}
 
-	public AnswerChoice createAnswerChoiceOne() {
-		AnswerChoice answerChoice = new AnswerChoice();
+	public AnsweredQuestion createAnsweredQuestionOne() {
+		AnsweredQuestion answeredQuestion = new AnsweredQuestion();
 
 		try {
-
-			answerChoice.setAnswerText("epsilon");
-			answerChoice.setScore(6264);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
 
-			answerChoice
+			answeredQuestion
 					.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
 							.loadOneRecord());
 
-			register(answerChoice);
+			register(answeredQuestion);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		return answerChoice;
+		return answeredQuestion;
 	}
 
-	public AnswerChoice createAnswerChoiceTwo() {
-		AnswerChoice answerChoice = new AnswerChoice();
+	public AnsweredQuestion createAnsweredQuestionTwo() {
+		AnsweredQuestion answeredQuestion = new AnsweredQuestion();
 
 		try {
-
-			answerChoice.setAnswerText("delta");
-			answerChoice.setScore(4837);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
 
-			answerChoice
+			answeredQuestion
 					.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
 							.loadOneRecord());
 
-			register(answerChoice);
+			register(answeredQuestion);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		return answerChoice;
+		return answeredQuestion;
 	}
 
-	public AnswerChoice createAnswerChoiceThree() {
-		AnswerChoice answerChoice = new AnswerChoice();
+	public AnsweredQuestion createAnsweredQuestionThree() {
+		AnsweredQuestion answeredQuestion = new AnsweredQuestion();
 
 		try {
-
-			answerChoice.setAnswerText("delta");
-			answerChoice.setScore(7123);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
 
-			answerChoice
+			answeredQuestion
 					.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
 							.loadOneRecord());
 
-			register(answerChoice);
+			register(answeredQuestion);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		return answerChoice;
+		return answeredQuestion;
 	}
 
-	public AnswerChoice createAnswerChoiceFour() {
-		AnswerChoice answerChoice = new AnswerChoice();
+	public AnsweredQuestion createAnsweredQuestionFour() {
+		AnsweredQuestion answeredQuestion = new AnsweredQuestion();
 
 		try {
-
-			answerChoice.setAnswerText("pi");
-			answerChoice.setScore(278);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
 
-			answerChoice
+			answeredQuestion
 					.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
 							.loadOneRecord());
 
-			register(answerChoice);
+			register(answeredQuestion);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		return answerChoice;
+		return answeredQuestion;
 	}
 
-	public AnswerChoice createAnswerChoiceFive() {
-		AnswerChoice answerChoice = new AnswerChoice();
+	public AnsweredQuestion createAnsweredQuestionFive() {
+		AnsweredQuestion answeredQuestion = new AnsweredQuestion();
 
 		try {
-
-			answerChoice.setAnswerText("gamma");
-			answerChoice.setScore(6973);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
 
-			answerChoice
+			answeredQuestion
 					.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
 							.loadOneRecord());
 
-			register(answerChoice);
+			register(answeredQuestion);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		return answerChoice;
+		return answeredQuestion;
 	}
 
-	public AnswerChoice loadOneRecord() {
-		List<AnswerChoice> answerChoices = answerChoiceService.loadAll();
+	public AnsweredQuestion loadOneRecord() {
+		List<AnsweredQuestion> answeredQuestions = answeredQuestionService
+				.loadAll();
 
-		if (answerChoices.isEmpty()) {
+		if (answeredQuestions.isEmpty()) {
 			persistAll();
-			answerChoices = answerChoiceService.loadAll();
+			answeredQuestions = answeredQuestionService.loadAll();
 		}
 
-		return answerChoices.get(new Random().nextInt(answerChoices.size()));
+		return answeredQuestions.get(new Random().nextInt(answeredQuestions
+				.size()));
 	}
 
-	public List<AnswerChoice> getAllAsList() {
+	public List<AnsweredQuestion> getAllAsList() {
 
-		if (answerChoices.isEmpty()) {
+		if (answeredQuestions.isEmpty()) {
 
-			createAnswerChoiceOne();
-			createAnswerChoiceTwo();
-			createAnswerChoiceThree();
-			createAnswerChoiceFour();
-			createAnswerChoiceFive();
+			createAnsweredQuestionOne();
+			createAnsweredQuestionTwo();
+			createAnsweredQuestionThree();
+			createAnsweredQuestionFour();
+			createAnsweredQuestionFive();
 
 		}
 
-		return answerChoices;
+		return answeredQuestions;
 	}
 
 	public void persistAll() {
@@ -193,8 +181,8 @@ public class AnswerChoiceTestDataFactory
 
 		getAllAsList();
 
-		for (AnswerChoice answerChoice : answerChoices) {
-			answerChoiceService.save(answerChoice);
+		for (AnsweredQuestion answeredQuestion : answeredQuestions) {
+			answeredQuestionService.save(answeredQuestion);
 		}
 
 		alreadyPersisted = true;
@@ -213,27 +201,22 @@ public class AnswerChoiceTestDataFactory
 
 	public void createAndSaveRecords(int recordsTocreate) {
 		for (int i = 0; i < recordsTocreate; i++) {
-			AnswerChoice answerChoice = createRandomAnswerChoice();
-			answerChoiceService.save(answerChoice);
+			AnsweredQuestion answeredQuestion = createRandomAnsweredQuestion();
+			answeredQuestionService.save(answeredQuestion);
 		}
 	}
 
-	public AnswerChoice createRandomAnswerChoice() {
-		AnswerChoice answerChoice = new AnswerChoice();
-
-		answerChoice.setAnswerText((String) RandomValueGeneratorFactory
-				.createInstance("String"));
-		answerChoice.setScore((Integer) RandomValueGeneratorFactory
-				.createInstance("Integer"));
+	public AnsweredQuestion createRandomAnsweredQuestion() {
+		AnsweredQuestion answeredQuestion = new AnsweredQuestion();
 
 		TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 				.getBean("questionTestDataFactory");
 
-		answerChoice
+		answeredQuestion
 				.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
 						.loadOneRecord());
 
-		return answerChoice;
+		return answeredQuestion;
 	}
 
 }

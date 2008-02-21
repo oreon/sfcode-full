@@ -16,12 +16,6 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
-/*@Entity
-@Table(name="AnswerChoice",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
-/* 
-	
-	There are 0 constraints.
- */
 public abstract class AnswerChoiceBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
@@ -36,10 +30,16 @@ public abstract class AnswerChoiceBase
 
 	protected Integer score;
 
+	/*
+	
+	 */
 	public String getAnswerText() {
 		return this.answerText;
 	}
 
+	/*
+	
+	 */
 	public Integer getScore() {
 		return this.score;
 	}

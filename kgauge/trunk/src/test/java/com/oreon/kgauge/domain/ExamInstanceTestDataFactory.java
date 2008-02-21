@@ -60,13 +60,6 @@ public class ExamInstanceTestDataFactory
 					.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
 							.loadOneRecord());
 
-			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("questionTestDataFactory");
-
-			examInstance
-					.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
-							.loadOneRecord());
-
 			register(examInstance);
 
 		} catch (Exception ex) {
@@ -93,13 +86,6 @@ public class ExamInstanceTestDataFactory
 
 			examInstance
 					.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
-							.loadOneRecord());
-
-			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("questionTestDataFactory");
-
-			examInstance
-					.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
 							.loadOneRecord());
 
 			register(examInstance);
@@ -130,13 +116,6 @@ public class ExamInstanceTestDataFactory
 					.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
 							.loadOneRecord());
 
-			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("questionTestDataFactory");
-
-			examInstance
-					.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
-							.loadOneRecord());
-
 			register(examInstance);
 
 		} catch (Exception ex) {
@@ -165,13 +144,6 @@ public class ExamInstanceTestDataFactory
 					.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
 							.loadOneRecord());
 
-			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("questionTestDataFactory");
-
-			examInstance
-					.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
-							.loadOneRecord());
-
 			register(examInstance);
 
 		} catch (Exception ex) {
@@ -198,13 +170,6 @@ public class ExamInstanceTestDataFactory
 
 			examInstance
 					.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
-							.loadOneRecord());
-
-			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("questionTestDataFactory");
-
-			examInstance
-					.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
 							.loadOneRecord());
 
 			register(examInstance);
@@ -288,13 +253,6 @@ public class ExamInstanceTestDataFactory
 
 		examInstance.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
 				.loadOneRecord());
-
-		TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
-				.getBean("questionTestDataFactory");
-
-		examInstance
-				.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
-						.loadOneRecord());
 
 		return examInstance;
 	}

@@ -21,43 +21,11 @@
 			<a4j:form id="form">
 				<rich:tabPanel  switchType="ajax">
 					<rich:tab label="Tabular" >
-					<t:dataTable id="data" var="answerChoice"
-						value="#{answerChoiceCrudBacking.records}" rows="30"
+					<t:dataTable id="data" var="answeredQuestion"
+						value="#{answeredQuestionCrudBacking.records}" rows="30"
 					rowClasses="odd, even" styleClass="dataTable" >						
 							
-	<t:column>
-		<f:facet name="header">
-			<t:commandLink actionListener="#{answerChoiceCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="AnswerText" />
-				<t:outputText value="AnswerText" /> 
-			</t:commandLink>		
-		</f:facet>
-		<t:outputText value="#{answerChoice.answerText}" />
-	</t:column>
-
-	<t:column>
-		<f:facet name="header">
-			<t:commandLink actionListener="#{answerChoiceCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Score" />
-				<t:outputText value="Score" /> 
-			</t:commandLink>		
-		</f:facet>
-		<t:outputText value="#{answerChoice.score}" />
-	</t:column>
 							
-							
-							
-	<t:column>
-		<f:facet name="header">
-		<t:commandLink actionListener="#{answerChoiceCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="question.displayName" />
-			<!-- <t:commandSortHeader columnName="" arrow="true"> -->
-				<t:outputText value="Question" /> 
-			<!-- </t:commandSortHeader> -->
-		</t:commandLink>	
-		</f:facet>
-		<t:outputText value="#{answerChoice.question.displayName}" />
-	</t:column>
 							
 							<rich:column>
 								<f:facet name="header">
@@ -69,11 +37,11 @@
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 								
-									<t:commandLink action="#{answerChoiceCrudBacking.select}"																					
-										actionListener="#{answerChoiceCrudBacking.selectEntity}">
+									<t:commandLink action="#{answeredQuestionCrudBacking.select}"																					
+										actionListener="#{answeredQuestionCrudBacking.selectEntity}">
 										<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
 										<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
-										<f:param id="editId" name="id" value="#{answerChoice.id}" />								
+										<f:param id="editId" name="id" value="#{answeredQuestion.id}" />								
 									</t:commandLink>		
 								<!--
 								</acegijsf:authorize>
@@ -88,20 +56,20 @@
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 		
-								<a4j:commandLink action="#{answerChoiceCrudBacking.delete}"	
+								<a4j:commandLink action="#{answeredQuestionCrudBacking.delete}"	
 									onclick="if(window.confirm('Are You Sure?')==false){return false}"
-									actionListener="#{answerChoiceCrudBacking.selectEntity}" immediate="true">														
+									actionListener="#{answeredQuestionCrudBacking.selectEntity}" immediate="true">														
 									<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
-									<f:param id="deleteId" name="id" value="#{answerChoice.id}" />												
+									<f:param id="deleteId" name="id" value="#{answeredQuestion.id}" />												
 								</a4j:commandLink>
 								<!--
 								</acegijsf:authorize>
 								--> 
 								</t:column>
 						</t:dataTable>	
-							 	<t:inputHidden value="#{answerChoiceCrudBacking.sortField}" />
-    							<t:inputHidden value="#{answerChoiceCrudBacking.sortAscending}" />
+							 	<t:inputHidden value="#{answeredQuestionCrudBacking.sortField}" />
+    							<t:inputHidden value="#{answeredQuestionCrudBacking.sortAscending}" />
 							 </rich:tab>
 							 
 							 
@@ -140,26 +108,6 @@
 							
 							
 							
-	<t:column>
-		<f:facet name="header">
-			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="AnswerText" />
-				<t:outputText value="AnswerText" /> 
-			</t:commandLink>		
-		</f:facet>
-		<t:outputText value="#{log.entity.answerText}" />
-	</t:column>
-
-	<t:column>
-		<f:facet name="header">
-			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Score" />
-				<t:outputText value="Score" /> 
-			</t:commandLink>		
-		</f:facet>
-		<t:outputText value="#{log.entity.score}" />
-	</t:column>
-							
 							
 							</t:dataTable>
 							 </rich:tab>
@@ -169,8 +117,8 @@
 
 						<br />
 						<hr />
-						<a href="answerChoice.jsf"> Add New </a>
-						<a href="answerChoiceSearch.jsf"> Search </a>
+						<a href="answeredQuestion.jsf"> Add New </a>
+						<a href="answeredQuestionSearch.jsf"> Search </a>
 						<hr />
 
 		</f:view>

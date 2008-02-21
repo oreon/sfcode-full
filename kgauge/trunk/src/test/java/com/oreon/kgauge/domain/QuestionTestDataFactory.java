@@ -44,7 +44,7 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("pi");
+			question.setQuestionText("beta");
 
 			register(question);
 
@@ -60,7 +60,7 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("gamma");
+			question.setQuestionText("Mark");
 
 			register(question);
 
@@ -92,7 +92,7 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("beta");
+			question.setQuestionText("alpha");
 
 			register(question);
 
@@ -108,7 +108,7 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("Mark");
+			question.setQuestionText("Wilson");
 
 			register(question);
 

@@ -24,36 +24,26 @@
 					<rich:tab label="Basic" >
 					<h:panelGrid columns="6" styleClass="formTable">
 						<f:facet name="header">
-							<h:outputText value="Category Information"
+							<h:outputText value="AnsweredQuestion Information"
 								styleClass="formHeaderText"   />
 						</f:facet>
 						
-							<h:outputText value="Name" styleClass="formLabel" />
-							
-							<h:inputText    
-								id="category__name"
-								value="#{categoryCrudBacking.category.name}">
-								
-							</h:inputText>
-							
-							<h:message for="category__name" styleClass="errMessage" />
 							
 							
-							
-								<h:outputText value="Parent" styleClass="formLabel" />
+								<h:outputText value="" styleClass="formLabel" />
 								
 	
 	<h:panelGroup>
 	<a4j:region>
 
 	<h:selectOneMenu  required="false" 
-		id="category_parent" converter="keyToObjectConverter"
-		value="#{categoryCrudBacking.category.parent}">
+		id="answeredQuestion_question" converter="keyToObjectConverter"
+		value="#{answeredQuestionCrudBacking.answeredQuestion.question}">
 		<f:selectItem itemLabel="Select" />
-		<f:selectItems value="#{categoryCrudBacking.asSelectItems}" />
+		<f:selectItems value="#{questionCrudBacking.asSelectItems}" />
 	</h:selectOneMenu>
 										
-	<rich:message for="category_parent" styleClass="errMessage">
+	<rich:message for="answeredQuestion_question" styleClass="errMessage">
 			<f:facet name="errorMarker">
 				<h:graphicImage url="/images/icons/bullet_error.png" />
 			</f:facet>
@@ -64,10 +54,10 @@
 
 							
 							
-  						   <h:commandButton id="button1" value="Search" action="#{categoryCrudBacking.search}"  /> 
+  						   <h:commandButton id="button1" value="Search" action="#{answeredQuestionCrudBacking.search}"  /> 
   						    <h:commandButton id="button2" value="Cancel" action="cancel" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
-		  				   	<h:inputHidden id="category_id" value="#{categoryCrudBacking.category.id}" />
+		  				   	<h:inputHidden id="answeredQuestion_id" value="#{answeredQuestionCrudBacking.answeredQuestion.id}" />
 
 						</h:panelGrid>
 						</rich:tab>
@@ -76,7 +66,7 @@
 							
 							<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
 								id="customer__creation"
-								value="#{categoryCrudBacking.category.dateCreated}">
+								value="#{answeredQuestionCrudBacking.answeredQuestion.dateCreated}">
 								
 							</t:inputCalendar >
 							

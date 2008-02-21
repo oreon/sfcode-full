@@ -1,6 +1,6 @@
 
 /**
- * This is generated code - to edit code or override methods use - Question class
+ * This is generated code - to edit code or override methods use - AnsweredQuestion class
  * @author witchCraft Code Generator
  * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
  */
@@ -16,7 +16,7 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
-public abstract class QuestionBase
+public abstract class AnsweredQuestionBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
 		implements
@@ -26,24 +26,21 @@ public abstract class QuestionBase
 
 	private static final long serialVersionUID = 1L;
 
-	protected String questionText;
-
-	/*
-	
-	 */
-	public String getQuestionText() {
-		return this.questionText;
-	}
-
-	public void setQuestionText(String questionText) {
-		this.questionText = questionText;
-	}
+	private com.oreon.kgauge.domain.Question question;
 
 	private java.util.Set<com.oreon.kgauge.domain.AnswerChoice> answerChoice = new java.util.HashSet<com.oreon.kgauge.domain.AnswerChoice>();
 
-	public void add(com.oreon.kgauge.domain.AnswerChoice answerChoice) {
+	public void setQuestion(com.oreon.kgauge.domain.Question question) {
+		this.question = question;
+	}
 
-		answerChoice.setQuestion(questionInstance());
+	@ManyToOne
+	@JoinColumn(name = "question_ID", nullable = false)
+	public com.oreon.kgauge.domain.Question getQuestion() {
+		return this.question;
+	}
+
+	public void add(com.oreon.kgauge.domain.AnswerChoice answerChoice) {
 
 		this.answerChoice.add(answerChoice);
 	}
@@ -52,7 +49,8 @@ public abstract class QuestionBase
 		this.answerChoice.remove(answerChoice);
 	}
 
-	@OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany
+	@JoinColumn(name = "AnsweredQuestion_ID", nullable = true)
 	public java.util.Set<com.oreon.kgauge.domain.AnswerChoice> getAnswerChoice() {
 		return this.answerChoice;
 	}
@@ -76,11 +74,6 @@ public abstract class QuestionBase
 		return this.answerChoice.size();
 	}
 
-	public abstract Question questionInstance();
-
-	@Transient
-	public String getDisplayName() {
-		return questionText + "";
-	}
+	public abstract AnsweredQuestion answeredQuestionInstance();
 
 }
