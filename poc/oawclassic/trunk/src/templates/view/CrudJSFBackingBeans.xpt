@@ -5,7 +5,7 @@
 
 «EXTENSION java::NamingConventions»
 «EXTENSION view::ViewExtensions»
-
+@org.hibernate.annotations.Proxy(lazy = false)
 «DEFINE GenerateBackingBean FOR Entity»
 	
 	«FILE parentPackagePath()+"/web/jsf/"+NameS+"BackingBean.java"»  
@@ -67,18 +67,54 @@
 			}			
 			
 			
+			
 			public String search(){
 				action=SEARCH;
 				return "search";
 			}
 			//functions for advanced search
-			String dateOp;
-			public void doAdvancedSearch(String dateOp){
-				this.dateOp=dateOp;
+			
+			public String dateOp="On";
+			
+			public String dateOp(){
+				System.out.println("getting date op from method: "+dateOp);
+				return dateOp;
 			}
-
+			
+			public void doAdvancedSearch(){
+				switch(dateOP){
+				case "On":;break;
+				case "Any":;break;
+				case "After":;break;
+				case "Before":;break;
+				case "Between":;break;
+				default:;break;
+				}
+				
+			}
+			public String getDateOp(){
+				if(dateOp==null){dateOp="Any";}
+				
+				System.out.println("getting date op: "+dateOp);
+				return dateOp;
+			}
+			
+			public void setDateOp(UIParameter uip){	
+			 	//dateOp=(value)uip.getId();
+			 	System.out.println("setting date op from param: "+dateOp);
+			 }	
+			
+			 public void setDateOp(ActionEvent actionEvent){	
+			 	dateOp=actionEvent.getComponent().getId();
+			 	System.out.println("setting date op from event: "+dateOp);
+			 }	
 			
 			
+			public void setDateOp(String s){		
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				this.dateOp = (String)ctx.getExternalContext().getRequestParameterMap().get("id");				
+				System.out.println("setting date op from string: "+dateOp);
+			}
 	
 			/** Returns a success string upon selection of an entity in model - majority of work is done
 			 * in the actionListener selectEntity
@@ -214,6 +250,8 @@
 		</managed-property>
 		
 		
+
+		
 		
 	</managed-bean> 
  	
@@ -238,6 +276,8 @@
 		    <from-outcome>search</from-outcome>
 		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
 		  </navigation-case>   
+		  
+		  
     
 	</navigation-rule>
 	
