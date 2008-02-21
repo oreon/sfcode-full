@@ -117,7 +117,7 @@ public abstract class BaseBackingBean<T> {
 			entities = getBaseService().loadAll();
 
 		// Sort results.
-		if (sortField != null) {
+		if (sortField != null && !sortField.equals("")) {
 			Collections.sort(entities, new DTOComparator(sortField,
 					sortAscending));
 		}
