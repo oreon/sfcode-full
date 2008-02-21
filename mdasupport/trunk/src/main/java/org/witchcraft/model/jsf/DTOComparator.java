@@ -9,6 +9,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 /**
  * Sorts a collection of data transfer objects (DTO's) based on the name of the getter of the field
  * to sort on. For example: the DTO MyDto has three fields ID, Name and Value, all with appropriate
@@ -43,6 +45,7 @@ public class DTOComparator implements Comparator {
 
     private List<String> getters;
     private boolean ascending;
+    private static Logger logger = Logger.getLogger(DTOComparator.class);
 
     // Constructor -------------------------------------------------------------------------------
 
@@ -53,7 +56,8 @@ public class DTOComparator implements Comparator {
     public DTOComparator(String getter, boolean ascending) {
         this.getters = new ArrayList<String>();
         for (String name : getter.split("\\.")) {
-            if (!name.startsWith("get")) {
+           // Was causing index out of bounds exception
+        	if (name.length() >1 && !name.startsWith("get")) {
                 name = "get" + name.substring(0, 1).toUpperCase() + name.substring(1);
             }
             this.getters.add(name);
@@ -82,8 +86,10 @@ public class DTOComparator implements Comparator {
                 o2 = o2.getClass().getMethod(getter, new Class[0]).invoke(o2, new Object[0]);
             }
         } catch (Exception e) {
+        	logger.warn("An exception occured comparing " + e.getMessage() );
+        	return 0;
             // If this exception occurs, then it is usually a fault of the DTO developer.
-            throw new RuntimeException("Cannot compare " + o1 + " with " + o2 + " on " + getters, e);
+            //throw new RuntimeException("Cannot compare " + o1 + " with " + o2 + " on " + getters, e);
         }
 
         if (o1 == null) {
