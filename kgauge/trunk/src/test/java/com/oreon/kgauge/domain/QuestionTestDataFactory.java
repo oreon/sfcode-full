@@ -44,7 +44,8 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("beta");
+			question.setQuestionText("gamma");
+			question.setDifficultyLevel(2020);
 
 			register(question);
 
@@ -60,7 +61,8 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("Mark");
+			question.setQuestionText("Wilson");
+			question.setDifficultyLevel(2529);
 
 			register(question);
 
@@ -76,7 +78,8 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("epsilon");
+			question.setQuestionText("Lavendar");
+			question.setDifficultyLevel(6369);
 
 			register(question);
 
@@ -92,7 +95,8 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("alpha");
+			question.setQuestionText("pi");
+			question.setDifficultyLevel(6226);
 
 			register(question);
 
@@ -108,7 +112,8 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("Wilson");
+			question.setQuestionText("Mark");
+			question.setDifficultyLevel(421);
 
 			register(question);
 
@@ -181,6 +186,8 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		question.setQuestionText((String) RandomValueGeneratorFactory
 				.createInstance("String"));
+		question.setDifficultyLevel((Integer) RandomValueGeneratorFactory
+				.createInstance("Integer"));
 
 		return question;
 	}

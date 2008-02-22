@@ -46,7 +46,7 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setName("Malissa32115");
+			authority.setName("Lavendar86589");
 
 			register(authority);
 
@@ -62,7 +62,7 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setName("gamma4963");
+			authority.setName("pi23326");
 
 			register(authority);
 
@@ -78,7 +78,7 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setName("John98454");
+			authority.setName("theta74858");
 
 			register(authority);
 
@@ -94,7 +94,7 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setName("zeta21567");
+			authority.setName("Malissa5780");
 
 			register(authority);
 
@@ -110,7 +110,7 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setName("pi49517");
+			authority.setName("epsilon90560");
 
 			register(authority);
 

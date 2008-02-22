@@ -50,7 +50,8 @@ public class QuestionDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			questionInstance.setQuestionText("Wilson");
+			questionInstance.setQuestionText("Malissa");
+			questionInstance.setDifficultyLevel(1990);
 
 			questionService.save(questionInstance);
 		} catch (PersistenceException pe) {
@@ -75,6 +76,7 @@ public class QuestionDaoTest extends AbstractJpaTests {
 			try {
 
 				question.setQuestionText("Eric");
+				question.setDifficultyLevel(9789);
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -94,7 +96,8 @@ public class QuestionDaoTest extends AbstractJpaTests {
 			Question question = (Question) questionTestDataFactory
 					.loadOneRecord();
 
-			question.setQuestionText("delta");
+			question.setQuestionText("Eric");
+			question.setDifficultyLevel(8097);
 
 			questionService.save(question);
 

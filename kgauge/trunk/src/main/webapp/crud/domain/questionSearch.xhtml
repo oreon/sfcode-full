@@ -30,13 +30,23 @@
 						
 							<h:outputText value="QuestionText" styleClass="formLabel" />
 							
-							<h:inputText    
+							<h:inputTextarea   maxLength="40000"   
 								id="question__questionText"
 								value="#{questionCrudBacking.question.questionText}">
+								<f:validateLength minimum="6" maximum="40000"/>
+							</h:inputTextarea>
+							
+							<h:message for="question__questionText" styleClass="errMessage" />
+							
+							<h:outputText value="DifficultyLevel" styleClass="formLabel" />
+							
+							<h:inputText    
+								id="question__difficultyLevel"
+								value="#{questionCrudBacking.question.difficultyLevel}">
 								
 							</h:inputText>
 							
-							<h:message for="question__questionText" styleClass="errMessage" />
+							<h:message for="question__difficultyLevel" styleClass="errMessage" />
 							
 							
 							

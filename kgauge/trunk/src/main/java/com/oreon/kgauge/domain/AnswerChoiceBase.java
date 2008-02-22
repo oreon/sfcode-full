@@ -30,10 +30,12 @@ public abstract class AnswerChoiceBase
 
 	protected Integer score;
 
+	@Column(nullable = false, unique = false)
 	/*
 	
 	 */
 	public String getAnswerText() {
+
 		return this.answerText;
 	}
 

@@ -34,6 +34,10 @@ public abstract class ExamBase
 
 	protected Integer duration;
 
+	protected Double price;
+
+	protected ScoringType scoringStrategy;
+
 	@Column(nullable = false, unique = false)
 	/*
 	
@@ -66,6 +70,20 @@ public abstract class ExamBase
 		return this.duration;
 	}
 
+	/*
+	
+	 */
+	public Double getPrice() {
+		return this.price;
+	}
+
+	/*
+	
+	 */
+	public ScoringType getScoringStrategy() {
+		return this.scoringStrategy;
+	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
@@ -80,6 +98,14 @@ public abstract class ExamBase
 
 	public void setDuration(Integer duration) {
 		this.duration = duration;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public void setScoringStrategy(ScoringType scoringStrategy) {
+		this.scoringStrategy = scoringStrategy;
 	}
 
 	private java.util.Set<com.oreon.kgauge.domain.Question> question = new java.util.HashSet<com.oreon.kgauge.domain.Question>();

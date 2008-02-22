@@ -28,15 +28,30 @@ public abstract class QuestionBase
 
 	protected String questionText;
 
+	protected Integer difficultyLevel;
+
+	@Column(nullable = false, unique = false)
 	/*
 	
 	 */
 	public String getQuestionText() {
+
 		return this.questionText;
+	}
+
+	/*
+	
+	 */
+	public Integer getDifficultyLevel() {
+		return this.difficultyLevel;
 	}
 
 	public void setQuestionText(String questionText) {
 		this.questionText = questionText;
+	}
+
+	public void setDifficultyLevel(Integer difficultyLevel) {
+		this.difficultyLevel = difficultyLevel;
 	}
 
 	private java.util.Set<com.oreon.kgauge.domain.AnswerChoice> answerChoice = new java.util.HashSet<com.oreon.kgauge.domain.AnswerChoice>();
@@ -77,10 +92,5 @@ public abstract class QuestionBase
 	}
 
 	public abstract Question questionInstance();
-
-	@Transient
-	public String getDisplayName() {
-		return questionText + "";
-	}
 
 }

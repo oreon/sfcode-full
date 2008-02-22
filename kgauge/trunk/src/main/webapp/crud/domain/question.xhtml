@@ -32,21 +32,51 @@
 							
 	
 		
-	<h:outputText value="QuestionText" styleClass="formLabel" />
+	<h:outputText value="QuestionText*" styleClass="formLabel" />
+	
+	<h:panelGroup>
+	<a4j:region>
+	
+		
+	<h:inputTextarea   maxLength="40000"   required="true" 
+		id="question_null_questionText"
+		value="#{questionCrudBacking.question.questionText}">
+		<f:validateLength minimum="6" maximum="40000"/>
+	</h:inputTextarea>
+
+	
+	
+		<rich:message for="question_null_questionText"
+			 styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+		
+		</a4j:region>
+	</h:panelGroup>
+	
+
+							
+	
+
+	
+		
+	<h:outputText value="DifficultyLevel" styleClass="formLabel" />
 	
 	<h:panelGroup>
 	<a4j:region>
 	
 		
 	<h:inputText    required="false" 
-		id="question_null_questionText"
-		value="#{questionCrudBacking.question.questionText}">
+		id="question_null_difficultyLevel"
+		value="#{questionCrudBacking.question.difficultyLevel}">
 		
 	</h:inputText>
 
 	
 	
-		<rich:message for="question_null_questionText"
+		<rich:message for="question_null_difficultyLevel"
 			 styleClass="errMessage">
 			<f:facet name="errorMarker">
 				<h:graphicImage url="/images/icons/bullet_error.png" />
