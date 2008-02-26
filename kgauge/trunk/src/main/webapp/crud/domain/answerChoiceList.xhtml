@@ -52,7 +52,7 @@
 		<t:commandLink actionListener="#{answerChoiceCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="question.displayName" />
 			<!-- <t:commandSortHeader columnName="" arrow="true"> -->
-				<t:outputText value="Question" /> 
+				<t:outputText value="" /> 
 			<!-- </t:commandSortHeader> -->
 		</t:commandLink>	
 		</f:facet>
@@ -88,13 +88,13 @@
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 		
-								<a4j:commandLink action="#{answerChoiceCrudBacking.delete}"	
+								<t:commandLink action="#{answerChoiceCrudBacking.delete}"	
 									onclick="if(window.confirm('Are You Sure?')==false){return false}"
-									actionListener="#{answerChoiceCrudBacking.selectEntity}" immediate="true">														
+									actionListener="#{answerChoiceCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
 									<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
 									<f:param id="deleteId" name="id" value="#{answerChoice.id}" />												
-								</a4j:commandLink>
+								</t:commandLink>
 								<!--
 								</acegijsf:authorize>
 								--> 

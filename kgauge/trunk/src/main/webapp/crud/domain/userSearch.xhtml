@@ -69,27 +69,77 @@
 
 						</h:panelGrid>
 						</rich:tab>
-						<rich:tab label="Advanced">
-							<h:outputText value="Creation Date" styleClass="formLabel" />
-							
-							<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
-								id="customer__creation"
-								value="#{userCrudBacking.user.dateCreated}">
-								
-							</t:inputCalendar >
-							
-							<h:message for="customer__dob" styleClass="errMessage" />
+	<rich:tab label="Advanced">
+	
+		<h:inputHidden id="dateOperation" value="#{userCrudBacking.dateOp}"/>
+			
+		<h:panelGrid id="advGrid" columns="6" styleClass="formTable">
+			
+		
+			<f:facet name="header">
+				<h:outputText value="User Information" styleClass="formHeaderText"   />
+			</f:facet>
+							   
+			<h:column id="ddcol">	
+				<h:form id="ddform">	
+				<!--plan:when a date operation is selected it stores the value in dateOperation-->
+				<!--The value in dOp should be rendered with value of dateOperation-->
+				<!--When the search button is clicked dateOperation etc will be passed to a method in backing bean-->				
+				<rich:dropDownMenu id="ddmenu" submitMode="ajax" binding="#{userCrudBacking.dateOp}" onitemselect="render='form.dOp'" immediate="true" >
+                	<f:facet name="label"> 
+                	    <h:panelGrid id="pg" cellpadding="0" cellspacing="0" columns="2" style="vertical-align:middle">
+                         	<h:graphicImage value="/images/icons/date_go.png" style="border: 0px"/>
+                        	<h:outputText id="t" value="Date" />
+                    	</h:panelGrid>                                                                		
+                	</f:facet>               
+                	<rich:menuItem  value="On"  reRender="form.dOp" icon="/images/icons/flag_blue.png" >             		
+                	<f:param id="On" name="id" value="On" />						
+                	</rich:menuItem>               
+                	<rich:menuItem    value="Before" icon="/images/icons/resultset_previous.png"    >    
+                	<f:param id="Before" name="id" value="Before" />		
+                	
+                	</rich:menuItem>                   	
+                	<rich:menuItem  value="After"  icon="/images/icons/resultset_next.png"  > 
+                	<f:param id="After" name="id" value="After" />				
+                	
+                	</rich:menuItem>                 
+                	<rich:menuItem  value="Between" immediate="true" icon="/images/icons/tag.png">
+                	<f:param id="Between" name="id" value="Between" />	
+            		</rich:menuItem>      
+            		
+            		<rich:menuItem    value="Any"  >
+            		<f:param id="Any" name="id" value="Any" />	
+            		</rich:menuItem>                               	 
+				</rich:dropDownMenu>
 				
-						
-						</rich:tab>
+				</h:form>
+				</h:column>		
+			<h:column id="outCol" styleClass="header">
+			 
+				   <h:outputText id="dOp" render="true" ajaxRendered="true" name="dateOp" style="font-weight:bold"  immediate="true" value="#{userCrudBacking.dateOp}"  />				
+			 	
+    		
+			</h:column>		
+			<h:column>		
+				<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
+								id="fromDate"
+								value="#{userCrudBacking.user.dateCreated}">							
+				</t:inputCalendar >
+			</h:column>				
+							<h:message for="fromDate" styleClass="errMessage" />
+		</h:panelGrid>		
+	<h:commandButton value="Search" action="submit" />						
+	</rich:tab>
 						
 						
 				</rich:tabPanel>
-					
+				
+				
 			</a4j:form>
 		</f:view>
 
 	</ui:define>
+	
 </ui:composition>
 
 		

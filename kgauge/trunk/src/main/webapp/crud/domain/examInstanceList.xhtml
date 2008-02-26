@@ -32,7 +32,7 @@
 		<t:commandLink actionListener="#{examInstanceCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="candidate.displayName" />
 			<!-- <t:commandSortHeader columnName="" arrow="true"> -->
-				<t:outputText value="Candidate" /> 
+				<t:outputText value="" /> 
 			<!-- </t:commandSortHeader> -->
 		</t:commandLink>	
 		</f:facet>
@@ -44,7 +44,7 @@
 		<t:commandLink actionListener="#{examInstanceCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="exam.displayName" />
 			<!-- <t:commandSortHeader columnName="" arrow="true"> -->
-				<t:outputText value="Exam" /> 
+				<t:outputText value="" /> 
 			<!-- </t:commandSortHeader> -->
 		</t:commandLink>	
 		</f:facet>
@@ -80,13 +80,13 @@
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 		
-								<a4j:commandLink action="#{examInstanceCrudBacking.delete}"	
+								<t:commandLink action="#{examInstanceCrudBacking.delete}"	
 									onclick="if(window.confirm('Are You Sure?')==false){return false}"
-									actionListener="#{examInstanceCrudBacking.selectEntity}" immediate="true">														
+									actionListener="#{examInstanceCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
 									<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
 									<f:param id="deleteId" name="id" value="#{examInstance.id}" />												
-								</a4j:commandLink>
+								</t:commandLink>
 								<!--
 								</acegijsf:authorize>
 								--> 

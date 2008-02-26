@@ -1,146 +1,105 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	default-autowire="byName"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans     http://www.springframework.org/schema/beans/spring-beans.xsd     http://www.springframework.org/schema/tx     http://www.springframework.org/schema/tx/spring-tx.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-autowire="byName" xsi:schemaLocation="http://www.springframework.org/schema/beans     http://www.springframework.org/schema/beans/spring-beans.xsd     http://www.springframework.org/schema/tx     http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 
-
-	<bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-		id="propertyPlaceholder">
-		<property name="location" value="classpath:project.properties" />
+	
+		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" id="propertyPlaceholder">
+			<property name="location" value="classpath:project.properties"/>
+		</bean>
+	
+	
+	  <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
+	     <property name="jpaVendorAdapter">
+	        <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+	           <property name="showSql" value="${hibernate.showsql}"/>
+	           <property name="generateDdl" value="${hibernate.generateddl}"/>
+	           <property name="databasePlatform" value="${hibernate.dialect}"/>
+	        </bean>
+	     </property>
+	  </bean>
+	
+	  <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
+			<property name="driverClassName" value="${hibernate.connection.driver_class}"/>
+			<property name="url" value="${hibernate.connection.url}"/>
+			<property name="username" value="${hibernate.connection.username}"/>
+			<property name="password" value="${hibernate.connection.password}"/>
+	 </bean>
+	
+	  <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager"/>
+	  
+	  <tx:annotation-driven/>
+	
+	
+	  <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+	 
+	 <!-- Velocity -->
+	 <bean class="org.springframework.ui.velocity.VelocityEngineFactoryBean" id="velocityEngine">
+	    <property name="velocityProperties">
+	        <props>
+	            <prop key="resource.loader">class</prop>
+	            <prop key="class.resource.loader.class">
+	                org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+	            </prop>
+	        </props>
+	    </property>
 	</bean>
+	  
+	  <!-- Service Beans For entities-->
+	  
+	<bean class="com.oreon.kgauge.service.impl.CandidateServiceImpl" id="candidateService"/>
 
+	<bean class="com.oreon.kgauge.service.impl.QuestionServiceImpl" id="questionService"/>
 
-	<bean
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-		id="entityManagerFactory">
-		<property name="jpaVendorAdapter">
-			<bean
-				class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="showSql" value="${hibernate.showsql}" />
-				<property name="generateDdl"
-					value="${hibernate.generateddl}" />
-				<property name="databasePlatform"
-					value="${hibernate.dialect}" />
-			</bean>
-		</property>
-	</bean>
+	<bean class="com.oreon.kgauge.service.impl.AnswerChoiceServiceImpl" id="answerChoiceService"/>
 
-	<bean class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close" id="dataSource">
-		<property name="driverClassName"
-			value="${hibernate.connection.driver_class}" />
-		<property name="url" value="${hibernate.connection.url}" />
-		<property name="username"
-			value="${hibernate.connection.username}" />
-		<property name="password"
-			value="${hibernate.connection.password}" />
-	</bean>
+	<bean class="com.oreon.kgauge.service.impl.ExamServiceImpl" id="examService"/>
 
-	<bean class="org.springframework.orm.jpa.JpaTransactionManager"
-		id="transactionManager" />
+	<bean class="com.oreon.kgauge.service.impl.ExamInstanceServiceImpl" id="examInstanceService"/>
 
-	<tx:annotation-driven />
+	<bean class="com.oreon.kgauge.service.impl.ExamCreatorServiceImpl" id="examCreatorService"/>
 
+	<bean class="com.oreon.kgauge.service.impl.CategoryServiceImpl" id="categoryService"/>
 
-	<bean
-		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+	<bean class="com.oreon.kgauge.service.impl.UserServiceImpl" id="userService"/>
 
-	<!-- Velocity -->
-	<bean
-		class="org.springframework.ui.velocity.VelocityEngineFactoryBean"
-		id="velocityEngine">
-		<property name="velocityProperties">
-			<props>
-				<prop key="resource.loader">class</prop>
-				<prop key="class.resource.loader.class">
-					org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
-				</prop>
-			</props>
-		</property>
-	</bean>
+	<bean class="com.oreon.kgauge.service.impl.AuthorityServiceImpl" id="authorityService"/>
 
-	<!-- Service Beans For entities-->
+	<bean class="com.oreon.kgauge.service.impl.AnsweredQuestionServiceImpl" id="answeredQuestionService"/>
 
-	<bean class="com.oreon.kgauge.service.impl.CandidateServiceImpl"
-		id="candidateService" />
+	  
+	  <!-- Service Facade -->
+	    <bean class="facades.ServiceFacade" id="serviceFacade"/>
+	    
+	    <!-- Service Beans  -->
+	  
+	 
+	  
+	  <!-- Dao Beans  -->
+	  
+	<bean class="com.oreon.kgauge.dao.impl.CandidateDaoImpl" id="candidateDao"/>
 
-	<bean class="com.oreon.kgauge.service.impl.QuestionServiceImpl"
-		id="questionService" />
+	<bean class="com.oreon.kgauge.dao.impl.QuestionDaoImpl" id="questionDao"/>
 
-	<bean class="com.oreon.kgauge.service.impl.AnswerChoiceServiceImpl"
-		id="answerChoiceService" />
+	<bean class="com.oreon.kgauge.dao.impl.AnswerChoiceDaoImpl" id="answerChoiceDao"/>
 
-	<bean class="com.oreon.kgauge.service.impl.ExamServiceImpl"
-		id="examService" />
+	<bean class="com.oreon.kgauge.dao.impl.ExamDaoImpl" id="examDao"/>
 
-	<bean class="com.oreon.kgauge.service.impl.ExamInstanceServiceImpl"
-		id="examInstanceService" />
+	<bean class="com.oreon.kgauge.dao.impl.ExamInstanceDaoImpl" id="examInstanceDao"/>
 
-	<bean class="com.oreon.kgauge.service.impl.ExamCreatorServiceImpl"
-		id="examCreatorService" />
+	<bean class="com.oreon.kgauge.dao.impl.ExamCreatorDaoImpl" id="examCreatorDao"/>
 
-	<bean class="com.oreon.kgauge.service.impl.CategoryServiceImpl"
-		id="categoryService" />
+	<bean class="com.oreon.kgauge.dao.impl.CategoryDaoImpl" id="categoryDao"/>
 
-	<bean class="com.oreon.kgauge.service.impl.UserServiceImpl"
-		id="userService" />
+	<bean class="com.oreon.kgauge.dao.impl.UserDaoImpl" id="userDao"/>
 
-	<bean class="com.oreon.kgauge.service.impl.AuthorityServiceImpl"
-		id="authorityService" />
+	<bean class="com.oreon.kgauge.dao.impl.AuthorityDaoImpl" id="authorityDao"/>
 
-	<bean
-		class="com.oreon.kgauge.service.impl.AnsweredQuestionServiceImpl"
-		id="answeredQuestionService" />
+	<bean class="com.oreon.kgauge.dao.impl.AnsweredQuestionDaoImpl" id="answeredQuestionDao"/>
 
-
-	<!-- Service Facade -->
-	<bean class="facades.ServiceFacade" id="serviceFacade" />
-
-	<!-- Service Beans  -->
-
-
-
-	<!-- Dao Beans  -->
-
-	<bean class="com.oreon.kgauge.dao.impl.CandidateDaoImpl"
-		id="candidateDao" />
-
-	<bean class="com.oreon.kgauge.dao.impl.QuestionDaoImpl"
-		id="questionDao" />
-
-	<bean class="com.oreon.kgauge.dao.impl.AnswerChoiceDaoImpl"
-		id="answerChoiceDao" />
-
-	<bean class="com.oreon.kgauge.dao.impl.ExamDaoImpl" id="examDao" />
-
-	<bean class="com.oreon.kgauge.dao.impl.ExamInstanceDaoImpl"
-		id="examInstanceDao" />
-
-	<bean class="com.oreon.kgauge.dao.impl.ExamCreatorDaoImpl"
-		id="examCreatorDao" />
-
-	<bean class="com.oreon.kgauge.dao.impl.CategoryDaoImpl"
-		id="categoryDao" />
-
-	<bean class="com.oreon.kgauge.dao.impl.UserDaoImpl" id="userDao" />
-
-	<bean class="com.oreon.kgauge.dao.impl.AuthorityDaoImpl"
-		id="authorityDao" />
-
-	<bean class="com.oreon.kgauge.dao.impl.AnsweredQuestionDaoImpl"
-		id="answeredQuestionDao" />
-
-
-	<!-- Audit logging -->
-	<bean class="org.witchcraft.model.support.audit.AuditLogDaoImpl"
-		id="auditLogDao" />
-
-	<bean
-		class="org.witchcraft.model.support.audit.EntityAuditLogInterceptor"
-		id="entityAuditLogInterceptor" />
-
-</beans>
+	  
+	   	<!-- Audit logging -->
+	  	<bean class="org.witchcraft.model.support.audit.AuditLogDaoImpl" id="auditLogDao"/>
+	 
+	  	<bean class="org.witchcraft.model.support.audit.EntityAuditLogInterceptor" id="entityAuditLogInterceptor"/>
+	  
+	</beans>

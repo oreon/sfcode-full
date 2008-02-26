@@ -86,13 +86,13 @@
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 		
-								<a4j:commandLink action="#{userCrudBacking.delete}"	
+								<t:commandLink action="#{userCrudBacking.delete}"	
 									onclick="if(window.confirm('Are You Sure?')==false){return false}"
-									actionListener="#{userCrudBacking.selectEntity}" immediate="true">														
+									actionListener="#{userCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
 									<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
 									<f:param id="deleteId" name="id" value="#{user.id}" />												
-								</a4j:commandLink>
+								</t:commandLink>
 								<!--
 								</acegijsf:authorize>
 								--> 

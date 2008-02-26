@@ -1,6 +1,3 @@
-
-	
-	
 	
 	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -19,17 +16,28 @@
 		<f:view>
 		<!--PROTECTED REGION ID(USER_CREATED) ENABLED START-->
 					This is protectable
+					<f:loadBundle
+					basename="messages.loginMessages" var="msg"/>
+					<f:view locale="#{LocalFacade.locale}">
+					
 		<!--PROTECTED REGION END-->
 			<h:messages layout="list" globalOnly="true" showDetail="true"
 				styleClass="messages" />
 			<h:outputText value="" styleClass="message" />		
 			
 			<h:form>
-				<h:panelGrid>
-					
-					
+				<h:panelGrid> <h:outputText value="#{msg.welcome.to.kgauge}"></h:outputText> 
+					<h:commandLink value="#{msg.login}" action="login"></h:commandLink> <br></br> 
+					<h:commandLink value="#{msg.register)" action="register"></h:commandLink> 
+					<h:commandLink value="#{msg.retrieve)" action="forgotCredentials"></h:commandLink> 				
+				</h:panelGrid> 
 				
-				</h:panelGrid>
+			</h:form>
+			<h:form id="changelanguageform">
+				<h:commandLink id="commandlink_en" action="en"
+					actionListener="#{LangBean.setLanguage}" value="English" /> | 
+				<h:commandLink id="commandlink_de" action="de"
+					actionListener="#{LangBean.setLanguage}" value="Deutsch" />
 			</h:form>
 	
 		</f:view>

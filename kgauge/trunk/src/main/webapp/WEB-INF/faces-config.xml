@@ -6,7 +6,14 @@
 	<!--  Spring variable resolver -->  
   <application> 
     <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver> 
-    <message-bundle>messages</message-bundle>
+    
+     <locale-config>
+   		<default-locale>en_US</default-locale>
+   		<supported-locale>en_US</supported-locale>
+   		<supported-locale>de</supported-locale>
+ 	 </locale-config>
+ 	<message-bundle>messages.messages</message-bundle>
+ 	
   </application>  
   
   <!-- A converter for combo boxes (selectOneMenus ) to convert objects to and from ids -->
@@ -26,7 +33,13 @@
 			<value>#{authenticationManager}</value>
 		</managed-property>
 	</managed-bean>
-
+	
+	<managed-bean>
+ 		<managed-bean-name>com.oreon.kgauge.service.LangBean</managed-bean-name>
+ <managed-bean-class>LangBean</managed-bean-class>
+ <managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+	
 	<navigation-rule>
 		<from-view-id>/login.xhtml</from-view-id>
 		<navigation-case>
@@ -53,6 +66,7 @@
 			<to-view-id>/login.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
+		
 	</navigation-rule>
 	
 	<navigation-rule>
@@ -80,7 +94,18 @@
 		
 	</navigation-rule>
 	
-	
-	
+	<navigation-rule>
+		<from-view-id>/authenticate/*</from-view-id>
+	<navigation-case>
+			<from-action>login</from-action>
+			<to-view-id>/login.xhtml</to-view-id>
+			<redirect/>	
+		</navigation-case>
+		<navigation-case>
+			<from-action>register</from-action>
+			<to-view-id>/register.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
  
 </faces-config>
