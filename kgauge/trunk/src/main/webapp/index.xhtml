@@ -15,10 +15,9 @@
 
 <ui:define name="title" styleClass="h1">kgauge</ui:define>
 <ui:define name="content">
-		<f:loadBundle basename="messages.messages" var="msg"/>
-				
-		<f:view >
-		<!--locale="#{src/main/java/com/oreon/kgauge/service/LangBean.locale}"-->
+						
+		<f:view>
+          <f:loadBundle basename="messages.messages" var="msg"/>
                     
            <h:form id="links">
 				<h:panelGrid> 
@@ -32,10 +31,13 @@
 				
 			</h:form>
 			<h:form id="changelanguageform">
-				<h:commandLink styleClass="a:link" id="commandlink_en" action="en"
-					actionListener="#{LangBean.setLanguage}" value="English" /> | 
-				<h:commandLink styleClass="a:link" id="commandlink_de" action="de"
-					actionListener="#{LangBean.setLanguage}" value="Deutsch" />
+				<h:commandLink styleClass="a:link" id="english" action="chooseLocale"			
+					actionListener="#{LangBean.onChooseLocale}" value="English" /> | 
+				<h:commandLink styleClass="a:link" id="german" action="chooseLocale"
+					actionListener="#{LangBean.onChooseLocale}" value="Deutsch" /> |
+				<h:commandLink styleClass="a:link" id="french" action="chooseLocale"
+					actionListener="#{LangBean.onChooseLocale}" value="Francais" />
+				
 			</h:form>
 
 		</f:view>

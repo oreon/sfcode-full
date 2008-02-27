@@ -1,38 +1,36 @@
 package com.oreon.kgauge.service;
 
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import java.util.*;
 import java.util.Locale;
 
-import javax.faces.event.ActionEvent;
-import javax.faces.context.FacesContext;
+
 
 public class LangBean {
 	
-		 private Locale locale=FacesContext.getCurrentInstance().getViewRoot().getLocale();
-		 String localeSt="en";
-		 
-		 
-		 public Locale getLocale() {
-		  return locale;
-		 }
+	 Locale locale = Locale.getDefault();
+	private HashMap<String, Locale> locales = null;
 
-		 public void setLocale(String locale) {
-		  this.localeSt = locale;
-		 }
-		
-		 
- 
- 	        public void setLocale(Locale locale) {
-			  	    this.localeSt = locale.getLanguage().substring(0, 2);
-			  	  FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
- 	        }
-
-		 
-		 
-		 public void setLanguage(ActionEvent event){
-		  String id = new String(event.getComponent().getId());
-		  String thislocale=id.substring(12);
-		  System.out.println("event id: "+id+", locale="+thislocale);
-		  localeSt=(thislocale);
-		 }
-		}
+    public LangBean() {
+        locales = new HashMap<String, Locale>(4);
+        locales.put("english", new Locale("en", "US"));
+        locales.put("englishUK", new Locale("en", "GB"));
+        locales.put("french", new Locale("fr", "FR"));
+        locales.put("german", new Locale("de", "DE"));
+    }
+    
+    public Locale getLocale(){
+    	return locale;
+    }
+       
+    public void onChooseLocale(ActionEvent event) {
+        String current = event.getComponent().getId();
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getViewRoot().setLocale((Locale) locales.get(current));
+    System.out.println("Changed locale to: "+current);
+    
+    }
+    
+}
 

@@ -11,6 +11,7 @@
    		<default-locale>en</default-locale>
    		<supported-locale>en_US</supported-locale>
    		<supported-locale>de</supported-locale>
+   		<supported-locale>fr</supported-locale>
  	 </locale-config>
  	<message-bundle>messages.messages</message-bundle>
  	
@@ -35,13 +36,20 @@
 	</managed-bean>
 	
 	<managed-bean>
- 		<managed-bean-name>com.oreon.kgauge.service.LangBean</managed-bean-name>
+ 		<managed-bean-name>src/main/webapp/WEB-INF/LangBean.java</managed-bean-name>
  <managed-bean-class>LangBean</managed-bean-class>
  <managed-bean-scope>session</managed-bean-scope>
 </managed-bean>
 	
 	<navigation-rule>
 		<from-view-id>/index.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>
+				chooseLocale
+			</from-action>
+			<to-view-id>/index.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
 		<navigation-case>
 			<from-action>
 				login
