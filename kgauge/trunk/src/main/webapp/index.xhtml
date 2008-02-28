@@ -16,7 +16,7 @@
 <ui:define name="title" styleClass="h1">kgauge</ui:define>
 <ui:define name="content">
 						
-		<f:view>
+		<f:view><!--  locale="LangBean.locale"> This should be in view tag but stops application running-->
           <f:loadBundle basename="messages.messages" var="msg"/>
                     
            <h:form id="links">
@@ -31,11 +31,15 @@
 				
 			</h:form>
 			<h:form id="changelanguageform">
-				<h:commandLink styleClass="a:link" id="english" action="chooseLocale"			
+				<t:commandLink styleClass="a:link" id="english" action="chooseLocale"			
 					actionListener="#{LangBean.onChooseLocale}" value="English" /> | 
-				<h:commandLink styleClass="a:link" id="german" action="chooseLocale"
-					actionListener="#{LangBean.onChooseLocale}" value="Deutsch" /> |
-				<h:commandLink styleClass="a:link" id="french" action="chooseLocale"
+					
+				<t:commandLink styleClass="a:link" action="chooseLocale"	
+					actionListener="#{LangBean.onChooseLocale}" value="Deutsch" > |
+					<f:param id="german" name="id" value="german" />
+					</t:commandLink>	
+					
+				<t:commandLink styleClass="a:link" id="french" action="chooseLocale"
 					actionListener="#{LangBean.onChooseLocale}" value="Francais" />
 				
 			</h:form>
