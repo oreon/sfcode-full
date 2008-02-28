@@ -29,27 +29,18 @@ public abstract class PersonBase
 	protected Date dateOfBirth;
 
 	@Column(nullable = false, unique = false)
-	/*
-	
-	 */
 	public String getFirstName() {
 
 		return this.firstName;
 	}
 
 	@Column(nullable = false, unique = false)
-	/*
-	
-	 */
 	public String getLastName() {
 
 		return this.lastName;
 	}
 
 	@Column(nullable = false, unique = false)
-	/*
-	
-	 */
 	public Date getDateOfBirth() {
 
 		return this.dateOfBirth;

@@ -16,6 +16,12 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
+/*@Entity
+@Table(name="Question",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
+/* 
+	
+	There are 0 constraints.
+ */
 public abstract class QuestionBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
@@ -31,17 +37,11 @@ public abstract class QuestionBase
 	protected Integer difficultyLevel;
 
 	@Column(nullable = false, unique = false)
-	/*
-	
-	 */
 	public String getQuestionText() {
 
 		return this.questionText;
 	}
 
-	/*
-	
-	 */
 	public Integer getDifficultyLevel() {
 		return this.difficultyLevel;
 	}

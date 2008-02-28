@@ -16,6 +16,12 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
+/*@Entity
+@Table(name="AnsweredQuestion",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
+/* 
+	
+	There are 0 constraints.
+ */
 public abstract class AnsweredQuestionBase
 		extends
 			org.witchcraft.model.support.BusinessEntity

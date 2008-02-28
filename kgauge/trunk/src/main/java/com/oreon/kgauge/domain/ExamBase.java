@@ -16,6 +16,12 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
+/*@Entity
+@Table(name="Exam",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
+/* 
+	
+	There are 0 constraints.
+ */
 public abstract class ExamBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
@@ -39,47 +45,29 @@ public abstract class ExamBase
 	protected ScoringType scoringStrategy;
 
 	@Column(nullable = false, unique = false)
-	/*
-	
-	 */
 	public String getDescription() {
 
 		return this.description;
 	}
 
 	@Column(nullable = false, unique = false)
-	/*
-	Name of the exam e.g. Hibernate Proficiency Exam  
-	 */
 	public String getName() {
 
 		return this.name;
 	}
 
-	/*
-	Number of questions in the exam
-	 */
 	public Integer getQuestions() {
 		return this.questions;
 	}
 
-	/*
-	Duration of exam in minutes
-	 */
 	public Integer getDuration() {
 		return this.duration;
 	}
 
-	/*
-	
-	 */
 	public Double getPrice() {
 		return this.price;
 	}
 
-	/*
-	
-	 */
 	public ScoringType getScoringStrategy() {
 		return this.scoringStrategy;
 	}

@@ -16,6 +16,12 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
+/*@Entity
+@Table(name="Category",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
+/* 
+	
+	There are 0 constraints.
+ */
 public abstract class CategoryBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
@@ -28,9 +34,6 @@ public abstract class CategoryBase
 
 	protected String name;
 
-	/*
-	
-	 */
 	public String getName() {
 		return this.name;
 	}

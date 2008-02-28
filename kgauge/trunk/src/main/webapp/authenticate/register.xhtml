@@ -13,6 +13,7 @@
 	template="/WEB-INF/template/signIn.xhtml">
 	
 	<ui:define name="content">
+		<f:loadBundle basename="messages.messages" var="msg"/>
 		<f:view>
 		<!--PROTECTED REGION ID(USER_CREATED) ENABLED START-->
 					This is protectable
@@ -23,14 +24,17 @@
 			
 			<h:form>
 				<h:panelGrid>
-				<label for="uName" title="User Name:"></label>
-				<h:inputText id="uName" value="uName"></h:inputText>
-					<h:inputSecret value="pWord"></h:inputSecret>
-
-
-				</h:panelGrid>
+				<h:outputText value="#{msg.userID}" styleClass="formLabel" />
+				<h:inputText id="UserId" required="true" />
+				<h:message for="UserId" styleClass="errMessage" />
+				<h:outputText value="#{msg.password}" styleClass="formLabel" />		
+				<h:inputSecret id="Password" required="true"/>
+				<h:message for="Password" styleClass="errMessage" />
+				<h:commandButton  action="#{authenticationController.authenticate}"
+							value="#{msg.register}" />
+			</h:panelGrid>
 			</h:form>
-	
+	<!-- How will registration be handled? -->
 		</f:view>
 	 </ui:define>	
 	</ui:composition>

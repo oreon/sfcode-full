@@ -50,13 +50,13 @@ public class ExamDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			examInstance.setDescription("gamma");
-			examInstance.setName("theta");
-			examInstance.setQuestions(3833);
-			examInstance.setDuration(8474);
-			examInstance.setPrice(84.99);
+			examInstance.setDescription("epsilon");
+			examInstance.setName("Eric");
+			examInstance.setQuestions(9847);
+			examInstance.setDuration(77);
+			examInstance.setPrice(37.83);
 			examInstance
-					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
+					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -95,12 +95,12 @@ public class ExamDaoTest extends AbstractJpaTests {
 			try {
 
 				exam.setDescription("alpha");
-				exam.setName("Malissa");
-				exam.setQuestions(4467);
-				exam.setDuration(4865);
-				exam.setPrice(75.16);
+				exam.setName("epsilon");
+				exam.setQuestions(6169);
+				exam.setDuration(3860);
+				exam.setPrice(8.05);
 				exam
-						.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
+						.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
 
 				TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("categoryTestDataFactory");
@@ -133,11 +133,11 @@ public class ExamDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Exam exam = (Exam) examTestDataFactory.loadOneRecord();
 
-			exam.setDescription("gamma");
-			exam.setName("John");
-			exam.setQuestions(6486);
-			exam.setDuration(9852);
-			exam.setPrice(3.21);
+			exam.setDescription("pi");
+			exam.setName("Eric");
+			exam.setQuestions(9368);
+			exam.setDuration(6331);
+			exam.setPrice(43.4);
 			exam
 					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
 

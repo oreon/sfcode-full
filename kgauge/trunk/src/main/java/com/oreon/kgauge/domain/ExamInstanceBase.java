@@ -16,6 +16,12 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
+/*@Entity
+@Table(name="ExamInstance",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
+/* 
+	
+	There are 0 constraints.
+ */
 /*This is the result of an exam actually being written by a candidate.*/
 public abstract class ExamInstanceBase
 		extends
