@@ -10,36 +10,38 @@
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
-	template="/WEB-INF/template/">
+	template="/WEB-INF/template/default.xhtml">
 	
 	<ui:define name="content">
-		<f:view>
-		<!--PROTECTED REGION ID(USER_CREATED) ENABLED START-->
-					This is protectable
-					<f:loadBundle
-					basename="messages.loginMessages" var="msg"/>
-					<f:view locale="#{LocalFacade.locale}">
+		<f:view > This should be in view tag but stops application running-->
+          <f:loadBundle basename="messages.messages" var="msg"/>
+                    
+           <h:form id="links">
+				<h:panelGrid> 
+				
+					<h:commandLink styleClass="h2" value="#{msg.login}" action="login"></h:commandLink>  
+					<h:commandLink styleClass="h3" value="#{msg.register}" action="register"></h:commandLink> 
+					<h:commandLink styleClass=".formLabel" value="#{msg.retrieve}" action="forgotCredentials"></h:commandLink> 				
+							
 					
-		<!--PROTECTED REGION END-->
-			<h:messages layout="list" globalOnly="true" showDetail="true"
-				styleClass="messages" />
-			<h:outputText value="" styleClass="message" />		
-			
-			<h:form>
-				<h:panelGrid> <h:outputText value="#{msg.welcome.to.kgauge}"></h:outputText> 
-					<h:commandLink value="#{msg.login}" action="login"></h:commandLink> <br></br> 
-					<h:commandLink value="#{msg.register)" action="register"></h:commandLink> 
-					<h:commandLink value="#{msg.retrieve)" action="forgotCredentials"></h:commandLink> 				
 				</h:panelGrid> 
 				
 			</h:form>
 			<h:form id="changelanguageform">
-				<h:commandLink id="commandlink_en" action="en"
-					actionListener="#{LangBean.setLanguage}" value="English" /> | 
-				<h:commandLink id="commandlink_de" action="de"
-					actionListener="#{LangBean.setLanguage}" value="Deutsch" />
+				<h:outputText value="#{LangBean.locale.displayCountry}" />
+				<t:commandLink styleClass="a:link" id="english" action="chooseLocale"			
+					actionListener="#{LangBean.onChooseLocale}" value="English" /> | 
+					
+				<t:commandLink styleClass="a:link" action="chooseLocale"	
+					actionListener="#{LangBean.onChooseLocale}" value="Deutsch" > |
+					<f:param id="german" name="id" value="german" />
+					</t:commandLink>	
+					
+				<t:commandLink styleClass="a:link" id="french" action="chooseLocale"
+					actionListener="#{LangBean.onChooseLocale}" value="Francais" />
+				
 			</h:form>
-	
+
 		</f:view>
 	 </ui:define>	
 	</ui:composition>
