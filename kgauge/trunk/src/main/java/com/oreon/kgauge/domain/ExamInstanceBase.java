@@ -16,22 +16,21 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
-/*@Entity
-@Table(name="ExamInstance",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
-/* 
-	
-	There are 0 constraints.
- */
 /*This is the result of an exam actually being written by a candidate.*/
 public abstract class ExamInstanceBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
 		implements
-			java.io.Serializable {
+			java.io.Serializable,
+			org.witchcraft.model.support.audit.Auditable {
 
 	//named queries : 0
 
 	private static final long serialVersionUID = 1L;
+
+	/* Default Constructor */
+	public ExamInstanceBase() {
+	}
 
 	private com.oreon.kgauge.domain.Candidate candidate;
 
@@ -60,7 +59,6 @@ public abstract class ExamInstanceBase
 	}
 
 	public void add(com.oreon.kgauge.domain.AnsweredQuestion answeredQuestion) {
-
 		this.answeredQuestion.add(answeredQuestion);
 	}
 
@@ -68,8 +66,8 @@ public abstract class ExamInstanceBase
 		this.answeredQuestion.remove(answeredQuestion);
 	}
 
-	@OneToMany
-	@JoinColumn(name = "ExamInstance_ID", nullable = false)
+	@OneToMany(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "examInstance_ID", nullable = true)
 	public java.util.Set<com.oreon.kgauge.domain.AnsweredQuestion> getAnsweredQuestion() {
 		return this.answeredQuestion;
 	}

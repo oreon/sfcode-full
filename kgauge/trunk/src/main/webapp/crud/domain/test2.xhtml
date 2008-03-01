@@ -1,0 +1,182 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+<f:view>
+	<h2> A test2 page </h2>
+	<h:messages layout="list" globalOnly="true" showDetail="true"
+		styleClass="messages" />
+	<a4j:form id="form">
+		<rich:tabPanel switchType="ajax">
+			<rich:tab label="Tabular">
+				<t:dataTable id="data" var="answerChoice"
+					value="#{answerChoiceCrudBacking.records}" rows="30"
+					rowClasses="odd, even" styleClass="dataTable">
+
+					<t:column>
+						<f:facet name="header">
+							<t:commandLink
+								actionListener="#{answerChoiceCrudBacking.sortDataList}">
+								<f:attribute name="sortField" value="AnswerText" />
+								<t:outputText value="AnswerText" />
+							</t:commandLink>
+						</f:facet>
+						<t:outputText value="#{answerChoice.answerText}" />
+					</t:column>
+
+					<t:column>
+						<f:facet name="header">
+							<t:commandLink
+								actionListener="#{answerChoiceCrudBacking.sortDataList}">
+								<f:attribute name="sortField" value="Score" />
+								<t:outputText value="Score" />
+							</t:commandLink>
+						</f:facet>
+						<t:outputText value="#{answerChoice.score}" />
+					</t:column>
+
+
+
+					<t:column>
+						<f:facet name="header">
+							<t:commandLink
+								actionListener="#{answerChoiceCrudBacking.sortDataList}">
+								<f:attribute name="sortField" value="question.displayName" />
+								<!-- <t:commandSortHeader columnName="" arrow="true"> -->
+								<t:outputText value="Question" />
+								<!-- </t:commandSortHeader> -->
+							</t:commandLink>
+						</f:facet>
+						<t:outputText value="#{answerChoice.question.displayName}" />
+					</t:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<t:commandSortHeader columnName="id" arrow="true">
+								<t:outputText value=" " />
+							</t:commandSortHeader>
+						</f:facet>
+
+						<!--
+								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+								-->
+						<t:commandLink action="#{answerChoiceCrudBacking.select}"
+							actionListener="#{answerChoiceCrudBacking.selectEntity}">
+							<rich:toolTip direction="bottom-left" styleClass="toolTip"
+								value="Click to Edit Row" mode="client" />
+							<h:graphicImage value="/images/icons/application_edit.png"
+								style="border: 0px" />
+							<f:param id="editId" name="id" value="#{answerChoice.id}" />
+						</t:commandLink>
+						<!--
+								</acegijsf:authorize>
+								-->
+					</rich:column>
+					<t:column>
+						<f:facet name="header">
+							<t:commandSortHeader columnName="id" arrow="true">
+								<t:outputText value=" " />
+							</t:commandSortHeader>
+						</f:facet>
+						<!--
+								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+								-->
+						<a4j:commandLink action="#{answerChoiceCrudBacking.delete}"
+							onclick="if(window.confirm('Are You Sure?')==false){return false}"
+							actionListener="#{answerChoiceCrudBacking.selectEntity}"
+							immediate="true">
+							<rich:toolTip direction="bottom-right" layout="block"
+								value="Click to Delete Entire Row" styleClass="toolTip"
+								mode="client" />
+							<h:graphicImage value="/images/icons/application_delete.png"
+								style="border: 0px" />
+							<f:param id="deleteId" name="id" value="#{answerChoice.id}" />
+						</a4j:commandLink>
+						<!--
+								</acegijsf:authorize>
+								-->
+					</t:column>
+				</t:dataTable>
+				<t:inputHidden value="#{answerChoiceCrudBacking.sortField}" />
+				<t:inputHidden value="#{answerChoiceCrudBacking.sortAscending}" />
+			</rich:tab>
+
+
+			<rich:tab label="Audit">
+				<t:dataTable id="dataAudit" var="log"
+					value="#{productCrudBacking.auditLog}" rows="30"
+					rowClasses="odd, even" styleClass="dataTable">
+
+					<t:column>
+						<f:facet name="header">
+							<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
+							<t:outputText value="Date" />
+							<!-- </t:commandSortHeader> -->
+						</f:facet>
+						<t:outputText value="#{log.dateCreated}" />
+					</t:column>
+
+					<t:column>
+						<f:facet name="header">
+							<!-- <t:commandSortHeader columnName="Brand" arrow="true"> -->
+							<t:outputText value="Action" />
+							<!-- </t:commandSortHeader> -->
+						</f:facet>
+						<t:outputText value="#{log.action}" />
+					</t:column>
+
+					<t:column>
+						<f:facet name="header">
+							<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
+							<t:outputText value="User" />
+							<!-- </t:commandSortHeader> -->
+						</f:facet>
+						<t:outputText value="#{log.username}" />
+					</t:column>
+
+
+
+
+					<t:column>
+						<f:facet name="header">
+							<t:commandLink
+								actionListener="#{log.entityCrudBacking.sortDataList}">
+								<f:attribute name="sortField" value="AnswerText" />
+								<t:outputText value="AnswerText" />
+							</t:commandLink>
+						</f:facet>
+						<t:outputText value="#{log.entity.answerText}" />
+					</t:column>
+
+					<t:column>
+						<f:facet name="header">
+							<t:commandLink
+								actionListener="#{log.entityCrudBacking.sortDataList}">
+								<f:attribute name="sortField" value="Score" />
+								<t:outputText value="Score" />
+							</t:commandLink>
+						</f:facet>
+						<t:outputText value="#{log.entity.score}" />
+					</t:column>
+
+
+				</t:dataTable>
+			</rich:tab>
+
+		</rich:tabPanel>
+	</a4j:form>
+
+	<br />
+	<hr />
+	<a href="answerChoice.jsf"> Add New </a>
+	<a href="answerChoiceSearch.jsf"> Search </a>
+	<hr />
+
+</f:view>
+
+</html> 

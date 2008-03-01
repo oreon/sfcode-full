@@ -29,33 +29,70 @@ public abstract class ContactDetailsBase implements java.io.Serializable {
 
 	protected String email;
 
+	/* Default Constructor */
+	public ContactDetailsBase() {
+	}
+
+	/* Constructor with all attributes */
+	public ContactDetailsBase(String streetAddress, String city, String state,
+			String country, String zip, String phone, String email) {
+		this.streetAddress = streetAddress;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.zip = zip;
+		this.phone = phone;
+		this.email = email;
+	}
+
+	/*
+	
+	 */
 	public String getStreetAddress() {
 		return this.streetAddress;
 	}
 
+	/*
+	
+	 */
 	public String getCity() {
 		return this.city;
 	}
 
+	/*
+	
+	 */
 	public String getState() {
 		return this.state;
 	}
 
 	@Column(nullable = false, unique = false)
+	/*
+	
+	 */
 	public String getCountry() {
 
 		return this.country;
 	}
 
+	/*
+	
+	 */
 	public String getZip() {
 		return this.zip;
 	}
 
+	/*
+	
+	 */
 	public String getPhone() {
 		return this.phone;
 	}
 
 	@Column(nullable = false, unique = true)
+	/*
+	
+	 */
 	public String getEmail() {
 
 		return this.email;

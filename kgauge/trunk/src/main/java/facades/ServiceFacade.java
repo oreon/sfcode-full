@@ -20,6 +20,8 @@ import com.oreon.kgauge.service.AuthorityService;
 
 import com.oreon.kgauge.service.AnsweredQuestionService;
 
+import com.oreon.kgauge.service.SectionService;
+
 public class ServiceFacade {
 
 	private CandidateService candidateService;
@@ -121,6 +123,16 @@ public class ServiceFacade {
 	public void setAnsweredQuestionService(
 			AnsweredQuestionService answeredQuestionService) {
 		this.answeredQuestionService = answeredQuestionService;
+	}
+
+	private SectionService sectionService;
+
+	public SectionService getSectionService() {
+		return sectionService;
+	}
+
+	public void setSectionService(SectionService sectionService) {
+		this.sectionService = sectionService;
 	}
 
 }

@@ -50,9 +50,9 @@ public class UserDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			userInstance.setUserName("delta89618");
-			userInstance.setPassword("beta");
-			userInstance.setEnabled(true);
+			userInstance.setUserName("delta86474");
+			userInstance.setPassword("zeta");
+			userInstance.setEnabled(false);
 
 			userService.save(userInstance);
 		} catch (PersistenceException pe) {
@@ -76,8 +76,8 @@ public class UserDaoTest extends AbstractJpaTests {
 
 			try {
 
-				user.setUserName("alpha73786");
-				user.setPassword("gamma");
+				user.setUserName("delta39268");
+				user.setPassword("theta");
 				user.setEnabled(false);
 
 			} catch (Exception ex) {
@@ -97,9 +97,9 @@ public class UserDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			User user = (User) userTestDataFactory.loadOneRecord();
 
-			user.setUserName("John58738");
-			user.setPassword("theta");
-			user.setEnabled(false);
+			user.setUserName("Mark54141");
+			user.setPassword("Malissa");
+			user.setEnabled(true);
 
 			userService.save(user);
 

@@ -18,6 +18,8 @@
         		<xs:element name="questionText" type="xs:string"/>	
         		<xs:element name="difficultyLevel" type="xs:integer"/>	
         	
+        		<xs:element name="exam" type="ws:Exam"/>
+        		<xs:element name="section" type="ws:Section"/>
         	
         </xs:all>
     </xs:complexType>
@@ -40,6 +42,7 @@
         		<xs:element name="duration" type="xs:integer"/>	
         		<xs:element name="price" type="xs:double"/>	
         		<xs:element name="scoringStrategy" type="xs:scoringType"/>	
+        		<xs:element name="examStatus" type="xs:examStatus"/>	
         	
         		<xs:element name="category" type="ws:Category"/>
         		<xs:element name="examCreator" type="ws:ExamCreator"/>
@@ -90,6 +93,7 @@
         <xs:all>
         		<xs:element name="name" type="xs:string"/>	
         	
+        		<xs:element name="user" type="ws:User"/>
         	
         </xs:all>
     </xs:complexType>
@@ -98,6 +102,15 @@
         <xs:all>
         	
         		<xs:element name="question" type="ws:Question"/>
+        	
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="Section">
+        <xs:all>
+        		<xs:element name="name" type="xs:string"/>	
+        	
+        		<xs:element name="exam" type="ws:Exam"/>
         	
         </xs:all>
     </xs:complexType>

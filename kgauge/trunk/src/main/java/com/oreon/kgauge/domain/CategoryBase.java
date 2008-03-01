@@ -16,17 +16,12 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
-/*@Entity
-@Table(name="Category",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
-/* 
-	
-	There are 0 constraints.
- */
 public abstract class CategoryBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
 		implements
-			java.io.Serializable {
+			java.io.Serializable,
+			org.witchcraft.model.support.audit.Auditable {
 
 	//named queries : 0
 
@@ -34,7 +29,21 @@ public abstract class CategoryBase
 
 	protected String name;
 
+	/* Default Constructor */
+	public CategoryBase() {
+	}
+
+	/* Constructor with all attributes */
+	public CategoryBase(String name) {
+		this.name = name;
+	}
+
+	@Column(nullable = false, unique = false)
+	/*
+	
+	 */
 	public String getName() {
+
 		return this.name;
 	}
 
@@ -57,9 +66,7 @@ public abstract class CategoryBase
 	}
 
 	public void addSubcategorie(com.oreon.kgauge.domain.Category subcategories) {
-
 		subcategories.setParent(categoryInstance());
-
 		this.subcategories.add(subcategories);
 	}
 
@@ -69,6 +76,7 @@ public abstract class CategoryBase
 	}
 
 	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "parent_ID", nullable = true)
 	public java.util.Set<com.oreon.kgauge.domain.Category> getSubcategories() {
 		return this.subcategories;
 	}

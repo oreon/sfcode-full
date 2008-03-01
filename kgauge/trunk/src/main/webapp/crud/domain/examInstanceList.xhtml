@@ -13,12 +13,13 @@
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
 	
-	<ui:define name="content">
+	<ui:define name="title">  List of ExamInstances </ui:define>
 
+	<ui:define name="content">
 		<f:view>
 			<h:messages layout="list" globalOnly="true" showDetail="true"
 			styleClass="messages" />	
-			<a4j:form id="form">
+			<a4j:form id="form_listing">
 				<rich:tabPanel  switchType="ajax">
 					<rich:tab label="Tabular" >
 					<t:dataTable id="data" var="examInstance"
@@ -32,7 +33,7 @@
 		<t:commandLink actionListener="#{examInstanceCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="candidate.displayName" />
 			<!-- <t:commandSortHeader columnName="" arrow="true"> -->
-				<t:outputText value="" /> 
+				<t:outputText value="Candidate" /> 
 			<!-- </t:commandSortHeader> -->
 		</t:commandLink>	
 		</f:facet>
@@ -44,7 +45,7 @@
 		<t:commandLink actionListener="#{examInstanceCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="exam.displayName" />
 			<!-- <t:commandSortHeader columnName="" arrow="true"> -->
-				<t:outputText value="" /> 
+				<t:outputText value="Exam" /> 
 			<!-- </t:commandSortHeader> -->
 		</t:commandLink>	
 		</f:facet>
@@ -80,13 +81,13 @@
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 		
-								<t:commandLink action="#{examInstanceCrudBacking.delete}"	
+								<a4j:commandLink action="#{examInstanceCrudBacking.delete}"	
 									onclick="if(window.confirm('Are You Sure?')==false){return false}"
-									actionListener="#{examInstanceCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
+									actionListener="#{examInstanceCrudBacking.selectEntity}" immediate="true">														
 									<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
 									<f:param id="deleteId" name="id" value="#{examInstance.id}" />												
-								</t:commandLink>
+								</a4j:commandLink>
 								<!--
 								</acegijsf:authorize>
 								--> 
@@ -129,26 +130,19 @@
 								<t:outputText value="#{log.username}" />
 							</t:column>
 							
-							
-							
-							
-							
 							</t:dataTable>
 							 </rich:tab>
 							 
 							</rich:tabPanel>
   						 </a4j:form>
-
 						<br />
-						<hr />
-						<a href="examInstance.jsf"> Add New </a>
-						<a href="examInstanceSearch.jsf"> Search </a>
-						<hr />
-
-		</f:view>
-
-	</ui:define>
-      
+						
+						<a4j:form>
+							<h:commandLink action="addNew" value="Add New"/>
+							<h:outputText value="   "/>
+							<h:commandLink action="search" value="Search "/>
+						</a4j:form>
+				</f:view>
+		</ui:define>
 </ui:composition>
-
 		

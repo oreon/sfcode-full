@@ -10,6 +10,4 @@ import javax.jws.WebService;
 @WebService
 public interface AuthorityDao extends GenericDAO<Authority> {
 
-	public Authority findByName(String name);
-
 }

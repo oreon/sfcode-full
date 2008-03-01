@@ -8,10 +8,11 @@ import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 
 import org.witchcraft.model.support.testing.TestDataFactory;
-
+import org.witchcraft.model.support.errorhandling.BusinessException;
 import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.apache.log4j.Logger;
 
 import com.oreon.kgauge.service.QuestionService;
 
@@ -19,6 +20,9 @@ import com.oreon.kgauge.service.QuestionService;
 public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 	private List<Question> questions = new ArrayList<Question>();
+
+	private static final Logger logger = Logger
+			.getLogger(QuestionTestDataFactory.class);
 
 	private static int RECORDS_TO_CREATE = 30;
 
@@ -44,8 +48,21 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("Malissa");
-			question.setDifficultyLevel(9395);
+			question.setQuestionText("alpha");
+			question.setDifficultyLevel(36);
+
+			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("examTestDataFactory");
+
+			question.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
+					.loadOneRecord());
+
+			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("sectionTestDataFactory");
+
+			question
+					.setSection((com.oreon.kgauge.domain.Section) sectionTestDataFactory
+							.loadOneRecord());
 
 			register(question);
 
@@ -61,8 +78,21 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("beta");
-			question.setDifficultyLevel(1045);
+			question.setQuestionText("zeta");
+			question.setDifficultyLevel(882);
+
+			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("examTestDataFactory");
+
+			question.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
+					.loadOneRecord());
+
+			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("sectionTestDataFactory");
+
+			question
+					.setSection((com.oreon.kgauge.domain.Section) sectionTestDataFactory
+							.loadOneRecord());
 
 			register(question);
 
@@ -78,8 +108,21 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("epsilon");
-			question.setDifficultyLevel(9775);
+			question.setQuestionText("pi");
+			question.setDifficultyLevel(6482);
+
+			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("examTestDataFactory");
+
+			question.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
+					.loadOneRecord());
+
+			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("sectionTestDataFactory");
+
+			question
+					.setSection((com.oreon.kgauge.domain.Section) sectionTestDataFactory
+							.loadOneRecord());
 
 			register(question);
 
@@ -95,8 +138,21 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("zeta");
-			question.setDifficultyLevel(2312);
+			question.setQuestionText("epsilon");
+			question.setDifficultyLevel(1196);
+
+			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("examTestDataFactory");
+
+			question.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
+					.loadOneRecord());
+
+			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("sectionTestDataFactory");
+
+			question
+					.setSection((com.oreon.kgauge.domain.Section) sectionTestDataFactory
+							.loadOneRecord());
 
 			register(question);
 
@@ -112,8 +168,21 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("Wilson");
-			question.setDifficultyLevel(9020);
+			question.setQuestionText("delta");
+			question.setDifficultyLevel(2632);
+
+			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("examTestDataFactory");
+
+			question.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
+					.loadOneRecord());
+
+			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("sectionTestDataFactory");
+
+			question
+					.setSection((com.oreon.kgauge.domain.Section) sectionTestDataFactory
+							.loadOneRecord());
 
 			register(question);
 
@@ -157,7 +226,12 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 		getAllAsList();
 
 		for (Question question : questions) {
-			questionService.save(question);
+			try {
+				questionService.save(question);
+			} catch (BusinessException be) {
+				logger.warn(" Question " + question.getDisplayName()
+						+ "couldn't be saved " + be.getMessage());
+			}
 		}
 
 		alreadyPersisted = true;
@@ -188,6 +262,19 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 				.createInstance("String"));
 		question.setDifficultyLevel((Integer) RandomValueGeneratorFactory
 				.createInstance("Integer"));
+
+		TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("examTestDataFactory");
+
+		question.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
+				.loadOneRecord());
+
+		TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("sectionTestDataFactory");
+
+		question
+				.setSection((com.oreon.kgauge.domain.Section) sectionTestDataFactory
+						.loadOneRecord());
 
 		return question;
 	}

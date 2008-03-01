@@ -1,5 +1,4 @@
 		
-	
 	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -12,9 +11,8 @@
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
-	
+	<ui:define name="title"> Add/Update ExamCreator </ui:define> 
 	<ui:define name="content">
-
 		<f:view>
 			<h:messages layout="list" globalOnly="true" showDetail="true"
 			styleClass="messages" />
@@ -24,107 +22,92 @@
 					<h:outputText value="Please correct the following issues !" 
 				rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
 				
-					<h:panelGrid columns="2" styleClass="formTableCustom">
-	
-							
-							
-							
-							
+			<h:panelGrid columns="2" styleClass="formTableCustom">
+					
+					
+					
 	
 		
-	<h:outputText value="FirstName*" styleClass="formLabel" />
-	
-	<h:panelGroup>
+<h:outputText value="FirstName*" styleClass="formLabel" />
+<h:panelGroup>
 	<a4j:region>
 	
 		
 	<h:inputText    required="true" 
-		id="examCreator_null_firstName"
+		id="examCreator_firstName"
 		value="#{examCreatorCrudBacking.examCreator.firstName}">
 		
+		<a4j:support event="onblur" reRender="examCreator_firstName" />
 	</h:inputText>
-
 	
-	
-		<rich:message for="examCreator_null_firstName"
-			 styleClass="errMessage">
-			<f:facet name="errorMarker">
-				<h:graphicImage url="/images/icons/bullet_error.png" />
-			</f:facet>
-		</rich:message>
-		
-		</a4j:region>
-	</h:panelGroup>
-	
+	<rich:message for="examCreator_firstName"
+		 styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+	</rich:message>
+	</a4j:region>
+</h:panelGroup>
 
 							
 	
 
 	
 		
-	<h:outputText value="LastName*" styleClass="formLabel" />
-	
-	<h:panelGroup>
+<h:outputText value="LastName*" styleClass="formLabel" />
+<h:panelGroup>
 	<a4j:region>
 	
 		
 	<h:inputText    required="true" 
-		id="examCreator_null_lastName"
+		id="examCreator_lastName"
 		value="#{examCreatorCrudBacking.examCreator.lastName}">
 		
+		<a4j:support event="onblur" reRender="examCreator_lastName" />
 	</h:inputText>
-
 	
-	
-		<rich:message for="examCreator_null_lastName"
-			 styleClass="errMessage">
-			<f:facet name="errorMarker">
-				<h:graphicImage url="/images/icons/bullet_error.png" />
-			</f:facet>
-		</rich:message>
-		
-		</a4j:region>
-	</h:panelGroup>
-	
+	<rich:message for="examCreator_lastName"
+		 styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+	</rich:message>
+	</a4j:region>
+</h:panelGroup>
 
 							
 	
 
 	
 		
-	<h:outputText value="DateOfBirth*" styleClass="formLabel" />
-	
-	<h:panelGroup>
+<h:outputText value="DateOfBirth*" styleClass="formLabel" />
+<h:panelGroup>
 	<a4j:region>
 	
 		
 	<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   required="true" 
-		id="examCreator_null_dateOfBirth"
+		id="examCreator_dateOfBirth"
 		value="#{examCreatorCrudBacking.examCreator.dateOfBirth}">
 		
+		<a4j:support event="onblur" reRender="examCreator_dateOfBirth" />
 	</t:inputCalendar >
-
 	
-	
-		<rich:message for="examCreator_null_dateOfBirth"
-			 styleClass="errMessage">
-			<f:facet name="errorMarker">
-				<h:graphicImage url="/images/icons/bullet_error.png" />
-			</f:facet>
-		</rich:message>
-		
-		</a4j:region>
-	</h:panelGroup>
-	
+	<rich:message for="examCreator_dateOfBirth"
+		 styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+	</rich:message>
+	</a4j:region>
+</h:panelGroup>
 
 							
 	
 
 	
 		
-	<h:outputText value="UserName*" styleClass="formLabel" />
-	
-	<h:panelGroup>
+<h:outputText value="UserName*" styleClass="formLabel" />
+<h:panelGroup>
 	<a4j:region>
 	
 		
@@ -132,29 +115,25 @@
 		id="examCreator_user_userName"
 		value="#{examCreatorCrudBacking.examCreator.user.userName}">
 		
+		<a4j:support event="onblur" reRender="examCreator_user_userName" />
 	</h:inputText>
-
 	
-	
-		<rich:message for="examCreator_user_userName"
-			 styleClass="errMessage">
-			<f:facet name="errorMarker">
-				<h:graphicImage url="/images/icons/bullet_error.png" />
-			</f:facet>
-		</rich:message>
-		
-		</a4j:region>
-	</h:panelGroup>
-	
+	<rich:message for="examCreator_user_userName"
+		 styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+	</rich:message>
+	</a4j:region>
+</h:panelGroup>
 
 							
 	
 
 	
 		
-	<h:outputText value="Password*" styleClass="formLabel" />
-	
-	<h:panelGroup>
+<h:outputText value="Password*" styleClass="formLabel" />
+<h:panelGroup>
 	<a4j:region>
 	
 		
@@ -162,26 +141,22 @@
 		id="examCreator_user_password"
 		value="#{examCreatorCrudBacking.examCreator.user.password}">
 		<f:validateLength minimum="5" maximum="12"/>
+		<a4j:support event="onblur" reRender="examCreator_user_password" />
 	</h:inputSecret>
-
 	
-	
-		<rich:message for="examCreator_user_password"
-			 styleClass="errMessage">
-			<f:facet name="errorMarker">
-				<h:graphicImage url="/images/icons/bullet_error.png" />
-			</f:facet>
-		</rich:message>
-		
-		</a4j:region>
-	</h:panelGroup>
-	
+	<rich:message for="examCreator_user_password"
+		 styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+	</rich:message>
+	</a4j:region>
+</h:panelGroup>
 
 		
 			
-	<h:outputText value="Repeat Password*" styleClass="formLabel" />
-	
-	<h:panelGroup>
+<h:outputText value="Repeat Password*" styleClass="formLabel" />
+<h:panelGroup>
 	<a4j:region>
 	
 		
@@ -191,28 +166,23 @@
 		<f:validateLength minimum="5" maximum="12"/>
 		<t:validateEqual for="examCreator_user_password" />
 	</h:inputSecret>
-
 	
-	
-		<rich:message for="examCreator_user_repeatPassword"
-			 styleClass="errMessage">
-			<f:facet name="errorMarker">
-				<h:graphicImage url="/images/icons/bullet_error.png" />
-			</f:facet>
-		</rich:message>
-		
-		</a4j:region>
-	</h:panelGroup>
-	
+	<rich:message for="examCreator_user_repeatPassword"
+		 styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+	</rich:message>
+	</a4j:region>
+</h:panelGroup>
 
 							
 	
 
 	
 		
-	<h:outputText value="Enabled" styleClass="formLabel" />
-	
-	<h:panelGroup>
+<h:outputText value="Enabled" styleClass="formLabel" />
+<h:panelGroup>
 	<a4j:region>
 	
 		
@@ -220,29 +190,25 @@
 		id="examCreator_user_enabled"
 		value="#{examCreatorCrudBacking.examCreator.user.enabled}">
 		
+		<a4j:support event="onblur" reRender="examCreator_user_enabled" />
 	</h:selectBooleanCheckbox >
-
 	
-	
-		<rich:message for="examCreator_user_enabled"
-			 styleClass="errMessage">
-			<f:facet name="errorMarker">
-				<h:graphicImage url="/images/icons/bullet_error.png" />
-			</f:facet>
-		</rich:message>
-		
-		</a4j:region>
-	</h:panelGroup>
-	
+	<rich:message for="examCreator_user_enabled"
+		 styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+	</rich:message>
+	</a4j:region>
+</h:panelGroup>
 
 							
 	
 
 	
 		
-	<h:outputText value="StreetAddress" styleClass="formLabel" />
-	
-	<h:panelGroup>
+<h:outputText value="StreetAddress" styleClass="formLabel" />
+<h:panelGroup>
 	<a4j:region>
 	
 		
@@ -250,29 +216,25 @@
 		id="examCreator_contactDetails_streetAddress"
 		value="#{examCreatorCrudBacking.examCreator.contactDetails.streetAddress}">
 		
+		<a4j:support event="onblur" reRender="examCreator_contactDetails_streetAddress" />
 	</h:inputText>
-
 	
-	
-		<rich:message for="examCreator_contactDetails_streetAddress"
-			 styleClass="errMessage">
-			<f:facet name="errorMarker">
-				<h:graphicImage url="/images/icons/bullet_error.png" />
-			</f:facet>
-		</rich:message>
-		
-		</a4j:region>
-	</h:panelGroup>
-	
+	<rich:message for="examCreator_contactDetails_streetAddress"
+		 styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+	</rich:message>
+	</a4j:region>
+</h:panelGroup>
 
 							
 	
 
 	
 		
-	<h:outputText value="City" styleClass="formLabel" />
-	
-	<h:panelGroup>
+<h:outputText value="City" styleClass="formLabel" />
+<h:panelGroup>
 	<a4j:region>
 	
 		
@@ -280,29 +242,25 @@
 		id="examCreator_contactDetails_city"
 		value="#{examCreatorCrudBacking.examCreator.contactDetails.city}">
 		
+		<a4j:support event="onblur" reRender="examCreator_contactDetails_city" />
 	</h:inputText>
-
 	
-	
-		<rich:message for="examCreator_contactDetails_city"
-			 styleClass="errMessage">
-			<f:facet name="errorMarker">
-				<h:graphicImage url="/images/icons/bullet_error.png" />
-			</f:facet>
-		</rich:message>
-		
-		</a4j:region>
-	</h:panelGroup>
-	
+	<rich:message for="examCreator_contactDetails_city"
+		 styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+	</rich:message>
+	</a4j:region>
+</h:panelGroup>
 
 							
 	
 
 	
 		
-	<h:outputText value="State" styleClass="formLabel" />
-	
-	<h:panelGroup>
+<h:outputText value="State" styleClass="formLabel" />
+<h:panelGroup>
 	<a4j:region>
 	
 		
@@ -310,29 +268,25 @@
 		id="examCreator_contactDetails_state"
 		value="#{examCreatorCrudBacking.examCreator.contactDetails.state}">
 		
+		<a4j:support event="onblur" reRender="examCreator_contactDetails_state" />
 	</h:inputText>
-
 	
-	
-		<rich:message for="examCreator_contactDetails_state"
-			 styleClass="errMessage">
-			<f:facet name="errorMarker">
-				<h:graphicImage url="/images/icons/bullet_error.png" />
-			</f:facet>
-		</rich:message>
-		
-		</a4j:region>
-	</h:panelGroup>
-	
+	<rich:message for="examCreator_contactDetails_state"
+		 styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+	</rich:message>
+	</a4j:region>
+</h:panelGroup>
 
 							
 	
 
 	
 		
-	<h:outputText value="Country*" styleClass="formLabel" />
-	
-	<h:panelGroup>
+<h:outputText value="Country*" styleClass="formLabel" />
+<h:panelGroup>
 	<a4j:region>
 	
 		
@@ -340,29 +294,25 @@
 		id="examCreator_contactDetails_country"
 		value="#{examCreatorCrudBacking.examCreator.contactDetails.country}">
 		
+		<a4j:support event="onblur" reRender="examCreator_contactDetails_country" />
 	</h:inputText>
-
 	
-	
-		<rich:message for="examCreator_contactDetails_country"
-			 styleClass="errMessage">
-			<f:facet name="errorMarker">
-				<h:graphicImage url="/images/icons/bullet_error.png" />
-			</f:facet>
-		</rich:message>
-		
-		</a4j:region>
-	</h:panelGroup>
-	
+	<rich:message for="examCreator_contactDetails_country"
+		 styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+	</rich:message>
+	</a4j:region>
+</h:panelGroup>
 
 							
 	
 
 	
 		
-	<h:outputText value="Zip" styleClass="formLabel" />
-	
-	<h:panelGroup>
+<h:outputText value="Zip" styleClass="formLabel" />
+<h:panelGroup>
 	<a4j:region>
 	
 		
@@ -370,29 +320,25 @@
 		id="examCreator_contactDetails_zip"
 		value="#{examCreatorCrudBacking.examCreator.contactDetails.zip}">
 		
+		<a4j:support event="onblur" reRender="examCreator_contactDetails_zip" />
 	</h:inputText>
-
 	
-	
-		<rich:message for="examCreator_contactDetails_zip"
-			 styleClass="errMessage">
-			<f:facet name="errorMarker">
-				<h:graphicImage url="/images/icons/bullet_error.png" />
-			</f:facet>
-		</rich:message>
-		
-		</a4j:region>
-	</h:panelGroup>
-	
+	<rich:message for="examCreator_contactDetails_zip"
+		 styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+	</rich:message>
+	</a4j:region>
+</h:panelGroup>
 
 							
 	
 
 	
 		
-	<h:outputText value="Phone" styleClass="formLabel" />
-	
-	<h:panelGroup>
+<h:outputText value="Phone" styleClass="formLabel" />
+<h:panelGroup>
 	<a4j:region>
 	
 		
@@ -400,29 +346,25 @@
 		id="examCreator_contactDetails_phone"
 		value="#{examCreatorCrudBacking.examCreator.contactDetails.phone}">
 		
+		<a4j:support event="onblur" reRender="examCreator_contactDetails_phone" />
 	</h:inputText>
-
 	
-	
-		<rich:message for="examCreator_contactDetails_phone"
-			 styleClass="errMessage">
-			<f:facet name="errorMarker">
-				<h:graphicImage url="/images/icons/bullet_error.png" />
-			</f:facet>
-		</rich:message>
-		
-		</a4j:region>
-	</h:panelGroup>
-	
+	<rich:message for="examCreator_contactDetails_phone"
+		 styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+	</rich:message>
+	</a4j:region>
+</h:panelGroup>
 
 							
 	
 
 	
 		
-	<h:outputText value="Email*" styleClass="formLabel" />
-	
-	<h:panelGroup>
+<h:outputText value="Email*" styleClass="formLabel" />
+<h:panelGroup>
 	<a4j:region>
 	
 		
@@ -430,53 +372,40 @@
 		id="examCreator_contactDetails_email"
 		value="#{examCreatorCrudBacking.examCreator.contactDetails.email}">
 		<t:validateEmail />
+		<a4j:support event="onblur" reRender="examCreator_contactDetails_email" />
 	</h:inputText>
-
 	
-	
-		<rich:message for="examCreator_contactDetails_email"
-			 styleClass="errMessage">
-			<f:facet name="errorMarker">
-				<h:graphicImage url="/images/icons/bullet_error.png" />
-			</f:facet>
-		</rich:message>
-		
-		</a4j:region>
-	</h:panelGroup>
-	
+	<rich:message for="examCreator_contactDetails_email"
+		 styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+	</rich:message>
+	</a4j:region>
+</h:panelGroup>
 
 							
 	
-					
-				
 					<f:facet name="footer">
   						<h:panelGroup>
-    
   						   <h:commandButton id="button1" value="Submit" action="#{examCreatorCrudBacking.update}"/> 
   						    <h:commandButton id="button2" value="Cancel" action="success" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="examCreator_id" value="#{examCreatorCrudBacking.examCreator.id}" />
 		  				   	
-		  				   	
-								<h:inputHidden id="_id" value="#{examCreatorCrudBacking.examCreator..id}" />
-							
-							
+								<h:inputHidden id="user_id" value="#{examCreatorCrudBacking.examCreator.user.id}" />
 						 </h:panelGroup>
   					</f:facet>
-						
-						</h:panelGrid>
-						
+			</h:panelGrid>
 						<br/>
-						<br/>
-						
-						
-						
+			
+			
 						
 				</rich:panel>
 			</a4j:form>
 		</f:view>
 
-	</ui:define>
+</ui:define>
 </ui:composition>
 
 		

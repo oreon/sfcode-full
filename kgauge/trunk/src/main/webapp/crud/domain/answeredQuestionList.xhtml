@@ -13,12 +13,13 @@
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
 	
-	<ui:define name="content">
+	<ui:define name="title">  List of AnsweredQuestions </ui:define>
 
+	<ui:define name="content">
 		<f:view>
 			<h:messages layout="list" globalOnly="true" showDetail="true"
 			styleClass="messages" />	
-			<a4j:form id="form">
+			<a4j:form id="form_listing">
 				<rich:tabPanel  switchType="ajax">
 					<rich:tab label="Tabular" >
 					<t:dataTable id="data" var="answeredQuestion"
@@ -26,6 +27,18 @@
 					rowClasses="odd, even" styleClass="dataTable" >						
 							
 							
+							
+	<t:column>
+		<f:facet name="header">
+		<t:commandLink actionListener="#{answeredQuestionCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="question.displayName" />
+			<!-- <t:commandSortHeader columnName="" arrow="true"> -->
+				<t:outputText value="Question" /> 
+			<!-- </t:commandSortHeader> -->
+		</t:commandLink>	
+		</f:facet>
+		<t:outputText value="#{answeredQuestion.question.displayName}" />
+	</t:column>
 							
 							<rich:column>
 								<f:facet name="header">
@@ -56,13 +69,13 @@
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 		
-								<t:commandLink action="#{answeredQuestionCrudBacking.delete}"	
+								<a4j:commandLink action="#{answeredQuestionCrudBacking.delete}"	
 									onclick="if(window.confirm('Are You Sure?')==false){return false}"
-									actionListener="#{answeredQuestionCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
+									actionListener="#{answeredQuestionCrudBacking.selectEntity}" immediate="true">														
 									<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
 									<f:param id="deleteId" name="id" value="#{answeredQuestion.id}" />												
-								</t:commandLink>
+								</a4j:commandLink>
 								<!--
 								</acegijsf:authorize>
 								--> 
@@ -105,26 +118,19 @@
 								<t:outputText value="#{log.username}" />
 							</t:column>
 							
-							
-							
-							
-							
 							</t:dataTable>
 							 </rich:tab>
 							 
 							</rich:tabPanel>
   						 </a4j:form>
-
 						<br />
-						<hr />
-						<a href="answeredQuestion.jsf"> Add New </a>
-						<a href="answeredQuestionSearch.jsf"> Search </a>
-						<hr />
-
-		</f:view>
-
-	</ui:define>
-      
+						
+						<a4j:form>
+							<h:commandLink action="addNew" value="Add New"/>
+							<h:outputText value="   "/>
+							<h:commandLink action="search" value="Search "/>
+						</a4j:form>
+				</f:view>
+		</ui:define>
 </ui:composition>
-
 		

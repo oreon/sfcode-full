@@ -8,10 +8,11 @@ import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 
 import org.witchcraft.model.support.testing.TestDataFactory;
-
+import org.witchcraft.model.support.errorhandling.BusinessException;
 import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.apache.log4j.Logger;
 
 import com.oreon.kgauge.service.UserService;
 
@@ -19,6 +20,9 @@ import com.oreon.kgauge.service.UserService;
 public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 	private List<User> users = new ArrayList<User>();
+
+	private static final Logger logger = Logger
+			.getLogger(UserTestDataFactory.class);
 
 	private static int RECORDS_TO_CREATE = 30;
 
@@ -44,8 +48,8 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUserName("John42796");
-			user.setPassword("beta");
+			user.setUserName("zeta20701");
+			user.setPassword("gamma");
 			user.setEnabled(false);
 
 			register(user);
@@ -62,8 +66,8 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUserName("Malissa56905");
-			user.setPassword("gamma");
+			user.setUserName("pi51996");
+			user.setPassword("Eric");
 			user.setEnabled(true);
 
 			register(user);
@@ -80,9 +84,9 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUserName("alpha87825");
-			user.setPassword("theta");
-			user.setEnabled(false);
+			user.setUserName("Malissa74536");
+			user.setPassword("zeta");
+			user.setEnabled(true);
 
 			register(user);
 
@@ -98,8 +102,8 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUserName("delta14630");
-			user.setPassword("zeta");
+			user.setUserName("Wilson64849");
+			user.setPassword("alpha");
 			user.setEnabled(false);
 
 			register(user);
@@ -116,8 +120,8 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUserName("pi21923");
-			user.setPassword("Lavendar");
+			user.setUserName("alpha21901");
+			user.setPassword("pi");
 			user.setEnabled(false);
 
 			register(user);
@@ -162,7 +166,12 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 		getAllAsList();
 
 		for (User user : users) {
-			userService.save(user);
+			try {
+				userService.save(user);
+			} catch (BusinessException be) {
+				logger.warn(" User " + user.getDisplayName()
+						+ "couldn't be saved " + be.getMessage());
+			}
 		}
 
 		alreadyPersisted = true;

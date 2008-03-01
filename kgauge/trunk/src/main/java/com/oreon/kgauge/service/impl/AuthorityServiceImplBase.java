@@ -46,22 +46,10 @@ public class AuthorityServiceImplBase extends BaseServiceImpl<Authority>
 
 	public Authority save(Authority authority) {
 		Long id = authority.getId();
-		checkUniqueConstraints(authority);
+
 		authorityDao.save(authority);
 
 		return authority;
-	}
-
-	/** Before saving a record we need to ensure that no unique constraints
-	 * will be violated. 
-	 * @param customer
-	 */
-	private void checkUniqueConstraints(Authority authority) {
-		Authority existingAuthority = null;
-
-		existingAuthority = authorityDao.findByName(authority.getName());
-		ensureUnique(authority, existingAuthority, "Entity.exists.withName");
-
 	}
 
 	public void delete(Authority authority) {
@@ -74,10 +62,6 @@ public class AuthorityServiceImplBase extends BaseServiceImpl<Authority>
 
 	public List<Authority> loadAll() {
 		return authorityDao.loadAll();
-	}
-
-	public Authority findByName(String name) {
-		return authorityDao.findByName(name);
 	}
 
 	public List<Authority> searchByExample(Authority authority) {

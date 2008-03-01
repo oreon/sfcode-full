@@ -25,24 +25,4 @@ public class AuthorityDaoImplBase extends BaseDao<Authority>
 
 	//// FINDERS ///// 
 
-	@SuppressWarnings("unchecked")
-	public/**
-	 * Since name is unique, will try to return a single Authority by the
-	 * name - if no record is found null will be returned
-	 * 
-	 */
-	Authority findByName(String name) {
-
-		String qryString = "select c from Authority c where c.name = ?1";
-
-		Query query = entityManager.createQuery(qryString)
-				.setParameter(1, name);
-		try {
-			return (Authority) query.getSingleResult();
-		} catch (NoResultException nre) {
-			return null;
-		}
-
-	}
-
 }

@@ -12,14 +12,13 @@
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
-	
-	<ui:define name="content">
-
+  	<ui:define name="content">
+  	
 		<f:view>
 			<h:messages layout="list" globalOnly="true" showDetail="true"
 			styleClass="messages" />
 		
-			<a4j:form id="form">
+			<a4j:form id="searchForm">
 				<rich:tabPanel switchType="client">
 					<rich:tab label="Basic" >
 					<h:panelGrid columns="6" styleClass="formTable">
@@ -88,6 +87,16 @@
 							
 							<h:message for="exam__scoringStrategy" styleClass="errMessage" />
 							
+							<h:outputText value="ExamStatus" styleClass="formLabel" />
+							
+							<h:selectOneMenu    
+								id="exam__examStatus"
+								value="#{examCrudBacking.exam.examStatus}">
+								<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="INCOMPLETE" itemValue="INCOMPLETE" /><f:selectItem itemLabel="INACTIVE" itemValue="INACTIVE" /><f:selectItem itemLabel="ACTIVE" itemValue="ACTIVE" />
+							</h:selectOneMenu>
+							
+							<h:message for="exam__examStatus" styleClass="errMessage" />
+							
 							
 							
 								<h:outputText value="" styleClass="formLabel" />
@@ -143,75 +152,25 @@
 
 						</h:panelGrid>
 						</rich:tab>
-	<rich:tab label="Advanced">
-	
-		<h:inputHidden id="dateOperation" value="#{examCrudBacking.dateOp}"/>
-			
-		<h:panelGrid id="advGrid" columns="6" styleClass="formTable">
-			
-		
-			<f:facet name="header">
-				<h:outputText value="Exam Information" styleClass="formHeaderText"   />
-			</f:facet>
-							   
-			<h:column id="ddcol">	
-				<h:form id="ddform">	
-				<!--plan:when a date operation is selected it stores the value in dateOperation-->
-				<!--The value in dOp should be rendered with value of dateOperation-->
-				<!--When the search button is clicked dateOperation etc will be passed to a method in backing bean-->				
-				<rich:dropDownMenu id="ddmenu" submitMode="ajax" binding="#{examCrudBacking.dateOp}" onitemselect="render='form.dOp'" immediate="true" >
-                	<f:facet name="label"> 
-                	    <h:panelGrid id="pg" cellpadding="0" cellspacing="0" columns="2" style="vertical-align:middle">
-                         	<h:graphicImage value="/images/icons/date_go.png" style="border: 0px"/>
-                        	<h:outputText id="t" value="Date" />
-                    	</h:panelGrid>                                                                		
-                	</f:facet>               
-                	<rich:menuItem  value="On"  reRender="form.dOp" icon="/images/icons/flag_blue.png" >             		
-                	<f:param id="On" name="id" value="On" />						
-                	</rich:menuItem>               
-                	<rich:menuItem    value="Before" icon="/images/icons/resultset_previous.png"    >    
-                	<f:param id="Before" name="id" value="Before" />		
-                	
-                	</rich:menuItem>                   	
-                	<rich:menuItem  value="After"  icon="/images/icons/resultset_next.png"  > 
-                	<f:param id="After" name="id" value="After" />				
-                	
-                	</rich:menuItem>                 
-                	<rich:menuItem  value="Between" immediate="true" icon="/images/icons/tag.png">
-                	<f:param id="Between" name="id" value="Between" />	
-            		</rich:menuItem>      
-            		
-            		<rich:menuItem    value="Any"  >
-            		<f:param id="Any" name="id" value="Any" />	
-            		</rich:menuItem>                               	 
-				</rich:dropDownMenu>
+						<rich:tab label="Advanced">
+							<h:outputText value="Creation Date" styleClass="formLabel" />
+							
+							<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
+								id="dt__creation"
+								value="#{examCrudBacking.exam.dateCreated}">
+								
+							</t:inputCalendar >
+							
+							<h:message for="dt__creation" styleClass="errMessage" />
 				
-				</h:form>
-				</h:column>		
-			<h:column id="outCol" styleClass="header">
-			 
-				   <h:outputText id="dOp" render="true" ajaxRendered="true" name="dateOp" style="font-weight:bold"  immediate="true" value="#{examCrudBacking.dateOp}"  />				    		
-			</h:column>		
-			<h:column>		
-				<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
-								id="fromDate"
-								value="#{examCrudBacking.exam.dateCreated}">							
-				</t:inputCalendar >
-			</h:column>				
-							<h:message for="fromDate" styleClass="errMessage" />
-		</h:panelGrid>		
-	<h:commandButton value="Search" action="submit" />						
-	</rich:tab>
+						
+						</rich:tab>
 						
 						
 				</rich:tabPanel>
-				
-				
+	
 			</a4j:form>
 		</f:view>
-
 	</ui:define>
-	
 </ui:composition>
-
 		

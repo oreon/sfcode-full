@@ -20,6 +20,10 @@ public abstract class CandidateRegisterationByCountryStateReportBase
 
 	private static final long serialVersionUID = 1L;
 
+	/* Default Constructor */
+	public CandidateRegisterationByCountryStateReportBase() {
+	}
+
 	public abstract CandidateRegisterationByCountryStateReport candidateRegisterationByCountryStateReportInstance();
 
 }

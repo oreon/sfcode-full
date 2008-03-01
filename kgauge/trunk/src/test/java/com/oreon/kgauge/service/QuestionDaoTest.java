@@ -50,8 +50,22 @@ public class QuestionDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			questionInstance.setQuestionText("pi");
-			questionInstance.setDifficultyLevel(4442);
+			questionInstance.setQuestionText("Eric");
+			questionInstance.setDifficultyLevel(5414);
+
+			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("examTestDataFactory");
+
+			questionInstance
+					.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
+							.loadOneRecord());
+
+			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("sectionTestDataFactory");
+
+			questionInstance
+					.setSection((com.oreon.kgauge.domain.Section) sectionTestDataFactory
+							.loadOneRecord());
 
 			questionService.save(questionInstance);
 		} catch (PersistenceException pe) {
@@ -75,8 +89,22 @@ public class QuestionDaoTest extends AbstractJpaTests {
 
 			try {
 
-				question.setQuestionText("zeta");
-				question.setDifficultyLevel(1201);
+				question.setQuestionText("theta");
+				question.setDifficultyLevel(1009);
+
+				TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
+						.getBean("examTestDataFactory");
+
+				question
+						.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
+								.loadOneRecord());
+
+				TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
+						.getBean("sectionTestDataFactory");
+
+				question
+						.setSection((com.oreon.kgauge.domain.Section) sectionTestDataFactory
+								.loadOneRecord());
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -96,8 +124,8 @@ public class QuestionDaoTest extends AbstractJpaTests {
 			Question question = (Question) questionTestDataFactory
 					.loadOneRecord();
 
-			question.setQuestionText("Malissa");
-			question.setDifficultyLevel(5619);
+			question.setQuestionText("gamma");
+			question.setDifficultyLevel(4799);
 
 			questionService.save(question);
 

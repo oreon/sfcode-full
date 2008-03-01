@@ -50,7 +50,14 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			authorityInstance.setName("Lavendar69954");
+			authorityInstance.setName("delta");
+
+			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("userTestDataFactory");
+
+			authorityInstance
+					.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
+							.loadOneRecord());
 
 			authorityService.save(authorityInstance);
 		} catch (PersistenceException pe) {
@@ -74,7 +81,14 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 
 			try {
 
-				authority.setName("Mark43914");
+				authority.setName("Mark");
+
+				TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
+						.getBean("userTestDataFactory");
+
+				authority
+						.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
+								.loadOneRecord());
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -94,7 +108,7 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 			Authority authority = (Authority) authorityTestDataFactory
 					.loadOneRecord();
 
-			authority.setName("beta57261");
+			authority.setName("John");
 
 			authorityService.save(authority);
 
@@ -132,16 +146,6 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
-	}
-
-	public void testFindByName() {
-		if (!bTest)
-			return;
-
-		assertNotNull("Couldn't find a Authority with name ", authorityService
-				.findByName(authorityInstance.getName()));
-		//assertNull("Found a Authority with name YYY", authorityService.findByName("YYY"));			
-
 	}
 
 	public void testSearchByExample() {

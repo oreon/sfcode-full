@@ -25,4 +25,14 @@ public class CategoryDaoImplBase extends BaseDao<Category>
 
 	//// FINDERS ///// 
 
+	/**
+	 * For tree view , this method returns top level
+	 * elements (whose parent is null )
+	 */
+	public List<Category> findTopLevelElements() {
+		String queryStr = "Select c from Category c where c.parent is null";
+		Query query = entityManager.createQuery(queryStr);
+		return query.getResultList();
+	}
+
 }

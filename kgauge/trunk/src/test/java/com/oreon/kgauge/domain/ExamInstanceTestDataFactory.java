@@ -8,10 +8,11 @@ import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 
 import org.witchcraft.model.support.testing.TestDataFactory;
-
+import org.witchcraft.model.support.errorhandling.BusinessException;
 import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.apache.log4j.Logger;
 
 import com.oreon.kgauge.service.ExamInstanceService;
 
@@ -21,6 +22,9 @@ public class ExamInstanceTestDataFactory
 			AbstractTestDataFactory<ExamInstance> {
 
 	private List<ExamInstance> examInstances = new ArrayList<ExamInstance>();
+
+	private static final Logger logger = Logger
+			.getLogger(ExamInstanceTestDataFactory.class);
 
 	private static int RECORDS_TO_CREATE = 30;
 
@@ -214,7 +218,12 @@ public class ExamInstanceTestDataFactory
 		getAllAsList();
 
 		for (ExamInstance examInstance : examInstances) {
-			examInstanceService.save(examInstance);
+			try {
+				examInstanceService.save(examInstance);
+			} catch (BusinessException be) {
+				logger.warn(" ExamInstance " + examInstance.getDisplayName()
+						+ "couldn't be saved " + be.getMessage());
+			}
 		}
 
 		alreadyPersisted = true;

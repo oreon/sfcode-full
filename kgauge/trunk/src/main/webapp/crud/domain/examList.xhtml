@@ -13,12 +13,13 @@
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
 	
-	<ui:define name="content">
+	<ui:define name="title">  List of Exams </ui:define>
 
+	<ui:define name="content">
 		<f:view>
 			<h:messages layout="list" globalOnly="true" showDetail="true"
 			styleClass="messages" />	
-			<a4j:form id="form">
+			<a4j:form id="form_listing">
 				<rich:tabPanel  switchType="ajax">
 					<rich:tab label="Tabular" >
 					<t:dataTable id="data" var="exam"
@@ -84,6 +85,16 @@
 		</f:facet>
 		<t:outputText value="#{exam.scoringStrategy}" />
 	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="ExamStatus" />
+				<t:outputText value="ExamStatus" /> 
+			</t:commandLink>		
+		</f:facet>
+		<t:outputText value="#{exam.examStatus}" />
+	</t:column>
 							
 							
 							
@@ -92,7 +103,7 @@
 		<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="examCreator.displayName" />
 			<!-- <t:commandSortHeader columnName="" arrow="true"> -->
-				<t:outputText value="" /> 
+				<t:outputText value="ExamCreator" /> 
 			<!-- </t:commandSortHeader> -->
 		</t:commandLink>	
 		</f:facet>
@@ -128,13 +139,13 @@
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 		
-								<t:commandLink action="#{examCrudBacking.delete}"	
+								<a4j:commandLink action="#{examCrudBacking.delete}"	
 									onclick="if(window.confirm('Are You Sure?')==false){return false}"
-									actionListener="#{examCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
+									actionListener="#{examCrudBacking.selectEntity}" immediate="true">														
 									<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
 									<f:param id="deleteId" name="id" value="#{exam.id}" />												
-								</t:commandLink>
+								</a4j:commandLink>
 								<!--
 								</acegijsf:authorize>
 								--> 
@@ -176,8 +187,6 @@
 								</f:facet>
 								<t:outputText value="#{log.username}" />
 							</t:column>
-							
-							
 							
 							
 	<t:column>
@@ -239,24 +248,29 @@
 		</f:facet>
 		<t:outputText value="#{log.entity.scoringStrategy}" />
 	</t:column>
-							
-							
+
+	<t:column>
+		<f:facet name="header">
+			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="ExamStatus" />
+				<t:outputText value="ExamStatus" /> 
+			</t:commandLink>		
+		</f:facet>
+		<t:outputText value="#{log.entity.examStatus}" />
+	</t:column>
 							</t:dataTable>
 							 </rich:tab>
 							 
 							</rich:tabPanel>
   						 </a4j:form>
-
 						<br />
-						<hr />
-						<a href="exam.jsf"> Add New </a>
-						<a href="examSearch.jsf"> Search </a>
-						<hr />
-
-		</f:view>
-
-	</ui:define>
-      
+						
+						<a4j:form>
+							<h:commandLink action="addNew" value="Add New"/>
+							<h:outputText value="   "/>
+							<h:commandLink action="search" value="Search "/>
+						</a4j:form>
+				</f:view>
+		</ui:define>
 </ui:composition>
-
 		

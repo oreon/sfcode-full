@@ -28,17 +28,63 @@
 	</tr>
 	<tr>
 	<td>
+		<a4j:form>
 		<rich:panelMenu style="width:140px" mode="ajax"
 				iconExpandedGroup="disc" iconCollapsedGroup="disc"
 				iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right"
 				iconCollapsedTopGroup="chevronDown" iconCollapsedTopPosition="right">
-	       	<rich:panelMenuGroup label="domain"> <rich:panelMenuItem><h:outputLink value="candidateList.jsf"><h:outputText value="Candidate" /></h:outputLink></rich:panelMenuItem> <rich:panelMenuItem><h:outputLink value="questionList.jsf"><h:outputText value="Question" /></h:outputLink></rich:panelMenuItem> <rich:panelMenuItem><h:outputLink value="answerchoiceList.jsf"><h:outputText value="AnswerChoice" /></h:outputLink></rich:panelMenuItem> <rich:panelMenuItem><h:outputLink value="examList.jsf"><h:outputText value="Exam" /></h:outputLink></rich:panelMenuItem> <rich:panelMenuItem><h:outputLink value="examinstanceList.jsf"><h:outputText value="ExamInstance" /></h:outputLink></rich:panelMenuItem> <rich:panelMenuItem><h:outputLink value="examcreatorList.jsf"><h:outputText value="ExamCreator" /></h:outputLink></rich:panelMenuItem> <rich:panelMenuItem><h:outputLink value="categoryList.jsf"><h:outputText value="Category" /></h:outputLink></rich:panelMenuItem> <rich:panelMenuItem><h:outputLink value="userList.jsf"><h:outputText value="User" /></h:outputLink></rich:panelMenuItem> <rich:panelMenuItem><h:outputLink value="authorityList.jsf"><h:outputText value="Authority" /></h:outputLink></rich:panelMenuItem> <rich:panelMenuItem><h:outputLink value="answeredquestionList.jsf"><h:outputText value="AnsweredQuestion" /></h:outputLink></rich:panelMenuItem></rich:panelMenuGroup> 
+	       	<rich:panelMenuGroup label="domain "  expanded="true" > <rich:panelMenuItem><h:commandLink action="listCandidate" value="Candidates">
+	<f:param name="nextPage" value="domain-Candidate" />
+</h:commandLink>
+</rich:panelMenuItem>
+ <rich:panelMenuItem><h:commandLink action="listQuestion" value="Questions">
+	<f:param name="nextPage" value="domain-Question" />
+</h:commandLink>
+</rich:panelMenuItem>
+ <rich:panelMenuItem><h:commandLink action="listAnswerChoice" value="AnswerChoices">
+	<f:param name="nextPage" value="domain-AnswerChoice" />
+</h:commandLink>
+</rich:panelMenuItem>
+ <rich:panelMenuItem><h:commandLink action="listExam" value="Exams">
+	<f:param name="nextPage" value="domain-Exam" />
+</h:commandLink>
+</rich:panelMenuItem>
+ <rich:panelMenuItem><h:commandLink action="listExamInstance" value="ExamInstances">
+	<f:param name="nextPage" value="domain-ExamInstance" />
+</h:commandLink>
+</rich:panelMenuItem>
+ <rich:panelMenuItem><h:commandLink action="listExamCreator" value="ExamCreators">
+	<f:param name="nextPage" value="domain-ExamCreator" />
+</h:commandLink>
+</rich:panelMenuItem>
+ <rich:panelMenuItem><h:commandLink action="listCategory" value="Categorys">
+	<f:param name="nextPage" value="domain-Category" />
+</h:commandLink>
+</rich:panelMenuItem>
+ <rich:panelMenuItem><h:commandLink action="listUser" value="Users">
+	<f:param name="nextPage" value="domain-User" />
+</h:commandLink>
+</rich:panelMenuItem>
+ <rich:panelMenuItem><h:commandLink action="listAuthority" value="Authoritys">
+	<f:param name="nextPage" value="domain-Authority" />
+</h:commandLink>
+</rich:panelMenuItem>
+ <rich:panelMenuItem><h:commandLink action="listAnsweredQuestion" value="AnsweredQuestions">
+	<f:param name="nextPage" value="domain-AnsweredQuestion" />
+</h:commandLink>
+</rich:panelMenuItem>
+ <rich:panelMenuItem><h:commandLink action="listSection" value="Sections">
+	<f:param name="nextPage" value="domain-Section" />
+</h:commandLink>
+</rich:panelMenuItem>
+</rich:panelMenuGroup> 
 	       	<rich:panelMenuGroup label="Summary">
 				<rich:panelMenuItem>
-					<h:outputLink reRender="form" value="crud/entitiesSummary.jsf">Summary </h:outputLink>
+					<h:outputLink value="crud/entitiesSummary.jsf">Summary </h:outputLink>
 				</rich:panelMenuItem>	
 			</rich:panelMenuGroup>   
     	</rich:panelMenu>
+    	</a4j:form>
 	</td>
 	</tr>
 	</table>

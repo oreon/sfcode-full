@@ -8,10 +8,11 @@ import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 
 import org.witchcraft.model.support.testing.TestDataFactory;
-
+import org.witchcraft.model.support.errorhandling.BusinessException;
 import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.apache.log4j.Logger;
 
 import com.oreon.kgauge.service.AuthorityService;
 
@@ -21,6 +22,9 @@ public class AuthorityTestDataFactory
 			AbstractTestDataFactory<Authority> {
 
 	private List<Authority> authoritys = new ArrayList<Authority>();
+
+	private static final Logger logger = Logger
+			.getLogger(AuthorityTestDataFactory.class);
 
 	private static int RECORDS_TO_CREATE = 30;
 
@@ -46,7 +50,14 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setName("Lavendar93787");
+			authority.setName("pi");
+
+			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("userTestDataFactory");
+
+			authority
+					.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
+							.loadOneRecord());
 
 			register(authority);
 
@@ -62,7 +73,14 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setName("John46935");
+			authority.setName("gamma");
+
+			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("userTestDataFactory");
+
+			authority
+					.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
+							.loadOneRecord());
 
 			register(authority);
 
@@ -78,7 +96,14 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setName("epsilon14572");
+			authority.setName("Wilson");
+
+			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("userTestDataFactory");
+
+			authority
+					.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
+							.loadOneRecord());
 
 			register(authority);
 
@@ -94,7 +119,14 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setName("epsilon73132");
+			authority.setName("delta");
+
+			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("userTestDataFactory");
+
+			authority
+					.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
+							.loadOneRecord());
 
 			register(authority);
 
@@ -110,7 +142,14 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setName("delta99816");
+			authority.setName("John");
+
+			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("userTestDataFactory");
+
+			authority
+					.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
+							.loadOneRecord());
 
 			register(authority);
 
@@ -154,7 +193,12 @@ public class AuthorityTestDataFactory
 		getAllAsList();
 
 		for (Authority authority : authoritys) {
-			authorityService.save(authority);
+			try {
+				authorityService.save(authority);
+			} catch (BusinessException be) {
+				logger.warn(" Authority " + authority.getDisplayName()
+						+ "couldn't be saved " + be.getMessage());
+			}
 		}
 
 		alreadyPersisted = true;
@@ -183,6 +227,12 @@ public class AuthorityTestDataFactory
 
 		authority.setName((String) RandomValueGeneratorFactory
 				.createInstance("String"));
+
+		TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("userTestDataFactory");
+
+		authority.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
+				.loadOneRecord());
 
 		return authority;
 	}

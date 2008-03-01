@@ -1,6 +1,7 @@
 package initialsetup;
 
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
+import org.witchcraft.model.support.errorhandling.BusinessException;
 import org.witchcraft.model.support.testing.TestDataFactory;
 
 import com.oreon.kgauge.domain.CandidateTestDataFactory;
@@ -22,6 +23,8 @@ import com.oreon.kgauge.domain.UserTestDataFactory;
 import com.oreon.kgauge.domain.AuthorityTestDataFactory;
 
 import com.oreon.kgauge.domain.AnsweredQuestionTestDataFactory;
+
+import com.oreon.kgauge.domain.SectionTestDataFactory;
 
 /** 
  * This class populates the database with some initial data
@@ -80,6 +83,11 @@ public class InitialDataSetup {
 				.getBean("answeredQuestionTestDataFactory");
 
 		answeredQuestionTestDataFactory.persistAll();
+
+		TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("sectionTestDataFactory");
+
+		sectionTestDataFactory.persistAll();
 
 	}
 }

@@ -68,6 +68,14 @@ public class CategoryServiceImplBase extends BaseServiceImpl<Category>
 		return categoryDao.searchByExample(category);
 	}
 
+	/**
+	 * For tree view , this method returns top level
+	 * elements (whose parent is null )
+	 */
+	public List<Category> findTopLevelElements() {
+		return categoryDao.findTopLevelElements();
+	}
+
 	/*
 	public List query(String queryString, Object... params) {
 		return basicDAO.query(queryString, params);

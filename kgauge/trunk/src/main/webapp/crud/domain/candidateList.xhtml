@@ -13,12 +13,13 @@
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
 	
-	<ui:define name="content">
+	<ui:define name="title">  List of Candidates </ui:define>
 
+	<ui:define name="content">
 		<f:view>
 			<h:messages layout="list" globalOnly="true" showDetail="true"
 			styleClass="messages" />	
-			<a4j:form id="form">
+			<a4j:form id="form_listing">
 				<rich:tabPanel  switchType="ajax">
 					<rich:tab label="Tabular" >
 					<t:dataTable id="data" var="candidate"
@@ -186,13 +187,13 @@
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 		
-								<t:commandLink action="#{candidateCrudBacking.delete}"	
+								<a4j:commandLink action="#{candidateCrudBacking.delete}"	
 									onclick="if(window.confirm('Are You Sure?')==false){return false}"
-									actionListener="#{candidateCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
+									actionListener="#{candidateCrudBacking.selectEntity}" immediate="true">														
 									<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
 									<f:param id="deleteId" name="id" value="#{candidate.id}" />												
-								</t:commandLink>
+								</a4j:commandLink>
 								<!--
 								</acegijsf:authorize>
 								--> 
@@ -234,8 +235,6 @@
 								</f:facet>
 								<t:outputText value="#{log.username}" />
 							</t:column>
-							
-							
 							
 							
 	<t:column>
@@ -367,24 +366,19 @@
 		</f:facet>
 		<t:outputText value="#{log.entity.contactDetails.email}" />
 	</t:column>
-							
-							
 							</t:dataTable>
 							 </rich:tab>
 							 
 							</rich:tabPanel>
   						 </a4j:form>
-
 						<br />
-						<hr />
-						<a href="candidate.jsf"> Add New </a>
-						<a href="candidateSearch.jsf"> Search </a>
-						<hr />
-
-		</f:view>
-
-	</ui:define>
-      
+						
+						<a4j:form>
+							<h:commandLink action="addNew" value="Add New"/>
+							<h:outputText value="   "/>
+							<h:commandLink action="search" value="Search "/>
+						</a4j:form>
+				</f:view>
+		</ui:define>
 </ui:composition>
-
 		

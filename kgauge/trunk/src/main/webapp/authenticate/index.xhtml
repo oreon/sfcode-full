@@ -1,3 +1,6 @@
+
+	
+	
 	
 	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -10,38 +13,25 @@
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
-	template="/WEB-INF/template/default.xhtml">
+	template="/WEB-INF/template/">
 	
 	<ui:define name="content">
-		<f:view > 
-          <f:loadBundle basename="messages.messages" var="msg"/>
-                    
-           <h:form id="links">
-				<h:panelGrid> 
-				
-					<h:commandLink styleClass="h2" value="#{msg.login}" action="login"></h:commandLink>  
-					<h:commandLink styleClass="h3" value="#{msg.register}" action="register"></h:commandLink> 
-					<h:commandLink styleClass=".formLabel" value="#{msg.retrieve}" action="forgotCredentials"></h:commandLink> 				
-							
+		<f:view>
+		<!--PROTECTED REGION ID(USER_CREATED) ENABLED START-->
+					This is protectable
+		<!--PROTECTED REGION END-->
+			<h:messages layout="list" globalOnly="true" showDetail="true"
+				styleClass="messages" />
+			<h:outputText value="" styleClass="message" />		
+			
+			<h:form>
+				<h:panelGrid>
 					
-				</h:panelGrid> 
+					
 				
+				</h:panelGrid>
 			</h:form>
-			<h:form id="changelanguageform">
-				<h:outputText value="#{LangBean.locale.displayCountry}" />
-				<t:commandLink styleClass="a:link" id="english" action="chooseLocale"			
-					actionListener="#{LangBean.onChooseLocale}" value="English" /> | 
-					
-				<t:commandLink styleClass="a:link" id="german" action="chooseLocale"	
-					actionListener="#{LangBean.onChooseLocale}" value="Deutsch" > |
-					
-					</t:commandLink>	
-					
-				<t:commandLink styleClass="a:link" id="french" action="chooseLocale"
-					actionListener="#{LangBean.onChooseLocale}" value="Francais" />
-				
-			</h:form>
-
+	
 		</f:view>
 	 </ui:define>	
 	</ui:composition>

@@ -7,21 +7,18 @@
 
 package com.oreon.kgauge.service.impl;
 
-import com.oreon.kgauge.domain.ExamCreator;
-import com.oreon.kgauge.service.ExamCreatorService;
-import com.oreon.kgauge.dao.ExamCreatorDao;
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.annotation.Propagation;
-
 import org.apache.log4j.Logger;
-
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.witchcraft.model.support.dao.GenericDAO;
-import org.witchcraft.model.support.errorhandling.BusinessException;
 import org.witchcraft.model.support.service.BaseServiceImpl;
 
-import javax.jws.WebService;
+import com.oreon.kgauge.dao.ExamCreatorDao;
+import com.oreon.kgauge.domain.Authority;
+import com.oreon.kgauge.domain.ExamCreator;
+import com.oreon.kgauge.service.ExamCreatorService;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 public class ExamCreatorServiceImplBase extends BaseServiceImpl<ExamCreator>
@@ -49,6 +46,9 @@ public class ExamCreatorServiceImplBase extends BaseServiceImpl<ExamCreator>
 		checkUniqueConstraints(examCreator);
 		examCreatorDao.save(examCreator);
 
+		if (id == null) //creating user for first time, assign authority
+			assignDefaultAuthority(examCreator);
+
 		return examCreator;
 	}
 
@@ -69,6 +69,13 @@ public class ExamCreatorServiceImplBase extends BaseServiceImpl<ExamCreator>
 		ensureUnique(examCreator, existingExamCreator,
 				"Entity.exists.withEmail");
 
+	}
+
+	private void assignDefaultAuthority(ExamCreator examCreator) {
+		Authority authority = new Authority();
+		authority.setName("ROLE_EXAMCREATOR");
+
+		examCreator.getUser().addAuthoritie(authority);
 	}
 
 	public void delete(ExamCreator examCreator) {

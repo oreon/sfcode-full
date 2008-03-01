@@ -8,10 +8,11 @@ import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 
 import org.witchcraft.model.support.testing.TestDataFactory;
-
+import org.witchcraft.model.support.errorhandling.BusinessException;
 import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.apache.log4j.Logger;
 
 import com.oreon.kgauge.service.CategoryService;
 
@@ -19,6 +20,9 @@ import com.oreon.kgauge.service.CategoryService;
 public class CategoryTestDataFactory extends AbstractTestDataFactory<Category> {
 
 	private List<Category> categorys = new ArrayList<Category>();
+
+	private static final Logger logger = Logger
+			.getLogger(CategoryTestDataFactory.class);
 
 	private static int RECORDS_TO_CREATE = 30;
 
@@ -39,98 +43,51 @@ public class CategoryTestDataFactory extends AbstractTestDataFactory<Category> {
 		categorys.add(category);
 	}
 
-	public Category createCategoryOne() {
+	public Category createCategoryJava() {
 		Category category = new Category();
 
-		try {
+		category.setName("Java");
 
-			category.setName("alpha");
+		TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("categoryTestDataFactory");
 
-			TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("categoryTestDataFactory");
-
-			register(category);
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
+		register(category);
 		return category;
 	}
 
-	public Category createCategoryTwo() {
+	public Category createCategoryDotNet() {
 		Category category = new Category();
 
-		try {
+		category.setName("DotNet");
 
-			category.setName("beta");
+		TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("categoryTestDataFactory");
 
-			TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("categoryTestDataFactory");
-
-			register(category);
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
+		register(category);
 		return category;
 	}
 
-	public Category createCategoryThree() {
+	public Category createCategoryPHP() {
 		Category category = new Category();
 
-		try {
+		category.setName("PHP");
 
-			category.setName("Mark");
+		TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("categoryTestDataFactory");
 
-			TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("categoryTestDataFactory");
-
-			register(category);
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
+		register(category);
 		return category;
 	}
 
-	public Category createCategoryFour() {
+	public Category createCategoryXML() {
 		Category category = new Category();
 
-		try {
+		category.setName("XML");
 
-			category.setName("Eric");
+		TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("categoryTestDataFactory");
 
-			TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("categoryTestDataFactory");
-
-			register(category);
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		return category;
-	}
-
-	public Category createCategoryFive() {
-		Category category = new Category();
-
-		try {
-
-			category.setName("theta");
-
-			TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("categoryTestDataFactory");
-
-			register(category);
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
+		register(category);
 		return category;
 	}
 
@@ -149,11 +106,13 @@ public class CategoryTestDataFactory extends AbstractTestDataFactory<Category> {
 
 		if (categorys.isEmpty()) {
 
-			createCategoryOne();
-			createCategoryTwo();
-			createCategoryThree();
-			createCategoryFour();
-			createCategoryFive();
+			createCategoryJava();
+
+			createCategoryDotNet();
+
+			createCategoryPHP();
+
+			createCategoryXML();
 
 		}
 
@@ -167,7 +126,12 @@ public class CategoryTestDataFactory extends AbstractTestDataFactory<Category> {
 		getAllAsList();
 
 		for (Category category : categorys) {
-			categoryService.save(category);
+			try {
+				categoryService.save(category);
+			} catch (BusinessException be) {
+				logger.warn(" Category " + category.getDisplayName()
+						+ "couldn't be saved " + be.getMessage());
+			}
 		}
 
 		alreadyPersisted = true;

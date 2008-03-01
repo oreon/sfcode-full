@@ -50,13 +50,15 @@ public class ExamDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			examInstance.setDescription("epsilon");
-			examInstance.setName("Eric");
-			examInstance.setQuestions(9847);
-			examInstance.setDuration(77);
-			examInstance.setPrice(37.83);
+			examInstance.setDescription("John");
+			examInstance.setName("pi");
+			examInstance.setQuestions(3937);
+			examInstance.setDuration(9370);
+			examInstance.setPrice(19.93);
 			examInstance
 					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
+			examInstance
+					.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -94,13 +96,14 @@ public class ExamDaoTest extends AbstractJpaTests {
 
 			try {
 
-				exam.setDescription("alpha");
-				exam.setName("epsilon");
-				exam.setQuestions(6169);
-				exam.setDuration(3860);
-				exam.setPrice(8.05);
+				exam.setDescription("Wilson");
+				exam.setName("pi");
+				exam.setQuestions(8913);
+				exam.setDuration(649);
+				exam.setPrice(72.54);
 				exam
-						.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
+						.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
+				exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
 
 				TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("categoryTestDataFactory");
@@ -133,13 +136,14 @@ public class ExamDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Exam exam = (Exam) examTestDataFactory.loadOneRecord();
 
-			exam.setDescription("pi");
-			exam.setName("Eric");
-			exam.setQuestions(9368);
-			exam.setDuration(6331);
-			exam.setPrice(43.4);
+			exam.setDescription("zeta");
+			exam.setName("gamma");
+			exam.setQuestions(6740);
+			exam.setDuration(5815);
+			exam.setPrice(20.79);
 			exam
-					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
+					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
+			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
 
 			examService.save(exam);
 

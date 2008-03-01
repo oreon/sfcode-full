@@ -16,17 +16,12 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
-/*@Entity
-@Table(name="User",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
-/* 
-	
-	There are 0 constraints.
- */
 public abstract class UserBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
 		implements
-			java.io.Serializable {
+			java.io.Serializable,
+			org.witchcraft.model.support.audit.Auditable {
 
 	//named queries : 0
 
@@ -38,18 +33,38 @@ public abstract class UserBase
 
 	protected Boolean enabled;
 
+	/* Default Constructor */
+	public UserBase() {
+	}
+
+	/* Constructor with all attributes */
+	public UserBase(String userName, String password, Boolean enabled) {
+		this.userName = userName;
+		this.password = password;
+		this.enabled = enabled;
+	}
+
 	@Column(nullable = false, unique = true)
+	/*
+	
+	 */
 	public String getUserName() {
 
 		return this.userName;
 	}
 
 	@Column(nullable = false, unique = false)
+	/*
+	
+	 */
 	public String getPassword() {
 
 		return this.password;
 	}
 
+	/*
+	
+	 */
 	public Boolean getEnabled() {
 		return this.enabled;
 	}
@@ -69,7 +84,7 @@ public abstract class UserBase
 	private java.util.Set<com.oreon.kgauge.domain.Authority> authorities = new java.util.HashSet<com.oreon.kgauge.domain.Authority>();
 
 	public void addAuthoritie(com.oreon.kgauge.domain.Authority authorities) {
-
+		authorities.setUser(userInstance());
 		this.authorities.add(authorities);
 	}
 
@@ -77,8 +92,8 @@ public abstract class UserBase
 		this.authorities.remove(authorities);
 	}
 
-	@OneToMany
-	@JoinColumn(name = "User_ID", nullable = true)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_ID", nullable = false)
 	public java.util.Set<com.oreon.kgauge.domain.Authority> getAuthorities() {
 		return this.authorities;
 	}

@@ -7,21 +7,18 @@
 
 package com.oreon.kgauge.service.impl;
 
-import com.oreon.kgauge.domain.Candidate;
-import com.oreon.kgauge.service.CandidateService;
-import com.oreon.kgauge.dao.CandidateDao;
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.annotation.Propagation;
-
 import org.apache.log4j.Logger;
-
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.witchcraft.model.support.dao.GenericDAO;
-import org.witchcraft.model.support.errorhandling.BusinessException;
 import org.witchcraft.model.support.service.BaseServiceImpl;
 
-import javax.jws.WebService;
+import com.oreon.kgauge.dao.CandidateDao;
+import com.oreon.kgauge.domain.Authority;
+import com.oreon.kgauge.domain.Candidate;
+import com.oreon.kgauge.service.CandidateService;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 public class CandidateServiceImplBase extends BaseServiceImpl<Candidate>
@@ -49,6 +46,9 @@ public class CandidateServiceImplBase extends BaseServiceImpl<Candidate>
 		checkUniqueConstraints(candidate);
 		candidateDao.save(candidate);
 
+		if (id == null) //creating user for first time, assign authority
+			assignDefaultAuthority(candidate);
+
 		return candidate;
 	}
 
@@ -67,6 +67,13 @@ public class CandidateServiceImplBase extends BaseServiceImpl<Candidate>
 				.getContactDetails().getEmail());
 		ensureUnique(candidate, existingCandidate, "Entity.exists.withEmail");
 
+	}
+
+	private void assignDefaultAuthority(Candidate candidate) {
+		Authority authority = new Authority();
+		authority.setName("ROLE_CANDIDATE");
+
+		candidate.getUser().addAuthoritie(authority);
 	}
 
 	public void delete(Candidate candidate) {

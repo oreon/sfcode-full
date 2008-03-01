@@ -16,17 +16,12 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
-/*@Entity
-@Table(name="Authority",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
-/* 
-	
-	There are 0 constraints.
- */
 public abstract class AuthorityBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
 		implements
-			java.io.Serializable {
+			java.io.Serializable,
+			org.witchcraft.model.support.audit.Auditable {
 
 	//named queries : 0
 
@@ -34,7 +29,19 @@ public abstract class AuthorityBase
 
 	protected String name;
 
-	@Column(nullable = false, unique = true)
+	/* Default Constructor */
+	public AuthorityBase() {
+	}
+
+	/* Constructor with all attributes */
+	public AuthorityBase(String name) {
+		this.name = name;
+	}
+
+	@Column(nullable = false, unique = false)
+	/*
+	
+	 */
 	public String getName() {
 
 		return this.name;
@@ -42,6 +49,18 @@ public abstract class AuthorityBase
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	private com.oreon.kgauge.domain.User user;
+
+	public void setUser(com.oreon.kgauge.domain.User user) {
+		this.user = user;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "user_ID", nullable = false)
+	public com.oreon.kgauge.domain.User getUser() {
+		return this.user;
 	}
 
 	public abstract Authority authorityInstance();

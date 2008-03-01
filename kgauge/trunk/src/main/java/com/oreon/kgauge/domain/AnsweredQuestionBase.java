@@ -16,21 +16,20 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
-/*@Entity
-@Table(name="AnsweredQuestion",uniqueConstraints={@UniqueConstraint(columnNames={})})*/
-/* 
-	
-	There are 0 constraints.
- */
 public abstract class AnsweredQuestionBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
 		implements
-			java.io.Serializable {
+			java.io.Serializable,
+			org.witchcraft.model.support.audit.Auditable {
 
 	//named queries : 0
 
 	private static final long serialVersionUID = 1L;
+
+	/* Default Constructor */
+	public AnsweredQuestionBase() {
+	}
 
 	private com.oreon.kgauge.domain.Question question;
 
@@ -47,7 +46,6 @@ public abstract class AnsweredQuestionBase
 	}
 
 	public void add(com.oreon.kgauge.domain.AnswerChoice answerChoice) {
-
 		this.answerChoice.add(answerChoice);
 	}
 
@@ -55,8 +53,8 @@ public abstract class AnsweredQuestionBase
 		this.answerChoice.remove(answerChoice);
 	}
 
-	@OneToMany
-	@JoinColumn(name = "AnsweredQuestion_ID", nullable = true)
+	@OneToMany(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "answeredQuestion_ID", nullable = true)
 	public java.util.Set<com.oreon.kgauge.domain.AnswerChoice> getAnswerChoice() {
 		return this.answerChoice;
 	}
