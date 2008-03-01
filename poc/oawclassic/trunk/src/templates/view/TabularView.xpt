@@ -14,11 +14,10 @@
 	«EXPAND ViewGen::genIncludes("templateCrud.xhtml")-»
 	
 	<ui:define name="content">
-
 		<f:view>
 			<h:messages layout="list" globalOnly="true" showDetail="true"
 			styleClass="messages" />	
-			<a4j:form id="form">
+			<a4j:form id="form_listing">
 				<rich:tabPanel  switchType="ajax">
 					<rich:tab label="Tabular" >
 					<t:dataTable id="data" var="«asInstanceVar()»"
@@ -115,29 +114,22 @@
 								<t:outputText value="#{log.username}" />
 							</t:column>
 							
-							
-							
 							«EXPAND genTableRow("log.entity") FOREACH getAllAttributes -»
-							
-							
 							</t:dataTable>
 							 </rich:tab>
 							 
 							</rich:tabPanel>
   						 </a4j:form>
-
 						<br />
-						<hr />
-						<a href="«asInstanceVar()».jsf"> Add New </a>
-						<a href="«asInstanceVar()»Search.jsf"> Search </a>
-						<hr />
-
-		</f:view>
-
-	</ui:define>
-      
+						
+						<a4j:form>
+							<h:commandLink action="addNew" value="Add New"/>
+							<h:outputText value="   "/>
+							<h:commandLink action="search" value="Search "/>
+						</a4j:form>
+				</f:view>
+		</ui:define>
 </ui:composition>
-
 «ENDDEFINE»
 
 
@@ -159,7 +151,7 @@
 		<t:commandLink actionListener="#{«c.asInstanceVar()»CrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="«associationName()».displayName" />
 			<!-- <t:commandSortHeader columnName="«NameS.toFirstUpper()»" arrow="true"> -->
-				<t:outputText value="«NameS.toFirstUpper()»" /> 
+				<t:outputText value="«associationName().toFirstUpper()»" /> 
 			<!-- </t:commandSortHeader> -->
 		</t:commandLink>	
 		</f:facet>
