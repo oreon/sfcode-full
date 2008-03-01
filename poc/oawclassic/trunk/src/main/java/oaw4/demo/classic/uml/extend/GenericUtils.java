@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.WordUtils;
+import org.openarchitectureware.core.meta.core.ElementSet;
 import org.openarchitectureware.meta.uml.Type;
 
 /** Class for static utils e.
@@ -109,5 +110,7 @@ public class GenericUtils {
 		System.out.println("after removing spaces & quotes returning " + arg);
 		return arg;
 	}
+	
+	
 
 }

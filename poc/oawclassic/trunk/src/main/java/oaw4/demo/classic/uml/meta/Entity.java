@@ -14,20 +14,20 @@ public class Entity extends AbstractEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	// nothing to do in the simplest case
 
 	private String defaultRole;
+	
 	// Classes like customer, student employee etc which correspond to actors
 	// that will log in and use the system
 	// should have this flag turned on
-	private boolean isUser;
+	private boolean systemUser;
+	
+	private boolean auditable = true;
 	
 	private String tableName;
 
 	private String uniqueConstraints;
 	
-	
-
 	private String inheritanceStrategy;
 	
 	private String testSeed;
@@ -53,19 +53,20 @@ public class Entity extends AbstractEntity {
 
 	public String getDefaultRole() {
 		return defaultRole;
-	
 	}
 
 	public void setDefaultRole(String defaultRole) {
 		this.defaultRole = defaultRole;
 	}
 
-	public boolean isUser() {
-		return isUser;
+	
+
+	public boolean isSystemUser() {
+		return systemUser;
 	}
 
-	public void setUser(boolean isUser) {
-		this.isUser = isUser;
+	public void setSystemUser(boolean systemUser) {
+		this.systemUser = systemUser;
 	}
 
 	@Override
@@ -214,6 +215,14 @@ public class Entity extends AbstractEntity {
 
 	public void setNq(Collection nq) {
 		this.nq = nq;
+	}
+
+	public boolean isAuditable() {
+		return auditable;
+	}
+
+	public void setAuditable(boolean auditable) {
+		this.auditable = auditable;
 	}
 
 }

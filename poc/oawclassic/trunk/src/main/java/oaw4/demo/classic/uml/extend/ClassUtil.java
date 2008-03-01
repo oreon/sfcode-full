@@ -10,6 +10,7 @@ import oaw4.demo.classic.uml.meta.Service;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
+import org.apache.log4j.Logger;
 import org.openarchitectureware.meta.uml.Type;
 import org.openarchitectureware.meta.uml.classifier.AssociationEnd;
 import org.openarchitectureware.meta.uml.classifier.Attribute;
@@ -31,6 +32,8 @@ public class ClassUtil {
 	private static List<Entity> entities = new ArrayList<Entity>();
 	
 	private static List<Service> services = new ArrayList<Service>();
+	
+	private static final Logger logger = Logger.getLogger(ClassUtil.class);
 	
 
 	public static List<Entity> getEntities() {
@@ -245,7 +248,6 @@ public class ClassUtil {
 					buffer.append(", ");
 			}
 
-			System.out.println("returning " + buffer.toString());
 		} catch (Exception e) {
 			System.out.println("Exception getting class name " + cls.NameS() + ":" + buffer);
 			e.printStackTrace();
@@ -332,13 +334,11 @@ public class ClassUtil {
 	}
 
 	public static String fullyQualifiedName(Class cls) {
-		// cls.addStereotype()
-		// System.out.println(cls.findStereotypeByName("Entity").NameS());
 		return getPackageName(cls) + "." + cls.NameS();
 	}
 
 	/**
-	 * REturn if manyto one applies
+	 * Return if many-to-one applies
 	 * 
 	 * @param ae
 	 * @return
@@ -362,13 +362,15 @@ public class ClassUtil {
 	}
 
 	/**
-	 * Whether an association can be null - if the multiplicty is greater than
+	 * Whether an association can be null - if the multiplicity is greater than
 	 * or equal to 1 it is not nullable.
 	 * 
 	 * @param ae
 	 * @return
 	 */
 	public static boolean isAssocNullable(AssociationEnd ae) {
+		logger.info(ae.Opposite().Class().NameS()  + "-->" +  ae.Class().NameS()
+				+ " has min multiplicty " + ae.MultiplicityMin());
 		return ae.MultiplicityMinAsInt() >= 1 ? false : true;
 	}
 

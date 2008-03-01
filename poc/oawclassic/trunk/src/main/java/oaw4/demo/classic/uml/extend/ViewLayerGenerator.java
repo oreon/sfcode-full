@@ -241,13 +241,13 @@ public class ViewLayerGenerator {
 					data.append("</rich:panelMenuGroup>");
 				data.append("<rich:panelMenuGroup label=\""
 						+ getImmediatePackage(entity.Namespace().NameS())
-						+ "\">");
+						+ " \"  expanded=\"true\" >");
 			}
 
-			data.append(" <rich:panelMenuItem><h:outputLink value=\""
-					 + entity.NameS().toLowerCase() + "List.jsf\">");
-			data.append("<h:outputText value=\"" + entity.NameS()
-					+ "\" /></h:outputLink></rich:panelMenuItem>");
+			data.append(" <rich:panelMenuItem><h:commandLink action=\"list" + entity.NameS() + "\" value=\""
+					 + entity.NameS() + "s\">\n");
+			data.append("\t<f:param name=\"nextPage\" value=\"" + getImmediatePackage(entity.Namespace().NameS()) + "-" + entity.NameS() 
+					+ "\" />\n</h:commandLink>\n</rich:panelMenuItem>\n");
 
 			prevNameSpace = entity.Namespace().NameS();
 		}
