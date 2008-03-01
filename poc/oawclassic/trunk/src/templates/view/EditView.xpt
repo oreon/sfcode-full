@@ -9,11 +9,9 @@
 
 «REM» Create the view/update xhtml page for an entity «ENDREM»
 «DEFINE genEditView FOR Entity-»
-	
 	«EXPAND ViewGen::genIncludes("templateCrud.xhtml")-»
-	
+	<ui:define name="title"> Add/Update «NameS» </ui:define> 
 	<ui:define name="content">
-
 		<f:view>
 			<h:messages layout="list" globalOnly="true" showDetail="true"
 			styleClass="messages" />
@@ -23,67 +21,50 @@
 					<h:outputText value="Please correct the following issues !" 
 				rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
 				
-					<h:panelGrid columns="2" styleClass="formTableCustom">
-	
-							«REM»The associated entites for e.g an order would need a customer «ENDREM»
-							«FOREACH getNonOneToOneOutgoingAssociations() AS ae -»
-								<h:outputText value="«ae.associationName().toFirstUpper() + (ae.isAssocNullable()?"":"*") »" styleClass="formLabel" />
-								«EXPAND ViewGen::genDropDown(this, true, true) FOR ae»
-							«ENDFOREACH»
-							
-							«EXPAND genEditEntry(this) FOREACH getAllAttributes -»
-					
-				
+			<h:panelGrid columns="2" styleClass="formTableCustom">
+					«REM»The associated entites for e.g an order would need a customer «ENDREM»
+					«FOREACH getNonOneToOneOutgoingAssociations() AS ae -»
+						<h:outputText value="«ae.associationName().toFirstUpper() + (ae.isAssocNullable()?"":"*") -»" styleClass="formLabel" />
+						«EXPAND ViewGen::genDropDown(this, true, true) FOR ae-»
+					«ENDFOREACH»
+					«EXPAND genEditEntry(this) FOREACH getAllAttributes -»
 					<f:facet name="footer">
   						<h:panelGroup>
-    
   						   <h:commandButton id="button1" value="Submit" action="#{«asInstanceVar()»CrudBacking.update}"/> 
   						    <h:commandButton id="button2" value="Cancel" action="success" immediate="true"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="«asInstanceVar()»_id" value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».id}" />
-		  				   	
 		  				   	«REM»We need to have hidden ids of all one to one associations «ENDREM»
 		  				   	«FOREACH AssociationEnd.select(ae| ae.Opposite.isNavigable && ae.isOneOnOne()) AS ae-»
-								<h:inputHidden id="«ae.Opposite.NameS»_id" value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.Opposite.NameS».id}" />
-							«ENDFOREACH»
-							
+								<h:inputHidden id="«associationName(ae.Opposite)»_id" value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«associationName(ae.Opposite)».id}" />
+							«ENDFOREACH-»
 						 </h:panelGroup>
   					</f:facet>
-						
-						</h:panelGrid>
-						
+			</h:panelGrid>
 						<br/>
-						<br/>
-						
-						«REM»Composed collections e.g an order contains orderitems «ENDREM»
-						«FOREACH AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable && ae.Opposite.isComposition) AS ae-»
-							<rich:simpleTogglePanel switchType="client" label="«ae.NameS.toFirstUpper()»">
-							<t:dataTable id="«ae.NameS»_data" var="«ae.Class.asInstanceVar()»"
-								value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.NameS»}" rows="10"
-							rowClasses="odd, even" styleClass="dataTable">
+			«REM»Composed collections e.g an order contains orderitems «ENDREM»
+			«FOREACH AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable && ae.Opposite.isComposition) AS ae-»
+				<rich:simpleTogglePanel switchType="client" label="«ae.NameS.toFirstUpper()»">
+				<t:dataTable id="«ae.NameS»_data" var="«ae.Class.asInstanceVar()»"
+					value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.NameS»}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable">
+				«REM»The associated entites for e.g an order would need a customer «ENDREM» 
+				«EXPAND genEditableTableRow(ae.Class, false) FOREACH ae.Class.AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) -»
 							
-							«REM»The associated entites for e.g an order would need a customer «ENDREM» 
-							«EXPAND genEditableTableRow(ae.Class, false) FOREACH ae.Class.AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) -»
-										
-							«EXPAND genEditableTableRow(ae.Class) FOREACH ae.Class.getAllAttributes -»
-							
-							</t:dataTable>
-							</rich:simpleTogglePanel>
-							<br/>
-							
-						«ENDFOREACH»
+				«EXPAND genEditableTableRow(ae.Class) FOREACH ae.Class.getAllAttributes -»
+				</t:dataTable>
+				</rich:simpleTogglePanel>
+				<br/>
+			«ENDFOREACH»
 						
 				</rich:panel>
 			</a4j:form>
 		</f:view>
 
-	</ui:define>
+</ui:define>
 </ui:composition>
 
 «ENDDEFINE»
-
-
-
 
 «REM» Create an edit entry e.g firstNAme <input > <errMessage > «ENDREM»
 «DEFINE genEditEntry(Class e) FOR Attribute»
@@ -96,26 +77,22 @@
 «ENDDEFINE»
 
 «DEFINE genEditEntry(Class e, boolean repeat) FOR Attribute»
-	<h:outputText value="«repeat ? "Repeat ":""»«NameS.toFirstUpper() + (getElementRequired()?"*":"") »" styleClass="formLabel" />
-	
-	<h:panelGroup>
+<h:outputText value="«repeat ? "Repeat ":""»«NameS.toFirstUpper() + (getElementRequired()?"*":"") »" styleClass="formLabel" />
+<h:panelGroup>
 	<a4j:region>
 	«IF repeat»
-		«EXPAND genRepeatInputControl(e) FOR this»
+		«EXPAND genRepeatInputControl(e) FOR this-»
 	«ELSE»
-		«EXPAND genInputControl(e) FOR this»
+		«EXPAND genInputControl(e) FOR this-»
 	«ENDIF»
-	
-		<rich:message for="«repeat ? repeatControlId(e): controlId(e)»"
-			 styleClass="errMessage">
-			<f:facet name="errorMarker">
-				<h:graphicImage url="/images/icons/bullet_error.png" />
-			</f:facet>
-		</rich:message>
-		
-		</a4j:region>
-	</h:panelGroup>
-	
+	<rich:message for="«repeat ? repeatControlId(e): controlId(e)»"
+		 styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+	</rich:message>
+	</a4j:region>
+</h:panelGroup>
 «ENDDEFINE»
 
 «REM» Create an input control like text input, date - calendar, check box etc «ENDREM»
@@ -124,6 +101,7 @@
 		id="«controlId(e)»"
 		value="#{«e.asInstanceVar()»CrudBacking.«e.asInstanceVar()».«fullName()»}">
 		«getElementContent()»
+		<a4j:support event="onblur" reRender="«controlId(e)»" />
 	</«getElementType()»>
 «ENDDEFINE»
 
@@ -157,7 +135,7 @@
 		<f:facet name="header">
 				<t:outputText value="«NameS.toFirstUpper()»" /> 
 		</f:facet>
-		«EXPAND ViewGen::genDropDown(e,false) FOR this»
+		«EXPAND ViewGen::genDropDown(e,false) FOR this-»
 	</t:column>
 «ENDDEFINE»
 
