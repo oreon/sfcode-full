@@ -18,6 +18,17 @@
 		public class «NameS + extensionName» extends «NameS + extensionName»Base{
 			
 			«getLoggerDeclaration(NameS + extensionName)»;
+			
+			/* Default Constructor */
+			public «NameS»(){}
+			
+			«IF Attribute.size > 0 »
+			/* Constructor with all attributes */
+			public «NameS» (
+				«FOREACH Attribute AS a ITERATOR iter -» «a.Type.NameS» «a.NameS» «iter.counter1 < Attribute.size?",":""» «ENDFOREACH-» ){
+				super(«FOREACH Attribute AS a ITERATOR iter -» «a.NameS» «iter.counter1 < Attribute.size?",":""» «ENDFOREACH-»);
+			}
+			«ENDIF»
 	
 			public «NameS + extensionName» «NameS.toFirstLower() + extensionName»Instance(){
 				return this;

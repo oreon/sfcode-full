@@ -15,6 +15,7 @@
 	package initialsetup;
 	
 	import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
+	import org.witchcraft.model.support.errorhandling.BusinessException;
 	import org.witchcraft.model.support.testing.TestDataFactory;
 	
 	«EXPAND GenImports FOREACH getEntities()»
@@ -52,10 +53,11 @@
 	import org.witchcraft.model.support.testing.AbstractTestDataFactory;
 	
 	import org.witchcraft.model.support.testing.TestDataFactory;
-	
+	import org.witchcraft.model.support.errorhandling.BusinessException;
 	import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
 	
 	import org.springframework.transaction.annotation.Transactional;
+	import org.apache.log4j.Logger;
 	
 	import  «parentPackageName()».service.«NameS»Service;
 	
@@ -63,6 +65,8 @@
 	public class «NameS»TestDataFactory extends AbstractTestDataFactory<«NameS»> {
 	
 		private List<«NameS»>  «asInstanceVar()»s = new ArrayList<«NameS»>();
+		
+		private static final Logger logger = Logger.getLogger(«NameS»TestDataFactory.class);
 		
 		private static int RECORDS_TO_CREATE = 30;
 	
@@ -145,12 +149,17 @@
 		
 		public  void persistAll(){
 			if (!isPersistable() || alreadyPersisted)
-			return;
-				
+				return;
+					
 			getAllAsList();
-				
+						
 			for («NameS» «asInstanceVar()» : «asInstanceVar()»s) {
+				try {
 				«asInstanceVar()»Service.save(«asInstanceVar()»);
+				} catch (BusinessException be) {
+				logger.warn(" «NameS» " + «asInstanceVar()».getDisplayName()
+						+ "couldn't be saved " + be.getMessage());
+				}
 			}
 			
 			alreadyPersisted = true;
@@ -202,7 +211,8 @@
 «REM» Create an object from the given value for the given attribute «ENDREM»
 «DEFINE createObjectFromValue(String name, String value) FOR Entity»
 	«FOREACH getAllAttributes AS attrib-»
-		«name».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»(«value»);
+		«name».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»
+			(«attrib.Type.NameS =="String"?("\"" + value + "\""):value»);
 	«ENDFOREACH»
 	
 	«EXPAND addDependencies(name) FOR this-»

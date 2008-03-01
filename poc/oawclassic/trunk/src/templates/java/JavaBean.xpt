@@ -66,14 +66,7 @@
 		«ENDREM»
 		
 		@MappedSuperclass
-		/*«getAnnotaitons()»*/
-		/* 
-			«FOREACH Constraint AS c»
-				«c.NameS»
-			«ENDFOREACH»
-			There are «Constraint.size» constraints.
-		*/
-		«getClassDeclaration()»{
+		«getClassDeclaration()» « (isAuditable)?", org.witchcraft.model.support.audit.Auditable":""»{
 		
 				«FOREACH getNq AS e»
 					«e»
@@ -129,6 +122,7 @@
 
 
 «DEFINE displayName FOR Entity»
+	
 	«IF getDisplayName != null || Attribute.size == 1»
 		@Transient
 		public String getDisplayName(){
@@ -143,6 +137,9 @@
 	private static final long serialVersionUID = 1L;
 
 	«EXPAND Attribute::PropertyDeclaration FOREACH Attribute»
+	
+	«EXPAND GenConstructor FOR this»
+	
 	«EXPAND Attribute::Getter FOREACH Attribute»
 	«EXPAND Attribute::Setter FOREACH Attribute»
 	
@@ -157,6 +154,22 @@
 «ENDDEFINE»
 
 
+«DEFINE GenConstructor FOR Class»
+	/* Default Constructor */
+	public «NameS»Base(){}
+	
+	«IF Attribute.size > 0 »
+	/* Constructor with all attributes */
+	public «NameS»Base (
+		«FOREACH Attribute AS a ITERATOR iter -» «a.Type.NameS» «a.NameS» «iter.counter1 < Attribute.size?",":""» «ENDFOREACH-» ){
+		«FOREACH Attribute AS a-» 
+			this.«a.NameS» = «a.NameS»;  
+		«ENDFOREACH-»
+	}
+	«ENDIF»
+«ENDDEFINE»
+
+
 «DEFINE GenCodeWarning FOR Class»
 	/**
 	 * This is generated code - to edit code or override methods use - «NameS» class
@@ -164,5 +177,8 @@
 	 * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
 	 */
 «ENDDEFINE»
+
+
+
 
 

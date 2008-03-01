@@ -37,11 +37,6 @@
 	
 	import org.apache.log4j.Logger;
 	
-	«IF isEntityUser()»
-	import usermanagement.Authority;
-	import usermanagement.service.AuthorityService;
-	«ENDIF»
-	
 	import org.witchcraft.model.support.dao.GenericDAO;
 	import org.witchcraft.model.support.errorhandling.BusinessException;
 	import org.witchcraft.model.support.service.BaseServiceImpl;
@@ -64,20 +59,14 @@
 			return «asInstanceVar()»Dao;
 		}
 		
-		«IF isEntityUser()»
-			private AuthorityService authorityService;
-	
-			public void setAuthorityService(AuthorityService authorityService) {
-				this.authorityService = authorityService;
-			}
-		«ENDIF»
 		//// Delegate all crud operations to the Dao ////
 			
 		public «NameS» save(«NameS» «asInstanceVar()») {
 			Long id = «asInstanceVar()».getId();
 			«Unique.isEmpty?"":"checkUniqueConstraints("+asInstanceVar() +");"»
 			«asInstanceVar()»Dao.save(«asInstanceVar()»);
-			«IF isEntityUser()»
+			
+			«IF isEntityUser()-»
 			if(id == null) //creating user for first time, assign authority
 				assignDefaultAuthority(«asInstanceVar()»);
 			«ENDIF»
@@ -86,7 +75,6 @@
 		}
 		
 		«IF !Unique.isEmpty»
-		
 			/** Before saving a record we need to ensure that no unique constraints
 			 * will be violated. 
 			 * @param customer
@@ -105,14 +93,12 @@
 		«ENDIF»
 			
 		«IF isEntityUser()»
-		
 			private void assignDefaultAuthority(«NameS» «asInstanceVar()») {
 				Authority authority = new Authority();
-				authority.setUser(«asInstanceVar()».getUserAccount());
-				authority.setAuthority("«getDefaultRole != null? getDefaultRole : "ROLE_" +  NameS.toUpper»");
-				authorityService.save(authority);
+				authority.setName("«getDefaultRole != null? getDefaultRole : "ROLE_" +  NameS.toUpperCase()»");
+				«REM»TODO: Figure out a better way to find the user «ENDREM»
+				«asInstanceVar()».getUser().addAuthoritie(authority);
 			}
-		
 		«ENDIF»
 	
 		public void delete(«NameS» «asInstanceVar()») {
@@ -201,8 +187,7 @@
 	public interface «NameS»Service extends «NameS»Dao, BaseService<«NameS»>  {
 		
 			
-	}		
-	
+	}	
 	«ENDFILE»	
 «ENDDEFINE»
 	

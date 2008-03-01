@@ -1,0 +1,49 @@
+
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+
+
+@Aspect
+public class SystemArchitecture {
+
+	/**
+     *  we're in the pet store application if we're within any
+     *  of the pet store packages
+     */
+	@Pointcut("within(org.springframework.samples.jpetstore..*)")
+        public void inPetStore() {}
+
+	// modules
+	// ===========
+
+	@Pointcut("within(org.springframework.samples.jpetstore.dao..*)")
+        public void inDataAccessLayer() {}
+
+	@Pointcut("within(org.springframework.samples.jpetstore.domain.*)")
+        public void inDomainModel() {}
+
+	@Pointcut("within(org.springframework.samples.jpetstore.service..*)")
+        public void inServiceLayer() {}
+
+	@Pointcut("within(org.springframework.samples.jpetstore.web..*)")
+        public void inWebLayer() {}
+
+	@Pointcut("within(org.springframework.samples.jpetstore.remote..*)")
+        public void inRemotingLayer() {}
+
+	@Pointcut("within(org.springframework.samples.jpetstore.validation..*)")
+        public void inValidationModule() {}
+
+	// module operations
+	// ==================
+
+	@Pointcut("execution(* org.springframework.samples.jpetstore.dao.*.*(..))")
+        public void doaOperation() {}
+
+	@Pointcut("execution(* org.springframework.samples.jpetstore.service.*.*(..))")
+        public void businessService() {}
+
+	@Pointcut("execution(public * org.springframework.samples.jpetstore.validation.*.*(..))")
+	public void validation() {}
+
+}

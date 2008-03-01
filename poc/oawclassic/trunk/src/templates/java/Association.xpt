@@ -29,9 +29,9 @@
 
 	«DEFINE ToManyAccessorMethods FOR AssociationEnd»
 	public void add«removeTrailingS(NameS.toFirstUpper())» («Class.fqn()» «asParameter()») {
-		«IF Opposite.isNavigable »
+		«IF Opposite.isNavigable -»
 			«asParameter()».«Opposite.asSetter()»(«Opposite.Class.NameS.toFirstLower()»Instance());
-		«ENDIF»
+		«ENDIF-»
 		this.«asInstanceVar()».add(«asParameter()»);
 	}
 
@@ -44,9 +44,9 @@
 		«IF Opposite.isNavigable »
 			@OneToMany(mappedBy="«Opposite.asParameter()»", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 		«ELSE»
-			@OneToMany«Opposite.isComposition?"(cascade=CascadeType.ALL)\n@Cascade({org.hibernate.annotations.CascadeType.DELETE_ORPHAN})":""»
-			@JoinColumn(name="«Opposite.NameS != null?Opposite.NameS:Opposite.Class.NameS»_ID", nullable=«Opposite.isAssocNullable()»)
+			@OneToMany«Opposite.isComposition?"(cascade=CascadeType.ALL)\n@Cascade({org.hibernate.annotations.CascadeType.DELETE_ORPHAN})":"(cascade=CascadeType.PERSIST)"»
 		«ENDIF»
+			@JoinColumn(name="«Opposite.associationName()»_ID", nullable=«isAssocNullable()»)
 	«ENDIF»
 	public java.util.Set<«Class.fqn()»> «asGetter()» () {
 		return this.«asInstanceVar()»;
