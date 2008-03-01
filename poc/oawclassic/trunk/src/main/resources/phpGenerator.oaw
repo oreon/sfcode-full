@@ -20,7 +20,7 @@
 		file="org/openarchitectureware/workflow/oawclassic/classicinit.oaw">
 		<metaEnvironmentSlot value="me" />
 	</cartridge>
-<!--  
+
 	<component class="org.openarchitectureware.check.CheckComponent">
 		<metaModel
 			class="org.openarchitectureware.type.impl.java.JavaMetaModel">
@@ -32,7 +32,7 @@
 		<expression value="me.getElements('ModelElement')" />
 		<abortOnError value="true" />
 	</component>
---> 
+
 
 	<!--  
 		<component id="dirCleaner"
@@ -49,9 +49,9 @@
 				class="org.openarchitectureware.type.impl.oawclassic.OAWClassicStrategy"
 				convertPropertiesToLowerCase="false" />
 		</metaModel>
-		<expand value="Root::Root FOREACH me.getElements('Model')" />
+		<expand value="php::Root::Root FOREACH me.getElements('Model')" />
 		<outlet path="${srcGenPath}/" />
-		<srcPath value="${srcGenPath}/" />
+		<srcPath value="${srcGenPath}/php" />
 		<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
 
 		<beautifier
@@ -63,28 +63,7 @@
 
 	</component>
 
-	<component id="pageFlowGenerator"
-		class="org.openarchitectureware.xpand2.Generator">
-		<metaModel
-			class="org.openarchitectureware.type.impl.java.JavaMetaModel">
-			<typeStrategy
-				class="org.openarchitectureware.type.impl.oawclassic.OAWClassicStrategy"
-				convertPropertiesToLowerCase="false" />
-		</metaModel>
-		<expand
-			value="pageFlowGeneration::PageFlow::Gen FOREACH me.getElements('StateMachine')" />
-
-		<srcPath value="${srcGenPath}/" />
-		<outlet path="${srcGenPath}/" />
-		<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
-		<prSrcPaths value="${srcGenPath}/" />
-		<prExcludes value=", *.xml, *.hbm" />
-		<beautifier
-			class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
-		<beautifier
-			class="org.openarchitectureware.xpand2.output.XmlBeautifier" />
-		<fileEncoding value="ISO-8859-1" />
-	</component>
+	
 
 	<cartridge
 		file="org/openarchitectureware/workflow/oawclassic/classicfinish.oaw">
