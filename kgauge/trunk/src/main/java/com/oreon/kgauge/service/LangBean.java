@@ -28,7 +28,8 @@ public class LangBean {
         String current = event.getComponent().getId();
         FacesContext context = FacesContext.getCurrentInstance();
         context.getViewRoot().setLocale((Locale) locales.get(current));
-    System.out.println("Changed locale to: "+current);
+        this.locale = context.getViewRoot().getLocale();
+        System.out.println("Changed locale to: "+current);
     
     }
     
