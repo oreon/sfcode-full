@@ -2,28 +2,32 @@
 <!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN" "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
 <!-- This file is editable -->
 <faces-config>
-	
-	<!--  Spring variable resolver -->  
-  <application> 
-    <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver> 
-    
-     <locale-config>
-   		<default-locale>en</default-locale>
-   		<supported-locale>en_US</supported-locale>
-   		<supported-locale>de</supported-locale>
-   		<supported-locale>fr</supported-locale>
- 	 </locale-config>
- 	<message-bundle>messages.messages</message-bundle>
- 	
-  </application>  
-  
-  <!-- A converter for combo boxes (selectOneMenus ) to convert objects to and from ids -->
-  <converter>
-  		<converter-id>keyToObjectConverter</converter-id>
-		<converter-class>org.witchcraft.model.jsf.converters.KeyToObjectConverter</converter-class>
-  </converter>
-  
-  <managed-bean>
+
+	<!--  Spring variable resolver -->
+	<application>
+		<variable-resolver>
+			org.springframework.web.jsf.DelegatingVariableResolver
+		</variable-resolver>
+
+		<locale-config>
+			<default-locale>en</default-locale>
+			<supported-locale>en_US</supported-locale>
+			<supported-locale>de</supported-locale>
+			<supported-locale>fr</supported-locale>
+		</locale-config>
+		<message-bundle>messages.messages</message-bundle>
+
+	</application>
+
+	<!-- A converter for combo boxes (selectOneMenus ) to convert objects to and from ids -->
+	<converter>
+		<converter-id>keyToObjectConverter</converter-id>
+		<converter-class>
+			org.witchcraft.model.jsf.converters.KeyToObjectConverter
+		</converter-class>
+	</converter>
+
+	<managed-bean>
 		<managed-bean-name>authenticationController</managed-bean-name>
 		<managed-bean-class>
 			org.witchcraft.model.support.jsfbackingbeans.AuthenticationController
@@ -34,50 +38,48 @@
 			<value>#{authenticationManager}</value>
 		</managed-property>
 	</managed-bean>
-	
+
 	<managed-bean>
- 		<managed-bean-name>LangBean</managed-bean-name>
- 		<managed-bean-class>com.oreon.kgauge.service.LangBean</managed-bean-class>
- 		<managed-bean-scope>session</managed-bean-scope>		
+		<managed-bean-name>LangBean</managed-bean-name>
+		<managed-bean-class>
+			com.oreon.kgauge.service.LangBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
-	
+
 	<managed-bean>
- 		<managed-bean-name>UserBackingBean</managed-bean-name>
- 		<managed-bean-class>com.oreon.kgauge.web.jsf.UserBackingBean</managed-bean-class>
- 		<managed-bean-scope>session</managed-bean-scope>		
+		<managed-bean-name>UserBackingBean</managed-bean-name>
+		<managed-bean-class>
+			com.oreon.kgauge.web.jsf.UserBackingBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
-	
+
 	<navigation-rule>
 		<from-view-id>/index.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>
-				chooseLocale
-			</from-action>
+			<from-action>chooseLocale</from-action>
 			<to-view-id>/authenticate/index.xhtml</to-view-id>
-			
+
 		</navigation-case>
 		<navigation-case>
-			<from-action>
-				login
-			</from-action>
+			<from-action>login</from-action>
 			<to-view-id>/login.xhtml</to-view-id>
-			
+
 		</navigation-case>
 		<navigation-case>
-			<from-action>
-				register
-			</from-action>
+			<from-action>register</from-action>
 			<to-view-id>/authenticate/register.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-action>
-				forgotCredentials
-			</from-action>
-			<to-view-id>/authenticate/credentialsRetrieval.xhtml</to-view-id>
-			<redirect/>
+			<from-action>forgotCredentials</from-action>
+			<to-view-id>
+				/authenticate/credentialsRetrieval.xhtml
+			</to-view-id>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<from-view-id>/login.xhtml</from-view-id>
 		<navigation-case>
@@ -86,7 +88,7 @@
 			</from-action>
 			<from-outcome>success</from-outcome>
 			<to-view-id>/index.xhtml</to-view-id>
-			<redirect/>
+			<redirect />
 		</navigation-case>
 		<navigation-case>
 			<from-action>
@@ -96,73 +98,75 @@
 			<to-view-id>/login.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-action>logout</from-action>
 			<to-view-id>/login.xhtml</to-view-id>
-			<redirect/>
+			<redirect />
 		</navigation-case>
-		
+
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<from-view-id>/crud/*</from-view-id>
 		<navigation-case>
 			<from-action>reports</from-action>
 			<to-view-id>/reports/index.xhtml</to-view-id>
 		</navigation-case>
-		
+
 		<navigation-case>
 			<from-action>tasks</from-action>
 			<to-view-id>/tasks/index.xhtml</to-view-id>
 		</navigation-case>
-		
+
 		<navigation-case>
 			<from-action>preferences</from-action>
 			<to-view-id>/preferences/index.xhtml</to-view-id>
 		</navigation-case>
-		
+
 		<navigation-case>
 			<from-action>entities</from-action>
 			<to-view-id>/crud/index.xhtml</to-view-id>
 		</navigation-case>
-		
-		
+
+
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<from-view-id>/authenticate/*</from-view-id>
-	<navigation-case>
+		<navigation-case>
 			<from-action>login</from-action>
 			<to-view-id>/login.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-action>register</from-action>
 			<to-view-id>/authenticate/register.xhtml</to-view-id>
-			<redirect/>
+			<redirect />
 		</navigation-case>
 		<navigation-case>
 			<from-action>false</from-action>
 			<to-view-id>/authenticate/register.xhtml</to-view-id>
-			<redirect/>
+			<redirect />
 		</navigation-case>
 		<navigation-case>
 			<from-action>true</from-action>
 			<to-view-id>/authenticate/welcome.xhtml</to-view-id>
-			
+
 		</navigation-case>
 		<navigation-case>
 			<from-action>chooseLocale</from-action>
 			<to-view-id>/authenticate/index.xhtml</to-view-id>
-				
+
 		</navigation-case>
 		<navigation-case>
 			<from-action>forgotCredentials</from-action>
-			<to-view-id>/authenticate/credentialsRetrieval.xhtml</to-view-id>	
+			<to-view-id>
+				/authenticate/credentialsRetrieval.xhtml
+			</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
- 
+
+
 </faces-config>
