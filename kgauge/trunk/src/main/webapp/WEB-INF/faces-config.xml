@@ -38,8 +38,13 @@
 	<managed-bean>
  		<managed-bean-name>LangBean</managed-bean-name>
  		<managed-bean-class>com.oreon.kgauge.service.LangBean</managed-bean-class>
- 		<managed-bean-scope>session</managed-bean-scope>
- 		
+ 		<managed-bean-scope>session</managed-bean-scope>		
+	</managed-bean>
+	
+	<managed-bean>
+ 		<managed-bean-name>UserBackingBean</managed-bean-name>
+ 		<managed-bean-class>com.oreon.kgauge.web.jsf.UserBackingBean</managed-bean-class>
+ 		<managed-bean-scope>session</managed-bean-scope>		
 	</managed-bean>
 	
 	<navigation-rule>
@@ -136,6 +141,17 @@
 		<navigation-case>
 			<from-action>register</from-action>
 			<to-view-id>/authenticate/register.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-action>false</from-action>
+			<to-view-id>/authenticate/register.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-action>true</from-action>
+			<to-view-id>/authenticate/welcome.xhtml</to-view-id>
+			
 		</navigation-case>
 		<navigation-case>
 			<from-action>chooseLocale</from-action>

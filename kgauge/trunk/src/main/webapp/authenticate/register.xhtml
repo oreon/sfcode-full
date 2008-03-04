@@ -1,4 +1,4 @@
-	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -10,25 +10,43 @@
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	template="/WEB-INF/template/signIn.xhtml">
-	
+
 	<ui:define name="content">
 		<f:view>
-		<!--PROTECTED REGION ID(USER_CREATED) ENABLED START-->
+			<!--PROTECTED REGION ID(USER_CREATED) ENABLED START-->
+			setPropertyActionListener: Registers a special action listener whose sole purpose is to push a value into a backing bean when a form is submitted 
+			
 					This is protectable
 		<!--PROTECTED REGION END-->
 			<h:messages layout="list" globalOnly="true" showDetail="true"
 				styleClass="messages" />
-			<h:outputText value="" styleClass="message" />		
-			
-			<h:form>
-				<h:panelGrid>
-					
-					
-				
-				</h:panelGrid>
-			</h:form>
-	
+			<h:outputText value="" styleClass="message" />
+			<a4j:form id="form">
+				<rich:panel>
+					<h:panelGrid styleClass="formTable">
+						<f:facet name="header">
+							<h:outputText value="#{msg.register}" styleClass="formHeaderText" />
+						</f:facet>
+
+						<h:outputText value="#{msg.userID}" styleClass="formLabel" />
+						<h:inputText id="UserId" required="true">
+							<h:message for="UserId" styleClass="errMessage" />
+						</h:inputText>
+								<!-- value="#{UserBackingBean.uName}" -->
+						<h:outputText value="#{msg.password}" styleClass="formLabel" />
+						<h:inputSecret id="Password" required="true" redisplay="false">
+							<h:message for="Password" styleClass="errMessage" />
+						</h:inputSecret>
+								<!--  value="#{UserBackingBean.pWord}"-->
+								
+						<a4j:commandButton action="#{UserBackingBean.getRegistered}"
+							actionListener="#{UserBackingBean.setUser}"
+							value="#{msg.register}" />
+						<f:param name="UserID" value="#{UserId}" />
+						<f:param name="Password" value="#{Password}" />						
+					</h:panelGrid>
+				</rich:panel>
+			</a4j:form>
 		</f:view>
-	 </ui:define>	
-	</ui:composition>
-	
+	</ui:define>
+</ui:composition>
