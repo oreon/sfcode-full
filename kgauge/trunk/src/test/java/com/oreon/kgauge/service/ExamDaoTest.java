@@ -50,15 +50,15 @@ public class ExamDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			examInstance.setDescription("John");
-			examInstance.setName("pi");
-			examInstance.setQuestions(3937);
-			examInstance.setDuration(9370);
-			examInstance.setPrice(19.93);
+			examInstance.setDescription("Wilson");
+			examInstance.setName("alpha");
+			examInstance.setQuestions(6195);
+			examInstance.setDuration(574);
+			examInstance.setPrice(19.51);
 			examInstance
-					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
+					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
 			examInstance
-					.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
+					.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -96,14 +96,15 @@ public class ExamDaoTest extends AbstractJpaTests {
 
 			try {
 
-				exam.setDescription("Wilson");
-				exam.setName("pi");
-				exam.setQuestions(8913);
-				exam.setDuration(649);
-				exam.setPrice(72.54);
+				exam.setDescription("alpha");
+				exam.setName("beta");
+				exam.setQuestions(5995);
+				exam.setDuration(720);
+				exam.setPrice(70.92);
 				exam
 						.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
-				exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
+				exam
+						.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
 
 				TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("categoryTestDataFactory");
@@ -136,13 +137,13 @@ public class ExamDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Exam exam = (Exam) examTestDataFactory.loadOneRecord();
 
-			exam.setDescription("zeta");
-			exam.setName("gamma");
-			exam.setQuestions(6740);
-			exam.setDuration(5815);
-			exam.setPrice(20.79);
+			exam.setDescription("gamma");
+			exam.setName("delta");
+			exam.setQuestions(3482);
+			exam.setDuration(3001);
+			exam.setPrice(85.34);
 			exam
-					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
+					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
 			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
 
 			examService.save(exam);

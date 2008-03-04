@@ -24,7 +24,8 @@
 				
 			<h:panelGrid columns="2" styleClass="formTableCustom">
 					
-						<h:outputText value="Exam" styleClass="formLabel" />
+						<h:outputText value="Exam" />
+						<h:outputText value="" />
 						
 	
 	<h:panelGroup>
@@ -49,7 +50,12 @@
 					
 	
 		
-<h:outputText value="Name" styleClass="formLabel" />
+<h:panelGroup>
+	<h:outputText value=""/>
+	<h:outputText value="Section.name" />
+	<h:outputText value="" />
+</h:panelGroup>
+
 <h:panelGroup>
 	<a4j:region>
 	
@@ -74,8 +80,8 @@
 	
 					<f:facet name="footer">
   						<h:panelGroup>
-  						   <h:commandButton id="button1" value="Submit" action="#{sectionCrudBacking.update}"/> 
-  						    <h:commandButton id="button2" value="Cancel" action="success" immediate="true"/> 
+  						   <h:commandButton id="button1" value="Submit" action="#{sectionCrudBacking.update}"  styleClass="btn" /> 
+  						    <h:commandButton id="button2" value="Cancel" action="success" immediate="true" styleClass="btn"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="section_id" value="#{sectionCrudBacking.section.id}" />
 		  				   	

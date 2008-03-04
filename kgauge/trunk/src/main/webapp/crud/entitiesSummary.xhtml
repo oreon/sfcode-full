@@ -17,58 +17,46 @@
 			
 			<a4j:form id="form">
 			
-			<rich:panel>
+			<rich:panel header="Summary">
 				<h:panelGrid columns="1" styleClass="formTable">
-						<f:facet name="header">
-							<h:outputText value="Summary"
-								styleClass="formHeaderText"   />
-						</f:facet>	
 						
 					<h:panelGrid columns="5">
 						<h:outputText value="From" />
-						<t:inputCalendar renderAsPopup="true"
-							renderPopupButtonAsImage="true" required="false" id="from_Date">
-						</t:inputCalendar>
-
+						<rich:calendar popup="true" id="from_Date"/>
+						
 						<h:outputText value="To" />
-						<t:inputCalendar renderAsPopup="true"
-							renderPopupButtonAsImage="true" required="false" id="to_Date">
-						</t:inputCalendar>
-
+						<rich:calendar popup="true" id="to_Date" />
 
 						<h:commandButton id="button1" value="Submit" action="search" />
-
 					</h:panelGrid>
 						
+					<h:panelGrid columns="2" width="50%">
+					
+		<h:commandLink value="Candidate(#{candidateCrudBacking.count})"  action="listCandidate" />
+
+		<h:commandLink value="Question(#{questionCrudBacking.count})"  action="listQuestion" />
+
+		<h:commandLink value="AnswerChoice(#{answerChoiceCrudBacking.count})"  action="listAnswerChoice" />
+
+		<h:commandLink value="Exam(#{examCrudBacking.count})"  action="listExam" />
+
+		<h:commandLink value="ExamInstance(#{examInstanceCrudBacking.count})"  action="listExamInstance" />
+
+		<h:commandLink value="ExamCreator(#{examCreatorCrudBacking.count})"  action="listExamCreator" />
+
+		<h:commandLink value="Category(#{categoryCrudBacking.count})"  action="listCategory" />
+
+		<h:commandLink value="User(#{userCrudBacking.count})"  action="listUser" />
+
+		<h:commandLink value="Authority(#{authorityCrudBacking.count})"  action="listAuthority" />
+
+		<h:commandLink value="AnsweredQuestion(#{answeredQuestionCrudBacking.count})"  action="listAnsweredQuestion" />
+
+		<h:commandLink value="Section(#{sectionCrudBacking.count})"  action="listSection" />
+
+					</h:panelGrid>			
 			
-						
-		<h:outputText styleClass="formLabel" value="Candidate(#{candidateCrudBacking.count})"/>
-
-		<h:outputText styleClass="formLabel" value="Question(#{questionCrudBacking.count})"/>
-
-		<h:outputText styleClass="formLabel" value="AnswerChoice(#{answerChoiceCrudBacking.count})"/>
-
-		<h:outputText styleClass="formLabel" value="Exam(#{examCrudBacking.count})"/>
-
-		<h:outputText styleClass="formLabel" value="ExamInstance(#{examInstanceCrudBacking.count})"/>
-
-		<h:outputText styleClass="formLabel" value="ExamCreator(#{examCreatorCrudBacking.count})"/>
-
-		<h:outputText styleClass="formLabel" value="Category(#{categoryCrudBacking.count})"/>
-
-		<h:outputText styleClass="formLabel" value="User(#{userCrudBacking.count})"/>
-
-		<h:outputText styleClass="formLabel" value="Authority(#{authorityCrudBacking.count})"/>
-
-		<h:outputText styleClass="formLabel" value="AnsweredQuestion(#{answeredQuestionCrudBacking.count})"/>
-
-		<h:outputText styleClass="formLabel" value="Section(#{sectionCrudBacking.count})"/>
-			
-			
-				</h:panelGrid>
-						
-				<br/>
-				<br/>
+				</h:panelGrid>  
 						
 			 </rich:panel>	
 			</a4j:form>

@@ -12,20 +12,19 @@
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
-  	<ui:define name="content">
-  	
+	
+	<ui:define name="title"> Search Section </ui:define>
+ 	<ui:define name="content">
+
 		<f:view>
 			<h:messages layout="list" globalOnly="true" showDetail="true"
 			styleClass="messages" />
 		
-			<a4j:form id="searchForm">
+			<a4j:form id="form">
 				<rich:tabPanel switchType="client">
 					<rich:tab label="Basic" >
-					<h:panelGrid columns="6" styleClass="formTable">
-						<f:facet name="header">
-							<h:outputText value="Section Information"
-								styleClass="formHeaderText"   />
-						</f:facet>
+						<rich:panel header="Search Section">
+						<h:panelGrid columns="6" >
 						
 							<h:outputText value="Name" styleClass="formLabel" />
 							
@@ -39,7 +38,7 @@
 							
 							
 							
-								<h:outputText value="" styleClass="formLabel" />
+								<h:outputText value="Exam" styleClass="formLabel" />
 								
 	
 	<h:panelGroup>
@@ -62,33 +61,89 @@
 	</h:panelGroup>
 
 							
+							</h:panelGrid>
+
+							<h:panelGrid columns="2">
 							
-  						   <h:commandButton id="button1" value="Search" action="#{sectionCrudBacking.search}"  /> 
-  						    <h:commandButton id="button2" value="Cancel" action="cancel" immediate="true"/> 
+  						   <h:commandButton id="btn_search" value="Search" action="#{sectionCrudBacking.search}" styleClass="btn"  /> 
+  						    <h:commandButton id="btn_cancel" value="Cancel" action="cancel" immediate="true"  styleClass="btn" /> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="section_id" value="#{sectionCrudBacking.section.id}" />
 
-						</h:panelGrid>
-						</rich:tab>
-						<rich:tab label="Advanced">
-							<h:outputText value="Creation Date" styleClass="formLabel" />
-							
-							<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
-								id="dt__creation"
-								value="#{sectionCrudBacking.section.dateCreated}">
-								
-							</t:inputCalendar >
-							
-							<h:message for="dt__creation" styleClass="errMessage" />
-				
+							</h:panelGrid>
 						
+						 </rich:panel>
 						</rich:tab>
+		<rich:tab label="Advanced">
+	
+		<h:inputHidden id="dateOperation" value="#{sectionCrudBacking.dateOp}"/>
+			
+		<h:panelGrid id="advGrid" columns="6" styleClass="formTable">
+			
+			<f:facet name="header">
+				<h:outputText value="Section Information" styleClass="formHeaderText"   />
+			</f:facet>
+							   
+			<h:column id="ddcol">	
+				<h:form id="ddform">	
+				<!--plan:when a date operation is selected it stores the value in dateOperation-->
+				<!--The value in dOp should be rendered with value of dateOperation-->
+				<!--When the search button is clicked dateOperation etc will be passed to a method in backing bean-->				
+				<rich:dropDownMenu id="ddmenu" submitMode="ajax" binding="#{sectionCrudBacking.dateOp}" onitemselect="render='form.dOp'" immediate="true" >
+                	<f:facet name="label"> 
+                	    <h:panelGrid id="pg" cellpadding="0" cellspacing="0" columns="2" style="vertical-align:middle">
+                         	<h:graphicImage value="/images/icons/date_go.png" style="border: 0px"/>
+                        	<h:outputText id="t" value="Date" />
+                    	</h:panelGrid>                                                                		
+                	</f:facet>               
+                	<rich:menuItem  value="On"  reRender="form.dOp" icon="/images/icons/flag_blue.png" >             		
+                	<f:param id="On" name="id" value="On" />						
+                	</rich:menuItem>               
+                	<rich:menuItem    value="Before" icon="/images/icons/resultset_previous.png"    >    
+                	<f:param id="Before" name="id" value="Before" />		
+                	
+                	</rich:menuItem>                   	
+                	<rich:menuItem  value="After"  icon="/images/icons/resultset_next.png"  > 
+                	<f:param id="After" name="id" value="After" />				
+                	
+                	</rich:menuItem>                 
+                	<rich:menuItem  value="Between" immediate="true" icon="/images/icons/tag.png">
+                	<f:param id="Between" name="id" value="Between" />	
+            		</rich:menuItem>      
+            		
+            		<rich:menuItem    value="Any"  >
+            		<f:param id="Any" name="id" value="Any" />	
+            		</rich:menuItem>                               	 
+				</rich:dropDownMenu>
+				
+				</h:form>
+				</h:column>		
+			<h:column id="outCol" styleClass="header">
+			 
+				   <h:outputText id="dOp" render="true" ajaxRendered="true" name="dateOp" style="font-weight:bold"  immediate="true" value="#{sectionCrudBacking.dateOp}"  />				
+			 	
+    		
+			</h:column>		
+			<h:column>		
+				<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
+								id="fromDate"
+								value="#{sectionCrudBacking.section.dateCreated}">							
+				</t:inputCalendar >
+			</h:column>				
+							<h:message for="fromDate" styleClass="errMessage" />
+		</h:panelGrid>		
+	<h:commandButton value="Search" action="submit" />						
+	</rich:tab>
 						
 						
 				</rich:tabPanel>
-	
+				
+				
 			</a4j:form>
 		</f:view>
+
 	</ui:define>
+	
 </ui:composition>
+
 		

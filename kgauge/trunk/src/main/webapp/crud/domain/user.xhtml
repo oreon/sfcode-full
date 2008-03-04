@@ -28,7 +28,12 @@
 					
 	
 		
-<h:outputText value="UserName*" styleClass="formLabel" />
+<h:panelGroup>
+	<h:outputText value=""/>
+	<h:outputText value="User.userName" />
+	<h:outputText value="*" />
+</h:panelGroup>
+
 <h:panelGroup>
 	<a4j:region>
 	
@@ -54,12 +59,17 @@
 
 	
 		
-<h:outputText value="Password*" styleClass="formLabel" />
+<h:panelGroup>
+	<h:outputText value=""/>
+	<h:outputText value="User.password" />
+	<h:outputText value="*" />
+</h:panelGroup>
+
 <h:panelGroup>
 	<a4j:region>
 	
 		
-	<h:inputSecret   maxLength="12"   required="true" 
+	<h:inputSecret   maxLength="12"  redisplay="true"   required="true" 
 		id="user_password"
 		value="#{userCrudBacking.user.password}">
 		<f:validateLength minimum="5" maximum="12"/>
@@ -77,12 +87,17 @@
 
 		
 			
-<h:outputText value="Repeat Password*" styleClass="formLabel" />
+<h:panelGroup>
+	<h:outputText value="Repeat "/>
+	<h:outputText value="User.password" />
+	<h:outputText value="*" />
+</h:panelGroup>
+
 <h:panelGroup>
 	<a4j:region>
 	
 		
-	<h:inputSecret   maxLength="12"   required="true" 
+	<h:inputSecret   maxLength="12"  redisplay="true"   required="true" 
 		id="user_null_repeatPassword"
 		value="#{userCrudBacking.repeatPassword}">
 		<f:validateLength minimum="5" maximum="12"/>
@@ -103,7 +118,12 @@
 
 	
 		
-<h:outputText value="Enabled" styleClass="formLabel" />
+<h:panelGroup>
+	<h:outputText value=""/>
+	<h:outputText value="User.enabled" />
+	<h:outputText value="" />
+</h:panelGroup>
+
 <h:panelGroup>
 	<a4j:region>
 	
@@ -128,8 +148,8 @@
 	
 					<f:facet name="footer">
   						<h:panelGroup>
-  						   <h:commandButton id="button1" value="Submit" action="#{userCrudBacking.update}"/> 
-  						    <h:commandButton id="button2" value="Cancel" action="success" immediate="true"/> 
+  						   <h:commandButton id="button1" value="Submit" action="#{userCrudBacking.update}"  styleClass="btn" /> 
+  						    <h:commandButton id="button2" value="Cancel" action="success" immediate="true" styleClass="btn"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="user_id" value="#{userCrudBacking.user.id}" />
 		  				   	

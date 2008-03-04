@@ -24,7 +24,8 @@
 				
 			<h:panelGrid columns="2" styleClass="formTableCustom">
 					
-						<h:outputText value="ExamCreator*" styleClass="formLabel" />
+						<h:outputText value="ExamCreator" />
+						<h:outputText value="*" />
 						
 	
 	<h:panelGroup>
@@ -49,7 +50,12 @@
 					
 	
 		
-<h:outputText value="Description*" styleClass="formLabel" />
+<h:panelGroup>
+	<h:outputText value=""/>
+	<h:outputText value="Exam.description" />
+	<h:outputText value="*" />
+</h:panelGroup>
+
 <h:panelGroup>
 	<a4j:region>
 	
@@ -75,17 +81,22 @@
 
 	
 		
-<h:outputText value="Name*" styleClass="formLabel" />
+<h:panelGroup>
+	<h:outputText value=""/>
+	<h:outputText value="Exam.name" />
+	<h:outputText value="*" />
+</h:panelGroup>
+
 <h:panelGroup>
 	<a4j:region>
 	
 		
-	<h:inputTextarea   maxLength="120"   required="true" 
+	<h:inputText   maxLength="120"   required="true" 
 		id="exam_name"
 		value="#{examCrudBacking.exam.name}">
 		<f:validateLength minimum="3" maximum="120"/>
 		<a4j:support event="onblur" reRender="exam_name" />
-	</h:inputTextarea>
+	</h:inputText>
 	
 	<rich:message for="exam_name"
 		 styleClass="errMessage">
@@ -101,7 +112,12 @@
 
 	
 		
-<h:outputText value="Questions" styleClass="formLabel" />
+<h:panelGroup>
+	<h:outputText value=""/>
+	<h:outputText value="Exam.questions" />
+	<h:outputText value="" />
+</h:panelGroup>
+
 <h:panelGroup>
 	<a4j:region>
 	
@@ -127,7 +143,12 @@
 
 	
 		
-<h:outputText value="Duration" styleClass="formLabel" />
+<h:panelGroup>
+	<h:outputText value=""/>
+	<h:outputText value="Exam.duration" />
+	<h:outputText value="" />
+</h:panelGroup>
+
 <h:panelGroup>
 	<a4j:region>
 	
@@ -153,7 +174,12 @@
 
 	
 		
-<h:outputText value="Price" styleClass="formLabel" />
+<h:panelGroup>
+	<h:outputText value=""/>
+	<h:outputText value="Exam.price" />
+	<h:outputText value="" />
+</h:panelGroup>
+
 <h:panelGroup>
 	<a4j:region>
 	
@@ -179,7 +205,12 @@
 
 	
 		
-<h:outputText value="ScoringStrategy" styleClass="formLabel" />
+<h:panelGroup>
+	<h:outputText value=""/>
+	<h:outputText value="Exam.scoringStrategy" />
+	<h:outputText value="" />
+</h:panelGroup>
+
 <h:panelGroup>
 	<a4j:region>
 	
@@ -205,7 +236,12 @@
 
 	
 		
-<h:outputText value="ExamStatus" styleClass="formLabel" />
+<h:panelGroup>
+	<h:outputText value=""/>
+	<h:outputText value="Exam.examStatus" />
+	<h:outputText value="" />
+</h:panelGroup>
+
 <h:panelGroup>
 	<a4j:region>
 	
@@ -230,8 +266,8 @@
 	
 					<f:facet name="footer">
   						<h:panelGroup>
-  						   <h:commandButton id="button1" value="Submit" action="#{examCrudBacking.update}"/> 
-  						    <h:commandButton id="button2" value="Cancel" action="success" immediate="true"/> 
+  						   <h:commandButton id="button1" value="Submit" action="#{examCrudBacking.update}"  styleClass="btn" /> 
+  						    <h:commandButton id="button2" value="Cancel" action="success" immediate="true" styleClass="btn"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="exam_id" value="#{examCrudBacking.exam.id}" />
 		  				   	

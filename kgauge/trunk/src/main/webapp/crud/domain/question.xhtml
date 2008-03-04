@@ -24,7 +24,8 @@
 				
 			<h:panelGrid columns="2" styleClass="formTableCustom">
 					
-						<h:outputText value="Exam*" styleClass="formLabel" />
+						<h:outputText value="Exam" />
+						<h:outputText value="*" />
 						
 	
 	<h:panelGroup>
@@ -45,7 +46,8 @@
 	
 	</a4j:region>
 	</h:panelGroup>
-						<h:outputText value="Section*" styleClass="formLabel" />
+						<h:outputText value="Section" />
+						<h:outputText value="*" />
 						
 	
 	<h:panelGroup>
@@ -70,7 +72,12 @@
 					
 	
 		
-<h:outputText value="QuestionText*" styleClass="formLabel" />
+<h:panelGroup>
+	<h:outputText value=""/>
+	<h:outputText value="Question.questionText" />
+	<h:outputText value="*" />
+</h:panelGroup>
+
 <h:panelGroup>
 	<a4j:region>
 	
@@ -96,7 +103,12 @@
 
 	
 		
-<h:outputText value="DifficultyLevel" styleClass="formLabel" />
+<h:panelGroup>
+	<h:outputText value=""/>
+	<h:outputText value="Question.difficultyLevel" />
+	<h:outputText value="" />
+</h:panelGroup>
+
 <h:panelGroup>
 	<a4j:region>
 	
@@ -121,8 +133,8 @@
 	
 					<f:facet name="footer">
   						<h:panelGroup>
-  						   <h:commandButton id="button1" value="Submit" action="#{questionCrudBacking.update}"/> 
-  						    <h:commandButton id="button2" value="Cancel" action="success" immediate="true"/> 
+  						   <h:commandButton id="button1" value="Submit" action="#{questionCrudBacking.update}"  styleClass="btn" /> 
+  						    <h:commandButton id="button2" value="Cancel" action="success" immediate="true" styleClass="btn"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  				   	<h:inputHidden id="question_id" value="#{questionCrudBacking.question.id}" />
 		  				   	

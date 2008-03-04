@@ -13,12 +13,12 @@
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
 	
-	<ui:define name="title">  List of Sections </ui:define>
-
 	<ui:define name="content">
 		<f:view>
-			<h:messages layout="list" globalOnly="true" showDetail="true"
-			styleClass="messages" />	
+			<a4j:outputPanel styleClass="infoMessage" layout="block" > 
+				<h:messages layout="list" globalOnly="true" showDetail="true"/>	
+			</a4j:outputPanel>
+			
 			<a4j:form id="form_listing">
 				<rich:tabPanel  switchType="ajax">
 					<rich:tab label="Tabular" >
@@ -79,13 +79,13 @@
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 		
-								<a4j:commandLink action="#{sectionCrudBacking.delete}"	
+								<t:commandLink action="#{sectionCrudBacking.delete}"	
 									onclick="if(window.confirm('Are You Sure?')==false){return false}"
-									actionListener="#{sectionCrudBacking.selectEntity}" immediate="true">														
+									actionListener="#{sectionCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
 									<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
 									<f:param id="deleteId" name="id" value="#{section.id}" />												
-								</a4j:commandLink>
+								</t:commandLink>
 								<!--
 								</acegijsf:authorize>
 								--> 

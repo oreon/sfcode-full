@@ -91,4 +91,9 @@ public abstract class PersonBase
 
 	public abstract Person personInstance();
 
+	@Transient
+	public String getDisplayName() {
+		return firstName + "";
+	}
+
 }

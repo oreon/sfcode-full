@@ -12,7 +12,6 @@ import org.hibernate.annotations.Cascade;
 
 import org.witchcraft.model.jsf.Image;
 import java.util.Date;
-
 import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
@@ -23,8 +22,6 @@ public abstract class ExamInstanceBase
 		implements
 			java.io.Serializable,
 			org.witchcraft.model.support.audit.Auditable {
-
-	//named queries : 0
 
 	private static final long serialVersionUID = 1L;
 

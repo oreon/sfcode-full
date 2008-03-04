@@ -7,21 +7,17 @@
 
 package com.oreon.kgauge.service.impl;
 
-import com.oreon.kgauge.domain.Authority;
-import com.oreon.kgauge.service.AuthorityService;
-import com.oreon.kgauge.dao.AuthorityDao;
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.annotation.Propagation;
-
 import org.apache.log4j.Logger;
-
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.witchcraft.model.support.dao.GenericDAO;
-import org.witchcraft.model.support.errorhandling.BusinessException;
 import org.witchcraft.model.support.service.BaseServiceImpl;
 
-import javax.jws.WebService;
+import com.oreon.kgauge.dao.AuthorityDao;
+import com.oreon.kgauge.domain.Authority;
+import com.oreon.kgauge.service.AuthorityService;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 public class AuthorityServiceImplBase extends BaseServiceImpl<Authority>

@@ -107,7 +107,7 @@ public class SectionDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Section section = (Section) sectionTestDataFactory.loadOneRecord();
 
-			section.setName("beta");
+			section.setName("epsilon");
 
 			sectionService.save(section);
 
