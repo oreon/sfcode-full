@@ -10,12 +10,13 @@
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 	template="/WEB-INF/template/signIn.xhtml">
-	<ui:define name="title"> Register Candidate </ui:define>
+	<f:loadBundle basename="messages.messages" var="msg" />
+	<ui:define name="title"> Candidate Registration </ui:define>
 	<ui:define name="content">
-		<f:view>
-			<f:loadBundle basename="messages.messages" var="msg" />
+		<f:view >
+			
 			<h:messages layout="list" globalOnly="true" showDetail="true"
-				styleClass="messages" />
+				styleClass="messages.messages" />
 
 			<a4j:form id="form">
 				<rich:panel header="Candidate Information">
@@ -350,7 +351,7 @@
 						</f:facet>
 					</h:panelGrid>
 					<br />
-
+<h:outputText value="Testing Locale: #{LangBean.locale.displayCountry}" />
 
 
 				</rich:panel>
