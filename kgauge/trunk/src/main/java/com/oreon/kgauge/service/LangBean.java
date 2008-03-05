@@ -19,6 +19,7 @@ public class LangBean {
         locales.put("englishUK", new Locale("en", "GB"));
         locales.put("french", new Locale("fr", "FR"));
         locales.put("german", new Locale("de", "DE"));
+        locales.put("en", new Locale("en"));
     }
     
     public Locale getLocale(){
@@ -30,9 +31,16 @@ public class LangBean {
         FacesContext context = FacesContext.getCurrentInstance();
         context.getViewRoot().setLocale((Locale) locales.get(current));
         this.locale = context.getViewRoot().getLocale();
+        Locale.setDefault(locale);
         System.out.println("Changed locale to: "+current);
     
     }
-    
+    public void setLocale(){
+    	
+    	FacesContext context = FacesContext.getCurrentInstance();
+        context.getViewRoot().setLocale(locale);
+        this.locale = context.getViewRoot().getLocale();
+    	
+    }
 }
 
