@@ -50,7 +50,7 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setName("epsilon");
+			authority.setName("Mark");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -73,7 +73,7 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setName("Lavendar");
+			authority.setName("Wilson");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -96,7 +96,7 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setName("Eric");
+			authority.setName("pi");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -119,7 +119,7 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setName("Mark");
+			authority.setName("zeta");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -142,7 +142,7 @@ public class AuthorityTestDataFactory
 
 		try {
 
-			authority.setName("zeta");
+			authority.setName("pi");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");

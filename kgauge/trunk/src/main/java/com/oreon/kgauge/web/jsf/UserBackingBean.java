@@ -1,9 +1,8 @@
 package com.oreon.kgauge.web.jsf;
 
 import javax.faces.component.UIParameter;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.ValueChangeEvent;
+import javax.faces.context.FacesContext;
 import javax.faces.component.UIOutput;
 
 import org.witchcraft.model.jsf.BaseBackingBean;
@@ -35,62 +34,9 @@ public class UserBackingBean extends BaseBackingBean<User> {
 	public User getUser() {
 		return user;
 	}
-	
-	//variables for setUser
-	String uName="";
-	String pWord="";
-	String enabled="true";
-	String registered="true";//this needs to be coded!!!!?
-	boolean isEnabled=false;
-	boolean isRegistered=true;
-	public void setUName(String u){uName=u;}
-	public String getUName(){return uName;}
-	public void setPWord(String p){pWord=p;}
-	public String getPWord(){return pWord;}
-	public void setEnabled(String e){enabled=e;
-	if(enabled=="true"){isEnabled=true;}
-	else{isEnabled=false;}}
-	public String getEnabled(){return enabled;}
-	
-	//trying different methods but none work so far
-	public void setUser(){
-		FacesContext context = FacesContext.getCurrentInstance();
-		uName = (String)context.getExternalContext().getRequestParameterMap().get("UserID");
-		pWord = (String)context.getExternalContext().getRequestParameterMap().get("Password");		
-		user=new User(uName,pWord,isEnabled);
-		getBaseService().save(new User(uName,pWord,isEnabled));
-	}
-	
-	public void setUser(ActionEvent e){
-		FacesContext context = FacesContext.getCurrentInstance();
-		uName = (String)context.getExternalContext().getRequestParameterMap().get("UserID");
-		pWord = (String)context.getExternalContext().getRequestParameterMap().get("Password");		
-		user=new User(uName,pWord,isEnabled);
-		getBaseService().save(new User(uName,pWord,isEnabled));
-	}
-	
-	public String getRegistered(){return registered;}
-	
-	public void setRegistered(String r){registered=r;
-	if(registered=="true"){isRegistered=true;}
-	else{isRegistered=false;}}
-	
-	
-	public void setTargetUser(){
-		if(enabled=="true"){isEnabled=true;}
-		else{isEnabled=false;}
-		user=new User(uName,pWord,isEnabled);
-		getBaseService().save(new User(uName,pWord,isEnabled));		
-	}
-		
+
 	public void set(User user) {
 		this.user = user;
-	}
-	
-	public void set(String u, String p) {		
-		user=new User(uName,pWord,isEnabled);
-		getBaseService().save(user);
-		//this.user = getBaseService().load(getCount());
 	}
 
 	@SuppressWarnings("unchecked")

@@ -50,8 +50,8 @@ public class QuestionDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			questionInstance.setQuestionText("delta");
-			questionInstance.setDifficultyLevel(7294);
+			questionInstance.setQuestionText("beta");
+			questionInstance.setDifficultyLevel(5639);
 
 			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("examTestDataFactory");
@@ -89,8 +89,8 @@ public class QuestionDaoTest extends AbstractJpaTests {
 
 			try {
 
-				question.setQuestionText("gamma");
-				question.setDifficultyLevel(6946);
+				question.setQuestionText("pi");
+				question.setDifficultyLevel(9657);
 
 				TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("examTestDataFactory");
@@ -124,8 +124,8 @@ public class QuestionDaoTest extends AbstractJpaTests {
 			Question question = (Question) questionTestDataFactory
 					.loadOneRecord();
 
-			question.setQuestionText("Lavendar");
-			question.setDifficultyLevel(2427);
+			question.setQuestionText("delta");
+			question.setDifficultyLevel(9193);
 
 			questionService.save(question);
 

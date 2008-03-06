@@ -48,8 +48,8 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("epsilon");
-			question.setDifficultyLevel(9888);
+			question.setQuestionText("pi");
+			question.setDifficultyLevel(2277);
 
 			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("examTestDataFactory");
@@ -78,8 +78,8 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("theta");
-			question.setDifficultyLevel(3430);
+			question.setQuestionText("beta");
+			question.setDifficultyLevel(2558);
 
 			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("examTestDataFactory");
@@ -108,8 +108,8 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("Malissa");
-			question.setDifficultyLevel(6530);
+			question.setQuestionText("alpha");
+			question.setDifficultyLevel(8154);
 
 			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("examTestDataFactory");
@@ -138,8 +138,8 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("epsilon");
-			question.setDifficultyLevel(3173);
+			question.setQuestionText("theta");
+			question.setDifficultyLevel(176);
 
 			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("examTestDataFactory");
@@ -168,8 +168,8 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("alpha");
-			question.setDifficultyLevel(5297);
+			question.setQuestionText("Malissa");
+			question.setDifficultyLevel(9035);
 
 			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("examTestDataFactory");

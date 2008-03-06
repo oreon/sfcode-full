@@ -1,17 +1,19 @@
 package com.oreon.kgauge.service;
 
-import com.oreon.kgauge.domain.Exam;
-import org.springframework.test.jpa.AbstractJpaTests;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.witchcraft.model.support.testing.TestDataFactory;
-import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
-
-import java.text.SimpleDateFormat;
-
 import javax.persistence.PersistenceException;
+
 import org.hibernate.PropertyValueException;
-import java.util.Date;
+import org.springframework.test.jpa.AbstractJpaTests;
+import org.witchcraft.model.support.Range;
+import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
+import org.witchcraft.model.support.testing.TestDataFactory;
+
+import com.oreon.kgauge.domain.Exam;
+import com.oreon.kgauge.domain.ScoringType;
 
 public class ExamDaoTest extends AbstractJpaTests {
 
@@ -50,15 +52,15 @@ public class ExamDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			examInstance.setDescription("Wilson");
-			examInstance.setName("alpha");
-			examInstance.setQuestions(6195);
-			examInstance.setDuration(574);
-			examInstance.setPrice(19.51);
+			examInstance.setDescription("delta");
+			examInstance.setName("zeta");
+			examInstance.setQuestions(5975);
+			examInstance.setDuration(5799);
+			examInstance.setPrice(11.93);
 			examInstance
 					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
 			examInstance
-					.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
+					.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -96,11 +98,11 @@ public class ExamDaoTest extends AbstractJpaTests {
 
 			try {
 
-				exam.setDescription("alpha");
-				exam.setName("beta");
-				exam.setQuestions(5995);
-				exam.setDuration(720);
-				exam.setPrice(70.92);
+				exam.setDescription("Malissa");
+				exam.setName("pi");
+				exam.setQuestions(4238);
+				exam.setDuration(3754);
+				exam.setPrice(70.1);
 				exam
 						.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
 				exam
@@ -137,13 +139,13 @@ public class ExamDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Exam exam = (Exam) examTestDataFactory.loadOneRecord();
 
-			exam.setDescription("gamma");
-			exam.setName("delta");
-			exam.setQuestions(3482);
-			exam.setDuration(3001);
-			exam.setPrice(85.34);
+			exam.setDescription("zeta");
+			exam.setName("Wilson");
+			exam.setQuestions(1502);
+			exam.setDuration(4290);
+			exam.setPrice(82.14);
 			exam
-					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
+					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
 			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
 
 			examService.save(exam);
@@ -159,13 +161,14 @@ public class ExamDaoTest extends AbstractJpaTests {
 
 	//count the number of records - add one delete it - check count is same after delete
 	public void testDelete() {
-		long count, newCount, diff = 0;
-		count = examService.getCount();
-		Exam exam = (Exam) examTestDataFactory.loadOneRecord();
-		examService.delete(exam);
-		newCount = examService.getCount();
-		diff = newCount - count;
+		
 		try {
+			long count, newCount, diff = 0;
+			count = examService.getCount();
+			Exam exam = (Exam) examTestDataFactory.loadOneRecord();
+			examService.delete(exam);
+			newCount = examService.getCount();
+			diff = newCount - count;
 			assertEquals(diff, 0);
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -186,6 +189,25 @@ public class ExamDaoTest extends AbstractJpaTests {
 		try {
 			List<Exam> exams = examService.searchByExample(examInstance);
 			assertTrue(!exams.isEmpty());
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+	}
+	
+	public void testSearchByExampleAndCriteria() {
+		Exam exam = new Exam();
+		exam.setScoringStrategy(ScoringType.ScoreOnlyForCorrectAnswers);
+		Range range = new Range(5.0, true, 30.0, false, "price");
+		List<Range> rangeList = new ArrayList<Range>();
+		rangeList.add(range);
+		
+		try {
+			List<Exam> exams = examService.searchByExample(exam, rangeList);
+			//Criteria cirteria = examService.createExampleCriteria(exam);
+			//cirteria.add(Restrictions.ge("price", 10.0));
+			//cirteria.add(Restrictions.between("price", 10.0, null));
+			//List<Exam> exams = cirteria.list();
+			assertTrue("size of exams list is " + exams.size(), !exams.isEmpty() && exams.size() == 2);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}

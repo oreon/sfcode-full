@@ -12,6 +12,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.witchcraft.model.support.Range;
 import org.witchcraft.model.support.dao.GenericDAO;
 import org.witchcraft.model.support.service.BaseServiceImpl;
 
@@ -65,6 +66,12 @@ public class AnsweredQuestionServiceImplBase
 	public List<AnsweredQuestion> searchByExample(
 			AnsweredQuestion answeredQuestion) {
 		return answeredQuestionDao.searchByExample(answeredQuestion);
+	}
+
+	public List<AnsweredQuestion> searchByExample(
+			AnsweredQuestion answeredQuestion, List<Range> rangeObjects) {
+		return answeredQuestionDao.searchByExample(answeredQuestion,
+				rangeObjects);
 	}
 
 	/*
