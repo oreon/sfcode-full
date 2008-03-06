@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.persistence.Transient;
 
+import org.hibernate.Criteria;
 import org.witchcraft.model.support.BusinessEntity;
 import org.witchcraft.model.support.audit.AuditLog;
 import org.witchcraft.model.support.audit.AuditLogDao;
@@ -102,6 +103,8 @@ public abstract class BaseServiceImpl<T extends BusinessEntity> {
 		return getDao().getCount(fromDate, toDate);
 	}
 	
-	
+	public Criteria createExampleCriteria(T exampleInstance){
+		return getDao().createExampleCriteria(exampleInstance);
+	}
 
 }

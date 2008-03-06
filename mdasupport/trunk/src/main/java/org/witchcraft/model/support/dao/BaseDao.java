@@ -16,7 +16,9 @@ import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.springframework.stereotype.Repository;
 import org.witchcraft.model.support.BusinessEntity;
-import org.witchcraft.model.support.audit.EntityAuditLogInterceptor;
+
+//causes circular dependency
+import org.witchcraft.model.support.Range;
 
 /**
  * @author jsingh
@@ -115,14 +117,30 @@ public class BaseDao<T> implements GenericDAO<T> {
 
 	public void delete(T entity) {
 		entityAuditLogInterceptor.onDelete(entity, "TESTUSER",  null, null , null );
-		entityManager.remove(entity);
+		entityManager.remove(entityManager.getReference(getPersistentClass(),
+				((BusinessEntity)entity).getId()));
+		//entityManager.remove(entity);
 	}
 
 	private String excludedProperties[] = { "dateModified", "dateCreated", "id" };
 
 	@SuppressWarnings("unchecked")
 	public List<T> searchByExample(T exampleInstance) {
+		Criteria criteria = createExampleCriteria(exampleInstance);
+		List list = criteria.list();
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<T> searchByExample(T exampleInstance, List<Range> rangeObjects){
+		Criteria criteria = createExampleCriteria(exampleInstance);
+		for (Range range : rangeObjects) {
+			range.updateCriterion(criteria);
+		}
+		return criteria.list();
+	}
 
+	public Criteria createExampleCriteria(T exampleInstance) {
 		Session session = (Session) entityManager.getDelegate();
 		
 		Example example = Example.create(exampleInstance).enableLike(
@@ -134,10 +152,7 @@ public class BaseDao<T> implements GenericDAO<T> {
 		for (String exclude : excludedProperties) {
 			example.excludeProperty(exclude);
 		}
-
-		List list = criteria.list();
-
-		return list;
+		return criteria;
 	}
 
 	public Interceptor getEntityAuditLogInterceptor() {

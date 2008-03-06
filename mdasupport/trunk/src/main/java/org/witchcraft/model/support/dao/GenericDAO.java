@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.jws.WebService;
 
+import org.hibernate.Criteria;
+import org.witchcraft.model.support.Range;
+
 
 public interface GenericDAO<T> {
 
@@ -12,7 +15,25 @@ public interface GenericDAO<T> {
 
     List<T> loadAll();
 
-    List<T> searchByExample(T exampleInstance);
+    
+    /** Search by example using the argument
+     * @param exampleInstance
+     * @return
+     */
+    public List<T> searchByExample(T exampleInstance);
+    
+    /** Search by example and additionally use ranges specified in rangeobjects.
+     * @param exampleInstance
+     * @param rangeObjects
+     * @return
+     */
+    public List<T> searchByExample(T exampleInstance, List<Range> rangeObjects);
+    
+    /** Create a hibernate criteria object using the given entity as an example 
+     * @param exampleInstance
+     * @return
+     */
+    public Criteria createExampleCriteria(T exampleInstance);
     
     T save(T entity);
     
@@ -31,6 +52,8 @@ public interface GenericDAO<T> {
      * @return The number of records created between fromdate and todate
      */
     public long getCount(Date fromDate, Date toDate);
+    
+    
     
    
 

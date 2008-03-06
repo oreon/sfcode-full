@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
+import org.witchcraft.model.support.BusinessEntity;
 import org.witchcraft.model.support.audit.AuditLog;
 import org.witchcraft.model.support.errorhandling.BusinessException;
 import org.witchcraft.model.support.service.BaseService;
@@ -74,9 +75,10 @@ public abstract class BaseBackingBean<T> {
 	/**
 	 * Write values to the database
 	 * 
-	 * @return - "success" if everthing goes fine
+	 * @return - "success" if everything goes fine
 	 */
 	public String update() {
+		boolean isNew = ((BusinessEntity)getEntity()).getId() == null;
 		try {
 			getBaseService().save(getEntity());
 		} catch (BusinessException be) {
@@ -89,7 +91,9 @@ public abstract class BaseBackingBean<T> {
 			createErrorMessage(ex.getMessage(), "Critical Error updating", ex);
 			return "failure";
 		}
-
+		
+		createSuccessMessage( getEntity().getClass().getSimpleName() + " was successfully " + 
+				(isNew?"added.":"updated.") );
 		return "success";
 	}
 
@@ -137,6 +141,14 @@ public abstract class BaseBackingBean<T> {
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_ERROR, errorTitle,
 						errorDetail));
+	}
+	
+	protected void createSuccessMessage(String message) {
+		//log.error(errorDetail, throwable);
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, message,
+						""));
 	}
 
 	
