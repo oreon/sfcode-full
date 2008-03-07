@@ -8,7 +8,9 @@ import javax.faces.component.UIOutput;
 import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
 
+import com.oreon.kgauge.domain.Exam;
 import com.oreon.kgauge.domain.Section;
+import com.oreon.kgauge.service.ExamService;
 import com.oreon.kgauge.service.SectionService;
 
 public class SectionBackingBean extends BaseBackingBean<Section> {
@@ -16,6 +18,18 @@ public class SectionBackingBean extends BaseBackingBean<Section> {
 	private Section section = new Section();
 
 	private SectionService sectionService;
+	
+	private ExamService examService;
+	
+	
+
+	public ExamService getExamService() {
+		return examService;
+	}
+
+	public void setExamService(ExamService examService) {
+		this.examService = examService;
+	}
 
 	public void setSectionService(SectionService sectionService) {
 		this.sectionService = sectionService;
@@ -116,6 +130,11 @@ public class SectionBackingBean extends BaseBackingBean<Section> {
 		// parse the value of the UIParameter component    	 
 		long id = Long.parseLong(component.getValue().toString());
 		 */
+	}
+	
+	public String updateSection() {		
+		getEntity().setExam(getExamService().load(getEntity().getExam().getId()));
+		return update();
 	}
 
 }
