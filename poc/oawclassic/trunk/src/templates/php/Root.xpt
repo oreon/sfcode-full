@@ -1,0 +1,28 @@
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::meta::uml»
+
+«DEFINE Root FOR Model»
+	«EXPAND Root FOREACH OwnedElement»
+«ENDDEFINE»
+
+«DEFINE Root FOR Package»
+	«IF NameS!= null && !NameS.startsWith("java")»
+		«EXPAND Root FOREACH OwnedElement»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE Root FOR Entity»
+	«EXPAND phpBean::EntityGen»
+	«EXPAND view::GenerateEdit»
+«ENDDEFINE»
+
+
+
+
+«DEFINE Root FOR Object»
+«ENDDEFINE»
+
+
+

@@ -1,0 +1,186 @@
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT org::openarchitectureware::meta::uml::state»
+
+«IMPORT oaw4::demo::classic::uml::meta»
+
+«EXTENSION view::ViewExtensions»
+
+«EXTENSION java::NamingConventions»
+
+
+
+«REM» «ENDREM»
+«DEFINE Gen FOR StateMachine»
+	
+	«FILE "../webapp/WEB-INF/faces-config-generated.xml"»
+	   «EXPAND GeneratePageFlow»
+	«ENDFILE»
+	
+	«EXPAND GenXHTML»
+
+«ENDDEFINE»
+
+
+«DEFINE GeneratePageFlow FOR StateMachine»
+<?xml version="1.0"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config>
+	«REM»comment
+	«EXPAND GenManagedBean FOREACH getStatesWithGuards()»
+	«ENDREM»
+	«EXPAND GenFacesNav FOREACH getStates()»
+</faces-config>
+«ENDDEFINE»
+
+«DEFINE GenFacesNav FOR ViewState»
+	<navigation-rule>
+	  	<from-view-id>/«StateMachine.NameS»/«NameS».xhtml</from-view-id>
+		«FOREACH OutTransition AS transition»
+		  <navigation-case>
+		    <from-outcome> «transition.Guard»</from-outcome>
+		    <to-view-id>/«StateMachine.NameS»/«transition.TargetVertex.NameS».xhtml</to-view-id>
+		  </navigation-case>   
+		«ENDFOREACH» 
+	</navigation-rule>
+«ENDDEFINE»
+
+«DEFINE GenFacesNav FOR CompositeState»
+«ENDDEFINE»
+
+«DEFINE GenFacesNav FOR SimpleState»
+«ENDDEFINE»
+
+«DEFINE GenManagedBean FOR ViewState»
+	<managed-bean>
+		<managed-bean-name>«NameS.toFirstLower()»Bean</managed-bean-name>
+		<managed-bean-class>states.web.jsf.«NameS.toFirstUpper()»Bean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>serviceFacade</property-name>
+			<value>#{serviceFacade}</value>
+		</managed-property>
+	</managed-bean> 
+«ENDDEFINE»
+
+
+«DEFINE GenXHTML FOR StateMachine»
+	 «EXPAND GenXHTML FOREACH getStates()»
+«ENDDEFINE»
+
+«REM» This function generates xhtml for the given state «ENDREM»
+«DEFINE GenXHTML FOR ViewState»
+	«FILE "../webapp/" +  StateMachine.NameS + "/" +NameS +".xhtml"»
+	
+	
+	«EXPAND view::ViewGen::genIncludes( this.getTemplate )-»
+	
+	<ui:define name="content">
+		<f:view>
+		«PROTECT CSTART '<!--' CEND '-->' ID "USER_CREATED" »
+					This is protectable
+		«ENDPROTECT»
+			<h:messages layout="list" globalOnly="true" showDetail="true"
+				styleClass="messages" />
+			<h:outputText value="«getMessage»" styleClass="message" />		
+			
+			<h:form>
+				<h:panelGrid>
+					
+					«REM»comment
+					«EXPAND EditView::genEditView(getEntities().select(entity|entity.NameS == "Customer"))
+						  -»
+					<h:commandLink value="«transition.Trigger.NameS»"
+						action="«transition.Trigger.NameS»" /> 
+					«ENDREM»
+				
+				</h:panelGrid>
+			</h:form>
+	
+		</f:view>
+	 </ui:define>	
+	</ui:composition>
+	«ENDFILE»
+«ENDDEFINE»
+
+«REM» Do nothing for states that are not ViewStates«ENDREM»
+«DEFINE GenXHTML FOR State»
+«ENDDEFINE»
+
+«REM» If any transition in a state has a guard we need to generate a backing bean for it «ENDREM»
+«DEFINE GenBeanClass FOR State»
+	«FILE "states/web/jsf" +"/"+ NameS.toFirstUpper() +"BeanBase.java"»  
+	
+		«EXPAND java::ManualFileGen::genManualFile("states/web/jsf", "Bean", "")»
+		
+		package states.web.jsf;
+		
+		import java.util.Date;
+		
+		import org.apache.log4j.Logger;
+		
+		import javax.faces.application.FacesMessage;
+		import javax.faces.context.FacesContext;
+		
+		public abstract class «NameS.toFirstUpper()»BeanBase{
+		
+			private facades.ServiceFacade serviceFacade;
+	
+			public facades.ServiceFacade getServiceFacade() {
+				return serviceFacade;
+			}
+		
+			public void setServiceFacade(facades.ServiceFacade serviceFacade) {
+				this.serviceFacade = serviceFacade;
+			}
+		
+			
+		«FOREACH OutTransition AS transition»
+			«IF transition.Trigger != null && transition.Guard != null»
+			
+				«IF transition.Trigger.hasParameter»
+					private String «transition.Trigger.Parameter»;
+					public void set«transition.Trigger.Parameter.toFirstUpper()»(String param){
+						this.«transition.Trigger.Parameter» = param;
+					}
+					public String get«transition.Trigger.Parameter.toFirstUpper()»(){
+						return «transition.Trigger.Parameter»;
+					}
+				«ENDIF»
+			
+				private static final Logger log = 
+					Logger.getLogger(«NameS.toFirstUpper()»BeanBase.class);
+			
+				public String  «transition.Guard»{
+					try{
+						 do«transition.Guard.toFirstUpper()»;
+					}catch(Throwable t ){
+						createErrorMessage(t.getMessage(), "Update Error");
+						log.error(t);
+						return "failure";
+		
+					}
+					
+					return "«transition.Trigger.NameS»";
+				}
+				
+				public abstract String do«transition.Guard.toFirstUpper()»;
+				
+			/** Creates and add an error message to the faces context
+			 * @param errorDetail
+			 * @param errorTitle
+			 */
+			private void createErrorMessage(String errorDetail, String errorTitle) {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, errorTitle, 
+								errorDetail));
+			}
+					
+			«ENDIF»
+		«ENDFOREACH» 
+	
+		} 
+	«ENDFILE»
+«ENDDEFINE»
+
+
