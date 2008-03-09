@@ -137,7 +137,19 @@ public class BaseDao<T> implements GenericDAO<T> {
 		for (Range range : rangeObjects) {
 			range.updateCriterion(criteria);
 		}
+		
+		addAssoications(criteria, exampleInstance);
+		
 		return criteria.list();
+	}
+
+	
+	/** This method should be overridden by derived classes to add searchable 
+	 *  associations to the criteria
+	 * @param criteria
+	 */
+	protected void addAssoications(Criteria criteria, T exampleInstance) {
+		
 	}
 
 	public Criteria createExampleCriteria(T exampleInstance) {

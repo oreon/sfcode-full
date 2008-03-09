@@ -1,5 +1,6 @@
 package org.witchcraft.model.jsf;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.witchcraft.model.support.BusinessEntity;
+import org.witchcraft.model.support.Range;
 import org.witchcraft.model.support.audit.AuditLog;
 import org.witchcraft.model.support.errorhandling.BusinessException;
 import org.witchcraft.model.support.service.BaseService;
@@ -71,6 +73,21 @@ public abstract class BaseBackingBean<T> {
 
 		return "successDelete";
 	}
+	
+	public String search(){
+		action=SEARCH;
+		return "search";
+	}
+	
+
+	/** Returns a success string upon selection of an entity in model - majority of work is done
+	 * in the actionListener selectEntity
+    * @return - "success" if everthing goes fine
+    * @see - 
+    */
+	 public String select(){
+		return "edit";
+	}
 
 	/**
 	 * Write values to the database
@@ -116,7 +133,7 @@ public abstract class BaseBackingBean<T> {
 	public List<T> getRecords() {
 		List<T> entities = null;
 		if (action != null && action.equals(SEARCH))
-			entities = getBaseService().searchByExample(getEntity());
+			entities = getBaseService().searchByExample(getEntity(), getRangeList());
 		else
 			entities = getBaseService().loadAll();
 
@@ -125,6 +142,10 @@ public abstract class BaseBackingBean<T> {
 			Collections.sort(entities, new DTOComparator(sortField,
 					sortAscending));
 		}
+		
+		createSuccessMessage( entities.size() > 0 ? ("Found " + entities.size() + " records ." ):
+			"no.records.found" );
+		
 		return entities;
 	}
 
@@ -199,6 +220,14 @@ public abstract class BaseBackingBean<T> {
 	 */
 	protected HttpSession getSession(){
 		return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+	}
+	
+	
+	/** This method is used for getting range objects and is typically overriden by backing beans
+	 * @return
+	 */
+	protected  List<Range> getRangeList(){
+		return new ArrayList<Range>();
 	}
 
 }
