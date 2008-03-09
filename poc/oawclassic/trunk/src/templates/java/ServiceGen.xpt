@@ -43,6 +43,8 @@
 	
 	import javax.jws.WebService;
 	
+	import org.witchcraft.model.support.Range;
+	
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
 	public class «NameS»ServiceImplBase extends BaseServiceImpl<«NameS»> implements «NameS»Service{
 	
@@ -118,6 +120,10 @@
 		
 		public List<«NameS»> searchByExample(«NameS» «asInstanceVar()») {
 			return «asInstanceVar()»Dao.searchByExample(«asInstanceVar()»);
+		}
+		
+		public List<«NameS»> searchByExample(«NameS» «asInstanceVar()», List<Range> rangeObjects){
+			return «asInstanceVar()»Dao.searchByExample(«asInstanceVar()», rangeObjects);
 		}
 		
 		«IF getTreeFields != null»

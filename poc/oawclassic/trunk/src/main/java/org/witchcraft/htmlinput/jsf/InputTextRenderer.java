@@ -7,7 +7,7 @@ import org.openarchitectureware.meta.uml.classifier.Attribute;
 
 public class InputTextRenderer extends AbstractInputComponentRenderer {
 
-	public final static int LENGTH_FOR_TEXTAREA = 50;
+	public final static int LENGTH_FOR_TEXTAREA = 120;
 
 	public String getType(Attribute attribute) {
 		if (attribute instanceof Column) {
@@ -93,9 +93,13 @@ public class InputTextRenderer extends AbstractInputComponentRenderer {
 
 		if (attribute instanceof Column
 				&& ((Column) attribute).getMaxLength() > 0) {
-			System.out.println();
-			attrib = " maxLength=\"" + ((Column) attribute).getMaxLength()
-					+ "\" ";
+			Column column = (Column) attribute;
+			attrib = " maxLength=\"" + column.getMaxLength() + "\" ";
+			
+			//for passwords etc, we need to set redisplay to true for 
+			// ajax validation to work properly
+			if (("secret").equalsIgnoreCase(column.getInputType()))
+				attrib += " redisplay=\"true\" ";
 		}
 		return attrib + super.getAttributes(attribute);
 	}

@@ -401,34 +401,11 @@ public class ClassUtil {
 	}
 
 	public static String getViewLabel(Attribute attribute) {
-		return getViewLabelFromVariable(attribute.NameS()); // +
-		// getIndicatorForRequiredAttribute(attribute)
-		// ;
+		return GenericUtils.getViewLabelFromVariable(attribute.NameS()); // +
 	}
 
 	public static String getViewLabel(String name) {
-		return getViewLabelFromVariable(name); // +
-		// getIndicatorForRequiredAttribute(attribute)
-		// ;
-	}
-
-	/**
-	 * This function tries to split a camel case variable name into space
-	 * delimited user displayable string e.g.
-	 * 
-	 * @return input firstName - output First Name
-	 */
-	public static String getViewLabelFromVariable(String varName) {
-		if (varName == null) {
-			System.out.println("Warn: null variable in getViewLabel ");
-			return "";
-		}
-		char[] characters = varName.toCharArray();
-		for (char ch : characters) {
-			if (Character.isUpperCase(ch))
-				varName = varName.replace(new String(ch + ""), " " + ch);
-		}
-		return WordUtils.capitalizeFully(varName);
+		return GenericUtils.getViewLabelFromVariable(name); // +
 	}
 
 	/**

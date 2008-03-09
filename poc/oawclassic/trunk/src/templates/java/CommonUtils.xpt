@@ -17,3 +17,21 @@
 		this.«NameS.toFirstLower() + extension» = «NameS.toFirstLower() + extension»;
 	}
 «ENDDEFINE»
+
+«REM» Generates getter, setter and declaration for given string and type  «ENDREM»
+«DEFINE genDeclGetterSetter(String type, String name, boolean instantiate) FOR String-»
+	private «type» «name» «instantiate? ( " = new " + type + "()"): ""»;
+	
+	«EXPAND genGetterSetter(type, name) FOR this»
+«ENDDEFINE»
+
+«DEFINE genGetterSetter(String type, String name) FOR String»
+	public «type» get«name.toFirstUpper()»(){
+		return «name»;
+	} 
+	
+	public void set«name.toFirstUpper()»(«type» «name»){
+		this.«name» = «name»;
+	}
+«ENDDEFINE»
+

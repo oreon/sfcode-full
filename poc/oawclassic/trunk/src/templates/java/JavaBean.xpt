@@ -59,22 +59,15 @@
 		«REM» TODO: The image import should be conditional «ENDREM»
 		import org.witchcraft.model.jsf.Image;
 		import java.util.Date;
-		
 		import javax.xml.bind.annotation.XmlTransient;
-		«REM»
-			«hasSuperClass? SuperClass.NameS: "BusinessEntity"»
-		«ENDREM»
 		
 		@MappedSuperclass
 		«getClassDeclaration()» « (isAuditable)?", org.witchcraft.model.support.audit.Auditable":""»{
-		
-				«FOREACH getNq AS e»
-					«e»
+				«FOREACH getNq AS e-»
+					«e-»
 				«ENDFOREACH»
-				//named queries : «getNq.size»
 				«EXPAND classBody FOR this»
 				«EXPAND displayName FOR this»
-				
 		} 
 	«ENDFILE»
 «ENDDEFINE»
@@ -97,6 +90,7 @@
 		@MappedSuperclass
 		«getClassDeclaration()»{
 			«EXPAND classBody FOR this»
+			«EXPAND displayName FOR this»
 		} 
 	«ENDFILE»
 «ENDDEFINE»
@@ -121,9 +115,9 @@
 
 
 
-«DEFINE displayName FOR Entity»
+«DEFINE displayName FOR AbstractEntity»
 	
-	«IF getDisplayName != null || Attribute.size == 1»
+	«IF getDisplayName != null || Attribute.size > 0»
 		@Transient
 		public String getDisplayName(){
 			return «getDisplayName != null ? getDisplayName: Attribute(0).NameS» + "";

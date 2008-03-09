@@ -75,6 +75,12 @@ cls.NameS;
 boolean isEntity(Class cls) :
 JAVA oaw4.demo.classic.uml.extend.ClassUtil.isEntity(org.openarchitectureware.meta.uml.classifier.Class);
 
+//return true for fields other than string and boolean 
+boolean needsRangeForSearch(Attribute attribute):
+!( attribute.Type.getMetaClass.getSimpleName == "Enumeration" || 
+(attribute.Type.NameS).toUpperCase() == ("boolean").toUpperCase()  || attribute.Type.NameS == "String");
+
+
 String fullName(Attribute attribute ):
 attribute.TypeModifier == null ? attribute.NameS:attribute.TypeModifier + "."  + attribute.NameS;
 
@@ -82,6 +88,9 @@ String getContainerGetter(Attribute attribute ):
 attribute.TypeModifier == null  ? "":"get"+ attribute.TypeModifier.toFirstUpper() + "()." ;
 
 List getCounters(Class cls):
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getCounters(org.openarchitectureware.meta.uml.classifier.Class);
+
+String getGetterSetter(String arg):
 JAVA oaw4.demo.classic.uml.extend.ClassUtil.getCounters(org.openarchitectureware.meta.uml.classifier.Class);
 
 boolean isEntityUser(Entity entity):
@@ -124,4 +133,9 @@ JAVA oaw4.demo.classic.uml.extend.ClassUtil.getOperationDeclaration(org.openarch
 
 String getOperationBody(Operation operation):
 JAVA oaw4.demo.classic.uml.extend.ClassUtil.getOperationBody(org.openarchitectureware.meta.uml.classifier.Operation);
+
+String getVariableNameForDisplay(String arg):
+JAVA oaw4.demo.classic.uml.extend.GenericUtils.getViewLabelFromVariable(java.lang.String);
+
+
 

@@ -1,1 +1,28 @@
 «REM»This file generates message bundles «ENDREM»
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+
+«EXTENSION java::NamingConventions»
+«EXTENSION view::ViewExtensions»
+
+
+«DEFINE GenBundle FOR Model»
+	«FILE "../resources/genMessages.properties"»
+		«EXPAND GenBundle FOREACH getMetaEnvironment.getElements("AbstractEntity")»
+	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE Root FOR Package»
+	«IF NameS!= null && !NameS.startsWith("java")»
+		«EXPAND GenBundle FOREACH OwnedElement»
+	«ENDIF»
+«ENDDEFINE»
+
+«REM» Gen default messages for each attribute for an entity «ENDREM»
+«DEFINE GenBundle FOR AbstractEntity»
+	«FOREACH Attribute AS a-»
+«NameS».«a.NameS»= «a.NameS.getVariableNameForDisplay()»
+	«ENDFOREACH-»
+«ENDDEFINE»

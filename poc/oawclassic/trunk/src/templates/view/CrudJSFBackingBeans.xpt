@@ -5,23 +5,26 @@
 
 «EXTENSION java::NamingConventions»
 «EXTENSION view::ViewExtensions»
+
+
 @org.hibernate.annotations.Proxy(lazy = false)
 «DEFINE GenerateBackingBean FOR Entity»
 	
 	«FILE parentPackagePath()+"/web/jsf/"+NameS+"BackingBean.java"»  
-
 	package «parentPackageName()».web.jsf;
 	
-	import javax.faces.component.UIParameter;
 	import javax.faces.event.ActionEvent;
 	import javax.faces.context.FacesContext;
-	import javax.faces.component.UIOutput;
 	
 	import org.witchcraft.model.jsf.BaseBackingBean;
 	import org.witchcraft.model.support.service.BaseService;
 
 	import «packageName()». «asParameter()»;
 	import «parentPackageName()».service.«NameS»Service;
+	
+	import java.util.Date;
+	import java.util.List;
+	import org.witchcraft.model.support.Range;
 	
 	«IF getTreeFields != null»
 		import java.util.Collection;
@@ -45,6 +48,8 @@
 			
 			«EXPAND GenRepeatAttributes FOR this»
 			
+			«EXPAND GenRangeFields FOR this»
+			
 			public void set«NameS»Service(«asParameter()»Service «asInstanceVar()»Service){
 				this.«asInstanceVar()»Service = «asInstanceVar()»Service;
 			}
@@ -66,64 +71,20 @@
 				return get«NameS»();
 			}			
 			
-			
-			
-			public String search(){
-				action=SEARCH;
-				return "search";
-			}
-			//functions for advanced search
-			
-			public String dateOp="On";
-			
-			public String dateOp(){
-				System.out.println("getting date op from method: "+dateOp);
-				return dateOp;
-			}
-			
-			public void doAdvancedSearch(){
-				switch(dateOP){
-				case "On":;break;
-				case "Any":;break;
-				case "After":;break;
-				case "Before":;break;
-				case "Between":;break;
-				default:;break;
-				}
+    		@Override
+			protected List<Range> getRangeList() {
+		
+				List<Range> listRanges = super.getRangeList();
 				
-			}
-			public String getDateOp(){
-				if(dateOp==null){dateOp="Any";}
+				«FOREACH getAllAttributes AS attribute-»
+					«IF attribute.needsRangeForSearch()-»
+						listRanges.add(range«attribute.NameS.toFirstUpper()»);	
+					«ENDIF»
+				«ENDFOREACH»
 				
-				System.out.println("getting date op: "+dateOp);
-				return dateOp;
+				listRanges.add(rangeCreationDate);
+				return listRanges;
 			}
-			
-			public void setDateOp(UIParameter uip){	
-			 	//dateOp=(value)uip.getId();
-			 	System.out.println("setting date op from param: "+dateOp);
-			 }	
-			
-			 public void setDateOp(ActionEvent actionEvent){	
-			 	dateOp=actionEvent.getComponent().getId();
-			 	System.out.println("setting date op from event: "+dateOp);
-			 }	
-			
-			
-			public void setDateOp(String s){		
-				FacesContext ctx = FacesContext.getCurrentInstance();
-				this.dateOp = (String)ctx.getExternalContext().getRequestParameterMap().get("id");				
-				System.out.println("setting date op from string: "+dateOp);
-			}
-	
-			/** Returns a success string upon selection of an entity in model - majority of work is done
-			 * in the actionListener selectEntity
-            * @return - "success" if everthing goes fine
-            * @see - 
-            */
-			 public String select(){
-    			return "edit";
-    		}
 
     
 		    /** This action Listener Method is called when a row is clicked in the dataTable
@@ -201,148 +162,20 @@
 
 «ENDDEFINE»
 
+«REM»All searchable fields that are not strings and booleans should have range fields for min and max«ENDREM»
+«DEFINE GenRangeFields FOR Entity»
 
-«DEFINE GenerateManagedBeanDefs FOR Model »
-	
-«FILE "../webapp/WEB-INF/genCrud-config.xml" » 		
-<?xml version="1.0"?>
-<!DOCTYPE faces-config PUBLIC
-  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
-  "http://java.sun.com/dtd/web-facesconfig_1_1.dtd" >
+private Range<Date> rangeCreationDate = new Range<Date>("dateCreated"); 
+«EXPAND java::CommonUtils::genGetterSetter("Range<Date>", "rangeCreationDate") FOR ""»
 
-<faces-config>
+«FOREACH getAllAttributes AS a»
+	«IF a.needsRangeForSearch()»
+		private Range<«a.Type.NameS»> range«a.NameS.toFirstUpper()» = new Range<«a.Type.NameS»>("«a.NameS»"); 
+		«EXPAND java::CommonUtils::genGetterSetter("Range<" + a.Type.NameS + ">", "range" + a.NameS.toFirstUpper()) FOR a.NameS»
+	«ENDIF»
+«ENDFOREACH»
 
-	<!--  Spring variable resolver -->
-	<application>
-		<variable-resolver>
-			org.springframework.web.jsf.DelegatingVariableResolver
-		</variable-resolver>
-	</application>
-
-	<!-- Managed beans for the crud operations -->
-
-	
-	
-	«EXPAND GenerateManagedBeanDef FOREACH getEntities()»
-	
-	<!-- Navigation Rules  -->
-	«EXPAND GenerateNavRules FOREACH getEntities()»
-	<navigation-rule>
-  		<from-view-id>/crud/entitiesSummary.xhtml</from-view-id>
-	</navigation-rule>
-			
-</faces-config>
-	
-«ENDFILE»
-	
 «ENDDEFINE»
-
-
-«DEFINE GenerateManagedBeanDef FOR Entity»
-
-	<managed-bean>
-		<managed-bean-name>«asInstanceVar()»CrudBacking</managed-bean-name>
-		<managed-bean-class>«parentPackageName()».web.jsf.«NameS»BackingBean</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-		<managed-property>
-			<property-name>«asInstanceVar()»Service</property-name>
-			<value>#{«asInstanceVar()»Service}</value>
-		</managed-property>
-		
-		
-
-		
-		
-	</managed-bean> 
- 	
-«ENDDEFINE»
-	
-	
-«DEFINE GenerateNavRules FOR Entity»
-	<navigation-rule>
-  		<from-view-id>/crud/«Package.NameS»/«asInstanceVar()».xhtml</from-view-id>
-  
-		  <navigation-case>
-		    <from-outcome>success</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
-		  </navigation-case>   
-    
-	</navigation-rule>
-	
-	<navigation-rule>
-  		<from-view-id>/crud/«Package.NameS»/«asInstanceVar()»Search.xhtml</from-view-id>
-  
-		  <navigation-case>
-		    <from-outcome>search</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
-		  </navigation-case>   
-		  
-		  
-    
-	</navigation-rule>
-	
-	<navigation-rule>
-  		<from-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</from-view-id>
-  
-		  <navigation-case>
-		    <from-outcome>edit</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()».xhtml</to-view-id>
-		  </navigation-case>   
-		  
-		   <navigation-case>
-		    <from-outcome>addNew</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()».xhtml</to-view-id>
-		  </navigation-case> 
-		  
-		  <navigation-case>
-		    <from-outcome>delete</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
-		  </navigation-case> 
-		  
-		  <navigation-case>
-		    <from-outcome>success</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
-		  </navigation-case> 
-		  
-		  <navigation-case>
-		    <from-outcome>failure</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
-		  </navigation-case> 
-		  
-		  <navigation-case>
-		    <from-outcome>search</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»Search.xhtml</to-view-id>
-		  </navigation-case>   
-    
-	</navigation-rule>
-	
-	<navigation-rule>
-  		<from-view-id>/crud/«Package.NameS»/«asInstanceVar()»Search.xhtml</from-view-id>
-  
-		  <navigation-case>
-		    <from-outcome>search</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
-		  </navigation-case>   
-		  
-		   <navigation-case>
-		    <from-outcome>cancel</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
-		  </navigation-case>   
-    
-	</navigation-rule>
-	
-	<navigation-rule>
-  		<from-view-id>/crud/*</from-view-id>
-  
-		  <navigation-case>
-		    <from-outcome>list«NameS»</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
-		  </navigation-case>   
-		  
-	</navigation-rule>	  
-		  
-	
-«ENDDEFINE»		 
 
 
 

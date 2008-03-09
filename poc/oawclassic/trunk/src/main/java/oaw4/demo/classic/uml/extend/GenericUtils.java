@@ -111,6 +111,24 @@ public class GenericUtils {
 		return arg;
 	}
 	
+	/**
+	 * This function tries to split a camel case variable name into space
+	 * delimited user displayable string e.g.
+	 * 
+	 * @return input firstName - output First Name
+	 */
+	public static String getViewLabelFromVariable(String varName) {
+		if (varName == null) {
+			System.out.println("Warn: null variable in getViewLabel ");
+			return "";
+		}
+		char[] characters = varName.toCharArray();
+		for (char ch : characters) {
+			if (Character.isUpperCase(ch))
+				varName = varName.replace(new String(ch + ""), " " + ch);
+		}
+		return WordUtils.capitalizeFully(varName);
+	}
 	
 
 }

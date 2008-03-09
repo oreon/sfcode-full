@@ -21,6 +21,8 @@
 	import «packageName()».«NameS»;
 	import «parentPackageName()».dao.«NameS»Dao;
 	
+	import org.hibernate.Criteria;
+	import org.hibernate.criterion.Restrictions;
 	
 	import javax.persistence.NoResultException;
 	import javax.persistence.Query;
@@ -48,6 +50,20 @@
 				return query.getResultList();
 			 }
 			 «ENDIF»
+			 
+			 /** This function adds associated entities to an example criterion
+	 		 * @see org.witchcraft.model.support.dao.BaseDao#createExampleCriteria(java.lang.Object)
+	 		 */
+			 public void addAssoications(Criteria criteria, «NameS» exampleInstance) {
+			 	
+			 	«FOREACH getOutgoingAssociationsExceptOneOnOne AS a»
+			 	if(exampleInstance.get«a.associationName().toFirstUpper()»() != null){
+			 		criteria = criteria.add
+			 		 (Restrictions.eq("«a.associationName()».id", exampleInstance.get«a.associationName().toFirstUpper()»().getId() ));
+				}	
+			 	«ENDFOREACH»
+				
+			}
 			
 		} 
 	«ENDFILE»	
@@ -284,16 +300,20 @@
 			}
 			
 			//count the number of records - add one delete it - check count is same after delete
-					public void testDelete() {
-						long count,newCount,diff=0;			
-							count=«asInstanceVar()»Service.getCount();
-							«NameS» «asInstanceVar()» = («NameS»)«asInstanceVar()»TestDataFactory.loadOneRecord();					
-							«asInstanceVar()»Service.delete(«asInstanceVar()»);
-							newCount=«asInstanceVar()»Service.getCount();
-							diff=newCount-count;					
+			public void testDelete() {
+											
 				try{
-					assertEquals(diff,0);
-				}catch(Exception e){fail(e.getMessage());}}	
+					long count,newCount,diff=0;			
+					count=«asInstanceVar()»Service.getCount();
+					«NameS» «asInstanceVar()» = («NameS»)«asInstanceVar()»TestDataFactory.loadOneRecord();					
+					«asInstanceVar()»Service.delete(«asInstanceVar()»);
+					newCount=«asInstanceVar()»Service.getCount();
+					diff=newCount-count;
+					assertEquals(diff, 1);
+				}catch(Exception e){
+					fail(e.getMessage());
+				}
+			}	
 			
 			
 			public void testLoad() {

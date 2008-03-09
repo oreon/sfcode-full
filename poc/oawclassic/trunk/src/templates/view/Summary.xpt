@@ -27,36 +27,24 @@
 			
 			<a4j:form id="form">
 			
-			<rich:panel>
+			<rich:panel header="Summary">
 				<h:panelGrid columns="1" styleClass="formTable">
-						<f:facet name="header">
-							<h:outputText value="Summary"
-								styleClass="formHeaderText"   />
-						</f:facet>	
 						
 					<h:panelGrid columns="5">
 						<h:outputText value="From" />
-						<t:inputCalendar renderAsPopup="true"
-							renderPopupButtonAsImage="true" required="false" id="from_Date">
-						</t:inputCalendar>
-
+						<rich:calendar popup="true" id="from_Date"/>
+						
 						<h:outputText value="To" />
-						<t:inputCalendar renderAsPopup="true"
-							renderPopupButtonAsImage="true" required="false" id="to_Date">
-						</t:inputCalendar>
-
+						<rich:calendar popup="true" id="to_Date" />
 
 						<h:commandButton id="button1" value="Submit" action="search" />
-
 					</h:panelGrid>
 						
+					<h:panelGrid columns="2" width="50%">
+					«EXPAND GenerateSummaryForEntity FOREACH getEntities()»
+					</h:panelGrid>			
 			
-						«EXPAND GenerateSummaryForEntity FOREACH getEntities()»			
-			
-				</h:panelGrid>
-						
-				<br/>
-				<br/>
+				</h:panelGrid>  
 						
 			 </rich:panel>	
 			</a4j:form>
@@ -69,7 +57,7 @@
 «ENDDEFINE»
 
 «DEFINE GenerateSummaryForEntity FOR Entity»
-		<h:outputText styleClass="formLabel" value="«NameS»(#{«asInstanceVar()»CrudBacking.count})"/>
+		<h:commandLink value="«NameS»(#{«asInstanceVar()»CrudBacking.count})"  action="list«NameS»" />
 «ENDDEFINE»
 
 

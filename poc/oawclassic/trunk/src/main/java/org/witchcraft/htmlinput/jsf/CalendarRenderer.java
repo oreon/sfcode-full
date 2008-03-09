@@ -6,13 +6,13 @@ public class CalendarRenderer extends AbstractInputComponentRenderer{
 
 	public String getType(Attribute attribute) {
 		// TODO Auto-generated method stub
-		return "t:inputCalendar ";
+		return "rich:calendar ";
 	}
 	
 	public String getAttributes(Attribute attribute) {
 		// TODO Auto-generated method stub
 		return super.getAttributes(attribute) +  
-			" renderAsPopup=\"true\" renderPopupButtonAsImage=\"true\" ";
+			" popup=\"true\" ";
 	}
 
 }
