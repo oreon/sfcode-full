@@ -10,6 +10,9 @@ package com.oreon.kgauge.dao.impl;
 import com.oreon.kgauge.domain.ExamCreator;
 import com.oreon.kgauge.dao.ExamCreatorDao;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
@@ -62,6 +65,13 @@ public class ExamCreatorDaoImplBase extends BaseDao<ExamCreator>
 		} catch (NoResultException nre) {
 			return null;
 		}
+
+	}
+
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseDao#createExampleCriteria(java.lang.Object)
+	 */
+	public void addAssoications(Criteria criteria, ExamCreator exampleInstance) {
 
 	}
 

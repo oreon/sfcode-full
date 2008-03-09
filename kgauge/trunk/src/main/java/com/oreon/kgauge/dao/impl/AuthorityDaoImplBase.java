@@ -10,6 +10,9 @@ package com.oreon.kgauge.dao.impl;
 import com.oreon.kgauge.domain.Authority;
 import com.oreon.kgauge.dao.AuthorityDao;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
@@ -24,5 +27,17 @@ public class AuthorityDaoImplBase extends BaseDao<Authority>
 			AuthorityDao {
 
 	//// FINDERS ///// 
+
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseDao#createExampleCriteria(java.lang.Object)
+	 */
+	public void addAssoications(Criteria criteria, Authority exampleInstance) {
+
+		if (exampleInstance.getUser() != null) {
+			criteria = criteria.add(Restrictions.eq("user.id", exampleInstance
+					.getUser().getId()));
+		}
+
+	}
 
 }

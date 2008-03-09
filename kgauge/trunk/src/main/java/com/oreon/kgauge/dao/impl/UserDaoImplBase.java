@@ -10,6 +10,9 @@ package com.oreon.kgauge.dao.impl;
 import com.oreon.kgauge.domain.User;
 import com.oreon.kgauge.dao.UserDao;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
@@ -40,6 +43,13 @@ public class UserDaoImplBase extends BaseDao<User> implements UserDao {
 		} catch (NoResultException nre) {
 			return null;
 		}
+
+	}
+
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseDao#createExampleCriteria(java.lang.Object)
+	 */
+	public void addAssoications(Criteria criteria, User exampleInstance) {
 
 	}
 

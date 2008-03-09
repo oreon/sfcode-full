@@ -10,6 +10,9 @@ package com.oreon.kgauge.dao.impl;
 import com.oreon.kgauge.domain.Question;
 import com.oreon.kgauge.dao.QuestionDao;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
@@ -24,5 +27,22 @@ public class QuestionDaoImplBase extends BaseDao<Question>
 			QuestionDao {
 
 	//// FINDERS ///// 
+
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseDao#createExampleCriteria(java.lang.Object)
+	 */
+	public void addAssoications(Criteria criteria, Question exampleInstance) {
+
+		if (exampleInstance.getExam() != null) {
+			criteria = criteria.add(Restrictions.eq("exam.id", exampleInstance
+					.getExam().getId()));
+		}
+
+		if (exampleInstance.getSection() != null) {
+			criteria = criteria.add(Restrictions.eq("section.id",
+					exampleInstance.getSection().getId()));
+		}
+
+	}
 
 }

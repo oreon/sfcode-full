@@ -10,6 +10,9 @@ package com.oreon.kgauge.dao.impl;
 import com.oreon.kgauge.domain.Section;
 import com.oreon.kgauge.dao.SectionDao;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
@@ -22,5 +25,17 @@ import org.witchcraft.model.support.dao.BaseDao;
 public class SectionDaoImplBase extends BaseDao<Section> implements SectionDao {
 
 	//// FINDERS ///// 
+
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseDao#createExampleCriteria(java.lang.Object)
+	 */
+	public void addAssoications(Criteria criteria, Section exampleInstance) {
+
+		if (exampleInstance.getExam() != null) {
+			criteria = criteria.add(Restrictions.eq("exam.id", exampleInstance
+					.getExam().getId()));
+		}
+
+	}
 
 }

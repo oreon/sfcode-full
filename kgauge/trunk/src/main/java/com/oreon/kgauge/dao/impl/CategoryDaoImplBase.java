@@ -10,6 +10,9 @@ package com.oreon.kgauge.dao.impl;
 import com.oreon.kgauge.domain.Category;
 import com.oreon.kgauge.dao.CategoryDao;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
@@ -33,6 +36,18 @@ public class CategoryDaoImplBase extends BaseDao<Category>
 		String queryStr = "Select c from Category c where c.parent is null";
 		Query query = entityManager.createQuery(queryStr);
 		return query.getResultList();
+	}
+
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseDao#createExampleCriteria(java.lang.Object)
+	 */
+	public void addAssoications(Criteria criteria, Category exampleInstance) {
+
+		if (exampleInstance.getParent() != null) {
+			criteria = criteria.add(Restrictions.eq("parent.id",
+					exampleInstance.getParent().getId()));
+		}
+
 	}
 
 }
