@@ -34,6 +34,8 @@ import org.witchcraft.htmlinput.jsf.RenderContext;
  * 
  */
 public class ViewLayerGenerator {
+	
+	private static RenderContext renderContext = RenderContext.Edit;
 
 	// String templateFlie = "templates/velocity/view/xhtm.vm";
 	static String templateFile = "templates/velocity/view/jsfHtml.vm";
@@ -193,36 +195,37 @@ public class ViewLayerGenerator {
 
 	public static InputComponentRenderer getInputComponent(Attribute attribute,
 			RenderContext renderContext) {
-		return InputComponentFactory.getRenderer(attribute, renderContext);
+		return InputComponentFactory.getRenderer(attribute, getRenderContext());
 	}
 
 	public static String getElementContent(Attribute attribute) {
 		return InputComponentFactory.getRenderer(attribute,
-				createCreateContext()).getContent(attribute);
+				getRenderContext()).getContent(attribute);
+	}
+	
+	public static String getElementValidatorContent(Attribute attribute) {
+		return InputComponentFactory.getRenderer(attribute,
+				getRenderContext()).getValidatorContent(attribute);
 	}
 
 	public static String getElementType(Attribute attribute) {
 		return InputComponentFactory.getRenderer(attribute,
-				createCreateContext()).getType(attribute);
+				getRenderContext()).getType(attribute);
 	}
 
 	public static String getElementAttributes(Attribute attribute) {
 		return InputComponentFactory.getRenderer(attribute,
-				createCreateContext()).getAttributes(attribute);
+				getRenderContext()).getAttributes(attribute);
 	}
 
+	
+	
 	public static boolean getElementRequired(Attribute attribute) {
 		return InputComponentFactory.getRenderer(attribute,
-				createCreateContext()).isRequired(attribute);
+				getRenderContext()).isRequired(attribute);
 	}
 
-	public static RenderContext createSearchContext() {
-		return RenderContext.Search;
-	}
-
-	public static RenderContext createCreateContext() {
-		return RenderContext.Create;
-	}
+	
 
 	/** Get the left nav entities 
 	 * @return
@@ -301,4 +304,19 @@ public class ViewLayerGenerator {
 		return arguement;
 	}
 
+	public static RenderContext getRenderContext() {
+		return renderContext;
+	}
+
+	public static void setRenderContext(RenderContext renderContext) {
+		ViewLayerGenerator.renderContext = renderContext;
+	}
+	
+	public static void setSearchAsCurrentRenderContext(){
+		ViewLayerGenerator.renderContext = RenderContext.Search;
+	}
+	
+	public static void setEditAsCurrentRenderContext(){
+		ViewLayerGenerator.renderContext = RenderContext.Edit;
+	}
 }

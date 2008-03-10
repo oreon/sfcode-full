@@ -4,6 +4,8 @@ import org::openarchitectureware::meta::uml::classifier::Class;
 import org::openarchitectureware::meta::uml::state;
 import  oaw4::demo::classic::uml::meta;
 
+import org::witchcraft::htmlinput::jsf;
+
 String getViewXHTML(Class cls) :
 JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getView(org.openarchitectureware.meta.uml.classifier.Class);
 
@@ -23,9 +25,12 @@ JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getStates(org.openarchitect
 ElementSet getStatesWithGuards(StateMachine stateMachine) :
 JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getStatesWithGuards(org.openarchitectureware.meta.uml.state.StateMachine);
 
-
 String getElementContent (Attribute attribute) :
 JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getElementContent(org.openarchitectureware.meta.uml.classifier.Attribute);
+
+String getElementValidatorContent(Attribute attribute) :
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getElementValidatorContent(org.openarchitectureware.meta.uml.classifier.Attribute);
+
 
 String getElementType (Attribute attribute) :
 JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getElementType(org.openarchitectureware.meta.uml.classifier.Attribute);
@@ -47,6 +52,19 @@ String getAccessControlEnd (Attribute attribute):
 
 String getAccessControlEnd (Column column):
 column.getAccess != null ?"</acegijsf:authorize>":"";
+
+
+//set the current context - edit /search / view etc
+void setCurrentRenderContext(RenderContext renderContext):
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.setRenderContext(org.witchcraft.htmlinput.jsf.RenderContext);
+
+//set the current context - to search 
+void setSearchAsCurrentRenderContext():
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.setSearchAsCurrentRenderContext();
+
+void setEditAsCurrentRenderContext():
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.setEditAsCurrentRenderContext();
+
 
 boolean getRepeat(Column column):
 column.isRepeat;

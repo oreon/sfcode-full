@@ -9,17 +9,15 @@ import org.openarchitectureware.meta.uml.classifier.Enumeration;
  */
 public class SelectOneMenuRenderer extends AbstractInputComponentRenderer{
 
+	public String getType(Attribute attribute) {
+		return "h:selectOneMenu";
+	}	
+	
 	public String getContent(Attribute attribute) {
-		// TODO Auto-generated method stub
-		
 		return generateEnumLiterals((Enumeration)attribute.Type());
 	}
 
-	public String getType(Attribute attribute) {
-		
-		// TODO Auto-generated method stub
-		return "h:selectOneMenu";
-	}
+	
 	
 	public static String generateEnumLiterals(Enumeration enm) {
 		StringBuffer buffer = new StringBuffer();
@@ -27,7 +25,7 @@ public class SelectOneMenuRenderer extends AbstractInputComponentRenderer{
 		buffer.append("<f:selectItem itemLabel=\"Select\" />"); 
 		for (int i = 0; i < enm.Literal().size(); i++) {
 			buffer.append("<f:selectItem itemLabel=\"" + enm.Literal(i).NameS()  + "\" itemValue=\"" + 
-					enm.Literal(i).NameS() + "\" />" );
+					enm.Literal(i).NameS() + "\" />\n" );
 		}
 
 		return buffer.toString();

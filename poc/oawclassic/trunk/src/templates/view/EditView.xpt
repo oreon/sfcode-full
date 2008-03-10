@@ -10,6 +10,9 @@
 «REM» Create the view/update xhtml page for an entity «ENDREM»
 «DEFINE genEditView FOR Entity-»
 	«EXPAND ViewGen::genIncludes("templateCrud.xhtml")-»
+	
+	«setEditAsCurrentRenderContext()»
+	
 	<ui:define name="title"> Add/Update «NameS» </ui:define> 
 	<ui:define name="content">
 		<f:view>
@@ -108,6 +111,7 @@
 		id="«controlId(e)»"
 		value="#{«e.asInstanceVar()»CrudBacking.«e.asInstanceVar()».«fullName()»}">
 		«getElementContent()»
+		«getElementValidatorContent()»
 		<a4j:support event="onblur" reRender="«controlId(e)»" />
 	</«getElementType()»>
 «ENDDEFINE»
@@ -118,6 +122,7 @@
 		id="«repeatControlId(e)»"
 		value="#{«e.asInstanceVar()»CrudBacking.repeat«NameS.toFirstUpper()»}">
 		«getElementContent()»
+		«getElementValidatorContent()»
 		<t:validateEqual for="«e.asInstanceVar()»_«TypeModifier»_«NameS»" />
 	</«getElementType()»>
 «ENDDEFINE»

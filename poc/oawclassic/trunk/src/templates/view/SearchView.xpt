@@ -2,6 +2,7 @@
 «IMPORT org::openarchitectureware::meta::uml::classifier»
 «IMPORT oaw4::demo::classic::uml::meta»
 «IMPORT java»
+«IMPORT org::witchcraft::htmlinput::jsf » 
 
 «EXTENSION view::ViewExtensions»
 «EXTENSION java::NamingConventions»
@@ -11,6 +12,8 @@
 «DEFINE genSearchView FOR Entity-»
 	
 	«EXPAND ViewGen::genIncludes("templateCrud.xhtml")-»
+	
+	«setSearchAsCurrentRenderContext()»
 	
 	<ui:define name="title"> Search «NameS» </ui:define>
  	<ui:define name="content">

@@ -6,7 +6,8 @@ package org.witchcraft.htmlinput.jsf;
  *
  */
 public enum RenderContext {
-	Create,
+	Edit,
 	List,
-	Search
+	Search,
+	View
 }

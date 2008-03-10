@@ -5,6 +5,10 @@ import oaw4.demo.classic.uml.meta.Column;
 import org.apache.commons.lang.StringUtils;
 import org.openarchitectureware.meta.uml.classifier.Attribute;
 
+/** A Jsf input text renderer 
+ * @author jess singh
+ *
+ */
 public class InputTextRenderer extends AbstractInputComponentRenderer {
 
 	public final static int LENGTH_FOR_TEXTAREA = 120;
@@ -25,7 +29,7 @@ public class InputTextRenderer extends AbstractInputComponentRenderer {
 		return "h:inputText";
 	}
 
-	public String getContent(Attribute attribute) {
+	public String getValidatorContent(Attribute attribute) {
 
 		String retMessage = StringUtils.EMPTY;
 
