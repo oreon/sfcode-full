@@ -11,7 +11,10 @@
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
+	
+	
 	
 	<ui:define name="title"> Search Exam </ui:define>
  	<ui:define name="content">
@@ -21,81 +24,83 @@
 			styleClass="messages" />
 		
 			<a4j:form id="form">
-				<rich:tabPanel switchType="client">
-					<rich:tab label="Basic" >
 						<rich:panel header="Search Exam">
-						<h:panelGrid columns="6" >
+						<h:panelGrid columns="2" >
 						
-							<h:outputText value="Description" styleClass="formLabel" />
+						<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
+								backingBean="#{examCrudBacking}" />
+						
+								
 							
-							<h:inputTextarea   maxLength="1045"   
+							<h:panelGroup>
+							<h:outputText value="Description" styleClass="customformLabel" />
+							<h:inputTextarea    
 								id="exam__description"
 								value="#{examCrudBacking.exam.description}">
-								<f:validateLength maximum="1045"/>
+								
 							</h:inputTextarea>
-							
 							<h:message for="exam__description" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="Name" styleClass="formLabel" />
-							
-							<h:inputText   maxLength="120"   
+							<h:panelGroup>
+							<h:outputText value="Name" styleClass="customformLabel" />
+							<h:inputText    
 								id="exam__name"
 								value="#{examCrudBacking.exam.name}">
-								<f:validateLength minimum="3" maximum="120"/>
+								
 							</h:inputText>
-							
 							<h:message for="exam__name" styleClass="errMessage" />
-							
-							<h:outputText value="Questions" styleClass="formLabel" />
-							
-							<h:inputText    
-								id="exam__questions"
-								value="#{examCrudBacking.exam.questions}">
+							</h:panelGroup>
 								
-							</h:inputText>
-							
-							<h:message for="exam__questions" styleClass="errMessage" />
-							
-							<h:outputText value="Duration" styleClass="formLabel" />
-							
-							<h:inputText    
-								id="exam__duration"
-								value="#{examCrudBacking.exam.duration}">
+	
+		<wc:numberRange rangeFieldName="rangeQuestions" label="Questions"
+			backingBean="#{examCrudBacking}" type="integer" />
+	
+
 								
-							</h:inputText>
-							
-							<h:message for="exam__duration" styleClass="errMessage" />
-							
-							<h:outputText value="Price" styleClass="formLabel" />
-							
-							<h:inputText    
-								id="exam__price"
-								value="#{examCrudBacking.exam.price}">
+	
+		<wc:numberRange rangeFieldName="rangeDuration" label="Duration"
+			backingBean="#{examCrudBacking}" type="integer" />
+	
+
 								
-							</h:inputText>
+	
+		<wc:numberRange rangeFieldName="rangePrice" label="Price"
+			backingBean="#{examCrudBacking}" type="double" />
+	
+
+								
+								
 							
-							<h:message for="exam__price" styleClass="errMessage" />
-							
-							<h:outputText value="ScoringStrategy" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="ScoringStrategy" styleClass="customformLabel" />
 							<h:selectOneMenu    
 								id="exam__scoringStrategy"
 								value="#{examCrudBacking.exam.scoringStrategy}">
-								<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="ScoreOnlyForCorrectAnswers" itemValue="ScoreOnlyForCorrectAnswers" /><f:selectItem itemLabel="ScoreForAllAnswers" itemValue="ScoreForAllAnswers" />
+								<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="ScoreOnlyForCorrectAnswers" itemValue="ScoreOnlyForCorrectAnswers" />
+<f:selectItem itemLabel="ScoreForAllAnswers" itemValue="ScoreForAllAnswers" />
+
 							</h:selectOneMenu>
-							
 							<h:message for="exam__scoringStrategy" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="ExamStatus" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="ExamStatus" styleClass="customformLabel" />
 							<h:selectOneMenu    
 								id="exam__examStatus"
 								value="#{examCrudBacking.exam.examStatus}">
-								<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="INCOMPLETE" itemValue="INCOMPLETE" /><f:selectItem itemLabel="INACTIVE" itemValue="INACTIVE" /><f:selectItem itemLabel="ACTIVE" itemValue="ACTIVE" />
+								<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="INCOMPLETE" itemValue="INCOMPLETE" />
+<f:selectItem itemLabel="INACTIVE" itemValue="INACTIVE" />
+<f:selectItem itemLabel="ACTIVE" itemValue="ACTIVE" />
+
 							</h:selectOneMenu>
-							
 							<h:message for="exam__examStatus" styleClass="errMessage" />
-							
+							</h:panelGroup>
+								
 							
 							
 								<h:outputText value="Category" styleClass="formLabel" />
@@ -145,82 +150,10 @@
 							
 							</h:panelGrid>
 
-							<h:panelGrid columns="2">
-							
-  						   <h:commandButton id="btn_search" value="Search" action="#{examCrudBacking.search}" styleClass="btn"  /> 
-  						    <h:commandButton id="btn_cancel" value="Cancel" action="cancel" immediate="true"  styleClass="btn" /> 
-  				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
-		  				   	<h:inputHidden id="exam_id" value="#{examCrudBacking.exam.id}" />
-
-							</h:panelGrid>
+							<wc:submitCancelButtons backingBean="#{examCrudBacking}" submitLabel="Search" 
+								submitAction="search" /> 
 						
-						 </rich:panel>
-						</rich:tab>
-		<rich:tab label="Advanced">
-	
-		<h:inputHidden id="dateOperation" value="#{examCrudBacking.dateOp}"/>
-			
-		<h:panelGrid id="advGrid" columns="6" styleClass="formTable">
-			
-			<f:facet name="header">
-				<h:outputText value="Exam Information" styleClass="formHeaderText"   />
-			</f:facet>
-							   
-			<h:column id="ddcol">	
-				<h:form id="ddform">	
-				<!--plan:when a date operation is selected it stores the value in dateOperation-->
-				<!--The value in dOp should be rendered with value of dateOperation-->
-				<!--When the search button is clicked dateOperation etc will be passed to a method in backing bean-->				
-				<rich:dropDownMenu id="ddmenu" submitMode="ajax" binding="#{examCrudBacking.dateOp}" onitemselect="render='form.dOp'" immediate="true" >
-                	<f:facet name="label"> 
-                	    <h:panelGrid id="pg" cellpadding="0" cellspacing="0" columns="2" style="vertical-align:middle">
-                         	<h:graphicImage value="/images/icons/date_go.png" style="border: 0px"/>
-                        	<h:outputText id="t" value="Date" />
-                    	</h:panelGrid>                                                                		
-                	</f:facet>               
-                	<rich:menuItem  value="On"  reRender="form.dOp" icon="/images/icons/flag_blue.png" >             		
-                	<f:param id="On" name="id" value="On" />						
-                	</rich:menuItem>               
-                	<rich:menuItem    value="Before" icon="/images/icons/resultset_previous.png"    >    
-                	<f:param id="Before" name="id" value="Before" />		
-                	
-                	</rich:menuItem>                   	
-                	<rich:menuItem  value="After"  icon="/images/icons/resultset_next.png"  > 
-                	<f:param id="After" name="id" value="After" />				
-                	
-                	</rich:menuItem>                 
-                	<rich:menuItem  value="Between" immediate="true" icon="/images/icons/tag.png">
-                	<f:param id="Between" name="id" value="Between" />	
-            		</rich:menuItem>      
-            		
-            		<rich:menuItem    value="Any"  >
-            		<f:param id="Any" name="id" value="Any" />	
-            		</rich:menuItem>                               	 
-				</rich:dropDownMenu>
-				
-				</h:form>
-				</h:column>		
-			<h:column id="outCol" styleClass="header">
-			 
-				   <h:outputText id="dOp" render="true" ajaxRendered="true" name="dateOp" style="font-weight:bold"  immediate="true" value="#{examCrudBacking.dateOp}"  />				
-			 	
-    		
-			</h:column>		
-			<h:column>		
-				<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
-								id="fromDate"
-								value="#{examCrudBacking.exam.dateCreated}">							
-				</t:inputCalendar >
-			</h:column>				
-							<h:message for="fromDate" styleClass="errMessage" />
-		</h:panelGrid>		
-	<h:commandButton value="Search" action="submit" />						
-	</rich:tab>
-						
-						
-				</rich:tabPanel>
-				
-				
+						 </rich:panel>					
 			</a4j:form>
 		</f:view>
 

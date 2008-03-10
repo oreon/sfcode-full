@@ -11,7 +11,10 @@
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
+	
+	
 	
 	<ui:define name="title"> Search Candidate </ui:define>
  	<ui:define name="content">
@@ -21,141 +24,161 @@
 			styleClass="messages" />
 		
 			<a4j:form id="form">
-				<rich:tabPanel switchType="client">
-					<rich:tab label="Basic" >
 						<rich:panel header="Search Candidate">
-						<h:panelGrid columns="6" >
+						<h:panelGrid columns="2" >
 						
-							<h:outputText value="FirstName" styleClass="formLabel" />
+						<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
+								backingBean="#{candidateCrudBacking}" />
+						
+								
 							
+							<h:panelGroup>
+							<h:outputText value="FirstName" styleClass="customformLabel" />
 							<h:inputText    
 								id="candidate__firstName"
 								value="#{candidateCrudBacking.candidate.firstName}">
 								
 							</h:inputText>
-							
 							<h:message for="candidate__firstName" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="LastName" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="LastName" styleClass="customformLabel" />
 							<h:inputText    
 								id="candidate__lastName"
 								value="#{candidateCrudBacking.candidate.lastName}">
 								
 							</h:inputText>
-							
 							<h:message for="candidate__lastName" styleClass="errMessage" />
-							
-							<h:outputText value="DateOfBirth" styleClass="formLabel" />
-							
-							<rich:calendar    popup="true"   
-								id="candidate__dateOfBirth"
-								value="#{candidateCrudBacking.candidate.dateOfBirth}">
+							</h:panelGroup>
 								
-							</rich:calendar >
+		<wc:dateRange rangeFieldName="rangeDateOfBirth" label="DateOfBirth"
+			backingBean="#{candidateCrudBacking}" />
+	
+
+								
+								
 							
-							<h:message for="candidate__dateOfBirth" styleClass="errMessage" />
-							
-							<h:outputText value="UserName" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="UserName" styleClass="customformLabel" />
 							<h:inputText    
 								id="candidate_user_userName"
 								value="#{candidateCrudBacking.candidate.user.userName}">
 								
 							</h:inputText>
-							
 							<h:message for="candidate_user_userName" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="Password" styleClass="formLabel" />
-							
-							<h:inputSecret   maxLength="12"  redisplay="true"   
+							<h:panelGroup>
+							<h:outputText value="Password" styleClass="customformLabel" />
+							<h:inputSecret    
 								id="candidate_user_password"
 								value="#{candidateCrudBacking.candidate.user.password}">
-								<f:validateLength minimum="5" maximum="12"/>
+								
 							</h:inputSecret>
-							
 							<h:message for="candidate_user_password" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="Enabled" styleClass="formLabel" />
-							
-							<h:selectBooleanCheckbox    title="enabled"  
+							<h:panelGroup>
+							<h:outputText value="Enabled" styleClass="customformLabel" />
+							<h:selectBooleanCheckbox     
 								id="candidate_user_enabled"
 								value="#{candidateCrudBacking.candidate.user.enabled}">
 								
 							</h:selectBooleanCheckbox >
-							
 							<h:message for="candidate_user_enabled" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="StreetAddress" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="StreetAddress" styleClass="customformLabel" />
 							<h:inputText    
 								id="candidate_contactDetails_streetAddress"
 								value="#{candidateCrudBacking.candidate.contactDetails.streetAddress}">
 								
 							</h:inputText>
-							
 							<h:message for="candidate_contactDetails_streetAddress" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="City" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="City" styleClass="customformLabel" />
 							<h:inputText    
 								id="candidate_contactDetails_city"
 								value="#{candidateCrudBacking.candidate.contactDetails.city}">
 								
 							</h:inputText>
-							
 							<h:message for="candidate_contactDetails_city" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="State" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="State" styleClass="customformLabel" />
 							<h:inputText    
 								id="candidate_contactDetails_state"
 								value="#{candidateCrudBacking.candidate.contactDetails.state}">
 								
 							</h:inputText>
-							
 							<h:message for="candidate_contactDetails_state" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="Country" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="Country" styleClass="customformLabel" />
 							<h:inputText    
 								id="candidate_contactDetails_country"
 								value="#{candidateCrudBacking.candidate.contactDetails.country}">
 								
 							</h:inputText>
-							
 							<h:message for="candidate_contactDetails_country" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="Zip" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="Zip" styleClass="customformLabel" />
 							<h:inputText    
 								id="candidate_contactDetails_zip"
 								value="#{candidateCrudBacking.candidate.contactDetails.zip}">
 								
 							</h:inputText>
-							
 							<h:message for="candidate_contactDetails_zip" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="Phone" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="Phone" styleClass="customformLabel" />
 							<h:inputText    
 								id="candidate_contactDetails_phone"
 								value="#{candidateCrudBacking.candidate.contactDetails.phone}">
 								
 							</h:inputText>
-							
 							<h:message for="candidate_contactDetails_phone" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="Email" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="Email" styleClass="customformLabel" />
 							<h:inputText    
 								id="candidate_contactDetails_email"
 								value="#{candidateCrudBacking.candidate.contactDetails.email}">
-								<t:validateEmail />
+								
 							</h:inputText>
-							
 							<h:message for="candidate_contactDetails_email" styleClass="errMessage" />
-							
+							</h:panelGroup>
+								
 							
 							
 								<h:outputText value="User" styleClass="formLabel" />
@@ -183,82 +206,10 @@
 							
 							</h:panelGrid>
 
-							<h:panelGrid columns="2">
-							
-  						   <h:commandButton id="btn_search" value="Search" action="#{candidateCrudBacking.search}" styleClass="btn"  /> 
-  						    <h:commandButton id="btn_cancel" value="Cancel" action="cancel" immediate="true"  styleClass="btn" /> 
-  				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
-		  				   	<h:inputHidden id="candidate_id" value="#{candidateCrudBacking.candidate.id}" />
-
-							</h:panelGrid>
+							<wc:submitCancelButtons backingBean="#{candidateCrudBacking}" submitLabel="Search" 
+								submitAction="search" /> 
 						
-						 </rich:panel>
-						</rich:tab>
-		<rich:tab label="Advanced">
-	
-		<h:inputHidden id="dateOperation" value="#{candidateCrudBacking.dateOp}"/>
-			
-		<h:panelGrid id="advGrid" columns="6" styleClass="formTable">
-			
-			<f:facet name="header">
-				<h:outputText value="Candidate Information" styleClass="formHeaderText"   />
-			</f:facet>
-							   
-			<h:column id="ddcol">	
-				<h:form id="ddform">	
-				<!--plan:when a date operation is selected it stores the value in dateOperation-->
-				<!--The value in dOp should be rendered with value of dateOperation-->
-				<!--When the search button is clicked dateOperation etc will be passed to a method in backing bean-->				
-				<rich:dropDownMenu id="ddmenu" submitMode="ajax" binding="#{candidateCrudBacking.dateOp}" onitemselect="render='form.dOp'" immediate="true" >
-                	<f:facet name="label"> 
-                	    <h:panelGrid id="pg" cellpadding="0" cellspacing="0" columns="2" style="vertical-align:middle">
-                         	<h:graphicImage value="/images/icons/date_go.png" style="border: 0px"/>
-                        	<h:outputText id="t" value="Date" />
-                    	</h:panelGrid>                                                                		
-                	</f:facet>               
-                	<rich:menuItem  value="On"  reRender="form.dOp" icon="/images/icons/flag_blue.png" >             		
-                	<f:param id="On" name="id" value="On" />						
-                	</rich:menuItem>               
-                	<rich:menuItem    value="Before" icon="/images/icons/resultset_previous.png"    >    
-                	<f:param id="Before" name="id" value="Before" />		
-                	
-                	</rich:menuItem>                   	
-                	<rich:menuItem  value="After"  icon="/images/icons/resultset_next.png"  > 
-                	<f:param id="After" name="id" value="After" />				
-                	
-                	</rich:menuItem>                 
-                	<rich:menuItem  value="Between" immediate="true" icon="/images/icons/tag.png">
-                	<f:param id="Between" name="id" value="Between" />	
-            		</rich:menuItem>      
-            		
-            		<rich:menuItem    value="Any"  >
-            		<f:param id="Any" name="id" value="Any" />	
-            		</rich:menuItem>                               	 
-				</rich:dropDownMenu>
-				
-				</h:form>
-				</h:column>		
-			<h:column id="outCol" styleClass="header">
-			 
-				   <h:outputText id="dOp" render="true" ajaxRendered="true" name="dateOp" style="font-weight:bold"  immediate="true" value="#{candidateCrudBacking.dateOp}"  />				
-			 	
-    		
-			</h:column>		
-			<h:column>		
-				<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
-								id="fromDate"
-								value="#{candidateCrudBacking.candidate.dateCreated}">							
-				</t:inputCalendar >
-			</h:column>				
-							<h:message for="fromDate" styleClass="errMessage" />
-		</h:panelGrid>		
-	<h:commandButton value="Search" action="submit" />						
-	</rich:tab>
-						
-						
-				</rich:tabPanel>
-				
-				
+						 </rich:panel>					
 			</a4j:form>
 		</f:view>
 

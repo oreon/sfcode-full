@@ -50,7 +50,7 @@ public class SectionDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			sectionInstance.setName("delta");
+			sectionInstance.setName("Wilson");
 
 			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("examTestDataFactory");
@@ -81,7 +81,7 @@ public class SectionDaoTest extends AbstractJpaTests {
 
 			try {
 
-				section.setName("gamma");
+				section.setName("Malissa");
 
 				TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("examTestDataFactory");
@@ -107,7 +107,7 @@ public class SectionDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Section section = (Section) sectionTestDataFactory.loadOneRecord();
 
-			section.setName("pi");
+			section.setName("delta");
 
 			sectionService.save(section);
 
@@ -122,14 +122,15 @@ public class SectionDaoTest extends AbstractJpaTests {
 
 	//count the number of records - add one delete it - check count is same after delete
 	public void testDelete() {
-		long count, newCount, diff = 0;
-		count = sectionService.getCount();
-		Section section = (Section) sectionTestDataFactory.loadOneRecord();
-		sectionService.delete(section);
-		newCount = sectionService.getCount();
-		diff = newCount - count;
+
 		try {
-			assertEquals(diff, 0);
+			long count, newCount, diff = 0;
+			count = sectionService.getCount();
+			Section section = (Section) sectionTestDataFactory.loadOneRecord();
+			sectionService.delete(section);
+			newCount = sectionService.getCount();
+			diff = newCount - count;
+			assertEquals(diff, 1);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}

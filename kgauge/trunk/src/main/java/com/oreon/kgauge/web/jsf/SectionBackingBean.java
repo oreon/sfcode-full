@@ -1,34 +1,32 @@
 package com.oreon.kgauge.web.jsf;
 
-import javax.faces.component.UIParameter;
 import javax.faces.event.ActionEvent;
 import javax.faces.context.FacesContext;
-import javax.faces.component.UIOutput;
 
 import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
 
-import com.oreon.kgauge.domain.Exam;
 import com.oreon.kgauge.domain.Section;
-import com.oreon.kgauge.service.ExamService;
 import com.oreon.kgauge.service.SectionService;
+
+import java.util.Date;
+import java.util.List;
+import org.witchcraft.model.support.Range;
 
 public class SectionBackingBean extends BaseBackingBean<Section> {
 
 	private Section section = new Section();
 
 	private SectionService sectionService;
-	
-	private ExamService examService;
-	
-	
 
-	public ExamService getExamService() {
-		return examService;
+	private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
+
+	public Range<Date> getRangeCreationDate() {
+		return rangeCreationDate;
 	}
 
-	public void setExamService(ExamService examService) {
-		this.examService = examService;
+	public void setRangeCreationDate(Range<Date> rangeCreationDate) {
+		this.rangeCreationDate = rangeCreationDate;
 	}
 
 	public void setSectionService(SectionService sectionService) {
@@ -52,64 +50,13 @@ public class SectionBackingBean extends BaseBackingBean<Section> {
 		return getSection();
 	}
 
-	public String search() {
-		action = SEARCH;
-		return "search";
-	}
-	//functions for advanced search
+	@Override
+	protected List<Range> getRangeList() {
 
-	public String dateOp = "On";
+		List<Range> listRanges = super.getRangeList();
 
-	public String dateOp() {
-		System.out.println("getting date op from method: " + dateOp);
-		return dateOp;
-	}
-
-	/*
-	public void doAdvancedSearch(){
-		switch(dateOp){
-		case "On":;break;
-		case "Any":;break;
-		case "After":;break;
-		case "Before":;break;
-		case "Between":;break;
-		default:;break;
-		}
-	}*/
-
-	public String getDateOp() {
-		if (dateOp == null) {
-			dateOp = "Any";
-		}
-
-		System.out.println("getting date op: " + dateOp);
-		return dateOp;
-	}
-
-	public void setDateOp(UIParameter uip) {
-		//dateOp=(value)uip.getId();
-		System.out.println("setting date op from param: " + dateOp);
-	}
-
-	public void setDateOp(ActionEvent actionEvent) {
-		dateOp = actionEvent.getComponent().getId();
-		System.out.println("setting date op from event: " + dateOp);
-	}
-
-	public void setDateOp(String s) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		this.dateOp = (String) ctx.getExternalContext()
-				.getRequestParameterMap().get("id");
-		System.out.println("setting date op from string: " + dateOp);
-	}
-
-	/** Returns a success string upon selection of an entity in model - majority of work is done
-	 * in the actionListener selectEntity
-	 * @return - "success" if everthing goes fine
-	 * @see - 
-	 */
-	public String select() {
-		return "edit";
+		listRanges.add(rangeCreationDate);
+		return listRanges;
 	}
 
 	/** This action Listener Method is called when a row is clicked in the dataTable
@@ -130,11 +77,6 @@ public class SectionBackingBean extends BaseBackingBean<Section> {
 		// parse the value of the UIParameter component    	 
 		long id = Long.parseLong(component.getValue().toString());
 		 */
-	}
-	
-	public String updateSection() {		
-		getEntity().setExam(getExamService().load(getEntity().getExam().getId()));
-		return update();
 	}
 
 }

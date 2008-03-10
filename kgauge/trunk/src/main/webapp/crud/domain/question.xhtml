@@ -10,7 +10,11 @@
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
+	
+	
+	
 	<ui:define name="title"> Add/Update Question </ui:define> 
 	<ui:define name="content">
 		<f:view>
@@ -85,6 +89,7 @@
 	<h:inputTextarea   maxLength="40000"   required="true" 
 		id="question_questionText"
 		value="#{questionCrudBacking.question.questionText}">
+		
 		<f:validateLength minimum="6" maximum="40000"/>
 		<a4j:support event="onblur" reRender="question_questionText" />
 	</h:inputTextarea>
@@ -116,6 +121,7 @@
 	<h:inputText    required="false" 
 		id="question_difficultyLevel"
 		value="#{questionCrudBacking.question.difficultyLevel}">
+		
 		
 		<a4j:support event="onblur" reRender="question_difficultyLevel" />
 	</h:inputText>

@@ -50,7 +50,7 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			authorityInstance.setName("Malissa");
+			authorityInstance.setName("delta");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -81,7 +81,7 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 
 			try {
 
-				authority.setName("theta");
+				authority.setName("Eric");
 
 				TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("userTestDataFactory");
@@ -108,7 +108,7 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 			Authority authority = (Authority) authorityTestDataFactory
 					.loadOneRecord();
 
-			authority.setName("Wilson");
+			authority.setName("gamma");
 
 			authorityService.save(authority);
 
@@ -123,15 +123,16 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 
 	//count the number of records - add one delete it - check count is same after delete
 	public void testDelete() {
-		long count, newCount, diff = 0;
-		count = authorityService.getCount();
-		Authority authority = (Authority) authorityTestDataFactory
-				.loadOneRecord();
-		authorityService.delete(authority);
-		newCount = authorityService.getCount();
-		diff = newCount - count;
+
 		try {
-			assertEquals(diff, 0);
+			long count, newCount, diff = 0;
+			count = authorityService.getCount();
+			Authority authority = (Authority) authorityTestDataFactory
+					.loadOneRecord();
+			authorityService.delete(authority);
+			newCount = authorityService.getCount();
+			diff = newCount - count;
+			assertEquals(diff, 1);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}

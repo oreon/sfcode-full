@@ -131,15 +131,16 @@ public class ExamInstanceDaoTest extends AbstractJpaTests {
 
 	//count the number of records - add one delete it - check count is same after delete
 	public void testDelete() {
-		long count, newCount, diff = 0;
-		count = examInstanceService.getCount();
-		ExamInstance examInstance = (ExamInstance) examInstanceTestDataFactory
-				.loadOneRecord();
-		examInstanceService.delete(examInstance);
-		newCount = examInstanceService.getCount();
-		diff = newCount - count;
+
 		try {
-			assertEquals(diff, 0);
+			long count, newCount, diff = 0;
+			count = examInstanceService.getCount();
+			ExamInstance examInstance = (ExamInstance) examInstanceTestDataFactory
+					.loadOneRecord();
+			examInstanceService.delete(examInstance);
+			newCount = examInstanceService.getCount();
+			diff = newCount - count;
+			assertEquals(diff, 1);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}

@@ -50,9 +50,9 @@ public class UserDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			userInstance.setUserName("John42103");
-			userInstance.setPassword("Eric");
-			userInstance.setEnabled(false);
+			userInstance.setUserName("delta93516");
+			userInstance.setPassword("epsilon");
+			userInstance.setEnabled(true);
 
 			userService.save(userInstance);
 		} catch (PersistenceException pe) {
@@ -76,9 +76,9 @@ public class UserDaoTest extends AbstractJpaTests {
 
 			try {
 
-				user.setUserName("gamma22764");
-				user.setPassword("Lavendar");
-				user.setEnabled(false);
+				user.setUserName("Eric67903");
+				user.setPassword("zeta");
+				user.setEnabled(true);
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -97,9 +97,9 @@ public class UserDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			User user = (User) userTestDataFactory.loadOneRecord();
 
-			user.setUserName("Mark73888");
-			user.setPassword("gamma");
-			user.setEnabled(false);
+			user.setUserName("gamma81378");
+			user.setPassword("John");
+			user.setEnabled(true);
 
 			userService.save(user);
 
@@ -114,14 +114,15 @@ public class UserDaoTest extends AbstractJpaTests {
 
 	//count the number of records - add one delete it - check count is same after delete
 	public void testDelete() {
-		long count, newCount, diff = 0;
-		count = userService.getCount();
-		User user = (User) userTestDataFactory.loadOneRecord();
-		userService.delete(user);
-		newCount = userService.getCount();
-		diff = newCount - count;
+
 		try {
-			assertEquals(diff, 0);
+			long count, newCount, diff = 0;
+			count = userService.getCount();
+			User user = (User) userTestDataFactory.loadOneRecord();
+			userService.delete(user);
+			newCount = userService.getCount();
+			diff = newCount - count;
+			assertEquals(diff, 1);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}

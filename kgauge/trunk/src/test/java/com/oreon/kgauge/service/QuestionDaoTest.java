@@ -51,7 +51,7 @@ public class QuestionDaoTest extends AbstractJpaTests {
 		try {
 
 			questionInstance.setQuestionText("beta");
-			questionInstance.setDifficultyLevel(5639);
+			questionInstance.setDifficultyLevel(8332);
 
 			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("examTestDataFactory");
@@ -89,8 +89,8 @@ public class QuestionDaoTest extends AbstractJpaTests {
 
 			try {
 
-				question.setQuestionText("pi");
-				question.setDifficultyLevel(9657);
+				question.setQuestionText("John");
+				question.setDifficultyLevel(3075);
 
 				TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("examTestDataFactory");
@@ -124,8 +124,8 @@ public class QuestionDaoTest extends AbstractJpaTests {
 			Question question = (Question) questionTestDataFactory
 					.loadOneRecord();
 
-			question.setQuestionText("delta");
-			question.setDifficultyLevel(9193);
+			question.setQuestionText("alpha");
+			question.setDifficultyLevel(1450);
 
 			questionService.save(question);
 
@@ -140,14 +140,16 @@ public class QuestionDaoTest extends AbstractJpaTests {
 
 	//count the number of records - add one delete it - check count is same after delete
 	public void testDelete() {
-		long count, newCount, diff = 0;
-		count = questionService.getCount();
-		Question question = (Question) questionTestDataFactory.loadOneRecord();
-		questionService.delete(question);
-		newCount = questionService.getCount();
-		diff = newCount - count;
+
 		try {
-			assertEquals(diff, 0);
+			long count, newCount, diff = 0;
+			count = questionService.getCount();
+			Question question = (Question) questionTestDataFactory
+					.loadOneRecord();
+			questionService.delete(question);
+			newCount = questionService.getCount();
+			diff = newCount - count;
+			assertEquals(diff, 1);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}

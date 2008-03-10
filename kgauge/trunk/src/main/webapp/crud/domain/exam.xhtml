@@ -10,7 +10,11 @@
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
+	
+	
+	
 	<ui:define name="title"> Add/Update Exam </ui:define> 
 	<ui:define name="content">
 		<f:view>
@@ -63,6 +67,7 @@
 	<h:inputTextarea   maxLength="1045"   required="true" 
 		id="exam_description"
 		value="#{examCrudBacking.exam.description}">
+		
 		<f:validateLength maximum="1045"/>
 		<a4j:support event="onblur" reRender="exam_description" />
 	</h:inputTextarea>
@@ -94,6 +99,7 @@
 	<h:inputText   maxLength="120"   required="true" 
 		id="exam_name"
 		value="#{examCrudBacking.exam.name}">
+		
 		<f:validateLength minimum="3" maximum="120"/>
 		<a4j:support event="onblur" reRender="exam_name" />
 	</h:inputText>
@@ -126,6 +132,7 @@
 		id="exam_questions"
 		value="#{examCrudBacking.exam.questions}">
 		
+		
 		<a4j:support event="onblur" reRender="exam_questions" />
 	</h:inputText>
 	
@@ -156,6 +163,7 @@
 	<h:inputText    required="false" 
 		id="exam_duration"
 		value="#{examCrudBacking.exam.duration}">
+		
 		
 		<a4j:support event="onblur" reRender="exam_duration" />
 	</h:inputText>
@@ -188,6 +196,7 @@
 		id="exam_price"
 		value="#{examCrudBacking.exam.price}">
 		
+		
 		<a4j:support event="onblur" reRender="exam_price" />
 	</h:inputText>
 	
@@ -218,7 +227,10 @@
 	<h:selectOneMenu    required="false" 
 		id="exam_scoringStrategy"
 		value="#{examCrudBacking.exam.scoringStrategy}">
-		<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="ScoreOnlyForCorrectAnswers" itemValue="ScoreOnlyForCorrectAnswers" /><f:selectItem itemLabel="ScoreForAllAnswers" itemValue="ScoreForAllAnswers" />
+		<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="ScoreOnlyForCorrectAnswers" itemValue="ScoreOnlyForCorrectAnswers" />
+<f:selectItem itemLabel="ScoreForAllAnswers" itemValue="ScoreForAllAnswers" />
+
+		
 		<a4j:support event="onblur" reRender="exam_scoringStrategy" />
 	</h:selectOneMenu>
 	
@@ -249,7 +261,11 @@
 	<h:selectOneMenu    required="false" 
 		id="exam_examStatus"
 		value="#{examCrudBacking.exam.examStatus}">
-		<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="INCOMPLETE" itemValue="INCOMPLETE" /><f:selectItem itemLabel="INACTIVE" itemValue="INACTIVE" /><f:selectItem itemLabel="ACTIVE" itemValue="ACTIVE" />
+		<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="INCOMPLETE" itemValue="INCOMPLETE" />
+<f:selectItem itemLabel="INACTIVE" itemValue="INACTIVE" />
+<f:selectItem itemLabel="ACTIVE" itemValue="ACTIVE" />
+
+		
 		<a4j:support event="onblur" reRender="exam_examStatus" />
 	</h:selectOneMenu>
 	

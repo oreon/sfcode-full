@@ -50,8 +50,8 @@ public class AnswerChoiceDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			answerChoiceInstance.setAnswerText("alpha");
-			answerChoiceInstance.setScore(3971);
+			answerChoiceInstance.setAnswerText("pi");
+			answerChoiceInstance.setScore(2573);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -82,8 +82,8 @@ public class AnswerChoiceDaoTest extends AbstractJpaTests {
 
 			try {
 
-				answerChoice.setAnswerText("alpha");
-				answerChoice.setScore(6901);
+				answerChoice.setAnswerText("beta");
+				answerChoice.setScore(3610);
 
 				TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("questionTestDataFactory");
@@ -110,8 +110,8 @@ public class AnswerChoiceDaoTest extends AbstractJpaTests {
 			AnswerChoice answerChoice = (AnswerChoice) answerChoiceTestDataFactory
 					.loadOneRecord();
 
-			answerChoice.setAnswerText("Mark");
-			answerChoice.setScore(6153);
+			answerChoice.setAnswerText("delta");
+			answerChoice.setScore(6851);
 
 			answerChoiceService.save(answerChoice);
 
@@ -126,15 +126,16 @@ public class AnswerChoiceDaoTest extends AbstractJpaTests {
 
 	//count the number of records - add one delete it - check count is same after delete
 	public void testDelete() {
-		long count, newCount, diff = 0;
-		count = answerChoiceService.getCount();
-		AnswerChoice answerChoice = (AnswerChoice) answerChoiceTestDataFactory
-				.loadOneRecord();
-		answerChoiceService.delete(answerChoice);
-		newCount = answerChoiceService.getCount();
-		diff = newCount - count;
+
 		try {
-			assertEquals(diff, 0);
+			long count, newCount, diff = 0;
+			count = answerChoiceService.getCount();
+			AnswerChoice answerChoice = (AnswerChoice) answerChoiceTestDataFactory
+					.loadOneRecord();
+			answerChoiceService.delete(answerChoice);
+			newCount = answerChoiceService.getCount();
+			diff = newCount - count;
+			assertEquals(diff, 1);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}

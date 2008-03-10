@@ -1,4 +1,8 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+
+	
+	
+	
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -9,39 +13,27 @@
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
-	template="/WEB-INF/template/signIn.xhtml">
-
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template="/WEB-INF/template/">
+	
 	<ui:define name="content">
 		<f:view>
-			<f:loadBundle basename="messages.messages" var="msg" />
-			<blockquote><h:form id="links">
-				<h:panelGrid styleClass="formTable">
-					<h:commandLink styleClass="a:link" value="#{msg.login}"
-						action="login"></h:commandLink>
-					<h:commandLink styleClass="a:link" value="#{msg.register}"
-						action="register"></h:commandLink>
-					<h:commandLink styleClass="a:link" value="#{msg.retrieve}"
-						action="forgotCredentials"></h:commandLink>
+		<!--PROTECTED REGION ID(USER_CREATED) ENABLED START-->
+					This is protectable
+		<!--PROTECTED REGION END-->
+			<h:messages layout="list" globalOnly="true" showDetail="true"
+				styleClass="messages" />
+			<h:outputText value="" styleClass="message" />		
+			
+			<h:form>
+				<h:panelGrid>
+					
+					
+				
 				</h:panelGrid>
 			</h:form>
-			
-			<h:form id="changelanguageform" styleClass=">#center">
-			<p>
-				<t:commandLink styleClass="a:link" id="english"
-					action="chooseLocale" actionListener="#{LangBean.onChooseLocale}"
-					value="English" /> |
-                <t:commandLink styleClass="a:link" id="german"
-					action="chooseLocale" actionListener="#{LangBean.onChooseLocale}"
-					value="Deutsch" /> |      
-                <t:commandLink styleClass="a:link" id="french"
-					action="chooseLocale" actionListener="#{LangBean.onChooseLocale}"
-					value="Francais" />		
-			 </p>						
-			</h:form>
-			</blockquote>
-			<h:outputText value="Testing Locale: #{LangBean.locale.displayCountry}" />
+	
 		</f:view>
-	</ui:define>
-</ui:composition>
-
-
+	 </ui:define>	
+	</ui:composition>
+	

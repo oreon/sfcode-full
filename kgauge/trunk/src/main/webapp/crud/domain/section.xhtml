@@ -10,7 +10,11 @@
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
+	
+	
+	
 	<ui:define name="title"> Add/Update Section </ui:define> 
 	<ui:define name="content">
 		<f:view>
@@ -64,6 +68,7 @@
 		id="section_name"
 		value="#{sectionCrudBacking.section.name}">
 		
+		
 		<a4j:support event="onblur" reRender="section_name" />
 	</h:inputText>
 	
@@ -80,7 +85,7 @@
 	
 					<f:facet name="footer">
   						<h:panelGroup>
-  						   <h:commandButton id="button1" value="Submit" action="#{sectionCrudBacking.updateSection}"  styleClass="btn" /> 
+  						   <h:commandButton id="button1" value="Submit" action="#{sectionCrudBacking.update}"  styleClass="btn" /> 
   						   <h:outputText value=" " />
   						    <h:commandButton id="button2" value="Cancel" action="success" immediate="true" styleClass="btn"/> 
   				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		

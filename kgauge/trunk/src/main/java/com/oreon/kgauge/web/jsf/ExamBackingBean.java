@@ -1,9 +1,7 @@
 package com.oreon.kgauge.web.jsf;
 
-import javax.faces.component.UIParameter;
 import javax.faces.event.ActionEvent;
 import javax.faces.context.FacesContext;
-import javax.faces.component.UIOutput;
 
 import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
@@ -11,11 +9,55 @@ import org.witchcraft.model.support.service.BaseService;
 import com.oreon.kgauge.domain.Exam;
 import com.oreon.kgauge.service.ExamService;
 
+import java.util.Date;
+import java.util.List;
+import org.witchcraft.model.support.Range;
+
 public class ExamBackingBean extends BaseBackingBean<Exam> {
 
 	private Exam exam = new Exam();
 
 	private ExamService examService;
+
+	private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
+
+	public Range<Date> getRangeCreationDate() {
+		return rangeCreationDate;
+	}
+
+	public void setRangeCreationDate(Range<Date> rangeCreationDate) {
+		this.rangeCreationDate = rangeCreationDate;
+	}
+
+	private Range<Integer> rangeQuestions = new Range<Integer>("questions");
+
+	public Range<Integer> getRangeQuestions() {
+		return rangeQuestions;
+	}
+
+	public void setRangeQuestions(Range<Integer> rangeQuestions) {
+		this.rangeQuestions = rangeQuestions;
+	}
+
+	private Range<Integer> rangeDuration = new Range<Integer>("duration");
+
+	public Range<Integer> getRangeDuration() {
+		return rangeDuration;
+	}
+
+	public void setRangeDuration(Range<Integer> rangeDuration) {
+		this.rangeDuration = rangeDuration;
+	}
+
+	private Range<Double> rangePrice = new Range<Double>("price");
+
+	public Range<Double> getRangePrice() {
+		return rangePrice;
+	}
+
+	public void setRangePrice(Range<Double> rangePrice) {
+		this.rangePrice = rangePrice;
+	}
 
 	public void setExamService(ExamService examService) {
 		this.examService = examService;
@@ -38,64 +80,19 @@ public class ExamBackingBean extends BaseBackingBean<Exam> {
 		return getExam();
 	}
 
-	public String search() {
-		action = SEARCH;
-		return "search";
-	}
-	//functions for advanced search
+	@Override
+	protected List<Range> getRangeList() {
 
-	public String dateOp = "On";
+		List<Range> listRanges = super.getRangeList();
 
-	public String dateOp() {
-		System.out.println("getting date op from method: " + dateOp);
-		return dateOp;
-	}
+		listRanges.add(rangeQuestions);
 
-	/*
-	public void doAdvancedSearch(){
-		switch(dateOp){
-		case "On":;break;
-		case "Any":;break;
-		case "After":;break;
-		case "Before":;break;
-		case "Between":;break;
-		default:;break;
-		}
-	}*/
+		listRanges.add(rangeDuration);
 
-	public String getDateOp() {
-		if (dateOp == null) {
-			dateOp = "Any";
-		}
+		listRanges.add(rangePrice);
 
-		System.out.println("getting date op: " + dateOp);
-		return dateOp;
-	}
-
-	public void setDateOp(UIParameter uip) {
-		//dateOp=(value)uip.getId();
-		System.out.println("setting date op from param: " + dateOp);
-	}
-
-	public void setDateOp(ActionEvent actionEvent) {
-		dateOp = actionEvent.getComponent().getId();
-		System.out.println("setting date op from event: " + dateOp);
-	}
-
-	public void setDateOp(String s) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		this.dateOp = (String) ctx.getExternalContext()
-				.getRequestParameterMap().get("id");
-		System.out.println("setting date op from string: " + dateOp);
-	}
-
-	/** Returns a success string upon selection of an entity in model - majority of work is done
-	 * in the actionListener selectEntity
-	 * @return - "success" if everthing goes fine
-	 * @see - 
-	 */
-	public String select() {
-		return "edit";
+		listRanges.add(rangeCreationDate);
+		return listRanges;
 	}
 
 	/** This action Listener Method is called when a row is clicked in the dataTable

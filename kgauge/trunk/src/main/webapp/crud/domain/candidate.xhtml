@@ -10,7 +10,11 @@
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
+	
+	
+	
 	<ui:define name="title"> Add/Update Candidate </ui:define> 
 	<ui:define name="content">
 		<f:view>
@@ -41,6 +45,7 @@
 	<h:inputText    required="true" 
 		id="candidate_firstName"
 		value="#{candidateCrudBacking.candidate.firstName}">
+		
 		
 		<a4j:support event="onblur" reRender="candidate_firstName" />
 	</h:inputText>
@@ -73,6 +78,7 @@
 		id="candidate_lastName"
 		value="#{candidateCrudBacking.candidate.lastName}">
 		
+		
 		<a4j:support event="onblur" reRender="candidate_lastName" />
 	</h:inputText>
 	
@@ -103,6 +109,7 @@
 	<rich:calendar    popup="true"   required="true" 
 		id="candidate_dateOfBirth"
 		value="#{candidateCrudBacking.candidate.dateOfBirth}">
+		
 		
 		<a4j:support event="onblur" reRender="candidate_dateOfBirth" />
 	</rich:calendar >
@@ -135,6 +142,7 @@
 		id="candidate_user_userName"
 		value="#{candidateCrudBacking.candidate.user.userName}">
 		
+		
 		<a4j:support event="onblur" reRender="candidate_user_userName" />
 	</h:inputText>
 	
@@ -165,6 +173,7 @@
 	<h:inputSecret   maxLength="12"  redisplay="true"   required="true" 
 		id="candidate_user_password"
 		value="#{candidateCrudBacking.candidate.user.password}">
+		
 		<f:validateLength minimum="5" maximum="12"/>
 		<a4j:support event="onblur" reRender="candidate_user_password" />
 	</h:inputSecret>
@@ -193,6 +202,7 @@
 	<h:inputSecret   maxLength="12"  redisplay="true"   required="true" 
 		id="candidate_user_repeatPassword"
 		value="#{candidateCrudBacking.repeatPassword}">
+		
 		<f:validateLength minimum="5" maximum="12"/>
 		<t:validateEqual for="candidate_user_password" />
 	</h:inputSecret>
@@ -225,6 +235,7 @@
 		id="candidate_user_enabled"
 		value="#{candidateCrudBacking.candidate.user.enabled}">
 		
+		
 		<a4j:support event="onblur" reRender="candidate_user_enabled" />
 	</h:selectBooleanCheckbox >
 	
@@ -255,6 +266,7 @@
 	<h:inputText    required="false" 
 		id="candidate_contactDetails_streetAddress"
 		value="#{candidateCrudBacking.candidate.contactDetails.streetAddress}">
+		
 		
 		<a4j:support event="onblur" reRender="candidate_contactDetails_streetAddress" />
 	</h:inputText>
@@ -287,6 +299,7 @@
 		id="candidate_contactDetails_city"
 		value="#{candidateCrudBacking.candidate.contactDetails.city}">
 		
+		
 		<a4j:support event="onblur" reRender="candidate_contactDetails_city" />
 	</h:inputText>
 	
@@ -317,6 +330,7 @@
 	<h:inputText    required="false" 
 		id="candidate_contactDetails_state"
 		value="#{candidateCrudBacking.candidate.contactDetails.state}">
+		
 		
 		<a4j:support event="onblur" reRender="candidate_contactDetails_state" />
 	</h:inputText>
@@ -349,6 +363,7 @@
 		id="candidate_contactDetails_country"
 		value="#{candidateCrudBacking.candidate.contactDetails.country}">
 		
+		
 		<a4j:support event="onblur" reRender="candidate_contactDetails_country" />
 	</h:inputText>
 	
@@ -379,6 +394,7 @@
 	<h:inputText    required="false" 
 		id="candidate_contactDetails_zip"
 		value="#{candidateCrudBacking.candidate.contactDetails.zip}">
+		
 		
 		<a4j:support event="onblur" reRender="candidate_contactDetails_zip" />
 	</h:inputText>
@@ -411,6 +427,7 @@
 		id="candidate_contactDetails_phone"
 		value="#{candidateCrudBacking.candidate.contactDetails.phone}">
 		
+		
 		<a4j:support event="onblur" reRender="candidate_contactDetails_phone" />
 	</h:inputText>
 	
@@ -441,6 +458,7 @@
 	<h:inputText    required="true" 
 		id="candidate_contactDetails_email"
 		value="#{candidateCrudBacking.candidate.contactDetails.email}">
+		
 		<t:validateEmail />
 		<a4j:support event="onblur" reRender="candidate_contactDetails_email" />
 	</h:inputText>

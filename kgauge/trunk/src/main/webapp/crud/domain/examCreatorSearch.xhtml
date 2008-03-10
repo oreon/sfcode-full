@@ -11,7 +11,10 @@
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	template="/WEB-INF/template/templateCrud.xhtml">
+	
+	
 	
 	<ui:define name="title"> Search ExamCreator </ui:define>
  	<ui:define name="content">
@@ -21,141 +24,161 @@
 			styleClass="messages" />
 		
 			<a4j:form id="form">
-				<rich:tabPanel switchType="client">
-					<rich:tab label="Basic" >
 						<rich:panel header="Search ExamCreator">
-						<h:panelGrid columns="6" >
+						<h:panelGrid columns="2" >
 						
-							<h:outputText value="FirstName" styleClass="formLabel" />
+						<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
+								backingBean="#{examCreatorCrudBacking}" />
+						
+								
 							
+							<h:panelGroup>
+							<h:outputText value="FirstName" styleClass="customformLabel" />
 							<h:inputText    
 								id="examCreator__firstName"
 								value="#{examCreatorCrudBacking.examCreator.firstName}">
 								
 							</h:inputText>
-							
 							<h:message for="examCreator__firstName" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="LastName" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="LastName" styleClass="customformLabel" />
 							<h:inputText    
 								id="examCreator__lastName"
 								value="#{examCreatorCrudBacking.examCreator.lastName}">
 								
 							</h:inputText>
-							
 							<h:message for="examCreator__lastName" styleClass="errMessage" />
-							
-							<h:outputText value="DateOfBirth" styleClass="formLabel" />
-							
-							<rich:calendar    popup="true"   
-								id="examCreator__dateOfBirth"
-								value="#{examCreatorCrudBacking.examCreator.dateOfBirth}">
+							</h:panelGroup>
 								
-							</rich:calendar >
+		<wc:dateRange rangeFieldName="rangeDateOfBirth" label="DateOfBirth"
+			backingBean="#{examCreatorCrudBacking}" />
+	
+
+								
+								
 							
-							<h:message for="examCreator__dateOfBirth" styleClass="errMessage" />
-							
-							<h:outputText value="UserName" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="UserName" styleClass="customformLabel" />
 							<h:inputText    
 								id="examCreator_user_userName"
 								value="#{examCreatorCrudBacking.examCreator.user.userName}">
 								
 							</h:inputText>
-							
 							<h:message for="examCreator_user_userName" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="Password" styleClass="formLabel" />
-							
-							<h:inputSecret   maxLength="12"  redisplay="true"   
+							<h:panelGroup>
+							<h:outputText value="Password" styleClass="customformLabel" />
+							<h:inputSecret    
 								id="examCreator_user_password"
 								value="#{examCreatorCrudBacking.examCreator.user.password}">
-								<f:validateLength minimum="5" maximum="12"/>
+								
 							</h:inputSecret>
-							
 							<h:message for="examCreator_user_password" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="Enabled" styleClass="formLabel" />
-							
-							<h:selectBooleanCheckbox    title="enabled"  
+							<h:panelGroup>
+							<h:outputText value="Enabled" styleClass="customformLabel" />
+							<h:selectBooleanCheckbox     
 								id="examCreator_user_enabled"
 								value="#{examCreatorCrudBacking.examCreator.user.enabled}">
 								
 							</h:selectBooleanCheckbox >
-							
 							<h:message for="examCreator_user_enabled" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="StreetAddress" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="StreetAddress" styleClass="customformLabel" />
 							<h:inputText    
 								id="examCreator_contactDetails_streetAddress"
 								value="#{examCreatorCrudBacking.examCreator.contactDetails.streetAddress}">
 								
 							</h:inputText>
-							
 							<h:message for="examCreator_contactDetails_streetAddress" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="City" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="City" styleClass="customformLabel" />
 							<h:inputText    
 								id="examCreator_contactDetails_city"
 								value="#{examCreatorCrudBacking.examCreator.contactDetails.city}">
 								
 							</h:inputText>
-							
 							<h:message for="examCreator_contactDetails_city" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="State" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="State" styleClass="customformLabel" />
 							<h:inputText    
 								id="examCreator_contactDetails_state"
 								value="#{examCreatorCrudBacking.examCreator.contactDetails.state}">
 								
 							</h:inputText>
-							
 							<h:message for="examCreator_contactDetails_state" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="Country" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="Country" styleClass="customformLabel" />
 							<h:inputText    
 								id="examCreator_contactDetails_country"
 								value="#{examCreatorCrudBacking.examCreator.contactDetails.country}">
 								
 							</h:inputText>
-							
 							<h:message for="examCreator_contactDetails_country" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="Zip" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="Zip" styleClass="customformLabel" />
 							<h:inputText    
 								id="examCreator_contactDetails_zip"
 								value="#{examCreatorCrudBacking.examCreator.contactDetails.zip}">
 								
 							</h:inputText>
-							
 							<h:message for="examCreator_contactDetails_zip" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="Phone" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="Phone" styleClass="customformLabel" />
 							<h:inputText    
 								id="examCreator_contactDetails_phone"
 								value="#{examCreatorCrudBacking.examCreator.contactDetails.phone}">
 								
 							</h:inputText>
-							
 							<h:message for="examCreator_contactDetails_phone" styleClass="errMessage" />
+							</h:panelGroup>
+								
+								
 							
-							<h:outputText value="Email" styleClass="formLabel" />
-							
+							<h:panelGroup>
+							<h:outputText value="Email" styleClass="customformLabel" />
 							<h:inputText    
 								id="examCreator_contactDetails_email"
 								value="#{examCreatorCrudBacking.examCreator.contactDetails.email}">
-								<t:validateEmail />
+								
 							</h:inputText>
-							
 							<h:message for="examCreator_contactDetails_email" styleClass="errMessage" />
-							
+							</h:panelGroup>
+								
 							
 							
 								<h:outputText value="User" styleClass="formLabel" />
@@ -183,82 +206,10 @@
 							
 							</h:panelGrid>
 
-							<h:panelGrid columns="2">
-							
-  						   <h:commandButton id="btn_search" value="Search" action="#{examCreatorCrudBacking.search}" styleClass="btn"  /> 
-  						    <h:commandButton id="btn_cancel" value="Cancel" action="cancel" immediate="true"  styleClass="btn" /> 
-  				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
-		  				   	<h:inputHidden id="examCreator_id" value="#{examCreatorCrudBacking.examCreator.id}" />
-
-							</h:panelGrid>
+							<wc:submitCancelButtons backingBean="#{examCreatorCrudBacking}" submitLabel="Search" 
+								submitAction="search" /> 
 						
-						 </rich:panel>
-						</rich:tab>
-		<rich:tab label="Advanced">
-	
-		<h:inputHidden id="dateOperation" value="#{examCreatorCrudBacking.dateOp}"/>
-			
-		<h:panelGrid id="advGrid" columns="6" styleClass="formTable">
-			
-			<f:facet name="header">
-				<h:outputText value="ExamCreator Information" styleClass="formHeaderText"   />
-			</f:facet>
-							   
-			<h:column id="ddcol">	
-				<h:form id="ddform">	
-				<!--plan:when a date operation is selected it stores the value in dateOperation-->
-				<!--The value in dOp should be rendered with value of dateOperation-->
-				<!--When the search button is clicked dateOperation etc will be passed to a method in backing bean-->				
-				<rich:dropDownMenu id="ddmenu" submitMode="ajax" binding="#{examCreatorCrudBacking.dateOp}" onitemselect="render='form.dOp'" immediate="true" >
-                	<f:facet name="label"> 
-                	    <h:panelGrid id="pg" cellpadding="0" cellspacing="0" columns="2" style="vertical-align:middle">
-                         	<h:graphicImage value="/images/icons/date_go.png" style="border: 0px"/>
-                        	<h:outputText id="t" value="Date" />
-                    	</h:panelGrid>                                                                		
-                	</f:facet>               
-                	<rich:menuItem  value="On"  reRender="form.dOp" icon="/images/icons/flag_blue.png" >             		
-                	<f:param id="On" name="id" value="On" />						
-                	</rich:menuItem>               
-                	<rich:menuItem    value="Before" icon="/images/icons/resultset_previous.png"    >    
-                	<f:param id="Before" name="id" value="Before" />		
-                	
-                	</rich:menuItem>                   	
-                	<rich:menuItem  value="After"  icon="/images/icons/resultset_next.png"  > 
-                	<f:param id="After" name="id" value="After" />				
-                	
-                	</rich:menuItem>                 
-                	<rich:menuItem  value="Between" immediate="true" icon="/images/icons/tag.png">
-                	<f:param id="Between" name="id" value="Between" />	
-            		</rich:menuItem>      
-            		
-            		<rich:menuItem    value="Any"  >
-            		<f:param id="Any" name="id" value="Any" />	
-            		</rich:menuItem>                               	 
-				</rich:dropDownMenu>
-				
-				</h:form>
-				</h:column>		
-			<h:column id="outCol" styleClass="header">
-			 
-				   <h:outputText id="dOp" render="true" ajaxRendered="true" name="dateOp" style="font-weight:bold"  immediate="true" value="#{examCreatorCrudBacking.dateOp}"  />				
-			 	
-    		
-			</h:column>		
-			<h:column>		
-				<t:inputCalendar    renderAsPopup="true" renderPopupButtonAsImage="true"   
-								id="fromDate"
-								value="#{examCreatorCrudBacking.examCreator.dateCreated}">							
-				</t:inputCalendar >
-			</h:column>				
-							<h:message for="fromDate" styleClass="errMessage" />
-		</h:panelGrid>		
-	<h:commandButton value="Search" action="submit" />						
-	</rich:tab>
-						
-						
-				</rich:tabPanel>
-				
-				
+						 </rich:panel>					
 			</a4j:form>
 		</f:view>
 
