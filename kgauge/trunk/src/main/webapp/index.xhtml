@@ -13,60 +13,31 @@
 
 	<ui:define name="content">
 		<f:view>
-			<f:loadBundle basename="messages.messages" var="msg" />
 			<blockquote><h:form id="links">
 				<h:panelGrid styleClass="formTable">
 					<h:commandLink styleClass="a:link" value="#{msg.login}"
-						action="login"></h:commandLink>
+						action="login">
+					</h:commandLink>
 					<h:commandLink styleClass="a:link" value="#{msg.register}"
-						action="register"></h:commandLink>
+						action="register">
+					</h:commandLink>
 					<h:commandLink styleClass="a:link" value="#{msg.retrieve}"
-						action="forgotCredentials"></h:commandLink>
+						action="forgotCredentials">
+					</h:commandLink>
 				</h:panelGrid>
 			</h:form> 
-			<h:form id="changelanguageform" styleClass=">#center">
-				<p><t:commandLink styleClass="a:link" id="english"
+			<h:form id="changelanguageform" styleClass="&gt;#center">
+				<t:commandLink styleClass="a:link" id="english"
 					action="chooseLocale" actionListener="#{LangBean.onChooseLocale}"
-					value="English" /> | <t:commandLink styleClass="a:link"
-					id="german" action="chooseLocale"
-					actionListener="#{LangBean.onChooseLocale}" value="Deutsch" /> | <t:commandLink
-					styleClass="a:link" id="french" action="chooseLocale"
-					actionListener="#{LangBean.onChooseLocale}" value="Francais" /></p>
-*********************Experimenting*********************************<br></br>
-				<t:selectOneCountry id="country" maxLength="16"
-					emptySelection="Select Country" />
-				<h:outputLabel for="language" value="Language" />
-				<t:selectOneLanguage id="language" maxLength="16"
-					emptySelection="Select Language" />
-			</h:form> <t:panelGrid columns="2" style="fontweight:
-bold;" width="40%">
-				<t:outputText value="Name" />
-				<t:inputText id="name" />
-				<t:outputText value="Phone No." />
-				<t:inputText id="phone" />
-				<t:outputText value="Email" />
-				<t:panelGroup>
-					<t:inputText id="email" required="true">
-						<t:validateEmail message="Enter valid
-EmailID." />
-					</t:inputText>
-					<f:verbatim>
-						<br></br>
-					</f:verbatim>
-					<t:message for="email" />
-				</t:panelGroup>
-				<t:outputText value=" " />
-				<t:inputHidden id="ih" value="999" />
-					<t:inputText id="number" required="true">
-						<t:validateEqual for="ih"
-							message="Try again......Fields must match" />
-					</t:inputText>
-				<t:commandButton id="cb" image="images/clock.jpg"
-				action="welcome"/>
-					
-			</t:panelGrid></blockquote>
-			<h:outputText
+					value="English" /> | 
+				<t:commandLink styleClass="a:link" id="german" action="chooseLocale"
+					actionListener="#{LangBean.onChooseLocale}" value="Deutsch" /> | 
+				<t:commandLink styleClass="a:link" id="french" action="chooseLocale"
+					actionListener="#{LangBean.onChooseLocale}" value="Francais" />
+
+			</h:form> <h:outputText
 				value="Testing Locale: #{LangBean.locale.displayCountry}" />
+			</blockquote>
 		</f:view>
 	</ui:define>
 </ui:composition>
