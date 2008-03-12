@@ -43,155 +43,205 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 		questions.add(question);
 	}
 
-	public Question createQuestionOne() {
-		Question question = new Question();
+	public  Question createQuestionOne(){
+			Question question = new Question();
+			
+			try{
+			
+			
+		question.setQuestionText("Mark");
+		question.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L2);
+	
+	
+	
+	
+		
+	TestDataFactory examTestDataFactory  = (TestDataFactory) BeanHelper.getBean("examTestDataFactory") ;
 
-		try {
+		
+			question.setExam((com.oreon.kgauge.domain.Exam)examTestDataFactory.loadOneRecord());
+		
+		
+	TestDataFactory sectionTestDataFactory  = (TestDataFactory) BeanHelper.getBean("sectionTestDataFactory") ;
 
-			question.setQuestionText("pi");
-			question.setDifficultyLevel(6514);
+		
+			question.setSection((com.oreon.kgauge.domain.Section)sectionTestDataFactory.loadOneRecord());
+		
+	
 
-			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("examTestDataFactory");
+	
+	
+	
 
-			question.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
-					.loadOneRecord());
-
-			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("sectionTestDataFactory");
-
-			question
-					.setSection((com.oreon.kgauge.domain.Section) sectionTestDataFactory
-							.loadOneRecord());
-
-			register(question);
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
+			
+			register(question );
+			
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+			
+			return question;
 		}
 
-		return question;
-	}
+	public  Question createQuestionTwo(){
+			Question question = new Question();
+			
+			try{
+			
+			
+		question.setQuestionText("pi");
+		question.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
+	
+	
+	
+	
+		
+	TestDataFactory examTestDataFactory  = (TestDataFactory) BeanHelper.getBean("examTestDataFactory") ;
 
-	public Question createQuestionTwo() {
-		Question question = new Question();
+		
+			question.setExam((com.oreon.kgauge.domain.Exam)examTestDataFactory.loadOneRecord());
+		
+		
+	TestDataFactory sectionTestDataFactory  = (TestDataFactory) BeanHelper.getBean("sectionTestDataFactory") ;
 
-		try {
+		
+			question.setSection((com.oreon.kgauge.domain.Section)sectionTestDataFactory.loadOneRecord());
+		
+	
 
-			question.setQuestionText("Eric");
-			question.setDifficultyLevel(6577);
+	
+	
+	
 
-			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("examTestDataFactory");
-
-			question.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
-					.loadOneRecord());
-
-			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("sectionTestDataFactory");
-
-			question
-					.setSection((com.oreon.kgauge.domain.Section) sectionTestDataFactory
-							.loadOneRecord());
-
-			register(question);
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
+			
+			register(question );
+			
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+			
+			return question;
 		}
 
-		return question;
-	}
+	public  Question createQuestionThree(){
+			Question question = new Question();
+			
+			try{
+			
+			
+		question.setQuestionText("theta");
+		question.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
+	
+	
+	
+	
+		
+	TestDataFactory examTestDataFactory  = (TestDataFactory) BeanHelper.getBean("examTestDataFactory") ;
 
-	public Question createQuestionThree() {
-		Question question = new Question();
+		
+			question.setExam((com.oreon.kgauge.domain.Exam)examTestDataFactory.loadOneRecord());
+		
+		
+	TestDataFactory sectionTestDataFactory  = (TestDataFactory) BeanHelper.getBean("sectionTestDataFactory") ;
 
-		try {
+		
+			question.setSection((com.oreon.kgauge.domain.Section)sectionTestDataFactory.loadOneRecord());
+		
+	
 
-			question.setQuestionText("John");
-			question.setDifficultyLevel(4352);
+	
+	
+	
 
-			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("examTestDataFactory");
-
-			question.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
-					.loadOneRecord());
-
-			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("sectionTestDataFactory");
-
-			question
-					.setSection((com.oreon.kgauge.domain.Section) sectionTestDataFactory
-							.loadOneRecord());
-
-			register(question);
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
+			
+			register(question );
+			
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+			
+			return question;
 		}
 
-		return question;
-	}
+	public  Question createQuestionFour(){
+			Question question = new Question();
+			
+			try{
+			
+			
+		question.setQuestionText("Wilson");
+		question.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
+	
+	
+	
+	
+		
+	TestDataFactory examTestDataFactory  = (TestDataFactory) BeanHelper.getBean("examTestDataFactory") ;
 
-	public Question createQuestionFour() {
-		Question question = new Question();
+		
+			question.setExam((com.oreon.kgauge.domain.Exam)examTestDataFactory.loadOneRecord());
+		
+		
+	TestDataFactory sectionTestDataFactory  = (TestDataFactory) BeanHelper.getBean("sectionTestDataFactory") ;
 
-		try {
+		
+			question.setSection((com.oreon.kgauge.domain.Section)sectionTestDataFactory.loadOneRecord());
+		
+	
 
-			question.setQuestionText("beta");
-			question.setDifficultyLevel(2529);
+	
+	
+	
 
-			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("examTestDataFactory");
-
-			question.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
-					.loadOneRecord());
-
-			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("sectionTestDataFactory");
-
-			question
-					.setSection((com.oreon.kgauge.domain.Section) sectionTestDataFactory
-							.loadOneRecord());
-
-			register(question);
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
+			
+			register(question );
+			
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+			
+			return question;
 		}
 
-		return question;
-	}
+	public  Question createQuestionFive(){
+			Question question = new Question();
+			
+			try{
+			
+			
+		question.setQuestionText("alpha");
+		question.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
+	
+	
+	
+	
+		
+	TestDataFactory examTestDataFactory  = (TestDataFactory) BeanHelper.getBean("examTestDataFactory") ;
 
-	public Question createQuestionFive() {
-		Question question = new Question();
+		
+			question.setExam((com.oreon.kgauge.domain.Exam)examTestDataFactory.loadOneRecord());
+		
+		
+	TestDataFactory sectionTestDataFactory  = (TestDataFactory) BeanHelper.getBean("sectionTestDataFactory") ;
 
-		try {
+		
+			question.setSection((com.oreon.kgauge.domain.Section)sectionTestDataFactory.loadOneRecord());
+		
+	
 
-			question.setQuestionText("Eric");
-			question.setDifficultyLevel(9714);
+	
+	
+	
 
-			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("examTestDataFactory");
-
-			question.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
-					.loadOneRecord());
-
-			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("sectionTestDataFactory");
-
-			question
-					.setSection((com.oreon.kgauge.domain.Section) sectionTestDataFactory
-							.loadOneRecord());
-
-			register(question);
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
+			
+			register(question );
+			
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+			
+			return question;
 		}
-
-		return question;
-	}
 
 	public Question loadOneRecord() {
 		List<Question> questions = questionService.loadAll();
@@ -260,8 +310,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		question.setQuestionText((String) RandomValueGeneratorFactory
 				.createInstance("String"));
-		question.setDifficultyLevel((Integer) RandomValueGeneratorFactory
-				.createInstance("Integer"));
+		question
+				.setDifficultyLevel((DifficultyLevel) RandomValueGeneratorFactory
+						.createInstance("DifficultyLevel"));
 
 		TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
 				.getBean("examTestDataFactory");

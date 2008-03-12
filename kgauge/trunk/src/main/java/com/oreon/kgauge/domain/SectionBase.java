@@ -55,7 +55,7 @@ public abstract class SectionBase
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "exam_ID", nullable = true)
+	@JoinColumn(name = "exam_ID", nullable = false)
 	public com.oreon.kgauge.domain.Exam getExam() {
 		return this.exam;
 	}

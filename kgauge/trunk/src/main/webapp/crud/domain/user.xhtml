@@ -166,7 +166,56 @@
   					</f:facet>
 			</h:panelGrid>
 						<br/>
+						
 			
+				<rich:simpleTogglePanel switchType="client" label="Authorities">
+				<t:dataTable id="authorities_data" var="authority"
+					value="#{userCrudBacking.user.authorities}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable">
+				
+				 
+				
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="" /> 
+		</f:facet>
+		
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="true" 
+		id="authority_user" converter="keyToObjectConverter"
+		value="#{authority.user}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{userCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="authority_user" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+	</t:column>
+							
+				
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="Name" /> 
+		</f:facet>
+		<h:inputText    required="true" 
+			id="authority__name"
+			value="#{authority.name}">
+			
+		</h:inputText>
+		<h:message for="authority__name" styleClass="errMessage" />
+	</t:column>
+				</t:dataTable>
+				</rich:simpleTogglePanel>
+				<br/>
 			
 						
 				</rich:panel>

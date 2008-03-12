@@ -50,13 +50,13 @@ public class ExamDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			examInstance.setDescription("beta");
-			examInstance.setName("pi");
-			examInstance.setQuestions(5952);
-			examInstance.setDuration(3780);
-			examInstance.setPrice(23.61);
+			examInstance.setDescription("John");
+			examInstance.setName("Lavendar");
+			examInstance.setQuestions(7852);
+			examInstance.setDuration(2051);
+			examInstance.setPrice(66.28);
 			examInstance
-					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
+					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
 			examInstance
 					.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
 
@@ -96,14 +96,15 @@ public class ExamDaoTest extends AbstractJpaTests {
 
 			try {
 
-				exam.setDescription("alpha");
-				exam.setName("Mark");
-				exam.setQuestions(7613);
-				exam.setDuration(4241);
-				exam.setPrice(57.3);
+				exam.setDescription("zeta");
+				exam.setName("John");
+				exam.setQuestions(8320);
+				exam.setDuration(9084);
+				exam.setPrice(78.6);
 				exam
 						.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
-				exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
+				exam
+						.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
 
 				TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("categoryTestDataFactory");
@@ -136,14 +137,14 @@ public class ExamDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Exam exam = (Exam) examTestDataFactory.loadOneRecord();
 
-			exam.setDescription("beta");
-			exam.setName("Malissa");
-			exam.setQuestions(8972);
-			exam.setDuration(2168);
-			exam.setPrice(91.79);
+			exam.setDescription("John");
+			exam.setName("Lavendar");
+			exam.setQuestions(6118);
+			exam.setDuration(4187);
+			exam.setPrice(61.66);
 			exam
-					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
-			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
+					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
+			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
 
 			examService.save(exam);
 

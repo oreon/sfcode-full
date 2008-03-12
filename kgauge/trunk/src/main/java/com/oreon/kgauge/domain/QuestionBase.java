@@ -26,14 +26,14 @@ public abstract class QuestionBase
 
 	protected String questionText;
 
-	protected Integer difficultyLevel;
+	protected DifficultyLevel difficultyLevel;
 
 	/* Default Constructor */
 	public QuestionBase() {
 	}
 
 	/* Constructor with all attributes */
-	public QuestionBase(String questionText, Integer difficultyLevel) {
+	public QuestionBase(String questionText, DifficultyLevel difficultyLevel) {
 		this.questionText = questionText;
 		this.difficultyLevel = difficultyLevel;
 	}
@@ -50,7 +50,7 @@ public abstract class QuestionBase
 	/*
 	
 	 */
-	public Integer getDifficultyLevel() {
+	public DifficultyLevel getDifficultyLevel() {
 		return this.difficultyLevel;
 	}
 
@@ -58,7 +58,7 @@ public abstract class QuestionBase
 		this.questionText = questionText;
 	}
 
-	public void setDifficultyLevel(Integer difficultyLevel) {
+	public void setDifficultyLevel(DifficultyLevel difficultyLevel) {
 		this.difficultyLevel = difficultyLevel;
 	}
 

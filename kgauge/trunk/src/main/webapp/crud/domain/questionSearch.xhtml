@@ -42,11 +42,21 @@
 							<h:message for="question__questionText" styleClass="errMessage" />
 							</h:panelGroup>
 								
-	
-		<wc:numberRange rangeFieldName="rangeDifficultyLevel" label="DifficultyLevel"
-			backingBean="#{questionCrudBacking}" type="integer" />
-	
+								
+							
+							<h:panelGroup>
+							<h:outputText value="DifficultyLevel" styleClass="customformLabel" />
+							<h:selectOneMenu    
+								id="question__difficultyLevel"
+								value="#{questionCrudBacking.question.difficultyLevel}">
+								<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="1" itemValue="1" />
+<f:selectItem itemLabel="2" itemValue="2" />
+<f:selectItem itemLabel="3" itemValue="3" />
+<f:selectItem itemLabel="4" itemValue="4" />
 
+							</h:selectOneMenu>
+							<h:message for="question__difficultyLevel" styleClass="errMessage" />
+							</h:panelGroup>
 								
 							
 							

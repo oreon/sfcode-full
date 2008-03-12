@@ -85,7 +85,44 @@
   					</f:facet>
 			</h:panelGrid>
 						<br/>
+						
 			
+				<rich:simpleTogglePanel switchType="client" label="">
+				<t:dataTable id="_data" var="answeredQuestion"
+					value="#{examInstanceCrudBacking.examInstance.answeredQuestion}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable">
+				
+				 
+				
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="" /> 
+		</f:facet>
+		
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="true" 
+		id="answeredQuestion_question" converter="keyToObjectConverter"
+		value="#{answeredQuestion.question}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{questionCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="answeredQuestion_question" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+	</t:column>
+							
+				</t:dataTable>
+				</rich:simpleTogglePanel>
+				<br/>
 			
 						
 				</rich:panel>

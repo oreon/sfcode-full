@@ -29,17 +29,6 @@ public class QuestionBackingBean extends BaseBackingBean<Question> {
 		this.rangeCreationDate = rangeCreationDate;
 	}
 
-	private Range<Integer> rangeDifficultyLevel = new Range<Integer>(
-			"difficultyLevel");
-
-	public Range<Integer> getRangeDifficultyLevel() {
-		return rangeDifficultyLevel;
-	}
-
-	public void setRangeDifficultyLevel(Range<Integer> rangeDifficultyLevel) {
-		this.rangeDifficultyLevel = rangeDifficultyLevel;
-	}
-
 	public void setQuestionService(QuestionService questionService) {
 		this.questionService = questionService;
 	}
@@ -65,8 +54,6 @@ public class QuestionBackingBean extends BaseBackingBean<Question> {
 	protected List<Range> getRangeList() {
 
 		List<Range> listRanges = super.getRangeList();
-
-		listRanges.add(rangeDifficultyLevel);
 
 		listRanges.add(rangeCreationDate);
 		return listRanges;

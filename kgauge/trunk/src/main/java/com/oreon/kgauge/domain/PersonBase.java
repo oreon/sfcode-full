@@ -93,7 +93,7 @@ public abstract class PersonBase
 
 	@Transient
 	public String getDisplayName() {
-		return firstName + "";
+		return lastName + ", " + firstName + "";
 	}
 
 }
