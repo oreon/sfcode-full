@@ -17,6 +17,8 @@ import org.richfaces.model.TreeNodeImpl;
 import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.Range;
 import org.witchcraft.model.support.service.BaseService;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.transaction.UnexpectedRollbackException;
 
 import com.oreon.kgauge.domain.Category;
 import com.oreon.kgauge.service.CategoryService;
@@ -36,8 +38,11 @@ public class CategoryBackingBean extends BaseBackingBean<Category> {
 	private DataModel children;
 
 	public static final int INITIAL_RECORDS = 3;
-
 	
+	JpaTransactionManager jpat=new JpaTransactionManager();
+	
+
+
 	
 	public DataModel getAllChildren() {
 		//log.debug("getAllTasks");
@@ -118,19 +123,31 @@ public class CategoryBackingBean extends BaseBackingBean<Category> {
 	/**
 	 * This action Listener Method is called when a row is clicked in the
 	 * dataTable
-	 * 
+	 * tells the transaction manager not to roll back if the whole
+	 * transaction fails
+	 * not sure why this happens yet but could be because some
+	 * connected command fails eg logging
+	 * I don't think a parent category can be deleted
+	 * If there is an error message when row is edited it throws 
+	 * an exception on delete
 	 * @param event
 	 *            contains the database id of the row being selected
 	 */
+	
 	public void selectEntity(ActionEvent actionEvent) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		String idStr = (String) ctx.getExternalContext()
-				.getRequestParameterMap().get("id");
-		long id = Long.parseLong(idStr);
-		category = categoryService.load(id);
-		if (actionEvent.getComponent().getId() == "deleteId") {
-			getBaseService().delete(category);
-		}
+		try{				
+			boolean rboc=jpat.isRollbackOnCommitFailure();
+			jpat.setRollbackOnCommitFailure(false);	
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			String idStr = (String) ctx.getExternalContext().getRequestParameterMap().get("id");
+			long id = Long.parseLong(idStr);
+			category = categoryService.load(id);
+			if (actionEvent.getComponent().getId() == "deleteId") {			
+				getBaseService().delete(category);}
+				jpat.setRollbackOnCommitFailure(rboc);
+			}catch(UnexpectedRollbackException ure){System.out.println("Nested transactions are allowed is :"+jpat.isNestedTransactionAllowed());ure.getRootCause();
+}
+		
 		/*
 		 * UIParameter component = (UIParameter)
 		 * actionEvent.getComponent().findComponent("editId"); // parse the
