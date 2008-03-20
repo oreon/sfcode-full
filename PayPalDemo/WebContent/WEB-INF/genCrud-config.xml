@@ -1,0 +1,1008 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config>
+
+	<!--  Spring variable resolver -->
+	<application>
+		<variable-resolver>
+			org.springframework.web.jsf.DelegatingVariableResolver
+		</variable-resolver>
+	</application>
+
+	<!-- Managed beans for the crud operations -->
+
+	
+	<managed-bean>
+		<managed-bean-name>candidateCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.CandidateBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>candidateService</property-name>
+			<value>#{candidateService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>questionCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.QuestionBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>questionService</property-name>
+			<value>#{questionService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>answerChoiceCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.AnswerChoiceBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>answerChoiceService</property-name>
+			<value>#{answerChoiceService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>examCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.ExamBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>examService</property-name>
+			<value>#{examService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>examInstanceCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.ExamInstanceBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>examInstanceService</property-name>
+			<value>#{examInstanceService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>examCreatorCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.ExamCreatorBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>examCreatorService</property-name>
+			<value>#{examCreatorService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>categoryCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.CategoryBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>categoryService</property-name>
+			<value>#{categoryService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>userCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.UserBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>userService</property-name>
+			<value>#{userService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>authorityCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.AuthorityBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>authorityService</property-name>
+			<value>#{authorityService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>answeredQuestionCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.AnsweredQuestionBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>answeredQuestionService</property-name>
+			<value>#{answeredQuestionService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>sectionCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.SectionBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>sectionService</property-name>
+			<value>#{sectionService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	
+	<!-- Navigation Rules  -->
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/candidate.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/candidateList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/candidateSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/candidateList.xhtml</to-view-id>
+		  </navigation-case>   
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/candidateList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/domain/candidate.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/crud/domain/candidate.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>delete</from-outcome>
+		    <to-view-id>/crud/domain/candidateList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/candidateList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>failure</from-outcome>
+		    <to-view-id>/crud/domain/candidateList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/candidateSearch.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/candidateSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/candidateList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>cancel</from-outcome>
+		    <to-view-id>/crud/domain/candidateList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listCandidate</from-outcome>
+		    <to-view-id>/crud/domain/candidateList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+	<navigation-rule>
+  		<from-view-id>/crud/domain/question.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/questionList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/questionSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/questionList.xhtml</to-view-id>
+		  </navigation-case>   
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/questionList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/domain/question.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/crud/domain/question.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>delete</from-outcome>
+		    <to-view-id>/crud/domain/questionList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/questionList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>failure</from-outcome>
+		    <to-view-id>/crud/domain/questionList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/questionSearch.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/questionSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/questionList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>cancel</from-outcome>
+		    <to-view-id>/crud/domain/questionList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listQuestion</from-outcome>
+		    <to-view-id>/crud/domain/questionList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+	<navigation-rule>
+  		<from-view-id>/crud/domain/answerChoice.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/answerChoiceList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/answerChoiceSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/answerChoiceList.xhtml</to-view-id>
+		  </navigation-case>   
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/answerChoiceList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/domain/answerChoice.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/crud/domain/answerChoice.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>delete</from-outcome>
+		    <to-view-id>/crud/domain/answerChoiceList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/answerChoiceList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>failure</from-outcome>
+		    <to-view-id>/crud/domain/answerChoiceList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/answerChoiceSearch.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/answerChoiceSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/answerChoiceList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>cancel</from-outcome>
+		    <to-view-id>/crud/domain/answerChoiceList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listAnswerChoice</from-outcome>
+		    <to-view-id>/crud/domain/answerChoiceList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+	<navigation-rule>
+  		<from-view-id>/crud/domain/exam.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/examList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/examSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/examList.xhtml</to-view-id>
+		  </navigation-case>   
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/examList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/domain/exam.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/crud/domain/exam.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>delete</from-outcome>
+		    <to-view-id>/crud/domain/examList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/examList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>failure</from-outcome>
+		    <to-view-id>/crud/domain/examList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/examSearch.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/examSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/examList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>cancel</from-outcome>
+		    <to-view-id>/crud/domain/examList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listExam</from-outcome>
+		    <to-view-id>/crud/domain/examList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+	<navigation-rule>
+  		<from-view-id>/crud/domain/examInstance.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/examInstanceList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/examInstanceSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/examInstanceList.xhtml</to-view-id>
+		  </navigation-case>   
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/examInstanceList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/domain/examInstance.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/crud/domain/examInstance.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>delete</from-outcome>
+		    <to-view-id>/crud/domain/examInstanceList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/examInstanceList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>failure</from-outcome>
+		    <to-view-id>/crud/domain/examInstanceList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/examInstanceSearch.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/examInstanceSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/examInstanceList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>cancel</from-outcome>
+		    <to-view-id>/crud/domain/examInstanceList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listExamInstance</from-outcome>
+		    <to-view-id>/crud/domain/examInstanceList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+	<navigation-rule>
+  		<from-view-id>/crud/domain/examCreator.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/examCreatorList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/examCreatorSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/examCreatorList.xhtml</to-view-id>
+		  </navigation-case>   
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/examCreatorList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/domain/examCreator.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/crud/domain/examCreator.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>delete</from-outcome>
+		    <to-view-id>/crud/domain/examCreatorList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/examCreatorList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>failure</from-outcome>
+		    <to-view-id>/crud/domain/examCreatorList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/examCreatorSearch.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/examCreatorSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/examCreatorList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>cancel</from-outcome>
+		    <to-view-id>/crud/domain/examCreatorList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listExamCreator</from-outcome>
+		    <to-view-id>/crud/domain/examCreatorList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+	<navigation-rule>
+  		<from-view-id>/crud/domain/category.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/categoryList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/categorySearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/categoryList.xhtml</to-view-id>
+		  </navigation-case>   
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/categoryList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/domain/category.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/crud/domain/category.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>delete</from-outcome>
+		    <to-view-id>/crud/domain/categoryList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/categoryList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>failure</from-outcome>
+		    <to-view-id>/crud/domain/categoryList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/categorySearch.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/categorySearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/categoryList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>cancel</from-outcome>
+		    <to-view-id>/crud/domain/categoryList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listCategory</from-outcome>
+		    <to-view-id>/crud/domain/categoryList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+	<navigation-rule>
+  		<from-view-id>/crud/domain/user.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/userList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/userSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/userList.xhtml</to-view-id>
+		  </navigation-case>   
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/userList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/domain/user.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/crud/domain/user.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>delete</from-outcome>
+		    <to-view-id>/crud/domain/userList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/userList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>failure</from-outcome>
+		    <to-view-id>/crud/domain/userList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/userSearch.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/userSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/userList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>cancel</from-outcome>
+		    <to-view-id>/crud/domain/userList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listUser</from-outcome>
+		    <to-view-id>/crud/domain/userList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+	<navigation-rule>
+  		<from-view-id>/crud/domain/authority.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/authorityList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/authoritySearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/authorityList.xhtml</to-view-id>
+		  </navigation-case>   
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/authorityList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/domain/authority.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/crud/domain/authority.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>delete</from-outcome>
+		    <to-view-id>/crud/domain/authorityList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/authorityList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>failure</from-outcome>
+		    <to-view-id>/crud/domain/authorityList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/authoritySearch.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/authoritySearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/authorityList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>cancel</from-outcome>
+		    <to-view-id>/crud/domain/authorityList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listAuthority</from-outcome>
+		    <to-view-id>/crud/domain/authorityList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+	<navigation-rule>
+  		<from-view-id>/crud/domain/answeredQuestion.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/answeredQuestionList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/answeredQuestionSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/answeredQuestionList.xhtml</to-view-id>
+		  </navigation-case>   
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/answeredQuestionList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/domain/answeredQuestion.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/crud/domain/answeredQuestion.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>delete</from-outcome>
+		    <to-view-id>/crud/domain/answeredQuestionList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/answeredQuestionList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>failure</from-outcome>
+		    <to-view-id>/crud/domain/answeredQuestionList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/answeredQuestionSearch.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/answeredQuestionSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/answeredQuestionList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>cancel</from-outcome>
+		    <to-view-id>/crud/domain/answeredQuestionList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listAnsweredQuestion</from-outcome>
+		    <to-view-id>/crud/domain/answeredQuestionList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+	<navigation-rule>
+  		<from-view-id>/crud/domain/section.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/sectionList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/sectionSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/sectionList.xhtml</to-view-id>
+		  </navigation-case>   
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/sectionList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/domain/section.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/crud/domain/section.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>delete</from-outcome>
+		    <to-view-id>/crud/domain/sectionList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/sectionList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>failure</from-outcome>
+		    <to-view-id>/crud/domain/sectionList.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/sectionSearch.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/sectionSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/sectionList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>cancel</from-outcome>
+		    <to-view-id>/crud/domain/sectionList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listSection</from-outcome>
+		    <to-view-id>/crud/domain/sectionList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+	
+	<!-- Navigation Rule for summary  -->
+	<navigation-rule>
+		<from-view-id>/crud/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>summary</from-outcome>
+  			<to-view-id>/crud/entitiesSummary.xhtml</to-view-id>
+  		  </navigation-case>
+	</navigation-rule>
+			
+</faces-config>

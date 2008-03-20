@@ -1,0 +1,2679 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+
+<!-- Copyright 2005 Sun Microsystems, Inc.  All rights reserved.  You may not modify, 
+use, reproduce, or distribute this software except in compliance with the terms of the License 
+at:  http://developer.sun.com/berkeley_license.html
+$Id: ui.tld,v 1.36 2006/05/15 21:07:22 edwingo Exp $ -->
+<taglib>
+
+
+  <!-- ============== Tag Library Description Elements ============= -->
+  <tlib-version>0.1</tlib-version>
+  <jsp-version>1.2</jsp-version>
+  <short-name>bpui</short-name>
+  <uri>http://java.blueprints/bpui</uri>
+  <display-name>BluePrintsAjaxJSFTags</display-name>
+  <description>
+    J2EE BluePrints JSF Components Tag Library.
+    This tag library contains tags for several useful JSF components.
+  </description>
+
+
+  <!-- ============= BEGIN:  tags for the AutoComplete component =========== -->
+  <tag>
+
+    <name>autoComplete</name>
+    <tag-class>com.sun.j2ee.blueprints.ui.autocomplete.AutoCompleteTag</tag-class>
+    <body-content>empty</body-content>
+    <description>
+      Renders a text field with automatic completion.
+    </description>
+
+    <attribute>
+      <name>accesskey</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Access key that, when pressed, transfers focus
+          to this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>alt</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Alternate textual description of the
+          element rendered by this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>binding</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Binding to the component in a page bean.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>completionMethod</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <type>java.lang.String</type>
+      <description>
+        Method binding expression which points to a method
+        taking a FacesContext and a prefix String, and returning
+        a String[] which will be displayed as completion results
+        for the given prefix.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>converter</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Converter instance registered with this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>dir</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Direction indication for text that does not inherit directionality.
+          Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>disabled</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Flag indicating that this element must never
+          receive focus or be included in a subsequent
+          submit.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>id</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          The component identifier for this component.  This value must be
+          unique within the closest parent component that is a naming
+          container.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>immediate</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Flag indicating that, if this component is activated by the user,
+          notifications should be delivered to interested listeners and actions
+          immediately (that is, during Apply Request Values phase) rather than
+          waiting until Invoke Application phase.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>lang</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Code describing the language used in the generated markup
+          for this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>maxlength</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+        The maximum number of characters that may
+        be entered in this field.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onblur</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when this element loses focus.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onchange</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when this element loses focus
+          and its value has been modified since gaining focus.
+      </description>
+    </attribute>
+
+   <attribute>
+      <name>onchoose</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <type>java.lang.String</type>
+      <description>
+        JavaScript code which is given a String item that has been
+        chosen by the user and should be set in the given text field.
+        This is optional; if not set the text will be set in the
+        auto-complete text field, but this can be used to do something
+        more advanced, like split the string up into subparts and set
+        these subparts on different text fields (for example).
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onclick</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          clicked over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>ondblclick</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>     
+          Javascript code executed when a pointer button is
+          double clicked over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>ondisplay</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <type>java.lang.String</type>
+      <description>
+        JavaScript code which is given a String item that has been
+        returned from the server, and it is given a chance to
+        massage this string before it is placed into the completion
+        display for the user.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onfocus</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when this element receives focus.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onkeydown</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a key is
+          pressed down over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onkeypress</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a key is
+          pressed and released over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onkeyup</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a key is
+          released over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onmousedown</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          pressed down over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onmousemove</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          moved within this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onmouseout</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          moved away from this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onmouseover</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          moved onto this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onmouseup</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>     
+          Javascript code executed when a pointer button is
+          released over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onselect</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when text within this
+          element is selected by the user.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>readonly</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Flag indicating that this component will prohibit
+          changes by the user.  The element may receive focus
+          unless it has also been disabled.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>rendered</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Flag indicating whether or not this component should be rendered
+          (during Render Response Phase), or processed on any subsequent
+          form submit.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>required</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Flag indicating that the user is required to provide a submitted
+          value for this input component.
+      </description>     
+    </attribute>
+
+    <attribute>
+      <name>size</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          The number of characters used to determine
+          the width of this field.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>style</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          CSS style(s) to be applied when this component is rendered.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>styleClass</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Space-separated list of CSS style class(es) to be applied when
+          this element is rendered.  This value must be passed through
+          as the "class" attribute on generated markup.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>text</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        The text to be initially displayed in this input field.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>title</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Advisory title information about markup elements generated
+          for this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>validator</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          MethodBinding representing a validator method that will be called
+          during Process Validations to perform correctness checks on the
+          value of this component.  The expression must evaluate to a public
+          method that takes FacesContext, UIComponent, and Object parameters,
+          with a return type of void.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>value</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>     
+          The current value of this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>valueChangeListener</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          MethodBinding representing a value change listener method that will be
+          notified when a new value has been set for this input component.  The
+          expression must evaluate to a public method that takes a
+          ValueChangeEvent parameter, with a return type of void.
+      </description>
+    </attribute>
+
+  </tag>
+  <!-- ============== END:  tags for the AutoComplete component ============ -->
+
+
+  <!-- ============= BEGIN:  tags for the Rich Textarea Editor component =========== -->
+  <tag>
+
+    <name>richTextarea</name>
+    <tag-class>com.sun.j2ee.blueprints.ui.editor.RichTextareaEditorTag</tag-class>
+    <body-content>empty</body-content>
+    <description>
+      Renders a textarea with rich text editing features
+    </description>
+
+    <attribute>
+      <name>accesskey</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Access key that, when pressed, transfers focus
+          to this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>alt</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Alternate textual description of the
+          element rendered by this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>binding</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Binding to the component in a page bean.
+      </description>
+    </attribute>
+
+<!-- Comment out, because underlying widget ignores this
+    <attribute>
+      <name>cols</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Number of columns to render for this text area.
+      </description>
+    </attribute>
+-->
+
+    <attribute>
+      <name>converter</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Converter instance registered with this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>dir</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Direction indication for text that does not inherit directionality.
+          Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>disabled</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Flag indicating that this element must never
+          receive focus or be included in a subsequent
+          submit.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>id</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          The component identifier for this component.  This value must be
+          unique within the closest parent component that is a naming
+          container.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>immediate</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Flag indicating that, if this component is activated by the user,
+          notifications should be delivered to interested listeners and actions
+          immediately (that is, during Apply Request Values phase) rather than
+          waiting until Invoke Application phase.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>items</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+
+    <attribute>
+      <name>lang</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Code describing the language used in the generated markup
+          for this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onblur</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when this element loses focus.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onchange</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when this element loses focus
+          and its value has been modified since gaining focus.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onclick</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          clicked over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>ondblclick</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>     
+          Javascript code executed when a pointer button is
+          double clicked over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onfocus</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when this element receives focus.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onkeydown</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a key is
+          pressed down over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onkeypress</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a key is
+          pressed and released over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onkeyup</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a key is
+          released over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onmousedown</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          pressed down over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onmousemove</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          moved within this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onmouseout</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          moved away from this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onmouseover</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          moved onto this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onmouseup</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>     
+          Javascript code executed when a pointer button is
+          released over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onselect</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when text within this
+          element is selected by the user.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>readonly</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Flag indicating that this component will prohibit
+          changes by the user.  The element may receive focus
+          unless it has also been disabled.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>rendered</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Flag indicating whether or not this component should be rendered
+          (during Render Response Phase), or processed on any subsequent
+          form submit.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>required</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Flag indicating that the user is required to provide a submitted
+          value for this input component.
+      </description>     
+    </attribute>
+
+<!-- Comment out, because underlying widget ignores this
+    <attribute>
+      <name>rows</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Number of rows to render for this text area.
+      </description>
+    </attribute>
+-->
+
+    <attribute>
+      <name>style</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          CSS style(s) to be applied when this component is rendered.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>styleClass</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Space-separated list of CSS style class(es) to be applied when
+          this element is rendered.  This value must be passed through
+          as the "class" attribute on generated markup.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>tabindex</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Position of this element in the tabbing order
+          for the current document.  This value must be
+          an integer between 0 and 32767.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>text</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          The current text value of this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>title</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Advisory title information about markup elements generated
+          for this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>validator</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          MethodBinding representing a validator method that will be called
+          during Process Validations to perform correctness checks on the
+          value of this component.  The expression must evaluate to a public
+          method that takes FacesContext, UIComponent, and Object parameters,
+          with a return type of void.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>value</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>     
+          The current value of this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>valueChangeListener</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          MethodBinding representing a value change listener method that will be
+          notified when a new value has been set for this input component.  The
+          expression must evaluate to a public method that takes a
+          ValueChangeEvent parameter, with a return type of void.
+      </description>
+    </attribute>
+
+  </tag>
+  <!-- ============== END:  tags for the Rich Textarea Editor component ============ -->
+
+
+  <!-- =================== BEGIN: tags for the Map component ========================== -->
+  <tag>
+
+    <name>mapLocator</name>
+    <tag-class>com.sun.j2ee.blueprints.ui.maplocator.MapLocatorTag</tag-class>
+    <body-content>empty</body-content>
+    <description>
+      Renders a map allowing visual display of locations
+    </description>
+                                                                                                  
+    <attribute>
+      <name>binding</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Binding to the component in a page bean.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>height</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+
+    <attribute>
+      <name>id</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          The component identifier for this component.  This value must be
+          unique within the closest parent component that is a naming
+          container.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>key</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+
+    <attribute>
+      <name>location</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+
+    <attribute>
+      <name>style</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          CSS style(s) to be applied when this component is rendered.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>styleClass</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Space-separated list of CSS style class(es) to be applied when
+          this element is rendered.  This value must be passed through
+          as the "class" attribute on generated markup.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+                                                                                                  
+  </tag>  
+  <!-- ===================== END: tags for the Map component ========================== -->
+
+
+  <!-- =================== BEGIN: tags for the Map Viewer component ========================== -->
+  <tag>
+
+    <name>mapViewer</name>
+    <tag-class>com.sun.j2ee.blueprints.ui.mapviewer.MapTag</tag-class>
+    <body-content>empty</body-content>
+    <description>
+      Renders a map allowing visual display of locations
+    </description>
+                                                                                                  
+    <attribute>
+      <name>binding</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Binding to the component in a page bean.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>center</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          A MapPoint representing the geographic
+          location around which this map should
+          be centered.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>draggingEnabled</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Flag indicating that the map surface may
+          be dragged after being rendered.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>id</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          The component identifier for this component.  This value must be
+          unique within the closest parent component that is a naming
+          container.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>info</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          A MapMarker representing the geographic location
+          at which an information balloon should be presented,
+          along with the text to be displayed.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>key</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Google Maps API key for this component.  You may
+          specify this globally for the entire application
+          by using a context init parameter named
+          "com.sun.j2ee.blueprints.ui.mapviewer.KEY".
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>mapControls</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Flag indicating that the rendered map should
+          include navigation controls.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>markers</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Array of MapMarker instances to display
+          location markers on the map.  The text
+          of each MapMarker will be displayed as a
+          pop-up when that marker is clicked.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>style</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          CSS style(s) to be applied when this component is rendered.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>styleClass</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Space-separated list of CSS style class(es) to be applied when
+          this element is rendered.  This value must be passed through
+          as the "class" attribute on generated markup.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>typeControls</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Flag indicating whether or not map type controls
+          should be included on the rendered map.
+      </description>
+    </attribute>
+                                                                                                  
+    <attribute>
+      <name>zoomLevel</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Integer describing the zoom level for the rendered map.
+          Valid values are 1-9.
+      </description>
+    </attribute>
+
+  </tag>  
+  <!-- ===================== END: tags for the Map Viewer component ========================== -->
+
+
+  <!-- =================== BEGIN: tags for the ProgressBar component ========================== -->
+  <tag>
+
+    <name>progressBar</name>
+    <tag-class>com.sun.j2ee.blueprints.ui.progressbar.ProgressBarTag</tag-class>
+    <body-content>empty</body-content>
+    <description>
+       Renders a progress bar that updates itself asynchronously.
+    </description>
+
+    <attribute>
+      <name>binding</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Binding to the component in a page bean.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>id</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Component id of this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>style</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        CSS style(s) for the component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>styleClass</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Css styleClass for the component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>percentage</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Value Expression that returns a number between 0 and 100.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>interval</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        A literal or value expression that returns the number of
+        milliseconds between calls to the method referred to by the 
+        value attribute.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>percentageText</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Custom text to indicate the progress made so far.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>startOperation</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        A method binding, invoked via AJAX, 
+        that starts the long-running process.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>pauseOperation</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        A method binding, invoked via AJAX, 
+        that pauses the long-running process.  
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>resumeOperation</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        A method binding, invoked via AJAX, 
+        that resumes the long-running process.  
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>stopOperation</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        A method binding, invoked via AJAX, 
+        that stops the long-running process.  
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>onComplete</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        A literal or value expression that represents
+        a scripting function that will be executed when progress is complete.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>onFail</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        A literal or value expression that represents
+        a scripting function that will be executed when progress fails.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>onUpdate</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        A literal or value expression that represents
+        a scripting function that will be executed each time progress
+        is updated.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>onPoll</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        A literal or value expression that represents
+        a scripting function that will be executed each time the component
+        polls the server.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>autoStart</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Boolean indicating whether this progress bar starts automatically
+        when the page loads.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>failed</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Boolean value expression indicating whether the operation has failed.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>indeterminateSection</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        A literal or value expression indicating the 
+        length of the bar's middle section (as a percentage) for an 
+        indeterminate case.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>indeterminateInterval</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        A literal or value expression indicating the interval in milliseconds 
+        between updates to the bar's display for an indeterminate case.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>indeterminateIncrement</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        A literal or value expression of the percentage by which the 
+        bar's display will be incremented for an indeterminate case.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>action</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Action or literal to invoke if the page is submitted via a 
+        client-side call to the scripting function
+        bpui.progressbar.submitForm.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>actionListener</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Method binding representing a method that receives action from this, 
+        and possibly other, components.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>immediate</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Flag indicating that, if this component is activated by the user,
+          notifications should be delivered to interested listeners and actions
+          immediately (that is, during Apply Request Values phase) rather than
+          waiting until Invoke Application phase.
+      </description>
+    </attribute>
+    
+  </tag>
+  <!-- ===================== END: tags for the ProgressBar component ========================== -->
+  
+  <!-- ============= BEGIN:  tags for the SelectValue component =========== -->
+  <tag>
+
+    <name>selectValue</name>
+    <tag-class>com.sun.j2ee.blueprints.ui.selectvalue.SelectValueTag</tag-class>
+    <body-content>empty</body-content>
+    <description>
+      Renders a text field that invokes the specified method and displays results in a dropdown.
+    </description>
+
+    <attribute>
+      <name>accesskey</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Access key that, when pressed, transfers focus
+          to this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>alt</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Alternate textual description of the
+          element rendered by this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>binding</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+         The value binding expression linking this component to a property in a backing bean
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>itemsMethod</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <type>java.lang.String</type>
+      <description>
+        Method binding expression which points to a method
+        taking a FacesContext and a search String, and returns
+        a SelectItem[] which will be displayed as drop down on the client side.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>converter</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Converter instance registered with this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>dir</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Direction indication for text that does not inherit directionality.
+          Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>disabled</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Flag indicating that this element must never
+          receive focus or be included in a subsequent
+          submit.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>id</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          The component identifier for this component.  This value must be
+          unique within the closest parent component that is a naming
+          container.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>immediate</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>     
+          Flag indicating that this component's value must be
+          converted and validated immediately (that is, during
+          Apply Request Values phase), rather than waiting
+          until Process Validations phase.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>lang</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Code describing the language used in the generated markup
+          for this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>maxlength</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+       <description>      
+          The maximum number of characters that may
+          be entered in this field.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onblur</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when this element loses focus.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onchange</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when this element loses focus
+          and its value has been modified since gaining focus.
+      </description>
+
+    </attribute>
+
+    <attribute>
+      <name>onclick</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          clicked over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>ondblclick</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>     
+          Javascript code executed when a pointer button is
+          double clicked over this element.
+      </description>
+
+    </attribute>
+
+    <attribute>
+      <name>onfocus</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when this element receives focus.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onkeydown</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a key is
+          pressed down over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onkeypress</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a key is
+          pressed and released over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onkeyup</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a key is
+          released over this element.
+      </description>
+
+    </attribute>
+
+    <attribute>
+      <name>onmousedown</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          pressed down over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onmousemove</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          moved within this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onmouseout</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          moved away from this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onmouseover</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          moved onto this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onmouseup</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>     
+          Javascript code executed when a pointer button is
+          released over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onselect</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when text within this
+          element is selected by the user.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>readonly</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Flag indicating that this component will prohibit
+          changes by the user.  The element may receive focus
+          unless it has also been disabled.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>rendered</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Flag indicating whether or not this component should be rendered
+          (during Render Response Phase), or processed on any subsequent
+          form submit.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>required</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Flag indicating that the user is required to provide a submitted
+          value for this input component.
+      </description>     
+    </attribute>
+
+    <attribute>
+      <name>size</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          The number of characters used to determine
+          the width of this field.
+      </description>
+
+    </attribute>
+
+    <attribute>
+      <name>style</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          CSS style(s) to be applied when this component is rendered.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>styleClass</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Space-separated list of CSS style class(es) to be applied when
+          this element is rendered.  This value must be passed through
+          as the "class" attribute on generated markup.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>title</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Advisory title information about markup elements generated
+          for this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>validator</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          MethodBinding representing a validator method that will be called
+          during Process Validations to perform correctness checks on the
+          value of this component.  The expression must evaluate to a public
+          method that takes FacesContext, UIComponent, and Object parameters,
+          with a return type of void.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>value</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>     
+          The current value of this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>valueChangeListener</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          MethodBinding representing a value change listener method that will be
+          notified when a new value has been set for this input component.  The
+          expression must evaluate to a public method that takes a
+          ValueChangeEvent parameter, with a return type of void.
+      </description>
+    </attribute>
+
+  </tag>
+  <!-- ============== END:  tags for the SelectValue component ============ -->
+  
+  <!-- ============== BEGIN:  tags for the BuyNow component ============ -->
+  <tag>
+    <name>buyNow</name>
+    <tag-class>java.blueprints\bpui\BuyNowTag</tag-class>
+    <body-content>empty</body-content>
+    <description>
+      Component that enables single order transaction via PayPal.
+    </description>
+   
+    <attribute>
+      <name>id</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          The component identifier for this component.  This value must be
+          unique within the closest parent component that is a naming
+          container.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>rendered</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Flag indicating whether or not this component should be rendered
+          (during Render Response Phase), or processed on any subsequent
+          form submit.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>accesskey</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Access key that, when pressed, transfers focus
+          to this element.
+      </description>
+    </attribute>
+    <attribute>
+      <name>alt</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>     
+          Alternate text to serve as content when the element cannot be rendered normally.
+      </description>
+    </attribute>    
+    <attribute>
+      <name>dir</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Direction indication for text that does not inherit directionality.
+          Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).
+      </description>
+    </attribute>    
+    <attribute>
+      <name>lang</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Code describing the language used in the generated markup
+          for this component.
+      </description>
+    </attribute>
+    <attribute>
+      <name>onblur</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when this element loses focus.
+      </description>
+    </attribute>
+   
+    <attribute>
+      <name>onfocus</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when this element receives focus.
+      </description>
+    </attribute>
+    <attribute>
+      <name>onkeydown</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a key is
+          pressed down over this element.
+      </description>
+    </attribute>
+    <attribute>
+      <name>onkeypress</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a key is
+          pressed and released over this element.
+      </description>
+    </attribute>
+    <attribute>
+      <name>onkeyup</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>     
+          Javascript code executed when a key is
+          released over this element.
+      </description>
+    </attribute>
+    <attribute>
+      <name>onmousedown</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          pressed down over this element.
+      </description>
+    </attribute>
+    <attribute>
+      <name>onmousemove</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          moved within this element.
+      </description>
+    </attribute>
+    <attribute>
+      <name>onmouseout</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          moved away from this element.
+      </description>
+    </attribute>
+    <attribute>
+      <name>onmouseover</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          moved onto this element.
+      </description>
+    </attribute>
+    <attribute>
+      <name>onmouseup</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          released over this element.
+      </description>
+    </attribute>    
+    <attribute>
+      <name>onclick</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>     
+          Javascript code executed when a pointer button is
+          clicked over this element.
+      </description>
+    </attribute>   
+    <attribute>
+      <name>style</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          CSS style(s) to be applied when this component is rendered.
+      </description>
+    </attribute>
+    <attribute>
+      <name>styleClass</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Space-separated list of CSS style class(es) to be applied when
+          this element is rendered.  This value must be passed through
+          as the "class" attribute on generated markup.
+      </description>
+    </attribute>
+    <attribute>
+      <name>tabindex</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Position of this element in the tabbing order
+          for the current document.  This value must be
+          an integer between 0 and 32767.
+      </description>
+    </attribute>
+    <attribute>
+      <name>title</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Advisory title information about markup elements generated
+          for this component.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>binding</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+         The value binding expression linking this component to a property in a backing bean
+      </description>
+    </attribute>
+  
+   <attribute>
+      <name>business</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+         A literal value or a value binding expression representing the email
+         address of Seller's PayPal account. Alias for PayPal AttributeName: business
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>amount</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+         A literal value or a value binding expression representing the price or
+         amount of purchase. Alias for PayPal AttributeName: amount
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>quantity</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+         A literal value or a value binding expression representing the number 
+         of items.Alias for PayPal AttributeName: quantity
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>itemName</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+         A literal value or a value binding expression representing the name of
+         the item.  Alias for PayPal AttributeName: item_name
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>imageUrl</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+         A literal value or a value binding expression representing the URL of
+         150x50-pixel image displayed as your in the PayPal pages.
+         Alias for PayPal AttributeName: image_url
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>image</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+         A literal value or a value binding expression an image for the BuyNow
+         button.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>paymentCancelledUrl</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+         A literal value or a value binding expression representing the URL to which
+         customer's browser is returned if payment is cancelled.
+         Alias for PayPal AttributeName: cancel_return
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>postBackUrl</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+         A literal value or a value binding expression representing the URL to
+         which PayPal posts information about the transaction.
+         Alias for PayPal AttributeName: notify_url
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>returnUrl</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+         A literal value or a value binding expression representing the URL to
+         which customer's browser is returned after completing the payment.
+         Alias for PayPal AttributeName: return
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>target</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+         Name of a frame where the resource  retrieved via this hyperlink is to
+         be displayed.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>type</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+         A way to indicate whether this is a BuyNow or a Donations button.
+      </description>
+    </attribute>
+    
+     <attribute>
+      <name>testMode</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+         Indicates whether you are running in the deployment mode or test mode.
+         Default is test mode.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>displayMode</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+         Indicates whether the Buy now button should be rendered as a button in
+         its own form tag or as a Link
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>disabled</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+         Indicates whether the button should be disabled.
+      </description>
+    </attribute>
+   
+     <attribute>
+      <name>postData</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>     
+        A value binding expression that evaulates to a JavaBean of type 
+        BuyNowPostData that encapsulates any additional attributes that Sellers 
+        might want to post to PayPal in addition to the ones that are supported 
+        by the BuyNowComponent.
+      </description>
+    </attribute>
+    
+  </tag>
+
+  <!-- ============== END:  tags for the BuyNow component ============ -->
+  
+  <!-- =================== BEGIN: tags for the Rating component ========================== -->
+  <tag>
+
+    <name>rating</name>
+    <tag-class>com.sun.j2ee.blueprints.ui.rating.RatingTag</tag-class>
+    <body-content>empty</body-content>
+    <description>
+       Displays a rating (grade) for an item.
+    </description>
+
+    <attribute>
+      <name>binding</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Binding to the component in a page bean.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>id</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Component id of this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>style</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Css style for the component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>styleClass</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Css styleClass for the component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>maxGrade</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        The maximum grade (number of "stars") this rating instance allows..
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>grade</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        The grade (number of "stars") the user has assigned the item. Use RatingComponent.NOT_INTERESTED_GRADE for "not interested" and RatingComponent.CLEAR_GRADE for a "clear" grade. This property must be bound.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>averageGrade</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        The average grade the general user population has assigned to the item. Must be between 0.0 and maxGrade. This property must be bound.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>inAverageMode</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+         Whether the component will be initially rendered displaying the average grade. If False, then the component will be initially rendered displaying the user's grade (normal mode).
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>includeNotInterested</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Whether a "not interested" control should be rendered.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>includeClear</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Whether a control to clear the user's rating should be rendered.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>includeModeToggle</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Whether a control to toggle the mode (to show the average rating or the user's rating) should be rendered.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>includeText</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Whether an area for text should be rendered.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>hoverTexts</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        An array of custom hover texts that will be used for the "star" controls. If null is specified as a member of the array, the default hover text will be used for that "star."
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>notInterestedHoverText</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        A custom hover text that will be used for the "not interested" control.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>clearHoverText</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        A custom hover text that will be used for the "clear" control.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>normalModeHoverText</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        A custom hover text that will be used for the mode toggle control, 
+        offering the user to switch to normal mode.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>averageModeHoverText</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        A custom hover text that will be used for the mode toggle control, 
+        offering the user to switch to average mode.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>gradeAcknowledgedText</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Text that appears when the user assigns a grade to the item (i.e., when the user clicks a control other than the mode toggle). If bound, this property is sent to the client via AJAX.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>normalModeAcknowledgedText</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Text that appears when the user clicks the mode toggle control to switch to normal mode.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>averageModeAcknowledgedText</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Text that appears when the user clicks the modeToggle control to switch to average mode.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>normalModeText</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Text that appears when the mouse is not hovering and the component is in normal mode. If bound, this property is sent to the client via AJAX.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>averageModeText</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Text that appears when the mouse is not hovering and the component is in average mode. If bound, this property is sent to the client via AJAX.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>gradeReadOnly</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Whether the grade of this rating instance can be changed by the user.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>modeReadOnly</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Whether the mode of this rating instance can be changed by the user via the mode toggle control.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>onGrade</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        A scripting function that will be called when the user assigns a grade (including "not interested" or "clear").
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>onModeToggle</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        A scripting function that will be called when the user toggles the mode.
+      </description>
+    </attribute>
+    
+    <attribute>
+      <name>onMouse</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        A scripting function that will be called when the user mouses
+        over or out.
+      </description>
+    </attribute>
+    
+  </tag>
+  <!-- ===================== END: tags for the Rating component ========================== -->
+
+  <!-- ============ BEGIN:  tags for the PopupCalendar component ========== -->
+  <tag>
+
+    <name>popupCalendar</name>
+    <tag-class>com.sun.j2ee.blueprints.ui.popupcalendar.PopupCalendarTag</tag-class>
+    <body-content>empty</body-content>
+    <description>
+      Renders a popup calendar
+    </description>
+
+    <attribute>
+      <name>accesskey</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Access key that, when pressed, transfers focus
+          to this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>alt</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Alternate textual description of the
+          element rendered by this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>binding</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        Binding to the component in a page bean.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>converter</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Converter instance registered with this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>dir</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Direction indication for text that does not inherit directionality.
+          Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>disabled</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Flag indicating that this element must never
+          receive focus or be included in a subsequent
+          submit.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>id</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          The component identifier for this component.  This value must be
+          unique within the closest parent component that is a naming
+          container.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>immediate</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Flag indicating that, if this component is activated by the user,
+          notifications should be delivered to interested listeners and actions
+          immediately (that is, during Apply Request Values phase) rather than
+          waiting until Invoke Application phase.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>lang</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Code describing the language used in the generated markup
+          for this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>maxlength</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+        The maximum number of characters that may
+        be entered in this field.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onblur</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when this element loses focus.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onchange</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when this element loses focus
+          and its value has been modified since gaining focus.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onclick</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          clicked over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>ondblclick</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>     
+          Javascript code executed when a pointer button is
+          double clicked over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onfocus</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when this element receives focus.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onkeydown</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a key is
+          pressed down over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onkeypress</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a key is
+          pressed and released over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onkeyup</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a key is
+          released over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onmousedown</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          pressed down over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onmousemove</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          moved within this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onmouseout</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          moved away from this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onmouseover</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when a pointer button is
+          moved onto this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onmouseup</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>     
+          Javascript code executed when a pointer button is
+          released over this element.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>onselect</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Javascript code executed when text within this
+          element is selected by the user.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>readonly</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Flag indicating that this component will prohibit
+          changes by the user.  The element may receive focus
+          unless it has also been disabled.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>rendered</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Flag indicating whether or not this component should be rendered
+          (during Render Response Phase), or processed on any subsequent
+          form submit.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>required</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Flag indicating that the user is required to provide a submitted
+          value for this input component.
+      </description>     
+    </attribute>
+
+    <attribute>
+      <name>size</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          The number of characters used to determine
+          the width of this field.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>style</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          CSS style(s) to be applied when this component is rendered.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>styleClass</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Space-separated list of CSS style class(es) to be applied when
+          this element is rendered.  This value must be passed through
+          as the "class" attribute on generated markup.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>text</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+        The text to be initially displayed in this input field.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>title</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          Advisory title information about markup elements generated
+          for this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>validator</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>      
+          MethodBinding representing a validator method that will be called
+          during Process Validations to perform correctness checks on the
+          value of this component.  The expression must evaluate to a public
+          method that takes FacesContext, UIComponent, and Object parameters,
+          with a return type of void.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>value</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>     
+          The current value of this component.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>valueChangeListener</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          MethodBinding representing a value change listener method that will be
+          notified when a new value has been set for this input component.  The
+          expression must evaluate to a public method that takes a
+          ValueChangeEvent parameter, with a return type of void.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>dateFormatPattern</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Pattern to use for date format. A combination of the strings
+          "yyyy", "MM", "dd", plus a separator character, with "yyyy"
+          either first or last. If null, then derive a default one from the
+          locale. See "localeString" property for details. If pattern is
+          not valid, then ISO 8601 "yyyy-MM-dd" will be used. For example,
+          "yyyy-MM-dd", "dd.MM.yyyy", "MM/dd/yyyy".
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>localeString</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+      <description>
+          Underscore or dash separated locale string used to determine
+          calendar format such as year, month, date ordering, month names,
+          and week names. If null, then the default locale from the view
+          root will be used. For example, "de_DE", "fr_CA", "es".
+      </description>
+    </attribute>
+
+  </tag>
+  <!-- ============= END:  tags for the PopupCalendar component =========== -->
+
+</taglib>
