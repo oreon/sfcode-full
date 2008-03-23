@@ -1,0 +1,95 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:bpui="blueprints/ui/14"
+	template="/WEB-INF/template/signIn.xhtml">
+
+
+
+
+<ui:define name="content">
+<!--
+The taglib directive below imports the JSTL library. If you uncomment it,
+you must also add the JSTL library to the project. The Add Library... action
+on Libraries node in Projects view can be used to add the JSTL 1.1 library.
+taglib prefix="ui" uri="http://java.sun.com/blueprints/ui" -->
+		<f:view>
+   
+    
+    
+        <h1>PayPal Sample Showing Final Cart</h1>
+        <p>
+        Click on the "PayPal BUY NOW" button or the "DONATE" button to get transfered to the PayPal website to continue processing sample 
+        transaction.<br/><br/>
+        The BuyNow component posts to the PayPal Sandbox.  The Sandbox is a mirror of the real PayPal site where 
+        real financial transactions aren't made. It is a safe testing environment used to test PayPal features such 
+        as Website Payments. You will want to run in this mode until your website is operational and ready to be hosted on a 
+        public domain.  For more information refer to the <a href="/bpcatalog/docs/complib/buy-now.html" target="bpcatalog1">"BuyNow" button documentation</a>.
+        <br/><br/>
+        </p>
+        <f:view>
+            <table border="1" cellpadding="5" cellspacing="5">
+                <tr>
+                    <th>Quantity</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Submit</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Buy Item One</td>
+                    <td>$100.00</td>
+                    <td>
+                        <ui:buyNow business="donate@animalfoundation.com" id="buyNow1" itemName="Buy Item One"
+                        amount="100.00" quantity="1" type="BuyNow" postData="#{PayPalBean.postData}" target="paypal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Buy Item Two</td>
+                    <td>$200.00</td>
+                    <td>
+                        <ui:buyNow business="donate@animalfoundation.com" id="buyNow2" itemName="Buy Item Two"
+                        amount="200.00" quantity="1" type="BuyNow" postData="#{PayPalBean.postData}" target="paypal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Donate Item One</td>
+                    <td>$50.00</td>
+                    <td>
+                        <ui:buyNow business="donate@animalfoundation.com" id="buyNow3" itemName="Donate Item One"
+                        amount="50.00" quantity="1" type="Donation" postData="#{PayPalBean.postData}" target="paypal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Donate Item Two</td>
+                    <td>$100.00</td>
+                    <td>
+                        <ui:buyNow business="donate@animalfoundation.com" id="buyNow4" itemName="Donate Item Two"
+                        amount="100.00" quantity="1" type="Donation" postData="#{PayPalBean.postData}" target="paypal"/>
+                    </td>
+                </tr>
+            </table>
+            <h:messages/>
+        </f:view>
+        <br/><br/>
+        <c:if test="${initParam['com.sun.blueprints.LIVE_APPLICATION'] != 'true'}">
+            <center>
+                This coding example is located in the relative directory <a href="${pageContext.request.contextPath}/faces/index.jsp" target="bpcatalog">
+                <i>BPCATALOG_INSTALL_DIR</i>/apps/webtier/bp-paypal</a>
+                <br/>
+            </center>    
+        </c:if>
+         
+   </f:view>
+   </ui:define>
+   </ui:composition>
+	

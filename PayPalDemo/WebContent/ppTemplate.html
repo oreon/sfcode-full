@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>PayPal Form</title>
+<link rel=stylesheet href="table.css" type="text/css">
+<script type="text/javascript" src="table-validator.js"></script>
+</head>
+<body onload="validateFields()">
+<h1>PayPal Demo</h1>
+<form name="tableForm" action="confirmation.html" method="get"
+	onsubmit="return submitOrder()" onreset="resetValidators">
+<table>
+	<thead>
+		<tr>
+
+			<td>Title</td>
+			<td>Price</td>
+			<td>Quantity</td>
+			<td>Action</td>
+			<td>Messages</td>
+	</thead>
+	<tr style class="odd-row">
+		<td>JSF</td>
+		<td>999.00</td>
+		<td><input id="quantityId1" name="quantity1" value="0" size="2"
+			maxlength="2" onchange="validateQuantity('quantityValidator1','quantityId1')">&nbsp;</td>
+		<td><img alt="ppImage" src="BuyNow.gif"></td>
+		<td><span id="quantityValidator1" class="validator"></span></td>
+	</tr>
+	<tr style class="even-row">
+		<td>Java</td>
+		<td>2000.00</td>
+		<td><input id="quantityId2" name="quantity2" value="0" size="2"
+			maxlength="2" onchange="validateQuantity('quantityValidator2','quantityId2')">&nbsp;</td>
+		<td><img alt="ppImage" src="BuyNow.gif"></td>
+		
+		<td><span id="quantityValidator2" class="validator"></span></td>
+	</tr>
+	<tr style class="odd-row">
+		<td>JSP</td>
+		<td>999.00</td>
+		<td><input id="quantityId3" name="quantity3" value="0" size="2"
+			maxlength="2" onchange="validateQuantity('quantityValidator3','quantityId3')">&nbsp;</td>
+		<td><img alt="ppImage" src="BuyNow.gif"></td>
+	
+		<td><span id="quantityValidator3" class="validator"></span></td>
+	</tr>
+	<tr style class="even-row">
+		<td>XML</td>
+		<td>150.00</td>
+		<td><input id="quantityId4" name="quantity4" value="0" size="2"
+			maxlength="2" onchange="validateQuantity('quantityValidator4','quantityId4')">&nbsp;</td>
+		<td><img alt="ppImage" src="BuyNow.gif"></td>
+	
+		<td><span id="quantityValidator4" class="validator"></span></td>
+	</tr>
+	<tr>
+		<td colspan="2">&nbsp;</td>
+		<td>
+		<button type="reset">Reset</button>
+		</td>
+		<td>
+		<button type="submit">Submit</button>
+		</td>
+	</tr>
+</table>
+</form>
+<!--
+stops spammers
+-->
+<script language="JavaScript">
+var protocol="mailto:";
+var user="webmaster";
+var server="PayPalDemo.com";
+
+function contact(){
+	window.open(protocol+";"+user+"@"+server,"_self");}
+
+</script>
+
+<p>For questions about this page contact <a
+	href="javascript:contact()">webmaster</a></p>
+</body>
+</html>
