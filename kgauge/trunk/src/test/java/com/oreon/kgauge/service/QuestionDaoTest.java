@@ -48,104 +48,95 @@ public class QuestionDaoTest extends AbstractJpaTests {
 	 * Do the setup before the test in this method
 	 **/
 	protected void onSetUpInTransaction() throws Exception {
-				try{
-					
-					
-		questionInstance.setQuestionText("Malissa");
-		questionInstance.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
-	
-	
-	
-	
-		
-	TestDataFactory examTestDataFactory  = (TestDataFactory) BeanHelper.getBean("examTestDataFactory") ;
+		try {
 
-		
-			questionInstance.setExam((com.oreon.kgauge.domain.Exam)examTestDataFactory.loadOneRecord());
-		
-		
-	TestDataFactory sectionTestDataFactory  = (TestDataFactory) BeanHelper.getBean("sectionTestDataFactory") ;
+			questionInstance.setQuestionText("theta");
+			questionInstance
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
 
-		
-			questionInstance.setSection((com.oreon.kgauge.domain.Section)sectionTestDataFactory.loadOneRecord());
-		
-	
+			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("examTestDataFactory");
 
-	
-	
-	
+			questionInstance
+					.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
+							.loadOneRecord());
 
-					
-					questionService.save(questionInstance);
-				} catch (PersistenceException pe) {
-					//if this instance can't be created due to back references e.g an orderItem needs an Order - 
-					// - we will simply skip generated tests.
-					if (pe.getCause() instanceof PropertyValueException && pe.getMessage().contains("Backref")) {
-						bTest = false;
-					}
-				} catch (Exception e) {
-					fail(e.getMessage());
-				}
-			
+			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("sectionTestDataFactory");
+
+			questionInstance
+					.setSection((com.oreon.kgauge.domain.Section) sectionTestDataFactory
+							.loadOneRecord());
+
+			questionService.save(questionInstance);
+		} catch (PersistenceException pe) {
+			//if this instance can't be created due to back references e.g an orderItem needs an Order - 
+			// - we will simply skip generated tests.
+			if (pe.getCause() instanceof PropertyValueException
+					&& pe.getMessage().contains("Backref")) {
+				bTest = false;
 			}
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
+
 	//test saving a new record and updating an existing record;
 	public void testSave() {
-			
-				try{
-					Question question = new Question();
-					
-					try{
-						
-		question.setQuestionText("gamma");
-		question.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
-	
-	
-	
-	
-		
-	TestDataFactory examTestDataFactory  = (TestDataFactory) BeanHelper.getBean("examTestDataFactory") ;
 
-		
-			question.setExam((com.oreon.kgauge.domain.Exam)examTestDataFactory.loadOneRecord());
-		
-		
-	TestDataFactory sectionTestDataFactory  = (TestDataFactory) BeanHelper.getBean("sectionTestDataFactory") ;
+		try {
+			Question question = new Question();
 
-		
-			question.setSection((com.oreon.kgauge.domain.Section)sectionTestDataFactory.loadOneRecord());
-		
-	
+			try {
 
-	
-	
-	
+				question.setQuestionText("theta");
+				question
+						.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L2);
 
-					}catch(Exception ex){
-						ex.printStackTrace();
-					}
-					
-					questionService.save(question);
-					assertNotNull(question.getId());
-				}catch(Exception e){
-					fail(e.getMessage());
-				}
+				TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
+						.getBean("examTestDataFactory");
+
+				question
+						.setExam((com.oreon.kgauge.domain.Exam) examTestDataFactory
+								.loadOneRecord());
+
+				TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
+						.getBean("sectionTestDataFactory");
+
+				question
+						.setSection((com.oreon.kgauge.domain.Section) sectionTestDataFactory
+								.loadOneRecord());
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
 			}
-	public void testEdit(){
-			
-				try{
-					//test saving a new record and updating an existing record;
-					Question question = (Question)questionTestDataFactory.loadOneRecord();
-					
-						question.setQuestionText("alpha");
-						question.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L2);
-					
-									
-					questionService.save(question);
-				
-				}catch(Exception e){
-					fail(e.getMessage());
-				}
-			}
+
+			questionService.save(question);
+			assertNotNull(question.getId());
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+	}
+
+	public void testEdit() {
+
+		try {
+			//test saving a new record and updating an existing record;
+			Question question = (Question) questionTestDataFactory
+					.loadOneRecord();
+
+			question.setQuestionText("beta");
+			question
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
+
+			questionService.save(question);
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+	}
+
 	public void testCount() {
 		assertTrue(questionService.getCount() > 0);
 	}

@@ -7,13 +7,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-@WebService(endpointInterface = "com.oreon.kgauge.service.AuthorityService", serviceName = "AuthorityService")
-public class AuthorityServiceImpl extends AuthorityServiceImplBase {
+@WebService(endpointInterface = "com.oreon.kgauge.service.GrantedAuthorityService", serviceName = "GrantedAuthorityService")
+public class GrantedAuthorityServiceImpl
+		extends
+			GrantedAuthorityServiceImplBase {
 
 	private static final Logger log = Logger
-			.getLogger(AuthorityServiceImpl.class);
+			.getLogger(GrantedAuthorityServiceImpl.class);
 
-	public AuthorityServiceImpl authorityServiceImplInstance() {
-		return this;
-	}
 }

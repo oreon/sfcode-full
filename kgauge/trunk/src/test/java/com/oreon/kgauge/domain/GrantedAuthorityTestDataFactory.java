@@ -14,176 +14,179 @@ import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.apache.log4j.Logger;
 
-import com.oreon.kgauge.service.AuthorityService;
+import com.oreon.kgauge.service.GrantedAuthorityService;
 
 @Transactional
-public class AuthorityTestDataFactory
+public class GrantedAuthorityTestDataFactory
 		extends
-			AbstractTestDataFactory<Authority> {
+			AbstractTestDataFactory<GrantedAuthority> {
 
-	private List<Authority> authoritys = new ArrayList<Authority>();
+	private List<GrantedAuthority> grantedAuthoritys = new ArrayList<GrantedAuthority>();
 
 	private static final Logger logger = Logger
-			.getLogger(AuthorityTestDataFactory.class);
+			.getLogger(GrantedAuthorityTestDataFactory.class);
 
 	private static int RECORDS_TO_CREATE = 30;
 
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat(
 			"yyyy.MM.dd HH:mm:ss z");
 
-	AuthorityService authorityService;
+	GrantedAuthorityService grantedAuthorityService;
 
-	public AuthorityService getAuthorityService() {
-		return authorityService;
+	public GrantedAuthorityService getGrantedAuthorityService() {
+		return grantedAuthorityService;
 	}
 
-	public void setAuthorityService(AuthorityService authorityService) {
-		this.authorityService = authorityService;
+	public void setGrantedAuthorityService(
+			GrantedAuthorityService grantedAuthorityService) {
+		this.grantedAuthorityService = grantedAuthorityService;
 	}
 
-	public void register(Authority authority) {
-		authoritys.add(authority);
+	public void register(GrantedAuthority grantedAuthority) {
+		grantedAuthoritys.add(grantedAuthority);
 	}
 
-	public Authority createAuthorityOne() {
-		Authority authority = new Authority();
+	public GrantedAuthority createGrantedAuthorityOne() {
+		GrantedAuthority grantedAuthority = new GrantedAuthority();
 
 		try {
 
-			authority.setName("alpha");
+			grantedAuthority.setName("John");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
 
-			authority
+			grantedAuthority
 					.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
 							.loadOneRecord());
 
-			register(authority);
+			register(grantedAuthority);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		return authority;
+		return grantedAuthority;
 	}
 
-	public Authority createAuthorityTwo() {
-		Authority authority = new Authority();
+	public GrantedAuthority createGrantedAuthorityTwo() {
+		GrantedAuthority grantedAuthority = new GrantedAuthority();
 
 		try {
 
-			authority.setName("Lavendar");
+			grantedAuthority.setName("theta");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
 
-			authority
+			grantedAuthority
 					.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
 							.loadOneRecord());
 
-			register(authority);
+			register(grantedAuthority);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		return authority;
+		return grantedAuthority;
 	}
 
-	public Authority createAuthorityThree() {
-		Authority authority = new Authority();
+	public GrantedAuthority createGrantedAuthorityThree() {
+		GrantedAuthority grantedAuthority = new GrantedAuthority();
 
 		try {
 
-			authority.setName("delta");
+			grantedAuthority.setName("gamma");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
 
-			authority
+			grantedAuthority
 					.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
 							.loadOneRecord());
 
-			register(authority);
+			register(grantedAuthority);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		return authority;
+		return grantedAuthority;
 	}
 
-	public Authority createAuthorityFour() {
-		Authority authority = new Authority();
+	public GrantedAuthority createGrantedAuthorityFour() {
+		GrantedAuthority grantedAuthority = new GrantedAuthority();
 
 		try {
 
-			authority.setName("Wilson");
+			grantedAuthority.setName("Eric");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
 
-			authority
+			grantedAuthority
 					.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
 							.loadOneRecord());
 
-			register(authority);
+			register(grantedAuthority);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		return authority;
+		return grantedAuthority;
 	}
 
-	public Authority createAuthorityFive() {
-		Authority authority = new Authority();
+	public GrantedAuthority createGrantedAuthorityFive() {
+		GrantedAuthority grantedAuthority = new GrantedAuthority();
 
 		try {
 
-			authority.setName("alpha");
+			grantedAuthority.setName("Lavendar");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
 
-			authority
+			grantedAuthority
 					.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
 							.loadOneRecord());
 
-			register(authority);
+			register(grantedAuthority);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		return authority;
+		return grantedAuthority;
 	}
 
-	public Authority loadOneRecord() {
-		List<Authority> authoritys = authorityService.loadAll();
+	public GrantedAuthority loadOneRecord() {
+		List<GrantedAuthority> grantedAuthoritys = grantedAuthorityService
+				.loadAll();
 
-		if (authoritys.isEmpty()) {
+		if (grantedAuthoritys.isEmpty()) {
 			persistAll();
-			authoritys = authorityService.loadAll();
+			grantedAuthoritys = grantedAuthorityService.loadAll();
 		}
 
-		return authoritys.get(new Random().nextInt(authoritys.size()));
+		return grantedAuthoritys.get(new Random().nextInt(grantedAuthoritys
+				.size()));
 	}
 
-	public List<Authority> getAllAsList() {
+	public List<GrantedAuthority> getAllAsList() {
 
-		if (authoritys.isEmpty()) {
+		if (grantedAuthoritys.isEmpty()) {
 
-			createAuthorityOne();
-			createAuthorityTwo();
-			createAuthorityThree();
-			createAuthorityFour();
-			createAuthorityFive();
+			createGrantedAuthorityOne();
+			createGrantedAuthorityTwo();
+			createGrantedAuthorityThree();
+			createGrantedAuthorityFour();
+			createGrantedAuthorityFive();
 
 		}
 
-		return authoritys;
+		return grantedAuthoritys;
 	}
 
 	public void persistAll() {
@@ -192,11 +195,12 @@ public class AuthorityTestDataFactory
 
 		getAllAsList();
 
-		for (Authority authority : authoritys) {
+		for (GrantedAuthority grantedAuthority : grantedAuthoritys) {
 			try {
-				authorityService.save(authority);
+				grantedAuthorityService.save(grantedAuthority);
 			} catch (BusinessException be) {
-				logger.warn(" Authority " + authority.getDisplayName()
+				logger.warn(" GrantedAuthority "
+						+ grantedAuthority.getDisplayName()
 						+ "couldn't be saved " + be.getMessage());
 			}
 		}
@@ -217,24 +221,25 @@ public class AuthorityTestDataFactory
 
 	public void createAndSaveRecords(int recordsTocreate) {
 		for (int i = 0; i < recordsTocreate; i++) {
-			Authority authority = createRandomAuthority();
-			authorityService.save(authority);
+			GrantedAuthority grantedAuthority = createRandomGrantedAuthority();
+			grantedAuthorityService.save(grantedAuthority);
 		}
 	}
 
-	public Authority createRandomAuthority() {
-		Authority authority = new Authority();
+	public GrantedAuthority createRandomGrantedAuthority() {
+		GrantedAuthority grantedAuthority = new GrantedAuthority();
 
-		authority.setName((String) RandomValueGeneratorFactory
+		grantedAuthority.setName((String) RandomValueGeneratorFactory
 				.createInstance("String"));
 
 		TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 				.getBean("userTestDataFactory");
 
-		authority.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
-				.loadOneRecord());
+		grantedAuthority
+				.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
+						.loadOneRecord());
 
-		return authority;
+		return grantedAuthority;
 	}
 
 }

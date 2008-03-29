@@ -6,18 +6,34 @@ import javax.faces.context.FacesContext;
 import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
 
-import com.oreon.kgauge.domain.ExamInstance;
-import com.oreon.kgauge.service.ExamInstanceService;
+import com.oreon.kgauge.domain.Candidate;
+import com.oreon.kgauge.service.CandidateService;
 
 import java.util.Date;
 import java.util.List;
 import org.witchcraft.model.support.Range;
 
-public class ExamInstanceBackingBean extends BaseBackingBean<ExamInstance> {
+/**
+ * This is generated code - to edit code or override methods use - Candidate class
+ * @author witchCraft Code Generator
+ * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
+ */
 
-	private ExamInstance examInstance = new ExamInstance();
+public class CandidateBackingBeanBase extends BaseBackingBean<Candidate> {
 
-	private ExamInstanceService examInstanceService;
+	private Candidate candidate = new Candidate();
+
+	private CandidateService candidateService;
+
+	private String repeatPassword;
+
+	public String getRepeatPassword() {
+		return repeatPassword;
+	}
+
+	public void setRepeatPassword(String repeatpassword) {
+		this.repeatPassword = repeatpassword;
+	}
 
 	private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 
@@ -29,31 +45,43 @@ public class ExamInstanceBackingBean extends BaseBackingBean<ExamInstance> {
 		this.rangeCreationDate = rangeCreationDate;
 	}
 
-	public void setExamInstanceService(ExamInstanceService examInstanceService) {
-		this.examInstanceService = examInstanceService;
+	private Range<Date> rangeDateOfBirth = new Range<Date>("dateOfBirth");
+
+	public Range<Date> getRangeDateOfBirth() {
+		return rangeDateOfBirth;
 	}
 
-	public ExamInstance getExamInstance() {
-		return examInstance;
+	public void setRangeDateOfBirth(Range<Date> rangeDateOfBirth) {
+		this.rangeDateOfBirth = rangeDateOfBirth;
 	}
 
-	public void set(ExamInstance examInstance) {
-		this.examInstance = examInstance;
+	public void setCandidateService(CandidateService candidateService) {
+		this.candidateService = candidateService;
+	}
+
+	public Candidate getCandidate() {
+		return candidate;
+	}
+
+	public void set(Candidate candidate) {
+		this.candidate = candidate;
 	}
 
 	@SuppressWarnings("unchecked")
-	public BaseService<ExamInstance> getBaseService() {
-		return examInstanceService;
+	public BaseService<Candidate> getBaseService() {
+		return candidateService;
 	}
 
-	public ExamInstance getEntity() {
-		return getExamInstance();
+	public Candidate getEntity() {
+		return getCandidate();
 	}
 
 	@Override
 	protected List<Range> getRangeList() {
 
 		List<Range> listRanges = super.getRangeList();
+
+		listRanges.add(rangeDateOfBirth);
 
 		listRanges.add(rangeCreationDate);
 		return listRanges;
@@ -68,9 +96,9 @@ public class ExamInstanceBackingBean extends BaseBackingBean<ExamInstance> {
 		String idStr = (String) ctx.getExternalContext()
 				.getRequestParameterMap().get("id");
 		long id = Long.parseLong(idStr);
-		examInstance = examInstanceService.load(id);
+		candidate = candidateService.load(id);
 		if (actionEvent.getComponent().getId() == "deleteId") {
-			getBaseService().delete(examInstance);
+			getBaseService().delete(candidate);
 		}
 		/*
 		UIParameter component = (UIParameter) actionEvent.getComponent().findComponent("editId");

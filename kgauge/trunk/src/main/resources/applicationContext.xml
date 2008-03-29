@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-autowire="byName" xsi:schemaLocation="http://www.springframework.org/schema/beans     http://www.springframework.org/schema/beans/spring-beans.xsd     http://www.springframework.org/schema/tx     http://www.springframework.org/schema/tx/spring-tx.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-autowire="byName" xsi:schemaLocation="http://www.springframework.org/schema/beans     http://www.springframework.org/schema/beans/spring-beans.xsd     http://www.springframework.org/schema/tx     http://www.springframework.org/schema/tx/spring-tx.xsd          http://www.springframework.org/schema/aop       http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 
 	
@@ -7,6 +7,7 @@
 			<property name="location" value="classpath:project.properties"/>
 		</bean>
 	
+		<aop:aspectj-autoproxy/>	
 	
 	  <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
 	     <property name="jpaVendorAdapter">
@@ -62,7 +63,7 @@
 
 	<bean class="com.oreon.kgauge.service.impl.UserServiceImpl" id="userService"/>
 
-	<bean class="com.oreon.kgauge.service.impl.AuthorityServiceImpl" id="authorityService"/>
+	<bean class="com.oreon.kgauge.service.impl.GrantedAuthorityServiceImpl" id="grantedAuthorityService"/>
 
 	<bean class="com.oreon.kgauge.service.impl.AnsweredQuestionServiceImpl" id="answeredQuestionService"/>
 
@@ -94,7 +95,7 @@
 
 	<bean class="com.oreon.kgauge.dao.impl.UserDaoImpl" id="userDao"/>
 
-	<bean class="com.oreon.kgauge.dao.impl.AuthorityDaoImpl" id="authorityDao"/>
+	<bean class="com.oreon.kgauge.dao.impl.GrantedAuthorityDaoImpl" id="grantedAuthorityDao"/>
 
 	<bean class="com.oreon.kgauge.dao.impl.AnsweredQuestionDaoImpl" id="answeredQuestionDao"/>
 

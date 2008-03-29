@@ -6,18 +6,26 @@ import javax.faces.context.FacesContext;
 import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
 
-import com.oreon.kgauge.domain.Authority;
-import com.oreon.kgauge.service.AuthorityService;
+import com.oreon.kgauge.domain.GrantedAuthority;
+import com.oreon.kgauge.service.GrantedAuthorityService;
 
 import java.util.Date;
 import java.util.List;
 import org.witchcraft.model.support.Range;
 
-public class AuthorityBackingBean extends BaseBackingBean<Authority> {
+/**
+ * This is generated code - to edit code or override methods use - GrantedAuthority class
+ * @author witchCraft Code Generator
+ * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
+ */
 
-	private Authority authority = new Authority();
+public class GrantedAuthorityBackingBeanBase
+		extends
+			BaseBackingBean<GrantedAuthority> {
 
-	private AuthorityService authorityService;
+	private GrantedAuthority grantedAuthority = new GrantedAuthority();
+
+	private GrantedAuthorityService grantedAuthorityService;
 
 	private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 
@@ -29,25 +37,26 @@ public class AuthorityBackingBean extends BaseBackingBean<Authority> {
 		this.rangeCreationDate = rangeCreationDate;
 	}
 
-	public void setAuthorityService(AuthorityService authorityService) {
-		this.authorityService = authorityService;
+	public void setGrantedAuthorityService(
+			GrantedAuthorityService grantedAuthorityService) {
+		this.grantedAuthorityService = grantedAuthorityService;
 	}
 
-	public Authority getAuthority() {
-		return authority;
+	public GrantedAuthority getGrantedAuthority() {
+		return grantedAuthority;
 	}
 
-	public void set(Authority authority) {
-		this.authority = authority;
+	public void set(GrantedAuthority grantedAuthority) {
+		this.grantedAuthority = grantedAuthority;
 	}
 
 	@SuppressWarnings("unchecked")
-	public BaseService<Authority> getBaseService() {
-		return authorityService;
+	public BaseService<GrantedAuthority> getBaseService() {
+		return grantedAuthorityService;
 	}
 
-	public Authority getEntity() {
-		return getAuthority();
+	public GrantedAuthority getEntity() {
+		return getGrantedAuthority();
 	}
 
 	@Override
@@ -68,9 +77,9 @@ public class AuthorityBackingBean extends BaseBackingBean<Authority> {
 		String idStr = (String) ctx.getExternalContext()
 				.getRequestParameterMap().get("id");
 		long id = Long.parseLong(idStr);
-		authority = authorityService.load(id);
+		grantedAuthority = grantedAuthorityService.load(id);
 		if (actionEvent.getComponent().getId() == "deleteId") {
-			getBaseService().delete(authority);
+			getBaseService().delete(grantedAuthority);
 		}
 		/*
 		UIParameter component = (UIParameter) actionEvent.getComponent().findComponent("editId");

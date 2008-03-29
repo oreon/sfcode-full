@@ -6,18 +6,24 @@ import javax.faces.context.FacesContext;
 import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
 
-import com.oreon.kgauge.domain.AnswerChoice;
-import com.oreon.kgauge.service.AnswerChoiceService;
+import com.oreon.kgauge.domain.Question;
+import com.oreon.kgauge.service.QuestionService;
 
 import java.util.Date;
 import java.util.List;
 import org.witchcraft.model.support.Range;
 
-public class AnswerChoiceBackingBean extends BaseBackingBean<AnswerChoice> {
+/**
+ * This is generated code - to edit code or override methods use - Question class
+ * @author witchCraft Code Generator
+ * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
+ */
 
-	private AnswerChoice answerChoice = new AnswerChoice();
+public class QuestionBackingBeanBase extends BaseBackingBean<Question> {
 
-	private AnswerChoiceService answerChoiceService;
+	protected Question question = new Question();
+
+	protected QuestionService questionService;
 
 	private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 
@@ -29,43 +35,31 @@ public class AnswerChoiceBackingBean extends BaseBackingBean<AnswerChoice> {
 		this.rangeCreationDate = rangeCreationDate;
 	}
 
-	private Range<Integer> rangeScore = new Range<Integer>("score");
-
-	public Range<Integer> getRangeScore() {
-		return rangeScore;
+	public void setQuestionService(QuestionService questionService) {
+		this.questionService = questionService;
 	}
 
-	public void setRangeScore(Range<Integer> rangeScore) {
-		this.rangeScore = rangeScore;
+	public Question getQuestion() {
+		return question;
 	}
 
-	public void setAnswerChoiceService(AnswerChoiceService answerChoiceService) {
-		this.answerChoiceService = answerChoiceService;
-	}
-
-	public AnswerChoice getAnswerChoice() {
-		return answerChoice;
-	}
-
-	public void set(AnswerChoice answerChoice) {
-		this.answerChoice = answerChoice;
+	public void set(Question question) {
+		this.question = question;
 	}
 
 	@SuppressWarnings("unchecked")
-	public BaseService<AnswerChoice> getBaseService() {
-		return answerChoiceService;
+	public BaseService<Question> getBaseService() {
+		return questionService;
 	}
 
-	public AnswerChoice getEntity() {
-		return getAnswerChoice();
+	public Question getEntity() {
+		return getQuestion();
 	}
 
 	@Override
 	protected List<Range> getRangeList() {
 
 		List<Range> listRanges = super.getRangeList();
-
-		listRanges.add(rangeScore);
 
 		listRanges.add(rangeCreationDate);
 		return listRanges;
@@ -80,15 +74,11 @@ public class AnswerChoiceBackingBean extends BaseBackingBean<AnswerChoice> {
 		String idStr = (String) ctx.getExternalContext()
 				.getRequestParameterMap().get("id");
 		long id = Long.parseLong(idStr);
-		answerChoice = answerChoiceService.load(id);
+		question = questionService.load(id);
 		if (actionEvent.getComponent().getId() == "deleteId") {
-			getBaseService().delete(answerChoice);
+			getBaseService().delete(question);
 		}
-		/*
-		UIParameter component = (UIParameter) actionEvent.getComponent().findComponent("editId");
-		// parse the value of the UIParameter component    	 
-		long id = Long.parseLong(component.getValue().toString());
-		 */
+		
 	}
 
 }

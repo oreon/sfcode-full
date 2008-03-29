@@ -23,41 +23,33 @@
 			<a4j:form id="form_listing">
 				<rich:tabPanel  switchType="ajax">
 					<rich:tab label="Tabular" >
-					<t:dataTable id="data" var="user"
-						value="#{userCrudBacking.records}" rows="30"
+					<t:dataTable id="data" var="grantedAuthority"
+						value="#{grantedAuthorityCrudBacking.records}" rows="30"
 					rowClasses="odd, even" styleClass="dataTable" >						
 							
 	<t:column>
 		<f:facet name="header">
-			<t:commandLink actionListener="#{userCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Username" />
-				<t:outputText value="Username" /> 
+			<t:commandLink actionListener="#{grantedAuthorityCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="Name" />
+				<t:outputText value="Name" /> 
 			</t:commandLink>		
 		</f:facet>
-		<t:outputText value="#{user.username}" />
-	</t:column>
-
-	<t:column>
-		<f:facet name="header">
-			<t:commandLink actionListener="#{userCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Password" />
-				<t:outputText value="Password" /> 
-			</t:commandLink>		
-		</f:facet>
-		<t:outputText value="#{user.password}" />
-	</t:column>
-
-	<t:column>
-		<f:facet name="header">
-			<t:commandLink actionListener="#{userCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Enabled" />
-				<t:outputText value="Enabled" /> 
-			</t:commandLink>		
-		</f:facet>
-		<t:outputText value="#{user.enabled}" />
+		<t:outputText value="#{grantedAuthority.name}" />
 	</t:column>
 							
 							
+							
+	<t:column>
+		<f:facet name="header">
+		<t:commandLink actionListener="#{grantedAuthorityCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="user.displayName" />
+			<!-- <t:commandSortHeader columnName="" arrow="true"> -->
+				<t:outputText value="User" /> 
+			<!-- </t:commandSortHeader> -->
+		</t:commandLink>	
+		</f:facet>
+		<t:outputText value="#{grantedAuthority.user.displayName}" />
+	</t:column>
 							
 							<rich:column>
 								<f:facet name="header">
@@ -69,11 +61,11 @@
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 								
-									<t:commandLink action="#{userCrudBacking.select}"																					
-										actionListener="#{userCrudBacking.selectEntity}">
+									<t:commandLink action="#{grantedAuthorityCrudBacking.select}"																					
+										actionListener="#{grantedAuthorityCrudBacking.selectEntity}">
 										<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
 										<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
-										<f:param id="editId" name="id" value="#{user.id}" />								
+										<f:param id="editId" name="id" value="#{grantedAuthority.id}" />								
 									</t:commandLink>		
 								<!--
 								</acegijsf:authorize>
@@ -88,20 +80,20 @@
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 		
-								<t:commandLink action="#{userCrudBacking.delete}"	
+								<t:commandLink action="#{grantedAuthorityCrudBacking.delete}"	
 									onclick="if(window.confirm('Are You Sure?')==false){return false}"
-									actionListener="#{userCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
+									actionListener="#{grantedAuthorityCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
 									<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
-									<f:param id="deleteId" name="id" value="#{user.id}" />												
+									<f:param id="deleteId" name="id" value="#{grantedAuthority.id}" />												
 								</t:commandLink>
 								<!--
 								</acegijsf:authorize>
 								--> 
 								</t:column>
 						</t:dataTable>	
-							 	<t:inputHidden value="#{userCrudBacking.sortField}" />
-    							<t:inputHidden value="#{userCrudBacking.sortAscending}" />
+							 	<t:inputHidden value="#{grantedAuthorityCrudBacking.sortField}" />
+    							<t:inputHidden value="#{grantedAuthorityCrudBacking.sortAscending}" />
 							 </rich:tab>
 							 
 							 
@@ -141,31 +133,11 @@
 	<t:column>
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Username" />
-				<t:outputText value="Username" /> 
+				<f:attribute name="sortField" value="Name" />
+				<t:outputText value="Name" /> 
 			</t:commandLink>		
 		</f:facet>
-		<t:outputText value="#{log.entity.username}" />
-	</t:column>
-
-	<t:column>
-		<f:facet name="header">
-			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Password" />
-				<t:outputText value="Password" /> 
-			</t:commandLink>		
-		</f:facet>
-		<t:outputText value="#{log.entity.password}" />
-	</t:column>
-
-	<t:column>
-		<f:facet name="header">
-			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Enabled" />
-				<t:outputText value="Enabled" /> 
-			</t:commandLink>		
-		</f:facet>
-		<t:outputText value="#{log.entity.enabled}" />
+		<t:outputText value="#{log.entity.name}" />
 	</t:column>
 							</t:dataTable>
 							 </rich:tab>

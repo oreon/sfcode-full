@@ -13,7 +13,13 @@ import java.util.Date;
 import java.util.List;
 import org.witchcraft.model.support.Range;
 
-public class ExamBackingBean extends BaseBackingBean<Exam> {
+/**
+ * This is generated code - to edit code or override methods use - Exam class
+ * @author witchCraft Code Generator
+ * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
+ */
+
+public class ExamBackingBeanBase extends BaseBackingBean<Exam> {
 
 	private Exam exam = new Exam();
 

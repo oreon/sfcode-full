@@ -1,6 +1,6 @@
 
 /**
- * This is generated code - to edit code or override methods use - Authority class
+ * This is generated code - to edit code or override methods use - GrantedAuthority class
  * @author witchCraft Code Generator
  * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
  */
@@ -15,9 +15,9 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
-public abstract class AuthorityBase
+public abstract class GrantedAuthorityBase
 		extends
-			org.witchcraft.model.support.BusinessEntity
+			org.witchcraft.model.support.security.AbstractAuthority
 		implements
 			java.io.Serializable,
 			org.witchcraft.model.support.audit.Auditable {
@@ -27,11 +27,11 @@ public abstract class AuthorityBase
 	protected String name;
 
 	/* Default Constructor */
-	public AuthorityBase() {
+	public GrantedAuthorityBase() {
 	}
 
 	/* Constructor with all attributes */
-	public AuthorityBase(String name) {
+	public GrantedAuthorityBase(String name) {
 		this.name = name;
 	}
 
@@ -60,7 +60,7 @@ public abstract class AuthorityBase
 		return this.user;
 	}
 
-	public abstract Authority authorityInstance();
+	public abstract GrantedAuthority grantedAuthorityInstance();
 
 	@Transient
 	public String getDisplayName() {

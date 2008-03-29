@@ -30,16 +30,16 @@ public class CandidateDaoImplBase extends BaseDao<Candidate>
 
 	@SuppressWarnings("unchecked")
 	public/**
-	 * Since userName is unique, will try to return a single Candidate by the
-	 * userName - if no record is found null will be returned
+	 * Since username is unique, will try to return a single Candidate by the
+	 * username - if no record is found null will be returned
 	 * 
 	 */
-	Candidate findByUserName(String userName) {
+	Candidate findByUsername(String username) {
 
-		String qryString = "select c from Candidate c where c.user.userName = ?1";
+		String qryString = "select c from Candidate c where c.user.username = ?1";
 
 		Query query = entityManager.createQuery(qryString).setParameter(1,
-				userName);
+				username);
 		try {
 			return (Candidate) query.getSingleResult();
 		} catch (NoResultException nre) {

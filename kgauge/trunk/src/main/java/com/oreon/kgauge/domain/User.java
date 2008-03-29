@@ -1,5 +1,7 @@
 package com.oreon.kgauge.domain;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 
 import org.apache.log4j.Logger;
@@ -20,5 +22,16 @@ public class User extends UserBase {
 
 	public User userInstance() {
 		return this;
+	}
+
+///////////// Generated super class methods ////////////
+	
+	public boolean isEnabled() {
+		return getEnabled();
+	}
+	
+	@Override
+	public Set getUserAuthorities() {
+		return getGrantedAuthorities();
 	}
 }

@@ -17,8 +17,8 @@ import org.witchcraft.model.support.dao.GenericDAO;
 import org.witchcraft.model.support.service.BaseServiceImpl;
 
 import com.oreon.kgauge.dao.CandidateDao;
-import com.oreon.kgauge.domain.Authority;
 import com.oreon.kgauge.domain.Candidate;
+import com.oreon.kgauge.domain.GrantedAuthority;
 import com.oreon.kgauge.service.CandidateService;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
@@ -60,9 +60,9 @@ public class CandidateServiceImplBase extends BaseServiceImpl<Candidate>
 	private void checkUniqueConstraints(Candidate candidate) {
 		Candidate existingCandidate = null;
 
-		existingCandidate = candidateDao.findByUserName(candidate.getUser()
-				.getUserName());
-		ensureUnique(candidate, existingCandidate, "Entity.exists.withUserName");
+		existingCandidate = candidateDao.findByUsername(candidate.getUser()
+				.getUsername());
+		ensureUnique(candidate, existingCandidate, "Entity.exists.withUsername");
 
 		existingCandidate = candidateDao.findByEmail(candidate
 				.getContactDetails().getEmail());
@@ -71,10 +71,10 @@ public class CandidateServiceImplBase extends BaseServiceImpl<Candidate>
 	}
 
 	private void assignDefaultAuthority(Candidate candidate) {
-		Authority authority = new Authority();
+		GrantedAuthority authority = new GrantedAuthority();
 		authority.setName("ROLE_CANDIDATE");
 
-		candidate.getUser().addAuthoritie(authority);
+		candidate.getUser().addGrantedAuthoritie(authority);
 	}
 
 	public void delete(Candidate candidate) {
@@ -89,8 +89,8 @@ public class CandidateServiceImplBase extends BaseServiceImpl<Candidate>
 		return candidateDao.loadAll();
 	}
 
-	public Candidate findByUserName(String userName) {
-		return candidateDao.findByUserName(userName);
+	public Candidate findByUsername(String username) {
+		return candidateDao.findByUsername(username);
 	}
 
 	public Candidate findByEmail(String email) {

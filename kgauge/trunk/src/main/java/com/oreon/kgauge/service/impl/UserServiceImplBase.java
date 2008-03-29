@@ -56,8 +56,8 @@ public class UserServiceImplBase extends BaseServiceImpl<User>
 	private void checkUniqueConstraints(User user) {
 		User existingUser = null;
 
-		existingUser = userDao.findByUserName(user.getUserName());
-		ensureUnique(user, existingUser, "Entity.exists.withUserName");
+		existingUser = userDao.findByUsername(user.getUsername());
+		ensureUnique(user, existingUser, "Entity.exists.withUsername");
 
 	}
 
@@ -73,8 +73,8 @@ public class UserServiceImplBase extends BaseServiceImpl<User>
 		return userDao.loadAll();
 	}
 
-	public User findByUserName(String userName) {
-		return userDao.findByUserName(userName);
+	public User findByUsername(String username) {
+		return userDao.findByUsername(username);
 	}
 
 	public List<User> searchByExample(User user) {

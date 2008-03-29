@@ -6,28 +6,26 @@ import javax.faces.context.FacesContext;
 import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
 
-import com.oreon.kgauge.domain.ExamCreator;
-import com.oreon.kgauge.service.ExamCreatorService;
+import com.oreon.kgauge.domain.AnsweredQuestion;
+import com.oreon.kgauge.service.AnsweredQuestionService;
 
 import java.util.Date;
 import java.util.List;
 import org.witchcraft.model.support.Range;
 
-public class ExamCreatorBackingBean extends BaseBackingBean<ExamCreator> {
+/**
+ * This is generated code - to edit code or override methods use - AnsweredQuestion class
+ * @author witchCraft Code Generator
+ * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
+ */
 
-	private ExamCreator examCreator = new ExamCreator();
+public class AnsweredQuestionBackingBeanBase
+		extends
+			BaseBackingBean<AnsweredQuestion> {
 
-	private ExamCreatorService examCreatorService;
+	private AnsweredQuestion answeredQuestion = new AnsweredQuestion();
 
-	private String repeatPassword;
-
-	public String getRepeatPassword() {
-		return repeatPassword;
-	}
-
-	public void setRepeatPassword(String repeatpassword) {
-		this.repeatPassword = repeatpassword;
-	}
+	private AnsweredQuestionService answeredQuestionService;
 
 	private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 
@@ -39,43 +37,32 @@ public class ExamCreatorBackingBean extends BaseBackingBean<ExamCreator> {
 		this.rangeCreationDate = rangeCreationDate;
 	}
 
-	private Range<Date> rangeDateOfBirth = new Range<Date>("dateOfBirth");
-
-	public Range<Date> getRangeDateOfBirth() {
-		return rangeDateOfBirth;
+	public void setAnsweredQuestionService(
+			AnsweredQuestionService answeredQuestionService) {
+		this.answeredQuestionService = answeredQuestionService;
 	}
 
-	public void setRangeDateOfBirth(Range<Date> rangeDateOfBirth) {
-		this.rangeDateOfBirth = rangeDateOfBirth;
+	public AnsweredQuestion getAnsweredQuestion() {
+		return answeredQuestion;
 	}
 
-	public void setExamCreatorService(ExamCreatorService examCreatorService) {
-		this.examCreatorService = examCreatorService;
-	}
-
-	public ExamCreator getExamCreator() {
-		return examCreator;
-	}
-
-	public void set(ExamCreator examCreator) {
-		this.examCreator = examCreator;
+	public void set(AnsweredQuestion answeredQuestion) {
+		this.answeredQuestion = answeredQuestion;
 	}
 
 	@SuppressWarnings("unchecked")
-	public BaseService<ExamCreator> getBaseService() {
-		return examCreatorService;
+	public BaseService<AnsweredQuestion> getBaseService() {
+		return answeredQuestionService;
 	}
 
-	public ExamCreator getEntity() {
-		return getExamCreator();
+	public AnsweredQuestion getEntity() {
+		return getAnsweredQuestion();
 	}
 
 	@Override
 	protected List<Range> getRangeList() {
 
 		List<Range> listRanges = super.getRangeList();
-
-		listRanges.add(rangeDateOfBirth);
 
 		listRanges.add(rangeCreationDate);
 		return listRanges;
@@ -90,9 +77,9 @@ public class ExamCreatorBackingBean extends BaseBackingBean<ExamCreator> {
 		String idStr = (String) ctx.getExternalContext()
 				.getRequestParameterMap().get("id");
 		long id = Long.parseLong(idStr);
-		examCreator = examCreatorService.load(id);
+		answeredQuestion = answeredQuestionService.load(id);
 		if (actionEvent.getComponent().getId() == "deleteId") {
-			getBaseService().delete(examCreator);
+			getBaseService().delete(answeredQuestion);
 		}
 		/*
 		UIParameter component = (UIParameter) actionEvent.getComponent().findComponent("editId");

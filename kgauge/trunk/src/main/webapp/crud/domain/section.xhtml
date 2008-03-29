@@ -97,8 +97,8 @@
 						<br/>
 						
 			
-				<rich:simpleTogglePanel switchType="client" label="">
-				<t:dataTable id="_data" var="question"
+				<rich:simpleTogglePanel switchType="client" label="Question">
+				<t:dataTable id="question_data" var="question"
 					value="#{sectionCrudBacking.section.question}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable">
 				
@@ -157,7 +157,8 @@
 	</t:column>
 							
 				
-	<t:column>
+	
+	<t:column  >
 		<f:facet name="header">
 				<t:outputText value="QuestionText" /> 
 		</f:facet>
@@ -169,17 +170,18 @@
 		<h:message for="question__questionText" styleClass="errMessage" />
 	</t:column>
 
-	<t:column>
+	
+	<t:column  >
 		<f:facet name="header">
 				<t:outputText value="DifficultyLevel" /> 
 		</f:facet>
 		<h:selectOneMenu    required="false" 
 			id="question__difficultyLevel"
 			value="#{question.difficultyLevel}">
-			<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="1" itemValue="1" />
-<f:selectItem itemLabel="2" itemValue="2" />
-<f:selectItem itemLabel="3" itemValue="3" />
-<f:selectItem itemLabel="4" itemValue="4" />
+			<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="L1" itemValue="L1" />
+<f:selectItem itemLabel="L2" itemValue="L2" />
+<f:selectItem itemLabel="L3" itemValue="L3" />
+<f:selectItem itemLabel="L4" itemValue="L4" />
 
 		</h:selectOneMenu>
 		<h:message for="question__difficultyLevel" styleClass="errMessage" />

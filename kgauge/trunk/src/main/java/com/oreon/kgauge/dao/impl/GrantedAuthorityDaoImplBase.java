@@ -1,14 +1,14 @@
 
 /**
- * This is generated code - to edit code or override methods use - Authority class
+ * This is generated code - to edit code or override methods use - GrantedAuthority class
  * @author witchCraft Code Generator
  * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
  */
 
 package com.oreon.kgauge.dao.impl;
 
-import com.oreon.kgauge.domain.Authority;
-import com.oreon.kgauge.dao.AuthorityDao;
+import com.oreon.kgauge.domain.GrantedAuthority;
+import com.oreon.kgauge.dao.GrantedAuthorityDao;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
@@ -22,16 +22,17 @@ import org.springframework.stereotype.Repository;
 import org.witchcraft.model.support.dao.BaseDao;
 
 @Repository
-public class AuthorityDaoImplBase extends BaseDao<Authority>
+public class GrantedAuthorityDaoImplBase extends BaseDao<GrantedAuthority>
 		implements
-			AuthorityDao {
+			GrantedAuthorityDao {
 
 	//// FINDERS ///// 
 
 	/** This function adds associated entities to an example criterion
 	 * @see org.witchcraft.model.support.dao.BaseDao#createExampleCriteria(java.lang.Object)
 	 */
-	public void addAssoications(Criteria criteria, Authority exampleInstance) {
+	public void addAssoications(Criteria criteria,
+			GrantedAuthority exampleInstance) {
 
 		if (exampleInstance.getUser() != null) {
 			criteria = criteria.add(Restrictions.eq("user.id", exampleInstance

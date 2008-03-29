@@ -51,19 +51,19 @@ public class CandidateTestDataFactory
 		try {
 
 			candidate.setFirstName("John");
-			candidate.setLastName("pi");
+			candidate.setLastName("Wilson");
 			candidate.setDateOfBirth(dateFormat
-					.parse("2008.03.17 06:02:53 EDT"));
-			candidate.getUser().setUserName("pi44015");
-			candidate.getUser().setPassword("Wilson");
-			candidate.getUser().setEnabled(true);
-			candidate.getContactDetails().setStreetAddress("theta");
-			candidate.getContactDetails().setCity("pi");
-			candidate.getContactDetails().setState("alpha");
-			candidate.getContactDetails().setCountry("delta");
-			candidate.getContactDetails().setZip("Wilson");
-			candidate.getContactDetails().setPhone("gamma");
-			candidate.getContactDetails().setEmail("Malissa32260");
+					.parse("2008.03.23 22:49:50 EDT"));
+			candidate.getUser().setUsername("Lavendar35764");
+			candidate.getUser().setPassword("beta");
+			candidate.getUser().setEnabled(false);
+			candidate.getContactDetails().setStreetAddress("pi");
+			candidate.getContactDetails().setCity("Malissa");
+			candidate.getContactDetails().setState("delta");
+			candidate.getContactDetails().setCountry("Mark");
+			candidate.getContactDetails().setZip("Malissa");
+			candidate.getContactDetails().setPhone("zeta");
+			candidate.getContactDetails().setEmail("Mark96124");
 
 			register(candidate);
 
@@ -79,20 +79,20 @@ public class CandidateTestDataFactory
 
 		try {
 
-			candidate.setFirstName("alpha");
-			candidate.setLastName("John");
+			candidate.setFirstName("Malissa");
+			candidate.setLastName("alpha");
 			candidate.setDateOfBirth(dateFormat
-					.parse("2008.03.03 15:30:39 EST"));
-			candidate.getUser().setUserName("theta54507");
+					.parse("2008.03.16 22:37:03 EDT"));
+			candidate.getUser().setUsername("pi32978");
 			candidate.getUser().setPassword("epsilon");
-			candidate.getUser().setEnabled(true);
-			candidate.getContactDetails().setStreetAddress("alpha");
-			candidate.getContactDetails().setCity("Eric");
-			candidate.getContactDetails().setState("John");
-			candidate.getContactDetails().setCountry("Mark");
-			candidate.getContactDetails().setZip("epsilon");
+			candidate.getUser().setEnabled(false);
+			candidate.getContactDetails().setStreetAddress("theta");
+			candidate.getContactDetails().setCity("theta");
+			candidate.getContactDetails().setState("Wilson");
+			candidate.getContactDetails().setCountry("Malissa");
+			candidate.getContactDetails().setZip("Eric");
 			candidate.getContactDetails().setPhone("theta");
-			candidate.getContactDetails().setEmail("beta22315");
+			candidate.getContactDetails().setEmail("Lavendar78958");
 
 			register(candidate);
 
@@ -108,20 +108,20 @@ public class CandidateTestDataFactory
 
 		try {
 
-			candidate.setFirstName("Eric");
-			candidate.setLastName("Wilson");
+			candidate.setFirstName("pi");
+			candidate.setLastName("Eric");
 			candidate.setDateOfBirth(dateFormat
-					.parse("2008.03.31 17:46:13 EDT"));
-			candidate.getUser().setUserName("gamma4464");
-			candidate.getUser().setPassword("Malissa");
-			candidate.getUser().setEnabled(false);
-			candidate.getContactDetails().setStreetAddress("beta");
-			candidate.getContactDetails().setCity("Mark");
-			candidate.getContactDetails().setState("John");
-			candidate.getContactDetails().setCountry("Mark");
-			candidate.getContactDetails().setZip("epsilon");
-			candidate.getContactDetails().setPhone("Mark");
-			candidate.getContactDetails().setEmail("delta65694");
+					.parse("2008.03.07 19:24:16 EST"));
+			candidate.getUser().setUsername("zeta33447");
+			candidate.getUser().setPassword("Lavendar");
+			candidate.getUser().setEnabled(true);
+			candidate.getContactDetails().setStreetAddress("John");
+			candidate.getContactDetails().setCity("Malissa");
+			candidate.getContactDetails().setState("Malissa");
+			candidate.getContactDetails().setCountry("Eric");
+			candidate.getContactDetails().setZip("beta");
+			candidate.getContactDetails().setPhone("alpha");
+			candidate.getContactDetails().setEmail("zeta97681");
 
 			register(candidate);
 
@@ -137,20 +137,20 @@ public class CandidateTestDataFactory
 
 		try {
 
-			candidate.setFirstName("pi");
-			candidate.setLastName("Eric");
+			candidate.setFirstName("Wilson");
+			candidate.setLastName("delta");
 			candidate.setDateOfBirth(dateFormat
-					.parse("2008.03.29 05:17:19 EDT"));
-			candidate.getUser().setUserName("John84940");
-			candidate.getUser().setPassword("Lavendar");
+					.parse("2008.04.20 08:45:58 EDT"));
+			candidate.getUser().setUsername("beta50576");
+			candidate.getUser().setPassword("zeta");
 			candidate.getUser().setEnabled(false);
-			candidate.getContactDetails().setStreetAddress("gamma");
-			candidate.getContactDetails().setCity("delta");
-			candidate.getContactDetails().setState("Mark");
-			candidate.getContactDetails().setCountry("Mark");
-			candidate.getContactDetails().setZip("Malissa");
-			candidate.getContactDetails().setPhone("Eric");
-			candidate.getContactDetails().setEmail("John41968");
+			candidate.getContactDetails().setStreetAddress("zeta");
+			candidate.getContactDetails().setCity("pi");
+			candidate.getContactDetails().setState("Wilson");
+			candidate.getContactDetails().setCountry("Malissa");
+			candidate.getContactDetails().setZip("delta");
+			candidate.getContactDetails().setPhone("Mark");
+			candidate.getContactDetails().setEmail("pi91190");
 
 			register(candidate);
 
@@ -166,20 +166,20 @@ public class CandidateTestDataFactory
 
 		try {
 
-			candidate.setFirstName("Mark");
-			candidate.setLastName("epsilon");
+			candidate.setFirstName("gamma");
+			candidate.setLastName("Malissa");
 			candidate.setDateOfBirth(dateFormat
-					.parse("2008.03.26 09:56:14 EDT"));
-			candidate.getUser().setUserName("theta3842");
-			candidate.getUser().setPassword("delta");
-			candidate.getUser().setEnabled(true);
-			candidate.getContactDetails().setStreetAddress("Eric");
-			candidate.getContactDetails().setCity("John");
-			candidate.getContactDetails().setState("alpha");
-			candidate.getContactDetails().setCountry("Malissa");
-			candidate.getContactDetails().setZip("pi");
-			candidate.getContactDetails().setPhone("zeta");
-			candidate.getContactDetails().setEmail("Malissa48555");
+					.parse("2008.04.07 19:48:08 EDT"));
+			candidate.getUser().setUsername("epsilon41640");
+			candidate.getUser().setPassword("beta");
+			candidate.getUser().setEnabled(false);
+			candidate.getContactDetails().setStreetAddress("zeta");
+			candidate.getContactDetails().setCity("alpha");
+			candidate.getContactDetails().setState("delta");
+			candidate.getContactDetails().setCountry("Eric");
+			candidate.getContactDetails().setZip("Eric");
+			candidate.getContactDetails().setPhone("beta");
+			candidate.getContactDetails().setEmail("Eric7749");
 
 			register(candidate);
 
@@ -261,7 +261,7 @@ public class CandidateTestDataFactory
 				.createInstance("String"));
 		candidate.setDateOfBirth((java.util.Date) RandomValueGeneratorFactory
 				.createInstance("Date"));
-		candidate.getUser().setUserName(
+		candidate.getUser().setUsername(
 				(String) RandomValueGeneratorFactory.createInstance("String"));
 		candidate.getUser().setPassword(
 				(String) RandomValueGeneratorFactory.createInstance("String"));

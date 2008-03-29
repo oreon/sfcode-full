@@ -34,7 +34,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="User.userName" />
+	<h:outputText value="User.username" />
 	<h:outputText value="*" />
 </h:panelGroup>
 
@@ -43,14 +43,14 @@
 	
 		
 	<h:inputText    required="true" 
-		id="user_userName"
-		value="#{userCrudBacking.user.userName}">
+		id="user_username"
+		value="#{userCrudBacking.user.username}">
 		
 		
-		<a4j:support event="onblur" reRender="user_userName" />
+		<a4j:support event="onblur" reRender="user_username" />
 	</h:inputText>
 	
-	<rich:message for="user_userName"
+	<rich:message for="user_username"
 		 styleClass="errMessage">
 		<f:facet name="errorMarker">
 			<h:graphicImage url="/images/icons/bullet_error.png" />
@@ -168,9 +168,9 @@
 						<br/>
 						
 			
-				<rich:simpleTogglePanel switchType="client" label="Authorities">
-				<t:dataTable id="authorities_data" var="authority"
-					value="#{userCrudBacking.user.authorities}" rows="10"
+				<rich:simpleTogglePanel switchType="client" label="GrantedAuthorities">
+				<t:dataTable id="grantedAuthorities_data" var="grantedAuthority"
+					value="#{userCrudBacking.user.grantedAuthorities}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable">
 				
 				 
@@ -185,13 +185,13 @@
 	<a4j:region>
 
 	<h:selectOneMenu  required="true" 
-		id="authority_user" converter="keyToObjectConverter"
-		value="#{authority.user}">
+		id="grantedAuthority_user" converter="keyToObjectConverter"
+		value="#{grantedAuthority.user}">
 		<f:selectItem itemLabel="Select" />
 		<f:selectItems value="#{userCrudBacking.asSelectItems}" />
 	</h:selectOneMenu>
 										
-	<rich:message for="authority_user" styleClass="errMessage">
+	<rich:message for="grantedAuthority_user" styleClass="errMessage">
 			<f:facet name="errorMarker">
 				<h:graphicImage url="/images/icons/bullet_error.png" />
 			</f:facet>
@@ -202,16 +202,17 @@
 	</t:column>
 							
 				
-	<t:column>
+	
+	<t:column  >
 		<f:facet name="header">
 				<t:outputText value="Name" /> 
 		</f:facet>
 		<h:inputText    required="true" 
-			id="authority__name"
-			value="#{authority.name}">
+			id="grantedAuthority__name"
+			value="#{grantedAuthority.name}">
 			
 		</h:inputText>
-		<h:message for="authority__name" styleClass="errMessage" />
+		<h:message for="grantedAuthority__name" styleClass="errMessage" />
 	</t:column>
 				</t:dataTable>
 				</rich:simpleTogglePanel>

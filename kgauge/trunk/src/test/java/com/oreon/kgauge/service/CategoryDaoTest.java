@@ -1,17 +1,17 @@
 package com.oreon.kgauge.service;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import com.oreon.kgauge.domain.Category;
+import org.springframework.test.jpa.AbstractJpaTests;
 import java.util.List;
 
-import javax.persistence.PersistenceException;
-
-import org.hibernate.PropertyValueException;
-import org.springframework.test.jpa.AbstractJpaTests;
-import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 import org.witchcraft.model.support.testing.TestDataFactory;
+import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 
-import com.oreon.kgauge.domain.Category;
+import java.text.SimpleDateFormat;
+
+import javax.persistence.PersistenceException;
+import org.hibernate.PropertyValueException;
+import java.util.Date;
 
 public class CategoryDaoTest extends AbstractJpaTests {
 
@@ -50,7 +50,7 @@ public class CategoryDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			categoryInstance.setName("Wilson");
+			categoryInstance.setName("alpha");
 
 			TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -77,7 +77,7 @@ public class CategoryDaoTest extends AbstractJpaTests {
 
 			try {
 
-				category.setName("beta");
+				category.setName("gamma");
 
 				TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("categoryTestDataFactory");
@@ -100,7 +100,7 @@ public class CategoryDaoTest extends AbstractJpaTests {
 			Category category = (Category) categoryTestDataFactory
 					.loadOneRecord();
 
-			category.setName("zeta");
+			category.setName("Malissa");
 
 			categoryService.save(category);
 
@@ -147,35 +147,6 @@ public class CategoryDaoTest extends AbstractJpaTests {
 			assertTrue(!categorys.isEmpty());
 		} catch (Exception e) {
 			fail(e.getMessage());
-		}
-	}
-	
-	public void testMultipleCats(){
-		
-		Category excat = new Category();
-		excat.setName("Java");
-		
-		Category cat = categoryService.searchByExample(excat).get(0);
-		System.out.println("ther are subcategories ->" + cat.getSubcategoriesCount());
-		
-		List<Category> cats = new ArrayList<Category>();
-		cats.addAll(cat.getSubcategories());
-		System.out.println(cats.get(0).getName());
-		
-		cats.get(0).setName("TEST_SBCAT");
-		
-		cat.getSubcategories().clear();
-		
-		cat.getSubcategories().addAll(cats);
-		
-		//cat.setName("javaxx");
-		categoryService.save(cat);
-		
-		cat = categoryService.searchByExample(excat).get(0);
-		System.out.println("ther are subcategories ->" + cat.getSubcategoriesCount());
-		
-		for (Category category : cat.getSubcategories()) {
-			System.out.println ( category.getName() );
 		}
 	}
 

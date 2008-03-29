@@ -10,6 +10,6 @@ import javax.jws.WebService;
 @WebService
 public interface UserDao extends GenericDAO<User> {
 
-	public User findByUserName(String userName);
+	public User findByUsername(String username);
 
 }

@@ -16,7 +16,7 @@
 	
 	
 	
-	<ui:define name="title"> Search User </ui:define>
+	<ui:define name="title"> Search GrantedAuthority </ui:define>
  	<ui:define name="content">
 
 		<f:view>
@@ -24,54 +24,52 @@
 			styleClass="messages" />
 		
 			<a4j:form id="form">
-						<rich:panel header="Search User">
+						<rich:panel header="Search GrantedAuthority">
 						<h:panelGrid columns="2" >
 						
 						<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
-								backingBean="#{userCrudBacking}" />
+								backingBean="#{grantedAuthorityCrudBacking}" />
 						
 								
 							
 							<h:panelGroup>
-							<h:outputText value="Username" styleClass="customformLabel" />
+							<h:outputText value="Name" styleClass="customformLabel" />
 							<h:inputText    
-								id="user__username"
-								value="#{userCrudBacking.user.username}">
+								id="grantedAuthority__name"
+								value="#{grantedAuthorityCrudBacking.grantedAuthority.name}">
 								
 							</h:inputText>
-							<h:message for="user__username" styleClass="errMessage" />
-							</h:panelGroup>
-								
-								
-							
-							<h:panelGroup>
-							<h:outputText value="Password" styleClass="customformLabel" />
-							<h:inputSecret    
-								id="user__password"
-								value="#{userCrudBacking.user.password}">
-								
-							</h:inputSecret>
-							<h:message for="user__password" styleClass="errMessage" />
-							</h:panelGroup>
-								
-								
-							
-							<h:panelGroup>
-							<h:outputText value="Enabled" styleClass="customformLabel" />
-							<h:selectBooleanCheckbox     
-								id="user__enabled"
-								value="#{userCrudBacking.user.enabled}">
-								
-							</h:selectBooleanCheckbox >
-							<h:message for="user__enabled" styleClass="errMessage" />
+							<h:message for="grantedAuthority__name" styleClass="errMessage" />
 							</h:panelGroup>
 								
 							
 							
+								<h:outputText value="User" styleClass="formLabel" />
+								
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="false" 
+		id="grantedAuthority_user" converter="keyToObjectConverter"
+		value="#{grantedAuthorityCrudBacking.grantedAuthority.user}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{userCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="grantedAuthority_user" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+
 							
 							</h:panelGrid>
 
-							<wc:submitCancelButtons backingBean="#{userCrudBacking}" submitLabel="Search" 
+							<wc:submitCancelButtons backingBean="#{grantedAuthorityCrudBacking}" submitLabel="Search" 
 								submitAction="search" /> 
 						
 						 </rich:panel>					

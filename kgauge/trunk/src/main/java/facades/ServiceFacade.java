@@ -16,7 +16,7 @@ import com.oreon.kgauge.service.CategoryService;
 
 import com.oreon.kgauge.service.UserService;
 
-import com.oreon.kgauge.service.AuthorityService;
+import com.oreon.kgauge.service.GrantedAuthorityService;
 
 import com.oreon.kgauge.service.AnsweredQuestionService;
 
@@ -104,14 +104,15 @@ public class ServiceFacade {
 		this.userService = userService;
 	}
 
-	private AuthorityService authorityService;
+	private GrantedAuthorityService grantedAuthorityService;
 
-	public AuthorityService getAuthorityService() {
-		return authorityService;
+	public GrantedAuthorityService getGrantedAuthorityService() {
+		return grantedAuthorityService;
 	}
 
-	public void setAuthorityService(AuthorityService authorityService) {
-		this.authorityService = authorityService;
+	public void setGrantedAuthorityService(
+			GrantedAuthorityService grantedAuthorityService) {
+		this.grantedAuthorityService = grantedAuthorityService;
 	}
 
 	private AnsweredQuestionService answeredQuestionService;

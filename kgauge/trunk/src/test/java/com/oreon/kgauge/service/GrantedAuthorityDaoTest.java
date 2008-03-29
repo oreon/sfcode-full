@@ -1,6 +1,6 @@
 package com.oreon.kgauge.service;
 
-import com.oreon.kgauge.domain.Authority;
+import com.oreon.kgauge.domain.GrantedAuthority;
 import org.springframework.test.jpa.AbstractJpaTests;
 import java.util.List;
 
@@ -13,23 +13,24 @@ import javax.persistence.PersistenceException;
 import org.hibernate.PropertyValueException;
 import java.util.Date;
 
-public class AuthorityDaoTest extends AbstractJpaTests {
+public class GrantedAuthorityDaoTest extends AbstractJpaTests {
 
-	protected Authority authorityInstance = new Authority();
+	protected GrantedAuthority grantedAuthorityInstance = new GrantedAuthority();
 
-	protected AuthorityService authorityService;
+	protected GrantedAuthorityService grantedAuthorityService;
 
 	protected boolean bTest = true;
 
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat(
 			"yyyy.MM.dd HH:mm:ss z");
 
-	public void setAuthorityService(AuthorityService authorityService) {
-		this.authorityService = authorityService;
+	public void setGrantedAuthorityService(
+			GrantedAuthorityService grantedAuthorityService) {
+		this.grantedAuthorityService = grantedAuthorityService;
 	}
 
-	protected TestDataFactory authorityTestDataFactory = (TestDataFactory) BeanHelper
-			.getBean("authorityTestDataFactory");
+	protected TestDataFactory grantedAuthorityTestDataFactory = (TestDataFactory) BeanHelper
+			.getBean("grantedAuthorityTestDataFactory");
 
 	@Override
 	protected String[] getConfigLocations() {
@@ -50,16 +51,16 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			authorityInstance.setName("Malissa");
+			grantedAuthorityInstance.setName("theta");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
 
-			authorityInstance
+			grantedAuthorityInstance
 					.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
 							.loadOneRecord());
 
-			authorityService.save(authorityInstance);
+			grantedAuthorityService.save(grantedAuthorityInstance);
 		} catch (PersistenceException pe) {
 			//if this instance can't be created due to back references e.g an orderItem needs an Order - 
 			// - we will simply skip generated tests.
@@ -77,16 +78,16 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 	public void testSave() {
 
 		try {
-			Authority authority = new Authority();
+			GrantedAuthority grantedAuthority = new GrantedAuthority();
 
 			try {
 
-				authority.setName("gamma");
+				grantedAuthority.setName("Lavendar");
 
 				TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("userTestDataFactory");
 
-				authority
+				grantedAuthority
 						.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
 								.loadOneRecord());
 
@@ -94,8 +95,8 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 				ex.printStackTrace();
 			}
 
-			authorityService.save(authority);
-			assertNotNull(authority.getId());
+			grantedAuthorityService.save(grantedAuthority);
+			assertNotNull(grantedAuthority.getId());
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
@@ -105,12 +106,12 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 
 		try {
 			//test saving a new record and updating an existing record;
-			Authority authority = (Authority) authorityTestDataFactory
+			GrantedAuthority grantedAuthority = (GrantedAuthority) grantedAuthorityTestDataFactory
 					.loadOneRecord();
 
-			authority.setName("pi");
+			grantedAuthority.setName("zeta");
 
-			authorityService.save(authority);
+			grantedAuthorityService.save(grantedAuthority);
 
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -118,7 +119,7 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 	}
 
 	public void testCount() {
-		assertTrue(authorityService.getCount() > 0);
+		assertTrue(grantedAuthorityService.getCount() > 0);
 	}
 
 	//count the number of records - add one delete it - check count is same after delete
@@ -126,11 +127,11 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 
 		try {
 			long count, newCount, diff = 0;
-			count = authorityService.getCount();
-			Authority authority = (Authority) authorityTestDataFactory
+			count = grantedAuthorityService.getCount();
+			GrantedAuthority grantedAuthority = (GrantedAuthority) grantedAuthorityTestDataFactory
 					.loadOneRecord();
-			authorityService.delete(authority);
-			newCount = authorityService.getCount();
+			grantedAuthorityService.delete(grantedAuthority);
+			newCount = grantedAuthorityService.getCount();
 			diff = newCount - count;
 			assertEquals(diff, 1);
 		} catch (Exception e) {
@@ -141,9 +142,9 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 	public void testLoad() {
 
 		try {
-			Authority authority = authorityService.load(authorityInstance
-					.getId());
-			assertNotNull(authority.getId());
+			GrantedAuthority grantedAuthority = grantedAuthorityService
+					.load(grantedAuthorityInstance.getId());
+			assertNotNull(grantedAuthority.getId());
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
@@ -151,9 +152,9 @@ public class AuthorityDaoTest extends AbstractJpaTests {
 
 	public void testSearchByExample() {
 		try {
-			List<Authority> authoritys = authorityService
-					.searchByExample(authorityInstance);
-			assertTrue(!authoritys.isEmpty());
+			List<GrantedAuthority> grantedAuthoritys = grantedAuthorityService
+					.searchByExample(grantedAuthorityInstance);
+			assertTrue(!grantedAuthoritys.isEmpty());
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}

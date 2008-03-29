@@ -28,16 +28,16 @@ public class UserDaoImplBase extends BaseDao<User> implements UserDao {
 
 	@SuppressWarnings("unchecked")
 	public/**
-	 * Since userName is unique, will try to return a single User by the
-	 * userName - if no record is found null will be returned
+	 * Since username is unique, will try to return a single User by the
+	 * username - if no record is found null will be returned
 	 * 
 	 */
-	User findByUserName(String userName) {
+	User findByUsername(String username) {
 
-		String qryString = "select c from User c where c.userName = ?1";
+		String qryString = "select c from User c where c.username = ?1";
 
 		Query query = entityManager.createQuery(qryString).setParameter(1,
-				userName);
+				username);
 		try {
 			return (User) query.getSingleResult();
 		} catch (NoResultException nre) {

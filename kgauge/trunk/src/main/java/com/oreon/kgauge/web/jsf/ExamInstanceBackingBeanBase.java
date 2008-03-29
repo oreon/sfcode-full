@@ -6,18 +6,24 @@ import javax.faces.context.FacesContext;
 import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
 
-import com.oreon.kgauge.domain.Section;
-import com.oreon.kgauge.service.SectionService;
+import com.oreon.kgauge.domain.ExamInstance;
+import com.oreon.kgauge.service.ExamInstanceService;
 
 import java.util.Date;
 import java.util.List;
 import org.witchcraft.model.support.Range;
 
-public class SectionBackingBean extends BaseBackingBean<Section> {
+/**
+ * This is generated code - to edit code or override methods use - ExamInstance class
+ * @author witchCraft Code Generator
+ * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
+ */
 
-	private Section section = new Section();
+public class ExamInstanceBackingBeanBase extends BaseBackingBean<ExamInstance> {
 
-	private SectionService sectionService;
+	private ExamInstance examInstance = new ExamInstance();
+
+	private ExamInstanceService examInstanceService;
 
 	private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 
@@ -29,25 +35,25 @@ public class SectionBackingBean extends BaseBackingBean<Section> {
 		this.rangeCreationDate = rangeCreationDate;
 	}
 
-	public void setSectionService(SectionService sectionService) {
-		this.sectionService = sectionService;
+	public void setExamInstanceService(ExamInstanceService examInstanceService) {
+		this.examInstanceService = examInstanceService;
 	}
 
-	public Section getSection() {
-		return section;
+	public ExamInstance getExamInstance() {
+		return examInstance;
 	}
 
-	public void set(Section section) {
-		this.section = section;
+	public void set(ExamInstance examInstance) {
+		this.examInstance = examInstance;
 	}
 
 	@SuppressWarnings("unchecked")
-	public BaseService<Section> getBaseService() {
-		return sectionService;
+	public BaseService<ExamInstance> getBaseService() {
+		return examInstanceService;
 	}
 
-	public Section getEntity() {
-		return getSection();
+	public ExamInstance getEntity() {
+		return getExamInstance();
 	}
 
 	@Override
@@ -68,9 +74,9 @@ public class SectionBackingBean extends BaseBackingBean<Section> {
 		String idStr = (String) ctx.getExternalContext()
 				.getRequestParameterMap().get("id");
 		long id = Long.parseLong(idStr);
-		section = sectionService.load(id);
+		examInstance = examInstanceService.load(id);
 		if (actionEvent.getComponent().getId() == "deleteId") {
-			getBaseService().delete(section);
+			getBaseService().delete(examInstance);
 		}
 		/*
 		UIParameter component = (UIParameter) actionEvent.getComponent().findComponent("editId");

@@ -6,28 +6,24 @@ import javax.faces.context.FacesContext;
 import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
 
-import com.oreon.kgauge.domain.User;
-import com.oreon.kgauge.service.UserService;
+import com.oreon.kgauge.domain.Section;
+import com.oreon.kgauge.service.SectionService;
 
 import java.util.Date;
 import java.util.List;
 import org.witchcraft.model.support.Range;
 
-public class UserBackingBean extends BaseBackingBean<User> {
+/**
+ * This is generated code - to edit code or override methods use - Section class
+ * @author witchCraft Code Generator
+ * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
+ */
 
-	private User user = new User();
+public class SectionBackingBeanBase extends BaseBackingBean<Section> {
 
-	private UserService userService;
+	private Section section = new Section();
 
-	private String repeatPassword;
-
-	public String getRepeatPassword() {
-		return repeatPassword;
-	}
-
-	public void setRepeatPassword(String repeatpassword) {
-		this.repeatPassword = repeatpassword;
-	}
+	private SectionService sectionService;
 
 	private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 
@@ -39,25 +35,25 @@ public class UserBackingBean extends BaseBackingBean<User> {
 		this.rangeCreationDate = rangeCreationDate;
 	}
 
-	public void setUserService(UserService userService) {
-		this.userService = userService;
+	public void setSectionService(SectionService sectionService) {
+		this.sectionService = sectionService;
 	}
 
-	public User getUser() {
-		return user;
+	public Section getSection() {
+		return section;
 	}
 
-	public void set(User user) {
-		this.user = user;
+	public void set(Section section) {
+		this.section = section;
 	}
 
 	@SuppressWarnings("unchecked")
-	public BaseService<User> getBaseService() {
-		return userService;
+	public BaseService<Section> getBaseService() {
+		return sectionService;
 	}
 
-	public User getEntity() {
-		return getUser();
+	public Section getEntity() {
+		return getSection();
 	}
 
 	@Override
@@ -78,9 +74,9 @@ public class UserBackingBean extends BaseBackingBean<User> {
 		String idStr = (String) ctx.getExternalContext()
 				.getRequestParameterMap().get("id");
 		long id = Long.parseLong(idStr);
-		user = userService.load(id);
+		section = sectionService.load(id);
 		if (actionEvent.getComponent().getId() == "deleteId") {
-			getBaseService().delete(user);
+			getBaseService().delete(section);
 		}
 		/*
 		UIParameter component = (UIParameter) actionEvent.getComponent().findComponent("editId");

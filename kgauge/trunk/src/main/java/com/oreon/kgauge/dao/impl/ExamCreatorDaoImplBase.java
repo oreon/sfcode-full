@@ -30,16 +30,16 @@ public class ExamCreatorDaoImplBase extends BaseDao<ExamCreator>
 
 	@SuppressWarnings("unchecked")
 	public/**
-	 * Since userName is unique, will try to return a single ExamCreator by the
-	 * userName - if no record is found null will be returned
+	 * Since username is unique, will try to return a single ExamCreator by the
+	 * username - if no record is found null will be returned
 	 * 
 	 */
-	ExamCreator findByUserName(String userName) {
+	ExamCreator findByUsername(String username) {
 
-		String qryString = "select c from ExamCreator c where c.user.userName = ?1";
+		String qryString = "select c from ExamCreator c where c.user.username = ?1";
 
 		Query query = entityManager.createQuery(qryString).setParameter(1,
-				userName);
+				username);
 		try {
 			return (ExamCreator) query.getSingleResult();
 		} catch (NoResultException nre) {

@@ -10,7 +10,7 @@ import javax.jws.WebService;
 @WebService
 public interface ExamCreatorDao extends GenericDAO<ExamCreator> {
 
-	public ExamCreator findByUserName(String userName);
+	public ExamCreator findByUsername(String username);
 
 	public ExamCreator findByEmail(String email);
 

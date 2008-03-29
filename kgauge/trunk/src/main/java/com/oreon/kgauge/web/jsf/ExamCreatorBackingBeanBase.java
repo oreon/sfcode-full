@@ -6,18 +6,24 @@ import javax.faces.context.FacesContext;
 import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
 
-import com.oreon.kgauge.domain.Candidate;
-import com.oreon.kgauge.service.CandidateService;
+import com.oreon.kgauge.domain.ExamCreator;
+import com.oreon.kgauge.service.ExamCreatorService;
 
 import java.util.Date;
 import java.util.List;
 import org.witchcraft.model.support.Range;
 
-public class CandidateBackingBean extends BaseBackingBean<Candidate> {
+/**
+ * This is generated code - to edit code or override methods use - ExamCreator class
+ * @author witchCraft Code Generator
+ * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
+ */
 
-	private Candidate candidate = new Candidate();
+public class ExamCreatorBackingBeanBase extends BaseBackingBean<ExamCreator> {
 
-	private CandidateService candidateService;
+	private ExamCreator examCreator = new ExamCreator();
+
+	private ExamCreatorService examCreatorService;
 
 	private String repeatPassword;
 
@@ -49,25 +55,25 @@ public class CandidateBackingBean extends BaseBackingBean<Candidate> {
 		this.rangeDateOfBirth = rangeDateOfBirth;
 	}
 
-	public void setCandidateService(CandidateService candidateService) {
-		this.candidateService = candidateService;
+	public void setExamCreatorService(ExamCreatorService examCreatorService) {
+		this.examCreatorService = examCreatorService;
 	}
 
-	public Candidate getCandidate() {
-		return candidate;
+	public ExamCreator getExamCreator() {
+		return examCreator;
 	}
 
-	public void set(Candidate candidate) {
-		this.candidate = candidate;
+	public void set(ExamCreator examCreator) {
+		this.examCreator = examCreator;
 	}
 
 	@SuppressWarnings("unchecked")
-	public BaseService<Candidate> getBaseService() {
-		return candidateService;
+	public BaseService<ExamCreator> getBaseService() {
+		return examCreatorService;
 	}
 
-	public Candidate getEntity() {
-		return getCandidate();
+	public ExamCreator getEntity() {
+		return getExamCreator();
 	}
 
 	@Override
@@ -90,9 +96,9 @@ public class CandidateBackingBean extends BaseBackingBean<Candidate> {
 		String idStr = (String) ctx.getExternalContext()
 				.getRequestParameterMap().get("id");
 		long id = Long.parseLong(idStr);
-		candidate = candidateService.load(id);
+		examCreator = examCreatorService.load(id);
 		if (actionEvent.getComponent().getId() == "deleteId") {
-			getBaseService().delete(candidate);
+			getBaseService().delete(examCreator);
 		}
 		/*
 		UIParameter component = (UIParameter) actionEvent.getComponent().findComponent("editId");

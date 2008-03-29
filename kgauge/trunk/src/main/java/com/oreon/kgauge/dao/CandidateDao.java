@@ -10,7 +10,7 @@ import javax.jws.WebService;
 @WebService
 public interface CandidateDao extends GenericDAO<Candidate> {
 
-	public Candidate findByUserName(String userName);
+	public Candidate findByUsername(String username);
 
 	public Candidate findByEmail(String email);
 

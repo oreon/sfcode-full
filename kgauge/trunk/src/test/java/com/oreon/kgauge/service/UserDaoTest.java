@@ -50,9 +50,9 @@ public class UserDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			userInstance.setUserName("theta50508");
-			userInstance.setPassword("alpha");
-			userInstance.setEnabled(false);
+			userInstance.setUsername("zeta29605");
+			userInstance.setPassword("Mark");
+			userInstance.setEnabled(true);
 
 			userService.save(userInstance);
 		} catch (PersistenceException pe) {
@@ -76,8 +76,8 @@ public class UserDaoTest extends AbstractJpaTests {
 
 			try {
 
-				user.setUserName("alpha70463");
-				user.setPassword("John");
+				user.setUsername("pi42851");
+				user.setPassword("zeta");
 				user.setEnabled(false);
 
 			} catch (Exception ex) {
@@ -97,9 +97,9 @@ public class UserDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			User user = (User) userTestDataFactory.loadOneRecord();
 
-			user.setUserName("zeta47739");
-			user.setPassword("alpha");
-			user.setEnabled(false);
+			user.setUsername("zeta27599");
+			user.setPassword("pi");
+			user.setEnabled(true);
 
 			userService.save(user);
 
@@ -138,13 +138,13 @@ public class UserDaoTest extends AbstractJpaTests {
 		}
 	}
 
-	public void testFindByUserName() {
+	public void testFindByUsername() {
 		if (!bTest)
 			return;
 
-		assertNotNull("Couldn't find a User with userName ", userService
-				.findByUserName(userInstance.getUserName()));
-		//assertNull("Found a User with userName YYY", userService.findByUserName("YYY"));			
+		assertNotNull("Couldn't find a User with username ", userService
+				.findByUsername(userInstance.getUsername()));
+		//assertNull("Found a User with username YYY", userService.findByUsername("YYY"));			
 
 	}
 

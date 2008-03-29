@@ -17,8 +17,8 @@ import org.witchcraft.model.support.dao.GenericDAO;
 import org.witchcraft.model.support.service.BaseServiceImpl;
 
 import com.oreon.kgauge.dao.ExamCreatorDao;
-import com.oreon.kgauge.domain.Authority;
 import com.oreon.kgauge.domain.ExamCreator;
+import com.oreon.kgauge.domain.GrantedAuthority;
 import com.oreon.kgauge.service.ExamCreatorService;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
@@ -60,10 +60,10 @@ public class ExamCreatorServiceImplBase extends BaseServiceImpl<ExamCreator>
 	private void checkUniqueConstraints(ExamCreator examCreator) {
 		ExamCreator existingExamCreator = null;
 
-		existingExamCreator = examCreatorDao.findByUserName(examCreator
-				.getUser().getUserName());
+		existingExamCreator = examCreatorDao.findByUsername(examCreator
+				.getUser().getUsername());
 		ensureUnique(examCreator, existingExamCreator,
-				"Entity.exists.withUserName");
+				"Entity.exists.withUsername");
 
 		existingExamCreator = examCreatorDao.findByEmail(examCreator
 				.getContactDetails().getEmail());
@@ -73,10 +73,10 @@ public class ExamCreatorServiceImplBase extends BaseServiceImpl<ExamCreator>
 	}
 
 	private void assignDefaultAuthority(ExamCreator examCreator) {
-		Authority authority = new Authority();
+		GrantedAuthority authority = new GrantedAuthority();
 		authority.setName("ROLE_EXAMCREATOR");
 
-		examCreator.getUser().addAuthoritie(authority);
+		examCreator.getUser().addGrantedAuthoritie(authority);
 	}
 
 	public void delete(ExamCreator examCreator) {
@@ -91,8 +91,8 @@ public class ExamCreatorServiceImplBase extends BaseServiceImpl<ExamCreator>
 		return examCreatorDao.loadAll();
 	}
 
-	public ExamCreator findByUserName(String userName) {
-		return examCreatorDao.findByUserName(userName);
+	public ExamCreator findByUsername(String username) {
+		return examCreatorDao.findByUsername(username);
 	}
 
 	public ExamCreator findByEmail(String email) {
