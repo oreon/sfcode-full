@@ -23,42 +23,32 @@
 			<a4j:form id="form_listing">
 				<rich:tabPanel  switchType="ajax">
 					<rich:tab label="Tabular" >
-					<t:dataTable id="data" var="question"
-						value="#{questionCrudBacking.records}" rows="30"
+					<t:dataTable id="data" var="grantedRole"
+						value="#{grantedRoleCrudBacking.records}" rows="30"
 					rowClasses="odd, even" styleClass="dataTable" >						
 							
 	<t:column>
 		<f:facet name="header">
-			<t:commandLink actionListener="#{questionCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="QuestionText" />
-				<t:outputText value="QuestionText" /> 
+			<t:commandLink actionListener="#{grantedRoleCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="Name" />
+				<t:outputText value="Name" /> 
 			</t:commandLink>		
 		</f:facet>
-		<t:outputText value="#{question.questionText}" />
-	</t:column>
-
-	<t:column>
-		<f:facet name="header">
-			<t:commandLink actionListener="#{questionCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="DifficultyLevel" />
-				<t:outputText value="DifficultyLevel" /> 
-			</t:commandLink>		
-		</f:facet>
-		<t:outputText value="#{question.difficultyLevel}" />
+		<t:outputText value="#{grantedRole.name}" />
 	</t:column>
 							
 							
 							
 	<t:column>
 		<f:facet name="header">
-		<t:commandLink actionListener="#{questionCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="section.displayName" />
+		<t:commandLink actionListener="#{grantedRoleCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="user.displayName" />
 			<!-- <t:commandSortHeader columnName="" arrow="true"> -->
-				<t:outputText value="Section" /> 
+				<t:outputText value="User" /> 
 			<!-- </t:commandSortHeader> -->
 		</t:commandLink>	
 		</f:facet>
-		<t:outputText value="#{question.section.displayName}" />
+		<t:outputText value="#{grantedRole.user.displayName}" />
 	</t:column>
 							
 							<rich:column>
@@ -71,11 +61,11 @@
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 								
-									<t:commandLink action="#{questionCrudBacking.select}"																					
-										actionListener="#{questionCrudBacking.selectEntity}">
+									<t:commandLink action="#{grantedRoleCrudBacking.select}"																					
+										actionListener="#{grantedRoleCrudBacking.selectEntity}">
 										<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
 										<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
-										<f:param id="editId" name="id" value="#{question.id}" />								
+										<f:param id="editId" name="id" value="#{grantedRole.id}" />								
 									</t:commandLink>		
 								<!--
 								</acegijsf:authorize>
@@ -90,20 +80,20 @@
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 		
-								<t:commandLink action="#{questionCrudBacking.delete}"	
+								<t:commandLink action="#{grantedRoleCrudBacking.delete}"	
 									onclick="if(window.confirm('Are You Sure?')==false){return false}"
-									actionListener="#{questionCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
+									actionListener="#{grantedRoleCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
 									<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
-									<f:param id="deleteId" name="id" value="#{question.id}" />												
+									<f:param id="deleteId" name="id" value="#{grantedRole.id}" />												
 								</t:commandLink>
 								<!--
 								</acegijsf:authorize>
 								--> 
 								</t:column>
 						</t:dataTable>	
-							 	<t:inputHidden value="#{questionCrudBacking.sortField}" />
-    							<t:inputHidden value="#{questionCrudBacking.sortAscending}" />
+							 	<t:inputHidden value="#{grantedRoleCrudBacking.sortField}" />
+    							<t:inputHidden value="#{grantedRoleCrudBacking.sortAscending}" />
 							 </rich:tab>
 							 
 							 
@@ -143,21 +133,11 @@
 	<t:column>
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="QuestionText" />
-				<t:outputText value="QuestionText" /> 
+				<f:attribute name="sortField" value="Name" />
+				<t:outputText value="Name" /> 
 			</t:commandLink>		
 		</f:facet>
-		<t:outputText value="#{log.entity.questionText}" />
-	</t:column>
-
-	<t:column>
-		<f:facet name="header">
-			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="DifficultyLevel" />
-				<t:outputText value="DifficultyLevel" /> 
-			</t:commandLink>		
-		</f:facet>
-		<t:outputText value="#{log.entity.difficultyLevel}" />
+		<t:outputText value="#{log.entity.name}" />
 	</t:column>
 							</t:dataTable>
 							 </rich:tab>

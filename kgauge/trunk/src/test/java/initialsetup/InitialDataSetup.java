@@ -20,7 +20,7 @@ import com.oreon.kgauge.domain.CategoryTestDataFactory;
 
 import com.oreon.kgauge.domain.UserTestDataFactory;
 
-import com.oreon.kgauge.domain.GrantedAuthorityTestDataFactory;
+import com.oreon.kgauge.domain.GrantedRoleTestDataFactory;
 
 import com.oreon.kgauge.domain.AnsweredQuestionTestDataFactory;
 
@@ -74,10 +74,10 @@ public class InitialDataSetup {
 
 		userTestDataFactory.persistAll();
 
-		TestDataFactory grantedAuthorityTestDataFactory = (TestDataFactory) BeanHelper
-				.getBean("grantedAuthorityTestDataFactory");
+		TestDataFactory grantedRoleTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("grantedRoleTestDataFactory");
 
-		grantedAuthorityTestDataFactory.persistAll();
+		grantedRoleTestDataFactory.persistAll();
 
 		TestDataFactory answeredQuestionTestDataFactory = (TestDataFactory) BeanHelper
 				.getBean("answeredQuestionTestDataFactory");

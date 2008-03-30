@@ -21,9 +21,9 @@ import org.witchcraft.model.support.Range;
 
 public class AnswerChoiceBackingBeanBase extends BaseBackingBean<AnswerChoice> {
 
-	private AnswerChoice answerChoice = new AnswerChoice();
+	protected AnswerChoice answerChoice = new AnswerChoice();
 
-	private AnswerChoiceService answerChoiceService;
+	protected AnswerChoiceService answerChoiceService;
 
 	private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 

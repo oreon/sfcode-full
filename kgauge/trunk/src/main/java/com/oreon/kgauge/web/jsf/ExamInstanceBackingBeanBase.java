@@ -21,9 +21,9 @@ import org.witchcraft.model.support.Range;
 
 public class ExamInstanceBackingBeanBase extends BaseBackingBean<ExamInstance> {
 
-	private ExamInstance examInstance = new ExamInstance();
+	protected ExamInstance examInstance = new ExamInstance();
 
-	private ExamInstanceService examInstanceService;
+	protected ExamInstanceService examInstanceService;
 
 	private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 

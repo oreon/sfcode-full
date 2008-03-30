@@ -21,9 +21,9 @@ import org.witchcraft.model.support.Range;
 
 public class CandidateBackingBeanBase extends BaseBackingBean<Candidate> {
 
-	private Candidate candidate = new Candidate();
+	protected Candidate candidate = new Candidate();
 
-	private CandidateService candidateService;
+	protected CandidateService candidateService;
 
 	private String repeatPassword;
 

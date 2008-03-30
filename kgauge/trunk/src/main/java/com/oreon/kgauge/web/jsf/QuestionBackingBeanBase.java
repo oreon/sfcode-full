@@ -25,7 +25,7 @@ public class QuestionBackingBeanBase extends BaseBackingBean<Question> {
 
 	protected QuestionService questionService;
 
-	protected Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
+	private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 
 	public Range<Date> getRangeCreationDate() {
 		return rangeCreationDate;

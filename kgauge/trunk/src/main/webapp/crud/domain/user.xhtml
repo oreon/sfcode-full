@@ -168,9 +168,9 @@
 						<br/>
 						
 			
-				<rich:simpleTogglePanel switchType="client" label="GrantedAuthorities">
-				<t:dataTable id="grantedAuthorities_data" var="grantedAuthority"
-					value="#{userCrudBacking.user.grantedAuthorities}" rows="10"
+				<rich:simpleTogglePanel switchType="client" label="GrantedRoles">
+				<t:dataTable id="grantedRoles_data" var="grantedRole"
+					value="#{userCrudBacking.user.grantedRoles}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable">
 				
 				 
@@ -185,13 +185,13 @@
 	<a4j:region>
 
 	<h:selectOneMenu  required="true" 
-		id="grantedAuthority_user" converter="keyToObjectConverter"
-		value="#{grantedAuthority.user}">
+		id="grantedRole_user" converter="keyToObjectConverter"
+		value="#{grantedRole.user}">
 		<f:selectItem itemLabel="Select" />
 		<f:selectItems value="#{userCrudBacking.asSelectItems}" />
 	</h:selectOneMenu>
 										
-	<rich:message for="grantedAuthority_user" styleClass="errMessage">
+	<rich:message for="grantedRole_user" styleClass="errMessage">
 			<f:facet name="errorMarker">
 				<h:graphicImage url="/images/icons/bullet_error.png" />
 			</f:facet>
@@ -208,11 +208,11 @@
 				<t:outputText value="Name" /> 
 		</f:facet>
 		<h:inputText    required="true" 
-			id="grantedAuthority__name"
-			value="#{grantedAuthority.name}">
+			id="grantedRole__name"
+			value="#{grantedRole.name}">
 			
 		</h:inputText>
-		<h:message for="grantedAuthority__name" styleClass="errMessage" />
+		<h:message for="grantedRole__name" styleClass="errMessage" />
 	</t:column>
 				</t:dataTable>
 				</rich:simpleTogglePanel>

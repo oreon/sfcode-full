@@ -8,25 +8,22 @@ import org.apache.log4j.Logger;
 import javax.jws.WebService;
 
 @Entity
-public class GrantedAuthority extends GrantedAuthorityBase {
+public class GrantedRole extends GrantedRoleBase {
 
-	private static final Logger log = Logger.getLogger(GrantedAuthority.class);
+	private static final Logger log = Logger.getLogger(GrantedRole.class);
 
 	/* Default Constructor */
-	public GrantedAuthority() {
+	public GrantedRole() {
 	}
 
 	/* Constructor with all attributes */
-	public GrantedAuthority(String name) {
+	public GrantedRole(String name) {
 		super(name);
 	}
 
-	public GrantedAuthority grantedAuthorityInstance() {
+	public GrantedRole grantedRoleInstance() {
 		return this;
 	}
 
-	public String getAuthority() {
-		return getName();
-	}
-
+	
 }

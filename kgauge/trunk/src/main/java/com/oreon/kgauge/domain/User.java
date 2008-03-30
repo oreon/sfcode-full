@@ -26,12 +26,5 @@ public class User extends UserBase {
 
 ///////////// Generated super class methods ////////////
 	
-	public boolean isEnabled() {
-		return getEnabled();
-	}
 	
-	@Override
-	public Set getUserAuthorities() {
-		return getGrantedAuthorities();
-	}
 }

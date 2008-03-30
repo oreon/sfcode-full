@@ -1,6 +1,6 @@
 
 /**
- * This is generated code - to edit code or override methods use - GrantedAuthority class
+ * This is generated code - to edit code or override methods use - GrantedRole class
  * @author witchCraft Code Generator
  * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
  */
@@ -8,14 +8,16 @@
 package com.oreon.kgauge.domain;
 
 import javax.persistence.*;
+
 import org.hibernate.annotations.Cascade;
 
 import org.witchcraft.model.jsf.Image;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
+import java.util.Set;
 
 @MappedSuperclass
-public abstract class GrantedAuthorityBase
+public abstract class GrantedRoleBase
 		extends
 			org.witchcraft.model.support.security.AbstractAuthority
 		implements
@@ -27,11 +29,11 @@ public abstract class GrantedAuthorityBase
 	protected String name;
 
 	/* Default Constructor */
-	public GrantedAuthorityBase() {
+	public GrantedRoleBase() {
 	}
 
 	/* Constructor with all attributes */
-	public GrantedAuthorityBase(String name) {
+	public GrantedRoleBase(String name) {
 		this.name = name;
 	}
 
@@ -60,11 +62,16 @@ public abstract class GrantedAuthorityBase
 		return this.user;
 	}
 
-	public abstract GrantedAuthority grantedAuthorityInstance();
+	public abstract GrantedRole grantedRoleInstance();
 
 	@Transient
 	public String getDisplayName() {
 		return name + "";
+	}
+
+	@Transient
+	public String getAuthority() {
+		return getName();
 	}
 
 }

@@ -14,179 +14,176 @@ import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.apache.log4j.Logger;
 
-import com.oreon.kgauge.service.GrantedAuthorityService;
+import com.oreon.kgauge.service.GrantedRoleService;
 
 @Transactional
-public class GrantedAuthorityTestDataFactory
+public class GrantedRoleTestDataFactory
 		extends
-			AbstractTestDataFactory<GrantedAuthority> {
+			AbstractTestDataFactory<GrantedRole> {
 
-	private List<GrantedAuthority> grantedAuthoritys = new ArrayList<GrantedAuthority>();
+	private List<GrantedRole> grantedRoles = new ArrayList<GrantedRole>();
 
 	private static final Logger logger = Logger
-			.getLogger(GrantedAuthorityTestDataFactory.class);
+			.getLogger(GrantedRoleTestDataFactory.class);
 
 	private static int RECORDS_TO_CREATE = 30;
 
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat(
 			"yyyy.MM.dd HH:mm:ss z");
 
-	GrantedAuthorityService grantedAuthorityService;
+	GrantedRoleService grantedRoleService;
 
-	public GrantedAuthorityService getGrantedAuthorityService() {
-		return grantedAuthorityService;
+	public GrantedRoleService getGrantedRoleService() {
+		return grantedRoleService;
 	}
 
-	public void setGrantedAuthorityService(
-			GrantedAuthorityService grantedAuthorityService) {
-		this.grantedAuthorityService = grantedAuthorityService;
+	public void setGrantedRoleService(GrantedRoleService grantedRoleService) {
+		this.grantedRoleService = grantedRoleService;
 	}
 
-	public void register(GrantedAuthority grantedAuthority) {
-		grantedAuthoritys.add(grantedAuthority);
+	public void register(GrantedRole grantedRole) {
+		grantedRoles.add(grantedRole);
 	}
 
-	public GrantedAuthority createGrantedAuthorityOne() {
-		GrantedAuthority grantedAuthority = new GrantedAuthority();
+	public GrantedRole createGrantedRoleOne() {
+		GrantedRole grantedRole = new GrantedRole();
 
 		try {
 
-			grantedAuthority.setName("John");
+			grantedRole.setName("zeta");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
 
-			grantedAuthority
+			grantedRole
 					.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
 							.loadOneRecord());
 
-			register(grantedAuthority);
+			register(grantedRole);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		return grantedAuthority;
+		return grantedRole;
 	}
 
-	public GrantedAuthority createGrantedAuthorityTwo() {
-		GrantedAuthority grantedAuthority = new GrantedAuthority();
+	public GrantedRole createGrantedRoleTwo() {
+		GrantedRole grantedRole = new GrantedRole();
 
 		try {
 
-			grantedAuthority.setName("theta");
+			grantedRole.setName("Lavendar");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
 
-			grantedAuthority
+			grantedRole
 					.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
 							.loadOneRecord());
 
-			register(grantedAuthority);
+			register(grantedRole);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		return grantedAuthority;
+		return grantedRole;
 	}
 
-	public GrantedAuthority createGrantedAuthorityThree() {
-		GrantedAuthority grantedAuthority = new GrantedAuthority();
+	public GrantedRole createGrantedRoleThree() {
+		GrantedRole grantedRole = new GrantedRole();
 
 		try {
 
-			grantedAuthority.setName("gamma");
+			grantedRole.setName("epsilon");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
 
-			grantedAuthority
+			grantedRole
 					.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
 							.loadOneRecord());
 
-			register(grantedAuthority);
+			register(grantedRole);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		return grantedAuthority;
+		return grantedRole;
 	}
 
-	public GrantedAuthority createGrantedAuthorityFour() {
-		GrantedAuthority grantedAuthority = new GrantedAuthority();
+	public GrantedRole createGrantedRoleFour() {
+		GrantedRole grantedRole = new GrantedRole();
 
 		try {
 
-			grantedAuthority.setName("Eric");
+			grantedRole.setName("Mark");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
 
-			grantedAuthority
+			grantedRole
 					.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
 							.loadOneRecord());
 
-			register(grantedAuthority);
+			register(grantedRole);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		return grantedAuthority;
+		return grantedRole;
 	}
 
-	public GrantedAuthority createGrantedAuthorityFive() {
-		GrantedAuthority grantedAuthority = new GrantedAuthority();
+	public GrantedRole createGrantedRoleFive() {
+		GrantedRole grantedRole = new GrantedRole();
 
 		try {
 
-			grantedAuthority.setName("Lavendar");
+			grantedRole.setName("Malissa");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
 
-			grantedAuthority
+			grantedRole
 					.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
 							.loadOneRecord());
 
-			register(grantedAuthority);
+			register(grantedRole);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		return grantedAuthority;
+		return grantedRole;
 	}
 
-	public GrantedAuthority loadOneRecord() {
-		List<GrantedAuthority> grantedAuthoritys = grantedAuthorityService
-				.loadAll();
+	public GrantedRole loadOneRecord() {
+		List<GrantedRole> grantedRoles = grantedRoleService.loadAll();
 
-		if (grantedAuthoritys.isEmpty()) {
+		if (grantedRoles.isEmpty()) {
 			persistAll();
-			grantedAuthoritys = grantedAuthorityService.loadAll();
+			grantedRoles = grantedRoleService.loadAll();
 		}
 
-		return grantedAuthoritys.get(new Random().nextInt(grantedAuthoritys
-				.size()));
+		return grantedRoles.get(new Random().nextInt(grantedRoles.size()));
 	}
 
-	public List<GrantedAuthority> getAllAsList() {
+	public List<GrantedRole> getAllAsList() {
 
-		if (grantedAuthoritys.isEmpty()) {
+		if (grantedRoles.isEmpty()) {
 
-			createGrantedAuthorityOne();
-			createGrantedAuthorityTwo();
-			createGrantedAuthorityThree();
-			createGrantedAuthorityFour();
-			createGrantedAuthorityFive();
+			createGrantedRoleOne();
+			createGrantedRoleTwo();
+			createGrantedRoleThree();
+			createGrantedRoleFour();
+			createGrantedRoleFive();
 
 		}
 
-		return grantedAuthoritys;
+		return grantedRoles;
 	}
 
 	public void persistAll() {
@@ -195,12 +192,11 @@ public class GrantedAuthorityTestDataFactory
 
 		getAllAsList();
 
-		for (GrantedAuthority grantedAuthority : grantedAuthoritys) {
+		for (GrantedRole grantedRole : grantedRoles) {
 			try {
-				grantedAuthorityService.save(grantedAuthority);
+				grantedRoleService.save(grantedRole);
 			} catch (BusinessException be) {
-				logger.warn(" GrantedAuthority "
-						+ grantedAuthority.getDisplayName()
+				logger.warn(" GrantedRole " + grantedRole.getDisplayName()
 						+ "couldn't be saved " + be.getMessage());
 			}
 		}
@@ -221,25 +217,24 @@ public class GrantedAuthorityTestDataFactory
 
 	public void createAndSaveRecords(int recordsTocreate) {
 		for (int i = 0; i < recordsTocreate; i++) {
-			GrantedAuthority grantedAuthority = createRandomGrantedAuthority();
-			grantedAuthorityService.save(grantedAuthority);
+			GrantedRole grantedRole = createRandomGrantedRole();
+			grantedRoleService.save(grantedRole);
 		}
 	}
 
-	public GrantedAuthority createRandomGrantedAuthority() {
-		GrantedAuthority grantedAuthority = new GrantedAuthority();
+	public GrantedRole createRandomGrantedRole() {
+		GrantedRole grantedRole = new GrantedRole();
 
-		grantedAuthority.setName((String) RandomValueGeneratorFactory
+		grantedRole.setName((String) RandomValueGeneratorFactory
 				.createInstance("String"));
 
 		TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 				.getBean("userTestDataFactory");
 
-		grantedAuthority
-				.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
-						.loadOneRecord());
+		grantedRole.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
+				.loadOneRecord());
 
-		return grantedAuthority;
+		return grantedRole;
 	}
 
 }

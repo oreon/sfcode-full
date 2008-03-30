@@ -28,11 +28,11 @@ import org.richfaces.component.html.HtmlMenuItem;
 
 public class CategoryBackingBeanBase extends BaseBackingBean<Category> {
 
-	private Category category = new Category();
+	protected Category category = new Category();
 
-	private CategoryService categoryService;
+	protected CategoryService categoryService;
 
-	private TreeNode root = null;
+	protected TreeNode root = null;
 
 	private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 

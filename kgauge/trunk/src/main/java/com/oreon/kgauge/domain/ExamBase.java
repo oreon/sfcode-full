@@ -13,6 +13,7 @@ import org.hibernate.annotations.Cascade;
 import org.witchcraft.model.jsf.Image;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
+import java.util.Set;
 
 @MappedSuperclass
 public abstract class ExamBase
@@ -136,8 +137,6 @@ public abstract class ExamBase
 		this.examStatus = examStatus;
 	}
 
-	private java.util.Set<com.oreon.kgauge.domain.Question> question = new java.util.HashSet<com.oreon.kgauge.domain.Question>();
-
 	private com.oreon.kgauge.domain.Category category;
 
 	private com.oreon.kgauge.domain.ExamCreator examCreator;
@@ -162,40 +161,6 @@ public abstract class ExamBase
 	@JoinColumn(name = "examCreator_ID", nullable = false)
 	public com.oreon.kgauge.domain.ExamCreator getExamCreator() {
 		return this.examCreator;
-	}
-
-	public void add(com.oreon.kgauge.domain.Question question) {
-		question.setExam(examInstance());
-		this.question.add(question);
-	}
-
-	public void remove(com.oreon.kgauge.domain.Question question) {
-		this.question.remove(question);
-	}
-
-	@OneToMany(mappedBy = "exam", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "exam_ID", nullable = true)
-	public java.util.Set<com.oreon.kgauge.domain.Question> getQuestion() {
-		return this.question;
-	}
-
-	public void setQuestion(
-			java.util.Set<com.oreon.kgauge.domain.Question> question) {
-		this.question = question;
-	}
-
-	@Transient
-	public java.util.Iterator<com.oreon.kgauge.domain.Question> getQuestionIterator() {
-		return this.question.iterator();
-	}
-
-	/** Method size on the set doesn't work with technologies requiring 
-	 *  java beans get/set  interface so we provide a getter method 
-	 * @return
-	 */
-	@Transient
-	public int getQuestionCount() {
-		return this.question.size();
 	}
 
 	public void add(com.oreon.kgauge.domain.Section section) {

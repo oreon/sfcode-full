@@ -21,9 +21,9 @@ import org.witchcraft.model.support.Range;
 
 public class SectionBackingBeanBase extends BaseBackingBean<Section> {
 
-	private Section section = new Section();
+	protected Section section = new Section();
 
-	private SectionService sectionService;
+	protected SectionService sectionService;
 
 	private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 

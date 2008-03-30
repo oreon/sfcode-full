@@ -16,7 +16,7 @@
 	
 	
 	
-	<ui:define name="title"> Search Question </ui:define>
+	<ui:define name="title"> Search GrantedRole </ui:define>
  	<ui:define name="content">
 
 		<f:view>
@@ -24,56 +24,40 @@
 			styleClass="messages" />
 		
 			<a4j:form id="form">
-						<rich:panel header="Search Question">
+						<rich:panel header="Search GrantedRole">
 						<h:panelGrid columns="2" >
 						
 						<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
-								backingBean="#{questionCrudBacking}" />
+								backingBean="#{grantedRoleCrudBacking}" />
 						
 								
 							
 							<h:panelGroup>
-							<h:outputText value="QuestionText" styleClass="customformLabel" />
-							<h:inputTextarea    
-								id="question__questionText"
-								value="#{questionCrudBacking.question.questionText}">
+							<h:outputText value="Name" styleClass="customformLabel" />
+							<h:inputText    
+								id="grantedRole__name"
+								value="#{grantedRoleCrudBacking.grantedRole.name}">
 								
-							</h:inputTextarea>
-							<h:message for="question__questionText" styleClass="errMessage" />
-							</h:panelGroup>
-								
-								
-							
-							<h:panelGroup>
-							<h:outputText value="DifficultyLevel" styleClass="customformLabel" />
-							<h:selectOneMenu    
-								id="question__difficultyLevel"
-								value="#{questionCrudBacking.question.difficultyLevel}">
-								<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="L1" itemValue="L1" />
-<f:selectItem itemLabel="L2" itemValue="L2" />
-<f:selectItem itemLabel="L3" itemValue="L3" />
-<f:selectItem itemLabel="L4" itemValue="L4" />
-
-							</h:selectOneMenu>
-							<h:message for="question__difficultyLevel" styleClass="errMessage" />
+							</h:inputText>
+							<h:message for="grantedRole__name" styleClass="errMessage" />
 							</h:panelGroup>
 								
 							
 							
-								<h:outputText value="Section" styleClass="formLabel" />
+								<h:outputText value="User" styleClass="formLabel" />
 								
 	
 	<h:panelGroup>
 	<a4j:region>
 
 	<h:selectOneMenu  required="false" 
-		id="question_section" converter="keyToObjectConverter"
-		value="#{questionCrudBacking.question.section}">
+		id="grantedRole_user" converter="keyToObjectConverter"
+		value="#{grantedRoleCrudBacking.grantedRole.user}">
 		<f:selectItem itemLabel="Select" />
-		<f:selectItems value="#{sectionCrudBacking.asSelectItems}" />
+		<f:selectItems value="#{userCrudBacking.asSelectItems}" />
 	</h:selectOneMenu>
 										
-	<rich:message for="question_section" styleClass="errMessage">
+	<rich:message for="grantedRole_user" styleClass="errMessage">
 			<f:facet name="errorMarker">
 				<h:graphicImage url="/images/icons/bullet_error.png" />
 			</f:facet>
@@ -85,7 +69,7 @@
 							
 							</h:panelGrid>
 
-							<wc:submitCancelButtons backingBean="#{questionCrudBacking}" submitLabel="Search" 
+							<wc:submitCancelButtons backingBean="#{grantedRoleCrudBacking}" submitLabel="Search" 
 								submitAction="search" /> 
 						
 						 </rich:panel>					

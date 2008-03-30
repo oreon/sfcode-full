@@ -1,6 +1,6 @@
 package com.oreon.kgauge.service;
 
-import com.oreon.kgauge.domain.GrantedAuthority;
+import com.oreon.kgauge.domain.GrantedRole;
 import org.springframework.test.jpa.AbstractJpaTests;
 import java.util.List;
 
@@ -13,24 +13,23 @@ import javax.persistence.PersistenceException;
 import org.hibernate.PropertyValueException;
 import java.util.Date;
 
-public class GrantedAuthorityDaoTest extends AbstractJpaTests {
+public class GrantedRoleDaoTest extends AbstractJpaTests {
 
-	protected GrantedAuthority grantedAuthorityInstance = new GrantedAuthority();
+	protected GrantedRole grantedRoleInstance = new GrantedRole();
 
-	protected GrantedAuthorityService grantedAuthorityService;
+	protected GrantedRoleService grantedRoleService;
 
 	protected boolean bTest = true;
 
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat(
 			"yyyy.MM.dd HH:mm:ss z");
 
-	public void setGrantedAuthorityService(
-			GrantedAuthorityService grantedAuthorityService) {
-		this.grantedAuthorityService = grantedAuthorityService;
+	public void setGrantedRoleService(GrantedRoleService grantedRoleService) {
+		this.grantedRoleService = grantedRoleService;
 	}
 
-	protected TestDataFactory grantedAuthorityTestDataFactory = (TestDataFactory) BeanHelper
-			.getBean("grantedAuthorityTestDataFactory");
+	protected TestDataFactory grantedRoleTestDataFactory = (TestDataFactory) BeanHelper
+			.getBean("grantedRoleTestDataFactory");
 
 	@Override
 	protected String[] getConfigLocations() {
@@ -51,16 +50,16 @@ public class GrantedAuthorityDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			grantedAuthorityInstance.setName("theta");
+			grantedRoleInstance.setName("Malissa");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
 
-			grantedAuthorityInstance
+			grantedRoleInstance
 					.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
 							.loadOneRecord());
 
-			grantedAuthorityService.save(grantedAuthorityInstance);
+			grantedRoleService.save(grantedRoleInstance);
 		} catch (PersistenceException pe) {
 			//if this instance can't be created due to back references e.g an orderItem needs an Order - 
 			// - we will simply skip generated tests.
@@ -78,16 +77,16 @@ public class GrantedAuthorityDaoTest extends AbstractJpaTests {
 	public void testSave() {
 
 		try {
-			GrantedAuthority grantedAuthority = new GrantedAuthority();
+			GrantedRole grantedRole = new GrantedRole();
 
 			try {
 
-				grantedAuthority.setName("Lavendar");
+				grantedRole.setName("epsilon");
 
 				TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("userTestDataFactory");
 
-				grantedAuthority
+				grantedRole
 						.setUser((com.oreon.kgauge.domain.User) userTestDataFactory
 								.loadOneRecord());
 
@@ -95,8 +94,8 @@ public class GrantedAuthorityDaoTest extends AbstractJpaTests {
 				ex.printStackTrace();
 			}
 
-			grantedAuthorityService.save(grantedAuthority);
-			assertNotNull(grantedAuthority.getId());
+			grantedRoleService.save(grantedRole);
+			assertNotNull(grantedRole.getId());
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
@@ -106,12 +105,12 @@ public class GrantedAuthorityDaoTest extends AbstractJpaTests {
 
 		try {
 			//test saving a new record and updating an existing record;
-			GrantedAuthority grantedAuthority = (GrantedAuthority) grantedAuthorityTestDataFactory
+			GrantedRole grantedRole = (GrantedRole) grantedRoleTestDataFactory
 					.loadOneRecord();
 
-			grantedAuthority.setName("zeta");
+			grantedRole.setName("Mark");
 
-			grantedAuthorityService.save(grantedAuthority);
+			grantedRoleService.save(grantedRole);
 
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -119,7 +118,7 @@ public class GrantedAuthorityDaoTest extends AbstractJpaTests {
 	}
 
 	public void testCount() {
-		assertTrue(grantedAuthorityService.getCount() > 0);
+		assertTrue(grantedRoleService.getCount() > 0);
 	}
 
 	//count the number of records - add one delete it - check count is same after delete
@@ -127,11 +126,11 @@ public class GrantedAuthorityDaoTest extends AbstractJpaTests {
 
 		try {
 			long count, newCount, diff = 0;
-			count = grantedAuthorityService.getCount();
-			GrantedAuthority grantedAuthority = (GrantedAuthority) grantedAuthorityTestDataFactory
+			count = grantedRoleService.getCount();
+			GrantedRole grantedRole = (GrantedRole) grantedRoleTestDataFactory
 					.loadOneRecord();
-			grantedAuthorityService.delete(grantedAuthority);
-			newCount = grantedAuthorityService.getCount();
+			grantedRoleService.delete(grantedRole);
+			newCount = grantedRoleService.getCount();
 			diff = newCount - count;
 			assertEquals(diff, 1);
 		} catch (Exception e) {
@@ -142,9 +141,9 @@ public class GrantedAuthorityDaoTest extends AbstractJpaTests {
 	public void testLoad() {
 
 		try {
-			GrantedAuthority grantedAuthority = grantedAuthorityService
-					.load(grantedAuthorityInstance.getId());
-			assertNotNull(grantedAuthority.getId());
+			GrantedRole grantedRole = grantedRoleService
+					.load(grantedRoleInstance.getId());
+			assertNotNull(grantedRole.getId());
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
@@ -152,9 +151,9 @@ public class GrantedAuthorityDaoTest extends AbstractJpaTests {
 
 	public void testSearchByExample() {
 		try {
-			List<GrantedAuthority> grantedAuthoritys = grantedAuthorityService
-					.searchByExample(grantedAuthorityInstance);
-			assertTrue(!grantedAuthoritys.isEmpty());
+			List<GrantedRole> grantedRoles = grantedRoleService
+					.searchByExample(grantedRoleInstance);
+			assertTrue(!grantedRoles.isEmpty());
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}

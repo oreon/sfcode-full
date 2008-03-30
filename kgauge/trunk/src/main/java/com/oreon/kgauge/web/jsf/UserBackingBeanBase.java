@@ -21,9 +21,9 @@ import org.witchcraft.model.support.Range;
 
 public class UserBackingBeanBase extends BaseBackingBean<User> {
 
-	private User user = new User();
+	protected User user = new User();
 
-	private UserService userService;
+	protected UserService userService;
 
 	private String repeatPassword;
 

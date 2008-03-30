@@ -13,6 +13,7 @@ import org.hibernate.annotations.Cascade;
 import org.witchcraft.model.jsf.Image;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
+import java.util.Set;
 
 @MappedSuperclass
 /*This is the result of an exam actually being written by a candidate.*/

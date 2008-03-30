@@ -13,6 +13,7 @@ import org.hibernate.annotations.Cascade;
 import org.witchcraft.model.jsf.Image;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
+import java.util.Set;
 
 @MappedSuperclass
 public abstract class UserBase
@@ -78,33 +79,32 @@ public abstract class UserBase
 		this.enabled = enabled;
 	}
 
-	private java.util.Set<com.oreon.kgauge.domain.GrantedAuthority> grantedAuthorities = new java.util.HashSet<com.oreon.kgauge.domain.GrantedAuthority>();
+	private java.util.Set<com.oreon.kgauge.domain.GrantedRole> grantedRoles = new java.util.HashSet<com.oreon.kgauge.domain.GrantedRole>();
 
-	public void addGrantedAuthoritie(
-			com.oreon.kgauge.domain.GrantedAuthority grantedAuthorities) {
-		grantedAuthorities.setUser(userInstance());
-		this.grantedAuthorities.add(grantedAuthorities);
+	public void addGrantedRole(com.oreon.kgauge.domain.GrantedRole grantedRoles) {
+		grantedRoles.setUser(userInstance());
+		this.grantedRoles.add(grantedRoles);
 	}
 
-	public void removeGrantedAuthoritie(
-			com.oreon.kgauge.domain.GrantedAuthority grantedAuthorities) {
-		this.grantedAuthorities.remove(grantedAuthorities);
+	public void removeGrantedRole(
+			com.oreon.kgauge.domain.GrantedRole grantedRoles) {
+		this.grantedRoles.remove(grantedRoles);
 	}
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_ID", nullable = false)
-	public java.util.Set<com.oreon.kgauge.domain.GrantedAuthority> getGrantedAuthorities() {
-		return this.grantedAuthorities;
+	public java.util.Set<com.oreon.kgauge.domain.GrantedRole> getGrantedRoles() {
+		return this.grantedRoles;
 	}
 
-	public void setGrantedAuthorities(
-			java.util.Set<com.oreon.kgauge.domain.GrantedAuthority> grantedAuthorities) {
-		this.grantedAuthorities = grantedAuthorities;
+	public void setGrantedRoles(
+			java.util.Set<com.oreon.kgauge.domain.GrantedRole> grantedRoles) {
+		this.grantedRoles = grantedRoles;
 	}
 
 	@Transient
-	public java.util.Iterator<com.oreon.kgauge.domain.GrantedAuthority> getGrantedAuthoritiesIterator() {
-		return this.grantedAuthorities.iterator();
+	public java.util.Iterator<com.oreon.kgauge.domain.GrantedRole> getGrantedRolesIterator() {
+		return this.grantedRoles.iterator();
 	}
 
 	/** Method size on the set doesn't work with technologies requiring 
@@ -112,8 +112,8 @@ public abstract class UserBase
 	 * @return
 	 */
 	@Transient
-	public int getGrantedAuthoritiesCount() {
-		return this.grantedAuthorities.size();
+	public int getGrantedRolesCount() {
+		return this.grantedRoles.size();
 	}
 
 	public abstract User userInstance();
@@ -123,6 +123,14 @@ public abstract class UserBase
 		return username + "";
 	}
 	
-	
+	@Transient
+	public boolean isEnabled() {
+		return getEnabled();
+	}
+
+	@Transient
+	public Set getUserAuthorities() {
+		return getGrantedRoles();
+	}
 
 }

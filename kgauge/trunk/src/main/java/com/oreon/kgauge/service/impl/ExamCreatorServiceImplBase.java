@@ -18,7 +18,7 @@ import org.witchcraft.model.support.service.BaseServiceImpl;
 
 import com.oreon.kgauge.dao.ExamCreatorDao;
 import com.oreon.kgauge.domain.ExamCreator;
-import com.oreon.kgauge.domain.GrantedAuthority;
+import com.oreon.kgauge.domain.GrantedRole;
 import com.oreon.kgauge.service.ExamCreatorService;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
@@ -73,10 +73,10 @@ public class ExamCreatorServiceImplBase extends BaseServiceImpl<ExamCreator>
 	}
 
 	private void assignDefaultAuthority(ExamCreator examCreator) {
-		GrantedAuthority authority = new GrantedAuthority();
+		GrantedRole authority = new GrantedRole();
 		authority.setName("ROLE_EXAMCREATOR");
 
-		examCreator.getUser().addGrantedAuthoritie(authority);
+		examCreator.getUser().addGrantedRole(authority);
 	}
 
 	public void delete(ExamCreator examCreator) {

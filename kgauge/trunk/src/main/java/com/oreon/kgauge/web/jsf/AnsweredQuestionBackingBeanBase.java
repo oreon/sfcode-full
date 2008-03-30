@@ -23,9 +23,9 @@ public class AnsweredQuestionBackingBeanBase
 		extends
 			BaseBackingBean<AnsweredQuestion> {
 
-	private AnsweredQuestion answeredQuestion = new AnsweredQuestion();
+	protected AnsweredQuestion answeredQuestion = new AnsweredQuestion();
 
-	private AnsweredQuestionService answeredQuestionService;
+	protected AnsweredQuestionService answeredQuestionService;
 
 	private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 

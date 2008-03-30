@@ -13,6 +13,7 @@ import org.hibernate.annotations.Cascade;
 import org.witchcraft.model.jsf.Image;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
+import java.util.Set;
 
 @MappedSuperclass
 public abstract class QuestionBase
@@ -64,19 +65,7 @@ public abstract class QuestionBase
 
 	private java.util.Set<com.oreon.kgauge.domain.AnswerChoice> answerChoice = new java.util.HashSet<com.oreon.kgauge.domain.AnswerChoice>();
 
-	private com.oreon.kgauge.domain.Exam exam = new com.oreon.kgauge.domain.Exam();
-
-	private com.oreon.kgauge.domain.Section section;
-
-	public void setExam(com.oreon.kgauge.domain.Exam exam) {
-		this.exam = exam;
-	}
-
-	@ManyToOne
-	@JoinColumn(name = "exam_ID", nullable = false)
-	public com.oreon.kgauge.domain.Exam getExam() {
-		return this.exam;
-	}
+	private com.oreon.kgauge.domain.Section section = new com.oreon.kgauge.domain.Section();
 
 	public void setSection(com.oreon.kgauge.domain.Section section) {
 		this.section = section;

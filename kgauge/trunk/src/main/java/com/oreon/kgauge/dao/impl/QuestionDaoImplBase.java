@@ -33,11 +33,6 @@ public class QuestionDaoImplBase extends BaseDao<Question>
 	 */
 	public void addAssoications(Criteria criteria, Question exampleInstance) {
 
-		if (exampleInstance.getExam() != null) {
-			criteria = criteria.add(Restrictions.eq("exam.id", exampleInstance
-					.getExam().getId()));
-		}
-
 		if (exampleInstance.getSection() != null) {
 			criteria = criteria.add(Restrictions.eq("section.id",
 					exampleInstance.getSection().getId()));

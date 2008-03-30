@@ -18,7 +18,7 @@ import org.witchcraft.model.support.service.BaseServiceImpl;
 
 import com.oreon.kgauge.dao.CandidateDao;
 import com.oreon.kgauge.domain.Candidate;
-import com.oreon.kgauge.domain.GrantedAuthority;
+import com.oreon.kgauge.domain.GrantedRole;
 import com.oreon.kgauge.service.CandidateService;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
@@ -71,10 +71,10 @@ public class CandidateServiceImplBase extends BaseServiceImpl<Candidate>
 	}
 
 	private void assignDefaultAuthority(Candidate candidate) {
-		GrantedAuthority authority = new GrantedAuthority();
+		GrantedRole authority = new GrantedRole();
 		authority.setName("ROLE_CANDIDATE");
 
-		candidate.getUser().addGrantedAuthoritie(authority);
+		candidate.getUser().addGrantedRole(authority);
 	}
 
 	public void delete(Candidate candidate) {

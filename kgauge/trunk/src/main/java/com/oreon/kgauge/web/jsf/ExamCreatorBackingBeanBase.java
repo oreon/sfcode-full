@@ -21,9 +21,9 @@ import org.witchcraft.model.support.Range;
 
 public class ExamCreatorBackingBeanBase extends BaseBackingBean<ExamCreator> {
 
-	private ExamCreator examCreator = new ExamCreator();
+	protected ExamCreator examCreator = new ExamCreator();
 
-	private ExamCreatorService examCreatorService;
+	protected ExamCreatorService examCreatorService;
 
 	private String repeatPassword;
 
