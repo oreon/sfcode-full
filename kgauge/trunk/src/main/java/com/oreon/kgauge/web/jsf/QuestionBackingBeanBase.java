@@ -25,7 +25,7 @@ public class QuestionBackingBeanBase extends BaseBackingBean<Question> {
 
 	protected QuestionService questionService;
 
-	private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
+	protected Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 
 	public Range<Date> getRangeCreationDate() {
 		return rangeCreationDate;
@@ -78,7 +78,11 @@ public class QuestionBackingBeanBase extends BaseBackingBean<Question> {
 		if (actionEvent.getComponent().getId() == "deleteId") {
 			getBaseService().delete(question);
 		}
-		
+		/*
+		UIParameter component = (UIParameter) actionEvent.getComponent().findComponent("editId");
+		// parse the value of the UIParameter component    	 
+		long id = Long.parseLong(component.getValue().toString());
+		 */
 	}
 
 }
