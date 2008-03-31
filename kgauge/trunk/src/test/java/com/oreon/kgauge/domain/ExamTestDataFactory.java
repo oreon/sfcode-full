@@ -48,14 +48,14 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setDescription("Wilson");
-			exam.setName("alpha");
-			exam.setQuestions(5727);
-			exam.setDuration(685);
-			exam.setPrice(68.88);
+			exam.setDescription("epsilon");
+			exam.setName("zeta");
+			exam.setQuestions(5640);
+			exam.setDuration(3918);
+			exam.setPrice(47.64);
 			exam
 					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
-			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
+			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -85,14 +85,14 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setDescription("alpha");
-			exam.setName("Wilson");
-			exam.setQuestions(3084);
-			exam.setDuration(9971);
-			exam.setPrice(34.58);
+			exam.setDescription("Wilson");
+			exam.setName("Eric");
+			exam.setQuestions(4187);
+			exam.setDuration(8858);
+			exam.setPrice(97.53);
 			exam
 					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
-			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
+			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -122,11 +122,11 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setDescription("delta");
-			exam.setName("Eric");
-			exam.setQuestions(3780);
-			exam.setDuration(1197);
-			exam.setPrice(82.83);
+			exam.setDescription("epsilon");
+			exam.setName("John");
+			exam.setQuestions(4085);
+			exam.setDuration(3262);
+			exam.setPrice(28.92);
 			exam
 					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
 			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
@@ -159,14 +159,14 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setDescription("pi");
-			exam.setName("alpha");
-			exam.setQuestions(7595);
-			exam.setDuration(3587);
-			exam.setPrice(57.04);
+			exam.setDescription("John");
+			exam.setName("Eric");
+			exam.setQuestions(9678);
+			exam.setDuration(4774);
+			exam.setPrice(35.26);
 			exam
-					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
-			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
+					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
+			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -196,14 +196,14 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setDescription("delta");
-			exam.setName("zeta");
-			exam.setQuestions(7775);
-			exam.setDuration(1079);
-			exam.setPrice(95.44);
+			exam.setDescription("Wilson");
+			exam.setName("delta");
+			exam.setQuestions(5858);
+			exam.setDuration(8163);
+			exam.setPrice(62.36);
 			exam
 					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
-			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
+			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");

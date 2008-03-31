@@ -51,7 +51,7 @@ public class AnswerChoiceDaoTest extends AbstractJpaTests {
 		try {
 
 			answerChoiceInstance.setAnswerText("gamma");
-			answerChoiceInstance.setScore(9667);
+			answerChoiceInstance.setScore(4139);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -82,8 +82,8 @@ public class AnswerChoiceDaoTest extends AbstractJpaTests {
 
 			try {
 
-				answerChoice.setAnswerText("Lavendar");
-				answerChoice.setScore(314);
+				answerChoice.setAnswerText("Malissa");
+				answerChoice.setScore(7346);
 
 				TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("questionTestDataFactory");
@@ -110,8 +110,8 @@ public class AnswerChoiceDaoTest extends AbstractJpaTests {
 			AnswerChoice answerChoice = (AnswerChoice) answerChoiceTestDataFactory
 					.loadOneRecord();
 
-			answerChoice.setAnswerText("Malissa");
-			answerChoice.setScore(1335);
+			answerChoice.setAnswerText("theta");
+			answerChoice.setScore(7840);
 
 			answerChoiceService.save(answerChoice);
 

@@ -8,7 +8,6 @@
 package com.oreon.kgauge.domain;
 
 import javax.persistence.*;
-
 import org.hibernate.annotations.Cascade;
 
 import org.witchcraft.model.jsf.Image;

@@ -50,15 +50,15 @@ public class ExamDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			examInstance.setDescription("gamma");
+			examInstance.setDescription("pi");
 			examInstance.setName("theta");
-			examInstance.setQuestions(6806);
-			examInstance.setDuration(1882);
-			examInstance.setPrice(98.8);
+			examInstance.setQuestions(3164);
+			examInstance.setDuration(8826);
+			examInstance.setPrice(5.54);
 			examInstance
 					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
 			examInstance
-					.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
+					.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -96,11 +96,11 @@ public class ExamDaoTest extends AbstractJpaTests {
 
 			try {
 
-				exam.setDescription("Mark");
-				exam.setName("delta");
-				exam.setQuestions(8086);
-				exam.setDuration(9072);
-				exam.setPrice(62.51);
+				exam.setDescription("beta");
+				exam.setName("Mark");
+				exam.setQuestions(6429);
+				exam.setDuration(3856);
+				exam.setPrice(84.65);
 				exam
 						.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
 				exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
@@ -136,11 +136,11 @@ public class ExamDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Exam exam = (Exam) examTestDataFactory.loadOneRecord();
 
-			exam.setDescription("epsilon");
-			exam.setName("epsilon");
-			exam.setQuestions(482);
-			exam.setDuration(1101);
-			exam.setPrice(74.34);
+			exam.setDescription("zeta");
+			exam.setName("Mark");
+			exam.setQuestions(7557);
+			exam.setDuration(7596);
+			exam.setPrice(12.7);
 			exam
 					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
 			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);

@@ -122,12 +122,11 @@ public abstract class UserBase
 	public String getDisplayName() {
 		return username + "";
 	}
-	
+
 	@Transient
 	public boolean isEnabled() {
 		return getEnabled();
 	}
-
 	@Transient
 	public Set getUserAuthorities() {
 		return getGrantedRoles();
