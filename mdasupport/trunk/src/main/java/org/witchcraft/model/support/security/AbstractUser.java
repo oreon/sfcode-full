@@ -13,6 +13,9 @@ import org.witchcraft.model.support.BusinessEntity;
 
 
 /**
+ * This class represents a base or abstract user and should be marked as the parent class 
+ * of a user Entity. 
+ * 
  * @author jsingh
  *
  */

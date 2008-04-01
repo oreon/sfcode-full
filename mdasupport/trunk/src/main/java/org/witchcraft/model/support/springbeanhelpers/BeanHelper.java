@@ -13,7 +13,8 @@ public class BeanHelper {
 	
 	static {
 		applicationContext =  new ClassPathXmlApplicationContext
-			(new String[]{"classpath:/applicationContext.xml", "classpath:/testDataFactories.xml"});
+			(new String[]{/*"classpath:/persistenceContext.xml",*/ "classpath:/applicationContext.xml", 
+					"classpath:/testDataFactories.xml"});
 	}
 	
 	public static Object getBean(String beanName){

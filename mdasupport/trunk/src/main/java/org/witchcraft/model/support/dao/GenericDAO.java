@@ -3,6 +3,7 @@ package org.witchcraft.model.support.dao;
 import java.util.Date;
 import java.util.List;
 
+import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 import org.hibernate.Criteria;
@@ -11,8 +12,10 @@ import org.witchcraft.model.support.Range;
 
 public interface GenericDAO<T> {
 
+	@WebMethod
     T load(Long id);
 
+	@WebMethod
     List<T> loadAll();
 
     
@@ -43,6 +46,7 @@ public interface GenericDAO<T> {
     /** Get the count of records
      * @return - the count
      */
+    @WebMethod
     public long getCount();
     
     /** The number of records created between fromdate and todate -

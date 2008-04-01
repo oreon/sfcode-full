@@ -6,10 +6,15 @@ import org.witchcraft.model.support.audit.AuditLog;
 import org.witchcraft.model.support.dao.GenericDAO;
 
 
+/** This interface is the superinterface of all services 
+ * @author jesing
+ *
+ * @param <T>
+ */
 public interface BaseService<T> extends GenericDAO<T>{
 	
 	 /** Get the audit logs for this entity
-     * @param <T>
+     * @param <T> 
      * @return
      */
     public List<AuditLog<T>> getAuditLogs();
