@@ -16,14 +16,14 @@
 «ENDDEFINE»
 
 «DEFINE ToOneAccessorMethods FOR AssociationEnd»
+	«manyToOne()»
+	@XmlTransient 
+	public «Class.fqn()» «asGetter()» () {
+		return this.«asInstanceVar()»;
+	}
 
 	public void «asSetter()» («Class.fqn()» «asParameter()») {
 		this.«asInstanceVar()» = «asParameter()»;
-	}
-	
-	«manyToOne()»
-	public «Class.fqn()» «asGetter()» () {
-		return this.«asInstanceVar()»;
 	}
 «ENDDEFINE»
 

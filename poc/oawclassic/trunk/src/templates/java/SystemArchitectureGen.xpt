@@ -1,49 +1,67 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::util::stdlib::counter»
+
+«IMPORT java»
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+
+«REM» Used to create app wide pointcuts «ENDREM»
+«DEFINE GenSysArchitecture FOR Model»
+
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
+«LET getTopLevelPackage() AS topLevelPackage»«ENDLET»
 
 @Aspect
 public class SystemArchitecture {
 
 	/**
-     *  we're in the pet store application if we're within any
+     *  we're in the application if we're within any
      *  of the pet store packages
      */
-	@Pointcut("within(org.springframework.samples.jpetstore..*)")
-        public void inPetStore() {}
+	@Pointcut("within(«topLevelPackage»..*)")
+        public void inApplication() {}
 
 	// modules
 	// ===========
 
-	@Pointcut("within(org.springframework.samples.jpetstore.dao..*)")
+	@Pointcut("within(«topLevelPackage».dao..*)")
         public void inDataAccessLayer() {}
 
-	@Pointcut("within(org.springframework.samples.jpetstore.domain.*)")
+	@Pointcut("within(«topLevelPackage».domain.*)")
         public void inDomainModel() {}
 
-	@Pointcut("within(org.springframework.samples.jpetstore.service..*)")
+	@Pointcut("within(«topLevelPackage».service..*)")
         public void inServiceLayer() {}
 
-	@Pointcut("within(org.springframework.samples.jpetstore.web..*)")
+	@Pointcut("within(«topLevelPackage».web..*)")
         public void inWebLayer() {}
 
-	@Pointcut("within(org.springframework.samples.jpetstore.remote..*)")
+/*
+	@Pointcut("within(«topLevelPackage».remote..*)")
         public void inRemotingLayer() {}
 
-	@Pointcut("within(org.springframework.samples.jpetstore.validation..*)")
+	@Pointcut("within(«topLevelPackage».validation..*)")
         public void inValidationModule() {}
-
+*/
 	// module operations
 	// ==================
 
-	@Pointcut("execution(* org.springframework.samples.jpetstore.dao.*.*(..))")
+	@Pointcut("execution(* «topLevelPackage».dao.*.*(..))")
         public void doaOperation() {}
 
-	@Pointcut("execution(* org.springframework.samples.jpetstore.service.*.*(..))")
+	@Pointcut("execution(* «topLevelPackage».service.*.*(..))")
         public void businessService() {}
-
-	@Pointcut("execution(public * org.springframework.samples.jpetstore.validation.*.*(..))")
+/*
+	@Pointcut("execution(public * «topLevelPackage».validation.*.*(..))")
 	public void validation() {}
-
+*/
 }
+
+
+«ENDDEFINE»
+

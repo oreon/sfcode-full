@@ -27,8 +27,10 @@
 			<h:panelGrid columns="2" styleClass="formTableCustom">
 					«REM»The associated entites for e.g an order would need a customer «ENDREM»
 					«FOREACH getNonOneToOneOutgoingAssociations() AS ae -»
+						<h:panelGroup>
 						<h:outputText value="«ae.associationName().toFirstUpper()  -»" />
 						<h:outputText value="«(ae.isAssocNullable()?"":"*")-»" />
+						</h:panelGroup>
 						«EXPAND ViewGen::genDropDown(this, true, true) FOR ae-»
 					«ENDFOREACH»
 					«EXPAND genEditEntry(this) FOREACH getAllAttributes -»
@@ -47,12 +49,14 @@
   					</f:facet>
 			</h:panelGrid>
 						<br/>
+						
 			«REM»Composed collections e.g an order contains orderitems «ENDREM»
-			«FOREACH AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable && ae.Opposite.isComposition) AS ae-»
-				<rich:simpleTogglePanel switchType="client" label="«ae.NameS.toFirstUpper()»">
-				<t:dataTable id="«ae.NameS»_data" var="«ae.Class.asInstanceVar()»"
-					value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.NameS»}" rows="10"
+			«FOREACH AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable ) AS ae-»
+				<rich:simpleTogglePanel switchType="client" label="«ae.associationName().toFirstUpper()»">
+				<t:dataTable id="«ae.associationName()»_data" var="«ae.Class.asInstanceVar()»"
+					value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.associationName()»}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable">
+				
 				«REM»The associated entites for e.g an order would need a customer «ENDREM» 
 				«EXPAND genEditableTableRow(ae.Class, false) FOREACH ae.Class.AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) -»
 							
@@ -128,7 +132,10 @@
 «ENDDEFINE»
 
 «DEFINE genEditableTableRow(Class e) FOR Attribute»
-	<t:column>
+	«REM»comment
+	«e.NameS != ? »rendered={  }
+	«ENDREM»
+	<t:column  >
 		<f:facet name="header">
 				<t:outputText value="«NameS.toFirstUpper()»" /> 
 		</f:facet>
@@ -147,7 +154,7 @@
 		<f:facet name="header">
 				<t:outputText value="«NameS.toFirstUpper()»" /> 
 		</f:facet>
-		«EXPAND ViewGen::genDropDown(e,false) FOR this-»
+		«EXPAND ViewGen::genDropDown(e, false, true) FOR this-»
 	</t:column>
 «ENDDEFINE»
 

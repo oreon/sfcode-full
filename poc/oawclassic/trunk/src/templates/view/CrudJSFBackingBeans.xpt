@@ -10,7 +10,9 @@
 @org.hibernate.annotations.Proxy(lazy = false)
 «DEFINE GenerateBackingBean FOR Entity»
 	
-	«FILE parentPackagePath()+"/web/jsf/"+NameS+"BackingBean.java"»  
+	«EXPAND ManualFileGen::genManualFile("/web/jsf", "BackingBean", "")»
+	
+	«FILE parentPackagePath()+"/web/jsf/"+NameS+"BackingBeanBase.java"»  
 	package «parentPackageName()».web.jsf;
 	
 	import javax.faces.event.ActionEvent;
@@ -36,14 +38,15 @@
 	«ENDIF»
 	
 	
-	public class «asParameter()»BackingBean extends BaseBackingBean<«NameS»>{
+	«EXPAND java::JavaBean::GenCodeWarning»
+	public class «asParameter()»BackingBeanBase extends BaseBackingBean<«NameS»>{
 	
-			private «asParameter()» «asInstanceVar()» = new «asParameter()»();
+			protected «asParameter()» «asInstanceVar()» = new «asParameter()»();
 			
-			private	«asParameter()»Service «asInstanceVar()»Service;
+			protected	«asParameter()»Service «asInstanceVar()»Service;
 			
 			«IF getTreeFields != null»
-			private TreeNode root = null;
+			protected TreeNode root = null;
 			«ENDIF»
 			
 			«EXPAND GenRepeatAttributes FOR this»

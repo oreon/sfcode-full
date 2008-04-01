@@ -5,8 +5,13 @@
 «IMPORT java»
 «EXTENSION java::NamingConventions»
 
-«REM»This file will be written once and is to meant for manual programming «ENDREM»
+
 «DEFINE genManualFile(String extensionPath, String extensionName, String annotations) FOR Element»
+	«EXPAND genManualFile(extensionPath, extensionName, annotations, false) FOR this»
+«ENDDEFINE»
+
+«REM»This file will be written once and is to meant for manual programming «ENDREM»
+«DEFINE genManualFile(String extensionPath, String extensionName, String annotations, boolean genConstructor) FOR Element»
 
 	«FILE parentPackagePath() + extensionPath + "/" + NameS + extensionName + ".java" man_path»
 		
@@ -19,24 +24,31 @@
 			
 			«getLoggerDeclaration(NameS + extensionName)»;
 			
-			/* Default Constructor */
-			public «NameS»(){}
+			«IF genConstructor»
 			
-			«IF Attribute.size > 0 »
-			/* Constructor with all attributes */
-			public «NameS» (
-				«FOREACH Attribute AS a ITERATOR iter -» «a.Type.NameS» «a.NameS» «iter.counter1 < Attribute.size?",":""» «ENDFOREACH-» ){
-				super(«FOREACH Attribute AS a ITERATOR iter -» «a.NameS» «iter.counter1 < Attribute.size?",":""» «ENDFOREACH-»);
-			}
-			«ENDIF»
-	
+			«EXPAND genConstructors FOR this»
+			
 			public «NameS + extensionName» «NameS.toFirstLower() + extensionName»Instance(){
 				return this;
 			}
+			«ENDIF»
 		}  
 	«ENDFILE» 
 «ENDDEFINE»
 
+
+«DEFINE genConstructors FOR Element»
+	/* Default Constructor */
+	public «NameS»(){}
+	
+	«IF Attribute.size > 0 »
+	/* Constructor with all attributes */
+	public «NameS» (
+		«FOREACH Attribute AS a ITERATOR iter -» «a.Type.NameS» «a.NameS» «iter.counter1 < Attribute.size?",":""» «ENDFOREACH-» ){
+		super(«FOREACH Attribute AS a ITERATOR iter -» «a.NameS» «iter.counter1 < Attribute.size?",":""» «ENDFOREACH-»);
+	}
+	«ENDIF»
+«ENDDEFINE»
 
 «DEFINE genManualFileServiceTest(String extensionPath, String extensionName, String annotations) FOR Service»
 

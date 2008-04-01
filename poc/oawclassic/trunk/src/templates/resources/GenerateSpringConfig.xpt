@@ -19,9 +19,13 @@
 		<beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+http://www.springframework.org/schema/aop
+	     http://www.springframework.org/schema/aop/spring-aop.xsd"
+>
 
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
@@ -53,6 +57,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 				value="classpath:project.properties" />
 		</bean>
 	
+		<aop:aspectj-autoproxy />	
 	
 	  <bean id="entityManagerFactory"
 	     class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -180,10 +185,15 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 <beans xmlns="http://www.springframework.org/schema/beans"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  
   xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/tx
-    http://www.springframework.org/schema/tx/spring-tx.xsd" 
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    
+    http://www.springframework.org/schema/aop
+	     http://www.springframework.org/schema/aop/spring-aop.xsd" 
   default-autowire="byName">
 
 «ENDDEFINE»

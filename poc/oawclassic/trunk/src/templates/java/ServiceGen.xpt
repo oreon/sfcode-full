@@ -96,10 +96,10 @@
 			
 		«IF isEntityUser()»
 			private void assignDefaultAuthority(«NameS» «asInstanceVar()») {
-				Authority authority = new Authority();
+				GrantedRole authority = new GrantedRole();	
 				authority.setName("«getDefaultRole != null? getDefaultRole : "ROLE_" +  NameS.toUpperCase()»");
 				«REM»TODO: Figure out a better way to find the user «ENDREM»
-				«asInstanceVar()».getUser().addAuthoritie(authority);
+				«asInstanceVar()».getUser().addGrantedRole(authority);
 			}
 		«ENDIF»
 	

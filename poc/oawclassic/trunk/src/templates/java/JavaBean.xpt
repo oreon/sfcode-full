@@ -29,7 +29,7 @@
 «DEFINE BeanClass FOR MailerTask»
 	«FILE packagePath()+"/"+NameS+"Base.java"»  
 	
-	«EXPAND ManualFileGen::genManualFile("", "", "")»
+	«EXPAND ManualFileGen::genManualFile("", "", "", true)»
 	«EXPAND GenCodeWarning»
 	
 	package «packageName()»;
@@ -49,7 +49,7 @@
 	«FILE packagePath()+"/"+NameS+"Base.java"»  
 	
 		«EXPAND ManualFileGen::genManualFile("/" + Package.NameS, "", "@Entity\n" 
-			+  genInheritanceStrategy() )»
+			+  genInheritanceStrategy(), true )»
 		«EXPAND GenCodeWarning»
 		
 		package «packageName()»;
@@ -60,6 +60,7 @@
 		import org.witchcraft.model.jsf.Image;
 		import java.util.Date;
 		import javax.xml.bind.annotation.XmlTransient;
+		import java.util.Set;
 		
 		@MappedSuperclass
 		«getClassDeclaration()» « (isAuditable)?", org.witchcraft.model.support.audit.Auditable":""»{
@@ -68,6 +69,8 @@
 				«ENDFOREACH»
 				«EXPAND classBody FOR this»
 				«EXPAND displayName FOR this»
+				«REM» Need to add special code for user and authoriy classes  «ENDREM»
+				«EXPAND genAuthorizationCode»
 		} 
 	«ENDFILE»
 «ENDDEFINE»
@@ -76,7 +79,7 @@
 «DEFINE EntityGen FOR MappedSuperclass»
 	«FILE packagePath()+"/"+NameS+"Base.java"»  
 	
-		«EXPAND ManualFileGen::genManualFile("/" + Package.NameS, "", "@MappedSuperclass")»
+		«EXPAND ManualFileGen::genManualFile("/" + Package.NameS, "", "@MappedSuperclass", true)»
 		«EXPAND GenCodeWarning»
 		
 		package «packageName()»;
@@ -98,7 +101,7 @@
 «DEFINE EntityGen FOR Embeddable»
 	«FILE packagePath()+"/"+NameS+"Base.java"»  
 	
-		«EXPAND ManualFileGen::genManualFile("/" + Package.NameS, "", "@Embeddable")»
+		«EXPAND ManualFileGen::genManualFile("/" + Package.NameS, "", "@Embeddable", true)»
 		«EXPAND GenCodeWarning»
 		
 		package «packageName()»;
@@ -109,8 +112,30 @@
 		@MappedSuperclass
 		«getClassDeclaration()»{
 			«EXPAND classBody FOR this»
+			
 		} 
 	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE genAuthorizationCode FOR Entity»
+	«IF getBaseClass == "org.witchcraft.model.support.security.AbstractAuthority"»
+		@Transient
+		public String getAuthority() {
+			return getName();
+		}
+	«ENDIF»
+	
+	«IF getBaseClass == "org.witchcraft.model.support.security.AbstractUser"»
+	@Transient
+	public boolean isEnabled() {
+		return getEnabled();
+	}
+	@Transient
+	public Set getUserAuthorities() {
+		return getGrantedRoles();
+	}
+	«ENDIF»
+
 «ENDDEFINE»
 
 
