@@ -29,14 +29,14 @@ public abstract class UserBase
 
 	protected String password;
 
-	protected Boolean enabled;
+	protected boolean enabled;
 
 	/* Default Constructor */
 	public UserBase() {
 	}
 
 	/* Constructor with all attributes */
-	public UserBase(String username, String password, Boolean enabled) {
+	public UserBase(String username, String password, boolean enabled) {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
@@ -63,7 +63,7 @@ public abstract class UserBase
 	/*
 	
 	 */
-	public Boolean getEnabled() {
+	public boolean getEnabled() {
 		return this.enabled;
 	}
 
@@ -75,7 +75,7 @@ public abstract class UserBase
 		this.password = password;
 	}
 
-	public void setEnabled(Boolean enabled) {
+	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 
