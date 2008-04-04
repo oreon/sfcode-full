@@ -33,14 +33,15 @@ public abstract class AnsweredQuestionBase
 
 	private java.util.Set<com.oreon.kgauge.domain.AnswerChoice> answerChoice = new java.util.HashSet<com.oreon.kgauge.domain.AnswerChoice>();
 
-	public void setQuestion(com.oreon.kgauge.domain.Question question) {
-		this.question = question;
-	}
-
 	@ManyToOne
 	@JoinColumn(name = "question_ID", nullable = false)
+	@XmlTransient
 	public com.oreon.kgauge.domain.Question getQuestion() {
 		return this.question;
+	}
+
+	public void setQuestion(com.oreon.kgauge.domain.Question question) {
+		this.question = question;
 	}
 
 	public void add(com.oreon.kgauge.domain.AnswerChoice answerChoice) {

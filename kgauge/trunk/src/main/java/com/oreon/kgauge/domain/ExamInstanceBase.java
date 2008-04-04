@@ -36,24 +36,26 @@ public abstract class ExamInstanceBase
 
 	private java.util.Set<com.oreon.kgauge.domain.AnsweredQuestion> answeredQuestion = new java.util.HashSet<com.oreon.kgauge.domain.AnsweredQuestion>();
 
+	@ManyToOne
+	@JoinColumn(name = "candidate_ID", nullable = false)
+	@XmlTransient
+	public com.oreon.kgauge.domain.Candidate getCandidate() {
+		return this.candidate;
+	}
+
 	public void setCandidate(com.oreon.kgauge.domain.Candidate candidate) {
 		this.candidate = candidate;
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "candidate_ID", nullable = false)
-	public com.oreon.kgauge.domain.Candidate getCandidate() {
-		return this.candidate;
+	@JoinColumn(name = "exam_ID", nullable = false)
+	@XmlTransient
+	public com.oreon.kgauge.domain.Exam getExam() {
+		return this.exam;
 	}
 
 	public void setExam(com.oreon.kgauge.domain.Exam exam) {
 		this.exam = exam;
-	}
-
-	@ManyToOne
-	@JoinColumn(name = "exam_ID", nullable = false)
-	public com.oreon.kgauge.domain.Exam getExam() {
-		return this.exam;
 	}
 
 	public void add(com.oreon.kgauge.domain.AnsweredQuestion answeredQuestion) {

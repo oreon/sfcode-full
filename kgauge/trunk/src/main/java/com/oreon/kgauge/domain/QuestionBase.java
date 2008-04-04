@@ -67,14 +67,15 @@ public abstract class QuestionBase
 
 	private com.oreon.kgauge.domain.Section section = new com.oreon.kgauge.domain.Section();
 
-	public void setSection(com.oreon.kgauge.domain.Section section) {
-		this.section = section;
-	}
-
 	@ManyToOne
 	@JoinColumn(name = "section_ID", nullable = false)
+	@XmlTransient
 	public com.oreon.kgauge.domain.Section getSection() {
 		return this.section;
+	}
+
+	public void setSection(com.oreon.kgauge.domain.Section section) {
+		this.section = section;
 	}
 
 	public void add(com.oreon.kgauge.domain.AnswerChoice answerChoice) {

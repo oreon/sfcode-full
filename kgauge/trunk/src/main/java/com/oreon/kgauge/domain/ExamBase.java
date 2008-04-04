@@ -143,24 +143,26 @@ public abstract class ExamBase
 
 	private java.util.Set<com.oreon.kgauge.domain.Section> section = new java.util.HashSet<com.oreon.kgauge.domain.Section>();
 
+	@ManyToOne
+	@JoinColumn(name = "category_ID", nullable = true)
+	@XmlTransient
+	public com.oreon.kgauge.domain.Category getCategory() {
+		return this.category;
+	}
+
 	public void setCategory(com.oreon.kgauge.domain.Category category) {
 		this.category = category;
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "category_ID", nullable = true)
-	public com.oreon.kgauge.domain.Category getCategory() {
-		return this.category;
+	@JoinColumn(name = "examCreator_ID", nullable = false)
+	@XmlTransient
+	public com.oreon.kgauge.domain.ExamCreator getExamCreator() {
+		return this.examCreator;
 	}
 
 	public void setExamCreator(com.oreon.kgauge.domain.ExamCreator examCreator) {
 		this.examCreator = examCreator;
-	}
-
-	@ManyToOne
-	@JoinColumn(name = "examCreator_ID", nullable = false)
-	public com.oreon.kgauge.domain.ExamCreator getExamCreator() {
-		return this.examCreator;
 	}
 
 	public void add(com.oreon.kgauge.domain.Section section) {

@@ -51,14 +51,15 @@ public abstract class GrantedRoleBase
 
 	private com.oreon.kgauge.domain.User user;
 
-	public void setUser(com.oreon.kgauge.domain.User user) {
-		this.user = user;
-	}
-
 	@ManyToOne
 	@JoinColumn(name = "user_ID", nullable = false)
+	@XmlTransient
 	public com.oreon.kgauge.domain.User getUser() {
 		return this.user;
+	}
+
+	public void setUser(com.oreon.kgauge.domain.User user) {
+		this.user = user;
 	}
 
 	public abstract GrantedRole grantedRoleInstance();

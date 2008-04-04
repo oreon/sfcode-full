@@ -65,14 +65,15 @@ public abstract class AnswerChoiceBase
 
 	private com.oreon.kgauge.domain.Question question = new com.oreon.kgauge.domain.Question();
 
-	public void setQuestion(com.oreon.kgauge.domain.Question question) {
-		this.question = question;
-	}
-
 	@ManyToOne
 	@JoinColumn(name = "question_ID", nullable = false)
+	@XmlTransient
 	public com.oreon.kgauge.domain.Question getQuestion() {
 		return this.question;
+	}
+
+	public void setQuestion(com.oreon.kgauge.domain.Question question) {
+		this.question = question;
 	}
 
 	public abstract AnswerChoice answerChoiceInstance();

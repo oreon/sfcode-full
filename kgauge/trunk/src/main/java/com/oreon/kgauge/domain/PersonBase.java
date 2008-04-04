@@ -80,13 +80,14 @@ public abstract class PersonBase
 
 	private com.oreon.kgauge.domain.ContactDetails contactDetails = new com.oreon.kgauge.domain.ContactDetails();
 
+	@XmlTransient
+	public com.oreon.kgauge.domain.ContactDetails getContactDetails() {
+		return this.contactDetails;
+	}
+
 	public void setContactDetails(
 			com.oreon.kgauge.domain.ContactDetails contactDetails) {
 		this.contactDetails = contactDetails;
-	}
-
-	public com.oreon.kgauge.domain.ContactDetails getContactDetails() {
-		return this.contactDetails;
 	}
 
 	public abstract Person personInstance();

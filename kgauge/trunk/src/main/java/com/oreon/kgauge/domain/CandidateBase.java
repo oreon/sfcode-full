@@ -29,14 +29,15 @@ public abstract class CandidateBase extends Person
 
 	private com.oreon.kgauge.domain.User user = new com.oreon.kgauge.domain.User();
 
-	public void setUser(com.oreon.kgauge.domain.User user) {
-		this.user = user;
-	}
-
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_ID", nullable = false)
+	@XmlTransient
 	public com.oreon.kgauge.domain.User getUser() {
 		return this.user;
+	}
+
+	public void setUser(com.oreon.kgauge.domain.User user) {
+		this.user = user;
 	}
 
 	public abstract Candidate candidateInstance();

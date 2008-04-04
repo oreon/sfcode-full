@@ -53,14 +53,15 @@ public abstract class CategoryBase
 
 	private java.util.Set<com.oreon.kgauge.domain.Category> subcategories = new java.util.HashSet<com.oreon.kgauge.domain.Category>();
 
-	public void setParent(com.oreon.kgauge.domain.Category parent) {
-		this.parent = parent;
-	}
-
 	@ManyToOne
 	@JoinColumn(name = "parent_ID", nullable = true)
+	@XmlTransient
 	public com.oreon.kgauge.domain.Category getParent() {
 		return this.parent;
+	}
+
+	public void setParent(com.oreon.kgauge.domain.Category parent) {
+		this.parent = parent;
 	}
 
 	public void addSubcategorie(com.oreon.kgauge.domain.Category subcategories) {

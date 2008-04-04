@@ -51,14 +51,15 @@ public abstract class SectionBase
 
 	private java.util.Set<com.oreon.kgauge.domain.Question> question = new java.util.HashSet<com.oreon.kgauge.domain.Question>();
 
-	public void setExam(com.oreon.kgauge.domain.Exam exam) {
-		this.exam = exam;
-	}
-
 	@ManyToOne
 	@JoinColumn(name = "exam_ID", nullable = false)
+	@XmlTransient
 	public com.oreon.kgauge.domain.Exam getExam() {
 		return this.exam;
+	}
+
+	public void setExam(com.oreon.kgauge.domain.Exam exam) {
+		this.exam = exam;
 	}
 
 	public void add(com.oreon.kgauge.domain.Question question) {
