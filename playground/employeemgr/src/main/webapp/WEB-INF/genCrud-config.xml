@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config>
+
+	<!--  Spring variable resolver -->
+	<application>
+		<variable-resolver>
+			org.springframework.web.jsf.DelegatingVariableResolver
+		</variable-resolver>
+	</application>
+
+	<!-- Managed beans for the crud operations -->
+	
+
+	<managed-bean>
+		<managed-bean-name>employeeCrudBacking</managed-bean-name>
+		<managed-bean-class>com.mycomapny.employeemgr.web.jsf.EmployeeBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>employeeService</property-name>
+			<value>#{employeeService}</value>
+		</managed-property>
+		
+	</managed-bean> 
+ 	
+
+
+	<managed-bean>
+		<managed-bean-name>taskCrudBacking</managed-bean-name>
+		<managed-bean-class>com.mycomapny.employeemgr.web.jsf.TaskBackingBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>taskService</property-name>
+			<value>#{taskService}</value>
+		</managed-property>
+		
+	</managed-bean> 
+ 	
+
+	
+	<!-- Navigation Rules  -->
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/employee.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/employeeList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/employeeSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/employeeList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/employeeList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/domain/employee.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/employeeSerach.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/employeeSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/employeeList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>cancel</from-outcome>
+		    <to-view-id>/crud/domain/employeeList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+
+	<navigation-rule>
+  		<from-view-id>/crud/domain/task.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>success</from-outcome>
+		    <to-view-id>/crud/domain/taskList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/taskSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/taskList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/taskList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/crud/domain/task.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/taskSerach.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/crud/domain/taskSearch.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/crud/domain/taskList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		   <navigation-case>
+		    <from-outcome>cancel</from-outcome>
+		    <to-view-id>/crud/domain/taskList.xhtml</to-view-id>
+		  </navigation-case>   
+    
+	</navigation-rule>
+	
+
+	<navigation-rule>
+  		<from-view-id>/crud/entitiesSummary.xhtml</from-view-id>
+	</navigation-rule>
+			
+</faces-config>

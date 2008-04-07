@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	template="/WEB-INF/template/default.xhtml">
+	<ui:define name="content">
+
+		<h:messages layout="list" globalOnly="true" showDetail="true"
+			styleClass="messages" />
+		<f:view>
+			<a4j:form id="form">
+				<rich:panel>
+					<h:panelGrid columns="3" styleClass="formTable">
+						<f:facet name="header">
+							<h:outputText value="Log In " styleClass="formHeaderText" />
+						</f:facet>
+
+						<h:outputText value="User Id" styleClass="formLabel" />
+						<h:inputText id="UserId" required="true" 
+							value="#{authenticationController.username}" />
+
+						<h:message for="UserId" styleClass="errMessage" />
+
+						<h:outputText value="Password" styleClass="formLabel" />
+						<h:inputSecret id="Password"
+							value="#{authenticationController.password}" required="true" />
+						<h:message for="Password" styleClass="errMessage" />
+
+						<h:commandButton  action="#{authenticationController.authenticate}"
+							value="Login" />
+
+					</h:panelGrid>
+				</rich:panel>
+			</a4j:form>
+		</f:view>
+	</ui:define>
+</ui:composition>
+

@@ -1,0 +1,139 @@
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	template="/WEB-INF/template/templateCrud.xhtml">
+
+	<ui:define name="content">
+
+		<f:view>
+			<h:messages layout="list" globalOnly="true" showDetail="true"
+				styleClass="messages" />
+
+			<a4j:form id="form">
+				<rich:panel header="Employee Information">
+					<h:outputText value="Please correct the following issues !"
+						rendered="#{! empty facesContext.maximumSeverity}"
+						styleClass="errMessage" />
+
+					<h:panelGrid columns="2" styleClass="formTableCustom">
+
+
+
+
+
+
+						<h:outputText value="FirstName" styleClass="formLabel" />
+
+						<h:panelGroup>
+							<a4j:region>
+
+								<h:inputText required="false" id="employee__firstName"
+									value="#{employeeCrudBacking.employee.firstName}">
+
+								</h:inputText>
+
+								<rich:message for="employee__firstName" styleClass="errMessage">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="/images/icons/bullet_error.png" />
+									</f:facet>
+								</rich:message>
+
+							</a4j:region>
+						</h:panelGroup>
+
+
+
+
+						<h:outputText value="LastName" styleClass="formLabel" />
+
+						<h:panelGroup>
+							<a4j:region>
+
+								<h:inputText required="false" id="employee__lastName"
+									value="#{employeeCrudBacking.employee.lastName}">
+
+								</h:inputText>
+
+								<rich:message for="employee__lastName" styleClass="errMessage">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="/images/icons/bullet_error.png" />
+									</f:facet>
+								</rich:message>
+
+							</a4j:region>
+						</h:panelGroup>
+
+						<rich:simpleTogglePanel switchType="client" label="Tasks">
+							<t:dataTable id="data" var="task"
+								value="#{employeeCrudBacking.listTasks}" rows="10"
+								rowClasses="odd, even" styleClass="dataTable">
+
+								<t:column>
+									<f:facet name="header">
+										<t:outputText value="Title" />
+									</f:facet>
+									<t:inputText value="#{task.title}" />
+								</t:column>
+
+								<t:column>
+									<f:facet name="header">
+										<t:outputText value="Description" />
+									</f:facet>
+									<t:inputText value="#{task.description}" />
+								</t:column>
+
+								<t:column>
+									<f:facet name="header">
+										<t:outputText value="Status" />
+									</f:facet>
+									<t:outputText value="#{task.status}" />
+								</t:column>
+
+							</t:dataTable>
+
+						</rich:simpleTogglePanel>
+
+
+
+						<f:facet name="footer">
+							<h:panelGroup>
+
+								<h:commandButton id="button1" value="Submit"
+									action="#{employeeCrudBacking.update}" />
+								<h:commandButton id="button2" value="Cancel" action="success"
+									immediate="true" />
+								<!-- We need to have a hidden text field to store the id of the record being edited -->
+								<h:inputHidden id="employee_id"
+									value="#{employeeCrudBacking.employee.id}" />
+
+
+
+
+							</h:panelGroup>
+						</f:facet>
+
+					</h:panelGrid>
+
+					<br />
+					<br />
+
+
+
+
+				</rich:panel>
+			</a4j:form>
+		</f:view>
+
+	</ui:define>
+</ui:composition>
+
+
