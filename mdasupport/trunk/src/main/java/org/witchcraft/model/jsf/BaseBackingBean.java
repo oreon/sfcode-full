@@ -35,6 +35,7 @@ public abstract class BaseBackingBean<T> {
 
 	protected String action; // whether action is search or update/add new
 	protected static final String SEARCH = "SEARCH";
+	public static final int INITIAL_RECORDS = 5;
 
 	public abstract BaseService<T> getBaseService();
 
@@ -143,8 +144,8 @@ public abstract class BaseBackingBean<T> {
 					sortAscending));
 		}
 		
-		createSuccessMessage( entities.size() > 0 ? ("Found " + entities.size() + " records ." ):
-			"no.records.found" );
+		//createSuccessMessage( entities.size() > 0 ? ("Found " + entities.size() + " records ." ):
+		//	"no.records.found" );
 		
 		return entities;
 	}

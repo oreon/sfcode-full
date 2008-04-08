@@ -12,10 +12,10 @@ import org.witchcraft.model.support.Range;
 
 public interface GenericDAO<T> {
 
-	@WebMethod
+	
     T load(Long id);
 
-	@WebMethod
+	
     List<T> loadAll();
 
     
