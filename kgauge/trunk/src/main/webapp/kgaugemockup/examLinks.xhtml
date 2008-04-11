@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	<link rel="stylesheet" type="text/css"
+	href="#{facesContext.externalContext.requestContextPath}/css/master.css" />
+	
+<f:view>
+	<a4j:outputPanel styleClass="infoMessage" layout="block">
+		<h:messages layout="list" globalOnly="true" showDetail="true" />
+	</a4j:outputPanel>
+
+	<a4j:form id="exam_list">
+		<rich:tabPanel switchType="ajax">
+			
+				<t:dataTable id="data" var="exam"
+					value="#{examCrudBacking.records}" rows="30" rowClasses="odd, even"
+					styleClass="sidebarLinks">
+					<t:column>
+						<f:facet name="header">
+						<t:outputText value="Exams" />
+						</f:facet>
+							<t:commandLink
+								actionListener="#{examCrudBacking.sortDataList}">
+								<f:attribute name="sortField"
+									value="Name" />
+								<t:outputText value="#{exam.name}" />
+							</t:commandLink>		
+					</t:column>
+				</t:dataTable>	
+		</rich:tabPanel>
+	</a4j:form>
+</f:view>
+</ui:composition>
