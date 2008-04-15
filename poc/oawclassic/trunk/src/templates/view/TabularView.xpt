@@ -140,7 +140,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{«parent»CrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="«NameS.toFirstUpper()»" />
-				<t:outputText value="«NameS.toFirstUpper()»" /> 
+				<t:outputText value="#{msg.«Class.NameS.toFirstLower() + "_" + NameS»}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{«parent».«fullName()»}" />
@@ -153,7 +153,7 @@
 		<t:commandLink actionListener="#{«c.asInstanceVar()»CrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="«associationName()».displayName" />
 			<!-- <t:commandSortHeader columnName="«NameS.toFirstUpper()»" arrow="true"> -->
-				<t:outputText value="«associationName().toFirstUpper()»" /> 
+				<t:outputText value="#{msg.«associationName().toFirstUpper()»}" /> 
 			<!-- </t:commandSortHeader> -->
 		</t:commandLink>	
 		</f:facet>

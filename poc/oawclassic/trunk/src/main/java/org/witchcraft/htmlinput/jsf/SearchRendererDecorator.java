@@ -18,6 +18,9 @@ public class SearchRendererDecorator implements InputComponentRenderer{
 	}
 
 	public String getType(Attribute attribute) {
+		if(inputComponentRenderer instanceof InputTextRenderer){
+			return "h:inputText";
+		}
 		return inputComponentRenderer.getType(attribute);
 	}
 	

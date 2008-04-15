@@ -6,6 +6,7 @@ import oaw4.demo.classic.uml.extend.StereoTypeManager;
 import org.apache.log4j.Logger;
 import org.openarchitectureware.core.meta.core.ElementSet;
 import org.openarchitectureware.meta.uml.Type;
+import org.openarchitectureware.meta.uml.classifier.Association;
 import org.openarchitectureware.meta.uml.classifier.AssociationEnd;
 import org.openarchitectureware.meta.uml.classifier.Attribute;
 import org.openarchitectureware.meta.uml.classifier.Class;
@@ -106,6 +107,10 @@ public abstract class AbstractEntity extends
 		}
 		return attributes;
 	}
+	
+	public Attribute getFirstAttribute(){
+		return (Attribute) getAllAttributes().get(0);
+	}
 
 	public ElementSet getAttributesForThisClassAndSuperClasses() {
 		ElementSet attributes = new ElementSet();
@@ -139,6 +144,26 @@ public abstract class AbstractEntity extends
 		}
 
 		return nonColAttribs;
+	}
+	
+	
+	///////////////////////// Assocaitons ////////////////////////////////////////
+	
+	
+	/** Will return all compositions of this entity e.g. For an order it'd return 
+	 * all OrderItems 
+	 * @return
+	 */
+	public ElementSet getAllComposedAssociations(){
+		ElementSet composedAssociatons = new ElementSet();
+	
+		for (Object object : AssociationEnd()) {
+			AssociationEnd ae = (AssociationEnd)object;
+			if(ae.Opposite().isComposition() && ae.Opposite().isNavigable())
+				composedAssociatons.add(ae);
+		}
+
+		return composedAssociatons;
 	}
 	
 	/**
@@ -236,6 +261,8 @@ public abstract class AbstractEntity extends
 		}
 		return embeddables;
 	}
+	
+
 
 	/**
 	 * @param ae

@@ -247,8 +247,8 @@ public class ViewLayerGenerator {
 						+ " \"  expanded=\"true\" >");
 			}
 
-			data.append(" <rich:panelMenuItem><h:commandLink action=\"list" + entity.NameS() + "\" value=\""
-					 + entity.NameS() + "s\">\n");
+			data.append(" <rich:panelMenuItem><h:commandLink action=\"list" + entity.NameS() + "\" value=\"#{msg."
+					 + entity.NameS() + "}s\">\n");
 			data.append("\t<f:param name=\"nextPage\" value=\"" + getImmediatePackage(entity.Namespace().NameS()) + "-" + entity.NameS() 
 					+ "\" />\n</h:commandLink>\n</rich:panelMenuItem>\n");
 

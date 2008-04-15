@@ -5,6 +5,8 @@
 
 «EXTENSION java::NamingConventions»
 «EXTENSION view::ViewExtensions»
+«EXTENSION java::Associations»
+
 
 
 @org.hibernate.annotations.Proxy(lazy = false)
@@ -20,13 +22,19 @@
 	
 	import org.witchcraft.model.jsf.BaseBackingBean;
 	import org.witchcraft.model.support.service.BaseService;
+	import org.apache.commons.lang.StringUtils;
 
 	import «packageName()». «asParameter()»;
 	import «parentPackageName()».service.«NameS»Service;
 	
 	import java.util.Date;
 	import java.util.List;
+	import java.util.ArrayList;
 	import org.witchcraft.model.support.Range;
+	
+	«FOREACH getAllComposedAssociations AS ae»
+		import «ae.Opposite.Class.packageName()».«ae.Opposite.Class.NameS»;
+	«ENDFOREACH»
 	
 	«IF getTreeFields != null»
 		import java.util.Collection;
@@ -35,6 +43,7 @@
 		import org.richfaces.model.TreeNode;
 		import org.richfaces.model.TreeNodeImpl;
 		import org.richfaces.component.html.HtmlMenuItem;
+		
 	«ENDIF»
 	
 	
@@ -49,9 +58,14 @@
 			protected TreeNode root = null;
 			«ENDIF»
 			
+			«FOREACH getAllComposedAssociations AS ae»
+				private List<«ae.Opposite.Class.NameS»> list«ae.Opposite.associationName().toFirstUpper()»s = new ArrayList<«ae.Opposite.Class.NameS»>();
+			«ENDFOREACH»
+			
 			«EXPAND GenRepeatAttributes FOR this»
 			
 			«EXPAND GenRangeFields FOR this»
+			
 			
 			public void set«NameS»Service(«asParameter()»Service «asInstanceVar()»Service){
 				this.«asInstanceVar()»Service = «asInstanceVar()»Service;
@@ -99,13 +113,8 @@
 				String idStr = (String)ctx.getExternalContext().getRequestParameterMap().get("id");
 				long id = Long.parseLong(idStr);
 				«asInstanceVar()» = «asInstanceVar()»Service.load(id);
-		    	if(actionEvent.getComponent().getId()=="deleteId"){
-		    		getBaseService().delete(«asInstanceVar()»);	}
-		    	/*
-		    	UIParameter component = (UIParameter) actionEvent.getComponent().findComponent("editId");
-		    	// parse the value of the UIParameter component    	 
-		    	long id = Long.parseLong(component.getValue().toString());
-		    	*/
+		    	//if(actionEvent.getComponent().getId()=="deleteId"){
+		    	//	getBaseService().delete(«asInstanceVar()»);	}
 		    }
 		    
 		 «IF getTreeFields != null»
@@ -140,6 +149,20 @@
 		        //nodeTitle = (String) tree.getRowData();
 		    }
 		«ENDIF»
+		
+		«IF !getAllComposedAssociations.isEmpty»
+		@Override
+		public String update() {
+			«FOREACH getAllComposedAssociations AS ae»
+				add«ae.Opposite.associationName().toFirstUpper()»sTo«NameS»();
+			«ENDFOREACH»
+			return super.update();
+		}
+		«ENDIF»
+		
+		«FOREACH getAllComposedAssociations AS ae»
+			«EXPAND genCodeForComposedEntities(ae)»	
+		«ENDFOREACH»
 
 	} 
 	«ENDFILE»
@@ -180,5 +203,59 @@ private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 
 «ENDDEFINE»
 
+«REM» This is special code required to handle composed entities «ENDREM»
+«DEFINE genCodeForComposedEntities( AssociationEnd ae ) FOR AbstractEntity»
+
+	«LET ae.Opposite.associationName().toFirstUpper() AS assocName»
+	
+
+	public List<«ae.Opposite.Class.NameS»> getList«assocName»s() {
+		list«assocName»s.clear();	
+		load«assocName»s();
+		return list«assocName»s;
+	}
+
+	public void setList«assocName»s(List<«ae.Opposite.Class.NameS»> list«assocName»s) {
+		this.list«assocName»s = list«assocName»s;
+	}
+
+	private void load«assocName»s() {
+		if («NameS.toFirstLower()» != null) {
+			list«assocName»s.addAll(«NameS.toFirstLower()».get«assocName»());
+		}
+		int sizeOfExistingElements = list«assocName»s.size();
+		// add a few spare rows - lets say parent has 3 children and we need to
+		// show 5 rows - then add 2 rows with 2 new parents
+		for (int i = 0; i < INITIAL_RECORDS - sizeOfExistingElements; i++) {
+			list«assocName»s.add(new «ae.Opposite.Class.NameS»());
+		}
+	}
+	
+	private void add«assocName»sTo«NameS»() {
+		«NameS.toFirstLower()».get«assocName»().clear();
+		List<«ae.Opposite.Class.NameS»> listValid«assocName»s = new ArrayList<«ae.Opposite.Class.NameS»>();
+		
+		for («ae.Opposite.Class.NameS» «assocName.toFirstLower()» : list«assocName»s) {
+			if (StringUtils.isNotEmpty(«assocName.toFirstLower()».«EXPAND getFirstAttribute FOR ae.Opposite.Class-» )){
+				«assocName.toFirstLower()».set«ae.associationName().toFirstUpper()»(«NameS.toFirstLower()»);
+				listValid«assocName»s.add(«assocName.toFirstLower()»);
+			}
+		}
+
+		«NameS.toFirstLower()».get«assocName»().addAll(listValid«assocName»s);
+	}
+	
+	«ENDLET»
+	
+«ENDDEFINE»
+
+«DEFINE genFirstAttribute FOR Class»
+	get«Attribute(0).NameS.toFirstUpper()-»()
+«ENDDEFINE»
 
 
+«DEFINE getFirstAttribute FOR AbstractEntity-»
+	«IF ! getAllAttributes.isEmpty-»
+		get«getFirstAttribute.NameS.toFirstUpper()-»()
+	«ENDIF»
+«ENDDEFINE»

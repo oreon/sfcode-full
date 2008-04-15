@@ -24,8 +24,9 @@
 		
 			<a4j:form id="form">
 						<rich:panel header="Search «NameS»">
-						<h:panelGrid columns="2" >
+						<h:panelGrid columns="4" >
 						
+						<h:outputText value="Creation Date" styleClass="customformLabel" />
 						<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
 								backingBean="#{«asInstanceVar()»CrudBacking}" />
 						
@@ -34,8 +35,9 @@
 									«EXPAND genRangeField(this) FOR attrib»
 								«ELSE»
 							
+							<h:outputText value="«attrib.NameS.toFirstUpper() »" styleClass="customFormLabel" />
+				
 							<h:panelGroup>
-							<h:outputText value="«attrib.NameS.toFirstUpper() »" styleClass="customformLabel" />
 							<«attrib.getElementType()»  «attrib.getElementAttributes()»  
 								id="«asInstanceVar()»_«attrib.TypeModifier»_«attrib.NameS»"
 								value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«attrib.fullName()»}">
@@ -47,7 +49,7 @@
 							«ENDFOREACH»
 							
 							«FOREACH getAllOutgoingAssociations AS ae -»
-								<h:outputText value="«ae.associationName().toFirstUpper()»" styleClass="formLabel" />
+								<h:outputText value="#{msg.«ae.associationName().toFirstUpper()»}" styleClass="customFormLabel" />
 								«EXPAND ViewGen::genDropDown(this, true, false) FOR ae»
 							«ENDFOREACH»
 							</h:panelGrid>
@@ -66,6 +68,7 @@
 «ENDDEFINE»
 
 «DEFINE genRangeField(Entity entity) FOR Attribute-»
+	<h:outputText value="«NameS.toFirstUpper()»" />
 	«IF Type.NameS == "Date"-»
 		<wc:dateRange rangeFieldName="range«NameS.toFirstUpper()»" label="«NameS.toFirstUpper()»"
 			backingBean="#{«entity.NameS.toFirstLower()»CrudBacking}" />

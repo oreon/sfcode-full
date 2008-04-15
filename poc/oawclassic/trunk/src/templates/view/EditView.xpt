@@ -54,7 +54,7 @@
 			«FOREACH AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable ) AS ae-»
 				<rich:simpleTogglePanel switchType="client" label="«ae.associationName().toFirstUpper()»">
 				<t:dataTable id="«ae.associationName()»_data" var="«ae.Class.asInstanceVar()»"
-					value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.associationName()»}" rows="10"
+					value="#{«asInstanceVar()»CrudBacking.list«ae.associationName().toFirstUpper()»s}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable">
 				
 				«REM»The associated entites for e.g an order would need a customer «ENDREM» 
@@ -88,7 +88,7 @@
 «DEFINE genEditEntry(Class e, boolean repeat) FOR Attribute»
 <h:panelGroup>
 	<h:outputText value="«repeat ? "Repeat ":""»"/>
-	<h:outputText value="«e.NameS + "." + NameS»" />
+	<h:outputText value="#{msg.«Class.NameS.toFirstLower() + "_" + NameS»}" />
 	<h:outputText value="«(getElementRequired()?"*":"")»" />
 </h:panelGroup>
 
@@ -150,12 +150,16 @@
 
 «REM» Create dropdowns in «ENDREM»
 «DEFINE genEditableTableRow(Class e, boolean useBackingBean) FOR AssociationEnd»
+	«IF e.NameS != this.Opposite.Class.NameS »
+	
 	<t:column>
 		<f:facet name="header">
 				<t:outputText value="«NameS.toFirstUpper()»" /> 
 		</f:facet>
 		«EXPAND ViewGen::genDropDown(e, false, true) FOR this-»
 	</t:column>
+	
+	«ENDIF»
 «ENDDEFINE»
 
 

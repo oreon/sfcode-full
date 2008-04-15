@@ -24,6 +24,8 @@ public class Entity extends AbstractEntity {
 	
 	private boolean auditable = true;
 	
+	private boolean createSampleData = true;
+	
 	private String tableName;
 
 	private String uniqueConstraints;
