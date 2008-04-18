@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:t="http://myfaces.apache.org/tomahawk">	
+<ui:composition template="layout.xhtml">
+<body>
+<ui:define name="search">
+<ui:include src="blank.xhtml"></ui:include>
+</ui:define>
+<ui:define name="sideBar-left">
+	<ui:include src="blank.xhtml"></ui:include>
+</ui:define>
+<ui:define name="content">
+<div id="instructions">
+		<h3>KnowledgeGauge #{examCrudBacking.exam.name} Certification Exam</h3>
+		 
+		 <p>
+		 <h:outputLabel for="desc">
+				<h:outputText id="descLabel"
+				value="Exam Description: "/>
+		 </h:outputLabel>
+			<t:outputText id="desc" value="#{examCrudBacking.exam.description}" rendered="true" immediate="true"/>
+		</p>	
+		 <p>
+		 <h:outputLabel for="qNum">
+				<h:outputText id="qNumLabel"
+				value="Number of Questions: "/>
+		 </h:outputLabel>
+			<t:outputText id="qNum" value="#{examCrudBacking.exam.questions}" rendered="true" immediate="true"/>
+		</p>
+		 <p>
+		 <h:outputLabel for="duration">
+				<h:outputText id="durationLabel"
+				value="Duration: "/>
+		 </h:outputLabel>
+			<t:outputText id="duration" value="#{examCrudBacking.exam.duration}" rendered="true" immediate="true"/>
+		minutes
+		</p>
+		 <p>
+		 <h:outputLabel for="price">
+				<h:outputText id="priceLabel"
+				value="Price: $"/>
+		 </h:outputLabel>
+			<t:outputText id="price" value="#{examCrudBacking.exam.price}" rendered="true" immediate="true"/>
+		</p>
+		 <p>
+		 <h:outputLabel for="ss">
+				<h:outputText id="ssLabel"
+				value="Scoring Strategy: "/>
+		 </h:outputLabel>
+			<t:outputText id="ss" value="#{examCrudBacking.exam.scoringStrategy}" rendered="true" immediate="true"/>
+		</p>
+		 <p>
+		 <h:outputLabel for="status">
+				<h:outputText id="statLabel"
+				value="Exam Status: "/>
+		 </h:outputLabel>
+			<t:outputText id="status" value="#{examCrudBacking.exam.examStatus}" rendered="true" immediate="true"/>
+		</p>
+		 <p>
+			<t:outputText value="#{examCrudBacking.exam.examCreator}" rendered="true" immediate="true"/>
+		</p>
+		<div id="notice">
+		Please note that you are not allowed to leave
+		the exam screen. Doing so will disqualify you from
+	the exam and you won't be eligible for any refund.
+		</div>
+		<div>
+		<br />
+        <a4j:commandButton  action="start" value="Start Exam;"
+        onclick="window.open('examInstance.html','fs','fullscreen=yes')"/>
+
+    </div>
+		
+	</div>		
+	</ui:define>
+	<ui:define name="sideBar-right">
+		<ui:include src="blank.xhtml"></ui:include>
+	</ui:define>
+	</body>
+</ui:composition>
+</html>
