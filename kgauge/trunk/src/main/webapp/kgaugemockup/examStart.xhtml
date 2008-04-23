@@ -4,7 +4,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
-	xmlns:t="http://myfaces.apache.org/tomahawk">	
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	>
+	
 <ui:composition template="layout.xhtml">
 <body>
 <ui:define name="search">
@@ -45,6 +47,7 @@
 				value="Price: $"/>
 		 </h:outputLabel>
 			<t:outputText id="price" value="#{examCrudBacking.exam.price}" rendered="true" immediate="true"/>
+
 		</p>
 		 <p>
 		 <h:outputLabel for="ss">
@@ -70,6 +73,25 @@
 		</div>
 		<div>
 		<br />
+		  <!--  <ppal:buyNow business="buyer_1205752059_biz@hotmail.com " id="#{exam.id}" itemName="#{exam.name}"
+         amount="#{exam.price}" quantity="1" type="BuyNow" postData="#{paypal.PayPalBean.postData}" target="src/main/webapp/kgaugemockup/blank.xhtml"/>
+-->
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+   <input type="hidden" name="cmd" value="_xclick"/>
+   <input type="hidden" name="business" value="woodro_1208876436_biz@hotmail.com"/>
+   <input type="hidden" name="item_name" value="#{examCrudBacking.exam.name}"/>
+   <input type="hidden" name="item_number" value="#{examCrudBacking.exam.id}"/>
+   <input type="hidden" name="amount" value="#{examCrudBacking.exam.price}"/>
+   <input type="hidden" name="no_shipping" value="2"/>
+   <input type="hidden" name="no_note" value="1"/>
+   <input type="hidden" name="currency_code" value="USD"/>
+   <input type="hidden" name="bn" value="IC_Sample"/>
+   <input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but23.gif" 
+   name="submit" alt="Make payments with payPal - it's fast, free and secure!"/>
+   <img alt="" 
+   src="https://www.paypal.com/en_US/i/scr/pixel.gif" 
+   width="1" height="1"/>
+</form>
         <a4j:commandButton  action="start" value="Start Exam;"
         onclick="window.open('examInstance.html','fs','fullscreen=yes')"/>
 
