@@ -7,8 +7,7 @@
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	xmlns:t="http://myfaces.apache.org/tomahawk">	
 	
-			<a4j:form>
-			
+			<a4j:form>			
 				<rich:dataGrid id="data"  var="exam"
 				columns="1" 
 					value="#{examCrudBacking.records}" rows="30" rowClasses="odd, even"
@@ -18,15 +17,12 @@
 						</f:facet>
 							<t:commandLink	immediate="true"
 							action="edit"	
-							actionListener="#{examCrudBacking.selectExam}"									
-							oncomplete="examName='#{exam.name}';reRender='examOut'}">
+							actionListener="#{examCrudBacking.selectExam}">										
 								<f:attribute name="sortField" value="Name" />							
 								<t:outputText value="#{exam.name}" />
 								<f:param id="editId" name="id" value="#{exam.id}" />								
 							</t:commandLink>		
-				
-				</rich:dataGrid>	
-		
-	</a4j:form>
+				</rich:dataGrid>			
+	        </a4j:form>
 
 </ui:composition>
