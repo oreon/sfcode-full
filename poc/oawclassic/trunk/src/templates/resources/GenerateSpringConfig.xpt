@@ -171,7 +171,7 @@ http://www.springframework.org/schema/aop
 «ENDDEFINE»
 
 «DEFINE GenerateServiceBeanDef FOR Service-»
-	<bean id="«asInstanceVar()»" class="«packageName()».impl.«NameS»Impl" >
+	<bean id="«asInstanceVar()»" class="«packageName()».«NameS»" >
 	«FOREACH getAllAttribs AS a-»
 		<property name="«a.NameS»" value="«a.InitValue»" /> 
 	«ENDFOREACH»
@@ -181,7 +181,7 @@ http://www.springframework.org/schema/aop
 
 
 «DEFINE SpringNameSpaces FOR Element»
-	<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:tx="http://www.springframework.org/schema/tx"

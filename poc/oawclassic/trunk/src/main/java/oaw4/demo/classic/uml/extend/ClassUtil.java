@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import oaw4.demo.classic.uml.meta.ConstrainedParameter;
 import oaw4.demo.classic.uml.meta.Entity;
 import oaw4.demo.classic.uml.meta.Service;
 
@@ -46,7 +47,6 @@ public class ClassUtil {
 	/*
 	public static Entity getEntityByName(String name){
 		for(int i = 0; i)
-		
 	}*/
 
 	/**
@@ -302,8 +302,21 @@ public class ClassUtil {
 	public static String getOperationBody(Operation operation) {
 		if (operation.hasReturnType()
 				&& !operation.ReturnType().NameS().equals("void")) {
-			return "{ return null; " + "\n //should return "
-					+ operation.ReturnType().NameS() + "\n}\n";
+			
+			StringBuffer constraints = new StringBuffer();
+			
+			for (Object object : operation.Parameter()) {
+				Parameter parameter = (Parameter)object;
+				System.out.println(parameter.Name() + " -->>" + parameter.getMetaClass().getName());
+				
+				if(StereoTypeManager.isConstrainedParameter(parameter) ){
+					constraints.append( ((ConstrainedParameter)parameter).getConstraints() );
+				}
+			}
+			
+			return "{\n" + constraints.toString() + 
+			
+			" return null; " + "}\n";
 		} else
 			return "{ }";
 	}
@@ -318,15 +331,14 @@ public class ClassUtil {
 
 		String declaration = new String();
 
-		// if(attribute.getMetaClass().getName().equals("oaw4.demo.classic.uml.meta.Key"))
-		// declaration += "//" + attribute.getMetaClass().getName();
-
 		declaration += "protected " + attribute.Type().NameS() + " "
 				+ attribute.NameS();
-		
-
+	
 		if (attribute.InitValue() != null)
 			declaration += " = " + attribute.InitValue();
+		else if(attribute.Type().NameS().equals("Boolean") ){	
+			declaration += " = false";  //Need to init Boolean values 
+		}
 
 		declaration += ";";
 

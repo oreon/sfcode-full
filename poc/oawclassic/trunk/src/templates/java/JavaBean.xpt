@@ -12,16 +12,13 @@
 	
 	package «packageName()»;
 	
-	
 	import java.util.Date;
 	import org.apache.log4j.Logger;
 	
-	//«findStereotypeByName("Entity").NameS»
-
-	
+	«EXPAND CommonUtils::genDocumentation FOR this-»
 	«getClassDeclaration()»{
-			«getLoggerDeclaration(NameS + "Base")»;
-			«EXPAND classBody FOR this»
+		«getLoggerDeclaration(NameS + "Base")»;
+		«EXPAND classBody FOR this»
 	} 
 	«ENDFILE»
 «ENDDEFINE»
@@ -126,10 +123,7 @@
 	«ENDIF»
 	
 	«IF getBaseClass == "org.witchcraft.model.support.security.AbstractUser"»
-	@Transient
-	public boolean isEnabled() {
-		return getEnabled();
-	}
+	
 	@Transient
 	public Set getUserAuthorities() {
 		return getGrantedRoles();
@@ -169,7 +163,9 @@
 				
 	«EXPAND Attribute::Generator FOREACH Operation»
 	
-	public abstract «NameS» «asInstanceVar()»Instance();
+	 «IF isEntity()»
+	 	public abstract «NameS» «asInstanceVar()»Instance();
+	 «ENDIF»
 «ENDDEFINE»
 
 
@@ -196,6 +192,8 @@
 	 * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
 	 */
 «ENDDEFINE»
+
+
 
 
 

@@ -43,7 +43,6 @@
 		import org.richfaces.model.TreeNode;
 		import org.richfaces.model.TreeNodeImpl;
 		import org.richfaces.component.html.HtmlMenuItem;
-		
 	«ENDIF»
 	
 	
@@ -86,6 +85,10 @@
 			
 			public «NameS» getEntity(){
 				return get«NameS»();
+			}	
+			
+			public void reset(){
+				«asInstanceVar()» = new «asParameter()»();
 			}			
 			
     		@Override
@@ -111,10 +114,13 @@
 		    public void selectEntity(ActionEvent actionEvent){		    	
 		    	FacesContext ctx = FacesContext.getCurrentInstance();
 				String idStr = (String)ctx.getExternalContext().getRequestParameterMap().get("id");
-				long id = Long.parseLong(idStr);
-				«asInstanceVar()» = «asInstanceVar()»Service.load(id);
-		    	//if(actionEvent.getComponent().getId()=="deleteId"){
-		    	//	getBaseService().delete(«asInstanceVar()»);	}
+				
+				if(idStr == null ){
+					reset();
+				}else{
+					long id = Long.parseLong(idStr);
+					«asInstanceVar()» = «asInstanceVar()»Service.load(id);
+				}
 		    }
 		    
 		 «IF getTreeFields != null»
@@ -244,6 +250,34 @@ private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 
 		«NameS.toFirstLower()».get«assocName»().addAll(listValid«assocName»s);
 	}
+	
+	/**
+	 * @param actionEvent
+	 */
+	public void addNew«assocName»Row(ActionEvent actionEvent) {
+		list«assocName»s.add(new «ae.Opposite.Class.NameS»());
+	}
+
+	/**
+	 * @param actionEvent
+	 */
+	public void delete«assocName»Row(ActionEvent actionEvent) {
+		String rowIndex = (String) FacesContext.getCurrentInstance()
+				.getExternalContext().getRequestParameterMap().get("deleteRowIndex");
+
+		int index = Integer.parseInt(rowIndex);
+		«ae.Opposite.Class.NameS» «ae.Opposite.Class.NameS.toFirstLower()» = list«assocName»s.get(index);
+		list«assocName»s.remove(index);
+	
+	/*
+		TaskService taskService = (TaskService) BeanHelper
+				.getBean("taskService");
+
+		if (task.getId() != null && task.getId() > 0) {
+			taskService.delete(task);
+		}*/
+	}
+	
 	
 	«ENDLET»
 	

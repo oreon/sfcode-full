@@ -61,7 +61,15 @@
 				«EXPAND genEditableTableRow(ae.Class, false) FOREACH ae.Class.AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) -»
 							
 				«EXPAND genEditableTableRow(ae.Class) FOREACH ae.Class.getAllAttributes -»
+				
+				«EXPAND genEditableTableDeleteColumn(this) FOR ae -»
 				</t:dataTable>
+				
+				<br/>
+				
+				<a4j:commandButton value="Add Row" 
+									reRender="«ae.associationName()»_data"
+									actionListener="#{«asInstanceVar()»CrudBacking.addNew«ae.associationName().toFirstUpper()»Row}" />
 				</rich:simpleTogglePanel>
 				<br/>
 			«ENDFOREACH»
@@ -88,7 +96,7 @@
 «DEFINE genEditEntry(Class e, boolean repeat) FOR Attribute»
 <h:panelGroup>
 	<h:outputText value="«repeat ? "Repeat ":""»"/>
-	<h:outputText value="#{msg.«Class.NameS.toFirstLower() + "_" + NameS»}" />
+	<h:outputText value="«msgBundleKey()»" />
 	<h:outputText value="«(getElementRequired()?"*":"")»" />
 </h:panelGroup>
 
@@ -126,8 +134,9 @@
 		id="«repeatControlId(e)»"
 		value="#{«e.asInstanceVar()»CrudBacking.repeat«NameS.toFirstUpper()»}">
 		«getElementContent()»
-		«getElementValidatorContent()»
 		<t:validateEqual for="«e.asInstanceVar()»_«TypeModifier»_«NameS»" />
+		«getElementValidatorContent()»							
+		<a4j:support event="onblur" reRender="«controlId(e)»" />
 	</«getElementType()»>
 «ENDDEFINE»
 
@@ -161,5 +170,21 @@
 	
 	«ENDIF»
 «ENDDEFINE»
+
+«REM» Create delete link for composed rows «ENDREM»
+«DEFINE genEditableTableDeleteColumn(AbstractEntity e) FOR AssociationEnd»
+	<t:column>
+		<f:facet name="header">
+			<t:outputText value="Delete" />
+		</f:facet>
+
+		<a4j:commandButton value="Delete" 
+			reRender="«associationName()»_data"
+					actionListener="#{«e.asInstanceVar()»CrudBacking.delete«associationName().toFirstUpper()»Row}" >
+				<a4j:actionparam name="deleteRowIndex" value="#{rowIndex}" />
+		</a4j:commandButton>
+	</t:column>
+«ENDDEFINE»
+			
 
 

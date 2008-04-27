@@ -124,11 +124,13 @@
   						 </a4j:form>
 						<br />
 						
-						<a4j:form>
-							<h:commandLink action="addNew" value="Add New"/>
-							<h:outputText value="   "/>
-							<h:commandLink action="search" value="Search "/>
-						</a4j:form>
+			<a4j:form id="commands" >
+			 	<h:commandLink action="#{«asInstanceVar()»CrudBacking.select}"
+					actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}" value="Add New" />  
+				<h:commandLink action="#{«asInstanceVar()»CrudBacking.search}"
+					actionListener="#{«asInstanceVar()»CrudBacking.reset}" value="Search" />
+			</a4j:form>	
+			
 				</f:view>
 		</ui:define>
 </ui:composition>
