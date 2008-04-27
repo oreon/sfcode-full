@@ -11,6 +11,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.witchcraft.model.support.BusinessEntity;
@@ -35,7 +36,7 @@ public abstract class BaseBackingBean<T> {
 
 	protected String action; // whether action is search or update/add new
 	protected static final String SEARCH = "SEARCH";
-	public static final int INITIAL_RECORDS = 5;
+	public static final int INITIAL_RECORDS = 0;
 
 	public abstract BaseService<T> getBaseService();
 
@@ -139,7 +140,7 @@ public abstract class BaseBackingBean<T> {
 			entities = getBaseService().loadAll();
 
 		// Sort results.
-		if (sortField != null && !sortField.equals("")) {
+		if (!StringUtils.isEmpty(sortField) ) {
 			Collections.sort(entities, new DTOComparator(sortField,
 					sortAscending));
 		}

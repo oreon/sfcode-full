@@ -38,7 +38,7 @@ public class EntityAuditLogInterceptor extends EmptyInterceptor {
 	public boolean onFlushDirty(Object entity, Serializable id,
 			Object[] currentState, Object[] previousState,
 			String[] propertyNames, org.hibernate.type.Type[] types) {
-		// TODO Auto-generated method stub
+		
 		saveAuditLog(entity, AuditAction.EDIT);
 		return false;
 	}
@@ -83,7 +83,6 @@ public class EntityAuditLogInterceptor extends EmptyInterceptor {
 
 			oos.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
