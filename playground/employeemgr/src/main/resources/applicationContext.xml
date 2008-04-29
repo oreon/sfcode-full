@@ -1,73 +1,130 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-autowire="byName" xsi:schemaLocation="http://www.springframework.org/schema/beans     http://www.springframework.org/schema/beans/spring-beans.xsd     http://www.springframework.org/schema/tx     http://www.springframework.org/schema/tx/spring-tx.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	default-autowire="byName"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans     http://www.springframework.org/schema/beans/spring-beans.xsd     http://www.springframework.org/schema/tx     http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 
-	
-		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" id="propertyPlaceholder">
-			<property name="location" value="classpath:project.properties"/>
-		</bean>
-	
-	
-	  <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
-	     <property name="jpaVendorAdapter">
-	        <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-	           <property name="showSql" value="${hibernate.showsql}"/>
-	           <property name="generateDdl" value="${hibernate.generateddl}"/>
-	           <property name="databasePlatform" value="${hibernate.dialect}"/>
-	        </bean>
-	     </property>
-	  </bean>
-	
-	  <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
-			<property name="driverClassName" value="${hibernate.connection.driver_class}"/>
-			<property name="url" value="${hibernate.connection.url}"/>
-			<property name="username" value="${hibernate.connection.username}"/>
-			<property name="password" value="${hibernate.connection.password}"/>
-	 </bean>
-	
-	  <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager"/>
-	  
-	  <tx:annotation-driven/>
-	
-	
-	  <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
-	 
-	 <!-- Velocity -->
-	 <bean class="org.springframework.ui.velocity.VelocityEngineFactoryBean" id="velocityEngine">
-	    <property name="velocityProperties">
-	        <props>
-	            <prop key="resource.loader">class</prop>
-	            <prop key="class.resource.loader.class">
-	                org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
-	            </prop>
-	        </props>
-	    </property>
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+		id="propertyPlaceholder">
+		<property name="location" value="classpath:project.properties" />
 	</bean>
-	  
-	  <!-- Service Beans For entities-->
-	  
-	<bean class="com.mycomapny.employeemgr.service.impl.EmployeeServiceImpl" id="employeeService"/>
 
-	<bean class="com.mycomapny.employeemgr.service.impl.TaskServiceImpl" id="taskService"/>
 
-	  
-	  <!-- Service Facade -->
-	    <bean class="facades.ServiceFacade" id="serviceFacade"/>
-	    
-	    <!-- Service Beans  -->
-	  
-	 
-	  
-	  <!-- Dao Beans  -->
-	  
-	<bean class="com.mycomapny.employeemgr.dao.impl.EmployeeDaoImpl" id="employeeDao"/>
+	<bean
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		id="entityManagerFactory">
+		<property name="jpaVendorAdapter">
+			<bean
+				class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="${hibernate.showsql}" />
+				<property name="generateDdl"
+					value="${hibernate.generateddl}" />
+				<property name="databasePlatform"
+					value="${hibernate.dialect}" />
+			</bean>
+		</property>
+	</bean>
 
-	<bean class="com.mycomapny.employeemgr.dao.impl.TaskDaoImpl" id="taskDao"/>
+	<bean class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" id="dataSource">
+		<property name="driverClassName"
+			value="${hibernate.connection.driver_class}" />
+		<property name="url" value="${hibernate.connection.url}" />
+		<property name="username"
+			value="${hibernate.connection.username}" />
+		<property name="password"
+			value="${hibernate.connection.password}" />
+	</bean>
 
-	  
-	   	<!-- Audit logging -->
-	  	<bean class="org.witchcraft.model.support.audit.AuditLogDaoImpl" id="auditLogDao"/>
-	 
-	  	<bean class="org.witchcraft.model.support.audit.EntityAuditLogInterceptor" id="entityAuditLogInterceptor"/>
-	  
-	</beans>
+	<bean class="org.springframework.orm.jpa.JpaTransactionManager"
+		id="transactionManager" />
+
+	<tx:annotation-driven />
+
+
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<!-- Velocity -->
+	<bean
+		class="org.springframework.ui.velocity.VelocityEngineFactoryBean"
+		id="velocityEngine">
+		<property name="velocityProperties">
+			<props>
+				<prop key="resource.loader">class</prop>
+				<prop key="class.resource.loader.class">
+					org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+				</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- Service Beans For entities-->
+
+	<bean
+		class="com.mycomapny.employeemgr.service.impl.EmployeeServiceImpl"
+		id="employeeService" />
+
+	<bean class="com.mycomapny.employeemgr.service.impl.TaskServiceImpl"
+		id="taskService" />
+
+
+	<!-- Service Facade -->
+	<bean class="facades.ServiceFacade" id="serviceFacade" />
+
+	<!-- Service Beans  -->
+
+
+
+	<!-- Dao Beans  -->
+
+	<bean class="com.mycomapny.employeemgr.dao.impl.EmployeeDaoImpl"
+		id="employeeDao" />
+
+	<bean class="com.mycomapny.employeemgr.dao.impl.TaskDaoImpl"
+		id="taskDao" />
+
+
+	<!-- Audit logging -->
+	<bean class="org.witchcraft.model.support.audit.AuditLogDaoImpl"
+		id="auditLogDao" />
+
+	<bean
+		class="org.witchcraft.model.support.audit.EntityAuditLogInterceptor"
+		id="entityAuditLogInterceptor" />
+
+	<bean id="accountService" class="accnts.AccountServiceImpl">
+		<!-- any additional properties, maybe a DAO? -->
+	</bean>
+
+
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<!-- does not necessarily have to be the same name as the bean to be exported -->
+		<property name="serviceName" value="AccountService" />
+		<property name="service" ref="accountService" />
+		<property name="serviceInterface"
+			value="accnts.AccountService" />
+		<!-- defaults to 1099 -->
+		<property name="registryPort" value="1199" />
+	</bean>
+
+	<bean class="accnts.SimpleObject">
+		<property name="accountServiceRmi" ref="accountServiceRmi" />
+	</bean>
+
+	<bean id="accountServiceRmi"
+		class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+		<property name="serviceUrl"
+			value="rmi://localhost:1199/AccountService" />
+		<property name="serviceInterface"
+			value="accnts.AccountService" />
+	</bean>
+
+</beans>
+
+
+
