@@ -10,6 +10,8 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import org.hibernate.search.annotations.DocumentId;
+
 @MappedSuperclass
 public class BusinessEntity implements Serializable{
 	private Long id ;
@@ -20,6 +22,7 @@ public class BusinessEntity implements Serializable{
     protected int version;
 	
 	@Id
+	@DocumentId
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;

@@ -63,7 +63,7 @@ public abstract class BaseBackingBean<T> {
 	/**
 	 * Write values to the database
 	 * 
-	 * @return - "success" if everthing goes fine 	 	
+	 * @return - "success" if everthing goes fine
 	 */
 	public String delete() {
 		try {
@@ -75,20 +75,48 @@ public abstract class BaseBackingBean<T> {
 
 		return "successDelete";
 	}
-	
-	public String search(){
-		action=SEARCH;
+
+	public String search() {
+		action = SEARCH;
 		return "search";
 	}
-	
 
-	/** Returns a success string upon selection of an entity in model - majority of work is done
-	 * in the actionListener selectEntity
-    * @return - "success" if everthing goes fine
-    * @see - 
-    */
-	 public String select(){
+	/**
+	 * Returns a success string upon selection of an entity in model - majority
+	 * of work is done in the actionListener selectEntity
+	 * 
+	 * @return - "success" if everthing goes fine
+	 * @see -
+	 */
+	public String select() {
 		return "edit";
+	}
+
+	/**
+	 * This action Listener Method is called when a row is clicked in the
+	 * dataTable
+	 * 
+	 * @param event
+	 *            contains the database id of the row being selected
+	 */
+	public void selectEntity(ActionEvent actionEvent) {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		String idStr = (String) ctx.getExternalContext()
+				.getRequestParameterMap().get("id");
+
+		reset();
+		if (idStr != null) {
+			long id = Long.parseLong(idStr);
+			reloadFromId(id);
+		}
+	}
+	
+	/** This function should be overridden by derived classes so as to reset the instance varaible
+	 *  with the new one loaded from database using the id
+	 * @param id
+	 */
+	protected void reloadFromId(long id){
+		
 	}
 
 	/**
@@ -97,7 +125,7 @@ public abstract class BaseBackingBean<T> {
 	 * @return - "success" if everything goes fine
 	 */
 	public String update() {
-		boolean isNew = ((BusinessEntity)getEntity()).getId() == null;
+		boolean isNew = ((BusinessEntity) getEntity()).getId() == null;
 		try {
 			getBaseService().save(getEntity());
 		} catch (BusinessException be) {
@@ -110,9 +138,9 @@ public abstract class BaseBackingBean<T> {
 			createErrorMessage(ex.getMessage(), "Critical Error updating", ex);
 			return "failure";
 		}
-		
-		createSuccessMessage( getEntity().getClass().getSimpleName() + " was successfully " + 
-				(isNew?"added.":"updated.") );
+
+		createSuccessMessage(getEntity().getClass().getSimpleName()
+				+ " was successfully " + (isNew ? "added." : "updated."));
 		return "success";
 	}
 
@@ -135,19 +163,21 @@ public abstract class BaseBackingBean<T> {
 	public List<T> getRecords() {
 		List<T> entities = null;
 		if (action != null && action.equals(SEARCH))
-			entities = getBaseService().searchByExample(getEntity(), getRangeList());
+			entities = getBaseService().searchByExample(getEntity(),
+					getRangeList());
 		else
 			entities = getBaseService().loadAll();
 
 		// Sort results.
-		if (!StringUtils.isEmpty(sortField) ) {
+		if (!StringUtils.isEmpty(sortField)) {
 			Collections.sort(entities, new DTOComparator(sortField,
 					sortAscending));
 		}
-		
-		//createSuccessMessage( entities.size() > 0 ? ("Found " + entities.size() + " records ." ):
-		//	"no.records.found" );
-		
+
+		// createSuccessMessage( entities.size() > 0 ? ("Found " +
+		// entities.size() + " records ." ):
+		// "no.records.found" );
+
 		return entities;
 	}
 
@@ -165,16 +195,13 @@ public abstract class BaseBackingBean<T> {
 				new FacesMessage(FacesMessage.SEVERITY_ERROR, errorTitle,
 						errorDetail));
 	}
-	
+
 	protected void createSuccessMessage(String message) {
-		//log.error(errorDetail, throwable);
-		FacesContext.getCurrentInstance().addMessage(
-				null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, message,
-						""));
+		// log.error(errorDetail, throwable);
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, message, ""));
 	}
 
-	
 	public void sortDataList(ActionEvent event) {
 		String sortFieldAttribute = getAttribute(event, "sortField");
 		System.out.println(sortField + " :: " + sortFieldAttribute);
@@ -205,31 +232,51 @@ public abstract class BaseBackingBean<T> {
 		this.sortAscending = sortAscending;
 	}
 
-
 	private static String getAttribute(ActionEvent event, String name) {
 		return (String) event.getComponent().getAttributes().get(name);
 	}
-	
-	/** This method is needed by backing beans which need to show uploaded images. 
+
+	/**
+	 * This method is needed by backing beans which need to show uploaded
+	 * images.
+	 * 
 	 * @return
 	 */
 	public Class getImageRendererCls() {
 		return UploadedImageRenderer.class;
 	}
-	
-	/** Utility method to get current http session 
-	 * @return - session associated with current context - will create a new session if one doesn't exist
+
+	/**
+	 * Utility method to get current http session
+	 * 
+	 * @return - session associated with current context - will create a new
+	 *         session if one doesn't exist
 	 */
-	protected HttpSession getSession(){
-		return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+	protected HttpSession getSession() {
+		return (HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(true);
 	}
-	
-	
-	/** This method is used for getting range objects and is typically overriden by backing beans
+
+	/**
+	 * This method is used for getting range objects and is typically overriden
+	 * by backing beans
+	 * 
 	 * @return
 	 */
-	protected  List<Range> getRangeList(){
+	protected List<Range> getRangeList() {
 		return new ArrayList<Range>();
+	}
+
+	/**
+	 * Use reset as an actionlistener e.g. to clear member variables for search
+	 * 
+	 * @param actionEvent
+	 */
+	public void reset(ActionEvent actionEvent) {
+		reset();
+	}
+
+	public void reset() {
 	}
 
 }
