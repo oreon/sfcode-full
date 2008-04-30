@@ -1,17 +1,16 @@
-		
-	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:s="http://myfaces.apache.org/sandbox"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
-	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
-	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
-	template="/WEB-INF/template/templateCrud.xhtml">
+		<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+template="/WEB-INF/template/templateCrud.xhtml">
 	
 	
 	
@@ -58,7 +57,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Exam.description" />
+	<h:outputText value="#{msg.exam_examNumber}" />
 	<h:outputText value="*" />
 </h:panelGroup>
 
@@ -66,15 +65,15 @@
 	<a4j:region>
 	
 		
-	<h:inputTextarea   maxLength="1045"   required="true" 
-		id="exam_description"
-		value="#{examCrudBacking.exam.description}">
+	<h:inputText    required="true" 
+		id="exam_examNumber"
+		value="#{examCrudBacking.exam.examNumber}">
 		
-		<f:validateLength maximum="1045"/>
-		<a4j:support event="onblur" reRender="exam_description" />
-	</h:inputTextarea>
+		
+		<a4j:support event="onblur" reRender="exam_examNumber" />
+	</h:inputText>
 	
-	<rich:message for="exam_description"
+	<rich:message for="exam_examNumber"
 		 styleClass="errMessage">
 		<f:facet name="errorMarker">
 			<h:graphicImage url="/images/icons/bullet_error.png" />
@@ -90,7 +89,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Exam.name" />
+	<h:outputText value="#{msg.exam_name}" />
 	<h:outputText value="*" />
 </h:panelGroup>
 
@@ -122,7 +121,39 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Exam.questions" />
+	<h:outputText value="#{msg.exam_description}" />
+	<h:outputText value="*" />
+</h:panelGroup>
+
+<h:panelGroup>
+	<a4j:region>
+	
+		
+	<h:inputTextarea   maxLength="1045"   required="true" 
+		id="exam_description"
+		value="#{examCrudBacking.exam.description}">
+		
+		<f:validateLength maximum="1045"/>
+		<a4j:support event="onblur" reRender="exam_description" />
+	</h:inputTextarea>
+	
+	<rich:message for="exam_description"
+		 styleClass="errMessage">
+		<f:facet name="errorMarker">
+			<h:graphicImage url="/images/icons/bullet_error.png" />
+		</f:facet>
+	</rich:message>
+	</a4j:region>
+</h:panelGroup>
+
+							
+	
+
+	
+		
+<h:panelGroup>
+	<h:outputText value=""/>
+	<h:outputText value="#{msg.exam_questions}" />
 	<h:outputText value="" />
 </h:panelGroup>
 
@@ -154,7 +185,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Exam.duration" />
+	<h:outputText value="#{msg.exam_duration}" />
 	<h:outputText value="" />
 </h:panelGroup>
 
@@ -186,7 +217,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Exam.price" />
+	<h:outputText value="#{msg.exam_price}" />
 	<h:outputText value="" />
 </h:panelGroup>
 
@@ -218,7 +249,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Exam.scoringStrategy" />
+	<h:outputText value="#{msg.exam_scoringStrategy}" />
 	<h:outputText value="" />
 </h:panelGroup>
 
@@ -252,7 +283,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Exam.examStatus" />
+	<h:outputText value="#{msg.exam_examStatus}" />
 	<h:outputText value="" />
 </h:panelGroup>
 
@@ -282,52 +313,21 @@
 
 							
 	
-					<f:facet name="footer">
-  						<h:panelGroup>
-  						   <h:commandButton id="button1" value="Submit" action="#{examCrudBacking.update}"  styleClass="btn" /> 
-  						   <h:outputText value=" " />
-  						    <h:commandButton id="button2" value="Cancel" action="success" immediate="true" styleClass="btn"/> 
-  				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
-		  				   	<h:inputHidden id="exam_id" value="#{examCrudBacking.exam.id}" />
-		  				   	
-						 </h:panelGroup>
-  					</f:facet>
+				
+  						
+  				
 			</h:panelGrid>
 						<br/>
 						
 			
 				<rich:simpleTogglePanel switchType="client" label="Section">
-				<t:dataTable id="section_data" var="section"
-					value="#{examCrudBacking.exam.section}" rows="10"
-				rowClasses="odd, even" styleClass="dataTable">
+				<t:dataTable id="section_data" var="section" rowIndexVar="rowIndex" 
+					value="#{examCrudBacking.listSections}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
 				
 				 
 				
-	<t:column>
-		<f:facet name="header">
-				<t:outputText value="" /> 
-		</f:facet>
-		
 	
-	<h:panelGroup>
-	<a4j:region>
-
-	<h:selectOneMenu  required="true" 
-		id="section_exam" converter="keyToObjectConverter"
-		value="#{section.exam}">
-		<f:selectItem itemLabel="Select" />
-		<f:selectItems value="#{examCrudBacking.asSelectItems}" />
-	</h:selectOneMenu>
-										
-	<rich:message for="section_exam" styleClass="errMessage">
-			<f:facet name="errorMarker">
-				<h:graphicImage url="/images/icons/bullet_error.png" />
-			</f:facet>
-		</rich:message>
-	
-	</a4j:region>
-	</h:panelGroup>
-	</t:column>
 							
 				
 	
@@ -342,12 +342,41 @@
 		</h:inputText>
 		<h:message for="section__name" styleClass="errMessage" />
 	</t:column>
+				
+				
+	<t:column>
+		<f:facet name="header">
+			<t:outputText value="Delete" />
+		</f:facet>
+
+		<a4j:commandButton value="Delete" 
+			reRender="section_data" bypassUpdates="true" styleClass="btn"
+					actionListener="#{examCrudBacking.deleteSectionRow}" >
+				<a4j:actionparam name="deleteRowIndex" value="#{rowIndex}" />
+		</a4j:commandButton>
+	</t:column>
 				</t:dataTable>
+				<br/>
+				<a4j:commandButton value="Add Row" styleClass="btn"
+									reRender="section_data" 
+									actionListener="#{examCrudBacking.addNewSectionRow}" />
 				</rich:simpleTogglePanel>
 				<br/>
 			
 						
 				</rich:panel>
+				
+				<h:panelGrid columns="2">
+				<h:panelGroup>
+  					<h:commandButton id="button1" value="Submit" action="#{examCrudBacking.update}"  styleClass="btn" /> 
+  					<h:outputText value=" " />
+  					<h:commandButton id="button2" value="Cancel" action="success" immediate="true" styleClass="btn"/> 
+  				   	<!-- We need to have a hidden text field to store the id of the record being edited -->		
+		  			<h:inputHidden id="exam_id" value="#{examCrudBacking.exam.id}" />
+  				   	
+				 </h:panelGroup>
+				</h:panelGrid>
+				
 			</a4j:form>
 		</f:view>
 

@@ -9,7 +9,7 @@
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 	template="/WEB-INF/template/signIn.xhtml">
 	<ui:define name="content">
-		<f:loadBundle basename="messages.messages" var="msg"/>
+		
 		<h:messages layout="list" globalOnly="true" showDetail="true"
 			styleClass="messages" />
 		<f:view>
@@ -20,13 +20,13 @@
 							<h:outputText value="#{msg.login}" styleClass="formHeaderText" />
 						</f:facet>
 
-						<h:outputText value="#{msg.userID}" styleClass="formLabel" />
+						<h:outputText value="#{msg.user_username}" styleClass="formLabel" />
 						<h:inputText id="UserId" required="true" 
 							value="#{authenticationController.username}" />
 
 						<h:message for="UserId" styleClass="errMessage" />
 
-						<h:outputText value="#{msg.password}" styleClass="formLabel" />
+						<h:outputText value="#{msg.user_password}" styleClass="formLabel" />
 						<h:inputSecret id="Password"
 							value="#{authenticationController.password}" required="true" />
 						<h:message for="Password" styleClass="errMessage" />

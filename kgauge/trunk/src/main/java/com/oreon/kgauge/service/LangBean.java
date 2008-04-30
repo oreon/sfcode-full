@@ -33,10 +33,9 @@ public class LangBean {
         this.locale = context.getViewRoot().getLocale();
         Locale.setDefault(locale);
         System.out.println("Changed locale to: "+current);
-    
     }
+    
     public void setLocale(){
-    	
     	FacesContext context = FacesContext.getCurrentInstance();
         context.getViewRoot().setLocale(locale);
         this.locale = context.getViewRoot().getLocale();

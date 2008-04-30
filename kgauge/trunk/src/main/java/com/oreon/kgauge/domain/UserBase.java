@@ -63,7 +63,7 @@ public abstract class UserBase
 	/*
 	
 	 */
-	public boolean getEnabled() {
+	public boolean isEnabled() {
 		return this.enabled;
 	}
 
@@ -123,10 +123,6 @@ public abstract class UserBase
 		return username + "";
 	}
 
-	@Transient
-	public boolean isEnabled() {
-		return getEnabled();
-	}
 	@Transient
 	public Set getUserAuthorities() {
 		return getGrantedRoles();

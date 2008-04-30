@@ -93,7 +93,6 @@ public abstract class ExamInstanceBase
 
 	public Integer calculateScore() {
 		return null;
-		//should return Integer
 	}
 
 	public abstract ExamInstance examInstanceInstance();

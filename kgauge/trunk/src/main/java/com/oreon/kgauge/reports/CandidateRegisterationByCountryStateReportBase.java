@@ -10,8 +10,9 @@ package com.oreon.kgauge.reports;
 import java.util.Date;
 import org.apache.log4j.Logger;
 
-//
-
+/**
+ * 
+ */
 public abstract class CandidateRegisterationByCountryStateReportBase
 		implements
 			java.io.Serializable {
@@ -20,10 +21,26 @@ public abstract class CandidateRegisterationByCountryStateReportBase
 
 	private static final long serialVersionUID = 1L;
 
+	protected String firstName;
+
 	/* Default Constructor */
 	public CandidateRegisterationByCountryStateReportBase() {
 	}
 
-	public abstract CandidateRegisterationByCountryStateReport candidateRegisterationByCountryStateReportInstance();
+	/* Constructor with all attributes */
+	public CandidateRegisterationByCountryStateReportBase(String firstName) {
+		this.firstName = firstName;
+	}
+
+	/*
+	
+	 */
+	public String getFirstName() {
+		return this.firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
 }

@@ -5,13 +5,17 @@ import javax.faces.context.FacesContext;
 
 import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
+import org.apache.commons.lang.StringUtils;
 
 import com.oreon.kgauge.domain.Section;
 import com.oreon.kgauge.service.SectionService;
 
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 import org.witchcraft.model.support.Range;
+
+import com.oreon.kgauge.domain.Question;
 
 /**
  * This is generated code - to edit code or override methods use - Section class
@@ -24,6 +28,8 @@ public class SectionBackingBeanBase extends BaseBackingBean<Section> {
 	protected Section section = new Section();
 
 	protected SectionService sectionService;
+
+	private List<Question> listQuestions = new ArrayList<Question>();
 
 	private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 
@@ -56,6 +62,13 @@ public class SectionBackingBeanBase extends BaseBackingBean<Section> {
 		return getSection();
 	}
 
+	public void reset() {
+		section = new Section();
+
+		listQuestions.clear();
+
+	}
+
 	@Override
 	protected List<Range> getRangeList() {
 
@@ -65,24 +78,84 @@ public class SectionBackingBeanBase extends BaseBackingBean<Section> {
 		return listRanges;
 	}
 
-	/** This action Listener Method is called when a row is clicked in the dataTable
-	 *  
-	 * @param event contains the database id of the row being selected 
-	 */
-	public void selectEntity(ActionEvent actionEvent) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		String idStr = (String) ctx.getExternalContext()
-				.getRequestParameterMap().get("id");
-		long id = Long.parseLong(idStr);
+	protected void reloadFromId(long id) {
 		section = sectionService.load(id);
-		if (actionEvent.getComponent().getId() == "deleteId") {
-			getBaseService().delete(section);
+	}
+
+	@Override
+	public String update() {
+
+		addQuestionsToSection();
+
+		return super.update();
+	}
+
+	public List<Question> getListQuestions() {
+		if (listQuestions.isEmpty())
+			loadQuestions();
+
+		return listQuestions;
+	}
+
+	public void setListQuestions(List<Question> listQuestions) {
+		this.listQuestions = listQuestions;
+	}
+
+	private void loadQuestions() {
+		listQuestions.clear();
+		if (section != null) {
+			listQuestions.addAll(section.getQuestion());
 		}
+		int sizeOfExistingElements = listQuestions.size();
+		// add a few spare rows - lets say parent has 3 children and we need to
+		// show 5 rows - then add 2 rows with 2 new parents
+		for (int i = 0; i < INITIAL_RECORDS - sizeOfExistingElements; i++) {
+			listQuestions.add(new Question());
+		}
+	}
+
+	private void addQuestionsToSection() {
+		section.getQuestion().clear();
+		List<Question> listValidQuestions = new ArrayList<Question>();
+
+		for (Question question : listQuestions) {
+			if (StringUtils.isNotEmpty(question.getQuestionText()
+
+			)) {
+				question.setSection(section);
+				listValidQuestions.add(question);
+			}
+		}
+
+		section.getQuestion().addAll(listValidQuestions);
+	}
+
+	/**
+	 * @param actionEvent
+	 */
+	public void addNewQuestionRow(ActionEvent actionEvent) {
+		listQuestions.add(new Question());
+	}
+
+	/**
+	 * @param actionEvent
+	 */
+	public void deleteQuestionRow(ActionEvent actionEvent) {
+		String rowIndex = (String) FacesContext.getCurrentInstance()
+				.getExternalContext().getRequestParameterMap().get(
+						"deleteRowIndex");
+
+		int index = Integer.parseInt(rowIndex);
+		Question question = listQuestions.get(index);
+		listQuestions.remove(index);
+
 		/*
-		UIParameter component = (UIParameter) actionEvent.getComponent().findComponent("editId");
-		// parse the value of the UIParameter component    	 
-		long id = Long.parseLong(component.getValue().toString());
-		 */
+			TaskService taskService = (TaskService) BeanHelper
+					.getBean("taskService");
+
+			if (task.getId() != null && task.getId() > 0) {
+				taskService.delete(task);
+			}*/
 	}
 
 }

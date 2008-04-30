@@ -5,12 +5,14 @@ import javax.faces.context.FacesContext;
 
 import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
+import org.apache.commons.lang.StringUtils;
 
 import com.oreon.kgauge.domain.ExamCreator;
 import com.oreon.kgauge.service.ExamCreatorService;
 
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 import org.witchcraft.model.support.Range;
 
 /**
@@ -76,6 +78,11 @@ public class ExamCreatorBackingBeanBase extends BaseBackingBean<ExamCreator> {
 		return getExamCreator();
 	}
 
+	public void reset() {
+		examCreator = new ExamCreator();
+
+	}
+
 	@Override
 	protected List<Range> getRangeList() {
 
@@ -87,24 +94,8 @@ public class ExamCreatorBackingBeanBase extends BaseBackingBean<ExamCreator> {
 		return listRanges;
 	}
 
-	/** This action Listener Method is called when a row is clicked in the dataTable
-	 *  
-	 * @param event contains the database id of the row being selected 
-	 */
-	public void selectEntity(ActionEvent actionEvent) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		String idStr = (String) ctx.getExternalContext()
-				.getRequestParameterMap().get("id");
-		long id = Long.parseLong(idStr);
+	protected void reloadFromId(long id) {
 		examCreator = examCreatorService.load(id);
-		if (actionEvent.getComponent().getId() == "deleteId") {
-			getBaseService().delete(examCreator);
-		}
-		/*
-		UIParameter component = (UIParameter) actionEvent.getComponent().findComponent("editId");
-		// parse the value of the UIParameter component    	 
-		long id = Long.parseLong(component.getValue().toString());
-		 */
 	}
 
 }

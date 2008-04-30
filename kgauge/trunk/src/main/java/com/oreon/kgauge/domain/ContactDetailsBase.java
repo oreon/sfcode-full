@@ -126,6 +126,4 @@ public abstract class ContactDetailsBase implements java.io.Serializable {
 		this.email = email;
 	}
 
-	public abstract ContactDetails contactDetailsInstance();
-
 }

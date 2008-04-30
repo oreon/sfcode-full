@@ -1,18 +1,17 @@
 		
-	
-	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:s="http://myfaces.apache.org/sandbox"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
-	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
-	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
-	template="/WEB-INF/template/templateCrud.xhtml">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+template="/WEB-INF/template/templateCrud.xhtml">
 	
 	<ui:define name="content">
 		<f:view>
@@ -34,7 +33,7 @@
 		<t:commandLink actionListener="#{examInstanceCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="candidate.displayName" />
 			<!-- <t:commandSortHeader columnName="" arrow="true"> -->
-				<t:outputText value="Candidate" /> 
+				<t:outputText value="#{msg.Candidate}" /> 
 			<!-- </t:commandSortHeader> -->
 		</t:commandLink>	
 		</f:facet>
@@ -46,7 +45,7 @@
 		<t:commandLink actionListener="#{examInstanceCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="exam.displayName" />
 			<!-- <t:commandSortHeader columnName="" arrow="true"> -->
-				<t:outputText value="Exam" /> 
+				<t:outputText value="#{msg.Exam}" /> 
 			<!-- </t:commandSortHeader> -->
 		</t:commandLink>	
 		</f:facet>
@@ -101,7 +100,7 @@
 							 
 							 <rich:tab label="Audit" >
 							 	<t:dataTable id="dataAudit" var="log"
-							value="#{productCrudBacking.auditLog}" rows="30"
+							value="#{examInstanceCrudBacking.auditLog}" rows="30"
 							rowClasses="odd, even" styleClass="dataTable">
 							
 							<t:column>
@@ -138,11 +137,13 @@
   						 </a4j:form>
 						<br />
 						
-						<a4j:form>
-							<h:commandLink action="addNew" value="Add New"/>
-							<h:outputText value="   "/>
-							<h:commandLink action="search" value="Search "/>
-						</a4j:form>
+			<a4j:form id="commands" >
+			 	<h:commandLink action="#{examInstanceCrudBacking.select}"
+					actionListener="#{examInstanceCrudBacking.selectEntity}" value="Add New" />  
+				<h:commandLink action="#{examInstanceCrudBacking.search}"
+					actionListener="#{examInstanceCrudBacking.reset}" value="Search" />
+			</a4j:form>	
+			
 				</f:view>
 		</ui:define>
 </ui:composition>

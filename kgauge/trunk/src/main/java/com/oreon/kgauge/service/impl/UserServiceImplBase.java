@@ -7,18 +7,25 @@
 
 package com.oreon.kgauge.service.impl;
 
-import java.util.List;
-
-import org.apache.log4j.Logger;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.witchcraft.model.support.Range;
-import org.witchcraft.model.support.dao.GenericDAO;
-import org.witchcraft.model.support.service.BaseServiceImpl;
-
-import com.oreon.kgauge.dao.UserDao;
 import com.oreon.kgauge.domain.User;
 import com.oreon.kgauge.service.UserService;
+import com.oreon.kgauge.dao.UserDao;
+import java.util.List;
+
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Propagation;
+
+import org.apache.log4j.Logger;
+
+import org.witchcraft.model.support.dao.GenericDAO;
+import org.witchcraft.model.support.errorhandling.BusinessException;
+import org.witchcraft.model.support.service.BaseServiceImpl;
+
+import javax.jws.WebService;
+
+import org.witchcraft.model.support.Range;
+
+import com.oreon.kgauge.domain.GrantedRole;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 public class UserServiceImplBase extends BaseServiceImpl<User>

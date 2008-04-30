@@ -90,8 +90,6 @@ public abstract class PersonBase
 		this.contactDetails = contactDetails;
 	}
 
-	public abstract Person personInstance();
-
 	@Transient
 	public String getDisplayName() {
 		return lastName + ", " + firstName + "";

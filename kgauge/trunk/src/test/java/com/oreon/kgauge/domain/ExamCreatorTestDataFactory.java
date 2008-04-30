@@ -50,20 +50,20 @@ public class ExamCreatorTestDataFactory
 
 		try {
 
-			examCreator.setFirstName("theta");
-			examCreator.setLastName("zeta");
+			examCreator.setFirstName("Malissa");
+			examCreator.setLastName("pi");
 			examCreator.setDateOfBirth(dateFormat
-					.parse("2008.03.17 23:25:18 EDT"));
-			examCreator.getUser().setUsername("Lavendar25390");
+					.parse("2008.05.10 05:14:15 EDT"));
+			examCreator.getUser().setUsername("Mark18045");
 			examCreator.getUser().setPassword("Mark");
-			examCreator.getUser().setEnabled(false);
-			examCreator.getContactDetails().setStreetAddress("epsilon");
-			examCreator.getContactDetails().setCity("Wilson");
-			examCreator.getContactDetails().setState("pi");
-			examCreator.getContactDetails().setCountry("Malissa");
-			examCreator.getContactDetails().setZip("Mark");
-			examCreator.getContactDetails().setPhone("Eric");
-			examCreator.getContactDetails().setEmail("epsilon3515");
+			examCreator.getUser().setEnabled(true);
+			examCreator.getContactDetails().setStreetAddress("gamma");
+			examCreator.getContactDetails().setCity("delta");
+			examCreator.getContactDetails().setState("Lavendar");
+			examCreator.getContactDetails().setCountry("epsilon");
+			examCreator.getContactDetails().setZip("John");
+			examCreator.getContactDetails().setPhone("pi");
+			examCreator.getContactDetails().setEmail("Malissa31231");
 
 			register(examCreator);
 
@@ -79,20 +79,20 @@ public class ExamCreatorTestDataFactory
 
 		try {
 
-			examCreator.setFirstName("beta");
-			examCreator.setLastName("alpha");
+			examCreator.setFirstName("epsilon");
+			examCreator.setLastName("delta");
 			examCreator.setDateOfBirth(dateFormat
-					.parse("2008.03.18 20:08:38 EDT"));
-			examCreator.getUser().setUsername("Malissa56344");
-			examCreator.getUser().setPassword("John");
-			examCreator.getUser().setEnabled(true);
-			examCreator.getContactDetails().setStreetAddress("Wilson");
-			examCreator.getContactDetails().setCity("gamma");
+					.parse("2008.05.12 21:03:42 EDT"));
+			examCreator.getUser().setUsername("zeta67158");
+			examCreator.getUser().setPassword("Lavendar");
+			examCreator.getUser().setEnabled(false);
+			examCreator.getContactDetails().setStreetAddress("delta");
+			examCreator.getContactDetails().setCity("zeta");
 			examCreator.getContactDetails().setState("Wilson");
-			examCreator.getContactDetails().setCountry("gamma");
-			examCreator.getContactDetails().setZip("John");
+			examCreator.getContactDetails().setCountry("epsilon");
+			examCreator.getContactDetails().setZip("beta");
 			examCreator.getContactDetails().setPhone("Mark");
-			examCreator.getContactDetails().setEmail("beta59539");
+			examCreator.getContactDetails().setEmail("epsilon83329");
 
 			register(examCreator);
 
@@ -108,20 +108,20 @@ public class ExamCreatorTestDataFactory
 
 		try {
 
-			examCreator.setFirstName("theta");
-			examCreator.setLastName("gamma");
+			examCreator.setFirstName("gamma");
+			examCreator.setLastName("delta");
 			examCreator.setDateOfBirth(dateFormat
-					.parse("2008.03.29 01:14:45 EDT"));
-			examCreator.getUser().setUsername("gamma8291");
-			examCreator.getUser().setPassword("zeta");
-			examCreator.getUser().setEnabled(false);
-			examCreator.getContactDetails().setStreetAddress("delta");
-			examCreator.getContactDetails().setCity("John");
-			examCreator.getContactDetails().setState("epsilon");
-			examCreator.getContactDetails().setCountry("pi");
-			examCreator.getContactDetails().setZip("alpha");
-			examCreator.getContactDetails().setPhone("John");
-			examCreator.getContactDetails().setEmail("zeta20223");
+					.parse("2008.05.23 09:12:37 EDT"));
+			examCreator.getUser().setUsername("theta346");
+			examCreator.getUser().setPassword("epsilon");
+			examCreator.getUser().setEnabled(true);
+			examCreator.getContactDetails().setStreetAddress("pi");
+			examCreator.getContactDetails().setCity("epsilon");
+			examCreator.getContactDetails().setState("Lavendar");
+			examCreator.getContactDetails().setCountry("Lavendar");
+			examCreator.getContactDetails().setZip("Lavendar");
+			examCreator.getContactDetails().setPhone("Lavendar");
+			examCreator.getContactDetails().setEmail("theta39426");
 
 			register(examCreator);
 
@@ -137,20 +137,20 @@ public class ExamCreatorTestDataFactory
 
 		try {
 
-			examCreator.setFirstName("Eric");
-			examCreator.setLastName("delta");
+			examCreator.setFirstName("Lavendar");
+			examCreator.setLastName("pi");
 			examCreator.setDateOfBirth(dateFormat
-					.parse("2008.03.25 16:37:33 EDT"));
-			examCreator.getUser().setUsername("pi28786");
-			examCreator.getUser().setPassword("Malissa");
+					.parse("2008.05.11 20:16:29 EDT"));
+			examCreator.getUser().setUsername("Lavendar39884");
+			examCreator.getUser().setPassword("epsilon");
 			examCreator.getUser().setEnabled(true);
-			examCreator.getContactDetails().setStreetAddress("alpha");
-			examCreator.getContactDetails().setCity("pi");
-			examCreator.getContactDetails().setState("alpha");
-			examCreator.getContactDetails().setCountry("alpha");
-			examCreator.getContactDetails().setZip("beta");
-			examCreator.getContactDetails().setPhone("pi");
-			examCreator.getContactDetails().setEmail("delta71323");
+			examCreator.getContactDetails().setStreetAddress("pi");
+			examCreator.getContactDetails().setCity("Mark");
+			examCreator.getContactDetails().setState("Lavendar");
+			examCreator.getContactDetails().setCountry("epsilon");
+			examCreator.getContactDetails().setZip("epsilon");
+			examCreator.getContactDetails().setPhone("Malissa");
+			examCreator.getContactDetails().setEmail("pi55995");
 
 			register(examCreator);
 
@@ -166,20 +166,20 @@ public class ExamCreatorTestDataFactory
 
 		try {
 
-			examCreator.setFirstName("delta");
-			examCreator.setLastName("delta");
+			examCreator.setFirstName("zeta");
+			examCreator.setLastName("epsilon");
 			examCreator.setDateOfBirth(dateFormat
-					.parse("2008.04.06 11:40:20 EDT"));
-			examCreator.getUser().setUsername("beta18247");
-			examCreator.getUser().setPassword("Lavendar");
-			examCreator.getUser().setEnabled(true);
-			examCreator.getContactDetails().setStreetAddress("epsilon");
-			examCreator.getContactDetails().setCity("alpha");
-			examCreator.getContactDetails().setState("Malissa");
-			examCreator.getContactDetails().setCountry("Mark");
-			examCreator.getContactDetails().setZip("Wilson");
-			examCreator.getContactDetails().setPhone("gamma");
-			examCreator.getContactDetails().setEmail("zeta10286");
+					.parse("2008.04.18 16:25:20 EDT"));
+			examCreator.getUser().setUsername("gamma99336");
+			examCreator.getUser().setPassword("John");
+			examCreator.getUser().setEnabled(false);
+			examCreator.getContactDetails().setStreetAddress("Lavendar");
+			examCreator.getContactDetails().setCity("zeta");
+			examCreator.getContactDetails().setState("Wilson");
+			examCreator.getContactDetails().setCountry("Eric");
+			examCreator.getContactDetails().setZip("John");
+			examCreator.getContactDetails().setPhone("pi");
+			examCreator.getContactDetails().setEmail("Wilson35983");
 
 			register(examCreator);
 
@@ -268,7 +268,7 @@ public class ExamCreatorTestDataFactory
 		examCreator.getUser()
 				.setEnabled(
 						(Boolean) RandomValueGeneratorFactory
-								.createInstance("Boolean"));
+								.createInstance("boolean"));
 		examCreator.getContactDetails().setStreetAddress(
 				(String) RandomValueGeneratorFactory.createInstance("String"));
 		examCreator.getContactDetails().setCity(

@@ -1,17 +1,16 @@
-		
-	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:s="http://myfaces.apache.org/sandbox"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
-	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
-	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
-	template="/WEB-INF/template/templateCrud.xhtml">
+		<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+template="/WEB-INF/template/templateCrud.xhtml">
 	
 	
 	
@@ -58,7 +57,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="AnswerChoice.answerText" />
+	<h:outputText value="#{msg.answerChoice_answerText}" />
 	<h:outputText value="*" />
 </h:panelGroup>
 
@@ -90,7 +89,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="AnswerChoice.score" />
+	<h:outputText value="#{msg.answerChoice_score}" />
 	<h:outputText value="" />
 </h:panelGroup>
 
@@ -117,16 +116,9 @@
 
 							
 	
-					<f:facet name="footer">
-  						<h:panelGroup>
-  						   <h:commandButton id="button1" value="Submit" action="#{answerChoiceCrudBacking.update}"  styleClass="btn" /> 
-  						   <h:outputText value=" " />
-  						    <h:commandButton id="button2" value="Cancel" action="success" immediate="true" styleClass="btn"/> 
-  				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
-		  				   	<h:inputHidden id="answerChoice_id" value="#{answerChoiceCrudBacking.answerChoice.id}" />
-		  				   	
-						 </h:panelGroup>
-  					</f:facet>
+				
+  						
+  				
 			</h:panelGrid>
 						<br/>
 						
@@ -134,6 +126,18 @@
 			
 						
 				</rich:panel>
+				
+				<h:panelGrid columns="2">
+				<h:panelGroup>
+  					<h:commandButton id="button1" value="Submit" action="#{answerChoiceCrudBacking.update}"  styleClass="btn" /> 
+  					<h:outputText value=" " />
+  					<h:commandButton id="button2" value="Cancel" action="success" immediate="true" styleClass="btn"/> 
+  				   	<!-- We need to have a hidden text field to store the id of the record being edited -->		
+		  			<h:inputHidden id="answerChoice_id" value="#{answerChoiceCrudBacking.answerChoice.id}" />
+  				   	
+				 </h:panelGroup>
+				</h:panelGrid>
+				
 			</a4j:form>
 		</f:view>
 

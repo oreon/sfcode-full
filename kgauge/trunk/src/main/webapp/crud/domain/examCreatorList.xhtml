@@ -1,18 +1,17 @@
 		
-	
-	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:s="http://myfaces.apache.org/sandbox"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
-	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
-	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
-	template="/WEB-INF/template/templateCrud.xhtml">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+template="/WEB-INF/template/templateCrud.xhtml">
 	
 	<ui:define name="content">
 		<f:view>
@@ -31,7 +30,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCreatorCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="FirstName" />
-				<t:outputText value="FirstName" /> 
+				<t:outputText value="#{msg.person_firstName}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{examCreator.firstName}" />
@@ -41,7 +40,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCreatorCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="LastName" />
-				<t:outputText value="LastName" /> 
+				<t:outputText value="#{msg.person_lastName}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{examCreator.lastName}" />
@@ -51,7 +50,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCreatorCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="DateOfBirth" />
-				<t:outputText value="DateOfBirth" /> 
+				<t:outputText value="#{msg.person_dateOfBirth}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{examCreator.dateOfBirth}" />
@@ -61,7 +60,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCreatorCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Username" />
-				<t:outputText value="Username" /> 
+				<t:outputText value="#{msg.user_username}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{examCreator.user.username}" />
@@ -71,7 +70,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCreatorCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Password" />
-				<t:outputText value="Password" /> 
+				<t:outputText value="#{msg.user_password}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{examCreator.user.password}" />
@@ -81,7 +80,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCreatorCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Enabled" />
-				<t:outputText value="Enabled" /> 
+				<t:outputText value="#{msg.user_enabled}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{examCreator.user.enabled}" />
@@ -91,7 +90,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCreatorCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="StreetAddress" />
-				<t:outputText value="StreetAddress" /> 
+				<t:outputText value="#{msg.contactDetails_streetAddress}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{examCreator.contactDetails.streetAddress}" />
@@ -101,7 +100,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCreatorCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="City" />
-				<t:outputText value="City" /> 
+				<t:outputText value="#{msg.contactDetails_city}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{examCreator.contactDetails.city}" />
@@ -111,7 +110,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCreatorCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="State" />
-				<t:outputText value="State" /> 
+				<t:outputText value="#{msg.contactDetails_state}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{examCreator.contactDetails.state}" />
@@ -121,7 +120,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCreatorCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Country" />
-				<t:outputText value="Country" /> 
+				<t:outputText value="#{msg.contactDetails_country}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{examCreator.contactDetails.country}" />
@@ -131,7 +130,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCreatorCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Zip" />
-				<t:outputText value="Zip" /> 
+				<t:outputText value="#{msg.contactDetails_zip}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{examCreator.contactDetails.zip}" />
@@ -141,7 +140,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCreatorCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Phone" />
-				<t:outputText value="Phone" /> 
+				<t:outputText value="#{msg.contactDetails_phone}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{examCreator.contactDetails.phone}" />
@@ -151,7 +150,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCreatorCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Email" />
-				<t:outputText value="Email" /> 
+				<t:outputText value="#{msg.contactDetails_email}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{examCreator.contactDetails.email}" />
@@ -207,7 +206,7 @@
 							 
 							 <rich:tab label="Audit" >
 							 	<t:dataTable id="dataAudit" var="log"
-							value="#{productCrudBacking.auditLog}" rows="30"
+							value="#{examCreatorCrudBacking.auditLog}" rows="30"
 							rowClasses="odd, even" styleClass="dataTable">
 							
 							<t:column>
@@ -242,7 +241,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="FirstName" />
-				<t:outputText value="FirstName" /> 
+				<t:outputText value="#{msg.person_firstName}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{log.entity.firstName}" />
@@ -252,7 +251,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="LastName" />
-				<t:outputText value="LastName" /> 
+				<t:outputText value="#{msg.person_lastName}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{log.entity.lastName}" />
@@ -262,7 +261,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="DateOfBirth" />
-				<t:outputText value="DateOfBirth" /> 
+				<t:outputText value="#{msg.person_dateOfBirth}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{log.entity.dateOfBirth}" />
@@ -272,7 +271,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Username" />
-				<t:outputText value="Username" /> 
+				<t:outputText value="#{msg.user_username}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{log.entity.user.username}" />
@@ -282,7 +281,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Password" />
-				<t:outputText value="Password" /> 
+				<t:outputText value="#{msg.user_password}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{log.entity.user.password}" />
@@ -292,7 +291,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Enabled" />
-				<t:outputText value="Enabled" /> 
+				<t:outputText value="#{msg.user_enabled}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{log.entity.user.enabled}" />
@@ -302,7 +301,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="StreetAddress" />
-				<t:outputText value="StreetAddress" /> 
+				<t:outputText value="#{msg.contactDetails_streetAddress}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{log.entity.contactDetails.streetAddress}" />
@@ -312,7 +311,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="City" />
-				<t:outputText value="City" /> 
+				<t:outputText value="#{msg.contactDetails_city}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{log.entity.contactDetails.city}" />
@@ -322,7 +321,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="State" />
-				<t:outputText value="State" /> 
+				<t:outputText value="#{msg.contactDetails_state}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{log.entity.contactDetails.state}" />
@@ -332,7 +331,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Country" />
-				<t:outputText value="Country" /> 
+				<t:outputText value="#{msg.contactDetails_country}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{log.entity.contactDetails.country}" />
@@ -342,7 +341,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Zip" />
-				<t:outputText value="Zip" /> 
+				<t:outputText value="#{msg.contactDetails_zip}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{log.entity.contactDetails.zip}" />
@@ -352,7 +351,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Phone" />
-				<t:outputText value="Phone" /> 
+				<t:outputText value="#{msg.contactDetails_phone}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{log.entity.contactDetails.phone}" />
@@ -362,7 +361,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Email" />
-				<t:outputText value="Email" /> 
+				<t:outputText value="#{msg.contactDetails_email}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{log.entity.contactDetails.email}" />
@@ -374,11 +373,13 @@
   						 </a4j:form>
 						<br />
 						
-						<a4j:form>
-							<h:commandLink action="addNew" value="Add New"/>
-							<h:outputText value="   "/>
-							<h:commandLink action="search" value="Search "/>
-						</a4j:form>
+			<a4j:form id="commands" >
+			 	<h:commandLink action="#{examCreatorCrudBacking.select}"
+					actionListener="#{examCreatorCrudBacking.selectEntity}" value="Add New" />  
+				<h:commandLink action="#{examCreatorCrudBacking.search}"
+					actionListener="#{examCreatorCrudBacking.reset}" value="Search" />
+			</a4j:form>	
+			
 				</f:view>
 		</ui:define>
 </ui:composition>

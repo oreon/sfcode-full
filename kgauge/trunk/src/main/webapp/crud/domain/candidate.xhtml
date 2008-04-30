@@ -1,17 +1,16 @@
-		
-	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:s="http://myfaces.apache.org/sandbox"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
-	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
-	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
-	template="/WEB-INF/template/templateCrud.xhtml">
+		<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+template="/WEB-INF/template/templateCrud.xhtml">
 	
 	
 	
@@ -34,7 +33,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Candidate.firstName" />
+	<h:outputText value="#{msg.person_firstName}" />
 	<h:outputText value="*" />
 </h:panelGroup>
 
@@ -66,7 +65,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Candidate.lastName" />
+	<h:outputText value="#{msg.person_lastName}" />
 	<h:outputText value="*" />
 </h:panelGroup>
 
@@ -98,7 +97,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Candidate.dateOfBirth" />
+	<h:outputText value="#{msg.person_dateOfBirth}" />
 	<h:outputText value="*" />
 </h:panelGroup>
 
@@ -130,7 +129,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Candidate.username" />
+	<h:outputText value="#{msg.user_username}" />
 	<h:outputText value="*" />
 </h:panelGroup>
 
@@ -162,7 +161,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Candidate.password" />
+	<h:outputText value="#{msg.user_password}" />
 	<h:outputText value="*" />
 </h:panelGroup>
 
@@ -191,7 +190,7 @@
 			
 <h:panelGroup>
 	<h:outputText value="Repeat "/>
-	<h:outputText value="Candidate.password" />
+	<h:outputText value="#{msg.user_password}" />
 	<h:outputText value="*" />
 </h:panelGroup>
 
@@ -203,8 +202,9 @@
 		id="candidate_user_repeatPassword"
 		value="#{candidateCrudBacking.repeatPassword}">
 		
-		<f:validateLength minimum="5" maximum="12"/>
 		<t:validateEqual for="candidate_user_password" />
+		<f:validateLength minimum="5" maximum="12"/>							
+		<a4j:support event="onblur" reRender="candidate_user_password" />
 	</h:inputSecret>
 	
 	<rich:message for="candidate_user_repeatPassword"
@@ -223,7 +223,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Candidate.enabled" />
+	<h:outputText value="#{msg.user_enabled}" />
 	<h:outputText value="" />
 </h:panelGroup>
 
@@ -255,7 +255,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Candidate.streetAddress" />
+	<h:outputText value="#{msg.contactDetails_streetAddress}" />
 	<h:outputText value="" />
 </h:panelGroup>
 
@@ -287,7 +287,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Candidate.city" />
+	<h:outputText value="#{msg.contactDetails_city}" />
 	<h:outputText value="" />
 </h:panelGroup>
 
@@ -319,7 +319,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Candidate.state" />
+	<h:outputText value="#{msg.contactDetails_state}" />
 	<h:outputText value="" />
 </h:panelGroup>
 
@@ -351,7 +351,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Candidate.country" />
+	<h:outputText value="#{msg.contactDetails_country}" />
 	<h:outputText value="*" />
 </h:panelGroup>
 
@@ -383,7 +383,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Candidate.zip" />
+	<h:outputText value="#{msg.contactDetails_zip}" />
 	<h:outputText value="" />
 </h:panelGroup>
 
@@ -415,7 +415,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Candidate.phone" />
+	<h:outputText value="#{msg.contactDetails_phone}" />
 	<h:outputText value="" />
 </h:panelGroup>
 
@@ -447,7 +447,7 @@
 		
 <h:panelGroup>
 	<h:outputText value=""/>
-	<h:outputText value="Candidate.email" />
+	<h:outputText value="#{msg.contactDetails_email}" />
 	<h:outputText value="*" />
 </h:panelGroup>
 
@@ -474,17 +474,9 @@
 
 							
 	
-					<f:facet name="footer">
-  						<h:panelGroup>
-  						   <h:commandButton id="button1" value="Submit" action="#{candidateCrudBacking.update}"  styleClass="btn" /> 
-  						   <h:outputText value=" " />
-  						    <h:commandButton id="button2" value="Cancel" action="success" immediate="true" styleClass="btn"/> 
-  				   			<!-- We need to have a hidden text field to store the id of the record being edited -->		
-		  				   	<h:inputHidden id="candidate_id" value="#{candidateCrudBacking.candidate.id}" />
-		  				   	
-								<h:inputHidden id="user_id" value="#{candidateCrudBacking.candidate.user.id}" />
-						 </h:panelGroup>
-  					</f:facet>
+				
+  						
+  				
 			</h:panelGrid>
 						<br/>
 						
@@ -492,6 +484,19 @@
 			
 						
 				</rich:panel>
+				
+				<h:panelGrid columns="2">
+				<h:panelGroup>
+  					<h:commandButton id="button1" value="Submit" action="#{candidateCrudBacking.update}"  styleClass="btn" /> 
+  					<h:outputText value=" " />
+  					<h:commandButton id="button2" value="Cancel" action="success" immediate="true" styleClass="btn"/> 
+  				   	<!-- We need to have a hidden text field to store the id of the record being edited -->		
+		  			<h:inputHidden id="candidate_id" value="#{candidateCrudBacking.candidate.id}" />
+  				   	
+					<h:inputHidden id="user_id" value="#{candidateCrudBacking.candidate.user.id}" />
+				 </h:panelGroup>
+				</h:panelGrid>
+				
 			</a4j:form>
 		</f:view>
 

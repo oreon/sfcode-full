@@ -48,14 +48,15 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setDescription("epsilon");
-			exam.setName("zeta");
-			exam.setQuestions(5640);
-			exam.setDuration(3918);
-			exam.setPrice(47.64);
+			exam.setExamNumber("delta");
+			exam.setName("beta");
+			exam.setDescription("Eric");
+			exam.setQuestions(4927);
+			exam.setDuration(6135);
+			exam.setPrice(97.06);
 			exam
 					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
-			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
+			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -85,11 +86,12 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setDescription("Wilson");
-			exam.setName("Eric");
-			exam.setQuestions(4187);
-			exam.setDuration(8858);
-			exam.setPrice(97.53);
+			exam.setExamNumber("theta");
+			exam.setName("theta");
+			exam.setDescription("theta");
+			exam.setQuestions(6545);
+			exam.setDuration(6117);
+			exam.setPrice(47.49);
 			exam
 					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
 			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
@@ -122,14 +124,15 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setDescription("epsilon");
-			exam.setName("John");
-			exam.setQuestions(4085);
-			exam.setDuration(3262);
-			exam.setPrice(28.92);
+			exam.setExamNumber("delta");
+			exam.setName("Mark");
+			exam.setDescription("Malissa");
+			exam.setQuestions(9033);
+			exam.setDuration(7439);
+			exam.setPrice(71.86);
 			exam
-					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
-			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
+					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
+			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -159,14 +162,15 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setDescription("John");
-			exam.setName("Eric");
-			exam.setQuestions(9678);
-			exam.setDuration(4774);
-			exam.setPrice(35.26);
+			exam.setExamNumber("theta");
+			exam.setName("Lavendar");
+			exam.setDescription("Eric");
+			exam.setQuestions(107);
+			exam.setDuration(8979);
+			exam.setPrice(38.0);
 			exam
 					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
-			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
+			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -196,14 +200,15 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setDescription("Wilson");
-			exam.setName("delta");
-			exam.setQuestions(5858);
-			exam.setDuration(8163);
-			exam.setPrice(62.36);
+			exam.setExamNumber("Malissa");
+			exam.setName("theta");
+			exam.setDescription("pi");
+			exam.setQuestions(6282);
+			exam.setDuration(5085);
+			exam.setPrice(78.08);
 			exam
-					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
-			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
+					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
+			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -293,9 +298,11 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 	public Exam createRandomExam() {
 		Exam exam = new Exam();
 
-		exam.setDescription((String) RandomValueGeneratorFactory
+		exam.setExamNumber((String) RandomValueGeneratorFactory
 				.createInstance("String"));
 		exam.setName((String) RandomValueGeneratorFactory
+				.createInstance("String"));
+		exam.setDescription((String) RandomValueGeneratorFactory
 				.createInstance("String"));
 		exam.setQuestions((Integer) RandomValueGeneratorFactory
 				.createInstance("Integer"));

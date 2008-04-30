@@ -1,18 +1,17 @@
 		
-	
-	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:s="http://myfaces.apache.org/sandbox"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
-	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
-	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
-	template="/WEB-INF/template/templateCrud.xhtml">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+template="/WEB-INF/template/templateCrud.xhtml">
 	
 	<ui:define name="content">
 		<f:view>
@@ -30,18 +29,18 @@
 	<t:column>
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Description" />
-				<t:outputText value="Description" /> 
+				<f:attribute name="sortField" value="ExamNumber" />
+				<t:outputText value="#{msg.exam_examNumber}" /> 
 			</t:commandLink>		
 		</f:facet>
-		<t:outputText value="#{exam.description}" />
+		<t:outputText value="#{exam.examNumber}" />
 	</t:column>
 
 	<t:column>
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Name" />
-				<t:outputText value="Name" /> 
+				<t:outputText value="#{msg.exam_name}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{exam.name}" />
@@ -50,8 +49,18 @@
 	<t:column>
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="Description" />
+				<t:outputText value="#{msg.exam_description}" /> 
+			</t:commandLink>		
+		</f:facet>
+		<t:outputText value="#{exam.description}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Questions" />
-				<t:outputText value="Questions" /> 
+				<t:outputText value="#{msg.exam_questions}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{exam.questions}" />
@@ -61,7 +70,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Duration" />
-				<t:outputText value="Duration" /> 
+				<t:outputText value="#{msg.exam_duration}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{exam.duration}" />
@@ -71,7 +80,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Price" />
-				<t:outputText value="Price" /> 
+				<t:outputText value="#{msg.exam_price}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{exam.price}" />
@@ -81,7 +90,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="ScoringStrategy" />
-				<t:outputText value="ScoringStrategy" /> 
+				<t:outputText value="#{msg.exam_scoringStrategy}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{exam.scoringStrategy}" />
@@ -91,7 +100,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="ExamStatus" />
-				<t:outputText value="ExamStatus" /> 
+				<t:outputText value="#{msg.exam_examStatus}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{exam.examStatus}" />
@@ -104,7 +113,7 @@
 		<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="examCreator.displayName" />
 			<!-- <t:commandSortHeader columnName="" arrow="true"> -->
-				<t:outputText value="ExamCreator" /> 
+				<t:outputText value="#{msg.ExamCreator}" /> 
 			<!-- </t:commandSortHeader> -->
 		</t:commandLink>	
 		</f:facet>
@@ -159,7 +168,7 @@
 							 
 							 <rich:tab label="Audit" >
 							 	<t:dataTable id="dataAudit" var="log"
-							value="#{productCrudBacking.auditLog}" rows="30"
+							value="#{examCrudBacking.auditLog}" rows="30"
 							rowClasses="odd, even" styleClass="dataTable">
 							
 							<t:column>
@@ -193,18 +202,18 @@
 	<t:column>
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Description" />
-				<t:outputText value="Description" /> 
+				<f:attribute name="sortField" value="ExamNumber" />
+				<t:outputText value="#{msg.exam_examNumber}" /> 
 			</t:commandLink>		
 		</f:facet>
-		<t:outputText value="#{log.entity.description}" />
+		<t:outputText value="#{log.entity.examNumber}" />
 	</t:column>
 
 	<t:column>
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Name" />
-				<t:outputText value="Name" /> 
+				<t:outputText value="#{msg.exam_name}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{log.entity.name}" />
@@ -213,8 +222,18 @@
 	<t:column>
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
+				<f:attribute name="sortField" value="Description" />
+				<t:outputText value="#{msg.exam_description}" /> 
+			</t:commandLink>		
+		</f:facet>
+		<t:outputText value="#{log.entity.description}" />
+	</t:column>
+
+	<t:column>
+		<f:facet name="header">
+			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Questions" />
-				<t:outputText value="Questions" /> 
+				<t:outputText value="#{msg.exam_questions}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{log.entity.questions}" />
@@ -224,7 +243,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Duration" />
-				<t:outputText value="Duration" /> 
+				<t:outputText value="#{msg.exam_duration}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{log.entity.duration}" />
@@ -234,7 +253,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="Price" />
-				<t:outputText value="Price" /> 
+				<t:outputText value="#{msg.exam_price}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{log.entity.price}" />
@@ -244,7 +263,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="ScoringStrategy" />
-				<t:outputText value="ScoringStrategy" /> 
+				<t:outputText value="#{msg.exam_scoringStrategy}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{log.entity.scoringStrategy}" />
@@ -254,7 +273,7 @@
 		<f:facet name="header">
 			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
 				<f:attribute name="sortField" value="ExamStatus" />
-				<t:outputText value="ExamStatus" /> 
+				<t:outputText value="#{msg.exam_examStatus}" /> 
 			</t:commandLink>		
 		</f:facet>
 		<t:outputText value="#{log.entity.examStatus}" />
@@ -266,11 +285,13 @@
   						 </a4j:form>
 						<br />
 						
-						<a4j:form>
-							<h:commandLink action="addNew" value="Add New"/>
-							<h:outputText value="   "/>
-							<h:commandLink action="search" value="Search "/>
-						</a4j:form>
+			<a4j:form id="commands" >
+			 	<h:commandLink action="#{examCrudBacking.select}"
+					actionListener="#{examCrudBacking.selectEntity}" value="Add New" />  
+				<h:commandLink action="#{examCrudBacking.search}"
+					actionListener="#{examCrudBacking.reset}" value="Search" />
+			</a4j:form>	
+			
 				</f:view>
 		</ui:define>
 </ui:composition>

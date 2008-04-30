@@ -4,6 +4,7 @@
 <faces-config>
 
 	<!--  Spring variable resolver -->
+	<!--  
 	<application>
 		<variable-resolver>
 			org.springframework.web.jsf.DelegatingVariableResolver
@@ -21,6 +22,44 @@
 		<view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
 
 	</application>
+	-->
+	
+	<!--  Spring variable resolver -->
+	<application>
+		<variable-resolver>
+			org.springframework.web.jsf.DelegatingVariableResolver
+		</variable-resolver>
+		<locale-config>
+			<default-locale>en_US</default-locale>
+			<supported-locale>en_US</supported-locale>
+			<supported-locale>de</supported-locale>
+			<supported-locale>fr</supported-locale>
+		</locale-config>
+		<message-bundle>messages</message-bundle>
+	</application>
+
+	
+	<!--  Preconfigured beans for Locale support, Authentication etc -->
+
+	<managed-bean>
+		<managed-bean-name>authenticationController</managed-bean-name>
+		<managed-bean-class>
+			org.witchcraft.model.support.jsfbackingbeans.AuthenticationController
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>authenticationManager</property-name>
+			<value>#{authenticationManager}</value>
+		</managed-property>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>localeChooserBean</managed-bean-name>
+		<managed-bean-class>
+			org.witchcraft.model.support.jsfbackingbeans.LocaleChooserBackingBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 
 	<!-- A converter for combo boxes (selectOneMenus ) to convert objects to and from ids -->
 	<converter>

@@ -7,19 +7,25 @@
 
 package com.oreon.kgauge.service.impl;
 
+import com.oreon.kgauge.domain.ExamCreator;
+import com.oreon.kgauge.service.ExamCreatorService;
+import com.oreon.kgauge.dao.ExamCreatorDao;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.witchcraft.model.support.Range;
+import org.springframework.transaction.annotation.Propagation;
+
+import org.apache.log4j.Logger;
+
 import org.witchcraft.model.support.dao.GenericDAO;
+import org.witchcraft.model.support.errorhandling.BusinessException;
 import org.witchcraft.model.support.service.BaseServiceImpl;
 
-import com.oreon.kgauge.dao.ExamCreatorDao;
-import com.oreon.kgauge.domain.ExamCreator;
+import javax.jws.WebService;
+
+import org.witchcraft.model.support.Range;
+
 import com.oreon.kgauge.domain.GrantedRole;
-import com.oreon.kgauge.service.ExamCreatorService;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 public class ExamCreatorServiceImplBase extends BaseServiceImpl<ExamCreator>

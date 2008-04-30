@@ -14,10 +14,10 @@ public class Exam extends ExamBase {
 	}
 
 	/* Constructor with all attributes */
-	public Exam(String description, String name, Integer questions,
+	public Exam(String examNumber, String description, String name, Integer questions,
 			Integer duration, Double price, ScoringType scoringStrategy,
 			ExamStatus examStatus) {
-		super(description, name, questions, duration, price, scoringStrategy,
+		super(examNumber, description, name, questions, duration, price, scoringStrategy,
 				examStatus);
 	}
 

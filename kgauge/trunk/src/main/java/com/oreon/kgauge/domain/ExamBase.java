@@ -25,9 +25,11 @@ public abstract class ExamBase
 
 	private static final long serialVersionUID = 1L;
 
-	protected String description;
+	protected String examNumber;
 
 	protected String name;
+
+	protected String description;
 
 	protected Integer questions;
 
@@ -44,11 +46,12 @@ public abstract class ExamBase
 	}
 
 	/* Constructor with all attributes */
-	public ExamBase(String description, String name, Integer questions,
-			Integer duration, Double price, ScoringType scoringStrategy,
-			ExamStatus examStatus) {
-		this.description = description;
+	public ExamBase(String examNumber, String name, String description,
+			Integer questions, Integer duration, Double price,
+			ScoringType scoringStrategy, ExamStatus examStatus) {
+		this.examNumber = examNumber;
 		this.name = name;
+		this.description = description;
 		this.questions = questions;
 		this.duration = duration;
 		this.price = price;
@@ -60,9 +63,9 @@ public abstract class ExamBase
 	/*
 	
 	 */
-	public String getDescription() {
+	public String getExamNumber() {
 
-		return this.description;
+		return this.examNumber;
 	}
 
 	@Column(nullable = false, unique = false)
@@ -72,6 +75,15 @@ public abstract class ExamBase
 	public String getName() {
 
 		return this.name;
+	}
+
+	@Column(nullable = false, unique = false)
+	/*
+	
+	 */
+	public String getDescription() {
+
+		return this.description;
 	}
 
 	/*
@@ -109,12 +121,16 @@ public abstract class ExamBase
 		return this.examStatus;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setExamNumber(String examNumber) {
+		this.examNumber = examNumber;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public void setQuestions(Integer questions) {
@@ -203,7 +219,7 @@ public abstract class ExamBase
 
 	@Transient
 	public String getDisplayName() {
-		return description + "";
+		return examNumber + "";
 	}
 
 }

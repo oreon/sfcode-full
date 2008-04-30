@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [     <!ENTITY nbsp "&#160;">  ]>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<ui:define name="chooseLanguage">
+		<h:form id="locale_form">
+			<h:outputText value="#{msg.Language}" />
+			<h:selectOneMenu required="false" id="current_lang" value="#{localeChooserBean.language}"
+				valueChangeListener="#{localeChooserBean.onChooseLocale}"
+				onchange="this.form.submit();">
+				<f:selectItem itemLabel="English" itemValue="en" />
+				<f:selectItem itemLabel="Francais" itemValue="fr" />
+				<f:selectItem itemLabel="Deautsch" itemValue="de" />
+			</h:selectOneMenu>
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>
