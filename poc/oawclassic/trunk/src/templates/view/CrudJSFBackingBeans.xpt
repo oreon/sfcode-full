@@ -89,6 +89,10 @@
 			
 			public void reset(){
 				«asInstanceVar()» = new «asParameter()»();
+			«FOREACH getAllComposedAssociations AS ae»
+				list«ae.Opposite.associationName().toFirstUpper()»s.clear();
+			«ENDFOREACH»
+			
 			}			
 			
     		@Override
@@ -106,22 +110,10 @@
 				return listRanges;
 			}
 
+			protected void reloadFromId(long id){
+				«asInstanceVar()» = «asInstanceVar()»Service.load(id);
+			}
     
-		    /** This action Listener Method is called when a row is clicked in the dataTable
-		     *  
-		     * @param event contains the database id of the row being selected 
-		     */
-		    public void selectEntity(ActionEvent actionEvent){		    	
-		    	FacesContext ctx = FacesContext.getCurrentInstance();
-				String idStr = (String)ctx.getExternalContext().getRequestParameterMap().get("id");
-				
-				if(idStr == null ){
-					reset();
-				}else{
-					long id = Long.parseLong(idStr);
-					«asInstanceVar()» = «asInstanceVar()»Service.load(id);
-				}
-		    }
 		    
 		 «IF getTreeFields != null»
 		  
@@ -216,8 +208,9 @@ private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 	
 
 	public List<«ae.Opposite.Class.NameS»> getList«assocName»s() {
-		list«assocName»s.clear();	
-		load«assocName»s();
+		if (list«assocName»s.isEmpty())
+			load«assocName»s();
+
 		return list«assocName»s;
 	}
 
@@ -226,6 +219,7 @@ private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 	}
 
 	private void load«assocName»s() {
+		list«assocName»s.clear();
 		if («NameS.toFirstLower()» != null) {
 			list«assocName»s.addAll(«NameS.toFirstLower()».get«assocName»());
 		}
