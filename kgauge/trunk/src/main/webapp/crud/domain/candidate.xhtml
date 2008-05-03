@@ -219,19 +219,19 @@ template="/WEB-INF/template/templateCrud.xhtml">
 							
 	
 
-	
+	<acegijsf:authorize ifAnyGranted="ROLE_ADMIN">
 		
 <h:panelGroup>
 	<h:outputText value=""/>
 	<h:outputText value="#{msg.user_enabled}" />
-	<h:outputText value="" />
+	<h:outputText value="*" />
 </h:panelGroup>
 
 <h:panelGroup>
 	<a4j:region>
 	
 		
-	<h:selectBooleanCheckbox    title="enabled"  required="false" 
+	<h:selectBooleanCheckbox    title="enabled"  required="true" 
 		id="candidate_user_enabled"
 		value="#{candidateCrudBacking.candidate.user.enabled}">
 		
@@ -249,7 +249,7 @@ template="/WEB-INF/template/templateCrud.xhtml">
 </h:panelGroup>
 
 							
-	
+	</acegijsf:authorize>
 
 	
 		

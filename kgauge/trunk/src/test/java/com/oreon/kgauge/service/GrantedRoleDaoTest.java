@@ -50,7 +50,7 @@ public class GrantedRoleDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			grantedRoleInstance.setName("zeta");
+			grantedRoleInstance.setName("delta");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -81,7 +81,7 @@ public class GrantedRoleDaoTest extends AbstractJpaTests {
 
 			try {
 
-				grantedRole.setName("gamma");
+				grantedRole.setName("pi");
 
 				TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("userTestDataFactory");
@@ -108,7 +108,7 @@ public class GrantedRoleDaoTest extends AbstractJpaTests {
 			GrantedRole grantedRole = (GrantedRole) grantedRoleTestDataFactory
 					.loadOneRecord();
 
-			grantedRole.setName("delta");
+			grantedRole.setName("John");
 
 			grantedRoleService.save(grantedRole);
 

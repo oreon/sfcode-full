@@ -22,143 +22,120 @@ template="/WEB-INF/template/templateCrud.xhtml">
 			<a4j:form id="form_listing">
 				<rich:tabPanel  switchType="ajax">
 					<rich:tab label="Tabular" >
-					<t:dataTable id="data" var="answerChoice"
+					<rich:datascroller align="left"  for="data" maxPages="20" renderIfSinglePage="false" />
+						<br/>
+						<br/>
+						
+					<rich:dataTable id="data" var="answerChoice"
 						value="#{answerChoiceCrudBacking.records}" rows="30"
 					rowClasses="odd, even" styleClass="dataTable" >						
 							
-	<t:column>
+	<rich:column sortBy="#{answerChoice.answerText}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{answerChoiceCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="AnswerText" />
-				<t:outputText value="#{msg.answerChoice_answerText}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.answerChoice_answerText}" /> 		
 		</f:facet>
-		<t:outputText value="#{answerChoice.answerText}" />
-	</t:column>
+		<h:outputText value="#{answerChoice.answerText}" />
+	</rich:column>
 
-	<t:column>
+	<rich:column sortBy="#{answerChoice.score}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{answerChoiceCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Score" />
-				<t:outputText value="#{msg.answerChoice_score}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.answerChoice_score}" /> 		
 		</f:facet>
-		<t:outputText value="#{answerChoice.score}" />
-	</t:column>
+		<h:outputText value="#{answerChoice.score}" />
+	</rich:column>
 							
 							
 							
-	<t:column>
+	<rich:column sortBy="#{answerChoice.question.displayName}"  >
 		<f:facet name="header">
-		<t:commandLink actionListener="#{answerChoiceCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="question.displayName" />
-			<!-- <t:commandSortHeader columnName="" arrow="true"> -->
-				<t:outputText value="#{msg.Question}" /> 
-			<!-- </t:commandSortHeader> -->
-		</t:commandLink>	
+				<h:outputText value="#{msg.answerChoice_question}" /> 	
 		</f:facet>
-		<t:outputText value="#{answerChoice.question.displayName}" />
-	</t:column>
+		<h:outputText value="#{answerChoice.question.displayName}" />
+	</rich:column>
 							
 							<rich:column>
 								<f:facet name="header">
-									<t:commandSortHeader columnName="id" arrow="true">
-										<t:outputText value=" " />
-									</t:commandSortHeader>
+									
+										<h:outputText value=" " />
+									
 								</f:facet>
 								
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 								
-									<t:commandLink action="#{answerChoiceCrudBacking.select}"																					
+									<h:commandLink action="#{answerChoiceCrudBacking.select}"																					
 										actionListener="#{answerChoiceCrudBacking.selectEntity}">
 										<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
 										<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
 										<f:param id="editId" name="id" value="#{answerChoice.id}" />								
-									</t:commandLink>		
+									</h:commandLink>		
 								<!--
 								</acegijsf:authorize>
 								--> 
 								</rich:column>
-								<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="id" arrow="true">
-										<t:outputText value=" " />
-									</t:commandSortHeader>
-								</f:facet>
+								<rich:column>
+									<f:facet name="header">
+											<h:outputText value=" " />
+									</f:facet>
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 		
-								<t:commandLink action="#{answerChoiceCrudBacking.delete}"	
+								<h:commandLink action="#{answerChoiceCrudBacking.delete}"	
 									onclick="if(window.confirm('Are You Sure?')==false){return false}"
 									actionListener="#{answerChoiceCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
 									<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
 									<f:param id="deleteId" name="id" value="#{answerChoice.id}" />												
-								</t:commandLink>
+								</h:commandLink>
 								<!--
 								</acegijsf:authorize>
 								--> 
-								</t:column>
-						</t:dataTable>	
-							 	<t:inputHidden value="#{answerChoiceCrudBacking.sortField}" />
-    							<t:inputHidden value="#{answerChoiceCrudBacking.sortAscending}" />
+								</rich:column>
+						</rich:dataTable>	
 							 </rich:tab>
 							 
 							 
 							 <rich:tab label="Audit" >
-							 	<t:dataTable id="dataAudit" var="log"
+							 	<rich:dataTable id="dataAudit" var="log"
 							value="#{answerChoiceCrudBacking.auditLog}" rows="30"
 							rowClasses="odd, even" styleClass="dataTable">
 							
-							<t:column>
+							<rich:column>
 								<f:facet name="header">
-									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
-									<t:outputText value="Date" />
-									<!-- </t:commandSortHeader> -->
+									<h:outputText value="Date" />
 								</f:facet>
-								<t:outputText value="#{log.dateCreated}" />
-							</t:column>
+								<h:outputText value="#{log.dateCreated}" />
+							</rich:column>
 							
-							<t:column>
+							<rich:column>
 								<f:facet name="header">
-									<!-- <t:commandSortHeader columnName="Brand" arrow="true"> -->
-									<t:outputText value="Action" />
-									<!-- </t:commandSortHeader> -->
+									<h:outputText value="Action" />
 								</f:facet>
-								<t:outputText value="#{log.action}" />
-							</t:column>
+								<h:outputText value="#{log.action}" />
+							</rich:column>
 
-							<t:column>
+							<rich:column>
 								<f:facet name="header">
-									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
-									<t:outputText value="User" />
-									<!-- </t:commandSortHeader> -->
+									<h:outputText value="User" />
 								</f:facet>
-								<t:outputText value="#{log.username}" />
-							</t:column>
+								<h:outputText value="#{log.username}" />
+							</rich:column>
 							
 							
-	<t:column>
+	<rich:column sortBy="#{log.entity.answerText}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="AnswerText" />
-				<t:outputText value="#{msg.answerChoice_answerText}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.answerChoice_answerText}" /> 		
 		</f:facet>
-		<t:outputText value="#{log.entity.answerText}" />
-	</t:column>
+		<h:outputText value="#{log.entity.answerText}" />
+	</rich:column>
 
-	<t:column>
+	<rich:column sortBy="#{log.entity.score}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Score" />
-				<t:outputText value="#{msg.answerChoice_score}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.answerChoice_score}" /> 		
 		</f:facet>
-		<t:outputText value="#{log.entity.score}" />
-	</t:column>
-							</t:dataTable>
+		<h:outputText value="#{log.entity.score}" />
+	</rich:column>
+							</rich:dataTable>
 							 </rich:tab>
 							 
 							</rich:tabPanel>

@@ -50,7 +50,7 @@ public class GrantedRoleTestDataFactory
 
 		try {
 
-			grantedRole.setName("John");
+			grantedRole.setName("pi");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -73,7 +73,7 @@ public class GrantedRoleTestDataFactory
 
 		try {
 
-			grantedRole.setName("Mark");
+			grantedRole.setName("alpha");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -96,7 +96,7 @@ public class GrantedRoleTestDataFactory
 
 		try {
 
-			grantedRole.setName("delta");
+			grantedRole.setName("John");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -119,7 +119,7 @@ public class GrantedRoleTestDataFactory
 
 		try {
 
-			grantedRole.setName("theta");
+			grantedRole.setName("pi");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -142,7 +142,7 @@ public class GrantedRoleTestDataFactory
 
 		try {
 
-			grantedRole.setName("Mark");
+			grantedRole.setName("Eric");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");

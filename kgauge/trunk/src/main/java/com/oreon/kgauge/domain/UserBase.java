@@ -60,10 +60,12 @@ public abstract class UserBase
 		return this.password;
 	}
 
+	@Column(nullable = false, unique = false)
 	/*
 	
 	 */
 	public boolean isEnabled() {
+
 		return this.enabled;
 	}
 

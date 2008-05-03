@@ -22,123 +22,106 @@ template="/WEB-INF/template/templateCrud.xhtml">
 			<a4j:form id="form_listing">
 				<rich:tabPanel  switchType="ajax">
 					<rich:tab label="Tabular" >
-					<t:dataTable id="data" var="grantedRole"
+					<rich:datascroller align="left"  for="data" maxPages="20" renderIfSinglePage="false" />
+						<br/>
+						<br/>
+						
+					<rich:dataTable id="data" var="grantedRole"
 						value="#{grantedRoleCrudBacking.records}" rows="30"
 					rowClasses="odd, even" styleClass="dataTable" >						
 							
-	<t:column>
+	<rich:column sortBy="#{grantedRole.name}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{grantedRoleCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Name" />
-				<t:outputText value="#{msg.grantedRole_name}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.grantedRole_name}" /> 		
 		</f:facet>
-		<t:outputText value="#{grantedRole.name}" />
-	</t:column>
+		<h:outputText value="#{grantedRole.name}" />
+	</rich:column>
 							
 							
 							
-	<t:column>
+	<rich:column sortBy="#{grantedRole.user.displayName}"  >
 		<f:facet name="header">
-		<t:commandLink actionListener="#{grantedRoleCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="user.displayName" />
-			<!-- <t:commandSortHeader columnName="" arrow="true"> -->
-				<t:outputText value="#{msg.User}" /> 
-			<!-- </t:commandSortHeader> -->
-		</t:commandLink>	
+				<h:outputText value="#{msg.grantedRole_user}" /> 	
 		</f:facet>
-		<t:outputText value="#{grantedRole.user.displayName}" />
-	</t:column>
+		<h:outputText value="#{grantedRole.user.displayName}" />
+	</rich:column>
 							
 							<rich:column>
 								<f:facet name="header">
-									<t:commandSortHeader columnName="id" arrow="true">
-										<t:outputText value=" " />
-									</t:commandSortHeader>
+									
+										<h:outputText value=" " />
+									
 								</f:facet>
 								
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 								
-									<t:commandLink action="#{grantedRoleCrudBacking.select}"																					
+									<h:commandLink action="#{grantedRoleCrudBacking.select}"																					
 										actionListener="#{grantedRoleCrudBacking.selectEntity}">
 										<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
 										<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
 										<f:param id="editId" name="id" value="#{grantedRole.id}" />								
-									</t:commandLink>		
+									</h:commandLink>		
 								<!--
 								</acegijsf:authorize>
 								--> 
 								</rich:column>
-								<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="id" arrow="true">
-										<t:outputText value=" " />
-									</t:commandSortHeader>
-								</f:facet>
+								<rich:column>
+									<f:facet name="header">
+											<h:outputText value=" " />
+									</f:facet>
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 		
-								<t:commandLink action="#{grantedRoleCrudBacking.delete}"	
+								<h:commandLink action="#{grantedRoleCrudBacking.delete}"	
 									onclick="if(window.confirm('Are You Sure?')==false){return false}"
 									actionListener="#{grantedRoleCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
 									<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
 									<f:param id="deleteId" name="id" value="#{grantedRole.id}" />												
-								</t:commandLink>
+								</h:commandLink>
 								<!--
 								</acegijsf:authorize>
 								--> 
-								</t:column>
-						</t:dataTable>	
-							 	<t:inputHidden value="#{grantedRoleCrudBacking.sortField}" />
-    							<t:inputHidden value="#{grantedRoleCrudBacking.sortAscending}" />
+								</rich:column>
+						</rich:dataTable>	
 							 </rich:tab>
 							 
 							 
 							 <rich:tab label="Audit" >
-							 	<t:dataTable id="dataAudit" var="log"
+							 	<rich:dataTable id="dataAudit" var="log"
 							value="#{grantedRoleCrudBacking.auditLog}" rows="30"
 							rowClasses="odd, even" styleClass="dataTable">
 							
-							<t:column>
+							<rich:column>
 								<f:facet name="header">
-									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
-									<t:outputText value="Date" />
-									<!-- </t:commandSortHeader> -->
+									<h:outputText value="Date" />
 								</f:facet>
-								<t:outputText value="#{log.dateCreated}" />
-							</t:column>
+								<h:outputText value="#{log.dateCreated}" />
+							</rich:column>
 							
-							<t:column>
+							<rich:column>
 								<f:facet name="header">
-									<!-- <t:commandSortHeader columnName="Brand" arrow="true"> -->
-									<t:outputText value="Action" />
-									<!-- </t:commandSortHeader> -->
+									<h:outputText value="Action" />
 								</f:facet>
-								<t:outputText value="#{log.action}" />
-							</t:column>
+								<h:outputText value="#{log.action}" />
+							</rich:column>
 
-							<t:column>
+							<rich:column>
 								<f:facet name="header">
-									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
-									<t:outputText value="User" />
-									<!-- </t:commandSortHeader> -->
+									<h:outputText value="User" />
 								</f:facet>
-								<t:outputText value="#{log.username}" />
-							</t:column>
+								<h:outputText value="#{log.username}" />
+							</rich:column>
 							
 							
-	<t:column>
+	<rich:column sortBy="#{log.entity.name}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Name" />
-				<t:outputText value="#{msg.grantedRole_name}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.grantedRole_name}" /> 		
 		</f:facet>
-		<t:outputText value="#{log.entity.name}" />
-	</t:column>
-							</t:dataTable>
+		<h:outputText value="#{log.entity.name}" />
+	</rich:column>
+							</rich:dataTable>
 							 </rich:tab>
 							 
 							</rich:tabPanel>

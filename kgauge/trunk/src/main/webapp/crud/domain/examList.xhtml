@@ -22,263 +22,204 @@ template="/WEB-INF/template/templateCrud.xhtml">
 			<a4j:form id="form_listing">
 				<rich:tabPanel  switchType="ajax">
 					<rich:tab label="Tabular" >
-					<t:dataTable id="data" var="exam"
+					<rich:datascroller align="left"  for="data" maxPages="20" renderIfSinglePage="false" />
+						<br/>
+						<br/>
+						
+					<rich:dataTable id="data" var="exam"
 						value="#{examCrudBacking.records}" rows="30"
 					rowClasses="odd, even" styleClass="dataTable" >						
 							
-	<t:column>
+	<rich:column sortBy="#{exam.examNumber}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="ExamNumber" />
-				<t:outputText value="#{msg.exam_examNumber}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.exam_examNumber}" /> 		
 		</f:facet>
-		<t:outputText value="#{exam.examNumber}" />
-	</t:column>
+		<h:outputText value="#{exam.examNumber}" />
+	</rich:column>
 
-	<t:column>
+	<rich:column sortBy="#{exam.name}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Name" />
-				<t:outputText value="#{msg.exam_name}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.exam_name}" /> 		
 		</f:facet>
-		<t:outputText value="#{exam.name}" />
-	</t:column>
+		<h:outputText value="#{exam.name}" />
+	</rich:column>
 
-	<t:column>
+	<rich:column sortBy="#{exam.description}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Description" />
-				<t:outputText value="#{msg.exam_description}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.exam_description}" /> 		
 		</f:facet>
-		<t:outputText value="#{exam.description}" />
-	</t:column>
+		<h:outputText value="#{exam.description}" />
+	</rich:column>
 
-	<t:column>
+	<rich:column sortBy="#{exam.questions}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Questions" />
-				<t:outputText value="#{msg.exam_questions}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.exam_questions}" /> 		
 		</f:facet>
-		<t:outputText value="#{exam.questions}" />
-	</t:column>
+		<h:outputText value="#{exam.questions}" />
+	</rich:column>
 
-	<t:column>
+	<rich:column sortBy="#{exam.duration}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Duration" />
-				<t:outputText value="#{msg.exam_duration}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.exam_duration}" /> 		
 		</f:facet>
-		<t:outputText value="#{exam.duration}" />
-	</t:column>
+		<h:outputText value="#{exam.duration}" />
+	</rich:column>
 
-	<t:column>
+	<rich:column sortBy="#{exam.price}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Price" />
-				<t:outputText value="#{msg.exam_price}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.exam_price}" /> 		
 		</f:facet>
-		<t:outputText value="#{exam.price}" />
-	</t:column>
+		<h:outputText value="#{exam.price}" />
+	</rich:column>
 
-	<t:column>
+	<rich:column sortBy="#{exam.scoringStrategy}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="ScoringStrategy" />
-				<t:outputText value="#{msg.exam_scoringStrategy}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.exam_scoringStrategy}" /> 		
 		</f:facet>
-		<t:outputText value="#{exam.scoringStrategy}" />
-	</t:column>
+		<h:outputText value="#{exam.scoringStrategy}" />
+	</rich:column>
 
-	<t:column>
+	<rich:column sortBy="#{exam.examStatus}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="ExamStatus" />
-				<t:outputText value="#{msg.exam_examStatus}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.exam_examStatus}" /> 		
 		</f:facet>
-		<t:outputText value="#{exam.examStatus}" />
-	</t:column>
+		<h:outputText value="#{exam.examStatus}" />
+	</rich:column>
 							
 							
 							
-	<t:column>
+	<rich:column sortBy="#{exam.examCreator.displayName}"  >
 		<f:facet name="header">
-		<t:commandLink actionListener="#{examCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="examCreator.displayName" />
-			<!-- <t:commandSortHeader columnName="" arrow="true"> -->
-				<t:outputText value="#{msg.ExamCreator}" /> 
-			<!-- </t:commandSortHeader> -->
-		</t:commandLink>	
+				<h:outputText value="#{msg.exam_examCreator}" /> 	
 		</f:facet>
-		<t:outputText value="#{exam.examCreator.displayName}" />
-	</t:column>
+		<h:outputText value="#{exam.examCreator.displayName}" />
+	</rich:column>
 							
 							<rich:column>
 								<f:facet name="header">
-									<t:commandSortHeader columnName="id" arrow="true">
-										<t:outputText value=" " />
-									</t:commandSortHeader>
+									
+										<h:outputText value=" " />
+									
 								</f:facet>
 								
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 								
-									<t:commandLink action="#{examCrudBacking.select}"																					
+									<h:commandLink action="#{examCrudBacking.select}"																					
 										actionListener="#{examCrudBacking.selectEntity}">
 										<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
 										<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
 										<f:param id="editId" name="id" value="#{exam.id}" />								
-									</t:commandLink>		
+									</h:commandLink>		
 								<!--
 								</acegijsf:authorize>
 								--> 
 								</rich:column>
-								<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="id" arrow="true">
-										<t:outputText value=" " />
-									</t:commandSortHeader>
-								</f:facet>
+								<rich:column>
+									<f:facet name="header">
+											<h:outputText value=" " />
+									</f:facet>
 								<!--
 								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 								--> 		
-								<t:commandLink action="#{examCrudBacking.delete}"	
+								<h:commandLink action="#{examCrudBacking.delete}"	
 									onclick="if(window.confirm('Are You Sure?')==false){return false}"
 									actionListener="#{examCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
 									<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
 									<f:param id="deleteId" name="id" value="#{exam.id}" />												
-								</t:commandLink>
+								</h:commandLink>
 								<!--
 								</acegijsf:authorize>
 								--> 
-								</t:column>
-						</t:dataTable>	
-							 	<t:inputHidden value="#{examCrudBacking.sortField}" />
-    							<t:inputHidden value="#{examCrudBacking.sortAscending}" />
+								</rich:column>
+						</rich:dataTable>	
 							 </rich:tab>
 							 
 							 
 							 <rich:tab label="Audit" >
-							 	<t:dataTable id="dataAudit" var="log"
+							 	<rich:dataTable id="dataAudit" var="log"
 							value="#{examCrudBacking.auditLog}" rows="30"
 							rowClasses="odd, even" styleClass="dataTable">
 							
-							<t:column>
+							<rich:column>
 								<f:facet name="header">
-									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
-									<t:outputText value="Date" />
-									<!-- </t:commandSortHeader> -->
+									<h:outputText value="Date" />
 								</f:facet>
-								<t:outputText value="#{log.dateCreated}" />
-							</t:column>
+								<h:outputText value="#{log.dateCreated}" />
+							</rich:column>
 							
-							<t:column>
+							<rich:column>
 								<f:facet name="header">
-									<!-- <t:commandSortHeader columnName="Brand" arrow="true"> -->
-									<t:outputText value="Action" />
-									<!-- </t:commandSortHeader> -->
+									<h:outputText value="Action" />
 								</f:facet>
-								<t:outputText value="#{log.action}" />
-							</t:column>
+								<h:outputText value="#{log.action}" />
+							</rich:column>
 
-							<t:column>
+							<rich:column>
 								<f:facet name="header">
-									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
-									<t:outputText value="User" />
-									<!-- </t:commandSortHeader> -->
+									<h:outputText value="User" />
 								</f:facet>
-								<t:outputText value="#{log.username}" />
-							</t:column>
+								<h:outputText value="#{log.username}" />
+							</rich:column>
 							
 							
-	<t:column>
+	<rich:column sortBy="#{log.entity.examNumber}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="ExamNumber" />
-				<t:outputText value="#{msg.exam_examNumber}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.exam_examNumber}" /> 		
 		</f:facet>
-		<t:outputText value="#{log.entity.examNumber}" />
-	</t:column>
+		<h:outputText value="#{log.entity.examNumber}" />
+	</rich:column>
 
-	<t:column>
+	<rich:column sortBy="#{log.entity.name}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Name" />
-				<t:outputText value="#{msg.exam_name}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.exam_name}" /> 		
 		</f:facet>
-		<t:outputText value="#{log.entity.name}" />
-	</t:column>
+		<h:outputText value="#{log.entity.name}" />
+	</rich:column>
 
-	<t:column>
+	<rich:column sortBy="#{log.entity.description}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Description" />
-				<t:outputText value="#{msg.exam_description}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.exam_description}" /> 		
 		</f:facet>
-		<t:outputText value="#{log.entity.description}" />
-	</t:column>
+		<h:outputText value="#{log.entity.description}" />
+	</rich:column>
 
-	<t:column>
+	<rich:column sortBy="#{log.entity.questions}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Questions" />
-				<t:outputText value="#{msg.exam_questions}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.exam_questions}" /> 		
 		</f:facet>
-		<t:outputText value="#{log.entity.questions}" />
-	</t:column>
+		<h:outputText value="#{log.entity.questions}" />
+	</rich:column>
 
-	<t:column>
+	<rich:column sortBy="#{log.entity.duration}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Duration" />
-				<t:outputText value="#{msg.exam_duration}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.exam_duration}" /> 		
 		</f:facet>
-		<t:outputText value="#{log.entity.duration}" />
-	</t:column>
+		<h:outputText value="#{log.entity.duration}" />
+	</rich:column>
 
-	<t:column>
+	<rich:column sortBy="#{log.entity.price}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="Price" />
-				<t:outputText value="#{msg.exam_price}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.exam_price}" /> 		
 		</f:facet>
-		<t:outputText value="#{log.entity.price}" />
-	</t:column>
+		<h:outputText value="#{log.entity.price}" />
+	</rich:column>
 
-	<t:column>
+	<rich:column sortBy="#{log.entity.scoringStrategy}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="ScoringStrategy" />
-				<t:outputText value="#{msg.exam_scoringStrategy}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.exam_scoringStrategy}" /> 		
 		</f:facet>
-		<t:outputText value="#{log.entity.scoringStrategy}" />
-	</t:column>
+		<h:outputText value="#{log.entity.scoringStrategy}" />
+	</rich:column>
 
-	<t:column>
+	<rich:column sortBy="#{log.entity.examStatus}"  >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{log.entityCrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="ExamStatus" />
-				<t:outputText value="#{msg.exam_examStatus}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.exam_examStatus}" /> 		
 		</f:facet>
-		<t:outputText value="#{log.entity.examStatus}" />
-	</t:column>
-							</t:dataTable>
+		<h:outputText value="#{log.entity.examStatus}" />
+	</rich:column>
+							</rich:dataTable>
 							 </rich:tab>
 							 
 							</rich:tabPanel>

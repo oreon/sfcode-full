@@ -3,8 +3,10 @@ package com.oreon.kgauge.domain;
 import javax.persistence.Entity;
 
 import org.apache.log4j.Logger;
+import org.hibernate.search.annotations.Indexed;
 
 @Entity
+@Indexed
 public class Exam extends ExamBase {
 
 	private static final Logger log = Logger.getLogger(Exam.class);

@@ -48,9 +48,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("epsilon");
+			question.setQuestionText("Wilson");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L2);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("sectionTestDataFactory");
@@ -73,9 +73,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("pi");
+			question.setQuestionText("delta");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("sectionTestDataFactory");
@@ -98,9 +98,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("Lavendar");
+			question.setQuestionText("zeta");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L2);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("sectionTestDataFactory");
@@ -123,9 +123,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("Wilson");
+			question.setQuestionText("John");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("sectionTestDataFactory");
@@ -148,7 +148,7 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("zeta");
+			question.setQuestionText("epsilon");
 			question
 					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
 
