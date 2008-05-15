@@ -48,9 +48,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("pi");
+			question.setQuestionText("epsilon");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L2);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("sectionTestDataFactory");
@@ -73,7 +73,7 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("theta");
+			question.setQuestionText("beta");
 			question
 					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
 
@@ -98,9 +98,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("delta");
+			question.setQuestionText("epsilon");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("sectionTestDataFactory");
@@ -123,9 +123,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("zeta");
+			question.setQuestionText("gamma");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L4);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("sectionTestDataFactory");
@@ -148,9 +148,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("Mark");
+			question.setQuestionText("zeta");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L2);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L4);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("sectionTestDataFactory");

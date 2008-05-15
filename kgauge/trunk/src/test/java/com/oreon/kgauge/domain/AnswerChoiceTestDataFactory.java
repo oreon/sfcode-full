@@ -50,8 +50,8 @@ public class AnswerChoiceTestDataFactory
 
 		try {
 
-			answerChoice.setAnswerText("Eric");
-			answerChoice.setScore(2137);
+			answerChoice.setAnswerText("epsilon");
+			answerChoice.setScore(1372);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -74,8 +74,8 @@ public class AnswerChoiceTestDataFactory
 
 		try {
 
-			answerChoice.setAnswerText("theta");
-			answerChoice.setScore(9468);
+			answerChoice.setAnswerText("Lavendar");
+			answerChoice.setScore(3133);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -98,8 +98,8 @@ public class AnswerChoiceTestDataFactory
 
 		try {
 
-			answerChoice.setAnswerText("gamma");
-			answerChoice.setScore(3786);
+			answerChoice.setAnswerText("theta");
+			answerChoice.setScore(8379);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -122,8 +122,8 @@ public class AnswerChoiceTestDataFactory
 
 		try {
 
-			answerChoice.setAnswerText("Eric");
-			answerChoice.setScore(4516);
+			answerChoice.setAnswerText("delta");
+			answerChoice.setScore(4780);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -146,8 +146,8 @@ public class AnswerChoiceTestDataFactory
 
 		try {
 
-			answerChoice.setAnswerText("pi");
-			answerChoice.setScore(7186);
+			answerChoice.setAnswerText("beta");
+			answerChoice.setScore(2055);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");

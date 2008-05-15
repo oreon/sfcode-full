@@ -5,6 +5,92 @@
 	
 
 	<navigation-rule>
+	  	<from-view-id>/writeExam/examDetails.xhtml</from-view-id>
+		
+		  <navigation-case>
+		    <from-outcome/>
+		    <to-view-id>/writeExam/.xhtml</to-view-id>
+		  </navigation-case>   
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/writeExam/browseExams.xhtml</from-view-id>
+		
+		  <navigation-case>
+		    <from-outcome>viewDetails</from-outcome>
+		    <to-view-id>/writeExam/examDetails.xhtml</to-view-id>
+		  </navigation-case>   
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/writeExam/searchExams.xhtml</from-view-id>
+		
+		  <navigation-case>
+		    <from-outcome>viewDetails</from-outcome>
+		    <to-view-id>/writeExam/examDetails.xhtml</to-view-id>
+		  </navigation-case>   
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/writeExam/instructions.xhtml</from-view-id>
+		
+		  <navigation-case>
+		    <from-outcome/>
+		    <to-view-id>/writeExam/examInstance.xhtml</to-view-id>
+		  </navigation-case>   
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/writeExam/examInstance.xhtml</from-view-id>
+		
+		  <navigation-case>
+		    <from-outcome>endExam</from-outcome>
+		    <to-view-id>/writeExam/endExamConfirm.xhtml</to-view-id>
+		  </navigation-case>   
+		
+		  <navigation-case>
+		    <from-outcome>next</from-outcome>
+		    <to-view-id>/writeExam/.xhtml</to-view-id>
+		  </navigation-case>   
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/writeExam/endExamConfirm.xhtml</from-view-id>
+		
+		  <navigation-case>
+		    <from-outcome>yes</from-outcome>
+		    <to-view-id>/writeExam/result.xhtml</to-view-id>
+		  </navigation-case>   
+		
+		  <navigation-case>
+		    <from-outcome>no</from-outcome>
+		    <to-view-id>/writeExam/examInstance.xhtml</to-view-id>
+		  </navigation-case>   
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/writeExam/result.xhtml</from-view-id>
+		
+		  <navigation-case>
+		    <from-outcome/>
+		    <to-view-id>/writeExam/.xhtml</to-view-id>
+		  </navigation-case>   
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/authenticate/loginOrRegister.xhtml</from-view-id>
+		 
+	</navigation-rule>
+
+
+	<navigation-rule>
 	  	<from-view-id>/authenticate/welcome.xhtml</from-view-id>
 		 
 	</navigation-rule>
@@ -13,17 +99,17 @@
 	  	<from-view-id>/authenticate/index.xhtml</from-view-id>
 		
 		  <navigation-case>
-		    <from-outcome> loginSuccesful</from-outcome>
+		    <from-outcome>loginSuccesful</from-outcome>
 		    <to-view-id>/authenticate/welcome.xhtml</to-view-id>
 		  </navigation-case>   
 		
 		  <navigation-case>
-		    <from-outcome> register</from-outcome>
+		    <from-outcome>register</from-outcome>
 		    <to-view-id>/authenticate/register.xhtml</to-view-id>
 		  </navigation-case>   
 		
 		  <navigation-case>
-		    <from-outcome> forgotCredentials</from-outcome>
+		    <from-outcome>forgotCredentials</from-outcome>
 		    <to-view-id>/authenticate/credentialsRetrieval.xhtml</to-view-id>
 		  </navigation-case>   
 		 
@@ -31,15 +117,15 @@
 
 	<navigation-rule>
 	  	<from-view-id>/authenticate/register.xhtml</from-view-id>
-		 
-	</navigation-rule>
-
-	<navigation-rule>
-	  	<from-view-id>/authenticate/credentialsRetrieval.xhtml</from-view-id>
 		
 		  <navigation-case>
-		    <from-outcome> emailFound</from-outcome>
+		    <from-outcome>successUpdate</from-outcome>
 		    <to-view-id>/authenticate/mailSent.xhtml</to-view-id>
+		  </navigation-case>   
+		
+		  <navigation-case>
+		    <from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/authenticate/index.xhtml</to-view-id>
 		  </navigation-case>   
 		 
 	</navigation-rule>
@@ -48,8 +134,18 @@
 	  	<from-view-id>/authenticate/mailSent.xhtml</from-view-id>
 		
 		  <navigation-case>
-		    <from-outcome> </from-outcome>
+		    <from-outcome/>
 		    <to-view-id>/authenticate/.xhtml</to-view-id>
+		  </navigation-case>   
+		 
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/authenticate/credentialsRetrieval.xhtml</from-view-id>
+		
+		  <navigation-case>
+		    <from-outcome>emailFound</from-outcome>
+		    <to-view-id>/authenticate/mailSent.xhtml</to-view-id>
 		  </navigation-case>   
 		 
 	</navigation-rule>

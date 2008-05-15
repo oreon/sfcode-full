@@ -15,19 +15,37 @@ xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 
-template="/WEB-INF/template/">
+template="/WEB-INF/template/default.xhtml">
 	
 	<ui:define name="content">
 		<f:view>
 		<!--PROTECTED REGION ID(USER_CREATED) ENABLED START-->
 					This is protectable
 		<!--PROTECTED REGION END-->
+			<h3> register</h3>
+		
 			<h:messages layout="list" globalOnly="true" showDetail="true"
 				styleClass="messages" />
 			<h:outputText value="" styleClass="message" />		
 			
+			
+			<ui:insert>
+				<ui:include src="/admin/entities/domain/candidate/candidateComponent.xhtml" />
+			</ui:insert>				
+				
+			
 			<h:form>
 				<h:panelGrid>
+				
+					
+						
+						<h:commandLink action="successUpdate" value="successUpdate" />
+						
+					
+						
+						<h:commandLink action="cancelUpdate" value="cancelUpdate" />
+						
+					 
 					
 					
 				
