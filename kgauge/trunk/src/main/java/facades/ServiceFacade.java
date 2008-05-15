@@ -1,5 +1,7 @@
 package facades;
 
+import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
+
 import com.oreon.kgauge.service.CandidateService;
 
 import com.oreon.kgauge.service.QuestionService;
@@ -23,6 +25,16 @@ import com.oreon.kgauge.service.AnsweredQuestionService;
 import com.oreon.kgauge.service.SectionService;
 
 public class ServiceFacade {
+	private static ServiceFacade instance;
+
+	public static ServiceFacade getInstance() {
+		if (instance == null)
+			instance = (ServiceFacade) BeanHelper.getBean("serviceFacade");
+		return instance;
+	}
+
+	private ServiceFacade() {
+	}
 
 	private CandidateService candidateService;
 

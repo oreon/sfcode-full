@@ -71,8 +71,17 @@ public class CategoryBackingBeanBase extends BaseBackingBean<Category> {
 		return getCategory();
 	}
 
+	/**
+	 * Any initializations of the member entity should be done in this method - 
+	 * It will be called before add new action
+	 */
+	public void initForAddNew() {
+
+	}
+
 	public void reset() {
 		category = new Category();
+		resetRanges();
 
 		listSubcategoriess.clear();
 
@@ -89,6 +98,7 @@ public class CategoryBackingBeanBase extends BaseBackingBean<Category> {
 
 	protected void reloadFromId(long id) {
 		category = categoryService.load(id);
+
 	}
 
 	public TreeNode getTree() {
@@ -160,12 +170,10 @@ public class CategoryBackingBeanBase extends BaseBackingBean<Category> {
 		List<Category> listValidSubcategoriess = new ArrayList<Category>();
 
 		for (Category subcategories : listSubcategoriess) {
-			if (StringUtils.isNotEmpty(subcategories.getName()
 
-			)) {
-				subcategories.setParent(category);
-				listValidSubcategoriess.add(subcategories);
-			}
+			subcategories.setParent(category);
+			listValidSubcategoriess.add(subcategories);
+
 		}
 
 		category.getSubcategories().addAll(listValidSubcategoriess);

@@ -58,8 +58,17 @@ public class GrantedRoleBackingBeanBase extends BaseBackingBean<GrantedRole> {
 		return getGrantedRole();
 	}
 
+	/**
+	 * Any initializations of the member entity should be done in this method - 
+	 * It will be called before add new action
+	 */
+	public void initForAddNew() {
+
+	}
+
 	public void reset() {
 		grantedRole = new GrantedRole();
+		resetRanges();
 
 	}
 
@@ -74,6 +83,7 @@ public class GrantedRoleBackingBeanBase extends BaseBackingBean<GrantedRole> {
 
 	protected void reloadFromId(long id) {
 		grantedRole = grantedRoleService.load(id);
+
 	}
 
 }

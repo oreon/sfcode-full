@@ -62,8 +62,17 @@ public class SectionBackingBeanBase extends BaseBackingBean<Section> {
 		return getSection();
 	}
 
+	/**
+	 * Any initializations of the member entity should be done in this method - 
+	 * It will be called before add new action
+	 */
+	public void initForAddNew() {
+
+	}
+
 	public void reset() {
 		section = new Section();
+		resetRanges();
 
 		listQuestions.clear();
 
@@ -80,6 +89,7 @@ public class SectionBackingBeanBase extends BaseBackingBean<Section> {
 
 	protected void reloadFromId(long id) {
 		section = sectionService.load(id);
+
 	}
 
 	@Override
@@ -119,12 +129,10 @@ public class SectionBackingBeanBase extends BaseBackingBean<Section> {
 		List<Question> listValidQuestions = new ArrayList<Question>();
 
 		for (Question question : listQuestions) {
-			if (StringUtils.isNotEmpty(question.getQuestionText()
 
-			)) {
-				question.setSection(section);
-				listValidQuestions.add(question);
-			}
+			question.setSection(section);
+			listValidQuestions.add(question);
+
 		}
 
 		section.getQuestion().addAll(listValidQuestions);

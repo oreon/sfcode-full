@@ -1,7 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN" "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
-<!-- This file is editable -->
-<faces-config>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd" version="1.2">
 
 	<!--  Spring variable resolver -->
 	<!--  
@@ -60,7 +57,20 @@
 			org.witchcraft.model.support.jsfbackingbeans.LocaleChooserBackingBean
 		</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
+	</managed-bean> 
+	
+	<managed-bean>
+		<managed-bean-name>reportGenerator</managed-bean-name>
+		<managed-bean-class>
+			com.oreon.kgauge.web.jsf.ReportGeneratorBackingBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>entityManagerFactory</property-name>
+			<value>#{entityManagerFactory}</value>
+		</managed-property>
+	</managed-bean> 
+	
 
 	<!-- A converter for combo boxes (selectOneMenus ) to convert objects to and from ids -->
 	<converter>
@@ -99,17 +109,7 @@
 	</converter>
 
 
-	<managed-bean>
-		<managed-bean-name>authenticationController</managed-bean-name>
-		<managed-bean-class>
-			org.witchcraft.model.support.jsfbackingbeans.AuthenticationController
-		</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-		<managed-property>
-			<property-name>authenticationManager</property-name>
-			<value>#{authenticationManager}</value>
-		</managed-property>
-	</managed-bean>
+	
 
 	<managed-bean>
 		<managed-bean-name>LangBean</managed-bean-name>
@@ -118,7 +118,7 @@
 		</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
-
+<!--
 	<managed-bean>
 		<managed-bean-name>QuestionBackingBean</managed-bean-name>
 		<managed-bean-class>
@@ -152,7 +152,7 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
-
+-->
 	<navigation-rule>
 		<from-view-id>/login.xhtml</from-view-id>
 		<navigation-case>

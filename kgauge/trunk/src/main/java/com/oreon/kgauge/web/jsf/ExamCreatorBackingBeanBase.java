@@ -78,8 +78,17 @@ public class ExamCreatorBackingBeanBase extends BaseBackingBean<ExamCreator> {
 		return getExamCreator();
 	}
 
+	/**
+	 * Any initializations of the member entity should be done in this method - 
+	 * It will be called before add new action
+	 */
+	public void initForAddNew() {
+
+	}
+
 	public void reset() {
 		examCreator = new ExamCreator();
+		resetRanges();
 
 	}
 
@@ -96,6 +105,9 @@ public class ExamCreatorBackingBeanBase extends BaseBackingBean<ExamCreator> {
 
 	protected void reloadFromId(long id) {
 		examCreator = examCreatorService.load(id);
+
+		repeatPassword = examCreator.getUser().getPassword();
+
 	}
 
 }

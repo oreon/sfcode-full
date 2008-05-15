@@ -48,9 +48,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("Wilson");
+			question.setQuestionText("pi");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L2);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("sectionTestDataFactory");
@@ -69,6 +69,31 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 	}
 
 	public Question createQuestionTwo() {
+		Question question = new Question();
+
+		try {
+
+			question.setQuestionText("theta");
+			question
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
+
+			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("sectionTestDataFactory");
+
+			question
+					.setSection((com.oreon.kgauge.domain.Section) sectionTestDataFactory
+							.loadOneRecord());
+
+			register(question);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return question;
+	}
+
+	public Question createQuestionThree() {
 		Question question = new Question();
 
 		try {
@@ -93,39 +118,14 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 		return question;
 	}
 
-	public Question createQuestionThree() {
+	public Question createQuestionFour() {
 		Question question = new Question();
 
 		try {
 
 			question.setQuestionText("zeta");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
-
-			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
-					.getBean("sectionTestDataFactory");
-
-			question
-					.setSection((com.oreon.kgauge.domain.Section) sectionTestDataFactory
-							.loadOneRecord());
-
-			register(question);
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		return question;
-	}
-
-	public Question createQuestionFour() {
-		Question question = new Question();
-
-		try {
-
-			question.setQuestionText("John");
-			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L4);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("sectionTestDataFactory");
@@ -148,9 +148,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("epsilon");
+			question.setQuestionText("Mark");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L2);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("sectionTestDataFactory");

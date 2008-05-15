@@ -92,8 +92,21 @@ public class ExamBackingBeanBase extends BaseBackingBean<Exam> {
 		return getExam();
 	}
 
+	/**
+	 * Any initializations of the member entity should be done in this method - 
+	 * It will be called before add new action
+	 */
+	public void initForAddNew() {
+
+		exam.setExamCreator(facades.ServiceFacade.getInstance()
+				.getExamCreatorService().findByUsername(
+						getLoggedInUser().getUsername()));
+
+	}
+
 	public void reset() {
 		exam = new Exam();
+		resetRanges();
 
 		listSections.clear();
 
@@ -116,6 +129,7 @@ public class ExamBackingBeanBase extends BaseBackingBean<Exam> {
 
 	protected void reloadFromId(long id) {
 		exam = examService.load(id);
+
 	}
 
 	@Override
@@ -155,12 +169,10 @@ public class ExamBackingBeanBase extends BaseBackingBean<Exam> {
 		List<Section> listValidSections = new ArrayList<Section>();
 
 		for (Section section : listSections) {
-			if (StringUtils.isNotEmpty(section.getName()
 
-			)) {
-				section.setExam(exam);
-				listValidSections.add(section);
-			}
+			section.setExam(exam);
+			listValidSections.add(section);
+
 		}
 
 		exam.getSection().addAll(listValidSections);

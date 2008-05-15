@@ -1,4 +1,6 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -7,12 +9,20 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-	template="/WEB-INF/template/signIn.xhtml">
-	<ui:define name="content">
+	>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title><ui:insert name="title" /> Knowledge Gauge</title>
+<link rel="stylesheet" type="text/css"
+	href="#{facesContext.externalContext.requestContextPath}/css/screen.css" />
+<f:loadBundle basename="messages" var="msg" />
+</head>
+<body>
 		
-		<h:messages layout="list" globalOnly="true" showDetail="true"
-			styleClass="messages" />
 		<f:view>
+			<h:messages layout="list" globalOnly="true" showDetail="true"
+			styleClass="messages" />
+		
 			<a4j:form id="form">
 				<rich:panel>
 					<h:panelGrid columns="3" styleClass="formTable">
@@ -38,6 +48,7 @@
 				</rich:panel>
 			</a4j:form>
 		</f:view>
-	</ui:define>
-</ui:composition>
+	</body>
+</html>
+
 

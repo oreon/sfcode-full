@@ -78,8 +78,17 @@ public class CandidateBackingBeanBase extends BaseBackingBean<Candidate> {
 		return getCandidate();
 	}
 
+	/**
+	 * Any initializations of the member entity should be done in this method - 
+	 * It will be called before add new action
+	 */
+	public void initForAddNew() {
+
+	}
+
 	public void reset() {
 		candidate = new Candidate();
+		resetRanges();
 
 	}
 
@@ -96,6 +105,9 @@ public class CandidateBackingBeanBase extends BaseBackingBean<Candidate> {
 
 	protected void reloadFromId(long id) {
 		candidate = candidateService.load(id);
+
+		repeatPassword = candidate.getUser().getPassword();
+
 	}
 
 }

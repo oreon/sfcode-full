@@ -68,8 +68,17 @@ public class UserBackingBeanBase extends BaseBackingBean<User> {
 		return getUser();
 	}
 
+	/**
+	 * Any initializations of the member entity should be done in this method - 
+	 * It will be called before add new action
+	 */
+	public void initForAddNew() {
+
+	}
+
 	public void reset() {
 		user = new User();
+		resetRanges();
 
 	}
 
@@ -84,6 +93,9 @@ public class UserBackingBeanBase extends BaseBackingBean<User> {
 
 	protected void reloadFromId(long id) {
 		user = userService.load(id);
+
+		repeatPassword = user.getPassword();
+
 	}
 
 }

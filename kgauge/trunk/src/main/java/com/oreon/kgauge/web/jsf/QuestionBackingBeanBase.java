@@ -62,8 +62,17 @@ public class QuestionBackingBeanBase extends BaseBackingBean<Question> {
 		return getQuestion();
 	}
 
+	/**
+	 * Any initializations of the member entity should be done in this method - 
+	 * It will be called before add new action
+	 */
+	public void initForAddNew() {
+
+	}
+
 	public void reset() {
 		question = new Question();
+		resetRanges();
 
 		listAnswerChoices.clear();
 
@@ -80,6 +89,7 @@ public class QuestionBackingBeanBase extends BaseBackingBean<Question> {
 
 	protected void reloadFromId(long id) {
 		question = questionService.load(id);
+
 	}
 
 	@Override
@@ -119,12 +129,10 @@ public class QuestionBackingBeanBase extends BaseBackingBean<Question> {
 		List<AnswerChoice> listValidAnswerChoices = new ArrayList<AnswerChoice>();
 
 		for (AnswerChoice answerChoice : listAnswerChoices) {
-			if (StringUtils.isNotEmpty(answerChoice.getAnswerText()
 
-			)) {
-				answerChoice.setQuestion(question);
-				listValidAnswerChoices.add(answerChoice);
-			}
+			answerChoice.setQuestion(question);
+			listValidAnswerChoices.add(answerChoice);
+
 		}
 
 		question.getAnswerChoice().addAll(listValidAnswerChoices);

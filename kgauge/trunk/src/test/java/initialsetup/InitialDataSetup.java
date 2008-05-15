@@ -69,11 +69,6 @@ public class InitialDataSetup {
 
 		categoryTestDataFactory.persistAll();
 
-		TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
-				.getBean("userTestDataFactory");
-
-		userTestDataFactory.persistAll();
-
 		TestDataFactory grantedRoleTestDataFactory = (TestDataFactory) BeanHelper
 				.getBean("grantedRoleTestDataFactory");
 

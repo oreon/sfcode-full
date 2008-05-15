@@ -58,6 +58,13 @@ public class AnsweredQuestionDaoTest extends AbstractJpaTests {
 					.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
 							.loadOneRecord());
 
+			TestDataFactory examInstanceTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("examInstanceTestDataFactory");
+
+			answeredQuestionInstance
+					.setExamInstance((com.oreon.kgauge.domain.ExamInstance) examInstanceTestDataFactory
+							.loadOneRecord());
+
 			answeredQuestionService.save(answeredQuestionInstance);
 		} catch (PersistenceException pe) {
 			//if this instance can't be created due to back references e.g an orderItem needs an Order - 
@@ -85,6 +92,13 @@ public class AnsweredQuestionDaoTest extends AbstractJpaTests {
 
 				answeredQuestion
 						.setQuestion((com.oreon.kgauge.domain.Question) questionTestDataFactory
+								.loadOneRecord());
+
+				TestDataFactory examInstanceTestDataFactory = (TestDataFactory) BeanHelper
+						.getBean("examInstanceTestDataFactory");
+
+				answeredQuestion
+						.setExamInstance((com.oreon.kgauge.domain.ExamInstance) examInstanceTestDataFactory
 								.loadOneRecord());
 
 			} catch (Exception ex) {

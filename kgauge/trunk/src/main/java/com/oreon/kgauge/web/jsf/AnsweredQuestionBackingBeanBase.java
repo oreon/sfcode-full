@@ -61,8 +61,17 @@ public class AnsweredQuestionBackingBeanBase
 		return getAnsweredQuestion();
 	}
 
+	/**
+	 * Any initializations of the member entity should be done in this method - 
+	 * It will be called before add new action
+	 */
+	public void initForAddNew() {
+
+	}
+
 	public void reset() {
 		answeredQuestion = new AnsweredQuestion();
+		resetRanges();
 
 	}
 
@@ -77,6 +86,7 @@ public class AnsweredQuestionBackingBeanBase
 
 	protected void reloadFromId(long id) {
 		answeredQuestion = answeredQuestionService.load(id);
+
 	}
 
 }

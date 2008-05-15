@@ -68,8 +68,17 @@ public class AnswerChoiceBackingBeanBase extends BaseBackingBean<AnswerChoice> {
 		return getAnswerChoice();
 	}
 
+	/**
+	 * Any initializations of the member entity should be done in this method - 
+	 * It will be called before add new action
+	 */
+	public void initForAddNew() {
+
+	}
+
 	public void reset() {
 		answerChoice = new AnswerChoice();
+		resetRanges();
 
 	}
 
@@ -86,6 +95,7 @@ public class AnswerChoiceBackingBeanBase extends BaseBackingBean<AnswerChoice> {
 
 	protected void reloadFromId(long id) {
 		answerChoice = answerChoiceService.load(id);
+
 	}
 
 }
