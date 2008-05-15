@@ -7,10 +7,14 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 
+import org.acegisecurity.Authentication;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.acegisecurity.userdetails.UserDetails;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
@@ -18,6 +22,8 @@ import org.witchcraft.model.support.BusinessEntity;
 import org.witchcraft.model.support.Range;
 import org.witchcraft.model.support.audit.AuditLog;
 import org.witchcraft.model.support.errorhandling.BusinessException;
+import org.witchcraft.model.support.jsfbackingbeans.AuthenticationController;
+import org.witchcraft.model.support.security.AbstractUser;
 import org.witchcraft.model.support.service.BaseService;
 
 /**
@@ -35,7 +41,7 @@ public abstract class BaseBackingBean<T> {
 	private static Logger log = Logger.getLogger(BaseBackingBean.class);
 
 	protected String action; // whether action is search or update/add new
-	protected static final String SEARCH = "SEARCH";
+	public static final String SEARCH = "SEARCH";
 	public static final int INITIAL_RECORDS = 0;
 
 	public abstract BaseService<T> getBaseService();
@@ -78,7 +84,17 @@ public abstract class BaseBackingBean<T> {
 
 	public String search() {
 		action = SEARCH;
+		return "successSearch";
+	}
+	
+	public String gotoSearchPage(){
+		reset();
 		return "search";
+	}
+	
+	public String clearSearch(){
+		action = null;
+		return "clearSearch";
 	}
 
 	/**
@@ -100,23 +116,49 @@ public abstract class BaseBackingBean<T> {
 	 *            contains the database id of the row being selected
 	 */
 	public void selectEntity(ActionEvent actionEvent) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		String idStr = (String) ctx.getExternalContext()
-				.getRequestParameterMap().get("id");
+		String idStr = (String) getActionParamValue("id");
 
 		reset();
 		if (idStr != null) {
 			long id = Long.parseLong(idStr);
 			reloadFromId(id);
+		} else { // this is a new record
+			initForAddNew();
 		}
 	}
-	
-	/** This function should be overridden by derived classes so as to reset the instance varaible
-	 *  with the new one loaded from database using the id
+
+	/** Gets the value of the given parameter from faces context
+	 * @param parameterName - 
+	 * @return
+	 */
+	public static Object getActionParamValue(String parameterName) {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		return  ctx.getExternalContext()
+				.getRequestParameterMap().get(parameterName);
+	}
+
+	/**
+	 * This method should be overridden by child classes to implement any
+	 * initializations such as setting defaults when the user choses add new
+	 */
+	public void initForAddNew() {
+
+	}
+
+	/**
+	 * This function should be overridden by derived classes so as to reset the
+	 * instance varaible with the new one loaded from database using the id
+	 * 
 	 * @param id
 	 */
-	protected void reloadFromId(long id){
-		
+	protected void reloadFromId(long id) {
+
+	}
+
+	protected UserDetails getLoggedInUser() {
+		Authentication authentication = SecurityContextHolder.getContext()
+				.getAuthentication();
+		return (UserDetails)authentication.getPrincipal();
 	}
 
 	/**
@@ -141,7 +183,8 @@ public abstract class BaseBackingBean<T> {
 
 		createSuccessMessage(getEntity().getClass().getSimpleName()
 				+ " was successfully " + (isNew ? "added." : "updated."));
-		return "success";
+		
+		return "successUpdate";
 	}
 
 	/**
@@ -153,6 +196,8 @@ public abstract class BaseBackingBean<T> {
 	public List<AuditLog<T>> getAuditLog() {
 		return getBaseService().getAuditLogs();
 	}
+	
+	
 
 	/**
 	 * Get a list of Records - if action is search, get a subset otherwise get
@@ -169,10 +214,11 @@ public abstract class BaseBackingBean<T> {
 			entities = getBaseService().loadAll();
 
 		// Sort results.
+		/*
 		if (!StringUtils.isEmpty(sortField)) {
 			Collections.sort(entities, new DTOComparator(sortField,
 					sortAscending));
-		}
+		}*/
 
 		// createSuccessMessage( entities.size() > 0 ? ("Found " +
 		// entities.size() + " records ." ):
@@ -276,7 +322,32 @@ public abstract class BaseBackingBean<T> {
 		reset();
 	}
 
-	public void reset() {
+	public abstract void reset() ;
+
+	/**
+	 * Convenience method to get a given backing bean
+	 * 
+	 * @param name
+	 */
+	public <TB> TB getBean(String name) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ValueBinding valueBinding = facesContext.getApplication()
+				.createValueBinding("#{name}");
+		return (TB) valueBinding.getValue(facesContext);
 	}
 
+	public String getAction() {
+		return action;
+	}
+	
+	protected void resetRanges() {
+		List<Range> listRanges = getRangeList();
+		for (Range range : listRanges) {
+			range.clear();
+		}
+	}
+
+	public void setAction(String action) {
+		this.action = action;
+	}
 }

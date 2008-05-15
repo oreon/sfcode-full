@@ -7,6 +7,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 
+import org.apache.log4j.Logger;
+
 /**
  * This class enables locae/language switching  
  * @author jesing
@@ -16,6 +18,7 @@ public class LocaleChooserBackingBean {
 
 	private Locale locale = Locale.getDefault();
 	private String language; 
+	private static Logger logger = Logger.getLogger(LocaleChooserBackingBean.class);
 	
 	public String getLanguage() {
 		return language;
@@ -31,6 +34,7 @@ public class LocaleChooserBackingBean {
 		//TODO: Change to a factory for optimized locale object creation
 		context.getViewRoot().setLocale(new Locale(current) );
 		this.locale = context.getViewRoot().getLocale();
+		logger.info("Setting locale to " +  locale.getDisplayLanguage());
 		Locale.setDefault(locale);
 	}
 

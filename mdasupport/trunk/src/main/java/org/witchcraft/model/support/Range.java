@@ -77,4 +77,9 @@ public class Range<T> {
 					: Restrictions.lt(propertyName, end) );
 	}
 
+	public void clear() {
+		begin = null;
+		end = null;
+	}
+
 }

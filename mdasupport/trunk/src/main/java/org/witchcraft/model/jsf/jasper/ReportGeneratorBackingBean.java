@@ -8,9 +8,12 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+
+import org.hibernate.Session;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -55,13 +58,15 @@ public class ReportGeneratorBackingBean {
 		ServletOutputStream servletOutputStream = response.getOutputStream();
 		
 		Map parameters = new HashMap();
+		EntityManager em = entityManagerFactory.createEntityManager();
+		
 		parameters.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, 
-				entityManagerFactory.createEntityManager());
+				em);
 		parameters.put("ReportTitle", "Customer Demographics");
 		
 		
 		JasperRunManager.runReportToPdfStream(reportStream,
-				servletOutputStream, parameters);
+				servletOutputStream, parameters, ((Session)em.getDelegate()).connection() );
 		//connection.close();
 		response.setContentType("application/pdf");
 		servletOutputStream.flush();
