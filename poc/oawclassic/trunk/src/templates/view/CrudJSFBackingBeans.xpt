@@ -87,12 +87,24 @@
 				return get«NameS»();
 			}	
 			
+			/**
+			* Any initializations of the member entity should be done in this method - 
+			* It will be called before add new action
+			*/
+			public void initForAddNew(){
+				«FOREACH getNonOneToOneOutgoingAssociations() AS ae -»
+					«EXPAND getDefaults(ae, this) FOR ae.Association-»
+				«ENDFOREACH»
+			}
+			
+			
 			public void reset(){
 				«asInstanceVar()» = new «asParameter()»();
+				resetRanges();
 			«FOREACH getAllComposedAssociations AS ae»
 				list«ae.Opposite.associationName().toFirstUpper()»s.clear();
 			«ENDFOREACH»
-			
+				
 			}			
 			
     		@Override
@@ -112,6 +124,9 @@
 
 			protected void reloadFromId(long id){
 				«asInstanceVar()» = «asInstanceVar()»Service.load(id);
+				«FOREACH getAllAttributes.select(repeatableAttribute|repeatableAttribute.getRepeat()) AS repeatableAttribute»
+					repeat«repeatableAttribute.NameS.toFirstUpper()» = «asInstanceVar()».«repeatableAttribute.getContainerGetter()»get«repeatableAttribute.NameS.toFirstUpper()»();
+				«ENDFOREACH»
 			}
     
 		    
@@ -236,10 +251,14 @@ private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 		List<«ae.Opposite.Class.NameS»> listValid«assocName»s = new ArrayList<«ae.Opposite.Class.NameS»>();
 		
 		for («ae.Opposite.Class.NameS» «assocName.toFirstLower()» : list«assocName»s) {
+			«REM» 
 			if (StringUtils.isNotEmpty(«assocName.toFirstLower()».«EXPAND getFirstAttribute FOR ae.Opposite.Class-» )){
+			«ENDREM»
 				«assocName.toFirstLower()».set«ae.associationName().toFirstUpper()»(«NameS.toFirstLower()»);
 				listValid«assocName»s.add(«assocName.toFirstLower()»);
+			«REM»
 			}
+			«ENDREM»
 		}
 
 		«NameS.toFirstLower()».get«assocName»().addAll(listValid«assocName»s);
@@ -287,3 +306,16 @@ private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 		get«getFirstAttribute.NameS.toFirstUpper()-»()
 	«ENDIF»
 «ENDDEFINE»
+
+
+«DEFINE getDefaults(AssociationEnd ae, AbstractEntity e) FOR Association»
+
+«ENDDEFINE» 
+
+«DEFINE getDefaults(AssociationEnd ae, AbstractEntity e) FOR CustomAssociation»
+	«IF isValueForLoggedInUser»
+	«e.asInstanceVar()».set«ae.associationName().toFirstUpper()»
+		(facades.ServiceFacade.getInstance().get«ae.Class.Name.toFirstUpper()»Service().findByUsername(getLoggedInUser().getUsername()) );
+	«ENDIF»							
+«ENDDEFINE»
+

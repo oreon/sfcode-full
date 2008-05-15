@@ -7,7 +7,7 @@
 «EXTENSION java::NamingConventions»
 «EXTENSION reports::ReportExt»
 
-«DEFINE Gen FOR ReportTask»
+«DEFINE Gen FOR Report»
 
 «FILE "../resources/reports/" +NameS + ".jrxml" -»
 <?xml version="1.0"?>
@@ -72,12 +72,12 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 «REM» Generate the  field declarations «ENDREM»
 «DEFINE FieldDec FOR ReportField-»
 	«IF getFieldExpression == null-»
-	<field name="«NameS»" class="«Type.fqn()»"/>
+	<field name="«NameS»" class="java.lang.«Type.fqn()»"/>
 	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE FieldDec FOR Attribute-»
-	<field name="«NameS»" class="«Type.fqn()-»"/>
+	<field name="«NameS»" class="java.lang.«Type.fqn()-»"/>
 «ENDDEFINE»
 
 «REM» Generate the displayed fields «ENDREM»
@@ -89,7 +89,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 		<textField>
 			<reportElement x="«getCounter() * 65»" y="0" width="69" height="24"/>
 			<textElement textAlignment="Center"/>
-			<textFieldExpression class="«Type.fqn()»">
+			<textFieldExpression class="java.lang.«Type.fqn()»">
 				<![CDATA[«getFieldExpression != null ? getFieldExpression :"$F{" + NameS + "}"»]]>
 			</textFieldExpression>
 		</textField>
@@ -100,7 +100,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 		<textField>
 			<reportElement x="«getCounter() * 65»" y="0" width="69" height="24"/>
 			<textElement textAlignment="Center"/>
-			<textFieldExpression class="«Type.fqn()»">
+			<textFieldExpression class="java.lang.«Type.fqn()»">
 				<![CDATA[«"$F{" + NameS + "}"»]]>
 			</textFieldExpression>
 		</textField>
@@ -226,7 +226,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 «ENDDEFINE»
 		
 		
-«DEFINE GenTitle FOR ReportTask»
+«DEFINE GenTitle FOR Report»
 	<title>
 		<band height="70">
 			<line>

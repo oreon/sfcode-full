@@ -10,17 +10,42 @@
 «DEFINE ViewGen FOR Entity»
 
 
-«FILE "../webapp/crud/"+  Namespace.NameS + "/" +  NameS.toFirstLower() + ".xhtml"-»  
-	«EXPAND EditView::genEditView»		
+«FILE this.getFileGenerationPath("")»  
+	«EXPAND genContainerView("Add/Update", NameS.toFirstLower() + "Component" )»		
 «ENDFILE»
 
-«FILE "../webapp/crud/"+  Namespace.NameS + "/" +  NameS.toFirstLower() + "List.xhtml"-»  
-	«EXPAND TabularView::genTabularView»		
+«FILE this.getFileGenerationPath("Component")»  
+	«EXPAND EditView::genEditViewComponent»		
 «ENDFILE»
 
-«FILE "../webapp/crud/" +  Namespace.NameS + "/" + NameS.toFirstLower() + "Search.xhtml"-»  
-	«EXPAND SearchView::genSearchView»		
+
+«FILE getFileGenerationPath("List") »  
+	«EXPAND genContainerView("Add/Update", NameS.toFirstLower() + "ListComponent" )»		
 «ENDFILE»
+
+«FILE getFileGenerationPath("ListComponent") »  
+	«EXPAND TabularView::genTabularViewComponent»		
+«ENDFILE»
+
+
+«FILE getFileGenerationPath("Search") »  
+	«EXPAND genContainerView("Search ", NameS.toFirstLower() + "SearchComponent" )»		
+«ENDFILE»
+
+«FILE getFileGenerationPath("SearchComponent") »  
+	«EXPAND SearchView::genSearchViewComponent»		
+«ENDFILE»
+
+
+«FILE getFileGenerationPath("View") »  
+	«EXPAND genContainerView("View ", NameS.toFirstLower() + "ViewComponent" )»		
+«ENDFILE»
+
+«FILE getFileGenerationPath("ViewComponent") »  
+	«EXPAND SearchView::genSearchViewComponent»		
+«ENDFILE»
+«REM»comment
+«ENDREM»
 
 «ENDDEFINE»
 
@@ -29,7 +54,7 @@
 	<h:panelGroup>
 	<a4j:region>
 
-	<h:selectOneMenu  required="«enforecRequired && !isAssocNullable()»" 
+	<h:selectOneMenu  required="«enforecRequired && !isAssocNullable()»" disabled="«!(Association.getIsMutable())»"
 		id="«e.asInstanceVar()»_«associationName()»" converter="keyToObjectConverter"
 		value="#{«useBackingBean?e.asInstanceVar() + "CrudBacking.":""»«e.asInstanceVar()».«associationName()»}">
 		<f:selectItem itemLabel="Select" />
@@ -50,7 +75,17 @@
 
 «REM» Common taglibs for all xhtml pages - template can be specified«ENDREM»
 «DEFINE genIncludes(String template) FOR Element-»
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition  «EXPAND genIncludes FOR this»
+template="/WEB-INF/template/«template»">
+«ENDDEFINE»
+
+«DEFINE genIncludesHTML FOR Element-»
+<html  «EXPAND genIncludes FOR this» >
+«ENDDEFINE»
+
+
+«DEFINE genIncludes FOR Element»
+xmlns="http://www.w3.org/1999/xhtml"
 xmlns:ui="http://java.sun.com/jsf/facelets"
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core"
@@ -62,5 +97,26 @@ xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 xmlns:rich="http://richfaces.ajax4jsf.org/rich"
 xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 xmlns:wc="http://witchcraft.sourceforge.net/jsf"
-template="/WEB-INF/template/«template»">
 «ENDDEFINE»
+
+«REM» Create the container view which will contain the given component «ENDREM»
+«DEFINE genContainerView(String title, String component) FOR Entity-»
+	«EXPAND ViewGen::genIncludes("templateCrud.xhtml")-»
+	
+<ui:define name="title"> Add/Update «NameS» </ui:define> 
+<ui:define name="content">
+	<f:view>
+		<h:messages layout="list" globalOnly="true" showDetail="true"
+		styleClass="messages" />
+			
+			<ui:insert>
+				<ui:include src="«component».xhtml" />
+			</ui:insert>
+		
+	</f:view>
+</ui:define>
+</ui:composition>
+
+«ENDDEFINE»
+
+

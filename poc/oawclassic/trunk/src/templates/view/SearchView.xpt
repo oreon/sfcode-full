@@ -9,57 +9,52 @@
 «EXTENSION java::Associations»
 
 «REM» Create the view/update xhtml page for an entity «ENDREM»
-«DEFINE genSearchView FOR Entity-»
+«DEFINE genSearchViewComponent FOR Entity-»
 	
-	«EXPAND ViewGen::genIncludes("templateCrud.xhtml")-»
-	
+	«EXPAND ViewGen::genIncludesHTML-»
 	«setSearchAsCurrentRenderContext()»
-	
-<ui:define name="title"> Search «NameS» </ui:define>
-<ui:define name="content">
-
-	<f:view>
-		<h:messages layout="list" globalOnly="true" showDetail="true"
-		styleClass="messages" />
-	
-		<a4j:form id="form">
-			<rich:panel header="Search «NameS»">
-				<h:panelGrid columns="4" >
+		
+	<a4j:form id="form">
+		<rich:panel header="Search «NameS»">
+			<h:panelGrid columns="4" >
+				
+				<h:outputText value="Creation Date" styleClass="customformLabel" />
+				<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
+						backingBean="#{«asInstanceVar()»CrudBacking}" />
 					
-					<h:outputText value="Creation Date" styleClass="customformLabel" />
-					<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
-							backingBean="#{«asInstanceVar()»CrudBacking}" />
-						
-				«FOREACH getAllAttributes AS attrib-»
-					<h:outputText value="«attrib.msgBundleKey()»" />
-					«IF attrib.needsRangeForSearch()-»
-						«EXPAND genRangeField(this) FOR attrib»
-					«ELSE»
-					<h:panelGroup>
-						<«attrib.getElementType()»  «attrib.getElementAttributes()»  
-							id="«asInstanceVar()»_«attrib.TypeModifier»_«attrib.NameS»"
-							value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«attrib.fullName()»}">
-							«attrib.getElementContent()»
-						</«attrib.getElementType()»>
-						<h:message for="«asInstanceVar()»_«attrib.TypeModifier»_«attrib.NameS»" styleClass="errMessage" />
-					</h:panelGroup>
-					«ENDIF»
-				«ENDFOREACH»
-				
-				«FOREACH getAllOutgoingAssociations AS ae -»
-					<h:outputText value="#{msg.«ae.associationName().toFirstUpper()»}" styleClass="customFormLabel" />
-					«EXPAND ViewGen::genDropDown(this, true, false) FOR ae»
-				«ENDFOREACH»
-				</h:panelGrid>
-
-					<wc:submitCancelButtons backingBean="#{«asInstanceVar()»CrudBacking}" submitLabel="Search" 
-					submitAction="search" /> 
-				
-				 </rich:panel>					
-			</a4j:form>
-		</f:view>
-	</ui:define>
-</ui:composition>
+		«FOREACH getAllAttributes AS attrib-»
+			<h:outputText value="«attrib.msgBundleKey()»" />
+			«IF attrib.needsRangeForSearch()-»
+				«EXPAND genRangeField(this) FOR attrib»
+			«ELSE»
+			<h:panelGroup>
+				<«attrib.getElementType()»  «attrib.getElementAttributes()»  
+					id="«asInstanceVar()»_«attrib.TypeModifier»_«attrib.NameS»"
+					value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«attrib.fullName()»}">
+					«attrib.getElementContent()»
+				</«attrib.getElementType()»>
+				<h:message for="«asInstanceVar()»_«attrib.TypeModifier»_«attrib.NameS»" styleClass="errMessage" />
+			</h:panelGroup>
+			«ENDIF»
+		«ENDFOREACH»
+		
+		«FOREACH getAllOutgoingAssociations AS ae -»
+			<h:outputText value="#{msg.«NameS.toFirstLower()+ "_" + ae.associationName()»}" styleClass="customFormLabel" />
+			«EXPAND ViewGen::genDropDown(this, true, false) FOR ae»
+		«ENDFOREACH»
+		
+			<h:panelGroup>
+				<h:commandButton id="button1" value="Search"
+					action="#{«asInstanceVar()»CrudBacking.search}" styleClass="btn" />
+				<h:outputText value=" " />
+				<h:commandButton id="button2" value="Cancel" action="#{answerChoiceCrudBacking.clearSearch}"
+					immediate="true" styleClass="btn" />
+ 			</h:panelGroup>
+		</h:panelGrid>
+		
+		 </rich:panel>					
+	</a4j:form>
+</html>
 «ENDDEFINE»
 
 «DEFINE genRangeField(Entity entity) FOR Attribute-»

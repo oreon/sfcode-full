@@ -7,28 +7,23 @@
 «EXTENSION java::NamingConventions»
 «EXTENSION java::Associations»
 
-«REM» Create the view/update xhtml page for an entity «ENDREM»
-«DEFINE genEditView FOR Entity-»
-	«EXPAND ViewGen::genIncludes("templateCrud.xhtml")-»
+
+«DEFINE genEditViewComponent FOR Entity»
+	
+	«EXPAND ViewGen::genIncludesHTML-»
 	
 	«setEditAsCurrentRenderContext()»
-	
-	<ui:define name="title"> Add/Update «NameS» </ui:define> 
-	<ui:define name="content">
-		<f:view>
-			<h:messages layout="list" globalOnly="true" showDetail="true"
-			styleClass="messages" />
-		
-			<a4j:form id="form">
-				<rich:panel header="«NameS» Information">
-					<h:outputText value="Please correct the following issues !" 
-				rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
+
+	<a4j:form id="form">
+			<rich:panel header="«NameS» Information">
+				<h:outputText value="Please correct the following issues !" 
+			rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
 				
 			<h:panelGrid columns="2" styleClass="formTableCustom">
 					«REM»The associated entites for e.g an order would need a customer «ENDREM»
 					«FOREACH getNonOneToOneOutgoingAssociations() AS ae -»
 						<h:panelGroup>
-						<h:outputText value="«ae.associationName().toFirstUpper()  -»" />
+						<h:outputText value="#{msg.«NameS.toFirstLower()+ "_" + ae.associationName() -»}" />
 						<h:outputText value="«(ae.isAssocNullable()?"":"*")-»" />
 						</h:panelGroup>
 						«EXPAND ViewGen::genDropDown(this, true, true) FOR ae-»
@@ -41,17 +36,16 @@
 						<br/>
 						
 			«REM»Composed collections e.g an order contains orderitems «ENDREM»
-			«FOREACH AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable ) AS ae-»
+			«FOREACH getAllComposedAssociations AS compAssoc -»
+				«LET compAssoc.Opposite AS ae»
+				
 				<rich:simpleTogglePanel switchType="client" label="«ae.associationName().toFirstUpper()»">
 				<t:dataTable id="«ae.associationName()»_data" var="«ae.Class.asInstanceVar()»" rowIndexVar="rowIndex" 
 					value="#{«asInstanceVar()»CrudBacking.list«ae.associationName().toFirstUpper()»s}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
-				
 				«REM»The associated entites for e.g an order would need a customer «ENDREM» 
 				«EXPAND genEditableTableRow(ae.Class, false) FOREACH ae.Class.AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) -»
-							
 				«EXPAND genEditableTableRow(ae.Class) FOREACH ae.Class.getAllAttributes -»
-				
 				«EXPAND genEditableTableDeleteColumn(this) FOR ae -»
 				</t:dataTable>
 				<br/>
@@ -60,6 +54,7 @@
 									actionListener="#{«asInstanceVar()»CrudBacking.addNew«ae.associationName().toFirstUpper()»Row}" />
 				</rich:simpleTogglePanel>
 				<br/>
+				«ENDLET»
 			«ENDFOREACH»
 						
 				</rich:panel>
@@ -68,7 +63,7 @@
 				<h:panelGroup>
   					<h:commandButton id="button1" value="Submit" action="#{«asInstanceVar()»CrudBacking.update}"  styleClass="btn" /> 
   					<h:outputText value=" " />
-  					<h:commandButton id="button2" value="Cancel" action="success" immediate="true" styleClass="btn"/> 
+  					<h:commandButton id="button2" value="Cancel" action="cancelUpdate" immediate="true" styleClass="btn"/> 
   				   	<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  			<h:inputHidden id="«asInstanceVar()»_id" value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».id}" />
   				   	«REM»We need to have hidden ids of all one to one associations «ENDREM»
@@ -78,12 +73,8 @@
 				 </h:panelGroup>
 				</h:panelGrid>
 				
-			</a4j:form>
-		</f:view>
-
-</ui:define>
-</ui:composition>
-
+	</a4j:form>
+</html>			
 «ENDDEFINE»
 
 «REM» Create an edit entry e.g firstNAme <input > <errMessage > «ENDREM»
@@ -163,14 +154,12 @@
 «REM» Create dropdowns in «ENDREM»
 «DEFINE genEditableTableRow(Class e, boolean useBackingBean) FOR AssociationEnd»
 	«IF e.NameS != this.Opposite.Class.NameS »
-	
 	<t:column>
 		<f:facet name="header">
 				<t:outputText value="«NameS.toFirstUpper()»" /> 
 		</f:facet>
 		«EXPAND ViewGen::genDropDown(e, false, true) FOR this-»
 	</t:column>
-	
 	«ENDIF»
 «ENDDEFINE»
 
@@ -188,6 +177,4 @@
 		</a4j:commandButton>
 	</t:column>
 «ENDDEFINE»
-			
-
-
+	

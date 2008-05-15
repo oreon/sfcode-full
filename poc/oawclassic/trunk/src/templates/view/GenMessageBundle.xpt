@@ -5,7 +5,9 @@
 «IMPORT java»
 
 «EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
 «EXTENSION view::ViewExtensions»
+
 
 
 «DEFINE GenBundle FOR Model»
@@ -33,6 +35,11 @@
 	«FOREACH Attribute AS a-»
 «NameS.toFirstLower()»_«a.NameS»=«localeName»«a.NameS.getVariableNameForDisplay()»
 	«ENDFOREACH-»
+	
+	«FOREACH getAllOutgoingAssociations AS ae -»
+«NameS.toFirstLower()»_«ae.associationName()»=«localeName»«ae.associationName().toFirstUpper()»
+	«ENDFOREACH»
+
 «ENDDEFINE»
 
 «REM»These messages would be generated inside a protected block so the users can change them freely«ENDREM»

@@ -35,11 +35,11 @@
 	
 	<!-- Navigation Rule for summary  -->
 	<navigation-rule>
-		<from-view-id>/crud/*</from-view-id>
+		<from-view-id>/admin/*</from-view-id>
   
 		  <navigation-case>
 		    <from-outcome>summary</from-outcome>
-  			<to-view-id>/crud/entitiesSummary.xhtml</to-view-id>
+  			<to-view-id>/admin/entities/entitiesSummary.xhtml</to-view-id>
   		  </navigation-case>
 	</navigation-rule>
 			
@@ -62,81 +62,68 @@
 	
 	
 «DEFINE GenerateNavRules FOR Entity»
+
 	<navigation-rule>
-  		<from-view-id>/crud/«Package.NameS»/«asInstanceVar()».xhtml</from-view-id>
-  
-		  <navigation-case>
-		    <from-outcome>success</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
-		  </navigation-case>   
-    
-	</navigation-rule>
-	
-	<navigation-rule>
-  		<from-view-id>/crud/«Package.NameS»/«asInstanceVar()»Search.xhtml</from-view-id>
-  
-		  <navigation-case>
-		    <from-outcome>search</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
-		  </navigation-case>   
-	</navigation-rule>
-	
-	<navigation-rule>
-  		<from-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</from-view-id>
+  		<from-view-id>«getGenConfigPath("List")»</from-view-id>
   
 		  <navigation-case>
 		    <from-outcome>edit</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()».xhtml</to-view-id>
+		    <to-view-id>«getGenConfigPath("")»</to-view-id>
 		  </navigation-case>   
 		  
 		   <navigation-case>
 		    <from-outcome>addNew</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()».xhtml</to-view-id>
+		    <to-view-id>«getGenConfigPath("")»</to-view-id>
 		  </navigation-case> 
-		  
-		  <navigation-case>
-		    <from-outcome>delete</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
-		  </navigation-case> 
-		  
-		  <navigation-case>
-		    <from-outcome>success</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
-		  </navigation-case> 
-		  
-		  <navigation-case>
-		    <from-outcome>failure</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
-		  </navigation-case> 
-		  
-		  <navigation-case>
-		    <from-outcome>search</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»Search.xhtml</to-view-id>
-		  </navigation-case>   
-    
-	</navigation-rule>
-	
-	<navigation-rule>
-  		<from-view-id>/crud/«Package.NameS»/«asInstanceVar()»Search.xhtml</from-view-id>
-  
-		  <navigation-case>
-		    <from-outcome>search</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
-		  </navigation-case>   
-		  
+
 		   <navigation-case>
-		    <from-outcome>cancel</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
-		  </navigation-case>   
-    
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>«getGenConfigPath("Search")»</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				«getGenConfigPath("List")»
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>«getGenConfigPath("")»</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>«getGenConfigPath("List")»</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>«getGenConfigPath("List")»</to-view-id>
+		</navigation-case> 	
 	</navigation-rule>
 	
 	<navigation-rule>
-  		<from-view-id>/crud/*</from-view-id>
+		<from-view-id>«getGenConfigPath("Search")»</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>«getGenConfigPath("List")»</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>«getGenConfigPath("List")»</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
   
 		  <navigation-case>
 		    <from-outcome>list«NameS»</from-outcome>
-		    <to-view-id>/crud/«Package.NameS»/«asInstanceVar()»List.xhtml</to-view-id>
+		    <to-view-id>«getGenConfigPath("List")»</to-view-id>
 		  </navigation-case>   
 		  
 	</navigation-rule>	  

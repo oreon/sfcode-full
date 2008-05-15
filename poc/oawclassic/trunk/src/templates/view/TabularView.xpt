@@ -1,7 +1,7 @@
 «IMPORT org::openarchitectureware::core::meta::core»
 «IMPORT org::openarchitectureware::meta::uml::classifier»
 «IMPORT oaw4::demo::classic::uml::meta»
-«IMPORT org::witchcraft::model::jsf»
+«IMPORT org::witchcrafh::model::jsf»
 «IMPORT java»
 
 «EXTENSION view::ViewExtensions»
@@ -9,156 +9,159 @@
 «EXTENSION java::Associations»
 
 «REM» Create the tabular view xhtml page for an entity «ENDREM»
-«DEFINE genTabularView FOR Entity-»
+«DEFINE genTabularViewComponent FOR Entity-»
 	
-	«EXPAND ViewGen::genIncludes("templateCrud.xhtml")-»
+	«EXPAND ViewGen::genIncludesHTML-»
 	
-	<ui:define name="content">
-		<f:view>
-			<a4j:outputPanel styleClass="infoMessage" layout="block" > 
-				<h:messages layout="list" globalOnly="true" showDetail="true"/>	
-			</a4j:outputPanel>
-			
-			<a4j:form id="form_listing">
-				<rich:tabPanel  switchType="ajax">
-					<rich:tab label="Tabular" >
-					<t:dataTable id="data" var="«asInstanceVar()»"
-						value="#{«asInstanceVar()»CrudBacking.records}" rows="30"
-					rowClasses="odd, even" styleClass="dataTable" >						
-							«EXPAND genTableRow(asInstanceVar()) FOREACH getAllAttributes -»
-							
-							«REM»The associated entites for e.g an order would need a customer «ENDREM»
-							«EXPAND genTableRow(this) FOREACH getNonOneToOneOutgoingAssociations() -»
-							
-							<rich:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="id" arrow="true">
-										<t:outputText value=" " />
-									</t:commandSortHeader>
-								</f:facet>
-								
-								<!--
-								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
-								--> 								
-									<t:commandLink action="#{«asInstanceVar()»CrudBacking.select}"																					
-										actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}">
-										<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
-										<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
-										<f:param id="editId" name="id" value="#{«asInstanceVar()».id}" />								
-									</t:commandLink>		
-								<!--
-								</acegijsf:authorize>
-								--> 
-								</rich:column>
-								<t:column>
-								<f:facet name="header">
-									<t:commandSortHeader columnName="id" arrow="true">
-										<t:outputText value=" " />
-									</t:commandSortHeader>
-								</f:facet>
-								<!--
-								<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
-								--> 		
-								<t:commandLink action="#{«asInstanceVar()»CrudBacking.delete}"	
-									onclick="if(window.confirm('Are You Sure?')==false){return false}"
-									actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
-									<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
-									<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
-									<f:param id="deleteId" name="id" value="#{«asInstanceVar()».id}" />												
-								</t:commandLink>
-								<!--
-								</acegijsf:authorize>
-								--> 
-								</t:column>
-						</t:dataTable>	
-							 	<t:inputHidden value="#{«asInstanceVar()»CrudBacking.sortField}" />
-    							<t:inputHidden value="#{«asInstanceVar()»CrudBacking.sortAscending}" />
-							 </rich:tab>
-							 «IF getTreeFields != null»
-							 <rich:tab label="Tree" >
-							 	<rich:tree value="#{«asInstanceVar()»CrudBacking.tree}" 
-								var="data" switchType="client" 
-								nodeSelectListener="#{«asInstanceVar()»CrudBacking.processTreeSelection}"
-								/>
-							 </rich:tab>
-							 
-							 «ENDIF»
-						«REM» The audit log table goes here«ENDREM»	 
-							 <rich:tab label="Audit" >
-							 	<t:dataTable id="dataAudit" var="log"
-							value="#{«asInstanceVar()»CrudBacking.auditLog}" rows="30"
-							rowClasses="odd, even" styleClass="dataTable">
-							
-							<t:column>
-								<f:facet name="header">
-									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
-									<t:outputText value="Date" />
-									<!-- </t:commandSortHeader> -->
-								</f:facet>
-								<t:outputText value="#{log.dateCreated}" />
-							</t:column>
-							
-							<t:column>
-								<f:facet name="header">
-									<!-- <t:commandSortHeader columnName="Brand" arrow="true"> -->
-									<t:outputText value="Action" />
-									<!-- </t:commandSortHeader> -->
-								</f:facet>
-								<t:outputText value="#{log.action}" />
-							</t:column>
-
-							<t:column>
-								<f:facet name="header">
-									<!-- <t:commandSortHeader columnName="ListPrice" arrow="true"> -->
-									<t:outputText value="User" />
-									<!-- </t:commandSortHeader> -->
-								</f:facet>
-								<t:outputText value="#{log.username}" />
-							</t:column>
-							
-							«EXPAND genTableRow("log.entity") FOREACH getAllAttributes -»
-							</t:dataTable>
-							 </rich:tab>
-							 
-							</rich:tabPanel>
-  						 </a4j:form>
-						<br />
+	
+	<a4j:form id="form_listing">
+		<rich:tabPanel  switchType="ajax">
+			<rich:tab label="Tabular" >
+			<rich:datascroller align="left"  for="data" maxPages="20" renderIfSinglePage="true" />
+				<br/>
+				<br/>
 						
-			<a4j:form id="commands" >
-			 	<h:commandLink action="#{«asInstanceVar()»CrudBacking.select}"
-					actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}" value="Add New" />  
-				<h:commandLink action="#{«asInstanceVar()»CrudBacking.search}"
-					actionListener="#{«asInstanceVar()»CrudBacking.reset}" value="Search" />
-			</a4j:form>	
+	<rich:dataTable id="data" var="«asInstanceVar()»"
+		value="#{«asInstanceVar()»CrudBacking.records}" rows="30"
+	rowClasses="odd, even" styleClass="dataTable" >						
+	«EXPAND genTableRow(asInstanceVar()) FOREACH getAllAttributes -»
+	
+	«REM»The associated entites for e.g an order would need a customer «ENDREM»
+	«EXPAND genTableRow(this) FOREACH getNonOneToOneOutgoingAssociations() -»
+		
+		<rich:column>
+			<f:facet name="header">
+				
+					<h:outputText value=" " />
+				
+			</f:facet>
 			
-				</f:view>
-		</ui:define>
-</ui:composition>
+			<!--
+			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+			--> 								
+				<h:commandLink action="#{«asInstanceVar()»CrudBacking.select}"																					
+					actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}">
+					<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
+					<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
+					<f:param id="editId" name="id" value="#{«asInstanceVar()».id}" />								
+				</h:commandLink>		
+			<!--
+			</acegijsf:authorize>
+			--> 
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+						<h:outputText value=" " />
+				</f:facet>
+			<!--
+			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+			--> 		
+			<h:commandLink action="#{«asInstanceVar()»CrudBacking.delete}"	
+				onclick="if(window.confirm('Are You Sure?')==false){return false}"
+				actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
+				<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
+				<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
+				<f:param id="deleteId" name="id" value="#{«asInstanceVar()».id}" />												
+			</h:commandLink>
+			<!--
+			</acegijsf:authorize>
+			--> 
+			</rich:column>
+	</rich:dataTable>	
+	 </rich:tab>
+	 «IF getTreeFields != null-»
+	 <rich:tab label="Tree" >
+	 	<rich:tree value="#{«asInstanceVar()»CrudBacking.tree}" 
+		var="data" switchType="client" 
+		nodeSelectListener="#{«asInstanceVar()»CrudBacking.processTreeSelection}"
+		/>
+	 </rich:tab>
+	 «ENDIF»
+	«REM» The audit log table goes here«ENDREM»	 
+	 <rich:tab label="Audit" >
+	 	<rich:dataTable id="dataAudit" var="log"
+		value="#{«asInstanceVar()»CrudBacking.auditLog}" rows="30" rowClasses="odd, even" styleClass="dataTable">
+			
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Date" />
+				</f:facet>
+				<h:outputText value="#{log.dateCreated}" />
+			</rich:column>
+			
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Action" />
+				</f:facet>
+				<h:outputText value="#{log.action}" />
+			</rich:column>
+
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="User" />
+				</f:facet>
+				<h:outputText value="#{log.username}" />
+			</rich:column>
+			
+	«EXPAND genTableRow("log.entity") FOREACH getAllAttributes -»
+			</rich:dataTable>
+			 </rich:tab>
+						 
+		</rich:tabPanel>
+  	</a4j:form>
+	<br />
+						
+	<a4j:form id="commands">
+	<rich:toolBar height="22" width="120" itemSeparator="line">
+		<rich:toolBarGroup>
+			<h:graphicImage id="addnew" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="#{«asInstanceVar()»CrudBacking.select}"
+				actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}"
+				value="Add New" />
+		</rich:toolBarGroup>
+
+		<rich:toolBarGroup>
+			<h:graphicImage id="gotosearch" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="#{«asInstanceVar()»CrudBacking.gotoSearchPage}"
+				value="Search" />
+		</rich:toolBarGroup>
+
+		<rich:toolBarGroup
+			rendered="#{ «asInstanceVar()»CrudBacking.action == 'SEARCH' }">
+			<h:graphicImage id="clearsearch" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="#{«asInstanceVar()»CrudBacking.clearSearch}"
+				value="Clear Search" />
+		</rich:toolBarGroup>
+		
+		<rich:toolBarGroup
+			rendered="#{ «asInstanceVar()»CrudBacking.action == 'SEARCH' }">
+			<h:graphicImage id="refineSearch" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="search"
+				value="Refine Search" />
+		</rich:toolBarGroup>
+
+	</rich:toolBar>
+
+</a4j:form>
+			
+</html>
 «ENDDEFINE»
 
 
 «DEFINE genTableRow(String parent) FOR Attribute»
-	<t:column>
+	<rich:column sortBy="#{«parent».«fullName()»}" «REM»comment filterBy="#{«parent».«fullName()»}" filterEvent="onkeyup" «ENDREM» >
 		<f:facet name="header">
-			<t:commandLink actionListener="#{«parent»CrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="«NameS.toFirstUpper()»" />
-				<t:outputText value="#{msg.«Class.NameS.toFirstLower() + "_" + NameS»}" /> 
-			</t:commandLink>		
+				<h:outputText value="#{msg.«Class.NameS.toFirstLower() + "_" + NameS»}" /> 		
 		</f:facet>
-		<t:outputText value="#{«parent».«fullName()»}" />
-	</t:column>
+		<h:outputText value="#{«parent».«fullName()»}" />
+	</rich:column>
 «ENDDEFINE»
 
 «DEFINE genTableRow(Class c) FOR AssociationEnd»
-	<t:column>
+	<rich:column sortBy="#{«c.asInstanceVar()».«associationName()».displayName}" «REM»commentfilterBy="#{«c.asInstanceVar()».«associationName()».displayName}" filterEvent="onkeyup"«ENDREM» >
 		<f:facet name="header">
-		<t:commandLink actionListener="#{«c.asInstanceVar()»CrudBacking.sortDataList}">
-				<f:attribute name="sortField" value="«associationName()».displayName" />
-			<!-- <t:commandSortHeader columnName="«NameS.toFirstUpper()»" arrow="true"> -->
-				<t:outputText value="#{msg.«associationName().toFirstUpper()»}" /> 
-			<!-- </t:commandSortHeader> -->
-		</t:commandLink>	
+				<h:outputText value="#{msg.«c.NameS.toFirstLower() + "_" + associationName()»}" /> 	
 		</f:facet>
-		<t:outputText value="#{«c.asInstanceVar()».«associationName()».displayName}" />
-	</t:column>
+		<h:outputText value="#{«c.asInstanceVar()».«associationName()».displayName}" />
+	</rich:column>
 «ENDDEFINE»

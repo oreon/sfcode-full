@@ -163,12 +163,25 @@
 	
 		package facades;
 		
+		import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
+		
 		«FOREACH getEntities() AS e»
 			import «e.parentPackageName()+".service." +  e.NameS + "Service"-»;
 		«ENDFOREACH»
 	
 		public class ServiceFacade{
-			«EXPAND CommonUtils::genDeclGetterSetter("Service") FOREACH getEntities()»
+			private static ServiceFacade instance;
+	
+		public static ServiceFacade getInstance(){
+			if(instance == null)
+				instance = (ServiceFacade) BeanHelper.getBean("serviceFacade");
+			return instance;
+		}
+		
+		private ServiceFacade(){}
+			
+			
+		«EXPAND CommonUtils::genDeclGetterSetter("Service") FOREACH getEntities()»
 		}
 	
 	«ENDFILE»

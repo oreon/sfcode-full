@@ -28,8 +28,10 @@
 		public static void main(String args[]){
 			
 			«FOREACH getEntities() AS e-»
-				«EXPAND genBeanLookup FOR e»
-				«e.NameS.toFirstLower()»TestDataFactory.persistAll();
+				«IF e.isGenerateSampleData»
+					«EXPAND genBeanLookup FOR e»
+					«e.NameS.toFirstLower()»TestDataFactory.persistAll();
+				«ENDIF»
 			«ENDFOREACH»
 		}
 	}

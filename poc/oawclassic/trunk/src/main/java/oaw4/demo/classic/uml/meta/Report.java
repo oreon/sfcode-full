@@ -1,6 +1,6 @@
 package oaw4.demo.classic.uml.meta;
 
-public class ReportTask extends 
+public class Report extends 
  org.openarchitectureware.meta.uml.classifier.Class{
 	
 	private String query;

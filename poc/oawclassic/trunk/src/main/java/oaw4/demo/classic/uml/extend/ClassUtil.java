@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import oaw4.demo.classic.uml.meta.ConstrainedParameter;
+import oaw4.demo.classic.uml.meta.CustomAssociation;
 import oaw4.demo.classic.uml.meta.Entity;
 import oaw4.demo.classic.uml.meta.Service;
 
@@ -363,8 +364,18 @@ public class ClassUtil {
 			String multiplicity = (opposite.MultiplicityMinAsInt() == 1 && opposite
 					.MultiplicityMaxAsInt() == 1) ? "OneToOne(cascade=CascadeType.ALL)"
 					: "ManyToOne";
+			
+			boolean updatable = true;
+			
+			if (ae.Association().getMetaClass().getSimpleName().equals("CustomAssociation")){
+				updatable = ((CustomAssociation)ae.Association()).isMutable();
+			}
+			
 			return "@" + multiplicity + "\n @JoinColumn(name=\""
-					+ getAssocName(ae) + "_ID\", nullable=" + nullable + ")";
+					+ getAssocName(ae) + "_ID\", nullable=" + nullable 
+					+ ", updatable=" + updatable + ")";
+			
+			
 		} else
 			return "";
 	}

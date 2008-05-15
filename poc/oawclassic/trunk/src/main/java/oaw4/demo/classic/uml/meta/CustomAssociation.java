@@ -13,10 +13,11 @@ import org.openarchitectureware.meta.uml.classifier.Association;
 public class CustomAssociation extends Association{
 
 	private String defaultValue;
-	private boolean mutable;
+	private boolean mutable = true;
 	
 	
 	public boolean isMutable() {
+		
 		return mutable;
 	}
 
@@ -30,5 +31,12 @@ public class CustomAssociation extends Association{
 
 	public void setDefaultValue(String defaultValue) {
 		this.defaultValue = defaultValue;
+	}
+	
+	public boolean isValueForLoggedInUser(){
+		if(getDefaultValue() == null) 
+			return false;
+		System.out.println("comparing " + getDefaultValue());
+		return getDefaultValue().trim().equalsIgnoreCase("${LOGGED_IN_USER}");
 	}
 }

@@ -17,6 +17,10 @@ public abstract class AbstractEntity extends
 	private String displayName;
 	
 	private static final Logger logger = Logger.getLogger(AbstractEntity.class);
+	
+	private boolean generateSampleData = true;
+	
+	private boolean fullTextSearchEnabled = true;
 
 	/**
 	 * @return All elements which have Column stereotype applied
@@ -159,6 +163,7 @@ public abstract class AbstractEntity extends
 	
 		for (Object object : AssociationEnd()) {
 			AssociationEnd ae = (AssociationEnd)object;
+
 			if(ae.Opposite().isComposition() && ae.Opposite().isNavigable())
 				composedAssociatons.add(ae);
 		}
@@ -289,5 +294,24 @@ public abstract class AbstractEntity extends
 
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
+	}
+
+	/** Whether to generate sample data for this entity 
+	 * @return
+	 */
+	public boolean isGenerateSampleData() {
+		return generateSampleData;
+	}
+
+	public void setGenerateSampleData(boolean generateSampleData) {
+		this.generateSampleData = generateSampleData;
+	}
+
+	public boolean isFullTextSearchEnabled() {
+		return fullTextSearchEnabled;
+	}
+
+	public void setFullTextSearchEnabled(boolean fullTextSearchEnabled) {
+		this.fullTextSearchEnabled = fullTextSearchEnabled;
 	}
 }
