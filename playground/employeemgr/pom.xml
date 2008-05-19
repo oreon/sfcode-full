@@ -3,11 +3,33 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.mycompany</groupId>
 	<artifactId>employeemgr</artifactId>
-	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
+	<version>1.0-SNAPSHOT</version>
 	<build>
 		<finalName>employeemgr</finalName>
 		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>xmlbeans-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>xmlbeans</goal>
+						</goals>
+					</execution>
+				</executions>
+				<inherited>true</inherited>
+				<configuration>
+					<schemaDirectory>
+						src/main/resources/xsd
+					</schemaDirectory>
+
+					<sourceGenerationDirectory>
+						src/main/java
+					</sourceGenerationDirectory>
+				</configuration>
+
+			</plugin>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
@@ -26,9 +48,7 @@
 					<encoding>utf-8</encoding>
 				</configuration>
 			</plugin>
-			
-				<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
+			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<configuration>
 					<additionalProjectFacets>
@@ -64,13 +84,14 @@
 								.settings\org.eclipse.wst.common.project.facet.core.xml
 							</name>
 							<content>
-								<![CDATA[<faceted-project>
-  <fixed facet="jst.web"/>
-  <fixed facet="jst.java"/>
-  <installed facet="jst.java" version="5.0"/>
-  <installed facet="jst.web" version="2.5"/>
-  <installed facet="jst.jsf" version="1.2"/>
-</faceted-project>]]>
+								&lt;faceted-project> &lt;fixed
+								facet="jst.web"/> &lt;fixed
+								facet="jst.java"/> &lt;installed
+								facet="jst.java" version="5.0"/>
+								&lt;installed facet="jst.web"
+								version="2.5"/> &lt;installed
+								facet="jst.jsf" version="1.2"/>
+								&lt;/faceted-project>
 							</content>
 						</file>
 						<file>
@@ -78,13 +99,13 @@
 								.settings\org.eclipse.jdt.core.prefs
 							</name>
 							<content>
-								<![CDATA[#Wed Sep 19 12:07:27 EDT 2007
-eclipse.preferences.version=1
-org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.5
-org.eclipse.jdt.core.compiler.compliance=1.5
-org.eclipse.jdt.core.compiler.problem.assertIdentifier=error
-org.eclipse.jdt.core.compiler.problem.enumIdentifier=error
-org.eclipse.jdt.core.compiler.source=1.5]]>
+								#Wed Sep 19 12:07:27 EDT 2007
+								eclipse.preferences.version=1
+								org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.5
+								org.eclipse.jdt.core.compiler.compliance=1.5
+								org.eclipse.jdt.core.compiler.problem.assertIdentifier=error
+								org.eclipse.jdt.core.compiler.problem.enumIdentifier=error
+								org.eclipse.jdt.core.compiler.source=1.5
 							</content>
 						</file>
 						<file>
@@ -92,18 +113,17 @@ org.eclipse.jdt.core.compiler.source=1.5]]>
 								.settings\org.eclipse.jst.common.project.facet.core.prefs
 							</name>
 							<content>
-								<![CDATA[#Wed Sep 19 12:07:29 EDT 2007
-classpath.helper/org.eclipse.jdt.launching.JRE_CONTAINER\:\:org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType\:\:jre1.6.0_02/owners=jst.java\:5.0
-classpath.helper/org.eclipse.jst.server.core.container\:\:org.eclipse.jst.server.tomcat.runtimeTarget\:\:Apache\ Tomcat\ v6.0/owners=jst.web\:2.5
-eclipse.preferences.version=1]]>
+								#Wed Sep 19 12:07:29 EDT 2007
+								classpath.helper/org.eclipse.jdt.launching.JRE_CONTAINER\:\:org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType\:\:jre1.6.0_02/owners=jst.java\:5.0
+								classpath.helper/org.eclipse.jst.server.core.container\:\:org.eclipse.jst.server.tomcat.runtimeTarget\:\:Apache\
+								Tomcat\ v6.0/owners=jst.web\:2.5
+								eclipse.preferences.version=1
 							</content>
 						</file>
 					</additionalConfig>
 					<wtpversion>1.5</wtpversion>
 				</configuration>
 			</plugin>
-			
-			
 		</plugins>
 	</build>
 	<repositories>
@@ -121,34 +141,30 @@ eclipse.preferences.version=1]]>
 			<id>jboss-snapshot</id>
 			<url>http://snapshots.jboss.org/maven2</url>
 		</repository>
-		
 		<repository>
 			<releases />
 			<snapshots />
 			<id>oreon-repo</id>
 			<url>http://oreonconsulting.com/m2</url>
 		</repository>
-		
 		<repository>
 			<id>m2-incubating</id>
 			<url>
 				http://people.apache.org/repo/m2-incubating-repository/
 			</url>
 		</repository>
-		
-		 <repository>
-			  <id>apache-snapshots</id>
-			  <name>Maven Snapshots Repository</name>
-			  <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-			  <layout>default</layout>
-			   <snapshots>
-			       <enabled>true</enabled>
-			       <checksumPolicy>ignore</checksumPolicy>
-			   </snapshots>
-	      </repository>
-		
-		<repository>	
-		<id>apache-repo</id>
+		<repository>
+			<snapshots>
+				<checksumPolicy>ignore</checksumPolicy>
+			</snapshots>
+			<id>apache-snapshots</id>
+			<name>Maven Snapshots Repository</name>
+			<url>
+				http://people.apache.org/repo/m2-snapshot-repository
+			</url>
+		</repository>
+		<repository>
+			<id>apache-repo</id>
 			<name>apache-repo</name>
 			<url>
 				http://myfaces.zones.apache.org/dist/maven-repository
@@ -186,8 +202,7 @@ eclipse.preferences.version=1]]>
 		</pluginRepository>
 	</pluginRepositories>
 	<dependencies>
-	
-	<dependency>
+		<dependency>
 			<groupId>org.richfaces.ui</groupId>
 			<artifactId>richfaces-ui</artifactId>
 			<version>3.2.0.SR1</version>
@@ -206,22 +221,18 @@ eclipse.preferences.version=1]]>
 				</exclusion>
 			</exclusions>
 		</dependency>
-	
-	
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.1.2</version>
 			<scope>compile</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>taglibs</groupId>
 			<artifactId>standard</artifactId>
 			<version>1.1.2</version>
 			<scope>compile</scope>
 		</dependency>
-	
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -280,7 +291,6 @@ eclipse.preferences.version=1]]>
 			<artifactId>commons-httpclient</artifactId>
 			<version>3.0</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>asm</groupId>
 			<artifactId>asm</artifactId>
@@ -296,21 +306,21 @@ eclipse.preferences.version=1]]>
 			<artifactId>geronimo-servlet_2.4_spec</artifactId>
 			<version>1.0</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.witchcraft</groupId>
 			<artifactId>mdasupport</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
-		
-		<!--  The generator project -->
 		<dependency>
 			<groupId>org.witchcraft.generator</groupId>
 			<artifactId>wcgenerator</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
-
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>xmlbeans</artifactId>
+			<version>2.3.0</version>
+		</dependency>
 	</dependencies>
 	<reporting>
 		<plugins>
