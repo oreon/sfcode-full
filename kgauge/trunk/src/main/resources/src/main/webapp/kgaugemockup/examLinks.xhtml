@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk">	
+	
+			<a4j:form>			
+				<rich:dataGrid id="data"  var="exam"
+				columns="1" 
+					value="#{examCrudBacking.records}" rows="30" rowClasses="odd, even"
+					styleClass="sidebarLinks" headerclass="table.sidebarLinks th">					
+						<f:facet name="header">
+						<t:outputText value="Exams" />
+						</f:facet>
+							<t:commandLink	immediate="true"
+							action="edit"	
+							actionListener="#{examCrudBacking.selectExam}">										
+								<f:attribute name="sortField" value="Name" />							
+								<t:outputText value="#{exam.name}" />
+								<f:param id="editId" name="id" value="#{exam.id}" />								
+							</t:commandLink>		
+				</rich:dataGrid>			
+	        </a4j:form>
+
+</ui:composition>

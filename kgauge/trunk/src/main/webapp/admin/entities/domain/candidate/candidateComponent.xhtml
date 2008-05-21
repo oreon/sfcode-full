@@ -1,0 +1,554 @@
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:s="http://myfaces.apache.org/sandbox"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+
+
+
+<a4j:form id="form">
+	<rich:panel header="Candidate Information">
+		<h:outputText value="Please correct the following issues !"
+			rendered="#{! empty facesContext.maximumSeverity}"
+			styleClass="errMessage" />
+
+		<h:panelGrid columns="2" styleClass="formTableCustom">
+
+
+
+
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.person_firstName}" />
+				<h:outputText value="*" />
+			</h:panelGroup>
+
+
+
+			<h:panelGroup>
+				<a4j:region>
+
+
+					<h:inputText required="true" id="candidate_firstName"
+						value="#{candidateCrudBacking.candidate.firstName}">
+
+
+						<a4j:support event="onblur" reRender="candidate_firstName" />
+					</h:inputText>
+
+					<rich:message for="candidate_firstName" styleClass="errMessage">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="/images/icons/bullet_error.png" />
+						</f:facet>
+					</rich:message>
+				</a4j:region>
+			</h:panelGroup>
+
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.person_lastName}" />
+				<h:outputText value="*" />
+			</h:panelGroup>
+
+
+
+			<h:panelGroup>
+				<a4j:region>
+
+
+					<h:inputText required="true" id="candidate_lastName"
+						value="#{candidateCrudBacking.candidate.lastName}">
+
+
+						<a4j:support event="onblur" reRender="candidate_lastName" />
+					</h:inputText>
+
+					<rich:message for="candidate_lastName" styleClass="errMessage">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="/images/icons/bullet_error.png" />
+						</f:facet>
+					</rich:message>
+				</a4j:region>
+			</h:panelGroup>
+
+
+
+
+
+
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.person_dateOfBirth}" />
+				<h:outputText value="*" />
+			</h:panelGroup>
+
+
+
+			<h:panelGroup>
+				<a4j:region>
+
+
+					<rich:calendar popup="true" required="true"
+						id="candidate_dateOfBirth"
+						value="#{candidateCrudBacking.candidate.dateOfBirth}">
+
+
+						<a4j:support event="onblur" reRender="candidate_dateOfBirth" />
+					</rich:calendar>
+
+					<rich:message for="candidate_dateOfBirth" styleClass="errMessage">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="/images/icons/bullet_error.png" />
+						</f:facet>
+					</rich:message>
+				</a4j:region>
+			</h:panelGroup>
+
+
+
+
+
+
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.user_username}" />
+				<h:outputText value="*" />
+			</h:panelGroup>
+
+
+
+			<h:panelGroup>
+				<a4j:region>
+
+
+					<h:inputText required="true" id="candidate_user_username"
+						value="#{candidateCrudBacking.candidate.user.username}">
+
+
+						<a4j:support event="onblur" reRender="candidate_user_username" />
+					</h:inputText>
+
+					<rich:message for="candidate_user_username" styleClass="errMessage">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="/images/icons/bullet_error.png" />
+						</f:facet>
+					</rich:message>
+				</a4j:region>
+			</h:panelGroup>
+
+
+
+
+
+
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.user_password}" />
+				<h:outputText value="*" />
+			</h:panelGroup>
+
+
+
+			<h:panelGroup>
+				<a4j:region>
+
+
+					<h:inputSecret maxLength="12" redisplay="true" required="true"
+						id="candidate_user_password"
+						value="#{candidateCrudBacking.candidate.user.password}">
+
+						<f:validateLength minimum="5" maximum="12" />
+						<a4j:support event="onblur" reRender="candidate_user_password" />
+					</h:inputSecret>
+
+					<rich:message for="candidate_user_password" styleClass="errMessage">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="/images/icons/bullet_error.png" />
+						</f:facet>
+					</rich:message>
+				</a4j:region>
+			</h:panelGroup>
+
+
+
+
+
+			<h:panelGroup>
+				<h:outputText value="Repeat " />
+				<h:outputText value="#{msg.user_password}" />
+				<h:outputText value="*" />
+			</h:panelGroup>
+
+
+
+			<h:panelGroup>
+				<a4j:region>
+
+
+					<h:inputSecret maxLength="12" redisplay="true" required="true"
+						id="candidate_user_repeatPassword"
+						value="#{candidateCrudBacking.repeatPassword}">
+
+						<t:validateEqual for="candidate_user_password" />
+						<f:validateLength minimum="5" maximum="12" />
+						<a4j:support event="onblur" reRender="candidate_user_password" />
+					</h:inputSecret>
+
+					<rich:message for="candidate_user_repeatPassword"
+						styleClass="errMessage">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="/images/icons/bullet_error.png" />
+						</f:facet>
+					</rich:message>
+				</a4j:region>
+			</h:panelGroup>
+
+
+
+
+
+
+
+			<acegijsf:authorize ifAnyGranted="ROLE_ADMIN">
+				<h:panelGroup>
+					<h:outputText value="" />
+					<h:outputText value="#{msg.user_enabled}" />
+					<h:outputText value="*" />
+				</h:panelGroup>
+			</acegijsf:authorize>
+
+			<acegijsf:authorize ifAnyGranted="ROLE_ADMIN">
+				<h:panelGroup>
+					<a4j:region>
+
+
+						<h:selectBooleanCheckbox title="enabled" required="true"
+							id="candidate_user_enabled"
+							value="#{candidateCrudBacking.candidate.user.enabled}">
+
+
+							<a4j:support event="onblur" reRender="candidate_user_enabled" />
+						</h:selectBooleanCheckbox>
+
+						<rich:message for="candidate_user_enabled" styleClass="errMessage">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="/images/icons/bullet_error.png" />
+							</f:facet>
+						</rich:message>
+					</a4j:region>
+				</h:panelGroup>
+			</acegijsf:authorize>
+
+
+
+
+
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.contactDetails_streetAddress}" />
+				<h:outputText value="" />
+			</h:panelGroup>
+
+
+
+			<h:panelGroup>
+				<a4j:region>
+
+
+					<h:inputText required="false"
+						id="candidate_contactDetails_streetAddress"
+						value="#{candidateCrudBacking.candidate.contactDetails.streetAddress}">
+
+
+						<a4j:support event="onblur"
+							reRender="candidate_contactDetails_streetAddress" />
+					</h:inputText>
+
+					<rich:message for="candidate_contactDetails_streetAddress"
+						styleClass="errMessage">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="/images/icons/bullet_error.png" />
+						</f:facet>
+					</rich:message>
+				</a4j:region>
+			</h:panelGroup>
+
+
+
+
+
+
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.contactDetails_city}" />
+				<h:outputText value="" />
+			</h:panelGroup>
+
+
+
+			<h:panelGroup>
+				<a4j:region>
+
+
+					<h:inputText required="false" id="candidate_contactDetails_city"
+						value="#{candidateCrudBacking.candidate.contactDetails.city}">
+
+
+						<a4j:support event="onblur"
+							reRender="candidate_contactDetails_city" />
+					</h:inputText>
+
+					<rich:message for="candidate_contactDetails_city"
+						styleClass="errMessage">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="/images/icons/bullet_error.png" />
+						</f:facet>
+					</rich:message>
+				</a4j:region>
+			</h:panelGroup>
+
+
+
+
+
+
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.contactDetails_state}" />
+				<h:outputText value="" />
+			</h:panelGroup>
+
+
+
+			<h:panelGroup>
+				<a4j:region>
+
+
+					<h:inputText required="false" id="candidate_contactDetails_state"
+						value="#{candidateCrudBacking.candidate.contactDetails.state}">
+
+
+						<a4j:support event="onblur"
+							reRender="candidate_contactDetails_state" />
+					</h:inputText>
+
+					<rich:suggestionbox id="suggestionBoxId" for="candidate_contactDetails_state" tokens=",["
+						suggestionAction="#{candidateCrudBacking.autoCompleteState}" var="result"
+						fetchValue="#{result.name}" rules="cols"
+					    columnClasses="center">
+
+						<h:column>
+							<h:outputText value="#{result.name}" />
+						</h:column>
+
+						<h:column>
+							<h:outputText value="#{result.country.countryName}" style="font-style:italic" />
+						</h:column>
+
+					</rich:suggestionbox>
+
+					<rich:message for="candidate_contactDetails_state"
+						styleClass="errMessage">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="/images/icons/bullet_error.png" />
+						</f:facet>
+					</rich:message>
+				</a4j:region>
+			</h:panelGroup>
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.contactDetails_country}" />
+				<h:outputText value="*" />
+			</h:panelGroup>
+
+
+			<h:panelGroup>
+				<a4j:region>
+
+
+					<h:inputText required="true" id="candidate_contactDetails_country"
+						value="#{candidateCrudBacking.candidate.contactDetails.country}">
+
+
+						<a4j:support event="onblur"
+							reRender="candidate_contactDetails_country" />
+					</h:inputText>
+
+					<rich:message for="candidate_contactDetails_country"
+						styleClass="errMessage">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="/images/icons/bullet_error.png" />
+						</f:facet>
+					</rich:message>
+				</a4j:region>
+			</h:panelGroup>
+
+
+
+
+
+
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.contactDetails_zip}" />
+				<h:outputText value="" />
+			</h:panelGroup>
+
+
+
+			<h:panelGroup>
+				<a4j:region>
+
+
+					<h:inputText required="false" id="candidate_contactDetails_zip"
+						value="#{candidateCrudBacking.candidate.contactDetails.zip}">
+
+
+						<a4j:support event="onblur"
+							reRender="candidate_contactDetails_zip" />
+					</h:inputText>
+
+					<rich:message for="candidate_contactDetails_zip"
+						styleClass="errMessage">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="/images/icons/bullet_error.png" />
+						</f:facet>
+					</rich:message>
+				</a4j:region>
+			</h:panelGroup>
+
+
+
+
+
+
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.contactDetails_phone}" />
+				<h:outputText value="" />
+			</h:panelGroup>
+
+
+
+			<h:panelGroup>
+				<a4j:region>
+
+
+					<h:inputText required="false" id="candidate_contactDetails_phone"
+						value="#{candidateCrudBacking.candidate.contactDetails.phone}">
+
+
+						<a4j:support event="onblur"
+							reRender="candidate_contactDetails_phone" />
+					</h:inputText>
+
+					<rich:message for="candidate_contactDetails_phone"
+						styleClass="errMessage">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="/images/icons/bullet_error.png" />
+						</f:facet>
+					</rich:message>
+				</a4j:region>
+			</h:panelGroup>
+
+
+
+
+
+
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.contactDetails_email}" />
+				<h:outputText value="*" />
+			</h:panelGroup>
+
+
+
+			<h:panelGroup>
+				<a4j:region>
+
+
+					<h:inputText required="true" id="candidate_contactDetails_email"
+						value="#{candidateCrudBacking.candidate.contactDetails.email}">
+
+						<t:validateEmail />
+						<a4j:support event="onblur"
+							reRender="candidate_contactDetails_email" />
+					</h:inputText>
+
+					<rich:message for="candidate_contactDetails_email"
+						styleClass="errMessage">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="/images/icons/bullet_error.png" />
+						</f:facet>
+					</rich:message>
+				</a4j:region>
+			</h:panelGroup>
+
+
+
+
+
+
+
+		</h:panelGrid>
+		<br />
+
+
+
+
+	</rich:panel>
+
+	<h:panelGrid columns="2">
+		<h:panelGroup>
+			<h:commandButton id="button1" value="Submit"
+				action="#{candidateCrudBacking.update}" styleClass="btn" />
+			<h:outputText value=" " />
+			<h:commandButton id="button2" value="Cancel" action="cancelUpdate"
+				immediate="true" styleClass="btn" />
+			<!-- We need to have a hidden text field to store the id of the record being edited -->
+			<h:inputHidden id="candidate_id"
+				value="#{candidateCrudBacking.candidate.id}" />
+
+			<h:inputHidden id="user_id"
+				value="#{candidateCrudBacking.candidate.user.id}" />
+		</h:panelGroup>
+	</h:panelGrid>
+
+</a4j:form>
+</html>
+

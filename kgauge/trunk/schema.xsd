@@ -1,0 +1,34 @@
+<xs:schema targetNamespace="http://openuri.org/easypo"
+    xmlns:feed="http://openuri.org/easypo"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified">
+
+    <xs:element name="feed">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="repository" type="feed:repository"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:complexType name="repository">
+        <xs:sequence>
+            <xs:element name="item" type="feed:item"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="item">
+        <xs:sequence>
+            <xs:element name="property" type="xs:property" />
+        </xs:sequence>
+        
+        <xs:attribute name="category" type="xs:string" />
+    	<xs:attribute name="id" type="xs:string" />
+    	<xs:attribute name="action" type="xs:string" />
+    </xs:complexType>
+    
+    <xs:complexType name="property" type="xs:string" >
+    	<xs:attribute name="category" type="xs:string" />
+    </xs:simpleType>
+    
+</xs:schema>
