@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.springframework.org/schema/aop       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml"/>
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+	
+	<!-- Service Beans For entities-->
+	 
+	<jaxws:endpoint address="/candidateService" id="candidateWebService" implementor="#candidateService" implementorClass="com.oreon.kgauge.service.impl.CandidateServiceImpl"/>
+
+
+	<jaxws:endpoint address="/questionService" id="questionWebService" implementor="#questionService" implementorClass="com.oreon.kgauge.service.impl.QuestionServiceImpl"/>
+
+
+	<jaxws:endpoint address="/answerChoiceService" id="answerChoiceWebService" implementor="#answerChoiceService" implementorClass="com.oreon.kgauge.service.impl.AnswerChoiceServiceImpl"/>
+
+
+	<jaxws:endpoint address="/examService" id="examWebService" implementor="#examService" implementorClass="com.oreon.kgauge.service.impl.ExamServiceImpl"/>
+
+
+	<jaxws:endpoint address="/examInstanceService" id="examInstanceWebService" implementor="#examInstanceService" implementorClass="com.oreon.kgauge.service.impl.ExamInstanceServiceImpl"/>
+
+
+	<jaxws:endpoint address="/examCreatorService" id="examCreatorWebService" implementor="#examCreatorService" implementorClass="com.oreon.kgauge.service.impl.ExamCreatorServiceImpl"/>
+
+
+	<jaxws:endpoint address="/categoryService" id="categoryWebService" implementor="#categoryService" implementorClass="com.oreon.kgauge.service.impl.CategoryServiceImpl"/>
+
+
+	<jaxws:endpoint address="/userService" id="userWebService" implementor="#userService" implementorClass="com.oreon.kgauge.service.impl.UserServiceImpl"/>
+
+
+	<jaxws:endpoint address="/grantedRoleService" id="grantedRoleWebService" implementor="#grantedRoleService" implementorClass="com.oreon.kgauge.service.impl.GrantedRoleServiceImpl"/>
+
+
+	<jaxws:endpoint address="/answeredQuestionService" id="answeredQuestionWebService" implementor="#answeredQuestionService" implementorClass="com.oreon.kgauge.service.impl.AnsweredQuestionServiceImpl"/>
+
+
+	<jaxws:endpoint address="/sectionService" id="sectionWebService" implementor="#sectionService" implementorClass="com.oreon.kgauge.service.impl.SectionServiceImpl"/>
+
+
+	
+	<!--
+	<bean id="wss4jInConfiguration" class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor"/>
+	-->
+	
+	</beans>
