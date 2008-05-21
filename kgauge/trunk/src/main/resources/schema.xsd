@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema xmlns:ws="http://mycompany.com/hr/schemas" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://mycompany.com/hr/schemas">
+        
+    	
+    <xs:complexType name="Candidate">
+        <xs:all>
+        		<xs:element name="firstName" type="xs:string"/>	
+        		<xs:element name="lastName" type="xs:string"/>	
+        		<xs:element name="dateOfBirth" type="xs:date"/>	
+        	
+        		<xs:element name="user" type="ws:User"/>
+        	
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="Question">
+        <xs:all>
+        		<xs:element name="questionText" type="xs:string"/>	
+        		<xs:element name="difficultyLevel" type="xs:difficultyLevel"/>	
+        	
+        		<xs:element name="section" type="ws:Section"/>
+        	
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="AnswerChoice">
+        <xs:all>
+        		<xs:element name="answerText" type="xs:string"/>	
+        		<xs:element name="score" type="xs:integer"/>	
+        	
+        		<xs:element name="question" type="ws:Question"/>
+        	
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="Exam">
+        <xs:all>
+        		<xs:element name="examNumber" type="xs:string"/>	
+        		<xs:element name="name" type="xs:string"/>	
+        		<xs:element name="description" type="xs:string"/>	
+        		<xs:element name="questions" type="xs:integer"/>	
+        		<xs:element name="duration" type="xs:integer"/>	
+        		<xs:element name="price" type="xs:double"/>	
+        		<xs:element name="scoringStrategy" type="xs:scoringType"/>	
+        		<xs:element name="examStatus" type="xs:examStatus"/>	
+        	
+        		<xs:element name="category" type="ws:Category"/>
+        		<xs:element name="examCreator" type="ws:ExamCreator"/>
+        	
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="ExamInstance">
+        <xs:all>
+        	
+        		<xs:element name="candidate" type="ws:Candidate"/>
+        		<xs:element name="exam" type="ws:Exam"/>
+        	
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="ExamCreator">
+        <xs:all>
+        		<xs:element name="firstName" type="xs:string"/>	
+        		<xs:element name="lastName" type="xs:string"/>	
+        		<xs:element name="dateOfBirth" type="xs:date"/>	
+        	
+        		<xs:element name="user" type="ws:User"/>
+        	
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="Category">
+        <xs:all>
+        		<xs:element name="name" type="xs:string"/>	
+        	
+        		<xs:element name="parent" type="ws:Category"/>
+        	
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="User">
+        <xs:all>
+        		<xs:element name="username" type="xs:string"/>	
+        		<xs:element name="password" type="xs:string"/>	
+        		<xs:element name="enabled" type="xs:boolean"/>	
+        	
+        	
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="GrantedRole">
+        <xs:all>
+        		<xs:element name="name" type="xs:string"/>	
+        	
+        		<xs:element name="user" type="ws:User"/>
+        	
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="AnsweredQuestion">
+        <xs:all>
+        	
+        		<xs:element name="question" type="ws:Question"/>
+        		<xs:element name="examInstance" type="ws:ExamInstance"/>
+        	
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="Section">
+        <xs:all>
+        		<xs:element name="name" type="xs:string"/>	
+        	
+        		<xs:element name="exam" type="ws:Exam"/>
+        	
+        </xs:all>
+    </xs:complexType>
+
+    
+    </xs:schema>

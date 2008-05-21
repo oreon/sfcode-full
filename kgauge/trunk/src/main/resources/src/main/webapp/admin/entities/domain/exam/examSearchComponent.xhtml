@@ -1,0 +1,168 @@
+  
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+		
+	<a4j:form id="form">
+		<rich:panel header="Search Exam">
+			<h:panelGrid columns="4" >
+				
+				<h:outputText value="Creation Date" styleClass="customformLabel" />
+				<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
+						backingBean="#{examCrudBacking}" />
+					
+			<h:outputText value="#{msg.exam_examNumber}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="exam__examNumber"
+					value="#{examCrudBacking.exam.examNumber}">
+					
+				</h:inputText>
+				<h:message for="exam__examNumber" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.exam_name}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="exam__name"
+					value="#{examCrudBacking.exam.name}">
+					
+				</h:inputText>
+				<h:message for="exam__name" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.exam_description}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="exam__description"
+					value="#{examCrudBacking.exam.description}">
+					
+				</h:inputText>
+				<h:message for="exam__description" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.exam_questions}" />
+	
+		<wc:numberRange rangeFieldName="rangeQuestions" label="Questions"
+			backingBean="#{examCrudBacking}" type="integer" />
+	
+
+			
+			<h:outputText value="#{msg.exam_duration}" />
+	
+		<wc:numberRange rangeFieldName="rangeDuration" label="Duration"
+			backingBean="#{examCrudBacking}" type="integer" />
+	
+
+			
+			<h:outputText value="#{msg.exam_price}" />
+	
+		<wc:numberRange rangeFieldName="rangePrice" label="Price"
+			backingBean="#{examCrudBacking}" type="double" />
+	
+
+			
+			<h:outputText value="#{msg.exam_scoringStrategy}" />
+			
+			<h:panelGroup>
+				<h:selectOneMenu    
+					id="exam__scoringStrategy"
+					value="#{examCrudBacking.exam.scoringStrategy}">
+					<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="ScoreOnlyForCorrectAnswers" itemValue="ScoreOnlyForCorrectAnswers" />
+<f:selectItem itemLabel="ScoreForAllAnswers" itemValue="ScoreForAllAnswers" />
+
+				</h:selectOneMenu>
+				<h:message for="exam__scoringStrategy" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.exam_examStatus}" />
+			
+			<h:panelGroup>
+				<h:selectOneMenu    
+					id="exam__examStatus"
+					value="#{examCrudBacking.exam.examStatus}">
+					<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="INCOMPLETE" itemValue="INCOMPLETE" />
+<f:selectItem itemLabel="INACTIVE" itemValue="INACTIVE" />
+<f:selectItem itemLabel="ACTIVE" itemValue="ACTIVE" />
+
+				</h:selectOneMenu>
+				<h:message for="exam__examStatus" styleClass="errMessage" />
+			</h:panelGroup>
+			
+		
+		
+			<h:outputText value="#{msg.exam_category}" styleClass="customFormLabel" />
+			
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="false" disabled="false"
+		id="exam_category" converter="keyToObjectConverter"
+		value="#{examCrudBacking.exam.category}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{categoryCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="exam_category" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+
+			<h:outputText value="#{msg.exam_examCreator}" styleClass="customFormLabel" />
+			
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="false" disabled="true"
+		id="exam_examCreator" converter="keyToObjectConverter"
+		value="#{examCrudBacking.exam.examCreator}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{examCreatorCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="exam_examCreator" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+
+		
+		
+			<h:panelGroup>
+				<h:commandButton id="button1" value="Search"
+					action="#{examCrudBacking.search}" styleClass="btn" />
+				<h:outputText value=" " />
+				<h:commandButton id="button2" value="Cancel" action="#{answerChoiceCrudBacking.clearSearch}"
+					immediate="true" styleClass="btn" />
+ 			</h:panelGroup>
+		</h:panelGrid>
+		
+		 </rich:panel>					
+	</a4j:form>
+</html>
+		

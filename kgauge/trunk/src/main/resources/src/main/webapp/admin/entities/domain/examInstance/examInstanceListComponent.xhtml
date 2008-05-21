@@ -1,0 +1,154 @@
+  
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+	
+	<a4j:form id="form_listing">
+		<rich:tabPanel  switchType="ajax">
+			<rich:tab label="Tabular" >
+			<rich:datascroller align="left"  for="data" maxPages="20" renderIfSinglePage="true" />
+				<br/>
+				<br/>
+						
+	<rich:dataTable id="data" var="examInstance"
+		value="#{examInstanceCrudBacking.records}" rows="30"
+	rowClasses="odd, even" styleClass="dataTable" >						
+	
+	
+	
+	<rich:column sortBy="#{examInstance.candidate.displayName}"  >
+		<f:facet name="header">
+				<h:outputText value="#{msg.examInstance_candidate}" /> 	
+		</f:facet>
+		<h:outputText value="#{examInstance.candidate.displayName}" />
+	</rich:column>
+
+	<rich:column sortBy="#{examInstance.exam.displayName}"  >
+		<f:facet name="header">
+				<h:outputText value="#{msg.examInstance_exam}" /> 	
+		</f:facet>
+		<h:outputText value="#{examInstance.exam.displayName}" />
+	</rich:column>
+		
+		<rich:column>
+			<f:facet name="header">
+				
+					<h:outputText value=" " />
+				
+			</f:facet>
+			
+			<!--
+			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+			--> 								
+				<h:commandLink action="#{examInstanceCrudBacking.select}"																					
+					actionListener="#{examInstanceCrudBacking.selectEntity}">
+					<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
+					<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
+					<f:param id="editId" name="id" value="#{examInstance.id}" />								
+				</h:commandLink>		
+			<!--
+			</acegijsf:authorize>
+			--> 
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+						<h:outputText value=" " />
+				</f:facet>
+			<!--
+			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+			--> 		
+			<h:commandLink action="#{examInstanceCrudBacking.delete}"	
+				onclick="if(window.confirm('Are You Sure?')==false){return false}"
+				actionListener="#{examInstanceCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
+				<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
+				<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
+				<f:param id="deleteId" name="id" value="#{examInstance.id}" />												
+			</h:commandLink>
+			<!--
+			</acegijsf:authorize>
+			--> 
+			</rich:column>
+	</rich:dataTable>	
+	 </rich:tab>
+	 
+		 
+	 <rich:tab label="Audit" >
+	 	<rich:dataTable id="dataAudit" var="log"
+		value="#{examInstanceCrudBacking.auditLog}" rows="30" rowClasses="odd, even" styleClass="dataTable">
+			
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Date" />
+				</f:facet>
+				<h:outputText value="#{log.dateCreated}" />
+			</rich:column>
+			
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Action" />
+				</f:facet>
+				<h:outputText value="#{log.action}" />
+			</rich:column>
+
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="User" />
+				</f:facet>
+				<h:outputText value="#{log.username}" />
+			</rich:column>
+			
+			</rich:dataTable>
+			 </rich:tab>
+						 
+		</rich:tabPanel>
+  	</a4j:form>
+	<br />
+						
+	<a4j:form id="commands">
+	<rich:toolBar height="22" width="120" itemSeparator="line">
+		<rich:toolBarGroup>
+			<h:graphicImage id="addnew" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="#{examInstanceCrudBacking.select}"
+				actionListener="#{examInstanceCrudBacking.selectEntity}"
+				value="Add New" />
+		</rich:toolBarGroup>
+
+		<rich:toolBarGroup>
+			<h:graphicImage id="gotosearch" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="#{examInstanceCrudBacking.gotoSearchPage}"
+				value="Search" />
+		</rich:toolBarGroup>
+
+		<rich:toolBarGroup
+			rendered="#{ examInstanceCrudBacking.action == 'SEARCH' }">
+			<h:graphicImage id="clearsearch" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="#{examInstanceCrudBacking.clearSearch}"
+				value="Clear Search" />
+		</rich:toolBarGroup>
+		
+		<rich:toolBarGroup
+			rendered="#{ examInstanceCrudBacking.action == 'SEARCH' }">
+			<h:graphicImage id="refineSearch" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="search"
+				value="Refine Search" />
+		</rich:toolBarGroup>
+
+	</rich:toolBar>
+
+</a4j:form>
+			
+</html>
+		
