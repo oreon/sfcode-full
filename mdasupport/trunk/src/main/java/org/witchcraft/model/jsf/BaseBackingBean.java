@@ -26,6 +26,8 @@ import org.witchcraft.model.support.jsfbackingbeans.AuthenticationController;
 import org.witchcraft.model.support.security.AbstractUser;
 import org.witchcraft.model.support.service.BaseService;
 
+
+
 /**
  * Base class of all crud backing beans
  * 
@@ -86,13 +88,13 @@ public abstract class BaseBackingBean<T> {
 		action = SEARCH;
 		return "successSearch";
 	}
-	
-	public String gotoSearchPage(){
+
+	public String gotoSearchPage() {
 		reset();
 		return "search";
 	}
-	
-	public String clearSearch(){
+
+	public String clearSearch() {
 		action = null;
 		return "clearSearch";
 	}
@@ -127,14 +129,16 @@ public abstract class BaseBackingBean<T> {
 		}
 	}
 
-	/** Gets the value of the given parameter from faces context
-	 * @param parameterName - 
+	/**
+	 * Gets the value of the given parameter from faces context
+	 * 
+	 * @param parameterName -
 	 * @return
 	 */
 	public static Object getActionParamValue(String parameterName) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		return  ctx.getExternalContext()
-				.getRequestParameterMap().get(parameterName);
+		return ctx.getExternalContext().getRequestParameterMap().get(
+				parameterName);
 	}
 
 	/**
@@ -158,7 +162,7 @@ public abstract class BaseBackingBean<T> {
 	protected UserDetails getLoggedInUser() {
 		Authentication authentication = SecurityContextHolder.getContext()
 				.getAuthentication();
-		return (UserDetails)authentication.getPrincipal();
+		return (UserDetails) authentication.getPrincipal();
 	}
 
 	/**
@@ -183,7 +187,7 @@ public abstract class BaseBackingBean<T> {
 
 		createSuccessMessage(getEntity().getClass().getSimpleName()
 				+ " was successfully " + (isNew ? "added." : "updated."));
-		
+
 		return "successUpdate";
 	}
 
@@ -196,8 +200,6 @@ public abstract class BaseBackingBean<T> {
 	public List<AuditLog<T>> getAuditLog() {
 		return getBaseService().getAuditLogs();
 	}
-	
-	
 
 	/**
 	 * Get a list of Records - if action is search, get a subset otherwise get
@@ -215,15 +217,13 @@ public abstract class BaseBackingBean<T> {
 
 		// Sort results.
 		/*
-		if (!StringUtils.isEmpty(sortField)) {
-			Collections.sort(entities, new DTOComparator(sortField,
-					sortAscending));
-		}*/
+		 * if (!StringUtils.isEmpty(sortField)) { Collections.sort(entities, new
+		 * DTOComparator(sortField, sortAscending)); }
+		 */
 
 		// createSuccessMessage( entities.size() > 0 ? ("Found " +
 		// entities.size() + " records ." ):
 		// "no.records.found" );
-
 		return entities;
 	}
 
@@ -235,15 +235,26 @@ public abstract class BaseBackingBean<T> {
 	 */
 	protected void createErrorMessage(String errorDetail, String errorTitle,
 			Throwable throwable) {
-		log.error(errorDetail, throwable);
+		if (throwable != null) {
+			log.error(errorDetail, throwable);
+		}
 		FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_ERROR, errorTitle,
 						errorDetail));
 	}
 
+	/** Business errors should call this method
+	 * @param errorDetail
+	 * @param errorTitle
+	 */
+	protected void createErrorMessage(String errorDetail, String errorTitle) {
+		createErrorMessage(errorDetail, errorTitle, null);
+	}
+
 	protected void createSuccessMessage(String message) {
 		// log.error(errorDetail, throwable);
+		//String localizedMessage = JSFUtils.getMessageFromBundle("password_mailed",new String[]{ email });
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, message, ""));
 	}
@@ -322,7 +333,7 @@ public abstract class BaseBackingBean<T> {
 		reset();
 	}
 
-	public abstract void reset() ;
+	public abstract void reset();
 
 	/**
 	 * Convenience method to get a given backing bean
@@ -339,7 +350,7 @@ public abstract class BaseBackingBean<T> {
 	public String getAction() {
 		return action;
 	}
-	
+
 	protected void resetRanges() {
 		List<Range> listRanges = getRangeList();
 		for (Range range : listRanges) {
