@@ -22,5 +22,10 @@ public class State extends BusinessEntity{
 	public void setName(String name) {
 		this.name = name;
 	}
+	public State(Country country, String name) {
+		super();
+		this.country = country;
+		this.name = name;
+	}
 
 }

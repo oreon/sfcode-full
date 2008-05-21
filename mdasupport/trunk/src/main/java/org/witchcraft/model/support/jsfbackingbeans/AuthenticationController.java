@@ -15,6 +15,7 @@ import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.acegisecurity.ui.WebAuthenticationDetails;
 import org.acegisecurity.ui.webapp.AuthenticationProcessingFilter;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Required;
 
 /**
@@ -27,6 +28,7 @@ public class AuthenticationController {
 
 	private String _username;
 	private String _password;
+	private static final Logger logger = Logger.getLogger(AuthenticationController.class);
 
 	// injected properties
 	private AuthenticationManager authenticationManager;
@@ -84,8 +86,8 @@ public class AuthenticationController {
 							HttpSessionContextIntegrationFilter.ACEGI_SECURITY_CONTEXT_KEY,
 							secCtx);
 
-			outcome = "success";
-			System.out.println("Successfully authenticated " + userName);
+			outcome = "loginSuccesful";
+			logger.info("Successfully authenticated " + userName);
 
 		} catch (Exception e) {
 			outcome = "failure";
