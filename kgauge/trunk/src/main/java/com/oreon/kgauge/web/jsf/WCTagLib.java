@@ -3,9 +3,9 @@ package com.oreon.kgauge.web.jsf;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
-import com.sun.facelets.tag.AbstractTagLibrary;
+//import com.sun.facelets.tag.AbstractTagLibrary;
 
-public final class WCTagLib extends AbstractTagLibrary {
+public final class WCTagLib/* extends AbstractTagLibrary */ {
 
 	public static final String NAMESPACE = "http://witchcraft.sourceforge.net/jsf";
 
@@ -13,8 +13,8 @@ public final class WCTagLib extends AbstractTagLibrary {
 	public static final WCTagLib INSTANCE = new WCTagLib();
 
 	public WCTagLib() {
-		super(NAMESPACE);
-
+		//super(NAMESPACE);
+		/*	
 		try {
 			Method[] methods = JsfFunctions.class.getMethods();
 
@@ -25,7 +25,7 @@ public final class WCTagLib extends AbstractTagLibrary {
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
-		}
+		}*/
 
 	}
 
