@@ -1,48 +1,65 @@
 
-	
-	
-<ui:composition  
-xmlns="http://www.w3.org/1999/xhtml"
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:c="http://java.sun.com/jstl/core"
-xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-xmlns:s="http://myfaces.apache.org/sandbox"
-xmlns:t="http://myfaces.apache.org/tomahawk"
-xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
-xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
-xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 
-template="/WEB-INF/template/default.xhtml">
-	
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:s="http://myfaces.apache.org/sandbox"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template="/WEB-INF/template/default.xhtml">
+
 	<ui:define name="content">
 		<f:view>
-		<!--PROTECTED REGION ID(_14_0_8c50281_1210887228968_572167_1530) ENABLED START-->
-				vvv
-		<!--PROTECTED REGION END-->	
-			<h:messages layout="list" globalOnly="true" showDetail="true"
-				styleClass="messages" />
-			<h:outputText value="" styleClass="message" />		
-				
-				
-			
+			<rich:messages layout="list" id="info" globalOnly="true"
+				errorClass="messageError" infoClass="messageInfo">
+
+				<f:facet name="passedMarker">
+					<h:graphicImage value="/images/icons/accept.png" />
+				</f:facet>
+
+				<f:facet name="errorMarker">
+					<h:graphicImage value="/images/icons/bullet_error.png" />
+				</f:facet>
+			</rich:messages>
+
+			<!--PROTECTED REGION ID(_14_0_8c50281_1210887228968_572167_1530) ENABLED START-->
+
+
 			<h:form>
-				<h:panelGrid>
-				
-					
-						
-						<h:commandLink action="viewDetails" value="viewDetails" />
-						
-					 
-					
-					
-				
-				</h:panelGrid>
+
+				<rich:dataGrid value="#{examCrudBacking.records}" var="exam"
+					columns="1" elements="10" width="99%">
+
+					<rich:panel>
+						<f:facet name="header">
+							<h:commandLink value="#{exam.examNumber} #{exam.name}"
+								action="viewDetails" actionListener="#{selectEntity}" >
+								<f:param  name="id" value="#{exam.id}" />
+							</h:commandLink>
+						</f:facet>
+
+						<h:panelGrid columns="1">
+							<h:outputText value="#{exam.description}" />
+						</h:panelGrid>
+					</rich:panel>
+
+					<f:facet name="footer">
+						<rich:datascroller />
+					</f:facet>
+
+				</rich:dataGrid>
 			</h:form>
-	
+
+
+			<!--PROTECTED REGION END-->
+
 		</f:view>
-	 </ui:define>	
-	</ui:composition>
-	
+	</ui:define>
+</ui:composition>

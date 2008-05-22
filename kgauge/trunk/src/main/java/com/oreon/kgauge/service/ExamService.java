@@ -6,6 +6,7 @@ import org.witchcraft.model.support.service.BaseService;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import javax.persistence.EntityManager;
 
 /** The Service interface for entity - Exam
  * @author - Witchcraft Generated {Do not Modify } 
@@ -13,5 +14,7 @@ import javax.jws.WebService;
  */
 @WebService
 public interface ExamService extends ExamDao, BaseService<Exam> {
+
+	EntityManager getEntityManager();
 
 }

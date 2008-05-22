@@ -28,7 +28,7 @@ import org.witchcraft.model.support.Range;
 import com.oreon.kgauge.domain.GrantedRole;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-public class ExamInstanceServiceImplBase extends BaseServiceImpl<ExamInstance>
+public abstract class ExamInstanceServiceImplBase extends BaseServiceImpl<ExamInstance>
 		implements
 			ExamInstanceService {
 

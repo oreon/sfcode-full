@@ -28,17 +28,28 @@ public class IndexCreator {
 		// entityManagerFactory.createEntityManager();
 		FullTextEntityManager fullTextEntityManager = Search
 				.createFullTextEntityManager(em);
+		createIndex(em, fullTextEntityManager);
+
+		textSearch(fullTextEntityManager);
+		
+	}
+
+	private static void createIndex(EntityManager em,
+			FullTextEntityManager fullTextEntityManager) {
 		List<Exam> exams = em.createQuery("select exam from Exam as exam")
 				.getResultList();
 		for (Exam exam : exams) {
 			fullTextEntityManager.index(exam);
 		}
+	}
 
+	private static void textSearch(
+			FullTextEntityManager fullTextEntityManager) {
 		MultiFieldQueryParser parser = new MultiFieldQueryParser(new String[] {
 				"name", "description", "number" }, new StandardAnalyzer());
 		Query query = null;
 		try {
-			query = parser.parse(" ORM");
+			query = parser.parse("java");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -47,8 +58,7 @@ public class IndexCreator {
 				.createFullTextQuery(query, Exam.class);
 		List<Exam> result = ftq.getResultList();
 		
-		System.out.println(result.size() + " " + result.get(0).getName());
-		
+		System.out.println(result.size());
 	}
 
 }
