@@ -22,17 +22,17 @@ public class CandidateBackingBean extends CandidateBackingBeanBase {
 		if (candidate == null) {
 			log.info("No candidate found with email " + email);
 
-			String message = JsfFunctions.getMessageFromBundle("no_such_email",
-					new String[] { email });
-			createErrorMessage(message, message);
+			//String message = JsfFunctions.getMessageFromBundle("no_such_email",
+			//		new String[] { email });
+			createErrorMessage("no_such_email",  email );
 			return "failure";
 		} else { // found user
 			// mailService.emailPassword();
 			log.info(" candidate found with email " + email
 					+ ", emailing password");
-			String message = JsfFunctions.getMessageFromBundle(
-					"password_mailed", new String[] { email });
-			createSuccessMessage(message);
+			//String message = JsfFunctions.getMessageFromBundle(
+			//		"password_mailed", new String[] { email });
+			createSuccessMessage("password_mailed", email);
 			return "emailFound";
 		}
 	}

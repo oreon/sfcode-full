@@ -7,19 +7,23 @@
 
 package com.oreon.kgauge.dao.impl;
 
-import com.oreon.kgauge.domain.Category;
-import com.oreon.kgauge.dao.CategoryDao;
-
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
-
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-
 import java.util.List;
 
+import javax.persistence.Query;
+
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.queryParser.MultiFieldQueryParser;
+import org.apache.lucene.queryParser.ParseException;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
 import org.springframework.stereotype.Repository;
 import org.witchcraft.model.support.dao.BaseDao;
+
+import com.oreon.kgauge.dao.CategoryDao;
+import com.oreon.kgauge.domain.Category;
+import com.oreon.kgauge.domain.Exam;
 
 @Repository
 public class CategoryDaoImplBase extends BaseDao<Category>
@@ -47,7 +51,8 @@ public class CategoryDaoImplBase extends BaseDao<Category>
 			criteria = criteria.add(Restrictions.eq("parent.id",
 					exampleInstance.getParent().getId()));
 		}
-
 	}
+	
+	
 
 }

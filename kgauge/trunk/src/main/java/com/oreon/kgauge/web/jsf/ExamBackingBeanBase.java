@@ -6,6 +6,12 @@ import javax.faces.context.FacesContext;
 import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
 import org.apache.commons.lang.StringUtils;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.queryParser.MultiFieldQueryParser;
+import org.apache.lucene.queryParser.ParseException;
+import org.apache.lucene.search.Query;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
 
 import com.oreon.kgauge.domain.Exam;
 import com.oreon.kgauge.service.ExamService;
@@ -15,12 +21,15 @@ import java.util.List;
 import java.util.ArrayList;
 import org.witchcraft.model.support.Range;
 
+import sun.util.logging.resources.logging;
+
 import com.oreon.kgauge.domain.Section;
 
 /**
  * This is generated code - to edit code or override methods use - Exam class
- * @author witchCraft Code Generator
- * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
+ * 
+ * @author witchCraft Code Generator WARNING - DO NOT EDIT - CHANGES WILL BE
+ *         OVERWRITTEN
  */
 
 public class ExamBackingBeanBase extends BaseBackingBean<Exam> {
@@ -32,6 +41,7 @@ public class ExamBackingBeanBase extends BaseBackingBean<Exam> {
 	private List<Section> listSections = new ArrayList<Section>();
 
 	private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
+	
 
 	public Range<Date> getRangeCreationDate() {
 		return rangeCreationDate;
@@ -93,7 +103,7 @@ public class ExamBackingBeanBase extends BaseBackingBean<Exam> {
 	}
 
 	/**
-	 * Any initializations of the member entity should be done in this method - 
+	 * Any initializations of the member entity should be done in this method -
 	 * It will be called before add new action
 	 */
 	public void initForAddNew() {
@@ -198,12 +208,14 @@ public class ExamBackingBeanBase extends BaseBackingBean<Exam> {
 		listSections.remove(index);
 
 		/*
-			TaskService taskService = (TaskService) BeanHelper
-					.getBean("taskService");
-
-			if (task.getId() != null && task.getId() > 0) {
-				taskService.delete(task);
-			}*/
+		 * TaskService taskService = (TaskService) BeanHelper
+		 * .getBean("taskService");
+		 * 
+		 * if (task.getId() != null && task.getId() > 0) {
+		 * taskService.delete(task); }
+		 */
 	}
+
+	
 
 }

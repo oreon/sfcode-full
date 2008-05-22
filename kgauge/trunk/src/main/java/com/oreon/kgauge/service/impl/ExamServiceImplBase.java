@@ -28,14 +28,14 @@ import org.witchcraft.model.support.Range;
 import com.oreon.kgauge.domain.GrantedRole;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-public class ExamServiceImplBase extends BaseServiceImpl<Exam>
+public abstract class ExamServiceImplBase extends BaseServiceImpl<Exam>
 		implements
 			ExamService {
 
 	private static final Logger log = Logger
 			.getLogger(ExamServiceImplBase.class);
 
-	private ExamDao examDao;
+	protected ExamDao examDao;
 
 	public void setExamDao(ExamDao examDao) {
 		this.examDao = examDao;
