@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE project [     <!ENTITY nbsp "&#160;">  ]>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	template="/WEB-INF/template/default.xhtml"
->
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-<ui:define name="title">employeemgr</ui:define>
-<ui:define name="content">
-        <f:view>
-           <b> Congratulations ! Your initial Witchcraft project - employeemgr is set up . </b>
-        </f:view>
-</ui:define>
-</ui:composition>
+	<ui:composition template="/WEB-INF/template/default.xhtml">
+		<ui:define name="title">Employee Manager</ui:define>
+		<ui:define name="content">
+			<f:loadBundle basename="buttons" var="but" />
+			<f:loadBundle basename="generated" var="gen" />
+			<h:outputText value="Welcome to the Employee Manager" />
+<br />
+			<h:outputText value=" #{msg.langSelectLabel}" />
+			<h:form id="changelanguageform" styleClass="&gt;#center">
+				<t:commandLink styleClass="a:link" id="english"
+					action="chooseLocale" actionListener="#{LangBean.onChooseLocale}"
+					value="English" />
+				|
+				<t:commandLink styleClass="a:link" id="german"
+					action="chooseLocale" actionListener="#{LangBean.onChooseLocale}"
+					value="Deutsch" />
+				|
+				<t:commandLink styleClass="a:link" id="french"
+					action="chooseLocale" actionListener="#{LangBean.onChooseLocale}"
+					value="Francais" />
+			</h:form>
+			<h:outputText
+				value="Testing Locale: #{LangBean.locale.displayCountry}" />
+			<br/>
+			<h:outputText value="This line uses bundle: #{but.bundleID}" />
+			<br/>
+			<h:outputText value="This line uses bundle: #{gen.bundleID}" />
+		</ui:define>
+	</ui:composition>
+</html>
