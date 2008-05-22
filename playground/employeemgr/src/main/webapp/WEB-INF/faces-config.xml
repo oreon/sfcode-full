@@ -6,7 +6,16 @@
 	<!--  Spring variable resolver -->  
   <application> 
     <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver> 
-    <message-bundle>messages</message-bundle>
+    <locale-config>
+			<default-locale>en_US</default-locale>
+			<supported-locale>de</supported-locale>
+			<supported-locale>fr</supported-locale>
+			<supported-locale>en_GB</supported-locale>
+		</locale-config>
+		<message-bundle>messages</message-bundle>
+		
+		
+		
   </application>  
   
   <!-- A converter for combo boxes (selectOneMenus ) to convert objects to and from ids -->
@@ -26,6 +35,24 @@
 			<value>#{authenticationManager}</value>
 		</managed-property>
 	</managed-bean>
+
+<managed-bean>
+		<managed-bean-name>LangBean</managed-bean-name>
+		<managed-bean-class>
+			com.mycomapny.employeemgr.web.jsf.LangBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+    <managed-bean>
+		<managed-bean-name>userProfile</managed-bean-name>
+		<managed-bean-class>UserProfile</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>locale</property-name>
+			<value>English</value>
+		</managed-property>
+		</managed-bean>
 
 	<navigation-rule>
 		<from-view-id>/login.xhtml</from-view-id>
@@ -80,7 +107,16 @@
 		
 	</navigation-rule>
 	
-	
+	<navigation-rule>
+		<from-view-id>/index.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>
+				#{chooseLocale}
+			</from-action>
+			<to-view-id>/index.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		</navigation-rule>
 	
  
 </faces-config>
