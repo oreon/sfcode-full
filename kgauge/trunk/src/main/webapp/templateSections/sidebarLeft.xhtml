@@ -12,7 +12,13 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
 
 <div id="sidebar-left">
-	<wc:login />
+
+	<a4j:outputPanel rendered="#{ !empty  authenticationController.username}" >
+		<ui:include src="myLinks.xhtml" />
+	</a4j:outputPanel>
+	
+	<wc:login rendered="#{ empty  authenticationController.username}"/>
+	
 </div>
 
 </ui:composition>

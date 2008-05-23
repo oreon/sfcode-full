@@ -7,20 +7,21 @@
 
 package com.oreon.kgauge.domain;
 
-import javax.persistence.*;
-import java.util.Date;
-import org.hibernate.annotations.Cascade;
-
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.Store;
-
-import org.witchcraft.model.jsf.Image;
-import java.util.Set;
 
 @MappedSuperclass
 @Indexed
@@ -166,6 +167,7 @@ public abstract class ExamBase
 		this.examStatus = examStatus;
 	}
 
+	@IndexedEmbedded
 	private com.oreon.kgauge.domain.Category category;
 
 	private com.oreon.kgauge.domain.ExamCreator examCreator;
@@ -205,6 +207,7 @@ public abstract class ExamBase
 
 	@OneToMany(mappedBy = "exam", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "exam_ID", nullable = false)
+	@IndexedEmbedded
 	public java.util.Set<com.oreon.kgauge.domain.Section> getSection() {
 		return this.section;
 	}
@@ -235,4 +238,8 @@ public abstract class ExamBase
 		return examNumber + "";
 	}
 
+	public String[] retrieveSearchableFieldsArray() {
+		return new String[] {
+				"name", "description", "number" , "section.name", "category.name"};
+	}
 }
