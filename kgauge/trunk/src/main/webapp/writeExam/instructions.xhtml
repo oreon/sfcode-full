@@ -18,19 +18,19 @@
 	<ui:define name="content">
 		<f:view>
 			<!--PROTECTED REGION ID(_14_0_8c50281_1210887300406_441734_1594) ENABLED START-->
-			<h3>KnowledgeGauge Hibernate Certification Exam</h3>
-			<p>This exam would test your knowledge of the most popular Java
-			ORM - Hibernate.</p>
+			<h3>#{examCrudBacking.exam.examNumber} #{examCrudBacking.exam.name}</h3>
+			<p>The objective of this exam is to asses your knowledge of #{examCrudBacking.exam.name}. 
+			</p>
 			<table>
 				<tbody>
 					<tr>
 						<td>Time:</td>
-						<td>60 Minutes</td>
+						<td>#{examCrudBacking.exam.duration} Minutes</td>
 
 					</tr>
 					<tr>
 						<td>Questions:</td>
-						<td>55</td>
+						<td>#{examCrudBacking.exam.questions}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -40,25 +40,8 @@
 			won't be eligible for any refund. <br/>
 			</div>
 			<input value="Start Exam"
-				onclick="window.open('examInstance.html','fs','fullscreen=yes')"
-				type="button" /> <!--PROTECTED REGION END-->
-			<h:messages layout="list" globalOnly="true" showDetail="true"
-				styleClass="messages" />
-			<h:outputText value="" styleClass="message" />
-
-
-
-			<h:form>
-				<h:panelGrid>
-
-
-
-
-
-
-
-				</h:panelGrid>
-			</h:form>
+				onclick="window.open('examInstance.jsf','fs','fullscreen=yes')"
+				type="button" class="btn"/> <!--PROTECTED REGION END-->
 
 		</f:view>
 	</ui:define>

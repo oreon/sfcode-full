@@ -46,10 +46,10 @@ public class IndexCreator {
 	private static void textSearch(
 			FullTextEntityManager fullTextEntityManager) {
 		MultiFieldQueryParser parser = new MultiFieldQueryParser(new String[] {
-				"name", "description", "number" }, new StandardAnalyzer());
+				"name", "description", "number" , "section.name", "category.name"}, new StandardAnalyzer());
 		Query query = null;
 		try {
-			query = parser.parse("java");
+			query = parser.parse("xml");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
