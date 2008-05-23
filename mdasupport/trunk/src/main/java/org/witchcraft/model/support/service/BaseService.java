@@ -18,5 +18,12 @@ public interface BaseService<T> extends GenericDAO<T>{
      * @return
      */
     public List<AuditLog<T>> getAuditLogs();
+    
+    
+    /**
+     * @param searchText
+     * @return
+     */
+    public List<T> performTextSearch(String searchText);
 
 }

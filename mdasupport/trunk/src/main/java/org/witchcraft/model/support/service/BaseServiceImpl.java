@@ -106,5 +106,13 @@ public abstract class BaseServiceImpl<T extends BusinessEntity> {
 	public Criteria createExampleCriteria(T exampleInstance){
 		return getDao().createExampleCriteria(exampleInstance);
 	}
+	
+	/**
+     * @param searchText
+     * @return
+     */
+    public List<T> performTextSearch(String searchText){
+    	return getDao().performTextSearch(searchText);
+    }
 
 }
