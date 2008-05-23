@@ -76,5 +76,14 @@ public class BusinessEntity implements Serializable{
 		
 		return ((BusinessEntity) object).getId().longValue() == getId().longValue();
 	}
+
+	/** Derived classes should override this method to return the fields that are to be used 
+	 * in full text search
+	 * @return
+	 */
+	public String[] retrieveSearchableFieldsArray() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
