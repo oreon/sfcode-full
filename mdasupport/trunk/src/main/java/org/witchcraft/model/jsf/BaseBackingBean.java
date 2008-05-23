@@ -37,8 +37,9 @@ import org.witchcraft.model.support.service.BaseService;
  *            The BusinessEntity
  */
 public abstract class BaseBackingBean<T> {
-	private Date fromDate;
-	private Date toDate;
+	private Date fromDate; //entity creation from date
+	private Date toDate; //entity creation to date
+	private String searchText; //text field for full text search;
 
 	private static Logger log = Logger.getLogger(BaseBackingBean.class);
 
@@ -77,7 +78,7 @@ public abstract class BaseBackingBean<T> {
 		try {
 			getBaseService().delete(getEntity());
 		} catch (DataAccessException dae) {
-			createErrorMessage(dae.getMessage(), "Delete Error", dae);
+			createErrorMessage(dae.getMessage(), "Delete Error", dae, null);
 			return "failure";
 		}
 
@@ -118,10 +119,12 @@ public abstract class BaseBackingBean<T> {
 	 *            contains the database id of the row being selected
 	 */
 	public void selectEntity(ActionEvent actionEvent) {
+		
 		String idStr = (String) getActionParamValue("id");
 
 		reset();
 		if (idStr != null) {
+			log.info("Trying to load " + getEntity().getClass().getSimpleName() + " with id " + idStr);
 			long id = Long.parseLong(idStr);
 			reloadFromId(id);
 		} else { // this is a new record
@@ -175,7 +178,7 @@ public abstract class BaseBackingBean<T> {
 		try {
 			getBaseService().save(getEntity());
 		} catch (BusinessException be) {
-			createErrorMessage(be.getMessage(), "Business Exception", be);
+			createErrorMessage(be.getMessage(), "Business Exception", be, null);
 			return "failure";
 		} catch (DataAccessException dae) {
 			createErrorMessage(dae.getMessage(), "DB Error updating", dae);
@@ -189,6 +192,12 @@ public abstract class BaseBackingBean<T> {
 				+ " was successfully " + (isNew ? "added." : "updated."));
 
 		return "successUpdate";
+	}
+
+	private void createErrorMessage(String message, String title,
+			Exception ex) {
+		createErrorMessage(message, title, ex, null);
+		
 	}
 
 	/**
@@ -215,12 +224,6 @@ public abstract class BaseBackingBean<T> {
 		else
 			entities = getBaseService().loadAll();
 
-		// Sort results.
-		/*
-		 * if (!StringUtils.isEmpty(sortField)) { Collections.sort(entities, new
-		 * DTOComparator(sortField, sortAscending)); }
-		 */
-
 		// createSuccessMessage( entities.size() > 0 ? ("Found " +
 		// entities.size() + " records ." ):
 		// "no.records.found" );
@@ -234,10 +237,12 @@ public abstract class BaseBackingBean<T> {
 	 * @param errorTitle
 	 */
 	protected void createErrorMessage(String errorDetail, String errorTitle,
-			Throwable throwable) {
+			Throwable throwable, Object[] params) {
 		if (throwable != null) {
 			log.error(errorDetail, throwable);
-		}
+		}else
+			log.info(errorDetail);
+		String localizedMessage = JSFUtils.getMessageFromBundle(errorDetail, params );
 		FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_ERROR, errorTitle,
@@ -248,15 +253,59 @@ public abstract class BaseBackingBean<T> {
 	 * @param errorDetail
 	 * @param errorTitle
 	 */
+	/*
 	protected void createErrorMessage(String errorDetail, String errorTitle) {
-		createErrorMessage(errorDetail, errorTitle, null);
+		createErrorMessage(errorDetail, errorTitle, null, null);
+	}*/
+	
+	/** Creates a localized error message for the given key
+	 * @param message
+	 */
+	protected void createErrorMessage(String key) {
+		createErrorMessage(key, key, null, null);
 	}
+	
+	/** Creates a localized error message for the given key
+	 * @param key - key in the resource bundle
+	 * @param param - the param to be substituted e.g. "Email sent to {0}" . 
+	 */
+	protected void createErrorMessage(String key, Object param) {
+		createErrorMessage(key, key, null, new Object[]{param} );	
+	}
+	
+	/** Creates a localized error message for the given key
+	 * @param key - key in the resource bundle
+	 * @param param - the param to be substituted e.g. "Email sent to {0}" . 
+	 */
+	protected void createErrorMessage(String key, Object[] params) {
+		createErrorMessage(key, key, null, params);	
+	}
+	
 
-	protected void createSuccessMessage(String message) {
-		// log.error(errorDetail, throwable);
-		//String localizedMessage = JSFUtils.getMessageFromBundle("password_mailed",new String[]{ email });
+	/** Creates a success/info message from the given key
+	 * @param message
+	 */
+	protected void createSuccessMessage(String key) {
+		createSuccessMessage(key, null);
+	}
+	
+	/**
+	 * @param key - key in the resource bundle
+	 * @param param - the param to be substituted e.g. "Email sent to {0}" . 
+	 */
+	protected void createSuccessMessage(String key, Object param) {
+		createSuccessMessage(key, new Object[]{param} );	
+	}
+	
+	/** Creates a localized success message to be displayed in the messages section, uses info style from css
+	 * If the key is not found in resource bundle displays the key
+	 * @param message
+	 * @param params
+	 */
+	protected void createSuccessMessage(String key, Object[] params) {
+		String localizedMessage = JSFUtils.getMessageFromBundle(key, params );
 		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, message, ""));
+				new FacesMessage(FacesMessage.SEVERITY_INFO, localizedMessage, ""));
 	}
 
 	public void sortDataList(ActionEvent event) {
@@ -360,5 +409,13 @@ public abstract class BaseBackingBean<T> {
 
 	public void setAction(String action) {
 		this.action = action;
+	}
+
+	public String getSearchText() {
+		return searchText;
+	}
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
 	}
 }

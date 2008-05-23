@@ -9,21 +9,29 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.queryParser.MultiFieldQueryParser;
+import org.apache.lucene.queryParser.ParseException;
 import org.hibernate.Criteria;
 import org.hibernate.Interceptor;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
 import org.springframework.stereotype.Repository;
 import org.witchcraft.model.support.BusinessEntity;
 
 //causes circular dependency
 import org.witchcraft.model.support.Range;
 
+
+
 /**
  * @author jsingh
- *
- * @param <T> The type of entity to be persisted
+ * 
+ * @param <T>
+ *            The type of entity to be persisted
  */
 @Repository
 public class BaseDao<T> implements GenericDAO<T> {
@@ -32,14 +40,15 @@ public class BaseDao<T> implements GenericDAO<T> {
 	// private Session session;
 
 	protected EntityManager entityManager;
-	
+
 	protected Interceptor entityAuditLogInterceptor;
 
 	@PersistenceContext
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 		Session session = (Session) entityManager.getDelegate();
-		session = session.getSessionFactory().openSession(entityAuditLogInterceptor);
+		session = session.getSessionFactory().openSession(
+				entityAuditLogInterceptor);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -68,34 +77,35 @@ public class BaseDao<T> implements GenericDAO<T> {
 	public T save(T entity) {
 
 		/*
-		 * FIXME : This code will make
-		 * entityManager.persist(entity); else entityManager.merge(entity);
+		 * FIXME : This code will make entityManager.persist(entity); else
+		 * entityManager.merge(entity);
 		 */
-		
-		//Session session = (Session) entityManager.getDelegate();
-		//session = session.getSessionFactory().openSession(interceptor);
 
-		if ( isPersistedBefore(entity)){
+		// Session session = (Session) entityManager.getDelegate();
+		// session = session.getSessionFactory().openSession(interceptor);
+		if (isPersistedBefore(entity)) {
 			entity = entityManager.merge(entity);
-			entityAuditLogInterceptor.onFlushDirty(entity, "TESTUSER",  null, null , null, null );
-		}
-		else{
+			entityAuditLogInterceptor.onFlushDirty(entity, "TESTUSER", null,
+					null, null, null);
+		} else {
 			entityManager.persist(entity);
-			entityAuditLogInterceptor.onSave(entity, "TESTUSER",  null, null , null );
+			entityAuditLogInterceptor.onSave(entity, "TESTUSER", null, null,
+					null);
 		}
-		
+
 		return entity;
 	}
-	
-	/** This method indicates wheteher this entity has been saved 
-	 *  before 
+
+	/**
+	 * This method indicates wheteher this entity has been saved before
+	 * 
 	 * @param entity
 	 * @return
 	 */
-	public boolean isPersistedBefore(T entity){
-		//return entityManager.contains(entity);
+	public boolean isPersistedBefore(T entity) {
+		// return entityManager.contains(entity);
 		BusinessEntity be = (BusinessEntity) entity;
-		return be.getId() != null ;
+		return be.getId() != null;
 	}
 
 	public T load(Long id) {
@@ -107,19 +117,20 @@ public class BaseDao<T> implements GenericDAO<T> {
 		String qryString = "select e from "
 				+ getPersistentClass().getSimpleName() + "  e ";
 		Query query = entityManager.createQuery(qryString);
-	
+
 		return query.getResultList();
 	}
-	
-	public long getCount(){
+
+	public long getCount() {
 		return getCount(null, null);
 	}
 
 	public void delete(T entity) {
-		entityAuditLogInterceptor.onDelete(entity, "TESTUSER",  null, null , null );
+		entityAuditLogInterceptor
+				.onDelete(entity, "TESTUSER", null, null, null);
 		entityManager.remove(entityManager.getReference(getPersistentClass(),
-				((BusinessEntity)entity).getId()));
-		//entityManager.remove(entity);
+				((BusinessEntity) entity).getId()));
+		// entityManager.remove(entity);
 	}
 
 	private String excludedProperties[] = { "dateModified", "dateCreated", "id" };
@@ -130,31 +141,32 @@ public class BaseDao<T> implements GenericDAO<T> {
 		List list = criteria.list();
 		return list;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<T> searchByExample(T exampleInstance, List<Range> rangeObjects){
+	public List<T> searchByExample(T exampleInstance, List<Range> rangeObjects) {
 		Criteria criteria = createExampleCriteria(exampleInstance);
 		for (Range range : rangeObjects) {
 			range.updateCriterion(criteria);
 		}
-		
+
 		addAssoications(criteria, exampleInstance);
-		
+
 		return criteria.list();
 	}
 
-	
-	/** This method should be overridden by derived classes to add searchable 
-	 *  associations to the criteria
+	/**
+	 * This method should be overridden by derived classes to add searchable
+	 * associations to the criteria
+	 * 
 	 * @param criteria
 	 */
 	protected void addAssoications(Criteria criteria, T exampleInstance) {
-		
+
 	}
 
 	public Criteria createExampleCriteria(T exampleInstance) {
 		Session session = (Session) entityManager.getDelegate();
-		
+
 		Example example = Example.create(exampleInstance).enableLike(
 				MatchMode.START).ignoreCase().excludeZeroes();
 
@@ -171,28 +183,52 @@ public class BaseDao<T> implements GenericDAO<T> {
 		return entityAuditLogInterceptor;
 	}
 
-	public void setEntityAuditLogInterceptor(Interceptor entityAuditLogInterceptor) {
+	public void setEntityAuditLogInterceptor(
+			Interceptor entityAuditLogInterceptor) {
 		this.entityAuditLogInterceptor = entityAuditLogInterceptor;
 	}
 
 	public long getCount(Date fromDate, Date toDate) {
 		String qryString = "select count(e) from "
-			+ getPersistentClass().getSimpleName() + " e ";
-		if (fromDate != null || toDate != null){
+				+ getPersistentClass().getSimpleName() + " e ";
+		if (fromDate != null || toDate != null) {
 			qryString += " WHERE ";
-			if(fromDate != null)
+			if (fromDate != null)
 				qryString += " e.dateCreated >= '" + fromDate + "'";
-			
-			if(fromDate != null && toDate != null)
+
+			if (fromDate != null && toDate != null)
 				qryString += " AND ";
-			
-			if(toDate != null)
+
+			if (toDate != null)
 				qryString += " e.dateCreated <= '" + toDate + "'";
 		}
-		
-		Object result = entityManager.createQuery(qryString).getSingleResult();
-		 
-		return ((Long)entityManager.createQuery(qryString).getSingleResult());
 
+		Object result = entityManager.createQuery(qryString).getSingleResult();
+
+		return ((Long) entityManager.createQuery(qryString).getSingleResult());
+
+	}
+
+	/* (non-Javadoc)
+	 * @see org.witchcraft.model.support.dao.GenericDAO#performTextSearch(java.lang.String)
+	 */
+	public List<T> performTextSearch(String searchText) {
+		FullTextEntityManager fullTextEntityManager = Search
+				.createFullTextEntityManager(entityManager);
+
+		MultiFieldQueryParser parser = new MultiFieldQueryParser(new String[] {
+				"name", "description", "number" }, new StandardAnalyzer());
+		org.apache.lucene.search.Query query = null;
+		try {
+			query = parser.parse(searchText);
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
+		org.hibernate.search.jpa.FullTextQuery ftq = fullTextEntityManager
+				.createFullTextQuery(query, getPersistentClass() );
+		
+		List<T> result = ftq.getResultList();
+		System.out.println(result.size());
+		return result;
 	}
 }
