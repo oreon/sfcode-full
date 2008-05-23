@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
@@ -25,8 +26,6 @@ import org.witchcraft.model.support.BusinessEntity;
 //causes circular dependency
 import org.witchcraft.model.support.Range;
 
-
-
 /**
  * @author jsingh
  * 
@@ -35,6 +34,8 @@ import org.witchcraft.model.support.Range;
  */
 @Repository
 public class BaseDao<T> implements GenericDAO<T> {
+
+	private static final Logger logger = Logger.getLogger(BaseDao.class);
 
 	private Class<T> persistentClass;
 	// private Session session;
@@ -209,15 +210,21 @@ public class BaseDao<T> implements GenericDAO<T> {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.witchcraft.model.support.dao.GenericDAO#performTextSearch(java.lang.String)
 	 */
 	public List<T> performTextSearch(String searchText) {
-		FullTextEntityManager fullTextEntityManager = Search
+
+		BusinessEntity businessEntity = (BusinessEntity) getInstanceOfPersistentClass();
+
+		FullTextEntityManager fullTextEntityManager;
+		fullTextEntityManager = Search
 				.createFullTextEntityManager(entityManager);
 
-		MultiFieldQueryParser parser = new MultiFieldQueryParser(new String[] {
-				"name", "description", "number" }, new StandardAnalyzer());
+		MultiFieldQueryParser parser = new MultiFieldQueryParser(businessEntity
+				.retrieveSearchableFieldsArray(), new StandardAnalyzer());
 		org.apache.lucene.search.Query query = null;
 		try {
 			query = parser.parse(searchText);
@@ -225,10 +232,26 @@ public class BaseDao<T> implements GenericDAO<T> {
 			throw new RuntimeException(e);
 		}
 		org.hibernate.search.jpa.FullTextQuery ftq = fullTextEntityManager
-				.createFullTextQuery(query, getPersistentClass() );
-		
+				.createFullTextQuery(query, getPersistentClass());
+
 		List<T> result = ftq.getResultList();
 		System.out.println(result.size());
 		return result;
+	}
+
+	private T getInstanceOfPersistentClass() {
+		T t = null;
+		try {
+			t = persistentClass.newInstance();
+		} catch (InstantiationException e) {
+			logger.error("Error Instantiating", e);
+			throw new RuntimeException(e);
+		} catch (IllegalAccessException e1) {
+			logger.error(getPersistentClass().getSimpleName()
+					+ " Does not have a no arguement constructor ", e1);
+			throw new RuntimeException(e1);
+		}
+		return t;
+
 	}
 }
