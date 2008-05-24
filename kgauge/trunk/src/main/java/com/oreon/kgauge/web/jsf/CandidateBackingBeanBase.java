@@ -4,6 +4,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.context.FacesContext;
 
 import org.witchcraft.model.jsf.BaseBackingBean;
+import org.witchcraft.model.support.jsfbackingbeans.AuthenticationController;
 import org.witchcraft.model.support.service.BaseService;
 import org.apache.commons.lang.StringUtils;
 
@@ -24,6 +25,8 @@ import org.witchcraft.model.support.Range;
 public class CandidateBackingBeanBase extends BaseBackingBean<Candidate> {
 
 	protected Candidate candidate = new Candidate();
+	
+	protected Candidate loggedinCandidate;
 
 	protected CandidateService candidateService;
 
@@ -105,9 +108,22 @@ public class CandidateBackingBeanBase extends BaseBackingBean<Candidate> {
 
 	protected void reloadFromId(long id) {
 		candidate = candidateService.load(id);
-
 		repeatPassword = candidate.getUser().getPassword();
-
 	}
+
+	public Candidate getLoggedinCandidate() {
+		if(loggedinCandidate == null){
+			AuthenticationController authenticationController = getBean("authenticationController");
+			loggedinCandidate = candidateService.findByUsername(authenticationController.getUsername() );
+		}
+		
+		return loggedinCandidate;
+	}
+
+	public void setLoggedinCandidate(Candidate loggedinCandidate) {
+		this.loggedinCandidate = loggedinCandidate;
+	}
+	
+	
 
 }
