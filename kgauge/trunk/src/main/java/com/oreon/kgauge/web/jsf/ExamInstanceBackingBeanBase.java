@@ -44,12 +44,16 @@ public class ExamInstanceBackingBeanBase extends BaseBackingBean<ExamInstance> {
 	public void setExamInstanceService(ExamInstanceService examInstanceService) {
 		this.examInstanceService = examInstanceService;
 	}
+	
+	public ExamInstanceService getExamInstanceService( ) {
+		return examInstanceService;
+	}
 
 	public ExamInstance getExamInstance() {
 		return examInstance;
 	}
 
-	public void set(ExamInstance examInstance) {
+	public void setExamInstance(ExamInstance examInstance) {
 		this.examInstance = examInstance;
 	}
 

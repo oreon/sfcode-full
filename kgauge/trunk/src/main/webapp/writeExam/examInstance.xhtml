@@ -1,52 +1,68 @@
 
-	
-	
-<ui:composition  
-xmlns="http://www.w3.org/1999/xhtml"
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:c="http://java.sun.com/jstl/core"
-xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-xmlns:s="http://myfaces.apache.org/sandbox"
-xmlns:t="http://myfaces.apache.org/tomahawk"
-xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
-xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
-xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 
-template="/WEB-INF/template/default.xhtml">
-	
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:s="http://myfaces.apache.org/sandbox"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template="/WEB-INF/template/contentOnly.xhtml">
+
 	<ui:define name="content">
 		<f:view>
-		<!--PROTECTED REGION ID(_14_0_8c50281_1210887354421_536761_1608) ENABLED START-->
-				vvv
-		<!--PROTECTED REGION END-->	
-			<h:messages layout="list" globalOnly="true" showDetail="true"
-				styleClass="messages" />
-			<h:outputText value="" styleClass="message" />		
-				
-				
-			
-			<h:form>
-				<h:panelGrid>
-				
-					
-						
-						<h:commandLink action="endExam" value="endExam" />
-						
-					
-						
-						<h:commandLink action="next" value="next" />
-						
-					 
-					
-					
-				
+			<!--PROTECTED REGION ID(_14_0_8c50281_1210887354421_536761_1608) ENABLED START-->
+			<div id="header2">
+
+			<h1>KnowledgeGauge
+			#{examInstanceCrudBacking.examInstance.exam.name} Certification Exam</h1>
+			</div>
+			<br />
+
+			<wc:messages />
+
+			<a4j:form>
+					#{examInstanceCrudBacking.currentQuestionIndex}/#{examInstanceCrudBacking.totalQuestions}
+					<rich:panel id="questionPanel"
+					header="Q.#{examInstanceCrudBacking.currentQuestionIndex} #{examInstanceCrudBacking.currentQuestion.question.questionText}   "
+					width="80%">
+
+					<h:selectOneRadio id="myRadio" converter="keyToObjectConverter"
+						layout="pageDirection"
+						value="#{examInstanceCrudBacking.answerChoice}">
+						<f:selectItems
+							value="#{examInstanceCrudBacking.choicesAsSelectItems}" />
+					</h:selectOneRadio>
+
+
+				</rich:panel>
+
+				<h:panelGrid columns="3">
+					<h:commandButton value="Previous"
+						disabled="#{examInstanceCrudBacking.currentQuestionIndex == 1  }"
+						action="#{examInstanceCrudBacking.previousQuestion}"
+						reRender="questionPanel" />
+
+					<a4j:commandButton value="Next" reRender="questionPanel"
+						disabled="#{examInstanceCrudBacking.currentQuestionIndex == examInstanceCrudBacking.totalQuestions  }"
+						action="#{examInstanceCrudBacking.nextQuestion}" />
+
+					<a4j:commandButton value="End Exam " reRender="questionPanel"
+						disabled="#{examInstanceCrudBacking.currentQuestionIndex != examInstanceCrudBacking.totalQuestions  }"
+						action="#{examInstanceCrudBacking.showResult}" />
+
 				</h:panelGrid>
-			</h:form>
-	
+			</a4j:form>
+
+
+			<!--PROTECTED REGION END-->
+
 		</f:view>
-	 </ui:define>	
-	</ui:composition>
-	
+	</ui:define>
+</ui:composition>

@@ -98,6 +98,7 @@ public abstract class QuestionBase
 
 	@OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "question_ID", nullable = false)
+	@OrderBy("answerText")
 	public java.util.Set<com.oreon.kgauge.domain.AnswerChoice> getAnswerChoice() {
 		return this.answerChoice;
 	}

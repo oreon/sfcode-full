@@ -27,12 +27,20 @@
 
 					<h:panelGrid columns="1">
 						<h:outputText value="#{examCrudBacking.exam.description}" />
-						
+
+						<t:dataTable var="sectionVar"
+							value="#{examCrudBacking.exam.section}" rows="10">
+							<rich:column>
+								<h:outputText value="#{sectionVar.name}" />
+							</rich:column>
+						</t:dataTable>
 					</h:panelGrid>
 				</rich:panel>
-				
-				<br/>
-				
+
+
+
+				<br />
+
 				<h:commandLink
 					value="Take #{examCrudBacking.exam.examNumber} #{examCrudBacking.exam.name}"
 					action="launchExam" />

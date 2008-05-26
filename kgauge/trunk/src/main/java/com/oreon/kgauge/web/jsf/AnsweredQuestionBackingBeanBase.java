@@ -89,4 +89,8 @@ public class AnsweredQuestionBackingBeanBase
 
 	}
 
+	public AnsweredQuestionService getAnsweredQuestionService() {
+		return answeredQuestionService;
+	}
+
 }

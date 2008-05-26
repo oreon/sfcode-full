@@ -1,5 +1,7 @@
 package com.oreon.kgauge.bizlogic;
 
+import java.util.Map;
+
 /**
  * This interface defines a way to create ExamInstances from Exams. The implementing classes can use different strategies e.g random questions
  */
