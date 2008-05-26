@@ -18,31 +18,46 @@
 	<ui:define name="content">
 		<f:view>
 			<!--PROTECTED REGION ID(_14_0_8c50281_1210887300406_441734_1594) ENABLED START-->
-			<h3>#{examCrudBacking.exam.examNumber} #{examCrudBacking.exam.name}</h3>
-			<p>The objective of this exam is to asses your knowledge of #{examCrudBacking.exam.name}. 
-			</p>
-			<table>
-				<tbody>
-					<tr>
-						<td>Time:</td>
-						<td>#{examCrudBacking.exam.duration} Minutes</td>
+			<a4j:form>
+				<h3>#{examCrudBacking.exam.examNumber}
+				#{examCrudBacking.exam.name}</h3>
+				<p>The objective of this exam is to asses your knowledge of
+				#{examCrudBacking.exam.name}.</p>
+				<table>
+					<tbody>
+						<tr>
+							<td>Time:</td>
+							<td>#{examCrudBacking.exam.duration} Minutes</td>
 
-					</tr>
-					<tr>
-						<td>Questions:</td>
-						<td>#{examCrudBacking.exam.questions}</td>
-					</tr>
-				</tbody>
-			</table>
-			<br/>
-			<div id="notice">Please not that you are not allowed to leave
-			the exam screen.Doing so will disqualify you from the exam and you
-			won't be eligible for any refund. <br/>
-			</div>
-			<input value="Start Exam"
-				onclick="window.open('examInstance.jsf','fs','fullscreen=yes')"
-				type="button" class="btn"/> <!--PROTECTED REGION END-->
+						</tr>
+						<tr>
+							<td>Questions:</td>
+							<td>#{examCrudBacking.exam.questions}</td>
+						</tr>
+					</tbody>
+				</table>
 
+				<t:dataTable var="section"
+					value="#{examCrudBacking.exam.section}"
+					rows="10">
+					<rich:column>
+						<h:outputText value="#{section.name}" />
+					</rich:column>
+				</t:dataTable>
+				
+				
+				<br />
+				<div id="notice">Please not that you are not allowed to leave
+				the exam screen.Doing so will disqualify you from the exam and you
+				won't be eligible for any refund. <br />
+				</div>
+				
+				<h:commandButton value="Start Exam"
+					action="#{examCrudBacking.launchExam}"
+				 class="btn" />
+			 </a4j:form> 
+			<!--PROTECTED REGION END-->
+			
 		</f:view>
 	</ui:define>
 </ui:composition>
