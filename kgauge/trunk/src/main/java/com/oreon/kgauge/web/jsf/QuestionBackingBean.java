@@ -20,24 +20,7 @@ public class QuestionBackingBean extends QuestionBackingBeanBase {
 
 	
 
-	/**
-	 * This action Listener Method is called when a row is clicked in the
-	 * dataTable
-	 * 
-	 * @param event
-	 *            contains the database id of the row being selected
-	 */
-	public void selectEntity(ActionEvent actionEvent) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		String idStr = (String) ctx.getExternalContext()
-				.getRequestParameterMap().get("id");
-		long id = Long.parseLong(idStr);
-		question = questionService.load(id);
-		if (actionEvent.getComponent().getId() == "deleteId") {
-			getBaseService().delete(question);
-		}
-	}
-
+	
 	// ****************Testing***********************************/
 	/** A method to fetch any attributes value from the page */
 	private String getValue(String s) {
