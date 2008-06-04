@@ -34,18 +34,23 @@ public abstract class AnswerChoiceBase
 
 	private static final long serialVersionUID = 1L;
 
+	@Field(index = Index.TOKENIZED, store = Store.NO)
 	protected String answerText;
 
 	protected Integer score;
+
+	protected boolean correctChoice;
 
 	/* Default Constructor */
 	public AnswerChoiceBase() {
 	}
 
 	/* Constructor with all attributes */
-	public AnswerChoiceBase(String answerText, Integer score) {
+	public AnswerChoiceBase(String answerText, Integer score,
+			boolean correctChoice) {
 		this.answerText = answerText;
 		this.score = score;
+		this.correctChoice = correctChoice;
 	}
 
 	@Column(nullable = false, unique = false)
@@ -64,12 +69,23 @@ public abstract class AnswerChoiceBase
 		return this.score;
 	}
 
+	/*
+	
+	 */
+	public boolean isCorrectChoice() {
+		return this.correctChoice;
+	}
+
 	public void setAnswerText(String answerText) {
 		this.answerText = answerText;
 	}
 
 	public void setScore(Integer score) {
 		this.score = score;
+	}
+
+	public void setCorrectChoice(boolean correctChoice) {
+		this.correctChoice = correctChoice;
 	}
 
 	private com.oreon.kgauge.domain.Question question = new com.oreon.kgauge.domain.Question();

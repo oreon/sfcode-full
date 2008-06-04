@@ -3,6 +3,7 @@ package com.oreon.kgauge.domain;
 import javax.persistence.*;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.witchcraft.model.utils.CollectionUtils;
 
 import org.apache.log4j.Logger;
 import javax.jws.WebService;
@@ -23,6 +24,17 @@ public class ExamInstance extends ExamInstanceBase
 
 	public ExamInstance examInstanceInstance() {
 		return this;
+	}
+	
+	@Transient
+	public Integer getMaxScore(){
+		return 0;
+		//return CollectionUtils.sum(getAnsweredQuestion(), 
+		//			CollectionUtils.max(getQuestion().getAnswerChoice(), score) );
+	}
+	
+	public void setMaxScore(Integer score){
+		
 	}
 
 }

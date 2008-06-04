@@ -33,8 +33,10 @@ public abstract class PersonBase
 
 	private static final long serialVersionUID = 1L;
 
+	@Field(index = Index.TOKENIZED, store = Store.NO)
 	protected String firstName;
 
+	@Field(index = Index.TOKENIZED, store = Store.NO)
 	protected String lastName;
 
 	protected Date dateOfBirth;

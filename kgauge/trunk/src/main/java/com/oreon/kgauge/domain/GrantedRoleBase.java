@@ -34,6 +34,7 @@ public abstract class GrantedRoleBase
 
 	private static final long serialVersionUID = 1L;
 
+	@Field(index = Index.TOKENIZED, store = Store.NO)
 	protected String name;
 
 	/* Default Constructor */
