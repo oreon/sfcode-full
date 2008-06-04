@@ -35,8 +35,45 @@ public abstract class ExamInstanceBase
 
 	private static final long serialVersionUID = 1L;
 
+	protected Integer maxScore;
+
+	protected Integer candidateScore;
+
 	/* Default Constructor */
 	public ExamInstanceBase() {
+	}
+
+	/* Constructor with all attributes */
+	public ExamInstanceBase(Integer maxScore, Integer candidateScore) {
+		this.maxScore = maxScore;
+		this.candidateScore = candidateScore;
+	}
+
+	/*
+	
+	 */
+	public Integer getMaxScore() {
+		return this.maxScore;
+	}
+
+	@Transient
+	/*
+	
+	 */
+	public Integer getCandidateScore() {
+
+		candidateScore = 0;
+		//sum(answeredQuestion, getQuestion().getScore);
+
+		return this.candidateScore;
+	}
+
+	public void setMaxScore(Integer maxScore) {
+		this.maxScore = maxScore;
+	}
+
+	public void setCandidateScore(Integer candidateScore) {
+		this.candidateScore = candidateScore;
 	}
 
 	private com.oreon.kgauge.domain.Candidate candidate;
@@ -46,7 +83,7 @@ public abstract class ExamInstanceBase
 	private java.util.Set<com.oreon.kgauge.domain.AnsweredQuestion> answeredQuestion = new java.util.HashSet<com.oreon.kgauge.domain.AnsweredQuestion>();
 
 	@ManyToOne
-	@JoinColumn(name = "candidate_ID", nullable = false, updatable = true)
+	@JoinColumn(name = "candidate_ID", nullable = false, updatable = false)
 	@XmlTransient
 	public com.oreon.kgauge.domain.Candidate getCandidate() {
 		return this.candidate;
@@ -106,5 +143,10 @@ public abstract class ExamInstanceBase
 	}
 
 	public abstract ExamInstance examInstanceInstance();
+
+	@Transient
+	public String getDisplayName() {
+		return maxScore + "";
+	}
 
 }

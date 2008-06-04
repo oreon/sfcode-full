@@ -34,6 +34,7 @@ public abstract class QuestionBase
 
 	private static final long serialVersionUID = 1L;
 
+	@Field(index = Index.TOKENIZED, store = Store.NO)
 	protected String questionText;
 
 	protected DifficultyLevel difficultyLevel;
@@ -98,7 +99,6 @@ public abstract class QuestionBase
 
 	@OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "question_ID", nullable = false)
-	@OrderBy("answerText")
 	public java.util.Set<com.oreon.kgauge.domain.AnswerChoice> getAnswerChoice() {
 		return this.answerChoice;
 	}

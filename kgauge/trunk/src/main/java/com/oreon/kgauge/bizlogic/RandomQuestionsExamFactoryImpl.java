@@ -21,7 +21,7 @@ public class RandomQuestionsExamFactoryImpl extends
 			.getLogger(RandomQuestionsExamFactoryImpl.class);
 
 	@Override
-	public ExamInstance createExam(Exam exam, Map additionalParameters) {
+	public ExamInstance createExam(Exam exam, java.util.Map additionalParameters) {
 		
 		log.info("Creating an exam instance for " + exam.getExamNumber() );
 		
@@ -43,4 +43,6 @@ public class RandomQuestionsExamFactoryImpl extends
 
 		return instance;
 	}
+
+
 }

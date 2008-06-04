@@ -9,6 +9,5 @@ import javax.jws.WebService;
 
 @WebService
 public interface ExamDao extends GenericDAO<Exam> {
-	
 
 }

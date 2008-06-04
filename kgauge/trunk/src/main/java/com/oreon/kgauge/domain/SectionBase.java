@@ -14,7 +14,6 @@ import org.hibernate.annotations.Cascade;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.search.annotations.Analyzer;
-import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -35,7 +34,7 @@ public abstract class SectionBase
 
 	private static final long serialVersionUID = 1L;
 
-	@Field(index=Index.TOKENIZED, store=Store.NO)
+	@Field(index = Index.TOKENIZED, store = Store.NO)
 	protected String name;
 
 	/* Default Constructor */
@@ -50,7 +49,6 @@ public abstract class SectionBase
 	/*
 	
 	 */
-	
 	public String getName() {
 		return this.name;
 	}
@@ -66,7 +64,6 @@ public abstract class SectionBase
 	@ManyToOne
 	@JoinColumn(name = "exam_ID", nullable = false, updatable = true)
 	@XmlTransient
-	@ContainedIn
 	public com.oreon.kgauge.domain.Exam getExam() {
 		return this.exam;
 	}

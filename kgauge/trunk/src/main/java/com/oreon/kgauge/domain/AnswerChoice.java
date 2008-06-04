@@ -22,8 +22,8 @@ public class AnswerChoice extends AnswerChoiceBase
 	}
 
 	/* Constructor with all attributes */
-	public AnswerChoice(String answerText, Integer score) {
-		super(answerText, score);
+	public AnswerChoice(String answerText, Integer score, boolean correctAnswer) {
+		super(answerText, score, correctAnswer);
 	}
 
 	public AnswerChoice answerChoiceInstance() {

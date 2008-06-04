@@ -7,8 +7,7 @@
 
 package com.oreon.kgauge.bizlogic;
 
-import java.util.Map;
-
+import java.util.Date;
 import org.apache.log4j.Logger;
 
 /**
@@ -29,7 +28,8 @@ public abstract class RandomQuestionsExamFactoryImplBase
 
 	//Implementing interface ExamFactory
 	public com.oreon.kgauge.domain.ExamInstance createExam(
-			com.oreon.kgauge.domain.Exam exam, Map additionalParameters) {
+			com.oreon.kgauge.domain.Exam exam,
+			java.util.Map additionalParameters) {
 		return null;
 	}
 	//*****Done Implementing interface ExamFactory ****

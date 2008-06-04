@@ -34,8 +34,10 @@ public abstract class UserBase
 
 	private static final long serialVersionUID = 1L;
 
+	@Field(index = Index.TOKENIZED, store = Store.NO)
 	protected String username;
 
+	@Field(index = Index.TOKENIZED, store = Store.NO)
 	protected String password;
 
 	protected boolean enabled;
