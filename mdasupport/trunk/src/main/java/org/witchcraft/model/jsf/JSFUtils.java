@@ -2,6 +2,7 @@ package org.witchcraft.model.jsf;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -82,7 +83,7 @@ public final class JSFUtils {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static List<SelectItem> getAsSelectItems(List entities) {
+	public static List<SelectItem> getAsSelectItems(Collection entities) {
 		List<SelectItem> items = new ArrayList<SelectItem>();
 		for (Object entity : entities) {
 			BusinessEntity businessEntity = (BusinessEntity) entity;

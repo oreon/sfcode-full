@@ -1,7 +1,6 @@
 package org.witchcraft.model.jsf;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.userdetails.UserDetails;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.witchcraft.model.support.BusinessEntity;
@@ -37,14 +35,20 @@ import org.witchcraft.model.support.service.BaseService;
  *            The BusinessEntity
  */
 public abstract class BaseBackingBean<T> {
-	private Date fromDate; //entity creation from date
-	private Date toDate; //entity creation to date
-	private String searchText; //text field for full text search;
+	private static final String SUCCESS_UPDATE = "successUpdate";
+	private static final String CLEAR_SEARCH = "clearSearch";
+	private static final String SUCCESS_SEARCH = "successSearch";
+	private static final String SUCCESS_DELETE = "successDelete";
+	private static final String TEXT_SEARCH = "textSearch";
+	private static final String AUTHENTICATION_CONTROLLER = "authenticationController";
+	private Date fromDate; // entity creation from date
+	private Date toDate; // entity creation to date
+	private String searchText; // text field for full text search;
 
 	private static Logger log = Logger.getLogger(BaseBackingBean.class);
 
 	protected String action; // whether action is search or update/add new
-	public static final String SEARCH = "SEARCH";
+	public static final String SEARCH = "search";
 	public static final int INITIAL_RECORDS = 0;
 
 	public abstract BaseService<T> getBaseService();
@@ -82,22 +86,22 @@ public abstract class BaseBackingBean<T> {
 			return "failure";
 		}
 
-		return "successDelete";
+		return SUCCESS_DELETE;
 	}
 
 	public String search() {
 		action = SEARCH;
-		return "successSearch";
+		return SUCCESS_SEARCH;
 	}
 
 	public String gotoSearchPage() {
 		reset();
-		return "search";
+		return SEARCH;
 	}
 
 	public String clearSearch() {
 		action = null;
-		return "clearSearch";
+		return CLEAR_SEARCH;
 	}
 
 	/**
@@ -119,12 +123,13 @@ public abstract class BaseBackingBean<T> {
 	 *            contains the database id of the row being selected
 	 */
 	public void selectEntity(ActionEvent actionEvent) {
-		
+
 		String idStr = (String) getActionParamValue("id");
 
 		reset();
 		if (idStr != null) {
-			log.info("Trying to load " + getEntity().getClass().getSimpleName() + " with id " + idStr);
+			log.info("Trying to load " + getEntity().getClass().getSimpleName()
+					+ " with id " + idStr);
 			long id = Long.parseLong(idStr);
 			reloadFromId(id);
 		} else { // this is a new record
@@ -151,6 +156,16 @@ public abstract class BaseBackingBean<T> {
 	public void initForAddNew() {
 
 	}
+	
+	
+	/** The action listener version of reload from Id - will call parent classe's reload from Id
+	 * This will help with hibernate lazy loading exceptions by simply reattaching the current 
+	 * entity contained in this backing bean
+	 * @param actionEvent
+	 */
+	public void reloadFromId(ActionEvent actionEvent) {
+		reloadFromId( ((BusinessEntity)getEntity()).getId() );
+	}
 
 	/**
 	 * This function should be overridden by derived classes so as to reset the
@@ -158,9 +173,9 @@ public abstract class BaseBackingBean<T> {
 	 * 
 	 * @param id
 	 */
-	protected void reloadFromId(long id) {
+	abstract protected void reloadFromId(long id) ;
 
-	}
+	
 
 	protected UserDetails getLoggedInUser() {
 		Authentication authentication = SecurityContextHolder.getContext()
@@ -191,13 +206,12 @@ public abstract class BaseBackingBean<T> {
 		createSuccessMessage(getEntity().getClass().getSimpleName()
 				+ " was successfully " + (isNew ? "added." : "updated."));
 
-		return "successUpdate";
+		return SUCCESS_UPDATE;
 	}
 
-	private void createErrorMessage(String message, String title,
-			Exception ex) {
+	private void createErrorMessage(String message, String title, Exception ex) {
 		createErrorMessage(message, title, ex, null);
-		
+
 	}
 
 	/**
@@ -218,16 +232,30 @@ public abstract class BaseBackingBean<T> {
 	 */
 	public List<T> getRecords() {
 		List<T> entities = null;
-		if (action != null && action.equals(SEARCH))
+
+		if (action == null){
+			entities = getBaseService().loadAll();
+			return entities;
+		}
+
+		if (action.equals(SEARCH))
 			entities = getBaseService().searchByExample(getEntity(),
 					getRangeList());
-		else
-			entities = getBaseService().loadAll();
 
-		// createSuccessMessage( entities.size() > 0 ? ("Found " +
-		// entities.size() + " records ." ):
-		// "no.records.found" );
+		else if (action.equals(TEXT_SEARCH)) {
+			entities = getBaseService().performTextSearch(getSearchText());
+			action = null;
+		}
+
+		createSuccessMessage("Found " + entities.size() + " result(s).");
+
 		return entities;
+	}
+
+	public String textSearch() {
+		action = TEXT_SEARCH;
+		log.debug("setting action to textsearch");
+		return "successTextSearchExams";
 	}
 
 	/**
@@ -240,72 +268,93 @@ public abstract class BaseBackingBean<T> {
 			Throwable throwable, Object[] params) {
 		if (throwable != null) {
 			log.error(errorDetail, throwable);
-		}else
+		} else
 			log.info(errorDetail);
-		String localizedMessage = JSFUtils.getMessageFromBundle(errorDetail, params );
+		String localizedMessage = JSFUtils.getMessageFromBundle(errorDetail,
+				params);
 		FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_ERROR, errorTitle,
 						errorDetail));
 	}
 
-	/** Business errors should call this method
+	/**
+	 * Business errors should call this method
+	 * 
 	 * @param errorDetail
 	 * @param errorTitle
 	 */
 	/*
-	protected void createErrorMessage(String errorDetail, String errorTitle) {
-		createErrorMessage(errorDetail, errorTitle, null, null);
-	}*/
-	
-	/** Creates a localized error message for the given key
+	 * protected void createErrorMessage(String errorDetail, String errorTitle) {
+	 * createErrorMessage(errorDetail, errorTitle, null, null); }
+	 */
+
+	/**
+	 * Creates a localized error message for the given key
+	 * 
 	 * @param message
 	 */
 	protected void createErrorMessage(String key) {
 		createErrorMessage(key, key, null, null);
 	}
-	
-	/** Creates a localized error message for the given key
-	 * @param key - key in the resource bundle
-	 * @param param - the param to be substituted e.g. "Email sent to {0}" . 
+
+	/**
+	 * Creates a localized error message for the given key
+	 * 
+	 * @param key -
+	 *            key in the resource bundle
+	 * @param param -
+	 *            the param to be substituted e.g. "Email sent to {0}" .
 	 */
 	protected void createErrorMessage(String key, Object param) {
-		createErrorMessage(key, key, null, new Object[]{param} );	
+		createErrorMessage(key, key, null, new Object[] { param });
 	}
-	
-	/** Creates a localized error message for the given key
-	 * @param key - key in the resource bundle
-	 * @param param - the param to be substituted e.g. "Email sent to {0}" . 
+
+	/**
+	 * Creates a localized error message for the given key
+	 * 
+	 * @param key -
+	 *            key in the resource bundle
+	 * @param param -
+	 *            the param to be substituted e.g. "Email sent to {0}" .
 	 */
 	protected void createErrorMessage(String key, Object[] params) {
-		createErrorMessage(key, key, null, params);	
+		createErrorMessage(key, key, null, params);
 	}
-	
 
-	/** Creates a success/info message from the given key
+	/**
+	 * Creates a success/info message from the given key
+	 * 
 	 * @param message
 	 */
 	protected void createSuccessMessage(String key) {
 		createSuccessMessage(key, null);
 	}
-	
+
 	/**
-	 * @param key - key in the resource bundle
-	 * @param param - the param to be substituted e.g. "Email sent to {0}" . 
+	 * @param key -
+	 *            key in the resource bundle
+	 * @param param -
+	 *            the param to be substituted e.g. "Email sent to {0}" .
 	 */
 	protected void createSuccessMessage(String key, Object param) {
-		createSuccessMessage(key, new Object[]{param} );	
+		createSuccessMessage(key, new Object[] { param });
 	}
-	
-	/** Creates a localized success message to be displayed in the messages section, uses info style from css
-	 * If the key is not found in resource bundle displays the key
+
+	/**
+	 * Creates a localized success message to be displayed in the messages
+	 * section, uses info style from css If the key is not found in resource
+	 * bundle displays the key
+	 * 
 	 * @param message
 	 * @param params
 	 */
 	protected void createSuccessMessage(String key, Object[] params) {
-		String localizedMessage = JSFUtils.getMessageFromBundle(key, params );
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, localizedMessage, ""));
+		String localizedMessage = JSFUtils.getMessageFromBundle(key, params);
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, localizedMessage,
+						""));
 	}
 
 	public void sortDataList(ActionEvent event) {
@@ -392,7 +441,7 @@ public abstract class BaseBackingBean<T> {
 	public <TB> TB getBean(String name) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ValueBinding valueBinding = facesContext.getApplication()
-				.createValueBinding("#{name}");
+				.createValueBinding("#{" + name + "}");
 		return (TB) valueBinding.getValue(facesContext);
 	}
 
@@ -417,5 +466,13 @@ public abstract class BaseBackingBean<T> {
 
 	public void setSearchText(String searchText) {
 		this.searchText = searchText;
+	}
+
+	protected AuthenticationController getAuthenticationController() {
+		return getBean(getAuthenticationControllerName());
+	}
+
+	protected String getAuthenticationControllerName() {
+		return AUTHENTICATION_CONTROLLER;
 	}
 }
