@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -223,6 +224,12 @@ public class BaseDao<T> implements GenericDAO<T> {
 		fullTextEntityManager = Search
 				.createFullTextEntityManager(entityManager);
 
+		if (businessEntity.retrieveSearchableFieldsArray() == null) {
+			throw new RuntimeException(
+					businessEntity.getClass().getSimpleName()
+							+ " needs to override retrieveSearchableFieldsArray method ");
+		}
+
 		MultiFieldQueryParser parser = new MultiFieldQueryParser(businessEntity
 				.retrieveSearchableFieldsArray(), new StandardAnalyzer());
 		org.apache.lucene.search.Query query = null;
@@ -239,6 +246,51 @@ public class BaseDao<T> implements GenericDAO<T> {
 		return result;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<T> executeQuery(String queryString, Object... params) {
+		Query query = entityManager.createQuery(queryString);
+		runQueryWithParams(query, params);
+		return query.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public T executeSingleResultQuery(String queryString, Object... params) {
+		Query query = entityManager.createQuery(queryString);
+		runQueryWithParams(query, params);
+		return executeSingleResultQuery(query);
+	}
+
+	private T executeSingleResultQuery(Query query) {
+		try {
+			return (T) query.getSingleResult();
+		} catch (NoResultException nre) {
+			logger.info("No " + getPersistentClass().getSimpleName()
+					+ " found !");
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<T> executeNamedQuery(String queryString, Object... params) {
+		Query query = entityManager.createNamedQuery(queryString);
+		runQueryWithParams(query, params);
+		return query.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public T executeSingleResultNamedQuery(String queryString, Object... params) {
+		Query query = entityManager.createNamedQuery(queryString);
+		runQueryWithParams(query, params);
+		return executeSingleResultQuery(query); 
+	}
+
+	private void runQueryWithParams(Query query, Object... params) {
+		for (Object param : params) {
+			int counter = 1;
+			query.setParameter(counter++, param);
+		}
+	}
+
 	private T getInstanceOfPersistentClass() {
 		T t = null;
 		try {
@@ -252,6 +304,15 @@ public class BaseDao<T> implements GenericDAO<T> {
 			throw new RuntimeException(e1);
 		}
 		return t;
-
 	}
+
+	/**
+	 * Utility function to get the name of this class
+	 * 
+	 * @return
+	 */
+	private String getName() {
+		return getPersistentClass().getSimpleName();
+	}
+
 }
