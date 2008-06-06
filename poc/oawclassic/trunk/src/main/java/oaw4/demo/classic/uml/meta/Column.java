@@ -1,5 +1,10 @@
 package oaw4.demo.classic.uml.meta;
 
+import java.util.Collection;
+
+import oaw4.demo.classic.uml.extend.GenericUtils;
+
+import org.apache.commons.lang.StringUtils;
 import org.openarchitectureware.meta.uml.classifier.Attribute;
 
 /** Represents a database column 
@@ -20,6 +25,11 @@ public class Column extends Attribute{
 	private String inputType;
 	private String access;
 	private boolean repeat = false; 
+	
+	private String suggestionAction;
+	private String fetchValue;
+	private String fetchCols;
+	
 	
 	private String containerName;
 	
@@ -79,6 +89,9 @@ public class Column extends Attribute{
 	 * @return
 	 */
 	public String getDerived() {
+		if(derived!= null && !derived.endsWith(";")){
+			return derived + ";";
+		}
 		return derived;
 	}
 	public void setDerived(String derived) {
@@ -111,7 +124,31 @@ public class Column extends Attribute{
 	}
 	public void setRepeat(boolean repeat) {
 		this.repeat = repeat;
+	}
+	
+	//AutoComplete suggestion fields 
+	public String getSuggestionAction() {
+		return suggestionAction;
+	}
+	public void setSuggestionAction(String suggestionFunction) {
+		this.suggestionAction = suggestionFunction;
+	}
+	public String getFetchValue() {
+		return fetchValue;
+	}
+	public void setFetchValue(String fetchValue) {
+		this.fetchValue = fetchValue;
+	}
+	public String getFetchCols() {
+		return fetchCols;
+	}
+	public void setFetchCols(String fetchCols) {
+		this.fetchCols = fetchCols;
 	} 
+	
+	public Collection<String> getFectchColsCollection(){
+		return GenericUtils.stringArrayAsList(fetchCols);
+	}
 	
 
 }

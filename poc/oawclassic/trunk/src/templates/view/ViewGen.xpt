@@ -42,7 +42,7 @@
 «ENDFILE»
 
 «FILE getFileGenerationPath("ViewComponent") »  
-	«EXPAND SearchView::genSearchViewComponent»		
+	«EXPAND EntityView::genViewComponent»		
 «ENDFILE»
 «REM»comment
 «ENDREM»
@@ -119,4 +119,31 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 
 «ENDDEFINE»
 
+«DEFINE genSuggestionBox(String Id) FOR Column»
+	«IF getSuggestionAction != null»
+		<rich:suggestionbox id="suggestionBox_«NameS»"  for="«Id»" tokens=",["
+			suggestionAction="#{«getSuggestionAction»}" var="result"
+			fetchValue="#{result.«getFetchValue != null ? getFetchValue: "displayName"»}" rules="cols"
+		    columnClasses="center">
+		«IF getFetchCols != null»
+		«FOREACH getFectchColsCollection AS e»
+			<h:column>
+				<h:outputText value="#{result.«e»}" />
+			</h:column>
+		«ENDFOREACH»
+		«ELSEIF getFetchValue != null»
+			<h:column>
+				<h:outputText value="#{result.«getFetchValue»}" />
+			</h:column>
+		«ELSE»
+			<h:column>
+				<h:outputText value="#{result.displayName}" />
+			</h:column>
+		«ENDIF»
+		</rich:suggestionbox>
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genSuggestionBox(String Id) FOR Attribute»
+«ENDDEFINE»
 

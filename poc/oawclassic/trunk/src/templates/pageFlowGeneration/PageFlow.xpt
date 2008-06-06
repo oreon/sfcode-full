@@ -5,43 +5,70 @@
 «IMPORT oaw4::demo::classic::uml::meta»
 
 «EXTENSION view::ViewExtensions»
-
+«EXTENSION pageFlowGeneration::PageFlow»
 «EXTENSION java::NamingConventions»
 
 
 
 «REM» «ENDREM»
 «DEFINE Gen FOR StateMachine»
-	
-	«FILE "../webapp/WEB-INF/faces-config-generated.xml"»
-	   «EXPAND GeneratePageFlow»
-	«ENDFILE»
-	
 	«EXPAND GenXHTML»
+	«EXPAND GenFacesConfig»
+	«EXPAND GenNavigationConstants»
+«ENDDEFINE»
 
+«DEFINE GenNavigationConstants FOR StateMachine»
+«FILE   getTopLevelPackage().packagePath() + "/web/jsf/NavigationConstants.java" »
+
+package «getTopLevelPackage()».web.jsf;
+
+public interface NavigationConstants{
+	«FOREACH getUniqueTransitions() AS transition-»
+				public static final String «transition.Guard.getViewLabelFromVariable("_").toUpperCase()» = "«transition.Guard»" ;
+	«ENDFOREACH»
+}
+«ENDFILE»
 «ENDDEFINE»
 
 
-«DEFINE GeneratePageFlow FOR StateMachine»
+«DEFINE GenFacesConfig FOR StateMachine»
+«FILE "../webapp/WEB-INF/faces-config-generated.xml"»
 <?xml version="1.0"?>
 <!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
 <faces-config>
-	«REM»comment
-	«EXPAND GenManagedBean FOREACH getStatesWithGuards()»
-	«ENDREM»
-	«EXPAND GenFacesNav FOREACH getStates()»
+	«EXPAND GenFacesNav FOREACH getAllStates()»
 </faces-config>
+«ENDFILE»
 «ENDDEFINE»
+
+
+
 
 «DEFINE GenFacesNav FOR ViewState»
 	<navigation-rule>
-	  	<from-view-id>/«StateMachine.NameS»/«NameS».xhtml</from-view-id>
-		«FOREACH OutTransition AS transition»
-		  <navigation-case>
-		    <from-outcome> «transition.Guard»</from-outcome>
-		    <to-view-id>/«StateMachine.NameS»/«transition.TargetVertex.NameS».xhtml</to-view-id>
-		  </navigation-case>   
-		«ENDFOREACH» 
+	  	<from-view-id>«getLocationDir()»/«NameS-».xhtml</from-view-id>
+		«FOREACH OutTransition AS transition-»
+		«IF transition.TargetVertex.getMetaClass.getSimpleName == "Branch"-»
+			«EXPAND genNavigationCase(transition) FOR transition.TargetVertex-»
+		  «ELSE-»
+			«EXPAND genNavigationCase(transition) FOR this-»
+						  
+		 «ENDIF -»    
+		«ENDFOREACH -» 
+	</navigation-rule>
+«ENDDEFINE»
+
+«DEFINE GenFacesNav FOR NavState»
+	<navigation-rule>
+	  	<from-view-id>«NameS-»</from-view-id>
+	«FOREACH OutTransition AS transition-»
+		«IF transition.TargetVertex.getMetaClass.getSimpleName != "Exit"»
+		<navigation-case>
+			 <from-outcome>«transition.Guard»</from-outcome>
+			 <to-view-id>«transition.TargetVertex.getLocationDir()»/«transition.TargetVertex.NameS».xhtml</to-view-id>
+		</navigation-case>
+		«ENDIF»
+	«ENDFOREACH -»
 	</navigation-rule>
 «ENDDEFINE»
 
@@ -50,6 +77,33 @@
 
 «DEFINE GenFacesNav FOR SimpleState»
 «ENDDEFINE»
+
+
+
+«DEFINE genNavigationCase(Transition transitionIncoming) FOR Branch-»
+	«FOREACH OutTransition AS transition-»
+		«IF transition.TargetVertex.getMetaClass.getSimpleName != "Exit"»
+		<navigation-case>
+			 <from-outcome>«transition.Guard»</from-outcome>
+			 <to-view-id>«transition.TargetVertex.getLocationDir()»/«transition.TargetVertex.NameS».xhtml</to-view-id>
+		</navigation-case>
+		«ENDIF»
+	«ENDFOREACH -»
+«ENDDEFINE»
+
+
+
+«DEFINE genNavigationCase(Transition transition) FOR ViewState-»
+	«IF transition.TargetVertex.getMetaClass.getSimpleName != "Exit"»
+		<navigation-case>
+			 <from-outcome>«transition.Guard»</from-outcome>
+			 <to-view-id>«transition.TargetVertex.getLocationDir()»/«transition.TargetVertex.NameS».xhtml</to-view-id>
+		</navigation-case>
+	«ENDIF»
+«ENDDEFINE»
+
+
+
 
 «DEFINE GenManagedBean FOR ViewState»
 	<managed-bean>
@@ -70,41 +124,37 @@
 
 «REM» This function generates xhtml for the given state «ENDREM»
 «DEFINE GenXHTML FOR ViewState»
-	«FILE "../webapp/" +  StateMachine.NameS + "/" +NameS +".xhtml"»
 	
-	
-	«EXPAND view::ViewGen::genIncludes( this.getTemplate )-»
-	
+	«FILE "../webapp" +  getLocationDir() + "/" +NameS +".xhtml"»
+	«EXPAND view::ViewGen::genIncludes( this.getTemplate == null?"default.xhtml":this.getTemplate )-»
 	<ui:define name="content">
 		<f:view>
-		«PROTECT CSTART '<!--' CEND '-->' ID "USER_CREATED" »
-					This is protectable
-		«ENDPROTECT»
-			<h:messages layout="list" globalOnly="true" showDetail="true"
-				styleClass="messages" />
-			<h:outputText value="«getMessage»" styleClass="message" />		
+		
+			<h:outputText value="«getMessage»" styleClass="message" />
+			<wc:messages />
 			
-			<h:form>
-				<h:panelGrid>
+			«IF getComponent != null  »
+			<ui:insert>
+				<ui:include src="«getComponent».xhtml" />
+			</ui:insert>					
+			«ENDIF»	
+			
+			«PROTECT CSTART '<!--' CEND '-->' ID  Id»
 					
-					«REM»comment
-					«EXPAND EditView::genEditView(getEntities().select(entity|entity.NameS == "Customer"))
-						  -»
-					<h:commandLink value="«transition.Trigger.NameS»"
-						action="«transition.Trigger.NameS»" /> 
-					«ENDREM»
-				
-				</h:panelGrid>
-			</h:form>
-	
+			«ENDPROTECT»	
+		
 		</f:view>
 	 </ui:define>	
 	</ui:composition>
 	«ENDFILE»
+	
 «ENDDEFINE»
 
 «REM» Do nothing for states that are not ViewStates«ENDREM»
 «DEFINE GenXHTML FOR State»
+«ENDDEFINE»
+
+«DEFINE GenXHTML FOR NavState»
 «ENDDEFINE»
 
 «REM» If any transition in a state has a guard we need to generate a backing bean for it «ENDREM»

@@ -2,6 +2,7 @@ package oaw4.demo.classic.uml.meta;
 
 import org.openarchitectureware.core.meta.core.ElementSet;
 import org.openarchitectureware.meta.uml.classifier.Class;
+import org.openarchitectureware.meta.uml.classifier.Interface;
 
 /** Reperesents a class containing executable logic
  * @author jsingh
@@ -27,9 +28,16 @@ public class Service extends org.openarchitectureware.meta.uml.classifier.Class{
 			Class clazz = (Class) object;
 			attributes.addAll(clazz.Attribute());
 		}
+		
 
 		attributes.addAll(Attribute());
 		
 		return attributes;
+	}
+	
+	public Interface getFirstInterface(){
+		if(!Interface().isEmpty())
+			return (Interface) Interface().get(0);
+		return null;
 	}
 }

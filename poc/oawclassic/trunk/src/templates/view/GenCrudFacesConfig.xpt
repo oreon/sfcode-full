@@ -33,6 +33,8 @@
 	<!-- Navigation Rules  -->
 	«EXPAND GenerateNavRules FOREACH getEntities()»
 	
+	
+	
 	<!-- Navigation Rule for summary  -->
 	<navigation-rule>
 		<from-view-id>/admin/*</from-view-id>
@@ -41,6 +43,14 @@
 		    <from-outcome>summary</from-outcome>
   			<to-view-id>/admin/entities/entitiesSummary.xhtml</to-view-id>
   		  </navigation-case>
+  		  
+  		  «FOREACH getEntities() AS e»
+  		  <navigation-case>
+		    <from-outcome>view«e.NameS»</from-outcome>
+  			<to-view-id>«e.getGenConfigPath("View")»</to-view-id>
+  		  </navigation-case>	
+  		  «ENDFOREACH»
+  		  
 	</navigation-rule>
 			
 </faces-config>
@@ -70,6 +80,11 @@
 		    <from-outcome>edit</from-outcome>
 		    <to-view-id>«getGenConfigPath("")»</to-view-id>
 		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>«getGenConfigPath("View")»</to-view-id>
+		  </navigation-case> 
 		  
 		   <navigation-case>
 		    <from-outcome>addNew</from-outcome>
@@ -101,6 +116,22 @@
 			<from-outcome>successUpdate</from-outcome>
 		    <to-view-id>«getGenConfigPath("List")»</to-view-id>
 		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>«getGenConfigPath("View")»</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>«getGenConfigPath("List")»</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>«getGenConfigPath("")»</to-view-id>
+		</navigation-case> 	
+		
+		
 	</navigation-rule>
 	
 	<navigation-rule>

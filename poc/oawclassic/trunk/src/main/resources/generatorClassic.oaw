@@ -40,7 +40,7 @@
 		<directories value="${srcGenPath}" />
 		</component>
 	-->
-
+  
 	<component id="generator"
 		class="org.openarchitectureware.xpand2.Generator">
 		<metaModel
@@ -52,9 +52,11 @@
 		<expand value="Root::Root FOREACH me.getElements('Model')" />
 		<outlet path="${srcGenPath}/" />
 		<srcPath value="${srcGenPath}/" />
-		<prSrcPaths value="${srcGenPath}/" />
+		
+		<prSrcPaths value="${mainGenPath}/resources" />
+		
 		<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
-
+		
 		<beautifier
 			class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
 		<beautifier
@@ -63,6 +65,7 @@
 		<fileEncoding value="ISO-8859-1" />
 
 	</component>
+
 
 	<component id="pageFlowGenerator"
 		class="org.openarchitectureware.xpand2.Generator">
@@ -77,9 +80,11 @@
 
 		<srcPath value="${srcGenPath}/" />
 		<outlet path="${srcGenPath}/" />
+		
 		<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
-		<prSrcPaths value="${srcGenPath}/" />
-		<prExcludes value=", *.xml, *.hbm" />
+		<prSrcPaths value="${mainGenPath}" />
+		<prExcludes value="*.svn-base"/>
+		<prDefaultExcludes value="false"/>
 		<beautifier
 			class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
 		<beautifier

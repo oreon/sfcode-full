@@ -29,9 +29,6 @@
 						«EXPAND ViewGen::genDropDown(this, true, true) FOR ae-»
 					«ENDFOREACH»
 					«EXPAND genEditEntry(this) FOREACH getAllAttributes -»
-				
-  						
-  				
 			</h:panelGrid>
 						<br/>
 						
@@ -79,47 +76,50 @@
 
 «REM» Create an edit entry e.g firstNAme <input > <errMessage > «ENDREM»
 «DEFINE genEditEntry(Class e) FOR Attribute»
-	«getAccessControlBegin()»
-		«EXPAND genEditEntry(e, false) FOR this»
-		«IF getRepeat()»
-			«EXPAND genEditEntry(e, true) FOR this»
-		«ENDIF»					
-	«getAccessControlEnd()»
+	«EXPAND genEditEntry(e, false) FOR this-»
+	«IF getRepeat()-»
+		«EXPAND genEditEntry(e, true) FOR this-»
+	«ENDIF»					
 «ENDDEFINE»
 
-«DEFINE genEditEntry(Class e, boolean repeat) FOR Attribute»
-<h:panelGroup>
-	<h:outputText value="«repeat ? "Repeat ":""»"/>
-	<h:outputText value="«msgBundleKey()»" />
-	<h:outputText value="«(getElementRequired()?"*":"")»" />
-</h:panelGroup>
+«DEFINE genEditEntry(Class e, boolean repeat) FOR Attribute-»
+«getAccessControlBegin()-»
+	<h:panelGroup>
+		<h:outputText value="«repeat ? "Repeat ":""»"/>
+		<h:outputText value="«msgBundleKey()-»" />
+		<h:outputText value="«(getElementRequired()?"*":"")-»" />
+	</h:panelGroup>
+«getAccessControlEnd()-»
+«getAccessControlBegin()-»
+	<h:panelGroup>
+		<a4j:region>
+		«IF repeat-»
+			«EXPAND genRepeatInputControl(e) FOR this-»     
+		«ELSE»
+			«EXPAND genInputControl(e) FOR this-»
+		«ENDIF»
+		«LET repeat ? repeatControlId(e): controlId(e) AS ctrlId» «EXPAND genMessage(ctrlId) FOR this»  «ENDLET»
+		</a4j:region>
+	</h:panelGroup>
+«getAccessControlEnd()-»
+«ENDDEFINE»
 
-<h:panelGroup>
-	<a4j:region>
-	«IF repeat»
-		«EXPAND genRepeatInputControl(e) FOR this-»     
-	«ELSE»
-		«EXPAND genInputControl(e) FOR this-»
-	«ENDIF»
-	<rich:message for="«repeat ? repeatControlId(e): controlId(e)»"
-		 styleClass="errMessage">
-		<f:facet name="errorMarker">
-			<h:graphicImage url="/images/icons/bullet_error.png" />
-		</f:facet>
-	</rich:message>
-	</a4j:region>
-</h:panelGroup>
+«DEFINE genMessage(String ctrlId) FOR Attribute-»
+	<wc:message for="«ctrlId»" />
 «ENDDEFINE»
 
 «REM» Create an input control like text input, date - calendar, check box etc «ENDREM»
-«DEFINE genInputControl(Class e) FOR Attribute»
-	<«getElementType()»  «getElementAttributes()»  required="«getElementRequired()»" 
+«DEFINE genInputControl(Class e) FOR Attribute-»
+	<«getElementType()»  «getElementAttributes()»  required="«getElementRequired()-»" 
 		id="«controlId(e)»"
 		value="#{«e.asInstanceVar()»CrudBacking.«e.asInstanceVar()».«fullName()»}">
-		«getElementContent()»
-		«getElementValidatorContent()»
-		<a4j:support event="onblur" reRender="«controlId(e)»" />
-	</«getElementType()»>
+		«getElementContent()-»
+		«getElementValidatorContent()-»
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="«controlId(e)-»" />
+	</«getElementType()-»>
+	«LET controlId(e) AS controlId-»
+	«EXPAND ViewGen::genSuggestionBox( controlId ) FOR this-»
+	«ENDLET»
 «ENDDEFINE»
 
 «REM» Create an input control like text input, date - calendar, check box etc «ENDREM»
@@ -130,7 +130,7 @@
 		«getElementContent()»
 		<t:validateEqual for="«e.asInstanceVar()»_«TypeModifier»_«NameS»" />
 		«getElementValidatorContent()»							
-		<a4j:support event="onblur" reRender="«controlId(e)»" />
+		<a4j:support event="onblur"  bypassUpdates="true" ajaxSingle="true" reRender="«controlId(e)»" />
 	</«getElementType()»>
 «ENDDEFINE»
 

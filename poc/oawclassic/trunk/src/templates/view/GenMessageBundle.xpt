@@ -13,12 +13,12 @@
 «DEFINE GenBundle FOR Model»
 	«FILE "../resources/messages.properties"»
 		«EXPAND GenBundle("") FOREACH getMetaEnvironment.getElements("AbstractEntity")»
-		«EXPAND genUserManagedMessages »
+		«EXPAND genUserManagedMessages("") »
 	«ENDFILE»
 	
 	«FILE "../resources/messages_fr.properties"»
 		«EXPAND GenBundle("fr") FOREACH getMetaEnvironment.getElements("AbstractEntity")»
-		«EXPAND genUserManagedMessages »
+		«EXPAND genUserManagedMessages("fr") »
 	«ENDFILE»
 «ENDDEFINE»
 
@@ -43,8 +43,8 @@
 «ENDDEFINE»
 
 «REM»These messages would be generated inside a protected block so the users can change them freely«ENDREM»
-«DEFINE genUserManagedMessages FOR Model»
-«PROTECT CSTART '#--' CEND '--' ID "USER_CREATED_MSGS" »
+«DEFINE genUserManagedMessages(String localeName) FOR Model»
+«PROTECT CSTART '#--' CEND '--' ID "USER_CREATED_MSGS_" + localeName»
 
 #This would not be overwritten
 

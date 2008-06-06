@@ -57,6 +57,11 @@
 			protected TreeNode root = null;
 			«ENDIF»
 			
+			«IF isSystemUser»
+				//This field is used to store the currently logged in «NameS»
+				protected «NameS» loggedin«NameS»;
+			«ENDIF»
+			
 			«FOREACH getAllComposedAssociations AS ae»
 				private List<«ae.Opposite.Class.NameS»> list«ae.Opposite.associationName().toFirstUpper()»s = new ArrayList<«ae.Opposite.Class.NameS»>();
 			«ENDFOREACH»
@@ -65,18 +70,23 @@
 			
 			«EXPAND GenRangeFields FOR this»
 			
-			
-			public void set«NameS»Service(«asParameter()»Service «asInstanceVar()»Service){
-				this.«asInstanceVar()»Service = «asInstanceVar()»Service;
-			}
-	
 			public «asParameter()» get«asParameter()»() {
 				return «asInstanceVar()»;
 			}
 			
-			public void set(«asParameter()» «asInstanceVar()») {
+			public void set«asParameter()»(«asParameter()» «asInstanceVar()») {
 				this.«asInstanceVar()» = «asInstanceVar()»;
 			}
+	
+			
+			public void set«NameS»Service(«asParameter()»Service «asInstanceVar()»Service){
+				this.«asInstanceVar()»Service = «asInstanceVar()»Service;
+			}
+			
+			public «asParameter()»Service get«NameS»Service(){
+				return this.«asInstanceVar()»Service;
+			}
+	
 			
 			@SuppressWarnings("unchecked")
 			public BaseService<«NameS»> getBaseService(){
@@ -86,6 +96,19 @@
 			public «NameS» getEntity(){
 				return get«NameS»();
 			}	
+			
+			«IF isSystemUser»
+				public «NameS» getLoggedin«NameS»() {
+					if(loggedin«NameS» == null){
+						loggedin«NameS» = get«NameS»Service().findByUsername(getAuthenticationController().getUsername());
+					}					
+					return loggedin«NameS»;
+				}
+			
+				public void setLoggedin«NameS»(«NameS» loggedin«NameS») {
+					this.loggedin«NameS» = loggedin«NameS»;
+				}
+			«ENDIF»
 			
 			/**
 			* Any initializations of the member entity should be done in this method - 

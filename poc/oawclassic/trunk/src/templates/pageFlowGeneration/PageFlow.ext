@@ -1,0 +1,42 @@
+
+import org::openarchitectureware::meta::uml::classifier;
+import org::openarchitectureware::meta::uml::classifier::Class;
+import org::openarchitectureware::meta::uml::state;
+import  oaw4::demo::classic::uml::meta;
+
+
+
+//String msgBundleKey(ViewState attr):
+//"#{msg." + attr.Class.NameS.toFirstLower() + "_" + attr.NameS + "}";
+
+
+String getLocationDir(ViewState attr):
+attr.getLocationDir;
+
+String getLocationDir(Branch br):
+br.StateMachine.NameS;
+
+String getLocationDir(Exit exit):
+exit.NameS;
+
+String getStateMachine(StateMachine stateMachine) :
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.createStateMachine(org.openarchitectureware.meta.uml.state.StateMachine);
+
+ElementSet getStates(StateMachine stateMachine) :
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getStates(org.openarchitectureware.meta.uml.state.StateMachine);
+
+ElementSet getAllStates() :
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getAllStates();
+
+ElementSet getUniqueTransitions():
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getUniqueTransitions();
+
+
+ElementSet getBranches(StateMachine stateMachine) :
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getBranches(org.openarchitectureware.meta.uml.state.StateMachine);
+
+
+ElementSet getStatesWithGuards(StateMachine stateMachine) :
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getStatesWithGuards(org.openarchitectureware.meta.uml.state.StateMachine);
+
+
