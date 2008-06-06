@@ -165,9 +165,11 @@
 		
 		import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 		
-		«FOREACH getEntities() AS e»
+		«FOREACH getEntities() AS e-»
 			import «e.parentPackageName()+".service." +  e.NameS + "Service"-»;
 		«ENDFOREACH»
+		
+		«EXPAND genImports FOREACH getMetaEnvironment.getElements("Service")-»
 	
 		public class ServiceFacade{
 			private static ServiceFacade instance;
@@ -178,13 +180,32 @@
 			return instance;
 		}
 		
+		// Construction is disabled
 		private ServiceFacade(){}
 			
-			
 		«EXPAND CommonUtils::genDeclGetterSetter("Service") FOREACH getEntities()»
+		
+		«EXPAND genGetterSetter FOREACH getMetaEnvironment.getElements("Service")»
 		}
 	
 	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE genGetterSetter FOR Service»
+	«IF getFirstInterface != null»
+		«EXPAND CommonUtils::genDeclGetterSetter(getFirstInterface.NameS, NameS.toFirstLower(), false) FOR NameS »
+	«ELSE»
+		«EXPAND CommonUtils::genDeclGetterSetter("")»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genImports FOR Service»
+	«IF getFirstInterface != null»
+		import  «getFirstInterface.fqn()-»;
+	«ELSE»
+		import «fqn()»;
+	«ENDIF»
+		 
 «ENDDEFINE»
 
 

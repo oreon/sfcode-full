@@ -133,13 +133,21 @@ public class ClassUtil {
 	 */
 	private static String getParamTypeString(Operation operation, Type type) {
 		String paramType = type.NameS();
+		String paramTypePackage = type.Namespace().NameS();
+		
 		if (paramType.equals("void"))
 			return paramType;
 
+		System.out.println("comapring " + type.Namespace().NameS() + " " + type.Namespace().NameS());
 		if (!type.Namespace().NameS().equals(
 				operation.Class().Namespace.NameS())) {
-			if(!type.Namespace().NameS().equals("datatypes"))
-				paramType = getPackageName((Class)type) + "." + paramType;
+			
+			if(!type.Namespace().NameS().equals("datatypes")){
+				if(StringUtils.equals(paramTypePackage, "collections"))
+					paramType = "java.util" + "." + paramType;
+				else	
+					paramType = getPackageName((Class)type) + "." + paramType;
+			}
 		}
 		return paramType;
 	}

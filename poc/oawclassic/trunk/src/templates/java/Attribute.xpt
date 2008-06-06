@@ -10,6 +10,9 @@
 
 
 «DEFINE PropertyDeclaration FOR Attribute»
+	«IF Type.NameS == "String" »
+		@Field(index=Index.TOKENIZED, store=Store.NO)
+	«ENDIF»
 	«getPropertyDeclaration()»
 «ENDDEFINE»
 
@@ -18,9 +21,11 @@
 	«IF Type.Name == "Image"»
 		@XmlTransient
 	«ENDIF»
+	«IF Documentation != null-»
 	/*
 	«Documentation»
 	*/
+	«ENDIF»
 	public «Type.NameS» «getGetter(Type)»«NameS.toFirstUpper()» () {
 		return this.«NameS»;
 	} 

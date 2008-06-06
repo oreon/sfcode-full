@@ -31,43 +31,56 @@
 		
 		<rich:column>
 			<f:facet name="header">
-				
-					<h:outputText value=" " />
-				
+				<h:outputText value=" " />
 			</f:facet>
-			
+			<h:commandLink action="view"
+				actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left" styleClass="toolTip"
+					value="Click to Edit Row" mode="client" />
+				<h:graphicImage value="/images/icons/application_edit.png"
+					style="border: 0px" />
+				<f:param name="id" value="#{«asInstanceVar()».id}" />
+			</h:commandLink>
+		</rich:column>
+		
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
 			<!--
 			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 			--> 								
-				<h:commandLink action="#{«asInstanceVar()»CrudBacking.select}"																					
-					actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}">
-					<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
-					<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
-					<f:param id="editId" name="id" value="#{«asInstanceVar()».id}" />								
-				</h:commandLink>		
+			<h:commandLink action="#{«asInstanceVar()»CrudBacking.select}"																					
+				actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
+				<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
+				<f:param id="editId" name="id" value="#{«asInstanceVar()».id}" />								
+			</h:commandLink>		
 			<!--
 			</acegijsf:authorize>
 			--> 
-			</rich:column>
-			<rich:column>
-				<f:facet name="header">
-						<h:outputText value=" " />
-				</f:facet>
+		</rich:column>
+			
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
 			<!--
 			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 			--> 		
-			<h:commandLink action="#{«asInstanceVar()»CrudBacking.delete}"	
+			<a4j:commandLink action="#{«asInstanceVar()»CrudBacking.delete}"	
 				onclick="if(window.confirm('Are You Sure?')==false){return false}"
 				actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
 				<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 				<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
 				<f:param id="deleteId" name="id" value="#{«asInstanceVar()».id}" />												
-			</h:commandLink>
+			</a4j:commandLink>
 			<!--
 			</acegijsf:authorize>
 			--> 
-			</rich:column>
-	</rich:dataTable>	
+		</rich:column>
+	</rich:dataTable>
+		
 	 </rich:tab>
 	 «IF getTreeFields != null-»
 	 <rich:tab label="Tree" >
@@ -149,7 +162,7 @@
 
 
 «DEFINE genTableRow(String parent) FOR Attribute»
-	<rich:column sortBy="#{«parent».«fullName()»}" «REM»comment filterBy="#{«parent».«fullName()»}" filterEvent="onkeyup" «ENDREM» >
+	<rich:column sortBy="#{«parent».«fullName()»}"  filterBy="#{«parent».«fullName()»}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.«Class.NameS.toFirstLower() + "_" + NameS»}" /> 		
 		</f:facet>
@@ -158,7 +171,7 @@
 «ENDDEFINE»
 
 «DEFINE genTableRow(Class c) FOR AssociationEnd»
-	<rich:column sortBy="#{«c.asInstanceVar()».«associationName()».displayName}" «REM»commentfilterBy="#{«c.asInstanceVar()».«associationName()».displayName}" filterEvent="onkeyup"«ENDREM» >
+	<rich:column sortBy="#{«c.asInstanceVar()».«associationName()».displayName}" filterBy="#{«c.asInstanceVar()».«associationName()».displayName}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.«c.NameS.toFirstLower() + "_" + associationName()»}" /> 	
 		</f:facet>

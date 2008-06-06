@@ -64,6 +64,8 @@
 				«EXPAND displayName FOR this»
 				«REM» Need to add special code for user and authoriy classes  «ENDREM»
 				«EXPAND genAuthorizationCode»
+				
+				«EXPAND genSearchFieldsArray FOR this»
 		} 
 	«ENDFILE»
 «ENDDEFINE»
@@ -142,6 +144,20 @@
 
 «ENDDEFINE»
 
+«DEFINE genSearchFieldsArray FOR Entity»
+	@Override
+	public String[] retrieveSearchableFieldsArray() {
+		List<String> listSearchableFields = new ArrayList<String>();
+		«FOREACH Attribute AS e»
+			«IF e.Type.NameS == "String"»
+				listSearchableFields.add("«e.NameS»");
+			«ENDIF»
+		«ENDFOREACH»
+		String[] arrFields = new String[listSearchableFields.size()];
+		return listSearchableFields.toArray(arrFields);
+	}
+«ENDDEFINE»
+
 
 «DEFINE classBody FOR Class»
 	private static final long serialVersionUID = 1L;
@@ -205,6 +221,9 @@
 	
 	import org.witchcraft.model.jsf.Image;
 	import java.util.Set;
+	
+	import java.util.List;
+	import java.util.ArrayList;
 «ENDDEFINE»
 
 

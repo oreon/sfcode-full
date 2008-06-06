@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import oaw4.demo.classic.uml.extend.GenericUtils;
+
 import org.apache.commons.lang.StringUtils;
 import org.openarchitectureware.core.meta.core.ElementSet;
 import org.witchcraft.generator.GeneratorEngineException;
@@ -171,20 +173,7 @@ public class Entity extends AbstractEntity {
 	 * @return
 	 */
 	private List<String> stringArrayAsList(String target) {
-		
-	
-	
-		//if(target.startsWith("{") && target.endsWith("}") ){
-			String[] testSeedArray = target.split("[ ]*,[ ]*|\\}|\\{");
-			List<String> lst = new ArrayList<String>();
-			
-			for (String arrArg : testSeedArray) {
-				if(!StringUtils.isEmpty(arrArg))
-					lst.add(arrArg);
-			}
-			return lst;
-		//}//else
-		//	throw new GeneratorEngineException(target + " should be of the form {val1, val2}");
+		return GenericUtils.stringArrayAsList(target);
 	}
 
 	public String getTreeFields() {

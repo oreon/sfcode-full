@@ -21,6 +21,7 @@
 	import «packageName()».«NameS»;
 	import «parentPackageName()».dao.«NameS»Dao;
 	
+	import org.apache.log4j.Logger;
 	import org.hibernate.Criteria;
 	import org.hibernate.criterion.Restrictions;
 	
@@ -36,6 +37,7 @@
 	public class «NameS»DaoImplBase extends BaseDao<«NameS»> implements «NameS»Dao {
 	
 			//// FINDERS ///// 
+			private static final Logger logger = Logger.getLogger(«NameS»DaoImplBase.class);
 			
 			«EXPAND FinderImpl(this) FOREACH Findable-»
 			
@@ -88,6 +90,7 @@
 				try {
 					return («entity.NameS») query.getSingleResult();
 				} catch (NoResultException nre) {
+					logger.info("No «entity.NameS» found for «NameS»: " +  «NameS» );
 					return null;
 				}
 		
@@ -95,7 +98,7 @@
 		«ELSE»
 			
 			List<«entity.NameS»> findBy«NameS.toFirstUpper()»(«Type.NameS» «NameS») { 
-				String qryString = "select c from «entity.NameS» c where c.«fullName()» = ?1";
+				String FINDBY_«NameS.toUpper()»_QRY = "select c from «entity.NameS» c where c.«fullName()» = ?1";
 				Query query = entityManager.createQuery(qryString).setParameter(1, «NameS»);
 		
 				return query.getResultList();
@@ -130,6 +133,10 @@
 		    
 		«EXPAND FinderDeclaration(this) FOREACH Findable -»
 		
+		«REM»comment
+		«EXPAND genNamedQueryDec FOREACH Operation»
+		«ENDREM»
+		
 		 «IF getTreeFields != null»
 		 /**
 		 * For tree view , this method returns top level
@@ -142,6 +149,16 @@
 	
 	«ENDFILE»	
 «ENDDEFINE»
+
+«REM» comment
+«DEFINE genNamedQueryDec FOR NamedQuery»
+	public «ReturnType.NameS» «NameS»();
+«ENDDEFINE»
+
+«DEFINE genNamedQueryDec FOR Operation»
+	public «ReturnType.NameS» «NameS»();
+«ENDDEFINE»
+«ENDREM»
 
 
 «DEFINE GenerateConfig FOR Model»
