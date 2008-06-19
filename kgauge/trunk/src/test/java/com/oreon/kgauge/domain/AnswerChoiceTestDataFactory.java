@@ -50,8 +50,9 @@ public class AnswerChoiceTestDataFactory
 
 		try {
 
-			answerChoice.setAnswerText("epsilon");
-			answerChoice.setScore(1642);
+			answerChoice.setAnswerText("alpha");
+			answerChoice.setScore(353);
+			answerChoice.setCorrectChoice(false);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -74,8 +75,9 @@ public class AnswerChoiceTestDataFactory
 
 		try {
 
-			answerChoice.setAnswerText("pi");
-			answerChoice.setScore(3472);
+			answerChoice.setAnswerText("Eric");
+			answerChoice.setScore(240);
+			answerChoice.setCorrectChoice(true);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -98,8 +100,9 @@ public class AnswerChoiceTestDataFactory
 
 		try {
 
-			answerChoice.setAnswerText("gamma");
-			answerChoice.setScore(2435);
+			answerChoice.setAnswerText("Lavendar");
+			answerChoice.setScore(2380);
+			answerChoice.setCorrectChoice(true);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -122,8 +125,9 @@ public class AnswerChoiceTestDataFactory
 
 		try {
 
-			answerChoice.setAnswerText("Malissa");
-			answerChoice.setScore(8691);
+			answerChoice.setAnswerText("alpha");
+			answerChoice.setScore(1731);
+			answerChoice.setCorrectChoice(true);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -146,8 +150,9 @@ public class AnswerChoiceTestDataFactory
 
 		try {
 
-			answerChoice.setAnswerText("Malissa");
-			answerChoice.setScore(2751);
+			answerChoice.setAnswerText("John");
+			answerChoice.setScore(5087);
+			answerChoice.setCorrectChoice(true);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -234,6 +239,8 @@ public class AnswerChoiceTestDataFactory
 				.createInstance("String"));
 		answerChoice.setScore((Integer) RandomValueGeneratorFactory
 				.createInstance("Integer"));
+		answerChoice.setCorrectChoice((Boolean) RandomValueGeneratorFactory
+				.createInstance("boolean"));
 
 		TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 				.getBean("questionTestDataFactory");

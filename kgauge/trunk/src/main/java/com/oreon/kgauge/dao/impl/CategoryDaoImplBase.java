@@ -10,6 +10,7 @@ package com.oreon.kgauge.dao.impl;
 import com.oreon.kgauge.domain.Category;
 import com.oreon.kgauge.dao.CategoryDao;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
@@ -27,6 +28,8 @@ public class CategoryDaoImplBase extends BaseDao<Category>
 			CategoryDao {
 
 	//// FINDERS ///// 
+	private static final Logger logger = Logger
+			.getLogger(CategoryDaoImplBase.class);
 
 	/**
 	 * For tree view , this method returns top level

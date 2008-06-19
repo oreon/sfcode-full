@@ -10,28 +10,34 @@
 
 	<div id="sidebar-right">
 	<div class="roundedBoxJS">
-	<table class="sidebarLinks">
+	<h:form>
+
+		<table class="sidebarLinks">
 		<tbody>
 			<tr>
 				<th>Exams</th>
 			</tr>
 			<tr>
-				<td><a href="exam.html">Hibernate </a></td>
+				<td>
+				<rich:dataList var="exam" value="#{examCrudBacking.records}"
+					rows="10">
+
+					<h:commandLink value="#{exam.name}"
+						action="viewDetails"
+						actionListener="#{examCrudBacking.selectEntity}">
+						<f:param name="id" value="#{exam.id}" />
+					</h:commandLink>
+					<br />
+
+				</rich:dataList>
+				</td>
 			</tr>
 			<tr>
-				<td>Spring</td>
-			</tr>
-			<tr>
-				<td>UML 2</td>
-			</tr>
-			<tr>
-				<td>JSF</td>
-			</tr>
-			<tr>
-				<td>More..</td>
+				<td><h:commandLink action="browseExams" value="More..&gt;&gt;" /></td>
 			</tr>
 		</tbody>
 	</table>
+	</h:form>
 	</div>
 	<br/>
 	<br/>

@@ -22,6 +22,9 @@ import org.hibernate.search.annotations.Store;
 import org.witchcraft.model.jsf.Image;
 import java.util.Set;
 
+import java.util.List;
+import java.util.ArrayList;
+
 @MappedSuperclass
 @Indexed
 //@Analyzer(impl = example.EnglishAnalyzer.class)

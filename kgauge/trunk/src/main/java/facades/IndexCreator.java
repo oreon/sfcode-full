@@ -9,11 +9,12 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.search.Query;
-import org.hibernate.search.jpa.Search;
 import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 
 import com.oreon.kgauge.domain.Exam;
+import com.oreon.kgauge.service.ExamService;
 
 public class IndexCreator {
 
@@ -21,6 +22,11 @@ public class IndexCreator {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
+		Integer a = null;
+		if(a > 5){
+			System.out.println("a > 5");
+		}
 
 		EntityManagerFactory emf = (EntityManagerFactory) BeanHelper
 				.getBean("entityManagerFactory");
@@ -29,6 +35,9 @@ public class IndexCreator {
 		FullTextEntityManager fullTextEntityManager = Search
 				.createFullTextEntityManager(em);
 		createIndex(em, fullTextEntityManager);
+		
+		ExamService examService = (ExamService) BeanHelper.getBean("examService");
+		examService.performTextSearch("exam");
 
 		textSearch(fullTextEntityManager);
 		

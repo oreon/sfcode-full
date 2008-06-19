@@ -10,6 +10,7 @@ package com.oreon.kgauge.dao.impl;
 import com.oreon.kgauge.domain.ExamCreator;
 import com.oreon.kgauge.dao.ExamCreatorDao;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
@@ -27,6 +28,8 @@ public class ExamCreatorDaoImplBase extends BaseDao<ExamCreator>
 			ExamCreatorDao {
 
 	//// FINDERS ///// 
+	private static final Logger logger = Logger
+			.getLogger(ExamCreatorDaoImplBase.class);
 
 	@SuppressWarnings("unchecked")
 	public/**
@@ -43,6 +46,7 @@ public class ExamCreatorDaoImplBase extends BaseDao<ExamCreator>
 		try {
 			return (ExamCreator) query.getSingleResult();
 		} catch (NoResultException nre) {
+			logger.info("No ExamCreator found for username: " + username);
 			return null;
 		}
 
@@ -63,6 +67,7 @@ public class ExamCreatorDaoImplBase extends BaseDao<ExamCreator>
 		try {
 			return (ExamCreator) query.getSingleResult();
 		} catch (NoResultException nre) {
+			logger.info("No ExamCreator found for email: " + email);
 			return null;
 		}
 

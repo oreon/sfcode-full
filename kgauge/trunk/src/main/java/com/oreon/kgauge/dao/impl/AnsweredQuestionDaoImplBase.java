@@ -10,6 +10,7 @@ package com.oreon.kgauge.dao.impl;
 import com.oreon.kgauge.domain.AnsweredQuestion;
 import com.oreon.kgauge.dao.AnsweredQuestionDao;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
@@ -27,6 +28,8 @@ public class AnsweredQuestionDaoImplBase extends BaseDao<AnsweredQuestion>
 			AnsweredQuestionDao {
 
 	//// FINDERS ///// 
+	private static final Logger logger = Logger
+			.getLogger(AnsweredQuestionDaoImplBase.class);
 
 	/** This function adds associated entities to an example criterion
 	 * @see org.witchcraft.model.support.dao.BaseDao#createExampleCriteria(java.lang.Object)

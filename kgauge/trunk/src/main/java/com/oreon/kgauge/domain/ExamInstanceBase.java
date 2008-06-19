@@ -22,6 +22,9 @@ import org.hibernate.search.annotations.Store;
 import org.witchcraft.model.jsf.Image;
 import java.util.Set;
 
+import java.util.List;
+import java.util.ArrayList;
+
 @MappedSuperclass
 @Indexed
 //@Analyzer(impl = example.EnglishAnalyzer.class)
@@ -49,9 +52,6 @@ public abstract class ExamInstanceBase
 		this.candidateScore = candidateScore;
 	}
 
-	/*
-	
-	 */
 	public Integer getMaxScore() {
 		return this.maxScore;
 	}
@@ -147,6 +147,14 @@ public abstract class ExamInstanceBase
 	@Transient
 	public String getDisplayName() {
 		return maxScore + "";
+	}
+
+	@Override
+	public String[] retrieveSearchableFieldsArray() {
+		List<String> listSearchableFields = new ArrayList<String>();
+
+		String[] arrFields = new String[listSearchableFields.size()];
+		return listSearchableFields.toArray(arrFields);
 	}
 
 }

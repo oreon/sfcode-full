@@ -1,91 +1,104 @@
-  
-	
-<html  
-xmlns="http://www.w3.org/1999/xhtml"
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:c="http://java.sun.com/jstl/core"
-xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-xmlns:s="http://myfaces.apache.org/sandbox"
-xmlns:t="http://myfaces.apache.org/tomahawk"
-xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
-xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
-xmlns:wc="http://witchcraft.sourceforge.net/jsf"
- >
-	
-		
-	<a4j:form id="form">
-		<rich:panel header="Search Question">
-			<h:panelGrid columns="4" >
-				
-				<h:outputText value="Creation Date" styleClass="customformLabel" />
-				<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
-						backingBean="#{questionCrudBacking}" />
-					
-			<h:outputText value="#{msg.question_questionText}" />
-			
-			<h:panelGroup>
-				<h:inputText    
-					id="question__questionText"
-					value="#{questionCrudBacking.question.questionText}">
-					
-				</h:inputText>
-				<h:message for="question__questionText" styleClass="errMessage" />
-			</h:panelGroup>
-			
-			<h:outputText value="#{msg.question_difficultyLevel}" />
-			
-			<h:panelGroup>
-				<h:selectOneMenu    
-					id="question__difficultyLevel"
-					value="#{questionCrudBacking.question.difficultyLevel}">
-					<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="L1" itemValue="L1" />
-<f:selectItem itemLabel="L2" itemValue="L2" />
-<f:selectItem itemLabel="L3" itemValue="L3" />
-<f:selectItem itemLabel="L4" itemValue="L4" />
 
-				</h:selectOneMenu>
-				<h:message for="question__difficultyLevel" styleClass="errMessage" />
-			</h:panelGroup>
-			
-		
-		
-			<h:outputText value="#{msg.question_section}" styleClass="customFormLabel" />
-			
-	
-	<h:panelGroup>
-	<a4j:region>
 
-	<h:selectOneMenu  required="false" disabled="false"
-		id="question_section" converter="keyToObjectConverter"
-		value="#{questionCrudBacking.question.section}">
-		<f:selectItem itemLabel="Select" />
-		<f:selectItems value="#{sectionCrudBacking.asSelectItems}" />
-	</h:selectOneMenu>
-										
-	<rich:message for="question_section" styleClass="errMessage">
-			<f:facet name="errorMarker">
-				<h:graphicImage url="/images/icons/bullet_error.png" />
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:s="http://myfaces.apache.org/sandbox"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+
+<a4j:form id="form">
+	<rich:panel header="Question Information">
+		<h:outputText value="Please correct the following issues !"
+			rendered="#{! empty facesContext.maximumSeverity}"
+			styleClass="errMessage" />
+
+		<h:panelGrid columns="4" styleClass="viewInfo"
+			columnClasses="leftCol, rightCol" rules="rows">
+			<f:facet name="header">
+				<h:outputText value="#{questionCrudBacking.question.displayName}" />
 			</f:facet>
-		</rich:message>
-	
-	</a4j:region>
-	</h:panelGroup>
 
-		
-		
-			<h:panelGroup>
-				<h:commandButton id="button1" value="Search"
-					action="#{questionCrudBacking.search}" styleClass="btn" />
-				<h:outputText value=" " />
-				<h:commandButton id="button2" value="Cancel" action="#{answerChoiceCrudBacking.clearSearch}"
-					immediate="true" styleClass="btn" />
- 			</h:panelGroup>
+
+			<h:outputText value="#{msg.question_questionText}" />
+			<h:outputText value="#{questionCrudBacking.question.questionText}" />
+
+			<h:outputText value="#{msg.question_difficultyLevel}" />
+			<h:outputText value="#{questionCrudBacking.question.difficultyLevel}" />
+
+
+			<h:outputText value="#{msg.question_section}" />
+			<h:commandLink
+				value="#{questionCrudBacking.question.section.displayName}"
+				actionListener="#{sectionCrudBacking.selectEntity}"
+				action="viewSection">
+				<f:param name="id"
+					value="#{questionCrudBacking.question.section.id}" />
+			</h:commandLink>
+
+
 		</h:panelGrid>
-		
-		 </rich:panel>					
-	</a4j:form>
+		<br />
+
+
+
+
+		<rich:simpleTogglePanel switchType="client" label="AnswerChoice">
+			<t:dataTable id="answerChoice_data" var="answerChoice"
+				rowIndexVar="rowIndex"
+				value="#{questionCrudBacking.listAnswerChoices}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+
+
+
+				<t:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.answerChoice_answerText}" />
+					</f:facet>
+					<h:outputText value="#{answerChoice.answerText}" />
+				</t:column>
+
+				<t:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.answerChoice_score}" />
+					</f:facet>
+					<h:outputText value="#{answerChoice.score}" />
+				</t:column>
+
+				<t:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.answerChoice_correctChoice}" />
+					</f:facet>
+					<h:outputText value="#{answerChoice.correctChoice}" />
+				</t:column>
+			</t:dataTable>
+		</rich:simpleTogglePanel>
+		<br />
+
+
+	</rich:panel>
+
+	<h:panelGrid columns="2">
+		<h:panelGroup>
+			<h:commandButton id="button1" value="Edit"
+				actionListener="#{questionCrudBacking.reloadFromId}" action="edit"
+				styleClass="btn" />
+			<h:outputText value=" " />
+			<h:commandButton id="button2" value="Cancel" action="cancelView"
+				immediate="true" styleClass="btn" />
+			<!-- We need to have a hidden text field to store the id of the record being edited -->
+			<h:inputHidden id="question_id"
+				value="#{questionCrudBacking.question.id}" />
+
+		</h:panelGroup>
+	</h:panelGrid>
+
+</a4j:form>
 </html>
-		
+

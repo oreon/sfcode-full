@@ -1,6 +1,4 @@
 
-	
-	
 <ui:composition  
 xmlns="http://www.w3.org/1999/xhtml"
 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -16,32 +14,39 @@ xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
 xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 
 template="/WEB-INF/template/default.xhtml">
-	
 	<ui:define name="content">
 		<f:view>
-		<!--PROTECTED REGION ID(_14_0_8c50281_1210887215093_772453_1516) ENABLED START-->
-				vvv
-		<!--PROTECTED REGION END-->	
-			<h:messages layout="list" globalOnly="true" showDetail="true"
-				styleClass="messages" />
-			<h:outputText value="" styleClass="message" />		
-				
+		
+			<h:outputText value="" styleClass="message" />
+			<wc:messages />
+			
 				
 			
+			<!--PROTECTED REGION ID(_14_0_8c50281_1210887215093_772453_1516) ENABLED START-->
 			<h:form>
-				<h:panelGrid>
-				
-					
-						
-						<h:commandLink action="viewDetails" value="viewDetails" />
-						
-					 
-					
-					
-				
-				</h:panelGrid>
+
+				<rich:dataList var="exam" value="#{examCrudBacking.records}"
+					rows="10">
+
+					<h:commandLink value="#{exam.examNumber} #{exam.name}"
+						action="viewDetails"
+						actionListener="#{examCrudBacking.selectEntity}">
+						<f:param name="id" value="#{exam.id}" />
+					</h:commandLink>
+					<br />
+
+					<h:outputText value="Duration:" styleClass="label"></h:outputText>
+					<h:outputText value="#{exam.duration} " />
+					<h:outputText value="Questions:" styleClass="label"></h:outputText>
+					<h:outputText value="#{exam.questions} " />
+
+				</rich:dataList>
+
 			</h:form>
-	
+
+
+			<!--PROTECTED REGION END-->	
+		
 		</f:view>
 	 </ui:define>	
 	</ui:composition>

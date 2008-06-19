@@ -22,6 +22,9 @@ import org.hibernate.search.annotations.Store;
 import org.witchcraft.model.jsf.Image;
 import java.util.Set;
 
+import java.util.List;
+import java.util.ArrayList;
+
 @MappedSuperclass
 @Indexed
 //@Analyzer(impl = example.EnglishAnalyzer.class)
@@ -62,16 +65,10 @@ public abstract class AnswerChoiceBase
 		return this.answerText;
 	}
 
-	/*
-	
-	 */
 	public Integer getScore() {
 		return this.score;
 	}
 
-	/*
-	
-	 */
 	public boolean isCorrectChoice() {
 		return this.correctChoice;
 	}
@@ -106,6 +103,16 @@ public abstract class AnswerChoiceBase
 	@Transient
 	public String getDisplayName() {
 		return answerText + "";
+	}
+
+	@Override
+	public String[] retrieveSearchableFieldsArray() {
+		List<String> listSearchableFields = new ArrayList<String>();
+
+		listSearchableFields.add("answerText");
+
+		String[] arrFields = new String[listSearchableFields.size()];
+		return listSearchableFields.toArray(arrFields);
 	}
 
 }

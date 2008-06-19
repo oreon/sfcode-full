@@ -1,6 +1,7 @@
 package com.oreon.kgauge.domain;
 
 import javax.persistence.*;
+
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,8 @@ import java.util.Date;
 
 @Entity
 @Indexed
+@NamedQuery(name="findPopularExams", 
+query = "SELECT e FROM Exam e WHERE e.questions > ?1 ORDER  BY e.questions")
 public class Exam extends ExamBase implements java.io.Serializable {
 
 	private static final Logger log = Logger.getLogger(Exam.class);

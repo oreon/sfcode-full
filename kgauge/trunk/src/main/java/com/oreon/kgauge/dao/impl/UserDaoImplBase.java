@@ -10,6 +10,7 @@ package com.oreon.kgauge.dao.impl;
 import com.oreon.kgauge.domain.User;
 import com.oreon.kgauge.dao.UserDao;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
@@ -25,6 +26,8 @@ import org.witchcraft.model.support.dao.BaseDao;
 public class UserDaoImplBase extends BaseDao<User> implements UserDao {
 
 	//// FINDERS ///// 
+	private static final Logger logger = Logger
+			.getLogger(UserDaoImplBase.class);
 
 	@SuppressWarnings("unchecked")
 	public/**
@@ -41,6 +44,7 @@ public class UserDaoImplBase extends BaseDao<User> implements UserDao {
 		try {
 			return (User) query.getSingleResult();
 		} catch (NoResultException nre) {
+			logger.info("No User found for username: " + username);
 			return null;
 		}
 

@@ -10,6 +10,7 @@ package com.oreon.kgauge.dao.impl;
 import com.oreon.kgauge.domain.Candidate;
 import com.oreon.kgauge.dao.CandidateDao;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
@@ -27,6 +28,8 @@ public class CandidateDaoImplBase extends BaseDao<Candidate>
 			CandidateDao {
 
 	//// FINDERS ///// 
+	private static final Logger logger = Logger
+			.getLogger(CandidateDaoImplBase.class);
 
 	@SuppressWarnings("unchecked")
 	public/**
@@ -43,6 +46,7 @@ public class CandidateDaoImplBase extends BaseDao<Candidate>
 		try {
 			return (Candidate) query.getSingleResult();
 		} catch (NoResultException nre) {
+			logger.info("No Candidate found for username: " + username);
 			return null;
 		}
 
@@ -63,6 +67,7 @@ public class CandidateDaoImplBase extends BaseDao<Candidate>
 		try {
 			return (Candidate) query.getSingleResult();
 		} catch (NoResultException nre) {
+			logger.info("No Candidate found for email: " + email);
 			return null;
 		}
 

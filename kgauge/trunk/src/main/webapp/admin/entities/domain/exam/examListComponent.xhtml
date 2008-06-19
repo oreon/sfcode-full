@@ -27,56 +27,56 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		value="#{examCrudBacking.records}" rows="30"
 	rowClasses="odd, even" styleClass="dataTable" >						
 	
-	<rich:column sortBy="#{exam.examNumber}"  >
+	<rich:column sortBy="#{exam.examNumber}"  filterBy="#{exam.examNumber}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.exam_examNumber}" /> 		
 		</f:facet>
 		<h:outputText value="#{exam.examNumber}" />
 	</rich:column>
 
-	<rich:column sortBy="#{exam.name}"  >
+	<rich:column sortBy="#{exam.name}"  filterBy="#{exam.name}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.exam_name}" /> 		
 		</f:facet>
 		<h:outputText value="#{exam.name}" />
 	</rich:column>
 
-	<rich:column sortBy="#{exam.description}"  >
+	<rich:column sortBy="#{exam.description}"  filterBy="#{exam.description}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.exam_description}" /> 		
 		</f:facet>
 		<h:outputText value="#{exam.description}" />
 	</rich:column>
 
-	<rich:column sortBy="#{exam.questions}"  >
+	<rich:column sortBy="#{exam.questions}"  filterBy="#{exam.questions}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.exam_questions}" /> 		
 		</f:facet>
 		<h:outputText value="#{exam.questions}" />
 	</rich:column>
 
-	<rich:column sortBy="#{exam.duration}"  >
+	<rich:column sortBy="#{exam.duration}"  filterBy="#{exam.duration}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.exam_duration}" /> 		
 		</f:facet>
 		<h:outputText value="#{exam.duration}" />
 	</rich:column>
 
-	<rich:column sortBy="#{exam.price}"  >
+	<rich:column sortBy="#{exam.price}"  filterBy="#{exam.price}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.exam_price}" /> 		
 		</f:facet>
 		<h:outputText value="#{exam.price}" />
 	</rich:column>
 
-	<rich:column sortBy="#{exam.scoringStrategy}"  >
+	<rich:column sortBy="#{exam.scoringStrategy}"  filterBy="#{exam.scoringStrategy}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.exam_scoringStrategy}" /> 		
 		</f:facet>
 		<h:outputText value="#{exam.scoringStrategy}" />
 	</rich:column>
 
-	<rich:column sortBy="#{exam.examStatus}"  >
+	<rich:column sortBy="#{exam.examStatus}"  filterBy="#{exam.examStatus}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.exam_examStatus}" /> 		
 		</f:facet>
@@ -101,43 +101,56 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		
 		<rich:column>
 			<f:facet name="header">
-				
-					<h:outputText value=" " />
-				
+				<h:outputText value=" " />
 			</f:facet>
-			
+			<h:commandLink action="view"
+				actionListener="#{examCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left" styleClass="toolTip"
+					value="Click to Edit Row" mode="client" />
+				<h:graphicImage value="/images/icons/application_edit.png"
+					style="border: 0px" />
+				<f:param name="id" value="#{exam.id}" />
+			</h:commandLink>
+		</rich:column>
+		
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
 			<!--
 			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 			--> 								
-				<h:commandLink action="#{examCrudBacking.select}"																					
-					actionListener="#{examCrudBacking.selectEntity}">
-					<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
-					<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
-					<f:param id="editId" name="id" value="#{exam.id}" />								
-				</h:commandLink>		
+			<h:commandLink action="#{examCrudBacking.select}"																					
+				actionListener="#{examCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
+				<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
+				<f:param id="editId" name="id" value="#{exam.id}" />								
+			</h:commandLink>		
 			<!--
 			</acegijsf:authorize>
 			--> 
-			</rich:column>
-			<rich:column>
-				<f:facet name="header">
-						<h:outputText value=" " />
-				</f:facet>
+		</rich:column>
+			
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
 			<!--
 			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 			--> 		
-			<h:commandLink action="#{examCrudBacking.delete}"	
+			<a4j:commandLink action="#{examCrudBacking.delete}"	
 				onclick="if(window.confirm('Are You Sure?')==false){return false}"
 				actionListener="#{examCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
 				<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 				<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
 				<f:param id="deleteId" name="id" value="#{exam.id}" />												
-			</h:commandLink>
+			</a4j:commandLink>
 			<!--
 			</acegijsf:authorize>
 			--> 
-			</rich:column>
-	</rich:dataTable>	
+		</rich:column>
+	</rich:dataTable>
+		
 	 </rich:tab>
 	 
 		 
@@ -167,56 +180,56 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 			</rich:column>
 			
 	
-	<rich:column sortBy="#{log.entity.examNumber}"  >
+	<rich:column sortBy="#{log.entity.examNumber}"  filterBy="#{log.entity.examNumber}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.exam_examNumber}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.examNumber}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.name}"  >
+	<rich:column sortBy="#{log.entity.name}"  filterBy="#{log.entity.name}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.exam_name}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.name}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.description}"  >
+	<rich:column sortBy="#{log.entity.description}"  filterBy="#{log.entity.description}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.exam_description}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.description}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.questions}"  >
+	<rich:column sortBy="#{log.entity.questions}"  filterBy="#{log.entity.questions}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.exam_questions}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.questions}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.duration}"  >
+	<rich:column sortBy="#{log.entity.duration}"  filterBy="#{log.entity.duration}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.exam_duration}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.duration}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.price}"  >
+	<rich:column sortBy="#{log.entity.price}"  filterBy="#{log.entity.price}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.exam_price}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.price}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.scoringStrategy}"  >
+	<rich:column sortBy="#{log.entity.scoringStrategy}"  filterBy="#{log.entity.scoringStrategy}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.exam_scoringStrategy}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.scoringStrategy}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.examStatus}"  >
+	<rich:column sortBy="#{log.entity.examStatus}"  filterBy="#{log.entity.examStatus}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.exam_examStatus}" /> 		
 		</f:facet>

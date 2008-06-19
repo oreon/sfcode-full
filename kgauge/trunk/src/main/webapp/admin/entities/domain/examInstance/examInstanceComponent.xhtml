@@ -34,7 +34,7 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	<h:panelGroup>
 	<a4j:region>
 
-	<h:selectOneMenu  required="true" disabled="false"
+	<h:selectOneMenu  required="true" disabled="true"
 		id="examInstance_candidate" converter="keyToObjectConverter"
 		value="#{examInstanceCrudBacking.examInstance.candidate}">
 		<f:selectItem itemLabel="Select" />
@@ -74,9 +74,51 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	</a4j:region>
 	</h:panelGroup>
 					
-				
-  						
-  				
+					
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.examInstance_maxScore}" />
+		<h:outputText value="" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:inputText    required="false" 
+		id="examInstance_maxScore"
+		value="#{examInstanceCrudBacking.examInstance.maxScore}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="examInstance_maxScore" />
+	</h:inputText>
+	
+	
+		
+	<wc:message for="examInstance_maxScore" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.examInstance_candidateScore}" />
+		<h:outputText value="*" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:inputText    required="true" 
+		id="examInstance_candidateScore"
+		value="#{examInstanceCrudBacking.examInstance.candidateScore}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="examInstance_candidateScore" />
+	</h:inputText>
+	
+	
+	
+		
+	<wc:message for="examInstance_candidateScore" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
 			</h:panelGrid>
 						<br/>
 						

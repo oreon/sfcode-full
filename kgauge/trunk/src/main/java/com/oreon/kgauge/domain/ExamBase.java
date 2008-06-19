@@ -22,6 +22,9 @@ import org.hibernate.search.annotations.Store;
 import org.witchcraft.model.jsf.Image;
 import java.util.Set;
 
+import java.util.List;
+import java.util.ArrayList;
+
 @MappedSuperclass
 @Indexed
 //@Analyzer(impl = example.EnglishAnalyzer.class)
@@ -101,6 +104,7 @@ public abstract class ExamBase
 	/*
 	Number of questions in the exam
 	 */
+
 	public Integer getQuestions() {
 		return this.questions;
 	}
@@ -108,27 +112,19 @@ public abstract class ExamBase
 	/*
 	Duration of exam in minutes
 	 */
+
 	public Integer getDuration() {
 		return this.duration;
 	}
 
-	/*
-	
-	 */
 	public Double getPrice() {
 		return this.price;
 	}
 
-	/*
-	
-	 */
 	public ScoringType getScoringStrategy() {
 		return this.scoringStrategy;
 	}
 
-	/*
-	
-	 */
 	public ExamStatus getExamStatus() {
 		return this.examStatus;
 	}
@@ -227,11 +223,29 @@ public abstract class ExamBase
 		return this.section.size();
 	}
 
+	public java.util.List findPopularExams(Integer minScore) {
+		return null;
+	}
+
 	public abstract Exam examInstance();
 
 	@Transient
 	public String getDisplayName() {
 		return examNumber + "";
+	}
+
+	@Override
+	public String[] retrieveSearchableFieldsArray() {
+		List<String> listSearchableFields = new ArrayList<String>();
+
+		listSearchableFields.add("examNumber");
+
+		listSearchableFields.add("name");
+
+		listSearchableFields.add("description");
+
+		String[] arrFields = new String[listSearchableFields.size()];
+		return listSearchableFields.toArray(arrFields);
 	}
 
 }
