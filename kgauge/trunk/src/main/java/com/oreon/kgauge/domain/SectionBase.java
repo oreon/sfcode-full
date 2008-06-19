@@ -22,6 +22,9 @@ import org.hibernate.search.annotations.Store;
 import org.witchcraft.model.jsf.Image;
 import java.util.Set;
 
+import java.util.List;
+import java.util.ArrayList;
+
 @MappedSuperclass
 @Indexed
 //@Analyzer(impl = example.EnglishAnalyzer.class)
@@ -46,9 +49,6 @@ public abstract class SectionBase
 		this.name = name;
 	}
 
-	/*
-	
-	 */
 	public String getName() {
 		return this.name;
 	}
@@ -111,6 +111,16 @@ public abstract class SectionBase
 	@Transient
 	public String getDisplayName() {
 		return name + "";
+	}
+
+	@Override
+	public String[] retrieveSearchableFieldsArray() {
+		List<String> listSearchableFields = new ArrayList<String>();
+
+		listSearchableFields.add("name");
+
+		String[] arrFields = new String[listSearchableFields.size()];
+		return listSearchableFields.toArray(arrFields);
 	}
 
 }

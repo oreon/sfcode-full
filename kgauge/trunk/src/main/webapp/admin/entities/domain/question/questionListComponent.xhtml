@@ -27,14 +27,14 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		value="#{questionCrudBacking.records}" rows="30"
 	rowClasses="odd, even" styleClass="dataTable" >						
 	
-	<rich:column sortBy="#{question.questionText}"  >
+	<rich:column sortBy="#{question.questionText}"  filterBy="#{question.questionText}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.question_questionText}" /> 		
 		</f:facet>
 		<h:outputText value="#{question.questionText}" />
 	</rich:column>
 
-	<rich:column sortBy="#{question.difficultyLevel}"  >
+	<rich:column sortBy="#{question.difficultyLevel}"  filterBy="#{question.difficultyLevel}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.question_difficultyLevel}" /> 		
 		</f:facet>
@@ -52,43 +52,56 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		
 		<rich:column>
 			<f:facet name="header">
-				
-					<h:outputText value=" " />
-				
+				<h:outputText value=" " />
 			</f:facet>
-			
+			<h:commandLink action="view"
+				actionListener="#{questionCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left" styleClass="toolTip"
+					value="Click to Edit Row" mode="client" />
+				<h:graphicImage value="/images/icons/application_edit.png"
+					style="border: 0px" />
+				<f:param name="id" value="#{question.id}" />
+			</h:commandLink>
+		</rich:column>
+		
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
 			<!--
 			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 			--> 								
-				<h:commandLink action="#{questionCrudBacking.select}"																					
-					actionListener="#{questionCrudBacking.selectEntity}">
-					<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
-					<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
-					<f:param id="editId" name="id" value="#{question.id}" />								
-				</h:commandLink>		
+			<h:commandLink action="#{questionCrudBacking.select}"																					
+				actionListener="#{questionCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
+				<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
+				<f:param id="editId" name="id" value="#{question.id}" />								
+			</h:commandLink>		
 			<!--
 			</acegijsf:authorize>
 			--> 
-			</rich:column>
-			<rich:column>
-				<f:facet name="header">
-						<h:outputText value=" " />
-				</f:facet>
+		</rich:column>
+			
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
 			<!--
 			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 			--> 		
-			<h:commandLink action="#{questionCrudBacking.delete}"	
+			<a4j:commandLink action="#{questionCrudBacking.delete}"	
 				onclick="if(window.confirm('Are You Sure?')==false){return false}"
 				actionListener="#{questionCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
 				<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 				<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
 				<f:param id="deleteId" name="id" value="#{question.id}" />												
-			</h:commandLink>
+			</a4j:commandLink>
 			<!--
 			</acegijsf:authorize>
 			--> 
-			</rich:column>
-	</rich:dataTable>	
+		</rich:column>
+	</rich:dataTable>
+		
 	 </rich:tab>
 	 
 		 
@@ -118,14 +131,14 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 			</rich:column>
 			
 	
-	<rich:column sortBy="#{log.entity.questionText}"  >
+	<rich:column sortBy="#{log.entity.questionText}"  filterBy="#{log.entity.questionText}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.question_questionText}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.questionText}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.difficultyLevel}"  >
+	<rich:column sortBy="#{log.entity.difficultyLevel}"  filterBy="#{log.entity.difficultyLevel}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.question_difficultyLevel}" /> 		
 		</f:facet>

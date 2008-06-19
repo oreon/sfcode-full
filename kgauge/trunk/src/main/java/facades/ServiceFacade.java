@@ -3,26 +3,18 @@ package facades;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 
 import com.oreon.kgauge.service.CandidateService;
-
 import com.oreon.kgauge.service.QuestionService;
-
 import com.oreon.kgauge.service.AnswerChoiceService;
-
 import com.oreon.kgauge.service.ExamService;
-
 import com.oreon.kgauge.service.ExamInstanceService;
-
 import com.oreon.kgauge.service.ExamCreatorService;
-
 import com.oreon.kgauge.service.CategoryService;
-
 import com.oreon.kgauge.service.UserService;
-
 import com.oreon.kgauge.service.GrantedRoleService;
-
 import com.oreon.kgauge.service.AnsweredQuestionService;
-
 import com.oreon.kgauge.service.SectionService;
+
+import com.oreon.kgauge.bizlogic.ExamFactory;
 
 public class ServiceFacade {
 	private static ServiceFacade instance;
@@ -33,6 +25,7 @@ public class ServiceFacade {
 		return instance;
 	}
 
+	// Construction is disabled
 	private ServiceFacade() {
 	}
 
@@ -145,6 +138,17 @@ public class ServiceFacade {
 
 	public void setSectionService(SectionService sectionService) {
 		this.sectionService = sectionService;
+	}
+
+	private ExamFactory randomQuestionsExamFactoryImpl;
+
+	public ExamFactory getRandomQuestionsExamFactoryImpl() {
+		return randomQuestionsExamFactoryImpl;
+	}
+
+	public void setRandomQuestionsExamFactoryImpl(
+			ExamFactory randomQuestionsExamFactoryImpl) {
+		this.randomQuestionsExamFactoryImpl = randomQuestionsExamFactoryImpl;
 	}
 
 }

@@ -50,7 +50,7 @@ public class QuestionDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			questionInstance.setQuestionText("gamma");
+			questionInstance.setQuestionText("theta");
 			questionInstance
 					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
 
@@ -83,7 +83,7 @@ public class QuestionDaoTest extends AbstractJpaTests {
 
 			try {
 
-				question.setQuestionText("Malissa");
+				question.setQuestionText("gamma");
 				question
 						.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L4);
 
@@ -112,9 +112,9 @@ public class QuestionDaoTest extends AbstractJpaTests {
 			Question question = (Question) questionTestDataFactory
 					.loadOneRecord();
 
-			question.setQuestionText("theta");
+			question.setQuestionText("Mark");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
 
 			questionService.save(question);
 

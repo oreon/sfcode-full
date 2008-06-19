@@ -27,7 +27,7 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		value="#{grantedRoleCrudBacking.records}" rows="30"
 	rowClasses="odd, even" styleClass="dataTable" >						
 	
-	<rich:column sortBy="#{grantedRole.name}"  >
+	<rich:column sortBy="#{grantedRole.name}"  filterBy="#{grantedRole.name}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.grantedRole_name}" /> 		
 		</f:facet>
@@ -45,43 +45,56 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		
 		<rich:column>
 			<f:facet name="header">
-				
-					<h:outputText value=" " />
-				
+				<h:outputText value=" " />
 			</f:facet>
-			
+			<h:commandLink action="view"
+				actionListener="#{grantedRoleCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left" styleClass="toolTip"
+					value="Click to Edit Row" mode="client" />
+				<h:graphicImage value="/images/icons/application_edit.png"
+					style="border: 0px" />
+				<f:param name="id" value="#{grantedRole.id}" />
+			</h:commandLink>
+		</rich:column>
+		
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
 			<!--
 			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 			--> 								
-				<h:commandLink action="#{grantedRoleCrudBacking.select}"																					
-					actionListener="#{grantedRoleCrudBacking.selectEntity}">
-					<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
-					<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
-					<f:param id="editId" name="id" value="#{grantedRole.id}" />								
-				</h:commandLink>		
+			<h:commandLink action="#{grantedRoleCrudBacking.select}"																					
+				actionListener="#{grantedRoleCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
+				<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
+				<f:param id="editId" name="id" value="#{grantedRole.id}" />								
+			</h:commandLink>		
 			<!--
 			</acegijsf:authorize>
 			--> 
-			</rich:column>
-			<rich:column>
-				<f:facet name="header">
-						<h:outputText value=" " />
-				</f:facet>
+		</rich:column>
+			
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
 			<!--
 			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 			--> 		
-			<h:commandLink action="#{grantedRoleCrudBacking.delete}"	
+			<a4j:commandLink action="#{grantedRoleCrudBacking.delete}"	
 				onclick="if(window.confirm('Are You Sure?')==false){return false}"
 				actionListener="#{grantedRoleCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
 				<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 				<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
 				<f:param id="deleteId" name="id" value="#{grantedRole.id}" />												
-			</h:commandLink>
+			</a4j:commandLink>
 			<!--
 			</acegijsf:authorize>
 			--> 
-			</rich:column>
-	</rich:dataTable>	
+		</rich:column>
+	</rich:dataTable>
+		
 	 </rich:tab>
 	 
 		 
@@ -111,7 +124,7 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 			</rich:column>
 			
 	
-	<rich:column sortBy="#{log.entity.name}"  >
+	<rich:column sortBy="#{log.entity.name}"  filterBy="#{log.entity.name}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.grantedRole_name}" /> 		
 		</f:facet>

@@ -17,7 +17,12 @@
 		<ui:include src="myLinks.xhtml" />
 	</a4j:outputPanel>
 	
-	<wc:login rendered="#{ empty  authenticationController.username}"/>
+	<a4j:outputPanel rendered="#{ empty  authenticationController.username}" >
+		<wc:login />
+		<a4j:form>
+		<h:commandLink action="register" value="Register" />
+		</a4j:form>
+	</a4j:outputPanel>
 	
 </div>
 

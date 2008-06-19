@@ -27,150 +27,95 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 					
 					
 					
-	
-		
-
-<h:panelGroup>
-	<h:outputText value=""/>
-	<h:outputText value="#{msg.user_username}" />
-	<h:outputText value="*" />
-</h:panelGroup>
-
-
-
-<h:panelGroup>
-	<a4j:region>
-	
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.user_username}" />
+		<h:outputText value="*" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
 		
 	<h:inputText    required="true" 
 		id="user_username"
 		value="#{userCrudBacking.user.username}">
-		
-		
-		<a4j:support event="onblur" reRender="user_username" />
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="user_username" />
 	</h:inputText>
 	
-	<rich:message for="user_username"
-		 styleClass="errMessage">
-		<f:facet name="errorMarker">
-			<h:graphicImage url="/images/icons/bullet_error.png" />
-		</f:facet>
-	</rich:message>
-	</a4j:region>
-</h:panelGroup>
-
-
-							
 	
-
 	
 		
+	<wc:message for="user_username" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
 
-<h:panelGroup>
-	<h:outputText value=""/>
-	<h:outputText value="#{msg.user_password}" />
-	<h:outputText value="*" />
-</h:panelGroup>
-
-
-
-<h:panelGroup>
-	<a4j:region>
-	
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.user_password}" />
+		<h:outputText value="*" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
 		
 	<h:inputSecret   maxLength="12"  redisplay="true"   required="true" 
 		id="user_password"
 		value="#{userCrudBacking.user.password}">
-		
-		<f:validateLength minimum="5" maximum="12"/>
-		<a4j:support event="onblur" reRender="user_password" />
+		<f:validateLength minimum="5" maximum="12"/>		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="user_password" />
 	</h:inputSecret>
 	
-	<rich:message for="user_password"
-		 styleClass="errMessage">
-		<f:facet name="errorMarker">
-			<h:graphicImage url="/images/icons/bullet_error.png" />
-		</f:facet>
-	</rich:message>
-	</a4j:region>
-</h:panelGroup>
-
-
-		
-			
-
-<h:panelGroup>
-	<h:outputText value="Repeat "/>
-	<h:outputText value="#{msg.user_password}" />
-	<h:outputText value="*" />
-</h:panelGroup>
-
-
-
-<h:panelGroup>
-	<a4j:region>
+	
 	
 		
+	<wc:message for="user_password" />
+  
+		</a4j:region>
+	</h:panelGroup>
+	<h:panelGroup>
+		<h:outputText value="Repeat "/>
+		<h:outputText value="#{msg.user_password}" />
+		<h:outputText value="*" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+			
 	<h:inputSecret   maxLength="12"  redisplay="true"   required="true" 
 		id="user_null_repeatPassword"
 		value="#{userCrudBacking.repeatPassword}">
 		
 		<t:validateEqual for="user__password" />
 		<f:validateLength minimum="5" maximum="12"/>							
-		<a4j:support event="onblur" reRender="user_password" />
+		<a4j:support event="onblur"  bypassUpdates="true" ajaxSingle="true" reRender="user_password" />
 	</h:inputSecret>
-	
-	<rich:message for="user_null_repeatPassword"
-		 styleClass="errMessage">
-		<f:facet name="errorMarker">
-			<h:graphicImage url="/images/icons/bullet_error.png" />
-		</f:facet>
-	</rich:message>
-	</a4j:region>
-</h:panelGroup>
-
-
-							
-	
-
-	
 		
-<acegijsf:authorize ifAnyGranted="ROLE_ADMIN">
-<h:panelGroup>
-	<h:outputText value=""/>
-	<h:outputText value="#{msg.user_enabled}" />
-	<h:outputText value="*" />
-</h:panelGroup>
-</acegijsf:authorize>
+	<wc:message for="user_null_repeatPassword" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
 
-<acegijsf:authorize ifAnyGranted="ROLE_ADMIN">
-<h:panelGroup>
-	<a4j:region>
-	
+<acegijsf:authorize ifAnyGranted="ROLE_ADMIN">	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.user_enabled}" />
+		<h:outputText value="*" />
+	</h:panelGroup>
+</acegijsf:authorize><acegijsf:authorize ifAnyGranted="ROLE_ADMIN">	<h:panelGroup>
+		<a4j:region>
 		
 	<h:selectBooleanCheckbox    title="enabled"  required="true" 
 		id="user_enabled"
 		value="#{userCrudBacking.user.enabled}">
-		
-		
-		<a4j:support event="onblur" reRender="user_enabled" />
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="user_enabled" />
 	</h:selectBooleanCheckbox >
 	
-	<rich:message for="user_enabled"
-		 styleClass="errMessage">
-		<f:facet name="errorMarker">
-			<h:graphicImage url="/images/icons/bullet_error.png" />
-		</f:facet>
-	</rich:message>
-	</a4j:region>
-</h:panelGroup>
-</acegijsf:authorize>
-
-							
 	
-				
-  						
-  				
+	
+		
+	<wc:message for="user_enabled" />
+  
+		</a4j:region>
+	</h:panelGroup>
+</acegijsf:authorize>						
 			</h:panelGrid>
 						<br/>
 						

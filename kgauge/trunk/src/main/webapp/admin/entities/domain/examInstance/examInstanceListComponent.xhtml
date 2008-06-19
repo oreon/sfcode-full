@@ -27,6 +27,20 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		value="#{examInstanceCrudBacking.records}" rows="30"
 	rowClasses="odd, even" styleClass="dataTable" >						
 	
+	<rich:column sortBy="#{examInstance.maxScore}"  filterBy="#{examInstance.maxScore}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.examInstance_maxScore}" /> 		
+		</f:facet>
+		<h:outputText value="#{examInstance.maxScore}" />
+	</rich:column>
+
+	<rich:column sortBy="#{examInstance.candidateScore}"  filterBy="#{examInstance.candidateScore}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.examInstance_candidateScore}" /> 		
+		</f:facet>
+		<h:outputText value="#{examInstance.candidateScore}" />
+	</rich:column>
+	
 	
 	
 	<rich:column sortBy="#{examInstance.candidate.displayName}" filterBy="#{examInstance.candidate.displayName}" filterEvent="onkeyup" >
@@ -45,43 +59,56 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		
 		<rich:column>
 			<f:facet name="header">
-				
-					<h:outputText value=" " />
-				
+				<h:outputText value=" " />
 			</f:facet>
-			
+			<h:commandLink action="view"
+				actionListener="#{examInstanceCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left" styleClass="toolTip"
+					value="Click to Edit Row" mode="client" />
+				<h:graphicImage value="/images/icons/application_edit.png"
+					style="border: 0px" />
+				<f:param name="id" value="#{examInstance.id}" />
+			</h:commandLink>
+		</rich:column>
+		
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
 			<!--
 			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 			--> 								
-				<h:commandLink action="#{examInstanceCrudBacking.select}"																					
-					actionListener="#{examInstanceCrudBacking.selectEntity}">
-					<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
-					<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
-					<f:param id="editId" name="id" value="#{examInstance.id}" />								
-				</h:commandLink>		
+			<h:commandLink action="#{examInstanceCrudBacking.select}"																					
+				actionListener="#{examInstanceCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
+				<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
+				<f:param id="editId" name="id" value="#{examInstance.id}" />								
+			</h:commandLink>		
 			<!--
 			</acegijsf:authorize>
 			--> 
-			</rich:column>
-			<rich:column>
-				<f:facet name="header">
-						<h:outputText value=" " />
-				</f:facet>
+		</rich:column>
+			
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
 			<!--
 			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 			--> 		
-			<h:commandLink action="#{examInstanceCrudBacking.delete}"	
+			<a4j:commandLink action="#{examInstanceCrudBacking.delete}"	
 				onclick="if(window.confirm('Are You Sure?')==false){return false}"
 				actionListener="#{examInstanceCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
 				<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 				<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
 				<f:param id="deleteId" name="id" value="#{examInstance.id}" />												
-			</h:commandLink>
+			</a4j:commandLink>
 			<!--
 			</acegijsf:authorize>
 			--> 
-			</rich:column>
-	</rich:dataTable>	
+		</rich:column>
+	</rich:dataTable>
+		
 	 </rich:tab>
 	 
 		 
@@ -110,6 +137,20 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 				<h:outputText value="#{log.username}" />
 			</rich:column>
 			
+	
+	<rich:column sortBy="#{log.entity.maxScore}"  filterBy="#{log.entity.maxScore}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.examInstance_maxScore}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.maxScore}" />
+	</rich:column>
+
+	<rich:column sortBy="#{log.entity.candidateScore}"  filterBy="#{log.entity.candidateScore}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.examInstance_candidateScore}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.candidateScore}" />
+	</rich:column>
 			</rich:dataTable>
 			 </rich:tab>
 						 

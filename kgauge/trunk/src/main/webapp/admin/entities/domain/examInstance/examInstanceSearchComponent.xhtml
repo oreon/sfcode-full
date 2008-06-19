@@ -24,6 +24,20 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 				<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
 						backingBean="#{examInstanceCrudBacking}" />
 					
+			<h:outputText value="#{msg.examInstance_maxScore}" />
+	
+		<wc:numberRange rangeFieldName="rangeMaxScore" label="MaxScore"
+			backingBean="#{examInstanceCrudBacking}" type="integer" />
+	
+
+			
+			<h:outputText value="#{msg.examInstance_candidateScore}" />
+	
+		<wc:numberRange rangeFieldName="rangeCandidateScore" label="CandidateScore"
+			backingBean="#{examInstanceCrudBacking}" type="integer" />
+	
+
+			
 		
 		
 			<h:outputText value="#{msg.examInstance_candidate}" styleClass="customFormLabel" />
@@ -32,7 +46,7 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	<h:panelGroup>
 	<a4j:region>
 
-	<h:selectOneMenu  required="false" disabled="false"
+	<h:selectOneMenu  required="false" disabled="true"
 		id="examInstance_candidate" converter="keyToObjectConverter"
 		value="#{examInstanceCrudBacking.examInstance.candidate}">
 		<f:selectItem itemLabel="Select" />

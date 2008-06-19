@@ -22,6 +22,9 @@ import org.hibernate.search.annotations.Store;
 import org.witchcraft.model.jsf.Image;
 import java.util.Set;
 
+import java.util.List;
+import java.util.ArrayList;
+
 @MappedSuperclass
 @Indexed
 //@Analyzer(impl = example.EnglishAnalyzer.class)
@@ -66,16 +69,10 @@ public abstract class ContactDetailsBase implements java.io.Serializable {
 		this.email = email;
 	}
 
-	/*
-	
-	 */
 	public String getStreetAddress() {
 		return this.streetAddress;
 	}
 
-	/*
-	
-	 */
 	public String getCity() {
 		return this.city;
 	}
@@ -98,16 +95,10 @@ public abstract class ContactDetailsBase implements java.io.Serializable {
 		return this.country;
 	}
 
-	/*
-	
-	 */
 	public String getZip() {
 		return this.zip;
 	}
 
-	/*
-	
-	 */
 	public String getPhone() {
 		return this.phone;
 	}

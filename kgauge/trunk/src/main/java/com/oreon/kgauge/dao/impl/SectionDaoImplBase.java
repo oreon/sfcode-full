@@ -10,6 +10,7 @@ package com.oreon.kgauge.dao.impl;
 import com.oreon.kgauge.domain.Section;
 import com.oreon.kgauge.dao.SectionDao;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
@@ -25,6 +26,8 @@ import org.witchcraft.model.support.dao.BaseDao;
 public class SectionDaoImplBase extends BaseDao<Section> implements SectionDao {
 
 	//// FINDERS ///// 
+	private static final Logger logger = Logger
+			.getLogger(SectionDaoImplBase.class);
 
 	/** This function adds associated entities to an example criterion
 	 * @see org.witchcraft.model.support.dao.BaseDao#createExampleCriteria(java.lang.Object)

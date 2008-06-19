@@ -22,6 +22,9 @@ import org.hibernate.search.annotations.Store;
 import org.witchcraft.model.jsf.Image;
 import java.util.Set;
 
+import java.util.List;
+import java.util.ArrayList;
+
 @MappedSuperclass
 @Indexed
 //@Analyzer(impl = example.EnglishAnalyzer.class)
@@ -58,9 +61,6 @@ public abstract class QuestionBase
 		return this.questionText;
 	}
 
-	/*
-	
-	 */
 	public DifficultyLevel getDifficultyLevel() {
 		return this.difficultyLevel;
 	}
@@ -127,6 +127,16 @@ public abstract class QuestionBase
 	@Transient
 	public String getDisplayName() {
 		return questionText + "";
+	}
+
+	@Override
+	public String[] retrieveSearchableFieldsArray() {
+		List<String> listSearchableFields = new ArrayList<String>();
+
+		listSearchableFields.add("questionText");
+
+		String[] arrFields = new String[listSearchableFields.size()];
+		return listSearchableFields.toArray(arrFields);
 	}
 
 }

@@ -51,80 +51,72 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	</h:panelGroup>
 					
 					
-	
-		
-
-<h:panelGroup>
-	<h:outputText value=""/>
-	<h:outputText value="#{msg.answerChoice_answerText}" />
-	<h:outputText value="*" />
-</h:panelGroup>
-
-
-
-<h:panelGroup>
-	<a4j:region>
-	
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.answerChoice_answerText}" />
+		<h:outputText value="*" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
 		
 	<h:inputTextarea   maxLength="5000"   required="true" 
 		id="answerChoice_answerText"
 		value="#{answerChoiceCrudBacking.answerChoice.answerText}">
-		
-		<f:validateLength minimum="1" maximum="5000"/>
-		<a4j:support event="onblur" reRender="answerChoice_answerText" />
+		<f:validateLength minimum="1" maximum="5000"/>		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="answerChoice_answerText" />
 	</h:inputTextarea>
 	
-	<rich:message for="answerChoice_answerText"
-		 styleClass="errMessage">
-		<f:facet name="errorMarker">
-			<h:graphicImage url="/images/icons/bullet_error.png" />
-		</f:facet>
-	</rich:message>
-	</a4j:region>
-</h:panelGroup>
-
-
-							
 	
-
 	
 		
+	<wc:message for="answerChoice_answerText" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
 
-<h:panelGroup>
-	<h:outputText value=""/>
-	<h:outputText value="#{msg.answerChoice_score}" />
-	<h:outputText value="" />
-</h:panelGroup>
-
-
-
-<h:panelGroup>
-	<a4j:region>
-	
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.answerChoice_score}" />
+		<h:outputText value="" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
 		
 	<h:inputText    required="false" 
 		id="answerChoice_score"
 		value="#{answerChoiceCrudBacking.answerChoice.score}">
-		
-		
-		<a4j:support event="onblur" reRender="answerChoice_score" />
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="answerChoice_score" />
 	</h:inputText>
 	
-	<rich:message for="answerChoice_score"
-		 styleClass="errMessage">
-		<f:facet name="errorMarker">
-			<h:graphicImage url="/images/icons/bullet_error.png" />
-		</f:facet>
-	</rich:message>
-	</a4j:region>
-</h:panelGroup>
-
-
-							
 	
-				
-  						
-  				
+		
+	<wc:message for="answerChoice_score" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.answerChoice_correctChoice}" />
+		<h:outputText value="" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:selectBooleanCheckbox    title="correctChoice"  required="false" 
+		id="answerChoice_correctChoice"
+		value="#{answerChoiceCrudBacking.answerChoice.correctChoice}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="answerChoice_correctChoice" />
+	</h:selectBooleanCheckbox >
+	
+	
+		
+	<wc:message for="answerChoice_correctChoice" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
 			</h:panelGrid>
 						<br/>
 						

@@ -51,44 +51,28 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	</h:panelGroup>
 					
 					
-	
-		
-
-<h:panelGroup>
-	<h:outputText value=""/>
-	<h:outputText value="#{msg.category_name}" />
-	<h:outputText value="*" />
-</h:panelGroup>
-
-
-
-<h:panelGroup>
-	<a4j:region>
-	
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.category_name}" />
+		<h:outputText value="*" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
 		
 	<h:inputText    required="true" 
 		id="category_name"
 		value="#{categoryCrudBacking.category.name}">
-		
-		<f:validateLength minimum="3"/>
-		<a4j:support event="onblur" reRender="category_name" />
+		<f:validateLength minimum="3"/>		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="category_name" />
 	</h:inputText>
 	
-	<rich:message for="category_name"
-		 styleClass="errMessage">
-		<f:facet name="errorMarker">
-			<h:graphicImage url="/images/icons/bullet_error.png" />
-		</f:facet>
-	</rich:message>
-	</a4j:region>
-</h:panelGroup>
-
-
-							
 	
-				
-  						
-  				
+	
+		
+	<wc:message for="category_name" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
 			</h:panelGrid>
 						<br/>
 						

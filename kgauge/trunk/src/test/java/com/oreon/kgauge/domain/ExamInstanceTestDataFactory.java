@@ -50,6 +50,9 @@ public class ExamInstanceTestDataFactory
 
 		try {
 
+			examInstance.setMaxScore(4765);
+			examInstance.setCandidateScore(493);
+
 			TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("candidateTestDataFactory");
 
@@ -77,6 +80,9 @@ public class ExamInstanceTestDataFactory
 		ExamInstance examInstance = new ExamInstance();
 
 		try {
+
+			examInstance.setMaxScore(6713);
+			examInstance.setCandidateScore(6452);
 
 			TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("candidateTestDataFactory");
@@ -106,6 +112,9 @@ public class ExamInstanceTestDataFactory
 
 		try {
 
+			examInstance.setMaxScore(1439);
+			examInstance.setCandidateScore(762);
+
 			TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("candidateTestDataFactory");
 
@@ -134,6 +143,9 @@ public class ExamInstanceTestDataFactory
 
 		try {
 
+			examInstance.setMaxScore(5939);
+			examInstance.setCandidateScore(3869);
+
 			TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("candidateTestDataFactory");
 
@@ -161,6 +173,9 @@ public class ExamInstanceTestDataFactory
 		ExamInstance examInstance = new ExamInstance();
 
 		try {
+
+			examInstance.setMaxScore(1016);
+			examInstance.setCandidateScore(794);
 
 			TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("candidateTestDataFactory");
@@ -249,6 +264,11 @@ public class ExamInstanceTestDataFactory
 
 	public ExamInstance createRandomExamInstance() {
 		ExamInstance examInstance = new ExamInstance();
+
+		examInstance.setMaxScore((Integer) RandomValueGeneratorFactory
+				.createInstance("Integer"));
+		examInstance.setCandidateScore((Integer) RandomValueGeneratorFactory
+				.createInstance("Integer"));
 
 		TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 				.getBean("candidateTestDataFactory");

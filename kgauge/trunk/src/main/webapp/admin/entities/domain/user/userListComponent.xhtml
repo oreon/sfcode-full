@@ -27,21 +27,21 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		value="#{userCrudBacking.records}" rows="30"
 	rowClasses="odd, even" styleClass="dataTable" >						
 	
-	<rich:column sortBy="#{user.username}"  >
+	<rich:column sortBy="#{user.username}"  filterBy="#{user.username}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.user_username}" /> 		
 		</f:facet>
 		<h:outputText value="#{user.username}" />
 	</rich:column>
 
-	<rich:column sortBy="#{user.password}"  >
+	<rich:column sortBy="#{user.password}"  filterBy="#{user.password}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.user_password}" /> 		
 		</f:facet>
 		<h:outputText value="#{user.password}" />
 	</rich:column>
 
-	<rich:column sortBy="#{user.enabled}"  >
+	<rich:column sortBy="#{user.enabled}"  filterBy="#{user.enabled}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.user_enabled}" /> 		
 		</f:facet>
@@ -52,43 +52,56 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		
 		<rich:column>
 			<f:facet name="header">
-				
-					<h:outputText value=" " />
-				
+				<h:outputText value=" " />
 			</f:facet>
-			
+			<h:commandLink action="view"
+				actionListener="#{userCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left" styleClass="toolTip"
+					value="Click to Edit Row" mode="client" />
+				<h:graphicImage value="/images/icons/application_edit.png"
+					style="border: 0px" />
+				<f:param name="id" value="#{user.id}" />
+			</h:commandLink>
+		</rich:column>
+		
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
 			<!--
 			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 			--> 								
-				<h:commandLink action="#{userCrudBacking.select}"																					
-					actionListener="#{userCrudBacking.selectEntity}">
-					<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
-					<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
-					<f:param id="editId" name="id" value="#{user.id}" />								
-				</h:commandLink>		
+			<h:commandLink action="#{userCrudBacking.select}"																					
+				actionListener="#{userCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
+				<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
+				<f:param id="editId" name="id" value="#{user.id}" />								
+			</h:commandLink>		
 			<!--
 			</acegijsf:authorize>
 			--> 
-			</rich:column>
-			<rich:column>
-				<f:facet name="header">
-						<h:outputText value=" " />
-				</f:facet>
+		</rich:column>
+			
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
 			<!--
 			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 			--> 		
-			<h:commandLink action="#{userCrudBacking.delete}"	
+			<a4j:commandLink action="#{userCrudBacking.delete}"	
 				onclick="if(window.confirm('Are You Sure?')==false){return false}"
 				actionListener="#{userCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
 				<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 				<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
 				<f:param id="deleteId" name="id" value="#{user.id}" />												
-			</h:commandLink>
+			</a4j:commandLink>
 			<!--
 			</acegijsf:authorize>
 			--> 
-			</rich:column>
-	</rich:dataTable>	
+		</rich:column>
+	</rich:dataTable>
+		
 	 </rich:tab>
 	 
 		 
@@ -118,21 +131,21 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 			</rich:column>
 			
 	
-	<rich:column sortBy="#{log.entity.username}"  >
+	<rich:column sortBy="#{log.entity.username}"  filterBy="#{log.entity.username}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.user_username}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.username}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.password}"  >
+	<rich:column sortBy="#{log.entity.password}"  filterBy="#{log.entity.password}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.user_password}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.password}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.enabled}"  >
+	<rich:column sortBy="#{log.entity.enabled}"  filterBy="#{log.entity.enabled}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.user_enabled}" /> 		
 		</f:facet>

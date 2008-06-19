@@ -45,43 +45,56 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		
 		<rich:column>
 			<f:facet name="header">
-				
-					<h:outputText value=" " />
-				
+				<h:outputText value=" " />
 			</f:facet>
-			
+			<h:commandLink action="view"
+				actionListener="#{answeredQuestionCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left" styleClass="toolTip"
+					value="Click to Edit Row" mode="client" />
+				<h:graphicImage value="/images/icons/application_edit.png"
+					style="border: 0px" />
+				<f:param name="id" value="#{answeredQuestion.id}" />
+			</h:commandLink>
+		</rich:column>
+		
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
 			<!--
 			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 			--> 								
-				<h:commandLink action="#{answeredQuestionCrudBacking.select}"																					
-					actionListener="#{answeredQuestionCrudBacking.selectEntity}">
-					<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
-					<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
-					<f:param id="editId" name="id" value="#{answeredQuestion.id}" />								
-				</h:commandLink>		
+			<h:commandLink action="#{answeredQuestionCrudBacking.select}"																					
+				actionListener="#{answeredQuestionCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
+				<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
+				<f:param id="editId" name="id" value="#{answeredQuestion.id}" />								
+			</h:commandLink>		
 			<!--
 			</acegijsf:authorize>
 			--> 
-			</rich:column>
-			<rich:column>
-				<f:facet name="header">
-						<h:outputText value=" " />
-				</f:facet>
+		</rich:column>
+			
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
 			<!--
 			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 			--> 		
-			<h:commandLink action="#{answeredQuestionCrudBacking.delete}"	
+			<a4j:commandLink action="#{answeredQuestionCrudBacking.delete}"	
 				onclick="if(window.confirm('Are You Sure?')==false){return false}"
 				actionListener="#{answeredQuestionCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
 				<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 				<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
 				<f:param id="deleteId" name="id" value="#{answeredQuestion.id}" />												
-			</h:commandLink>
+			</a4j:commandLink>
 			<!--
 			</acegijsf:authorize>
 			--> 
-			</rich:column>
-	</rich:dataTable>	
+		</rich:column>
+	</rich:dataTable>
+		
 	 </rich:tab>
 	 
 		 

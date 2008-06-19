@@ -27,91 +27,91 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		value="#{candidateCrudBacking.records}" rows="30"
 	rowClasses="odd, even" styleClass="dataTable" >						
 	
-	<rich:column sortBy="#{candidate.firstName}"  >
+	<rich:column sortBy="#{candidate.firstName}"  filterBy="#{candidate.firstName}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.person_firstName}" /> 		
 		</f:facet>
 		<h:outputText value="#{candidate.firstName}" />
 	</rich:column>
 
-	<rich:column sortBy="#{candidate.lastName}"  >
+	<rich:column sortBy="#{candidate.lastName}"  filterBy="#{candidate.lastName}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.person_lastName}" /> 		
 		</f:facet>
 		<h:outputText value="#{candidate.lastName}" />
 	</rich:column>
 
-	<rich:column sortBy="#{candidate.dateOfBirth}"  >
+	<rich:column sortBy="#{candidate.dateOfBirth}"  filterBy="#{candidate.dateOfBirth}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.person_dateOfBirth}" /> 		
 		</f:facet>
 		<h:outputText value="#{candidate.dateOfBirth}" />
 	</rich:column>
 
-	<rich:column sortBy="#{candidate.user.username}"  >
+	<rich:column sortBy="#{candidate.user.username}"  filterBy="#{candidate.user.username}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.user_username}" /> 		
 		</f:facet>
 		<h:outputText value="#{candidate.user.username}" />
 	</rich:column>
 
-	<rich:column sortBy="#{candidate.user.password}"  >
+	<rich:column sortBy="#{candidate.user.password}"  filterBy="#{candidate.user.password}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.user_password}" /> 		
 		</f:facet>
 		<h:outputText value="#{candidate.user.password}" />
 	</rich:column>
 
-	<rich:column sortBy="#{candidate.user.enabled}"  >
+	<rich:column sortBy="#{candidate.user.enabled}"  filterBy="#{candidate.user.enabled}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.user_enabled}" /> 		
 		</f:facet>
 		<h:outputText value="#{candidate.user.enabled}" />
 	</rich:column>
 
-	<rich:column sortBy="#{candidate.contactDetails.streetAddress}"  >
+	<rich:column sortBy="#{candidate.contactDetails.streetAddress}"  filterBy="#{candidate.contactDetails.streetAddress}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.contactDetails_streetAddress}" /> 		
 		</f:facet>
 		<h:outputText value="#{candidate.contactDetails.streetAddress}" />
 	</rich:column>
 
-	<rich:column sortBy="#{candidate.contactDetails.city}"  >
+	<rich:column sortBy="#{candidate.contactDetails.city}"  filterBy="#{candidate.contactDetails.city}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.contactDetails_city}" /> 		
 		</f:facet>
 		<h:outputText value="#{candidate.contactDetails.city}" />
 	</rich:column>
 
-	<rich:column sortBy="#{candidate.contactDetails.state}"  >
+	<rich:column sortBy="#{candidate.contactDetails.state}"  filterBy="#{candidate.contactDetails.state}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.contactDetails_state}" /> 		
 		</f:facet>
 		<h:outputText value="#{candidate.contactDetails.state}" />
 	</rich:column>
 
-	<rich:column sortBy="#{candidate.contactDetails.country}"  >
+	<rich:column sortBy="#{candidate.contactDetails.country}"  filterBy="#{candidate.contactDetails.country}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.contactDetails_country}" /> 		
 		</f:facet>
 		<h:outputText value="#{candidate.contactDetails.country}" />
 	</rich:column>
 
-	<rich:column sortBy="#{candidate.contactDetails.zip}"  >
+	<rich:column sortBy="#{candidate.contactDetails.zip}"  filterBy="#{candidate.contactDetails.zip}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.contactDetails_zip}" /> 		
 		</f:facet>
 		<h:outputText value="#{candidate.contactDetails.zip}" />
 	</rich:column>
 
-	<rich:column sortBy="#{candidate.contactDetails.phone}"  >
+	<rich:column sortBy="#{candidate.contactDetails.phone}"  filterBy="#{candidate.contactDetails.phone}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.contactDetails_phone}" /> 		
 		</f:facet>
 		<h:outputText value="#{candidate.contactDetails.phone}" />
 	</rich:column>
 
-	<rich:column sortBy="#{candidate.contactDetails.email}"  >
+	<rich:column sortBy="#{candidate.contactDetails.email}"  filterBy="#{candidate.contactDetails.email}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.contactDetails_email}" /> 		
 		</f:facet>
@@ -122,43 +122,56 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		
 		<rich:column>
 			<f:facet name="header">
-				
-					<h:outputText value=" " />
-				
+				<h:outputText value=" " />
 			</f:facet>
-			
+			<h:commandLink action="view"
+				actionListener="#{candidateCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left" styleClass="toolTip"
+					value="Click to Edit Row" mode="client" />
+				<h:graphicImage value="/images/icons/application_edit.png"
+					style="border: 0px" />
+				<f:param name="id" value="#{candidate.id}" />
+			</h:commandLink>
+		</rich:column>
+		
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
 			<!--
 			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 			--> 								
-				<h:commandLink action="#{candidateCrudBacking.select}"																					
-					actionListener="#{candidateCrudBacking.selectEntity}">
-					<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
-					<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
-					<f:param id="editId" name="id" value="#{candidate.id}" />								
-				</h:commandLink>		
+			<h:commandLink action="#{candidateCrudBacking.select}"																					
+				actionListener="#{candidateCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
+				<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
+				<f:param id="editId" name="id" value="#{candidate.id}" />								
+			</h:commandLink>		
 			<!--
 			</acegijsf:authorize>
 			--> 
-			</rich:column>
-			<rich:column>
-				<f:facet name="header">
-						<h:outputText value=" " />
-				</f:facet>
+		</rich:column>
+			
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
 			<!--
 			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
 			--> 		
-			<h:commandLink action="#{candidateCrudBacking.delete}"	
+			<a4j:commandLink action="#{candidateCrudBacking.delete}"	
 				onclick="if(window.confirm('Are You Sure?')==false){return false}"
 				actionListener="#{candidateCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
 				<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
 				<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
 				<f:param id="deleteId" name="id" value="#{candidate.id}" />												
-			</h:commandLink>
+			</a4j:commandLink>
 			<!--
 			</acegijsf:authorize>
 			--> 
-			</rich:column>
-	</rich:dataTable>	
+		</rich:column>
+	</rich:dataTable>
+		
 	 </rich:tab>
 	 
 		 
@@ -188,91 +201,91 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 			</rich:column>
 			
 	
-	<rich:column sortBy="#{log.entity.firstName}"  >
+	<rich:column sortBy="#{log.entity.firstName}"  filterBy="#{log.entity.firstName}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.person_firstName}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.firstName}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.lastName}"  >
+	<rich:column sortBy="#{log.entity.lastName}"  filterBy="#{log.entity.lastName}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.person_lastName}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.lastName}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.dateOfBirth}"  >
+	<rich:column sortBy="#{log.entity.dateOfBirth}"  filterBy="#{log.entity.dateOfBirth}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.person_dateOfBirth}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.dateOfBirth}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.user.username}"  >
+	<rich:column sortBy="#{log.entity.user.username}"  filterBy="#{log.entity.user.username}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.user_username}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.user.username}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.user.password}"  >
+	<rich:column sortBy="#{log.entity.user.password}"  filterBy="#{log.entity.user.password}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.user_password}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.user.password}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.user.enabled}"  >
+	<rich:column sortBy="#{log.entity.user.enabled}"  filterBy="#{log.entity.user.enabled}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.user_enabled}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.user.enabled}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.contactDetails.streetAddress}"  >
+	<rich:column sortBy="#{log.entity.contactDetails.streetAddress}"  filterBy="#{log.entity.contactDetails.streetAddress}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.contactDetails_streetAddress}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.contactDetails.streetAddress}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.contactDetails.city}"  >
+	<rich:column sortBy="#{log.entity.contactDetails.city}"  filterBy="#{log.entity.contactDetails.city}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.contactDetails_city}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.contactDetails.city}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.contactDetails.state}"  >
+	<rich:column sortBy="#{log.entity.contactDetails.state}"  filterBy="#{log.entity.contactDetails.state}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.contactDetails_state}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.contactDetails.state}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.contactDetails.country}"  >
+	<rich:column sortBy="#{log.entity.contactDetails.country}"  filterBy="#{log.entity.contactDetails.country}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.contactDetails_country}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.contactDetails.country}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.contactDetails.zip}"  >
+	<rich:column sortBy="#{log.entity.contactDetails.zip}"  filterBy="#{log.entity.contactDetails.zip}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.contactDetails_zip}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.contactDetails.zip}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.contactDetails.phone}"  >
+	<rich:column sortBy="#{log.entity.contactDetails.phone}"  filterBy="#{log.entity.contactDetails.phone}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.contactDetails_phone}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.contactDetails.phone}" />
 	</rich:column>
 
-	<rich:column sortBy="#{log.entity.contactDetails.email}"  >
+	<rich:column sortBy="#{log.entity.contactDetails.email}"  filterBy="#{log.entity.contactDetails.email}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.contactDetails_email}" /> 		
 		</f:facet>

@@ -1,19 +1,15 @@
 package com.oreon.kgauge.domain;
 
-import javax.persistence.*;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.witchcraft.model.utils.CollectionUtils;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
-import javax.jws.WebService;
-
-import java.util.Date;
 
 @Entity
-public class ExamInstance extends ExamInstanceBase
-		implements
-			java.io.Serializable {
+public class ExamInstance extends ExamInstanceBase implements
+		java.io.Serializable {
 
 	private static final Logger log = Logger.getLogger(ExamInstance.class);
 	private static final long serialVersionUID = 1L;
@@ -25,16 +21,45 @@ public class ExamInstance extends ExamInstanceBase
 	public ExamInstance examInstanceInstance() {
 		return this;
 	}
-	
+
 	@Transient
-	public Integer getMaxScore(){
-		return 0;
-		//return CollectionUtils.sum(getAnsweredQuestion(), 
-		//			CollectionUtils.max(getQuestion().getAnswerChoice(), score) );
+	public Integer getMaxScore() {
+		int score = 0;
+		Set<AnsweredQuestion> answeredQuestions = getAnsweredQuestion();
+		for (AnsweredQuestion answeredQuestion : answeredQuestions) {
+			Set<AnswerChoice> answerChoices = answeredQuestion.getQuestion()
+					.getAnswerChoice();
+			int maxScore = 0;
+			
+			for (AnswerChoice answerChoice : answerChoices) {
+				int answerChoiceScore = answerChoice.getScore() == null?0:answerChoice.getScore();
+				if (answerChoiceScore > maxScore) {
+					maxScore = answerChoice.getScore();
+				}
+			}
+			score += maxScore;
+		}
+		return score;
 	}
-	
-	public void setMaxScore(Integer score){
-		
+
+	public void setMaxScore(Integer score) {
+
+	}
+
+	@Transient
+	@Override
+	public Integer getCandidateScore() {
+		int score = 0;
+		Set<AnsweredQuestion> answeredQuestions = getAnsweredQuestion();
+		for (AnsweredQuestion answeredQuestion : answeredQuestions) {
+			Set<AnswerChoice> answerChoices = answeredQuestion
+					.getAnswerChoice();
+			for (AnswerChoice answerChoice : answerChoices) {
+				int answerChoiceScore = answerChoice.getScore() == null?0:answerChoice.getScore();
+				score += answerChoiceScore;
+			}
+		}
+		return score;
 	}
 
 }
