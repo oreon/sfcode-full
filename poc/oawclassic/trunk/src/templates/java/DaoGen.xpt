@@ -133,11 +133,9 @@
 		    
 		«EXPAND FinderDeclaration(this) FOREACH Findable -»
 		
-		«REM»comment
 		«EXPAND genNamedQueryDec FOREACH Operation»
-		«ENDREM»
 		
-		 «IF getTreeFields != null»
+		 «IF getTreeFields != null-»
 		 /**
 		 * For tree view , this method returns top level
 		 * elements (whose parent is null )
@@ -150,15 +148,14 @@
 	«ENDFILE»	
 «ENDDEFINE»
 
-«REM» comment
+
 «DEFINE genNamedQueryDec FOR NamedQuery»
 	public «ReturnType.NameS» «NameS»();
 «ENDDEFINE»
 
 «DEFINE genNamedQueryDec FOR Operation»
-	public «ReturnType.NameS» «NameS»();
 «ENDDEFINE»
-«ENDREM»
+
 
 
 «DEFINE GenerateConfig FOR Model»
