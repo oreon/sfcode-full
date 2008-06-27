@@ -32,23 +32,14 @@ public class ClassUtil {
 	private static StringBuffer entityMappings = new StringBuffer();
 
 	private static List<Entity> entities = new ArrayList<Entity>();
-	
+
 	private static List<Service> services = new ArrayList<Service>();
-	
+
 	private static final Logger logger = Logger.getLogger(ClassUtil.class);
-	
 
 	public static List<Entity> getEntities() {
 		return entities;
 	}
-	
-	/**
-	 * @return - the entity out of the list of entities
-	 */
-	/*
-	public static Entity getEntityByName(String name){
-		for(int i = 0; i)
-	}*/
 
 	/**
 	 * Returns the package name of the given
@@ -102,11 +93,40 @@ public class ClassUtil {
 	 */
 	public static String getOperationDeclaration(Operation operation) {
 		String opText = new String();
-		if (operation.Documentation() != null)
-			opText += operation.Documentation() + "\n";
+		// if (operation.Documentation() != null)
+		// opText += operation.Documentation() + "\n";
 		opText += operation.Visibility() + " "
 				+ getParamTypeString(operation, operation.ReturnType()) + " "
 				+ operation.NameS() + "(";
+
+		opText += getOperationParams(operation);
+
+		opText += ")";
+		return opText;
+	}
+
+	/** creates an invocation string for the given operation - uses paramNames e.g.
+	 * for an operation sum(int a, int b ) it will return sum(a, b) - note semicolon is not appended
+	 * @param operation
+	 * @return
+	 */
+	public static String createOperationInvocation(Operation operation) {
+		String text = operation.NameS() + "(";
+
+		for (Iterator<Parameter> iter = operation.Parameter().iterator(); iter
+				.hasNext();) {
+			Parameter param = iter.next();
+			text += param.NameS();
+			if (iter.hasNext())
+				text += ",";
+		}
+		
+		return text + ")";
+	}
+
+	public static String getOperationParams(Operation operation) {
+
+		String opText = new String();
 
 		for (Iterator<Parameter> iter = operation.Parameter().iterator(); iter
 				.hasNext();) {
@@ -118,8 +138,6 @@ public class ClassUtil {
 			if (iter.hasNext())
 				opText += ",";
 		}
-
-		opText += ")";
 		return opText;
 	}
 
@@ -134,19 +152,20 @@ public class ClassUtil {
 	private static String getParamTypeString(Operation operation, Type type) {
 		String paramType = type.NameS();
 		String paramTypePackage = type.Namespace().NameS();
-		
+
 		if (paramType.equals("void"))
 			return paramType;
 
-		System.out.println("comapring " + type.Namespace().NameS() + " " + type.Namespace().NameS());
+		System.out.println("comapring " + type.Namespace().NameS() + " "
+				+ type.Namespace().NameS());
 		if (!type.Namespace().NameS().equals(
 				operation.Class().Namespace.NameS())) {
-			
-			if(!type.Namespace().NameS().equals("datatypes")){
-				if(StringUtils.equals(paramTypePackage, "collections"))
+
+			if (!type.Namespace().NameS().equals("datatypes")) {
+				if (StringUtils.equals(paramTypePackage, "collections"))
 					paramType = "java.util" + "." + paramType;
-				else	
-					paramType = getPackageName((Class)type) + "." + paramType;
+				else
+					paramType = getPackageName((Class) type) + "." + paramType;
 			}
 		}
 		return paramType;
@@ -173,14 +192,15 @@ public class ClassUtil {
 
 			for (int j = 0; j < operations.size(); j++) {
 				Operation operation = operations.get(j);
-				// if the operation is  already implemented by the class
-				if (!classContainsOperation(cls, operation)) { 
+				// if the operation is already implemented by the class
+				if (!classContainsOperation(cls, operation)) {
 					buffer.append(getOperationDeclaration(operation));
 					buffer.append(getOperationBody(operation));
 				}
 			}
 
-			buffer.append(GenericUtils
+			buffer
+					.append(GenericUtils
 							.createSingleLineComment("*****Done Implementing interface "
 									+ interfaces.get(i).Name() + " ****"));
 
@@ -258,7 +278,8 @@ public class ClassUtil {
 			}
 
 		} catch (Exception e) {
-			System.out.println("Exception getting class name " + cls.NameS() + ":" + buffer);
+			System.out.println("Exception getting class name " + cls.NameS()
+					+ ":" + buffer);
 			e.printStackTrace();
 		}
 
@@ -270,7 +291,6 @@ public class ClassUtil {
 			buffer.append(GenericUtils.createComment(cls.Documentation())
 					+ "\n");
 	}
-
 
 	/**
 	 * This method returns if the given class is an entity - for now it just
@@ -311,20 +331,22 @@ public class ClassUtil {
 	public static String getOperationBody(Operation operation) {
 		if (operation.hasReturnType()
 				&& !operation.ReturnType().NameS().equals("void")) {
-			
+
 			StringBuffer constraints = new StringBuffer();
-			
+
 			for (Object object : operation.Parameter()) {
-				Parameter parameter = (Parameter)object;
-				System.out.println(parameter.Name() + " -->>" + parameter.getMetaClass().getName());
-				
-				if(StereoTypeManager.isConstrainedParameter(parameter) ){
-					constraints.append( ((ConstrainedParameter)parameter).getConstraints() );
+				Parameter parameter = (Parameter) object;
+				System.out.println(parameter.Name() + " -->>"
+						+ parameter.getMetaClass().getName());
+
+				if (StereoTypeManager.isConstrainedParameter(parameter)) {
+					constraints.append(((ConstrainedParameter) parameter)
+							.getConstraints());
 				}
 			}
-			
-			return "{\n" + constraints.toString() + 
-			
+
+			return "{\n" + constraints.toString() +
+
 			" return null; " + "}\n";
 		} else
 			return "{ }";
@@ -342,11 +364,11 @@ public class ClassUtil {
 
 		declaration += "protected " + attribute.Type().NameS() + " "
 				+ attribute.NameS();
-	
+
 		if (attribute.InitValue() != null)
 			declaration += " = " + attribute.InitValue();
-		else if(attribute.Type().NameS().equals("Boolean") ){	
-			declaration += " = false";  //Need to init Boolean values 
+		else if (attribute.Type().NameS().equals("Boolean")) {
+			declaration += " = false"; // Need to init Boolean values
 		}
 
 		declaration += ";";
@@ -372,24 +394,25 @@ public class ClassUtil {
 			String multiplicity = (opposite.MultiplicityMinAsInt() == 1 && opposite
 					.MultiplicityMaxAsInt() == 1) ? "OneToOne(cascade=CascadeType.ALL)"
 					: "ManyToOne";
-			
+
 			boolean updatable = true;
-			
-			if (ae.Association().getMetaClass().getSimpleName().equals("CustomAssociation")){
-				updatable = ((CustomAssociation)ae.Association()).isMutable();
+
+			if (ae.Association().getMetaClass().getSimpleName().equals(
+					"CustomAssociation")) {
+				updatable = ((CustomAssociation) ae.Association()).isMutable();
 			}
-			
+
 			return "@" + multiplicity + "\n @JoinColumn(name=\""
-					+ getAssocName(ae) + "_ID\", nullable=" + nullable 
+					+ getAssocName(ae) + "_ID\", nullable=" + nullable
 					+ ", updatable=" + updatable + ")";
-			
-			
+
 		} else
 			return "";
 	}
 
 	public static String getAssocName(AssociationEnd ae) {
-		return ae.NameS() == null ? WordUtils.uncapitalize(ae.Class().NameS()) : ae.NameS();
+		return ae.NameS() == null ? WordUtils.uncapitalize(ae.Class().NameS())
+				: ae.NameS();
 	}
 
 	/**
@@ -400,7 +423,7 @@ public class ClassUtil {
 	 * @return
 	 */
 	public static boolean isAssocNullable(AssociationEnd ae) {
-		logger.info(ae.Opposite().Class().NameS()  + "-->" +  ae.Class().NameS()
+		logger.info(ae.Opposite().Class().NameS() + "-->" + ae.Class().NameS()
 				+ " has min multiplicty " + ae.MultiplicityMin());
 		return ae.MultiplicityMinAsInt() >= 1 ? false : true;
 	}
@@ -414,13 +437,14 @@ public class ClassUtil {
 	 * @return
 	 */
 	public static String getInstantiationIfComposition(AssociationEnd ae) {
-		//for self referencing associations we dont need instantion
-		if(ae.Opposite().Class().equals(ae.Class()))
+		// for self referencing associations we dont need instantion
+		if (ae.Opposite().Class().equals(ae.Class()))
 			return "";
-		
-		if (ae.Opposite().isComposition() )
+
+		if (ae.Opposite().isComposition())
 			return " = new " + fullyQualifiedName(ae.Class()) + "()";
-		else if (isAssociationOneOnOne(ae) || StereoTypeManager.isEmbeddable(ae.Class()))
+		else if (isAssociationOneOnOne(ae)
+				|| StereoTypeManager.isEmbeddable(ae.Class()))
 			return " = new " + fullyQualifiedName(ae.Class()) + "()";
 		return "";
 	}
@@ -485,8 +509,8 @@ public class ClassUtil {
 	public static List<Service> getServices() {
 		return services;
 	}
-	
-	public static void addService(Service service){
+
+	public static void addService(Service service) {
 		services.add(service);
 	}
 

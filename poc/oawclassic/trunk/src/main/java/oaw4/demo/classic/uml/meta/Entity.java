@@ -6,9 +6,9 @@ import java.util.List;
 
 import oaw4.demo.classic.uml.extend.GenericUtils;
 
-import org.apache.commons.lang.StringUtils;
 import org.openarchitectureware.core.meta.core.ElementSet;
-import org.witchcraft.generator.GeneratorEngineException;
+
+import org.openarchitectureware.meta.uml.classifier.Operation;
 
 public class Entity extends AbstractEntity {
 
@@ -136,8 +136,22 @@ public class Entity extends AbstractEntity {
 		// ?inheritanceStrategy.toString():" is null ");
 	}
 
+	/** Will return all query operations - operations that have name begining with find are considered
+	 * query operations. 
+	 * @return
+	 */
+	public ElementSet getQueryOperations(){
+		ElementSet operations = Operation();
+		ElementSet queryOps = new ElementSet();
+		for (Object object : operations) {
+			Operation operation = (Operation)object;
+			if(operation.NameS().startsWith("find"))
+				queryOps.add(operation);
+		}
+		
+		return queryOps;
+	}
 	
-
 	/**
 	 * @return if testseed is applied on any of the attribs, returns testseed of the first 
 	 * attribute with non null testseed 
