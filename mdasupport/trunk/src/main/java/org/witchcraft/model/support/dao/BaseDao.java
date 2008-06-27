@@ -249,14 +249,14 @@ public class BaseDao<T> implements GenericDAO<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> executeQuery(String queryString, Object... params) {
 		Query query = entityManager.createQuery(queryString);
-		runQueryWithParams(query, params);
+		setQueryParams(query, params);
 		return query.getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
 	public T executeSingleResultQuery(String queryString, Object... params) {
 		Query query = entityManager.createQuery(queryString);
-		runQueryWithParams(query, params);
+		setQueryParams(query, params);
 		return executeSingleResultQuery(query);
 	}
 
@@ -273,18 +273,18 @@ public class BaseDao<T> implements GenericDAO<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> executeNamedQuery(String queryString, Object... params) {
 		Query query = entityManager.createNamedQuery(queryString);
-		runQueryWithParams(query, params);
+		setQueryParams(query, params);
 		return query.getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
 	public T executeSingleResultNamedQuery(String queryString, Object... params) {
 		Query query = entityManager.createNamedQuery(queryString);
-		runQueryWithParams(query, params);
+		setQueryParams(query, params);
 		return executeSingleResultQuery(query); 
 	}
 
-	private void runQueryWithParams(Query query, Object... params) {
+	private void setQueryParams(Query query, Object... params) {
 		for (Object param : params) {
 			int counter = 1;
 			query.setParameter(counter++, param);
