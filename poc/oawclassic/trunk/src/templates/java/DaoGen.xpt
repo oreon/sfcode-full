@@ -64,8 +64,14 @@
 			 		 (Restrictions.eq("«a.associationName()».id", exampleInstance.get«a.associationName().toFirstUpper()»().getId() ));
 				}	
 			 	«ENDFOREACH»
-				
 			}
+			
+			«FOREACH getQueryOperations AS queryOp»
+				«EXPAND CommonUtils::genDocumentation FOR queryOp-»
+				«EXPAND genNamedQueryDec FOR queryOp-»{
+					return null;
+				}
+			«ENDFOREACH»
 			
 		} 
 	«ENDFILE»	
@@ -121,7 +127,7 @@
 	
 	package «parentPackageName()».dao;
 	
-	import «packageName()». «NameS»;
+	import «packageName()».«NameS»;
 	import org.witchcraft.model.support.dao.GenericDAO;
 	import java.util.List;
 	
@@ -133,7 +139,7 @@
 		    
 		«EXPAND FinderDeclaration(this) FOREACH Findable -»
 		
-		«EXPAND genNamedQueryDec FOREACH Operation»
+		«EXPAND genNamedQueryDecWithSemicolon FOREACH getQueryOperations»
 		
 		 «IF getTreeFields != null-»
 		 /**
@@ -148,13 +154,20 @@
 	«ENDFILE»	
 «ENDDEFINE»
 
-
+«REM»comment
 «DEFINE genNamedQueryDec FOR NamedQuery»
 	public «ReturnType.NameS» «NameS»();
 «ENDDEFINE»
+«ENDREM»
+
+«DEFINE genNamedQueryDecWithSemicolon FOR Operation»
+	«EXPAND genNamedQueryDec FOR this-»;
+«ENDDEFINE»
 
 «DEFINE genNamedQueryDec FOR Operation»
+		public «ReturnType.NameS» «NameS»( «getOperationParams()» )
 «ENDDEFINE»
+
 
 
 
@@ -350,6 +363,17 @@
 					fail(e.getMessage());
 				} 
 		    }
+		    
+		    /////////////////// Queries //////////////////////////////////
+		    «FOREACH getQueryOperations AS queryOp»
+				public void test«queryOp.NameS.toFirstUpper()»(){
+					«REM» TODO - temp «ENDREM»
+					«FOREACH queryOp.Parameter AS param»
+						//«param.Type.NameS» «param.NameS»  = 0;
+					«ENDFOREACH»
+					//«queryOp.ReturnType.NameS» ret«queryOp.ReturnType.NameS» = «asInstanceVar()»Service.«queryOp.createOperationInvocation()»;
+				}
+			«ENDFOREACH»
 			
 		} 
 	«ENDFILE»

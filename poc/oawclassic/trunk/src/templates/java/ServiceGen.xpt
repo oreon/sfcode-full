@@ -139,10 +139,13 @@
 			 }
 		«ENDIF»
 	
-		/*
-		public List query(String queryString, Object... params) {
-			return basicDAO.query(queryString, params);
-		}*/
+		«REM»Create the delegation for queries«ENDREM»
+		«FOREACH getQueryOperations AS queryOp»
+				«EXPAND CommonUtils::genDocumentation FOR queryOp-»
+				«EXPAND DaoGen::genNamedQueryDec FOR queryOp»{
+					return «asInstanceVar()»Dao.«queryOp.createOperationInvocation()»;
+				}
+		«ENDFOREACH»
 	
 	}
 	
