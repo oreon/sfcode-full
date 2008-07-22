@@ -32,7 +32,7 @@
 	import java.util.ArrayList;
 	import org.witchcraft.model.support.Range;
 	
-	«FOREACH getAllComposedAssociations AS ae»
+	«FOREACH getAllComposedAssociationsExceptOneOnOne AS ae»
 		import «ae.Opposite.Class.packageName()».«ae.Opposite.Class.NameS»;
 	«ENDFOREACH»
 	
@@ -62,7 +62,7 @@
 				protected «NameS» loggedin«NameS»;
 			«ENDIF»
 			
-			«FOREACH getAllComposedAssociations AS ae»
+			«FOREACH getAllComposedAssociationsExceptOneOnOne AS ae»
 				private List<«ae.Opposite.Class.NameS»> list«ae.Opposite.associationName().toFirstUpper()»s = new ArrayList<«ae.Opposite.Class.NameS»>();
 			«ENDFOREACH»
 			
@@ -124,7 +124,7 @@
 			public void reset(){
 				«asInstanceVar()» = new «asParameter()»();
 				resetRanges();
-			«FOREACH getAllComposedAssociations AS ae»
+			«FOREACH getAllComposedAssociationsExceptOneOnOne AS ae»
 				list«ae.Opposite.associationName().toFirstUpper()»s.clear();
 			«ENDFOREACH»
 				
@@ -186,17 +186,17 @@
 		    }
 		«ENDIF»
 		
-		«IF !getAllComposedAssociations.isEmpty»
+		«IF !getAllComposedAssociationsExceptOneOnOne.isEmpty»
 		@Override
 		public String update() {
-			«FOREACH getAllComposedAssociations AS ae»
+			«FOREACH getAllComposedAssociationsExceptOneOnOne AS ae»
 				add«ae.Opposite.associationName().toFirstUpper()»sTo«NameS»();
 			«ENDFOREACH»
 			return super.update();
 		}
 		«ENDIF»
 		
-		«FOREACH getAllComposedAssociations AS ae»
+		«FOREACH getAllComposedAssociationsExceptOneOnOne AS ae»
 			«EXPAND genCodeForComposedEntities(ae)»	
 		«ENDFOREACH»
 
