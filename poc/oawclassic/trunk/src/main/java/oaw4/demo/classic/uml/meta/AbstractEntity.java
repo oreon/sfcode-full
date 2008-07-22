@@ -171,6 +171,23 @@ public abstract class AbstractEntity extends
 		return composedAssociatons;
 	}
 	
+	/** Will return all compositions of this entity e.g. For an order it'd return 
+	 * all OrderItems 
+	 * @return
+	 */
+	public ElementSet getAllComposedAssociationsExceptOneOnOne(){
+		ElementSet composedAssociatons = new ElementSet();
+	
+		for (Object object : AssociationEnd()) {
+			AssociationEnd ae = (AssociationEnd)object;
+
+			if(ae.Opposite().isComposition() && ae.Opposite().isNavigable() && ae.Opposite().isMultiple())
+				composedAssociatons.add(ae);
+		}
+
+		return composedAssociatons;
+	}
+	
 	/**
 	 * @return all outgoing associations other than one on one 
 	 */
