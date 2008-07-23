@@ -6,9 +6,12 @@ import java.util.List;
 
 import oaw4.demo.classic.uml.extend.GenericUtils;
 
+import org.apache.log4j.Logger;
 import org.openarchitectureware.core.meta.core.ElementSet;
 
 import org.openarchitectureware.meta.uml.classifier.Operation;
+
+import com.thoughtworks.xstream.XStream;
 
 public class Entity extends AbstractEntity {
 
@@ -18,28 +21,30 @@ public class Entity extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	private String defaultRole;
-	
+
+	Logger log = Logger.getLogger(Entity.class);
+
 	// Classes like customer, student employee etc which correspond to actors
 	// that will log in and use the system
 	// should have this flag turned on
 	private boolean systemUser;
-	
+
 	private boolean auditable = true;
-	
+
 	private boolean createSampleData = true;
-	
+
 	private String tableName;
 
 	private String uniqueConstraints;
-	
+
 	private String inheritanceStrategy;
-	
+
 	private String testSeed;
-	
+
 	private String treeFields;
-	
+
 	private String namedQueries;
-	
+
 	private Collection nq = new ArrayList();
 
 	// this is needed when we need to manually supply a base class
@@ -63,8 +68,6 @@ public class Entity extends AbstractEntity {
 		this.defaultRole = defaultRole;
 	}
 
-	
-
 	public boolean isSystemUser() {
 		return systemUser;
 	}
@@ -75,7 +78,7 @@ public class Entity extends AbstractEntity {
 
 	@Override
 	public ElementSet Column() {
-		
+
 		ElementSet columns = super.Column();
 		addUserIdIfApplies(columns);
 		return columns;
@@ -88,8 +91,6 @@ public class Entity extends AbstractEntity {
 	 * @param columns
 	 */
 	private void addUserIdIfApplies(ElementSet columns) {
-		
-
 
 		/*
 		 * if(isUser || getDefaultRole() != null){ Column column = new Column();
@@ -121,6 +122,10 @@ public class Entity extends AbstractEntity {
 		return uniqueConstraints;
 	}
 
+	public List<String> getUniqueConstraintsAsCollection() {
+		return GenericUtils.tokenizeString(uniqueConstraints, " , ");
+	}
+
 	public void setUniqueConstraints(String uniqueConstraints) {
 		this.uniqueConstraints = uniqueConstraints;
 	}
@@ -136,53 +141,85 @@ public class Entity extends AbstractEntity {
 		// ?inheritanceStrategy.toString():" is null ");
 	}
 
-	/** Will return all query operations - operations that have name begining with find are considered
-	 * query operations. 
+	/**
+	 * Will return all query operations - operations that have name begining
+	 * with "find" are considered query operations.
+	 * 
 	 * @return
 	 */
-	public ElementSet getQueryOperations(){
+	public ElementSet getQueryOperations() {
 		ElementSet operations = Operation();
 		ElementSet queryOps = new ElementSet();
 		for (Object object : operations) {
-			Operation operation = (Operation)object;
-			if(operation.NameS().startsWith("find"))
+			Operation operation = (Operation) object;
+			if (operation.NameS().startsWith("find"))
 				queryOps.add(operation);
 		}
-		
+
 		return queryOps;
 	}
-	
+
+	public NamedQuery getNamedQuery(Operation operation) {
+		
+		List<String> docList = GenericUtils.tokenizeString(operation
+				.Documentation(), " *\\[\\[ *| *\\]\\] *");
+		if (docList.size() < 2) {
+			log.warn("The documentation for " + operation
+					+ " does not include any named query generation info");
+			return null;
+		}
+
+		String qryTxt = docList.get(1);
+
+		NamedQuery namedQuery = createQryFromXML(qryTxt);
+		log.info("Found namedQuery " + docList.get(1));
+		return namedQuery;
+	}
+
+	protected NamedQuery createQryFromXML(String qryTxt) {
+		XStream xstream = new XStream();
+		xstream.alias("query", oaw4.demo.classic.uml.meta.NamedQuery.class);
+		xstream.useAttributeFor(NamedQuery.class, "name");
+		xstream.useAttributeFor(NamedQuery.class, "text");
+		
+		//xstream.useAttributeFor("genericReturnType", NamedQuery.class);
+		NamedQuery namedQuery = (NamedQuery) xstream.fromXML(qryTxt);
+		return namedQuery;
+	}
+
 	/**
-	 * @return if testseed is applied on any of the attribs, returns testseed of the first 
-	 * attribute with non null testseed 
+	 * @return if testseed is applied on any of the attribs, returns testseed of
+	 *         the first attribute with non null testseed
 	 */
 	public String getTestSeed() {
 		ElementSet allAttribs = getAllAttributes();
 		for (Object object : allAttribs) {
-			if(object instanceof Column){
-				Column column = (Column)object;
-				if(column.getTestSeed() != null){
+			if (object instanceof Column) {
+				Column column = (Column) object;
+				if (column.getTestSeed() != null) {
 					setTestSeed(column.getTestSeed());
 					return column.getTestSeed();
 				}
-					
+
 			}
 		}
 		return testSeed;
 	}
 
 	public void setTestSeed(String testSeed) {
-		if(testSeed != null)
+		if (testSeed != null)
 			testSeed.trim();
 		this.testSeed = testSeed;
 	}
-	
-	public List<String> getTestSeedAsCollection(){
+
+	public List<String> getTestSeedAsCollection() {
 		return stringArrayAsList(testSeed);
 	}
 
-	/** Takes a string of the form {val1, val2, ...} and returns 
-	 *  a list consisting of val1, val2...
+	/**
+	 * Takes a string of the form {val1, val2, ...} and returns a list
+	 * consisting of val1, val2...
+	 * 
 	 * @param target
 	 * @return
 	 */
@@ -193,12 +230,12 @@ public class Entity extends AbstractEntity {
 	public String getTreeFields() {
 		return treeFields;
 	}
-	
-	public List<String> getTreeFieldsAsCollection(){
+
+	public List<String> getTreeFieldsAsCollection() {
 		return stringArrayAsList(treeFields);
 	}
-	
-	public String getTreeTopLevel(){
+
+	public String getTreeTopLevel() {
 		return getTreeFieldsAsCollection().get(0);
 	}
 
