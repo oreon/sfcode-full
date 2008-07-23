@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf12168396610930" configfile="/civlitprot/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" id="pf12168458255461" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" outlinks="pf12168458255462 pf12168458255463" inlinks="pf12168458255463 pf12168458255464 pf12168458255465" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="manageProfile/welcome.xhtml" id="pf12168458255466" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf12168458255462" path="/manageProfile/welcome.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="adminLogin.xhtml" id="pf12168458255467" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf12168458255468 pf12168458255464" path="/adminLogin.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="admin/entities/entitiesSummary.xhtml" id="pf12168458255469" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf12168458255468" path="/admin/entities/entitiesSummary.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" id="pf121684582554610" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf12168458255465 pf121684582554611" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="writeExam/searchExams.xhtml" id="pf121684582554612" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf121684582554611" path="/writeExam/searchExams.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="kgaugemockup/examLinks.xhtml" id="pf121684582554613" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf121684582554614" path="/kgaugemockup/examLinks.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="kgaugemockup/examContent.xhtml" id="pf121684582554615" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf121684582554614" path="/kgaugemockup/examContent.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="crud/*" id="pf121684582554616" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf121684582554617 pf121684582554618 pf121684582554619 pf121684582554620" path="/crud/*"/>
+  <nodes xsi:type="pageflow:PFPage" name="reports/index.xhtml" id="pf121684582554621" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" inlinks="pf121684582554617" path="/reports/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="tasks/index.xhtml" id="pf121684582554622" referenceLink="//@navigationRule.5/@navigationCase.1/@toViewId|" inlinks="pf121684582554618" path="/tasks/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="preferences/index.xhtml" id="pf121684582554623" referenceLink="//@navigationRule.5/@navigationCase.2/@toViewId|" inlinks="pf121684582554619" path="/preferences/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="crud/index.xhtml" id="pf121684582554624" referenceLink="//@navigationRule.5/@navigationCase.3/@toViewId|" inlinks="pf121684582554620" path="/crud/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="kgaugemockup/index.xhtml" id="pf121684582554625" referenceLink="//@navigationRule.6/@fromViewId|" outlinks="pf121684582554626" path="/kgaugemockup/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="kgaugemockup/examStart.xhtml" id="pf121684582554627" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" inlinks="pf121684582554626" path="/kgaugemockup/examStart.xhtml"/>
+  <links id="pf12168458255462" target="pf12168458255466" source="pf12168458255461" outcome="loginSuccesful" redirect="true" fromaction="#{authenticationController.authenticate}"/>
+  <links id="pf12168458255463" target="pf12168458255461" source="pf12168458255461" outcome="failure" fromaction="#{authenticationController.authenticate}"/>
+  <links id="pf12168458255468" target="pf12168458255469" source="pf12168458255467" outcome="loginSuccesful" redirect="true" fromaction="#{authenticationController.authenticate}"/>
+  <links id="pf12168458255464" target="pf12168458255461" source="pf12168458255467" outcome="failure" fromaction="#{authenticationController.authenticate}"/>
+  <links id="pf12168458255465" target="pf12168458255461" source="pf121684582554610" redirect="true" fromaction="logout"/>
+  <links id="pf121684582554611" target="pf121684582554612" source="pf121684582554610" outcome="successTextSearchExams"/>
+  <links id="pf121684582554614" target="pf121684582554615" source="pf121684582554613" outcome="edit" redirect="true" fromaction="#{examCrudBacking.select}"/>
+  <links id="pf121684582554617" target="pf121684582554621" source="pf121684582554616" fromaction="reports"/>
+  <links id="pf121684582554618" target="pf121684582554622" source="pf121684582554616" fromaction="tasks"/>
+  <links id="pf121684582554619" target="pf121684582554623" source="pf121684582554616" fromaction="preferences"/>
+  <links id="pf121684582554620" target="pf121684582554624" source="pf121684582554616" fromaction="entities"/>
+  <links id="pf121684582554626" target="pf121684582554627" source="pf121684582554625" fromaction="edit"/>
+</pageflow:Pageflow>

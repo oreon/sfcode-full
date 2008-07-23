@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-autowire="byName" xsi:schemaLocation="http://www.springframework.org/schema/beans     http://www.springframework.org/schema/beans/spring-beans.xsd     http://www.springframework.org/schema/tx     http://www.springframework.org/schema/tx/spring-tx.xsd          http://www.springframework.org/schema/aop       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+	
+		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" id="propertyPlaceholder">
+			<property name="location" value="classpath:project.properties"/>
+		</bean>
+	
+		<aop:aspectj-autoproxy/>	
+	
+	  <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
+	     <property name="jpaVendorAdapter">
+	        <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+	           <property name="showSql" value="${hibernate.showsql}"/>
+	           <property name="generateDdl" value="${hibernate.generateddl}"/>
+	           <property name="databasePlatform" value="${hibernate.dialect}"/>
+	        </bean>
+	     </property>
+	  </bean>
+	
+	  <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
+			<property name="driverClassName" value="${hibernate.connection.driver_class}"/>
+			<property name="url" value="${hibernate.connection.url}"/>
+			<property name="username" value="${hibernate.connection.username}"/>
+			<property name="password" value="${hibernate.connection.password}"/>
+	 </bean>
+	
+	  <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager"/>
+	  
+	  <tx:annotation-driven/>
+	
+	
+	  <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+	 
+	 <!-- Velocity -->
+	 <bean class="org.springframework.ui.velocity.VelocityEngineFactoryBean" id="velocityEngine">
+	    <property name="velocityProperties">
+	        <props>
+	            <prop key="resource.loader">class</prop>
+	            <prop key="class.resource.loader.class">
+	                org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+	            </prop>
+	        </props>
+	    </property>
+	</bean>
+	  
+	  <!-- Service Beans For entities-->
+	  
+	<bean class="com.cc.civlit.service.impl.FirmServiceImpl" id="firmService"/>
+
+	<bean class="com.cc.civlit.service.impl.FirmAdministratorServiceImpl" id="firmAdministratorService"/>
+
+	<bean class="com.cc.civlit.service.impl.LitigationCaseServiceImpl" id="litigationCaseService"/>
+
+	<bean class="com.cc.civlit.service.impl.CaseAdministratorServiceImpl" id="caseAdministratorService"/>
+
+	<bean class="com.cc.civlit.domain.service.impl.LevelOfCourtServiceImpl" id="levelOfCourtService"/>
+
+	<bean class="com.cc.civlit.domain.service.impl.JurisdictionServiceImpl" id="jurisdictionService"/>
+
+	<bean class="com.cc.civlit.domain.service.impl.FilingOfficeServiceImpl" id="filingOfficeService"/>
+
+	<bean class="com.cc.civlit.domain.service.impl.DivsionServiceImpl" id="divsionService"/>
+
+	  
+	  <!-- Service Facade -->
+	    <bean class="facades.ServiceFacade" id="serviceFacade"/>
+	    
+	    <!-- Service Beans  -->
+	  
+	 
+	  
+	  <!-- Dao Beans  -->
+	  
+	<bean class="com.cc.civlit.dao.impl.FirmDaoImpl" id="firmDao"/>
+
+	<bean class="com.cc.civlit.dao.impl.FirmAdministratorDaoImpl" id="firmAdministratorDao"/>
+
+	<bean class="com.cc.civlit.dao.impl.LitigationCaseDaoImpl" id="litigationCaseDao"/>
+
+	<bean class="com.cc.civlit.dao.impl.CaseAdministratorDaoImpl" id="caseAdministratorDao"/>
+
+	<bean class="com.cc.civlit.domain.dao.impl.LevelOfCourtDaoImpl" id="levelOfCourtDao"/>
+
+	<bean class="com.cc.civlit.domain.dao.impl.JurisdictionDaoImpl" id="jurisdictionDao"/>
+
+	<bean class="com.cc.civlit.domain.dao.impl.FilingOfficeDaoImpl" id="filingOfficeDao"/>
+
+	<bean class="com.cc.civlit.domain.dao.impl.DivsionDaoImpl" id="divsionDao"/>
+
+	  
+	   	<!-- Audit logging -->
+	  	<bean class="org.witchcraft.model.support.audit.AuditLogDaoImpl" id="auditLogDao"/>
+	 
+	  	<bean class="org.witchcraft.model.support.audit.EntityAuditLogInterceptor" id="entityAuditLogInterceptor"/>
+	  
+	</beans>

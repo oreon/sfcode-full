@@ -1,0 +1,166 @@
+  
+	
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+	
+
+	<a4j:form id="form">
+			<rich:panel header="FirmAdministrator Information">
+				<h:outputText value="Please correct the following issues !" 
+			rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
+				
+			<h:panelGrid columns="2" styleClass="formTableCustom">
+					
+						<h:panelGroup>
+						<h:outputText value="#{msg.firmAdministrator_firm}" />
+						<h:outputText value="*" />
+						</h:panelGroup>
+						
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="true" disabled="false"
+		id="firmAdministrator_firm" converter="keyToObjectConverter"
+		value="#{firmAdministratorCrudBacking.firmAdministrator.firm}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{firmCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="firmAdministrator_firm" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+					
+					
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.person_firstName}" />
+		<h:outputText value="*" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:inputText    required="true" 
+		id="firmAdministrator_firstName"
+		value="#{firmAdministratorCrudBacking.firmAdministrator.firstName}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="firmAdministrator_firstName" />
+	</h:inputText>
+	
+	
+	
+		
+	<wc:message for="firmAdministrator_firstName" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.person_lastName}" />
+		<h:outputText value="*" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:inputText    required="true" 
+		id="firmAdministrator_lastName"
+		value="#{firmAdministratorCrudBacking.firmAdministrator.lastName}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="firmAdministrator_lastName" />
+	</h:inputText>
+	
+	
+	
+		
+	<wc:message for="firmAdministrator_lastName" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.person_dateOfBirth}" />
+		<h:outputText value="*" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<rich:calendar    popup="true"   required="true" 
+		id="firmAdministrator_dateOfBirth"
+		value="#{firmAdministratorCrudBacking.firmAdministrator.dateOfBirth}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="firmAdministrator_dateOfBirth" />
+	</rich:calendar >
+	
+	
+	
+		
+	<wc:message for="firmAdministrator_dateOfBirth" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.firmAdministrator_email}" />
+		<h:outputText value="*" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:inputText    required="true" 
+		id="firmAdministrator_email"
+		value="#{firmAdministratorCrudBacking.firmAdministrator.email}">
+		<t:validateEmail />		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="firmAdministrator_email" />
+	</h:inputText>
+	
+	
+	
+		
+	<wc:message for="firmAdministrator_email" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+			</h:panelGrid>
+						<br/>
+						
+			
+			
+						
+				</rich:panel>
+				
+				<h:panelGrid columns="2">
+				<h:panelGroup>
+  					<h:commandButton id="button1" value="Submit" action="#{firmAdministratorCrudBacking.update}"  styleClass="btn" /> 
+  					<h:outputText value=" " />
+  					<h:commandButton id="button2" value="Cancel" action="cancelUpdate" immediate="true" styleClass="btn"/> 
+  				   	<!-- We need to have a hidden text field to store the id of the record being edited -->		
+		  			<h:inputHidden id="firmAdministrator_id" value="#{firmAdministratorCrudBacking.firmAdministrator.id}" />
+  				   	
+				 </h:panelGroup>
+				</h:panelGrid>
+				
+	</a4j:form>
+</html>			
+		

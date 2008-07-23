@@ -1,0 +1,186 @@
+  
+	
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+	
+
+	<a4j:form id="form">
+			<rich:panel header="LitigationCase Information">
+				<h:outputText value="Please correct the following issues !" 
+			rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
+				
+			<h:panelGrid columns="2" styleClass="formTableCustom">
+					
+					
+					
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.litigationCase_name}" />
+		<h:outputText value="" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:inputText    required="false" 
+		id="litigationCase_name"
+		value="#{litigationCaseCrudBacking.litigationCase.name}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="litigationCase_name" />
+	</h:inputText>
+	
+	
+		
+	<wc:message for="litigationCase_name" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.litigationCase_accountName}" />
+		<h:outputText value="" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:inputText    required="false" 
+		id="litigationCase_accountName"
+		value="#{litigationCaseCrudBacking.litigationCase.accountName}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="litigationCase_accountName" />
+	</h:inputText>
+	
+	
+		
+	<wc:message for="litigationCase_accountName" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.litigationCase_courtFileNumber}" />
+		<h:outputText value="" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:inputText    required="false" 
+		id="litigationCase_courtFileNumber"
+		value="#{litigationCaseCrudBacking.litigationCase.courtFileNumber}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="litigationCase_courtFileNumber" />
+	</h:inputText>
+	
+	
+		
+	<wc:message for="litigationCase_courtFileNumber" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.litigationCase_styleOfCase}" />
+		<h:outputText value="" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:inputText    required="false" 
+		id="litigationCase_styleOfCase"
+		value="#{litigationCaseCrudBacking.litigationCase.styleOfCase}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="litigationCase_styleOfCase" />
+	</h:inputText>
+	
+	
+		
+	<wc:message for="litigationCase_styleOfCase" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.litigationCase_proceedingType}" />
+		<h:outputText value="" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:selectOneMenu    required="false" 
+		id="litigationCase_proceedingType"
+		value="#{litigationCaseCrudBacking.litigationCase.proceedingType}">
+		<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="PT1" itemValue="PT1" />
+<f:selectItem itemLabel="PT2" itemValue="PT2" />
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="litigationCase_proceedingType" />
+	</h:selectOneMenu>
+	
+	
+		
+	<wc:message for="litigationCase_proceedingType" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.litigationCase_caseType}" />
+		<h:outputText value="" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:selectOneMenu    required="false" 
+		id="litigationCase_caseType"
+		value="#{litigationCaseCrudBacking.litigationCase.caseType}">
+		<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="INSOLVENCY" itemValue="INSOLVENCY" />
+<f:selectItem itemLabel="OTHER" itemValue="OTHER" />
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="litigationCase_caseType" />
+	</h:selectOneMenu>
+	
+	
+		
+	<wc:message for="litigationCase_caseType" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+			</h:panelGrid>
+						<br/>
+						
+			
+			
+						
+				</rich:panel>
+				
+				<h:panelGrid columns="2">
+				<h:panelGroup>
+  					<h:commandButton id="button1" value="Submit" action="#{litigationCaseCrudBacking.update}"  styleClass="btn" /> 
+  					<h:outputText value=" " />
+  					<h:commandButton id="button2" value="Cancel" action="cancelUpdate" immediate="true" styleClass="btn"/> 
+  				   	<!-- We need to have a hidden text field to store the id of the record being edited -->		
+		  			<h:inputHidden id="litigationCase_id" value="#{litigationCaseCrudBacking.litigationCase.id}" />
+  				   	
+				 </h:panelGroup>
+				</h:panelGrid>
+				
+	</a4j:form>
+</html>			
+		

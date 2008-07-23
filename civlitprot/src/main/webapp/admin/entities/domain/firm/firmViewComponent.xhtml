@@ -1,0 +1,126 @@
+  
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+	<a4j:form id="form">
+			<rich:panel header="Firm Information">
+				<h:outputText value="Please correct the following issues !" 
+			rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
+				
+			<h:panelGrid columns="4"  styleClass="viewInfo" columnClasses="leftCol, rightCol" rules="rows">
+			<f:facet name="header">
+				<h:outputText  value="#{firmCrudBacking.firm.displayName}" />
+			</f:facet>
+
+					
+	<h:outputText value="#{msg.firm_firmName}" />
+	<h:outputText value="#{firmCrudBacking.firm.firmName}" />			
+
+	<h:outputText value="#{msg.firm_firmType}" />
+	<h:outputText value="#{firmCrudBacking.firm.firmType}" />			
+
+	<h:outputText value="#{msg.contactDetails_address1}" />
+	<h:outputText value="#{firmCrudBacking.firm.contactDetails.address1}" />			
+
+	<h:outputText value="#{msg.contactDetails_address2}" />
+	<h:outputText value="#{firmCrudBacking.firm.contactDetails.address2}" />			
+
+	<h:outputText value="#{msg.contactDetails_city}" />
+	<h:outputText value="#{firmCrudBacking.firm.contactDetails.city}" />			
+
+	<h:outputText value="#{msg.contactDetails_state}" />
+	<h:outputText value="#{firmCrudBacking.firm.contactDetails.state}" />			
+
+	<h:outputText value="#{msg.contactDetails_country}" />
+	<h:outputText value="#{firmCrudBacking.firm.contactDetails.country}" />			
+
+	<h:outputText value="#{msg.contactDetails_postalCode}" />
+	<h:outputText value="#{firmCrudBacking.firm.contactDetails.postalCode}" />			
+
+	<h:outputText value="#{msg.contactDetails_phone}" />
+	<h:outputText value="#{firmCrudBacking.firm.contactDetails.phone}" />			
+
+	<h:outputText value="#{msg.contactDetails_fax}" />
+	<h:outputText value="#{firmCrudBacking.firm.contactDetails.fax}" />			
+
+	<h:outputText value="#{msg.contactDetails_email}" />
+	<h:outputText value="#{firmCrudBacking.firm.contactDetails.email}" />			
+			
+					 
+					
+					
+			</h:panelGrid>
+			<br/>
+						
+			
+				
+				
+				<rich:simpleTogglePanel switchType="client" label="FirmAdministrator">
+					<t:dataTable id="firmAdministrator_data" var="firmAdministrator" rowIndexVar="rowIndex" 
+						value="#{firmCrudBacking.listFirmAdministrators}" rows="10"
+					rowClasses="odd, even" styleClass="dataTable" rules="all">  
+						
+	
+						
+	<t:column>
+		<f:facet name="header">	
+			<h:outputText value="#{msg.person_firstName}" />
+		</f:facet>
+		<h:outputText value="#{firmAdministrator.firstName}" />
+	</t:column>			
+
+	<t:column>
+		<f:facet name="header">	
+			<h:outputText value="#{msg.person_lastName}" />
+		</f:facet>
+		<h:outputText value="#{firmAdministrator.lastName}" />
+	</t:column>			
+
+	<t:column>
+		<f:facet name="header">	
+			<h:outputText value="#{msg.person_dateOfBirth}" />
+		</f:facet>
+		<h:outputText value="#{firmAdministrator.dateOfBirth}" />
+	</t:column>			
+
+	<t:column>
+		<f:facet name="header">	
+			<h:outputText value="#{msg.firmAdministrator_email}" />
+		</f:facet>
+		<h:outputText value="#{firmAdministrator.email}" />
+	</t:column>			
+					</t:dataTable>
+				</rich:simpleTogglePanel>
+				<br/>
+				
+			
+			</rich:panel>
+				
+			<h:panelGrid columns="2">
+			<h:panelGroup>
+  				<h:commandButton id="button1" value="Edit" actionListener="#{firmCrudBacking.reloadFromId}" action="edit"  styleClass="btn" /> 
+  				<h:outputText value=" " />
+  				<h:commandButton id="button2" value="Cancel" action="cancelView" immediate="true" styleClass="btn"/> 
+  				<!-- We need to have a hidden text field to store the id of the record being edited -->		
+		  		<h:inputHidden id="firm_id" value="#{firmCrudBacking.firm.id}" />
+  				
+				<h:inputHidden id="contactDetails_id" value="#{firmCrudBacking.firm.contactDetails.id}" />
+		 </h:panelGroup>
+		</h:panelGrid>
+				
+	</a4j:form>
+</html>			
+		

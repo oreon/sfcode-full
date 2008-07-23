@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.springframework.org/schema/aop       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml"/>
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+	
+	<!-- Service Beans For entities-->
+	 
+	<jaxws:endpoint address="/firmService" id="firmWebService" implementor="#firmService" implementorClass="com.cc.civlit.service.impl.FirmServiceImpl"/>
+
+
+	<jaxws:endpoint address="/firmAdministratorService" id="firmAdministratorWebService" implementor="#firmAdministratorService" implementorClass="com.cc.civlit.service.impl.FirmAdministratorServiceImpl"/>
+
+
+	<jaxws:endpoint address="/litigationCaseService" id="litigationCaseWebService" implementor="#litigationCaseService" implementorClass="com.cc.civlit.service.impl.LitigationCaseServiceImpl"/>
+
+
+	<jaxws:endpoint address="/caseAdministratorService" id="caseAdministratorWebService" implementor="#caseAdministratorService" implementorClass="com.cc.civlit.service.impl.CaseAdministratorServiceImpl"/>
+
+
+	<jaxws:endpoint address="/levelOfCourtService" id="levelOfCourtWebService" implementor="#levelOfCourtService" implementorClass="com.cc.civlit.domain.service.impl.LevelOfCourtServiceImpl"/>
+
+
+	<jaxws:endpoint address="/jurisdictionService" id="jurisdictionWebService" implementor="#jurisdictionService" implementorClass="com.cc.civlit.domain.service.impl.JurisdictionServiceImpl"/>
+
+
+	<jaxws:endpoint address="/filingOfficeService" id="filingOfficeWebService" implementor="#filingOfficeService" implementorClass="com.cc.civlit.domain.service.impl.FilingOfficeServiceImpl"/>
+
+
+	<jaxws:endpoint address="/divsionService" id="divsionWebService" implementor="#divsionService" implementorClass="com.cc.civlit.domain.service.impl.DivsionServiceImpl"/>
+
+
+	
+	<!--
+	<bean id="wss4jInConfiguration" class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor"/>
+	-->
+	
+	</beans>

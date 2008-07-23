@@ -1,0 +1,135 @@
+  
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+		
+	<a4j:form id="form">
+		<rich:panel header="Search LitigationCase">
+			<h:panelGrid columns="4" >
+				
+				<h:outputText value="Creation Date" styleClass="customformLabel" />
+				<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
+						backingBean="#{litigationCaseCrudBacking}" />
+					
+			<h:outputText value="#{msg.litigationCase_name}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="litigationCase__name"
+					value="#{litigationCaseCrudBacking.litigationCase.name}">
+					
+				</h:inputText>
+				<h:message for="litigationCase__name" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.litigationCase_accountName}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="litigationCase__accountName"
+					value="#{litigationCaseCrudBacking.litigationCase.accountName}">
+					
+				</h:inputText>
+				<h:message for="litigationCase__accountName" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.litigationCase_courtFileNumber}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="litigationCase__courtFileNumber"
+					value="#{litigationCaseCrudBacking.litigationCase.courtFileNumber}">
+					
+				</h:inputText>
+				<h:message for="litigationCase__courtFileNumber" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.litigationCase_styleOfCase}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="litigationCase__styleOfCase"
+					value="#{litigationCaseCrudBacking.litigationCase.styleOfCase}">
+					
+				</h:inputText>
+				<h:message for="litigationCase__styleOfCase" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.litigationCase_proceedingType}" />
+			
+			<h:panelGroup>
+				<h:selectOneMenu    
+					id="litigationCase__proceedingType"
+					value="#{litigationCaseCrudBacking.litigationCase.proceedingType}">
+					<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="PT1" itemValue="PT1" />
+<f:selectItem itemLabel="PT2" itemValue="PT2" />
+
+				</h:selectOneMenu>
+				<h:message for="litigationCase__proceedingType" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.litigationCase_caseType}" />
+			
+			<h:panelGroup>
+				<h:selectOneMenu    
+					id="litigationCase__caseType"
+					value="#{litigationCaseCrudBacking.litigationCase.caseType}">
+					<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="INSOLVENCY" itemValue="INSOLVENCY" />
+<f:selectItem itemLabel="OTHER" itemValue="OTHER" />
+
+				</h:selectOneMenu>
+				<h:message for="litigationCase__caseType" styleClass="errMessage" />
+			</h:panelGroup>
+			
+		
+		
+			<h:outputText value="#{msg.litigationCase_divsion}" styleClass="customFormLabel" />
+			
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="false" disabled="false"
+		id="litigationCase_divsion" converter="keyToObjectConverter"
+		value="#{litigationCaseCrudBacking.litigationCase.divsion}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{divsionCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="litigationCase_divsion" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+
+		
+		
+			<h:panelGroup>
+				<h:commandButton id="button1" value="Search"
+					action="#{litigationCaseCrudBacking.search}" styleClass="btn" />
+				<h:outputText value=" " />
+				<h:commandButton id="button2" value="Cancel" action="#{answerChoiceCrudBacking.clearSearch}"
+					immediate="true" styleClass="btn" />
+ 			</h:panelGroup>
+		</h:panelGrid>
+		
+		 </rich:panel>					
+	</a4j:form>
+</html>
+		
