@@ -159,7 +159,16 @@ public class GenericUtils {
 	 */
 	public static List<String> stringArrayAsList(String arg) {
 
-		String[] array = arg.split("[ ]*,[ ]*|\\}|\\{");
+		return tokenizeString(arg, "[ ]*,[ ]*|\\}|\\{");
+	}
+
+	/** Tokenize a given string based on the seperators asd
+	 * @param arg
+	 * @param seperators
+	 * @return
+	 */
+	public static List<String> tokenizeString(String arg, String seperators) {
+		String[] array = arg.split(seperators);
 		List<String> lst = new ArrayList<String>();
 
 		for (String arrArg : array) {

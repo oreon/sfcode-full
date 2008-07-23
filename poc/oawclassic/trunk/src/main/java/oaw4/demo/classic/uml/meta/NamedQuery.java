@@ -7,6 +7,7 @@ public class NamedQuery extends Operation{
 	private String text;
 	private String name;
 	
+	
 	public String getText() {
 		return text;
 	}

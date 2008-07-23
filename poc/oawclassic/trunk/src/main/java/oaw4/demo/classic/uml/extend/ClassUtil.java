@@ -113,6 +113,18 @@ public class ClassUtil {
 	public static String createOperationInvocation(Operation operation) {
 		String text = operation.NameS() + "(";
 
+		text += createOperationParams(operation);
+		
+		return text + ")";
+	}
+
+	/** Returns the names of arguements of an operation e.g. for sum(int a, intb) it
+	 * will return a,b 
+	 * @param operation
+	 * @return
+	 */
+	public static String createOperationParams(Operation operation ) {
+		String text = new String();
 		for (Iterator<Parameter> iter = operation.Parameter().iterator(); iter
 				.hasNext();) {
 			Parameter param = iter.next();
@@ -120,8 +132,7 @@ public class ClassUtil {
 			if (iter.hasNext())
 				text += ",";
 		}
-		
-		return text + ")";
+		return text;
 	}
 
 	public static String getOperationParams(Operation operation) {
