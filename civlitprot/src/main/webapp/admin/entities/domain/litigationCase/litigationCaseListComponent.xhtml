@@ -1,0 +1,237 @@
+  
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+	
+	<a4j:form id="form_listing">
+		<rich:tabPanel  switchType="ajax">
+			<rich:tab label="Tabular" >
+			<rich:datascroller align="left"  for="data" maxPages="20" renderIfSinglePage="true" />
+				<br/>
+				<br/>
+						
+	<rich:dataTable id="data" var="litigationCase"
+		value="#{litigationCaseCrudBacking.records}" rows="30"
+	rowClasses="odd, even" styleClass="dataTable" >						
+	
+	<rich:column sortBy="#{litigationCase.name}"  filterBy="#{litigationCase.name}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.litigationCase_name}" /> 		
+		</f:facet>
+		<h:outputText value="#{litigationCase.name}" />
+	</rich:column>
+
+	<rich:column sortBy="#{litigationCase.accountName}"  filterBy="#{litigationCase.accountName}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.litigationCase_accountName}" /> 		
+		</f:facet>
+		<h:outputText value="#{litigationCase.accountName}" />
+	</rich:column>
+
+	<rich:column sortBy="#{litigationCase.courtFileNumber}"  filterBy="#{litigationCase.courtFileNumber}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.litigationCase_courtFileNumber}" /> 		
+		</f:facet>
+		<h:outputText value="#{litigationCase.courtFileNumber}" />
+	</rich:column>
+
+	<rich:column sortBy="#{litigationCase.styleOfCase}"  filterBy="#{litigationCase.styleOfCase}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.litigationCase_styleOfCase}" /> 		
+		</f:facet>
+		<h:outputText value="#{litigationCase.styleOfCase}" />
+	</rich:column>
+
+	<rich:column sortBy="#{litigationCase.proceedingType}"  filterBy="#{litigationCase.proceedingType}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.litigationCase_proceedingType}" /> 		
+		</f:facet>
+		<h:outputText value="#{litigationCase.proceedingType}" />
+	</rich:column>
+
+	<rich:column sortBy="#{litigationCase.caseType}"  filterBy="#{litigationCase.caseType}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.litigationCase_caseType}" /> 		
+		</f:facet>
+		<h:outputText value="#{litigationCase.caseType}" />
+	</rich:column>
+	
+	
+		
+		<rich:column>
+			<f:facet name="header">
+				<h:outputText value=" " />
+			</f:facet>
+			<h:commandLink action="view"
+				actionListener="#{litigationCaseCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left" styleClass="toolTip"
+					value="Click to Edit Row" mode="client" />
+				<h:graphicImage value="/images/icons/application_edit.png"
+					style="border: 0px" />
+				<f:param name="id" value="#{litigationCase.id}" />
+			</h:commandLink>
+		</rich:column>
+		
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
+			<!--
+			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+			--> 								
+			<h:commandLink action="#{litigationCaseCrudBacking.select}"																					
+				actionListener="#{litigationCaseCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
+				<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
+				<f:param id="editId" name="id" value="#{litigationCase.id}" />								
+			</h:commandLink>		
+			<!--
+			</acegijsf:authorize>
+			--> 
+		</rich:column>
+			
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
+			<!--
+			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+			--> 		
+			<a4j:commandLink action="#{litigationCaseCrudBacking.delete}"	
+				onclick="if(window.confirm('Are You Sure?')==false){return false}"
+				actionListener="#{litigationCaseCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
+				<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
+				<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
+				<f:param id="deleteId" name="id" value="#{litigationCase.id}" />												
+			</a4j:commandLink>
+			<!--
+			</acegijsf:authorize>
+			--> 
+		</rich:column>
+	</rich:dataTable>
+		
+	 </rich:tab>
+	 
+		 
+	 <rich:tab label="Audit" >
+	 	<rich:dataTable id="dataAudit" var="log"
+		value="#{litigationCaseCrudBacking.auditLog}" rows="30" rowClasses="odd, even" styleClass="dataTable">
+			
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Date" />
+				</f:facet>
+				<h:outputText value="#{log.dateCreated}" />
+			</rich:column>
+			
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Action" />
+				</f:facet>
+				<h:outputText value="#{log.action}" />
+			</rich:column>
+
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="User" />
+				</f:facet>
+				<h:outputText value="#{log.username}" />
+			</rich:column>
+			
+	
+	<rich:column sortBy="#{log.entity.name}"  filterBy="#{log.entity.name}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.litigationCase_name}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.name}" />
+	</rich:column>
+
+	<rich:column sortBy="#{log.entity.accountName}"  filterBy="#{log.entity.accountName}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.litigationCase_accountName}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.accountName}" />
+	</rich:column>
+
+	<rich:column sortBy="#{log.entity.courtFileNumber}"  filterBy="#{log.entity.courtFileNumber}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.litigationCase_courtFileNumber}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.courtFileNumber}" />
+	</rich:column>
+
+	<rich:column sortBy="#{log.entity.styleOfCase}"  filterBy="#{log.entity.styleOfCase}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.litigationCase_styleOfCase}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.styleOfCase}" />
+	</rich:column>
+
+	<rich:column sortBy="#{log.entity.proceedingType}"  filterBy="#{log.entity.proceedingType}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.litigationCase_proceedingType}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.proceedingType}" />
+	</rich:column>
+
+	<rich:column sortBy="#{log.entity.caseType}"  filterBy="#{log.entity.caseType}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.litigationCase_caseType}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.caseType}" />
+	</rich:column>
+			</rich:dataTable>
+			 </rich:tab>
+						 
+		</rich:tabPanel>
+  	</a4j:form>
+	<br />
+						
+	<a4j:form id="commands">
+	<rich:toolBar height="22" width="120" itemSeparator="line">
+		<rich:toolBarGroup>
+			<h:graphicImage id="addnew" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="#{litigationCaseCrudBacking.select}"
+				actionListener="#{litigationCaseCrudBacking.selectEntity}"
+				value="Add New" />
+		</rich:toolBarGroup>
+
+		<rich:toolBarGroup>
+			<h:graphicImage id="gotosearch" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="#{litigationCaseCrudBacking.gotoSearchPage}"
+				value="Search" />
+		</rich:toolBarGroup>
+
+		<rich:toolBarGroup
+			rendered="#{ litigationCaseCrudBacking.action == 'SEARCH' }">
+			<h:graphicImage id="clearsearch" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="#{litigationCaseCrudBacking.clearSearch}"
+				value="Clear Search" />
+		</rich:toolBarGroup>
+		
+		<rich:toolBarGroup
+			rendered="#{ litigationCaseCrudBacking.action == 'SEARCH' }">
+			<h:graphicImage id="refineSearch" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="search"
+				value="Refine Search" />
+		</rich:toolBarGroup>
+
+	</rich:toolBar>
+
+</a4j:form>
+			
+</html>
+		

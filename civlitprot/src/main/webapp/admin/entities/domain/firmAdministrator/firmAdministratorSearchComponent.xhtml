@@ -1,0 +1,104 @@
+  
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+		
+	<a4j:form id="form">
+		<rich:panel header="Search FirmAdministrator">
+			<h:panelGrid columns="4" >
+				
+				<h:outputText value="Creation Date" styleClass="customformLabel" />
+				<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
+						backingBean="#{firmAdministratorCrudBacking}" />
+					
+			<h:outputText value="#{msg.person_firstName}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="firmAdministrator__firstName"
+					value="#{firmAdministratorCrudBacking.firmAdministrator.firstName}">
+					
+				</h:inputText>
+				<h:message for="firmAdministrator__firstName" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.person_lastName}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="firmAdministrator__lastName"
+					value="#{firmAdministratorCrudBacking.firmAdministrator.lastName}">
+					
+				</h:inputText>
+				<h:message for="firmAdministrator__lastName" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.person_dateOfBirth}" />
+				<wc:dateRange rangeFieldName="rangeDateOfBirth" label="DateOfBirth"
+					backingBean="#{firmAdministratorCrudBacking}" />
+	
+
+			
+			<h:outputText value="#{msg.firmAdministrator_email}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="firmAdministrator__email"
+					value="#{firmAdministratorCrudBacking.firmAdministrator.email}">
+					
+				</h:inputText>
+				<h:message for="firmAdministrator__email" styleClass="errMessage" />
+			</h:panelGroup>
+			
+		
+		
+			<h:outputText value="#{msg.firmAdministrator_firm}" styleClass="customFormLabel" />
+			
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="false" disabled="false"
+		id="firmAdministrator_firm" converter="keyToObjectConverter"
+		value="#{firmAdministratorCrudBacking.firmAdministrator.firm}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{firmCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="firmAdministrator_firm" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+
+		
+		
+			<h:panelGroup>
+				<h:commandButton id="button1" value="Search"
+					action="#{firmAdministratorCrudBacking.search}" styleClass="btn" />
+				<h:outputText value=" " />
+				<h:commandButton id="button2" value="Cancel" action="#{answerChoiceCrudBacking.clearSearch}"
+					immediate="true" styleClass="btn" />
+ 			</h:panelGroup>
+		</h:panelGrid>
+		
+		 </rich:panel>					
+	</a4j:form>
+</html>
+		

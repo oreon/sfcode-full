@@ -1,0 +1,82 @@
+  
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+		
+	<a4j:form id="form">
+		<rich:panel header="Search CaseAdministrator">
+			<h:panelGrid columns="4" >
+				
+				<h:outputText value="Creation Date" styleClass="customformLabel" />
+				<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
+						backingBean="#{caseAdministratorCrudBacking}" />
+					
+			<h:outputText value="#{msg.person_firstName}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="caseAdministrator__firstName"
+					value="#{caseAdministratorCrudBacking.caseAdministrator.firstName}">
+					
+				</h:inputText>
+				<h:message for="caseAdministrator__firstName" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.person_lastName}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="caseAdministrator__lastName"
+					value="#{caseAdministratorCrudBacking.caseAdministrator.lastName}">
+					
+				</h:inputText>
+				<h:message for="caseAdministrator__lastName" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.person_dateOfBirth}" />
+				<wc:dateRange rangeFieldName="rangeDateOfBirth" label="DateOfBirth"
+					backingBean="#{caseAdministratorCrudBacking}" />
+	
+
+			
+			<h:outputText value="#{msg.caseAdministrator_email}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="caseAdministrator__email"
+					value="#{caseAdministratorCrudBacking.caseAdministrator.email}">
+					
+				</h:inputText>
+				<h:message for="caseAdministrator__email" styleClass="errMessage" />
+			</h:panelGroup>
+			
+		
+		
+		
+		
+			<h:panelGroup>
+				<h:commandButton id="button1" value="Search"
+					action="#{caseAdministratorCrudBacking.search}" styleClass="btn" />
+				<h:outputText value=" " />
+				<h:commandButton id="button2" value="Cancel" action="#{answerChoiceCrudBacking.clearSearch}"
+					immediate="true" styleClass="btn" />
+ 			</h:panelGroup>
+		</h:panelGrid>
+		
+		 </rich:panel>					
+	</a4j:form>
+</html>
+		

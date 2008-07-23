@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+
+	<div id="sidebar-right">
+	<div class="roundedBoxJS"><h:form>
+
+		<table class="sidebarLinks">
+			<tbody>
+				<tr>
+					<th>Exams</th>
+				</tr>
+				<tr>
+					<td><a4j:repeat var="exam" value="#{examCrudBacking.records}"
+						rows="10">
+
+						<h:commandLink value="#{exam.name}" action="viewDetails"
+							actionListener="#{examCrudBacking.selectEntity}">
+							<f:param name="id" value="#{exam.id}" />
+						</h:commandLink>
+						<br />
+					</a4j:repeat></td>
+				</tr>
+				<tr>
+					<td><h:commandLink action="browseExams" value="More..&gt;&gt;" /></td>
+				</tr>
+			</tbody>
+		</table>
+	</h:form></div>
+	<br />
+	<br />
+	<div class="roundedBoxJS">
+	<table class="sidebarLinks">
+		<tbody>
+			<tr>
+				<th>Top Scorers</th>
+			</tr>
+			<tr>
+				<td><a href="exam.html">ssmith, CA-US </a></td>
+			</tr>
+			<tr>
+				<td>XXX YYY</td>
+			</tr>
+			<tr>
+				<td>AAA BBB</td>
+			</tr>
+			<tr>
+				<td>JSF</td>
+			</tr>
+			<tr>
+				<td>More..</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	</div>
+
+</ui:composition>

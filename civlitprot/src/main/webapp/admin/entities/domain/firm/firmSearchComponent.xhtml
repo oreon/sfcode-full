@@ -1,0 +1,169 @@
+  
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+		
+	<a4j:form id="form">
+		<rich:panel header="Search Firm">
+			<h:panelGrid columns="4" >
+				
+				<h:outputText value="Creation Date" styleClass="customformLabel" />
+				<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
+						backingBean="#{firmCrudBacking}" />
+					
+			<h:outputText value="#{msg.firm_firmName}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="firm__firmName"
+					value="#{firmCrudBacking.firm.firmName}">
+					
+				</h:inputText>
+				<h:message for="firm__firmName" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.firm_firmType}" />
+			
+			<h:panelGroup>
+				<h:selectOneMenu    
+					id="firm__firmType"
+					value="#{firmCrudBacking.firm.firmType}">
+					<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="CORPORATE_COUNSEL" itemValue="CORPORATE_COUNSEL" />
+<f:selectItem itemLabel="GOVERNMENT_REGULAORY" itemValue="GOVERNMENT_REGULAORY" />
+<f:selectItem itemLabel="PARALEGAL" itemValue="PARALEGAL" />
+<f:selectItem itemLabel="LAW_FIRM" itemValue="LAW_FIRM" />
+<f:selectItem itemLabel="SOLE_PRACTITONER" itemValue="SOLE_PRACTITONER" />
+
+				</h:selectOneMenu>
+				<h:message for="firm__firmType" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.contactDetails_address1}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="firm_contactDetails_address1"
+					value="#{firmCrudBacking.firm.contactDetails.address1}">
+					
+				</h:inputText>
+				<h:message for="firm_contactDetails_address1" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.contactDetails_address2}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="firm_contactDetails_address2"
+					value="#{firmCrudBacking.firm.contactDetails.address2}">
+					
+				</h:inputText>
+				<h:message for="firm_contactDetails_address2" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.contactDetails_city}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="firm_contactDetails_city"
+					value="#{firmCrudBacking.firm.contactDetails.city}">
+					
+				</h:inputText>
+				<h:message for="firm_contactDetails_city" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.contactDetails_state}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="firm_contactDetails_state"
+					value="#{firmCrudBacking.firm.contactDetails.state}">
+					
+				</h:inputText>
+				<h:message for="firm_contactDetails_state" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.contactDetails_country}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="firm_contactDetails_country"
+					value="#{firmCrudBacking.firm.contactDetails.country}">
+					
+				</h:inputText>
+				<h:message for="firm_contactDetails_country" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.contactDetails_postalCode}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="firm_contactDetails_postalCode"
+					value="#{firmCrudBacking.firm.contactDetails.postalCode}">
+					
+				</h:inputText>
+				<h:message for="firm_contactDetails_postalCode" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.contactDetails_phone}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="firm_contactDetails_phone"
+					value="#{firmCrudBacking.firm.contactDetails.phone}">
+					
+				</h:inputText>
+				<h:message for="firm_contactDetails_phone" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.contactDetails_fax}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="firm_contactDetails_fax"
+					value="#{firmCrudBacking.firm.contactDetails.fax}">
+					
+				</h:inputText>
+				<h:message for="firm_contactDetails_fax" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.contactDetails_email}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="firm_contactDetails_email"
+					value="#{firmCrudBacking.firm.contactDetails.email}">
+					
+				</h:inputText>
+				<h:message for="firm_contactDetails_email" styleClass="errMessage" />
+			</h:panelGroup>
+			
+		
+		
+		
+		
+			<h:panelGroup>
+				<h:commandButton id="button1" value="Search"
+					action="#{firmCrudBacking.search}" styleClass="btn" />
+				<h:outputText value=" " />
+				<h:commandButton id="button2" value="Cancel" action="#{answerChoiceCrudBacking.clearSearch}"
+					immediate="true" styleClass="btn" />
+ 			</h:panelGroup>
+		</h:panelGrid>
+		
+		 </rich:panel>					
+	</a4j:form>
+</html>
+		

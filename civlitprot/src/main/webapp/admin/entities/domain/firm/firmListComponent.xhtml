@@ -1,0 +1,307 @@
+  
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+	
+	<a4j:form id="form_listing">
+		<rich:tabPanel  switchType="ajax">
+			<rich:tab label="Tabular" >
+			<rich:datascroller align="left"  for="data" maxPages="20" renderIfSinglePage="true" />
+				<br/>
+				<br/>
+						
+	<rich:dataTable id="data" var="firm"
+		value="#{firmCrudBacking.records}" rows="30"
+	rowClasses="odd, even" styleClass="dataTable" >						
+	
+	<rich:column sortBy="#{firm.firmName}"  filterBy="#{firm.firmName}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.firm_firmName}" /> 		
+		</f:facet>
+		<h:outputText value="#{firm.firmName}" />
+	</rich:column>
+
+	<rich:column sortBy="#{firm.firmType}"  filterBy="#{firm.firmType}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.firm_firmType}" /> 		
+		</f:facet>
+		<h:outputText value="#{firm.firmType}" />
+	</rich:column>
+
+	<rich:column sortBy="#{firm.contactDetails.address1}"  filterBy="#{firm.contactDetails.address1}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.contactDetails_address1}" /> 		
+		</f:facet>
+		<h:outputText value="#{firm.contactDetails.address1}" />
+	</rich:column>
+
+	<rich:column sortBy="#{firm.contactDetails.address2}"  filterBy="#{firm.contactDetails.address2}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.contactDetails_address2}" /> 		
+		</f:facet>
+		<h:outputText value="#{firm.contactDetails.address2}" />
+	</rich:column>
+
+	<rich:column sortBy="#{firm.contactDetails.city}"  filterBy="#{firm.contactDetails.city}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.contactDetails_city}" /> 		
+		</f:facet>
+		<h:outputText value="#{firm.contactDetails.city}" />
+	</rich:column>
+
+	<rich:column sortBy="#{firm.contactDetails.state}"  filterBy="#{firm.contactDetails.state}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.contactDetails_state}" /> 		
+		</f:facet>
+		<h:outputText value="#{firm.contactDetails.state}" />
+	</rich:column>
+
+	<rich:column sortBy="#{firm.contactDetails.country}"  filterBy="#{firm.contactDetails.country}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.contactDetails_country}" /> 		
+		</f:facet>
+		<h:outputText value="#{firm.contactDetails.country}" />
+	</rich:column>
+
+	<rich:column sortBy="#{firm.contactDetails.postalCode}"  filterBy="#{firm.contactDetails.postalCode}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.contactDetails_postalCode}" /> 		
+		</f:facet>
+		<h:outputText value="#{firm.contactDetails.postalCode}" />
+	</rich:column>
+
+	<rich:column sortBy="#{firm.contactDetails.phone}"  filterBy="#{firm.contactDetails.phone}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.contactDetails_phone}" /> 		
+		</f:facet>
+		<h:outputText value="#{firm.contactDetails.phone}" />
+	</rich:column>
+
+	<rich:column sortBy="#{firm.contactDetails.fax}"  filterBy="#{firm.contactDetails.fax}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.contactDetails_fax}" /> 		
+		</f:facet>
+		<h:outputText value="#{firm.contactDetails.fax}" />
+	</rich:column>
+
+	<rich:column sortBy="#{firm.contactDetails.email}"  filterBy="#{firm.contactDetails.email}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.contactDetails_email}" /> 		
+		</f:facet>
+		<h:outputText value="#{firm.contactDetails.email}" />
+	</rich:column>
+	
+	
+		
+		<rich:column>
+			<f:facet name="header">
+				<h:outputText value=" " />
+			</f:facet>
+			<h:commandLink action="view"
+				actionListener="#{firmCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left" styleClass="toolTip"
+					value="Click to Edit Row" mode="client" />
+				<h:graphicImage value="/images/icons/application_edit.png"
+					style="border: 0px" />
+				<f:param name="id" value="#{firm.id}" />
+			</h:commandLink>
+		</rich:column>
+		
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
+			<!--
+			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+			--> 								
+			<h:commandLink action="#{firmCrudBacking.select}"																					
+				actionListener="#{firmCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
+				<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
+				<f:param id="editId" name="id" value="#{firm.id}" />								
+			</h:commandLink>		
+			<!--
+			</acegijsf:authorize>
+			--> 
+		</rich:column>
+			
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
+			<!--
+			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+			--> 		
+			<a4j:commandLink action="#{firmCrudBacking.delete}"	
+				onclick="if(window.confirm('Are You Sure?')==false){return false}"
+				actionListener="#{firmCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
+				<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
+				<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
+				<f:param id="deleteId" name="id" value="#{firm.id}" />												
+			</a4j:commandLink>
+			<!--
+			</acegijsf:authorize>
+			--> 
+		</rich:column>
+	</rich:dataTable>
+		
+	 </rich:tab>
+	 
+		 
+	 <rich:tab label="Audit" >
+	 	<rich:dataTable id="dataAudit" var="log"
+		value="#{firmCrudBacking.auditLog}" rows="30" rowClasses="odd, even" styleClass="dataTable">
+			
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Date" />
+				</f:facet>
+				<h:outputText value="#{log.dateCreated}" />
+			</rich:column>
+			
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Action" />
+				</f:facet>
+				<h:outputText value="#{log.action}" />
+			</rich:column>
+
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="User" />
+				</f:facet>
+				<h:outputText value="#{log.username}" />
+			</rich:column>
+			
+	
+	<rich:column sortBy="#{log.entity.firmName}"  filterBy="#{log.entity.firmName}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.firm_firmName}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.firmName}" />
+	</rich:column>
+
+	<rich:column sortBy="#{log.entity.firmType}"  filterBy="#{log.entity.firmType}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.firm_firmType}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.firmType}" />
+	</rich:column>
+
+	<rich:column sortBy="#{log.entity.contactDetails.address1}"  filterBy="#{log.entity.contactDetails.address1}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.contactDetails_address1}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.contactDetails.address1}" />
+	</rich:column>
+
+	<rich:column sortBy="#{log.entity.contactDetails.address2}"  filterBy="#{log.entity.contactDetails.address2}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.contactDetails_address2}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.contactDetails.address2}" />
+	</rich:column>
+
+	<rich:column sortBy="#{log.entity.contactDetails.city}"  filterBy="#{log.entity.contactDetails.city}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.contactDetails_city}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.contactDetails.city}" />
+	</rich:column>
+
+	<rich:column sortBy="#{log.entity.contactDetails.state}"  filterBy="#{log.entity.contactDetails.state}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.contactDetails_state}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.contactDetails.state}" />
+	</rich:column>
+
+	<rich:column sortBy="#{log.entity.contactDetails.country}"  filterBy="#{log.entity.contactDetails.country}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.contactDetails_country}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.contactDetails.country}" />
+	</rich:column>
+
+	<rich:column sortBy="#{log.entity.contactDetails.postalCode}"  filterBy="#{log.entity.contactDetails.postalCode}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.contactDetails_postalCode}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.contactDetails.postalCode}" />
+	</rich:column>
+
+	<rich:column sortBy="#{log.entity.contactDetails.phone}"  filterBy="#{log.entity.contactDetails.phone}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.contactDetails_phone}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.contactDetails.phone}" />
+	</rich:column>
+
+	<rich:column sortBy="#{log.entity.contactDetails.fax}"  filterBy="#{log.entity.contactDetails.fax}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.contactDetails_fax}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.contactDetails.fax}" />
+	</rich:column>
+
+	<rich:column sortBy="#{log.entity.contactDetails.email}"  filterBy="#{log.entity.contactDetails.email}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.contactDetails_email}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.contactDetails.email}" />
+	</rich:column>
+			</rich:dataTable>
+			 </rich:tab>
+						 
+		</rich:tabPanel>
+  	</a4j:form>
+	<br />
+						
+	<a4j:form id="commands">
+	<rich:toolBar height="22" width="120" itemSeparator="line">
+		<rich:toolBarGroup>
+			<h:graphicImage id="addnew" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="#{firmCrudBacking.select}"
+				actionListener="#{firmCrudBacking.selectEntity}"
+				value="Add New" />
+		</rich:toolBarGroup>
+
+		<rich:toolBarGroup>
+			<h:graphicImage id="gotosearch" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="#{firmCrudBacking.gotoSearchPage}"
+				value="Search" />
+		</rich:toolBarGroup>
+
+		<rich:toolBarGroup
+			rendered="#{ firmCrudBacking.action == 'SEARCH' }">
+			<h:graphicImage id="clearsearch" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="#{firmCrudBacking.clearSearch}"
+				value="Clear Search" />
+		</rich:toolBarGroup>
+		
+		<rich:toolBarGroup
+			rendered="#{ firmCrudBacking.action == 'SEARCH' }">
+			<h:graphicImage id="refineSearch" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="search"
+				value="Refine Search" />
+		</rich:toolBarGroup>
+
+	</rich:toolBar>
+
+</a4j:form>
+			
+</html>
+		

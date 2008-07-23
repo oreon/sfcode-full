@@ -1,0 +1,138 @@
+  
+	
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+	
+
+	<a4j:form id="form">
+			<rich:panel header="LevelOfCourt Information">
+				<h:outputText value="Please correct the following issues !" 
+			rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
+				
+			<h:panelGrid columns="2" styleClass="formTableCustom">
+					
+						<h:panelGroup>
+						<h:outputText value="#{msg.levelOfCourt_jurisdiction}" />
+						<h:outputText value="" />
+						</h:panelGroup>
+						
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="false" disabled="false"
+		id="levelOfCourt_jurisdiction" converter="keyToObjectConverter"
+		value="#{levelOfCourtCrudBacking.levelOfCourt.jurisdiction}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{jurisdictionCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="levelOfCourt_jurisdiction" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+					
+					
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.levelOfCourt_name}" />
+		<h:outputText value="" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:inputText    required="false" 
+		id="levelOfCourt_name"
+		value="#{levelOfCourtCrudBacking.levelOfCourt.name}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="levelOfCourt_name" />
+	</h:inputText>
+	
+	
+		
+	<wc:message for="levelOfCourt_name" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+			</h:panelGrid>
+						<br/>
+						
+			
+				
+				
+				<rich:simpleTogglePanel switchType="client" label="FilingOffice">
+				<t:dataTable id="filingOffice_data" var="filingOffice" rowIndexVar="rowIndex" 
+					value="#{levelOfCourtCrudBacking.listFilingOffices}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+				 
+				
+	
+				
+	
+	<t:column  >
+		<f:facet name="header">
+				<t:outputText value="Name" /> 
+		</f:facet>
+		<h:inputText    required="false" 
+			id="filingOffice__name"
+			value="#{filingOffice.name}">
+			
+		</h:inputText>
+		<h:message for="filingOffice__name" styleClass="errMessage" />
+	</t:column>
+				
+	<t:column>
+		<f:facet name="header">
+			<t:outputText value="Delete" />
+		</f:facet>
+
+		<a4j:commandButton value="Delete" 
+			reRender="filingOffice_data" bypassUpdates="true" styleClass="btn"
+					actionListener="#{levelOfCourtCrudBacking.deleteFilingOfficeRow}" >
+				<a4j:actionparam name="deleteRowIndex" value="#{rowIndex}" />
+		</a4j:commandButton>
+	</t:column>
+				</t:dataTable>
+				<br/>
+				<a4j:commandButton value="Add Row" styleClass="btn"
+									reRender="filingOffice_data" 
+									actionListener="#{levelOfCourtCrudBacking.addNewFilingOfficeRow}" />
+				</rich:simpleTogglePanel>
+				<br/>
+				
+			
+						
+				</rich:panel>
+				
+				<h:panelGrid columns="2">
+				<h:panelGroup>
+  					<h:commandButton id="button1" value="Submit" action="#{levelOfCourtCrudBacking.update}"  styleClass="btn" /> 
+  					<h:outputText value=" " />
+  					<h:commandButton id="button2" value="Cancel" action="cancelUpdate" immediate="true" styleClass="btn"/> 
+  				   	<!-- We need to have a hidden text field to store the id of the record being edited -->		
+		  			<h:inputHidden id="levelOfCourt_id" value="#{levelOfCourtCrudBacking.levelOfCourt.id}" />
+  				   	
+				 </h:panelGroup>
+				</h:panelGrid>
+				
+	</a4j:form>
+</html>			
+		

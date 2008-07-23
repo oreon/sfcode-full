@@ -1,0 +1,76 @@
+  
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+		
+	<a4j:form id="form">
+		<rich:panel header="Search FilingOffice">
+			<h:panelGrid columns="4" >
+				
+				<h:outputText value="Creation Date" styleClass="customformLabel" />
+				<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
+						backingBean="#{filingOfficeCrudBacking}" />
+					
+			<h:outputText value="#{msg.filingOffice_name}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="filingOffice__name"
+					value="#{filingOfficeCrudBacking.filingOffice.name}">
+					
+				</h:inputText>
+				<h:message for="filingOffice__name" styleClass="errMessage" />
+			</h:panelGroup>
+			
+		
+		
+			<h:outputText value="#{msg.filingOffice_levelOfCourt}" styleClass="customFormLabel" />
+			
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="false" disabled="false"
+		id="filingOffice_levelOfCourt" converter="keyToObjectConverter"
+		value="#{filingOfficeCrudBacking.filingOffice.levelOfCourt}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{levelOfCourtCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="filingOffice_levelOfCourt" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+
+		
+		
+			<h:panelGroup>
+				<h:commandButton id="button1" value="Search"
+					action="#{filingOfficeCrudBacking.search}" styleClass="btn" />
+				<h:outputText value=" " />
+				<h:commandButton id="button2" value="Cancel" action="#{answerChoiceCrudBacking.clearSearch}"
+					immediate="true" styleClass="btn" />
+ 			</h:panelGroup>
+		</h:panelGrid>
+		
+		 </rich:panel>					
+	</a4j:form>
+</html>
+		
