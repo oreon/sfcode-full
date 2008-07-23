@@ -33,7 +33,7 @@
 					<value>/login.jsf</value>
 				</property>
 				<property name="forceHttps">
-					<value>false</value>
+					<value>true</value>
 				</property>
 			</bean>
 		</property>
@@ -78,13 +78,44 @@
 		</property>
 		<property name="objectDefinitionSource">
 			<value>
-			<!--  
+			  <!--  
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				PATTERN_TYPE_APACHE_ANT 
+				/admin/**=ROLE_EXAMCREATOR
+				/authorized/**=ROLE_CANDIDATE
+			-->
+				<!--   /index.jsf=ROLE_CUSTOMER, ROLE_EMPLOYEE, ROLE_SUPERVISOR -->
+			</value>
+		</property>
+	</bean>
+
+
+	<bean id="channelDecisionManager"
+		class="org.acegisecurity.securechannel.ChannelDecisionManagerImpl">
+		<property name="channelProcessors">
+			<list>
+				<bean
+					class="org.acegisecurity.securechannel.SecureChannelProcessor" />
+				<bean
+					class="org.acegisecurity.securechannel.InsecureChannelProcessor" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="channelProcessingFilter"
+		class="org.acegisecurity.securechannel.ChannelProcessingFilter">
+		<property name="channelDecisionManager">
+			<ref local="channelDecisionManager" />
+		</property>
+		<property name="filterInvocationDefinitionSource">
+			<value>
 				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
 				PATTERN_TYPE_APACHE_ANT
-				/admin/**=ROLE_ADMINISTRATOR
-				/crud/**=ROLE_CUSTOMER, ROLE_EMPLOYEE
-			      /index.jsf=ROLE_CUSTOMER, ROLE_EMPLOYEE, ROLE_SUPERVISOR
-			   -->
+				<!-- These URLs need not be secure -->
+				/index*=REQUIRES_INSECURE_CHANNEL
+				/about*=REQUIRES_INSECURE_CHANNEL
+				<!-- All other URLs should be secure 
+				/*=REQUIRES_SECURE_CHANNEL -->
 			</value>
 		</property>
 	</bean>
@@ -109,8 +140,8 @@
 	<bean
 		class="org.acegisecurity.providers.dao.DaoAuthenticationProvider"
 		id="daoAuthenticationProvider">
-			  <property name="userDetailsService" ref="userDetailsService" />
-			 <!--   <property name="userDetailsService" ref="inMemoryDaoImpl" /> -->
+		<property name="userDetailsService" ref="userDetailsService" />
+		<!--   <property name="userDetailsService" ref="inMemoryDaoImpl" /> -->
 		<property name="userCache">
 			<bean
 				class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
@@ -140,7 +171,8 @@
 		</property>
 	</bean>
 
-	<bean id="userDetailsService" class="org.witchcraft.model.support.security.HibernateDaoImpl"/>
+	<bean id="userDetailsService"
+		class="org.witchcraft.model.support.security.HibernateDaoImpl" />
 
 	<bean
 		class="org.acegisecurity.providers.anonymous.AnonymousProcessingFilter"
@@ -150,7 +182,7 @@
 			value="anonymousUser,ROLE_ANONYMOUS" />
 	</bean>
 	<!-- This bean is optional; it isn't used by any other bean as it only listens and logs -->
-<!--  
-	<bean class="org.acegisecurity.event.authentication.LoggerListener"
-		id="loggerListener" /> -->	
+	<!--  
+		<bean class="org.acegisecurity.event.authentication.LoggerListener"
+		id="loggerListener" /> -->
 </beans>

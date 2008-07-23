@@ -1,0 +1,1972 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config>
+
+	<!--  Spring variable resolver -->
+	<application>
+		<variable-resolver>
+			org.springframework.web.jsf.DelegatingVariableResolver
+		</variable-resolver>
+	</application>
+
+	<!-- Managed beans for the crud operations -->
+
+	
+	<managed-bean>
+		<managed-bean-name>candidateCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.CandidateBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>candidateService</property-name>
+			<value>#{candidateService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>questionCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.QuestionBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>questionService</property-name>
+			<value>#{questionService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>answerChoiceCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.AnswerChoiceBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>answerChoiceService</property-name>
+			<value>#{answerChoiceService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>examCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.ExamBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>examService</property-name>
+			<value>#{examService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>examInstanceCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.ExamInstanceBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>examInstanceService</property-name>
+			<value>#{examInstanceService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>examCreatorCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.ExamCreatorBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>examCreatorService</property-name>
+			<value>#{examCreatorService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>categoryCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.CategoryBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>categoryService</property-name>
+			<value>#{categoryService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>userCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.UserBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>userService</property-name>
+			<value>#{userService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>grantedRoleCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.GrantedRoleBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>grantedRoleService</property-name>
+			<value>#{grantedRoleService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>answeredQuestionCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.AnsweredQuestionBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>answeredQuestionService</property-name>
+			<value>#{answeredQuestionService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>sectionCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.kgauge.web.jsf.SectionBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>sectionService</property-name>
+			<value>#{sectionService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>firmCrudBacking</managed-bean-name>
+		<managed-bean-class>com.cc.civlit.web.jsf.FirmBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>firmService</property-name>
+			<value>#{firmService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>firmAdministratorCrudBacking</managed-bean-name>
+		<managed-bean-class>com.cc.civlit.web.jsf.FirmAdministratorBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>firmAdministratorService</property-name>
+			<value>#{firmAdministratorService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>litigationCaseCrudBacking</managed-bean-name>
+		<managed-bean-class>com.cc.civlit.web.jsf.LitigationCaseBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>litigationCaseService</property-name>
+			<value>#{litigationCaseService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>caseAdministratorCrudBacking</managed-bean-name>
+		<managed-bean-class>com.cc.civlit.web.jsf.CaseAdministratorBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>caseAdministratorService</property-name>
+			<value>#{caseAdministratorService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>levelOfCourtCrudBacking</managed-bean-name>
+		<managed-bean-class>com.cc.civlit.domainobjects.web.jsf.LevelOfCourtBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>levelOfCourtService</property-name>
+			<value>#{levelOfCourtService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>jurisdictionCrudBacking</managed-bean-name>
+		<managed-bean-class>com.cc.civlit.domainobjects.web.jsf.JurisdictionBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>jurisdictionService</property-name>
+			<value>#{jurisdictionService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>filingOfficeCrudBacking</managed-bean-name>
+		<managed-bean-class>com.cc.civlit.domainobjects.web.jsf.FilingOfficeBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>filingOfficeService</property-name>
+			<value>#{filingOfficeService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>divsionCrudBacking</managed-bean-name>
+		<managed-bean-class>com.cc.civlit.domainobjects.web.jsf.DivsionBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>divsionService</property-name>
+			<value>#{divsionService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	
+	<!-- Navigation Rules  -->
+	
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/domain/candidate/candidateList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/candidate/candidate.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/domain/candidate/candidateView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/domain/candidate/candidate.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/domain/candidate/candidateSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/domain/candidate/candidateList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/candidate/candidate.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/candidate/candidateList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/candidate/candidateList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/candidate/candidateView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/domain/candidate/candidateList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/candidate/candidate.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/candidate/candidateSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/candidate/candidateList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/candidate/candidateList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listCandidate</from-outcome>
+		    <to-view-id>/admin/entities/domain/candidate/candidateList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/domain/question/questionList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/question/question.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/domain/question/questionView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/domain/question/question.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/domain/question/questionSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/domain/question/questionList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/question/question.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/question/questionList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/question/questionList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/question/questionView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/domain/question/questionList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/question/question.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/question/questionSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/question/questionList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/question/questionList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listQuestion</from-outcome>
+		    <to-view-id>/admin/entities/domain/question/questionList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/domain/answerChoice/answerChoiceList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/answerChoice/answerChoice.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/domain/answerChoice/answerChoiceView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/domain/answerChoice/answerChoice.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/domain/answerChoice/answerChoiceSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/domain/answerChoice/answerChoiceList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/answerChoice/answerChoice.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/answerChoice/answerChoiceList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/answerChoice/answerChoiceList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/answerChoice/answerChoiceView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/domain/answerChoice/answerChoiceList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/answerChoice/answerChoice.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/answerChoice/answerChoiceSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/answerChoice/answerChoiceList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/answerChoice/answerChoiceList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listAnswerChoice</from-outcome>
+		    <to-view-id>/admin/entities/domain/answerChoice/answerChoiceList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/domain/exam/examList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/exam/exam.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/domain/exam/examView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/domain/exam/exam.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/domain/exam/examSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/domain/exam/examList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/exam/exam.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/exam/examList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/exam/examList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/exam/examView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/domain/exam/examList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/exam/exam.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/exam/examSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/exam/examList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/exam/examList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listExam</from-outcome>
+		    <to-view-id>/admin/entities/domain/exam/examList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/domain/examInstance/examInstanceList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/examInstance/examInstance.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/domain/examInstance/examInstanceView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/domain/examInstance/examInstance.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/domain/examInstance/examInstanceSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/domain/examInstance/examInstanceList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/examInstance/examInstance.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/examInstance/examInstanceList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/examInstance/examInstanceList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/examInstance/examInstanceView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/domain/examInstance/examInstanceList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/examInstance/examInstance.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/examInstance/examInstanceSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/examInstance/examInstanceList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/examInstance/examInstanceList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listExamInstance</from-outcome>
+		    <to-view-id>/admin/entities/domain/examInstance/examInstanceList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/domain/examCreator/examCreatorList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/examCreator/examCreator.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/domain/examCreator/examCreatorView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/domain/examCreator/examCreator.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/domain/examCreator/examCreatorSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/domain/examCreator/examCreatorList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/examCreator/examCreator.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/examCreator/examCreatorList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/examCreator/examCreatorList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/examCreator/examCreatorView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/domain/examCreator/examCreatorList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/examCreator/examCreator.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/examCreator/examCreatorSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/examCreator/examCreatorList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/examCreator/examCreatorList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listExamCreator</from-outcome>
+		    <to-view-id>/admin/entities/domain/examCreator/examCreatorList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/domain/category/categoryList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/category/category.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/domain/category/categoryView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/domain/category/category.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/domain/category/categorySearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/domain/category/categoryList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/category/category.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/category/categoryList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/category/categoryList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/category/categoryView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/domain/category/categoryList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/category/category.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/category/categorySearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/category/categoryList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/category/categoryList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listCategory</from-outcome>
+		    <to-view-id>/admin/entities/domain/category/categoryList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/domain/user/userList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/user/user.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/domain/user/userView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/domain/user/user.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/domain/user/userSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/domain/user/userList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/user/user.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/user/userList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/user/userList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/user/userView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/domain/user/userList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/user/user.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/user/userSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/user/userList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/user/userList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listUser</from-outcome>
+		    <to-view-id>/admin/entities/domain/user/userList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/domain/grantedRole/grantedRoleList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/grantedRole/grantedRole.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/domain/grantedRole/grantedRoleView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/domain/grantedRole/grantedRole.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/domain/grantedRole/grantedRoleSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/domain/grantedRole/grantedRoleList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/grantedRole/grantedRole.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/grantedRole/grantedRoleList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/grantedRole/grantedRoleList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/grantedRole/grantedRoleView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/domain/grantedRole/grantedRoleList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/grantedRole/grantedRole.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/grantedRole/grantedRoleSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/grantedRole/grantedRoleList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/grantedRole/grantedRoleList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listGrantedRole</from-outcome>
+		    <to-view-id>/admin/entities/domain/grantedRole/grantedRoleList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/domain/answeredQuestion/answeredQuestionList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/answeredQuestion/answeredQuestion.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/domain/answeredQuestion/answeredQuestionView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/domain/answeredQuestion/answeredQuestion.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/domain/answeredQuestion/answeredQuestionSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/domain/answeredQuestion/answeredQuestionList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/answeredQuestion/answeredQuestion.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/answeredQuestion/answeredQuestionList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/answeredQuestion/answeredQuestionList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/answeredQuestion/answeredQuestionView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/domain/answeredQuestion/answeredQuestionList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/answeredQuestion/answeredQuestion.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/answeredQuestion/answeredQuestionSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/answeredQuestion/answeredQuestionList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/answeredQuestion/answeredQuestionList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listAnsweredQuestion</from-outcome>
+		    <to-view-id>/admin/entities/domain/answeredQuestion/answeredQuestionList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/domain/section/sectionList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/section/section.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/domain/section/sectionView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/domain/section/section.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/domain/section/sectionSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/domain/section/sectionList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/section/section.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/section/sectionList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domain/section/sectionList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/section/sectionView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/domain/section/sectionList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domain/section/section.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domain/section/sectionSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/section/sectionList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/domain/section/sectionList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listSection</from-outcome>
+		    <to-view-id>/admin/entities/domain/section/sectionList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/domainobjects/firm/firmList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firm/firm.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firm/firmView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firm/firm.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firm/firmSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/domainobjects/firm/firmList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/domainobjects/firm/firm.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firm/firmList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firm/firmList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domainobjects/firm/firmView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firm/firmList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firm/firm.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domainobjects/firm/firmSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firm/firmList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firm/firmList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listFirm</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firm/firmList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/domainobjects/firmAdministrator/firmAdministratorList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firmAdministrator/firmAdministrator.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firmAdministrator/firmAdministratorView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firmAdministrator/firmAdministrator.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firmAdministrator/firmAdministratorSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/domainobjects/firmAdministrator/firmAdministratorList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/domainobjects/firmAdministrator/firmAdministrator.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firmAdministrator/firmAdministratorList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firmAdministrator/firmAdministratorList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domainobjects/firmAdministrator/firmAdministratorView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firmAdministrator/firmAdministratorList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firmAdministrator/firmAdministrator.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domainobjects/firmAdministrator/firmAdministratorSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firmAdministrator/firmAdministratorList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firmAdministrator/firmAdministratorList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listFirmAdministrator</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/firmAdministrator/firmAdministratorList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/domainobjects/litigationCase/litigationCaseList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/litigationCase/litigationCase.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/litigationCase/litigationCaseView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/litigationCase/litigationCase.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/litigationCase/litigationCaseSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/domainobjects/litigationCase/litigationCaseList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/domainobjects/litigationCase/litigationCase.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/litigationCase/litigationCaseList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/litigationCase/litigationCaseList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domainobjects/litigationCase/litigationCaseView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/litigationCase/litigationCaseList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/litigationCase/litigationCase.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domainobjects/litigationCase/litigationCaseSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/litigationCase/litigationCaseList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/litigationCase/litigationCaseList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listLitigationCase</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/litigationCase/litigationCaseList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/domainobjects/caseAdministrator/caseAdministratorList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/caseAdministrator/caseAdministrator.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/caseAdministrator/caseAdministratorView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/caseAdministrator/caseAdministrator.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/caseAdministrator/caseAdministratorSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/domainobjects/caseAdministrator/caseAdministratorList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/domainobjects/caseAdministrator/caseAdministrator.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/caseAdministrator/caseAdministratorList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/caseAdministrator/caseAdministratorList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domainobjects/caseAdministrator/caseAdministratorView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/caseAdministrator/caseAdministratorList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/caseAdministrator/caseAdministrator.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/domainobjects/caseAdministrator/caseAdministratorSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/caseAdministrator/caseAdministratorList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/caseAdministrator/caseAdministratorList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listCaseAdministrator</from-outcome>
+		    <to-view-id>/admin/entities/domainobjects/caseAdministrator/caseAdministratorList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/courtdivisions/levelOfCourt/levelOfCourtList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/levelOfCourt/levelOfCourt.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/levelOfCourt/levelOfCourtView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/levelOfCourt/levelOfCourt.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/levelOfCourt/levelOfCourtSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/courtdivisions/levelOfCourt/levelOfCourtList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/courtdivisions/levelOfCourt/levelOfCourt.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/levelOfCourt/levelOfCourtList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/levelOfCourt/levelOfCourtList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/courtdivisions/levelOfCourt/levelOfCourtView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/levelOfCourt/levelOfCourtList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/levelOfCourt/levelOfCourt.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/courtdivisions/levelOfCourt/levelOfCourtSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/levelOfCourt/levelOfCourtList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/levelOfCourt/levelOfCourtList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listLevelOfCourt</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/levelOfCourt/levelOfCourtList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/courtdivisions/jurisdiction/jurisdictionList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/jurisdiction/jurisdiction.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/jurisdiction/jurisdictionView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/jurisdiction/jurisdiction.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/jurisdiction/jurisdictionSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/courtdivisions/jurisdiction/jurisdictionList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/courtdivisions/jurisdiction/jurisdiction.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/jurisdiction/jurisdictionList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/jurisdiction/jurisdictionList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/courtdivisions/jurisdiction/jurisdictionView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/jurisdiction/jurisdictionList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/jurisdiction/jurisdiction.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/courtdivisions/jurisdiction/jurisdictionSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/jurisdiction/jurisdictionList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/jurisdiction/jurisdictionList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listJurisdiction</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/jurisdiction/jurisdictionList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/courtdivisions/filingOffice/filingOfficeList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/filingOffice/filingOffice.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/filingOffice/filingOfficeView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/filingOffice/filingOffice.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/filingOffice/filingOfficeSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/courtdivisions/filingOffice/filingOfficeList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/courtdivisions/filingOffice/filingOffice.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/filingOffice/filingOfficeList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/filingOffice/filingOfficeList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/courtdivisions/filingOffice/filingOfficeView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/filingOffice/filingOfficeList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/filingOffice/filingOffice.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/courtdivisions/filingOffice/filingOfficeSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/filingOffice/filingOfficeList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/filingOffice/filingOfficeList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listFilingOffice</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/filingOffice/filingOfficeList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/courtdivisions/divsion/divsionList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/divsion/divsion.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/divsion/divsionView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/divsion/divsion.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/divsion/divsionSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/courtdivisions/divsion/divsionList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/courtdivisions/divsion/divsion.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/divsion/divsionList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/divsion/divsionList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/courtdivisions/divsion/divsionView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/divsion/divsionList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/divsion/divsion.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/courtdivisions/divsion/divsionSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/divsion/divsionList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/divsion/divsionList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listDivsion</from-outcome>
+		    <to-view-id>/admin/entities/courtdivisions/divsion/divsionList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+	
+	
+	
+	<!-- Navigation Rule for summary  -->
+	<navigation-rule>
+		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>summary</from-outcome>
+  			<to-view-id>/admin/entities/entitiesSummary.xhtml</to-view-id>
+  		  </navigation-case>
+  		  
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewCandidate</from-outcome>
+  			<to-view-id>/admin/entities/domain/candidate/candidateView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewQuestion</from-outcome>
+  			<to-view-id>/admin/entities/domain/question/questionView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewAnswerChoice</from-outcome>
+  			<to-view-id>/admin/entities/domain/answerChoice/answerChoiceView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewExam</from-outcome>
+  			<to-view-id>/admin/entities/domain/exam/examView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewExamInstance</from-outcome>
+  			<to-view-id>/admin/entities/domain/examInstance/examInstanceView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewExamCreator</from-outcome>
+  			<to-view-id>/admin/entities/domain/examCreator/examCreatorView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewCategory</from-outcome>
+  			<to-view-id>/admin/entities/domain/category/categoryView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewUser</from-outcome>
+  			<to-view-id>/admin/entities/domain/user/userView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewGrantedRole</from-outcome>
+  			<to-view-id>/admin/entities/domain/grantedRole/grantedRoleView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewAnsweredQuestion</from-outcome>
+  			<to-view-id>/admin/entities/domain/answeredQuestion/answeredQuestionView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewSection</from-outcome>
+  			<to-view-id>/admin/entities/domain/section/sectionView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewFirm</from-outcome>
+  			<to-view-id>/admin/entities/domainobjects/firm/firmView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewFirmAdministrator</from-outcome>
+  			<to-view-id>/admin/entities/domainobjects/firmAdministrator/firmAdministratorView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewLitigationCase</from-outcome>
+  			<to-view-id>/admin/entities/domainobjects/litigationCase/litigationCaseView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewCaseAdministrator</from-outcome>
+  			<to-view-id>/admin/entities/domainobjects/caseAdministrator/caseAdministratorView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewLevelOfCourt</from-outcome>
+  			<to-view-id>/admin/entities/courtdivisions/levelOfCourt/levelOfCourtView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewJurisdiction</from-outcome>
+  			<to-view-id>/admin/entities/courtdivisions/jurisdiction/jurisdictionView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewFilingOffice</from-outcome>
+  			<to-view-id>/admin/entities/courtdivisions/filingOffice/filingOfficeView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewDivsion</from-outcome>
+  			<to-view-id>/admin/entities/courtdivisions/divsion/divsionView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  
+	</navigation-rule>
+			
+</faces-config>

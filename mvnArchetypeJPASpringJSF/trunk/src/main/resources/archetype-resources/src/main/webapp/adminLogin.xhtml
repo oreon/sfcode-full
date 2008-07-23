@@ -9,6 +9,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
 	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	>
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
@@ -22,31 +23,7 @@
 		<f:view>
 			<h:messages layout="list" globalOnly="true" showDetail="true"
 			styleClass="messages" />
-		
-			<a4j:form id="form_login">
-				<rich:panel>
-					<h:panelGrid columns="3" styleClass="formTable">
-						<f:facet name="header">
-							<h:outputText value="#{msg.login}" styleClass="formHeaderText" />
-						</f:facet>
-
-						<h:outputText value="#{msg.user_username}" styleClass="formLabel" />
-						<h:inputText id="UserId" required="true" 
-							value="#{authenticationController.username}" />
-
-						<h:message for="UserId" styleClass="errMessage" />
-
-						<h:outputText value="#{msg.user_password}" styleClass="formLabel" />
-						<h:inputSecret id="Password"
-							value="#{authenticationController.password}" required="true" />
-						<h:message for="Password" styleClass="errMessage" />
-
-						<h:commandButton  action="#{authenticationController.authenticate}"
-							value="#{msg.login}" />
-
-					</h:panelGrid>
-				</rich:panel>
-			</a4j:form>
+				<wc:login />  
 		</f:view>
 	</body>
 </html>

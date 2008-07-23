@@ -5,15 +5,31 @@
 	<artifactId>${artifactId}</artifactId>
 	<version>${version}</version>
 	<packaging>war</packaging>
-	<build>
-		<finalName>${artifactId}</finalName>
+		<build>
+		<finalName>kgauge</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
-				<version>6.1.5</version>
+				<version>6.1.7</version>
 				<configuration>
+					
 					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<connectors>
+						<connector
+							implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+							<port>8080</port>
+							<maxIdleTime>60000</maxIdleTime>
+						</connector>
+						<connector
+							implementation="org.mortbay.jetty.security.SslSocketConnector">
+							<port>8443</port>
+							<maxIdleTime>60000</maxIdleTime>
+							<keystore>${basedir}/src/etc/keystore</keystore>
+							<password>password</password>
+							<keyPassword>password</keyPassword>
+						</connector>
+					</connectors>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -26,9 +42,7 @@
 					<encoding>utf-8</encoding>
 				</configuration>
 			</plugin>
-			
-				<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
+			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<configuration>
 					<additionalProjectFacets>
@@ -64,13 +78,14 @@
 								.settings\org.eclipse.wst.common.project.facet.core.xml
 							</name>
 							<content>
-								<![CDATA[<faceted-project>
-  <fixed facet="jst.web"/>
-  <fixed facet="jst.java"/>
-  <installed facet="jst.java" version="5.0"/>
-  <installed facet="jst.web" version="2.5"/>
-  <installed facet="jst.jsf" version="1.2"/>
-</faceted-project>]]>
+								&lt;faceted-project> &lt;fixed
+								facet="jst.web"/> &lt;fixed
+								facet="jst.java"/> &lt;installed
+								facet="jst.java" version="5.0"/>
+								&lt;installed facet="jst.web"
+								version="2.5"/> &lt;installed
+								facet="jst.jsf" version="1.2"/>
+								&lt;/faceted-project>
 							</content>
 						</file>
 						<file>
@@ -78,13 +93,13 @@
 								.settings\org.eclipse.jdt.core.prefs
 							</name>
 							<content>
-								<![CDATA[#Wed Sep 19 12:07:27 EDT 2007
-eclipse.preferences.version=1
-org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.5
-org.eclipse.jdt.core.compiler.compliance=1.5
-org.eclipse.jdt.core.compiler.problem.assertIdentifier=error
-org.eclipse.jdt.core.compiler.problem.enumIdentifier=error
-org.eclipse.jdt.core.compiler.source=1.5]]>
+								#Wed Sep 19 12:07:27 EDT 2007
+								eclipse.preferences.version=1
+								org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.5
+								org.eclipse.jdt.core.compiler.compliance=1.5
+								org.eclipse.jdt.core.compiler.problem.assertIdentifier=error
+								org.eclipse.jdt.core.compiler.problem.enumIdentifier=error
+								org.eclipse.jdt.core.compiler.source=1.5
 							</content>
 						</file>
 						<file>
@@ -92,18 +107,17 @@ org.eclipse.jdt.core.compiler.source=1.5]]>
 								.settings\org.eclipse.jst.common.project.facet.core.prefs
 							</name>
 							<content>
-								<![CDATA[#Wed Sep 19 12:07:29 EDT 2007
-classpath.helper/org.eclipse.jdt.launching.JRE_CONTAINER\:\:org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType\:\:jre1.6.0_02/owners=jst.java\:5.0
-classpath.helper/org.eclipse.jst.server.core.container\:\:org.eclipse.jst.server.tomcat.runtimeTarget\:\:Apache\ Tomcat\ v6.0/owners=jst.web\:2.5
-eclipse.preferences.version=1]]>
+								#Wed Sep 19 12:07:29 EDT 2007
+								classpath.helper/org.eclipse.jdt.launching.JRE_CONTAINER\:\:org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType\:\:jre1.6.0_02/owners=jst.java\:5.0
+								classpath.helper/org.eclipse.jst.server.core.container\:\:org.eclipse.jst.server.tomcat.runtimeTarget\:\:Apache\
+								Tomcat\ v6.0/owners=jst.web\:2.5
+								eclipse.preferences.version=1
 							</content>
 						</file>
 					</additionalConfig>
 					<wtpversion>1.5</wtpversion>
 				</configuration>
 			</plugin>
-			
-			
 		</plugins>
 	</build>
 	<repositories>
@@ -116,21 +130,23 @@ eclipse.preferences.version=1]]>
 			<url>http://repository.jboss.com/maven2</url>
 		</repository>
 		<repository>
+			<id>oweb</id>
+			<url>http://maven.objectweb.org/maven2/</url>
+		</repository>
+		<repository>
 			<releases />
 			<snapshots />
 			<id>jboss-snapshot</id>
 			<url>http://snapshots.jboss.org/maven2</url>
 		</repository>
-		
 		<repository>
 			<releases />
 			<snapshots />
 			<id>oreon-repo</id>
 			<url>http://oreonconsulting.com/m2</url>
 		</repository>
-		
-		<repository>	
-		<id>apache-repo</id>
+		<repository>
+			<id>apache-repo</id>
 			<name>apache-repo</name>
 			<url>
 				http://myfaces.zones.apache.org/dist/maven-repository
@@ -166,34 +182,38 @@ eclipse.preferences.version=1]]>
 			</url>
 			<layout>legacy</layout>
 		</pluginRepository>
+		<pluginRepository>
+			<releases>
+				<updatePolicy>daily</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<updatePolicy>daily</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</snapshots>
+			<id>maven.org</id>
+			<url>http://repo1.maven.org/maven2</url>
+		</pluginRepository>
 	</pluginRepositories>
 	<dependencies>
-	
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.1.2</version>
 			<scope>compile</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>taglibs</groupId>
 			<artifactId>standard</artifactId>
 			<version>1.1.2</version>
 			<scope>compile</scope>
 		</dependency>
-	
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
+			<version>4.4</version>
 		</dependency>
-		<dependency>
-			<groupId>javax.faces</groupId>
-			<artifactId>jsf-impl</artifactId>
-			<version>1.2_04-p02</version>
-		</dependency>
+	
 		<dependency>
 			<groupId>javax.faces</groupId>
 			<artifactId>jsf-api</artifactId>
@@ -242,25 +262,6 @@ eclipse.preferences.version=1]]>
 			<version>3.0</version>
 		</dependency>
 		<dependency>
-			<groupId>org.richfaces.ui</groupId>
-			<artifactId>richfaces-ui</artifactId>
-			<version>3.1.0-rc6</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>xercesImpl</artifactId>
-					<groupId>xerces</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>xml-apis</artifactId>
-					<groupId>xml-apis</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>xmlParserAPIs</artifactId>
-					<groupId>xerces</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
 			<groupId>asm</groupId>
 			<artifactId>asm</artifactId>
 			<version>1.5.3</version>
@@ -271,25 +272,22 @@ eclipse.preferences.version=1]]>
 			<version>3.2</version>
 		</dependency>
 		<dependency>
+			<groupId>commons-digester</groupId>
+			<artifactId>commons-digester</artifactId>
+			<version>1.7</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.geronimo.specs</groupId>
 			<artifactId>geronimo-servlet_2.4_spec</artifactId>
 			<version>1.0</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.witchcraft</groupId>
 			<artifactId>mdasupport</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		
-		<!--  The generator project -->
-		<dependency>
-			<groupId>org.witchcraft.generator</groupId>
-			<artifactId>wcgenerator</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 		
-
 	</dependencies>
 	<reporting>
 		<plugins>
