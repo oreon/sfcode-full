@@ -6,29 +6,40 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-
+<ui:insert name="title"> Knowledge Gauge - IT certifications </ui:insert>
 <link rel="stylesheet" type="text/css"
 	href="#{facesContext.externalContext.requestContextPath}/css/screen.css" />
+
 </head>
+
 <body>
 
-<ui:insert name="header">
-	<ui:include src="/crud/templateSections/header.xhtml" />
-</ui:insert>
+<f:loadBundle basename="messages" var="msg" />
+
+<table width="100%" class="pageHeader">
+	<tr>
+		<td><ui:insert name="header">
+			<ui:include src="/admin/templateSections/header.xhtml" />
+		</ui:insert></td>
+		<td align="right" valign="bottom"><ui:insert name="chooseLangauge" >
+			<ui:include src="/admin/templateSections/chooseLanguage.xhtml" />
+		</ui:insert></td>
+	</tr>
+</table>
 
 <table width="100%" cellpadding="2" border="0">
 
 	<tr>
 		<td><ui:insert name="header">
-			<ui:include src="/crud/templateSections/searchBar.xhtml" />
+			<ui:include src="/admin/templateSections/searchBar.xhtml" />
 		</ui:insert></td>
 	</tr>
 
-	<tr height="500 px">
+	<tr height="430 px">
 		<td valign="top">
 		<table width="100%" height="95%" cellpadding="8">
 			<td valign="top" width="14%"><ui:insert name="leftBar">
-				<ui:include src="/crud/templateSections/leftNavBar.xhtml" />
+				<ui:include src="/admin/templateSections/leftNavBar.xhtml" />
 			</ui:insert></td>
 			<td valign="top"><ui:insert name="content"> DEF BODY </ui:insert></td>
 		</table>
@@ -36,7 +47,7 @@
 	</tr>
 	<tr>
 		<td><ui:insert name="footer">
-			<ui:include src="/crud/templateSections/footer.xhtml" />
+			<ui:include src="/admin/templateSections/footer.xhtml" />
 		</ui:insert></td>
 	</tr>
 </table>
