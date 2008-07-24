@@ -23,6 +23,12 @@ public class City extends BusinessEntity{
 		return name;
 	}
 
+	public City(String name, State state) {
+		super();
+		this.name = name;
+		this.state = state;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}

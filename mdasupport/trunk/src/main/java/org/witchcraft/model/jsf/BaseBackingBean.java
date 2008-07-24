@@ -40,6 +40,8 @@ public abstract class BaseBackingBean<T> {
 	private static final String SUCCESS_SEARCH = "successSearch";
 	private static final String SUCCESS_DELETE = "successDelete";
 	private static final String TEXT_SEARCH = "textSearch";
+	public static final String SEARCH = "search";
+	
 	private static final String AUTHENTICATION_CONTROLLER = "authenticationController";
 	private Date fromDate; // entity creation from date
 	private Date toDate; // entity creation to date
@@ -48,7 +50,7 @@ public abstract class BaseBackingBean<T> {
 	private static Logger log = Logger.getLogger(BaseBackingBean.class);
 
 	protected String action; // whether action is search or update/add new
-	public static final String SEARCH = "search";
+	
 	public static final int INITIAL_RECORDS = 0;
 
 	public abstract BaseService<T> getBaseService();
@@ -91,6 +93,7 @@ public abstract class BaseBackingBean<T> {
 
 	public String search() {
 		action = SEARCH;
+		log.info("Action changed to search");
 		return SUCCESS_SEARCH;
 	}
 
@@ -457,6 +460,7 @@ public abstract class BaseBackingBean<T> {
 	}
 
 	public void setAction(String action) {
+		log.info("Action is being set to " + action);
 		this.action = action;
 	}
 
@@ -474,5 +478,11 @@ public abstract class BaseBackingBean<T> {
 
 	protected String getAuthenticationControllerName() {
 		return AUTHENTICATION_CONTROLLER;
+	}
+	
+	public boolean isActionSearch(){
+		if(action == null )
+			return false;
+		return action.equalsIgnoreCase(SEARCH) || action.equalsIgnoreCase(TEXT_SEARCH);
 	}
 }

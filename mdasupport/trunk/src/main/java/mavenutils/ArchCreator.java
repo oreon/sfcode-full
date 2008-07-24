@@ -17,7 +17,7 @@ public class ArchCreator {
 
 	private static final String BASE_DIR = "C:/Users/jsingh/workspace/kg-temp/";
 	private String[][] arrDirFiles = { { "src/main/webapp", "*" },
-			{ "src/main/resources", "*" }, { "src/etc", "*" }};
+			{ "src/main/resources", "*" }, { "src/etc", "*" }, {"src/model", "*"}};
 
 	public static void main(String[] args) {
 		ArchCreator archCreator = new ArchCreator();
@@ -26,7 +26,7 @@ public class ArchCreator {
 
 	public ArchCreator() {
 		String[] unfilterables = { "gif", "png", "css", "zip", "jpg", "bmp",
-				"jsp", "tld","xhtml" };
+				"jsp", "tld","xhtml", "mdzip" };
 		lstUnfilterables = Arrays.asList(unfilterables);
 	}
 
