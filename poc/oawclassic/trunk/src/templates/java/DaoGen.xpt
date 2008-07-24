@@ -6,7 +6,6 @@
 «EXTENSION java::NamingConventions»
 «EXTENSION java::Associations»
 
-
 «DEFINE GenerateDao FOR Entity»
 	
 	«EXPAND GenerateDaoInterface»
@@ -18,20 +17,7 @@
 	«EXPAND JavaBean::GenCodeWarning»
 	package «parentPackageName()».dao.impl;
 	
-	import «packageName()».«NameS»;
-	import «parentPackageName()».dao.«NameS»Dao;
-	
-	import org.apache.log4j.Logger;
-	import org.hibernate.Criteria;
-	import org.hibernate.criterion.Restrictions;
-	
-	import javax.persistence.NoResultException;
-	import javax.persistence.Query;
-	
-	import java.util.List;
-	
-	import org.springframework.stereotype.Repository;
-	import org.witchcraft.model.support.dao.BaseDao;
+	«EXPAND GenImports FOR this»
 	
 	@Repository
 	public class «NameS»DaoImplBase extends BaseDao<«NameS»> implements «NameS»Dao {
@@ -69,10 +55,9 @@
 			«FOREACH getQueryOperations AS queryOp»
 				«EXPAND CommonUtils::genDocumentation FOR queryOp-»
 				«EXPAND genNamedQueryDec FOR queryOp-»{
-					return null;
+					return executeNamedQuery("«getNamedQuery(queryOp).getName»", new Object[]{«queryOp.createOperationParams()»});
 				}
 			«ENDFOREACH»
-			
 		} 
 	«ENDFILE»	
 	
@@ -169,237 +154,8 @@
 «ENDDEFINE»
 
 
-
-
-«DEFINE GenerateConfig FOR Model»
-	«FILE "../resources/hibernate.cfg.xml"»
-		<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
-
-<hibernate-configuration>
-    <session-factory>
-    	       <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql:///ecomm</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">root</property>
-
-        <!-- JDBC connection pool (use the built-in) -->
-        <property name="connection.pool_size">1</property>
-
-        <!-- SQL dialect -->
-        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-
-        <!-- Enable Hibernate's automatic session context management -->
-        <property name="current_session_context_class">thread</property>
-
-        <!-- Disable the second-level cache  -->
-        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
-
-        <!-- Echo all executed SQL to stdout -->
-        <property name="show_sql">true</property>
-
-        <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">update</property>
-    
-       	«EXPAND GenerateEntityMapping FOREACH getEntities()-»
-       	
-       	
-    </session-factory>
-</hibernate-configuration>
-	
-	«ENDFILE»
-«ENDDEFINE»
-
 «DEFINE GenerateEntityMapping FOR Entity-»
 	<mapping class="«fqn()»" />
-«ENDDEFINE»
-
-
-
-«DEFINE GenerateDaoTest FOR Entity»
-	
-	«FILE "../../test/java/" + parentPackagePath() + "/service/" + NameS + "DaoTest.java"»  
-
-	package «parentPackageName()».service;
-	
-	import «packageName()».«NameS»;
-	import org.springframework.test.jpa.AbstractJpaTests;
-	import java.util.List;
-
-	import org.witchcraft.model.support.testing.TestDataFactory;
-	import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
-	
-	import java.text.SimpleDateFormat;
-	
-	import javax.persistence.PersistenceException;
-	import org.hibernate.PropertyValueException;
-	import java.util.Date;
-	
-	public class «NameS»DaoTest extends AbstractJpaTests {
-			
-			protected «NameS» «asInstanceVar()»Instance = new «NameS»();
-			
-			protected «NameS»Service «asInstanceVar()»Service;
-			
-			protected boolean bTest = true;
-			
-			private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss z");
-		
-	
-		    public void set«NameS»Service(«NameS»Service «asInstanceVar()»Service) {
-				this.«asInstanceVar()»Service = «asInstanceVar()»Service;
-			}
-			
-			protected TestDataFactory «asInstanceVar()»TestDataFactory = (TestDataFactory) BeanHelper
-		.getBean("«asInstanceVar()»TestDataFactory");
-		    
-		    @Override
-			protected String[] getConfigLocations() {
-				return new String[]{"classpath:/applicationContext.xml", "classpath:/testDataFactories.xml"};
-			}
-			
-			@Override
-			protected void runTest() throws Throwable {
-				if (!bTest)
-					return ;
-				super.runTest();
-			}
-			
-			/**
-			* Do the setup before the test in this method
-			**/
-			protected void onSetUpInTransaction() throws Exception {
-				try{
-					
-					«EXPAND java::TestDataFactoryGen::createRandomObject(asInstanceVar() + "Instance") FOR this»
-					
-					«asInstanceVar()»Service.save(«asInstanceVar()»Instance);
-				} catch (PersistenceException pe) {
-					//if this instance can't be created due to back references e.g an orderItem needs an Order - 
-					// - we will simply skip generated tests.
-					if (pe.getCause() instanceof PropertyValueException && pe.getMessage().contains("Backref")) {
-						bTest = false;
-					}
-				} catch (Exception e) {
-					fail(e.getMessage());
-				}
-			
-			}
-			
-			//test saving a new record and updating an existing record;
-			public void testSave() {
-			
-				try{
-					«NameS» «asInstanceVar()» = new «NameS»();
-					
-					try{
-						«EXPAND java::TestDataFactoryGen::createRandomObject(asInstanceVar()) FOR this»
-					}catch(Exception ex){
-						ex.printStackTrace();
-					}
-					
-					«asInstanceVar()»Service.save(«asInstanceVar()»);
-					assertNotNull(«asInstanceVar()».getId());
-				}catch(Exception e){
-					fail(e.getMessage());
-				}
-			}
-			
-			public void testEdit(){
-			
-				try{
-					//test saving a new record and updating an existing record;
-					«NameS» «asInstanceVar()» = («NameS»)«asInstanceVar()»TestDataFactory.loadOneRecord();
-					
-					«FOREACH getAllAttributes AS attrib-»
-						«asInstanceVar()».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»(«attrib.getRandValue()»);
-					«ENDFOREACH»
-									
-					«asInstanceVar()»Service.save(«asInstanceVar()»);
-				
-				}catch(Exception e){
-					fail(e.getMessage());
-				}
-			}
-			
-			public void testCount(){
-				assertTrue(«asInstanceVar()»Service.getCount() > 0 );
-			}
-			
-			//count the number of records - add one delete it - check count is same after delete
-			public void testDelete() {
-											
-				try{
-					long count,newCount,diff=0;			
-					count=«asInstanceVar()»Service.getCount();
-					«NameS» «asInstanceVar()» = («NameS»)«asInstanceVar()»TestDataFactory.loadOneRecord();					
-					«asInstanceVar()»Service.delete(«asInstanceVar()»);
-					newCount=«asInstanceVar()»Service.getCount();
-					diff=newCount-count;
-					assertEquals(diff, 1);
-				}catch(Exception e){
-					fail(e.getMessage());
-				}
-			}	
-			
-			
-			public void testLoad() {
-			
-				try{
-					«NameS» «asInstanceVar()» =  «asInstanceVar()»Service.load(«asInstanceVar()»Instance.getId());
-					assertNotNull(«asInstanceVar()».getId());
-				}catch(Exception e){
-					fail(e.getMessage());
-				}
-			}
-			
-			«EXPAND FinderTest(this) FOREACH Findable »
-			
-			public void testSearchByExample(){
-				try{	
-			    	List<«NameS»> «asInstanceVar()»s = «asInstanceVar()»Service.searchByExample(«asInstanceVar()»Instance);
-			    	assertTrue(!«asInstanceVar()»s.isEmpty());
-			   	}catch(Exception e){
-					fail(e.getMessage());
-				} 
-		    }
-		    
-		    /////////////////// Queries //////////////////////////////////
-		    «FOREACH getQueryOperations AS queryOp»
-				public void test«queryOp.NameS.toFirstUpper()»(){
-					«REM» TODO - temp «ENDREM»
-					«FOREACH queryOp.Parameter AS param»
-						//«param.Type.NameS» «param.NameS»  = 0;
-					«ENDFOREACH»
-					//«queryOp.ReturnType.NameS» ret«queryOp.ReturnType.NameS» = «asInstanceVar()»Service.«queryOp.createOperationInvocation()»;
-				}
-			«ENDFOREACH»
-			
-		} 
-	«ENDFILE»
-	
-	
-«ENDDEFINE»
-
-
-«DEFINE FinderTest(AbstractEntity e) FOR Column»
-	public void testFindBy«NameS.toFirstUpper()»(){
-		if(!bTest)
-			return;
-	
-		«IF isUnique»
-			assertNotNull("Couldn't find a «e.NameS» with «NameS» ", «EXPAND finderInvoke(e) FOR this» );
-			//assertNull("Found a «e.NameS» with «NameS» YYY", «e.asInstanceVar()»Service.findBy«NameS.toFirstUpper()»("YYY"));			
-		«ELSE»
-			List<«e.NameS»> «e.asInstanceVar()»s = «EXPAND finderInvoke(e) FOR this»;
-		    assertTrue(!«e.asInstanceVar()»s.isEmpty()); 
-		    
-		    //negative test
-		    //«e.asInstanceVar()»s = «EXPAND finderInvoke(e) FOR this»;
-		    //assertTrue(«e.asInstanceVar()»s.isEmpty()); 
-		«ENDIF»
-	
-	}
 «ENDDEFINE»
 
 
@@ -407,7 +163,20 @@
 	«e.asInstanceVar()»Service.findBy«NameS.toFirstUpper()»(«e.asInstanceVar()»Instance.«getContainerGetter()»get«NameS.toFirstUpper()»())
 «ENDDEFINE»
 
-
-
-
+«DEFINE GenImports FOR Entity»
+	import «packageName()».«NameS»;
+	import «parentPackageName()».dao.«NameS»Dao;
+	
+	import org.apache.log4j.Logger;
+	import org.hibernate.Criteria;
+	import org.hibernate.criterion.Restrictions;
+	
+	import javax.persistence.NoResultException;
+	import javax.persistence.Query;
+	
+	import java.util.List;
+	
+	import org.springframework.stereotype.Repository;
+	import org.witchcraft.model.support.dao.BaseDao;
+«ENDDEFINE»
 

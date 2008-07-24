@@ -45,8 +45,10 @@
 	
 	import org.witchcraft.model.support.Range;
 	
+	«IF isEntityUser()-»
 	«REM»FIXME - This should come from properties file«ENDREM»
-	import com.oreon.kgauge.domain.GrantedRole;
+	import «readProperty("users.package")».GrantedRole;
+	«ENDIF»
 	
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
 	public class «NameS»ServiceImplBase extends BaseServiceImpl<«NameS»> implements «NameS»Service{

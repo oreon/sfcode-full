@@ -1,12 +1,15 @@
 package oaw4.demo.classic.uml.extend;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
-import org.openarchitectureware.core.meta.core.ElementSet;
+import org.apache.log4j.Logger;
 import org.openarchitectureware.meta.uml.Type;
 
 /**
@@ -16,6 +19,8 @@ import org.openarchitectureware.meta.uml.Type;
  * 
  */
 public class GenericUtils {
+
+	private static final Logger logger = Logger.getLogger(GenericUtils.class);
 
 	public static String createSingleLineComment(String commentText) {
 		return "//" + commentText + "\n";
@@ -133,14 +138,15 @@ public class GenericUtils {
 	public static String getViewLabelFromVariable(String varName) {
 		return getViewLabelFromVariable(varName, " ");
 	}
-	
+
 	/**
 	 * This function tries to split a camel case variable name into space
 	 * delimited user displayable string e.g.
 	 * 
 	 * @return input firstName - output First Name
 	 */
-	public static String getViewLabelFromVariable(String varName, String concatChar) {
+	public static String getViewLabelFromVariable(String varName,
+			String concatChar) {
 		if (varName == null) {
 			System.out.println("Warn: null variable in getViewLabel ");
 			return "";
@@ -153,7 +159,10 @@ public class GenericUtils {
 		return WordUtils.capitalizeFully(varName);
 	}
 
-	/** Takes a string like name,city, country and return a List of the split strings
+	/**
+	 * Takes a string like name,city, country and return a List of the split
+	 * strings
+	 * 
 	 * @param target
 	 * @return
 	 */
@@ -162,7 +171,9 @@ public class GenericUtils {
 		return tokenizeString(arg, "[ ]*,[ ]*|\\}|\\{");
 	}
 
-	/** Tokenize a given string based on the seperators asd
+	/**
+	 * Tokenize a given string based on the seperators asd
+	 * 
 	 * @param arg
 	 * @param seperators
 	 * @return
@@ -176,6 +187,32 @@ public class GenericUtils {
 				lst.add(arrArg);
 		}
 		return lst;
+	}
+
+	/**
+	 * Reads a property from the workflow properties file
+	 * 
+	 * @param propertyName
+	 * @return
+	 */
+	public static String readProperty(String key) {
+		Properties properties = new Properties();
+		try {
+			InputStream stream = GenericUtils.class
+					.getResourceAsStream("/workflow.properties");
+			if (stream == null) {
+				logger
+						.error("workflow properties file is not in the classpath");
+				return "COULDNT_READ_FILE";
+			}
+			properties.load(stream);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "COULDNT_READ_FILE";
+		}
+		String value = properties.getProperty(key);
+		logger.info("Returning value " + value + " for key " + key);
+		return value;
 	}
 
 }

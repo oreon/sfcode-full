@@ -8,7 +8,7 @@
 
 «REM»This function generates the left navigation bar on the entites screen«ENDREM»
 «DEFINE GenerateEntitiesNav FOR Model»
-	«FILE "../webapp/crud/templateSections/leftNavBar.xhtml"»
+	«FILE "../webapp/admin/entities/entitiesNavMenu.xhtml"»
 	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -28,7 +28,7 @@
 				iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right"
 				iconCollapsedTopGroup="chevronDown" iconCollapsedTopPosition="right">
 	       	«getEntitiesLeftNavMenu()» 
-	       	<rich:panelMenuGroup label="Summary">
+	       	<rich:panelMenuGroup label="Summary" expanded="true" >
 				<rich:panelMenuItem>
 					<h:commandLink action="summary" value="#{msg.summary}"/>
 				</rich:panelMenuItem>	
