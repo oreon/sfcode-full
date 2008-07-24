@@ -25,8 +25,6 @@ import javax.jws.WebService;
 
 import org.witchcraft.model.support.Range;
 
-import com.oreon.kgauge.domain.GrantedRole;
-
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 public class CaseAdministratorServiceImplBase
 		extends
