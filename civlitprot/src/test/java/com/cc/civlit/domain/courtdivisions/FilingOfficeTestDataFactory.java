@@ -50,7 +50,7 @@ public class FilingOfficeTestDataFactory
 
 		try {
 
-			filingOffice.setName("epsilon");
+			filingOffice.setName("pi");
 
 			TestDataFactory levelOfCourtTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("levelOfCourtTestDataFactory");
@@ -96,7 +96,7 @@ public class FilingOfficeTestDataFactory
 
 		try {
 
-			filingOffice.setName("theta");
+			filingOffice.setName("epsilon");
 
 			TestDataFactory levelOfCourtTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("levelOfCourtTestDataFactory");

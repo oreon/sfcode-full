@@ -51,11 +51,11 @@ public class FirmAdministratorDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			firmAdministratorInstance.setFirstName("Eric");
-			firmAdministratorInstance.setLastName("alpha");
+			firmAdministratorInstance.setFirstName("Wilson");
+			firmAdministratorInstance.setLastName("Mark");
 			firmAdministratorInstance.setDateOfBirth(dateFormat
-					.parse("2008.07.24 11:17:18 EDT"));
-			firmAdministratorInstance.setEmail("John2061");
+					.parse("2008.07.16 18:53:57 EDT"));
+			firmAdministratorInstance.setEmail("Wilson67560");
 
 			TestDataFactory firmTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("firmTestDataFactory");
@@ -86,11 +86,11 @@ public class FirmAdministratorDaoTest extends AbstractJpaTests {
 
 			try {
 
-				firmAdministrator.setFirstName("pi");
-				firmAdministrator.setLastName("gamma");
+				firmAdministrator.setFirstName("Eric");
+				firmAdministrator.setLastName("John");
 				firmAdministrator.setDateOfBirth(dateFormat
-						.parse("2008.08.06 19:45:39 EDT"));
-				firmAdministrator.setEmail("pi36770");
+						.parse("2008.07.04 21:58:59 EDT"));
+				firmAdministrator.setEmail("alpha96318");
 
 				TestDataFactory firmTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("firmTestDataFactory");
@@ -117,11 +117,11 @@ public class FirmAdministratorDaoTest extends AbstractJpaTests {
 			FirmAdministrator firmAdministrator = (FirmAdministrator) firmAdministratorTestDataFactory
 					.loadOneRecord();
 
-			firmAdministrator.setFirstName("beta");
+			firmAdministrator.setFirstName("John");
 			firmAdministrator.setLastName("theta");
 			firmAdministrator.setDateOfBirth(dateFormat
-					.parse("2008.07.07 13:52:52 EDT"));
-			firmAdministrator.setEmail("delta99369");
+					.parse("2008.07.05 14:10:04 EDT"));
+			firmAdministrator.setEmail("alpha19999");
 
 			firmAdministratorService.save(firmAdministrator);
 

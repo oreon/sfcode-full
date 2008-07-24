@@ -50,18 +50,18 @@ public class FirmDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			firmInstance.setFirmName("Malissa");
+			firmInstance.setFirmName("Eric");
 			firmInstance
-					.setFirmType(com.cc.civlit.domain.FirmType.SOLE_PRACTITONER);
-			firmInstance.getContactDetails().setAddress1("zeta");
+					.setFirmType(com.cc.civlit.domain.FirmType.GOVERNMENT_REGULAORY);
+			firmInstance.getContactDetails().setAddress1("epsilon");
 			firmInstance.getContactDetails().setAddress2("Eric");
-			firmInstance.getContactDetails().setCity("Malissa");
-			firmInstance.getContactDetails().setState("Mark");
-			firmInstance.getContactDetails().setCountry("John");
-			firmInstance.getContactDetails().setPostalCode("Mark");
-			firmInstance.getContactDetails().setPhone("pi");
-			firmInstance.getContactDetails().setFax("Eric");
-			firmInstance.getContactDetails().setEmail("pi95624");
+			firmInstance.getContactDetails().setCity("Mark");
+			firmInstance.getContactDetails().setState("epsilon");
+			firmInstance.getContactDetails().setCountry("gamma");
+			firmInstance.getContactDetails().setPostalCode("theta");
+			firmInstance.getContactDetails().setPhone("delta");
+			firmInstance.getContactDetails().setFax("epsilon");
+			firmInstance.getContactDetails().setEmail("Mark20326");
 
 			firmService.save(firmInstance);
 		} catch (PersistenceException pe) {
@@ -85,17 +85,18 @@ public class FirmDaoTest extends AbstractJpaTests {
 
 			try {
 
-				firm.setFirmName("gamma");
-				firm.setFirmType(com.cc.civlit.domain.FirmType.LAW_FIRM);
-				firm.getContactDetails().setAddress1("John");
-				firm.getContactDetails().setAddress2("Mark");
-				firm.getContactDetails().setCity("alpha");
-				firm.getContactDetails().setState("epsilon");
-				firm.getContactDetails().setCountry("epsilon");
-				firm.getContactDetails().setPostalCode("epsilon");
-				firm.getContactDetails().setPhone("epsilon");
-				firm.getContactDetails().setFax("zeta");
-				firm.getContactDetails().setEmail("delta16000");
+				firm.setFirmName("epsilon");
+				firm
+						.setFirmType(com.cc.civlit.domain.FirmType.GOVERNMENT_REGULAORY);
+				firm.getContactDetails().setAddress1("Wilson");
+				firm.getContactDetails().setAddress2("zeta");
+				firm.getContactDetails().setCity("epsilon");
+				firm.getContactDetails().setState("pi");
+				firm.getContactDetails().setCountry("gamma");
+				firm.getContactDetails().setPostalCode("beta");
+				firm.getContactDetails().setPhone("Lavendar");
+				firm.getContactDetails().setFax("alpha");
+				firm.getContactDetails().setEmail("Lavendar2557");
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -114,17 +115,17 @@ public class FirmDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Firm firm = (Firm) firmTestDataFactory.loadOneRecord();
 
-			firm.setFirmName("zeta");
-			firm.setFirmType(com.cc.civlit.domain.FirmType.SOLE_PRACTITONER);
-			firm.getContactDetails().setAddress1("theta");
-			firm.getContactDetails().setAddress2("Lavendar");
-			firm.getContactDetails().setCity("epsilon");
-			firm.getContactDetails().setState("Lavendar");
-			firm.getContactDetails().setCountry("beta");
-			firm.getContactDetails().setPostalCode("Lavendar");
-			firm.getContactDetails().setPhone("Malissa");
-			firm.getContactDetails().setFax("gamma");
-			firm.getContactDetails().setEmail("Malissa47282");
+			firm.setFirmName("delta");
+			firm.setFirmType(com.cc.civlit.domain.FirmType.LAW_FIRM);
+			firm.getContactDetails().setAddress1("gamma");
+			firm.getContactDetails().setAddress2("Eric");
+			firm.getContactDetails().setCity("Eric");
+			firm.getContactDetails().setState("epsilon");
+			firm.getContactDetails().setCountry("pi");
+			firm.getContactDetails().setPostalCode("pi");
+			firm.getContactDetails().setPhone("alpha");
+			firm.getContactDetails().setFax("zeta");
+			firm.getContactDetails().setEmail("gamma31537");
 
 			firmService.save(firm);
 

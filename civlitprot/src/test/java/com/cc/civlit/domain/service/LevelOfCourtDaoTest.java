@@ -50,7 +50,7 @@ public class LevelOfCourtDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			levelOfCourtInstance.setName("gamma");
+			levelOfCourtInstance.setName("Malissa");
 
 			TestDataFactory jurisdictionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("jurisdictionTestDataFactory");
@@ -81,7 +81,7 @@ public class LevelOfCourtDaoTest extends AbstractJpaTests {
 
 			try {
 
-				levelOfCourt.setName("pi");
+				levelOfCourt.setName("gamma");
 
 				TestDataFactory jurisdictionTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("jurisdictionTestDataFactory");
@@ -108,7 +108,7 @@ public class LevelOfCourtDaoTest extends AbstractJpaTests {
 			LevelOfCourt levelOfCourt = (LevelOfCourt) levelOfCourtTestDataFactory
 					.loadOneRecord();
 
-			levelOfCourt.setName("Wilson");
+			levelOfCourt.setName("Lavendar");
 
 			levelOfCourtService.save(levelOfCourt);
 

@@ -48,7 +48,7 @@ public class DivsionTestDataFactory extends AbstractTestDataFactory<Divsion> {
 
 		try {
 
-			divsion.setName("delta");
+			divsion.setName("epsilon");
 
 			TestDataFactory filingOfficeTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("filingOfficeTestDataFactory");
@@ -71,7 +71,7 @@ public class DivsionTestDataFactory extends AbstractTestDataFactory<Divsion> {
 
 		try {
 
-			divsion.setName("John");
+			divsion.setName("beta");
 
 			TestDataFactory filingOfficeTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("filingOfficeTestDataFactory");
@@ -117,7 +117,7 @@ public class DivsionTestDataFactory extends AbstractTestDataFactory<Divsion> {
 
 		try {
 
-			divsion.setName("Lavendar");
+			divsion.setName("Wilson");
 
 			TestDataFactory filingOfficeTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("filingOfficeTestDataFactory");
@@ -140,7 +140,7 @@ public class DivsionTestDataFactory extends AbstractTestDataFactory<Divsion> {
 
 		try {
 
-			divsion.setName("delta");
+			divsion.setName("alpha");
 
 			TestDataFactory filingOfficeTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("filingOfficeTestDataFactory");

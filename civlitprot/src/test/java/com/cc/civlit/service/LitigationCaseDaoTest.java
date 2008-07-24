@@ -51,9 +51,9 @@ public class LitigationCaseDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			litigationCaseInstance.setName("John");
-			litigationCaseInstance.setAccountName("pi");
-			litigationCaseInstance.setCourtFileNumber("zeta");
+			litigationCaseInstance.setName("theta");
+			litigationCaseInstance.setAccountName("Mark");
+			litigationCaseInstance.setCourtFileNumber("Malissa");
 			litigationCaseInstance.setStyleOfCase("delta");
 			litigationCaseInstance
 					.setProceedingType(com.cc.civlit.domain.ProceedingType.PT1);
@@ -89,10 +89,10 @@ public class LitigationCaseDaoTest extends AbstractJpaTests {
 
 			try {
 
-				litigationCase.setName("Mark");
+				litigationCase.setName("pi");
 				litigationCase.setAccountName("John");
-				litigationCase.setCourtFileNumber("Wilson");
-				litigationCase.setStyleOfCase("delta");
+				litigationCase.setCourtFileNumber("Mark");
+				litigationCase.setStyleOfCase("theta");
 				litigationCase
 						.setProceedingType(com.cc.civlit.domain.ProceedingType.PT2);
 				litigationCase
@@ -123,13 +123,14 @@ public class LitigationCaseDaoTest extends AbstractJpaTests {
 			LitigationCase litigationCase = (LitigationCase) litigationCaseTestDataFactory
 					.loadOneRecord();
 
-			litigationCase.setName("zeta");
-			litigationCase.setAccountName("beta");
-			litigationCase.setCourtFileNumber("pi");
-			litigationCase.setStyleOfCase("Mark");
+			litigationCase.setName("Wilson");
+			litigationCase.setAccountName("gamma");
+			litigationCase.setCourtFileNumber("Mark");
+			litigationCase.setStyleOfCase("theta");
 			litigationCase
 					.setProceedingType(com.cc.civlit.domain.ProceedingType.PT2);
-			litigationCase.setCaseType(com.cc.civlit.domain.CaseType.OTHER);
+			litigationCase
+					.setCaseType(com.cc.civlit.domain.CaseType.INSOLVENCY);
 
 			litigationCaseService.save(litigationCase);
 
