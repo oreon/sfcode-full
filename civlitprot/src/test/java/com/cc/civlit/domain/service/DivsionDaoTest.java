@@ -50,7 +50,7 @@ public class DivsionDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			divsionInstance.setName("Wilson");
+			divsionInstance.setName("pi");
 
 			TestDataFactory filingOfficeTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("filingOfficeTestDataFactory");
@@ -81,7 +81,7 @@ public class DivsionDaoTest extends AbstractJpaTests {
 
 			try {
 
-				divsion.setName("Mark");
+				divsion.setName("alpha");
 
 				TestDataFactory filingOfficeTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("filingOfficeTestDataFactory");
@@ -107,7 +107,7 @@ public class DivsionDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Divsion divsion = (Divsion) divsionTestDataFactory.loadOneRecord();
 
-			divsion.setName("epsilon");
+			divsion.setName("zeta");
 
 			divsionService.save(divsion);
 

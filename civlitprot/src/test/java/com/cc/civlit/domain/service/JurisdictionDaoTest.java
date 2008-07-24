@@ -50,7 +50,7 @@ public class JurisdictionDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			jurisdictionInstance.setName("John");
+			jurisdictionInstance.setName("theta");
 
 			jurisdictionService.save(jurisdictionInstance);
 		} catch (PersistenceException pe) {
@@ -74,7 +74,7 @@ public class JurisdictionDaoTest extends AbstractJpaTests {
 
 			try {
 
-				jurisdiction.setName("zeta");
+				jurisdiction.setName("Mark");
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -94,7 +94,7 @@ public class JurisdictionDaoTest extends AbstractJpaTests {
 			Jurisdiction jurisdiction = (Jurisdiction) jurisdictionTestDataFactory
 					.loadOneRecord();
 
-			jurisdiction.setName("Eric");
+			jurisdiction.setName("delta");
 
 			jurisdictionService.save(jurisdiction);
 

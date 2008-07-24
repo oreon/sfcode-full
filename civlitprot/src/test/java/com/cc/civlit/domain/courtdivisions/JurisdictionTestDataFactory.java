@@ -50,7 +50,7 @@ public class JurisdictionTestDataFactory
 
 		try {
 
-			jurisdiction.setName("Wilson");
+			jurisdiction.setName("Eric");
 
 			register(jurisdiction);
 
@@ -66,7 +66,7 @@ public class JurisdictionTestDataFactory
 
 		try {
 
-			jurisdiction.setName("Eric");
+			jurisdiction.setName("Wilson");
 
 			register(jurisdiction);
 
@@ -82,7 +82,7 @@ public class JurisdictionTestDataFactory
 
 		try {
 
-			jurisdiction.setName("Malissa");
+			jurisdiction.setName("Lavendar");
 
 			register(jurisdiction);
 
@@ -98,7 +98,7 @@ public class JurisdictionTestDataFactory
 
 		try {
 
-			jurisdiction.setName("theta");
+			jurisdiction.setName("Malissa");
 
 			register(jurisdiction);
 
@@ -114,7 +114,7 @@ public class JurisdictionTestDataFactory
 
 		try {
 
-			jurisdiction.setName("pi");
+			jurisdiction.setName("beta");
 
 			register(jurisdiction);
 

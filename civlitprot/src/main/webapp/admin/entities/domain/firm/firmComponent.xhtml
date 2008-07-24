@@ -1,401 +1,428 @@
-  
-	
-	
-<html  
-xmlns="http://www.w3.org/1999/xhtml"
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:c="http://java.sun.com/jstl/core"
-xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-xmlns:s="http://myfaces.apache.org/sandbox"
-xmlns:t="http://myfaces.apache.org/tomahawk"
-xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
-xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
-xmlns:wc="http://witchcraft.sourceforge.net/jsf"
- >
-	
-	
 
-	<a4j:form id="form">
-			<rich:panel header="Firm Information">
-				<h:outputText value="Please correct the following issues !" 
-			rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
-				
-			<h:panelGrid columns="2" styleClass="formTableCustom">
-					
-					
-					
-	<h:panelGroup>
-		<h:outputText value=""/>
-		<h:outputText value="#{msg.firm_firmName}" />
-		<h:outputText value="" />
-	</h:panelGroup>
-	<h:panelGroup>
-		<a4j:region>
-		
-	<h:inputText    required="false" 
-		id="firm_firmName"
-		value="#{firmCrudBacking.firm.firmName}">
-		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="firm_firmName" />
-	</h:inputText>
-	
-	
-		
-	<wc:message for="firm_firmName" />
-  
-		</a4j:region>
-	</h:panelGroup>
-						
 
-	<h:panelGroup>
-		<h:outputText value=""/>
-		<h:outputText value="#{msg.firm_firmType}" />
-		<h:outputText value="*" />
-	</h:panelGroup>
-	<h:panelGroup>
-		<a4j:region>
-		
-	<h:selectOneMenu    required="true" 
-		id="firm_firmType"
-		value="#{firmCrudBacking.firm.firmType}">
-		<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="CORPORATE_COUNSEL" itemValue="CORPORATE_COUNSEL" />
-<f:selectItem itemLabel="GOVERNMENT_REGULAORY" itemValue="GOVERNMENT_REGULAORY" />
-<f:selectItem itemLabel="PARALEGAL" itemValue="PARALEGAL" />
-<f:selectItem itemLabel="LAW_FIRM" itemValue="LAW_FIRM" />
-<f:selectItem itemLabel="SOLE_PRACTITONER" itemValue="SOLE_PRACTITONER" />
-		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="firm_firmType" />
-	</h:selectOneMenu>
-	
-	
-	
-		
-	<wc:message for="firm_firmType" />
-  
-		</a4j:region>
-	</h:panelGroup>
-						
 
-	<h:panelGroup>
-		<h:outputText value=""/>
-		<h:outputText value="#{msg.contactDetails_address1}" />
-		<h:outputText value="*" />
-	</h:panelGroup>
-	<h:panelGroup>
-		<a4j:region>
-		
-	<h:inputText    required="true" 
-		id="firm_contactDetails_address1"
-		value="#{firmCrudBacking.firm.contactDetails.address1}">
-		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="firm_contactDetails_address1" />
-	</h:inputText>
-	
-	
-	
-		
-	<wc:message for="firm_contactDetails_address1" />
-  
-		</a4j:region>
-	</h:panelGroup>
-						
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:s="http://myfaces.apache.org/sandbox"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
 
-	<h:panelGroup>
-		<h:outputText value=""/>
-		<h:outputText value="#{msg.contactDetails_address2}" />
-		<h:outputText value="" />
-	</h:panelGroup>
-	<h:panelGroup>
-		<a4j:region>
-		
-	<h:inputText    required="false" 
-		id="firm_contactDetails_address2"
-		value="#{firmCrudBacking.firm.contactDetails.address2}">
-		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="firm_contactDetails_address2" />
-	</h:inputText>
-	
-	
-		
-	<wc:message for="firm_contactDetails_address2" />
-  
-		</a4j:region>
-	</h:panelGroup>
-						
 
-	<h:panelGroup>
-		<h:outputText value=""/>
-		<h:outputText value="#{msg.contactDetails_city}" />
-		<h:outputText value="" />
-	</h:panelGroup>
-	<h:panelGroup>
-		<a4j:region>
-		
-	<h:inputText    required="false" 
-		id="firm_contactDetails_city"
-		value="#{firmCrudBacking.firm.contactDetails.city}">
-		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="firm_contactDetails_city" />
-	</h:inputText>
-	
-	
-		
-	<wc:message for="firm_contactDetails_city" />
-  
-		</a4j:region>
-	</h:panelGroup>
-						
 
-	<h:panelGroup>
-		<h:outputText value=""/>
-		<h:outputText value="#{msg.contactDetails_state}" />
-		<h:outputText value="*" />
-	</h:panelGroup>
-	<h:panelGroup>
-		<a4j:region>
-		
-	<h:inputText    required="true" 
-		id="firm_contactDetails_state"
-		value="#{firmCrudBacking.firm.contactDetails.state}">
-		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="firm_contactDetails_state" />
-	</h:inputText>
-	
-	
-		<rich:suggestionbox id="suggestionBox_state"  for="firm_contactDetails_state" tokens=",["
-			suggestionAction="#{candidateCrudBacking.autoCompleteState}" var="result"
-			fetchValue="#{result.name}" rules="cols"
-		    columnClasses="center">
-		
-		
-			<h:column>
-				<h:outputText value="#{result.name}" />
-			</h:column>
-		
-			<h:column>
-				<h:outputText value="#{result.country.countryName}" />
-			</h:column>
-		
-		
-		</rich:suggestionbox>
-	
-	
-		
-	<wc:message for="firm_contactDetails_state" />
-  
-		</a4j:region>
-	</h:panelGroup>
-						
+<a4j:form id="form">
+	<rich:panel header="Firm Information">
+		<h:outputText value="Please correct the following issues !"
+			rendered="#{! empty facesContext.maximumSeverity}"
+			styleClass="errMessage" />
 
-	<h:panelGroup>
-		<h:outputText value=""/>
-		<h:outputText value="#{msg.contactDetails_country}" />
-		<h:outputText value="*" />
-	</h:panelGroup>
-	<h:panelGroup>
-		<a4j:region>
-		
-	<h:inputText    required="true" 
-		id="firm_contactDetails_country"
-		value="#{firmCrudBacking.firm.contactDetails.country}">
-		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="firm_contactDetails_country" />
-	</h:inputText>
-	
-	
-	
-		
-	<wc:message for="firm_contactDetails_country" />
-  
-		</a4j:region>
-	</h:panelGroup>
-						
+		<h:panelGrid columns="2" styleClass="formTableCustom">
 
-	<h:panelGroup>
-		<h:outputText value=""/>
-		<h:outputText value="#{msg.contactDetails_postalCode}" />
-		<h:outputText value="" />
-	</h:panelGroup>
-	<h:panelGroup>
-		<a4j:region>
-		
-	<h:inputText    required="false" 
-		id="firm_contactDetails_postalCode"
-		value="#{firmCrudBacking.firm.contactDetails.postalCode}">
-		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="firm_contactDetails_postalCode" />
-	</h:inputText>
-	
-	
-		
-	<wc:message for="firm_contactDetails_postalCode" />
-  
-		</a4j:region>
-	</h:panelGroup>
-						
 
-	<h:panelGroup>
-		<h:outputText value=""/>
-		<h:outputText value="#{msg.contactDetails_phone}" />
-		<h:outputText value="" />
-	</h:panelGroup>
-	<h:panelGroup>
-		<a4j:region>
-		
-	<h:inputText    required="false" 
-		id="firm_contactDetails_phone"
-		value="#{firmCrudBacking.firm.contactDetails.phone}">
-		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="firm_contactDetails_phone" />
-	</h:inputText>
-	
-	
-		
-	<wc:message for="firm_contactDetails_phone" />
-  
-		</a4j:region>
-	</h:panelGroup>
-						
 
-	<h:panelGroup>
-		<h:outputText value=""/>
-		<h:outputText value="#{msg.contactDetails_fax}" />
-		<h:outputText value="" />
-	</h:panelGroup>
-	<h:panelGroup>
-		<a4j:region>
-		
-	<h:inputText    required="false" 
-		id="firm_contactDetails_fax"
-		value="#{firmCrudBacking.firm.contactDetails.fax}">
-		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="firm_contactDetails_fax" />
-	</h:inputText>
-	
-	
-		
-	<wc:message for="firm_contactDetails_fax" />
-  
-		</a4j:region>
-	</h:panelGroup>
-						
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.firm_firmName}" />
+				<h:outputText value="" />
+			</h:panelGroup>
+			<h:panelGroup>
+				<a4j:region>
 
-	<h:panelGroup>
-		<h:outputText value=""/>
-		<h:outputText value="#{msg.contactDetails_email}" />
-		<h:outputText value="*" />
-	</h:panelGroup>
-	<h:panelGroup>
-		<a4j:region>
-		
-	<h:inputText    required="true" 
-		id="firm_contactDetails_email"
-		value="#{firmCrudBacking.firm.contactDetails.email}">
-		<t:validateEmail />		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="firm_contactDetails_email" />
-	</h:inputText>
-	
-	
-	
-		
-	<wc:message for="firm_contactDetails_email" />
-  
-		</a4j:region>
-	</h:panelGroup>
+					<h:inputText required="false" id="firm_firmName"
+						value="#{firmCrudBacking.firm.firmName}">
+						<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true"
+							reRender="firm_firmName" />
+					</h:inputText>
+
+
+
+					<wc:message for="firm_firmName" />
+
+				</a4j:region>
+			</h:panelGroup>
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.firm_firmType}" />
+				<h:outputText value="*" />
+			</h:panelGroup>
+			<h:panelGroup>
+				<a4j:region>
+
+					<h:selectOneMenu required="true" id="firm_firmType"
+						value="#{firmCrudBacking.firm.firmType}">
+						<f:selectItem itemLabel="Select" />
+						<f:selectItem itemLabel="CORPORATE_COUNSEL"
+							itemValue="CORPORATE_COUNSEL" />
+						<f:selectItem itemLabel="GOVERNMENT_REGULAORY"
+							itemValue="GOVERNMENT_REGULAORY" />
+						<f:selectItem itemLabel="PARALEGAL" itemValue="PARALEGAL" />
+						<f:selectItem itemLabel="LAW_FIRM" itemValue="LAW_FIRM" />
+						<f:selectItem itemLabel="SOLE_PRACTITONER"
+							itemValue="SOLE_PRACTITONER" />
+						<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true"
+							reRender="firm_firmType" />
+					</h:selectOneMenu>
+
+
+
+
+					<wc:message for="firm_firmType" />
+
+				</a4j:region>
+			</h:panelGroup>
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.contactDetails_address1}" />
+				<h:outputText value="*" />
+			</h:panelGroup>
+			<h:panelGroup>
+				<a4j:region>
+
+					<h:inputText required="true" id="firm_contactDetails_address1"
+						value="#{firmCrudBacking.firm.contactDetails.address1}">
+						<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true"
+							reRender="firm_contactDetails_address1" />
+					</h:inputText>
+
+
+
+
+					<wc:message for="firm_contactDetails_address1" />
+
+				</a4j:region>
+			</h:panelGroup>
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.contactDetails_address2}" />
+				<h:outputText value="" />
+			</h:panelGroup>
+			<h:panelGroup>
+				<a4j:region>
+
+					<h:inputText required="false" id="firm_contactDetails_address2"
+						value="#{firmCrudBacking.firm.contactDetails.address2}">
+						<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true"
+							reRender="firm_contactDetails_address2" />
+					</h:inputText>
+
+
+
+					<wc:message for="firm_contactDetails_address2" />
+
+				</a4j:region>
+			</h:panelGroup>
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.contactDetails_city}" />
+				<h:outputText value="*" />
+			</h:panelGroup>
+			<h:panelGroup>
+				<a4j:region>
+
+					<h:inputText required="true" id="firm_contactDetails_city"
+						value="#{firmCrudBacking.firm.contactDetails.city}"
+						valueChangeListener="#{firmCrudBacking.handleCityChanged}"
+						>
 						
-			</h:panelGrid>
-						<br/>
+					</h:inputText>
+
+
+					<rich:suggestionbox id="suggestionBox_city"
+						for="firm_contactDetails_city" tokens=",["
+						suggestionAction="#{firmCrudBacking.autoCompleteCity}"
+						var="result" fetchValue="#{result.name}" rules="cols"
+						columnClasses="center">
+						<h:column>
+							<h:outputText value="#{result.name}" />
+						</h:column>
 						
-			
-				
-				
-				<rich:simpleTogglePanel switchType="client" label="FirmAdministrator">
-				<t:dataTable id="firmAdministrator_data" var="firmAdministrator" rowIndexVar="rowIndex" 
-					value="#{firmCrudBacking.listFirmAdministrators}" rows="10"
+						<h:column>
+							<h:outputText value="#{result.state.name}" />
+						</h:column>
+						
+						<h:column>
+							<h:outputText value="#{result.state.country.countryName}" />
+						</h:column>
+						
+						<a4j:support event="onselect"
+							reRender="firm_contactDetails_state, firm_contactDetails_country" />
+						
+					</rich:suggestionbox>
+
+					<wc:message for="firm_contactDetails_city" />
+
+				</a4j:region>
+			</h:panelGroup>
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.contactDetails_state}" />
+				<h:outputText value="*" />
+			</h:panelGroup>
+			<h:panelGroup>
+				<a4j:region>
+
+					<h:inputText required="true" id="firm_contactDetails_state"
+						value="#{firmCrudBacking.firm.contactDetails.state}"
+						valueChangeListener="#{firmCrudBacking.handleStateChanged}">
+						<a4j:support event="blur" bypassUpdates="true" ajaxSingle="true"
+							reRender="firm_contactDetails_country" />
+					</h:inputText>
+
+
+					<rich:suggestionbox id="suggestionBox_state"
+						for="firm_contactDetails_state" tokens=",["
+						suggestionAction="#{firmCrudBacking.autoCompleteState}"
+						var="result" fetchValue="#{result.name}" rules="cols"
+						columnClasses="center">
+
+						<h:column>
+							<h:outputText value="#{result.name}" />
+						</h:column>
+
+						<h:column>
+							<h:outputText value="#{result.country.countryName}" />
+						</h:column>
+
+						<a4j:support event="onselect"
+							reRender="firm_contactDetails_country" />
+					</rich:suggestionbox>
+
+					<wc:message for="firm_contactDetails_state" />
+				</a4j:region>
+			</h:panelGroup>
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.contactDetails_country}" />
+				<h:outputText value="*" />
+			</h:panelGroup>
+			<h:panelGroup>
+				<a4j:region>
+
+					<h:inputText required="true" id="firm_contactDetails_country"
+						value="#{firmCrudBacking.firm.contactDetails.country}">
+						<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true"
+							reRender="firm_contactDetails_country" />
+					</h:inputText>
+
+
+
+
+					<wc:message for="firm_contactDetails_country" />
+
+				</a4j:region>
+			</h:panelGroup>
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.contactDetails_postalCode}" />
+				<h:outputText value="" />
+			</h:panelGroup>
+			<h:panelGroup>
+				<a4j:region>
+
+					<h:inputText required="false" id="firm_contactDetails_postalCode"
+						value="#{firmCrudBacking.firm.contactDetails.postalCode}">
+						<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true"
+							reRender="firm_contactDetails_postalCode" />
+					</h:inputText>
+
+
+
+					<wc:message for="firm_contactDetails_postalCode" />
+
+				</a4j:region>
+			</h:panelGroup>
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.contactDetails_phone}" />
+				<h:outputText value="" />
+			</h:panelGroup>
+			<h:panelGroup>
+				<a4j:region>
+
+					<h:inputText required="false" id="firm_contactDetails_phone"
+						value="#{firmCrudBacking.firm.contactDetails.phone}">
+						<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true"
+							reRender="firm_contactDetails_phone" />
+					</h:inputText>
+
+
+
+					<wc:message for="firm_contactDetails_phone" />
+
+				</a4j:region>
+			</h:panelGroup>
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.contactDetails_fax}" />
+				<h:outputText value="" />
+			</h:panelGroup>
+			<h:panelGroup>
+				<a4j:region>
+
+					<h:inputText required="false" id="firm_contactDetails_fax"
+						value="#{firmCrudBacking.firm.contactDetails.fax}">
+						<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true"
+							reRender="firm_contactDetails_fax" />
+					</h:inputText>
+
+
+
+					<wc:message for="firm_contactDetails_fax" />
+
+				</a4j:region>
+			</h:panelGroup>
+
+
+			<h:panelGroup>
+				<h:outputText value="" />
+				<h:outputText value="#{msg.contactDetails_email}" />
+				<h:outputText value="*" />
+			</h:panelGroup>
+			<h:panelGroup>
+				<a4j:region>
+
+					<h:inputText required="true" id="firm_contactDetails_email"
+						value="#{firmCrudBacking.firm.contactDetails.email}">
+						<t:validateEmail />
+						<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true"
+							reRender="firm_contactDetails_email" />
+					</h:inputText>
+
+
+
+
+					<wc:message for="firm_contactDetails_email" />
+
+				</a4j:region>
+			</h:panelGroup>
+
+		</h:panelGrid>
+		<br />
+
+
+
+
+		<rich:simpleTogglePanel switchType="client" label="FirmAdministrator">
+			<t:dataTable id="firmAdministrator_data" var="firmAdministrator"
+				rowIndexVar="rowIndex"
+				value="#{firmCrudBacking.listFirmAdministrators}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
-				 
-				
-	
-				
-	
-	<t:column  >
-		<f:facet name="header">
-				<t:outputText value="FirstName" /> 
-		</f:facet>
-		<h:inputText    required="true" 
-			id="firmAdministrator__firstName"
-			value="#{firmAdministrator.firstName}">
-			
-		</h:inputText>
-		<h:message for="firmAdministrator__firstName" styleClass="errMessage" />
-	</t:column>
 
-	
-	<t:column  >
-		<f:facet name="header">
-				<t:outputText value="LastName" /> 
-		</f:facet>
-		<h:inputText    required="true" 
-			id="firmAdministrator__lastName"
-			value="#{firmAdministrator.lastName}">
-			
-		</h:inputText>
-		<h:message for="firmAdministrator__lastName" styleClass="errMessage" />
-	</t:column>
 
-	
-	<t:column  >
-		<f:facet name="header">
-				<t:outputText value="DateOfBirth" /> 
-		</f:facet>
-		<rich:calendar    popup="true"   required="true" 
-			id="firmAdministrator__dateOfBirth"
-			value="#{firmAdministrator.dateOfBirth}">
-			
-		</rich:calendar >
-		<h:message for="firmAdministrator__dateOfBirth" styleClass="errMessage" />
-	</t:column>
 
-	
-	<t:column  >
-		<f:facet name="header">
-				<t:outputText value="Email" /> 
-		</f:facet>
-		<h:inputText    required="true" 
-			id="firmAdministrator__email"
-			value="#{firmAdministrator.email}">
-			
-		</h:inputText>
-		<h:message for="firmAdministrator__email" styleClass="errMessage" />
-	</t:column>
-				
-	<t:column>
-		<f:facet name="header">
-			<t:outputText value="Delete" />
-		</f:facet>
 
-		<a4j:commandButton value="Delete" 
-			reRender="firmAdministrator_data" bypassUpdates="true" styleClass="btn"
-					actionListener="#{firmCrudBacking.deleteFirmAdministratorRow}" >
-				<a4j:actionparam name="deleteRowIndex" value="#{rowIndex}" />
-		</a4j:commandButton>
-	</t:column>
-				</t:dataTable>
-				<br/>
-				<a4j:commandButton value="Add Row" styleClass="btn"
-									reRender="firmAdministrator_data" 
-									actionListener="#{firmCrudBacking.addNewFirmAdministratorRow}" />
-				</rich:simpleTogglePanel>
-				<br/>
-				
-			
-						
-				</rich:panel>
-				
-				<h:panelGrid columns="2">
-				<h:panelGroup>
-  					<h:commandButton id="button1" value="Submit" action="#{firmCrudBacking.update}"  styleClass="btn" /> 
-  					<h:outputText value=" " />
-  					<h:commandButton id="button2" value="Cancel" action="cancelUpdate" immediate="true" styleClass="btn"/> 
-  				   	<!-- We need to have a hidden text field to store the id of the record being edited -->		
-		  			<h:inputHidden id="firm_id" value="#{firmCrudBacking.firm.id}" />
-  				   	
-					<h:inputHidden id="contactDetails_id" value="#{firmCrudBacking.firm.contactDetails.id}" />
-				 </h:panelGroup>
-				</h:panelGrid>
-				
-	</a4j:form>
-</html>			
-		
+
+				<t:column>
+					<f:facet name="header">
+						<t:outputText value="FirstName" />
+					</f:facet>
+					<h:inputText required="true" id="firmAdministrator__firstName"
+						value="#{firmAdministrator.firstName}">
+
+					</h:inputText>
+					<h:message for="firmAdministrator__firstName"
+						styleClass="errMessage" />
+				</t:column>
+
+
+				<t:column>
+					<f:facet name="header">
+						<t:outputText value="LastName" />
+					</f:facet>
+					<h:inputText required="true" id="firmAdministrator__lastName"
+						value="#{firmAdministrator.lastName}">
+
+					</h:inputText>
+					<h:message for="firmAdministrator__lastName"
+						styleClass="errMessage" />
+				</t:column>
+
+
+				<t:column>
+					<f:facet name="header">
+						<t:outputText value="DateOfBirth" />
+					</f:facet>
+					<rich:calendar popup="true" required="true"
+						id="firmAdministrator__dateOfBirth"
+						value="#{firmAdministrator.dateOfBirth}">
+
+					</rich:calendar>
+					<h:message for="firmAdministrator__dateOfBirth"
+						styleClass="errMessage" />
+				</t:column>
+
+
+				<t:column>
+					<f:facet name="header">
+						<t:outputText value="Email" />
+					</f:facet>
+					<h:inputText required="true" id="firmAdministrator__email"
+						value="#{firmAdministrator.email}">
+
+					</h:inputText>
+					<h:message for="firmAdministrator__email" styleClass="errMessage" />
+				</t:column>
+
+				<t:column>
+					<f:facet name="header">
+						<t:outputText value="Delete" />
+					</f:facet>
+
+					<a4j:commandButton value="Delete" reRender="firmAdministrator_data"
+						bypassUpdates="true" styleClass="btn"
+						actionListener="#{firmCrudBacking.deleteFirmAdministratorRow}">
+						<a4j:actionparam name="deleteRowIndex" value="#{rowIndex}" />
+					</a4j:commandButton>
+				</t:column>
+			</t:dataTable>
+			<br />
+			<a4j:commandButton value="Add Row" styleClass="btn"
+				reRender="firmAdministrator_data"
+				actionListener="#{firmCrudBacking.addNewFirmAdministratorRow}" />
+		</rich:simpleTogglePanel>
+		<br />
+
+
+
+	</rich:panel>
+
+	<h:panelGrid columns="2">
+		<h:panelGroup>
+			<h:commandButton id="button1" value="Submit"
+				action="#{firmCrudBacking.update}" styleClass="btn" />
+			<h:outputText value=" " />
+			<h:commandButton id="button2" value="Cancel" action="cancelUpdate"
+				immediate="true" styleClass="btn" />
+			<!-- We need to have a hidden text field to store the id of the record being edited -->
+			<h:inputHidden id="firm_id" value="#{firmCrudBacking.firm.id}" />
+
+		</h:panelGroup>
+	</h:panelGrid>
+
+</a4j:form>
+</html>
+

@@ -42,6 +42,11 @@ public class LitigationCaseDaoImplBase extends BaseDao<LitigationCase>
 					exampleInstance.getDivsion().getId()));
 		}
 
+		if (exampleInstance.getFirm() != null) {
+			criteria = criteria.add(Restrictions.eq("firm.id", exampleInstance
+					.getFirm().getId()));
+		}
+
 	}
 
 }
