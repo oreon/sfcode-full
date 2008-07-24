@@ -91,7 +91,12 @@ public abstract class ContactDetailsBase implements java.io.Serializable {
 		return this.address2;
 	}
 
+	@Column(nullable = false, unique = false)
+	/*
+	
+	 */
 	public String getCity() {
+
 		return this.city;
 	}
 

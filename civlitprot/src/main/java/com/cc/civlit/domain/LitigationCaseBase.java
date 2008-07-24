@@ -121,6 +121,8 @@ public abstract class LitigationCaseBase
 
 	private java.util.Set<com.cc.civlit.domain.CaseAdministrator> caseAdministrator = new java.util.HashSet<com.cc.civlit.domain.CaseAdministrator>();
 
+	private com.cc.civlit.domain.Firm firm;
+
 	@ManyToOne
 	@JoinColumn(name = "divsion_ID", nullable = false, updatable = true)
 	@XmlTransient
@@ -130,6 +132,17 @@ public abstract class LitigationCaseBase
 
 	public void setDivsion(com.cc.civlit.domain.courtdivisions.Divsion divsion) {
 		this.divsion = divsion;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "firm_ID", nullable = false, updatable = true)
+	@XmlTransient
+	public com.cc.civlit.domain.Firm getFirm() {
+		return this.firm;
+	}
+
+	public void setFirm(com.cc.civlit.domain.Firm firm) {
+		this.firm = firm;
 	}
 
 	public void add(com.cc.civlit.domain.CaseAdministrator caseAdministrator) {

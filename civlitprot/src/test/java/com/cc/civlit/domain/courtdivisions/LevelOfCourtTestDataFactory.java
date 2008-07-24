@@ -50,7 +50,7 @@ public class LevelOfCourtTestDataFactory
 
 		try {
 
-			levelOfCourt.setName("Wilson");
+			levelOfCourt.setName("Eric");
 
 			TestDataFactory jurisdictionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("jurisdictionTestDataFactory");
@@ -73,7 +73,7 @@ public class LevelOfCourtTestDataFactory
 
 		try {
 
-			levelOfCourt.setName("Lavendar");
+			levelOfCourt.setName("zeta");
 
 			TestDataFactory jurisdictionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("jurisdictionTestDataFactory");
@@ -96,7 +96,7 @@ public class LevelOfCourtTestDataFactory
 
 		try {
 
-			levelOfCourt.setName("Wilson");
+			levelOfCourt.setName("zeta");
 
 			TestDataFactory jurisdictionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("jurisdictionTestDataFactory");
@@ -142,7 +142,7 @@ public class LevelOfCourtTestDataFactory
 
 		try {
 
-			levelOfCourt.setName("Lavendar");
+			levelOfCourt.setName("epsilon");
 
 			TestDataFactory jurisdictionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("jurisdictionTestDataFactory");

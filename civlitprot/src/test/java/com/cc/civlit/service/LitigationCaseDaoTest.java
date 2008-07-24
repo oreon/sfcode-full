@@ -51,12 +51,12 @@ public class LitigationCaseDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			litigationCaseInstance.setName("theta");
-			litigationCaseInstance.setAccountName("Mark");
-			litigationCaseInstance.setCourtFileNumber("Malissa");
-			litigationCaseInstance.setStyleOfCase("delta");
+			litigationCaseInstance.setName("delta");
+			litigationCaseInstance.setAccountName("John");
+			litigationCaseInstance.setCourtFileNumber("Wilson");
+			litigationCaseInstance.setStyleOfCase("theta");
 			litigationCaseInstance
-					.setProceedingType(com.cc.civlit.domain.ProceedingType.PT1);
+					.setProceedingType(com.cc.civlit.domain.ProceedingType.PT2);
 			litigationCaseInstance
 					.setCaseType(com.cc.civlit.domain.CaseType.INSOLVENCY);
 
@@ -65,6 +65,13 @@ public class LitigationCaseDaoTest extends AbstractJpaTests {
 
 			litigationCaseInstance
 					.setDivsion((com.cc.civlit.domain.courtdivisions.Divsion) divsionTestDataFactory
+							.loadOneRecord());
+
+			TestDataFactory firmTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("firmTestDataFactory");
+
+			litigationCaseInstance
+					.setFirm((com.cc.civlit.domain.Firm) firmTestDataFactory
 							.loadOneRecord());
 
 			litigationCaseService.save(litigationCaseInstance);
@@ -89,12 +96,12 @@ public class LitigationCaseDaoTest extends AbstractJpaTests {
 
 			try {
 
-				litigationCase.setName("pi");
-				litigationCase.setAccountName("John");
-				litigationCase.setCourtFileNumber("Mark");
-				litigationCase.setStyleOfCase("theta");
+				litigationCase.setName("theta");
+				litigationCase.setAccountName("Wilson");
+				litigationCase.setCourtFileNumber("pi");
+				litigationCase.setStyleOfCase("Lavendar");
 				litigationCase
-						.setProceedingType(com.cc.civlit.domain.ProceedingType.PT2);
+						.setProceedingType(com.cc.civlit.domain.ProceedingType.PT1);
 				litigationCase
 						.setCaseType(com.cc.civlit.domain.CaseType.INSOLVENCY);
 
@@ -103,6 +110,13 @@ public class LitigationCaseDaoTest extends AbstractJpaTests {
 
 				litigationCase
 						.setDivsion((com.cc.civlit.domain.courtdivisions.Divsion) divsionTestDataFactory
+								.loadOneRecord());
+
+				TestDataFactory firmTestDataFactory = (TestDataFactory) BeanHelper
+						.getBean("firmTestDataFactory");
+
+				litigationCase
+						.setFirm((com.cc.civlit.domain.Firm) firmTestDataFactory
 								.loadOneRecord());
 
 			} catch (Exception ex) {
@@ -123,14 +137,13 @@ public class LitigationCaseDaoTest extends AbstractJpaTests {
 			LitigationCase litigationCase = (LitigationCase) litigationCaseTestDataFactory
 					.loadOneRecord();
 
-			litigationCase.setName("Wilson");
-			litigationCase.setAccountName("gamma");
+			litigationCase.setName("alpha");
+			litigationCase.setAccountName("John");
 			litigationCase.setCourtFileNumber("Mark");
-			litigationCase.setStyleOfCase("theta");
+			litigationCase.setStyleOfCase("Wilson");
 			litigationCase
-					.setProceedingType(com.cc.civlit.domain.ProceedingType.PT2);
-			litigationCase
-					.setCaseType(com.cc.civlit.domain.CaseType.INSOLVENCY);
+					.setProceedingType(com.cc.civlit.domain.ProceedingType.PT1);
+			litigationCase.setCaseType(com.cc.civlit.domain.CaseType.OTHER);
 
 			litigationCaseService.save(litigationCase);
 

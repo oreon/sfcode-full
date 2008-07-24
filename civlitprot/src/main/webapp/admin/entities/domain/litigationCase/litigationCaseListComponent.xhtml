@@ -70,6 +70,13 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	</rich:column>
 	
 	
+	
+	<rich:column sortBy="#{litigationCase.firm.displayName}" filterBy="#{litigationCase.firm.displayName}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.litigationCase_firm}" /> 	
+		</f:facet>
+		<h:outputText value="#{litigationCase.firm.displayName}" />
+	</rich:column>
 		
 		<rich:column>
 			<f:facet name="header">
@@ -216,14 +223,14 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</rich:toolBarGroup>
 
 		<rich:toolBarGroup
-			rendered="#{ litigationCaseCrudBacking.action == 'SEARCH' }">
+			rendered="#{ litigationCaseCrudBacking.actionSearch }">
 			<h:graphicImage id="clearsearch" value="/images/icons/bricks.png" />
 			<a4j:commandLink action="#{litigationCaseCrudBacking.clearSearch}"
 				value="Clear Search" />
 		</rich:toolBarGroup>
 		
 		<rich:toolBarGroup
-			rendered="#{ litigationCaseCrudBacking.action == 'SEARCH' }">
+			rendered="#{ litigationCaseCrudBacking.actionSearch }">
 			<h:graphicImage id="refineSearch" value="/images/icons/bricks.png" />
 			<a4j:commandLink action="search"
 				value="Refine Search" />

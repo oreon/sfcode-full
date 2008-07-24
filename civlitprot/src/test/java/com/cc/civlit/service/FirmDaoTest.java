@@ -50,18 +50,18 @@ public class FirmDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			firmInstance.setFirmName("Eric");
+			firmInstance.setFirmName("Mark");
 			firmInstance
-					.setFirmType(com.cc.civlit.domain.FirmType.GOVERNMENT_REGULAORY);
-			firmInstance.getContactDetails().setAddress1("epsilon");
-			firmInstance.getContactDetails().setAddress2("Eric");
-			firmInstance.getContactDetails().setCity("Mark");
-			firmInstance.getContactDetails().setState("epsilon");
-			firmInstance.getContactDetails().setCountry("gamma");
-			firmInstance.getContactDetails().setPostalCode("theta");
-			firmInstance.getContactDetails().setPhone("delta");
-			firmInstance.getContactDetails().setFax("epsilon");
-			firmInstance.getContactDetails().setEmail("Mark20326");
+					.setFirmType(com.cc.civlit.domain.FirmType.SOLE_PRACTITONER);
+			firmInstance.getContactDetails().setAddress1("delta");
+			firmInstance.getContactDetails().setAddress2("Lavendar");
+			firmInstance.getContactDetails().setCity("epsilon");
+			firmInstance.getContactDetails().setState("delta");
+			firmInstance.getContactDetails().setCountry("epsilon");
+			firmInstance.getContactDetails().setPostalCode("Mark");
+			firmInstance.getContactDetails().setPhone("theta");
+			firmInstance.getContactDetails().setFax("zeta");
+			firmInstance.getContactDetails().setEmail("Mark74827");
 
 			firmService.save(firmInstance);
 		} catch (PersistenceException pe) {
@@ -85,18 +85,17 @@ public class FirmDaoTest extends AbstractJpaTests {
 
 			try {
 
-				firm.setFirmName("epsilon");
-				firm
-						.setFirmType(com.cc.civlit.domain.FirmType.GOVERNMENT_REGULAORY);
-				firm.getContactDetails().setAddress1("Wilson");
-				firm.getContactDetails().setAddress2("zeta");
-				firm.getContactDetails().setCity("epsilon");
-				firm.getContactDetails().setState("pi");
-				firm.getContactDetails().setCountry("gamma");
-				firm.getContactDetails().setPostalCode("beta");
-				firm.getContactDetails().setPhone("Lavendar");
-				firm.getContactDetails().setFax("alpha");
-				firm.getContactDetails().setEmail("Lavendar2557");
+				firm.setFirmName("Malissa");
+				firm.setFirmType(com.cc.civlit.domain.FirmType.PARALEGAL);
+				firm.getContactDetails().setAddress1("gamma");
+				firm.getContactDetails().setAddress2("Malissa");
+				firm.getContactDetails().setCity("zeta");
+				firm.getContactDetails().setState("alpha");
+				firm.getContactDetails().setCountry("delta");
+				firm.getContactDetails().setPostalCode("John");
+				firm.getContactDetails().setPhone("Malissa");
+				firm.getContactDetails().setFax("Wilson");
+				firm.getContactDetails().setEmail("zeta36678");
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -115,17 +114,18 @@ public class FirmDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Firm firm = (Firm) firmTestDataFactory.loadOneRecord();
 
-			firm.setFirmName("delta");
-			firm.setFirmType(com.cc.civlit.domain.FirmType.LAW_FIRM);
-			firm.getContactDetails().setAddress1("gamma");
-			firm.getContactDetails().setAddress2("Eric");
-			firm.getContactDetails().setCity("Eric");
-			firm.getContactDetails().setState("epsilon");
-			firm.getContactDetails().setCountry("pi");
-			firm.getContactDetails().setPostalCode("pi");
-			firm.getContactDetails().setPhone("alpha");
-			firm.getContactDetails().setFax("zeta");
-			firm.getContactDetails().setEmail("gamma31537");
+			firm.setFirmName("theta");
+			firm
+					.setFirmType(com.cc.civlit.domain.FirmType.GOVERNMENT_REGULAORY);
+			firm.getContactDetails().setAddress1("alpha");
+			firm.getContactDetails().setAddress2("Malissa");
+			firm.getContactDetails().setCity("delta");
+			firm.getContactDetails().setState("beta");
+			firm.getContactDetails().setCountry("epsilon");
+			firm.getContactDetails().setPostalCode("theta");
+			firm.getContactDetails().setPhone("Wilson");
+			firm.getContactDetails().setFax("Lavendar");
+			firm.getContactDetails().setEmail("Wilson76586");
 
 			firmService.save(firm);
 

@@ -51,12 +51,12 @@ public class LitigationCaseTestDataFactory
 
 		try {
 
-			litigationCase.setName("beta");
+			litigationCase.setName("Wilson");
 			litigationCase.setAccountName("delta");
-			litigationCase.setCourtFileNumber("Mark");
-			litigationCase.setStyleOfCase("delta");
+			litigationCase.setCourtFileNumber("zeta");
+			litigationCase.setStyleOfCase("epsilon");
 			litigationCase
-					.setProceedingType(com.cc.civlit.domain.ProceedingType.PT2);
+					.setProceedingType(com.cc.civlit.domain.ProceedingType.PT1);
 			litigationCase.setCaseType(com.cc.civlit.domain.CaseType.OTHER);
 
 			TestDataFactory divsionTestDataFactory = (TestDataFactory) BeanHelper
@@ -64,6 +64,13 @@ public class LitigationCaseTestDataFactory
 
 			litigationCase
 					.setDivsion((com.cc.civlit.domain.courtdivisions.Divsion) divsionTestDataFactory
+							.loadOneRecord());
+
+			TestDataFactory firmTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("firmTestDataFactory");
+
+			litigationCase
+					.setFirm((com.cc.civlit.domain.Firm) firmTestDataFactory
 							.loadOneRecord());
 
 			register(litigationCase);
@@ -80,19 +87,27 @@ public class LitigationCaseTestDataFactory
 
 		try {
 
-			litigationCase.setName("Malissa");
+			litigationCase.setName("pi");
 			litigationCase.setAccountName("beta");
-			litigationCase.setCourtFileNumber("pi");
-			litigationCase.setStyleOfCase("Eric");
+			litigationCase.setCourtFileNumber("epsilon");
+			litigationCase.setStyleOfCase("John");
 			litigationCase
-					.setProceedingType(com.cc.civlit.domain.ProceedingType.PT1);
-			litigationCase.setCaseType(com.cc.civlit.domain.CaseType.OTHER);
+					.setProceedingType(com.cc.civlit.domain.ProceedingType.PT2);
+			litigationCase
+					.setCaseType(com.cc.civlit.domain.CaseType.INSOLVENCY);
 
 			TestDataFactory divsionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("divsionTestDataFactory");
 
 			litigationCase
 					.setDivsion((com.cc.civlit.domain.courtdivisions.Divsion) divsionTestDataFactory
+							.loadOneRecord());
+
+			TestDataFactory firmTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("firmTestDataFactory");
+
+			litigationCase
+					.setFirm((com.cc.civlit.domain.Firm) firmTestDataFactory
 							.loadOneRecord());
 
 			register(litigationCase);
@@ -109,10 +124,10 @@ public class LitigationCaseTestDataFactory
 
 		try {
 
-			litigationCase.setName("pi");
-			litigationCase.setAccountName("Wilson");
-			litigationCase.setCourtFileNumber("John");
-			litigationCase.setStyleOfCase("zeta");
+			litigationCase.setName("epsilon");
+			litigationCase.setAccountName("delta");
+			litigationCase.setCourtFileNumber("zeta");
+			litigationCase.setStyleOfCase("delta");
 			litigationCase
 					.setProceedingType(com.cc.civlit.domain.ProceedingType.PT1);
 			litigationCase
@@ -123,6 +138,13 @@ public class LitigationCaseTestDataFactory
 
 			litigationCase
 					.setDivsion((com.cc.civlit.domain.courtdivisions.Divsion) divsionTestDataFactory
+							.loadOneRecord());
+
+			TestDataFactory firmTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("firmTestDataFactory");
+
+			litigationCase
+					.setFirm((com.cc.civlit.domain.Firm) firmTestDataFactory
 							.loadOneRecord());
 
 			register(litigationCase);
@@ -139,19 +161,27 @@ public class LitigationCaseTestDataFactory
 
 		try {
 
-			litigationCase.setName("delta");
-			litigationCase.setAccountName("Wilson");
-			litigationCase.setCourtFileNumber("Wilson");
-			litigationCase.setStyleOfCase("Mark");
+			litigationCase.setName("gamma");
+			litigationCase.setAccountName("Mark");
+			litigationCase.setCourtFileNumber("alpha");
+			litigationCase.setStyleOfCase("John");
 			litigationCase
 					.setProceedingType(com.cc.civlit.domain.ProceedingType.PT1);
-			litigationCase.setCaseType(com.cc.civlit.domain.CaseType.OTHER);
+			litigationCase
+					.setCaseType(com.cc.civlit.domain.CaseType.INSOLVENCY);
 
 			TestDataFactory divsionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("divsionTestDataFactory");
 
 			litigationCase
 					.setDivsion((com.cc.civlit.domain.courtdivisions.Divsion) divsionTestDataFactory
+							.loadOneRecord());
+
+			TestDataFactory firmTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("firmTestDataFactory");
+
+			litigationCase
+					.setFirm((com.cc.civlit.domain.Firm) firmTestDataFactory
 							.loadOneRecord());
 
 			register(litigationCase);
@@ -168,10 +198,10 @@ public class LitigationCaseTestDataFactory
 
 		try {
 
-			litigationCase.setName("Lavendar");
-			litigationCase.setAccountName("epsilon");
-			litigationCase.setCourtFileNumber("Eric");
-			litigationCase.setStyleOfCase("epsilon");
+			litigationCase.setName("beta");
+			litigationCase.setAccountName("gamma");
+			litigationCase.setCourtFileNumber("John");
+			litigationCase.setStyleOfCase("Eric");
 			litigationCase
 					.setProceedingType(com.cc.civlit.domain.ProceedingType.PT1);
 			litigationCase.setCaseType(com.cc.civlit.domain.CaseType.OTHER);
@@ -181,6 +211,13 @@ public class LitigationCaseTestDataFactory
 
 			litigationCase
 					.setDivsion((com.cc.civlit.domain.courtdivisions.Divsion) divsionTestDataFactory
+							.loadOneRecord());
+
+			TestDataFactory firmTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("firmTestDataFactory");
+
+			litigationCase
+					.setFirm((com.cc.civlit.domain.Firm) firmTestDataFactory
 							.loadOneRecord());
 
 			register(litigationCase);
@@ -279,6 +316,12 @@ public class LitigationCaseTestDataFactory
 		litigationCase
 				.setDivsion((com.cc.civlit.domain.courtdivisions.Divsion) divsionTestDataFactory
 						.loadOneRecord());
+
+		TestDataFactory firmTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("firmTestDataFactory");
+
+		litigationCase.setFirm((com.cc.civlit.domain.Firm) firmTestDataFactory
+				.loadOneRecord());
 
 		return litigationCase;
 	}
