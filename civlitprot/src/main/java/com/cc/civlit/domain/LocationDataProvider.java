@@ -35,12 +35,12 @@ public interface LocationDataProvider {
 	 * @param name
 	 * @return
 	 */
-	public City getStateByName(String name);
+	public State getStateByName(String name);
 	
 	/** Return a country with the given name
 	 * @param name - 
 	 * @return - null if the country is not found
 	 */
-	public City getCountryByName(String name);
+	public Country getCountryByName(String name);
 	
 }

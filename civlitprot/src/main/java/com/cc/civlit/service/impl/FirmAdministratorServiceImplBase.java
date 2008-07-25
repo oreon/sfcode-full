@@ -25,8 +25,6 @@ import javax.jws.WebService;
 
 import org.witchcraft.model.support.Range;
 
-import com.cc.civlit.domain.auth.GrantedRole;
-
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 public class FirmAdministratorServiceImplBase
 		extends
@@ -56,9 +54,6 @@ public class FirmAdministratorServiceImplBase
 		checkUniqueConstraints(firmAdministrator);
 		firmAdministratorDao.save(firmAdministrator);
 
-		if (id == null) //creating user for first time, assign authority
-			assignDefaultAuthority(firmAdministrator);
-
 		return firmAdministrator;
 	}
 
@@ -74,18 +69,6 @@ public class FirmAdministratorServiceImplBase
 		ensureUnique(firmAdministrator, existingFirmAdministrator,
 				"Entity.exists.withEmail");
 
-		existingFirmAdministrator = firmAdministratorDao
-				.findByUsername(firmAdministrator.getUser().getUsername());
-		ensureUnique(firmAdministrator, existingFirmAdministrator,
-				"Entity.exists.withUsername");
-
-	}
-
-	private void assignDefaultAuthority(FirmAdministrator firmAdministrator) {
-		GrantedRole authority = new GrantedRole();
-		authority.setName("ROLE_FIRMADMINISTRATOR");
-
-		firmAdministrator.getUser().addGrantedRole(authority);
 	}
 
 	public void delete(FirmAdministrator firmAdministrator) {
@@ -102,10 +85,6 @@ public class FirmAdministratorServiceImplBase
 
 	public FirmAdministrator findByEmail(String email) {
 		return firmAdministratorDao.findByEmail(email);
-	}
-
-	public FirmAdministrator findByUsername(String username) {
-		return firmAdministratorDao.findByUsername(username);
 	}
 
 	public List<FirmAdministrator> searchByExample(

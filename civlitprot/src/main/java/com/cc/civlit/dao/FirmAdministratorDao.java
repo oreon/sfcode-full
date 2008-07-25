@@ -12,6 +12,4 @@ public interface FirmAdministratorDao extends GenericDAO<FirmAdministrator> {
 
 	public FirmAdministrator findByEmail(String email);
 
-	public FirmAdministrator findByUsername(String username);
-
 }

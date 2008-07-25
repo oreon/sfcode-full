@@ -29,19 +29,6 @@ public class FirmAdministratorBackingBeanBase
 
 	protected FirmAdministratorService firmAdministratorService;
 
-	//This field is used to store the currently logged in FirmAdministrator
-	protected FirmAdministrator loggedinFirmAdministrator;
-
-	private String repeatPassword;
-
-	public String getRepeatPassword() {
-		return repeatPassword;
-	}
-
-	public void setRepeatPassword(String repeatpassword) {
-		this.repeatPassword = repeatpassword;
-	}
-
 	private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 
 	public Range<Date> getRangeCreationDate() {
@@ -88,19 +75,6 @@ public class FirmAdministratorBackingBeanBase
 		return getFirmAdministrator();
 	}
 
-	public FirmAdministrator getLoggedinFirmAdministrator() {
-		if (loggedinFirmAdministrator == null) {
-			loggedinFirmAdministrator = getFirmAdministratorService()
-					.findByUsername(getAuthenticationController().getUsername());
-		}
-		return loggedinFirmAdministrator;
-	}
-
-	public void setLoggedinFirmAdministrator(
-			FirmAdministrator loggedinFirmAdministrator) {
-		this.loggedinFirmAdministrator = loggedinFirmAdministrator;
-	}
-
 	/**
 	 * Any initializations of the member entity should be done in this method - 
 	 * It will be called before add new action
@@ -128,8 +102,6 @@ public class FirmAdministratorBackingBeanBase
 
 	protected void reloadFromId(long id) {
 		firmAdministrator = firmAdministratorService.load(id);
-
-		repeatPassword = firmAdministrator.getUser().getPassword();
 
 	}
 
