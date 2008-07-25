@@ -17,13 +17,6 @@ import org.witchcraft.model.support.Range;
 
 import com.cc.civlit.domain.courtdivisions.LevelOfCourt;
 
-import java.util.Collection;
-import org.richfaces.component.UITree;
-import org.richfaces.event.NodeSelectedEvent;
-import org.richfaces.model.TreeNode;
-import org.richfaces.model.TreeNodeImpl;
-import org.richfaces.component.html.HtmlMenuItem;
-
 /**
  * This is generated code - to edit code or override methods use - Jurisdiction class
  * @author witchCraft Code Generator
@@ -35,8 +28,6 @@ public class JurisdictionBackingBeanBase extends BaseBackingBean<Jurisdiction> {
 	protected Jurisdiction jurisdiction = new Jurisdiction();
 
 	protected JurisdictionService jurisdictionService;
-
-	protected TreeNode root = null;
 
 	private List<LevelOfCourt> listLevelOfCourts = new ArrayList<LevelOfCourt>();
 

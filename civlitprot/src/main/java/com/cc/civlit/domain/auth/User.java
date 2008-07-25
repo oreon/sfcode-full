@@ -22,7 +22,7 @@ public class User extends UserBase implements java.io.Serializable {
 	/* Constructor with all attributes */
 	public User(String userName, String password, boolean enabled,
 			String username) {
-		super(userName, password, enabled, username);
+		super();
 	}
 
 	public User userInstance() {

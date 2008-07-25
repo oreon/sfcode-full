@@ -75,12 +75,4 @@ public class JurisdictionServiceImplBase extends BaseServiceImpl<Jurisdiction>
 		return jurisdictionDao.searchByExample(jurisdiction, rangeObjects);
 	}
 
-	/**
-	 * For tree view , this method returns top level
-	 * elements (whose parent is null )
-	 */
-	public List<Jurisdiction> findTopLevelElements() {
-		return jurisdictionDao.findTopLevelElements();
-	}
-
 }
