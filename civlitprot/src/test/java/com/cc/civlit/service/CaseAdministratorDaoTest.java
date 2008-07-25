@@ -51,11 +51,11 @@ public class CaseAdministratorDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			caseAdministratorInstance.setFirstName("Mark");
-			caseAdministratorInstance.setLastName("zeta");
+			caseAdministratorInstance.setFirstName("beta");
+			caseAdministratorInstance.setLastName("Eric");
 			caseAdministratorInstance.setDateOfBirth(dateFormat
-					.parse("2008.07.13 10:23:14 EDT"));
-			caseAdministratorInstance.setEmail("Mark39387");
+					.parse("2008.08.06 16:26:23 EDT"));
+			caseAdministratorInstance.setEmail("epsilon67278");
 
 			caseAdministratorService.save(caseAdministratorInstance);
 		} catch (PersistenceException pe) {
@@ -79,11 +79,11 @@ public class CaseAdministratorDaoTest extends AbstractJpaTests {
 
 			try {
 
-				caseAdministrator.setFirstName("delta");
-				caseAdministrator.setLastName("zeta");
+				caseAdministrator.setFirstName("Wilson");
+				caseAdministrator.setLastName("Lavendar");
 				caseAdministrator.setDateOfBirth(dateFormat
-						.parse("2008.08.14 15:09:21 EDT"));
-				caseAdministrator.setEmail("Eric59545");
+						.parse("2008.08.02 16:18:37 EDT"));
+				caseAdministrator.setEmail("gamma1354");
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -103,11 +103,11 @@ public class CaseAdministratorDaoTest extends AbstractJpaTests {
 			CaseAdministrator caseAdministrator = (CaseAdministrator) caseAdministratorTestDataFactory
 					.loadOneRecord();
 
-			caseAdministrator.setFirstName("alpha");
-			caseAdministrator.setLastName("gamma");
+			caseAdministrator.setFirstName("Eric");
+			caseAdministrator.setLastName("Mark");
 			caseAdministrator.setDateOfBirth(dateFormat
-					.parse("2008.07.04 23:19:21 EDT"));
-			caseAdministrator.setEmail("zeta11012");
+					.parse("2008.07.11 17:43:03 EDT"));
+			caseAdministrator.setEmail("Lavendar48873");
 
 			caseAdministratorService.save(caseAdministrator);
 

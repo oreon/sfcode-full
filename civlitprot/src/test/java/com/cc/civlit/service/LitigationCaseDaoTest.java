@@ -51,12 +51,12 @@ public class LitigationCaseDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			litigationCaseInstance.setName("delta");
-			litigationCaseInstance.setAccountName("John");
-			litigationCaseInstance.setCourtFileNumber("Wilson");
-			litigationCaseInstance.setStyleOfCase("theta");
+			litigationCaseInstance.setName("Mark");
+			litigationCaseInstance.setAccountName("epsilon");
+			litigationCaseInstance.setCourtFileNumber("Mark");
+			litigationCaseInstance.setStyleOfCase("delta");
 			litigationCaseInstance
-					.setProceedingType(com.cc.civlit.domain.ProceedingType.PT2);
+					.setProceedingType(com.cc.civlit.domain.ProceedingType.PT1);
 			litigationCaseInstance
 					.setCaseType(com.cc.civlit.domain.CaseType.INSOLVENCY);
 
@@ -96,14 +96,13 @@ public class LitigationCaseDaoTest extends AbstractJpaTests {
 
 			try {
 
-				litigationCase.setName("theta");
+				litigationCase.setName("Mark");
 				litigationCase.setAccountName("Wilson");
-				litigationCase.setCourtFileNumber("pi");
-				litigationCase.setStyleOfCase("Lavendar");
+				litigationCase.setCourtFileNumber("Malissa");
+				litigationCase.setStyleOfCase("John");
 				litigationCase
 						.setProceedingType(com.cc.civlit.domain.ProceedingType.PT1);
-				litigationCase
-						.setCaseType(com.cc.civlit.domain.CaseType.INSOLVENCY);
+				litigationCase.setCaseType(com.cc.civlit.domain.CaseType.OTHER);
 
 				TestDataFactory divsionTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("divsionTestDataFactory");
@@ -137,13 +136,14 @@ public class LitigationCaseDaoTest extends AbstractJpaTests {
 			LitigationCase litigationCase = (LitigationCase) litigationCaseTestDataFactory
 					.loadOneRecord();
 
-			litigationCase.setName("alpha");
-			litigationCase.setAccountName("John");
-			litigationCase.setCourtFileNumber("Mark");
-			litigationCase.setStyleOfCase("Wilson");
+			litigationCase.setName("delta");
+			litigationCase.setAccountName("Mark");
+			litigationCase.setCourtFileNumber("Malissa");
+			litigationCase.setStyleOfCase("Malissa");
 			litigationCase
-					.setProceedingType(com.cc.civlit.domain.ProceedingType.PT1);
-			litigationCase.setCaseType(com.cc.civlit.domain.CaseType.OTHER);
+					.setProceedingType(com.cc.civlit.domain.ProceedingType.PT2);
+			litigationCase
+					.setCaseType(com.cc.civlit.domain.CaseType.INSOLVENCY);
 
 			litigationCaseService.save(litigationCase);
 

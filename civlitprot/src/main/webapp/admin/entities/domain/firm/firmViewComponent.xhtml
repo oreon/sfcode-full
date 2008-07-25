@@ -102,6 +102,27 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</f:facet>
 		<h:outputText value="#{firmAdministrator.email}" />
 	</t:column>			
+
+	<t:column>
+		<f:facet name="header">	
+			<h:outputText value="#{msg.user_password}" />
+		</f:facet>
+		<h:outputText value="#{firmAdministrator.user.password}" />
+	</t:column>			
+
+	<t:column>
+		<f:facet name="header">	
+			<h:outputText value="#{msg.user_enabled}" />
+		</f:facet>
+		<h:outputText value="#{firmAdministrator.user.enabled}" />
+	</t:column>			
+
+	<t:column>
+		<f:facet name="header">	
+			<h:outputText value="#{msg.user_username}" />
+		</f:facet>
+		<h:outputText value="#{firmAdministrator.user.username}" />
+	</t:column>			
 					</t:dataTable>
 				</rich:simpleTogglePanel>
 				<br/>
@@ -117,6 +138,7 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
   				<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  		<h:inputHidden id="firm_id" value="#{firmCrudBacking.firm.id}" />
   				
+				<h:inputHidden id="contactDetails_id" value="#{firmCrudBacking.firm.contactDetails.id}" />
 		 </h:panelGroup>
 		</h:panelGrid>
 				

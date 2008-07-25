@@ -10,6 +10,9 @@ import com.cc.civlit.domain.service.LevelOfCourtService;
 import com.cc.civlit.domain.service.JurisdictionService;
 import com.cc.civlit.domain.service.FilingOfficeService;
 import com.cc.civlit.domain.service.DivsionService;
+import com.cc.civlit.domain.service.UserService;
+import com.cc.civlit.domain.service.GrantedRoleService;
+import com.cc.civlit.domain.service.RoleService;
 
 public class ServiceFacade {
 	private static ServiceFacade instance;
@@ -105,6 +108,36 @@ public class ServiceFacade {
 
 	public void setDivsionService(DivsionService divsionService) {
 		this.divsionService = divsionService;
+	}
+
+	private UserService userService;
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	private GrantedRoleService grantedRoleService;
+
+	public GrantedRoleService getGrantedRoleService() {
+		return grantedRoleService;
+	}
+
+	public void setGrantedRoleService(GrantedRoleService grantedRoleService) {
+		this.grantedRoleService = grantedRoleService;
+	}
+
+	private RoleService roleService;
+
+	public RoleService getRoleService() {
+		return roleService;
+	}
+
+	public void setRoleService(RoleService roleService) {
+		this.roleService = roleService;
 	}
 
 }

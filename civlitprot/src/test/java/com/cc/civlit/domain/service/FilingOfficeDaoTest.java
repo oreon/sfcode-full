@@ -50,7 +50,7 @@ public class FilingOfficeDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			filingOfficeInstance.setName("Wilson");
+			filingOfficeInstance.setName("zeta");
 
 			TestDataFactory levelOfCourtTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("levelOfCourtTestDataFactory");
@@ -81,7 +81,7 @@ public class FilingOfficeDaoTest extends AbstractJpaTests {
 
 			try {
 
-				filingOffice.setName("alpha");
+				filingOffice.setName("zeta");
 
 				TestDataFactory levelOfCourtTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("levelOfCourtTestDataFactory");
@@ -108,7 +108,7 @@ public class FilingOfficeDaoTest extends AbstractJpaTests {
 			FilingOffice filingOffice = (FilingOffice) filingOfficeTestDataFactory
 					.loadOneRecord();
 
-			filingOffice.setName("alpha");
+			filingOffice.setName("theta");
 
 			filingOfficeService.save(filingOffice);
 

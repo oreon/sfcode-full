@@ -62,6 +62,8 @@ public abstract class FirmAdministratorBase extends Person
 
 	private com.cc.civlit.domain.Firm firm = new com.cc.civlit.domain.Firm();
 
+	private com.cc.civlit.domain.auth.User user = new com.cc.civlit.domain.auth.User();
+
 	@ManyToOne
 	@JoinColumn(name = "firm_ID", nullable = false, updatable = true)
 	@XmlTransient
@@ -71,6 +73,17 @@ public abstract class FirmAdministratorBase extends Person
 
 	public void setFirm(com.cc.civlit.domain.Firm firm) {
 		this.firm = firm;
+	}
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_ID", nullable = false, updatable = true)
+	@XmlTransient
+	public com.cc.civlit.domain.auth.User getUser() {
+		return this.user;
+	}
+
+	public void setUser(com.cc.civlit.domain.auth.User user) {
+		this.user = user;
 	}
 
 	public abstract FirmAdministrator firmAdministratorInstance();

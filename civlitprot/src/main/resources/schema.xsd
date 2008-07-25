@@ -19,6 +19,7 @@
         		<xs:element name="email" type="xs:string"/>	
         	
         		<xs:element name="firm" type="ws:Firm"/>
+        		<xs:element name="user" type="ws:User"/>
         	
         </xs:all>
     </xs:complexType>
@@ -80,6 +81,34 @@
         		<xs:element name="name" type="xs:string"/>	
         	
         		<xs:element name="filingOffice" type="ws:FilingOffice"/>
+        	
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="User">
+        <xs:all>
+        		<xs:element name="password" type="xs:string"/>	
+        		<xs:element name="enabled" type="xs:boolean"/>	
+        		<xs:element name="username" type="xs:string"/>	
+        	
+        	
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="GrantedRole">
+        <xs:all>
+        		<xs:element name="name" type="xs:string"/>	
+        	
+        		<xs:element name="role" type="ws:Role"/>
+        		<xs:element name="user" type="ws:User"/>
+        	
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="Role">
+        <xs:all>
+        		<xs:element name="name" type="xs:string"/>	
+        	
         	
         </xs:all>
     </xs:complexType>

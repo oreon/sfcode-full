@@ -12,8 +12,17 @@ import org.witchcraft.model.data.location.State;;
  */
 public interface LocationDataProvider {
 	
+	/**
+	 * @return
+	 */
 	public List<City> getCities();
+	/**
+	 * @return
+	 */
 	public List<State> getStates();
+	/**
+	 * @return
+	 */
 	public List<Country> getCountries();
 	
 	/** Return a city with the given name
