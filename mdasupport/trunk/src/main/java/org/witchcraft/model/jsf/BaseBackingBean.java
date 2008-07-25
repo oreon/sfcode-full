@@ -488,13 +488,14 @@ public abstract class BaseBackingBean<T> {
 	}
 	
 	/** This function is used for generic autocompletion in rich suggestion box components
-	 * @param <S> 
-	 * @param enteredText
-	 * @param data
-	 * @param propertyName
+	 * @param <S> - The type of the returned list
+	 * @param enteredText - The text entered by the user
+	 * @param data - The source list which needs to be filtered
+	 * @param stringFunctionName - the name of the function that needs to be invoked on the object 
+	 * in order to get a sring name e.g for city it will be "getName"
 	 * @return
 	 */
-	public <S>List genericAutoComplete(Object enteredText, List<S> data, String propertyName){
+	public <S>List genericAutoComplete(Object enteredText, List<S> data, String stringFunctionName){
 		List<S> returnList  = new ArrayList();
 		log.debug("autocomplete state called for " + enteredText);
 
@@ -504,10 +505,10 @@ public abstract class BaseBackingBean<T> {
 			Method method = null;
 			String nameFromObject = null;
 			try {
-				method = t.getClass().getMethod(propertyName);
+				method = t.getClass().getMethod(stringFunctionName);
 				nameFromObject = (String) method.invoke(t);
 			} catch (Exception e) {
-				log.error("An exception occured trying to invoke " + propertyName, e);
+				log.error("An exception occured trying to invoke " + stringFunctionName, e);
 				return null;
 			} 
 			
