@@ -1,5 +1,6 @@
 package org.witchcraft.model.jsf;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -484,5 +485,37 @@ public abstract class BaseBackingBean<T> {
 		if(action == null )
 			return false;
 		return action.equalsIgnoreCase(SEARCH) || action.equalsIgnoreCase(TEXT_SEARCH);
+	}
+	
+	/** This function is used for generic autocompletion in rich suggestion box components
+	 * @param <S> 
+	 * @param enteredText
+	 * @param data
+	 * @param propertyName
+	 * @return
+	 */
+	public <S>List genericAutoComplete(Object enteredText, List<S> data, String propertyName){
+		List<S> returnList  = new ArrayList();
+		log.debug("autocomplete state called for " + enteredText);
+
+		for (S t : data) {
+			String text = ((String) enteredText).toUpperCase();
+			//t.getClass().getMethod("getName")
+			Method method = null;
+			String nameFromObject = null;
+			try {
+				method = t.getClass().getMethod(propertyName);
+				nameFromObject = (String) method.invoke(t);
+			} catch (Exception e) {
+				log.error("An exception occured trying to invoke " + propertyName, e);
+				return null;
+			} 
+			
+			if (nameFromObject.startsWith(text)) {
+				returnList.add(t);
+			}
+		}
+
+		return returnList;
 	}
 }
