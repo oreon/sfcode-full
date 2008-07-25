@@ -20,6 +20,12 @@ import com.cc.civlit.domain.courtdivisions.FilingOfficeTestDataFactory;
 
 import com.cc.civlit.domain.courtdivisions.DivsionTestDataFactory;
 
+import com.cc.civlit.domain.auth.UserTestDataFactory;
+
+import com.cc.civlit.domain.auth.GrantedRoleTestDataFactory;
+
+import com.cc.civlit.domain.auth.RoleTestDataFactory;
+
 /** 
  * This class populates the database with some initial data
  *
@@ -67,6 +73,16 @@ public class InitialDataSetup {
 				.getBean("divsionTestDataFactory");
 
 		divsionTestDataFactory.persistAll();
+
+		TestDataFactory grantedRoleTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("grantedRoleTestDataFactory");
+
+		grantedRoleTestDataFactory.persistAll();
+
+		TestDataFactory roleTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("roleTestDataFactory");
+
+		roleTestDataFactory.persistAll();
 
 	}
 }

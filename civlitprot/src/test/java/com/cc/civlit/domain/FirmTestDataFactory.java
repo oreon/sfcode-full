@@ -48,17 +48,17 @@ public class FirmTestDataFactory extends AbstractTestDataFactory<Firm> {
 
 		try {
 
-			firm.setFirmName("beta");
-			firm.setFirmType(com.cc.civlit.domain.FirmType.LAW_FIRM);
-			firm.getContactDetails().setAddress1("epsilon");
-			firm.getContactDetails().setAddress2("pi");
-			firm.getContactDetails().setCity("Malissa");
-			firm.getContactDetails().setState("alpha");
+			firm.setFirmName("alpha");
+			firm.setFirmType(com.cc.civlit.domain.FirmType.PARALEGAL);
+			firm.getContactDetails().setAddress1("Eric");
+			firm.getContactDetails().setAddress2("alpha");
+			firm.getContactDetails().setCity("epsilon");
+			firm.getContactDetails().setState("epsilon");
 			firm.getContactDetails().setCountry("Eric");
-			firm.getContactDetails().setPostalCode("alpha");
-			firm.getContactDetails().setPhone("delta");
+			firm.getContactDetails().setPostalCode("zeta");
+			firm.getContactDetails().setPhone("John");
 			firm.getContactDetails().setFax("Mark");
-			firm.getContactDetails().setEmail("Eric40875");
+			firm.getContactDetails().setEmail("delta86228");
 
 			register(firm);
 
@@ -74,17 +74,17 @@ public class FirmTestDataFactory extends AbstractTestDataFactory<Firm> {
 
 		try {
 
-			firm.setFirmName("beta");
-			firm.setFirmType(com.cc.civlit.domain.FirmType.LAW_FIRM);
-			firm.getContactDetails().setAddress1("epsilon");
-			firm.getContactDetails().setAddress2("gamma");
-			firm.getContactDetails().setCity("Mark");
-			firm.getContactDetails().setState("delta");
-			firm.getContactDetails().setCountry("zeta");
-			firm.getContactDetails().setPostalCode("beta");
-			firm.getContactDetails().setPhone("Malissa");
-			firm.getContactDetails().setFax("delta");
-			firm.getContactDetails().setEmail("epsilon46792");
+			firm.setFirmName("pi");
+			firm.setFirmType(com.cc.civlit.domain.FirmType.PARALEGAL);
+			firm.getContactDetails().setAddress1("zeta");
+			firm.getContactDetails().setAddress2("delta");
+			firm.getContactDetails().setCity("zeta");
+			firm.getContactDetails().setState("John");
+			firm.getContactDetails().setCountry("gamma");
+			firm.getContactDetails().setPostalCode("epsilon");
+			firm.getContactDetails().setPhone("delta");
+			firm.getContactDetails().setFax("beta");
+			firm.getContactDetails().setEmail("zeta48182");
 
 			register(firm);
 
@@ -100,17 +100,17 @@ public class FirmTestDataFactory extends AbstractTestDataFactory<Firm> {
 
 		try {
 
-			firm.setFirmName("John");
-			firm.setFirmType(com.cc.civlit.domain.FirmType.CORPORATE_COUNSEL);
+			firm.setFirmName("Malissa");
+			firm.setFirmType(com.cc.civlit.domain.FirmType.SOLE_PRACTITONER);
 			firm.getContactDetails().setAddress1("Lavendar");
-			firm.getContactDetails().setAddress2("delta");
-			firm.getContactDetails().setCity("gamma");
-			firm.getContactDetails().setState("gamma");
-			firm.getContactDetails().setCountry("zeta");
-			firm.getContactDetails().setPostalCode("Malissa");
-			firm.getContactDetails().setPhone("delta");
-			firm.getContactDetails().setFax("Wilson");
-			firm.getContactDetails().setEmail("delta42176");
+			firm.getContactDetails().setAddress2("pi");
+			firm.getContactDetails().setCity("Lavendar");
+			firm.getContactDetails().setState("Malissa");
+			firm.getContactDetails().setCountry("theta");
+			firm.getContactDetails().setPostalCode("Lavendar");
+			firm.getContactDetails().setPhone("zeta");
+			firm.getContactDetails().setFax("beta");
+			firm.getContactDetails().setEmail("beta14649");
 
 			register(firm);
 
@@ -126,18 +126,17 @@ public class FirmTestDataFactory extends AbstractTestDataFactory<Firm> {
 
 		try {
 
-			firm.setFirmName("Lavendar");
-			firm
-					.setFirmType(com.cc.civlit.domain.FirmType.GOVERNMENT_REGULAORY);
-			firm.getContactDetails().setAddress1("theta");
+			firm.setFirmName("Eric");
+			firm.setFirmType(com.cc.civlit.domain.FirmType.CORPORATE_COUNSEL);
+			firm.getContactDetails().setAddress1("Eric");
 			firm.getContactDetails().setAddress2("delta");
-			firm.getContactDetails().setCity("delta");
-			firm.getContactDetails().setState("gamma");
-			firm.getContactDetails().setCountry("Lavendar");
-			firm.getContactDetails().setPostalCode("theta");
-			firm.getContactDetails().setPhone("epsilon");
-			firm.getContactDetails().setFax("gamma");
-			firm.getContactDetails().setEmail("Eric73438");
+			firm.getContactDetails().setCity("Wilson");
+			firm.getContactDetails().setState("zeta");
+			firm.getContactDetails().setCountry("delta");
+			firm.getContactDetails().setPostalCode("John");
+			firm.getContactDetails().setPhone("pi");
+			firm.getContactDetails().setFax("epsilon");
+			firm.getContactDetails().setEmail("alpha98825");
 
 			register(firm);
 
@@ -153,17 +152,17 @@ public class FirmTestDataFactory extends AbstractTestDataFactory<Firm> {
 
 		try {
 
-			firm.setFirmName("beta");
-			firm.setFirmType(com.cc.civlit.domain.FirmType.LAW_FIRM);
-			firm.getContactDetails().setAddress1("Malissa");
-			firm.getContactDetails().setAddress2("gamma");
-			firm.getContactDetails().setCity("epsilon");
-			firm.getContactDetails().setState("Eric");
-			firm.getContactDetails().setCountry("Lavendar");
-			firm.getContactDetails().setPostalCode("epsilon");
-			firm.getContactDetails().setPhone("Wilson");
-			firm.getContactDetails().setFax("Mark");
-			firm.getContactDetails().setEmail("theta64063");
+			firm.setFirmName("epsilon");
+			firm.setFirmType(com.cc.civlit.domain.FirmType.SOLE_PRACTITONER);
+			firm.getContactDetails().setAddress1("pi");
+			firm.getContactDetails().setAddress2("Wilson");
+			firm.getContactDetails().setCity("Wilson");
+			firm.getContactDetails().setState("Lavendar");
+			firm.getContactDetails().setCountry("Malissa");
+			firm.getContactDetails().setPostalCode("Lavendar");
+			firm.getContactDetails().setPhone("alpha");
+			firm.getContactDetails().setFax("delta");
+			firm.getContactDetails().setEmail("Malissa58486");
 
 			register(firm);
 

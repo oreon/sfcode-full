@@ -10,4 +10,10 @@ import javax.jws.WebService;
 @WebService
 public interface JurisdictionDao extends GenericDAO<Jurisdiction> {
 
+	/**
+	 * For tree view , this method returns top level
+	 * elements (whose parent is null )
+	 */
+	public List<Category> findTopLevelElements();
+
 }

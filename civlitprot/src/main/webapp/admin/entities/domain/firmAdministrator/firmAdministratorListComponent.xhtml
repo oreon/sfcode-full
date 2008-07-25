@@ -54,6 +54,27 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</f:facet>
 		<h:outputText value="#{firmAdministrator.email}" />
 	</rich:column>
+
+	<rich:column sortBy="#{firmAdministrator.user.password}"  filterBy="#{firmAdministrator.user.password}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.user_password}" /> 		
+		</f:facet>
+		<h:outputText value="#{firmAdministrator.user.password}" />
+	</rich:column>
+
+	<rich:column sortBy="#{firmAdministrator.user.enabled}"  filterBy="#{firmAdministrator.user.enabled}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.user_enabled}" /> 		
+		</f:facet>
+		<h:outputText value="#{firmAdministrator.user.enabled}" />
+	</rich:column>
+
+	<rich:column sortBy="#{firmAdministrator.user.username}"  filterBy="#{firmAdministrator.user.username}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.user_username}" /> 		
+		</f:facet>
+		<h:outputText value="#{firmAdministrator.user.username}" />
+	</rich:column>
 	
 	
 	
@@ -172,6 +193,27 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</f:facet>
 		<h:outputText value="#{log.entity.email}" />
 	</rich:column>
+
+	<rich:column sortBy="#{log.entity.user.password}"  filterBy="#{log.entity.user.password}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.user_password}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.user.password}" />
+	</rich:column>
+
+	<rich:column sortBy="#{log.entity.user.enabled}"  filterBy="#{log.entity.user.enabled}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.user_enabled}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.user.enabled}" />
+	</rich:column>
+
+	<rich:column sortBy="#{log.entity.user.username}"  filterBy="#{log.entity.user.username}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.user_username}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.user.username}" />
+	</rich:column>
 			</rich:dataTable>
 			 </rich:tab>
 						 
@@ -195,14 +237,14 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</rich:toolBarGroup>
 
 		<rich:toolBarGroup
-			rendered="#{ firmAdministratorCrudBacking.actionSearch }">
+			rendered="#{ firmAdministratorCrudBacking.action == 'SEARCH' }">
 			<h:graphicImage id="clearsearch" value="/images/icons/bricks.png" />
 			<a4j:commandLink action="#{firmAdministratorCrudBacking.clearSearch}"
 				value="Clear Search" />
 		</rich:toolBarGroup>
 		
 		<rich:toolBarGroup
-			rendered="#{ firmAdministratorCrudBacking.actionSearch }">
+			rendered="#{ firmAdministratorCrudBacking.action == 'SEARCH' }">
 			<h:graphicImage id="refineSearch" value="/images/icons/bricks.png" />
 			<a4j:commandLink action="search"
 				value="Refine Search" />

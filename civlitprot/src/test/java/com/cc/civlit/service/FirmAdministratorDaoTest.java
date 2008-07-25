@@ -51,11 +51,14 @@ public class FirmAdministratorDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			firmAdministratorInstance.setFirstName("Eric");
-			firmAdministratorInstance.setLastName("gamma");
+			firmAdministratorInstance.setFirstName("Lavendar");
+			firmAdministratorInstance.setLastName("Wilson");
 			firmAdministratorInstance.setDateOfBirth(dateFormat
-					.parse("2008.07.29 09:01:35 EDT"));
-			firmAdministratorInstance.setEmail("gamma69017");
+					.parse("2008.08.11 09:26:21 EDT"));
+			firmAdministratorInstance.setEmail("beta16158");
+			firmAdministratorInstance.getUser().setPassword("gamma");
+			firmAdministratorInstance.getUser().setEnabled(false);
+			firmAdministratorInstance.getUser().setUsername("epsilon20203");
 
 			TestDataFactory firmTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("firmTestDataFactory");
@@ -86,11 +89,14 @@ public class FirmAdministratorDaoTest extends AbstractJpaTests {
 
 			try {
 
-				firmAdministrator.setFirstName("delta");
-				firmAdministrator.setLastName("alpha");
+				firmAdministrator.setFirstName("Mark");
+				firmAdministrator.setLastName("Mark");
 				firmAdministrator.setDateOfBirth(dateFormat
-						.parse("2008.08.15 16:52:08 EDT"));
-				firmAdministrator.setEmail("beta33825");
+						.parse("2008.08.13 18:14:10 EDT"));
+				firmAdministrator.setEmail("gamma47981");
+				firmAdministrator.getUser().setPassword("Malissa");
+				firmAdministrator.getUser().setEnabled(false);
+				firmAdministrator.getUser().setUsername("theta84875");
 
 				TestDataFactory firmTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("firmTestDataFactory");
@@ -117,11 +123,14 @@ public class FirmAdministratorDaoTest extends AbstractJpaTests {
 			FirmAdministrator firmAdministrator = (FirmAdministrator) firmAdministratorTestDataFactory
 					.loadOneRecord();
 
-			firmAdministrator.setFirstName("pi");
-			firmAdministrator.setLastName("beta");
+			firmAdministrator.setFirstName("Lavendar");
+			firmAdministrator.setLastName("gamma");
 			firmAdministrator.setDateOfBirth(dateFormat
-					.parse("2008.07.18 08:53:46 EDT"));
-			firmAdministrator.setEmail("epsilon71645");
+					.parse("2008.07.06 06:18:36 EDT"));
+			firmAdministrator.setEmail("delta79086");
+			firmAdministrator.getUser().setPassword("John");
+			firmAdministrator.getUser().setEnabled(true);
+			firmAdministrator.getUser().setUsername("Lavendar36972");
 
 			firmAdministratorService.save(firmAdministrator);
 
@@ -170,6 +179,18 @@ public class FirmAdministratorDaoTest extends AbstractJpaTests {
 				firmAdministratorService.findByEmail(firmAdministratorInstance
 						.getEmail()));
 		//assertNull("Found a FirmAdministrator with email YYY", firmAdministratorService.findByEmail("YYY"));			
+
+	}
+
+	public void testFindByUsername() {
+		if (!bTest)
+			return;
+
+		assertNotNull("Couldn't find a FirmAdministrator with username ",
+				firmAdministratorService
+						.findByUsername(firmAdministratorInstance.getUser()
+								.getUsername()));
+		//assertNull("Found a FirmAdministrator with username YYY", firmAdministratorService.findByUsername("YYY"));			
 
 	}
 

@@ -89,6 +89,12 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	</rich:dataTable>
 		
 	 </rich:tab>
+	 <rich:tab label="Tree" >
+	 	<rich:tree value="#{jurisdictionCrudBacking.tree}" 
+		var="data" switchType="client" 
+		nodeSelectListener="#{jurisdictionCrudBacking.processTreeSelection}"
+		/>
+	 </rich:tab>
 	 
 		 
 	 <rich:tab label="Audit" >
@@ -146,14 +152,14 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</rich:toolBarGroup>
 
 		<rich:toolBarGroup
-			rendered="#{ jurisdictionCrudBacking.actionSearch }">
+			rendered="#{ jurisdictionCrudBacking.action == 'SEARCH' }">
 			<h:graphicImage id="clearsearch" value="/images/icons/bricks.png" />
 			<a4j:commandLink action="#{jurisdictionCrudBacking.clearSearch}"
 				value="Clear Search" />
 		</rich:toolBarGroup>
 		
 		<rich:toolBarGroup
-			rendered="#{ jurisdictionCrudBacking.actionSearch }">
+			rendered="#{ jurisdictionCrudBacking.action == 'SEARCH' }">
 			<h:graphicImage id="refineSearch" value="/images/icons/bricks.png" />
 			<a4j:commandLink action="search"
 				value="Refine Search" />

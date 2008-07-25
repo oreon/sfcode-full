@@ -52,6 +52,27 @@ public class FirmAdministratorDaoImplBase extends BaseDao<FirmAdministrator>
 
 	}
 
+	@SuppressWarnings("unchecked")
+	public/**
+	 * Since username is unique, will try to return a single FirmAdministrator by the
+	 * username - if no record is found null will be returned
+	 * 
+	 */
+	FirmAdministrator findByUsername(String username) {
+
+		String qryString = "select c from FirmAdministrator c where c.user.username = ?1";
+
+		Query query = entityManager.createQuery(qryString).setParameter(1,
+				username);
+		try {
+			return (FirmAdministrator) query.getSingleResult();
+		} catch (NoResultException nre) {
+			logger.info("No FirmAdministrator found for username: " + username);
+			return null;
+		}
+
+	}
+
 	/** This function adds associated entities to an example criterion
 	 * @see org.witchcraft.model.support.dao.BaseDao#createExampleCriteria(java.lang.Object)
 	 */

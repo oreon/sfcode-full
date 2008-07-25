@@ -51,11 +51,14 @@ public class FirmAdministratorTestDataFactory
 
 		try {
 
-			firmAdministrator.setFirstName("gamma");
-			firmAdministrator.setLastName("Eric");
+			firmAdministrator.setFirstName("Eric");
+			firmAdministrator.setLastName("epsilon");
 			firmAdministrator.setDateOfBirth(dateFormat
-					.parse("2008.07.01 19:54:55 EDT"));
-			firmAdministrator.setEmail("theta31562");
+					.parse("2008.08.15 19:52:29 EDT"));
+			firmAdministrator.setEmail("Mark75528");
+			firmAdministrator.getUser().setPassword("zeta");
+			firmAdministrator.getUser().setEnabled(true);
+			firmAdministrator.getUser().setUsername("theta67460");
 
 			TestDataFactory firmTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("firmTestDataFactory");
@@ -78,11 +81,14 @@ public class FirmAdministratorTestDataFactory
 
 		try {
 
-			firmAdministrator.setFirstName("gamma");
-			firmAdministrator.setLastName("Eric");
+			firmAdministrator.setFirstName("beta");
+			firmAdministrator.setLastName("John");
 			firmAdministrator.setDateOfBirth(dateFormat
-					.parse("2008.08.07 03:25:28 EDT"));
-			firmAdministrator.setEmail("beta71194");
+					.parse("2008.07.09 08:36:55 EDT"));
+			firmAdministrator.setEmail("Eric30238");
+			firmAdministrator.getUser().setPassword("theta");
+			firmAdministrator.getUser().setEnabled(true);
+			firmAdministrator.getUser().setUsername("gamma26528");
 
 			TestDataFactory firmTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("firmTestDataFactory");
@@ -105,11 +111,14 @@ public class FirmAdministratorTestDataFactory
 
 		try {
 
-			firmAdministrator.setFirstName("zeta");
-			firmAdministrator.setLastName("gamma");
+			firmAdministrator.setFirstName("gamma");
+			firmAdministrator.setLastName("Malissa");
 			firmAdministrator.setDateOfBirth(dateFormat
-					.parse("2008.08.16 03:05:28 EDT"));
-			firmAdministrator.setEmail("Wilson77089");
+					.parse("2008.07.22 07:09:42 EDT"));
+			firmAdministrator.setEmail("pi64769");
+			firmAdministrator.getUser().setPassword("gamma");
+			firmAdministrator.getUser().setEnabled(false);
+			firmAdministrator.getUser().setUsername("zeta12512");
 
 			TestDataFactory firmTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("firmTestDataFactory");
@@ -132,11 +141,14 @@ public class FirmAdministratorTestDataFactory
 
 		try {
 
-			firmAdministrator.setFirstName("Lavendar");
-			firmAdministrator.setLastName("Malissa");
+			firmAdministrator.setFirstName("theta");
+			firmAdministrator.setLastName("Wilson");
 			firmAdministrator.setDateOfBirth(dateFormat
-					.parse("2008.08.09 15:09:53 EDT"));
-			firmAdministrator.setEmail("epsilon64147");
+					.parse("2008.08.10 08:49:42 EDT"));
+			firmAdministrator.setEmail("theta76557");
+			firmAdministrator.getUser().setPassword("Eric");
+			firmAdministrator.getUser().setEnabled(false);
+			firmAdministrator.getUser().setUsername("Lavendar49470");
 
 			TestDataFactory firmTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("firmTestDataFactory");
@@ -159,11 +171,14 @@ public class FirmAdministratorTestDataFactory
 
 		try {
 
-			firmAdministrator.setFirstName("gamma");
+			firmAdministrator.setFirstName("epsilon");
 			firmAdministrator.setLastName("Malissa");
 			firmAdministrator.setDateOfBirth(dateFormat
-					.parse("2008.07.18 21:36:33 EDT"));
-			firmAdministrator.setEmail("gamma93740");
+					.parse("2008.07.28 06:01:24 EDT"));
+			firmAdministrator.setEmail("John20368");
+			firmAdministrator.getUser().setPassword("pi");
+			firmAdministrator.getUser().setEnabled(false);
+			firmAdministrator.getUser().setUsername("delta76369");
 
 			TestDataFactory firmTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("firmTestDataFactory");
@@ -258,6 +273,14 @@ public class FirmAdministratorTestDataFactory
 						.createInstance("Date"));
 		firmAdministrator.setEmail((String) RandomValueGeneratorFactory
 				.createInstance("String"));
+		firmAdministrator.getUser().setPassword(
+				(String) RandomValueGeneratorFactory.createInstance("String"));
+		firmAdministrator.getUser()
+				.setEnabled(
+						(Boolean) RandomValueGeneratorFactory
+								.createInstance("boolean"));
+		firmAdministrator.getUser().setUsername(
+				(String) RandomValueGeneratorFactory.createInstance("String"));
 
 		TestDataFactory firmTestDataFactory = (TestDataFactory) BeanHelper
 				.getBean("firmTestDataFactory");

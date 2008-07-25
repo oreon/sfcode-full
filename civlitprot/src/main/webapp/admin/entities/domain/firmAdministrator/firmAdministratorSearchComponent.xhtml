@@ -63,6 +63,39 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 				<h:message for="firmAdministrator__email" styleClass="errMessage" />
 			</h:panelGroup>
 			
+			<h:outputText value="#{msg.user_password}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="firmAdministrator_user_password"
+					value="#{firmAdministratorCrudBacking.firmAdministrator.user.password}">
+					
+				</h:inputText>
+				<h:message for="firmAdministrator_user_password" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.user_enabled}" />
+			
+			<h:panelGroup>
+				<h:selectBooleanCheckbox     
+					id="firmAdministrator_user_enabled"
+					value="#{firmAdministratorCrudBacking.firmAdministrator.user.enabled}">
+					
+				</h:selectBooleanCheckbox >
+				<h:message for="firmAdministrator_user_enabled" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.user_username}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="firmAdministrator_user_username"
+					value="#{firmAdministratorCrudBacking.firmAdministrator.user.username}">
+					
+				</h:inputText>
+				<h:message for="firmAdministrator_user_username" styleClass="errMessage" />
+			</h:panelGroup>
+			
 		
 		
 			<h:outputText value="#{msg.firmAdministrator_firm}" styleClass="customFormLabel" />
@@ -87,13 +120,35 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	</a4j:region>
 	</h:panelGroup>
 
+			<h:outputText value="#{msg.firmAdministrator_user}" styleClass="customFormLabel" />
+			
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="false" disabled="false"
+		id="firmAdministrator_user" converter="keyToObjectConverter"
+		value="#{firmAdministratorCrudBacking.firmAdministrator.user}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{userCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="firmAdministrator_user" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+
 		
 		
 			<h:panelGroup>
 				<h:commandButton id="button1" value="Search"
 					action="#{firmAdministratorCrudBacking.search}" styleClass="btn" />
 				<h:outputText value=" " />
-				<h:commandButton id="button2" value="Cancel" action="#{firmAdministratorCrudBacking.clearSearch}"
+				<h:commandButton id="button2" value="Cancel" action="#{answerChoiceCrudBacking.clearSearch}"
 					immediate="true" styleClass="btn" />
  			</h:panelGroup>
 		</h:panelGrid>

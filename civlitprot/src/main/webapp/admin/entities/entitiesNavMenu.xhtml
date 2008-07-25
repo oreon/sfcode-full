@@ -1,0 +1,78 @@
+
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	
+	<table width="100%" style="border-right: 1px dotted #bbb; "  >
+	<tr>
+	<td>
+		<a4j:form>
+		<rich:panelMenu style="width:162px" mode="ajax"
+				iconExpandedGroup="disc" iconCollapsedGroup="disc"
+				iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right"
+				iconCollapsedTopGroup="chevronDown" iconCollapsedTopPosition="right">
+	       	<rich:panelMenuGroup label="domain "  expanded="true" > <rich:panelMenuItem><h:commandLink action="listFirm" value="#{msg.Firm}s">
+	<f:param name="nextPage" value="domain-Firm" />
+</h:commandLink>
+</rich:panelMenuItem>
+ <rich:panelMenuItem><h:commandLink action="listFirmAdministrator" value="#{msg.FirmAdministrator}s">
+	<f:param name="nextPage" value="domain-FirmAdministrator" />
+</h:commandLink>
+</rich:panelMenuItem>
+ <rich:panelMenuItem><h:commandLink action="listLitigationCase" value="#{msg.LitigationCase}s">
+	<f:param name="nextPage" value="domain-LitigationCase" />
+</h:commandLink>
+</rich:panelMenuItem>
+ <rich:panelMenuItem><h:commandLink action="listCaseAdministrator" value="#{msg.CaseAdministrator}s">
+	<f:param name="nextPage" value="domain-CaseAdministrator" />
+</h:commandLink>
+</rich:panelMenuItem>
+</rich:panelMenuGroup><rich:panelMenuGroup label="courtdivisions "  expanded="true" > <rich:panelMenuItem><h:commandLink action="listLevelOfCourt" value="#{msg.LevelOfCourt}s">
+	<f:param name="nextPage" value="courtdivisions-LevelOfCourt" />
+</h:commandLink>
+</rich:panelMenuItem>
+ <rich:panelMenuItem><h:commandLink action="listJurisdiction" value="#{msg.Jurisdiction}s">
+	<f:param name="nextPage" value="courtdivisions-Jurisdiction" />
+</h:commandLink>
+</rich:panelMenuItem>
+ <rich:panelMenuItem><h:commandLink action="listFilingOffice" value="#{msg.FilingOffice}s">
+	<f:param name="nextPage" value="courtdivisions-FilingOffice" />
+</h:commandLink>
+</rich:panelMenuItem>
+ <rich:panelMenuItem><h:commandLink action="listDivsion" value="#{msg.Divsion}s">
+	<f:param name="nextPage" value="courtdivisions-Divsion" />
+</h:commandLink>
+</rich:panelMenuItem>
+</rich:panelMenuGroup><rich:panelMenuGroup label="auth "  expanded="true" > <rich:panelMenuItem><h:commandLink action="listUser" value="#{msg.User}s">
+	<f:param name="nextPage" value="auth-User" />
+</h:commandLink>
+</rich:panelMenuItem>
+ <rich:panelMenuItem><h:commandLink action="listGrantedRole" value="#{msg.GrantedRole}s">
+	<f:param name="nextPage" value="auth-GrantedRole" />
+</h:commandLink>
+</rich:panelMenuItem>
+ <rich:panelMenuItem><h:commandLink action="listRole" value="#{msg.Role}s">
+	<f:param name="nextPage" value="auth-Role" />
+</h:commandLink>
+</rich:panelMenuItem>
+</rich:panelMenuGroup> 
+	       	<rich:panelMenuGroup label="Summary" expanded="true" >
+				<rich:panelMenuItem>
+					<h:commandLink action="summary" value="#{msg.summary}"/>
+				</rich:panelMenuItem>	
+			</rich:panelMenuGroup>   
+    	</rich:panelMenu>
+    	</a4j:form>
+	</td>
+	</tr>
+	</table>
+	
+</ui:composition>
+	
+	
