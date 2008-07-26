@@ -19,6 +19,7 @@ import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
 
+import org.witchcraft.lucene.analyzers.EnglishAnalyzer;
 import org.witchcraft.model.jsf.Image;
 import java.util.Set;
 
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 
 @MappedSuperclass
 @Indexed
-//@Analyzer(impl = example.EnglishAnalyzer.class)
+@Analyzer(impl = EnglishAnalyzer.class)
 public abstract class ExamBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
