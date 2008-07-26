@@ -11,7 +11,9 @@ import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.search.Query;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
+import org.witchcraft.lucene.analyzers.EnglishAnalyzer;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
+
 
 import com.oreon.kgauge.domain.Exam;
 import com.oreon.kgauge.service.ExamService;
@@ -23,10 +25,7 @@ public class IndexCreator {
 	 */
 	public static void main(String[] args) {
 		
-		Integer a = null;
-		if(a > 5){
-			System.out.println("a > 5");
-		}
+	
 
 		EntityManagerFactory emf = (EntityManagerFactory) BeanHelper
 				.getBean("entityManagerFactory");
@@ -54,11 +53,12 @@ public class IndexCreator {
 
 	private static void textSearch(
 			FullTextEntityManager fullTextEntityManager) {
+		
 		MultiFieldQueryParser parser = new MultiFieldQueryParser(new String[] {
-				"name", "description", "number" , "section.name", "category.name"}, new StandardAnalyzer());
+				"name", "description", "number" , "section.name", "category.name"}, new EnglishAnalyzer());
 		Query query = null;
 		try {
-			query = parser.parse("xml");
+			query = parser.parse("springs");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
