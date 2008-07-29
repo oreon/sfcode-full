@@ -21,7 +21,7 @@ import org.witchcraft.model.support.Range;
  * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
  */
 
-public class LitigationCaseBackingBeanBase
+public abstract class LitigationCaseBackingBeanBase
 		extends
 			BaseBackingBean<LitigationCase> {
 
@@ -70,7 +70,7 @@ public class LitigationCaseBackingBeanBase
 	 * It will be called before add new action
 	 */
 	public void initForAddNew() {
-
+		
 	}
 
 	public void reset() {
@@ -88,9 +88,6 @@ public class LitigationCaseBackingBeanBase
 		return listRanges;
 	}
 
-	protected void reloadFromId(long id) {
-		litigationCase = litigationCaseService.load(id);
-
-	}
+	
 
 }
