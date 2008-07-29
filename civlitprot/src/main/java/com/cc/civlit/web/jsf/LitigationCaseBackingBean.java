@@ -62,9 +62,9 @@ public class LitigationCaseBackingBean extends LitigationCaseBackingBeanBase
 		for (CaseAdministrator ca : assignedLawyers) {
 			ca = caseAdminBean.getCaseAdministratorService().load(ca.getId());
 			updatedAdimns.add(ca);
-			System.out.println("Assigned lawyer " + ca.getFirstName());
+			
 		}
-		reloadFromId(litigationCase.getId());
+		
 		litigationCase.setCaseAdministrator(updatedAdimns);
 		return super.update();
 	}
