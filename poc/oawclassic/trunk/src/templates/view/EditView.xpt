@@ -33,7 +33,7 @@
 						<br/>
 						
 			«REM»Composed collections e.g an order contains orderitems «ENDREM»
-			«FOREACH getAllComposedAssociations AS compAssoc -»
+			«FOREACH getAllComposedAssociationsExceptOneOnOne AS compAssoc -»
 				«LET compAssoc.Opposite AS ae»
 				
 				<rich:simpleTogglePanel switchType="client" label="«ae.associationName().toFirstUpper()»">
@@ -64,7 +64,8 @@
   				   	<!-- We need to have a hidden text field to store the id of the record being edited -->		
 		  			<h:inputHidden id="«asInstanceVar()»_id" value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».id}" />
   				   	«REM»We need to have hidden ids of all one to one associations «ENDREM»
-  				   	«FOREACH AssociationEnd.select(ae| ae.Opposite.isNavigable && ae.isOneOnOne()) AS ae-»
+  				   	«FOREACH AssociationEnd.select(ae| ae.Opposite.isNavigable && ae.isOneOnOne() && (ae.Opposite.Class.getMetaClass.getName != "oaw4.demo.classic.uml.meta.Embeddable") )  AS ae-»
+  				 
 					<h:inputHidden id="«associationName(ae.Opposite)»_id" value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«associationName(ae.Opposite)».id}" />
 					«ENDFOREACH-»
 				 </h:panelGroup>
