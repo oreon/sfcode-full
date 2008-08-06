@@ -50,13 +50,14 @@ public class ClassUtil {
 	public static String getPackageName(Class cls) {
 
 		Package beginPack = cls.Package();
-
+		
 		return getPackageName(beginPack);
 	}
 
 	private static String getPackageName(Package beginPack) {
 		String result = "";
-
+			
+		
 		for (Package pck = beginPack; pck != null; pck = pck.SuperPackage()) {
 			result = pck.NameS() + (result.length() > 0 ? "." + result : "");
 			// System.out.print(pck.)
