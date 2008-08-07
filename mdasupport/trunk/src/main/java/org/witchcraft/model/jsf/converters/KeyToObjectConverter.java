@@ -17,21 +17,11 @@ import org.witchcraft.model.support.BusinessEntity;
  * @author jsingh
  *
  */
-public class KeyToObjectConverter implements Converter {
+public class KeyToObjectConverter extends GenericUIConverter {
 
 	protected Logger log = Logger.getLogger(KeyToObjectConverter.class);
 
 	public KeyToObjectConverter() {
-	}
-
-	public String getAsString(FacesContext facesContext,
-			UIComponent uiComponent, Object obj) {
-
-		if (obj == null) {
-
-			return "";
-		}
-		return ((BusinessEntity) obj).getId().toString();
 	}
 
 	public Object getAsObject(FacesContext facesContext,
@@ -65,18 +55,5 @@ public class KeyToObjectConverter implements Converter {
 	}
 
 
-	private Object createNewValue(FacesContext context, UIComponent component,
-			long id) {
-		//component.get
-		ValueExpression ve = component.getValueExpression("value");
-		try {
-			BusinessEntity pk = (BusinessEntity) ve.getType(
-					context.getELContext()).newInstance();
-			pk.setId(id);
-			return pk;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("Converer error could not instantiate the assignable object", e);
-		}
-	}
+	
 }

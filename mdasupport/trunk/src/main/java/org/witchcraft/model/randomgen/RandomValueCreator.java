@@ -23,10 +23,25 @@ public interface RandomValueCreator<T> {
 	 */
 	T createOne(Collection<T> collection);
 	
+	/** This method should choose randomly an object of type t from 
+	 * the given collection 
+	 * @param collection
+	 * @return
+	 */
+	T createOne(T[] array);
+	
+	
 	/** Create a random object between the given range 
 	 * @param low
 	 * @param high
 	 * @return
 	 */
 	T createOne(T low, T high);
+	
+	/** Create a unique instance of the given class T - usually will do it by appending a 5-6 digit after
+	 * the returned value
+	 * @return
+	 */
+	T createUnique(); 
+	
 }

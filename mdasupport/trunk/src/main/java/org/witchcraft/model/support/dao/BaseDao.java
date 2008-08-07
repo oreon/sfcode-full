@@ -114,13 +114,25 @@ public class BaseDao<T> implements GenericDAO<T> {
 		return entityManager.find(getPersistentClass(), id);
 	}
 
+	/** Will load all the records for this entity -  (non-Javadoc)
+	 * @see org.witchcraft.model.support.dao.GenericDAO#loadAll()
+	 */
 	@SuppressWarnings("unchecked")
 	public List<T> loadAll() {
-		String qryString = "select e from "
-				+ getPersistentClass().getSimpleName() + "  e ";
+		String qryString = getLoadAllQuery();
 		Query query = entityManager.createQuery(qryString);
-
 		return query.getResultList();
+	}
+
+	/** This method returns the query to load all records - this method should be 
+	 * overridden by Daos in generated apps who need to filter records based on the need 
+	 * e.g show all subjects that belong to a certain school where the website hosts multiple schools 
+	 * @return
+	 */
+	public  String getLoadAllQuery() {
+		String qryString = "SELECT e FROM "
+				+ getPersistentClass().getSimpleName() + "  e ";
+		return qryString;
 	}
 
 	public long getCount() {
@@ -271,7 +283,7 @@ public class BaseDao<T> implements GenericDAO<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> executeNamedQuery(String queryString, Object... params) {
+	public<S> List<S> executeNamedQuery(String queryString, Object... params) {
 		Query query = entityManager.createNamedQuery(queryString);
 		setQueryParams(query, params);
 		return query.getResultList();

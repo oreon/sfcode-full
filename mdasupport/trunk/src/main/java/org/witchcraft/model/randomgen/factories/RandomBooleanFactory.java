@@ -5,7 +5,7 @@ import java.util.Random;
 
 import org.witchcraft.model.randomgen.RandomValueCreator;
 
-public class RandomBooleanFactory implements RandomValueCreator<Boolean>{
+public class RandomBooleanFactory extends AbstractRandomValueGenerator<Boolean>{
 
 	public Boolean createOne() {
 		return new Random().nextBoolean();

@@ -2,6 +2,7 @@ package org.witchcraft.model.jsf;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -55,6 +56,9 @@ public abstract class BaseBackingBean<T> {
 	public static final int INITIAL_RECORDS = 0;
 
 	public abstract BaseService<T> getBaseService();
+	
+	//This list is meant to cache all records - should be invalidated after add new , delete and edit
+	public Collection<T> cachedAllRecordsList ;
 
 	public abstract T getEntity();
 
@@ -196,6 +200,7 @@ public abstract class BaseBackingBean<T> {
 		boolean isNew = ((BusinessEntity) getEntity()).getId() == null;
 		try {
 			getBaseService().save(getEntity());
+			resetCachedList();
 		} catch (BusinessException be) {
 			createErrorMessage(be.getMessage(), "Business Exception", be, null);
 			return "failure";
@@ -215,7 +220,13 @@ public abstract class BaseBackingBean<T> {
 
 	private void createErrorMessage(String message, String title, Exception ex) {
 		createErrorMessage(message, title, ex, null);
-
+	}
+	
+	/**
+	 * This method should be called whenever the cached list of objects has changed - ie. delete , update etc
+	 */
+	public void resetCachedList(){
+		cachedAllRecordsList = null;
 	}
 
 	/**
@@ -238,8 +249,7 @@ public abstract class BaseBackingBean<T> {
 		List<T> entities = null;
 
 		if (action == null){
-			entities = getBaseService().loadAll();
-			return entities;
+			return getCachedAllRecordsList();
 		}
 
 		if (action.equals(SEARCH))
@@ -254,6 +264,15 @@ public abstract class BaseBackingBean<T> {
 		createSuccessMessage("Found " + entities.size() + " result(s).");
 
 		return entities;
+	}
+	
+	/**
+	 * @return
+	 */
+	public List<T> getCachedAllRecordsList(){
+		if(cachedAllRecordsList == null)
+			cachedAllRecordsList = getBaseService().loadAll();
+		return (List<T>) cachedAllRecordsList;
 	}
 
 	public String textSearch() {

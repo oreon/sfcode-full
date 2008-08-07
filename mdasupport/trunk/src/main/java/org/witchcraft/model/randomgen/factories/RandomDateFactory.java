@@ -1,14 +1,11 @@
 package org.witchcraft.model.randomgen.factories;
 
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Random;
 
-import org.witchcraft.model.randomgen.RandomValueCreator;
-
-public class RandomDateFactory implements RandomValueCreator<Date>{
+public class RandomDateFactory extends AbstractRandomValueGenerator<Date>{
 	
 	public Date createOne(){
 		GregorianCalendar cal = new GregorianCalendar();
@@ -28,4 +25,5 @@ public class RandomDateFactory implements RandomValueCreator<Date>{
 		return null;
 	}
 
+	
 }

@@ -1,18 +1,19 @@
 package org.witchcraft.model.randomgen.factories;
 
 import java.util.Collection;
+import java.util.Random;
 
 import org.witchcraft.model.randomgen.RandomValueCreator;
 
-public class RandomEnumerationFactory implements RandomValueCreator<Enum>{
+import com.sun.xml.internal.ws.api.pipe.NextAction;
+
+public class RandomEnumerationFactory extends AbstractRandomValueGenerator<Enum>{
 
 	public Enum createOne() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public Enum createOne(Collection<Enum> collection) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -20,5 +21,7 @@ public class RandomEnumerationFactory implements RandomValueCreator<Enum>{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }

@@ -5,7 +5,7 @@ import java.util.Random;
 
 import org.witchcraft.model.randomgen.RandomValueCreator;
 
-public class RandomIntFactory implements RandomValueCreator<Integer>{
+public class RandomIntFactory extends AbstractRandomValueGenerator<Integer>{
 
 	public Integer createOne() {
 		return new Random().nextInt(10000);
@@ -20,5 +20,6 @@ public class RandomIntFactory implements RandomValueCreator<Integer>{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }
