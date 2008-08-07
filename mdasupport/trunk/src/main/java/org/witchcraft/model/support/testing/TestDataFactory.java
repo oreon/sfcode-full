@@ -34,4 +34,10 @@ public interface TestDataFactory<T> {
 	public void createAndSaveRecords(int recordsTocreate);
 	
 	
+	/**Save and return one unique record- useful for one to one associations 
+	 * @return
+	 */
+	public T loadOneUniqueRecord();
+	
+	
 }

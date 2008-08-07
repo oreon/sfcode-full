@@ -28,7 +28,7 @@ public abstract class AbstractTestDataFactory<T> implements TestDataFactory{
 		this.persistable = persistable;
 	}
 	
-	/** Will return a random number of PlacedOrders
+	/** Will return a random number of records
 	 * @return
 	 */
 	public List<T> createFewRecords() {
@@ -50,6 +50,12 @@ public abstract class AbstractTestDataFactory<T> implements TestDataFactory{
 		}
 
 		return returnList;
+	}
+	
+	@Override
+	public Object loadOneUniqueRecord() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
