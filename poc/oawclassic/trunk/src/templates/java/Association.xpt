@@ -1,4 +1,9 @@
+«IMPORT org::openarchitectureware::core::meta::core»
 «IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT java»
+
+
 «EXTENSION java::NamingConventions»
 «EXTENSION java::Associations»
 
@@ -27,8 +32,8 @@
 	}
 «ENDDEFINE»
 
-	«DEFINE ToManyAccessorMethods FOR AssociationEnd»
-	public void add«removeTrailingS(NameS.toFirstUpper())» («Class.fqn()» «asParameter()») {
+«DEFINE ToManyAccessorMethods FOR AssociationEnd»
+	public void add«removeTrailingS(Name.toFirstUpper())» («Class.fqn()» «asParameter()») {
 		«IF Opposite.isNavigable -»
 			«asParameter()».«Opposite.asSetter()»(«Opposite.Class.NameS.toFirstLower()»Instance());
 		«ENDIF-»
@@ -39,18 +44,12 @@
 		«asParameter()») {
 		this.«asInstanceVar()».remove(«asParameter()»);
 	}
-
-	«IF Class.isEntity()»
-		«IF Opposite.isNavigable »
-			@OneToMany(mappedBy="«Opposite.asParameter()»", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-		«ELSE»
-			@OneToMany«Opposite.isComposition?"(cascade=CascadeType.ALL)\n@Cascade({org.hibernate.annotations.CascadeType.DELETE_ORPHAN})":"(cascade=CascadeType.PERSIST)"»
-		«ENDIF»
-			@JoinColumn(name="«Opposite.associationName()»_ID", nullable=«isAssocNullable()»)
-	«ENDIF»
+	
+	«EXPAND genGetterForCollection(this.Class) FOR this»
 	public java.util.Set<«Class.fqn()»> «asGetter()» () {
 		return this.«asInstanceVar()»;
 	}
+
 
 	public void «asSetter()» (java.util.Set<«Class.fqn()»> «asParameter()») {
 		this.«asInstanceVar()» = «asParameter()»;
@@ -72,3 +71,47 @@
 		return this.«asInstanceVar()».size();
 	}
 «ENDDEFINE»
+
+
+«DEFINE genMappingForManyToMany FOR AssociationEnd»
+	@ManyToMany(
+        targetEntity=«Class.NameS».class,
+        cascade={CascadeType.PERSIST, CascadeType.MERGE}
+    )
+    @JoinTable(
+        name="«Opposite.associationName()»_«associationName()»",
+        joinColumns=@JoinColumn(name="«Opposite.associationName().toUpperCase()»_ID"),
+        inverseJoinColumns=@JoinColumn(name="«associationName().toUpperCase()»_ID")
+    )
+«ENDDEFINE»
+
+«DEFINE genMappingForOneToMany FOR AssociationEnd»
+	«IF Opposite.isNavigable »
+		@OneToMany(mappedBy="«Opposite.asParameter()»", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	«ELSE»
+		@OneToMany«Opposite.isComposition?"(cascade=CascadeType.ALL)\n@Cascade({org.hibernate.annotations.CascadeType.DELETE_ORPHAN})":"(cascade=CascadeType.PERSIST)"»
+	«ENDIF»
+		@JoinColumn(name="«Opposite.associationName()»_ID", nullable=«isAssocNullable()»)
+«ENDDEFINE»
+
+«DEFINE genGetterForCollection(Class c) FOR AssociationEnd»
+	«IF Class.isEntity()»
+		«IF c.isAssociationManyToMany(this)»
+			«EXPAND genMappingForManyToMany FOR this»
+		«ELSE»
+			«EXPAND genMappingForOneToMany FOR this»
+		«ENDIF»
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genGetterForCollectionEntity(Class e) FOR AssoicationEnd»
+	«IF getAllAggregatedManyToManyAssociations.contains(this)»
+		«EXPAND genMappingForManyToMany FOR this»
+	«ELSE»
+		«EXPAND genMappingForOneToMany FOR this»
+	«ENDIF»
+«ENDDEFINE»
+
+
+	

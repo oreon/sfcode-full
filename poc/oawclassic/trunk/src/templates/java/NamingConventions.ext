@@ -92,7 +92,7 @@ String fullName(Attribute attribute ):
 attribute.TypeModifier == null ? attribute.NameS:attribute.TypeModifier + "."  + attribute.NameS;
 
 String getContainerGetter(Attribute attribute ):
-attribute.TypeModifier == null  ? "":"get"+ attribute.TypeModifier.toFirstUpper() + "()." ;
+attribute.TypeModifier == null || attribute.TypeModifier.length == 0 ? "":"get"+ attribute.TypeModifier.toFirstUpper() + "()." ;
 
 List getCounters(Class cls):
 JAVA oaw4.demo.classic.uml.extend.ClassUtil.getCounters(org.openarchitectureware.meta.uml.classifier.Class);
@@ -150,21 +150,24 @@ JAVA oaw4.demo.classic.uml.extend.ClassUtil.createOperationInvocation(org.openar
 String createOperationParams(Operation operation):
 JAVA oaw4.demo.classic.uml.extend.ClassUtil.createOperationParams(org.openarchitectureware.meta.uml.classifier.Operation);
 
-
+//TODO - all these functions need to be moved to a common file
 String getVariableNameForDisplay(String arg):
 JAVA oaw4.demo.classic.uml.extend.GenericUtils.getViewLabelFromVariable(java.lang.String);
 
 String readProperty(String arg):
 JAVA oaw4.demo.classic.uml.extend.GenericUtils.readProperty(java.lang.String);
 
-String getFirstStereoTypeName(ModelElement element):
-element.StereoType().size() > 0 ? element.StereoType().get(0).Name : "";
-//JAVA oaw4.demo.classic.uml.extend.GenericUtils.readProperty(java.lang.String);
+String readProperty(String arg):
+JAVA oaw4.demo.classic.uml.extend.GenericUtils.readProperty(java.lang.String, java.lang.String);
 
+boolean isValid(String arg):
+arg != null && arg.length > 0;
 
-//FIXME top level package should be defined
 String getTopLevelPackage():
-"com.oreon.kgauge";
+readProperty("topLevelPackage");
+
+String getBackingBeanExtension():
+readProperty("backingBean.defaultSuffix", "CrudBacking");
 
 
 

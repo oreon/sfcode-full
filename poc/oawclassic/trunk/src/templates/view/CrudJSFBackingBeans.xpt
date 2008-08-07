@@ -23,6 +23,9 @@
 	import org.witchcraft.model.jsf.BaseBackingBean;
 	import org.witchcraft.model.support.service.BaseService;
 	import org.apache.commons.lang.StringUtils;
+	
+	import java.util.Set;
+	import org.apache.commons.collections.ListUtils;
 
 	import «packageName()». «asParameter()»;
 	import «parentPackageName()».service.«NameS»Service;
@@ -30,10 +33,15 @@
 	import java.util.Date;
 	import java.util.List;
 	import java.util.ArrayList;
+	import java.util.HashSet;
 	import org.witchcraft.model.support.Range;
 	
 	«FOREACH getAllComposedAssociationsExceptOneOnOne AS ae»
 		import «ae.Opposite.Class.packageName()».«ae.Opposite.Class.NameS»;
+	«ENDFOREACH»
+	
+	«FOREACH getAllAggregatedManyToManyAssociations AS ae»
+		import «ae.Opposite.Class.fqn()»;
 	«ENDFOREACH»
 	
 	«IF getTreeFields != null»
@@ -124,9 +132,14 @@
 			public void reset(){
 				«asInstanceVar()» = new «asParameter()»();
 				resetRanges();
-			«FOREACH getAllComposedAssociationsExceptOneOnOne AS ae»
-				list«ae.Opposite.associationName().toFirstUpper()»s.clear();
-			«ENDFOREACH»
+				
+				«FOREACH getAllComposedAssociationsExceptOneOnOne AS ae»
+					list«ae.Opposite.associationName().toFirstUpper()»s.clear();
+				«ENDFOREACH»
+				
+				«FOREACH getAllAggregatedManyToManyAssociations AS ae»
+					resetAggregated«ae.Opposite.associationName().toFirstUpper()»();	
+				«ENDFOREACH»
 				
 			}			
 			
@@ -145,15 +158,34 @@
 				return listRanges;
 			}
 
+			
 			protected void reloadFromId(long id){
+			if(id != 0)
 				«asInstanceVar()» = «asInstanceVar()»Service.load(id);
 				«FOREACH getAllAttributes.select(repeatableAttribute|repeatableAttribute.getRepeat()) AS repeatableAttribute»
 					repeat«repeatableAttribute.NameS.toFirstUpper()» = «asInstanceVar()».«repeatableAttribute.getContainerGetter()»get«repeatableAttribute.NameS.toFirstUpper()»();
 				«ENDFOREACH»
+				
+				«FOREACH getAllAggregatedManyToManyAssociations AS ae»
+					reloadAggregated«ae.Opposite.associationName().toFirstUpper()»();	
+				«ENDFOREACH»
+			}
+			
+			@Override
+			public String update() {
+				«FOREACH getAllComposedAssociationsExceptOneOnOne AS ae»
+					add«ae.Opposite.associationName().toFirstUpper()»sTo«NameS»();
+				«ENDFOREACH»
+				
+				«FOREACH getAllAggregatedManyToManyAssociations AS ae»
+					addAggregated«ae.Opposite.associationName().toFirstUpper()»();	
+				«ENDFOREACH»
+				
+				return super.update();
 			}
     
 		    
-		 «IF getTreeFields != null»
+		 «IF isValid(getTreeFields)»
 		  
 			public TreeNode getTree() {
 				if(root == null){
@@ -186,18 +218,12 @@
 		    }
 		«ENDIF»
 		
-		«IF !getAllComposedAssociationsExceptOneOnOne.isEmpty»
-		@Override
-		public String update() {
-			«FOREACH getAllComposedAssociationsExceptOneOnOne AS ae»
-				add«ae.Opposite.associationName().toFirstUpper()»sTo«NameS»();
-			«ENDFOREACH»
-			return super.update();
-		}
-		«ENDIF»
-		
 		«FOREACH getAllComposedAssociationsExceptOneOnOne AS ae»
 			«EXPAND genCodeForComposedEntities(ae)»	
+		«ENDFOREACH»
+		
+		«FOREACH getAllAggregatedManyToManyAssociations AS ae»
+			«EXPAND genCodeForAggregatedEntities(ae)»	
 		«ENDFOREACH»
 
 	} 
@@ -313,11 +339,65 @@ private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 			taskService.delete(task);
 		}*/
 	}
-	
-	
 	«ENDLET»
 	
 «ENDDEFINE»
+
+«REM» For aggregated entities -e.g. allocate teachers to a class - typical used for many to many relationships«ENDREM»
+«DEFINE genCodeForAggregatedEntities( AssociationEnd ae ) FOR AbstractEntity»
+	
+	«LET ae.Opposite.associationName().toFirstUpper() AS assocName»
+	 «LET ae.Opposite.Class.NameS AS clsName»
+	
+	///////////////////// CODE FOR ASSIGNING MULTIPLE «clsName» TO THIS «NameS» ///////////////////////
+	 
+	private List<«clsName»> assigned«assocName» = new ArrayList<«clsName»>();
+	private List<«clsName»> available«assocName» = new ArrayList<«clsName»>();
+	private «clsName»BackingBean «assocName.toFirstLower()»Bean = getBean(NavigationConstants.«clsName.toUpperCase()»_BACKING);
+	 
+	public List<«clsName»> getAvailable«assocName»() {
+		List<«clsName»> all«assocName» =  «assocName.toFirstLower()»Bean.getRecords();
+		return ListUtils.subtract(all«assocName», assigned«assocName»);
+	}
+
+	public void setAvailable«assocName»(List<«clsName»> available«assocName») {
+		this.available«assocName» = available«assocName»;
+	}
+
+	public List<«clsName»> getAssigned«assocName»() {
+		return assigned«assocName»;
+	}
+
+	public void setAssigned«assocName»(List<«clsName»> assigned«assocName») {
+		this.assigned«assocName» = assigned«assocName»;
+	}
+	
+	public void resetAggregated«assocName»() {
+		assigned«assocName».clear();
+	}
+	
+	public void addAggregated«assocName»() {
+		Set<«clsName»> updated«assocName» = new HashSet<«clsName»>();
+		
+		for («clsName» ca : assigned«assocName») {
+			ca = «assocName.toFirstLower()»Bean.get«clsName»Service().load(ca.getId());
+			updated«assocName».add(ca);
+		}
+		
+		«NameS.toFirstLower()».set«assocName.toFirstUpper()»(updated«assocName»);
+	}
+	
+	protected void reloadAggregated«assocName»() {
+		assigned«assocName».addAll(«NameS.toFirstLower()».get«assocName»()) ;
+	}
+	
+	///////////////////// END OF CODE FOR ASSIGNING MULTIPLE «clsName» TO THIS «NameS» /////////////////
+	
+	«ENDLET»
+	«ENDLET»
+«ENDDEFINE»
+
+
 
 «DEFINE genFirstAttribute FOR Class»
 	get«Attribute(0).NameS.toFirstUpper()-»()

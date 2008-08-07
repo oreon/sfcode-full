@@ -24,8 +24,15 @@ package «getTopLevelPackage()».web.jsf;
 
 public interface NavigationConstants{
 	«FOREACH getUniqueTransitions() AS transition-»
-				public static final String «transition.Guard.getViewLabelFromVariable("_").toUpperCase()» = "«transition.Guard»" ;
+			public static final String «transition.Guard.getViewLabelFromVariable("_").toUpperCase()» = "«transition.Guard»" ;
 	«ENDFOREACH»
+	
+	
+	«FOREACH getMetaEnvironment.getElements("Entity") AS e»
+			public static final String «e.NameS.toUpperCase()»_BACKING = "«e.NameS.toFirstLower()»CrudBacking" ;
+	«ENDFOREACH»
+	
+	
 }
 «ENDFILE»
 «ENDDEFINE»

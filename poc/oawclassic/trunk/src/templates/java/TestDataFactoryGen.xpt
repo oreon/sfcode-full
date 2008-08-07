@@ -19,14 +19,37 @@
 	import org.witchcraft.model.support.testing.TestDataFactory;
 	
 	«EXPAND GenImports FOREACH getEntities()»
+	
 	/** 
 	 * This class populates the database with some initial data
 	 *
 	 */
 	public class InitialDataSetup {
 	
-		public static void main(String args[]){
-			
+		public BusinessEntity[] entities = {
+			«FOREACH getEntities() AS e-»
+				«IF e.isGenerateSampleData»
+					«e.NameS.toFirstLower()»TestDataFactory.persistAll(),
+				«ENDIF»
+			«ENDFOREACH»
+		};
+	
+		private int recordsToCreate;
+
+		public int getRecordsToCreate() {
+			return recordsToCreate;
+		}
+	
+		public void setRecordsToCreate(int recordsToCreate) {
+			this.recordsToCreate = recordsToCreate;
+		}
+	
+		public static void main(String args[]) {
+			InitialDataSetup ids = (InitialDataSetup) BeanHelper.getBean("initialDataSetup");
+			ids.createRecords();
+		}
+
+		public void createRecords() {	
 			«FOREACH getEntities() AS e-»
 				«IF e.isGenerateSampleData»
 					«EXPAND genBeanLookup FOR e»
