@@ -195,6 +195,10 @@ public class GenericUtils {
 	 * @param propertyName
 	 * @return
 	 */
+	/**
+	 * @param key
+	 * @return
+	 */
 	public static String readProperty(String key) {
 		Properties properties = new Properties();
 		try {
@@ -213,6 +217,16 @@ public class GenericUtils {
 		String value = properties.getProperty(key);
 		logger.info("Returning value " + value + " for key " + key);
 		return value;
+	}
+	
+	/** Tries to look up the key - if not found returns the defaultProperty
+	 * @param key
+	 * @param defaultProperty
+	 * @return
+	 */
+	public static String readProperty(String key, String defaultProperty) {
+		String value = readProperty(key);
+		return key == null ? defaultProperty : value;
 	}
 
 }

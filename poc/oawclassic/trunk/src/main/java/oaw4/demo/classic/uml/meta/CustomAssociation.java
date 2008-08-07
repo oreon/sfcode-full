@@ -14,8 +14,17 @@ public class CustomAssociation extends Association{
 
 	private String defaultValue;
 	private boolean mutable = true;
+	private String access;
 	
 	
+	public String getAccess() {
+		return access;
+	}
+
+	public void setAccess(String access) {
+		this.access = access;
+	}
+
 	public boolean isMutable() {
 		
 		return mutable;

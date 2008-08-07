@@ -123,7 +123,7 @@ public class Entity extends AbstractEntity {
 	}
 
 	public List<String> getUniqueConstraintsAsCollection() {
-		return GenericUtils.tokenizeString(uniqueConstraints, " , ");
+		return GenericUtils.tokenizeString(uniqueConstraints, " *, *");
 	}
 
 	public void setUniqueConstraints(String uniqueConstraints) {
@@ -236,7 +236,12 @@ public class Entity extends AbstractEntity {
 	}
 
 	public String getTreeTopLevel() {
-		return getTreeFieldsAsCollection().get(0);
+		if(getTreeFieldsAsCollection().size() > 0)
+			return getTreeFieldsAsCollection().get(0);
+		else{
+			log.error("There is an error with your tree specification feilds: " + getTreeFields());
+			return "INVALID TREEFLDS SPEC";
+		}
 	}
 
 	public void setTreeFields(String treeFields) {

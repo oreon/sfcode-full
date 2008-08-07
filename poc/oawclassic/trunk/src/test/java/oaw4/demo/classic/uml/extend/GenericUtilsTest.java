@@ -22,10 +22,22 @@ public class GenericUtilsTest extends TestCase {
 		
 		List<String> lstTokens = GenericUtils.tokenizeString(arg,
 				" *\\[\\[ *| *\\]\\] *");
+		assertEquals(lstTokens.size(), 3);
+		for (String string : lstTokens) {
+			System.out.println(string);
+		}
+	}
+	
+	public void testTokenizeStringsWithComma() {
+		String arg = "a, b,c";
+		
+		List<String> lstTokens = GenericUtils.tokenizeString(arg,
+				" *, *");
 		System.out.println(lstTokens.size());
 		for (String string : lstTokens) {
 			System.out.println(string);
 		}
+		assertEquals(lstTokens.size(), 3);
 	}
 	
 	public void testReadProperties(){
