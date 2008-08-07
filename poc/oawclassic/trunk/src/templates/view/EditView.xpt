@@ -32,6 +32,8 @@
 			</h:panelGrid>
 						<br/>
 						
+			«EXPAND genAllocationListShuttle(this) FOREACH getAllAggregatedManyToManyAssociations»			
+						
 			«REM»Composed collections e.g an order contains orderitems «ENDREM»
 			«FOREACH getAllComposedAssociationsExceptOneOnOne AS compAssoc -»
 				«LET compAssoc.Opposite AS ae»
@@ -177,5 +179,34 @@
 				<a4j:actionparam name="deleteRowIndex" value="#{rowIndex}" />
 		</a4j:commandButton>
 	</t:column>
+«ENDDEFINE»
+
+«REM»To Generate list shuttle component for allocaiton of objects e.g. allocating/assigning 
+teachers to a class
+TODO - Validation(required for target ?) and internationalization
+«ENDREM»
+«DEFINE genAllocationListShuttle(Entity e) FOR AssociationEnd»
+	«LET e.NameS.toFirstLower()+ "CrudBacking" AS backingBean»
+	«LET Opposite.associationName() AS assocName»
+	
+	
+	<rich:simpleTogglePanel switchType="client"
+			label="«assocName.toFirstUpper()»">
+			
+			<rich:listShuttle id="«assocName»Shuttle" converter="shuttleListConverter"
+				sourceValue="#{«backingBean».available«assocName.toFirstUpper()»}"
+				targetValue="#{«backingBean».assigned«assocName.toFirstUpper()»}"
+				var="item" sourceCaptionLabel="Available «assocName.toFirstUpper()»"
+				targetCaptionLabel="Assigned «assocName.toFirstUpper()»">
+
+				<rich:column>
+					<h:outputText value="item.displayName" />
+				</rich:column>
+
+				<wc:message for="«assocName»Shuttle" />
+			</rich:listShuttle>
+	</rich:simpleTogglePanel>
+	«ENDLET»
+	«ENDLET»
 «ENDDEFINE»
 	

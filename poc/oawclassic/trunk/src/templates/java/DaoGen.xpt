@@ -27,7 +27,7 @@
 			
 			«EXPAND FinderImpl(this) FOREACH Findable-»
 			
-			 «IF getTreeFields != null»
+			 «IF isValid(getTreeFields)»
 			 /**
 			 * For tree view , this method returns top level
 			 * elements (whose parent is null )
@@ -126,12 +126,12 @@
 		
 		«EXPAND genNamedQueryDecWithSemicolon FOREACH getQueryOperations»
 		
-		 «IF getTreeFields != null-»
+		 «IF isValid(getTreeFields)» 
 		 /**
 		 * For tree view , this method returns top level
 		 * elements (whose parent is null )
 		 */ 
-		 public List<Category> findTopLevelElements();
+		 public List<«NameS»> findTopLevelElements();
 		 «ENDIF»
 			
 	}		
