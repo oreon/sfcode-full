@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import oaw4.demo.classic.uml.meta.Column;
 import oaw4.demo.classic.uml.meta.ConstrainedParameter;
 import oaw4.demo.classic.uml.meta.CustomAssociation;
 import oaw4.demo.classic.uml.meta.Entity;
@@ -377,8 +378,9 @@ public class ClassUtil {
 		declaration += "protected " + attribute.Type().NameS() + " "
 				+ attribute.NameS();
 
-		if (attribute.InitValue() != null)
-			declaration += " = " + attribute.InitValue();
+		logger.info("Initial value of " + attribute.NameS() + ":" + attribute.InitValue() );
+		if (getInitValue(attribute) != null)
+			declaration += " = " + getInitValue(attribute);
 		else if (attribute.Type().NameS().equals("Boolean")) {
 			declaration += " = false"; // Need to init Boolean values
 		}
@@ -386,6 +388,14 @@ public class ClassUtil {
 		declaration += ";";
 
 		return declaration;
+	}
+	
+	public static String getInitValue(Attribute attribute){
+		if(StereoTypeManager.isColumn(attribute)){
+			return ((Column)attribute).getDefaultValue();
+		}
+		
+		return attribute.InitValue();
 	}
 
 	public static String fullyQualifiedName(Class cls) {

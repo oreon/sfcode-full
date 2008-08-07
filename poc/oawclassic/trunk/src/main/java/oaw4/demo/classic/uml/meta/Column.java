@@ -30,6 +30,10 @@ public class Column extends Attribute{
 	private String fetchValue;
 	private String fetchCols;
 	
+	//There is an issue reading initvalue in Magidraw so we use this property to hold initial 
+	//value
+	private String defaultValue;
+	
 	
 	private String containerName;
 	
@@ -148,6 +152,12 @@ public class Column extends Attribute{
 	
 	public Collection<String> getFectchColsCollection(){
 		return GenericUtils.stringArrayAsList(fetchCols);
+	}
+	public String getDefaultValue() {
+		return defaultValue;
+	}
+	public void setDefaultValue(String defaultValue) {
+		this.defaultValue = defaultValue;
 	}
 	
 

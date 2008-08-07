@@ -21,13 +21,7 @@
 				
 			<h:panelGrid columns="2" styleClass="formTableCustom">
 					«REM»The associated entites for e.g an order would need a customer «ENDREM»
-					«FOREACH getNonOneToOneOutgoingAssociations() AS ae -»
-						<h:panelGroup>
-						<h:outputText value="#{msg.«NameS.toFirstLower()+ "_" + ae.associationName() -»}" />
-						<h:outputText value="«(ae.isAssocNullable()?"":"*")-»" />
-						</h:panelGroup>
-						«EXPAND ViewGen::genDropDown(this, true, true) FOR ae-»
-					«ENDFOREACH»
+					«EXPAND genAssociations FOR this»
 					«EXPAND genEditEntry(this) FOREACH getAllAttributes -»
 			</h:panelGrid>
 						<br/>
@@ -138,9 +132,7 @@
 «ENDDEFINE»
 
 «DEFINE genEditableTableRow(Class e) FOR Attribute»
-	«REM»comment
-	«e.NameS != ? »rendered={  }
-	«ENDREM»
+	«EXPAND genAccessControl»
 	<t:column  >
 		<f:facet name="header">
 				<t:outputText value="«NameS.toFirstUpper()»" /> 
@@ -152,6 +144,7 @@
 		</«getElementType()»>
 		<h:message for="«e.asInstanceVar()»_«TypeModifier»_«NameS»" styleClass="errMessage" />
 	</t:column>
+	«EXPAND genAccessControlEnd»
 «ENDDEFINE»
 
 «REM» Create dropdowns in «ENDREM»
@@ -208,5 +201,55 @@ TODO - Validation(required for target ?) and internationalization
 	</rich:simpleTogglePanel>
 	«ENDLET»
 	«ENDLET»
+«ENDDEFINE»
+
+«REM» Generates the outgoing associations e.g. an order would need a customer - when creating a new order«ENDREM»
+«DEFINE genAssociations FOR Entity»
+	«FOREACH getNonOneToOneOutgoingAssociations() AS ae -» 
+		«EXPAND genAccessControl FOR ae.Association»
+		<h:panelGroup>
+		<h:outputText value="#{msg.«NameS.toFirstLower()+ "_" + ae.associationName() -»}" />
+		<h:outputText value="«(ae.isAssocNullable()?"":"*")-»" />
+		</h:panelGroup>
+		«EXPAND genAccessControlEnd FOR ae.Association»
+		
+		«EXPAND genAccessControl FOR ae.Association»
+		«EXPAND ViewGen::genDropDown(this, true, true) FOR ae-»
+		«EXPAND genAccessControlEnd FOR ae.Association»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+
+«DEFINE genAccessControl FOR Element»
+«ENDDEFINE»
+
+«DEFINE genAccessControlEnd FOR Element»
+«ENDDEFINE»
+
+«DEFINE genAccessControl FOR CustomAssociation»
+	«IF getAccess.isValid()»
+	<acegijsf:authorize ifAnyGranted="«getAccess»">
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genAccessControlEnd FOR CustomAssociation»
+	«IF getAccess.isValid()»
+	</acegijsf:authorize>
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genAccessControl FOR Column»
+	«IF getAccess.isValid()»
+	<acegijsf:authorize ifAnyGranted="«getAccess»">
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genAccessControlEnd FOR Column»
+	«IF getAccess.isValid()»
+	</acegijsf:authorize>
+	«ENDIF»
 «ENDDEFINE»
 	

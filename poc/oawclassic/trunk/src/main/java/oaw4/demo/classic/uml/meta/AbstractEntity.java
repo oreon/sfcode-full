@@ -188,6 +188,39 @@ public abstract class AbstractEntity extends
 		return composedAssociatons;
 	}
 	
+	public ElementSet getAllAggregatedManyToManyAssociations(){
+		
+		ElementSet composedAssociatons = new ElementSet();
+		
+		for (Object object : AssociationEnd()) {
+			AssociationEnd ae = (AssociationEnd)object;
+			logger.info("Calling getAll aggregate association " + ClassUtil.getAssocName(ae) );
+			//if(StereoTypeManager.is)
+			if(ae.isMultiple() && ae.Opposite().isNavigable() && ae.Opposite().isMultiple() ){
+				logger.info("Found aggregate associateion " + ClassUtil.getAssocName(ae) );
+				composedAssociatons.add(ae);
+			}
+		}
+
+		return composedAssociatons;
+	}
+	
+	
+	public boolean isAssociationManyToMany(AssociationEnd ae){
+		logger.info("Looking for in aggregates " + ClassUtil.getAssocName(ae) );
+		
+		ElementSet aggregateAssociations = getAllAggregatedManyToManyAssociations();
+		
+		logger.info("size of many to many assocs " + aggregateAssociations.size() );
+		
+		System.out.println( "<<<>>>" + ClassUtil.getAssocName(ae) + " " +ae.isMultiple() + " " + ae.isNavigable() + ae.Opposite().isMultiple());
+		if(ae.isMultiple() && ae.isNavigable() && ae.Opposite().isMultiple() ){
+			return true;
+		}
+		
+		return false;
+	}
+	
 	/**
 	 * @return all outgoing associations other than one on one 
 	 */
