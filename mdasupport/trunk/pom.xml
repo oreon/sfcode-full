@@ -5,12 +5,11 @@
 	<artifactId>mdasupport</artifactId>
 	<name>mdasupport</name>
 	<version>1.0-SNAPSHOT</version>
-	<description>
-		This project contains classes that are commonly needed by
+	<description> This project contains classes that are commonly needed by
 		projects generated using Witchcraft MDA. e.g exceptions,
-		Authentication, Base Daos etc
-	</description>
-	<url>http://withchcraft.sourceforge.net</url>
+		Authentication, Base Daos etc</description>
+	<url>http://withchcraft.sourceforge.net
+	</url>
 	<scm>
 		<connection>
 			scm:svn:https://witchcraft.svn.sourceforge.net/svnroot/witchcraft/mdasupport/trunk
@@ -23,6 +22,13 @@
 		</url>
 	</scm>
 	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ftp</artifactId>
+				<version>1.0-beta-2</version>
+			</extension>
+		</extensions>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -34,26 +40,35 @@
 					<encoding>utf-8</encoding>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	<repositories>
 		<repository>
 			<id>java.net</id>
-			<url>
-				https://maven-repository.dev.java.net/nonav/repository
-			</url>
+			<url> https://maven-repository.dev.java.net/nonav/repository</url>
 			<layout>legacy</layout>
 		</repository>
 		<repository>
 			<id>repository.jboss.org</id>
 			<name>JBoss Maven Repository</name>
-			<url>http://repository.jboss.org/maven2</url>
+			<url>http://repository.jboss.org/maven2
+			</url>
 		</repository>
 		<repository>
 			<id>m2-incubating</id>
-			<url>
-				http://people.apache.org/repo/m2-incubating-repository/
-			</url>
+			<url> http://people.apache.org/repo/m2-incubating-repository/</url>
 		</repository>
 		<repository>
 			<id>myfaces-repo</id>
@@ -65,13 +80,15 @@
 				<enabled>false</enabled>
 			</snapshots>
 			<id>jboss</id>
-			<url>http://repository.jboss.com/maven2</url>
+			<url>http://repository.jboss.com/maven2
+			</url>
 		</repository>
 		<repository>
 			<releases />
 			<snapshots />
 			<id>jboss-snapshot</id>
-			<url>http://snapshots.jboss.org/maven2</url>
+			<url>http://snapshots.jboss.org/maven2
+			</url>
 		</repository>
 		<repository>
 			<releases />
@@ -83,9 +100,7 @@
 	<pluginRepositories>
 		<pluginRepository>
 			<id>java.net</id>
-			<url>
-				https://maven-repository.dev.java.net/nonav/repository
-			</url>
+			<url> https://maven-repository.dev.java.net/nonav/repository</url>
 			<layout>legacy</layout>
 		</pluginRepository>
 	</pluginRepositories>
@@ -102,7 +117,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
+			<artifactId>hibernate-entitymanager
+			</artifactId>
 			<version>3.3.2.GA</version>
 		</dependency>
 		<dependency>
@@ -257,7 +273,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-servlet_2.4_spec</artifactId>
+			<artifactId>geronimo-servlet_2.4_spec
+			</artifactId>
 			<version>1.0</version>
 		</dependency>
 		<dependency>
@@ -287,12 +304,14 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-databinding-aegis</artifactId>
+			<artifactId>cxf-rt-databinding-aegis
+			</artifactId>
 			<version>${cxf.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-transports-local</artifactId>
+			<artifactId>cxf-rt-transports-local
+			</artifactId>
 			<version>${cxf.version}</version>
 		</dependency>
 		<dependency>
@@ -302,7 +321,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-transports-http-jetty</artifactId>
+			<artifactId>cxf-rt-transports-http-jetty
+			</artifactId>
 			<version>${cxf.version}</version>
 		</dependency>
 		<dependency>
@@ -321,7 +341,8 @@
 			<version>${cxf.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.myfaces.tomahawk</groupId>
+			<groupId>org.apache.myfaces.tomahawk
+			</groupId>
 			<artifactId>tomahawk-sandbox</artifactId>
 			<version>1.1.6</version>
 		</dependency>
@@ -335,15 +356,29 @@
 			<artifactId>xstream</artifactId>
 			<version>1.2.2</version>
 		</dependency>
-
 		<dependency>
 			<groupId>jfree</groupId>
 			<artifactId>jfreechart</artifactId>
 			<version>1.0.9-brew</version>
 		</dependency>
-
 	</dependencies>
+	<distributionManagement>
+		<repository>
+			<uniqueVersion>false</uniqueVersion>
+			<id>repoRel</id>
+			<name>Release Repository</name>
+			<url>${serverName}</url>
+		</repository>
+		<snapshotRepository>
+			<uniqueVersion>true</uniqueVersion>
+			<id>repoSnap</id>
+			<name>Snapshots Repository</name>
+			<url>${serverName}</url>
+		</snapshotRepository>
+	</distributionManagement>
 	<properties>
+		<serverName>ftp://oreonconsulting.com
+		</serverName>
 		<spring.version>2.0.6</spring.version>
 		<cxf.version>2.0.3-incubator</cxf.version>
 	</properties>
