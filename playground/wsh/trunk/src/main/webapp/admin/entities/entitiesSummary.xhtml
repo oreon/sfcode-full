@@ -1,0 +1,84 @@
+
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="/WEB-INF/template/templateCrud.xhtml">
+	
+	<ui:define name="content">
+
+		<f:view>
+		<h:messages layout="list" globalOnly="true" showDetail="true"
+			styleClass="messages" />
+			
+			<a4j:form id="form">
+			
+			<rich:panel header="#{msg.summary}">
+				<h:panelGrid columns="1" styleClass="formTable">
+						
+					<h:panelGrid columns="5">
+						<h:outputText value="From" />
+						<rich:calendar popup="true" id="from_Date"/>
+						
+						<h:outputText value="To" />
+						<rich:calendar popup="true" id="to_Date" />
+
+						<h:commandButton id="button1" value="Submit" action="search" />
+					</h:panelGrid>
+						
+					<h:panelGrid columns="2" width="50%">
+					
+		<h:commandLink value="Candidate(#{candidateCrudBacking.count})"  action="listCandidate" />
+
+		<h:commandLink value="Question(#{questionCrudBacking.count})"  action="listQuestion" />
+
+		<h:commandLink value="AnswerChoice(#{answerChoiceCrudBacking.count})"  action="listAnswerChoice" />
+
+		<h:commandLink value="Exam(#{examCrudBacking.count})"  action="listExam" />
+
+		<h:commandLink value="ExamInstance(#{examInstanceCrudBacking.count})"  action="listExamInstance" />
+
+		<h:commandLink value="ExamCreator(#{examCreatorCrudBacking.count})"  action="listExamCreator" />
+
+		<h:commandLink value="Category(#{categoryCrudBacking.count})"  action="listCategory" />
+
+		<h:commandLink value="User(#{userCrudBacking.count})"  action="listUser" />
+
+		<h:commandLink value="GrantedRole(#{grantedRoleCrudBacking.count})"  action="listGrantedRole" />
+
+		<h:commandLink value="AnsweredQuestion(#{answeredQuestionCrudBacking.count})"  action="listAnsweredQuestion" />
+
+		<h:commandLink value="Section(#{sectionCrudBacking.count})"  action="listSection" />
+
+		<h:commandLink value="Firm(#{firmCrudBacking.count})"  action="listFirm" />
+
+		<h:commandLink value="FirmAdministrator(#{firmAdministratorCrudBacking.count})"  action="listFirmAdministrator" />
+
+		<h:commandLink value="LitigationCase(#{litigationCaseCrudBacking.count})"  action="listLitigationCase" />
+
+		<h:commandLink value="CaseAdministrator(#{caseAdministratorCrudBacking.count})"  action="listCaseAdministrator" />
+
+		<h:commandLink value="LevelOfCourt(#{levelOfCourtCrudBacking.count})"  action="listLevelOfCourt" />
+
+		<h:commandLink value="Jurisdiction(#{jurisdictionCrudBacking.count})"  action="listJurisdiction" />
+
+		<h:commandLink value="FilingOffice(#{filingOfficeCrudBacking.count})"  action="listFilingOffice" />
+
+		<h:commandLink value="Divsion(#{divsionCrudBacking.count})"  action="listDivsion" />
+
+					</h:panelGrid>			
+			
+				</h:panelGrid>  
+						
+			 </rich:panel>	
+			</a4j:form>
+		</f:view>
+
+	</ui:define>
+</ui:composition>
+	
+	
