@@ -47,11 +47,12 @@ public class Entity extends AbstractEntity {
 
 	private Collection nq = new ArrayList();
 
-	// this is needed when we need to manually supply a base class
-	// e.g for usermanagement the User class's base class has to be withcraft
-	// supplied AbstractUser
+	
 	private String baseClass;
 
+	/** The tablename that this entity will be mapped to - if blank it will default to the name of entity. 
+	 * @return
+	 */
 	public String getTableName() {
 		return tableName;
 	}
@@ -60,6 +61,10 @@ public class Entity extends AbstractEntity {
 		this.tableName = tableName;
 	}
 
+	/** Default role for an entity for which systemUser flag is true - e.g for a customer 
+	 * we can set it to ROLE_CUSTOMER
+	 * @return
+	 */
 	public String getDefaultRole() {
 		return defaultRole;
 	}
@@ -68,6 +73,12 @@ public class Entity extends AbstractEntity {
 		this.defaultRole = defaultRole;
 	}
 
+	/** An attribute that indicates whether this entity is also a user of the system e.g. 
+	 * entities like Customer, Employee in an e-commerce system should have this attribute
+	 * set to true. Additionally they need to have a one to one relationship with a class
+	 * derived from AbstractUser.
+	 * @return
+	 */
 	public boolean isSystemUser() {
 		return systemUser;
 	}
@@ -76,6 +87,9 @@ public class Entity extends AbstractEntity {
 		this.systemUser = systemUser;
 	}
 
+	/** Returns all columns for this entity 
+	 * @see oaw4.demo.classic.uml.meta.AbstractEntity#Column()
+	 */
 	@Override
 	public ElementSet Column() {
 
@@ -118,6 +132,10 @@ public class Entity extends AbstractEntity {
 		this.baseClass = baseClass;
 	}
 
+	/** Unique constraints for this entity e.g. in order items table we might want to enforce 
+	 * that every orderid and orderitemid pair be unique.
+	 * @return
+	 */
 	public String getUniqueConstraints() {
 		return uniqueConstraints;
 	}
@@ -130,6 +148,10 @@ public class Entity extends AbstractEntity {
 		this.uniqueConstraints = uniqueConstraints;
 	}
 
+	/** Inheritance strategy to be used for this class - corresponds one to one with JPA inheritance 
+	 * strategies.
+	 * @return
+	 */
 	public String getInheritanceStrategy() {
 		System.out.println("inheritance " + inheritanceStrategy);
 		return inheritanceStrategy;
@@ -227,6 +249,9 @@ public class Entity extends AbstractEntity {
 		return GenericUtils.stringArrayAsList(target);
 	}
 
+	/** The fields which need to be displayed as a hirerchical tree e.g. category and subcategory.
+	 * @return
+	 */
 	public String getTreeFields() {
 		return treeFields;
 	}
@@ -248,6 +273,9 @@ public class Entity extends AbstractEntity {
 		this.treeFields = treeFields;
 	}
 
+	/** A collection of named queries for this entity.
+	 * @return
+	 */
 	public String getNamedQueries() {
 		return namedQueries;
 	}
@@ -256,14 +284,11 @@ public class Entity extends AbstractEntity {
 		this.namedQueries = namedQueries;
 	}
 
-	public Collection getNq() {
-		return nq;
-	}
+	
 
-	public void setNq(Collection nq) {
-		this.nq = nq;
-	}
-
+	/** The entities which need auditing should have this flag set. All actions will be automatically logged. 
+	 * @return
+	 */
 	public boolean isAuditable() {
 		return auditable;
 	}
