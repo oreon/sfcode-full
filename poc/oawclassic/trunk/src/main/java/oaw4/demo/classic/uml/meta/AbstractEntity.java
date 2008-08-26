@@ -188,6 +188,15 @@ public abstract class AbstractEntity extends
 		return composedAssociatons;
 	}
 	
+	/** Returns all composed and aggreagated associations
+	 * @return
+	 */
+	public ElementSet getAllAggreatedAndComposedAssociations(){
+		ElementSet compositions = getAllComposedAssociations();
+		compositions.addAll(getAllAggregatedManyToManyAssociations());
+		return compositions;
+	}
+	
 	public ElementSet getAllAggregatedManyToManyAssociations(){
 		
 		ElementSet composedAssociatons = new ElementSet();

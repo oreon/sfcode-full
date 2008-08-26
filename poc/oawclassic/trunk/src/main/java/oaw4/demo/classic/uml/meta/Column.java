@@ -45,24 +45,37 @@ public class Column extends Attribute{
 	public void setTestSeed(String testSeed) {
 		this.testSeed = testSeed;
 	}
+	
+	/** This attribute decides if the given column/attribute should be present in generated search forms. 
+	 * @return
+	 */
 	public boolean isSearchable() {
 		return searchable;
 	}
 	public void setSearchable(boolean searchable) {
 		this.searchable = searchable;
 	}
+	
+	/** Min length for this attribute - applies only to string fields.
+	 * @return
+	 */
 	public int getMinLength() {
 		return minLength;
 	}
 	public void setMinLength(int minLength) {
 		this.minLength = minLength;
 	}
+	
+	/** Max length for the given attribute
+	 * @return
+	 */
 	public int getMaxLength() {
 		return maxLength;
 	}
 	public void setMaxLength(int maxLength) {
 		this.maxLength = maxLength;
 	}
+	
 	public String getName() {
 		return name;
 	}
@@ -70,18 +83,27 @@ public class Column extends Attribute{
 	public void setName(String name) {
 		this.name = name;
 	}*/
+	
+	/** Whether or not this entity is nullable - is configurable for all attributes in workflow.properties. 
+	 * @return
+	 */
 	public boolean isNullable() {
 		return nullable;
 	}
 	public void setNullable(boolean nullable) {
 		this.nullable = nullable;
 	}
+	
+	/** For attributes such as username, email - this flag is used to enforce uniqueness.
+	 * @return
+	 */
 	public boolean isUnique() {
 		return unique;
 	}
 	public void setUnique(boolean unique) {
 		this.unique = unique;
 	}
+	
 	public String getContainerName() {
 		return containerName;
 	}
@@ -89,7 +111,8 @@ public class Column extends Attribute{
 		this.containerName = containerName;
 	}
 	/** This property if not null indicates that the attirbute is transient 
-	 *  and the java experession for calculating it is provided. 
+	 *  and the java experession for calculating it is provided e.g. total for an order 
+	 *  should be marked as 'derived'. 
 	 * @return
 	 */
 	public String getDerived() {
@@ -101,18 +124,29 @@ public class Column extends Attribute{
 	public void setDerived(String derived) {
 		this.derived = derived;
 	}
+	
+	/** Validtor for this field e.g. a Reg ex validator can be provided //TODO
+	 * @return
+	 */
 	public String getValidator() {
 		return validator;
 	}
 	public void setValidator(String validator) {
 		this.validator = validator;
 	}
+	/** 
+	 * @return
+	 */
 	public String getInputType() {
 		return inputType;
 	}
 	public void setInputType(String inputType) {
 		this.inputType = inputType;
 	}
+	
+	/** Describes Who can access this field e.g access="ROLE_ADMIN, ROLE_MANAGER"
+	 * @return
+	 */
 	public String getAccess() {
 		return access;
 	}
@@ -120,7 +154,8 @@ public class Column extends Attribute{
 		this.access = access;
 	}
 	
-	/** This property tells whether the field should be repeated e.g. password
+	/** This property tells whether the field should be repeated in the front end 
+	 *  e.g. a typical requirement is password and email should be repeated.
 	 * @return
 	 */
 	public boolean isRepeat() {
@@ -130,7 +165,10 @@ public class Column extends Attribute{
 		this.repeat = repeat;
 	}
 	
-	//AutoComplete suggestion fields 
+	
+	/** Suggestion action is used to auto complete the fields TODO
+	 * @return
+	 */
 	public String getSuggestionAction() {
 		return suggestionAction;
 	}

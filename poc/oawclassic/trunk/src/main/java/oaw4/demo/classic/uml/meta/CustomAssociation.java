@@ -12,14 +12,17 @@ import org.openarchitectureware.meta.uml.classifier.Association;
  */
 public class CustomAssociation extends Association{
 
+	private static final String LOGGED_IN_USER = "${LOGGED_IN_USER}";
 	private String defaultValue;
 	private boolean mutable = true;
 	private String access;
-	
+	private String maxValue;
 	
 	public String getAccess() {
 		return access;
 	}
+	
+
 
 	public void setAccess(String access) {
 		this.access = access;
@@ -46,6 +49,6 @@ public class CustomAssociation extends Association{
 		if(getDefaultValue() == null) 
 			return false;
 		System.out.println("comparing " + getDefaultValue());
-		return getDefaultValue().trim().equalsIgnoreCase("${LOGGED_IN_USER}");
+		return getDefaultValue().trim().startsWith(LOGGED_IN_USER);
 	}
 }
