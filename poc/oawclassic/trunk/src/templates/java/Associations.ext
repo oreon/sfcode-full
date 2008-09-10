@@ -5,6 +5,15 @@ extension java::NamingConventions;
 String fqn (AssociationEnd ae) : !ae.isMultiple ? ae.Class.fqn() + " " + ae.asInstanceVar()  + ae.getInstantiationIfComposition():
 "java.util.Set<"+ae.Class.fqn()+">" + " " + ae.asInstanceVar()+ " = new java.util.HashSet<" + ae.Class.fqn() + ">()"  ;
 
+String fqnDto (AssociationEnd ae) : !ae.isMultiple ? fullNameIfRequrired(ae) + getDtoExtenstion() + " " + ae.asInstanceVar() :
+"java.util.Set<"+ fullNameIfRequrired(ae) + getDtoExtenstion() +">" + " " + ae.asInstanceVar()+ " = new java.util.HashSet<" + fullNameIfRequrired(ae)  + getDtoExtenstion() +">()"  ;
+
+String fullNameIfRequrired(AssociationEnd ae):
+ae.Class.Package.NameS == ae.Opposite.Class.Package.NameS ? ae.Class.NameS : ae.Class.fqnExt(getDtoExtenstion().toLowerCase()) + "."  + ae.Class.NameS ;
+
+String fqnExt(Class cls, String ext):
+packageName(cls) + "." + ext;
+
 String iterator (AssociationEnd ae) :
 "java.util.Iterator<"+ae.Class.fqn()+">";
 

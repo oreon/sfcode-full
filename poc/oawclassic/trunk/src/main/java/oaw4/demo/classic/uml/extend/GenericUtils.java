@@ -228,5 +228,20 @@ public class GenericUtils {
 		String value = readProperty(key);
 		return key == null ? defaultProperty : value;
 	}
+	
+	/** Returns the pluar of the given english word - if already plural returns the passed in argument
+	 * @param arg
+	 * @return
+	 */
+	public static String getPlural(String arg){
+		if(!arg.endsWith("s")){
+			return arg + "s";
+		}
+		return arg;
+	}
+	
+	public static String getSingular(String arg){
+		return null;
+	}
 
 }
