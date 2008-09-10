@@ -80,7 +80,10 @@ public class Entity extends AbstractEntity {
 	 * @return
 	 */
 	public boolean isSystemUser() {
+	//	org.openarchitectureware.meta.uml.classifier.AssociationEnd ae = new org.openarchitectureware.meta.uml.classifier.AssociationEnd();
+		
 		return systemUser;
+		
 	}
 
 	public void setSystemUser(boolean systemUser) {

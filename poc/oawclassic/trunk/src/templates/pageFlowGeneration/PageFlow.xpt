@@ -27,12 +27,9 @@ public interface NavigationConstants{
 			public static final String «transition.Guard.getViewLabelFromVariable("_").toUpperCase()» = "«transition.Guard»" ;
 	«ENDFOREACH»
 	
-	
 	«FOREACH getMetaEnvironment.getElements("Entity") AS e»
 			public static final String «e.NameS.toUpperCase()»_BACKING = "«e.NameS.toFirstLower()»CrudBacking" ;
 	«ENDFOREACH»
-	
-	
 }
 «ENDFILE»
 «ENDDEFINE»
@@ -44,12 +41,16 @@ public interface NavigationConstants{
 <!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
 <faces-config>
 	«EXPAND GenFacesNav FOREACH getAllStates()»
+	«REM»comment
+	«EXPAND GenNavForComposites FOREACH CompositeState»
+	«ENDREM»
 </faces-config>
 «ENDFILE»
 «ENDDEFINE»
 
 
-
+«DEFINE GenNavForComposites FOR CompositeState»
+«ENDDEFINE»
 
 «DEFINE GenFacesNav FOR ViewState»
 	<navigation-rule>

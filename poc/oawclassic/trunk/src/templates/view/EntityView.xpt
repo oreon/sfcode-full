@@ -27,7 +27,9 @@
 						<h:outputText value="#{msg.«NameS.toFirstLower()+ "_" + ae.associationName() -»}" />
 						<h:commandLink value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.associationName()».displayName}" 
 							actionListener="#{«ae.Class.NameS.toFirstLower()»CrudBacking.selectEntity}" action="view«ae.associationName().toFirstUpper()»"  >
+							<c:if test="${«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.associationName()» != null}">
 							<f:param name="id" value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.associationName()».id}" />
+							</c:if>
 						</h:commandLink> 
 					«ENDFOREACH»
 					
@@ -35,7 +37,7 @@
 			<br/>
 						
 			«REM»Composed collections e.g an order contains orderitems «ENDREM»
-			«FOREACH getAllComposedAssociations AS compAssoc -»
+			«FOREACH getAllAggreatedAndComposedAssociations AS compAssoc -»
 				«LET compAssoc.Opposite AS ae»
 				
 				<rich:simpleTogglePanel switchType="client" label="«ae.associationName().toFirstUpper()»">
@@ -72,9 +74,14 @@
 «REM» Create an edit entry e.g firstNAme <input > <errMessage > «ENDREM»
 «DEFINE genViewEntry(Class e) FOR Attribute»
 	<h:outputText value="«msgBundleKey()-»" />
-	<h:outputText value="#{«e.asInstanceVar()»CrudBacking.«e.asInstanceVar()».«fullName()»}" />			
+	<t:outputText value="#{«e.asInstanceVar()»CrudBacking.«e.asInstanceVar()».«fullName()»}" />			
 «ENDDEFINE»
 
+«REM» Create an edit entry e.g firstNAme <input > <errMessage > «ENDREM»
+«DEFINE genViewEntry(Class e) FOR Column»
+	<h:outputText value="«msgBundleKey()-»" />
+	<t:outputText «getInputType == "RICHTEXT"?"escape=\"false\"":""» value="#{«e.asInstanceVar()»CrudBacking.«e.asInstanceVar()».«fullName()»}" />			
+«ENDDEFINE»
 
 «DEFINE genTabularViewEntry(Class e) FOR Attribute»
 	<t:column>

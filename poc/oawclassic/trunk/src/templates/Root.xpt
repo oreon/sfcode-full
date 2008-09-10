@@ -5,6 +5,7 @@
 
 «DEFINE Root FOR Model»
 	«EXPAND Root FOREACH OwnedElement»
+		
 	«EXPAND java::ORMGen::GenerateORM»
 	
 	«EXPAND view::EntitiesMenu::GenerateEntitiesNav»
@@ -36,6 +37,7 @@
 
 
 «DEFINE Root FOR Entity»
+	«EXPAND java::DtoGen::dtoGen»
 	«EXPAND java::JavaBean::EntityGen»
 	«EXPAND java::DaoGen::GenerateDao»
 	«EXPAND java::ServiceGen::GenerateService»
@@ -45,6 +47,8 @@
 	«EXPAND java::TestDataFactoryGen::GenerateTestDataFactory»
 «ENDDEFINE»
 
+
+
 «DEFINE Root FOR Class»
 	«IF ! NameS.startsWith("java")»
 		«EXPAND java::JavaBean::BeanClass»
@@ -53,10 +57,12 @@
 
 «DEFINE Root  FOR MappedSuperclass»
 	«EXPAND java::JavaBean::EntityGen»
+	«EXPAND java::DtoGen::dtoGen»
 «ENDDEFINE»
 
 «DEFINE Root  FOR Embeddable»
 	«EXPAND java::JavaBean::EntityGen»
+	«EXPAND java::DtoGen::dtoGen»
 «ENDDEFINE»
 
 «DEFINE Root FOR MailerTask»

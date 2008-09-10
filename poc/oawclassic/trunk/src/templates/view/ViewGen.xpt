@@ -147,3 +147,37 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 «DEFINE genSuggestionBox(String Id) FOR Attribute»
 «ENDDEFINE»
 
+
+«DEFINE genAccessControl FOR Element»
+«ENDDEFINE»
+
+«DEFINE genAccessControlEnd FOR Element»
+«ENDDEFINE»
+
+«DEFINE genAccessControl FOR CustomAssociation»
+	«IF getAccess.isValid()»
+	<acegijsf:authorize ifAnyGranted="«getAccess»">
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genAccessControlEnd FOR CustomAssociation»
+	«IF getAccess.isValid()»
+	</acegijsf:authorize>
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genAccessControl FOR Column»
+	«IF getAccess.isValid()»
+	<acegijsf:authorize ifAnyGranted="«getAccess»">
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genAccessControlEnd FOR Column»
+	«IF getAccess.isValid()»
+	</acegijsf:authorize>
+	«ENDIF»
+«ENDDEFINE»
+	

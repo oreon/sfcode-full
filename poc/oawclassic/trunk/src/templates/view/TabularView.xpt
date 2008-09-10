@@ -92,6 +92,11 @@
 	 «ENDIF»
 	«REM» The audit log table goes here«ENDREM»	 
 	 <rich:tab label="Audit" >
+	 
+	 <rich:datascroller align="left" for="dataAudit" maxPages="20"
+				renderIfSinglePage="false" />
+			<br/>
+	 
 	 	<rich:dataTable id="dataAudit" var="log"
 		value="#{«asInstanceVar()»CrudBacking.auditLog}" rows="30" rowClasses="odd, even" styleClass="dataTable">
 			
@@ -162,19 +167,23 @@
 
 
 «DEFINE genTableRow(String parent) FOR Attribute»
+	«EXPAND ViewGen::genAccessControl »
 	<rich:column sortBy="#{«parent».«fullName()»}"  filterBy="#{«parent».«fullName()»}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.«Class.NameS.toFirstLower() + "_" + NameS»}" /> 		
 		</f:facet>
 		<h:outputText value="#{«parent».«fullName()»}" />
 	</rich:column>
+	«EXPAND ViewGen::genAccessControlEnd »
 «ENDDEFINE»
 
 «DEFINE genTableRow(Class c) FOR AssociationEnd»
+	«EXPAND ViewGen::genAccessControl FOR Association»
 	<rich:column sortBy="#{«c.asInstanceVar()».«associationName()».displayName}" filterBy="#{«c.asInstanceVar()».«associationName()».displayName}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.«c.NameS.toFirstLower() + "_" + associationName()»}" /> 	
 		</f:facet>
 		<h:outputText value="#{«c.asInstanceVar()».«associationName()».displayName}" />
 	</rich:column>
+	«EXPAND ViewGen::genAccessControlEnd FOR Association»
 «ENDDEFINE»

@@ -12,11 +12,16 @@ import org.openarchitectureware.meta.uml.classifier.Attribute;
 public class InputTextRenderer extends AbstractInputComponentRenderer {
 
 	public final static int LENGTH_FOR_TEXTAREA = 120;
+	
+	public static final String RICHTEXT= "RICHTEXT";
 
 	public String getType(Attribute attribute) {
 		if (attribute instanceof Column) {
 			Column column = (Column) attribute;
 
+			if(StringUtils.equals(column.getInputType(), (RICHTEXT)) )
+				return "t:inputHtml";
+			
 			if (column.getMaxLength() > LENGTH_FOR_TEXTAREA)
 				return "h:inputTextarea";
 

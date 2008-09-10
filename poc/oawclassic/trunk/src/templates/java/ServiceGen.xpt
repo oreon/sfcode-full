@@ -35,6 +35,10 @@
 	import org.springframework.transaction.annotation.Transactional;
 	import org.springframework.transaction.annotation.Propagation;
 	
+	import org.acegisecurity.Authentication;
+	import org.acegisecurity.context.SecurityContextHolder;
+	import org.acegisecurity.userdetails.UserDetails;
+	
 	import org.apache.log4j.Logger;
 	
 	import org.witchcraft.model.support.dao.GenericDAO;
@@ -106,6 +110,22 @@
 				«REM»TODO: Figure out a better way to find the user «ENDREM»
 				«asInstanceVar()».getUser().addGrantedRole(authority);
 			}
+			
+			public «NameS» getLoggedIn«NameS»() {
+				Authentication authentication = SecurityContextHolder.getContext()
+						.getAuthentication();
+		
+				if (authentication == null){
+					log.warn("Couldn't find Security Context ");
+					return null;
+				}
+		
+				String userName = ((UserDetails) authentication.getPrincipal())
+						.getUsername();
+				
+				return findByUsername(userName);
+			}
+			
 		«ENDIF»
 	
 		public void delete(«NameS» «asInstanceVar()») {
@@ -130,6 +150,14 @@
 		public List<«NameS»> searchByExample(«NameS» «asInstanceVar()», List<Range> rangeObjects){
 			return «asInstanceVar()»Dao.searchByExample(«asInstanceVar()», rangeObjects);
 		}
+		
+		 /** This method should be overridden by classes that want to filter the load all behavior e.g.
+	     * showing 
+	     * @return
+	     */
+	    public «NameS» getFilterRecord(){
+	    	return null;
+    	}
 		
 		 «IF isValid(getTreeFields)»
 			 /**
@@ -233,8 +261,9 @@
 	 */
 	 @WebService
 	public interface «NameS»Service extends «NameS»Dao, BaseService<«NameS»>  {
-		
-			
+			«IF isEntityUser()»
+			public «NameS» getLoggedIn«NameS»();
+			«ENDIF»
 	}	
 	«ENDFILE»	
 «ENDDEFINE»

@@ -33,7 +33,8 @@
 «ENDDEFINE»
 
 «DEFINE ToManyAccessorMethods FOR AssociationEnd»
-	public void add«removeTrailingS(Name.toFirstUpper())» («Class.fqn()» «asParameter()») {
+	public void add«removeTrailingS(associationName().toFirstUpper())» («Class.fqn()» «asParameter()») {
+		checkMaximum«associationName().toFirstUpper()»();
 		«IF Opposite.isNavigable -»
 			«asParameter()».«Opposite.asSetter()»(«Opposite.Class.NameS.toFirstLower()»Instance());
 		«ENDIF-»
@@ -69,6 +70,11 @@
 	@Transient
 	public int «asGetter()»Count(){
 		return this.«asInstanceVar()».size();
+	}
+	
+	public void checkMaximum«associationName().toFirstUpper()»(){
+		// if(«associationName()».size() > Constants.size())
+		// 		throw new BusinessException ("msg.tooMany." + «associationName()» );
 	}
 «ENDDEFINE»
 

@@ -3,6 +3,8 @@
 «IMPORT org::openarchitectureware::core::meta::core»
 «IMPORT java»
 «EXTENSION java::NamingConventions»
+
+
 	
 «DEFINE BeanClass FOR Class»
 	«FILE packagePath()+"/"+NameS+"Base.java"»  
@@ -57,9 +59,11 @@
 		@MappedSuperclass
 		«EXPAND genFullTextSearchAnnotations FOR this»
 		«getClassDeclaration()» « (isAuditable)?", org.witchcraft.model.support.audit.Auditable":""»{
+		«REM» TODO: Need to find a way to iterate over named queries
 				«FOREACH getNq AS e-»
 					«e-»
 				«ENDFOREACH»
+		«ENDREM»
 				«EXPAND classBody FOR this»
 				«EXPAND displayName FOR this»
 				«REM» Need to add special code for user and authoriy classes  «ENDREM»

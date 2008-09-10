@@ -19,6 +19,7 @@ import org.openarchitectureware.meta.uml.classifier.AssociationEnd;
 import org.openarchitectureware.meta.uml.classifier.Attribute;
 import org.openarchitectureware.meta.uml.classifier.Class;
 import org.openarchitectureware.meta.uml.state.Branch;
+import org.openarchitectureware.meta.uml.state.CompositeState;
 import org.openarchitectureware.meta.uml.state.State;
 import org.openarchitectureware.meta.uml.state.StateMachine;
 import org.openarchitectureware.meta.uml.state.Transition;
@@ -105,6 +106,24 @@ public class ViewLayerGenerator {
 			stateMachineAndStates.put(stateMachine.NameS(), states);
 		}
 		return stateMachineAndStates.get(stateMachine.NameS());
+	}
+	
+	public static ElementSet getCompositeStates(StateMachine stateMachine) {
+		//if (stateMachineAndStates.get(stateMachine.NameS()) == null) {
+			System.out.println("adding states for stateMachine " + stateMachine.Name());
+			ModelElementVisitor visitor = new TypeCollectingVisitor(
+					stateMachine, CompositeState.class);
+			
+			stateMachine.visit(visitor);
+			ElementSet states = ((TypeCollectingVisitor) visitor)
+					.getCollectedElements();
+			states = getStatesForThisStateMachine(stateMachine, states);
+			dumpSet(states);
+		//	viewStates.addAll(states);
+		//	stateMachineAndStates.put(stateMachine.NameS(), states);
+		//}
+		//return stateMachineAndStates.get(stateMachine.NameS());
+		return states;
 	}
 	
 	public static ElementSet getAllStates(){
