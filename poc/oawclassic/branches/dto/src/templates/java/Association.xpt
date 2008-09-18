@@ -1,0 +1,123 @@
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT java»
+
+
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+
+«DEFINE ReferenceVariables FOR Class»
+	«FOREACH AssociationEnd.Opposite.select(ae|ae.isNavigable) AS ae»
+		private «ae.fqn()»;
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE AccessorMethods FOR Class»
+	«EXPAND ToOneAccessorMethods FOREACH
+		AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable)»
+	«EXPAND ToManyAccessorMethods FOREACH
+		AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable)»
+«ENDDEFINE»
+
+«DEFINE ToOneAccessorMethods FOR AssociationEnd»
+	«manyToOne()»
+	@XmlTransient 
+	public «Class.fqn()» «asGetter()» () {
+		return this.«asInstanceVar()»;
+	}
+
+	public void «asSetter()» («Class.fqn()» «asParameter()») {
+		this.«asInstanceVar()» = «asParameter()»;
+	}
+«ENDDEFINE»
+
+«DEFINE ToManyAccessorMethods FOR AssociationEnd»
+	public void add«removeTrailingS(associationName().toFirstUpper())» («Class.fqn()» «asParameter()») {
+		checkMaximum«associationName().toFirstUpper()»();
+		«IF Opposite.isNavigable -»
+			«asParameter()».«Opposite.asSetter()»(«Opposite.Class.NameS.toFirstLower()»Instance());
+		«ENDIF-»
+		this.«asInstanceVar()».add(«asParameter()»);
+	}
+
+	public void remove«removeTrailingS(NameS.toFirstUpper())» («Class.fqn()»
+		«asParameter()») {
+		this.«asInstanceVar()».remove(«asParameter()»);
+	}
+	
+	«EXPAND genGetterForCollection(this.Class) FOR this»
+	public java.util.Set<«Class.fqn()»> «asGetter()» () {
+		return this.«asInstanceVar()»;
+	}
+
+
+	public void «asSetter()» (java.util.Set<«Class.fqn()»> «asParameter()») {
+		this.«asInstanceVar()» = «asParameter()»;
+	}
+
+	«IF Class.isEntity()»
+		@Transient
+	«ENDIF»
+	public «iterator()» «asGetter()»Iterator () {
+		return this.«asInstanceVar()».iterator();
+	}
+
+	/** Method size on the set doesn't work with technologies requiring 
+	 *  java beans get/set  interface so we provide a getter method 
+	 * @return
+	 */
+	@Transient
+	public int «asGetter()»Count(){
+		return this.«asInstanceVar()».size();
+	}
+	
+	public void checkMaximum«associationName().toFirstUpper()»(){
+		// if(«associationName()».size() > Constants.size())
+		// 		throw new BusinessException ("msg.tooMany." + «associationName()» );
+	}
+«ENDDEFINE»
+
+
+«DEFINE genMappingForManyToMany FOR AssociationEnd»
+	@ManyToMany(
+        targetEntity=«Class.NameS».class,
+        cascade={CascadeType.PERSIST, CascadeType.MERGE}
+    )
+    @JoinTable(
+        name="«Opposite.associationName()»_«associationName()»",
+        joinColumns=@JoinColumn(name="«Opposite.associationName().toUpperCase()»_ID"),
+        inverseJoinColumns=@JoinColumn(name="«associationName().toUpperCase()»_ID")
+    )
+«ENDDEFINE»
+
+«DEFINE genMappingForOneToMany FOR AssociationEnd»
+	«IF Opposite.isNavigable »
+		@OneToMany(mappedBy="«Opposite.asParameter()»", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	«ELSE»
+		@OneToMany«Opposite.isComposition?"(cascade=CascadeType.ALL)\n@Cascade({org.hibernate.annotations.CascadeType.DELETE_ORPHAN})":"(cascade=CascadeType.PERSIST)"»
+	«ENDIF»
+		@JoinColumn(name="«Opposite.associationName()»_ID", nullable=«isAssocNullable()»)
+«ENDDEFINE»
+
+«DEFINE genGetterForCollection(Class c) FOR AssociationEnd»
+	«IF Class.isEntity()»
+		«IF c.isAssociationManyToMany(this)»
+			«EXPAND genMappingForManyToMany FOR this»
+		«ELSE»
+			«EXPAND genMappingForOneToMany FOR this»
+		«ENDIF»
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genGetterForCollectionEntity(Class e) FOR AssoicationEnd»
+	«IF getAllAggregatedManyToManyAssociations.contains(this)»
+		«EXPAND genMappingForManyToMany FOR this»
+	«ELSE»
+		«EXPAND genMappingForOneToMany FOR this»
+	«ENDIF»
+«ENDDEFINE»
+
+
+	

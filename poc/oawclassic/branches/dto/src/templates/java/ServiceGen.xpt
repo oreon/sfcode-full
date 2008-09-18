@@ -1,0 +1,335 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+
+«REM» This artifact generates service layer interfaces and implementations.  «ENDREM»
+«DEFINE GenerateService FOR Entity»
+	
+	«EXPAND GenerateServiceInterface»
+	
+	«EXPAND GenerateServiceImpl»
+
+«ENDDEFINE»	
+
+
+
+«DEFINE GenerateServiceImpl FOR Entity»
+	
+	«LET NameS +  getDtoExtension() AS dto»
+	«FILE parentPackagePath()+"/service/impl" + "/"+NameS+"ServiceImplBase.java"»  
+	
+	«EXPAND ManualFileGen::genManualFile("/service/impl", "ServiceImpl",
+		 "@Transactional(readOnly=false, propagation=Propagation.REQUIRED)\n" + 
+		 
+		 "@WebService(endpointInterface=\"" + parentPackageName() + ".service." + NameS + "Service\", serviceName=\"" + NameS + "Service\")" )»
+
+	«EXPAND JavaBean::GenCodeWarning»
+	package «parentPackageName()».service.impl;
+	 
+	import «packageName()».«NameS»;
+	import «packageNameDto()».«dto»;
+	import «parentPackageName()».service.«NameS»Service;
+	import «parentPackageName()».dao.«NameS»Dao;
+	import java.util.List;
+	import java.util.ArrayList;
+	
+	import org.springframework.transaction.annotation.Transactional;
+	import org.springframework.transaction.annotation.Propagation;
+	
+	import org.acegisecurity.Authentication;
+	import org.acegisecurity.context.SecurityContextHolder;
+	import org.acegisecurity.userdetails.UserDetails;
+	
+	import org.apache.log4j.Logger;
+	import org.apache.commons.beanutils.BeanUtils;
+	
+	import org.witchcraft.model.support.dao.GenericDAO;
+	import org.witchcraft.model.support.errorhandling.BusinessException;
+	import org.witchcraft.model.support.service.BaseServiceImpl;
+	
+	import javax.jws.WebService;
+	
+	import org.witchcraft.model.support.Range;
+	
+	«IF isEntityUser()-»
+	«REM»FIXME - This should come from properties file«ENDREM»
+	import «readProperty("users.package")».GrantedRole;
+	«ENDIF»
+	
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
+	public class «NameS»ServiceImplBase extends BaseServiceImpl<«dto»> implements «NameS»Service{
+	
+		private static final Logger log = Logger.getLogger(«NameS»ServiceImplBase.class);
+		
+		private «NameS»Dao «asInstanceVar()»Dao;
+
+		public void set«NameS»Dao(«NameS»Dao «asInstanceVar()»Dao) {
+			this.«asInstanceVar()»Dao = «asInstanceVar()»Dao;
+		}
+		
+		/*
+		@Override
+		public GenericDAO<«dto»> getDao() {
+			return «asInstanceVar()»Dao;
+		}*/
+		
+		//// Delegate all crud operations to the Dao ////
+			
+		public «dto» save(«dto» «asInstanceVar()»«getDtoExtension()») {
+			«NameS» «asInstanceVar()» = dtoToBusinessObject(«asInstanceVar()»«getDtoExtension()»);
+			Long id = «asInstanceVar()».getId();
+			«Unique.isEmpty?"":"checkUniqueConstraints("+asInstanceVar() +");"»
+			«asInstanceVar()»Dao.save(«asInstanceVar()»);
+			
+			«IF isEntityUser()-»
+			if(id == null) //creating user for first time, assign authority
+				assignDefaultAuthority(«asInstanceVar()»);
+			«ENDIF»
+			
+			return «asInstanceVar()»«getDtoExtension()»;
+		}
+		
+		«IF !Unique.isEmpty»
+			/** Before saving a record we need to ensure that no unique constraints
+			 * will be violated. 
+			 * @param customer
+			 */
+			private void checkUniqueConstraints(«NameS» «asInstanceVar()») {
+			«NameS» existing«NameS» = null;
+			«FOREACH Unique AS e»
+				 existing«NameS» = «asInstanceVar()»Dao.findBy«e.NameS.toFirstUpper()»
+					(«asInstanceVar()».«e.getContainerGetter()»get«e.NameS.toFirstUpper()»());
+				ensureUnique(«asInstanceVar()», existing«NameS», "Entity.exists.with«e.NameS.toFirstUpper()»");
+			«ENDFOREACH»
+			
+			}
+			
+		
+		«ENDIF»
+			
+		«IF isEntityUser()»
+			private void assignDefaultAuthority(«NameS» «asInstanceVar()») {
+				GrantedRole authority = new GrantedRole();	
+				authority.setName("«getDefaultRole != null? getDefaultRole : "ROLE_" +  NameS.toUpperCase()»");
+				«REM»TODO: Figure out a better way to find the user «ENDREM»
+				«asInstanceVar()».getUser().addGrantedRole(authority);
+			}
+			
+			public «NameS» getLoggedIn«NameS»() {
+				Authentication authentication = SecurityContextHolder.getContext()
+						.getAuthentication();
+		
+				if (authentication == null){
+					log.warn("Couldn't find Security Context ");
+					return null;
+				}
+		
+				String userName = ((UserDetails) authentication.getPrincipal())
+						.getUsername();
+				
+				return findByUsername(userName);
+			}
+			
+		«ENDIF»
+	
+		public void delete(«dto» «asInstanceVar()») {
+			«asInstanceVar()»Dao.delete(dtoToBusinessObject(«asInstanceVar()»));
+		}			
+		
+		public «dto» load(Long id) {
+			return businessObjectToDto(«asInstanceVar()»Dao.load(id));
+		}
+		
+	    public List<«dto»> loadAll() {
+	    	List<«NameS»> «asInstanceVar()»List =  «asInstanceVar()»Dao.loadAll();
+	    	return businessObjectToDtoList(«asInstanceVar()»List);
+	    }
+	    
+	   «EXPAND FinderDeclaration(this) FOREACH Findable »
+		
+		
+		public List<«dto»> searchByExample(«dto» «asInstanceVar()») {
+			
+			List<«NameS»> «asInstanceVar()»List = «asInstanceVar()»Dao.searchByExample(dtoToBusinessObject( «asInstanceVar()»));
+			return businessObjectToDtoList(«asInstanceVar()»List);
+		}
+		
+		public List<«dto»> searchByExample(«dto» «asInstanceVar()»«getDtoExtension()», List<Range> rangeObjects){
+			List<«NameS»> «asInstanceVar()»List  = «asInstanceVar()»Dao.searchByExample(dtoToBusinessObject(«asInstanceVar()»), rangeObjects);
+			return businessObjectToDtoList(«asInstanceVar()»List);
+		}
+		
+		 /** This method should be overridden by classes that want to filter the load all behavior e.g.
+	     * showing 
+	     * @return
+	     */
+	    public «NameS» getFilterRecord(){
+	    	return null;
+    	}
+		
+		 «IF isValid(getTreeFields)»
+			 /**
+			 * For tree view , this method returns top level
+			 * elements (whose parent is null )
+			 */ 
+			 public List<«dto»> findTopLevelElements(){
+			 	return businessObjectToDtoList(«asInstanceVar()»Dao.findTopLevelElements());
+			 }
+		«ENDIF»
+	
+		«REM»Create the delegation for queries«ENDREM»
+		«FOREACH getQueryOperations AS queryOp»
+				«EXPAND CommonUtils::genDocumentation FOR queryOp-»
+				«EXPAND DaoGen::genNamedQueryDec FOR queryOp»{
+					return «asInstanceVar()»Dao.«queryOp.createOperationInvocation()»;
+				}
+		«ENDFOREACH»
+		
+		public «dto» businessObjectToDto(«NameS» «asInstanceVar()»){
+			«dto» dto = new «dto»();
+			try{
+				BeanUtils.copyProperties(dto, «asInstanceVar()»);
+			} catch (Exception e) {
+					throw new CriticalException("error converting dto to bo", e);
+			}
+			return dto;
+		}
+	
+		public «NameS» dtoToBusinessObject(«dto» dto){
+			«NameS» «asInstanceVar()» = new «NameS»();
+			try{
+				BeanUtils.copyProperties(«asInstanceVar()», dto);
+			} catch (Exception e) {
+					throw new CriticalException("error converting dto to bo", e);
+			}
+			return «asInstanceVar()»;
+		}
+		
+		/**
+		*Converts a list of business objects to a list of dtos
+		**/
+		public List<«dto»> businessObjectToDtoList(List<«NameS»> «asInstanceVar()»List){
+			List<«dto»>  «dto.toFirstLower()»List = new ArrayList<«dto»>();
+	    	for(«NameS» «asInstanceVar()»:«asInstanceVar()»List){
+	    		«dto.toFirstLower()»List.add(businessObjectToDto(«asInstanceVar()»));
+	    	}
+	    	return «dto.toFirstLower()»List;
+		}
+	
+	}
+	
+	«ENDFILE»	
+	«ENDLET»
+«ENDDEFINE»
+
+«DEFINE FinderDeclaration(AbstractEntity entity) FOR Column»
+	public
+		« isUnique? entity.NameS : "List<" + entity.NameS + ">" »
+			findBy«NameS.toFirstUpper()»(«Type.NameS» «NameS»){
+			return «entity.asInstanceVar()»Dao.findBy«NameS.toFirstUpper()»(«NameS»);
+		}
+«ENDDEFINE»
+
+«DEFINE GenServiceFacade FOR Model»
+	«FILE  "facades/" + "ServiceFacade.java"» 
+	
+		package facades;
+		
+		import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
+		
+		«FOREACH getEntities() AS e-»
+			import «e.parentPackageName()+".service." +  e.NameS + "Service"-»;
+		«ENDFOREACH»
+		
+		«EXPAND genImports FOREACH getMetaEnvironment.getElements("Service")-»
+	
+		public class ServiceFacade{
+			private static ServiceFacade instance;
+	
+		public static ServiceFacade getInstance(){
+			if(instance == null)
+				instance = (ServiceFacade) BeanHelper.getBean("serviceFacade");
+			return instance;
+		}
+		
+		// Construction is disabled
+		private ServiceFacade(){}
+			
+		«EXPAND CommonUtils::genDeclGetterSetter("Service") FOREACH getEntities()»
+		
+		«EXPAND genGetterSetter FOREACH getMetaEnvironment.getElements("Service")»
+		}
+	
+	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE genGetterSetter FOR Service»
+	«IF getFirstInterface != null»
+		«EXPAND CommonUtils::genDeclGetterSetter(getFirstInterface.NameS, NameS.toFirstLower(), false) FOR NameS »
+	«ELSE»
+		«EXPAND CommonUtils::genDeclGetterSetter("")»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genImports FOR Service»
+	«IF getFirstInterface != null»
+		import  «getFirstInterface.fqn()-»;
+	«ELSE»
+		import «fqn()»;
+	«ENDIF»
+		 
+«ENDDEFINE»
+
+
+«DEFINE GenerateServiceInterface FOR Entity»
+
+	«FILE parentPackagePath() + "/service/" + NameS + "Service.java"» 
+	
+	package «parentPackageName()».service;
+	
+	import «packageName()».«NameS»;
+	import «parentPackageName()».dao.«NameS»Dao;
+	import org.witchcraft.model.support.service.BaseService;
+	import java.util.List;
+	
+	import javax.jws.WebParam;
+	import javax.jws.WebService;
+		
+	/** The Service interface for entity - «NameS»
+	 * @author - Witchcraft Generated {Do not Modify } 
+	 * 
+	 */
+	 @WebService
+	public interface «NameS»Service extends /*«NameS»Dao,*/ BaseService<«NameS +  getDtoExtension()»>  {
+			«IF isEntityUser()»
+			public «NameS» getLoggedIn«NameS»();
+			«ENDIF»
+			
+			«EXPAND FinderDeclaration(this) FOREACH Findable -»
+			
+			 «IF isValid(getTreeFields)» 
+			 /**
+			 * For tree view , this method returns top level
+			 * elements (whose parent is null )
+			 */ 
+			 public List<«NameS +  getDtoExtension()»> findTopLevelElements();
+		 	«ENDIF»
+	}	
+	«ENDFILE»	
+«ENDDEFINE»
+	
+«DEFINE FinderDeclaration(AbstractEntity entity) FOR Column»
+	«LET entity.NameS +  getDtoExtension() AS dto»
+	public
+		«IF isUnique»
+			«dto» findBy«NameS.toFirstUpper()»(«Type.NameS» «NameS»);
+		«ELSE»
+			List<«dto»> findBy«NameS.toFirstUpper()»(«Type.NameS» «NameS»);
+		«ENDIF»
+	«ENDLET»
+«ENDDEFINE»	
+	

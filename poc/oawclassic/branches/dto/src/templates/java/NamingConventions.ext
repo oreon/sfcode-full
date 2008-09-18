@@ -1,0 +1,179 @@
+import org::openarchitectureware::meta::uml;
+import org::openarchitectureware::meta::uml::classifier;
+import org::openarchitectureware::meta::uml::classifier::Class;
+import oaw4::demo::classic::uml::meta;
+import java;
+import java::lang;
+
+String asParameter (ModelElement elem) :
+elem.NameS;
+
+String asSetter (ModelElement elem) :
+"set"+elem.NameS.toFirstUpper();
+
+String asGetter (ModelElement elem) :
+"get"+elem.NameS.toFirstUpper();
+
+
+String asInstanceVar (ModelElement elem) :
+elem.NameS.toFirstLower();
+
+
+
+
+String generateEnumLiterals (Enumeration enm) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.generateEnumLiterals(org.openarchitectureware.meta.uml.classifier.Enumeration);
+
+
+String packageName (Class cls) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getPackageName(org.openarchitectureware.meta.uml.classifier.Class);
+
+String packageNameDto(Class cls) :
+packageName(cls) + "." + getDtoExtension().toLowerCase();
+
+String parentPackageName (Class cls) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getParentPackageName(org.openarchitectureware.meta.uml.classifier.Class);
+
+
+String packageName (Enumeration enm) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getPackageName(org.openarchitectureware.meta.uml.classifier.Enumeration);
+
+
+String operationHelper (Operation operation) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.operationHelper(org.openarchitectureware.meta.uml.classifier.Operation);
+
+String generateInterfaceImplementation (Class cls) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.generateOperationsForImplementedInterfaces(org.openarchitectureware.meta.uml.classifier.Class);
+
+String getClassDeclaration (Class cls) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getClassDeclaration(org.openarchitectureware.meta.uml.classifier.Class);
+
+String getPropertyDeclaration (Attribute attribute) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getPropertyDeclaration(org.openarchitectureware.meta.uml.classifier.Attribute);
+
+String getRandValue (Attribute attribute) :
+JAVA org.witchcraft.model.helper.RandomValueGenerator.getRandomValue(org.openarchitectureware.meta.uml.classifier.Attribute);
+
+
+String getEntities() :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getEntities();
+
+
+String packagePath (Class cls) :
+packageName(cls).replaceAll("\\.", "/");
+
+String packagePath (String path) :
+path.replaceAll("\\.", "/");
+
+
+//Returns the parent package's path - if this class is com.xyz.domain.Person This method 
+//will return com.xyz.
+String parentPackagePath(Class cls) :
+parentPackageName(cls).replaceAll("\\.", "/");
+
+String packagePath (Enumeration enm) :
+packageName(enm).replaceAll("\\.", "/");
+
+
+String fqn (Class cls) :
+packageName(cls).length>0 ? packageName(cls)+"."+cls.NameS :
+cls.NameS;
+
+String fqn (PrimitiveType cls) :
+cls.NameS;
+
+boolean isEntity(Class cls) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.isEntity(org.openarchitectureware.meta.uml.classifier.Class);
+
+//return true for fields other than string and boolean 
+boolean needsRangeForSearch(Attribute attribute):
+!( attribute.Type.getMetaClass.getSimpleName == "Enumeration" || 
+(attribute.Type.NameS).toUpperCase() == ("boolean").toUpperCase()  || attribute.Type.NameS == "String");
+
+
+String fullName(Attribute attribute ):
+attribute.TypeModifier == null ? attribute.NameS:attribute.TypeModifier + "."  + attribute.NameS;
+
+String getContainerGetter(Attribute attribute ):
+attribute.TypeModifier == null || attribute.TypeModifier.length == 0 ? "":"get"+ attribute.TypeModifier.toFirstUpper() + "()." ;
+
+List getCounters(Class cls):
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getCounters(org.openarchitectureware.meta.uml.classifier.Class);
+
+String getGetterSetter(String arg):
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getCounters(org.openarchitectureware.meta.uml.classifier.Class);
+
+boolean isEntityUser(Entity entity):
+entity.isSystemUser == true || entity.getDefaultRole != null ;
+
+String getGetter(Type type):
+type.NameS == "boolean" || type.NameS == "Boolean"?"is":"get";
+
+String replaceSlashesWithDots(String source):
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.replaceSlashesWithDots(java.lang.String);
+
+String getAnnotaitons(Entity entity):
+"@Entity\n@Table(" + getTableName(entity) + "," + getTableConstraints(entity) + ")";
+
+String getTableName(Entity entity):
+"name=\"" + (entity.getTableName == null ? entity.NameS: entity.getTableName) + "\"";
+
+String getTableConstraints(Entity entity):
+"uniqueConstraints={@UniqueConstraint(columnNames={" + (entity.getUniqueConstraints == null ? "": entity.getUniqueConstraints )+  "})}";
+
+
+String getLoggerDeclaration(String className):
+"private static final Logger log = Logger.getLogger(" + className + ".class)";
+	
+String removeTrailingS(String arg):
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.removeTrailingS(java.lang.String);
+
+//takes a java primitive type and returns an object type e.g int -> Integer
+String getObjectTypeFromPrimitive(String primitiveTypeName):
+JAVA oaw4.demo.classic.uml.extend.GenericUtils.getObjectTypeFromPrimitive(java.lang.String);
+
+String genInheritanceStrategy(Entity entity):
+entity.getInheritanceStrategy == null?  "": "@Inheritance(strategy=InheritanceType." + entity.getInheritanceStrategy + ")";
+
+String removeSpacesAndQuotes(String arg):
+JAVA oaw4.demo.classic.uml.extend.GenericUtils.removeSpacesAndQuotes(java.lang.String);
+
+String getOperationDeclaration(Operation operation):
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getOperationDeclaration(org.openarchitectureware.meta.uml.classifier.Operation);
+
+String getOperationBody(Operation operation):
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getOperationBody(org.openarchitectureware.meta.uml.classifier.Operation);
+
+String getOperationParams(Operation operation):
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getOperationParams(org.openarchitectureware.meta.uml.classifier.Operation);
+
+String createOperationInvocation(Operation operation):
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.createOperationInvocation(org.openarchitectureware.meta.uml.classifier.Operation);
+
+String createOperationParams(Operation operation):
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.createOperationParams(org.openarchitectureware.meta.uml.classifier.Operation);
+
+//TODO - all these functions need to be moved to a common file
+String getVariableNameForDisplay(String arg):
+JAVA oaw4.demo.classic.uml.extend.GenericUtils.getViewLabelFromVariable(java.lang.String);
+
+String readProperty(String arg):
+JAVA oaw4.demo.classic.uml.extend.GenericUtils.readProperty(java.lang.String);
+
+String readProperty(String arg):
+JAVA oaw4.demo.classic.uml.extend.GenericUtils.readProperty(java.lang.String, java.lang.String);
+
+boolean isValid(String arg):
+arg != null && arg.length > 0;
+
+String getTopLevelPackage():
+readProperty("topLevelPackage");
+
+String getBackingBeanExtension():
+readProperty("backingBean.defaultSuffix", "CrudBacking");
+
+
+String getDtoExtension():
+"Dto";
+
+

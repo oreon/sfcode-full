@@ -1,0 +1,62 @@
+import org::openarchitectureware::meta::uml::classifier;
+import oaw4::demo::classic::uml::meta;
+extension java::NamingConventions;
+
+String fqn (AssociationEnd ae) : !ae.isMultiple ? ae.Class.fqn() + " " + ae.asInstanceVar()  + ae.getInstantiationIfComposition():
+"java.util.Set<"+ae.Class.fqn()+">" + " " + ae.asInstanceVar()+ " = new java.util.HashSet<" + ae.Class.fqn() + ">()"  ;
+
+String fqnDto (AssociationEnd ae) : !ae.isMultiple ? fullNameIfRequrired(ae) + getDtoExtension() + " " + ae.asInstanceVar() :
+"java.util.Set<"+ fullNameIfRequrired(ae) + getDtoExtension() +">" + " " + ae.asInstanceVar()+ " = new java.util.HashSet<" + fullNameIfRequrired(ae)  + getDtoExtension() +">()"  ;
+
+String fullNameIfRequrired(AssociationEnd ae):
+ae.Class.Package.NameS == ae.Opposite.Class.Package.NameS ? ae.Class.NameS : ae.Class.fqnExt(getDtoExtension().toLowerCase()) + "."  + ae.Class.NameS ;
+
+String fqnExt(Class cls, String ext):
+packageName(cls) + "." + ext;
+
+String iterator (AssociationEnd ae) :
+"java.util.Iterator<"+ae.Class.fqn()+">";
+
+String asSetter (AssociationEnd ae) :
+"set"+associationName(ae).toFirstUpper();
+
+String asGetter (AssociationEnd ae) :
+"get"+associationName(ae).toFirstUpper();
+
+String asInstanceVar (AssociationEnd ae) :
+associationName(ae).toFirstLower();
+
+String asParameter (AssociationEnd ae) :
+associationName(ae);
+
+//If association has no name we use the class's name
+String associationName(AssociationEnd ae) :
+ae.NameS != null && ae.NameS != ""?ae.NameS: ae.Class.NameS.toFirstLower();
+
+
+ElementSet getEmebeddedComponents(AbstractEntity entity):
+entity.AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable 
+				&& ae.Opposite.isComposition );
+				
+ElementSet getNonOneToOneOutgoingAssociations(AbstractEntity entity):
+entity.getAllOutgoingAssociations.select(ae|!(ae.MultiplicityMaxAsInt == 1 
+							&& ae.Opposite.MultiplicityMaxAsInt ==1 ) );				
+
+String manyToOne(AssociationEnd ae) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.manyToOne(org.openarchitectureware.meta.uml.classifier.AssociationEnd);
+
+String getInstantiationIfComposition(AssociationEnd ae):
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getInstantiationIfComposition(org.openarchitectureware.meta.uml.classifier.AssociationEnd);
+
+boolean isAssocNullable(AssociationEnd ae) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.isAssocNullable(org.openarchitectureware.meta.uml.classifier.AssociationEnd);
+
+boolean isOneOnOne(AssociationEnd ae):
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.isAssociationOneOnOne(org.openarchitectureware.meta.uml.classifier.AssociationEnd);
+
+boolean getIsMutable(CustomAssociation a):
+a.isMutable; 
+
+boolean getIsMutable(Association a):
+true;
+

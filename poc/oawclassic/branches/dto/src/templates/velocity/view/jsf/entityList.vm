@@ -1,0 +1,145 @@
+##A template to list all entities of a given kind
+
+#macro(generateDataColumnForClass $cls $clsName)
+	         		#generateDataColumn($cls $clsName)
+		  	       
+		  	       ## get all the embeddable components 
+		  	       #set($componentMap = ${manager.getComponents($cls).get("components")} )
+		  	       
+		  	       #foreach( $component in ${componentMap.keySet()} )
+		  	        #set($compClass = ${componentMap.get($component)})
+		  	        #set($compName = "$clsName.${component}")			
+		  	        #generateDataColumn(  $compClass $compName )
+		  	       			#end
+		  	       			
+		  	       			## get all the associations 
+		  	       			 #set($associationsMap = ${manager.getComponents($cls).get("associations")} )
+		  	       			 #foreach( $assocName in ${associationsMap.keySet()} )
+		  	        #set($attrib = ${componentMap.get($assocName)})			
+		  	        #generateAssocAttributeColumn($assocName $clsName)
+		  	       			#end
+#end
+
+
+#macro( generateDataColumn $cls $clsName)
+	  			#foreach( $attribute in $cls.Attribute())			
+		  	  #generateAttributeColumn($attribute $clsName)     			  
+		  				#end
+#end 
+
+##Generate Association attribute columns e.g for an order we might want to show customer this order belongs to
+#macro( generateAssocAttributeColumn $assocName $clsName)
+			   <t:column>
+				   <f:facet name="header">
+				     <t:commandSortHeader columnName="#{${clsName}.${assocName}}" arrow="true">
+					       <t:outputText value="${utils.getViewLabelFromVariable($assocName)}" />
+					     </t:commandSortHeader>
+				   </f:facet>
+				      <t:outputText value="#{${clsName}.${assocName}.id}" />
+						   </t:column>
+#end 
+
+
+##Generate columns for the data table using entity's attributes
+#macro( generateAttributeColumn  $attribute $clsName)
+			   <t:column>
+				   <f:facet name="header">
+				     <t:commandSortHeader columnName="${clsName}.${attribute.NameS()}" arrow="true">
+					       <t:outputText value="${utils.getViewLabelFromVariable($attribute.NameS())}" />
+					     </t:commandSortHeader>
+				   </f:facet>
+				      <t:outputText value="#{${clsName}.${attribute.NameS()}}" />
+						   </t:column>
+#end 
+
+#macro( generateDataScroller )
+			  <t:dataScroller id="scroll_1" for="data" fastStep="10"
+					pageCountVar="pageCount" pageIndexVar="pageIndex"
+					styleClass="scroller" paginator="true" paginatorMaxPages="9"
+					paginatorTableClass="paginator"
+					paginatorActiveColumnStyle="font-weight:bold;" immediate="true"
+					>
+					<f:facet name="first">
+						<t:graphicImage url="/images/dataScroller/arrow-first.gif"
+							border="1" />
+					</f:facet>
+					<f:facet name="last">
+						<t:graphicImage url="/images/dataScroller/arrow-last.gif"
+							border="1" />
+					</f:facet>
+					<f:facet name="previous">
+						<t:graphicImage url="/images/dataScroller/arrow-previous.gif"
+							border="1" />
+					</f:facet>
+					<f:facet name="next">
+						<t:graphicImage url="/images/dataScroller/arrow-next.gif"
+							border="1" />
+					</f:facet>
+					<f:facet name="fastforward">
+						<t:graphicImage url="/images/dataScroller/arrow-ff.gif" border="1" />
+					</f:facet>
+					<f:facet name="fastrewind">
+						<t:graphicImage url="/images/dataScroller/arrow-fr.gif" border="1" />
+					</f:facet>
+				</t:dataScroller>
+#end 
+
+## We need to generate columns that have edit, delete link etc. 
+#macro( generateEditColumns )
+	   		<t:column>
+								                    <f:facet name="header">
+							                      <t:commandSortHeader columnName="id" arrow="true">
+								                        <t:outputText value=" " />
+							                      </t:commandSortHeader>
+						                    </f:facet>
+						                    <t:commandLink action="#{${clsName}CrudBacking.select}"  
+						                            actionListener="#{${clsName}CrudBacking.selectEntity}"  >
+							                      <t:outputText value=" Edit " />
+							                      <f:param id="editId" 
+		                         	 						name="id" 
+    	 					                  value="#{${clsName}.id}" />
+						                    </t:commandLink>
+					                </t:column>
+#end
+
+
+#include("templates/velocity/view/jsf/xmlns.vm")
+
+	<ui:define name="content">
+
+    <f:view>
+            <a4j:form id="form">
+              #set($clsName = ${utils.asVariable($clazz.NameS() )} )
+            
+            <t:dataTable id="data" var="$clsName" value="#{${clsName}CrudBacking. ${clsName}s}"
+            	  rows="30" rowClasses="odd, even" styleClass="dataTable" >
+		               
+            
+				  #foreach( $superclass in ${manager.getSuperClasses($clazz)} )			
+ 		  	#generateDataColumnForClass($superclass $clsName)       			
+  				#end			
+		  			
+		  	#generateDataColumnForClass($clazz $clsName)  
+		  
+			  #generateEditColumns() 
+		             
+				
+		</t:dataTable>
+		
+					 #generateDataScroller()
+		
+		</a4j:form>
+		
+		<br/>
+		<hr/>
+		<a href="${utils.asVariable($clazz.NameS() )}.jsf"> Add New </a>
+		<a href="${utils.asVariable($clazz.NameS() )}Search.jsf"> Search </a>
+				 ##<t:commandLink id="button1" value="Search" action="#{${clsName}CrudBacking.search}"/> 
+	<hr/>
+	
+  </f:view>
+    </ui:define>
+</ui:composition>
+
+
+

@@ -1,0 +1,224 @@
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT java»
+
+«EXTENSION view::ViewExtensions»
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+
+
+«DEFINE genEditViewComponent FOR Entity»
+	
+	«EXPAND ViewGen::genIncludesHTML-»
+	
+	«setEditAsCurrentRenderContext()»
+
+	<a4j:page>
+	<a4j:form id="form">
+			<rich:panel header="«NameS» Information">
+				<h:outputText value="Please correct the following issues !" 
+			rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
+				
+			<h:panelGrid columns="2" styleClass="formTableCustom">
+					«REM»The associated entites for e.g an order would need a customer «ENDREM»
+					«EXPAND genAssociations FOR this»
+					«EXPAND genEditEntry(this) FOREACH getAllAttributes -»
+			</h:panelGrid>
+						<br/>
+						
+			«EXPAND genAllocationListShuttle(this) FOREACH getAllAggregatedManyToManyAssociations»			
+						
+			«REM»Composed collections e.g an order contains orderitems «ENDREM»
+			«FOREACH getAllComposedAssociationsExceptOneOnOne AS compAssoc -»
+				«LET compAssoc.Opposite AS ae»
+				
+				<rich:simpleTogglePanel switchType="client" label="«ae.associationName().toFirstUpper()»">
+				<t:dataTable id="«ae.associationName()»_data" var="«ae.Class.asInstanceVar()»" rowIndexVar="rowIndex" 
+					value="#{«asInstanceVar()»CrudBacking.list«ae.associationName().toFirstUpper()»s}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+				«REM»The associated entites for e.g an order would need a customer «ENDREM» 
+				«EXPAND genEditableTableRow(ae.Class, false) FOREACH ae.Class.AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) -»
+				«EXPAND genEditableTableRow(ae.Class) FOREACH ae.Class.getAllAttributes -»
+				«EXPAND genEditableTableDeleteColumn(this) FOR ae -»
+				</t:dataTable>
+				<br/>
+				<a4j:commandButton value="Add Row" styleClass="btn"
+									reRender="«ae.associationName()»_data" 
+									actionListener="#{«asInstanceVar()»CrudBacking.addNew«ae.associationName().toFirstUpper()»Row}" />
+				</rich:simpleTogglePanel>
+				<br/>
+				«ENDLET»
+			«ENDFOREACH»
+						
+				</rich:panel>
+				
+				<h:panelGrid columns="2">
+				<h:panelGroup>
+  					<a4j:commandButton id="button1" value="Submit" action="#{«asInstanceVar()»CrudBacking.update}"  styleClass="btn" /> 
+  					<h:outputText value=" " />
+  					<h:commandButton id="button2" value="Cancel" action="cancelUpdate" immediate="true" styleClass="btn"/> 
+  				   	<!-- We need to have a hidden text field to store the id of the record being edited -->		
+		  			<h:inputHidden id="«asInstanceVar()»_id" value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».id}" />
+  				   	«REM»We need to have hidden ids of all one to one associations «ENDREM»
+  				   	«FOREACH AssociationEnd.select(ae| ae.Opposite.isNavigable && ae.isOneOnOne() && (ae.Opposite.Class.getMetaClass.getName != "oaw4.demo.classic.uml.meta.Embeddable") )  AS ae-»
+  				 
+					<h:inputHidden id="«associationName(ae.Opposite)»_id" value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«associationName(ae.Opposite)».id}" />
+					«ENDFOREACH-»
+				 </h:panelGroup>
+				</h:panelGrid>
+				
+	</a4j:form>
+	</a4j:page>
+</html>			
+«ENDDEFINE»
+
+«REM» Create an edit entry e.g firstNAme <input > <errMessage > «ENDREM»
+«DEFINE genEditEntry(Class e) FOR Attribute»
+	«EXPAND genEditEntry(e, false) FOR this-»
+	«IF getRepeat()-»
+		«EXPAND genEditEntry(e, true) FOR this-»
+	«ENDIF»					
+«ENDDEFINE»
+
+«DEFINE genEditEntry(Class e, boolean repeat) FOR Attribute-»
+«getAccessControlBegin()-»
+	<h:panelGroup>
+		<h:outputText value="«repeat ? "Repeat ":""»"/>
+		<h:outputText value="«msgBundleKey()-»" />
+		<h:outputText value="«(getElementRequired()?"*":"")-»" />
+	</h:panelGroup>
+«getAccessControlEnd()-»
+«getAccessControlBegin()-»
+	<h:panelGroup>
+		<a4j:region>
+		«IF repeat-»
+			«EXPAND genRepeatInputControl(e) FOR this-»     
+		«ELSE»
+			«EXPAND genInputControl(e) FOR this-»
+		«ENDIF»
+		«LET repeat ? repeatControlId(e): controlId(e) AS ctrlId» «EXPAND genMessage(ctrlId) FOR this»  «ENDLET»
+		</a4j:region>
+	</h:panelGroup>
+«getAccessControlEnd()-»
+«ENDDEFINE»
+
+«DEFINE genMessage(String ctrlId) FOR Attribute-»
+	<wc:message for="«ctrlId»" />
+«ENDDEFINE»
+
+«REM» Create an input control like text input, date - calendar, check box etc «ENDREM»
+«DEFINE genInputControl(Class e) FOR Attribute-»
+	<«getElementType()»  «getElementAttributes()»  required="«getElementRequired()-»" 
+		id="«controlId(e)»"
+		value="#{«e.asInstanceVar()»CrudBacking.«e.asInstanceVar()».«fullName()»}">
+		«getElementContent()-»
+		«getElementValidatorContent()-»
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="«controlId(e)-»" />
+	</«getElementType()-»>
+	«LET controlId(e) AS controlId-»
+	«EXPAND ViewGen::genSuggestionBox( controlId ) FOR this-»
+	«ENDLET»
+«ENDDEFINE»
+
+«REM» Create an input control like text input, date - calendar, check box etc «ENDREM»
+«DEFINE genRepeatInputControl(Class e) FOR Attribute»
+	<«getElementType()»  «getElementAttributes()»  required="«getElementRequired()»" 
+		id="«repeatControlId(e)»"
+		value="#{«e.asInstanceVar()»CrudBacking.repeat«NameS.toFirstUpper()»}">
+		«getElementContent()»
+		<t:validateEqual for="«e.asInstanceVar()»_«TypeModifier»_«NameS»" />
+		«getElementValidatorContent()»							
+		<a4j:support event="onblur"  bypassUpdates="true" ajaxSingle="true" reRender="«controlId(e)»" />
+	</«getElementType()»>
+«ENDDEFINE»
+
+«DEFINE genEditableTableRow(Class e) FOR Attribute»
+	«EXPAND ViewGen::genAccessControl»
+	<t:column  >
+		<f:facet name="header">
+				<t:outputText value="«NameS.toFirstUpper()»" /> 
+		</f:facet>
+		<«getElementType()»  «getElementAttributes()»  required="«getElementRequired()»" 
+			id="«e.asInstanceVar()»_«TypeModifier»_«NameS»"
+			value="#{«e.asInstanceVar()».«fullName()»}">
+			«getElementContent()»
+		</«getElementType()»>
+		<h:message for="«e.asInstanceVar()»_«TypeModifier»_«NameS»" styleClass="errMessage" />
+	</t:column>
+	«EXPAND ViewGen::genAccessControlEnd»
+«ENDDEFINE»
+
+«REM» Create dropdowns in «ENDREM»
+«DEFINE genEditableTableRow(Class e, boolean useBackingBean) FOR AssociationEnd»
+	«IF e.NameS != this.Opposite.Class.NameS »
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="«NameS.toFirstUpper()»" /> 
+		</f:facet>
+		«EXPAND ViewGen::genDropDown(e, false, true) FOR this-»
+	</t:column>
+	«ENDIF»
+«ENDDEFINE»
+
+«REM» Create delete link for composed rows «ENDREM»
+«DEFINE genEditableTableDeleteColumn(AbstractEntity e) FOR AssociationEnd»
+	<t:column>
+		<f:facet name="header">
+			<t:outputText value="Delete" />
+		</f:facet>
+
+		<a4j:commandButton value="Delete" 
+			reRender="«associationName()»_data" bypassUpdates="true" styleClass="btn"
+					actionListener="#{«e.asInstanceVar()»CrudBacking.delete«associationName().toFirstUpper()»Row}" >
+				<a4j:actionparam name="deleteRowIndex" value="#{rowIndex}" />
+		</a4j:commandButton>
+	</t:column>
+«ENDDEFINE»
+
+«REM»To Generate list shuttle component for allocaiton of objects e.g. allocating/assigning 
+teachers to a class
+TODO - Validation(required for target ?) and internationalization
+«ENDREM»
+«DEFINE genAllocationListShuttle(Entity e) FOR AssociationEnd»
+	«LET e.NameS.toFirstLower()+ "CrudBacking" AS backingBean»
+	«LET Opposite.associationName() AS assocName»
+	
+	
+	<rich:simpleTogglePanel switchType="client"
+			label="«assocName.toFirstUpper()»">
+			
+			<rich:listShuttle id="«assocName»Shuttle" converter="shuttleListConverter"
+				sourceValue="#{«backingBean».available«assocName.toFirstUpper()»}"
+				targetValue="#{«backingBean».assigned«assocName.toFirstUpper()»}"
+				var="item" sourceCaptionLabel="Available «assocName.toFirstUpper()»"
+				targetCaptionLabel="Assigned «assocName.toFirstUpper()»">
+
+				<rich:column>
+					<h:outputText value="#{item.displayName}" />
+				</rich:column>
+
+				<wc:message for="«assocName»Shuttle" />
+			</rich:listShuttle>
+	</rich:simpleTogglePanel>
+	«ENDLET»
+	«ENDLET»
+«ENDDEFINE»
+
+«REM» Generates the outgoing associations e.g. an order would need a customer - when creating a new order«ENDREM»
+«DEFINE genAssociations FOR Entity»
+	«FOREACH getNonOneToOneOutgoingAssociations() AS ae -» 
+		«EXPAND ViewGen::genAccessControl FOR ae.Association»
+		<h:panelGroup>
+		<h:outputText value="#{msg.«NameS.toFirstLower()+ "_" + ae.associationName() -»}" />
+		<h:outputText value="«(ae.isAssocNullable()?"":"*")-»" />
+		</h:panelGroup>
+		«EXPAND ViewGen::genAccessControlEnd FOR ae.Association»
+		
+		«EXPAND ViewGen::genAccessControl FOR ae.Association»
+		«EXPAND ViewGen::genDropDown(this, true, true) FOR ae-»
+		«EXPAND ViewGen::genAccessControlEnd FOR ae.Association»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+

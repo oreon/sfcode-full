@@ -1,0 +1,244 @@
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT org::openarchitectureware::meta::uml::state»
+
+«IMPORT oaw4::demo::classic::uml::meta»
+
+«EXTENSION view::ViewExtensions»
+«EXTENSION pageFlowGeneration::PageFlow»
+«EXTENSION java::NamingConventions»
+
+
+
+«REM» «ENDREM»
+«DEFINE Gen FOR StateMachine»
+	«EXPAND GenXHTML»
+	«EXPAND GenFacesConfig»
+	«EXPAND GenNavigationConstants»
+«ENDDEFINE»
+
+«DEFINE GenNavigationConstants FOR StateMachine»
+«FILE   getTopLevelPackage().packagePath() + "/web/jsf/NavigationConstants.java" »
+
+package «getTopLevelPackage()».web.jsf;
+
+public interface NavigationConstants{
+	«FOREACH getUniqueTransitions() AS transition-»
+			public static final String «transition.Guard.getViewLabelFromVariable("_").toUpperCase()» = "«transition.Guard»" ;
+	«ENDFOREACH»
+	
+	«FOREACH getMetaEnvironment.getElements("Entity") AS e»
+			public static final String «e.NameS.toUpperCase()»_BACKING = "«e.NameS.toFirstLower()»CrudBacking" ;
+	«ENDFOREACH»
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE GenFacesConfig FOR StateMachine»
+«FILE "../webapp/WEB-INF/faces-config-generated.xml"»
+<?xml version="1.0"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config>
+	«EXPAND GenFacesNav FOREACH getAllStates()»
+	«REM»comment
+	«EXPAND GenNavForComposites FOREACH CompositeState»
+	«ENDREM»
+</faces-config>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE GenNavForComposites FOR CompositeState»
+«ENDDEFINE»
+
+«DEFINE GenFacesNav FOR ViewState»
+	<navigation-rule>
+	  	<from-view-id>«getLocationDir()»/«NameS-».xhtml</from-view-id>
+		«FOREACH OutTransition AS transition-»
+		«IF transition.TargetVertex.getMetaClass.getSimpleName == "Branch"-»
+			«EXPAND genNavigationCase(transition) FOR transition.TargetVertex-»
+		  «ELSE-»
+			«EXPAND genNavigationCase(transition) FOR this-»
+						  
+		 «ENDIF -»    
+		«ENDFOREACH -» 
+	</navigation-rule>
+«ENDDEFINE»
+
+«DEFINE GenFacesNav FOR NavState»
+	<navigation-rule>
+	  	<from-view-id>«NameS-»</from-view-id>
+	«FOREACH OutTransition AS transition-»
+		«IF transition.TargetVertex.getMetaClass.getSimpleName != "Exit"»
+		<navigation-case>
+			 <from-outcome>«transition.Guard»</from-outcome>
+			 <to-view-id>«transition.TargetVertex.getLocationDir()»/«transition.TargetVertex.NameS».xhtml</to-view-id>
+		</navigation-case>
+		«ENDIF»
+	«ENDFOREACH -»
+	</navigation-rule>
+«ENDDEFINE»
+
+«DEFINE GenFacesNav FOR CompositeState»
+«ENDDEFINE»
+
+«DEFINE GenFacesNav FOR SimpleState»
+«ENDDEFINE»
+
+
+
+«DEFINE genNavigationCase(Transition transitionIncoming) FOR Branch-»
+	«FOREACH OutTransition AS transition-»
+		«IF transition.TargetVertex.getMetaClass.getSimpleName != "Exit"»
+		<navigation-case>
+			 <from-outcome>«transition.Guard»</from-outcome>
+			 <to-view-id>«transition.TargetVertex.getLocationDir()»/«transition.TargetVertex.NameS».xhtml</to-view-id>
+		</navigation-case>
+		«ENDIF»
+	«ENDFOREACH -»
+«ENDDEFINE»
+
+
+
+«DEFINE genNavigationCase(Transition transition) FOR ViewState-»
+	«IF transition.TargetVertex.getMetaClass.getSimpleName != "Exit"»
+		<navigation-case>
+			 <from-outcome>«transition.Guard»</from-outcome>
+			 <to-view-id>«transition.TargetVertex.getLocationDir()»/«transition.TargetVertex.NameS».xhtml</to-view-id>
+		</navigation-case>
+	«ENDIF»
+«ENDDEFINE»
+
+
+
+
+«DEFINE GenManagedBean FOR ViewState»
+	<managed-bean>
+		<managed-bean-name>«NameS.toFirstLower()»Bean</managed-bean-name>
+		<managed-bean-class>states.web.jsf.«NameS.toFirstUpper()»Bean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>serviceFacade</property-name>
+			<value>#{serviceFacade}</value>
+		</managed-property>
+	</managed-bean> 
+«ENDDEFINE»
+
+
+«DEFINE GenXHTML FOR StateMachine»
+	 «EXPAND GenXHTML FOREACH getStates()»
+«ENDDEFINE»
+
+«REM» This function generates xhtml for the given state «ENDREM»
+«DEFINE GenXHTML FOR ViewState»
+	
+	«FILE "../webapp" +  getLocationDir() + "/" +NameS +".xhtml"»
+	«EXPAND view::ViewGen::genIncludes( this.getTemplate == null?"default.xhtml":this.getTemplate )-»
+	<ui:define name="content">
+		<f:view>
+		
+			<h:outputText value="«getMessage»" styleClass="message" />
+			<wc:messages />
+			
+			«IF getComponent != null  »
+			<ui:insert>
+				<ui:include src="«getComponent».xhtml" />
+			</ui:insert>					
+			«ENDIF»	
+			
+			«PROTECT CSTART '<!--' CEND '-->' ID  Id»
+					
+			«ENDPROTECT»	
+		
+		</f:view>
+	 </ui:define>	
+	</ui:composition>
+	«ENDFILE»
+	
+«ENDDEFINE»
+
+«REM» Do nothing for states that are not ViewStates«ENDREM»
+«DEFINE GenXHTML FOR State»
+«ENDDEFINE»
+
+«DEFINE GenXHTML FOR NavState»
+«ENDDEFINE»
+
+«REM» If any transition in a state has a guard we need to generate a backing bean for it «ENDREM»
+«DEFINE GenBeanClass FOR State»
+	«FILE "states/web/jsf" +"/"+ NameS.toFirstUpper() +"BeanBase.java"»  
+	
+		«EXPAND java::ManualFileGen::genManualFile("states/web/jsf", "Bean", "")»
+		
+		package states.web.jsf;
+		
+		import java.util.Date;
+		
+		import org.apache.log4j.Logger;
+		
+		import javax.faces.application.FacesMessage;
+		import javax.faces.context.FacesContext;
+		
+		public abstract class «NameS.toFirstUpper()»BeanBase{
+		
+			private facades.ServiceFacade serviceFacade;
+	
+			public facades.ServiceFacade getServiceFacade() {
+				return serviceFacade;
+			}
+		
+			public void setServiceFacade(facades.ServiceFacade serviceFacade) {
+				this.serviceFacade = serviceFacade;
+			}
+		
+			
+		«FOREACH OutTransition AS transition»
+			«IF transition.Trigger != null && transition.Guard != null»
+			
+				«IF transition.Trigger.hasParameter»
+					private String «transition.Trigger.Parameter»;
+					public void set«transition.Trigger.Parameter.toFirstUpper()»(String param){
+						this.«transition.Trigger.Parameter» = param;
+					}
+					public String get«transition.Trigger.Parameter.toFirstUpper()»(){
+						return «transition.Trigger.Parameter»;
+					}
+				«ENDIF»
+			
+				private static final Logger log = 
+					Logger.getLogger(«NameS.toFirstUpper()»BeanBase.class);
+			
+				public String  «transition.Guard»{
+					try{
+						 do«transition.Guard.toFirstUpper()»;
+					}catch(Throwable t ){
+						createErrorMessage(t.getMessage(), "Update Error");
+						log.error(t);
+						return "failure";
+		
+					}
+					
+					return "«transition.Trigger.NameS»";
+				}
+				
+				public abstract String do«transition.Guard.toFirstUpper()»;
+				
+			/** Creates and add an error message to the faces context
+			 * @param errorDetail
+			 * @param errorTitle
+			 */
+			private void createErrorMessage(String errorDetail, String errorTitle) {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, errorTitle, 
+								errorDetail));
+			}
+					
+			«ENDIF»
+		«ENDFOREACH» 
+	
+		} 
+	«ENDFILE»
+«ENDDEFINE»
+
+

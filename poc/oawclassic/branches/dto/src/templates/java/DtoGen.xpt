@@ -1,0 +1,108 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+«REM» TODO this file has functions duplicated from association.xpt «ENDREM»
+
+«DEFINE dtoGen FOR AbstractEntity»
+	«FILE packagePath()+"/dto/"+NameS + getDtoExtension() +  ".java"»  
+	
+	«EXPAND java::JavaBean::GenCodeWarning»
+	
+	package «packageName() + ".dto"»;
+	
+	import java.util.Date;
+	import org.witchcraft.model.support.dto.BusinessEntityDto;
+	
+	
+	«EXPAND CommonUtils::genDocumentation FOR this-»
+	public class «NameS +  getDtoExtension()» extends «hasSuperClass? SuperClass().NameS(): "BusinessEntityDto"»{
+	
+		«FOREACH Attribute AS a»
+			private «a.Type.NameS» «a.NameS»;
+		«ENDFOREACH»
+		
+		«EXPAND ReferenceVariables»
+	
+		«FOREACH Attribute AS a»
+			«EXPAND CommonUtils::genGetterSetter(  a.Type.NameS, a.NameS) FOR a.NameS »
+		«ENDFOREACH»
+		
+		«EXPAND AccessorMethods»
+	} 
+	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE ReferenceVariables FOR Class»
+	«FOREACH AssociationEnd.Opposite.select(ae|ae.isNavigable) AS ae»
+		private «ae.fqnDto()»;
+	«ENDFOREACH»
+«ENDDEFINE»
+
+
+«DEFINE AccessorMethods FOR Class»
+	«EXPAND ToOneAccessorMethods FOREACH
+		AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable)»
+	«EXPAND ToManyAccessorMethods FOREACH
+		AssociationEnd.Opposite.select(ae|ae.isMultiple && ae.isNavigable)»
+«ENDDEFINE»
+
+«DEFINE ToOneAccessorMethods FOR AssociationEnd»
+	public «fullNameIfRequrired() + getDtoExtension()» «asGetter()» () {
+		return this.«asInstanceVar()»;
+	}
+
+	public void «asSetter()» («fullNameIfRequrired() + getDtoExtension()» «asParameter()») {
+		this.«asInstanceVar()» = «asParameter()»;
+	}
+«ENDDEFINE»
+
+«DEFINE ToManyAccessorMethods FOR AssociationEnd»
+
+«LET fullNameIfRequrired() + getDtoExtension() AS associationClass»
+
+	public void add«removeTrailingS(associationName().toFirstUpper())» («associationClass» «asParameter()») {
+		//checkMaximum«associationName().toFirstUpper()»();
+		«IF Opposite.isNavigable -»
+			«asParameter()».«Opposite.asSetter()»(this);
+		«ENDIF-»
+		this.«asInstanceVar()».add(«asParameter()»);
+	}
+
+	public void remove«removeTrailingS(NameS.toFirstUpper())» («associationClass»
+		«asParameter()») {
+		this.«asInstanceVar()».remove(«asParameter()»);
+	}
+	
+	public java.util.Set<«Class.NameS + getDtoExtension()»> «asGetter()» () {
+		return this.«asInstanceVar()»;
+	}
+
+	public void «asSetter()» (java.util.Set<«associationClass»> «asParameter()») {
+		this.«asInstanceVar()» = «asParameter()»;
+	}
+
+
+	/** Method size on the set doesn't work with technologies requiring 
+	 *  java beans get/set  interface so we provide a getter method 
+	 * @return
+	 */ 
+	public int «asGetter()»Count(){
+		return this.«asInstanceVar()».size();
+	}
+	
+	/*
+	public void checkMaximum«associationName().toFirstUpper()»(){
+		// if(«associationName()».size() > Constants.size())
+		// 		throw new BusinessException ("msg.tooMany." + «associationName()» );
+	}*/
+«ENDLET»
+«ENDDEFINE»
+
+
+
+
+	

@@ -1,0 +1,44 @@
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::meta::uml»
+
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+
+«DEFINE GenerateORM FOR Model»
+	«FILE "../resources/META-INF/orm.xml"»
+	<?xml version="1.0" encoding="UTF-8" ?>
+	<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd"
+	version="1.0">
+	<description></description>
+	<package>com.oreon.kgauge.domain</package>
+	«EXPAND GenerateEntityMapping FOREACH getEntities()-»
+</entity-mappings>
+	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE GenerateEntityMapping FOR Entity»
+	<entity class="«fqn()»" name="«NameS»">
+		<table «getTableName !=null ? "name=\"" + getTableName + "\"":"" -»  >
+		«IF getUniqueConstraints != null-»
+			<unique-constraint>
+			«FOREACH getUniqueConstraintsAsCollection AS e-»
+				<column-name>«e.trim()-»_ID</column-name>
+			«ENDFOREACH-»
+			</unique-constraint>
+		«ENDIF»
+		</table>
+	«FOREACH getQueryOperations AS queryOp-»
+		«IF getNamedQuery(queryOp) != null»
+		<named-query name="«getNamedQuery(queryOp).getName-»">
+			<query>
+				«getNamedQuery(queryOp).getText»
+			</query>
+		</named-query>
+		«ENDIF»
+	«ENDFOREACH»
+	</entity>
+«ENDDEFINE»

@@ -1,0 +1,68 @@
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT java»
+«IMPORT org::witchcraft::htmlinput::jsf » 
+
+«EXTENSION view::ViewExtensions»
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+
+«REM» Create the view/update xhtml page for an entity «ENDREM»
+«DEFINE genSearchViewComponent FOR Entity-»
+	
+	«EXPAND ViewGen::genIncludesHTML-»
+	«setSearchAsCurrentRenderContext()»
+		
+	<a4j:form id="form">
+		<rich:panel header="Search «NameS»">
+			<h:panelGrid columns="4" >
+				
+				<h:outputText value="Creation Date" styleClass="customformLabel" />
+				<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
+						backingBean="#{«asInstanceVar()»CrudBacking}" />
+					
+		«FOREACH getAllAttributes AS attrib-»
+			<h:outputText value="«attrib.msgBundleKey()»" />
+			«IF attrib.needsRangeForSearch()-»
+				«EXPAND genRangeField(this) FOR attrib»
+			«ELSE»
+			<h:panelGroup>
+				<«attrib.getElementType()»  «attrib.getElementAttributes()»  
+					id="«asInstanceVar()»_«attrib.TypeModifier»_«attrib.NameS»"
+					value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«attrib.fullName()»}">
+					«attrib.getElementContent()»
+				</«attrib.getElementType()»>
+				<h:message for="«asInstanceVar()»_«attrib.TypeModifier»_«attrib.NameS»" styleClass="errMessage" />
+			</h:panelGroup>
+			«ENDIF»
+		«ENDFOREACH»
+		
+		«FOREACH getAllOutgoingAssociations AS ae -»
+			<h:outputText value="#{msg.«NameS.toFirstLower()+ "_" + ae.associationName()»}" styleClass="customFormLabel" />
+			«EXPAND ViewGen::genDropDown(this, true, false) FOR ae»
+		«ENDFOREACH»
+		
+			<h:panelGroup>
+				<h:commandButton id="button1" value="Search"
+					action="#{«asInstanceVar()»CrudBacking.search}" styleClass="btn" />
+				<h:outputText value=" " />
+				<h:commandButton id="button2" value="Cancel" action="#{«asInstanceVar()»CrudBacking.clearSearch}"
+					immediate="true" styleClass="btn" />
+ 			</h:panelGroup>
+		</h:panelGrid>
+		
+		 </rich:panel>					
+	</a4j:form>
+</html>
+«ENDDEFINE»
+
+«DEFINE genRangeField(Entity entity) FOR Attribute-»
+	«IF Type.NameS == "Date"-»
+				<wc:dateRange rangeFieldName="range«NameS.toFirstUpper()»" label="«NameS.toFirstUpper()»"
+					backingBean="#{«entity.NameS.toFirstLower()»CrudBacking}" />
+	«ELSE»
+		<wc:numberRange rangeFieldName="range«NameS.toFirstUpper()»" label="«NameS.toFirstUpper()»"
+			backingBean="#{«entity.NameS.toFirstLower()»CrudBacking}" type="«Type.NameS.toFirstLower()»" />
+	«ENDIF»
+«ENDDEFINE»

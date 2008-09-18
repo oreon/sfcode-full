@@ -1,0 +1,237 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+«EXTENSION java::NamingConventions»
+
+
+	
+«DEFINE BeanClass FOR Class»
+	«FILE packagePath()+"/"+NameS+"Base.java"»  
+	
+	«EXPAND ManualFileGen::genManualFile("/" + Package.NameS, "", "")»
+	«EXPAND GenCodeWarning»
+	
+	package «packageName()»;
+	
+	import java.util.Date;
+	import org.apache.log4j.Logger;
+	
+	«EXPAND CommonUtils::genDocumentation FOR this-»
+	«getClassDeclaration()»{
+		«getLoggerDeclaration(NameS + "Base")»;
+		«EXPAND classBody FOR this»
+	} 
+	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE BeanClass FOR MailerTask»
+	«FILE packagePath()+"/"+NameS+"Base.java"»  
+	
+	«EXPAND ManualFileGen::genManualFile("", "", "", true)»
+	«EXPAND GenCodeWarning»
+	
+	package «packageName()»;
+	
+	import javax.persistence.*;
+	import java.util.Date;
+	import org.witchcraft.model.mail.AbstractMailerTask;
+	
+	public abstract class «NameS»Base extends AbstractMailerTask{
+			«EXPAND classBody FOR this»
+	} 
+	«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE EntityGen FOR Entity»
+	«FILE packagePath()+"/"+NameS+"Base.java"»  
+	
+		«EXPAND ManualFileGen::genManualFile("/" + Package.NameS, "", "@Entity\n" 
+			+  genInheritanceStrategy(), true )»
+		«EXPAND GenCodeWarning»
+		
+		package «packageName()»;
+		
+		«REM» TODO: The image import should be conditional «ENDREM»
+		«EXPAND genImports FOR this»
+		
+		@MappedSuperclass
+		«EXPAND genFullTextSearchAnnotations FOR this»
+		«getClassDeclaration()» « (isAuditable)?", org.witchcraft.model.support.audit.Auditable":""»{
+		«REM» TODO: Need to find a way to iterate over named queries
+				«FOREACH getNq AS e-»
+					«e-»
+				«ENDFOREACH»
+		«ENDREM»
+				«EXPAND classBody FOR this»
+				«EXPAND displayName FOR this»
+				«REM» Need to add special code for user and authoriy classes  «ENDREM»
+				«EXPAND genAuthorizationCode»
+				
+				«EXPAND genSearchFieldsArray FOR this»
+		} 
+	«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE EntityGen FOR MappedSuperclass»
+	«FILE packagePath()+"/"+NameS+"Base.java"»  
+	
+		«EXPAND ManualFileGen::genManualFile("/" + Package.NameS, "", "@MappedSuperclass", true)»
+		«EXPAND GenCodeWarning»
+		
+		package «packageName()»;
+		
+		«EXPAND genImports FOR this»
+		
+		@MappedSuperclass
+		«EXPAND genFullTextSearchAnnotations FOR this»
+		«getClassDeclaration()»{
+			«EXPAND classBody FOR this»
+			«EXPAND displayName FOR this»
+		} 
+	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE EntityGen FOR Embeddable»
+	«FILE packagePath()+"/"+NameS+"Base.java"»  
+	
+		«EXPAND ManualFileGen::genManualFile("/" + Package.NameS, "", "@Embeddable", true)»
+		«EXPAND GenCodeWarning»
+		
+		package «packageName()»;
+		
+		«EXPAND genImports FOR this»
+		
+		@MappedSuperclass
+		«EXPAND genFullTextSearchAnnotations FOR this»
+		«getClassDeclaration()»{
+			«EXPAND classBody FOR this»
+		 } 
+	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE genAuthorizationCode FOR Entity»
+	«IF getBaseClass == "org.witchcraft.model.support.security.AbstractAuthority"»
+		@Transient
+		public String getAuthority() {
+			return getName();
+		}
+	«ENDIF»
+	
+	«IF getBaseClass == "org.witchcraft.model.support.security.AbstractUser"»
+	
+	@Transient
+	public Set getUserAuthorities() {
+		return getGrantedRoles();
+	}
+	«ENDIF»
+
+«ENDDEFINE»
+
+«DEFINE genFullTextSearchAnnotations FOR AbstractEntity»
+	«IF isFullTextSearchEnabled»
+		@Indexed
+		//@Analyzer(impl = example.EnglishAnalyzer.class)
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE displayName FOR AbstractEntity»
+	
+	«IF getDisplayName != null || Attribute.size > 0»
+		@Transient
+		public String getDisplayName(){
+			return «getDisplayName != null ? getDisplayName: Attribute(0).NameS» + "";
+		}
+	«ENDIF»
+
+«ENDDEFINE»
+
+«DEFINE genSearchFieldsArray FOR Entity»
+	@Override
+	public String[] retrieveSearchableFieldsArray() {
+		List<String> listSearchableFields = new ArrayList<String>();
+		«FOREACH Attribute AS e»
+			«IF e.Type.NameS == "String"»
+				listSearchableFields.add("«e.NameS»");
+			«ENDIF»
+		«ENDFOREACH»
+		String[] arrFields = new String[listSearchableFields.size()];
+		return listSearchableFields.toArray(arrFields);
+	}
+«ENDDEFINE»
+
+
+«DEFINE classBody FOR Class»
+	private static final long serialVersionUID = 1L;
+
+	«EXPAND Attribute::PropertyDeclaration FOREACH Attribute»
+	
+	«EXPAND GenConstructor FOR this»
+	
+	«EXPAND Attribute::Getter FOREACH Attribute»
+	«EXPAND Attribute::Setter FOREACH Attribute»
+	
+	«EXPAND Association::ReferenceVariables»
+	«EXPAND Association::AccessorMethods»
+	
+	«generateInterfaceImplementation()»
+				
+	«EXPAND Generator FOREACH Operation»
+	
+	 «IF isEntity()»
+	 	public abstract «NameS» «asInstanceVar()»Instance();
+	 «ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE GenConstructor FOR Class»
+	/* Default Constructor */
+	public «NameS»Base(){}
+	
+	«IF Attribute.size > 0 »
+	/* Constructor with all attributes */
+	public «NameS»Base (
+		«FOREACH Attribute AS a ITERATOR iter -» «a.Type.NameS» «a.NameS» «iter.counter1 < Attribute.size?",":""» «ENDFOREACH-» ){
+		«FOREACH Attribute AS a-» 
+			this.«a.NameS» = «a.NameS»;  
+		«ENDFOREACH-»
+	}
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE GenCodeWarning FOR Class»
+	/**
+	 * This is generated code - to edit code or override methods use - «NameS» class
+	 * @author witchCraft Code Generator
+	 * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
+	 */
+«ENDDEFINE»
+
+«DEFINE genImports FOR AbstractEntity»
+	import javax.persistence.*;
+	import java.util.Date;
+	import org.hibernate.annotations.Cascade;
+	
+	import javax.xml.bind.annotation.XmlTransient;
+	
+	import org.hibernate.search.annotations.Analyzer;
+	import org.hibernate.search.annotations.Field;
+	import org.hibernate.search.annotations.Index;
+	import org.hibernate.search.annotations.Indexed;
+	import org.hibernate.search.annotations.Store;
+	
+	import org.witchcraft.model.jsf.Image;
+	import java.util.Set;
+	
+	import java.util.List;
+	import java.util.ArrayList;
+«ENDDEFINE»
+
+
+«DEFINE Generator FOR Operation»
+	«EXPAND CommonUtils::genDocumentation-»
+	«operationHelper()»
+«ENDDEFINE»

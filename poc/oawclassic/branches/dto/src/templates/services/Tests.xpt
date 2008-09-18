@@ -1,0 +1,48 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+«EXTENSION services::Service»
+
+
+«DEFINE GenerateTest FOR Service»
+	«FILE "../../test/java/" + packagePath()+ "/" + NameS + "TestBase.java"»  
+
+			«EXPAND ManualFileGen::genManualFileServiceTest(  "../../test/java/" , "Test",
+		 "")»
+		
+
+		package «packageName()»;
+		
+		import static org.junit.Assert.*;
+
+		import org.junit.Test;
+		import org.witchcraft.model.support.springbeanhelpers.BeanHelper;	
+		
+		public class «NameS»TestBase  {
+ 
+ 			«FOREACH Operation AS o»
+ 				@Test
+				public void «o.NameS»Test(){
+					/*
+					«REM» comment
+					«FOREACH Parameter AS p»
+						«p.Type» «p.NameS» = «p.NameS».TestDataFactory.createRandom«NameS»(); 
+					«ENDFOREACH»
+					«ENDREM»
+					
+					«o.ReturnType» result =  «NameS.toFirstLower()».«o.NameS»();		
+					assertEquals(result, expected);
+					*/ 
+				}
+			«ENDFOREACH»
+	
+		}
+	
+	«ENDFILE»
+«ENDDEFINE»
+	
+	

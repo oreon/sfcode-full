@@ -1,0 +1,67 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::util::stdlib::counter»
+
+«IMPORT java»
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+
+«REM» Used to create app wide pointcuts «ENDREM»
+«DEFINE GenSysArchitecture FOR Model»
+
+
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+
+«LET getTopLevelPackage() AS topLevelPackage»«ENDLET»
+
+@Aspect
+public class SystemArchitecture {
+
+	/**
+     *  we're in the application if we're within any
+     *  of the pet store packages
+     */
+	@Pointcut("within(«topLevelPackage»..*)")
+        public void inApplication() {}
+
+	// modules
+	// ===========
+
+	@Pointcut("within(«topLevelPackage».dao..*)")
+        public void inDataAccessLayer() {}
+
+	@Pointcut("within(«topLevelPackage».domain.*)")
+        public void inDomainModel() {}
+
+	@Pointcut("within(«topLevelPackage».service..*)")
+        public void inServiceLayer() {}
+
+	@Pointcut("within(«topLevelPackage».web..*)")
+        public void inWebLayer() {}
+
+/*
+	@Pointcut("within(«topLevelPackage».remote..*)")
+        public void inRemotingLayer() {}
+
+	@Pointcut("within(«topLevelPackage».validation..*)")
+        public void inValidationModule() {}
+*/
+	// module operations
+	// ==================
+
+	@Pointcut("execution(* «topLevelPackage».dao.*.*(..))")
+        public void doaOperation() {}
+
+	@Pointcut("execution(* «topLevelPackage».service.*.*(..))")
+        public void businessService() {}
+/*
+	@Pointcut("execution(public * «topLevelPackage».validation.*.*(..))")
+	public void validation() {}
+*/
+}
+
+
+«ENDDEFINE»
+

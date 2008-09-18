@@ -1,0 +1,428 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+
+«EXTENSION java::NamingConventions»
+«EXTENSION view::ViewExtensions»
+«EXTENSION java::Associations»
+
+
+
+
+«DEFINE GenerateBackingBean FOR Entity»
+	
+	«EXPAND ManualFileGen::genManualFile("/web/jsf", "BackingBean", "")»
+	
+	«FILE parentPackagePath()+"/web/jsf/"+NameS+"BackingBeanBase.java"»  
+	«LET NameS +  getDtoExtension() AS dto»
+	package «parentPackageName()».web.jsf;
+	
+	import javax.faces.event.ActionEvent;
+	import javax.faces.context.FacesContext;
+	
+	import org.witchcraft.model.jsf.BaseBackingBean;
+	import org.witchcraft.model.support.service.BaseService;
+	import org.apache.commons.lang.StringUtils;
+	
+	import java.util.Set;
+	import org.apache.commons.collections.ListUtils;
+
+	import «packageName() + "." + getDtoExtension().toLowerCase()».«dto»;
+	import «parentPackageName()».service.«NameS»Service;
+	
+	import java.util.Date;
+	import java.util.List;
+	import java.util.ArrayList;
+	import java.util.HashSet;
+	import org.witchcraft.model.support.Range;
+	
+	«FOREACH getAllComposedAssociationsExceptOneOnOne AS ae»
+		import «ae.Opposite.Class.packageName()».«ae.Opposite.Class.NameS»;
+	«ENDFOREACH»
+	
+	«FOREACH getAllAggregatedManyToManyAssociations AS ae»
+		import «ae.Opposite.Class.fqn()»;
+	«ENDFOREACH»
+	
+	«IF getTreeFields != null»
+		import java.util.Collection;
+		import org.richfaces.component.UITree;
+		import org.richfaces.event.NodeSelectedEvent;
+		import org.richfaces.model.TreeNode;
+		import org.richfaces.model.TreeNodeImpl;
+		import org.richfaces.component.html.HtmlMenuItem;
+	«ENDIF»
+	
+	
+	«EXPAND java::JavaBean::GenCodeWarning»
+	
+	public class «asParameter()»BackingBeanBase extends BaseBackingBean<«dto»>{
+	
+		
+		
+			protected «dto» «asInstanceVar()» = new «dto»();
+			
+			protected	«asParameter()»Service «asInstanceVar()»Service;
+			
+			«IF getTreeFields != null»
+			protected TreeNode root = null;
+			«ENDIF»
+			
+			«IF isSystemUser»
+				//This field is used to store the currently logged in «NameS»
+				protected «NameS» loggedin«NameS»;
+			«ENDIF»
+			
+			«FOREACH getAllComposedAssociationsExceptOneOnOne AS ae»
+				private List<«ae.Opposite.Class.NameS»> list«ae.Opposite.associationName().toFirstUpper()»s = new ArrayList<«ae.Opposite.Class.NameS»>();
+			«ENDFOREACH»
+			
+			«EXPAND GenRepeatAttributes FOR this»
+			
+			«EXPAND GenRangeFields FOR this»
+			
+			public «dto» get«asParameter()»() {
+				return «asInstanceVar()»;
+			}
+			
+			public void set«asParameter()»(«dto»  «asInstanceVar()») {
+				this.«asInstanceVar()» = «asInstanceVar()»;
+			}
+	
+			
+			public void set«NameS»Service(«asParameter()»Service «asInstanceVar()»Service){
+				this.«asInstanceVar()»Service = «asInstanceVar()»Service;
+			}
+			
+			public «asParameter()»Service get«NameS»Service(){
+				return this.«asInstanceVar()»Service;
+			}
+	
+			
+			@SuppressWarnings("unchecked")
+			public BaseService<«NameS»> getBaseService(){
+				return «asInstanceVar()»Service;
+			}	
+			
+			public «NameS  + getDtoExtension()» getEntity(){
+				return get«NameS»();
+			}	
+			
+			«IF isSystemUser»
+				public «NameS» getLoggedin«NameS»() {
+					if(loggedin«NameS» == null){
+						loggedin«NameS» = get«NameS»Service().findByUsername(getAuthenticationController().getUsername());
+					}					
+					return loggedin«NameS»;
+				}
+			
+				public void setLoggedin«NameS»(«NameS» loggedin«NameS») {
+					this.loggedin«NameS» = loggedin«NameS»;
+				}
+			«ENDIF»
+			
+			/**
+			* Any initializations of the member entity should be done in this method - 
+			* It will be called before add new action
+			*/
+			public void initForAddNew(){
+				«FOREACH getNonOneToOneOutgoingAssociations() AS ae -»
+					«EXPAND getDefaults(ae, this) FOR ae.Association-»
+				«ENDFOREACH»
+			}
+			
+			
+			public void reset(){
+				«asInstanceVar()» = new «dto»();
+				resetRanges();
+				
+				«FOREACH getAllComposedAssociationsExceptOneOnOne AS ae»
+					list«ae.Opposite.associationName().toFirstUpper()»s.clear();
+				«ENDFOREACH»
+				
+				«FOREACH getAllAggregatedManyToManyAssociations AS ae»
+					resetAggregated«ae.Opposite.associationName().toFirstUpper()»();	
+				«ENDFOREACH»
+				
+			}			
+			
+    		@Override
+			protected List<Range> getRangeList() {
+		
+				List<Range> listRanges = super.getRangeList();
+				
+				«FOREACH getAllAttributes AS attribute-»
+					«IF attribute.needsRangeForSearch()-»
+						listRanges.add(range«attribute.NameS.toFirstUpper()»);	
+					«ENDIF»
+				«ENDFOREACH»
+				
+				listRanges.add(rangeCreationDate);
+				return listRanges;
+			}
+
+			
+			protected void reloadFromId(long id){
+			if(id != 0)
+				«asInstanceVar()» = «asInstanceVar()»Service.load(id);
+				«FOREACH getAllAttributes.select(repeatableAttribute|repeatableAttribute.getRepeat()) AS repeatableAttribute»
+					repeat«repeatableAttribute.NameS.toFirstUpper()» = «asInstanceVar()».«repeatableAttribute.getContainerGetter()»get«repeatableAttribute.NameS.toFirstUpper()»();
+				«ENDFOREACH»
+				
+				«FOREACH getAllAggregatedManyToManyAssociations AS ae»
+					reloadAggregated«ae.Opposite.associationName().toFirstUpper()»();	
+				«ENDFOREACH»
+			}
+			
+			@Override
+			public String update() {
+				«FOREACH getAllComposedAssociationsExceptOneOnOne AS ae»
+					add«ae.Opposite.associationName().toFirstUpper()»sTo«NameS»();
+				«ENDFOREACH»
+				
+				«FOREACH getAllAggregatedManyToManyAssociations AS ae»
+					addAggregated«ae.Opposite.associationName().toFirstUpper()»();	
+				«ENDFOREACH»
+				
+				return super.update();
+			}
+    
+		    
+		 «IF isValid(getTreeFields)»
+		  
+			public TreeNode getTree() {
+				if(root == null){
+					root = new TreeNodeImpl();
+					Collection<«NameS»> «asInstanceVar()»s = 
+					 	«asInstanceVar()»Service.findTopLevelElements();
+					addChildren(«asInstanceVar()»s, root);
+					return root;
+				}
+				return root;
+			}
+		
+			private void addChildren(Collection<«NameS»> «asInstanceVar()»s, TreeNode currentNode) {
+			
+				for («NameS» currentEntity : «asInstanceVar()»s) {
+					
+					TreeNodeImpl nodeImpl = new TreeNodeImpl();
+
+					nodeImpl.setData(currentEntity.getDisplayName());
+					currentNode.addChild(currentEntity, nodeImpl);
+		
+					Collection<Category> childEntites = currentEntity.get«getTreeFieldsAsCollection.get(1).toFirstUpper()»();
+					addChildren(childEntites, nodeImpl);
+				}
+			}
+			
+			public void processSelection(NodeSelectedEvent event) {
+		        UITree tree = (UITree) event.getComponent();
+		        //nodeTitle = (String) tree.getRowData();
+		    }
+		«ENDIF»
+		
+		«FOREACH getAllComposedAssociationsExceptOneOnOne AS ae»
+			«EXPAND genCodeForComposedEntities(ae)»	
+		«ENDFOREACH»
+		
+		«FOREACH getAllAggregatedManyToManyAssociations AS ae»
+			«EXPAND genCodeForAggregatedEntities(ae)»	
+		«ENDFOREACH»
+		«ENDLET»
+	} 
+	«ENDFILE»
+	
+«ENDDEFINE»
+
+«REM» The repeat attributes like password need to have a variable in the backing bean«ENDREM»
+«DEFINE GenRepeatAttributes FOR Entity»
+
+«FOREACH getAllAttributes AS attribute»
+	«IF attribute.getRepeat()»
+		private String repeat«attribute.NameS.toFirstUpper()»; 
+		
+		public String getRepeat«attribute.NameS.toFirstUpper()»(){
+			return repeat«attribute.NameS.toFirstUpper()»;
+		}
+		
+		public void setRepeat«attribute.NameS.toFirstUpper()»(String repeat«attribute.NameS»){
+			this.repeat«attribute.NameS.toFirstUpper()» = repeat«attribute.NameS»;
+		}
+	«ENDIF»
+«ENDFOREACH»
+
+«ENDDEFINE»
+
+«REM»All searchable fields that are not strings and booleans should have range fields for min and max«ENDREM»
+«DEFINE GenRangeFields FOR Entity»
+
+private Range<Date> rangeCreationDate = new Range<Date>("dateCreated"); 
+«EXPAND java::CommonUtils::genGetterSetter("Range<Date>", "rangeCreationDate") FOR ""»
+
+«FOREACH getAllAttributes AS a»
+	«IF a.needsRangeForSearch()»
+		private Range<«a.Type.NameS»> range«a.NameS.toFirstUpper()» = new Range<«a.Type.NameS»>("«a.NameS»"); 
+		«EXPAND java::CommonUtils::genGetterSetter("Range<" + a.Type.NameS + ">", "range" + a.NameS.toFirstUpper()) FOR a.NameS»
+	«ENDIF»
+«ENDFOREACH»
+
+«ENDDEFINE»
+
+«REM» This is special code required to handle composed entities «ENDREM»
+«DEFINE genCodeForComposedEntities( AssociationEnd ae ) FOR AbstractEntity»
+
+	«LET ae.Opposite.associationName().toFirstUpper() AS assocName»
+	
+
+	public List<«ae.Opposite.Class.NameS»> getList«assocName»s() {
+		if (list«assocName»s.isEmpty())
+			load«assocName»s();
+
+		return list«assocName»s;
+	}
+
+	public void setList«assocName»s(List<«ae.Opposite.Class.NameS»> list«assocName»s) {
+		this.list«assocName»s = list«assocName»s;
+	}
+
+	private void load«assocName»s() {
+		list«assocName»s.clear();
+		if («NameS.toFirstLower()» != null) {
+			list«assocName»s.addAll(«NameS.toFirstLower()».get«assocName»());
+		}
+		int sizeOfExistingElements = list«assocName»s.size();
+		// add a few spare rows - lets say parent has 3 children and we need to
+		// show 5 rows - then add 2 rows with 2 new parents
+		for (int i = 0; i < INITIAL_RECORDS - sizeOfExistingElements; i++) {
+			list«assocName»s.add(new «ae.Opposite.Class.NameS»());
+		}
+	}
+	
+	private void add«assocName»sTo«NameS»() {
+		«NameS.toFirstLower()».get«assocName»().clear();
+		List<«ae.Opposite.Class.NameS»> listValid«assocName»s = new ArrayList<«ae.Opposite.Class.NameS»>();
+		
+		for («ae.Opposite.Class.NameS» «assocName.toFirstLower()» : list«assocName»s) {
+			«REM» 
+			if (StringUtils.isNotEmpty(«assocName.toFirstLower()».«EXPAND getFirstAttribute FOR ae.Opposite.Class-» )){
+			«ENDREM»
+				«assocName.toFirstLower()».set«ae.associationName().toFirstUpper()»(«NameS.toFirstLower()»);
+				listValid«assocName»s.add(«assocName.toFirstLower()»);
+			«REM»
+			}
+			«ENDREM»
+		}
+
+		«NameS.toFirstLower()».get«assocName»().addAll(listValid«assocName»s);
+	}
+	
+	/**
+	 * @param actionEvent
+	 */
+	public void addNew«assocName»Row(ActionEvent actionEvent) {
+		list«assocName»s.add(new «ae.Opposite.Class.NameS»());
+	}
+
+	/**
+	 * @param actionEvent
+	 */
+	public void delete«assocName»Row(ActionEvent actionEvent) {
+		String rowIndex = (String) FacesContext.getCurrentInstance()
+				.getExternalContext().getRequestParameterMap().get("deleteRowIndex");
+
+		int index = Integer.parseInt(rowIndex);
+		«ae.Opposite.Class.NameS» «ae.Opposite.Class.NameS.toFirstLower()» = list«assocName»s.get(index);
+		list«assocName»s.remove(index);
+	
+	/*
+		TaskService taskService = (TaskService) BeanHelper
+				.getBean("taskService");
+
+		if (task.getId() != null && task.getId() > 0) {
+			taskService.delete(task);
+		}*/
+	}
+	«ENDLET»
+	
+«ENDDEFINE»
+
+«REM» For aggregated entities -e.g. allocate teachers to a class - typical used for many to many relationships«ENDREM»
+«DEFINE genCodeForAggregatedEntities( AssociationEnd ae ) FOR AbstractEntity»
+	
+	«LET ae.Opposite.associationName().toFirstUpper() AS assocName»
+	 «LET ae.Opposite.Class.NameS AS clsName»
+	
+	///////////////////// CODE FOR ASSIGNING MULTIPLE «clsName» TO THIS «NameS» ///////////////////////
+	 
+	private List<«clsName»> assigned«assocName» = new ArrayList<«clsName»>();
+	private List<«clsName»> available«assocName» = new ArrayList<«clsName»>();
+	private «clsName»BackingBean «assocName.toFirstLower()»Bean = getBean(NavigationConstants.«clsName.toUpperCase()»_BACKING);
+	 
+	public List<«clsName»> getAvailable«assocName»() {
+		List<«clsName»> all«assocName» =  «assocName.toFirstLower()»Bean.getRecords();
+		return ListUtils.subtract(all«assocName», assigned«assocName»);
+	}
+
+	public void setAvailable«assocName»(List<«clsName»> available«assocName») {
+		this.available«assocName» = available«assocName»;
+	}
+
+	public List<«clsName»> getAssigned«assocName»() {
+		return assigned«assocName»;
+	}
+
+	public void setAssigned«assocName»(List<«clsName»> assigned«assocName») {
+		this.assigned«assocName» = assigned«assocName»;
+	}
+	
+	public void resetAggregated«assocName»() {
+		assigned«assocName».clear();
+	}
+	
+	public void addAggregated«assocName»() {
+		Set<«clsName»> updated«assocName» = new HashSet<«clsName»>();
+		
+		for («clsName» ca : assigned«assocName») {
+			ca = «assocName.toFirstLower()»Bean.get«clsName»Service().load(ca.getId());
+			updated«assocName».add(ca);
+		}
+		
+		«NameS.toFirstLower()».set«assocName.toFirstUpper()»(updated«assocName»);
+	}
+	
+	protected void reloadAggregated«assocName»() {
+		assigned«assocName».addAll(«NameS.toFirstLower()».get«assocName»()) ;
+	}
+	
+	///////////////////// END OF CODE FOR ASSIGNING MULTIPLE «clsName» TO THIS «NameS» /////////////////
+	
+	«ENDLET»
+	«ENDLET»
+«ENDDEFINE»
+
+
+
+«DEFINE genFirstAttribute FOR Class»
+	get«Attribute(0).NameS.toFirstUpper()-»()
+«ENDDEFINE»
+
+
+«DEFINE getFirstAttribute FOR AbstractEntity-»
+	«IF ! getAllAttributes.isEmpty-»
+		get«getFirstAttribute.NameS.toFirstUpper()-»()
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE getDefaults(AssociationEnd ae, AbstractEntity e) FOR Association»
+
+«ENDDEFINE» 
+
+«DEFINE getDefaults(AssociationEnd ae, AbstractEntity e) FOR CustomAssociation»
+	«IF isValueForLoggedInUser»
+	«e.asInstanceVar()».set«ae.associationName().toFirstUpper()»
+		(facades.ServiceFacade.getInstance().get«ae.Class.Name.toFirstUpper()»Service().findByUsername(getLoggedInUser().getUsername()) );
+	«ENDIF»							
+«ENDDEFINE»
+
