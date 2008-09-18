@@ -1,0 +1,183 @@
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT java»
+
+«EXTENSION view::ViewExtensions»
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+	
+«DEFINE ViewGen FOR Entity»
+
+
+«FILE this.getFileGenerationPath("")»  
+	«EXPAND genContainerView("Add/Update", NameS.toFirstLower() + "Component" )»		
+«ENDFILE»
+
+«FILE this.getFileGenerationPath("Component")»  
+	«EXPAND EditView::genEditViewComponent»		
+«ENDFILE»
+
+
+«FILE getFileGenerationPath("List") »  
+	«EXPAND genContainerView("Add/Update", NameS.toFirstLower() + "ListComponent" )»		
+«ENDFILE»
+
+«FILE getFileGenerationPath("ListComponent") »  
+	«EXPAND TabularView::genTabularViewComponent»		
+«ENDFILE»
+
+
+«FILE getFileGenerationPath("Search") »  
+	«EXPAND genContainerView("Search ", NameS.toFirstLower() + "SearchComponent" )»		
+«ENDFILE»
+
+«FILE getFileGenerationPath("SearchComponent") »  
+	«EXPAND SearchView::genSearchViewComponent»		
+«ENDFILE»
+
+
+«FILE getFileGenerationPath("View") »  
+	«EXPAND genContainerView("View ", NameS.toFirstLower() + "ViewComponent" )»		
+«ENDFILE»
+
+«FILE getFileGenerationPath("ViewComponent") »  
+	«EXPAND EntityView::genViewComponent»		
+«ENDFILE»
+«REM»comment
+«ENDREM»
+
+«ENDDEFINE»
+
+«DEFINE genDropDown(Class e, boolean useBackingBean, boolean enforecRequired) FOR AssociationEnd»
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="«enforecRequired && !isAssocNullable()»" disabled="«!(Association.getIsMutable())»"
+		id="«e.asInstanceVar()»_«associationName()»" converter="keyToObjectConverter"
+		value="#{«useBackingBean?e.asInstanceVar() + "CrudBacking.":""»«e.asInstanceVar()».«associationName()»}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{«Class.NameS.toFirstLower()»CrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="«e.asInstanceVar()»_«associationName()»" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+«ENDDEFINE»
+
+
+
+«REM» Common taglibs for all xhtml pages - template can be specified«ENDREM»
+«DEFINE genIncludes(String template) FOR Element-»
+<ui:composition  «EXPAND genIncludes FOR this»
+template="/WEB-INF/template/«template»">
+«ENDDEFINE»
+
+«DEFINE genIncludesHTML FOR Element-»
+<html  «EXPAND genIncludes FOR this» >
+«ENDDEFINE»
+
+
+«DEFINE genIncludes FOR Element»
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+«ENDDEFINE»
+
+«REM» Create the container view which will contain the given component «ENDREM»
+«DEFINE genContainerView(String title, String component) FOR Entity-»
+	«EXPAND ViewGen::genIncludes("templateCrud.xhtml")-»
+	
+<ui:define name="title"> Add/Update «NameS» </ui:define> 
+<ui:define name="content">
+	<f:view>
+		<h:messages layout="list" globalOnly="true" showDetail="true"
+		styleClass="messages" />
+			
+			<ui:insert>
+				<ui:include src="«component».xhtml" />
+			</ui:insert>
+		
+	</f:view>
+</ui:define>
+</ui:composition>
+
+«ENDDEFINE»
+
+«DEFINE genSuggestionBox(String Id) FOR Column»
+	«IF getSuggestionAction != null»
+		<rich:suggestionbox id="suggestionBox_«NameS»"  for="«Id»" tokens=",["
+			suggestionAction="#{«getSuggestionAction»}" var="result"
+			fetchValue="#{result.«getFetchValue != null ? getFetchValue: "displayName"»}" rules="cols"
+		    columnClasses="center">
+		«IF getFetchCols != null»
+		«FOREACH getFectchColsCollection AS e»
+			<h:column>
+				<h:outputText value="#{result.«e»}" />
+			</h:column>
+		«ENDFOREACH»
+		«ELSEIF getFetchValue != null»
+			<h:column>
+				<h:outputText value="#{result.«getFetchValue»}" />
+			</h:column>
+		«ELSE»
+			<h:column>
+				<h:outputText value="#{result.displayName}" />
+			</h:column>
+		«ENDIF»
+		</rich:suggestionbox>
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genSuggestionBox(String Id) FOR Attribute»
+«ENDDEFINE»
+
+
+«DEFINE genAccessControl FOR Element»
+«ENDDEFINE»
+
+«DEFINE genAccessControlEnd FOR Element»
+«ENDDEFINE»
+
+«DEFINE genAccessControl FOR CustomAssociation»
+	«IF getAccess.isValid()»
+	<acegijsf:authorize ifAnyGranted="«getAccess»">
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genAccessControlEnd FOR CustomAssociation»
+	«IF getAccess.isValid()»
+	</acegijsf:authorize>
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genAccessControl FOR Column»
+	«IF getAccess.isValid()»
+	<acegijsf:authorize ifAnyGranted="«getAccess»">
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genAccessControlEnd FOR Column»
+	«IF getAccess.isValid()»
+	</acegijsf:authorize>
+	«ENDIF»
+«ENDDEFINE»
+	

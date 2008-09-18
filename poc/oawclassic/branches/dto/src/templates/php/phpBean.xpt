@@ -1,0 +1,87 @@
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::meta::uml»
+
+«EXTENSION java::NamingConventions»
+
+
+«DEFINE EntityGen FOR Entity»
+	
+«FILE packagePath()+"/"+NameS+"Base.php"»  
+<?php
+class «NameS»{
+	
+	«FOREACH Attribute AS a»
+	private  $«a.NameS-»;				
+	«ENDFOREACH»	
+	
+	«FOREACH Attribute AS a-»
+	function set«a.NameS.toFirstUpper()»($value){
+		this->«a.NameS» = $value;
+	}
+	
+	function get«a.NameS.toFirstUpper()»(){
+		return «a.NameS»;
+	}				
+	«ENDFOREACH»
+	
+	«EXPAND displayName FOR this»
+	
+	function getInsertQuery() {
+		$qry = "INSERT INTO «NameS-»(
+		«FOREACH Attribute AS a-»
+			«a.NameS-»,
+		«ENDFOREACH») VALUES (
+		«FOREACH Attribute AS a-»
+	 	  «(a.Type.NameS == "String" || a.Type.NameS == "Date") ? "'" + a.NameS + "'": a.NameS  »
+		«ENDFOREACH»)";
+		 return $qry;
+	}	
+	
+	function getUpdateQuery(){
+		$qry = "UPDATE «NameS-» SET
+		«FOREACH Attribute AS a-»
+			«a.NameS-» =  «(a.Type.NameS == "String" || a.Type.NameS == "Date") ? "'$" + a.NameS + "'": "$" + a.NameS  »,
+		«ENDFOREACH» WHERE id = $id";
+		 return $qry;
+	}
+	
+	function loadFromDB($row){
+		«FOREACH Attribute AS a-»
+			 $«a.NameS-» = $row['«a.NameS-»'];
+		«ENDFOREACH»
+	}						
+	
+	«EXPAND displayName FOR this»
+} 
+?>
+«ENDFILE»
+	
+
+«ENDDEFINE»
+
+«DEFINE createInsertColumnNames FOR Entity-»
+	«FOREACH Attribute AS a-»
+		«a.NameS-»,
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE createInsertColumnValues FOR Entity-»
+	«FOREACH Attribute AS a-»
+	 «IF a.Type.NameS == "String" || a.Type.NameS == "Date" -»
+		'$«a.NameS-»',
+	 «ELSE-»
+	 	$«a.NameS-»,
+	 «ENDIF»	
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE displayName FOR Entity»
+	«IF getDisplayName != null || Attribute.size == 1»
+		
+		public function getDisplayName(){
+			return «getDisplayName != null ? getDisplayName: Attribute(0).NameS» + "";
+		}
+	«ENDIF»
+«ENDDEFINE»

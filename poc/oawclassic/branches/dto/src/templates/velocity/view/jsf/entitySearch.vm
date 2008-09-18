@@ -1,0 +1,40 @@
+
+#include("templates/velocity/view/jsf/xmlns.vm")
+
+#set($renderContext = ${manager.createSearchContext()}  )  
+
+	<ui:define name="content">
+	
+			    <h:messages layout="list" globalOnly="true" showDetail="true" styleClass="messages" />
+	
+    <f:view>
+            <h:form id="form">
+				  				               <h:panelGrid columns="6" styleClass="formTable" >
+				  				               <f:facet name="header">
+   					 	                 <h:outputText value="${clazz.NameS()} Search" styleClass="formHeaderText"/>
+  				               </f:facet>
+			                             
+				  				##set the current class name e.g. customer 
+				  #set($clsName = ${utils.asVariable($clazz.NameS() )} )  
+				            
+				  				               
+							          
+		  #foreach( $superclass in ${manager.getSuperClasses($clazz)} )			
+ 		  	#generateAttributesForClass($superclass $clsName)       			
+  				#end			
+		  			
+		  	#generateAttributesForClass($clazz $clsName)      
+		  	
+		  		
+		  							   <h:commandButton id="button1" value="Search" action="#{${clsName}CrudBacking.search}"/> 
+		  							    <h:commandButton id="button2" value="Cancel" action="#{${clsName}CrudBacking.cancelSearch}" immediate="true"/> 
+		  				   
+		  		
+				                  </h:panelGrid>
+             </h:form>
+        </f:view>
+    
+    </ui:define>
+</ui:composition>
+						
+		

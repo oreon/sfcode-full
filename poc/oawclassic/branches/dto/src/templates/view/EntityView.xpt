@@ -1,0 +1,108 @@
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT java»
+
+«EXTENSION view::ViewExtensions»
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+
+«DEFINE genViewComponent FOR Entity»
+	«EXPAND ViewGen::genIncludesHTML-»
+	
+	<a4j:form id="form">
+			<rich:panel header="«NameS» Information">
+				<h:outputText value="Please correct the following issues !" 
+			rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
+				
+			<h:panelGrid columns="4"  styleClass="viewInfo" columnClasses="leftCol, rightCol" rules="rows">
+			<f:facet name="header">
+				<h:outputText  value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».displayName}" />
+			</f:facet>
+
+					«EXPAND genViewEntry(this) FOREACH getAllAttributes -»
+			
+					«REM»The associated entites for e.g an order would need a customer «ENDREM» 
+					«FOREACH getNonOneToOneOutgoingAssociations() AS ae -»			
+						<h:outputText value="#{msg.«NameS.toFirstLower()+ "_" + ae.associationName() -»}" />
+						<h:commandLink value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.associationName()».displayName}" 
+							actionListener="#{«ae.Class.NameS.toFirstLower()»CrudBacking.selectEntity}" action="view«ae.associationName().toFirstUpper()»"  >
+							<c:if test="${«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.associationName()» != null}">
+							<f:param name="id" value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«ae.associationName()».id}" />
+							</c:if>
+						</h:commandLink> 
+					«ENDFOREACH»
+					
+			</h:panelGrid>
+			<br/>
+						
+			«REM»Composed collections e.g an order contains orderitems «ENDREM»
+			«FOREACH getAllAggreatedAndComposedAssociations AS compAssoc -»
+				«LET compAssoc.Opposite AS ae»
+				
+				<rich:simpleTogglePanel switchType="client" label="«ae.associationName().toFirstUpper()»">
+					<t:dataTable id="«ae.associationName()»_data" var="«ae.Class.asInstanceVar()»" rowIndexVar="rowIndex" 
+						value="#{«asInstanceVar()»CrudBacking.list«ae.associationName().toFirstUpper()»s}" rows="10"
+					rowClasses="odd, even" styleClass="dataTable" rules="all">  
+						«EXPAND genTabularViewEntry(ae.Class) FOREACH ae.Class.AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) -»
+						«EXPAND genTabularViewEntry(ae.Class) FOREACH ae.Class.getAllAttributes -»
+					</t:dataTable>
+				</rich:simpleTogglePanel>
+				<br/>
+				«ENDLET»
+			«ENDFOREACH»
+			</rich:panel>
+				
+			<h:panelGrid columns="2">
+			<h:panelGroup>
+  				<h:commandButton id="button1" value="Edit" actionListener="#{«asInstanceVar()»CrudBacking.reloadFromId}" action="edit"  styleClass="btn" /> 
+  				<h:outputText value=" " />
+  				<h:commandButton id="button2" value="Cancel" action="cancelView" immediate="true" styleClass="btn"/> 
+  				<!-- We need to have a hidden text field to store the id of the record being edited -->		
+		  		<h:inputHidden id="«asInstanceVar()»_id" value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».id}" />
+  				«REM»We need to have hidden ids of all one to one associations «ENDREM»
+  				«FOREACH AssociationEnd.select(ae| ae.Opposite.isNavigable && ae.isOneOnOne() && (ae.Opposite.Class.getMetaClass.getName != "oaw4.demo.classic.uml.meta.Embeddable") )  AS ae-»
+				<h:inputHidden id="«associationName(ae.Opposite)»_id" value="#{«asInstanceVar()»CrudBacking.«asInstanceVar()».«associationName(ae.Opposite)».id}" />
+				«ENDFOREACH-»
+		 </h:panelGroup>
+		</h:panelGrid>
+				
+	</a4j:form>
+</html>			
+«ENDDEFINE»
+
+«REM» Create an edit entry e.g firstNAme <input > <errMessage > «ENDREM»
+«DEFINE genViewEntry(Class e) FOR Attribute»
+	<h:outputText value="«msgBundleKey()-»" />
+	<t:outputText value="#{«e.asInstanceVar()»CrudBacking.«e.asInstanceVar()».«fullName()»}" />			
+«ENDDEFINE»
+
+«REM» Create an edit entry e.g firstNAme <input > <errMessage > «ENDREM»
+«DEFINE genViewEntry(Class e) FOR Column»
+	<h:outputText value="«msgBundleKey()-»" />
+	<t:outputText «getInputType == "RICHTEXT"?"escape=\"false\"":""» value="#{«e.asInstanceVar()»CrudBacking.«e.asInstanceVar()».«fullName()»}" />			
+«ENDDEFINE»
+
+«DEFINE genTabularViewEntry(Class e) FOR Attribute»
+	<t:column>
+		<f:facet name="header">	
+			<h:outputText value="«msgBundleKey()-»" />
+		</f:facet>
+		<h:outputText value="#{«e.asInstanceVar()».«fullName()»}" />
+	</t:column>			
+«ENDDEFINE»
+
+«REM» Create dropdowns in «ENDREM»
+«DEFINE genTabularViewEntry(Class e) FOR AssociationEnd»
+	«IF e.NameS != this.Opposite.Class.NameS »
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="«NameS.toFirstUpper()»" /> 
+		</f:facet>
+		<h:outputText value="#{«e.asInstanceVar()».«associationName()»}" />
+	</t:column>
+	«ENDIF»
+«ENDDEFINE»
+
+
+	

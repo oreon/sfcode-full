@@ -1,0 +1,69 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«EXTENSION java::NamingConventions»
+«IMPORT oaw4::demo::classic::uml::meta»
+
+«DEFINE GenDeclarationGetterSetter FOR Attribute»
+	«EXPAND PropertyDeclaration FOR this»
+	«EXPAND Getter FOR this»
+	«EXPAND Setter FOR this»
+«ENDDEFINE»
+
+
+«DEFINE PropertyDeclaration FOR Attribute»
+	«IF Type.NameS == "String" »
+		@Field(index=Index.TOKENIZED, store=Store.NO)
+	«ENDIF»
+	«getPropertyDeclaration()»
+«ENDDEFINE»
+
+
+«DEFINE Getter FOR Attribute»
+	«IF Type.Name == "Image"»
+		@XmlTransient
+	«ENDIF»
+	«IF Documentation != null-»
+	/*
+	«Documentation»
+	*/
+	«ENDIF»
+	public «Type.NameS» «getGetter(Type)»«NameS.toFirstUpper()» () {
+		return this.«NameS»;
+	} 
+«ENDDEFINE»
+
+
+«DEFINE Getter FOR Column»
+	«IF getDerived != null-»
+		@Transient
+	«ELSE»
+		@Column(nullable=«isNullable», unique=«isUnique-»)
+	«ENDIF»
+	«IF Type.Name == "Image"»
+		@XmlTransient
+	«ENDIF»
+	/*
+	«Documentation»
+	*/
+	public «Type.NameS» «getGetter(Type)»«NameS.toFirstUpper()» () {
+		«IF getDerived != null»
+			«NameS» = 0;
+			«getDerived»
+		«ENDIF»
+		return this.«NameS»;
+	} 
+«ENDDEFINE»
+
+
+«DEFINE Setter FOR Attribute»
+	public void set«NameS.toFirstUpper()» («Type.NameS» «NameS») {
+		this.«NameS» = «NameS»;
+	}
+«ENDDEFINE»
+
+
+
+
+«DEFINE ParametersGen FOR Parameter»
+	 «Type.NameS» «NameS» 
+«ENDDEFINE»
+

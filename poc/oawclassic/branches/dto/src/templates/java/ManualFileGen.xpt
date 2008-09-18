@@ -1,0 +1,101 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::meta::uml::state»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+«EXTENSION java::NamingConventions»
+
+
+«DEFINE genManualFile(String extensionPath, String extensionName, String annotations) FOR Element»
+	«EXPAND genManualFile(extensionPath, extensionName, annotations, false) FOR this»
+«ENDDEFINE»
+
+«REM»This file will be written once and is to meant for manual programming «ENDREM»
+«DEFINE genManualFile(String extensionPath, String extensionName, String annotations, boolean genConstructor) FOR Element»
+
+	«FILE parentPackagePath() + extensionPath + "/" + NameS + extensionName + ".java" man_path»
+		
+		package «parentPackageName()  + extensionPath.replaceSlashesWithDots()»;
+		
+		«EXPAND GenImports FOR this»
+		
+		«annotations»
+		public class «NameS + extensionName» extends «NameS + extensionName»Base implements java.io.Serializable{
+			
+			«getLoggerDeclaration(NameS + extensionName)»;
+			private static final long serialVersionUID = 1L;
+			
+			«IF genConstructor»
+			
+			«EXPAND genConstructors FOR this»
+			
+			public «NameS + extensionName» «NameS.toFirstLower() + extensionName»Instance(){
+				return this;
+			}
+			«ENDIF»
+		}  
+	«ENDFILE» 
+«ENDDEFINE»
+
+
+«DEFINE genConstructors FOR Element»
+	/* Default Constructor */
+	public «NameS»(){}
+	
+	«IF Attribute.size > 0 »
+	/* Constructor with all attributes */
+	public «NameS» (
+		«FOREACH Attribute AS a ITERATOR iter -» «a.Type.NameS» «a.NameS» «iter.counter1 < Attribute.size?",":""» «ENDFOREACH-» ){
+		super(«FOREACH Attribute AS a ITERATOR iter -» «a.NameS» «iter.counter1 < Attribute.size?",":""» «ENDFOREACH-»);
+	}
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genManualFileServiceTest(String extensionPath, String extensionName, String annotations) FOR Service»
+
+	«FILE extensionPath + "/" + packagePath()+  "/" + NameS + extensionName + ".java" man_path»
+		
+		package «packageName()»;
+		
+		«EXPAND GenImports FOR this»
+		
+		«annotations»
+		public class «NameS + extensionName» extends «NameS + extensionName»Base{
+			
+			«getLoggerDeclaration(NameS + extensionName)»;
+	
+		}  
+	«ENDFILE» 
+«ENDDEFINE»
+
+
+
+
+«DEFINE GenImports FOR Element»
+	import javax.persistence.*;
+	import org.springframework.transaction.annotation.Propagation;
+	import org.springframework.transaction.annotation.Transactional;
+
+	import org.apache.log4j.Logger;
+	import javax.jws.WebService;
+	
+	import java.util.Date;
+«ENDDEFINE»
+
+
+«REM»This file will be written once and is to meant for manual programming «ENDREM»
+«DEFINE genManualFile(String packagePath, String extensionName, String annotations) FOR State»
+
+	«FILE packagePath + "/" + NameS.toFirstUpper() + extensionName + ".java" man_path»
+		package «packagePath.replaceSlashesWithDots()»;
+
+		import org.apache.log4j.Logger;
+		
+		public class «NameS.toFirstUpper() + extensionName» extends «NameS.toFirstUpper() + extensionName»Base{
+			
+			private static final Logger log = Logger.getLogger
+				(«NameS.toFirstUpper() + extensionName».class);
+	
+		}  
+	«ENDFILE» 
+«ENDDEFINE»

@@ -1,0 +1,997 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- 
+ * $Id: argouml_xmi12_all.xml,v 1.3 2007/04/03 08:17:27 kthoms Exp $ 
+ * <copyright>
+ * 
+ * Copyright (c) 2005-2006 Karsten Thoms and others. All rights reserved. This
+ * program and the accompanying materials are made available under the terms of
+ * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *    Karsten Thoms - Initial
+ * 
+ * </copyright>
+ -->
+<!DOCTYPE MetaModel PUBLIC "-//openArchitectureWare//DTD openArchitectureWare XML2Meta 4.0//EN" "http://www.openarchitectureware.org/dtds/xml2meta_4_0.dtd">
+<MetaModel name="StandardMetaModel">
+
+
+    <RefSettings id="xmi.id" idref="xmi.idref"/>
+
+
+    <ResultSet>
+        <FilterCondition value="/XMI/XMI.content/UML:Model"/>
+        <FilterCondition value="/XMI/XMI.content/descendant::StateMachine"/>
+        <FilterCondition value="/XMI/XMI.content/descendant::ActivityGraph"/>
+    </ResultSet>
+
+
+<!--                     -->
+<!--  Extension Support  -->
+<!--                     -->
+
+    
+    <!-- Stereotype -->
+
+    <Extension name="Stereotype" id="Stereotype">
+        <Source type="Node">UML:ModelElement.stereotype</Source>
+        <Properties>
+          <Property>
+            <Source type="Reference"/>
+            <Source type="Attribute" name="name"/>
+            <Target type="Attribute">Value</Target>
+          </Property>
+          <Property>
+            <Source type="Path">..</Source>
+            <Source type="Attribute" name="xmi.id"/>
+            <Target type="Attribute">Scope</Target>
+          </Property>
+        </Properties>
+    </Extension>
+
+
+    <!-- TaggedValue -->
+
+    <Extension name="TaggedValue" id="TaggedValue">
+        <Source type="Node">UML:TaggedValue</Source>
+        <Properties>
+          <Property>
+            <Source type="XPathReference">@type|UML:TaggedValue.type/UML:TagDefinition/@xmi.idref</Source>
+            <Source type="Attribute" name="name"/>
+            <Target type="Attribute">Tag</Target>
+          </Property>
+          <Property>
+          	<Source type="Value">UML:TaggedValue.dataValue</Source>
+            <Target type="Attribute">Value</Target>
+          </Property>
+          <Property>
+            <Source type="Path">..</Source>
+            <Source type="Path">..</Source>
+            <Source type="Attribute" name="xmi.id"/>
+            <Target type="Attribute">Scope</Target>
+          </Property>
+        </Properties>
+    </Extension>
+
+
+	<!--                        -->
+	<!--  Core Diagram Support  -->
+	<!--                        -->
+
+    <ModelElement name="ModelElement" id="ModelElement">
+        <Children>
+            <!-- Core -->
+			<Child idref="Constraint"/>
+            <Child idref="Namespace"/>
+            <Child idref="Type"/>
+            <Child idref="EnumerationLiteral"/>
+            <Child idref="Dependency"/>
+            <!-- Class -->
+            <Child idref="Component"/>
+            <Child idref="Attribute"/>
+            <Child idref="Operation"/>
+            <Child idref="Parameter"/>
+            <Child idref="Association"/>
+            <Child idref="AssociationClass"/>        
+            <Child idref="AssociationEnd"/>
+            <Child idref="Realization"/>
+            <Child idref="Generalization"/>
+            <!-- State -->
+            <Child idref="StateMachine"/>
+            <Child idref="StateVertex"/>
+            <Child idref="Transition"/>
+            <Child idref="Event"/>
+            <Child idref="Action"/>
+            <!-- Activity -->
+            <Child idref="ActivityGraph"/>
+        </Children>
+        <Properties>
+            <Property>
+                <Source type="ImpliedReference" idref="Namespace"/>
+                <Target type="Association">Namespace</Target>
+            </Property>
+            <Property>
+                <Source type="Attribute" name="xmi.id"/>
+                <Target type="Attribute">Id</Target>
+            </Property>
+            <Property>
+                <Source type="Attribute" name="name"/>
+                <Target type="Attribute">Name</Target>
+            </Property>
+            <Property>
+                <Source type="TaggedValue" name="documentation"/>
+                <Target type="Attribute">Documentation</Target>
+            </Property>
+            <Property>
+                <Source type="Reference" idref="Dependency">UML:ModelElement.clientDependency</Source>
+                <Target type="Association">Requirement</Target>
+            </Property>
+            <Property>
+                <Source type="Reference" idref="Dependency">UML:ModelElement.supplierDependency</Source>
+                <Target type="Association">Provision</Target>
+            </Property>
+            <Property>
+                <Source type="Reference" idref="Constraint">UML:ModelElement.constraint</Source>
+                <Target type="Association">Constraint</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+
+    <ModelElement name="Namespace" id="Namespace">
+        <Parents>
+            <Parent idref="ModelElement"/>
+        </Parents>
+        <Children>
+            <Child idref="Model"/>
+            <Child idref="Package"/>
+            <Child idref="Subsystem"/>
+        </Children>
+        <Properties>
+            <Property>
+                <Source type="Aggregate" idref="ModelElement">UML:Namespace.ownedElement</Source>
+                <Target type="Association">OwnedElement</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+
+    <ModelElement name="Model" id="Model">
+        <Source type="Node">UML:Model</Source>
+        <Target type="Class">org.openarchitectureware.core.meta.core.Model</Target>
+        <Parents>
+            <Parent idref="Namespace"/>
+        </Parents>
+    </ModelElement>
+
+    <ModelElement name="Type" id="Type">
+        <Parents>
+            <Parent idref="ModelElement"/>
+        </Parents>
+        <Children>
+            <Child idref="Class"/>
+            <Child idref="PrimitiveType"/>
+            <Child idref="Enumeration"/>
+        </Children>
+    </ModelElement>
+
+    <ModelElement name="PrimitiveType" id="PrimitiveType">
+        <Source type="Node">UML:DataType</Source>
+        <Filter op="==" value="">
+        	<Source type="Attribute" name="xmi.idref"/>
+        </Filter>
+        <Target type="Class">org.openarchitectureware.meta.uml.classifier.PrimitiveType</Target>
+        <Parents>
+            <Parent idref="Type"/>
+        </Parents>
+    </ModelElement>
+
+
+    <ModelElement name="Enumeration" id="Enumeration">
+        <Source type="Node">UML:Enumeration</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.classifier.Enumeration</Target>
+        <Parents>
+            <Parent idref="Type"/>
+        </Parents>
+        <Properties>
+        	<Property>
+        		<Source type="Aggregate" idref="EnumerationLiteral">UML:Enumeration.literal</Source>
+        		<Target type="Association">Literal</Target>
+        	</Property>
+        </Properties>
+	</ModelElement>
+
+
+    <ModelElement name="EnumerationLiteral" id="EnumerationLiteral">
+        <Source type="Node">UML:EnumerationLiteral</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.classifier.EnumerationLiteral</Target>
+        <Parents>
+            <Parent idref="ModelElement"/>
+        </Parents>
+	</ModelElement>
+
+
+    <ModelElement name="Dependency" id="Dependency">
+        <Source type="Node">UML:Dependency</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.Dependency</Target>
+        <Parents>
+            <Parent idref="ModelElement"/>
+        </Parents>
+        <Properties>
+            <Property>
+                <Source type="Reference" idref="ModelElement">UML:Dependency.client</Source>
+                <Target type="Association">Client</Target>
+            </Property>
+            <Property>
+                <Source type="Reference" idref="ModelElement">UML:Dependency.supplier</Source>
+                <Target type="Association">Supplier</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+
+
+	<ModelElement name="Constraint" id="Constraint">
+        <Source type="Node">UML:Constraint</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.core.Constraint</Target>
+		<Parents>
+			<Parent idref="ModelElement"/>
+		</Parents>
+		<Properties>
+			<Property>
+				<Source type="Path">UML:Constraint.body</Source>
+				<Source type="Attribute" name="body">UML:BooleanExpression</Source>
+				<Target type="Attribute">Body</Target>
+			</Property>
+            <Property>
+                <Source type="Reference" idref="ModelElement">UML:Constraint.constrainedElement</Source>
+                <Target type="Association">ConstrainedElement</Target>
+            </Property>
+		</Properties>
+	</ModelElement>
+	
+	<ModelElement name="UML2_Constraint" id="UML2_Constraint">
+        <Source type="Node">UML2:Constraint</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.core.Constraint</Target>
+		<Parents>
+			<Parent idref="ModelElement"/>
+		</Parents>
+		<Properties>
+			<Property>
+				<Source type="Path">UML:Constraint.specification</Source>
+				<Source type="Attribute" name="body">UML2:OpaqueExpression</Source>
+				<Target type="Attribute">Body</Target>
+			</Property>
+            <!--Property>
+                <Source type="Reference" idref="ModelElement">UML:Constraint.constrainedElement</Source>
+                <Target type="Association">ConstrainedElement</Target>
+            </Property-->
+		</Properties>
+	</ModelElement>
+	
+		
+	<!--                         -->
+	<!--  Class Diagram Support  -->
+	<!--                         -->
+    <ModelElement name="Subsystem" id="Subsystem">
+        <Source type="Node">UML:Subsystem</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.classifier.Subsystem</Target>
+        <Parents>
+            <Parent idref="Namespace"/>
+        </Parents>
+    </ModelElement>
+
+
+    <ModelElement name="Component" id="Component">
+        <Source type="Node">UML:Component</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.classifier.Component</Target>
+        <Parents>
+            <Parent idref="ModelElement"/>
+        </Parents>
+        <Properties>
+            <Property>
+                <Source type="Aggregate">UML:Component.residentElement</Source>
+                <Source type="Reference" idref="Class">UML:ElementResidence.resident</Source>
+                <Target type="Association">Class</Target>
+            </Property>
+            <Property>
+                <Source type="Attribute" name="visibility"/>
+                <Target type="Attribute">Visibility</Target>
+            </Property>
+            <Property>
+                <Source type="Attribute" name="isAbstract"/>
+                <Target type="Attribute">Abstract</Target>
+            </Property>
+            <Property>
+                <Source type="Attribute" name="isLeaf"/>
+                <Target type="Attribute">Leaf</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+    
+
+    <ModelElement name="Class" id="Class">
+        <Source type="Node">UML:Class</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.classifier.Class</Target>
+        <Parents>
+            <Parent idref="Type"/>
+        </Parents>
+        <Children>
+            <Child idref="Interface"/>
+        </Children>
+        <Properties>
+            <Property>
+                <Source type="ImpliedReference" idref="Package"/>
+                <Target type="Association">Package</Target>
+            </Property>
+            <Property>
+                <Source type="Attribute" name="visibility"/>
+                <Target type="Attribute">Visibility</Target>
+            </Property>
+            <Property>
+                <Source type="Attribute" name="isAbstract"/>
+                <Target type="Attribute">Abstract</Target>
+            </Property>
+            <Property>
+                <Source type="Attribute" name="isLeaf"/>
+                <Target type="Attribute">Leaf</Target>
+            </Property>
+            <Property>
+                <Source type="Aggregate" idref="Attribute">UML:Classifier.feature</Source>
+                <Target type="Association">Attribute</Target>
+            </Property>
+            <Property>
+                <Source type="Aggregate" idref="Operation">UML:Classifier.feature</Source>
+                <Target type="Association">Operation</Target>
+            </Property>
+            <Property>
+                <Source type="Reference" idref="Realization">UML:ModelElement.clientDependency</Source>
+                <Target type="Association">Specification</Target>
+            </Property>
+            <Property>
+                <Source type="XPathReference" idref="Generalization">UML:GeneralizableElement.generalization/UML:Generalization/@xmi.idref</Source>
+                <Target type="Association">Generalization</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+    
+
+    <ModelElement name="Attribute" id="Attribute">
+        <Source type="Node">UML:Attribute</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.classifier.Attribute</Target>
+        <Parents>
+            <Parent idref="ModelElement"/>
+        </Parents>
+        <Properties>
+            <Property>
+                <Source type="Attribute" name="visibility"/>
+                <Target type="Attribute">Visibility</Target>
+            </Property>
+			<Property>                                           
+			    <Source type="Attribute" name="changeability"/> 
+			    <Target type="Attribute">_changeability</Target> 
+			</Property>                                          
+            <Property>
+                <Source type="Attribute" name="ownerScope"/>
+                <Target type="Attribute">OwnerScope</Target>
+            </Property>
+            <Property>
+                <Source type="Reference" idref="Type">UML:StructuralFeature.type</Source>
+                <Target type="Association">Type</Target>
+            </Property>
+            <Property>
+                <Source type="ImpliedReference" idref="Class"/>
+                <Target type="Association">Class</Target>
+            </Property>
+            <Property>
+                <Source type="Path">UML:Attribute.initialValue</Source>
+                <Source type="Attribute" name="body">UML:Expression</Source>
+                <Target type="Attribute">InitValue</Target>
+            </Property>
+            <Property>
+                <Source type="Path">UML:StructuralFeature.multiplicity</Source>
+                <Source type="Path">UML:Multiplicity</Source>
+                <Source type="Path">UML:Multiplicity.range</Source>
+                <Source type="Path">UML:MultiplicityRange</Source>
+                <Source type="Attribute" name="lower"/>
+                <Target type="Attribute">MultiplicityMin</Target>
+            </Property>
+            <Property>
+                <Source type="Path">UML:StructuralFeature.multiplicity</Source>
+                <Source type="Path">UML:Multiplicity</Source>
+                <Source type="Path">UML:Multiplicity.range</Source>
+                <Source type="Attribute" name="upper">UML:MultiplicityRange</Source>
+                <Target type="Attribute">MultiplicityMax</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+    
+    
+    <ModelElement name="Operation" id="Operation">
+        <Source type="Node">UML:Operation</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.classifier.Operation</Target>
+        <Parents>
+            <Parent idref="ModelElement"/>
+        </Parents>
+        <Properties>
+            <Property>
+                <Source type="ImpliedReference" idref="Class"/>
+                <Target type="Association">Class</Target>
+            </Property>
+            <Property>
+                <Source type="Attribute" name="ownerScope"/>
+                <Target type="Attribute">OwnerScope</Target>
+            </Property>
+            <Property>
+                <Source type="Attribute" name="visibility"/>
+                <Target type="Attribute">Visibility</Target>
+            </Property>
+            <Property>
+                <Source type="Attribute" name="isAbstract"/>
+                <Target type="Attribute">Abstract</Target>
+            </Property>
+            <Property>
+                <Source type="Attribute" name="isLeaf"/>
+                <Target type="Attribute">Leaf</Target>
+            </Property>
+            <Property>
+                <Source type="Aggregate" idref="Parameter">UML:BehavioralFeature.parameter</Source>
+                <Filter value="return" op="!=">
+                    <Source type="Attribute" name="kind"/>
+                </Filter>
+                <Target type="Association">Parameter</Target>
+            </Property>
+            <Property>
+                <Source type="Aggregate">UML:BehavioralFeature.parameter</Source>
+                <Filter value="return" op="==">
+                    <Source type="Attribute" name="kind"/>
+                </Filter>
+                <Source type="Reference" idref="Type">UML:Parameter.type</Source>
+                <Target type="Association">ReturnType</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+    
+    
+    <ModelElement name="Parameter" id="Parameter">
+        <Source type="Node">UML:Parameter</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.classifier.Parameter</Target>
+        <Parents>
+            <Parent idref="ModelElement"/>
+        </Parents>
+        <Properties>
+            <Property>
+                <Source type="ImpliedReference" idref="Operation"/>
+                <Target type="Association">Operation</Target>
+            </Property>
+            <Property>
+                <Source type="Reference" idref="Type">UML:Parameter.type</Source>
+                <Target type="Association">Type</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+
+    
+    <ModelElement name="Association" id="Association">
+        <Source type="Node">UML:Association</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.classifier.Association</Target>
+        <Parents>
+            <Parent idref="ModelElement"/>
+        </Parents>
+        <Properties>
+            <Property>
+                <Source type="Aggregate" idref="AssociationEnd">UML:Association.connection</Source>
+                <Target type="Association">AssociationEnd</Target>
+            </Property>
+            <Property>
+                <Source type="ImpliedReference" idref="Package"/>
+                <Target type="Association">Package</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+    
+    <ModelElement name="AssociationClass" id="AssociationClass">
+        <Source type="Node">UML:AssociationClass</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.classifier.Association</Target>
+        <Parents>
+            <Parent idref="ModelElement"/>
+        </Parents>
+        <Properties>
+            <Property>
+                <Source type="Aggregate" idref="AssociationEnd">UML:Association.connection</Source>
+                <Target type="Association">AssociationEnd</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+    
+    
+    <ModelElement name="AssociationEnd" id="AssociationEnd">
+        <Source type="Node">UML:AssociationEnd</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.classifier.AssociationEnd</Target>
+        <Parents>
+            <Parent idref="ModelElement"/>
+        </Parents>
+        <Properties>
+            <Property>
+                <Source type="ImpliedReference" idref="Association"/>
+                <Target type="Association">Association</Target>
+            </Property>
+            <Property>
+                <Source type="Attribute" name="isNavigable"/>
+                <Target type="Attribute">Navigable</Target>
+            </Property>
+            <Property>
+                <Source type="Path">UML:AssociationEnd.multiplicity</Source>
+                <Source type="Path">UML:Multiplicity</Source>
+                <Source type="Path">UML:Multiplicity.range</Source>
+                <Source type="Path">UML:MultiplicityRange</Source>
+                <Source type="Attribute" name="lower"/>
+                <Target type="Attribute">MultiplicityMin</Target>
+            </Property>
+            <Property>
+                <Source type="Path">UML:AssociationEnd.multiplicity</Source>
+                <Source type="Path">UML:Multiplicity</Source>
+                <Source type="Path">UML:Multiplicity.range</Source>
+                <Source type="Path">UML:MultiplicityRange</Source>
+                <Source type="Attribute" name="upper"/>
+                <Target type="Attribute">MultiplicityMax</Target>
+            </Property>
+            <Property>
+                <Source type="Attribute" name="visibility"/>
+                <Target type="Attribute">Visibility</Target>
+            </Property>
+            <Property>
+                <Source type="Reference" idref="Class">UML:AssociationEnd.participant</Source>
+                <Target type="Association">Class</Target>
+            </Property>
+            <Property>
+                <Source type="Attribute" name="aggregation"/>
+                <Target type="Attribute">AggregateValue</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+    
+    
+    <ModelElement name="Interface" id="Interface">
+        <Source type="Node">UML:Interface</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.classifier.Interface</Target>
+        <Parents>
+            <Parent idref="Class"/>
+        </Parents>
+    </ModelElement>
+
+    
+    <ModelElement name="Realization" id="Realization">
+        <Source type="Node">UML:Abstraction</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.classifier.Realization</Target>
+        <Parents>
+            <Parent idref="ModelElement"/>
+        </Parents>
+        <Properties>
+            <Property>
+                <Source type="Reference" idref="Class">UML:Dependency.client</Source>
+                <Target type="Association">Realizer</Target>
+            </Property>
+            <Property>
+                <Source type="Reference" idref="Interface">UML:Dependency.supplier</Source>
+                <Target type="Association">Specifier</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+    
+    
+    <ModelElement name="Generalization" id="Generalization">
+        <Source type="Node">UML:Generalization</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.classifier.Generalization</Target>
+        <Parents>
+            <Parent idref="ModelElement"/>
+        </Parents>
+        <Properties>
+            <Property>
+                <Source type="Reference" idref="Class">UML:Generalization.parent</Source>
+                <Target type="Association">SuperClass</Target>
+            </Property>
+            <Property>
+                <Source type="Reference" idref="Class">UML:Generalization.child</Source>
+                <Target type="Association">SubClass</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+
+    
+    <ModelElement name="Package" id="Package">
+        <Source type="Node">UML:Package</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.classifier.Package</Target>
+        <Parents>
+            <Parent idref="Namespace"/>
+        </Parents>
+        <Properties>
+        	<Property>
+        		<Source type="ImpliedReference" idref="Package"/>
+        		<Target type="Association">SuperPackage</Target>
+        	</Property>
+        </Properties>
+    </ModelElement>
+
+
+<!--                         -->
+<!--  State Diagram Support  -->
+<!--                         -->
+
+
+    <ModelElement name="StateMachine" id="StateMachine">
+        <Source type="Node">UML:StateMachine</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.state.StateMachine</Target>
+        <Parents>
+            <Parent idref="ModelElement"/>
+        </Parents>
+        <Children>
+            <Child idref="ActivityGraph"/>
+        </Children>
+        <Properties>
+            <Property>
+                <Source type="Reference" idref="ModelElement">UML:StateMachine.context</Source>
+                <Target type="Association">Context</Target>
+            </Property>
+            <Property>
+                <Source type="Aggregate" idref="State">UML:StateMachine.top</Source>
+                <Target type="Association">TopState</Target>
+            </Property>
+            <Property>
+                <Source type="Aggregate" idref="Transition">UML:StateMachine.transitions</Source>
+                <Target type="Association">Transition</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+
+
+    <ModelElement name="StateVertex" id="StateVertex">
+        <Parents>
+            <Parent idref="ModelElement"/>
+        </Parents>
+        <Children>
+            <Child idref="Entry"/>
+            <Child idref="Exit"/>
+            <Child idref="Choice"/>
+            <Child idref="Junction"/>
+            <Child idref="Branch"/>
+            <Child idref="Fork"/>
+            <Child idref="Join"/>
+            <Child idref="State"/>
+        </Children>
+        <Properties>
+            <Property>
+                <Source type="Reference" idref="Transition">UML:StateVertex.incoming</Source>
+                <Target type="Association">InTransition</Target>
+            </Property>
+            <Property>
+                <Source type="Reference" idref="Transition">UML:StateVertex.outgoing</Source>
+                <Target type="Association">OutTransition</Target>
+            </Property>
+            <Property>
+                <Source type="ImpliedReference" idref="CompositeState"/>
+                <Target type="Association">Container</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+
+
+    <ModelElement name="Entry" id="Entry">
+        <Source type="Node">UML:Pseudostate</Source>
+        <Filter value="initial" op="==">
+            <Source type="Attribute" name="kind"/>
+        </Filter>
+        <Target type="Class">org.openarchitectureware.meta.uml.state.Entry</Target>
+        <Parents>
+            <Parent idref="StateVertex"/>
+        </Parents>
+    </ModelElement>
+
+
+    <ModelElement name="Exit" id="Exit">
+        <Source type="Node">UML:FinalState</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.state.Exit</Target>
+        <Parents>
+            <Parent idref="StateVertex"/>
+        </Parents>
+    </ModelElement>
+
+
+    <!-- Choice -->
+    <!-- a choice is a Pseudostate used for StateMachine -->
+
+    <ModelElement name="Choice" id="Choice">
+        <Source type="Node">UML:Pseudostate</Source>
+        <Filter value="choice" op="==">
+            <Source type="Attribute" name="kind"/>
+        </Filter>
+        <Target type="Class">org.openarchitectureware.meta.uml.state.Choice</Target>
+        <Parents>
+            <Parent idref="StateVertex"/>
+        </Parents>
+    </ModelElement>
+
+
+
+    <!-- junction -->
+    <!-- a junction is a Pseudostate used for ActivityGraph -->
+    <!-- we also map it to Choice-->
+
+    <ModelElement name="Junction" id="Junction">
+        <Source type="Node">UML:Pseudostate</Source>
+        <Filter value="junction" op="==">
+            <Source type="Attribute" name="kind"/>
+        </Filter>
+        <Target type="Class">org.openarchitectureware.meta.uml.state.Choice</Target>
+        <Parents>
+            <Parent idref="StateVertex"/>
+        </Parents>
+    </ModelElement>
+
+    <!-- Branch -->
+
+    <ModelElement name="Branch" id="Branch">
+        <Source type="Node">UML:Pseudostate</Source>
+        <Filter value="branch" op="==">
+            <Source type="Attribute" name="kind"/>
+        </Filter>
+        <Target type="Class">org.openarchitectureware.meta.uml.state.Branch</Target>
+        <Parents>
+            <Parent idref="StateVertex"/>
+        </Parents>
+    </ModelElement>
+
+
+    <!-- ActionState -->
+
+    <ModelElement name="ActionState" id="ActionState">
+        <Source type="Node">UML:ActionState</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.activity.ActionState</Target>
+        <Parents>
+            <Parent idref="SimpleState"/>
+        </Parents>
+    </ModelElement>
+
+    <ModelElement name="Fork" id="Fork">
+        <Source type="Node">UML:Pseudostate</Source>
+        <Filter value="fork" op="==">
+            <Source type="Attribute" name="kind"/>
+        </Filter>
+        <Target type="Class">org.openarchitectureware.meta.uml.state.Fork</Target>
+        <Parents>
+            <Parent idref="StateVertex"/>
+        </Parents>
+    </ModelElement>
+
+
+    <ModelElement name="Join" id="Join">
+        <Source type="Node">UML:Pseudostate</Source>
+        <Filter value="join" op="==">
+            <Source type="Attribute" name="kind"/>
+        </Filter>
+        <Target type="Class">org.openarchitectureware.meta.uml.state.Join</Target>
+        <Parents>
+            <Parent idref="StateVertex"/>
+        </Parents>
+    </ModelElement>
+
+
+    <ModelElement name="State" id="State">
+        <Parents>
+            <Parent idref="StateVertex"/>
+        </Parents>
+        <Children>
+            <Child idref="SimpleState"/>
+            <Child idref="CompositeState"/>
+        </Children>
+        <Properties>
+            <Property>
+                <Source type="ImpliedReference" idref="StateMachine"/>
+                <Target type="Association">StateMachine</Target>
+            </Property>
+            <Property>
+                <Source type="Aggregate" idref="Transition">UML:State.internalTransition</Source>
+                <Target type="Association">InternalTransition</Target>
+            </Property>
+            <Property>
+                <Source type="Aggregate" idref="Action">UML:State.entry</Source>
+                <Target type="Association">EntryAction</Target>
+            </Property>
+            <Property>
+                <Source type="Aggregate" idref="Action">UML:State.doActivity</Source>
+                <Target type="Association">DoAction</Target>
+            </Property>
+            <Property>
+                <Source type="Aggregate" idref="Action">UML:State.exit</Source>
+                <Target type="Association">ExitAction</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+
+
+    <!-- CompositeState -->
+
+
+    <ModelElement name="CompositeState" id="CompositeState">
+        <Source type="Node">UML:CompositeState</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.state.CompositeState</Target>
+        <Parents>
+            <Parent idref="State"/>
+        </Parents>
+        <Properties>
+		    <Property>
+                <Source type="Attribute" name="isConcurrent"/>
+                <Target type="Attribute">Concurrent</Target>
+            </Property>
+            <Property>
+                <Source type="Aggregate" idref="StateVertex">UML:CompositeState.subvertex</Source>
+                <Target type="Association">SubVertex</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+
+
+
+
+    <!-- SimpleState -->
+
+
+    <ModelElement name="SimpleState" id="SimpleState">
+        <Source type="Node">UML:SimpleState</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.state.SimpleState</Target>
+        <Parents>
+            <Parent idref="State"/>
+        </Parents>
+        <Children>
+            <Child idref="ActionState"/>
+        </Children>        
+    </ModelElement>
+
+
+    <!-- Transition -->
+
+
+    <ModelElement name="Transition" id="Transition">
+        <Source type="Node">UML:Transition</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.state.Transition</Target>
+        <Parents>
+            <Parent idref="ModelElement"/>
+        </Parents>
+        <Properties>
+            <Property>
+                <Source type="Path">UML:Transition.guard</Source>
+                <Source type="Path">UML:Guard</Source>
+                <Source type="Path">UML:Guard.expression</Source>
+                <Source type="Attribute" name="body">UML:BooleanExpression</Source>
+                <Target type="Attribute">Guard</Target>
+            </Property>
+            <Property>
+                <Source type="Reference" idref="Event">UML:Transition.trigger</Source>
+                <Target type="Association">Trigger</Target>
+            </Property>
+            <Property>
+                <Source type="ImpliedReference" idref="StateMachine"/>
+                <Target type="Association">StateMachine</Target>
+            </Property>
+            <Property>
+                <Source type="Reference" idref="StateVertex">UML:Transition.source</Source>
+                <Target type="Association">SourceVertex</Target>
+            </Property>
+            <Property>
+                <Source type="Reference" idref="StateVertex">UML:Transition.target</Source>
+                <Target type="Association">TargetVertex</Target>
+            </Property>
+            <Property>
+                <Source type="Aggregate" idref="Action">UML:Transition.effect</Source>
+                <Target type="Association">Action</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+
+
+    <!-- Event -->
+
+
+    <ModelElement name="Event" id="Event">
+        <Parents>
+            <Parent idref="ModelElement"/>
+        </Parents>
+        <Children>
+            <Child idref="SignalEvent"/>
+        </Children>
+        <Properties>
+            <Property>
+                <Source type="Path">UML:Event.parameter</Source>
+                <Source type="Attribute" name="name">UML:Parameter</Source>
+                <Target type="Attribute">Parameter</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+
+
+
+    <!-- SignalEvent -->
+
+
+    <ModelElement name="SignalEvent" id="SignalEvent">
+        <Source type="Node">UML:CallEvent</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.state.SignalEvent</Target>
+        <Parents>
+            <Parent idref="Event"/>
+        </Parents>
+        <Properties>
+            <Property>
+                <Source type="Attribute" name="name"/>
+                <Target type="Attribute">Signal</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+
+
+    <!-- Action -->
+
+
+    <ModelElement name="Action" id="Action">
+        <Parents>
+            <Parent idref="ModelElement"/>
+        </Parents>
+        <Children>
+            <Child idref="SendAction"/>
+        </Children>
+        <Properties>
+            <Property>
+                <Source type="Path">UML:Action.script</Source>
+                <Source type="Attribute" name="body">UML:ActionExpression</Source>
+				<Target type="Attribute">Argument</Target> 
+            </Property>
+            <Property>
+                <Source type="ImpliedReference" idref="State"/>
+                <Target type="Association">State</Target>
+            </Property>
+            <Property>
+                <Source type="ImpliedReference" idref="Transition"/>
+                <Target type="Association">Transition</Target>
+            </Property>
+        </Properties>
+    </ModelElement>
+
+
+
+    <!-- SendAction -->
+
+
+    <ModelElement name="SendAction" id="SendAction">
+        <Source type="Node">UML:CallAction</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.state.SendAction</Target>
+        <Parents>
+            <Parent idref="Action"/>
+        </Parents>
+		<Properties>
+            <Property>
+                <Source type="Attribute" name="name"/>
+				<Target type="Attribute">Signal</Target> 
+            </Property>
+		</Properties>
+    </ModelElement>
+	
+
+<!--                            -->
+<!--  Activity Diagram Support  -->
+<!--                            -->
+
+
+    <!-- ActivityGraph -->
+
+    <ModelElement name="ActivityGraph" id="ActivityGraph">
+        <Source type="Node">UML:ActivityGraph</Source>
+        <Target type="Class">org.openarchitectureware.meta.uml.activity.ActivityGraph</Target>
+        <Parents>
+            <Parent idref="StateMachine"/>
+        </Parents>
+    </ModelElement>
+
+</MetaModel>
+<!-- make emacs happy     -->
+<!-- Local Variables:     -->
+<!-- mode:sgml            -->
+<!-- tab-width :4         -->
+<!-- indent-tabs-mode:nil -->
+<!-- End:                 -->

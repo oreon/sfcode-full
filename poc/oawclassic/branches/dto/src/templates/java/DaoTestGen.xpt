@@ -1,0 +1,201 @@
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::meta::uml»
+
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+
+«DEFINE GenerateDaoTest FOR Entity»
+	
+	«FILE "../../test/java/" + parentPackagePath() + "/service/" + NameS + "DaoTest.java"»  
+
+	package «parentPackageName()».service;
+	
+	import «packageName()».«NameS»;
+	import org.springframework.test.jpa.AbstractJpaTests;
+	import java.util.List;
+
+	import org.witchcraft.model.support.testing.TestDataFactory;
+	import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
+	
+	import java.text.SimpleDateFormat;
+	
+	import javax.persistence.PersistenceException;
+	import org.hibernate.PropertyValueException;
+	import java.util.Date;
+	
+	public class «NameS»DaoTest extends AbstractJpaTests {
+			
+			protected «NameS» «asInstanceVar()»Instance = new «NameS»();
+			
+			protected «NameS»Service «asInstanceVar()»Service;
+			
+			protected boolean bTest = true;
+			
+			private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss z");
+		
+	
+		    public void set«NameS»Service(«NameS»Service «asInstanceVar()»Service) {
+				this.«asInstanceVar()»Service = «asInstanceVar()»Service;
+			}
+			
+			protected TestDataFactory «asInstanceVar()»TestDataFactory = (TestDataFactory) BeanHelper
+		.getBean("«asInstanceVar()»TestDataFactory");
+		    
+		    @Override
+			protected String[] getConfigLocations() {
+				return new String[]{"classpath:/applicationContext.xml", "classpath:/testDataFactories.xml"};
+			}
+			
+			@Override
+			protected void runTest() throws Throwable {
+				if (!bTest)
+					return ;
+				super.runTest();
+			}
+			
+			/**
+			* Do the setup before the test in this method
+			**/
+			protected void onSetUpInTransaction() throws Exception {
+				try{
+					
+					«EXPAND java::TestDataFactoryGen::createRandomObject(asInstanceVar() + "Instance") FOR this»
+					
+					«asInstanceVar()»Service.save(«asInstanceVar()»Instance);
+				} catch (PersistenceException pe) {
+					//if this instance can't be created due to back references e.g an orderItem needs an Order - 
+					// - we will simply skip generated tests.
+					if (pe.getCause() instanceof PropertyValueException && pe.getMessage().contains("Backref")) {
+						bTest = false;
+					}
+				} catch (Exception e) {
+					fail(e.getMessage());
+				}
+			
+			}
+			
+			//test saving a new record and updating an existing record;
+			public void testSave() {
+			
+				try{
+					«NameS» «asInstanceVar()» = new «NameS»();
+					
+					try{
+						«EXPAND java::TestDataFactoryGen::createRandomObject(asInstanceVar()) FOR this»
+					}catch(Exception ex){
+						ex.printStackTrace();
+					}
+					
+					«asInstanceVar()»Service.save(«asInstanceVar()»);
+					assertNotNull(«asInstanceVar()».getId());
+				}catch(Exception e){
+					fail(e.getMessage());
+				}
+			}
+			
+			public void testEdit(){
+			
+				try{
+					//test saving a new record and updating an existing record;
+					«NameS» «asInstanceVar()» = («NameS»)«asInstanceVar()»TestDataFactory.loadOneRecord();
+					
+					«FOREACH getAllAttributes AS attrib-»
+						«asInstanceVar()».«attrib.getContainerGetter()»set«attrib.NameS.toFirstUpper()»(«attrib.getRandValue()»);
+					«ENDFOREACH»
+									
+					«asInstanceVar()»Service.save(«asInstanceVar()»);
+				
+				}catch(Exception e){
+					fail(e.getMessage());
+				}
+			}
+			
+			public void testCount(){
+				assertTrue(«asInstanceVar()»Service.getCount() > 0 );
+			}
+			
+			//count the number of records - add one delete it - check count is same after delete
+			public void testDelete() {
+											
+				try{
+					long count,newCount,diff=0;			
+					count=«asInstanceVar()»Service.getCount();
+					«NameS» «asInstanceVar()» = («NameS»)«asInstanceVar()»TestDataFactory.loadOneRecord();					
+					«asInstanceVar()»Service.delete(«asInstanceVar()»);
+					newCount=«asInstanceVar()»Service.getCount();
+					diff=count - newCount;
+					assertEquals(diff, 1);
+				}catch(Exception e){
+					fail(e.getMessage());
+				}
+			}	
+			
+			
+			public void testLoad() {
+			
+				try{
+					«NameS» «asInstanceVar()» =  «asInstanceVar()»Service.load(«asInstanceVar()»Instance.getId());
+					assertNotNull(«asInstanceVar()».getId());
+				}catch(Exception e){
+					fail(e.getMessage());
+				}
+			}
+			
+			«EXPAND FinderTest(this) FOREACH Findable »
+			
+			public void testSearchByExample(){
+				try{	
+			    	List<«NameS»> «asInstanceVar()»s = «asInstanceVar()»Service.searchByExample(«asInstanceVar()»Instance);
+			    	assertTrue(!«asInstanceVar()»s.isEmpty());
+			   	}catch(Exception e){
+					fail(e.getMessage());
+				} 
+		    }
+		    
+		    /////////////////// Queries //////////////////////////////////
+		    «FOREACH getQueryOperations AS queryOp»
+				public void test«queryOp.NameS.toFirstUpper()»(){
+					«REM» TODO - temp «ENDREM»
+					«FOREACH queryOp.Parameter AS param»
+						//«param.Type.NameS» «param.NameS»  = 0;
+					«ENDFOREACH»
+					//«queryOp.ReturnType.NameS» ret«queryOp.ReturnType.NameS» = «asInstanceVar()»Service.«queryOp.createOperationInvocation()»;
+				}
+			«ENDFOREACH»
+			
+		} 
+	«ENDFILE»
+	
+	
+«ENDDEFINE»
+
+
+«DEFINE FinderTest(AbstractEntity e) FOR Column»
+	public void testFindBy«NameS.toFirstUpper()»(){
+		if(!bTest)
+			return;
+	
+		«IF isUnique»
+			assertNotNull("Couldn't find a «e.NameS» with «NameS» ", «EXPAND DaoGen::finderInvoke(e) FOR this» );
+			//assertNull("Found a «e.NameS» with «NameS» YYY", «e.asInstanceVar()»Service.findBy«NameS.toFirstUpper()»("YYY"));			
+		«ELSE»
+			List<«e.NameS»> «e.asInstanceVar()»s = «EXPAND finderInvoke(e) FOR this»;
+		    assertTrue(!«e.asInstanceVar()»s.isEmpty()); 
+		    
+		    //negative test
+		    //«e.asInstanceVar()»s = «EXPAND finderInvoke(e) FOR this»;
+		    //assertTrue(«e.asInstanceVar()»s.isEmpty()); 
+		«ENDIF»
+	
+	}
+«ENDDEFINE»
+
+
+
+
+
+
+
+

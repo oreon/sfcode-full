@@ -1,0 +1,89 @@
+
+import org::openarchitectureware::meta::uml::classifier;
+import org::openarchitectureware::meta::uml::classifier::Class;
+import org::openarchitectureware::meta::uml::state;
+import  oaw4::demo::classic::uml::meta;
+
+import org::witchcraft::htmlinput::jsf;
+
+String getViewXHTML(Class cls) :
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getView(org.openarchitectureware.meta.uml.classifier.Class);
+
+String getListViewXHTML(Class cls) :
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getList(org.openarchitectureware.meta.uml.classifier.Class);
+
+String getSearchViewXHTML(Class cls) :
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getSearchPage(org.openarchitectureware.meta.uml.classifier.Class);
+
+String getElementContent (Attribute attribute) :
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getElementContent(org.openarchitectureware.meta.uml.classifier.Attribute);
+
+String getElementValidatorContent(Attribute attribute) :
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getElementValidatorContent(org.openarchitectureware.meta.uml.classifier.Attribute);
+
+
+String getElementType (Attribute attribute) :
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getElementType(org.openarchitectureware.meta.uml.classifier.Attribute);
+
+String getElementAttributes (Attribute attribute) :
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getElementAttributes(org.openarchitectureware.meta.uml.classifier.Attribute);
+
+String getElementRequired (Attribute attribute) :
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getElementRequired(org.openarchitectureware.meta.uml.classifier.Attribute);
+
+String getAccessControlBegin(Column column):
+column.getAccess != null ?"<acegijsf:authorize ifAnyGranted=\"" +  column.getAccess + "\">":"";
+
+String getAccessControlBegin (Attribute attribute):
+"";
+
+String getAccessControlEnd (Attribute attribute):
+"";
+
+String getAccessControlEnd (Column column):
+column.getAccess != null ?"</acegijsf:authorize>":"";
+
+
+//set the current context - edit /search / view etc
+void setCurrentRenderContext(RenderContext renderContext):
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.setRenderContext(org.witchcraft.htmlinput.jsf.RenderContext);
+
+//set the current context - to search 
+void setSearchAsCurrentRenderContext():
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.setSearchAsCurrentRenderContext();
+
+void setEditAsCurrentRenderContext():
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.setEditAsCurrentRenderContext();
+
+String getViewLabelFromVariable(String arg, String concatChar):
+JAVA oaw4.demo.classic.uml.extend.GenericUtils.getViewLabelFromVariable(java.lang.String, java.lang.String);
+
+
+boolean getRepeat(Column column):
+column.isRepeat;
+
+boolean getRepeat(Attribute column):
+false;
+
+//Generate the JSF control id for a given control 
+String controlId(Attribute attr, Class e):
+e.NameS.toFirstLower() + "_" + (attr.TypeModifier != null ?attr.TypeModifier + "_":"")  + attr.NameS;
+
+String repeatControlId(Attribute attr, Class e):
+e.NameS.toFirstLower() + "_" + attr.TypeModifier + "_repeat" + attr.NameS.toFirstUpper();
+
+
+String getEntitiesLeftNavMenu():
+JAVA oaw4.demo.classic.uml.extend.ViewLayerGenerator.getEntitiesLeftNavMenu();
+
+
+String msgBundleKey(Attribute attr):
+"#{msg." + attr.Class.NameS.toFirstLower() + "_" + attr.NameS + "}";
+
+//get the path for files e.g /crud/domain/customer/customerSearch.xhtml
+String getFileGenerationPath(Entity entity, String ext):
+"../webapp/admin/entities/"+  entity.Namespace.NameS + "/" +  entity.NameS.toFirstLower() + "/" +  entity.NameS.toFirstLower() + ext + ".xhtml";
+
+String getGenConfigPath(Entity entity, String ext):
+"/admin/entities/" + entity.Package.NameS + "/" + entity.NameS.toFirstLower() + "/" + entity.NameS.toFirstLower()  + ext + ".xhtml";
+

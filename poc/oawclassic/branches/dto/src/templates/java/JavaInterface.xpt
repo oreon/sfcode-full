@@ -1,0 +1,16 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT java»
+«EXTENSION java::NamingConventions»
+	
+«DEFINE IntfClass FOR Class»
+«FILE packagePath()+"/"+NameS+".java"»  
+
+package «packageName()»;
+
+«EXPAND CommonUtils::genDocumentation FOR this-»
+public interface «NameS» «IF hasSuperClass»extends «SuperClass.fqn()» «ENDIF»{
+								
+		«EXPAND JavaBean::Generator FOREACH Operation»
+} 
+«ENDFILE»
+«ENDDEFINE»

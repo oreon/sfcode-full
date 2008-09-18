@@ -1,0 +1,92 @@
+«REM»This file generates message bundles «ENDREM»
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+«EXTENSION view::ViewExtensions»
+
+
+
+«DEFINE GenBundle FOR Model»
+	«FILE "../resources/messages.properties"»
+		«EXPAND GenBundle("") FOREACH getMetaEnvironment.getElements("AbstractEntity")»
+		«EXPAND genUserManagedMessages("") »
+	«ENDFILE»
+	
+	«FILE "../resources/messages_fr.properties"»
+		«EXPAND GenBundle("fr") FOREACH getMetaEnvironment.getElements("AbstractEntity")»
+		«EXPAND genUserManagedMessages("fr") »
+	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE Root FOR Package»
+	«IF NameS!= null && !NameS.startsWith("java")»
+		«EXPAND GenBundle FOREACH OwnedElement»
+	«ENDIF»
+«ENDDEFINE»
+
+«REM» Gen default messages for each attribute for an entity «ENDREM»
+«DEFINE GenBundle(String localeName) FOR AbstractEntity»
+«NameS»=«NameS»
+«NameS.toFirstLower()»=«NameS.toFirstLower()»
+	«FOREACH Attribute AS a-»
+«NameS.toFirstLower()»_«a.NameS»=«localeName»«a.NameS.getVariableNameForDisplay()»
+	«ENDFOREACH-»
+	
+	«FOREACH getAllOutgoingAssociations AS ae -»
+«NameS.toFirstLower()»_«ae.associationName()»=«localeName»«ae.associationName().toFirstUpper()»
+	«ENDFOREACH»
+
+«ENDDEFINE»
+
+«REM»These messages would be generated inside a protected block so the users can change them freely«ENDREM»
+«DEFINE genUserManagedMessages(String localeName) FOR Model»
+«PROTECT CSTART '#--' CEND '--' ID "USER_CREATED_MSGS_" + localeName»
+
+#This would not be overwritten
+
+login=Sign In
+Language=Choose Language
+summary=Summary
+
+javax.faces.component.UIInput.REQUIRED=This value is required and can't be left blank.
+javax.faces.component.UIInput.CONVERSION=Invalid Value
+javax.faces.validator.NOT_IN_RANGE=value not between {0} and {1}. 
+
+org.apache.myfaces.Email.INVALID=Please enter a valid email.
+org.apache.myfaces.Equal.INVALID=Both values must match!
+
+crank.validate.email.detail= {0} not a valid email
+crank.validate.length.detail= {0} must be between {1} and {2}
+
+validator.required.detail={0} is required and cannot be blank
+validator.required.summary={0} is required and cannot be blank
+
+validator.range.detail={0} must be between {1} and {2}
+validator.range.summary={0} must be between {1} and {2}
+validator.range.underMin.detail={0} must be greater than {1}
+validator.range.underMin.summary={0} must be greater than {1}
+
+crank.validate.zip.detail={0} does not match a valid zip code (5 characters all numeric with an optional +4)
+crank.validate.zip.summary=Zip code does not match a valid zip code (5 characters all numeric with an optional +4)
+
+crank.validate.currency.detail={0} is not currency
+crank.validate.currency.summary={0} is not currency
+
+validator.equals.detail=This must match the other field
+validator.equals.summary={0}s must match
+
+crank.validate.phone.detail={0} is not a valid phone number
+crank.validate.phone.summary={0} is not a valid phone number
+
+crank.validate.number.detail={0} is not a valid number
+crank.validate.number.summary={0} is not a valid number
+
+validate.date.detail={0} is not a valid date
+validate.date.summary={0} is not a valid date
+#End of protected region
+«ENDPROTECT»
+«ENDDEFINE»

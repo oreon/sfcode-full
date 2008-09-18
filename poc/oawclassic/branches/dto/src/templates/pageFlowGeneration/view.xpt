@@ -1,0 +1,25 @@
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT org::openarchitectureware::meta::uml::state»
+
+«IMPORT oaw4::demo::classic::uml::meta»
+
+«EXTENSION view::ViewExtensions»
+
+«EXTENSION java::NamingConventions»
+
+«DEFINE GenerateEdit FOR Entity»
+	
+	«FILE packagePath()+"/"+NameS+"EditForm.php"»  
+	<form>
+	 	<table>
+	 	«FOREACH Attribute AS a-»
+	 		<tr><td> «a.NameS» </td><td>  </td></tr>
+	 	«ENDFOREACH»
+		</table>	
+	</form>
+	«ENDFILE»
+	
+«ENDDEFINE»
+ 
+
