@@ -85,5 +85,5 @@ String getFileGenerationPath(Entity entity, String ext):
 "../webapp/admin/entities/"+  entity.Namespace.NameS + "/" +  entity.NameS.toFirstLower() + "/" +  entity.NameS.toFirstLower() + ext + ".xhtml";
 
 String getGenConfigPath(Entity entity, String ext):
-"/admin/entities/" + entity.Package.NameS + "/" + entity.NameS.toFirstLower() + "/" + entity.NameS.toFirstLower()  + ext + ".xhtml";
+"/admin/entities/" + entity.Package.NameS + "/" + entity.NameS.toFirstLower() + "/" + ( ( ext == "*" )?"*":( entity.NameS.toFirstLower()  + ext + ".xhtml"));
 
