@@ -25,7 +25,7 @@ public class NewEmptyJUnitTest extends TestCase {
         mailMessage = (SimpleMailMessage) ctx.getBean("mailMessage");
 	}
 	
-    @Override
+    
     protected void tearDown() throws Exception {
         super.tearDown();
     }
@@ -33,7 +33,7 @@ public class NewEmptyJUnitTest extends TestCase {
     public void testSendMail() {
 
         SimpleMailMessage msg = this.mailMessage;
-        msg.setTo("wcmdauser@gmail.com");
+        msg.setTo("hegde.varun04@gmail.com");
         msg.setText("This is a test");
         try {
             mailSender.send(msg);
