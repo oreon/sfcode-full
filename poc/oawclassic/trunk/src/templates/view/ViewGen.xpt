@@ -103,7 +103,15 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 «DEFINE genContainerView(String title, String component) FOR Entity-»
 	«EXPAND ViewGen::genIncludes("templateCrud.xhtml")-»
 	
-<ui:define name="title"> Add/Update «NameS» </ui:define> 
+<ui:define name="title"> «NameS» </ui:define> 
+
+<ui:define name="searchBar">
+		<ui:include src="../../../templateSections/searchBar.xhtml" >
+			 <ui:param name="backingBean" value="#{«asInstanceVar()»CrudBacking}"/>
+		</ui:include>
+</ui:define>
+
+
 <ui:define name="content">
 	<f:view>
 		<h:messages layout="list" globalOnly="true" showDetail="true"

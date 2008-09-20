@@ -47,7 +47,7 @@
 «DEFINE EntityGen FOR Entity»
 	«FILE packagePath()+"/"+NameS+"Base.java"»  
 	
-		«EXPAND ManualFileGen::genManualFile("/" + Package.NameS, "", "@Entity\n" 
+		«EXPAND ManualFileGen::genManualFile("/" + Package.NameS, "", "@Entity\n" + getTextSearchAnnotations() 
 			+  genInheritanceStrategy(), true )»
 		«EXPAND GenCodeWarning»
 		
@@ -57,7 +57,7 @@
 		«EXPAND genImports FOR this»
 		
 		@MappedSuperclass
-		«EXPAND genFullTextSearchAnnotations FOR this»
+		«getTextSearchAnnotations()»
 		«getClassDeclaration()» « (isAuditable)?", org.witchcraft.model.support.audit.Auditable":""»{
 		«REM» TODO: Need to find a way to iterate over named queries
 				«FOREACH getNq AS e-»
@@ -86,7 +86,7 @@
 		«EXPAND genImports FOR this»
 		
 		@MappedSuperclass
-		«EXPAND genFullTextSearchAnnotations FOR this»
+		«getTextSearchAnnotations()»
 		«getClassDeclaration()»{
 			«EXPAND classBody FOR this»
 			«EXPAND displayName FOR this»
@@ -105,7 +105,7 @@
 		«EXPAND genImports FOR this»
 		
 		@MappedSuperclass
-		«EXPAND genFullTextSearchAnnotations FOR this»
+		«getTextSearchAnnotations()»
 		«getClassDeclaration()»{
 			«EXPAND classBody FOR this»
 		 } 
@@ -130,12 +130,7 @@
 
 «ENDDEFINE»
 
-«DEFINE genFullTextSearchAnnotations FOR AbstractEntity»
-	«IF isFullTextSearchEnabled»
-		@Indexed
-		//@Analyzer(impl = example.EnglishAnalyzer.class)
-	«ENDIF»
-«ENDDEFINE»
+
 
 «DEFINE displayName FOR AbstractEntity»
 	
