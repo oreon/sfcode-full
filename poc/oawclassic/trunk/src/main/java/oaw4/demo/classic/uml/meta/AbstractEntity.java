@@ -307,7 +307,7 @@ public abstract class AbstractEntity extends
 	/**
 	 * We look for all embedded components and One on One associations
 	 * 
-	 * @param cls
+	 * @param cls 
 	 * @return
 	 */
 	private ElementSet getContainedAssociations(Class cls) {

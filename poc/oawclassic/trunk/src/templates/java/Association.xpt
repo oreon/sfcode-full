@@ -77,7 +77,7 @@
 		// 		throw new BusinessException ("msg.tooMany." + «associationName()» );
 	}
 «ENDDEFINE»
-
+f
 
 «DEFINE genMappingForManyToMany FOR AssociationEnd»
 	@ManyToMany(
@@ -94,6 +94,7 @@
 «DEFINE genMappingForOneToMany FOR AssociationEnd»
 	«IF Opposite.isNavigable »
 		@OneToMany(mappedBy="«Opposite.asParameter()»", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+		«isComposition && Class.NameS != Opposite.Class.NameS?"@IndexedEmbedded":""»
 	«ELSE»
 		@OneToMany«Opposite.isComposition?"(cascade=CascadeType.ALL)\n@Cascade({org.hibernate.annotations.CascadeType.DELETE_ORPHAN})":"(cascade=CascadeType.PERSIST)"»
 	«ENDIF»
