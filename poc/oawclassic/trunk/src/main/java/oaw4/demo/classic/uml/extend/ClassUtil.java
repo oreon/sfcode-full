@@ -424,9 +424,11 @@ public class ClassUtil {
 				updatable = ((CustomAssociation) ae.Association()).isMutable();
 			}
 
+			
+			String containedIn = opposite.isComposition() && !(opposite.Class().Name.equals(ae.Class().Name()))?"@ContainedIn":"";
 			return "@" + multiplicity + "\n @JoinColumn(name=\""
 					+ getAssocName(ae) + "_ID\", nullable=" + nullable
-					+ ", updatable=" + updatable + ")";
+					+ ", updatable=" + updatable + ")\n" + containedIn;
 
 		} else
 			return "";
