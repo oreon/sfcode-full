@@ -8,6 +8,7 @@ import org.witchcraft.model.data.location.Country;
 import org.witchcraft.model.data.location.State;
 
 import com.oreon.kgauge.domain.Candidate;
+import com.oreon.kgauge.service.EmailService;
 
 public class CandidateBackingBean extends CandidateBackingBeanBase {
 
@@ -15,6 +16,13 @@ public class CandidateBackingBean extends CandidateBackingBeanBase {
 			.getLogger(CandidateBackingBean.class);
 
 	private static List<State> listStates = new ArrayList<State>();
+	
+	private EmailService emailService;
+	
+	
+	public void setEmailService(EmailService emailService) {
+		this.emailService = emailService;
+	}
 
 	public String emailPassword() {
 		String email = candidate.getContactDetails().getEmail();
@@ -26,12 +34,12 @@ public class CandidateBackingBean extends CandidateBackingBeanBase {
 			//		new String[] { email });
 			createErrorMessage("no_such_email",  email );
 			return "failure";
-		} else { // found user
-			// mailService.emailPassword();
+		} else {  
+			emailService.emailPassword(email);
 			log.info(" candidate found with email " + email
 					+ ", emailing password");
-			//String message = JsfFunctions.getMessageFromBundle(
-			//		"password_mailed", new String[] { email });
+//			String message = JsfFunctions.getMessageFromBundle(
+//					"password_mailed", new String[] { email });
 			createSuccessMessage("password_mailed", email);
 			return "emailFound";
 		}
