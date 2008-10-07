@@ -5,7 +5,6 @@ import java.util.Random;
 
 import org.witchcraft.model.randomgen.RandomValueCreator;
 
-import com.sun.xml.internal.ws.api.pipe.NextAction;
 
 public class RandomEnumerationFactory extends AbstractRandomValueGenerator<Enum>{
 

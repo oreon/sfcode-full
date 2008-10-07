@@ -55,15 +55,18 @@ public abstract class BaseBackingBean<T> {
 	
 	public static final int INITIAL_RECORDS = 0;
 
-	public abstract BaseService<T> getBaseService();
-	
 	//This list is meant to cache all records - should be invalidated after add new , delete and edit
-	public Collection<T> cachedAllRecordsList ;
+	private Collection<T> cachedAllRecordsList ;
+	private List<AuditLog<T>> listAuditLogs;
 
 	public abstract T getEntity();
 
 	private String sortField = null;
 	private boolean sortAscending = true;
+	
+	public abstract BaseService<T> getBaseService();
+	
+
 
 	/**
 	 * Get all instances of this entity as a drop down list of selectable items -
@@ -200,7 +203,7 @@ public abstract class BaseBackingBean<T> {
 		boolean isNew = ((BusinessEntity) getEntity()).getId() == null;
 		try {
 			getBaseService().save(getEntity());
-			resetCachedList();
+			resetCachedLists();
 		} catch (BusinessException be) {
 			createErrorMessage(be.getMessage(), "Business Exception", be, null);
 			return "failure";
@@ -208,10 +211,11 @@ public abstract class BaseBackingBean<T> {
 			createErrorMessage(dae.getMessage(), "DB Error updating", dae);
 			return "failure";
 		} catch (Exception ex) {
-			createErrorMessage(ex.getMessage(), "Critical Error updating", ex);
+			createErrorMessage(ex.getMessage(), "Critical Error updating: " , ex);
 			return "failure";
 		}
 
+		//TODO This message needs to be internationalized
 		createSuccessMessage(getEntity().getClass().getSimpleName()
 				+ " was successfully " + (isNew ? "added." : "updated."));
 
@@ -225,8 +229,9 @@ public abstract class BaseBackingBean<T> {
 	/**
 	 * This method should be called whenever the cached list of objects has changed - ie. delete , update etc
 	 */
-	public void resetCachedList(){
+	public void resetCachedLists(){
 		cachedAllRecordsList = null;
+		listAuditLogs = null;
 	}
 
 	/**
@@ -236,7 +241,11 @@ public abstract class BaseBackingBean<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<AuditLog<T>> getAuditLog() {
-		return getBaseService().getAuditLogs();
+		if(listAuditLogs == null){
+			log.info("The audit list needs  to be fetched from the database");
+			listAuditLogs = getBaseService().getAuditLogs();
+		}
+		return listAuditLogs;
 	}
 
 	/**
@@ -249,16 +258,15 @@ public abstract class BaseBackingBean<T> {
 		List<T> entities = null;
 
 		if (action == null){
-			return getCachedAllRecordsList();
+			entities = getCachedAllRecordsList();
 		}
-
-		if (action.equals(SEARCH))
+		else if (action.equals(SEARCH)){
 			entities = getBaseService().searchByExample(getEntity(),
 					getRangeList());
-
+		}
 		else if (action.equals(TEXT_SEARCH)) {
 			entities = getBaseService().performTextSearch(getSearchText());
-			action = null;
+			//action = null;
 		}
 
 		createSuccessMessage("Found " + entities.size() + " result(s).");
@@ -270,15 +278,17 @@ public abstract class BaseBackingBean<T> {
 	 * @return
 	 */
 	public List<T> getCachedAllRecordsList(){
-		if(cachedAllRecordsList == null)
+		if(cachedAllRecordsList == null){
+			log.info("The records list needs  to be fetched from the database");
 			cachedAllRecordsList = getBaseService().loadAll();
+		}
 		return (List<T>) cachedAllRecordsList;
 	}
 
 	public String textSearch() {
 		action = TEXT_SEARCH;
 		log.debug("setting action to textsearch");
-		return "successTextSearchExams";
+		return SUCCESS_SEARCH;
 	}
 
 	/**

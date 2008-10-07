@@ -14,7 +14,9 @@ import org.witchcraft.model.support.BusinessEntity;
 import org.witchcraft.model.support.audit.AuditLog;
 import org.witchcraft.model.support.audit.AuditLogDao;
 import org.witchcraft.model.support.dao.GenericDAO;
+import org.witchcraft.model.support.dto.BusinessEntityDto;
 import org.witchcraft.model.support.errorhandling.BusinessException;
+
 
 /** 
  * Contains methods common to all ServiceImpls
@@ -114,5 +116,25 @@ public abstract class BaseServiceImpl<T extends BusinessEntity> {
     public List<T> performTextSearch(String searchText){
     	return getDao().performTextSearch(searchText);
     }
+    
+    
+    public void delete(T t) {
+		getDao().delete(t);
+		
+	}
+
+	public T load(Long id) {
+		return getDao().load(id);
+	}
+
+	public List<T> loadAll() {
+		return getDao().loadAll();
+	}
+
+	public T save(T t) {
+		return getDao().save(t);
+	}
+    
+   
 
 }
