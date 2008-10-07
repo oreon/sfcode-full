@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.witchcraft.model.data.location.Country;
 import org.witchcraft.model.data.location.State;
+import org.witchcraft.model.jsf.BaseBackingBean;
 
 import com.oreon.kgauge.domain.Candidate;
 import com.oreon.kgauge.service.EmailService;
@@ -25,7 +26,7 @@ public class CandidateBackingBean extends CandidateBackingBeanBase {
 	}
 
 	public String emailPassword() {
-		String email = candidate.getContactDetails().getEmail();
+		String email = getCandidate().getContactDetails().getEmail();
 		Candidate candidate = candidateService.findByEmail(email);
 		if (candidate == null) {
 			log.info("No candidate found with email " + email);
@@ -34,10 +35,13 @@ public class CandidateBackingBean extends CandidateBackingBeanBase {
 			//		new String[] { email });
 			createErrorMessage("no_such_email",  email );
 			return "failure";
-		} else {  
-			emailService.emailPassword(email);
+		} else { 
+			log.info("email service set"+emailService);
 			log.info(" candidate found with email " + email
 					+ ", emailing password");
+			
+			this.emailService.emailPassword(email);
+		
 //			String message = JsfFunctions.getMessageFromBundle(
 //					"password_mailed", new String[] { email });
 			createSuccessMessage("password_mailed", email);
@@ -76,4 +80,19 @@ public class CandidateBackingBean extends CandidateBackingBeanBase {
 		return listStates;
 	}
 
+	
+	public String update()
+	{
+		String updateStatus = super.update();
+		
+		if(updateStatus.equalsIgnoreCase(BaseBackingBean.SUCCESS_UPDATE))
+		{	//this.emailPassword();
+			//log.info("Sucessfully added ");
+			log.info("Sucessfully added ");
+		return BaseBackingBean.SUCCESS_UPDATE;
+		}
+		else 
+			
+			return "failure";
+	}
 }
