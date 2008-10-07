@@ -384,7 +384,7 @@ private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 			updated«assocName».add(ca);
 		}
 		
-		«NameS.toFirstLower()».set«assocName.toFirstUpper()»(updated«assocName»);
+		«NameS.toFirstLower()».set«assocName.toFirstUpper()»(updated«assocName»);»
 	}
 	
 	protected void reloadAggregated«assocName»() {
@@ -410,15 +410,14 @@ private Range<Date> rangeCreationDate = new Range<Date>("dateCreated");
 	«ENDIF»
 «ENDDEFINE»
 
-
+.
 «DEFINE getDefaults(AssociationEnd ae, AbstractEntity e) FOR Association»
 
 «ENDDEFINE» 
 
 «DEFINE getDefaults(AssociationEnd ae, AbstractEntity e) FOR CustomAssociation»
 	«IF isValueForLoggedInUser»
-	«e.asInstanceVar()».set«ae.associationName().toFirstUpper()»
-		(facades.ServiceFacade.getInstance().get«ae.Class.Name.toFirstUpper()»Service().findByUsername(getLoggedInUser().getUsername()) );
+		«e.asInstanceVar()».set«ae.associationName().toFirstUpper()»(facades.ServiceFacade.getInstance().get«ae.Class.Name.toFirstUpper()»Service().getLoggedIn«ae.Class.Name.toFirstUpper()»());
 	«ENDIF»							
 «ENDDEFINE»
 
