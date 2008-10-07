@@ -52,7 +52,7 @@ public abstract class AbstractTestDataFactory<T> implements TestDataFactory{
 		return returnList;
 	}
 	
-	@Override
+
 	public Object loadOneUniqueRecord() {
 		// TODO Auto-generated method stub
 		return null;
