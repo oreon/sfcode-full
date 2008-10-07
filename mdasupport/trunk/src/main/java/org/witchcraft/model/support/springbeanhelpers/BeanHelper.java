@@ -13,12 +13,11 @@ public class BeanHelper {
 	
 	static {
 		applicationContext =  new ClassPathXmlApplicationContext
-			(new String[]{/*"classpath:/persistenceContext.xml",*/ "classpath:/applicationContext.xml", 
-					"classpath:/testDataFactories.xml"});
+			(new String[]{/*"classpath:/persistenceContext.xml",*/ "classpath:/applicationContext.xml",
+					"classpath:/testDataFactories.xml", "classpath:/testApplicationContext.xml"});
 	}
 	
 	public static Object getBean(String beanName){
-		
 		return applicationContext.getBean(beanName);
 	}
 

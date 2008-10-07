@@ -203,6 +203,12 @@ public class BaseDao<T> implements GenericDAO<T> {
 	}
 
 	public long getCount(Date fromDate, Date toDate) {
+		String qryString = getCountQueryString(fromDate, toDate);
+		Object result = entityManager.createQuery(qryString).getSingleResult();
+		return ((Long) entityManager.createQuery(qryString).getSingleResult());
+	}
+
+	protected String getCountQueryString(Date fromDate, Date toDate) {
 		String qryString = "select count(e) from "
 				+ getPersistentClass().getSimpleName() + " e ";
 		if (fromDate != null || toDate != null) {
@@ -216,11 +222,7 @@ public class BaseDao<T> implements GenericDAO<T> {
 			if (toDate != null)
 				qryString += " e.dateCreated <= '" + toDate + "'";
 		}
-
-		Object result = entityManager.createQuery(qryString).getSingleResult();
-
-		return ((Long) entityManager.createQuery(qryString).getSingleResult());
-
+		return qryString;
 	}
 
 	/*

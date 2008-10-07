@@ -26,27 +26,27 @@ import org.springframework.beans.factory.annotation.Required;
  */
 public class AuthenticationController {
 
-	private String _username;
-	private String _password;
+	private String username;
+	private String password;
 	private static final Logger logger = Logger.getLogger(AuthenticationController.class);
 
 	// injected properties
 	private AuthenticationManager authenticationManager;
 
 	public String getPassword() {
-		return _password;
+		return password;
 	}
 
 	public void setPassword(String password) {
-		_password = password;
+		this.password = password;
 	}
 
 	public String getUsername() {
-		return _username;
+		return username;
 	}
 
 	public void setUsername(String userName) {
-		_username = userName;
+		this.username = userName;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -68,11 +68,9 @@ public class AuthenticationController {
 							AuthenticationProcessingFilter.ACEGI_SECURITY_LAST_USERNAME_KEY,
 							userName);
 
-			System.out.println("Authenticating " + userName + " " + password);
+			logger.info("Authenticating " + userName + " " + password);
 
-			/*
-			 * perform authentication
-			 */
+			//perform authentication
 			final Authentication auth = getAuthenticationManager()
 					.authenticate(authReq);
 

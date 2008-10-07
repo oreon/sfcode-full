@@ -51,7 +51,7 @@ public class EntityAuditLogInterceptor extends EmptyInterceptor {
 
 	private void saveAuditLog(Object entity, AuditAction action) {
 
-		logger.info("SAVE AUDIT LOG CALLED FOR " + action);
+		//logger.info("SAVE AUDIT LOG CALLED FOR " + action);
 		
 		if (entity instanceof Auditable) {
 			
