@@ -37,7 +37,7 @@ public class RandomQuestionsExamFactoryImpl extends
 			for (Question question : questions) {
 				AnsweredQuestion answeredQuestion = new AnsweredQuestion();
 				answeredQuestion.setQuestion(question);
-				instance.add(answeredQuestion);
+				instance.addAnsweredQuestion(answeredQuestion);
 			}
 		}
 
