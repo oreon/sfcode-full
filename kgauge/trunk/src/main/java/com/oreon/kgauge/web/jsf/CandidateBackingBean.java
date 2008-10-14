@@ -86,10 +86,13 @@ public class CandidateBackingBean extends CandidateBackingBeanBase {
 		String updateStatus = super.update();
 		
 		if(updateStatus.equalsIgnoreCase(BaseBackingBean.SUCCESS_UPDATE))
-		{	//this.emailPassword();
-			//log.info("Sucessfully added ");
+		{	
+			
+			this.emailPassword();
+			
 			log.info("Sucessfully added ");
-		return BaseBackingBean.SUCCESS_UPDATE;
+		
+			return BaseBackingBean.SUCCESS_UPDATE;
 		}
 		else 
 			
