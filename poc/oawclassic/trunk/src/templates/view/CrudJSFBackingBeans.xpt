@@ -7,6 +7,18 @@
 «EXTENSION view::ViewExtensions»
 «EXTENSION java::Associations»
 
+«REM» This function will generate the parent backing bean which will be the base class of all backing beans«ENDREM»
+«DEFINE genParentBackingBean FOR Model»
+	«FILE parentPackagePath()+"/web/jsf/"+NameS+"BackingBeanBase.java"»  
+	package «parentPackageName()».web.jsf;
+	import org.witchcraft.model.jsf.BaseBackingBean;
+	import org.witchcraft.model.support.service.BaseService;
+
+	public class «asParameter()»BackingBeanBase extends BaseBackingBean<T>{
+
+	}
+	«ENDFILE»
+«ENDDEFINE»
 
 
 @org.hibernate.annotations.Proxy(lazy = false)
