@@ -1,0 +1,58 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:a="http://richfaces.org/a4j"
+		xmlns:rich="http://richfaces.org/rich"
+                template="template.xhtml">
+
+  <!-- content -->
+  <ui:define name="content">
+
+    <div class="section">
+      <h1>Edit Project</h1>
+    </div>
+
+    <!-- area to disply global errors -->
+    <div class="entry errors">
+      <h:messages globalOnly="true"/>
+    </div>
+    <!-- input form for email, name, password -->
+    <h:form id="registration"> 
+      <fieldset>
+
+	<s:decorate template="display.xhtml">             
+	  <ui:define name="label">Project ID:</ui:define>
+	  #{project.id}
+	</s:decorate>
+	
+	<s:decorate template="display.xhtml">             
+	  <ui:define name="label">Database Version:</ui:define>
+	  #{project.version}
+	</s:decorate>
+
+	<s:decorate id="projectNameDecorate" template="edit.xhtml">             
+	  <ui:define name="label">Project Name:</ui:define>
+	  <h:inputText id="projectName" value="#{project.projectName}" required="true" />
+	</s:decorate>
+	
+	<s:decorate id="projectStartDateDecorate" template="edit.xhtml">             
+	  <ui:define name="label">Date Started:</ui:define>
+	  <rich:calendar id="projectStartDate" value="#{project.projectStartDate}"
+			 required="false"
+			 datePattern="MM/dd/yyyy"
+			 reRender="projectStartDateDecorate"
+			 style="width: auto;"/>                                
+	</s:decorate>
+	
+	<div class="buttonBox">
+          <h:commandButton id="saveProject" action="#{projectManager.save}" value="Save Project" />
+          &#160;
+          <h:commandButton id="cancel" action="#{projectManager.cancel}" value="Back to Search"/>
+	</div>
+      </fieldset>
+    </h:form>
+  </ui:define>
+</ui:composition>
