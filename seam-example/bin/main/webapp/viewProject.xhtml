@@ -1,0 +1,30 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+	  	xmlns:h="http://java.sun.com/jsf/html"
+	  	xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib">
+    
+  <s:decorate template="display.xhtml">             
+    <ui:define name="label">Project ID:</ui:define>
+    #{project.id}
+  </s:decorate>
+
+  <s:decorate template="display.xhtml">             
+    <ui:define name="label">Database Version:</ui:define>
+    #{project.version}
+  </s:decorate>
+
+  <s:decorate template="display.xhtml">             
+    <ui:define name="label">Project Name:</ui:define>
+    #{project.projectName}
+  </s:decorate>
+	
+  <s:decorate template="display.xhtml">             
+    <ui:define name="label">Date Started:</ui:define>
+    <h:outputText value="#{project.projectStartDate}">
+      <s:convertDateTime type="both" dateStyle="medium" timeStyle="short"/>
+    </h:outputText>
+  </s:decorate>
+
+</ui:composition>
