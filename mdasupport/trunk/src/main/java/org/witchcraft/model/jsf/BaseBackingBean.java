@@ -37,11 +37,11 @@ import org.witchcraft.model.support.service.BaseService;
  *            The BusinessEntity
  */
 public abstract class BaseBackingBean<T> {
-	private static final String SUCCESS_UPDATE = "successUpdate";
-	private static final String CLEAR_SEARCH = "clearSearch";
-	private static final String SUCCESS_SEARCH = "successSearch";
-	private static final String SUCCESS_DELETE = "successDelete";
-	private static final String TEXT_SEARCH = "textSearch";
+	public static final String SUCCESS_UPDATE = "successUpdate";
+	public static final String CLEAR_SEARCH = "clearSearch";
+	public static final String SUCCESS_SEARCH = "successSearch";
+	public static final String SUCCESS_DELETE = "successDelete";
+	public static final String TEXT_SEARCH = "textSearch";
 	public static final String SEARCH = "search";
 	
 	private static final String AUTHENTICATION_CONTROLLER = "authenticationController";
