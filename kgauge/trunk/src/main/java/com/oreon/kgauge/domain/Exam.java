@@ -30,7 +30,7 @@ public class Exam extends ExamBase implements java.io.Serializable {
 			Integer questions, Integer duration, Double price,
 			ScoringType scoringStrategy, ExamStatus examStatus) {
 		super(examNumber, name, description, questions, duration, price,
-				scoringStrategy, examStatus);
+				scoringStrategy, examStatus, duration);
 	}
 
 	public Exam examInstance() {
