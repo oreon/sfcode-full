@@ -9,6 +9,8 @@
 
 
 «DEFINE GenerateTest FOR Service»
+	
+	
 	«FILE "../../test/java/" + packagePath()+ "/" + NameS + "TestBase.java"»  
 
 			«EXPAND ManualFileGen::genManualFileServiceTest(  "../../test/java/" , "Test",
@@ -24,17 +26,16 @@
 		
 		public class «NameS»TestBase  {
  
- 			«FOREACH Operation AS o»
+ 			«FOREACH getAllOperations AS o»
  				@Test
 				public void «o.NameS»Test(){
 					/*
-					«REM» comment
-					«FOREACH Parameter AS p»
+					«FOREACH o.Parameter AS p»
 						«p.Type» «p.NameS» = «p.NameS».TestDataFactory.createRandom«NameS»(); 
 					«ENDFOREACH»
-					«ENDREM»
 					
-					«o.ReturnType» result =  «NameS.toFirstLower()».«o.NameS»();		
+					
+					«o.ReturnType.Class» result =  «NameS.toFirstLower()».«o.NameS»();		
 					assertEquals(result, expected);
 					*/ 
 				}
@@ -43,6 +44,9 @@
 		}
 	
 	«ENDFILE»
+	«REM» comment
+	«ENDIF»
+	«ENDREM»
 «ENDDEFINE»
 	
 	
