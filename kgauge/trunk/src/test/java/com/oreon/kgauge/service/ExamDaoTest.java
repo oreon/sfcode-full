@@ -50,16 +50,17 @@ public class ExamDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			examInstance.setExamNumber("John");
-			examInstance.setName("Malissa");
-			examInstance.setDescription("pi");
-			examInstance.setQuestions(5710);
-			examInstance.setDuration(4552);
-			examInstance.setPrice(95.23);
+			examInstance.setExamNumber("pi");
+			examInstance.setName("pi");
+			examInstance.setDescription("alpha");
+			examInstance.setQuestions(9477);
+			examInstance.setDuration(5047);
+			examInstance.setPrice(29.55);
 			examInstance
-					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
+					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
 			examInstance
 					.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
+			examInstance.setPassMarks(1579);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -97,16 +98,16 @@ public class ExamDaoTest extends AbstractJpaTests {
 
 			try {
 
-				exam.setExamNumber("Eric");
-				exam.setName("Mark");
-				exam.setDescription("Mark");
-				exam.setQuestions(4572);
-				exam.setDuration(2817);
-				exam.setPrice(86.43);
+				exam.setExamNumber("theta");
+				exam.setName("epsilon");
+				exam.setDescription("zeta");
+				exam.setQuestions(7446);
+				exam.setDuration(297);
+				exam.setPrice(34.98);
 				exam
 						.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
-				exam
-						.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
+				exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
+				exam.setPassMarks(7583);
 
 				TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("categoryTestDataFactory");
@@ -139,15 +140,16 @@ public class ExamDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Exam exam = (Exam) examTestDataFactory.loadOneRecord();
 
-			exam.setExamNumber("beta");
-			exam.setName("gamma");
-			exam.setDescription("John");
-			exam.setQuestions(2159);
-			exam.setDuration(3963);
-			exam.setPrice(53.16);
+			exam.setExamNumber("John");
+			exam.setName("Malissa");
+			exam.setDescription("theta");
+			exam.setQuestions(4064);
+			exam.setDuration(276);
+			exam.setPrice(42.67);
 			exam
 					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
 			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
+			exam.setPassMarks(5785);
 
 			examService.save(exam);
 
@@ -161,20 +163,21 @@ public class ExamDaoTest extends AbstractJpaTests {
 	}
 
 	//count the number of records - add one delete it - check count is same after delete
+	/*
 	public void testDelete() {
-
-		try {
-			long count, newCount, diff = 0;
-			count = examService.getCount();
-			Exam exam = (Exam) examTestDataFactory.loadOneRecord();
+									
+		try{
+			long count,newCount,diff=0;			
+			count=examService.getCount();
+			Exam exam = (Exam)examTestDataFactory.loadOneRecord();					
 			examService.delete(exam);
-			newCount = examService.getCount();
-			diff = newCount - count;
+			newCount=examService.getCount();
+			diff=count - newCount;
 			assertEquals(diff, 1);
-		} catch (Exception e) {
+		}catch(Exception e){
 			fail(e.getMessage());
 		}
-	}
+	}*/
 
 	public void testLoad() {
 
@@ -193,6 +196,15 @@ public class ExamDaoTest extends AbstractJpaTests {
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
+	}
+
+	/////////////////// Queries //////////////////////////////////
+
+	public void testFindPopularExams() {
+
+		//Integer minScore  = 0;
+
+		//List retList = examService.findPopularExams(minScore);
 	}
 
 }

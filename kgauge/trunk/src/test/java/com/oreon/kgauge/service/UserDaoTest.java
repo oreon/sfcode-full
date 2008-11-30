@@ -50,8 +50,8 @@ public class UserDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			userInstance.setUsername("alpha4534");
-			userInstance.setPassword("epsilon");
+			userInstance.setUsername("beta63459");
+			userInstance.setPassword("zeta");
 			userInstance.setEnabled(false);
 
 			userService.save(userInstance);
@@ -76,8 +76,8 @@ public class UserDaoTest extends AbstractJpaTests {
 
 			try {
 
-				user.setUsername("gamma48300");
-				user.setPassword("Mark");
+				user.setUsername("beta83453");
+				user.setPassword("John");
 				user.setEnabled(true);
 
 			} catch (Exception ex) {
@@ -97,9 +97,9 @@ public class UserDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			User user = (User) userTestDataFactory.loadOneRecord();
 
-			user.setUsername("gamma72145");
-			user.setPassword("epsilon");
-			user.setEnabled(false);
+			user.setUsername("delta6814");
+			user.setPassword("Mark");
+			user.setEnabled(true);
 
 			userService.save(user);
 
@@ -113,20 +113,21 @@ public class UserDaoTest extends AbstractJpaTests {
 	}
 
 	//count the number of records - add one delete it - check count is same after delete
+	/*
 	public void testDelete() {
-
-		try {
-			long count, newCount, diff = 0;
-			count = userService.getCount();
-			User user = (User) userTestDataFactory.loadOneRecord();
+									
+		try{
+			long count,newCount,diff=0;			
+			count=userService.getCount();
+			User user = (User)userTestDataFactory.loadOneRecord();					
 			userService.delete(user);
-			newCount = userService.getCount();
-			diff = newCount - count;
+			newCount=userService.getCount();
+			diff=count - newCount;
 			assertEquals(diff, 1);
-		} catch (Exception e) {
+		}catch(Exception e){
 			fail(e.getMessage());
 		}
-	}
+	}*/
 
 	public void testLoad() {
 
@@ -156,5 +157,7 @@ public class UserDaoTest extends AbstractJpaTests {
 			fail(e.getMessage());
 		}
 	}
+
+	/////////////////// Queries //////////////////////////////////
 
 }

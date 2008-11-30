@@ -50,9 +50,9 @@ public class QuestionDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			questionInstance.setQuestionText("theta");
+			questionInstance.setQuestionText("Lavendar");
 			questionInstance
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L4);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("sectionTestDataFactory");
@@ -85,7 +85,7 @@ public class QuestionDaoTest extends AbstractJpaTests {
 
 				question.setQuestionText("gamma");
 				question
-						.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L4);
+						.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L2);
 
 				TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("sectionTestDataFactory");
@@ -112,7 +112,7 @@ public class QuestionDaoTest extends AbstractJpaTests {
 			Question question = (Question) questionTestDataFactory
 					.loadOneRecord();
 
-			question.setQuestionText("Mark");
+			question.setQuestionText("pi");
 			question
 					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
 
@@ -128,21 +128,21 @@ public class QuestionDaoTest extends AbstractJpaTests {
 	}
 
 	//count the number of records - add one delete it - check count is same after delete
+	/*
 	public void testDelete() {
-
-		try {
-			long count, newCount, diff = 0;
-			count = questionService.getCount();
-			Question question = (Question) questionTestDataFactory
-					.loadOneRecord();
+									
+		try{
+			long count,newCount,diff=0;			
+			count=questionService.getCount();
+			Question question = (Question)questionTestDataFactory.loadOneRecord();					
 			questionService.delete(question);
-			newCount = questionService.getCount();
-			diff = newCount - count;
+			newCount=questionService.getCount();
+			diff=count - newCount;
 			assertEquals(diff, 1);
-		} catch (Exception e) {
+		}catch(Exception e){
 			fail(e.getMessage());
 		}
-	}
+	}*/
 
 	public void testLoad() {
 
@@ -163,5 +163,7 @@ public class QuestionDaoTest extends AbstractJpaTests {
 			fail(e.getMessage());
 		}
 	}
+
+	/////////////////// Queries //////////////////////////////////
 
 }

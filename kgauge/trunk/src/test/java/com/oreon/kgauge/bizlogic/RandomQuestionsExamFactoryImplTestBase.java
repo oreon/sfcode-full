@@ -7,4 +7,19 @@ import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 
 public class RandomQuestionsExamFactoryImplTestBase {
 
+	@Test
+	public void createExamTest() {
+		/*
+		
+			<<Entity>> Exam exam = exam.TestDataFactory.createRandomRandomQuestionsExamFactoryImpl(); 
+		
+			<<Interface>> Map additionalParameters = additionalParameters.TestDataFactory.createRandomRandomQuestionsExamFactoryImpl(); 
+		
+		
+		
+		 result =  randomQuestionsExamFactoryImpl.createExam();		
+		assertEquals(result, expected);
+		 */
+	}
+
 }
