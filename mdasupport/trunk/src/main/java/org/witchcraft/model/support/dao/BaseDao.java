@@ -34,7 +34,7 @@ import org.witchcraft.model.support.Range;
  *            The type of entity to be persisted
  */
 @Repository
-public class BaseDao<T> implements GenericDAO<T> {
+public abstract class BaseDao<T> implements GenericDAO<T> {
 
 	private static final Logger logger = Logger.getLogger(BaseDao.class);
 
