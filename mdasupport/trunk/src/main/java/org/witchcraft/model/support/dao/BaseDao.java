@@ -292,7 +292,7 @@ public class BaseDao<T> implements GenericDAO<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public T executeSingleResultNamedQuery(String queryString, Object... params) {
+	public<S> S executeSingleResultNamedQuery(String queryString, Object... params) {
 		Query query = entityManager.createNamedQuery(queryString);
 		setQueryParams(query, params);
 		return executeSingleResultQuery(query); 
