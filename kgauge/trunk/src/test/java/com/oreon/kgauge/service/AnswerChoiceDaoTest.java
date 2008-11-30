@@ -50,9 +50,9 @@ public class AnswerChoiceDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			answerChoiceInstance.setAnswerText("John");
-			answerChoiceInstance.setScore(6545);
-			answerChoiceInstance.setCorrectChoice(true);
+			answerChoiceInstance.setAnswerText("Wilson");
+			answerChoiceInstance.setScore(7921);
+			answerChoiceInstance.setCorrectChoice(false);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -83,8 +83,8 @@ public class AnswerChoiceDaoTest extends AbstractJpaTests {
 
 			try {
 
-				answerChoice.setAnswerText("zeta");
-				answerChoice.setScore(4030);
+				answerChoice.setAnswerText("epsilon");
+				answerChoice.setScore(4262);
 				answerChoice.setCorrectChoice(true);
 
 				TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
@@ -112,9 +112,9 @@ public class AnswerChoiceDaoTest extends AbstractJpaTests {
 			AnswerChoice answerChoice = (AnswerChoice) answerChoiceTestDataFactory
 					.loadOneRecord();
 
-			answerChoice.setAnswerText("theta");
-			answerChoice.setScore(9507);
-			answerChoice.setCorrectChoice(true);
+			answerChoice.setAnswerText("epsilon");
+			answerChoice.setScore(4603);
+			answerChoice.setCorrectChoice(false);
 
 			answerChoiceService.save(answerChoice);
 
@@ -128,21 +128,21 @@ public class AnswerChoiceDaoTest extends AbstractJpaTests {
 	}
 
 	//count the number of records - add one delete it - check count is same after delete
+	/*
 	public void testDelete() {
-
-		try {
-			long count, newCount, diff = 0;
-			count = answerChoiceService.getCount();
-			AnswerChoice answerChoice = (AnswerChoice) answerChoiceTestDataFactory
-					.loadOneRecord();
+									
+		try{
+			long count,newCount,diff=0;			
+			count=answerChoiceService.getCount();
+			AnswerChoice answerChoice = (AnswerChoice)answerChoiceTestDataFactory.loadOneRecord();					
 			answerChoiceService.delete(answerChoice);
-			newCount = answerChoiceService.getCount();
-			diff = newCount - count;
+			newCount=answerChoiceService.getCount();
+			diff=count - newCount;
 			assertEquals(diff, 1);
-		} catch (Exception e) {
+		}catch(Exception e){
 			fail(e.getMessage());
 		}
-	}
+	}*/
 
 	public void testLoad() {
 
@@ -164,5 +164,7 @@ public class AnswerChoiceDaoTest extends AbstractJpaTests {
 			fail(e.getMessage());
 		}
 	}
+
+	/////////////////// Queries //////////////////////////////////
 
 }

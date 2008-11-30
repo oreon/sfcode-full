@@ -50,7 +50,7 @@ public class GrantedRoleDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			grantedRoleInstance.setName("John");
+			grantedRoleInstance.setName("pi");
 
 			TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("userTestDataFactory");
@@ -81,7 +81,7 @@ public class GrantedRoleDaoTest extends AbstractJpaTests {
 
 			try {
 
-				grantedRole.setName("alpha");
+				grantedRole.setName("pi");
 
 				TestDataFactory userTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("userTestDataFactory");
@@ -108,7 +108,7 @@ public class GrantedRoleDaoTest extends AbstractJpaTests {
 			GrantedRole grantedRole = (GrantedRole) grantedRoleTestDataFactory
 					.loadOneRecord();
 
-			grantedRole.setName("Wilson");
+			grantedRole.setName("Malissa");
 
 			grantedRoleService.save(grantedRole);
 
@@ -122,21 +122,21 @@ public class GrantedRoleDaoTest extends AbstractJpaTests {
 	}
 
 	//count the number of records - add one delete it - check count is same after delete
+	/*
 	public void testDelete() {
-
-		try {
-			long count, newCount, diff = 0;
-			count = grantedRoleService.getCount();
-			GrantedRole grantedRole = (GrantedRole) grantedRoleTestDataFactory
-					.loadOneRecord();
+									
+		try{
+			long count,newCount,diff=0;			
+			count=grantedRoleService.getCount();
+			GrantedRole grantedRole = (GrantedRole)grantedRoleTestDataFactory.loadOneRecord();					
 			grantedRoleService.delete(grantedRole);
-			newCount = grantedRoleService.getCount();
-			diff = newCount - count;
+			newCount=grantedRoleService.getCount();
+			diff=count - newCount;
 			assertEquals(diff, 1);
-		} catch (Exception e) {
+		}catch(Exception e){
 			fail(e.getMessage());
 		}
-	}
+	}*/
 
 	public void testLoad() {
 
@@ -158,5 +158,7 @@ public class GrantedRoleDaoTest extends AbstractJpaTests {
 			fail(e.getMessage());
 		}
 	}
+
+	/////////////////// Queries //////////////////////////////////
 
 }

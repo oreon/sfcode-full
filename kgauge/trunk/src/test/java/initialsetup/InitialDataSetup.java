@@ -31,8 +31,60 @@ import com.oreon.kgauge.domain.SectionTestDataFactory;
  *
  */
 public class InitialDataSetup {
+	/*
+		public BusinessEntity[] entities = {
+				
+					candidateTestDataFactory.persistAll(),
+				
+				
+					questionTestDataFactory.persistAll(),
+				
+				
+					answerChoiceTestDataFactory.persistAll(),
+				
+				
+					examTestDataFactory.persistAll(),
+				
+				
+					examInstanceTestDataFactory.persistAll(),
+				
+				
+					examCreatorTestDataFactory.persistAll(),
+				
+				
+					categoryTestDataFactory.persistAll(),
+				
+				
+				
+					grantedRoleTestDataFactory.persistAll(),
+				
+				
+					answeredQuestionTestDataFactory.persistAll(),
+				
+				
+					sectionTestDataFactory.persistAll(),
+				
+			
+		};
+	 */
+
+	private int recordsToCreate;
+
+	public int getRecordsToCreate() {
+		return recordsToCreate;
+	}
+
+	public void setRecordsToCreate(int recordsToCreate) {
+		this.recordsToCreate = recordsToCreate;
+	}
 
 	public static void main(String args[]) {
+		InitialDataSetup ids = (InitialDataSetup) BeanHelper
+				.getBean("initialDataSetup");
+		ids.createRecords();
+	}
+
+	public void createRecords() {
 
 		TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 				.getBean("candidateTestDataFactory");
