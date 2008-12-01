@@ -10,4 +10,6 @@ import javax.jws.WebService;
 @WebService
 public interface ExamDao extends GenericDAO<Exam> {
 
+	public List findPopularExams(Integer minScore);
+
 }

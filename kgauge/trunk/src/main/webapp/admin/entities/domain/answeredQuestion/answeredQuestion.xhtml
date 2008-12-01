@@ -15,7 +15,15 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 
 template="/WEB-INF/template/templateCrud.xhtml">
 	
-<ui:define name="title"> Add/Update AnsweredQuestion </ui:define> 
+<ui:define name="title"> AnsweredQuestion </ui:define> 
+
+<ui:define name="searchBar">
+		<ui:include src="../../../templateSections/searchBar.xhtml" >
+			 <ui:param name="backingBean" value="#{answeredQuestionCrudBacking}"/>
+		</ui:include>
+</ui:define>
+
+
 <ui:define name="content">
 	<f:view>
 		<h:messages layout="list" globalOnly="true" showDetail="true"

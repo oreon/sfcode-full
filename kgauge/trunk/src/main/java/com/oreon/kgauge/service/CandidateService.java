@@ -14,4 +14,6 @@ import javax.jws.WebService;
 @WebService
 public interface CandidateService extends CandidateDao, BaseService<Candidate> {
 
+	public Candidate getLoggedInCandidate();
+
 }

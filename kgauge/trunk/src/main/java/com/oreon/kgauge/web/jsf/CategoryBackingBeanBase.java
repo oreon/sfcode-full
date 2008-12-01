@@ -7,12 +7,16 @@ import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Set;
+import org.apache.commons.collections.ListUtils;
+
 import com.oreon.kgauge.domain.Category;
 import com.oreon.kgauge.service.CategoryService;
 
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashSet;
 import org.witchcraft.model.support.Range;
 
 import com.oreon.kgauge.domain.Category;
@@ -101,8 +105,17 @@ public class CategoryBackingBeanBase extends BaseBackingBean<Category> {
 	}
 
 	protected void reloadFromId(long id) {
-		category = categoryService.load(id);
+		if (id != 0)
+			category = categoryService.load(id);
 
+	}
+
+	@Override
+	public String update() {
+
+		addSubcategoriessToCategory();
+
+		return super.update();
 	}
 
 	public TreeNode getTree() {
@@ -135,14 +148,6 @@ public class CategoryBackingBeanBase extends BaseBackingBean<Category> {
 	public void processSelection(NodeSelectedEvent event) {
 		UITree tree = (UITree) event.getComponent();
 		//nodeTitle = (String) tree.getRowData();
-	}
-
-	@Override
-	public String update() {
-
-		addSubcategoriessToCategory();
-
-		return super.update();
 	}
 
 	public List<Category> getListSubcategoriess() {

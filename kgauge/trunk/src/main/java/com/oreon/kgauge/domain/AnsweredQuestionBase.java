@@ -18,6 +18,8 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import org.witchcraft.model.jsf.Image;
 import java.util.Set;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
 
 @MappedSuperclass
 @Indexed
-//@Analyzer(impl = example.EnglishAnalyzer.class)
+@Analyzer(impl = org.witchcraft.lucene.analyzers.EnglishAnalyzer.class)
 public abstract class AnsweredQuestionBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
@@ -60,6 +62,7 @@ public abstract class AnsweredQuestionBase
 
 	@ManyToOne
 	@JoinColumn(name = "examInstance_ID", nullable = false, updatable = true)
+	@ContainedIn
 	@XmlTransient
 	public com.oreon.kgauge.domain.ExamInstance getExamInstance() {
 		return this.examInstance;
@@ -70,7 +73,9 @@ public abstract class AnsweredQuestionBase
 		this.examInstance = examInstance;
 	}
 
-	public void add(com.oreon.kgauge.domain.AnswerChoice answerChoice) {
+	public void addAnswerChoice(
+			com.oreon.kgauge.domain.AnswerChoice answerChoice) {
+		checkMaximumAnswerChoice();
 		this.answerChoice.add(answerChoice);
 	}
 
@@ -103,8 +108,16 @@ public abstract class AnsweredQuestionBase
 		return this.answerChoice.size();
 	}
 
+	public void checkMaximumAnswerChoice() {
+		// if(answerChoice.size() > Constants.size())
+		// 		throw new BusinessException ("msg.tooMany." + answerChoice );
+	}
+
 	public abstract AnsweredQuestion answeredQuestionInstance();
 
+	/** This method is used by hibernate full text search - override to add additional fields
+	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 */
 	@Override
 	public String[] retrieveSearchableFieldsArray() {
 		List<String> listSearchableFields = new ArrayList<String>();

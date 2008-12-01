@@ -7,12 +7,16 @@ import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Set;
+import org.apache.commons.collections.ListUtils;
+
 import com.oreon.kgauge.domain.ExamInstance;
 import com.oreon.kgauge.service.ExamInstanceService;
 
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashSet;
 import org.witchcraft.model.support.Range;
 
 import com.oreon.kgauge.domain.AnsweredQuestion;
@@ -94,8 +98,7 @@ public class ExamInstanceBackingBeanBase extends BaseBackingBean<ExamInstance> {
 	public void initForAddNew() {
 
 		examInstance.setCandidate(facades.ServiceFacade.getInstance()
-				.getCandidateService().findByUsername(
-						getLoggedInUser().getUsername()));
+				.getCandidateService().getLoggedInCandidate());
 
 	}
 
@@ -121,7 +124,8 @@ public class ExamInstanceBackingBeanBase extends BaseBackingBean<ExamInstance> {
 	}
 
 	protected void reloadFromId(long id) {
-		examInstance = examInstanceService.load(id);
+		if (id != 0)
+			examInstance = examInstanceService.load(id);
 
 	}
 

@@ -80,4 +80,26 @@ public class CandidateDaoImplBase extends BaseDao<Candidate>
 
 	}
 
+	/**
+	 * <query name="examsTakenByCandidate" retType="List<ExamInstance>">
+	select e from ExamInstance e where e.candidate.id = ?1
+	</query>
+	 */
+
+	public List findExamInstances(Long candidateId) {
+
+		return executeNamedQuery("", new Object[]{candidateId});
+
+	}
+
+	/**
+	 * ${query}=select e from ExamInstance e where e.candidate.id = ?1 and sum(e.answeredQuestion.answerChoice) >= e.exam.passMarks
+	 */
+
+	public Long findNumberOfCertifications() {
+
+		return executeSingleResultNamedQuery("", new Object[]{});
+
+	}
+
 }

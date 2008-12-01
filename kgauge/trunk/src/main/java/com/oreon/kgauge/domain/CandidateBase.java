@@ -18,6 +18,8 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import org.witchcraft.model.jsf.Image;
 import java.util.Set;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
 
 @MappedSuperclass
 @Indexed
-//@Analyzer(impl = example.EnglishAnalyzer.class)
+@Analyzer(impl = org.witchcraft.lucene.analyzers.EnglishAnalyzer.class)
 public abstract class CandidateBase extends Person
 		implements
 			java.io.Serializable,
@@ -52,8 +54,29 @@ public abstract class CandidateBase extends Person
 		this.user = user;
 	}
 
+	/**
+	 * <query name="examsTakenByCandidate" retType="List<ExamInstance>">
+	select e from ExamInstance e where e.candidate.id = ?1
+	</query>
+	 */
+
+	public java.util.List findExamInstances(Long candidateId) {
+		return null;
+	}
+
+	/**
+	 * ${query}=select e from ExamInstance e where e.candidate.id = ?1 and sum(e.answeredQuestion.answerChoice) >= e.exam.passMarks
+	 */
+
+	public Long findNumberOfCertifications() {
+		return null;
+	}
+
 	public abstract Candidate candidateInstance();
 
+	/** This method is used by hibernate full text search - override to add additional fields
+	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 */
 	@Override
 	public String[] retrieveSearchableFieldsArray() {
 		List<String> listSearchableFields = new ArrayList<String>();

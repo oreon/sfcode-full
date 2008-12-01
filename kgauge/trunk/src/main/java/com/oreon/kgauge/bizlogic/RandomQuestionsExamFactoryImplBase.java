@@ -10,9 +10,6 @@ package com.oreon.kgauge.bizlogic;
 import java.util.Date;
 import org.apache.log4j.Logger;
 
-/**
- * 
- */
 public abstract class RandomQuestionsExamFactoryImplBase
 		implements
 			java.io.Serializable,

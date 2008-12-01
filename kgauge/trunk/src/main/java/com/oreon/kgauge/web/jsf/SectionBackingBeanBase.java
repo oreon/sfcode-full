@@ -7,12 +7,16 @@ import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Set;
+import org.apache.commons.collections.ListUtils;
+
 import com.oreon.kgauge.domain.Section;
 import com.oreon.kgauge.service.SectionService;
 
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashSet;
 import org.witchcraft.model.support.Range;
 
 import com.oreon.kgauge.domain.Question;
@@ -92,7 +96,8 @@ public class SectionBackingBeanBase extends BaseBackingBean<Section> {
 	}
 
 	protected void reloadFromId(long id) {
-		section = sectionService.load(id);
+		if (id != 0)
+			section = sectionService.load(id);
 
 	}
 

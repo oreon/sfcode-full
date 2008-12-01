@@ -7,12 +7,16 @@ import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Set;
+import org.apache.commons.collections.ListUtils;
+
 import com.oreon.kgauge.domain.AnswerChoice;
 import com.oreon.kgauge.service.AnswerChoiceService;
 
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashSet;
 import org.witchcraft.model.support.Range;
 
 /**
@@ -98,8 +102,15 @@ public class AnswerChoiceBackingBeanBase extends BaseBackingBean<AnswerChoice> {
 	}
 
 	protected void reloadFromId(long id) {
-		answerChoice = answerChoiceService.load(id);
+		if (id != 0)
+			answerChoice = answerChoiceService.load(id);
 
+	}
+
+	@Override
+	public String update() {
+
+		return super.update();
 	}
 
 }

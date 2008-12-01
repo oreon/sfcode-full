@@ -7,12 +7,16 @@ import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Set;
+import org.apache.commons.collections.ListUtils;
+
 import com.oreon.kgauge.domain.ExamCreator;
 import com.oreon.kgauge.service.ExamCreatorService;
 
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashSet;
 import org.witchcraft.model.support.Range;
 
 /**
@@ -123,10 +127,17 @@ public class ExamCreatorBackingBeanBase extends BaseBackingBean<ExamCreator> {
 	}
 
 	protected void reloadFromId(long id) {
-		examCreator = examCreatorService.load(id);
+		if (id != 0)
+			examCreator = examCreatorService.load(id);
 
 		repeatPassword = examCreator.getUser().getPassword();
 
+	}
+
+	@Override
+	public String update() {
+
+		return super.update();
 	}
 
 }

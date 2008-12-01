@@ -17,4 +17,6 @@ public interface ExamCreatorService
 			ExamCreatorDao,
 			BaseService<ExamCreator> {
 
+	public ExamCreator getLoggedInExamCreator();
+
 }

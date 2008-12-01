@@ -15,6 +15,10 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Propagation;
 
+import org.acegisecurity.Authentication;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.acegisecurity.userdetails.UserDetails;
+
 import org.apache.log4j.Logger;
 
 import org.witchcraft.model.support.dao.GenericDAO;
@@ -85,6 +89,21 @@ public class ExamCreatorServiceImplBase extends BaseServiceImpl<ExamCreator>
 		examCreator.getUser().addGrantedRole(authority);
 	}
 
+	public ExamCreator getLoggedInExamCreator() {
+		Authentication authentication = SecurityContextHolder.getContext()
+				.getAuthentication();
+
+		if (authentication == null) {
+			log.warn("Couldn't find Security Context ");
+			return null;
+		}
+
+		String userName = ((UserDetails) authentication.getPrincipal())
+				.getUsername();
+
+		return findByUsername(userName);
+	}
+
 	public void delete(ExamCreator examCreator) {
 		examCreatorDao.delete(examCreator);
 	}
@@ -114,9 +133,12 @@ public class ExamCreatorServiceImplBase extends BaseServiceImpl<ExamCreator>
 		return examCreatorDao.searchByExample(examCreator, rangeObjects);
 	}
 
-	/*
-	public List query(String queryString, Object... params) {
-		return basicDAO.query(queryString, params);
-	}*/
+	/** This method should be overridden by classes that want to filter the load all behavior e.g.
+	 * showing 
+	 * @return
+	 */
+	public ExamCreator getFilterRecord() {
+		return null;
+	}
 
 }
