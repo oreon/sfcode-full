@@ -18,6 +18,7 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	
 	
 
+	<a4j:page>
 	<a4j:form id="form">
 			<rich:panel header="Exam Information">
 				<h:outputText value="Please correct the following issues !" 
@@ -25,11 +26,19 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 				
 			<h:panelGrid columns="2" styleClass="formTableCustom">
 					
-						<h:panelGroup>
-						<h:outputText value="#{msg.exam_category}" />
-						<h:outputText value="*" />
-						</h:panelGroup>
-						
+					
+		
+
+		<h:panelGroup>
+		<h:outputText value="#{msg.exam_category}" />
+		<h:outputText value="*" />
+		</h:panelGroup>
+		
+
+		
+		
+
+		
 	
 	<h:panelGroup>
 	<a4j:region>
@@ -49,11 +58,23 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	
 	</a4j:region>
 	</h:panelGroup>
-						<h:panelGroup>
-						<h:outputText value="#{msg.exam_examCreator}" />
-						<h:outputText value="*" />
-						</h:panelGroup>
-						
+		
+
+		
+	
+
+		<h:panelGroup>
+		<h:outputText value="#{msg.exam_examCreator}" />
+		<h:outputText value="*" />
+		</h:panelGroup>
+		
+	
+
+		
+		
+	
+
+		
 	
 	<h:panelGroup>
 	<a4j:region>
@@ -73,7 +94,11 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	
 	</a4j:region>
 	</h:panelGroup>
-					
+		
+	
+
+	
+
 					
 	<h:panelGroup>
 		<h:outputText value=""/>
@@ -258,8 +283,55 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</a4j:region>
 	</h:panelGroup>
 						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.exam_passMarks}" />
+		<h:outputText value="" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:inputText    required="false" 
+		id="exam_passMarks"
+		value="#{examCrudBacking.exam.passMarks}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="exam_passMarks" />
+	</h:inputText>
+	
+	
+		
+	<wc:message for="exam_passMarks" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.exam_defaultMarksForCorrect}" />
+		<h:outputText value="*" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:inputText    required="true" 
+		id="exam_defaultMarksForCorrect"
+		value="#{examCrudBacking.exam.defaultMarksForCorrect}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="exam_defaultMarksForCorrect" />
+	</h:inputText>
+	
+	
+	
+		
+	<wc:message for="exam_defaultMarksForCorrect" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
 			</h:panelGrid>
 						<br/>
+						
+						
 						
 			
 				
@@ -273,6 +345,7 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	
 				
 	
+
 	<t:column  >
 		<f:facet name="header">
 				<t:outputText value="Name" /> 
@@ -284,6 +357,8 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</h:inputText>
 		<h:message for="section__name" styleClass="errMessage" />
 	</t:column>
+	
+
 				
 	<t:column>
 		<f:facet name="header">
@@ -320,5 +395,6 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 				</h:panelGrid>
 				
 	</a4j:form>
+	</a4j:page>
 </html>			
 		

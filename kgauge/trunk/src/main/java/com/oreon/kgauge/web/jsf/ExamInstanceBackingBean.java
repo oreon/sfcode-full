@@ -25,7 +25,8 @@ public class ExamInstanceBackingBean extends ExamInstanceBackingBeanBase {
 		
 
 	public List<AnsweredQuestion> getQuestions() {
-		if (questions == null) {
+		if (questions == null ) {
+			// reloadFromId(examInstance.getId());
 			 questions = new ArrayList<AnsweredQuestion>();
 			 questions.addAll(examInstance.getAnsweredQuestion());
 			 log.info("Loaded questions " + questions.size());
@@ -53,7 +54,12 @@ public class ExamInstanceBackingBean extends ExamInstanceBackingBeanBase {
 	
 	public List<SelectItem> getChoicesAsSelectItems(){
 		//need to reload question to avoid hibernate LIE
-		Question question = getQuestions().get(currentQuestionIndex).getQuestion();
+		List<AnsweredQuestion> ansQuestions = getQuestions();
+		if(ansQuestions.isEmpty()){
+			log.warn("There are no choices for this question");
+			return new ArrayList<SelectItem>();
+		}
+		Question question = ansQuestions.get(currentQuestionIndex).getQuestion();
 		QuestionBackingBean questionBackingBean = getBean("questionCrudBacking");
 		questionBackingBean.reloadFromId(question.getId());
 		question = questionBackingBean.getQuestion();

@@ -37,6 +37,10 @@ public class ExamInstance extends ExamInstanceBase implements
 					maxScore = answerChoice.getScore();
 				}
 			}
+			
+			if(maxScore == 0)
+				maxScore = getExam().getDefaultMarksForCorrect();
+			
 			score += maxScore;
 		}
 		return score;
@@ -56,6 +60,10 @@ public class ExamInstance extends ExamInstanceBase implements
 					.getAnswerChoice();
 			for (AnswerChoice answerChoice : answerChoices) {
 				int answerChoiceScore = answerChoice.getScore() == null?0:answerChoice.getScore();
+				
+				if(answerChoiceScore == 0 && answerChoice.isCorrectChoice())
+					answerChoiceScore = getExam().getDefaultMarksForCorrect();
+				
 				score += answerChoiceScore;
 			}
 		}

@@ -7,12 +7,16 @@ import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Set;
+import org.apache.commons.collections.ListUtils;
+
 import com.oreon.kgauge.domain.GrantedRole;
 import com.oreon.kgauge.service.GrantedRoleService;
 
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashSet;
 import org.witchcraft.model.support.Range;
 
 /**
@@ -86,8 +90,15 @@ public class GrantedRoleBackingBeanBase extends BaseBackingBean<GrantedRole> {
 	}
 
 	protected void reloadFromId(long id) {
-		grantedRole = grantedRoleService.load(id);
+		if (id != 0)
+			grantedRole = grantedRoleService.load(id);
 
+	}
+
+	@Override
+	public String update() {
+
+		return super.update();
 	}
 
 }

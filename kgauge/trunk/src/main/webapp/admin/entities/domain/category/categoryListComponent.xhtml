@@ -27,6 +27,9 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		value="#{categoryCrudBacking.records}" rows="30"
 	rowClasses="odd, even" styleClass="dataTable" >						
 	
+	
+	
+
 	<rich:column sortBy="#{category.name}"  filterBy="#{category.name}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.category_name}" /> 		
@@ -35,13 +38,20 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	</rich:column>
 	
 	
+
 	
+	
+	
+	
+
 	<rich:column sortBy="#{category.parent.displayName}" filterBy="#{category.parent.displayName}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.category_parent}" /> 	
 		</f:facet>
 		<h:outputText value="#{category.parent.displayName}" />
 	</rich:column>
+	
+
 		
 		<rich:column>
 			<f:facet name="header">
@@ -51,7 +61,7 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 				actionListener="#{categoryCrudBacking.selectEntity}">
 				<rich:toolTip direction="bottom-left" styleClass="toolTip"
 					value="Click to Edit Row" mode="client" />
-				<h:graphicImage value="/images/icons/application_edit.png"
+				<h:graphicImage value="/images/icons/eye.png"
 					style="border: 0px" />
 				<f:param name="id" value="#{category.id}" />
 			</h:commandLink>
@@ -105,6 +115,11 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	 
 		 
 	 <rich:tab label="Audit" >
+	 
+	 <rich:datascroller align="left" for="dataAudit" maxPages="20"
+				renderIfSinglePage="false" />
+			<br/>
+	 
 	 	<rich:dataTable id="dataAudit" var="log"
 		value="#{categoryCrudBacking.auditLog}" rows="30" rowClasses="odd, even" styleClass="dataTable">
 			
@@ -130,12 +145,18 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 			</rich:column>
 			
 	
+	
+	
+
 	<rich:column sortBy="#{log.entity.name}"  filterBy="#{log.entity.name}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.category_name}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.name}" />
 	</rich:column>
+	
+	
+
 			</rich:dataTable>
 			 </rich:tab>
 						 
@@ -146,27 +167,27 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	<a4j:form id="commands">
 	<rich:toolBar height="22" width="120" itemSeparator="line">
 		<rich:toolBarGroup>
-			<h:graphicImage id="addnew" value="/images/icons/bricks.png" />
+			<h:graphicImage id="addnew" value="/images/icons/add.png" />
 			<a4j:commandLink action="#{categoryCrudBacking.select}"
 				actionListener="#{categoryCrudBacking.selectEntity}"
 				value="Add New" />
 		</rich:toolBarGroup>
 
 		<rich:toolBarGroup>
-			<h:graphicImage id="gotosearch" value="/images/icons/bricks.png" />
+			<h:graphicImage id="gotosearch" value="/images/icons/search_icon.gif" />
 			<a4j:commandLink action="#{categoryCrudBacking.gotoSearchPage}"
 				value="Search" />
 		</rich:toolBarGroup>
 
 		<rich:toolBarGroup
-			rendered="#{ categoryCrudBacking.action == 'SEARCH' }">
+			rendered="#{ categoryCrudBacking.actionSearch }">
 			<h:graphicImage id="clearsearch" value="/images/icons/bricks.png" />
 			<a4j:commandLink action="#{categoryCrudBacking.clearSearch}"
 				value="Clear Search" />
 		</rich:toolBarGroup>
 		
 		<rich:toolBarGroup
-			rendered="#{ categoryCrudBacking.action == 'SEARCH' }">
+			rendered="#{ categoryCrudBacking.actionSearch }">
 			<h:graphicImage id="refineSearch" value="/images/icons/bricks.png" />
 			<a4j:commandLink action="search"
 				value="Refine Search" />

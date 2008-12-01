@@ -7,12 +7,16 @@ import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Set;
+import org.apache.commons.collections.ListUtils;
+
 import com.oreon.kgauge.domain.Exam;
 import com.oreon.kgauge.service.ExamService;
 
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashSet;
 import org.witchcraft.model.support.Range;
 
 import com.oreon.kgauge.domain.Section;
@@ -71,6 +75,28 @@ public class ExamBackingBeanBase extends BaseBackingBean<Exam> {
 		this.rangePrice = rangePrice;
 	}
 
+	private Range<Integer> rangePassMarks = new Range<Integer>("passMarks");
+
+	public Range<Integer> getRangePassMarks() {
+		return rangePassMarks;
+	}
+
+	public void setRangePassMarks(Range<Integer> rangePassMarks) {
+		this.rangePassMarks = rangePassMarks;
+	}
+
+	private Range<Integer> rangeDefaultMarksForCorrect = new Range<Integer>(
+			"defaultMarksForCorrect");
+
+	public Range<Integer> getRangeDefaultMarksForCorrect() {
+		return rangeDefaultMarksForCorrect;
+	}
+
+	public void setRangeDefaultMarksForCorrect(
+			Range<Integer> rangeDefaultMarksForCorrect) {
+		this.rangeDefaultMarksForCorrect = rangeDefaultMarksForCorrect;
+	}
+
 	public Exam getExam() {
 		return exam;
 	}
@@ -103,8 +129,7 @@ public class ExamBackingBeanBase extends BaseBackingBean<Exam> {
 	public void initForAddNew() {
 
 		exam.setExamCreator(facades.ServiceFacade.getInstance()
-				.getExamCreatorService().findByUsername(
-						getLoggedInUser().getUsername()));
+				.getExamCreatorService().getLoggedInExamCreator());
 
 	}
 
@@ -127,12 +152,17 @@ public class ExamBackingBeanBase extends BaseBackingBean<Exam> {
 
 		listRanges.add(rangePrice);
 
+		listRanges.add(rangePassMarks);
+
+		listRanges.add(rangeDefaultMarksForCorrect);
+
 		listRanges.add(rangeCreationDate);
 		return listRanges;
 	}
 
 	protected void reloadFromId(long id) {
-		exam = examService.load(id);
+		if (id != 0)
+			exam = examService.load(id);
 
 	}
 

@@ -15,6 +15,10 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Propagation;
 
+import org.acegisecurity.Authentication;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.acegisecurity.userdetails.UserDetails;
+
 import org.apache.log4j.Logger;
 
 import org.witchcraft.model.support.dao.GenericDAO;
@@ -24,8 +28,6 @@ import org.witchcraft.model.support.service.BaseServiceImpl;
 import javax.jws.WebService;
 
 import org.witchcraft.model.support.Range;
-
-import com.oreon.kgauge.domain.GrantedRole;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 public class CategoryServiceImplBase extends BaseServiceImpl<Category>
@@ -77,6 +79,14 @@ public class CategoryServiceImplBase extends BaseServiceImpl<Category>
 		return categoryDao.searchByExample(category, rangeObjects);
 	}
 
+	/** This method should be overridden by classes that want to filter the load all behavior e.g.
+	 * showing 
+	 * @return
+	 */
+	public Category getFilterRecord() {
+		return null;
+	}
+
 	/**
 	 * For tree view , this method returns top level
 	 * elements (whose parent is null )
@@ -84,10 +94,5 @@ public class CategoryServiceImplBase extends BaseServiceImpl<Category>
 	public List<Category> findTopLevelElements() {
 		return categoryDao.findTopLevelElements();
 	}
-
-	/*
-	public List query(String queryString, Object... params) {
-		return basicDAO.query(queryString, params);
-	}*/
 
 }

@@ -7,12 +7,16 @@ import org.witchcraft.model.jsf.BaseBackingBean;
 import org.witchcraft.model.support.service.BaseService;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Set;
+import org.apache.commons.collections.ListUtils;
+
 import com.oreon.kgauge.domain.User;
 import com.oreon.kgauge.service.UserService;
 
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashSet;
 import org.witchcraft.model.support.Range;
 
 /**
@@ -96,10 +100,17 @@ public class UserBackingBeanBase extends BaseBackingBean<User> {
 	}
 
 	protected void reloadFromId(long id) {
-		user = userService.load(id);
+		if (id != 0)
+			user = userService.load(id);
 
 		repeatPassword = user.getPassword();
 
+	}
+
+	@Override
+	public String update() {
+
+		return super.update();
 	}
 
 }

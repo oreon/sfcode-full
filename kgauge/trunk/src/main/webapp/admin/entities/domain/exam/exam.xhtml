@@ -15,7 +15,15 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 
 template="/WEB-INF/template/templateCrud.xhtml">
 	
-<ui:define name="title"> Add/Update Exam </ui:define> 
+<ui:define name="title"> Exam </ui:define> 
+
+<ui:define name="searchBar">
+		<ui:include src="../../../templateSections/searchBar.xhtml" >
+			 <ui:param name="backingBean" value="#{examCrudBacking}"/>
+		</ui:include>
+</ui:define>
+
+
 <ui:define name="content">
 	<f:view>
 		<h:messages layout="list" globalOnly="true" showDetail="true"

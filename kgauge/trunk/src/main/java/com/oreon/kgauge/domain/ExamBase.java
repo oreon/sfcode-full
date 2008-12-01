@@ -18,8 +18,9 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
-import org.witchcraft.lucene.analyzers.EnglishAnalyzer;
 import org.witchcraft.model.jsf.Image;
 import java.util.Set;
 
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 
 @MappedSuperclass
 @Indexed
-@Analyzer(impl = EnglishAnalyzer.class)
+@Analyzer(impl = org.witchcraft.lucene.analyzers.EnglishAnalyzer.class)
 public abstract class ExamBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
@@ -57,6 +58,10 @@ public abstract class ExamBase
 
 	protected ExamStatus examStatus;
 
+	protected Integer passMarks;
+
+	protected Integer defaultMarksForCorrect = 4;
+
 	/* Default Constructor */
 	public ExamBase() {
 	}
@@ -64,7 +69,8 @@ public abstract class ExamBase
 	/* Constructor with all attributes */
 	public ExamBase(String examNumber, String name, String description,
 			Integer questions, Integer duration, Double price,
-			ScoringType scoringStrategy, ExamStatus examStatus) {
+			ScoringType scoringStrategy, ExamStatus examStatus,
+			Integer passMarks, Integer defaultMarksForCorrect) {
 		this.examNumber = examNumber;
 		this.name = name;
 		this.description = description;
@@ -73,6 +79,8 @@ public abstract class ExamBase
 		this.price = price;
 		this.scoringStrategy = scoringStrategy;
 		this.examStatus = examStatus;
+		this.passMarks = passMarks;
+		this.defaultMarksForCorrect = defaultMarksForCorrect;
 	}
 
 	@Column(nullable = false, unique = false)
@@ -130,6 +138,19 @@ public abstract class ExamBase
 		return this.examStatus;
 	}
 
+	public Integer getPassMarks() {
+		return this.passMarks;
+	}
+
+	@Column(nullable = false, unique = false)
+	/*
+	
+	 */
+	public Integer getDefaultMarksForCorrect() {
+
+		return this.defaultMarksForCorrect;
+	}
+
 	public void setExamNumber(String examNumber) {
 		this.examNumber = examNumber;
 	}
@@ -162,6 +183,14 @@ public abstract class ExamBase
 		this.examStatus = examStatus;
 	}
 
+	public void setPassMarks(Integer passMarks) {
+		this.passMarks = passMarks;
+	}
+
+	public void setDefaultMarksForCorrect(Integer defaultMarksForCorrect) {
+		this.defaultMarksForCorrect = defaultMarksForCorrect;
+	}
+
 	private com.oreon.kgauge.domain.Category category;
 
 	private com.oreon.kgauge.domain.ExamCreator examCreator;
@@ -190,7 +219,8 @@ public abstract class ExamBase
 		this.examCreator = examCreator;
 	}
 
-	public void add(com.oreon.kgauge.domain.Section section) {
+	public void addSection(com.oreon.kgauge.domain.Section section) {
+		checkMaximumSection();
 		section.setExam(examInstance());
 		this.section.add(section);
 	}
@@ -200,6 +230,7 @@ public abstract class ExamBase
 	}
 
 	@OneToMany(mappedBy = "exam", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@IndexedEmbedded
 	@JoinColumn(name = "exam_ID", nullable = false)
 	public java.util.Set<com.oreon.kgauge.domain.Section> getSection() {
 		return this.section;
@@ -224,6 +255,15 @@ public abstract class ExamBase
 		return this.section.size();
 	}
 
+	public void checkMaximumSection() {
+		// if(section.size() > Constants.size())
+		// 		throw new BusinessException ("msg.tooMany." + section );
+	}
+
+	/**
+	 * text=SELECT e FROM Exam e WHERE e.questions > ?1 ORDER  BY e.questions
+	 */
+
 	public java.util.List findPopularExams(Integer minScore) {
 		return null;
 	}
@@ -235,6 +275,9 @@ public abstract class ExamBase
 		return examNumber + "";
 	}
 
+	/** This method is used by hibernate full text search - override to add additional fields
+	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 */
 	@Override
 	public String[] retrieveSearchableFieldsArray() {
 		List<String> listSearchableFields = new ArrayList<String>();
@@ -244,6 +287,8 @@ public abstract class ExamBase
 		listSearchableFields.add("name");
 
 		listSearchableFields.add("description");
+
+		listSearchableFields.add("section.name");
 
 		String[] arrFields = new String[listSearchableFields.size()];
 		return listSearchableFields.toArray(arrFields);

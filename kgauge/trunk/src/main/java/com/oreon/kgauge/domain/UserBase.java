@@ -18,6 +18,8 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import org.witchcraft.model.jsf.Image;
 import java.util.Set;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
 
 @MappedSuperclass
 @Indexed
-//@Analyzer(impl = example.EnglishAnalyzer.class)
+@Analyzer(impl = org.witchcraft.lucene.analyzers.EnglishAnalyzer.class)
 public abstract class UserBase
 		extends
 			org.witchcraft.model.support.security.AbstractUser
@@ -43,7 +45,7 @@ public abstract class UserBase
 	@Field(index = Index.TOKENIZED, store = Store.NO)
 	protected String password;
 
-	protected boolean enabled;
+	protected boolean enabled = true;
 
 	/* Default Constructor */
 	public UserBase() {
@@ -98,6 +100,7 @@ public abstract class UserBase
 	private java.util.Set<com.oreon.kgauge.domain.GrantedRole> grantedRoles = new java.util.HashSet<com.oreon.kgauge.domain.GrantedRole>();
 
 	public void addGrantedRole(com.oreon.kgauge.domain.GrantedRole grantedRoles) {
+		checkMaximumGrantedRoles();
 		grantedRoles.setUser(userInstance());
 		this.grantedRoles.add(grantedRoles);
 	}
@@ -132,6 +135,11 @@ public abstract class UserBase
 		return this.grantedRoles.size();
 	}
 
+	public void checkMaximumGrantedRoles() {
+		// if(grantedRoles.size() > Constants.size())
+		// 		throw new BusinessException ("msg.tooMany." + grantedRoles );
+	}
+
 	public abstract User userInstance();
 
 	@Transient
@@ -144,6 +152,9 @@ public abstract class UserBase
 		return getGrantedRoles();
 	}
 
+	/** This method is used by hibernate full text search - override to add additional fields
+	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 */
 	@Override
 	public String[] retrieveSearchableFieldsArray() {
 		List<String> listSearchableFields = new ArrayList<String>();

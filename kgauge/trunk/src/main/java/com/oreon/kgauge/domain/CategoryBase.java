@@ -18,6 +18,8 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import org.witchcraft.model.jsf.Image;
 import java.util.Set;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
 
 @MappedSuperclass
 @Indexed
-//@Analyzer(impl = example.EnglishAnalyzer.class)
+@Analyzer(impl = org.witchcraft.lucene.analyzers.EnglishAnalyzer.class)
 public abstract class CategoryBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
@@ -78,6 +80,7 @@ public abstract class CategoryBase
 	}
 
 	public void addSubcategorie(com.oreon.kgauge.domain.Category subcategories) {
+		checkMaximumSubcategories();
 		subcategories.setParent(categoryInstance());
 		this.subcategories.add(subcategories);
 	}
@@ -112,6 +115,11 @@ public abstract class CategoryBase
 		return this.subcategories.size();
 	}
 
+	public void checkMaximumSubcategories() {
+		// if(subcategories.size() > Constants.size())
+		// 		throw new BusinessException ("msg.tooMany." + subcategories );
+	}
+
 	public abstract Category categoryInstance();
 
 	@Transient
@@ -119,11 +127,16 @@ public abstract class CategoryBase
 		return name + "";
 	}
 
+	/** This method is used by hibernate full text search - override to add additional fields
+	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 */
 	@Override
 	public String[] retrieveSearchableFieldsArray() {
 		List<String> listSearchableFields = new ArrayList<String>();
 
 		listSearchableFields.add("name");
+
+		listSearchableFields.add("subcategories.name");
 
 		String[] arrFields = new String[listSearchableFields.size()];
 		return listSearchableFields.toArray(arrFields);

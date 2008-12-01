@@ -18,6 +18,8 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import org.witchcraft.model.jsf.Image;
 import java.util.Set;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
 
 @MappedSuperclass
 @Indexed
-//@Analyzer(impl = example.EnglishAnalyzer.class)
+@Analyzer(impl = org.witchcraft.lucene.analyzers.EnglishAnalyzer.class)
 /*This is the result of an exam actually being written by a candidate.*/
 public abstract class ExamInstanceBase
 		extends
@@ -62,8 +64,7 @@ public abstract class ExamInstanceBase
 	 */
 	public Integer getCandidateScore() {
 
-		candidateScore = 0;
-		//sum(answeredQuestion, getQuestion().getScore);
+		candidateScore = 0;;
 
 		return this.candidateScore;
 	}
@@ -104,7 +105,9 @@ public abstract class ExamInstanceBase
 		this.exam = exam;
 	}
 
-	public void add(com.oreon.kgauge.domain.AnsweredQuestion answeredQuestion) {
+	public void addAnsweredQuestion(
+			com.oreon.kgauge.domain.AnsweredQuestion answeredQuestion) {
+		checkMaximumAnsweredQuestion();
 		answeredQuestion.setExamInstance(examInstanceInstance());
 		this.answeredQuestion.add(answeredQuestion);
 	}
@@ -114,6 +117,7 @@ public abstract class ExamInstanceBase
 	}
 
 	@OneToMany(mappedBy = "examInstance", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@IndexedEmbedded
 	@JoinColumn(name = "examInstance_ID", nullable = true)
 	public java.util.Set<com.oreon.kgauge.domain.AnsweredQuestion> getAnsweredQuestion() {
 		return this.answeredQuestion;
@@ -138,6 +142,11 @@ public abstract class ExamInstanceBase
 		return this.answeredQuestion.size();
 	}
 
+	public void checkMaximumAnsweredQuestion() {
+		// if(answeredQuestion.size() > Constants.size())
+		// 		throw new BusinessException ("msg.tooMany." + answeredQuestion );
+	}
+
 	public Integer calculateScore() {
 		return null;
 	}
@@ -149,6 +158,9 @@ public abstract class ExamInstanceBase
 		return maxScore + "";
 	}
 
+	/** This method is used by hibernate full text search - override to add additional fields
+	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 */
 	@Override
 	public String[] retrieveSearchableFieldsArray() {
 		List<String> listSearchableFields = new ArrayList<String>();

@@ -1,5 +1,8 @@
 package facades;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 
 import com.oreon.kgauge.service.CandidateService;
@@ -19,9 +22,17 @@ import com.oreon.kgauge.bizlogic.ExamFactory;
 public class ServiceFacade {
 	private static ServiceFacade instance;
 
+	private static ApplicationContext applicationContext;
+
+	static {
+		applicationContext = new ClassPathXmlApplicationContext(
+				new String[]{/*"classpath:/persistenceContext.xml",*/"classpath:/applicationContext.xml"});
+	}
+
 	public static ServiceFacade getInstance() {
 		if (instance == null)
-			instance = (ServiceFacade) BeanHelper.getBean("serviceFacade");
+			instance = (ServiceFacade) applicationContext
+					.getBean("serviceFacade");
 		return instance;
 	}
 

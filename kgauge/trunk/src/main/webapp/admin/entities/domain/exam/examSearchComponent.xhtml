@@ -105,6 +105,20 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 				<h:message for="exam__examStatus" styleClass="errMessage" />
 			</h:panelGroup>
 			
+			<h:outputText value="#{msg.exam_passMarks}" />
+	
+		<wc:numberRange rangeFieldName="rangePassMarks" label="PassMarks"
+			backingBean="#{examCrudBacking}" type="integer" />
+	
+
+			
+			<h:outputText value="#{msg.exam_defaultMarksForCorrect}" />
+	
+		<wc:numberRange rangeFieldName="rangeDefaultMarksForCorrect" label="DefaultMarksForCorrect"
+			backingBean="#{examCrudBacking}" type="integer" />
+	
+
+			
 		
 		
 			<h:outputText value="#{msg.exam_category}" styleClass="customFormLabel" />
@@ -157,7 +171,7 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 				<h:commandButton id="button1" value="Search"
 					action="#{examCrudBacking.search}" styleClass="btn" />
 				<h:outputText value=" " />
-				<h:commandButton id="button2" value="Cancel" action="#{answerChoiceCrudBacking.clearSearch}"
+				<h:commandButton id="button2" value="Cancel" action="#{examCrudBacking.clearSearch}"
 					immediate="true" styleClass="btn" />
  			</h:panelGroup>
 		</h:panelGrid>

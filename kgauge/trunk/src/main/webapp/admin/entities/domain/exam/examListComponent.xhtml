@@ -27,12 +27,21 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		value="#{examCrudBacking.records}" rows="30"
 	rowClasses="odd, even" styleClass="dataTable" >						
 	
+	
+	
+
 	<rich:column sortBy="#{exam.examNumber}"  filterBy="#{exam.examNumber}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.exam_examNumber}" /> 		
 		</f:facet>
 		<h:outputText value="#{exam.examNumber}" />
 	</rich:column>
+	
+	
+
+
+	
+	
 
 	<rich:column sortBy="#{exam.name}"  filterBy="#{exam.name}" filterEvent="onkeyup" >
 		<f:facet name="header">
@@ -40,6 +49,12 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</f:facet>
 		<h:outputText value="#{exam.name}" />
 	</rich:column>
+	
+	
+
+
+	
+	
 
 	<rich:column sortBy="#{exam.description}"  filterBy="#{exam.description}" filterEvent="onkeyup" >
 		<f:facet name="header">
@@ -47,6 +62,11 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</f:facet>
 		<h:outputText value="#{exam.description}" />
 	</rich:column>
+	
+	
+
+
+	
 
 	<rich:column sortBy="#{exam.questions}"  filterBy="#{exam.questions}" filterEvent="onkeyup" >
 		<f:facet name="header">
@@ -54,6 +74,10 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</f:facet>
 		<h:outputText value="#{exam.questions}" />
 	</rich:column>
+	
+
+
+	
 
 	<rich:column sortBy="#{exam.duration}"  filterBy="#{exam.duration}" filterEvent="onkeyup" >
 		<f:facet name="header">
@@ -61,6 +85,10 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</f:facet>
 		<h:outputText value="#{exam.duration}" />
 	</rich:column>
+	
+
+
+	
 
 	<rich:column sortBy="#{exam.price}"  filterBy="#{exam.price}" filterEvent="onkeyup" >
 		<f:facet name="header">
@@ -68,6 +96,10 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</f:facet>
 		<h:outputText value="#{exam.price}" />
 	</rich:column>
+	
+
+
+	
 
 	<rich:column sortBy="#{exam.scoringStrategy}"  filterBy="#{exam.scoringStrategy}" filterEvent="onkeyup" >
 		<f:facet name="header">
@@ -75,6 +107,10 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</f:facet>
 		<h:outputText value="#{exam.scoringStrategy}" />
 	</rich:column>
+	
+
+
+	
 
 	<rich:column sortBy="#{exam.examStatus}"  filterBy="#{exam.examStatus}" filterEvent="onkeyup" >
 		<f:facet name="header">
@@ -83,14 +119,47 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		<h:outputText value="#{exam.examStatus}" />
 	</rich:column>
 	
+
+
+	
+
+	<rich:column sortBy="#{exam.passMarks}"  filterBy="#{exam.passMarks}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.exam_passMarks}" /> 		
+		</f:facet>
+		<h:outputText value="#{exam.passMarks}" />
+	</rich:column>
+	
+
+
 	
 	
+
+	<rich:column sortBy="#{exam.defaultMarksForCorrect}"  filterBy="#{exam.defaultMarksForCorrect}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.exam_defaultMarksForCorrect}" /> 		
+		</f:facet>
+		<h:outputText value="#{exam.defaultMarksForCorrect}" />
+	</rich:column>
+	
+	
+
+	
+	
+	
+	
+
 	<rich:column sortBy="#{exam.category.displayName}" filterBy="#{exam.category.displayName}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.exam_category}" /> 	
 		</f:facet>
 		<h:outputText value="#{exam.category.displayName}" />
 	</rich:column>
+	
+
+
+	
+	
 
 	<rich:column sortBy="#{exam.examCreator.displayName}" filterBy="#{exam.examCreator.displayName}" filterEvent="onkeyup" >
 		<f:facet name="header">
@@ -98,6 +167,9 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</f:facet>
 		<h:outputText value="#{exam.examCreator.displayName}" />
 	</rich:column>
+	
+	
+
 		
 		<rich:column>
 			<f:facet name="header">
@@ -107,7 +179,7 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 				actionListener="#{examCrudBacking.selectEntity}">
 				<rich:toolTip direction="bottom-left" styleClass="toolTip"
 					value="Click to Edit Row" mode="client" />
-				<h:graphicImage value="/images/icons/application_edit.png"
+				<h:graphicImage value="/images/icons/eye.png"
 					style="border: 0px" />
 				<f:param name="id" value="#{exam.id}" />
 			</h:commandLink>
@@ -155,6 +227,11 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	 
 		 
 	 <rich:tab label="Audit" >
+	 
+	 <rich:datascroller align="left" for="dataAudit" maxPages="20"
+				renderIfSinglePage="false" />
+			<br/>
+	 
 	 	<rich:dataTable id="dataAudit" var="log"
 		value="#{examCrudBacking.auditLog}" rows="30" rowClasses="odd, even" styleClass="dataTable">
 			
@@ -180,12 +257,21 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 			</rich:column>
 			
 	
+	
+	
+
 	<rich:column sortBy="#{log.entity.examNumber}"  filterBy="#{log.entity.examNumber}" filterEvent="onkeyup" >
 		<f:facet name="header">
 				<h:outputText value="#{msg.exam_examNumber}" /> 		
 		</f:facet>
 		<h:outputText value="#{log.entity.examNumber}" />
 	</rich:column>
+	
+	
+
+
+	
+	
 
 	<rich:column sortBy="#{log.entity.name}"  filterBy="#{log.entity.name}" filterEvent="onkeyup" >
 		<f:facet name="header">
@@ -193,6 +279,12 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</f:facet>
 		<h:outputText value="#{log.entity.name}" />
 	</rich:column>
+	
+	
+
+
+	
+	
 
 	<rich:column sortBy="#{log.entity.description}"  filterBy="#{log.entity.description}" filterEvent="onkeyup" >
 		<f:facet name="header">
@@ -200,6 +292,11 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</f:facet>
 		<h:outputText value="#{log.entity.description}" />
 	</rich:column>
+	
+	
+
+
+	
 
 	<rich:column sortBy="#{log.entity.questions}"  filterBy="#{log.entity.questions}" filterEvent="onkeyup" >
 		<f:facet name="header">
@@ -207,6 +304,10 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</f:facet>
 		<h:outputText value="#{log.entity.questions}" />
 	</rich:column>
+	
+
+
+	
 
 	<rich:column sortBy="#{log.entity.duration}"  filterBy="#{log.entity.duration}" filterEvent="onkeyup" >
 		<f:facet name="header">
@@ -214,6 +315,10 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</f:facet>
 		<h:outputText value="#{log.entity.duration}" />
 	</rich:column>
+	
+
+
+	
 
 	<rich:column sortBy="#{log.entity.price}"  filterBy="#{log.entity.price}" filterEvent="onkeyup" >
 		<f:facet name="header">
@@ -221,6 +326,10 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</f:facet>
 		<h:outputText value="#{log.entity.price}" />
 	</rich:column>
+	
+
+
+	
 
 	<rich:column sortBy="#{log.entity.scoringStrategy}"  filterBy="#{log.entity.scoringStrategy}" filterEvent="onkeyup" >
 		<f:facet name="header">
@@ -228,6 +337,10 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</f:facet>
 		<h:outputText value="#{log.entity.scoringStrategy}" />
 	</rich:column>
+	
+
+
+	
 
 	<rich:column sortBy="#{log.entity.examStatus}"  filterBy="#{log.entity.examStatus}" filterEvent="onkeyup" >
 		<f:facet name="header">
@@ -235,6 +348,32 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</f:facet>
 		<h:outputText value="#{log.entity.examStatus}" />
 	</rich:column>
+	
+
+
+	
+
+	<rich:column sortBy="#{log.entity.passMarks}"  filterBy="#{log.entity.passMarks}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.exam_passMarks}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.passMarks}" />
+	</rich:column>
+	
+
+
+	
+	
+
+	<rich:column sortBy="#{log.entity.defaultMarksForCorrect}"  filterBy="#{log.entity.defaultMarksForCorrect}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.exam_defaultMarksForCorrect}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.defaultMarksForCorrect}" />
+	</rich:column>
+	
+	
+
 			</rich:dataTable>
 			 </rich:tab>
 						 
@@ -245,27 +384,27 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	<a4j:form id="commands">
 	<rich:toolBar height="22" width="120" itemSeparator="line">
 		<rich:toolBarGroup>
-			<h:graphicImage id="addnew" value="/images/icons/bricks.png" />
+			<h:graphicImage id="addnew" value="/images/icons/add.png" />
 			<a4j:commandLink action="#{examCrudBacking.select}"
 				actionListener="#{examCrudBacking.selectEntity}"
 				value="Add New" />
 		</rich:toolBarGroup>
 
 		<rich:toolBarGroup>
-			<h:graphicImage id="gotosearch" value="/images/icons/bricks.png" />
+			<h:graphicImage id="gotosearch" value="/images/icons/search_icon.gif" />
 			<a4j:commandLink action="#{examCrudBacking.gotoSearchPage}"
 				value="Search" />
 		</rich:toolBarGroup>
 
 		<rich:toolBarGroup
-			rendered="#{ examCrudBacking.action == 'SEARCH' }">
+			rendered="#{ examCrudBacking.actionSearch }">
 			<h:graphicImage id="clearsearch" value="/images/icons/bricks.png" />
 			<a4j:commandLink action="#{examCrudBacking.clearSearch}"
 				value="Clear Search" />
 		</rich:toolBarGroup>
 		
 		<rich:toolBarGroup
-			rendered="#{ examCrudBacking.action == 'SEARCH' }">
+			rendered="#{ examCrudBacking.actionSearch }">
 			<h:graphicImage id="refineSearch" value="/images/icons/bricks.png" />
 			<a4j:commandLink action="search"
 				value="Refine Search" />

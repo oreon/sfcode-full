@@ -15,6 +15,10 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Propagation;
 
+import org.acegisecurity.Authentication;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.acegisecurity.userdetails.UserDetails;
+
 import org.apache.log4j.Logger;
 
 import org.witchcraft.model.support.dao.GenericDAO;
@@ -83,6 +87,21 @@ public class CandidateServiceImplBase extends BaseServiceImpl<Candidate>
 		candidate.getUser().addGrantedRole(authority);
 	}
 
+	public Candidate getLoggedInCandidate() {
+		Authentication authentication = SecurityContextHolder.getContext()
+				.getAuthentication();
+
+		if (authentication == null) {
+			log.warn("Couldn't find Security Context ");
+			return null;
+		}
+
+		String userName = ((UserDetails) authentication.getPrincipal())
+				.getUsername();
+
+		return findByUsername(userName);
+	}
+
 	public void delete(Candidate candidate) {
 		candidateDao.delete(candidate);
 	}
@@ -112,9 +131,30 @@ public class CandidateServiceImplBase extends BaseServiceImpl<Candidate>
 		return candidateDao.searchByExample(candidate, rangeObjects);
 	}
 
-	/*
-	public List query(String queryString, Object... params) {
-		return basicDAO.query(queryString, params);
-	}*/
+	/** This method should be overridden by classes that want to filter the load all behavior e.g.
+	 * showing 
+	 * @return
+	 */
+	public Candidate getFilterRecord() {
+		return null;
+	}
+
+	/**
+	 * <query name="examsTakenByCandidate" retType="List<ExamInstance>">
+	select e from ExamInstance e where e.candidate.id = ?1
+	</query>
+	 */
+
+	public List findExamInstances(Long candidateId) {
+		return candidateDao.findExamInstances(candidateId);
+	}
+
+	/**
+	 * ${query}=select e from ExamInstance e where e.candidate.id = ?1 and sum(e.answeredQuestion.answerChoice) >= e.exam.passMarks
+	 */
+
+	public Long findNumberOfCertifications() {
+		return candidateDao.findNumberOfCertifications();
+	}
 
 }

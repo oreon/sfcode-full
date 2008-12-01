@@ -48,16 +48,17 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setExamNumber("Mark");
-			exam.setName("Malissa");
-			exam.setDescription("gamma");
-			exam.setQuestions(9259);
-			exam.setDuration(2163);
-			exam.setPrice(67.64);
+			exam.setExamNumber("theta");
+			exam.setName("gamma");
+			exam.setDescription("theta");
+			exam.setQuestions(3401);
+			exam.setDuration(7837);
+			exam.setPrice(83.08);
 			exam
-					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
-			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
-			exam.setPassMarks(7639);
+					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
+			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
+			exam.setPassMarks(9597);
+			exam.setDefaultMarksForCorrect(9458);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -87,16 +88,17 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setExamNumber("beta");
-			exam.setName("theta");
-			exam.setDescription("alpha");
-			exam.setQuestions(8248);
-			exam.setDuration(2997);
-			exam.setPrice(1.52);
+			exam.setExamNumber("Lavendar");
+			exam.setName("delta");
+			exam.setDescription("Mark");
+			exam.setQuestions(6772);
+			exam.setDuration(4105);
+			exam.setPrice(20.08);
 			exam
-					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
+					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
 			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
-			exam.setPassMarks(4504);
+			exam.setPassMarks(2804);
+			exam.setDefaultMarksForCorrect(6811);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -126,16 +128,17 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setExamNumber("epsilon");
-			exam.setName("theta");
-			exam.setDescription("theta");
-			exam.setQuestions(1481);
-			exam.setDuration(1162);
-			exam.setPrice(39.0);
+			exam.setExamNumber("delta");
+			exam.setName("Eric");
+			exam.setDescription("pi");
+			exam.setQuestions(7565);
+			exam.setDuration(8780);
+			exam.setPrice(9.24);
 			exam
 					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
-			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
-			exam.setPassMarks(8571);
+			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
+			exam.setPassMarks(3603);
+			exam.setDefaultMarksForCorrect(1368);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -165,16 +168,17 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setExamNumber("beta");
-			exam.setName("gamma");
-			exam.setDescription("gamma");
-			exam.setQuestions(246);
-			exam.setDuration(156);
-			exam.setPrice(58.85);
+			exam.setExamNumber("Eric");
+			exam.setName("epsilon");
+			exam.setDescription("Mark");
+			exam.setQuestions(5074);
+			exam.setDuration(1867);
+			exam.setPrice(92.17);
 			exam
-					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
-			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
-			exam.setPassMarks(5297);
+					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
+			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
+			exam.setPassMarks(4215);
+			exam.setDefaultMarksForCorrect(9910);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -204,16 +208,17 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 
 		try {
 
-			exam.setExamNumber("delta");
-			exam.setName("John");
-			exam.setDescription("Malissa");
-			exam.setQuestions(8616);
-			exam.setDuration(8714);
-			exam.setPrice(96.81);
+			exam.setExamNumber("alpha");
+			exam.setName("epsilon");
+			exam.setDescription("Lavendar");
+			exam.setQuestions(8256);
+			exam.setDuration(2070);
+			exam.setPrice(9.26);
 			exam
 					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
-			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
-			exam.setPassMarks(6620);
+			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
+			exam.setPassMarks(4338);
+			exam.setDefaultMarksForCorrect(1048);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -320,6 +325,8 @@ public class ExamTestDataFactory extends AbstractTestDataFactory<Exam> {
 		exam.setExamStatus((ExamStatus) RandomValueGeneratorFactory
 				.createInstance("ExamStatus"));
 		exam.setPassMarks((Integer) RandomValueGeneratorFactory
+				.createInstance("Integer"));
+		exam.setDefaultMarksForCorrect((Integer) RandomValueGeneratorFactory
 				.createInstance("Integer"));
 
 		TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
