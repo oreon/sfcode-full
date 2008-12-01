@@ -55,7 +55,12 @@
 			«FOREACH getQueryOperations AS queryOp»
 				«EXPAND CommonUtils::genDocumentation FOR queryOp-»
 				«EXPAND genNamedQueryDec FOR queryOp-»{
-					return executeNamedQuery("«getNamedQuery(queryOp).getName»", new Object[]{«queryOp.createOperationParams()»});
+					
+					«IF queryOp.ReturnType.NameS != "List" »«REM»TODO: change the check to include other types«ENDREM»
+						return executeSingleResultNamedQuery("«getNamedQuery(queryOp).getName»", new Object[]{«queryOp.createOperationParams()»});
+					«ELSE»
+						return executeNamedQuery("«getNamedQuery(queryOp).getName»", new Object[]{«queryOp.createOperationParams()»});
+					«ENDIF»
 				}
 			«ENDFOREACH»
 		} 

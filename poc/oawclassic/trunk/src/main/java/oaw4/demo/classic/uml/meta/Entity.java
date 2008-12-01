@@ -44,6 +44,16 @@ public class Entity extends AbstractEntity {
 	private String treeFields;
 
 	private String namedQueries;
+	
+	private String defaultValue;
+
+	public String getDefaultValue() {
+		return defaultValue;
+	}
+
+	public void setDefaultValue(String defaultValue) {
+		this.defaultValue = defaultValue;
+	}
 
 	private Collection nq = new ArrayList();
 
