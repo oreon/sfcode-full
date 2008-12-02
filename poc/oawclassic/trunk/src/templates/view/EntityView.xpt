@@ -98,9 +98,9 @@
 «IF e.NameS != Class.NameS »
 	<t:column>
 		<f:facet name="header">
-				<t:outputText value="«NameS.toFirstUpper()»" /> 
+				<t:outputText value="«associationName().toFirstUpper()»" /> 
 		</f:facet>
-		<h:outputText value="#{«Opposite.Class.asInstanceVar()».«associationName()»}" />
+		<h:outputText value="#{«Opposite.Class.asInstanceVar()».«associationName()».displayName}" />
 	</t:column>
 «ENDIF»
 «ENDDEFINE»
