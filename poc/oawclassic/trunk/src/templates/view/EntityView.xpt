@@ -42,7 +42,9 @@
 					<t:dataTable id="«ae.associationName()»_data" var="«ae.Class.asInstanceVar()»" rowIndexVar="rowIndex" 
 						value="#{«asInstanceVar()»CrudBacking.list«ae.associationName().toFirstUpper()»s}" rows="10"
 					rowClasses="odd, even" styleClass="dataTable" rules="all">  
-						«EXPAND genTabularViewEntry(ae.Class) FOREACH ae.Class.AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) -»
+						«FOREACH ae.Class.getNonOneToOneOutgoingAssociations() AS aeOut -»
+							«EXPAND genTabularViewEntry(this) FOR aeOut -»
+						«ENDFOREACH»
 						«EXPAND genTabularViewEntry(ae.Class) FOREACH ae.Class.getAllAttributes -»
 					</t:dataTable>
 				</rich:simpleTogglePanel>
@@ -92,14 +94,15 @@
 
 «REM» Create dropdowns in «ENDREM»
 «DEFINE genTabularViewEntry(Class e) FOR AssociationEnd»
-	«IF e.NameS != this.Opposite.Class.NameS »
+
+«IF e.NameS != Class.NameS »
 	<t:column>
 		<f:facet name="header">
 				<t:outputText value="«NameS.toFirstUpper()»" /> 
 		</f:facet>
-		<h:outputText value="#{«e.asInstanceVar()».«associationName()»}" />
+		<h:outputText value="#{«Opposite.Class.asInstanceVar()».«associationName()»}" />
 	</t:column>
-	«ENDIF»
+«ENDIF»
 «ENDDEFINE»
 
 
