@@ -94,6 +94,10 @@ attribute.TypeModifier == null ? attribute.NameS:attribute.TypeModifier + "."  +
 String getContainerGetter(Attribute attribute ):
 attribute.TypeModifier == null || attribute.TypeModifier.length == 0 ? "":"get"+ attribute.TypeModifier.toFirstUpper() + "()." ;
 
+boolean isDerived(Attribute attribute): false;
+
+boolean isDerived(Column attribute): attribute.getDerived != null;
+
 List getCounters(Class cls):
 JAVA oaw4.demo.classic.uml.extend.ClassUtil.getCounters(org.openarchitectureware.meta.uml.classifier.Class);
 

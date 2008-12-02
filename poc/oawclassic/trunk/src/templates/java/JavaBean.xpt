@@ -6,6 +6,7 @@
 
 «EXTENSION java::NamingConventions»
 «EXTENSION java::Associations»
+«EXTENSION java::Utils»
 
 	
 «DEFINE BeanClass FOR Class»
@@ -201,9 +202,11 @@
 	«IF Attribute.size > 0 »
 	/* Constructor with all attributes */
 	public «NameS»Base (
-		«FOREACH Attribute AS a ITERATOR iter -» «a.Type.NameS» «a.NameS» «iter.counter1 < Attribute.size?",":""» «ENDFOREACH-» ){
+		«FOREACH Attribute AS a ITERATOR iter -» «IF ! a.isDerived()»   «iter.counter1 > 1?",":""»«a.Type.NameS» «a.NameS»  «ENDIF» «ENDFOREACH-» ){
 		«FOREACH Attribute AS a-» 
+			«IF ! a.isDerived()»
 			this.«a.NameS» = «a.NameS»;  
+			«ENDIF»
 		«ENDFOREACH-»
 	}
 	«ENDIF»
