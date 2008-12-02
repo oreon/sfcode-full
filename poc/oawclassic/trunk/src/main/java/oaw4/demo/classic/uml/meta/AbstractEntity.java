@@ -86,7 +86,16 @@ public abstract class AbstractEntity extends
 	 * @return
 	 */
 	public ElementSet getAllAttributes() {
+		return getAllAttributesFor(getAllContianedAssociations());
+	}
+	
+	public ElementSet getAllAttributesWithOutgoingAssocs(){
+		
+		return getAllAttributesFor(getAllOutgoingAssociations());
+	} 	
+	
 
+	private ElementSet getAllAttributesFor(ElementSet includedAssociations) {
 		ElementSet attributes = getAttributesForThisClassAndSuperClasses();
 
 		// clear existing type modifiers
@@ -95,7 +104,7 @@ public abstract class AbstractEntity extends
 			attribute.setTypeModifier(null);
 		}
 
-		ElementSet embeddables = getAllContianedAssociations();
+		ElementSet embeddables = includedAssociations;
 
 		for (Object object : embeddables) {
 			AssociationEnd ae = (AssociationEnd) object;
