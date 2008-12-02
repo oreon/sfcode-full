@@ -70,6 +70,28 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	</a4j:region>
 	</h:panelGroup>
 
+			<h:outputText value="#{msg.answeredQuestion_answerChoice}" styleClass="customFormLabel" />
+			
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="false" disabled="false"
+		id="answeredQuestion_answerChoice" converter="keyToObjectConverter"
+		value="#{answeredQuestionCrudBacking.answeredQuestion.answerChoice}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{answerChoiceCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="answeredQuestion_answerChoice" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+
 		
 		
 			<h:panelGroup>

@@ -30,17 +30,18 @@ public class ExamInstance extends ExamInstanceBase implements
 			Set<AnswerChoice> answerChoices = answeredQuestion.getQuestion()
 					.getAnswerChoice();
 			int maxScore = 0;
-			
+
 			for (AnswerChoice answerChoice : answerChoices) {
-				int answerChoiceScore = answerChoice.getScore() == null?0:answerChoice.getScore();
+				int answerChoiceScore = answerChoice.getScore() == null ? 0
+						: answerChoice.getScore();
 				if (answerChoiceScore > maxScore) {
 					maxScore = answerChoice.getScore();
 				}
 			}
-			
-			if(maxScore == 0)
+
+			if (maxScore == 0)
 				maxScore = getExam().getDefaultMarksForCorrect();
-			
+
 			score += maxScore;
 		}
 		return score;
@@ -56,16 +57,18 @@ public class ExamInstance extends ExamInstanceBase implements
 		int score = 0;
 		Set<AnsweredQuestion> answeredQuestions = getAnsweredQuestion();
 		for (AnsweredQuestion answeredQuestion : answeredQuestions) {
-			Set<AnswerChoice> answerChoices = answeredQuestion
-					.getAnswerChoice();
-			for (AnswerChoice answerChoice : answerChoices) {
-				int answerChoiceScore = answerChoice.getScore() == null?0:answerChoice.getScore();
-				
-				if(answerChoiceScore == 0 && answerChoice.isCorrectChoice())
-					answerChoiceScore = getExam().getDefaultMarksForCorrect();
-				
-				score += answerChoiceScore;
-			}
+			 AnswerChoice answerChoice = answeredQuestion.getAnswerChoice();
+			 
+			 if(answerChoice == null) continue;
+			 
+			int answerChoiceScore = answerChoice.getScore() == null ? 0
+					: answerChoice.getScore();
+
+			if (answerChoiceScore == 0 && answerChoice.isCorrectChoice())
+				answerChoiceScore = getExam().getDefaultMarksForCorrect();
+
+			score += answerChoiceScore;
+
 		}
 		return score;
 	}

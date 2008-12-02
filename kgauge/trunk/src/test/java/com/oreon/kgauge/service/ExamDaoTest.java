@@ -50,18 +50,18 @@ public class ExamDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			examInstance.setExamNumber("Mark");
-			examInstance.setName("pi");
-			examInstance.setDescription("theta");
-			examInstance.setQuestions(2178);
-			examInstance.setDuration(6253);
-			examInstance.setPrice(99.34);
+			examInstance.setExamNumber("Wilson");
+			examInstance.setName("alpha");
+			examInstance.setDescription("zeta");
+			examInstance.setQuestions(7191);
+			examInstance.setDuration(7082);
+			examInstance.setPrice(99.27);
 			examInstance
-					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
+					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
 			examInstance
 					.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
-			examInstance.setPassMarks(6797);
-			examInstance.setDefaultMarksForCorrect(7775);
+			examInstance.setPassMarks(9668);
+			examInstance.setDefaultMarksForCorrect(9101);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -99,18 +99,17 @@ public class ExamDaoTest extends AbstractJpaTests {
 
 			try {
 
-				exam.setExamNumber("gamma");
-				exam.setName("delta");
-				exam.setDescription("gamma");
-				exam.setQuestions(2981);
-				exam.setDuration(4852);
-				exam.setPrice(51.49);
+				exam.setExamNumber("Wilson");
+				exam.setName("Wilson");
+				exam.setDescription("Mark");
+				exam.setQuestions(788);
+				exam.setDuration(5618);
+				exam.setPrice(21.75);
 				exam
 						.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
-				exam
-						.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
-				exam.setPassMarks(689);
-				exam.setDefaultMarksForCorrect(379);
+				exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
+				exam.setPassMarks(9269);
+				exam.setDefaultMarksForCorrect(8825);
 
 				TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("categoryTestDataFactory");
@@ -143,17 +142,17 @@ public class ExamDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Exam exam = (Exam) examTestDataFactory.loadOneRecord();
 
-			exam.setExamNumber("alpha");
-			exam.setName("beta");
-			exam.setDescription("gamma");
-			exam.setQuestions(5453);
-			exam.setDuration(7776);
-			exam.setPrice(45.85);
+			exam.setExamNumber("Malissa");
+			exam.setName("gamma");
+			exam.setDescription("alpha");
+			exam.setQuestions(1734);
+			exam.setDuration(1055);
+			exam.setPrice(97.85);
 			exam
-					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
-			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
-			exam.setPassMarks(8010);
-			exam.setDefaultMarksForCorrect(9522);
+					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
+			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
+			exam.setPassMarks(8438);
+			exam.setDefaultMarksForCorrect(1472);
 
 			examService.save(exam);
 

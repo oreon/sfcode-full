@@ -50,8 +50,8 @@ public class ExamInstanceTestDataFactory
 
 		try {
 
-			examInstance.setMaxScore(3391);
-			examInstance.setCandidateScore(2584);
+			examInstance.setMaxScore(764);
+			examInstance.setCandidateScore(8152);
 
 			TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("candidateTestDataFactory");
@@ -81,8 +81,8 @@ public class ExamInstanceTestDataFactory
 
 		try {
 
-			examInstance.setMaxScore(7968);
-			examInstance.setCandidateScore(2640);
+			examInstance.setMaxScore(5569);
+			examInstance.setCandidateScore(1297);
 
 			TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("candidateTestDataFactory");
@@ -112,8 +112,8 @@ public class ExamInstanceTestDataFactory
 
 		try {
 
-			examInstance.setMaxScore(4568);
-			examInstance.setCandidateScore(9848);
+			examInstance.setMaxScore(9355);
+			examInstance.setCandidateScore(8292);
 
 			TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("candidateTestDataFactory");
@@ -143,8 +143,8 @@ public class ExamInstanceTestDataFactory
 
 		try {
 
-			examInstance.setMaxScore(4101);
-			examInstance.setCandidateScore(3244);
+			examInstance.setMaxScore(5511);
+			examInstance.setCandidateScore(985);
 
 			TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("candidateTestDataFactory");
@@ -174,8 +174,8 @@ public class ExamInstanceTestDataFactory
 
 		try {
 
-			examInstance.setMaxScore(2658);
-			examInstance.setCandidateScore(1257);
+			examInstance.setMaxScore(8234);
+			examInstance.setCandidateScore(3404);
 
 			TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("candidateTestDataFactory");
