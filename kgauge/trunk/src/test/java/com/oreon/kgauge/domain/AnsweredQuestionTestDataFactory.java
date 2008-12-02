@@ -65,6 +65,13 @@ public class AnsweredQuestionTestDataFactory
 					.setExamInstance((com.oreon.kgauge.domain.ExamInstance) examInstanceTestDataFactory
 							.loadOneRecord());
 
+			TestDataFactory answerChoiceTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("answerChoiceTestDataFactory");
+
+			answeredQuestion
+					.setAnswerChoice((com.oreon.kgauge.domain.AnswerChoice) answerChoiceTestDataFactory
+							.loadOneRecord());
+
 			register(answeredQuestion);
 
 		} catch (Exception ex) {
@@ -91,6 +98,13 @@ public class AnsweredQuestionTestDataFactory
 
 			answeredQuestion
 					.setExamInstance((com.oreon.kgauge.domain.ExamInstance) examInstanceTestDataFactory
+							.loadOneRecord());
+
+			TestDataFactory answerChoiceTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("answerChoiceTestDataFactory");
+
+			answeredQuestion
+					.setAnswerChoice((com.oreon.kgauge.domain.AnswerChoice) answerChoiceTestDataFactory
 							.loadOneRecord());
 
 			register(answeredQuestion);
@@ -121,6 +135,13 @@ public class AnsweredQuestionTestDataFactory
 					.setExamInstance((com.oreon.kgauge.domain.ExamInstance) examInstanceTestDataFactory
 							.loadOneRecord());
 
+			TestDataFactory answerChoiceTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("answerChoiceTestDataFactory");
+
+			answeredQuestion
+					.setAnswerChoice((com.oreon.kgauge.domain.AnswerChoice) answerChoiceTestDataFactory
+							.loadOneRecord());
+
 			register(answeredQuestion);
 
 		} catch (Exception ex) {
@@ -149,6 +170,13 @@ public class AnsweredQuestionTestDataFactory
 					.setExamInstance((com.oreon.kgauge.domain.ExamInstance) examInstanceTestDataFactory
 							.loadOneRecord());
 
+			TestDataFactory answerChoiceTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("answerChoiceTestDataFactory");
+
+			answeredQuestion
+					.setAnswerChoice((com.oreon.kgauge.domain.AnswerChoice) answerChoiceTestDataFactory
+							.loadOneRecord());
+
 			register(answeredQuestion);
 
 		} catch (Exception ex) {
@@ -175,6 +203,13 @@ public class AnsweredQuestionTestDataFactory
 
 			answeredQuestion
 					.setExamInstance((com.oreon.kgauge.domain.ExamInstance) examInstanceTestDataFactory
+							.loadOneRecord());
+
+			TestDataFactory answerChoiceTestDataFactory = (TestDataFactory) BeanHelper
+					.getBean("answerChoiceTestDataFactory");
+
+			answeredQuestion
+					.setAnswerChoice((com.oreon.kgauge.domain.AnswerChoice) answerChoiceTestDataFactory
 							.loadOneRecord());
 
 			register(answeredQuestion);
@@ -266,6 +301,13 @@ public class AnsweredQuestionTestDataFactory
 
 		answeredQuestion
 				.setExamInstance((com.oreon.kgauge.domain.ExamInstance) examInstanceTestDataFactory
+						.loadOneRecord());
+
+		TestDataFactory answerChoiceTestDataFactory = (TestDataFactory) BeanHelper
+				.getBean("answerChoiceTestDataFactory");
+
+		answeredQuestion
+				.setAnswerChoice((com.oreon.kgauge.domain.AnswerChoice) answerChoiceTestDataFactory
 						.loadOneRecord());
 
 		return answeredQuestion;

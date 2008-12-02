@@ -91,14 +91,8 @@ public class ExamInstanceBackingBean extends ExamInstanceBackingBeanBase {
 		this.currentQuestionIndex = currentQuestionIndex;
 	}
 	
-	public AnswerChoice getAnswerChoice(){
-		Set<AnswerChoice> answerChoices = getCurrentQuestion().getAnswerChoice();
-		if(answerChoices.isEmpty())
-			return null;
-		else 
-			return answerChoices.iterator().next();
-	}
 	
+	/*
 	public void setAnswerChoice(AnswerChoice answerChoice){
 		Set<AnswerChoice> answerChoices = getCurrentQuestion().getAnswerChoice();
 		if(answerChoices.isEmpty()){
@@ -110,7 +104,7 @@ public class ExamInstanceBackingBean extends ExamInstanceBackingBeanBase {
 		}
 		AnsweredQuestionBackingBeanBase answeredQuestionBacking = getBean("answeredQuestionCrudBacking");
 		answeredQuestionBacking.getAnsweredQuestionService().save(getCurrentQuestion());
-	}
+	}*/
 	
 	public String showResult(){
 		getExamInstanceService().save(examInstance);

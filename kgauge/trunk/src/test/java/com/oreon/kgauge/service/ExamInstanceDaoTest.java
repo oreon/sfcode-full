@@ -50,8 +50,8 @@ public class ExamInstanceDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			examInstanceInstance.setMaxScore(7034);
-			examInstanceInstance.setCandidateScore(4632);
+			examInstanceInstance.setMaxScore(4040);
+			examInstanceInstance.setCandidateScore(7903);
 
 			TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("candidateTestDataFactory");
@@ -89,8 +89,8 @@ public class ExamInstanceDaoTest extends AbstractJpaTests {
 
 			try {
 
-				examInstance.setMaxScore(1930);
-				examInstance.setCandidateScore(4354);
+				examInstance.setMaxScore(5226);
+				examInstance.setCandidateScore(1654);
 
 				TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("candidateTestDataFactory");
@@ -124,8 +124,8 @@ public class ExamInstanceDaoTest extends AbstractJpaTests {
 			ExamInstance examInstance = (ExamInstance) examInstanceTestDataFactory
 					.loadOneRecord();
 
-			examInstance.setMaxScore(8633);
-			examInstance.setCandidateScore(2572);
+			examInstance.setMaxScore(2478);
+			examInstance.setCandidateScore(8693);
 
 			examInstanceService.save(examInstance);
 

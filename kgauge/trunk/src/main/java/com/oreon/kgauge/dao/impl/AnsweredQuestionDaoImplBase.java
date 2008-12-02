@@ -47,6 +47,11 @@ public class AnsweredQuestionDaoImplBase extends BaseDao<AnsweredQuestion>
 					exampleInstance.getExamInstance().getId()));
 		}
 
+		if (exampleInstance.getAnswerChoice() != null) {
+			criteria = criteria.add(Restrictions.eq("answerChoice.id",
+					exampleInstance.getAnswerChoice().getId()));
+		}
+
 	}
 
 }
