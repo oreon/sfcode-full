@@ -1,6 +1,8 @@
 «IMPORT org::openarchitectureware::meta::uml::classifier»
-«EXTENSION java::NamingConventions»
 «IMPORT oaw4::demo::classic::uml::meta»
+
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Utils»
 
 «DEFINE GenDeclarationGetterSetter FOR Attribute»
 	«EXPAND PropertyDeclaration FOR this»
@@ -46,10 +48,13 @@
 	*/
 	public «Type.NameS» «getGetter(Type)»«NameS.toFirstUpper()» () {
 		«IF getDerived != null»
-			«NameS» = 0;
+			«NameS» = «Type.NameS.getDefaultInitValueForType()»;
 			«getDerived»
+			«REM»comment
+			return «getDerived.isStringEmtpy() ?" new " + Type.NameS +"()": getDerived»;«ENDREM»
 		«ENDIF»
-		return this.«NameS»;
+			return this.«NameS»;
+		
 	} 
 «ENDDEFINE»
 
