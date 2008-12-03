@@ -53,9 +53,13 @@ public abstract class UserBase
 
 	/* Constructor with all attributes */
 	public UserBase(String username, String password, boolean enabled) {
+
 		this.username = username;
+
 		this.password = password;
+
 		this.enabled = enabled;
+
 	}
 
 	@Column(nullable = false, unique = true)
@@ -65,6 +69,7 @@ public abstract class UserBase
 	public String getUsername() {
 
 		return this.username;
+
 	}
 
 	@Column(nullable = false, unique = false)
@@ -74,6 +79,7 @@ public abstract class UserBase
 	public String getPassword() {
 
 		return this.password;
+
 	}
 
 	@Column(nullable = false, unique = false)
@@ -83,6 +89,7 @@ public abstract class UserBase
 	public boolean isEnabled() {
 
 		return this.enabled;
+
 	}
 
 	public void setUsername(String username) {

@@ -57,10 +57,30 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 					<t:dataTable id="answeredQuestion_data" var="answeredQuestion" rowIndexVar="rowIndex" 
 						value="#{examInstanceCrudBacking.listAnsweredQuestions}" rows="10"
 					rowClasses="odd, even" styleClass="dataTable" rules="all">  
-						
-	
+							
 
-	
+
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="Question" /> 
+		</f:facet>
+		<h:outputText value="#{answeredQuestion.question.displayName}" />
+	</t:column>
+
+							
+
+
+							
+
+
+	<t:column>
+		<f:facet name="header">
+				<t:outputText value="AnswerChoice" /> 
+		</f:facet>
+		<h:outputText value="#{answeredQuestion.answerChoice.displayName}" />
+	</t:column>
+
+						
 					</t:dataTable>
 				</rich:simpleTogglePanel>
 				<br/>

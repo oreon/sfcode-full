@@ -44,14 +44,19 @@ public abstract class QuestionBase
 
 	protected DifficultyLevel difficultyLevel;
 
+	protected AnswerChoice correctChoice;
+
 	/* Default Constructor */
 	public QuestionBase() {
 	}
 
 	/* Constructor with all attributes */
 	public QuestionBase(String questionText, DifficultyLevel difficultyLevel) {
+
 		this.questionText = questionText;
+
 		this.difficultyLevel = difficultyLevel;
+
 	}
 
 	@Column(nullable = false, unique = false)
@@ -61,10 +66,23 @@ public abstract class QuestionBase
 	public String getQuestionText() {
 
 		return this.questionText;
+
 	}
 
 	public DifficultyLevel getDifficultyLevel() {
 		return this.difficultyLevel;
+	}
+
+	@Transient
+	/*
+	//select(answerChoice, correctChoice = true );
+	 */
+	public AnswerChoice getCorrectChoice() {
+
+		correctChoice = new AnswerChoice();;
+
+		return this.correctChoice;
+
 	}
 
 	public void setQuestionText(String questionText) {
@@ -73,6 +91,10 @@ public abstract class QuestionBase
 
 	public void setDifficultyLevel(DifficultyLevel difficultyLevel) {
 		this.difficultyLevel = difficultyLevel;
+	}
+
+	public void setCorrectChoice(AnswerChoice correctChoice) {
+		this.correctChoice = correctChoice;
 	}
 
 	private java.util.Set<com.oreon.kgauge.domain.AnswerChoice> answerChoice = new java.util.HashSet<com.oreon.kgauge.domain.AnswerChoice>();

@@ -26,6 +26,7 @@ template="/WEB-INF/template/default.xhtml">
 				Welcome, #{candidateCrudBacking.loggedinCandidate.firstName} 
 				<br />
 			<br />
+			<a4j:form>
 			<table class="viewInfo" rules="rows" border="1" width="70%">
 				<thead>
 					<th align="left" colspan="2">Profile Stats</th>
@@ -37,8 +38,11 @@ template="/WEB-INF/template/default.xhtml">
 						<td>234</td>
 					</tr>
 					<tr>
-						<td class="leftCol">Exams taken</td>
-						<td>7</td>
+						<td class="leftCol">Exams taken </td>
+						<td>  <h:commandLink action="myExams">
+							 #{candidateCrudBacking.loggedinCandidate.examInstanceCount} 
+							 </h:commandLink>
+					</td>
 					</tr>
 					<tr>
 						<td class="leftCol">Certifications</td>
@@ -46,6 +50,7 @@ template="/WEB-INF/template/default.xhtml">
 					</tr>
 				</tbody>
 			</table>
+			</a4j:form>
 			<!--PROTECTED REGION END-->	
 		
 		</f:view>

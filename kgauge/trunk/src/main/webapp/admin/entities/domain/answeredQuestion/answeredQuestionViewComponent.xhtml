@@ -39,6 +39,13 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 							<f:param name="id" value="#{answeredQuestionCrudBacking.answeredQuestion.examInstance.id}" />
 							</c:if>
 						</h:commandLink> 
+						<h:outputText value="#{msg.answeredQuestion_answerChoice}" />
+						<h:commandLink value="#{answeredQuestionCrudBacking.answeredQuestion.answerChoice.displayName}" 
+							actionListener="#{answerChoiceCrudBacking.selectEntity}" action="viewAnswerChoice"  >
+							<c:if test="${answeredQuestionCrudBacking.answeredQuestion.answerChoice != null}">
+							<f:param name="id" value="#{answeredQuestionCrudBacking.answeredQuestion.answerChoice.id}" />
+							</c:if>
+						</h:commandLink> 
 					
 					
 			</h:panelGrid>

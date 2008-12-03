@@ -9,6 +9,7 @@ import org.witchcraft.model.data.location.State;
 import org.witchcraft.model.jsf.BaseBackingBean;
 
 import com.oreon.kgauge.domain.Candidate;
+import com.oreon.kgauge.domain.ExamInstance;
 import com.oreon.kgauge.service.EmailService;
 
 public class CandidateBackingBean extends CandidateBackingBeanBase {
@@ -20,10 +21,10 @@ public class CandidateBackingBean extends CandidateBackingBeanBase {
 	
 	private EmailService emailService;
 	
-	
 	public void setEmailService(EmailService emailService) {
 		this.emailService = emailService;
 	}
+	
 
 	public String emailPassword() {
 		String email = getCandidate().getContactDetails().getEmail();

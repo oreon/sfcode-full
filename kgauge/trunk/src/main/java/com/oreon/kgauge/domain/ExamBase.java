@@ -71,16 +71,27 @@ public abstract class ExamBase
 			Integer questions, Integer duration, Double price,
 			ScoringType scoringStrategy, ExamStatus examStatus,
 			Integer passMarks, Integer defaultMarksForCorrect) {
+
 		this.examNumber = examNumber;
+
 		this.name = name;
+
 		this.description = description;
+
 		this.questions = questions;
+
 		this.duration = duration;
+
 		this.price = price;
+
 		this.scoringStrategy = scoringStrategy;
+
 		this.examStatus = examStatus;
+
 		this.passMarks = passMarks;
+
 		this.defaultMarksForCorrect = defaultMarksForCorrect;
+
 	}
 
 	@Column(nullable = false, unique = false)
@@ -90,6 +101,7 @@ public abstract class ExamBase
 	public String getExamNumber() {
 
 		return this.examNumber;
+
 	}
 
 	@Column(nullable = false, unique = false)
@@ -99,6 +111,7 @@ public abstract class ExamBase
 	public String getName() {
 
 		return this.name;
+
 	}
 
 	@Column(nullable = false, unique = false)
@@ -108,6 +121,7 @@ public abstract class ExamBase
 	public String getDescription() {
 
 		return this.description;
+
 	}
 
 	/*
@@ -149,6 +163,7 @@ public abstract class ExamBase
 	public Integer getDefaultMarksForCorrect() {
 
 		return this.defaultMarksForCorrect;
+
 	}
 
 	public void setExamNumber(String examNumber) {

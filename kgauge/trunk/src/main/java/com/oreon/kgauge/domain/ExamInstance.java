@@ -27,6 +27,7 @@ public class ExamInstance extends ExamInstanceBase implements
 		int score = 0;
 		Set<AnsweredQuestion> answeredQuestions = getAnsweredQuestion();
 		for (AnsweredQuestion answeredQuestion : answeredQuestions) {
+			/*
 			Set<AnswerChoice> answerChoices = answeredQuestion.getQuestion()
 					.getAnswerChoice();
 			int maxScore = 0;
@@ -37,7 +38,7 @@ public class ExamInstance extends ExamInstanceBase implements
 				if (answerChoiceScore > maxScore) {
 					maxScore = answerChoice.getScore();
 				}
-			}
+			}*/
 
 			if (maxScore == 0)
 				maxScore = getExam().getDefaultMarksForCorrect();

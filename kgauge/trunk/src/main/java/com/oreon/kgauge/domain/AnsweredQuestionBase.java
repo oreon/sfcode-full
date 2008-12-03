@@ -87,6 +87,11 @@ public abstract class AnsweredQuestionBase
 
 	public abstract AnsweredQuestion answeredQuestionInstance();
 
+	@Transient
+	public String getDisplayName() {
+		return answerChoice.getDisplayName() + "";
+	}
+
 	/** This method is used by hibernate full text search - override to add additional fields
 	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
 	 */

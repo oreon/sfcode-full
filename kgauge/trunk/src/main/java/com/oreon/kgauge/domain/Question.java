@@ -27,5 +27,16 @@ public class Question extends QuestionBase implements java.io.Serializable {
 	public Question questionInstance() {
 		return this;
 	}
+	
+	@Override
+	public AnswerChoice getCorrectChoice() {
+		for (AnswerChoice choice : getAnswerChoice()) {
+			if(choice.isCorrectChoice())
+				return choice;
+		}
+		
+		log.warn("This question has no correct choice");
+		return null;
+	}
 
 }

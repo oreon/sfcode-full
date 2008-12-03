@@ -48,7 +48,9 @@ public abstract class GrantedRoleBase
 
 	/* Constructor with all attributes */
 	public GrantedRoleBase(String name) {
+
 		this.name = name;
+
 	}
 
 	@Column(nullable = false, unique = false)
@@ -58,6 +60,7 @@ public abstract class GrantedRoleBase
 	public String getName() {
 
 		return this.name;
+
 	}
 
 	public void setName(String name) {

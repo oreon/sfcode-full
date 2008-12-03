@@ -49,9 +49,10 @@ public abstract class ExamInstanceBase
 	}
 
 	/* Constructor with all attributes */
-	public ExamInstanceBase(Integer maxScore, Integer candidateScore) {
+	public ExamInstanceBase(Integer maxScore) {
+
 		this.maxScore = maxScore;
-		this.candidateScore = candidateScore;
+
 	}
 
 	public Integer getMaxScore() {
@@ -67,6 +68,7 @@ public abstract class ExamInstanceBase
 		candidateScore = 0;;
 
 		return this.candidateScore;
+
 	}
 
 	public void setMaxScore(Integer maxScore) {
@@ -155,7 +157,7 @@ public abstract class ExamInstanceBase
 
 	@Transient
 	public String getDisplayName() {
-		return maxScore + "";
+		return exam.getDisplayName() + " " + dateCreated + "";
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
