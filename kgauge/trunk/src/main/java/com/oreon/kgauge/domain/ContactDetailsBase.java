@@ -62,13 +62,21 @@ public abstract class ContactDetailsBase implements java.io.Serializable {
 	/* Constructor with all attributes */
 	public ContactDetailsBase(String streetAddress, String city, String state,
 			String country, String zip, String phone, String email) {
+
 		this.streetAddress = streetAddress;
+
 		this.city = city;
+
 		this.state = state;
+
 		this.country = country;
+
 		this.zip = zip;
+
 		this.phone = phone;
+
 		this.email = email;
+
 	}
 
 	public String getStreetAddress() {
@@ -86,6 +94,7 @@ public abstract class ContactDetailsBase implements java.io.Serializable {
 	public String getState() {
 
 		return this.state;
+
 	}
 
 	@Column(nullable = false, unique = false)
@@ -95,6 +104,7 @@ public abstract class ContactDetailsBase implements java.io.Serializable {
 	public String getCountry() {
 
 		return this.country;
+
 	}
 
 	public String getZip() {
@@ -112,6 +122,7 @@ public abstract class ContactDetailsBase implements java.io.Serializable {
 	public String getEmail() {
 
 		return this.email;
+
 	}
 
 	public void setStreetAddress(String streetAddress) {

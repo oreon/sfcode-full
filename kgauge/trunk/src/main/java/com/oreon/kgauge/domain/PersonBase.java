@@ -52,9 +52,13 @@ public abstract class PersonBase
 
 	/* Constructor with all attributes */
 	public PersonBase(String firstName, String lastName, Date dateOfBirth) {
+
 		this.firstName = firstName;
+
 		this.lastName = lastName;
+
 		this.dateOfBirth = dateOfBirth;
+
 	}
 
 	@Column(nullable = false, unique = false)
@@ -64,6 +68,7 @@ public abstract class PersonBase
 	public String getFirstName() {
 
 		return this.firstName;
+
 	}
 
 	@Column(nullable = false, unique = false)
@@ -73,6 +78,7 @@ public abstract class PersonBase
 	public String getLastName() {
 
 		return this.lastName;
+
 	}
 
 	@Column(nullable = false, unique = false)
@@ -82,6 +88,7 @@ public abstract class PersonBase
 	public Date getDateOfBirth() {
 
 		return this.dateOfBirth;
+
 	}
 
 	public void setFirstName(String firstName) {

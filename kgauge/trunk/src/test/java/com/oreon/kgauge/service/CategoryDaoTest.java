@@ -50,7 +50,7 @@ public class CategoryDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			categoryInstance.setName("Mark");
+			categoryInstance.setName("delta");
 
 			TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -77,7 +77,7 @@ public class CategoryDaoTest extends AbstractJpaTests {
 
 			try {
 
-				category.setName("Mark");
+				category.setName("delta");
 
 				TestDataFactory parentTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("categoryTestDataFactory");
@@ -100,7 +100,7 @@ public class CategoryDaoTest extends AbstractJpaTests {
 			Category category = (Category) categoryTestDataFactory
 					.loadOneRecord();
 
-			category.setName("Malissa");
+			category.setName("Eric");
 
 			categoryService.save(category);
 

@@ -53,9 +53,13 @@ public abstract class AnswerChoiceBase
 	/* Constructor with all attributes */
 	public AnswerChoiceBase(String answerText, Integer score,
 			boolean correctChoice) {
+
 		this.answerText = answerText;
+
 		this.score = score;
+
 		this.correctChoice = correctChoice;
+
 	}
 
 	@Column(nullable = false, unique = false)
@@ -65,6 +69,7 @@ public abstract class AnswerChoiceBase
 	public String getAnswerText() {
 
 		return this.answerText;
+
 	}
 
 	public Integer getScore() {

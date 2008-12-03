@@ -48,7 +48,9 @@ public abstract class SectionBase
 
 	/* Constructor with all attributes */
 	public SectionBase(String name) {
+
 		this.name = name;
+
 	}
 
 	public String getName() {

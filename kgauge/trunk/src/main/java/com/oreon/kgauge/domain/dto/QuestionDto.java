@@ -16,6 +16,8 @@ public class QuestionDto {
 
 	private DifficultyLevel difficultyLevel;
 
+	private AnswerChoice correctChoice;
+
 	private java.util.Set<AnswerChoiceDto> answerChoice = new java.util.HashSet<AnswerChoiceDto>();
 
 	private SectionDto section;
@@ -34,6 +36,14 @@ public class QuestionDto {
 
 	public void setDifficultyLevel(DifficultyLevel difficultyLevel) {
 		this.difficultyLevel = difficultyLevel;
+	}
+
+	public AnswerChoice getCorrectChoice() {
+		return correctChoice;
+	}
+
+	public void setCorrectChoice(AnswerChoice correctChoice) {
+		this.correctChoice = correctChoice;
 	}
 
 	public SectionDto getSection() {

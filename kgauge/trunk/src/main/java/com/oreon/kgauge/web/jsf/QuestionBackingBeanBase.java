@@ -45,6 +45,17 @@ public class QuestionBackingBeanBase extends BaseBackingBean<Question> {
 		this.rangeCreationDate = rangeCreationDate;
 	}
 
+	private Range<AnswerChoice> rangeCorrectChoice = new Range<AnswerChoice>(
+			"correctChoice");
+
+	public Range<AnswerChoice> getRangeCorrectChoice() {
+		return rangeCorrectChoice;
+	}
+
+	public void setRangeCorrectChoice(Range<AnswerChoice> rangeCorrectChoice) {
+		this.rangeCorrectChoice = rangeCorrectChoice;
+	}
+
 	public Question getQuestion() {
 		return question;
 	}
@@ -90,6 +101,8 @@ public class QuestionBackingBeanBase extends BaseBackingBean<Question> {
 	protected List<Range> getRangeList() {
 
 		List<Range> listRanges = super.getRangeList();
+
+		listRanges.add(rangeCorrectChoice);
 
 		listRanges.add(rangeCreationDate);
 		return listRanges;

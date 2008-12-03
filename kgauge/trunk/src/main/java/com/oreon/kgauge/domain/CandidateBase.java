@@ -9,6 +9,8 @@ package com.oreon.kgauge.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+
+import org.apache.commons.collections.ListUtils;
 import org.hibernate.annotations.Cascade;
 
 import javax.xml.bind.annotation.XmlTransient;
@@ -41,6 +43,8 @@ public abstract class CandidateBase extends Person
 	public CandidateBase() {
 	}
 
+	private java.util.Set<com.oreon.kgauge.domain.ExamInstance> examInstance = new java.util.HashSet<com.oreon.kgauge.domain.ExamInstance>();
+
 	private com.oreon.kgauge.domain.User user = new com.oreon.kgauge.domain.User();
 
 	@OneToOne(cascade = CascadeType.ALL)
@@ -52,6 +56,57 @@ public abstract class CandidateBase extends Person
 
 	public void setUser(com.oreon.kgauge.domain.User user) {
 		this.user = user;
+	}
+
+	public void addExamInstance(
+			com.oreon.kgauge.domain.ExamInstance examInstance) {
+		checkMaximumExamInstance();
+		examInstance.setCandidate(candidateInstance());
+		this.examInstance.add(examInstance);
+	}
+
+	public void remove(com.oreon.kgauge.domain.ExamInstance examInstance) {
+		this.examInstance.remove(examInstance);
+	}
+
+	@OneToMany(mappedBy = "candidate", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "candidate_ID", nullable = true)
+	public java.util.Set<com.oreon.kgauge.domain.ExamInstance> getExamInstance() {
+		return this.examInstance;
+	}
+
+	public void setExamInstance(
+			java.util.Set<com.oreon.kgauge.domain.ExamInstance> examInstance) {
+		this.examInstance = examInstance;
+	}
+
+	@Transient
+	public java.util.Iterator<com.oreon.kgauge.domain.ExamInstance> getExamInstanceIterator() {
+		return this.examInstance.iterator();
+	}
+
+	/** Method size on the set doesn't work with technologies requiring 
+	 *  java beans get/set  interface so we provide a getter method 
+	 * @return
+	 */
+	@Transient
+	public int getExamInstanceCount() {
+		return this.examInstance.size();
+	}
+	
+	/**
+	 * @return
+	 */
+	@Transient
+	public List<ExamInstance> getExamInstaceAsList(){
+		List<ExamInstance> examInstanceList = new ArrayList<ExamInstance>();
+		examInstanceList.addAll(getExamInstance());
+		return examInstanceList;
+	}
+
+	public void checkMaximumExamInstance() {
+		// if(examInstance.size() > Constants.size())
+		// 		throw new BusinessException ("msg.tooMany." + examInstance );
 	}
 
 	/**

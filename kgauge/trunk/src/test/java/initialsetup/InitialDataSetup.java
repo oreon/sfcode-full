@@ -59,8 +59,6 @@ public class InitialDataSetup {
 					grantedRoleTestDataFactory.persistAll(),
 				
 				
-					answeredQuestionTestDataFactory.persistAll(),
-				
 				
 					sectionTestDataFactory.persistAll(),
 				
@@ -125,11 +123,6 @@ public class InitialDataSetup {
 				.getBean("grantedRoleTestDataFactory");
 
 		grantedRoleTestDataFactory.persistAll();
-
-		TestDataFactory answeredQuestionTestDataFactory = (TestDataFactory) BeanHelper
-				.getBean("answeredQuestionTestDataFactory");
-
-		answeredQuestionTestDataFactory.persistAll();
 
 		TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
 				.getBean("sectionTestDataFactory");
