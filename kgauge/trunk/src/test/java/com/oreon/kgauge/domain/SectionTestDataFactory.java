@@ -48,7 +48,7 @@ public class SectionTestDataFactory extends AbstractTestDataFactory<Section> {
 
 		try {
 
-			section.setName("theta");
+			section.setName("Eric");
 
 			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("examTestDataFactory");
@@ -70,7 +70,7 @@ public class SectionTestDataFactory extends AbstractTestDataFactory<Section> {
 
 		try {
 
-			section.setName("zeta");
+			section.setName("gamma");
 
 			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("examTestDataFactory");
@@ -92,7 +92,7 @@ public class SectionTestDataFactory extends AbstractTestDataFactory<Section> {
 
 		try {
 
-			section.setName("gamma");
+			section.setName("beta");
 
 			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("examTestDataFactory");
@@ -114,7 +114,7 @@ public class SectionTestDataFactory extends AbstractTestDataFactory<Section> {
 
 		try {
 
-			section.setName("beta");
+			section.setName("Eric");
 
 			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("examTestDataFactory");
@@ -136,7 +136,7 @@ public class SectionTestDataFactory extends AbstractTestDataFactory<Section> {
 
 		try {
 
-			section.setName("zeta");
+			section.setName("gamma");
 
 			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("examTestDataFactory");

@@ -9,8 +9,6 @@ package com.oreon.kgauge.domain;
 
 import javax.persistence.*;
 import java.util.Date;
-
-import org.apache.commons.collections.ListUtils;
 import org.hibernate.annotations.Cascade;
 
 import javax.xml.bind.annotation.XmlTransient;
@@ -92,16 +90,6 @@ public abstract class CandidateBase extends Person
 	@Transient
 	public int getExamInstanceCount() {
 		return this.examInstance.size();
-	}
-	
-	/**
-	 * @return
-	 */
-	@Transient
-	public List<ExamInstance> getExamInstaceAsList(){
-		List<ExamInstance> examInstanceList = new ArrayList<ExamInstance>();
-		examInstanceList.addAll(getExamInstance());
-		return examInstanceList;
 	}
 
 	public void checkMaximumExamInstance() {

@@ -3,6 +3,8 @@ package com.oreon.kgauge.web.jsf;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Transient;
+
 import org.apache.log4j.Logger;
 import org.witchcraft.model.data.location.Country;
 import org.witchcraft.model.data.location.State;
@@ -99,4 +101,6 @@ public class CandidateBackingBean extends CandidateBackingBeanBase {
 			
 			return "failure";
 	}
+	
+	
 }

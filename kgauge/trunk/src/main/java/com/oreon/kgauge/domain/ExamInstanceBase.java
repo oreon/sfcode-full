@@ -153,6 +153,14 @@ public abstract class ExamInstanceBase
 		return null;
 	}
 
+	public Integer findCandidateScore(ExamInstance examInstance) {
+		return null;
+	}
+
+	public Integer findMaxScore(ExamInstance examInstance) {
+		return null;
+	}
+
 	public abstract ExamInstance examInstanceInstance();
 
 	@Transient

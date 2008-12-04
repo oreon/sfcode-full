@@ -87,4 +87,12 @@ public class ExamInstanceServiceImplBase extends BaseServiceImpl<ExamInstance>
 		return null;
 	}
 
+	public Integer findCandidateScore(ExamInstance examInstance) {
+		return examInstanceDao.findCandidateScore(examInstance);
+	}
+
+	public Integer findMaxScore(ExamInstance examInstance) {
+		return examInstanceDao.findMaxScore(examInstance);
+	}
+
 }

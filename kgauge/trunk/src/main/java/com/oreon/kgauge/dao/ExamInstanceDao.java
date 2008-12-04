@@ -10,4 +10,8 @@ import javax.jws.WebService;
 @WebService
 public interface ExamInstanceDao extends GenericDAO<ExamInstance> {
 
+	public Integer findCandidateScore(ExamInstance examInstance);
+
+	public Integer findMaxScore(ExamInstance examInstance);
+
 }
