@@ -1,11 +1,11 @@
 package org.witchcraft.model.xmlutils;
 
-import org.apache.log4j.Logger;
+import org.apache.log4j.Logger; 
 import org.witchcraft.model.xmlutils.XStreamSetup;
 
 import com.thoughtworks.xstream.XStream;
 
-public class XStreamSetupImplForConfig implements XStreamSetup{
+public class XStreamSetupImplForConfig implements XStreamSetup {
 	private static final Logger logger = Logger
 			.getLogger(XStreamSetupImplForConfig.class);
 
