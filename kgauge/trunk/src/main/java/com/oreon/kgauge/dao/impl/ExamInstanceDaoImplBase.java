@@ -48,4 +48,16 @@ public class ExamInstanceDaoImplBase extends BaseDao<ExamInstance>
 
 	}
 
+	public Integer findCandidateScore(ExamInstance examInstance) {
+
+		return executeSingleResultNamedQuery("", new Object[]{examInstance});
+
+	}
+
+	public Integer findMaxScore(ExamInstance examInstance) {
+
+		return executeSingleResultNamedQuery("", new Object[]{examInstance});
+
+	}
+
 }

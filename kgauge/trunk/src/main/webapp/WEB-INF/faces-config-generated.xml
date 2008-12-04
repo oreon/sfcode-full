@@ -2,20 +2,6 @@
 <!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
 <faces-config>
 	
-	<navigation-rule>
-	  	<from-view-id>/writeExam/result.xhtml</from-view-id>
-	
-						  
-	
-		<navigation-case>
-			 <from-outcome>exitExam</from-outcome>
-			 <to-view-id>/manageProfile/welcome.xhtml</to-view-id>
-		</navigation-case>
-	
-						  
-	</navigation-rule>
-
-
 
 	<navigation-rule>
 	  	<from-view-id>/writeExam/examDetails.xhtml</from-view-id>
@@ -33,25 +19,23 @@
 		
 	</navigation-rule>
 
-
 	<navigation-rule>
-	  	<from-view-id>/manageProfile/updateProfile.xhtml</from-view-id>
+	  	<from-view-id>/writeExam/endExamConfirm.xhtml</from-view-id>
 	
 		<navigation-case>
-			 <from-outcome>successUpdate</from-outcome>
-			 <to-view-id>/manageProfile/myProfile.xhtml</to-view-id>
+			 <from-outcome>yes</from-outcome>
+			 <to-view-id>/writeExam/result.xhtml</to-view-id>
 		</navigation-case>
 	
 						  
 	
 		<navigation-case>
-			 <from-outcome>cancelUpdate</from-outcome>
-			 <to-view-id>/manageProfile/myProfile.xhtml</to-view-id>
+			 <from-outcome>no</from-outcome>
+			 <to-view-id>/writeExam/examInstance.xhtml</to-view-id>
 		</navigation-case>
 	
 						  
 	</navigation-rule>
-
 
 	<navigation-rule>
 	  	<from-view-id>/writeExam/browseExams.xhtml</from-view-id>
@@ -71,6 +55,42 @@
 						  
 	</navigation-rule>
 
+
+
+
+	<navigation-rule>
+	  	<from-view-id>/index.xhtml</from-view-id>
+	
+		<navigation-case>
+			 <from-outcome>loginSuccesful</from-outcome>
+			 <to-view-id>/manageProfile/welcome.xhtml</to-view-id>
+		</navigation-case>
+	
+						  
+	
+		<navigation-case>
+			 <from-outcome>register</from-outcome>
+			 <to-view-id>/authenticate/register.xhtml</to-view-id>
+		</navigation-case>
+	
+						  
+	
+		<navigation-case>
+			 <from-outcome>forgotCredentials</from-outcome>
+			 <to-view-id>/authenticate/credentialsRetrieval.xhtml</to-view-id>
+		</navigation-case>
+	
+						  
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/authenticate/mailSent.xhtml</from-view-id>
+	
+						  
+	</navigation-rule>
+
+
+
 	<navigation-rule>
 	  	<from-view-id>/manageProfile/welcome.xhtml</from-view-id>
 	
@@ -81,22 +101,6 @@
 	
 						  
 	</navigation-rule>
-
-	<navigation-rule>
-	  	<from-view-id>/manageProfile/myProfile.xhtml</from-view-id>
-	
-		<navigation-case>
-			 <from-outcome>edit</from-outcome>
-			 <to-view-id>/manageProfile/updateProfile.xhtml</to-view-id>
-		</navigation-case>
-	
-						  
-	</navigation-rule>
-
-	<navigation-rule>
-	  	<from-view-id>/globals/employers.xhtml</from-view-id>
-	</navigation-rule>
-
 
 	<navigation-rule>
 	  	<from-view-id>/authenticate/register.xhtml</from-view-id>
@@ -117,18 +121,11 @@
 	</navigation-rule>
 
 	<navigation-rule>
-	  	<from-view-id>/writeExam/endExamConfirm.xhtml</from-view-id>
+	  	<from-view-id>/authenticate/credentialsRetrieval.xhtml</from-view-id>
 	
 		<navigation-case>
-			 <from-outcome>yes</from-outcome>
-			 <to-view-id>/writeExam/result.xhtml</to-view-id>
-		</navigation-case>
-	
-						  
-	
-		<navigation-case>
-			 <from-outcome>no</from-outcome>
-			 <to-view-id>/writeExam/examInstance.xhtml</to-view-id>
+			 <from-outcome>emailFound</from-outcome>
+			 <to-view-id>/authenticate/mailSent.xhtml</to-view-id>
 		</navigation-case>
 	
 						  
@@ -159,44 +156,77 @@
 	</navigation-rule>
 
 	<navigation-rule>
+	  	<from-view-id>/writeExam/searchExams.xhtml</from-view-id>
+	
+		<navigation-case>
+			 <from-outcome>viewDetails</from-outcome>
+			 <to-view-id>/writeExam/examDetails.xhtml</to-view-id>
+		</navigation-case>
+	
+						  
+	
+		<navigation-case>
+			 <from-outcome>launchExam</from-outcome>
+			 <to-view-id>/writeExam/instructions.xhtml</to-view-id>
+		</navigation-case>
+	
+						  
+	</navigation-rule>
+
+
+
+	<navigation-rule>
 	  	<from-view-id>/authenticate/loginOrRegister.xhtml</from-view-id>
 	</navigation-rule>
 
 	<navigation-rule>
-	  	<from-view-id>/index.xhtml</from-view-id>
+	  	<from-view-id>/globals/employers.xhtml</from-view-id>
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<from-view-id>/writeExam/result.xhtml</from-view-id>
+	
+						  
 	
 		<navigation-case>
-			 <from-outcome>loginSuccesful</from-outcome>
+			 <from-outcome>exitExam</from-outcome>
 			 <to-view-id>/manageProfile/welcome.xhtml</to-view-id>
-		</navigation-case>
-	
-						  
-	
-		<navigation-case>
-			 <from-outcome>register</from-outcome>
-			 <to-view-id>/authenticate/register.xhtml</to-view-id>
-		</navigation-case>
-	
-						  
-	
-		<navigation-case>
-			 <from-outcome>forgotCredentials</from-outcome>
-			 <to-view-id>/authenticate/credentialsRetrieval.xhtml</to-view-id>
 		</navigation-case>
 	
 						  
 	</navigation-rule>
 
+	<navigation-rule>
+	  	<from-view-id>/manageProfile/updateProfile.xhtml</from-view-id>
+	
+		<navigation-case>
+			 <from-outcome>successUpdate</from-outcome>
+			 <to-view-id>/manageProfile/myProfile.xhtml</to-view-id>
+		</navigation-case>
+	
+						  
+	
+		<navigation-case>
+			 <from-outcome>cancelUpdate</from-outcome>
+			 <to-view-id>/manageProfile/myProfile.xhtml</to-view-id>
+		</navigation-case>
+	
+						  
+	</navigation-rule>
 
+	<navigation-rule>
+	  	<from-view-id>/manageProfile/myProfile.xhtml</from-view-id>
+	
+		<navigation-case>
+			 <from-outcome>edit</from-outcome>
+			 <to-view-id>/manageProfile/updateProfile.xhtml</to-view-id>
+		</navigation-case>
+	
+						  
+	</navigation-rule>
 
 	<navigation-rule>
 	  	<from-view-id>*</from-view-id>
-	  	
-	  	<navigation-case>
-			 <from-outcome>myExams</from-outcome>
-			 <to-view-id>/manageProfile/myExams.xhtml</to-view-id>
-		</navigation-case>
-	  	
 		
 		<navigation-case>
 			 <from-outcome>browseExams</from-outcome>
@@ -240,42 +270,6 @@
 		</navigation-case>
 		
 	</navigation-rule>
-
-	<navigation-rule>
-	  	<from-view-id>/writeExam/searchExams.xhtml</from-view-id>
-	
-		<navigation-case>
-			 <from-outcome>viewDetails</from-outcome>
-			 <to-view-id>/writeExam/examDetails.xhtml</to-view-id>
-		</navigation-case>
-	
-						  
-	
-		<navigation-case>
-			 <from-outcome>launchExam</from-outcome>
-			 <to-view-id>/writeExam/instructions.xhtml</to-view-id>
-		</navigation-case>
-	
-						  
-	</navigation-rule>
-
-	<navigation-rule>
-	  	<from-view-id>/authenticate/mailSent.xhtml</from-view-id>
-	
-						  
-	</navigation-rule>
-
-	<navigation-rule>
-	  	<from-view-id>/authenticate/credentialsRetrieval.xhtml</from-view-id>
-	
-		<navigation-case>
-			 <from-outcome>emailFound</from-outcome>
-			 <to-view-id>/authenticate/mailSent.xhtml</to-view-id>
-		</navigation-case>
-	
-						  
-	</navigation-rule>
-
 
 	<navigation-rule>
 	  	<from-view-id>/writeExam/instructions.xhtml</from-view-id>

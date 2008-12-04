@@ -50,20 +50,20 @@ public class ExamCreatorDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			examCreatorInstance.setFirstName("Eric");
-			examCreatorInstance.setLastName("Wilson");
+			examCreatorInstance.setFirstName("gamma");
+			examCreatorInstance.setLastName("gamma");
 			examCreatorInstance.setDateOfBirth(dateFormat
-					.parse("2008.12.13 16:20:09 EST"));
-			examCreatorInstance.getUser().setUsername("epsilon82269");
-			examCreatorInstance.getUser().setPassword("zeta");
+					.parse("2008.11.11 04:00:05 EST"));
+			examCreatorInstance.getUser().setUsername("Wilson74202");
+			examCreatorInstance.getUser().setPassword("gamma");
 			examCreatorInstance.getUser().setEnabled(false);
-			examCreatorInstance.getContactDetails().setStreetAddress("Malissa");
-			examCreatorInstance.getContactDetails().setCity("Lavendar");
-			examCreatorInstance.getContactDetails().setState("epsilon");
-			examCreatorInstance.getContactDetails().setCountry("delta");
+			examCreatorInstance.getContactDetails().setStreetAddress("gamma");
+			examCreatorInstance.getContactDetails().setCity("Wilson");
+			examCreatorInstance.getContactDetails().setState("theta");
+			examCreatorInstance.getContactDetails().setCountry("zeta");
 			examCreatorInstance.getContactDetails().setZip("Eric");
-			examCreatorInstance.getContactDetails().setPhone("alpha");
-			examCreatorInstance.getContactDetails().setEmail("gamma89907");
+			examCreatorInstance.getContactDetails().setPhone("Eric");
+			examCreatorInstance.getContactDetails().setEmail("Malissa23283");
 
 			examCreatorService.save(examCreatorInstance);
 		} catch (PersistenceException pe) {
@@ -87,20 +87,20 @@ public class ExamCreatorDaoTest extends AbstractJpaTests {
 
 			try {
 
-				examCreator.setFirstName("John");
-				examCreator.setLastName("gamma");
+				examCreator.setFirstName("Mark");
+				examCreator.setLastName("pi");
 				examCreator.setDateOfBirth(dateFormat
-						.parse("2008.11.21 10:24:34 EST"));
-				examCreator.getUser().setUsername("Malissa55182");
-				examCreator.getUser().setPassword("theta");
-				examCreator.getUser().setEnabled(false);
-				examCreator.getContactDetails().setStreetAddress("Malissa");
-				examCreator.getContactDetails().setCity("Mark");
-				examCreator.getContactDetails().setState("pi");
-				examCreator.getContactDetails().setCountry("beta");
-				examCreator.getContactDetails().setZip("beta");
-				examCreator.getContactDetails().setPhone("beta");
-				examCreator.getContactDetails().setEmail("theta50615");
+						.parse("2008.12.02 05:51:11 EST"));
+				examCreator.getUser().setUsername("zeta18014");
+				examCreator.getUser().setPassword("alpha");
+				examCreator.getUser().setEnabled(true);
+				examCreator.getContactDetails().setStreetAddress("alpha");
+				examCreator.getContactDetails().setCity("John");
+				examCreator.getContactDetails().setState("Malissa");
+				examCreator.getContactDetails().setCountry("John");
+				examCreator.getContactDetails().setZip("theta");
+				examCreator.getContactDetails().setPhone("Malissa");
+				examCreator.getContactDetails().setEmail("theta1771");
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -120,20 +120,20 @@ public class ExamCreatorDaoTest extends AbstractJpaTests {
 			ExamCreator examCreator = (ExamCreator) examCreatorTestDataFactory
 					.loadOneRecord();
 
-			examCreator.setFirstName("John");
-			examCreator.setLastName("theta");
+			examCreator.setFirstName("delta");
+			examCreator.setLastName("delta");
 			examCreator.setDateOfBirth(dateFormat
-					.parse("2008.11.30 13:25:43 EST"));
-			examCreator.getUser().setUsername("zeta68857");
-			examCreator.getUser().setPassword("Lavendar");
-			examCreator.getUser().setEnabled(false);
-			examCreator.getContactDetails().setStreetAddress("Lavendar");
-			examCreator.getContactDetails().setCity("Mark");
-			examCreator.getContactDetails().setState("Eric");
-			examCreator.getContactDetails().setCountry("Eric");
-			examCreator.getContactDetails().setZip("theta");
-			examCreator.getContactDetails().setPhone("gamma");
-			examCreator.getContactDetails().setEmail("Malissa34636");
+					.parse("2008.12.05 10:06:13 EST"));
+			examCreator.getUser().setUsername("beta31098");
+			examCreator.getUser().setPassword("Wilson");
+			examCreator.getUser().setEnabled(true);
+			examCreator.getContactDetails().setStreetAddress("pi");
+			examCreator.getContactDetails().setCity("epsilon");
+			examCreator.getContactDetails().setState("Mark");
+			examCreator.getContactDetails().setCountry("delta");
+			examCreator.getContactDetails().setZip("delta");
+			examCreator.getContactDetails().setPhone("Eric");
+			examCreator.getContactDetails().setEmail("delta16700");
 
 			examCreatorService.save(examCreator);
 

@@ -50,8 +50,8 @@ public class ExamInstanceDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			examInstanceInstance.setMaxScore(7249);
-			examInstanceInstance.setCandidateScore(1938);
+			examInstanceInstance.setMaxScore(2944);
+			examInstanceInstance.setCandidateScore(6344);
 
 			TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("candidateTestDataFactory");
@@ -89,8 +89,8 @@ public class ExamInstanceDaoTest extends AbstractJpaTests {
 
 			try {
 
-				examInstance.setMaxScore(1782);
-				examInstance.setCandidateScore(4824);
+				examInstance.setMaxScore(3896);
+				examInstance.setCandidateScore(4755);
 
 				TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("candidateTestDataFactory");
@@ -124,8 +124,8 @@ public class ExamInstanceDaoTest extends AbstractJpaTests {
 			ExamInstance examInstance = (ExamInstance) examInstanceTestDataFactory
 					.loadOneRecord();
 
-			examInstance.setMaxScore(5150);
-			examInstance.setCandidateScore(803);
+			examInstance.setMaxScore(4791);
+			examInstance.setCandidateScore(2411);
 
 			examInstanceService.save(examInstance);
 
@@ -177,5 +177,18 @@ public class ExamInstanceDaoTest extends AbstractJpaTests {
 	}
 
 	/////////////////// Queries //////////////////////////////////
+
+	public void testFindCandidateScore() {
+
+		ExamInstance examInstance  = new ExamInstance();
+		//Integer retInteger = examInstanceService.findCandidateScore(examInstance);
+	}
+
+	public void testFindMaxScore() {
+
+		//ExamInstance examInstance  = 0;
+
+		//Integer retInteger = examInstanceService.findMaxScore(examInstance);
+	}
 
 }

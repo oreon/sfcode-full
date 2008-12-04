@@ -26,13 +26,28 @@ template="/WEB-INF/template/templateCrud.xhtml">
 
 <ui:define name="content">
 	<f:view>
+		<rich:tabPanel  switchType="client">
+			
 		<h:messages layout="list" globalOnly="true" showDetail="true"
 		styleClass="messages" />
-			
-			<ui:insert>
-				<ui:include src="userViewComponent.xhtml" />
-			</ui:insert>
 		
+			<rich:tab label="User" >
+				<ui:insert>
+					<ui:include src="userViewComponent.xhtml" />
+				</ui:insert>
+			</rich:tab>
+			
+			
+			
+			<rich:tab label="GrantedRoles" >
+				<ui:insert>
+					<ui:include src="userGrantedRolesViewComponent.xhtml" />
+				</ui:insert>
+			</rich:tab>
+			
+			
+			
+		</rich:tabPanel>
 	</f:view>
 </ui:define>
 </ui:composition>

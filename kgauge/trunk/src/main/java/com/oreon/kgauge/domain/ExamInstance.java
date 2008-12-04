@@ -6,6 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
+import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
+
+import com.oreon.kgauge.service.ExamInstanceService;
+
+import facades.ServiceFacade;
 
 @Entity
 public class ExamInstance extends ExamInstanceBase implements
@@ -24,10 +29,16 @@ public class ExamInstance extends ExamInstanceBase implements
 
 	@Transient
 	public Integer getMaxScore() {
+	
 		int score = 0;
-		Set<AnsweredQuestion> answeredQuestions = getAnsweredQuestion();
+		ExamInstanceService examInstanceService = ServiceFacade.getInstance().getExamInstanceService();
+		return examInstanceService.findMaxScore(this);
+		
+		/*ExamInstance tempExamInstance = examInstanceService.load(this.getId());
+		Set<AnsweredQuestion> answeredQuestions = tempExamInstance.getAnsweredQuestion();
+		
 		for (AnsweredQuestion answeredQuestion : answeredQuestions) {
-			/*
+			
 			Set<AnswerChoice> answerChoices = answeredQuestion.getQuestion()
 					.getAnswerChoice();
 			int maxScore = 0;
@@ -38,14 +49,14 @@ public class ExamInstance extends ExamInstanceBase implements
 				if (answerChoiceScore > maxScore) {
 					maxScore = answerChoice.getScore();
 				}
-			}*/
+			}
 
-			if (maxScore == 0)
+			if (maxScore == null || maxScore == 0)	
 				maxScore = getExam().getDefaultMarksForCorrect();
 
-			score += maxScore;
+			score += maxScore == null? 0: maxScore;
 		}
-		return score;
+		return score;*/
 	}
 
 	public void setMaxScore(Integer score) {
@@ -55,8 +66,18 @@ public class ExamInstance extends ExamInstanceBase implements
 	@Transient
 	@Override
 	public Integer getCandidateScore() {
+		
 		int score = 0;
-		Set<AnsweredQuestion> answeredQuestions = getAnsweredQuestion();
+		ExamInstanceService examInstanceService = ServiceFacade.getInstance().getExamInstanceService();
+		return examInstanceService.findCandidateScore(this);
+	
+		/*
+		int score = 0;
+		ExamInstanceService examInstanceService = ServiceFacade.getInstance().getExamInstanceService();
+		ExamInstance tempExamInstance = examInstanceService.load(this.getId());
+		Set<AnsweredQuestion> answeredQuestions = tempExamInstance.getAnsweredQuestion();
+		
+		
 		for (AnsweredQuestion answeredQuestion : answeredQuestions) {
 			 AnswerChoice answerChoice = answeredQuestion.getAnswerChoice();
 			 
@@ -71,7 +92,7 @@ public class ExamInstance extends ExamInstanceBase implements
 			score += answerChoiceScore;
 
 		}
-		return score;
+		return score;*/
 	}
 
 }
