@@ -274,9 +274,9 @@ public abstract class BaseDao<T> implements GenericDAO<T> {
 		return executeSingleResultQuery(query);
 	}
 
-	private T executeSingleResultQuery(Query query) {
+	private<S> S executeSingleResultQuery(Query query) {
 		try {
-			return (T) query.getSingleResult();
+			return (S) query.getSingleResult();
 		} catch (NoResultException nre) {
 			logger.info("No " + getPersistentClass().getSimpleName()
 					+ " found !");
