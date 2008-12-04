@@ -297,6 +297,20 @@ public abstract class BaseDao<T> implements GenericDAO<T> {
 		setQueryParams(query, params);
 		return executeSingleResultQuery(query); 
 	}
+	
+	@SuppressWarnings("unchecked")
+	public<S> S executeSingleResultNativeQuery(String queryString, Object... params) {
+		Query query = entityManager.createNativeQuery(queryString);
+		setQueryParams(query, params);
+		return (S)query.getSingleResult();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public<S> List<S> executeNativeQuery(String queryString, Object... params) {
+		Query query = entityManager.createNativeQuery(queryString);
+		setQueryParams(query, params);
+		return query.getResultList();
+	}
 
 	private void setQueryParams(Query query, Object... params) {
 		for (Object param : params) {
