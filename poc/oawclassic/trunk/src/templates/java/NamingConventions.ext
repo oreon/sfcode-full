@@ -82,6 +82,12 @@ cls.NameS;
 boolean isEntity(Class cls) :
 JAVA oaw4.demo.classic.uml.extend.ClassUtil.isEntity(org.openarchitectureware.meta.uml.classifier.Class);
 
+boolean isEntity(Type type) :false;
+
+//this function does not work will investigate
+boolean isAbstractEntity(Class cls):
+cls.firstStereoType.NameS == "AbstractEntity" || cls.firstStereoType.NameS == "Entity" || cls.firstStereoType.NameS == "Embeddable" ;
+
 //return true for fields other than string and boolean 
 boolean needsRangeForSearch(Attribute attribute):
 !( attribute.Type.getMetaClass.getSimpleName == "Enumeration" || 
@@ -89,7 +95,7 @@ boolean needsRangeForSearch(Attribute attribute):
 
 
 String fullName(Attribute attribute ):
-attribute.TypeModifier == null ? attribute.NameS:attribute.TypeModifier + "."  + attribute.NameS;
+(attribute.TypeModifier == null ? attribute.NameS:attribute.TypeModifier + "."  + attribute.NameS ) + (attribute.Type.isEntity() ? ".displayName" :"");
 
 String getContainerGetter(Attribute attribute ):
 attribute.TypeModifier == null || attribute.TypeModifier.length == 0 ? "":"get"+ attribute.TypeModifier.toFirstUpper() + "()." ;
@@ -109,6 +115,9 @@ entity.isSystemUser == true || entity.getDefaultRole != null ;
 
 String getGetter(Type type):
 type.NameS == "boolean" || type.NameS == "Boolean"?"is":"get";
+
+String isBoolean(Type type):
+type.NameS == "boolean" || type.NameS == "Boolean";
 
 String replaceSlashesWithDots(String source):
 JAVA oaw4.demo.classic.uml.extend.ClassUtil.replaceSlashesWithDots(java.lang.String);

@@ -211,6 +211,8 @@ public class Entity extends AbstractEntity {
 		}
 
 		String qryTxt = docList.get(1);
+		//firstStereoType
+		
 
 		NamedQuery namedQuery = createQryFromXML(qryTxt);
 		log.info("Found namedQuery " + docList.get(1));
