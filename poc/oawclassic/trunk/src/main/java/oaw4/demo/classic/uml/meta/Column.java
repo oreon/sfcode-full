@@ -16,6 +16,7 @@ public class Column extends Attribute{
 	private boolean unique;
 	private boolean nullable;
 	private String name;
+	
 	private int maxLength;
 	private int minLength;
 	private boolean searchable;
@@ -116,9 +117,10 @@ public class Column extends Attribute{
 	 * @return
 	 */
 	public String getDerived() {
+		/*
 		if(derived!= null && !derived.endsWith(";")){
 			return derived + ";";
-		}
+		}*/
 		return derived;
 	}
 	public void setDerived(String derived) {

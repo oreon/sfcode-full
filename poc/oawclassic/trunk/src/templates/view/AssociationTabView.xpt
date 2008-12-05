@@ -1,0 +1,108 @@
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::witchcrafh::model::jsf»
+«IMPORT java»
+
+«EXTENSION view::ViewExtensions»
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+
+«REM» Create the additional tabs for an entity to show associations e.g. orders of a customer «ENDREM»
+«DEFINE genTabularViewComponent(Class c) FOR Entity-»
+	
+	«EXPAND ViewGen::genIncludesHTML-»
+
+	<a4j:form id="form_listing">
+	
+			<rich:datascroller align="left"  for="data" maxPages="20" renderIfSinglePage="true" />
+				<br/>
+				<br/>
+						
+	<rich:dataTable id="data" var="«asInstanceVar()»"
+		value="#{«c.asInstanceVar()»CrudBacking.records}" rows="30"
+	rowClasses="odd, even" styleClass="dataTable" >						
+	«EXPAND genTableRow(asInstanceVar()) FOREACH getAllAttributes -»
+	«REM»The associated entites for e.g an order would need a customer «ENDREM»
+	«EXPAND genTableRow(this) FOREACH getNonOneToOneOutgoingAssociations() -»
+		<rich:column>
+			<f:facet name="header">
+				<h:outputText value=" " />
+			</f:facet>
+			<h:commandLink action="view"
+				actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left" styleClass="toolTip"
+					value="Click to Edit Row" mode="client" />
+				<h:graphicImage value="/images/icons/eye.png"
+					style="border: 0px" />
+				<f:param name="id" value="#{«asInstanceVar()».id}" />
+			</h:commandLink>
+		</rich:column>
+		
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
+			<!--
+			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+			--> 								
+			<h:commandLink action="#{«asInstanceVar()»CrudBacking.select}"																					
+				actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
+				<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
+				<f:param id="editId" name="id" value="#{«asInstanceVar()».id}" />								
+			</h:commandLink>		
+			<!--
+			</acegijsf:authorize>
+			--> 
+		</rich:column>
+			
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
+			<!--
+			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+			--> 		
+			<a4j:commandLink action="#{«asInstanceVar()»CrudBacking.delete}"	
+				onclick="if(window.confirm('Are You Sure?')==false){return false}"
+				actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
+				<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
+				<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
+				<f:param id="deleteId" name="id" value="#{«asInstanceVar()».id}" />												
+			</a4j:commandLink>
+			<!--
+			</acegijsf:authorize>
+			--> 
+		</rich:column>
+	</rich:dataTable>
+		
+	 
+  	</a4j:form>
+	
+			
+</html>
+«ENDDEFINE»
+
+
+«DEFINE genTableRow(String parent) FOR Attribute-»
+	«EXPAND ViewGen::genAccessControl »
+	<rich:column sortBy="#{«parent».«fullName()»}"  filterBy="#{«parent».«fullName()-»}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.«Class.NameS.toFirstLower() + "_" + NameS-»}" /> 		
+		</f:facet>
+		<h:outputText value="#{«parent».«fullName()»}" />
+	</rich:column>
+	«EXPAND ViewGen::genAccessControlEnd »
+«ENDDEFINE»
+
+«DEFINE genTableRow(Class c) FOR AssociationEnd»
+	«EXPAND ViewGen::genAccessControl FOR Association-»
+	<rich:column sortBy="#{«c.asInstanceVar()».«associationName()».displayName}" filterBy="#{«c.asInstanceVar()».«associationName()».displayName}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.«c.NameS.toFirstLower() + "_" + associationName()»}" /> 	
+		</f:facet>
+		<h:outputText value="#{«c.asInstanceVar()».«associationName()».displayName}" />
+	</rich:column>
+	«EXPAND ViewGen::genAccessControlEnd FOR Association»
+«ENDDEFINE»

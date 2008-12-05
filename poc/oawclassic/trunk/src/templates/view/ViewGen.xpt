@@ -38,14 +38,19 @@
 
 
 «FILE getFileGenerationPath("View") »  
-	«EXPAND genContainerView("View ", NameS.toFirstLower() + "ViewComponent" )»		
+	«EXPAND genContainerViewForEntityView("View ", NameS.toFirstLower() + "ViewComponent" )»		
 «ENDFILE»
 
 «FILE getFileGenerationPath("ViewComponent") »  
 	«EXPAND EntityView::genViewComponent»		
 «ENDFILE»
-«REM»comment
-«ENDREM»
+
+«FOREACH AssociationEnd.Opposite.select(ae|!ae.isComposition && ae.isNavigable && ae.isMultiple) AS ae»
+«FILE getFileGenerationPath(ae.associationName().toFirstUpper() +"ViewComponent") » 
+	«EXPAND AssociationTabView::genTabularViewComponent(this) FOR ae.Class»
+«ENDFILE»
+«ENDFOREACH»
+			
 
 «ENDDEFINE»
 
@@ -126,6 +131,54 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 </ui:composition>
 
 «ENDDEFINE»
+
+«REM» Create the container view which will contain the given component «ENDREM»
+«DEFINE genContainerViewForEntityView(String title, String component) FOR Entity-»
+	«EXPAND ViewGen::genIncludes("templateCrud.xhtml")-»
+	
+<ui:define name="title"> «NameS» </ui:define> 
+
+<ui:define name="searchBar">
+		<ui:include src="../../../templateSections/searchBar.xhtml" >
+			 <ui:param name="backingBean" value="#{«asInstanceVar()»CrudBacking}"/>
+		</ui:include>
+</ui:define>
+
+
+<ui:define name="content">
+	<f:view>
+		<rich:tabPanel  switchType="client">
+			
+		<h:messages layout="list" globalOnly="true" showDetail="true"
+		styleClass="messages" />
+		
+			<rich:tab label="«NameS»" >
+				<ui:insert>
+					<ui:include src="«component».xhtml" />
+				</ui:insert>
+			</rich:tab>
+			
+			«REM» For associations e.g. a customer's orders «ENDREM»
+			«FOREACH AssociationEnd.Opposite.select(ae|!ae.isComposition && ae.isNavigable && ae.isMultiple) AS ae»
+			<rich:tab label="«ae.associationName().toFirstUpper()»" >
+				<ui:insert>
+					<ui:include src="«NameS.toFirstLower()»«ae.associationName().toFirstUpper()»ViewComponent.xhtml" />
+				</ui:insert>
+			</rich:tab>
+			«ENDFOREACH»
+			
+			
+		</rich:tabPanel>
+	</f:view>
+</ui:define>
+</ui:composition>
+
+«ENDDEFINE»
+
+
+			
+			
+			
 
 «DEFINE genSuggestionBox(String Id) FOR Column»
 	«IF getSuggestionAction != null»

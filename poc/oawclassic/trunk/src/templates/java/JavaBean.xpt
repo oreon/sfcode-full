@@ -199,7 +199,7 @@
 	/* Default Constructor */
 	public «NameS»Base(){}
 	
-	«IF Attribute.size > 0 »
+	«IF isEntity() && getNonDerivedAttributes.size > 0 »
 	/* Constructor with all attributes */
 	public «NameS»Base (
 		«FOREACH Attribute AS a ITERATOR iter -» «IF ! a.isDerived()»   «iter.counter1 > 1?",":""»«a.Type.NameS» «a.NameS»  «ENDIF» «ENDFOREACH-» ){
@@ -211,6 +211,45 @@
 	}
 	«ENDIF»
 «ENDDEFINE»
+
+
+«DEFINE GenConstructor FOR Class»
+	/* Default Constructor */
+	public «NameS»Base(){}
+	
+	«IF Attribute.size > 0»
+	
+	/* Constructor with all attributes */
+	public «NameS»Base (
+		«FOREACH Attribute AS a ITERATOR iter -»  «iter.counter1 > 1?",":""»«a.Type.NameS» «a.NameS»  «ENDFOREACH-» ){
+		«FOREACH Attribute AS a-» 
+			«IF ! a.isDerived()»
+			this.«a.NameS» = «a.NameS»;  
+			«ENDIF»
+		«ENDFOREACH-»
+	}
+	«ENDIF»
+	
+«ENDDEFINE»
+
+«REM» Need to exclude derived properties from consturctors - //TODO «ENDREM»
+«DEFINE GenConstructor FOR AbstractEntity»
+	/* Default Constructor */
+	public «NameS»Base(){}
+	
+	«IF getNonDerivedAttributes.size > 0 »
+	/* Constructor with all attributes */
+	public «NameS»Base (
+		«FOREACH getNonDerivedAttributes AS a ITERATOR iter -»  «iter.counter1 > 1?",":""»«a.Type.NameS» «a.NameS»  «ENDFOREACH-» ){
+		«FOREACH getNonDerivedAttributes AS a-» 
+			«IF ! a.isDerived()»
+			this.«a.NameS» = «a.NameS»;  
+			«ENDIF»
+		«ENDFOREACH-»
+	}
+	«ENDIF»
+«ENDDEFINE»
+
 
 
 «DEFINE GenCodeWarning FOR Class»

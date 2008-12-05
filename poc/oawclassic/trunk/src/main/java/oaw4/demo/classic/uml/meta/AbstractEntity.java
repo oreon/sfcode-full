@@ -3,6 +3,7 @@ package oaw4.demo.classic.uml.meta;
 import oaw4.demo.classic.uml.extend.ClassUtil;
 import oaw4.demo.classic.uml.extend.StereoTypeManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.openarchitectureware.core.meta.core.ElementSet;
 import org.openarchitectureware.meta.uml.Type;
@@ -278,11 +279,11 @@ public abstract class AbstractEntity extends
 		ElementSet embeddables = new ElementSet();
 		for (Object object : associations) {
 			AssociationEnd ae = (AssociationEnd) object;
-			System.out.println(cls.NameS() + " -->" + ae.Opposite().Name());
 			AssociationEnd opposite = ae.Opposite();
+			System.out.println(cls.NameS() + " -->" + ClassUtil.getAssocName(ae.Opposite()) );
+			
 
 			if (!opposite.isMultiple() && opposite.isNavigable()) {
-				//System.out.println(opposite.Class().getMetaClass().getName());
 				if (!opposite.Class().getMetaClass().getName().equalsIgnoreCase(
 						"oaw4.demo.classic.uml.meta.Embeddable"))
 					embeddables.add(ae.Opposite());
@@ -335,6 +336,25 @@ public abstract class AbstractEntity extends
 		return embeddables;
 	}
 	
+	/**All attributes that are not derived
+	 * @return
+	 */
+	public ElementSet getNonDerivedAttributes(){
+		ElementSet attributes = Attribute();
+		ElementSet nonDerivedAttributes = new ElementSet();
+		for (Object object : attributes) {
+			Attribute attribute = (Attribute)object;
+			if(StereoTypeManager.isColumn(attribute )){
+				Column col = (Column)attribute;
+				if( col.getDerived() == null  )
+					nonDerivedAttributes.add(attribute);
+			}else{
+				nonDerivedAttributes.add(attribute);
+			}
+		}
+		System.out.println(NameS() + " has attributes: " + nonDerivedAttributes.size());
+		return nonDerivedAttributes;
+	}
 
 
 	/**

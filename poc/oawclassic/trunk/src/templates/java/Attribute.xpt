@@ -43,17 +43,21 @@
 	«IF Type.Name == "Image"»
 		@XmlTransient
 	«ENDIF»
+	«IF Documentation != null-»
 	/*
-	«Documentation»
+	«Documentation-»
 	*/
+	«ENDIF»
 	public «Type.NameS» «getGetter(Type)»«NameS.toFirstUpper()» () {
-		«IF getDerived != null»
+		«IF getDerived != null && !getDerived.isStringEmtpy()»
+			return «getDerived»;
+			«REM»comment
 			«NameS» = «Type.NameS.getDefaultInitValueForType()»;
 			«getDerived»
-			«REM»comment
 			return «getDerived.isStringEmtpy() ?" new " + Type.NameS +"()": getDerived»;«ENDREM»
-		«ENDIF»
+		«ELSE»
 			return this.«NameS»;
+		«ENDIF»
 		
 	} 
 «ENDDEFINE»
