@@ -196,6 +196,12 @@ public class Entity extends AbstractEntity {
 
 	public NamedQuery getNamedQuery(Operation operation) {
 		
+		if(operation.Documentation() == null) {
+			log.warn("The documentation for " + operation
+					+ " does not exist");
+			return null;
+		}
+		
 		List<String> docList = GenericUtils.tokenizeString(operation
 				.Documentation(), " *\\[\\[ *| *\\]\\] *");
 		if (docList.size() < 2) {

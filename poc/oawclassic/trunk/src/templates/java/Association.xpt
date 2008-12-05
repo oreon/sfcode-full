@@ -72,12 +72,26 @@
 		return this.«asInstanceVar()».size();
 	}
 	
+«IF !isComposition && isNavigable && isMultiple»
+
+	/** Translate sets into a list 
+	 * @return
+	 */
+	public List<«Class.NameS»> «asGetter()»AsList() {
+		List<«Class.NameS»> «asInstanceVar()»List = new ArrayList<«Class.NameS»>();
+		«asInstanceVar()»List.addAll(get«associationName().toFirstUpper()»());
+		return «asInstanceVar()»List;
+	}
+«ENDIF»	
+	
 	public void checkMaximum«associationName().toFirstUpper()»(){
 		// if(«associationName()».size() > Constants.size())
 		// 		throw new BusinessException ("msg.tooMany." + «associationName()» );
 	}
+	
+
 «ENDDEFINE»
-f
+
 
 «DEFINE genMappingForManyToMany FOR AssociationEnd»
 	@ManyToMany(
