@@ -29,6 +29,7 @@ public class Question extends QuestionBase implements java.io.Serializable {
 	}
 	
 	@Override
+	@Transient
 	public AnswerChoice getCorrectChoice() {
 		for (AnswerChoice choice : getAnswerChoice()) {
 			if(choice.isCorrectChoice())

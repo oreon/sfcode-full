@@ -37,8 +37,29 @@ public abstract class CandidateBase extends Person
 
 	private static final long serialVersionUID = 1L;
 
+	@Field(index = Index.TOKENIZED, store = Store.NO)
+	protected String description;
+
 	/* Default Constructor */
 	public CandidateBase() {
+	}
+
+	/* Constructor with all attributes */
+	public CandidateBase(String description) {
+
+		this.description = description;
+
+	}
+
+	@Column(nullable = false, unique = false)
+	public String getDescription() {
+
+		return this.description;
+
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	private java.util.Set<com.oreon.kgauge.domain.ExamInstance> examInstance = new java.util.HashSet<com.oreon.kgauge.domain.ExamInstance>();
@@ -92,6 +113,16 @@ public abstract class CandidateBase extends Person
 		return this.examInstance.size();
 	}
 
+	/** Translate set into a list 
+	 * @return
+	 */
+	@Transient
+	public List<ExamInstance> getExamInstanceAsList() {
+		List<ExamInstance> examInstanceList = new ArrayList<ExamInstance>();
+		examInstanceList.addAll(getExamInstance());
+		return examInstanceList;
+	}
+
 	public void checkMaximumExamInstance() {
 		// if(examInstance.size() > Constants.size())
 		// 		throw new BusinessException ("msg.tooMany." + examInstance );
@@ -117,12 +148,19 @@ public abstract class CandidateBase extends Person
 
 	public abstract Candidate candidateInstance();
 
+	@Transient
+	public String getDisplayName() {
+		return description + "";
+	}
+
 	/** This method is used by hibernate full text search - override to add additional fields
 	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
 	 */
 	@Override
 	public String[] retrieveSearchableFieldsArray() {
 		List<String> listSearchableFields = new ArrayList<String>();
+
+		listSearchableFields.add("description");
 
 		String[] arrFields = new String[listSearchableFields.size()];
 		return listSearchableFields.toArray(arrFields);

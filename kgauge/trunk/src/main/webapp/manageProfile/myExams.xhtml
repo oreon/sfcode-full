@@ -1,48 +1,109 @@
 
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:s="http://myfaces.apache.org/sandbox"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
-	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
-	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
-	template="/WEB-INF/template/default.xhtml">
+<ui:composition  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+
+template="/WEB-INF/template/default.xhtml">
 	<ui:define name="content">
 		<f:view>
-
+		
 			<h:outputText value="" styleClass="message" />
 			<wc:messages />
+			
+				
+			
+			<!--PROTECTED REGION ID(_14_0_8e50284_1228415490671_677668_2943) ENABLED START-->
 
-			<!--PROTECTED REGION ID(_14_0_8c50281_1198200437265_956169_999) ENABLED START-->
 			<a4j:form>
+			
+			<rich:datascroller align="left" for="data" maxPages="20"
+				renderIfSinglePage="true" />
+			<br />
+			<br />
 
-				<rich:dataTable id="data" var="examInstance"
-					value="#{candidateCrudBacking.loggedinCandidate.examInstaceAsList}"
-					rows="30" rowClasses="odd, even" styleClass="dataTable">
+			<rich:dataTable id="data" var="examInstance"
+				value="#{candidateCrudBacking.loggedinCandidate.examInstanceAsList}"
+				rows="10" rowClasses="odd, even" styleClass="dataTable">
 
-					<rich:column sortBy="#{examInstance.exam.displayName}"
-						filterBy="#{examInstance.exam.displayName}" filterEvent="onkeyup">
-						<f:facet name="header">
-							<h:outputText value="#{msg.examInstance_exam}" />
-						</f:facet>
-						<h:outputText value="#{examInstance.exam.displayName}" />
-					</rich:column>
 
-					<rich:column >
-						<f:facet name="header">
-							<h:outputText value="#{msg.examInstance_maxScore}" />
-						</f:facet>
-						<h:outputText value="#{examInstance.candidateScore}" />
-					</rich:column>
+				<rich:column sortBy="#{examInstance.exam.displayName}"
+					filterBy="#{examInstance.exam.displayName}" >
+					<f:facet name="header">
+						<h:outputText value="#{msg.examInstance_exam}" />
+					</f:facet>
+					<h:outputText value="#{examInstance.exam.displayName}" />
+				</rich:column>
 
-				</rich:dataTable>
+
+				<rich:column sortBy="#{examInstance.dateOfExam}">
+					<f:facet name="header">
+						<h:outputText value="#{msg.examInstance_dateOfExam}" />
+					</f:facet>
+					<h:outputText value="#{examInstance.dateOfExam}" />
+				</rich:column>
+
+
+				<rich:column sortBy="#{examInstance.maxScore}">
+					<f:facet name="header">
+						<h:outputText value="#{msg.examInstance_maxScore}" />
+					</f:facet>
+					<h:outputText value="#{examInstance.maxScore}" />
+				</rich:column>
+
+
+				<rich:column sortBy="#{examInstance.candidateScore}"
+					>
+					<f:facet name="header">
+						<h:outputText value="#{msg.examInstance_candidateScore}" />
+					</f:facet>
+					<h:outputText value="#{examInstance.candidateScore}" />
+				</rich:column>
+
+				
+				<rich:column sortBy="#{examInstance.percentage}">
+					<f:facet name="header">
+						<h:outputText value="#{msg.examInstance_percentage}" />
+					</f:facet>
+					<h:outputText value="#{examInstance.percentage}" />
+				</rich:column>
+
+				<rich:column sortBy="#{examInstance.certified}">
+					<f:facet name="header">
+						<h:outputText value="#{msg.examInstance_certified}" />
+					</f:facet>
+					<h:outputText value="#{examInstance.certified}" />
+				</rich:column>
+
+
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value=" " />
+					</f:facet>
+					<h:commandLink action="viewExamInstance"
+						actionListener="#{examInstanceCrudBacking.selectEntity}">
+						<rich:toolTip direction="bottom-left" styleClass="toolTip"
+							value="Click to Edit Row" mode="client" />
+						<h:graphicImage value="/images/icons/eye.png" style="border: 0px" />
+						<f:param name="id" value="#{examInstance.id}" />
+					</h:commandLink>
+				</rich:column>
+
+			</rich:dataTable>
 			</a4j:form>
-			<!--PROTECTED REGION END-->
+				<!--PROTECTED REGION END-->	
+		
 		</f:view>
-	</ui:define>
-</ui:composition>
+	 </ui:define>	
+	</ui:composition>
+	

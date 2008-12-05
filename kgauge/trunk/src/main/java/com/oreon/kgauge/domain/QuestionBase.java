@@ -60,9 +60,6 @@ public abstract class QuestionBase
 	}
 
 	@Column(nullable = false, unique = false)
-	/*
-	
-	 */
 	public String getQuestionText() {
 
 		return this.questionText;
@@ -75,11 +72,8 @@ public abstract class QuestionBase
 
 	@Transient
 	/*
-	//select(answerChoice, correctChoice = true );
-	 */
+	//select(answerChoice, correctChoice = true );	*/
 	public AnswerChoice getCorrectChoice() {
-
-		correctChoice = new AnswerChoice();;
 
 		return this.correctChoice;
 

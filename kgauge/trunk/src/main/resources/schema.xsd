@@ -7,6 +7,7 @@
         		<xs:element name="firstName" type="xs:string"/>	
         		<xs:element name="lastName" type="xs:string"/>	
         		<xs:element name="dateOfBirth" type="xs:date"/>	
+        		<xs:element name="description" type="xs:string"/>	
         	
         		<xs:element name="user" type="ws:User"/>
         	
@@ -39,7 +40,6 @@
         <xs:all>
         		<xs:element name="examNumber" type="xs:string"/>	
         		<xs:element name="name" type="xs:string"/>	
-        		<xs:element name="description" type="xs:string"/>	
         		<xs:element name="questions" type="xs:integer"/>	
         		<xs:element name="duration" type="xs:integer"/>	
         		<xs:element name="price" type="xs:double"/>	
@@ -56,8 +56,11 @@
 
     <xs:complexType name="ExamInstance">
         <xs:all>
+        		<xs:element name="dateOfExam" type="xs:date"/>	
         		<xs:element name="maxScore" type="xs:integer"/>	
         		<xs:element name="candidateScore" type="xs:integer"/>	
+        		<xs:element name="certified" type="xs:boolean"/>	
+        		<xs:element name="percentage" type="xs:double"/>	
         	
         		<xs:element name="candidate" type="ws:Candidate"/>
         		<xs:element name="exam" type="ws:Exam"/>

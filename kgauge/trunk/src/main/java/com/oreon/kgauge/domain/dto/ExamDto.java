@@ -16,8 +16,6 @@ public class ExamDto {
 
 	private String name;
 
-	private String description;
-
 	private Integer questions;
 
 	private Integer duration;
@@ -52,14 +50,6 @@ public class ExamDto {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public Integer getQuestions() {

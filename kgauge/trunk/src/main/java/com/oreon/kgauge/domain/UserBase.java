@@ -63,9 +63,6 @@ public abstract class UserBase
 	}
 
 	@Column(nullable = false, unique = true)
-	/*
-	
-	 */
 	public String getUsername() {
 
 		return this.username;
@@ -73,9 +70,6 @@ public abstract class UserBase
 	}
 
 	@Column(nullable = false, unique = false)
-	/*
-	
-	 */
 	public String getPassword() {
 
 		return this.password;
@@ -83,9 +77,6 @@ public abstract class UserBase
 	}
 
 	@Column(nullable = false, unique = false)
-	/*
-	
-	 */
 	public boolean isEnabled() {
 
 		return this.enabled;
@@ -140,6 +131,16 @@ public abstract class UserBase
 	@Transient
 	public int getGrantedRolesCount() {
 		return this.grantedRoles.size();
+	}
+
+	/** Translate set into a list 
+	 * @return
+	 */
+	@Transient
+	public List<GrantedRole> getGrantedRolesAsList() {
+		List<GrantedRole> grantedRolesList = new ArrayList<GrantedRole>();
+		grantedRolesList.addAll(getGrantedRoles());
+		return grantedRolesList;
 	}
 
 	public void checkMaximumGrantedRoles() {

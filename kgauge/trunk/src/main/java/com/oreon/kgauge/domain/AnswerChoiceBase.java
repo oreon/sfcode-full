@@ -63,9 +63,6 @@ public abstract class AnswerChoiceBase
 	}
 
 	@Column(nullable = false, unique = false)
-	/*
-	
-	 */
 	public String getAnswerText() {
 
 		return this.answerText;

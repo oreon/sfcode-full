@@ -54,9 +54,6 @@ public abstract class GrantedRoleBase
 	}
 
 	@Column(nullable = false, unique = false)
-	/*
-	
-	 */
 	public String getName() {
 
 		return this.name;

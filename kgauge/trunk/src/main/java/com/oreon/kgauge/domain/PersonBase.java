@@ -62,9 +62,6 @@ public abstract class PersonBase
 	}
 
 	@Column(nullable = false, unique = false)
-	/*
-	
-	 */
 	public String getFirstName() {
 
 		return this.firstName;
@@ -72,9 +69,6 @@ public abstract class PersonBase
 	}
 
 	@Column(nullable = false, unique = false)
-	/*
-	
-	 */
 	public String getLastName() {
 
 		return this.lastName;
@@ -82,9 +76,6 @@ public abstract class PersonBase
 	}
 
 	@Column(nullable = false, unique = false)
-	/*
-	
-	 */
 	public Date getDateOfBirth() {
 
 		return this.dateOfBirth;

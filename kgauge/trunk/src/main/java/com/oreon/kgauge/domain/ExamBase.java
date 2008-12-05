@@ -45,9 +45,6 @@ public abstract class ExamBase
 	@Field(index = Index.TOKENIZED, store = Store.NO)
 	protected String name;
 
-	@Field(index = Index.TOKENIZED, store = Store.NO)
-	protected String description;
-
 	protected Integer questions;
 
 	protected Integer duration;
@@ -67,16 +64,14 @@ public abstract class ExamBase
 	}
 
 	/* Constructor with all attributes */
-	public ExamBase(String examNumber, String name, String description,
-			Integer questions, Integer duration, Double price,
-			ScoringType scoringStrategy, ExamStatus examStatus,
-			Integer passMarks, Integer defaultMarksForCorrect) {
+	public ExamBase(String examNumber, String name, Integer questions,
+			Integer duration, Double price, ScoringType scoringStrategy,
+			ExamStatus examStatus, Integer passMarks,
+			Integer defaultMarksForCorrect) {
 
 		this.examNumber = examNumber;
 
 		this.name = name;
-
-		this.description = description;
 
 		this.questions = questions;
 
@@ -95,9 +90,6 @@ public abstract class ExamBase
 	}
 
 	@Column(nullable = false, unique = false)
-	/*
-	
-	 */
 	public String getExamNumber() {
 
 		return this.examNumber;
@@ -106,21 +98,10 @@ public abstract class ExamBase
 
 	@Column(nullable = false, unique = false)
 	/*
-	Name of the exam e.g. Hibernate Proficiency Exam  
-	 */
+	Name of the exam e.g. Hibernate Proficiency Exam  	*/
 	public String getName() {
 
 		return this.name;
-
-	}
-
-	@Column(nullable = false, unique = false)
-	/*
-	
-	 */
-	public String getDescription() {
-
-		return this.description;
 
 	}
 
@@ -157,9 +138,6 @@ public abstract class ExamBase
 	}
 
 	@Column(nullable = false, unique = false)
-	/*
-	
-	 */
 	public Integer getDefaultMarksForCorrect() {
 
 		return this.defaultMarksForCorrect;
@@ -172,10 +150,6 @@ public abstract class ExamBase
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public void setQuestions(Integer questions) {
@@ -300,8 +274,6 @@ public abstract class ExamBase
 		listSearchableFields.add("examNumber");
 
 		listSearchableFields.add("name");
-
-		listSearchableFields.add("description");
 
 		listSearchableFields.add("section.name");
 

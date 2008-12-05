@@ -24,6 +24,12 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 				<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
 						backingBean="#{examInstanceCrudBacking}" />
 					
+			<h:outputText value="#{msg.examInstance_dateOfExam}" />
+				<wc:dateRange rangeFieldName="rangeDateOfExam" label="DateOfExam"
+					backingBean="#{examInstanceCrudBacking}" />
+	
+
+			
 			<h:outputText value="#{msg.examInstance_maxScore}" />
 	
 		<wc:numberRange rangeFieldName="rangeMaxScore" label="MaxScore"
@@ -35,6 +41,24 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	
 		<wc:numberRange rangeFieldName="rangeCandidateScore" label="CandidateScore"
 			backingBean="#{examInstanceCrudBacking}" type="integer" />
+	
+
+			
+			<h:outputText value="#{msg.examInstance_certified}" />
+			
+			<h:panelGroup>
+				<h:selectBooleanCheckbox     
+					id="examInstance__certified"
+					value="#{examInstanceCrudBacking.examInstance.certified}">
+					
+				</h:selectBooleanCheckbox >
+				<h:message for="examInstance__certified" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.examInstance_percentage}" />
+	
+		<wc:numberRange rangeFieldName="rangePercentage" label="Percentage"
+			backingBean="#{examInstanceCrudBacking}" type="double" />
 	
 
 			
