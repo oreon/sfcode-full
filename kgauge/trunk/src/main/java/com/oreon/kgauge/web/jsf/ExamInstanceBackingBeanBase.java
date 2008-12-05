@@ -45,6 +45,16 @@ public class ExamInstanceBackingBeanBase extends BaseBackingBean<ExamInstance> {
 		this.rangeCreationDate = rangeCreationDate;
 	}
 
+	private Range<Date> rangeDateOfExam = new Range<Date>("dateOfExam");
+
+	public Range<Date> getRangeDateOfExam() {
+		return rangeDateOfExam;
+	}
+
+	public void setRangeDateOfExam(Range<Date> rangeDateOfExam) {
+		this.rangeDateOfExam = rangeDateOfExam;
+	}
+
 	private Range<Integer> rangeMaxScore = new Range<Integer>("maxScore");
 
 	public Range<Integer> getRangeMaxScore() {
@@ -64,6 +74,16 @@ public class ExamInstanceBackingBeanBase extends BaseBackingBean<ExamInstance> {
 
 	public void setRangeCandidateScore(Range<Integer> rangeCandidateScore) {
 		this.rangeCandidateScore = rangeCandidateScore;
+	}
+
+	private Range<Double> rangePercentage = new Range<Double>("percentage");
+
+	public Range<Double> getRangePercentage() {
+		return rangePercentage;
+	}
+
+	public void setRangePercentage(Range<Double> rangePercentage) {
+		this.rangePercentage = rangePercentage;
 	}
 
 	public ExamInstance getExamInstance() {
@@ -115,9 +135,13 @@ public class ExamInstanceBackingBeanBase extends BaseBackingBean<ExamInstance> {
 
 		List<Range> listRanges = super.getRangeList();
 
+		listRanges.add(rangeDateOfExam);
+
 		listRanges.add(rangeMaxScore);
 
 		listRanges.add(rangeCandidateScore);
+
+		listRanges.add(rangePercentage);
 
 		listRanges.add(rangeCreationDate);
 		return listRanges;

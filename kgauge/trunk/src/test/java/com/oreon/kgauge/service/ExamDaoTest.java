@@ -50,18 +50,17 @@ public class ExamDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			examInstance.setExamNumber("gamma");
-			examInstance.setName("delta");
-			examInstance.setDescription("Eric");
-			examInstance.setQuestions(1604);
-			examInstance.setDuration(1219);
-			examInstance.setPrice(86.9);
+			examInstance.setExamNumber("beta");
+			examInstance.setName("Malissa");
+			examInstance.setQuestions(1457);
+			examInstance.setDuration(4974);
+			examInstance.setPrice(32.85);
 			examInstance
 					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreForAllAnswers);
 			examInstance
-					.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
-			examInstance.setPassMarks(8910);
-			examInstance.setDefaultMarksForCorrect(8415);
+					.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
+			examInstance.setPassMarks(7729);
+			examInstance.setDefaultMarksForCorrect(9766);
 
 			TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("categoryTestDataFactory");
@@ -99,17 +98,16 @@ public class ExamDaoTest extends AbstractJpaTests {
 
 			try {
 
-				exam.setExamNumber("Malissa");
+				exam.setExamNumber("epsilon");
 				exam.setName("Mark");
-				exam.setDescription("beta");
-				exam.setQuestions(7786);
-				exam.setDuration(6);
-				exam.setPrice(24.51);
+				exam.setQuestions(6468);
+				exam.setDuration(6476);
+				exam.setPrice(22.07);
 				exam
 						.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
-				exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INACTIVE);
-				exam.setPassMarks(5299);
-				exam.setDefaultMarksForCorrect(1825);
+				exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
+				exam.setPassMarks(3693);
+				exam.setDefaultMarksForCorrect(2042);
 
 				TestDataFactory categoryTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("categoryTestDataFactory");
@@ -142,17 +140,16 @@ public class ExamDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Exam exam = (Exam) examTestDataFactory.loadOneRecord();
 
-			exam.setExamNumber("beta");
-			exam.setName("delta");
-			exam.setDescription("gamma");
-			exam.setQuestions(6952);
-			exam.setDuration(7434);
-			exam.setPrice(40.09);
+			exam.setExamNumber("Lavendar");
+			exam.setName("zeta");
+			exam.setQuestions(7134);
+			exam.setDuration(7598);
+			exam.setPrice(17.77);
 			exam
 					.setScoringStrategy(com.oreon.kgauge.domain.ScoringType.ScoreOnlyForCorrectAnswers);
-			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.ACTIVE);
-			exam.setPassMarks(6457);
-			exam.setDefaultMarksForCorrect(5990);
+			exam.setExamStatus(com.oreon.kgauge.domain.ExamStatus.INCOMPLETE);
+			exam.setPassMarks(1136);
+			exam.setDefaultMarksForCorrect(2442);
 
 			examService.save(exam);
 

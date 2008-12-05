@@ -40,35 +40,62 @@ public abstract class ExamInstanceBase
 
 	private static final long serialVersionUID = 1L;
 
+	protected Date dateOfExam;
+
 	protected Integer maxScore;
 
 	protected Integer candidateScore;
+
+	protected Boolean certified = false;
+
+	protected Double percentage;
 
 	/* Default Constructor */
 	public ExamInstanceBase() {
 	}
 
-	/* Constructor with all attributes */
-	public ExamInstanceBase(Integer maxScore) {
+	@Transient
+	public Date getDateOfExam() {
 
-		this.maxScore = maxScore;
+		return dateCreated;
 
-	}
-
-	public Integer getMaxScore() {
-		return this.maxScore;
 	}
 
 	@Transient
-	/*
-	
-	 */
-	public Integer getCandidateScore() {
+	public Integer getMaxScore() {
 
-		candidateScore = 0;;
+		return this.maxScore;
+
+	}
+
+	@Transient
+	public Integer getCandidateScore() {
 
 		return this.candidateScore;
 
+	}
+
+	@Transient
+	public Boolean isCertified() {
+
+		return getCandidateScore() >= exam.passMarks;
+
+	}
+
+	@Transient
+	public Boolean getCertified() {
+		return isCertified();
+	}
+
+	@Transient
+	public Double getPercentage() {
+
+		return 100.0 * (1.0 * getCandidateScore() / getMaxScore());
+
+	}
+
+	public void setDateOfExam(Date dateOfExam) {
+		this.dateOfExam = dateOfExam;
 	}
 
 	public void setMaxScore(Integer maxScore) {
@@ -77,6 +104,14 @@ public abstract class ExamInstanceBase
 
 	public void setCandidateScore(Integer candidateScore) {
 		this.candidateScore = candidateScore;
+	}
+
+	public void setCertified(Boolean certified) {
+		this.certified = certified;
+	}
+
+	public void setPercentage(Double percentage) {
+		this.percentage = percentage;
 	}
 
 	private com.oreon.kgauge.domain.Candidate candidate;

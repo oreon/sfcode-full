@@ -22,8 +22,38 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 				<br/>
 						
 	<rich:dataTable id="data" var="examInstance"
-		value="#{candidateCrudBacking.records}" rows="30"
-	rowClasses="odd, even" styleClass="dataTable" >						
+		value="#{candidateCrudBacking.candidate.examInstanceAsList}" rows="30"
+	rowClasses="odd, even" styleClass="dataTable" >		
+	
+	
+		
+	
+		
+			
+	
+	<rich:column sortBy="#{examInstance.exam.displayName}" filterBy="#{examInstance.exam.displayName}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.examInstance_exam}" /> 	
+		</f:facet>
+		<h:outputText value="#{examInstance.exam.displayName}" />
+	</rich:column>
+	
+
+		
+					
+	
+	
+
+	<rich:column sortBy="#{examInstance.dateOfExam}"  filterBy="#{examInstance.dateOfExam}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.examInstance_dateOfExam}" /> 		
+		</f:facet>
+		<h:outputText value="#{examInstance.dateOfExam}" />
+	</rich:column>
+	
+	
+
+	
 	
 
 	<rich:column sortBy="#{examInstance.maxScore}"  filterBy="#{examInstance.maxScore}" filterEvent="onkeyup" >
@@ -32,6 +62,7 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 		</f:facet>
 		<h:outputText value="#{examInstance.maxScore}" />
 	</rich:column>
+	
 	
 
 	
@@ -48,32 +79,35 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 
 	
 	
-	
-	
-	<rich:column sortBy="#{examInstance.candidate.displayName}" filterBy="#{examInstance.candidate.displayName}" filterEvent="onkeyup" >
+
+	<rich:column sortBy="#{examInstance.certified}"  filterBy="#{examInstance.certified}" filterEvent="onkeyup" >
 		<f:facet name="header">
-				<h:outputText value="#{msg.examInstance_candidate}" /> 	
+				<h:outputText value="#{msg.examInstance_certified}" /> 		
 		</f:facet>
-		<h:outputText value="#{examInstance.candidate.displayName}" />
+		<h:outputText value="#{examInstance.certified}" />
 	</rich:column>
 	
 	
 
-
 	
-	<rich:column sortBy="#{examInstance.exam.displayName}" filterBy="#{examInstance.exam.displayName}" filterEvent="onkeyup" >
+	
+
+	<rich:column sortBy="#{examInstance.percentage}"  filterBy="#{examInstance.percentage}" filterEvent="onkeyup" >
 		<f:facet name="header">
-				<h:outputText value="#{msg.examInstance_exam}" /> 	
+				<h:outputText value="#{msg.examInstance_percentage}" /> 		
 		</f:facet>
-		<h:outputText value="#{examInstance.exam.displayName}" />
+		<h:outputText value="#{examInstance.percentage}" />
 	</rich:column>
 	
+	
 
+	
+	
 		<rich:column>
 			<f:facet name="header">
 				<h:outputText value=" " />
 			</f:facet>
-			<h:commandLink action="view"
+			<h:commandLink action="viewExamInstance"
 				actionListener="#{examInstanceCrudBacking.selectEntity}">
 				<rich:toolTip direction="bottom-left" styleClass="toolTip"
 					value="Click to Edit Row" mode="client" />

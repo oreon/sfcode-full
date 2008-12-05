@@ -22,8 +22,12 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 				<br/>
 						
 	<rich:dataTable id="data" var="grantedRole"
-		value="#{userCrudBacking.records}" rows="30"
-	rowClasses="odd, even" styleClass="dataTable" >						
+		value="#{userCrudBacking.user.grantedRolesAsList}" rows="30"
+	rowClasses="odd, even" styleClass="dataTable" >		
+	
+	
+		
+					
 	
 	
 
@@ -38,20 +42,11 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 
 	
 	
-	
-	<rich:column sortBy="#{grantedRole.user.displayName}" filterBy="#{grantedRole.user.displayName}" filterEvent="onkeyup" >
-		<f:facet name="header">
-				<h:outputText value="#{msg.grantedRole_user}" /> 	
-		</f:facet>
-		<h:outputText value="#{grantedRole.user.displayName}" />
-	</rich:column>
-	
-
 		<rich:column>
 			<f:facet name="header">
 				<h:outputText value=" " />
 			</f:facet>
-			<h:commandLink action="view"
+			<h:commandLink action="viewGrantedRoles"
 				actionListener="#{grantedRoleCrudBacking.selectEntity}">
 				<rich:toolTip direction="bottom-left" styleClass="toolTip"
 					value="Click to Edit Row" mode="client" />

@@ -48,8 +48,8 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUsername("epsilon13039");
-			user.setPassword("alpha");
+			user.setUsername("alpha71704");
+			user.setPassword("gamma");
 			user.setEnabled(true);
 
 			register(user);
@@ -66,8 +66,8 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUsername("theta46323");
-			user.setPassword("delta");
+			user.setUsername("gamma12422");
+			user.setPassword("zeta");
 			user.setEnabled(true);
 
 			register(user);
@@ -84,8 +84,8 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUsername("pi70104");
-			user.setPassword("delta");
+			user.setUsername("Eric30699");
+			user.setPassword("gamma");
 			user.setEnabled(false);
 
 			register(user);
@@ -102,8 +102,8 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUsername("theta78373");
-			user.setPassword("theta");
+			user.setUsername("Lavendar10455");
+			user.setPassword("epsilon");
 			user.setEnabled(false);
 
 			register(user);
@@ -120,7 +120,7 @@ public class UserTestDataFactory extends AbstractTestDataFactory<User> {
 
 		try {
 
-			user.setUsername("theta4975");
+			user.setUsername("Eric93976");
 			user.setPassword("beta");
 			user.setEnabled(false);
 

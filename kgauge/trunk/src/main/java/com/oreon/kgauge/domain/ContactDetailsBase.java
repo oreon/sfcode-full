@@ -88,9 +88,6 @@ public abstract class ContactDetailsBase implements java.io.Serializable {
 	}
 
 	@Column(nullable = false, unique = false)
-	/*
-	
-	 */
 	public String getState() {
 
 		return this.state;
@@ -98,9 +95,6 @@ public abstract class ContactDetailsBase implements java.io.Serializable {
 	}
 
 	@Column(nullable = false, unique = false)
-	/*
-	
-	 */
 	public String getCountry() {
 
 		return this.country;
@@ -116,9 +110,6 @@ public abstract class ContactDetailsBase implements java.io.Serializable {
 	}
 
 	@Column(nullable = false, unique = true)
-	/*
-	
-	 */
 	public String getEmail() {
 
 		return this.email;

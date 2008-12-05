@@ -16,15 +16,29 @@ import java.util.Date;
 
 public class ExamInstanceDto {
 
+	private Date dateOfExam;
+
 	private Integer maxScore;
 
 	private Integer candidateScore;
+
+	private Boolean certified;
+
+	private Double percentage;
 
 	private CandidateDto candidate;
 
 	private ExamDto exam;
 
 	private java.util.Set<AnsweredQuestionDto> answeredQuestion = new java.util.HashSet<AnsweredQuestionDto>();
+
+	public Date getDateOfExam() {
+		return dateOfExam;
+	}
+
+	public void setDateOfExam(Date dateOfExam) {
+		this.dateOfExam = dateOfExam;
+	}
 
 	public Integer getMaxScore() {
 		return maxScore;
@@ -40,6 +54,22 @@ public class ExamInstanceDto {
 
 	public void setCandidateScore(Integer candidateScore) {
 		this.candidateScore = candidateScore;
+	}
+
+	public Boolean getCertified() {
+		return certified;
+	}
+
+	public void setCertified(Boolean certified) {
+		this.certified = certified;
+	}
+
+	public Double getPercentage() {
+		return percentage;
+	}
+
+	public void setPercentage(Double percentage) {
+		this.percentage = percentage;
 	}
 
 	public CandidateDto getCandidate() {

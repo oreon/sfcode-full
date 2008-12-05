@@ -12,9 +12,19 @@ import java.util.Date;
 
 public class CandidateDto {
 
+	private String description;
+
 	private java.util.Set<ExamInstanceDto> examInstance = new java.util.HashSet<ExamInstanceDto>();
 
 	private UserDto user;
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public UserDto getUser() {
 		return this.user;

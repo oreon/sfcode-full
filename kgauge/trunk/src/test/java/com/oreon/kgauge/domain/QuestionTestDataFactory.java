@@ -48,9 +48,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("Eric");
+			question.setQuestionText("theta");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
 			question.setCorrectChoice(null/*unknown attrib type*/);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
@@ -74,9 +74,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("epsilon");
+			question.setQuestionText("gamma");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L2);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
 			question.setCorrectChoice(null/*unknown attrib type*/);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
@@ -100,7 +100,7 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("Wilson");
+			question.setQuestionText("delta");
 			question
 					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L4);
 			question.setCorrectChoice(null/*unknown attrib type*/);
@@ -126,9 +126,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("alpha");
+			question.setQuestionText("epsilon");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L2);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
 			question.setCorrectChoice(null/*unknown attrib type*/);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
@@ -152,7 +152,7 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("Lavendar");
+			question.setQuestionText("epsilon");
 			question
 					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L4);
 			question.setCorrectChoice(null/*unknown attrib type*/);

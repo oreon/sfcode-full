@@ -29,7 +29,7 @@ public class Exam extends ExamBase implements java.io.Serializable {
 	public Exam(String examNumber, String name, String description,
 			Integer questions, Integer duration, Double price,
 			ScoringType scoringStrategy, ExamStatus examStatus, Integer defaultMarksForCorrect) {
-		super(examNumber, name, description, questions, duration, price,
+		super(examNumber, name, questions, duration, price,
 				scoringStrategy, examStatus, duration, defaultMarksForCorrect);
 	}
 
