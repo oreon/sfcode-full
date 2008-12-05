@@ -9,7 +9,7 @@
 «EXTENSION java::Associations»
 
 «REM» Create the additional tabs for an entity to show associations e.g. orders of a customer «ENDREM»
-«DEFINE genTabularViewComponent(Class c) FOR Entity-»
+«DEFINE genTabularViewComponent(Class c, AssociationEnd ae) FOR Entity-»
 	
 	«EXPAND ViewGen::genIncludesHTML-»
 
@@ -20,16 +20,22 @@
 				<br/>
 						
 	<rich:dataTable id="data" var="«asInstanceVar()»"
-		value="#{«c.asInstanceVar()»CrudBacking.records}" rows="30"
-	rowClasses="odd, even" styleClass="dataTable" >						
-	«EXPAND genTableRow(asInstanceVar()) FOREACH getAllAttributes -»
+		value="#{«c.asInstanceVar()»CrudBacking.«c.asInstanceVar()».«ae.associationName()»AsList}" rows="30"
+	rowClasses="odd, even" styleClass="dataTable" >		
 	«REM»The associated entites for e.g an order would need a customer «ENDREM»
-	«EXPAND genTableRow(this) FOREACH getNonOneToOneOutgoingAssociations() -»
+	«FOREACH getNonOneToOneOutgoingAssociations() AS a»
+		«IF a.Class.NameS != c.NameS»
+			«EXPAND genTableRow(this) FOR a -»
+		«ENDIF»
+	«ENDFOREACH»				
+	«EXPAND genTableRow(asInstanceVar()) FOREACH getAllAttributes -»
+	
+	
 		<rich:column>
 			<f:facet name="header">
 				<h:outputText value=" " />
 			</f:facet>
-			<h:commandLink action="view"
+			<h:commandLink action="view«ae.associationName().toFirstUpper()»"
 				actionListener="#{«asInstanceVar()»CrudBacking.selectEntity}">
 				<rich:toolTip direction="bottom-left" styleClass="toolTip"
 					value="Click to Edit Row" mode="client" />

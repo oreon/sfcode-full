@@ -27,10 +27,14 @@
 	/*
 	«Documentation»
 	*/
-	«ENDIF»
+	«ENDIF»	
 	public «Type.NameS» «getGetter(Type)»«NameS.toFirstUpper()» () {
 		return this.«NameS»;
 	} 
+	
+	
+	
+	
 «ENDDEFINE»
 
 
@@ -58,8 +62,14 @@
 		«ELSE»
 			return this.«NameS»;
 		«ENDIF»
-		
 	} 
+	
+	«IF Type.isBoolean() && getDerived != null-»
+	@Transient
+	public «Type.NameS» get«NameS.toFirstUpper()» () {
+		return is«NameS.toFirstUpper()»();
+	} 
+	«ENDIF» 
 «ENDDEFINE»
 
 

@@ -74,9 +74,10 @@
 	
 «IF !isComposition && isNavigable && isMultiple»
 
-	/** Translate sets into a list 
+	/** Translate set into a list 
 	 * @return
 	 */
+	 @Transient
 	public List<«Class.NameS»> «asGetter()»AsList() {
 		List<«Class.NameS»> «asInstanceVar()»List = new ArrayList<«Class.NameS»>();
 		«asInstanceVar()»List.addAll(get«associationName().toFirstUpper()»());

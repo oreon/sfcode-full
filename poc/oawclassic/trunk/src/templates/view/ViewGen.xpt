@@ -47,7 +47,7 @@
 
 «FOREACH AssociationEnd.Opposite.select(ae|!ae.isComposition && ae.isNavigable && ae.isMultiple) AS ae»
 «FILE getFileGenerationPath(ae.associationName().toFirstUpper() +"ViewComponent") » 
-	«EXPAND AssociationTabView::genTabularViewComponent(this) FOR ae.Class»
+	«EXPAND AssociationTabView::genTabularViewComponent(this, ae) FOR ae.Class»
 «ENDFILE»
 «ENDFOREACH»
 			
