@@ -55,6 +55,8 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 
 	
 	
+	<acegijsf:authorize ifAnyGranted="ROLE_ADMIN">
+	
 
 	<rich:column sortBy="#{candidate.dateOfBirth}"  filterBy="#{candidate.dateOfBirth}" filterEvent="onkeyup" >
 		<f:facet name="header">
@@ -64,18 +66,7 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	</rich:column>
 	
 	
-
-
-	
-	
-
-	<rich:column sortBy="#{candidate.description}"  filterBy="#{candidate.description}" filterEvent="onkeyup" >
-		<f:facet name="header">
-				<h:outputText value="#{msg.candidate_description}" /> 		
-		</f:facet>
-		<h:outputText value="#{candidate.description}" />
-	</rich:column>
-	
+	</acegijsf:authorize>
 	
 
 
@@ -321,6 +312,8 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 
 	
 	
+	<acegijsf:authorize ifAnyGranted="ROLE_ADMIN">
+	
 
 	<rich:column sortBy="#{log.entity.dateOfBirth}"  filterBy="#{log.entity.dateOfBirth}" filterEvent="onkeyup" >
 		<f:facet name="header">
@@ -330,18 +323,7 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	</rich:column>
 	
 	
-
-
-	
-	
-
-	<rich:column sortBy="#{log.entity.description}"  filterBy="#{log.entity.description}" filterEvent="onkeyup" >
-		<f:facet name="header">
-				<h:outputText value="#{msg.candidate_description}" /> 		
-		</f:facet>
-		<h:outputText value="#{log.entity.description}" />
-	</rich:column>
-	
+	</acegijsf:authorize>
 	
 
 
