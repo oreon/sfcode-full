@@ -2,16 +2,13 @@ package com.oreon.kgauge.web.jsf;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 import org.witchcraft.model.jsf.JSFUtils;
 
-import com.oreon.kgauge.domain.AnswerChoice; 
 import com.oreon.kgauge.domain.AnsweredQuestion;
-import com.oreon.kgauge.domain.ExamInstance;
 import com.oreon.kgauge.domain.Question;
 
 public class ExamInstanceBackingBean extends ExamInstanceBackingBeanBase {

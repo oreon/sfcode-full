@@ -87,4 +87,9 @@ public class QuestionServiceImplBase extends BaseServiceImpl<Question>
 		return null;
 	}
 
+	public com.oreon.kgauge.domain.AnswerChoice findCorrectChoice(
+			Question question) {
+		return questionDao.findCorrectChoice(question);
+	}
+
 }

@@ -59,6 +59,9 @@ public abstract class ExamBase
 
 	protected Integer defaultMarksForCorrect = 4;
 
+	@Field(index = Index.TOKENIZED, store = Store.NO)
+	protected String description;
+
 	/* Default Constructor */
 	public ExamBase() {
 	}
@@ -67,7 +70,7 @@ public abstract class ExamBase
 	public ExamBase(String examNumber, String name, Integer questions,
 			Integer duration, Double price, ScoringType scoringStrategy,
 			ExamStatus examStatus, Integer passMarks,
-			Integer defaultMarksForCorrect) {
+			Integer defaultMarksForCorrect, String description) {
 
 		this.examNumber = examNumber;
 
@@ -87,6 +90,8 @@ public abstract class ExamBase
 
 		this.defaultMarksForCorrect = defaultMarksForCorrect;
 
+		this.description = description;
+
 	}
 
 	@Column(nullable = false, unique = false)
@@ -97,24 +102,25 @@ public abstract class ExamBase
 	}
 
 	@Column(nullable = false, unique = false)
-	/*
-	Name of the exam e.g. Hibernate Proficiency Exam  	*/
+	/**
+	 * Name of the exam e.g. Hibernate Proficiency Exam  
+	 */
 	public String getName() {
 
 		return this.name;
 
 	}
 
-	/*
-	Number of questions in the exam
+	/**
+	 * Number of questions in the exam
 	 */
 
 	public Integer getQuestions() {
 		return this.questions;
 	}
 
-	/*
-	Duration of exam in minutes
+	/**
+	 * Duration of exam in minutes
 	 */
 
 	public Integer getDuration() {
@@ -141,6 +147,13 @@ public abstract class ExamBase
 	public Integer getDefaultMarksForCorrect() {
 
 		return this.defaultMarksForCorrect;
+
+	}
+
+	@Column(nullable = false, unique = false)
+	public String getDescription() {
+
+		return this.description;
 
 	}
 
@@ -178,6 +191,10 @@ public abstract class ExamBase
 
 	public void setDefaultMarksForCorrect(Integer defaultMarksForCorrect) {
 		this.defaultMarksForCorrect = defaultMarksForCorrect;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	private com.oreon.kgauge.domain.Category category;
@@ -257,6 +274,10 @@ public abstract class ExamBase
 		return null;
 	}
 
+	public java.util.List findActiveExams() {
+		return null;
+	}
+
 	public abstract Exam examInstance();
 
 	@Transient
@@ -274,6 +295,8 @@ public abstract class ExamBase
 		listSearchableFields.add("examNumber");
 
 		listSearchableFields.add("name");
+
+		listSearchableFields.add("description");
 
 		listSearchableFields.add("section.name");
 

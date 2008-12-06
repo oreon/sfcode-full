@@ -1,13 +1,10 @@
 package com.oreon.kgauge.domain;
 
-import javax.persistence.*;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.Date;
+
+import javax.persistence.MappedSuperclass;
 
 import org.apache.log4j.Logger;
-import javax.jws.WebService;
-
-import java.util.Date;
 
 @MappedSuperclass
 public class Person extends PersonBase implements java.io.Serializable {

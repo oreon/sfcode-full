@@ -1,16 +1,12 @@
 package com.oreon.kgauge.domain;
 
-import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
-import javax.jws.WebService;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Entity
 public class Candidate extends CandidateBase implements java.io.Serializable {

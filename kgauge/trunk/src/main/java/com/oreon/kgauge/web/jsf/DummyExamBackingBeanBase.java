@@ -7,7 +7,6 @@
 
 package com.oreon.kgauge.web.jsf;
 
-import java.util.Date;
 import org.apache.log4j.Logger;
 
 public abstract class DummyExamBackingBeanBase implements java.io.Serializable {

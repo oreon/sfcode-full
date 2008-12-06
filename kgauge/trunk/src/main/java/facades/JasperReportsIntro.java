@@ -9,7 +9,6 @@ import java.util.Map;
 
 import javax.persistence.EntityManagerFactory;
 
-import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;

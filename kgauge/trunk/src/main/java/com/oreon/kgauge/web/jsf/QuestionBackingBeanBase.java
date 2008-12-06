@@ -147,6 +147,7 @@ public class QuestionBackingBeanBase extends BaseBackingBean<Question> {
 	}
 
 	private void addAnswerChoicesToQuestion() {
+		question = questionService.save(question);//To prevent lazy initialization exception
 		question.getAnswerChoice().clear();
 		List<AnswerChoice> listValidAnswerChoices = new ArrayList<AnswerChoice>();
 

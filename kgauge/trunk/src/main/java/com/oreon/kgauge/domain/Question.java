@@ -1,13 +1,11 @@
 package com.oreon.kgauge.domain;
 
-import javax.persistence.*;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
-import javax.jws.WebService;
 
-import java.util.Date;
+import facades.ServiceFacade;
 
 @Entity
 public class Question extends QuestionBase implements java.io.Serializable {
@@ -31,7 +29,10 @@ public class Question extends QuestionBase implements java.io.Serializable {
 	@Override
 	@Transient
 	public AnswerChoice getCorrectChoice() {
-		for (AnswerChoice choice : getAnswerChoice()) {
+		//to avoid lazy initialization exception
+		 Question question = ServiceFacade.getInstance().getQuestionService().load(getId());
+		
+		for (AnswerChoice choice : question.getAnswerChoice()) {
 			if(choice.isCorrectChoice())
 				return choice;
 		}

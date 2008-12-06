@@ -1,13 +1,6 @@
 package com.oreon.kgauge.web.jsf;
 
-import javax.persistence.*;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import org.apache.log4j.Logger;
-import javax.jws.WebService;
-
-import java.util.Date;
 
 public class CategoryBackingBean extends CategoryBackingBeanBase
 		implements

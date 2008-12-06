@@ -75,7 +75,7 @@ public abstract class PersonBase
 
 	}
 
-	@Column(nullable = false, unique = false)
+	@Column(nullable = true, unique = false)
 	public Date getDateOfBirth() {
 
 		return this.dateOfBirth;

@@ -175,6 +175,7 @@ public class CategoryBackingBeanBase extends BaseBackingBean<Category> {
 	}
 
 	private void addSubcategoriessToCategory() {
+		category = categoryService.save(category);//To prevent lazy initialization exception
 		category.getSubcategories().clear();
 		List<Category> listValidSubcategoriess = new ArrayList<Category>();
 

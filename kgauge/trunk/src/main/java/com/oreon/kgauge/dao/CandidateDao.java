@@ -14,7 +14,7 @@ public interface CandidateDao extends GenericDAO<Candidate> {
 
 	public Candidate findByEmail(String email);
 
-	public List findExamInstances(Long candidateId);
+	public java.util.List findExamInstances(Long candidateId);
 
 	public Long findNumberOfCertifications();
 

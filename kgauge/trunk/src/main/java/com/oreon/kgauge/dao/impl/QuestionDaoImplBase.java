@@ -43,4 +43,11 @@ public class QuestionDaoImplBase extends BaseDao<Question>
 
 	}
 
+	public com.oreon.kgauge.domain.AnswerChoice findCorrectChoice(
+			Question question) {
+
+		return executeSingleResultNamedQuery("", new Object[]{question});
+
+	}
+
 }

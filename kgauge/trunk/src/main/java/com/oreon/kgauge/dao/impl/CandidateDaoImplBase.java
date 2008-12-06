@@ -86,7 +86,7 @@ public class CandidateDaoImplBase extends BaseDao<Candidate>
 	</query>
 	 */
 
-	public List findExamInstances(Long candidateId) {
+	public java.util.List findExamInstances(Long candidateId) {
 
 		return executeNamedQuery("", new Object[]{candidateId});
 
