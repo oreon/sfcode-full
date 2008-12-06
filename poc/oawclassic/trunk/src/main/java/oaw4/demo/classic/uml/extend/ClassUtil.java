@@ -49,9 +49,18 @@ public class ClassUtil {
 	 * @return
 	 */
 	public static String getPackageName(Class cls) {
-
+		System.out.println("called for " + cls.NameS());
 		Package beginPack = cls.Package();
 		
+		if(beginPack == null || beginPack.NameS() == null){
+			return null;
+		}
+		
+		if(beginPack.NameS().equalsIgnoreCase("wccollections"))
+			return "java.util";
+		
+		System.out.println(beginPack.NameS());
+			
 		return getPackageName(beginPack);
 	}
 

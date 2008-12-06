@@ -11,6 +11,12 @@ String fqnDto (AssociationEnd ae) : !ae.isMultiple ? fullNameIfRequrired(ae) + g
 String fullNameIfRequrired(AssociationEnd ae):
 ae.Class.Package.NameS == ae.Opposite.Class.Package.NameS ? ae.Class.NameS : ae.Class.fqnExt(getDtoExtenstion().toLowerCase()) + "."  + ae.Class.NameS ;
 
+String getFetchType(Association a):
+ "FetchType.LAZY";
+
+String getFetchType(CustomAssociation a):
+"FetchType." + (a.isLazy?"LAZY":"EAGER");
+
 String fqnExt(Class cls, String ext):
 packageName(cls) + "." + ext;
 

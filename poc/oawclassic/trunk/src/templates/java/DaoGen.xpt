@@ -155,7 +155,8 @@
 «ENDDEFINE»
 
 «DEFINE genNamedQueryDec FOR Operation»
-		public «ReturnType.NameS» «NameS»( «getOperationParams()» )
+		public «ReturnType.NameS == "List"? "java.util.List" :
+			ReturnType.fqn()» «NameS»( «getOperationParams()» )
 «ENDDEFINE»
 
 

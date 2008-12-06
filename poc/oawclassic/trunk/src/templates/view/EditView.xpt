@@ -23,7 +23,7 @@
 			<h:panelGrid columns="2" styleClass="formTableCustom">
 					«REM»The associated entites for e.g an order would need a customer «ENDREM»
 					«EXPAND genAssociations FOR this»
-					«EXPAND genEditEntry(this) FOREACH getAllAttributes -»
+					«EXPAND genEditEntry(this) FOREACH getAllNonDerivedAttributes -»
 			</h:panelGrid>
 						<br/>
 						
@@ -39,7 +39,7 @@
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 				«REM»The associated entites for e.g an order would need a customer «ENDREM» 
 				«EXPAND genEditableTableRow(ae.Class, false) FOREACH ae.Class.AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) -»
-				«EXPAND genEditableTableRow(ae.Class) FOREACH ae.Class.getAllAttributes -»
+				«EXPAND genEditableTableRow(ae.Class) FOREACH ae.Class.getAllNonDerivedAttributes -»
 				«EXPAND genEditableTableDeleteColumn(this) FOR ae -»
 				</t:dataTable>
 				<br/>

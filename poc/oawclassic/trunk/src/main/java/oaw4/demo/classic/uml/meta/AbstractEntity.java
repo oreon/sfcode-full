@@ -90,6 +90,7 @@ public abstract class AbstractEntity extends
 		return getAllAttributesFor(getAllContianedAssociations());
 	}
 	
+	
 	public ElementSet getAllAttributesWithOutgoingAssocs(){
 		
 		return getAllAttributesFor(getAllOutgoingAssociations());
@@ -336,11 +337,25 @@ public abstract class AbstractEntity extends
 		return embeddables;
 	}
 	
-	/**All attributes that are not derived
+	/**All attributes that are not derived (does not include one on one and superclass attributes)
 	 * @return
 	 */
 	public ElementSet getNonDerivedAttributes(){
-		ElementSet attributes = Attribute();
+		return getAttributes(false);
+	}
+	
+	/** All attributes - 
+	 * @return
+	 */
+	public ElementSet getAllNonDerivedAttributes(){
+		return getAttributes(false);
+	}
+
+	/** 
+	 * @return
+	 */
+	private ElementSet getAttributes(boolean includeAttributesFromOneOnOneAndSuperClasses) {
+		ElementSet attributes = includeAttributesFromOneOnOneAndSuperClasses?getAllAttributes():Attribute();
 		ElementSet nonDerivedAttributes = new ElementSet();
 		for (Object object : attributes) {
 			Attribute attribute = (Attribute)object;

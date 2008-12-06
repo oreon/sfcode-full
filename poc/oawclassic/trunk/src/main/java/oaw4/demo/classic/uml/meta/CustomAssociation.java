@@ -17,7 +17,26 @@ public class CustomAssociation extends Association{
 	private boolean mutable = true;
 	private String access;
 	private String maxValue;
+	private boolean lazy = true;
 	
+	public boolean isLazy() {
+		return lazy;
+	}
+
+	public void setLazy(boolean lazy) {
+		this.lazy = lazy;
+	}
+
+	public String getMaxValue() {
+		return maxValue;
+	}
+
+	public void setMaxValue(String maxValue) {
+		this.maxValue = maxValue;
+	}
+
+
+
 	public String getAccess() {
 		return access;
 	}

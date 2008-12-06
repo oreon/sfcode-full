@@ -23,18 +23,10 @@
 	«IF Type.Name == "Image"»
 		@XmlTransient
 	«ENDIF»
-	«IF Documentation != null-»
-	/*
-	«Documentation»
-	*/
-	«ENDIF»	
+	«EXPAND CommonUtils::genDocumentation»
 	public «Type.NameS» «getGetter(Type)»«NameS.toFirstUpper()» () {
 		return this.«NameS»;
-	} 
-	
-	
-	
-	
+	} 	
 «ENDDEFINE»
 
 
@@ -47,11 +39,7 @@
 	«IF Type.Name == "Image"»
 		@XmlTransient
 	«ENDIF»
-	«IF Documentation != null-»
-	/*
-	«Documentation-»
-	*/
-	«ENDIF»
+	«EXPAND CommonUtils::genDocumentation»
 	public «Type.NameS» «getGetter(Type)»«NameS.toFirstUpper()» () {
 		«IF getDerived != null && !getDerived.isStringEmtpy()»
 			return «getDerived»;
