@@ -21,7 +21,7 @@
 «ENDDEFINE»
 
 «DEFINE Root FOR Package»
-	«IF NameS!= null && !NameS.startsWith("java")»
+	«IF NameS!= null && !( NameS.startsWith("java")  || NameS.startsWith("wccollections") )»
 		«EXPAND Root FOREACH OwnedElement»
 	«ENDIF»
 «ENDDEFINE»
@@ -37,7 +37,9 @@
 
 
 «DEFINE Root FOR Entity»
+«REM»comment
 	«EXPAND java::DtoGen::dtoGen»
+«ENDREM»
 	«EXPAND java::JavaBean::EntityGen»
 	«EXPAND java::DaoGen::GenerateDao»
 	«EXPAND java::ServiceGen::GenerateService»
