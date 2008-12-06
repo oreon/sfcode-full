@@ -218,6 +218,8 @@ public abstract class BaseBackingBean<T> {
 		//TODO This message needs to be internationalized
 		createSuccessMessage(getEntity().getClass().getSimpleName()
 				+ " was successfully " + (isNew ? "added." : "updated."));
+		
+		//reset();
 
 		return SUCCESS_UPDATE;
 	}
