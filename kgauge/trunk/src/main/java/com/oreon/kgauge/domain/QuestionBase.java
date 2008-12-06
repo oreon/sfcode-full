@@ -71,8 +71,9 @@ public abstract class QuestionBase
 	}
 
 	@Transient
-	/*
-	//select(answerChoice, correctChoice = true );	*/
+	/**
+	 * //select(answerChoice, correctChoice = true );
+	 */
 	public AnswerChoice getCorrectChoice() {
 
 		return this.correctChoice;
@@ -118,7 +119,7 @@ public abstract class QuestionBase
 		this.answerChoice.remove(answerChoice);
 	}
 
-	@OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "question", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@IndexedEmbedded
 	@JoinColumn(name = "question_ID", nullable = false)
 	public java.util.Set<com.oreon.kgauge.domain.AnswerChoice> getAnswerChoice() {
@@ -147,6 +148,10 @@ public abstract class QuestionBase
 	public void checkMaximumAnswerChoice() {
 		// if(answerChoice.size() > Constants.size())
 		// 		throw new BusinessException ("msg.tooMany." + answerChoice );
+	}
+
+	public AnswerChoice findCorrectChoice(Question question) {
+		return null;
 	}
 
 	public abstract Question questionInstance();

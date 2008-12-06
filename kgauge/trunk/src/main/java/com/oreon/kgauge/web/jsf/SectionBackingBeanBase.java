@@ -134,6 +134,7 @@ public class SectionBackingBeanBase extends BaseBackingBean<Section> {
 	}
 
 	private void addQuestionsToSection() {
+		section = sectionService.save(section);//To prevent lazy initialization exception
 		section.getQuestion().clear();
 		List<Question> listValidQuestions = new ArrayList<Question>();
 

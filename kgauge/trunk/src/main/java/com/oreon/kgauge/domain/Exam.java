@@ -1,16 +1,10 @@
 package com.oreon.kgauge.domain;
 
-import javax.persistence.*;
-
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 
 import org.apache.log4j.Logger;
 import org.hibernate.search.annotations.Indexed;
-
-import javax.jws.WebService;
-
-import java.util.Date;
 
 @Entity
 @Indexed
@@ -30,7 +24,7 @@ public class Exam extends ExamBase implements java.io.Serializable {
 			Integer questions, Integer duration, Double price,
 			ScoringType scoringStrategy, ExamStatus examStatus, Integer defaultMarksForCorrect) {
 		super(examNumber, name, questions, duration, price,
-				scoringStrategy, examStatus, duration, defaultMarksForCorrect);
+				scoringStrategy, examStatus, duration, defaultMarksForCorrect, description);
 	}
 
 	public Exam examInstance() {

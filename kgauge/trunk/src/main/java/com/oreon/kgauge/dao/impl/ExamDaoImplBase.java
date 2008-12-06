@@ -50,9 +50,15 @@ public class ExamDaoImplBase extends BaseDao<Exam> implements ExamDao {
 	 * text=SELECT e FROM Exam e WHERE e.questions > ?1 ORDER  BY e.questions
 	 */
 
-	public List findPopularExams(Integer minScore) {
+	public java.util.List findPopularExams(Integer minScore) {
 
 		return executeNamedQuery("", new Object[]{minScore});
+
+	}
+
+	public java.util.List findActiveExams() {
+
+		return executeNamedQuery("", new Object[]{});
 
 	}
 

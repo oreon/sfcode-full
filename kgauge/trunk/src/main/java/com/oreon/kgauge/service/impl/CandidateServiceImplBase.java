@@ -145,7 +145,7 @@ public class CandidateServiceImplBase extends BaseServiceImpl<Candidate>
 	</query>
 	 */
 
-	public List findExamInstances(Long candidateId) {
+	public java.util.List findExamInstances(Long candidateId) {
 		return candidateDao.findExamInstances(candidateId);
 	}
 

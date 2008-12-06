@@ -1,22 +1,21 @@
 package facades;
 import javax.faces.context.FacesContext;
- import javax.faces.event.PhaseEvent;
- import javax.faces.event.PhaseId;
- import javax.faces.event.PhaseListener;
- 
- import org.apache.commons.logging.Log;
- import org.apache.commons.logging.LogFactory;
- import org.hibernate.FlushMode;
- import org.hibernate.Session;
- import org.hibernate.SessionFactory;
- 
- import org.springframework.dao.DataAccessResourceFailureException;
- import org.springframework.orm.hibernate3.SessionFactoryUtils;
- import org.springframework.orm.hibernate3.SessionHolder;
- import org.springframework.transaction.support.TransactionSynchronizationManager;
- import org.springframework.util.Assert;
- import org.springframework.web.context.WebApplicationContext;
- import org.springframework.web.jsf.FacesContextUtils;
+import javax.faces.event.PhaseEvent;
+import javax.faces.event.PhaseId;
+import javax.faces.event.PhaseListener;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hibernate.FlushMode;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.dao.DataAccessResourceFailureException;
+import org.springframework.orm.hibernate3.SessionFactoryUtils;
+import org.springframework.orm.hibernate3.SessionHolder;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
+import org.springframework.util.Assert;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.jsf.FacesContextUtils;
  
  /**
   * 

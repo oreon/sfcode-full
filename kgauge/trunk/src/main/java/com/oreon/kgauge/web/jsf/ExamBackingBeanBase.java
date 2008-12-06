@@ -199,6 +199,7 @@ public class ExamBackingBeanBase extends BaseBackingBean<Exam> {
 	}
 
 	private void addSectionsToExam() {
+		exam = examService.save(exam);//To prevent lazy initialization exception
 		exam.getSection().clear();
 		List<Section> listValidSections = new ArrayList<Section>();
 

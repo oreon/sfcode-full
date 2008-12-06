@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.search.Query;
@@ -13,7 +12,6 @@ import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.witchcraft.lucene.analyzers.EnglishAnalyzer;
 import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
-
 
 import com.oreon.kgauge.domain.Exam;
 import com.oreon.kgauge.service.ExamService;

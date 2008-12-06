@@ -3,15 +3,12 @@ package com.oreon.kgauge.web.jsf;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Transient;
-
 import org.apache.log4j.Logger;
 import org.witchcraft.model.data.location.Country;
 import org.witchcraft.model.data.location.State;
 import org.witchcraft.model.jsf.BaseBackingBean;
 
 import com.oreon.kgauge.domain.Candidate;
-import com.oreon.kgauge.domain.ExamInstance;
 import com.oreon.kgauge.service.EmailService;
 
 public class CandidateBackingBean extends CandidateBackingBeanBase {
@@ -86,12 +83,16 @@ public class CandidateBackingBean extends CandidateBackingBeanBase {
 	
 	public String update()
 	{
+		//FIXME: Theres an issue with acegijsf - it sets enabled to true when the check box is not rendered
+		if(!candidate.getUser().isEnabled())
+			candidate.getUser().setEnabled(true);
+		
 		String updateStatus = super.update();
 		
 		if(updateStatus.equalsIgnoreCase(BaseBackingBean.SUCCESS_UPDATE))
 		{	
 			
-			this.emailPassword();
+			//this.emailPassword();
 			
 			log.info("Sucessfully added ");
 		

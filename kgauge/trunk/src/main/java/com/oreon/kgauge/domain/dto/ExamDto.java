@@ -30,6 +30,8 @@ public class ExamDto {
 
 	private Integer defaultMarksForCorrect;
 
+	private String description;
+
 	private CategoryDto category;
 
 	private ExamCreatorDto examCreator;
@@ -106,6 +108,14 @@ public class ExamDto {
 
 	public void setDefaultMarksForCorrect(Integer defaultMarksForCorrect) {
 		this.defaultMarksForCorrect = defaultMarksForCorrect;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public CategoryDto getCategory() {

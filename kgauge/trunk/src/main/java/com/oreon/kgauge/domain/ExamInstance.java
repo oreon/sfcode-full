@@ -1,12 +1,9 @@
 package com.oreon.kgauge.domain;
 
-import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
-import org.witchcraft.model.support.springbeanhelpers.BeanHelper;
 
 import com.oreon.kgauge.service.ExamInstanceService;
 

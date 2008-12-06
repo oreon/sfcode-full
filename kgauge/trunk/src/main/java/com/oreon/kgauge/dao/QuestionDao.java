@@ -10,4 +10,7 @@ import javax.jws.WebService;
 @WebService
 public interface QuestionDao extends GenericDAO<Question> {
 
+	public com.oreon.kgauge.domain.AnswerChoice findCorrectChoice(
+			Question question);
+
 }

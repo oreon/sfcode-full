@@ -90,8 +90,12 @@ public class ExamServiceImplBase extends BaseServiceImpl<Exam>
 	 * text=SELECT e FROM Exam e WHERE e.questions > ?1 ORDER  BY e.questions
 	 */
 
-	public List findPopularExams(Integer minScore) {
+	public java.util.List findPopularExams(Integer minScore) {
 		return examDao.findPopularExams(minScore);
+	}
+
+	public java.util.List findActiveExams() {
+		return examDao.findActiveExams();
 	}
 
 }

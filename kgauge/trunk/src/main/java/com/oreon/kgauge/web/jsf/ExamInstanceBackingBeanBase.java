@@ -187,6 +187,7 @@ public class ExamInstanceBackingBeanBase extends BaseBackingBean<ExamInstance> {
 	}
 
 	private void addAnsweredQuestionsToExamInstance() {
+		examInstance = examInstanceService.save(examInstance);//To prevent lazy initialization exception
 		examInstance.getAnsweredQuestion().clear();
 		List<AnsweredQuestion> listValidAnsweredQuestions = new ArrayList<AnsweredQuestion>();
 

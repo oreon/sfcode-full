@@ -1,13 +1,10 @@
 package com.oreon.kgauge.service.impl;
 
-import javax.persistence.*;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import org.apache.log4j.Logger;
 import javax.jws.WebService;
 
-import java.util.Date;
+import org.apache.log4j.Logger;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 @WebService(endpointInterface = "com.oreon.kgauge.service.UserService", serviceName = "UserService")
