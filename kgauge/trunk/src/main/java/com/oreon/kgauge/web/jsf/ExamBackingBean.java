@@ -1,5 +1,7 @@
 package com.oreon.kgauge.web.jsf;
 
+import java.util.List;
+
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
@@ -67,5 +69,9 @@ public class ExamBackingBean extends ExamBackingBeanBase {
 		
 		
 		return NavigationConstants.BEGIN_EXAM;
+	}
+	
+	public List getActiveExams(){
+		return examService.findActiveExams();
 	}
 }

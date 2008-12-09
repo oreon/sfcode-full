@@ -12,8 +12,12 @@
 			iconExpandedGroup="disc" iconCollapsedGroup="disc"
 			iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right"
 			iconCollapsedTopGroup="chevronDown" iconCollapsedTopPosition="right">
-			<rich:panelMenuGroup label="My Links " expanded="true">
 
+			<rich:panelMenuGroup label="My Links " expanded="true">
+				<rich:panelMenuItem>
+					<h:commandLink action="myHome" value="Home" />
+				</rich:panelMenuItem>
+				
 				<rich:panelMenuItem>
 					<h:commandLink action="myExams" value="My Exams" />
 				</rich:panelMenuItem>
@@ -29,11 +33,13 @@
 				</rich:panelMenuItem>
 
 				<rich:panelMenuItem>
-					<a4j:commandLink
+					<h:commandLink
 						actionListener="#{authenticationController.logout}"
 						action="logout"
 						value="Log Out #{authenticationController.username}" />
 				</rich:panelMenuItem>
+				
+				
 
 			</rich:panelMenuGroup>
 		</rich:panelMenu>

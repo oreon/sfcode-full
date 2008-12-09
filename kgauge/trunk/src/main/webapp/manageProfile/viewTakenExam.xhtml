@@ -23,100 +23,10 @@ template="/WEB-INF/template/default.xhtml">
 				
 			
 			<!--PROTECTED REGION ID(_14_0_8e50284_1228416018269_281478_3016) ENABLED START-->
-					<a4j:form id="form">
-
-		<h:panelGrid columns="6" styleClass="viewInfo"
-			columnClasses="leftCol, rightCol" rules="rows">
-			<f:facet name="header">
-				<h:outputText
-					value="#{examInstanceCrudBacking.examInstance.displayName}" />
-			</f:facet>
-
-
-			<h:outputText value="#{msg.examInstance_dateOfExam}" />
-			<t:outputText
-				value="#{examInstanceCrudBacking.examInstance.dateOfExam}" />
-
-			<h:outputText value="#{msg.examInstance_maxScore}" />
-			<t:outputText
-				value="#{examInstanceCrudBacking.examInstance.maxScore}" />
-
-			<h:outputText value="#{msg.examInstance_candidateScore}" />
-			<t:outputText
-				value="#{examInstanceCrudBacking.examInstance.candidateScore}" />
-
-			<h:outputText value="#{msg.examInstance_certified}" />
-			<t:outputText
-				value="#{examInstanceCrudBacking.examInstance.certified}" />
-
-			<h:outputText value="#{msg.examInstance_percentage}" />
-			<t:outputText
-				value="#{examInstanceCrudBacking.examInstance.percentage}" />
-
-
-			<h:outputText value="#{msg.examInstance_candidate}" />
-			<h:commandLink
-				value="#{examInstanceCrudBacking.examInstance.candidate.displayName}"
-				actionListener="#{candidateCrudBacking.selectEntity}"
-				action="viewCandidate">
-				<c:if
-					test="${examInstanceCrudBacking.examInstance.candidate != null}">
-					<f:param name="id"
-						value="#{examInstanceCrudBacking.examInstance.candidate.id}" />
-				</c:if>
-			</h:commandLink>
-			<h:outputText value="#{msg.examInstance_exam}" />
-			<h:commandLink
-				value="#{examInstanceCrudBacking.examInstance.exam.displayName}"
-				actionListener="#{examCrudBacking.selectEntity}" action="viewExam">
-				<c:if test="${examInstanceCrudBacking.examInstance.exam != null}">
-					<f:param name="id"
-						value="#{examInstanceCrudBacking.examInstance.exam.id}" />
-				</c:if>
-			</h:commandLink>
-
-
-		</h:panelGrid>
-		<br />
-
-
-
-
-		<rich:simpleTogglePanel switchType="client" label="AnsweredQuestion">
-			<t:dataTable id="answeredQuestion_data" var="answeredQuestion"
-				rowIndexVar="rowIndex"
-				value="#{examInstanceCrudBacking.listAnsweredQuestions}" rows="10"
-				rowClasses="odd, even" styleClass="dataTable" rules="all">
-
-
-
-				<t:column>
-					<f:facet name="header">
-						<t:outputText value="Question" />
-					</f:facet>
-					<h:outputText value="#{answeredQuestion.question.displayName}" />
-				</t:column>
-
-				<t:column>
-					<f:facet name="header">
-						<t:outputText value="Correct Choice" />
-					</f:facet>
-					<h:outputText value="#{answeredQuestion.question.correctChoice.displayName}" />
-				</t:column>
-
-				<t:column>
-					<f:facet name="header">
-						<t:outputText value="AnswerChoice" />
-					</f:facet>
-					<h:outputText value="#{answeredQuestion.answerChoice.displayName}" />
-				</t:column>
-
-
-			</t:dataTable>
-		</rich:simpleTogglePanel>
-		<br />
-
-</a4j:form>
+				<ui:insert>
+					<ui:include src="examInstanceDetails.xhtml" />
+				</ui:insert>
+		
 			<!--PROTECTED REGION END-->	
 		
 		</f:view>

@@ -91,8 +91,7 @@ public class CandidateBackingBeanBase extends BaseBackingBean<Candidate> {
 
 	public Candidate getLoggedinCandidate() {
 		if (loggedinCandidate == null) {
-			loggedinCandidate = getCandidateService().findByUsername(
-					getAuthenticationController().getUsername());
+			loggedinCandidate = getCandidateService().getLoggedInCandidate();
 		}
 		return loggedinCandidate;
 	}
