@@ -23,49 +23,19 @@ template="/WEB-INF/template/default.xhtml">
 				
 			
 			<!--PROTECTED REGION ID(_14_0_8c50281_1210887489359_131156_1683) ENABLED START-->
-			<h:form>
+			
 			<div id="notice">Thank you for taking the knowledge gauge exam.
 			You scored <b>
 			#{examInstanceCrudBacking.examInstance.candidateScore}</b> out of a
 			maximum <b>#{examInstanceCrudBacking.examInstance.maxScore} </b>. 
 			
 			</div>
-			
-			<rich:simpleTogglePanel switchType="client" label="AnsweredQuestion">
-			<t:dataTable id="answeredQuestion_data" var="answeredQuestion"
-				rowIndexVar="rowIndex"
-				value="#{examInstanceCrudBacking.listAnsweredQuestions}" rows="10"
-				rowClasses="odd, even" styleClass="dataTable" rules="all">
-
-
-				<t:column>
-					<f:facet name="header">
-						<t:outputText value="answeredQuestion.Question" />
-					</f:facet>
-					<h:outputText value="#{answeredQuestion.question.displayName}" />
-				</t:column>
 				
-				<t:column>
-					<f:facet name="header">
-						<t:outputText value="Correct Choice" />
-					</f:facet>
-					<h:outputText value="#{answeredQuestion.question.correctChoice}" />
-				</t:column>
-
-
-				<t:column>
-					<f:facet name="header">
-						<t:outputText value="Yourc Choice" />
-					</f:facet>
-					<h:outputText value="#{answeredQuestion.answerChoice.displayName}" />
-				</t:column>
-
-
-			</t:dataTable>
-		</rich:simpleTogglePanel>
+				<ui:insert>
+					<ui:include src="../manageProfile/examInstanceDetails.xhtml" />
+				</ui:insert>
 			
-			
-			<br/>  
+			<h:form>
 			<h:commandButton
 				value="Exit Exam" action="#{examInstanceCrudBacking.exitExam}" styleClass="btn" />
 			</h:form>

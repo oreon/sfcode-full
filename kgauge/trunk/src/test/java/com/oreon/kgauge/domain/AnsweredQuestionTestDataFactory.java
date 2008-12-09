@@ -51,6 +51,8 @@ public class AnsweredQuestionTestDataFactory
 
 		try {
 
+			answeredQuestion.setIsCorrect(true);
+
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
 
@@ -85,6 +87,8 @@ public class AnsweredQuestionTestDataFactory
 		AnsweredQuestion answeredQuestion = new AnsweredQuestion();
 
 		try {
+
+			answeredQuestion.setIsCorrect(false);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -121,6 +125,8 @@ public class AnsweredQuestionTestDataFactory
 
 		try {
 
+			answeredQuestion.setIsCorrect(true);
+
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
 
@@ -156,6 +162,8 @@ public class AnsweredQuestionTestDataFactory
 
 		try {
 
+			answeredQuestion.setIsCorrect(false);
+
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
 
@@ -190,6 +198,8 @@ public class AnsweredQuestionTestDataFactory
 		AnsweredQuestion answeredQuestion = new AnsweredQuestion();
 
 		try {
+
+			answeredQuestion.setIsCorrect(false);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -288,6 +298,9 @@ public class AnsweredQuestionTestDataFactory
 
 	public AnsweredQuestion createRandomAnsweredQuestion() {
 		AnsweredQuestion answeredQuestion = new AnsweredQuestion();
+
+		answeredQuestion.setIsCorrect((Boolean) RandomValueGeneratorFactory
+				.createInstance("boolean"));
 
 		TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 				.getBean("questionTestDataFactory");

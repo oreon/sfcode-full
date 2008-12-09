@@ -1,6 +1,10 @@
 package com.oreon.kgauge.dao.impl;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
+
+import com.oreon.kgauge.domain.ExamStatus;
 
 @org.springframework.stereotype.Repository
 public class ExamDaoImpl extends ExamDaoImplBase {
@@ -11,5 +15,10 @@ public class ExamDaoImpl extends ExamDaoImplBase {
 		return this;
 	}
 	
+	@Override
+	public List findActiveExams() {
+		String qry = "from Exam e where e.examStatus = ?1 ";
+		return executeQuery(qry, new Object[]{ExamStatus.ACTIVE});
+	}
 	
 }

@@ -91,8 +91,8 @@ public class ExamCreatorBackingBeanBase extends BaseBackingBean<ExamCreator> {
 
 	public ExamCreator getLoggedinExamCreator() {
 		if (loggedinExamCreator == null) {
-			loggedinExamCreator = getExamCreatorService().findByUsername(
-					getAuthenticationController().getUsername());
+			loggedinExamCreator = getExamCreatorService()
+					.getLoggedInExamCreator();
 		}
 		return loggedinExamCreator;
 	}

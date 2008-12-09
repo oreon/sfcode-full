@@ -1,10 +1,15 @@
 package com.oreon.kgauge.domain;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
+import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
 import org.hibernate.search.annotations.Indexed;
+
+import facades.ServiceFacade;
 
 @Entity
 @Indexed
@@ -29,6 +34,11 @@ public class Exam extends ExamBase implements java.io.Serializable {
 
 	public Exam examInstance() {
 		return this;
+	}
+	
+	@Transient
+	public List getActiveExams(){
+		return ServiceFacade.getInstance().getExamService().findActiveExams();
 	}
 
 }

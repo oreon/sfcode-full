@@ -39,8 +39,26 @@ public abstract class AnsweredQuestionBase
 
 	private static final long serialVersionUID = 1L;
 
+	protected boolean isCorrect;
+
 	/* Default Constructor */
 	public AnsweredQuestionBase() {
+	}
+
+	@Transient
+	public boolean isIsCorrect() {
+
+		return answerChoice != null && answerChoice.isCorrectChoice();
+
+	}
+
+	@Transient
+	public boolean getIsCorrect() {
+		return isIsCorrect();
+	}
+
+	public void setIsCorrect(boolean isCorrect) {
+		this.isCorrect = isCorrect;
 	}
 
 	private com.oreon.kgauge.domain.Question question;

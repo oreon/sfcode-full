@@ -51,6 +51,8 @@ public class AnsweredQuestionDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
+			answeredQuestionInstance.setIsCorrect(true);
+
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
 
@@ -94,6 +96,8 @@ public class AnsweredQuestionDaoTest extends AbstractJpaTests {
 
 			try {
 
+				answeredQuestion.setIsCorrect(true);
+
 				TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("questionTestDataFactory");
 
@@ -132,6 +136,8 @@ public class AnsweredQuestionDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			AnsweredQuestion answeredQuestion = (AnsweredQuestion) answeredQuestionTestDataFactory
 					.loadOneRecord();
+
+			answeredQuestion.setIsCorrect(false);
 
 			answeredQuestionService.save(answeredQuestion);
 

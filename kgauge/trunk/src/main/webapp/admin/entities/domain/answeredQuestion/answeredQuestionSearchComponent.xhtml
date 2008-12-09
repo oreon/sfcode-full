@@ -24,6 +24,17 @@ xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 				<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
 						backingBean="#{answeredQuestionCrudBacking}" />
 					
+			<h:outputText value="#{msg.answeredQuestion_isCorrect}" />
+			
+			<h:panelGroup>
+				<h:selectBooleanCheckbox     
+					id="answeredQuestion__isCorrect"
+					value="#{answeredQuestionCrudBacking.answeredQuestion.isCorrect}">
+					
+				</h:selectBooleanCheckbox >
+				<h:message for="answeredQuestion__isCorrect" styleClass="errMessage" />
+			</h:panelGroup>
+			
 		
 		
 			<h:outputText value="#{msg.answeredQuestion_question}" styleClass="customFormLabel" />

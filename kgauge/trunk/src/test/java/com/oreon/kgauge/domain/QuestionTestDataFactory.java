@@ -48,9 +48,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("theta");
+			question.setQuestionText("Wilson");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L4);
 			question.setCorrectChoice(null/*unknown attrib type*/);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
@@ -76,7 +76,7 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 			question.setQuestionText("gamma");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L2);
 			question.setCorrectChoice(null/*unknown attrib type*/);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
@@ -100,9 +100,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("delta");
+			question.setQuestionText("pi");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L4);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
 			question.setCorrectChoice(null/*unknown attrib type*/);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
@@ -126,9 +126,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("epsilon");
+			question.setQuestionText("zeta");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L2);
 			question.setCorrectChoice(null/*unknown attrib type*/);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
@@ -154,7 +154,7 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 			question.setQuestionText("epsilon");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L4);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
 			question.setCorrectChoice(null/*unknown attrib type*/);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper

@@ -50,9 +50,9 @@ public class QuestionDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			questionInstance.setQuestionText("gamma");
+			questionInstance.setQuestionText("pi");
 			questionInstance
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L4);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
 			questionInstance.setCorrectChoice(null/*unknown attrib type*/);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
@@ -84,7 +84,7 @@ public class QuestionDaoTest extends AbstractJpaTests {
 
 			try {
 
-				question.setQuestionText("beta");
+				question.setQuestionText("Mark");
 				question
 						.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
 				question.setCorrectChoice(null/*unknown attrib type*/);
@@ -114,9 +114,9 @@ public class QuestionDaoTest extends AbstractJpaTests {
 			Question question = (Question) questionTestDataFactory
 					.loadOneRecord();
 
-			question.setQuestionText("John");
+			question.setQuestionText("Malissa");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L4);
 			question.setCorrectChoice(null/*unknown attrib type*/);
 
 			questionService.save(question);
@@ -168,5 +168,12 @@ public class QuestionDaoTest extends AbstractJpaTests {
 	}
 
 	/////////////////// Queries //////////////////////////////////
+
+	public void testFindCorrectChoice() {
+
+		//Question question  = 0;
+
+		//AnswerChoice retAnswerChoice = questionService.findCorrectChoice(question);
+	}
 
 }
