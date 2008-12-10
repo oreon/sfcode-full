@@ -22,7 +22,7 @@
 
 «DEFINE GenerateEntityMapping FOR Entity»
 	<entity class="«fqn()»" name="«NameS»">
-		<table «getTableName !=null ? "name=\"" + getTableName + "\"":"" -»  >
+		<table name="«getTableName !=null ? getTableName : NameS.toLowerCase()-»"  >
 		«IF getUniqueConstraints != null-»
 			<unique-constraint>
 			«FOREACH getUniqueConstraintsAsCollection AS e-»
