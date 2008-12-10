@@ -51,11 +51,11 @@ public class ExamInstanceDaoTest extends AbstractJpaTests {
 		try {
 
 			examInstanceInstance.setDateOfExam(dateFormat
-					.parse("2008.11.15 00:04:23 EST"));
-			examInstanceInstance.setMaxScore(7850);
-			examInstanceInstance.setCandidateScore(2613);
-			examInstanceInstance.setCertified(true);
-			examInstanceInstance.setPercentage(2.3);
+					.parse("2008.12.10 10:25:01 EST"));
+			examInstanceInstance.setMaxScore(2483);
+			examInstanceInstance.setCandidateScore(8304);
+			examInstanceInstance.setCertified(false);
+			examInstanceInstance.setPercentage(22.67);
 
 			TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("candidateTestDataFactory");
@@ -94,11 +94,11 @@ public class ExamInstanceDaoTest extends AbstractJpaTests {
 			try {
 
 				examInstance.setDateOfExam(dateFormat
-						.parse("2008.12.01 09:39:58 EST"));
-				examInstance.setMaxScore(4012);
-				examInstance.setCandidateScore(5058);
-				examInstance.setCertified(true);
-				examInstance.setPercentage(37.51);
+						.parse("2008.12.08 21:17:48 EST"));
+				examInstance.setMaxScore(6093);
+				examInstance.setCandidateScore(7958);
+				examInstance.setCertified(false);
+				examInstance.setPercentage(1.5);
 
 				TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("candidateTestDataFactory");
@@ -133,11 +133,11 @@ public class ExamInstanceDaoTest extends AbstractJpaTests {
 					.loadOneRecord();
 
 			examInstance.setDateOfExam(dateFormat
-					.parse("2008.11.16 11:33:18 EST"));
-			examInstance.setMaxScore(8426);
-			examInstance.setCandidateScore(1083);
+					.parse("2008.12.08 10:28:53 EST"));
+			examInstance.setMaxScore(4249);
+			examInstance.setCandidateScore(2495);
 			examInstance.setCertified(false);
-			examInstance.setPercentage(54.5);
+			examInstance.setPercentage(38.4);
 
 			examInstanceService.save(examInstance);
 

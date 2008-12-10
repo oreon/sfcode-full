@@ -67,7 +67,7 @@ public abstract class CandidateBase extends Person
 		this.examInstance.remove(examInstance);
 	}
 
-	@OneToMany(mappedBy = "candidate", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "candidate", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "candidate_ID", nullable = true)
 	public java.util.Set<com.oreon.kgauge.domain.ExamInstance> getExamInstance() {
 		return this.examInstance;
