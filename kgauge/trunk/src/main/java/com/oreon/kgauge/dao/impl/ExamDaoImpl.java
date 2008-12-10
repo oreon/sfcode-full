@@ -14,11 +14,11 @@ public class ExamDaoImpl extends ExamDaoImplBase {
 	public ExamDaoImpl examDaoImplInstance() {
 		return this;
 	}
-	
+
 	@Override
 	public List findActiveExams() {
 		String qry = "from Exam e where e.examStatus = ?1 ";
-		return executeQuery(qry, new Object[]{ExamStatus.ACTIVE});
+		return executeQuery(qry, new Object[] { ExamStatus.ACTIVE });
 	}
-	
+
 }

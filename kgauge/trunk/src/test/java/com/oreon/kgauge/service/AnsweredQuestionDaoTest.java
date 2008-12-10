@@ -96,7 +96,7 @@ public class AnsweredQuestionDaoTest extends AbstractJpaTests {
 
 			try {
 
-				answeredQuestion.setIsCorrect(true);
+				answeredQuestion.setIsCorrect(false);
 
 				TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("questionTestDataFactory");

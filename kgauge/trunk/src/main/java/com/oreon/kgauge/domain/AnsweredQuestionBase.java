@@ -34,8 +34,7 @@ public abstract class AnsweredQuestionBase
 		extends
 			org.witchcraft.model.support.BusinessEntity
 		implements
-			java.io.Serializable,
-			org.witchcraft.model.support.audit.Auditable {
+			java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
