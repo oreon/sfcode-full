@@ -348,7 +348,7 @@ public abstract class AbstractEntity extends
 	 * @return
 	 */
 	public ElementSet getAllNonDerivedAttributes(){
-		return getAttributes(false);
+		return getAttributes(true);
 	}
 
 	/** 
