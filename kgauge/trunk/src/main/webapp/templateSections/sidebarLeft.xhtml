@@ -13,11 +13,11 @@
 
 <div id="sidebar-left">
 
-	<a4j:outputPanel rendered="#{ !empty  authenticationController.username}" >
+	<a4j:outputPanel rendered="#{ !empty  candidateCrudBacking.loggedinCandidate}" >
 		<ui:include src="myLinks.xhtml" />
 	</a4j:outputPanel>
 	
-	<a4j:outputPanel rendered="#{ empty  authenticationController.username}" >
+	<a4j:outputPanel rendered="#{ empty  candidateCrudBacking.loggedinCandidate}" >
 		<wc:login />
 		<a4j:form>
 		<h:commandLink action="register" value="Register" />
