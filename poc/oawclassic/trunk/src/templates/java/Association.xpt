@@ -21,8 +21,10 @@
 «ENDDEFINE»
 
 «DEFINE ToOneAccessorMethods FOR AssociationEnd»
+	«IF Class.isAbstractEntity()»
 	«manyToOne()»
 	@XmlTransient 
+	«ENDIF»
 	public «Class.fqn()» «asGetter()» () {
 		return this.«asInstanceVar()»;
 	}
@@ -31,6 +33,15 @@
 		this.«asInstanceVar()» = «asParameter()»;
 	}
 «ENDDEFINE»
+
+«DEFINE getAnnotations(AssociationEnd ae) FOR AbstractEntity»
+	«ae.manyToOne()»
+	@XmlTransient 
+«ENDDEFINE»
+
+«DEFINE getAnnotations FOR Class»
+«ENDDEFINE»
+
 
 «DEFINE ToManyAccessorMethods FOR AssociationEnd»
 	public void add«removeTrailingS(associationName().toFirstUpper())» («Class.fqn()» «asParameter()») {

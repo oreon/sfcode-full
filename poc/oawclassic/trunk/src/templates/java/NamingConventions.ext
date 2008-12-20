@@ -86,7 +86,8 @@ boolean isEntity(Type type) :false;
 
 //this function does not work will investigate
 boolean isAbstractEntity(Class cls):
-cls.firstStereoType.NameS == "AbstractEntity" || cls.firstStereoType.NameS == "Entity" || cls.firstStereoType.NameS == "Embeddable" ;
+cls.getMetaClass.getSimpleName == "AbstractEntity" || cls.getMetaClass.getSimpleName == "Entity" 
+|| cls.getMetaClass.getSimpleName == "Embeddable" ;
 
 //return true for fields other than string and boolean 
 boolean needsRangeForSearch(Attribute attribute):
