@@ -10,7 +10,7 @@
 	«EXPAND genManualFile(extensionPath, extensionName, annotations, false) FOR this»
 «ENDDEFINE»
 
-«REM»This file will be written once and is to meant for manual programming «ENDREM»
+«REM»This file will be written once and is meant for manual programming «ENDREM»
 «DEFINE genManualFile(String extensionPath, String extensionName, String annotations, boolean genConstructor) FOR Element»
 
 	«FILE parentPackagePath() + extensionPath + "/" + NameS + extensionName + ".java" man_path»
@@ -78,6 +78,9 @@
 
 	import org.apache.log4j.Logger;
 	import javax.jws.WebService;
+	
+	import org.hibernate.search.annotations.Analyzer;
+	import org.hibernate.search.annotations.Indexed;
 	
 	import java.util.Date;
 «ENDDEFINE»

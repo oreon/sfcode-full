@@ -205,8 +205,13 @@
 			import «e.parentPackageName()+".service." +  e.NameS + "Service"-»;
 		«ENDFOREACH»
 		
+		«FOREACH getMetaEnvironment.getElements("MailerTask") AS e»
+			import «e.fqn()»;
+		«ENDFOREACH»
+		
 		«EXPAND genImports FOREACH getMetaEnvironment.getElements("Service")-»
-	
+		
+		
 		public class ServiceFacade{
 			private static ServiceFacade instance;
 	
@@ -230,6 +235,8 @@
 		«EXPAND CommonUtils::genDeclGetterSetter("Service") FOREACH getEntities()»
 		
 		«EXPAND genGetterSetter FOREACH getMetaEnvironment.getElements("Service")»
+		
+		«EXPAND CommonUtils::genDeclGetterSetter("") FOREACH getMetaEnvironment.getElements("MailerTask")»
 		}
 	
 	«ENDFILE»

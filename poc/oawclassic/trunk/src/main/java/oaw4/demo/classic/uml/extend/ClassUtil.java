@@ -49,7 +49,6 @@ public class ClassUtil {
 	 * @return
 	 */
 	public static String getPackageName(Class cls) {
-		System.out.println("called for " + cls.NameS());
 		Package beginPack = cls.Package();
 		
 		if(beginPack == null || beginPack.NameS() == null){
@@ -59,8 +58,6 @@ public class ClassUtil {
 		if(beginPack.NameS().equalsIgnoreCase("wccollections"))
 			return "java.util";
 		
-		System.out.println(beginPack.NameS());
-			
 		return getPackageName(beginPack);
 	}
 
@@ -340,7 +337,6 @@ public class ClassUtil {
 	}
 
 	public static boolean isEntity(Class cls) {
-		boolean res = cls.getMetaClass().getSimpleName().equals("Entity");
 		return cls.getMetaClass().getSimpleName().equals("Entity");
 	}
 

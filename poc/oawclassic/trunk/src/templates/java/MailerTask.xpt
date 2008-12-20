@@ -1,0 +1,124 @@
+«IMPORT org::openarchitectureware::meta::uml::classifier»
+«IMPORT oaw4::demo::classic::uml::meta»
+«IMPORT org::openarchitectureware::core::meta::core»
+«IMPORT java»
+
+«EXTENSION java::NamingConventions»
+«EXTENSION java::Associations»
+«REM» TODO this file has functions duplicated from association.xpt «ENDREM»
+
+«REM»Generates the body of a java class with attributes and associations«ENDREM»
+«DEFINE gen FOR MailerTask»
+	«EXPAND genClasses FOR this»
+	«EXPAND genSpringContext FOR this»
+	«EXPAND genVelocityTemplate FOR this»
+«ENDDEFINE»
+
+«DEFINE genClasses FOR MailerTask»
+	«FILE packagePath()+"/"+NameS+"Base.java"»  
+	
+	«EXPAND ManualFileGen::genManualFile("/" + Package.NameS, "", "", true)»
+	«EXPAND GenCodeWarning»
+	
+	package «packageName()»;
+	
+	import java.util.HashMap;
+	import java.util.Map;
+	
+	import org.springframework.mail.MailMessage;
+	import org.witchcraft.model.mail.AbstractMailer;
+		
+	public abstract class «NameS»Base extends AbstractMailer{
+		«EXPAND ClassGen::genClassBody("") FOR this»
+		
+		private String templateName = "/mailTemplates/«NameS.toFirstLower()».vm";
+
+	    public String getTemplateName() {
+			return templateName;
+		}
+	
+		public void setTemplateName(String templateName) {
+			this.templateName = templateName;
+		}
+			
+		@Override
+		protected MailMessage createMessage() {
+			Map<String, Object> model = new HashMap<String, Object>();
+			«FOREACH getAllOutgoingAssociations AS a»
+				model.put("«a.associationName()»", «a.associationName()»);
+			«ENDFOREACH»
+			String result = createMessageBody(model);
+		    mailMessage.setText(result);
+		    return mailMessage;
+		}	
+	} 
+	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE genSpringContext FOR MailerTask»
+«FILE "../resources/emailContext.xml" »  
+	<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+                       "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+
+	 «PROTECT CSTART '<!--' CEND '-->' ID Id » 
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+		id="propertyPlaceholder">
+		<property name="location" value="classpath:project.properties" />
+	</bean>
+
+	<!-- change this to your mail sender -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="465" />
+		<property name="protocol" value="smtps" />
+		<property name="username" value="wcmdauser@gmail.com" />
+		<property name="password" value="witchcraftmda" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtps.auth">true</prop>
+				<prop key="mail.smtps.starttls.enable">true</prop>
+				<prop key="mail.smtps.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+	«ENDPROTECT» 
+
+	«FOREACH getMetaEnvironment.getElements("MailerTask") AS task»
+	<bean id="«task.NameS.toFirstLower()»" class="«task.fqn()»">
+		<property name="mailMessage">
+			<bean class="org.springframework.mail.SimpleMailMessage">
+				<property name="from" value="${default.sender}" />
+				«IF task.getSubject != null -»
+				<property name="subject" value="«task.getSubject-»" />
+				«ENDIF»
+			</bean>
+		</property>
+	</bean>
+	«ENDFOREACH»
+
+</beans>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE genVelocityTemplate FOR MailerTask»
+«FILE "../resources/mailTemplates/" + NameS.toFirstLower()+ ".vm" man_path»
+#* mail template for «NameS» *#
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE GenCodeWarning FOR MailerTask»
+	/**
+	 * This is generated code - to edit code or override methods use - «NameS» class
+	 * @author witchCraft Code Generator
+	 * WARNING  - DO NOT EDIT - CHANGES WILL BE OVERWRITTEN
+	 */
+«ENDDEFINE»
+
+
+
+
+	

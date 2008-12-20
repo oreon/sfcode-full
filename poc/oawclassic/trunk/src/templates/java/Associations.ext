@@ -5,11 +5,22 @@ extension java::NamingConventions;
 String fqn (AssociationEnd ae) : !ae.isMultiple ? ae.Class.fqn() + " " + ae.asInstanceVar()  + ae.getInstantiationIfComposition():
 "java.util.Set<"+ae.Class.fqn()+">" + " " + ae.asInstanceVar()+ " = new java.util.HashSet<" + ae.Class.fqn() + ">()"  ;
 
-String fqnDto (AssociationEnd ae) : !ae.isMultiple ? fullNameIfRequrired(ae) + getDtoExtenstion() + " " + ae.asInstanceVar() :
-"java.util.Set<"+ fullNameIfRequrired(ae) + getDtoExtenstion() +">" + " " + ae.asInstanceVar()+ " = new java.util.HashSet<" + fullNameIfRequrired(ae)  + getDtoExtenstion() +">()"  ;
+//decides whether to display as a single element or a coolection
+String memberDeclaration (AssociationEnd ae, String ext) : !ae.isMultiple ? fullNameIfRequired(ae) + ext + " " + ae.asInstanceVar() :
+"java.util.Set<"+ fullNameIfRequired(ae) + ext +">" + " " + ae.asInstanceVar()+ " = new java.util.HashSet<" + fullNameIfRequired(ae)  + ext +">()"  ;
 
-String fullNameIfRequrired(AssociationEnd ae):
-ae.Class.Package.NameS == ae.Opposite.Class.Package.NameS ? ae.Class.NameS : ae.Class.fqnExt(getDtoExtenstion().toLowerCase()) + "."  + ae.Class.NameS ;
+
+//decides whether to display as a single element or a coolection
+//String memberDeclaration (AssociationEnd ae) : !ae.isMultiple ? fullNameIfRequrired(ae, ext) +  " " + ae.asInstanceVar() :
+//"java.util.Set<"+ fullNameIfRequrired(ae, ext)  +">" + " " + ae.asInstanceVar()+ " = new java.util.HashSet<" + fullNameIfRequrired(ae, ext)  +">()"  ;
+
+
+String fullNameIfRequired(AssociationEnd ae, String ext):
+ae.Class.Package.NameS == ae.Opposite.Class.Package.NameS ? ae.Class.NameS : ae.Class.fqnExt(ext) + "."  + ae.Class.NameS ;
+
+String fullNameIfRequired(AssociationEnd ae):
+ae.Class.Package.NameS == ae.Opposite.Class.Package.NameS ? ae.Class.NameS : ae.Class.fqn() ;
+
 
 String getFetchType(Association a):
  "FetchType.LAZY";
