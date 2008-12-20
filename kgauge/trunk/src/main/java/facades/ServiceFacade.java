@@ -17,6 +17,10 @@ import com.oreon.kgauge.service.GrantedRoleService;
 import com.oreon.kgauge.service.AnsweredQuestionService;
 import com.oreon.kgauge.service.SectionService;
 
+import com.oreon.kgauge.email.RegistrationConfirmationEmail;
+
+import com.oreon.kgauge.email.CredentialsEmail;
+
 import com.oreon.kgauge.bizlogic.ExamFactory;
 
 public class ServiceFacade {
@@ -160,6 +164,27 @@ public class ServiceFacade {
 	public void setRandomQuestionsExamFactoryImpl(
 			ExamFactory randomQuestionsExamFactoryImpl) {
 		this.randomQuestionsExamFactoryImpl = randomQuestionsExamFactoryImpl;
+	}
+
+	private RegistrationConfirmationEmail registrationConfirmationEmail;
+
+	public RegistrationConfirmationEmail getRegistrationConfirmationEmail() {
+		return registrationConfirmationEmail;
+	}
+
+	public void setRegistrationConfirmationEmail(
+			RegistrationConfirmationEmail registrationConfirmationEmail) {
+		this.registrationConfirmationEmail = registrationConfirmationEmail;
+	}
+
+	private CredentialsEmail credentialsEmail;
+
+	public CredentialsEmail getCredentialsEmail() {
+		return credentialsEmail;
+	}
+
+	public void setCredentialsEmail(CredentialsEmail credentialsEmail) {
+		this.credentialsEmail = credentialsEmail;
 	}
 
 }

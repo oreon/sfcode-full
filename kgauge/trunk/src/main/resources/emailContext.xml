@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+
+	 <!--PROTECTED REGION ID(_14_0_8e50284_1229177594911_990832_1820) ENABLED START--> 
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" id="propertyPlaceholder">
+		<property name="location" value="classpath:project.properties"/>
+	</bean>
+
+	<!-- change this to your mail sender -->
+	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl" id="mailSender">
+		<property name="host" value="smtp.gmail.com"/>
+		<property name="port" value="465"/>
+		<property name="protocol" value="smtps"/>
+		<property name="username" value="wcmdauser@gmail.com"/>
+		<property name="password" value="witchcraftmda"/>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtps.auth">true</prop>
+				<prop key="mail.smtps.starttls.enable">true</prop>
+				<prop key="mail.smtps.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+	<!--PROTECTED REGION END--> 
+
+	
+	<bean class="com.oreon.kgauge.email.RegistrationConfirmationEmail" id="registrationConfirmationEmail">
+		<property name="mailMessage">
+			<bean class="org.springframework.mail.SimpleMailMessage">
+				<property name="from" value="${default.sender}"/>
+				<property name="subject" value="Thanks for registering with KnowledgeGauge."/>
+				
+			</bean>
+		</property>
+	</bean>
+	
+	<bean class="com.oreon.kgauge.email.CredentialsEmail" id="credentialsEmail">
+		<property name="mailMessage">
+			<bean class="org.springframework.mail.SimpleMailMessage">
+				<property name="from" value="${default.sender}"/>
+				<property name="subject" value="Your credentials"/>
+				
+			</bean>
+		</property>
+	</bean>
+	
+
+</beans>

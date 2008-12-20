@@ -137,7 +137,7 @@ public class AnsweredQuestionDaoTest extends AbstractJpaTests {
 			AnsweredQuestion answeredQuestion = (AnsweredQuestion) answeredQuestionTestDataFactory
 					.loadOneRecord();
 
-			answeredQuestion.setIsCorrect(false);
+			answeredQuestion.setIsCorrect(true);
 
 			answeredQuestionService.save(answeredQuestion);
 

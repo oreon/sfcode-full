@@ -10,24 +10,12 @@ package com.oreon.kgauge.email;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.velocity.app.VelocityEngine;
 import org.springframework.mail.MailMessage;
 import org.witchcraft.model.mail.AbstractMailer;
 
 public abstract class CredentialsEmailBase extends AbstractMailer {
 
 	private com.oreon.kgauge.domain.Candidate candidate;
-	
-	private String templateName = "/mailTemplates/CredentialsEmail.vm";
-
-    public String getTemplateName() {
-		return templateName;
-	}
-
-	public void setTemplateName(String templateName) {
-		this.templateName = templateName;
-	}
-
 
 	public com.oreon.kgauge.domain.Candidate getCandidate() {
 		return this.candidate;
@@ -37,12 +25,24 @@ public abstract class CredentialsEmailBase extends AbstractMailer {
 		this.candidate = candidate;
 	}
 
+	private String templateName = "/mailTemplates/credentialsEmail.vm";
+
+	public String getTemplateName() {
+		return templateName;
+	}
+
+	public void setTemplateName(String templateName) {
+		this.templateName = templateName;
+	}
+
 	@Override
 	protected MailMessage createMessage() {
 		Map<String, Object> model = new HashMap<String, Object>();
-	    model.put("candidate", candidate);
+
+		model.put("candidate", candidate);
+
 		String result = createMessageBody(model);
-	    mailMessage.setText(result);
-	    return mailMessage;
+		mailMessage.setText(result);
+		return mailMessage;
 	}
 }

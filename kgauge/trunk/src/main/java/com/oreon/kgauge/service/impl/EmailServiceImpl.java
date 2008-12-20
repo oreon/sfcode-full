@@ -35,6 +35,8 @@ public class EmailServiceImpl implements EmailService {
 		this.userService = userService;
 	}
 
+
+	
 	public void sendEmail(String fromAddress, String toAddress, String subject,
 			String body) throws MailSendException {
 

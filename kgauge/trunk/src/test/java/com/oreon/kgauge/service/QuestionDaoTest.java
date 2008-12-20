@@ -50,9 +50,9 @@ public class QuestionDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			questionInstance.setQuestionText("Malissa");
+			questionInstance.setQuestionText("delta");
 			questionInstance
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L4);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L2);
 			questionInstance.setCorrectChoice(null/*unknown attrib type*/);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
@@ -84,9 +84,9 @@ public class QuestionDaoTest extends AbstractJpaTests {
 
 			try {
 
-				question.setQuestionText("gamma");
+				question.setQuestionText("pi");
 				question
-						.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
+						.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
 				question.setCorrectChoice(null/*unknown attrib type*/);
 
 				TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
@@ -114,9 +114,9 @@ public class QuestionDaoTest extends AbstractJpaTests {
 			Question question = (Question) questionTestDataFactory
 					.loadOneRecord();
 
-			question.setQuestionText("Lavendar");
+			question.setQuestionText("John");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L2);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
 			question.setCorrectChoice(null/*unknown attrib type*/);
 
 			questionService.save(question);

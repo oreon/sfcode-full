@@ -21,15 +21,5 @@ public class Candidate extends CandidateBase implements java.io.Serializable {
 	public Candidate candidateInstance() {
 		return this;
 	}
-	
-	/**
-	 * @return
-	 */
-	@Transient
-	public List<ExamInstance> getExamInstaceAsList(){
-		List<ExamInstance> examInstanceList = new ArrayList<ExamInstance>();
-		examInstanceList.addAll(getExamInstance());
-		return examInstanceList;
-	}
 
 }
