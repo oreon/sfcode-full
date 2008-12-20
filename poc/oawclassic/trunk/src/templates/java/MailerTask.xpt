@@ -12,6 +12,7 @@
 	«EXPAND genClasses FOR this»
 	«EXPAND genSpringContext FOR this»
 	«EXPAND genVelocityTemplate FOR this»
+	«EXPAND genTests FOR this»
 «ENDDEFINE»
 
 «DEFINE genClasses FOR MailerTask»
@@ -22,11 +23,14 @@
 	
 	package «packageName()»;
 	
+	import static org.junit.Assert.*;
+	
 	import java.util.HashMap;
 	import java.util.Map;
 	
 	import org.springframework.mail.MailMessage;
 	import org.witchcraft.model.mail.AbstractMailer;
+	
 		
 	public abstract class «NameS»Base extends AbstractMailer{
 		«EXPAND ClassGen::genClassBody("") FOR this»
@@ -103,6 +107,68 @@
 «ENDFILE»
 «ENDDEFINE»
 
+«DEFINE genTests FOR MailerTask»
+
+«FILE "../../test/java/" + packagePath()+"/"+NameS+"TestBase.java"» 
+package «packageName()»;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+
+@ContextConfiguration(locations = { "classpath:/applicationContext.xml",
+		"classpath:/emailContext.xml" })
+public abstract class «NameS»TestBase extends
+		AbstractTransactionalJUnit4SpringContextTests {
+
+	@Autowired
+	«EXPAND CommonUtils::genDeclGetterSetter("") -»
+	
+	«FOREACH Operation AS o»
+ 	  @Test
+	  public void «o.NameS»Test(){
+			/*
+			«FOREACH o.Parameter AS p»
+				«p.Type» «p.NameS» = «p.NameS».TestDataFactory.createRandom«NameS»(); 
+			«ENDFOREACH»
+			
+			
+			«o.ReturnType.Class» result =  «NameS.toFirstLower()».«o.NameS»();		
+			assertEquals(result, expected);
+			*/ 
+		}	
+	«ENDFOREACH»
+	
+	@Test
+	public void testSendMail() {
+		preSendMail();
+		try {
+			«NameS.toFirstLower()».sendMessage();
+		} catch (Throwable t) {
+			fail("mail sending failed " + t.getMessage());
+		}
+		postSendMail();
+	}
+	
+	public  void preSendMail() {};
+	public  void postSendMail() {} ;
+}
+«ENDFILE»
+
+«FILE "../../test/java/" + packagePath()+"/"+NameS+"Test.java" man_path»
+	
+	package «packageName()»;
+	import static org.junit.Assert.*;
+	import org.junit.Before;
+
+	public class «NameS»Test extends «NameS»TestBase{
+	
+	}
+«ENDFILE»
+
+«ENDDEFINE»
 
 «DEFINE genVelocityTemplate FOR MailerTask»
 «FILE "../resources/mailTemplates/" + NameS.toFirstLower()+ ".vm" man_path»
