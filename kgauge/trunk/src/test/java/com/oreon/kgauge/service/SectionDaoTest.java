@@ -50,7 +50,7 @@ public class SectionDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			sectionInstance.setName("Wilson");
+			sectionInstance.setName("pi");
 
 			TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("examTestDataFactory");
@@ -81,7 +81,7 @@ public class SectionDaoTest extends AbstractJpaTests {
 
 			try {
 
-				section.setName("beta");
+				section.setName("delta");
 
 				TestDataFactory examTestDataFactory = (TestDataFactory) BeanHelper
 						.getBean("examTestDataFactory");
@@ -107,7 +107,7 @@ public class SectionDaoTest extends AbstractJpaTests {
 			//test saving a new record and updating an existing record;
 			Section section = (Section) sectionTestDataFactory.loadOneRecord();
 
-			section.setName("alpha");
+			section.setName("zeta");
 
 			sectionService.save(section);
 

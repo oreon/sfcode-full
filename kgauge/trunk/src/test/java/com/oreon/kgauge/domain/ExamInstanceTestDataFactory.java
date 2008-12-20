@@ -51,11 +51,11 @@ public class ExamInstanceTestDataFactory
 		try {
 
 			examInstance.setDateOfExam(dateFormat
-					.parse("2008.12.04 17:17:48 EST"));
-			examInstance.setMaxScore(7807);
-			examInstance.setCandidateScore(7173);
+					.parse("2008.12.15 22:24:31 EST"));
+			examInstance.setMaxScore(7146);
+			examInstance.setCandidateScore(968);
 			examInstance.setCertified(true);
-			examInstance.setPercentage(17.55);
+			examInstance.setPercentage(43.52);
 
 			TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("candidateTestDataFactory");
@@ -86,11 +86,11 @@ public class ExamInstanceTestDataFactory
 		try {
 
 			examInstance.setDateOfExam(dateFormat
-					.parse("2008.12.27 05:07:48 EST"));
-			examInstance.setMaxScore(1490);
-			examInstance.setCandidateScore(1811);
-			examInstance.setCertified(true);
-			examInstance.setPercentage(19.36);
+					.parse("2009.01.01 07:51:44 EST"));
+			examInstance.setMaxScore(9362);
+			examInstance.setCandidateScore(6117);
+			examInstance.setCertified(false);
+			examInstance.setPercentage(0.87);
 
 			TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("candidateTestDataFactory");
@@ -121,11 +121,11 @@ public class ExamInstanceTestDataFactory
 		try {
 
 			examInstance.setDateOfExam(dateFormat
-					.parse("2008.12.28 19:00:03 EST"));
-			examInstance.setMaxScore(5617);
-			examInstance.setCandidateScore(9793);
+					.parse("2008.12.15 15:42:16 EST"));
+			examInstance.setMaxScore(9706);
+			examInstance.setCandidateScore(3981);
 			examInstance.setCertified(true);
-			examInstance.setPercentage(33.07);
+			examInstance.setPercentage(12.47);
 
 			TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("candidateTestDataFactory");
@@ -156,11 +156,11 @@ public class ExamInstanceTestDataFactory
 		try {
 
 			examInstance.setDateOfExam(dateFormat
-					.parse("2008.12.16 10:00:03 EST"));
-			examInstance.setMaxScore(5338);
-			examInstance.setCandidateScore(8592);
+					.parse("2008.12.10 05:22:16 EST"));
+			examInstance.setMaxScore(8147);
+			examInstance.setCandidateScore(1985);
 			examInstance.setCertified(false);
-			examInstance.setPercentage(94.85);
+			examInstance.setPercentage(16.92);
 
 			TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("candidateTestDataFactory");
@@ -191,11 +191,11 @@ public class ExamInstanceTestDataFactory
 		try {
 
 			examInstance.setDateOfExam(dateFormat
-					.parse("2008.11.26 06:22:14 EST"));
-			examInstance.setMaxScore(8409);
-			examInstance.setCandidateScore(2031);
-			examInstance.setCertified(true);
-			examInstance.setPercentage(91.52);
+					.parse("2008.12.18 23:09:29 EST"));
+			examInstance.setMaxScore(2301);
+			examInstance.setCandidateScore(1297);
+			examInstance.setCertified(false);
+			examInstance.setPercentage(86.09);
 
 			TestDataFactory candidateTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("candidateTestDataFactory");

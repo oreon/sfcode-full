@@ -50,20 +50,20 @@ public class CandidateDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			candidateInstance.setFirstName("pi");
-			candidateInstance.setLastName("zeta");
+			candidateInstance.setFirstName("delta");
+			candidateInstance.setLastName("John");
 			candidateInstance.setDateOfBirth(dateFormat
-					.parse("2008.12.19 00:57:45 EST"));
-			candidateInstance.getUser().setUsername("alpha21691");
-			candidateInstance.getUser().setPassword("John");
+					.parse("2008.12.07 23:38:53 EST"));
+			candidateInstance.getUser().setUsername("beta26974");
+			candidateInstance.getUser().setPassword("theta");
 			candidateInstance.getUser().setEnabled(true);
-			candidateInstance.getContactDetails().setStreetAddress("Mark");
-			candidateInstance.getContactDetails().setCity("pi");
-			candidateInstance.getContactDetails().setState("epsilon");
-			candidateInstance.getContactDetails().setCountry("gamma");
-			candidateInstance.getContactDetails().setZip("gamma");
-			candidateInstance.getContactDetails().setPhone("gamma");
-			candidateInstance.getContactDetails().setEmail("Lavendar12536");
+			candidateInstance.getContactDetails().setStreetAddress("beta");
+			candidateInstance.getContactDetails().setCity("delta");
+			candidateInstance.getContactDetails().setState("pi");
+			candidateInstance.getContactDetails().setCountry("Lavendar");
+			candidateInstance.getContactDetails().setZip("John");
+			candidateInstance.getContactDetails().setPhone("theta");
+			candidateInstance.getContactDetails().setEmail("theta53719");
 
 			candidateService.save(candidateInstance);
 		} catch (PersistenceException pe) {
@@ -87,20 +87,20 @@ public class CandidateDaoTest extends AbstractJpaTests {
 
 			try {
 
-				candidate.setFirstName("Eric");
-				candidate.setLastName("John");
+				candidate.setFirstName("zeta");
+				candidate.setLastName("delta");
 				candidate.setDateOfBirth(dateFormat
-						.parse("2008.11.21 06:14:57 EST"));
-				candidate.getUser().setUsername("Mark72706");
-				candidate.getUser().setPassword("beta");
+						.parse("2008.11.30 22:47:48 EST"));
+				candidate.getUser().setUsername("Eric28694");
+				candidate.getUser().setPassword("Eric");
 				candidate.getUser().setEnabled(true);
-				candidate.getContactDetails().setStreetAddress("John");
-				candidate.getContactDetails().setCity("delta");
-				candidate.getContactDetails().setState("delta");
-				candidate.getContactDetails().setCountry("Lavendar");
-				candidate.getContactDetails().setZip("Mark");
-				candidate.getContactDetails().setPhone("alpha");
-				candidate.getContactDetails().setEmail("Wilson9848");
+				candidate.getContactDetails().setStreetAddress("Eric");
+				candidate.getContactDetails().setCity("epsilon");
+				candidate.getContactDetails().setState("theta");
+				candidate.getContactDetails().setCountry("Malissa");
+				candidate.getContactDetails().setZip("Malissa");
+				candidate.getContactDetails().setPhone("epsilon");
+				candidate.getContactDetails().setEmail("gamma56203");
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -120,20 +120,20 @@ public class CandidateDaoTest extends AbstractJpaTests {
 			Candidate candidate = (Candidate) candidateTestDataFactory
 					.loadOneRecord();
 
-			candidate.setFirstName("Eric");
-			candidate.setLastName("epsilon");
+			candidate.setFirstName("epsilon");
+			candidate.setLastName("alpha");
 			candidate.setDateOfBirth(dateFormat
-					.parse("2008.12.04 13:27:12 EST"));
-			candidate.getUser().setUsername("delta40958");
-			candidate.getUser().setPassword("Lavendar");
-			candidate.getUser().setEnabled(true);
-			candidate.getContactDetails().setStreetAddress("theta");
-			candidate.getContactDetails().setCity("gamma");
-			candidate.getContactDetails().setState("alpha");
-			candidate.getContactDetails().setCountry("pi");
-			candidate.getContactDetails().setZip("alpha");
-			candidate.getContactDetails().setPhone("Mark");
-			candidate.getContactDetails().setEmail("pi94592");
+					.parse("2008.12.04 02:28:21 EST"));
+			candidate.getUser().setUsername("beta74631");
+			candidate.getUser().setPassword("Malissa");
+			candidate.getUser().setEnabled(false);
+			candidate.getContactDetails().setStreetAddress("pi");
+			candidate.getContactDetails().setCity("zeta");
+			candidate.getContactDetails().setState("beta");
+			candidate.getContactDetails().setCountry("Lavendar");
+			candidate.getContactDetails().setZip("John");
+			candidate.getContactDetails().setPhone("delta");
+			candidate.getContactDetails().setEmail("zeta40545");
 
 			candidateService.save(candidate);
 

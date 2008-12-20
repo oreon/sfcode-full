@@ -16,6 +16,8 @@ import org.hibernate.criterion.Restrictions;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Indexed;
 
 import java.util.List;
 
