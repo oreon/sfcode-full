@@ -271,7 +271,7 @@ public abstract class BaseDao<T> implements GenericDAO<T> {
 	public<S> S executeSingleResultQuery(String queryString, Object... params) {
 		Query query = entityManager.createQuery(queryString);
 		setQueryParams(query, params);
-		return executeSingleResultQuery(query);
+		return (S)executeSingleResultQuery(query);
 	}
 
 	private<S> S executeSingleResultQuery(Query query) {
@@ -295,7 +295,7 @@ public abstract class BaseDao<T> implements GenericDAO<T> {
 	public<S> S executeSingleResultNamedQuery(String queryString, Object... params) {
 		Query query = entityManager.createNamedQuery(queryString);
 		setQueryParams(query, params);
-		return executeSingleResultQuery(query); 
+		return (S)executeSingleResultQuery(query); 
 	}
 	
 	@SuppressWarnings("unchecked")
