@@ -7,6 +7,8 @@
 
 package com.oreon.kgauge.email;
 
+import static org.junit.Assert.*;
+
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,6 +1,7 @@
 package com.oreon.kgauge.email;
 
 import org.apache.log4j.Logger;
+import org.springframework.mail.MailMessage;
 
 public class RegistrationConfirmationEmail
 		extends
@@ -18,6 +19,12 @@ public class RegistrationConfirmationEmail
 
 	public RegistrationConfirmationEmail registrationConfirmationEmailInstance() {
 		return this;
+	}
+	
+	@Override
+	protected MailMessage createMessage() {
+		mailMessage.setTo(getCandidate().getContactDetails().getEmail());
+		return super.createMessage();
 	}
 
 }
