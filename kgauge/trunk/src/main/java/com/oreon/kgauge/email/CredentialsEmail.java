@@ -22,7 +22,6 @@ public class CredentialsEmail extends CredentialsEmailBase
 
 	@Override
 	protected MailMessage createMessage() {
-		mailMessage.setSubject("hi there");
 		mailMessage.setTo(getCandidate().getContactDetails().getEmail());
 		return super.createMessage();
 	}

@@ -51,7 +51,7 @@ public class AnsweredQuestionTestDataFactory
 
 		try {
 
-			answeredQuestion.setIsCorrect(true);
+			answeredQuestion.setIsCorrect(false);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -125,7 +125,7 @@ public class AnsweredQuestionTestDataFactory
 
 		try {
 
-			answeredQuestion.setIsCorrect(true);
+			answeredQuestion.setIsCorrect(false);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -162,7 +162,7 @@ public class AnsweredQuestionTestDataFactory
 
 		try {
 
-			answeredQuestion.setIsCorrect(false);
+			answeredQuestion.setIsCorrect(true);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");
@@ -199,7 +199,7 @@ public class AnsweredQuestionTestDataFactory
 
 		try {
 
-			answeredQuestion.setIsCorrect(true);
+			answeredQuestion.setIsCorrect(false);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
 					.getBean("questionTestDataFactory");

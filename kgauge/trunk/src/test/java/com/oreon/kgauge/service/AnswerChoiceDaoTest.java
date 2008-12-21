@@ -50,8 +50,8 @@ public class AnswerChoiceDaoTest extends AbstractJpaTests {
 	protected void onSetUpInTransaction() throws Exception {
 		try {
 
-			answerChoiceInstance.setAnswerText("pi");
-			answerChoiceInstance.setScore(1798);
+			answerChoiceInstance.setAnswerText("Wilson");
+			answerChoiceInstance.setScore(5567);
 			answerChoiceInstance.setCorrectChoice(false);
 
 			TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
@@ -83,8 +83,8 @@ public class AnswerChoiceDaoTest extends AbstractJpaTests {
 
 			try {
 
-				answerChoice.setAnswerText("pi");
-				answerChoice.setScore(9286);
+				answerChoice.setAnswerText("John");
+				answerChoice.setScore(5710);
 				answerChoice.setCorrectChoice(true);
 
 				TestDataFactory questionTestDataFactory = (TestDataFactory) BeanHelper
@@ -112,9 +112,9 @@ public class AnswerChoiceDaoTest extends AbstractJpaTests {
 			AnswerChoice answerChoice = (AnswerChoice) answerChoiceTestDataFactory
 					.loadOneRecord();
 
-			answerChoice.setAnswerText("Lavendar");
-			answerChoice.setScore(5413);
-			answerChoice.setCorrectChoice(false);
+			answerChoice.setAnswerText("Mark");
+			answerChoice.setScore(9383);
+			answerChoice.setCorrectChoice(true);
 
 			answerChoiceService.save(answerChoice);
 

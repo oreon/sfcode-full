@@ -1,5 +1,8 @@
 package com.oreon.kgauge.email;
 
+import static org.junit.Assert.*;
+
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,12 +51,22 @@ public class NotificationTests extends
 
 	@Test
 	public void testSendMail() {
-		credentialsEmail.setCandidate(candidate);
-		credentialsEmail.sendMessage();
+		preSendMail();
+		try {
+			credentialsEmail.sendMessage();
+		} catch (Throwable t) {
+			fail("mail sending failed " + t.getMessage());
+		}
+		postSendMail();
 	}
 
-	@Test
-	public void approval_cancelled_test() {
+	public void preSendMail() {
+		credentialsEmail.setCandidate(candidate);
+	}
+
+	public void postSendMail() {
+		// assertEquals(credentialsEmail.getMailMessage().getSubject(),
+		// "confirmation ");
 	}
 
 }

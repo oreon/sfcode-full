@@ -48,7 +48,7 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("Mark");
+			question.setQuestionText("zeta");
 			question
 					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L4);
 			question.setCorrectChoice(null/*unknown attrib type*/);
@@ -74,9 +74,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("pi");
+			question.setQuestionText("theta");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L2);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L4);
 			question.setCorrectChoice(null/*unknown attrib type*/);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
@@ -100,7 +100,7 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("alpha");
+			question.setQuestionText("John");
 			question
 					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
 			question.setCorrectChoice(null/*unknown attrib type*/);
@@ -126,9 +126,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("epsilon");
+			question.setQuestionText("Malissa");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L2);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
 			question.setCorrectChoice(null/*unknown attrib type*/);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
@@ -152,9 +152,9 @@ public class QuestionTestDataFactory extends AbstractTestDataFactory<Question> {
 
 		try {
 
-			question.setQuestionText("zeta");
+			question.setQuestionText("delta");
 			question
-					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L3);
+					.setDifficultyLevel(com.oreon.kgauge.domain.DifficultyLevel.L1);
 			question.setCorrectChoice(null/*unknown attrib type*/);
 
 			TestDataFactory sectionTestDataFactory = (TestDataFactory) BeanHelper
