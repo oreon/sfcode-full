@@ -1,0 +1,56 @@
+  
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+	<a4j:form id="form">
+			<rich:panel header="Employee Information">
+				
+			<h:panelGrid columns="4"  styleClass="viewInfo" columnClasses="leftCol, rightCol" rules="rows">
+			<f:facet name="header">
+				<h:outputText  value="#{employeeCrudBacking.employee.displayName}" />
+			</f:facet>
+
+					
+	<h:outputText value="#{msg.employee_firstName}" />
+	<t:outputText value="#{employeeCrudBacking.employee.firstName}" />			
+
+	<h:outputText value="#{msg.employee_lastName}" />
+	<t:outputText value="#{employeeCrudBacking.employee.lastName}" />			
+			
+					 
+					
+					
+			</h:panelGrid>
+			<br/>
+						
+			
+			
+			</rich:panel>
+				
+			<h:panelGrid columns="2">
+			<h:panelGroup>
+  				<h:commandButton id="button1" value="Edit" actionListener="#{employeeCrudBacking.reloadFromId}" action="edit"  styleClass="btn" /> 
+  				<h:outputText value=" " />
+  				<h:commandButton id="button2" value="Cancel" action="cancelView" immediate="true" styleClass="btn"/> 
+  				<!-- We need to have a hidden text field to store the id of the record being edited -->		
+		  		<h:inputHidden id="employee_id" value="#{employeeCrudBacking.employee.id}" />
+  				
+		 </h:panelGroup>
+		</h:panelGrid>
+				
+	</a4j:form>
+</html>			
+		

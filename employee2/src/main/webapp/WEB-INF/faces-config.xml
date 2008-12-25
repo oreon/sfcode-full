@@ -1,0 +1,290 @@
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
+	version="1.2">
+
+	<!--  Spring variable resolver -->
+	<!--  
+		<application>
+		<variable-resolver>
+		org.springframework.web.jsf.DelegatingVariableResolver
+		</variable-resolver>
+		
+		<locale-config>
+		<default-locale>en_US</default-locale>
+		<supported-locale>de_DE</supported-locale>
+		<supported-locale>fr_FR</supported-locale>
+		<supported-locale>en_UK</supported-locale>
+		<supported-locale>en</supported-locale>
+		</locale-config>
+		<message-bundle>messages</message-bundle>
+		
+		<view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+		
+		</application>
+	-->
+
+	<!--  Spring variable resolver -->
+	<application>
+		<variable-resolver>
+			org.springframework.web.jsf.DelegatingVariableResolver
+		</variable-resolver>
+		<locale-config>
+			<default-locale>en_US</default-locale>
+			<supported-locale>en_US</supported-locale>
+			<supported-locale>de</supported-locale>
+			<supported-locale>fr</supported-locale>
+			<supported-locale>en_GB</supported-locale>
+		</locale-config>
+		<message-bundle>messages</message-bundle>
+	</application>
+
+
+	<!--  Preconfigured beans for Locale support, Authentication etc -->
+
+	<managed-bean>
+		<managed-bean-name>authenticationController</managed-bean-name>
+		<managed-bean-class>
+			org.witchcraft.model.support.jsfbackingbeans.AuthenticationController
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>authenticationManager</property-name>
+			<value>#{authenticationManager}</value>
+		</managed-property>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>localeChooserBean</managed-bean-name>
+		<managed-bean-class>
+			org.witchcraft.model.support.jsfbackingbeans.LocaleChooserBackingBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>reportGenerator</managed-bean-name>
+		<managed-bean-class>
+			com.oreon.kgauge.web.jsf.ReportGeneratorBackingBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>entityManagerFactory</property-name>
+			<value>#{entityManagerFactory}</value>
+		</managed-property>
+	</managed-bean>
+
+
+	<!-- A converter for combo boxes (selectOneMenus ) to convert objects to and from ids -->
+	<converter>
+		<converter-id>keyToObjectConverter</converter-id>
+		<converter-class>
+			org.witchcraft.model.jsf.converters.KeyToObjectConverter
+		</converter-class>
+	</converter>
+
+	<converter>
+		<converter-id>integerConverter</converter-id>
+		<converter-class>
+			javax.faces.convert.IntegerConverter
+		</converter-class>
+	</converter>
+
+	<converter>
+		<converter-id>longConverter</converter-id>
+		<converter-class>
+			javax.faces.convert.LongConverter
+		</converter-class>
+	</converter>
+
+	<converter>
+		<converter-id>doubleConverter</converter-id>
+		<converter-class>
+			javax.faces.convert.DoubleConverter
+		</converter-class>
+	</converter>
+
+	<converter>
+		<converter-id>shortConverter</converter-id>
+		<converter-class>
+			javax.faces.convert.ShortConverter
+		</converter-class>
+	</converter>
+
+
+
+
+	<managed-bean>
+		<managed-bean-name>LangBean</managed-bean-name>
+		<managed-bean-class>
+			com.oreon.kgauge.service.LangBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<!--
+		<managed-bean>
+		<managed-bean-name>QuestionBackingBean</managed-bean-name>
+		<managed-bean-class>
+		com.oreon.kgauge.web.jsf.QuestionBackingBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		</managed-bean>
+		
+		
+		<navigation-rule>
+		<from-view-id>/index.xhtml</from-view-id>
+		<navigation-case>
+		<from-action>chooseLocale</from-action>
+		<to-view-id>/authenticate/index.xhtml</to-view-id>
+		<redirect />
+		</navigation-case>
+		<navigation-case>
+		<from-action>login</from-action>
+		<to-view-id>/login.xhtml</to-view-id>
+		
+		</navigation-case>
+		<navigation-case>
+		<from-action>register</from-action>
+		<to-view-id>/authenticate/register.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+		<from-action>forgotCredentials</from-action>
+		<to-view-id>
+		/authenticate/credentialsRetrieval.xhtml
+		</to-view-id>
+		<redirect />
+		</navigation-case>
+		</navigation-rule>
+	-->
+	<navigation-rule>
+		<from-view-id>/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>
+				#{authenticationController.authenticate}
+			</from-action>
+			<from-outcome>loginSuccesful</from-outcome>
+			<to-view-id>/manageProfile/welcome.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>
+				#{authenticationController.authenticate}
+			</from-action>
+			<from-outcome>failure</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/adminLogin.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>
+				#{authenticationController.authenticate}
+			</from-action>
+			<from-outcome>loginSuccesful</from-outcome>
+			<to-view-id>/admin/entities/entitiesSummary.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>
+				#{authenticationController.authenticate}
+			</from-action>
+			<from-outcome>failure</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-action>logout</from-action>
+			<to-view-id>/login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>successTextSearchExams</from-outcome>
+			<to-view-id>/writeExam/searchExams.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/kgaugemockup/examLinks.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{examCrudBacking.select}</from-action>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/kgaugemockup/examContent.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/crud/*</from-view-id>
+		<navigation-case>
+			<from-action>reports</from-action>
+			<to-view-id>/reports/index.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>tasks</from-action>
+			<to-view-id>/tasks/index.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>preferences</from-action>
+			<to-view-id>/preferences/index.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>entities</from-action>
+			<to-view-id>/crud/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!--  
+		<navigation-rule>
+		<from-view-id>/authenticate/*</from-view-id>
+		<navigation-case>
+		<from-action>login</from-action>
+		<to-view-id>/login.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+		<from-action>register</from-action>
+		<to-view-id>/authenticate/register.xhtml</to-view-id>
+		<redirect />
+		</navigation-case>
+		<navigation-case>
+		<from-action>false</from-action>
+		<to-view-id>/authenticate/register.xhtml</to-view-id>
+		<redirect />
+		</navigation-case>
+		<navigation-case>
+		<from-action>true</from-action>
+		<to-view-id>/authenticate/welcome.xhtml</to-view-id>
+		
+		</navigation-case>
+		<navigation-case>
+		<from-action>chooseLocale</from-action>
+		<to-view-id>/authenticate/index.xhtml</to-view-id>
+		
+		</navigation-case>
+		<navigation-case>
+		<from-action>forgotCredentials</from-action>
+		<to-view-id>
+		/authenticate/credentialsRetrieval.xhtml
+		</to-view-id>
+		</navigation-case>
+		</navigation-rule>
+		
+		
+	-->
+	<navigation-rule>
+		<from-view-id>/kgaugemockup/index.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>edit</from-action>
+			<to-view-id>/kgaugemockup/examStart.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+</faces-config>
