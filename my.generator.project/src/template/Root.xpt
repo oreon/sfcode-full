@@ -1,0 +1,35 @@
+«DEFINE Root FOR uml::Model»
+«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
+«ENDDEFINE»
+
+«DEFINE PackageRoot FOR uml::Package»
+
+«EXPAND ClassRoot FOREACH (List[uml::Class])ownedType»
+
+«ENDDEFINE»
+
+«DEFINE PackageRoot FOR uml::Comment»
+«ENDDEFINE»
+
+«DEFINE PackageRoot FOR uml::PackageImport»
+«ENDDEFINE»
+
+«DEFINE PackageRoot FOR uml::ProfileApplication»
+«ENDDEFINE»
+
+
+«DEFINE ClassRoot FOR uml::Class»
+«FILE name+".java"»
+public class «name» {}
+«ENDFILE»
+
+«ENDDEFINE»
+
+
+«DEFINE ClassRoot FOR org::witchcraftmda::profile::entities::Entity»
+«FILE name+".java"»
+@Entity
+public class «name» {}
+«ENDFILE»
+
+«ENDDEFINE»
