@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<workflow>
+
+<bean class="oaw.uml2.Setup" standardUML2Setup="true"/>
+<component class="oaw.emf.XmiReader">
+<modelFile value="C:/temp/mdl/model.uml"/>
+<outputSlot value="model"/>
+</component>
+
+<component id="dirCleaner" class="oaw.workflow.common.DirectoryCleaner"
+directories="src-gen"/>
+
+<component id="generator" class="oaw.xpand2.Generator"
+skipOnErrors="true">
+<metaModel class="oaw.type.emf.EmfMetaModel">
+<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
+</metaModel>
+<metaModel class="oaw.uml2.UML2MetaModel"/>
+<metaModel id="profile"
+class="oaw.uml2.profile.ProfileMetaModel">
+<profile value="C:/temp/mdl/org.witchcraftmda.profile.profile.uml"/>
+</metaModel>
+<expand value="template::Root::Root FOR model"/>
+<outlet path="src-gen/">
+<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+</outlet>
+</component>
+
+</workflow>
