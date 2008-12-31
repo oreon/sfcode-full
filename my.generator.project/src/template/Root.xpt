@@ -4,7 +4,7 @@
 
 «DEFINE PackageRoot FOR uml::Package»
 
-«EXPAND ClassRoot FOREACH (List[uml::Class])ownedType»
+«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Class)»
 
 «ENDDEFINE»
 
@@ -26,10 +26,28 @@ public class «name» {}
 «ENDDEFINE»
 
 
-«DEFINE ClassRoot FOR org::witchcraftmda::profile::entities::Entity»
-«FILE name+".java"»
-@Entity
-public class «name» {}
+«DEFINE ClassRoot FOR myprof::Entity»
+«FILE name+".htm"»
+@Entity(tn=«tableName»)
+public class «name» {
+	«EXPAND gen FOREACH ownedElement »
+}
 «ENDFILE»
 
 «ENDDEFINE»
+
+«DEFINE gen FOR uml::Operation»
+	«name»;
+«ENDDEFINE»
+
+«DEFINE gen FOR myprof::NamedQuery»
+	@nq(value=«name»)
+	«visibility» «type.name» «name» (){ }
+«ENDDEFINE»
+
+
+«DEFINE gen FOR uml::Property»
+	private «type.name» «name»;
+«ENDDEFINE»
+
+
