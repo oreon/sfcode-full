@@ -22,7 +22,7 @@ class Student extends Entity {
 	}
 	
 	function getUpdateQuery(){
-		return "Update student set firstName='$this->firstName', lastName='$this->lastName')";
+		return "Update student set firstName='$this->firstName', lastName='$this->lastName' where id=$this->id";
 	}
 
 }
