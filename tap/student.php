@@ -7,7 +7,6 @@ class Student extends Entity {
 	var $lastName;
 	
 
-	
 	function __construct($fn, $ln){
 		$this->firstName = $fn;
 		$this->lastName = $ln;
@@ -20,6 +19,10 @@ class Student extends Entity {
 	
 	function getPersistQuery(){
 		return "Insert into student(firstName, lastName) values('$this->firstName', '$this->lastName')";
+	}
+	
+	function getUpdateQuery(){
+		return "Update student set firstName='$this->firstName', lastName='$this->lastName')";
 	}
 
 }
