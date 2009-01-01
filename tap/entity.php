@@ -14,7 +14,10 @@ abstract class Entity{
 			$name = $entry['key'];
 			$value = $this->$name;
 
-			if($name == "id") continue;
+			if($name == "id") {
+				print"<input type=hidden name='$name' value='$value' />";
+				continue;
+			}
 
 			print("<tr><td>".$name. " </td> ");
 			print("<td><input type=text name='$name' value='$value' /></tr>");
@@ -68,12 +71,13 @@ abstract class Entity{
 
 	function persist(){
 		$this->dbconn();
-		//mysql_query($this->getPersistQuery());
-
-		if($id == null){
+		
+		if($this->id == null){
 			printf("inserting record");
+			mysql_query($this->getPersistQuery());
 		}else{
 			printf("updating record");
+			mysql_query($this->getUpdateQuery());
 		}
 	}
 
