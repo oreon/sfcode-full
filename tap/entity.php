@@ -34,7 +34,11 @@ abstract class Entity{
 			if (is_object($value) && is_subclass_of($value, 'Entity') ){
 				$arr = $value->loadObjectsFromQuery($value->getLoadAllQuery());
 				print("<tr><td>".$name. " </td> ");
+<<<<<<< .mine
+				$select = new HtmlSelect($arr, $name."___id", $value->id);
+=======
 				$select = new HtmlSelect($arr, $name, $value->id);
+>>>>>>> .r785
 				print("<td> ".$select->render() ."</td></tr>");
 				continue;
 			}
@@ -60,7 +64,15 @@ abstract class Entity{
 			foreach($_GET AS $key => $value) {
 				if($key == $varName){
 					$this->$varName = $value;
-					break;
+					continue;
+				}
+				if(strpos($key, '___') !== false){
+					list($assocName, $assocMember) = split('___', $key);
+					if(!isset($this->$assocName))
+						$this->$assocName = new Grade();
+					
+					//print("<br>  $key $value $assocMember $assocName");
+					$this->$assocName->$assocMember = $value;
 				}
 			}
 		}
@@ -97,26 +109,49 @@ abstract class Entity{
 		$this->dbconn();
 
 		if($this->id == null){
-			printf("inserting record");
+			//printf("inserting record");
 			mysql_query($this->getPersistQuery());
 		}else{
-			printf("updating record");
+		//	printf("updating record ".$this->getUpdateQuery());
 			mysql_query($this->getUpdateQuery());
 		}
 	}
 
 	function fromPrimaryKey(){
 		$this->dbconn();
-		//print("running qry ". $this->getLoadQuery(). "<br> ");
+		print("running qry ". $this->getLoadQuery(). "<br> ");
 		$result = mysql_query($this->getLoadQuery());
 		$row = mysql_fetch_array($result);
 
 		$classVars = get_class_vars(get_class($this));
+<<<<<<< .mine
+		foreach($classVars AS $varName => $varValue){
+				
+			foreach($row AS $key => $value){
+=======
 		print_r($row);
 		foreach($classVars AS $varName => $varValue){
 				
 			foreach($row AS $key => $value){
+>>>>>>> .r785
 
+<<<<<<< .mine
+				if($key == $varName){
+					$this->$varName = $row[$varName];
+					continue;
+				}
+				if(strpos($key, '___') !== false){
+					list($assocName, $assocMember) = split('___', $key);
+					if(!isset($this->$assocName))
+						$this->$assocName = new Grade();
+					
+					//print("<br>  $key $value $assocMember $assocName");
+					$this->$assocName->$assocMember = $value;
+				}
+					
+			}
+
+=======
 				if($key == $varName){
 					$this->$varName = $row[$varName];
 					continue;
@@ -132,6 +167,7 @@ abstract class Entity{
 					
 			}
 
+>>>>>>> .r785
 		}
 	}
 
