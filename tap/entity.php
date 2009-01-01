@@ -1,6 +1,6 @@
 <?php
 
-class Entity{
+abstract class Entity{
 	var $id;
 
 	function toString(){
@@ -42,12 +42,25 @@ class Entity{
 		$this->dbconn();
 		$query = ("Select * from student");
 		$result = mysql_query($query);
-		
-		print("<table>");
-		while ($name_row = mysql_fetch_row($result)) {
+
+
+		$rowCount = 0;
+
+		print("<table border=\"1\" >");
+		while ($row = mysql_fetch_row($result)) {
 			print("<tr>");
-			foreach($name_row AS $key => $value)
-				print("<td> $value </td>");
+			$colCount = 0;
+			foreach($row AS $key => $value){
+				$linkBegin = "";
+				$linkEnd = "";
+
+				if($key == "id") continue;
+				if(++$colCount == 1){
+					$linkBegin = "<a href='editStudent.php?id=".$row[0]."'>";
+					$linkEnd = "</a>";
+				}
+				print("<td>  $linkBegin $value $linkEnd </td>");
+			}
 			print("</tr>");
 		}
 		print("</table>");
@@ -55,7 +68,7 @@ class Entity{
 
 	function persist(){
 		$this->dbconn();
-		mysql_query($this->getPersistQuery());
+		//mysql_query($this->getPersistQuery());
 
 		if($id == null){
 			printf("inserting record");
@@ -63,6 +76,21 @@ class Entity{
 			printf("updating record");
 		}
 	}
+
+	function fromPrimaryKey(){
+		$this->dbconn();
+		//print("running qry ". $this->getLoadQuery(). "<br> ");
+		$result = mysql_query($this->getLoadQuery());
+		$row = mysql_fetch_array($result);
+		
+		$classVars = get_class_vars(get_class($this));
+
+		foreach($classVars AS $varName => $varValue){
+			//print($varValue." ".$row[$varName]." ".$varName);
+			$this->$varName = $row[$varName];
+		}
+	}
+
 
 	function dbconn() {
 		$dbUser = "root";
@@ -79,6 +107,14 @@ class Entity{
 
 	function getPersistQuery(){
 
+	}
+
+	function getLoadQuery(){
+		return "select * from student where id = $this->id";
+	}
+	
+	function getUpdateQuery(){
+		
 	}
 
 }
