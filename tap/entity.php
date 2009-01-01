@@ -2,6 +2,10 @@
 
 abstract class Entity{
 	var $id;
+	
+	function __construct(){
+		
+	}
 
 	function toString(){
 
@@ -13,6 +17,14 @@ abstract class Entity{
 		while ($entry = each($class_var_entries)) {
 			$name = $entry['key'];
 			$value = $this->$name;
+				
+			if (is_object($value)){
+				$arr = $value->loadObjectsFromQuery($value->getLoadAllQuery());
+				print("<tr><td>".$name. " </td> ");
+				$select = new HtmlSelect($arr, $name);
+				print("<td> $select->render() </td></tr>");
+				continue;
+			}
 
 			if($name == "id") {
 				print"<input type=hidden name='$name' value='$value' />";
@@ -71,7 +83,7 @@ abstract class Entity{
 
 	function persist(){
 		$this->dbconn();
-		
+
 		if($this->id == null){
 			printf("inserting record");
 			mysql_query($this->getPersistQuery());
@@ -86,13 +98,36 @@ abstract class Entity{
 		//print("running qry ". $this->getLoadQuery(). "<br> ");
 		$result = mysql_query($this->getLoadQuery());
 		$row = mysql_fetch_array($result);
-		
+
 		$classVars = get_class_vars(get_class($this));
 
 		foreach($classVars AS $varName => $varValue){
 			//print($varValue." ".$row[$varName]." ".$varName);
 			$this->$varName = $row[$varName];
 		}
+	}
+
+	function loadObjectsFromQuery($qry){
+		$this->dbconn();
+		print("running qry ". $this->getLoadAllQuery(). "<br> ");
+		$result = mysql_query($this->getLoadAllQuery());
+		
+		$arr;
+		
+		while( $row = mysql_fetch_array($result)){
+			$obj = $this-> __construct();
+			
+			$classVars = get_class_vars(get_class($this));
+
+			foreach($classVars AS $varName => $varValue){
+				//print($varValue." ".$row[$varName]." ".$varName);
+				$obj->$varName = $row[$varName];
+			}
+			
+			$arr[] = $obj;
+		}
+		
+		return $arr;
 	}
 
 
@@ -116,9 +151,14 @@ abstract class Entity{
 	function getLoadQuery(){
 		return "select * from student where id = $this->id";
 	}
-	
+
+	function getLoadAllQuery(){
+	//	print("select * from ".get_class($this));
+		return "select * from ".get_class($this);
+	}
+
 	function getUpdateQuery(){
-		
+
 	}
 
 }
