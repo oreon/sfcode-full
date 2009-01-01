@@ -3,11 +3,12 @@ include 'student.php';
 
 $s = new Student("raj","singh");
 $s->id = $_GET['id'];
-$s->grade = new Grade();
-//print("id is ".$_GET['id']." objid: ".$s->id);
 
 if($s->id != null)
 	$s->fromPrimaryKey();
+	
+print("grade is " .$s->grade->name);	
+
 print($s->renderForm('saveStudent.php'));
 
 ?>

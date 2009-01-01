@@ -31,13 +31,10 @@ abstract class Entity{
 			$name = $entry['key'];
 			$value = $this->$name;
 			
-			print($name);
-
-			if (is_object($value) && is_subclass_of($value, 'Entity')){
-				print("in loop");
+			if (is_object($value) && is_subclass_of($value, 'Entity') ){
 				$arr = $value->loadObjectsFromQuery($value->getLoadAllQuery());
 				print("<tr><td>".$name. " </td> ");
-				$select = new HtmlSelect($arr, $name);
+				$select = new HtmlSelect($arr, $name, $value->id);
 				print("<td> ".$select->render() ."</td></tr>");
 				continue;
 			}
@@ -73,7 +70,6 @@ abstract class Entity{
 		$this->dbconn();
 		$query = ("Select * from student");
 		$result = mysql_query($query);
-
 
 		$rowCount = 0;
 
@@ -116,10 +112,26 @@ abstract class Entity{
 		$row = mysql_fetch_array($result);
 
 		$classVars = get_class_vars(get_class($this));
-
+		print_r($row);
 		foreach($classVars AS $varName => $varValue){
-			//print($varValue." ".$row[$varName]." ".$varName);
-			$this->$varName = $row[$varName];
+				
+			foreach($row AS $key => $value){
+
+				if($key == $varName){
+					$this->$varName = $row[$varName];
+					continue;
+				}
+				if(strpos($key, '___') !== false){
+					list($assocName, $assocMember) = split('___', $key);
+					if(!isset($this->$assocName))
+						$this->$assocName = new Grade();
+					
+					print("<br>  $key $value $assocMember $assocName");
+					$this->$assocName->$assocMember = $value;
+				}
+					
+			}
+
 		}
 	}
 
@@ -132,14 +144,14 @@ abstract class Entity{
 
 		while( $row = mysql_fetch_array($result)){
 			$obj = $this->createNew();
-				
+
 			$classVars = get_class_vars(get_class($this));
 
 			foreach($classVars AS $varName => $varValue){
 				//print($varValue." ".$row[$varName]." ".$varName);
 				$obj->$varName = $row[$varName];
 			}
-				
+
 			$arr[] = $obj;
 		}
 
@@ -165,7 +177,7 @@ abstract class Entity{
 	}
 
 	function getLoadQuery(){
-		return "select * from student where id = $this->id";
+
 	}
 
 	function getLoadAllQuery(){
@@ -176,9 +188,9 @@ abstract class Entity{
 	function getUpdateQuery(){
 
 	}
-	
+
 	function getDisplayName(){
-		
+
 	}
 
 }
