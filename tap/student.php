@@ -8,8 +8,8 @@ include 'grade.php';
 class Student extends Entity {
 	var $firstName;
 	var $lastName;
-	var $grade ; 
-	
+	var $grade ;
+
 
 	function __construct($fn = null, $ln = null){
 		$this->firstName = $fn;
@@ -21,11 +21,16 @@ class Student extends Entity {
 	function toString(){
 		return $this->firstName ." ". $this->lastName;
 	}
-	
+
+	function getLoadQuery(){
+		return "select s.id as id, s.firstName as firstName, s.lastName as lastName, g.id as grade___id, g.name as grade___name  from 
+			student s, grade g where s.gradeId = g.id and s.id = 5";
+	}
+
 	function getPersistQuery(){
 		return "Insert into student(firstName, lastName) values('$this->firstName', '$this->lastName')";
 	}
-	
+
 	function getUpdateQuery(){
 		return "Update student set firstName='$this->firstName', lastName='$this->lastName' where id=$this->id";
 	}
