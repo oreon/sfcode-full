@@ -2,9 +2,22 @@
 
 abstract class Entity{
 	var $id;
-	
+
 	function __construct(){
-		
+
+	}
+
+	function createNew(){
+		$obj = clone($this);
+		$obj->clearAll();
+		return $obj;
+	}
+
+	function clearAll(){
+		$classVars = get_class_vars(get_class($this));
+		foreach($classVars AS $varName => $varValue){
+			$this->varName = null;
+		}
 	}
 
 	function toString(){
@@ -17,12 +30,15 @@ abstract class Entity{
 		while ($entry = each($class_var_entries)) {
 			$name = $entry['key'];
 			$value = $this->$name;
-				
-			if (is_object($value)){
+			
+			print($name);
+
+			if (is_object($value) && is_subclass_of($value, 'Entity')){
+				print("in loop");
 				$arr = $value->loadObjectsFromQuery($value->getLoadAllQuery());
 				print("<tr><td>".$name. " </td> ");
 				$select = new HtmlSelect($arr, $name);
-				print("<td> $select->render() </td></tr>");
+				print("<td> ".$select->render() ."</td></tr>");
 				continue;
 			}
 
@@ -111,22 +127,22 @@ abstract class Entity{
 		$this->dbconn();
 		print("running qry ". $this->getLoadAllQuery(). "<br> ");
 		$result = mysql_query($this->getLoadAllQuery());
-		
+
 		$arr;
-		
+
 		while( $row = mysql_fetch_array($result)){
-			$obj = $this-> __construct();
-			
+			$obj = $this->createNew();
+				
 			$classVars = get_class_vars(get_class($this));
 
 			foreach($classVars AS $varName => $varValue){
 				//print($varValue." ".$row[$varName]." ".$varName);
 				$obj->$varName = $row[$varName];
 			}
-			
+				
 			$arr[] = $obj;
 		}
-		
+
 		return $arr;
 	}
 
@@ -153,12 +169,16 @@ abstract class Entity{
 	}
 
 	function getLoadAllQuery(){
-	//	print("select * from ".get_class($this));
+		//	print("select * from ".get_class($this));
 		return "select * from ".get_class($this);
 	}
 
 	function getUpdateQuery(){
 
+	}
+	
+	function getDisplayName(){
+		
 	}
 
 }
