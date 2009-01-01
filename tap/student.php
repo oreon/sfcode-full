@@ -1,15 +1,20 @@
-<?include 'entity.php';?>
+<?include_once 'entity.php';?>
+
 
 <?php
+
+include 'grade.php';
 
 class Student extends Entity {
 	var $firstName;
 	var $lastName;
+	var $grade ; 
 	
 
-	function __construct($fn, $ln){
+	function __construct($fn = null, $ln = null){
 		$this->firstName = $fn;
 		$this->lastName = $ln;
+		$grade = new Grade();
 		//print("const:". $this->firstName ." ". $this->lastName);
 	}
 
