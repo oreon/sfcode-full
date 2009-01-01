@@ -8,23 +8,22 @@ include 'grade.php';
 class Student extends Entity {
 	var $firstName;
 	var $lastName;
-	var $grade ;
+	var $grade;
 
 
 	function __construct($fn = null, $ln = null){
 		$this->firstName = $fn;
 		$this->lastName = $ln;
 		$this->grade = new Grade();
-		//print("const:". $this->firstName ." ". $this->lastName);
 	}
 
 	function toString(){
-		return $this->firstName ." ". $this->lastName;
+		return $this->firstName ." ". $this->lastName." ".$this->grade->id;
 	}
 
 	function getLoadQuery(){
 		return "select s.id as id, s.firstName as firstName, s.lastName as lastName, g.id as grade___id, g.name as grade___name  from 
-			student s, grade g where s.gradeId = g.id and s.id = 5";
+			student s, grade g where s.gradeId = g.id and s.id = $this->id";
 	}
 
 	function getPersistQuery(){
@@ -32,7 +31,8 @@ class Student extends Entity {
 	}
 
 	function getUpdateQuery(){
-		return "Update student set firstName='$this->firstName', lastName='$this->lastName' where id=$this->id";
+		return "Update student set firstName='$this->firstName', lastName='$this->lastName',
+		 gradeId =". $this->grade->id." where id=$this->id";
 	}
 
 }
