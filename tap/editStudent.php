@@ -4,10 +4,10 @@ include 'student.php';
 $s = new Student("raj","singh");
 $s->id = $_GET['id'];
 
+print($s->toString());
+
 if($s->id != null)
 	$s->fromPrimaryKey();
-	
-print("grade is " .$s->grade->name);	
 
 print($s->renderForm('saveStudent.php'));
 
