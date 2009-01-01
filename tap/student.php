@@ -14,7 +14,7 @@ class Student extends Entity {
 	function __construct($fn = null, $ln = null){
 		$this->firstName = $fn;
 		$this->lastName = $ln;
-		$grade = new Grade();
+		$this->grade = new Grade();
 		//print("const:". $this->firstName ." ". $this->lastName);
 	}
 

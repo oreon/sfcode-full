@@ -11,7 +11,7 @@ class HtmlSelect extends HtmlControl {
 	var $data; // array of entities
 	var $value; // the current value
 	
-	function __construct($name = null, $data = null){
+	function __construct($data= null, $name = null ){
 		$this->data = $data;
 		$this->$name = $name;
 	}
@@ -19,9 +19,9 @@ class HtmlSelect extends HtmlControl {
 	function render(){
 		$ret .= "<select id='$this->id'>";
 		for ($i = 0; $i < count($this->data); $i++){
-			$entity = $this->data[i];
-			print("disp name".$entity->displayName());
-			$ret .= "<value= '$entity->id' >$entity->displayName()</value>";
+			$entity = $this->data[$i];
+			//print("disp name ".$entity->displayName());
+			$ret .= "<option value='$entity->id' >".$entity->getDisplayName()."</option>";
 		}
 		$ret .= "</select>";
 
