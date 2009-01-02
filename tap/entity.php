@@ -30,7 +30,7 @@ abstract class Entity{
 		while ($entry = each($class_var_entries)) {
 			$name = $entry['key'];
 			$value = $this->$name;
-			
+				
 			if (is_object($value) && is_subclass_of($value, 'Entity') ){
 				$arr = $value->loadObjectsFromQuery($value->getLoadAllQuery());
 				print("<tr><td>".$name. " </td> ");
@@ -65,8 +65,8 @@ abstract class Entity{
 				if(strpos($key, '___') !== false){
 					list($assocName, $assocMember) = split('___', $key);
 					if(!isset($this->$assocName))
-						$this->$assocName = new Grade();
-					
+					$this->$assocName = new Grade();
+						
 					//print("<br>  $key $value $assocMember $assocName");
 					$this->$assocName->$assocMember = $value;
 				}
@@ -113,32 +113,56 @@ abstract class Entity{
 		}
 	}
 
+	/*
+	 * 
+	 */
 	function fromPrimaryKey(){
 		$this->dbconn();
 		print("running qry ". $this->getLoadQuery(). "<br> ");
 		$result = mysql_query($this->getLoadQuery());
 		$row = mysql_fetch_array($result);
+		
+		$classVars = get_class_vars(get_class($this));
+			foreach($classVars AS $varName => $varValue){
+	
+				foreach($row AS $key => $value){
+	
+					if($key == $varName){
+						$this->$varName = $row[$varName];
+						continue;
+					}
+					if(strpos($key, '___') !== false){ //load associations
+						list($assocName, $assocMember) = split('___', $key);
+						if(!isset($this->$assocName))
+						$this->$assocName = new Grade();
+						$this->$assocName->$assocMember = $value;
+					}
+						
+				}
+			}	
+	}
 
+	/*
+	 * 
+	 */
+	function loadObjectFromDatabaseRow($obj){
 		$classVars = get_class_vars(get_class($this));
 		foreach($classVars AS $varName => $varValue){
-				
+
 			foreach($row AS $key => $value){
 
 				if($key == $varName){
-					$this->$varName = $row[$varName];
+					$obj->$varName = $row[$varName];
 					continue;
 				}
-				if(strpos($key, '___') !== false){
+				if(strpos($key, '___') !== false){ //load associations
 					list($assocName, $assocMember) = split('___', $key);
 					if(!isset($this->$assocName))
-						$this->$assocName = new Grade();
-					
-					//print("<br>  $key $value $assocMember $assocName");
-					$this->$assocName->$assocMember = $value;
+					$obj->$assocName = new Grade();
+					$obj->$assocName->$assocMember = $value;
 				}
 					
 			}
-
 		}
 	}
 
