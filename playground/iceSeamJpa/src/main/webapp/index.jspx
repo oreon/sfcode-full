@@ -1,23 +1,80 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<jsp:root version="1.2" 
-  xmlns:jsp="http://java.sun.com/JSP/Page"
-   xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:ice="http://www.icesoft.com/icefaces/component">
-<jsp:directive.page contentType="text/html;charset=ISO-8859-1" pageEncoding="ISO-8859-1"/>
-<f:view>
-  <ice:outputDeclaration doctypeRoot="HTML" doctypePublic="-//W3C//DTD HTML 4.01 Transitional//EN" doctypeSystem="http://www.w3.org/TR/html4/loose.dtd"/>
-  <html>
-    <head>
-     <title><ice:outputText value="ICEfaces, Ajax for Java EE" /></title>
-    
-    </head>
-    <body>
+<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+	<jsp:directive.page contentType="text/html;charset=ISO-8859-1"
+		pageEncoding="ISO-8859-1" />
+	<f:view>
+		<ice:outputDeclaration doctypeRoot="HTML"
+			doctypePublic="-//W3C//DTD HTML 4.01 Transitional//EN"
+			doctypeSystem="http://www.w3.org/TR/html4/loose.dtd" />
+		<html>
+		<head>
+		<title><ice:outputText value="ICEfaces, Ajax for Java EE" /></title>
 
-     <ice:outputText value="Thank you for using ICEfaces.You have successfully logged in " />
->
+		</head>
+		<body>
 
-    </body>
-  </html>
-</f:view>
+		<ice:outputText
+			value="Thank you for using ICEfaces.You have successfully logged in " />
+		<ice:form></ice:form>
+		<br />
+		<br />
+		<h1>Search Hotels</h1>
+		<ice:form id="hotelCrudFormId" partialSubmit="false">
+			<ice:inputText id="hotelSearchId" partialSubmit="false"
+				value="#{hotelSearch.searchString}"></ice:inputText>
+			<ice:commandButton id="findHotelId" action="#{hotelSearch.find}"
+				value="Find hotel"></ice:commandButton>
+				
+						</ice:form>
+			<ice:form id="searchResultFormId" partialSubmit="false">
+				<ice:panelGroup id="searchResults">
+					<ice:outputText value="No Hotels Found" id="NoHotelsFoundMessage"
+						rendered="#{hotels != null and hotels.rowCount==0}"></ice:outputText>
+
+
+					<ice:dataTable border="1" id="hotels" value="#{hotels}" var="hot"
+						rendered="#{hotels.rowCount>0}">
+						<h:column>
+							<f:facet name="header">Name</f:facet>
+							<ice:outputText id="name" value="#{hot.name}"
+								onmouseovereffect="#{highlight}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Address</f:facet>
+							<ice:outputText id="address" value="#{hot.address}"
+								onmouseovereffect="#{highlight}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">City, State</f:facet>
+							<ice:outputText id="city"
+								value="#{hot.city}, #{hot.state}, #{hot.country}"
+								onmouseovereffect="#{highlight}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Zip</f:facet>
+							<ice:outputText id="zip" value="#{hot.zip}"
+								onmouseovereffect="#{highlight}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Action</f:facet>
+							<s:link id="viewHotel" value="View Hotel"
+								action="#{hotelBooking.selectHotel(hot)}" />
+						</h:column>
+
+					</ice:dataTable>
+				</ice:panelGroup>
+			</ice:form>
+
+
+
+
+
+
+		</body>
+		</html>
+	</f:view>
 </jsp:root>
