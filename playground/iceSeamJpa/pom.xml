@@ -67,7 +67,7 @@
 				<configuration>
 					<downloadSources>true</downloadSources>
 					<downloadJavadocs>true</downloadJavadocs>
-					<wtpversion>2.5.1</wtpversion>
+					<wtpversion>2.0</wtpversion>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -101,8 +101,8 @@
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-api</artifactId>
-			<version>5.0.4</version>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>3.1.13</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -129,6 +129,12 @@
 			<groupId>org.jboss.seam</groupId>
 			<artifactId>jboss-seam-ui</artifactId>
 			<version>${seam.ui.version}</version>
+			<exclusions>
+		<exclusion>
+			<groupId>org.jboss.el</groupId>
+			<artifactId>jboss-el</artifactId>
+		</exclusion>
+	</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.seam</groupId>
@@ -289,10 +295,10 @@
 	</pluginRepositories>
 
 	<properties>
-		<seam.version>2.0.2.SP1</seam.version>
-		<seam.ui.version>2.0.2.SP1</seam.ui.version>
-		<seam.debug.version>2.0.2.SP1</seam.debug.version>
-		<jboss.el.version>2.0.1.GA</jboss.el.version>
+		<seam.version>2.1.1.GA</seam.version>
+		<seam.ui.version>2.1.1.GA</seam.ui.version>
+		<seam.debug.version>2.1.1.GA</seam.debug.version>
+		<jboss.el.version>2.0.2.CR1</jboss.el.version>
 		<richfaces.api.version>3.2.1.GA</richfaces.api.version>
 		<richfaces.impl.version>3.2.1.GA</richfaces.impl.version>
 		<richfaces.ui.version>3.2.1.GA</richfaces.ui.version>
