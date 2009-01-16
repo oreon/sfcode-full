@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<jsp:root version="1.2" 
+  xmlns:jsp="http://java.sun.com/JSP/Page"
+   xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ice="http://www.icesoft.com/icefaces/component">
+<jsp:directive.page contentType="text/html;charset=ISO-8859-1" pageEncoding="ISO-8859-1"/>
+<f:view>
+  <ice:outputDeclaration doctypeRoot="HTML" doctypePublic="-//W3C//DTD HTML 4.01 Transitional//EN" doctypeSystem="http://www.w3.org/TR/html4/loose.dtd"/>
+  <html>
+    <head>
+     <title><ice:outputText value="ICEfaces, Ajax for Java EE" /></title>
+     <ice:outputStyle href="./xmlhttp/css/xp/xp.css" />
+    </head>
+    <body>
+
+     <ice:outputText value="You are in the registration page. You can add new users now." />
+     <ice:form>
+			<ice:panelGroup id="registerPanelGroupId">
+				<ice:panelGrid border="1" columns="2">
+					<ice:outputText value="Enter user id"></ice:outputText>
+					<ice:inputText id="userId" value="#{user.username}"></ice:inputText>
+					<ice:outputText value="Enter user name"></ice:outputText>
+					<ice:inputText id="userName" value="#{user.name}"></ice:inputText>
+					<ice:outputText value="Enter user password"></ice:outputText>
+					<ice:inputText id="userPassword" value="#{user.password}"></ice:inputText>
+					<ice:outputText value="Verify user password"></ice:outputText>
+					<ice:inputText id="passwordVerify" value="#{registerUser.verify}"></ice:inputText>
+				</ice:panelGrid>
+			</ice:panelGroup>
+			<ice:messages />
+		<ice:commandButton id="registerUserButtonId" value="Register" action="#{registerUser.register}"></ice:commandButton>
+     </ice:form>
+
+    </body>
+  </html>
+</f:view>
+</jsp:root>
