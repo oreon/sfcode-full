@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:s="http://jboss.com/products/seam/taglib">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>iMed - your complete electronic health care solution</title>
+<ice:outputDeclaration doctypeRoot="HTML"
+	doctypePublic="-//W3C//DTD XHTML 1.0 Transitional//EN"
+	doctypeSystem="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>kgre</title>
+
+<link rel="shortcut icon" href="#{request.contextPath}/favicon.ico" />
+<link href="css/screen.css" rel="stylesheet" type="text/css" />
+<link rel='stylesheet' type='text/css'
+	href='./xmlhttp/css/rime/rime.css' />
+<link href="stylesheet/theme.css" rel="stylesheet" type="text/css" />
+
+
+</head>
+<body>
+
+
+
+<div id="header">
+<div id="status">Welcome #{user.name} | <s:link id="search"
+	view="/main.xhtml" value="Search" propagation="none" /> | <s:link
+	id="logout" action="#{identity.logout}" value="Logout" /></div>
+</div>
+<div id="topmenu">Menu Section</div>
+<div id="leftcol">
+
+<h:form>
+<ice:panelGroup>
+	
+	<ice:menuBar id="menuBar" orientation="vertical">
+
+		<!-- File menu -->
+		<ice:menuItem value="User" id="user">
+			<ice:menuItem  id="lstuser"
+				value="List" icon="/images/menu/open.gif" action="/searchUsers.jspx">
+			</ice:menuItem>
+			<ice:menuItem action="/one.jspx" id="createuser"
+				value="Create" icon="/images/menu/open.gif">
+			</ice:menuItem>
+		</ice:menuItem>
+		<ice:menuItem value="Hotel" id="hotel">
+			<ice:menuItem actionListener="#{menuBar.primaryListener}" id="lsthotel"
+				value="List" icon="/images/menu/open.gif">
+			</ice:menuItem>
+			<ice:menuItem actionListener="#{menuBar.primaryListener}" id="createhotel"
+				value="Create" icon="/images/menu/open.gif">
+			</ice:menuItem>
+		</ice:menuItem>
+	</ice:menuBar>
+</ice:panelGroup>
+</h:form>
+Left Section
+</div>
+<div id="content"><ui:insert name="content" /></div>
+<div id="rightcol">Right Section</div>
+<div id="footer">Footer Section</div>
+
+
+
+
+</body>
+</html>
