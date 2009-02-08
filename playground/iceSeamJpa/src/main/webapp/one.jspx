@@ -1,0 +1,56 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	template="template.jspx">
+
+	<ui:define name="content">
+	
+		
+		<div id="section" style="width:90% ; margin:0 auto;border:1px solid #dde" >
+		
+		<ice:form>
+			 <ice:panelGroup  id="editanswerchoiceGroupId" styleClass="formBorderHighlight">
+			<div class="entry errors"><h:messages globalOnly="true" /></div>
+			<fieldset>
+			<legend>Register</legend> 
+			<s:validateAll>
+			<h:panelGrid width="70%" columns="3" style="border:1px solid #dde">
+					
+                  Username: <ice:inputText value="#{user.username}" required="true" id="f2" /> 
+                  <h:message styleClass="error errors" for="f2"/>
+
+                  Real Name: <ice:inputText value="#{user.name}" required="true" id="f1"/> 
+                  <h:message styleClass="error errors" for="f1"/>
+
+                  Password: <ice:inputSecret partialSubmit="true" redisplay="true" value="#{user.password}" id="password" required="true"/> 	
+                  <h:message styleClass="error errors" for="password" />
+                  
+                  Repeate Password: <ice:inputSecret partialSubmit="true" redisplay="true"  id="vpassword" required="true">
+                  	<s:validateEquality message="PWS must be identical" for="password" /> 
+                  </ice:inputSecret> 	
+                  <h:message styleClass="error errors" for="vpassword" />
+                 
+          
+            </h:panelGrid>
+             </s:validateAll>
+			</fieldset>
+
+			<div class="buttonBox"><h:commandButton value="Register"
+				action="#{register.register}" /> <s:button id="cancel"
+				value="Cancel" view="/login.jspx" /></div>
+
+		
+		</ice:panelGroup>
+		
+		</ice:form>
+		
+		</div>
+	
+	</ui:define>
+</ui:composition>
+
+
