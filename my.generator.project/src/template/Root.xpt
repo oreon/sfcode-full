@@ -1,12 +1,17 @@
 «EXTENSION template::GeneratorExtensions»
 
 «DEFINE Root FOR uml::Model»
+
+«EXPAND setDefaultNamesForAssocs FOREACH allOwnedElements().typeSelect(uml::Property) »
+
 «EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
+
 «ENDDEFINE»
 
 «DEFINE PackageRoot FOR uml::Package»
 
 «EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Class)»
+«EXPAND EnumGen FOREACH allOwnedElements().typeSelect(uml::Enumeration)»
 
 «ENDDEFINE»
 
@@ -22,28 +27,50 @@
 
 «DEFINE ClassRoot FOR uml::Class»
 «FILE package.name.packagePath() +"/" +name+".java"»
+
 package « package.name »;
+
+
+«EXPAND genClassBody FOR this»
+
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE genClassBody FOR uml::Class»
+
+
+
 public class «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»{
 
 «EXPAND genDecl FOREACH getAllAttributes() »
 «EXPAND genGetterSetter FOREACH getAllAttributes() »
 
+«REM»comment
+«EXPAND genDecl FOREACH getAssociations() »
+«ENDREM»  
 
 }
-«ENDFILE»
-
 «ENDDEFINE»
 
 
 «DEFINE ClassRoot FOR wcprofile::Entity»
-«FILE package +"/" +name+".java"»
-package « package().name »;
-@Entity(tn=«tableName»)
-public class «name» «parents().size > 0 ?" extends " + parents().get(0):""»{
-	«EXPAND gen FOREACH ownedElement »
-}
-«ENDFILE»
 
+	«EXPAND genImports FOR this»
+
+	«FILE package.name.packagePath() +"/"  +name+".java"»
+	package « package.name »;
+	
+	import java.util.Set;
+	import java.util.HashSet;
+	
+	//@Entity
+	«REM»comment
+	«tableName != null ?("(table=" + tableName + ")"):""»)
+	«ENDREM»
+	«EXPAND genClassBody FOR this»
+	«ENDFILE»
 «ENDDEFINE»
 
 «DEFINE gen FOR uml::Operation»
@@ -60,18 +87,101 @@ public class «name» «parents().size > 0 ?" extends " + parents().get(0):""»{
 
 
 «DEFINE genDecl FOR uml::Property»
-	private «type.name» «name»;
+	«IF isMultivalued()»
+		private Set<«type.name»> «name»;
+	«ELSE»
+		private «type.name» «name»;
+	«ENDIF»
+	
+«ENDDEFINE»
+
+
+«DEFINE genDecl FOR uml::Association»
+	«REM»comment 
+	«FOREACH member AS e»
+		«EXPAND genGetterSetter FOR e»
+	«ENDFOREACH»
+	«ENDREM»
 «ENDDEFINE»
 
 
 «DEFINE genGetterSetter FOR uml::Property»
-	public void set«name.toFirstUpper()»(«type.name» «name»){
-		this.«name» = «name»;
-	}
-	
-	public «type.name» get«name.toFirstUpper()»( ){
-		return «name»;
-	}
+	«IF isMultivalued()»
+		public void set«name.toFirstUpper()»(Set<«type.name»> «name»){
+			this.«name» = «name»;
+		}
+		
+		public Set<«type.name»> get«name.toFirstUpper()»( ){
+			return «name»;
+		}
+
+	«ELSE»
+		public void set«name.toFirstUpper()»(«type.name» «name»){
+			this.«name» = «name»;
+		}
+		
+		public «type.name» get«name.toFirstUpper()»( ){
+			return «name»;
+		}
+		
+	«ENDIF»
 «ENDDEFINE»
+
+«REM»
+For associations we need to set name to type name if the name is null ;
+«ENDREM»
+«DEFINE setDefaultNamesForAssocs FOR uml::Property»
+	«IF !(name != null && name.length > 0 )»
+		«LET type.name.toFirstLower() AS defaultName»
+
+			«IF isMultivalued()» «REM» For collections we need to create a plural default type name«ENDREM»
+				«"xxx"»			    
+				«setName(defaultName.getPlural())»
+			«ELSE»
+				«setName(defaultName)»
+			«ENDIF»
+			
+		«ENDLET»
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE EnumGen FOR uml::Enumeration»
+«FILE package.name.packagePath() + "/"+ name +".java"»  
+
+package «package.name»;
+
+public enum «name» {		
+						
+	«FOREACH  ownedLiteral AS e»
+		«e.name»,
+	«ENDFOREACH»
+	
+} 
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE genImports FOR uml::Class»
+	import javax.persistence.*;
+	import java.util.Date;
+	import org.hibernate.annotations.Cascade;
+	
+	import javax.xml.bind.annotation.XmlTransient;
+	
+	import org.hibernate.search.annotations.Analyzer;
+	import org.hibernate.search.annotations.Field;
+	import org.hibernate.search.annotations.Index;
+	import org.hibernate.search.annotations.Indexed;
+	import org.hibernate.search.annotations.Store;
+	import org.hibernate.search.annotations.ContainedIn;
+	import org.hibernate.search.annotations.IndexedEmbedded;
+	
+	import java.util.Set;
+	
+	import java.util.List;
+	import java.util.ArrayList;
+«ENDDEFINE»
+
 
 
