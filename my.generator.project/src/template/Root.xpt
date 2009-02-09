@@ -1,3 +1,5 @@
+«EXTENSION template::GeneratorExtensions»
+
 «DEFINE Root FOR uml::Model»
 «EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
 «ENDDEFINE»
@@ -19,15 +21,23 @@
 
 
 «DEFINE ClassRoot FOR uml::Class»
-«FILE name+".java"»
-public class «name» {}
+«FILE package.name.packagePath() +"/" +name+".java"»
+package « package.name »;
+public class «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»{
+
+«EXPAND genDecl FOREACH getAllAttributes() »
+«EXPAND genGetterSetter FOREACH getAllAttributes() »
+
+
+}
 «ENDFILE»
 
 «ENDDEFINE»
 
 
-«DEFINE ClassRoot FOR myprof::Entity»
-«FILE name+".htm"»
+«DEFINE ClassRoot FOR wcprofile::Entity»
+«FILE package +"/" +name+".java"»
+package « package().name »;
 @Entity(tn=«tableName»)
 public class «name» «parents().size > 0 ?" extends " + parents().get(0):""»{
 	«EXPAND gen FOREACH ownedElement »
@@ -40,14 +50,28 @@ public class «name» «parents().size > 0 ?" extends " + parents().get(0):""»{
 	«name»;
 «ENDDEFINE»
 
-«DEFINE gen FOR myprof::NamedQuery»
+«DEFINE gen FOR uml::Generalization»
+«ENDDEFINE»
+
+«DEFINE gen FOR wcprofile::NamedQuery»
 	@nq(value=«name»)
 	«visibility» «type.name» «name» (){ }
 «ENDDEFINE»
 
 
-«DEFINE gen FOR uml::Property»
+«DEFINE genDecl FOR uml::Property»
 	private «type.name» «name»;
+«ENDDEFINE»
+
+
+«DEFINE genGetterSetter FOR uml::Property»
+	public void set«name.toFirstUpper()»(«type.name» «name»){
+		this.«name» = «name»;
+	}
+	
+	public «type.name» get«name.toFirstUpper()»( ){
+		return «name»;
+	}
 «ENDDEFINE»
 
 
