@@ -1,14 +1,34 @@
-import metamodel;
-import org::eclipse::uml2::uml::Class;
+//import metamodel;
+import uml;
+import java;
+
 
 //extension metamodel::Extensions reexport;
 
-	
-//String packagePath (org::eclipse::uml2::uml::Class cls) :
-//packageName(cls).replaceAll("\\.", "/");
+//path of the package - 
+String packagePath (Element cls) :
+cls.package.getQualifiedName().replaceAll("::", "/");
 
-String packagePath (String path) :
-path.replaceAll("\\.", "/");
+//fully qualified name of a class
+String fqn (Type cls) :
+cls.getQualifiedName().replaceAll("::",".");
+
+String fqn (PrimitiveType cls) :
+cls.name;
+
+//If package of referring class is same as this class - will return simple name else fqn
+String fqnForPackage(Type cls, Class referringClass):
+(packageName(cls) == (packageName(referringClass)) )?cls.name:fqn(cls);
+
+
+//If package of referring class is same as this class - will return simple name else fqn
+String fqnForPackage(PrimitiveType cls, Class referringClass):
+cls.name;
+
+
+String packageName (Element cls) :
+cls.package.getQualifiedName().replaceAll("::", ".");
+
 
 //Returns plural of a word e.g input book will return books for Class will return Classes
 String getPlural(String word):

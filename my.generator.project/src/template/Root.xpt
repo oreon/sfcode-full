@@ -26,9 +26,9 @@
 
 
 «DEFINE ClassRoot FOR uml::Class»
-«FILE package.name.packagePath() +"/" +name+".java"»
+«FILE packagePath() +"/" +name+".java"»
 
-package « package.name »;
+package « packageName() »;
 
 
 «EXPAND genClassBody FOR this»
@@ -39,8 +39,6 @@ package « package.name »;
 
 
 «DEFINE genClassBody FOR uml::Class»
-
-
 
 public class «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»{
 
@@ -59,8 +57,8 @@ public class «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»
 
 	«EXPAND genImports FOR this»
 
-	«FILE package.name.packagePath() +"/"  +name+".java"»
-	package « package.name »;
+	«FILE packagePath() +"/"  +name+".java"»
+	package «packageName()»;
 	
 	import java.util.Set;
 	import java.util.HashSet;
@@ -88,9 +86,9 @@ public class «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»
 
 «DEFINE genDecl FOR uml::Property»
 	«IF isMultivalued()»
-		private Set<«type.name»> «name»;
+		private Set<«type.fqnForPackage(this.class)»> «name»;
 	«ELSE»
-		private «type.name» «name»;
+		private «type.fqnForPackage(this.class)» «name»;
 	«ENDIF»
 	
 «ENDDEFINE»
@@ -107,20 +105,20 @@ public class «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»
 
 «DEFINE genGetterSetter FOR uml::Property»
 	«IF isMultivalued()»
-		public void set«name.toFirstUpper()»(Set<«type.name»> «name»){
+		public void set«name.toFirstUpper()»(Set<«type.fqnForPackage(this.class)»> «name»){
 			this.«name» = «name»;
 		}
 		
-		public Set<«type.name»> get«name.toFirstUpper()»( ){
+		public Set<«type.fqnForPackage(this.class)»> get«name.toFirstUpper()»( ){
 			return «name»;
 		}
 
 	«ELSE»
-		public void set«name.toFirstUpper()»(«type.name» «name»){
+		public void set«name.toFirstUpper()»(«type.fqnForPackage(this.class)» «name»){
 			this.«name» = «name»;
 		}
 		
-		public «type.name» get«name.toFirstUpper()»( ){
+		public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 			return «name»;
 		}
 		
@@ -147,9 +145,9 @@ For associations we need to set name to type name if the name is null ;
 
 
 «DEFINE EnumGen FOR uml::Enumeration»
-«FILE package.name.packagePath() + "/"+ name +".java"»  
+«FILE packagePath() + "/"+ name +".java"»  
 
-package «package.name»;
+package «packageName()»;
 
 public enum «name» {		
 						
