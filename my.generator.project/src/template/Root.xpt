@@ -1,61 +1,42 @@
 «EXTENSION template::GeneratorExtensions»
 
 «DEFINE Root FOR uml::Model»
-
-«EXPAND setDefaultNamesForAssocs FOREACH allOwnedElements().typeSelect(uml::Property) »
-
-«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
-
+	«EXPAND setDefaultNamesForAssocs FOREACH allOwnedElements().typeSelect(uml::Property) »
+	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
 «ENDDEFINE»
 
 «DEFINE PackageRoot FOR uml::Package»
 
-«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Class)»
-«EXPAND EnumGen FOREACH allOwnedElements().typeSelect(uml::Enumeration)»
-
+	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Class)»
+	«EXPAND EnumGen FOREACH allOwnedElements().typeSelect(uml::Enumeration)»
 «ENDDEFINE»
 
-«DEFINE PackageRoot FOR uml::Comment»
-«ENDDEFINE»
-
-«DEFINE PackageRoot FOR uml::PackageImport»
-«ENDDEFINE»
-
-«DEFINE PackageRoot FOR uml::ProfileApplication»
-«ENDDEFINE»
 
 
 «DEFINE ClassRoot FOR uml::Class»
-«FILE packagePath() +"/" +name+".java"»
-
-package « packageName() »;
-
-
-«EXPAND genClassBody FOR this»
-
-
-«ENDFILE»
+	«FILE packagePath() +"/" +name+".java"»
+	
+	package « packageName() »;
+	
+	«EXPAND genClassBody FOR this»
+	
+	«ENDFILE»
 «ENDDEFINE»
 
 
 «DEFINE genClassBody FOR uml::Class»
-
-public class «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»{
-
-«EXPAND genDecl FOREACH getAllAttributes() »
-«EXPAND genGetterSetter FOREACH getAllAttributes() »
-
-«REM»comment
-«EXPAND genDecl FOREACH getAssociations() »
-«ENDREM»  
-
-}
+	public class «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»{
+	
+	«EXPAND genDecl FOREACH getAllAttributes() »
+	«EXPAND genGetterSetter FOREACH getAllAttributes() »
+	
+	}
 «ENDDEFINE»
 
 
 «DEFINE ClassRoot FOR wcprofile::Entity»
 
-	«EXPAND genImports FOR this»
+	«REM»«EXPAND genImports FOR this»«ENDREM»
 
 	«FILE packagePath() +"/"  +name+".java"»
 	package «packageName()»;
@@ -64,9 +45,7 @@ public class «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»
 	import java.util.HashSet;
 	
 	//@Entity
-	«REM»comment
-	«tableName != null ?("(table=" + tableName + ")"):""»)
-	«ENDREM»
+	«REM» «tableName != null ?("(table=" + tableName + ")"):""») «ENDREM»
 	«EXPAND genClassBody FOR this»
 	«ENDFILE»
 «ENDDEFINE»
@@ -90,17 +69,8 @@ public class «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»
 	«ELSE»
 		private «type.fqnForPackage(this.class)» «name»;
 	«ENDIF»
-	
 «ENDDEFINE»
 
-
-«DEFINE genDecl FOR uml::Association»
-	«REM»comment 
-	«FOREACH member AS e»
-		«EXPAND genGetterSetter FOR e»
-	«ENDFOREACH»
-	«ENDREM»
-«ENDDEFINE»
 
 
 «DEFINE genGetterSetter FOR uml::Property»
@@ -112,7 +82,6 @@ public class «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»
 		public Set<«type.fqnForPackage(this.class)»> get«name.toFirstUpper()»( ){
 			return «name»;
 		}
-
 	«ELSE»
 		public void set«name.toFirstUpper()»(«type.fqnForPackage(this.class)» «name»){
 			this.«name» = «name»;
@@ -133,7 +102,6 @@ For associations we need to set name to type name if the name is null ;
 		«LET type.name.toFirstLower() AS defaultName»
 
 			«IF isMultivalued()» «REM» For collections we need to create a plural default type name«ENDREM»
-				«"xxx"»			    
 				«setName(defaultName.getPlural())»
 			«ELSE»
 				«setName(defaultName)»
@@ -158,28 +126,4 @@ public enum «name» {
 } 
 «ENDFILE»
 «ENDDEFINE»
-
-
-«DEFINE genImports FOR uml::Class»
-	import javax.persistence.*;
-	import java.util.Date;
-	import org.hibernate.annotations.Cascade;
-	
-	import javax.xml.bind.annotation.XmlTransient;
-	
-	import org.hibernate.search.annotations.Analyzer;
-	import org.hibernate.search.annotations.Field;
-	import org.hibernate.search.annotations.Index;
-	import org.hibernate.search.annotations.Indexed;
-	import org.hibernate.search.annotations.Store;
-	import org.hibernate.search.annotations.ContainedIn;
-	import org.hibernate.search.annotations.IndexedEmbedded;
-	
-	import java.util.Set;
-	
-	import java.util.List;
-	import java.util.ArrayList;
-«ENDDEFINE»
-
-
 

@@ -7,11 +7,11 @@ import java;
 
 //path of the package - 
 String packagePath (Element cls) :
-cls.package.getQualifiedName().replaceAll("::", "/");
+packageNameWithoutRoot(cls.package).replaceAll("::", "/");
 
 //fully qualified name of a class
 String fqn (Type cls) :
-cls.getQualifiedName().replaceAll("::",".");
+packageName(cls) + "." + cls.name;
 
 String fqn (PrimitiveType cls) :
 cls.name;
@@ -27,7 +27,13 @@ cls.name;
 
 
 String packageName (Element cls) :
-cls.package.getQualifiedName().replaceAll("::", ".");
+packageNameWithoutRoot(cls.package).replaceAll("::", ".");
+
+//in case of magicdraw we need to remove the root "Data" package
+String packageNameWithoutRoot(Package package):
+package.getQualifiedName().startsWith("Data")?package.getQualifiedName().replaceAll("Data::", ""):
+package.getQualifiedName();
+
 
 
 //Returns plural of a word e.g input book will return books for Class will return Classes
