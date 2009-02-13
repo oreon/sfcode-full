@@ -10,11 +10,14 @@ class Student extends Entity {
 	var $lastName;
 	var $grade;
 
-
 	function __construct($fn = null, $ln = null){
 		$this->firstName = $fn;
 		$this->lastName = $ln;
 		$this->grade = new Grade();
+	}
+	
+	function createNew(){
+		return new Student();
 	}
 
 	function toString(){
