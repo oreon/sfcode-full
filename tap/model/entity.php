@@ -8,6 +8,7 @@ abstract class Entity{
 	}
 
 	function createNew(){
+		print("in crt new");
 		$obj = clone($this);
 		$obj->clearAll();
 		return $obj;
@@ -57,7 +58,8 @@ abstract class Entity{
 				continue;
 			}
 
-			if ($this->isEntity($value) ){				
+			if ( is_object($value)  ){		
+				//$value = (Grade::)$value;		
 				$value = $value->getDisplayName();
 			}
 
@@ -71,7 +73,7 @@ abstract class Entity{
 		}
 	}
 	
-	function listAsTab(){
+	function listAsTable(){
 		$this->dbconn();
 		$query = $this->getLoadAllQuery();
 		$result = mysql_query($query);
@@ -106,6 +108,7 @@ abstract class Entity{
 			if ($this->isEntity($value) ){
 				$arr = $value->loadObjectsFromQuery($value->getLoadAllQuery());
 				print("<tr><td>".$name. " </td> ");
+				print ("id is :: ".$value->id);
 				$select = new HtmlSelect($arr, $name."___id", $value->id);
 				print("<td> ".$select->render() ."</td></tr>");
 				continue;
@@ -125,50 +128,6 @@ abstract class Entity{
 		print("</form>");
 	}
 	
-	
-	
-	
-
-
-
-
-	function listAsTable(){
-		$this->dbconn();
-		$query = $this->getLoadAllQuery();
-		$result = mysql_query($query);
-
-		$rowCount = 0;
-
-		print("<table border=\"1\" >");
-		while ($row = mysql_fetch_row($result)) {
-			print("<tr>");
-			$colCount = 0;
-					
-			foreach($row AS $key => $value){
-				$linkBegin = "";
-				$linkEnd = "";
-
-				if($key == "id") continue;
-
-				$renderValue = $value;
-
-				if($this->isEntity($value)){
-					$renderValue = $value->getDisplayName();
-				}
-
-				if(++$colCount == 1){ //first column should be made a link
-					$linkBegin = "<a href='editStudent.php?id=".$row[0]."'>";
-					$linkEnd = "</a>";
-					$renderValue =  $linkBegin.$value.$linkEnd ;
-				}
-				print("<td>  $renderValue  </td>");
-
-
-			}
-			print("</tr>");
-		}
-		print("</table>");
-	}
 
 	function persist(){
 		$this->dbconn();
@@ -191,6 +150,7 @@ abstract class Entity{
 		$result = mysql_query($this->getLoadQuery());
 		$row = mysql_fetch_array($result);
 		$this->loadObjectFromDatabaseRow($this, $row);
+		
 	}
 	
 	
@@ -200,22 +160,31 @@ abstract class Entity{
 	function loadObjectFromDatabaseRow($obj, $row){
 		$classVars = get_class_vars(get_class($obj));
 		
+		/*
+		print("<br>");
+		print_r($obj);
+		print("<br>");
+		print_r($row);
+		print("<br>");*/
+		
 		foreach($classVars AS $varName => $varValue){
 
 			foreach($row AS $key => $value){
 				
-				if($key == $varName){
-					$obj->$varName = $row[$varName];
-					$temp =  $row[$varName];
-					continue;
-				}
 				if(strpos($key, '___') !== false){ //load associations
 					list($assocName, $assocMember) = split('___', $key);
-					//if(!isset($this->$assocName))
+					if(!isset($this->$assocName))
 						$obj->$assocName = new Grade();
+					//print("<br> $assocName $assocMember $value" );
 					$obj->$assocName->$assocMember = $value;
+					continue;
 				}
-					
+							
+				if( $key == $varName && ! ( $this->isEntity($obj->$varName) ) ){
+					//print "setting $key $varName :: ".$varName." ->". $row[$varName];
+					$obj->$varName = $row[$varName];
+				}
+
 			}
 		}
 		

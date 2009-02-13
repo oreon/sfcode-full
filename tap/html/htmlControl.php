@@ -27,7 +27,8 @@ class HtmlSelect extends HtmlControl {
 		
 		for ($i = 0; $i < count($this->data); $i++){
 			$entity = $this->data[$i];
-			$selected = $entity->id == $this->value?"selected='yes'":"";
+			print ("comparing :".$entity->id." with ".$this->value);
+			$selected = $entity->id == $this->value?"selected=\"selected\"":"";
 			//print("disp name ".$entity->displayName());
 			$ret .= "<option value='$entity->id'  $selected >".$entity->getDisplayName()."</option>";
 		}
