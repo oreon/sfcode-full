@@ -88,7 +88,7 @@ abstract class Entity{
 
 	function listAsTable(){
 		$this->dbconn();
-		$query = ("Select * from student");
+		$query = $this->getLoadAllQuery();
 		$result = mysql_query($query);
 
 		$rowCount = 0;
@@ -260,8 +260,6 @@ abstract class Entity{
 	}
 
 	function getLoadAllQuery(){
-		//	print("select * from ".get_class($this));
-
 		return "select * from ".get_class($this);
 	}
 
