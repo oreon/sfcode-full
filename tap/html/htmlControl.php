@@ -23,7 +23,7 @@ class HtmlSelect extends HtmlControl {
 
 	function render(){
 		print("name is :".$this->name." nnnn");
-		$ret .= "<select name='".$this->name."'><option>Select</option>";
+		$ret .= "<select name=\"".$this->name."\" ><option value=\"null\">Select</option>";
 		
 		for ($i = 0; $i < count($this->data); $i++){
 			$entity = $this->data[$i];
@@ -43,7 +43,6 @@ class HtmlInput extends HtmlControl {
 	var $value; // the current value
 	var $hidden; //boolean weather this val will be hidden
 
-	
 	
 	function render(){
 		$ret .= "<input id='$this->getId()' name='$this->name' value='$this->value' />";

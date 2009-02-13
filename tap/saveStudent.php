@@ -1,11 +1,11 @@
 
 
 <?php
-include 'student.php';
+include_once 'model/student.php';
 
-$s = new Student("","");
+$s = new Student();
 $s->fromRequest();
 $s->persist();
-$s->listAsTable();
 
+$s->listAsTable();
 ?>
