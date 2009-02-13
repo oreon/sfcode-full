@@ -17,7 +17,8 @@ class Student extends Entity {
 	}
 	
 	function createNew(){
-		return new Student();
+		$s = new Student();
+		return $s;
 	}
 
 	function toString(){
