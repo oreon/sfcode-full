@@ -2,6 +2,10 @@
 
 abstract class Entity{
 	var $id;
+	
+	function getId(){
+		return $id;
+	}
 
 	function __construct(){
 
@@ -46,46 +50,60 @@ abstract class Entity{
 
 	}
 	
+	function dump($obj){
+		print_r($obj);
+		print("<br>");
+	}
+	
+	function dumpMe(){
+		print_r($this);
+		print("<br>");
+	}
+	
 	function renderFieldNameValue($obj, $singleRow){
 		$class_var_entries = get_class_vars(get_class($this));
 			
+		//print("<hr/>");
 		while ($entry = each($class_var_entries)) {
 			$name = $entry['key'];
 			$value = $obj->$name;
 			
+			$renderValue = $value;
 			if($name == "id") {
 				print "<input type=hidden name='$name' value='$value' />";
 				continue;
 			}
 
-			if ( is_object($value)  ){		
-				//$value = (Grade::)$value;		
-				$value = $value->getDisplayName();
+			if ( $this->isEntity($value)  ){	
+				//$this->dump($value);	
+				$valId = $value->id;
+				$dispName = $value->name;
+				//print($valId." :vid: ".$dispName );
+				$renderValue = "<a href=\"viewGrade.php?id=$valId\">$dispName</a>";
+				echo("<td>  $renderValue</td>");
+				continue;
 			}
 
 			if(!$singleRow){
 				print("<tr>");
 				print "<td>".$name. " </td> ";
 			}
-			print("<td>$value </td>");
+			print("<td>$renderValue</td>");
 			if(!$singleRow)
 				print("</tr>");
 		}
 	}
 	
 	function listAsTable(){
-		$this->dbconn();
-		$query = $this->getLoadAllQuery();
-		$result = mysql_query($query);
-
+		
+		$arr = $this->loadObjectsFromQuery($this->getLoadAllQuery());
+	
 		$rowCount = 0;
 
 		print("<table border=\"1\" >");
 		
-		while ($row = mysql_fetch_array($result)) {
+		foreach ($arr as $obj) {
 			print("<tr>");
-			$obj = $this->createNew();
-			$obj = $this->loadObjectFromDatabaseRow($obj, $row);
 			$id = $obj->id;
 			print("<td> <input type='checkbox' value='$id' ></td>");
 			$this->renderFieldNameValue($obj, true);
@@ -173,9 +191,9 @@ abstract class Entity{
 				
 				if(strpos($key, '___') !== false){ //load associations
 					list($assocName, $assocMember) = split('___', $key);
-					if(!isset($this->$assocName))
-						$obj->$assocName = new Grade();
-					//print("<br> $assocName $assocMember $value" );
+					//if(!isset($this->$assocName))
+					//	$obj->$assocName = new Grade();
+					//print("<br> setting:  $assocName $assocMember $value" );
 					$obj->$assocName->$assocMember = $value;
 					continue;
 				}
@@ -193,21 +211,13 @@ abstract class Entity{
 
 	function loadObjectsFromQuery($qry){
 		$this->dbconn();
-		print("running qry ". $this->getLoadAllQuery(). "<br> ");
+		//$query = $this->getLoadAllQuery();
 		$result = mysql_query($qry);
-
-		$arr;
-
-		while( $row = mysql_fetch_array($result)){
+		$rowCount = 0;
+	
+		while ($row = mysql_fetch_array($result)) {
 			$obj = $this->createNew();
-
-			$classVars = get_class_vars(get_class($this));
-
-			foreach($classVars AS $varName => $varValue){
-				//print($varValue." ".$row[$varName]." ".$varName);
-				$obj->$varName = $row[$varName];
-			}
-
+			$obj = $this->loadObjectFromDatabaseRow($obj, $row);
 			$arr[] = $obj;
 		}
 
@@ -270,7 +280,7 @@ abstract class Entity{
 	}
 
 	function getDisplayName(){
-
+		return "should impl disp name";
 	}
 
 
