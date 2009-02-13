@@ -23,7 +23,7 @@ class Student extends Entity {
 
 	function getLoadQuery(){
 		return "select s.id as id, s.firstName as firstName, s.lastName as lastName, g.id as grade___id, g.name as grade___name  from 
-			student s, grade g where s.gradeId = g.id and s.id = $this->id";
+			student s left join grade g on ( s.gradeId = g.id) where s.id = $this->id";
 	}
 
 	function getPersistQuery(){
