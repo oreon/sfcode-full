@@ -7,5 +7,7 @@ $s = new Student();
 $s->fromRequest();
 $s->persist();
 
+$s->listAsTab();
+
 $s->listAsTable();
 ?>
