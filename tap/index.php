@@ -4,8 +4,6 @@ print ("hi");
 
 <html>
 <body>
-	<?php phpinfo(); ?>
-	
 
 	<form action="register.php">
 		username <input name="username" />
