@@ -2,7 +2,7 @@
 
 include_once 'entity.php';
 //include_once $_SERVER['DOCUMENT_ROOT'].'/tap/html/htmlControl.php';
-include_once 'html/htmlControl.php';
+
 
 class Grade extends Entity {
 	

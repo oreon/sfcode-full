@@ -22,7 +22,7 @@ class Student extends Entity {
 	}
 
 	function toString(){
-		return $this->firstName ." ". $this->lastName." ".$this->grade->id;
+		return $this->id." ".$this->firstName ." ". $this->lastName." ".$this->grade->id;
 	}
 
 	function getLoadQuery(){

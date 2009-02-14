@@ -1,5 +1,7 @@
 <?php
 
+include_once '../html/htmlControl.php';
+
 abstract class Entity{
 	var $id;
 	
@@ -117,6 +119,7 @@ abstract class Entity{
 
 	function renderForm($action){
 		print("<form action='$action'><table>");
+		print"<input type=\"hidden\" name=\"action\" value=\"save\" />";
 		$class_var_entries = get_class_vars(get_class($this));
 		
 		while ($entry = each($class_var_entries)) {
@@ -163,27 +166,25 @@ abstract class Entity{
 	 *
 	 */
 	function fromPrimaryKey(){
+		print  " error is 1";
 		$this->dbconn();
+		print "error is 2";
 		print("running qry ". $this->getLoadQuery(). "<br> ");
 		$result = mysql_query($this->getLoadQuery());
+		if(!$result){
+			print  " error is ".mysql_error();
+		}
 		$row = mysql_fetch_array($result);
 		$this->loadObjectFromDatabaseRow($this, $row);
 		
 	}
 	
 	
-	/*
+	/*Create an 
 	 *
 	 */
 	function loadObjectFromDatabaseRow($obj, $row){
 		$classVars = get_class_vars(get_class($obj));
-		
-		/*
-		print("<br>");
-		print_r($obj);
-		print("<br>");
-		print_r($row);
-		print("<br>");*/
 		
 		foreach($classVars AS $varName => $varValue){
 
@@ -255,11 +256,13 @@ abstract class Entity{
 		$dbPass = "root";
 		$dbName = "tapovandb";
 		$dbHost = "localhost";
+		
 		if (!($link=mysql_connect($dbHost, $dbUser, $dbPass))) {
-			//error_log(mysql_error(), 3, “/tmp/phplog.err”);
+			print mysql_error($link);
 		}
+
 		if (!mysql_select_db($dbName, $link)) {
-			//error_log(mysql_error(), 3, “/tmp/phplog.err”);
+			print mysql_error();
 		}
 	}
 
