@@ -7,12 +7,17 @@ import java;
 
 //path of the package - 
 String packagePath (Element cls) :
-packageNameWithoutRoot(cls.package).replaceAll("::", "/");
+packageNameWithoutRoot(cls.package).replaceAll("::|\\.", "/");
 
 //fully qualified name of a class
 String fqn (Type cls) :
 packageName(cls) + "." + cls.name;
 
+//get interfaces
+getInterfaces(Class cls):
+JAVA org.wc.generatorutil.ClassUtil.getInterfaces(org.eclipse.uml2.uml.Class);
+
+//for primitive type we will simply return the classname - no need for package declaration
 String fqn (PrimitiveType cls) :
 cls.name;
 
