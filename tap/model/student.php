@@ -1,15 +1,13 @@
-<?include_once 'entity.php';?>
-
-
-<?php
-
+<?
+include_once 'entity.php';
 include 'grade.php';
 
 class Student extends Entity {
 	var $firstName;
 	var $lastName;
 	var $grade;
-
+	
+	
 	function __construct($fn = null, $ln = null){
 		$this->firstName = $fn;
 		$this->lastName = $ln;
@@ -19,6 +17,12 @@ class Student extends Entity {
 	function createNew(){
 		$s = new Student();
 		return $s;
+	}
+	
+	function getValidationInfo(){
+		$arr[$firstName] = array('r', '3-15');
+		$arr[$lastName] = array('r', '3-15');
+		return $arr;
 	}
 
 	function toString(){
@@ -35,7 +39,8 @@ class Student extends Entity {
 	}
 
 	function getPersistQuery(){
-		return "Insert into student(firstName, lastName) values('$this->firstName', '$this->lastName')";
+		return "Insert into student(firstName, lastName, gradeId) 
+			values('$this->firstName', '$this->lastName', ".$this->grade->id.")";
 	}
 
 	function getUpdateQuery(){
