@@ -1,13 +1,16 @@
 «EXTENSION template::GeneratorExtensions»
 
 «DEFINE Root FOR uml::Model»
+	«REM» Massage the model «ENDREM»
 	«EXPAND setDefaultNamesForAssocs FOREACH allOwnedElements().typeSelect(uml::Property) »
+	«EXPAND applyEntityStereotype FOREACH allOwnedElements().typeSelect(wcprofile::EntitiesPackage) »
+	
 	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
 «ENDDEFINE»
 
 «DEFINE PackageRoot FOR uml::Package»
-
 	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Class)»
+	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Interface)»
 	«EXPAND EnumGen FOREACH allOwnedElements().typeSelect(uml::Enumeration)»
 «ENDDEFINE»
 
@@ -18,14 +21,30 @@
 	
 	package « packageName() »;
 	
+	import java.util.Set;
+	import java.util.HashSet;
+	import java.util.Date;
+	
 	«EXPAND genClassBody FOR this»
 	
 	«ENDFILE»
 «ENDDEFINE»
 
 
+«DEFINE ClassRoot FOR uml::Interface»
+	«FILE packagePath() +"/" +name+".java"»
+	package « packageName() »;
+	
+	public interface «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»{
+	
+	}
+	
+	«ENDFILE»
+«ENDDEFINE»
+
+
 «DEFINE genClassBody FOR uml::Class»
-	public class «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»{
+	public class «name» «parents().size > 0 ?" extends " + parents().get(0).name:""» «getInterfaces()»{
 	
 	«EXPAND genDecl FOREACH getAllAttributes() »
 	«EXPAND genGetterSetter FOREACH getAllAttributes() »
@@ -43,6 +62,7 @@
 	
 	import java.util.Set;
 	import java.util.HashSet;
+	import java.util.Date;
 	
 	//@Entity
 	«REM» «tableName != null ?("(table=" + tableName + ")"):""») «ENDREM»
@@ -110,6 +130,23 @@ For associations we need to set name to type name if the name is null ;
 		«ENDLET»
 	«ENDIF»
 «ENDDEFINE»
+
+
+«REM»
+For classes in entitiespackage we need to default to 'Enity' profile if no sterotype is specified ;
+«ENDREM»
+«DEFINE applyEntityStereotype FOR wcprofile::EntitiesPackage»
+	
+	«FOREACH allOwnedElements().typeSelect(uml::Class) AS c»
+		«IF c.getStereotypeApplications().isEmpty »
+			«REM»comment
+			«c.applyStereotype(»
+			«ENDREM» 
+		«ENDIF»
+	
+	«ENDFOREACH»
+«ENDDEFINE»
+
 
 
 «DEFINE EnumGen FOR uml::Enumeration»
