@@ -1,6 +1,6 @@
 <?php
 
-include_once '../html/htmlControl.php';
+
 
 abstract class Entity{
 	var $id;
@@ -14,7 +14,6 @@ abstract class Entity{
 	}
 
 	function createNew(){
-		print("in crt new");
 		$obj = clone($this);
 		$obj->clearAll();
 		return $obj;
@@ -109,7 +108,7 @@ abstract class Entity{
 			$id = $obj->id;
 			print("<td> <input type='checkbox' value='$id' ></td>");
 			$this->renderFieldNameValue($obj, true);
-			print("<td> <a href='editStudent.php?id=$id' > Edit </a></td>");
+			print("<td> <a href='editStudent.php?action=load&id=$id' > Edit </a></td>");
 			print("<td> <a href='viewStudent.php?id=$id' > View </a></td>");
 			print ("</tr>");
 		}
@@ -129,7 +128,7 @@ abstract class Entity{
 			if ($this->isEntity($value) ){
 				$arr = $value->loadObjectsFromQuery($value->getLoadAllQuery());
 				print("<tr><td>".$name. " </td> ");
-				print ("id is :: ".$value->id);
+				//print ("id is :: ".$value->id);
 				$select = new HtmlSelect($arr, $name."___id", $value->id);
 				print("<td> ".$select->render() ."</td></tr>");
 				continue;
@@ -154,10 +153,10 @@ abstract class Entity{
 		$this->dbconn();
 
 		if($this->id == null){
-			printf("inserting record");
+			//printf("inserting record");
 			mysql_query($this->getPersistQuery());
 		}else{
-			printf("updating record ".$this->getUpdateQuery());
+			//printf("updating record ".$this->getUpdateQuery());
 			mysql_query($this->getUpdateQuery());
 		}
 	}
@@ -166,10 +165,8 @@ abstract class Entity{
 	 *
 	 */
 	function fromPrimaryKey(){
-		print  " error is 1";
 		$this->dbconn();
-		print "error is 2";
-		print("running qry ". $this->getLoadQuery(). "<br> ");
+		//print("running qry ". $this->getLoadQuery(). "<br> ");
 		$result = mysql_query($this->getLoadQuery());
 		if(!$result){
 			print  " error is ".mysql_error();
