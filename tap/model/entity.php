@@ -101,7 +101,7 @@ abstract class Entity{
 	
 		$rowCount = 0;
 
-		print("<table border=\"1\" >");
+		print("<table width=\"90%\" border=\"1\" >");
 		
 		foreach ($arr as $obj) {
 			print("<tr>");
