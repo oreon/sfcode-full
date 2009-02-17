@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Begin;
+import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
@@ -22,25 +24,20 @@ import org.jboss.seam.log.Log;
 
 import com.icesoft.faces.component.selectinputtext.SelectInputText;
 
-@Scope(ScopeType.EVENT)
-@Name("register")
-public class UserCrud {
+@Scope(ScopeType.CONVERSATION)
+@Name("studentAction")
+public class StudentAction {
 
-	@In
-	@DataModelSelection
+	@In(create = true)
 	@Out(required = false)
-	private User user;
+	@DataModelSelection
+	private Student student;
 
 	@DataModel
-	private List<User> userList;
+	private List<User> studentList;
 	
 	@Logger
 	private Log log;
-
-	/*
-	@DataModelSelection
-	@Out(required = false)
-	private User selectedUser;*/
 
 	@In
 	// @PersistenceContext(type=EXTENDED)
@@ -49,29 +46,15 @@ public class UserCrud {
 	@In
 	private FacesMessages facesMessages;
 
-	private boolean registered;
-
 	private String typedUserName;
 
-	public void register() {
-		List existing = entityManager
-				.createQuery(
-						"select u.username from User u where u.username=#{user.username}")
-				.getResultList();
-		if (existing.size() == 0) {
-			entityManager.persist(user);
-			facesMessages.add("Successfully registered as #{user.username}");
-			registered = true;
-		} else {
-			facesMessages.addToControl("username",
-					"Username #{user.username} already exists");
-		}
-	}
+	
 
-	@Factory("userList")
-	public void findMessages() {
-		userList = entityManager.createQuery(
-				"select user from User user order by user.name")
+	@Factory("studentList")
+	public void findStduents() {
+		studentList = entityManager
+				.createQuery(
+						"select student from Student student order by student.lastName")
 				.getResultList();
 	}
 
@@ -79,12 +62,20 @@ public class UserCrud {
 		facesMessages.add("Please try again");
 	}
 
-	public boolean isRegistered() {
-		return registered;
+	@Begin
+	public String select(Student student) {
+		this.student = entityManager.merge(student);
+	    log.info("User selected project: #{student.lastName} #{student.id} #{student.firstName}");
+		return "/editStudent.jspx";
 	}
 	
-	public String select(){
-		return "/one.jspx";
+	@End
+	public String save() {
+		facesMessages.add("Successfully registered as #{user.username}");
+		entityManager.persist(student);
+		return "/studentList.jspx";
+		
+		// facesMessages.addToControl("username","Username #{user.username} already exists");
 	}
 
 	public List<SelectItem> getUserNames() {
@@ -115,7 +106,6 @@ public class UserCrud {
 					.getComponent();
 			// get the new value typed by component user.
 			typedUserName = (String) event.getNewValue();
-
 		}
 	}
 
