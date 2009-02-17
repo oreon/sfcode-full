@@ -1,0 +1,92 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	template="template.jspx">
+
+	<ui:define name="content">
+
+		<h:messages />
+
+		<h:form>
+			<ice:panelCollapsible id="linkPanel" expanded="true">
+				<f:facet name="header">
+					<ice:panelGroup>
+						<ice:outputText id="linkHeader"
+							value="#{msgs['page.panelCollapsible.links.header']}" />
+					</ice:panelGroup>
+				</f:facet>
+			
+			User:
+			<ice:selectInputText rows="15" width="300"
+					valueChangeListener="#{studentAction.selectInputValueChanged}">
+					<f:selectItems value="#{studentAction.userNames}" />
+				</ice:selectInputText>
+			</ice:panelCollapsible>
+
+			<h:commandButton value="Search" action="#{register.register}" />
+			<s:button id="cancel" value="Cancel" view="/login.jspx" />
+
+			<h:outputText value="found : #{studentList.rowCount}" />
+
+			<h:outputText value="No messages to display"
+				rendered="#{studentList.rowCount==0}" />
+
+			<ice:dataTable var="studentIter" value="#{studentList}">
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="" />
+					</f:facet>
+					<h:selectBooleanCheckbox />
+				</h:column>
+
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="First Name" />
+					</f:facet>
+
+					<h:outputText value="#{studentIter.firstName}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Last Name" />
+					</f:facet>
+
+					<h:outputText value="#{studentIter.lastName}" />
+
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Edit" />
+					</f:facet>
+					<h:commandLink value="View" action="#{studentAction.select(studentIter)}" />
+
+				</h:column>
+			</ice:dataTable>
+			<!--
+			<ice:panelTabSet id="viewanswerchoiceHomeTabSetId"
+				style="margin-bottom:5px;margin-top:10px;">
+				<ice:panelTab label="general ">
+					Hi there 
+				</ice:panelTab>
+
+				<ice:panelTab label="Info">
+					this is another question
+				</ice:panelTab>
+			</ice:panelTabSet>
+-->
+		</h:form>
+
+
+
+	</ui:define>
+</ui:composition>
+
+

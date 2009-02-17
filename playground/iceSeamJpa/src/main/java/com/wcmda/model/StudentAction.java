@@ -34,7 +34,7 @@ public class StudentAction {
 	private Student student;
 
 	@DataModel
-	private List<User> studentList;
+	private List<Student> studentList;
 	
 	@Logger
 	private Log log;
@@ -71,7 +71,7 @@ public class StudentAction {
 	
 	@End
 	public String save() {
-		facesMessages.add("Successfully registered as #{user.username}");
+		facesMessages.add("Successfully saved  #{student.lastName}");
 		entityManager.persist(student);
 		return "/studentList.jspx";
 		
@@ -83,14 +83,14 @@ public class StudentAction {
 		if (StringUtils.length(typedUserName) == 0)
 			return users;
 
-		String[] arr = { "mike", "michelle", "austin", "victor", "vincent",
-				"april" };
+		//String[] arr = { "mike", "michelle", "austin", "victor", "vincent",
+		//		"april" };
 
-		for (String userName : arr) {
+		for (Student student : studentList) {
 
-			if (userName.startsWith(typedUserName)) {
+			if (student.getLastName().startsWith(typedUserName)) {
 				SelectItem item = new SelectItem();
-				item.setLabel(userName);
+				item.setLabel(student.getLastName());
 				users.add(item);
 			}
 		}
