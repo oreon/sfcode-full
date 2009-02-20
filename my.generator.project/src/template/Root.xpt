@@ -1,3 +1,6 @@
+«IMPORT wcprofile»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
 «EXTENSION template::GeneratorExtensions»
 
 «DEFINE Root FOR uml::Model»
@@ -16,21 +19,6 @@
 
 
 
-«DEFINE ClassRoot FOR uml::Class»
-	«FILE packagePath() +"/" +name+".java"»
-	
-	package « packageName() »;
-	
-	import java.util.Set;
-	import java.util.HashSet;
-	import java.util.Date;
-	
-	«EXPAND genClassBody FOR this»
-	
-	«ENDFILE»
-«ENDDEFINE»
-
-
 «DEFINE ClassRoot FOR uml::Interface»
 	«FILE packagePath() +"/" +name+".java"»
 	package « packageName() »;
@@ -38,7 +26,6 @@
 	public interface «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»{
 	
 	}
-	
 	«ENDFILE»
 «ENDDEFINE»
 
@@ -53,21 +40,32 @@
 «ENDDEFINE»
 
 
+«DEFINE ClassRoot FOR uml::Class»
+	«FILE packagePath() +"/" +name+".java"»
+		package « packageName() »;
+		
+		«EXPAND genImports FOR this»
+		
+		«EXPAND genClassBody FOR this»
+	«ENDFILE»
+«ENDDEFINE»
+
 «DEFINE ClassRoot FOR wcprofile::Entity»
-
-	«REM»«EXPAND genImports FOR this»«ENDREM»
-
 	«FILE packagePath() +"/"  +name+".java"»
 	package «packageName()»;
 	
-	import java.util.Set;
-	import java.util.HashSet;
-	import java.util.Date;
-	
+	«EXPAND genImports FOR this»
 	//@Entity
 	«REM» «tableName != null ?("(table=" + tableName + ")"):""») «ENDREM»
 	«EXPAND genClassBody FOR this»
 	«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE genImports FOR uml::Class»
+	import java.util.Set;
+	import java.util.HashSet;
+	import java.util.Date;
 «ENDDEFINE»
 
 «DEFINE gen FOR uml::Operation»
@@ -110,13 +108,10 @@
 		public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 			return «name»;
 		}
-		
 	«ENDIF»
 «ENDDEFINE»
 
-«REM»
-For associations we need to set name to type name if the name is null ;
-«ENDREM»
+«REM» For associations we need to set name to type name if the name is null ;«ENDREM»
 «DEFINE setDefaultNamesForAssocs FOR uml::Property»
 	«IF !(name != null && name.length > 0 )»
 		«LET type.name.toFirstLower() AS defaultName»
@@ -132,35 +127,25 @@ For associations we need to set name to type name if the name is null ;
 «ENDDEFINE»
 
 
-«REM»
-For classes in entitiespackage we need to default to 'Enity' profile if no sterotype is specified ;
-«ENDREM»
+«REM» For classes in entitiespackage we need to default to 'Enity' profile if no sterotype is specified «ENDREM»
 «DEFINE applyEntityStereotype FOR wcprofile::EntitiesPackage»
-	
 	«FOREACH allOwnedElements().typeSelect(uml::Class) AS c»
 		«IF c.getStereotypeApplications().isEmpty »
-			«REM»comment
-			«c.applyStereotype(»
-			«ENDREM» 
+			«c.applyEntityStereoType()»
 		«ENDIF»
-	
 	«ENDFOREACH»
 «ENDDEFINE»
 
 
-
 «DEFINE EnumGen FOR uml::Enumeration»
-«FILE packagePath() + "/"+ name +".java"»  
-
-package «packageName()»;
-
-public enum «name» {		
-						
-	«FOREACH  ownedLiteral AS e»
-		«e.name»,
-	«ENDFOREACH»
+	«FILE packagePath() + "/"+ name +".java"»  
+	package «packageName()»;
 	
-} 
-«ENDFILE»
+	public enum «name» {		
+		«FOREACH  ownedLiteral AS e»
+			«e.name»,
+		«ENDFOREACH»
+	} 
+	«ENDFILE»
 «ENDDEFINE»
 

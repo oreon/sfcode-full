@@ -1,6 +1,9 @@
 //import metamodel;
 import uml;
 import java;
+import wcprofile;
+
+extension org::openarchitectureware::uml2::profile::profiling;
 
 
 //extension metamodel::Extensions reexport;
@@ -29,6 +32,11 @@ String fqnForPackage(Type cls, Class referringClass):
 //If package of referring class is same as this class - will return simple name else fqn
 String fqnForPackage(PrimitiveType cls, Class referringClass):
 cls.name;
+
+applyEntityStereoType(Class cls):
+//cls.package.createOwnedClass(cls.name, true)->
+//cls.getModel().applyProfile("C:/users/jsingh/mdl/wcprofile.profile.uml") ->
+cls.applyStereotype("wcprofile::Entity");
 
 
 String packageName (Element cls) :

@@ -1,0 +1,44 @@
+«IMPORT wcprofile»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+«EXTENSION template::webExtensions»
+
+«DEFINE Root FOR uml::Model»	
+	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
+«ENDDEFINE»
+
+«DEFINE PackageRoot FOR uml::Package»
+	«EXPAND genView FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+«ENDDEFINE»
+
+
+
+«DEFINE genView FOR wcprofile::Entity»
+	«FILE "web/" + packagePath() +"/" +name+".xhtml"»
+		«EXPAND genAttribute FOREACH getAllAttributes() »
+	«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE genAttribute FOR uml::Property»
+	«IF association != null -»
+		«IF isMultivalued()»
+			«name»[MULT] <select name=«name-» ></select>
+		«ELSE»
+		<h:outputText value="«msgBundleKey()-»" />
+		<h:commandLink value="#{«class.getAction()».«class.asVar()».displayName}" 
+			actionListener="#{«type.asVar()».selectEntity}" action="view«name.toFirstUpper()»"  >
+			<c:if test="${«class.getAction()».«name.toFirstLower()» != null}">
+			<f:param name="id" value="#{«class.getAction()».«name.toFirstLower()».id}" />
+			</c:if>
+		</h:commandLink> 
+		«ENDIF»
+	«ELSE-»
+		<h:outputText value="«msgBundleKey()-»" />
+		<h:outputText value="#{«class.getAction()».«class.asVar()».«name.toFirstLower()»}" />
+	«ENDIF»
+«ENDDEFINE»
+
+
+

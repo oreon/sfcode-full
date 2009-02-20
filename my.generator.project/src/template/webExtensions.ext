@@ -1,0 +1,19 @@
+//import metamodel;
+import uml;
+import java;
+import wcprofile;
+
+extension org::openarchitectureware::uml2::profile::profiling;
+
+String asVar(Class cls):
+cls.name.toFirstLower();
+
+String getAction(Class cls):
+cls.asVar() + "Action";
+
+String msgBundleKey(Property attr):
+"#{msg." + attr.class.asVar() + "_" + attr.name + "}";
+
+//get interfaces
+getAttributesIncludingSuperclasses(Class cls):
+JAVA org.wc.generatorutil.ClassUtil.getAttributesIncludingSuperclasses(org.eclipse.uml2.uml.Class);
