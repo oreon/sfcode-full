@@ -14,17 +14,14 @@ import org.jboss.seam.annotations.Name;
 
 @Entity
 @Name("student")
-public class Student implements Serializable{
+public class Student extends ModelBase implements Serializable{
 	
 	private String firstName;
 	private String lastName;
 	
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="id")
-    private Long id;
 
 
-	@Length(min=2, max=6) 
+	@Length(min=2, max=16) 
 	@NotNull
 	public String getFirstName() {
 		return firstName;
@@ -34,7 +31,7 @@ public class Student implements Serializable{
 		this.firstName = firstName;
 	}
 
-	@Length(min=2, max=6) 
+	@Length(min=2, max=16) 
 	@NotNull
 	public String getLastName() {
 		return lastName;
@@ -44,12 +41,5 @@ public class Student implements Serializable{
 		this.lastName = lastName;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 	
 }

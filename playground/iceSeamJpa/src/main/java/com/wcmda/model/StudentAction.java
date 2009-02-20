@@ -74,8 +74,6 @@ public class StudentAction {
 		facesMessages.add("Successfully saved  #{student.lastName}");
 		entityManager.persist(student);
 		return "/studentList.jspx";
-		
-		// facesMessages.addToControl("username","Username #{user.username} already exists");
 	}
 
 	public List<SelectItem> getUserNames() {
