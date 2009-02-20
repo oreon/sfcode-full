@@ -1,122 +1,114 @@
 package com.wcmda.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
-import org.apache.commons.lang.StringUtils;
 import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.annotations.datamodel.DataModel;
-import org.jboss.seam.annotations.datamodel.DataModelSelection;
-import org.jboss.seam.faces.FacesMessages;
-import org.jboss.seam.log.Log;
 
-import com.icesoft.faces.component.selectinputtext.SelectInputText;
+import org.jboss.seam.faces.FacesMessages;
+import org.jboss.seam.ui.validator.ModelValidator;
+
+import com.icesoft.faces.component.ext.HtmlInputText;
 
 @Scope(ScopeType.EVENT)
-@Name("register")
+@Name("registerUser")
 public class UserCrud {
 
-	@In
-	@DataModelSelection
-	@Out(required = false)
-	private User user;
+@In
+private User user;
 
-	@DataModel
-	private List<User> userList;
+@In
+EntityManager entityManager;
+
+@In
+private FacesMessages facesMessages;
+
+private String verify;
+
+private boolean registered;
+
+public void register()
+{
+   if ( user.getPassword().equals(verify) )
+   {
+      List existing = entityManager.createQuery("select u.username from User u where u.username=#{user.username}")
+         .getResultList();
+      if (existing.size()==0)
+      {
+    	  entityManager.persist(user);
+         facesMessages.add("Successfully registered as #{user.username}");
+         registered = true;
+      }
+      else
+      {
+         facesMessages.addToControl("username", "Username #{user.username} already exists");
+      }
+   }
+   else 
+   {
+      facesMessages.addToControl("verify", "Re-enter your password");
+      verify=null;
+   }
+}
+
+public void validateUserName( FacesContext context, UIComponent validate, Object value)
+{
 	
-	@Logger
-	private Log log;
-
-	/*
-	@DataModelSelection
-	@Out(required = false)
-	private User selectedUser;*/
-
-	@In
-	// @PersistenceContext(type=EXTENDED)
-	EntityManager entityManager;
-
-	@In
-	private FacesMessages facesMessages;
-
-	private boolean registered;
-
-	private String typedUserName;
-
-	public void register() {
-		List existing = entityManager
-				.createQuery(
-						"select u.username from User u where u.username=#{user.username}")
-				.getResultList();
-		if (existing.size() == 0) {
-			entityManager.persist(user);
-			facesMessages.add("Successfully registered as #{user.username}");
-			registered = true;
-		} else {
-			facesMessages.addToControl("username",
-					"Username #{user.username} already exists");
-		}
-	}
-
-	@Factory("userList")
-	public void findMessages() {
-		userList = entityManager.createQuery(
-				"select user from User user order by user.name")
-				.getResultList();
-	}
-
-	public void invalid() {
-		facesMessages.add("Please try again");
-	}
-
-	public boolean isRegistered() {
-		return registered;
-	}
 	
-	public String select(){
-		return "/one.jspx";
+	
+	 org.jboss.seam.ui.validator.ModelValidator mv = new ModelValidator();
+	 mv.validate(context,validate, value);
+	 
+	 String userName = (String)value;
+	 
+	 if(isUserNameRegistered(userName))
+	 {
+		 FacesMessage msg = new FacesMessage("user name already taken, please use another one");	 
+		 context.addMessage(validate.getClientId(context), msg);
+	 }
+	 
+	
+	   HtmlInputText inputText = (HtmlInputText)validate;
+	   inputText.setFocus(true);
+
+}
+
+
+public boolean isUserNameRegistered(String userName) {
+		return entityManager.createQuery(
+			"select u.username from User u where u.username= ?1")
+			.setParameter(1, userName).getResultList().size() > 0;
 	}
 
-	public List<SelectItem> getUserNames() {
-		List<SelectItem> users = new ArrayList<SelectItem>();
-		if (StringUtils.length(typedUserName) == 0)
-			return users;
 
-		String[] arr = { "mike", "michelle", "austin", "victor", "vincent",
-				"april" };
+public void invalid()
+{
+   facesMessages.add("Please try again");
+}
 
-		for (String userName : arr) {
+public boolean isRegistered()
+{
+   return registered;
+}
+public String getVerify()
+{
+   return verify;
+}
+public void setVerify(String verify)
+{
+   this.verify = verify;
+}
 
-			if (userName.startsWith(typedUserName)) {
-				SelectItem item = new SelectItem();
-				item.setLabel(userName);
-				users.add(item);
-			}
-		}
-		return users;
-	}
 
-	public void selectInputValueChanged(ValueChangeEvent event) {
 
-		if (event.getComponent() instanceof SelectInputText) {
 
-			// get the number of displayable records from the component
-			SelectInputText autoComplete = (SelectInputText) event
-					.getComponent();
-			// get the new value typed by component user.
-			typedUserName = (String) event.getNewValue();
-
-		}
-	}
-
+	
 }
