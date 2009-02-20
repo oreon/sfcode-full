@@ -2,10 +2,13 @@ package org.wc.generatorutil;
 
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.Property;
 
 public class ClassUtil {
 	Operation operation;
@@ -19,12 +22,23 @@ public class ClassUtil {
 		// cls.
 	}
 	
+	public EList<Property> getAttributesIncludingSuperclasses(Class cls){
+		EList<Property> lstAttributes = cls.getAllAttributes();
+		EList<Classifier> lstParents = cls.allParents();
+		for (Classifier classifier : lstParents) {
+			lstAttributes.addAll(classifier.getAllAttributes());
+		}
+		return lstAttributes;
+	}
+	
 	public static String getInterfaces(Class clazz){
 		StringBuilder buffer = new StringBuilder();
 		List<Interface> interfaces = clazz.getImplementedInterfaces();
 		
-		// Stereotype myStereotype =
-		//	 myProfile.getOwnedStereotype("MyExtendedClass");
+		//clazz.getAttributes		
+		Property prop;
+		//prop.g
+		
 		if(!interfaces.isEmpty())
 			buffer.append(" implements ");
 
