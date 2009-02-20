@@ -9,39 +9,47 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
+import org.jboss.seam.bpm.Actor;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Identity;
+import org.jbpm.graph.exe.ProcessInstance;
 
 import com.wcmda.model.User;
 
-
 @Name("authenticator")
-public class Authenticator
-{
-    @Logger Log log;
-    
-    @In Identity identity;
-    
-    @In
-    EntityManager entityManager;
+public class Authenticator {
+	@Logger
+	Log log;
 
-    @Out(required=false, scope=ScopeType.SESSION)
-    User user;
-    
-    public boolean authenticate()
-    {
-    	
-    	 Query q = entityManager.createQuery("SELECT u FROM User u " +
-    	    		"WHERE u.username = #{identity.username} " +
-    	    		"AND u.password = #{identity.password}");
-    	 
-        log.info("authenticating #0", identity.getUsername());
-        try {
-            user = (User) q.getSingleResult();
-            
-            return true;
-          } catch (NoResultException nre) {
-            return false;
-          }
-    }
+	@In
+	Identity identity;
+
+	@In
+	private Actor actor;
+
+	@In
+	EntityManager entityManager;
+
+	@Out(required = false, scope = ScopeType.SESSION)
+	User user;
+
+	public boolean authenticate() {
+		// identity.getCredentials().getUsername()
+		// ProcessInstance
+		org.jbpm.graph.exe.ProcessInstance pi = new ProcessInstance();
+
+		Query q = entityManager.createQuery("SELECT u FROM User u "
+				+ "WHERE u.username = #{identity.username} "
+				+ "AND u.password = #{identity.password}");
+
+		log.info("authenticating #identity.credentials.username ");
+		try {
+			user = (User) q.getSingleResult();
+			actor.setId(identity.getCredentials().getUsername());
+
+			return true;
+		} catch (NoResultException nre) {
+			return false;
+		}
+	}
 }

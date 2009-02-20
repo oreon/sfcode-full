@@ -15,53 +15,53 @@ import com.wcmda.model.User;
 import com.wcmda.validator.Unique;
 import com.wcmda.validator.UniqueUser;
 
-public class UniqueUserName implements Validator<UniqueUser>, PropertyConstraint {
+public class UniqueUserName implements Validator<UniqueUser>,
+		PropertyConstraint {
 
-	private Unique type; 
+	private Unique type;
 	private String uniquenessCheckValue;
-	
+
 	@In
-	  EntityManager entityManager;
-	
-	public void initialize(UniqueUser parameters) 
-	{
-	
+	EntityManager entityManager;
+
+	public void initialize(UniqueUser parameters) {
+
 		type = parameters.type();
-		
+
 	}
 
-	public boolean isValid(Object value ) {
-		
-		if( value == null ) return false;
-		
-		if( type == Unique.FIRSTNAME )
-		{
-			uniquenessCheckValue=(String)value;
-			
-			Query q = entityManager.createQuery("SELECT u FROM User u " +
-    	    		"WHERE u.username = '?'").setParameter(1, uniquenessCheckValue);
-			
+	public boolean isValid(Object value) {
+
+		if (value == null)
+			return false;
+
+		if (type == Unique.FIRSTNAME) {
+			uniquenessCheckValue = (String) value;
+
+			Query q = entityManager.createQuery(
+					"SELECT u FROM User u " + "WHERE u.username = '?'")
+					.setParameter(1, uniquenessCheckValue);
+
 			try {
-	        
-				User  user = (User) q.getSingleResult();
-	            return true;
-	          } catch (NoResultException nre) {
-	            return false;
-	          }
+
+				User user = (User) q.getSingleResult();
+				return true;
+			} catch (NoResultException nre) {
+				return false;
+			}
 		}
-			
+
 		return false;
 	}
 
 	public void apply(Property arg0) {
-		
-		
+
 	}
-	 @Factory(value="pattern", scope=ScopeType.EVENT)
-	   public String getSearchPattern()
-	   {
-	      return uniquenessCheckValue==null ?
-	            "%" : '%' + uniquenessCheckValue.toLowerCase().replace('*', '%') + '%';
-	   }	
-	
+
+	@Factory(value = "pattern", scope = ScopeType.EVENT)
+	public String getSearchPattern() {
+		return uniquenessCheckValue == null ? "%" : '%' + uniquenessCheckValue
+				.toLowerCase().replace('*', '%') + '%';
+	}
+
 }

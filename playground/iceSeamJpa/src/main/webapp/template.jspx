@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ice="http://www.icesoft.com/icefaces/component"
 	xmlns:s="http://jboss.com/products/seam/taglib">
 <head>
@@ -17,6 +18,8 @@
 <link href="css/screen.css" rel="stylesheet" type="text/css" />
 <link rel='stylesheet' type='text/css'
 	href='./xmlhttp/css/rime/rime.css' />
+<link rel='stylesheet' type='text/css' href="./css/showcase_style.css"/>
+	
 <link href="stylesheet/theme.css" rel="stylesheet" type="text/css" />
 
 
@@ -26,28 +29,36 @@
 
 
 <div id="header">
-<div id="status">Welcome #{user.name} | <s:link id="search"
+<div id="status">Welcome #{identity.credentials.username} | <s:link id="search"
 	view="/main.xhtml" value="Search" propagation="none" /> | <s:link
-	id="logout" action="#{identity.logout}" value="Logout" /></div>
+	id="logout" action="#{identity.logout}" value="Logout #{identity.credentials.username}" /></div>
 </div>
 <div id="topmenu">Menu Section</div>
 <div id="leftcol">
 
-<h:form>
-<ice:panelGroup>
+<ice:form>
+<ice:panelGroup styleClass="pnlClpsblWrapper panelCollapsible">
+	<ice:panelCollapsible>
+		 <f:facet name="header">
+                <ice:panelGroup>
+                    <ice:outputText id="linkHeader"
+                            value="Main"/>
+                </ice:panelGroup>
+         </f:facet>
+		
 	
-	<ice:menuBar id="menuBar" orientation="vertical">
-
-		<!-- File menu -->
-		<ice:menuItem value="User" id="user">
-			<ice:menuItem  id="lstuser"
-				value="List" icon="/images/menu/open.gif" action="/searchUsers.jspx">
+	<ice:menuBar id="menuBar" orientation="vertical"  style="font-size: 10px;" >
+		
+	
+		<ice:menuItem value="User" id="user" >
+			<ice:menuItem  id="lstuser" 
+				value="List" icon="/img/open.png"  action="/searchUsers.jspx">
 			</ice:menuItem>
 			<ice:menuItem action="/one.jspx" id="createuser"
 				value="Create" icon="/images/menu/open.gif">
 			</ice:menuItem>
 		</ice:menuItem>
-		<ice:menuItem value="Hotel" id="hotel">
+		<ice:menuItem value="Hotel" id="hotel"  >
 			<ice:menuItem actionListener="#{menuBar.primaryListener}" id="lsthotel"
 				value="List" icon="/images/menu/open.gif">
 			</ice:menuItem>
@@ -55,10 +66,33 @@
 				value="Create" icon="/images/menu/open.gif">
 			</ice:menuItem>
 		</ice:menuItem>
+		<ice:menuItem action="home" id="goHome" value="Home" />
 	</ice:menuBar>
+	
+	
+	</ice:panelCollapsible>
+		
+	<ice:panelCollapsible >
+		 <f:facet name="header">
+                <ice:panelGroup>
+                    <ice:outputText id="linkHeader2"
+                            value="Appointment"/>
+                </ice:panelGroup>
+         </f:facet>
+	</ice:panelCollapsible>
+	
+	<ice:panelCollapsible >
+		 <f:facet name="header">
+                <ice:panelGroup>
+                    <ice:outputText id="linkHeader3"
+                            value="Demogrpahics"/>
+                </ice:panelGroup>
+         </f:facet>
+	</ice:panelCollapsible>
+	
 </ice:panelGroup>
-</h:form>
-Left Section
+</ice:form>
+
 </div>
 <div id="content"><ui:insert name="content" /></div>
 <div id="rightcol">Right Section</div>
