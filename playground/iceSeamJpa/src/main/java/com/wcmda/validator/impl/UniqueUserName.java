@@ -32,14 +32,14 @@ public class UniqueUserName implements Validator<UniqueUser>, PropertyConstraint
 
 	public boolean isValid(Object value ) {
 		
-		if(value == null) return false;
+		if( value == null ) return false;
 		
 		if( type == Unique.FIRSTNAME )
 		{
 			uniquenessCheckValue=(String)value;
 			
 			Query q = entityManager.createQuery("SELECT u FROM User u " +
-    	    		"WHERE u.username = 'demo'");
+    	    		"WHERE u.username = '?'").setParameter(1, uniquenessCheckValue);
 			
 			try {
 	        
