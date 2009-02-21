@@ -1,5 +1,6 @@
 package org.wc.generatorutil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
@@ -22,7 +23,9 @@ public class ClassUtil {
 		// cls.
 	}
 	
-	public EList<Property> getAttributesIncludingSuperclasses(Class cls){
+	
+	
+	public static EList<Property> getInts(Class cls){
 		EList<Property> lstAttributes = cls.getAllAttributes();
 		EList<Classifier> lstParents = cls.allParents();
 		for (Classifier classifier : lstParents) {
