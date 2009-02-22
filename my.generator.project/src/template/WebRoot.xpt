@@ -10,6 +10,8 @@
 
 «DEFINE PackageRoot FOR uml::Package»
 	«EXPAND genView FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	«EXPAND EditRoot::genEditView FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	«EXPAND ListRoot::genView FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 «ENDDEFINE»
 
 
@@ -17,7 +19,7 @@
 «DEFINE genView FOR uml::Class»
 	«FILE "web/" + packagePath() +"/" +name+".xhtml"»
 		<h:form>
-		«EXPAND genAttribAsOutput FOR this»
+		«EXPAND genAttribAsOutput FOR this-»
 		</h:form>
 	«ENDFILE»
 «ENDDEFINE»
@@ -49,16 +51,44 @@
 «ENDDEFINE»
 
 
-«DEFINE genAssociation FOR uml::Property»
+«DEFINE genAssociation FOR uml::Property-»
 	<h:outputText value="«msgBundleKey()-»" />
-	<h:commandLink value="#{«class.getAction()».«class.asVar()».displayName}" 
+	<h:commandLink value="#{«class.getAction()».«class.asVar()-».displayName}" 
 		actionListener="#{«type.getAction()».selectEntity}" action="view«name.toFirstUpper()»"  >
 		<c:if test="${«class.getAction()».«name.toFirstLower()» != null}">
-		<f:param name="id" value="#{«class.getAction()».«name.toFirstLower()».id}" />
+			<f:param name="id" value="#{«class.getAction()».«name.toFirstLower()».id}" />
 		</c:if>
 	</h:commandLink> 
 «ENDDEFINE»
 
 
 
+«DEFINE genEditViewComponent FOR Entity»
+	«EXPAND genIncludes-»
+	<a4j:page>
+	<a4j:form id="form">
+			<rich:panel header="«NameS» Information">
+				<h:outputText value="Please correct the following issues !" 
+			rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
+				
+			<h:panelGrid columns="2" styleClass="formTableCustom">
+	</a4j:form>
+	</a4j:page>
+«ENDDEFINE»
 
+
+
+«DEFINE genIncludes FOR Element»
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+«ENDDEFINE»

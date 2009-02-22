@@ -1,0 +1,63 @@
+«IMPORT wcprofile»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+«EXTENSION template::webExtensions»
+
+«DEFINE genEditView FOR uml::Class»
+	«FILE "web/" + packagePath() +"/edit" +name+".xhtml"»
+		<h:form>
+		«EXPAND genAttribAsOutput FOR this-»
+		</h:form>
+	«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE genAttribAsOutput FOR uml::Class»
+	«FOREACH allParents() AS e-»
+			«EXPAND genAttribute FOREACH e.getAllAttributes() -»
+	«ENDFOREACH»
+	«EXPAND genAttribute FOREACH getAllAttributes() -»
+«ENDDEFINE»
+
+«DEFINE genAttribute FOR uml::Property -»
+	«IF association != null -»
+		«IF isMultivalued()»
+			«name»[MULT] <select name=«name-» ></select>
+		«ELSE»
+			«IF type.getAppliedStereotype("wcprofile::Embeddable") != null-»
+				«EXPAND genAttribAsOutput FOR this.type-»
+			«ELSE»
+				«EXPAND genAssociation FOR this-»
+			«ENDIF»
+		«ENDIF»
+	«ELSE-»
+		<h:outputText value="«msgBundleKey()-»" />
+		<h:inputText value="#{«class.getAction()».«class.asVar()».«name.toFirstLower()»}" />
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genAssociation FOR uml::Property -»
+	<h:outputText value="«msgBundleKey()-»" />
+	<h:selectOneMenu   converter="keyToObjectConverter"
+		value="#{«class.getAction()».«name»}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{«type.getAction()».asSelectItems}" />
+	</h:selectOneMenu>
+«ENDDEFINE»
+
+
+
+«DEFINE genEditViewComponent FOR Entity»
+	«EXPAND genIncludes-»
+	<a4j:page>
+	<a4j:form id="form">
+			<rich:panel header="«NameS» Information">
+				<h:outputText value="Please correct the following issues !" 
+			rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
+				
+			<h:panelGrid columns="2" styleClass="formTableCustom">
+	</a4j:form>
+	</a4j:page>
+«ENDDEFINE»
+
