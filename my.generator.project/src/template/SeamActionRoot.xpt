@@ -1,0 +1,76 @@
+«IMPORT wcprofile»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+
+«DEFINE Root FOR uml::Model»
+	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+«ENDDEFINE»
+
+
+
+«DEFINE ClassRoot FOR uml::Class»
+«FILE packagePath() +"/action/" +name+"Action.java"»
+package « packageName() ».action;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+
+import org.apache.commons.lang.StringUtils;
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Begin;
+import org.jboss.seam.annotations.End;
+import org.jboss.seam.annotations.Factory;
+import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Logger;
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Out;
+import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.annotations.datamodel.DataModel;
+import org.jboss.seam.annotations.datamodel.DataModelSelection;
+import org.jboss.seam.faces.FacesMessages;
+import org.jboss.seam.log.Log;
+
+
+@Scope(ScopeType.CONVERSATION)
+@Name("«asVar()»Action")
+public class «name»Action extends BaseAction{
+
+	@In(create = true)
+	@Out(required = false)
+	@DataModelSelection
+	private «name» «asVar()»;
+
+	@DataModel
+	private List<«name»> «asVar()»List;	
+
+	@Factory("«asVar()»List")
+	public void findStduents() {
+		«asVar()»List = entityManager
+				.createQuery(
+						"select «asVar()» from «name» «asVar()» order by «asVar()».lastName")
+				.getResultList();
+	}	
+
+	@Begin
+	public String select(«name» «asVar()») {
+		this.«asVar()» = entityManager.merge(«asVar()»);
+	    log.info("User selected «name»: #{«asVar()».displayName} #{«asVar()».id} #{«asVar()».firstName}");
+		return "/edit«name».jspx";
+	}
+	
+	@End
+	public String save() {
+		facesMessages.add("Successfully saved  #{«asVar()».displayName}");
+		entityManager.persist(«asVar()»);
+		return "/list«name».jspx";
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+

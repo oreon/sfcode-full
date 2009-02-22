@@ -1,0 +1,86 @@
+«IMPORT wcprofile»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+«EXTENSION template::webExtensions»
+
+«DEFINE genView FOR uml::Class»
+	«FILE "web/" + packagePath() +"/list" +name+".xhtml"»
+		<h:form>
+			<rich:dataTable id="data" var="«asVar()»" value="#{«getAction()».records}" rows="30"
+			rowClasses="odd, even" styleClass="dataTable" >		
+		«EXPAND genAttribAsOutput FOR this-»
+		«EXPAND genLink("view", "eye.png") FOR this»
+		«EXPAND genLink ("edit", "edit.png")FOR this»
+		«EXPAND genLink("delete", "delete.png") FOR this»
+		</h:form>
+	«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE genAttribAsOutput FOR uml::Class»
+	«FOREACH allParents() AS e-»
+			«EXPAND genAttribute FOREACH e.getAllAttributes() -»
+	«ENDFOREACH»
+	«EXPAND genAttribute FOREACH getAllAttributes() -»
+«ENDDEFINE»
+
+«DEFINE genAttribute FOR uml::Property -»
+	«IF association != null -»
+		«IF isMultivalued()»
+			«name»[MULT] <select name=«name-» ></select>
+		«ELSE»
+			«IF type.getAppliedStereotype("wcprofile::Embeddable") != null-»
+				«EXPAND genAttribAsOutput FOR this.type-»
+			«ELSE»
+				«EXPAND genAssociation FOR this-»
+			«ENDIF»
+		«ENDIF»
+	«ELSE-»
+		«EXPAND genProperty FOR this-»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genAssociation FOR uml::Property -»
+	<h:outputText value="«msgBundleKey()-»" />
+	<h:selectOneMenu   converter="keyToObjectConverter"
+		value="#{«class.getAction()».«name»}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{«type.getAction()».asSelectItems}" />
+	</h:selectOneMenu>
+«ENDDEFINE»
+
+
+«DEFINE genLink(String action, String icon) FOR uml::Class»
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink action="«action»"
+			actionListener="#{«getAction()».selectEntity}">
+			<rich:toolTip direction="bottom-left" styleClass="toolTip"
+				value="Click to Edit Row" mode="client" />
+			<h:graphicImage value="/images/icons/«icon»"
+				style="border: 0px" />
+			<f:param name="id" value="#{«asVar()».id}" />
+		</h:commandLink>
+	</rich:column>
+«ENDDEFINE»
+
+«DEFINE genAssociation FOR uml::Property»
+	<rich:column sortBy="#{«class.getAction()».«class.asVar()-».displayName}" filterBy="#{«class.getAction()».«class.asVar()-».displayName}" filterEvent="onkeyup" >
+		<f:facet name="header">
+			<h:outputText value="#{"«msgBundleKey()-»"}" /> 	
+		</f:facet>
+		<h:outputText value="#{«class.getAction()».«class.asVar()-».displayName}" />
+	</rich:column>
+«ENDDEFINE»
+
+«DEFINE genProperty FOR uml::Property-»
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="«msgBundleKey()-»" />
+		</f:facet>
+		<h:outputText value="#{«class.getAction()».«class.asVar()».«name.toFirstLower()»}" />
+	</rich:column>
+«ENDDEFINE»
