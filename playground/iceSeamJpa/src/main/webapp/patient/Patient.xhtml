@@ -1,0 +1,56 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:a="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:c="http://java.sun.com/jstl/core"
+				xmlns:rich="http://richfaces.org/rich"
+                template="../template.xhtml">
+
+  <!-- content -->
+  <ui:define name="content">
+
+
+		<h:form>
+		
+		<h:outputText value="#{msg.person_firstName}" />
+		<h:outputText value="#{personAction.person.firstName}" />
+	
+
+		<h:outputText value="#{msg.person_lastName}" />
+		<h:outputText value="#{personAction.person.lastName}" />
+	
+		<h:outputText value="#{msg.address_city}" />
+		<h:outputText value="#{addressAction.address.city}" />
+	
+
+		<h:outputText value="#{msg.address_state}" />
+		<h:outputText value="#{addressAction.address.state}" />
+	
+
+		<h:outputText value="#{msg.address_country}" />
+		<h:outputText value="#{addressAction.address.country}" />
+	
+		
+		<h:outputText value="#{msg.person_gender}" />
+		<h:outputText value="#{personAction.person.gender}" />
+	
+	
+
+	<h:outputText value="#{msg.patient_primaryPhysician}" />
+	<h:commandLink value="#{patientAction.patient.displayName}" 
+		actionListener="#{physicianAction.selectEntity}" action="viewPrimaryPhysician"  >
+		<c:if test="${patientAction.primaryPhysician != null}">
+			<f:param name="id" value="#{patientAction.primaryPhysician.id}" />
+		</c:if>
+	</h:commandLink> 
+			
+		
+	
+		</h:form>
+</ui:define>
+</ui:composition>
+	
