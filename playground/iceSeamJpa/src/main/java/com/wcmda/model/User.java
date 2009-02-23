@@ -15,7 +15,7 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 
 import com.wcmda.validator.Unique;
-import com.wcmda.validator.PasswordPolicyRestricted;
+//import com.wcmda.validator.PasswordPolicyRestricted;
 import com.wcmda.validator.UniqueUser;
 
 @Entity

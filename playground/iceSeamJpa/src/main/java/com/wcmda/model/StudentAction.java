@@ -8,6 +8,7 @@ import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 
 import org.apache.commons.lang.StringUtils;
+import org.cerebrum.seam.action.base.BaseAction;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.End;
@@ -26,7 +27,7 @@ import com.icesoft.faces.component.selectinputtext.SelectInputText;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("studentAction")
-public class StudentAction {
+public class StudentAction extends BaseAction{
 
 	@In(create = true)
 	@Out(required = false)
@@ -35,19 +36,8 @@ public class StudentAction {
 
 	@DataModel
 	private List<Student> studentList;
-	
-	@Logger
-	private Log log;
-
-	@In
-	// @PersistenceContext(type=EXTENDED)
-	EntityManager entityManager;
-
-	@In
-	private FacesMessages facesMessages;
 
 	private String typedUserName;
-
 	
 
 	@Factory("studentList")
