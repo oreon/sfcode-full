@@ -15,6 +15,7 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 
 import com.wcmda.validator.Unique;
+import com.wcmda.validator.PasswordPolicyRestricted;
 import com.wcmda.validator.UniqueUser;
 
 @Entity
@@ -60,6 +61,7 @@ public class User implements Serializable {
 	@Id
 	@Length(min = 5, max = 15)
 	@Pattern(regex = "^\\w*$", message = "not a valid username")
+	@UniqueUser(Unique.FIRSTNAME)
 	public String getUsername() {
 		return username;
 	}

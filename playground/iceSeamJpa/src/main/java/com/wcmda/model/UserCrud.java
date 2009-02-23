@@ -61,32 +61,28 @@ public void register()
 
 public void validateUserName( FacesContext context, UIComponent validate, Object value)
 {
-	
-	
-	
-	 org.jboss.seam.ui.validator.ModelValidator mv = new ModelValidator();
+	 ModelValidator mv = new ModelValidator();
 	 mv.validate(context,validate, value);
 	 
 	 String userName = (String)value;
 	 
-	 if(isUserNameRegistered(userName))
-	 {
-		 FacesMessage msg = new FacesMessage("user name already taken, please use another one");	 
-		 context.addMessage(validate.getClientId(context), msg);
-	 }
-	 
+//	 if(isUserNameRegistered(userName))
+//	 {
+//		 FacesMessage msg = new FacesMessage("user name already taken, please use another one");	 
+//		 context.addMessage(validate.getClientId(context), msg);
+//	 }
 	
-	   HtmlInputText inputText = (HtmlInputText)validate;
-	   inputText.setFocus(true);
+	 HtmlInputText inputText = (HtmlInputText)validate;
+	 inputText.setFocus(true);
 
 }
 
 
-public boolean isUserNameRegistered(String userName) {
-		return entityManager.createQuery(
-			"select u.username from User u where u.username= ?1")
-			.setParameter(1, userName).getResultList().size() > 0;
-	}
+//public boolean isUserNameRegistered(String userName) {
+//		return entityManager.createQuery(
+//			"select u.username from User u where u.username= ?1")
+//			.setParameter(1, userName).getResultList().size() > 0;
+//	}
 
 
 public void invalid()
