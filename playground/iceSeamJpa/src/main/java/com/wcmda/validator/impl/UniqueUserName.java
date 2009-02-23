@@ -7,6 +7,7 @@ import javax.persistence.Query;
 import org.hibernate.mapping.Property;
 import org.hibernate.validator.PropertyConstraint;
 import org.hibernate.validator.Validator;
+import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
@@ -21,8 +22,7 @@ public class UniqueUserName implements Validator<UniqueUser>,
 	private Unique type;
 	private String uniquenessCheckValue;
 
-	@In
-	EntityManager entityManager;
+
 
 	public void initialize(UniqueUser parameters) {
 
@@ -32,36 +32,35 @@ public class UniqueUserName implements Validator<UniqueUser>,
 
 	public boolean isValid(Object value) {
 
+		boolean dummy = true;
+		
 		if (value == null)
 			return false;
 
-		if (type == Unique.FIRSTNAME) {
+		if (type == Unique.FIRSTNAME) 
+		{
 			uniquenessCheckValue = (String) value;
 
+			EntityManager entityManager= (EntityManager) Component.getInstance("entityManager");
+			
 			Query q = entityManager.createQuery(
-					"SELECT u FROM User u " + "WHERE u.username = '?'")
+					"SELECT u FROM User u " + "WHERE u.username = ?")
 					.setParameter(1, uniquenessCheckValue);
 
 			try {
 
 				User user = (User) q.getSingleResult();
-				return true;
-			} catch (NoResultException nre) {
 				return false;
+			} catch (NoResultException nre) {
+				return true;
 			}
 		}
 
-		return false;
+		return dummy;
 	}
 
 	public void apply(Property arg0) {
 
-	}
-
-	@Factory(value = "pattern", scope = ScopeType.EVENT)
-	public String getSearchPattern() {
-		return uniquenessCheckValue == null ? "%" : '%' + uniquenessCheckValue
-				.toLowerCase().replace('*', '%') + '%';
 	}
 
 }

@@ -17,7 +17,7 @@ import org.hibernate.validator.ValidatorClass;
 public @interface UniqueUser {
 
 	Unique type() default Unique.FIRSTNAME;
-	String message() default "The input is unique";
+	String message() default "The username is taken, please choose another one";
 	Unique value();
 	
 
