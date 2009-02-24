@@ -17,8 +17,8 @@
 <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico" />
 <link href="#{request.contextPath}/css/screen.css" rel="stylesheet" type="text/css" />
 <link rel='stylesheet' type='text/css'
-	href='./xmlhttp/css/rime/rime.css' />
-<link rel='stylesheet' type='text/css' href="./css/showcase_style.css"/>
+	href='#{request.contextPath}/xmlhttp/css/rime/rime.css' />
+<link rel='stylesheet' type='text/css' href="#{request.contextPath}/css/showcase_style.css"/>
 	
 <link href="stylesheet/theme.css" rel="stylesheet" type="text/css" />
 
@@ -26,7 +26,7 @@
 </head>
 <body>
 
-
+<f:loadBundle basename="messages" var="msg" />
 
 <div id="header">
 <div id="status">Welcome #{identity.credentials.username} | <s:link id="search"
@@ -94,7 +94,10 @@
 </ice:form>
 
 </div>
-<div id="content"><ui:insert name="content" /></div>
+<div id="content">
+	<ui:insert name="content" />
+	<ui:include src="conversations.jspx" />
+</div>
 <div id="rightcol">Right Section</div>
 <div id="footer">Footer Section</div>
 

@@ -5,12 +5,16 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:s="http://jboss.com/products/seam/taglib"
 	xmlns:a="http://richfaces.org/a4j"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
 	xmlns:rich="http://richfaces.org/rich" template="../template.jspx">
+
 
 	<!-- content -->
 	<ui:define name="content">
-		<h:form>
+		<h:messages />
+		<ice:form>
 			<h:panelGrid columns="2">
+
 
 				<h:outputText value="#{msg.person_firstName}" />
 				<h:inputText value="#{patient.firstName}" />
@@ -32,15 +36,20 @@
 				<h:outputText value="#{msg.person_gender}" />
 				<h:inputText value="#{patient.gender}" />
 
-				
+				<h:outputText value="Physician" />
+				<h:selectOneMenu value="#{patient.primaryPhysician}">
+					<s:selectItems value="#{physicianList}" var="phys"
+						label="#{phys.lastName}"
+						noSelectionLabel="Please Select..." />
+					<s:convertEntity />
+				</h:selectOneMenu>
 
 			</h:panelGrid>
-			
-				<div class="buttonBox">
-					<h:commandButton value="Save" action="#{patientAction.save}" /> 
-					<s:button id="cancel" value="Cancel" view="/login.jspx" />
-				</div>
 
-		</h:form>
+			<div class="buttonBox"><h:commandButton value="Save"
+				action="#{patientAction.save}" /> <h:commandButton id="cancel"
+				value="Cancel" action="#{patientAction.cancel}" /></div>
+
+		</ice:form>
 	</ui:define>
 </ui:composition>

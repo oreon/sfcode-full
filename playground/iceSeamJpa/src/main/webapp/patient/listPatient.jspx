@@ -1,112 +1,123 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:rich="http://richfaces.org/rich" template="../template.jspx">
+
+	<!-- content -->
+	<ui:define name="content">
+		<div class="document" >
+		<h:form>
+		<ice:panelGroup styleClass="pnlClpsblWrapper panelCollapsible">
+		<ice:panelCollapsible >
+			<f:facet name="header">
+				<ice:outputText id="srchHdr" value="Search" />
+			</f:facet>
+
+				<h:panelGrid columns="4">
+					<h:panelGroup>
+						<h:outputText value="#{msg.person_firstName}" /><br/>
+						<h:inputText value="#{patient.firstName}" />
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<h:outputText value="#{msg.person_lastName}" /><br/>
+						<h:inputText value="#{patient.lastName}" />
+					</h:panelGroup>
+				</h:panelGrid>
+				<h:commandButton value="Search" action="#{patientAction.search}" />
+				<h:commandButton value="Clear Search" action="#{patientAction.findPatients}" />
+
+		</ice:panelCollapsible>
+		</ice:panelGroup>
+		</h:form>
 
 		<h:form>
-			<rich:dataTable id="data" var="patient" value="#{patientAction.records}" rows="30"
-			rowClasses="odd, even" styleClass="dataTable" >		
-		
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.person_firstName}" />
-		</f:facet>
-		<h:outputText value="#{personAction.person.firstName}" />
-	</rich:column>
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.person_lastName}" />
-		</f:facet>
-		<h:outputText value="#{personAction.person.lastName}" />
-	</rich:column>
-	
-		
-				
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.address_city}" />
-		</f:facet>
-		<h:outputText value="#{addressAction.address.city}" />
-	</rich:column>
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.address_state}" />
-		</f:facet>
-		<h:outputText value="#{addressAction.address.state}" />
-	</rich:column>
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.address_country}" />
-		</f:facet>
-		<h:outputText value="#{addressAction.address.country}" />
-	</rich:column>
-	
-			
-		
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.person_gender}" />
-		</f:facet>
-		<h:outputText value="#{personAction.person.gender}" />
-	</rich:column>
-	
-	
-		
-			
-	<h:outputText value="#{msg.patient_primaryPhysician}" />
-	<h:selectOneMenu   converter="keyToObjectConverter"
-		value="#{patientAction.primaryPhysician}">
-		<f:selectItem itemLabel="Select" />
-		<f:selectItems value="#{physicianAction.asSelectItems}" />
-	</h:selectOneMenu>
-			
-		
-	
-		
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value=" " />
-		</f:facet>
-		<h:commandLink action="view"
-			actionListener="#{patientAction.selectEntity}">
-			<rich:toolTip direction="bottom-left" styleClass="toolTip"
-				value="Click to Edit Row" mode="client" />
-			<h:graphicImage value="/images/icons/eye.png"
-				style="border: 0px" />
-			<f:param name="id" value="#{patient.id}" />
-		</h:commandLink>
-	</rich:column>
+			<ice:dataTable id="data" var="patientIter" value="#{patientList}"
+				rows="30" rowClasses="odd, even" styleClass="dataTable">
 
-		
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value=" " />
-		</f:facet>
-		<h:commandLink action="edit"
-			actionListener="#{patientAction.selectEntity}">
-			<rich:toolTip direction="bottom-left" styleClass="toolTip"
-				value="Click to Edit Row" mode="client" />
-			<h:graphicImage value="/images/icons/edit.png"
-				style="border: 0px" />
-			<f:param name="id" value="#{patient.id}" />
-		</h:commandLink>
-	</rich:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.person_firstName}" />
+					</f:facet>
+					<h:outputText value="#{patientIter.firstName}" />
+				</h:column>
 
-		
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value=" " />
-		</f:facet>
-		<h:commandLink action="delete"
-			actionListener="#{patientAction.selectEntity}">
-			<rich:toolTip direction="bottom-left" styleClass="toolTip"
-				value="Click to Edit Row" mode="client" />
-			<h:graphicImage value="/images/icons/delete.png"
-				style="border: 0px" />
-			<f:param name="id" value="#{patient.id}" />
-		</h:commandLink>
-	</rich:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.person_lastName}" />
+					</f:facet>
+					<h:outputText value="#{patientIter.lastName}" />
+				</h:column>
+
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.address_city}" />
+					</f:facet>
+					<h:outputText value="#{patientIter.address.city}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.address_state}" />
+					</f:facet>
+					<h:outputText value="#{patientIter.address.state}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.address_country}" />
+					</f:facet>
+					<h:outputText value="#{patientIter.address.country}" />
+				</h:column>
+
+
+
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.person_gender}" />
+					</f:facet>
+					<h:outputText value="#{patientIter.gender}" />
+				</h:column>
+
+
+				<h:outputText value="#{msg.patient_primaryPhysician}" />
+				<h:outputText value="#{patientIter.primaryPhysician.displyaName}" />
+
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value=" " />
+					</f:facet>
+					<h:commandLink action="#{patientAction.select(patientIter)}">
+						<h:graphicImage value="/images/icons/eye.png" style="border: 0px" />
+					</h:commandLink>
+				</h:column>
+
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value=" " />
+					</f:facet>
+					<h:commandLink action="#{patientAction.select(patientIter)}">
+						<h:graphicImage value="/images/icons/edit.png" style="border: 0px" />
+					</h:commandLink>
+				</h:column>
+
+
+
+			</ice:dataTable>
+
+			<ice:commandButton id="newp" value="New Patient" action="#{patientAction.createNew}"
+				/>
 
 		</h:form>
-	
+		</div>
+	</ui:define>
+</ui:composition>
