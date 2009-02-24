@@ -15,11 +15,28 @@
 
 	<page view-id="/todoList.jspx" login-required="true" />
 
+
 	<page view-id="/login.jspx">
 		<navigation>
 			<rule if="#{authenticator.authenticate()}">
 				<redirect view-id="/todoList.jspx" />
 			</rule>
+		</navigation>
+	</page>
+	
+
+	<page view-id="/patient/editPatient.jspx" >
+		<navigation from-action="#{patientManager.save}">
+			<redirect view-id="/patient/listPatient.jspx" />
+		</navigation>
+		<navigation from-action="cancel">
+			<redirect view-id="/patient/listPatient.jspx" />
+		</navigation>
+	</page>
+	
+	<page view-id="/patient/listPatient.jspx" >
+		<navigation from-action="#{patientManager.select}">
+			<redirect view-id="/patient/editPatient.jspx" />
 		</navigation>
 	</page>
 
@@ -30,7 +47,12 @@
 				<redirect view-id="/home.jspx" />
 			</rule>
 		</navigation>
+		
+		<navigation from-action="#{identity.logout}">
+            <redirect view-id="/login.jspx"/>
+        </navigation>
 	</page>
+
 
 	<exception class="org.jboss.seam.framework.EntityNotFoundException">
 		<redirect view-id="/error.jspx">
