@@ -7,6 +7,7 @@
 	«REM» Massage the model «ENDREM»
 	«EXPAND setDefaultNamesForAssocs FOREACH allOwnedElements().typeSelect(uml::Property) »
 	«EXPAND applyEntityStereotype FOREACH allOwnedElements().typeSelect(wcprofile::EntitiesPackage) »
+	
 	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
 «ENDDEFINE»
 
@@ -29,11 +30,34 @@
 
 
 «DEFINE genClassBody FOR uml::Class»
-	public class «name» «parents().size > 0 ?" extends " + parents().get(0).name:""» «getInterfaces()»{
-	
-	«EXPAND genDecl FOREACH getAllAttributes() »
-	«EXPAND genGetterSetter FOREACH getAllAttributes() »
-	
+	public class «name» «getParent()» «getInterfaces()»{
+		«EXPAND genDecl FOREACH getAllAttributes() »
+		«EXPAND genGetterSetter FOREACH getAllAttributes() »
+	}
+«ENDDEFINE»
+
+«DEFINE genClassBody FOR wcprofile::Entity»
+	@Entity
+	@Name("«asVar()»")
+	public class «name» «getParent()» «getInterfaces()»{
+		«EXPAND genDecl FOREACH getAllAttributes() »
+		«EXPAND genGetterSetter FOREACH getAllAttributes() »
+	}
+«ENDDEFINE»
+
+«DEFINE genClassBody FOR wcprofile::Embeddable»
+	@Embeddable
+	public class «name» «getParent()» «getInterfaces()»{
+		«EXPAND genDecl FOREACH getAllAttributes() »
+		«EXPAND genGetterSetter FOREACH getAllAttributes() »
+	}
+«ENDDEFINE»
+
+«DEFINE genClassBody FOR wcprofile::MappedSuperClass»
+	@@MappedSuperclass
+	public class «name» «getParent()» «getInterfaces()»{
+		«EXPAND genDecl FOREACH getAllAttributes() »
+		«EXPAND genGetterSetter FOREACH getAllAttributes() »
 	}
 «ENDDEFINE»
 
@@ -41,29 +65,29 @@
 «DEFINE ClassRoot FOR uml::Class»
 	«FILE packagePath() +"/" +name+".java"»
 		package « packageName() »;
-		
 		«EXPAND genImports FOR this»
-		
 		«EXPAND genClassBody FOR this»
 	«ENDFILE»
 «ENDDEFINE»
 
+«REM»
 «DEFINE ClassRoot FOR wcprofile::Entity»
 	«FILE packagePath() +"/"  +name+".java"»
 	package «packageName()»;
 	
 	«EXPAND genImports FOR this»
-	//@Entity
-	«REM» «tableName != null ?("(table=" + tableName + ")"):""») «ENDREM»
+	
+	 «tableName != null ?("(table=" + tableName + ")"):""») 
 	«EXPAND genClassBody FOR this»
 	«ENDFILE»
 «ENDDEFINE»
-
+«ENDREM»
 
 «DEFINE genImports FOR uml::Class»
 	import java.util.Set;
 	import java.util.HashSet;
 	import java.util.Date;
+	import javax.persistence.*;
 «ENDDEFINE»
 
 «DEFINE gen FOR uml::Operation»
@@ -81,8 +105,14 @@
 
 «DEFINE genDecl FOR uml::Property»
 	«IF isMultivalued()»
+		@OneToMany(mappedBy = "«class.name»", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+		@JoinColumn(name = "«class.name»_ID", nullable = «getAssocOptional()»)
 		private Set<«type.fqnForPackage(this.class)»> «name»;
 	«ELSE»
+		«IF association != null &&  type.getAppliedStereotype("wcprofile::Embeddable") == null»
+			@ManyToOne(optional=«getAssocOptional()», fetch=FetchType.LAZY)
+    		@JoinColumn(name="«name»_id", nullable=«getAssocOptional()»)
+		«ENDIF»
 		private «type.fqnForPackage(this.class)» «name»;
 	«ENDIF»
 «ENDDEFINE»
@@ -133,6 +163,15 @@
 		«ENDIF»
 	«ENDFOREACH»
 «ENDDEFINE»
+
+«REM» Need to add  BusinessEntity as the superclass for all Entity and mappedsuperclass
+«DEFINE makeBusinessEntitySuperClass FOR uml::Class»
+	«IF allParents().isEmpty »
+		«»
+	«ENDIF»
+«ENDDEFINE»
+«ENDREM»
+
 
 
 «DEFINE EnumGen FOR uml::Enumeration»

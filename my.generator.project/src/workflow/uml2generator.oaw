@@ -59,4 +59,18 @@ organizeImports="true" format="true"/>
 	</outlet>
 </component>
 
+<component id="MessageBundleGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">
+	<metaModel class="oaw.type.emf.EmfMetaModel">
+	<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
+	</metaModel>
+	<metaModel class="oaw.uml2.UML2MetaModel"/>
+	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
+		<profile value="C:/users/jsingh/mdl/wcprofile.profile.uml"/>
+	</metaModel>
+	<expand value="template::GenMessageBundle::Root FOR model"/>
+	<outlet path="src-gen/">
+		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+	</outlet>
+</component>
+
 </workflow>

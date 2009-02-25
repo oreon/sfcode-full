@@ -1,0 +1,46 @@
+«IMPORT wcprofile»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+«EXTENSION template::webExtensions»
+
+«DEFINE Root FOR uml::Model»	
+	
+	«FILE "resources/messages.properties"»
+		«EXPAND genUserManagedMessages("")»
+		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(wcprofile::Entity)-»
+		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(wcprofile::MappedSuperClass)-»
+		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(wcprofile::Embeddable)-»
+	«ENDFILE»
+	
+	«FILE "resources/messages_fr.properties"»
+		«EXPAND genUserManagedMessages("fr")»
+		«EXPAND genBundle("fr") FOREACH allOwnedElements().typeSelect(wcprofile::Entity)-»
+		«EXPAND genBundle("fr") FOREACH allOwnedElements().typeSelect(wcprofile::MappedSuperClass)-»
+		«EXPAND genBundle("fr") FOREACH allOwnedElements().typeSelect(wcprofile::Embeddable)-»
+	«ENDFILE»
+«ENDDEFINE»
+
+
+«REM» Gen default messages for each attribute for an entity «ENDREM»
+«DEFINE genBundle(String localeName) FOR uml::Class»
+«name»=«localeName»«name»
+«name.toFirstLower()»=«name.toFirstLower()»
+«FOREACH getAllAttributes() AS a»
+«name.toFirstLower()»_«a.name»=«localeName»«a.name.getVariableNameForDisplay()-»
+«ENDFOREACH-»
+«ENDDEFINE»
+
+«REM»These messages would be generated inside a protected block so the users can change them freely«ENDREM»
+«DEFINE genUserManagedMessages(String localeName) FOR uml::Model»
+«REM»comment
+«PROTECT CSTART '#--' CEND '--' ID "USER_CREATED_MSGS_" + localeName»
+«ENDREM»
+#This would not be overwritten
+
+
+#End of protected region
+«REM»
+«ENDPROTECT»
+«ENDREM»
+«ENDDEFINE»
