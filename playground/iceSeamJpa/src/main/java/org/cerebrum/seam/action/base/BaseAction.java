@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
+import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
@@ -17,5 +18,8 @@ public class BaseAction {
 
 	@In
 	protected FacesMessages facesMessages;
+	
+	@In
+	protected Events events;
 
 }

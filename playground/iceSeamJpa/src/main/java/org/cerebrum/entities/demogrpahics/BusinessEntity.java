@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 @MappedSuperclass
@@ -104,5 +105,10 @@ public class BusinessEntity implements Serializable {
 
     public void setDateUpdated(Date dateUpdated) {
         this.dateUpdated = dateUpdated;
+    }
+    
+    @Transient
+    public String getDisplayName(){
+    	return toString();
     }
 }

@@ -1,4 +1,4 @@
-package com.wcmda.model;
+package com.wcmda.model.action;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +24,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
 import com.icesoft.faces.component.selectinputtext.SelectInputText;
+import com.wcmda.model.Student;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("studentAction")
@@ -52,18 +53,16 @@ public class StudentAction extends BaseAction{
 		facesMessages.add("Please try again");
 	}
 
-	@Begin
-	public String select(Student student) {
+	@Begin(join=true)
+	public void select(Student student) {
 		this.student = entityManager.merge(student);
 	    log.info("User selected project: #{student.lastName} #{student.id} #{student.firstName}");
-		return "/editStudent.jspx";
 	}
 	
 	@End
-	public String save() {
+	public void save() {
 		facesMessages.add("Successfully saved  #{student.lastName}");
 		entityManager.persist(student);
-		return "/studentList.jspx";
 	}
 
 	public List<SelectItem> getUserNames() {
