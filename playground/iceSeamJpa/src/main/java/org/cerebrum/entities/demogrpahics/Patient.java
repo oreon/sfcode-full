@@ -5,7 +5,10 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.jboss.seam.annotations.Name;
+
 @Entity
+@Name("patient")
 public class Patient extends Person {
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)

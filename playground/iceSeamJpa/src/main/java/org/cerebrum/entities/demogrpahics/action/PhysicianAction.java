@@ -28,7 +28,7 @@ public class PhysicianAction extends BaseAction {
 	private List<Physician> physicianList;
 
 	@Factory("physicianList")
-	public void findStduents() {
+	public void findPhysicians() {
 		physicianList = entityManager
 				.createQuery(
 						"select physician from Physician physician order by physician.lastName")

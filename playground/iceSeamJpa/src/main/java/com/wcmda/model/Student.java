@@ -8,13 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.cerebrum.entities.demogrpahics.BusinessEntity;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 import org.jboss.seam.annotations.Name;
 
 @Entity
 @Name("student")
-public class Student extends ModelBase implements Serializable{
+public class Student extends BusinessEntity implements Serializable{
 	
 	private String firstName;
 	private String lastName;

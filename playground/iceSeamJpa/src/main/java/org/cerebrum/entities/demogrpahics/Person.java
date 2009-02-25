@@ -10,7 +10,7 @@ public class Person extends BusinessEntity {
 
 	private String lastName;
 
-	private Address address;
+	private Address address = new Address();
 
 	private Gender gender;
 

@@ -2,10 +2,13 @@ package org.cerebrum.entities.demogrpahics;
 
 import javax.persistence.Embeddable;
 
+import org.jboss.seam.annotations.Name;
+
 @Embeddable
+@Name("address")
 public class Address {
 
-	private String city;
+	private String city;  
 
 	private String state;
 
