@@ -6,8 +6,9 @@
 
 «DEFINE genView FOR uml::Class»
 	«FILE "web/" + packagePath() +"/list" +name+".xhtml"»
+		«setAsCurrentEntity(this)»
 		<h:form>
-			<rich:dataTable id="data" var="«asVar()»" value="#{«getAction()».records}" rows="30"
+			<rich:dataTable id="data" var="«asVar()»" value="#{«asVar()»List}" rows="30"
 			rowClasses="odd, even" styleClass="dataTable" >		
 		«EXPAND genAttribAsOutput FOR this-»
 		«EXPAND genLink("view", "eye.png") FOR this»
@@ -31,6 +32,7 @@
 			«name»[MULT] <select name=«name-» ></select>
 		«ELSE»
 			«IF type.getAppliedStereotype("wcprofile::Embeddable") != null-»
+				«type.setCurrentEmbeddable()»
 				«EXPAND genAttribAsOutput FOR this.type-»
 			«ELSE»
 				«EXPAND genAssociation FOR this-»
@@ -41,38 +43,24 @@
 	«ENDIF»
 «ENDDEFINE»
 
-«DEFINE genAssociation FOR uml::Property -»
-	<h:outputText value="«msgBundleKey()-»" />
-	<h:selectOneMenu   converter="keyToObjectConverter"
-		value="#{«class.getAction()».«name»}">
-		<f:selectItem itemLabel="Select" />
-		<f:selectItems value="#{«type.getAction()».asSelectItems}" />
-	</h:selectOneMenu>
-«ENDDEFINE»
-
-
 «DEFINE genLink(String action, String icon) FOR uml::Class»
 	<rich:column>
 		<f:facet name="header">
 			<h:outputText value=" " />
 		</f:facet>
-		<h:commandLink action="«action»"
-			actionListener="#{«getAction()».selectEntity}">
-			<rich:toolTip direction="bottom-left" styleClass="toolTip"
-				value="Click to Edit Row" mode="client" />
-			<h:graphicImage value="/images/icons/«icon»"
-				style="border: 0px" />
-			<f:param name="id" value="#{«asVar()».id}" />
+		<h:commandLink 
+			action="#{«getAction()».select(«asVar()»)}">
+			<h:graphicImage value="/images/icons/«icon»" style="border: 0px" />
 		</h:commandLink>
 	</rich:column>
 «ENDDEFINE»
 
 «DEFINE genAssociation FOR uml::Property»
-	<rich:column sortBy="#{«class.getAction()».«class.asVar()-».displayName}" filterBy="#{«class.getAction()».«class.asVar()-».displayName}" filterEvent="onkeyup" >
+	<rich:column sortBy="#{«class.asVar()-».displayName}" filterBy="#{«class.getAction()».«class.asVar()-».displayName}" filterEvent="onkeyup" >
 		<f:facet name="header">
-			<h:outputText value="#{"«msgBundleKey()-»"}" /> 	
+			<h:outputText value=«msgBundleKey()-» /> 	
 		</f:facet>
-		<h:outputText value="#{«class.getAction()».«class.asVar()-».displayName}" />
+		<h:outputText value="#{«getCurrentEntity().asVar()».«name».displayName}" />
 	</rich:column>
 «ENDDEFINE»
 
@@ -81,6 +69,6 @@
 		<f:facet name="header">
 			<h:outputText value="«msgBundleKey()-»" />
 		</f:facet>
-		<h:outputText value="#{«class.getAction()».«class.asVar()».«name.toFirstLower()»}" />
+		<h:outputText value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
 	</rich:column>
 «ENDDEFINE»

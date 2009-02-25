@@ -13,6 +13,7 @@
 «FILE packagePath() +"/action/" +name+"Action.java"»
 package « packageName() ».action;
 
+import « packageName() ».«name»;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ import org.jboss.seam.log.Log;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("«asVar()»Action")
-public class «name»Action extends BaseAction{
+public class «name»Action extends BaseAction implements java.io.Serializable{
 
 	@In(create = true)
 	@Out(required = false)
@@ -68,6 +69,11 @@ public class «name»Action extends BaseAction{
 		facesMessages.add("Successfully saved  #{«asVar()».displayName}");
 		entityManager.persist(«asVar()»);
 		return "/list«name».jspx";
+	}
+	
+	@End
+	public void cancel() {
+	    //System.out.println("in cancel");
 	}
 
 }
