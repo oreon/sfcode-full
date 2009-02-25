@@ -6,15 +6,16 @@
 	xmlns:s="http://jboss.com/products/seam/taglib"
 	xmlns:a="http://richfaces.org/a4j"
 	xmlns:ice="http://www.icesoft.com/icefaces/component"
-	xmlns:rich="http://richfaces.org/rich" template="../template.jspx">
-
+	xmlns:rich="http://richfaces.org/rich" template="/template.jspx">
 
 	<!-- content -->
 	<ui:define name="content">
-		<h:messages />
 		<ice:form>
 			<h:panelGrid columns="2">
-
+				<s:decorate template="display.xhtml">
+							<ui:define name="label">Student ID:</ui:define>
+						  #{patient.id}
+						</s:decorate>
 
 				<h:outputText value="#{msg.person_firstName}" />
 				<h:inputText value="#{patient.firstName}" />
@@ -32,28 +33,18 @@
 				<h:outputText value="#{msg.address_country}" />
 				<h:inputText value="#{patient.address.country}" />
 
+
 				<h:outputText value="#{msg.person_gender}" />
-				<h:selectOneMenu value="#{patient.gender}" required="false">
-					<f:selectItem itemLabel="Please Select..." />
-					<f:selectItem itemLabel="MALE" itemValue="MALE" />
-					<f:selectItem itemLabel="FEMALE" itemValue="FEMALE" />
+				<h:inputText value="#{patient.gender}" />
 
-				</h:selectOneMenu>
-
-				<h:outputText value="#{msg.patient_primaryPhysician}" />
-				<h:selectOneMenu value="#{patient.primaryPhysician}"
-					required="false">
-					<s:selectItems value="#{physicianList}" var="item"
-						label="#{item.displayName}" noSelectionLabel="Please Select..." />
-					<s:convertEntity />
-				</h:selectOneMenu>
-
+				
 
 			</h:panelGrid>
-
-			<div class="buttonBox"><h:commandButton value="Save"
-				action="#{patientAction.save}" /> <h:commandButton id="cancel"
-				value="Cancel" action="#{patientAction.cancel}" /></div>
+			
+				<div class="buttonBox">
+					<h:commandButton value="Save" action="#{patientAction.save}" /> 
+					<s:button id="cancel" value="Cancel" action="cancel" />
+				</div>
 
 		</ice:form>
 	</ui:define>
