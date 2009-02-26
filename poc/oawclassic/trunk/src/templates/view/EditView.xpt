@@ -37,8 +37,13 @@
 				<t:dataTable id="«ae.associationName()»_data" var="«ae.Class.asInstanceVar()»" rowIndexVar="rowIndex" 
 					value="#{«asInstanceVar()»CrudBacking.list«ae.associationName().toFirstUpper()»s}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
-				«REM»The associated entites for e.g an order would need a customer «ENDREM» 
-				«EXPAND genEditableTableRow(ae.Class, false) FOREACH ae.Class.AssociationEnd.Opposite.select(ae|!ae.isMultiple && ae.isNavigable && ae.Opposite.isMultiple) -»
+				«REM»The associated entites for e.g an order would need a customer «ENDREM» 			
+				«FOREACH ae.Class.getAllOutgoingAssociations AS e»
+					«IF e.Class.NameS != NameS»
+						«EXPAND genEditableTableRow(ae.Class, false) FOR e»
+					«ENDIF»
+				«ENDFOREACH»
+				
 				«EXPAND genEditableTableRow(ae.Class) FOREACH ae.Class.getAllNonDerivedAttributes -»
 				«EXPAND genEditableTableDeleteColumn(this) FOR ae -»
 				</t:dataTable>
@@ -151,14 +156,12 @@
 
 «REM» Create dropdowns in «ENDREM»
 «DEFINE genEditableTableRow(Class e, boolean useBackingBean) FOR AssociationEnd»
-	«IF e.NameS != this.Opposite.Class.NameS »
 	<t:column>
 		<f:facet name="header">
-				<t:outputText value="«NameS.toFirstUpper()»" /> 
+				<t:outputText value="«associationName().toFirstUpper()»" /> 
 		</f:facet>
 		«EXPAND ViewGen::genDropDown(e, false, true) FOR this-»
 	</t:column>
-	«ENDIF»
 «ENDDEFINE»
 
 «REM» Create delete link for composed rows «ENDREM»
