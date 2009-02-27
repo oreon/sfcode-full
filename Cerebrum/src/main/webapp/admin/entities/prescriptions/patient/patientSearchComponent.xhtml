@@ -1,0 +1,117 @@
+  
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+		
+	<a4j:form id="form">
+		<rich:panel header="Search Patient">
+			<h:panelGrid columns="4" >
+				
+				<h:outputText value="Creation Date" styleClass="customformLabel" />
+				<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
+						backingBean="#{patientCrudBacking}" />
+					
+			<h:outputText value="#{msg.person_firstName}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="patient__firstName"
+					value="#{patientCrudBacking.patient.firstName}">
+					
+				</h:inputText>
+				<h:message for="patient__firstName" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.person_lastName}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="patient__lastName"
+					value="#{patientCrudBacking.patient.lastName}">
+					
+				</h:inputText>
+				<h:message for="patient__lastName" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.person_dateOfBirth}" />
+				<wc:dateRange rangeFieldName="rangeDateOfBirth" label="DateOfBirth"
+					backingBean="#{patientCrudBacking}" />
+	
+
+			
+			<h:outputText value="#{msg.person_gender}" />
+			
+			<h:panelGroup>
+				<h:selectOneMenu    
+					id="patient__gender"
+					value="#{patientCrudBacking.patient.gender}">
+					<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="F" itemValue="F" />
+<f:selectItem itemLabel="M" itemValue="M" />
+
+				</h:selectOneMenu>
+				<h:message for="patient__gender" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.person_phone}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="patient__phone"
+					value="#{patientCrudBacking.patient.phone}">
+					
+				</h:inputText>
+				<h:message for="patient__phone" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.person_address}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="patient__address"
+					value="#{patientCrudBacking.patient.address}">
+					
+				</h:inputText>
+				<h:message for="patient__address" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.person_email}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="patient__email"
+					value="#{patientCrudBacking.patient.email}">
+					
+				</h:inputText>
+				<h:message for="patient__email" styleClass="errMessage" />
+			</h:panelGroup>
+			
+		
+		
+		
+		
+			<h:panelGroup>
+				<h:commandButton id="button1" value="Search"
+					action="#{patientCrudBacking.search}" styleClass="btn" />
+				<h:outputText value=" " />
+				<h:commandButton id="button2" value="Cancel" action="#{patientCrudBacking.clearSearch}"
+					immediate="true" styleClass="btn" />
+ 			</h:panelGroup>
+		</h:panelGrid>
+		
+		 </rich:panel>					
+	</a4j:form>
+</html>
+		

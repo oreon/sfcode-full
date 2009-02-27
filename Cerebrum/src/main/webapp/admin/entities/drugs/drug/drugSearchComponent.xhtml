@@ -1,0 +1,109 @@
+  
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+		
+	<a4j:form id="form">
+		<rich:panel header="Search Drug">
+			<h:panelGrid columns="4" >
+				
+				<h:outputText value="Creation Date" styleClass="customformLabel" />
+				<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
+						backingBean="#{drugCrudBacking}" />
+					
+			<h:outputText value="#{msg.drug_name}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="drug__name"
+					value="#{drugCrudBacking.drug.name}">
+					
+				</h:inputText>
+				<h:message for="drug__name" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.drug_bioavalability}" />
+	
+		<wc:numberRange rangeFieldName="rangeBioavalability" label="Bioavalability"
+			backingBean="#{drugCrudBacking}" type="integer" />
+	
+
+			
+			<h:outputText value="#{msg.drug_halfLife}" />
+	
+		<wc:numberRange rangeFieldName="rangeHalfLife" label="HalfLife"
+			backingBean="#{drugCrudBacking}" type="integer" />
+	
+
+			
+			<h:outputText value="#{msg.drug_excretion}" />
+			
+			<h:panelGroup>
+				<h:selectOneMenu    
+					id="drug__excretion"
+					value="#{drugCrudBacking.drug.excretion}">
+					<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="Renal" itemValue="Renal" />
+<f:selectItem itemLabel="Hepatic" itemValue="Hepatic" />
+<f:selectItem itemLabel="Bile" itemValue="Bile" />
+
+				</h:selectOneMenu>
+				<h:message for="drug__excretion" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.drug_pregnancyCategory}" />
+			
+			<h:panelGroup>
+				<h:selectOneMenu    
+					id="drug__pregnancyCategory"
+					value="#{drugCrudBacking.drug.pregnancyCategory}">
+					<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="A" itemValue="A" />
+<f:selectItem itemLabel="B" itemValue="B" />
+<f:selectItem itemLabel="C" itemValue="C" />
+<f:selectItem itemLabel="D" itemValue="D" />
+<f:selectItem itemLabel="X" itemValue="X" />
+
+				</h:selectOneMenu>
+				<h:message for="drug__pregnancyCategory" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.drug_text}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="drug__text"
+					value="#{drugCrudBacking.drug.text}">
+					
+				</h:inputText>
+				<h:message for="drug__text" styleClass="errMessage" />
+			</h:panelGroup>
+			
+		
+		
+		
+		
+			<h:panelGroup>
+				<h:commandButton id="button1" value="Search"
+					action="#{drugCrudBacking.search}" styleClass="btn" />
+				<h:outputText value=" " />
+				<h:commandButton id="button2" value="Cancel" action="#{drugCrudBacking.clearSearch}"
+					immediate="true" styleClass="btn" />
+ 			</h:panelGroup>
+		</h:panelGrid>
+		
+		 </rich:panel>					
+	</a4j:form>
+</html>
+		

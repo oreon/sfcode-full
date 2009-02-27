@@ -1,0 +1,98 @@
+  
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+		
+	<a4j:form id="form">
+		<rich:panel header="Search DrugCode">
+			<h:panelGrid columns="4" >
+				
+				<h:outputText value="Creation Date" styleClass="customformLabel" />
+				<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
+						backingBean="#{drugCodeCrudBacking}" />
+					
+			<h:outputText value="#{msg.drugCode_code}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="drugCode__code"
+					value="#{drugCodeCrudBacking.drugCode.code}">
+					
+				</h:inputText>
+				<h:message for="drugCode__code" styleClass="errMessage" />
+			</h:panelGroup>
+			
+		
+		
+			<h:outputText value="#{msg.drugCode_drug}" styleClass="customFormLabel" />
+			
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="false" disabled="false"
+		id="drugCode_drug" converter="keyToObjectConverter"
+		value="#{drugCodeCrudBacking.drugCode.drug}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{drugCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="drugCode_drug" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+
+			<h:outputText value="#{msg.drugCode_category}" styleClass="customFormLabel" />
+			
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="false" disabled="false"
+		id="drugCode_category" converter="keyToObjectConverter"
+		value="#{drugCodeCrudBacking.drugCode.category}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{categoryCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="drugCode_category" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+
+		
+		
+			<h:panelGroup>
+				<h:commandButton id="button1" value="Search"
+					action="#{drugCodeCrudBacking.search}" styleClass="btn" />
+				<h:outputText value=" " />
+				<h:commandButton id="button2" value="Cancel" action="#{drugCodeCrudBacking.clearSearch}"
+					immediate="true" styleClass="btn" />
+ 			</h:panelGroup>
+		</h:panelGrid>
+		
+		 </rich:panel>					
+	</a4j:form>
+</html>
+		

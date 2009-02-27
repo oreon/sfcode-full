@@ -1,0 +1,191 @@
+  
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+	
+	<a4j:form id="form_listing">
+		<rich:tabPanel  switchType="ajax">
+			<rich:tab label="Tabular" >
+			<rich:datascroller align="left"  for="data" maxPages="20" renderIfSinglePage="true" />
+				<br/>
+				<br/>
+						
+	<rich:dataTable id="data" var="prescription"
+		value="#{prescriptionCrudBacking.records}" rows="30"
+	rowClasses="odd, even" styleClass="dataTable" >						
+	
+	
+
+	<rich:column sortBy="#{prescription.dx}"  filterBy="#{prescription.dx}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.prescription_dx}" /> 		
+		</f:facet>
+		<h:outputText value="#{prescription.dx}" />
+	</rich:column>
+	
+
+	
+	
+	
+	
+
+	<rich:column sortBy="#{prescription.patient.displayName}" filterBy="#{prescription.patient.displayName}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.prescription_patient}" /> 	
+		</f:facet>
+		<h:outputText value="#{prescription.patient.displayName}" />
+	</rich:column>
+	
+
+		
+		<rich:column>
+			<f:facet name="header">
+				<h:outputText value=" " />
+			</f:facet>
+			<h:commandLink action="view"
+				actionListener="#{prescriptionCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left" styleClass="toolTip"
+					value="Click to Edit Row" mode="client" />
+				<h:graphicImage value="/images/icons/eye.png"
+					style="border: 0px" />
+				<f:param name="id" value="#{prescription.id}" />
+			</h:commandLink>
+		</rich:column>
+		
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
+			<!--
+			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+			--> 								
+			<h:commandLink action="#{prescriptionCrudBacking.select}"																					
+				actionListener="#{prescriptionCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
+				<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
+				<f:param id="editId" name="id" value="#{prescription.id}" />								
+			</h:commandLink>		
+			<!--
+			</acegijsf:authorize>
+			--> 
+		</rich:column>
+			
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
+			<!--
+			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+			--> 		
+			<a4j:commandLink action="#{prescriptionCrudBacking.delete}"	
+				onclick="if(window.confirm('Are You Sure?')==false){return false}"
+				actionListener="#{prescriptionCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
+				<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
+				<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
+				<f:param id="deleteId" name="id" value="#{prescription.id}" />												
+			</a4j:commandLink>
+			<!--
+			</acegijsf:authorize>
+			--> 
+		</rich:column>
+	</rich:dataTable>
+		
+	 </rich:tab>
+	 
+		 
+	 <rich:tab label="Audit" >
+	 
+	 <rich:datascroller align="left" for="dataAudit" maxPages="20"
+				renderIfSinglePage="false" />
+			<br/>
+	 
+	 	<rich:dataTable id="dataAudit" var="log"
+		value="#{prescriptionCrudBacking.auditLog}" rows="30" rowClasses="odd, even" styleClass="dataTable">
+			
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Date" />
+				</f:facet>
+				<h:outputText value="#{log.dateCreated}" />
+			</rich:column>
+			
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Action" />
+				</f:facet>
+				<h:outputText value="#{log.action}" />
+			</rich:column>
+
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="User" />
+				</f:facet>
+				<h:outputText value="#{log.username}" />
+			</rich:column>
+			
+	
+	
+
+	<rich:column sortBy="#{log.entity.dx}"  filterBy="#{log.entity.dx}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.prescription_dx}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.dx}" />
+	</rich:column>
+	
+
+			</rich:dataTable>
+			 </rich:tab>
+						 
+		</rich:tabPanel>
+  	</a4j:form>
+	<br />
+						
+	<a4j:form id="commands">
+	<rich:toolBar height="22" width="120" itemSeparator="line">
+		<rich:toolBarGroup>
+			<h:graphicImage id="addnew" value="/images/icons/add.png" />
+			<a4j:commandLink action="#{prescriptionCrudBacking.select}"
+				actionListener="#{prescriptionCrudBacking.selectEntity}"
+				value="Add New" />
+		</rich:toolBarGroup>
+
+		<rich:toolBarGroup>
+			<h:graphicImage id="gotosearch" value="/images/icons/search_icon.gif" />
+			<a4j:commandLink action="#{prescriptionCrudBacking.gotoSearchPage}"
+				value="Search" />
+		</rich:toolBarGroup>
+
+		<rich:toolBarGroup
+			rendered="#{ prescriptionCrudBacking.actionSearch }">
+			<h:graphicImage id="clearsearch" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="#{prescriptionCrudBacking.clearSearch}"
+				value="Clear Search" />
+		</rich:toolBarGroup>
+		
+		<rich:toolBarGroup
+			rendered="#{ prescriptionCrudBacking.actionSearch }">
+			<h:graphicImage id="refineSearch" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="search"
+				value="Refine Search" />
+		</rich:toolBarGroup>
+
+	</rich:toolBar>
+
+</a4j:form>
+			
+</html>
+		

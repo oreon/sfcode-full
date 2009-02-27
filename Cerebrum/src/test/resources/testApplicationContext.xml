@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	default-autowire="byName"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans     http://www.springframework.org/schema/beans/spring-beans.xsd     http://www.springframework.org/schema/tx     http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<bean id="propertyPlaceholder"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location"
+			value="classpath:project.properties" />
+	</bean>
+
+  <bean id="entityManagerFactory"
+     class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+     <property name="jpaVendorAdapter">
+        <bean
+        class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+           <property name="showSql" value="${hibernate.showsql}" />
+           <property name="generateDdl" value="${hibernate.generateddl}" />
+           <property name="databasePlatform" value="${hibernate.dialect}" />
+        </bean>
+     </property>
+  </bean>
+
+	<bean class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" id="dataSource">
+		<property name="driverClassName" value="${hibernate.connection.driver_class}" />
+		<property name="url" value="${hibernate.connection.url}" />
+		<property name="username" value="${hibernate.connection.username}" />
+		<property name="password" value="${hibernate.connection.password}" />
+	</bean>
+
+	<bean class="org.springframework.orm.jpa.JpaTransactionManager"
+		id="transactionManager" />
+
+	<tx:annotation-driven />
+
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<!-- Audit logging -->
+	<bean class="org.witchcraft.model.support.audit.AuditLogDaoImpl"
+		id="auditLogDao" />
+
+
+</beans>

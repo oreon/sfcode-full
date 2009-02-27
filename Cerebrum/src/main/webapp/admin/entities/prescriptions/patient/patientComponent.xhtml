@@ -1,0 +1,215 @@
+  
+	
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+	
+
+	<a4j:page>
+	<a4j:form id="form">
+			<rich:panel header="Patient Information">
+				<h:outputText value="Please correct the following issues !" 
+			rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
+				
+			<h:panelGrid columns="2" styleClass="formTableCustom">
+					
+					
+	
+
+					
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.person_firstName}" />
+		<h:outputText value="*" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:inputText    required="true" 
+		id="patient_firstName"
+		value="#{patientCrudBacking.patient.firstName}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="patient_firstName" />
+	</h:inputText>
+	
+	
+	
+		
+	<wc:message for="patient_firstName" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.person_lastName}" />
+		<h:outputText value="*" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:inputText    required="true" 
+		id="patient_lastName"
+		value="#{patientCrudBacking.patient.lastName}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="patient_lastName" />
+	</h:inputText>
+	
+	
+	
+		
+	<wc:message for="patient_lastName" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.person_dateOfBirth}" />
+		<h:outputText value="*" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<rich:calendar    popup="true"   required="true" 
+		id="patient_dateOfBirth"
+		value="#{patientCrudBacking.patient.dateOfBirth}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="patient_dateOfBirth" />
+	</rich:calendar >
+	
+	
+	
+		
+	<wc:message for="patient_dateOfBirth" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.person_gender}" />
+		<h:outputText value="" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:selectOneMenu    required="false" 
+		id="patient_gender"
+		value="#{patientCrudBacking.patient.gender}">
+		<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="F" itemValue="F" />
+<f:selectItem itemLabel="M" itemValue="M" />
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="patient_gender" />
+	</h:selectOneMenu>
+	
+	
+		
+	<wc:message for="patient_gender" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.person_phone}" />
+		<h:outputText value="" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:inputText    required="false" 
+		id="patient_phone"
+		value="#{patientCrudBacking.patient.phone}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="patient_phone" />
+	</h:inputText>
+	
+	
+		
+	<wc:message for="patient_phone" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.person_address}" />
+		<h:outputText value="" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:inputText    required="false" 
+		id="patient_address"
+		value="#{patientCrudBacking.patient.address}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="patient_address" />
+	</h:inputText>
+	
+	
+		
+	<wc:message for="patient_address" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.person_email}" />
+		<h:outputText value="" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:inputText    required="false" 
+		id="patient_email"
+		value="#{patientCrudBacking.patient.email}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="patient_email" />
+	</h:inputText>
+	
+	
+		
+	<wc:message for="patient_email" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+			</h:panelGrid>
+						<br/>
+						
+						
+						
+			
+			
+						
+				</rich:panel>
+				
+				<h:panelGrid columns="2">
+				<h:panelGroup>
+  					<h:commandButton id="button1" value="Submit" action="#{patientCrudBacking.update}"  styleClass="btn" /> 
+  					<h:outputText value=" " />
+  					<h:commandButton id="button2" value="Cancel" action="cancelUpdate" immediate="true" styleClass="btn"/> 
+  				   	<!-- We need to have a hidden text field to store the id of the record being edited -->		
+		  			<h:inputHidden id="patient_id" value="#{patientCrudBacking.patient.id}" />
+  				   	
+				 </h:panelGroup>
+				</h:panelGrid>
+				
+	</a4j:form>
+	</a4j:page>
+</html>			
+		

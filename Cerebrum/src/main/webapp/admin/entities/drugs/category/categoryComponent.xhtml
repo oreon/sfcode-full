@@ -1,0 +1,467 @@
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:s="http://myfaces.apache.org/sandbox"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+
+
+
+<a4j:page>
+	<a4j:form id="form">
+		<rich:panel header="Category Information">
+			<h:outputText value="Please correct the following issues !"
+				rendered="#{! empty facesContext.maximumSeverity}"
+				styleClass="errMessage" />
+
+			<h:panelGrid columns="2" styleClass="formTableCustom">
+
+
+
+
+				<h:panelGroup>
+					<h:outputText value="#{msg.category_parent}" />
+					<h:outputText value="" />
+				</h:panelGroup>
+
+
+
+
+
+
+
+				<h:panelGroup>
+					<a4j:region>
+
+						<h:selectOneMenu required="false" disabled="false"
+							id="category_parent" converter="keyToObjectConverter"
+							value="#{categoryCrudBacking.category.parent}">
+							<f:selectItem itemLabel="Select" />
+							<f:selectItems value="#{categoryCrudBacking.asSelectItems}" />
+						</h:selectOneMenu>
+
+						<rich:message for="category_parent" styleClass="errMessage">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="/images/icons/bullet_error.png" />
+							</f:facet>
+						</rich:message>
+
+					</a4j:region>
+				</h:panelGroup>
+
+
+
+
+
+				<h:panelGroup>
+					<h:outputText value="" />
+					<h:outputText value="#{msg.category_code}" />
+					<h:outputText value="*" />
+				</h:panelGroup>
+				<h:panelGroup>
+					<a4j:region>
+
+						<h:inputText required="true" id="category_code"
+							value="#{categoryCrudBacking.category.code}">
+							<f:validateLength minimum="1" />
+							<a4j:support event="onblur" bypassUpdates="true"
+								ajaxSingle="true" reRender="category_code" />
+						</h:inputText>
+
+
+
+
+						<wc:message for="category_code" />
+
+					</a4j:region>
+				</h:panelGroup>
+
+
+				<h:panelGroup>
+					<h:outputText value="" />
+					<h:outputText value="#{msg.category_description}" />
+					<h:outputText value="" />
+				</h:panelGroup>
+				<h:panelGroup>
+					<a4j:region>
+
+						<h:inputText required="false" id="category_description"
+							value="#{categoryCrudBacking.category.description}">
+							<a4j:support event="onblur" bypassUpdates="true"
+								ajaxSingle="true" reRender="category_description" />
+						</h:inputText>
+
+
+
+						<wc:message for="category_description" />
+
+					</a4j:region>
+				</h:panelGroup>
+
+			</h:panelGrid>
+			<br />
+
+
+
+
+
+
+			<rich:simpleTogglePanel switchType="client" label="Subcategories">
+				<t:dataTable id="subcategories_data" var="category"
+					rowIndexVar="rowIndex"
+					value="#{categoryCrudBacking.listSubcategoriess}" rows="10"
+					rowClasses="odd, even" styleClass="dataTable" rules="all">
+
+
+
+
+
+
+
+
+
+					<t:column>
+						<f:facet name="header">
+							<t:outputText value="Code" />
+						</f:facet>
+						<h:inputText required="true" id="category__code"
+							value="#{category.code}">
+
+						</h:inputText>
+						<h:message for="category__code" styleClass="errMessage" />
+					</t:column>
+
+
+
+
+
+
+					<t:column>
+						<f:facet name="header">
+							<t:outputText value="Description" />
+						</f:facet>
+						<h:inputText required="false" id="category__description"
+							value="#{category.description}">
+
+						</h:inputText>
+						<h:message for="category__description" styleClass="errMessage" />
+					</t:column>
+
+
+
+					<t:column>
+						<f:facet name="header">
+							<t:outputText value="Delete" />
+						</f:facet>
+
+						<a4j:commandButton value="Delete" reRender="subcategories_data"
+							bypassUpdates="true" styleClass="btn"
+							actionListener="#{categoryCrudBacking.deleteSubcategoriesRow}">
+							<a4j:actionparam name="deleteRowIndex" value="#{rowIndex}" />
+						</a4j:commandButton>
+					</t:column>
+				</t:dataTable>
+				<br />
+				<a4j:commandButton value="Add Row" styleClass="btn"
+					reRender="subcategories_data"
+					actionListener="#{categoryCrudBacking.addNewSubcategoriesRow}" />
+			</rich:simpleTogglePanel>
+			<br />
+
+
+
+			<rich:simpleTogglePanel switchType="client" label="DrugCode">
+				<t:dataTable id="drugCode_data" var="drugCode"
+					rowIndexVar="rowIndex" value="#{categoryCrudBacking.listDrugCodes}"
+					rows="10" rowClasses="odd, even" styleClass="dataTable" rules="all">
+
+
+
+
+					<t:column>
+						<f:facet name="header">
+							<t:outputText value="Drug" />
+						</f:facet>
+
+
+						<h:panelGroup>
+							<a4j:region>
+
+								<h:selectOneMenu required="true" disabled="false"
+									id="drugCode_drug" converter="keyToObjectConverter"
+									value="#{drugCode.drug}">
+									<f:selectItem itemLabel="Select" />
+									<f:selectItems value="#{drugCrudBacking.asSelectItems}" />
+								</h:selectOneMenu>
+
+								<rich:message for="drugCode_drug" styleClass="errMessage">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="/images/icons/bullet_error.png" />
+									</f:facet>
+								</rich:message>
+
+							</a4j:region>
+						</h:panelGroup>
+						<a href="#" onclick="window.open('../drug/drug.jsf','mywindow','width=400,height=200')"> New </a>
+					</t:column>
+
+
+					<t:column>
+						<f:facet name="header">
+							<t:outputText value="Code" />
+						</f:facet>
+						<h:inputText required="true" id="drugCode__code"
+							value="#{drugCode.code}">
+
+						</h:inputText>
+						<h:message for="drugCode__code" styleClass="errMessage" />
+					</t:column>
+
+
+
+
+					<t:column>
+						<f:facet name="header">
+							<t:outputText value="Delete" />
+						</f:facet>
+
+						<a4j:commandButton value="Delete" reRender="drugCode_data"
+							bypassUpdates="true" styleClass="btn"
+							actionListener="#{categoryCrudBacking.deleteDrugCodeRow}">
+							<a4j:actionparam name="deleteRowIndex" value="#{rowIndex}" />
+						</a4j:commandButton>
+					</t:column>
+				</t:dataTable>
+				<br />
+				<a4j:commandButton value="Add Row" styleClass="btn"
+					reRender="drugCode_data"
+					actionListener="#{categoryCrudBacking.addNewDrugCodeRow}" />
+			</rich:simpleTogglePanel>
+			<br />
+
+
+
+		</rich:panel>
+
+		<h:panelGrid columns="2">
+			<h:panelGroup>
+				<h:commandButton id="button1" value="Submit"
+					action="#{categoryCrudBacking.update}" styleClass="btn" />
+				<h:outputText value=" " />
+				<h:commandButton id="button2" value="Cancel" action="cancelUpdate"
+					immediate="true" styleClass="btn" />
+				<!-- We need to have a hidden text field to store the id of the record being edited -->
+				<h:inputHidden id="category_id"
+					value="#{categoryCrudBacking.category.id}" />
+
+			</h:panelGroup>
+		</h:panelGrid>
+
+	</a4j:form>
+
+	<rich:modalPanel id="mp" width="250" height="400">
+		<f:facet name="header">
+			<h:panelGroup>
+				<h:outputText value="Modal Panel"></h:outputText>
+			</h:panelGroup>
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/images/modal/close.png"
+					styleClass="hidelink" id="hidelink" />
+				<rich:componentControl for="panel" attachTo="hidelink"
+					operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+
+		<a4j:form id="form_drug">
+			<rich:panel header="Drug Information">
+				<h:outputText value="Please correct the following issues !"
+					rendered="#{! empty facesContext.maximumSeverity}"
+					styleClass="errMessage" />
+
+				<h:panelGrid columns="2" styleClass="formTableCustom">
+
+
+
+
+
+					<h:panelGroup>
+						<h:outputText value="" />
+						<h:outputText value="#{msg.drug_name}" />
+						<h:outputText value="*" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<a4j:region>
+
+							<h:inputText required="true" id="drug_name"
+								value="#{drugCrudBacking.drug.name}">
+								<f:validateLength minimum="3" />
+								<a4j:support event="onblur" bypassUpdates="true"
+									ajaxSingle="true" reRender="drug_name" />
+							</h:inputText>
+
+							<wc:message for="drug_name" />
+
+						</a4j:region>
+					</h:panelGroup>
+
+
+					<h:panelGroup>
+						<h:outputText value="" />
+						<h:outputText value="#{msg.drug_bioavalability}" />
+						<h:outputText value="" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<a4j:region>
+
+							<h:inputText required="false" id="drug_bioavalability"
+								value="#{drugCrudBacking.drug.bioavalability}">
+								<a4j:support event="onblur" bypassUpdates="true"
+									ajaxSingle="true" reRender="drug_bioavalability" />
+							</h:inputText>
+
+
+
+							<wc:message for="drug_bioavalability" />
+
+						</a4j:region>
+					</h:panelGroup>
+
+
+					<h:panelGroup>
+						<h:outputText value="" />
+						<h:outputText value="#{msg.drug_halfLife}" />
+						<h:outputText value="" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<a4j:region>
+
+							<h:inputText required="false" id="drug_halfLife"
+								value="#{drugCrudBacking.drug.halfLife}">
+								<a4j:support event="onblur" bypassUpdates="true"
+									ajaxSingle="true" reRender="drug_halfLife" />
+							</h:inputText>
+
+
+
+							<wc:message for="drug_halfLife" />
+
+						</a4j:region>
+					</h:panelGroup>
+
+
+					<h:panelGroup>
+						<h:outputText value="" />
+						<h:outputText value="#{msg.drug_excretion}" />
+						<h:outputText value="" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<a4j:region>
+
+							<h:selectOneMenu required="false" id="drug_excretion"
+								value="#{drugCrudBacking.drug.excretion}">
+								<f:selectItem itemLabel="Select" />
+								<f:selectItem itemLabel="Renal" itemValue="Renal" />
+								<f:selectItem itemLabel="Hepatic" itemValue="Hepatic" />
+								<f:selectItem itemLabel="Bile" itemValue="Bile" />
+								<a4j:support event="onblur" bypassUpdates="true"
+									ajaxSingle="true" reRender="drug_excretion" />
+							</h:selectOneMenu>
+
+
+
+							<wc:message for="drug_excretion" />
+
+						</a4j:region>
+					</h:panelGroup>
+
+
+					<h:panelGroup>
+						<h:outputText value="" />
+						<h:outputText value="#{msg.drug_pregnancyCategory}" />
+						<h:outputText value="" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<a4j:region>
+
+							<h:selectOneMenu required="false" id="drug_pregnancyCategory"
+								value="#{drugCrudBacking.drug.pregnancyCategory}">
+								<f:selectItem itemLabel="Select" />
+								<f:selectItem itemLabel="A" itemValue="A" />
+								<f:selectItem itemLabel="B" itemValue="B" />
+								<f:selectItem itemLabel="C" itemValue="C" />
+								<f:selectItem itemLabel="D" itemValue="D" />
+								<f:selectItem itemLabel="X" itemValue="X" />
+								<a4j:support event="onblur" bypassUpdates="true"
+									ajaxSingle="true" reRender="drug_pregnancyCategory" />
+							</h:selectOneMenu>
+
+
+
+							<wc:message for="drug_pregnancyCategory" />
+
+						</a4j:region>
+					</h:panelGroup>
+
+
+					<h:panelGroup>
+						<h:outputText value="" />
+						<h:outputText value="#{msg.drug_text}" />
+						<h:outputText value="*" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<a4j:region>
+
+							<h:inputTextarea maxLength="4096" required="true" id="drug_text"
+								value="#{drugCrudBacking.drug.text}">
+								<f:validateLength maximum="4096" />
+								<a4j:support event="onblur" bypassUpdates="true"
+									ajaxSingle="true" reRender="drug_text" />
+							</h:inputTextarea>
+
+
+
+
+							<wc:message for="drug_text" />
+
+						</a4j:region>
+					</h:panelGroup>
+
+				</h:panelGrid>
+				<br />
+
+
+
+			</rich:panel>
+
+			<h:panelGrid columns="2">
+				<h:panelGroup>
+					<a4j:commandButton id="button1" value="Submit"
+						action="#{drugCrudBacking.update}" styleClass="btn" />
+					<h:outputText value=" " />
+					<a4j:commandButton id="button2" value="Cancel" action="cancelUpdate"
+						immediate="true" styleClass="btn" onclick="#{rich:component('mp')}.hide()" />
+					<!-- We need to have a hidden text field to store the id of the record being edited -->
+					<h:inputHidden id="drug_id" value="#{drugCrudBacking.drug.id}" />
+
+				</h:panelGroup>
+			</h:panelGrid>
+
+		</a4j:form>
+
+		<a href="#" onclick="#{rich:component('mp')}.hide()">Close </a>:
+    </rich:modalPanel>
+
+</a4j:page>
+</html>
+

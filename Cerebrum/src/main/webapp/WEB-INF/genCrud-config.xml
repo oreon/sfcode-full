@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config>
+
+	<!--  Spring variable resolver -->
+	<application>
+		<variable-resolver>
+			org.springframework.web.jsf.DelegatingVariableResolver
+		</variable-resolver>
+	</application>
+
+	<!-- Managed beans for the crud operations -->
+
+	
+	<managed-bean>
+		<managed-bean-name>categoryCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.cerebrum.web.jsf.CategoryBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>categoryService</property-name>
+			<value>#{categoryService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>drugCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.cerebrum.web.jsf.DrugBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>drugService</property-name>
+			<value>#{drugService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>drugCodeCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.cerebrum.web.jsf.DrugCodeBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>drugCodeService</property-name>
+			<value>#{drugCodeService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>prescriptionCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.cerebrum.web.jsf.PrescriptionBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>prescriptionService</property-name>
+			<value>#{prescriptionService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>itemCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.cerebrum.web.jsf.ItemBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>itemService</property-name>
+			<value>#{itemService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	<managed-bean>
+		<managed-bean-name>patientCrudBacking</managed-bean-name>
+		<managed-bean-class>com.oreon.cerebrum.web.jsf.PatientBackingBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>patientService</property-name>
+			<value>#{patientService}</value>
+		</managed-property>	
+	</managed-bean> 
+
+	
+	<!-- Navigation Rules  -->
+	
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/drugs/category/*</from-view-id>
+  
+		 <navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/drugs/category/categoryList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/drugs/category/categoryList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/drugs/category/category.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/drugs/category/categoryView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/drugs/category/category.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/drugs/category/categorySearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/drugs/category/categoryList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/drugs/category/category.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/drugs/category/categoryList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/drugs/category/categoryList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/drugs/category/categoryView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/drugs/category/categoryList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/drugs/category/category.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/drugs/category/categorySearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/drugs/category/categoryList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/drugs/category/categoryList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listCategory</from-outcome>
+		    <to-view-id>/admin/entities/drugs/category/categoryList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/drugs/drug/*</from-view-id>
+  
+		 <navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drug/drugList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/drugs/drug/drugList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drug/drug.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drug/drugView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drug/drug.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drug/drugSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/drugs/drug/drugList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/drugs/drug/drug.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drug/drugList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drug/drugList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/drugs/drug/drugView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drug/drugList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drug/drug.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/drugs/drug/drugSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drug/drugList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drug/drugList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listDrug</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drug/drugList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/drugs/drugCode/*</from-view-id>
+  
+		 <navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drugCode/drugCodeList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/drugs/drugCode/drugCodeList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drugCode/drugCode.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drugCode/drugCodeView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drugCode/drugCode.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drugCode/drugCodeSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/drugs/drugCode/drugCodeList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/drugs/drugCode/drugCode.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drugCode/drugCodeList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drugCode/drugCodeList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/drugs/drugCode/drugCodeView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drugCode/drugCodeList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drugCode/drugCode.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/drugs/drugCode/drugCodeSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drugCode/drugCodeList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drugCode/drugCodeList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listDrugCode</from-outcome>
+		    <to-view-id>/admin/entities/drugs/drugCode/drugCodeList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/prescriptions/prescription/*</from-view-id>
+  
+		 <navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/prescription/prescriptionList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/prescriptions/prescription/prescriptionList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/prescription/prescription.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/prescription/prescriptionView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/prescription/prescription.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/prescription/prescriptionSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/prescriptions/prescription/prescriptionList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/prescriptions/prescription/prescription.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/prescription/prescriptionList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/prescription/prescriptionList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/prescriptions/prescription/prescriptionView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/prescription/prescriptionList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/prescription/prescription.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/prescriptions/prescription/prescriptionSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/prescription/prescriptionList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/prescription/prescriptionList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listPrescription</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/prescription/prescriptionList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/prescriptions/item/*</from-view-id>
+  
+		 <navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/item/itemList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/prescriptions/item/itemList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/item/item.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/item/itemView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/item/item.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/item/itemSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/prescriptions/item/itemList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/prescriptions/item/item.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/item/itemList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/item/itemList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/prescriptions/item/itemView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/item/itemList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/item/item.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/prescriptions/item/itemSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/item/itemList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/item/itemList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listItem</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/item/itemList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/prescriptions/patient/*</from-view-id>
+  
+		 <navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/patient/patientList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+
+	<navigation-rule>
+  		<from-view-id>/admin/entities/prescriptions/patient/patientList.xhtml</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/patient/patient.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+		  <navigation-case>
+		    <from-outcome>view</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/patient/patientView.xhtml</to-view-id>
+		  </navigation-case> 
+		  
+		   <navigation-case>
+		    <from-outcome>addNew</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/patient/patient.xhtml</to-view-id>
+		  </navigation-case> 
+
+		   <navigation-case>
+		    <from-outcome>search</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/patient/patientSearch.xhtml</to-view-id>
+		  </navigation-case>   	
+		  
+		  <navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+			<to-view-id>
+				/admin/entities/prescriptions/patient/patientList.xhtml
+			</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+
+	<navigation-rule>
+		<from-view-id>/admin/entities/prescriptions/patient/patient.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelUpdate</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/patient/patientList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successUpdate</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/patient/patientList.xhtml</to-view-id>
+		</navigation-case> 	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/prescriptions/patient/patientView.xhtml</from-view-id>
+			
+    	 <navigation-case>
+			<from-outcome>cancelView</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/patient/patientList.xhtml</to-view-id>
+		 </navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/patient/patient.xhtml</to-view-id>
+		</navigation-case> 	
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/admin/entities/prescriptions/patient/patientSearch.xhtml</from-view-id>
+			
+    	<navigation-case>
+			<from-outcome>clearSearch</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/patient/patientList.xhtml</to-view-id>
+		</navigation-case> 	
+
+		<navigation-case>
+			<from-outcome>successSearch</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/patient/patientList.xhtml</to-view-id>
+		</navigation-case> 	
+		  
+	</navigation-rule>
+	
+	<navigation-rule>
+  		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>listPatient</from-outcome>
+		    <to-view-id>/admin/entities/prescriptions/patient/patientList.xhtml</to-view-id>
+		  </navigation-case>   
+		  
+	</navigation-rule>	  
+
+	
+	
+	
+	<!-- Navigation Rule for summary  -->
+	<navigation-rule>
+		<from-view-id>/admin/*</from-view-id>
+  
+		  <navigation-case>
+		    <from-outcome>summary</from-outcome>
+  			<to-view-id>/admin/entities/entitiesSummary.xhtml</to-view-id>
+  		  </navigation-case>
+  		  
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewCategory</from-outcome>
+  			<to-view-id>/admin/entities/drugs/category/categoryView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewDrug</from-outcome>
+  			<to-view-id>/admin/entities/drugs/drug/drugView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewDrugCode</from-outcome>
+  			<to-view-id>/admin/entities/drugs/drugCode/drugCodeView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewPrescription</from-outcome>
+  			<to-view-id>/admin/entities/prescriptions/prescription/prescriptionView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewItem</from-outcome>
+  			<to-view-id>/admin/entities/prescriptions/item/itemView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  <navigation-case>
+		    <from-outcome>viewPatient</from-outcome>
+  			<to-view-id>/admin/entities/prescriptions/patient/patientView.xhtml</to-view-id>
+  		  </navigation-case>	
+  		  
+  		  
+	</navigation-rule>
+			
+</faces-config>
