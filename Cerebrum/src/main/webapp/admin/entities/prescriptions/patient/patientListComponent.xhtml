@@ -1,0 +1,324 @@
+  
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+	
+	<a4j:form id="form_listing">
+		<rich:tabPanel  switchType="ajax">
+			<rich:tab label="Tabular" >
+			<rich:datascroller align="left"  for="data" maxPages="20" renderIfSinglePage="true" />
+				<br/>
+				<br/>
+						
+	<rich:dataTable id="data" var="patient"
+		value="#{patientCrudBacking.records}" rows="30"
+	rowClasses="odd, even" styleClass="dataTable" >						
+	
+	
+	
+
+	<rich:column sortBy="#{patient.firstName}"  filterBy="#{patient.firstName}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.person_firstName}" /> 		
+		</f:facet>
+		<h:outputText value="#{patient.firstName}" />
+	</rich:column>
+	
+	
+
+
+	
+	
+
+	<rich:column sortBy="#{patient.lastName}"  filterBy="#{patient.lastName}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.person_lastName}" /> 		
+		</f:facet>
+		<h:outputText value="#{patient.lastName}" />
+	</rich:column>
+	
+	
+
+
+	
+	
+
+	<rich:column sortBy="#{patient.dateOfBirth}"  filterBy="#{patient.dateOfBirth}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.person_dateOfBirth}" /> 		
+		</f:facet>
+		<h:outputText value="#{patient.dateOfBirth}" />
+	</rich:column>
+	
+	
+
+
+	
+
+	<rich:column sortBy="#{patient.gender}"  filterBy="#{patient.gender}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.person_gender}" /> 		
+		</f:facet>
+		<h:outputText value="#{patient.gender}" />
+	</rich:column>
+	
+
+
+	
+
+	<rich:column sortBy="#{patient.phone}"  filterBy="#{patient.phone}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.person_phone}" /> 		
+		</f:facet>
+		<h:outputText value="#{patient.phone}" />
+	</rich:column>
+	
+
+
+	
+
+	<rich:column sortBy="#{patient.address}"  filterBy="#{patient.address}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.person_address}" /> 		
+		</f:facet>
+		<h:outputText value="#{patient.address}" />
+	</rich:column>
+	
+
+
+	
+
+	<rich:column sortBy="#{patient.email}"  filterBy="#{patient.email}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.person_email}" /> 		
+		</f:facet>
+		<h:outputText value="#{patient.email}" />
+	</rich:column>
+	
+
+	
+	
+		
+		<rich:column>
+			<f:facet name="header">
+				<h:outputText value=" " />
+			</f:facet>
+			<h:commandLink action="view"
+				actionListener="#{patientCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left" styleClass="toolTip"
+					value="Click to Edit Row" mode="client" />
+				<h:graphicImage value="/images/icons/eye.png"
+					style="border: 0px" />
+				<f:param name="id" value="#{patient.id}" />
+			</h:commandLink>
+		</rich:column>
+		
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
+			<!--
+			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+			--> 								
+			<h:commandLink action="#{patientCrudBacking.select}"																					
+				actionListener="#{patientCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
+				<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
+				<f:param id="editId" name="id" value="#{patient.id}" />								
+			</h:commandLink>		
+			<!--
+			</acegijsf:authorize>
+			--> 
+		</rich:column>
+			
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
+			<!--
+			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+			--> 		
+			<a4j:commandLink action="#{patientCrudBacking.delete}"	
+				onclick="if(window.confirm('Are You Sure?')==false){return false}"
+				actionListener="#{patientCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
+				<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
+				<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
+				<f:param id="deleteId" name="id" value="#{patient.id}" />												
+			</a4j:commandLink>
+			<!--
+			</acegijsf:authorize>
+			--> 
+		</rich:column>
+	</rich:dataTable>
+		
+	 </rich:tab>
+	 
+		 
+	 <rich:tab label="Audit" >
+	 
+	 <rich:datascroller align="left" for="dataAudit" maxPages="20"
+				renderIfSinglePage="false" />
+			<br/>
+	 
+	 	<rich:dataTable id="dataAudit" var="log"
+		value="#{patientCrudBacking.auditLog}" rows="30" rowClasses="odd, even" styleClass="dataTable">
+			
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Date" />
+				</f:facet>
+				<h:outputText value="#{log.dateCreated}" />
+			</rich:column>
+			
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Action" />
+				</f:facet>
+				<h:outputText value="#{log.action}" />
+			</rich:column>
+
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="User" />
+				</f:facet>
+				<h:outputText value="#{log.username}" />
+			</rich:column>
+			
+	
+	
+	
+
+	<rich:column sortBy="#{log.entity.firstName}"  filterBy="#{log.entity.firstName}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.person_firstName}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.firstName}" />
+	</rich:column>
+	
+	
+
+
+	
+	
+
+	<rich:column sortBy="#{log.entity.lastName}"  filterBy="#{log.entity.lastName}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.person_lastName}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.lastName}" />
+	</rich:column>
+	
+	
+
+
+	
+	
+
+	<rich:column sortBy="#{log.entity.dateOfBirth}"  filterBy="#{log.entity.dateOfBirth}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.person_dateOfBirth}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.dateOfBirth}" />
+	</rich:column>
+	
+	
+
+
+	
+
+	<rich:column sortBy="#{log.entity.gender}"  filterBy="#{log.entity.gender}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.person_gender}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.gender}" />
+	</rich:column>
+	
+
+
+	
+
+	<rich:column sortBy="#{log.entity.phone}"  filterBy="#{log.entity.phone}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.person_phone}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.phone}" />
+	</rich:column>
+	
+
+
+	
+
+	<rich:column sortBy="#{log.entity.address}"  filterBy="#{log.entity.address}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.person_address}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.address}" />
+	</rich:column>
+	
+
+
+	
+
+	<rich:column sortBy="#{log.entity.email}"  filterBy="#{log.entity.email}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.person_email}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.email}" />
+	</rich:column>
+	
+
+			</rich:dataTable>
+			 </rich:tab>
+						 
+		</rich:tabPanel>
+  	</a4j:form>
+	<br />
+						
+	<a4j:form id="commands">
+	<rich:toolBar height="22" width="120" itemSeparator="line">
+		<rich:toolBarGroup>
+			<h:graphicImage id="addnew" value="/images/icons/add.png" />
+			<a4j:commandLink action="#{patientCrudBacking.select}"
+				actionListener="#{patientCrudBacking.selectEntity}"
+				value="Add New" />
+		</rich:toolBarGroup>
+
+		<rich:toolBarGroup>
+			<h:graphicImage id="gotosearch" value="/images/icons/search_icon.gif" />
+			<a4j:commandLink action="#{patientCrudBacking.gotoSearchPage}"
+				value="Search" />
+		</rich:toolBarGroup>
+
+		<rich:toolBarGroup
+			rendered="#{ patientCrudBacking.actionSearch }">
+			<h:graphicImage id="clearsearch" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="#{patientCrudBacking.clearSearch}"
+				value="Clear Search" />
+		</rich:toolBarGroup>
+		
+		<rich:toolBarGroup
+			rendered="#{ patientCrudBacking.actionSearch }">
+			<h:graphicImage id="refineSearch" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="search"
+				value="Refine Search" />
+		</rich:toolBarGroup>
+
+	</rich:toolBar>
+
+</a4j:form>
+			
+</html>
+		

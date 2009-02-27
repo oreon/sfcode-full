@@ -1,0 +1,201 @@
+  
+	
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+	
+
+	<a4j:page>
+	<a4j:form id="form">
+			<rich:panel header="Item Information">
+				<h:outputText value="Please correct the following issues !" 
+			rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
+				
+			<h:panelGrid columns="2" styleClass="formTableCustom">
+					
+					
+		
+
+		<h:panelGroup>
+		<h:outputText value="#{msg.item_prescription}" />
+		<h:outputText value="*" />
+		</h:panelGroup>
+		
+
+		
+		
+
+		
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="true" disabled="false"
+		id="item_prescription" converter="keyToObjectConverter"
+		value="#{itemCrudBacking.item.prescription}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{prescriptionCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="item_prescription" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+		
+
+		
+
+		<h:panelGroup>
+		<h:outputText value="#{msg.item_drug}" />
+		<h:outputText value="*" />
+		</h:panelGroup>
+		
+
+		
+		
+
+		
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="true" disabled="false"
+		id="item_drug" converter="keyToObjectConverter"
+		value="#{itemCrudBacking.item.drug}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{drugCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="item_drug" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+		
+
+	
+
+					
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.item_route}" />
+		<h:outputText value="" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:selectOneMenu    required="false" 
+		id="item_route"
+		value="#{itemCrudBacking.item.route}">
+		<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="ORAL" itemValue="ORAL" />
+<f:selectItem itemLabel="IM" itemValue="IM" />
+<f:selectItem itemLabel="IV" itemValue="IV" />
+<f:selectItem itemLabel="IO" itemValue="IO" />
+<f:selectItem itemLabel="SC" itemValue="SC" />
+<f:selectItem itemLabel="IT" itemValue="IT" />
+<f:selectItem itemLabel="RECTAL" itemValue="RECTAL" />
+<f:selectItem itemLabel="SL" itemValue="SL" />
+<f:selectItem itemLabel="TOPICAL" itemValue="TOPICAL" />
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="item_route" />
+	</h:selectOneMenu>
+	
+	
+		
+	<wc:message for="item_route" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.item_frequency}" />
+		<h:outputText value="" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:selectOneMenu    required="false" 
+		id="item_frequency"
+		value="#{itemCrudBacking.item.frequency}">
+		<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="QID" itemValue="QID" />
+<f:selectItem itemLabel="BID" itemValue="BID" />
+<f:selectItem itemLabel="TID" itemValue="TID" />
+<f:selectItem itemLabel="QXH" itemValue="QXH" />
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="item_frequency" />
+	</h:selectOneMenu>
+	
+	
+		
+	<wc:message for="item_frequency" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+
+	<h:panelGroup>
+		<h:outputText value=""/>
+		<h:outputText value="#{msg.item_qty}" />
+		<h:outputText value="" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<a4j:region>
+		
+	<h:inputText    required="false" 
+		id="item_qty"
+		value="#{itemCrudBacking.item.qty}">
+		<a4j:support event="onblur" bypassUpdates="true" ajaxSingle="true" reRender="item_qty" />
+	</h:inputText>
+	
+	
+		
+	<wc:message for="item_qty" />
+  
+		</a4j:region>
+	</h:panelGroup>
+						
+			</h:panelGrid>
+						<br/>
+						
+						
+						
+			
+			
+						
+				</rich:panel>
+				
+				<h:panelGrid columns="2">
+				<h:panelGroup>
+  					<h:commandButton id="button1" value="Submit" action="#{itemCrudBacking.update}"  styleClass="btn" /> 
+  					<h:outputText value=" " />
+  					<h:commandButton id="button2" value="Cancel" action="cancelUpdate" immediate="true" styleClass="btn"/> 
+  				   	<!-- We need to have a hidden text field to store the id of the record being edited -->		
+		  			<h:inputHidden id="item_id" value="#{itemCrudBacking.item.id}" />
+  				   	
+				 </h:panelGroup>
+				</h:panelGrid>
+				
+	</a4j:form>
+	</a4j:page>
+</html>			
+		

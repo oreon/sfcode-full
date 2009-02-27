@@ -1,0 +1,133 @@
+  
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+		
+	<a4j:form id="form">
+		<rich:panel header="Search Item">
+			<h:panelGrid columns="4" >
+				
+				<h:outputText value="Creation Date" styleClass="customformLabel" />
+				<wc:dateRange rangeFieldName="rangeCreationDate" label="Creation Date"
+						backingBean="#{itemCrudBacking}" />
+					
+			<h:outputText value="#{msg.item_route}" />
+			
+			<h:panelGroup>
+				<h:selectOneMenu    
+					id="item__route"
+					value="#{itemCrudBacking.item.route}">
+					<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="ORAL" itemValue="ORAL" />
+<f:selectItem itemLabel="IM" itemValue="IM" />
+<f:selectItem itemLabel="IV" itemValue="IV" />
+<f:selectItem itemLabel="IO" itemValue="IO" />
+<f:selectItem itemLabel="SC" itemValue="SC" />
+<f:selectItem itemLabel="IT" itemValue="IT" />
+<f:selectItem itemLabel="RECTAL" itemValue="RECTAL" />
+<f:selectItem itemLabel="SL" itemValue="SL" />
+<f:selectItem itemLabel="TOPICAL" itemValue="TOPICAL" />
+
+				</h:selectOneMenu>
+				<h:message for="item__route" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.item_frequency}" />
+			
+			<h:panelGroup>
+				<h:selectOneMenu    
+					id="item__frequency"
+					value="#{itemCrudBacking.item.frequency}">
+					<f:selectItem itemLabel="Select" /><f:selectItem itemLabel="QID" itemValue="QID" />
+<f:selectItem itemLabel="BID" itemValue="BID" />
+<f:selectItem itemLabel="TID" itemValue="TID" />
+<f:selectItem itemLabel="QXH" itemValue="QXH" />
+
+				</h:selectOneMenu>
+				<h:message for="item__frequency" styleClass="errMessage" />
+			</h:panelGroup>
+			
+			<h:outputText value="#{msg.item_qty}" />
+			
+			<h:panelGroup>
+				<h:inputText    
+					id="item__qty"
+					value="#{itemCrudBacking.item.qty}">
+					
+				</h:inputText>
+				<h:message for="item__qty" styleClass="errMessage" />
+			</h:panelGroup>
+			
+		
+		
+			<h:outputText value="#{msg.item_prescription}" styleClass="customFormLabel" />
+			
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="false" disabled="false"
+		id="item_prescription" converter="keyToObjectConverter"
+		value="#{itemCrudBacking.item.prescription}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{prescriptionCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="item_prescription" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+
+			<h:outputText value="#{msg.item_drug}" styleClass="customFormLabel" />
+			
+	
+	<h:panelGroup>
+	<a4j:region>
+
+	<h:selectOneMenu  required="false" disabled="false"
+		id="item_drug" converter="keyToObjectConverter"
+		value="#{itemCrudBacking.item.drug}">
+		<f:selectItem itemLabel="Select" />
+		<f:selectItems value="#{drugCrudBacking.asSelectItems}" />
+	</h:selectOneMenu>
+										
+	<rich:message for="item_drug" styleClass="errMessage">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="/images/icons/bullet_error.png" />
+			</f:facet>
+		</rich:message>
+	
+	</a4j:region>
+	</h:panelGroup>
+
+		
+		
+			<h:panelGroup>
+				<h:commandButton id="button1" value="Search"
+					action="#{itemCrudBacking.search}" styleClass="btn" />
+				<h:outputText value=" " />
+				<h:commandButton id="button2" value="Cancel" action="#{itemCrudBacking.clearSearch}"
+					immediate="true" styleClass="btn" />
+ 			</h:panelGroup>
+		</h:panelGrid>
+		
+		 </rich:panel>					
+	</a4j:form>
+</html>
+		

@@ -1,0 +1,246 @@
+  
+	
+<html  
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jstl/core"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+xmlns:s="http://myfaces.apache.org/sandbox"
+xmlns:t="http://myfaces.apache.org/tomahawk"
+xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+xmlns:acegijsf="http://sourceforge.net/projects/jsf-comp/acegijsf"
+xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+	
+	
+	<a4j:form id="form_listing">
+		<rich:tabPanel  switchType="ajax">
+			<rich:tab label="Tabular" >
+			<rich:datascroller align="left"  for="data" maxPages="20" renderIfSinglePage="true" />
+				<br/>
+				<br/>
+						
+	<rich:dataTable id="data" var="item"
+		value="#{itemCrudBacking.records}" rows="30"
+	rowClasses="odd, even" styleClass="dataTable" >						
+	
+	
+
+	<rich:column sortBy="#{item.route}"  filterBy="#{item.route}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.item_route}" /> 		
+		</f:facet>
+		<h:outputText value="#{item.route}" />
+	</rich:column>
+	
+
+
+	
+
+	<rich:column sortBy="#{item.frequency}"  filterBy="#{item.frequency}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.item_frequency}" /> 		
+		</f:facet>
+		<h:outputText value="#{item.frequency}" />
+	</rich:column>
+	
+
+
+	
+
+	<rich:column sortBy="#{item.qty}"  filterBy="#{item.qty}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.item_qty}" /> 		
+		</f:facet>
+		<h:outputText value="#{item.qty}" />
+	</rich:column>
+	
+
+	
+	
+	
+	
+
+	<rich:column sortBy="#{item.prescription.displayName}" filterBy="#{item.prescription.displayName}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.item_prescription}" /> 	
+		</f:facet>
+		<h:outputText value="#{item.prescription.displayName}" />
+	</rich:column>
+	
+
+
+	
+
+	<rich:column sortBy="#{item.drug.displayName}" filterBy="#{item.drug.displayName}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.item_drug}" /> 	
+		</f:facet>
+		<h:outputText value="#{item.drug.displayName}" />
+	</rich:column>
+	
+
+		
+		<rich:column>
+			<f:facet name="header">
+				<h:outputText value=" " />
+			</f:facet>
+			<h:commandLink action="view"
+				actionListener="#{itemCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left" styleClass="toolTip"
+					value="Click to Edit Row" mode="client" />
+				<h:graphicImage value="/images/icons/eye.png"
+					style="border: 0px" />
+				<f:param name="id" value="#{item.id}" />
+			</h:commandLink>
+		</rich:column>
+		
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
+			<!--
+			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+			--> 								
+			<h:commandLink action="#{itemCrudBacking.select}"																					
+				actionListener="#{itemCrudBacking.selectEntity}">
+				<rich:toolTip direction="bottom-left"  styleClass="toolTip" value="Click to Edit Row"  mode="client"/>	
+				<h:graphicImage value="/images/icons/application_edit.png" style="border: 0px"/>
+				<f:param id="editId" name="id" value="#{item.id}" />								
+			</h:commandLink>		
+			<!--
+			</acegijsf:authorize>
+			--> 
+		</rich:column>
+			
+		<rich:column>
+			<f:facet name="header">
+					<h:outputText value=" " />
+			</f:facet>
+			<!--
+			<acegijsf:authorize ifAnyGranted="ROLE_EMPLOYEE">
+			--> 		
+			<a4j:commandLink action="#{itemCrudBacking.delete}"	
+				onclick="if(window.confirm('Are You Sure?')==false){return false}"
+				actionListener="#{itemCrudBacking.selectEntity}" immediate="true" renderRegionOnly="false">														
+				<rich:toolTip direction="bottom-right" layout="block" value="Click to Delete Entire Row" styleClass="toolTip"  mode="client"/>		
+				<h:graphicImage value="/images/icons/application_delete.png" style="border: 0px"/>							
+				<f:param id="deleteId" name="id" value="#{item.id}" />												
+			</a4j:commandLink>
+			<!--
+			</acegijsf:authorize>
+			--> 
+		</rich:column>
+	</rich:dataTable>
+		
+	 </rich:tab>
+	 
+		 
+	 <rich:tab label="Audit" >
+	 
+	 <rich:datascroller align="left" for="dataAudit" maxPages="20"
+				renderIfSinglePage="false" />
+			<br/>
+	 
+	 	<rich:dataTable id="dataAudit" var="log"
+		value="#{itemCrudBacking.auditLog}" rows="30" rowClasses="odd, even" styleClass="dataTable">
+			
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Date" />
+				</f:facet>
+				<h:outputText value="#{log.dateCreated}" />
+			</rich:column>
+			
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Action" />
+				</f:facet>
+				<h:outputText value="#{log.action}" />
+			</rich:column>
+
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="User" />
+				</f:facet>
+				<h:outputText value="#{log.username}" />
+			</rich:column>
+			
+	
+	
+
+	<rich:column sortBy="#{log.entity.route}"  filterBy="#{log.entity.route}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.item_route}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.route}" />
+	</rich:column>
+	
+
+
+	
+
+	<rich:column sortBy="#{log.entity.frequency}"  filterBy="#{log.entity.frequency}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.item_frequency}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.frequency}" />
+	</rich:column>
+	
+
+
+	
+
+	<rich:column sortBy="#{log.entity.qty}"  filterBy="#{log.entity.qty}" filterEvent="onkeyup" >
+		<f:facet name="header">
+				<h:outputText value="#{msg.item_qty}" /> 		
+		</f:facet>
+		<h:outputText value="#{log.entity.qty}" />
+	</rich:column>
+	
+
+			</rich:dataTable>
+			 </rich:tab>
+						 
+		</rich:tabPanel>
+  	</a4j:form>
+	<br />
+						
+	<a4j:form id="commands">
+	<rich:toolBar height="22" width="120" itemSeparator="line">
+		<rich:toolBarGroup>
+			<h:graphicImage id="addnew" value="/images/icons/add.png" />
+			<a4j:commandLink action="#{itemCrudBacking.select}"
+				actionListener="#{itemCrudBacking.selectEntity}"
+				value="Add New" />
+		</rich:toolBarGroup>
+
+		<rich:toolBarGroup>
+			<h:graphicImage id="gotosearch" value="/images/icons/search_icon.gif" />
+			<a4j:commandLink action="#{itemCrudBacking.gotoSearchPage}"
+				value="Search" />
+		</rich:toolBarGroup>
+
+		<rich:toolBarGroup
+			rendered="#{ itemCrudBacking.actionSearch }">
+			<h:graphicImage id="clearsearch" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="#{itemCrudBacking.clearSearch}"
+				value="Clear Search" />
+		</rich:toolBarGroup>
+		
+		<rich:toolBarGroup
+			rendered="#{ itemCrudBacking.actionSearch }">
+			<h:graphicImage id="refineSearch" value="/images/icons/bricks.png" />
+			<a4j:commandLink action="search"
+				value="Refine Search" />
+		</rich:toolBarGroup>
+
+	</rich:toolBar>
+
+</a4j:form>
+			
+</html>
+		
