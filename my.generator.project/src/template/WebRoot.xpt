@@ -9,8 +9,8 @@
 «ENDDEFINE»
 
 «DEFINE PackageRoot FOR uml::Package»
-	«EXPAND genView FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
-	«EXPAND EditRoot::genEditView FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	«EXPAND EditRoot::genEditView(false) FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	«EXPAND EditRoot::genEditView(true) FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 	«EXPAND ListRoot::genView FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 «ENDDEFINE»
 

@@ -4,69 +4,80 @@
 «EXTENSION template::GeneratorExtensions»
 «EXTENSION template::webExtensions»
 
-«DEFINE genEditView FOR uml::Class»
-	«FILE "web/" + packagePath() +"/edit" +name+".xhtml"»
+«DEFINE genEditView(boolean edit) FOR uml::Class»
+	«setCurrentEditMode(edit)»
+	«FILE getWebPath() +"/" + (edit?"edit":"view") + name+".xhtml"»
 		<h:form>
-		«setAsCurrentEntity(this)»
+		«setAsCurrentEntity(this)-»
 		«EXPAND genAttribAsOutput FOR this-»
 		</h:form>
 	«ENDFILE»
 «ENDDEFINE»
 
-
-«DEFINE genAttribAsOutput FOR uml::Class»
+«DEFINE genAttribAsOutput FOR uml::Class-»
 	«FOREACH allParents() AS e-»
-			«EXPAND genAttribute FOREACH e.getAllAttributes() -»
+			«EXPAND genAttribute FOREACH e.getAllAttributes().select(a|!a.isMultivalued()) -»
 	«ENDFOREACH»
-	«EXPAND genAttribute FOREACH getAllAttributes() -»
+	«EXPAND genAttribute FOREACH getAllAttributes().select(a|!a.isMultivalued()) -»
+	
+	«FOREACH allParents() AS e-»
+			«EXPAND gentEditableTable FOREACH e.getAllAttributes().select(a|a.isMultivalued() && a.association != null) -»
+	«ENDFOREACH»
+	«EXPAND gentEditableTable FOREACH getAllAttributes().select(a|a.isMultivalued() && a.association != null) -»
 «ENDDEFINE»
 
 «DEFINE genAttribute FOR uml::Property -»
+	«IF type.name != getCurrentEntity().name»
 	«IF association != null -»
-		«IF isMultivalued()»
-			«name»[MULT] <select name=«name-» ></select>
+		«IF type.isEmbeddable()-»
+			«type.setCurrentEmbeddable()»
+			«EXPAND genAttribAsOutput FOR this.type-»
 		«ELSE»
-			«IF type.isEmbeddable()-»
-				«type.setCurrentEmbeddable()»
-				«EXPAND genAttribAsOutput FOR this.type-»
-			«ELSE»
-				«EXPAND genAssociation FOR this-»
-			«ENDIF»
+			«EXPAND genAssociation FOR this-»
 		«ENDIF»
 	«ELSE-»
 		«EXPAND genProperty FOR this»
 	«ENDIF»
+	«ENDIF»
 «ENDDEFINE»
 
-«DEFINE genProperty FOR uml::Property»
-	<h:outputText value="«msgBundleKey()-»" />
+«DEFINE genProperty FOR uml::Property-»
+	«getOutputMessage()»
 	«EXPAND genPropertyEntry(type) FOR this-»
+	«isCurrentMultiMode()?"</h:column>":""»
 «ENDDEFINE»
-
 
 «DEFINE genAssociation FOR uml::Property -»
-	<h:outputText value="«msgBundleKey()-»" />
-	<h:selectOneMenu value="#{«class.asVar()».«name»}" required="«!getAssocOptional()»">
+	«getOutputMessage()»
+	«IF !isCurrentEditMode()»
+	<«getText()» value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()».displayName}" />
+	«ELSE»
+	<h:selectOneMenu value="#{«getCurrentEntity().asVar()».«name»}" required="«!getAssocOptional()»">
 		<s:selectItems value="#{«type.asVar()»List}" var="item"
 			label="#{item.displayName}"
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
+	«ENDIF»
+	«isCurrentMultiMode()?"</h:column>":""»
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
-	<h:inputText value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
+	<«getText()» value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
+	«IF !isCurrentEditMode()»
+	<«getText()» value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
+	«ELSE»
 	<h:selectOneMenu  value="#{«getCurrentEntity().asVar()».«name»}" required="«getAssocOptional()»">
 		<f:selectItem itemLabel="Please Select..." />
 		«FOREACH  enm.ownedLiteral AS e-»
 		<f:selectItem itemLabel="«e.name»" itemValue="«e.name-»" />
 		«ENDFOREACH»
 	</h:selectOneMenu>
+	«ENDIF»
 «ENDDEFINE»
-
 
 «DEFINE genEditViewComponent FOR Entity»
 	«EXPAND genIncludes-»
@@ -80,5 +91,13 @@
 	</a4j:page>
 «ENDDEFINE»
 
-
-
+«DEFINE gentEditableTable FOR uml::Property-»
+	«setCurrentMultiMode(true)-»
+	«setAsCurrentEntity(type)»
+	<h:dataTable id="«name»_data" var="«getCurrentEntity().asVar()»" rowIndexVar="rowIndex" 
+					value="#{«getCurrentEntity().asVar()».«name»}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		«EXPAND genAttribAsOutput FOR type-»		
+	</h:dataTable>
+	«setCurrentMultiMode(false)-»
+«ENDDEFINE»

@@ -34,10 +34,37 @@ JAVA org.wc.generatorutil.ClassUtil.getCurrentEntity();
 setCurrentEmbeddable(Class cls):
 JAVA org.wc.generatorutil.ClassUtil.setCurrentEmbeddable(org.eclipse.uml2.uml.Class);
 
+setCurrentMultiMode(boolean val):
+JAVA org.wc.generatorutil.ClassUtil.setCurrentMultiMode(java.lang.Boolean);
+
+boolean isCurrentMultiMode():
+JAVA org.wc.generatorutil.ClassUtil.isCurrentMultiMode();
+
+setCurrentEditMode(boolean val):
+JAVA org.wc.generatorutil.ClassUtil.setCurrentEditMode(java.lang.Boolean);
+
+boolean isCurrentEditMode():
+JAVA org.wc.generatorutil.ClassUtil.isCurrentEditMode();
+
+
 Class getCurrentEmbeddable():
 JAVA org.wc.generatorutil.ClassUtil.getCurrentEmbeddable();
 
 String getVariableNameForDisplay(String arg):
 JAVA org.wc.generatorutil.ClassUtil.getViewLabelFromVariable(java.lang.String);
 
+String getOutputMessage(Property prop):
+isCurrentMultiMode()  ? getColumnBegin(prop):getOutputText(prop);
+
+String getColumnBegin(Property prop):
+"<h:column><f:facet name=\"header\">" + getOutputText(prop) + "</f:facet>";
+
+String getOutputText(Property prop):
+"<h:outputText value=\"" + prop.msgBundleKey() + "\"/>";
+
+String getText(Property prop):
+isCurrentEditMode()?"h:inputText":"h:outputText";
+
+String getWebPath(Class cls):
+"web/admin/entities/" + cls.package.name + "/" + cls.asVar();
 
