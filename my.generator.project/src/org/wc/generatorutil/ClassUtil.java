@@ -14,11 +14,37 @@ import org.eclipse.uml2.uml.Property;
 public class ClassUtil {
 	Operation operation;
 	
+	//state variables
 	private static Class currentEntity;
 	
 	private static Class currentEmbeddable;
 	
+	private static Boolean currentMultiMode;
+	
+	
+
+	private static Boolean currentEditMode;
+	
 	//static org.eclipse.uml2.uml.Class cls;
+
+	public static Boolean isCurrentMultiMode() {
+		return currentMultiMode;
+	}
+
+	public static void setCurrentMultiMode(Boolean currentMultiMode) {
+		ClassUtil.currentMultiMode = currentMultiMode;
+	}
+	
+	public static Boolean isCurrentEditMode() {
+		return currentEditMode;
+	}
+
+
+	public static void setCurrentEditMode(Boolean currentEditMode) {
+		ClassUtil.currentEditMode = currentEditMode;
+	}
+
+
 
 	public static Class getCurrentEmbeddable() {
 		return currentEmbeddable;
