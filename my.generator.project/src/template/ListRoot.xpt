@@ -11,12 +11,13 @@
 	«setAsCurrentEntity(this)»
 	<ui:define name="content">
 		<h:form>
-			<rich:dataTable id="data" var="«asVar()»" value="#{«asVar()»List}" rows="30"
+			<ice:dataTable id="data" var="«asVar()»" value="#{«asVar()»List}" rows="30"
 			rowClasses="odd, even" styleClass="dataTable" >		
-		«EXPAND genAttribAsOutput FOR this-»
-		«EXPAND genLink("view", "eye.png") FOR this»
-		«EXPAND genLink ("edit", "edit.png")FOR this»
-		«EXPAND genLink("delete", "delete.png") FOR this»
+			«EXPAND genAttribAsOutput FOR this-»
+			«EXPAND genLink("view", "eye.png") FOR this»
+			«EXPAND genLink ("edit", "edit.png")FOR this»
+			«EXPAND genLink("delete", "delete.png") FOR this»
+			</ice:dataTable>
 		</h:form>
 	</ui:define>
 </ui:composition>
@@ -49,7 +50,7 @@
 «ENDDEFINE»
 
 «DEFINE genLink(String action, String icon) FOR uml::Class»
-	<rich:column>
+	<ice:column>
 		<f:facet name="header">
 			<h:outputText value=" " />
 		</f:facet>
@@ -57,23 +58,23 @@
 			action="#{«getAction()».select(«asVar()»)}">
 			<h:graphicImage value="/images/icons/«icon»" style="border: 0px" />
 		</h:commandLink>
-	</rich:column>
+	</ice:column>
 «ENDDEFINE»
 
 «DEFINE genAssociation FOR uml::Property»
-	<rich:column sortBy="#{«class.asVar()-».displayName}" filterBy="#{«class.getAction()».«class.asVar()-».displayName}" filterEvent="onkeyup" >
+	<ice:column sortBy="#{«class.asVar()-».displayName}" filterBy="#{«class.getAction()».«class.asVar()-».displayName}" filterEvent="onkeyup" >
 		<f:facet name="header">
-			<h:outputText value=«msgBundleKey()-» /> 	
+			<h:outputText value="«msgBundleKey()-»" /> 	
 		</f:facet>
 		<h:outputText value="#{«getCurrentEntity().asVar()».«name».displayName}" />
-	</rich:column>
+	</ice:column>
 «ENDDEFINE»
 
 «DEFINE genProperty FOR uml::Property-»
-	<rich:column>
+	<ice:column>
 		<f:facet name="header">
 			<h:outputText value="«msgBundleKey()-»" />
 		</f:facet>
 		<h:outputText value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
-	</rich:column>
+	</ice:column>
 «ENDDEFINE»

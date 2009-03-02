@@ -11,8 +11,6 @@ extension template::GeneratorExtensions;
 String getAction(Class cls):
 cls.asVar() + "Action";
 
-boolean isEmbeddable(Type type):
-type.getAppliedStereotype("wcprofile::Embeddable") != null;
 
 boolean isEnum(Type type):
 type.getAppliedStereotype("uml::Enumeration") != null;
@@ -81,4 +79,7 @@ String getId(Property prop):
 prop.class.name + "_" + prop.name;
 
 String getErrorMessageHolder(Property prop):
-"<h:message styleClass=\"error errors\" for=" + prop.getId() + " />";
+"<h:message styleClass=\"error errors\" for=\"" + prop.getId() + "\" />";
+
+String getViewFile(Class e,String mode):
+"/admin/entities/" + e.package.name.toFirstLower() + "/" + e.asVar() + "/" + mode + e.name + "." + getExtension();

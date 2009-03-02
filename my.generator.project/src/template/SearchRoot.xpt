@@ -4,39 +4,40 @@
 «EXTENSION template::GeneratorExtensions»
 «EXTENSION template::webExtensions»
 
-«DEFINE genEditView(boolean edit) FOR uml::Class»
-	«setCurrentEditMode(edit)» 
-	«FILE getWebPath() +"/" + (edit?"edit":"view") + name+ "." + getExtension()»
+«DEFINE genSearchView FOR uml::Class»
+	«FILE getWebPath() +"/" + "search" + name+ "." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes-»
 	template = "«getTemplate()»" >	
 	<ui:define name="content">
-	<ice:panelGroup id="editanswerchoiceGroupId"
-				styleClass="formBorderHighlight">
+	<h:form>
+	<ice:panelGroup styleClass="pnlClpsblWrapper panelCollapsible">
+	<ice:panelCollapsible >
+			<f:facet name="header">
+				<ice:outputText id="srchHdr" value="Search" />
+			</f:facet>
 	<div class="entry errors"><h:messages globalOnly="true" /></div>
 	
-		<ice:form>
+		
 			<h:panelGrid columns="3">
 		«setAsCurrentEntity(this)-»
 		«EXPAND genAttribAsOutput FOR this-»
 			</h:panelGrid>
-			«EXPAND genCancelSaveBtns(edit) FOR this»
-		</ice:form>
+			«EXPAND genCancelSaveBtns FOR this»
+		
+		</ice:panelCollapsible>
 		</ice:panelGroup>
+		</h:form>
+		
 	</ui:define> 
 </ui:composition>
 	«ENDFILE»
 «ENDDEFINE»
 
 
-«DEFINE genCancelSaveBtns(boolean edit) FOR uml::Class»
+«DEFINE genCancelSaveBtns FOR uml::Class»
 	<div class="buttonBox">
-		«IF edit»
-		<h:commandButton value="Edit"  action="edit" /> 
+		<h:commandButton value="Search"  action="#{«getAction()».search}" /> 
 		<h:commandButton value="Back To Listing" immediate="true" action="#{«getAction()».cancel}" /> 
-		«ELSE»
-		<h:commandButton value="Save" action="#{«getAction()».save}" /> 
-		<h:commandButton value="Cancel" immediate="true" action="#{«getAction()».cancel}" /> 
-		«ENDIF»
 	</div>
 «ENDDEFINE»
 
@@ -45,11 +46,6 @@
 			«EXPAND genAttribute FOREACH e.getAllAttributes().select(a|!a.isMultivalued()) -»
 	«ENDFOREACH»
 	«EXPAND genAttribute FOREACH getAllAttributes().select(a|!a.isMultivalued()) -»
-	
-	«FOREACH allParents() AS e-»
-			«EXPAND gentEditableTable FOREACH e.getAllAttributes().select(a|a.isMultivalued() && a.association != null) -»
-	«ENDFOREACH»
-	«EXPAND gentEditableTable FOREACH getAllAttributes().select(a|a.isMultivalued() && a.association != null) -»
 «ENDDEFINE»
 
 «DEFINE genAttribute FOR uml::Property -»
@@ -68,26 +64,22 @@
 «ENDDEFINE»
 
 «DEFINE genProperty FOR uml::Property-»
-	«getOutputMessage()»
+	<h:panelGroup>
+	«getOutputMessage()» <br/>
 	«EXPAND genPropertyEntry(type) FOR this-»
-	«getErrorMessageHolder()»
-	«isCurrentMultiMode()?"</h:column>":""»
+	</h:panelGroup>
 «ENDDEFINE»
 
 «DEFINE genAssociation FOR uml::Property -»
-	«getOutputMessage()»
-	«IF !isCurrentEditMode()»
-	<«getText()» value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()».displayName}" />
-	«ELSE»
+	<h:panelGroup>
+	«getOutputMessage()» <br/>
 	<h:selectOneMenu id="«getId()»" value="#{«getCurrentEntity().asVar()».«name»}" required="«!getAssocOptional()»">
 		<s:selectItems value="#{«type.asVar()»List}" var="item"
 			label="#{item.displayName}"
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
-	«getErrorMessageHolder()»
-	«ENDIF»
-	«isCurrentMultiMode()?"</h:column>":""»
+	</h:panelGroup>
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
@@ -95,37 +87,12 @@
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
-	«IF !isCurrentEditMode()»
-	<«getText()» id="«getId()»" value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
-	«ELSE»
 	<h:selectOneMenu id="«getId()»" value="#{«getCurrentEntity().asVar()».«name»}" required="«getAssocOptional()»">
-		<f:selectItem itemLabel="Please Select..." />
+		<f:selectItem itemLabel="Any" />
 		«FOREACH  enm.ownedLiteral AS e-»
 		<f:selectItem itemLabel="«e.name»" itemValue="«e.name-»" />
 		«ENDFOREACH»
 	</h:selectOneMenu>
-	«ENDIF»
 «ENDDEFINE»
 
-«DEFINE genEditViewComponent FOR Entity»
-	«EXPAND genIncludes-»
-	<a4j:page>
-	<a4j:form id="form">
-			<rich:panel header="«NameS» Information">
-				<h:outputText value="Please correct the following issues !" 
-			rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
-			<h:panelGrid columns="2" styleClass="formTableCustom">
-	</a4j:form>
-	</a4j:page>
-«ENDDEFINE»
-
-«DEFINE gentEditableTable FOR uml::Property-»
-	«setCurrentMultiMode(true)-»
-	«setAsCurrentEntity(type)»
-	<h:dataTable id="«name»_data" var="«getCurrentEntity().asVar()»" rowIndexVar="rowIndex" 
-					value="#{«getCurrentEntity().asVar()».«name»}" rows="10"
-				rowClasses="odd, even" styleClass="dataTable" rules="all">
-		«EXPAND genAttribAsOutput FOR type-»		
-	</h:dataTable>
-	«setCurrentMultiMode(false)-»
-«ENDDEFINE»
+«
