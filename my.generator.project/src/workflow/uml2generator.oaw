@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <workflow>
 
+<property file="workflow/workflow.properties" />
+
 <bean class="oaw.uml2.Setup" standardUML2Setup="true"/>
 <component class="oaw.emf.XmiReader">
 <modelFile value="C:/users/jsingh/mdl/zone.uml"/>
 <outputSlot value="model"/>
 </component>
 
+<!--
 <component id="dirCleaner" class="oaw.workflow.common.DirectoryCleaner"
-directories="src-gen"/>
-
+directories="${srcGenPath}"/>
+-->
 
 <component id="BeansGenerator" class="oaw.xpand2.Generator"
 skipOnErrors="true">
@@ -21,7 +24,7 @@ skipOnErrors="true">
 		<profile value="C:/users/jsingh/mdl/wcprofile.profile.uml"/>
 	</metaModel>
 	<expand value="template::Root::Root FOR model"/>
-	<outlet path="src-gen/">
+	<outlet path="${srcGenPath}/">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 		<!--
 		<postprocessor  class="org.hybridlabs.source.formatter.JavaImportBeautifier"
@@ -39,7 +42,7 @@ organizeImports="true" format="true"/>
 		<profile value="C:/users/jsingh/mdl/wcprofile.profile.uml"/>
 	</metaModel>
 	<expand value="template::SeamActionRoot::Root FOR model"/>
-	<outlet path="src-gen/">
+	<outlet path="C:/dev/newSeam/src/main/java">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 	</outlet>
 </component>
@@ -54,7 +57,7 @@ organizeImports="true" format="true"/>
 		<profile value="C:/users/jsingh/mdl/wcprofile.profile.uml"/>
 	</metaModel>
 	<expand value="template::WebRoot::Root FOR model"/>
-	<outlet path="src-gen/">
+	<outlet path="${srcGenPath}">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 	</outlet>
 </component>
@@ -68,7 +71,7 @@ organizeImports="true" format="true"/>
 		<profile value="C:/users/jsingh/mdl/wcprofile.profile.uml"/>
 	</metaModel>
 	<expand value="template::GenMessageBundle::Root FOR model"/>
-	<outlet path="src-gen/">
+	<outlet path="${srcGenPath}/">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 	</outlet>
 </component>

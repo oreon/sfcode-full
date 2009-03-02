@@ -1,0 +1,21 @@
+«IMPORT wcprofile»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+«EXTENSION template::webExtensions»
+
+«DEFINE genNav FOR uml::Model»
+	«FILE getEntitiesRoot() +"/" + "navigation"  + "." + getExtension()»
+		<h:form>
+		«FOREACH allOwnedElements().typeSelect(uml::Package) AS p»
+		«IF !p.allOwnedElements().typeSelect(wcprofile::Entity).isEmpty»
+		<h:outputText value="«p.name»" />
+		«FOREACH p.allOwnedElements().typeSelect(wcprofile::Entity) AS e»
+			<h:commandLink value="«e.name»" action="«e.asVar()»" />
+		«ENDFOREACH»
+		«ENDIF»
+		«ENDFOREACH»
+		</h:form>
+	«ENDFILE»
+«ENDDEFINE»
+

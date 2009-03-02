@@ -5,8 +5,11 @@
 «EXTENSION template::webExtensions»
 
 «DEFINE genView FOR uml::Class»
-	«FILE getWebPath() +"/list" +name+".xhtml"»
-		«setAsCurrentEntity(this)»
+	«FILE getWebPath() +"/list" +name+ "." + getExtension()»
+<ui:composition «EXPAND WebRoot::genIncludes»
+	template="«getTemplate()»"  >	
+	«setAsCurrentEntity(this)»
+	<ui:define name="content">
 		<h:form>
 			<rich:dataTable id="data" var="«asVar()»" value="#{«asVar()»List}" rows="30"
 			rowClasses="odd, even" styleClass="dataTable" >		
@@ -15,6 +18,8 @@
 		«EXPAND genLink ("edit", "edit.png")FOR this»
 		«EXPAND genLink("delete", "delete.png") FOR this»
 		</h:form>
+	</ui:define>
+</ui:composition>
 	«ENDFILE»
 «ENDDEFINE»
 

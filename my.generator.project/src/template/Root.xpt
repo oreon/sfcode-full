@@ -54,7 +54,7 @@
 «ENDDEFINE»
 
 «DEFINE genClassBody FOR wcprofile::MappedSuperClass»
-	@@MappedSuperclass
+	@MappedSuperclass
 	public class «name» «getParent()» «getInterfaces()»{
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
@@ -88,6 +88,9 @@
 	import java.util.HashSet;
 	import java.util.Date;
 	import javax.persistence.*;
+	
+	import org.jboss.seam.annotations.Name;
+	import org.witchcraft.base.entity.BusinessEntity;
 «ENDDEFINE»
 
 «DEFINE gen FOR uml::Operation»
@@ -105,7 +108,7 @@
 
 «DEFINE genDecl FOR uml::Property»
 	«IF isMultivalued()»
-		@OneToMany(mappedBy = "«class.name»", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+		@OneToMany(mappedBy = "«opposite.name»", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 		@JoinColumn(name = "«class.name»_ID", nullable = «getAssocOptional()»)
 		private Set<«type.fqnForPackage(this.class)»> «name»;
 	«ELSE»
@@ -143,7 +146,6 @@
 «DEFINE setDefaultNamesForAssocs FOR uml::Property»
 	«IF !(name != null && name.length > 0 )»
 		«LET type.name.toFirstLower() AS defaultName»
-
 			«IF isMultivalued()» «REM» For collections we need to create a plural default type name«ENDREM»
 				«setName(defaultName.getPlural())»
 			«ELSE»
