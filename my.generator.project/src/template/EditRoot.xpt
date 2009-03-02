@@ -5,13 +5,29 @@
 «EXTENSION template::webExtensions»
 
 «DEFINE genEditView(boolean edit) FOR uml::Class»
-	«setCurrentEditMode(edit)»
-	«FILE getWebPath() +"/" + (edit?"edit":"view") + name+".xhtml"»
-		<h:form>
+	«setCurrentEditMode(edit)» 
+	«FILE getWebPath() +"/" + (edit?"edit":"view") + name+ "." + getExtension()»
+<ui:composition «EXPAND WebRoot::genIncludes-»
+	template = "«getTemplate()»" >	
+	<ui:define name="content">
+		<ice:form>
+			<h:panelGrid columns="3">
 		«setAsCurrentEntity(this)-»
 		«EXPAND genAttribAsOutput FOR this-»
-		</h:form>
+			</h:panelGrid>
+			«EXPAND genCancelSaveBtns FOR this»
+		</ice:form>
+	</ui:define> 
+</ui:composition>
 	«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE genCancelSaveBtns FOR uml::Class»
+	<div class="buttonBox">
+		<h:commandButton value="Save" action="#{«getAction()».save}" /> 
+		<s:button id="cancel" value="Cancel" action="cancel" />
+	</div>
 «ENDDEFINE»
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
@@ -42,8 +58,9 @@
 «ENDDEFINE»
 
 «DEFINE genProperty FOR uml::Property-»
-	«getOutputMessage()»
+	«getOutputMessage()-»
 	«EXPAND genPropertyEntry(type) FOR this-»
+	«getErrorMessageHolder()»
 	«isCurrentMultiMode()?"</h:column>":""»
 «ENDDEFINE»
 
@@ -58,6 +75,7 @@
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
+	«getErrorMessageHolder()»
 	«ENDIF»
 	«isCurrentMultiMode()?"</h:column>":""»
 «ENDDEFINE»
@@ -76,6 +94,7 @@
 		<f:selectItem itemLabel="«e.name»" itemValue="«e.name-»" />
 		«ENDFOREACH»
 	</h:selectOneMenu>
+	«getErrorMessageHolder()»
 	«ENDIF»
 «ENDDEFINE»
 

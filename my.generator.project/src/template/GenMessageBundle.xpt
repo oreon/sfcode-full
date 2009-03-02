@@ -6,14 +6,14 @@
 
 «DEFINE Root FOR uml::Model»	
 	
-	«FILE "resources/messages.properties"»
+	«FILE "../resources/messages.properties"»
 		«EXPAND genUserManagedMessages("")»
 		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(wcprofile::Entity)-»
 		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(wcprofile::MappedSuperClass)-»
 		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(wcprofile::Embeddable)-»
 	«ENDFILE»
 	
-	«FILE "resources/messages_fr.properties"»
+	«FILE "../resources/messages_fr.properties"»
 		«EXPAND genUserManagedMessages("fr")»
 		«EXPAND genBundle("fr") FOREACH allOwnedElements().typeSelect(wcprofile::Entity)-»
 		«EXPAND genBundle("fr") FOREACH allOwnedElements().typeSelect(wcprofile::MappedSuperClass)-»

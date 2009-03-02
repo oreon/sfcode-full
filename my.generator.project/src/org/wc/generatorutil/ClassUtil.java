@@ -71,6 +71,9 @@ public class ClassUtil {
 
 
 	public static void main(String[] args) {
+		Property property;
+		
+		//prop.getAssociationEnd().getOpposite()
 		// cls.getPackage().
 		// Association assoc;
 		// assoc.getMemberEnds();

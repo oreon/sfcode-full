@@ -66,5 +66,19 @@ String getText(Property prop):
 isCurrentEditMode()?"h:inputText":"h:outputText";
 
 String getWebPath(Class cls):
-"web/admin/entities/" + cls.package.name + "/" + cls.asVar();
+ getEntitiesRoot() + cls.package.name + "/" + cls.asVar();
 
+String getEntitiesRoot():
+"../webapp/admin/entities/";
+
+String getExtension():
+"jspx";
+
+String getTemplate():
+"/admin/template.jspx";
+
+String getId(Property prop):
+prop.class.name + "_" + prop.name;
+
+String getErrorMessageHolder(Property prop):
+"<h:message styleClass=\"error errors\" for=" + prop.getId() + " />";
