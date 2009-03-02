@@ -112,11 +112,11 @@
 		@JoinColumn(name = "«class.name»_ID", nullable = «getAssocOptional()»)
 		private Set<«type.fqnForPackage(this.class)»> «name»;
 	«ELSE»
-		«IF association != null &&  type.getAppliedStereotype("wcprofile::Embeddable") == null»
+		«IF association != null &&  !type.isEmbeddable()»
 			@ManyToOne(optional=«getAssocOptional()», fetch=FetchType.LAZY)
     		@JoinColumn(name="«name»_id", nullable=«getAssocOptional()»)
 		«ENDIF»
-		private «type.fqnForPackage(this.class)» «name»;
+		private «type.fqnForPackage(this.class)» «name» «type.isEmbeddable()?"= new " + type.name+ "()":""»;
 	«ENDIF»
 «ENDDEFINE»
 

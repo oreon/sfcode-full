@@ -2,9 +2,11 @@
 
 «EXTENSION org::openarchitectureware::uml2::profile::profiling»
 «EXTENSION template::GeneratorExtensions»
+«EXTENSION template::WebExtensions»
 
 «DEFINE Root FOR uml::Model»
 	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	«EXPAND PagesRoot::genPages»
 «ENDDEFINE»
 
 
@@ -51,25 +53,25 @@ public class «name»Action extends BaseAction implements java.io.Serializable{
 	private List<«name»> «asVar()»List;	
 
 	@Factory("«asVar()»List")
-	public void findStduents() {
+	public void findRecords() {
 		«asVar()»List = entityManager
 				.createQuery(
-						"select «asVar()» from «name» «asVar()» order by «asVar()».lastName")
+						"select «asVar()» from «name» «asVar()» order by «asVar()».id")
 				.getResultList();
 	}	
 
 	@Begin
 	public String select(«name» «asVar()») {
 		this.«asVar()» = entityManager.merge(«asVar()»);
-	    log.info("User selected «name»: #{«asVar()».displayName} #{«asVar()».id} #{«asVar()».firstName}");
-		return "/edit«name».jspx";
+	    log.info("User selected «name»: #{«asVar()».displayName} #{«asVar()».id} ");
+		return "«getViewFile("view")»";
 	}
 	
 	@End
-	public String save() {
+	public void save() {
 		facesMessages.add("Successfully saved  #{«asVar()».displayName}");
 		entityManager.persist(«asVar()»);
-		return "/list«name».jspx";
+		//return "/list«name».jspx";
 	}
 	
 	@End
