@@ -87,7 +87,9 @@
 	import java.util.Set;
 	import java.util.HashSet;
 	import java.util.Date;
+	
 	import javax.persistence.*;
+	import org.hibernate.validator.*;
 	
 	import org.jboss.seam.annotations.Name;
 	import org.witchcraft.base.entity.BusinessEntity;
@@ -116,9 +118,25 @@
 			@ManyToOne(optional=«getAssocOptional()», fetch=FetchType.LAZY)
     		@JoinColumn(name="«name»_id", nullable=«getAssocOptional()»)
 		«ENDIF»
-		private «type.fqnForPackage(this.class)» «name» «type.isEmbeddable()?"= new " + type.name+ "()":""»;
+		«IF type.isEmbeddable()»
+			private «type.fqnForPackage(this.class)» «name» = new «type.name»();
+		«ELSE»
+			«EXPAND genPropertyDecl FOR this»
+		«ENDIF»
 	«ENDIF»
 «ENDDEFINE»
+
+«DEFINE genPropertyDecl FOR uml::Property»
+	private «type.fqnForPackage(this.class)» «name» «getDefault() != null?"= \"" + getDefault() + "\"":""»;
+«ENDDEFINE»
+
+«DEFINE genPropertyDecl FOR wcprofile::Column»
+	«getValidatorAnnotations()»
+	«getLengthAnnotations()»
+	«getUniqueAnnotations()»
+	private «type.fqnForPackage(this.class)» «name» «getDefault() != null?"= \"" + getDefault() + "\"":""»;
+«ENDDEFINE»
+
 
 
 
@@ -142,7 +160,8 @@
 	«ENDIF»
 «ENDDEFINE»
 
-«REM» For associations we need to set name to type name if the name is null ;«ENDREM»
+«REM» For associations we need to
+ set name to type name if the name is null ;«ENDREM»
 «DEFINE setDefaultNamesForAssocs FOR uml::Property»
 	«IF !(name != null && name.length > 0 )»
 		«LET type.name.toFirstLower() AS defaultName»

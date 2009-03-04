@@ -11,6 +11,7 @@
 	«setAsCurrentEntity(this)»
 	<ui:define name="content">
 		<h:form>
+			<ice:commandButton value="Create New" action="edit"/>
 			<ice:dataTable id="data" var="«asVar()»" value="#{«asVar()»List}" rows="30"
 			rowClasses="odd, even" styleClass="dataTable" >		
 			«EXPAND genAttribAsOutput FOR this-»
@@ -35,7 +36,6 @@
 «DEFINE genAttribute FOR uml::Property -»
 	«IF association != null -»
 		«IF isMultivalued()»
-			«name»[MULT] <select name=«name-» ></select>
 		«ELSE»
 			«IF type.getAppliedStereotype("wcprofile::Embeddable") != null-»
 				«type.setCurrentEmbeddable()»

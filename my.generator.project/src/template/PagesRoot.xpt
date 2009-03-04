@@ -31,29 +31,35 @@
     
     «FOREACH allOwnedElements().typeSelect(wcprofile::Entity) AS e»
     <page view-id="«e.getViewFile("edit")»" >
-    	 <description>Edit «e.name»: #{«e.asVar()».displayName}</description>
-		<navigation from-action="#{«e.getAction()».save}">
-			<redirect view-id="«e.getViewFile("list")»" />
-		</navigation>
-		<navigation from-action="#{«e.getAction()».cancel}">
-			<redirect view-id="«e.getViewFile("list")»" />
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="«e.getViewFile("view")»" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="«e.getViewFile("view")»" />
+            </rule>			
 		</navigation>
 	</page>
 	
 	 <page view-id="«e.getViewFile("view")»" >
 	 	<navigation> 
 			 <rule if-outcome="edit">
+ 				<redirect view-id="«e.getViewFile("edit")»" />
+            </rule>	
+             <rule if-outcome="cancel">
  				<redirect view-id="«e.getViewFile("list")»" />
             </rule>			
-		</navigation>
-		<navigation from-action="#{«e.getAction()».cancel}">
-			<redirect view-id="«e.getViewFile("list")»" />
 		</navigation>
 	</page>
 	
 	<page view-id="«e.getViewFile("list")»" >
-		<navigation from-action="#{«e.getAction()».select}">
-			<redirect view-id="«e.getViewFile("view")»" />
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="«e.getViewFile("view")»" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="«e.getViewFile("edit")»" />
+            </rule>			
 		</navigation>
 	</page>
     «ENDFOREACH»

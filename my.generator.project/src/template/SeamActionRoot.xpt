@@ -64,18 +64,19 @@ public class «name»Action extends BaseAction implements java.io.Serializable{
 	public String select(«name» «asVar()») {
 		this.«asVar()» = entityManager.merge(«asVar()»);
 	    log.info("User selected «name»: #{«asVar()».displayName} #{«asVar()».id} ");
-		return "«getViewFile("view")»";
+		return "select";
 	}
 	
 	@End
-	public void save() {
+	public String save() {
 		facesMessages.add("Successfully saved  #{«asVar()».displayName}");
 		entityManager.persist(«asVar()»);
-		//return "/list«name».jspx";
+		return "save";
 	}
 	
 	@End
-	public void cancel() {
+	public String cancel() {
+		return "cancel";
 	    //System.out.println("in cancel");
 	}
 

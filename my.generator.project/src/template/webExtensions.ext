@@ -63,6 +63,10 @@ String getOutputText(Property prop):
 String getText(Property prop):
 isCurrentEditMode()?"h:inputText":"h:outputText";
 
+
+getTextForImgFile(Property prop):
+isCurrentEditMode()?"<s:fileUpload data=\"#{" + prop.class.asVar() + "." + prop.name + "}\"/>":"<h:graphicImage />";
+
 String getWebPath(Class cls):
  getEntitiesRoot() + cls.package.name + "/" + cls.asVar();
 

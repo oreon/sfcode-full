@@ -22,16 +22,19 @@ JAVA org.wc.generatorutil.ClassUtil.getInterfaces(org.eclipse.uml2.uml.Class);
 
 //for primitive type we will simply return the classname - no need for package declaration
 String fqn (PrimitiveType cls) :
-cls.name;
+getTypeName(cls.name);
 
 //If package of referring class is same as this class - will return simple name else fqn
 String fqnForPackage(Type cls, Class referringClass):
-(packageName(cls) == (packageName(referringClass)) )?cls.name:fqn(cls);
+(packageName(cls) == (packageName(referringClass)) )?getTypeName(cls.name):fqn(cls);
 
+//get type name for types array - useful for mapping e.g. imageFile is mapped to byte[]
+String getTypeName(String name):
+JAVA org.wc.generatorutil.ClassUtil.getTypeName(java.lang.String);
 
 //If package of referring class is same as this class - will return simple name else fqn
 String fqnForPackage(PrimitiveType cls, Class referringClass):
-cls.name;
+getTypeName(cls.name);
 
 applyEntityStereoType(Class cls):
 //cls.package.createOwnedClass(cls.name, true)->
@@ -78,3 +81,13 @@ prop.lowerBound() > 0?false:true;
 
 boolean isEmbeddable(Type type):
 type.getAppliedStereotype("wcprofile::Embeddable") != null;
+
+
+String getValidatorAnnotations(Column col):
+col.notNull?"@NotNull":"";
+
+String getLengthAnnotations(Column col):
+col.minLength > 0 ?"@Length(min=" + col.minLength + ")"  :"";
+
+String getUniqueAnnotations(Column col):
+col.uniqueProperty == true?"//@Unique":"";

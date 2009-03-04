@@ -1,6 +1,8 @@
 package org.wc.generatorutil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.WordUtils;
 import org.eclipse.emf.common.util.EList;
@@ -10,6 +12,9 @@ import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Property;
+import org.eclipse.uml2.uml.Type;
+
+
 
 public class ClassUtil {
 	Operation operation;
@@ -21,7 +26,12 @@ public class ClassUtil {
 	
 	private static Boolean currentMultiMode;
 	
+	static Map<String, String> mapTypes = new HashMap<String, String>();
 	
+	static {
+		mapTypes.put("imageFile", "byte[]");
+		
+	}
 
 	private static Boolean currentEditMode;
 	
@@ -72,6 +82,7 @@ public class ClassUtil {
 
 	public static void main(String[] args) {
 		Property property;
+		//property.getdef
 		
 		//prop.getAssociationEnd().getOpposite()
 		// cls.getPackage().
@@ -79,6 +90,9 @@ public class ClassUtil {
 		// assoc.getMemberEnds();
 		// cls.getA
 		// cls.
+		Package pack;
+		
+		//pack.getown
 	}
 	
 	
@@ -111,6 +125,18 @@ public class ClassUtil {
 		}
 		
 		return buffer.toString();
+	}
+	
+	public static String getValidatorAnnotations(Property prop){
+		return org.apache.commons.lang.StringUtils.EMPTY;
+	}
+	
+	public static String getTypeName(String typeName){
+		if(mapTypes.containsKey(typeName)){
+			System.out.println(typeName + " mapped to " + mapTypes.get(typeName));
+			return mapTypes.get(typeName);
+		}
+		return typeName;
 	}
 
 	public static String getPackageName(Class cls) {

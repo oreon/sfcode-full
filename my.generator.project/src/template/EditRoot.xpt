@@ -30,7 +30,7 @@
 
 «DEFINE genCancelSaveBtns(boolean edit) FOR uml::Class»
 	<div class="buttonBox">
-		«IF edit»
+		«IF !edit»
 		<h:commandButton value="Edit"  action="edit" /> 
 		<h:commandButton value="Back To Listing" immediate="true" action="#{«getAction()».cancel}" /> 
 		«ELSE»
@@ -53,7 +53,7 @@
 «ENDDEFINE»
 
 «DEFINE genAttribute FOR uml::Property -»
-	«IF type.name != getCurrentEntity().name»
+	«IF association == null || opposite.type.name != getCurrentEntity().name»
 	«IF association != null -»
 		«IF type.isEmbeddable()-»
 			«type.setCurrentEmbeddable()»
@@ -91,8 +91,17 @@
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
+«IF type.name == "imageFile"»
+	«getTextForImgFile()» 
+«ELSE»
 	<«getText()»  id="«getId()»" value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
+«ENDIF»   
 «ENDDEFINE»
+
+«DEFINE genPropertyEntry(wcprofile::dataTypes::imageFile cls) FOR uml::Property-»
+	«getTextForImgFile()»
+«ENDDEFINE»
+
 
 «DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
 	«IF !isCurrentEditMode()»
@@ -107,24 +116,13 @@
 	«ENDIF»
 «ENDDEFINE»
 
-«DEFINE genEditViewComponent FOR Entity»
-	«EXPAND genIncludes-»
-	<a4j:page>
-	<a4j:form id="form">
-			<rich:panel header="«NameS» Information">
-				<h:outputText value="Please correct the following issues !" 
-			rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
-			<h:panelGrid columns="2" styleClass="formTableCustom">
-	</a4j:form>
-	</a4j:page>
-«ENDDEFINE»
 
 «DEFINE gentEditableTable FOR uml::Property-»
 	«setCurrentMultiMode(true)-»
-	«setAsCurrentEntity(type)»
-	<h:dataTable id="«name»_data" var="«getCurrentEntity().asVar()»" rowIndexVar="rowIndex" 
+	<h:dataTable id="«name»_data" var="«type.asVar()»" rowIndexVar="rowIndex" 
 					value="#{«getCurrentEntity().asVar()».«name»}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		«setAsCurrentEntity(type)»
 		«EXPAND genAttribAsOutput FOR type-»		
 	</h:dataTable>
 	«setCurrentMultiMode(false)-»
