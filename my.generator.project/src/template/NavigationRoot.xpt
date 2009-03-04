@@ -6,16 +6,40 @@
 
 «DEFINE genNav FOR uml::Model»
 	«FILE getEntitiesRoot() +"/" + "navigation"  + "." + getExtension()»
+	<html «EXPAND WebRoot::genIncludes-» >
 		<h:form>
 		«FOREACH allOwnedElements().typeSelect(uml::Package) AS p»
+		
 		«IF !p.allOwnedElements().typeSelect(wcprofile::Entity).isEmpty»
-		<h:outputText value="«p.name»" />
+		
+		<ice:panelCollapsible>
+		 <f:facet name="header">
+                <ice:panelGroup>
+                    <ice:outputText id="linkHeader"
+                            value="«p.name.toFirstUpper()»"/>
+                </ice:panelGroup>
+         </f:facet>
+		
+		<ice:menuBar orientation="vertical"  style="font-size: 10px;" >
 		«FOREACH p.allOwnedElements().typeSelect(wcprofile::Entity) AS e»
-			<h:commandLink value="«e.name»" action="«e.asVar()»" />
+			«REM»comment
+			<ice:menuItem value="User" id="user" >
+				<ice:menuItem  
+					value="List" icon="/img/open.png"  action="/searchUsers.jspx">
+				</ice:menuItem>
+				<ice:menuItem action="/one.jspx"
+					value="Create" icon="/images/menu/open.gif">
+				</ice:menuItem>
+			</ice:menuItem>
+			«ENDREM»
+			<ice:menuItem value="«e.name»" action="«e.asVar()»" />
 		«ENDFOREACH»
+		</ice:menuBar>
+		</ice:panelCollapsible>
 		«ENDIF»
 		«ENDFOREACH»
 		</h:form>
+	</html>
 	«ENDFILE»
 «ENDDEFINE»
 
