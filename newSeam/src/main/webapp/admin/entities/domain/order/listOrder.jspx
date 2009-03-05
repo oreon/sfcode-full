@@ -1,0 +1,73 @@
+
+<ui:composition 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:rich="http://richfaces.org/rich" 
+
+	template="/admin/template.jspx"  >	
+	
+	<ui:define name="content">
+		<h:form>
+			<ice:commandButton value="Create New" action="edit"/>
+			<ice:dataTable id="data" var="order" value="#{orderList}" rows="30"
+			rowClasses="odd, even" styleClass="dataTable" >		
+			
+	
+		
+			
+				
+	<ice:column sortBy="#{order.displayName}" filterBy="#{orderAction.order.displayName}" filterEvent="onkeyup" >
+		<f:facet name="header">
+			<h:outputText value="#{msg.order_customer}" /> 	
+		</f:facet>
+		<h:outputText value="#{order.customer.displayName}" />
+	</ice:column>
+			
+		
+	
+		
+		
+	
+			
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{orderAction.select(order)}">
+			<h:graphicImage value="/images/icons/eye.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+			
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{orderAction.select(order)}">
+			<h:graphicImage value="/images/icons/edit.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+			
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{orderAction.select(order)}">
+			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+			</ice:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+	
