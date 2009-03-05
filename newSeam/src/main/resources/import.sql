@@ -1,0 +1,1 @@
+insert into customer values('admin','admin','wcmda');
