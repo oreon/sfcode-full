@@ -38,10 +38,17 @@
 
 «DEFINE genClassBody FOR wcprofile::Entity»
 	@Entity
+	@Table(name="«tableName!=null?tableName:name»")
 	@Name("«asVar()»")
 	public class «name» «getParent()» «getInterfaces()»{
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
+		 
+		@Transient
+	    public String getDisplayName(){
+	    	return «displayName != null ? displayName: getAllAttributes().get(0).name + " + \"\""»;
+	    }
+	    
 	}
 «ENDDEFINE»
 
@@ -119,7 +126,7 @@
     		@JoinColumn(name="«name»_id", nullable=«getAssocOptional()»)
 		«ENDIF»
 		«IF type.isEmbeddable()»
-			private «type.fqnForPackage(this.class)» «name» = new «type.name»();
+			protected «type.fqnForPackage(this.class)» «name» = new «type.name»();
 		«ELSE»
 			«EXPAND genPropertyDecl FOR this»
 		«ENDIF»
@@ -127,14 +134,14 @@
 «ENDDEFINE»
 
 «DEFINE genPropertyDecl FOR uml::Property»
-	private «type.fqnForPackage(this.class)» «name» «getDefault() != null?"= \"" + getDefault() + "\"":""»;
+	protected «type.fqnForPackage(this.class)» «name» «getDefault() != null?"= \"" + getDefault() + "\"":""»;
 «ENDDEFINE»
 
 «DEFINE genPropertyDecl FOR wcprofile::Column»
 	«getValidatorAnnotations()»
 	«getLengthAnnotations()»
 	«getUniqueAnnotations()»
-	private «type.fqnForPackage(this.class)» «name» «getDefault() != null?"= \"" + getDefault() + "\"":""»;
+	protected «type.fqnForPackage(this.class)» «name» «getDefault() != null?"= \"" + getDefault() + "\"":""»;
 «ENDDEFINE»
 
 

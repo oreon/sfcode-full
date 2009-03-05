@@ -8,20 +8,23 @@
 	«FILE getEntitiesRoot() +"/" + "navigation"  + "." + getExtension()»
 	<html «EXPAND WebRoot::genIncludes-» >
 		<h:form>
+		«REM»comment
 		«FOREACH allOwnedElements().typeSelect(uml::Package) AS p»
-		
 		«IF !p.allOwnedElements().typeSelect(wcprofile::Entity).isEmpty»
-		
+		«ENDREM»
 		<ice:panelCollapsible>
 		 <f:facet name="header">
                 <ice:panelGroup>
                     <ice:outputText id="linkHeader"
-                            value="«p.name.toFirstUpper()»"/>
+                            value="Entities"/>
                 </ice:panelGroup>
          </f:facet>
 		
 		<ice:menuBar orientation="vertical"  style="font-size: 10px;" >
+		«REM»
 		«FOREACH p.allOwnedElements().typeSelect(wcprofile::Entity) AS e»
+		«ENDREM»
+		«FOREACH allOwnedElements().typeSelect(wcprofile::Entity) AS e»
 			«REM»comment
 			<ice:menuItem value="User" id="user" >
 				<ice:menuItem  
@@ -36,8 +39,10 @@
 		«ENDFOREACH»
 		</ice:menuBar>
 		</ice:panelCollapsible>
+		«REM»comment 
 		«ENDIF»
 		«ENDFOREACH»
+		«ENDREM»
 		</h:form>
 	</html>
 	«ENDFILE»
