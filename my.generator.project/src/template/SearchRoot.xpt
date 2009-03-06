@@ -6,30 +6,24 @@
 
 «DEFINE genSearchView FOR uml::Class»
 	«FILE getWebPath() +"/" + "search" + name+ "." + getExtension()»
-<ui:composition «EXPAND WebRoot::genIncludes-»
-	template = "«getTemplate()»" >	
-	<ui:define name="content">
+<html «EXPAND WebRoot::genIncludes-» >	
 	<h:form>
 	<ice:panelGroup styleClass="pnlClpsblWrapper panelCollapsible">
 	<ice:panelCollapsible >
 			<f:facet name="header">
 				<ice:outputText id="srchHdr" value="Search" />
 			</f:facet>
-	<div class="entry errors"><h:messages globalOnly="true" /></div>
-	
-		
+			<div class="entry errors"><h:messages globalOnly="true" /></div>
 			<h:panelGrid columns="3">
-		«setAsCurrentEntity(this)-»
-		«EXPAND genAttribAsOutput FOR this-»
+			«setAsCurrentEntity(this)-»
+			«EXPAND genAttribAsOutput FOR this-»
 			</h:panelGrid>
 			«EXPAND genCancelSaveBtns FOR this»
-		
 		</ice:panelCollapsible>
 		</ice:panelGroup>
 		</h:form>
-		
-	</ui:define> 
-</ui:composition>
+	
+</html>
 	«ENDFILE»
 «ENDDEFINE»
 
@@ -37,7 +31,7 @@
 «DEFINE genCancelSaveBtns FOR uml::Class»
 	<div class="buttonBox">
 		<h:commandButton value="Search"  action="#{«getAction()».search}" /> 
-		<h:commandButton value="Back To Listing" immediate="true" action="#{«getAction()».cancel}" /> 
+		<h:commandButton value="Clear Search" immediate="true" action="#{«getAction()».clearSearch}" /> 
 	</div>
 «ENDDEFINE»
 
