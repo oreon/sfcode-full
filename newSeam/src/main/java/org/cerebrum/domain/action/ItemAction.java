@@ -27,7 +27,9 @@ import org.witchcraft.seam.action.BaseAction;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("itemAction")
-public class ItemAction extends BaseAction implements java.io.Serializable {
+public class ItemAction extends BaseAction<Item>
+		implements
+			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
@@ -43,24 +45,18 @@ public class ItemAction extends BaseAction implements java.io.Serializable {
 				"select item from Item item order by item.id").getResultList();
 	}
 
-	@Begin
-	public String select(Item item) {
-		this.item = entityManager.merge(item);
-		log.info("User selected Item: #{item.displayName} #{item.id} ");
-		return "select";
+	public Item getEntity() {
+		return item;
 	}
 
-	@End
-	public String save() {
-		facesMessages.add("Successfully saved  #{item.displayName}");
-		entityManager.persist(item);
-		return "save";
+	@Override
+	public void setEntity(Item t) {
+		this.item = t;
 	}
 
-	@End
-	public String cancel() {
-		return "cancel";
-		//System.out.println("in cancel");
+	@Override
+	public void setEntityList(List<Item> list) {
+		this.itemList = list;
 	}
 
 }

@@ -12,6 +12,7 @@
 	template="/admin/template.jspx"  >	
 	
 	<ui:define name="content">
+		<ui:include src="searchOrder.jspx" />
 		<h:form>
 			<ice:commandButton value="Create New" action="edit"/>
 			<ice:dataTable id="data" var="order" value="#{orderList}" rows="30"
@@ -61,7 +62,7 @@
 			<h:outputText value=" " />
 		</f:facet>
 		<h:commandLink 
-			action="#{orderAction.select(order)}">
+			action="#{orderAction.archive(order)}">
 			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" />
 		</h:commandLink>
 	</ice:column>

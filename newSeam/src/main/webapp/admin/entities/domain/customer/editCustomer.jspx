@@ -1,71 +1,77 @@
 
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition 
+ xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:s="http://jboss.com/products/seam/taglib"
 	xmlns:a="http://richfaces.org/a4j"
 	xmlns:ice="http://www.icesoft.com/icefaces/component"
-	xmlns:rich="http://richfaces.org/rich" template="/admin/template.jspx">
+	xmlns:rich="http://richfaces.org/rich" 
+	template = "/admin/template.jspx" >	
 	<ui:define name="content">
-		<ice:panelGroup id="editanswerchoiceGroupId"
-			styleClass="formBorderHighlight">
-			<div class="entry errors"><h:messages globalOnly="true" /></div>
+	<ice:panelGroup id="editanswerchoiceGroupId"
+				styleClass="formBorderHighlight">
+	<div class="entry errors"><h:messages globalOnly="true" /></div>
+	
+		<ice:form>
+			<s:validateAll>
+			<h:panelGrid columns="3">
+	
+	<h:outputText value="#{msg.person_firstName}"/>
 
-			<ice:form>
-				<s:validateAll>
-					<h:panelGrid columns="3">
+	<h:inputText  id="Person_firstName" required="true"  value="#{customer.firstName}" />
+   
+	<h:message styleClass="error errors" for="Person_firstName" />
+	
 
-						<h:outputText value="#{msg.person_firstName}" />
+	
+	
+	
+	<h:outputText value="#{msg.person_lastName}"/>
 
-						<h:inputText id="Person_firstName" required="true"
-							value="#{customer.firstName}" />
+	<h:inputText  id="Person_lastName" required="true"  value="#{customer.lastName}" />
+   
+	<h:message styleClass="error errors" for="Person_lastName" />
+	
 
-						<h:message styleClass="error errors" for="Person_firstName" />
+	
+	
+	
+	<h:outputText value="#{msg.person_email}"/>
 
+	<h:inputText  id="Person_email" required="true"  value="#{customer.email}" />
+   
+	<h:message styleClass="error errors" for="Person_email" />
+	
 
+	
+	
+	
+	<h:outputText value="#{msg.person_city}"/>
 
+	<h:inputText  id="Person_city" required="false"  value="#{customer.city}" />
+   
+	<h:message styleClass="error errors" for="Person_city" />
+	
 
+	
+	
+	
+	
+	
+			</h:panelGrid>
+			</s:validateAll>
+			
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{customerAction.save}" /> 
+		<h:commandButton value="Cancel" immediate="true" action="#{customerAction.cancel}" /> 
+		
+	</div>
 
-						<h:outputText value="#{msg.person_lastName}" />
-
-						<h:inputText id="Person_lastName" required="true"
-							value="#{customer.lastName}" />
-
-						<h:message styleClass="error errors" for="Person_lastName" />
-
-
-
-
-
-						<h:outputText value="#{msg.person_email}" />
-
-						<h:inputText id="Person_email" required="true"
-							value="#{customer.email}" />
-
-						<h:message styleClass="error errors" for="Person_email" />
-
-
-
-
-
-						<h:outputText value="#{msg.person_city}" />
-
-						<h:inputText id="Person_city" required="false"
-							value="#{customer.city}" />
-
-						<h:message styleClass="error errors" for="Person_city" />
-
-
-
-					</h:panelGrid>
-				</s:validateAll>
-
-				<div class="buttonBox"><h:commandButton value="Save"
-					action="#{customerAction.save}" /> <h:commandButton value="Cancel"
-					immediate="true" action="#{customerAction.cancel}" /></div>
-
-			</ice:form>
+		</ice:form>
 		</ice:panelGroup>
-	</ui:define>
+	</ui:define> 
 </ui:composition>
+	

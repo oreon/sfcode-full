@@ -9,6 +9,7 @@ import org.hibernate.validator.*;
 
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.Unique;
 
 @MappedSuperclass
 public class Person extends BusinessEntity {
@@ -47,9 +48,7 @@ public class Person extends BusinessEntity {
 		this.email = email;
 	}
 
-	public String getEmail() {
-		return email;
-	}
+	
 
 	public void setCity(String city) {
 		this.city = city;
