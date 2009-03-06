@@ -10,14 +10,15 @@
 	template="«getTemplate()»"  >	
 	«setAsCurrentEntity(this)»
 	<ui:define name="content">
+		<ui:include src="search«name».«getExtension()»" />
 		<h:form>
 			<ice:commandButton value="Create New" action="edit"/>
 			<ice:dataTable id="data" var="«asVar()»" value="#{«asVar()»List}" rows="30"
 			rowClasses="odd, even" styleClass="dataTable" >		
 			«EXPAND genAttribAsOutput FOR this-»
-			«EXPAND genLink("view", "eye.png") FOR this»
-			«EXPAND genLink ("edit", "edit.png")FOR this»
-			«EXPAND genLink("delete", "delete.png") FOR this»
+			«EXPAND genLink("select", "eye.png") FOR this»
+			«EXPAND genLink ("select", "edit.png")FOR this»
+			«EXPAND genLink("archive", "delete.png") FOR this»
 			</ice:dataTable>
 		</h:form>
 	</ui:define>
@@ -55,7 +56,7 @@
 			<h:outputText value=" " />
 		</f:facet>
 		<h:commandLink 
-			action="#{«getAction()».select(«asVar()»)}">
+			action="#{«getAction()».«action»(«asVar()»)}">
 			<h:graphicImage value="/images/icons/«icon»" style="border: 0px" />
 		</h:commandLink>
 	</ice:column>

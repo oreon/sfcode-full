@@ -42,7 +42,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("«asVar()»Action")
-public class «name»Action extends BaseAction implements java.io.Serializable{
+public class «name»Action extends BaseAction<«name»> implements java.io.Serializable{
 
 	@In(create = true)
 	@Out(required = false)
@@ -60,24 +60,18 @@ public class «name»Action extends BaseAction implements java.io.Serializable{
 				.getResultList();
 	}	
 
-	@Begin
-	public String select(«name» «asVar()») {
-		this.«asVar()» = entityManager.merge(«asVar()»);
-	    log.info("User selected «name»: #{«asVar()».displayName} #{«asVar()».id} ");
-		return "select";
+	public «name» getEntity(){
+		return «asVar()»;
 	}
-	
-	@End
-	public String save() {
-		facesMessages.add("Successfully saved  #{«asVar()».displayName}");
-		entityManager.persist(«asVar()»);
-		return "save";
+
+	@Override
+	public void setEntity(«name» t) {
+		this.«asVar()» = t;
 	}
-	
-	@End
-	public String cancel() {
-		return "cancel";
-	    //System.out.println("in cancel");
+
+	@Override
+	public void setEntityList(List<«name»> list) {
+		this.«asVar()»List = list;
 	}
 
 }
