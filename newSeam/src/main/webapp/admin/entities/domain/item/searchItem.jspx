@@ -1,5 +1,5 @@
 
-<ui:composition 
+<html 
  xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -8,7 +8,7 @@
 	xmlns:a="http://richfaces.org/a4j"
 	xmlns:ice="http://www.icesoft.com/icefaces/component"
 	xmlns:rich="http://richfaces.org/rich" 
-	template = "/admin/template.jspx" >	
+ >	
 	<ui:define name="content">
 	<h:form>
 	<ice:panelGroup styleClass="pnlClpsblWrapper panelCollapsible">
@@ -16,9 +16,7 @@
 			<f:facet name="header">
 				<ice:outputText id="srchHdr" value="Search" />
 			</f:facet>
-	<div class="entry errors"><h:messages globalOnly="true" /></div>
-	
-		
+			<div class="entry errors"><h:messages globalOnly="true" /></div>
 			<h:panelGrid columns="3">
 	
 	
@@ -61,14 +59,12 @@
 			
 	<div class="buttonBox">
 		<h:commandButton value="Search"  action="#{itemAction.search}" /> 
-		<h:commandButton value="Back To Listing" immediate="true" action="#{itemAction.cancel}" /> 
+		<h:commandButton value="Clear Search" immediate="true" action="#{itemAction.clearSearch}" /> 
 	</div>
 
-		
 		</ice:panelCollapsible>
 		</ice:panelGroup>
 		</h:form>
-		
-	</ui:define> 
-</ui:composition>
+	
+</html>
 	

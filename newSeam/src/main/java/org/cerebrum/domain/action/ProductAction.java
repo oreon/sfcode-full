@@ -27,7 +27,9 @@ import org.witchcraft.seam.action.BaseAction;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("productAction")
-public class ProductAction extends BaseAction implements java.io.Serializable {
+public class ProductAction extends BaseAction<Product>
+		implements
+			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
@@ -44,25 +46,18 @@ public class ProductAction extends BaseAction implements java.io.Serializable {
 				.getResultList();
 	}
 
-	@Begin
-	public String select(Product product) {
-		this.product = entityManager.merge(product);
-		log
-				.info("User selected Product: #{product.displayName} #{product.id} ");
-		return "select";
+	public Product getEntity() {
+		return product;
 	}
 
-	@End
-	public String save() {
-		facesMessages.add("Successfully saved  #{product.displayName}");
-		entityManager.persist(product);
-		return "save";
+	@Override
+	public void setEntity(Product t) {
+		this.product = t;
 	}
 
-	@End
-	public String cancel() {
-		return "cancel";
-		//System.out.println("in cancel");
+	@Override
+	public void setEntityList(List<Product> list) {
+		this.productList = list;
 	}
 
 }

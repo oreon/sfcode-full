@@ -1,70 +1,66 @@
 
-<ui:composition 
- xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:s="http://jboss.com/products/seam/taglib"
 	xmlns:a="http://richfaces.org/a4j"
 	xmlns:ice="http://www.icesoft.com/icefaces/component"
-	xmlns:rich="http://richfaces.org/rich" 
-	template = "/admin/template.jspx" >	
-	<ui:define name="content">
-	<h:form>
+	xmlns:rich="http://richfaces.org/rich">
+<h:form>
 	<ice:panelGroup styleClass="pnlClpsblWrapper panelCollapsible">
-	<ice:panelCollapsible >
+		<ice:panelCollapsible>
 			<f:facet name="header">
 				<ice:outputText id="srchHdr" value="Search" />
 			</f:facet>
-	<div class="entry errors"><h:messages globalOnly="true" /></div>
-	
-		
+			<div class="entry errors"><h:messages globalOnly="true" /></div>
 			<h:panelGrid columns="3">
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.person_firstName}"/> <br/>
-	<h:inputText  id="Person_firstName" value="#{customer.firstName}" />
-	</h:panelGroup>
 
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.person_lastName}"/> <br/>
-	<h:inputText  id="Person_lastName" value="#{customer.lastName}" />
-	</h:panelGroup>
+				<h:panelGroup>
+					<h:outputText value="#{msg.person_firstName}" />
+					<br />
+					<h:inputText id="Person_firstName" value="#{customer.firstName}" />
+				</h:panelGroup>
 
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.person_email}"/> <br/>
-	<h:inputText  id="Person_email" value="#{customer.email}" />
-	</h:panelGroup>
 
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.person_city}"/> <br/>
-	<h:inputText  id="Person_city" value="#{customer.city}" />
-	</h:panelGroup>
 
-	
-	
-	
+
+				<h:panelGroup>
+					<h:outputText value="#{msg.person_lastName}" />
+					<br />
+					<h:inputText id="Person_lastName" value="#{customer.lastName}" />
+				</h:panelGroup>
+
+
+
+
+				<h:panelGroup>
+					<h:outputText value="#{msg.person_email}" />
+					<br />
+					<h:inputText id="Person_email" value="#{customer.email}" />
+				</h:panelGroup>
+
+
+
+
+				<h:panelGroup>
+					<h:outputText value="#{msg.person_city}" />
+					<br />
+					<h:inputText id="Person_city" value="#{customer.city}" />
+				</h:panelGroup>
+
+
+
+
 			</h:panelGrid>
-			
-	<div class="buttonBox">
-		<h:commandButton value="Search"  action="#{customerAction.search}" /> 
-		<h:commandButton value="Back To Listing" immediate="true" action="#{customerAction.cancel}" /> 
-	</div>
 
-		
+			<div class="buttonBox"><h:commandButton value="Search"
+				action="#{customerAction.search}" /> <h:commandButton
+				value="Clear Search" immediate="true"
+				action="#{customerAction.clearSearch}" /></div>
+
 		</ice:panelCollapsible>
-		</ice:panelGroup>
-		</h:form>
-		
-	</ui:define> 
-</ui:composition>
-	
+	</ice:panelGroup>
+</h:form>
+
+</html>
