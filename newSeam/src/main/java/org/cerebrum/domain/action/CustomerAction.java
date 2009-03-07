@@ -60,4 +60,12 @@ public class CustomerAction extends BaseAction<Customer>
 		this.customerList = list;
 	}
 
+	public void setCustomer(Customer customer) {
+		this.customer = customer;	
+	}
+
+	public void setEntityManager(EntityManager em) {
+		this.entityManager = em;
+	}
+
 }
