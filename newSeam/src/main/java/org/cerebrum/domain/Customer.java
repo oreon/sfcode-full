@@ -21,9 +21,10 @@ public class Customer extends Person {
 		return lastName + "," + firstName;
 	}
 	
+	/*
 	@Unique(fieldName="email", entityName="")
 	public String getEmail() {
 		return email;
-	}
+	}*/
 
 }
