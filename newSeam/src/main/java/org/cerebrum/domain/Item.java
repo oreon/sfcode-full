@@ -15,7 +15,7 @@ import org.witchcraft.base.entity.BusinessEntity;
 @Name("item")
 public class Item extends BusinessEntity {
 
-	protected Integer qty;
+	protected Integer qty = 1;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id", nullable = false)

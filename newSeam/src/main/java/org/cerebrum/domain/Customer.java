@@ -1,30 +1,23 @@
 package org.cerebrum.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Date;
 
-import org.hibernate.validator.event.JPAValidateListener;
+import javax.persistence.*;
+import org.hibernate.validator.*;
+
 import org.jboss.seam.annotations.Name;
-import org.witchcraft.base.entity.Unique;
+import org.witchcraft.base.entity.BusinessEntity;
 
 @Entity
-@Table(name = "Customer", uniqueConstraints=@UniqueConstraint(columnNames="email"))
+@Table(name = "Customer")
 @Name("customer")
-@EntityListeners( JPAValidateListener.class )
 public class Customer extends Person {
 
 	@Transient
 	public String getDisplayName() {
 		return lastName + "," + firstName;
 	}
-	
-	/*
-	@Unique(fieldName="email", entityName="")
-	public String getEmail() {
-		return email;
-	}*/
 
 }
