@@ -11,11 +11,11 @@ public class Person extends BusinessEntity {
 
 	@NotNull
 	@Length(min = 2)
-	private String firstName;
+	protected String firstName;
 
 	@NotNull
 	@Length(min = 2)
-	private String lastName;
+	protected String lastName;
 
 	@NotNull
 	private String email;
