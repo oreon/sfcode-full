@@ -1,32 +1,26 @@
 package org.cerebrum.domain;
 
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Date;
+import javax.persistence.MappedSuperclass;
 
-import javax.persistence.*;
-import org.hibernate.validator.*;
-
-import org.jboss.seam.annotations.Name;
+import org.hibernate.validator.Length;
+import org.hibernate.validator.NotNull;
 import org.witchcraft.base.entity.BusinessEntity;
-import org.witchcraft.base.entity.Unique;
 
 @MappedSuperclass
 public class Person extends BusinessEntity {
 
 	@NotNull
 	@Length(min = 2)
-	protected String firstName;
+	private String firstName;
 
 	@NotNull
 	@Length(min = 2)
-	protected String lastName;
+	private String lastName;
 
 	@NotNull
-	//@Unique
-	protected String email;
+	private String email;
 
-	protected String city = "Toronto";
+	private String city = "Toronto";
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -48,7 +42,9 @@ public class Person extends BusinessEntity {
 		this.email = email;
 	}
 
-	
+	public String getEmail() {
+		return email;
+	}
 
 	public void setCity(String city) {
 		this.city = city;
