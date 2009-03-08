@@ -10,19 +10,21 @@
 <ui:composition «EXPAND WebRoot::genIncludes-»
 	template = "«getTemplate()»" >	
 	<ui:define name="content">
-	<ice:panelGroup id="editanswerchoiceGroupId"
-				styleClass="formBorderHighlight">
-	<div class="entry errors"><h:messages globalOnly="true" /></div>
-	
-		<ice:form>
-			<s:validateAll>
-			<h:panelGrid columns="3">
-		«setAsCurrentEntity(this)-»
-		«EXPAND genAttribAsOutput FOR this-»
-			</h:panelGrid>
-			</s:validateAll>
-			«EXPAND genCancelSaveBtns(edit) FOR this»
-		</ice:form>
+		<ice:panelGroup id="editanswerchoiceGroupId"
+					styleClass="formBorderHighlight">
+			<ice:form>
+				<s:validateAll>
+				«setAsCurrentEntity(this)-»
+				<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+				<f:facet name="header">
+					<h:outputText value="«name» : #{«asVar()».displayName}" />
+				</f:facet>
+				«EXPAND genAttribAsOutput FOR this-»
+				</h:panelGrid>
+				«EXPAND genTable FOR this-»
+				</s:validateAll>
+					«EXPAND genCancelSaveBtns(edit) FOR this»
+			</ice:form>
 		</ice:panelGroup>
 	</ui:define> 
 </ui:composition>
@@ -34,9 +36,11 @@
 	<div class="buttonBox">
 		«IF !edit»
 		<h:commandButton value="Edit"  action="edit" /> 
+		<h:outputText value=" " />
 		<h:commandButton value="Back To Listing" immediate="true" action="#{«getAction()».cancel}" /> 
 		«ELSE»
 		<h:commandButton value="Save" action="#{«getAction()».save}" /> 
+		<h:outputText value=" " />
 		<h:commandButton value="Cancel" immediate="true" action="#{«getAction()».cancel}" /> 
 		«ENDIF»
 	</div>
@@ -47,11 +51,14 @@
 			«EXPAND genAttribute FOREACH e.getAllAttributes().select(a|!a.isMultivalued()) -»
 	«ENDFOREACH»
 	«EXPAND genAttribute FOREACH getAllAttributes().select(a|!a.isMultivalued()) -»
-	
+«ENDDEFINE»
+
+«REM»For multivalued attributes e.g. an order's order items«ENDREM»
+«DEFINE genTable FOR uml::Class»
 	«FOREACH allParents() AS e-»
-			«EXPAND gentEditableTable FOREACH e.getAllAttributes().select(a|a.isMultivalued() && a.association != null) -»
+		«EXPAND gentEditableTable FOREACH e.getComposed() -»
 	«ENDFOREACH»
-	«EXPAND gentEditableTable FOREACH getAllAttributes().select(a|a.isMultivalued() && a.association != null) -»
+	«EXPAND gentEditableTable FOREACH getComposed() -»
 «ENDDEFINE»
 
 «DEFINE genAttribute FOR uml::Property -»
@@ -121,11 +128,33 @@
 
 «DEFINE gentEditableTable FOR uml::Property-»
 	«setCurrentMultiMode(true)-»
+	«EXPAND genNew»
 	<h:dataTable id="«name»_data" var="«type.asVar()»" rowIndexVar="rowIndex" 
 					value="#{«getCurrentEntity().asVar()».«name»}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		«setAsCurrentEntity(type)»
-		«EXPAND genAttribAsOutput FOR type-»		
+		«EXPAND genAttribAsOutput FOR type-»
+		«REM» comment	
+		«EXPAND genTable FOR type-»
+		«ENDREM»
+		«EXPAND genDelete FOR this»	
 	</h:dataTable>
 	«setCurrentMultiMode(false)-»
+«ENDDEFINE»
+
+«DEFINE genDelete FOR uml::Property»
+	<h:column>
+		<f:facet name="header">
+			<h:outputText value="Delete" />
+		</f:facet>
+		<ice:commandButton value="Delete" action="#{«getCurrentEntity().getAction()».delete«name.toFirstUpper()»(«type.asVar()»)}" immediate="true">
+			<s:conversationId/>
+		</ice:commandButton>
+	</h:column>
+«ENDDEFINE»
+
+«DEFINE genNew FOR uml::Property»
+	<ice:commandButton  value="New Item"action="#{«getCurrentEntity().getAction()».add«name.toFirstUpper()»}" immediate="true">
+		<s:conversationId/>
+	</ice:commandButton>
 «ENDDEFINE»
