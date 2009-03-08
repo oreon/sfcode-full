@@ -15,6 +15,9 @@ cls.asVar() + "Action";
 boolean isEnum(Type type):
 type.getAppliedStereotype("uml::Enumeration") != null;
 
+boolean isString(Property prop):
+prop.type.name == "String";
+
 
 String msgBundleKey(Property attr):
 "#{msg." + attr.class.asVar() + "_" + attr.name + "}";
@@ -55,7 +58,11 @@ String getOutputMessage(Property prop):
 isCurrentMultiMode()  ? getColumnBegin(prop):getOutputText(prop);
 
 String getColumnBegin(Property prop):
-"<h:column><f:facet name=\"header\">" + getOutputText(prop) + "</f:facet>";
+"<h:column style=\"text-align:" + prop.getAlign() + "\"><f:facet name=\"header\">" + getOutputText(prop) + "</f:facet>";
+
+//types other than text e.g. integer, double should be right aligned
+getAlign(Property prop):
+prop.isString()?"left":"right";
 
 String getOutputText(Property prop):
 "<h:outputText value=\"" + prop.msgBundleKey() + "\"/>";
