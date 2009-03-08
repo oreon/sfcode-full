@@ -128,33 +128,35 @@
 
 «DEFINE gentEditableTable FOR uml::Property-»
 	«setCurrentMultiMode(true)-»
-	«EXPAND genNew»
-	<h:dataTable id="«name»_data" var="«type.asVar()»" rowIndexVar="rowIndex" 
-					value="#{«getCurrentEntity().asVar()».«name»}" rows="10"
+	
+	<ice:dataTable id="«name»_data" var="«type.asVar()»" 
+					value="#{«getCurrentEntity().getAction()».list«name.toFirstUpper()»}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		«setAsCurrentEntity(type)»
 		«EXPAND genAttribAsOutput FOR type-»
 		«REM» comment	
 		«EXPAND genTable FOR type-»
 		«ENDREM»
-		«EXPAND genDelete FOR this»	
-	</h:dataTable>
+		«IF isCurrentEditMode()»
+		«EXPAND genNew»
+		«EXPAND genDelete FOR this»
+		«ENDIF»	
+	</ice:dataTable>
 	«setCurrentMultiMode(false)-»
 «ENDDEFINE»
 
 «DEFINE genDelete FOR uml::Property»
 	<h:column>
-		<f:facet name="header">
-			<h:outputText value="Delete" />
-		</f:facet>
-		<ice:commandButton value="Delete" action="#{«getCurrentEntity().getAction()».delete«name.toFirstUpper()»(«type.asVar()»)}" immediate="true">
+		<ice:commandButton value="Delete" action="#{«class.getAction()».delete«name.toFirstUpper()»(«type.asVar()»)}" immediate="true">
 			<s:conversationId/>
 		</ice:commandButton>
 	</h:column>
 «ENDDEFINE»
 
 «DEFINE genNew FOR uml::Property»
-	<ice:commandButton  value="New Item"action="#{«getCurrentEntity().getAction()».add«name.toFirstUpper()»}" immediate="true">
+	<h:column>
+	<h:commandButton  value="New Item" action="#{«class.getAction()».add«name.toFirstUpper()»}" >
 		<s:conversationId/>
-	</ice:commandButton>
+	</h:commandButton>
+	</h:column>
 «ENDDEFINE»
