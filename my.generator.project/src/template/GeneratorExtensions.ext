@@ -99,6 +99,11 @@ col.uniqueProperty == true?"//@Unique":"";
 getComposed(Class cls):
 cls.getAllAttributes().select(a|a.isMultivalued() && a.association != null);
 
+//e.g customer would be needed of the given order
+getOutgoingAssociations(Class cls):
+cls.getAllAttributes().select(a|a.isMultivalued() == false && a.association != null);
+
+
 //need to add quotes if default is a string type
 getDefaultVal(Property prop):
 prop.type.name == "String" ? "\"" + prop.getDefault() + "\"": prop.getDefault();

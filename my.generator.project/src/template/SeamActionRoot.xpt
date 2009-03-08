@@ -23,6 +23,9 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
 import org.apache.commons.lang.StringUtils;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
@@ -79,6 +82,20 @@ public class «name»Action extends BaseAction<«name»> implements java.io.Serializ
 		this.«asVar()»List = list;
 	}
 	
+	«IF !getOutgoingAssociations().isEmpty»
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
+	 */
+	public void addAssoications(Criteria criteria) {
+		«FOREACH getOutgoingAssociations() AS e»
+		if («asVar()».get«e.name.toFirstUpper()»() != null) {
+			criteria = criteria.add(Restrictions.eq("«e.name».id", «asVar()».get«e.name.toFirstUpper()»().getId()));
+		}
+		«ENDFOREACH»
+	}
+	«ENDIF»
+	
+	
 	«EXPAND genCompositeCode FOREACH getComposed() -»
 	
 	«IF ! ( getComposed().isEmpty )»
@@ -130,8 +147,6 @@ public class «name»Action extends BaseAction<«name»> implements java.io.Serializ
 		«name».set«opposite.name.toFirstUpper()»(«class.asVar()»);
 		«currentList».add(«name»);
 	}
-	
-	
 	
 	«ENDLET»
 «ENDDEFINE»
