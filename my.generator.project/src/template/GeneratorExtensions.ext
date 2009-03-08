@@ -82,6 +82,9 @@ prop.lowerBound() > 0?false:true;
 boolean isEmbeddable(Type type):
 type.getAppliedStereotype("wcprofile::Embeddable") != null;
 
+boolean isColumn(Property type):
+type.getAppliedStereotype("wcprofile::Column") != null;
+
 
 String getValidatorAnnotations(Column col):
 col.notNull?"@NotNull":"";
@@ -91,3 +94,14 @@ col.minLength > 0 ?"@Length(min=" + col.minLength + ")"  :"";
 
 String getUniqueAnnotations(Column col):
 col.uniqueProperty == true?"//@Unique":"";
+
+//e.g. To get order Items for an order 
+getComposed(Class cls):
+cls.getAllAttributes().select(a|a.isMultivalued() && a.association != null);
+
+//need to add quotes if default is a string type
+getDefaultVal(Property prop):
+prop.type.name == "String" ? "\"" + prop.getDefault() + "\"": prop.getDefault();
+
+getTransient(Column col):
+col.derivedProperty != null ? "@Transient":"";

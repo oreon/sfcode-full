@@ -40,6 +40,11 @@ import org.jboss.seam.log.Log;
 
 import org.witchcraft.seam.action.BaseAction; 
 
+«FOREACH getComposed() AS a-»
+import «a.type.fqn()»;
+«ENDFOREACH»
+
+
 @Scope(ScopeType.CONVERSATION)
 @Name("«asVar()»Action")
 public class «name»Action extends BaseAction<«name»> implements java.io.Serializable{
@@ -56,7 +61,7 @@ public class «name»Action extends BaseAction<«name»> implements java.io.Serializ
 	public void findRecords() {
 		«asVar()»List = entityManager
 				.createQuery(
-						"select «asVar()» from «name» «asVar()» order by «asVar()».id")
+						"select «asVar()» from «name» «asVar()» «asVar()» by «asVar()».id")
 				.getResultList();
 	}	
 
@@ -73,8 +78,61 @@ public class «name»Action extends BaseAction<«name»> implements java.io.Serializ
 	public void setEntityList(List<«name»> list) {
 		this.«asVar()»List = list;
 	}
-
+	
+	«EXPAND genCompositeCode FOREACH getComposed() -»
+	
+	«IF ! ( getComposed().isEmpty )»
+	public void updateComposedAssociations(){
+	«FOREACH getComposed() AS e»
+		«e.class.asVar()».get«e.name.toFirstUpper()»().clear();
+		«e.class.asVar()».get«e.name.toFirstUpper()»().addAll(«"list" + e.name.toFirstUpper()»);
+	«ENDFOREACH»
+	}
+	«ENDIF»
+	
 }
 «ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE genCompositeCode FOR uml::Property»
+	
+	«LET "list" + name.toFirstUpper()  AS currentList»
+	
+	private List<«type.name»> «currentList»;
+	
+	void initList«name.toFirstUpper()»(){
+		«currentList» = new ArrayList<«type.name»>();
+		if(«class.asVar()».get«name.toFirstUpper()»().isEmpty())
+			add«name.toFirstUpper()»();
+		else
+			«currentList».addAll(«class.asVar()».get«name.toFirstUpper()»());
+	}
+	
+	public List<«type.name»> getListItems() {
+		if(«currentList» == null){
+			initList«name.toFirstUpper()»();
+		}
+		return «currentList»;
+	}
+
+	public void setListItems(List<«type.name»> «currentList») {
+		this.«currentList» = «currentList»;
+	}
+	
+	public void delete«name.toFirstUpper()»(«type.name» «name»){
+		«currentList».remove(«name»);
+	}
+	
+	@Begin(join=true)
+	public void add«name.toFirstUpper()»(){
+		«type.name» «name» = new «type.name»();
+		«name».set«opposite.name.toFirstUpper()»(«class.asVar()»);
+		«currentList».add(«name»);
+	}
+	
+	
+	
+	«ENDLET»
 «ENDDEFINE»
 

@@ -119,7 +119,7 @@
 	«IF isMultivalued()»
 		@OneToMany(mappedBy = "«opposite.name»", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 		@JoinColumn(name = "«class.name»_ID", nullable = «getAssocOptional()»)
-		private Set<«type.fqnForPackage(this.class)»> «name»;
+		private Set<«type.fqnForPackage(this.class)»> «name» = new HashSet();
 	«ELSE»
 		«IF association != null &&  !type.isEmbeddable()»
 			@ManyToOne(optional=«getAssocOptional()», fetch=FetchType.LAZY)
@@ -134,14 +134,15 @@
 «ENDDEFINE»
 
 «DEFINE genPropertyDecl FOR uml::Property»
-	protected «type.fqnForPackage(this.class)» «name» «getDefault() != null?"= \"" + getDefault() + "\"":""»;
+	protected «type.fqnForPackage(this.class)» «name» «getDefault() != null?" = " +getDefaultVal():""»;
 «ENDDEFINE»
 
 «DEFINE genPropertyDecl FOR wcprofile::Column»
 	«getValidatorAnnotations()»
 	«getLengthAnnotations()»
 	«getUniqueAnnotations()»
-	protected «type.fqnForPackage(this.class)» «name» «getDefault() != null?"= \"" + getDefault() + "\"":""»;
+	«getTransient()»
+	protected «type.fqnForPackage(this.class)» «name» «getDefault() != null? getDefaultVal() :""»;
 «ENDDEFINE»
 
 
@@ -162,7 +163,7 @@
 		}
 		
 		public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
-			return «name»;
+			return «isColumn() && derivedProperty != null ? derivedProperty :  name»;
 		}
 	«ENDIF»
 «ENDDEFINE»
