@@ -1,6 +1,6 @@
 package org.cerebrum.domain.action;
 
-import org.cerebrum.domain.Order;
+import org.cerebrum.domain.Category;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,41 +28,41 @@ import org.jboss.seam.log.Log;
 
 import org.witchcraft.seam.action.BaseAction;
 
-import org.cerebrum.domain.Item;
+import org.cerebrum.domain.Category;
 
 @Scope(ScopeType.CONVERSATION)
-@Name("orderAction")
-public class OrderAction extends BaseAction<Order>
+@Name("categoryAction")
+public class CategoryAction extends BaseAction<Category>
 		implements
 			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
 	@DataModelSelection
-	private Order order;
+	private Category category;
 
 	@DataModel
-	private List<Order> orderList;
+	private List<Category> categoryList;
 
-	@Factory("orderList")
+	@Factory("categoryList")
 	public void findRecords() {
-		orderList = entityManager.createQuery(
-				"select order from Order order order by order.id")
+		categoryList = entityManager.createQuery(
+				"select category from Category category order by category.id")
 				.getResultList();
 	}
 
-	public Order getEntity() {
-		return order;
+	public Category getEntity() {
+		return category;
 	}
 
 	@Override
-	public void setEntity(Order t) {
-		this.order = t;
+	public void setEntity(Category t) {
+		this.category = t;
 	}
 
 	@Override
-	public void setEntityList(List<Order> list) {
-		this.orderList = list;
+	public void setEntityList(List<Category> list) {
+		this.categoryList = list;
 	}
 
 	/** This function adds associated entities to an example criterion
@@ -70,49 +70,49 @@ public class OrderAction extends BaseAction<Order>
 	 */
 	public void addAssoications(Criteria criteria) {
 
-		if (order.getCustomer() != null) {
-			criteria = criteria.add(Restrictions.eq("customer.id", order
-					.getCustomer().getId()));
+		if (category.getParent() != null) {
+			criteria = criteria.add(Restrictions.eq("parent.id", category
+					.getParent().getId()));
 		}
 
 	}
 
-	private List<Item> listItems;
+	private List<Category> listChildren;
 
-	void initListItems() {
-		listItems = new ArrayList<Item>();
-		if (order.getItems().isEmpty())
-			addItems();
+	void initListChildren() {
+		listChildren = new ArrayList<Category>();
+		if (category.getChildren().isEmpty())
+			addChildren();
 		else
-			listItems.addAll(order.getItems());
+			listChildren.addAll(category.getChildren());
 	}
 
-	public List<Item> getListItems() {
-		if (listItems == null) {
-			initListItems();
+	public List<Category> getListItems() {
+		if (listChildren == null) {
+			initListChildren();
 		}
-		return listItems;
+		return listChildren;
 	}
 
-	public void setListItems(List<Item> listItems) {
-		this.listItems = listItems;
+	public void setListItems(List<Category> listChildren) {
+		this.listChildren = listChildren;
 	}
 
-	public void deleteItems(Item items) {
-		listItems.remove(items);
+	public void deleteChildren(Category children) {
+		listChildren.remove(children);
 	}
 
 	@Begin(join = true)
-	public void addItems() {
-		Item items = new Item();
-		items.setOrder(order);
-		listItems.add(items);
+	public void addChildren() {
+		Category children = new Category();
+		children.setParent(category);
+		listChildren.add(children);
 	}
 
 	public void updateComposedAssociations() {
 
-		order.getItems().clear();
-		order.getItems().addAll(listItems);
+		category.getChildren().clear();
+		category.getChildren().addAll(listChildren);
 
 	}
 

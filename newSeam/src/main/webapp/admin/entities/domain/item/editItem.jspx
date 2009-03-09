@@ -10,13 +10,14 @@
 	xmlns:rich="http://richfaces.org/rich" 
 	template = "/admin/template.jspx" >	
 	<ui:define name="content">
-	<ice:panelGroup id="editanswerchoiceGroupId"
-				styleClass="formBorderHighlight">
-	<div class="entry errors"><h:messages globalOnly="true" /></div>
-	
-		<ice:form>
-			<s:validateAll>
-			<h:panelGrid columns="3">
+		<ice:panelGroup id="editanswerchoiceGroupId"
+					styleClass="formBorderHighlight">
+			<ice:form>
+				<s:validateAll>
+				<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+				<f:facet name="header">
+					<h:outputText value="Item : #{item.displayName}" />
+				</f:facet>
 	
 	
 	<h:outputText value="#{msg.item_qty}"/>
@@ -46,18 +47,29 @@
 	
 	
 	
+	<h:outputText value="#{msg.item_itemTotal}"/>
+
+	<h:inputText  id="Item_itemTotal" required="false"  value="#{item.itemTotal}" />
+   
+	<h:message styleClass="error errors" for="Item_itemTotal" />
 	
-			</h:panelGrid>
-			</s:validateAll>
-			
+
+	
+	
+				</h:panelGrid>
+				
+	
+				</s:validateAll>
+					
 	<div class="buttonBox">
 		
 		<h:commandButton value="Save" action="#{itemAction.save}" /> 
+		<h:outputText value=" " />
 		<h:commandButton value="Cancel" immediate="true" action="#{itemAction.cancel}" /> 
 		
 	</div>
 
-		</ice:form>
+			</ice:form>
 		</ice:panelGroup>
 	</ui:define> 
 </ui:composition>

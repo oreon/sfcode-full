@@ -16,50 +16,50 @@
 				<s:validateAll>
 				<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
 				<f:facet name="header">
-					<h:outputText value="Item : #{item.displayName}" />
+					<h:outputText value="Category : #{category.displayName}" />
 				</f:facet>
 	
 	
-	<h:outputText value="#{msg.item_qty}"/>
+	<h:outputText value="#{msg.category_name}"/>
 
-	<h:outputText  id="Item_qty" required="false"  value="#{item.qty}" />
+	<h:outputText  id="Category_name" required="false"  value="#{category.name}" />
    
-	<h:message styleClass="error errors" for="Item_qty" />
+	<h:message styleClass="error errors" for="Category_name" />
 	
 
 	
-	
-	
-	
-		
-	<h:outputText value="#{msg.item_product}"/>
-	
-	<h:outputText value="#{item.product.displayName}" />
-	
-	
-		
-	
-	
-	
-	<h:outputText value="#{msg.item_itemTotal}"/>
-
-	<h:outputText  id="Item_itemTotal" required="false"  value="#{item.itemTotal}" />
-   
-	<h:message styleClass="error errors" for="Item_itemTotal" />
-	
-
 	
 	
 				</h:panelGrid>
 				
 	
+	
+	<ice:dataTable id="children_data" var="category" 
+					value="#{categoryAction.listChildren}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+	<h:column style="text-align:left"><f:facet name="header"><h:outputText value="#{msg.category_name}"/></f:facet>
+
+	<h:outputText  id="Category_name" required="false"  value="#{category.name}" />
+   
+	<h:message styleClass="error errors" for="Category_name" />
+	</h:column>
+
+	
+	
+	
+		
+			
+	</ice:dataTable>
 				</s:validateAll>
 					
 	<div class="buttonBox">
 		
 		<h:commandButton value="Edit"  action="edit" /> 
 		<h:outputText value=" " />
-		<h:commandButton value="Back To Listing" immediate="true" action="#{itemAction.cancel}" /> 
+		<h:commandButton value="Back To Listing" immediate="true" action="#{categoryAction.cancel}" /> 
 		
 	</div>
 

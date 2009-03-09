@@ -48,9 +48,12 @@
 	<transaction:entity-transaction
 		entity-manager="#{entityManager}" />
 
+	<security:jpa-identity-store  
+		user-class="org.witchcraft.seam.security.User"
+		role-class="org.witchcraft.seam.security.Role"/>
 
-	<security:identity authenticate-method="#{authenticator.authenticate}"
-		remember-me="true" />
+
+	<security:identity remember-me="true" />
 
 	<web:multipart-filter create-temp-files="true"
 		max-request-size="1000000" url-pattern="*.seam" />

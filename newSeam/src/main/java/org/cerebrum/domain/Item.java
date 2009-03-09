@@ -25,6 +25,9 @@ public class Item extends BusinessEntity {
 	@JoinColumn(name = "product_id", nullable = false)
 	protected Product product;
 
+	@Transient
+	protected Double itemTotal;
+
 	public void setQty(Integer qty) {
 		this.qty = qty;
 	}
@@ -47,6 +50,14 @@ public class Item extends BusinessEntity {
 
 	public Product getProduct() {
 		return product;
+	}
+
+	public void setItemTotal(Double itemTotal) {
+		this.itemTotal = itemTotal;
+	}
+
+	public Double getItemTotal() {
+		return qty * product.getPrice();
 	}
 
 	@Transient
