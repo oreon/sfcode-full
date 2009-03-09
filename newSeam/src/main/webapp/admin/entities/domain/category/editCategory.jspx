@@ -1,0 +1,85 @@
+
+<ui:composition 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:rich="http://richfaces.org/rich" 
+	template = "/admin/template.jspx" >	
+	<ui:define name="content">
+		<ice:panelGroup id="editanswerchoiceGroupId"
+					styleClass="formBorderHighlight">
+			<ice:form>
+				<s:validateAll>
+				<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+				<f:facet name="header">
+					<h:outputText value="Category : #{category.displayName}" />
+				</f:facet>
+	
+	
+	<h:outputText value="#{msg.category_name}"/>
+
+	<h:inputText  id="Category_name" required="false"  value="#{category.name}" />
+   
+	<h:message styleClass="error errors" for="Category_name" />
+	
+
+	
+	
+	
+				</h:panelGrid>
+				
+	
+	
+	<ice:dataTable id="children_data" var="category" 
+					value="#{categoryAction.listChildren}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+	<h:column style="text-align:left"><f:facet name="header"><h:outputText value="#{msg.category_name}"/></f:facet>
+
+	<h:inputText  id="Category_name" required="false"  value="#{category.name}" />
+   
+	<h:message styleClass="error errors" for="Category_name" />
+	</h:column>
+
+	
+	
+	
+		
+		
+		
+	<h:column>
+	<h:commandButton  value="New Item" action="#{categoryAction.addChildren}" >
+		<s:conversationId/>
+	</h:commandButton>
+	</h:column>
+
+		
+	<h:column>
+		<ice:commandButton value="Delete" action="#{categoryAction.deleteChildren(category)}" immediate="true">
+			<s:conversationId/>
+		</ice:commandButton>
+	</h:column>
+
+			
+	</ice:dataTable>
+				</s:validateAll>
+					
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{categoryAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{categoryAction.cancel}" /> 
+		
+	</div>
+
+			</ice:form>
+		</ice:panelGroup>
+	</ui:define> 
+</ui:composition>
+	

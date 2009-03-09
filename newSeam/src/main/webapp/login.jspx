@@ -1,41 +1,29 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<jsp:root version="1.2" 
-  xmlns:jsp="http://java.sun.com/JSP/Page"
-   xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:ice="http://www.icesoft.com/icefaces/component">
-<jsp:directive.page contentType="text/html;charset=ISO-8859-1" pageEncoding="ISO-8859-1"/>
-<f:view>
-  <ice:outputDeclaration doctypeRoot="HTML" doctypePublic="-//W3C//DTD HTML 4.01 Transitional//EN" doctypeSystem="http://www.w3.org/TR/html4/loose.dtd"/>
-  <html>
-    <head>
-     <title><ice:outputText value="ICEfaces, Ajax for Java EE" /></title>
-    
-    </head>
-    <body>
 
-     <ice:outputText value="Thank you for using ICEfaces." />
-     <ice:form id="loginFormId">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:messages globalOnly="true" />
+	
+<h:form>
+	<div style="clear:both"><h:outputLabel for="name" value="User name" /> <h:inputText
+		id="name" value="#{credentials.username}" /></div>
 
+	<div style="clear:both"><h:outputLabel for="password" value="Password" /> <h:inputSecret
+		id="password" value="#{credentials.password}" redisplay="true" />
+	</div>
 
-<p>Please login with the username 'admin' and 'admin' password.</p>
+	<div class="loginRow"><h:outputLabel for="rememberMe"
+		value="Remember me" /> <h:selectBooleanCheckbox id="rememberMe"
+		value="#{rememberMe.enabled}" />
+	</div>
 
-
-
-			<ice:panelGroup id="loginPanelGroupId" >
-				<ice:panelGrid border="1" columns="2" id="panelGridId">
-					<h:outputLabel for="username">Username</h:outputLabel>
-					<ice:inputText id="username" value="#{identity.username}"></ice:inputText>
-					<h:outputLabel for="password">Password</h:outputLabel>
-					<ice:inputSecret id="password" value="#{identity.password}"></ice:inputSecret>
-
-				</ice:panelGrid><h:messages globalOnly="true"></h:messages>
-				
-			</ice:panelGroup>
-			<ice:commandButton id="loginButtonId" value="Login" action="#{identity.login}"></ice:commandButton>
-		</ice:form>
-
-    </body>
-  </html>
-</f:view>
-</jsp:root>
+	<div>
+		<h:commandButton value="Login" action="#{identity.login}" />
+	</div>
+</h:form>
+</html>

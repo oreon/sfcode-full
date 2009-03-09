@@ -23,8 +23,8 @@
 	<h:panelGroup>
 	<h:outputText value="#{msg.order_customer}"/> <br/>
 	<h:selectOneMenu id="Order_customer" value="#{order.customer}" required="true">
-		<s:selectItems value="#{customerList}" var="item"
-			label="#{item.displayName}"
+		<s:selectItems value="#{customerList}" var="itemIter"
+			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
@@ -36,6 +36,7 @@
 			
 	<div class="buttonBox">
 		<h:commandButton value="Search"  action="#{orderAction.search}" /> 
+		<h:outputText value=" " />
 		<h:commandButton value="Clear Search" immediate="true" action="#{orderAction.clearSearch}" /> 
 	</div>
 

@@ -8,6 +8,9 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
 import org.apache.commons.lang.StringUtils;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
@@ -57,6 +60,23 @@ public class ItemAction extends BaseAction<Item>
 	@Override
 	public void setEntityList(List<Item> list) {
 		this.itemList = list;
+	}
+
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
+	 */
+	public void addAssoications(Criteria criteria) {
+
+		if (item.getOrder() != null) {
+			criteria = criteria.add(Restrictions.eq("order.id", item.getOrder()
+					.getId()));
+		}
+
+		if (item.getProduct() != null) {
+			criteria = criteria.add(Restrictions.eq("product.id", item
+					.getProduct().getId()));
+		}
+
 	}
 
 }

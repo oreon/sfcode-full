@@ -31,8 +31,8 @@
 	<h:panelGroup>
 	<h:outputText value="#{msg.item_order}"/> <br/>
 	<h:selectOneMenu id="Item_order" value="#{item.order}" required="true">
-		<s:selectItems value="#{orderList}" var="item"
-			label="#{item.displayName}"
+		<s:selectItems value="#{orderList}" var="itemIter"
+			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
@@ -45,8 +45,8 @@
 	<h:panelGroup>
 	<h:outputText value="#{msg.item_product}"/> <br/>
 	<h:selectOneMenu id="Item_product" value="#{item.product}" required="true">
-		<s:selectItems value="#{productList}" var="item"
-			label="#{item.displayName}"
+		<s:selectItems value="#{productList}" var="itemIter"
+			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
@@ -54,10 +54,19 @@
 		
 	
 	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.item_itemTotal}"/> <br/>
+	<h:inputText  id="Item_itemTotal" value="#{item.itemTotal}" />
+	</h:panelGroup>
+
+	
+	
 			</h:panelGrid>
 			
 	<div class="buttonBox">
 		<h:commandButton value="Search"  action="#{itemAction.search}" /> 
+		<h:outputText value=" " />
 		<h:commandButton value="Clear Search" immediate="true" action="#{itemAction.clearSearch}" /> 
 	</div>
 

@@ -11,6 +11,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
@@ -27,6 +28,15 @@ import org.witchcraft.base.entity.BusinessEntity;
 
 
 public abstract class BaseAction<T extends BusinessEntity> {
+	
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+
 	@Logger
 	protected Log log;
 	@In
@@ -59,6 +69,7 @@ public abstract class BaseAction<T extends BusinessEntity> {
 	@End
 	public String save() {
 		facesMessages.add("Successfully saved  #{t.displayName}");
+		updateComposedAssociations();
 		entityManager.persist(getEntity());
 		return "save";
 	}
@@ -96,7 +107,16 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		for (String exclude : excludedProperties) {
 			example.excludeProperty(exclude);
 		}*/
+		addAssoications(criteria);
+		
 		return criteria;
+	}
+	
+	/** This method should be overloaded by actions to add associations e.g. an order would need the
+	 * associated customer
+	 * @param criteria
+	 */
+	public void addAssoications(Criteria criteria) {
 	}
 	
 	public abstract T getEntity();
@@ -107,6 +127,11 @@ public abstract class BaseAction<T extends BusinessEntity> {
 	
 	public abstract void setEntityList(List<T> list);
 	
+	/**
+	 * This method should be overridden by classes that need to fck 
+	 */
+	public void updateComposedAssociations() {
+	}	
 	
 	@SuppressWarnings("unchecked")
 	public<S> List<S> executeQuery(String queryString, Object... params) {
@@ -165,5 +190,7 @@ public abstract class BaseAction<T extends BusinessEntity> {
 			query.setParameter(counter++, param);
 		}
 	}
+	
+	
 
 }

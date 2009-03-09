@@ -21,7 +21,7 @@ public class Order extends BusinessEntity {
 
 	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Order_ID", nullable = false)
-	private Set<Item> items = new HashSet<Item>();
+	private Set<Item> items = new HashSet();
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;

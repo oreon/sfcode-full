@@ -12,50 +12,34 @@
 	template="/admin/template.jspx"  >	
 	
 	<ui:define name="content">
-		<ui:include src="searchItem.jspx" />
+		<ui:include src="searchCategory.jspx" />
 		<h:form>
 			<ice:commandButton value="Create New" action="edit"/>
-			<ice:dataTable id="data" var="item" value="#{itemList}" rows="30"
+			<ice:dataTable id="data" var="category" value="#{categoryList}" rows="30"
 			rowClasses="odd, even" styleClass="dataTable" >		
 			
 	
 	<ice:column>
 		<f:facet name="header">
-			<h:outputText value="#{msg.item_qty}" />
+			<h:outputText value="#{msg.category_name}" />
 		</f:facet>
-		<h:outputText value="#{item.qty}" />
+		<h:outputText value="#{category.name}" />
 	</ice:column>
 	
 		
-			
-				
-	<ice:column sortBy="#{item.displayName}" filterBy="#{itemAction.item.displayName}" filterEvent="onkeyup" >
-		<f:facet name="header">
-			<h:outputText value="#{msg.item_order}" /> 	
-		</f:facet>
-		<h:outputText value="#{item.order.displayName}" />
-	</ice:column>
-			
 		
 	
 		
 			
 				
-	<ice:column sortBy="#{item.displayName}" filterBy="#{itemAction.item.displayName}" filterEvent="onkeyup" >
+	<ice:column sortBy="#{category.displayName}" filterBy="#{categoryAction.category.displayName}" filterEvent="onkeyup" >
 		<f:facet name="header">
-			<h:outputText value="#{msg.item_product}" /> 	
+			<h:outputText value="#{msg.category_parent}" /> 	
 		</f:facet>
-		<h:outputText value="#{item.product.displayName}" />
+		<h:outputText value="#{category.parent.displayName}" />
 	</ice:column>
 			
 		
-	
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.item_itemTotal}" />
-		</f:facet>
-		<h:outputText value="#{item.itemTotal}" />
-	</ice:column>
 	
 			
 	<ice:column>
@@ -63,7 +47,7 @@
 			<h:outputText value=" " />
 		</f:facet>
 		<h:commandLink 
-			action="#{itemAction.select(item)}">
+			action="#{categoryAction.select(category)}">
 			<h:graphicImage value="/images/icons/eye.png" style="border: 0px" />
 		</h:commandLink>
 	</ice:column>
@@ -74,7 +58,7 @@
 			<h:outputText value=" " />
 		</f:facet>
 		<h:commandLink 
-			action="#{itemAction.select(item)}">
+			action="#{categoryAction.select(category)}">
 			<h:graphicImage value="/images/icons/edit.png" style="border: 0px" />
 		</h:commandLink>
 	</ice:column>
@@ -85,7 +69,7 @@
 			<h:outputText value=" " />
 		</f:facet>
 		<h:commandLink 
-			action="#{itemAction.archive(item)}">
+			action="#{categoryAction.archive(category)}">
 			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" />
 		</h:commandLink>
 	</ice:column>
