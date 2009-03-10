@@ -26,11 +26,11 @@ public class ClassUtil {
 	
 	private static Boolean currentMultiMode;
 	
-	static Map<String, String> mapTypes = new HashMap<String, String>();
+	static Map<String, String[]> mapTypes = new HashMap<String, String[]>();
 	
 	static {
-		mapTypes.put("imageFile", "byte[]");
-		
+		mapTypes.put("imageFile", new String[]{"byte[]",""});
+		mapTypes.put("largeText", new String[]{"String","@Lob"});
 	}
 
 	private static Boolean currentEditMode;
@@ -82,14 +82,6 @@ public class ClassUtil {
 
 	public static void main(String[] args) {
 		Property property;
-		//property.getdef
-		
-		//prop.getAssociationEnd().getOpposite()
-		// cls.getPackage().
-		// Association assoc;
-		// assoc.getMemberEnds();
-		// cls.getA
-		// cls.
 		Package pack;
 		
 		//pack.getown
@@ -133,10 +125,22 @@ public class ClassUtil {
 	
 	public static String getTypeName(String typeName){
 		if(mapTypes.containsKey(typeName)){
-			System.out.println(typeName + " mapped to " + mapTypes.get(typeName));
-			return mapTypes.get(typeName);
+			System.out.println(typeName + " mapped to " + mapTypes.get(typeName)[0]);
+			return mapTypes.get(typeName)[0];
 		}
 		return typeName;
+	}
+	
+	/** Annotation for the mapped type e.g for largetText we need to return "@Lob" 
+	 * @param typeName
+	 * @return
+	 */
+	public static String getTypeAnnotation(String typeName){
+		if(mapTypes.containsKey(typeName)){
+			System.out.println(typeName + " mapped to annotation " + mapTypes.get(typeName)[1]);
+			return mapTypes.get(typeName)[1];
+		}
+		return "";
 	}
 
 	public static String getPackageName(Class cls) {
@@ -176,4 +180,6 @@ public class ClassUtil {
 		}
 		return WordUtils.capitalizeFully(varName);
 	}
+	
+
 }

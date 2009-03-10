@@ -55,21 +55,47 @@ String getVariableNameForDisplay(String arg):
 JAVA org.wc.generatorutil.ClassUtil.getViewLabelFromVariable(java.lang.String);
 
 String getOutputMessage(Property prop):
-isCurrentMultiMode()  ? getColumnBegin(prop):getOutputText(prop);
+isCurrentMultiMode()  ? getColumnBegin(prop):getLabelText(prop);
 
 String getColumnBegin(Property prop):
-"<h:column style=\"text-align:" + prop.getAlign() + "\"><f:facet name=\"header\">" + getOutputText(prop) + "</f:facet>";
+"<h:column style=\"text-align:" + prop.getAlign() + "\"><f:facet name=\"header\">" + prop.getLabelText() + "</f:facet>";
 
 //types other than text e.g. integer, double should be right aligned
 getAlign(Property prop):
 prop.isString()?"left":"right";
 
-String getOutputText(Property prop):
-"<h:outputText value=\"" + prop.msgBundleKey() + "\"/>";
+//Used for labeling in the UI e.g First Name for field firstName
+String getLabelText(Property prop):
+"<h:outputText value=\"" + prop.msgBundleKey()  + "\"/>";
 
-String getText(Property prop):
-isCurrentEditMode()?"h:inputText":"h:outputText";
+String getTextControl(Property prop):
+getJSFPrefix() + ":" + (isCurrentEditMode()?getInputControl(prop):"outputText " + prop.getEscape());
 
+//In case of lob properties e.g. description we need to escape the html 
+String getEscape(Property prop):
+prop.isType("largeText")?"escape=\"false\" ":" ";
+
+String getInputControl(Property prop):
+if(prop.type.name == "largeText")  
+	then "inputRichText toolbar=\"Basic\" saveOnSubmit=\"true\""
+else if ( prop.isType("boolean") || prop.isType("Boolean") )
+	then "selectBooleanCheckbox"
+else if (prop.isColumn() && prop.secret ) then
+	"inputSecret"
+else if (prop.isColumn() && prop.textSize > 0 ) then
+	"inputText size=\"" + prop.textSize +"\""
+else	
+	"inputText";
+	
+String getInputControlSearch(Property prop):
+if (prop.type.name == "boolean" || prop.type.name == "Boolean" )
+	then getJSFPrefix() + ":" + "selectBooleanCheckbox"
+else
+	getJSFPrefix() + ":" + "inputText";
+	
+
+String getJSFPrefix():
+"ice";
 
 getTextForImgFile(Property prop):
 isCurrentEditMode()?"<s:fileUpload data=\"#{" + prop.class.asVar() + "." + prop.name + "}\"/>":"<h:graphicImage />";
@@ -90,7 +116,7 @@ String getId(Property prop):
 prop.class.name + "_" + prop.name;
 
 String getErrorMessageHolder(Property prop):
-"<h:message styleClass=\"error errors\" for=\"" + prop.getId() + "\" />";
+isCurrentEditMode()?"<h:message styleClass=\"error errors\" for=\"" + prop.getId() + "\" />":"";
 
 String getViewFile(Class e,String mode):
 "/admin/entities/" + e.package.name.toFirstLower() + "/" + e.asVar() + "/" + mode + e.name + "." + getExtension();
@@ -102,4 +128,8 @@ String getRequired(Property property):
 String getRequired(Column prop):
 prop.notNull?"true":"false";
 
+getAccess(Column prop):
+prop.access;
 
+getAccess(Property prop):
+null;

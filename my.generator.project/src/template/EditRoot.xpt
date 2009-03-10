@@ -15,7 +15,7 @@
 			<ice:form>
 				<s:validateAll>
 				«setAsCurrentEntity(this)-»
-				<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+				<h:panelGrid columns="«edit?"3":"2"»" styleClass="viewInfo" columnClasses="leftCol, rightCol">
 				<f:facet name="header">
 					<h:outputText value="«name» : #{«asVar()».displayName}" />
 				</f:facet>
@@ -68,25 +68,34 @@
 			«type.setCurrentEmbeddable()»
 			«EXPAND genAttribAsOutput FOR this.type-»
 		«ELSE»
-			«EXPAND genAssociation FOR this-»
+			«EXPAND genLabelAndInput FOR this-»
 		«ENDIF»
 	«ELSE-»
-		«EXPAND genProperty FOR this»
+		«EXPAND genLabelAndInput FOR this»
 	«ENDIF»
 	«ENDIF»
 «ENDDEFINE»
 
-«DEFINE genProperty FOR uml::Property-»
+
+«DEFINE genLabelAndInput FOR uml::Property-»
+	«IF !isSecret() || isCurrentEditMode()  »
+	«getAccess() != null?" <s:div rendered=\"#{s:hasRole('admin')}\">":""»
 	«getOutputMessage()»
-	«EXPAND genPropertyEntry(type) FOR this-»
+	«IF association != null»
+		«EXPAND genAssociation»
+	«ELSE»
+		«EXPAND genPropertyEntry(type) FOR this»
+	«ENDIF»
 	«getErrorMessageHolder()»
 	«isCurrentMultiMode()?"</h:column>":""»
+	«getAccess() != null?"</s:div>":""»
+	«ENDIF»
 «ENDDEFINE»
 
+
 «DEFINE genAssociation FOR uml::Property -»
-	«getOutputMessage()»
 	«IF !isCurrentEditMode()»
-	<«getText()» value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()».displayName}" />
+	<«getTextControl()» value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()».displayName}" />
 	«ELSE»
 	<h:selectOneMenu id="«getId()»" value="#{«getCurrentEntity().asVar()».«name»}" required="«!getAssocOptional()»">
 		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
@@ -94,16 +103,14 @@
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
-	«getErrorMessageHolder()»
 	«ENDIF»
-	«isCurrentMultiMode()?"</h:column>":""»
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
 «IF type.name == "imageFile"»
 	«getTextForImgFile()» 
 «ELSE»
-	<«getText()»  id="«getId()»" required="«getRequired()»"  value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
+	<«getTextControl()»  id="«getId()»" «isCurrentEditMode()? "required=\"" + getRequired() +"\"":""»  value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
 «ENDIF»   
 «ENDDEFINE»
 
@@ -114,10 +121,10 @@
 
 «DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
 	«IF !isCurrentEditMode()»
-	<«getText()» id="«getId()»" value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
+	<«getTextControl()» id="«getId()»" value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
 	«ELSE»
 	<h:selectOneMenu id="«getId()»" value="#{«getCurrentEntity().asVar()».«name»}" required="«getAssocOptional()»">
-		<f:selectItem itemLabel="Please Select..." />
+		<f:selectItem itemLabel="Please Select..." itemValue="" />
 		«FOREACH  enm.ownedLiteral AS e-»
 		<f:selectItem itemLabel="«e.name»" itemValue="«e.name-»" />
 		«ENDFOREACH»

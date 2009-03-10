@@ -32,6 +32,9 @@ String fqnForPackage(Type cls, Class referringClass):
 String getTypeName(String name):
 JAVA org.wc.generatorutil.ClassUtil.getTypeName(java.lang.String);
 
+String getTypeAnnotation(String name):
+JAVA org.wc.generatorutil.ClassUtil.getTypeAnnotation(java.lang.String);
+
 //If package of referring class is same as this class - will return simple name else fqn
 String fqnForPackage(PrimitiveType cls, Class referringClass):
 getTypeName(cls.name);
@@ -105,8 +108,22 @@ cls.getAllAttributes().select(a|a.isMultivalued() == false && a.association != n
 
 
 //need to add quotes if default is a string type
-getDefaultVal(Property prop):
+getDefaultVal(Property prop, PrimitiveType type):
 prop.type.name == "String" ? "\"" + prop.getDefault() + "\"": prop.getDefault();
+
+//need to add quotes if default is a string type
+getDefaultVal(Property prop, Enumeration type):
+prop.type.name + "." +  prop.getDefault();
+
 
 getTransient(Column col):
 col.derivedProperty != null ? "@Transient":"";
+
+isSecret(Column col):
+col.secret == true;
+
+isSecret(Property prop):
+false;
+
+isType(Property prop, String typeName):
+prop.type.name == typeName;
