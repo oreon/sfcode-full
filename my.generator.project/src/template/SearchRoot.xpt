@@ -22,7 +22,6 @@
 		</ice:panelCollapsible>
 		</ice:panelGroup>
 		</h:form>
-	
 </html>
 	«ENDFILE»
 «ENDDEFINE»
@@ -38,9 +37,9 @@
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
 	«FOREACH allParents() AS e-»
-			«EXPAND genAttribute FOREACH e.getAllAttributes().select(a|!a.isMultivalued()) -»
+			«EXPAND genAttribute FOREACH e.getAllAttributes().select(a|!a.isMultivalued()  && !a.isSecret()) -»
 	«ENDFOREACH»
-	«EXPAND genAttribute FOREACH getAllAttributes().select(a|!a.isMultivalued()) -»
+	«EXPAND genAttribute FOREACH getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret()) -»
 «ENDDEFINE»
 
 «DEFINE genAttribute FOR uml::Property -»
@@ -71,19 +70,21 @@
 	<h:selectOneMenu id="«getId()»" value="#{«getCurrentEntity().asVar()».«name»}" required="«!getAssocOptional()»">
 		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
 			label="#{itemIter.displayName}"
-			noSelectionLabel="Please Select..." />
+			noSelectionLabel="Any..." />
 		<s:convertEntity />
+		<f:selectItem itemLabel="None" itemValue=""/>
 	</h:selectOneMenu>
 	</h:panelGroup>
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
-	<«getText()»  id="«getId()»" value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
+	<«getInputControlSearch()»  id="«getId()»" value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
 	<h:selectOneMenu id="«getId()»" value="#{«getCurrentEntity().asVar()».«name»}" required="«getAssocOptional()»">
-		<f:selectItem itemLabel="Any" />
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
 		«FOREACH  enm.ownedLiteral AS e-»
 		<f:selectItem itemLabel="«e.name»" itemValue="«e.name-»" />
 		«ENDFOREACH»
