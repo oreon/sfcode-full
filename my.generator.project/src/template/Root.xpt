@@ -135,7 +135,7 @@
 
 «DEFINE genPropertyDecl FOR uml::Property»
 	«type.name.getTypeAnnotation()»
-	protected «type.fqnForPackage(this.class)» «name» «getDefault() != null?" = " +getDefaultVal(type):""»;
+	«EXPAND genBaseDecl FOR this»
 «ENDDEFINE»
 
 «DEFINE genPropertyDecl FOR wcprofile::Column»
@@ -144,7 +144,11 @@
 	«getUniqueAnnotations()»
 	«getTransient()»
 	«type.name.getTypeAnnotation()»
-	protected «type.fqnForPackage(this.class)» «name» «getDefault() != null? getDefaultVal(type) :""»;
+	«EXPAND genBaseDecl FOR this»
+«ENDDEFINE»
+
+«DEFINE genBaseDecl FOR uml::Property»
+	protected «type.fqnForPackage(this.class)» «name» «getDefault() != null?" = " +getDefaultVal(type):""»;
 «ENDDEFINE»
 
 
