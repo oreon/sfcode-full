@@ -1,5 +1,7 @@
 package com.wcmda.model;
 
+import javax.faces.component.UIComponent;
+import javax.faces.event.ActionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -9,52 +11,102 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.framework.EntityHome;
 
 import com.icesoft.faces.component.tree.IceUserObject;
+import com.icesoft.faces.component.tree.Tree;
+import com.icesoft.faces.component.tree.TreeNode;
 
 @Name("hotelAction")
-@Scope(ScopeType.PAGE)
+@Scope(ScopeType.SESSION)
 public class HotelAction extends EntityHome<Hotel> {
 
 	// tree default model, used as a value for the tree component
+//	private DefaultTreeModel model;
+	private Tree tree;
 	private DefaultTreeModel model;
-
+	
+	
 	public HotelAction() {
-		// create root node with its children expanded
-		DefaultMutableTreeNode rootTreeNode = new DefaultMutableTreeNode();
-		IceUserObject rootObject = new IceUserObject(rootTreeNode);
-		rootObject.setText("Root Node");
-		rootObject.setExpanded(true);
-		rootTreeNode.setUserObject(rootObject);
-
-		// model is accessed by by the ice:tree component
-		model = new DefaultTreeModel(rootTreeNode);
-
-		// add some child notes
-		for (int i = 0; i < 3; i++) {
-			DefaultMutableTreeNode branchNode = new DefaultMutableTreeNode();
-			IceUserObject branchObject = new IceUserObject(branchNode);
-			branchObject.setText("node-" + i);
-
-			/*if (i == 0) {
-				DefaultMutableTreeNode branchNode2 = new DefaultMutableTreeNode();
-				IceUserObject branchObject2 = new IceUserObject(branchNode);
-				branchObject2.setLeaf(true);
-				branchObject.setText("node-1" + i);
-				branchNode.add(branchNode2);
-			}*/
-			branchNode.setUserObject(branchObject);
-			//if( i > 0 )
-				branchObject.setLeaf(true);
-			rootTreeNode.add(branchNode);
+		 DefaultMutableTreeNode rootTreeNode = new DefaultMutableTreeNode();
+		    MyIceUserObject rootObject = new MyIceUserObject(rootTreeNode);
+		    rootObject.setText("root");
+			rootObject.setTooltip("root node tooltip");
+			rootObject.setExpanded(true);
+			rootTreeNode.setUserObject(rootObject);
+			
+			model =  new DefaultTreeModel(rootTreeNode);
+			
+			boolean branchExpanded = true;
+			
+			for (int i = 0; i < 3; i++) {
+			  //  branchExpanded = !branchExpanded ;
+			    DefaultMutableTreeNode branchNode = new DefaultMutableTreeNode();
+			    MyIceUserObject branchObject = new MyIceUserObject(branchNode);
+			    branchNode.setUserObject(branchObject);
+			    branchObject.setBranchContractedIcon("./img/tfc.gif");
+			    branchObject.setBranchExpandedIcon("./img/tfo.gif");
+			    branchObject.setExpanded(false);
+			    branchObject.setTooltip("b-tip " + i);
+			    branchObject.setText("b-" + i);
+			    rootTreeNode.add(branchNode);		
+		    }
+		
 		}
-	}
+		
 
-	/**
-	 * Gets the tree's default model.
-	 * 
-	 * @return tree model.
-	 */
-	public DefaultTreeModel getModel() {
-		return model;
-	}
-
+		
+		public DefaultTreeModel getModel() {
+		    return model;
+		}
+		public void setModel(DefaultTreeModel treeModel) {
+		    this.model = treeModel;
+		}
+		public Tree getTree() {
+		    return tree;
+		}
+		public void setTree(Tree treeComponent) {
+		    this.tree = treeComponent;
+		}
+		    
+		public void navigator(ActionEvent e) {    	
+			String EXPAND = "expand";
+		
+			String eventType = getTree().getNavigationEventType();
+			DefaultMutableTreeNode navNode = getTree().getNavigatedNode();
+		
+			MyIceUserObject userObject = (MyIceUserObject)navNode.getUserObject();
+		
+			System.out.println("navigating [" + navNode.toString() + " : " + eventType + "]" );
+		
+			if (eventType.equalsIgnoreCase(EXPAND)) { // then load the next level of nodes
+				// if the navigated node does not have children
+				// we will load the navigated nodes children now.
+				if (!(navNode.getChildCount() > 0)) {		                
+		
+					for (int i=0;i<2;i++) {
+			            DefaultMutableTreeNode childNode = new DefaultMutableTreeNode();
+			            MyIceUserObject childObject = new MyIceUserObject(childNode);
+			            childNode.setUserObject(childObject);
+			            childObject.setLeafIcon("./img/td.gif");
+			            childObject.setBranchContractedIcon("./img/tfc.gif");
+			            childObject.setBranchExpandedIcon("./img/tfo.gif");
+			            childObject.setExpanded(false);
+			            childObject.setTooltip("sbbtip " + i);
+			            childObject.setText(userObject.getText() +"." + i);
+			            navNode.add(childNode);	                    
+		        	}
+		            DefaultMutableTreeNode childNode = new DefaultMutableTreeNode();
+		            MyIceUserObject childObject = new MyIceUserObject(childNode);
+		            childNode.setUserObject(childObject);
+		            childObject.setLeafIcon("./img/td.gif");
+		            childObject.setBranchContractedIcon("./img/tfc.gif");
+		            childObject.setBranchExpandedIcon("./img/tfo.gif");
+		            childObject.setExpanded(false);
+		            childObject.setLeaf(true);
+		            childObject.setTooltip("child leaf");
+		            childObject.setText(userObject.getText() +".childleaf");
+		            navNode.add(childNode);	                    				
+		        }
+		    }
+		}
+	
+		
 }
