@@ -1,6 +1,6 @@
-package org.cerebrum.domain.action;
+package org.wcdemo.xstories.action;
 
-import org.cerebrum.domain.Product;
+import org.wcdemo.xstories.Story;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,38 +29,38 @@ import org.jboss.seam.log.Log;
 import org.witchcraft.seam.action.BaseAction;
 
 @Scope(ScopeType.CONVERSATION)
-@Name("productAction")
-public class ProductAction extends BaseAction<Product>
+@Name("storyAction")
+public class StoryAction extends BaseAction<Story>
 		implements
 			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
 	@DataModelSelection
-	private Product product;
+	private Story story;
 
 	@DataModel
-	private List<Product> productList;
+	private List<Story> storyList;
 
-	@Factory("productList")
+	@Factory("storyList")
 	public void findRecords() {
-		productList = entityManager.createQuery(
-				"select product from Product product order by product.id")
+		storyList = entityManager.createQuery(
+				"select story from Story story order by story.id")
 				.getResultList();
 	}
 
-	public Product getEntity() {
-		return product;
+	public Story getEntity() {
+		return story;
 	}
 
 	@Override
-	public void setEntity(Product t) {
-		this.product = t;
+	public void setEntity(Story t) {
+		this.story = t;
 	}
 
 	@Override
-	public void setEntityList(List<Product> list) {
-		this.productList = list;
+	public void setEntityList(List<Story> list) {
+		this.storyList = list;
 	}
 
 	/** This function adds associated entities to an example criterion
@@ -68,9 +68,9 @@ public class ProductAction extends BaseAction<Product>
 	 */
 	public void addAssoications(Criteria criteria) {
 
-		if (product.getCategory() != null) {
-			criteria = criteria.add(Restrictions.eq("category.id", product
-					.getCategory().getId()));
+		if (story.getAssignee() != null) {
+			criteria = criteria.add(Restrictions.eq("assignee.id", story
+					.getAssignee().getId()));
 		}
 
 	}

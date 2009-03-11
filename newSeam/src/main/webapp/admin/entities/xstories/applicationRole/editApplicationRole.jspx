@@ -14,58 +14,22 @@
 					styleClass="formBorderHighlight">
 			<ice:form>
 				<s:validateAll>
-				<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+				<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
 				<f:facet name="header">
-					<h:outputText value="Item : #{item.displayName}" />
+					<h:outputText value="ApplicationRole : #{applicationRole.displayName}" />
 				</f:facet>
 	
 	
 	
 	
-	<h:outputText value="#{msg.item_qty}"/>
+	<h:outputText value="#{msg.applicationRole_name}"/>
 	
 
-	<ice:outputText    id="Item_qty"   value="#{item.qty}" />
+	<ice:inputText  id="ApplicationRole_name" required="false"  value="#{applicationRole.name}" />
    
 
 	
-	
-	
-	
-	
-
-	
-	
-	
-	
-		
-	
-	
-	<h:outputText value="#{msg.item_product}"/>
-	
-	
-	<ice:outputText   value="#{item.product.displayName}" />
-	
-
-	
-	
-	
-	
-	
-		
-	
-	
-	
-	
-	
-	<h:outputText value="#{msg.item_itemTotal}"/>
-	
-
-	<ice:outputText    id="Item_itemTotal"   value="#{item.itemTotal}" />
-   
-
-	
-	
+	<h:message styleClass="error errors" for="ApplicationRole_name" />
 	
 	
 	
@@ -79,9 +43,9 @@
 					
 	<div class="buttonBox">
 		
-		<h:commandButton value="Edit"  action="edit" /> 
+		<h:commandButton value="Save" action="#{applicationRoleAction.save}" /> 
 		<h:outputText value=" " />
-		<h:commandButton value="Back To Listing" immediate="true" action="#{itemAction.cancel}" /> 
+		<h:commandButton value="Cancel" immediate="true" action="#{applicationRoleAction.cancel}" /> 
 		
 	</div>
 

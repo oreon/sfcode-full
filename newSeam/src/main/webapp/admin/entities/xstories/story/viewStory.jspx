@@ -16,16 +16,16 @@
 				<s:validateAll>
 				<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol">
 				<f:facet name="header">
-					<h:outputText value="Product : #{product.displayName}" />
+					<h:outputText value="Story : #{story.displayName}" />
 				</f:facet>
 	
 	
 	
 	
-	<h:outputText value="#{msg.product_name}"/>
+	<h:outputText value="#{msg.story_title}"/>
 	
 
-	<ice:outputText    id="Product_name"   value="#{product.name}" />
+	<ice:outputText    id="Story_title"   value="#{story.title}" />
    
 
 	
@@ -39,44 +39,10 @@
 	
 	
 	
-	<h:outputText value="#{msg.product_description}"/>
+	<h:outputText value="#{msg.story_description}"/>
 	
 
-	<ice:outputText    id="Product_description"   value="#{product.description}" />
-   
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	<h:outputText value="#{msg.product_price}"/>
-	
-
-	<ice:outputText    id="Product_price"   value="#{product.price}" />
-   
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	<h:outputText value="#{msg.product_picture}"/>
-	
-
-	<h:graphicImage /> 
+	<ice:outputText escape="false"   id="Story_description"   value="#{story.description}" />
    
 
 	
@@ -91,10 +57,10 @@
 		
 	
 	
-	<h:outputText value="#{msg.product_category}"/>
+	<h:outputText value="#{msg.story_assignee}"/>
 	
 	
-	<ice:outputText   value="#{product.category.displayName}" />
+	<ice:outputText   value="#{story.assignee.displayName}" />
 	
 
 	
@@ -103,6 +69,74 @@
 	
 	
 		
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.story_resoultion}"/>
+	
+	
+	<ice:outputText   id="Story_resoultion" value="#{story.resoultion}" />
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.story_status}"/>
+	
+	
+	<ice:outputText   id="Story_status" value="#{story.status}" />
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.story_priority}"/>
+	
+	
+	<ice:outputText   id="Story_priority" value="#{story.priority}" />
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.story_estimatedEndDate}"/>
+	
+
+	<ice:outputText    id="Story_estimatedEndDate"   value="#{story.estimatedEndDate}" />
+   
+
+	
+	
+	
+	
+	
+
 	
 	
 				</h:panelGrid>
@@ -114,7 +148,7 @@
 		
 		<h:commandButton value="Edit"  action="edit" /> 
 		<h:outputText value=" " />
-		<h:commandButton value="Back To Listing" immediate="true" action="#{productAction.cancel}" /> 
+		<h:commandButton value="Back To Listing" immediate="true" action="#{storyAction.cancel}" /> 
 		
 	</div>
 

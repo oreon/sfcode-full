@@ -1,0 +1,179 @@
+
+<ui:composition 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:rich="http://richfaces.org/rich" 
+	template = "/admin/template.jspx" >	
+	<ui:define name="content">
+		<ice:panelGroup id="editanswerchoiceGroupId"
+					styleClass="formBorderHighlight">
+			<ice:form>
+				<s:validateAll>
+				<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+				<f:facet name="header">
+					<h:outputText value="Story : #{story.displayName}" />
+				</f:facet>
+	
+	
+	
+	
+	<h:outputText value="#{msg.story_title}"/>
+	
+
+	<ice:inputText size="80"  id="Story_title" required="false"  value="#{story.title}" />
+   
+
+	
+	<h:message styleClass="error errors" for="Story_title" />
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.story_description}"/>
+	
+
+	<ice:inputRichText toolbar="Basic" saveOnSubmit="true"  id="Story_description" required="false"  value="#{story.description}" />
+   
+
+	
+	<h:message styleClass="error errors" for="Story_description" />
+	
+	
+	
+
+	
+	
+	
+		
+	
+	
+	<h:outputText value="#{msg.story_assignee}"/>
+	
+	
+	<h:selectOneMenu id="Story_assignee" value="#{story.assignee}" required="false">
+		<s:selectItems value="#{teamMemberList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+	
+	<h:message styleClass="error errors" for="Story_assignee" />
+	
+	
+	
+		
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.story_resoultion}"/>
+	
+	
+	<h:selectOneMenu id="Story_resoultion" value="#{story.resoultion}" required="false">
+		<f:selectItem itemLabel="Please Select..." itemValue="" />
+		<f:selectItem itemLabel="NONE" itemValue="NONE" />
+		<f:selectItem itemLabel="CANT_REPRODUCE" itemValue="CANT_REPRODUCE" />
+		<f:selectItem itemLabel="WONT_FIX" itemValue="WONT_FIX" />
+		<f:selectItem itemLabel="FIXED" itemValue="FIXED" />
+		<f:selectItem itemLabel="WAITING_ON_DEPENDENCY" itemValue="WAITING_ON_DEPENDENCY" />
+		
+	</h:selectOneMenu>
+	
+
+	
+	<h:message styleClass="error errors" for="Story_resoultion" />
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.story_status}"/>
+	
+	
+	<h:selectOneMenu id="Story_status" value="#{story.status}" required="false">
+		<f:selectItem itemLabel="Please Select..." itemValue="" />
+		<f:selectItem itemLabel="OPEN" itemValue="OPEN" />
+		<f:selectItem itemLabel="CLOSED" itemValue="CLOSED" />
+		
+	</h:selectOneMenu>
+	
+
+	
+	<h:message styleClass="error errors" for="Story_status" />
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.story_priority}"/>
+	
+	
+	<h:selectOneMenu id="Story_priority" value="#{story.priority}" required="false">
+		<f:selectItem itemLabel="Please Select..." itemValue="" />
+		<f:selectItem itemLabel="TRIVIAL" itemValue="TRIVIAL" />
+		<f:selectItem itemLabel="URGENT" itemValue="URGENT" />
+		<f:selectItem itemLabel="SHOW_STOPPER" itemValue="SHOW_STOPPER" />
+		<f:selectItem itemLabel="IMPORTANT_NU" itemValue="IMPORTANT_NU" />
+		
+	</h:selectOneMenu>
+	
+
+	
+	<h:message styleClass="error errors" for="Story_priority" />
+	
+	
+	
+
+	
+	<h:outputText value="#{msg.story_estimatedEndDate}"/>
+	
+	<ice:selectInputDate  id="Story_estimatedEndDate" required="false"  
+		value="#{story.estimatedEndDate}" renderAsPopup="true">
+		<f:convertDateTime pattern="MM/dd/yyyy"  />
+	</ice:selectInputDate>   
+
+	
+	<h:message styleClass="error errors" for="Story_estimatedEndDate" />
+	
+
+	
+	
+				</h:panelGrid>
+				
+	
+				</s:validateAll>
+					
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{storyAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{storyAction.cancel}" /> 
+		
+	</div>
+
+			</ice:form>
+		</ice:panelGroup>
+	</ui:define> 
+</ui:composition>
+	

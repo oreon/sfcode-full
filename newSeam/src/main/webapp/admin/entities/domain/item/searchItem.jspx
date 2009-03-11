@@ -21,7 +21,7 @@
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.item_qty}"/> <br/>
-	<h:inputText  id="Item_qty" value="#{item.qty}" />
+	<ice:inputText  id="Item_qty" value="#{item.qty}" />
 	</h:panelGroup>
 
 	
@@ -33,8 +33,9 @@
 	<h:selectOneMenu id="Item_order" value="#{item.order}" required="true">
 		<s:selectItems value="#{orderList}" var="itemIter"
 			label="#{itemIter.displayName}"
-			noSelectionLabel="Please Select..." />
+			noSelectionLabel="Any..." />
 		<s:convertEntity />
+		<f:selectItem itemLabel="None" itemValue=""/>
 	</h:selectOneMenu>
 	</h:panelGroup>
 		
@@ -47,8 +48,9 @@
 	<h:selectOneMenu id="Item_product" value="#{item.product}" required="true">
 		<s:selectItems value="#{productList}" var="itemIter"
 			label="#{itemIter.displayName}"
-			noSelectionLabel="Please Select..." />
+			noSelectionLabel="Any..." />
 		<s:convertEntity />
+		<f:selectItem itemLabel="None" itemValue=""/>
 	</h:selectOneMenu>
 	</h:panelGroup>
 		
@@ -57,7 +59,7 @@
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.item_itemTotal}"/> <br/>
-	<h:inputText  id="Item_itemTotal" value="#{item.itemTotal}" />
+	<ice:inputText  id="Item_itemTotal" value="#{item.itemTotal}" />
 	</h:panelGroup>
 
 	
@@ -73,6 +75,5 @@
 		</ice:panelCollapsible>
 		</ice:panelGroup>
 		</h:form>
-	
 </html>
 	

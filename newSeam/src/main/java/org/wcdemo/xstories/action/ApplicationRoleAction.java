@@ -1,6 +1,6 @@
-package org.cerebrum.domain.action;
+package org.wcdemo.xstories.action;
 
-import org.cerebrum.domain.Product;
+import org.wcdemo.xstories.ApplicationRole;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,50 +29,39 @@ import org.jboss.seam.log.Log;
 import org.witchcraft.seam.action.BaseAction;
 
 @Scope(ScopeType.CONVERSATION)
-@Name("productAction")
-public class ProductAction extends BaseAction<Product>
+@Name("applicationRoleAction")
+public class ApplicationRoleAction extends BaseAction<ApplicationRole>
 		implements
 			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
 	@DataModelSelection
-	private Product product;
+	private ApplicationRole applicationRole;
 
 	@DataModel
-	private List<Product> productList;
+	private List<ApplicationRole> applicationRoleList;
 
-	@Factory("productList")
+	@Factory("applicationRoleList")
 	public void findRecords() {
-		productList = entityManager.createQuery(
-				"select product from Product product order by product.id")
+		applicationRoleList = entityManager
+				.createQuery(
+						"select applicationRole from ApplicationRole applicationRole order by applicationRole.id")
 				.getResultList();
 	}
 
-	public Product getEntity() {
-		return product;
+	public ApplicationRole getEntity() {
+		return applicationRole;
 	}
 
 	@Override
-	public void setEntity(Product t) {
-		this.product = t;
+	public void setEntity(ApplicationRole t) {
+		this.applicationRole = t;
 	}
 
 	@Override
-	public void setEntityList(List<Product> list) {
-		this.productList = list;
-	}
-
-	/** This function adds associated entities to an example criterion
-	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
-	 */
-	public void addAssoications(Criteria criteria) {
-
-		if (product.getCategory() != null) {
-			criteria = criteria.add(Restrictions.eq("category.id", product
-					.getCategory().getId()));
-		}
-
+	public void setEntityList(List<ApplicationRole> list) {
+		this.applicationRoleList = list;
 	}
 
 }
