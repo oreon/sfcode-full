@@ -38,13 +38,14 @@ public class CusotmerActionTest extends SeamTest{
 		Customer gavin = new Customer();
 		gavin.setLastName("Gavin King");
 		gavin.setFirstName("1ovthafew");
+		gavin.setEmail("gk@jboss.com");
 		// gavin.setPassword("secret");
 
 		CustomerAction action = new CustomerAction();
-		//action.setCustomer(gavin);
-		//action.setEntityManager(em);
+		action.setEntity(gavin);
+		action.setEntityManager(em);
 
-		//assert "save".equals(action.save());
+		assert "save".equals(action.save());
 
 		em.getTransaction().commit();
 		em.close();
@@ -59,7 +60,7 @@ public class CusotmerActionTest extends SeamTest{
 	@BeforeClass
 	public void init() {
 		emf = Persistence
-				.createEntityManagerFactory("entityManagerFactory");
+				.createEntityManagerFactory("newSeam");
 	}
 
 	@AfterClass
