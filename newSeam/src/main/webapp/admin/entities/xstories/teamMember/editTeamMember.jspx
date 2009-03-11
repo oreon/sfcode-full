@@ -1,0 +1,181 @@
+
+<ui:composition 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:rich="http://richfaces.org/rich" 
+	template = "/admin/template.jspx" >	
+	<ui:define name="content">
+		<ice:panelGroup id="editanswerchoiceGroupId"
+					styleClass="formBorderHighlight">
+			<ice:form>
+				<s:validateAll>
+				<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+				<f:facet name="header">
+					<h:outputText value="TeamMember : #{teamMember.displayName}" />
+				</f:facet>
+	
+	
+	
+	<h:outputText value="#{msg.applicationUser_userName}"/>
+	
+
+	<ice:inputText  id="ApplicationUser_userName" required="false"  value="#{teamMember.userName}" />
+   
+
+	
+	<h:message styleClass="error errors" for="ApplicationUser_userName" />
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.applicationUser_password}"/>
+	
+
+	<ice:inputSecret  id="ApplicationUser_password" required="false"  value="#{teamMember.password}" />
+   
+
+	
+	<h:message styleClass="error errors" for="ApplicationUser_password" />
+	
+	
+	
+
+	
+	
+	
+	
+	 <s:div rendered="#{s:hasRole('admin')}">
+	<h:outputText value="#{msg.applicationUser_enabled}"/>
+	
+
+	<ice:selectBooleanCheckbox  id="ApplicationUser_enabled" required="false"  value="#{teamMember.enabled}" />
+   
+
+	
+	<h:message styleClass="error errors" for="ApplicationUser_enabled" />
+	
+	</s:div>
+	
+
+	
+	
+	
+		
+	
+	 <s:div rendered="#{s:hasRole('admin')}">
+	<h:outputText value="#{msg.applicationUser_applicationRole}"/>
+	
+	
+	<h:selectOneMenu id="ApplicationUser_applicationRole" value="#{teamMember.applicationRole}" required="false">
+		<s:selectItems value="#{applicationRoleList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+	
+	<h:message styleClass="error errors" for="ApplicationUser_applicationRole" />
+	
+	</s:div>
+	
+		
+	
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.teamMember_firstName}"/>
+	
+
+	<ice:inputText  id="TeamMember_firstName" required="false"  value="#{teamMember.firstName}" />
+   
+
+	
+	<h:message styleClass="error errors" for="TeamMember_firstName" />
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.teamMember_lastName}"/>
+	
+
+	<ice:inputText  id="TeamMember_lastName" required="false"  value="#{teamMember.lastName}" />
+   
+
+	
+	<h:message styleClass="error errors" for="TeamMember_lastName" />
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.teamMember_email}"/>
+	
+
+	<ice:inputText  id="TeamMember_email" required="false"  value="#{teamMember.email}" />
+   
+
+	
+	<h:message styleClass="error errors" for="TeamMember_email" />
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.teamMember_country}"/>
+	
+
+	<ice:inputText  id="TeamMember_country" required="false"  value="#{teamMember.country}" />
+   
+
+	
+	<h:message styleClass="error errors" for="TeamMember_country" />
+	
+	
+	
+
+	
+	
+				</h:panelGrid>
+				
+	
+				</s:validateAll>
+					
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{teamMemberAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{teamMemberAction.cancel}" /> 
+		
+	</div>
+
+			</ice:form>
+		</ice:panelGroup>
+	</ui:define> 
+</ui:composition>
+	

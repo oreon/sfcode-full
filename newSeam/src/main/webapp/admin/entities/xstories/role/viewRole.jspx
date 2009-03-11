@@ -14,60 +14,17 @@
 					styleClass="formBorderHighlight">
 			<ice:form>
 				<s:validateAll>
-				<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+				<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
 				<f:facet name="header">
-					<h:outputText value="Item : #{item.displayName}" />
+					<h:outputText value="Role : #{role.displayName}" />
 				</f:facet>
 	
 	
-	
-	
-	<h:outputText value="#{msg.item_qty}"/>
-	
+	<h:outputText value="#{msg.role_name}"/>
 
-	<ice:outputText    id="Item_qty"   value="#{item.qty}" />
+	<h:outputText  id="Role_name" required="false"  value="#{role.name}" />
    
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-		
-	
-	
-	<h:outputText value="#{msg.item_product}"/>
-	
-	
-	<ice:outputText   value="#{item.product.displayName}" />
-	
-
-	
-	
-	
-	
-	
-		
-	
-	
-	
-	
-	
-	<h:outputText value="#{msg.item_itemTotal}"/>
-	
-
-	<ice:outputText    id="Item_itemTotal"   value="#{item.itemTotal}" />
-   
-
-	
-	
-	
-	
+	<h:message styleClass="error errors" for="Role_name" />
 	
 
 	
@@ -81,7 +38,7 @@
 		
 		<h:commandButton value="Edit"  action="edit" /> 
 		<h:outputText value=" " />
-		<h:commandButton value="Back To Listing" immediate="true" action="#{itemAction.cancel}" /> 
+		<h:commandButton value="Back To Listing" immediate="true" action="#{roleAction.cancel}" /> 
 		
 	</div>
 

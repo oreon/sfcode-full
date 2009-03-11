@@ -1,0 +1,120 @@
+
+<ui:composition 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:rich="http://richfaces.org/rich" 
+
+	template="/admin/template.jspx"  >	
+	
+	<ui:define name="content">
+		<ui:include src="searchTeamMember.jspx" />
+		<h:form>
+			<ice:commandButton value="Create New" action="edit"/>
+			<ice:dataTable id="data" var="teamMember" value="#{teamMemberList}" rows="30"
+			rowClasses="odd, even" styleClass="dataTable" >		
+			
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.applicationUser_userName}" />
+		</f:facet>
+		<h:outputText value="#{teamMember.userName}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.applicationUser_password}" />
+		</f:facet>
+		<h:outputText value="#{teamMember.password}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.applicationUser_enabled}" />
+		</f:facet>
+		<h:outputText value="#{teamMember.enabled}" />
+	</ice:column>
+	
+		
+			
+				
+	<ice:column sortBy="#{applicationUser.displayName}" filterBy="#{applicationUserAction.applicationUser.displayName}" filterEvent="onkeyup" >
+		<f:facet name="header">
+			<h:outputText value="#{msg.applicationUser_applicationRole}" /> 	
+		</f:facet>
+		<h:outputText value="#{teamMember.applicationRole.displayName}" />
+	</ice:column>
+			
+		
+	
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.teamMember_firstName}" />
+		</f:facet>
+		<h:outputText value="#{teamMember.firstName}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.teamMember_lastName}" />
+		</f:facet>
+		<h:outputText value="#{teamMember.lastName}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.teamMember_email}" />
+		</f:facet>
+		<h:outputText value="#{teamMember.email}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.teamMember_country}" />
+		</f:facet>
+		<h:outputText value="#{teamMember.country}" />
+	</ice:column>
+	
+			
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{teamMemberAction.select(teamMember)}">
+			<h:graphicImage value="/images/icons/eye.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+			
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{teamMemberAction.select(teamMember)}">
+			<h:graphicImage value="/images/icons/edit.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+			
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{teamMemberAction.archive(teamMember)}">
+			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+			</ice:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+	

@@ -21,7 +21,7 @@
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.product_name}"/> <br/>
-	<h:inputText  id="Product_name" value="#{product.name}" />
+	<ice:inputText  id="Product_name" value="#{product.name}" />
 	</h:panelGroup>
 
 	
@@ -29,7 +29,7 @@
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.product_description}"/> <br/>
-	<h:inputText  id="Product_description" value="#{product.description}" />
+	<ice:inputText  id="Product_description" value="#{product.description}" />
 	</h:panelGroup>
 
 	
@@ -37,7 +37,7 @@
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.product_price}"/> <br/>
-	<h:inputText  id="Product_price" value="#{product.price}" />
+	<ice:inputText  id="Product_price" value="#{product.price}" />
 	</h:panelGroup>
 
 	
@@ -45,9 +45,24 @@
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.product_picture}"/> <br/>
-	<h:inputText  id="Product_picture" value="#{product.picture}" />
+	<ice:inputText  id="Product_picture" value="#{product.picture}" />
 	</h:panelGroup>
 
+	
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.product_category}"/> <br/>
+	<h:selectOneMenu id="Product_category" value="#{product.category}" required="true">
+		<s:selectItems value="#{categoryList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		<f:selectItem itemLabel="None" itemValue=""/>
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
 	
 	
 			</h:panelGrid>
@@ -61,6 +76,5 @@
 		</ice:panelCollapsible>
 		</ice:panelGroup>
 		</h:form>
-	
 </html>
 	

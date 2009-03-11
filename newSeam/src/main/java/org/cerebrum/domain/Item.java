@@ -57,7 +57,7 @@ public class Item extends BusinessEntity {
 	}
 
 	public Double getItemTotal() {
-		return qty * product.getPrice();
+		return qty * (product == null ? 0 : product.getPrice());
 	}
 
 	@Transient

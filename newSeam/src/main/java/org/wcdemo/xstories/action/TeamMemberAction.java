@@ -1,6 +1,6 @@
-package org.cerebrum.domain.action;
+package org.wcdemo.xstories.action;
 
-import org.cerebrum.domain.Product;
+import org.wcdemo.xstories.TeamMember;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,50 +29,39 @@ import org.jboss.seam.log.Log;
 import org.witchcraft.seam.action.BaseAction;
 
 @Scope(ScopeType.CONVERSATION)
-@Name("productAction")
-public class ProductAction extends BaseAction<Product>
+@Name("teamMemberAction")
+public class TeamMemberAction extends BaseAction<TeamMember>
 		implements
 			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
 	@DataModelSelection
-	private Product product;
+	private TeamMember teamMember;
 
 	@DataModel
-	private List<Product> productList;
+	private List<TeamMember> teamMemberList;
 
-	@Factory("productList")
+	@Factory("teamMemberList")
 	public void findRecords() {
-		productList = entityManager.createQuery(
-				"select product from Product product order by product.id")
+		teamMemberList = entityManager
+				.createQuery(
+						"select teamMember from TeamMember teamMember order by teamMember.id")
 				.getResultList();
 	}
 
-	public Product getEntity() {
-		return product;
+	public TeamMember getEntity() {
+		return teamMember;
 	}
 
 	@Override
-	public void setEntity(Product t) {
-		this.product = t;
+	public void setEntity(TeamMember t) {
+		this.teamMember = t;
 	}
 
 	@Override
-	public void setEntityList(List<Product> list) {
-		this.productList = list;
-	}
-
-	/** This function adds associated entities to an example criterion
-	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
-	 */
-	public void addAssoications(Criteria criteria) {
-
-		if (product.getCategory() != null) {
-			criteria = criteria.add(Restrictions.eq("category.id", product
-					.getCategory().getId()));
-		}
-
+	public void setEntityList(List<TeamMember> list) {
+		this.teamMemberList = list;
 	}
 
 }

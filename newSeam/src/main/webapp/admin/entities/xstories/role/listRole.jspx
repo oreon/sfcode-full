@@ -12,52 +12,19 @@
 	template="/admin/template.jspx"  >	
 	
 	<ui:define name="content">
-		<ui:include src="searchProduct.jspx" />
+		<ui:include src="searchRole.jspx" />
 		<h:form>
 			<ice:commandButton value="Create New" action="edit"/>
-			<ice:dataTable id="data" var="product" value="#{productList}" rows="30"
+			<ice:dataTable id="data" var="role" value="#{roleList}" rows="30"
 			rowClasses="odd, even" styleClass="dataTable" >		
 			
 	
 	<ice:column>
 		<f:facet name="header">
-			<h:outputText value="#{msg.product_name}" />
+			<h:outputText value="#{msg.role_name}" />
 		</f:facet>
-		<h:outputText value="#{product.name}" />
+		<h:outputText value="#{role.name}" />
 	</ice:column>
-	
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.product_description}" />
-		</f:facet>
-		<h:outputText value="#{product.description}" />
-	</ice:column>
-	
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.product_price}" />
-		</f:facet>
-		<h:outputText value="#{product.price}" />
-	</ice:column>
-	
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.product_picture}" />
-		</f:facet>
-		<h:outputText value="#{product.picture}" />
-	</ice:column>
-	
-		
-			
-				
-	<ice:column sortBy="#{product.displayName}" filterBy="#{productAction.product.displayName}" filterEvent="onkeyup" >
-		<f:facet name="header">
-			<h:outputText value="#{msg.product_category}" /> 	
-		</f:facet>
-		<h:outputText value="#{product.category.displayName}" />
-	</ice:column>
-			
-		
 	
 			
 	<ice:column>
@@ -65,7 +32,7 @@
 			<h:outputText value=" " />
 		</f:facet>
 		<h:commandLink 
-			action="#{productAction.select(product)}">
+			action="#{roleAction.select(role)}">
 			<h:graphicImage value="/images/icons/eye.png" style="border: 0px" />
 		</h:commandLink>
 	</ice:column>
@@ -76,7 +43,7 @@
 			<h:outputText value=" " />
 		</f:facet>
 		<h:commandLink 
-			action="#{productAction.select(product)}">
+			action="#{roleAction.select(role)}">
 			<h:graphicImage value="/images/icons/edit.png" style="border: 0px" />
 		</h:commandLink>
 	</ice:column>
@@ -87,7 +54,7 @@
 			<h:outputText value=" " />
 		</f:facet>
 		<h:commandLink 
-			action="#{productAction.archive(product)}">
+			action="#{roleAction.archive(role)}">
 			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" />
 		</h:commandLink>
 	</ice:column>

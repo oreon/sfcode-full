@@ -20,43 +20,94 @@
 				</f:facet>
 	
 	
+	
+	
 	<h:outputText value="#{msg.product_name}"/>
-
-	<h:inputText  id="Product_name" required="false"  value="#{product.name}" />
-   
-	<h:message styleClass="error errors" for="Product_name" />
 	
 
+	<ice:inputText  id="Product_name" required="false"  value="#{product.name}" />
+   
+
+	
+	<h:message styleClass="error errors" for="Product_name" />
+	
+	
+	
+
+	
+	
 	
 	
 	
 	<h:outputText value="#{msg.product_description}"/>
-
-	<h:inputText  id="Product_description" required="false"  value="#{product.description}" />
-   
-	<h:message styleClass="error errors" for="Product_description" />
 	
 
+	<ice:inputText  id="Product_description" required="false"  value="#{product.description}" />
+   
+
+	
+	<h:message styleClass="error errors" for="Product_description" />
+	
+	
+	
+
+	
+	
 	
 	
 	
 	<h:outputText value="#{msg.product_price}"/>
-
-	<h:inputText  id="Product_price" required="false"  value="#{product.price}" />
-   
-	<h:message styleClass="error errors" for="Product_price" />
 	
 
+	<ice:inputText  id="Product_price" required="false"  value="#{product.price}" />
+   
+
+	
+	<h:message styleClass="error errors" for="Product_price" />
+	
+	
+	
+
+	
+	
 	
 	
 	
 	<h:outputText value="#{msg.product_picture}"/>
+	
 
 	<s:fileUpload data="#{product.picture}"/> 
    
+
+	
 	<h:message styleClass="error errors" for="Product_picture" />
 	
+	
+	
 
+	
+	
+	
+		
+	
+	
+	<h:outputText value="#{msg.product_category}"/>
+	
+	
+	<h:selectOneMenu id="Product_category" value="#{product.category}" required="true">
+		<s:selectItems value="#{categoryList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+	
+	<h:message styleClass="error errors" for="Product_category" />
+	
+	
+	
+		
 	
 	
 				</h:panelGrid>

@@ -23,6 +23,10 @@ public class Product extends BusinessEntity {
 
 	protected byte[] picture;
 
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "category_id", nullable = false)
+	protected Category category;
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -53,6 +57,14 @@ public class Product extends BusinessEntity {
 
 	public byte[] getPicture() {
 		return picture;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public Category getCategory() {
+		return category;
 	}
 
 	@Transient
