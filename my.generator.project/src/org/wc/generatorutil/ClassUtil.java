@@ -1,10 +1,14 @@
 package org.wc.generatorutil;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.commons.lang.WordUtils;
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
@@ -12,7 +16,6 @@ import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Property;
-import org.eclipse.uml2.uml.Type;
 
 
 
@@ -26,11 +29,17 @@ public class ClassUtil {
 	
 	private static Boolean currentMultiMode;
 	
+	private static final Logger logger = Logger.getLogger(ClassUtil.class);
+	
+	private static Properties properties = new Properties();
+
+	
 	static Map<String, String[]> mapTypes = new HashMap<String, String[]>();
 	
 	static {
 		mapTypes.put("imageFile", new String[]{"byte[]",""});
 		mapTypes.put("largeText", new String[]{"String","@Lob"});
+		loadProperties();
 	}
 
 	private static Boolean currentEditMode;
@@ -179,6 +188,31 @@ public class ClassUtil {
 				varName = varName.replace(new String(ch + ""), concatChar + ch);
 		}
 		return WordUtils.capitalizeFully(varName);
+	}
+	
+	
+	public static String readProperty(String key) {
+		if(!loadProperties())
+			return "COULDNT_READ_FILE";
+		String value = properties.getProperty(key);
+		logger.info("Returning value " + value + " for key " + key);
+		return value;
+	}
+
+	private static boolean loadProperties() {
+		try {
+			InputStream stream = ClassUtil.class
+					.getResourceAsStream("/workflow.properties");
+			if (stream == null) {
+				logger.error("workflow properties file is not in the classpath");
+				return false;
+			}
+			properties.load(stream);
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 

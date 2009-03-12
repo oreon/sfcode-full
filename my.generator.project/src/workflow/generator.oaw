@@ -5,7 +5,7 @@
 
 <bean class="oaw.uml2.Setup" standardUML2Setup="true"/>
 <component class="oaw.emf.XmiReader">
-<modelFile value="C:/users/jsingh/ecomm/zone.uml"/>
+<modelFile value="${model.dir}/model.uml"/>
 <outputSlot value="model"/>
 </component>
 
@@ -21,7 +21,7 @@ skipOnErrors="true">
 	</metaModel>
 	<metaModel class="oaw.uml2.UML2MetaModel"/>
 	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
-		<profile value="C:/users/jsingh/ecomm/wcprofile.profile.uml"/>
+		<profile value="${model.dir}/wcprofile.profile.uml"/>
 	</metaModel>
 	<expand value="template::Root::Root FOR model"/>
 	<outlet path="${srcGenPath}/">
@@ -39,10 +39,10 @@ organizeImports="true" format="true"/>
 	</metaModel>
 	<metaModel class="oaw.uml2.UML2MetaModel"/>
 	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
-		<profile value="C:/users/jsingh/ecomm/wcprofile.profile.uml"/>
+		<profile value="${model.dir}/wcprofile.profile.uml"/>
 	</metaModel>
 	<expand value="template::SeamActionRoot::Root FOR model"/>
-	<outlet path="C:/dev/newSeam/src/main/java">
+	<outlet path="${srcGenPath}">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 	</outlet>
 </component>
@@ -54,7 +54,7 @@ organizeImports="true" format="true"/>
 	</metaModel>
 	<metaModel class="oaw.uml2.UML2MetaModel"/>
 	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
-		<profile value="C:/users/jsingh/ecomm/wcprofile.profile.uml"/>
+		<profile value="${model.dir}/wcprofile.profile.uml"/>
 	</metaModel>
 	<expand value="template::WebRoot::Root FOR model"/>
 	<outlet path="${srcGenPath}">
@@ -68,7 +68,7 @@ organizeImports="true" format="true"/>
 	</metaModel>
 	<metaModel class="oaw.uml2.UML2MetaModel"/>
 	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
-		<profile value="C:/users/jsingh/ecomm/wcprofile.profile.uml"/>
+		<profile value="${model.dir}/wcprofile.profile.uml"/>
 	</metaModel>
 	<expand value="template::GenMessageBundle::Root FOR model"/>
 	<outlet path="${srcGenPath}/">

@@ -17,68 +17,6 @@
 «ENDDEFINE»
 
 
-«DEFINE genView FOR uml::Class»
-	«FILE "web/" + packagePath() +"/" +name+".xhtml"»
-	<ui:composition «EXPAND genIncludes»
-	template = template.jspx />	
-		<h:form>
-		«EXPAND genAttribAsOutput FOR this-»
-		</h:form>
-	«ENDFILE»
-«ENDDEFINE»
-
-
-«DEFINE genAttribAsOutput FOR uml::Class»
-	«FOREACH allParents() AS e-»
-			«EXPAND genAttribute FOREACH e.getAllAttributes() -»
-	«ENDFOREACH»
-	«EXPAND genAttribute FOREACH getAllAttributes() -»
-«ENDDEFINE»
-
-
-«DEFINE genAttribute FOR uml::Property»
-	«IF association != null -»
-		«IF isMultivalued()»
-			«name»[MULT] <select name=«name-» ></select>
-		«ELSE»
-			«IF type.getAppliedStereotype("wcprofile::Embeddable") != null-»
-				«EXPAND genAttribAsOutput FOR this.type-»
-			«ELSE»
-				«EXPAND genAssociation FOR this-»
-			«ENDIF»
-		«ENDIF»
-	«ELSE-»
-		<h:outputText value="«msgBundleKey()-»" />
-		<h:outputText value="#{«class.getAction()».«class.asVar()».«name.toFirstLower()»}" />
-	«ENDIF»
-«ENDDEFINE»
-
-
-«DEFINE genAssociation FOR uml::Property-»
-	<h:outputText value="«msgBundleKey()-»" />
-	<h:commandLink value="#{«class.getAction()».«class.asVar()-».displayName}" 
-		actionListener="#{«type.getAction()».selectEntity}" action="view«name.toFirstUpper()»"  >
-		<c:if test="${«class.getAction()».«name.toFirstLower()» != null}">
-			<f:param name="id" value="#{«class.getAction()».«name.toFirstLower()».id}" />
-		</c:if>
-	</h:commandLink> 
-«ENDDEFINE»
-
-
-
-«DEFINE genEditViewComponent FOR Entity»
-	«EXPAND genIncludes-»
-	<a4j:page>
-	<a4j:form id="form">
-			<rich:panel header="«NameS» Information">
-				<h:outputText value="Please correct the following issues !" 
-			rendered="#{! empty facesContext.maximumSeverity}"  styleClass="errMessage"/>
-				
-			<h:panelGrid columns="2" styleClass="formTableCustom">
-	</a4j:form>
-	</a4j:page>
-«ENDDEFINE»
-
 
 
 «DEFINE genIncludes FOR uml::Element»
@@ -87,7 +25,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:s="http://jboss.com/products/seam/taglib"
-	xmlns:a="http://richfaces.org/a4j"
 	xmlns:ice="http://www.icesoft.com/icefaces/component"
-	xmlns:rich="http://richfaces.org/rich" 
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 «ENDDEFINE»
