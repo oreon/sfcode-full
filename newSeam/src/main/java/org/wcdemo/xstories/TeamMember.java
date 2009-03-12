@@ -59,5 +59,16 @@ public class TeamMember extends ApplicationUser {
 	public String getDisplayName() {
 		return firstName + "";
 	}
-
+	
+	@Override
+	public boolean equals(Object obj) {
+		
+		if(this != null && obj instanceof TeamMember){
+			return this.getId().equals(((TeamMember)obj).getId());
+		}
+		// TODO Auto-generated method stub
+		return super.equals(obj);
+	}
+	
+	
 }

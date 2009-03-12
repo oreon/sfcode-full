@@ -41,13 +41,19 @@ public class TeamMemberAction extends BaseAction<TeamMember>
 
 	@DataModel
 	private List<TeamMember> teamMemberList;
-
+	
+	
 	@Factory("teamMemberList")
 	public void findRecords() {
 		teamMemberList = entityManager
 				.createQuery(
 						"select teamMember from TeamMember teamMember order by teamMember.id")
 				.getResultList();
+		
+		TeamMember member = new TeamMember();
+		member.setFirstName("None");
+		member.setId(new Long(-1));
+		teamMemberList.add(member);
 	}
 
 	public TeamMember getEntity() {
