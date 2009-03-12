@@ -1,6 +1,8 @@
 package org.wcdemo.xstories.action;
 
 import org.wcdemo.xstories.Story;
+import org.wcdemo.xstories.TeamMember;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +43,10 @@ public class StoryAction extends BaseAction<Story>
 
 	@DataModel
 	private List<Story> storyList;
+	
+	private TeamMember noneAssignee = new TeamMember();
+
+	
 
 	@Factory("storyList")
 	public void findRecords() {
@@ -69,10 +75,17 @@ public class StoryAction extends BaseAction<Story>
 	public void addAssoications(Criteria criteria) {
 
 		if (story.getAssignee() != null) {
-			criteria = criteria.add(Restrictions.eq("assignee.id", story
+			if(story.getAssignee().getId().longValue() == -1 ){
+				criteria = criteria.add(Restrictions.isNull("assignee.id"));
+			}else{
+				criteria = criteria.add(Restrictions.eq("assignee.id", story
 					.getAssignee().getId()));
+			}
 		}
 
 	}
+	
+	
+	
 
 }
