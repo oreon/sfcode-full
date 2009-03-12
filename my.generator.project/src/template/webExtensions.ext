@@ -69,7 +69,7 @@ String getLabelText(Property prop):
 "<h:outputText value=\"" + prop.msgBundleKey()  + "\"/>";
 
 String getTextControl(Property prop):
-getJSFPrefix() + ":" + (isCurrentEditMode()?getInputControl(prop):"outputText " + prop.getEscape());
+prop.getJSFPrefix() + ":" + (isCurrentEditMode()?getInputControl(prop):"outputText " + prop.getEscape());
 
 //In case of lob properties e.g. description we need to escape the html 
 String getEscape(Property prop):
@@ -80,6 +80,8 @@ if(prop.type.name == "largeText")
 	then "inputRichText toolbar=\"Basic\" saveOnSubmit=\"true\""
 else if ( prop.isType("boolean") || prop.isType("Boolean") )
 	then "selectBooleanCheckbox"
+else if (prop.isType("Date")) then
+	"calendar"
 else if (prop.isColumn() && prop.secret ) then
 	"inputSecret"
 else if (prop.isColumn() && prop.textSize > 0 ) then
@@ -89,13 +91,15 @@ else
 	
 String getInputControlSearch(Property prop):
 if (prop.type.name == "boolean" || prop.type.name == "Boolean" )
-	then getJSFPrefix() + ":" + "selectBooleanCheckbox"
+	then prop.getJSFPrefix() + ":" + "selectBooleanCheckbox"
+else if (prop.isType("Date")) then
+	prop.getJSFPrefix() + ":" + "calendar"
 else
-	getJSFPrefix() + ":" + "inputText";
+	prop.getJSFPrefix() + ":" + "inputText";
 	
-
-String getJSFPrefix():
-"ice";
+//the jsf prefix for the library we are using e.g. for richfaces it'd be rich
+String getJSFPrefix(Property prop):
+prop.isType("Date")?"wc":"ice";
 
 getTextForImgFile(Property prop):
 isCurrentEditMode()?"<s:fileUpload data=\"#{" + prop.class.asVar() + "." + prop.name + "}\"/>":"<h:graphicImage />";
