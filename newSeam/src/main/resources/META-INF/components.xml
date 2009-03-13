@@ -32,17 +32,26 @@
 	</persistence:filter>
  -->
 
+
+<persistence:filter name="archivedFilter">  
+	<persistence:name>archive</persistence:name>  
+	<persistence:parameters>  
+		<key>aArchived</key>  
+		<value>#{'0'}</value>  
+		</persistence:parameters> 
+</persistence:filter>
+
 	<persistence:entity-manager-factory
 		name="entityManagerFactory" persistence-unit-name="newSeam" />
 
 	<persistence:managed-persistence-context
 		auto-create="true" entity-manager-factory="#{entityManagerFactory}"
 		name="entityManager">
-<!--  		
+  		
 		<persistence:filters>
 			<value>#{archivedFilter}</value>
 		</persistence:filters>
--->
+
 	</persistence:managed-persistence-context>
 
 	<transaction:entity-transaction
