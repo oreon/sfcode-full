@@ -48,3 +48,19 @@
 	«ENDFILE»
 «ENDDEFINE»
 
+«DEFINE genSummaryPage FOR uml::Model»
+	«FILE getEntitiesRoot() +"/" + "summary"  + "." + getExtension()»
+<ui:composition «EXPAND WebRoot::genIncludes-»
+	template = "«getTemplate()»" >	
+	<ui:define name="content">
+	<h:form>
+	<ul>
+	«FOREACH allOwnedElements().typeSelect(wcprofile::Entity) AS e»
+			<li><h:commandLink value="«e.name»" action="«e.asVar()»" /> </li>
+		«ENDFOREACH»
+	</ul>
+	</h:form>
+	</ui:define> 
+</ui:composition>
+	«ENDFILE»
+«ENDDEFINE»

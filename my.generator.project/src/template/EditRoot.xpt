@@ -10,24 +10,34 @@
 <ui:composition «EXPAND WebRoot::genIncludes-»
 	template = "«getTemplate()»" >	
 	<ui:define name="content">
-		<ice:panelGroup id="editanswerchoiceGroupId"
-					styleClass="formBorderHighlight">
-			<ice:form>
-				<s:validateAll>
-				«setAsCurrentEntity(this)-»
-				<h:panelGrid columns="«edit?"3":"2"»" styleClass="viewInfo" columnClasses="leftCol, rightCol">
-				<f:facet name="header">
-					<h:outputText value="«name» " />
-				</f:facet>
-				«EXPAND genAttribAsOutput FOR this-»
-				</h:panelGrid>
-				«EXPAND genTable FOR this-»
-				</s:validateAll>
-					«EXPAND genCancelSaveBtns(edit) FOR this»
-			</ice:form>
-		</ice:panelGroup>
+		<ui:include src = "«(edit?"edit":"view") + name+ "Component." + getExtension()»" />
 	</ui:define> 
 </ui:composition>
+	«ENDFILE»
+	«EXPAND genEditViewComponent(edit) FOR this»
+«ENDDEFINE»
+
+
+«DEFINE genEditViewComponent(boolean edit) FOR uml::Class»
+	«FILE getWebPath() +"/" + (edit?"edit":"view") + name+ "Component." + getExtension()»
+	<html «EXPAND WebRoot::genIncludes-» >	
+	<ice:panelGroup id="editanswerchoiceGroupId"
+					styleClass="formBorderHighlight">
+		<ice:form>
+			<s:validateAll>
+			«setAsCurrentEntity(this)-»
+			<h:panelGrid columns="«edit?"3":"2"»" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+			<f:facet name="header">
+				<h:outputText value="«name» " />
+			</f:facet>
+			«EXPAND genAttribAsOutput FOR this-»
+			</h:panelGrid>
+			«EXPAND genTable FOR this-»
+			</s:validateAll>
+				«EXPAND genCancelSaveBtns(edit) FOR this»
+		</ice:form>
+	</ice:panelGroup>
+	</html>
 	«ENDFILE»
 «ENDDEFINE»
 

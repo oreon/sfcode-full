@@ -83,7 +83,7 @@ else if ( prop.isType("boolean") || prop.isType("Boolean") )
 else if (prop.isType("Date")) then
 	"calendar"
 else if (prop.isColumn() && prop.secret ) then
-	"inputSecret"
+	"inputSecret redisplay=\"true\" "
 else if (prop.isColumn() && prop.textSize > 0 ) then
 	"inputText size=\"" + prop.textSize +"\""
 else	
@@ -99,7 +99,7 @@ else
 	
 //the jsf prefix for the library we are using e.g. for richfaces it'd be rich
 String getJSFPrefix(Property prop):
-prop.isType("Date")?"wc":"ice";
+(isCurrentEditMode() && prop.isType("Date"))?"wc":"ice";
 
 getTextForImgFile(Property prop):
 isCurrentEditMode()?"<s:fileUpload data=\"#{" + prop.class.asVar() + "." + prop.name + "}\"/>":"<h:graphicImage />";
