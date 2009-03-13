@@ -1,5 +1,5 @@
-@FilterDef(name = "current", defaultCondition = "archived = :arch", 
-		parameters = @ParamDef(name = "arch", type = "Boolean")) 
+@FilterDef(name = "archive", defaultCondition = "archived = :aArchived", 
+		parameters = @ParamDef(name = "aArchived", type = "string")) 
 		
 package org.cerebrum.domain; 
 import org.hibernate.annotations.FilterDef; 
