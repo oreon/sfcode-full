@@ -11,18 +11,27 @@
 	«setAsCurrentEntity(this)»
 	<ui:define name="content">
 		<ui:include src="search«name».«getExtension()»" />
-		<h:form>
-			<ice:commandButton value="Create New" action="edit"/>
-			<ice:dataTable id="data" var="«asVar()»" value="#{«asVar()»List}" rows="30"
-			rowClasses="odd, even" styleClass="dataTable" >		
-			«EXPAND genAttribAsOutput FOR this-»
-			«EXPAND genLink("select", "eye.png") FOR this»
-			«EXPAND genLink ("select", "edit.png")FOR this»
-			«EXPAND genLink("archive", "delete.png") FOR this»
-			</ice:dataTable>
-		</h:form>
+		<ui:include src="list«name»Component.«getExtension()»" />
 	</ui:define>
 </ui:composition>
+	«ENDFILE»
+	«EXPAND genViewComponent FOR this»
+«ENDDEFINE»
+
+«DEFINE genViewComponent FOR uml::Class»
+	«FILE getWebPath() +"/list" +name+ "Component." + getExtension()»
+	<html «EXPAND WebRoot::genIncludes-» >	
+	<h:form>
+		<ice:commandButton value="Create New" action="edit"/>
+		<ice:dataTable id="data" var="«asVar()»" value="#{«asVar()»List}" rows="30"
+		rowClasses="odd, even" styleClass="dataTable" >		
+		«EXPAND genAttribAsOutput FOR this-»
+		«EXPAND genLink("select", "eye.png") FOR this»
+		«EXPAND genLink ("select", "edit.png")FOR this»
+		«EXPAND genLink("archive", "delete.png") FOR this»
+		</ice:dataTable>
+	</h:form>
+	</html>
 	«ENDFILE»
 «ENDDEFINE»
 

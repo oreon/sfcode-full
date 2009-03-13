@@ -67,12 +67,12 @@
 «DEFINE genAssociation FOR uml::Property -»
 	<h:panelGroup>
 	«getOutputMessage()» <br/>
-	<h:selectOneMenu id="«getId()»" value="#{«getCurrentEntity().asVar()».«name»}" required="«!getAssocOptional()»">
+	<h:selectOneMenu id="«getId()»" value="#{«getCurrentEntity().asVar()».«name»}" >
 		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Any..." />
 		<s:convertEntity />
-		<f:selectItem itemLabel="None" itemValue=""/>
+		«getAssocOptional()?"<f:selectItem itemLabel=\"--None--\" itemValue=\"\"/>":""»
 	</h:selectOneMenu>
 	</h:panelGroup>
 «ENDDEFINE»
