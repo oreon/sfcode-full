@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pages xmlns="http://jboss.com/products/seam/pages"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd"
+       no-conversation-view-id="/home.jspx"
+       login-view-id="/login.jspx">
+
+	<page view-id="/admin/*">
+        <restrict>#{s:hasRole('admin')}</restrict>
+     </page>
+    
+    <page view-id="/adminLogin.jspx">     
+        <navigation from-action="#{identity.login}">
+           <redirect view-id="/admin/entities/summary.jspx"/>
+        </navigation>
+	</page>
+
+	
+	<page view-id="*">
+        <navigation>
+        	<rule if-outcome="home">
+                <redirect view-id="/home.jspx"/>
+            </rule>
+        
+            <rule if-outcome="story">
+                <redirect view-id="/admin/entities/xstories/story/listStory.jspx" />
+            </rule>
+        
+            <rule if-outcome="applicationRole">
+                <redirect view-id="/admin/entities/xstories/applicationRole/listApplicationRole.jspx" />
+            </rule>
+        
+            <rule if-outcome="teamMember">
+                <redirect view-id="/admin/entities/xstories/teamMember/listTeamMember.jspx" />
+            </rule>
+        
+            <rule if-outcome="comment">
+                <redirect view-id="/admin/entities/xstories/comment/listComment.jspx" />
+            </rule>
+        
+            <rule if-outcome="project">
+                <redirect view-id="/admin/entities/xstories/project/listProject.jspx" />
+            </rule>
+        
+            <rule if-outcome="skill">
+                <redirect view-id="/admin/entities/xstories/skill/listSkill.jspx" />
+            </rule>
+        
+            <rule if-outcome="memberSkill">
+                <redirect view-id="/admin/entities/xstories/memberSkill/listMemberSkill.jspx" />
+            </rule>
+        
+        </navigation>
+    </page>
+
+    
+    
+    <page view-id="/admin/entities/xstories/story/editStory.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/xstories/story/viewStory.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/xstories/story/listStory.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/xstories/story/viewStory.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/xstories/story/editStory.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/xstories/story/listStory.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/xstories/story/listStory.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/xstories/story/viewStory.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/xstories/story/editStory.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/xstories/applicationRole/editApplicationRole.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/xstories/applicationRole/viewApplicationRole.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/xstories/applicationRole/listApplicationRole.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/xstories/applicationRole/viewApplicationRole.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/xstories/applicationRole/editApplicationRole.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/xstories/applicationRole/listApplicationRole.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/xstories/applicationRole/listApplicationRole.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/xstories/applicationRole/viewApplicationRole.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/xstories/applicationRole/editApplicationRole.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/xstories/teamMember/editTeamMember.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/xstories/teamMember/viewTeamMember.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/xstories/teamMember/listTeamMember.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/xstories/teamMember/viewTeamMember.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/xstories/teamMember/editTeamMember.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/xstories/teamMember/listTeamMember.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/xstories/teamMember/listTeamMember.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/xstories/teamMember/viewTeamMember.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/xstories/teamMember/editTeamMember.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/xstories/comment/editComment.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/xstories/comment/viewComment.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/xstories/comment/listComment.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/xstories/comment/viewComment.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/xstories/comment/editComment.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/xstories/comment/listComment.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/xstories/comment/listComment.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/xstories/comment/viewComment.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/xstories/comment/editComment.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/xstories/project/editProject.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/xstories/project/viewProject.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/xstories/project/listProject.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/xstories/project/viewProject.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/xstories/project/editProject.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/xstories/project/listProject.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/xstories/project/listProject.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/xstories/project/viewProject.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/xstories/project/editProject.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/xstories/skill/editSkill.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/xstories/skill/viewSkill.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/xstories/skill/listSkill.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/xstories/skill/viewSkill.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/xstories/skill/editSkill.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/xstories/skill/listSkill.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/xstories/skill/listSkill.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/xstories/skill/viewSkill.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/xstories/skill/editSkill.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/xstories/memberSkill/editMemberSkill.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/xstories/memberSkill/viewMemberSkill.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/xstories/memberSkill/listMemberSkill.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/xstories/memberSkill/viewMemberSkill.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/xstories/memberSkill/editMemberSkill.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/xstories/memberSkill/listMemberSkill.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/xstories/memberSkill/listMemberSkill.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/xstories/memberSkill/viewMemberSkill.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/xstories/memberSkill/editMemberSkill.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+
+    <exception class="org.jboss.seam.framework.EntityNotFoundException">
+        <redirect view-id="/error.jspx">
+            <message severity="warn">Record not found</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityNotFoundException">
+        <redirect view-id="/error.jspx">
+            <message severity="warn">Record not found</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityExistsException">
+        <redirect view-id="/error.jspx">
+            <message severity="warn">Duplicate record</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.OptimisticLockException">
+        <end-conversation/>
+        <redirect view-id="/error.jspx">
+            <message severity="warn">Another user changed the same data, please try again</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.security.AuthorizationException">
+        <redirect view-id="/error.jspx">
+            <message severity="error">You don't have permission to access this resource</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.security.NotLoggedInException">
+        <redirect view-id="/login.jspx">
+            <message severity="warn">#{messages['org.jboss.seam.NotLoggedIn']}</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.faces.application.ViewExpiredException">
+        <redirect view-id="/error.jspx">
+            <message severity="warn">Your session has timed out, please try again</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.ConcurrentRequestTimeoutException" log-level="trace">
+      <http-error error-code="503" />
+    </exception>
+     
+    <exception>
+        <redirect view-id="/error.jspx">
+            <message severity="error">Unexpected error, please try again</message>
+        </redirect>
+    </exception>
+    
+</pages>

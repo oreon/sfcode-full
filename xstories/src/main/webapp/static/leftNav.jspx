@@ -1,0 +1,46 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:messages globalOnly="true" />
+	
+
+<div class="menu">
+		<div class="menu_title">Main menu</div>	
+		<h:form>
+		<ul>
+			<h:inputText size="12" /> <h:outputText value=" " /> <h:graphicImage value="/images/icons/search_icon.gif" />
+			<li><s:link  view="/index.jspx" value="Home"/></li>
+			<s:div rendered="#{ not identity.loggedIn}">
+				<li><s:link  view="/editTeamMember.jspx" value="Register"/></li>
+			</s:div>
+			<s:div rendered="#{  identity.loggedIn}">
+				<li><a href="#" class="menu_link">My Stories </a></li>
+				<li><h:commandLink action="myProfile" value="My Profile" /></li>
+				<li><h:commandLink action="createStory" value="Create Story" /></li>
+			</s:div>
+			<li><a href="#" class="menu_link">Open Stories </a></li>
+			<li><s:link view="/listStory.jspx" value="All Stories"/></li>
+		</ul>
+		<div class="menu_title">Resources</div>
+		<ul>
+			<li><a href="http://www.pikanai.com" class="menu_link">Forum</a></li>
+			<li><a href="http://www.pikanai.com" class="menu_link">Wiki</a></li>
+			<li><s:link  view="/listTeamMember.jspx" value="Members"/></li>
+			<s:div rendered="#{ identity.loggedIn}"> <h:commandLink value="Log Out #{identity.username}" action="#{identity.logout}"  /> </s:div>
+		</ul>
+		</h:form>
+		<ui:include src="../login.jspx" />
+		
+		
+</div>
+	
+<div id="clear"></div>
+
+
+</html>
