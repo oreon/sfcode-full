@@ -1,0 +1,203 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup id="editanswerchoiceGroupId"
+					styleClass="formBorderHighlight">
+		<ice:form>
+			<s:validateAll>
+			<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+			<f:facet name="header">
+				<h:outputText value="Story " />
+			</f:facet>
+	
+	
+	
+	
+	<h:outputText value="#{msg.story_title}"/>
+	
+
+	<ice:outputText    id="Story_title"   value="#{story.title}" />
+   
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.story_description}"/>
+	
+
+	<ice:outputText escape="false"   id="Story_description"   value="#{story.description}" />
+   
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+		
+	
+	
+	<h:outputText value="#{msg.story_assignee}"/>
+	
+	
+	<ice:outputText   value="#{story.assignee.displayName}" />
+	
+
+	
+	
+	
+	
+	
+		
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.story_resoultion}"/>
+	
+	
+	<ice:outputText   id="Story_resoultion" value="#{story.resoultion}" />
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.story_status}"/>
+	
+	
+	<ice:outputText   id="Story_status" value="#{story.status}" />
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.story_priority}"/>
+	
+	
+	<ice:outputText   id="Story_priority" value="#{story.priority}" />
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.story_estimatedEndDate}"/>
+	
+
+	<ice:outputText    id="Story_estimatedEndDate"   value="#{story.estimatedEndDate}" />
+   
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+		
+	
+	
+	<h:outputText value="#{msg.story_project}"/>
+	
+	
+	<ice:outputText   value="#{story.project.displayName}" />
+	
+
+	
+	
+	
+	
+	
+		
+	
+	
+			</h:panelGrid>
+			
+	
+	
+	<ice:dataTable id="comments_data" var="comment" 
+					value="#{storyAction.listComments}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+	
+	
+	
+	<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.comment_text}"/></f:facet>
+	
+
+	<ice:outputText escape="false"   id="Comment_text"   value="#{comment.text}" />
+   
+
+	
+	
+	</h:column>
+	
+	
+
+	
+	
+		
+			
+	</ice:dataTable>
+			</s:validateAll>
+				
+	<div class="buttonBox">
+		
+		<h:commandButton value="Edit"  action="edit" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Back To Listing" immediate="true" action="#{storyAction.cancel}" /> 
+		
+	</div>
+
+		</ice:form>
+	</ice:panelGroup>
+	</html>
+	

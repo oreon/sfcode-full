@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:rich="http://richfaces.org/rich" template="template.jspx">
+	<ui:define name="content">
+		<br />
+		<h1>New Stories....</h1>
+		<h:form>
+			<ui:repeat var="story" value="#{storyList}">
+				<li><h:commandLink action="#{storyAction.select(story)}">
+					<h:graphicImage value="/images/icons/edit.png" style="border: 0px" />
+					<h:outputText value="#{story.title}"  />
+				</h:commandLink> , <h:outputText value="#{story.dateCreated}" /> 
+				<ice:outputText styleClass=""
+					value="#{story.description}" escape="false" />
+				<hr />
+				</li>
+			</ui:repeat>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
