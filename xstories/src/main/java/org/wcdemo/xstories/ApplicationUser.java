@@ -9,12 +9,12 @@ import org.hibernate.validator.*;
 
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.Unique;
 
 @MappedSuperclass
 public class ApplicationUser extends BusinessEntity {
 
-	//@Unique
-
+	@Unique(entityName = "org.wcdemo.xstories.TeamMember", fieldName = "userName")
 	protected String userName;
 
 	protected String password;
