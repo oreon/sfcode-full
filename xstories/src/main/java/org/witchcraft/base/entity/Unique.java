@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 
 import org.hibernate.validator.ValidatorClass;
 
-@Target(ElementType.METHOD)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @ValidatorClass(UniqueValidator.class)
