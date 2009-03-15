@@ -5,14 +5,20 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.Version;
+
+import org.jboss.seam.servlet.SeamListener;
+import org.wcdemo.xstories.TeamMember;
 
 
 @MappedSuperclass
@@ -34,6 +40,11 @@ public class BusinessEntity implements Serializable{
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="date_created")
     private Date dateCreated;
+    
+     
+    @ManyToOne(optional=true, fetch=FetchType.LAZY)
+    @JoinColumn(name="created_by_user_id", nullable=true)
+    private TeamMember createdByUser;
    
     
     public Boolean isArchived() {
@@ -74,21 +85,23 @@ public class BusinessEntity implements Serializable{
     }
 
     public Long getVersion() {
+    
         return version;
     }
 
     public void setVersion(Long version) {
+    	SeamListener listner;
         this.version = version;
     }
 
-    /*
-    public User getCreatedByUser() {
+    
+    public TeamMember getCreatedByUser() {
         return createdByUser;
     }
 
-    public void setCreatedByUser(User createdByUser) {
+    public void setCreatedByUser(TeamMember createdByUser) {
         this.createdByUser = createdByUser;
-    }*/
+    }
 
     public Date getDateCreated() {
         return dateCreated;

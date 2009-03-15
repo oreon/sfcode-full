@@ -13,6 +13,15 @@ import org.witchcraft.base.entity.BusinessEntity;
 @Entity
 @Table(name = "story")
 @Name("story")
+@NamedQueries({
+@NamedQuery(
+            name="myStories",
+            query="SELECT s FROM Story s WHERE s.assignee.userName = ?1"),
+@NamedQuery(
+        name="openStories",
+        query="SELECT s FROM Story s WHERE s.priority = ?1"
+)
+})
 public class Story extends BusinessEntity {
 
 	@NotNull
@@ -36,7 +45,7 @@ public class Story extends BusinessEntity {
 
 	@OneToMany(mappedBy = "story", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Story_ID", nullable = true)
-	private Set<Comment> comments = new HashSet();
+	private Set<Comment> comments = new HashSet<Comment>();
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "project_id", nullable = false)

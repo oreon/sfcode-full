@@ -11,7 +11,7 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
 	<h:form>
-		<ice:commandButton value="Create New" action="edit"/>
+		<ice:commandButton value="Create New" action="edit" rendered="#{identity.loggedIn}"/>
 		<ice:dataTable id="data" var="memberSkill" value="#{memberSkillList}" rows="30"
 		rowClasses="odd, even" styleClass="dataTable" >		
 		
@@ -47,6 +47,20 @@
 			
 		
 	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.dateCreated}" />
+		</f:facet>
+		<h:outputText value="#{memberSkill.dateCreated}" />
+	</ice:column>
+
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.createdByUser}" />
+		</f:facet>
+		<h:outputText value="#{memberSkill.createdByUser.displayName}" />
+	</ice:column>
+
 		
 	<ice:column   >
 		<f:facet name="header">

@@ -171,8 +171,16 @@
 			
 	
 	
-	<ice:dataTable id="memberSkills_data" var="memberSkill" 
-					value="#{teamMemberAction.listMemberSkills}" rows="10"
+	
+	
+	<h:commandButton  value="New Skill" action="#{teamMemberAction.addSkills}" >
+		<s:conversationId/>
+	</h:commandButton>
+
+	
+	
+	<ice:dataTable id="skills_data" var="memberSkill" rendered="#{not empty teamMemberAction.listSkills}"
+					value="#{teamMemberAction.listSkills}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		
 	
@@ -228,14 +236,16 @@
 		
 		
 	<h:column>
-	<h:commandButton  value="New Item" action="#{teamMemberAction.addMemberSkills}" >
+		
+	<h:commandButton  value="New Skill" action="#{teamMemberAction.addSkills}" >
 		<s:conversationId/>
 	</h:commandButton>
+
 	</h:column>
 
 		
 	<h:column>
-		<ice:commandButton value="Delete" action="#{teamMemberAction.deleteMemberSkills(memberSkill)}" immediate="true">
+		<ice:commandButton value="Delete" action="#{teamMemberAction.deleteSkills(memberSkill)}" immediate="true">
 			<s:conversationId/>
 		</ice:commandButton>
 	</h:column>

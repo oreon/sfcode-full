@@ -27,8 +27,8 @@ public class TeamMember extends ApplicationUser {
 	protected String country;
 
 	@OneToMany(mappedBy = "teamMember", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "TeamMember_ID", nullable = true)
-	private Set<MemberSkill> memberSkills = new HashSet();
+	@JoinColumn(name = "TeamMember_ID", nullable = false)
+	private Set<MemberSkill> skills = new HashSet<MemberSkill>();
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -62,12 +62,12 @@ public class TeamMember extends ApplicationUser {
 		return country;
 	}
 
-	public void setMemberSkills(Set<MemberSkill> memberSkills) {
-		this.memberSkills = memberSkills;
+	public void setSkills(Set<MemberSkill> skills) {
+		this.skills = skills;
 	}
 
-	public Set<MemberSkill> getMemberSkills() {
-		return memberSkills;
+	public Set<MemberSkill> getSkills() {
+		return skills;
 	}
 
 	@Transient

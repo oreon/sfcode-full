@@ -1,11 +1,15 @@
 package org.cerebrum.domain.action;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.jboss.seam.mock.SeamTest;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import org.wcdemo.xstories.Priority;
+import org.wcdemo.xstories.action.StoryAction;
 
 public class CusotmerActionTest extends SeamTest{
 	/*
@@ -46,6 +50,18 @@ public class CusotmerActionTest extends SeamTest{
 		em.getTransaction().commit();
 		em.close();
 	}*/
+	
+	
+	@Test
+	public void testRegisterAction() {
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		em.getTransaction().begin();
+		
+		StoryAction action = new StoryAction();
+		action.setEntityManager(em);
+		action.executeNamedQuery("openStories", Priority.URGENT);
+	}
+
 
 	private EntityManagerFactory emf;
 
@@ -56,7 +72,7 @@ public class CusotmerActionTest extends SeamTest{
 	@BeforeClass
 	public void init() {
 		emf = Persistence
-				.createEntityManagerFactory("entityManagerFactory");
+				.createEntityManagerFactory("newSeam");
 	}
 
 	@AfterClass

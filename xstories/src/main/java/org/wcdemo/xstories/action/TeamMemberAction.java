@@ -66,42 +66,44 @@ public class TeamMemberAction extends BaseAction<TeamMember>
 		this.teamMemberList = list;
 	}
 
-	private List<MemberSkill> listMemberSkills;
+	private List<MemberSkill> listSkills;
 
-	void initListMemberSkills() {
-		listMemberSkills = new ArrayList<MemberSkill>();
-		if (teamMember.getMemberSkills().isEmpty())
-			addMemberSkills();
-		else
-			listMemberSkills.addAll(teamMember.getMemberSkills());
+	void initListSkills() {
+		listSkills = new ArrayList<MemberSkill>();
+		if (teamMember.getSkills().isEmpty()) {
+
+			addSkills();
+
+		} else
+			listSkills.addAll(teamMember.getSkills());
 	}
 
-	public List<MemberSkill> getListMemberSkills() {
-		if (listMemberSkills == null) {
-			initListMemberSkills();
+	public List<MemberSkill> getListSkills() {
+		if (listSkills == null) {
+			initListSkills();
 		}
-		return listMemberSkills;
+		return listSkills;
 	}
 
-	public void setListMemberSkills(List<MemberSkill> listMemberSkills) {
-		this.listMemberSkills = listMemberSkills;
+	public void setListSkills(List<MemberSkill> listSkills) {
+		this.listSkills = listSkills;
 	}
 
-	public void deleteMemberSkills(MemberSkill memberSkills) {
-		listMemberSkills.remove(memberSkills);
+	public void deleteSkills(MemberSkill skills) {
+		listSkills.remove(skills);
 	}
 
 	@Begin(join = true)
-	public void addMemberSkills() {
-		MemberSkill memberSkills = new MemberSkill();
-		memberSkills.setTeamMember(teamMember);
-		listMemberSkills.add(memberSkills);
+	public void addSkills() {
+		MemberSkill skills = new MemberSkill();
+		skills.setTeamMember(teamMember);
+		listSkills.add(skills);
 	}
 
 	public void updateComposedAssociations() {
 
-		teamMember.getMemberSkills().clear();
-		teamMember.getMemberSkills().addAll(listMemberSkills);
+		teamMember.getSkills().clear();
+		teamMember.getSkills().addAll(listSkills);
 
 	}
 
