@@ -14,9 +14,10 @@
 	<ui:define name="content">
 		<ui:include src="searchCustomer.jspx" />
 		<h:form>
-			<ice:commandButton value="Create New" action="edit"/>
+			<ice:commandButton value="Create New" action="edit"/><br/>
+			<h:outputText value="No Customer could be found." rendered="#{customerList != null and customerList.rowCount==0}" />
 			<ice:dataTable id="data" var="customer" value="#{customerList}" rows="30"
-			rowClasses="odd, even" styleClass="dataTable" >		
+			rowClasses="odd, even" rendered="#{customerList.rowCount > 0}" styleClass="dataTable" >		
 			
 	<ice:column>
 		<f:facet name="header">
