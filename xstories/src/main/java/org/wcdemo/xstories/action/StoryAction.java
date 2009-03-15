@@ -86,9 +86,9 @@ public class StoryAction extends BaseAction<Story>
 
 	void initListComments() {
 		listComments = new ArrayList<Comment>();
-		if (story.getComments().isEmpty())
-			addComments();
-		else
+		if (story.getComments().isEmpty()) {
+
+		} else
 			listComments.addAll(story.getComments());
 	}
 

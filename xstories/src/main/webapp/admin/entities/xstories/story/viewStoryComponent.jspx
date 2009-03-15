@@ -161,7 +161,9 @@
 			
 	
 	
-	<ice:dataTable id="comments_data" var="comment" 
+	
+	
+	<ice:dataTable id="comments_data" var="comment" rendered="#{not empty storyAction.listComments}"
 					value="#{storyAction.listComments}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		
@@ -185,13 +187,30 @@
 	
 	
 		
+		
+		
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.dateCreated}" />
+		</f:facet>
+		<h:outputText value="#{comment.dateCreated}" />
+	</ice:column>
+
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.createdByUser}" />
+		</f:facet>
+		<h:outputText value="#{comment.createdByUser.displayName}" />
+	</ice:column>
+
+
 			
 	</ice:dataTable>
 			</s:validateAll>
 				
 	<div class="buttonBox">
 		
-		<h:commandButton value="Edit"  action="edit" /> 
+		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" /> 
 		<h:outputText value=" " />
 		<h:commandButton value="Back To Listing" immediate="true" action="#{storyAction.cancel}" /> 
 		

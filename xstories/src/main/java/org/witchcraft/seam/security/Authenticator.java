@@ -11,6 +11,8 @@ import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
 import org.wcdemo.xstories.ApplicationRole;
 import org.wcdemo.xstories.ApplicationUser;
+import org.wcdemo.xstories.TeamMember;
+import org.witchcraft.base.entity.UserUtil;
 
 @Name("authenticator")
 public class Authenticator {
@@ -43,7 +45,8 @@ public class Authenticator {
 			}else{
 				log.warn("no role found for user " + user.getUserName());
 			}
-
+				
+			UserUtil.setCurrentUserAndIp(((TeamMember)user), "192.144.144.0");
 			return true;
 
 		}

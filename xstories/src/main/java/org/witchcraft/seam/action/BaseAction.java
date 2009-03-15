@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.jboss.seam.annotations.Begin;
+import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
@@ -19,9 +20,8 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.witchcraft.base.entity.BusinessEntity;
 
-
 public abstract class BaseAction<T extends BusinessEntity> {
-	
+
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
@@ -38,23 +38,24 @@ public abstract class BaseAction<T extends BusinessEntity> {
 
 	@In
 	protected FacesMessages facesMessages;
-	
+
 	@In
 	protected Events events;
 
-
-	@Begin
+	@Begin(join=true)
 	public String select(T t) {
-		setEntity( entityManager.merge(t) );
-		log.info("User selected #{t.getClass().getName()}: #{t.displayName} #{t.id} ");
+		setEntity(entityManager.merge(t));
+		log
+				.info("User selected #{t.getClass().getName()}: #{t.displayName} #{t.id} ");
 		return "select";
 	}
-	
+
 	public String archive(T t) {
 		t.setArchived(true);
 		entityManager.merge(t);
 		facesMessages.add("Successfully archived  #{t.displayName}");
-		log.info("User archived #{t.getClass().getName()}: #{t.displayName} #{t.id} ");
+		log
+				.info("User archived #{t.getClass().getName()}: #{t.displayName} #{t.id} ");
 		events.raiseTransactionSuccessEvent("t archived");
 		return "";
 	}
@@ -71,16 +72,16 @@ public abstract class BaseAction<T extends BusinessEntity> {
 	public String cancel() {
 		return "cancel";
 	}
-	
-	public void search(){
+
+	public void search() {
 		Criteria criteria = createExampleCriteria();
-		setEntityList( criteria.list() );
+		setEntityList(criteria.list());
 	}
-	
-	public void clearSearch(){
+
+	public void clearSearch() {
 		try {
-			setEntity( (T) getEntity().getClass().newInstance() );
-			//TODO: do exception handling
+			setEntity((T) getEntity().getClass().newInstance());
+			// TODO: do exception handling
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
@@ -92,55 +93,58 @@ public abstract class BaseAction<T extends BusinessEntity> {
 	public Criteria createExampleCriteria() {
 		Session session = (Session) entityManager.getDelegate();
 
-		Example example = Example.create( getEntity() ).enableLike(
+		Example example = Example.create(getEntity()).enableLike(
 				MatchMode.START).ignoreCase().excludeZeroes();
 
-		Criteria criteria = session.createCriteria(getEntity().getClass()).add(example);
+		Criteria criteria = session.createCriteria(getEntity().getClass()).add(
+				example);
 		/*
-		for (String exclude : excludedProperties) {
-			example.excludeProperty(exclude);
-		}*/
+		 * for (String exclude : excludedProperties) {
+		 * example.excludeProperty(exclude); }
+		 */
 		addAssoications(criteria);
-		
+
 		return criteria;
 	}
-	
-	/** This method should be overloaded by actions to add associations e.g. an order would need the
-	 * associated customer
+
+	/**
+	 * This method should be overloaded by actions to add associations e.g. an
+	 * order would need the associated customer
+	 * 
 	 * @param criteria
 	 */
 	public void addAssoications(Criteria criteria) {
 	}
-	
+
 	public abstract T getEntity();
-	
+
 	public abstract void setEntity(T t);
-	
+
 	public abstract void findRecords();
-	
+
 	public abstract void setEntityList(List<T> list);
-	
+
 	/**
-	 * This method should be overridden by classes that need to fck 
+	 * This method should be overridden by classes that need to fck
 	 */
 	public void updateComposedAssociations() {
-	}	
-	
+	}
+
 	@SuppressWarnings("unchecked")
-	public<S> List<S> executeQuery(String queryString, Object... params) {
+	public <S> List<S> executeQuery(String queryString, Object... params) {
 		Query query = entityManager.createQuery(queryString);
 		setQueryParams(query, params);
 		return query.getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
-	public<S> S executeSingleResultQuery(String queryString, Object... params) {
+	public <S> S executeSingleResultQuery(String queryString, Object... params) {
 		Query query = entityManager.createQuery(queryString);
 		setQueryParams(query, params);
-		return (S)executeSingleResultQuery(query);
+		return (S) executeSingleResultQuery(query);
 	}
 
-	private<S> S executeSingleResultQuery(Query query) {
+	private <S> S executeSingleResultQuery(Query query) {
 		try {
 			return (S) query.getSingleResult();
 		} catch (NoResultException nre) {
@@ -150,28 +154,30 @@ public abstract class BaseAction<T extends BusinessEntity> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public<S> List<S> executeNamedQuery(String queryString, Object... params) {
+	public  void executeNamedQuery(String queryString, Object... params) {
 		Query query = entityManager.createNamedQuery(queryString);
 		setQueryParams(query, params);
-		return query.getResultList();
+		setEntityList(query.getResultList());
 	}
 
 	@SuppressWarnings("unchecked")
-	public<S> S executeSingleResultNamedQuery(String queryString, Object... params) {
+	public <S> S executeSingleResultNamedQuery(String queryString,
+			Object... params) {
 		Query query = entityManager.createNamedQuery(queryString);
 		setQueryParams(query, params);
-		return (S)executeSingleResultQuery(query); 
+		return (S) executeSingleResultQuery(query);
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public<S> S executeSingleResultNativeQuery(String queryString, Object... params) {
+	public <S> S executeSingleResultNativeQuery(String queryString,
+			Object... params) {
 		Query query = entityManager.createNativeQuery(queryString);
 		setQueryParams(query, params);
-		return (S)query.getSingleResult();
+		return (S) query.getSingleResult();
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public<S> List<S> executeNativeQuery(String queryString, Object... params) {
+	public <S> List<S> executeNativeQuery(String queryString, Object... params) {
 		Query query = entityManager.createNativeQuery(queryString);
 		setQueryParams(query, params);
 		return query.getResultList();
@@ -183,7 +189,12 @@ public abstract class BaseAction<T extends BusinessEntity> {
 			query.setParameter(counter++, param);
 		}
 	}
-	
-	
 
+	@End
+	public void reset() {
+	}
+
+	@Destroy
+	public void destroy() {
+	}
 }

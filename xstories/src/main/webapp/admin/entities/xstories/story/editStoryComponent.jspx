@@ -191,7 +191,15 @@
 			
 	
 	
-	<ice:dataTable id="comments_data" var="comment" 
+	
+	
+	<h:commandButton  value="New Comment" action="#{storyAction.addComments}" >
+		<s:conversationId/>
+	</h:commandButton>
+
+	
+	
+	<ice:dataTable id="comments_data" var="comment" rendered="#{not empty storyAction.listComments}"
 					value="#{storyAction.listComments}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		
@@ -218,9 +226,11 @@
 		
 		
 	<h:column>
-	<h:commandButton  value="New Item" action="#{storyAction.addComments}" >
+		
+	<h:commandButton  value="New Comment" action="#{storyAction.addComments}" >
 		<s:conversationId/>
 	</h:commandButton>
+
 	</h:column>
 
 		

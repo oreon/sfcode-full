@@ -11,7 +11,7 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
 	<h:form>
-		<ice:commandButton value="Create New" action="edit"/>
+		<ice:commandButton value="Create New" action="edit" rendered="#{identity.loggedIn}"/>
 		<ice:dataTable id="data" var="comment" value="#{commentList}" rows="30"
 		rowClasses="odd, even" styleClass="dataTable" >		
 		
@@ -35,6 +35,20 @@
 		<h:outputText escape="false"  value="#{comment.text}" />
 	</ice:column>
 	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.dateCreated}" />
+		</f:facet>
+		<h:outputText value="#{comment.dateCreated}" />
+	</ice:column>
+
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.createdByUser}" />
+		</f:facet>
+		<h:outputText value="#{comment.createdByUser.displayName}" />
+	</ice:column>
+
 		
 	<ice:column   >
 		<f:facet name="header">
