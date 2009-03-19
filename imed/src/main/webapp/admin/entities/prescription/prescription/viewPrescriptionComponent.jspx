@@ -1,0 +1,303 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<ice:form>
+			<s:validateAll>
+			<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+			<f:facet name="header">
+				<h:outputText value="Prescription " />
+			</f:facet>
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.prescription_startDate}"/>
+		
+
+	<ice:outputText    id="Prescription_startDate"   value="#{prescription.startDate}" />
+   
+
+		
+		
+		
+		
+	
+
+	
+
+	
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.prescription_notes}"/>
+		
+
+	<ice:outputText escape="false"   id="Prescription_notes"   value="#{prescription.notes}" />
+   
+
+		
+		
+		
+		
+	
+
+	
+
+	
+	
+			</h:panelGrid>
+			
+	
+	
+	
+	
+	<ice:dataTable id="items_data" var="item" rendered="#{not empty prescriptionAction.listItems}"
+					value="#{prescriptionAction.listItems}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+	
+		
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_qty}"/></f:facet>
+		
+
+	<ice:outputText    id="Item_qty"   value="#{item.qty}" />
+   
+
+		
+		
+		</h:column>
+		
+	
+
+	
+
+	
+	
+	
+		
+	
+	
+		
+		<h:column style="text-align:left"><f:facet name="header"><h:outputText value="#{msg.item_measurement}"/></f:facet>
+		
+
+	<ice:outputText    id="Item_measurement"   value="#{item.measurement}" />
+   
+
+		
+		
+		</h:column>
+		
+	
+
+	
+
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_drug}"/></f:facet>
+		
+	
+	<ice:outputText   value="#{
+item.drug
+.displayName}" />
+	
+
+		
+		
+		</h:column>
+		
+	
+
+	
+		
+	
+	
+	
+		
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_route}"/></f:facet>
+		
+	
+	<ice:outputText   id="Item_route" value="#{item.route}" />
+	
+
+		
+		
+		</h:column>
+		
+	
+
+	
+
+	
+	
+	
+		
+	
+	
+		
+		<h:column style="text-align:left"><f:facet name="header"><h:outputText value="#{msg.item_instructions}"/></f:facet>
+		
+
+	<ice:outputText    id="Item_instructions"   value="#{item.instructions}" />
+   
+
+		
+		
+		</h:column>
+		
+	
+
+	
+
+	
+	
+	
+		
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_PRN}"/></f:facet>
+		
+
+	<ice:outputText    id="Item_PRN"   value="#{item.pRN}" />
+   
+
+		
+		
+		</h:column>
+		
+	
+
+	
+
+	
+	
+	
+		
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_days}"/></f:facet>
+		
+
+	<ice:outputText    id="Item_days"   value="#{item.days}" />
+   
+
+		
+		
+		</h:column>
+		
+	
+
+	
+
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_frequency}"/></f:facet>
+		
+	
+	<ice:outputText   value="#{
+item.frequency
+.displayName}" />
+	
+
+		
+		
+		</h:column>
+		
+	
+
+	
+		
+	
+	
+	
+		
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_subs}"/></f:facet>
+		
+
+	<ice:outputText    id="Item_subs"   value="#{item.subs}" />
+   
+
+		
+		
+		</h:column>
+		
+	
+
+	
+
+	
+	
+		
+		
+		
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.dateCreated}" />
+		</f:facet>
+		<h:outputText value="#{item.dateCreated}" />
+	</ice:column>
+
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.createdByUser}" />
+		</f:facet>
+		<h:outputText value="#{item.createdByUser.displayName}" />
+	</ice:column>
+
+
+			
+	</ice:dataTable>
+			</s:validateAll>
+				
+	<div class="buttonBox">
+		
+		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Back To Listing" immediate="true" action="#{prescriptionAction.cancel}" /> 
+		
+	</div>
+
+		</ice:form>
+	</ice:panelGroup>
+	</html>
+	

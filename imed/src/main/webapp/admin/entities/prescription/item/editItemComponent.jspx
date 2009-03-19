@@ -1,0 +1,252 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<ice:form>
+			<s:validateAll>
+			<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+			<f:facet name="header">
+				<h:outputText value="Item " />
+			</f:facet>
+	
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.item_qty}"/>
+		
+
+	<ice:inputText  id="Item_qty" required="false"  value="#{item.qty}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Item_qty" />
+		
+		
+	
+
+	
+
+	
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.item_measurement}"/>
+		
+
+	<ice:inputText  id="Item_measurement" required="false"  value="#{item.measurement}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Item_measurement" />
+		
+		
+	
+
+	
+
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.item_drug}"/>
+		
+	
+	<h:selectOneMenu id="Item_drug" value="#{
+item.drug
+}" required="true">
+		<s:selectItems value="#{drugList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Item_drug" />
+		
+		
+	
+
+	
+		
+	
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.item_route}"/>
+		
+	
+	<h:selectOneMenu id="Item_route" value="#{item.route}" required="false">
+		<f:selectItem itemLabel="Please Select..." itemValue="" />
+		<f:selectItem itemLabel="PO" itemValue="PO" />
+		<f:selectItem itemLabel="IM" itemValue="IM" />
+		<f:selectItem itemLabel="IV" itemValue="IV" />
+		<f:selectItem itemLabel="TOP" itemValue="TOP" />
+		<f:selectItem itemLabel="SC" itemValue="SC" />
+		<f:selectItem itemLabel="INH" itemValue="INH" />
+		
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Item_route" />
+		
+		
+	
+
+	
+
+	
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.item_instructions}"/>
+		
+
+	<ice:inputText  id="Item_instructions" required="false"  value="#{item.instructions}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Item_instructions" />
+		
+		
+	
+
+	
+
+	
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.item_PRN}"/>
+		
+
+	<ice:selectBooleanCheckbox  id="Item_PRN" required="false"  value="#{item.pRN}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Item_PRN" />
+		
+		
+	
+
+	
+
+	
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.item_days}"/>
+		
+
+	<ice:inputText  id="Item_days" required="false"  value="#{item.days}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Item_days" />
+		
+		
+	
+
+	
+
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.item_frequency}"/>
+		
+	
+	<h:selectOneMenu id="Item_frequency" value="#{
+item.frequency
+}" required="true">
+		<s:selectItems value="#{frequencyList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Item_frequency" />
+		
+		
+	
+
+	
+		
+	
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.item_subs}"/>
+		
+
+	<ice:selectBooleanCheckbox  id="Item_subs" required="false"  value="#{item.subs}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Item_subs" />
+		
+		
+	
+
+	
+
+	
+	
+			</h:panelGrid>
+			
+	
+			</s:validateAll>
+				
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{itemAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{itemAction.cancel}" /> 
+		
+	</div>
+
+		</ice:form>
+	</ice:panelGroup>
+	</html>
+	

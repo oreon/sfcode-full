@@ -1,0 +1,145 @@
+
+<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:form>
+	<ice:panelGroup styleClass="pnlClpsblWrapper panelCollapsible">
+	<ice:panelCollapsible >
+			<f:facet name="header">
+				<ice:outputText id="srchHdr" value="Search" />
+			</f:facet>
+			<div class="entry errors"><h:messages globalOnly="true" /></div>
+			<h:panelGrid columns="3">
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.item_prescription}"/> <br/>
+	<h:selectOneMenu id="Item_prescription" value="#{item.prescription}" >
+		<s:selectItems value="#{prescriptionList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.item_qty}"/> <br/>
+	<ice:inputText  id="Item_qty" value="#{item.qty}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.item_measurement}"/> <br/>
+	<ice:inputText  id="Item_measurement" value="#{item.measurement}" />
+	</h:panelGroup>
+
+	
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.item_drug}"/> <br/>
+	<h:selectOneMenu id="Item_drug" value="#{item.drug}" >
+		<s:selectItems value="#{drugList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.item_route}"/> <br/>
+	<h:selectOneMenu id="Item_route" value="#{item.route}" required="false">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="PO" itemValue="PO" />
+		<f:selectItem itemLabel="IM" itemValue="IM" />
+		<f:selectItem itemLabel="IV" itemValue="IV" />
+		<f:selectItem itemLabel="TOP" itemValue="TOP" />
+		<f:selectItem itemLabel="SC" itemValue="SC" />
+		<f:selectItem itemLabel="INH" itemValue="INH" />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.item_instructions}"/> <br/>
+	<ice:inputText  id="Item_instructions" value="#{item.instructions}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.item_PRN}"/> <br/>
+	<ice:selectBooleanCheckbox  id="Item_PRN" value="#{item.pRN}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.item_days}"/> <br/>
+	<ice:inputText  id="Item_days" value="#{item.days}" />
+	</h:panelGroup>
+
+	
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.item_frequency}"/> <br/>
+	<h:selectOneMenu id="Item_frequency" value="#{item.frequency}" >
+		<s:selectItems value="#{frequencyList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.item_subs}"/> <br/>
+	<ice:selectBooleanCheckbox  id="Item_subs" value="#{item.subs}" />
+	</h:panelGroup>
+
+	
+	
+			</h:panelGrid>
+			
+	<div class="buttonBox">
+		<h:commandButton value="Search"  action="#{itemAction.search}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Clear Search" immediate="true" action="#{itemAction.clearSearch}" /> 
+	</div>
+
+		</ice:panelCollapsible>
+		</ice:panelGroup>
+		</h:form>
+</html>
+	

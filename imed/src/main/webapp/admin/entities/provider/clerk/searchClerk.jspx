@@ -1,0 +1,170 @@
+
+<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:form>
+	<ice:panelGroup styleClass="pnlClpsblWrapper panelCollapsible">
+	<ice:panelCollapsible >
+			<f:facet name="header">
+				<ice:outputText id="srchHdr" value="Search" />
+			</f:facet>
+			<div class="entry errors"><h:messages globalOnly="true" /></div>
+			<h:panelGrid columns="3">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.person_firstName}"/> <br/>
+	<ice:inputText  id="Person_firstName" value="#{clerk.firstName}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.person_dateOfBirth}"/> <br/>
+	<wc:calendar  id="Person_dateOfBirth" value="#{clerk.dateOfBirth}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.person_gender}"/> <br/>
+	<h:selectOneMenu id="Person_gender" value="#{clerk.gender}" required="false">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="F" itemValue="F" />
+		<f:selectItem itemLabel="M" itemValue="M" />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.person_age}"/> <br/>
+	<ice:inputText  id="Person_age" value="#{clerk.age}" />
+	</h:panelGroup>
+
+	
+	
+	
+			
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.address_streetAddress}"/> <br/>
+	<ice:inputText  id="Address_streetAddress" value="#{clerk.address.streetAddress}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.address_city}"/> <br/>
+	<ice:inputText  id="Address_city" value="#{clerk.address.city}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.address_state}"/> <br/>
+	<ice:inputText  id="Address_state" value="#{clerk.address.state}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.address_zip}"/> <br/>
+	<ice:inputText  id="Address_zip" value="#{clerk.address.zip}" />
+	</h:panelGroup>
+
+	
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.address_country}"/> <br/>
+	<h:selectOneMenu id="Address_country" value="#{clerk.country}" >
+		<s:selectItems value="#{countryList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+		
+	
+	
+	
+			
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.contactDetails_primaryPhone}"/> <br/>
+	<ice:inputText  id="ContactDetails_primaryPhone" value="#{clerk.contactDetails.primaryPhone}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.contactDetails_secondaryPhone}"/> <br/>
+	<ice:inputText  id="ContactDetails_secondaryPhone" value="#{clerk.contactDetails.secondaryPhone}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.contactDetails_email}"/> <br/>
+	<ice:inputText  id="ContactDetails_email" value="#{clerk.contactDetails.email}" />
+	</h:panelGroup>
+
+	
+	
+		
+	
+	
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.clerk_user}"/> <br/>
+	<h:selectOneMenu id="Clerk_user" value="#{clerk.user}" >
+		<s:selectItems value="#{userList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+			</h:panelGrid>
+			
+	<div class="buttonBox">
+		<h:commandButton value="Search"  action="#{clerkAction.search}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Clear Search" immediate="true" action="#{clerkAction.clearSearch}" /> 
+	</div>
+
+		</ice:panelCollapsible>
+		</ice:panelGroup>
+		</h:form>
+</html>
+	

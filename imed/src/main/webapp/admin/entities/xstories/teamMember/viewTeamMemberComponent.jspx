@@ -1,0 +1,227 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup id="editanswerchoiceGroupId"
+					styleClass="formBorderHighlight">
+		<ice:form>
+			<s:validateAll>
+			<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+			<f:facet name="header">
+				<h:outputText value="TeamMember " />
+			</f:facet>
+	
+	
+	
+	<h:outputText value="#{msg.applicationUser_userName}"/>
+	
+
+	<ice:outputText    id="ApplicationUser_userName"   value="#{teamMember.userName}" />
+   
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+
+	
+	
+	
+	
+	 <s:div rendered="#{s:hasRole('admin')}">
+	<h:outputText value="#{msg.applicationUser_enabled}"/>
+	
+
+	<ice:outputText    id="ApplicationUser_enabled"   value="#{teamMember.enabled}" />
+   
+
+	
+	
+	
+	</s:div>
+	
+
+	
+	
+	
+		
+	
+	 <s:div rendered="#{s:hasRole('admin')}">
+	<h:outputText value="#{msg.applicationUser_applicationRole}"/>
+	
+	
+	<ice:outputText   value="#{teamMember.applicationRole.displayName}" />
+	
+
+	
+	
+	
+	</s:div>
+	
+		
+	
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.teamMember_firstName}"/>
+	
+
+	<ice:outputText    id="TeamMember_firstName"   value="#{teamMember.firstName}" />
+   
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.teamMember_lastName}"/>
+	
+
+	<ice:outputText    id="TeamMember_lastName"   value="#{teamMember.lastName}" />
+   
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.teamMember_email}"/>
+	
+
+	<ice:outputText    id="TeamMember_email"   value="#{teamMember.email}" />
+   
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<h:outputText value="#{msg.teamMember_country}"/>
+	
+
+	<ice:outputText    id="TeamMember_country"   value="#{teamMember.country}" />
+   
+
+	
+	
+	
+	
+	
+
+	
+	
+			</h:panelGrid>
+			
+	
+	
+	
+	
+	<ice:dataTable id="skills_data" var="memberSkill" rendered="#{not empty teamMemberAction.listSkills}"
+					value="#{teamMemberAction.listSkills}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+	
+	
+	<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.memberSkill_skillLevel}"/></f:facet>
+	
+	
+	<ice:outputText   id="MemberSkill_skillLevel" value="#{memberSkill.skillLevel}" />
+	
+
+	
+	
+	</h:column>
+	
+	
+
+	
+	
+	
+	
+		
+	
+	
+	<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.memberSkill_skill}"/></f:facet>
+	
+	
+	<ice:outputText   value="#{memberSkill.skill.displayName}" />
+	
+
+	
+	
+	</h:column>
+	
+	
+		
+	
+	
+		
+		
+		
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.dateCreated}" />
+		</f:facet>
+		<h:outputText value="#{memberSkill.dateCreated}" />
+	</ice:column>
+
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.createdByUser}" />
+		</f:facet>
+		<h:outputText value="#{memberSkill.createdByUser.displayName}" />
+	</ice:column>
+
+
+			
+	</ice:dataTable>
+			</s:validateAll>
+				
+	<div class="buttonBox">
+		
+		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Back To Listing" immediate="true" action="#{teamMemberAction.cancel}" /> 
+		
+	</div>
+
+		</ice:form>
+	</ice:panelGroup>
+	</html>
+	
