@@ -22,10 +22,12 @@
 	«FILE getWebPath() +"/list" +name+ "Component." + getExtension()»
 	<html «EXPAND WebRoot::genIncludes-» >	
 	<h:form>
-		<ice:commandButton value="Create New" action="edit"/>
+		<ice:commandButton value="Create New" action="edit" rendered="#{identity.loggedIn}"/>
 		<ice:dataTable id="data" var="«asVar()»" value="#{«asVar()»List}" rows="30"
 		rowClasses="odd, even" styleClass="dataTable" >		
 		«EXPAND genAttribAsOutput FOR this-»
+		«EXPAND genProperty FOR "dateCreated"»
+		«EXPAND genProperty FOR "createdByUser"»
 		«EXPAND genLink("select", "eye.png") FOR this»
 		«EXPAND genLink ("select", "edit.png")FOR this»
 		«EXPAND genLink("archive", "delete.png") FOR this»
@@ -36,16 +38,22 @@
 «ENDDEFINE»
 
 
+«DEFINE genPropsFromBusinessEntity FOR uml::Class»
+	«EXPAND genProperty FOR "dateCreated"»
+	«EXPAND genProperty FOR "createdByUser"»
+«ENDDEFINE»
+
+
 «DEFINE genAttribAsOutput FOR uml::Class»
 	«FOREACH allParents() AS e-»
-			«EXPAND genAttribute FOREACH e.getAllAttributes() -»
+	«EXPAND genAttribute FOREACH e.getAllAttributes().select( a |!a.isMultivalued() && !a.isSecret()  ) -»
 	«ENDFOREACH»
-	«EXPAND genAttribute FOREACH getAllAttributes() -»
+	«EXPAND genAttribute FOREACH getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret()) -»
 «ENDDEFINE»
 
 «DEFINE genAttribute FOR uml::Property -»
 	«IF association != null -»
-		«IF isMultivalued()»
+		«IF isMultivalued() || isSecret()»
 		«ELSE»
 			«IF type.getAppliedStereotype("wcprofile::Embeddable") != null-»
 				«type.setCurrentEmbeddable()»
@@ -86,5 +94,14 @@
 			<h:outputText value="«msgBundleKey()-»" />
 		</f:facet>
 		<h:outputText «getEscape()» value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
+	</ice:column>
+«ENDDEFINE»
+
+«DEFINE genProperty FOR String-»
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="«msgBundleKey()-»" />
+		</f:facet>
+		<h:outputText value="#{«getCurrentEntity().asVar()».«this»«this == "createdByUser"?".displayName":""»}" />
 	</ice:column>
 «ENDDEFINE»

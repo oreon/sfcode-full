@@ -4,10 +4,6 @@
 «EXTENSION template::GeneratorExtensions»
 
 «DEFINE Root FOR uml::Model»
-	«REM» Massage the model «ENDREM»
-	«EXPAND setDefaultNamesForAssocs FOREACH allOwnedElements().typeSelect(uml::Property) »
-	«EXPAND applyEntityStereotype FOREACH allOwnedElements().typeSelect(wcprofile::EntitiesPackage) »
-	
 	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
 «ENDDEFINE»
 
@@ -38,16 +34,18 @@
 
 «DEFINE genClassBody FOR wcprofile::Entity»
 	@Entity
-	@Table(name="«tableName!=null?tableName:name»")
+	@Table(name="«tableName!=null?tableName.toLowerCase():name.toLowerCase()»")
 	@Name("«asVar()»")
 	public class «name» «getParent()» «getInterfaces()»{
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
 		 
+		«IF !getAllAttributes().isEmpty»
 		@Transient
 	    public String getDisplayName(){
 	    	return «displayName != null ? displayName: getAllAttributes().get(0).name + " + \"\""»;
 	    }
+	    «ENDIF»
 	    
 	}
 «ENDDEFINE»
@@ -99,7 +97,7 @@
 	import org.hibernate.validator.*;
 	
 	import org.jboss.seam.annotations.Name;
-	import org.witchcraft.base.entity.BusinessEntity;
+	import org.witchcraft.base.entity.*;
 «ENDDEFINE»
 
 «DEFINE gen FOR uml::Operation»
@@ -117,9 +115,21 @@
 
 «DEFINE genDecl FOR uml::Property»
 	«IF isMultivalued()»
+		«IF opposite!= null && opposite.isMultivalued()» «REM»Many to many relationship«ENDREM»
+			@ManyToMany(
+		        targetEntity=«class.name».class,
+		        cascade={CascadeType.PERSIST, CascadeType.MERGE}
+		    )
+		    @JoinTable(
+		        name="«name»_«opposite.name»",
+		        joinColumns=@JoinColumn(name="«opposite.name»_ID"),
+		        inverseJoinColumns=@JoinColumn(name="«name»_ID")
+		    )
+		«ELSE»
 		@OneToMany(mappedBy = "«opposite.name»", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 		@JoinColumn(name = "«class.name»_ID", nullable = «getAssocOptional()»)
-		private Set<«type.fqnForPackage(this.class)»> «name» = new HashSet();
+		«ENDIF»
+		private Set<«type.fqnForPackage(this.class)»> «name» = new HashSet<«type.fqnForPackage(this.class)»>();
 	«ELSE»
 		«IF association != null &&  !type.isEmbeddable()»
 			@ManyToOne(optional=«getAssocOptional()», fetch=FetchType.LAZY)
@@ -173,39 +183,6 @@
 		}
 	«ENDIF»
 «ENDDEFINE»
-
-«REM» For associations we need to
- set name to type name if the name is null ;«ENDREM»
-«DEFINE setDefaultNamesForAssocs FOR uml::Property»
-	«IF !(name != null && name.length > 0 )»
-		«LET type.name.toFirstLower() AS defaultName»
-			«IF isMultivalued()» «REM» For collections we need to create a plural default type name«ENDREM»
-				«setName(defaultName.getPlural())»
-			«ELSE»
-				«setName(defaultName)»
-			«ENDIF»
-			
-		«ENDLET»
-	«ENDIF»
-«ENDDEFINE»
-
-
-«REM» For classes in entitiespackage we need to default to 'Enity' profile if no sterotype is specified «ENDREM»
-«DEFINE applyEntityStereotype FOR wcprofile::EntitiesPackage»
-	«FOREACH allOwnedElements().typeSelect(uml::Class) AS c»
-		«IF c.getStereotypeApplications().isEmpty »
-			«c.applyEntityStereoType()»
-		«ENDIF»
-	«ENDFOREACH»
-«ENDDEFINE»
-
-«REM» Need to add  BusinessEntity as the superclass for all Entity and mappedsuperclass
-«DEFINE makeBusinessEntitySuperClass FOR uml::Class»
-	«IF allParents().isEmpty »
-		«»
-	«ENDIF»
-«ENDDEFINE»
-«ENDREM»
 
 
 

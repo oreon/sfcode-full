@@ -1,0 +1,35 @@
+«IMPORT wcprofile»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+
+«DEFINE Root FOR uml::Model»
+	«REM» Massage the model «ENDREM»
+	«EXPAND setDefaultNamesForAssocs FOREACH allOwnedElements().typeSelect(uml::Property) »
+	«EXPAND applyEntityStereotype FOREACH allOwnedElements().typeSelect(wcprofile::EntitiesPackage) »
+«ENDDEFINE»
+
+«REM» For associations we need to
+ set name to type name if the name is null ;«ENDREM»
+«DEFINE setDefaultNamesForAssocs FOR uml::Property»
+	«IF !(name != null && name.length > 0 )»
+		«LET type.name.toFirstLower() AS defaultName»
+			«IF isMultivalued()» «REM» For collections we need to create a plural default type name«ENDREM»
+				«setName(defaultName.getPlural())»
+			«ELSE»
+				«setName(defaultName)»
+			«ENDIF»
+			
+		«ENDLET»
+	«ENDIF»
+«ENDDEFINE»
+
+
+«REM» For classes in entitiespackage we need to default to 'Enity' profile if no sterotype is specified «ENDREM»
+«DEFINE applyEntityStereotype FOR wcprofile::EntitiesPackage»
+	«FOREACH allOwnedElements().typeSelect(uml::Class) AS c»
+		«IF c.getStereotypeApplications().isEmpty »
+			«c.applyEntityStereoType()»
+		«ENDIF»
+	«ENDFOREACH»
+«ENDDEFINE»

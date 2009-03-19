@@ -21,8 +21,7 @@
 «DEFINE genEditViewComponent(boolean edit) FOR uml::Class»
 	«FILE getWebPath() +"/" + (edit?"edit":"view") + name+ "Component." + getExtension()»
 	<html «EXPAND WebRoot::genIncludes-» >	
-	<ice:panelGroup id="editanswerchoiceGroupId"
-					styleClass="formBorderHighlight">
+	<ice:panelGroup  >
 		<ice:form>
 			<s:validateAll>
 			«setAsCurrentEntity(this)-»
@@ -45,7 +44,7 @@
 «DEFINE genCancelSaveBtns(boolean edit) FOR uml::Class»
 	<div class="buttonBox">
 		«IF !edit»
-		<h:commandButton value="Edit"  action="edit" /> 
+		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" /> 
 		<h:outputText value=" " />
 		<h:commandButton value="Back To Listing" immediate="true" action="#{«getAction()».cancel}" /> 
 		«ELSE»
@@ -78,42 +77,69 @@
 			«type.setCurrentEmbeddable()»
 			«EXPAND genAttribAsOutput FOR this.type-»
 		«ELSE»
-			«EXPAND genLabelAndInput FOR this-»
+			«EXPAND genLabelAndControl FOR this-»
 		«ENDIF»
 	«ELSE-»
-		«EXPAND genLabelAndInput FOR this»
+		«EXPAND genLabelAndControl FOR this»
 	«ENDIF»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genLabelAndControl FOR uml::Property»
+	«IF isCurrentEditMode()»
+		«EXPAND genLabelAndInput FOR this»
+	«ELSE»
+		«EXPAND genLabelAndOutput FOR this»
 	«ENDIF»
 «ENDDEFINE»
 
 
 «DEFINE genLabelAndInput FOR uml::Property-»
-	«IF !isSecret() || isCurrentEditMode()  »
-	«getAccess() != null?" <s:div rendered=\"#{s:hasRole('admin')}\">":""»
-	«getOutputMessage()»
-	«IF association != null»
-		«EXPAND genAssociation»
-	«ELSE»
-		«EXPAND genPropertyEntry(type) FOR this»
+	«IF !isDerived()  »
+		«getAccess() != null?" <s:div rendered=\"#{s:hasRole('admin')}\">":""»
+		«getOutputMessage()»
+		«IF association != null»
+			«EXPAND genAssociation»
+		«ELSE»
+			«EXPAND genPropertyEntry(type) FOR this»
+		«ENDIF»
+		«getErrorMessageHolder()»
+		«isCurrentMultiMode()?"</h:column>":""»
+		«getAccess() != null?"</s:div>":""»
 	«ENDIF»
-	«getErrorMessageHolder()»
-	«isCurrentMultiMode()?"</h:column>":""»
-	«getAccess() != null?"</s:div>":""»
+«ENDDEFINE»
+
+«DEFINE genLabelAndOutput FOR uml::Property-»
+	«IF !isSecret()  »
+		«getAccess() != null?" <s:div rendered=\"#{s:hasRole('admin')}\">":""»
+		«getOutputMessage()»
+		«IF association != null»
+			«EXPAND genAssociation»
+		«ELSE»
+			«EXPAND genPropertyEntry(type) FOR this»
+		«ENDIF»
+		«getErrorMessageHolder()»
+		«isCurrentMultiMode()?"</h:column>":""»
+		«getAccess() != null?"</s:div>":""»
 	«ENDIF»
 «ENDDEFINE»
 
 
 «DEFINE genAssociation FOR uml::Property -»
 	«IF !isCurrentEditMode()»
-	<«getTextControl()» value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()».displayName}" />
+	<«getTextControl()» value="#{«EXPAND genAssociationPropertyLabel-».displayName}" />
 	«ELSE»
-	<h:selectOneMenu id="«getId()»" value="#{«getCurrentEntity().asVar()».«name»}" required="«!getAssocOptional()»">
+	<h:selectOneMenu id="«getId()»" value="#{«EXPAND genAssociationPropertyLabel-»}" required="«!getAssocOptional()»">
 		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
 	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genAssociationPropertyLabel FOR uml::Property»
+«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
@@ -146,7 +172,11 @@
 «DEFINE gentEditableTable FOR uml::Property-»
 	«setCurrentMultiMode(true)-»
 	
-	<ice:dataTable id="«name»_data" var="«type.asVar()»" 
+	«IF isCurrentEditMode()»
+	«EXPAND genNewButton FOR this»
+	«ENDIF»
+	
+	<ice:dataTable id="«name»_data" var="«type.asVar()»" rendered="#{not empty «getCurrentEntity().getAction()».list«name.toFirstUpper()»}"
 					value="#{«getCurrentEntity().getAction()».list«name.toFirstUpper()»}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		«setAsCurrentEntity(type)»
@@ -157,6 +187,8 @@
 		«IF isCurrentEditMode()»
 		«EXPAND genNew»
 		«EXPAND genDelete FOR this»
+		«ELSE»
+		«EXPAND ListRoot::genPropsFromBusinessEntity FOR class»
 		«ENDIF»	
 	</ice:dataTable>
 	«setCurrentMultiMode(false)-»
@@ -172,8 +204,12 @@
 
 «DEFINE genNew FOR uml::Property»
 	<h:column>
-	<h:commandButton  value="New Item" action="#{«class.getAction()».add«name.toFirstUpper()»}" >
+		«EXPAND genNewButton FOR this»
+	</h:column>
+«ENDDEFINE»
+
+«DEFINE genNewButton FOR uml::Property»
+	<h:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}" >
 		<s:conversationId/>
 	</h:commandButton>
-	</h:column>
 «ENDDEFINE»

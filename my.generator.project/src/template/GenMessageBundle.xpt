@@ -8,6 +8,8 @@
 	
 	«FILE "../resources/messages.properties"»
 		«EXPAND genUserManagedMessages("")»
+		dateCreated=Date
+		createdByUser=Creator
 		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(wcprofile::Entity)-»
 		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(wcprofile::MappedSuperClass)-»
 		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(wcprofile::Embeddable)-»

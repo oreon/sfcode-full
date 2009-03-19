@@ -64,7 +64,7 @@ public class «name»Action extends BaseAction<«name»> implements java.io.Serializ
 	public void findRecords() {
 		«asVar()»List = entityManager
 				.createQuery(
-						"select «asVar()» from «name» «asVar()» order by «asVar()».id")
+						"select «asVar()» from «name» «asVar()» order by «asVar()».id desc")
 				.getResultList();
 	}	
 
@@ -120,8 +120,11 @@ public class «name»Action extends BaseAction<«name»> implements java.io.Serializ
 	
 	void initList«name.toFirstUpper()»(){
 		«currentList» = new ArrayList<«type.name»>();
-		if(«class.asVar()».get«name.toFirstUpper()»().isEmpty())
+		if(«class.asVar()».get«name.toFirstUpper()»().isEmpty()){
+			«IF !getAssocOptional()»
 			add«name.toFirstUpper()»();
+			«ENDIF»
+		}
 		else
 			«currentList».addAll(«class.asVar()».get«name.toFirstUpper()»());
 	}
@@ -144,7 +147,9 @@ public class «name»Action extends BaseAction<«name»> implements java.io.Serializ
 	@Begin(join=true)
 	public void add«name.toFirstUpper()»(){
 		«type.name» «name» = new «type.name»();
-		«name».set«opposite.name.toFirstUpper()»(«class.asVar()»);
+		«IF opposite != null && opposite.isNavigable()»
+			«name».set«opposite.name.toFirstUpper()»(«class.asVar()»);
+		«ENDIF»
 		«currentList».add(«name»);
 	}
 	

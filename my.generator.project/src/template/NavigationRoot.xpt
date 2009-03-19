@@ -1,4 +1,5 @@
 «IMPORT wcprofile»
+«IMPORT uml»
 
 «EXTENSION org::openarchitectureware::uml2::profile::profiling»
 «EXTENSION template::GeneratorExtensions»
@@ -8,41 +9,25 @@
 	«FILE getEntitiesRoot() +"/" + "navigation"  + "." + getExtension()»
 	<html «EXPAND WebRoot::genIncludes-» >
 		<h:form>
-		«REM»comment
 		«FOREACH allOwnedElements().typeSelect(uml::Package) AS p»
-		«IF !p.allOwnedElements().typeSelect(wcprofile::Entity).isEmpty»
-		«ENDREM»
+		«IF !p.packagedElement.typeSelect(wcprofile::Entity).isEmpty»
 		<ice:panelCollapsible>
 		 <f:facet name="header">
                 <ice:panelGroup>
-                    <ice:outputText id="linkHeader"
-                            value="Entities"/>
+                    <ice:outputText 
+                            value="«p.name.toFirstUpper()»"/>
                 </ice:panelGroup>
          </f:facet>
 		
 		<ice:menuBar orientation="vertical"  style="font-size: 10px;" >
-		«REM»
-		«FOREACH p.allOwnedElements().typeSelect(wcprofile::Entity) AS e»
-		«ENDREM»
-		«FOREACH allOwnedElements().typeSelect(wcprofile::Entity) AS e»
-			«REM»comment
-			<ice:menuItem value="User" id="user" >
-				<ice:menuItem  
-					value="List" icon="/img/open.png"  action="/searchUsers.jspx">
-				</ice:menuItem>
-				<ice:menuItem action="/one.jspx"
-					value="Create" icon="/images/menu/open.gif">
-				</ice:menuItem>
-			</ice:menuItem>
-			«ENDREM»
-			<ice:menuItem value="«e.name»" action="«e.asVar()»" />
+		«FOREACH p.packagedElement.typeSelect(wcprofile::Entity) AS e»
+			<ice:menuItem  value="«e.name»" action="«e.asVar()»" />
 		«ENDFOREACH»
 		</ice:menuBar>
 		</ice:panelCollapsible>
-		«REM»comment 
+		
 		«ENDIF»
 		«ENDFOREACH»
-		«ENDREM»
 		</h:form>
 	</html>
 	«ENDFILE»

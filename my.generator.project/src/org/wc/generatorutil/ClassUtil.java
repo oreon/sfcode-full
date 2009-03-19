@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
@@ -31,7 +32,7 @@ public class ClassUtil {
 	
 	private static final Logger logger = Logger.getLogger(ClassUtil.class);
 	
-	private static Properties properties = new Properties();
+	private static Properties properties ;
 
 	
 	static Map<String, String[]> mapTypes = new HashMap<String, String[]>();
@@ -39,6 +40,7 @@ public class ClassUtil {
 	static {
 		mapTypes.put("imageFile", new String[]{"byte[]",""});
 		mapTypes.put("largeText", new String[]{"String","@Lob"});
+		mapTypes.put("nameType", new String[]{"String","@NotNull @Length(min=2, max=50)"});
 		loadProperties();
 	}
 
@@ -192,14 +194,18 @@ public class ClassUtil {
 	
 	
 	public static String readProperty(String key) {
-		if(!loadProperties())
-			return "COULDNT_READ_FILE";
+		if(properties == null ){
+			if(!loadProperties())
+				return "COULDNT_READ_FILE";
+		}
+			
 		String value = properties.getProperty(key);
 		logger.info("Returning value " + value + " for key " + key);
 		return value;
 	}
 
 	private static boolean loadProperties() {
+		properties = new Properties();
 		try {
 			InputStream stream = ClassUtil.class
 					.getResourceAsStream("/workflow.properties");
@@ -215,5 +221,50 @@ public class ClassUtil {
 		}
 	}
 	
+	public static String getSingular(String word){
+		return word.endsWith("s")?word.substring(0, word.length() -1):word;
+	}
+	
+	
+	/**
+	 * Get the left nav entities
+	 * 
+	 * @return
+	 */
+	/*
+	public static String getEntitiesLeftNavMenu() {
+		List<Entity> entites = ClassUtil.getEntities();
+		StringBuffer data = new StringBuffer();
 
+		String prevNameSpace = null;
+
+		for (Entity entity : entites) {
+
+			if (!entity.Namespace().NameS().equals(prevNameSpace)) {
+				// Check if a prev namespace just ended
+				if (prevNameSpace != null)
+					data.append("</rich:panelMenuGroup>");
+				data.append("<rich:panelMenuGroup label=\""
+						+ getImmediatePackage(entity.Namespace().NameS())
+						+ " \"  expanded=\"true\" >");
+			}
+
+			data.append(" <rich:panelMenuItem><h:commandLink action=\"list"
+					+ entity.NameS() + "\" value=\"#{msg." + entity.NameS()
+					+ "}s\">\n");
+			data.append("\t<f:param name=\"nextPage\" value=\""
+					+ getImmediatePackage(entity.Namespace().NameS()) + "-"
+					+ entity.NameS()
+					+ "\" />\n</h:commandLink>\n</rich:panelMenuItem>\n");
+
+			prevNameSpace = entity.Namespace().NameS();
+		}
+
+		if (!entites.isEmpty())
+			data.append("</rich:panelMenuGroup>");
+
+		return data.toString();
+	}*/
+
+	
 }
