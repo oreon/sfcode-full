@@ -63,16 +63,18 @@ cls.name.toFirstLower();
 String getPlural(String word):
 word.endsWith("s")?word + "es": word + "s";
 
+String getSingular(String word):
+JAVA org.wc.generatorutil.ClassUtil.getSingular(java.lang.String);
 
 
 //get the parent
 String getParent(Class cls):
-cls.parents().size > 0 ?" extends " + cls.parents().get(0).name:"";
+cls.parents().size > 0 ?" extends " + cls.parents().get(0).fqn():"";
 
 
 //get the parent
 String getParent(Entity cls):
-" extends " + ( cls.parents().size > 0 ? cls.parents().get(0).name:" BusinessEntity ");
+" extends " + ( cls.parents().size > 0 ? cls.parents().get(0).fqn():" BusinessEntity ");
 
 //get the parent
 String getParent(MappedSuperClass cls):
@@ -117,7 +119,13 @@ prop.type.name + "." +  prop.getDefault();
 
 
 getTransient(Column col):
-col.derivedProperty != null ? "@Transient":"";
+col.isDerived() ? "@Transient":"";
+
+isDerived(Column col):
+col.derivedProperty != null;
+
+isDerived(Property col):
+false;
 
 isSecret(Column col):
 col.secret == true;

@@ -4,10 +4,11 @@
 «EXTENSION template::GeneratorExtensions»
 «EXTENSION template::webExtensions»
 
-«DEFINE Root FOR uml::Model»	
-	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
+«DEFINE Root FOR uml::Model»
 	«EXPAND NavigationRoot::genNav »
 	«EXPAND NavigationRoot::genSummaryPage »
+		
+	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
 «ENDDEFINE»
 
 «DEFINE PackageRoot FOR uml::Package»

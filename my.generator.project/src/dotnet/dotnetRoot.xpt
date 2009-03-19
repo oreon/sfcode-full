@@ -1,0 +1,87 @@
+«EXTENSION oaw::uml2::support::UMLSupport»
+
+ 
+
+«DEFINE Root FOR uml::Model»
+
+«EXPAND OA_Gen FOREACH ownedElement»
+
+«ENDDEFINE»
+
+ 
+
+«DEFINE OA_Gen FOR uml::Package»
+
+«EXPAND OA_Gen FOREACH ownedElement»
+
+«ENDDEFINE»
+
+ 
+
+«DEFINE OA_Gen FOR oa::BusinessObject»
+
+«FILE name+".cs"»
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Text;
+
+ 
+
+namespace BusinessObjects
+
+{
+
+    [OpenAccess.Persistent()]
+
+    public class «name»
+
+    {
+
+«EXPAND OA_Gen_Attribute FOREACH ownedAttribute»
+
+«EXPAND OA_Gen_Property FOREACH ownedAttribute»
+
+    }
+
+}
+
+«ENDFILE»
+
+«ENDDEFINE»
+
+ 
+
+«DEFINE OA_Gen_Attribute FOR uml::Property-»
+
+        private «type.name» «name»;
+
+«ENDDEFINE»
+
+ 
+
+«DEFINE OA_Gen_Property FOR uml::Property»
+
+        public «type.name» «name.toFirstUpper()»
+
+        {
+
+            get { return «name»; }
+
+            set { «name» = value; }
+
+        }
+
+«ENDDEFINE»
+
+ 
+
+«DEFINE Root FOR uml::Element»«ENDDEFINE»
+
+«DEFINE OA_Gen FOR uml::Element»«ENDDEFINE»
+
+«DEFINE OA_Gen_Attribute FOR uml::Element»«ENDDEFINE»
+
+«DEFINE OA_Gen_Property FOR uml::Element»«ENDDEFINE»
