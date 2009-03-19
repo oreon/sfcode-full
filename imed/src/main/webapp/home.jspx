@@ -1,0 +1,36 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	template="template.jspx">
+	
+	<ui:define name="content">
+		
+		<ice:form>
+			<ice:panelGroup styleClass="treeContainer">
+				<!--
+                    This is a very links tree comprising of only text nodes.  The
+                    expand and contract images are rendered because the "imageDir"
+                    attribute on the tree component has been set to a known path.
+                -->
+				<ice:tree id="tree" value="#{hotelAction.model}" var="item"
+					hideRootNode="false" hideNavigation="false"
+					imageDir="./xmlhttp/css/xp/css-images/">
+					<ice:treeNode>
+						<f:facet name="content">
+							<ice:panelGroup style="display: inline">
+								<ice:outputLink value="#{item.userObject.text}" target="_blank">
+									<ice:outputText value="#{item.userObject.text}" />
+								</ice:outputLink>
+							</ice:panelGroup>
+						</f:facet>
+					</ice:treeNode>
+				</ice:tree>
+			</ice:panelGroup>
+		</ice:form>
+	</ui:define>
+
+</ui:composition>
