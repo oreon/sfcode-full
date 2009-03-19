@@ -1,0 +1,1158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pages xmlns="http://jboss.com/products/seam/pages"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd"
+       no-conversation-view-id="/home.jspx"
+       login-view-id="/login.jspx">
+
+	<page view-id="/admin/*">
+        <restrict>#{s:hasRole('admin')}</restrict>
+     </page>
+    
+    <page view-id="/adminLogin.jspx">     
+        <navigation from-action="#{identity.login}">
+           <redirect view-id="/admin/entities/summary.jspx"/>
+        </navigation>
+	</page>
+
+	
+	<page view-id="*">
+        <navigation>
+        	<rule if-outcome="home">
+                <redirect view-id="/home.jspx"/>
+            </rule>
+        
+            <rule if-outcome="country">
+                <redirect view-id="/admin/entities/demographics/country/listCountry.jspx" />
+            </rule>
+        
+            <rule if-outcome="patient">
+                <redirect view-id="/admin/entities/patient/patient/listPatient.jspx" />
+            </rule>
+        
+            <rule if-outcome="allergy">
+                <redirect view-id="/admin/entities/patient/allergy/listAllergy.jspx" />
+            </rule>
+        
+            <rule if-outcome="immunization">
+                <redirect view-id="/admin/entities/patient/immunization/listImmunization.jspx" />
+            </rule>
+        
+            <rule if-outcome="immunizationType">
+                <redirect view-id="/admin/entities/patient/immunizationType/listImmunizationType.jspx" />
+            </rule>
+        
+            <rule if-outcome="document">
+                <redirect view-id="/admin/entities/patient/document/listDocument.jspx" />
+            </rule>
+        
+            <rule if-outcome="drug">
+                <redirect view-id="/admin/entities/drug/drug/listDrug.jspx" />
+            </rule>
+        
+            <rule if-outcome="vitals">
+                <redirect view-id="/admin/entities/vitals/vitals/listVitals.jspx" />
+            </rule>
+        
+            <rule if-outcome="prescription">
+                <redirect view-id="/admin/entities/prescription/prescription/listPrescription.jspx" />
+            </rule>
+        
+            <rule if-outcome="item">
+                <redirect view-id="/admin/entities/prescription/item/listItem.jspx" />
+            </rule>
+        
+            <rule if-outcome="frequency">
+                <redirect view-id="/admin/entities/prescription/frequency/listFrequency.jspx" />
+            </rule>
+        
+            <rule if-outcome="physician">
+                <redirect view-id="/admin/entities/provider/physician/listPhysician.jspx" />
+            </rule>
+        
+            <rule if-outcome="nurse">
+                <redirect view-id="/admin/entities/provider/nurse/listNurse.jspx" />
+            </rule>
+        
+            <rule if-outcome="technician">
+                <redirect view-id="/admin/entities/provider/technician/listTechnician.jspx" />
+            </rule>
+        
+            <rule if-outcome="clerk">
+                <redirect view-id="/admin/entities/provider/clerk/listClerk.jspx" />
+            </rule>
+        
+            <rule if-outcome="specialization">
+                <redirect view-id="/admin/entities/provider/specialization/listSpecialization.jspx" />
+            </rule>
+        
+            <rule if-outcome="floor">
+                <redirect view-id="/admin/entities/facility/floor/listFloor.jspx" />
+            </rule>
+        
+            <rule if-outcome="ward">
+                <redirect view-id="/admin/entities/facility/ward/listWard.jspx" />
+            </rule>
+        
+            <rule if-outcome="bed">
+                <redirect view-id="/admin/entities/facility/bed/listBed.jspx" />
+            </rule>
+        
+            <rule if-outcome="symptom">
+                <redirect view-id="/admin/entities/diseases/symptom/listSymptom.jspx" />
+            </rule>
+        
+            <rule if-outcome="cause">
+                <redirect view-id="/admin/entities/diseases/cause/listCause.jspx" />
+            </rule>
+        
+            <rule if-outcome="category">
+                <redirect view-id="/admin/entities/diseases/category/listCategory.jspx" />
+            </rule>
+        
+            <rule if-outcome="disease">
+                <redirect view-id="/admin/entities/diseases/disease/listDisease.jspx" />
+            </rule>
+        
+            <rule if-outcome="claim">
+                <redirect view-id="/admin/entities/billing/claim/listClaim.jspx" />
+            </rule>
+        
+            <rule if-outcome="service">
+                <redirect view-id="/admin/entities/billing/service/listService.jspx" />
+            </rule>
+        
+            <rule if-outcome="dxCode">
+                <redirect view-id="/admin/entities/billing/dxCode/listDxCode.jspx" />
+            </rule>
+        
+            <rule if-outcome="procedureCode">
+                <redirect view-id="/admin/entities/billing/procedureCode/listProcedureCode.jspx" />
+            </rule>
+        
+            <rule if-outcome="user">
+                <redirect view-id="/admin/entities/users/user/listUser.jspx" />
+            </rule>
+        
+            <rule if-outcome="role">
+                <redirect view-id="/admin/entities/users/role/listRole.jspx" />
+            </rule>
+        
+        </navigation>
+    </page>
+
+    
+    
+    <page view-id="/admin/entities/demographics/country/editCountry.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/demographics/country/viewCountry.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/demographics/country/listCountry.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/demographics/country/viewCountry.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/demographics/country/editCountry.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/demographics/country/listCountry.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/demographics/country/listCountry.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/demographics/country/viewCountry.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/demographics/country/editCountry.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/patient/patient/editPatient.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/patient/patient/viewPatient.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/patient/patient/listPatient.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/patient/patient/viewPatient.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/patient/patient/editPatient.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/patient/patient/listPatient.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/patient/patient/listPatient.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/patient/patient/viewPatient.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/patient/patient/editPatient.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/patient/allergy/editAllergy.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/patient/allergy/viewAllergy.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/patient/allergy/listAllergy.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/patient/allergy/viewAllergy.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/patient/allergy/editAllergy.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/patient/allergy/listAllergy.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/patient/allergy/listAllergy.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/patient/allergy/viewAllergy.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/patient/allergy/editAllergy.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/patient/immunization/editImmunization.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/patient/immunization/viewImmunization.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/patient/immunization/listImmunization.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/patient/immunization/viewImmunization.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/patient/immunization/editImmunization.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/patient/immunization/listImmunization.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/patient/immunization/listImmunization.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/patient/immunization/viewImmunization.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/patient/immunization/editImmunization.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/patient/immunizationType/editImmunizationType.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/patient/immunizationType/viewImmunizationType.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/patient/immunizationType/listImmunizationType.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/patient/immunizationType/viewImmunizationType.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/patient/immunizationType/editImmunizationType.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/patient/immunizationType/listImmunizationType.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/patient/immunizationType/listImmunizationType.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/patient/immunizationType/viewImmunizationType.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/patient/immunizationType/editImmunizationType.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/patient/document/editDocument.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/patient/document/viewDocument.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/patient/document/listDocument.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/patient/document/viewDocument.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/patient/document/editDocument.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/patient/document/listDocument.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/patient/document/listDocument.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/patient/document/viewDocument.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/patient/document/editDocument.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/drug/drug/editDrug.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/drug/drug/viewDrug.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/drug/drug/listDrug.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/drug/drug/viewDrug.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/drug/drug/editDrug.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/drug/drug/listDrug.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/drug/drug/listDrug.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/drug/drug/viewDrug.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/drug/drug/editDrug.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/vitals/vitals/editVitals.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/vitals/vitals/viewVitals.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/vitals/vitals/listVitals.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/vitals/vitals/viewVitals.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/vitals/vitals/editVitals.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/vitals/vitals/listVitals.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/vitals/vitals/listVitals.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/vitals/vitals/viewVitals.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/vitals/vitals/editVitals.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/prescription/prescription/editPrescription.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/prescription/prescription/viewPrescription.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/prescription/prescription/listPrescription.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/prescription/prescription/viewPrescription.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/prescription/prescription/editPrescription.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/prescription/prescription/listPrescription.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/prescription/prescription/listPrescription.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/prescription/prescription/viewPrescription.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/prescription/prescription/editPrescription.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/prescription/item/editItem.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/prescription/item/viewItem.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/prescription/item/listItem.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/prescription/item/viewItem.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/prescription/item/editItem.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/prescription/item/listItem.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/prescription/item/listItem.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/prescription/item/viewItem.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/prescription/item/editItem.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/prescription/frequency/editFrequency.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/prescription/frequency/viewFrequency.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/prescription/frequency/listFrequency.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/prescription/frequency/viewFrequency.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/prescription/frequency/editFrequency.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/prescription/frequency/listFrequency.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/prescription/frequency/listFrequency.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/prescription/frequency/viewFrequency.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/prescription/frequency/editFrequency.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/provider/physician/editPhysician.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/provider/physician/viewPhysician.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/provider/physician/listPhysician.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/provider/physician/viewPhysician.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/provider/physician/editPhysician.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/provider/physician/listPhysician.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/provider/physician/listPhysician.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/provider/physician/viewPhysician.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/provider/physician/editPhysician.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/provider/nurse/editNurse.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/provider/nurse/viewNurse.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/provider/nurse/listNurse.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/provider/nurse/viewNurse.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/provider/nurse/editNurse.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/provider/nurse/listNurse.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/provider/nurse/listNurse.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/provider/nurse/viewNurse.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/provider/nurse/editNurse.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/provider/technician/editTechnician.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/provider/technician/viewTechnician.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/provider/technician/listTechnician.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/provider/technician/viewTechnician.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/provider/technician/editTechnician.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/provider/technician/listTechnician.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/provider/technician/listTechnician.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/provider/technician/viewTechnician.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/provider/technician/editTechnician.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/provider/clerk/editClerk.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/provider/clerk/viewClerk.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/provider/clerk/listClerk.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/provider/clerk/viewClerk.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/provider/clerk/editClerk.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/provider/clerk/listClerk.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/provider/clerk/listClerk.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/provider/clerk/viewClerk.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/provider/clerk/editClerk.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/provider/specialization/editSpecialization.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/provider/specialization/viewSpecialization.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/provider/specialization/listSpecialization.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/provider/specialization/viewSpecialization.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/provider/specialization/editSpecialization.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/provider/specialization/listSpecialization.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/provider/specialization/listSpecialization.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/provider/specialization/viewSpecialization.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/provider/specialization/editSpecialization.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/facility/floor/editFloor.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/facility/floor/viewFloor.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/facility/floor/listFloor.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/facility/floor/viewFloor.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/facility/floor/editFloor.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/facility/floor/listFloor.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/facility/floor/listFloor.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/facility/floor/viewFloor.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/facility/floor/editFloor.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/facility/ward/editWard.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/facility/ward/viewWard.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/facility/ward/listWard.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/facility/ward/viewWard.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/facility/ward/editWard.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/facility/ward/listWard.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/facility/ward/listWard.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/facility/ward/viewWard.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/facility/ward/editWard.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/facility/bed/editBed.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/facility/bed/viewBed.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/facility/bed/listBed.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/facility/bed/viewBed.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/facility/bed/editBed.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/facility/bed/listBed.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/facility/bed/listBed.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/facility/bed/viewBed.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/facility/bed/editBed.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/diseases/symptom/editSymptom.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/diseases/symptom/viewSymptom.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/diseases/symptom/listSymptom.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/diseases/symptom/viewSymptom.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/diseases/symptom/editSymptom.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/diseases/symptom/listSymptom.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/diseases/symptom/listSymptom.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/diseases/symptom/viewSymptom.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/diseases/symptom/editSymptom.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/diseases/cause/editCause.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/diseases/cause/viewCause.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/diseases/cause/listCause.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/diseases/cause/viewCause.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/diseases/cause/editCause.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/diseases/cause/listCause.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/diseases/cause/listCause.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/diseases/cause/viewCause.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/diseases/cause/editCause.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/diseases/category/editCategory.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/diseases/category/viewCategory.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/diseases/category/listCategory.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/diseases/category/viewCategory.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/diseases/category/editCategory.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/diseases/category/listCategory.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/diseases/category/listCategory.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/diseases/category/viewCategory.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/diseases/category/editCategory.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/diseases/disease/editDisease.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/diseases/disease/viewDisease.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/diseases/disease/listDisease.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/diseases/disease/viewDisease.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/diseases/disease/editDisease.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/diseases/disease/listDisease.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/diseases/disease/listDisease.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/diseases/disease/viewDisease.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/diseases/disease/editDisease.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/billing/claim/editClaim.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/billing/claim/viewClaim.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/billing/claim/listClaim.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/billing/claim/viewClaim.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/billing/claim/editClaim.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/billing/claim/listClaim.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/billing/claim/listClaim.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/billing/claim/viewClaim.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/billing/claim/editClaim.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/billing/service/editService.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/billing/service/viewService.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/billing/service/listService.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/billing/service/viewService.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/billing/service/editService.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/billing/service/listService.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/billing/service/listService.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/billing/service/viewService.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/billing/service/editService.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/billing/dxCode/editDxCode.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/billing/dxCode/viewDxCode.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/billing/dxCode/listDxCode.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/billing/dxCode/viewDxCode.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/billing/dxCode/editDxCode.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/billing/dxCode/listDxCode.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/billing/dxCode/listDxCode.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/billing/dxCode/viewDxCode.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/billing/dxCode/editDxCode.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/billing/procedureCode/editProcedureCode.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/billing/procedureCode/viewProcedureCode.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/billing/procedureCode/listProcedureCode.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/billing/procedureCode/viewProcedureCode.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/billing/procedureCode/editProcedureCode.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/billing/procedureCode/listProcedureCode.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/billing/procedureCode/listProcedureCode.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/billing/procedureCode/viewProcedureCode.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/billing/procedureCode/editProcedureCode.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/users/user/editUser.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/users/user/viewUser.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/users/user/listUser.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/users/user/viewUser.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/users/user/editUser.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/users/user/listUser.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/users/user/listUser.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/users/user/viewUser.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/users/user/editUser.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/users/role/editRole.jspx" >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/users/role/viewRole.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/users/role/listRole.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/users/role/viewRole.jspx" >
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/users/role/editRole.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/users/role/listRole.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/users/role/listRole.jspx" >
+		<navigation>
+			<rule if-outcome="select">
+				<redirect view-id="/admin/entities/users/role/viewRole.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/users/role/editRole.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+
+    <exception class="org.jboss.seam.framework.EntityNotFoundException">
+        <redirect view-id="/error.jspx">
+            <message severity="warn">Record not found</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityNotFoundException">
+        <redirect view-id="/error.jspx">
+            <message severity="warn">Record not found</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityExistsException">
+        <redirect view-id="/error.jspx">
+            <message severity="warn">Duplicate record</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.OptimisticLockException">
+        <end-conversation/>
+        <redirect view-id="/error.jspx">
+            <message severity="warn">Another user changed the same data, please try again</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.security.AuthorizationException">
+        <redirect view-id="/error.jspx">
+            <message severity="error">You don't have permission to access this resource</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.security.NotLoggedInException">
+        <redirect view-id="/login.jspx">
+            <message severity="warn">#{messages['org.jboss.seam.NotLoggedIn']}</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.faces.application.ViewExpiredException">
+        <redirect view-id="/error.jspx">
+            <message severity="warn">Your session has timed out, please try again</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.ConcurrentRequestTimeoutException" log-level="trace">
+      <http-error error-code="503" />
+    </exception>
+     
+    <exception>
+        <redirect view-id="/error.jspx">
+            <message severity="error">Unexpected error, please try again</message>
+        </redirect>
+    </exception>
+    
+</pages>
