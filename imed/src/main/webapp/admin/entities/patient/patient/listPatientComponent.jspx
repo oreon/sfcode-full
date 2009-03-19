@@ -1,0 +1,193 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:form>
+		<ice:commandButton value="Create New" action="edit" rendered="#{identity.loggedIn}"/>
+		<ice:dataTable id="data" var="patient" value="#{patientList}" rows="30"
+		rowClasses="odd, even" styleClass="dataTable" >		
+		
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.person_firstName}" />
+		</f:facet>
+		<h:outputText   value="#{patient.firstName}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.person_dateOfBirth}" />
+		</f:facet>
+		<h:outputText   value="#{patient.dateOfBirth}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.person_gender}" />
+		</f:facet>
+		<h:outputText   value="#{patient.gender}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.person_age}" />
+		</f:facet>
+		<h:outputText   value="#{patient.age}" />
+	</ice:column>
+	
+		
+				
+				
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.address_streetAddress}" />
+		</f:facet>
+		<h:outputText   value="#{patient.address.streetAddress}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.address_city}" />
+		</f:facet>
+		<h:outputText   value="#{patient.address.city}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.address_state}" />
+		</f:facet>
+		<h:outputText   value="#{patient.address.state}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.address_zip}" />
+		</f:facet>
+		<h:outputText   value="#{patient.address.zip}" />
+	</ice:column>
+	
+		
+			
+				
+	<ice:column >
+		<f:facet name="header">
+			<h:outputText value="#{msg.address_country}"   /> 	
+		</f:facet>
+		<h:outputText   value="#{patient.country.displayName}" />
+	</ice:column>
+			
+		
+	
+			
+		
+	
+		
+				
+				
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.contactDetails_primaryPhone}" />
+		</f:facet>
+		<h:outputText   value="#{patient.contactDetails.primaryPhone}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.contactDetails_secondaryPhone}" />
+		</f:facet>
+		<h:outputText   value="#{patient.contactDetails.secondaryPhone}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.contactDetails_email}" />
+		</f:facet>
+		<h:outputText   value="#{patient.contactDetails.email}" />
+	</ice:column>
+	
+			
+		
+	
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.patient_medicalHistory}" />
+		</f:facet>
+		<h:outputText escape="false"  value="#{patient.medicalHistory}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.patient_pastMedications}" />
+		</f:facet>
+		<h:outputText escape="false"  value="#{patient.pastMedications}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.patient_bloodGroup}" />
+		</f:facet>
+		<h:outputText   value="#{patient.bloodGroup}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.dateCreated}" />
+		</f:facet>
+		<h:outputText value="#{patient.dateCreated}" />
+	</ice:column>
+
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.createdByUser}" />
+		</f:facet>
+		<h:outputText value="#{patient.createdByUser.displayName}" />
+	</ice:column>
+
+		
+	<ice:column   >
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{patientAction.select(patient)}">
+			<h:graphicImage value="/images/icons/eye.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+		
+	<ice:column   >
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{patientAction.select(patient)}">
+			<h:graphicImage value="/images/icons/edit.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+		
+	<ice:column rendered="#{s:hasRole('admin')}"  >
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{patientAction.archive(patient)}">
+			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+		</ice:dataTable>
+	</h:form>
+	</html>
+	

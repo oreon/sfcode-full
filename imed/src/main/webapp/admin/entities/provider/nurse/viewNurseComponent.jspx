@@ -1,0 +1,352 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<ice:form>
+			<s:validateAll>
+			<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+			<f:facet name="header">
+				<h:outputText value="Nurse " />
+			</f:facet>
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.person_firstName}"/>
+		
+
+	<ice:outputText    id="Person_firstName"   value="#{nurse.firstName}" />
+   
+
+		
+		
+		
+		
+	
+
+	
+
+	
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.person_dateOfBirth}"/>
+		
+
+	<ice:outputText    id="Person_dateOfBirth"   value="#{nurse.dateOfBirth}" />
+   
+
+		
+		
+		
+		
+	
+
+	
+
+	
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.person_gender}"/>
+		
+	
+	<ice:outputText   id="Person_gender" value="#{nurse.gender}" />
+	
+
+		
+		
+		
+		
+	
+
+	
+
+	
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.person_age}"/>
+		
+
+	<ice:outputText    id="Person_age"   value="#{nurse.age}" />
+   
+
+		
+		
+		
+		
+	
+
+	
+
+	
+	
+	
+			
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.address_streetAddress}"/>
+		
+
+	<ice:outputText    id="Address_streetAddress"   value="#{nurse.address.streetAddress}" />
+   
+
+		
+		
+		
+		
+	
+
+	
+
+	
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.address_city}"/>
+		
+
+	<ice:outputText    id="Address_city"   value="#{nurse.address.city}" />
+   
+
+		
+		
+		
+		
+	
+
+	
+
+	
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.address_state}"/>
+		
+
+	<ice:outputText    id="Address_state"   value="#{nurse.address.state}" />
+   
+
+		
+		
+		
+		
+	
+
+	
+
+	
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.address_zip}"/>
+		
+
+	<ice:outputText    id="Address_zip"   value="#{nurse.address.zip}" />
+   
+
+		
+		
+		
+		
+	
+
+	
+
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.address_country}"/>
+		
+	
+	<ice:outputText   value="#{
+nurse.address.country
+.displayName}" />
+	
+
+		
+		
+		
+		
+	
+
+	
+		
+	
+	
+		
+	
+	
+	
+			
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.contactDetails_primaryPhone}"/>
+		
+
+	<ice:outputText    id="ContactDetails_primaryPhone"   value="#{nurse.contactDetails.primaryPhone}" />
+   
+
+		
+		
+		
+		
+	
+
+	
+
+	
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.contactDetails_secondaryPhone}"/>
+		
+
+	<ice:outputText    id="ContactDetails_secondaryPhone"   value="#{nurse.contactDetails.secondaryPhone}" />
+   
+
+		
+		
+		
+		
+	
+
+	
+
+	
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.contactDetails_email}"/>
+		
+
+	<ice:outputText    id="ContactDetails_email"   value="#{nurse.contactDetails.email}" />
+   
+
+		
+		
+		
+		
+	
+
+	
+
+	
+	
+		
+	
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.nurse_specialization}"/>
+		
+	
+	<ice:outputText   value="#{
+nurse.specialization
+.displayName}" />
+	
+
+		
+		
+		
+		
+	
+
+	
+		
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.nurse_user}"/>
+		
+	
+	<ice:outputText   value="#{
+nurse.user
+.displayName}" />
+	
+
+		
+		
+		
+		
+	
+
+	
+		
+	
+	
+			</h:panelGrid>
+			
+	
+			</s:validateAll>
+				
+	<div class="buttonBox">
+		
+		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Back To Listing" immediate="true" action="#{nurseAction.cancel}" /> 
+		
+	</div>
+
+		</ice:form>
+	</ice:panelGroup>
+	</html>
+	

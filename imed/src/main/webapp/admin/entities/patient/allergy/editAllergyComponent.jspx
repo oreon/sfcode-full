@@ -1,0 +1,107 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<ice:form>
+			<s:validateAll>
+			<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+			<f:facet name="header">
+				<h:outputText value="Allergy " />
+			</f:facet>
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.allergy_allergen}"/>
+		
+
+	<ice:inputText  id="Allergy_allergen" required="false"  value="#{allergy.allergen}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Allergy_allergen" />
+		
+		
+	
+
+	
+
+	
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.allergy_reactionType}"/>
+		
+	
+	<h:selectOneMenu id="Allergy_reactionType" value="#{allergy.reactionType}" required="false">
+		<f:selectItem itemLabel="Please Select..." itemValue="" />
+		<f:selectItem itemLabel="MILD" itemValue="MILD" />
+		<f:selectItem itemLabel="MEDIUM" itemValue="MEDIUM" />
+		<f:selectItem itemLabel="SEVERE" itemValue="SEVERE" />
+		
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Allergy_reactionType" />
+		
+		
+	
+
+	
+
+	
+	
+	
+	
+		
+	
+	
+		
+		<h:outputText value="#{msg.allergy_lastName}"/>
+		
+
+	<ice:inputText  id="Allergy_lastName" required="false"  value="#{allergy.lastName}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Allergy_lastName" />
+		
+		
+	
+
+	
+
+	
+	
+			</h:panelGrid>
+			
+	
+			</s:validateAll>
+				
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{allergyAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{allergyAction.cancel}" /> 
+		
+	</div>
+
+		</ice:form>
+	</ice:panelGroup>
+	</html>
+	
