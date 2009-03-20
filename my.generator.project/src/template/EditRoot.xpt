@@ -127,9 +127,9 @@
 
 «DEFINE genAssociation FOR uml::Property -»
 	«IF !isCurrentEditMode()»
-	<«getTextControl()» value="#{«EXPAND genAssociationPropertyLabel-».displayName}" />
+	<«getTextControl()» value="#{«genPropertyLabel()-».displayName}" />
 	«ELSE»
-	<h:selectOneMenu id="«getId()»" value="#{«EXPAND genAssociationPropertyLabel-»}" required="«!getAssocOptional()»">
+	<h:selectOneMenu id="«getId()»" value="#{«genPropertyLabel()-»}" required="«!getAssocOptional()»">
 		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
@@ -138,9 +138,7 @@
 	«ENDIF»
 «ENDDEFINE»
 
-«DEFINE genAssociationPropertyLabel FOR uml::Property»
-«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»
-«ENDDEFINE»
+
 
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
 «IF type.name == "imageFile"»

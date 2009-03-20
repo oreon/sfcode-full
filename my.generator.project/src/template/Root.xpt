@@ -115,16 +115,18 @@
 
 «DEFINE genDecl FOR uml::Property»
 	«IF isMultivalued()»
-		«IF opposite!= null && opposite.isMultivalued()» «REM»Many to many relationship«ENDREM»
-			@ManyToMany(
-		        targetEntity=«class.name».class,
-		        cascade={CascadeType.PERSIST, CascadeType.MERGE}
-		    )
+		//«name»->«opposite.name» ->«opposite.type.name»->«association.endType.get(0).name»->«opposite.association.endType.get(0).name»
+		«IF opposite!= null && opposite.isMultivalued() » «REM»Many to many relationship«ENDREM»
+			«IF this.isColumn() && this.leadingInManyToMany»
+			@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
 		    @JoinTable(
-		        name="«name»_«opposite.name»",
-		        joinColumns=@JoinColumn(name="«opposite.name»_ID"),
-		        inverseJoinColumns=@JoinColumn(name="«name»_ID")
+		        name="«opposite.name»_«name»",
+		        joinColumns=@JoinColumn(name="«opposite.name»_ID", unique=true),
+		        inverseJoinColumns=@JoinColumn(name="«name»_ID", unique=true)
 		    )
+		    «ELSE»
+		    	 @ManyToMany(mappedBy="«opposite.name»")
+			«ENDIF»
 		«ELSE»
 		@OneToMany(mappedBy = "«opposite.name»", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 		@JoinColumn(name = "«class.name»_ID", nullable = «getAssocOptional()»)
@@ -133,7 +135,7 @@
 	«ELSE»
 		«IF association != null &&  !type.isEmbeddable()»
 			@ManyToOne(optional=«getAssocOptional()», fetch=FetchType.LAZY)
-    		@JoinColumn(name="«name»_id", nullable=«getAssocOptional()»)
+    		@JoinColumn(name="«name»_id", nullable=«getAssocOptional()», unique=true)
 		«ENDIF»
 		«IF type.isEmbeddable()»
 			protected «type.fqnForPackage(this.class)» «name» = new «type.name»();
