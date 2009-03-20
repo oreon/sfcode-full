@@ -115,6 +115,7 @@ public class ClassUtil {
 		
 		//clazz.getAttributes		
 		Property prop;
+		//prop.getAssociation().getEndTy
 
 		
 		if(!interfaces.isEmpty())

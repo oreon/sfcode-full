@@ -18,8 +18,20 @@
 				«setName(defaultName.getPlural())»
 			«ELSE»
 				«setName(defaultName)»
-			«ENDIF»
-			
+			«ENDIF»		
+		«ENDLET»
+	«ENDIF»
+		
+	«IF !(opposite.name != null && opposite.name.length > 0 )»
+		«LET opposite.type.name.toFirstLower() AS defaultName»
+			«REM»comment
+			«IF opposite!= null && opposite.isMultivalued()» 
+				«opposite.setName(defaultName.getPlural())»
+			«ELSE»
+				«opposite.setName(defaultName)»
+			«ENDIF»	 
+			«ENDREM» 	
+			«opposite.setName(defaultName)»
 		«ENDLET»
 	«ENDIF»
 «ENDDEFINE»

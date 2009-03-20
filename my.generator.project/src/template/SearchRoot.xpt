@@ -14,7 +14,7 @@
 				<ice:outputText id="srchHdr" value="Search" />
 			</f:facet>
 			<div class="entry errors"><h:messages globalOnly="true" /></div>
-			<h:panelGrid columns="3">
+			<h:panelGrid columns="5">
 			«setAsCurrentEntity(this)-»
 			«EXPAND genAttribAsOutput FOR this-»
 			</h:panelGrid>
@@ -67,7 +67,7 @@
 «DEFINE genAssociation FOR uml::Property -»
 	<h:panelGroup>
 	«getOutputMessage()» <br/>
-	<h:selectOneMenu id="«getId()»" value="#{«getCurrentEntity().asVar()».«name»}" >
+	<h:selectOneMenu id="«getId()»" value="#{«genPropertyLabel()»}" >
 		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Any..." />
@@ -78,11 +78,11 @@
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
-	<«getInputControlSearch()»  id="«getId()»" value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
+	<«getInputControlSearch()»  id="«getId()»" value="#{«genPropertyLabel()»}" />
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
-	<h:selectOneMenu id="«getId()»" value="#{«getCurrentEntity().asVar()».«name»}" required="«getAssocOptional()»">
+	<h:selectOneMenu id="«getId()»" value="#{«genPropertyLabel()»}" required="«getAssocOptional()»">
 		<f:selectItem itemLabel="Any" itemValue=""/>
 		<f:selectItem itemLabel="None" itemValue=""/>
 		«FOREACH  enm.ownedLiteral AS e-»

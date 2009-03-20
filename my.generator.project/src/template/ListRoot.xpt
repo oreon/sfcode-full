@@ -84,7 +84,7 @@
 		<f:facet name="header">
 			<h:outputText value="«msgBundleKey()-»"   /> 	
 		</f:facet>
-		<h:outputText «getEscape()» value="#{«getCurrentEntity().asVar()».«name».displayName}" />
+		<h:outputText «getEscape()» value="#{«genPropertyLabel()».displayName}" />
 	</ice:column>
 «ENDDEFINE»
 
@@ -93,7 +93,7 @@
 		<f:facet name="header">
 			<h:outputText value="«msgBundleKey()-»" />
 		</f:facet>
-		<h:outputText «getEscape()» value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
+		<h:outputText «getEscape()» value="#{«genPropertyLabel()»}" />
 	</ice:column>
 «ENDDEFINE»
 
