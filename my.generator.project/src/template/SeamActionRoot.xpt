@@ -42,6 +42,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
 import org.witchcraft.seam.action.BaseAction; 
+import org.jboss.seam.annotations.Observer;
 
 «FOREACH getComposed() AS a-»
 import «a.type.fqn()»;
@@ -61,6 +62,7 @@ public class «name»Action extends BaseAction<«name»> implements java.io.Serializ
 	private List<«name»> «asVar()»List;	
 
 	@Factory("«asVar()»List")
+	@Observer("archived«name»")
 	public void findRecords() {
 		«asVar()»List = entityManager
 				.createQuery(
