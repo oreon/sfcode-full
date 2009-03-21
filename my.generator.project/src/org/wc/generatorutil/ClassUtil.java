@@ -28,7 +28,7 @@ public class ClassUtil {
 	
 	private static Class currentEmbeddable;
 	
-	private static Boolean currentMultiMode;
+	private static Boolean currentMultiMode = false;
 	
 	private static final Logger logger = Logger.getLogger(ClassUtil.class);
 	
@@ -41,10 +41,11 @@ public class ClassUtil {
 		mapTypes.put("imageFile", new String[]{"byte[]",""});
 		mapTypes.put("largeText", new String[]{"String","@Lob"});
 		mapTypes.put("nameType", new String[]{"String","@NotNull @Length(min=2, max=50)"});
+		mapTypes.put("uniqueNameType", new String[]{"String","@NotNull @Length(min=2, max=50)"});
 		loadProperties();
 	}
 
-	private static Boolean currentEditMode;
+	private static Boolean currentEditMode = false;
 	
 	//static org.eclipse.uml2.uml.Class cls;
 
@@ -116,7 +117,7 @@ public class ClassUtil {
 		//clazz.getAttributes		
 		Property prop;
 		//prop.getAssociation().getEndTy
-
+		
 		
 		if(!interfaces.isEmpty())
 			buffer.append(" implements ");
@@ -227,45 +228,5 @@ public class ClassUtil {
 	}
 	
 	
-	/**
-	 * Get the left nav entities
-	 * 
-	 * @return
-	 */
-	/*
-	public static String getEntitiesLeftNavMenu() {
-		List<Entity> entites = ClassUtil.getEntities();
-		StringBuffer data = new StringBuffer();
-
-		String prevNameSpace = null;
-
-		for (Entity entity : entites) {
-
-			if (!entity.Namespace().NameS().equals(prevNameSpace)) {
-				// Check if a prev namespace just ended
-				if (prevNameSpace != null)
-					data.append("</rich:panelMenuGroup>");
-				data.append("<rich:panelMenuGroup label=\""
-						+ getImmediatePackage(entity.Namespace().NameS())
-						+ " \"  expanded=\"true\" >");
-			}
-
-			data.append(" <rich:panelMenuItem><h:commandLink action=\"list"
-					+ entity.NameS() + "\" value=\"#{msg." + entity.NameS()
-					+ "}s\">\n");
-			data.append("\t<f:param name=\"nextPage\" value=\""
-					+ getImmediatePackage(entity.Namespace().NameS()) + "-"
-					+ entity.NameS()
-					+ "\" />\n</h:commandLink>\n</rich:panelMenuItem>\n");
-
-			prevNameSpace = entity.Namespace().NameS();
-		}
-
-		if (!entites.isEmpty())
-			data.append("</rich:panelMenuGroup>");
-
-		return data.toString();
-	}*/
-
 	
 }

@@ -36,6 +36,7 @@
 	@Entity
 	@Table(name="«tableName!=null?tableName.toLowerCase():name.toLowerCase()»")
 	@Name("«asVar()»")
+	@Filter(name = "archiveFilterDef") 
 	public class «name» «getParent()» «getInterfaces()»{
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
@@ -43,7 +44,7 @@
 		«IF !getAllAttributes().isEmpty»
 		@Transient
 	    public String getDisplayName(){
-	    	return «displayName != null ? displayName: getAllAttributes().get(0).name + " + \"\""»;
+	    	return «getDisplayName()»;
 	    }
 	    «ENDIF»
 	    
@@ -63,6 +64,13 @@
 	public class «name» «getParent()» «getInterfaces()»{
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
+		
+		«IF !getAllAttributes().isEmpty»
+		@Transient
+	    public String getDisplayName(){
+	    	return «getDisplayName()»;
+	    }
+	    «ENDIF»
 	}
 «ENDDEFINE»
 
@@ -98,6 +106,7 @@
 	
 	import org.jboss.seam.annotations.Name;
 	import org.witchcraft.base.entity.*;
+	import org.hibernate.annotations.Filter;
 «ENDDEFINE»
 
 «DEFINE gen FOR uml::Operation»

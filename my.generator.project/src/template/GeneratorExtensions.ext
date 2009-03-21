@@ -140,3 +140,14 @@ prop.type.name == typeName;
 String readProperty(String arg):
 JAVA org.wc.generatorutil.ClassUtil.readProperty(java.lang.String);
 
+
+getDisplayName(Entity entity):
+//JAVA org.wc.generatorutil.ClassUtil.readProperty(java.lang.String);
+if( entity.displayName != null ) then
+	 entity.displayName
+else if ( ! ( entity.parents().isEmpty)  && entity.parents().get(0).displayName != null) then
+	"super.getDisplayName()"
+else 
+ entity.getAllAttributes().get(0).name + "+ \"\"";
+ 
+

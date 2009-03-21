@@ -57,9 +57,14 @@
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
 	«FOREACH allParents() AS e-»
-			«EXPAND genAttribute FOREACH e.getAllAttributes().select(a|!a.isMultivalued()) -»
+		«EXPAND genAttributeAssoc FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && a.association != null) -»
 	«ENDFOREACH»
-	«EXPAND genAttribute FOREACH getAllAttributes().select(a|!a.isMultivalued()) -»
+	«EXPAND genAttributeAssoc FOREACH getAllAttributes().select(a|!a.isMultivalued() && a.association != null) -»
+
+	«FOREACH allParents() AS e-»
+			«EXPAND genLabelAndControl FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && a.association == null) -»
+	«ENDFOREACH»
+	«EXPAND genLabelAndControl FOREACH getAllAttributes().select(a|!a.isMultivalued() && a.association == null) -»
 «ENDDEFINE»
 
 «REM»For multivalued attributes e.g. an order's order items«ENDREM»
@@ -70,18 +75,15 @@
 	«EXPAND gentEditableTable FOREACH getComposed() -»
 «ENDDEFINE»
 
-«DEFINE genAttribute FOR uml::Property -»
-	«IF association == null || opposite.type.name != getCurrentEntity().name»
-	«IF association != null -»
+«DEFINE genAttributeAssoc FOR uml::Property -»
+	«REM»Need to exclude the parent in case of edit mode .e.g for order items we don't need order  «ENDREM»
+	«IF opposite.type.name != getCurrentEntity().name || !isCurrentMultiMode() »
 		«IF type.isEmbeddable()-»
 			«type.setCurrentEmbeddable()»
 			«EXPAND genAttribAsOutput FOR this.type-»
 		«ELSE»
 			«EXPAND genLabelAndControl FOR this-»
 		«ENDIF»
-	«ELSE-»
-		«EXPAND genLabelAndControl FOR this»
-	«ENDIF»
 	«ENDIF»
 «ENDDEFINE»
 
