@@ -6,12 +6,13 @@
 
 «DEFINE genView FOR uml::Class»
 	«FILE getWebPath() +"/list" +name+ "." + getExtension()»
-<ui:composition «EXPAND WebRoot::genIncludes»
-	template="«getTemplate()»"  >	
-	«setAsCurrentEntity(this)»
+<ui:composition «EXPAND WebRoot::genIncludes» template="«getTemplate()»"  >	
+	«setAsCurrentEntity(this)-»
 	<ui:define name="content">
 		<ui:include src="search«name».«getExtension()»" />
+		<ice:form>
 		<ui:include src="list«name»Component.«getExtension()»" />
+		</ice:form>
 	</ui:define>
 </ui:composition>
 	«ENDFILE»
@@ -21,7 +22,7 @@
 «DEFINE genViewComponent FOR uml::Class»
 	«FILE getWebPath() +"/list" +name+ "Component." + getExtension()»
 	<html «EXPAND WebRoot::genIncludes-» >	
-	<h:form>
+	
 		<ice:commandButton value="Create New" action="edit" rendered="#{identity.loggedIn}"/>
 		<ice:dataTable id="data" var="«asVar()»" value="#{«asVar()»List}" rows="30"
 		rowClasses="odd, even" styleClass="dataTable" >		
@@ -32,7 +33,7 @@
 		«EXPAND genLink ("select", "edit.png")FOR this»
 		«EXPAND genLink("archive", "delete.png") FOR this»
 		</ice:dataTable>
-	</h:form>
+	
 	</html>
 	«ENDFILE»
 «ENDDEFINE»

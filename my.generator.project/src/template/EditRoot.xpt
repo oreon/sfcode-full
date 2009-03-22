@@ -6,15 +6,48 @@
 
 «DEFINE genEditView(boolean edit) FOR uml::Class»
 	«setCurrentEditMode(edit)» 
-	«FILE getWebPath() +"/" + (edit?"edit":"view") + name+ "." + getExtension()»
+	«IF edit»
+		«EXPAND genEditFile»
+	«ELSE»
+		«EXPAND genViewFile»
+	«ENDIF»
+	«EXPAND genEditViewComponent(edit) FOR this»
+«ENDDEFINE»
+
+«DEFINE genEditFile FOR uml::Class»
+«FILE getWebPath() +"/" + "edit" + name+ "." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes-»
 	template = "«getTemplate()»" >	
 	<ui:define name="content">
-		<ui:include src = "«(edit?"edit":"view") + name+ "Component." + getExtension()»" />
+		<ice:form>
+		<ui:include src = "edit«name»Component.«getExtension()»" />
+		</ice:form>
+	</ui:define> 
+</ui:composition>
+«ENDFILE»
+
+«ENDDEFINE»
+
+«DEFINE genViewFile FOR uml::Class»
+	«FILE getWebPath() +"/" + "view" + name + "." + getExtension()»
+<ui:composition «EXPAND WebRoot::genIncludes-» template = "«getTemplate()»" >	
+	<ui:define name="content">
+		<ice:form>
+		<ice:panelTabSet>
+			<ice:panelTab id="tab1" label="Patient">
+				<ui:include src = "«"view" + name+ "Component." + getExtension()»" />
+			</ice:panelTab>
+			«FOREACH getAllAttributes().select(a|a.isMultivalued() && a.association != null && !a.isComposite()) AS a»
+			<ice:panelTab label="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
+				<ui:include
+					src="../../«a.type.package.name»/«a.type.asVar()»/list«a.type.name.toFirstUpper()»Component.jspx" />
+			</ice:panelTab>
+			«ENDFOREACH»
+		</ice:panelTabSet>
+		</ice:form>
 	</ui:define> 
 </ui:composition>
 	«ENDFILE»
-	«EXPAND genEditViewComponent(edit) FOR this»
 «ENDDEFINE»
 
 
@@ -22,7 +55,7 @@
 	«FILE getWebPath() +"/" + (edit?"edit":"view") + name+ "Component." + getExtension()»
 	<html «EXPAND WebRoot::genIncludes-» >	
 	<ice:panelGroup  >
-		<ice:form>
+		
 			<s:validateAll>
 			«setAsCurrentEntity(this)-»
 			<h:panelGrid columns="«edit?"3":"2"»" styleClass="viewInfo" columnClasses="leftCol, rightCol">
@@ -33,8 +66,8 @@
 			</h:panelGrid>
 			«EXPAND genTable FOR this-»
 			</s:validateAll>
-				«EXPAND genCancelSaveBtns(edit) FOR this»
-		</ice:form>
+			«EXPAND genCancelSaveBtns(edit) FOR this»
+		
 	</ice:panelGroup>
 	</html>
 	«ENDFILE»
