@@ -98,7 +98,8 @@ String getLengthAnnotations(Column col):
 col.minLength > 0 ?"@Length(min=" + col.minLength + ")"  :"";
 
 String getUniqueAnnotations(Column col):
-col.uniqueProperty == true?"//@Unique":"";
+col.uniqueProperty == true?"@Unique(entityName = " + "\"" + fqn(col.class) + "\"" + ", fieldName = " + "\"" + col.name + "\"" + ")":"";
+
 
 //e.g. To get order Items for an order 
 getComposed(Class cls):
