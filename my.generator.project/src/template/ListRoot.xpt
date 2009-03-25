@@ -3,6 +3,7 @@
 «EXTENSION org::openarchitectureware::uml2::profile::profiling»
 «EXTENSION template::GeneratorExtensions»
 «EXTENSION template::webExtensions»
+«EXTENSION template::associationExtensions»
 
 «DEFINE genView FOR uml::Class»
 	«FILE getWebPath() +"/list" +name+ "." + getExtension()»
@@ -24,16 +25,13 @@
 	<html «EXPAND WebRoot::genIncludes-» >	
 	
 		<ice:commandButton value="Create New" action="edit" rendered="#{identity.loggedIn}"/>
-		<ice:dataTable id="data" var="«asVar()»" value="#{«asVar()»List}" rows="30"
+		<ice:dataTable  var="«asVar()»" value="#{«asVar()»List}" rows="30"
 		rowClasses="odd, even" styleClass="dataTable" >		
 		«EXPAND genAttribAsOutput FOR this-»
-		«EXPAND genProperty FOR "dateCreated"»
-		«EXPAND genProperty FOR "createdByUser"»
 		«EXPAND genLink("select", "eye.png") FOR this»
 		«EXPAND genLink ("select", "edit.png")FOR this»
 		«EXPAND genLink("archive", "delete.png") FOR this»
 		</ice:dataTable>
-	
 	</html>
 	«ENDFILE»
 «ENDDEFINE»
@@ -81,11 +79,11 @@
 «ENDDEFINE»
 
 «DEFINE genAssociation FOR uml::Property»
-	<ice:column >
+	<ice:column «IF isCompositionContainer()» groupOn="#{«genPropertyLabel()».displayName}" «ENDIF»>
 		<f:facet name="header">
 			<h:outputText value="«msgBundleKey()-»"   /> 	
 		</f:facet>
-		<h:outputText «getEscape()» value="#{«genPropertyLabel()».displayName}" />
+		<s:link «getEscape()» value="#{«genPropertyLabel()».displayName}" action="view«type.name»" />
 	</ice:column>
 «ENDDEFINE»
 

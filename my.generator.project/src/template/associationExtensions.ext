@@ -1,0 +1,16 @@
+
+import uml;
+import java;
+import java::util;
+import wcprofile;
+
+extension org::openarchitectureware::uml2::profile::profiling;
+extension template::GeneratorExtensions;
+
+//Associations - e.g for a customer it will return all orders
+getNonComposedManyAssociations(Entity entity):
+entity.getAllAttributes().select(a|a.isMultivalued()  && a.association != null  && !a.opposite.isMultivalued() && !a.isComposite());
+
+//If this class is container for the given composed element e.g an order will be container for order items
+isCompositionContainer(Property prop):
+prop.opposite != null && prop.opposite.isComposite();

@@ -34,13 +34,18 @@
             <rule if-outcome="«e.asVar()»">
                 <redirect view-id="«e.getViewFile("list")»" />
             </rule>
+            
+            <rule if-outcome="view«e.name»">
+                <redirect view-id="«e.getViewFile("view")»" />
+            </rule>
         «ENDFOREACH»
         </navigation>
     </page>
 
     
     «FOREACH allOwnedElements().typeSelect(wcprofile::Entity) AS e»
-    <page view-id="«e.getViewFile("edit")»" >
+    <page view-id="«e.getViewFile("edit")»" conversation-required="false">
+    	<!-- <description>Edit «e.name»: #{«e.name.toFirstLower()».displayName}</description> -->
     	<navigation> 
 			 <rule if-outcome="save">
  				<redirect view-id="«e.getViewFile("view")»" />
@@ -51,7 +56,8 @@
 		</navigation>
 	</page>
 	
-	 <page view-id="«e.getViewFile("view")»" >
+	 <page view-id="«e.getViewFile("view")»" conversation-required="false">
+	 	<!-- <description>View «e.name»: #{«e.name.toFirstLower()».displayName}</description> -->
 	 	<navigation> 
 			 <rule if-outcome="edit">
  				<redirect view-id="«e.getViewFile("edit")»" />
@@ -64,7 +70,7 @@
 	
 	<page view-id="«e.getViewFile("list")»" >
 		<navigation>
-			<rule if-outcome="select">
+			<rule if-outcome="view«e.name»">
 				<redirect view-id="«e.getViewFile("view")»" />
 			</rule> 
 			 <rule if-outcome="edit">

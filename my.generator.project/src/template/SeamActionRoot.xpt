@@ -2,7 +2,10 @@
 
 «EXTENSION org::openarchitectureware::uml2::profile::profiling»
 «EXTENSION template::GeneratorExtensions»
+«EXTENSION template::associationExtensions»
+
 «EXTENSION template::WebExtensions»
+
 
 «DEFINE Root FOR uml::Model»
 	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
@@ -27,7 +30,9 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import org.apache.commons.lang.StringUtils;
+
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
@@ -64,10 +69,7 @@ public class «name»Action extends BaseAction<«name»> implements java.io.Serializ
 	@Factory("«asVar()»List")
 	@Observer("archived«name»")
 	public void findRecords() {
-		«asVar()»List = entityManager
-				.createQuery(
-						"select «asVar()» from «name» «asVar()» order by «asVar()».id desc")
-				.getResultList();
+		search();
 	}	
 
 	public «name» getEntity(){
@@ -96,6 +98,14 @@ public class «name»Action extends BaseAction<«name»> implements java.io.Serializ
 		«ENDFOREACH»
 	}
 	«ENDIF»
+	
+	public void updateAssociations(){
+		«FOREACH getNonComposedManyAssociations() AS a»
+		«a.type.fqn()» «a.type.name.toFirstLower()» =(«a.type.fqn()») Component.getInstance("«a.type.name.toFirstLower()»");
+		«a.type.name.toFirstLower()».set«a.opposite.name.toFirstUpper()»(«asVar()»);
+		events.raiseTransactionSuccessEvent("archived«a.type.name»");
+		«ENDFOREACH»
+	}
 	
 	
 	«EXPAND genCompositeCode FOREACH getComposed() -»
