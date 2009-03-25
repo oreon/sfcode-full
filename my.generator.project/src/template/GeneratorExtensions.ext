@@ -107,7 +107,7 @@ cls.getAllAttributes().select(a|a.isMultivalued() && a.association != null && a.
 
 //e.g customer would be needed of the given order
 getOutgoingAssociations(Class cls):
-cls.getAllAttributes().select(a|a.isMultivalued() == false && a.association != null);
+cls.getAllAttributes().select(a|a.isMultivalued() == false && a.association != null && !a.type.isEmbeddable() );
 
 
 //need to add quotes if default is a string type

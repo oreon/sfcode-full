@@ -3,6 +3,8 @@
 «EXTENSION org::openarchitectureware::uml2::profile::profiling»
 «EXTENSION template::GeneratorExtensions»
 «EXTENSION template::webExtensions»
+«EXTENSION template::associationExtensions»
+
 
 «DEFINE genEditView(boolean edit) FOR uml::Class»
 	«setCurrentEditMode(edit)» 
@@ -37,7 +39,7 @@
 			<ice:panelTab id="tab1" label="Patient">
 				<ui:include src = "«"view" + name+ "Component." + getExtension()»" />
 			</ice:panelTab>
-			«FOREACH getAllAttributes().select(a|a.isMultivalued() && a.association != null && !a.isComposite()) AS a»
+			«FOREACH getNonComposedManyAssociations() AS a»
 			<ice:panelTab label="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
 				<ui:include
 					src="../../«a.type.package.name»/«a.type.asVar()»/list«a.type.name.toFirstUpper()»Component.jspx" />
@@ -220,8 +222,9 @@
 		«IF isCurrentEditMode()»
 		«EXPAND genNew»
 		«EXPAND genDelete FOR this»
+		«REM»
 		«ELSE»
-		«EXPAND ListRoot::genPropsFromBusinessEntity FOR class»
+		«EXPAND ListRoot::genPropsFromBusinessEntity FOR class»«ENDREM»
 		«ENDIF»	
 	</ice:dataTable>
 	«setCurrentMultiMode(false)-»
