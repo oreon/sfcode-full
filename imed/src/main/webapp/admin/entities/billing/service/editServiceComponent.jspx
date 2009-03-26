@@ -11,7 +11,7 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
 	<ice:panelGroup  >
-		<ice:form>
+		
 			<s:validateAll>
 			<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
 			<f:facet name="header">
@@ -25,12 +25,37 @@
 	
 	
 		
-		<h:outputText value="#{msg.service_dxCode}"/>
+		<h:outputText value="#{msg.service_claim}  "/>
 		
 	
-	<h:selectOneMenu id="Service_dxCode" value="#{
-service.dxCode
-}" required="true">
+	<h:selectOneMenu id="Service_claim" value="#{service.claim}" required="true">
+		<s:selectItems value="#{claimList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Service_claim" />
+		
+		
+	
+
+	
+		
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.service_dxCode}  "/>
+		
+	
+	<h:selectOneMenu id="Service_dxCode" value="#{service.dxCode}" required="true">
 		<s:selectItems value="#{dxCodeList}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
@@ -50,37 +75,14 @@ service.dxCode
 	
 	
 		
-	
-	
-		
-		<h:outputText value="#{msg.service_units}"/>
-		
-
-	<ice:inputText  id="Service_units" required="false"  value="#{service.units}" />
-   
-
-		
-		<h:message styleClass="error errors" for="Service_units" />
-		
-		
-	
-
-	
-
-	
-	
-	
-		
 			
 	
 	
 		
-		<h:outputText value="#{msg.service_procedureCode}"/>
+		<h:outputText value="#{msg.service_procedureCode}  "/>
 		
 	
-	<h:selectOneMenu id="Service_procedureCode" value="#{
-service.procedureCode
-}" required="true">
+	<h:selectOneMenu id="Service_procedureCode" value="#{service.procedureCode}" required="true">
 		<s:selectItems value="#{procedureCodeList}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
@@ -97,12 +99,30 @@ service.procedureCode
 	
 		
 	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.service_units}  "/>
+		
+
+	<ice:inputText  id="Service_units" required="false"  value="#{service.units}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Service_units" />
+		
+		
+	
+
 	
 			</h:panelGrid>
 			
 	
 			</s:validateAll>
-				
+			
 	<div class="buttonBox">
 		
 		<h:commandButton value="Save" action="#{serviceAction.save}" /> 
@@ -111,7 +131,7 @@ service.procedureCode
 		
 	</div>
 
-		</ice:form>
+		
 	</ice:panelGroup>
 	</html>
 	

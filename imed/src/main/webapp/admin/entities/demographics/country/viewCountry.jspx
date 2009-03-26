@@ -9,9 +9,18 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
-	template = "/admin/template.jspx" >	
+ template = "/admin/template.jspx" >	
 	<ui:define name="content">
-		<ui:include src = "viewCountryComponent.jspx" />
+		<ice:form>
+		<ice:panelTabSet>
+			<ice:panelTab id="tab1" label="Patient">
+				<ui:include src = "viewCountryComponent.jspx" />
+			</ice:panelTab>
+			
+		</ice:panelTabSet>
+		</ice:form>
+		
+		<wc:comments backingAction="#{countryAction}"/>
 	</ui:define> 
 </ui:composition>
 	

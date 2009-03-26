@@ -9,18 +9,22 @@ import org.hibernate.validator.*;
 
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
+import org.hibernate.annotations.Filter;
 
 @Entity
 @Table(name = "vitals")
 @Name("vitals")
+@Filter(name = "archiveFilterDef")
 public class Vitals extends BusinessEntity {
 
 	@Lob
 	protected String general;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "patient_id", nullable = false)
-	protected org.cerebrum.domain.patient.Patient patient;
+	protected Pulse pulse = new Pulse();
+
+	protected Temperature temperature = new Temperature();
+
+	protected BloodPressure bloodPressure = new BloodPressure();
 
 	public void setGeneral(String general) {
 		this.general = general;
@@ -30,12 +34,28 @@ public class Vitals extends BusinessEntity {
 		return general;
 	}
 
-	public void setPatient(org.cerebrum.domain.patient.Patient patient) {
-		this.patient = patient;
+	public void setPulse(Pulse pulse) {
+		this.pulse = pulse;
 	}
 
-	public org.cerebrum.domain.patient.Patient getPatient() {
-		return patient;
+	public Pulse getPulse() {
+		return pulse;
+	}
+
+	public void setTemperature(Temperature temperature) {
+		this.temperature = temperature;
+	}
+
+	public Temperature getTemperature() {
+		return temperature;
+	}
+
+	public void setBloodPressure(BloodPressure bloodPressure) {
+		this.bloodPressure = bloodPressure;
+	}
+
+	public BloodPressure getBloodPressure() {
+		return bloodPressure;
 	}
 
 	@Transient

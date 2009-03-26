@@ -11,7 +11,7 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
 	<ice:panelGroup  >
-		<ice:form>
+		
 			<s:validateAll>
 			<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
 			<f:facet name="header">
@@ -25,12 +25,37 @@
 	
 	
 		
-		<h:outputText value="#{msg.immunization_immunizationType}"/>
+		<h:outputText value="#{msg.immunization_patient}  "/>
 		
 	
-	<h:selectOneMenu id="Immunization_immunizationType" value="#{
-immunization.immunizationType
-}" required="true">
+	<h:selectOneMenu id="Immunization_patient" value="#{immunization.patient}" required="true">
+		<s:selectItems value="#{patientList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Immunization_patient" />
+		
+		
+	
+
+	
+		
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.immunization_immunizationType}  "/>
+		
+	
+	<h:selectOneMenu id="Immunization_immunizationType" value="#{immunization.immunizationType}" required="true">
 		<s:selectItems value="#{immunizationTypeList}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
@@ -47,12 +72,13 @@ immunization.immunizationType
 	
 		
 	
+
 	
 			</h:panelGrid>
 			
 	
 			</s:validateAll>
-				
+			
 	<div class="buttonBox">
 		
 		<h:commandButton value="Save" action="#{immunizationAction.save}" /> 
@@ -61,7 +87,7 @@ immunization.immunizationType
 		
 	</div>
 
-		</ice:form>
+		
 	</ice:panelGroup>
 	</html>
 	

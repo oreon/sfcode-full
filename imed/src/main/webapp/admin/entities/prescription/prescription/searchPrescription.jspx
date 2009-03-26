@@ -17,11 +17,11 @@
 				<ice:outputText id="srchHdr" value="Search" />
 			</f:facet>
 			<div class="entry errors"><h:messages globalOnly="true" /></div>
-			<h:panelGrid columns="3">
+			<h:panelGrid columns="5">
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.prescription_startDate}"/> <br/>
+	<h:outputText value="#{msg.prescription_startDate}  "/> <br/>
 	<wc:calendar  id="Prescription_startDate" value="#{prescription.startDate}" />
 	</h:panelGroup>
 
@@ -29,10 +29,25 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.prescription_notes}"/> <br/>
+	<h:outputText value="#{msg.prescription_notes}  "/> <br/>
 	<ice:inputText  id="Prescription_notes" value="#{prescription.notes}" />
 	</h:panelGroup>
 
+	
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.prescription_patient}  "/> <br/>
+	<h:selectOneMenu id="Prescription_patient" value="#{prescription.patient}" >
+		<s:selectItems value="#{patientList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
 	
 	
 			</h:panelGrid>

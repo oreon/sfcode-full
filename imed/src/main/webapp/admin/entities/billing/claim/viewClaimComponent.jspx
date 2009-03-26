@@ -11,12 +11,53 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
 	<ice:panelGroup  >
-		<ice:form>
+		
 			<s:validateAll>
 			<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol">
 			<f:facet name="header">
 				<h:outputText value="Claim " />
 			</f:facet>
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.claim_referringPhysician}  "/>
+		
+	
+	<ice:outputText   value="#{claim.referringPhysician.displayName}" />
+	
+
+		
+		
+		
+		
+	
+
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.claim_notes}  "/>
+		
+
+	<ice:outputText escape="false"   id="Claim_notes"   value="#{claim.notes}" />
+   
+
+		
+		
+		
+		
+	
+
 	
 			</h:panelGrid>
 			
@@ -31,17 +72,17 @@
 	
 	
 	
+	
+	
 		
 			
 	
 	
 		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.service_dxCode}"/></f:facet>
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.service_dxCode}  "/></f:facet>
 		
 	
-	<ice:outputText   value="#{
-service.dxCode
-.displayName}" />
+	<ice:outputText   value="#{service.dxCode.displayName}" />
 	
 
 		
@@ -56,10 +97,32 @@ service.dxCode
 	
 	
 		
+			
 	
 	
 		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.service_units}"/></f:facet>
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.service_procedureCode}  "/></f:facet>
+		
+	
+	<ice:outputText   value="#{service.procedureCode.displayName}" />
+	
+
+		
+		
+		</h:column>
+		
+	
+
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.service_units}  "/></f:facet>
 		
 
 	<ice:outputText    id="Service_units"   value="#{service.units}" />
@@ -72,55 +135,11 @@ service.dxCode
 	
 
 	
-
-	
-	
-	
 		
-			
-	
-	
-		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.service_procedureCode}"/></f:facet>
-		
-	
-	<ice:outputText   value="#{
-service.procedureCode
-.displayName}" />
-	
-
-		
-		
-		</h:column>
-		
-	
-
-	
-		
-	
-	
-		
-		
-		
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.dateCreated}" />
-		</f:facet>
-		<h:outputText value="#{service.dateCreated}" />
-	</ice:column>
-
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.createdByUser}" />
-		</f:facet>
-		<h:outputText value="#{service.createdByUser.displayName}" />
-	</ice:column>
-
-
 			
 	</ice:dataTable>
 			</s:validateAll>
-				
+			
 	<div class="buttonBox">
 		
 		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" /> 
@@ -129,7 +148,7 @@ service.procedureCode
 		
 	</div>
 
-		</ice:form>
+		
 	</ice:panelGroup>
 	</html>
 	

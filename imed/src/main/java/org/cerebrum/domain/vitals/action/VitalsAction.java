@@ -12,7 +12,9 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import org.apache.commons.lang.StringUtils;
+
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
@@ -27,6 +29,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.jboss.seam.annotations.Observer;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("vitalsAction")
@@ -43,10 +46,9 @@ public class VitalsAction extends BaseAction<Vitals>
 	private List<Vitals> vitalsList;
 
 	@Factory("vitalsList")
+	@Observer("archivedVitals")
 	public void findRecords() {
-		vitalsList = entityManager.createQuery(
-				"select vitals from Vitals vitals order by vitals.id desc")
-				.getResultList();
+		search();
 	}
 
 	public Vitals getEntity() {
@@ -63,16 +65,15 @@ public class VitalsAction extends BaseAction<Vitals>
 		this.vitalsList = list;
 	}
 
-	/** This function adds associated entities to an example criterion
-	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
-	 */
-	public void addAssoications(Criteria criteria) {
+	public void updateAssociations() {
 
-		if (vitals.getPatient() != null) {
-			criteria = criteria.add(Restrictions.eq("patient.id", vitals
-					.getPatient().getId()));
+	}
+
+	public List<Vitals> getEntityList() {
+		if (vitalsList == null) {
+			findRecords();
 		}
-
+		return vitalsList;
 	}
 
 }

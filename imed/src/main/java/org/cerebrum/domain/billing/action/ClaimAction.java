@@ -12,7 +12,9 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import org.apache.commons.lang.StringUtils;
+
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
@@ -27,6 +29,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.jboss.seam.annotations.Observer;
 
 import org.cerebrum.domain.billing.Service;
 
@@ -45,10 +48,9 @@ public class ClaimAction extends BaseAction<Claim>
 	private List<Claim> claimList;
 
 	@Factory("claimList")
+	@Observer("archivedClaim")
 	public void findRecords() {
-		claimList = entityManager.createQuery(
-				"select claim from Claim claim order by claim.id desc")
-				.getResultList();
+		search();
 	}
 
 	public Claim getEntity() {
@@ -63,6 +65,22 @@ public class ClaimAction extends BaseAction<Claim>
 	@Override
 	public void setEntityList(List<Claim> list) {
 		this.claimList = list;
+	}
+
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
+	 */
+	public void addAssoications(Criteria criteria) {
+
+		if (claim.getReferringPhysician() != null) {
+			criteria = criteria.add(Restrictions.eq("referringPhysician.id",
+					claim.getReferringPhysician().getId()));
+		}
+
+	}
+
+	public void updateAssociations() {
+
 	}
 
 	private List<Service> listServices;
@@ -106,6 +124,13 @@ public class ClaimAction extends BaseAction<Claim>
 		claim.getServices().clear();
 		claim.getServices().addAll(listServices);
 
+	}
+
+	public List<Claim> getEntityList() {
+		if (claimList == null) {
+			findRecords();
+		}
+		return claimList;
 	}
 
 }

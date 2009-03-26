@@ -11,7 +11,7 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
 	<ice:panelGroup  >
-		<ice:form>
+		
 			<s:validateAll>
 			<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
 			<f:facet name="header">
@@ -19,11 +19,39 @@
 			</f:facet>
 	
 	
+	
 		
+			
 	
 	
 		
-		<h:outputText value="#{msg.prescription_startDate}"/>
+		<h:outputText value="#{msg.prescription_patient}  "/>
+		
+	
+	<h:selectOneMenu id="Prescription_patient" value="#{prescription.patient}" required="true">
+		<s:selectItems value="#{patientList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Prescription_patient" />
+		
+		
+	
+
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.prescription_startDate}  "/>
 		
 
 	<wc:calendar  id="Prescription_startDate" required="false"  value="#{prescription.startDate}" />
@@ -39,12 +67,8 @@
 
 	
 	
-	
 		
-	
-	
-		
-		<h:outputText value="#{msg.prescription_notes}"/>
+		<h:outputText value="#{msg.prescription_notes}  "/>
 		
 
 	<ice:inputRichText toolbar="Basic" saveOnSubmit="true"  id="Prescription_notes" required="false"  value="#{prescription.notes}" />
@@ -56,9 +80,6 @@
 		
 	
 
-	
-
-	
 	
 			</h:panelGrid>
 			
@@ -79,46 +100,6 @@
 	
 	
 	
-		
-	
-	
-		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_qty}"/></f:facet>
-		
-
-	<ice:inputText  id="Item_qty" required="false"  value="#{item.qty}" />
-   
-
-		
-		<h:message styleClass="error errors" for="Item_qty" />
-		</h:column>
-		
-	
-
-	
-
-	
-	
-	
-		
-	
-	
-		
-		<h:column style="text-align:left"><f:facet name="header"><h:outputText value="#{msg.item_measurement}"/></f:facet>
-		
-
-	<ice:inputText  id="Item_measurement" required="false"  value="#{item.measurement}" />
-   
-
-		
-		<h:message styleClass="error errors" for="Item_measurement" />
-		</h:column>
-		
-	
-
-	
-
-	
 	
 	
 		
@@ -126,12 +107,10 @@
 	
 	
 		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_drug}"/></f:facet>
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_drug}  "/></f:facet>
 		
 	
-	<h:selectOneMenu id="Item_drug" value="#{
-item.drug
-}" required="true">
+	<h:selectOneMenu id="Item_drug" value="#{item.drug}" required="true">
 		<s:selectItems value="#{drugList}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
@@ -151,10 +130,71 @@ item.drug
 	
 	
 		
+			
 	
 	
 		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_route}"/></f:facet>
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_frequency}  "/></f:facet>
+		
+	
+	<h:selectOneMenu id="Item_frequency" value="#{item.frequency}" required="true">
+		<s:selectItems value="#{frequencyList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Item_frequency" />
+		</h:column>
+		
+	
+
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_qty}  "/></f:facet>
+		
+
+	<ice:inputText size="4"  id="Item_qty" required="false"  value="#{item.qty}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Item_qty" />
+		</h:column>
+		
+	
+
+	
+
+	
+	
+		
+		<h:column style="text-align:left"><f:facet name="header"><h:outputText value="#{msg.item_measurement}  "/></f:facet>
+		
+
+	<ice:inputText  id="Item_measurement" required="false"  value="#{item.measurement}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Item_measurement" />
+		</h:column>
+		
+	
+
+	
+
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_route}  "/></f:facet>
 		
 	
 	<h:selectOneMenu id="Item_route" value="#{item.route}" required="false">
@@ -179,12 +219,8 @@ item.drug
 
 	
 	
-	
 		
-	
-	
-		
-		<h:column style="text-align:left"><f:facet name="header"><h:outputText value="#{msg.item_instructions}"/></f:facet>
+		<h:column style="text-align:left"><f:facet name="header"><h:outputText value="#{msg.item_instructions}  "/></f:facet>
 		
 
 	<ice:inputText  id="Item_instructions" required="false"  value="#{item.instructions}" />
@@ -200,19 +236,15 @@ item.drug
 
 	
 	
-	
 		
-	
-	
-		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_PRN}"/></f:facet>
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_prn}  "/></f:facet>
 		
 
-	<ice:selectBooleanCheckbox  id="Item_PRN" required="false"  value="#{item.pRN}" />
+	<ice:selectBooleanCheckbox  id="Item_prn" required="false"  value="#{item.prn}" />
    
 
 		
-		<h:message styleClass="error errors" for="Item_PRN" />
+		<h:message styleClass="error errors" for="Item_prn" />
 		</h:column>
 		
 	
@@ -221,15 +253,11 @@ item.drug
 
 	
 	
-	
 		
-	
-	
-		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_days}"/></f:facet>
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_days}  "/></f:facet>
 		
 
-	<ice:inputText  id="Item_days" required="false"  value="#{item.days}" />
+	<ice:inputText size="4"  id="Item_days" required="false"  value="#{item.days}" />
    
 
 		
@@ -242,41 +270,8 @@ item.drug
 
 	
 	
-	
 		
-			
-	
-	
-		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_frequency}"/></f:facet>
-		
-	
-	<h:selectOneMenu id="Item_frequency" value="#{
-item.frequency
-}" required="true">
-		<s:selectItems value="#{frequencyList}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Please Select..." />
-		<s:convertEntity />
-	</h:selectOneMenu>
-	
-
-		
-		<h:message styleClass="error errors" for="Item_frequency" />
-		</h:column>
-		
-	
-
-	
-		
-	
-	
-	
-		
-	
-	
-		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_subs}"/></f:facet>
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.item_subs}  "/></f:facet>
 		
 
 	<ice:selectBooleanCheckbox  id="Item_subs" required="false"  value="#{item.subs}" />
@@ -288,9 +283,6 @@ item.frequency
 		
 	
 
-	
-
-	
 	
 		
 		
@@ -310,10 +302,11 @@ item.frequency
 		</ice:commandButton>
 	</h:column>
 
+		
 			
 	</ice:dataTable>
 			</s:validateAll>
-				
+			
 	<div class="buttonBox">
 		
 		<h:commandButton value="Save" action="#{prescriptionAction.save}" /> 
@@ -322,7 +315,7 @@ item.frequency
 		
 	</div>
 
-		</ice:form>
+		
 	</ice:panelGroup>
 	</html>
 	

@@ -10,20 +10,20 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
-	<h:form>
+	
 		<ice:commandButton value="Create New" action="edit" rendered="#{identity.loggedIn}"/>
-		<ice:dataTable id="data" var="item" value="#{itemList}" rows="30"
+		<ice:dataTable  var="item" value="#{itemList}" rows="30"
 		rowClasses="odd, even" styleClass="dataTable" >		
 		
 	
 		
 			
 				
-	<ice:column >
+	<ice:column  groupOn="#{item.prescription.displayName}" >
 		<f:facet name="header">
 			<h:outputText value="#{msg.item_prescription}"   /> 	
 		</f:facet>
-		<h:outputText   value="#{item.prescription.displayName}" />
+		<s:link   value="#{item.prescription.displayName}" action="viewPrescription" />
 	</ice:column>
 			
 		
@@ -49,7 +49,7 @@
 		<f:facet name="header">
 			<h:outputText value="#{msg.item_drug}"   /> 	
 		</f:facet>
-		<h:outputText   value="#{item.drug.displayName}" />
+		<s:link   value="#{item.drug.displayName}" action="viewDrug" />
 	</ice:column>
 			
 		
@@ -70,9 +70,9 @@
 	
 	<ice:column>
 		<f:facet name="header">
-			<h:outputText value="#{msg.item_PRN}" />
+			<h:outputText value="#{msg.item_prn}" />
 		</f:facet>
-		<h:outputText   value="#{item.pRN}" />
+		<h:outputText   value="#{item.prn}" />
 	</ice:column>
 	
 	<ice:column>
@@ -89,7 +89,7 @@
 		<f:facet name="header">
 			<h:outputText value="#{msg.item_frequency}"   /> 	
 		</f:facet>
-		<h:outputText   value="#{item.frequency.displayName}" />
+		<s:link   value="#{item.frequency.displayName}" action="viewFrequency" />
 	</ice:column>
 			
 		
@@ -101,20 +101,6 @@
 		<h:outputText   value="#{item.subs}" />
 	</ice:column>
 	
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.dateCreated}" />
-		</f:facet>
-		<h:outputText value="#{item.dateCreated}" />
-	</ice:column>
-
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.createdByUser}" />
-		</f:facet>
-		<h:outputText value="#{item.createdByUser.displayName}" />
-	</ice:column>
-
 		
 	<ice:column   >
 		<f:facet name="header">
@@ -149,6 +135,5 @@
 	</ice:column>
 
 		</ice:dataTable>
-	</h:form>
 	</html>
 	

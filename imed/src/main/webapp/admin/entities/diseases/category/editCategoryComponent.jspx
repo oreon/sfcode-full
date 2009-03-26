@@ -11,7 +11,7 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
 	<ice:panelGroup  >
-		<ice:form>
+		
 			<s:validateAll>
 			<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
 			<f:facet name="header">
@@ -21,13 +21,40 @@
 	
 	
 		
+			
 	
 	
 		
-		<h:outputText value="#{msg.category_name}"/>
+		<h:outputText value="#{msg.category_parent}  "/>
+		
+	
+	<h:selectOneMenu id="Category_parent" value="#{category.parent}" required="false">
+		<s:selectItems value="#{categoryList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Category_parent" />
+		
+		
+	
+
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.category_name} * "/>
 		
 
-	<ice:inputText  id="Category_name" required="false"  value="#{category.name}" />
+	<ice:inputText  id="Category_name" required="true"  value="#{category.name}" />
    
 
 		
@@ -36,9 +63,6 @@
 		
 	
 
-	
-
-	
 	
 			</h:panelGrid>
 			
@@ -59,14 +83,16 @@
 	
 	
 	
-		
+
+	
+	
 	
 	
 		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.category_name}"/></f:facet>
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.category_name} * "/></f:facet>
 		
 
-	<ice:inputText  id="Category_name" required="false"  value="#{category.name}" />
+	<ice:inputText  id="Category_name" required="true"  value="#{category.name}" />
    
 
 		
@@ -75,9 +101,6 @@
 		
 	
 
-	
-
-	
 	
 		
 		
@@ -97,10 +120,11 @@
 		</ice:commandButton>
 	</h:column>
 
+		
 			
 	</ice:dataTable>
 			</s:validateAll>
-				
+			
 	<div class="buttonBox">
 		
 		<h:commandButton value="Save" action="#{categoryAction.save}" /> 
@@ -109,7 +133,7 @@
 		
 	</div>
 
-		</ice:form>
+		
 	</ice:panelGroup>
 	</html>
 	

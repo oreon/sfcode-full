@@ -10,9 +10,9 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
-	<h:form>
+	
 		<ice:commandButton value="Create New" action="edit" rendered="#{identity.loggedIn}"/>
-		<ice:dataTable id="data" var="physician" value="#{physicianList}" rows="30"
+		<ice:dataTable  var="physician" value="#{physicianList}" rows="30"
 		rowClasses="odd, even" styleClass="dataTable" >		
 		
 	<ice:column>
@@ -20,6 +20,13 @@
 			<h:outputText value="#{msg.person_firstName}" />
 		</f:facet>
 		<h:outputText   value="#{physician.firstName}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.person_lastName}" />
+		</f:facet>
+		<h:outputText   value="#{physician.lastName}" />
 	</ice:column>
 	
 	<ice:column>
@@ -34,13 +41,6 @@
 			<h:outputText value="#{msg.person_gender}" />
 		</f:facet>
 		<h:outputText   value="#{physician.gender}" />
-	</ice:column>
-	
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.person_age}" />
-		</f:facet>
-		<h:outputText   value="#{physician.age}" />
 	</ice:column>
 	
 		
@@ -82,7 +82,7 @@
 		<f:facet name="header">
 			<h:outputText value="#{msg.address_country}"   /> 	
 		</f:facet>
-		<h:outputText   value="#{physician.country.displayName}" />
+		<s:link   value="#{physician.address.country.displayName}" action="viewCountry" />
 	</ice:column>
 			
 		
@@ -118,6 +118,13 @@
 			
 		
 	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.person_age}" />
+		</f:facet>
+		<h:outputText   value="#{physician.age}" />
+	</ice:column>
+	
 	
 		
 			
@@ -126,7 +133,7 @@
 		<f:facet name="header">
 			<h:outputText value="#{msg.physician_specialization}"   /> 	
 		</f:facet>
-		<h:outputText   value="#{physician.specialization.displayName}" />
+		<s:link   value="#{physician.specialization.displayName}" action="viewSpecialization" />
 	</ice:column>
 			
 		
@@ -145,25 +152,11 @@
 		<f:facet name="header">
 			<h:outputText value="#{msg.physician_user}"   /> 	
 		</f:facet>
-		<h:outputText   value="#{physician.user.displayName}" />
+		<s:link   value="#{physician.user.displayName}" action="viewUser" />
 	</ice:column>
 			
 		
 	
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.dateCreated}" />
-		</f:facet>
-		<h:outputText value="#{physician.dateCreated}" />
-	</ice:column>
-
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.createdByUser}" />
-		</f:facet>
-		<h:outputText value="#{physician.createdByUser.displayName}" />
-	</ice:column>
-
 		
 	<ice:column   >
 		<f:facet name="header">
@@ -198,6 +191,5 @@
 	</ice:column>
 
 		</ice:dataTable>
-	</h:form>
 	</html>
 	

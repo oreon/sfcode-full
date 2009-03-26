@@ -1,13 +1,18 @@
 package org.cerebrum.domain.action;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.cerebrum.domain.users.User;
+import org.cerebrum.domain.users.action.UserAction;
 import org.jboss.seam.mock.SeamTest;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.witchcraft.seam.security.Authenticator;
 
 public class CusotmerActionTest extends SeamTest{
 	/*
@@ -53,11 +58,21 @@ public class CusotmerActionTest extends SeamTest{
 	@Test
 	public void testRegisterAction() {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
-		em.getTransaction().begin();
+		//em.getTransaction().begin();
 		
 		//StoryAction action = new StoryAction();
 		//action.setEntityManager(em);
 		//action.executeNamedQuery("openStories", Priority.URGENT);
+	}
+	
+	@Test
+	public void createUserTest(){
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		Authenticator auth = new Authenticator();
+		UserAction userAction = new UserAction();
+		userAction.setEntityManager(em);
+		List<User> users = userAction.getEntityList();
+		assert ! users.isEmpty();
 	}
 
 
@@ -79,3 +94,4 @@ public class CusotmerActionTest extends SeamTest{
 	}
 
 }
+

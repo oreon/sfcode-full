@@ -12,7 +12,9 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import org.apache.commons.lang.StringUtils;
+
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
@@ -27,6 +29,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.jboss.seam.annotations.Observer;
 
 import org.cerebrum.domain.diseases.Cause;
 
@@ -45,10 +48,9 @@ public class SymptomAction extends BaseAction<Symptom>
 	private List<Symptom> symptomList;
 
 	@Factory("symptomList")
+	@Observer("archivedSymptom")
 	public void findRecords() {
-		symptomList = entityManager.createQuery(
-				"select symptom from Symptom symptom order by symptom.id desc")
-				.getResultList();
+		search();
 	}
 
 	public Symptom getEntity() {
@@ -63,6 +65,10 @@ public class SymptomAction extends BaseAction<Symptom>
 	@Override
 	public void setEntityList(List<Symptom> list) {
 		this.symptomList = list;
+	}
+
+	public void updateAssociations() {
+
 	}
 
 	private List<Cause> listCauses;
@@ -104,6 +110,13 @@ public class SymptomAction extends BaseAction<Symptom>
 		symptom.getCauses().clear();
 		symptom.getCauses().addAll(listCauses);
 
+	}
+
+	public List<Symptom> getEntityList() {
+		if (symptomList == null) {
+			findRecords();
+		}
+		return symptomList;
 	}
 
 }

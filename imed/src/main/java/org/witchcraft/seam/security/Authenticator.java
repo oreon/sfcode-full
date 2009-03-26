@@ -7,13 +7,14 @@ import javax.persistence.NoResultException;
 
 import org.cerebrum.domain.users.Role;
 import org.cerebrum.domain.users.User;
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
-import org.witchcraft.base.entity.UserUtil;
+import org.witchcraft.base.entity.UserUtilAction;
 
 @Name("authenticator")
 public class Authenticator {
@@ -49,10 +50,11 @@ public class Authenticator {
 			}else{
 				log.warn("no role found for user " + user.getUserName());
 			}
-				
-			UserUtil.setCurrentUserAndIp(user, "192.144.144.0");
+			
+			UserUtilAction userUtilAction = (UserUtilAction)Component.getInstance("userUtilAction");
+		//	UserUtil.setCurrentUserAndIp(user, "192.144.144.0");
+			userUtilAction.setCurrentUser(user);
 			return true;
-
 		}
 
 		catch (NoResultException ex) {

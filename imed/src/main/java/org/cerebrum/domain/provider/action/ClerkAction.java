@@ -12,7 +12,9 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import org.apache.commons.lang.StringUtils;
+
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
@@ -27,6 +29,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.jboss.seam.annotations.Observer;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("clerkAction")
@@ -43,10 +46,9 @@ public class ClerkAction extends BaseAction<Clerk>
 	private List<Clerk> clerkList;
 
 	@Factory("clerkList")
+	@Observer("archivedClerk")
 	public void findRecords() {
-		clerkList = entityManager.createQuery(
-				"select clerk from Clerk clerk order by clerk.id desc")
-				.getResultList();
+		search();
 	}
 
 	public Clerk getEntity() {
@@ -73,6 +75,17 @@ public class ClerkAction extends BaseAction<Clerk>
 					.getId()));
 		}
 
+	}
+
+	public void updateAssociations() {
+
+	}
+
+	public List<Clerk> getEntityList() {
+		if (clerkList == null) {
+			findRecords();
+		}
+		return clerkList;
 	}
 
 }

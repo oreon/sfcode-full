@@ -11,32 +11,12 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
 	<ice:panelGroup  >
-		<ice:form>
+		
 			<s:validateAll>
 			<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
 			<f:facet name="header">
 				<h:outputText value="Bed " />
 			</f:facet>
-	
-	
-		
-	
-	
-		
-		<h:outputText value="#{msg.bed_number}"/>
-		
-
-	<ice:inputText  id="Bed_number" required="false"  value="#{bed.number}" />
-   
-
-		
-		<h:message styleClass="error errors" for="Bed_number" />
-		
-		
-	
-
-	
-
 	
 	
 	
@@ -45,12 +25,10 @@
 	
 	
 		
-		<h:outputText value="#{msg.bed_patient}"/>
+		<h:outputText value="#{msg.bed_patient}  "/>
 		
 	
-	<h:selectOneMenu id="Bed_patient" value="#{
-bed.patient
-}" required="false">
+	<h:selectOneMenu id="Bed_patient" value="#{bed.patient}" required="false">
 		<s:selectItems value="#{patientList}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
@@ -69,11 +47,55 @@ bed.patient
 	
 	
 	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.bed_ward}  "/>
+		
+	
+	<h:selectOneMenu id="Bed_ward" value="#{bed.ward}" required="true">
+		<s:selectItems value="#{wardList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Bed_ward" />
+		
+		
+	
+
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.bed_number}  "/>
+		
+
+	<ice:inputText  id="Bed_number" required="false"  value="#{bed.number}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Bed_number" />
+		
+		
+	
+
+	
 			</h:panelGrid>
 			
 	
 			</s:validateAll>
-				
+			
 	<div class="buttonBox">
 		
 		<h:commandButton value="Save" action="#{bedAction.save}" /> 
@@ -82,7 +104,7 @@ bed.patient
 		
 	</div>
 
-		</ice:form>
+		
 	</ice:panelGroup>
 	</html>
 	

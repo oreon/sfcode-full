@@ -9,10 +9,12 @@ import org.hibernate.validator.*;
 
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
+import org.hibernate.annotations.Filter;
 
 @Entity
 @Table(name = "bed")
 @Name("bed")
+@Filter(name = "archiveFilterDef")
 public class Bed extends BusinessEntity {
 
 	protected Integer number;

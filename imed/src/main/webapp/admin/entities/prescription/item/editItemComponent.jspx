@@ -11,7 +11,7 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
 	<ice:panelGroup  >
-		<ice:form>
+		
 			<s:validateAll>
 			<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
 			<f:facet name="header">
@@ -21,44 +21,29 @@
 	
 	
 		
+			
 	
 	
 		
-		<h:outputText value="#{msg.item_qty}"/>
-		
-
-	<ice:inputText  id="Item_qty" required="false"  value="#{item.qty}" />
-   
-
-		
-		<h:message styleClass="error errors" for="Item_qty" />
-		
+		<h:outputText value="#{msg.item_prescription}  "/>
 		
 	
-
+	<h:selectOneMenu id="Item_prescription" value="#{item.prescription}" required="true">
+		<s:selectItems value="#{prescriptionList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
 	
 
-	
-	
-	
 		
-	
-	
-		
-		<h:outputText value="#{msg.item_measurement}"/>
-		
-
-	<ice:inputText  id="Item_measurement" required="false"  value="#{item.measurement}" />
-   
-
-		
-		<h:message styleClass="error errors" for="Item_measurement" />
+		<h:message styleClass="error errors" for="Item_prescription" />
 		
 		
 	
 
 	
-
+		
 	
 	
 	
@@ -67,12 +52,10 @@
 	
 	
 		
-		<h:outputText value="#{msg.item_drug}"/>
+		<h:outputText value="#{msg.item_drug}  "/>
 		
 	
-	<h:selectOneMenu id="Item_drug" value="#{
-item.drug
-}" required="true">
+	<h:selectOneMenu id="Item_drug" value="#{item.drug}" required="true">
 		<s:selectItems value="#{drugList}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
@@ -92,10 +75,71 @@ item.drug
 	
 	
 		
+			
 	
 	
 		
-		<h:outputText value="#{msg.item_route}"/>
+		<h:outputText value="#{msg.item_frequency}  "/>
+		
+	
+	<h:selectOneMenu id="Item_frequency" value="#{item.frequency}" required="true">
+		<s:selectItems value="#{frequencyList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Item_frequency" />
+		
+		
+	
+
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.item_qty}  "/>
+		
+
+	<ice:inputText size="4"  id="Item_qty" required="false"  value="#{item.qty}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Item_qty" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.item_measurement}  "/>
+		
+
+	<ice:inputText  id="Item_measurement" required="false"  value="#{item.measurement}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Item_measurement" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.item_route}  "/>
 		
 	
 	<h:selectOneMenu id="Item_route" value="#{item.route}" required="false">
@@ -120,12 +164,8 @@ item.drug
 
 	
 	
-	
 		
-	
-	
-		
-		<h:outputText value="#{msg.item_instructions}"/>
+		<h:outputText value="#{msg.item_instructions}  "/>
 		
 
 	<ice:inputText  id="Item_instructions" required="false"  value="#{item.instructions}" />
@@ -141,19 +181,15 @@ item.drug
 
 	
 	
-	
 		
-	
-	
-		
-		<h:outputText value="#{msg.item_PRN}"/>
+		<h:outputText value="#{msg.item_prn}  "/>
 		
 
-	<ice:selectBooleanCheckbox  id="Item_PRN" required="false"  value="#{item.pRN}" />
+	<ice:selectBooleanCheckbox  id="Item_prn" required="false"  value="#{item.prn}" />
    
 
 		
-		<h:message styleClass="error errors" for="Item_PRN" />
+		<h:message styleClass="error errors" for="Item_prn" />
 		
 		
 	
@@ -162,15 +198,11 @@ item.drug
 
 	
 	
-	
 		
-	
-	
-		
-		<h:outputText value="#{msg.item_days}"/>
+		<h:outputText value="#{msg.item_days}  "/>
 		
 
-	<ice:inputText  id="Item_days" required="false"  value="#{item.days}" />
+	<ice:inputText size="4"  id="Item_days" required="false"  value="#{item.days}" />
    
 
 		
@@ -183,41 +215,8 @@ item.drug
 
 	
 	
-	
 		
-			
-	
-	
-		
-		<h:outputText value="#{msg.item_frequency}"/>
-		
-	
-	<h:selectOneMenu id="Item_frequency" value="#{
-item.frequency
-}" required="true">
-		<s:selectItems value="#{frequencyList}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Please Select..." />
-		<s:convertEntity />
-	</h:selectOneMenu>
-	
-
-		
-		<h:message styleClass="error errors" for="Item_frequency" />
-		
-		
-	
-
-	
-		
-	
-	
-	
-		
-	
-	
-		
-		<h:outputText value="#{msg.item_subs}"/>
+		<h:outputText value="#{msg.item_subs}  "/>
 		
 
 	<ice:selectBooleanCheckbox  id="Item_subs" required="false"  value="#{item.subs}" />
@@ -230,14 +229,11 @@ item.frequency
 	
 
 	
-
-	
-	
 			</h:panelGrid>
 			
 	
 			</s:validateAll>
-				
+			
 	<div class="buttonBox">
 		
 		<h:commandButton value="Save" action="#{itemAction.save}" /> 
@@ -246,7 +242,7 @@ item.frequency
 		
 	</div>
 
-		</ice:form>
+		
 	</ice:panelGroup>
 	</html>
 	

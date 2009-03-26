@@ -11,7 +11,7 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
 	<ice:panelGroup  >
-		<ice:form>
+		
 			<s:validateAll>
 			<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
 			<f:facet name="header">
@@ -19,14 +19,42 @@
 			</f:facet>
 	
 	
+	
 		
+			
 	
 	
 		
-		<h:outputText value="#{msg.allergy_allergen}"/>
+		<h:outputText value="#{msg.allergy_patient}  "/>
+		
+	
+	<h:selectOneMenu id="Allergy_patient" value="#{allergy.patient}" required="true">
+		<s:selectItems value="#{patientList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Allergy_patient" />
+		
+		
+	
+
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.allergy_allergen} * "/>
 		
 
-	<ice:inputText  id="Allergy_allergen" required="false"  value="#{allergy.allergen}" />
+	<ice:inputText  id="Allergy_allergen" required="true"  value="#{allergy.allergen}" />
    
 
 		
@@ -39,12 +67,8 @@
 
 	
 	
-	
 		
-	
-	
-		
-		<h:outputText value="#{msg.allergy_reactionType}"/>
+		<h:outputText value="#{msg.allergy_reactionType}  "/>
 		
 	
 	<h:selectOneMenu id="Allergy_reactionType" value="#{allergy.reactionType}" required="false">
@@ -63,36 +87,11 @@
 	
 
 	
-
-	
-	
-	
-	
-		
-	
-	
-		
-		<h:outputText value="#{msg.allergy_lastName}"/>
-		
-
-	<ice:inputText  id="Allergy_lastName" required="false"  value="#{allergy.lastName}" />
-   
-
-		
-		<h:message styleClass="error errors" for="Allergy_lastName" />
-		
-		
-	
-
-	
-
-	
-	
 			</h:panelGrid>
 			
 	
 			</s:validateAll>
-				
+			
 	<div class="buttonBox">
 		
 		<h:commandButton value="Save" action="#{allergyAction.save}" /> 
@@ -101,7 +100,7 @@
 		
 	</div>
 
-		</ice:form>
+		
 	</ice:panelGroup>
 	</html>
 	

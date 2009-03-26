@@ -17,10 +17,10 @@
 				<ice:outputText id="srchHdr" value="Search" />
 			</f:facet>
 			<div class="entry errors"><h:messages globalOnly="true" /></div>
-			<h:panelGrid columns="3">
+			<h:panelGrid columns="5">
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.person_firstName}"/> <br/>
+	<h:outputText value="#{msg.person_firstName} * "/> <br/>
 	<ice:inputText  id="Person_firstName" value="#{patient.firstName}" />
 	</h:panelGroup>
 
@@ -28,7 +28,15 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.person_dateOfBirth}"/> <br/>
+	<h:outputText value="#{msg.person_lastName} * "/> <br/>
+	<ice:inputText  id="Person_lastName" value="#{patient.lastName}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.person_dateOfBirth}  "/> <br/>
 	<wc:calendar  id="Person_dateOfBirth" value="#{patient.dateOfBirth}" />
 	</h:panelGroup>
 
@@ -36,7 +44,7 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.person_gender}"/> <br/>
+	<h:outputText value="#{msg.person_gender}  "/> <br/>
 	<h:selectOneMenu id="Person_gender" value="#{patient.gender}" required="false">
 		<f:selectItem itemLabel="Any" itemValue=""/>
 		<f:selectItem itemLabel="None" itemValue=""/>
@@ -49,19 +57,11 @@
 	
 	
 	
-	<h:panelGroup>
-	<h:outputText value="#{msg.person_age}"/> <br/>
-	<ice:inputText  id="Person_age" value="#{patient.age}" />
-	</h:panelGroup>
-
-	
-	
-	
 			
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.address_streetAddress}"/> <br/>
+	<h:outputText value="#{msg.address_streetAddress}  "/> <br/>
 	<ice:inputText  id="Address_streetAddress" value="#{patient.address.streetAddress}" />
 	</h:panelGroup>
 
@@ -69,7 +69,7 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.address_city}"/> <br/>
+	<h:outputText value="#{msg.address_city}  "/> <br/>
 	<ice:inputText  id="Address_city" value="#{patient.address.city}" />
 	</h:panelGroup>
 
@@ -77,7 +77,7 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.address_state}"/> <br/>
+	<h:outputText value="#{msg.address_state}  "/> <br/>
 	<ice:inputText  id="Address_state" value="#{patient.address.state}" />
 	</h:panelGroup>
 
@@ -85,7 +85,7 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.address_zip}"/> <br/>
+	<h:outputText value="#{msg.address_zip}  "/> <br/>
 	<ice:inputText  id="Address_zip" value="#{patient.address.zip}" />
 	</h:panelGroup>
 
@@ -94,8 +94,8 @@
 	
 		
 	<h:panelGroup>
-	<h:outputText value="#{msg.address_country}"/> <br/>
-	<h:selectOneMenu id="Address_country" value="#{patient.country}" >
+	<h:outputText value="#{msg.address_country}  "/> <br/>
+	<h:selectOneMenu id="Address_country" value="#{patient.address.country}" >
 		<s:selectItems value="#{countryList}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Any..." />
@@ -114,7 +114,7 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.contactDetails_primaryPhone}"/> <br/>
+	<h:outputText value="#{msg.contactDetails_primaryPhone}  "/> <br/>
 	<ice:inputText  id="ContactDetails_primaryPhone" value="#{patient.contactDetails.primaryPhone}" />
 	</h:panelGroup>
 
@@ -122,7 +122,7 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.contactDetails_secondaryPhone}"/> <br/>
+	<h:outputText value="#{msg.contactDetails_secondaryPhone}  "/> <br/>
 	<ice:inputText  id="ContactDetails_secondaryPhone" value="#{patient.contactDetails.secondaryPhone}" />
 	</h:panelGroup>
 
@@ -130,7 +130,7 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.contactDetails_email}"/> <br/>
+	<h:outputText value="#{msg.contactDetails_email}  "/> <br/>
 	<ice:inputText  id="ContactDetails_email" value="#{patient.contactDetails.email}" />
 	</h:panelGroup>
 
@@ -140,25 +140,17 @@
 	
 	
 	
-	
 	<h:panelGroup>
-	<h:outputText value="#{msg.patient_medicalHistory}"/> <br/>
-	<ice:inputText  id="Patient_medicalHistory" value="#{patient.medicalHistory}" />
+	<h:outputText value="#{msg.person_age}  "/> <br/>
+	<ice:inputText  id="Person_age" value="#{patient.age}" />
 	</h:panelGroup>
 
 	
 	
 	
-	<h:panelGroup>
-	<h:outputText value="#{msg.patient_pastMedications}"/> <br/>
-	<ice:inputText  id="Patient_pastMedications" value="#{patient.pastMedications}" />
-	</h:panelGroup>
-
-	
-	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.patient_bloodGroup}"/> <br/>
+	<h:outputText value="#{msg.patient_bloodGroup}  "/> <br/>
 	<h:selectOneMenu id="Patient_bloodGroup" value="#{patient.bloodGroup}" required="false">
 		<f:selectItem itemLabel="Any" itemValue=""/>
 		<f:selectItem itemLabel="None" itemValue=""/>
@@ -174,6 +166,37 @@
 	</h:selectOneMenu>
 	</h:panelGroup>
 
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.patient_medicalHistory}  "/> <br/>
+	<ice:inputText  id="Patient_medicalHistory" value="#{patient.medicalHistory}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.patient_pastMedications}  "/> <br/>
+	<ice:inputText  id="Patient_pastMedications" value="#{patient.pastMedications}" />
+	</h:panelGroup>
+
+	
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.patient_primaryPhysician}  "/> <br/>
+	<h:selectOneMenu id="Patient_primaryPhysician" value="#{patient.primaryPhysician}" >
+		<s:selectItems value="#{physicianList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		<f:selectItem itemLabel="--None--" itemValue=""/>
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
 	
 	
 			</h:panelGrid>

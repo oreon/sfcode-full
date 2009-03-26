@@ -9,10 +9,12 @@ import org.hibernate.validator.*;
 
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
+import org.hibernate.annotations.Filter;
 
 @Entity
 @Table(name = "item")
 @Name("item")
+@Filter(name = "archiveFilterDef")
 public class Item extends BusinessEntity {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -31,7 +33,7 @@ public class Item extends BusinessEntity {
 
 	protected String instructions;
 
-	protected Boolean PRN;
+	protected Boolean prn;
 
 	protected Integer days;
 
@@ -89,12 +91,12 @@ public class Item extends BusinessEntity {
 		return instructions;
 	}
 
-	public void setPRN(Boolean PRN) {
-		this.PRN = PRN;
+	public void setPrn(Boolean prn) {
+		this.prn = prn;
 	}
 
-	public Boolean getPRN() {
-		return PRN;
+	public Boolean getPrn() {
+		return prn;
 	}
 
 	public void setDays(Integer days) {

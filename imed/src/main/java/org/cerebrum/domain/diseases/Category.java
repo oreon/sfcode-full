@@ -9,11 +9,15 @@ import org.hibernate.validator.*;
 
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
+import org.hibernate.annotations.Filter;
 
 @Entity
 @Table(name = "category")
 @Name("category")
+@Filter(name = "archiveFilterDef")
 public class Category extends BusinessEntity {
+
+	//children->parent ->Category->Category->Category
 
 	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Category_ID", nullable = true)

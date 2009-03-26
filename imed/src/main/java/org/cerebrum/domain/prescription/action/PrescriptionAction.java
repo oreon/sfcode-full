@@ -12,7 +12,9 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import org.apache.commons.lang.StringUtils;
+
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
@@ -27,6 +29,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.jboss.seam.annotations.Observer;
 
 import org.cerebrum.domain.prescription.Item;
 
@@ -45,11 +48,9 @@ public class PrescriptionAction extends BaseAction<Prescription>
 	private List<Prescription> prescriptionList;
 
 	@Factory("prescriptionList")
+	@Observer("archivedPrescription")
 	public void findRecords() {
-		prescriptionList = entityManager
-				.createQuery(
-						"select prescription from Prescription prescription order by prescription.id desc")
-				.getResultList();
+		search();
 	}
 
 	public Prescription getEntity() {
@@ -64,6 +65,22 @@ public class PrescriptionAction extends BaseAction<Prescription>
 	@Override
 	public void setEntityList(List<Prescription> list) {
 		this.prescriptionList = list;
+	}
+
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
+	 */
+	public void addAssoications(Criteria criteria) {
+
+		if (prescription.getPatient() != null) {
+			criteria = criteria.add(Restrictions.eq("patient.id", prescription
+					.getPatient().getId()));
+		}
+
+	}
+
+	public void updateAssociations() {
+
 	}
 
 	private List<Item> listItems;
@@ -107,6 +124,13 @@ public class PrescriptionAction extends BaseAction<Prescription>
 		prescription.getItems().clear();
 		prescription.getItems().addAll(listItems);
 
+	}
+
+	public List<Prescription> getEntityList() {
+		if (prescriptionList == null) {
+			findRecords();
+		}
+		return prescriptionList;
 	}
 
 }

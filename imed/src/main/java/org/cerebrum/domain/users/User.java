@@ -9,14 +9,15 @@ import org.hibernate.validator.*;
 
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
+import org.hibernate.annotations.Filter;
 
 @Entity
 @Table(name = "user")
 @Name("user")
+@Filter(name = "archiveFilterDef")
 public class User extends BusinessEntity {
 
-	//@Unique
-
+	@Unique(entityName = "org.cerebrum.domain.users.User", fieldName = "userName")
 	@NotNull
 	@Length(min = 2, max = 50)
 	protected String userName;
@@ -26,8 +27,10 @@ public class User extends BusinessEntity {
 
 	protected Boolean enabled;
 
-	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "User_ID", nullable = true)
+	//roles->user ->User->Role->Role
+
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_ID", unique = true), inverseJoinColumns = @JoinColumn(name = "roles_ID", unique = true))
 	private Set<Role> roles = new HashSet<Role>();
 
 	public void setUserName(String userName) {

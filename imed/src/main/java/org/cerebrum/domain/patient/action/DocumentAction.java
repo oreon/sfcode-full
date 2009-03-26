@@ -12,7 +12,9 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import org.apache.commons.lang.StringUtils;
+
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
@@ -27,6 +29,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.jboss.seam.annotations.Observer;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("documentAction")
@@ -43,11 +46,9 @@ public class DocumentAction extends BaseAction<Document>
 	private List<Document> documentList;
 
 	@Factory("documentList")
+	@Observer("archivedDocument")
 	public void findRecords() {
-		documentList = entityManager
-				.createQuery(
-						"select document from Document document order by document.id desc")
-				.getResultList();
+		search();
 	}
 
 	public Document getEntity() {
@@ -62,6 +63,17 @@ public class DocumentAction extends BaseAction<Document>
 	@Override
 	public void setEntityList(List<Document> list) {
 		this.documentList = list;
+	}
+
+	public void updateAssociations() {
+
+	}
+
+	public List<Document> getEntityList() {
+		if (documentList == null) {
+			findRecords();
+		}
+		return documentList;
 	}
 
 }

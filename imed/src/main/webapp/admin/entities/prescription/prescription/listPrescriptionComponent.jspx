@@ -10,9 +10,9 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
-	<h:form>
+	
 		<ice:commandButton value="Create New" action="edit" rendered="#{identity.loggedIn}"/>
-		<ice:dataTable id="data" var="prescription" value="#{prescriptionList}" rows="30"
+		<ice:dataTable  var="prescription" value="#{prescriptionList}" rows="30"
 		rowClasses="odd, even" styleClass="dataTable" >		
 		
 	
@@ -30,20 +30,18 @@
 		<h:outputText escape="false"  value="#{prescription.notes}" />
 	</ice:column>
 	
-	<ice:column>
+		
+			
+				
+	<ice:column >
 		<f:facet name="header">
-			<h:outputText value="#{msg.dateCreated}" />
+			<h:outputText value="#{msg.prescription_patient}"   /> 	
 		</f:facet>
-		<h:outputText value="#{prescription.dateCreated}" />
+		<s:link   value="#{prescription.patient.displayName}" action="viewPatient" />
 	</ice:column>
-
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.createdByUser}" />
-		</f:facet>
-		<h:outputText value="#{prescription.createdByUser.displayName}" />
-	</ice:column>
-
+			
+		
+	
 		
 	<ice:column   >
 		<f:facet name="header">
@@ -78,6 +76,5 @@
 	</ice:column>
 
 		</ice:dataTable>
-	</h:form>
 	</html>
 	

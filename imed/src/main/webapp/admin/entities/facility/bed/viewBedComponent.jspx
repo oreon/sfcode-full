@@ -11,7 +11,7 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
 	<ice:panelGroup  >
-		<ice:form>
+		
 			<s:validateAll>
 			<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol">
 			<f:facet name="header">
@@ -19,11 +19,56 @@
 			</f:facet>
 	
 	
+	
 		
+			
 	
 	
 		
-		<h:outputText value="#{msg.bed_number}"/>
+		<h:outputText value="#{msg.bed_patient}  "/>
+		
+	
+	<ice:outputText   value="#{bed.patient.displayName}" />
+	
+
+		
+		
+		
+		
+	
+
+	
+		
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.bed_ward}  "/>
+		
+	
+	<ice:outputText   value="#{bed.ward.displayName}" />
+	
+
+		
+		
+		
+		
+	
+
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.bed_number}  "/>
 		
 
 	<ice:outputText    id="Bed_number"   value="#{bed.number}" />
@@ -36,39 +81,11 @@
 	
 
 	
-
-	
-	
-	
-		
-			
-	
-	
-		
-		<h:outputText value="#{msg.bed_patient}"/>
-		
-	
-	<ice:outputText   value="#{
-bed.patient
-.displayName}" />
-	
-
-		
-		
-		
-		
-	
-
-	
-		
-	
-	
-	
 			</h:panelGrid>
 			
 	
 			</s:validateAll>
-				
+			
 	<div class="buttonBox">
 		
 		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" /> 
@@ -77,7 +94,7 @@ bed.patient
 		
 	</div>
 
-		</ice:form>
+		
 	</ice:panelGroup>
 	</html>
 	
