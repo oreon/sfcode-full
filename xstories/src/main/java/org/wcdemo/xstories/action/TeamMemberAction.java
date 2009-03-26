@@ -4,6 +4,7 @@ import org.wcdemo.xstories.TeamMember;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
@@ -26,6 +27,7 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
+import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.seam.action.BaseAction;
 
 import org.wcdemo.xstories.MemberSkill;
@@ -43,6 +45,8 @@ public class TeamMemberAction extends BaseAction<TeamMember>
 
 	@DataModel
 	private List<TeamMember> teamMemberList;
+	
+	private boolean modalRendered;
 
 	@Factory("teamMemberList")
 	public void findRecords() {
@@ -106,5 +110,30 @@ public class TeamMemberAction extends BaseAction<TeamMember>
 		teamMember.getSkills().addAll(listSkills);
 
 	}
+	
+	public void toggleModal(TeamMember teamMember) {
+		setEntity(entityManager.merge(teamMember));
+        modalRendered = true;
+    }
+	
+	public void archiveAndClose() {
+		archive(getEntity());
+        modalRendered = false;
+    }
+	
+	public void closeModal() {
+        modalRendered = false;
+    }
+
+	public boolean isModalRendered() {
+		return modalRendered;
+	}
+
+	public void setModalRendered(boolean modalRendered) {
+		this.modalRendered = modalRendered;
+	}
+	
+	
+
 
 }
