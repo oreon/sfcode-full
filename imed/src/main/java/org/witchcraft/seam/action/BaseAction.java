@@ -231,6 +231,8 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		return name;
 	}
 	
+	////////////////// Comments /////////////////////////////////////////////////////////
+	
 	public void saveComment(){
 		EntityComment currentComment = new EntityComment();
 		currentComment.setText(currentCommentText);
@@ -262,5 +264,32 @@ public abstract class BaseAction<T extends BusinessEntity> {
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
+	
+	///////////////////// Delete Modal Dialog ////////////////////////////////////////
+	
+	private boolean deleteDialogRendered = false;
+	
+	public boolean isDeleteDialogRendered() {
+		return deleteDialogRendered;
+	}
+
+	public void setDeleteDialogRendered(boolean deleteDialogRendered) {
+		this.deleteDialogRendered = deleteDialogRendered;
+	}
+
+	public void showDeleteDialog(T t) {
+		setEntity(entityManager.merge(t));
+		deleteDialogRendered = true;
+    }
+	
+	public void archiveAndClose() {
+		archive(getEntity());
+        closeModal();
+    }
+	
+	public void closeModal() {
+		 setDeleteDialogRendered(false);
+    }
+	
 	
 }
