@@ -1,15 +1,11 @@
 
-	<html 
- xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:s="http://jboss.com/products/seam/taglib"
-	xmlns:ice="http://www.icesoft.com/icefaces/component"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
-	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
- >	
+
+ 
+ <ice:panelGroup styleClass="componentBox"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+ 
 	<h:form>
 		<ice:commandButton value="Create New" action="edit" rendered="#{identity.loggedIn}"/>
 		<ice:dataTable id="data" var="teamMember" value="#{teamMemberList}" rows="30"
@@ -107,17 +103,43 @@
 	</ice:column>
 
 		
-	<ice:column rendered="#{s:hasRole('admin')}"  >
+	<ice:column >
 		<f:facet name="header">
 			<h:outputText value=" " />
 		</f:facet>
 		<h:commandLink 
-			action="#{teamMemberAction.archive(teamMember)}">
+			action="#{teamMemberAction.toggleModal(teamMember)}">
 			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" />
 		</h:commandLink>
 	</ice:column>
 
 		</ice:dataTable>
+	
+	
+
+	<ice:panelPopup draggable="false" modal="true"
+                visible="#{teamMemberAction.modalRendered}"
+                autoCentre="true"
+                styleClass="corePopup"
+                style="z-index:999; top: 400px; left: 400px; width: 300px; height: 200px; position:absolute; background: #FFFFFF;">
+    <f:facet name="header">
+        <ice:panelGroup styleClass="popupHeaderWrapper">
+          Delete
+        </ice:panelGroup>
+    </f:facet>
+    <f:facet name="body">
+		<h:panelGrid id="popupBody2" width="100%" cellpadding="0" cellspacing="0" columns="1">
+			<h:column >
+			<h:outputText value="Are you sure you want to delete #{teamMember.displayName}?" />
+			</h:column>
+			
+			<h:column > <h:commandButton id="archive" action="#{teamMemberAction.archiveAndClose}" value="Delete" style="z-index:2;"/>  
+			<h:commandButton id="closeModal" action="#{teamMemberAction.closeModal}" value="Cancel" style="z-index:2;"/></h:column>
+			
+		</h:panelGrid>
+	</f:facet>
+
+</ice:panelPopup>
 	</h:form>
-	</html>
+</ice:panelGroup>
 	
