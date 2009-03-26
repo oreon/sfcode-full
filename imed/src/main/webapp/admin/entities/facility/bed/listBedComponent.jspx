@@ -10,9 +10,9 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
-	<h:form>
+	
 		<ice:commandButton value="Create New" action="edit" rendered="#{identity.loggedIn}"/>
-		<ice:dataTable id="data" var="bed" value="#{bedList}" rows="30"
+		<ice:dataTable  var="bed" value="#{bedList}" rows="30"
 		rowClasses="odd, even" styleClass="dataTable" >		
 		
 	
@@ -30,7 +30,7 @@
 		<f:facet name="header">
 			<h:outputText value="#{msg.bed_patient}"   /> 	
 		</f:facet>
-		<h:outputText   value="#{bed.patient.displayName}" />
+		<s:link   value="#{bed.patient.displayName}" action="viewPatient" />
 	</ice:column>
 			
 		
@@ -38,29 +38,15 @@
 		
 			
 				
-	<ice:column >
+	<ice:column  groupOn="#{bed.ward.displayName}" >
 		<f:facet name="header">
 			<h:outputText value="#{msg.bed_ward}"   /> 	
 		</f:facet>
-		<h:outputText   value="#{bed.ward.displayName}" />
+		<s:link   value="#{bed.ward.displayName}" action="viewWard" />
 	</ice:column>
 			
 		
 	
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.dateCreated}" />
-		</f:facet>
-		<h:outputText value="#{bed.dateCreated}" />
-	</ice:column>
-
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.createdByUser}" />
-		</f:facet>
-		<h:outputText value="#{bed.createdByUser.displayName}" />
-	</ice:column>
-
 		
 	<ice:column   >
 		<f:facet name="header">
@@ -95,6 +81,5 @@
 	</ice:column>
 
 		</ice:dataTable>
-	</h:form>
 	</html>
 	

@@ -9,11 +9,15 @@ import org.hibernate.validator.*;
 
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
+import org.hibernate.annotations.Filter;
 
 @Entity
 @Table(name = "prescription")
 @Name("prescription")
+@Filter(name = "archiveFilterDef")
 public class Prescription extends BusinessEntity {
+
+	//items->prescription ->Prescription->Prescription->Prescription
 
 	@OneToMany(mappedBy = "prescription", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Prescription_ID", nullable = false)
@@ -23,6 +27,10 @@ public class Prescription extends BusinessEntity {
 
 	@Lob
 	protected String notes;
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "patient_id", nullable = false)
+	protected org.cerebrum.domain.patient.Patient patient;
 
 	public void setItems(Set<Item> items) {
 		this.items = items;
@@ -48,9 +56,17 @@ public class Prescription extends BusinessEntity {
 		return notes;
 	}
 
+	public void setPatient(org.cerebrum.domain.patient.Patient patient) {
+		this.patient = patient;
+	}
+
+	public org.cerebrum.domain.patient.Patient getPatient() {
+		return patient;
+	}
+
 	@Transient
 	public String getDisplayName() {
-		return items + "";
+		return patient.getDisplayName() + "," + super.getDateCreated();
 	}
 
 }

@@ -12,7 +12,9 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import org.apache.commons.lang.StringUtils;
+
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
@@ -27,6 +29,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.jboss.seam.annotations.Observer;
 
 import org.cerebrum.domain.diseases.Category;
 
@@ -45,11 +48,9 @@ public class CategoryAction extends BaseAction<Category>
 	private List<Category> categoryList;
 
 	@Factory("categoryList")
+	@Observer("archivedCategory")
 	public void findRecords() {
-		categoryList = entityManager
-				.createQuery(
-						"select category from Category category order by category.id desc")
-				.getResultList();
+		search();
 	}
 
 	public Category getEntity() {
@@ -75,6 +76,10 @@ public class CategoryAction extends BaseAction<Category>
 			criteria = criteria.add(Restrictions.eq("parent.id", category
 					.getParent().getId()));
 		}
+
+	}
+
+	public void updateAssociations() {
 
 	}
 
@@ -117,6 +122,13 @@ public class CategoryAction extends BaseAction<Category>
 		category.getChildren().clear();
 		category.getChildren().addAll(listChildren);
 
+	}
+
+	public List<Category> getEntityList() {
+		if (categoryList == null) {
+			findRecords();
+		}
+		return categoryList;
 	}
 
 }

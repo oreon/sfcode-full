@@ -10,20 +10,20 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
-	<h:form>
+	
 		<ice:commandButton value="Create New" action="edit" rendered="#{identity.loggedIn}"/>
-		<ice:dataTable id="data" var="service" value="#{serviceList}" rows="30"
+		<ice:dataTable  var="service" value="#{serviceList}" rows="30"
 		rowClasses="odd, even" styleClass="dataTable" >		
 		
 	
 		
 			
 				
-	<ice:column >
+	<ice:column  groupOn="#{service.claim.displayName}" >
 		<f:facet name="header">
 			<h:outputText value="#{msg.service_claim}"   /> 	
 		</f:facet>
-		<h:outputText   value="#{service.claim.displayName}" />
+		<s:link   value="#{service.claim.displayName}" action="viewClaim" />
 	</ice:column>
 			
 		
@@ -35,7 +35,7 @@
 		<f:facet name="header">
 			<h:outputText value="#{msg.service_dxCode}"   /> 	
 		</f:facet>
-		<h:outputText   value="#{service.dxCode.displayName}" />
+		<s:link   value="#{service.dxCode.displayName}" action="viewDxCode" />
 	</ice:column>
 			
 		
@@ -54,25 +54,11 @@
 		<f:facet name="header">
 			<h:outputText value="#{msg.service_procedureCode}"   /> 	
 		</f:facet>
-		<h:outputText   value="#{service.procedureCode.displayName}" />
+		<s:link   value="#{service.procedureCode.displayName}" action="viewProcedureCode" />
 	</ice:column>
 			
 		
 	
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.dateCreated}" />
-		</f:facet>
-		<h:outputText value="#{service.dateCreated}" />
-	</ice:column>
-
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.createdByUser}" />
-		</f:facet>
-		<h:outputText value="#{service.createdByUser.displayName}" />
-	</ice:column>
-
 		
 	<ice:column   >
 		<f:facet name="header">
@@ -107,6 +93,5 @@
 	</ice:column>
 
 		</ice:dataTable>
-	</h:form>
 	</html>
 	

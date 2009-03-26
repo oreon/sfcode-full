@@ -31,16 +31,29 @@
 <f:loadBundle basename="messages" var="msg" />
 
 <div id="header">
-<div id="status">Welcome #{identity.credentials.username} | <s:link
-	id="search" view="/main.xhtml" value="Search" propagation="none" /> |
-<s:link id="logout" action="#{identity.logout}"
-	value="Logout #{identity.credentials.username}" /></div>
+<ice:form>
+<ice:menuBar   style="font-size: 10px;" >
+<ice:menuItem  value="Print" action="country" />
+<ice:menuItem  value="Export" action="country" />
+<ice:menuItem  value="Reports" action="country" />
+<ice:menuItem  value="Preferences" action="country" />
+<ice:menuItem  value="Archive view" action="country" />
+<ice:menuItem  value="Audit view" action="country" />
+
+<div id="status"> 
+	 <h:graphicImage value="/images/icons/logout.gif" /> <s:link  id="logout" action="#{identity.logout}" value="Logout #{identity.credentials.username}" />
+	 <h:outputText value="  " /> <h:inputText size="12" /> <h:outputText value=" " /> <h:graphicImage value="/images/icons/search_icon.gif" />
 </div>
-<div id="topmenu">Menu Section</div>
+</ice:menuBar>
+
+</ice:form>
+</div>
+<div id="topmenu"> 
+</div>
 <div id="leftcol"><ui:include src="entities/navigation.jspx" /></div>
-<div id="content"><h:messages globalOnly="true" /> <ui:insert
-	name="content" /></div>
-<div id="rightcol"></div>
+<div id="content">
+<h:messages globalOnly="true" /> <ui:insert name="content" />
+</div>
 <div id="footer"></div>
 
 

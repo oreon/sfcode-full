@@ -9,10 +9,12 @@ import org.hibernate.validator.*;
 
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
+import org.hibernate.annotations.Filter;
 
 @Entity
 @Table(name = "physician")
 @Name("physician")
+@Filter(name = "archiveFilterDef")
 public class Physician extends org.cerebrum.domain.demographics.Person {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -51,7 +53,7 @@ public class Physician extends org.cerebrum.domain.demographics.Person {
 
 	@Transient
 	public String getDisplayName() {
-		return specialization + "";
+		return super.getDisplayName();
 	}
 
 }

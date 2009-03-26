@@ -11,19 +11,20 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
 	<ice:panelGroup  >
-		<ice:form>
+		
 			<s:validateAll>
 			<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
 			<f:facet name="header">
 				<h:outputText value="Floor " />
 			</f:facet>
 	
+
+	
+	
+	
 	
 		
-	
-	
-		
-		<h:outputText value="#{msg.floor_number}"/>
+		<h:outputText value="#{msg.floor_number}  "/>
 		
 
 	<ice:inputText  id="Floor_number" required="false"  value="#{floor.number}" />
@@ -35,9 +36,6 @@
 		
 	
 
-	
-
-	
 	
 			</h:panelGrid>
 			
@@ -57,14 +55,17 @@
 		
 	
 	
-		
+	
+
+	
+	
 	
 	
 		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.ward_name}"/></f:facet>
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.ward_name} * "/></f:facet>
 		
 
-	<ice:inputText  id="Ward_name" required="false"  value="#{ward.name}" />
+	<ice:inputText  id="Ward_name" required="true"  value="#{ward.name}" />
    
 
 		
@@ -77,12 +78,8 @@
 
 	
 	
-	
 		
-	
-	
-		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.ward_allowedGender}"/></f:facet>
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.ward_allowedGender}  "/></f:facet>
 		
 	
 	<h:selectOneMenu id="Ward_allowedGender" value="#{ward.allowedGender}" required="false">
@@ -99,10 +96,6 @@
 		
 	
 
-	
-
-	
-	
 	
 		
 		
@@ -122,10 +115,11 @@
 		</ice:commandButton>
 	</h:column>
 
+		
 			
 	</ice:dataTable>
 			</s:validateAll>
-				
+			
 	<div class="buttonBox">
 		
 		<h:commandButton value="Save" action="#{floorAction.save}" /> 
@@ -134,7 +128,7 @@
 		
 	</div>
 
-		</ice:form>
+		
 	</ice:panelGroup>
 	</html>
 	

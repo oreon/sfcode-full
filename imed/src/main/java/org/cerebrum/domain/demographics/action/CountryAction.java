@@ -12,7 +12,9 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import org.apache.commons.lang.StringUtils;
+
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
@@ -27,6 +29,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.jboss.seam.annotations.Observer;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("countryAction")
@@ -43,10 +46,9 @@ public class CountryAction extends BaseAction<Country>
 	private List<Country> countryList;
 
 	@Factory("countryList")
+	@Observer("archivedCountry")
 	public void findRecords() {
-		countryList = entityManager.createQuery(
-				"select country from Country country order by country.id desc")
-				.getResultList();
+		search();
 	}
 
 	public Country getEntity() {
@@ -61,6 +63,17 @@ public class CountryAction extends BaseAction<Country>
 	@Override
 	public void setEntityList(List<Country> list) {
 		this.countryList = list;
+	}
+
+	public void updateAssociations() {
+
+	}
+
+	public List<Country> getEntityList() {
+		if (countryList == null) {
+			findRecords();
+		}
+		return countryList;
 	}
 
 }

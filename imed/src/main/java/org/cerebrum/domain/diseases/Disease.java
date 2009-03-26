@@ -9,10 +9,12 @@ import org.hibernate.validator.*;
 
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
+import org.hibernate.annotations.Filter;
 
 @Entity
 @Table(name = "disease")
 @Name("disease")
+@Filter(name = "archiveFilterDef")
 public class Disease extends BusinessEntity {
 
 	@NotNull

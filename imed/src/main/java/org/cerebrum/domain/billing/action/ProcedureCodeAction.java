@@ -12,7 +12,9 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import org.apache.commons.lang.StringUtils;
+
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
@@ -27,6 +29,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.jboss.seam.annotations.Observer;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("procedureCodeAction")
@@ -43,11 +46,9 @@ public class ProcedureCodeAction extends BaseAction<ProcedureCode>
 	private List<ProcedureCode> procedureCodeList;
 
 	@Factory("procedureCodeList")
+	@Observer("archivedProcedureCode")
 	public void findRecords() {
-		procedureCodeList = entityManager
-				.createQuery(
-						"select procedureCode from ProcedureCode procedureCode order by procedureCode.id desc")
-				.getResultList();
+		search();
 	}
 
 	public ProcedureCode getEntity() {
@@ -62,6 +63,17 @@ public class ProcedureCodeAction extends BaseAction<ProcedureCode>
 	@Override
 	public void setEntityList(List<ProcedureCode> list) {
 		this.procedureCodeList = list;
+	}
+
+	public void updateAssociations() {
+
+	}
+
+	public List<ProcedureCode> getEntityList() {
+		if (procedureCodeList == null) {
+			findRecords();
+		}
+		return procedureCodeList;
 	}
 
 }

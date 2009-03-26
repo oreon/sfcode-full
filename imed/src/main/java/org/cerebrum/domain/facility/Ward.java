@@ -9,11 +9,15 @@ import org.hibernate.validator.*;
 
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
+import org.hibernate.annotations.Filter;
 
 @Entity
 @Table(name = "ward")
 @Name("ward")
+@Filter(name = "archiveFilterDef")
 public class Ward extends BusinessEntity {
+
+	//beds->ward ->Ward->Bed->Bed
 
 	@OneToMany(mappedBy = "ward", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Ward_ID", nullable = true)

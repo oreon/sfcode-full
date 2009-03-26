@@ -9,6 +9,7 @@ import org.hibernate.validator.*;
 
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
+import org.hibernate.annotations.Filter;
 
 public class Appointment {
 
@@ -22,6 +23,10 @@ public class Appointment {
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "patient_id", nullable = false)
 	protected org.cerebrum.domain.patient.Patient patient;
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "physician_id", nullable = false)
+	protected org.cerebrum.domain.provider.Physician physician;
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
@@ -53,6 +58,14 @@ public class Appointment {
 
 	public org.cerebrum.domain.patient.Patient getPatient() {
 		return patient;
+	}
+
+	public void setPhysician(org.cerebrum.domain.provider.Physician physician) {
+		this.physician = physician;
+	}
+
+	public org.cerebrum.domain.provider.Physician getPhysician() {
+		return physician;
 	}
 
 }

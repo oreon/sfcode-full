@@ -10,26 +10,31 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
-	<h:form>
+	
 		<ice:commandButton value="Create New" action="edit" rendered="#{identity.loggedIn}"/>
-		<ice:dataTable id="data" var="claim" value="#{claimList}" rows="30"
+		<ice:dataTable  var="claim" value="#{claimList}" rows="30"
 		rowClasses="odd, even" styleClass="dataTable" >		
 		
 	
 	<ice:column>
 		<f:facet name="header">
-			<h:outputText value="#{msg.dateCreated}" />
+			<h:outputText value="#{msg.claim_notes}" />
 		</f:facet>
-		<h:outputText value="#{claim.dateCreated}" />
+		<h:outputText escape="false"  value="#{claim.notes}" />
 	</ice:column>
-
-	<ice:column>
+	
+		
+			
+				
+	<ice:column >
 		<f:facet name="header">
-			<h:outputText value="#{msg.createdByUser}" />
+			<h:outputText value="#{msg.claim_referringPhysician}"   /> 	
 		</f:facet>
-		<h:outputText value="#{claim.createdByUser.displayName}" />
+		<s:link   value="#{claim.referringPhysician.displayName}" action="viewPhysician" />
 	</ice:column>
-
+			
+		
+	
 		
 	<ice:column   >
 		<f:facet name="header">
@@ -64,6 +69,5 @@
 	</ice:column>
 
 		</ice:dataTable>
-	</h:form>
 	</html>
 	

@@ -12,7 +12,9 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import org.apache.commons.lang.StringUtils;
+
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
@@ -27,6 +29,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.jboss.seam.annotations.Observer;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("drugAction")
@@ -43,10 +46,9 @@ public class DrugAction extends BaseAction<Drug>
 	private List<Drug> drugList;
 
 	@Factory("drugList")
+	@Observer("archivedDrug")
 	public void findRecords() {
-		drugList = entityManager.createQuery(
-				"select drug from Drug drug order by drug.id desc")
-				.getResultList();
+		search();
 	}
 
 	public Drug getEntity() {
@@ -61,6 +63,17 @@ public class DrugAction extends BaseAction<Drug>
 	@Override
 	public void setEntityList(List<Drug> list) {
 		this.drugList = list;
+	}
+
+	public void updateAssociations() {
+
+	}
+
+	public List<Drug> getEntityList() {
+		if (drugList == null) {
+			findRecords();
+		}
+		return drugList;
 	}
 
 }

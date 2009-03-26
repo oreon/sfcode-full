@@ -11,7 +11,7 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
 	<ice:panelGroup  >
-		<ice:form>
+		
 			<s:validateAll>
 			<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
 			<f:facet name="header">
@@ -19,14 +19,42 @@
 			</f:facet>
 	
 	
+	
 		
+			
 	
 	
 		
-		<h:outputText value="#{msg.ward_name}"/>
+		<h:outputText value="#{msg.ward_floor}  "/>
+		
+	
+	<h:selectOneMenu id="Ward_floor" value="#{ward.floor}" required="true">
+		<s:selectItems value="#{floorList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Ward_floor" />
+		
+		
+	
+
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.ward_name} * "/>
 		
 
-	<ice:inputText  id="Ward_name" required="false"  value="#{ward.name}" />
+	<ice:inputText  id="Ward_name" required="true"  value="#{ward.name}" />
    
 
 		
@@ -39,12 +67,8 @@
 
 	
 	
-	
 		
-	
-	
-		
-		<h:outputText value="#{msg.ward_allowedGender}"/>
+		<h:outputText value="#{msg.ward_allowedGender}  "/>
 		
 	
 	<h:selectOneMenu id="Ward_allowedGender" value="#{ward.allowedGender}" required="false">
@@ -61,10 +85,6 @@
 		
 	
 
-	
-
-	
-	
 	
 			</h:panelGrid>
 			
@@ -84,38 +104,16 @@
 		
 	
 	
-		
-	
-	
-		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.bed_number}"/></f:facet>
-		
-
-	<ice:inputText  id="Bed_number" required="false"  value="#{bed.number}" />
-   
-
-		
-		<h:message styleClass="error errors" for="Bed_number" />
-		</h:column>
-		
-	
-
-	
-
-	
-	
 	
 		
 			
 	
 	
 		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.bed_patient}"/></f:facet>
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.bed_patient}  "/></f:facet>
 		
 	
-	<h:selectOneMenu id="Bed_patient" value="#{
-bed.patient
-}" required="false">
+	<h:selectOneMenu id="Bed_patient" value="#{bed.patient}" required="false">
 		<s:selectItems value="#{patientList}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
@@ -133,6 +131,25 @@ bed.patient
 		
 	
 	
+	
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.bed_number}  "/></f:facet>
+		
+
+	<ice:inputText  id="Bed_number" required="false"  value="#{bed.number}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Bed_number" />
+		</h:column>
+		
+	
+
 	
 		
 		
@@ -152,10 +169,11 @@ bed.patient
 		</ice:commandButton>
 	</h:column>
 
+		
 			
 	</ice:dataTable>
 			</s:validateAll>
-				
+			
 	<div class="buttonBox">
 		
 		<h:commandButton value="Save" action="#{wardAction.save}" /> 
@@ -164,7 +182,7 @@ bed.patient
 		
 	</div>
 
-		</ice:form>
+		
 	</ice:panelGroup>
 	</html>
 	

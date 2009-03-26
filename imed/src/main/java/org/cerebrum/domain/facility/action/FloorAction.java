@@ -12,7 +12,9 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import org.apache.commons.lang.StringUtils;
+
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
@@ -27,6 +29,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.jboss.seam.annotations.Observer;
 
 import org.cerebrum.domain.facility.Ward;
 
@@ -45,10 +48,9 @@ public class FloorAction extends BaseAction<Floor>
 	private List<Floor> floorList;
 
 	@Factory("floorList")
+	@Observer("archivedFloor")
 	public void findRecords() {
-		floorList = entityManager.createQuery(
-				"select floor from Floor floor order by floor.id desc")
-				.getResultList();
+		search();
 	}
 
 	public Floor getEntity() {
@@ -63,6 +65,10 @@ public class FloorAction extends BaseAction<Floor>
 	@Override
 	public void setEntityList(List<Floor> list) {
 		this.floorList = list;
+	}
+
+	public void updateAssociations() {
+
 	}
 
 	private List<Ward> listWards;
@@ -104,6 +110,13 @@ public class FloorAction extends BaseAction<Floor>
 		floor.getWards().clear();
 		floor.getWards().addAll(listWards);
 
+	}
+
+	public List<Floor> getEntityList() {
+		if (floorList == null) {
+			findRecords();
+		}
+		return floorList;
 	}
 
 }

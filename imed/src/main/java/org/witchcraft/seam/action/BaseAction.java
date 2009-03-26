@@ -6,29 +6,34 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import org.cerebrum.domain.prescription.Prescription;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.End;
+import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
+import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.EntityComment;
 
+/** The base action class - contains common persistence related methods, also contains comment
+ *  related functionality
+ * @author jsingh
+ *
+ * @param <T>
+ */
 public abstract class BaseAction<T extends BusinessEntity> {
 
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
 
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
 
 	@Logger
 	protected Log log;
@@ -41,13 +46,26 @@ public abstract class BaseAction<T extends BusinessEntity> {
 
 	@In
 	protected Events events;
+	
+	private List<EntityComment> comments;
+	private String currentCommentText;
+
+
+	public String getCurrentCommentText() {
+		return currentCommentText;
+	}
+
+	public void setCurrentCommentText(String currentCommentText) {
+		this.currentCommentText = currentCommentText;
+	}
 
 	@Begin(join=true)
 	public String select(T t) {
 		setEntity(entityManager.merge(t));
-		log
-				.info("User selected #{t.getClass().getName()}: #{t.displayName} #{t.id} ");
-		return "select";
+		log.info("User selected #{t.getClass().getName()}: #{t.displayName} #{t.id} ");
+		updateAssociations();
+		log.info("returnring: " + "view" + getClassName(t));
+		return "view" + getClassName(t);
 	}
 
 	public String archive(T t) {
@@ -56,15 +74,16 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		facesMessages.add("Successfully archived  #{t.displayName}");
 		log
 				.info("User archived #{t.getClass().getName()}: #{t.displayName} #{t.id} ");
-		events.raiseTransactionSuccessEvent("t archived");
-		return "";
+		events.raiseTransactionSuccessEvent("archived" + getClassName(t));
+		return "archived";
 	}
 
-	@End
+
 	public String save() {
 		facesMessages.add("Successfully saved  #{t.displayName}");
 		updateComposedAssociations();
 		entityManager.persist(getEntity());
+		updateAssociations();
 		return "save";
 	}
 
@@ -77,9 +96,12 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		Criteria criteria = createExampleCriteria();
 		setEntityList(criteria.list());
 	}
+	
+	
 
 	public void clearSearch() {
 		try {
+		
 			setEntity((T) getEntity().getClass().newInstance());
 			// TODO: do exception handling
 		} catch (InstantiationException e) {
@@ -114,6 +136,9 @@ public abstract class BaseAction<T extends BusinessEntity> {
 	 * @param criteria
 	 */
 	public void addAssoications(Criteria criteria) {
+	}
+	
+	public void updateAssociations(){
 	}
 
 	public abstract T getEntity();
@@ -154,10 +179,11 @@ public abstract class BaseAction<T extends BusinessEntity> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public  void executeNamedQuery(String queryString, Object... params) {
+	public <S> List<S> executeNamedQuery(String queryString, Object... params) {
 		Query query = entityManager.createNamedQuery(queryString);
 		setQueryParams(query, params);
-		setEntityList(query.getResultList());
+		//setEntityList(query.getResultList());
+		return query.getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -197,4 +223,44 @@ public abstract class BaseAction<T extends BusinessEntity> {
 	@Destroy
 	public void destroy() {
 	}
+	
+	protected String getClassName(T t){
+		String name = t.getClass().getSimpleName();
+		if(name.indexOf("$$") > 0 )
+			name = name.substring(0, name.indexOf("$$"));
+		return name;
+	}
+	
+	public void saveComment(){
+		EntityComment currentComment = new EntityComment();
+		currentComment.setText(currentCommentText);
+		currentComment.setEntityId(getEntity().getId());
+		currentComment.setEntityName(getClassName(getEntity()));
+		getEntityManager().persist(currentComment);
+		currentCommentText = new String();
+		events.raiseTransactionSuccessEvent("entityCommentsUpdated", getClassName(getEntity()));
+	}
+	
+	public List<EntityComment> getComments(){
+		if(comments == null){
+			loadComments();
+		}
+		return comments;
+	}
+
+	
+
+	@Observer("entityCommentsUpdated")
+	public void loadComments() {
+		comments = executeNamedQuery("commentsForRecord", getEntity().getId(), getClassName(getEntity()));
+	}
+	
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+	
 }

@@ -9,6 +9,7 @@ import org.hibernate.validator.*;
 
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
+import org.hibernate.annotations.Filter;
 
 @MappedSuperclass
 public class Person extends BusinessEntity {
@@ -17,16 +18,20 @@ public class Person extends BusinessEntity {
 	@Length(min = 2, max = 50)
 	protected String firstName;
 
+	@NotNull
+	@Length(min = 2, max = 50)
+	protected String lastName;
+
 	protected Date dateOfBirth;
 
 	protected Gender gender;
 
-	@Transient
-	protected Integer age;
-
 	protected Address address = new Address();
 
 	protected ContactDetails contactDetails = new ContactDetails();
+
+	@Transient
+	protected Integer age;
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -34,6 +39,14 @@ public class Person extends BusinessEntity {
 
 	public String getFirstName() {
 		return firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getLastName() {
+		return lastName;
 	}
 
 	public void setDateOfBirth(Date dateOfBirth) {
@@ -52,14 +65,6 @@ public class Person extends BusinessEntity {
 		return gender;
 	}
 
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-
-	public Integer getAge() {
-		return DateUtils.calcAge(dateOfBirth);
-	}
-
 	public void setAddress(Address address) {
 		this.address = address;
 	}
@@ -74,6 +79,19 @@ public class Person extends BusinessEntity {
 
 	public ContactDetails getContactDetails() {
 		return contactDetails;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public Integer getAge() {
+		return DateUtils.calcAge(dateOfBirth);
+	}
+
+	@Transient
+	public String getDisplayName() {
+		return lastName + ", " + firstName;
 	}
 
 }

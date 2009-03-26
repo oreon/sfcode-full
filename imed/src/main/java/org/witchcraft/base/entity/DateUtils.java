@@ -17,8 +17,12 @@ public class DateUtils {
 	 * @return age in years 
 	 */
 	public static int calcAge(Date fromDate){
+		if(fromDate == null)
+			return 0;
+		
 		GregorianCalendar now = new GregorianCalendar();
 		GregorianCalendar then = new GregorianCalendar();
+		
 		then.setTime(fromDate);
 		
 		return now.get(GregorianCalendar.YEAR) - then.get(GregorianCalendar.YEAR);

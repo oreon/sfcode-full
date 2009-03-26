@@ -9,9 +9,33 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
-	template = "/admin/template.jspx" >	
+ template = "/admin/template.jspx" >	
 	<ui:define name="content">
-		<ui:include src = "viewPatientComponent.jspx" />
+		<ice:form>
+		<ice:panelTabSet>
+			<ice:panelTab id="tab1" label="Patient">
+				<ui:include src = "viewPatientComponent.jspx" />
+			</ice:panelTab>
+			
+			<ice:panelTab label="Allergies" icon="/images/icons/bricks.png">
+				<ui:include
+					src="../../patient/allergy/listAllergyComponent.jspx" />
+			</ice:panelTab>
+			
+			<ice:panelTab label="Immunizations" icon="/images/icons/bricks.png">
+				<ui:include
+					src="../../patient/immunization/listImmunizationComponent.jspx" />
+			</ice:panelTab>
+			
+			<ice:panelTab label="Prescriptions" icon="/images/icons/bricks.png">
+				<ui:include
+					src="../../prescription/prescription/listPrescriptionComponent.jspx" />
+			</ice:panelTab>
+			
+		</ice:panelTabSet>
+		</ice:form>
+		
+		<wc:comments backingAction="#{patientAction}"/>
 	</ui:define> 
 </ui:composition>
 	

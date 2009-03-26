@@ -29,6 +29,8 @@ public class UniqueValidator implements Validator<Unique>, PropertyConstraint {
 	}
 
 	public boolean isValid(Object value) {
+		return true;
+		/*
 		EntityManager entityManager = (EntityManager) Component.getInstance("entityManager");
 		Query query = entityManager.createQuery("select t from " + targetEntity
 				+ " t where t." + field + "  = :value");
@@ -39,7 +41,7 @@ public class UniqueValidator implements Validator<Unique>, PropertyConstraint {
 			return false;
 		} catch (final NoResultException e) {
 			return true;
-		}
+		}*/
 	}
 
 	public void apply(Property arg0) {

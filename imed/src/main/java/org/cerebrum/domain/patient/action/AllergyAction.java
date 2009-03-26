@@ -12,7 +12,9 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import org.apache.commons.lang.StringUtils;
+
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
@@ -27,6 +29,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.jboss.seam.annotations.Observer;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("allergyAction")
@@ -43,10 +46,9 @@ public class AllergyAction extends BaseAction<Allergy>
 	private List<Allergy> allergyList;
 
 	@Factory("allergyList")
+	@Observer("archivedAllergy")
 	public void findRecords() {
-		allergyList = entityManager.createQuery(
-				"select allergy from Allergy allergy order by allergy.id desc")
-				.getResultList();
+		search();
 	}
 
 	public Allergy getEntity() {
@@ -73,6 +75,17 @@ public class AllergyAction extends BaseAction<Allergy>
 					.getPatient().getId()));
 		}
 
+	}
+
+	public void updateAssociations() {
+
+	}
+
+	public List<Allergy> getEntityList() {
+		if (allergyList == null) {
+			findRecords();
+		}
+		return allergyList;
 	}
 
 }

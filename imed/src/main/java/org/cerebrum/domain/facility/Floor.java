@@ -9,13 +9,17 @@ import org.hibernate.validator.*;
 
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
+import org.hibernate.annotations.Filter;
 
 @Entity
 @Table(name = "floor")
 @Name("floor")
+@Filter(name = "archiveFilterDef")
 public class Floor extends BusinessEntity {
 
 	protected Integer number;
+
+	//wards->floor ->Floor->Ward->Ward
 
 	@OneToMany(mappedBy = "floor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Floor_ID", nullable = true)

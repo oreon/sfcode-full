@@ -12,7 +12,9 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import org.apache.commons.lang.StringUtils;
+
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
@@ -27,6 +29,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.jboss.seam.annotations.Observer;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("dxCodeAction")
@@ -43,10 +46,9 @@ public class DxCodeAction extends BaseAction<DxCode>
 	private List<DxCode> dxCodeList;
 
 	@Factory("dxCodeList")
+	@Observer("archivedDxCode")
 	public void findRecords() {
-		dxCodeList = entityManager.createQuery(
-				"select dxCode from DxCode dxCode order by dxCode.id desc")
-				.getResultList();
+		search();
 	}
 
 	public DxCode getEntity() {
@@ -61,6 +63,17 @@ public class DxCodeAction extends BaseAction<DxCode>
 	@Override
 	public void setEntityList(List<DxCode> list) {
 		this.dxCodeList = list;
+	}
+
+	public void updateAssociations() {
+
+	}
+
+	public List<DxCode> getEntityList() {
+		if (dxCodeList == null) {
+			findRecords();
+		}
+		return dxCodeList;
 	}
 
 }

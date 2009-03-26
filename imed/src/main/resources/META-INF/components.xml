@@ -14,11 +14,12 @@
  					http://jboss.com/products/seam/security-2.0.xsd      
  					http://jboss.com/products/seam/components 
  					http://jboss.com/products/seam/components-2.0.xsd 
- 					http://jboss.com/products/seam/web-2.0.xsd      
  					http://jboss.com/products/seam/web 
+ 					http://jboss.com/products/seam/web-2.0.xsd      
+ 					http://jboss.com/products/seam/navigation
+ 					http://jboss.com/products/seam/navigation-2.0.xsd 
  					http://jboss.com/products/seam/persistence 
- 					http://jboss.com/products/seam/persistence-2.0.xsd 
- 					http://jboss.com/products/seam/security-2.1.x sd">
+ 					http://jboss.com/products/seam/persistence-2.0.xsd">
 
 	<core:init debug="true" />
 	<core:manager conversation-timeout="300000" />
@@ -37,10 +38,10 @@
 	<persistence:managed-persistence-context
 		auto-create="true" entity-manager-factory="#{entityManagerFactory}"
 		name="entityManager">
-		<!--
+		
 			<persistence:filters> <value>#{archivedFilter}</value>
 			</persistence:filters>
-		-->
+		
 	</persistence:managed-persistence-context>
 
 	<transaction:entity-transaction

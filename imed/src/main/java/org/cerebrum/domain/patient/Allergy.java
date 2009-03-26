@@ -9,10 +9,12 @@ import org.hibernate.validator.*;
 
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
+import org.hibernate.annotations.Filter;
 
 @Entity
 @Table(name = "allergy")
 @Name("allergy")
+@Filter(name = "archiveFilterDef")
 public class Allergy extends BusinessEntity {
 
 	@NotNull
@@ -24,10 +26,6 @@ public class Allergy extends BusinessEntity {
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "patient_id", nullable = false)
 	protected Patient patient;
-
-	@NotNull
-	@Length(min = 2, max = 50)
-	protected String lastName;
 
 	public void setAllergen(String allergen) {
 		this.allergen = allergen;
@@ -51,14 +49,6 @@ public class Allergy extends BusinessEntity {
 
 	public Patient getPatient() {
 		return patient;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getLastName() {
-		return lastName;
 	}
 
 	@Transient

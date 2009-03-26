@@ -11,21 +11,211 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
 	<ice:panelGroup  >
-		<ice:form>
+		
 			<s:validateAll>
 			<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
 			<f:facet name="header">
 				<h:outputText value="Patient " />
 			</f:facet>
 	
+	
+			
+	
+	
+	
 		
+			
 	
 	
 		
-		<h:outputText value="#{msg.person_firstName}"/>
+		<h:outputText value="#{msg.address_country}  "/>
+		
+	
+	<h:selectOneMenu id="Address_country" value="#{patient.address.country}" required="true">
+		<s:selectItems value="#{countryList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Address_country" />
+		
+		
+	
+
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.address_streetAddress}  "/>
 		
 
-	<ice:inputText  id="Person_firstName" required="false"  value="#{patient.firstName}" />
+	<ice:inputText  id="Address_streetAddress" required="false"  value="#{patient.address.streetAddress}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Address_streetAddress" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.address_city}  "/>
+		
+
+	<ice:inputText  id="Address_city" required="false"  value="#{patient.address.city}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Address_city" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.address_state}  "/>
+		
+
+	<ice:inputText  id="Address_state" required="false"  value="#{patient.address.state}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Address_state" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.address_zip}  "/>
+		
+
+	<ice:inputText  id="Address_zip" required="false"  value="#{patient.address.zip}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Address_zip" />
+		
+		
+	
+
+	
+		
+	
+	
+	
+			
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.contactDetails_primaryPhone}  "/>
+		
+
+	<ice:inputText  id="ContactDetails_primaryPhone" required="false"  value="#{patient.contactDetails.primaryPhone}" />
+   
+
+		
+		<h:message styleClass="error errors" for="ContactDetails_primaryPhone" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>
+		
+
+	<ice:inputText  id="ContactDetails_secondaryPhone" required="false"  value="#{patient.contactDetails.secondaryPhone}" />
+   
+
+		
+		<h:message styleClass="error errors" for="ContactDetails_secondaryPhone" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.contactDetails_email}  "/>
+		
+
+	<ice:inputText  id="ContactDetails_email" required="false"  value="#{patient.contactDetails.email}" />
+   
+
+		
+		<h:message styleClass="error errors" for="ContactDetails_email" />
+		
+		
+	
+
+	
+		
+	
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.patient_primaryPhysician}  "/>
+		
+	
+	<h:selectOneMenu id="Patient_primaryPhysician" value="#{patient.primaryPhysician}" required="false">
+		<s:selectItems value="#{physicianList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Patient_primaryPhysician" />
+		
+		
+	
+
+	
+		
+	
+
+			
+	
+	
+		
+		<h:outputText value="#{msg.person_firstName} * "/>
+		
+
+	<ice:inputText  id="Person_firstName" required="true"  value="#{patient.firstName}" />
    
 
 		
@@ -38,12 +228,25 @@
 
 	
 	
-	
+		
+		<h:outputText value="#{msg.person_lastName} * "/>
+		
+
+	<ice:inputText  id="Person_lastName" required="true"  value="#{patient.lastName}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Person_lastName" />
+		
 		
 	
+
+	
+
+	
 	
 		
-		<h:outputText value="#{msg.person_dateOfBirth}"/>
+		<h:outputText value="#{msg.person_dateOfBirth}  "/>
 		
 
 	<wc:calendar  id="Person_dateOfBirth" required="false"  value="#{patient.dateOfBirth}" />
@@ -59,12 +262,8 @@
 
 	
 	
-	
 		
-	
-	
-		
-		<h:outputText value="#{msg.person_gender}"/>
+		<h:outputText value="#{msg.person_gender}  "/>
 		
 	
 	<h:selectOneMenu id="Person_gender" value="#{patient.gender}" required="false">
@@ -85,252 +284,14 @@
 
 	
 	
-	
-		
-	
-	
-
-	
 
 	
 	
 	
-			
 	
 	
 		
-	
-	
-		
-		<h:outputText value="#{msg.address_streetAddress}"/>
-		
-
-	<ice:inputText  id="Address_streetAddress" required="false"  value="#{patient.address.streetAddress}" />
-   
-
-		
-		<h:message styleClass="error errors" for="Address_streetAddress" />
-		
-		
-	
-
-	
-
-	
-	
-	
-		
-	
-	
-		
-		<h:outputText value="#{msg.address_city}"/>
-		
-
-	<ice:inputText  id="Address_city" required="false"  value="#{patient.address.city}" />
-   
-
-		
-		<h:message styleClass="error errors" for="Address_city" />
-		
-		
-	
-
-	
-
-	
-	
-	
-		
-	
-	
-		
-		<h:outputText value="#{msg.address_state}"/>
-		
-
-	<ice:inputText  id="Address_state" required="false"  value="#{patient.address.state}" />
-   
-
-		
-		<h:message styleClass="error errors" for="Address_state" />
-		
-		
-	
-
-	
-
-	
-	
-	
-		
-	
-	
-		
-		<h:outputText value="#{msg.address_zip}"/>
-		
-
-	<ice:inputText  id="Address_zip" required="false"  value="#{patient.address.zip}" />
-   
-
-		
-		<h:message styleClass="error errors" for="Address_zip" />
-		
-		
-	
-
-	
-
-	
-	
-	
-		
-			
-	
-	
-		
-		<h:outputText value="#{msg.address_country}"/>
-		
-	
-	<h:selectOneMenu id="Address_country" value="#{
-patient.address.country
-}" required="true">
-		<s:selectItems value="#{countryList}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Please Select..." />
-		<s:convertEntity />
-	</h:selectOneMenu>
-	
-
-		
-		<h:message styleClass="error errors" for="Address_country" />
-		
-		
-	
-
-	
-		
-	
-	
-		
-	
-	
-	
-			
-	
-	
-		
-	
-	
-		
-		<h:outputText value="#{msg.contactDetails_primaryPhone}"/>
-		
-
-	<ice:inputText  id="ContactDetails_primaryPhone" required="false"  value="#{patient.contactDetails.primaryPhone}" />
-   
-
-		
-		<h:message styleClass="error errors" for="ContactDetails_primaryPhone" />
-		
-		
-	
-
-	
-
-	
-	
-	
-		
-	
-	
-		
-		<h:outputText value="#{msg.contactDetails_secondaryPhone}"/>
-		
-
-	<ice:inputText  id="ContactDetails_secondaryPhone" required="false"  value="#{patient.contactDetails.secondaryPhone}" />
-   
-
-		
-		<h:message styleClass="error errors" for="ContactDetails_secondaryPhone" />
-		
-		
-	
-
-	
-
-	
-	
-	
-		
-	
-	
-		
-		<h:outputText value="#{msg.contactDetails_email}"/>
-		
-
-	<ice:inputText  id="ContactDetails_email" required="false"  value="#{patient.contactDetails.email}" />
-   
-
-		
-		<h:message styleClass="error errors" for="ContactDetails_email" />
-		
-		
-	
-
-	
-
-	
-	
-		
-	
-	
-	
-	
-		
-	
-	
-		
-		<h:outputText value="#{msg.patient_medicalHistory}"/>
-		
-
-	<ice:inputRichText toolbar="Basic" saveOnSubmit="true"  id="Patient_medicalHistory" required="false"  value="#{patient.medicalHistory}" />
-   
-
-		
-		<h:message styleClass="error errors" for="Patient_medicalHistory" />
-		
-		
-	
-
-	
-
-	
-	
-	
-		
-	
-	
-		
-		<h:outputText value="#{msg.patient_pastMedications}"/>
-		
-
-	<ice:inputRichText toolbar="Basic" saveOnSubmit="true"  id="Patient_pastMedications" required="false"  value="#{patient.pastMedications}" />
-   
-
-		
-		<h:message styleClass="error errors" for="Patient_pastMedications" />
-		
-		
-	
-
-	
-
-	
-	
-	
-		
-	
-	
-		
-		<h:outputText value="#{msg.patient_bloodGroup}"/>
+		<h:outputText value="#{msg.patient_bloodGroup}  "/>
 		
 	
 	<h:selectOneMenu id="Patient_bloodGroup" value="#{patient.bloodGroup}" required="false">
@@ -357,235 +318,42 @@ patient.address.country
 
 	
 	
+		
+		<h:outputText value="#{msg.patient_medicalHistory}  "/>
+		
+
+	<ice:inputRichText toolbar="Basic" saveOnSubmit="true"  id="Patient_medicalHistory" required="false"  value="#{patient.medicalHistory}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Patient_medicalHistory" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.patient_pastMedications}  "/>
+		
+
+	<ice:inputRichText toolbar="Basic" saveOnSubmit="true"  id="Patient_pastMedications" required="false"  value="#{patient.pastMedications}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Patient_pastMedications" />
+		
+		
+	
+
+	
 			</h:panelGrid>
 			
 	
-	
-	
-	
-	<h:commandButton  value="New Allergie" action="#{patientAction.addAllergies}" >
-		<s:conversationId/>
-	</h:commandButton>
-
-	
-	
-	<ice:dataTable id="allergies_data" var="allergy" rendered="#{not empty patientAction.listAllergies}"
-					value="#{patientAction.listAllergies}" rows="10"
-				rowClasses="odd, even" styleClass="dataTable" rules="all">
-		
-	
-	
-		
-	
-	
-		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.allergy_allergen}"/></f:facet>
-		
-
-	<ice:inputText  id="Allergy_allergen" required="false"  value="#{allergy.allergen}" />
-   
-
-		
-		<h:message styleClass="error errors" for="Allergy_allergen" />
-		</h:column>
-		
-	
-
-	
-
-	
-	
-	
-		
-	
-	
-		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.allergy_reactionType}"/></f:facet>
-		
-	
-	<h:selectOneMenu id="Allergy_reactionType" value="#{allergy.reactionType}" required="false">
-		<f:selectItem itemLabel="Please Select..." itemValue="" />
-		<f:selectItem itemLabel="MILD" itemValue="MILD" />
-		<f:selectItem itemLabel="MEDIUM" itemValue="MEDIUM" />
-		<f:selectItem itemLabel="SEVERE" itemValue="SEVERE" />
-		
-	</h:selectOneMenu>
-	
-
-		
-		<h:message styleClass="error errors" for="Allergy_reactionType" />
-		</h:column>
-		
-	
-
-	
-
-	
-	
-	
-	
-		
-	
-	
-		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.allergy_lastName}"/></f:facet>
-		
-
-	<ice:inputText  id="Allergy_lastName" required="false"  value="#{allergy.lastName}" />
-   
-
-		
-		<h:message styleClass="error errors" for="Allergy_lastName" />
-		</h:column>
-		
-	
-
-	
-
-	
-	
-		
-		
-		
-	<h:column>
-		
-	<h:commandButton  value="New Allergie" action="#{patientAction.addAllergies}" >
-		<s:conversationId/>
-	</h:commandButton>
-
-	</h:column>
-
-		
-	<h:column>
-		<ice:commandButton value="Delete" action="#{patientAction.deleteAllergies(allergy)}" immediate="true">
-			<s:conversationId/>
-		</ice:commandButton>
-	</h:column>
-
-			
-	</ice:dataTable>
-	
-	
-	
-	<h:commandButton  value="New Immunization" action="#{patientAction.addImmunizations}" >
-		<s:conversationId/>
-	</h:commandButton>
-
-	
-	
-	<ice:dataTable id="immunizations_data" var="immunization" rendered="#{not empty allergyAction.listImmunizations}"
-					value="#{allergyAction.listImmunizations}" rows="10"
-				rowClasses="odd, even" styleClass="dataTable" rules="all">
-		
-	
-	
-	
-		
-			
-	
-	
-		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.immunization_immunizationType}"/></f:facet>
-		
-	
-	<h:selectOneMenu id="Immunization_immunizationType" value="#{
-immunization.immunizationType
-}" required="true">
-		<s:selectItems value="#{immunizationTypeList}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Please Select..." />
-		<s:convertEntity />
-	</h:selectOneMenu>
-	
-
-		
-		<h:message styleClass="error errors" for="Immunization_immunizationType" />
-		</h:column>
-		
-	
-
-	
-		
-	
-	
-		
-		
-		
-	<h:column>
-		
-	<h:commandButton  value="New Immunization" action="#{patientAction.addImmunizations}" >
-		<s:conversationId/>
-	</h:commandButton>
-
-	</h:column>
-
-		
-	<h:column>
-		<ice:commandButton value="Delete" action="#{patientAction.deleteImmunizations(immunization)}" immediate="true">
-			<s:conversationId/>
-		</ice:commandButton>
-	</h:column>
-
-			
-	</ice:dataTable>
-	
-	
-	
-	<h:commandButton  value="New Vitalse" action="#{patientAction.addVitalses}" >
-		<s:conversationId/>
-	</h:commandButton>
-
-	
-	
-	<ice:dataTable id="vitalses_data" var="vitals" rendered="#{not empty immunizationAction.listVitalses}"
-					value="#{immunizationAction.listVitalses}" rows="10"
-				rowClasses="odd, even" styleClass="dataTable" rules="all">
-		
-	
-	
-		
-	
-	
-		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.vitals_general}"/></f:facet>
-		
-
-	<ice:inputRichText toolbar="Basic" saveOnSubmit="true"  id="Vitals_general" required="false"  value="#{vitals.general}" />
-   
-
-		
-		<h:message styleClass="error errors" for="Vitals_general" />
-		</h:column>
-		
-	
-
-	
-
-	
-	
-	
-		
-		
-		
-	<h:column>
-		
-	<h:commandButton  value="New Vitalse" action="#{patientAction.addVitalses}" >
-		<s:conversationId/>
-	</h:commandButton>
-
-	</h:column>
-
-		
-	<h:column>
-		<ice:commandButton value="Delete" action="#{patientAction.deleteVitalses(vitals)}" immediate="true">
-			<s:conversationId/>
-		</ice:commandButton>
-	</h:column>
-
-			
-	</ice:dataTable>
 			</s:validateAll>
-				
+			
 	<div class="buttonBox">
 		
 		<h:commandButton value="Save" action="#{patientAction.save}" /> 
@@ -594,7 +362,7 @@ immunization.immunizationType
 		
 	</div>
 
-		</ice:form>
+		
 	</ice:panelGroup>
 	</html>
 	

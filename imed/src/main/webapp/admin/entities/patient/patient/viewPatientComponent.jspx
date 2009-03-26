@@ -11,105 +11,45 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
 	<ice:panelGroup  >
-		<ice:form>
+		
 			<s:validateAll>
 			<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol">
 			<f:facet name="header">
 				<h:outputText value="Patient " />
 			</f:facet>
 	
-		
-	
-	
-		
-		<h:outputText value="#{msg.person_firstName}"/>
-		
-
-	<ice:outputText    id="Person_firstName"   value="#{patient.firstName}" />
-   
-
-		
-		
-		
-		
-	
-
-	
-
-	
-	
-	
-		
-	
-	
-		
-		<h:outputText value="#{msg.person_dateOfBirth}"/>
-		
-
-	<ice:outputText    id="Person_dateOfBirth"   value="#{patient.dateOfBirth}" />
-   
-
-		
-		
-		
-		
-	
-
-	
-
-	
-	
-	
-		
-	
-	
-		
-		<h:outputText value="#{msg.person_gender}"/>
-		
-	
-	<ice:outputText   id="Person_gender" value="#{patient.gender}" />
-	
-
-		
-		
-		
-		
-	
-
-	
-
-	
-	
-	
-		
-	
-	
-		
-		<h:outputText value="#{msg.person_age}"/>
-		
-
-	<ice:outputText    id="Person_age"   value="#{patient.age}" />
-   
-
-		
-		
-		
-		
-	
-
-	
-
-	
-	
 	
 			
 	
 	
+	
 		
+			
 	
 	
 		
-		<h:outputText value="#{msg.address_streetAddress}"/>
+		<h:outputText value="#{msg.address_country}  "/>
+		
+	
+	<ice:outputText   value="#{patient.address.country.displayName}" />
+	
+
+		
+		
+		
+		
+	
+
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.address_streetAddress}  "/>
 		
 
 	<ice:outputText    id="Address_streetAddress"   value="#{patient.address.streetAddress}" />
@@ -125,12 +65,8 @@
 
 	
 	
-	
 		
-	
-	
-		
-		<h:outputText value="#{msg.address_city}"/>
+		<h:outputText value="#{msg.address_city}  "/>
 		
 
 	<ice:outputText    id="Address_city"   value="#{patient.address.city}" />
@@ -146,12 +82,8 @@
 
 	
 	
-	
 		
-	
-	
-		
-		<h:outputText value="#{msg.address_state}"/>
+		<h:outputText value="#{msg.address_state}  "/>
 		
 
 	<ice:outputText    id="Address_state"   value="#{patient.address.state}" />
@@ -167,12 +99,8 @@
 
 	
 	
-	
 		
-	
-	
-		
-		<h:outputText value="#{msg.address_zip}"/>
+		<h:outputText value="#{msg.address_zip}  "/>
 		
 
 	<ice:outputText    id="Address_zip"   value="#{patient.address.zip}" />
@@ -185,45 +113,19 @@
 	
 
 	
-
-	
-	
-	
-		
-			
-	
-	
-		
-		<h:outputText value="#{msg.address_country}"/>
-		
-	
-	<ice:outputText   value="#{
-patient.address.country
-.displayName}" />
-	
-
-		
-		
-		
-		
-	
-
-	
-		
-	
-	
 		
 	
 	
 	
 			
 	
+
+	
+	
+	
 	
 		
-	
-	
-		
-		<h:outputText value="#{msg.contactDetails_primaryPhone}"/>
+		<h:outputText value="#{msg.contactDetails_primaryPhone}  "/>
 		
 
 	<ice:outputText    id="ContactDetails_primaryPhone"   value="#{patient.contactDetails.primaryPhone}" />
@@ -239,12 +141,8 @@ patient.address.country
 
 	
 	
-	
 		
-	
-	
-		
-		<h:outputText value="#{msg.contactDetails_secondaryPhone}"/>
+		<h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>
 		
 
 	<ice:outputText    id="ContactDetails_secondaryPhone"   value="#{patient.contactDetails.secondaryPhone}" />
@@ -260,12 +158,8 @@ patient.address.country
 
 	
 	
-	
 		
-	
-	
-		
-		<h:outputText value="#{msg.contactDetails_email}"/>
+		<h:outputText value="#{msg.contactDetails_email}  "/>
 		
 
 	<ice:outputText    id="ContactDetails_email"   value="#{patient.contactDetails.email}" />
@@ -278,22 +172,40 @@ patient.address.country
 	
 
 	
+		
+	
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.patient_primaryPhysician}  "/>
+		
+	
+	<ice:outputText   value="#{patient.primaryPhysician.displayName}" />
+	
+
+		
+		
+		
+		
+	
 
 	
-	
 		
 	
-	
-	
-	
-		
+
+			
 	
 	
 		
-		<h:outputText value="#{msg.patient_medicalHistory}"/>
+		<h:outputText value="#{msg.person_firstName}  "/>
 		
 
-	<ice:outputText escape="false"   id="Patient_medicalHistory"   value="#{patient.medicalHistory}" />
+	<ice:outputText    id="Person_firstName"   value="#{patient.firstName}" />
    
 
 		
@@ -306,15 +218,11 @@ patient.address.country
 
 	
 	
-	
 		
-	
-	
-		
-		<h:outputText value="#{msg.patient_pastMedications}"/>
+		<h:outputText value="#{msg.person_lastName}  "/>
 		
 
-	<ice:outputText escape="false"   id="Patient_pastMedications"   value="#{patient.pastMedications}" />
+	<ice:outputText    id="Person_lastName"   value="#{patient.lastName}" />
    
 
 		
@@ -327,12 +235,60 @@ patient.address.country
 
 	
 	
-	
+		
+		<h:outputText value="#{msg.person_dateOfBirth}  "/>
+		
+
+	<ice:outputText    id="Person_dateOfBirth"   value="#{patient.dateOfBirth}" />
+   
+
+		
+		
+		
 		
 	
+
+	
+
+	
 	
 		
-		<h:outputText value="#{msg.patient_bloodGroup}"/>
+		<h:outputText value="#{msg.person_gender}  "/>
+		
+	
+	<ice:outputText   id="Person_gender" value="#{patient.gender}" />
+	
+
+		
+		
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.person_age}  "/>
+		
+
+	<ice:outputText    id="Person_age"   value="#{patient.age}" />
+   
+
+		
+		
+		
+		
+	
+
+	
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.patient_bloodGroup}  "/>
 		
 	
 	<ice:outputText   id="Patient_bloodGroup" value="#{patient.bloodGroup}" />
@@ -348,206 +304,42 @@ patient.address.country
 
 	
 	
+		
+		<h:outputText value="#{msg.patient_medicalHistory}  "/>
+		
+
+	<ice:outputText escape="false"   id="Patient_medicalHistory"   value="#{patient.medicalHistory}" />
+   
+
+		
+		
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.patient_pastMedications}  "/>
+		
+
+	<ice:outputText escape="false"   id="Patient_pastMedications"   value="#{patient.pastMedications}" />
+   
+
+		
+		
+		
+		
+	
+
+	
 			</h:panelGrid>
 			
 	
-	
-	
-	
-	<ice:dataTable id="allergies_data" var="allergy" rendered="#{not empty patientAction.listAllergies}"
-					value="#{patientAction.listAllergies}" rows="10"
-				rowClasses="odd, even" styleClass="dataTable" rules="all">
-		
-	
-	
-		
-	
-	
-		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.allergy_allergen}"/></f:facet>
-		
-
-	<ice:outputText    id="Allergy_allergen"   value="#{allergy.allergen}" />
-   
-
-		
-		
-		</h:column>
-		
-	
-
-	
-
-	
-	
-	
-		
-	
-	
-		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.allergy_reactionType}"/></f:facet>
-		
-	
-	<ice:outputText   id="Allergy_reactionType" value="#{allergy.reactionType}" />
-	
-
-		
-		
-		</h:column>
-		
-	
-
-	
-
-	
-	
-	
-	
-		
-	
-	
-		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.allergy_lastName}"/></f:facet>
-		
-
-	<ice:outputText    id="Allergy_lastName"   value="#{allergy.lastName}" />
-   
-
-		
-		
-		</h:column>
-		
-	
-
-	
-
-	
-	
-		
-		
-		
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.dateCreated}" />
-		</f:facet>
-		<h:outputText value="#{allergy.dateCreated}" />
-	</ice:column>
-
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.createdByUser}" />
-		</f:facet>
-		<h:outputText value="#{allergy.createdByUser.displayName}" />
-	</ice:column>
-
-
-			
-	</ice:dataTable>
-	
-	
-	
-	<ice:dataTable id="immunizations_data" var="immunization" rendered="#{not empty allergyAction.listImmunizations}"
-					value="#{allergyAction.listImmunizations}" rows="10"
-				rowClasses="odd, even" styleClass="dataTable" rules="all">
-		
-	
-	
-	
-		
-			
-	
-	
-		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.immunization_immunizationType}"/></f:facet>
-		
-	
-	<ice:outputText   value="#{
-immunization.immunizationType
-.displayName}" />
-	
-
-		
-		
-		</h:column>
-		
-	
-
-	
-		
-	
-	
-		
-		
-		
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.dateCreated}" />
-		</f:facet>
-		<h:outputText value="#{immunization.dateCreated}" />
-	</ice:column>
-
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.createdByUser}" />
-		</f:facet>
-		<h:outputText value="#{immunization.createdByUser.displayName}" />
-	</ice:column>
-
-
-			
-	</ice:dataTable>
-	
-	
-	
-	<ice:dataTable id="vitalses_data" var="vitals" rendered="#{not empty immunizationAction.listVitalses}"
-					value="#{immunizationAction.listVitalses}" rows="10"
-				rowClasses="odd, even" styleClass="dataTable" rules="all">
-		
-	
-	
-		
-	
-	
-		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.vitals_general}"/></f:facet>
-		
-
-	<ice:outputText escape="false"   id="Vitals_general"   value="#{vitals.general}" />
-   
-
-		
-		
-		</h:column>
-		
-	
-
-	
-
-	
-	
-	
-		
-		
-		
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.dateCreated}" />
-		</f:facet>
-		<h:outputText value="#{vitals.dateCreated}" />
-	</ice:column>
-
-	<ice:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.createdByUser}" />
-		</f:facet>
-		<h:outputText value="#{vitals.createdByUser.displayName}" />
-	</ice:column>
-
-
-			
-	</ice:dataTable>
 			</s:validateAll>
-				
+			
 	<div class="buttonBox">
 		
 		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" /> 
@@ -556,7 +348,7 @@ immunization.immunizationType
 		
 	</div>
 
-		</ice:form>
+		
 	</ice:panelGroup>
 	</html>
 	

@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.PrePersist;
 
 import org.cerebrum.domain.users.User;
+import org.jboss.seam.Component;
 
 public class EntityListener {
 
@@ -16,8 +17,10 @@ public class EntityListener {
 		}
 		
 		modelBase.setDateUpdated(now);
-
-		User currentUser = UserUtil.getCurentUser();
+		
+		UserUtilAction userUtilAction = (UserUtilAction)Component.getInstance("userUtilAction");
+		
+		User currentUser = userUtilAction.getCurrentUser();
 
 		if (currentUser != null) {
 			//Identity identity  = (Identity) Component.getInstance("identity");

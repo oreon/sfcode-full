@@ -11,22 +11,23 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
 	<ice:panelGroup  >
-		<ice:form>
+		
 			<s:validateAll>
 			<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
 			<f:facet name="header">
 				<h:outputText value="User " />
 			</f:facet>
 	
+
+	
+	
+	
 	
 		
-	
-	
-		
-		<h:outputText value="#{msg.user_userName}"/>
+		<h:outputText value="#{msg.user_userName} * "/>
 		
 
-	<ice:inputText  id="User_userName" required="false"  value="#{user.userName}" />
+	<ice:inputText  id="User_userName" required="true"  value="#{user.userName}" />
    
 
 		
@@ -39,12 +40,8 @@
 
 	
 	
-	
 		
-	
-	
-		
-		<h:outputText value="#{msg.user_password}"/>
+		<h:outputText value="#{msg.user_password} * "/>
 		
 
 	<ice:inputSecret redisplay="true"   id="User_password" required="true"  value="#{user.password}" />
@@ -60,12 +57,8 @@
 
 	
 	
-	
 		
-	
-	
-		
-		<h:outputText value="#{msg.user_enabled}"/>
+		<h:outputText value="#{msg.user_enabled}  "/>
 		
 
 	<ice:selectBooleanCheckbox  id="User_enabled" required="false"  value="#{user.enabled}" />
@@ -78,69 +71,11 @@
 	
 
 	
-
-	
-	
 			</h:panelGrid>
 			
 	
-	
-	
-	
-	<h:commandButton  value="New Role" action="#{userAction.addRoles}" >
-		<s:conversationId/>
-	</h:commandButton>
-
-	
-	
-	<ice:dataTable id="roles_data" var="role" rendered="#{not empty userAction.listRoles}"
-					value="#{userAction.listRoles}" rows="10"
-				rowClasses="odd, even" styleClass="dataTable" rules="all">
-		
-	
-	
-		
-	
-	
-		
-		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.role_name}"/></f:facet>
-		
-
-	<ice:inputText  id="Role_name" required="false"  value="#{role.name}" />
-   
-
-		
-		<h:message styleClass="error errors" for="Role_name" />
-		</h:column>
-		
-	
-
-	
-
-	
-	
-		
-		
-		
-	<h:column>
-		
-	<h:commandButton  value="New Role" action="#{userAction.addRoles}" >
-		<s:conversationId/>
-	</h:commandButton>
-
-	</h:column>
-
-		
-	<h:column>
-		<ice:commandButton value="Delete" action="#{userAction.deleteRoles(role)}" immediate="true">
-			<s:conversationId/>
-		</ice:commandButton>
-	</h:column>
-
-			
-	</ice:dataTable>
 			</s:validateAll>
-				
+			
 	<div class="buttonBox">
 		
 		<h:commandButton value="Save" action="#{userAction.save}" /> 
@@ -149,7 +84,7 @@
 		
 	</div>
 
-		</ice:form>
+		
 	</ice:panelGroup>
 	</html>
 	

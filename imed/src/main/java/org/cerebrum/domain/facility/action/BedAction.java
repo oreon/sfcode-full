@@ -12,7 +12,9 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import org.apache.commons.lang.StringUtils;
+
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
@@ -27,6 +29,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.jboss.seam.annotations.Observer;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("bedAction")
@@ -41,9 +44,9 @@ public class BedAction extends BaseAction<Bed> implements java.io.Serializable {
 	private List<Bed> bedList;
 
 	@Factory("bedList")
+	@Observer("archivedBed")
 	public void findRecords() {
-		bedList = entityManager.createQuery(
-				"select bed from Bed bed order by bed.id desc").getResultList();
+		search();
 	}
 
 	public Bed getEntity() {
@@ -75,6 +78,17 @@ public class BedAction extends BaseAction<Bed> implements java.io.Serializable {
 					.getId()));
 		}
 
+	}
+
+	public void updateAssociations() {
+
+	}
+
+	public List<Bed> getEntityList() {
+		if (bedList == null) {
+			findRecords();
+		}
+		return bedList;
 	}
 
 }
