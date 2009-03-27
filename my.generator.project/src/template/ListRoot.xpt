@@ -28,6 +28,7 @@
 		<ice:dataTable  var="«asVar()»" value="#{«asVar()»List}" rows="30"
 		rowClasses="odd, even" styleClass="dataTable" >		
 		«EXPAND genAttribAsOutput FOR this-»
+		«EXPAND genPropsFromBusinessEntity FOR this-»
 		«EXPAND genLink("select", "eye.png") FOR this»
 		«EXPAND genLink ("select", "edit.png")FOR this»
 		«EXPAND genLink("archive", "delete.png") FOR this»
@@ -37,9 +38,10 @@
 «ENDDEFINE»
 
 
-«DEFINE genPropsFromBusinessEntity FOR uml::Class»
-	«EXPAND genProperty FOR "dateCreated"»
-	«EXPAND genProperty FOR "createdByUser"»
+«DEFINE genPropsFromBusinessEntity FOR wcprofile::Entity»
+	«IF fieldsFromSuperClass != null»	
+	«EXPAND genProperty FOREACH getStringsAsList(fieldsFromSuperClass)»
+	«ENDIF»
 «ENDDEFINE»
 
 
