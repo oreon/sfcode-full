@@ -187,11 +187,14 @@
 			<h:outputText value=" " />
 		</f:facet>
 		<h:commandLink 
-			action="#{patientAction.archive(patient)}">
+			action="#{patientAction.showDeleteDialog(patient)}">
 			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" />
 		</h:commandLink>
 	</ice:column>
 
 		</ice:dataTable>
+		
+		<wc:deletePanel backingAction="#{patientAction}" backingEntity="#{patient}" title="Delete Patient" />
+		
 	</html>
 	
