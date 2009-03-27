@@ -36,7 +36,7 @@
 	<ui:define name="content">
 		<ice:form>
 		<ice:panelTabSet>
-			<ice:panelTab id="tab1" label="Patient">
+			<ice:panelTab  label="«name»">
 				<ui:include src = "«"view" + name+ "Component." + getExtension()»" />
 			</ice:panelTab>
 			«FOREACH getNonComposedManyAssociations() AS a»
@@ -47,6 +47,8 @@
 			«ENDFOREACH»
 		</ice:panelTabSet>
 		</ice:form>
+		
+		<wc:comments backingAction="#{«getAction()»}"/>
 	</ui:define> 
 </ui:composition>
 	«ENDFILE»
@@ -57,19 +59,18 @@
 	«FILE getWebPath() +"/" + (edit?"edit":"view") + name+ "Component." + getExtension()»
 	<html «EXPAND WebRoot::genIncludes-» >	
 	<ice:panelGroup  >
-		
-			<s:validateAll>
-			«setAsCurrentEntity(this)-»
-			<h:panelGrid columns="«edit?"3":"2"»" styleClass="viewInfo" columnClasses="leftCol, rightCol">
-			<f:facet name="header">
-				<h:outputText value="«name» " />
-			</f:facet>
-			«EXPAND genAttribAsOutput FOR this-»
-			</h:panelGrid>
-			«EXPAND genTable FOR this-»
-			</s:validateAll>
-			«EXPAND genCancelSaveBtns(edit) FOR this»
-		
+		<s:validateAll>
+		«setAsCurrentEntity(this)-»
+		<h:panelGrid columns="«edit?"3":"2"»" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="«name» " />
+		</f:facet>
+		«IF !isCurrentEditMode() && fieldsFromSuperClass != null» «EXPAND genProperty FOREACH getStringsAsList(fieldsFromSuperClass)» «ENDIF»
+		«EXPAND genAttribAsOutput FOR this-»
+		</h:panelGrid>
+		«EXPAND genTable FOR this-»
+		</s:validateAll>
+		«EXPAND genCancelSaveBtns(edit) FOR this»
 	</ice:panelGroup>
 	</html>
 	«ENDFILE»
@@ -248,4 +249,9 @@
 	<h:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}" >
 		<s:conversationId/>
 	</h:commandButton>
+«ENDDEFINE»
+
+«DEFINE genProperty FOR String-»
+	<h:outputText value="«msgBundleKey()-»" />
+	<h:outputText value="#{«getCurrentEntity().asVar()».«this»«this == "createdByUser"?".displayName":""»}" />
 «ENDDEFINE»

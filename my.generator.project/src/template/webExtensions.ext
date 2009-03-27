@@ -73,7 +73,7 @@ String getLabelText(Property prop):
 "<h:outputText value=\"" + prop.msgBundleKey()  +  " " + prop.getRequiredStar() + " \"/>";
 
 getRequiredStar(Property prop):
-prop.getRequired() == "true"?"*":"";
+isCurrentEditMode() && prop.getRequired() == "true"?"*":"";
 
 String getTextControl(Property prop):
 prop.getJSFPrefix() + ":" + (isCurrentEditMode()?getInputControl(prop):"outputText " + prop.getEscape());
