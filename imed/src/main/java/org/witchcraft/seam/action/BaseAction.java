@@ -68,13 +68,15 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		return "view" + getClassName(t);
 	}
 
+	@End
 	public String archive(T t) {
 		t.setArchived(true);
 		entityManager.merge(t);
-		facesMessages.add("Successfully archived  #{t.displayName}");
+		facesMessages.add("Successfully archived  " + t.getDisplayName());
 		log
 				.info("User archived #{t.getClass().getName()}: #{t.displayName} #{t.id} ");
 		events.raiseTransactionSuccessEvent("archived" + getClassName(t));
+		events.raiseTransactionSuccessEvent("resetList");
 		return "archived";
 	}
 
@@ -98,10 +100,9 @@ public abstract class BaseAction<T extends BusinessEntity> {
 	}
 	
 	
-
+	@Observer("resetList")
 	public void clearSearch() {
 		try {
-		
 			setEntity((T) getEntity().getClass().newInstance());
 			// TODO: do exception handling
 		} catch (InstantiationException e) {
@@ -277,6 +278,7 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		this.deleteDialogRendered = deleteDialogRendered;
 	}
 
+	@Begin(join=true)
 	public void showDeleteDialog(T t) {
 		setEntity(entityManager.merge(t));
 		deleteDialogRendered = true;
