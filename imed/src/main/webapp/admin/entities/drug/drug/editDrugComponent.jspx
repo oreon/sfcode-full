@@ -1,0 +1,106 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="Drug " />
+		</f:facet>
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.drug_name} * "/>
+		
+
+	<ice:inputText  id="Drug_name" required="true"  value="#{drug.name}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Drug_name" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.drug_dosage}  "/>
+		
+
+	<ice:inputText  id="Drug_dosage" required="false"  value="#{drug.dosage}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Drug_dosage" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.drug_form}  "/>
+		
+
+	<ice:inputText  id="Drug_form" required="false"  value="#{drug.form}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Drug_form" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.drug_activeIngred}  "/>
+		
+
+	<ice:inputText  id="Drug_activeIngred" required="false"  value="#{drug.activeIngred}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Drug_activeIngred" />
+		
+		
+	
+
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{drugAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{drugAction.cancel}" /> 
+		
+	</div>
+
+	</ice:panelGroup>
+	</html>
+	

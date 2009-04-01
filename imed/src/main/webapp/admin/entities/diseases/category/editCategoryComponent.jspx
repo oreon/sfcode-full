@@ -1,0 +1,138 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="Category " />
+		</f:facet>
+		
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.category_parent}  "/>
+		
+	
+	<h:selectOneMenu id="Category_parent" value="#{category.parent}" required="false">
+		<s:selectItems value="#{categoryList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Category_parent" />
+		
+		
+	
+
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.category_name} * "/>
+		
+
+	<ice:inputText  id="Category_name" required="true"  value="#{category.name}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Category_name" />
+		
+		
+	
+
+	
+		</h:panelGrid>
+		
+	
+	
+	
+	
+	<h:commandButton  value="New Children" action="#{categoryAction.addChildren}" >
+		<s:conversationId/>
+	</h:commandButton>
+
+	
+	
+	<ice:dataTable id="children_data" var="category" rendered="#{not empty categoryAction.listChildren}"
+					value="#{categoryAction.listChildren}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+	
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.category_name} * "/></f:facet>
+		
+
+	<ice:inputText  id="Category_name" required="true"  value="#{category.name}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Category_name" />
+		</h:column>
+		
+	
+
+	
+		
+		
+		
+	<h:column>
+		
+	<h:commandButton  value="New Children" action="#{categoryAction.addChildren}" >
+		<s:conversationId/>
+	</h:commandButton>
+
+	</h:column>
+
+		
+	<h:column>
+		<ice:commandButton value="Delete" action="#{categoryAction.deleteChildren(category)}" immediate="true">
+			<s:conversationId/>
+		</ice:commandButton>
+	</h:column>
+
+		
+			
+	</ice:dataTable>
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{categoryAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{categoryAction.cancel}" /> 
+		
+	</div>
+
+	</ice:panelGroup>
+	</html>
+	

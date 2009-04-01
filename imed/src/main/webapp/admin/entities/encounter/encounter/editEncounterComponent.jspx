@@ -1,0 +1,254 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="Encounter " />
+		</f:facet>
+		
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.encounter_patient}  "/>
+		
+	
+	<h:selectOneMenu id="Encounter_patient" value="#{encounter.patient}" required="true">
+		<s:selectItems value="#{patientList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Encounter_patient" />
+		
+		
+	
+
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.encounter_notes}  "/>
+		
+
+	<ice:inputRichText toolbar="Basic" saveOnSubmit="true"  id="Encounter_notes" required="false"  value="#{encounter.notes}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Encounter_notes" />
+		
+		
+	
+
+	
+		</h:panelGrid>
+		
+	
+	
+	
+	
+	<h:commandButton  value="New Complaint" action="#{encounterAction.addComplaints}" >
+		<s:conversationId/>
+	</h:commandButton>
+
+	
+	
+	<ice:dataTable id="complaints_data" var="complaint" rendered="#{not empty encounterAction.listComplaints}"
+					value="#{encounterAction.listComplaints}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.complaint_symptom}  "/></f:facet>
+		
+	
+	<h:selectOneMenu id="Complaint_symptom" value="#{complaint.symptom}" required="true">
+		<s:selectItems value="#{symptomList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Complaint_symptom" />
+		</h:column>
+		
+	
+
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.complaint_type}  "/></f:facet>
+		
+	
+	<h:selectOneMenu id="Complaint_type" value="#{complaint.type}" required="false">
+		<f:selectItem itemLabel="Please Select..." itemValue="" />
+		<f:selectItem itemLabel="ACUTE" itemValue="ACUTE" />
+		<f:selectItem itemLabel="CHRONIC" itemValue="CHRONIC" />
+		<f:selectItem itemLabel="TRANSIENT" itemValue="TRANSIENT" />
+		
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Complaint_type" />
+		</h:column>
+		
+	
+
+	
+		
+		
+		
+	<h:column>
+		
+	<h:commandButton  value="New Complaint" action="#{encounterAction.addComplaints}" >
+		<s:conversationId/>
+	</h:commandButton>
+
+	</h:column>
+
+		
+	<h:column>
+		<ice:commandButton value="Delete" action="#{encounterAction.deleteComplaints(complaint)}" immediate="true">
+			<s:conversationId/>
+		</ice:commandButton>
+	</h:column>
+
+		
+			
+	</ice:dataTable>
+	
+	
+	
+	<h:commandButton  value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" >
+		<s:conversationId/>
+	</h:commandButton>
+
+	
+	
+	<ice:dataTable id="prescribedTests_data" var="prescribedTest" rendered="#{not empty complaintAction.listPrescribedTests}"
+					value="#{complaintAction.listPrescribedTests}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.prescribedTest_dxTest}  "/></f:facet>
+		
+	
+	<h:selectOneMenu id="PrescribedTest_dxTest" value="#{prescribedTest.dxTest}" required="true">
+		<s:selectItems value="#{dxTestList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="PrescribedTest_dxTest" />
+		</h:column>
+		
+	
+
+	
+		
+	
+	
+	
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:left"><f:facet name="header"><h:outputText value="#{msg.prescribedTest_notes}  "/></f:facet>
+		
+
+	<ice:inputText  id="PrescribedTest_notes" required="false"  value="#{prescribedTest.notes}" />
+   
+
+		
+		<h:message styleClass="error errors" for="PrescribedTest_notes" />
+		</h:column>
+		
+	
+
+	
+		
+		
+		
+	<h:column>
+		
+	<h:commandButton  value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" >
+		<s:conversationId/>
+	</h:commandButton>
+
+	</h:column>
+
+		
+	<h:column>
+		<ice:commandButton value="Delete" action="#{encounterAction.deletePrescribedTests(prescribedTest)}" immediate="true">
+			<s:conversationId/>
+		</ice:commandButton>
+	</h:column>
+
+		
+			
+	</ice:dataTable>
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{encounterAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{encounterAction.cancel}" /> 
+		
+	</div>
+
+	</ice:panelGroup>
+	</html>
+	
