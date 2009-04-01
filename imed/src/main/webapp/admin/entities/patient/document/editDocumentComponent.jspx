@@ -1,0 +1,99 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="Document " />
+		</f:facet>
+		
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.document_patient}  "/>
+		
+	
+	<h:selectOneMenu id="Document_patient" value="#{document.patient}" required="true">
+		<s:selectItems value="#{patientList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Document_patient" />
+		
+		
+	
+
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.document_name} * "/>
+		
+
+	<ice:inputText  id="Document_name" required="true"  value="#{document.name}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Document_name" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.document_file}  "/>
+		
+
+	<s:fileUpload data="#{document.file}"/> 
+   
+
+		
+		<h:message styleClass="error errors" for="Document_file" />
+		
+		
+	
+
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{documentAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{documentAction.cancel}" /> 
+		
+	</div>
+
+	</ice:panelGroup>
+	</html>
+	

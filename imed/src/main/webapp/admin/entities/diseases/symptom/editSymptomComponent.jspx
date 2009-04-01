@@ -1,0 +1,145 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="Symptom " />
+		</f:facet>
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.symptom_name}  "/>
+		
+
+	<ice:inputText  id="Symptom_name" required="false"  value="#{symptom.name}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Symptom_name" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.symptom_descripton}  "/>
+		
+
+	<ice:inputText  id="Symptom_descripton" required="false"  value="#{symptom.descripton}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Symptom_descripton" />
+		
+		
+	
+
+	
+		</h:panelGrid>
+		
+	
+	
+	
+	
+	<h:commandButton  value="New Cause" action="#{symptomAction.addCauses}" >
+		<s:conversationId/>
+	</h:commandButton>
+
+	
+	
+	<ice:dataTable id="causes_data" var="cause" rendered="#{not empty symptomAction.listCauses}"
+					value="#{symptomAction.listCauses}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+	
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:left"><f:facet name="header"><h:outputText value="#{msg.cause_name}  "/></f:facet>
+		
+
+	<ice:inputText  id="Cause_name" required="false"  value="#{cause.name}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Cause_name" />
+		</h:column>
+		
+	
+
+	
+
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.cause_description}  "/></f:facet>
+		
+
+	<ice:inputRichText toolbar="Basic" saveOnSubmit="true"  id="Cause_description" required="false"  value="#{cause.description}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Cause_description" />
+		</h:column>
+		
+	
+
+	
+		
+		
+		
+	<h:column>
+		
+	<h:commandButton  value="New Cause" action="#{symptomAction.addCauses}" >
+		<s:conversationId/>
+	</h:commandButton>
+
+	</h:column>
+
+		
+	<h:column>
+		<ice:commandButton value="Delete" action="#{symptomAction.deleteCauses(cause)}" immediate="true">
+			<s:conversationId/>
+		</ice:commandButton>
+	</h:column>
+
+		
+			
+	</ice:dataTable>
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{symptomAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{symptomAction.cancel}" /> 
+		
+	</div>
+
+	</ice:panelGroup>
+	</html>
+	

@@ -1,0 +1,236 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="Vitals " />
+		</f:facet>
+		
+	
+	
+	
+			
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.pulse_BPM}  "/>
+		
+
+	<ice:inputText  id="Pulse_BPM" required="false"  value="#{vitals.pulse.bPM}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Pulse_BPM" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.pulse_pattern}  "/>
+		
+	
+	<h:selectOneMenu id="Pulse_pattern" value="#{vitals.pattern}" required="false">
+		<f:selectItem itemLabel="Please Select..." itemValue="" />
+		<f:selectItem itemLabel="REGULAR" itemValue="REGULAR" />
+		<f:selectItem itemLabel="IRREGULAR_REGULAR" itemValue="IRREGULAR_REGULAR" />
+		<f:selectItem itemLabel="CHAOTIC" itemValue="CHAOTIC" />
+		
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Pulse_pattern" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.pulse_breathsPerMinute}  "/>
+		
+
+	<ice:inputText  id="Pulse_breathsPerMinute" required="false"  value="#{vitals.pulse.breathsPerMinute}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Pulse_breathsPerMinute" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.pulse_site}  "/>
+		
+	
+	<h:selectOneMenu id="Pulse_site" value="#{vitals.site}" required="false">
+		<f:selectItem itemLabel="Please Select..." itemValue="" />
+		<f:selectItem itemLabel="Radial" itemValue="Radial" />
+		<f:selectItem itemLabel="Ulnar" itemValue="Ulnar" />
+		<f:selectItem itemLabel="Brachial" itemValue="Brachial" />
+		<f:selectItem itemLabel="Carotid" itemValue="Carotid" />
+		<f:selectItem itemLabel="Temporal" itemValue="Temporal" />
+		
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Pulse_site" />
+		
+		
+	
+
+	
+		
+	
+	
+	
+			
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.temperature_temprature}  "/>
+		
+
+	<ice:inputText  id="Temperature_temprature" required="false"  value="#{vitals.temperature.temprature}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Temperature_temprature" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.temperature_type}  "/>
+		
+	
+	<h:selectOneMenu id="Temperature_type" value="#{vitals.type}" required="false">
+		<f:selectItem itemLabel="Please Select..." itemValue="" />
+		<f:selectItem itemLabel="ORAL" itemValue="ORAL" />
+		<f:selectItem itemLabel="RECTAL" itemValue="RECTAL" />
+		<f:selectItem itemLabel="AXILLARY" itemValue="AXILLARY" />
+		<f:selectItem itemLabel="AURAL" itemValue="AURAL" />
+		
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Temperature_type" />
+		
+		
+	
+
+	
+		
+	
+	
+	
+			
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.bloodPressure_systolic}  "/>
+		
+
+	<ice:inputText  id="BloodPressure_systolic" required="false"  value="#{vitals.bloodPressure.systolic}" />
+   
+
+		
+		<h:message styleClass="error errors" for="BloodPressure_systolic" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.bloodPressure_diastolic}  "/>
+		
+
+	<ice:inputText  id="BloodPressure_diastolic" required="false"  value="#{vitals.bloodPressure.diastolic}" />
+   
+
+		
+		<h:message styleClass="error errors" for="BloodPressure_diastolic" />
+		
+		
+	
+
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.vitals_general}  "/>
+		
+
+	<ice:inputRichText toolbar="Basic" saveOnSubmit="true"  id="Vitals_general" required="false"  value="#{vitals.general}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Vitals_general" />
+		
+		
+	
+
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{vitalsAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{vitalsAction.cancel}" /> 
+		
+	</div>
+
+	</ice:panelGroup>
+	</html>
+	

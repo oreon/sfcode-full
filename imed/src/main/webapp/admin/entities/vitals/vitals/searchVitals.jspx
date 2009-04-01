@@ -1,0 +1,148 @@
+
+<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:form>
+	<ice:panelGroup styleClass="pnlClpsblWrapper panelCollapsible">
+	<ice:panelCollapsible >
+			<f:facet name="header">
+				<ice:outputText id="srchHdr" value="Search" />
+			</f:facet>
+			<div class="entry errors"><h:messages globalOnly="true" /></div>
+			<h:panelGrid columns="5">
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.vitals_general}  "/> <br/>
+	<ice:inputText  id="Vitals_general" value="#{vitals.general}" />
+	</h:panelGroup>
+
+	
+	
+	
+			
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.pulse_BPM}  "/> <br/>
+	<ice:inputText  id="Pulse_BPM" value="#{vitals.pulse.bPM}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.pulse_pattern}  "/> <br/>
+	<h:selectOneMenu id="Pulse_pattern" value="#{vitals.pulse.pattern}" required="false">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="REGULAR" itemValue="REGULAR" />
+		<f:selectItem itemLabel="IRREGULAR_REGULAR" itemValue="IRREGULAR_REGULAR" />
+		<f:selectItem itemLabel="CHAOTIC" itemValue="CHAOTIC" />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.pulse_breathsPerMinute}  "/> <br/>
+	<ice:inputText  id="Pulse_breathsPerMinute" value="#{vitals.pulse.breathsPerMinute}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.pulse_site}  "/> <br/>
+	<h:selectOneMenu id="Pulse_site" value="#{vitals.pulse.site}" required="false">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Radial" itemValue="Radial" />
+		<f:selectItem itemLabel="Ulnar" itemValue="Ulnar" />
+		<f:selectItem itemLabel="Brachial" itemValue="Brachial" />
+		<f:selectItem itemLabel="Carotid" itemValue="Carotid" />
+		<f:selectItem itemLabel="Temporal" itemValue="Temporal" />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+		
+	
+	
+	
+			
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.temperature_temprature}  "/> <br/>
+	<ice:inputText  id="Temperature_temprature" value="#{vitals.temperature.temprature}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.temperature_type}  "/> <br/>
+	<h:selectOneMenu id="Temperature_type" value="#{vitals.temperature.type}" required="false">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="ORAL" itemValue="ORAL" />
+		<f:selectItem itemLabel="RECTAL" itemValue="RECTAL" />
+		<f:selectItem itemLabel="AXILLARY" itemValue="AXILLARY" />
+		<f:selectItem itemLabel="AURAL" itemValue="AURAL" />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+		
+	
+	
+	
+			
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.bloodPressure_systolic}  "/> <br/>
+	<ice:inputText  id="BloodPressure_systolic" value="#{vitals.bloodPressure.systolic}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.bloodPressure_diastolic}  "/> <br/>
+	<ice:inputText  id="BloodPressure_diastolic" value="#{vitals.bloodPressure.diastolic}" />
+	</h:panelGroup>
+
+	
+	
+		
+	
+	
+			</h:panelGrid>
+			
+	<div class="buttonBox">
+		<h:commandButton value="Search"  action="#{vitalsAction.search}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Clear Search" immediate="true" action="#{vitalsAction.clearSearch}" /> 
+	</div>
+
+		</ice:panelCollapsible>
+		</ice:panelGroup>
+		</h:form>
+</html>
+	

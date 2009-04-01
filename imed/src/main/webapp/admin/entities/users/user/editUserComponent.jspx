@@ -1,0 +1,89 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="User " />
+		</f:facet>
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.user_userName} * "/>
+		
+
+	<ice:inputText  id="User_userName" required="true"  value="#{user.userName}" />
+   
+
+		
+		<h:message styleClass="error errors" for="User_userName" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.user_password} * "/>
+		
+
+	<ice:inputSecret redisplay="true"   id="User_password" required="true"  value="#{user.password}" />
+   
+
+		
+		<h:message styleClass="error errors" for="User_password" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.user_enabled}  "/>
+		
+
+	<ice:selectBooleanCheckbox  id="User_enabled" required="false"  value="#{user.enabled}" />
+   
+
+		
+		<h:message styleClass="error errors" for="User_enabled" />
+		
+		
+	
+
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{userAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{userAction.cancel}" /> 
+		
+	</div>
+
+	</ice:panelGroup>
+	</html>
+	

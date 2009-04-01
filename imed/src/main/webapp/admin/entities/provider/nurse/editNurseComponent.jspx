@@ -1,0 +1,332 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="Nurse " />
+		</f:facet>
+		
+	
+	
+			
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.address_country}  "/>
+		
+	
+	<h:selectOneMenu id="Address_country" value="#{nurse.address.country}" required="true">
+		<s:selectItems value="#{countryList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Address_country" />
+		
+		
+	
+
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.address_streetAddress}  "/>
+		
+
+	<ice:inputText  id="Address_streetAddress" required="false"  value="#{nurse.address.streetAddress}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Address_streetAddress" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.address_city}  "/>
+		
+
+	<ice:inputText  id="Address_city" required="false"  value="#{nurse.address.city}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Address_city" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.address_state}  "/>
+		
+
+	<ice:inputText  id="Address_state" required="false"  value="#{nurse.address.state}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Address_state" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.address_zip}  "/>
+		
+
+	<ice:inputText  id="Address_zip" required="false"  value="#{nurse.address.zip}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Address_zip" />
+		
+		
+	
+
+	
+		
+	
+	
+	
+			
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.contactDetails_primaryPhone}  "/>
+		
+
+	<ice:inputText  id="ContactDetails_primaryPhone" required="false"  value="#{nurse.contactDetails.primaryPhone}" />
+   
+
+		
+		<h:message styleClass="error errors" for="ContactDetails_primaryPhone" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>
+		
+
+	<ice:inputText  id="ContactDetails_secondaryPhone" required="false"  value="#{nurse.contactDetails.secondaryPhone}" />
+   
+
+		
+		<h:message styleClass="error errors" for="ContactDetails_secondaryPhone" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.contactDetails_email}  "/>
+		
+
+	<ice:inputText  id="ContactDetails_email" required="false"  value="#{nurse.contactDetails.email}" />
+   
+
+		
+		<h:message styleClass="error errors" for="ContactDetails_email" />
+		
+		
+	
+
+	
+		
+	
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.nurse_specialization}  "/>
+		
+	
+	<h:selectOneMenu id="Nurse_specialization" value="#{nurse.specialization}" required="false">
+		<s:selectItems value="#{specializationList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Nurse_specialization" />
+		
+		
+	
+
+	
+		
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.nurse_user}  "/>
+		
+	
+	<h:selectOneMenu id="Nurse_user" value="#{nurse.user}" required="true">
+		<s:selectItems value="#{userList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Nurse_user" />
+		
+		
+	
+
+	
+		
+	
+
+			
+	
+	
+		
+		<h:outputText value="#{msg.person_firstName} * "/>
+		
+
+	<ice:inputText  id="Person_firstName" required="true"  value="#{nurse.firstName}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Person_firstName" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.person_lastName} * "/>
+		
+
+	<ice:inputText  id="Person_lastName" required="true"  value="#{nurse.lastName}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Person_lastName" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.person_dateOfBirth}  "/>
+		
+
+	<wc:calendar  id="Person_dateOfBirth" required="false"  value="#{nurse.dateOfBirth}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Person_dateOfBirth" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.person_gender}  "/>
+		
+	
+	<h:selectOneMenu id="Person_gender" value="#{nurse.gender}" required="false">
+		<f:selectItem itemLabel="Please Select..." itemValue="" />
+		<f:selectItem itemLabel="F" itemValue="F" />
+		<f:selectItem itemLabel="M" itemValue="M" />
+		
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="Person_gender" />
+		
+		
+	
+
+	
+
+	
+	
+
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{nurseAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{nurseAction.cancel}" /> 
+		
+	</div>
+
+	</ice:panelGroup>
+	</html>
+	

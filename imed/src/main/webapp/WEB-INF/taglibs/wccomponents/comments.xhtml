@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<ui:composition>
+
+	<ice:form>
+		<ice:panelCollapsible>
+			<f:facet name="header">
+				<ice:panelGroup>
+					<ice:outputText value="Comments" />
+				</ice:panelGroup>
+			</f:facet>
+
+
+			<ui:repeat var="comment" value="#{backingAction.comments}">
+				<ul>
+					<li>${comment.createdByUser.displayName} ,
+					${comment.dateCreated} <br />
+					<ice:outputText value="#{comment.text}" escape="false" />
+					<hr />
+					</li>
+				</ul>
+			</ui:repeat>
+
+
+			<ice:inputRichText toolbar="Basic" saveOnSubmit="true"
+				id="Comment_text" required="false"
+				value="#{backingAction.currentCommentText}" />
+			<ice:commandButton action="#{backingAction.saveComment}"
+				value="Add Comment" partialSubmit="true" />
+
+
+		</ice:panelCollapsible>
+	</ice:form>
+
+
+</ui:composition>
+
+</html>
