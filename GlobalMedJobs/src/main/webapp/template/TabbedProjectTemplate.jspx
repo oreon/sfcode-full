@@ -1,0 +1,48 @@
+<ice:form xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"	
+	id="tabbedForm">
+
+	<ice:panelTabSet id="projectPanelTabSet">
+	    <ice:panelTab label="J2SE">
+	        <ui:insert name="supportProject">
+	            J2SE
+	            <ice:panelGroup styleClass="collapsibleProjectPanel">
+		            <ice:panelCollapsible id="supportProjectPanel" expanded="true">
+		            	<f:facet name="header">
+	                		<ice:panelGroup>
+	                    		<ice:outputText id="projects" value="Projects"/>
+	                		</ice:panelGroup>
+	            		</f:facet>
+	            		<ice:panelGrid columns="3" cellpadding="4" cellspacing="4" width="100%">
+	                    	<ice:outputText id="icefacesOrgLink1" value="Projects"/>
+	            		</ice:panelGrid>
+		            </ice:panelCollapsible>
+		            <ice:panelCollapsible id="TBDPanel" expanded="false">
+		            	<f:facet name="header">
+	                		<ice:panelGroup>
+	                    		<ice:outputText id="TBD" value="TBD"/>
+	                		</ice:panelGroup>
+	            		</f:facet>
+	            		<ice:panelGrid columns="3" cellpadding="4" cellspacing="4" width="100%">
+	                    	<ice:outputText id="icefacesOrgLink2" value="TBD"/>
+	            		</ice:panelGrid>
+		            </ice:panelCollapsible>
+				</ice:panelGroup>
+	        </ui:insert>
+	    </ice:panelTab>
+	    <ice:panelTab label="J2EE">
+	        <ui:insert name="prelaunchProject">
+	            J2EE
+	        </ui:insert>
+	    </ice:panelTab>
+	    <ice:panelTab label="J2ME">
+	        <ui:insert name="engineeringProject">
+	            J2ME
+	        </ui:insert>
+	    </ice:panelTab>
+	</ice:panelTabSet>
+
+</ice:form>
