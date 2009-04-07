@@ -91,13 +91,30 @@
 			value="#{prescriptionAction.listItems}" rows="10"
 			rowClasses="odd, even" styleClass="dataTable" rules="all">
 
-
 			<h:column style="text-align:right">
 				<f:facet name="header">
 					<h:outputText value="#{msg.item_drug}  " />
 				</f:facet>
 
-				<ice:selectInputText rows="15" width="300" immediate="false" value="#{item.drug}"
+				<h:selectOneMenu id="Item_drug" value="#{item.drug}"
+					required="true">
+					<s:selectItems value="#{drugList}" var="itemIter"
+						label="#{itemIter.displayName}"
+						noSelectionLabel="Please Select..." />
+					<s:convertEntity />
+				</h:selectOneMenu>
+
+				<h:message styleClass="error errors" for="Item_drug" />
+			</h:column>
+
+
+<!--  
+			<h:column style="text-align:right">
+				<f:facet name="header">
+					<h:outputText value="#{msg.item_drug}  " />
+				</f:facet>
+
+				<ice:selectInputText rows="15" width="300" immediate="false" 
 					valueChangeListener="#{drugAction.selectInputValueChanged}">
 					<f:selectItems value="#{drugAction.autoCompleteSuggestions}"  />
 				</ice:selectInputText>
@@ -105,7 +122,7 @@
 				<h:message styleClass="error errors" for="Item_drug" />
 			</h:column>
 
-
+-->
 
 
 			<h:column style="text-align:right">
