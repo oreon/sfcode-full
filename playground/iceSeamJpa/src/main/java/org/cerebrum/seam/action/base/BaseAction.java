@@ -21,5 +21,7 @@ public class BaseAction {
 	
 	@In
 	protected Events events;
+	
+	
 
 }

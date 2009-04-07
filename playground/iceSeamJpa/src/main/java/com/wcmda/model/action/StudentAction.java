@@ -41,6 +41,14 @@ public class StudentAction extends BaseAction{
 	private String typedUserName;
 	
 
+	public String getTypedUserName() {
+		return typedUserName;
+	}
+
+	public void setTypedUserName(String typedUserName) {
+		this.typedUserName = typedUserName;
+	}
+
 	@Factory("studentList")
 	public void findStduents() {
 		studentList = entityManager
@@ -69,9 +77,6 @@ public class StudentAction extends BaseAction{
 		List<SelectItem> users = new ArrayList<SelectItem>();
 		if (StringUtils.length(typedUserName) == 0)
 			return users;
-
-		//String[] arr = { "mike", "michelle", "austin", "victor", "vincent",
-		//		"april" };
 
 		for (Student student : studentList) {
 
