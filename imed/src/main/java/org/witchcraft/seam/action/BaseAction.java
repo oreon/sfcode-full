@@ -2,52 +2,87 @@ package org.witchcraft.seam.action;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.queryParser.MultiFieldQueryParser;
+import org.apache.lucene.queryParser.ParseException;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.FullTextQuery;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Observer;
+import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.base.entity.EntityComment;
+import org.witchcraft.base.entity.EntityTemplate;
 
-/** The base action class - contains common persistence related methods, also contains comment
- *  related functionality
+/**
+ * The base action class - contains common persistence related methods, also
+ * contains comment related functionality
+ * 
  * @author jsingh
- *
+ * 
  * @param <T>
  */
 public abstract class BaseAction<T extends BusinessEntity> {
-
-
 
 	@Logger
 	protected Log log;
 	@In
 	// @PersistenceContext(type=EXTENDED)
-	protected EntityManager entityManager;
+	protected FullTextEntityManager entityManager;
 
 	@In
 	protected FacesMessages facesMessages;
 
 	@In
 	protected Events events;
-	
+
+	@RequestParameter
+	private String queryString;
+
 	private List<EntityComment> comments;
 	private String currentCommentText;
 
+	private boolean templateMode;
+
+	private EntityTemplate<T> entityTemplate = new EntityTemplate<T>();
+
+	public EntityTemplate<T> getEntityTemplate() {
+		return entityTemplate;
+	}
+
+	public void setEntityTemplate(EntityTemplate<T> entityTemplate) {
+		this.entityTemplate = entityTemplate;
+	}
+
+	public boolean isTemplateMode() {
+		return templateMode;
+	}
+
+	public void setTemplateMode(boolean templateMode) {
+		this.templateMode = templateMode;
+	}
+
+	@Begin
+	public String createTemplate() {
+		setTemplateMode(true);
+		return "edit";
+	}
 
 	public String getCurrentCommentText() {
 		return currentCommentText;
@@ -57,10 +92,11 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		this.currentCommentText = currentCommentText;
 	}
 
-	@Begin(join=true)
+	@Begin(join = true)
 	public String select(T t) {
 		setEntity(entityManager.merge(t));
-		log.info("User selected #{t.getClass().getName()}: #{t.displayName} #{t.id} ");
+		log
+				.info("User selected #{t.getClass().getName()}: #{t.displayName} #{t.id} ");
 		updateAssociations();
 		log.info("returnring: " + "view" + getClassName(t));
 		return "view" + getClassName(t);
@@ -78,12 +114,50 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		return "archived";
 	}
 
+	public String saveTemplate() {
+		EntityTemplate<T> template = getEntityTemplate();
+		template.setEntity(getEntity());
+		template.setEntityName(getClassName(getEntity()));
+		// template.setTemplateName(getEn);
+		entityManager.persist(template);
+
+		// TODO: replace with statusmessages seam class
+		if (facesMessages != null)
+			facesMessages.add("Successfully saved template: "
+					+ getEntity().getDisplayName());
+		return "save";
+	}
+
+	public void loadFromTemplate(String templateName) {
+		setEntity((T) getEntityTemplate().getEntity());
+	}
+
+	public EntityTemplate getCurrentTemplate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * The current template
+	 * 
+	 * @return
+	 */
+	public String getTemplateName() {
+		// TODO Auto-generated method stub
+		return StringUtils.EMPTY;
+	}
 
 	public String save() {
+		if (templateMode)
+			return saveTemplate();
+
 		updateComposedAssociations();
 		entityManager.persist(getEntity());
-		if(facesMessages != null)
-			facesMessages.add("Successfully saved  #{t.displayName}");
+
+		// TODO: replace with statusmessages seam class
+		if (facesMessages != null)
+			facesMessages.add("Successfully saved record: "
+					+ getEntity().getDisplayName());
 		updateAssociations();
 		return "save";
 	}
@@ -97,8 +171,7 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		Criteria criteria = createExampleCriteria();
 		setEntityList(criteria.list());
 	}
-	
-	
+
 	@Observer("resetList")
 	public void clearSearch() {
 		try {
@@ -125,7 +198,7 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		 * example.excludeProperty(exclude); }
 		 */
 		addAssoications(criteria);
-		
+
 		criteria.addOrder(getOrder());
 
 		return criteria;
@@ -143,8 +216,8 @@ public abstract class BaseAction<T extends BusinessEntity> {
 	 */
 	public void addAssoications(Criteria criteria) {
 	}
-	
-	public void updateAssociations(){
+
+	public void updateAssociations() {
 	}
 
 	public abstract T getEntity();
@@ -184,11 +257,59 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		}
 	}
 
+	/**
+	 * (non-Javadoc)
+	 * 
+	 * @see org.witchcraft.model.support.dao.GenericDAO#performTextSearch(java.lang
+	 *      .String)
+	 */
+	public List<T> performTextSearch(String searchText) {
+
+		BusinessEntity businessEntity = getEntity();
+
+		if (businessEntity.retrieveSearchableFieldsArray() == null) {
+			throw new RuntimeException(
+					businessEntity.getClass().getSimpleName()
+							+ " needs to override retrieveSearchableFieldsArray method ");
+		}
+
+		MultiFieldQueryParser parser = new MultiFieldQueryParser(businessEntity
+				.retrieveSearchableFieldsArray(), new StandardAnalyzer());
+
+		org.apache.lucene.search.Query query = null;
+
+		try {
+			query = parser.parse(searchText);
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
+
+		FullTextQuery ftq = entityManager.createFullTextQuery(query,
+				getEntity().getClass());
+
+		List<T> result = ftq.getResultList();
+		System.out.println(result.size());
+		return result;
+	}
+
+	/**
+	 * To create a full text index for the given entity
+	 * 
+	 * @return
+	 */
+	public String reIndex() {
+		final List<T> entries = entityManager.createQuery(
+				"select d from Drug d").getResultList();
+		for (T t : entries)
+			entityManager.index(t);
+		return null;
+	}
+
 	@SuppressWarnings("unchecked")
 	public <S> List<S> executeNamedQuery(String queryString, Object... params) {
 		Query query = entityManager.createNamedQuery(queryString);
 		setQueryParams(query, params);
-		//setEntityList(query.getResultList());
+		// setEntityList(query.getResultList());
 		return query.getResultList();
 	}
 
@@ -229,52 +350,54 @@ public abstract class BaseAction<T extends BusinessEntity> {
 	@Destroy
 	public void destroy() {
 	}
-	
-	protected String getClassName(T t){
+
+	protected String getClassName(T t) {
 		String name = t.getClass().getSimpleName();
-		if(name.indexOf("$$") > 0 )
+		if (name.indexOf("$$") > 0)
 			name = name.substring(0, name.indexOf("$$"));
 		return name;
 	}
-	
-	////////////////// Comments /////////////////////////////////////////////////////////
-	
-	public void saveComment(){
+
+	// //////////////// Comments
+	// /////////////////////////////////////////////////////////
+
+	public void saveComment() {
 		EntityComment currentComment = new EntityComment();
 		currentComment.setText(currentCommentText);
 		currentComment.setEntityId(getEntity().getId());
 		currentComment.setEntityName(getClassName(getEntity()));
 		getEntityManager().persist(currentComment);
 		currentCommentText = new String();
-		events.raiseTransactionSuccessEvent("entityCommentsUpdated", getClassName(getEntity()));
+		events.raiseTransactionSuccessEvent("entityCommentsUpdated",
+				getClassName(getEntity()));
 	}
-	
-	public List<EntityComment> getComments(){
-		if(comments == null){
+
+	public List<EntityComment> getComments() {
+		if (comments == null) {
 			loadComments();
 		}
 		return comments;
 	}
 
-	
-
 	@Observer("entityCommentsUpdated")
 	public void loadComments() {
-		comments = executeNamedQuery("commentsForRecord", getEntity().getId(), getClassName(getEntity()));
+		comments = executeNamedQuery("commentsForRecord", getEntity().getId(),
+				getClassName(getEntity()));
 	}
-	
-	public EntityManager getEntityManager() {
+
+	public FullTextEntityManager getEntityManager() {
 		return entityManager;
 	}
 
-	public void setEntityManager(EntityManager entityManager) {
+	public void setEntityManager(FullTextEntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
-	
-	///////////////////// Delete Modal Dialog ////////////////////////////////////////
-	
+
+	// /////////////////// Delete Modal Dialog
+	// ////////////////////////////////////////
+
 	private boolean deleteDialogRendered = false;
-	
+
 	public boolean isDeleteDialogRendered() {
 		return deleteDialogRendered;
 	}
@@ -283,20 +406,19 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		this.deleteDialogRendered = deleteDialogRendered;
 	}
 
-	@Begin(join=true)
+	@Begin(join = true)
 	public void showDeleteDialog(T t) {
 		setEntity(entityManager.merge(t));
 		deleteDialogRendered = true;
-    }
-	
+	}
+
 	public void archiveAndClose() {
 		archive(getEntity());
-        closeModal();
-    }
-	
+		closeModal();
+	}
+
 	public void closeModal() {
-		 setDeleteDialogRendered(false);
-    }
-	
-	
+		setDeleteDialogRendered(false);
+	}
+
 }

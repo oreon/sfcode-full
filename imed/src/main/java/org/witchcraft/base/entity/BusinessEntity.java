@@ -17,6 +17,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import org.hibernate.search.annotations.DocumentId;
 import org.jboss.seam.servlet.SeamListener;
 import org.witchcraft.users.User;
 
@@ -28,6 +29,7 @@ public class BusinessEntity implements Serializable{
 
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="id")
+    @DocumentId
     private Long id;
     
     private boolean archived;
@@ -131,5 +133,10 @@ public class BusinessEntity implements Serializable{
     @Transient
     public String getDisplayName(){
     	return toString();
+    }
+    
+    
+	public String[] retrieveSearchableFieldsArray() {
+    	return null;
     }
 }
