@@ -57,12 +57,18 @@
 	</context-param>
 
 
-	<!-- Facelets development mode (disable in production) -->
+	
 	<context-param>
 		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
 		<param-value>server</param-value>
 	</context-param>
-
+	
+	 <context-param>
+        <param-name>com.icesoft.faces.uploadDirectory</param-name>
+        <param-value>upload</param-value>
+    </context-param>
+    
+    <!-- Facelets development mode (disable in production) -->
 	<context-param>
 		<param-name>facelets.DEVELOPMENT</param-name>
 		<param-value>true</param-value>
@@ -115,6 +121,11 @@
 		<load-on-startup> 1 </load-on-startup>
 	</servlet>
 
+    <servlet>
+         <servlet-name>uploadServlet</servlet-name>
+         <servlet-class>com.icesoft.faces.component.inputfile.FileUploadServlet</servlet-class>
+         <load-on-startup> 1 </load-on-startup>
+    </servlet>
 
 	<!-- servlet mappings -->
 	<servlet-mapping>
@@ -125,7 +136,13 @@
 		<url-pattern>/faces/*</url-pattern>
 		<url-pattern>*.seam</url-pattern>
 	</servlet-mapping>
-
+	
+	<!-- File upload servlet -->
+	<servlet-mapping>
+         <servlet-name>uploadServlet</servlet-name>
+         <url-pattern>/uploadHtml</url-pattern>
+    </servlet-mapping>   
+	
 
 	<!-- Blocking Servlet Mapping -->
 	<servlet-mapping>
