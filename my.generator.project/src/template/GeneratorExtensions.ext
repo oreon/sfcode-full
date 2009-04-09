@@ -50,7 +50,11 @@ packageNameWithoutRoot(cls.package).replaceAll("::", ".");
 
 //in case of magicdraw we need to remove the root "Data" package
 String packageNameWithoutRoot(Package package):
-package.getQualifiedName().startsWith("Data")?package.getQualifiedName().replaceAll("Data::", ""):
+if ( package.getQualifiedName().startsWith("Data") ) then 
+	package.getQualifiedName().replaceAll("Data::", "")
+else if ( package.getQualifiedName().startsWith("wcprofile") ) then 
+	package.getQualifiedName().replaceAll("wcprofile::", "")
+else
 package.getQualifiedName();
 
 //Returns lower case name e.g. Student will be returned as student
@@ -101,15 +105,6 @@ String getUniqueAnnotations(Column col):
 col.uniqueProperty == true?"@Unique(entityName = " + "\"" + fqn(col.class) + "\"" + ", fieldName = " + "\"" + col.name + "\"" + ")":"";
 
 
-//e.g. To get order Items for an order 
-getComposed(Class cls):
-cls.getAllAttributes().select(a|a.isMultivalued() && a.association != null && a.isComposite()) ;
-
-//e.g customer would be needed of the given order
-getOutgoingAssociations(Class cls):
-cls.getAllAttributes().select(a|a.isMultivalued() == false && a.association != null && !a.type.isEmbeddable() );
-
-
 //need to add quotes if default is a string type
 getDefaultVal(Property prop, PrimitiveType type):
 prop.type.name == "String" ? "\"" + prop.getDefault() + "\"": prop.getDefault();
@@ -137,6 +132,10 @@ false;
 isType(Property prop, String typeName):
 prop.type.name == typeName;
 
+isString(Property prop):
+isType(prop, "String") || isType(prop, "uniqueNameType") || isType(prop, "nameType");
+
+
 //Read property from workflow properties file
 String readProperty(String arg):
 JAVA org.wc.generatorutil.ClassUtil.readProperty(java.lang.String);
@@ -154,5 +153,10 @@ else
  //split the given string by ',' and return a list 
  getStringsAsList(String arg):
  arg.split(","); 
+ 
+
+ 
+ getColJpaAnnotations(Column col):
+ "@Column(name = \"" +  (col.columnName != null ? col.columnName : col.name) +  "\"," + "unique=" + col.uniqueProperty + ")";
  
 

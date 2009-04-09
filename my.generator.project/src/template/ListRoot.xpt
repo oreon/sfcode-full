@@ -31,8 +31,10 @@
 		«EXPAND genPropsFromBusinessEntity FOR this-»
 		«EXPAND genLink("select", "eye.png") FOR this»
 		«EXPAND genLink ("select", "edit.png")FOR this»
-		«EXPAND genLink("archive", "delete.png") FOR this»
+		«EXPAND genLink("showDeleteDialog", "delete.png") FOR this»
 		</ice:dataTable>
+		
+		<wc:deletePanel backingAction="#{«getAction()»}" backingEntity="#{«asVar()»}" title="Delete «name»" />
 	</html>
 	«ENDFILE»
 «ENDDEFINE»
