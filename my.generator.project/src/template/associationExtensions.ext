@@ -14,3 +14,15 @@ entity.getAllAttributes().select(a|a.isMultivalued()  && a.association != null  
 //If this class is container for the given composed element e.g an order will be container for order items
 isCompositionContainer(Property prop):
 prop.opposite != null && prop.opposite.isComposite();
+
+//e.g. To get order Items for an order 
+getComposed(Class cls):
+cls.getAllAttributes().select(a|a.isMultivalued() && a.association != null && a.isComposite()) ;
+
+//e.g customer would be needed of the given order
+getOutgoingAssociations(Class cls):
+cls.getAllAttributes().select(a|a.isMultivalued() == false && a.association != null && !a.type.isEmbeddable() );
+
+//all embedded associations
+getEmbeddable(Class cls):
+cls.getAllAttributes().select(a|a.type.isEmbeddable());
