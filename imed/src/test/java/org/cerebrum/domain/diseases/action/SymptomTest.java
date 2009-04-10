@@ -1,17 +1,28 @@
 package org.cerebrum.domain.diseases.action;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import org.jboss.seam.security.Identity;
+import org.testng.annotations.Test;
+import org.witchcraft.base.entity.*;
+import org.hibernate.annotations.Filter;
 
 import org.testng.annotations.BeforeClass;
+import org.witchcraft.seam.action.BaseAction;
+import org.cerebrum.domain.diseases.Symptom;
 
-public class SymptomTest extends org.witchcraft.action.test.BaseTest {
+public class SymptomTest extends org.witchcraft.action.test.BaseTest<Symptom> {
 
 	SymptomAction symptomAction = new SymptomAction();
 
 	@BeforeClass
 	public void init() {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
-		symptomAction.setEntityManager(em);
+		super.init();
 	}
 
+	@Override
+	public BaseAction<Symptom> getAction() {
+		return symptomAction;
+	}
 }

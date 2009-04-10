@@ -1,17 +1,30 @@
 package org.cerebrum.domain.billing.action;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import org.jboss.seam.security.Identity;
+import org.testng.annotations.Test;
+import org.witchcraft.base.entity.*;
+import org.hibernate.annotations.Filter;
 
 import org.testng.annotations.BeforeClass;
+import org.witchcraft.seam.action.BaseAction;
+import org.cerebrum.domain.billing.ProcedureCode;
 
-public class ProcedureCodeTest extends org.witchcraft.action.test.BaseTest {
+public class ProcedureCodeTest
+		extends
+			org.witchcraft.action.test.BaseTest<ProcedureCode> {
 
 	ProcedureCodeAction procedureCodeAction = new ProcedureCodeAction();
 
 	@BeforeClass
 	public void init() {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
-		procedureCodeAction.setEntityManager(em);
+		super.init();
 	}
 
+	@Override
+	public BaseAction<ProcedureCode> getAction() {
+		return procedureCodeAction;
+	}
 }

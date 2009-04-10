@@ -6,6 +6,7 @@ import javax.persistence.Query;
 import org.jboss.seam.security.Identity;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.users.Role;
 import org.witchcraft.users.User;
 import org.witchcraft.users.action.UserAction;
@@ -17,8 +18,12 @@ public class AuthenticatorTest extends BaseTest {
 	@BeforeClass
 	public void init(){
 		super.init();
-		EntityManager em = getEntityManagerFactory().createEntityManager();
-		action.setEntityManager(em);
+	}
+	
+	@Override
+	public BaseAction<User> getAction() {
+		// TODO Auto-generated method stub
+		return super.getAction();
 	}
 
     @Test(dependsOnMethods={"testRegisterAction"})
