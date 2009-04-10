@@ -1,12 +1,32 @@
 package org.cerebrum.domain.prescription;
 
-import java.util.Set;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.Date;
 
 import javax.persistence.*;
 import org.hibernate.validator.*;
 
+import org.apache.solr.analysis.LowerCaseFilterFactory;
+import org.apache.solr.analysis.SnowballPorterFilterFactory;
+import org.apache.solr.analysis.StandardTokenizerFactory;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Filter;
+import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Parameter;
+import org.hibernate.search.annotations.TokenFilterDef;
+import org.hibernate.search.annotations.TokenizerDef;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.IndexedEmbedded;
+
+import org.hibernate.validator.Length;
+import org.hibernate.validator.NotNull;
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
 import org.hibernate.annotations.Filter;
@@ -15,23 +35,31 @@ import org.hibernate.annotations.Filter;
 @Table(name = "item")
 @Name("item")
 @Filter(name = "archiveFilterDef")
+@Indexed
+@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
+		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class Item extends BusinessEntity {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "prescription_id", nullable = false)
+	@ContainedIn
 	protected Prescription prescription;
 
 	@Column(name = "qty", unique = false)
 	protected Integer qty;
 
+	@Field(index = Index.TOKENIZED)
 	protected String measurement;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "drug_id", nullable = false)
+	@ContainedIn
 	protected org.cerebrum.domain.drug.Drug drug;
 
 	protected Route route;
 
+	@Field(index = Index.TOKENIZED)
 	protected String instructions;
 
 	protected Boolean prn;
@@ -41,6 +69,7 @@ public class Item extends BusinessEntity {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "frequency_id", nullable = false)
+	@ContainedIn
 	protected Frequency frequency;
 
 	protected Boolean subs;
@@ -128,6 +157,21 @@ public class Item extends BusinessEntity {
 	@Transient
 	public String getDisplayName() {
 		return prescription + "";
+	}
+
+	/** This method is used by hibernate full text search - override to add additional fields
+	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 */
+	@Override
+	public List<String> listSearchableFields() {
+		List<String> listSearchableFields = new ArrayList<String>();
+		listSearchableFields.addAll(super.listSearchableFields());
+
+		listSearchableFields.add("measurement");
+
+		listSearchableFields.add("instructions");
+
+		return listSearchableFields;
 	}
 
 }

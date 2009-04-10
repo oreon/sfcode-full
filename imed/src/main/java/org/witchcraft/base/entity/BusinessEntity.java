@@ -1,7 +1,9 @@
 package org.witchcraft.base.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
@@ -136,7 +138,7 @@ public class BusinessEntity implements Serializable{
     }
     
     
-	public String[] retrieveSearchableFieldsArray() {
-    	return null;
+	public List<String> listSearchableFields() {
+    	return new ArrayList<String>();
     }
 }

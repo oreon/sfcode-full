@@ -28,7 +28,6 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
-import org.witchcraft.base.entity.EntityTemplate;
 import org.witchcraft.seam.action.BaseAction;
 import org.jboss.seam.annotations.Observer;
 
@@ -45,8 +44,6 @@ public class PatientAction extends BaseAction<Patient>
 
 	@DataModel
 	private List<Patient> patientList;
-	
-	
 
 	@Factory("patientList")
 	@Observer("archivedPatient")
@@ -79,8 +76,6 @@ public class PatientAction extends BaseAction<Patient>
 		}
 
 	}
-	
-	
 
 	public void updateAssociations() {
 

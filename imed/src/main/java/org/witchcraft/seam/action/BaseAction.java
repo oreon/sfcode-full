@@ -102,6 +102,14 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		return "view" + getClassName(t);
 	}
 
+	public String getQueryString() {
+		return queryString;
+	}
+
+	public void setQueryString(String queryString) {
+		this.queryString = queryString;
+	}
+
 	@End
 	public String archive(T t) {
 		t.setArchived(true);
@@ -263,23 +271,28 @@ public abstract class BaseAction<T extends BusinessEntity> {
 	 * @see org.witchcraft.model.support.dao.GenericDAO#performTextSearch(java.lang
 	 *      .String)
 	 */
-	public List<T> performTextSearch(String searchText) {
+	public String textSearch() {
 
 		BusinessEntity businessEntity = getEntity();
-
-		if (businessEntity.retrieveSearchableFieldsArray() == null) {
+		
+		List<String> listSearchableFields = businessEntity.listSearchableFields();
+ 
+		if ( listSearchableFields == null) {
 			throw new RuntimeException(
 					businessEntity.getClass().getSimpleName()
 							+ " needs to override retrieveSearchableFieldsArray method ");
 		}
 
-		MultiFieldQueryParser parser = new MultiFieldQueryParser(businessEntity
-				.retrieveSearchableFieldsArray(), new StandardAnalyzer());
+		String[] arrFields = new String[listSearchableFields.size()];
+		listSearchableFields.toArray(arrFields);
+
+		
+		MultiFieldQueryParser parser = new MultiFieldQueryParser(arrFields, new StandardAnalyzer());
 
 		org.apache.lucene.search.Query query = null;
 
 		try {
-			query = parser.parse(searchText);
+			query = parser.parse(queryString);
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
 		}
@@ -288,8 +301,9 @@ public abstract class BaseAction<T extends BusinessEntity> {
 				getEntity().getClass());
 
 		List<T> result = ftq.getResultList();
-		System.out.println(result.size());
-		return result;
+		
+		setEntityList(result);
+		return getClassName();
 	}
 
 	/**
@@ -299,7 +313,7 @@ public abstract class BaseAction<T extends BusinessEntity> {
 	 */
 	public String reIndex() {
 		final List<T> entries = entityManager.createQuery(
-				"select d from Drug d").getResultList();
+				"select d from " + getClassName(getEntity()) +  "  d").getResultList();
 		for (T t : entries)
 			entityManager.index(t);
 		return null;
@@ -356,6 +370,10 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		if (name.indexOf("$$") > 0)
 			name = name.substring(0, name.indexOf("$$"));
 		return name;
+	}
+	
+	protected String getClassName() {
+		return getClassName(getEntity());
 	}
 
 	// //////////////// Comments
