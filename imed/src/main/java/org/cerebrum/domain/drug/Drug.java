@@ -1,12 +1,13 @@
 package org.cerebrum.domain.drug;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
+import org.hibernate.validator.*;
 
 import org.apache.solr.analysis.LowerCaseFilterFactory;
 import org.apache.solr.analysis.SnowballPorterFilterFactory;
@@ -21,41 +22,38 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Parameter;
 import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.IndexedEmbedded;
+
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 import org.jboss.seam.annotations.Name;
-import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.*;
+import org.hibernate.annotations.Filter;
 
 @Entity
 @Table(name = "drugs")
 @Name("drug")
 @Filter(name = "archiveFilterDef")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Indexed
-@AnalyzerDef(name = "customanalyzer",
-  tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
-  filters = {
-    @TokenFilterDef(factory = LowerCaseFilterFactory.class),
-    @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
-      @Parameter(name = "language", value = "English")
-    })
-  })
+@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
+		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class Drug extends BusinessEntity {
 
-	
 	@NotNull
 	@Length(min = 2, max = 50)
 	@Column(name = "drugname", unique = false)
-	@Field(index=Index.TOKENIZED)
+	@Field(index = Index.TOKENIZED)
 	protected String name;
-	
-	
 
+	@Field(index = Index.TOKENIZED)
 	protected String dosage;
 
+	@Field(index = Index.TOKENIZED)
 	protected String form;
 
-	@Field(index=Index.TOKENIZED)
+	@Field(index = Index.TOKENIZED)
 	protected String activeIngred;
 
 	public void setName(String name) {
@@ -94,21 +92,24 @@ public class Drug extends BusinessEntity {
 	public String getDisplayName() {
 		return name + "";
 	}
-	
+
 	/** This method is used by hibernate full text search - override to add additional fields
 	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
 	 */
 	@Override
-	public String[] retrieveSearchableFieldsArray() {
+	public List<String> listSearchableFields() {
 		List<String> listSearchableFields = new ArrayList<String>();
+		listSearchableFields.addAll(super.listSearchableFields());
 
 		listSearchableFields.add("name");
 
+		listSearchableFields.add("dosage");
+
+		listSearchableFields.add("form");
+
 		listSearchableFields.add("activeIngred");
 
-
-		String[] arrFields = new String[listSearchableFields.size()];
-		return listSearchableFields.toArray(arrFields);
+		return listSearchableFields;
 	}
 
 }

@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:s="http://jboss.com/products/seam/taglib">
+<div id="header">
+	<ice:form>
+		<ice:menuBar   style="font-size: 10px;" >
+		<ice:menuItem  value="Print" action="country" />
+		<ice:menuItem  value="Export" action="country" />
+		<ice:menuItem  value="Reports" action="country" />
+		<ice:menuItem  value="Preferences" action="country" />
+		<ice:menuItem  value="Archive view" action="country" />
+		<ice:menuItem  value="Audit view" action="country" />
+		
+		<div id="status"> 
+			 <h:graphicImage value="/images/icons/logout.gif" /> <s:link  id="logout" action="#{identity.logout}" value="Logout #{identity.credentials.username}" />
+			 <h:outputText value="  " /> <h:inputText size="12" value="#{patientAction.queryString}"  /> <h:outputText value=" " />  <s:link action="#{patientAction.textSearch}">  <h:graphicImage value="/images/icons/search_icon.gif" /> </s:link>
+		</div>
+		</ice:menuBar>
+	</ice:form>
+</div>
+</html>
