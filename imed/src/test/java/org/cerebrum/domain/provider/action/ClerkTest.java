@@ -1,17 +1,28 @@
 package org.cerebrum.domain.provider.action;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import org.jboss.seam.security.Identity;
+import org.testng.annotations.Test;
+import org.witchcraft.base.entity.*;
+import org.hibernate.annotations.Filter;
 
 import org.testng.annotations.BeforeClass;
+import org.witchcraft.seam.action.BaseAction;
+import org.cerebrum.domain.provider.Clerk;
 
-public class ClerkTest extends org.witchcraft.action.test.BaseTest {
+public class ClerkTest extends org.witchcraft.action.test.BaseTest<Clerk> {
 
 	ClerkAction clerkAction = new ClerkAction();
 
 	@BeforeClass
 	public void init() {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
-		clerkAction.setEntityManager(em);
+		super.init();
 	}
 
+	@Override
+	public BaseAction<Clerk> getAction() {
+		return clerkAction;
+	}
 }

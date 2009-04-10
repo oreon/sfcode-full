@@ -1,13 +1,16 @@
 package  org.witchcraft.action.test;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.hibernate.search.jpa.Search;
 import org.jboss.seam.mock.SeamTest;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.seam.action.BaseAction;
 
-public class BaseTest extends SeamTest{
+public class BaseTest<T extends BusinessEntity> extends SeamTest{
 	
 	private EntityManagerFactory emf;
 
@@ -18,6 +21,12 @@ public class BaseTest extends SeamTest{
 	
 	public void init() {
 		emf = Persistence.createEntityManagerFactory("imed");
+		EntityManager em =  getEntityManagerFactory().createEntityManager();
+		getAction().setEntityManager(Search.createFullTextEntityManager(em));
+	}
+	
+	public BaseAction<T> getAction(){
+		return null;
 	}
 
 	@AfterClass
