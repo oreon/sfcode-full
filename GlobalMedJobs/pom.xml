@@ -54,6 +54,12 @@
 			<version>2.2</version>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>el-api</artifactId>
+			<scope>provided</scope>
+			<version>1.0</version>
+		</dependency>
 	    <dependency>
 			<groupId>javax.faces</groupId>
 			<artifactId>jsf-api</artifactId>
@@ -122,17 +128,17 @@
 			<artifactId>persistence-api</artifactId>
 			<version>1.0</version>
 		</dependency>		
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate</artifactId>
 			<version>${hibernate.version}</version>
-		</dependency> -->
+		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>${hibernate.validator.version}</version>
 		</dependency>
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-annotations</artifactId>
 			<version>${hibernate.annotations.version}</version>
@@ -146,7 +152,18 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-search</artifactId>
 			<version>${hibernate.search.version}</version>
-		</dependency> -->
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>c3p0</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.1.2</version>
+		</dependency>
 	</dependencies>
   
   	<build>
@@ -160,6 +177,16 @@
 					<webAppConfig>
 						<parentLoaderPriority>true</parentLoaderPriority>
 					</webAppConfig>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<inherited>true</inherited>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+					<encoding>utf-8</encoding>
 				</configuration>
 			</plugin>
 	  	</plugins>
