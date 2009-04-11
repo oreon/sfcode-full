@@ -7,7 +7,20 @@
 	xmlns:s="http://jboss.com/products/seam/taglib">
 	
 	<ui:define name="siteContent">
-		JobSeeker Login Page
+		<h:form id="jobSeekerLoginForm">
+			<h:panelGrid columns="2" border="2">
+				<f:facet name="header">
+					<h:outputText value="JobSeeker Login" />
+				</f:facet>
+				<ice:outputLabel value="Email" />
+				<ice:inputText />
+				<ice:outputLabel value="Password" />
+				<ice:inputSecret />
+				
+				<h:commandButton value="Submit" />
+				<s:link id="jobSeekerNotRegisterYetLink" view="/jobseeker/JobSeekerRegistration.seam" value="Not Register Yet!" />
+			</h:panelGrid>
+		</h:form>
 	</ui:define>
-	
+		
 </ui:composition>

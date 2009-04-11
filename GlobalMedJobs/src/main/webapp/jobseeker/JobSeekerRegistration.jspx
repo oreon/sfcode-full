@@ -13,23 +13,22 @@
 					<h:outputText value="JobSeeker Registration" />
 				</f:facet>
 				<ice:outputLabel value="First Name" />
-				<ice:inputText />
+				<ice:inputText value="${jobSeeker.firstName}" />
 				<ice:outputLabel value="Middle Name" />
-				<ice:inputText />
+				<ice:inputText value="${jobSeeker.middleName}"/>
 				<ice:outputLabel value="Last Name" />
-				<ice:inputText />
+				<ice:inputText value="${jobSeeker.lastName}"/>
 				<ice:outputLabel value="Email" />
-				<ice:inputText />
+				<ice:inputText value="${jobSeeker.email}"/>
 				<ice:outputLabel value="Password" />
-				<ice:inputSecret />
+				<ice:inputSecret value="${jobSeeker.password}"/>
 				<ice:outputLabel value="Re-type Password" />
-				<ice:inputSecret />
+				<ice:inputSecret value="${jobSeeker.reTypePassword}"/>
 				<ice:outputLabel value="Summary" />
 				<ice:inputRichText/>
 				
 				<h:commandButton value="Cancel" />
-				<h:commandButton value="Submit" />
-			
+				<h:commandButton value="Submit" action="#{jobSeekerRegisterAction.registerJobSeeker}"/>
 			</h:panelGrid>
 		</h:form>
 	</ui:define>
