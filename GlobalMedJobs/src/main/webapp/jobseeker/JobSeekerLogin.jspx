@@ -7,20 +7,23 @@
 	xmlns:s="http://jboss.com/products/seam/taglib">
 	
 	<ui:define name="siteContent">
+		<ice:graphicImage value="/img/menu.top.bg.gif" />
 		<h:form id="jobSeekerLoginForm">
-			<h:panelGrid columns="2" border="2">
+			<h:panelGrid columns="1" border="0">
 				<f:facet name="header">
 					<h:outputText value="JobSeeker Login" />
 				</f:facet>
-				<ice:outputLabel value="Email" />
-				<ice:inputText />
-				<ice:outputLabel value="Password" />
-				<ice:inputSecret />
 				
-				<h:commandButton value="Submit" />
-				<s:link id="jobSeekerNotRegisterYetLink" view="/jobseeker/JobSeekerRegistration.seam" value="Not Register Yet!" />
+				<ice:outputLabel value="Email" />
+				<ice:inputText value="#{jobSeeker.email}" />
+				<ice:outputLabel value="Password" />
+				<ice:inputSecret value="#{jobSeeker.password}" />
+				
+				<h:commandButton value="Login" action="#{jobSeekerLoginAction.loginJobSeeker}"/>
+				<s:link id="jobSeekerNotRegisterYetLink" view="/jobseeker/JobSeekerAccount.seam" value="Not Register Yet!" />
 			</h:panelGrid>
 		</h:form>
+		<ice:graphicImage value="/img/menu.bg.gif" />
 	</ui:define>
 		
 </ui:composition>
