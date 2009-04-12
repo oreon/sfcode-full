@@ -1,0 +1,37 @@
+<ui:composition template="/template/MasterTemplate.jspx"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:s="http://jboss.com/products/seam/taglib">
+	
+	<ui:define name="siteContent">
+		<h:form id="jobSeekerAccountForm">
+			<h:panelGrid columns="2" border="2">
+				<f:facet name="header">
+					<h:outputText value="JobSeeker Account" />
+				</f:facet>
+				
+				<ice:outputLabel value="First Name" />
+				<ice:inputText value="#{jobSeeker.firstName}" />
+				<ice:outputLabel value="Middle Name" />
+				<ice:inputText value="#{jobSeeker.middleName}"/>
+				<ice:outputLabel value="Last Name" />
+				<ice:inputText value="#{jobSeeker.lastName}"/>
+				<ice:outputLabel value="Email" />
+				<ice:inputText value="#{jobSeeker.email}"/>
+				<ice:outputLabel value="Password" />
+				<ice:inputSecret value="#{jobSeeker.password}"/>
+				<ice:outputLabel value="Re-type Password" />
+				<ice:inputSecret value="#{jobSeeker.reTypePassword}"/>
+				<ice:outputLabel value="Summary" />
+				<ice:inputRichText/>
+				
+				<h:commandButton value="Cancel" />
+				<h:commandButton value="Submit" action="#{jobSeekerAccountAction.createJobSeekerAccount}" />
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

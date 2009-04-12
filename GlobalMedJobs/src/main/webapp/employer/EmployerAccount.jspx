@@ -1,0 +1,37 @@
+<ui:composition template="/template/MasterTemplate.jspx"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:s="http://jboss.com/products/seam/taglib">
+	
+	<ui:define name="siteContent">
+		<h:form id="employerAccountForm">
+			<h:panelGrid columns="2" border="2">
+				<f:facet name="header">
+					<h:outputText value="Employer Account" />
+				</f:facet>
+				
+				<ice:outputLabel value="First Name" />
+				<ice:inputText value="${employer.firstName}" />
+				<ice:outputLabel value="Middle Name" />
+				<ice:inputText value="${employer.middleName}"/>
+				<ice:outputLabel value="Last Name" />
+				<ice:inputText value="${employer.lastName}"/>
+				<ice:outputLabel value="Email" />
+				<ice:inputText value="${employer.email}"/>
+				<ice:outputLabel value="Password" />
+				<ice:inputSecret value="${employer.password}"/>
+				<ice:outputLabel value="Re-type Password" />
+				<ice:inputSecret value="${employer.reTypePassword}"/>
+				<ice:outputLabel value="Summary" />
+				<ice:inputRichText/>
+				
+				<h:commandButton value="Cancel" />
+				<h:commandButton value="Submit" action="#{employerAccountAction.createEmployerAccount}"/>
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>
