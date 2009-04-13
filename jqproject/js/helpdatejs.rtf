@@ -1,0 +1,281 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang2057{\fonttbl{\f0\fswiss\fcharset0 Arial;}}
+{\*\generator Msftedit 5.41.21.2508;}\viewkind4\uc1\pard\f0\fs20 echnical support is provided through the Datejs Discussion Group.\par
+\par
+A test suite is available within SVN (/trunk/test/) or viewable online at http://www.datejs.com/test/.\par
+\par
+View Change Log.\par
+Getting Started\par
+\par
+NOTE Please be sure to check out our blog post "Getting Started with Datejs".\par
+\par
+We recommend including one of the .js files from within the /build/ folder.\par
+\par
+<script type="text/javascript" src="date.js"></script>\par
+\par
+Within the /build/ folder, a date.js file has been created for each of the 150+ supported Cultures. Changing the Culture of the library is as easy as changing the date.js file.\par
+\par
+<!-- Set the CultureInfo to de-DE (German/Deutsch) -->\par
+<script type="text/javascript" src="date-de-DE.js"></script>\par
+\par
+Before minification, the Datejs library is contained in five (6) separate JavaScript files. Each of the files can be included individually.\par
+\par
+The following is a list of precedence if including the files individually. Each file requires the one above it. For example, core.js requires a CultureInfo file.\par
+\par
+  1. CultureInfo       Contains all Globalized strings and culture specific properties.\par
+                       Debug versions available within the /trunk/source/globalization/ folder.\par
+  2. core.js           All core Date processing logic.\par
+  3. parser.js         All parsing logic.\par
+  4. sugarpak.js*      All syntactical sugar.\par
+  5. time.js**         TimeSpan and TimePeriod classes.\par
+  6. extras.js**       PHP/Unix date format conversion functions.\par
+\par
+  *  The parser.js file is not required for sugarpak.js\par
+  ** The time.js and extras.js files are optional and are not included in the compiled /build/ versions.\par
+\par
+Example Usage\par
+Syntax Overview\par
+\par
+Date.today()                    // Returns today's date, with time set to 00:00 (start of day).\par
+\par
+Date.today().next().friday()    // Returns the date of the next Friday.\par
+Date.today().last().monday()    // Returns the date of the previous Monday.\par
+\par
+new Date().next().march()       // Returns the date of the next March.\par
+new Date().last().week()        // Returns the date one week ago. \par
+\par
+Date.today().is().friday()      // Returns true|false if the day-of-week matches.\par
+Date.today().is().fri()         // Abbreviated day names. \par
+\par
+Date.today().is().november()    // Month names.\par
+Date.today().is().nov()         // Abbreviated month names.\par
+\par
+Date.today().is().weekday()     // Is today a weekday?\par
+\par
+Date.today().addDays(1)         // Add one day (+1).\par
+Date.today().addMonths(-3)      // Subtract three months (-3).\par
+\par
+Date.today().add(1).day()       // Add one (+1) day. Supports all date parts (year, month, day, hour, minute, second, millisecond, and weeks)\par
+Date.today().add(-3).months()   // Subtract three (-3) months.\par
+\par
+(1).day().fromNow()             // One (1) day from now. \par
+(3).months().ago()              // Three (3) months ago.\par
+\par
+var n = 6;\par
+n.months().fromNow()            // Six (6) months from now.\par
+\par
+Date.monday()                   // Returns Monday of the current week.\par
+Date.mon()                      // Abbreviated version of Date.monday()\par
+\par
+Date.march()                    // Returns March 1st of this year.\par
+Date.mar()                      // Abbreviated version of Date.march()\par
+\par
+Date.today().first().thursday() // Returns the first Thursday of the current month.\par
+Date.today().second().thursday()// Returns the second Thursday of the current month.\par
+\par
+Date.march().third().thursday() // Returns the third Thursday in March of the current year.\par
+Date.october().fourth().sunday()// Returns the fourth Sunday in October.\par
+\par
+Date.today().fifth().sunday()   // Returns the fifth Sunday in the current month, or throws a RangeError exception if there are not 5 Sundays in the current month.\par
+Date.october().final().sunday() // Returns the final Sunday in October.\par
+\par
+Date.january().first().monday() // Returns the first Monday of the current year.\par
+Date.december().final().friday()// Returns the last Friday of the current year.\par
+\par
+Date.today().at("6:15pm");      // Returns todays date at 6:15pm.\par
+\par
+var time = \{hour:18, minute:15\};\par
+Date.today().at(time);          // Set time with a config object.\par
+\par
+var birthDayParty = \{month: 1, day: 20, hour: 20, minute: 30\};\par
+Date.today().set(birthDayParty);// Set date and time with a config object.\par
+\par
+Parsing\par
+\par
+The following list is only a small subset of hundreds of string formats which can be parsed correctly without providing a date format. All parsing is fully Globalized by including the appropriate CultureInfo file. The CultureInfo file contains all the strings used for parsing and formatting.\par
+\par
+All CultureInfo files can be found in the /trunk/source/globalization/ folder.\par
+\par
+The following .parse() samples use the en-US.js CultureInfo file.\par
+\par
+Date.parse('t')                 // Returns today's date.\par
+Date.parse('today')             // Returns today's date.\par
+Date.parse('tomorrow')          // Returns tomorrow's date.\par
+Date.parse('yesterday')         // Returns yesterday's date.\par
+\par
+Date.parse('next friday')       // Returns the date of the next Friday.\par
+Date.parse('last monday')       // Returns the date of the previous Monday.\par
+\par
+Date.parse('July 8th, 2004')    // Thu Jul 08 2004\par
+Date.parse('15-Jan-2004')       // Thu Jan 15 2004\par
+\par
+Date.parse('7/1/2004')          // Thu Jul 01 2004\par
+Date.parse('7.1.2004')          // Thu Jul 01 2004\par
+Date.parse('07.15.04')          // Thu Jul 15 2004\par
+\par
+Date.parse('July 23rd 2004')    // Fri Jul 23 2004\par
+Date.parse('Sat July 3, 2004')  // Sat Jul 03 2004\par
+\par
+Date.parse('10:30 PM EST')      // Wed Oct 31 2007 20:30:00\par
+Date.parse('10PM')              // Wed Oct 31 2007 22:00:00\par
+\par
+Date.parse('t + 5d')            // Adds 5 days to today.\par
+Date.parse('today - 1 month')   // Subtracts 1 month from today.\par
+\par
+Date.parse('+')                 // Add 1 day to today = tomorrow.\par
+Date.parse('- 3months')         // Subtract 3 months.\par
+\par
+Date.parse('+1year')            // Add a year to today.\par
+Date.parse('-12 months')        // Subtract 12 months (1 year) from today.\par
+\par
+Date.parse('July 4th')          // July 4th of this year.\par
+Date.parse('15')                // 15th day of current month/year.\par
+\par
+Date.parse('July 8th, 2004, 10:30 PM')      // Thu Jul 08 2004 22:30:00\par
+Date.parse('2004-07-15T06:45:00')           // Thu Jul 15 2004 06:45:00\par
+Date.parse('Thu, 1 July 2004 22:30:00 GMT') // Thu Jul 01 2004 16:30:00\par
+\par
+Date.parse('1997-07-16T19:20:15')           // ISO 8601 Formats\par
+Date.parse('1997-07-16T19:20:30+01:00')     // ISO 8601 with Timezone offset\par
+Date.parse('1985-04-12T23:20:50Z')          // RFC 3339 Formats\par
+\par
+Chaining\par
+\par
+Date.today().add(\{ months: 1, days: 5 \}).is().fri()        // Add 1 month and 5 days, then check if that date is a Friday.\par
+Date.parse('10-July-2004').next().friday().add(-1).month() // Take in a date, then move to the next Friday and subtract a month.\par
+\par
+Comparison\par
+\par
+Date.today().equals( Date.parse('today'))                  // true|false\par
+Date.parse('last Tues').equals(Date.today())               // true|false\par
+\par
+Date.equals(Date.today(), Date.parse('today'))             // true|false\par
+Date.compare(Date.today(), Date.parse('today'))            // 1 = greater, -1 = less than, \par
+\par
+Date.today().compareTo(Date.parse('yesterday'))            // 1 = greater, -1 = less than, 0 = equal\par
+Date.today().between(startDate, endDate)                   // true|false\par
+\par
+Converting to String\par
+\par
+Note The format parameter is optional with the .toString() function. If no format is provided, the native JavaScript Date .toString() function will be called.\par
+\par
+A detailed list of supported FormatSpecifiers is listed in the Wiki documentation.\par
+\par
+Standard Date and Time Format Specifiers\par
+\par
+Format \tab Description \tab Example\par
+s \tab The seconds of the minute between 0-59. \tab "0" to "59"\par
+ss \tab The seconds of the minute with leading zero if required. \tab "00" to "59"\par
+m \tab The minute of the hour between 0-59. \tab "0" or "59"\par
+mm \tab The minute of the hour with leading zero if required. \tab "00" or "59"\par
+h \tab The hour of the day between 1-12. \tab "1" to "12"\par
+hh \tab The hour of the day with leading zero if required. \tab "01" to "12"\par
+H \tab The hour of the day between 0-23. \tab "0" to "23"\par
+HH \tab The hour of the day with leading zero if required. \tab "00" to "23"\par
+d \tab The day of the month between 1 and 31. \tab "1" to "31"\par
+dd \tab The day of the month with leading zero if required. \tab "01" to "31"\par
+ddd \tab Abbreviated day name. Date.CultureInfo.abbreviatedDayNames. \tab "Mon" to "Sun"\par
+dddd \tab The full day name. Date.CultureInfo.dayNames. \tab "Monday" to "Sunday"\par
+M \tab The month of the year between 1-12. \tab "1" to "12"\par
+MM \tab The month of the year with leading zero if required. \tab "01" to "12"\par
+MMM \tab Abbreviated month name. Date.CultureInfo.abbreviatedMonthNames. \tab "Jan" to "Dec"\par
+MMMM \tab The full month name. Date.CultureInfo.monthNames. \tab "January" to "December"\par
+yy \tab Displays the year as a two-digit number. \tab "99" or "07"\par
+yyyy \tab Displays the full four digit year. \tab "1999" or "2007"\par
+t \tab Displays the first character of the A.M./P.M. designator. Date.CultureInfo.amDesignator or Date.CultureInfo.pmDesignator \tab "A" or "P"\par
+tt \tab Displays the A.M./P.M. designator. Date.CultureInfo.amDesignator or Date.CultureInfo.pmDesignator \tab "AM" or "PM"\par
+S \tab The ordinal suffix ("st, "nd", "rd" or "th") of the current day. \tab "st, "nd", "rd" or "th"\par
+\par
+Custom Date and Time Format Specifiers\par
+\par
+Format \tab Description \tab Example\par
+d \tab The CultureInfo shortDate Format Pattern \tab "M/d/yyyy"\par
+D \tab The CultureInfo longDate Format Pattern \tab "dddd, MMMM dd, yyyy"\par
+F \tab The CultureInfo fullDateTime Format Pattern \tab "dddd, MMMM dd, yyyy h:mm:ss tt"\par
+m \tab The CultureInfo monthDay Format Pattern \tab "MMMM dd"\par
+r \tab The CultureInfo rfc1123 Format Pattern \tab "ddd, dd MMM yyyy HH:mm:ss GMT"\par
+s \tab The CultureInfo sortableDateTime Format Pattern \tab "yyyy-MM-ddTHH:mm:ss"\par
+t \tab The CultureInfo shortTime Format Pattern \tab "h:mm tt"\par
+T \tab The CultureInfo longTime Format Pattern \tab "h:mm:ss tt"\par
+u \tab The CultureInfo universalSortableDateTime Format Pattern \tab "yyyy-MM-dd HH:mm:ssZ"\par
+y \tab The CultureInfo yearMonth Format Pattern \tab "MMMM, yyyy"\par
+\par
+Separator Characters\par
+\par
+Character \tab Name\par
+/ \tab forward slash\par
+\tab space\par
+. \tab period|dot\par
+- \tab hyphen|dash\par
+, \tab comma\par
+\par
+new Date().toString()                  // "Wed Oct 31 2007 16:18:10 GMT-0700 (Pacfic Daylight Time)"\par
+new Date().toString('M/d/yyyy')        // "10/31/2007"\par
+\par
+Date.today().toString('d-MMM-yyyy')    // "31-Oct-2007"\par
+new Date().toString('HH:mm')           // "16:18"\par
+\par
+Date.today().toString('MMMM dS, yyyy') // "April 12th, 2008"\par
+\par
+Date.today().toShortDateString()       // "10/31/2007". Culture specific as per Date.CultureInfo.shortDatePattern.\par
+Date.today().toLongDateString()        // "Wednesday, October 31, 2007". Culture specific as per Date.CultureInfo.longDatePattern.\par
+\par
+new Date().toShortTimeString()         // "4:18 PM". Culture specific as per Date.CultureInfo.shortTimePattern.\par
+new Date().toLongTimeString()          // "4:18:34 PM". Culture specific as per Date.CultureInfo.longTimePattern.\par
+\par
+Core\par
+\par
+Date.today().set(\{ day: 15 \})          // Sets the day to the 15th of the current month and year. Other object values include year|month|day|hour|minute|second.\par
+\par
+        Date.today().set(\{ year: 2007, month: 1, day: 20 \})\par
+\par
+\par
+Date.today().add(\{ days: 2 \})          // Adds 2 days to the Date. Other object values include year|month|day|hour|minute|second.\par
+\par
+        Date.today().add(\{ years: -1, months: 6, hours: 3 \})\par
+\par
+\par
+Date.today().addYears(1)               // Add 1 year.\par
+Date.today().addMonths(-2)             // Subtract 2 months.\par
+Date.today().addWeeks(1)               // Add 1 week\par
+Date.today().addHours(6)               // Add 6 hours.\par
+Date.today().addMinutes(-30)           // Subtract 30 minutes\par
+Date.today().addSeconds(15)            // Add 15 seconds.\par
+Date.today().addMilliseconds(200)      // Add 200 milliseconds.\par
+\par
+Date.today().moveToFirstDayOfMonth()   // Returns the first day of the current month.\par
+Date.today().moveToLastDayOfMonth()    // Returns the last day of the current month.\par
+\par
+new Date().clearTime()                 // Sets the time to 00:00 (start of the day).\par
+Date.today().setTimeToNow()            // Resets the time to the current time (now). The functional opposite of .clearTime()\par
+\par
+ISO 8601\par
+\par
+// Parse ISO 8601 string\par
+Date.parse('\\"1997-07-16T19:20:15\\"')  // ISO 8601 string format with wrapping double-quotes\par
+\par
+// Convert date to ISO 6801 string\par
+new Date().toISOString()               // Returns ISO 8601 string of date converted to it's UTC value. "2007-10-31T16:18:00Z"\par
+\par
+// Get UTC converted ISO week number\par
+Date.today().getISOWeek()              // Returns ISO 8601 week of year. Returns "01" to ("52" | "53") depending on the year. See also .getWeek()\par
+\par
+Misc\par
+\par
+Date.getMonthNumberFromName('March')   // 2 - CultureInfo specific. <static>\par
+Date.getDayNumberFromName('sat')       // 6 - CultureInfo specific. <static>\par
+\par
+Date.isLeapYear(2008)                  // true|false. <static>\par
+Date.getDaysInMonth(2007, 9)           // 31 <static>\par
+\par
+Date.today().getWeek()                 // Returns week of year. Returns 1 to (52 | 53) depending on the year\par
+Date.today().setWeek(1)                // Sets the week of the year to the Monday of the week set.\par
+\par
+var test = new Date();                 // Do something... like run a test...\par
+test.getElapsed()                      // Returns millisecond difference from now.\par
+\par
+Date.today().isDaylightSavingTime()    // true|false. Is within the Daylight Saving Time.\par
+Date.today().hasDaylightSavingTime()   // true|false. Is Daylight Saving Time observed.\par
+\par
+Some icons provided by fantabulous FamFamFam. \par
+}
+ 

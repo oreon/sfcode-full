@@ -1,0 +1,204 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <title></title>
+<style type="text/css">
+
+.even {
+	background-color: #E7F7FF;
+}
+
+.highlight {
+	background-color: #222227 !important;
+}
+
+
+</style>
+
+  <script type="text/javascript" src="custom/js/jquery-1.3.2.min.js"></script>
+  <script type="text/javascript" src="custom/ui/ui.core.js"></script>
+   <script type="text/javascript" src="js/tdnd.js"></script>
+
+   <script src="js/tdnd.js" type="text/javascript"></script>
+
+    
+    <script type="text/javascript">
+       //JQuery Selectors
+       //get a tag: eg var anchors= $('a');
+       //get an id: eg var messagePara = $('#message');
+       //get all classes with name: eg $('.submenu').hide();
+       //get tag within tag: eg $('#navBar a')
+       //select children eg: $('body > p')
+       //Adjacent sibling eg: $('h2 + div')
+       //Attribute selectors eg: $('img[alt]')
+                        // $('input[type=text]')
+                        //$('a[href^=http://]')     attrib begins with value
+                        // eg: $('a[href^=mailto:]')
+                        // eg: $('a[href$=.pdf]')      [attribute$=value]
+                        // eg: $('a[href*=solundrian.com]') [attribute*=value] contains
+      // JQUERY Filters
+      //$('tr:even')       find every even row in all tables
+      //$('.striped tr:even')       find every even row in table with class name striped
+      //$('a:not(.navButton)');     every anchor except navButton
+      //$('a:not([href^=http://])') links that dont begin with http
+      //$('li:has(a)')              all list tags containing anchors
+      //$('a:contains(Click Me!)')   find text
+      //$('div:hidden').show();    show hidden divs n.b.not css invisible though
+      //automatic looping eg: $('#slideshow img').hide();
+      //chaining $('#popUp').width(300).height(300).text('Hi!').fadeIn(1000);
+      //html()    eg: alert($('#errors').html()); all content in #errors
+      //replace content eg: $('#errors').html('<p>There are four errors in this form</p>');
+      //text() copies content to display as code
+      //append()   adds content to end e.g: $('#errors').append('<p>There are four errors in this form</p>');
+      //prepend() adds to start e.g: $('#errors').prepend('<p>There are four errors in this form</p>');
+       //before() after $('userName').after('<span class="error">User name required</span>');
+       //remove() $('#popup').remove();  can remove all elrmrnys with name
+       //replace()   $('#product101').replace('<p>Added to cart</p>');
+       //clone()
+
+    // Initialise the second table specifying a dragClass and an onDrop function that will display an alert
+	$("#striped").tableDnD();
+	  
+	  $("#striped tr").hover(function() {
+          $(this.cells[0]).addClass('showDragHandle');
+    }, function() {
+          $(this.cells[0]).removeClass('showDragHandle');
+    });
+
+	
+
+
+       
+		       
+		
+
+var now = new Date();
+var hours = now.getHours();
+var minutes = now.getMinutes();
+var seconds = now.getSeconds();
+
+
+    function printToday() {
+ var today = new Date();
+ document.write(today.toDateString());
+}
+
+
+
+var days = ['Sunday','Monday','Tuesday','Wednesday',
+            'Thursday','Friday','Saturday'];
+var now = new Date();
+var dayOfWeek = days[now.getDay()];
+function printTime(secs) {
+    var sep = ':'; //seperator character
+    var hours,minutes,seconds,time;
+    var now = new Date();
+    hours = now.getHours();
+    if (hours < 12) {
+        meridiem = 'am';
+    } else {
+        meridiem = 'pm';
+    }
+    hours = hours % 12;
+    if (hours==0) {
+        hours = 12;
+    }
+    time = hours
+    minutes = now.getMinutes();
+    if (minutes<10) {
+        minutes = '0' + minutes;
+    }
+    time += sep + minutes;
+    if (secs) {
+        seconds = now.getSeconds();
+        if (seconds<10) {
+            seconds = '0' + seconds;
+        }
+        time += sep + seconds
+    }
+    return time + ' ' + meridiem;
+}
+
+var now = new Date(); // today
+var nowMS = now.getTime(); // get # milliseconds for today
+var week = 1000*60*60*24*7; // milliseconds in one week
+var oneWeekFromNow = new Date(nowMS + week);
+
+var months = ['January','February','March','April','May',
+              'June','July','August','September',
+              'October','November','December'];
+var monthName=months[month];
+
+
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body style="font-size:62.5%;">
+      <div>
+          
+     <table width="98%" border="0" cellspacing="0" cellpadding="0" class="striped" id="striped">
+
+                
+                    <thead>
+                        <tr>
+                            
+                            <th>Location</th>
+                            <th>Contact</th>
+                            <th>Comments</th>
+
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <tr>
+                               
+                                <th>Location</th>
+                                <th>Contact</th>
+                                <th>Comments</th>
+
+                            </tr>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr id="r1" class="nodrop nodrag"><td>0.0am</td></tr>
+
+                    <tr id="t1">
+                        <td>Wimpy</td>
+                        <td>Evelyn Mitchell</td>
+                        <td>Dont be late!</td>
+
+
+                    </tr>
+                    <tr id="r2"><td>1.00pm</td></tr>
+
+                   <tr id="t2">
+                        <td>Waterside></td>
+                        <td>Isabel</td>
+                        <td>pound coin for locker</td>
+
+
+                    </tr>
+                    <tr id="r3" class="nodrop nodrag"><td>2.00pm</td></tr>
+
+                   <tr id="t3">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+
+                    </tr>
+                    <tr id="r4" class="nodrop nodrag"><td>3.00pm</td></tr>
+
+                   <tr id="t4">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+  </div>
+  </body>
+</html>

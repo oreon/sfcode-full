@@ -1,0 +1,443 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+
+<html><head><title>Track Sorter - Sortable List</title>
+
+		<style type="text/css">
+	html {
+		background: AppWorkspace;
+	}
+	body {
+		margin: 10px;
+		padding: 0;
+		font-family: "Trebuchet MS", sans-serif;
+		height: 100%;
+	}
+
+	#explanation {
+		position: absolute;
+		top: 300px;
+		left: 240px;
+	}
+	#contents {
+		background: #eee;
+		position: relative;
+		padding:  12px;
+		height: 90%;
+	}
+
+	.instructions {
+		background: infobackground;
+	}
+
+	#help {
+		z-index: 2000;
+		position: absolute;
+		top: 133px;
+		left: 340px;
+		color:#222;
+		border: 1px solid #555;
+		font-size: 12px;
+		padding: 1ex 1em;
+	}
+
+	#help h2 {
+		font-size: 14px;
+		font-family: "Trebuchet MS", "Tahoma", sans-serif;
+	}
+
+
+
+	#ordering-view {
+		width: 220px;
+		float: left;
+	}
+
+
+	.sortable-list {
+		position: relative;
+		display: block;
+		margin: 0;
+		padding: 0;
+	}
+	.sortable-list li {
+		list-style: none;
+		display: block;
+		position: relative;
+		margin: 0;
+		padding: 1px 0;
+		top: 0;
+		left: 0;
+		cursor: default;
+		background: ButtonFace;
+		font: 10px "Trebuchet MS", "Tahoma", sans-serif;
+		border: 1px solid #333;
+		-moz-border-radius: 6px;
+		-webkit-border-radius: 6px;
+		z-index: 0;
+		text-indent: 4px;
+		background: #02b;
+		color: #d0ddff;
+	}
+
+	.album-title {
+		font-weight: bold;
+		line-height: 120%;
+	}
+
+	.sortable-list li li {
+		-moz-border-radius: 0;
+		-webkit-border-radius: 0;
+		height: 15px;
+		border-width: 1px 0 1px 0;
+		border-color: #47f;
+		text-indent: 4px;
+		background: #fff;
+		color: #000;
+	}
+
+	.sortable-list ul {
+		margin: 4px 0 0 4px;
+		background: #fff;
+	}
+
+	*>html .sortable-list li {
+		height: 14px;
+	}
+	*>html .sortable-list span {
+		display: block;
+		position: relative;
+		top: 0;
+		margin: 0;
+		vertical-align: 0;
+	}
+
+	.activeDrag {
+		background-color: Highlight;
+		color: HighlightText;
+		border-color: activeborder;
+		opacity: .8;
+		filter: alpha(opacity=80);
+	}
+
+	.sortable-list .focusedItem {
+		background: #03c;
+		color: #dde1ff;
+		border-color: #43a0fb;
+	}
+
+	.sortable-list ul .focusedItem {
+		background-color: #03c;
+		color: #fff;
+		border-color: #43a0fb;
+	}
+
+	.focusedItem ul, .focusedItem .title {
+		border-color: #43a0fb;
+	}
+	</style>
+
+	<script src="../../src/dragUtils.js" type="text/javascript"></script>
+	<script type="text/javascript" src="../../src/drag.js" title="Generic Drag Classes"></script>
+	<script type="text/javascript" src="../../src/sortable-list.js"
+		title="SortableList and SortableListItem Classes"></script>
+
+	<script type="text/javascript" defer="defer">
+// <![CDATA[
+
+(function() {
+
+	/** We submit the form when the document is unloaded.
+	 * This could also be submitted to a hidden iframe to preserve
+	 * state.
+	 */
+
+	EventPublisher.add(window, "onload", function() {
+		document.getElementById("ordering-viewForm").onsubmit = formSubmitted;
+	});
+
+
+	var formSubmitted = function(e) {
+		var sortableList = SortableList.getInstance(document.getElementById(this.id.replace(/Form$/, "")));
+
+		alert(sortableList.inspectList().join(" = \n"));
+
+		// Cancel form submission.
+		e = e||event;
+		if(e.preventDefault) e.preventDefault();
+		else e.returnValue = false;
+	};
+})();
+// ]]>
+		</script></head>
+
+
+	<body>
+
+		<div id="contents">
+			<h1>Sortable Track List</h1>
+			<p>
+				Drag and drop any item between any other item.
+			</p>
+			<iframe id="hidden-frame" name="hidden-frame" style="top: -1000px; left: -1000px;position: absolute;"></iframe>
+
+			<form id="ordering-viewForm" method='post' target="hidden-frame" action="null">
+				<input type="submit" value="Save Track Order">
+			<ul id="ordering-view" class="sortable-list">
+
+				<li id="Symphony_X-album">
+					<span class="title album-title">Symphony X</span>
+					<ul class="sortable-list">
+						<li id="Into_The_Dementia">
+						   Into The Dementia
+						</li>
+
+						<li id="The_Raging_Season">
+						   The Raging Season
+						</li>
+						<li id="Premonition">
+							Premonition
+						</li>
+						<li id="Masquerade">
+							 Masquerade
+						</li>
+						<li id="Absinthe_And_Rue">
+							Absinthe And Rue
+						</li>
+						<li id="Shades_Of_Grey">
+
+							Shades Of Grey
+						</li>
+						<li id="Taunting_The_Notorious">
+						  Taunting The Notorious
+						</li>
+						<li id="Rapture_Or_Pain">
+						   Rapture Or Pain
+						</li>
+						<li id="Thorns_Of_Sorrow">
+						   Thorns Of Sorrow
+						</li>
+
+						<li id="A_Lesson_Before_Dying">
+							A Lesson Before Dying
+						</li>
+	 				</ul>
+				</li>
+
+				<li id="The_Damnation_Game-album">
+					<span class="title album-title">The Damnation Game</span>
+					<ul class="sortable-list">
+						<li id="The_Damnation_Game">
+
+						   The Damnation Game
+						</li>
+						<li id="Dressed_To_Kill">
+						   Dressed To Kill
+						</li>
+						<li id="The_Edge_Of_Forever">
+							 The Edge Of Forever
+						</li>
+						<li id="Savage_Curtain">
+						Savage Curtain
+						</li>
+						<li id="Whispers">
+
+						  Whispers
+						</li>
+						<li id="The_Haunting">
+						   The Haunting
+						</li>
+						<li id="Secrets">
+						   Secrets
+						</li>
+						<li id="A_Winters_Dream-Prelude">
+							 A Winter's Dream - Prelude (Part I)
+						</li>
+						<li id="A_Winters_Dream-The_Ascension">
+
+						 A Winter's Dream - The Ascension (Part II)
+						</li>
+					</ul>
+				</li>
+				<li id="The_Divine_Wings_Of_Tragedy-album">
+					<span class="title album-title">The Divine Wings of Tragedy</span>
+					<ul class="sortable-list">
+						<li id="Of_Sins_And_Shadows">
+						Of Sins And Shadows
+						</li>
+						<li id="Sea_Of_Lies">
+
+						  Sea Of Lies
+						</li>
+
+						<li id="Out_Of_The_Ashes">
+						   Out Of The Ashes
+						</li>
+						<li id="The_Accolade">
+						   The Accolade
+						</li>
+						<li id="Pharaoh">
+							 Pharaoh
+						</li>
+						<li id="The_Eyes_Of_Medusa">
+
+						 The Eyes Of Medusa
+						</li>
+						<li id="The_Witching_Hour">
+						The Witching Hour
+						</li>
+						<li id="The_Divine_Wings_Of_Tragedy">
+						  The Divine Wings Of Tragedy
+						</li>
+						<li id="Lady_Of_The_Snow">
+						   Lady Of The Snow
+						</li>
+					</ul>
+
+				</li>
+
+				<li id="Twilight_In_Olypmus-album">
+					<span class="title album-title">Twilight in Olympus</span>
+					<ul class="sortable-list">
+						<li id="Orion-The_Hunter">
+						   Orion - The Hunter
+						</li>
+						<li id="Candlelight_Fantasia">
+						   Candlelight Fantasia
+						</li>
+
+						<li id="Smoke_And_Mirrors">
+						   Smoke And Mirrors
+						</li>
+						<li id="Church_Of_The_Machine">
+							 Church Of The Machine
+						</li>
+						<li id="Sonata">
+						 Sonata
+						</li>
+						<li id="Into_the_Dragons_Den">
+						Into the Dragon's Den
+						</li>
+						<li id="The_Relic">
+
+						  The Relic
+						</li>
+					</ul>
+				</li>
+
+				<li id="The_New_Mythology_Suite-album" style="display:none">
+					<span class="title album-title">The New Mythology Suite</span>
+					<ul class="sortable-list">
+						<li id="Prelude">
+							 Prelude
+						</li>
+						<li id="Evolution">
+
+						 Evolution (The Grand Design)
+						</li>
+						<li id="Transcendence">
+						Transcendence (Segue)
+						</li>
+						<li id="Communion_And_The_Oracle">
+						  Communion And The Oracle
+						</li>
+
+						<li id="The_Bird-Serpent_War_Oracle">
+						   The Bird-serpent War Oracle
+						</li>
+						<li id="On_The_Breath_Of_Poseidon">
+
+							 On The Breath Of Poseidon (Segue)
+						</li>
+						<li id="Egypt">
+						 Egypt
+						</li>
+						<li id="The_Death_Of_Balance_Lacrymosa">
+						The Death Of Balance/Lacrymosa
+						</li>
+						<li id="Absence_Of_Light">
+						  Absence Of Light
+						</li>
+
+						<li id="A_Fools_Paradise">
+
+						   A Fool's Paradise
+						</li>
+						<li id="Rediscovery">
+						   Rediscovery (Segue)
+						</li>
+						<li id="Rediscovery_The_New_Mythology">
+							 Rediscovery (Part II) - The New Mythology
+						</li>
+					</ul>
+				</li>
+
+
+				<li id="The_Odyssey-album">
+					<span class="title album-title">The Odyssey</span>
+					<ul class="sortable-list">
+						<li id="Inferno">
+							Inferno (Unleash The Fire)
+						</li>
+						<li id="Wicked">
+						  Wicked
+						</li>
+
+						<li id="Incantations_Of_The_Apprentice">
+
+						   Incantations Of The Apprentice
+						</li>
+						<li id="Accolade_II">
+							 Accolade II
+						</li>
+						<li id="King_Of_Terrors">
+						   King Of Terrors
+						</li>
+						<li id="The_Turning">
+						The Turning
+						</li>
+						<li id="Awakenings">
+
+						  Awakenings
+						</li>
+						<li id="The_Odyssey">
+						 The Odyssey
+						</li>
+						<li id="Masquerade_II">
+						  Masquerade_II
+						</li>
+					</ul>
+				</li>
+			</ul>
+
+				<input type="submit" value="Save Track Order" style="clear: both;display: block">
+			</form>
+	<div id="help" class="instructions">
+	<h2>Keyboard Shortcuts</h2>
+	<pre style='font-size: smaller;'>
+<kbd>&uarr;</kbd>.........selects track above
+<kbd>&darr;</kbd>.........selects track below
+<kbd>ctrl</kbd> + <kbd>&uarr;</kbd>..moves track up
+
+<kbd>ctrl</kbd> + <kbd>&darr;</kbd>..moves track down
+
+<strong>Mozilla Firefox Users:
+</strong>hold <kbd>alt</kbd>............prevents scrolling with arrow keys
+	</pre>
+	</div>
+
+
+			<div id="explanation">
+				<h2>Explanation</h2>
+				<p>
+
+					The list and forms are html. This should be dynamically from a DB.
+				</p>
+				<p>
+					The button "Save Track Order" will submit to the hidden frame. The form's action should
+					point to a server-side program which stores the order in the DB.
+				</p>
+			</div>
+		</div>
+	</body>
+</html>

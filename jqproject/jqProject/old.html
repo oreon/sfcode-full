@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>jQuery Appointment poc project</title>
+
+
+<style type="text/css">
+    @import url("styles.css");
+    body #content.cal{float:right;}
+    #draggable p { cursor: move; }
+    body #cal{ font-size: 62.5%; }
+	body #cal {display:block;float:right;}
+    body #content.infolist{float:left;}
+
+</style>
+<script type="text/javascript" src="custom/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="custom/js/jqui.js"></script>
+<script type="text/javascript" src="js/jqdnd.js"></script>
+<script type="text/javascript" src="custom/dev/ui/datepicker.js"></script>
+<link type="text/css" href="custom/dev/themes/trontastic/ui.core.css" rel="Stylesheet" />
+<link rel="stylesheet" href="custom/dev/themes/trontastic/ui.theme.css" type="text/css" title="ui-theme" />
+<link rel="stylesheet" href="custom/dev/themes/trontastic/ui.datepicker.css" type="text/css" />
+<link rel="stylesheet" href="pager/jquery/tablesorter.pager.css" type="text/css" />
+<script type="text/javascript" src="custom/dev/ui/ui.core.js"></script>
+<script type="text/javascript" src="js/jquery.tablednd_0_5.js"></script>
+
+<link type="text/css" href="http://jqueryui.com/latest/themes/base/ui.all.css" rel="stylesheet" />
+  <script type="text/javascript" src="http://jqueryui.com/latest/jquery-1.3.2.js"></script>
+  <script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.core.js"></script>
+  <script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.datepicker.js"></script>
+  
+<script type="text/javascript">
+    $(function() {
+		$('#datepicker').datepicker({
+			numberOfMonths: 3,
+			showButtonPanel: true
+		});
+	});
+   /* $(document).ready(function() {
+        $("#infolist").accordion({
+            header: '.personName',
+            animated: 'bounceslide',
+            navigation: false
+        });
+    $(".email").defuscate();
+    });*/
+
+      $(document).ready(function() {
+
+      $('#apps td').hover(function() {
+
+        $(this).addClass('pretty-hover');
+
+      }, function() {
+
+        $(this).removeClass('pretty-hover');
+
+      });
+      });
+
+$(document).ready(function() {
+    // Initialise the table
+    $("#times").tableDnD();
+});
+
+$(document).ready(function( ) {
+
+$('table.sortable').tablesorter({widgets: ['zebra']});
+
+});
+
+
+</script>
+
+</head>
+<body>
+    <div class="content">
+<div class="cal" id="datepicker">	</div>
+<ul id="infolist">
+	<li>
+	
+	<div class="person">
+    <table class="clmonth" id="apps" >
+
+  <tr>
+    <th scope="col">Mon</th>
+    <th scope="col">Tue</th>
+    <th scope="col">Wed</th>
+    <th scope="col">Thur</th>
+    <th scope="col">Fri</th>
+    <th scope="col">Sat</th>
+    <th scope="col">Sun</th>
+  </tr>
+  <tr>
+    <td class="previous">31</td>
+    <td>1<pre>           </pre></td>
+    <td>2<pre>           </pre></td>
+    <td>3<pre>           </pre></td>
+    <td>4<pre>           </pre></td>
+    <td>5<pre>           </pre></td>
+    <td>6<pre>           </pre></td>
+    </tr>
+  <tr>
+    <td>7<pre>           </pre></td>
+    <td>8<pre>           </pre></td>
+    <td>9<pre>           </pre></td>
+    <td>10<pre>           </pre></td>
+    <td>11<pre>           </pre></td>
+    <td>12<pre>           </pre></td>
+    <td>13<pre>           </pre></td>
+  </tr>
+  <tr>
+    <td>14<pre>           </pre></td>
+    <td>15<pre>           </pre></td>
+    <td>16<pre>           </pre></td>
+    <td>17<pre>           </pre> </td>
+    <td>18<pre>           </pre> </td>
+    <td>19<pre>           </pre></td>
+    <td>20<pre>           </pre></td>
+  </tr>
+  <tr>
+    <td>21<pre>           </pre></td>
+    <td>22<pre>           </pre></td>
+    <td>23<pre>           </pre></td>
+    <td>24<pre>           </pre></td>
+    <td>25<pre>           </pre></td>
+    <td>26<pre>           </pre></td>
+    <td>27<pre>           </pre></td>
+  </tr>
+  <tr>
+    <td>28<pre>           </pre></td>
+    <td>29<pre>           </pre></td>
+    <td>30<pre>           </pre></td>
+    <td>31<pre>           </pre></td>
+    <td class="next">1<pre>           </pre></td>
+    <td class="next">2<pre>           </pre></td>
+    <td class="next">3<pre>           </pre></td>
+  </tr>
+</table>
+
+      <table id="times"width="98%" border="0" cellspacing="0" cellpadding="0" class="sortable">
+        <thead>
+          <tr>
+            <th scope="col">Time</th>
+            <th scope="col">Contact</th>
+            <th scope="col">Location</th>
+            <th scope="col">Notes)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="1">
+            <td>00.00</td>
+            <td><input type="text" name="name" value=""/></td>
+            <td><input type="text" name="location" value="" "/></td>
+            <td><input type="text" name="notes" value=" "/></td>
+
+
+          </tr>
+          <tr id="2">
+           <td>01.00</td>
+           <td><input type="text" name="name" value="" "/></td>
+            <td><input type="text" name="location" value="" "/></td>
+            <td><input type="text" name="notes" value=" "/></td>
+
+          </tr>
+          <tr id="3">
+             <td>02.00</td>
+           <td><input type="text" name="name" value="" "/></td>
+            <td><input type="text" name="location" value="" "/></td>
+            <td><input type="text" name="notes" value=" "/></td>
+          </tr>
+          <tr id="4">
+            <td>03.00</td>
+            <td><input type="text" name="name" value="" "/></td>
+            <td><input type="text" name="location" value="" "/></td>
+            <td><input type="text" name="notes" value=" "/></td>
+
+          </tr>
+          <tr id="5">
+             <td>04.00</td>
+            <td><input type="text" name="name" value="" "/></td>
+            <td><input type="text" name="location" value="" "/></td>
+            <td><input type="text" name="notes" value=" "/></td>
+          </tr>
+          <tr id="6">
+            <td>05.00</td>
+            <td><input type="text" name="name" value="" "/></td>
+            <td><input type="text" name="location" value="" "/></td>
+            <td><input type="text" name="notes" value=" "/></td>
+          </tr>
+
+          <tr id="7">
+             <td>06.00</td>
+            <td><input type="text" name="name" value="" "/></td>
+            <td><input type="text" name="location" value="" "/></td>
+            <td><input type="text" name="notes" value=" "/></td>
+          </tr>
+          <tr id="8">
+           <td>07.00</td>
+            <td><input type="text" name="name" value="" "/></td>
+            <td><input type="text" name="location" value="" "/></td>
+            <td><input type="text" name="notes" value=" "/></td>
+
+          </tr>
+          <tr id="9">
+            <td>08.00</td>
+            <td><input type="text" name="name" value="" "/></td>
+            <td><input type="text" name="location" value="" "/></td>
+            <td><input type="text" name="notes" value=" "/></td>
+          </tr>
+          <tr id="10">
+            <td>09.00</td>
+            <td><input type="text" name="name" value="" "/></td>
+            <td><input type="text" name="location" value="" "/></td>
+            <td><input type="text" name="notes" value=" "/></td>
+          </tr>
+          <tr id="11">
+            <td>10.00</td>
+            <td><input type="text" name="name" value="" "/></td>
+            <td><input type="text" name="location" value="" "/></td>
+            <td><input type="text" name="notes" value=" "/></td>
+          </tr>
+          <tr id="12">
+             <td>11.00</td>
+            <td><input type="text" name="name" value="" "/></td>
+            <td><input type="text" name="location" value="" "/></td>
+            <td><input type="text" name="notes" value=" "/></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+	</li>
+</ul>
+		</div>    
+</body>
+</html>
+
