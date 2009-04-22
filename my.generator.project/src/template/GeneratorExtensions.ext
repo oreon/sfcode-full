@@ -87,6 +87,13 @@ String getParent(MappedSuperClass cls):
 String getAssocOptional(Property prop):
 prop.lowerBound() > 0?false:true;
 
+getAssocUpdatable(Property prop):
+true;
+
+getAssocUpdatable(Column col):
+col.mutable;
+
+
 
 boolean isEmbeddable(Type type):
 type.getAppliedStereotype("wcprofile::Embeddable") != null;
@@ -157,6 +164,6 @@ else
 
  
  getColJpaAnnotations(Column col):
- "@Column(name = \"" +  (col.columnName != null ? col.columnName : col.name) +  "\"," + "unique=" + col.uniqueProperty + ")";
+ col.association == null? "@Column(name = \"" +  (col.columnName != null ? col.columnName : col.name) +  "\"," + "unique=" + col.uniqueProperty + ")":"";
  
 
