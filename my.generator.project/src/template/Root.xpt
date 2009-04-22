@@ -206,7 +206,7 @@
 	«ELSE»
 		«IF association != null &&  !type.isEmbeddable()»
 			@ManyToOne(optional=«getAssocOptional()», fetch=FetchType.LAZY)
-    		@JoinColumn(name="«name»_id", nullable=«getAssocOptional()»)
+    		@JoinColumn(name="«name»_id", nullable=«getAssocOptional()», updatable = «getAssocUpdatable()»)
     		«IF type.name != class.name»@ContainedIn«ENDIF»
 		«ENDIF»
 		«IF type.isEmbeddable()»
