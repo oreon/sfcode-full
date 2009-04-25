@@ -1,5 +1,7 @@
 package org.witchcraft.base.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.EntityManager;
 
 import org.jboss.seam.ScopeType;
@@ -11,7 +13,7 @@ import org.witchcraft.users.User;
 
 @Name("userUtilAction")
 @Scope(ScopeType.SESSION)
-public class UserUtilAction {
+public class UserUtilAction implements Serializable{
 	
 	private User currentUser;
 	
