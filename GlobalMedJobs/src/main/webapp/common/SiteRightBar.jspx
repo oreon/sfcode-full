@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:s="http://jboss.com/products/seam/taglib">
+	
+	<style>
+#formBox {width: 181px; float: left;}
+#formBox form {margin: 0px;}
+.header {background: url(/img/BoxHeader.gif) top no-repeat; width: 181px; height: 23px; padding: 7px 0 0 0; font: bold 12px Arial, Helvetica, sans-serif; color: #fff; text-align: center;}
+.boxbg {background: url(/img/BoxBackground.gif) top repeat-y; font: normal 12px Arial, Helvetica, sans-serif; color: #333; padding: 5px;}
+.boxbg label {font: bold 12px Arial, Helvetica, sans-serif; color: #069;}
+.boxbg label .input {width: 162px; padding: 2px; margin: 0 0 8px 0;}
+.boxbg label .select {width: 169px; margin: 0 0 8px 0;}
+</style>
+
+	<h:form id="jobSeekerLoginForm">
+		<div id="formBox">
+			<div class="header">JobSeeker Login</div>
+			<div class="boxbg">
+		  		<ice:outputLabel value="Email:" />
+		  		<ice:inputText value="#{jobSeeker.email}" />
+		  		<ice:outputLabel value="Password:" />
+		  		<ice:inputSecret value="#{jobSeeker.password}" />
+		  		<h:commandButton value="Login" action="#{jobSeekerLoginAction.loginJobSeeker}" />
+				<s:link id="jobSeekerNotRegisterYetLink" view="/jobseeker/JobSeekerAccount.seam" value="Not Register Yet!" />
+			</div>
+			<div><img src="/img/BoxFooter.gif" /></div>
+		</div>
+	</h:form>
+	<h:form id="searchJobsForm">
+		<div id="formBox">
+			<div class="header">Search Jobs</div>
+			<div class="boxbg">
+				<ice:outputLabel value="Keywords:" />
+				<ice:inputText />
+				<h:commandButton value="Search" />
+				<s:link id="advancedSearchLink" view="/jobseeker/search/AdvancedSearch.seam" value="Advanced Search" />
+			</div>
+			<div><img src="/img/BoxFooter.gif" /></div>
+		</div>
+	</h:form>
+	
+</html>
