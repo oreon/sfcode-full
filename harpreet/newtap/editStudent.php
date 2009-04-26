@@ -1,11 +1,11 @@
 <head>
-
-<script type="text/javascript" src="js/jquery.js" /> 
-<script src="js/jquery.validate.js" type="text/javascript" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="js/jquery.validate.js" type="text/javascript"></script>
 
 <script>
-$(document).ready(function(){
+$().ready(function(){
 	$("#studentForm").validate();
+	
 });
 </script>
 
@@ -23,7 +23,6 @@ background-color:#ddd;
 </style>
 <div class="formDiv">
 <form id="studentForm" action="studentcontroller_class.php" method="get">
-
 First Name <input name="firstName" class="required" minlength="3" />
 Last Name <input name="lastName" class="required" minlength="3" />
 Gender
