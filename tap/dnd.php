@@ -39,8 +39,8 @@ Rico.onLoad( function() {
 	   	  	 newdiv.style.position = "absolute";
 	   	  	 //dndMgr.drag(newdiv);
 	   	  	 //alert(target.offsetLeft + ' - ' + target.style.top);
-	   	  	 newdiv.style.left = e.clientX;
-	   	     newdiv.style.top = e.clientY;
+	   	  	 newdiv.style.left = getPosition(target.id,'left');
+	   	     newdiv.style.top = getPosition(target.id,'top');
 	   	  	 
 	   	  	 document.body.appendChild(newdiv);
 	   	  	 dndMgr.registerDraggable( new Rico.Draggable('test-rico-dnd', newdivid) );
@@ -52,6 +52,21 @@ Rico.onLoad( function() {
 
 });
 
+function getPosition(divName,leftOrTop){
+	obj = document.getElementById(divName);
+    var topValue= 0,leftValue= 0;
+    while(obj){
+	leftValue+= obj.offsetLeft;
+	topValue+= obj.offsetTop;
+	obj= obj.offsetParent;
+    }
+    if(leftOrTop=='left')
+    finalvalue = leftValue;
+    else
+        finalvalue = topValue;
+    
+    return finalvalue;
+}
 
 function getLeftOffset(obj) {
 	var x = obj.offsetLeft;
