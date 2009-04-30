@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-autowire="byName"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	    http://www.springframework.org/schema/beans/spring-beans.xsd     
+	    http://www.springframework.org/schema/tx    
+	     http://www.springframework.org/schema/tx/spring-tx.xsd    
+	           http://www.springframework.org/schema/aop       
+	           http://www.springframework.org/schema/aop/spring-aop.xsd
+	           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd
+	           ">
+
+	<aop:aspectj-autoproxy />
+	
+	<bean class="org.caisi.dao.impl.DemographicDaoImpl" id="demographicDao" />
+		
+
+	<bean class="org.caisi.sessionbeans.DemographicSessionBeanImpl"
+		id="demographicSessionBean">
+		<!--  
+		<security:intercept-methods>
+			<security:protect method="save*" access="ROLE_ADMIN, ROLE_DOCTOR" />
+			<security:protect method="get*" access="ROLE_NURSE, ROLE_ADMIN, ROLE_DOCTOR" />
+		</security:intercept-methods>
+		-->
+	</bean>
+	<bean class="org.caisi.dao.impl.ProviderDaoImpl" id="providerDao" />
+
+	<bean class="org.caisi.sessionbeans.ProviderSessionBeanImpl" id="providerSessionBean" />
+	
+	<!-- Aspects -->
+
+	<bean id="profiler" class="org.caisi.persistence.base.prfl.Profiler">
+		<property name="profilingStrategy">
+			<ref local="jamonProfilingStrategy" />
+		</property>
+	</bean>
+
+	<bean id="jamonProfilingStrategy" class="org.caisi.persistence.base.prfl.JamonProfilingStrategy" />
+	
+	<bean class="org.caisi.persistence.base.LoggerAspect" id="loggerAspect" />
+	
+	<bean class="org.caisi.persistence.base.ExceptionTranslatorAspect" id="exceptionTranslatorAspect" />
+	
+	<bean class="org.caisi.persistence.model.Demographic" id="demographic" />
+
+	<bean class="org.caisi.sessionbeans.ServiceFacade" id="serviceFacade" />
+
+</beans>
