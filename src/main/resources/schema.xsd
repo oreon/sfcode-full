@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:complexType name="demographic">
+    <xs:complexContent>
+      <xs:extension base="businessEntity">
+        <xs:sequence>
+          <xs:element name="address" type="xs:string" minOccurs="0"/>
+          <xs:element name="alias" type="xs:string" minOccurs="0"/>
+          <xs:element name="chartNo" type="xs:string" minOccurs="0"/>
+          <xs:element name="children" type="xs:string" minOccurs="0"/>
+          <xs:element name="citizenship" type="xs:string" minOccurs="0"/>
+          <xs:element name="city" type="xs:string" minOccurs="0"/>
+          <xs:element name="countryOfOrigin" type="xs:string" minOccurs="0"/>
+          <xs:element name="dateJoined" type="xs:dateTime" minOccurs="0"/>
+          <xs:element name="dateOfBirth" type="xs:string" minOccurs="0"/>
+          <xs:element name="demographicNo" type="xs:int" minOccurs="0"/>
+          <xs:element name="effDate" type="xs:dateTime" minOccurs="0"/>
+          <xs:element name="email" type="xs:string" minOccurs="0"/>
+          <xs:element name="endDate" type="xs:dateTime" minOccurs="0"/>
+          <xs:element name="familyDoctor" type="xs:string" minOccurs="0"/>
+          <xs:element name="firstName" type="xs:string" minOccurs="0"/>
+          <xs:element name="hcRenewDate" type="xs:dateTime" minOccurs="0"/>
+          <xs:element name="hcType" type="xs:string" minOccurs="0"/>
+          <xs:element name="hin" type="xs:string" minOccurs="0"/>
+          <xs:element name="integratorconsents" type="integratorconsent" nillable="true" maxOccurs="unbounded" minOccurs="0"/>
+          <xs:element name="lastName" type="xs:string" minOccurs="0"/>
+          <xs:element name="monthOfBirth" type="xs:string" minOccurs="0"/>
+          <xs:element name="newsletter" type="xs:string" minOccurs="0"/>
+          <xs:element name="patientStatus" type="xs:string" minOccurs="0"/>
+          <xs:element name="pcnIndicator" type="xs:string" minOccurs="0"/>
+          <xs:element name="phone" type="xs:string" minOccurs="0"/>
+          <xs:element name="phone2" type="xs:string" minOccurs="0"/>
+          <xs:element name="pin" type="xs:string" minOccurs="0"/>
+          <xs:element name="postal" type="xs:string" minOccurs="0"/>
+          <xs:element name="previousAddress" type="xs:string" minOccurs="0"/>
+          <xs:element name="provider" type="provider" minOccurs="0"/>
+          <xs:element name="province" type="xs:string" minOccurs="0"/>
+          <xs:element name="rosterStatus" type="xs:string" minOccurs="0"/>
+          <xs:element name="sex" type="xs:string" minOccurs="0"/>
+          <xs:element name="sin" type="xs:string" minOccurs="0"/>
+          <xs:element name="sourceOfIncome" type="xs:string" minOccurs="0"/>
+          <xs:element name="ver" type="xs:string" minOccurs="0"/>
+          <xs:element name="yearOfBirth" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="businessEntity" abstract="true"/>
+
+  <xs:complexType name="integratorconsent">
+    <xs:complexContent>
+      <xs:extension base="businessEntity">
+        <xs:sequence>
+          <xs:element name="consentToBasicPersonalId" type="xs:boolean"/>
+          <xs:element name="consentToHealthCardId" type="xs:boolean"/>
+          <xs:element name="consentToIssues" type="xs:boolean"/>
+          <xs:element name="consentToNotes" type="xs:boolean"/>
+          <xs:element name="consentToPhoto" type="xs:boolean"/>
+          <xs:element name="consentToPreventions" type="xs:boolean"/>
+          <xs:element name="consentToStatistics" type="xs:boolean"/>
+          <xs:element name="createdDate" type="xs:dateTime" minOccurs="0"/>
+          <xs:element name="demographic" type="demographic" minOccurs="0"/>
+          <xs:element name="facility" type="facility" minOccurs="0"/>
+          <xs:element name="formVersion" type="xs:string" minOccurs="0"/>
+          <xs:element name="id" type="xs:int" minOccurs="0"/>
+          <xs:element name="printedFormLocation" type="xs:string" minOccurs="0"/>
+          <xs:element name="provider" type="provider" minOccurs="0"/>
+          <xs:element name="refusedToSign" type="xs:boolean"/>
+          <xs:element name="restrictConsentToHic" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="facility">
+    <xs:complexContent>
+      <xs:extension base="businessEntity">
+        <xs:sequence>
+          <xs:element name="allowQuickConsent" type="xs:boolean"/>
+          <xs:element name="contactEmail" type="xs:string" minOccurs="0"/>
+          <xs:element name="contactName" type="xs:string" minOccurs="0"/>
+          <xs:element name="contactPhone" type="xs:string" minOccurs="0"/>
+          <xs:element name="description" type="xs:string" minOccurs="0"/>
+          <xs:element name="disabled" type="xs:boolean"/>
+          <xs:element name="enableIntegratedReferrals" type="xs:boolean"/>
+          <xs:element name="hic" type="xs:boolean"/>
+          <xs:element name="id" type="xs:int" minOccurs="0"/>
+          <xs:element name="integratorEnabled" type="xs:boolean"/>
+          <xs:element name="integratorLastPushTime" type="xs:dateTime" minOccurs="0"/>
+          <xs:element name="integratorPassword" type="xs:string" minOccurs="0"/>
+          <xs:element name="integratorUrl" type="xs:string" minOccurs="0"/>
+          <xs:element name="integratorUser" type="xs:string" minOccurs="0"/>
+          <xs:element name="integratorconsents" type="integratorconsent" nillable="true" maxOccurs="unbounded" minOccurs="0"/>
+          <xs:element name="name" type="xs:string" minOccurs="0"/>
+          <xs:element name="orgId" type="xs:int"/>
+          <xs:element name="sectorId" type="xs:int"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="provider">
+    <xs:complexContent>
+      <xs:extension base="businessEntity">
+        <xs:sequence>
+          <xs:element name="address" type="xs:string" minOccurs="0"/>
+          <xs:element name="billingNo" type="xs:string" minOccurs="0"/>
+          <xs:element name="comments" type="xs:string" minOccurs="0"/>
+          <xs:element name="dob" type="xs:dateTime" minOccurs="0"/>
+          <xs:element name="firstName" type="xs:string" minOccurs="0"/>
+          <xs:element name="hsoNo" type="xs:string" minOccurs="0"/>
+          <xs:element name="integratorconsents" type="integratorconsent" nillable="true" maxOccurs="unbounded" minOccurs="0"/>
+          <xs:element name="lastName" type="xs:string" minOccurs="0"/>
+          <xs:element name="ohipNo" type="xs:string" minOccurs="0"/>
+          <xs:element name="phone" type="xs:string" minOccurs="0"/>
+          <xs:element name="practitionerNo" type="xs:string" minOccurs="0"/>
+          <xs:element name="providerActivity" type="xs:string" minOccurs="0"/>
+          <xs:element name="providerNo" type="xs:string" minOccurs="0"/>
+          <xs:element name="providerType" type="xs:string" minOccurs="0"/>
+          <xs:element name="rmaNo" type="xs:string" minOccurs="0"/>
+          <xs:element name="specialty" type="xs:string" minOccurs="0"/>
+          <xs:element name="status" type="xs:unsignedShort" minOccurs="0"/>
+          <xs:element name="team" type="xs:string" minOccurs="0"/>
+          <xs:element name="workPhone" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>
+

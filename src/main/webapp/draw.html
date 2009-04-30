@@ -1,0 +1,73 @@
+<html>
+<body>
+<script>
+
+var currentx = 400;
+
+function moveSqrLeft()  {
+    Graphics.clearGameContainer();
+    currentx -= 30;
+    var square = Graphics.createRectangleDiv("purple", currentx , 400, 20, 20);
+}
+
+function moveSqrRight()  {
+    Graphics.clearGameContainer();
+    currentx += 30;
+    var square = Graphics.createRectangleDiv("purple", currentx , 400, 20, 20);
+}
+
+var Graphics = {
+		 
+	    getGameContainer: function() {
+	        return document.getElementById("gameContainer");
+	    },
+	 
+	    clearGameContainer: function() {
+	        var node = this.getGameContainer();
+	 
+	        if (node.hasChildNodes()) {
+	            while (node.childNodes.length >= 1) {
+	                node.removeChild(node.firstChild);
+	            }
+	        }
+	    },
+	 
+	    removeNodeFromGameContainer: function(node) {
+	        try {
+	            this.getGameContainer().removeChild(node);
+	        }
+	        catch(err) {
+	            // If no such node, fine.
+	        }
+	    },
+	 
+	    createRectangleDiv: function(bgcolor, x, y, width, height, zIndex) {
+	        var rect = document.createElement('div');
+	 
+	        rect.style.position = "absolute";
+	        rect.style.top = y + "px";
+	        rect.style.left = x + "px";
+	        rect.style.zIndex = "0";
+	        rect.style.height = height + "px";
+	        rect.style.width = width + "px";
+	        rect.style.backgroundColor = bgcolor;
+	 
+	        this.getGameContainer().appendChild(rect);
+
+	        //alert(rect);
+	 
+	        return rect;
+	    }
+	};
+
+</script>
+
+<h1> hi there </h1>
+
+<button value ="right"onclick="moveSqrRight()" />
+<button value="Left" onclick="moveSqrLeft()" />
+
+<div id="gameContainer" />
+
+
+<hr/>
