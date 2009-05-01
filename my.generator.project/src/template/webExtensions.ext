@@ -134,10 +134,10 @@ String getViewFile(Class e,String mode):
 
 
 String getRequired(Property prop):
-prop.type.name == "nameType"?"true":"false";
+prop.type.name == "nameType" || prop.type.name == "uniqueNameType"?"true":"false";
 
 String getRequired(Column prop):
-prop.notNull || prop.type.name == "nameType"?"true":"false";
+prop.notNull || prop.type.name == "nameType" || prop.type.name == "uniqueNameType"?"true":"false";
 
 getAccess(Column prop):
 prop.access;

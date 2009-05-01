@@ -93,12 +93,12 @@
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
 	«FOREACH allParents() AS e-»
-		«EXPAND genAttributeAssoc FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && a.association != null) -»
+	 «EXPAND genAttributeAssoc FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && a.association != null) -»
 	«ENDFOREACH»
 	«EXPAND genAttributeAssoc FOREACH getAllAttributes().select(a|!a.isMultivalued() && a.association != null) -»
 
 	«FOREACH allParents() AS e-»
-			«EXPAND genLabelAndControl FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && a.association == null) -»
+	 «EXPAND genLabelAndControl FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && a.association == null) -»
 	«ENDFOREACH»
 	«EXPAND genLabelAndControl FOREACH getAllAttributes().select(a|!a.isMultivalued() && a.association == null) -»
 «ENDDEFINE»
@@ -112,14 +112,14 @@
 «ENDDEFINE»
 
 «DEFINE genAttributeAssoc FOR uml::Property -»
+	«IF type.isEmbeddable()-» 
+		«type.setCurrentEmbeddable()» 
+		«EXPAND genAttribAsOutput FOR this.type-»
+	«ENDIF»
 	«REM»Need to exclude the parent in case of edit mode .e.g for order items we don't need order  «ENDREM»
-	«IF opposite.type.name != getCurrentEntity().name || !isCurrentMultiMode() »
-		«IF type.isEmbeddable()-»
-			«type.setCurrentEmbeddable()»
-			«EXPAND genAttribAsOutput FOR this.type-»
-		«ELSE»
-			«EXPAND genLabelAndControl FOR this-»
-		«ENDIF»
+	«IF opposite.type.name != getCurrentEntity().name || !isCurrentMultiMode() && !type.isEmbeddable() »
+		<!-- oppsite:«opposite.type.name» ce:«getCurrentEntity().name» property:«name»  ce:«getCurrentEmbeddable().name» -->
+		«EXPAND genLabelAndControl FOR this-»
 	«ENDIF»
 «ENDDEFINE»
 
@@ -133,7 +133,7 @@
 
 
 «DEFINE genLabelAndInput FOR uml::Property-»
-	«IF !isDerived()  »
+	«IF !isDerived() && !type.isEmbeddable() »
 		«getAccess() != null?" <s:div rendered=\"#{s:hasRole('admin')}\">":""»
 		«getOutputMessage()»
 		«IF association != null»
@@ -173,6 +173,7 @@
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
+	
 	«ENDIF»
 «ENDDEFINE»
 
@@ -193,9 +194,10 @@
 
 «DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
 	«IF !isCurrentEditMode()»
-	<«getTextControl()» id="«getId()»" value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
+	<«getTextControl()» id="«getId()»" value="#{«genPropertyLabel()»}" />
 	«ELSE»
-	<h:selectOneMenu id="«getId()»" value="#{«getCurrentEntity().asVar()».«name»}" required="«getAssocOptional()»">
+	enm ce:« getCurrentEmbeddable().asVar()» 
+	<h:selectOneMenu id="«getId()»" value="#{«genPropertyLabel()»}" required="«getAssocOptional()»">
 		<f:selectItem itemLabel="Please Select..." itemValue="" />
 		«FOREACH  enm.ownedLiteral AS e-»
 		<f:selectItem itemLabel="«e.name»" itemValue="«e.name-»" />

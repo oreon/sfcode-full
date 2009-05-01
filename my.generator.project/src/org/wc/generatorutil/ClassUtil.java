@@ -205,6 +205,26 @@ public class ClassUtil {
 		logger.info("Returning value " + value + " for key " + key);
 		return value;
 	}
+	
+	public static String getDisplayNameFromAttribs(Class cls){
+		EList<Property> attribs = cls.getAllAttributes();
+		
+		for (Property property : attribs) {
+			if( property.getName().contains("name") && property.getAssociation() == null 
+					&& isStringType(property.getType().getName()))
+				return property.getName();
+		}
+		
+		
+		for (Property property : attribs) {
+			System.out.println( property.getType().getName() + " : prp " + property.getName() );
+			if(property.getAssociation() == null && isStringType(property.getType().getName()) )
+				return property.getName();
+		}
+		
+		//couldnt find any suitable display name
+		return attribs.get(0).getName() + "+ \"\"";
+	}
 
 	private static boolean loadProperties() {
 		properties = new Properties();
@@ -227,6 +247,9 @@ public class ClassUtil {
 		return word.endsWith("s")?word.substring(0, word.length() -1):word;
 	}
 	
-	
+	public static boolean isStringType(String name){
+		return (name.equalsIgnoreCase("String") || name.equalsIgnoreCase("nameType") ||
+				name.equalsIgnoreCase("uniqueNameType"));
+	}
 	
 }
