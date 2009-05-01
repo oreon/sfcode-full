@@ -155,7 +155,12 @@ if( entity.displayName != null ) then
 else if ( ! ( entity.parents().isEmpty)  && entity.parents().get(0).displayName != null) then
 	"super.getDisplayName()"
 else 
- entity.getAllAttributes().get(0).name + "+ \"\"";
+ 	entity.getDisplayNameFromAttribs();
+ 
+ //Read property from workflow properties file
+String getDisplayNameFromAttribs(Class entity):
+JAVA org.wc.generatorutil.ClassUtil.getDisplayNameFromAttribs(org.eclipse.uml2.uml.Class);
+ 
  
  //split the given string by ',' and return a list 
  getStringsAsList(String arg):
