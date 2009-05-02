@@ -112,15 +112,15 @@
 «ENDDEFINE»
 
 «DEFINE genAttributeAssoc FOR uml::Property -»
-	«IF type.isEmbeddable()-» 
-		«type.setCurrentEmbeddable()» 
-		«EXPAND genAttribAsOutput FOR this.type-»
+	«IF opposite.type.name != getCurrentEntity().name || !isCurrentMultiMode() »
+		«IF type.isEmbeddable()-»
+			«type.setCurrentEmbeddable()»
+			«EXPAND genAttribAsOutput FOR this.type-»
+		«ELSE»
+			«EXPAND genLabelAndControl FOR this-»
+		«ENDIF»
 	«ENDIF»
-	«REM»Need to exclude the parent in case of edit mode .e.g for order items we don't need order  «ENDREM»
-	«IF opposite.type.name != getCurrentEntity().name || !isCurrentMultiMode() && !type.isEmbeddable() »
-		<!-- oppsite:«opposite.type.name» ce:«getCurrentEntity().name» property:«name»  ce:«getCurrentEmbeddable().name» -->
-		«EXPAND genLabelAndControl FOR this-»
-	«ENDIF»
+
 «ENDDEFINE»
 
 «DEFINE genLabelAndControl FOR uml::Property»
@@ -193,10 +193,9 @@
 
 
 «DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
-	«IF !isCurrentEditMode()»
+	«IF !isCurrentEditMode() -»
 	<«getTextControl()» id="«getId()»" value="#{«genPropertyLabel()»}" />
 	«ELSE»
-	enm ce:« getCurrentEmbeddable().asVar()» 
 	<h:selectOneMenu id="«getId()»" value="#{«genPropertyLabel()»}" required="«getAssocOptional()»">
 		<f:selectItem itemLabel="Please Select..." itemValue="" />
 		«FOREACH  enm.ownedLiteral AS e-»
@@ -209,25 +208,17 @@
 
 «DEFINE gentEditableTable FOR uml::Property-»
 	«setCurrentMultiMode(true)-»
-	
-	«IF isCurrentEditMode()»
-	«EXPAND genNewButton FOR this»
-	«ENDIF»
-	
+	«IF isCurrentEditMode()-» «EXPAND genNewButton FOR this» «ENDIF»
 	<ice:dataTable id="«name»_data" var="«type.asVar()»" rendered="#{not empty «getCurrentEntity().getAction()».list«name.toFirstUpper()»}"
 					value="#{«getCurrentEntity().getAction()».list«name.toFirstUpper()»}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		«setAsCurrentEntity(type)»
 		«EXPAND genAttribAsOutput FOR type-»
-		«REM» comment	
-		«EXPAND genTable FOR type-»
-		«ENDREM»
-		«IF isCurrentEditMode()»
-		«EXPAND genNew»
-		«EXPAND genDelete FOR this»
-		«REM»
-		«ELSE»
-		«EXPAND ListRoot::genPropsFromBusinessEntity FOR class»«ENDREM»
+		«REM» comment		«EXPAND genTable FOR type-» «ENDREM»
+		«IF isCurrentEditMode() -»
+		«EXPAND genNew -»
+		«EXPAND genDelete FOR this -»
+		«REM»	«ELSE»	«EXPAND ListRoot::genPropsFromBusinessEntity FOR class»«ENDREM»
 		«ENDIF»	
 	</ice:dataTable>
 	«setCurrentMultiMode(false)-»
@@ -243,7 +234,7 @@
 
 «DEFINE genNew FOR uml::Property»
 	<h:column>
-		«EXPAND genNewButton FOR this»
+		«EXPAND genNewButton FOR this -»
 	</h:column>
 «ENDDEFINE»
 
