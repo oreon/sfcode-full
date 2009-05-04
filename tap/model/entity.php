@@ -4,7 +4,7 @@
 
 abstract class Entity{
 	var $id;
-	
+
 	function getId(){
 		return $id;
 	}
@@ -34,14 +34,14 @@ abstract class Entity{
 	}
 
 	function renderSingleObjectAsTableRow(){
-		
+
 	}
-	
-	//will return an assoc array of fields and names 
+
+	//will return an assoc array of fields and names
 	function getAssocArray(){
-		
+
 	}
-	
+
 	function renderSingleObject($singleRow = false){
 		print("<form><table>");
 		$this->renderFieldNameValue($this, $singleRow);
@@ -50,17 +50,17 @@ abstract class Entity{
 		print("</form>");
 
 	}
-	
+
 	function dump($obj){
 		print_r($obj);
 		print("<br>");
 	}
-	
+
 	function dumpMe(){
 		print_r($this);
 		print("<br>");
 	}
-	
+
 	function renderFieldNameValue($obj, $singleRow){
 		$class_var_entries = get_class_vars(get_class($this));
 			
@@ -68,15 +68,15 @@ abstract class Entity{
 		while ($entry = each($class_var_entries)) {
 			$name = $entry['key'];
 			$value = $obj->$name;
-			
+				
 			$renderValue = $value;
 			if($name == "id") {
 				print "<input type=hidden name='$name' value='$value' />";
 				continue;
 			}
 
-			if ( $this->isEntity($value)  ){	
-				//$this->dump($value);	
+			if ( $this->isEntity($value)  ){
+				//$this->dump($value);
 				$valId = $value->id;
 				$dispName = $value->name;
 				//print($valId." :vid: ".$dispName );
@@ -91,28 +91,33 @@ abstract class Entity{
 			}
 			print("<td>$renderValue</td>");
 			if(!$singleRow)
-				print("</tr>");
+			print("</tr>");
 		}
 	}
-	
-	function listAsTable(){
-		
+
+	function listAsTable($editUrl = null){
+
+		if(!isset($editUrl)){
+			$editUrl = 'edit'.get_class($this);
+		}
+			
 		$arr = $this->loadObjectsFromQuery($this->getLoadAllQuery());
-	
+
 		$rowCount = 0;
 
 		print("<table width=\"90%\" border=\"1\" >");
-		
+
 		foreach ($arr as $obj) {
 			print("<tr>");
 			$id = $obj->id;
 			print("<td> <input type='checkbox' value='$id' ></td>");
 			$this->renderFieldNameValue($obj, true);
-			print("<td> <a href='editStudent.php?action=load&id=$id' > Edit </a></td>");
+			//print("<td> <a href='controller/teacherController.php?action=load&id=$id&forward=$editUrl.php' > Edit </a></td>");
+			print("<td><a href='editStudent.php?action=load&id=$id'>Edit </td>");
 			print("<td> <a href='viewStudent.php?id=$id' > View </a></td>");
 			print ("</tr>");
 		}
-		
+
 		print("</table>");
 	}
 
@@ -120,7 +125,7 @@ abstract class Entity{
 		print("<form action='$action'><table>");
 		print"<input type=\"hidden\" name=\"action\" value=\"save\" />";
 		$class_var_entries = get_class_vars(get_class($this));
-		
+
 		while ($entry = each($class_var_entries)) {
 			$name = $entry['key'];
 			$value = $this->$name;
@@ -147,18 +152,24 @@ abstract class Entity{
 		print("</table>");
 		print("</form>");
 	}
-	
+
 
 	function persist(){
 		$this->dbconn();
 
 		if($this->id == null){
 			//printf("inserting record");
-			mysql_query($this->getPersistQuery());
+			$this->executeQry( $this->getPersistQuery() );
 		}else{
-			//printf("updating record ".$this->getUpdateQuery());
-			mysql_query($this->getUpdateQuery());
+			$this->executeQry($this->getUpdateQuery());
 		}
+	}
+
+	function executeQry($qry){
+		$result = mysql_query($qry);
+		if(!$result)
+		die (mysql_error());
+		return $result;
 	}
 
 	/*
@@ -167,35 +178,30 @@ abstract class Entity{
 	function fromPrimaryKey(){
 		$this->dbconn();
 		//print("running qry ". $this->getLoadQuery(). "<br> ");
-		$result = mysql_query($this->getLoadQuery());
-		if(!$result){
-			print  " error is ".mysql_error();
-		}
+		$result = $this->executeQry($this->getLoadQuery());
+
 		$row = mysql_fetch_array($result);
 		$this->loadObjectFromDatabaseRow($this, $row);
-		
 	}
-	
-	
-	/*Create an 
+
+
+	/*Create an
 	 *
 	 */
 	function loadObjectFromDatabaseRow($obj, $row){
 		$classVars = get_class_vars(get_class($obj));
-		
+
 		foreach($classVars AS $varName => $varValue){
 
 			foreach($row AS $key => $value){
-				
+
 				if(strpos($key, '___') !== false){ //load associations
 					list($assocName, $assocMember) = split('___', $key);
-					//if(!isset($this->$assocName))
-					//	$obj->$assocName = new Grade();
 					//print("<br> setting:  $assocName $assocMember $value" );
 					$obj->$assocName->$assocMember = $value;
 					continue;
 				}
-							
+					
 				if( $key == $varName && ! ( $this->isEntity($obj->$varName) ) ){
 					//print "setting $key $varName :: ".$varName." ->". $row[$varName];
 					$obj->$varName = $row[$varName];
@@ -203,19 +209,20 @@ abstract class Entity{
 
 			}
 		}
-		
+
 		return $obj;
 	}
 
 	function loadObjectsFromQuery($qry){
 		$this->dbconn();
-		//$query = $this->getLoadAllQuery();
-		$result = mysql_query($qry);
+		$result = $this->executeQry($qry);
 		$rowCount = 0;
-	
+
 		while ($row = mysql_fetch_array($result)) {
 			$obj = $this->createNew();
+				
 			$obj = $this->loadObjectFromDatabaseRow($obj, $row);
+			//print 'fn '.$obj->firstName;
 			$arr[] = $obj;
 		}
 
@@ -226,16 +233,15 @@ abstract class Entity{
 		$classVars = get_class_vars(get_class($this));
 		foreach($classVars AS $varName => $varValue){
 			foreach($_GET AS $key => $value) {
+				//print($key ." ".$varName." $value <br/>");
 				if($key == $varName){
 					$this->$varName = $value;
-					continue;
+					break;
 				}
 				if(strpos($key, '___') !== false){
 					list($assocName, $assocMember) = split('___', $key);
-					if(!isset($this->$assocName))
-					$this->$assocName = new Grade();
-						
-					//print("<br>  $key $value $assocMember $assocName");
+					//if(!isset($this->$assocName))
+					//	$this->$assocName = new Grade();
 					$this->$assocName->$assocMember = $value;
 				}
 			}
@@ -253,7 +259,7 @@ abstract class Entity{
 		$dbPass = "root";
 		$dbName = "tapovandb";
 		$dbHost = "localhost";
-		
+
 		if (!($link=mysql_connect($dbHost, $dbUser, $dbPass))) {
 			print mysql_error($link);
 		}
