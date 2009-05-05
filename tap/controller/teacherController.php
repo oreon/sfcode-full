@@ -5,6 +5,7 @@ include_once '../model/teacher.php';
 include_once '../model/grade.php';
 include_once 'baseController.php';
 include_once 'sessionWrapper.php';
+include_once '../utils/FileUpload.php';
 
 class TeacherController extends BaseController {
 	
@@ -20,7 +21,9 @@ class TeacherController extends BaseController {
 		$s = new Teacher();
 		$s->fromRequest();
 		$s->persist();
-		header("Location: ../viewTeacher.php");
+		
+		FileUpload::upload('teachers/'.$s->id);
+		//header("Location: ../viewTeacher.php");
 	}
 
 	function load(){

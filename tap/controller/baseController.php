@@ -3,7 +3,7 @@
 class BaseController {
 	
 	function execute(){
-		$method = $_GET['action'];
+		$method = $_REQUEST['action'];
 		if(!isset($method))
 			die ("no method specified");
 	

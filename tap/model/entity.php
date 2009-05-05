@@ -1,7 +1,9 @@
 <?php
 
 
-
+/**
+ * Base class for classes that are persistable 
+ */
 abstract class Entity{
 	var $id;
 
@@ -157,9 +159,10 @@ abstract class Entity{
 	function persist(){
 		$this->dbconn();
 
-		if($this->id == null){
+		if($this->id == null){ //new record
 			//printf("inserting record");
 			$this->executeQry( $this->getPersistQuery() );
+			$this->id = mysql_insert_id();
 		}else{
 			$this->executeQry($this->getUpdateQuery());
 		}
@@ -232,7 +235,7 @@ abstract class Entity{
 	function fromRequest(){
 		$classVars = get_class_vars(get_class($this));
 		foreach($classVars AS $varName => $varValue){
-			foreach($_GET AS $key => $value) {
+			foreach($_REQUEST AS $key => $value) {
 				//print($key ." ".$varName." $value <br/>");
 				if($key == $varName){
 					$this->$varName = $value;
