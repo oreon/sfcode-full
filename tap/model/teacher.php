@@ -5,6 +5,13 @@ include 'grade.php';
 class Teacher extends Entity {
 	var $firstName;
 	var $lastName;
+	var $image;
+	
+	function __construct($fn = null, $ln = null){
+		$this->firstName = $fn;
+		$this->lastName = $ln;
+		
+	}
 	
 	function createNew(){
 		$s = new Teacher();
