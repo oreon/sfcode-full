@@ -1,26 +1,20 @@
 <?php
 
- include_once 'student_class.php';
 
- $controller = new StudentController();
+ include_once 'grade_class.php';
+
+ $controller = new gradeController();
  $controller->save();
 
-class StudentController {
+class gradeController {
 
 	function save() {
-		$s = new student();
+		$g = new grade();
 
-		$fn = $_GET['firstName'];
-		$ln = $_GET['lastName'];
-		$db = $_GET['dob'];
-		$gn = $_GET['gender'];
+		$gd = $_GET['gradename'];
+		$g->gradename = $gd;
 		
-		$s->lastName = $ln;
-		$s->firstName = $fn;
-		$s->dob = $db;
-		$s->gender = $gn;
-		
-		$qry = "insert into student(firstname, lastname, dob, gender) values ('$fn', '$ln', '$db', '$gn')";
+		$qry = "insert into grade(gradename) values ('$gd')";
 		
 		//print $qry;
 		
@@ -31,8 +25,8 @@ class StudentController {
 		$id = mysql_insert_id();
 			
 		session_start(); 
-		$_SESSION['student'] = serialize($s); 
-		header( 'Location: studentSaveSuccess.php?id='.$id ) ;
+		$_SESSION['grade'] = serialize($g); 
+		header( 'Location: gradeSaveSuccess.php?id='.$id ) ;
 		
 	}
 
@@ -56,4 +50,5 @@ class StudentController {
 
 
 
+		
 ?>
