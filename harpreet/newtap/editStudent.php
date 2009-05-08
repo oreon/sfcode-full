@@ -26,12 +26,11 @@ background-color:#ddd;
 First Name <input name="firstName" class="required" minlength="3" />
 Last Name <input name="lastName" class="required" minlength="3" />
 Gender
-<select name="Gender">
-<option value="male">Male</option>
-<option value="female">Female</option>
+<select name="gender">
+<option value="m">Male</option>
+<option value="f">Female</option>
 </select>
-
-
+DOB<input name="dob"/>
 
 <input type="submit">
 </form> 
