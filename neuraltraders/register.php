@@ -3,8 +3,8 @@
 <html>
 <head>
 
-<script type="text/javascript" src="js/jquery.js"></script>
-<script src="js/jquery.validate.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script src="/js/jquery.validate.js" type="text/javascript"></script>
 
 <script>
 $().ready(function(){
@@ -64,10 +64,10 @@ table.formTable {
 <form id="registerForm" action="controller/usercontroller_class.php"
 	method="post">
 	<input type="hidden" name="action" value="save" />
-<TABLE class="formTable" border="1">
+<TABLE class="formTable2" border="0" width="70%">
 	<thead>
-		<tr>
-			<td colspan="2">Registration</td>
+		<tr style="background-color: navy; color: #fff;">
+			<td colspan="2"><b>Registration</b></td>
 		</tr>
 	</thead>
 
@@ -97,7 +97,7 @@ table.formTable {
 		<td><input name="phone" class="required" minlength="10" /></td>
 	</tr>
 	<tr>
-		<td colspan="2"><input type="submit" value="save me"></td>
+		<td colspan="2"><input type="submit" value="Register"></td>
 	</tr>
 
 </TABLE>
