@@ -1,5 +1,5 @@
 <?php
-include_once '../base/model/entity.php';
+@include_once '../base/model/entity.php';
 
 class EventRegistration extends Entity{
 	var $userid;
