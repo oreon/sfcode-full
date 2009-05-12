@@ -31,7 +31,7 @@
 <div id="right"> 
 <h3>Quick Links</h3>
 <ul>
-<li><a href="template.php?node=services">Capital Management</a></li> 
+<li><a href="template.php?node=capital">Capital Management</a></li> 
 <li><a href="template.php?node=fundamentals">Forex Fundamentals </a></li> 
 <li><a href="template.php?node=calender">Calendar </a></li> 
 <li><a href="template.php?node=alerts">Alerts </a></li>
