@@ -1,5 +1,5 @@
 <?php
-include_once '../base/model/entity.php';
+@include_once '../base/model/entity.php';
 
 class User extends Entity{
 	var $firstName;
