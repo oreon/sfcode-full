@@ -23,6 +23,8 @@
 <div id="left">
 	<?php 
 	$node = $_GET['node'].'.php';
+	if(!isset($_GET['node']))
+		$node = "main.php";
 	include_once $node; 
 	
 	?>
@@ -38,10 +40,11 @@
 </ul>
 
 <h3>Log In</h3>
-<form>
+<form action="controller/UserManager.php">
+	<input type = hidden name="action" value="authenticate" />
 	<table>
 		<tr><td> UserName<br/> <input type="text" name="userName" /></td></tr>
-		<tr><td> Password<br/> <input type="text" name="userName" /></td></tr>
+		<tr><td> Password<br/> <input type="text" name="password" /></td></tr>
 		<tr><td colspan="2"> <input type="submit" name="login" value="Login" /></td></tr>
 </table>
 </form>
