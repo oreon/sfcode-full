@@ -2,7 +2,7 @@
 
 ?>
 
-<h3><a href="#">Currencies, Options and Futures Training  </a></h3>
+<h4>Expert Advisors - Smart agents to take your trading to the next level </h4>
 <p>
 We provide comprehensive trading training - covering both fundamental and technical aspects. The course covers 
 strategic and mechanical risk controlling, developing a strategy that suits your trading personality, working with
@@ -10,14 +10,16 @@ trading softwares, scalping, hedging, time and news based based trading, mathema
 </p>
 <br/>
 <p>
-Our course material is kept uptodate with latest market developments. 
+Our EA's incorporate - genetic and neural network based algorithms to ensure quick and low risk portfolio growth.
+They adapat to market conditions and as a premium member you will be eligible to recive free updates for all our expert
+advisors. 
 </p>
 
 <br/>
-<h3><a href="#">Automated Trading </a></h3>
+<h4>Get your strategy Automated  </h4>
 <p>
- We have expertise in developing automated trading 'agents' or robots that act in advisory or exectionary capacity -these Artifical Intelligence
- enabled pieces of software run 24*7 and can think smarter than most human traders.   
+ If you have a strategy that you want to be translated into a robot - feel free to contact us for promt services
+ at very competitive prices. We have expertise in MQL for MetaTrader4 and ActiveQuant for stocks and options.
  </p>
  
  <p>

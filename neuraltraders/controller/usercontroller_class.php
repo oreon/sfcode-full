@@ -10,7 +10,7 @@ class UserController extends BaseController {
 		$s = new User();
 		$s->fromRequest();
 		$s->persist();
-		header( 'Location:../registrationSuccess.php?id='.$id ) ;
+		header( 'Location:../template.php?node=registrationSuccess&id='.$id ) ;
 	}
 
 	

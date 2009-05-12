@@ -169,6 +169,7 @@ abstract class Entity{
 	}
 
 	function executeQry($qry){
+		$this->dbconn();
 		$result = mysql_query($qry);
 		if(!$result)
 		die (mysql_error());
@@ -260,7 +261,7 @@ abstract class Entity{
 	function dbconn() {
 		$dbUser = "root";
 		$dbPass = "root";
-		$dbName = "tapovandb";
+		$dbName = "neural";
 		$dbHost = "localhost";
 
 		if (!($link=mysql_connect($dbHost, $dbUser, $dbPass))) {

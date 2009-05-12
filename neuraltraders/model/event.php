@@ -34,5 +34,24 @@ class Event extends Entity{
 	 )";
 		return $qry;
 	}
+
+	function getEvents(){
+		$qry = "select * from event where  date > curdate()";
+		$arr = $this->loadObjectsFromQuery($qry);
+		return $arr;
+	}
+
+	function getUserEvents($userid) {
+		$qry = "select e.* from eventRegistration er, event e where userid = $userid and e.id = er.eventid and status = 'ok';";
+		$arr = $this->loadObjectsFromQuery($qry);
+		return $arr;
+	}
+
+	function renderEvent($event){
+		print "<table border='1'>"	;
+		print "<tr><td><b> $event->name, $event->date : $event->time </b></td></tr>" ;
+		print "<tr><td><b> $event->description </td></tr>" ;
+		print "</table>";
+	}
 }
 ?>
