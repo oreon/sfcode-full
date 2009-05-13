@@ -47,10 +47,10 @@ class Event extends Entity{
 		return $arr;
 	}
 
-	function renderEvent($event){
+	function renderEvent(){
 		print "<table border='1'>"	;
-		print "<tr><td><b> $event->name, $event->date : $event->time </b></td></tr>" ;
-		print "<tr><td><b> $event->description </td></tr>" ;
+		print "<tr><td><b> $this->name, $this->date : $this->time </b></td></tr>" ;
+		print "<tr><td><b> $this->description </td></tr>" ;
 		print "</table>";
 	}
 }

@@ -11,7 +11,8 @@ class SessionManager {
 	static function getObject($name){
 		@session_start();
 		$obj = unserialize($_SESSION[$name]);
-		print $name.' ' .$obj->userName;
+		//print ((User)$obj);
+		//print $name.' xxx ' .$obj->userName;
 		return $obj;
 	}
 	

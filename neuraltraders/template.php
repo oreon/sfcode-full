@@ -13,9 +13,13 @@
 <div id="top"> </div>
 
 <?php
+	include_once 'base/model/entity.php';
+	include_once 'model/user.php';
+
 	include_once 'template/menu.php';
 	include_once 'template/header.php';
 	include_once 'controller/UserManager.php';
+	
 ?>
 
 
