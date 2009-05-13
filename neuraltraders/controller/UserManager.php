@@ -11,7 +11,9 @@ class UserManager  {
 	static  $NAME='USER';
 	
 	static function getLoggedInUser(){
-		return SessionManager::getObject('USER');
+		$user = new User();
+		$user = SessionManager::getObject('USER');
+		return $user;
 	}
 	
 	static function setLoggedInUser($user){
