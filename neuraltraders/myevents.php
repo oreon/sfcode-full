@@ -18,7 +18,7 @@ else {
 		print "<form action='controller/eventRegistrationController.php'>";
 		print "<input type='hidden' name='action' value='cancel' />";
 		print "<input type='hidden' name='eventid' value='$obj->id' />";
-		print "<input type='hidden' name='userid' value='4' />";
+		print "<input type='hidden' name='userid' value='$userid' />";
 		print"<input type='submit' value='cancel' />";
 		print"</form><hr/>";
 	}

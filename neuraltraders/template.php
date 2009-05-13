@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-<title>Dark blue</title>	
+<title>Forex Training, Currencies, Options, Commodities, Futures, Stocks Training and Expert Advisors</title>	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
 </head>
@@ -48,15 +48,10 @@
 
 <?php
   if( UserManager::getLoggedInUser() == null ) { ?>
-<h3>Log In</h3>
-<form action="controller/usercontroller_class.php">
-	<input type = hidden name="action" value="authenticate" />
-	<table>
-		<tr><td> UserName<br/> <input type="text" name="userName" /></td></tr>
-		<tr><td> Password<br/> <input type="text" name="password" /></td></tr>
-		<tr><td colspan="2"> <input type="submit" name="login" value="Login" /></td></tr>
-</table>
-</form>
+  <?php include_once 'loginForm.php'; ?>
+  
+  
+
 <?php  }else { 
 	print '<a href="controller/usercontroller_class.php?action=logout">Logout '.UserManager::getLoggedInUser()->userName.'</a>';
 }
