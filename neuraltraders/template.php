@@ -34,10 +34,10 @@
 	<?php 
 	$msg = new Message('');
 	$msg = MessageManager::pop();
-	$clr = $msg->severity == 'E' ? 'pink':'green';
+	$clr = $msg->severity == 'E' ? 'pink':'#cfc';
 	
 	if($msg != null)
-		print "<div style='background-color:$clr'> $msg->text  </div> ";
+		print "<div style='background-color:$clr;font-size:1em; margin:2px'> $msg->text  </div> ";
 	
 	$node = $_GET['node'].'.php';
 	if(!isset($_GET['node']))
