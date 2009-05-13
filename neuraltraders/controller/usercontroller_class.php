@@ -2,6 +2,8 @@
 include_once '../model/user.php';
 include_once '../base/controller/baseController.php';
 include_once 'UserManager.php';
+include_once '../base/message.php';
+include_once '../base/messageManager.php';
 
 
 
@@ -17,16 +19,19 @@ class UserController extends BaseController {
 	function authenticate(){
 		$username = $_REQUEST['userName'];
 		$password = $_REQUEST['password'];
-		
-		$msg = new Message('Username/Email or password mismatch');
+
+		$msg = new Message('Username/Email or password mismatch','S');
 		MessageManager::put($msg);
+		$ref = $_SERVER['HTTP_REFERER'].'&errMsg=invalidUser';
+		header( "Location:$ref" ) ;
+		return;
 
 		$qry = "select * from user where ( username= '$username' or email='$username') and password = '$password'";
 		//print $qry;
 		$user = new User();
 		$arr = $user->loadObjectsFromQuery($qry);
 		//print_r ( $arr );
-		
+
 		if( is_array($arr) && count($arr) > 0 ){
 			//print $arr[0]->userName;
 			UserManager::setLoggedInUser($arr[0]);
@@ -36,7 +41,7 @@ class UserController extends BaseController {
 			header( "Location:$ref" ) ;
 		}
 	}
-	
+
 	function logout(){
 		session_start();
 		session_destroy();

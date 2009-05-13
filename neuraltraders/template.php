@@ -15,6 +15,9 @@
 <?php
 	include_once 'base/model/entity.php';
 	include_once 'model/user.php';
+	include_once 'base/messageManager.php';
+	include_once 'base/message.php';
+	
 
 	include_once 'template/menu.php';
 	include_once 'template/header.php';
@@ -29,6 +32,13 @@
 
 <div id="left">
 	<?php 
+	$msg = new Message('');
+	$msg = MessageManager::pop();
+	$clr = $msg->severity == 'E' ? 'pink':'green';
+	
+	if($msg != null)
+		print "<div style='background-color:$clr'> $msg->text  </div> ";
+	
 	$node = $_GET['node'].'.php';
 	if(!isset($_GET['node']))
 		$node = "main.php";
