@@ -1,5 +1,7 @@
+<?php session_start(); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 <title>Dark blue</title>	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -13,6 +15,7 @@
 <?php
 	include_once 'template/menu.php';
 	include_once 'template/header.php';
+	include_once 'controller/UserManager.php';
 ?>
 
 
@@ -39,8 +42,10 @@
 <li><a href="template.php?node=alerts">Alerts </a></li>
 </ul>
 
+<?php
+  if( UserManager::getLoggedInUser() == null ) { ?>
 <h3>Log In</h3>
-<form action="controller/UserManager.php">
+<form action="controller/usercontroller_class.php">
 	<input type = hidden name="action" value="authenticate" />
 	<table>
 		<tr><td> UserName<br/> <input type="text" name="userName" /></td></tr>
@@ -48,6 +53,11 @@
 		<tr><td colspan="2"> <input type="submit" name="login" value="Login" /></td></tr>
 </table>
 </form>
+<?php  }else { 
+	print '<a href="controller/usercontroller_class.php?action=logout">Logout '.UserManager::getLoggedInUser()->userName.'</a>';
+}
+?>
+
 
 </div>
 
