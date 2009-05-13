@@ -17,6 +17,9 @@ class UserController extends BaseController {
 	function authenticate(){
 		$username = $_REQUEST['userName'];
 		$password = $_REQUEST['password'];
+		
+		$msg = new Message('Username/Email or password mismatch');
+		MessageManager::put($msg);
 
 		$qry = "select * from user where ( username= '$username' or email='$username') and password = '$password'";
 		//print $qry;
