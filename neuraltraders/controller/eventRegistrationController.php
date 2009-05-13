@@ -1,8 +1,7 @@
 <?php
 include_once '../model/eventRegistration.php';
 include_once '../base/controller/baseController.php';
-
-
+include_once '../controller/UserManager.php';
 
 class EventRegisterationController extends BaseController {
 
@@ -10,16 +9,16 @@ class EventRegisterationController extends BaseController {
 		$s = new EventRegistration();
 		$s->fromRequest();
 		$s->persist();
-		header( 'Location:../eventsaveSuccess.php?id='.$id ) ;
+		header( 'Location:../template.php?node=myevents' ) ;
 	}
 	
 	function cancel() {
 		$s = new EventRegistration();
 		$eventid = $_REQUEST['eventid'];
-		$userid = 3;
+		$userid = UserManager::getLoggedInUser()->id;
 		$s->cancel($eventid,$userid);
 		
-		header( 'Location:../myevents.php?id='.$id ) ;
+		header( 'Location:../template.php?node=myevents') ;
 	}
 	
 }
