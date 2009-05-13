@@ -206,7 +206,7 @@ abstract class Entity{
 					continue;
 				}
 					
-				if( $key == $varName && ! ( $this->isEntity($obj->$varName) ) ){
+				if( strcasecmp ($key, $varName)== 0 && ! ( $this->isEntity($obj->$varName) ) ){
 					//print "setting $key $varName :: ".$varName." ->". $row[$varName];
 					$obj->$varName = $row[$varName];
 				}
@@ -238,7 +238,7 @@ abstract class Entity{
 		foreach($classVars AS $varName => $varValue){
 			foreach($_REQUEST AS $key => $value) {
 				//print($key ." ".$varName." $value <br/>");
-				if($key == $varName){
+				if( strcasecmp($key, $varName) ==0){
 					$this->$varName = $value;
 					break;
 				}
