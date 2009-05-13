@@ -17,7 +17,7 @@ class SessionManager {
 	}
 	
 	static function popObject($name){
-		$obj = self::getObject();
+		$obj = self::getObject($name);
 		unset($_SESSION[$name]);
 		return $obj;
 	}
