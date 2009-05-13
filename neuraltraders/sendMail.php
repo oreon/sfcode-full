@@ -1,11 +1,10 @@
 <?php
-require_once "Mail.php";
+//include "Mail.php";
 
-/**************************************************
-EDIT the following variables for your own use
-***************************************************/
-$from = "Sender <admin@neuraltraders.info>";
-$to = "Recipient <singhjess@gmail.com>";
+$from = "admin@neuraltraders.info";
+$to = "singhjess@gmail.com";
+
+print "to is ".$to;
 
 $subject = "Hi!"; //type in subject here
 
@@ -13,17 +12,19 @@ $host = "mail.neuraltraders.info"; // Your domain
 $username = "admin"; // Your user / full email address
 $password = "admin"; // Password to your email address
 
-
-
 $body = "hi there".$to;
+$headers .= 'From: $from' . "\r\n";
+
+mail($to, $subject, $body, $headers);
+
 
 print $body;
-
 
 
 $headers = array ('From' => $from,
 'To' => $to,
 'Subject' => $subject);
+
 $smtp = Mail::factory('smtp',
 array ('host' => $host,
 'auth' => true,
@@ -35,21 +36,10 @@ print 'sending mail to '.$to;
 $mail = $smtp->send($to, $headers, $body);
 
 if (PEAR::isError($mail)) {
-/**************************************************
-ERROR MESSAGE
-***************************************************/
-?>
-
-<p> <? echo $mail->getMessage(); ?> </p>
-<?
-/**************************************************/
+	 echo $mail->getMessage(); 
 } else {
-/**************************************************
-SUCCESS MESSAGE
-***************************************************/
-?>
-<p>Message successfully sent!</p>
-<?
-/**************************************************/
-}
+	echo 'send success ';	
+}	
+	
+	
 ?>
