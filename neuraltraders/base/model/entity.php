@@ -205,10 +205,12 @@ abstract class Entity{
 					$obj->$assocName->$assocMember = $value;
 					continue;
 				}
+				
+				//print strcasecmp ($key, $varName).' '. $key .' ->'. $varName.'<br>';
 					
-				if( strcasecmp ($key, $varName)== 0 && ! ( $this->isEntity($obj->$varName) ) ){
-					//print "setting $key $varName :: ".$varName." ->". $row[$varName];
-					$obj->$varName = $row[$varName];
+				if( strcasecmp ($key, $varName) == 0 && ! ( $this->isEntity($obj->$varName) ) ){
+					//print "setting $key $varName :: ".$varName." ->". $row[$key].'<br>';
+					$obj->$varName = $row[$key];
 				}
 
 			}
