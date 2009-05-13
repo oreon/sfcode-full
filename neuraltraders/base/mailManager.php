@@ -11,12 +11,13 @@ class MailManager{
 		$smtpinfo["auth"] = true;
 		$smtpinfo["username"] = "admin+neuraltraders.info";
 		$smtpinfo["password"] = "admin";
+		return $smtpinfo;
 	}
 
 	function send($subject, $body, $to ){
-		MailManager::setup();
+		$smtpinfo = self::setup();
 		/* mail setup recipients, subject etc */
-		$recipients = "singhjess@gmail.com, jagdeepskohli@yahoo.com";
+		$recipients = $to;
 		$headers["From"] = "admin@neuraltraders.info";
 		$headers["Subject"] = $subject;
 		$mailmsg = $body;
