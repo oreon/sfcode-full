@@ -57,6 +57,21 @@ class UserController extends BaseController {
 		}
 	}
 
+	function mailPassword(){
+		$email = $_REQUEST['email'];
+		$qry = "select *  from user where email = '$email'";
+		$user = new User();
+		$arr = $user->loadObjectsFromQuery($qry);
+		
+		if( is_array($arr) && count($arr) > 0 ){
+			$user = $arr[0];
+			print $user->userName.' '.$user->password;
+		}else
+			print 'We could not find any user with email '.$email;
+		
+		
+	}
+	
 	function logout(){
 		session_start();
 		session_destroy();
