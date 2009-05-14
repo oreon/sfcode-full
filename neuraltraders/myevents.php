@@ -10,7 +10,7 @@ $arr = $event->getUserEvents($userid);
 if(count($arr) == 0)
 	print "You have no upcoming events";
 else {
-	print "<br>Following are your upcoming events";
+	print "<br/><b>Following are your upcoming events </b><br/> <br/>";
 	
 	foreach ($arr as $obj){
 		//$event = (Event) $obj;
@@ -19,7 +19,7 @@ else {
 		print "<input type='hidden' name='action' value='cancel' />";
 		print "<input type='hidden' name='eventid' value='$obj->id' />";
 		print "<input type='hidden' name='userid' value='$userid' />";
-		print"<input type='submit' value='cancel' />";
+		print"<input type='submit' value='Cancel Registration' />";
 		print"</form><hr/>";
 	}
 }
