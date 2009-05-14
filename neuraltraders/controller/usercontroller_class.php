@@ -64,6 +64,9 @@ class UserController extends BaseController {
 		
 		if( is_array($arr) && count($arr) > 0 ){
 			$user = $arr[0];
+			
+			MailManager::send("Your NeuralTraders Credentials", $msg, $user->email );
+			
 			$msgText = 'Your credentials have been sent to  - '.$email;
 			$msg = new Message($msgText, 'S');
 			MessageManager::put($msg);
