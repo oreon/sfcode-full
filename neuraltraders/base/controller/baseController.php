@@ -12,6 +12,11 @@ class BaseController {
 		$args;
 		$func->invoke($this);
 	}
+	
+	function returnToReferer(){
+		$ref = $_SERVER['HTTP_REFERER'];
+		header( "Location:$ref" ) ;
+	}
 }
 
 ?>
