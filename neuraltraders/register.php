@@ -84,16 +84,20 @@ table.formTable {
 		<td><input name="email" class="required email" /></td>
 	</tr>
 	<tr>
-		<td>password</TD>
+		<td>Username</TD>
+		<td><input name="username" class="required" minlength="3" /></td>
+	</tr>
+	<tr>
+		<td>Password</TD>
 		<td><input type="password" id="password" name="password" class="required" minlength="5" /></td>
 	</tr>
 	<tr>
-		<td>Retype password</TD>
+		<td>Retype Password</TD>
 		<td><input  id="retypepassword" type="password" name="retypepassword" class="required"
 			minlength="5" /></td>
 	</tr>
 	<tr>
-		<td>phone</TD>
+		<td>Phone</TD>
 		<td><input name="phone" class="required" minlength="10" /></td>
 	</tr>
 	<tr>

@@ -10,14 +10,6 @@ class User extends Entity{
 	var $password;
 	var $type;
 	
-function getLoadQuery(){
-		return $this->getLoadAllQuery()." AND s.id = $this->id";
-	}
-	
-	function getLoadAllQuery(){
-		return "select s.id as id, s.firstName as firstName, s.lastName as lastName, g.id as grade___id, g.name as grade___name  from 
-			student s left join grade g on ( s.gradeId = g.id) where 1 = 1 ";
-	}
 
 	function getPersistQuery(){
 		 $qry =	"insert into neural.user 
@@ -44,9 +36,6 @@ function getLoadQuery(){
 		return "Update student set firstName='$this->firstName', lastName='$this->lastName',
 		 gradeId =". $this->grade->id." where id=$this->id";
 	}
-	
-	
-	
 	
 }
 ?>

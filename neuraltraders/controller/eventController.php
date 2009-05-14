@@ -1,6 +1,8 @@
 <?php
 include_once '../model/event.php';
 include_once '../base/controller/baseController.php';
+include_once '../base/messageManager.php';
+
 
 
 
@@ -10,7 +12,9 @@ class EventController extends BaseController {
 		$s = new Event();
 		$s->fromRequest();
 		$s->persist();
-		header( 'Location:../eventsaveSuccess.php?id='.$id ) ;
+		
+		MessageManager::put(new Message("Successfully created the event id $s->id", 'S'));
+		$this->returnToReferer();
 	}
 		
 	

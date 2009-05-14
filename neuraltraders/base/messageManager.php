@@ -1,5 +1,8 @@
 <?php 
 
+@include_once 'message.php';
+@include_once '../controller/SessionManager.php';
+
 class MessageManager{
 	
 	public static $MSG_ID = 'CURR_MSG';

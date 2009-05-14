@@ -157,7 +157,6 @@ abstract class Entity{
 
 
 	function persist(){
-		$this->dbconn();
 
 		if($this->id == null){ //new record
 			//printf("inserting record");
@@ -180,12 +179,14 @@ abstract class Entity{
 	 *
 	 */
 	function fromPrimaryKey(){
-		$this->dbconn();
-		//print("running qry ". $this->getLoadQuery(). "<br> ");
 		$result = $this->executeQry($this->getLoadQuery());
-
 		$row = mysql_fetch_array($result);
 		$this->loadObjectFromDatabaseRow($this, $row);
+	}
+	
+	function fromId($id){
+		$this->id = $id;
+		return $this->fromPrimaryKey();
 	}
 
 
@@ -280,11 +281,14 @@ abstract class Entity{
 	}
 
 	function getLoadQuery(){
-
+		$qry =  $this->getLoadAllQuery()." where id = ".$this->id;
+		//print $qry;
+		return $qry;
 	}
 
 	function getLoadAllQuery(){
-		return "select * from ".get_class($this);
+		$table = strtolower(get_class($this));
+		return "select * from $table ";
 	}
 
 	function getUpdateQuery(){

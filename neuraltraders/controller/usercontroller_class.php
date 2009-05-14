@@ -4,6 +4,7 @@ include_once '../base/controller/baseController.php';
 include_once 'UserManager.php';
 include_once '../base/message.php';
 include_once '../base/messageManager.php';
+include_once '../base/mailManager.php';
 
 
 
@@ -35,23 +36,16 @@ class UserController extends BaseController {
 		$username = $_REQUEST['userName'];
 		$password = $_REQUEST['password'];
 
-		$msg = new Message('Username/Email or password mismatch','S');
-		MessageManager::put($msg);
-		$ref = $_SERVER['HTTP_REFERER'].'&errMsg=invalidUser';
-		header( "Location:$ref" ) ;
-		return;
-
 		$qry = "select * from user where ( username= '$username' or email='$username') and password = '$password'";
-		//print $qry;
 		$user = new User();
 		$arr = $user->loadObjectsFromQuery($qry);
-		//print_r ( $arr );
 
 		if( is_array($arr) && count($arr) > 0 ){
-			//print $arr[0]->userName;
 			UserManager::setLoggedInUser($arr[0]);
 			header( 'Location:../template.php?node=welcome' ) ;
 		}else{
+			$msg = new Message('Username/Email or password mismatch');
+			MessageManager::put($msg);
 			$this->returnToReferer();
 		}
 	}
@@ -59,13 +53,16 @@ class UserController extends BaseController {
 	function mailPassword(){
 		$email = $_REQUEST['email'];
 		$qry = "select *  from user where email = '$email'";
-		$user = new User();
+		$user = new User();	
 		$arr = $user->loadObjectsFromQuery($qry);
 		
 		if( is_array($arr) && count($arr) > 0 ){
 			$user = $arr[0];
 			
-			MailManager::send("Your NeuralTraders Credentials", $msg, $user->email );
+			$body .= " Username:$user->userName ";
+			$body .= " Password:$user->password ";
+			
+			MailManager::send("Your NeuralTraders Credentials", $body, $user->email );
 			
 			$msgText = 'Your credentials have been sent to  - '.$email;
 			$msg = new Message($msgText, 'S');
@@ -77,7 +74,6 @@ class UserController extends BaseController {
 		}
 		
 		$this->returnToReferer();
-		
 		
 		
 		
