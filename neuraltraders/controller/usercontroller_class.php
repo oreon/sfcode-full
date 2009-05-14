@@ -52,8 +52,7 @@ class UserController extends BaseController {
 			UserManager::setLoggedInUser($arr[0]);
 			header( 'Location:../template.php?node=welcome' ) ;
 		}else{
-			$ref = $_SERVER['HTTP_REFERER'].'&errMsg=invalidUser';
-			header( "Location:$ref" ) ;
+			$this->returnToReferer();
 		}
 	}
 
@@ -65,9 +64,18 @@ class UserController extends BaseController {
 		
 		if( is_array($arr) && count($arr) > 0 ){
 			$user = $arr[0];
-			print $user->userName.' '.$user->password;
-		}else
-			print 'We could not find any user with email '.$email;
+			$msgText = 'Your credentials have been sent to  - '.$email;
+			$msg = new Message($msgText, 'S');
+			MessageManager::put($msg);
+		}else {
+			$msgText = 'We could not find any user with email - '.$email;
+			$msg = new Message($msgText);
+			MessageManager::put($msg);
+		}
+		
+		$this->returnToReferer();
+		
+		
 		
 		
 	}
