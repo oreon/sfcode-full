@@ -57,12 +57,12 @@
 		«ELSE»
 		<set name="«name»" lazy="true" inverse="true" cascade="all-delete-orphan">
  	 	 	<key column="«class.name»_ID" />
-				<one-to-many class="«type.fqnForPackage(this.class)»" />
+				<one-to-many class="«fqn(type)»" />
  	 	</set>
  	 	«ENDIF»
 	«ELSE»
 		«IF association != null »
-		<many-to-one name="«name»" class="«type.fqnForPackage(this.class)»" column="«name»_id"/>
+		<many-to-one name="«name»" class="«fqn(type)»" column="«name»_id"/>
 		«ELSE»
 			«EXPAND genPropertyDecl FOR this»
 		«ENDIF»
