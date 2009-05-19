@@ -161,6 +161,7 @@ public abstract class BaseAction<T extends BusinessEntity> {
 
 		updateComposedAssociations();
 		entityManager.persist(getEntity());
+		//entityManager.
 
 		// TODO: replace with statusmessages seam class
 		if (facesMessages != null)

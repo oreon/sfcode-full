@@ -42,12 +42,12 @@ import org.hibernate.annotations.Filter;
 public class Complaint extends BusinessEntity {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "encounter_id", nullable = false)
+	@JoinColumn(name = "encounter_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Encounter encounter;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "symptom_id", nullable = false)
+	@JoinColumn(name = "symptom_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected org.cerebrum.domain.diseases.Symptom symptom;
 

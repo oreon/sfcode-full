@@ -42,12 +42,12 @@ import org.hibernate.annotations.Filter;
 public class Immunization extends BusinessEntity {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "patient_id", nullable = false)
+	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Patient patient;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "immunizationType_id", nullable = false)
+	@JoinColumn(name = "immunizationType_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected ImmunizationType immunizationType;
 

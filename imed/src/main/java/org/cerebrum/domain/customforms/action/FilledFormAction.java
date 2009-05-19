@@ -1,35 +1,37 @@
 package org.cerebrum.domain.customforms.action;
 
+import org.cerebrum.domain.customforms.FilledForm;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.component.html.HtmlOutputText;
-import javax.persistence.Query;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
 
-import org.cerebrum.domain.customforms.CustomField;
-import org.cerebrum.domain.customforms.CustomForm;
-import org.cerebrum.domain.customforms.FieldType;
-import org.cerebrum.domain.customforms.FilledField;
-import org.cerebrum.domain.customforms.FilledForm;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+
+import org.apache.commons.lang.StringUtils;
+
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
+import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
-import org.witchcraft.seam.action.BaseAction;
+import org.jboss.seam.faces.FacesMessages;
+import org.jboss.seam.log.Log;
 
-import com.icesoft.faces.component.ext.HtmlCheckbox;
-import com.icesoft.faces.component.inputrichtext.InputRichText;
+import org.witchcraft.seam.action.BaseAction;
+import org.jboss.seam.annotations.Observer;
+
+import org.cerebrum.domain.customforms.FilledField;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("filledFormAction")
@@ -41,18 +43,6 @@ public class FilledFormAction extends BaseAction<FilledForm>
 	@Out(required = false)
 	@DataModelSelection
 	private FilledForm filledForm;
-	
-	
-	public List<UIComponent> getComponents() {
-		createFields();
-		return components;
-	}
-
-	public void setComponents(List<UIComponent> components) {
-		this.components = components;
-	}
-
-	List<UIComponent> components = new ArrayList<UIComponent>();
 
 	@DataModel
 	private List<FilledForm> filledFormList;
@@ -76,63 +66,7 @@ public class FilledFormAction extends BaseAction<FilledForm>
 	public void setEntityList(List<FilledForm> list) {
 		this.filledFormList = list;
 	}
-	
-	
 
-	private void createFields() {
-		if(filledForm.getCustomForm() == null){
-			Query qry = entityManager.createQuery("select c From CustomForm c ");
-			CustomForm form = (CustomForm) qry.getResultList().get(0);
-			filledForm.setCustomForm(form);
-			Set<CustomField> flds  = form.getCustomFields();
-			for (CustomField customField : flds) {
-				
-				HtmlOutputText outputText = new HtmlOutputText();
-				outputText.setValue(customField.getName());
-				components.add(outputText);
-				
-				if (customField.getType() == FieldType.TEXT) {
-			        HtmlInputText txt = new HtmlInputText();
-			        //txt.setValue("hello jsf");
-			        txt.setId(customField.getName());
-			        components.add(txt);
-				}else if (customField.getType() == FieldType.LARGE_TEXT){
-					InputRichText richText = new InputRichText();
-					richText.setId(customField.getName());
-			        components.add(richText);
-			    }else if (customField.getType() == FieldType.YES_NO){
-			    	HtmlCheckbox checkbox = new HtmlCheckbox();
-			    	checkbox.setId(customField.getName());
-			    	components.add(checkbox);
-			    }		
-			}
-		}
-	}
-	
-	@Override
-	public String save() {
-		Set<FilledField> fields = filledForm.getFilledFields();
-		for(UIComponent comp : components){
-			FilledField field = new FilledField();
-			String value = null;
-			String fieldName = comp.getId();
-			if(comp instanceof HtmlInputText){
-				value = (String)( (HtmlInputText)comp).getValue();
-			}
-			field.setValue(value);
-			Set<CustomField> customFlds = filledForm.getCustomForm().getCustomFields();
-			for (CustomField customField : customFlds) {
-				if(customField.getName().equals(fieldName)){
-					field.setCustomField(customField);
-					fields.add(field);
-					break;
-				}
-			}
-			
-		}
-		return super.save();
-	}
-	
 	/** This function adds associated entities to an example criterion
 	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
 	 */

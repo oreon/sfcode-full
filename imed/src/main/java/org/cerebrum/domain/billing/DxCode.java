@@ -67,7 +67,7 @@ public class DxCode extends BusinessEntity {
 
 	@Transient
 	public String getDisplayName() {
-		return code + "";
+		return code;
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

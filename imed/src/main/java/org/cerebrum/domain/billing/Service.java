@@ -42,19 +42,19 @@ import org.hibernate.annotations.Filter;
 public class Service extends BusinessEntity {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "claim_id", nullable = false)
+	@JoinColumn(name = "claim_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Claim claim;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "dxCode_id", nullable = false)
+	@JoinColumn(name = "dxCode_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected DxCode dxCode;
 
 	protected Integer units;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "procedureCode_id", nullable = false)
+	@JoinColumn(name = "procedureCode_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected ProcedureCode procedureCode;
 

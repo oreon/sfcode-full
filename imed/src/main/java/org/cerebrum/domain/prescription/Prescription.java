@@ -48,13 +48,14 @@ public class Prescription extends BusinessEntity {
 	@IndexedEmbedded
 	private Set<Item> items = new HashSet<Item>();
 
+	@Column(name = "startDate", unique = false)
 	protected Date startDate;
 
 	@Lob
 	protected String notes;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "patient_id", nullable = false)
+	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected org.cerebrum.domain.patient.Patient patient;
 
@@ -92,7 +93,9 @@ public class Prescription extends BusinessEntity {
 
 	@Transient
 	public String getDisplayName() {
-		return patient.getDisplayName() + "," + super.getDateCreated();
+		if(patient.getDisplayName() != null )
+			return patient.getDisplayName() + "," + super.getDateCreated();
+		return "";
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

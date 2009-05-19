@@ -50,7 +50,7 @@ public class Disease extends BusinessEntity {
 	protected String description;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "category_id", nullable = false)
+	@JoinColumn(name = "category_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Category category;
 
@@ -80,7 +80,7 @@ public class Disease extends BusinessEntity {
 
 	@Transient
 	public String getDisplayName() {
-		return name + "";
+		return name;
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

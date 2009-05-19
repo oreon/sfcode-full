@@ -41,12 +41,12 @@ public class Appointment {
 	protected String notes;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "patient_id", nullable = false)
+	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected org.cerebrum.domain.patient.Patient patient;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "physician_id", nullable = false)
+	@JoinColumn(name = "physician_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected org.cerebrum.domain.provider.Physician physician;
 

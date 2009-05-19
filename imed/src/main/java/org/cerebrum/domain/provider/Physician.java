@@ -42,7 +42,7 @@ import org.hibernate.annotations.Filter;
 public class Physician extends org.cerebrum.domain.demographics.Person {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "specialization_id", nullable = false)
+	@JoinColumn(name = "specialization_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Specialization specialization;
 
@@ -50,7 +50,7 @@ public class Physician extends org.cerebrum.domain.demographics.Person {
 	protected String billingNumber;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false)
+	@JoinColumn(name = "user_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected org.witchcraft.users.User user;
 

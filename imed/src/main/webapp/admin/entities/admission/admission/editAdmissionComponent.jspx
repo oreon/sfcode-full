@@ -1,0 +1,216 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="Admission " />
+		</f:facet>
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.admission_patient}  "/>
+		
+	
+	<h:selectOneMenu id="Admission_patient" value="#{admission.patient}" required="true">
+		<s:selectItems value="#{patientList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="Admission_patient" />
+		
+		
+	
+
+	
+		
+	
+
+
+ 
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.admission_prescription}  "/>
+		
+	
+	<h:selectOneMenu id="Admission_prescription" value="#{admission.prescription}" required="true">
+		<s:selectItems value="#{prescriptionList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="Admission_prescription" />
+		
+		
+	
+
+	
+		
+	
+
+
+ 
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.admission_bedAllocation}  "/>
+		
+	
+	<h:selectOneMenu id="Admission_bedAllocation" value="#{admission.bedAllocation}" required="true">
+		<s:selectItems value="#{bedAllocationList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="Admission_bedAllocation" />
+		
+		
+	
+
+	
+		
+	
+
+
+ 
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.admission_notes}  "/>
+		
+
+	<ice:inputRichText toolbar="Basic" saveOnSubmit="true"  id="Admission_notes" required="false"  value="#{admission.notes}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Admission_notes" />
+		
+		
+	
+
+	
+		</h:panelGrid>
+		
+	
+	
+	
+	
+	<h:commandButton  value="New Complaint" action="#{admissionAction.addComplaints}" >
+		<s:conversationId/>
+	</h:commandButton>
+
+	
+	
+	<ice:dataTable id="complaints_data" var="diseaseIncidence" rendered="#{not empty admissionAction.listComplaints}"
+					value="#{admissionAction.listComplaints}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.diseaseIncidence_disease}  "/></f:facet>
+		
+	
+	<h:selectOneMenu id="DiseaseIncidence_disease" value="#{diseaseIncidence.disease}" required="true">
+		<s:selectItems value="#{diseaseList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="DiseaseIncidence_disease" />
+		</h:column>
+		
+	
+
+	
+		
+	
+
+
+ 
+	
+
+
+ 
+
+	
+		
+		
+		
+	<h:column>
+		
+	<h:commandButton  value="New Complaint" action="#{admissionAction.addComplaints}" >
+		<s:conversationId/>
+	</h:commandButton>
+
+	</h:column>
+
+		
+	<h:column>
+		<ice:commandButton value="Delete" action="#{admissionAction.deleteComplaints(diseaseIncidence)}" immediate="true">
+			<s:conversationId/>
+		</ice:commandButton>
+	</h:column>
+
+		
+			
+	</ice:dataTable>
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{admissionAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{admissionAction.cancel}" /> 
+		
+	</div>
+
+	</ice:panelGroup>
+	</html>
+	
