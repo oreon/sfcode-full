@@ -48,7 +48,7 @@ public class Address {
 	protected String zip;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "country_id", nullable = false)
+	@JoinColumn(name = "country_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Country country;
 

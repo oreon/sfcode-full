@@ -42,7 +42,7 @@ import org.hibernate.annotations.Filter;
 public class Item extends BusinessEntity {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "prescription_id", nullable = false)
+	@JoinColumn(name = "prescription_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Prescription prescription;
 
@@ -53,7 +53,7 @@ public class Item extends BusinessEntity {
 	protected String measurement;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "drug_id", nullable = false)
+	@JoinColumn(name = "drug_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected org.cerebrum.domain.drug.Drug drug;
 
@@ -68,7 +68,7 @@ public class Item extends BusinessEntity {
 	protected Integer days;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "frequency_id", nullable = false)
+	@JoinColumn(name = "frequency_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Frequency frequency;
 
@@ -156,7 +156,7 @@ public class Item extends BusinessEntity {
 
 	@Transient
 	public String getDisplayName() {
-		return prescription + "";
+		return measurement;
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

@@ -41,7 +41,7 @@ import org.hibernate.annotations.Filter;
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class Symptom extends BusinessEntity {
 
-	//causes->symptom ->Symptom->Cause->Cause
+	//causes->symptom ->Symptom->Symptom->Symptom
 
 	@OneToMany(mappedBy = "symptom", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Symptom_ID", nullable = true)
@@ -82,7 +82,7 @@ public class Symptom extends BusinessEntity {
 
 	@Transient
 	public String getDisplayName() {
-		return causes + "";
+		return name;
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

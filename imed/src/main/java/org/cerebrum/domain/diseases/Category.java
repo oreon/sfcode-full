@@ -48,7 +48,7 @@ public class Category extends BusinessEntity {
 	private Set<Category> children = new HashSet<Category>();
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(name = "parent_id", nullable = true)
+	@JoinColumn(name = "parent_id", nullable = true, updatable = true)
 	protected Category parent;
 
 	@NotNull
@@ -82,7 +82,7 @@ public class Category extends BusinessEntity {
 
 	@Transient
 	public String getDisplayName() {
-		return children + "";
+		return name;
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

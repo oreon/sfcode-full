@@ -49,7 +49,7 @@ public class Allergy extends BusinessEntity {
 	protected Severity reactionType;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "patient_id", nullable = false)
+	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Patient patient;
 
@@ -79,7 +79,7 @@ public class Allergy extends BusinessEntity {
 
 	@Transient
 	public String getDisplayName() {
-		return allergen + "";
+		return allergen;
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

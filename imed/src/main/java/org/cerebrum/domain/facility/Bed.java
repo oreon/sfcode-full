@@ -41,32 +41,20 @@ import org.hibernate.annotations.Filter;
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class Bed extends BusinessEntity {
 
-	protected Integer number;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(name = "patient_id", nullable = true)
-	@ContainedIn
-	protected org.cerebrum.domain.patient.Patient patient;
+	@Field(index = Index.TOKENIZED)
+	protected String number;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "ward_id", nullable = false)
+	@JoinColumn(name = "ward_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Ward ward;
 
-	public void setNumber(Integer number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 
-	public Integer getNumber() {
+	public String getNumber() {
 		return number;
-	}
-
-	public void setPatient(org.cerebrum.domain.patient.Patient patient) {
-		this.patient = patient;
-	}
-
-	public org.cerebrum.domain.patient.Patient getPatient() {
-		return patient;
 	}
 
 	public void setWard(Ward ward) {
@@ -79,7 +67,7 @@ public class Bed extends BusinessEntity {
 
 	@Transient
 	public String getDisplayName() {
-		return number + "";
+		return number;
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
@@ -89,6 +77,8 @@ public class Bed extends BusinessEntity {
 	public List<String> listSearchableFields() {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
+
+		listSearchableFields.add("number");
 
 		return listSearchableFields;
 	}

@@ -1,0 +1,89 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	
+		<ice:commandButton value="Create New" action="edit" rendered="#{identity.loggedIn}"/>
+		<ice:dataTable  var="filledField" value="#{filledFieldList}" rows="30"
+		rowClasses="odd, even" styleClass="dataTable" >		
+		
+	
+		
+			
+				
+	<ice:column >
+		<f:facet name="header">
+			<h:outputText value="#{msg.filledField_customField}"   /> 	
+		</f:facet>
+		<s:link   value="#{filledField.customField.displayName}" action="viewCustomField" />
+	</ice:column>
+			
+		
+	
+		
+			
+				
+	<ice:column  groupOn="#{filledField.filledForm.displayName}" >
+		<f:facet name="header">
+			<h:outputText value="#{msg.filledField_filledForm}"   /> 	
+		</f:facet>
+		<s:link   value="#{filledField.filledForm.displayName}" action="viewFilledForm" />
+	</ice:column>
+			
+		
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.filledField_value}" />
+		</f:facet>
+		<h:outputText   value="#{filledField.value}" />
+	</ice:column>
+	
+		
+	
+		
+	<ice:column   >
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{filledFieldAction.select(filledField)}">
+			<h:graphicImage value="/images/icons/eye.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+		
+	<ice:column   >
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{filledFieldAction.select(filledField)}">
+			<h:graphicImage value="/images/icons/edit.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+		
+	<ice:column   >
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{filledFieldAction.showDeleteDialog(filledField)}">
+			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+		</ice:dataTable>
+		
+		<wc:deletePanel backingAction="#{filledFieldAction}" backingEntity="#{filledField}" title="Delete FilledField" />
+	</html>
+	

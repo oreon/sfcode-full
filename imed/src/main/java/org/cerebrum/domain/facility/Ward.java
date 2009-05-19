@@ -56,7 +56,7 @@ public class Ward extends BusinessEntity {
 	protected org.cerebrum.domain.demographics.Gender allowedGender;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "floor_id", nullable = false)
+	@JoinColumn(name = "floor_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Floor floor;
 
@@ -105,7 +105,7 @@ public class Ward extends BusinessEntity {
 
 	@Transient
 	public String getDisplayName() {
-		return beds + "";
+		return name;
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
@@ -117,6 +117,8 @@ public class Ward extends BusinessEntity {
 		listSearchableFields.addAll(super.listSearchableFields());
 
 		listSearchableFields.add("name");
+
+		listSearchableFields.add("beds.number");
 
 		return listSearchableFields;
 	}

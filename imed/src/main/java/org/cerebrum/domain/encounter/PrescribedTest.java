@@ -42,7 +42,7 @@ import org.hibernate.annotations.Filter;
 public class PrescribedTest extends BusinessEntity {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "dxTest_id", nullable = false)
+	@JoinColumn(name = "dxTest_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected org.cerebrum.domain.diagnostics.DxTest dxTest;
 
@@ -50,7 +50,7 @@ public class PrescribedTest extends BusinessEntity {
 	protected String notes;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "encounter_id", nullable = false)
+	@JoinColumn(name = "encounter_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Encounter encounter;
 
@@ -80,7 +80,7 @@ public class PrescribedTest extends BusinessEntity {
 
 	@Transient
 	public String getDisplayName() {
-		return dxTest + "";
+		return notes;
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

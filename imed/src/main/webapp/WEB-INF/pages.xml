@@ -287,6 +287,62 @@
                 <redirect view-id="/admin/entities/diagnostics/dxTest/viewDxTest.jspx" />
             </rule>
         
+            <rule if-outcome="admission">
+                <redirect view-id="/admin/entities/admission/admission/listAdmission.jspx" />
+            </rule>
+            
+            <rule if-outcome="viewAdmission">
+                <redirect view-id="/admin/entities/admission/admission/viewAdmission.jspx" />
+            </rule>
+        
+            <rule if-outcome="diseaseIncidence">
+                <redirect view-id="/admin/entities/admission/diseaseIncidence/listDiseaseIncidence.jspx" />
+            </rule>
+            
+            <rule if-outcome="viewDiseaseIncidence">
+                <redirect view-id="/admin/entities/admission/diseaseIncidence/viewDiseaseIncidence.jspx" />
+            </rule>
+        
+            <rule if-outcome="bedAllocation">
+                <redirect view-id="/admin/entities/admission/bedAllocation/listBedAllocation.jspx" />
+            </rule>
+            
+            <rule if-outcome="viewBedAllocation">
+                <redirect view-id="/admin/entities/admission/bedAllocation/viewBedAllocation.jspx" />
+            </rule>
+        
+            <rule if-outcome="customForm">
+                <redirect view-id="/admin/entities/customforms/customForm/listCustomForm.jspx" />
+            </rule>
+            
+            <rule if-outcome="viewCustomForm">
+                <redirect view-id="/admin/entities/customforms/customForm/viewCustomForm.jspx" />
+            </rule>
+        
+            <rule if-outcome="customField">
+                <redirect view-id="/admin/entities/customforms/customField/listCustomField.jspx" />
+            </rule>
+            
+            <rule if-outcome="viewCustomField">
+                <redirect view-id="/admin/entities/customforms/customField/viewCustomField.jspx" />
+            </rule>
+        
+            <rule if-outcome="filledForm">
+                <redirect view-id="/admin/entities/customforms/filledForm/listFilledForm.jspx" />
+            </rule>
+            
+            <rule if-outcome="viewFilledForm">
+                <redirect view-id="/admin/entities/customforms/filledForm/viewFilledForm.jspx" />
+            </rule>
+        
+            <rule if-outcome="filledField">
+                <redirect view-id="/admin/entities/customforms/filledField/listFilledField.jspx" />
+            </rule>
+            
+            <rule if-outcome="viewFilledField">
+                <redirect view-id="/admin/entities/customforms/filledField/viewFilledField.jspx" />
+            </rule>
+        
         </navigation>
     </page>
 
@@ -1443,6 +1499,251 @@
 			</rule> 
 			 <rule if-outcome="edit">
  				<redirect view-id="/admin/entities/diagnostics/dxTest/editDxTest.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/admission/admission/editAdmission.jspx" conversation-required="false">
+    	<!-- <description>Edit Admission: #{admission.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/admission/admission/viewAdmission.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/admission/admission/listAdmission.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/admission/admission/viewAdmission.jspx" conversation-required="false">
+	 	<!-- <description>View Admission: #{admission.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/admission/admission/editAdmission.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/admission/admission/listAdmission.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/admission/admission/listAdmission.jspx" >
+		<navigation>
+			<rule if-outcome="viewAdmission">
+				<redirect view-id="/admin/entities/admission/admission/viewAdmission.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/admission/admission/editAdmission.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/admission/diseaseIncidence/editDiseaseIncidence.jspx" conversation-required="false">
+    	<!-- <description>Edit DiseaseIncidence: #{diseaseIncidence.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/admission/diseaseIncidence/viewDiseaseIncidence.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/admission/diseaseIncidence/listDiseaseIncidence.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/admission/diseaseIncidence/viewDiseaseIncidence.jspx" conversation-required="false">
+	 	<!-- <description>View DiseaseIncidence: #{diseaseIncidence.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/admission/diseaseIncidence/editDiseaseIncidence.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/admission/diseaseIncidence/listDiseaseIncidence.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/admission/diseaseIncidence/listDiseaseIncidence.jspx" >
+		<navigation>
+			<rule if-outcome="viewDiseaseIncidence">
+				<redirect view-id="/admin/entities/admission/diseaseIncidence/viewDiseaseIncidence.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/admission/diseaseIncidence/editDiseaseIncidence.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/admission/bedAllocation/editBedAllocation.jspx" conversation-required="false">
+    	<!-- <description>Edit BedAllocation: #{bedAllocation.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/admission/bedAllocation/viewBedAllocation.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/admission/bedAllocation/listBedAllocation.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/admission/bedAllocation/viewBedAllocation.jspx" conversation-required="false">
+	 	<!-- <description>View BedAllocation: #{bedAllocation.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/admission/bedAllocation/editBedAllocation.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/admission/bedAllocation/listBedAllocation.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/admission/bedAllocation/listBedAllocation.jspx" >
+		<navigation>
+			<rule if-outcome="viewBedAllocation">
+				<redirect view-id="/admin/entities/admission/bedAllocation/viewBedAllocation.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/admission/bedAllocation/editBedAllocation.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/customforms/customForm/editCustomForm.jspx" conversation-required="false">
+    	<!-- <description>Edit CustomForm: #{customForm.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/customforms/customForm/viewCustomForm.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/customforms/customForm/listCustomForm.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/customforms/customForm/viewCustomForm.jspx" conversation-required="false">
+	 	<!-- <description>View CustomForm: #{customForm.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/customforms/customForm/editCustomForm.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/customforms/customForm/listCustomForm.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/customforms/customForm/listCustomForm.jspx" >
+		<navigation>
+			<rule if-outcome="viewCustomForm">
+				<redirect view-id="/admin/entities/customforms/customForm/viewCustomForm.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/customforms/customForm/editCustomForm.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/customforms/customField/editCustomField.jspx" conversation-required="false">
+    	<!-- <description>Edit CustomField: #{customField.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/customforms/customField/viewCustomField.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/customforms/customField/listCustomField.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/customforms/customField/viewCustomField.jspx" conversation-required="false">
+	 	<!-- <description>View CustomField: #{customField.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/customforms/customField/editCustomField.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/customforms/customField/listCustomField.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/customforms/customField/listCustomField.jspx" >
+		<navigation>
+			<rule if-outcome="viewCustomField">
+				<redirect view-id="/admin/entities/customforms/customField/viewCustomField.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/customforms/customField/editCustomField.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/customforms/filledForm/editFilledForm.jspx" conversation-required="false">
+    	<!-- <description>Edit FilledForm: #{filledForm.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/customforms/filledForm/viewFilledForm.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/customforms/filledForm/listFilledForm.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/customforms/filledForm/viewFilledForm.jspx" conversation-required="false">
+	 	<!-- <description>View FilledForm: #{filledForm.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/customforms/filledForm/editFilledForm.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/customforms/filledForm/listFilledForm.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/customforms/filledForm/listFilledForm.jspx" >
+		<navigation>
+			<rule if-outcome="viewFilledForm">
+				<redirect view-id="/admin/entities/customforms/filledForm/viewFilledForm.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/customforms/filledForm/editFilledForm.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/customforms/filledField/editFilledField.jspx" conversation-required="false">
+    	<!-- <description>Edit FilledField: #{filledField.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/customforms/filledField/viewFilledField.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/customforms/filledField/listFilledField.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/customforms/filledField/viewFilledField.jspx" conversation-required="false">
+	 	<!-- <description>View FilledField: #{filledField.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/customforms/filledField/editFilledField.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/customforms/filledField/listFilledField.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/customforms/filledField/listFilledField.jspx" >
+		<navigation>
+			<rule if-outcome="viewFilledField">
+				<redirect view-id="/admin/entities/customforms/filledField/viewFilledField.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/customforms/filledField/editFilledField.jspx" />
             </rule>			
 		</navigation>
 	</page>

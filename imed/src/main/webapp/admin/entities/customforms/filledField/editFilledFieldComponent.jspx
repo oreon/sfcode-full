@@ -1,0 +1,115 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="FilledField " />
+		</f:facet>
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.filledField_customField}  "/>
+		
+	
+	<h:selectOneMenu id="FilledField_customField" value="#{filledField.customField}" required="true">
+		<s:selectItems value="#{customFieldList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="FilledField_customField" />
+		
+		
+	
+
+	
+		
+	
+
+
+ 
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.filledField_filledForm}  "/>
+		
+	
+	<h:selectOneMenu id="FilledField_filledForm" value="#{filledField.filledForm}" required="true">
+		<s:selectItems value="#{filledFormList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="FilledField_filledForm" />
+		
+		
+	
+
+	
+		
+	
+
+
+ 
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.filledField_value}  "/>
+		
+
+	<ice:inputText  id="FilledField_value" required="false"  value="#{filledField.value}" />
+   
+
+		
+		<h:message styleClass="error errors" for="FilledField_value" />
+		
+		
+	
+
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{filledFieldAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{filledFieldAction.cancel}" /> 
+		
+	</div>
+
+	</ice:panelGroup>
+	</html>
+	

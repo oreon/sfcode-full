@@ -42,12 +42,12 @@ import org.hibernate.annotations.Filter;
 public class Nurse extends org.cerebrum.domain.demographics.Person {
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(name = "specialization_id", nullable = true)
+	@JoinColumn(name = "specialization_id", nullable = true, updatable = true)
 	@ContainedIn
 	protected Specialization specialization;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false)
+	@JoinColumn(name = "user_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected org.witchcraft.users.User user;
 

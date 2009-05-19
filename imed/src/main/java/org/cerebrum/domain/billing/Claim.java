@@ -52,7 +52,7 @@ public class Claim extends BusinessEntity {
 	protected String notes;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "referringPhysician_id", nullable = false)
+	@JoinColumn(name = "referringPhysician_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected org.cerebrum.domain.provider.Physician referringPhysician;
 

@@ -90,7 +90,7 @@ public class Drug extends BusinessEntity {
 
 	@Transient
 	public String getDisplayName() {
-		return name + "";
+		return name;
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

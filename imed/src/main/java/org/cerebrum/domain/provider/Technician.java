@@ -42,7 +42,7 @@ import org.hibernate.annotations.Filter;
 public class Technician extends org.cerebrum.domain.demographics.Person {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false)
+	@JoinColumn(name = "user_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected org.witchcraft.users.User user;
 

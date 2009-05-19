@@ -68,11 +68,6 @@ public class BedAction extends BaseAction<Bed> implements java.io.Serializable {
 	 */
 	public void addAssoications(Criteria criteria) {
 
-		if (bed.getPatient() != null) {
-			criteria = criteria.add(Restrictions.eq("patient.id", bed
-					.getPatient().getId()));
-		}
-
 		if (bed.getWard() != null) {
 			criteria = criteria.add(Restrictions.eq("ward.id", bed.getWard()
 					.getId()));

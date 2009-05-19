@@ -71,7 +71,7 @@ public class Patient extends org.cerebrum.domain.demographics.Person {
 	private Set<org.cerebrum.domain.prescription.Prescription> prescriptions = new HashSet<org.cerebrum.domain.prescription.Prescription>();
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(name = "primaryPhysician_id", nullable = true)
+	@JoinColumn(name = "primaryPhysician_id", nullable = true, updatable = true)
 	@ContainedIn
 	protected org.cerebrum.domain.provider.Physician primaryPhysician;
 
@@ -82,7 +82,7 @@ public class Patient extends org.cerebrum.domain.demographics.Person {
 	@IndexedEmbedded
 	private Set<Document> documents = new HashSet<Document>();
 
-	//encounters->patient ->Patient->Encounter->Encounter
+	//encounters->patient ->Patient->Patient->Patient
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Patient_ID", nullable = true)

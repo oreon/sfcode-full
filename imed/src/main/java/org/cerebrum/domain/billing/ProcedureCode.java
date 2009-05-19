@@ -127,7 +127,7 @@ public class ProcedureCode extends BusinessEntity {
 
 	@Transient
 	public String getDisplayName() {
-		return price + "";
+		return code;
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

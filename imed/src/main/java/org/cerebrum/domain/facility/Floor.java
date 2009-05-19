@@ -43,7 +43,7 @@ public class Floor extends BusinessEntity {
 
 	protected Integer number;
 
-	//wards->floor ->Floor->Floor->Floor
+	//wards->floor ->Floor->Ward->Ward
 
 	@OneToMany(mappedBy = "floor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Floor_ID", nullable = true)

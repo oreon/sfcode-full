@@ -52,11 +52,11 @@ public class Encounter extends BusinessEntity {
 	protected String notes;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "patient_id", nullable = false)
+	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected org.cerebrum.domain.patient.Patient patient;
 
-	//prescribedTests->encounter ->Encounter->Encounter->Encounter
+	//prescribedTests->encounter ->Encounter->PrescribedTest->PrescribedTest
 
 	@OneToMany(mappedBy = "encounter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Encounter_ID", nullable = true)
