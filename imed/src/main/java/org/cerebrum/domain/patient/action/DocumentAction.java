@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.cerebrum.domain.patient.Document;
@@ -20,12 +23,14 @@ import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
+import org.jboss.seam.annotations.intercept.BypassInterceptors;
 import org.witchcraft.seam.action.BaseAction;
 
+import com.icesoft.faces.application.D2DViewHandler;
 import com.icesoft.faces.component.inputfile.FileInfo;
 import com.icesoft.faces.component.inputfile.InputFile;
 
-@Scope(ScopeType.SESSION)
+@Scope(ScopeType.CONVERSATION)
 @Name("documentAction")
 public class DocumentAction extends BaseAction<Document> implements
 		java.io.Serializable {
@@ -34,8 +39,8 @@ public class DocumentAction extends BaseAction<Document> implements
 	@Out(required = false)
 	@DataModelSelection
 	private Document document;
-	
-	 private FileInfo currentFile;
+
+	private FileInfo currentFile;
 
 	@DataModel
 	private List<Document> documentList;
@@ -86,27 +91,28 @@ public class DocumentAction extends BaseAction<Document> implements
 	}
 
 	public void uploadFile(ActionEvent event) {
-		  InputFile inputFile = (InputFile) event.getSource();
-	        FileInfo fileInfo = inputFile.getFileInfo();
-	        if (fileInfo.getStatus() == FileInfo.SAVED) {
-	            // reference our newly updated file for display purposes and
-	            // added it to our history file list.
-	            currentFile = fileInfo;
-	        }
+		InputFile inputFile = (InputFile) event.getSource();
+		FileInfo fileInfo = inputFile.getFileInfo();
+		if (fileInfo.getStatus() == FileInfo.SAVED) {
+			// reference our newly updated file for display purposes and
+			// added it to our history file list.
+			currentFile = fileInfo;
+		}
 
 	}
 
 	public String save() {
 		try {
-			document.setFile(getBytesFromFile(currentFile));
+			
+			document.setFile(getBytesFromFile(getInputFile().getFileInfo()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return super.save();
-		
+
 	}
-	
+
 	// Returns the contents of the file in a byte array.
 	private byte[] getBytesFromFile(FileInfo inputFile) throws IOException {
 
@@ -144,5 +150,36 @@ public class DocumentAction extends BaseAction<Document> implements
 		// Close the input stream and return bytes
 		inputStream.close();
 		return bytes;
+	}
+
+	@BypassInterceptors
+	public InputFile getInputFile() {
+
+		log.info("init component");
+		InputFile inputFile = null;
+		UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+
+		D2DViewHandler dvh = (D2DViewHandler) FacesContext.getCurrentInstance()
+				.getApplication().getViewHandler();
+
+		UIComponent uicomp = (InputFile) (dvh.findComponent(
+				":j_id144:inputFileName", viewRoot));
+
+		if (uicomp == null) {
+
+			log.info("uicomp is null!!");
+
+			inputFile = new InputFile();
+
+		}
+
+		else {
+
+			inputFile = (InputFile) uicomp;
+
+		}
+		
+		return inputFile;
+
 	}
 }
