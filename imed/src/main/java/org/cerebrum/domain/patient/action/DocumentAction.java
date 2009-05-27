@@ -163,7 +163,7 @@ public class DocumentAction extends BaseAction<Document> implements
 				.getApplication().getViewHandler();
 
 		UIComponent uicomp = (InputFile) (dvh.findComponent(
-				":j_id144:inputFileName", viewRoot));
+				":inputFileName", viewRoot));
 
 		if (uicomp == null) {
 
