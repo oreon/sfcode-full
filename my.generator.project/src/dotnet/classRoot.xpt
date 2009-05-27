@@ -5,6 +5,7 @@
 «EXTENSION template::associationExtensions»
 
 «DEFINE Root FOR uml::Model»
+	«setCurrentCartridge("DOT_NET")»
 	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
 «ENDDEFINE»
 
@@ -17,39 +18,73 @@
 
 «DEFINE ClassRoot FOR uml::Interface»
 	«FILE packagePath() +"/" +name+".cs"»
-	package « packageName() »;
-	
+namespace « packageName() -» {
 	public interface «name» «parents().size > 0 ?" : " + parents().get(0).name:""»{
 	
 	}
+}
 	«ENDFILE»
-«ENDDEFINE»
-
-
-«DEFINE genClassBody FOR uml::Class»
-	public class «name» «getParent()» «getInterfaces()»{
-		«EXPAND genDecl FOREACH getAllAttributes() »
-	}
-«ENDDEFINE»
-
-«DEFINE genDecl FOR uml::Property»
-	public virtual «type.fqnForPackage(this.class)» «name» «getDefault() != null?" = " +getDefaultVal(type):""»;
 «ENDDEFINE»
 
 «DEFINE ClassRoot FOR uml::Class»
 	«FILE packagePath() +"/" +name+".cs"»
-		«EXPAND genImports FOR this»
-		
-		namespace « packageName() »{
-		
-		«EXPAND genClassBody FOR this»
-		}
+	«EXPAND genImports FOR this-»
+
+namespace « packageName() »{
+
+	private class «name» «getParent()» «getInterfaces()»{
+	«EXPAND genDecl FOREACH getAllAttributes() »
+	«EXPAND genGetterSetter FOREACH getAllAttributes() »
+	}
+}
 	«ENDFILE»
 «ENDDEFINE»
+
+
+
+«DEFINE genDecl FOR uml::Property»
+	private virtual «type.fqnForPackage(this.class)» «name.toFirstLower()» «getDefault() != null?" = " +getDefaultVal(type):""»;
+«ENDDEFINE»
+
+«DEFINE genGetterSetter FOR uml::Property»
+	
+	public virtual  «isMultivalued()?" ISet ":type.fqnForPackage(this.class)» «name.toFirstUpper()» {
+        get {
+            return «name.toFirstLower()»;
+        }
+        set{
+            «name.toFirstLower()» = value;
+        }
+    }
+   
+	
+	«REM»comment
+	«IF isMultivalued()» 
+	public virtual void set«name.toFirstUpper()»(Set<«type.fqnForPackage(this.class)»> «name»){
+		this.«name» = «name»;
+	}
+	
+	public virtual Set<«type.fqnForPackage(this.class)»> get«name.toFirstUpper()»( ){
+		return «name»;
+	}
+	«ELSE»
+	public virtual void set«name.toFirstUpper()»(«type.fqnForPackage(this.class)» «name»){
+		this.«name» = «name»;
+	}
+	
+	public virtual «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
+		return «isColumn() && derivedProperty != null ? derivedProperty :  name»;
+	}
+	«ENDIF»
+	«ENDREM»
+«ENDDEFINE»
+
+
 
 «DEFINE genClassBody FOR wcprofile::Entity»
 	
 	public class «name» «getParent()» «getInterfaces()»{
+		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		 
 		«IF !getAllAttributes().isEmpty»
@@ -81,16 +116,3 @@ namespace «packageName()»{
 }
 	«ENDFILE»
 «ENDDEFINE»
-
-
-
-namespace FirstHiber.domain
-{
-    public class Product
-    {
-        public virtual Guid Id { get; set; }
-        public virtual string Name { get; set; }
-        public virtual string Category { get; set; }
-        public virtual bool Discontinued { get; set; }
-    }
-}

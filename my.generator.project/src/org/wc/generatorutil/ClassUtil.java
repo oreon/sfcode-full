@@ -28,6 +28,16 @@ public class ClassUtil {
 	
 	private static Class currentEmbeddable;
 	
+	public static String getCurrentCartridge() {
+		return currentCartridge;
+	}
+
+	public static void setCurrentCartridge(String currentCartridge) {
+		ClassUtil.currentCartridge = currentCartridge;
+	}
+
+	private static String currentCartridge;
+	
 	private static Boolean currentMultiMode = false;
 	
 	private static final Logger logger = Logger.getLogger(ClassUtil.class);
