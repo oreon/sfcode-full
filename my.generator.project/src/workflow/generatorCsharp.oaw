@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <workflow>
 
-<property file="workflow/workflow.properties" />
+<property file="workflow/workflow-cs.properties" />
 
 <bean class="oaw.uml2.Setup" standardUML2Setup="true"/>
 <component class="oaw.emf.XmiReader">
@@ -59,6 +59,22 @@ skipOnErrors="true">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 	</outlet>
 </component>
+
+<component id="HbmGenerator" class="oaw.xpand2.Generator"
+skipOnErrors="true">
+	<metaModel class="oaw.type.emf.EmfMetaModel">
+	<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
+	</metaModel>
+	<metaModel class="oaw.uml2.UML2MetaModel"/>
+	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
+		<profile value="${model.dir}/wcprofile.profile.uml"/>
+	</metaModel>
+	<expand value="template::HBMRoot::Root FOR model"/>
+	<outlet path="${srcGenPath}/">
+		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+	</outlet>
+</component>
+
 
 
 </workflow>

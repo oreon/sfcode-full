@@ -73,16 +73,27 @@ JAVA org.wc.generatorutil.ClassUtil.getSingular(java.lang.String);
 
 //get the parent
 String getParent(Class cls):
-cls.parents().size > 0 ?" extends " + cls.parents().get(0).fqn():"";
+cls.parents().size > 0 ? getExtensionKeyword() + cls.parents().get(0).fqn():"";
 
 
 //get the parent
 String getParent(Entity cls):
-" extends " + ( cls.parents().size > 0 ? cls.parents().get(0).fqn():" BusinessEntity ");
+getExtensionKeyword() + ( cls.parents().size > 0 ? cls.parents().get(0).fqn():" BusinessEntity ");
 
 //get the parent
 String getParent(MappedSuperClass cls):
-" extends " + ( cls.parents().size > 0 ? cls.parents().get(0).name:" BusinessEntity ");
+getExtensionKeyword() + ( cls.parents().size > 0 ? cls.parents().get(0).name:" BusinessEntity ");
+
+String getExtensionKeyword():
+if( getCurrentCartridge() == "DOT_NET" ) then
+	":"
+else
+	" extends ";
+
+String getCartridge():
+readProperty("cartridge");
+	
+	
 
 String getAssocOptional(Property prop):
 prop.lowerBound() > 0?false:true;
@@ -162,6 +173,13 @@ String getDisplayNameFromAttribs(Class entity):
 JAVA org.wc.generatorutil.ClassUtil.getDisplayNameFromAttribs(org.eclipse.uml2.uml.Class);
  
  
+String getCurrentCartridge():
+JAVA org.wc.generatorutil.ClassUtil.getCurrentCartridge();
+
+
+setCurrentCartridge(String currentCartridge):
+JAVA org.wc.generatorutil.ClassUtil.setCurrentCartridge(java.lang.String);
+
  //split the given string by ',' and return a list 
  getStringsAsList(String arg):
  arg.split(","); 
@@ -172,3 +190,5 @@ JAVA org.wc.generatorutil.ClassUtil.getDisplayNameFromAttribs(org.eclipse.uml2.u
  col.association == null? "@Column(name = \"" +  (col.columnName != null ? col.columnName : col.name) +  "\"," + "unique=" + col.uniqueProperty + ")":"";
  
 
+getTableName(Entity entity):
+entity.tableName!=null?entity.tableName.toLowerCase():entity.name.toLowerCase();

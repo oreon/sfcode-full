@@ -9,50 +9,32 @@
 «ENDDEFINE»
 
 «DEFINE PackageRoot FOR uml::Package»
-	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Class)»
+	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 «ENDDEFINE»
 
 «DEFINE ClassRoot FOR uml::Class»
-	«FILE packagePath() +"/"  +name+".xml"»
+	«FILE "/mappings/" + packagePath() +"/"  + name + "hbm.xml"»
 	«EXPAND genClassBody FOR this»
 	«ENDFILE»
 «ENDDEFINE»
 
-«DEFINE genClassBody FOR uml::Class»
-	
-«ENDDEFINE»
-
-
-«DEFINE genClassBody FOR wcprofile::MappedSuperClass»
-	
-«ENDDEFINE»
-
-«DEFINE genClassBody FOR wcprofile::Embeddable»
-	
-«ENDDEFINE»
-
-
 «DEFINE genClassBody FOR wcprofile::Entity»
-	
-	<?xml version="1.0" encoding="UTF-8"?>
-		<!DOCTYPE hibernate-mapping PUBLIC
-			"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-			"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-	<hibernate-mapping>
- 		<class name="« packageName() ».«name»" table="«tableName!=null?tableName.toLowerCase():name.toLowerCase()»">
- 	 		<id column="id" name="id" type="java.lang.Long">
- 	 	 		<generator class="increment"/>	 	 	
- 	 		</id>
- 	 		«EXPAND genDecl FOREACH getAllAttributes() »
- 	 </class>
-	</hibernate-mapping>
-	
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+  assembly="FirstHiber" namespace="«packageName()»">
+ 	<class name="« packageName() ».«name»" table="«getTableName()»">
+ 	 	<id column="id" name="id" type="java.lang.Long">
+ 	 	 	<generator class="increment"/>	 	 	
+ 	 	</id>
+ 	 	«EXPAND genDecl FOREACH getAllAttributes() -»
+ 	</class>
+</hibernate-mapping>
 «ENDDEFINE»
-
+ 
  
 «DEFINE genDecl FOR uml::Property»
 «IF isMultivalued()»
-		«IF opposite!= null && opposite.isMultivalued() »
+		«IF opposite!= null && opposite.isMultivalued() -»
 		    	//Handle many to many 
 		«ELSE»
 		<set name="«name»" lazy="true" inverse="true" cascade="all-delete-orphan">
@@ -64,15 +46,15 @@
 		«IF association != null »
 		<many-to-one name="«name»" class="«fqn(type)»" column="«name»_id"/>
 		«ELSE»
-			«EXPAND genPropertyDecl FOR this»
+			«EXPAND genPropertyDecl FOR this-»
 		«ENDIF»
 	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE genPropertyDecl FOR uml::Property»
-	«EXPAND genBaseDecl FOR this»
+	«EXPAND genBaseDecl FOR this-»
 «ENDDEFINE»
 
-«DEFINE genBaseDecl FOR uml::Property»
-		<property  name="«name»" type="«type.fqnForPackage(this.class)»"/>
+«DEFINE genBaseDecl FOR uml::Property-»
+		<property  name="«name»" type="«type.fqnForPackage(this.class)-»"/>
 «ENDDEFINE»
