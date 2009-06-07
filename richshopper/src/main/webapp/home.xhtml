@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:s="http://jboss.com/products/seam/taglib">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Seam Example: UJUG Example</title>
+  <link href="css/screen.css" rel="stylesheet" type="text/css" />
+</head>
+<body id="pgHome">
+<f:view>
+<div id="document">
+  <div id="header">
+  </div>
+  <div id="container">
+    <div id="sidebar">
+      <h:form id="login">
+        <fieldset>
+          <div>
+            <h:outputLabel for="username">Email</h:outputLabel>
+            <h:inputText id="username" value="#{identity.username}" style="width: 175px;"/>
+            <div class="errors"><h:message for="username"/></div>
+          </div>
+          <div>
+            <h:outputLabel for="password">Password</h:outputLabel>
+            <h:inputSecret id="password" value="#{identity.password}" style="width: 175px;"/>
+          </div>
+          <!-- This is where the "login failed" message is displayed -->
+          <div class="errors"><h:messages globalOnly="true"/></div>
+          <!-- use the "identity.login" method when the button is clicked -->
+          <div class="buttonBox"><h:commandButton id="login" action="#{identity.login}" value="Account Login"/></div>
+          <!-- take the user to the "register" page -->
+          <div class="notes"><s:link id="register" view="/register.xhtml" value="Register New User"/></div>
+        </fieldset>
+      </h:form>
+    </div>
+    <div id="content">
+      <div class="section">
+        
+          <h1>Seam Example Application for UJUG</h1>
+          
+          <p>
+             This example is based on the Seam example "booking" and the Overstock.com
+             Seam/Maven efforts.
+          </p>
+      </div>
+    </div>
+  </div>
+  <div id="footer">Created by Chris Maki for the Utah Java User Group, July 17, 2008</div>
+</div>
+</f:view>
+</body>
+</html>
+

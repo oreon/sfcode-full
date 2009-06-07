@@ -1,0 +1,58 @@
+
+<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:form>
+	<rich:simpleTogglePanel switchType="client" label="Search">
+			<div class="entry errors"><h:messages globalOnly="true" /></div>
+			<h:panelGrid columns="5">
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.account_customer}  "/> <br/>
+	<h:selectOneMenu id="Account_customer" value="#{account.customer}" >
+		<s:selectItems value="#{customerList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.account_accountType}  "/> <br/>
+	<h:selectOneMenu id="Account_accountType" value="#{account.accountType}" required="false">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="REGULAR" itemValue="REGULAR" />
+		<f:selectItem itemLabel="BUSINESS" itemValue="BUSINESS" />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+			</h:panelGrid>
+			
+	<div class="buttonBox">
+		<h:commandButton value="Search"  action="#{accountAction.search}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Clear Search" immediate="true" action="#{accountAction.clearSearch}" /> 
+	</div>
+		</rich:simpleTogglePanel>
+	</h:form>
+</html>
+	
