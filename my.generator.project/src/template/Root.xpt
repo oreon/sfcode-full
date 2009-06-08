@@ -117,11 +117,15 @@
 
 
 «DEFINE ClassRoot FOR uml::Class»
+	«IF name != null && package != null»
+	
 	«FILE packagePath() +"/" +name+".java"»
 		package « packageName() »;
 		«EXPAND genImports FOR this»
 		«EXPAND genClassBody FOR this»
 	«ENDFILE»
+	
+	«ENDIF»
 «ENDDEFINE»
 
 «REM»
@@ -220,7 +224,6 @@
 
 «DEFINE genPropertyDecl FOR uml::Property»
 	«type.name.getTypeAnnotation()»
-	«IF isString()» @Field(index = Index.TOKENIZED) «ENDIF»
 	«EXPAND genBaseDecl FOR this»
 «ENDDEFINE»
 
@@ -231,11 +234,12 @@
 	«getTransient()»
 	«type.name.getTypeAnnotation()»
 	«getColJpaAnnotations()»
-	«IF isString()» @Field(index = Index.TOKENIZED) «ENDIF»
 	«EXPAND genBaseDecl FOR this»
 «ENDDEFINE»
 
 «DEFINE genBaseDecl FOR uml::Property»
+	«IF isString()» @Field(index = Index.TOKENIZED) «ENDIF»
+	«IF type.name == "imageFile"» @Column(length=4194304) «ENDIF»
 	protected «type.fqnForPackage(this.class)» «name» «getDefault() != null?" = " +getDefaultVal(type):""»;
 «ENDDEFINE»
 
