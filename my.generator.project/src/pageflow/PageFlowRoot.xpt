@@ -1,0 +1,53 @@
+«IMPORT wcprofile»
+«IMPORT uml2»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+«EXTENSION template::webExtensions»
+
+«DEFINE Root FOR uml::Model»
+	«EXPAND StateMachineRoot FOREACH allOwnedElements().typeSelect(uml::State)»
+	«EXPAND NavigationRoot FOR this»
+«ENDDEFINE»
+
+
+«DEFINE NavigationRoot FOR uml::Element»
+	«FILE "../webapp/WEB-INF/applicationPages.xml"-»
+<?xml version="1.0" encoding="UTF-8"?>
+<pages xmlns="http://jboss.com/products/seam/pages"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd"
+       no-conversation-view-id="/index.jspx"
+       login-view-id="/login.jspx">
+	«EXPAND SeamPageEntry FOREACH allOwnedElements().typeSelect(uml::State)-»
+</pages>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE StateMachineRoot FOR uml::State»
+	«FILE getStateWebPath()»
+<ui:composition «EXPAND richfaces::WebRoot::genIncludes FOR this»
+ template = "template.«getExtension()»" >	
+	<ui:define name="content">
+	«PROTECT CSTART '<!--' CEND '-->' ID  'USER_EDITABLE_RGN_' + getStateWebName()»
+		
+	«ENDPROTECT»	
+	</ui:define> 
+</ui:composition>
+	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE SeamPageEntry FOR uml::State»
+ 	<page view-id="/«getStateWebName()»" conversation-required="false">
+    	<navigation> 
+    		«FOREACH getOutgoings() AS o»
+			 <rule if-outcome="«o.guard.specification.stringValue()»">
+ 				<redirect view-id="/«o.target.getStateWebName()»" />
+            </rule>	
+            «ENDFOREACH»
+		</navigation>
+	</page>
+«ENDDEFINE»
+
+

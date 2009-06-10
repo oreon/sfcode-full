@@ -84,7 +84,7 @@ prop.isType("largeText")?"escape=\"false\" ":" ";
 
 String getInputControl(Property prop):
 if(prop.type.name == "largeText")  
-	then "inputRichText toolbar=\"Basic\" saveOnSubmit=\"true\""
+	then getRichTextEditor()
 else if ( prop.isType("boolean") || prop.isType("Boolean") )
 	then "selectBooleanCheckbox"
 else if (prop.isType("Date")) then
@@ -95,6 +95,14 @@ else if (prop.isColumn() && prop.textSize > 0 ) then
 	"inputText size=\"" + prop.textSize +"\""
 else	
 	"inputText";
+
+
+String getRichTextEditor():
+if (getCurrentCartridge() == "RICH" )then
+	"rich:editor useSeamText=\"true\" "
+else  
+   "inputRichText toolbar=\"Basic\" saveOnSubmit=\"true\"";
+	
 	
 String getInputControlSearch(Property prop):
 if (prop.type.name == "boolean" || prop.type.name == "Boolean" )
@@ -106,10 +114,13 @@ else
 	
 //the jsf prefix for the library we are using e.g. for richfaces it'd be rich
 String getJSFPrefix(Property prop):
-(isCurrentEditMode() && prop.isType("Date"))?"wc":"ice";
+(isCurrentEditMode() && prop.isType("Date"))?"wc":getCurrentJSFPrefix();
+
+String getCurrentJSFPrefix():
+getCurrentCartridge() == "RICH" ? "h" : "ice";
 
 getTextForImgFile(Property prop):
-isCurrentEditMode()?"<s:fileUpload data=\"#{" + prop.class.asVar() + "." + prop.name + "}\"/>":"<h:graphicImage />";
+"<s:" +  ( isCurrentEditMode()?"fileUpload data=":"graphicImage value=") + "\"#{" + prop.class.asVar() + "." + prop.name + "}\"/>" ;
 
 String getWebPath(Class cls):
  getEntitiesRoot() + cls.package.name + "/" + cls.asVar();
@@ -117,11 +128,19 @@ String getWebPath(Class cls):
 String getEntitiesRoot():
 "../webapp/admin/entities/";
 
+//returns full path of a state
+String getStateWebPath(State st):
+"../webapp/" + st.containingStateMachine().name + "/" + st.name + "." + getExtension();
+
+String getStateWebName(State st):
+st.containingStateMachine().name + "/" + st.name + "." + getExtension();
+
+
 String getExtension():
-"jspx";
+getCurrentCartridge() == "RICH" ? "xhtml" : "jspx";
 
 String getTemplate():
-"/admin/template.jspx";
+"/admin/template." + getExtension();
 
 String getId(Property prop):
 prop.class.name + "_" + prop.name;

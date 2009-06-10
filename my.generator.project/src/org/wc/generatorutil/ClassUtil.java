@@ -17,6 +17,8 @@ import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Property;
+import org.eclipse.uml2.uml.StateMachine;
+import org.eclipse.uml2.uml.Transition;
  
 
 
@@ -28,6 +30,10 @@ public class ClassUtil {
 	
 	private static Class currentEmbeddable;
 	
+	private static String currentCartridge = "RICH";
+	
+	private static Boolean currentMultiMode = false;
+	
 	public static String getCurrentCartridge() {
 		return currentCartridge;
 	}
@@ -36,9 +42,7 @@ public class ClassUtil {
 		ClassUtil.currentCartridge = currentCartridge;
 	}
 
-	private static String currentCartridge;
 	
-	private static Boolean currentMultiMode = false;
 	
 	private static final Logger logger = Logger.getLogger(ClassUtil.class);
 	
@@ -105,6 +109,12 @@ public class ClassUtil {
 	public static void main(String[] args) {
 		Property property;
 		Package pack;
+		
+		StateMachine s;
+		Transition t;
+		//t.getGuard().getSpecification().stringValue();
+		//s.get
+		//s.getSubmachineStates()
 		
 		//pack.getown
 	}
