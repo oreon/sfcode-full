@@ -25,7 +25,7 @@ namespace TapovanBL.dao
         public void init()
         {
             cfg.Configure();
-            //new SchemaExport(cfg).Create(true, true);
+            new SchemaUpdate(cfg).Execute(true, true);
             factory =  cfg.BuildSessionFactory();
          }
 
@@ -71,17 +71,23 @@ namespace TapovanBL.dao
 
         public List<T> loadAll()
         {
-            
             List<T> list = new List<T>();
             ISession session = factory.OpenSession();
+            
             //ITransaction transaction = session.BeginTransaction();
-            IQuery query = session.CreateQuery("select from " + " Student "); //t.GetType().Name);
+            IQuery query = session.CreateQuery("select from " + getType().Name); //t.GetType().Name);
             query.List(list);
             session.Close();
             return list;
-
         }
 
+        protected Type getType()
+        {
+            Type tgen = typeof(SimpleGeneric<T>);
+            Type gen = tgen.GetGenericArguments()[0];
+            return gen;
+        }
+        
         public List<T> findByExample(T t)
         {
             List<T> list = new List<T>();
@@ -92,6 +98,14 @@ namespace TapovanBL.dao
             session.Close();
             return list;
 
+        }
+    }
+
+    //used to get the type 
+     class SimpleGeneric<T>
+    {
+        public SimpleGeneric()
+        {
         }
     }
 }

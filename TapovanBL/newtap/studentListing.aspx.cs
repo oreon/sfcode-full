@@ -45,19 +45,7 @@ namespace newtap
             }
             else
                 return dao.loadAll();
-            /*
-            ArrayList list = new ArrayList();
-            Student s1 = new Student();
-            s1.FirstName = "jatin";
-            s1.LastName = "kumar";
-            list.Add(s1);
 
-            Student s2 = new Student();
-            s2.FirstName = "Mike";
-            s2.LastName = "Richards";
-            list.Add(s2);
-
-            return list;*/
         }
 
         protected void BtnFilter_Click(object sender, EventArgs e)
