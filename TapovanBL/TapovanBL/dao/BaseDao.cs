@@ -25,7 +25,7 @@ namespace TapovanBL.dao
         public void init()
         {
             cfg.Configure();
-            new SchemaUpdate(cfg).Execute(true, true);
+            //new SchemaExport(cfg).Execute(true, true, false, true);
             factory =  cfg.BuildSessionFactory();
          }
 
@@ -58,11 +58,12 @@ namespace TapovanBL.dao
             session.Close();
         }
 
-        public T load(long id, T t)
+        public T load(long id)
         {
             ISession session = factory.OpenSession();
             //ITransaction transaction = session.BeginTransaction();
-            session.Load(t, id);
+           Type mytype = getType();
+            T t =  (T)session.Load( mytype, id) ;
             
             session.Close();
             return t;

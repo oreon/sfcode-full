@@ -9,9 +9,14 @@
 <tr><td>DOB</td><td><asp:TextBox ID="dob" runat="server" Text='<%# st.DOB  %>' /></td></tr>
 <tr><td>Grade</td><td>
 
-<asp:DropDownList DataSourceID="ObjectDataSource1" ID="GradeList" runat="server"  DataTextField="gradeName" >
+<asp:DropDownList  DataSourceID="ObjectDataSource1" DataValueField="id" ID="GradeDropDown" runat="server"  DataTextField="gradeName" >
 <asp:ListItem Selected="True" Value="0" Text="Select..."  ></asp:ListItem>
 </asp:DropDownList>
+<tr> <td> <asp:FileUpload ID="FileUpload1" runat="server"></asp:FileUpload>
+   </td></tr>
+    <td><asp:Label ID="UploadStatusLabel1" runat="server">
+    </asp:Label></td>
+
 
 </td></tr>
 
