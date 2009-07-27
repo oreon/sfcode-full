@@ -12,8 +12,8 @@ Rico.loadModule('Corner','DragAndDrop');
 Rico.onLoad( function() {
    Rico.Corner.round('explanation');
    dndMgr.registerDraggable( new Rico.Draggable('test-rico-dnd','dragme') );
-   var rows = 5;
-   var cols = 5;
+   var rows = <%=rows%>;
+   var cols = <%=cols%>;
    
    for( var i = 1; i < rows; i++){
 	for (var j = 1; j < cols; j++)	 {
@@ -21,7 +21,7 @@ Rico.onLoad( function() {
    		dndMgr.registerDropZone( new Rico.Dropzone(divName) );
    		var dropZone = document.getElementById(divName);
    		//if( i < 2 && j < 2 )
-   		//	alert("adding event " + divName);
+   		//alert("adding event " + divName);
 
    		dropZone.addEventListener('dblclick',function (e) {
 			 var target = e.target;
@@ -163,7 +163,7 @@ div.simpleDropPanel {
 	out.println( "<tr><th></th>");
 	for(int j = 1; j < cols; j++){
 		int date = 16+ j;
-		out.println( "<th>"+  date + "</th>");
+		out.println( "<th>"+  date + "  </th>");
 	}
 	out.println( "</tr>");
 
