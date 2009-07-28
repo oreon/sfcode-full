@@ -1,6 +1,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
 <title>Rico</title>
 <% 
 int rows = 5;
@@ -116,12 +117,13 @@ div.box {
 div.draggable{
 	font-family: Arial;
 	font-size: 14px;
-	width: 100px;
+	color: #FFFFFF;
 	height: 40px;
 	text-align: center;
 	border-bottom: 1px solid #6b6b6b;
 	border-right: 1px solid #6b6b6b;
-	background-color: #dda;
+	background-color: rgb(41, 82, 163);
+	 
 }
 
 div.panel {
@@ -140,11 +142,48 @@ div.explanation {
 }
 
 div.simpleDropPanel {
-	width: 100px;
+	width: 100%;
 	height: 60px;
-	padding: 2px;
-	border: 1px solid #dde;
+	
+	
 }
+
+.tg-time {
+border-bottom:1px solid #DDDDDD;
+padding-right:2px;
+width: 70PX;
+}
+
+.wk-dayname {
+color:#112ABB;
+font-weight:normal;
+margin-left:4px;
+padding:2px 4px;
+white-space:nowrap;
+}
+
+.wk-weektop {
+background-color:#C3D9FF;
+font-size:11px;
+line-height:14px;
+overflow:hidden;
+table-layout:fixed;
+width:100%;
+
+}
+
+.tg-dualmarker {
+border-left:3px double #DDDDDD;
+border-bottom:1px dotted #DDDDDD;
+
+padding :0px;
+height:1em;
+line-height:1em;
+margin-bottom:0em;
+background-color:#FFFFFF;
+}
+
+
 </style>
 </head>
 
@@ -157,10 +196,9 @@ div.simpleDropPanel {
 <p>
 
 
-<table style="margin-bottom: 8px;" border="0" cellspacing="1"
-	cellpadding="0">
+<table class="wk-weektop"  cellspacing="0" cellpadding="0">
 	<%
-	out.println( "<tr><th></th>");
+	out.println( "<tr class='wk-dayname'><th width='70px' height='50'></th>");
 	for(int j = 1; j < cols; j++){
 		int date = 16+ j;
 		out.println( "<th>"+  date + "  </th>");
@@ -170,13 +208,13 @@ div.simpleDropPanel {
 	for(int i = 1; i < rows; i++){
 		out.println("<tr>");
 		int time = i + 7 ;
-		out.println("<td>" +   time + " :00 </td>");
+		out.println("<td class='tg-time'>" +   time + " :00 </td>");
 		for(int j = 1; j < cols; j++){
 	%>		
 
-	<td>
+	<td class="tg-dualmarker">
 	<div id="droponme<%= i%>-<%= j %>" class="simpleDropPanel"
-		style="background: #ffd773"></div>
+		></div>
 	</td>
 
 	<% 
