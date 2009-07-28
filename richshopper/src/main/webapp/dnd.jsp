@@ -4,8 +4,8 @@
 
 <title>Rico</title>
 <% 
-int rows = 5;
-int cols = 4;
+int rows = 7;
+int cols = 8;
 %>
 <script src="js/src/rico.js" type="text/javascript"></script>
 <script type='text/javascript'>
