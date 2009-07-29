@@ -80,7 +80,9 @@ public class FilledFormAction extends BaseAction<FilledForm> implements
 	}
 
 	private void createFields() {
-		if (filledForm.getCustomForm() == null && components.isEmpty()) {
+		FacesContext context = FacesContext.getCurrentInstance();
+	
+		if (filledForm.getCustomForm() == null && !	context.getMessages().hasNext()) {
 			Query qry = entityManager
 					.createQuery("select c From CustomForm c ");
 			CustomForm form = (CustomForm) qry.getResultList().get(0);
