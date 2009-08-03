@@ -20,6 +20,22 @@ packageName(cls) + "." + cls.name;
 getInterfaces(Class cls):
 JAVA org.wc.generatorutil.ClassUtil.getInterfaces(org.eclipse.uml2.uml.Class);
 
+
+getOpReturnType(Operation op):
+op.type == null ? "void":op.type.fqn().removeExtraPackage();
+//JAVA org.wc.generatorutil.ClassUtil.getOpReturnType(org.eclipse.uml2.uml.Operation);
+
+//For return types we get 'collections.List' but we only want 'List'
+String removeExtraPackage(String arg):
+arg.replaceAll("collections.", "");
+
+getParametersSignature(Operation op):
+JAVA org.wc.generatorutil.ClassUtil.getParametersSignature(org.eclipse.uml2.uml.Operation);
+
+getParameters(Operation op):
+JAVA org.wc.generatorutil.ClassUtil.getParameters(org.eclipse.uml2.uml.Operation);
+
+
 //for primitive type we will simply return the classname - no need for package declaration
 String fqn (PrimitiveType cls) :
 getTypeName(cls.name);
@@ -50,7 +66,7 @@ packageNameWithoutRoot(cls.package).replaceAll("::", ".");
 
 //in case of magicdraw we need to remove the root "Data" package
 String packageNameWithoutRoot(Package package):
-if ( package.getQualifiedName().startsWith("Data") ) then 
+if ( package !=null && package.getQualifiedName() != null && package.getQualifiedName().startsWith("Data") ) then 
 	package.getQualifiedName().replaceAll("Data::", "")
 else if ( package.getQualifiedName().startsWith("wcprofile") ) then 
 	package.getQualifiedName().replaceAll("wcprofile::", "")

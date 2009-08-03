@@ -1,13 +1,16 @@
 package org.wc.generatorutil;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
@@ -16,14 +19,42 @@ import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.StateMachine;
 import org.eclipse.uml2.uml.Transition;
+import org.openarchitectureware.uml2.UML2MetaModel;
+import org.openarchitectureware.uml2.profile.ProfileMetaModel;
+import org.openarchitectureware.xtend.XtendFacade;
  
 
 
 public class ClassUtil {
 	Operation operation;
+	
+	static XtendFacade xtendFacade;
+	
+	static{
+		
+		xtendFacade = XtendFacade.create("template::GeneratorExtensions");
+		UML2MetaModel mm = new UML2MetaModel();
+		ProfileMetaModel pmm = new ProfileMetaModel();
+		Properties properties = new Properties();
+		try {
+			properties.load(new FileInputStream("src/workflow/workflow.properties"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		pmm.setProfile(properties.getProperty("model.dir") + "/wcprofile.profile.uml");
+		xtendFacade.registerMetaModel(mm);
+		xtendFacade.registerMetaModel(pmm);
+	}
+	
+	
 	
 	//state variables
 	private static Class currentEntity;
@@ -130,17 +161,96 @@ public class ClassUtil {
 		return lstAttributes;
 	}
 	
+	/** Returns a comma delimited string with , after every list member except for the last
+	 * @return
+	 */
+	public static String getCommaDelimitedString(List<String> listStrings, int offset){
+		StringBuffer buffer = new StringBuffer();
+		
+		for (int i = 0; i < listStrings.size(); i++) {
+			String param = listStrings.get(i);
+			
+			if(StringUtils.isEmpty(param) )
+				continue;
+			
+			buffer.append(param);
+
+			if (i < (listStrings.size() - offset)) // add comma to all but last
+				buffer.append(", ");
+		}
+		return buffer.toString();
+	}
+	
+	/** For an operation will return comma delimited parameters with their type names - 
+	 * e.g. String firstName, String lastname
+	 * @param op
+	 * @return
+	 */
+	public static String  getParametersSignature(Operation op){
+		
+		
+		
+		List<Parameter> params = op.getOwnedParameters();
+		StringBuffer buffer = new StringBuffer();
+		List<String> lstStrings = new ArrayList<String>();
+			
+		for (int i = 0; i < params.size(); i++) {
+			Parameter param = params.get(i);
+			String result  = (String)xtendFacade.call("fqn",new Object[]{param.getType()});
+			if(!StringUtils.isEmpty(param.getName()) )
+				lstStrings.add(result + " " + param.getName());
+		}
+		
+		return  getCommaDelimitedString(lstStrings, 2);
+	}
+	
+	public static String  getParameters(Operation op){
+		List<Parameter> params = op.getOwnedParameters();
+		StringBuffer buffer = new StringBuffer();
+		List<String> lstStrings = new ArrayList<String>();
+			
+		for (int i = 0; i < params.size(); i++) {
+			Parameter param = params.get(i);
+			if(!StringUtils.isEmpty(param.getName()) )
+				lstStrings.add( param.getName());
+		}
+		
+		return  getCommaDelimitedString(lstStrings, 2);
+	}
+	
+	public static String getOpReturnType(Operation op){
+		
+		if(op.getType() == null)
+			return "void"; 
+		
+		System.out.println("opret" + op.getType().getName());
+		System.out.println(op.getType().getPackage().getName());
+		
+		if(op.getType().getName() == null)
+			return "void"; 
+		
+		String name = op.getType().getName();
+		if(op.getType().getPackage().getName().startsWith("collections")){
+			if(op.getTemplateParameter() != null)
+				return name + "<" + op.getTemplateParameter().getSignature() + ">";
+		}
+		return "name";
+	}
+	
 	public static String getInterfaces(Class clazz){
 		StringBuilder buffer = new StringBuilder();
 		List<Interface> interfaces = clazz.getImplementedInterfaces();
 		
 		//clazz.getAttributes		
-		Property prop;
-		//prop.getAssociation().getEndTy
+		Property prop;		
+		
+		Operation op;
+		Parameter pr;
 		
 		
 		if(!interfaces.isEmpty())
 			buffer.append(" implements ");
+		
 
 		for (int i = 0; i < interfaces.size(); i++) {
 			buffer.append(interfaces.get(i).getName());
@@ -271,5 +381,8 @@ public class ClassUtil {
 		return (name.equalsIgnoreCase("String") || name.equalsIgnoreCase("nameType") ||
 				name.equalsIgnoreCase("uniqueNameType"));
 	}
+	
+	
+	
 	
 }
