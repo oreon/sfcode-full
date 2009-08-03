@@ -6,6 +6,7 @@
 
 «DEFINE Root FOR uml::Model»
 	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
+	«EXPAND ORMGen::Root FOR this»
 «ENDDEFINE»
 
 «DEFINE PackageRoot FOR uml::Package»
@@ -59,6 +60,9 @@
 	    «ENDIF»
 	    
 	    «EXPAND genSearchFieldsArray FOR this»
+	    «REM»comment
+	    «EXPAND genOperation FOREACH getAllOperations()»
+	    «ENDREM»
 	}
 «ENDDEFINE»
 
@@ -115,6 +119,21 @@
 	}
 «ENDDEFINE»
 
+«DEFINE genOperation FOR uml::Operation»
+	«visibility» «getOpReturnType()» «name» («getParametersSignature()»){ 
+		«IF type != null»
+			return null;
+		«ENDIF»
+	}
+«ENDDEFINE»
+
+
+«DEFINE genOperation FOR wcprofile::NamedQueryOp»
+	«visibility» «getOpReturnType()» «name» («getParametersSignature()»){ 
+		return executeNamedQuery("«queryName»", «getParameters()»);
+	}
+«ENDDEFINE»
+
 
 «DEFINE ClassRoot FOR uml::Class»
 	«IF name != null && package != null»
@@ -128,18 +147,6 @@
 	«ENDIF»
 «ENDDEFINE»
 
-«REM»
-«DEFINE ClassRoot FOR wcprofile::Entity»
-	«FILE packagePath() +"/"  +name+".java"»
-	package «packageName()»;
-	
-	«EXPAND genImports FOR this»
-	
-	 «tableName != null ?("(table=" + tableName + ")"):""») 
-	«EXPAND genClassBody FOR this»
-	«ENDFILE»
-«ENDDEFINE»
-«ENDREM»
 
 «DEFINE genImports FOR uml::Class»
 	import java.util.ArrayList;
@@ -174,16 +181,9 @@
 	import org.hibernate.annotations.Filter;
 «ENDDEFINE»
 
-«DEFINE gen FOR uml::Operation»
-	«name»;
-«ENDDEFINE»
+
 
 «DEFINE gen FOR uml::Generalization»
-«ENDDEFINE»
-
-«DEFINE gen FOR wcprofile::NamedQuery»
-	@nq(value=«name»)
-	«visibility» «type.name» «name» (){ }
 «ENDDEFINE»
 
 

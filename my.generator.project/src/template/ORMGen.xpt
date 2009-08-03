@@ -1,0 +1,60 @@
+«IMPORT wcprofile»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+«EXTENSION template::associationExtensions»
+
+«REM»comment
+«DEFINE Root FOR uml::Model»
+	«EXPAND Root FOREACH allOwnedElements().typeSelect(uml::Package)»
+«ENDDEFINE»
+«ENDREM»
+
+«DEFINE Root FOR uml::Model»
+	«FILE "../resources/META-INF/orm.xml"»
+	<?xml version="1.0" encoding="UTF-8" ?>
+	<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd"
+	version="1.0">
+	<description></description>
+	
+	«EXPAND GenerateEntityMapping FOREACH allOwnedElements().typeSelect(wcprofile::Entity)-»
+</entity-mappings>
+	«ENDFILE»
+«ENDDEFINE»
+
+
+
+«DEFINE GenerateEntityMapping FOR wcprofile::Entity»
+	
+	<entity class="«fqn()»" name="«name»">
+		<table name="«getTableName()»"  >
+		«REM» comment
+		«IF getUniqueConstraints != null-»
+			<unique-constraint>
+			«FOREACH getUniqueConstraintsAsCollection AS e-»
+				<column-name>«e.trim()-»_ID</column-name>
+			«ENDFOREACH-»
+			</unique-constraint>
+		«ENDIF»
+		«ENDREM»
+		</table>
+ 	«EXPAND genOperation FOREACH getAllOperations()»
+	</entity>
+«ENDDEFINE»
+
+
+«DEFINE genOperation FOR uml::Operation» «ENDDEFINE»
+
+
+«DEFINE genOperation FOR wcprofile::NamedQueryOp»
+	«IF queryName != null»
+	<named-query name="«queryName-»">
+		<query>
+			«query»
+		</query>
+	</named-query>
+	«ENDIF»
+«ENDDEFINE»
+
