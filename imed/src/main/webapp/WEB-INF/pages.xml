@@ -343,6 +343,14 @@
                 <redirect view-id="/admin/entities/customforms/filledField/viewFilledField.jspx" />
             </rule>
         
+            <rule if-outcome="appointment">
+                <redirect view-id="/admin/entities/appointment/appointment/listAppointment.jspx" />
+            </rule>
+            
+            <rule if-outcome="viewAppointment">
+                <redirect view-id="/admin/entities/appointment/appointment/viewAppointment.jspx" />
+            </rule>
+        
         </navigation>
     </page>
 
@@ -1744,6 +1752,41 @@
 			</rule> 
 			 <rule if-outcome="edit">
  				<redirect view-id="/admin/entities/customforms/filledField/editFilledField.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/appointment/appointment/editAppointment.jspx" conversation-required="false">
+    	<!-- <description>Edit Appointment: #{appointment.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/appointment/appointment/viewAppointment.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/appointment/appointment/listAppointment.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/appointment/appointment/viewAppointment.jspx" conversation-required="false">
+	 	<!-- <description>View Appointment: #{appointment.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/appointment/appointment/editAppointment.jspx" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/appointment/appointment/listAppointment.jspx" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/appointment/appointment/listAppointment.jspx" >
+		<navigation>
+			<rule if-outcome="viewAppointment">
+				<redirect view-id="/admin/entities/appointment/appointment/viewAppointment.jspx" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/appointment/appointment/editAppointment.jspx" />
             </rule>			
 		</navigation>
 	</page>

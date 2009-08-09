@@ -1,0 +1,114 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	
+		<ice:commandButton value="Create New" action="edit" rendered="#{identity.loggedIn}"/>
+		<ice:dataTable  var="procedureCode" value="#{procedureCodeList}" rows="30"
+		rowClasses="odd, even" styleClass="dataTable" >		
+		
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.procedureCode_price}" />
+		</f:facet>
+		<h:outputText   value="#{procedureCode.price}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.procedureCode_code}" />
+		</f:facet>
+		<h:outputText   value="#{procedureCode.code}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.procedureCode_description}" />
+		</f:facet>
+		<h:outputText escape="false"  value="#{procedureCode.description}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.procedureCode_referringPhysRequired}" />
+		</f:facet>
+		<h:outputText   value="#{procedureCode.referringPhysRequired}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.procedureCode_dxCodeRequired}" />
+		</f:facet>
+		<h:outputText   value="#{procedureCode.dxCodeRequired}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.procedureCode_hospitalizaionRequired}" />
+		</f:facet>
+		<h:outputText   value="#{procedureCode.hospitalizaionRequired}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.procedureCode_adminDateRequired}" />
+		</f:facet>
+		<h:outputText   value="#{procedureCode.adminDateRequired}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.procedureCode_IORequired}" />
+		</f:facet>
+		<h:outputText   value="#{procedureCode.iORequired}" />
+	</ice:column>
+	
+		
+	
+		
+	<ice:column   >
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{procedureCodeAction.select(procedureCode)}">
+			<h:graphicImage value="/images/icons/eye.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+		
+	<ice:column   >
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{procedureCodeAction.select(procedureCode)}">
+			<h:graphicImage value="/images/icons/edit.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+		
+	<ice:column   >
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{procedureCodeAction.showDeleteDialog(procedureCode)}">
+			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+		</ice:dataTable>
+		
+		<wc:deletePanel backingAction="#{procedureCodeAction}" backingEntity="#{procedureCode}" title="Delete ProcedureCode" />
+	</html>
+	

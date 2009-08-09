@@ -1,0 +1,142 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="FilledForm " />
+		</f:facet>
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.filledForm_customForm}  "/>
+		
+	
+	<h:selectOneMenu id="FilledForm_customForm" value="#{filledForm.customForm}" required="true">
+		<s:selectItems value="#{customFormList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="FilledForm_customForm" />
+		
+		
+	
+
+	
+		
+	
+
+
+	
+		</h:panelGrid>
+		
+	
+ 
+	<h:commandButton  value="New FilledField" action="#{filledFormAction.addFilledFields}" >
+		<s:conversationId/>
+	</h:commandButton>
+ 
+	<ice:dataTable id="filledFields_data" var="filledField" rendered="#{not empty filledFormAction.listFilledFields}"
+					value="#{filledFormAction.listFilledFields}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.filledField_customField}  "/></f:facet>
+		
+	
+	<h:selectOneMenu id="FilledField_customField" value="#{filledField.customField}" required="true">
+		<s:selectItems value="#{customFieldList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="FilledField_customField" />
+		</h:column>
+		
+	
+
+	
+		
+	
+
+	
+
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:left"><f:facet name="header"><h:outputText value="#{msg.filledField_value}  "/></f:facet>
+		
+
+	<h:inputText  id="FilledField_value" required="false"  value="#{filledField.value}" />
+   
+
+		
+		<h:message styleClass="error errors" for="FilledField_value" />
+		</h:column>
+		
+	
+
+	
+		
+		
+	<h:column>
+		
+	<h:commandButton  value="New FilledField" action="#{filledFormAction.addFilledFields}" >
+		<s:conversationId/>
+	</h:commandButton>
+	</h:column>
+		
+	<h:column>
+		<ice:commandButton value="Delete" action="#{filledFormAction.deleteFilledFields(filledField)}" immediate="true">
+			<s:conversationId/>
+		</ice:commandButton>
+	</h:column>
+		
+			
+	</ice:dataTable>
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{filledFormAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{filledFormAction.cancel}" /> 
+		
+	</div>
+
+	</ice:panelGroup>
+	</html>
+	

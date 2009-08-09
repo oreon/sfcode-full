@@ -170,6 +170,17 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		updateAssociations();
 		return "save";
 	}
+	
+	@SuppressWarnings("unchecked")
+    public Long getRecordCount() {
+        try {
+            String queryString = "select count(c) from " +  getClassName() +  " c ";
+            return (Long)getEntityManager().createQuery(queryString).getSingleResult();
+        } catch (RuntimeException re) {
+            throw re;
+        }
+    }
+
 
 	@End
 	public String cancel() {

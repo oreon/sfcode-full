@@ -40,15 +40,11 @@
 		</h:panelGrid>
 		
 	
-	
-	
-	
+ 
 	<h:commandButton  value="New Ward" action="#{floorAction.addWards}" >
 		<s:conversationId/>
 	</h:commandButton>
-
-	
-	
+ 
 	<ice:dataTable id="wards_data" var="ward" rendered="#{not empty floorAction.listWards}"
 					value="#{floorAction.listWards}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
@@ -56,8 +52,6 @@
 	
 	
 
-
- 
 
 	
 	
@@ -84,7 +78,6 @@
 		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.ward_allowedGender}  "/></f:facet>
 		
 	
-	enm ce:contactDetails 
 	<h:selectOneMenu id="Ward_allowedGender" value="#{ward.allowedGender}" required="false">
 		<f:selectItem itemLabel="Please Select..." itemValue="" />
 		<f:selectItem itemLabel="F" itemValue="F" />
@@ -119,22 +112,18 @@
 	
 		
 		
-		
 	<h:column>
 		
 	<h:commandButton  value="New Ward" action="#{floorAction.addWards}" >
 		<s:conversationId/>
 	</h:commandButton>
-
 	</h:column>
-
 		
 	<h:column>
 		<ice:commandButton value="Delete" action="#{floorAction.deleteWards(ward)}" immediate="true">
 			<s:conversationId/>
 		</ice:commandButton>
 	</h:column>
-
 		
 			
 	</ice:dataTable>

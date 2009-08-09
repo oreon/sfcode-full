@@ -1,0 +1,193 @@
+
+<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:form>
+	<ice:panelGroup styleClass="pnlClpsblWrapper panelCollapsible">
+	<ice:panelCollapsible >
+			<f:facet name="header">
+				<ice:outputText id="srchHdr" value="Search" />
+			</f:facet>
+			<div class="entry errors"><h:messages globalOnly="true" /></div>
+			<h:panelGrid columns="5">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.person_firstName} * "/> <br/>
+	<h:inputText  id="Person_firstName" value="#{nurse.firstName}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.person_lastName} * "/> <br/>
+	<h:inputText  id="Person_lastName" value="#{nurse.lastName}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.person_dateOfBirth}  "/> <br/>
+	<wc:calendar  id="Person_dateOfBirth" value="#{nurse.dateOfBirth}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.person_gender}  "/> <br/>
+	<h:selectOneMenu id="Person_gender" value="#{nurse.gender}" required="false">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="F" itemValue="F" />
+		<f:selectItem itemLabel="M" itemValue="M" />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+	
+			
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.address_streetAddress}  "/> <br/>
+	<h:inputText  id="Address_streetAddress" value="#{nurse.address.streetAddress}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.address_city}  "/> <br/>
+	<h:inputText  id="Address_city" value="#{nurse.address.city}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.address_state}  "/> <br/>
+	<h:inputText  id="Address_state" value="#{nurse.address.state}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.address_zip}  "/> <br/>
+	<h:inputText  id="Address_zip" value="#{nurse.address.zip}" />
+	</h:panelGroup>
+
+	
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.address_country}  "/> <br/>
+	<h:selectOneMenu id="Address_country" value="#{nurse.address.country}" >
+		<s:selectItems value="#{countryList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+		
+	
+	
+	
+			
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.contactDetails_primaryPhone}  "/> <br/>
+	<h:inputText  id="ContactDetails_primaryPhone" value="#{nurse.contactDetails.primaryPhone}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.contactDetails_secondaryPhone}  "/> <br/>
+	<h:inputText  id="ContactDetails_secondaryPhone" value="#{nurse.contactDetails.secondaryPhone}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.contactDetails_email}  "/> <br/>
+	<h:inputText  id="ContactDetails_email" value="#{nurse.contactDetails.email}" />
+	</h:panelGroup>
+
+	
+	
+		
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.person_age}  "/> <br/>
+	<h:inputText  id="Person_age" value="#{nurse.age}" />
+	</h:panelGroup>
+
+	
+	
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.nurse_specialization}  "/> <br/>
+	<h:selectOneMenu id="Nurse_specialization" value="#{nurse.specialization}" >
+		<s:selectItems value="#{specializationList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		<f:selectItem itemLabel="--None--" itemValue=""/>
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.nurse_user}  "/> <br/>
+	<h:selectOneMenu id="Nurse_user" value="#{nurse.user}" >
+		<s:selectItems value="#{userList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+			</h:panelGrid>
+			
+	<div class="buttonBox">
+		<h:commandButton value="Search"  action="#{nurseAction.search}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Clear Search" immediate="true" action="#{nurseAction.clearSearch}" /> 
+	</div>
+
+		</ice:panelCollapsible>
+		</ice:panelGroup>
+		</h:form>
+</html>
+	

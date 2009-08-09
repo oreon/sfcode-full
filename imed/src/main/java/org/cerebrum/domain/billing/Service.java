@@ -46,12 +46,12 @@ public class Service extends BusinessEntity {
 	@ContainedIn
 	protected Claim claim;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "dxCode_id", nullable = false, updatable = true)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumn(name = "dxCode_id", nullable = true, updatable = true)
 	@ContainedIn
 	protected DxCode dxCode;
 
-	protected Integer units;
+	protected Integer units = 1;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "procedureCode_id", nullable = false, updatable = true)
@@ -88,6 +88,16 @@ public class Service extends BusinessEntity {
 
 	public ProcedureCode getProcedureCode() {
 		return procedureCode;
+	}
+
+	//derived property - price
+	public Double getPrice() {
+		return procedureCode != null ? procedureCode.getPrice() : 0;
+	}
+
+	//derived property - total
+	public Double getTotal() {
+		return getPrice() != null ? getPrice() * units : 0;
 	}
 
 	@Transient

@@ -1,0 +1,145 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="Appointment " />
+		</f:facet>
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.appointment_patient}  "/>
+		
+	
+	<h:selectOneMenu id="Appointment_patient" value="#{appointment.patient}" required="true">
+		<s:selectItems value="#{patientList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="Appointment_patient" />
+		
+		
+	
+
+	
+		
+	
+
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.appointment_physician}  "/>
+		
+	
+	<h:selectOneMenu id="Appointment_physician" value="#{appointment.physician}" required="true">
+		<s:selectItems value="#{physicianList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="Appointment_physician" />
+		
+		
+	
+
+	
+		
+	
+
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.appointment_startDate}  "/>
+		
+
+	<wc:calendar  id="Appointment_startDate" required="false"  value="#{appointment.startDate}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Appointment_startDate" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.appointment_endDate}  "/>
+		
+
+	<wc:calendar  id="Appointment_endDate" required="false"  value="#{appointment.endDate}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Appointment_endDate" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.appointment_notes}  "/>
+		
+
+	<h:rich:editor useSeamText="true"   id="Appointment_notes" required="false"  value="#{appointment.notes}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Appointment_notes" />
+		
+		
+	
+
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{appointmentAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{appointmentAction.cancel}" /> 
+		
+	</div>
+
+	</ice:panelGroup>
+	</html>
+	

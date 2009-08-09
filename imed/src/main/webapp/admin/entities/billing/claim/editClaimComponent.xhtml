@@ -1,0 +1,202 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="Claim " />
+		</f:facet>
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.claim_referringPhysician}  "/>
+		
+	
+	<h:selectOneMenu id="Claim_referringPhysician" value="#{claim.referringPhysician}" required="true">
+		<s:selectItems value="#{physicianList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="Claim_referringPhysician" />
+		
+		
+	
+
+	
+		
+	
+
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.claim_notes}  "/>
+		
+
+	<h:rich:editor useSeamText="true"   id="Claim_notes" required="false"  value="#{claim.notes}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Claim_notes" />
+		
+		
+	
+
+	
+		</h:panelGrid>
+		
+	
+ 
+	<h:commandButton  value="New Service" action="#{claimAction.addServices}" >
+		<s:conversationId/>
+	</h:commandButton>
+ 
+	<ice:dataTable id="services_data" var="service" rendered="#{not empty claimAction.listServices}"
+					value="#{claimAction.listServices}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+
+	
+		
+			
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.service_dxCode}  "/></f:facet>
+		
+	
+	<h:selectOneMenu id="Service_dxCode" value="#{service.dxCode}" required="true">
+		<s:selectItems value="#{dxCodeList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="Service_dxCode" />
+		</h:column>
+		
+	
+
+	
+		
+	
+
+	
+		
+			
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.service_procedureCode}  "/></f:facet>
+		
+	
+	<h:selectOneMenu id="Service_procedureCode" value="#{service.procedureCode}" required="true">
+		<s:selectItems value="#{procedureCodeList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="Service_procedureCode" />
+		</h:column>
+		
+	
+
+	
+		
+	
+
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.service_units}  "/></f:facet>
+		
+
+	<h:inputText  id="Service_units" required="false"  value="#{service.units}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Service_units" />
+		</h:column>
+		
+	
+
+	
+
+	
+	
+
+	
+
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.service_total}  "/></f:facet>
+		<h:inputText  id="Service_total" enabled="false"  value="#{service.total}" />
+		<h:message styleClass="error errors" for="Service_total" />
+		</h:column>
+		
+
+	
+		
+		
+	<h:column>
+		
+	<h:commandButton  value="New Service" action="#{claimAction.addServices}" >
+		<s:conversationId/>
+	</h:commandButton>
+	</h:column>
+		
+	<h:column>
+		<ice:commandButton value="Delete" action="#{claimAction.deleteServices(service)}" immediate="true">
+			<s:conversationId/>
+		</ice:commandButton>
+	</h:column>
+		
+			
+	</ice:dataTable>
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{claimAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{claimAction.cancel}" /> 
+		
+	</div>
+
+	</ice:panelGroup>
+	</html>
+	

@@ -31,7 +31,15 @@ import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
 import org.hibernate.annotations.Filter;
 
-public class Appointment {
+@Entity
+@Table(name = "appointment")
+@Name("appointment")
+@Filter(name = "archiveFilterDef")
+@Indexed
+@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
+		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+public class Appointment extends BusinessEntity {
 
 	protected Date startDate;
 
@@ -88,6 +96,22 @@ public class Appointment {
 
 	public org.cerebrum.domain.provider.Physician getPhysician() {
 		return physician;
+	}
+
+	@Transient
+	public String getDisplayName() {
+		return startDate + "";
+	}
+
+	/** This method is used by hibernate full text search - override to add additional fields
+	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 */
+	@Override
+	public List<String> listSearchableFields() {
+		List<String> listSearchableFields = new ArrayList<String>();
+		listSearchableFields.addAll(super.listSearchableFields());
+
+		return listSearchableFields;
 	}
 
 }

@@ -1,0 +1,124 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="CustomField " />
+		</f:facet>
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.customField_customForm}  "/>
+		
+	
+	<h:selectOneMenu id="CustomField_customForm" value="#{customField.customForm}" required="true">
+		<s:selectItems value="#{customFormList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="CustomField_customForm" />
+		
+		
+	
+
+	
+		
+	
+
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.customField_required}  "/>
+		
+
+	<h:selectBooleanCheckbox  id="CustomField_required" required="false"  value="#{customField.required}" />
+   
+
+		
+		<h:message styleClass="error errors" for="CustomField_required" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.customField_type}  "/>
+		
+	
+	<h:selectOneMenu id="CustomField_type" value="#{customField.type}" required="false">
+		<f:selectItem itemLabel="Please Select..." itemValue="" />
+		<f:selectItem itemLabel="TEXT" itemValue="TEXT" />
+		<f:selectItem itemLabel="LARGE_TEXT" itemValue="LARGE_TEXT" />
+		<f:selectItem itemLabel="CHOICE" itemValue="CHOICE" />
+		<f:selectItem itemLabel="YES_NO" itemValue="YES_NO" />
+		
+	</h:selectOneMenu>
+	
+
+		
+		<h:message styleClass="error errors" for="CustomField_type" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.customField_name} * "/>
+		
+
+	<h:inputText  id="CustomField_name" required="true"  value="#{customField.name}" />
+   
+
+		
+		<h:message styleClass="error errors" for="CustomField_name" />
+		
+		
+	
+
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{customFieldAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{customFieldAction.cancel}" /> 
+		
+	</div>
+
+	</ice:panelGroup>
+	</html>
+	

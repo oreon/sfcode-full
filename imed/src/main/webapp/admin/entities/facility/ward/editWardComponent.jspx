@@ -47,8 +47,6 @@
 	
 
 
- 
-
 	
 	
 	
@@ -74,7 +72,6 @@
 		<h:outputText value="#{msg.ward_allowedGender}  "/>
 		
 	
-	enm ce:contactDetails 
 	<h:selectOneMenu id="Ward_allowedGender" value="#{ward.allowedGender}" required="false">
 		<f:selectItem itemLabel="Please Select..." itemValue="" />
 		<f:selectItem itemLabel="F" itemValue="F" />
@@ -110,15 +107,11 @@
 		</h:panelGrid>
 		
 	
-	
-	
-	
+ 
 	<h:commandButton  value="New Bed" action="#{wardAction.addBeds}" >
 		<s:conversationId/>
 	</h:commandButton>
-
-	
-	
+ 
 	<ice:dataTable id="beds_data" var="bed" rendered="#{not empty wardAction.listBeds}"
 					value="#{wardAction.listBeds}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
@@ -126,8 +119,6 @@
 	
 	
 
-
- 
 
 	
 	
@@ -149,22 +140,18 @@
 	
 		
 		
-		
 	<h:column>
 		
 	<h:commandButton  value="New Bed" action="#{wardAction.addBeds}" >
 		<s:conversationId/>
 	</h:commandButton>
-
 	</h:column>
-
 		
 	<h:column>
 		<ice:commandButton value="Delete" action="#{wardAction.deleteBeds(bed)}" immediate="true">
 			<s:conversationId/>
 		</ice:commandButton>
 	</h:column>
-
 		
 			
 	</ice:dataTable>

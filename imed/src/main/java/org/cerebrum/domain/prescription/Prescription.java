@@ -93,9 +93,7 @@ public class Prescription extends BusinessEntity {
 
 	@Transient
 	public String getDisplayName() {
-		if(patient.getDisplayName() != null )
-			return patient.getDisplayName() + "," + super.getDateCreated();
-		return "";
+		return patient.getDisplayName() + "," + super.getDateCreated();
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

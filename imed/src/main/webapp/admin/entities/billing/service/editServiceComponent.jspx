@@ -46,8 +46,6 @@
 		
 	
 
-
- 
 	
 		
 			
@@ -57,7 +55,7 @@
 		<h:outputText value="#{msg.service_dxCode}  "/>
 		
 	
-	<h:selectOneMenu id="Service_dxCode" value="#{service.dxCode}" required="true">
+	<h:selectOneMenu id="Service_dxCode" value="#{service.dxCode}" required="false">
 		<s:selectItems value="#{dxCodeList}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
@@ -76,8 +74,6 @@
 		
 	
 
-
- 
 	
 		
 			
@@ -107,8 +103,6 @@
 	
 
 
- 
-
 	
 	
 	
@@ -125,6 +119,26 @@
 		
 		
 	
+
+	
+
+	
+		
+		<h:outputText value="#{msg.service_price}  "/>
+		<ice:inputText  id="Service_price" disabled="true"  value="#{service.price}" />
+		<h:message styleClass="error errors" for="Service_price" />
+		
+		
+
+	
+
+	
+		
+		<h:outputText value="#{msg.service_total}  "/>
+		<ice:inputText  id="Service_total" disabled="true"  value="#{service.total}" />
+		<h:message styleClass="error errors" for="Service_total" />
+		
+		
 
 	
 		</h:panelGrid>

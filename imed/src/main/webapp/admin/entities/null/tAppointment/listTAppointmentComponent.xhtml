@@ -1,0 +1,103 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	
+		<ice:commandButton value="Create New" action="edit" rendered="#{identity.loggedIn}"/>
+		<ice:dataTable  var="tAppointment" value="#{tAppointmentList}" rows="30"
+		rowClasses="odd, even" styleClass="dataTable" >		
+		
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.appointment_startDate}" />
+		</f:facet>
+		<h:outputText   value="#{tAppointment.startDate}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.appointment_endDate}" />
+		</f:facet>
+		<h:outputText   value="#{tAppointment.endDate}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.appointment_notes}" />
+		</f:facet>
+		<h:outputText escape="false"  value="#{tAppointment.notes}" />
+	</ice:column>
+	
+		
+			
+				
+	<ice:column >
+		<f:facet name="header">
+			<h:outputText value="#{msg.appointment_patient}"   /> 	
+		</f:facet>
+		<s:link   value="#{tAppointment.patient.displayName}" action="viewPatient" />
+	</ice:column>
+			
+		
+	
+		
+			
+				
+	<ice:column >
+		<f:facet name="header">
+			<h:outputText value="#{msg.appointment_physician}"   /> 	
+		</f:facet>
+		<s:link   value="#{tAppointment.physician.displayName}" action="viewPhysician" />
+	</ice:column>
+			
+		
+	
+	
+		
+	
+		
+	<ice:column   >
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{tAppointmentAction.select(tAppointment)}">
+			<h:graphicImage value="/images/icons/eye.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+		
+	<ice:column   >
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{tAppointmentAction.select(tAppointment)}">
+			<h:graphicImage value="/images/icons/edit.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+		
+	<ice:column   >
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{tAppointmentAction.showDeleteDialog(tAppointment)}">
+			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+		</ice:dataTable>
+		
+		<wc:deletePanel backingAction="#{tAppointmentAction}" backingEntity="#{tAppointment}" title="Delete TAppointment" />
+	</html>
+	

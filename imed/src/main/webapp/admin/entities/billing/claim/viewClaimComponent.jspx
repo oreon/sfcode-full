@@ -40,8 +40,28 @@
 		
 	
 
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.claim_patient}  "/>
+		
+	
+	<ice:outputText   value="#{claim.patient.displayName}" />
+	
 
- 
+		
+		
+		
+		
+	
+
+	
+		
+	
+
 
 	
 	
@@ -65,8 +85,6 @@
 		
 	
 	
-	
-	
 	<ice:dataTable id="services_data" var="service" rendered="#{not empty claimAction.listServices}"
 					value="#{claimAction.listServices}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
@@ -74,8 +92,6 @@
 	
 	
 
-
- 
 	
 		
 			
@@ -98,8 +114,6 @@
 		
 	
 
-
- 
 	
 		
 			
@@ -123,8 +137,6 @@
 	
 
 
- 
-
 	
 	
 	
@@ -134,6 +146,40 @@
 		
 
 	<ice:outputText    id="Service_units"   value="#{service.units}" />
+   
+
+		
+		
+		</h:column>
+		
+	
+
+	
+
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.service_price}  "/></f:facet>
+		
+
+	<ice:outputText    id="Service_price"   value="#{service.price}" />
+   
+
+		
+		
+		</h:column>
+		
+	
+
+	
+
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.service_total}  "/></f:facet>
+		
+
+	<ice:outputText    id="Service_total"   value="#{service.total}" />
    
 
 		

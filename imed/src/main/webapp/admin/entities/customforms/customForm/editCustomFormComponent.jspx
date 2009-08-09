@@ -40,15 +40,11 @@
 		</h:panelGrid>
 		
 	
-	
-	
-	
+ 
 	<h:commandButton  value="New CustomField" action="#{customFormAction.addCustomFields}" >
 		<s:conversationId/>
 	</h:commandButton>
-
-	
-	
+ 
 	<ice:dataTable id="customFields_data" var="customField" rendered="#{not empty customFormAction.listCustomFields}"
 					value="#{customFormAction.listCustomFields}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
@@ -56,8 +52,6 @@
 	
 	
 
-
- 
 
 	
 	
@@ -84,7 +78,6 @@
 		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.customField_type}  "/></f:facet>
 		
 	
-	enm ce:contactDetails 
 	<h:selectOneMenu id="CustomField_type" value="#{customField.type}" required="false">
 		<f:selectItem itemLabel="Please Select..." itemValue="" />
 		<f:selectItem itemLabel="TEXT" itemValue="TEXT" />
@@ -121,22 +114,18 @@
 	
 		
 		
-		
 	<h:column>
 		
 	<h:commandButton  value="New CustomField" action="#{customFormAction.addCustomFields}" >
 		<s:conversationId/>
 	</h:commandButton>
-
 	</h:column>
-
 		
 	<h:column>
 		<ice:commandButton value="Delete" action="#{customFormAction.deleteCustomFields(customField)}" immediate="true">
 			<s:conversationId/>
 		</ice:commandButton>
 	</h:column>
-
 		
 			
 	</ice:dataTable>

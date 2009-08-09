@@ -41,14 +41,14 @@ import org.hibernate.annotations.Filter;
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class Patient extends org.cerebrum.domain.demographics.Person {
 
-	//allergies->patient ->Patient->Allergy->Allergy
+	//allergies->patient ->Patient->Patient->Patient
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Patient_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<Allergy> allergies = new HashSet<Allergy>();
 
-	//immunizations->patient ->Patient->Immunization->Immunization
+	//immunizations->patient ->Patient->Patient->Patient
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Patient_ID", nullable = true)
@@ -63,7 +63,7 @@ public class Patient extends org.cerebrum.domain.demographics.Person {
 	@Lob
 	protected String pastMedications;
 
-	//prescriptions->patient ->Patient->Prescription->Prescription
+	//prescriptions->patient ->Patient->Patient->Patient
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Patient_ID", nullable = true)
@@ -75,14 +75,14 @@ public class Patient extends org.cerebrum.domain.demographics.Person {
 	@ContainedIn
 	protected org.cerebrum.domain.provider.Physician primaryPhysician;
 
-	//documents->patient ->Patient->Patient->Patient
+	//documents->patient ->Patient->Document->Document
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Patient_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<Document> documents = new HashSet<Document>();
 
-	//encounters->patient ->Patient->Patient->Patient
+	//encounters->patient ->Patient->Encounter->Encounter
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Patient_ID", nullable = true)

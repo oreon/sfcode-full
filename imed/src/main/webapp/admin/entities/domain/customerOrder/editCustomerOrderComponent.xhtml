@@ -1,0 +1,159 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="CustomerOrder " />
+		</f:facet>
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.customerOrder_account}  "/>
+		
+	
+	<h:selectOneMenu id="CustomerOrder_account" value="#{customerOrder.account}" required="true">
+		<s:selectItems value="#{accountList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="CustomerOrder_account" />
+		
+		
+	
+
+	
+		
+	
+
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.customerOrder_notes}  "/>
+		
+
+	<h:rich:editor useSeamText="true"   id="CustomerOrder_notes" required="false"  value="#{customerOrder.notes}" />
+   
+
+		
+		<h:message styleClass="error errors" for="CustomerOrder_notes" />
+		
+		
+	
+
+	
+		</h:panelGrid>
+		
+	
+ 
+	<h:commandButton  value="New OrderItem" action="#{customerOrderAction.addOrderItems}" >
+		<s:conversationId/>
+	</h:commandButton>
+ 
+	<ice:dataTable id="orderItems_data" var="orderItem" rendered="#{not empty customerOrderAction.listOrderItems}"
+					value="#{customerOrderAction.listOrderItems}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.orderItem_product}  "/></f:facet>
+		
+	
+	<h:selectOneMenu id="OrderItem_product" value="#{orderItem.product}" required="true">
+		<s:selectItems value="#{productList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="OrderItem_product" />
+		</h:column>
+		
+	
+
+	
+		
+	
+
+	
+
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.orderItem_qty}  "/></f:facet>
+		
+
+	<h:inputText  id="OrderItem_qty" required="false"  value="#{orderItem.qty}" />
+   
+
+		
+		<h:message styleClass="error errors" for="OrderItem_qty" />
+		</h:column>
+		
+	
+
+	
+		
+		
+	<h:column>
+		
+	<h:commandButton  value="New OrderItem" action="#{customerOrderAction.addOrderItems}" >
+		<s:conversationId/>
+	</h:commandButton>
+	</h:column>
+		
+	<h:column>
+		<ice:commandButton value="Delete" action="#{customerOrderAction.deleteOrderItems(orderItem)}" immediate="true">
+			<s:conversationId/>
+		</ice:commandButton>
+	</h:column>
+		
+			
+	</ice:dataTable>
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{customerOrderAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{customerOrderAction.cancel}" /> 
+		
+	</div>
+
+	</ice:panelGroup>
+	</html>
+	

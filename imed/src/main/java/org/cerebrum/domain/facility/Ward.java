@@ -41,7 +41,7 @@ import org.hibernate.annotations.Filter;
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class Ward extends BusinessEntity {
 
-	//beds->ward ->Ward->Ward->Ward
+	//beds->ward ->Ward->Bed->Bed
 
 	@OneToMany(mappedBy = "ward", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Ward_ID", nullable = true)

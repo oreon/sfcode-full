@@ -53,7 +53,7 @@ public class Admission extends BusinessEntity {
 	@IndexedEmbedded
 	private Set<org.cerebrum.domain.provider.Physician> physicians = new HashSet<org.cerebrum.domain.provider.Physician>();
 
-	//nurses-> ->->Nurse->
+	//nurses-> ->->Admission->
 
 	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Admission_ID", nullable = true)
@@ -73,7 +73,7 @@ public class Admission extends BusinessEntity {
 	@ContainedIn
 	protected BedAllocation bedAllocation;
 
-	//complaints->admission ->Admission->DiseaseIncidence->DiseaseIncidence
+	//complaints->admission ->Admission->Admission->Admission
 
 	@OneToMany(mappedBy = "admission", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Admission_ID", nullable = true)

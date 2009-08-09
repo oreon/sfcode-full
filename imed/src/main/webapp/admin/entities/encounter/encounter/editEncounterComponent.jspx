@@ -47,8 +47,6 @@
 	
 
 
- 
-
 	
 	
 	
@@ -70,15 +68,11 @@
 		</h:panelGrid>
 		
 	
-	
-	
-	
+ 
 	<h:commandButton  value="New Complaint" action="#{encounterAction.addComplaints}" >
 		<s:conversationId/>
 	</h:commandButton>
-
-	
-	
+ 
 	<ice:dataTable id="complaints_data" var="complaint" rendered="#{not empty encounterAction.listComplaints}"
 					value="#{encounterAction.listComplaints}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
@@ -86,8 +80,6 @@
 	
 	
 
-
- 
 	
 		
 			
@@ -117,8 +109,6 @@
 	
 
 
- 
-
 	
 	
 	
@@ -127,7 +117,6 @@
 		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.complaint_type}  "/></f:facet>
 		
 	
-	enm ce:contactDetails 
 	<h:selectOneMenu id="Complaint_type" value="#{complaint.type}" required="false">
 		<f:selectItem itemLabel="Please Select..." itemValue="" />
 		<f:selectItem itemLabel="ACUTE" itemValue="ACUTE" />
@@ -146,34 +135,26 @@
 	
 		
 		
-		
 	<h:column>
 		
 	<h:commandButton  value="New Complaint" action="#{encounterAction.addComplaints}" >
 		<s:conversationId/>
 	</h:commandButton>
-
 	</h:column>
-
 		
 	<h:column>
 		<ice:commandButton value="Delete" action="#{encounterAction.deleteComplaints(complaint)}" immediate="true">
 			<s:conversationId/>
 		</ice:commandButton>
 	</h:column>
-
 		
 			
 	</ice:dataTable>
-	
-	
-	
+ 
 	<h:commandButton  value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" >
 		<s:conversationId/>
 	</h:commandButton>
-
-	
-	
+ 
 	<ice:dataTable id="prescribedTests_data" var="prescribedTest" rendered="#{not empty complaintAction.listPrescribedTests}"
 					value="#{complaintAction.listPrescribedTests}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
@@ -207,12 +188,8 @@
 		
 	
 
-
- 
 	
 
-
- 
 
 	
 	
@@ -234,22 +211,18 @@
 	
 		
 		
-		
 	<h:column>
 		
 	<h:commandButton  value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" >
 		<s:conversationId/>
 	</h:commandButton>
-
 	</h:column>
-
 		
 	<h:column>
 		<ice:commandButton value="Delete" action="#{encounterAction.deletePrescribedTests(prescribedTest)}" immediate="true">
 			<s:conversationId/>
 		</ice:commandButton>
 	</h:column>
-
 		
 			
 	</ice:dataTable>

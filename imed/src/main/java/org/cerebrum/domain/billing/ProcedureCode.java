@@ -59,7 +59,7 @@ public class ProcedureCode extends BusinessEntity {
 
 	protected Boolean adminDateRequired;
 
-	protected Boolean IORequired;
+	protected Boolean ioRequired;
 
 	public void setPrice(Double price) {
 		this.price = price;
@@ -117,12 +117,12 @@ public class ProcedureCode extends BusinessEntity {
 		return adminDateRequired;
 	}
 
-	public void setIORequired(Boolean IORequired) {
-		this.IORequired = IORequired;
+	public void setIoRequired(Boolean ioRequired) {
+		this.ioRequired = ioRequired;
 	}
 
-	public Boolean getIORequired() {
-		return IORequired;
+	public Boolean getIoRequired() {
+		return ioRequired;
 	}
 
 	@Transient
