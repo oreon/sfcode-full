@@ -33,22 +33,15 @@ public class ClassUtil {
 	Operation operation;
 	
 	static XtendFacade xtendFacade;
+	static Properties properties = new Properties();
 	
 	static{
 		
 		xtendFacade = XtendFacade.create("template::GeneratorExtensions");
 		UML2MetaModel mm = new UML2MetaModel();
 		ProfileMetaModel pmm = new ProfileMetaModel();
-		Properties properties = new Properties();
-		try {
-			properties.load(new FileInputStream("src/workflow/workflow.properties"));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		loadProperties();
+		
 		pmm.setProfile(properties.getProperty("model.dir") + "/wcprofile.profile.uml");
 		xtendFacade.registerMetaModel(mm);
 		xtendFacade.registerMetaModel(pmm);
@@ -61,11 +54,14 @@ public class ClassUtil {
 	
 	private static Class currentEmbeddable;
 	
-	private static String currentCartridge = "RICH";
+	private static String currentCartridge = null;
 	
 	private static Boolean currentMultiMode = false;
 	
 	public static String getCurrentCartridge() {
+		if(currentCartridge == null){
+			currentCartridge = readProperty("cartridge");
+		}
 		return currentCartridge;
 	}
 
@@ -77,7 +73,6 @@ public class ClassUtil {
 	
 	private static final Logger logger = Logger.getLogger(ClassUtil.class);
 	
-	private static Properties properties ;
 
 	
 	static Map<String, String[]> mapTypes = new HashMap<String, String[]>();
@@ -240,26 +235,19 @@ public class ClassUtil {
 	public static String getInterfaces(Class clazz){
 		StringBuilder buffer = new StringBuilder();
 		List<Interface> interfaces = clazz.getImplementedInterfaces();
-		
-		//clazz.getAttributes		
-		Property prop;		
-		
-		Operation op;
-		Parameter pr;
-		
-		
+	
 		if(!interfaces.isEmpty())
 			buffer.append(" implements ");
 		
-
+		List<String> lstStrings = new ArrayList<String>();
+		
 		for (int i = 0; i < interfaces.size(); i++) {
-			buffer.append(interfaces.get(i).getName());
-
-			if (i < (interfaces.size() - 1)) // add comma to all but last
-				buffer.append(", ");
+			Interface param = interfaces.get(i);
+			lstStrings.add( param.getName());
 		}
 		
-		return buffer.toString();
+		return  buffer.append( getCommaDelimitedString(lstStrings, 2) ).toString();
+		
 	}
 	
 	public static String getValidatorAnnotations(Property prop){
@@ -359,13 +347,13 @@ public class ClassUtil {
 	private static boolean loadProperties() {
 		properties = new Properties();
 		try {
-			InputStream stream = ClassUtil.class
-					.getResourceAsStream("/workflow.properties");
-			if (stream == null) {
+			//InputStream stream = ClassUtil.class.getResourceAsStream("/workflow.properties");
+			properties.load(new FileInputStream("src/workflow/workflow.properties"));
+			if (properties == null) {
 				logger.error("workflow properties file is not in the classpath");
 				return false;
 			}
-			properties.load(stream);
+			//properties.load(stream);
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();

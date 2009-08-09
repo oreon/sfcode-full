@@ -186,6 +186,10 @@
 «DEFINE gen FOR uml::Generalization»
 «ENDDEFINE»
 
+«DEFINE genDecl FOR wcprofile::DerivedProperty»
+
+«ENDDEFINE»
+
 
 «DEFINE genDecl FOR uml::Property»
 	«IF isMultivalued()»
@@ -266,6 +270,12 @@
 	«ENDIF»
 «ENDDEFINE»
 
+«DEFINE genGetterSetter FOR wcprofile::DerivedProperty»
+//derived property - «name»
+public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
+	return «derivation != null ? derivation :  name»;
+}
+«ENDDEFINE»
 
 
 «DEFINE EnumGen FOR uml::Enumeration»

@@ -7,6 +7,7 @@
 	«REM» Massage the model «ENDREM»
 	«EXPAND setDefaultNamesForAssocs FOREACH allOwnedElements().typeSelect(uml::Property) »
 	«EXPAND applyEntityStereotype FOREACH allOwnedElements().typeSelect(wcprofile::EntitiesPackage) »
+	«EXPAND massageEmbeddables FOREACH allOwnedElements().typeSelect(wcprofile::Embeddable) »
 «ENDDEFINE»
 
 «REM» For associations we need to
@@ -44,4 +45,8 @@
 			«c.applyEntityStereoType()»
 		«ENDIF»
 	«ENDFOREACH»
+«ENDDEFINE»
+
+«REM»todo add interface serializable «ENDREM»
+«DEFINE massageEmbeddables FOR wcprofile::Embeddable»
 «ENDDEFINE»

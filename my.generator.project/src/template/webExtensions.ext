@@ -137,7 +137,14 @@ st.containingStateMachine().name + "/" + st.name + "." + getExtension();
 
 
 String getExtension():
-getCurrentCartridge() == "RICH" ? "xhtml" : "jspx";
+if( getCurrentCartridge() == "RICH" ) then
+	 "xhtml"
+else if ( getCurrentCartridge() == "ICE") then
+	"jspx"
+else if ( getCurrentCartridge() == "DOT_NET") then
+ 	"aspx"
+else
+	"XXX";
 
 String getTemplate():
 "/admin/template." + getExtension();
