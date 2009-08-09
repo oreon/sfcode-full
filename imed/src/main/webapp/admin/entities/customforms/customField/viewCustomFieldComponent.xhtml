@@ -1,0 +1,110 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="CustomField " />
+		</f:facet>
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.customField_customForm}  "/>
+		
+	
+	<h:outputText   value="#{customField.customForm.displayName}" />
+	
+
+		
+		
+		
+		
+	
+
+	
+		
+	
+
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.customField_required}  "/>
+		
+
+	<h:outputText    id="CustomField_required"   value="#{customField.required}" />
+   
+
+		
+		
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.customField_type}  "/>
+		
+	<h:outputText   id="CustomField_type" value="#{customField.type}" />
+	
+
+		
+		
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.customField_name}  "/>
+		
+
+	<h:outputText    id="CustomField_name"   value="#{customField.name}" />
+   
+
+		
+		
+		
+		
+	
+
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Back To Listing" immediate="true" action="#{customFieldAction.cancel}" /> 
+		
+	</div>
+
+	</ice:panelGroup>
+	</html>
+	

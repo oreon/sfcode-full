@@ -51,10 +51,15 @@ public class Claim extends BusinessEntity {
 	@Lob
 	protected String notes;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "referringPhysician_id", nullable = false, updatable = true)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumn(name = "referringPhysician_id", nullable = true, updatable = true)
 	@ContainedIn
 	protected org.cerebrum.domain.provider.Physician referringPhysician;
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected org.cerebrum.domain.patient.Patient patient;
 
 	public void setServices(Set<Service> services) {
 		this.services = services;
@@ -79,6 +84,14 @@ public class Claim extends BusinessEntity {
 
 	public org.cerebrum.domain.provider.Physician getReferringPhysician() {
 		return referringPhysician;
+	}
+
+	public void setPatient(org.cerebrum.domain.patient.Patient patient) {
+		this.patient = patient;
+	}
+
+	public org.cerebrum.domain.patient.Patient getPatient() {
+		return patient;
 	}
 
 	@Transient

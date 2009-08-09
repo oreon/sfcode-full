@@ -27,7 +27,7 @@
 		<h:outputText value="#{msg.claim_referringPhysician}  "/>
 		
 	
-	<h:selectOneMenu id="Claim_referringPhysician" value="#{claim.referringPhysician}" required="true">
+	<h:selectOneMenu id="Claim_referringPhysician" value="#{claim.referringPhysician}" required="false">
 		<s:selectItems value="#{physicianList}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
@@ -46,8 +46,34 @@
 		
 	
 
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.claim_patient}  "/>
+		
+	
+	<h:selectOneMenu id="Claim_patient" value="#{claim.patient}" required="true">
+		<s:selectItems value="#{patientList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
 
- 
+		
+		<h:message styleClass="error errors" for="Claim_patient" />
+		
+		
+	
+
+	
+		
+	
+
 
 	
 	
@@ -70,15 +96,11 @@
 		</h:panelGrid>
 		
 	
-	
-	
-	
+ 
 	<h:commandButton  value="New Service" action="#{claimAction.addServices}" >
 		<s:conversationId/>
 	</h:commandButton>
-
-	
-	
+ 
 	<ice:dataTable id="services_data" var="service" rendered="#{not empty claimAction.listServices}"
 					value="#{claimAction.listServices}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
@@ -86,8 +108,6 @@
 	
 	
 
-
- 
 	
 		
 			
@@ -97,7 +117,7 @@
 		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.service_dxCode}  "/></f:facet>
 		
 	
-	<h:selectOneMenu id="Service_dxCode" value="#{service.dxCode}" required="true">
+	<h:selectOneMenu id="Service_dxCode" value="#{service.dxCode}" required="false">
 		<s:selectItems value="#{dxCodeList}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
@@ -116,8 +136,6 @@
 		
 	
 
-
- 
 	
 		
 			
@@ -147,8 +165,6 @@
 	
 
 
- 
-
 	
 	
 	
@@ -167,7 +183,26 @@
 	
 
 	
+
+	
 		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.service_price}  "/></f:facet>
+		<ice:inputText  id="Service_price" disabled="true"  value="#{service.price}" />
+		<h:message styleClass="error errors" for="Service_price" />
+		</h:column>
+		
+
+	
+
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.service_total}  "/></f:facet>
+		<ice:inputText  id="Service_total" disabled="true"  value="#{service.total}" />
+		<h:message styleClass="error errors" for="Service_total" />
+		</h:column>
+		
+
+	
 		
 		
 	<h:column>
@@ -175,16 +210,13 @@
 	<h:commandButton  value="New Service" action="#{claimAction.addServices}" >
 		<s:conversationId/>
 	</h:commandButton>
-
 	</h:column>
-
 		
 	<h:column>
 		<ice:commandButton value="Delete" action="#{claimAction.deleteServices(service)}" immediate="true">
 			<s:conversationId/>
 		</ice:commandButton>
 	</h:column>
-
 		
 			
 	</ice:dataTable>

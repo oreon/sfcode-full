@@ -1,0 +1,51 @@
+
+<ui:composition 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ template = "/admin/template.xhtml" >	
+	<ui:define name="content">
+		<ice:form>
+		<ice:panelTabSet>
+			<ice:panelTab  label="Patient">
+				<ui:include src = "viewPatientComponent.xhtml" />
+			</ice:panelTab>
+			
+			<ice:panelTab label="Allergies" icon="/images/icons/bricks.png">
+				<ui:include
+					src="../../patient/allergy/listAllergyComponent.jspx" />
+			</ice:panelTab>
+			
+			<ice:panelTab label="Immunizations" icon="/images/icons/bricks.png">
+				<ui:include
+					src="../../patient/immunization/listImmunizationComponent.jspx" />
+			</ice:panelTab>
+			
+			<ice:panelTab label="Prescriptions" icon="/images/icons/bricks.png">
+				<ui:include
+					src="../../prescription/prescription/listPrescriptionComponent.jspx" />
+			</ice:panelTab>
+			
+			<ice:panelTab label="Documents" icon="/images/icons/bricks.png">
+				<ui:include
+					src="../../patient/document/listDocumentComponent.jspx" />
+			</ice:panelTab>
+			
+			<ice:panelTab label="Encounters" icon="/images/icons/bricks.png">
+				<ui:include
+					src="../../encounter/encounter/listEncounterComponent.jspx" />
+			</ice:panelTab>
+			
+		</ice:panelTabSet>
+		</ice:form>
+		
+		<wc:comments backingAction="#{patientAction}"/>
+	</ui:define> 
+</ui:composition>
+	

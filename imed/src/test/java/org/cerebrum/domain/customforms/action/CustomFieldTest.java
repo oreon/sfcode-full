@@ -1,6 +1,6 @@
 
-		package org.cerebrum.domain.customforms.action;
-		
+package org.cerebrum.domain.customforms.action;
+
 	import javax.persistence.EntityManager;
 	import javax.persistence.Query;
 	
@@ -13,21 +13,7 @@
 	import org.witchcraft.seam.action.BaseAction;
 	import org.cerebrum.domain.customforms.CustomField;
 
-		
 
-	public class CustomFieldTest extends org.witchcraft.action.test.BaseTest<CustomField>{
+public class CustomFieldTest extends CustomFieldTestBase{
 	
-		CustomFieldAction customFieldAction = new CustomFieldAction();
-	
-		@BeforeClass
-		public void init(){
-			super.init();
-		}
-		
-		@Override
-		public BaseAction<CustomField> getAction() {
-			return customFieldAction;
-		}
-	}
-
-	
+}

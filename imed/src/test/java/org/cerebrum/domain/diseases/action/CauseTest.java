@@ -1,28 +1,19 @@
+
 package org.cerebrum.domain.diseases.action;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+	import javax.persistence.EntityManager;
+	import javax.persistence.Query;
+	
+	import org.jboss.seam.security.Identity;
+	import org.testng.annotations.Test;
+	import org.witchcraft.base.entity.*;
+	import org.hibernate.annotations.Filter;
+	
+	import org.testng.annotations.BeforeClass;
+	import org.witchcraft.seam.action.BaseAction;
+	import org.cerebrum.domain.diseases.Cause;
 
-import org.jboss.seam.security.Identity;
-import org.testng.annotations.Test;
-import org.witchcraft.base.entity.*;
-import org.hibernate.annotations.Filter;
 
-import org.testng.annotations.BeforeClass;
-import org.witchcraft.seam.action.BaseAction;
-import org.cerebrum.domain.diseases.Cause;
-
-public class CauseTest extends org.witchcraft.action.test.BaseTest<Cause> {
-
-	CauseAction causeAction = new CauseAction();
-
-	@BeforeClass
-	public void init() {
-		super.init();
-	}
-
-	@Override
-	public BaseAction<Cause> getAction() {
-		return causeAction;
-	}
+public class CauseTest extends CauseTestBase{
+	
 }

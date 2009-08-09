@@ -1,0 +1,112 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="FilledForm " />
+		</f:facet>
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.filledForm_customForm}  "/>
+		
+	
+	<h:outputText   value="#{filledForm.customForm.displayName}" />
+	
+
+		
+		
+		
+		
+	
+
+	
+		
+	
+
+
+	
+		</h:panelGrid>
+		
+	
+	
+	<ice:dataTable id="filledFields_data" var="filledField" rendered="#{not empty filledFormAction.listFilledFields}"
+					value="#{filledFormAction.listFilledFields}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.filledField_customField}  "/></f:facet>
+		
+	
+	<h:outputText   value="#{filledField.customField.displayName}" />
+	
+
+		
+		
+		</h:column>
+		
+	
+
+	
+		
+	
+
+	
+
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:left"><f:facet name="header"><h:outputText value="#{msg.filledField_value}  "/></f:facet>
+		
+
+	<h:outputText    id="FilledField_value"   value="#{filledField.value}" />
+   
+
+		
+		
+		</h:column>
+		
+	
+
+	
+		
+			
+	</ice:dataTable>
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Back To Listing" immediate="true" action="#{filledFormAction.cancel}" /> 
+		
+	</div>
+
+	</ice:panelGroup>
+	</html>
+	

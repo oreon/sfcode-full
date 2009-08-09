@@ -46,6 +46,7 @@ public class Document extends BusinessEntity {
 	@Field(index = Index.TOKENIZED)
 	protected String name;
 
+	@Column(length = 4194304)
 	protected byte[] file;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)

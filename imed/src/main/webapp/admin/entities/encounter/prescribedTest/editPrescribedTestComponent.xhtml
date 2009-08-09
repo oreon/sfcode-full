@@ -1,0 +1,111 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="PrescribedTest " />
+		</f:facet>
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.prescribedTest_dxTest}  "/>
+		
+	
+	<h:selectOneMenu id="PrescribedTest_dxTest" value="#{prescribedTest.dxTest}" required="true">
+		<s:selectItems value="#{dxTestList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="PrescribedTest_dxTest" />
+		
+		
+	
+
+	
+		
+	
+
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.prescribedTest_encounter}  "/>
+		
+	
+	<h:selectOneMenu id="PrescribedTest_encounter" value="#{prescribedTest.encounter}" required="true">
+		<s:selectItems value="#{encounterList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="PrescribedTest_encounter" />
+		
+		
+	
+
+	
+		
+	
+
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.prescribedTest_notes}  "/>
+		
+
+	<h:inputText  id="PrescribedTest_notes" required="false"  value="#{prescribedTest.notes}" />
+   
+
+		
+		<h:message styleClass="error errors" for="PrescribedTest_notes" />
+		
+		
+	
+
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{prescribedTestAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{prescribedTestAction.cancel}" /> 
+		
+	</div>
+
+	</ice:panelGroup>
+	</html>
+	

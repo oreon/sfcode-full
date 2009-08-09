@@ -41,7 +41,7 @@ import org.hibernate.annotations.Filter;
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class CustomForm extends BusinessEntity {
 
-	//customFields->customForm ->CustomForm->CustomField->CustomField
+	//customFields->customForm ->CustomForm->CustomForm->CustomForm
 
 	@OneToMany(mappedBy = "customForm", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "CustomForm_ID", nullable = false)

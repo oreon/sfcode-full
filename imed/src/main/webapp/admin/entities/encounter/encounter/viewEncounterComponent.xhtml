@@ -1,0 +1,182 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<ice:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="Encounter " />
+		</f:facet>
+	<h:outputText value="#{msg.dateCreated}" />
+	<h:outputText value="#{encounter.dateCreated}" />
+ 
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.encounter_patient}  "/>
+		
+	
+	<h:outputText   value="#{encounter.patient.displayName}" />
+	
+
+		
+		
+		
+		
+	
+
+	
+		
+	
+
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.encounter_notes}  "/>
+		
+
+	<h:outputText escape="false"   id="Encounter_notes"   value="#{encounter.notes}" />
+   
+
+		
+		
+		
+		
+	
+
+	
+		</h:panelGrid>
+		
+	
+	
+	<ice:dataTable id="complaints_data" var="complaint" rendered="#{not empty encounterAction.listComplaints}"
+					value="#{encounterAction.listComplaints}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+
+	
+		
+			
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.complaint_symptom}  "/></f:facet>
+		
+	
+	<h:outputText   value="#{complaint.symptom.displayName}" />
+	
+
+		
+		
+		</h:column>
+		
+	
+
+	
+		
+	
+
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.complaint_type}  "/></f:facet>
+		
+	<h:outputText   id="Complaint_type" value="#{complaint.type}" />
+	
+
+		
+		
+		</h:column>
+		
+	
+
+	
+		
+			
+	</ice:dataTable>
+	
+	<ice:dataTable id="prescribedTests_data" var="prescribedTest" rendered="#{not empty complaintAction.listPrescribedTests}"
+					value="#{complaintAction.listPrescribedTests}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.prescribedTest_dxTest}  "/></f:facet>
+		
+	
+	<h:outputText   value="#{prescribedTest.dxTest.displayName}" />
+	
+
+		
+		
+		</h:column>
+		
+	
+
+	
+		
+	
+
+	
+
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:left"><f:facet name="header"><h:outputText value="#{msg.prescribedTest_notes}  "/></f:facet>
+		
+
+	<h:outputText    id="PrescribedTest_notes"   value="#{prescribedTest.notes}" />
+   
+
+		
+		
+		</h:column>
+		
+	
+
+	
+		
+			
+	</ice:dataTable>
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Back To Listing" immediate="true" action="#{encounterAction.cancel}" /> 
+		
+	</div>
+
+	</ice:panelGroup>
+	</html>
+	

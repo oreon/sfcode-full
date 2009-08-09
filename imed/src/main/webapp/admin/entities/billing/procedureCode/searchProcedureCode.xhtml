@@ -1,0 +1,98 @@
+
+<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:form>
+	<ice:panelGroup styleClass="pnlClpsblWrapper panelCollapsible">
+	<ice:panelCollapsible >
+			<f:facet name="header">
+				<ice:outputText id="srchHdr" value="Search" />
+			</f:facet>
+			<div class="entry errors"><h:messages globalOnly="true" /></div>
+			<h:panelGrid columns="5">
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.procedureCode_price}  "/> <br/>
+	<h:inputText  id="ProcedureCode_price" value="#{procedureCode.price}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.procedureCode_code} * "/> <br/>
+	<h:inputText  id="ProcedureCode_code" value="#{procedureCode.code}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.procedureCode_description}  "/> <br/>
+	<h:inputText  id="ProcedureCode_description" value="#{procedureCode.description}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.procedureCode_referringPhysRequired}  "/> <br/>
+	<h:selectBooleanCheckbox  id="ProcedureCode_referringPhysRequired" value="#{procedureCode.referringPhysRequired}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.procedureCode_dxCodeRequired}  "/> <br/>
+	<h:selectBooleanCheckbox  id="ProcedureCode_dxCodeRequired" value="#{procedureCode.dxCodeRequired}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.procedureCode_hospitalizaionRequired}  "/> <br/>
+	<h:selectBooleanCheckbox  id="ProcedureCode_hospitalizaionRequired" value="#{procedureCode.hospitalizaionRequired}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.procedureCode_adminDateRequired}  "/> <br/>
+	<h:selectBooleanCheckbox  id="ProcedureCode_adminDateRequired" value="#{procedureCode.adminDateRequired}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.procedureCode_IORequired}  "/> <br/>
+	<h:selectBooleanCheckbox  id="ProcedureCode_IORequired" value="#{procedureCode.iORequired}" />
+	</h:panelGroup>
+
+	
+	
+			</h:panelGrid>
+			
+	<div class="buttonBox">
+		<h:commandButton value="Search"  action="#{procedureCodeAction.search}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Clear Search" immediate="true" action="#{procedureCodeAction.clearSearch}" /> 
+	</div>
+
+		</ice:panelCollapsible>
+		</ice:panelGroup>
+		</h:form>
+</html>
+	

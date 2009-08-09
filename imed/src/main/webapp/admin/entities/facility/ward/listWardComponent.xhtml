@@ -1,0 +1,91 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	
+		<ice:commandButton value="Create New" action="edit" rendered="#{identity.loggedIn}"/>
+		<ice:dataTable  var="ward" value="#{wardList}" rows="30"
+		rowClasses="odd, even" styleClass="dataTable" >		
+		
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.ward_name}" />
+		</f:facet>
+		<h:outputText   value="#{ward.name}" />
+	</ice:column>
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.ward_allowedGender}" />
+		</f:facet>
+		<h:outputText   value="#{ward.allowedGender}" />
+	</ice:column>
+	
+		
+			
+				
+	<ice:column  groupOn="#{ward.floor.displayName}" >
+		<f:facet name="header">
+			<h:outputText value="#{msg.ward_floor}"   /> 	
+		</f:facet>
+		<s:link   value="#{ward.floor.displayName}" action="viewFloor" />
+	</ice:column>
+			
+		
+	
+	<ice:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.ward_price}" />
+		</f:facet>
+		<h:outputText   value="#{ward.price}" />
+	</ice:column>
+	
+		
+	
+		
+	<ice:column   >
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{wardAction.select(ward)}">
+			<h:graphicImage value="/images/icons/eye.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+		
+	<ice:column   >
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{wardAction.select(ward)}">
+			<h:graphicImage value="/images/icons/edit.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+		
+	<ice:column   >
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{wardAction.showDeleteDialog(ward)}">
+			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" />
+		</h:commandLink>
+	</ice:column>
+
+		</ice:dataTable>
+		
+		<wc:deletePanel backingAction="#{wardAction}" backingEntity="#{ward}" title="Delete Ward" />
+	</html>
+	

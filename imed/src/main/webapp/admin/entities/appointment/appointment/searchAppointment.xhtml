@@ -1,0 +1,88 @@
+
+<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:form>
+	<ice:panelGroup styleClass="pnlClpsblWrapper panelCollapsible">
+	<ice:panelCollapsible >
+			<f:facet name="header">
+				<ice:outputText id="srchHdr" value="Search" />
+			</f:facet>
+			<div class="entry errors"><h:messages globalOnly="true" /></div>
+			<h:panelGrid columns="5">
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appointment_startDate}  "/> <br/>
+	<wc:calendar  id="Appointment_startDate" value="#{appointment.startDate}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appointment_endDate}  "/> <br/>
+	<wc:calendar  id="Appointment_endDate" value="#{appointment.endDate}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appointment_notes}  "/> <br/>
+	<h:inputText  id="Appointment_notes" value="#{appointment.notes}" />
+	</h:panelGroup>
+
+	
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.appointment_patient}  "/> <br/>
+	<h:selectOneMenu id="Appointment_patient" value="#{appointment.patient}" >
+		<s:selectItems value="#{patientList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.appointment_physician}  "/> <br/>
+	<h:selectOneMenu id="Appointment_physician" value="#{appointment.physician}" >
+		<s:selectItems value="#{physicianList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+			</h:panelGrid>
+			
+	<div class="buttonBox">
+		<h:commandButton value="Search"  action="#{appointmentAction.search}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Clear Search" immediate="true" action="#{appointmentAction.clearSearch}" /> 
+	</div>
+
+		</ice:panelCollapsible>
+		</ice:panelGroup>
+		</h:form>
+</html>
+	

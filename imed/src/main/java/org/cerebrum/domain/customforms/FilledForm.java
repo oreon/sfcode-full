@@ -46,7 +46,7 @@ public class FilledForm extends BusinessEntity {
 	@ContainedIn
 	protected CustomForm customForm;
 
-	//filledFields->filledForm ->FilledForm->FilledForm->FilledForm
+	//filledFields->filledForm ->FilledForm->FilledField->FilledField
 
 	@OneToMany(mappedBy = "filledForm", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "FilledForm_ID", nullable = true)
