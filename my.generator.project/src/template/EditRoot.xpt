@@ -147,6 +147,15 @@
 	«ENDIF»
 «ENDDEFINE»
 
+«DEFINE genLabelAndInput FOR wcprofile::DerivedProperty-»
+		«getAccess() != null?" <s:div rendered=\"#{s:hasRole('admin')}\">":""»
+		«getOutputMessage()»
+		<«getTextControl()»  id="«getId()»" «isCurrentEditMode()? "disabled=\"true\"":""»  value="#{«getCurrentEntity().asVar()».«name.toFirstLower()»}" />
+		«getErrorMessageHolder()»
+		«isCurrentMultiMode()?"</h:column>":""»
+		«getAccess() != null?"</s:div>":""»
+«ENDDEFINE»
+
 «DEFINE genLabelAndOutput FOR uml::Property-»
 	«IF !isSecret()  »
 		«getAccess() != null?" <s:div rendered=\"#{s:hasRole('admin')}\">":""»
@@ -205,7 +214,7 @@
 	«ENDIF»
 «ENDDEFINE»
 
-
+«REM»Generates contained compositions in a tabular form e.g. order items of an order «ENDREM»
 «DEFINE gentEditableTable FOR uml::Property-»
 	«setCurrentMultiMode(true)-»
 	«IF isCurrentEditMode()-» «EXPAND genNewButton FOR this» «ENDIF»
