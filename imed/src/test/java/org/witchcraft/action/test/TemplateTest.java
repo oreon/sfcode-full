@@ -22,8 +22,7 @@ public class TemplateTest extends BaseTest<User> {
 	
 	@Override
 	public BaseAction<User> getAction() {
-		// TODO Auto-generated method stub
-		return super.getAction();
+		return action;
 	}
 
     @Test
