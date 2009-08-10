@@ -22,8 +22,7 @@ public class AuthenticatorTest extends BaseTest {
 	
 	@Override
 	public BaseAction<User> getAction() {
-		// TODO Auto-generated method stub
-		return super.getAction();
+		return action;
 	}
 
     @Test(dependsOnMethods={"testRegisterAction"})
