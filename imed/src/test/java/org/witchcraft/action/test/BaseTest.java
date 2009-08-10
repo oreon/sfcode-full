@@ -22,7 +22,7 @@ public class BaseTest<T extends BusinessEntity> extends SeamTest{
 	public void init() {
 		emf = Persistence.createEntityManagerFactory("imed");
 		EntityManager em =  getEntityManagerFactory().createEntityManager();
-		getAction().setEntityManager(Search.createFullTextEntityManager(em));
+		getAction().setEntityManager(Search.getFullTextEntityManager(em));
 	}
 	
 	public BaseAction<T> getAction(){
