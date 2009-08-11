@@ -15,9 +15,11 @@ public class ArchCreator {
 	 * "src/main/webapp/WEB-INF", "*" } };
 	 */
 
-	private static final String BASE_DIR = "C:/Users/jsingh/workspace/kg-temp/";
+	private static final String BASE_DIR = "C:/dev/seamIceFaces/";
 	private String[][] arrDirFiles = { { "src/main/webapp", "*" },
-			{ "src/main/resources", "*" }, { "src/etc", "*" }, {"src/model", "*"}};
+			{ "src/main/resources", "*" }, { "src/etc", "*" }, {"src/model", "*"},
+			{ "src/main/java", "*" }, { "src/test/java", "*" }
+	};
 
 	public static void main(String[] args) {
 		ArchCreator archCreator = new ArchCreator();
@@ -53,13 +55,15 @@ public class ArchCreator {
 			String filePath = dirpath + "/" + fileName;
 			File child = new File(BASE_DIR + "/" + filePath);
 			if (child.isDirectory()) {
-				if (child.getName().startsWith("."))
-					log("skipping directory " + child.getName());
+				if (child.getName().startsWith(".")){
+					//log("skipping directory " + child.getName());
+				}
 				else
 					createResNode(filePath, child);
 			} else {
-				if (fileName.startsWith("."))
+				if (fileName.startsWith(".")){
 					log("skipping file " + fileName);
+				}
 				createNode("resource", dirpath + "/" + fileName, writer);
 			}
 		}
