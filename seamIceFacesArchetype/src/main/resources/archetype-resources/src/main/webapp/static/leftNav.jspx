@@ -23,17 +23,10 @@
 				<li><a href="#" class="menu_link">My Stories </a></li>
 				<li><h:commandLink action="myProfile" value="My Profile" /></li>
 				<li><s:link view="/editStory.jspx" value="Create Story" /></li>
+				<s:div rendered="#{ identity.loggedIn}"> <h:commandLink value="Log Out #{identity.username}" action="#{identity.logout}"  /> </s:div>
 			</s:div>
-		<li><h:commandLink action="#{storyAction.executeNamedQuery('openStories', 1)}" value="Open Stories" /> </li>
-			<li><s:link view="/listStory.jspx" value="All Stories"   /></li>
 		</ul>	
-		<div class="menu_title">Resources</div>
-		<ul>
-			<li><a href="http://www.pikanai.com" class="menu_link">Forum</a></li>
-			<li><a href="http://www.pikanai.com" class="menu_link">Wiki</a></li>
-			<li><s:link  view="/listTeamMember.jspx"  value="Members"/></li>
-			<s:div rendered="#{ identity.loggedIn}"> <h:commandLink value="Log Out #{identity.username}" action="#{identity.logout}"  /> </s:div>
-		</ul>
+		
 		</h:form>
 		<ui:include src="../login.jspx" />
 		

@@ -1,9 +1,44 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.witchcraft.archetypes</groupId>
-  <artifactId>seamIceFaces</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <name>Archetype - seamIceFaces</name>
-  <url>http://maven.apache.org</url>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.witchcraft.archetypes</groupId>
+	<artifactId>seamIceFaces</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>Archetype - seamIceFaces</name>
+	<url>http://maven.apache.org</url>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<description>An archetype for generating a Witchcraft based starter
+		project using Seam, JPA, Icefaces and Jbpm </description>
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ftp</artifactId>
+				<version>1.0-beta-2</version>
+			</extension>
+		</extensions>
+	</build>
+	<distributionManagement>
+		<repository>
+			<uniqueVersion>false</uniqueVersion>
+			<id>repoRel</id>
+			<name>Release Repository</name>
+			<url>${serverName}</url>
+		</repository>
+		<snapshotRepository>
+			<uniqueVersion>true</uniqueVersion>
+			<id>repoSnap</id>
+			<name>Snapshots Repository</name>
+			<url>${serverName}</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<properties>
+		<serverName>ftp://oreonconsulting.com</serverName>
+	</properties>
 </project>
