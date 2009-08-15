@@ -1,19 +1,15 @@
 package org.witchcraft.action.test;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
-import org.jboss.seam.security.Identity;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.witchcraft.seam.action.BaseAction;
-import org.witchcraft.users.Role;
-import org.witchcraft.users.User;
-import org.witchcraft.users.action.UserAction;
 
-public class TemplateTest extends BaseTest<User> {
+import com.shan.customermgt.domain.Customer;
+import com.shan.customermgt.domain.action.CustomerAction;
+
+public class TemplateTest extends BaseTest<Customer> {
 	
-	UserAction action = new UserAction();
+	CustomerAction action = new CustomerAction();
 	
 	@BeforeClass
 	public void init(){
@@ -21,9 +17,8 @@ public class TemplateTest extends BaseTest<User> {
 	}
 	
 	@Override
-	public BaseAction<User> getAction() {
-		// TODO Auto-generated method stub
-		return super.getAction();
+	public BaseAction<Customer> getAction() {
+		return action;
 	}
 
     @Test
@@ -32,10 +27,10 @@ public class TemplateTest extends BaseTest<User> {
             
             protected void testComponents() throws Exception {
             	//setValue("#{patient.}", "chrismaki@mac.com");
-                setValue("#{patient.firstName}", "chris");
-                setValue("#{patient.lastName}", "maki");
-                setValue("#{patientAction.entityTemplate.templateName}", "mytempl");
-                invokeMethod("#{patientAction.saveTemplate}");
+                setValue("#{customer.firstName}", "chris");
+                setValue("#{customer.lastName}", "maki");
+                setValue("#{customerAction.entityTemplate.templateName}", "mytempl");
+                invokeMethod("#{customerAction.saveTemplate}");
                // assert getValue("#{register.registrationSuccessful}").equals(false);
 
             }
