@@ -1,7 +1,9 @@
 package org.witchcraft.seam.action;
 
 import java.util.List;
+import java.util.Map;
 
+import javax.faces.component.UIComponent;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
@@ -54,6 +56,9 @@ public abstract class BaseAction<T extends BusinessEntity> {
 
 	@RequestParameter
 	private String queryString;
+	
+	@In 
+	protected Map<String, UIComponent> uiComponent;
 
 	private List<EntityComment> comments;
 	private String currentCommentText;

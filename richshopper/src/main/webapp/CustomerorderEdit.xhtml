@@ -1,0 +1,214 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="customerorder" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{customerorderHome.managed ? 'Edit' : 'Add'} Customerorder</f:facet>
+
+
+
+
+            <s:decorate id="archivedField" template="layout/edit.xhtml">
+                <ui:define name="label">Archived</ui:define>
+                <h:selectBooleanCheckbox id="archived"
+                                   required="true"
+                                      value="#{customerorderHome.instance.archived}"/>
+            </s:decorate>
+
+
+            <s:decorate id="dateCreatedField" template="layout/edit.xhtml">
+                <ui:define name="label">Date created</ui:define>
+                <rich:calendar id="dateCreated"
+                          value="#{customerorderHome.instance.dateCreated}" datePattern="MM/dd/yyyy hh:mm a"/>
+            </s:decorate>
+
+
+            <s:decorate id="dateUpdatedField" template="layout/edit.xhtml">
+                <ui:define name="label">Date updated</ui:define>
+                <rich:calendar id="dateUpdated"
+                          value="#{customerorderHome.instance.dateUpdated}" datePattern="MM/dd/yyyy hh:mm a"/>
+            </s:decorate>
+
+
+            <s:decorate id="notesField" template="layout/edit.xhtml">
+                <ui:define name="label">Notes</ui:define>
+                <h:inputTextarea id="notes"
+                               cols="80"
+                               rows="10"
+                              value="#{customerorderHome.instance.notes}"/>
+            </s:decorate>
+
+
+
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                required fields
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="Save"
+                         action="#{customerorderHome.persist}"
+                       disabled="#{!customerorderHome.wired}"
+                       rendered="#{!customerorderHome.managed}"/>
+
+            <h:commandButton id="update"
+                          value="Save"
+                         action="#{customerorderHome.update}"
+                       rendered="#{customerorderHome.managed}"/>
+
+            <h:commandButton id="delete"
+                          value="Delete"
+                         action="#{customerorderHome.remove}"
+                      immediate="true"
+                       rendered="#{customerorderHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="Cancel"
+             propagation="end"
+                    view="/Customerorder.xhtml"
+                rendered="#{customerorderHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="Cancel"
+             propagation="end"
+                    view="/#{empty customerorderFrom ? 'CustomerorderList' : customerorderFrom}.xhtml"
+                rendered="#{!customerorderHome.managed}"/>
+
+        </div>
+    </h:form>
+
+<rich:tabPanel switchType="ajax">
+
+    
+
+    <rich:tab label="Orderitems">
+        <h:form styleClass="association" id="orderitemsChildren">
+
+            <h:outputText value="There are no orderitems associated with this customerorder."
+                       rendered="#{empty customerorderHome.orderitems}"/>
+
+            <rich:dataTable value="#{customerorderHome.orderitems}"
+                           var="_orderitem"
+                      rendered="#{not empty customerorderHome.orderitems}"
+                    rowClasses="rvgRowOne,rvgRowTwo"
+                            id="orderitemsTable">
+                <rich:column sortBy="#{_orderitem.id}">
+                    <f:facet name="header">Id</f:facet>
+                    <h:outputText value="#{_orderitem.id}"/>
+                </rich:column>
+                <rich:column sortBy="#{_orderitem.archived}">
+                    <f:facet name="header">Archived</f:facet>
+                    <h:outputText value="#{_orderitem.archived}"/>
+                </rich:column>
+                <rich:column sortBy="#{_orderitem.dateCreated}">
+                    <f:facet name="header">Date created</f:facet>
+                    <h:outputText value="#{_orderitem.dateCreated}">
+                        <s:convertDateTime type="both" dateStyle="short"/>
+                    </h:outputText>
+                </rich:column>
+                <rich:column sortBy="#{_orderitem.dateUpdated}">
+                    <f:facet name="header">Date updated</f:facet>
+                    <h:outputText value="#{_orderitem.dateUpdated}">
+                        <s:convertDateTime type="both" dateStyle="short"/>
+                    </h:outputText>
+                </rich:column>
+                <rich:column sortBy="#{_orderitem.qty}">
+                    <f:facet name="header">Qty</f:facet>
+                    <h:outputText value="#{_orderitem.qty}"/>
+                </rich:column>
+            </rich:dataTable>
+
+        </h:form>
+
+        <f:subview id="orderitems">
+        <div class="actionButtons">
+            <s:button id="addorderitem"
+                   value="Add orderitem"
+                    view="/OrderitemEdit.xhtml"
+             propagation="none">
+                 <f:param name="customerorderId"
+                         value="#{customerorderHome.instance.id}"/>
+                 <f:param name="orderitemFrom" value="Customerorder"/>
+            </s:button>
+        </div>
+        </f:subview>
+    </rich:tab>
+
+    <rich:tab label="User">
+    <div class="association" id="userParent">
+
+        <h:outputText value="There is no user associated with this customerorder."
+                   rendered="#{customerorderHome.instance.user == null}"/>
+
+        <rich:dataTable var="_user"
+                   value="#{customerorderHome.instance.user}"
+                rendered="#{customerorderHome.instance.user != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="userTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_user.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Archived</f:facet>
+                <h:outputText value="#{_user.archived}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Date created</f:facet>
+                <h:outputText value="#{_user.dateCreated}">
+                    <s:convertDateTime type="both" dateStyle="short"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Date updated</f:facet>
+                <h:outputText value="#{_user.dateUpdated}">
+                    <s:convertDateTime type="both" dateStyle="short"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Enabled</f:facet>
+                <h:outputText value="#{_user.enabled}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Password</f:facet>
+                <h:outputText value="#{_user.password}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">User id</f:facet>
+                <h:outputText value="#{_user.user.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">User name</f:facet>
+                <h:outputText value="#{_user.userName}"/>
+            </h:column>
+        </rich:dataTable>
+
+        <div class="actionButtons">
+            <s:button value="#{customerorderHome.instance.user != null ? 'Change' : 'Select'} user"
+                       view="/UserList.xhtml">
+                <f:param name="from" value="CustomerorderEdit"/>
+            </s:button>
+        </div>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>
