@@ -6,11 +6,12 @@
        no-conversation-view-id="/home.jspx"
        login-view-id="/login.jspx">
 
-	<page view-id="/admin/*">
+	<page view-id="/admin/*" >
         <restrict>#{s:hasRole('admin')}</restrict>
      </page>
     
-    <page view-id="/adminLogin.jspx">     
+    <page view-id="/adminLogin.jspx" >     
+    
         <navigation from-action="#{identity.login}">
            <redirect view-id="/admin/entities/summary.jspx"/>
         </navigation>

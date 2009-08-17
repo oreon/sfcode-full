@@ -56,7 +56,7 @@
 		<h:outputText value="#{msg.customerOrder_notes}  "/>
 		
 
-	<h:rich:editor useSeamText="true"   id="CustomerOrder_notes" required="false"  value="#{customerOrder.notes}" />
+	<rich:editor useSeamText="true"   id="CustomerOrder_notes" required="false"  value="#{customerOrder.notes}" />
    
 
 		
@@ -79,11 +79,6 @@
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		
 	
-	
-		
-			
-	
-	
 		
 		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.orderItem_product}  "/></f:facet>
 		
@@ -102,23 +97,11 @@
 		</h:column>
 		
 	
-
-	
-		
-	
-
-	
-
-
-	
-	
-	
-	
 		
 		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.orderItem_qty}  "/></f:facet>
 		
 
-	<h:inputText  id="OrderItem_qty" required="false"  value="#{orderItem.qty}" />
+	<h:inputText  id="OrderItem_qty" required="true" valueChangeListener="#{customerOrderAction.updateTotalPrice}" value="#{orderItem.qty}" />
    
 
 		
@@ -126,7 +109,15 @@
 		</h:column>
 		
 	
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.orderItem_qty}  "/></f:facet>
+		
 
+	<h:inputText  id="OrderItem_totalPrice" required="false"  value="#{orderItem.totalPrice}" />
+   
+
+		
+		<h:message styleClass="error errors" for="OrderItem_qty" />
+		</h:column>
 	
 		
 		

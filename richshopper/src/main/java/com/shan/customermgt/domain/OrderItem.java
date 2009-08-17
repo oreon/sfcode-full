@@ -38,7 +38,7 @@ import org.hibernate.annotations.Filter;
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = { @Parameter(name = "language", value = "English") }) })
 public class OrderItem extends BusinessEntity {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -46,7 +46,21 @@ public class OrderItem extends BusinessEntity {
 	@ContainedIn
 	protected Product product;
 
-	protected Integer qty;
+	protected Integer qty = 1;
+
+	@Transient
+	protected double totalPrice;
+
+	public double getTotalPrice() {
+		if (qty != null && qty > 0 && product != null) {
+			return qty * product.getPrice();
+		}
+		return 0.0;
+	}
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "customerOrder_id", nullable = false, updatable = true)
@@ -82,7 +96,10 @@ public class OrderItem extends BusinessEntity {
 		return product + "";
 	}
 
-	/** This method is used by hibernate full text search - override to add additional fields
+	/**
+	 * This method is used by hibernate full text search - override to add
+	 * additional fields
+	 * 
 	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
 	 */
 	@Override
