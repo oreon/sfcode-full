@@ -4,7 +4,7 @@ package org.cerebrum.drugimporter;
 	import java.util.regex.Pattern;
  
 
-	public class Splitter {
+	public class Splitter  {
 	    public static void main(String[] args) throws Exception {
 	        // Create a pattern to match breaks
 	        Pattern p = Pattern.compile("[,\\s]+");
