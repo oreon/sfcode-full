@@ -41,7 +41,7 @@ public class RegisterAction implements Serializable {
       facesMessages.addToControl("verify", "Passwords do not match");
       // set verifyPassword field to null so it is not passed back to view
       verifyPassword = null;
-      xxx vvv uuu aaa bnm;
+     // xxx vvv uuu aaa bnm;
       return;
     }
 
