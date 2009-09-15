@@ -36,7 +36,7 @@ public class UtilsClass {
 
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("Version: "
-				+ atts.getValue("Implementation-Version"));
+				+ atts.getValue("Implementation-Version") + "<br/>");
 		buffer.append("Build: " + atts.getValue("Implementation-Build"));
 		
 		return buffer.toString();
