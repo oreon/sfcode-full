@@ -8,6 +8,12 @@
 	<name>my-webapp Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
+	<scm>
+		<connection>scm:svn:https://witchcraft.svn.sourceforge.net/svnroot/witchcraft/my-webapp</connection>
+		<developerConnection>scm:svn:https://witchcraft.svn.sourceforge.net/svnroot/witchcraft/my-webapp</developerConnection>
+		<url>https://witchcraft.svn.sourceforge.net/svnroot/witchcraft/my-webapp</url>
+	</scm>
+
 	<build>
 		<finalName>arslansapp</finalName>
 		<plugins>
@@ -21,8 +27,8 @@
 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>maven-buildnumber-plugin</artifactId>
-				<version>0.9.4</version>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.0-beta-3</version>
 				<executions>
 					<execution>
 						<phase>validate</phase>
@@ -31,7 +37,12 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<doCheck>true</doCheck>
+					<doUpdate>true</doUpdate>
+				</configuration>
 			</plugin>
+
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -75,13 +86,7 @@
 	</dependencies>
 
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>tlc</id>
-			<name>TLC Repository</name>
-			<url>http://commons.ucalgary.ca/pub/m2</url>
-		</pluginRepository>
-	</pluginRepositories>
+
 
 
 </project>
