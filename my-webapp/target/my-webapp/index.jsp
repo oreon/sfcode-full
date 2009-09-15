@@ -1,7 +1,7 @@
 
 <%@page import="com.ganz.wonders.UtilsClass"%><html>
 <body>
-<h2>Hello Ganz and Carlos  !!! </h2>
+<h2>Hello Ganz and Carlos!!! </h2>
 <input type="submit" />
 
 <br/>
