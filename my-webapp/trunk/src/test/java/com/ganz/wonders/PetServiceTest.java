@@ -27,6 +27,10 @@ public class PetServiceTest {
 		
 	}
 	
+	/**
+	 *  Business logic is if the child logs in for the first time pets health will be half of default
+	 *  (5)
+	 */
 	@Test
 	public void createPet(){
 		  // expectations
