@@ -1,0 +1,79 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="Product " />
+		</f:facet>
+		
+
+		
+		<h:outputText value="#{msg.product_name}  "/>
+		
+
+	<h:inputText  id="Product_name" required="false"  value="#{product.name}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Product_name" />
+		
+		
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.product_price}  "/>
+		
+
+	<h:inputText  id="Product_price" required="false"  value="#{product.price}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Product_price" />
+		
+		
+	
+
+
+	
+		
+		<h:outputText value="#{msg.product_image}  "/>
+		
+
+	<s:fileUpload data="#{product.image}"/> 
+   
+
+		
+		<h:message styleClass="error errors" for="Product_image" />
+		
+		
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{productAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{productAction.cancel}" /> 
+		
+	</div>
+
+	</h:panelGroup>
+	</html>
+	

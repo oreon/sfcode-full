@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pages xmlns="http://jboss.com/products/seam/pages"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd"
+       no-conversation-view-id="/home.jspx"
+       login-view-id="/login.jspx">
+
+	<page view-id="/admin/*" >
+        <restrict>#{s:hasRole('admin')}</restrict>
+     </page>
+    
+    <page view-id="/adminLogin.jspx" >     
+    
+        <navigation from-action="#{identity.login}">
+           <redirect view-id="/admin/entities/summary.jspx"/>
+        </navigation>
+	</page>
+
+	
+	<page view-id="*">
+        <navigation>
+        	<rule if-outcome="home">
+                <redirect view-id="/home.jspx"/>
+            </rule>
+        
+            <rule if-outcome="customer">
+                <redirect view-id="/admin/entities/domain/customer/listCustomer.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewCustomer">
+                <redirect view-id="/admin/entities/domain/customer/viewCustomer.xhtml" />
+            </rule>
+        
+            <rule if-outcome="account">
+                <redirect view-id="/admin/entities/domain/account/listAccount.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewAccount">
+                <redirect view-id="/admin/entities/domain/account/viewAccount.xhtml" />
+            </rule>
+        
+            <rule if-outcome="customerOrder">
+                <redirect view-id="/admin/entities/domain/customerOrder/listCustomerOrder.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewCustomerOrder">
+                <redirect view-id="/admin/entities/domain/customerOrder/viewCustomerOrder.xhtml" />
+            </rule>
+        
+            <rule if-outcome="product">
+                <redirect view-id="/admin/entities/domain/product/listProduct.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewProduct">
+                <redirect view-id="/admin/entities/domain/product/viewProduct.xhtml" />
+            </rule>
+        
+            <rule if-outcome="orderItem">
+                <redirect view-id="/admin/entities/domain/orderItem/listOrderItem.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewOrderItem">
+                <redirect view-id="/admin/entities/domain/orderItem/viewOrderItem.xhtml" />
+            </rule>
+        
+        </navigation>
+    </page>
+
+    
+    
+    <page view-id="/admin/entities/domain/customer/editCustomer.xhtml" conversation-required="false">
+    	<!-- <description>Edit Customer: #{customer.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/domain/customer/viewCustomer.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/customer/listCustomer.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/domain/customer/viewCustomer.xhtml" conversation-required="false">
+	 	<!-- <description>View Customer: #{customer.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/customer/editCustomer.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/customer/listCustomer.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/domain/customer/listCustomer.xhtml" >
+		<navigation>
+			<rule if-outcome="viewCustomer">
+				<redirect view-id="/admin/entities/domain/customer/viewCustomer.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/customer/editCustomer.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/domain/account/editAccount.xhtml" conversation-required="false">
+    	<!-- <description>Edit Account: #{account.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/domain/account/viewAccount.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/account/listAccount.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/domain/account/viewAccount.xhtml" conversation-required="false">
+	 	<!-- <description>View Account: #{account.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/account/editAccount.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/account/listAccount.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/domain/account/listAccount.xhtml" >
+		<navigation>
+			<rule if-outcome="viewAccount">
+				<redirect view-id="/admin/entities/domain/account/viewAccount.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/account/editAccount.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/domain/customerOrder/editCustomerOrder.xhtml" conversation-required="false">
+    	<!-- <description>Edit CustomerOrder: #{customerOrder.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/domain/customerOrder/viewCustomerOrder.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/customerOrder/listCustomerOrder.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/domain/customerOrder/viewCustomerOrder.xhtml" conversation-required="false">
+	 	<!-- <description>View CustomerOrder: #{customerOrder.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/customerOrder/editCustomerOrder.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/customerOrder/listCustomerOrder.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/domain/customerOrder/listCustomerOrder.xhtml" >
+		<navigation>
+			<rule if-outcome="viewCustomerOrder">
+				<redirect view-id="/admin/entities/domain/customerOrder/viewCustomerOrder.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/customerOrder/editCustomerOrder.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/domain/product/editProduct.xhtml" conversation-required="false">
+    	<!-- <description>Edit Product: #{product.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/domain/product/viewProduct.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/product/listProduct.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/domain/product/viewProduct.xhtml" conversation-required="false">
+	 	<!-- <description>View Product: #{product.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/product/editProduct.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/product/listProduct.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/domain/product/listProduct.xhtml" >
+		<navigation>
+			<rule if-outcome="viewProduct">
+				<redirect view-id="/admin/entities/domain/product/viewProduct.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/product/editProduct.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/domain/orderItem/editOrderItem.xhtml" conversation-required="false">
+    	<!-- <description>Edit OrderItem: #{orderItem.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/domain/orderItem/viewOrderItem.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/orderItem/listOrderItem.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/domain/orderItem/viewOrderItem.xhtml" conversation-required="false">
+	 	<!-- <description>View OrderItem: #{orderItem.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/orderItem/editOrderItem.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/orderItem/listOrderItem.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/domain/orderItem/listOrderItem.xhtml" >
+		<navigation>
+			<rule if-outcome="viewOrderItem">
+				<redirect view-id="/admin/entities/domain/orderItem/viewOrderItem.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/orderItem/editOrderItem.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+    
+
+    <exception class="org.jboss.seam.framework.EntityNotFoundException">
+        <redirect view-id="/error.jspx">
+            <message severity="warn">Record not found</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityNotFoundException">
+        <redirect view-id="/error.jspx">
+            <message severity="warn">Record not found</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityExistsException">
+        <redirect view-id="/error.jspx">
+            <message severity="warn">Duplicate record</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.OptimisticLockException">
+        <end-conversation/>
+        <redirect view-id="/error.jspx">
+            <message severity="warn">Another user changed the same data, please try again</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.security.AuthorizationException">
+        <redirect view-id="/error.jspx">
+            <message severity="error">You don't have permission to access this resource</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.security.NotLoggedInException">
+        <redirect view-id="/login.jspx">
+            <message severity="warn">#{messages['org.jboss.seam.NotLoggedIn']}</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.faces.application.ViewExpiredException">
+        <redirect view-id="/error.jspx">
+            <message severity="warn">Your session has timed out, please try again</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.ConcurrentRequestTimeoutException" log-level="trace">
+      <http-error error-code="503" />
+    </exception>
+     
+    <exception>
+        <redirect view-id="/error.jspx">
+            <message severity="error">Unexpected error, please try again</message>
+        </redirect>
+    </exception>
+    
+</pages>
