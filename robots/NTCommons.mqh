@@ -132,7 +132,19 @@ void modifyOrder(int MAGIC_NUM, int TrailingStop){
 
 
 
+	void changeTP(int MAGIC_NUM, double tp){
 
+	   int total  = OrdersTotal();
+	   for(int cnt=0;cnt<total;cnt++)
+	    {
+	      if(OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES)==false)        continue;
+	      if(OrderMagicNumber()== MAGIC_NUM && OrderSymbol()==Symbol()) {
+            OrderModify(OrderTicket(),OrderOpenPrice(), OrderStopLoss(), tp,0,Green);
+		       return(0);
+
+         }
+      }
+   }
 
 
 
@@ -156,4 +168,5 @@ int bollinger(){
    if (iBands(NULL,0,20,2,0,PRICE_MEDIAN,MODE_UPPER,0) < High[0] ) return (-1);
    return (0);
 }
+
 
