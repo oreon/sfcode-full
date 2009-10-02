@@ -7,7 +7,7 @@
 #property link      "Fann2MQL.wordpress.com"
 
 // Include Neural Network package
-#include <Fann2MQL.mqh>
+#include <ntann.mqh>
 
 
 #include "include\NTCommons.mqh"
@@ -18,10 +18,10 @@
 #define NAME		"NeuroMACD"
 
 //---- input parameters
-extern double Lots = 0.1;
+extern double Lots = 0.01;
 extern bool UseMoneyManagement = true;
 extern double RiskFactor = 1;
-int MAGIC_NUM = 34599;
+int MAGIC_NUM = 345992;
 extern int Stop = 250;
 extern int Trail = 90;
 
@@ -43,7 +43,14 @@ double ArrInput[4];
 
 int  ann;
 datetime timeprev=0;
+double mult = 0.1;
 
+extern bool TimeFilter = true;
+
+extern bool CloseAtPeriodEnd = false;
+extern bool TradeMultipleInSameTimeFrame = true;
+extern int BeginHour = 22;
+extern int EndHour = 7;
 //+------------------------------------------------------------------+
 //| expert initialization function                                   |
 //+------------------------------------------------------------------+
@@ -53,7 +60,13 @@ int init ()
     
     ann = CreateAnn();
     f2M_parallel_init();
-
+    
+     double price = Close[1];
+   if(price < 1 ) mult = 1; 
+   if(price < 10 ) mult = 0.1;
+   if (price > 10 && price < 100 ) mult =0.01;
+   if (price > 100 && price < 1000 ) mult =0.001;
+    
     return (0);
 }
 
@@ -77,11 +90,15 @@ int CreateAnn(){
 void
 debug (int level, string text)
 {
+
+
   //  if (DebugLevel >= level) {
 	if (level == 0)
 	    text = "ERROR: " + text;
 	Print (text);
     //}
+    
+  
 }
 
 
@@ -100,7 +117,7 @@ void AnnTrain(double open, double high, double low, double close, double result)
    
    CreateInputArr(open, high, low, close);
    double  resultArr[1];
-   resultArr[0] = result * 0.1;
+   resultArr[0] = result * mult;
    
    //dumpInput();   
     if (f2M_train (ann, ArrInput, resultArr) == -1) {
@@ -111,11 +128,24 @@ void AnnTrain(double open, double high, double low, double close, double result)
 
 void CreateInputArr(double open, double high, double low, double close){
    //double arr[4];
-   ArrInput[0] = open * 0.1;
-   ArrInput[1] = high * 0.1;
-   ArrInput[2] = low * 0.1;
-   ArrInput[3] = close* 0.1;
+   
+   ArrInput[0] = open * mult;
+   ArrInput[1] = high * mult;
+   ArrInput[2] = low * mult;
+   ArrInput[3] = close* mult;
   // return arr;
+}
+
+
+int obv (int prd ){
+   double one = iOBV(NULL, prd, PRICE_CLOSE, 1);
+   double two=iOBV(NULL, prd, PRICE_CLOSE, 2);
+   double three=iOBV(NULL, prd, PRICE_CLOSE, 3);
+   
+  if(one > two && two > three ) return (1);
+   if(one < two && two < three ) return (-1);    
+   return (0);
+   
 }
 
 
@@ -127,9 +157,7 @@ void CreateInputArr(double open, double high, double low, double close){
 int
 deinit ()
 {
-    int i;
-	ann_destroy ();
-   
+	ann_destroy ();   
     // Deinitialize Intel TBB threads
     f2M_parallel_deinit ();
 
@@ -147,14 +175,31 @@ int start ()
 
     if(timeprev==Time[0] )
      {
-      //if(orders > 0 )
+      if(orders > 0 )
        return(0);
      }
    timeprev=Time[0];
    
    int hour = TimeHour(TimeCurrent());
- //  if(hour > 15 && hour < 22)
- //     return;
+   
+ /*  
+ if(TimeFilter && total == 0 ){
+      int hr = TimeHour(TimeCurrent());
+      if(hr <= EndHour ) hr += 24;
+ 
+      if(hr == BeginHour - 2 &  CloseAtPeriodEnd){
+         Print ("hour is " + 7 + " closing all ");
+         //CloseThisSymbolAll();
+       }
+ 
+      if(! ( hr >= BeginHour && hr < 24 + EndHour)){
+          Comment( "Now is " +  hr + ":00  Trading will begin at " + BeginHour + ":00 \n");
+          return(0);
+      }else{
+          Comment( "Ready to trade \n");
+      }
+     
+   }*/ 
 
     for(int i = 900 ; i > 2; i--){
       
@@ -170,10 +215,10 @@ int start ()
 	     return (FANN_DOUBLE_ERROR);
     }
     
-    double out = 10 * f2M_get_output (ann, 0);
+    double out = (1.0/mult) * f2M_get_output (ann, 0);
     double mse = f2M_get_MSE(ann);
     Comment("Next Close " + out + " mse " + mse);
-    debug (3, "f2M_get_output(" + ann + ") returned: " + out);
+   // debug (3, "f2M_get_output(" + ann + ") returned: " + out);
     
     if(orders == 0 ) {
       placeOrders(out);
@@ -197,8 +242,10 @@ void manageOrders(double out){
             if(  out > tp ) 
                changeTP(MAGIC_NUM, out);
             else {
-               if(OrderProfit() > 0 )
+               if(OrderProfit() > 0 ){
                   OrderClose(OrderTicket(),OrderLots(),Bid,3,Violet); 
+                  // timeprev = 0;  
+               }
             }
             
          }
@@ -208,8 +255,11 @@ void manageOrders(double out){
             if(  out < tp ) 
                changeTP(MAGIC_NUM, out);
              else {
-               if(OrderProfit() > 0 )
+              // if(out > OrderOpenPrice() )
+              if(OrderProfit() > 0 ){
                   OrderClose(OrderTicket(),OrderLots(),Ask,3,Violet); 
+                  // timeprev = 0;
+               }
             }
             
          }
@@ -219,19 +269,30 @@ void manageOrders(double out){
      
 
 
-
+string name = "NHERO";
 
 void placeOrders(double out){
-      double minDiff = 3 * Point;
-    int macd = macd();
-    if(out > Ask + minDiff ){
-    //  closeOrders(OP_SELL);
-      placeOrderL(OP_BUY, out);
+    double minDiff = 1 * Point;
+    //int macd = macd();
+    
+    double lots = Lots;
+   
+   if(UseMoneyManagement){
+      lots = getLots(RiskFactor);
+   }
+    
+    int obv = obv(PERIOD_H4);
+    
+    if(out > Ask + minDiff && obv > 0 ){
+     closeOrders(OP_SELL);
+     placeOrderL(OP_BUY,  out ); //, Stop, lots, name );
      }
       
-    if (out < Bid - minDiff  ){
-      // closeOrders(OP_BUY);
-      placeOrderL(OP_SELL, out);
+    if (out < Bid - minDiff && obv < 0 ){
+       closeOrders(OP_BUY);
+      
+       placeOrderL(OP_SELL,  out );
+      //placeOrder(OP_SELL, MAGIC_NUM, out, Stop, lots, name);
     }      
  
 
@@ -263,75 +324,9 @@ void placeOrderL(int op, double tp){
 }
 
 
-void closeOrders(int op){
-   int total  = OrdersTotal();
-   
-   Print("Closing order " + op );
-   
-   double price = 0;
-   if( op == OP_SELL ) price = Ask; else price = Bid;
-   datetime orderMaxDuration = 290000; 
-   
-   for(int cnt=0;cnt<total;cnt++)
-    {
-      if(OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES)==false)    continue;
-     
-      if( OrderSymbol() == Symbol() && OrderMagicNumber()== MAGIC_NUM  ) {
-          
-         Print ("ordertimes " + OrderTicket() + " " + (TimeCurrent() -   OrderOpenTime()) + " " + orderMaxDuration);   
-             
-         if(  ( TimeCurrent()-OrderOpenTime())  > orderMaxDuration){
-            OrderClose(OrderTicket(),OrderLots(),price,3,Violet); // close position
-         }   
 
-     
-         if(OrderType() == op  ){
-            OrderClose(OrderTicket(),OrderLots(),price,3,Violet); // close position
-            continue;
-          }
-       }
-   }
-}
 
 void dumpInput(){
    Print("  " + ArrInput[0] + " " + ArrInput[1] + " " + ArrInput[2] + " " + ArrInput[3] );
 }
 
-double macd()
-  {
-  
-double dMacd1 = 12;
-double dMacd2 = 26;
-double dMacd3 =9;
-   
-   int period = 0;
-   
-   /*
-    double one = iCustom(NULL, period , "ZeroLag MACD",0,0);
-    double two = iCustom(NULL, period, "ZeroLag MACD",0,1);
-    double three = iCustom(NULL, period, "ZeroLag MACD",0,2);
-   */
-   double one = iMACD(Symbol(),period,dMacd1,dMacd2,dMacd3,PRICE_CLOSE,MODE_MAIN,1);
-   double two = iMACD(Symbol(),period,dMacd1,dMacd2,dMacd3,PRICE_CLOSE,MODE_MAIN,2);
-   double three = iMACD(Symbol(),period,dMacd1,dMacd2,dMacd3,PRICE_CLOSE,MODE_MAIN,3);
-   
-   double stoch = iStochastic(NULL,0,10,3,3,MODE_SMA,0,MODE_MAIN,0);
-   int stochsig = 0;
-   if(stoch  > iStochastic(NULL,0,10,3,3,MODE_SMA,0,MODE_SIGNAL,0) && stoch < 90)
-    stochsig = 1;
-   if(stoch  < iStochastic(NULL,0,10,3,3,MODE_SMA,0,MODE_SIGNAL,0) && stoch > 10)    
-    stochsig = -1;
-    
-   int obs = 0; //getOverBoughtOrSold();
-  // if(obs != 0 )
-  //    return (0);
-  
-   double wpr = iWPR(NULL,0,12,0);
-   double wpr2 = iWPR(NULL,0,12,1);
-   
-   if(one > two  && obs != 1 ) return (1);
-   else if (two > one  && obs != -1 ) return (-1);
-   
-   return (0);
- }
-   
