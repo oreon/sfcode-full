@@ -37,6 +37,8 @@ public class ClassUtil {
 	
 	static{
 		
+		//org.eclipse.uml2.codegen.
+		
 		xtendFacade = XtendFacade.create("template::GeneratorExtensions");
 		UML2MetaModel mm = new UML2MetaModel();
 		ProfileMetaModel pmm = new ProfileMetaModel();
@@ -183,8 +185,6 @@ public class ClassUtil {
 	 */
 	public static String  getParametersSignature(Operation op){
 		
-		
-		
 		List<Parameter> params = op.getOwnedParameters();
 		StringBuffer buffer = new StringBuffer();
 		List<String> lstStrings = new ArrayList<String>();
@@ -196,7 +196,7 @@ public class ClassUtil {
 				lstStrings.add(result + " " + param.getName());
 		}
 		
-		return  getCommaDelimitedString(lstStrings, 2);
+		return  getCommaDelimitedString(lstStrings, 1);
 	}
 	
 	public static String  getParameters(Operation op){
@@ -210,7 +210,7 @@ public class ClassUtil {
 				lstStrings.add( param.getName());
 		}
 		
-		return  getCommaDelimitedString(lstStrings, 2);
+		return  getCommaDelimitedString(lstStrings, 1);
 	}
 	
 	public static String getOpReturnType(Operation op){

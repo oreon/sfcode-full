@@ -15,79 +15,41 @@
 	«EXPAND EnumGen FOREACH allOwnedElements().typeSelect(uml::Enumeration)»
 «ENDDEFINE»
 
-«DEFINE ClassRoot FOR uml::Class»
-	«IF name != null && package != null»
-	
-	«FILE packagePath() +"/" +name+".java"»
-		package « packageName() »;
-		«EXPAND genImports FOR this»
-		«EXPAND genClassBody FOR this»
-	«ENDFILE»
-	
-	«ENDIF»
-«ENDDEFINE»
-
-«DEFINE ClassRoot FOR wcprofile::AbstractEntity»
-	«IF name != null && package != null»
-	
-	«FILE packagePath() +"/" +name+".java"»
-		package « packageName() »;
-		«EXPAND genImports FOR this»
-		«EXPAND genPersistenceImports FOR this»
-		«EXPAND genClassBody FOR this»
-	«ENDFILE»
-	
-	«ENDIF»
-«ENDDEFINE»
-
 
 «DEFINE ClassRoot FOR uml::Interface»
 	«FILE packagePath() +"/" +name+".java"»
 	package « packageName() »;
 	
 	public interface «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»{
-		 «EXPAND genOperationDecl FOREACH getAllOperations()»
+	
 	}
 	«ENDFILE»
 «ENDDEFINE»
-
-
 
 
 «DEFINE genClassBody FOR uml::Class»
 	public class «name» «getParent()» «getInterfaces()»{
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
-		«EXPAND genOperation FOREACH getAllOperations()»
+		
+		 «EXPAND genOperation FOREACH getAllOperations()»
 	}
 «ENDDEFINE»
 
 «DEFINE genClassBody FOR wcprofile::Entity»
-	@Entity
-	@Table(name="«getTableName()»")
-	@Name("«asVar()»")
-	@Filter(name = "archiveFilterDef") 
-	@Indexed
-	@AnalyzerDef(name = "customanalyzer",
-	  tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
-	  filters = {
-	    @TokenFilterDef(factory = LowerCaseFilterFactory.class),
-	    @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
-	      @Parameter(name = "language", value = "English")
-	    })
-	  })
+	«this.Documentation»
 	public class «name» «getParent()» «getInterfaces()»{
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
 		 
 		«IF !getAllAttributes().isEmpty»
-		@Transient
+		//@Transient
 	    public String getDisplayName(){
 	    	return «getDisplayName()»;
 	    }
 	    «ENDIF»
 	    
-	    «EXPAND genSearchFieldsArray FOR this»
+	   
 	    «REM»comment
 	    «EXPAND genOperation FOREACH getAllOperations()»
 	    «ENDREM»
@@ -95,30 +57,7 @@
 «ENDDEFINE»
 
 
-«DEFINE genSearchFieldsArray FOR uml::Class»
-	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
-	 */
-	@Override
-	public List<String> listSearchableFields() {
-		List<String> listSearchableFields = new ArrayList<String>();
-		listSearchableFields.addAll(super.listSearchableFields());
-		«FOREACH getAllAttributes() AS e»
-			«IF e.isString()» listSearchableFields.add("«e.name»"); «ENDIF»
-		«ENDFOREACH»
-		
-		«REM»For full text we need to add composed assoications as well - e.g. searching an order by product «ENDREM»
-		«EXPAND genEmbeddedAndAssociatedSearch FOREACH getComposed()»
-		«EXPAND genEmbeddedAndAssociatedSearch FOREACH getEmbeddable()»
-		return listSearchableFields;
-	}
-«ENDDEFINE»
 
-«DEFINE genEmbeddedAndAssociatedSearch FOR uml::Property»
-«FOREACH type.getAllAttributes() AS attr»
-	«IF attr.isString()» listSearchableFields.add("«name».«attr.name»");«ENDIF»
-«ENDFOREACH»
-«ENDDEFINE»
 
 «DEFINE genClassBody FOR wcprofile::Embeddable»
 	@Embeddable
@@ -128,16 +67,6 @@
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
 	}
 «ENDDEFINE»
-
-«DEFINE genClassBody FOR wcprofile::Service»
-	@Embeddable
-	@Indexed
-	public class «name» «getParent()» «getInterfaces()»{
-		«EXPAND genDecl FOREACH getAllAttributes() »
-		«EXPAND genGetterSetter FOREACH getAllAttributes() »
-	}
-«ENDDEFINE»
-
 
 «DEFINE genClassBody FOR wcprofile::MappedSuperClass»
 	@MappedSuperclass
@@ -165,10 +94,6 @@
 	}
 «ENDDEFINE»
 
-«DEFINE genOperationDecl FOR uml::Operation»
-	«visibility» «getOpReturnType()» «name» («getParametersSignature()»);
-«ENDDEFINE»
-
 
 «DEFINE genOperation FOR wcprofile::NamedQueryOp»
 	«visibility» «getOpReturnType()» «name» («getParametersSignature()»){ 
@@ -177,7 +102,17 @@
 «ENDDEFINE»
 
 
-
+«DEFINE ClassRoot FOR uml::Class»
+	«IF name != null && package != null»
+	
+	«FILE packagePath() +"/" +name+".java"»
+		package « packageName() »;
+		«EXPAND genImports FOR this»
+		«EXPAND genClassBody FOR this»
+	«ENDFILE»
+	
+	«ENDIF»
+«ENDDEFINE»
 
 
 «DEFINE genImports FOR uml::Class»
@@ -186,10 +121,7 @@
 	import java.util.List;
 	import java.util.Set;
 	import java.util.Date;
-«ENDDEFINE»
 
-
-«DEFINE genPersistenceImports FOR uml::Class»
 	import javax.persistence.*;
 	import org.hibernate.validator.*;
 	
@@ -277,8 +209,6 @@
 «ENDDEFINE»
 
 «DEFINE genBaseDecl FOR uml::Property»
-	«IF isString()» @Field(index = Index.TOKENIZED) «ENDIF»
-	«IF type.name == "imageFile"» @Column(length=4194304) «ENDIF»
 	protected «type.fqnForPackage(this.class)» «name» «getDefault() != null?" = " +getDefaultVal(type):""»;
 «ENDDEFINE»
 
