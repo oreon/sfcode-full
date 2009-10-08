@@ -15,7 +15,7 @@ public class ArchCreator {
 	 * "src/main/webapp/WEB-INF", "*" } };
 	 */
 
-	private static final String BASE_DIR = "C:/dev/seamIceFaces/";
+	private static final String BASE_DIR = "C:/dev/richfacesSeamArchetype/src/main/resources/archetype-resources/";
 	private String[][] arrDirFiles = { { "src/main/webapp", "*" },
 			{ "src/main/resources", "*" }, { "src/etc", "*" }, {"src/model", "*"},
 			{ "src/main/java", "*" }, { "src/test/java", "*" }
