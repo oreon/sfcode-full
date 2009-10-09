@@ -243,7 +243,8 @@ public class ClassUtil {
 		
 		for (int i = 0; i < interfaces.size(); i++) {
 			Interface param = interfaces.get(i);
-			lstStrings.add( param.getName());
+			String result  = (String)xtendFacade.call("fqn",new Object[]{param});
+			lstStrings.add( result);
 		}
 		
 		return  buffer.append( getCommaDelimitedString(lstStrings, 2) ).toString();
