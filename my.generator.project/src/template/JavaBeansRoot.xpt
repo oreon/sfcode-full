@@ -11,101 +11,14 @@
 
 «DEFINE PackageRoot FOR uml::Package»
 	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Class)»
-	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Interface)»
+	«EXPAND Root::ClassRoot FOREACH allOwnedElements().typeSelect(uml::Interface)»
 	«EXPAND EnumGen FOREACH allOwnedElements().typeSelect(uml::Enumeration)»
 «ENDDEFINE»
-
-
-«DEFINE ClassRoot FOR uml::Interface»
-	«FILE packagePath() +"/" +name+".java"»
-	package « packageName() »;
-	
-	public interface «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»{
-	
-	}
-	«ENDFILE»
-«ENDDEFINE»
-
-
-«DEFINE genClassBody FOR uml::Class»
-	public class «name» «getParent()» «getInterfaces()»{
-		«EXPAND genDecl FOREACH getAllAttributes() »
-		«EXPAND genGetterSetter FOREACH getAllAttributes() »
-		
-		 «EXPAND genOperation FOREACH getAllOperations()»
-	}
-«ENDDEFINE»
-
-«DEFINE genClassBody FOR wcprofile::Entity»
-	«this.Documentation»
-	public class «name» «getParent()» «getInterfaces()»{
-		«EXPAND genDecl FOREACH getAllAttributes() »
-		«EXPAND genGetterSetter FOREACH getAllAttributes() »
-		 
-		«IF !getAllAttributes().isEmpty»
-		//@Transient
-	    public String getDisplayName(){
-	    	return «getDisplayName()»;
-	    }
-	    «ENDIF»
-	    
-	   
-	    «REM»comment
-	    «EXPAND genOperation FOREACH getAllOperations()»
-	    «ENDREM»
-	}
-«ENDDEFINE»
-
-
-
-
-«DEFINE genClassBody FOR wcprofile::Embeddable»
-	@Embeddable
-	@Indexed
-	public class «name» «getParent()» «getInterfaces()»{
-		«EXPAND genDecl FOREACH getAllAttributes() »
-		«EXPAND genGetterSetter FOREACH getAllAttributes() »
-	}
-«ENDDEFINE»
-
-«DEFINE genClassBody FOR wcprofile::MappedSuperClass»
-	@MappedSuperclass
-	@Indexed
-	public class «name» «getParent()» «getInterfaces()»{
-		«EXPAND genDecl FOREACH getAllAttributes() »
-		«EXPAND genGetterSetter FOREACH getAllAttributes() »
-		
-		«IF !getAllAttributes().isEmpty»
-		@Transient
-	    public String getDisplayName(){
-	    	return «getDisplayName()»;
-	    }
-	    «ENDIF»
-	    
-	    «EXPAND genSearchFieldsArray FOR this»
-	}
-«ENDDEFINE»
-
-«DEFINE genOperation FOR uml::Operation»
-	«visibility» «getOpReturnType()» «name» («getParametersSignature()»){ 
-		«IF type != null»
-			return null;
-		«ENDIF»
-	}
-«ENDDEFINE»
-
-
-«DEFINE genOperation FOR wcprofile::NamedQueryOp»
-	«visibility» «getOpReturnType()» «name» («getParametersSignature()»){ 
-		return executeNamedQuery("«queryName»", «getParameters()»);
-	}
-«ENDDEFINE»
-
 
 «DEFINE ClassRoot FOR uml::Class»
 	«IF name != null && package != null»
 	
-	«FILE packagePath() +"/" +name+".java"»
+	«FILE packagePath() +"/" +name +".java"»
 		package « packageName() »;
 		«EXPAND genImports FOR this»
 		«EXPAND genClassBody FOR this»
@@ -115,81 +28,21 @@
 «ENDDEFINE»
 
 
-«DEFINE genImports FOR uml::Class»
-	import java.util.ArrayList;
-	import java.util.HashSet;
-	import java.util.List;
-	import java.util.Set;
-	import java.util.Date;
-
-	import javax.persistence.*;
-	import org.hibernate.validator.*;
-	
-	import org.apache.solr.analysis.LowerCaseFilterFactory;
-	import org.apache.solr.analysis.SnowballPorterFilterFactory;
-	import org.apache.solr.analysis.StandardTokenizerFactory;
-	import org.hibernate.annotations.Cache;
-	import org.hibernate.annotations.CacheConcurrencyStrategy;
-	import org.hibernate.annotations.Filter;
-	import org.hibernate.search.annotations.AnalyzerDef;
-	import org.hibernate.search.annotations.Field;
-	import org.hibernate.search.annotations.Index;
-	import org.hibernate.search.annotations.Indexed;
-	import org.hibernate.search.annotations.Parameter;
-	import org.hibernate.search.annotations.TokenFilterDef;
-	import org.hibernate.search.annotations.TokenizerDef;
-	import org.hibernate.search.annotations.ContainedIn;
-	import org.hibernate.search.annotations.IndexedEmbedded;
-	
-	import org.hibernate.validator.Length;
-	import org.hibernate.validator.NotNull;
-	import org.jboss.seam.annotations.Name;
-	import org.witchcraft.base.entity.*;
-	import org.hibernate.annotations.Filter;
+«DEFINE genClassBody FOR uml::Class»
+	public class «name» «getParent()» «getInterfaces()»{
+		«EXPAND genDecl FOREACH getAllAttributes() »
+		«EXPAND genGetterSetter FOREACH getAllAttributes() »
+		«EXPAND genOperation FOREACH getAllOperations()»
+	}
 «ENDDEFINE»
 
-
-
-«DEFINE gen FOR uml::Generalization»
-«ENDDEFINE»
-
-«DEFINE genDecl FOR wcprofile::DerivedProperty»
-
-«ENDDEFINE»
 
 
 «DEFINE genDecl FOR uml::Property»
 	«IF isMultivalued()»
-		//«name»->«opposite.name» ->«opposite.type.name»->«association.endType.get(0).name»->«opposite.association.endType.get(0).name»
-		«IF opposite!= null && opposite.isMultivalued() » «REM»Many to many relationship«ENDREM»
-			«IF this.isColumn() && this.leadingInManyToMany»
-			@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
-		    @JoinTable(
-		        name="«opposite.name»_«name»",
-		        joinColumns=@JoinColumn(name="«opposite.name»_ID", unique=true),
-		        inverseJoinColumns=@JoinColumn(name="«name»_ID", unique=true)
-		    )
-		    «ELSE»
-		    	 @ManyToMany(mappedBy="«opposite.name»")
-			«ENDIF»
-		«ELSE»
-		@OneToMany(mappedBy = "«opposite.name»", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-		@JoinColumn(name = "«class.name»_ID", nullable = «getAssocOptional()»)
-		«IF type.name != class.name»@IndexedEmbedded«ENDIF»
-		«ENDIF»
 		private Set<«type.fqnForPackage(this.class)»> «name» = new HashSet<«type.fqnForPackage(this.class)»>();
 	«ELSE»
-		«IF association != null &&  !type.isEmbeddable()»
-			@ManyToOne(optional=«getAssocOptional()», fetch=FetchType.LAZY)
-    		@JoinColumn(name="«name»_id", nullable=«getAssocOptional()», updatable = «getAssocUpdatable()»)
-    		«IF type.name != class.name»@ContainedIn«ENDIF»
-		«ENDIF»
-		«IF type.isEmbeddable()»
-			«IF type.name != class.name»@IndexedEmbedded«ENDIF»
-			protected «type.fqnForPackage(this.class)» «name» = new «type.name»();
-		«ELSE»
-			«EXPAND genPropertyDecl FOR this»
-		«ENDIF»
+		«EXPAND genPropertyDecl FOR this»
 	«ENDIF»
 «ENDDEFINE»
 
@@ -198,20 +51,11 @@
 	«EXPAND genBaseDecl FOR this»
 «ENDDEFINE»
 
-«DEFINE genPropertyDecl FOR wcprofile::Column»
-	«getValidatorAnnotations()»
-	«getLengthAnnotations()»
-	«getUniqueAnnotations()»
-	«getTransient()»
-	«type.name.getTypeAnnotation()»
-	«getColJpaAnnotations()»
-	«EXPAND genBaseDecl FOR this»
-«ENDDEFINE»
+
 
 «DEFINE genBaseDecl FOR uml::Property»
 	protected «type.fqnForPackage(this.class)» «name» «getDefault() != null?" = " +getDefaultVal(type):""»;
 «ENDDEFINE»
-
 
 
 
@@ -254,4 +98,15 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	} 
 	«ENDFILE»
 «ENDDEFINE»
+
+
+
+«DEFINE genImports FOR uml::Class»
+	import java.util.ArrayList;
+	import java.util.HashSet;
+	import java.util.List;
+	import java.util.Set;
+	import java.util.Date;
+«ENDDEFINE»
+
 
