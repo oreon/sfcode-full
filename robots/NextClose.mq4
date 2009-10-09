@@ -51,6 +51,7 @@ extern bool CloseAtPeriodEnd = false;
 extern bool TradeMultipleInSameTimeFrame = true;
 extern int BeginHour = 22;
 extern int EndHour = 7;
+extern int MinDiff = 8;
 //+------------------------------------------------------------------+
 //| expert initialization function                                   |
 //+------------------------------------------------------------------+
@@ -138,6 +139,10 @@ void CreateInputArr(double open, double high, double low, double close){
 
 
 int obv (int prd ){
+ //  return ( iAO(NULL, prd, 1) );
+
+
+
    double one = iOBV(NULL, prd, PRICE_CLOSE, 1);
    double two=iOBV(NULL, prd, PRICE_CLOSE, 2);
    double three=iOBV(NULL, prd, PRICE_CLOSE, 3);
@@ -175,7 +180,7 @@ int start ()
 
     if(timeprev==Time[0] )
      {
-      if(orders > 0 )
+      //if(orders > 0 )
        return(0);
      }
    timeprev=Time[0];
@@ -272,7 +277,7 @@ void manageOrders(double out){
 string name = "NHERO";
 
 void placeOrders(double out){
-    double minDiff = 1 * Point;
+    double minDiff = MinDiff * Point;
     //int macd = macd();
     
     double lots = Lots;
@@ -283,12 +288,12 @@ void placeOrders(double out){
     
     int obv = obv(PERIOD_H4);
     
-    if(out > Ask + minDiff && obv > 0 ){
+    if(out > Ask + minDiff  ){
      closeOrders(OP_SELL);
      placeOrderL(OP_BUY,  out ); //, Stop, lots, name );
      }
       
-    if (out < Bid - minDiff && obv < 0 ){
+    if (out < Bid - minDiff /*&& obv < 0*/ ){
        closeOrders(OP_BUY);
       
        placeOrderL(OP_SELL,  out );
