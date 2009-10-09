@@ -7,7 +7,7 @@
  
 #property copyright "NeuralTraders.info"
 
-#include "include\NTCommons.mqh"
+#include <NTCommons.mqh>
 
  
 extern string StochsValues = "== Stochastic Oscillators ==";
@@ -90,13 +90,14 @@ int start()
    timeprev=Time[0];
    
   int  boll = bollinger();
+  int ichi = ichi();
    
-   if(Signal == 1 &&  boll <= 0 ){
+   if(Signal == 1 &&  boll <= 0 && ichi < 0){
     //  Print("Signal is down - selling " );
       closeOrdersOp(MAGIC_NUM, OP_BUY);
       placeOrder(OP_SELL, MAGIC_NUM, Limit, Stop, Lots , "NEURALFX" );
    }
-   if(Signal == 2 && boll >= 0){
+   if(Signal == 2 && boll >= 0 && ichi > 0){
       // Print("Signal is up - buying" );
       closeOrdersOp(MAGIC_NUM, OP_SELL);
       placeOrder(OP_BUY, MAGIC_NUM, Limit, Stop, Lots, "NEURALFX" );
