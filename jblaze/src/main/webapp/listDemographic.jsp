@@ -1,4 +1,5 @@
 <%@ taglib uri="/WEB-INF/taglibs/oscarhtm.tld" prefix="osc"%>
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
 
 <%@page import="org.caisi.sessionbeans.DemographicSessionBean"%>
 <%@page import="org.caisi.persistence.base.exceptions.BusinessException"%>
@@ -11,18 +12,11 @@
 <%@page import="org.caisi.persistence.base.Range"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
+	
 
-<head>
-<ria:resourcesImport />
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/css/screen.css" />
-</head>
-<!--  
-<script src="js/aa.js"></script>
-<script>ajaxAnywhere.formName = "srchForm";</script>
--->
-<body>
-<jsp:include page="header.jsp" />
+<decorator:title > Welcome to JBlazer </decorator:title>
+
+
 <script>
 function expandRow(row, imgCol){
 	var element = document.getElementById(row);
@@ -45,55 +39,19 @@ function expandRow(row, imgCol){
 	out.println(ViewHelper.getMessage(request));
 %>
 
-<table border="1">
-	<tr style="display: block" id="r1">
+<table style="border:1px solid #aaa">
+	<tr style="display: block; background: #ffa" id="r1">
 		<td ><a href="#" onclick="expandRow('r1h', 'r1c1');" id="r1c1"> +</a>
-		<td >there</td>
+		<td >Search</td>
 	</tr>
-	<tr style="display: none" id="r1h">
-		<td><a href="ss.jsp">hidden </a>
-		<td>data</td>
-	</tr>
-
-</table>
-
-<form name="srchForm"
-	action="<%=request.getContextPath()%>/listDemographic.jsp"><osc:input
-	type="hidden" name="frSearch" value="1" /> <%
- 	//if(request.getParameter("frSearch") == null) request.getParameterMap().clear();
- %>
-<table class="formTable" border="1">
-	<tr>
-		<td>Last Name<br> <osc:input value="${param.lastName}" name="lastName" /></td>
-		<td>First Name<br> <osc:input name="firstName" value="${param.firstName}" /></td>
-		<td>HC Type <br><osc:select name="hcType" value="${param.hcType}" 
-			map="<%=ViewHelper.createHCTypeMap()%>" /></td>
-	</tr>
-	<tr>
-		<td>Address <br> <osc:input name="address" value="${param.address}" /></td>
-
-		<td>City <br>
-		<osc:input name="city" value="${param.city}" /></td>
-		<td>DateJoined From <br> <osc:input name="fromDateJoined"
-			value="${param.fromDateJoined}" /> </td><td> Date Joined To <br> <osc:input name="toDateJoined"
-			value="${param.toDateJoined}" /></td>
-	</tr>
-	<tr>
-		<td>Provider <br>
-		<osc:select name="provider.providerNo"
-			value='<%=request.getParameter("provider.providerNo")%>'
-			map="<%=ServiceFacade.getInstance().getProviderSessionBean()
-							.getAsMap()%>" />
+	<tr style="display: Block" id="r1h">
+		<td colspan="2">
+			<%@ include file="searchDemo.jsp" %>
 		</td>
-		<td><input type="submit" value="Search"></td>
-		<td><a href="<%=request.getContextPath()%>/listDemographic.jsp">Clear
-		Search</a></td>
-		<td>Records <osc:select name="recordsPerPage" showSelect="false" value="${param.hcType}"
-			map="<%=ViewHelper.createRecordsPerPageMap() %>" /></td>
-	
 	</tr>
 </table>
-</form>
+
+
 <br>
 
 <%
@@ -116,6 +74,3 @@ function expandRow(row, imgCol){
 	<osc:column name="provider.displayName" label="Provider"/>
 </osc:table>
 
-
-</body>
-</html>
