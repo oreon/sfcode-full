@@ -19,7 +19,7 @@
 			
 	public abstract class Abstract«name» «getParent()» «getInterfaces()»{
 		«EXPAND genDecl FOREACH getAllAttributes() »
-		«EXPAND genGetterSetter FOREACH getAllAttributes() »
+		«EXPAND template::Root::genGetterSetter FOREACH getAllAttributes() »
 		
 		«EXPAND template::Root::genOperation FOREACH getAllOperations()»
 		
@@ -32,7 +32,14 @@
 	«ENDIF»
 «ENDDEFINE»
 
-
+«DEFINE genDecl FOR uml::Property»
+	«IF isMultivalued()»
+		private Set<«type.fqnForPackage(this.class)»> «name» = new HashSet<«type.fqnForPackage(this.class)»>();
+	«ELSE»
+		«IF name.contains("Repository")» @Autowried  «ENDIF»
+		protected «type.fqnForPackage(this.class)» «name» «getDefault() != null?" = " +getDefaultVal(type):""»;
+	«ENDIF»
+«ENDDEFINE»
 
 
 

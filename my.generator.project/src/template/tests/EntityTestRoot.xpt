@@ -1,0 +1,82 @@
+«IMPORT wcprofile»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+«EXTENSION template::associationExtensions»
+«EXTENSION template::WebExtensions»
+
+«DEFINE Root FOR uml::Model»
+	«EXPAND BaseGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	«EXPAND ManualGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+«ENDDEFINE»
+
+«DEFINE BaseGen FOR uml::Class»
+	«FILE packagePath() +"/action/" + name + "TestBase.java" »
+		package « packageName() ».action;
+		«EXPAND genImports FOR this»
+		«EXPAND genClassBody FOR this»
+	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE ManualGen FOR uml::Class»
+«FILE packagePath() +"/action/" + name + "Test.java" man_path »
+package « packageName() ».action;
+«EXPAND genImports FOR this»
+
+public class «name»Test extends «name»TestBase{
+	
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«DEFINE genClassBody FOR wcprofile::Entity»
+public class «name»TestBase extends org.witchcraft.action.test.BaseTest<«name»>{
+
+	«getAction().toFirstUpper()» «getAction()» = new «name»Action();
+
+	@BeforeClass
+	public void init(){
+		super.init();
+	}
+	
+	@Override
+	public BaseAction<«name»> getAction() {
+		return «getAction()»;
+	}
+	
+	«EXPAND genOperationTest FOREACH getAllOperations()»
+}
+«ENDDEFINE»
+
+
+«DEFINE genOperationTest FOR uml::Operation»
+	@Test
+	public void test«name»(){
+		//«class.getAction()».«name»(«getParameters()»);
+	}
+«ENDDEFINE»
+
+
+
+
+«DEFINE genImports FOR uml::Class»
+	import javax.persistence.EntityManager;
+	import javax.persistence.Query;
+	
+	import org.jboss.seam.security.Identity;
+	import org.testng.annotations.Test;
+	import org.witchcraft.base.entity.*;
+	import org.hibernate.annotations.Filter;
+	
+	import org.testng.annotations.BeforeClass;
+	import org.witchcraft.seam.action.BaseAction;
+	import «fqn()»;
+«ENDDEFINE»
+
+
+
+
+
+
