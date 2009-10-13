@@ -6,21 +6,24 @@
 «EXTENSION template::WebExtensions»
 
 «DEFINE Root FOR uml::Model»
-	«EXPAND BaseGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
-	«EXPAND ManualGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	«EXPAND BaseGen FOREACH allOwnedElements().typeSelect(wcprofile::ServiceInterface)»
+	«EXPAND ManualGen FOREACH allOwnedElements().typeSelect(wcprofile::ServiceInterface)»
+	
+	«EXPAND BaseGen FOREACH allOwnedElements().typeSelect(wcprofile::RepositoryInterface)»
+	«EXPAND ManualGen FOREACH allOwnedElements().typeSelect(wcprofile::RepositoryInterface)»
 «ENDDEFINE»
 
-«DEFINE BaseGen FOR uml::Class»
-	«FILE packagePath() +"/action/" + name + "TestBase.java" »
-		package « packageName() ».action;
+«DEFINE BaseGen FOR uml::Interface»
+	«FILE packagePath() +"/base/" + name + "TestBase.java" »
+		package « packageName() ».base;
 		«EXPAND genImports FOR this»
-		«EXPAND genClassBody FOR this»
+		«EXPAND genClassBody FOR this» 
 	«ENDFILE»
 «ENDDEFINE»
 
-«DEFINE ManualGen FOR uml::Class»
-«FILE packagePath() +"/action/" + name + "Test.java" man_path »
-package « packageName() ».action;
+«DEFINE ManualGen FOR uml::Interface»
+«FILE packagePath() +"/" + name + "Test.java" man_path »
+package « packageName() »;
 «EXPAND genImports FOR this»
 
 public class «name»Test extends «name»TestBase{
@@ -31,47 +34,55 @@ public class «name»Test extends «name»TestBase{
 
 
 
-«DEFINE genClassBody FOR wcprofile::Entity»
-public class «name»TestBase extends org.witchcraft.action.test.BaseTest<«name»>{
+«DEFINE genClassBody FOR uml::Interface»
+public class «name»TestBase extends AbstractDependencyInjectionSpringContextTests {
+ 
+ «REM»comment
+	@Autowired
+	«LET !getImplementedInterfaces().isEmpty?  getImplementedInterfaces().get(0):this  AS theclass»
+	«ENDLET»
+	protected «theclass.name» «theclass.name.toFirstLower()»;
+	
+	«FOREACH getImplementedInterfaces() AS i»
+		«EXPAND genOperationTest FOREACH i.getAllOperations()»
+	«ENDFOREACH»
+	
+«ENDREM»
 
-	«getAction().toFirstUpper()» «getAction()» = new «name»Action();
+	@Autowired
+	protected «name» «name.toFirstLower()»;
 
 	@BeforeClass
 	public void init(){
-		super.init();
+		
 	}
-	
-	@Override
-	public BaseAction<«name»> getAction() {
-		return «getAction()»;
-	}
-	
+
 	«EXPAND genOperationTest FOREACH getAllOperations()»
+	
+	
 }
 «ENDDEFINE»
 
 
 «DEFINE genOperationTest FOR uml::Operation»
 	@Test
-	public void test«name»(){
-		//«class.getAction()».«name»(«getParameters()»);
+	public void test«name.toFirstUpper()»(){
+		//«interface.name.toFirstLower()».«name»(«getParameters()»);
 	}
 «ENDDEFINE»
 
 
 
 
-«DEFINE genImports FOR uml::Class»
-	import javax.persistence.EntityManager;
-	import javax.persistence.Query;
-	
-	import org.jboss.seam.security.Identity;
-	import org.testng.annotations.Test;
-	import org.witchcraft.base.entity.*;
-	import org.hibernate.annotations.Filter;
-	
-	import org.testng.annotations.BeforeClass;
-	import org.witchcraft.seam.action.BaseAction;
+«DEFINE genImports FOR uml::Interface»
+//	import javax.persistence.EntityManager;
+//	import javax.persistence.Query;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
 	import «fqn()»;
 «ENDDEFINE»
 
