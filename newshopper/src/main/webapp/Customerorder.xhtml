@@ -1,0 +1,248 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Customerorder Details</f:facet>
+
+
+        <s:decorate id="archived" template="layout/display.xhtml">
+            <ui:define name="label">Archived</ui:define>
+            <h:outputText value="#{customerorderHome.instance.archived}"/>
+        </s:decorate>
+
+        <s:decorate id="dateCreated" template="layout/display.xhtml">
+            <ui:define name="label">Date created</ui:define>
+            <h:outputText value="#{customerorderHome.instance.dateCreated}">
+                <s:convertDateTime type="both" dateStyle="short"/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="dateUpdated" template="layout/display.xhtml">
+            <ui:define name="label">Date updated</ui:define>
+            <h:outputText value="#{customerorderHome.instance.dateUpdated}">
+                <s:convertDateTime type="both" dateStyle="short"/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="notes" template="layout/display.xhtml">
+            <ui:define name="label">Notes</ui:define>
+            <h:outputText value="#{customerorderHome.instance.notes}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/CustomerorderEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty customerorderFrom ? 'CustomerorderList' : customerorderFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="ajax">
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Account</h:panelGroup>
+        </f:facet>
+    <div class="association" id="accountParent">
+
+        <h:outputText value="There is no account associated with this customerorder."
+                   rendered="#{customerorderHome.instance.account == null}"/>
+
+        <rich:dataTable var="_account"
+                   value="#{customerorderHome.instance.account}"
+                rendered="#{customerorderHome.instance.account != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="accountTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_account.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Account type</f:facet>
+                <h:outputText value="#{_account.accountType}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Archived</f:facet>
+                <h:outputText value="#{_account.archived}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Customer id</f:facet>
+                <h:outputText value="#{_account.customer.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Date created</f:facet>
+                <h:outputText value="#{_account.dateCreated}">
+                    <s:convertDateTime type="both" dateStyle="short"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Date updated</f:facet>
+                <h:outputText value="#{_account.dateUpdated}">
+                    <s:convertDateTime type="both" dateStyle="short"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">User id</f:facet>
+                <h:outputText value="#{_account.user.id}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewaccount"
+                     value="View"
+                      view="/Account.xhtml">
+                    <f:param name="accountId"
+                           value="#{_account.id}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Orderitems</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="orderitemsChildren">
+
+        <h:outputText value="There are no orderitems associated with this customerorder."
+                   rendered="#{empty customerorderHome.orderitems}"/>
+
+        <rich:dataTable value="#{customerorderHome.orderitems}"
+                       var="_orderitem"
+                  rendered="#{not empty customerorderHome.orderitems}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="orderitemsTable">
+            <rich:column sortBy="#{_orderitem.id}">
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_orderitem.id}"/>
+            </rich:column>
+            <rich:column sortBy="#{_orderitem.archived}">
+                <f:facet name="header">Archived</f:facet>
+                <h:outputText value="#{_orderitem.archived}"/>
+            </rich:column>
+            <rich:column sortBy="#{_orderitem.dateCreated}">
+                <f:facet name="header">Date created</f:facet>
+                <h:outputText value="#{_orderitem.dateCreated}">
+                    <s:convertDateTime type="both" dateStyle="short"/>
+                </h:outputText>
+            </rich:column>
+            <rich:column sortBy="#{_orderitem.dateUpdated}">
+                <f:facet name="header">Date updated</f:facet>
+                <h:outputText value="#{_orderitem.dateUpdated}">
+                    <s:convertDateTime type="both" dateStyle="short"/>
+                </h:outputText>
+            </rich:column>
+            <rich:column sortBy="#{_orderitem.qty}">
+                <f:facet name="header">Qty</f:facet>
+                <h:outputText value="#{_orderitem.qty}"/>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectorderitem"
+                     value="Select"
+                      view="/Orderitem.xhtml">
+                    <f:param name="orderitemId"
+                            value="#{_orderitem.id}"/>
+                    <f:param name="orderitemFrom" value="Customerorder"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add orderitem"
+                view="/OrderitemEdit.xhtml">
+            <f:param name="customerorderId"
+                    value="#{customerorderHome.instance.id}"/>
+            <f:param name="orderitemFrom" value="Customerorder"/>
+        </s:button>
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>User</h:panelGroup>
+        </f:facet>
+    <div class="association" id="userParent">
+
+        <h:outputText value="There is no user associated with this customerorder."
+                   rendered="#{customerorderHome.instance.user == null}"/>
+
+        <rich:dataTable var="_user"
+                   value="#{customerorderHome.instance.user}"
+                rendered="#{customerorderHome.instance.user != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="userTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_user.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Archived</f:facet>
+                <h:outputText value="#{_user.archived}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Date created</f:facet>
+                <h:outputText value="#{_user.dateCreated}">
+                    <s:convertDateTime type="both" dateStyle="short"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Date updated</f:facet>
+                <h:outputText value="#{_user.dateUpdated}">
+                    <s:convertDateTime type="both" dateStyle="short"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Enabled</f:facet>
+                <h:outputText value="#{_user.enabled}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Password</f:facet>
+                <h:outputText value="#{_user.password}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">User id</f:facet>
+                <h:outputText value="#{_user.user.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">User name</f:facet>
+                <h:outputText value="#{_user.userName}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewuser"
+                     value="View"
+                      view="/User.xhtml">
+                    <f:param name="userId"
+                           value="#{_user.id}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd"
+      no-conversation-view-id="/OrderitemList.xhtml"
+      login-required="true">
+
+   <begin-conversation join="true" flush-mode="MANUAL"/>
+
+   <action execute="#{orderitemHome.wire}"/>
+
+   <param name="orderitemFrom"/>
+   <param name="orderitemId" value="#{orderitemHome.orderitemId}"/>
+   <param name="customerorderFrom"/>
+   <param name="customerorderId" value="#{customerorderHome.customerorderId}"/>
+   <param name="accountFrom"/>
+   <param name="accountId" value="#{accountHome.accountId}"/>
+   <param name="customerFrom"/>
+   <param name="customerId" value="#{customerHome.customerId}"/>
+   <param name="userFrom"/>
+   <param name="userId" value="#{userHome.userId}"/>
+
+
+
+
+   <param name="productFrom"/>
+   <param name="productId" value="#{productHome.productId}"/>
+
+
+
+   <navigation from-action="#{orderitemHome.persist}">
+      <rule>
+         <end-conversation/>
+         <redirect view-id="/Orderitem.xhtml"/>
+      </rule>
+   </navigation>
+
+   <navigation from-action="#{orderitemHome.update}">
+      <rule>
+         <end-conversation/>
+         <redirect view-id="/Orderitem.xhtml"/>
+      </rule>
+   </navigation>
+
+   <navigation from-action="#{orderitemHome.remove}">
+      <rule>
+         <end-conversation/>
+         <redirect view-id="/OrderitemList.xhtml"/>
+      </rule>
+   </navigation>
+
+</page>
