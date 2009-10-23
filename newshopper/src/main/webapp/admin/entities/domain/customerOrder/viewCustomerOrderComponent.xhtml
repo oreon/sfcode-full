@@ -1,0 +1,130 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="CustomerOrder " />
+		</f:facet>
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.customerOrder_account}  "/>
+		
+	
+	<h:outputText   value="#{customerOrder.account.displayName}" />
+	
+
+		
+		
+		
+		
+	
+
+	
+		
+	
+
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.customerOrder_notes}  "/>
+		
+
+	<h:outputText escape="false"   id="CustomerOrder_notes"   value="#{customerOrder.notes}" />
+   
+
+		
+		
+		
+		
+	
+
+	
+		</h:panelGrid>
+		
+	
+	
+	<h:dataTable id="orderItems_data" var="orderItem" rendered="#{not empty customerOrderAction.listOrderItems}"
+					value="#{customerOrderAction.listOrderItems}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.orderItem_product}  "/></f:facet>
+		
+	
+	<h:outputText   value="#{orderItem.product.displayName}" />
+	
+
+		
+		
+		</h:column>
+		
+	
+
+	
+		
+	
+
+	
+
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.orderItem_qty}  "/></f:facet>
+		
+
+	<h:outputText    id="OrderItem_qty"   value="#{orderItem.qty}" />
+   
+
+		
+		
+		</h:column>
+		
+	
+
+	
+		
+			
+	</h:dataTable>
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Back To Listing" immediate="true" action="#{customerOrderAction.cancel}" /> 
+		
+	</div>
+
+	</h:panelGroup>
+	</html>
+	

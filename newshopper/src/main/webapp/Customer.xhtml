@@ -1,0 +1,193 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Customer Details</f:facet>
+
+
+        <s:decorate id="archived" template="layout/display.xhtml">
+            <ui:define name="label">Archived</ui:define>
+            <h:outputText value="#{customerHome.instance.archived}"/>
+        </s:decorate>
+
+        <s:decorate id="dateCreated" template="layout/display.xhtml">
+            <ui:define name="label">Date created</ui:define>
+            <h:outputText value="#{customerHome.instance.dateCreated}">
+                <s:convertDateTime type="both" dateStyle="short"/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="dateUpdated" template="layout/display.xhtml">
+            <ui:define name="label">Date updated</ui:define>
+            <h:outputText value="#{customerHome.instance.dateUpdated}">
+                <s:convertDateTime type="both" dateStyle="short"/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="firstName" template="layout/display.xhtml">
+            <ui:define name="label">First name</ui:define>
+            <h:outputText value="#{customerHome.instance.firstName}"/>
+        </s:decorate>
+
+        <s:decorate id="lastName" template="layout/display.xhtml">
+            <ui:define name="label">Last name</ui:define>
+            <h:outputText value="#{customerHome.instance.lastName}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/CustomerEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty customerFrom ? 'CustomerList' : customerFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="ajax">
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Accounts</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="accountsChildren">
+
+        <h:outputText value="There are no accounts associated with this customer."
+                   rendered="#{empty customerHome.accounts}"/>
+
+        <rich:dataTable value="#{customerHome.accounts}"
+                       var="_account"
+                  rendered="#{not empty customerHome.accounts}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="accountsTable">
+            <rich:column sortBy="#{_account.id}">
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_account.id}"/>
+            </rich:column>
+            <rich:column sortBy="#{_account.accountType}">
+                <f:facet name="header">Account type</f:facet>
+                <h:outputText value="#{_account.accountType}"/>
+            </rich:column>
+            <rich:column sortBy="#{_account.archived}">
+                <f:facet name="header">Archived</f:facet>
+                <h:outputText value="#{_account.archived}"/>
+            </rich:column>
+            <rich:column sortBy="#{_account.dateCreated}">
+                <f:facet name="header">Date created</f:facet>
+                <h:outputText value="#{_account.dateCreated}">
+                    <s:convertDateTime type="both" dateStyle="short"/>
+                </h:outputText>
+            </rich:column>
+            <rich:column sortBy="#{_account.dateUpdated}">
+                <f:facet name="header">Date updated</f:facet>
+                <h:outputText value="#{_account.dateUpdated}">
+                    <s:convertDateTime type="both" dateStyle="short"/>
+                </h:outputText>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectaccount"
+                     value="Select"
+                      view="/Account.xhtml">
+                    <f:param name="accountId"
+                            value="#{_account.id}"/>
+                    <f:param name="accountFrom" value="Customer"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add account"
+                view="/AccountEdit.xhtml">
+            <f:param name="customerId"
+                    value="#{customerHome.instance.id}"/>
+            <f:param name="accountFrom" value="Customer"/>
+        </s:button>
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>User</h:panelGroup>
+        </f:facet>
+    <div class="association" id="userParent">
+
+        <h:outputText value="There is no user associated with this customer."
+                   rendered="#{customerHome.instance.user == null}"/>
+
+        <rich:dataTable var="_user"
+                   value="#{customerHome.instance.user}"
+                rendered="#{customerHome.instance.user != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="userTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_user.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Archived</f:facet>
+                <h:outputText value="#{_user.archived}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Date created</f:facet>
+                <h:outputText value="#{_user.dateCreated}">
+                    <s:convertDateTime type="both" dateStyle="short"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Date updated</f:facet>
+                <h:outputText value="#{_user.dateUpdated}">
+                    <s:convertDateTime type="both" dateStyle="short"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Enabled</f:facet>
+                <h:outputText value="#{_user.enabled}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Password</f:facet>
+                <h:outputText value="#{_user.password}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">User id</f:facet>
+                <h:outputText value="#{_user.user.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">User name</f:facet>
+                <h:outputText value="#{_user.userName}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewuser"
+                     value="View"
+                      view="/User.xhtml">
+                    <f:param name="userId"
+                           value="#{_user.id}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

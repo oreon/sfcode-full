@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages xmlns="http://jboss.com/products/seam/pages"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd"
+       no-conversation-view-id="/index.jspx"
+       login-view-id="/login.jspx">
+	
+ 	<page view-id="/register-states/register.xhtml" conversation-required="false">
+    	<navigation> 
+    		
+			 <rule if-outcome="success">
+ 				<redirect view-id="/register-states/registrationSucceeded.xhtml" />
+            </rule>	
+            
+		</navigation>
+	</page>
+
+ 	<page view-id="/register-states/registrationSucceeded.xhtml" conversation-required="false">
+    	<navigation> 
+    		
+		</navigation>
+	</page>
+
+ 	<page view-id="/register-states/forgotPassword.xhtml" conversation-required="false">
+    	<navigation> 
+    		
+			 <rule if-outcome="">
+ 				<redirect view-id="/register-states/passwordSent.xhtml" />
+            </rule>	
+            
+		</navigation>
+	</page>
+
+ 	<page view-id="/register-states/passwordSent.xhtml" conversation-required="false">
+    	<navigation> 
+    		
+		</navigation>
+	</page>
+</pages>
