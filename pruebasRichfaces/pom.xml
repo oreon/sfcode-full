@@ -55,6 +55,18 @@
 					<encoding>utf-8</encoding>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+  				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<configuration>
+ 					<warFile>${project.build.directory}/${project.build.finalName}.war</warFile>
+ 					<update>true</update>
+					<path>/${project.build.finalName}</path>
+					<username>tomcat</username>
+					<password>tr1n1dad</password>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	
@@ -162,6 +174,32 @@
 	    	<artifactId>richfaces-ui</artifactId>
 	    	<version>3.3.1.GA</version>
       	</dependency>
+      	
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.5.6</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.5.6</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>c3p0</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.1.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.10</version>
+			<scope>runtime</scope>
+		</dependency>
+		
 
      </dependencies>
 </project>

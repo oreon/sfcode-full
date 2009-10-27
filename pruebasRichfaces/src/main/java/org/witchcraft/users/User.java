@@ -1,23 +1,31 @@
 package org.witchcraft.users;
 
-import java.util.Set;
 import java.util.HashSet;
-import java.util.Date;
+import java.util.Set;
 
-import javax.persistence.*;
-import org.hibernate.validator.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
-import org.jboss.seam.annotations.Name;
-import org.witchcraft.base.entity.*;
 import org.hibernate.annotations.Filter;
+import org.hibernate.validator.Length;
+import org.hibernate.validator.NotNull;
+import org.jboss.seam.annotations.Name;
+import org.witchcraft.base.entity.BusinessEntity;
 
 @Entity
-@Table(name = "user")
+@Table(uniqueConstraints=@UniqueConstraint(columnNames="username"))
 @Name("user")
 @Filter(name = "archiveFilterDef")
 public class User extends BusinessEntity {
 
-	@Unique(entityName = "org.cerebrum.domain.users.User", fieldName = "userName")
+	private static final long serialVersionUID = -2034874428471316479L;
+
 	@NotNull
 	@Length(min = 2, max = 50)
 	protected String userName;
