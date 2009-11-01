@@ -1,20 +1,24 @@
 package org.witchcraft.base.entity;
 
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import javax.persistence.*;
-import org.hibernate.validator.*;
-
+import org.hibernate.validator.NotNull;
 import org.jboss.seam.annotations.Name;
-import org.witchcraft.base.entity.BusinessEntity;
 
 @Entity
 @Table(name = "comment")
 @Name("entitycomment")
 @NamedQuery(name="commentsForRecord", query= "Select c from EntityComment c where c.entityId = ?1 and c.entityName = ?2 ")
 public class EntityComment extends BusinessEntity {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3936580980250027302L;
 
 	@NotNull
 	private String entityName;

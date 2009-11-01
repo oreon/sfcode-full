@@ -22,6 +22,11 @@ import org.jboss.seam.annotations.Name;
 })
 public class EntityTemplate<T extends BusinessEntity> extends BusinessEntity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5160168397259950773L;
+
 	@NotNull
 	private String entityName;
 	

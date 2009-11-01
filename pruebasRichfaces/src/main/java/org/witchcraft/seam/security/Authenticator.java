@@ -46,13 +46,11 @@ public class Authenticator {
 				for (Role role : roles) {
 					identity.addRole(role.getName());
 				}
-				//log.info("adding role " + user.getApplicationRole().getName() + "  to " + user.getUserName());
 			}else{
 				log.warn("no role found for user " + user.getUserName());
 			}
 			
 			UserUtilAction userUtilAction = (UserUtilAction)Component.getInstance("userUtilAction");
-		//	UserUtil.setCurrentUserAndIp(user, "192.144.144.0");
 			userUtilAction.setCurrentUser(user);
 			return true;
 		}
