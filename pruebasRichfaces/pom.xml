@@ -67,8 +67,31 @@
 					<password>tr1n1dad</password>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+        		<groupId>org.apache.maven.plugins</groupId>
+        		<artifactId>maven-checkstyle-plugin</artifactId>
+        		<version>2.3</version>
+        		<configuration>
+          			<enableRulesSummary>false</enableRulesSummary>
+				</configuration>
+      		</plugin>
+      		
 		</plugins>
 	</build>
+	
+	<reporting>
+	    <plugins>
+	        <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-checkstyle-plugin</artifactId>
+	            <configuration>
+	              <configLocation>checkstyle_checks.xml</configLocation>
+	            </configuration>
+	        </plugin>
+	    </plugins>
+	</reporting>
+
 	
 	<!-- Project dependencies -->
 	<dependencies>
