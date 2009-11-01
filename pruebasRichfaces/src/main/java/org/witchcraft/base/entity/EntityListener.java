@@ -4,11 +4,15 @@ import java.util.Date;
 
 import javax.persistence.PrePersist;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.Component;
 import org.witchcraft.users.User;
 
 public class EntityListener {
-
+	
+	Log log = LogFactory.getLog(EntityListener.class);
+	
 	@PrePersist
 	public void setDatesAndUser(BusinessEntity modelBase) {
 		Date now = new Date();
@@ -28,11 +32,11 @@ public class EntityListener {
 				if (modelBase.getCreatedByUser() == null) {
 					modelBase.setCreatedByUser(currentUser);
 				}
-				//modelBase.setUpdatedByUser(currentUser);
 			}
 
 		} catch (IllegalStateException e) {
-			System.out.println("couldnt get component instance");
+			if (log.isInfoEnabled())
+				log.info("couldn't get component instance");
 		}
 
 	}

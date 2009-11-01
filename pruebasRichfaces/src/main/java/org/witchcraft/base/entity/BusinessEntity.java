@@ -20,7 +20,6 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import org.hibernate.search.annotations.DocumentId;
-import org.jboss.seam.servlet.SeamListener;
 import org.witchcraft.users.User;
 
 
@@ -71,19 +70,6 @@ public class BusinessEntity implements Serializable{
         super();
     }
 
-    /*
-    public BusinessEntity(User createdByUser, Date dateCreated,
-            Date dateUpdated, Long id, 
-            User updatedByUser, Long version) {
-        super();
-        //this.createdByUser = createdByUser;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.id = id;
-        //this.updatedByUser = updatedByUser;
-        this.version = version;
-    }*/
-
     public Long getId() {
         return id;
     }
@@ -98,7 +84,6 @@ public class BusinessEntity implements Serializable{
     }
 
     public void setVersion(Long version) {
-    	SeamListener listner;
         this.version = version;
     }
 
@@ -118,15 +103,6 @@ public class BusinessEntity implements Serializable{
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
     }
-
-    /*
-    public User getUpdatedByUser() {
-        return updatedByUser;
-    }
-
-    public void setUpdatedByUser(User updatedByUser) {
-        this.updatedByUser = updatedByUser;
-    }*/
 
     public Date getDateUpdated() {
         return dateUpdated;

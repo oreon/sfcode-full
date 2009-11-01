@@ -3,9 +3,6 @@ package org.witchcraft.base.entity;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-
 /** Date helper methods such as find duration/age
  * @author jsingh
  *
