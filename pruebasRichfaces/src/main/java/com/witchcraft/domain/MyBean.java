@@ -4,19 +4,31 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 
+/**
+ * @author joaquin. Mock class.
+ */
 @Name("myBean")
 @Scope(ScopeType.CONVERSATION)
 public class MyBean {
 
-	private String text = "domain";
+    /**
+     * campo de prueba.
+     */
+    private String text = "domain";
 
-	public String getText() {
-		return text;
-	}
+    /**
+     * @return text field.
+     */
+    public final String getText() {
+        return text;
+    }
 
-	public void setText(String text) {
-		this.text = text;
-	}
-	
-	
+    /**
+     * @param textToSet
+     *            text to set field.
+     */
+    public final void setText(final String textToSet) {
+        this.text = textToSet;
+    }
+
 }
