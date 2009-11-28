@@ -1,18 +1,26 @@
 package com.shan.customermgt.domain.action;
 
 
-import java.util.Date;
 import java.util.Arrays;
+import java.util.Date;
 
+import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.framework.EntityQuery;
 
 import com.shan.customermgt.domain.Customer;
 
 @Name("customerList")
+@Scope(ScopeType.CONVERSATION)
 public class CustomerList extends EntityQuery<Customer> {
 
-	private static final String EJBQL = "select customer from Customer customer";
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -7297480786265886918L;
+
+    private static final String EJBQL = "select customer from Customer customer";
 	
 	private Range<java.util.Date> dateCreatedRange = new Range<Date>();
 
