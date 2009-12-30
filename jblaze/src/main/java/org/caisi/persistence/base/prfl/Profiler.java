@@ -1,4 +1,4 @@
-package org.caisi.persistence.base.prfl;
+package prfl;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -14,7 +14,7 @@ public class Profiler {
     this.profiler = p;
   }
 
-  @Pointcut("within( org.caisi..*) && !within(ProfilingStrategy+)")
+  @Pointcut("within( eu.alenislimited.kesoxprocessing.support.services.**) && !within(ProfilingStrategy+)")
   public void profiledOperation(){}
   
   @Around("Profiler.profiledOperation()")

@@ -1,4 +1,4 @@
-package org.caisi.persistence.base.prfl;
+package prfl;
 
 import org.aspectj.lang.JoinPoint.StaticPart;
 
