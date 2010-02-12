@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans   xmlns="http://xbean.org/schemas/spring/1.0"
+	     xmlns:sm="http://servicemix.apache.org/config/1.0"
+	     xmlns:jencks="http://jencks.org/2.0"
+	     xmlns:file="http://servicemix.apache.org/file/1.0"
+		 xmlns:bean="http://servicemix.apache.org/bean/1.0"
+       	 xmlns:springMix="http://springMix.bar/springMix/">
+
+	<!-- Transaction Manager -->
+	<jencks:transactionManager id="transactionManager" />
+
+	<bean id="logService" class="com.springMix.LogService"/>
+	
+	<sm:container id="jbi" 
+                rootDir="SMXData" 
+                useMBeanServer="true"
+		        createMBeanServer="false" 
+                transactionManager="#transactionManager" 
+                flowName="seda"
+				embedded="true"
+                autoEnlistInTransaction="true">
+                
+		<sm:activationSpecs>
+
+			<sm:activationSpec componentName="fileComponent">
+				<sm:component>
+				  <file:component>
+				    <file:endpoints>
+				      <file:poller service="springMix:poller"
+			             endpoint="poller"
+			             targetService="springMix:logger"
+			             file="inbox" />
+	           		</file:endpoints>
+	           	  </file:component>
+				</sm:component>
+			</sm:activationSpec>
+
+			<sm:activationSpec componentName="beanComponent">
+				<sm:component>
+					<bean:component>
+						<bean:endpoints>
+							<bean:endpoint service="springMix:logger" endpoint="logger" bean="#logService"/>							      			  
+						</bean:endpoints>
+					</bean:component>
+				</sm:component>
+			</sm:activationSpec>
+
+		</sm:activationSpecs>
+
+	</sm:container>	
+
+</beans>
