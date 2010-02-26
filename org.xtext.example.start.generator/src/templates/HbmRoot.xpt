@@ -1,0 +1,75 @@
+«IMPORT entities»
+«EXTENSION templates::Extensions»
+
+«DEFINE ClassRoot FOR Entity»
+	«EXPAND HbmGen FOR this»
+	«EXPAND DaoClassGen FOR this»
+	«EXPAND DaoInterfaceGen FOR this»
+«ENDDEFINE»
+
+«DEFINE HbmGen FOR Entity»	
+	«FILE ""    + name + ".hbm.xml"»
+			<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+                            "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                            "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<!-- DO NOT EDIT: This is a generated file that is synchronized -->
+<!-- by MyEclipse Hibernate tool integration.                   -->
+<!-- Created Wed Dec 14 11:27:42 EST 2005                         -->
+<hibernate-mapping package="com.pgemarketing.business.domain.model.pps" schema="PPS">
+			 	<class name="«fqn()»" table="«name»">
+			 	 	<id column="id" name="id" type="java.lang.Long">
+			 	 	 	<generator class="native"/>	 	 	
+			 	 	</id>
+			 	 	«EXPAND genDecl FOREACH properties -»
+			 	</class>
+			</hibernate-mapping>
+	«ENDFILE»
+«ENDDEFINE»
+ 
+«DEFINE genDecl FOR Property»
+«IF this.many»
+	«REM»comment
+		«IF opposite!= null && opposite.isMultivalued() -»
+		    	//Handle many to many 
+		«ELSE»
+		<set name="«name»" lazy="true" inverse="true" cascade="all-delete-orphan">
+ 	 	 	<key column="«class.name»_ID" />
+				<one-to-many class="«fqn(type)»" />
+ 	 	</set>
+ 	 	«ENDIF»
+ 	 «ENDREM»
+	«ELSE»
+		«IF this.type.metaType.name == "entities::Entity"»
+			<many-to-one name="«name»" class="«this.type.fqn()»" column="«name»Id"/>
+		«ELSE»
+			<property  name="«name»" type="«this.platformSpecificType()-»"/>
+		«ENDIF»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE DaoClassGen FOR Entity»
+«FILE "Hibernate"    + name + "DAO.java"»
+package com.pgemarketing.business.domain.persistence.dao.pps;
+	
+public class Hibernate«name»DAO extends BaseDao<«name»> implements «name»DAO {
+
+}
+«ENDFILE»
+
+«ENDDEFINE»
+
+«DEFINE DaoInterfaceGen FOR Entity»
+
+«FILE ""    + name + "DAO.java"»
+package com.pgemarketing.business.domain.persistence.dao.pps;
+
+import «this.fqn()»;	
+
+public interface «name»DAO extends BaseDao<«name»> implements «name»DAO {
+
+}
+«ENDFILE»
+
+«ENDDEFINE»

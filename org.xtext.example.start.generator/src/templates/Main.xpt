@@ -1,0 +1,59 @@
+«IMPORT entities»;
+
+«EXTENSION templates::Extensions»
+
+
+«DEFINE main FOR Model»
+«REM»comment
+  «EXPAND DAO::dao FOREACH this.types.typeSelect(Entity)»
+«ENDREM»
+ «EXPAND packageGen FOREACH this.elements.typeSelect(Package)»
+«ENDDEFINE»
+
+
+«DEFINE packageGen FOR Package»
+«REM»comment
+  «EXPAND DAO::dao FOREACH this.types.typeSelect(Entity)»
+«ENDREM»
+ «FILE   this.name +  ".java"»
+ «ENDFILE»
+ «EXPAND packageGen FOREACH this.properties.typeSelect(Package) »
+ «FOREACH this.properties.typeSelect(Entity) AS e»
+ 	«e.package.processName()»
+ 	«e.applyPackage(this)»
+ «ENDFOREACH»
+ «EXPAND entityGen FOREACH this.properties.typeSelect(Entity) »
+«ENDDEFINE»
+
+
+«DEFINE entityGen FOR Entity»
+  «FILE this.packagePath() + "/" +   this.name +  ".java"»
+  	package « this.packageName() »;
+    public class «this.name» {
+      «EXPAND property FOREACH this.properties»
+    }
+  «ENDFILE»
+  «EXPAND HbmRoot::ClassRoot FOR this»
+«ENDDEFINE»
+
+«DEFINE property FOR Property»
+ «LET this.platformSpecificType()  AS typeName »
+ 
+  private «typeName» «this.name»;
+
+  public void set«this.name.toFirstUpper()»(«typeName» «this.name») {
+    this.«this.name» = «this.name»;
+  }
+
+  public «typeName» get«this.name.toFirstUpper()»() {
+    return this.«this.name»;
+  }
+  
+  «ENDLET»
+«ENDDEFINE»
+
+
+
+
+
+

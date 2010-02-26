@@ -1,0 +1,38 @@
+«IMPORT entities»;
+
+«EXTENSION templates::Extensions»
+
+«DEFINE main FOR Model-»
+
+«EXPAND entityGen FOREACH  this.elements.typeSelect(Entity).sortBy(e|e.name)»
+
+«FILE "output.txt"-»
+
+«FOREACH this.elements.typeSelect(Entity).sortBy(e|e.name) AS e-»
+«e.name» has «e.listSubclasses()».
+«ENDFOREACH-»
+
+
+«ENDFILE-»
+«ENDDEFINE»
+
+
+«DEFINE entityGen FOR Entity»
+  «FILE this.name + ".java"»
+    public class «this.name» {
+      «EXPAND property FOREACH this.properties»
+    }
+  «ENDFILE»
+«ENDDEFINE»
+
+«DEFINE property FOR Property»
+  private «this.type.name» «this.name»;
+
+  public void set«this.name.toFirstUpper()»(«this.type.name» «this.name») {
+    this.«this.name» = «this.name»;
+  }
+
+  public «this.type.name» get«this.name.toFirstUpper()»() {
+    return this.«this.name»;
+  }
+«ENDDEFINE»
