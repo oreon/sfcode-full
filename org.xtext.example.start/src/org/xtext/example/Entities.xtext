@@ -1,0 +1,39 @@
+grammar org.xtext.example.Entities with org.eclipse.xtext.common.Terminals
+
+generate entities "http://www.xtext.org/example/Entities"
+
+Model :
+  (elements+=Package)*;
+  
+TypeDef:
+ "typedef" name=ID ("mapsto" mappedType=JAVAID)?;
+  
+JAVAID:
+ name=ID("." ID)*;
+
+Package returns Package:
+'package' name=ID'{'
+    (properties+=PackagedType)*
+  '}';
+  	  
+
+PackagedType : 
+  Type | Package;
+
+Type:
+  SimpleType | Entity;
+
+SimpleType:
+  'type' name=ID;
+  
+Property:
+  'property' name=ID ':' type=[Type] (many?='[]')?;
+	
+Entity returns Entity:
+'entity' name=ID ('extends' extends=[Entity])? '{'
+    (properties+=Property)*
+    (package=[Package])?
+  '}'
+ 
+;
+	
