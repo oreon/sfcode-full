@@ -1,0 +1,43 @@
+import entities;
+
+listSubclasses(Entity this) :
+	let subclasses = this.eRootContainer.eAllContents.typeSelect(Entity).select(e|e.extends == this).name:
+		switch (subclasses.size) { 
+			case 0: "no subclasses"
+			case 1: "subclass: " + subclasses.toString(", ")
+			default: subclasses.size.toString() + " subclasses: " + subclasses.toString(", ")
+		};
+
+
+platformSpecificType(Property this) :
+		switch (this.type.name) { 
+			case 'date': "java.util.Date"
+			//case 1: "subclass: " + subclasses.toString(", ")
+			default: this.type.name
+		};		
+		
+processName(Package p):
+if (p != null ) then  p.setName(p.name.replaceAll("_","."));
+
+packageName(Type e ):
+"";
+
+String packagePath(Entity cls) :
+cls.package.name.replaceAll("::|\\.|_", "/");
+
+packageName(Entity e):
+e.package.name.replaceAll("_",".");
+
+
+applyPackage(Entity this, Package p ) :
+this.setPackage(p);
+ 
+
+String fqn (Entity cls) :
+cls.packageName() + "." + cls.name;
+
+
+String fqn (Type cls) :
+ cls.name;
+
+		
