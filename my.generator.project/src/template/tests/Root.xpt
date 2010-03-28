@@ -6,11 +6,13 @@
 «EXTENSION template::WebExtensions»
 
 «DEFINE Root FOR uml::Model»
+ «REM»comment
 	«EXPAND BaseGen FOREACH allOwnedElements().typeSelect(wcprofile::ServiceInterface)»
 	«EXPAND ManualGen FOREACH allOwnedElements().typeSelect(wcprofile::ServiceInterface)»
 	
 	«EXPAND BaseGen FOREACH allOwnedElements().typeSelect(wcprofile::RepositoryInterface)»
 	«EXPAND ManualGen FOREACH allOwnedElements().typeSelect(wcprofile::RepositoryInterface)»
+«ENDREM»
 «ENDDEFINE»
 
 «DEFINE BaseGen FOR uml::Interface»
