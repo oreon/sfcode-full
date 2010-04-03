@@ -13,12 +13,26 @@
 			<h:panelGrid columns="5">
 			«setAsCurrentEntity(this)-»
 			«EXPAND genAttribAsOutput FOR this-»
+			
 			</h:panelGrid>
 			«EXPAND genCancelSaveBtns FOR this-»
 		</rich:simpleTogglePanel>
 	</h:form>
 </html>
 	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE genDateRange FOR uml::Class»
+			<s:decorate template="layout/display.xhtml">
+				<ui:define name="label">From</ui:define>
+				<rich:calendar id="from"
+					value="#{customerList.dateCreatedRange.begin}" />
+			</s:decorate>
+
+			<s:decorate template="layout/display.xhtml">
+				<ui:define name="label">To</ui:define>
+				<rich:calendar id="to" value="#{customerList.dateCreatedRange.end}" />
+			</s:decorate>
 «ENDDEFINE»
 
 «DEFINE genCancelSaveBtns FOR uml::Class»

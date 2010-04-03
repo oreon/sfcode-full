@@ -25,14 +25,15 @@
 	<html «EXPAND WebRoot::genIncludes-» >	
 	
 		<h:commandButton value="Create New" action="edit" rendered="#{identity.loggedIn}"/>
-		<h:dataTable  var="«asVar()»" value="#{«asVar()»List}" rows="30"
-		rowClasses="odd, even" styleClass="dataTable" >		
+		
+		<rich:dataTable  var="«asVar()»" value="#{«asVar()»List}" rows="30"
+		rowClasses="odd, even" styleClass="dataTable"  rendered="#{not empty «asVar()»List}">		
 		«EXPAND genAttribAsOutput FOR this-»
 		«EXPAND genPropsFromBusinessEntity FOR this-»
 		«EXPAND genLink("select", "eye.png") FOR this»
 		«EXPAND genLink ("select", "edit.png")FOR this»
 		«EXPAND genLink("showDeleteDialog", "delete.png") FOR this»
-		</h:dataTable>
+		</rich:dataTable>
 		
 		<!--
 		<wc:deletePanel backingAction="#{«getAction()»}" backingEntity="#{«asVar()»}" title="Delete «name»" />

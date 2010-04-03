@@ -1,0 +1,97 @@
+«IMPORT wcprofile»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+«EXTENSION template::associationExtensions»
+
+«EXTENSION template::WebExtensions»
+
+«DEFINE Root FOR uml::Model»
+	«EXPAND BaseGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	«EXPAND ManualGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+«ENDDEFINE»
+
+
+«DEFINE ManualGen FOR wcprofile::Entity»
+«FILE packagePath() +"/action/" +name+ "ListQuery.java"  man_path »
+package « packageName() ».action;
+
+«EXPAND genImports FOR this»	
+@Name("«asVar()»ListQuery")
+@Scope(ScopeType.CONVERSATION)
+public class «name»ListQuery extends «name»ListQueryBase implements java.io.Serializable{
+	
+	}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE BaseGen FOR uml::Class»
+«FILE packagePath() +"/action/" +name+"ListQueryBase.java"»
+package « packageName() ».action;
+
+import « packageName() ».«name»;
+
+import org.witchcraft.seam.action.BaseAction; 
+
+«EXPAND genImports FOR this»
+
+
+import «packageName()».«name»;
+
+
+public abstract class «name»ListQueryBase extends EntityQuery<«name»> {
+
+    private static final String EJBQL = "select «asVar()» from «name» «asVar()»";
+    
+    private Range<java.util.Date> dateCreatedRange = new Range<Date>();
+    
+    private «name» «name.toFirstLower()» = new «name»();
+    
+   	private static final String[] RESTRICTIONS = {
+		«FOREACH getAllAttributes() AS e»
+			"lower(«asVar()».«e.name») like concat(lower(#{«asVar()»ListQuery.«asVar()».«e.name»}),'%')",
+		«ENDFOREACH»
+	
+		"«asVar()».dateCreated <= #{«asVar()»ListQuery.dateCreatedRange.end}",
+		"«asVar()».dateCreated >= #{«asVar()»ListQuery.dateCreatedRange.begin}",
+	};
+
+	public «name»ListQueryBase() {
+		setEjbql(EJBQL);
+		setRestrictionExpressionStrings(Arrays.asList(RESTRICTIONS));
+		setMaxResults(25);
+	}
+
+	public «name» get«name»() {
+		return «asVar()»;
+	}
+	
+	
+	public Range<java.util.Date> getDateCreatedRange() {
+		return dateCreatedRange;
+	}
+
+	public void setDateCreatedRange(Range<java.util.Date> dateCreatedRange) {
+		this.dateCreatedRange = dateCreatedRange;
+	}
+	
+
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE genImports FOR wcprofile::Entity»
+	
+import java.util.Arrays;
+import java.util.Date;
+
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.framework.EntityQuery;
+import org.witchcraft.base.entity.Range;
+	
+«ENDDEFINE»
