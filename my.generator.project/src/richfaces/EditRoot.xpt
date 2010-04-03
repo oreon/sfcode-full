@@ -204,7 +204,7 @@
 «DEFINE gentEditableTable FOR uml::Property-»
 	«setCurrentMultiMode(true)-»
 	«IF isCurrentEditMode()-» «EXPAND genNewButton FOR this» «ENDIF»
-	<h:dataTable id="«name»_data" var="«type.asVar()»" rendered="#{not empty «getCurrentEntity().getAction()».list«name.toFirstUpper()»}"
+	<rich:dataTable id="«name»_data" var="«type.asVar()»" rendered="#{not empty «getCurrentEntity().getAction()».list«name.toFirstUpper()»}"
 					value="#{«getCurrentEntity().getAction()».list«name.toFirstUpper()»}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		«setAsCurrentEntity(type)»
@@ -215,7 +215,7 @@
 		«EXPAND genDelete FOR this -»
 		«REM»	«ELSE»	«EXPAND ListRoot::genPropsFromBusinessEntity FOR class»«ENDREM»
 		«ENDIF»	
-	</h:dataTable>
+	</rich:dataTable>
 	«setCurrentMultiMode(false)-»
 «ENDDEFINE»
 

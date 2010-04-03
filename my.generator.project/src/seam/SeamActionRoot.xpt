@@ -10,6 +10,7 @@
 «DEFINE Root FOR uml::Model»
 	«EXPAND BaseGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 	«EXPAND ManualGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	«EXPAND SeamEntityQueryRoot::Root FOR this»
 	«EXPAND PagesRoot::genPages»
 «ENDDEFINE»
 
@@ -18,22 +19,10 @@
 «FILE packagePath() +"/action/" +name+ "Action.java"  man_path »
 package « packageName() ».action;
 
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Scope;
-
-import org.jboss.seam.Component;
-import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.End;
-import org.jboss.seam.annotations.Factory;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Out;	
-	
+«EXPAND genImports FOR this»	
 @Scope(ScopeType.CONVERSATION)
 @Name("«asVar()»Action")
 	public class «name»Action extends «name»ActionBase implements java.io.Serializable{
-	
 	
 	}
 «ENDFILE»
@@ -45,38 +34,10 @@ import org.jboss.seam.annotations.Out;
 package « packageName() ».action;
 
 import « packageName() ».«name»;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
-import javax.persistence.EntityManager;
-
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
-
-import org.apache.commons.lang.StringUtils;
-
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Scope;
-
-import org.jboss.seam.Component;
-import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.End;
-import org.jboss.seam.annotations.Factory;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Out;
-
-import org.jboss.seam.annotations.datamodel.DataModel;
-import org.jboss.seam.annotations.datamodel.DataModelSelection;
-import org.jboss.seam.faces.FacesMessages;
-import org.jboss.seam.log.Log;
 
 import org.witchcraft.seam.action.BaseAction; 
-import org.jboss.seam.annotations.Observer;
 
+«EXPAND genImports FOR this»
 «FOREACH getComposed() AS a-»
 import «a.type.fqn()»;
 «ENDFOREACH»
@@ -127,7 +88,7 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 	
 	public void updateAssociations(){
 		«FOREACH getNonComposedManyAssociations() AS a»
-		«a.type.fqn()» «a.type.name.toFirstLower()» =(«a.type.fqn()») Component.getInstance("«a.type.name.toFirstLower()»");
+		«a.type.fqn()» «a.type.name.toFirstLower()» =(«a.type.fqn()») org.jboss.seam.Component.getInstance("«a.type.name.toFirstLower()»");
 		«a.type.name.toFirstLower()».set«a.opposite.name.toFirstUpper()»(«asVar()»);
 		events.raiseTransactionSuccessEvent("archived«a.type.name»");
 		«ENDFOREACH»
@@ -201,5 +162,37 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 	}
 	
 	«ENDLET»
+«ENDDEFINE»
+
+
+«DEFINE genImports FOR wcprofile::Entity»
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
+import org.apache.commons.lang.StringUtils;
+
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Scope;
+
+import org.jboss.seam.annotations.Begin;
+import org.jboss.seam.annotations.End;
+import org.jboss.seam.annotations.Factory;
+import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Logger;
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Out;
+
+import org.jboss.seam.annotations.datamodel.DataModel;
+import org.jboss.seam.annotations.datamodel.DataModelSelection;
+import org.jboss.seam.faces.FacesMessages;
+import org.jboss.seam.log.Log;
+import org.jboss.seam.annotations.Observer;
 «ENDDEFINE»
 
