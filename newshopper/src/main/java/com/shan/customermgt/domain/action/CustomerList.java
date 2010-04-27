@@ -45,7 +45,7 @@ public class CustomerList extends EntityQuery<Customer> {
 	public CustomerList() {
 		setEjbql(EJBQL);
 		setRestrictionExpressionStrings(Arrays.asList(RESTRICTIONS));
-		setMaxResults(25);
+		setMaxResults(5);
 	}
 
 	public Customer getCustomer() {
