@@ -58,15 +58,34 @@
 		
 	<h:column   >
 		<f:facet name="header">
-			<h:outputText value=" " />
+			<h:outputText value="Delete " />
 		</f:facet>
-		<h:commandLink 
-			action="#{customerAction.showDeleteDialog(customer)}">
+		<h:outputLink 
+			value="#" id="link">
+			 <rich:componentControl for="panel" attachTo="link" operation="show" event="onclick"/>
 			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" />
-		</h:commandLink>
+		</h:outputLink>
 	</h:column>
 
 		</h:dataTable>
+		
+		
+		<rich:modalPanel id="panel" width="350" height="100">
+ <f:facet name="header">
+  <h:panelGroup>
+   <h:outputText value="Confirmation Message"></h:outputText>
+  </h:panelGroup>
+ </f:facet>
+
+ <f:facet name="controls">
+  <h:panelGroup>
+   <h:graphicImage value="/images/modal/close.png" style="cursor:pointer" id="hidelink"/>
+   <rich:componentControl for="panel" attachTo="hidelink" operation="hide" event="onclick"/>
+  </h:panelGroup>
+ </f:facet>
+   <s:button id="yes" value="Yes" action="#{studyHome.remove}" immediate="true"/>
+ <s:button id="no" value="No" propagation="end"/>
+</rich:modalPanel>
 		
 		<!--
 		<wc:deletePanel backingAction="#{customerAction}" backingEntity="#{customer}" title="Delete Customer" />
