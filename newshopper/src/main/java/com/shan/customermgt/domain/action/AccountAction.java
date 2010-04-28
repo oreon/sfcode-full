@@ -13,7 +13,7 @@ import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;	
 	
-@Scope(ScopeType.CONVERSATION)
+
 @Name("accountAction")
 	public class AccountAction extends AccountActionBase implements java.io.Serializable{
 	
