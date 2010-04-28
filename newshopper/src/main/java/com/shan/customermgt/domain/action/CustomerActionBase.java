@@ -1,8 +1,7 @@
 package com.shan.customermgt.domain.action;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.NoResultException;
 
 import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Factory;
@@ -10,10 +9,9 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.datamodel.DataModel;
-import org.jboss.seam.annotations.datamodel.DataModelSelection;
-import org.jboss.seam.annotations.web.RequestParameter;
 import org.witchcraft.seam.action.BaseAction;
 
+import com.shan.customermgt.domain.Account;
 import com.shan.customermgt.domain.Customer;
 
 public class CustomerActionBase extends BaseAction<Customer> implements
@@ -21,15 +19,13 @@ public class CustomerActionBase extends BaseAction<Customer> implements
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
+	// @DataModelSelection
 	private Customer customer;
 
 	@DataModel
 	private List<Customer> customerList22;
 
-	
-
-	@Factory("customerList")
+	//@Factory("customerList")
 	@Observer("archivedCustomer")
 	public void findRecords() {
 		search();
@@ -64,8 +60,10 @@ public class CustomerActionBase extends BaseAction<Customer> implements
 		}
 		return customerList22;
 	}
-	
-	//@Factory("customer")
-	
+
+	public List<Account> getAccounts() {
+		return new ArrayList<Account>(getEntity().getAccounts());
+	}
+	// @Factory("customer")
 
 }

@@ -11,35 +11,35 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
  >	
-	<h:form>
-	<rich:simpleTogglePanel switchType="client" label="Search">
-			<div class="entry errors"><h:messages globalOnly="true" /></div>
-			<h:panelGrid columns="5">
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.person_firstName} * "/> <br/>
-	<h:inputText  id="Person_firstName" value="#{customer.firstName}" />
-	</h:panelGroup>
+	<h:form id="customerSearch22" styleClass="edit">
+
+	<rich:simpleTogglePanel label="Customer Search Filter"
+		switchType="ajax">
+		<h:panelGrid columns="4">
+
+			<s:decorate template="layout/display.xhtml">
+				<ui:define name="label">First name</ui:define>
+				<h:inputText id="firstName"
+					value="#{customerList.customer.firstName}" />
+			</s:decorate>
+
+			<s:decorate template="layout/display.xhtml">
+				<ui:define name="label">Last name</ui:define>
+				<h:inputText id="lastName" value="#{customerList.customer.lastName}" />
+			</s:decorate>
 
 	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.person_lastName} * "/> <br/>
-	<h:inputText  id="Person_lastName" value="#{customer.lastName}" />
-	</h:panelGroup>
+		</h:panelGrid>
+	</rich:simpleTogglePanel>
 
-	
-	
-	
-			</h:panelGrid>
-			
-	<div class="buttonBox">
-		<h:commandButton value="Search"  action="#{customerAction.search}" /> 
-		<h:outputText value=" " />
-		<h:commandButton value="Clear Search" immediate="true" action="#{customerAction.clearSearch}" /> 
-	</div>
-		</rich:simpleTogglePanel>
-	</h:form>
+	<div class="actionButtons"><h:commandButton id="search"
+		value="Search" 
+		action="/admin/entities/domain/customer/listCustomer.xhtml" >
+			 <s:conversationPropagation type="end"/>
+		</h:commandButton> 
+		<s:button propagation="end"
+		id="reset" value="Reset" includePageParams="false" /></div>
+
+</h:form>
 </html>
 	
