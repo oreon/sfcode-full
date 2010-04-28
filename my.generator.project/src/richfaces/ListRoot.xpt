@@ -119,9 +119,9 @@
 	<h:column «IF isCompositionContainer()» groupOn="#{«genPropertyLabel()».displayName}" «ENDIF»>
 		<f:facet name="header">
 			<ui:include src="layout/sort.xhtml">
-				<ui:param name="entityList" value="#{«class.asVar()»List}" />
+				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
 				<ui:param name="propertyLabel" value="«msgBundleKey()-»" />
-				<ui:param name="propertyPath" value="«class.asVar()».«genPropertyLabel()»" />
+				<ui:param name="propertyPath" value="«genPropertyLabel()»" />
 			</ui:include>
 		</f:facet>
 		<s:link «getEscape()» value="#{«genPropertyLabel()».displayName}" action="view«type.name»" />
@@ -132,12 +132,12 @@
 	<h:column>
 		<f:facet name="header">
 			<ui:include src="layout/sort.xhtml">
-				<ui:param name="entityList" value="#{«class.asVar()»List}" />
+				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
 				<ui:param name="propertyLabel" value="«msgBundleKey()-»" />
-				<ui:param name="propertyPath" value="«class.asVar()».«name»" />
+				<ui:param name="propertyPath" value="«getCurrentEntity().asVar()».«name»" />
 			</ui:include>
 		</f:facet>
-		<h:outputText value="#{_«class.asVar()».«name»}">
+		<h:outputText value="#{_«getCurrentEntity().asVar()».«name»}">
 			<s:convertDateTime type="both" dateStyle="short" />
 		</h:outputText>
 	</h:column>
