@@ -123,6 +123,7 @@ public abstract class BaseAction<T extends BusinessEntity> {
 
 	@End
 	public String archive(T t) {
+		if(t == null) t = getEntity();
 		t.setArchived(true);
 		entityManager.merge(t);
 		facesMessages.add("Successfully archived  " + t.getDisplayName());
@@ -207,6 +208,14 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		load(id);
 		return "view" + getClassName();
 	}
+	
+	public void archive(){
+		load(id);
+		archive(getEntity());
+	}
+	
+	
+	
 	
 	@SuppressWarnings("unchecked")
     public Long getRecordCount() {

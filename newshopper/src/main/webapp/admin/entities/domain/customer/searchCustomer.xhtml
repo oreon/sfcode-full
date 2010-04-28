@@ -1,5 +1,5 @@
 
-<html 
+<html
  xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -28,6 +28,17 @@
 				<h:inputText id="lastName" value="#{customerList.customer.lastName}" />
 			</s:decorate>
 
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">From</ui:define>
+				<rich:calendar id="begin"
+					value="#{customerList.dateCreatedRange.begin}" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">To</ui:define>
+				<rich:calendar id="end" value="#{customerList.dateCreatedRange.end}" />
+			</s:decorate>
+			
 	
 		</h:panelGrid>
 	</rich:simpleTogglePanel>

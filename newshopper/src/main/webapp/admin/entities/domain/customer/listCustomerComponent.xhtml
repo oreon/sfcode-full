@@ -13,7 +13,6 @@
 
 <rich:panel >
 	 
-	  
     <f:facet name="header">Customer Search Results (#{empty customerList.resultList ? 0 : (customerList.paginated ? customerList.resultCount : customerList.resultList.size)})</f:facet>
 
 	<div class="results" id="customerList"><h:outputText
@@ -122,6 +121,18 @@
 				<f:param name="id" value="#{_customer.id}" />
 			</s:link>
 		</h:column>
+		
+		
+	<h:column>
+		<f:facet name="header">
+			<h:outputText value="" />
+		</f:facet>
+		
+		<s:link action="#{customerAction.archive}" onclick="javascript:if(!confirm('Do you really want to delete this entry?')){ return false; } else { return true; }" >
+			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" />
+			<f:param name="id" value="#{_customer.id}" />
+		</s:link>
+	</h:column>
 
 
 	</rich:dataTable></div>
@@ -154,10 +165,17 @@
 	<f:param name="firstResult" value="#{customerList.lastFirstResult}" />
 </s:link>
 
+
+
+
+
 <h:form>
 <s:div styleClass="actionButtons" rendered="#{empty from}">
 	<s:button value="Create New" action="edit" propagation="none" />
 </s:div>
 </h:form>
+
+
+
 
 </html>
