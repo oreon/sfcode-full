@@ -20,6 +20,63 @@
 <!--  		
 		<wc:comments backingAction="#{customerAction}"/>
 -->
+
+		    <rich:tabPanel switchType="ajax">
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Accounts</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="accountsChildren">
+
+        <h:outputText value="There are no accounts associated with this customer."
+                   rendered="#{empty customerAction.accounts}"/>
+
+        <rich:dataTable value="#{customerAction.accounts}"
+                       var="_account"
+                  rendered="#{not empty customerAction.accounts}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="accountsTable">
+            <rich:column sortBy="#{_account.id}">
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_account.id}"/>
+            </rich:column>
+            <rich:column sortBy="#{_account.accountType}">
+                <f:facet name="header">Account type</f:facet>
+                <h:outputText value="#{_account.accountType}"/>
+            </rich:column>
+            <rich:column sortBy="#{_account.archived}">
+                <f:facet name="header">Archived</f:facet>
+                <h:outputText value="#{_account.archived}"/>
+            </rich:column>
+            <rich:column sortBy="#{_account.dateCreated}">
+                <f:facet name="header">Date created</f:facet>
+                <h:outputText value="#{_account.dateCreated}">
+                    <s:convertDateTime type="both" dateStyle="short"/>
+                </h:outputText>
+            </rich:column>
+            <rich:column sortBy="#{_account.dateUpdated}">
+                <f:facet name="header">Date updated</f:facet>
+                <h:outputText value="#{_account.dateUpdated}">
+                    <s:convertDateTime type="both" dateStyle="short"/>
+                </h:outputText>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectaccount"
+                     value="Select"
+                      view="/Account.xhtml">
+                    <f:param name="accountId"
+                            value="#{_account.id}"/>
+                    <f:param name="accountFrom" value="Customer"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+	</rich:tab>
+	</rich:tabPanel>
+	
 	</ui:define> 
 </ui:composition>
 	
