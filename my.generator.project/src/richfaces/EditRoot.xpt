@@ -37,13 +37,17 @@
 		<h:form>
 			<ui:include src = "«"view" + name+ "Component." + getExtension()»" />
 			«FOREACH getNonComposedManyAssociations() AS a»
+			«REM»comment
 			<rich:panel label="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
 				<ui:include
 					src="../../«a.type.package.name»/«a.type.asVar()»/list«a.type.name.toFirstUpper()»Component.«getExtension()»  />
 			</rich:panel>
+			«ENDREM»
 			«ENDFOREACH»
 		</h:form>
+		«REM»comment
 		<wc:comments backingAction="#{«getAction()»}"/>
+		«ENDREM»
 	</ui:define> 
 </ui:composition>
 	«ENDFILE»
