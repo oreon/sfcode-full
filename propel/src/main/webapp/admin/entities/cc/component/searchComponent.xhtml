@@ -1,0 +1,53 @@
+
+<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:form>
+	<rich:simpleTogglePanel switchType="client" label="Search">
+			<div class="entry errors"><h:messages globalOnly="true" /></div>
+			<h:panelGrid columns="5">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.abstractProjectComposite_name} * "/> <br/>
+	<h:inputText  id="AbstractProjectComposite_name" value="#{component.name}" />
+	</h:panelGroup>
+
+	
+	
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.component_project}  "/> <br/>
+	<h:selectOneMenu id="Component_project" value="#{component.project}" >
+		<s:selectItems value="#{projectList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+			
+			</h:panelGrid>
+			
+	<div class="buttonBox">
+		<h:commandButton value="Search"  action="#{componentAction.search}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Clear Search" immediate="true" action="#{componentAction.clearSearch}" /> 
+	</div>
+		</rich:simpleTogglePanel>
+	</h:form>
+</html>
+	

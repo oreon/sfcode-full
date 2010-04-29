@@ -1,0 +1,52 @@
+
+<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:form>
+	<rich:simpleTogglePanel switchType="client" label="Search">
+			<div class="entry errors"><h:messages globalOnly="true" /></div>
+			<h:panelGrid columns="5">
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.company_name} * "/> <br/>
+	<h:inputText  id="Company_name" value="#{company.name}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.company_code} * "/> <br/>
+	<h:inputText  id="Company_code" value="#{company.code}" />
+	</h:panelGroup>
+
+	
+	
+			
+			</h:panelGrid>
+			
+			
+		<div class="actionButtons">
+            <h:commandButton id="search" value="Search" action="listCompanycc.xhtml"/>
+            <s:button id="reset" value="Reset" includePageParams="false"/>
+        </div>
+	<hr/>
+	<div class="buttonBox">
+		<h:commandButton value="Search"  action="#{companyAction.search}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Clear Search" immediate="true" action="#{companyAction.clearSearch}" /> 
+	</div>
+		</rich:simpleTogglePanel>
+	</h:form>
+</html>
+	

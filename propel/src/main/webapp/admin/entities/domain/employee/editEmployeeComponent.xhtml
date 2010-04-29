@@ -1,0 +1,101 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="Employee " />
+		</f:facet>
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.employee_department}  "/>
+		
+	
+	<h:selectOneMenu id="Employee_department" value="#{employee.department}" required="true">
+		<s:selectItems value="#{departmentList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="Employee_department" />
+		
+		
+	
+
+	
+		
+	
+
+
+	 
+	
+	
+		
+		<h:outputText value="#{msg.person_firstName}  "/>
+		
+
+	<h:inputText  id="Person_firstName" required="false"  value="#{employee.firstName}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Person_firstName" />
+		
+		
+	
+
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.person_lastName}  "/>
+		
+
+	<h:inputText  id="Person_lastName" required="false"  value="#{employee.lastName}" />
+   
+
+		
+		<h:message styleClass="error errors" for="Person_lastName" />
+		
+		
+	
+
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{employeeAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{employeeAction.cancel}" /> 
+		
+	</div>
+
+	</h:panelGroup>
+	</html>
+	

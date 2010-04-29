@@ -1,0 +1,104 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+
+<h:commandButton value="Create New" action="edit"
+	rendered="#{identity.loggedIn}" />
+
+<rich:dataTable var="_company" value="#{companyListQuery.resultList}"
+	rows="30" rowClasses="odd, even" styleClass="dataTable"
+	rendered="#{not empty companyListQuery.resultList}">
+
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{companyListQuery}" />
+				<ui:param name="propertyLabel" value="Id" />
+				<ui:param name="propertyPath" value="company.id" />
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_company.id}" />
+	</h:column>
+
+
+	<h:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.company_name}" />
+		</f:facet>
+		<h:outputText value="#{_company.name}" />
+	</h:column>
+
+	<h:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.company_code}" />
+		</f:facet>
+		<h:outputText value="#{company.code}" />
+	</h:column>
+
+
+
+
+	<h:column>
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink action="#{companyAction.select(_company)}">
+			<h:graphicImage value="/images/icons/eye.png" style="border: 0px" />
+		</h:commandLink>
+	</h:column>
+
+
+	<h:column>
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink action="#{companyAction.select(_company)}">
+			<h:graphicImage value="/images/icons/edit.png" style="border: 0px" />
+		</h:commandLink>
+	</h:column>
+
+
+	<h:column>
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink action="#{companyAction.showDeleteDialog(_company)}">
+			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" />
+		</h:commandLink>
+	</h:column>
+
+</rich:dataTable>
+
+
+
+<div class="tableControl"><s:link view="/CustomerList.xhtml"
+	rendered="#{customerList.previousExists}"
+	value="#{messages.left}#{messages.left} First Page" id="firstPage">
+	<f:param name="firstResult" value="0" />
+</s:link> <s:link view="/CustomerList.xhtml"
+	rendered="#{customerList.previousExists}"
+	value="#{messages.left} Previous Page" id="previousPage">
+	<f:param name="firstResult" value="#{customerList.previousFirstResult}" />
+</s:link> <s:link view="/CustomerList.xhtml"
+	rendered="#{customerList.nextExists}"
+	value="Next Page #{messages.right}" id="nextPage">
+	<f:param name="firstResult" value="#{customerList.nextFirstResult}" />
+</s:link> <s:link view="/CustomerList.xhtml"
+	rendered="#{customerList.nextExists}"
+	value="Last Page #{messages.right}#{messages.right}" id="lastPage">
+	<f:param name="firstResult" value="#{customerList.lastFirstResult}" />
+</s:link></div>
+
+
+<!--
+		<wc:deletePanel backingAction="#{companyAction}" backingEntity="#{company}" title="Delete Company" />
+		-->
+</html>

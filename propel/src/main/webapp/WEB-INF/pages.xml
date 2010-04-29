@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pages xmlns="http://jboss.com/products/seam/pages"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd"
+       no-conversation-view-id="/home.xhtml"
+       login-view-id="/login.xhtml">
+
+	<page view-id="/admin/*">
+        <restrict>#{s:hasRole('admin')}</restrict>
+     </page>
+    
+    <page view-id="/adminLogin.xhtml">     
+        <navigation from-action="#{identity.login}">
+           <redirect view-id="/admin/entities/summary.xhtml"/>
+        </navigation>
+	</page>
+
+	
+	<page view-id="*">
+        <navigation>
+        	<rule if-outcome="home">
+                <redirect view-id="/home.xhtml"/>
+            </rule>
+        
+            <rule if-outcome="employee">
+                <redirect view-id="/admin/entities/domain/employee/listEmployee.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewEmployee">
+                <redirect view-id="/admin/entities/domain/employee/viewEmployee.xhtml" />
+            </rule>
+        
+            <rule if-outcome="department">
+                <redirect view-id="/admin/entities/domain/department/listDepartment.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewDepartment">
+                <redirect view-id="/admin/entities/domain/department/viewDepartment.xhtml" />
+            </rule>
+        
+            <rule if-outcome="company">
+                <redirect view-id="/admin/entities/cc/company/listCompany.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewCompany">
+                <redirect view-id="/admin/entities/cc/company/viewCompany.xhtml" />
+            </rule>
+        
+            <rule if-outcome="solution">
+                <redirect view-id="/admin/entities/cc/solution/listsolution.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewsolution">
+                <redirect view-id="/admin/entities/cc/solution/viewsolution.xhtml" />
+            </rule>
+        
+            <rule if-outcome="project">
+                <redirect view-id="/admin/entities/cc/project/listProject.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewProject">
+                <redirect view-id="/admin/entities/cc/project/viewProject.xhtml" />
+            </rule>
+        
+            <rule if-outcome="component">
+                <redirect view-id="/admin/entities/cc/component/listComponent.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewComponent">
+                <redirect view-id="/admin/entities/cc/component/viewComponent.xhtml" />
+            </rule>
+        
+            <rule if-outcome="version">
+                <redirect view-id="/admin/entities/cc/version/listVersion.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewVersion">
+                <redirect view-id="/admin/entities/cc/version/viewVersion.xhtml" />
+            </rule>
+        
+            <rule if-outcome="productionService">
+                <redirect view-id="/admin/entities/cc/productionService/listProductionService.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewProductionService">
+                <redirect view-id="/admin/entities/cc/productionService/viewProductionService.xhtml" />
+            </rule>
+        
+            <rule if-outcome="lineItem">
+                <redirect view-id="/admin/entities/cc/lineItem/listLineItem.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewLineItem">
+                <redirect view-id="/admin/entities/cc/lineItem/viewLineItem.xhtml" />
+            </rule>
+        
+            <rule if-outcome="budget">
+                <redirect view-id="/admin/entities/cc/budget/listBudget.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewBudget">
+                <redirect view-id="/admin/entities/cc/budget/viewBudget.xhtml" />
+            </rule>
+        
+        </navigation>
+    </page>
+
+    
+    
+    <page view-id="/admin/entities/domain/employee/editEmployee.xhtml" conversation-required="false">
+    	<!-- <description>Edit Employee: #{employee.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/domain/employee/viewEmployee.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/employee/listEmployee.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/domain/employee/viewEmployee.xhtml" conversation-required="false">
+	 	<!-- <description>View Employee: #{employee.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/employee/editEmployee.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/employee/listEmployee.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/domain/employee/listEmployee.xhtml" >
+		<navigation>
+			<rule if-outcome="viewEmployee">
+				<redirect view-id="/admin/entities/domain/employee/viewEmployee.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/employee/editEmployee.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/domain/department/editDepartment.xhtml" conversation-required="false">
+    	<!-- <description>Edit Department: #{department.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/domain/department/viewDepartment.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/department/listDepartment.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/domain/department/viewDepartment.xhtml" conversation-required="false">
+	 	<!-- <description>View Department: #{department.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/department/editDepartment.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/department/listDepartment.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/domain/department/listDepartment.xhtml" >
+		<navigation>
+			<rule if-outcome="viewDepartment">
+				<redirect view-id="/admin/entities/domain/department/viewDepartment.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/department/editDepartment.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/cc/company/editCompany.xhtml" conversation-required="false">
+    	<!-- <description>Edit Company: #{company.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/cc/company/viewCompany.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/cc/company/listCompany.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/cc/company/viewCompany.xhtml" conversation-required="false">
+	 	<!-- <description>View Company: #{company.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/cc/company/editCompany.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/cc/company/listCompany.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/cc/company/listCompany.xhtml" >
+		<navigation>
+			<rule if-outcome="viewCompany">
+				<redirect view-id="/admin/entities/cc/company/viewCompany.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/cc/company/editCompany.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/cc/solution/editsolution.xhtml" conversation-required="false">
+    	<!-- <description>Edit solution: #{solution.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/cc/solution/viewsolution.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/cc/solution/listsolution.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/cc/solution/viewsolution.xhtml" conversation-required="false">
+	 	<!-- <description>View solution: #{solution.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/cc/solution/editsolution.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/cc/solution/listsolution.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/cc/solution/listsolution.xhtml" >
+		<navigation>
+			<rule if-outcome="viewsolution">
+				<redirect view-id="/admin/entities/cc/solution/viewsolution.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/cc/solution/editsolution.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/cc/project/editProject.xhtml" conversation-required="false">
+    	<!-- <description>Edit Project: #{project.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/cc/project/viewProject.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/cc/project/listProject.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/cc/project/viewProject.xhtml" conversation-required="false">
+	 	<!-- <description>View Project: #{project.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/cc/project/editProject.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/cc/project/listProject.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/cc/project/listProject.xhtml" >
+		<navigation>
+			<rule if-outcome="viewProject">
+				<redirect view-id="/admin/entities/cc/project/viewProject.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/cc/project/editProject.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/cc/component/editComponent.xhtml" conversation-required="false">
+    	<!-- <description>Edit Component: #{component.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/cc/component/viewComponent.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/cc/component/listComponent.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/cc/component/viewComponent.xhtml" conversation-required="false">
+	 	<!-- <description>View Component: #{component.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/cc/component/editComponent.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/cc/component/listComponent.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/cc/component/listComponent.xhtml" >
+		<navigation>
+			<rule if-outcome="viewComponent">
+				<redirect view-id="/admin/entities/cc/component/viewComponent.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/cc/component/editComponent.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/cc/version/editVersion.xhtml" conversation-required="false">
+    	<!-- <description>Edit Version: #{version.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/cc/version/viewVersion.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/cc/version/listVersion.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/cc/version/viewVersion.xhtml" conversation-required="false">
+	 	<!-- <description>View Version: #{version.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/cc/version/editVersion.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/cc/version/listVersion.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/cc/version/listVersion.xhtml" >
+		<navigation>
+			<rule if-outcome="viewVersion">
+				<redirect view-id="/admin/entities/cc/version/viewVersion.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/cc/version/editVersion.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/cc/productionService/editProductionService.xhtml" conversation-required="false">
+    	<!-- <description>Edit ProductionService: #{productionService.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/cc/productionService/viewProductionService.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/cc/productionService/listProductionService.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/cc/productionService/viewProductionService.xhtml" conversation-required="false">
+	 	<!-- <description>View ProductionService: #{productionService.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/cc/productionService/editProductionService.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/cc/productionService/listProductionService.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/cc/productionService/listProductionService.xhtml" >
+		<navigation>
+			<rule if-outcome="viewProductionService">
+				<redirect view-id="/admin/entities/cc/productionService/viewProductionService.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/cc/productionService/editProductionService.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/cc/lineItem/editLineItem.xhtml" conversation-required="false">
+    	<!-- <description>Edit LineItem: #{lineItem.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/cc/lineItem/viewLineItem.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/cc/lineItem/listLineItem.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/cc/lineItem/viewLineItem.xhtml" conversation-required="false">
+	 	<!-- <description>View LineItem: #{lineItem.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/cc/lineItem/editLineItem.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/cc/lineItem/listLineItem.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/cc/lineItem/listLineItem.xhtml" >
+		<navigation>
+			<rule if-outcome="viewLineItem">
+				<redirect view-id="/admin/entities/cc/lineItem/viewLineItem.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/cc/lineItem/editLineItem.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+    
+    <page view-id="/admin/entities/cc/budget/editBudget.xhtml" conversation-required="false">
+    	<!-- <description>Edit Budget: #{budget.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/cc/budget/viewBudget.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/cc/budget/listBudget.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="/admin/entities/cc/budget/viewBudget.xhtml" conversation-required="false">
+	 	<!-- <description>View Budget: #{budget.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/cc/budget/editBudget.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/cc/budget/listBudget.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	<page view-id="/admin/entities/cc/budget/listBudget.xhtml" >
+		<navigation>
+			<rule if-outcome="viewBudget">
+				<redirect view-id="/admin/entities/cc/budget/viewBudget.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/cc/budget/editBudget.xhtml" />
+            </rule>			
+		</navigation>
+	</page>
+    
+
+    <exception class="org.jboss.seam.framework.EntityNotFoundException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Record not found</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityNotFoundException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Record not found</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityExistsException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Duplicate record</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.OptimisticLockException">
+        <end-conversation/>
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Another user changed the same data, please try again</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.security.AuthorizationException">
+        <redirect view-id="/error.xhtml">
+            <message severity="error">You don't have permission to access this resource</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.security.NotLoggedInException">
+        <redirect view-id="/login.xhtml">
+            <message severity="warn">#{messages['org.jboss.seam.NotLoggedIn']}</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.faces.application.ViewExpiredException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Your session has timed out, please try again</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.ConcurrentRequestTimeoutException" log-level="trace">
+      <http-error error-code="503" />
+    </exception>
+     
+    <exception>
+        <redirect view-id="/error.xhtml">
+            <message severity="error">Unexpected error, please try again</message>
+        </redirect>
+    </exception>
+    
+</pages>

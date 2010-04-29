@@ -1,0 +1,87 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	
+		<h:commandButton value="Create New" action="edit" rendered="#{identity.loggedIn}"/>
+		<h:dataTable  var="employee" value="#{employeeList}" rows="30"
+		rowClasses="odd, even" styleClass="dataTable" >		
+		
+	<h:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.person_firstName}" />
+		</f:facet>
+		<h:outputText   value="#{employee.firstName}" />
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.person_lastName}" />
+		</f:facet>
+		<h:outputText   value="#{employee.lastName}" />
+	</h:column>
+	
+	
+		
+			
+				
+	<h:column >
+		<f:facet name="header">
+			<h:outputText value="#{msg.employee_department}"   /> 	
+		</f:facet>
+		<s:link   value="#{employee.department.displayName}" action="viewDepartment" />
+	</h:column>
+			
+		
+	
+		
+	
+		
+	<h:column   >
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{employeeAction.select(employee)}">
+			<h:graphicImage value="/images/icons/eye.png" style="border: 0px" />
+		</h:commandLink>
+	</h:column>
+
+		
+	<h:column   >
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{employeeAction.select(employee)}">
+			<h:graphicImage value="/images/icons/edit.png" style="border: 0px" />
+		</h:commandLink>
+	</h:column>
+
+		
+	<h:column   >
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<h:commandLink 
+			action="#{employeeAction.showDeleteDialog(employee)}">
+			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" />
+		</h:commandLink>
+	</h:column>
+
+		</h:dataTable>
+		
+		<!--
+		<wc:deletePanel backingAction="#{employeeAction}" backingEntity="#{employee}" title="Delete Employee" />
+		-->
+	</html>
+	

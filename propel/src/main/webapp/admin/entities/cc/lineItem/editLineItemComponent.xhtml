@@ -1,0 +1,112 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="LineItem " />
+		</f:facet>
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.lineItem_productionService}  "/>
+		
+	
+	<h:selectOneMenu id="LineItem_productionService" value="#{lineItem.productionService}" required="true">
+		<s:selectItems value="#{productionServiceList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="LineItem_productionService" />
+		
+		
+	
+
+	
+		
+	
+
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.lineItem_budget}  "/>
+		
+	
+	<h:selectOneMenu id="LineItem_budget" value="#{lineItem.budget}" required="true">
+		<s:selectItems value="#{budgetList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="LineItem_budget" />
+		
+		
+	
+
+	
+		
+	
+
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.lineItem_qty}  "/>
+		
+
+	<h:inputText  id="LineItem_qty" required="false"  value="#{lineItem.qty}" />
+   
+
+		
+		<h:message styleClass="error errors" for="LineItem_qty" />
+		
+		
+	
+
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{lineItemAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{lineItemAction.cancel}" /> 
+		
+	</div>
+
+	</h:panelGroup>
+	</html>
+	
