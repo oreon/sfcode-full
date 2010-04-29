@@ -77,6 +77,16 @@
  				<redirect view-id="«e.getViewFile("edit")»" />
             </rule>			
 		</navigation>
+		
+		<param name="firstResult" value="#{«asVar»List.firstResult}" />
+		<param name="sort" value="#{«asVar»List.orderColumn}" />
+		<param name="dir" value="#{«asVar»List.orderDirection}" />
+
+		<param name="from" />
+		«FOREACH  e.getAllAttributes().select( a |!a.isMultivalued() && !a.isSecret()  ) AS a»
+		<param name="«a.name»" value="#{«asVar»List.«asVar».«a.name»}" />
+		«ENDFOREACH»
+		
 	</page>
     «ENDFOREACH»
 
