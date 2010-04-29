@@ -33,7 +33,6 @@ import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.base.entity.EntityComment;
 import org.witchcraft.base.entity.EntityTemplate;
 
-import com.shan.customermgt.domain.Customer;
 
 /**
  * The base action class - contains common persistence related methods, also
