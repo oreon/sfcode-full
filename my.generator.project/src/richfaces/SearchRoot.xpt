@@ -10,11 +10,12 @@
 	<h:form>
 	<rich:simpleTogglePanel switchType="client" label="Search">
 			<div class="entry errors"><h:messages globalOnly="true" /></div>
-			<h:panelGrid columns="5">
+			<h:panelGrid columns="6">
 			«setAsCurrentEntity(this)-»
 			«EXPAND genAttribAsOutput FOR this-»
-			
+			«EXPAND genDateRange FOR this»
 			</h:panelGrid>
+			
 			«EXPAND genCancelSaveBtns FOR this-»
 		</rich:simpleTogglePanel>
 	</h:form>
@@ -23,24 +24,27 @@
 «ENDDEFINE»
 
 «DEFINE genDateRange FOR uml::Class»
-			<s:decorate template="layout/display.xhtml">
+			<s:decorate template="/layout/display.xhtml">
 				<ui:define name="label">From</ui:define>
 				<rich:calendar id="from"
-					value="#{customerList.dateCreatedRange.begin}" />
+					value="#{«getCurrentEntity().asVar()»List.dateCreatedRange.begin}" />
 			</s:decorate>
 
-			<s:decorate template="layout/display.xhtml">
+			<s:decorate template="/layout/display.xhtml">
 				<ui:define name="label">To</ui:define>
-				<rich:calendar id="to" value="#{customerList.dateCreatedRange.end}" />
+				<rich:calendar id="to" value="#{«getCurrentEntity().asVar()»List.dateCreatedRange.end}" />
 			</s:decorate>
 «ENDDEFINE»
 
 «DEFINE genCancelSaveBtns FOR uml::Class»
-	<div class="buttonBox">
-		<h:commandButton value="Search"  action="#{«getAction()».search}" /> 
-		<h:outputText value=" " />
-		<h:commandButton value="Clear Search" immediate="true" action="#{«getAction()».clearSearch}" /> 
-	</div>
+	<div class="actionButtons"><h:commandButton id="search"
+		value="Search" 
+		action="«getViewFile("list")»" >
+			 <s:conversationPropagation type="end"/>
+		</h:commandButton> 
+		<s:button propagation="end"
+		id="reset" value="Reset" includePageParams="false" /></div>
+
 «ENDDEFINE»
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
@@ -86,11 +90,11 @@
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
-	<«getInputControlSearch()»  id="«getId()»" value="#{«genPropertyLabel()»}" />
+	<«getInputControlSearch()»  id="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}" />
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
-	<h:selectOneMenu id="«getId()»" value="#{«genPropertyLabel()»}" required="«getAssocOptional()»">
+	<h:selectOneMenu id="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}" required="«getAssocOptional()»">
 		<f:selectItem itemLabel="Any" itemValue=""/>
 		<f:selectItem itemLabel="None" itemValue=""/>
 		«FOREACH  enm.ownedLiteral AS e-»
