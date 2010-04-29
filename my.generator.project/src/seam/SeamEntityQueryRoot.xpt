@@ -17,7 +17,7 @@
 package « packageName() ».action;
 
 «EXPAND genImports FOR this»	
-@Name("«asVar()»ListQuery")
+@Name("«asVar()»List")
 @Scope(ScopeType.CONVERSATION)
 public class «name»ListQuery extends «name»ListQueryBase implements java.io.Serializable{
 	
@@ -50,11 +50,11 @@ public abstract class «name»ListQueryBase extends EntityQuery<«name»> {
     
    	private static final String[] RESTRICTIONS = {
 		«FOREACH getAllAttributes() AS e»
-			"lower(«asVar()».«e.name») like concat(lower(#{«asVar()»ListQuery.«asVar()».«e.name»}),'%')",
+			"lower(«asVar()».«e.name») like concat(lower(#{«asVar()»List.«asVar()».«e.name»}),'%')",
 		«ENDFOREACH»
 	
-		"«asVar()».dateCreated <= #{«asVar()»ListQuery.dateCreatedRange.end}",
-		"«asVar()».dateCreated >= #{«asVar()»ListQuery.dateCreatedRange.begin}",
+		"«asVar()».dateCreated <= #{«asVar()»List.dateCreatedRange.end}",
+		"«asVar()».dateCreated >= #{«asVar()»List.dateCreatedRange.begin}",
 	};
 
 	public «name»ListQueryBase() {

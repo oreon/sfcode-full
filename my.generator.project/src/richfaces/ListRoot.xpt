@@ -26,18 +26,24 @@
 <rich:panel>
 	  <f:facet name="header">«name» Search Results (#{empty «asVar()»List.resultList ? 0 : («asVar()»List.paginated ? «asVar()»List.resultCount : «asVar()»List.resultList.size)})</f:facet>
 	
-		<rich:dataTable  var="_«asVar()»" value="#{«asVar()»List}" 
-		rowClasses="odd, even" styleClass="dataTable"  rendered="#{not empty «asVar()»List}">		
+		<rich:dataTable  var="_«asVar()»" value="#{«asVar()»List.resultList}" 
+		rowClasses="odd, even" styleClass="dataTable"  rendered="#{not empty «asVar()»List.resultList}">		
 		«EXPAND genAttribAsOutput FOR this-»
 		«EXPAND genPropsFromBusinessEntity FOR this-»
-		«EXPAND genLink("select", "eye.png") FOR this»
+		«EXPAND genLink("view", "eye.png") FOR this»
 		«EXPAND genLink ("edit", "edit.png")FOR this»
-		«EXPAND genLink("delete", "delete.png") FOR this»
+		«EXPAND genDeleteLink FOR this»
 		</rich:dataTable>
 </rich:panel>	
 
 
 «EXPAND paginationLinks FOR this»
+
+<h:form>
+<s:div styleClass="actionButtons" rendered="#{empty from}">
+	<s:button value="Create New" action="edit" propagation="none" />
+</s:div>
+</h:form>
 
 </html>
 	«ENDFILE»
@@ -108,17 +114,32 @@
 		<f:facet name="header">
 			<h:outputText value=" " />
 		</f:facet>
-		<h:commandLink 
-			action="#{«getAction()».«action»(«asVar()»)}">
+		<s:link 
+			action="#{«getAction()».«action»}">
 			<h:graphicImage value="/images/icons/«icon»" style="border: 0px" />
-		</h:commandLink>
+			<f:param name="id" value="#{_«asVar()».id}" />
+		</s:link>
+	</h:column>
+«ENDDEFINE»
+
+
+«DEFINE genDeleteLink FOR uml::Class»
+	<h:column>
+		<f:facet name="header">
+			<h:outputText value="" />
+		</f:facet>
+		
+		<s:link action="#{«asVar()»Action.archive}" onclick="javascript:if(!confirm('Do you really want to delete #{_«asVar()».displayName} ?')){ return false; } else { return true; }" >
+			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" />
+			<f:param name="id" value="#{_«asVar()».id}" />
+		</s:link>
 	</h:column>
 «ENDDEFINE»
 
 «DEFINE genAssociation FOR uml::Property»
 	<h:column «IF isCompositionContainer()» groupOn="#{«genPropertyLabel()».displayName}" «ENDIF»>
 		<f:facet name="header">
-			<ui:include src="layout/sort.xhtml">
+			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
 				<ui:param name="propertyLabel" value="«msgBundleKey()-»" />
 				<ui:param name="propertyPath" value="«genPropertyLabel()»" />
@@ -131,14 +152,16 @@
 «DEFINE genProperty FOR uml::Property-»
 	<h:column>
 		<f:facet name="header">
-			<ui:include src="layout/sort.xhtml">
+			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
 				<ui:param name="propertyLabel" value="«msgBundleKey()-»" />
 				<ui:param name="propertyPath" value="«getCurrentEntity().asVar()».«name»" />
 			</ui:include>
 		</f:facet>
 		<h:outputText value="#{_«getCurrentEntity().asVar()».«name»}">
+		«REM»
 			<s:convertDateTime type="both" dateStyle="short" />
+		«ENDREM»
 		</h:outputText>
 	</h:column>
 «ENDDEFINE»
