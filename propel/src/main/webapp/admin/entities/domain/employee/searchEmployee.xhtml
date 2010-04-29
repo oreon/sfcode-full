@@ -1,0 +1,61 @@
+
+<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:form>
+	<rich:simpleTogglePanel switchType="client" label="Search">
+			<div class="entry errors"><h:messages globalOnly="true" /></div>
+			<h:panelGrid columns="5">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.person_firstName}  "/> <br/>
+	<h:inputText  id="Person_firstName" value="#{employee.firstName}" />
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.person_lastName}  "/> <br/>
+	<h:inputText  id="Person_lastName" value="#{employee.lastName}" />
+	</h:panelGroup>
+
+	
+	
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.employee_department}  "/> <br/>
+	<h:selectOneMenu id="Employee_department" value="#{employee.department}" >
+		<s:selectItems value="#{departmentList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+			
+			</h:panelGrid>
+			
+	<div class="buttonBox">
+		<h:commandButton value="Search"  action="#{employeeAction.search}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Clear Search" immediate="true" action="#{employeeAction.clearSearch}" /> 
+	</div>
+		</rich:simpleTogglePanel>
+	</h:form>
+</html>
+	

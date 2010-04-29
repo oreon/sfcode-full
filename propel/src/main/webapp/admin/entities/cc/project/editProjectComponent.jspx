@@ -1,0 +1,132 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="Project " />
+		</f:facet>
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.project_solution}  "/>
+		
+	
+	<h:selectOneMenu id="Project_solution" value="#{project.solution}" required="true">
+		<s:selectItems value="#{solutionList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+	
+
+		
+		<h:message styleClass="error errors" for="Project_solution" />
+		
+		
+	
+
+	
+		
+	
+
+
+	 
+	
+	
+		
+		<h:outputText value="#{msg.abstractProjectComposite_name} * "/>
+		
+
+	<ice:inputText  id="AbstractProjectComposite_name" required="true"  value="#{project.name}" />
+   
+
+		
+		<h:message styleClass="error errors" for="AbstractProjectComposite_name" />
+		
+		
+	
+
+	
+	
+		</h:panelGrid>
+		
+	
+ 
+	<h:commandButton  value="New Component" action="#{projectAction.addComponents}" >
+		<s:conversationId/>
+	</h:commandButton>
+ 
+	<h:dataTable id="components_data" var="component" rendered="#{not empty projectAction.listComponents}"
+					value="#{projectAction.listComponents}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+
+
+	 
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.abstractProjectComposite_name} * "/></f:facet>
+		
+
+	<ice:inputText  id="AbstractProjectComposite_name" required="true"  value="#{component.name}" />
+   
+
+		
+		<h:message styleClass="error errors" for="AbstractProjectComposite_name" />
+		</h:column>
+		
+	
+
+	
+	
+		
+		
+	<h:column>
+		
+	<h:commandButton  value="New Component" action="#{projectAction.addComponents}" >
+		<s:conversationId/>
+	</h:commandButton>
+	</h:column>
+		
+	<h:column>
+		<h:commandButton value="Delete" action="#{projectAction.deleteComponents(component)}" immediate="true">
+			<s:conversationId/>
+		</h:commandButton>
+	</h:column>
+		
+			
+	</h:dataTable>
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{projectAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{projectAction.cancel}" /> 
+		
+	</div>
+
+	</h:panelGroup>
+	</html>
+	

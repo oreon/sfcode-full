@@ -1,0 +1,68 @@
+
+<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:form>
+	<rich:simpleTogglePanel switchType="client" label="Search">
+			<div class="entry errors"><h:messages globalOnly="true" /></div>
+			<h:panelGrid columns="5">
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.lineItem_productionService}  "/> <br/>
+	<h:selectOneMenu id="LineItem_productionService" value="#{lineItem.productionService}" >
+		<s:selectItems value="#{productionServiceList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.lineItem_qty}  "/> <br/>
+	<h:inputText  id="LineItem_qty" value="#{lineItem.qty}" />
+	</h:panelGroup>
+
+	
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.lineItem_budget}  "/> <br/>
+	<h:selectOneMenu id="LineItem_budget" value="#{lineItem.budget}" >
+		<s:selectItems value="#{budgetList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+			
+			</h:panelGrid>
+			
+	<div class="buttonBox">
+		<h:commandButton value="Search"  action="#{lineItemAction.search}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Clear Search" immediate="true" action="#{lineItemAction.clearSearch}" /> 
+	</div>
+		</rich:simpleTogglePanel>
+	</h:form>
+</html>
+	

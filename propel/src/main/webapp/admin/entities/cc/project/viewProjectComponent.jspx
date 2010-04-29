@@ -1,0 +1,108 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="Project " />
+		</f:facet>
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.project_solution}  "/>
+		
+	
+	<ice:outputText   value="#{project.solution.displayName}" />
+	
+
+		
+		
+		
+		
+	
+
+	
+		
+	
+
+
+	 
+	
+	
+		
+		<h:outputText value="#{msg.abstractProjectComposite_name}  "/>
+		
+
+	<ice:outputText    id="AbstractProjectComposite_name"   value="#{project.name}" />
+   
+
+		
+		
+		
+		
+	
+
+	
+	
+		</h:panelGrid>
+		
+	
+	
+	<h:dataTable id="components_data" var="component" rendered="#{not empty projectAction.listComponents}"
+					value="#{projectAction.listComponents}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+
+
+	 
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.abstractProjectComposite_name}  "/></f:facet>
+		
+
+	<ice:outputText    id="AbstractProjectComposite_name"   value="#{component.name}" />
+   
+
+		
+		
+		</h:column>
+		
+	
+
+	
+	
+		
+			
+	</h:dataTable>
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Back To Listing" immediate="true" action="#{projectAction.cancel}" /> 
+		
+	</div>
+
+	</h:panelGroup>
+	</html>
+	
