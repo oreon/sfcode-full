@@ -33,15 +33,16 @@
 	</persistence:filter>
 
 	<persistence:entity-manager-factory
-		name="entityManagerFactory" persistence-unit-name="${artifactId}" />
+		name="entityManagerFactory" persistence-unit-name="appEntityManager" />
 
 	<persistence:managed-persistence-context
 		auto-create="true" entity-manager-factory="#{entityManagerFactory}"
 		name="entityManager">
-		
-			<persistence:filters> <value>#{archivedFilter}</value>
-			</persistence:filters>
-		
+
+		<persistence:filters>
+			<value>#{archivedFilter}</value>
+		</persistence:filters>
+
 	</persistence:managed-persistence-context>
 
 	<transaction:entity-transaction
