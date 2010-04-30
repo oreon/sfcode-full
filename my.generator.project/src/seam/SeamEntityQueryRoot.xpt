@@ -51,8 +51,10 @@ public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
     private «name» «name.toFirstLower()» = new «name»();
     
    	private static final String[] RESTRICTIONS = {
+   		"«asVar()».id = #{«asVar()»List.«asVar()».id})",
+   	
 		«EXPAND genAttribAsOutput FOR this»
-	
+		
 		"«asVar()».dateCreated <= #{«asVar()»List.dateCreatedRange.end}",
 		"«asVar()».dateCreated >= #{«asVar()»List.dateCreatedRange.begin}",
 	};
@@ -65,6 +67,11 @@ public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
 
 	public «name» get«name»() {
 		return «asVar()»;
+	}
+	
+	@Override
+	public Class<«name»> getEntityClass() {
+		return «name».class;
 	}
 }
 «ENDFILE»
@@ -104,6 +111,14 @@ public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
  "«genPropertyLabel()» = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»})",
 «ENDDEFINE»
 
+«DEFINE genProperty FOR uml::Enumeration-»	
+ "en «genPropertyLabel()» = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»})",
+«ENDDEFINE»
+
+
+«DEFINE genProperty FOR String-»
+		ENM <h:outputText value="#{«getCurrentEntity().asVar()».«this»«this == "createdByUser"?".displayName":""»}" />
+«ENDDEFINE»
 
 
 
