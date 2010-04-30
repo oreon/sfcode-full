@@ -31,7 +31,7 @@
 		«EXPAND genId FOR this-»	
 		«EXPAND genAttribAsOutput FOR this-»
 		«EXPAND genPropsFromBusinessEntity FOR this-»
-		«EXPAND genId FOR this-»	
+		«EXPAND genCreationDate FOR this-»	
 		«EXPAND genLink("view", "eye.png") FOR this»
 		«EXPAND genLink ("edit", "edit.png")FOR this»
 		«EXPAND genDeleteLink FOR this»
@@ -177,7 +177,7 @@
 		<f:facet name="header">
 			<h:outputText value="«msgBundleKey()-»" />
 		</f:facet>
-		<h:outputText value="#{«getCurrentEntity().asVar()».«this»«this == "createdByUser"?".displayName":""»}" />
+		ENM <h:outputText value="#{«getCurrentEntity().asVar()».«this»«this == "createdByUser"?".displayName":""»}" />
 	</h:column>
 «ENDDEFINE»
 
@@ -190,7 +190,7 @@
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
-				<ui:param name="propertyLabel" value="Creation Date" />
+				<ui:param name="propertyLabel" value="Id" />
 				<ui:param name="propertyPath" value="«getCurrentEntity().asVar()».id" />
 			</ui:include>
 		</f:facet>
