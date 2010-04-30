@@ -90,8 +90,18 @@
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
-	<«getInputControlSearch()»  id="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}" />
+	«IF type.name == "boolean" || type.name == "Boolean"»
+	<h:selectOneMenu id="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}" required="false">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="True" itemValue="true"/>
+		<f:selectItem itemLabel="False" itemValue="false"/>
+	</h:selectOneMenu>
+	«ELSE»
+		<«getInputControlSearch()»  id="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}" />
+	«ENDIF»
+	
 «ENDDEFINE»
+
 
 «DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
 	<h:selectOneMenu id="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}" required="«getAssocOptional()»">
