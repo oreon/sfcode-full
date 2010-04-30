@@ -103,7 +103,9 @@ public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
 
 «DEFINE genProperty FOR uml::Property-»	
 «IF this.isString()»
- "lower(«genPropertyLabel()») like concat(lower(#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}),'%')",
+  "lower(«genPropertyLabel()») like concat(lower(#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}),'%')",
+«ELSE»
+  "«genPropertyLabel()» = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}",
 «ENDIF»
 «ENDDEFINE»
 
@@ -114,12 +116,6 @@ public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
 «DEFINE genProperty FOR uml::Enumeration-»	
  "en «genPropertyLabel()» = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»})",
 «ENDDEFINE»
-
-
-«DEFINE genProperty FOR String-»
-		ENM <h:outputText value="#{«getCurrentEntity().asVar()».«this»«this == "createdByUser"?".displayName":""»}" />
-«ENDDEFINE»
-
 
 
 «DEFINE genImports FOR wcprofile::Entity»
