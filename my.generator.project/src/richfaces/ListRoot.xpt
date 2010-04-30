@@ -27,9 +27,11 @@
 	  <f:facet name="header">«name» Search Results (#{empty «asVar()»List.resultList ? 0 : («asVar()»List.paginated ? «asVar()»List.resultCount : «asVar()»List.resultList.size)})</f:facet>
 	
 		<rich:dataTable  var="_«asVar()»" value="#{«asVar()»List.resultList}" 
-		rowClasses="odd, even" styleClass="dataTable"  rendered="#{not empty «asVar()»List.resultList}">		
+		rowClasses="odd, even" styleClass="dataTable"  rendered="#{not empty «asVar()»List.resultList}">	
+		«EXPAND genId FOR this-»	
 		«EXPAND genAttribAsOutput FOR this-»
 		«EXPAND genPropsFromBusinessEntity FOR this-»
+		«EXPAND genId FOR this-»	
 		«EXPAND genLink("view", "eye.png") FOR this»
 		«EXPAND genLink ("edit", "edit.png")FOR this»
 		«EXPAND genDeleteLink FOR this»
@@ -159,10 +161,10 @@
 			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
 				<ui:param name="propertyLabel" value="«msgBundleKey()-»" />
-				<ui:param name="propertyPath" value="«getCurrentEntity().asVar()».«name»" />
+				<ui:param name="propertyPath" value="«genPropertyLabel()»" />
 			</ui:include>
 		</f:facet>
-		<h:outputText value="#{_«getCurrentEntity().asVar()».«name»}">
+		<h:outputText value="#{_«genPropertyLabel()»}">
 		«REM»
 			<s:convertDateTime type="both" dateStyle="short" />
 		«ENDREM»
@@ -178,3 +180,39 @@
 		<h:outputText value="#{«getCurrentEntity().asVar()».«this»«this == "createdByUser"?".displayName":""»}" />
 	</h:column>
 «ENDDEFINE»
+
+
+«REM» Creation date and ID  «ENDREM»
+
+
+«DEFINE genId FOR uml::Class»
+	<h:column >
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
+				<ui:param name="propertyLabel" value="Creation Date" />
+				<ui:param name="propertyPath" value="«getCurrentEntity().asVar()».id" />
+			</ui:include>
+		</f:facet>
+		<h:outputText    value="#{_«getCurrentEntity().asVar()».id}"  >
+		</h:outputText>
+	</h:column>
+«ENDDEFINE»
+
+
+«DEFINE genCreationDate FOR uml::Class»
+	<h:column >
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
+				<ui:param name="propertyLabel" value="Creation Date" />
+				<ui:param name="propertyPath" value="«getCurrentEntity().asVar()».dateCreated" />
+			</ui:include>
+		</f:facet>
+		<h:outputText    value="#{_«getCurrentEntity().asVar()».dateCreated}"  >
+			<s:convertDateTime type="both" dateStyle="short" />
+		</h:outputText>
+	</h:column>
+«ENDDEFINE»
+
+

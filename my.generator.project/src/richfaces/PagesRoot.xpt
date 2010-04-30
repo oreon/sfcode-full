@@ -44,6 +44,7 @@
 
     
     «FOREACH allOwnedElements().typeSelect(wcprofile::Entity) AS e»
+    «setAsCurrentEntity(e)-»
     <page view-id="«e.getViewFile("edit")»" conversation-required="false">
     	<!-- <description>Edit «e.name»: #{«e.name.toFirstLower()».displayName}</description> -->
     	<navigation> 
@@ -83,12 +84,12 @@
 		<param name="dir" value="#{«e.asVar()»List.orderDirection}" />
 
 		<param name="from" />
-		«FOREACH  e.getAllAttributes().select( a |!a.isMultivalued() && !a.isSecret()  ) AS a»
-		<param name="«a.getId()»" value="#{«e.asVar()»List.«e.asVar()».«a.name»}" />
-		«ENDFOREACH»
+		«EXPAND genAttribAsOutput FOR e»
 		
 	</page>
     «ENDFOREACH»
+    
+    
 
     <exception class="org.jboss.seam.framework.EntityNotFoundException">
         <redirect view-id="/error.«getExtension()»">
@@ -147,3 +148,36 @@
 «ENDFILE»
 «ENDDEFINE»
 
+
+
+
+«DEFINE genAttribAsOutput FOR uml::Class»
+	«FOREACH allParents() AS e-»
+	«EXPAND genAttribute FOREACH e.getAllAttributes().select( a |!a.isMultivalued() && !a.isSecret()  ) -»
+	«ENDFOREACH»
+	«EXPAND genAttribute FOREACH getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret()) -»
+«ENDDEFINE»
+
+«DEFINE genAttribute FOR uml::Property -»
+	«IF association != null -»
+		«IF isMultivalued() || isSecret()»
+		«ELSE»
+			«IF type.getAppliedStereotype("wcprofile::Embeddable") != null-»
+				«type.setCurrentEmbeddable()»
+				«EXPAND genAttribAsOutput FOR this.type-»
+			«ELSE»
+				«EXPAND genAssociation FOR this-»
+			«ENDIF»
+		«ENDIF»
+	«ELSE-»
+		«EXPAND genProperty FOR this-»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genProperty FOR uml::Property-»	
+		<param name="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}" />
+«ENDDEFINE»
+
+«DEFINE genAssociation FOR uml::Property-»	
+		<param name="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}" />
+«ENDDEFINE»
