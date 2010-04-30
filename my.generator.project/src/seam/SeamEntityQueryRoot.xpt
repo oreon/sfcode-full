@@ -27,6 +27,7 @@ public class «name»ListQuery extends «name»ListQueryBase implements java.io.Seri
 
 
 «DEFINE BaseGen FOR uml::Class»
+«setAsCurrentEntity(this)-»
 «FILE packagePath() +"/action/" +name+"ListQueryBase.java"»
 package « packageName() ».action;
 
@@ -39,19 +40,18 @@ import org.witchcraft.seam.action.BaseAction;
 
 import «packageName()».«name»;
 
-
-public abstract class «name»ListQueryBase extends EntityQuery<«name»> {
+/**
+ * @author WitchcraftMDA Seam Cartridge
+ *
+ */
+public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
 
     private static final String EJBQL = "select «asVar()» from «name» «asVar()»";
-    
-    private Range<java.util.Date> dateCreatedRange = new Range<Date>();
     
     private «name» «name.toFirstLower()» = new «name»();
     
    	private static final String[] RESTRICTIONS = {
-		«FOREACH getAllAttributes() AS e»
-			"lower(«asVar()».«e.name») like concat(lower(#{«asVar()»List.«asVar()».«e.name»}),'%')",
-		«ENDFOREACH»
+		«EXPAND genAttribAsOutput FOR this»
 	
 		"«asVar()».dateCreated <= #{«asVar()»List.dateCreatedRange.end}",
 		"«asVar()».dateCreated >= #{«asVar()»List.dateCreatedRange.begin}",
@@ -66,25 +66,49 @@ public abstract class «name»ListQueryBase extends EntityQuery<«name»> {
 	public «name» get«name»() {
 		return «asVar()»;
 	}
-	
-	
-	public Range<java.util.Date> getDateCreatedRange() {
-		return dateCreatedRange;
-	}
-
-	public void setDateCreatedRange(Range<java.util.Date> dateCreatedRange) {
-		this.dateCreatedRange = dateCreatedRange;
-	}
-	
-
 }
-
 «ENDFILE»
 «ENDDEFINE»
 
 
+«DEFINE genAttribAsOutput FOR uml::Class»
+	«FOREACH allParents() AS e-»
+	«EXPAND genAttribute FOREACH e.getAllAttributes().select( a |!a.isMultivalued() && !a.isSecret()  ) -»
+	«ENDFOREACH»
+	«EXPAND genAttribute FOREACH getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret()) -»
+«ENDDEFINE»
+
+«DEFINE genAttribute FOR uml::Property -»
+	«IF association != null -»
+		«IF isMultivalued() || isSecret()»
+		«ELSE»
+			«IF type.getAppliedStereotype("wcprofile::Embeddable") != null-»
+				«type.setCurrentEmbeddable()»
+				«EXPAND genAttribAsOutput FOR this.type-»
+			«ELSE»
+				«EXPAND genAssociation FOR this-»
+			«ENDIF»
+		«ENDIF»
+	«ELSE-»
+		«EXPAND genProperty FOR this-»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genProperty FOR uml::Property-»	
+«IF this.isString()»
+ "lower(«genPropertyLabel()») like concat(lower(#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}),'%')",
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genAssociation FOR uml::Property-»	
+ "«genPropertyLabel()» = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»})",
+«ENDDEFINE»
+
+
+
+
 «DEFINE genImports FOR wcprofile::Entity»
-	
+
 import java.util.Arrays;
 import java.util.Date;
 
@@ -92,6 +116,7 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.framework.EntityQuery;
+import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
 	
 «ENDDEFINE»
