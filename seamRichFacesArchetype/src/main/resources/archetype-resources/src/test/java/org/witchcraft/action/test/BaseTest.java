@@ -12,7 +12,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 public abstract class BaseTest<T extends BusinessEntity> extends SeamTest{
 	
-	private static final String NOMBRE_PERSISTENCE_UNIT = "${artifactId}";
+	private static final String NOMBRE_PERSISTENCE_UNIT = "appEntityManager";
 	private EntityManagerFactory emf;
 	private EntityManager em;
 
