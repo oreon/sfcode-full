@@ -4,7 +4,9 @@ import org.jboss.seam.annotations.bpm.EndTask;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.bpm.StartTask;
 import org.jboss.seam.annotations.*;
+import org.jboss.seam.bpm.TaskInstance;
 import org.jboss.seam.ScopeType;
+import org.jbpm.taskmgmt.def.Task;
 
 @Name("orderStock")
 //@Scope(ScopeType.CONVERSATION)
@@ -32,6 +34,12 @@ public class OrderStock
   @StartTask
   @EndTask(transition="next")
     public void done() {
+	  
+	  TaskInstance task = new TaskInstance();
+	 // task.getTaskInstance().ge
+	  //task.getActorIdExpression()
+	 // task.getName()
+	//  task.getStartState().getName()
   }
   @StartTask
   @EndTask(transition="cancel")

@@ -11,6 +11,7 @@ import org.witchcraft.users.Role;
 import org.witchcraft.users.User;
 import org.witchcraft.users.action.UserAction;
 
+
 public class AuthenticatorTest extends BaseTest<User> {
 	
 	UserAction action = new UserAction();
@@ -46,28 +47,36 @@ public class AuthenticatorTest extends BaseTest<User> {
     @Test
 	public void testRegisterAction() {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
-		em.getTransaction().begin();
+		
 		
 		Query query = em.createQuery("Select u From User u where u.userName = ?1 ");
 		query.setParameter(1, "admin");
 		if(!query.getResultList().isEmpty())
 			return;
 
+		createUser(em, "admin", "admin", "admin");
+		createUser(em, "jim", "jim", "support");
+		createUser(em, "roger", "roger", "clerk");
+		createUser(em, "erica", "erica", "manager");
+		
+	
+		em.close();
+	}
+
+	private User createUser(EntityManager em, String username, String password, String role) {
+		em.getTransaction().begin();
 		User admin = new User();
-		admin.setUserName("admin");
-		admin.setPassword("admin");
+		admin.setUserName(username);
+		admin.setPassword(password);
 		
 		Role adminRole = new Role();
-		adminRole.setName("admin");
-		
+		adminRole.setName(role);
 		admin.getRoles().add(adminRole);
 		
 		getAction().setEntity(admin);
-
 		assert "save".equals(getAction().save()) : "Not return waiting result";
-
 		em.getTransaction().commit();
-		em.close();
+		return admin;
 	}
     
 }
