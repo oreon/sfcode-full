@@ -113,4 +113,20 @@
 	</h:selectOneMenu>
 «ENDDEFINE»
 
+
+«DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
+«IF type.name == "imageFile"»
+	«" "» 
+«ELSEIF type.isRangeType()»
+	<h:inputText  id="«getId()»_begin" value="#{«getCurrentEntity().asVar()»List.«getId()»Range.begin}" >
+			<f:converter converterId="javax.faces.«type.name»" />
+	</h:inputText>
+	<h:inputText  id="«getId()»_end" value="#{«getCurrentEntity().asVar()»List.«getId()»Range.end}" >
+		<f:converter converterId="javax.faces.«type.name»" />
+	</h:inputText>
+«ELSE»
+	<«getTextControl()»  id="«getId()»" «isCurrentEditMode()? "required=\"" + getRequired() +"\"":""»  value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
+«ENDIF»   
+«ENDDEFINE»
+
 «

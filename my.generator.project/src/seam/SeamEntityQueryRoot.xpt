@@ -50,10 +50,13 @@ public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
     
     private «name» «name.toFirstLower()» = new «name»();
     
+    «EXPAND genAttribAsOutput(true) FOR this»
+   
+    
    	private static final String[] RESTRICTIONS = {
    		"«asVar()».id = #{«asVar()»List.«asVar()».id})",
    	
-		«EXPAND genAttribAsOutput FOR this»
+		«EXPAND genAttribAsOutput(false) FOR this»
 		
 		"«asVar()».dateCreated <= #{«asVar()»List.dateCreatedRange.end}",
 		"«asVar()».dateCreated >= #{«asVar()»List.dateCreatedRange.begin}",
@@ -78,43 +81,70 @@ public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
 «ENDDEFINE»
 
 
-«DEFINE genAttribAsOutput FOR uml::Class»
+«DEFINE genAttribAsOutput(boolean createRangeDeclarations) FOR uml::Class»
 	«FOREACH allParents() AS e-»
-	«EXPAND genAttribute FOREACH e.getAllAttributes().select( a |!a.isMultivalued() && !a.isSecret()  ) -»
+	«EXPAND genAttribute(createRangeDeclarations) FOREACH e.getAllAttributes().select( a |!a.isMultivalued() && !a.isSecret()  ) -»
 	«ENDFOREACH»
-	«EXPAND genAttribute FOREACH getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret()) -»
+	«EXPAND genAttribute(createRangeDeclarations) FOREACH getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret()) -»
 «ENDDEFINE»
 
-«DEFINE genAttribute FOR uml::Property -»
+«DEFINE genAttribute(boolean createRangeDeclarations) FOR uml::Property -»
 	«IF association != null -»
 		«IF isMultivalued() || isSecret()»
 		«ELSE»
 			«IF type.getAppliedStereotype("wcprofile::Embeddable") != null-»
 				«type.setCurrentEmbeddable()»
-				«EXPAND genAttribAsOutput FOR this.type-»
+				«EXPAND genAttribAsOutput(createRangeDeclarations) FOR this.type-»
 			«ELSE»
-				«EXPAND genAssociation FOR this-»
+				«EXPAND genAssociation(createRangeDeclarations) FOR this-»
 			«ENDIF»
 		«ENDIF»
 	«ELSE-»
-		«EXPAND genProperty FOR this-»
+		«EXPAND genProperty(createRangeDeclarations) FOR this-»
 	«ENDIF»
 «ENDDEFINE»
 
-«DEFINE genProperty FOR uml::Property-»	
-«IF this.isString()»
+«DEFINE genProperty(boolean createRangeDeclarations) FOR uml::Property-»
+	«IF createRangeDeclarations == true »
+	«IF this.type.isRangeType()»
+		 
+		private Range<«type.name»> «getId()»Range = new Range<«type.name»>();
+		public Range<«type.name»> get«getId().toFirstUpper()»Range(){
+			return «getId()»Range;
+		}
+		public void  set«getId().toFirstUpper()»(Range<«type.name»> «getId()»Range ){
+			this.«getId()»Range = «getId()»Range;
+		}
+	«ENDIF»	
+	«ELSE»
+		«EXPAND genPropertyRestrictions»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genPropertyRestrictions FOR uml::Property»
+
+«IF this.isString()-»
   "lower(«genPropertyLabel()») like concat(lower(#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}),'%')",
+«ELSEIF this.type.isRangeType()»
+	"«genPropertyLabel()» >= #{«getCurrentEntity().asVar()»List.«getId()»Range.begin}",
+	"«genPropertyLabel()» <= #{«getCurrentEntity().asVar()»List.«getId()»Range.end}",			
 «ELSE»
   "«genPropertyLabel()» = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}",
 «ENDIF»
+
 «ENDDEFINE»
 
-«DEFINE genAssociation FOR uml::Property-»	
+«DEFINE genAssociation(boolean createRangeDeclarations) FOR uml::Property-»	
+«IF !createRangeDeclarations»
  "«genPropertyLabel()» = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»})",
+«ENDIF»
 «ENDDEFINE»
 
-«DEFINE genProperty FOR uml::Enumeration-»	
- "en «genPropertyLabel()» = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»})",
+«DEFINE genProperty(boolean createRangeDeclarations) FOR uml::Enumeration-»	
+«IF !createRangeDeclarations»
+" «genPropertyLabel()» = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»})",
+«ENDIF»
+ 
 «ENDDEFINE»
 
 
