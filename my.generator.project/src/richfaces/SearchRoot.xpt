@@ -125,7 +125,7 @@
 		<f:converter converterId="javax.faces.«type.name»" />
 	</h:inputText>
 «ELSE»
-	<«getTextControl()»  id="«getId()»" «isCurrentEditMode()? "required=\"" + getRequired() +"\"":""»  value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
+	<«getInputControlSearch()»  id="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}" />
 «ENDIF»   
 «ENDDEFINE»
 
