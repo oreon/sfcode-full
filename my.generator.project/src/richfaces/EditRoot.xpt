@@ -175,7 +175,9 @@
 
 «DEFINE genAssociation FOR uml::Property -»
 	«IF !isCurrentEditMode()»
-	<s:link value="#{«genPropertyLabel()-».displayName}" />
+	<s:link value="#{«genPropertyLabel()-».displayName}" view="«type.getViewFile("view")»" >
+		<f:param name="id" value="#{«genPropertyLabel()-».id}" />
+	</s:link>
 	«ELSE»
 	<h:selectOneMenu id="«getId()»" value="#{«genPropertyLabel()-»}" required="«!getAssocOptional()»">
 		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
