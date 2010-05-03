@@ -76,25 +76,33 @@ getRequiredStar(Property prop):
 isCurrentEditMode() && prop.getRequired() == "true"?"*":"";
 
 String getTextControl(Property prop):
-prop.getJSFPrefix() + ":" + (isCurrentEditMode()?getInputControl(prop):"outputText " + prop.getEscape());
+isCurrentEditMode() ? getInputControl(prop):getOutputControl(prop) + prop.getEscape();
+
 
 //In case of lob properties e.g. description we need to escape the html 
 String getEscape(Property prop):
-prop.isType("largeText")?"escape=\"false\" ":" ";
+prop.isType("largeText")?" escape=\"false\" ":" ";
 
 String getInputControl(Property prop):
 if(prop.type.name == "largeText")  
 	then getRichTextEditor()
 else if ( prop.isType("boolean") || prop.isType("Boolean") )
-	then "selectBooleanCheckbox"
+	then prop.getJSFPrefix() + ":selectBooleanCheckbox"
 else if (prop.isType("Date")) then
-	"calendar"
+	"rich:calendar"
 else if (prop.isColumn() && prop.secret ) then
-	"inputSecret redisplay=\"true\" "
+	prop.getJSFPrefix() + ":inputSecret redisplay=\"true\" "
 else if (prop.isColumn() && prop.textSize > 0 ) then
-	"inputText size=\"" + prop.textSize +"\""
+	prop.getJSFPrefix() + ":inputText size=\"" + prop.textSize +"\""
 else	
-	"inputText";
+	prop.getJSFPrefix() + ":inputText";
+	
+	
+String getOutputControl(Property prop):
+if(prop.type.name == "largeText")  
+	then "s:formattedText"
+else	
+	prop.getJSFPrefix() + ":outputText";	
 
 
 String getRichTextEditor():
@@ -150,7 +158,7 @@ String getTemplate():
 "/admin/template." + getExtension();
 
 String getId(Property prop):
-prop.class.name + "_" + prop.name;
+prop.class.name.toFirstLower() + "_" + prop.name;
 
 String getErrorMessageHolder(Property prop):
 isCurrentEditMode()?"<h:message styleClass=\"error errors\" for=\"" + prop.getId() + "\" />":"";
