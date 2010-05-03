@@ -35,7 +35,18 @@
 <ui:composition «EXPAND WebRoot::genIncludes-» template = "«getTemplate()»" >	
 	<ui:define name="content">
 		<h:form>
-			<ui:include src = "«"view" + name+ "Component." + getExtension()»" />
+			<rich:tabPanel switchType="ajax">
+				<rich:tab label="«name»">
+					<ui:include src = "«"view" + name+ "Component." + getExtension()»" />
+				</rich:tab>
+			«FOREACH getOutgoingAssociations() AS a»
+				<rich:tab label="«a.name.toFirstUpper()»">
+					
+				</rich:tab>
+			«ENDFOREACH»	
+				
+			</rich:tabPanel>
+			<br/>
 			«FOREACH getNonComposedManyAssociations() AS a»
 			«REM»comment
 			<rich:panel label="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
@@ -45,9 +56,9 @@
 			«ENDREM»
 			«ENDFOREACH»
 		</h:form>
-		«REM»comment
+		<br/>
 		<wc:comments backingAction="#{«getAction()»}"/>
-		«ENDREM»
+		
 	</ui:define> 
 </ui:composition>
 	«ENDFILE»
@@ -164,7 +175,7 @@
 
 «DEFINE genAssociation FOR uml::Property -»
 	«IF !isCurrentEditMode()»
-	<«getTextControl()» value="#{«genPropertyLabel()-».displayName}" />
+	<s:link value="#{«genPropertyLabel()-».displayName}" />
 	«ELSE»
 	<h:selectOneMenu id="«getId()»" value="#{«genPropertyLabel()-»}" required="«!getAssocOptional()»">
 		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
