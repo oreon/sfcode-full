@@ -159,7 +159,7 @@ prop.type.name + "." +  prop.getDefault();
 
 
 getTransient(Column col):
-col.isDerived() ? "@Transient":"";
+col.isDerived() ? "@Formula(value =" +  "\"" + col.derivedProperty + "\")":"";  
 
 isDerived(Column col):
 col.derivedProperty != null;

@@ -261,7 +261,10 @@
 		}
 		
 		public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
+		«REM»comment
 			return «isColumn() && derivedProperty != null ? derivedProperty :  name»;
+		«ENDREM»
+			return «name»;
 		}
 	«ENDIF»
 «ENDDEFINE»
@@ -269,7 +272,8 @@
 «DEFINE genGetterSetter FOR wcprofile::DerivedProperty»
 //derived property - «name»
 public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
-	return «derivation != null ? derivation :  name»;
+	«REM» return «derivation != null ? derivation :  name»;«ENDREM»
+	return «name»;
 }
 «ENDDEFINE»
 
@@ -305,6 +309,7 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	import org.apache.solr.analysis.SnowballPorterFilterFactory;
 	import org.apache.solr.analysis.StandardTokenizerFactory;
 	import org.hibernate.annotations.Cache;
+	import org.hibernate.annotations.Formula;
 	import org.hibernate.annotations.CacheConcurrencyStrategy;
 	import org.hibernate.annotations.Filter;
 	import org.hibernate.search.annotations.AnalyzerDef;
@@ -316,6 +321,7 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	import org.hibernate.search.annotations.TokenizerDef;
 	import org.hibernate.search.annotations.ContainedIn;
 	import org.hibernate.search.annotations.IndexedEmbedded;
+	
 	
 	import org.hibernate.validator.Length;
 	import org.hibernate.validator.NotNull;
