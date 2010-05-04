@@ -37,24 +37,24 @@
 		<h:form>
 			<rich:tabPanel switchType="ajax">
 				<rich:tab label="«name»">
-					<ui:include src = "«"view" + name+ "Component." + getExtension()»" />
+					<ui:include src = "«getComponentViewFile("view")»" />
 				</rich:tab>
 			«FOREACH getOutgoingAssociations() AS a»
 				<rich:tab label="«a.name.toFirstUpper()»">
-					
+					<ui:include src = "«a.type.getComponentViewFile("view")»" />
 				</rich:tab>
 			«ENDFOREACH»	
 				
 			</rich:tabPanel>
 			<br/>
+			
+			<rich:tabPanel>
 			«FOREACH getNonComposedManyAssociations() AS a»
-			«REM»comment
-			<rich:panel label="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
-				<ui:include
-					src="../../«a.type.package.name»/«a.type.asVar()»/list«a.type.name.toFirstUpper()»Component.«getExtension()»  />
-			</rich:panel>
-			«ENDREM»
+			<rich:tab label="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
+				<ui:include src = "«a.type.getComponentViewFile("list")»" />
+			</rich:tab>
 			«ENDFOREACH»
+			</rich:tabPanel>
 		</h:form>
 		<br/>
 		<wc:comments backingAction="#{«getAction()»}"/>

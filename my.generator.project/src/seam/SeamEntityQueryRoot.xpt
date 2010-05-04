@@ -46,7 +46,7 @@ import «packageName()».«name»;
  */
 public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
 
-    private static final String EJBQL = "select «asVar()» from «name» «asVar()»";
+    //private static final String EJBQL = "select «asVar()» from «name» «asVar()»";
     
     private «name» «name.toFirstLower()» = new «name»();
     
@@ -62,12 +62,6 @@ public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
 		"«asVar()».dateCreated >= #{«asVar()»List.dateCreatedRange.begin}",
 	};
 
-	public «name»ListQueryBase() {
-		setEjbql(EJBQL);
-		setRestrictionExpressionStrings(Arrays.asList(RESTRICTIONS));
-		setMaxResults(25);
-	}
-
 	public «name» get«name»() {
 		return «asVar()»;
 	}
@@ -75,6 +69,12 @@ public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
 	@Override
 	public Class<«name»> getEntityClass() {
 		return «name».class;
+	}
+	
+	@Override
+	public String[] getEntityRestrictions() {
+		// TODO Auto-generated method stub
+		return RESTRICTIONS;
 	}
 }
 «ENDFILE»

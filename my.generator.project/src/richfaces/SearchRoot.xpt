@@ -96,6 +96,10 @@
 		<f:selectItem itemLabel="True" itemValue="true"/>
 		<f:selectItem itemLabel="False" itemValue="false"/>
 	</h:selectOneMenu>
+	«ELSEIF type.name == "imageFile"»
+	«" "» 
+	«ELSEIF type.isRangeType()»
+		«EXPAND genRangeSearch FOR this»
 	«ELSE»
 		<«getInputControlSearch()»  id="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}" />
 	«ENDIF»
@@ -113,20 +117,25 @@
 	</h:selectOneMenu>
 «ENDDEFINE»
 
-
-«DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
-«IF type.name == "imageFile"»
-	«" "» 
-«ELSEIF type.isRangeType()»
+«DEFINE genRangeSearch FOR uml::Property-»
+	«IF type.name == "Date"-»
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">From</ui:define> <br/>
+		<rich:calendar value="#{«getCurrentEntity().asVar()»List.«getId()»Range.begin}" />
+	</s:decorate>
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">To</ui:define> <br/>
+		<rich:calendar value="#{«getCurrentEntity().asVar()»List.«getId()»Range.end}" />
+	</s:decorate>	
+	«ELSE»
 	<h:inputText  id="«getId()»_begin" value="#{«getCurrentEntity().asVar()»List.«getId()»Range.begin}" >
 			<f:converter converterId="javax.faces.«type.name»" />
 	</h:inputText>
 	<h:inputText  id="«getId()»_end" value="#{«getCurrentEntity().asVar()»List.«getId()»Range.end}" >
 		<f:converter converterId="javax.faces.«type.name»" />
 	</h:inputText>
-«ELSE»
-	<«getInputControlSearch()»  id="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}" />
-«ENDIF»   
+	«ENDIF»
 «ENDDEFINE»
+
 
 «
