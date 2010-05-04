@@ -12,6 +12,8 @@ String getAction(Class cls):
 cls.asVar() + "Action";
 
 
+
+
 boolean isEnum(Type type):
 type.getAppliedStereotype("uml::Enumeration") != null;
 
@@ -164,7 +166,15 @@ String getErrorMessageHolder(Property prop):
 isCurrentEditMode()?"<h:message styleClass=\"error errors\" for=\"" + prop.getId() + "\" />":"";
 
 String getViewFile(Class e,String mode):
-"/admin/entities/" + e.package.name.toFirstLower() + "/" + e.asVar() + "/" + mode + e.name + "." + getExtension();
+getViewFileName(e, mode) + "." + getExtension();
+
+String getComponentViewFile(Class e,String mode):
+getViewFileName(e, mode) + "Component" +  "." + getExtension();
+
+//returns name without extension 
+String getViewFileName(Class e,String mode):
+"/admin/entities/" + e.package.name.toFirstLower() + "/" + e.asVar() + "/" + mode + e.name;
+
 
 
 String getRequired(Property prop):
