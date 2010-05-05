@@ -92,7 +92,7 @@
 		«IF !edit»
 		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" /> 
 		<h:outputText value=" " />
-		<h:commandButton value="Back To Listing" immediate="true" action="#{«getAction()».cancel}" /> 
+		<h:commandButton value="Back To Listing" immediate="true" action="#{redirect.returnToCapturedView()}" /> 
 		«ELSE»
 		<h:commandButton value="Save" action="#{«getAction()».save}" /> 
 		<h:outputText value=" " />
@@ -174,7 +174,7 @@
 
 
 «DEFINE genAssociation FOR uml::Property -»
-	«IF !isCurrentEditMode()»
+	«IF !isCurrentEditMode()-»
 	<s:link value="#{«genPropertyLabel()-».displayName}" view="«type.getViewFile("view")»" >
 		<f:param name="id" value="#{«genPropertyLabel()-».id}" />
 	</s:link>
@@ -185,7 +185,6 @@
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
-	
 	«ENDIF»
 «ENDDEFINE»
 
