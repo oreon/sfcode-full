@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -32,6 +33,7 @@ import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.base.entity.EntityComment;
 import org.witchcraft.base.entity.EntityTemplate;
 
+
 /**
  * The base action class - contains common persistence related methods, also
  * contains comment related functionality
@@ -44,8 +46,8 @@ public abstract class BaseAction<T extends BusinessEntity> {
 
 	@Logger
 	protected Log log;
-
 	@In
+	// @PersistenceContext(type=EXTENDED)
 	protected FullTextEntityManager entityManager;
 
 	@In
@@ -56,6 +58,9 @@ public abstract class BaseAction<T extends BusinessEntity> {
 
 	@RequestParameter
 	private String queryString;
+	
+	@RequestParameter
+	Long id;
 	
 	@In 
 	protected Map<String, UIComponent> uiComponent;
@@ -117,6 +122,7 @@ public abstract class BaseAction<T extends BusinessEntity> {
 
 	@End
 	public String archive(T t) {
+		if(t == null) t = getEntity();
 		t.setArchived(true);
 		entityManager.merge(t);
 		facesMessages.add("Successfully archived  " + t.getDisplayName());
@@ -145,7 +151,6 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		setEntity((T) getEntityTemplate().getEntity());
 	}
 
-	@SuppressWarnings("unchecked")
 	public EntityTemplate getCurrentTemplate() {
 		// TODO Auto-generated method stub
 		return null;
@@ -167,6 +172,7 @@ public abstract class BaseAction<T extends BusinessEntity> {
 
 		updateComposedAssociations();
 		entityManager.persist(getEntity());
+		//entityManager.
 
 		// TODO: replace with statusmessages seam class
 		if (facesMessages != null)
@@ -176,6 +182,41 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		return "save";
 	}
 	
+	public void load(Long entityId) {
+		if (entityId != null) {
+	
+			try {
+				T t = (T) entityManager.createQuery(
+						"Select d from " + getClassName()  + " d where d.id=:id")
+						.setParameter("id", entityId).getSingleResult();
+				setEntity(t);
+
+			} catch (NoResultException noResultException) {
+				facesMessages.add("Invalid Id");
+			}
+		}
+		//return "edit";
+	}
+	
+	public String edit(){
+		load(id);
+		return "edit";
+	}
+	
+	public String view(){
+		load(id);
+		return "view" + getClassName();
+	}
+	
+	public void archive(){
+		load(id);
+		archive(getEntity());
+	}
+	
+	
+	
+	
+	@SuppressWarnings("unchecked")
     public Long getRecordCount() {
         try {
             String queryString = "select count(c) from " +  getClassName() +  " c ";
@@ -191,13 +232,11 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		return "cancel";
 	}
 
-	@SuppressWarnings("unchecked")
 	public void search() {
 		Criteria criteria = createExampleCriteria();
 		setEntityList(criteria.list());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Observer("resetList")
 	public void clearSearch() {
 		try {
@@ -274,7 +313,6 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		return (S) executeSingleResultQuery(query);
 	}
 
-	@SuppressWarnings("unchecked")
 	private <S> S executeSingleResultQuery(Query query) {
 		try {
 			return (S) query.getSingleResult();
@@ -290,7 +328,6 @@ public abstract class BaseAction<T extends BusinessEntity> {
 	 * @see org.witchcraft.model.support.dao.GenericDAO#performTextSearch(java.lang
 	 *      .String)
 	 */
-	@SuppressWarnings("unchecked")
 	public String textSearch() {
 
 		BusinessEntity businessEntity = getEntity();
@@ -331,7 +368,6 @@ public abstract class BaseAction<T extends BusinessEntity> {
 	 * 
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public String reIndex() {
 		final List<T> entries = entityManager.createQuery(
 				"select d from " + getClassName(getEntity()) +  "  d").getResultList();
