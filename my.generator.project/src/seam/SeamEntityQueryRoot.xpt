@@ -54,7 +54,7 @@ public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
    
     
    	private static final String[] RESTRICTIONS = {
-   		"«asVar()».id = #{«asVar()»List.«asVar()».id})",
+   		"«asVar()».id = #{«asVar()»List.«asVar()».id}",
    	
 		«EXPAND genAttribAsOutput(false) FOR this»
 		
@@ -136,7 +136,7 @@ public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
 
 «DEFINE genAssociation(boolean createRangeDeclarations) FOR uml::Property-»	
 «IF !createRangeDeclarations»
- "«genPropertyLabel()» = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»})",
+ "«genPropertyLabel()» = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}",
 «ENDIF»
 «ENDDEFINE»
 
