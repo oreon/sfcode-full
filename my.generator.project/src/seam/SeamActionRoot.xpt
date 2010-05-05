@@ -49,6 +49,11 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 	@Out(required = false)
 	@DataModelSelection
 	private «name» «asVar()»;
+	
+	«FOREACH getOutgoingAssociations() AS e»
+	@In(create = true)
+	 «e.type.getActionFqn()» «e.name»Action;
+	«ENDFOREACH»
 
 	@DataModel
 	private List<«name»> «asVar()»RecordList;	
@@ -68,6 +73,11 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 		this.«asVar()» = t;
 		loadAssociations();
 	}
+	
+	@Override
+	public Class<«name»> getEntityClass() {
+		return «name».class;
+	}
 
 	@Override
 	public void setEntityList(List<«name»> list) {
@@ -85,6 +95,7 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 		}
 		«ENDFOREACH»
 	}
+	«ENDIF»
 	
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
@@ -98,8 +109,19 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 		}
 		«ENDFOREACH»
 		
+		«IF !getNonComposedManyAssociations().isEmpty»
+		try{
+		«FOREACH getNonComposedManyAssociations() AS e»
+		«e.type.fqnPackage("action")»ListQuery «e.type.asVar()»List = («e.type.fqnPackage("action")»ListQuery) Component.getInstance("«e.type.asVar()»List");
+		«e.type.asVar()»List.get«e.name.toFirstUpper().getSingular()»().set«e.opposite.name.toFirstUpper()»(getEntity());
+		«ENDFOREACH»
+		}catch(Exception e){
+			facesMessages.add(e.getMessage());
+		}
+		«ENDIF»
+		
 	}
-	«ENDIF»
+	
 	
 	
 	

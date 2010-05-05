@@ -43,7 +43,11 @@
 
 <h:form>
 <s:div styleClass="actionButtons" rendered="#{empty from}">
-	<s:button value="Create New" action="edit" propagation="none" />
+	<s:button value="Create New" view="«getViewFile("edit")»"  >
+		«FOREACH getOutgoingAssociations() AS e»
+		<f:param name="«e.name»Id" value="#{«asVar()».«e.name».id}" />
+		«ENDFOREACH»
+	</s:button>
 </s:div>
 </h:form>
 
