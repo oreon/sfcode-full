@@ -41,7 +41,8 @@ public class TestRestful
 
         //  HttpPost post = new HttpPost("http://localhost:9095/customers");
     // to deploy on jboss
-    HttpPost post = new HttpPost("http://localhost:8080/ex04_1_b/addCustomer/1");
+    HttpPost post = new HttpPost("http://localhost:8080/ex04_1_b/addCust/1");
+  //  HttpPost post = new HttpPost("http://localhost:8080/ex04_1_b/1");
       StringEntity entity = new StringEntity(newCustomer);
       entity.setContentType("application/xml");
       post.setEntity(entity);
@@ -50,14 +51,14 @@ public class TestRestful
 
       Assert.assertEquals(200, response.getStatusLine().getStatusCode());
       showResponse(response);
-      System.out.println("**** After Update ***");
+     /* System.out.println("**** After Update ***");
       
       HttpGet get = new HttpGet("http://localhost:8080/ex04_1_b/getCustomer/100");
       response = client.execute(get);
       Assert.assertEquals(200, response.getStatusLine().getStatusCode());
 
       System.out.println("Content-Type: " + response.getEntity().getContentType());
-      showResponse(response);
+      showResponse(response);*/
    }
    
    private void showResponse(HttpResponse response)throws Exception{
