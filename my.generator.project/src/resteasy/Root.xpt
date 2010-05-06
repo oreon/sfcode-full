@@ -33,7 +33,8 @@
 «DEFINE PackageRoot FOR uml::Package»
 	«EXPAND javaClass FOREACH this.allOwnedElements().typeSelect(uml::Class)»
 	«EXPAND ClassRootRestful FOREACH allOwnedElements().typeSelect(wcprofile::RestfulClass)»
-	«EXPAND javaInterface FOREACH allOwnedElements().typeSelect(uml::Interface)»
+	«EXPAND javaInterface FOREACH allOwnedElements().typeSelect(wcprofile::RestfulInterface)»
+	«EXPAND javaRestImpl FOREACH allOwnedElements().typeSelect(wcprofile::RestfulInterface)»
 «ENDDEFINE»
 
 «DEFINE javaInterface FOR wcprofile::RestfulInterface»
@@ -55,7 +56,29 @@
 
 «DEFINE genOperationForInterface FOR wcprofile::RestfulOperation»
 	«getRestfulType()»
-	«visibility» «getOpReturnType()» «name» (@PathParam("id") «getParametersSignature()»);
+	«getRestfulProduces()»
+	«getRestfulConsumes()»
+	«getRestfulPath()»
+	«visibility» «getOpReturnType()» «name» («EXPAND getPathParam FOREACH allOwnedElements().typeSelect(wcprofile::RestfulParameter)» «getParametersSignature()»);
+«ENDDEFINE»
+
+«DEFINE javaRestImpl FOR wcprofile::RestfulInterface»
+	«FILE packagePath() +"/" +name+"Impl.java"»
+	package « packageName() »;
+	«EXPAND genImports FOR this»
+
+	public class «name»Impl  implements «name» {
+
+		 «EXPAND genOperationForRestImpl FOREACH this.getOperations()»
+	}
+	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE genOperationForRestImpl FOR wcprofile::RestfulOperation»
+
+	«visibility» «getOpReturnType()» «name» («getParametersSignature()»){
+		return "<Customer><id>"+id+"</id></Customer>";
+	}
 «ENDDEFINE»
 
 «DEFINE ClassRootRestful FOR wcprofile::RestfulClass»
@@ -75,10 +98,13 @@
 
 
 «DEFINE genClassBodyRestful FOR wcprofile::RestfulClass»
-	public class «name» {
+	public class «name»  {
 		«EXPAND genOperation FOREACH getAllOperations()»
 	}
 «ENDDEFINE»
+
+
+
 
 
 
