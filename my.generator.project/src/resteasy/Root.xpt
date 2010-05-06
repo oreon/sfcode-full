@@ -7,7 +7,14 @@
 «DEFINE Root FOR uml::Model»
 	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
 «ENDDEFINE»
+«DEFINE PackageRoot FOR uml::Package»
+	«EXPAND javaClass FOREACH this.allOwnedElements().typeSelect(uml::Class)»
+	«EXPAND ClassRootRestful FOREACH allOwnedElements().typeSelect(wcprofile::RestfulClass)»
+	«EXPAND javaInterface FOREACH allOwnedElements().typeSelect(wcprofile::RestfulInterface)»
+	«EXPAND javaRestImpl FOREACH allOwnedElements().typeSelect(wcprofile::RestfulInterface)»
+«ENDDEFINE»
 
+<«REM»The following piece is used for Model «ENDREM»
 «DEFINE javaClass FOR uml::Class»
 	«IF name != null && package != null»
 	
@@ -30,12 +37,7 @@
 	«ENDIF»
 «ENDDEFINE»
 
-«DEFINE PackageRoot FOR uml::Package»
-	«EXPAND javaClass FOREACH this.allOwnedElements().typeSelect(uml::Class)»
-	«EXPAND ClassRootRestful FOREACH allOwnedElements().typeSelect(wcprofile::RestfulClass)»
-	«EXPAND javaInterface FOREACH allOwnedElements().typeSelect(wcprofile::RestfulInterface)»
-	«EXPAND javaRestImpl FOREACH allOwnedElements().typeSelect(wcprofile::RestfulInterface)»
-«ENDDEFINE»
+«REM»The following section is for interface only .......«ENDREM»
 
 «DEFINE javaInterface FOR wcprofile::RestfulInterface»
 	«FILE packagePath() +"/" +name+".java"»
@@ -62,6 +64,9 @@
 	«visibility» «getOpReturnType()» «name» («EXPAND getPathParam FOREACH allOwnedElements().typeSelect(wcprofile::RestfulParameter)» «getParametersSignature()»);
 «ENDDEFINE»
 
+
+«REM»The following section is of generating the Implementation class of the interface.....«ENDREM»
+
 «DEFINE javaRestImpl FOR wcprofile::RestfulInterface»
 	«FILE packagePath() +"/" +name+"Impl.java"»
 	package « packageName() »;
@@ -80,6 +85,8 @@
 		return "<Customer><id>"+id+"</id></Customer>";
 	}
 «ENDDEFINE»
+
+«REM»The following section is for generating code for Stand Alone Java class without interface ....«ENDREM»
 
 «DEFINE ClassRootRestful FOR wcprofile::RestfulClass»
 	«IF name != null && package != null»
