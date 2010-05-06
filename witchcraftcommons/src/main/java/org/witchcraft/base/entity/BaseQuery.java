@@ -3,6 +3,7 @@ package org.witchcraft.base.entity;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -22,7 +23,7 @@ import org.jboss.seam.framework.EntityQuery;
 import org.jboss.seam.persistence.PersistenceProvider;
 
 @SuppressWarnings("serial")
-public class BaseQuery<E extends BusinessEntity, PK extends Serializable> extends
+public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializable> extends
 		EntityQuery<E> {
 
 	private Class<E> entityClass = null;
@@ -31,6 +32,8 @@ public class BaseQuery<E extends BusinessEntity, PK extends Serializable> extend
 	
 	@RequestParameter
 	protected String searchText;
+	
+	public static final int DEFAULT_PAGES_FOR_PAGINATION = 5;
 	
 	@In
 	// @PersistenceContext(type=EXTENDED)
@@ -43,11 +46,16 @@ public class BaseQuery<E extends BusinessEntity, PK extends Serializable> extend
 	public void setSearchText(String searchText) {
 		this.searchText = searchText;
 	}
+	
+	public abstract String[] getEntityRestrictions();
 
 	public BaseQuery() {
 		String simpleEntityName = getSimpleEntityName().toLowerCase();
 		setEjbql("SELECT " + simpleEntityName + " FROM  " + getEntityName()
 				+ " " + simpleEntityName);
+		//setEjbql(EJBQL);
+		setRestrictionExpressionStrings(Arrays.asList(getEntityRestrictions()));
+		setMaxResults(DEFAULT_PAGES_FOR_PAGINATION);
 	}
 
 	/**

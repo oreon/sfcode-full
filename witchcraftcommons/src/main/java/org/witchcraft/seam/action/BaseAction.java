@@ -28,6 +28,8 @@ import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
+import org.jboss.seam.faces.Redirect;
+import org.jboss.seam.framework.EntityHome;
 import org.jboss.seam.log.Log;
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.base.entity.EntityComment;
@@ -43,7 +45,7 @@ import org.witchcraft.base.entity.EntityTemplate;
  * 
  * @param <T>
  */
-public abstract class BaseAction<T extends BusinessEntity> {
+public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T>{
 
 	@Logger
 	protected Log log;
@@ -131,6 +133,7 @@ public abstract class BaseAction<T extends BusinessEntity> {
 				.info("User archived #{t.getClass().getName()}: #{t.displayName} #{t.id} ");
 		events.raiseTransactionSuccessEvent("archived" + getClassName(t));
 		events.raiseTransactionSuccessEvent("resetList");
+		Events.instance().raiseEvent(EventTypes.ARCHIVE.name(), EventTypes.ARCHIVE, t);
 		return "archived";
 	}
 
@@ -166,6 +169,18 @@ public abstract class BaseAction<T extends BusinessEntity> {
 		// TODO Auto-generated method stub
 		return StringUtils.EMPTY;
 	}
+	
+	public T persist(T e){
+		if(e.getId() != null && e.getId() > 0 ){
+			entityManager.merge(e);
+			Events.instance().raiseEvent(EventTypes.CREATE.name(), EventTypes.CREATE, e);
+		}
+		else{ //new object 
+			entityManager.persist(e);
+			Events.instance().raiseEvent(EventTypes.UPDATE.name(), EventTypes.UPDATE, e);
+		}
+		return e;
+	}
 
 	public String save() {
 		try{
@@ -173,8 +188,7 @@ public abstract class BaseAction<T extends BusinessEntity> {
 			return saveTemplate();
 
 		updateComposedAssociations();
-		entityManager.persist(getEntity());
-		//entityManager.
+		persist(getEntity());
 
 		// TODO: replace with statusmessages seam class
 		if (facesMessages != null)
@@ -182,7 +196,7 @@ public abstract class BaseAction<T extends BusinessEntity> {
 					+ getEntity().getDisplayName());
 		updateAssociations();
 		}catch(Exception e){
-			facesMessages.add("Error saving record : " + e.getMessage());
+			facesMessages.add("Error saving record : " + e.getMessage());	
 			log.error("error saving ", e);
 			return "error";
 		}
@@ -190,20 +204,25 @@ public abstract class BaseAction<T extends BusinessEntity> {
 	}
 	
 	public void load(Long entityId) {
-		if (entityId != null) {
+		if (entityId != null && entityId > 0 ) {
 	
 			try {
 				T t = (T) entityManager.createQuery(
 						"Select d from " + getClassName()  + " d where d.id=:id")
 						.setParameter("id", entityId).getSingleResult();
 				setEntity(t);
+				
 
 			} catch (NoResultException noResultException) {
-				facesMessages.add("Invalid Id");
+				facesMessages.add("Invalid Id: " + id);
 			}
+		}else{
+			//loadAssociations();
 		}
 		//return "edit";
 	}
+	
+	public void loadAssociations() { };
 	
 	public String edit(){
 		load(id);
@@ -211,6 +230,7 @@ public abstract class BaseAction<T extends BusinessEntity> {
 	}
 	
 	public String view(){
+		
 		load(id);
 		return "view" + getClassName();
 	}
@@ -502,5 +522,7 @@ public abstract class BaseAction<T extends BusinessEntity> {
 	public void closeModal() {
 		setDeleteDialogRendered(false);
 	}
+	
+	
 
 }
