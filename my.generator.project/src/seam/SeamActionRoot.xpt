@@ -51,12 +51,27 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 	private «name» «asVar()»;
 	
 	«FOREACH getOutgoingAssociations() AS e»
-	@In(create = true)
+	 @In(create = true)
 	 «e.type.getActionFqn()» «e.name»Action;
+	«ENDFOREACH»
+	
+	«FOREACH getNonComposedManyAssociations() AS e»
+	 @In(create = true)
+ 	«e.type.fqnPackage("action")»ListQuery «e.name.getSingular()»List;
 	«ENDFOREACH»
 
 	@DataModel
 	private List<«name»> «asVar()»RecordList;	
+	
+	public void set«name»Id(Long id) {
+		setId(id);
+		loadAssociations();
+	}
+
+	public Long get«name»Id() {
+		return (Long) getId();
+	}
+	
 
 	@Factory("«asVar()»RecordList")
 	@Observer("archived«name»")
@@ -70,6 +85,46 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 
 	@Override
 	public void setEntity(«name» t) {
+		this.«asVar()» = t;
+		loadAssociations();
+	}
+	
+	public «name» get«name»(){
+		return getInstance();
+	}
+	
+	
+	@Override
+	protected «name» createInstance() {
+		return new «name»();
+	}
+
+	public void load() {
+		if (isIdDefined()) {
+			wire();
+		}
+	}
+
+	public void wire() {
+		getInstance();
+		«FOREACH getOutgoingAssociations() AS e-»
+		«e.type.fqn()» «e.name» = «e.name»Action.getDefinedInstance();
+		if («e.name» != null) {
+			getInstance().set«e.name.toFirstUpper()»(«e.name»);
+		}
+		«ENDFOREACH»
+	}
+
+	public boolean isWired() {
+		return true;
+	}
+
+	public «name» getDefinedInstance() {
+		return isIdDefined() ? getInstance() : null;
+	}
+	
+
+	public void set«name»(«name» t) {
 		this.«asVar()» = t;
 		loadAssociations();
 	}
@@ -104,7 +159,6 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 	public void loadAssociations(){
 		«FOREACH getOutgoingAssociations() AS e»
 		if («asVar()».get«e.name.toFirstUpper()»() != null) {
-			«e.type.fqnPackage("action")»Action «e.name»Action = («e.type.fqnPackage("action")»Action)Component.getInstance("«e.type.asVar()»Action");
 			«e.name»Action.setEntity(getEntity().get«e.name.toFirstUpper()»());
 		}
 		«ENDFOREACH»
@@ -112,8 +166,7 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 		«IF !getNonComposedManyAssociations().isEmpty»
 		try{
 		«FOREACH getNonComposedManyAssociations() AS e»
-		«e.type.fqnPackage("action")»ListQuery «e.type.asVar()»List = («e.type.fqnPackage("action")»ListQuery) Component.getInstance("«e.type.asVar()»List");
-		«e.type.asVar()»List.get«e.name.toFirstUpper().getSingular()»().set«e.opposite.name.toFirstUpper()»(getEntity());
+		«e.type.asVar()»List.get«e.name.toFirstUpper().getSingular()»().set«e.opposite.name.toFirstUpper()»(getInstance());
 		«ENDFOREACH»
 		}catch(Exception e){
 			facesMessages.add(e.getMessage());

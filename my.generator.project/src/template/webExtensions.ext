@@ -192,6 +192,11 @@ null;
 genPropertyLabel(Property prop):
 getCurrentEntity().asVar() + "." + (prop.getEmbeddableClassName()) + prop.name.toFirstLower();
 
+//audit log 
+genAuditLogPropertyLabel(Property prop):
+"entity." + (prop.getEmbeddableClassName()) + prop.name.toFirstLower();
+
+
 getEmbeddableClassName(Property prop):
 prop.class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":"";
 

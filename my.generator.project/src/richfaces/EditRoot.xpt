@@ -75,6 +75,10 @@
 		<f:facet name="header">
 			<h:outputText value="«name» " />
 		</f:facet>
+		«IF !edit»
+			<h:outputText value="#{msg.id}" />
+			<h:outputText  value="#{«asVar()»Action.«asVar()».id}" />
+		«ENDIF»
 		«IF !isCurrentEditMode() && fieldsFromSuperClass != null» «EXPAND genProperty FOREACH getStringsAsList(fieldsFromSuperClass)» «ENDIF»
 		«EXPAND genAttribAsOutput FOR this-»
 		</h:panelGrid>
@@ -175,11 +179,11 @@
 
 «DEFINE genAssociation FOR uml::Property -»
 	«IF !isCurrentEditMode()-»
-	<s:link value="#{«genPropertyLabel()-».displayName}" view="«type.getViewFile("view")»" >
+	<s:link value="#{«getCurrentEntity().asVar()»Action.«genPropertyLabel()-».displayName}" view="«type.getViewFile("view")»" >
 		<f:param name="id" value="#{«genPropertyLabel()-».id}" />
 	</s:link>
 	«ELSE»
-	<h:selectOneMenu id="«getId()»" value="#{«genPropertyLabel()-»}" required="«!getAssocOptional()»">
+	<h:selectOneMenu id="«getId()»" value="#{«getCurrentEntity().asVar()»Action.«genPropertyLabel()-»}" required="«!getAssocOptional()»">
 		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
@@ -194,7 +198,7 @@
 «IF type.name == "imageFile"»
 	«getTextForImgFile()» 
 «ELSE»
-	<«getTextControl()»  id="«getId()»" «isCurrentEditMode()? "required=\"" + getRequired() +"\"":""»  value="#{«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
+	<«getTextControl()»  id="«getId()»" «isCurrentEditMode()? "required=\"" + getRequired() +"\"":""»  value="#{«getCurrentEntity().asVar()»Action.«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
 «ENDIF»   
 «ENDDEFINE»
 
