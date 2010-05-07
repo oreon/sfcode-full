@@ -19,7 +19,9 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
+import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.In;
@@ -34,6 +36,10 @@ import org.jboss.seam.log.Log;
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.base.entity.EntityComment;
 import org.witchcraft.base.entity.EntityTemplate;
+import org.witchcraft.model.support.audit.AuditLog;
+import org.witchcraft.model.support.audit.EntityAuditLogInterceptor;
+
+
 
 
 
@@ -52,6 +58,9 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 	@In
 	// @PersistenceContext(type=EXTENDED)
 	protected FullTextEntityManager entityManager;
+	
+	@In(create = true)
+	protected EntityAuditLogInterceptor entityAuditLogInterceptor;
 
 	@In
 	protected FacesMessages facesMessages;
@@ -62,9 +71,13 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 	@RequestParameter
 	private String queryString;
 	
-	@RequestParameter
-	Long id;
+	//@RequestParameter
+	//Long id;
 	
+	private List<AuditLog> auditLog;
+	
+	
+
 	@In 
 	protected Map<String, UIComponent> uiComponent;
 
@@ -112,7 +125,7 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 				.info("User selected #{t.getClass().getName()}: #{t.displayName} #{t.id} ");
 		updateAssociations();
 		log.info("returnring: " + "view" + getClassName(t));
-		return "view" + getClassName(t);
+		return "view" ;
 	}
 
 	public String getQueryString() {
@@ -125,7 +138,7 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 
 	@End
 	public String archive(T t) {
-		if(t == null) t = getEntity();
+		if(t == null) t = getInstance();
 		t.setArchived(true);
 		entityManager.merge(t);
 		facesMessages.add("Successfully archived  " + t.getDisplayName());
@@ -139,15 +152,15 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 
 	public String saveTemplate() {
 		EntityTemplate<T> template = getEntityTemplate();
-		template.setEntity(getEntity());
-		template.setEntityName(getClassName(getEntity()));
+		template.setEntity(getInstance());
+		template.setEntityName(getClassName(getInstance()));
 		// template.setTemplateName(getEn);
 		entityManager.persist(template);
 
 		// TODO: replace with statusmessages seam class
 		if (facesMessages != null)
 			facesMessages.add("Successfully saved template: "
-					+ getEntity().getDisplayName());
+					+ getInstance().getDisplayName());
 		return "save";
 	}
 
@@ -172,12 +185,13 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 	
 	public T persist(T e){
 		if(e.getId() != null && e.getId() > 0 ){
+			T prevEntity = loadFromId(e.getId());
+			Events.instance().raiseEvent(EventTypes.UPDATE.name(), EventTypes.UPDATE, prevEntity);
 			entityManager.merge(e);
-			Events.instance().raiseEvent(EventTypes.CREATE.name(), EventTypes.CREATE, e);
 		}
 		else{ //new object 
 			entityManager.persist(e);
-			Events.instance().raiseEvent(EventTypes.UPDATE.name(), EventTypes.UPDATE, e);
+			Events.instance().raiseEvent(EventTypes.CREATE.name(), EventTypes.CREATE, e);
 		}
 		return e;
 	}
@@ -188,12 +202,12 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 			return saveTemplate();
 
 		updateComposedAssociations();
-		persist(getEntity());
+		persist(getInstance());
 
 		// TODO: replace with statusmessages seam class
 		if (facesMessages != null)
 			facesMessages.add("Successfully saved record: "
-					+ getEntity().getDisplayName());
+					+ getInstance().getDisplayName());
 		updateAssociations();
 		}catch(Exception e){
 			facesMessages.add("Error saving record : " + e.getMessage());	
@@ -203,41 +217,46 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 		return "save";
 	}
 	
-	public void load(Long entityId) {
+	@SuppressWarnings("unchecked")
+	public T loadFromId(Long entityId){
 		if (entityId != null && entityId > 0 ) {
-	
+			
 			try {
 				T t = (T) entityManager.createQuery(
 						"Select d from " + getClassName()  + " d where d.id=:id")
 						.setParameter("id", entityId).getSingleResult();
-				setEntity(t);
-				
+				return t;
 
 			} catch (NoResultException noResultException) {
-				facesMessages.add("Invalid Id: " + id);
+				facesMessages.add("Invalid Id: " + entityId);
 			}
 		}else{
 			//loadAssociations();
 		}
+		
+		return null;
+	}
+	
+	public void load(Long entityId) {
+		setEntity(loadFromId(entityId));
 		//return "edit";
 	}
 	
 	public void loadAssociations() { };
 	
 	public String edit(){
-		load(id);
+		//load(id);
 		return "edit";
 	}
 	
 	public String view(){
-		
-		load(id);
-		return "view" + getClassName();
+		//load(getId());
+		return "view" ;
 	}
 	
 	public void archive(){
-		load(id);
-		archive(getEntity());
+		load((Long)getId());
+		archive(getInstance());
 	}
 	
 	
@@ -267,7 +286,7 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 	@Observer("resetList")
 	public void clearSearch() {
 		try {
-			setEntity((T) getEntity().getClass().newInstance());
+			setEntity((T) getInstance().getClass().newInstance());
 			// TODO: do exception handling
 		} catch (InstantiationException e) {
 			e.printStackTrace();
@@ -276,14 +295,35 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 		}
 		findRecords();
 	}
+	
+	
+	public List<AuditLog> getAuditLog() {
+		if(auditLog == null){
+			EntityAuditLogInterceptor entityAuditLogInterceptor = (EntityAuditLogInterceptor) Component.getInstance("entityAuditLogInterceptor");
+			auditLog = entityAuditLogInterceptor.getAuditLogsForEntity(getInstance().getClass().getCanonicalName());
+		}
+		return auditLog;
+	}
+	
+	public List<AuditLog> getAuditLogForCurrentEntity() {
+	//	if(auditLog == null || auditLog.isEmpty()){
+			EntityAuditLogInterceptor entityAuditLogInterceptor = (EntityAuditLogInterceptor) Component.getInstance("entityAuditLogInterceptor");
+			auditLog = entityAuditLogInterceptor.getAuditLogsForEntityAndId(getInstance().getClass().getCanonicalName(), getInstance().getId());
+	//	}
+		return auditLog;
+	}
+
+	public void setAuditLog(List<AuditLog> auditLog) {
+		this.auditLog = auditLog;
+	}
 
 	public Criteria createExampleCriteria() {
 		Session session = (Session) entityManager.getDelegate();
 
-		Example example = Example.create(getEntity()).enableLike(
+		Example example = Example.create(getInstance()).enableLike(
 				MatchMode.START).ignoreCase().excludeZeroes();
 
-		Criteria criteria = session.createCriteria(getEntity().getClass()).add(
+		Criteria criteria = session.createCriteria(getInstance().getClass()).add(
 				example);
 		/*
 		 * for (String exclude : excludedProperties) {
@@ -357,7 +397,7 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 	 */
 	public String textSearch() {
 
-		BusinessEntity businessEntity = getEntity();
+		BusinessEntity businessEntity = getInstance();
 		
 		List<String> listSearchableFields = businessEntity.listSearchableFields();
  
@@ -382,7 +422,7 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 		}
 
 		FullTextQuery ftq = entityManager.createFullTextQuery(query,
-				getEntity().getClass());
+				getInstance().getClass());
 
 		List<T> result = ftq.getResultList();
 		
@@ -397,7 +437,7 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 	 */
 	public String reIndex() {
 		final List<T> entries = entityManager.createQuery(
-				"select d from " + getClassName(getEntity()) +  "  d").getResultList();
+				"select d from " + getClassName(getInstance()) +  "  d").getResultList();
 		for (T t : entries)
 			entityManager.index(t);
 		return null;
@@ -457,7 +497,7 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 	}
 	
 	protected String getClassName() {
-		return getClassName(getEntity());
+		return getClassName(getInstance());
 	}
 
 	// //////////////// Comments
@@ -466,12 +506,12 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 	public void saveComment() {
 		EntityComment currentComment = new EntityComment();
 		currentComment.setText(currentCommentText);
-		currentComment.setEntityId(getEntity().getId());
-		currentComment.setEntityName(getClassName(getEntity()));
+		currentComment.setEntityId(getInstance().getId());
+		currentComment.setEntityName(getClassName(getInstance()));
 		getEntityManager().persist(currentComment);
 		currentCommentText = new String();
 		events.raiseTransactionSuccessEvent("entityCommentsUpdated",
-				getClassName(getEntity()));
+				getClassName(getInstance()));
 	}
 
 	public List<EntityComment> getComments() {
@@ -483,8 +523,8 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 
 	@Observer("entityCommentsUpdated")
 	public void loadComments() {
-		comments = executeNamedQuery("commentsForRecord", getEntity().getId(),
-				getClassName(getEntity()));
+		comments = executeNamedQuery("commentsForRecord", getInstance().getId(),
+				getClassName(getInstance()));
 	}
 
 	public FullTextEntityManager getEntityManager() {
@@ -515,7 +555,7 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 	}
 
 	public void archiveAndClose() {
-		archive(getEntity());
+		archive(getInstance());
 		closeModal();
 	}
 
