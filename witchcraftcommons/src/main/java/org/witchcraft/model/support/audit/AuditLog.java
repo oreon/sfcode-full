@@ -20,17 +20,19 @@ public class AuditLog<T> extends BusinessEntity{
 	private BusinessEntity record;
 	private String entityName;
 	private String username;
+	private Long entityId;
 	/*private AbstractUser user; */ 
 	
 	public AuditLog(){}
 	
-	public AuditLog(EventTypes action, BusinessEntity record, String entityName,
+	public AuditLog(EventTypes action, BusinessEntity record, String entityName, Long entityId,
 			String username) {
 		super();
 		this.action = action;
 		this.record = record;
 		this.entityName = entityName;
 		this.username = username;
+		this.entityId = entityId;
 	}
 	
 	public EventTypes getAction() {
@@ -75,6 +77,14 @@ public class AuditLog<T> extends BusinessEntity{
 	@Transient
 	public  T getEntity(){
 		return (T) getRecord();
+	}
+
+	public void setEntityId(Long entityId) {
+		this.entityId = entityId;
+	}
+
+	public Long getEntityId() {
+		return entityId;
 	}
 	
 }
