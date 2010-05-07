@@ -45,7 +45,7 @@
     
     «FOREACH allOwnedElements().typeSelect(wcprofile::Entity) AS e»
     «setAsCurrentEntity(e)-»
-    <page view-id="«e.getViewFile("edit")»" conversation-required="false" action="#{«e.asVar()»Action.load(id)}">
+    <page view-id="«e.getViewFile("edit")»" conversation-required="false" >
     	<!-- <description>Edit «e.name»: #{«e.name.toFirstLower()».displayName}</description> -->
     	<navigation> 
 			 <rule if-outcome="save">
@@ -55,10 +55,10 @@
  				<redirect view-id="«e.getViewFile("list")»" />
             </rule>			
 		</navigation>
-			<param name="id" value="#{«e.asVar()»List.«e.asVar()».id}" />
+		<param name="«e.asVar()»Id" value="#{«e.asVar()»Action.«e.asVar()»Id}" />
 	</page>
 	
-	 <page view-id="«e.getViewFile("view")»" conversation-required="false" action="#{«e.asVar()»Action.load(id)}">
+	 <page view-id="«e.getViewFile("view")»" conversation-required="false" >
 	 	<!-- <description>View «e.name»: #{«e.name.toFirstLower()».displayName}</description> -->
 	 	<navigation> 
 			 <rule if-outcome="edit">
@@ -68,7 +68,7 @@
  				<redirect view-id="«e.getViewFile("list")»" />
             </rule>			
 		</navigation>
-		<param name="id" value="#{«e.asVar()».id}" />
+		<param name="«e.asVar()»Id" value="#{«e.asVar()»Action.«e.asVar()»Id}" />
 	</page>
 	
 	<page view-id="«e.getViewFile("list")»" action="#{redirect.captureCurrentView()}" >

@@ -16,6 +16,7 @@
 </ui:composition>
 	«ENDFILE»
 	«EXPAND genViewComponent FOR this»
+	«EXPAND auditListRoot::genAuditLogComponent FOR this»
 «ENDDEFINE»
 
 «DEFINE genViewComponent FOR uml::Class»
@@ -120,10 +121,9 @@
 		<f:facet name="header">
 			<h:outputText value=" " />
 		</f:facet>
-		<s:link 
-			action="#{«getAction()».«action»}">
+		<s:link view="«getViewFile(action)»">
 			<h:graphicImage value="/images/icons/«icon»" style="border: 0px" />
-			<f:param name="id" value="#{_«asVar()».id}" />
+			<f:param name="«asVar()»Id" value="#{_«asVar()».id}" />
 		</s:link>
 	</h:column>
 «ENDDEFINE»
@@ -152,12 +152,13 @@
 			</ui:include>
 		</f:facet>
 		<s:link «getEscape()»  value="#{_«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" >
-			<f:param name="id" value="#{_«genPropertyLabel()».id}" />
+			<f:param name="«name»Id" value="#{_«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 		</s:link>
-		
 	</h:column>
 «ENDDEFINE»
+
+
 
 «DEFINE genProperty FOR uml::Property-»
 	<h:column>
@@ -218,5 +219,6 @@
 		</h:outputText>
 	</h:column>
 «ENDDEFINE»
+
 
 
