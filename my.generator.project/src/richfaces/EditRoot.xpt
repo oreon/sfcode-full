@@ -57,7 +57,17 @@
 			</rich:tabPanel>
 		</h:form>
 		<br/>
-		<wc:comments backingAction="#{«getAction()»}"/>
+		
+		<rich:tabPanel>
+			<rich:tab label="Notes">
+				<wc:comments backingAction="#{«getAction()»}"/>
+			</rich:tab>
+			<rich:tab label="Audit">
+				<ui:include
+					src="«getComponentViewFile("auditList")»" />
+			</rich:tab>
+		</rich:tabPanel>
+		
 		
 	</ui:define> 
 </ui:composition>

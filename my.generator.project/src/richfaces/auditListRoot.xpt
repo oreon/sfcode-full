@@ -14,7 +14,7 @@
 				<br/>
 
 				<rich:dataTable id="dataAudit" var="_log"
-					value="#{departmentAction.audit_log}" rows="30"
+					value="#{departmentAction.auditLog}" rows="30"
 					rowClasses="odd, even" styleClass="dataTable">
 
 					<rich:column>
@@ -81,7 +81,7 @@
 «DEFINE genAssociation FOR uml::Property»
 	<rich:column>
 		<f:facet name="header">
-			<h:outputText value="_«genPropertyLabel()»" />
+			<h:outputText value="«msgBundleKey()»" />
 		</f:facet>
 		<s:link «getEscape()»  value="#{_log.«genAuditLogPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" >
 			<f:param name="id" value="#{_«genAuditLogPropertyLabel()».id}" />
@@ -94,9 +94,9 @@
 «DEFINE genProperty FOR uml::Property-»
 	<rich:column>
 		<f:facet name="header">
-			<h:outputText value="_«genPropertyLabel()»" />
+			<h:outputText value="«msgBundleKey()»" />
 		</f:facet>
-		<h:outputText value="#{_log.«genAuditLogPropertyLabel()»}">
+		<h:outputText value="#{_log.«genAuditLogPropertyLabel()»}" />
 	</rich:column>
 «ENDDEFINE»
 
