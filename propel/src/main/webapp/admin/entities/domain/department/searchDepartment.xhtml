@@ -21,6 +21,33 @@
 	<h:outputText value="#{msg.department_name}  "/> <br/>
 	<h:inputText  id="Department_name" value="#{department.name}" />
 	</h:panelGroup>
+	
+	<h:panelGroup>
+	<h:outputText value="Full Text Name  "/> <br/>
+	<ui:define name="label">Name</ui:define>
+				<h:inputText id="name" value="#{department.name}">
+				</h:inputText>
+				
+					
+					
+					<rich:suggestionbox id="suggestionBoxId" for="name" 
+                    rules="#{suggestionBox.rules}"
+                    suggestionAction="#{departmentAction.autoComplete}" var="result"
+                    fetchValue="#{result.name}" 
+                    minChars="2"
+                    border="1" width="200"
+                    height="200"
+                    nothingLabel="No Departments found" columnClasses="center"
+                    usingSuggestObjects="false"
+                    >
+                    
+                    <h:column>
+						<h:outputText value="#{result.name}" />
+					</h:column>
+					
+				</rich:suggestionbox>
+	
+	</h:panelGroup>
 
 	
 	
