@@ -35,7 +35,7 @@ public class OrderStock
   @EndTask(transition="next")
     public void done() {
 	  
-	  TaskInstance task = new TaskInstance();
+	  //TaskInstance task = new TaskInstance();
 	 // task.getTaskInstance().ge
 	  //task.getActorIdExpression()
 	 // task.getName()
