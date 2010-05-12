@@ -57,6 +57,11 @@ public class Authenticator {
 			UserUtilAction userUtilAction = (UserUtilAction)Component.getInstance("userUtilAction");
 			userUtilAction.setCurrentUser(user);
 			actor.setId(user.getUserName());
+			Set<Role> roles = user.getRoles();
+			for (Role role : roles) {
+				actor.getGroupActorIds().add( role.getName() );
+			}
+			
 			return true;
 		}
 
