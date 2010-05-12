@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition  xmlns=""  name="LeaveRequest">
+
+ <swimlane name="junior">
+   <assignment actor-id="#{actor.id}"></assignment>
+ </swimlane>
+
+ <swimlane name="manager">
+	 <assignment pooled-actors="manager"></assignment>
+ </swimlane>
+
+
+	<start-state name="start-state1">
+		<transition to="createLeaveRequest"></transition>
+	</start-state>
+
+
+	<task-node name="createLeaveRequest">
+		<task name="leaveRequestTask" swimlane="junior">
+			
+		</task>
+		<transition to="reviewTaksRequest" name="sendRequest"></transition>
+	</task-node>
+
+	<task-node name="reviewTaksRequest">
+		<task name="reviewTaskRequestTask" swimlane="manager">
+			
+		</task>
+		<transition to="end-state1" name="reject"></transition>
+		<transition to="modifyLeaveRequest" name="modify"></transition>
+		<transition to="updateProjectSchedule" name="accept"></transition>
+	</task-node>
+	
+	<task-node name="modifyLeaveRequest">
+		<task name="leaveRequestTask" swimlane="junior" />
+		<transition to="reviewTaksRequest" name="sendRequest"></transition>
+	</task-node>
+
+	<state name="updateProjectSchedule">
+		<event type="node-enter"></event>
+		<transition to="end-state1"></transition>
+	</state>
+
+
+	<end-state name="end-state1"></end-state>
+
+
+</process-definition>

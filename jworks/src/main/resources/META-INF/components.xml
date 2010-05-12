@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <components xmlns="http://jboss.com/products/seam/components"
-	xmlns:bpm="http://jboss.com/products/seam/bpm"
-	xmlns:core="http://jboss.com/products/seam/core" xmlns:drools="http://jboss.com/products/seam/drools"
-	xmlns:security="http://jboss.com/products/seam/security" xmlns:web="http://jboss.com/products/seam/web"
-	xmlns:mail="http://jboss.com/products/seam/mail" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:bpm="http://jboss.com/products/seam/bpm" xmlns:core="http://jboss.com/products/seam/core"
+	xmlns:drools="http://jboss.com/products/seam/drools" xmlns:security="http://jboss.com/products/seam/security"
+	xmlns:web="http://jboss.com/products/seam/web" xmlns:mail="http://jboss.com/products/seam/mail"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:persistence="http://jboss.com/products/seam/persistence"
 	xmlns:transaction="http://jboss.com/products/seam/transaction"
 	xmlns:navigation="http://jboss.com/products/seam/navigation"
@@ -53,11 +53,12 @@
 
 	<security:identity authenticate-method="#{authenticator.authenticate}"
 		remember-me="true" />
-		
-	 <bpm:jbpm>  
-         <bpm:process-definitions>  
-          <value>processDefinition.jpdl.xml</value>  
-         </bpm:process-definitions>  
-     </bpm:jbpm> 
+
+	<bpm:jbpm>
+		<bpm:process-definitions>
+			<value>processes/processDefinition.jpdl.xml</value>
+			<value>processes/LeaveRequest/processdefinition.xml</value>
+		</bpm:process-definitions>
+	</bpm:jbpm>
 
 </components>
