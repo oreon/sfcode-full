@@ -1,0 +1,41 @@
+<process-definition xmlns="urn:jbpm.org:jpdl-3.2" name="delivery">
+ <swimlane name="buyer">
+   <assignment actor-id="customer"></assignment>
+ </swimlane>
+
+ <swimlane name="deliverDepartment">
+ <assignment actor-id="deliver-man"></assignment>
+ </swimlane>
+
+ <start-state name="start">
+  <transition name="trPlaceOrder" to="PlaceOrder"></transition>
+</start-state>
+
+ <task-node name="PlaceOrder">
+  <task name="placeOrderTask" swimlane="buyer">
+  </task>
+  <transition name="" to="CheckAvailability"></transition>
+ </task-node>
+
+ <decision name="CheckAvailability">
+  <handler class="com.wc.sample.VerifyOrder"></handler> 
+  <transition name="trDeliver" to="Deliver"></transition>
+  <transition name="trGetFromStock" to="GetFromStock"></transition>
+ </decision>
+
+ <state name="GetFromStock">
+  <event type="node-enter">
+  <action class="com.wc.sample.GetFromStockActionHandler" name="recharge"></action>
+  </event>
+  <transition name="checkAvailability" to="CheckAvailability"></transition>
+ </state>
+
+ <task-node name="Deliver">
+  <task name="getFromStock" swimlane="deliverDepartment">
+  </task>
+  <transition name="trEnd" to="end"></transition>
+ </task-node>
+
+ <end-state name="end"></end-state>
+</process-definition>
+ 
