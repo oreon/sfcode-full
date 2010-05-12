@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/admin/template.xhtml">
+
+<ui:define name="content">
+<h2>Order system</h2>
+
+   <h:form id="list">
+      <div>
+         <h:outputText value="There are no order at the moment." rendered="#{empty taskInstancePriorityList}"/>
+         <h:dataTable value="#{taskInstancePriorityList}" 
+            var="task" rendered="#{not empty taskInstancePriorityList}"
+            bgcolor="#F1F1F1" border="10">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Created"/>
+                </f:facet>
+                <h:outputText value="#{task.taskMgmtInstance.processInstance.start}">
+                    <s:convertDateTime type="date"/>
+                </h:outputText>
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Name"/>
+                </f:facet>
+                  <h:outputText value="#{task.name}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Name"/>
+                </f:facet>
+                  <h:outputText value="#{task.actorId}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Name"/>
+                </f:facet>
+                  <h:outputText value="#{task.previousActorId}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Quantity"/>
+                </f:facet>
+                  <h:outputText value="#{task.variables['processQuantity']}"/>
+            </h:column>
+
+            <h:column>
+                <s:button action="#{orderStock.done}" taskInstance="#{task}" value="Done"/>
+            </h:column>
+            <h:column>
+                <s:button action="#{orderStock.cancel}" taskInstance="#{task}" value="Cancel"/>
+            </h:column>
+
+         </h:dataTable>
+      </div>
+      <div>
+      <h:messages/>
+      </div>
+   </h:form>
+   <h:form id="new">
+      <div>
+         <h:inputText value="#{orderStock.quantity}" />
+         <h:commandButton value="Enter order quantity" action="#{orderStock.startProcess}"/>
+      </div>
+   </h:form>
+
+</ui:define>
+</ui:composition>
