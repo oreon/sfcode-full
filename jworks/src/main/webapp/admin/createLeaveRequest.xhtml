@@ -1,0 +1,101 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/admin/template.xhtml">
+
+<ui:define name="content">
+<h2>Order system</h2>
+
+   <h:form id="list">
+      <div>
+         <h:outputText value="There are no order at the moment." rendered="#{empty taskInstanceList}"/>
+         <h:dataTable value="#{taskInstanceList}" 
+            var="task" rendered="#{not empty taskInstanceList}"
+            bgcolor="#F1F1F1" border="10">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Created"/>
+                </f:facet>
+                <h:outputText value="#{task.taskMgmtInstance.processInstance.start}">
+                    <s:convertDateTime type="date"/>
+                </h:outputText>
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Name"/>
+                </f:facet>
+                  <h:outputText value="#{task.name}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Assignee"/>
+                </f:facet>
+                  <h:outputText value="#{task.actorId}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Prev"/>
+                </f:facet>
+                  <h:outputText value="#{task.previousActorId}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Title"/>
+                </f:facet>
+                  <h:outputText value="#{task.variables['title']}"/>
+            </h:column>
+            
+              <h:column>
+                <f:facet name="header">
+                    <h:outputText value="NumDays"/>
+                </f:facet>
+                  <h:outputText value="#{task.variables['numDays']}"/>
+            </h:column>
+			
+			 <h:column>
+			 	<ui:repeat var="trans" value="#{task.availableTransitions}">
+			 		 <s:link value="#{trans.name}" action="#{leaveRequestAction.send}" taskInstance="#{task}" /> <h:outputText value=" " />
+			 	</ui:repeat>
+                <s:button action="#{leaveRequestAction.send}" taskInstance="#{task}" value="Send"/>
+            </h:column>
+
+            <h:column>
+                <s:button action="#{leaveRequestAction.approve}" taskInstance="#{task}" value="Accept"/>
+            </h:column>
+            <h:column>
+                 <s:button action="#{leaveRequestAction.modify}" taskInstance="#{task}" value="Modify"/>
+            </h:column>
+            <h:column>
+                 <s:button action="#{leaveRequestAction.reject}" taskInstance="#{task}" value="Reject"/>
+            </h:column>
+            
+
+         </h:dataTable>
+      </div>
+      <div>
+      <h:messages/>
+      </div>
+   </h:form>
+   
+   
+   <h:form id="new">
+      <div>
+         <h:outputText value="Num Days"  />
+         <h:inputText value="#{leaveRequestAction.leaveRequest.numDays}" />
+
+		 <h:outputText value="Title"  />
+         <h:inputText value="#{leaveRequestAction.leaveRequest.title}" />
+  	         
+         <h:commandButton value="Create Task" action="#{leaveRequestAction.startProcess}"/>
+      </div>
+   </h:form>
+
+</ui:define>
+</ui:composition>
