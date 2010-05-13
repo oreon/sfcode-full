@@ -117,7 +117,7 @@
 «ENDDEFINE»
 
 «DEFINE genLink(String action, String icon) FOR uml::Class»
-	<h:column >
+	<h:column rendered="#{s:hasPermission('«asVar()»Action', '«action»')}">
 		<f:facet name="header">
 			<h:outputText value=" " />
 		</f:facet>
@@ -130,7 +130,7 @@
 
 
 «DEFINE genDeleteLink FOR uml::Class»
-	<h:column>
+	<h:column rendered="#{s:hasPermission('«asVar()»Action', 'archive')}">
 		<f:facet name="header">
 			<h:outputText value="" />
 		</f:facet>
