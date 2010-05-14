@@ -1,0 +1,173 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="Project " />
+		</f:facet>
+		
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.project_architect}  "/>
+	
+	<h:selectOneMenu id="project_architect" value="#{projectAction.project.architect}" required="true">
+		<s:selectItems value="#{teamMemberList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+		
+		<h:message styleClass="error errors" for="project_architect" />		
+		
+	
+	
+		
+	
+
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.project_manager}  "/>
+	
+	<h:selectOneMenu id="project_manager" value="#{projectAction.project.manager}" required="true">
+		<s:selectItems value="#{teamMemberList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+		
+		<h:message styleClass="error errors" for="project_manager" />		
+		
+	
+	
+		
+	
+
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.project_name} * "/>
+		
+
+	<h:inputText  id="project_name#{entityId}" required="true"  value="#{projectAction.project.name}" />
+   
+		
+		<h:message styleClass="error errors" for="project_name" />		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.project_description}  "/>
+		
+
+	<rich:editor useSeamText="true"   id="project_description#{entityId}" required="false"  value="#{projectAction.project.description}" />
+   
+		
+		<h:message styleClass="error errors" for="project_description" />		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+ 
+	<h:commandButton  value="New Story" action="#{projectAction.addStory}" >
+		<s:conversationId/>
+	</h:commandButton>
+ 
+	<rich:dataTable id="story_data" var="story" rendered="#{not empty projectAction.listStory}"
+					value="#{projectAction.listStory}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.story_title} * "/></f:facet>
+		
+
+	<h:inputText  id="story_title#{entityId}" required="true"  value="#{storyAction.story.title}" />
+   
+		
+		<h:message styleClass="error errors" for="story_title" />		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.story_description}  "/></f:facet>
+		
+
+	<rich:editor useSeamText="true"   id="story_description#{entityId}" required="false"  value="#{storyAction.story.description}" />
+   
+		
+		<h:message styleClass="error errors" for="story_description" />		</h:column>
+		
+	
+	
+		
+		
+	<h:column>
+		
+	<h:commandButton  value="New Story" action="#{projectAction.addStory}" >
+		<s:conversationId/>
+	</h:commandButton>
+	</h:column>
+		
+	<h:column>
+		<h:commandButton value="Delete" action="#{projectAction.deleteStory(story)}" immediate="true">
+			<s:conversationId/>
+		</h:commandButton>
+	</h:column>
+		
+			
+	</rich:dataTable>
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{projectAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{projectAction.cancel}" /> 
+		
+	</div>
+
+	</h:panelGroup>
+	</html>
+	

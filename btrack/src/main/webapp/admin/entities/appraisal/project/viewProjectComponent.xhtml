@@ -1,0 +1,146 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="Project " />
+		</f:facet>
+		
+			<h:outputText value="#{msg.id}" />
+			<h:outputText  value="#{projectAction.project.id}" />
+		
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.project_architect}  "/>		
+	<s:link value="#{projectAction.project.architect.displayName}" view="/admin/entities/appraisal/teamMember/viewTeamMember.xhtml" >
+		<f:param name="id" value="#{projectAction.project.architect.id}" />
+	</s:link>
+	
+		
+		
+		
+	
+	
+		
+	
+
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.project_manager}  "/>		
+	<s:link value="#{projectAction.project.manager.displayName}" view="/admin/entities/appraisal/teamMember/viewTeamMember.xhtml" >
+		<f:param name="id" value="#{projectAction.project.manager.id}" />
+	</s:link>
+	
+		
+		
+		
+	
+	
+		
+	
+
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.project_name}  "/>		
+
+	<h:outputText   id="project_name#{entityId}"   value="#{projectAction.project.name}" />
+   
+		
+		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.project_description}  "/>		
+
+	<s:formattedText escape="false"   id="project_description#{entityId}"   value="#{projectAction.project.description}" />
+   
+		
+		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+	
+	<rich:dataTable id="story_data" var="story" rendered="#{not empty projectAction.listStory}"
+					value="#{projectAction.listStory}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.story_title}  "/></f:facet>		
+
+	<h:outputText   id="story_title#{entityId}"   value="#{storyAction.story.title}" />
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.story_description}  "/></f:facet>		
+
+	<s:formattedText escape="false"   id="story_description#{entityId}"   value="#{storyAction.story.description}" />
+   
+		
+		</h:column>
+		
+	
+	
+		
+			
+	</rich:dataTable>
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Back To Listing" immediate="true" action="#{redirect.returnToCapturedView()}" /> 
+		
+	</div>
+
+	</h:panelGroup>
+	</html>
+	

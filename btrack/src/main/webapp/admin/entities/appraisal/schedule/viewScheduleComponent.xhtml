@@ -1,0 +1,94 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="Schedule " />
+		</f:facet>
+		
+			<h:outputText value="#{msg.id}" />
+			<h:outputText  value="#{scheduleAction.schedule.id}" />
+		
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.schedule_scheduleItem}  "/>		
+	<s:link value="#{scheduleAction.schedule.scheduleItem.displayName}" view="/admin/entities/appraisal/scheduleItem/viewScheduleItem.xhtml" >
+		<f:param name="id" value="#{scheduleAction.schedule.scheduleItem.id}" />
+	</s:link>
+	
+		
+		
+		
+	
+	
+		
+	
+
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.schedule_project}  "/>		
+	<s:link value="#{scheduleAction.schedule.project.displayName}" view="/admin/entities/appraisal/project/viewProject.xhtml" >
+		<f:param name="id" value="#{scheduleAction.schedule.project.id}" />
+	</s:link>
+	
+		
+		
+		
+	
+	
+		
+	
+
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.schedule_name}  "/>		
+
+	<h:outputText   id="schedule_name#{entityId}"   value="#{scheduleAction.schedule.name}" />
+   
+		
+		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Back To Listing" immediate="true" action="#{redirect.returnToCapturedView()}" /> 
+		
+	</div>
+
+	</h:panelGroup>
+	</html>
+	
