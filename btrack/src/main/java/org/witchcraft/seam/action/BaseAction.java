@@ -242,7 +242,13 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 	}
 	
 	public void load(Long entityId) {
-		setEntity(loadFromId(entityId));
+		if(entityId == null || entityId == 0 ) {
+			log.info("Empty id " + entityId);
+			return;
+		}
+		 setId(entityId);
+		loadInstance();
+		//setInstance(loadFromId(entityId));
 		//return "edit";
 	}
 	
