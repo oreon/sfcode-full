@@ -20,7 +20,7 @@
 package « packageName() ».action;
 
 «EXPAND genImports FOR this»	
-@Scope(ScopeType.CONVERSATION)
+//@Scope(ScopeType.CONVERSATION)
 @Name("«asVar()»Action")
 	public class «name»Action extends «name»ActionBase implements java.io.Serializable{
 	
@@ -50,13 +50,14 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 	@DataModelSelection
 	private «name» «asVar()»;
 	
+	
 	«FOREACH getOutgoingAssociations() AS e»
-	 @In(create = true)
+	 @In(create = true, value="«e.type.name.toFirstLower()»Action")
 	 «e.type.getActionFqn()» «e.name»Action;
 	«ENDFOREACH»
 	
 	«FOREACH getNonComposedManyAssociations() AS e»
-	 @In(create = true)
+	 @In(create = true,  value="«e.type.name.toFirstLower()»List")
  	«e.type.fqnPackage("action")»ListQuery «e.name.getSingular()»List;
 	«ENDFOREACH»
 

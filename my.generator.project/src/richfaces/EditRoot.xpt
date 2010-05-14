@@ -41,7 +41,10 @@
 				</rich:tab>
 			«FOREACH getOutgoingAssociations() AS a»
 				<rich:tab label="«a.name.toFirstUpper()»">
-					<ui:include src = "«a.type.getComponentViewFile("view")»" />
+					<ui:include src = "«a.type.getComponentViewFile("view")»" >
+						<ui:param name="entityId" value="«getRandomNumber()»" />
+						<ui:param name="«a.type.name.toFirstLower()»Id" value="#{«getAction()».instance.«a.name».id}" />
+					</ui:include>
 				</rich:tab>
 			«ENDFOREACH»	
 				
@@ -78,10 +81,10 @@
 «DEFINE genEditViewComponent(boolean edit) FOR uml::Class»
 	«FILE getWebPath() +"/" + (edit?"edit":"view") + name+ "Component." + getExtension()»
 	<html «EXPAND WebRoot::genIncludes-» >	
-	<h:panelGroup  >
+	<h:panelGroup   >
 		<s:validateAll>
 		«setAsCurrentEntity(this)-»
-		<h:panelGrid columns="«edit?"3":"2"»" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<h:panelGrid columns="«edit?"3":"2"»" styleClass="viewInfo" columnClasses="leftCol, rightCol"  onload="#{«getAction()».load(«asVar()»Id )  }">
 		<f:facet name="header">
 			<h:outputText value="«name» " />
 		</f:facet>
@@ -149,23 +152,22 @@
 
 «DEFINE genLabelAndControl FOR uml::Property»
 	«IF isCurrentEditMode()»
-		«EXPAND genLabelAndInput FOR this»
+		«EXPAND genLabelAndInput FOR this-»
 	«ELSE»
-		«EXPAND genLabelAndOutput FOR this»
+		«EXPAND genLabelAndOutput FOR this-»
 	«ENDIF»
 «ENDDEFINE»
-
 
 «DEFINE genLabelAndInput FOR uml::Property-»
 	«IF !isDerived() && !type.isEmbeddable() »
 		«getAccess() != null?" <s:div rendered=\"#{s:hasRole('admin')}\">":""»
 		«getOutputMessage()»
-		«IF association != null»
-			«EXPAND genAssociation»
+		«IF association != null-»
+			«EXPAND genAssociation-»
 		«ELSE»
-			«EXPAND genPropertyEntry(type) FOR this»
+			«EXPAND genPropertyEntry(type) FOR this-»
 		«ENDIF»
-		«getErrorMessageHolder()»
+		«getErrorMessageHolder()-»
 		«isCurrentMultiMode()?"</h:column>":""»
 		«getAccess() != null?"</s:div>":""»
 	«ENDIF»
@@ -174,13 +176,13 @@
 «DEFINE genLabelAndOutput FOR uml::Property-»
 	«IF !isSecret()  »
 		«getAccess() != null?" <s:div rendered=\"#{s:hasRole('admin')}\">":""»
-		«getOutputMessage()»
+		«getOutputMessage()-»
 		«IF association != null»
-			«EXPAND genAssociation»
+			«EXPAND genAssociation-»
 		«ELSE»
-			«EXPAND genPropertyEntry(type) FOR this»
+			«EXPAND genPropertyEntry(type) FOR this-»
 		«ENDIF»
-		«getErrorMessageHolder()»
+		«getErrorMessageHolder()-»
 		«isCurrentMultiMode()?"</h:column>":""»
 		«getAccess() != null?"</s:div>":""»
 	«ENDIF»
@@ -208,7 +210,7 @@
 «IF type.name == "imageFile"»
 	«getTextForImgFile()» 
 «ELSE»
-	<«getTextControl()»  id="«getId()»" «isCurrentEditMode()? "required=\"" + getRequired() +"\"":""»  value="#{«getCurrentEntity().asVar()»Action.«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
+	<«getTextControl()»  id="«getId()»#{entityId}" «isCurrentEditMode()? "required=\"" + getRequired() +"\"":""»  value="#{«getCurrentEntity().asVar()»Action.«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
 «ENDIF»   
 «ENDDEFINE»
 
@@ -219,12 +221,12 @@
 
 «DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
 	«IF !isCurrentEditMode() -»
-	<«getTextControl()» id="«getId()»" value="#{«genPropertyLabel()»}" />
+	<«getTextControl()»  value="#{«genPropertyLabel()»}" />
 	«ELSE»
 	<h:selectOneMenu id="«getId()»" value="#{«genPropertyLabel()»}" required="«getAssocOptional()»">
 		<f:selectItem itemLabel="Please Select..." itemValue="" />
 		«FOREACH  enm.ownedLiteral AS e-»
-		<f:selectItem itemLabel="«e.name»" itemValue="«e.name-»" />
+		<f:selectItem itemLabel="«e.name»" itemValue="«e.name.getVariableNameForDisplay()-»" />
 		«ENDFOREACH»
 	</h:selectOneMenu>
 	«ENDIF»
