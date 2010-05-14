@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Random;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
@@ -147,6 +148,11 @@ public class ClassUtil {
 		//pack.getown
 	}
 	
+	
+	public static int getRandomNumber(){
+		return new Random().nextInt(15000);
+		
+	}
 	
 	
 	public static EList<Property> getInts(Class cls){
