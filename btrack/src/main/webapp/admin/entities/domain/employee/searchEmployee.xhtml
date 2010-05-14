@@ -1,0 +1,147 @@
+
+<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:form>
+	<rich:simpleTogglePanel switchType="client" label="Search">
+			<div class="entry errors"><h:messages globalOnly="true" /></div>
+			<h:panelGrid columns="6">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.person_firstName} * "/> <br/>
+	
+		<h:inputText  id="person_firstName" value="#{employeeList.employee.firstName}" />
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.person_lastName} * "/> <br/>
+	
+		<h:inputText  id="person_lastName" value="#{employeeList.employee.lastName}" />
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+			
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.contactDetails_primaryPhone}  "/> <br/>
+	
+		<h:inputText  id="contactDetails_primaryPhone" value="#{employeeList.employee.contactDetails.primaryPhone}" />
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.contactDetails_secondaryPhone}  "/> <br/>
+	
+		<h:inputText  id="contactDetails_secondaryPhone" value="#{employeeList.employee.contactDetails.secondaryPhone}" />
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.contactDetails_email} * "/> <br/>
+	
+		<h:inputText  id="contactDetails_email" value="#{employeeList.employee.contactDetails.email}" />
+	
+	
+	</h:panelGroup>
+
+	
+	
+		
+	
+	
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.employee_department}  "/> <br/>
+	<h:selectOneMenu id="employee_department" value="#{employeeList.employee.department}" >
+		<s:selectItems value="#{departmentList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.employee_employeeNumber}  "/> <br/>
+	
+		<h:inputText  id="employee_employeeNumber" value="#{employeeList.employee.employeeNumber}" />
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.employee_employeeType}  "/> <br/>
+	<h:selectOneMenu id="employee_employeeType" value="#{employeeList.employee.employeeType}" required="false">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="FULL_TIME" itemValue="FULL_TIME" />
+		<f:selectItem itemLabel="CONTRACT" itemValue="CONTRACT" />
+		<f:selectItem itemLabel="PART_TIME" itemValue="PART_TIME" />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+			
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">From</ui:define> <br/>
+				<rich:calendar id="from"
+					value="#{employeeList.dateCreatedRange.begin}" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">To</ui:define> <br/>
+				<rich:calendar id="to" value="#{employeeList.dateCreatedRange.end}" />
+			</s:decorate>
+
+			</h:panelGrid>
+			
+			
+	<div class="actionButtons"><h:commandButton id="search"
+		value="Search" 
+		action="/admin/entities/domain/employee/listEmployee.xhtml" >
+			 <s:conversationPropagation type="end"/>
+		</h:commandButton> 
+		<s:button propagation="end"
+		id="reset" value="Reset" includePageParams="false" /></div>
+
+		</rich:simpleTogglePanel>
+	</h:form>
+</html>
+	

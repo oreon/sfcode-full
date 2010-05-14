@@ -1,0 +1,114 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:panelGroup  >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol">
+		<f:facet name="header">
+			<h:outputText value="ScheduleItem " />
+		</f:facet>
+		
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.scheduleItem_schedule}  "/>
+	
+	<h:selectOneMenu id="scheduleItem_schedule" value="#{scheduleItemAction.scheduleItem.schedule}" required="true">
+		<s:selectItems value="#{scheduleList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+		
+		<h:message styleClass="error errors" for="scheduleItem_schedule" />		
+		
+	
+	
+		
+	
+
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.scheduleItem_story}  "/>
+	
+	<h:selectOneMenu id="scheduleItem_story" value="#{scheduleItemAction.scheduleItem.story}" required="true">
+		<s:selectItems value="#{storyList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+		
+		<h:message styleClass="error errors" for="scheduleItem_story" />		
+		
+	
+	
+		
+	
+
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.scheduleItem_beginDate}  "/>
+		
+
+	<rich:calendar  id="scheduleItem_beginDate#{entityId}" required="false"  value="#{scheduleItemAction.scheduleItem.beginDate}" />
+   
+		
+		<h:message styleClass="error errors" for="scheduleItem_beginDate" />		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.scheduleItem_endDate}  "/>
+		
+
+	<rich:calendar  id="scheduleItem_endDate#{entityId}" required="false"  value="#{scheduleItemAction.scheduleItem.endDate}" />
+   
+		
+		<h:message styleClass="error errors" for="scheduleItem_endDate" />		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{scheduleItemAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{scheduleItemAction.cancel}" /> 
+		
+	</div>
+
+	</h:panelGroup>
+	</html>
+	

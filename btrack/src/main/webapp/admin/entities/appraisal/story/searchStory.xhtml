@@ -1,0 +1,82 @@
+
+<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:form>
+	<rich:simpleTogglePanel switchType="client" label="Search">
+			<div class="entry errors"><h:messages globalOnly="true" /></div>
+			<h:panelGrid columns="6">
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.story_title} * "/> <br/>
+	
+		<h:inputText  id="story_title" value="#{storyList.story.title}" />
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.story_description}  "/> <br/>
+	
+		<h:inputText  id="story_description" value="#{storyList.story.description}" />
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.story_project}  "/> <br/>
+	<h:selectOneMenu id="story_project" value="#{storyList.story.project}" >
+		<s:selectItems value="#{projectList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+			
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">From</ui:define> <br/>
+				<rich:calendar id="from"
+					value="#{storyList.dateCreatedRange.begin}" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">To</ui:define> <br/>
+				<rich:calendar id="to" value="#{storyList.dateCreatedRange.end}" />
+			</s:decorate>
+
+			</h:panelGrid>
+			
+			
+	<div class="actionButtons"><h:commandButton id="search"
+		value="Search" 
+		action="/admin/entities/appraisal/story/listStory.xhtml" >
+			 <s:conversationPropagation type="end"/>
+		</h:commandButton> 
+		<s:button propagation="end"
+		id="reset" value="Reset" includePageParams="false" /></div>
+
+		</rich:simpleTogglePanel>
+	</h:form>
+</html>
+	

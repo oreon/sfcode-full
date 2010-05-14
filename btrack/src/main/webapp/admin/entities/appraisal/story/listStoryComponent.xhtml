@@ -1,0 +1,174 @@
+
+<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	
+	
+<rich:panel>
+	  <f:facet name="header">Story Search Results (#{empty storyList.resultList ? 0 : (storyList.paginated ? storyList.resultCount : storyList.resultList.size)})</f:facet>
+	
+		<rich:dataTable  var="_story" value="#{storyList.resultList}" 
+		rowClasses="odd, even" styleClass="dataTable"  rendered="#{not empty storyList.resultList}">	
+		
+	<h:column >
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{storyList}" />
+				<ui:param name="propertyLabel" value="Id" />
+				<ui:param name="propertyPath" value="story.id" />
+			</ui:include>
+		</f:facet>
+		<h:outputText    value="#{_story.id}"  >
+		</h:outputText>
+	</h:column>
+		
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{storyList}" />
+				<ui:param name="propertyLabel" value="#{msg.story_title}" />
+				<ui:param name="propertyPath" value="story.title" />
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_story.title}">
+		
+		</h:outputText>
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{storyList}" />
+				<ui:param name="propertyLabel" value="#{msg.story_description}" />
+				<ui:param name="propertyPath" value="story.description" />
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_story.description}">
+		
+		</h:outputText>
+	</h:column>
+	
+		
+			
+				
+	<h:column  groupOn="#{story.project.displayName}" >
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{storyList}" />
+				<ui:param name="propertyLabel" value="#{msg.story_project}" />
+				<ui:param name="propertyPath" value="story.project" />
+			</ui:include>
+		</f:facet>
+		<s:link    value="#{_story.project.displayName}"  view="/admin/entities/appraisal/project/viewProject.xhtml" >
+			<f:param name="projectId" value="#{_story.project.id}" />
+			<f:param name="from" value="#{request.servletPath}" />
+		</s:link>
+	</h:column>
+			
+		
+	
+		
+	
+		
+	<h:column >
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{storyList}" />
+				<ui:param name="propertyLabel" value="Creation Date" />
+				<ui:param name="propertyPath" value="story.dateCreated" />
+			</ui:include>
+		</f:facet>
+		<h:outputText    value="#{_story.dateCreated}"  >
+			<s:convertDateTime type="both" dateStyle="short" />
+		</h:outputText>
+	</h:column>
+		
+	<h:column rendered="#{s:hasPermission('storyAction', 'view')}">
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<s:link view="/admin/entities/appraisal/story/viewStory.xhtml">
+			<h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>
+			<f:param name="storyId" value="#{_story.id}" />
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('storyAction', 'edit')}">
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<s:link view="/admin/entities/appraisal/story/editStory.xhtml">
+			<h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>
+			<f:param name="storyId" value="#{_story.id}" />
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('storyAction', 'archive')}">
+		<f:facet name="header">
+			<h:outputText value="" />
+		</f:facet>
+		
+		<s:link action="#{storyAction.archive}" onclick="javascript:if(!confirm('Do you really want to delete #{_story.displayName} ?')){ return false; } else { return true; }" >
+			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>
+			<f:param name="id" value="#{_story.id}" />
+		</s:link>
+	</h:column>
+
+		</rich:dataTable>
+</rich:panel>	
+
+
+
+ <div class="tableControl">
+<s:link
+	view="#{request.servletPath}"
+	rendered="#{storyList.previousExists}"
+	value="#{messages.left}#{messages.left} First Page" >
+	<f:param name="firstResult" value="0" />
+</s:link> 
+
+<s:link view="#{request.servletPath}"
+	rendered="#{storyList.previousExists}"
+	value="#{messages.left} Previous Page" >
+	<f:param name="firstResult" value="#{storyList.previousFirstResult}" />
+</s:link> 
+
+<s:link view="#{request.servletPath}"
+	rendered="#{storyList.nextExists}"
+	value="Next Page #{messages.right}" >
+	<f:param name="firstResult" value="#{storyList.nextFirstResult}" />
+</s:link> 
+
+<s:link view="#{request.servletPath}"
+	rendered="#{storyList.nextExists}"
+	value="Last Page #{messages.right}#{messages.right}" >
+	<f:param name="firstResult" value="#{storyList.lastFirstResult}" />
+</s:link>
+</div>
+
+
+<h:form>
+<s:div styleClass="actionButtons" rendered="#{empty from}">
+	<s:button value="Create New" view="/admin/entities/appraisal/story/editStory.xhtml"  propagation="none">
+		 <f:param name="StoryId"/>
+		
+		<f:param name="projectId" value="#{story.project.id}" />
+		
+	</s:button>
+</s:div>
+</h:form>
+
+</html>
+	
