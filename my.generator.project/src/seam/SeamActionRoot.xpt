@@ -65,6 +65,9 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 	private List<«name»> «asVar()»RecordList;	
 	
 	public void set«name»Id(Long id) {
+	«FOREACH getComposed() AS e»
+		list«e.name.toFirstUpper()»  = new ArrayList<«e.type.name»>();
+	«ENDFOREACH»
 		setId(id);
 		loadAssociations();
 	}
@@ -86,6 +89,7 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 
 	@Override
 	public void setEntity(«name» t) {
+		listStoryComponents = new ArrayList<StoryComponent>();
 		this.«asVar()» = t;
 		loadAssociations();
 	}
