@@ -166,6 +166,10 @@ String getId(Property prop):
 prop.class.name.toFirstLower() + "_" + prop.name;
 
 
+String getActionForMode():
+!isCurrentMultiMode()?getCurrentEntity().asVar() + "Action.": "_"; 
+
+
 
 String getErrorMessageHolder(Property prop):
 isCurrentEditMode()?"<h:message styleClass=\"error errors\" for=\"" + prop.getId() + "\" />":"";

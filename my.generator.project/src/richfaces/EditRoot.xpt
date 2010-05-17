@@ -191,11 +191,11 @@
 
 «DEFINE genAssociation FOR uml::Property -»
 	«IF !isCurrentEditMode()-»
-	<s:link value="#{«getCurrentEntity().asVar()»Action.«genPropertyLabel()-».displayName}" view="«type.getViewFile("view")»" >
+	<s:link value="#{«getActionForMode()»«genPropertyLabel()-».displayName}" view="«type.getViewFile("view")»" >
 		<f:param name="id" value="#{«getCurrentEntity().asVar()»Action.«genPropertyLabel()-».id}" />
 	</s:link>
 	«ELSE»
-	<h:selectOneMenu id="«getId()»" value="#{«getCurrentEntity().asVar()»Action.«genPropertyLabel()-»}" required="«!getAssocOptional()»">
+	<h:selectOneMenu id="«getId()»" value="#{«getActionForMode()»«genPropertyLabel()-»}" required="«!getAssocOptional()»">
 		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
@@ -210,7 +210,7 @@
 «IF type.name == "imageFile"»
 	«getTextForImgFile()» 
 «ELSE»
-	<«getTextControl()»  id="«getId()»#{entityId}" «isCurrentEditMode()? "required=\"" + getRequired() +"\"":""»  value="#{«getCurrentEntity().asVar()»Action.«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
+	<«getTextControl()»  id="«getId()»#{entityId}" «isCurrentEditMode()? "required=\"" + getRequired() +"\"":""»  value="#{«getActionForMode()»«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
 «ENDIF»   
 «ENDDEFINE»
 
@@ -221,9 +221,9 @@
 
 «DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
 	«IF !isCurrentEditMode() -»
-	<«getTextControl()»  value="#{«genPropertyLabel()»}" />
+	<«getTextControl()»  value="#{«getActionForMode()»«genPropertyLabel()»}" />
 	«ELSE»
-	<h:selectOneMenu id="«getId()»" value="#{«genPropertyLabel()»}" required="«getAssocOptional()»">
+	<h:selectOneMenu id="«getId()»" value="#{«getActionForMode()»«genPropertyLabel()»}" required="«getAssocOptional()»">
 		<f:selectItem itemLabel="Please Select..." itemValue="" />
 		«FOREACH  enm.ownedLiteral AS e-»
 		<f:selectItem itemLabel="«e.name»" itemValue="«e.name.getVariableNameForDisplay()-»" />
@@ -236,7 +236,7 @@
 «DEFINE gentEditableTable FOR uml::Property-»
 	«setCurrentMultiMode(true)-»
 	«IF isCurrentEditMode()-» «EXPAND genNewButton FOR this» «ENDIF»
-	<rich:dataTable id="«name»_data" var="«type.asVar()»" rendered="#{not empty «getCurrentEntity().getAction()».list«name.toFirstUpper()»}"
+	<rich:dataTable id="«name»_data" var="_«type.asVar()»" rendered="#{not empty «getCurrentEntity().getAction()».list«name.toFirstUpper()»}"
 					value="#{«getCurrentEntity().getAction()».list«name.toFirstUpper()»}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		«setAsCurrentEntity(type)»
@@ -253,7 +253,7 @@
 
 «DEFINE genDelete FOR uml::Property»
 	<h:column>
-		<h:commandButton value="Delete" action="#{«class.getAction()».delete«name.toFirstUpper()»(«type.asVar()»)}" immediate="true">
+		<h:commandButton value="Delete" action="#{«class.getAction()».delete«name.toFirstUpper()»(_«type.asVar()»)}" immediate="true">
 			<s:conversationId/>
 		</h:commandButton>
 	</h:column>
