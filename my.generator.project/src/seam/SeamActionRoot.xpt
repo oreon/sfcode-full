@@ -194,8 +194,8 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 	«IF ! ( getComposed().isEmpty )»
 	public void updateComposedAssociations(){
 	«FOREACH getComposed() AS e»
-		«e.class.asVar()».get«e.name.toFirstUpper()»().clear();
-		«e.class.asVar()».get«e.name.toFirstUpper()»().addAll(«"list" + e.name.toFirstUpper()»);
+		getInstance().get«e.name.toFirstUpper()»().clear();
+		getInstance().get«e.name.toFirstUpper()»().addAll(«"list" + e.name.toFirstUpper()»);
 	«ENDFOREACH»
 	}
 	«ENDIF»
@@ -222,13 +222,13 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 	
 	void initList«name.toFirstUpper()»(){
 		«currentList» = new ArrayList<«type.name»>();
-		if(«class.asVar()».get«name.toFirstUpper()»().isEmpty()){
+		if(getInstance().get«name.toFirstUpper()»().isEmpty()){
 			«IF !getAssocOptional()»
 			add«name.toFirstUpper()»();
 			«ENDIF»
 		}
 		else
-			«currentList».addAll(«class.asVar()».get«name.toFirstUpper()»());
+			«currentList».addAll(getInstance().get«name.toFirstUpper()»());
 	}
 	
 	public List<«type.name»> getList«name.toFirstUpper()»() {
@@ -250,7 +250,7 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 	public void add«name.toFirstUpper()»(){
 		«type.name» «name» = new «type.name»();
 		«IF opposite != null && opposite.isNavigable()»
-			«name».set«opposite.name.toFirstUpper()»(«class.asVar()»);
+			«name».set«opposite.name.toFirstUpper()»(getInstance());
 		«ENDIF»
 		«currentList».add(«name»);
 	}
