@@ -32,25 +32,6 @@
 	</h:column>
 		
 	
-		
-			
-				
-	<h:column >
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{scheduleList}" />
-				<ui:param name="propertyLabel" value="#{msg.schedule_scheduleItem}" />
-				<ui:param name="propertyPath" value="schedule.scheduleItem" />
-			</ui:include>
-		</f:facet>
-		<s:link    value="#{_schedule.scheduleItem.displayName}"  view="/admin/entities/appraisal/scheduleItem/viewScheduleItem.xhtml" >
-			<f:param name="scheduleItemId" value="#{_schedule.scheduleItem.id}" />
-			<f:param name="from" value="#{request.servletPath}" />
-		</s:link>
-	</h:column>
-			
-		
-	
 	<h:column>
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
@@ -169,8 +150,6 @@
 <s:div styleClass="actionButtons" rendered="#{empty from}">
 	<s:button value="Create New" view="/admin/entities/appraisal/schedule/editSchedule.xhtml"  propagation="none">
 		 <f:param name="scheduleId"/>
-		
-		<f:param name="scheduleItemId" value="#{schedule.scheduleItem.id}" />
 		
 		<f:param name="projectId" value="#{schedule.project.id}" />
 		

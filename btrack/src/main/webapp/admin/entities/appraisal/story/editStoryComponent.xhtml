@@ -73,6 +73,28 @@
 		
 	
 	
+
+	
+	
+		
+		<h:outputText value="#{msg.story_priority}  "/>
+		
+	
+	<h:selectOneMenu id="story_priority" value="#{storyAction.story.priority}" required="false">
+		<f:selectItem itemLabel="Please Select..." itemValue="" />
+		<f:selectItem itemValue="SHOWSTOPPER"  itemLabel="Showstopper" />
+		<f:selectItem itemValue="URGENT"  itemLabel="Urgent" />
+		<f:selectItem itemValue="MEDIUM"  itemLabel="Medium" />
+		<f:selectItem itemValue="LOW"  itemLabel="Low" />
+		<f:selectItem itemValue="COSMETIC"  itemLabel="Cosmetic" />
+		
+	</h:selectOneMenu>
+	
+		
+		<h:message styleClass="error errors" for="story_priority" />		
+		
+	
+	
 		</h:panelGrid>
 		
 	
@@ -81,7 +103,8 @@
 		<s:conversationId/>
 	</h:commandButton>
  
-	<rich:dataTable id="storyComponents_data" var="storyComponent" rendered="#{not empty storyAction.listStoryComponents}"
+	
+	<rich:dataTable id="storyComponents_data" var="_storyComponent" rendered="#{not empty storyAction.listStoryComponents}"
 					value="#{storyAction.listStoryComponents}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		
@@ -97,7 +120,7 @@
 		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.storyComponent_title} * "/></f:facet>
 		
 
-	<h:inputText  id="storyComponent_title#{entityId}" required="true"  value="#{storyComponentAction.storyComponent.title}" />
+	<h:inputText  id="storyComponent_title#{entityId}" required="true"  value="#{_storyComponent.title}" />
    
 		
 		<h:message styleClass="error errors" for="storyComponent_title" />		</h:column>
@@ -111,14 +134,13 @@
 		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.storyComponent_hours}  "/></f:facet>
 		
 
-	<h:inputText  id="storyComponent_hours#{entityId}" required="false"  value="#{storyComponentAction.storyComponent.hours}" />
+	<h:inputText  id="storyComponent_hours#{entityId}" required="false"  value="#{_storyComponent.hours}" />
    
 		
 		<h:message styleClass="error errors" for="storyComponent_hours" />		</h:column>
 		
 	
 	
-		
 		
 	<h:column>
 		
@@ -128,11 +150,68 @@
 	</h:column>
 		
 	<h:column>
-		<h:commandButton value="Delete" action="#{storyAction.deleteStoryComponents(storyComponent)}" immediate="true">
+		<h:commandButton value="Delete" action="#{storyAction.deleteStoryComponents(_storyComponent)}" immediate="true">
 			<s:conversationId/>
 		</h:commandButton>
 	</h:column>
+			
+	</rich:dataTable>
+ 
+	<h:commandButton  value="New ScreenShotse" action="#{storyAction.addScreenShotses}" >
+		<s:conversationId/>
+	</h:commandButton>
+ 
+	
+	<rich:dataTable id="screenShotses_data" var="_screenShots" rendered="#{not empty storyAction.listScreenShotses}"
+					value="#{storyAction.listScreenShotses}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		
+	
+	
+
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.screenShots_image}  "/></f:facet>
+		
+
+	<s:fileUpload data="#{screenShots.image}"/> 
+   
+		
+		<h:message styleClass="error errors" for="screenShots_image" />		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:left"><f:facet name="header"><h:outputText value="#{msg.screenShots_tite}  "/></f:facet>
+		
+
+	<h:inputText  id="screenShots_tite#{entityId}" required="false"  value="#{_screenShots.tite}" />
+   
+		
+		<h:message styleClass="error errors" for="screenShots_tite" />		</h:column>
+		
+	
+	
+		
+	<h:column>
+		
+	<h:commandButton  value="New ScreenShotse" action="#{storyAction.addScreenShotses}" >
+		<s:conversationId/>
+	</h:commandButton>
+	</h:column>
+		
+	<h:column>
+		<h:commandButton value="Delete" action="#{storyAction.deleteScreenShotses(_screenShots)}" immediate="true">
+			<s:conversationId/>
+		</h:commandButton>
+	</h:column>
 			
 	</rich:dataTable>
 		</s:validateAll>

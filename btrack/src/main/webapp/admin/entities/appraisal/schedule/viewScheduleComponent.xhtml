@@ -29,25 +29,6 @@
 	
 	
 		
-		<h:outputText value="#{msg.schedule_scheduleItem}  "/>		
-	<s:link value="#{scheduleAction.schedule.scheduleItem.displayName}" view="/admin/entities/appraisal/scheduleItem/viewScheduleItem.xhtml" >
-		<f:param name="id" value="#{scheduleAction.schedule.scheduleItem.id}" />
-	</s:link>
-	
-		
-		
-		
-	
-	
-		
-	
-
-	
-		
-			
-	
-	
-		
 		<h:outputText value="#{msg.schedule_project}  "/>		
 	<s:link value="#{scheduleAction.schedule.project.displayName}" view="/admin/entities/appraisal/project/viewProject.xhtml" >
 		<f:param name="id" value="#{scheduleAction.schedule.project.id}" />
@@ -79,6 +60,64 @@
 		</h:panelGrid>
 		
 	
+	
+	
+	<rich:dataTable id="scheduleItem_data" var="_scheduleItem" rendered="#{not empty scheduleAction.listScheduleItem}"
+					value="#{scheduleAction.listScheduleItem}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+
+	
+		
+			
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.scheduleItem_story}  "/></f:facet>		
+	<s:link value="#{_scheduleItem.story.displayName}" view="/admin/entities/appraisal/story/viewStory.xhtml" >
+		<f:param name="id" value="#{scheduleItemAction.scheduleItem.story.id}" />
+	</s:link>
+	
+		
+		</h:column>
+		
+	
+	
+		
+	
+
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.scheduleItem_beginDate}  "/></f:facet>		
+
+	<h:outputText   id="scheduleItem_beginDate#{entityId}"   value="#{_scheduleItem.beginDate}" />
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.scheduleItem_endDate}  "/></f:facet>		
+
+	<h:outputText   id="scheduleItem_endDate#{entityId}"   value="#{_scheduleItem.endDate}" />
+   
+		
+		</h:column>
+		
+	
+	
+			
+	</rich:dataTable>
 		</s:validateAll>
 		
 	<div class="buttonBox">

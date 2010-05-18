@@ -47,6 +47,7 @@ public class TeamMemberActionBase extends BaseAction<TeamMember>
 	private List<TeamMember> teamMemberRecordList;
 
 	public void setTeamMemberId(Long id) {
+
 		setId(id);
 		loadAssociations();
 	}

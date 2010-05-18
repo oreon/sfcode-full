@@ -61,6 +61,25 @@
 		
 	
 
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.project_category}  "/>		
+	<s:link value="#{projectAction.project.category.displayName}" view="/admin/entities/appraisal/category/viewCategory.xhtml" >
+		<f:param name="id" value="#{projectAction.project.category.id}" />
+	</s:link>
+	
+		
+		
+		
+	
+	
+		
+	
+
 
 	
 	
@@ -93,7 +112,8 @@
 		
 	
 	
-	<rich:dataTable id="story_data" var="story" rendered="#{not empty projectAction.listStory}"
+	
+	<rich:dataTable id="story_data" var="_story" rendered="#{not empty projectAction.listStory}"
 					value="#{projectAction.listStory}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		
@@ -108,7 +128,7 @@
 		
 		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.story_title}  "/></f:facet>		
 
-	<h:outputText   id="story_title#{entityId}"   value="#{storyAction.story.title}" />
+	<h:outputText   id="story_title#{entityId}"   value="#{_story.title}" />
    
 		
 		</h:column>
@@ -121,14 +141,25 @@
 		
 		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.story_description}  "/></f:facet>		
 
-	<s:formattedText escape="false"   id="story_description#{entityId}"   value="#{storyAction.story.description}" />
+	<s:formattedText escape="false"   id="story_description#{entityId}"   value="#{_story.description}" />
    
 		
 		</h:column>
 		
 	
 	
+
+	
+	
 		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.story_priority}  "/></f:facet>		
+	<h:outputText   value="#{_story.priority}" />
+	
+		
+		</h:column>
+		
+	
+	
 			
 	</rich:dataTable>
 		</s:validateAll>

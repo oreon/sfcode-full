@@ -1,0 +1,101 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:panelGroup   >
+		<s:validateAll>
+		<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol"  onload="#{categoryAction.load(categoryId )  }">
+		<f:facet name="header">
+			<h:outputText value="Category " />
+		</f:facet>
+		
+			<h:outputText value="#{msg.id}" />
+			<h:outputText  value="#{categoryAction.category.id}" />
+		
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.category_parent}  "/>		
+	<s:link value="#{categoryAction.category.parent.displayName}" view="/admin/entities/appraisal/category/viewCategory.xhtml" >
+		<f:param name="id" value="#{categoryAction.category.parent.id}" />
+	</s:link>
+	
+		
+		
+		
+	
+	
+		
+	
+
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.category_name}  "/>		
+
+	<h:outputText   id="category_name#{entityId}"   value="#{categoryAction.category.name}" />
+   
+		
+		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+	
+	
+	<rich:dataTable id="subcategories_data" var="_category" rendered="#{not empty categoryAction.listSubcategories}"
+					value="#{categoryAction.listSubcategories}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.category_name}  "/></f:facet>		
+
+	<h:outputText   id="category_name#{entityId}"   value="#{_category.name}" />
+   
+		
+		</h:column>
+		
+	
+	
+			
+	</rich:dataTable>
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Back To Listing" immediate="true" action="#{redirect.returnToCapturedView()}" /> 
+		
+	</div>
+
+	</h:panelGroup>
+	</html>
+	

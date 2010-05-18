@@ -29,8 +29,6 @@ public abstract class ScheduleListQueryBase extends BaseQuery<Schedule, Long> {
 	private static final String[] RESTRICTIONS = {
 			"schedule.id = #{scheduleList.schedule.id}",
 
-			"schedule.scheduleItem = #{scheduleList.schedule.scheduleItem}",
-
 			"lower(schedule.name) like concat(lower(#{scheduleList.schedule.name}),'%')",
 
 			"schedule.project = #{scheduleList.schedule.project}",

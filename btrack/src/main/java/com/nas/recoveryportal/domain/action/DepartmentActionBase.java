@@ -50,6 +50,7 @@ public class DepartmentActionBase extends BaseAction<Department>
 	private List<Department> departmentRecordList;
 
 	public void setDepartmentId(Long id) {
+
 		setId(id);
 		loadAssociations();
 	}

@@ -30,6 +30,7 @@ import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
+import org.witchcraft.model.support.audit.Auditable;
 import org.hibernate.annotations.Filter;
 
 @Entity
@@ -40,12 +41,17 @@ import org.hibernate.annotations.Filter;
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
-public class Schedule extends BusinessEntity {
+public class Schedule extends BusinessEntity
+		implements
+			Auditable,
+			java.io.Serializable {
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "scheduleItem_id", nullable = false, updatable = true)
-	@ContainedIn
-	protected ScheduleItem scheduleItem;
+	//scheduleItem->schedule ->Schedule->ScheduleItem->ScheduleItem
+
+	@OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Schedule_ID", nullable = true)
+	@IndexedEmbedded
+	private Set<ScheduleItem> scheduleItem = new HashSet<ScheduleItem>();
 
 	@NotNull
 	@Length(min = 2, max = 50)
@@ -57,12 +63,11 @@ public class Schedule extends BusinessEntity {
 	@ContainedIn
 	protected Project project;
 
-	public void setScheduleItem(ScheduleItem scheduleItem) {
+	public void setScheduleItem(Set<ScheduleItem> scheduleItem) {
 		this.scheduleItem = scheduleItem;
 	}
 
-	public ScheduleItem getScheduleItem() {
-
+	public Set<ScheduleItem> getScheduleItem() {
 		return scheduleItem;
 	}
 

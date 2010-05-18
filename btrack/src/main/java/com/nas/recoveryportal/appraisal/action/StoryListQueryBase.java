@@ -35,6 +35,8 @@ public abstract class StoryListQueryBase extends BaseQuery<Story, Long> {
 
 			"story.project = #{storyList.story.project}",
 
+			"story.priority = #{storyList.story.priority}",
+
 			"story.dateCreated <= #{storyList.dateCreatedRange.end}",
 			"story.dateCreated >= #{storyList.dateCreatedRange.begin}",};
 

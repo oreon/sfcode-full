@@ -27,6 +27,7 @@ import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Observer;
+import org.jboss.seam.annotations.Transactional;
 import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.core.Events;
@@ -38,6 +39,7 @@ import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.base.entity.EntityComment;
 import org.witchcraft.base.entity.EntityTemplate;
 import org.witchcraft.model.support.audit.AuditLog;
+import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.model.support.audit.EntityAuditLogInterceptor;
 
 
@@ -185,15 +187,19 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 		return StringUtils.EMPTY;
 	}
 	
+	@Transactional
 	public T persist(T e){
 		if(e.getId() != null && e.getId() > 0 ){
-			T prevEntity = loadFromId(e.getId());
-			//Events.instance().raiseEvent(EventTypes.UPDATE.name(), EventTypes.UPDATE, prevEntity);
+		
+			if(e instanceof Auditable){
+				T prevEntity = loadFromId(e.getId());
+				Events.instance().raiseEvent(EventTypes.UPDATE.name(), EventTypes.UPDATE, prevEntity);
+			}
 			entityManager.merge(e);
 		}
 		else{ //new object 
 			entityManager.persist(e);
-			//Events.instance().raiseEvent(EventTypes.CREATE.name(), EventTypes.CREATE, e);
+			Events.instance().raiseEvent(EventTypes.CREATE.name(), EventTypes.CREATE, e);
 		}
 		return e;
 	}
@@ -226,9 +232,8 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 		if (entityId != null && entityId > 0 ) {
 			
 			try {
-				T t = (T) entityManager.createQuery(
-						"Select d from " + getClassName()  + " d where d.id=:id")
-						.setParameter("id", entityId).getSingleResult();
+				T t = (T)  getEntityManager().find(getEntityClass(), getId());
+			
 				return t;
 
 			} catch (NoResultException noResultException) {

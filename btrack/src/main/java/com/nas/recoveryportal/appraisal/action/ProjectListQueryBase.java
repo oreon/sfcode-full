@@ -37,6 +37,8 @@ public abstract class ProjectListQueryBase extends BaseQuery<Project, Long> {
 
 			"project.manager = #{projectList.project.manager}",
 
+			"project.category = #{projectList.project.category}",
+
 			"project.dateCreated <= #{projectList.dateCreatedRange.end}",
 			"project.dateCreated >= #{projectList.dateCreatedRange.begin}",};
 

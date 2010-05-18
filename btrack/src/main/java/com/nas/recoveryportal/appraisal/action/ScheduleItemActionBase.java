@@ -53,6 +53,7 @@ public class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 	private List<ScheduleItem> scheduleItemRecordList;
 
 	public void setScheduleItemId(Long id) {
+
 		setId(id);
 		loadAssociations();
 	}

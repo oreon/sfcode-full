@@ -50,6 +50,7 @@ public class EmployeeActionBase extends BaseAction<Employee>
 	private List<Employee> employeeRecordList;
 
 	public void setEmployeeId(Long id) {
+
 		setId(id);
 		loadAssociations();
 	}
