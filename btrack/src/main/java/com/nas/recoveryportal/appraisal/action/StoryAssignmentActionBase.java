@@ -53,6 +53,7 @@ public class StoryAssignmentActionBase extends BaseAction<StoryAssignment>
 	private List<StoryAssignment> storyAssignmentRecordList;
 
 	public void setStoryAssignmentId(Long id) {
+
 		setId(id);
 		loadAssociations();
 	}

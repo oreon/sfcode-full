@@ -26,29 +26,6 @@
 	
 	
 		
-		<h:outputText value="#{msg.schedule_scheduleItem}  "/>
-	
-	<h:selectOneMenu id="schedule_scheduleItem" value="#{scheduleAction.schedule.scheduleItem}" required="true">
-		<s:selectItems value="#{scheduleItemList}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Please Select..." />
-		<s:convertEntity />
-	</h:selectOneMenu>
-	
-		
-		<h:message styleClass="error errors" for="schedule_scheduleItem" />		
-		
-	
-	
-		
-	
-
-	
-		
-			
-	
-	
-		
 		<h:outputText value="#{msg.schedule_project}  "/>
 	
 	<h:selectOneMenu id="schedule_project" value="#{scheduleAction.schedule.project}" required="true">
@@ -85,6 +62,87 @@
 		</h:panelGrid>
 		
 	
+ 
+	<h:commandButton  value="New ScheduleItem" action="#{scheduleAction.addScheduleItem}" >
+		<s:conversationId/>
+	</h:commandButton>
+ 
+	
+	<rich:dataTable id="scheduleItem_data" var="_scheduleItem" rendered="#{not empty scheduleAction.listScheduleItem}"
+					value="#{scheduleAction.listScheduleItem}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+
+	
+		
+			
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.scheduleItem_story}  "/></f:facet>
+	
+	<h:selectOneMenu id="scheduleItem_story" value="#{_scheduleItem.story}" required="true">
+		<s:selectItems value="#{storyList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+		
+		<h:message styleClass="error errors" for="scheduleItem_story" />		</h:column>
+		
+	
+	
+		
+	
+
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.scheduleItem_beginDate}  "/></f:facet>
+		
+
+	<rich:calendar  id="scheduleItem_beginDate#{entityId}" required="false"  value="#{_scheduleItem.beginDate}" />
+   
+		
+		<h:message styleClass="error errors" for="scheduleItem_beginDate" />		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.scheduleItem_endDate}  "/></f:facet>
+		
+
+	<rich:calendar  id="scheduleItem_endDate#{entityId}" required="false"  value="#{_scheduleItem.endDate}" />
+   
+		
+		<h:message styleClass="error errors" for="scheduleItem_endDate" />		</h:column>
+		
+	
+	
+		
+	<h:column>
+		
+	<h:commandButton  value="New ScheduleItem" action="#{scheduleAction.addScheduleItem}" >
+		<s:conversationId/>
+	</h:commandButton>
+	</h:column>
+		
+	<h:column>
+		<h:commandButton value="Delete" action="#{scheduleAction.deleteScheduleItem(_scheduleItem)}" immediate="true">
+			<s:conversationId/>
+		</h:commandButton>
+	</h:column>
+			
+	</rich:dataTable>
 		</s:validateAll>
 		
 	<div class="buttonBox">

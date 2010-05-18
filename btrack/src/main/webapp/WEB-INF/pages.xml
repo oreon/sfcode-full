@@ -95,6 +95,22 @@
                 <redirect view-id="/admin/entities/appraisal/storyAssignment/viewStoryAssignment.xhtml" />
             </rule>
         
+            <rule if-outcome="category">
+                <redirect view-id="/admin/entities/appraisal/category/listCategory.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewCategory">
+                <redirect view-id="/admin/entities/appraisal/category/viewCategory.xhtml" />
+            </rule>
+        
+            <rule if-outcome="screenShots">
+                <redirect view-id="/admin/entities/appraisal/screenShots/listScreenShots.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewScreenShots">
+                <redirect view-id="/admin/entities/appraisal/screenShots/viewScreenShots.xhtml" />
+            </rule>
+        
         </navigation>
     </page>
 
@@ -272,6 +288,8 @@
 			
 		
 	
+		<param name="story_priority" value="#{storyList.story.priority}" validateModel="false" />
+	
 		
 	</page>
     
@@ -377,6 +395,12 @@
 		<param name="project_name" value="#{projectList.project.name}" validateModel="false" />
 	
 		<param name="project_description" value="#{projectList.project.description}" validateModel="false" />
+	
+		
+			
+	
+			
+		
 	
 		
 			
@@ -561,12 +585,6 @@
 		<param name="from" />
 		<param name="id" value="#{scheduleList.schedule.id}" />
 	
-		
-			
-	
-			
-		
-	
 		<param name="schedule_name" value="#{scheduleList.schedule.name}" validateModel="false" />
 	
 		
@@ -626,6 +644,116 @@
 	
 			
 		
+	
+		
+			
+	
+			
+		
+	
+		
+	</page>
+    
+    <page view-id="/admin/entities/appraisal/category/editCategory.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Category: #{category.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/appraisal/category/viewCategory.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/appraisal/category/listCategory.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="categoryId" value="#{categoryAction.categoryId}" />
+	</page>
+	
+	 <page view-id="/admin/entities/appraisal/category/viewCategory.xhtml" conversation-required="false" >
+	 	<!-- <description>View Category: #{category.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/appraisal/category/editCategory.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/appraisal/category/listCategory.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="categoryId" value="#{categoryAction.categoryId}" />
+	</page>
+	
+	<page view-id="/admin/entities/appraisal/category/listCategory.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewCategory">
+				<redirect view-id="/admin/entities/appraisal/category/viewCategory.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/appraisal/category/editCategory.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{categoryList.firstResult}" />
+		<param name="sort" value="#{categoryList.orderColumn}" />
+		<param name="dir" value="#{categoryList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{categoryList.category.id}" />
+	
+		<param name="category_name" value="#{categoryList.category.name}" validateModel="false" />
+	
+		
+			
+	
+			
+		
+	
+		
+	</page>
+    
+    <page view-id="/admin/entities/appraisal/screenShots/editScreenShots.xhtml" conversation-required="false" >
+    	<!-- <description>Edit ScreenShots: #{screenShots.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/appraisal/screenShots/viewScreenShots.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/appraisal/screenShots/listScreenShots.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="screenShotsId" value="#{screenShotsAction.screenShotsId}" />
+	</page>
+	
+	 <page view-id="/admin/entities/appraisal/screenShots/viewScreenShots.xhtml" conversation-required="false" >
+	 	<!-- <description>View ScreenShots: #{screenShots.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/appraisal/screenShots/editScreenShots.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/appraisal/screenShots/listScreenShots.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="screenShotsId" value="#{screenShotsAction.screenShotsId}" />
+	</page>
+	
+	<page view-id="/admin/entities/appraisal/screenShots/listScreenShots.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewScreenShots">
+				<redirect view-id="/admin/entities/appraisal/screenShots/viewScreenShots.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/appraisal/screenShots/editScreenShots.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{screenShotsList.firstResult}" />
+		<param name="sort" value="#{screenShotsList.orderColumn}" />
+		<param name="dir" value="#{screenShotsList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{screenShotsList.screenShots.id}" />
+	
+		<param name="screenShots_image" value="#{screenShotsList.screenShots.image}" validateModel="false" />
+	
+		<param name="screenShots_tite" value="#{screenShotsList.screenShots.tite}" validateModel="false" />
 	
 		
 			

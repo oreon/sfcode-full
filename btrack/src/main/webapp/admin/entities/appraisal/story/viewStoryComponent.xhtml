@@ -70,11 +70,24 @@
 		
 	
 	
+
+	
+	
+		
+		<h:outputText value="#{msg.story_priority}  "/>		
+	<h:outputText   value="#{storyAction.story.priority}" />
+	
+		
+		
+		
+	
+	
 		</h:panelGrid>
 		
 	
 	
-	<rich:dataTable id="storyComponents_data" var="storyComponent" rendered="#{not empty storyAction.listStoryComponents}"
+	
+	<rich:dataTable id="storyComponents_data" var="_storyComponent" rendered="#{not empty storyAction.listStoryComponents}"
 					value="#{storyAction.listStoryComponents}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		
@@ -89,7 +102,7 @@
 		
 		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.storyComponent_title}  "/></f:facet>		
 
-	<h:outputText   id="storyComponent_title#{entityId}"   value="#{storyComponentAction.storyComponent.title}" />
+	<h:outputText   id="storyComponent_title#{entityId}"   value="#{_storyComponent.title}" />
    
 		
 		</h:column>
@@ -102,14 +115,52 @@
 		
 		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.storyComponent_hours}  "/></f:facet>		
 
-	<h:outputText   id="storyComponent_hours#{entityId}"   value="#{storyComponentAction.storyComponent.hours}" />
+	<h:outputText   id="storyComponent_hours#{entityId}"   value="#{_storyComponent.hours}" />
    
 		
 		</h:column>
 		
 	
 	
+			
+	</rich:dataTable>
+	
+	
+	<rich:dataTable id="screenShotses_data" var="_screenShots" rendered="#{not empty storyAction.listScreenShotses}"
+					value="#{storyAction.listScreenShotses}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		
+	
+	
+
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.screenShots_image}  "/></f:facet>		
+
+	<s:graphicImage value="#{screenShots.image}"/> 
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:left"><f:facet name="header"><h:outputText value="#{msg.screenShots_tite}  "/></f:facet>		
+
+	<h:outputText   id="screenShots_tite#{entityId}"   value="#{_screenShots.tite}" />
+   
+		
+		</h:column>
+		
+	
+	
 			
 	</rich:dataTable>
 		</s:validateAll>

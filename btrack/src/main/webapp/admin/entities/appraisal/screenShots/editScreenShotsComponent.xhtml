@@ -1,0 +1,91 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:panelGroup   >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol"  onload="#{screenShotsAction.load(screenShotsId )  }">
+		<f:facet name="header">
+			<h:outputText value="ScreenShots " />
+		</f:facet>
+		
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.screenShots_story}  "/>
+	
+	<h:selectOneMenu id="screenShots_story" value="#{screenShotsAction.screenShots.story}" required="true">
+		<s:selectItems value="#{storyList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	
+		
+		<h:message styleClass="error errors" for="screenShots_story" />		
+		
+	
+	
+		
+	
+
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.screenShots_image}  "/>
+		
+
+	<s:fileUpload data="#{screenShots.image}"/> 
+   
+		
+		<h:message styleClass="error errors" for="screenShots_image" />		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.screenShots_tite}  "/>
+		
+
+	<h:inputText  id="screenShots_tite#{entityId}" required="false"  value="#{screenShotsAction.screenShots.tite}" />
+   
+		
+		<h:message styleClass="error errors" for="screenShots_tite" />		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{screenShotsAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{screenShotsAction.cancel}" /> 
+		
+	</div>
+
+	</h:panelGroup>
+	</html>
+	

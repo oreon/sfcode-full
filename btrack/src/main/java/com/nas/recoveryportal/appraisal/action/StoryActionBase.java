@@ -35,6 +35,7 @@ import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
 import com.nas.recoveryportal.appraisal.StoryComponent;
+import com.nas.recoveryportal.appraisal.ScreenShots;
 
 public class StoryActionBase extends BaseAction<Story>
 		implements
@@ -52,6 +53,11 @@ public class StoryActionBase extends BaseAction<Story>
 	private List<Story> storyRecordList;
 
 	public void setStoryId(Long id) {
+
+		listStoryComponents = new ArrayList<StoryComponent>();
+
+		listScreenShotses = new ArrayList<ScreenShots>();
+
 		setId(id);
 		loadAssociations();
 	}
@@ -156,12 +162,12 @@ public class StoryActionBase extends BaseAction<Story>
 
 	void initListStoryComponents() {
 		listStoryComponents = new ArrayList<StoryComponent>();
-		if (story.getStoryComponents().isEmpty()) {
+		if (getInstance().getStoryComponents().isEmpty()) {
 
 			addStoryComponents();
 
 		} else
-			listStoryComponents.addAll(story.getStoryComponents());
+			listStoryComponents.addAll(getInstance().getStoryComponents());
 	}
 
 	public List<StoryComponent> getListStoryComponents() {
@@ -183,15 +189,52 @@ public class StoryActionBase extends BaseAction<Story>
 	public void addStoryComponents() {
 		StoryComponent storyComponents = new StoryComponent();
 
-		storyComponents.setStory(story);
+		storyComponents.setStory(getInstance());
 
 		listStoryComponents.add(storyComponents);
 	}
 
+	private List<ScreenShots> listScreenShotses;
+
+	void initListScreenShotses() {
+		listScreenShotses = new ArrayList<ScreenShots>();
+		if (getInstance().getScreenShotses().isEmpty()) {
+
+		} else
+			listScreenShotses.addAll(getInstance().getScreenShotses());
+	}
+
+	public List<ScreenShots> getListScreenShotses() {
+		if (listScreenShotses == null) {
+			initListScreenShotses();
+		}
+		return listScreenShotses;
+	}
+
+	public void setListScreenShotses(List<ScreenShots> listScreenShotses) {
+		this.listScreenShotses = listScreenShotses;
+	}
+
+	public void deleteScreenShotses(ScreenShots screenShotses) {
+		listScreenShotses.remove(screenShotses);
+	}
+
+	@Begin(join = true)
+	public void addScreenShotses() {
+		ScreenShots screenShotses = new ScreenShots();
+
+		screenShotses.setStory(getInstance());
+
+		listScreenShotses.add(screenShotses);
+	}
+
 	public void updateComposedAssociations() {
 
-		story.getStoryComponents().clear();
-		story.getStoryComponents().addAll(listStoryComponents);
+		getInstance().getStoryComponents().clear();
+		getInstance().getStoryComponents().addAll(listStoryComponents);
+
+		getInstance().getScreenShotses().clear();
+		getInstance().getScreenShotses().addAll(listScreenShotses);
 
 	}
 

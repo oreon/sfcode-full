@@ -30,6 +30,7 @@ import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
+import org.witchcraft.model.support.audit.Auditable;
 import org.hibernate.annotations.Filter;
 
 @Entity
@@ -40,7 +41,10 @@ import org.hibernate.annotations.Filter;
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
-public class StoryAssignment extends BusinessEntity {
+public class StoryAssignment extends BusinessEntity
+		implements
+			Auditable,
+			java.io.Serializable {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "teamMember_id", nullable = false, updatable = true)

@@ -30,6 +30,7 @@ import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
+import org.witchcraft.model.support.audit.Auditable;
 import org.hibernate.annotations.Filter;
 
 @Entity
@@ -40,7 +41,10 @@ import org.hibernate.annotations.Filter;
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
-public class Project extends BusinessEntity {
+public class Project extends BusinessEntity
+		implements
+			Auditable,
+			java.io.Serializable {
 
 	@NotNull
 	@Length(min = 2, max = 50)
@@ -66,6 +70,11 @@ public class Project extends BusinessEntity {
 	@JoinColumn(name = "Project_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<Story> story = new HashSet<Story>();
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "category_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected Category category;
 
 	public void setName(String name) {
 		this.name = name;
@@ -109,6 +118,15 @@ public class Project extends BusinessEntity {
 
 	public Set<Story> getStory() {
 		return story;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public Category getCategory() {
+
+		return category;
 	}
 
 	@Transient

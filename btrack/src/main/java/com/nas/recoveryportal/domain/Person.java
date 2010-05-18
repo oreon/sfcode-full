@@ -30,6 +30,7 @@ import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
+import org.witchcraft.model.support.audit.Auditable;
 import org.hibernate.annotations.Filter;
 
 @MappedSuperclass

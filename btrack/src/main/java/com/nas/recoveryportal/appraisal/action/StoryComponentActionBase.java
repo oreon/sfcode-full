@@ -50,6 +50,7 @@ public class StoryComponentActionBase extends BaseAction<StoryComponent>
 	private List<StoryComponent> storyComponentRecordList;
 
 	public void setStoryComponentId(Long id) {
+
 		setId(id);
 		loadAssociations();
 	}

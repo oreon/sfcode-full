@@ -30,6 +30,7 @@ import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.*;
+import org.witchcraft.model.support.audit.Auditable;
 import org.hibernate.annotations.Filter;
 
 @Entity
@@ -40,7 +41,10 @@ import org.hibernate.annotations.Filter;
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
-public class Story extends BusinessEntity {
+public class Story extends BusinessEntity
+		implements
+			Auditable,
+			java.io.Serializable {
 
 	@NotNull
 	@Length(min = 2, max = 50)
@@ -61,6 +65,15 @@ public class Story extends BusinessEntity {
 	@JoinColumn(name = "project_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Project project;
+
+	protected Priority priority;
+
+	//screenShotses->story ->Story->Story->Story
+
+	@OneToMany(mappedBy = "story", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Story_ID", nullable = true)
+	@IndexedEmbedded
+	private Set<ScreenShots> screenShotses = new HashSet<ScreenShots>();
 
 	public void setTitle(String title) {
 		this.title = title;
@@ -97,6 +110,23 @@ public class Story extends BusinessEntity {
 		return project;
 	}
 
+	public void setPriority(Priority priority) {
+		this.priority = priority;
+	}
+
+	public Priority getPriority() {
+
+		return priority;
+	}
+
+	public void setScreenShotses(Set<ScreenShots> screenShotses) {
+		this.screenShotses = screenShotses;
+	}
+
+	public Set<ScreenShots> getScreenShotses() {
+		return screenShotses;
+	}
+
 	@Transient
 	public String getDisplayName() {
 		return title;
@@ -113,6 +143,8 @@ public class Story extends BusinessEntity {
 		listSearchableFields.add("title");
 
 		listSearchableFields.add("storyComponents.title");
+
+		listSearchableFields.add("screenShotses.tite");
 
 		return listSearchableFields;
 	}

@@ -34,6 +34,8 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
+import com.nas.recoveryportal.appraisal.ScheduleItem;
+
 public class ScheduleActionBase extends BaseAction<Schedule>
 		implements
 			java.io.Serializable {
@@ -43,9 +45,6 @@ public class ScheduleActionBase extends BaseAction<Schedule>
 	@DataModelSelection
 	private Schedule schedule;
 
-	@In(create = true, value = "scheduleItemAction")
-	com.nas.recoveryportal.appraisal.action.ScheduleItemAction scheduleItemAction;
-
 	@In(create = true, value = "projectAction")
 	com.nas.recoveryportal.appraisal.action.ProjectAction projectAction;
 
@@ -53,6 +52,9 @@ public class ScheduleActionBase extends BaseAction<Schedule>
 	private List<Schedule> scheduleRecordList;
 
 	public void setScheduleId(Long id) {
+
+		listScheduleItem = new ArrayList<ScheduleItem>();
+
 		setId(id);
 		loadAssociations();
 	}
@@ -94,11 +96,6 @@ public class ScheduleActionBase extends BaseAction<Schedule>
 
 	public void wire() {
 		getInstance();
-		com.nas.recoveryportal.appraisal.ScheduleItem scheduleItem = scheduleItemAction
-				.getDefinedInstance();
-		if (scheduleItem != null) {
-			getInstance().setScheduleItem(scheduleItem);
-		}
 		com.nas.recoveryportal.appraisal.Project project = projectAction
 				.getDefinedInstance();
 		if (project != null) {
@@ -135,11 +132,6 @@ public class ScheduleActionBase extends BaseAction<Schedule>
 	 */
 	public void addAssoications(Criteria criteria) {
 
-		if (schedule.getScheduleItem() != null) {
-			criteria = criteria.add(Restrictions.eq("scheduleItem.id", schedule
-					.getScheduleItem().getId()));
-		}
-
 		if (schedule.getProject() != null) {
 			criteria = criteria.add(Restrictions.eq("project.id", schedule
 					.getProject().getId()));
@@ -153,10 +145,6 @@ public class ScheduleActionBase extends BaseAction<Schedule>
 	 */
 	public void loadAssociations() {
 
-		if (schedule.getScheduleItem() != null) {
-			scheduleItemAction.setEntity(getEntity().getScheduleItem());
-		}
-
 		if (schedule.getProject() != null) {
 			projectAction.setEntity(getEntity().getProject());
 		}
@@ -164,6 +152,47 @@ public class ScheduleActionBase extends BaseAction<Schedule>
 	}
 
 	public void updateAssociations() {
+
+	}
+
+	private List<ScheduleItem> listScheduleItem;
+
+	void initListScheduleItem() {
+		listScheduleItem = new ArrayList<ScheduleItem>();
+		if (getInstance().getScheduleItem().isEmpty()) {
+
+		} else
+			listScheduleItem.addAll(getInstance().getScheduleItem());
+	}
+
+	public List<ScheduleItem> getListScheduleItem() {
+		if (listScheduleItem == null) {
+			initListScheduleItem();
+		}
+		return listScheduleItem;
+	}
+
+	public void setListScheduleItem(List<ScheduleItem> listScheduleItem) {
+		this.listScheduleItem = listScheduleItem;
+	}
+
+	public void deleteScheduleItem(ScheduleItem scheduleItem) {
+		listScheduleItem.remove(scheduleItem);
+	}
+
+	@Begin(join = true)
+	public void addScheduleItem() {
+		ScheduleItem scheduleItem = new ScheduleItem();
+
+		scheduleItem.setSchedule(getInstance());
+
+		listScheduleItem.add(scheduleItem);
+	}
+
+	public void updateComposedAssociations() {
+
+		getInstance().getScheduleItem().clear();
+		getInstance().getScheduleItem().addAll(listScheduleItem);
 
 	}
 

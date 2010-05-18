@@ -51,10 +51,16 @@ public class ProjectActionBase extends BaseAction<Project>
 	@In(create = true, value = "teamMemberAction")
 	com.nas.recoveryportal.appraisal.action.TeamMemberAction managerAction;
 
+	@In(create = true, value = "categoryAction")
+	com.nas.recoveryportal.appraisal.action.CategoryAction categoryAction;
+
 	@DataModel
 	private List<Project> projectRecordList;
 
 	public void setProjectId(Long id) {
+
+		listStory = new ArrayList<Story>();
+
 		setId(id);
 		loadAssociations();
 	}
@@ -106,6 +112,11 @@ public class ProjectActionBase extends BaseAction<Project>
 		if (manager != null) {
 			getInstance().setManager(manager);
 		}
+		com.nas.recoveryportal.appraisal.Category category = categoryAction
+				.getDefinedInstance();
+		if (category != null) {
+			getInstance().setCategory(category);
+		}
 
 	}
 
@@ -147,6 +158,11 @@ public class ProjectActionBase extends BaseAction<Project>
 					.getManager().getId()));
 		}
 
+		if (project.getCategory() != null) {
+			criteria = criteria.add(Restrictions.eq("category.id", project
+					.getCategory().getId()));
+		}
+
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -163,6 +179,10 @@ public class ProjectActionBase extends BaseAction<Project>
 			managerAction.setEntity(getEntity().getManager());
 		}
 
+		if (project.getCategory() != null) {
+			categoryAction.setEntity(getEntity().getCategory());
+		}
+
 	}
 
 	public void updateAssociations() {
@@ -173,10 +193,10 @@ public class ProjectActionBase extends BaseAction<Project>
 
 	void initListStory() {
 		listStory = new ArrayList<Story>();
-		if (project.getStory().isEmpty()) {
+		if (getInstance().getStory().isEmpty()) {
 
 		} else
-			listStory.addAll(project.getStory());
+			listStory.addAll(getInstance().getStory());
 	}
 
 	public List<Story> getListStory() {
@@ -198,15 +218,15 @@ public class ProjectActionBase extends BaseAction<Project>
 	public void addStory() {
 		Story story = new Story();
 
-		story.setProject(project);
+		story.setProject(getInstance());
 
 		listStory.add(story);
 	}
 
 	public void updateComposedAssociations() {
 
-		project.getStory().clear();
-		project.getStory().addAll(listStory);
+		getInstance().getStory().clear();
+		getInstance().getStory().addAll(listStory);
 
 	}
 

@@ -97,6 +97,25 @@
 		
 	
 		
+			
+				
+	<h:column >
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{projectList}" />
+				<ui:param name="propertyLabel" value="#{msg.project_category}" />
+				<ui:param name="propertyPath" value="project.category" />
+			</ui:include>
+		</f:facet>
+		<s:link    value="#{_project.category.displayName}"  view="/admin/entities/appraisal/category/viewCategory.xhtml" >
+			<f:param name="categoryId" value="#{_project.category.id}" />
+			<f:param name="from" value="#{request.servletPath}" />
+		</s:link>
+	</h:column>
+			
+		
+	
+		
 	
 		
 	<h:column >
@@ -186,6 +205,8 @@
 		<f:param name="architectId" value="#{project.architect.id}" />
 		
 		<f:param name="managerId" value="#{project.manager.id}" />
+		
+		<f:param name="categoryId" value="#{project.category.id}" />
 		
 	</s:button>
 </s:div>
