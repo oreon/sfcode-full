@@ -43,7 +43,7 @@
 		action="«getViewFile("list")»" >
 			 <s:conversationPropagation type="end"/>
 		</h:commandButton> 
-		<s:button propagation="end"
+		<s:button   propagation="none" 
 		id="reset" value="Reset" includePageParams="false" /></div>
 
 «ENDDEFINE»
@@ -113,7 +113,7 @@
 		<f:selectItem itemLabel="Any" itemValue=""/>
 		<f:selectItem itemLabel="None" itemValue=""/>
 		«FOREACH  enm.ownedLiteral AS e-»
-		<f:selectItem itemLabel="«e.name»" itemValue="«e.name-»" />
+		<f:selectItem itemValue="«e.name»"  itemLabel="«e.name.toLowerCase().getVariableNameForDisplay()-»" />
 		«ENDFOREACH»
 	</h:selectOneMenu>
 «ENDDEFINE»
