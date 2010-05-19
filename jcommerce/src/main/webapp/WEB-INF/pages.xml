@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pages xmlns="http://jboss.com/products/seam/pages"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd"
+       no-conversation-view-id="/home.xhtml"
+       login-view-id="/login.xhtml">
+
+	<page view-id="/admin/*">
+        <restrict>#{s:hasRole('admin')}</restrict>
+     </page>
+    
+    <page view-id="/adminLogin.xhtml">     
+        <navigation from-action="#{identity.login}">
+           <redirect view-id="/admin/entities/summary.xhtml"/>
+        </navigation>
+	</page>
+
+	
+	<page view-id="*">
+        <navigation>
+        	<rule if-outcome="home">
+                <redirect view-id="/home.xhtml"/>
+            </rule>
+        
+            <rule if-outcome="employee">
+                <redirect view-id="/admin/entities/domain/employee/listEmployee.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewEmployee">
+                <redirect view-id="/admin/entities/domain/employee/viewEmployee.xhtml" />
+            </rule>
+        
+            <rule if-outcome="department">
+                <redirect view-id="/admin/entities/domain/department/listDepartment.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewDepartment">
+                <redirect view-id="/admin/entities/domain/department/viewDepartment.xhtml" />
+            </rule>
+        
+            <rule if-outcome="customer">
+                <redirect view-id="/admin/entities/domain/customer/listCustomer.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewCustomer">
+                <redirect view-id="/admin/entities/domain/customer/viewCustomer.xhtml" />
+            </rule>
+        
+            <rule if-outcome="product">
+                <redirect view-id="/admin/entities/domain/product/listProduct.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewProduct">
+                <redirect view-id="/admin/entities/domain/product/viewProduct.xhtml" />
+            </rule>
+        
+            <rule if-outcome="customerOrder">
+                <redirect view-id="/admin/entities/domain/customerOrder/listCustomerOrder.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewCustomerOrder">
+                <redirect view-id="/admin/entities/domain/customerOrder/viewCustomerOrder.xhtml" />
+            </rule>
+        
+            <rule if-outcome="orderItem">
+                <redirect view-id="/admin/entities/domain/orderItem/listOrderItem.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewOrderItem">
+                <redirect view-id="/admin/entities/domain/orderItem/viewOrderItem.xhtml" />
+            </rule>
+        
+            <rule if-outcome="user">
+                <redirect view-id="/admin/entities/users/user/listUser.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewUser">
+                <redirect view-id="/admin/entities/users/user/viewUser.xhtml" />
+            </rule>
+        
+            <rule if-outcome="role">
+                <redirect view-id="/admin/entities/users/role/listRole.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewRole">
+                <redirect view-id="/admin/entities/users/role/viewRole.xhtml" />
+            </rule>
+        
+        </navigation>
+    </page>
+
+    
+    
+    <page view-id="/admin/entities/domain/employee/editEmployee.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Employee: #{employee.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/domain/employee/viewEmployee.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/employee/listEmployee.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="employeeId" value="#{employeeAction.employeeId}" />
+	</page>
+	
+	 <page view-id="/admin/entities/domain/employee/viewEmployee.xhtml" conversation-required="false" >
+	 	<!-- <description>View Employee: #{employee.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/employee/editEmployee.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/employee/listEmployee.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="employeeId" value="#{employeeAction.employeeId}" />
+	</page>
+	
+	<page view-id="/admin/entities/domain/employee/listEmployee.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewEmployee">
+				<redirect view-id="/admin/entities/domain/employee/viewEmployee.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/employee/editEmployee.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{employeeList.firstResult}" />
+		<param name="sort" value="#{employeeList.orderColumn}" />
+		<param name="dir" value="#{employeeList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{employeeList.employee.id}" />
+		<param name="person_firstName" value="#{employeeList.employee.firstName}" validateModel="false" />
+	
+		<param name="person_lastName" value="#{employeeList.employee.lastName}" validateModel="false" />
+	
+	
+		
+			
+	
+			
+		
+	
+		<param name="employee_employeeNumber" value="#{employeeList.employee.employeeNumber}" validateModel="false" />
+	
+		<param name="employee_employeeType" value="#{employeeList.employee.employeeType}" validateModel="false" />
+	
+		
+			
+	
+			
+		
+	
+		
+	</page>
+    
+    <page view-id="/admin/entities/domain/department/editDepartment.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Department: #{department.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/domain/department/viewDepartment.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/department/listDepartment.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="departmentId" value="#{departmentAction.departmentId}" />
+	</page>
+	
+	 <page view-id="/admin/entities/domain/department/viewDepartment.xhtml" conversation-required="false" >
+	 	<!-- <description>View Department: #{department.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/department/editDepartment.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/department/listDepartment.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="departmentId" value="#{departmentAction.departmentId}" />
+	</page>
+	
+	<page view-id="/admin/entities/domain/department/listDepartment.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewDepartment">
+				<redirect view-id="/admin/entities/domain/department/viewDepartment.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/department/editDepartment.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{departmentList.firstResult}" />
+		<param name="sort" value="#{departmentList.orderColumn}" />
+		<param name="dir" value="#{departmentList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{departmentList.department.id}" />
+	
+		<param name="department_name" value="#{departmentList.department.name}" validateModel="false" />
+	
+		
+	</page>
+    
+    <page view-id="/admin/entities/domain/customer/editCustomer.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Customer: #{customer.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/domain/customer/viewCustomer.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/customer/listCustomer.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="customerId" value="#{customerAction.customerId}" />
+	</page>
+	
+	 <page view-id="/admin/entities/domain/customer/viewCustomer.xhtml" conversation-required="false" >
+	 	<!-- <description>View Customer: #{customer.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/customer/editCustomer.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/customer/listCustomer.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="customerId" value="#{customerAction.customerId}" />
+	</page>
+	
+	<page view-id="/admin/entities/domain/customer/listCustomer.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewCustomer">
+				<redirect view-id="/admin/entities/domain/customer/viewCustomer.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/customer/editCustomer.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{customerList.firstResult}" />
+		<param name="sort" value="#{customerList.orderColumn}" />
+		<param name="dir" value="#{customerList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{customerList.customer.id}" />
+		<param name="person_firstName" value="#{customerList.customer.firstName}" validateModel="false" />
+	
+		<param name="person_lastName" value="#{customerList.customer.lastName}" validateModel="false" />
+	
+	
+		<param name="customer_customerClass" value="#{customerList.customer.customerClass}" validateModel="false" />
+	
+		
+			
+	
+			
+		
+	
+		
+	</page>
+    
+    <page view-id="/admin/entities/domain/product/editProduct.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Product: #{product.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/domain/product/viewProduct.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/product/listProduct.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="productId" value="#{productAction.productId}" />
+	</page>
+	
+	 <page view-id="/admin/entities/domain/product/viewProduct.xhtml" conversation-required="false" >
+	 	<!-- <description>View Product: #{product.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/product/editProduct.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/product/listProduct.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="productId" value="#{productAction.productId}" />
+	</page>
+	
+	<page view-id="/admin/entities/domain/product/listProduct.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewProduct">
+				<redirect view-id="/admin/entities/domain/product/viewProduct.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/product/editProduct.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{productList.firstResult}" />
+		<param name="sort" value="#{productList.orderColumn}" />
+		<param name="dir" value="#{productList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{productList.product.id}" />
+	
+		<param name="product_name" value="#{productList.product.name}" validateModel="false" />
+	
+		<param name="product_price" value="#{productList.product.price}" validateModel="false" />
+	
+		<param name="product_image" value="#{productList.product.image}" validateModel="false" />
+	
+		<param name="product_description" value="#{productList.product.description}" validateModel="false" />
+	
+		
+	</page>
+    
+    <page view-id="/admin/entities/domain/customerOrder/editCustomerOrder.xhtml" conversation-required="false" >
+    	<!-- <description>Edit CustomerOrder: #{customerOrder.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/domain/customerOrder/viewCustomerOrder.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/customerOrder/listCustomerOrder.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="customerOrderId" value="#{customerOrderAction.customerOrderId}" />
+	</page>
+	
+	 <page view-id="/admin/entities/domain/customerOrder/viewCustomerOrder.xhtml" conversation-required="false" >
+	 	<!-- <description>View CustomerOrder: #{customerOrder.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/customerOrder/editCustomerOrder.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/customerOrder/listCustomerOrder.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="customerOrderId" value="#{customerOrderAction.customerOrderId}" />
+	</page>
+	
+	<page view-id="/admin/entities/domain/customerOrder/listCustomerOrder.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewCustomerOrder">
+				<redirect view-id="/admin/entities/domain/customerOrder/viewCustomerOrder.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/customerOrder/editCustomerOrder.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{customerOrderList.firstResult}" />
+		<param name="sort" value="#{customerOrderList.orderColumn}" />
+		<param name="dir" value="#{customerOrderList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{customerOrderList.customerOrder.id}" />
+	
+		<param name="customerOrder_specialInstructions" value="#{customerOrderList.customerOrder.specialInstructions}" validateModel="false" />
+	
+		
+			
+	
+			
+		
+	
+		
+	</page>
+    
+    <page view-id="/admin/entities/domain/orderItem/editOrderItem.xhtml" conversation-required="false" >
+    	<!-- <description>Edit OrderItem: #{orderItem.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/domain/orderItem/viewOrderItem.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/orderItem/listOrderItem.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="orderItemId" value="#{orderItemAction.orderItemId}" />
+	</page>
+	
+	 <page view-id="/admin/entities/domain/orderItem/viewOrderItem.xhtml" conversation-required="false" >
+	 	<!-- <description>View OrderItem: #{orderItem.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/orderItem/editOrderItem.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/orderItem/listOrderItem.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="orderItemId" value="#{orderItemAction.orderItemId}" />
+	</page>
+	
+	<page view-id="/admin/entities/domain/orderItem/listOrderItem.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewOrderItem">
+				<redirect view-id="/admin/entities/domain/orderItem/viewOrderItem.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/orderItem/editOrderItem.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{orderItemList.firstResult}" />
+		<param name="sort" value="#{orderItemList.orderColumn}" />
+		<param name="dir" value="#{orderItemList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{orderItemList.orderItem.id}" />
+	
+		
+			
+	
+			
+		
+	
+		
+			
+	
+			
+		
+	
+		<param name="orderItem_quantity" value="#{orderItemList.orderItem.quantity}" validateModel="false" />
+	
+		
+	</page>
+    
+    <page view-id="/admin/entities/users/user/editUser.xhtml" conversation-required="false" >
+    	<!-- <description>Edit User: #{user.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/users/user/viewUser.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/users/user/listUser.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="userId" value="#{userAction.userId}" />
+	</page>
+	
+	 <page view-id="/admin/entities/users/user/viewUser.xhtml" conversation-required="false" >
+	 	<!-- <description>View User: #{user.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/users/user/editUser.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/users/user/listUser.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="userId" value="#{userAction.userId}" />
+	</page>
+	
+	<page view-id="/admin/entities/users/user/listUser.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewUser">
+				<redirect view-id="/admin/entities/users/user/viewUser.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/users/user/editUser.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{userList.firstResult}" />
+		<param name="sort" value="#{userList.orderColumn}" />
+		<param name="dir" value="#{userList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{userList.user.id}" />
+	
+		<param name="user_userName" value="#{userList.user.userName}" validateModel="false" />
+	
+		<param name="user_enabled" value="#{userList.user.enabled}" validateModel="false" />
+	
+		
+	</page>
+    
+    <page view-id="/admin/entities/users/role/editRole.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Role: #{role.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/users/role/viewRole.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/users/role/listRole.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="roleId" value="#{roleAction.roleId}" />
+	</page>
+	
+	 <page view-id="/admin/entities/users/role/viewRole.xhtml" conversation-required="false" >
+	 	<!-- <description>View Role: #{role.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/users/role/editRole.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/users/role/listRole.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="roleId" value="#{roleAction.roleId}" />
+	</page>
+	
+	<page view-id="/admin/entities/users/role/listRole.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewRole">
+				<redirect view-id="/admin/entities/users/role/viewRole.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/users/role/editRole.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{roleList.firstResult}" />
+		<param name="sort" value="#{roleList.orderColumn}" />
+		<param name="dir" value="#{roleList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{roleList.role.id}" />
+	
+		<param name="role_name" value="#{roleList.role.name}" validateModel="false" />
+	
+		
+	</page>
+    
+    
+    
+
+    <exception class="org.jboss.seam.framework.EntityNotFoundException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Record not found</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityNotFoundException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Record not found</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityExistsException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Duplicate record</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.OptimisticLockException">
+        <end-conversation/>
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Another user changed the same data, please try again</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.security.AuthorizationException">
+        <redirect view-id="/error.xhtml">
+            <message severity="error">You don't have permission to access this resource</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.security.NotLoggedInException">
+        <redirect view-id="/login.xhtml">
+            <message severity="warn">#{messages['org.jboss.seam.NotLoggedIn']}</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.faces.application.ViewExpiredException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Your session has timed out, please try again</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.ConcurrentRequestTimeoutException" log-level="trace">
+      <http-error error-code="503" />
+    </exception>
+     
+    <exception>
+        <redirect view-id="/error.xhtml">
+            <message severity="error">Unexpected error, please try again</message>
+        </redirect>
+    </exception>
+    
+</pages>

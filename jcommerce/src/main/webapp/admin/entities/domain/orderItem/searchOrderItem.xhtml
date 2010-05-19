@@ -1,0 +1,94 @@
+
+<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:form>
+	<rich:simpleTogglePanel switchType="client" label="Search">
+			<div class="entry errors"><h:messages globalOnly="true" /></div>
+			<h:panelGrid columns="6">
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.orderItem_customerOrder}  "/> <br/>
+	<h:selectOneMenu id="orderItem_customerOrder" value="#{orderItemList.orderItem.customerOrder}" >
+		<s:selectItems value="#{customerOrderList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.orderItem_product}  "/> <br/>
+	<h:selectOneMenu id="orderItem_product" value="#{orderItemList.orderItem.product}" >
+		<s:selectItems value="#{productList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.orderItem_quantity}  "/> <br/>
+	
+	
+	<h:inputText  id="orderItem_quantity_begin" value="#{orderItemList.orderItem_quantityRange.begin}" >
+			<f:converter converterId="javax.faces.Integer" />
+	</h:inputText>
+	<h:inputText  id="orderItem_quantity_end" value="#{orderItemList.orderItem_quantityRange.end}" >
+		<f:converter converterId="javax.faces.Integer" />
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+			
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">From</ui:define> <br/>
+				<rich:calendar id="from"
+					value="#{orderItemList.dateCreatedRange.begin}" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">To</ui:define> <br/>
+				<rich:calendar id="to" value="#{orderItemList.dateCreatedRange.end}" />
+			</s:decorate>
+
+			</h:panelGrid>
+			
+			
+	<div class="actionButtons"><h:commandButton id="search"
+		value="Search" 
+		action="/admin/entities/domain/orderItem/listOrderItem.xhtml" >
+			 <s:conversationPropagation type="end"/>
+		</h:commandButton> 
+		<s:button   propagation="none" 
+		id="reset" value="Reset" includePageParams="false" /></div>
+
+		</rich:simpleTogglePanel>
+	</h:form>
+</html>
+	
