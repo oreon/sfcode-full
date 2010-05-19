@@ -226,7 +226,7 @@
 	<h:selectOneMenu id="«getId()»" value="#{«getActionForMode()»«genPropertyLabel()»}" required="«getAssocOptional()»">
 		<f:selectItem itemLabel="Please Select..." itemValue="" />
 		«FOREACH  enm.ownedLiteral AS e-»
-		<f:selectItem itemLabel="«e.name»" itemValue="«e.name.getVariableNameForDisplay()-»" />
+		<f:selectItem itemValue="«e.name»"  itemLabel="«e.name.toLowerCase().getVariableNameForDisplay()-»" />
 		«ENDFOREACH»
 	</h:selectOneMenu>
 	«ENDIF»
@@ -236,16 +236,15 @@
 «DEFINE gentEditableTable FOR uml::Property-»
 	«setCurrentMultiMode(true)-»
 	«IF isCurrentEditMode()-» «EXPAND genNewButton FOR this» «ENDIF»
-	<rich:dataTable id="«name»_data" var="_«type.asVar()»" rendered="#{not empty «getCurrentEntity().getAction()».list«name.toFirstUpper()»}"
-					value="#{«getCurrentEntity().getAction()».list«name.toFirstUpper()»}" rows="10"
+	
+	<rich:dataTable id="«name»_data" var="_«type.asVar()»" rendered="#{not empty «class.getAction()».list«name.toFirstUpper()»}"
+					value="#{«class.getAction()».list«name.toFirstUpper()»}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		«setAsCurrentEntity(type)»
 		«EXPAND genAttribAsOutput FOR type-»
-		«REM» comment		«EXPAND genTable FOR type-» «ENDREM»
 		«IF isCurrentEditMode() -»
 		«EXPAND genNew -»
 		«EXPAND genDelete FOR this -»
-		«REM»	«ELSE»	«EXPAND ListRoot::genPropsFromBusinessEntity FOR class»«ENDREM»
 		«ENDIF»	
 	</rich:dataTable>
 	«setCurrentMultiMode(false)-»

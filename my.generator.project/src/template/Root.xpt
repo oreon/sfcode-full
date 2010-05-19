@@ -68,7 +68,7 @@
 	@Entity
 	@Table(name="«getTableName()»")
 	@Name("«asVar()»")
-	@Filter(name = "archiveFilterDef") 
+	//@Filter(name = "archiveFilterDef") 
 	@Indexed
 	@AnalyzerDef(name = "customanalyzer",
 	  tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
@@ -78,7 +78,7 @@
 	      @Parameter(name = "language", value = "English")
 	    })
 	  })
-	public class «name» «getParent()» «getInterfaces()»{
+	public class «name» «getParent()» implements Auditable, java.io.Serializable «getInterfaces()»{
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
 		 
@@ -126,7 +126,7 @@
 «DEFINE genClassBody FOR wcprofile::Embeddable»
 	@Embeddable
 	@Indexed
-	public class «name» «getParent()» «getInterfaces()»{
+	public class «name» «getParent()» «getInterfaces()» implements  java.io.Serializable{
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
 	}
@@ -328,5 +328,6 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	import org.hibernate.validator.NotNull;
 	import org.jboss.seam.annotations.Name;
 	import org.witchcraft.base.entity.*;
+	import org.witchcraft.model.support.audit.Auditable;
 	import org.hibernate.annotations.Filter;
 «ENDDEFINE»
