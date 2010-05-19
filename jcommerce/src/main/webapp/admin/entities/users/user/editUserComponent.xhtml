@@ -1,0 +1,82 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:panelGroup   >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol"  onload="#{userAction.load(userId )  }">
+		<f:facet name="header">
+			<h:outputText value="User " />
+		</f:facet>
+		
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.user_userName} * "/>
+		
+
+	<h:inputText  id="user_userName#{entityId}" required="true"  value="#{userAction.user.userName}" />
+   
+		
+		<h:message styleClass="error errors" for="user_userName" />		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.user_password} * "/>
+		
+
+	<h:inputSecret redisplay="true"   id="user_password#{entityId}" required="true"  value="#{userAction.user.password}" />
+   
+		
+		<h:message styleClass="error errors" for="user_password" />		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.user_enabled}  "/>
+		
+
+	<h:selectBooleanCheckbox  id="user_enabled#{entityId}" required="false"  value="#{userAction.user.enabled}" />
+   
+		
+		<h:message styleClass="error errors" for="user_enabled" />		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	<div class="buttonBox">
+		
+		<h:commandButton value="Save" action="#{userAction.save}" /> 
+		<h:outputText value=" " />
+		<h:commandButton value="Cancel" immediate="true" action="#{userAction.cancel}" /> 
+		
+	</div>
+
+	</h:panelGroup>
+	</html>
+	

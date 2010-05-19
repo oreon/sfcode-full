@@ -1,0 +1,153 @@
+
+<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	
+	
+<rich:panel>
+	  <f:facet name="header">User Search Results (#{empty userList.resultList ? 0 : (userList.paginated ? userList.resultCount : userList.resultList.size)})</f:facet>
+	
+		<rich:dataTable  var="_user" value="#{userList.resultList}" 
+		rowClasses="odd, even" styleClass="dataTable"  rendered="#{not empty userList.resultList}">	
+		
+	<h:column >
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{userList}" />
+				<ui:param name="propertyLabel" value="Id" />
+				<ui:param name="propertyPath" value="user.id" />
+			</ui:include>
+		</f:facet>
+		<h:outputText    value="#{_user.id}"  >
+		</h:outputText>
+	</h:column>
+		
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{userList}" />
+				<ui:param name="propertyLabel" value="#{msg.user_userName}" />
+				<ui:param name="propertyPath" value="user.userName" />
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_user.userName}">
+		
+		</h:outputText>
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{userList}" />
+				<ui:param name="propertyLabel" value="#{msg.user_enabled}" />
+				<ui:param name="propertyPath" value="user.enabled" />
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_user.enabled}">
+		
+		</h:outputText>
+	</h:column>
+	
+		
+	
+		
+	<h:column >
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{userList}" />
+				<ui:param name="propertyLabel" value="Creation Date" />
+				<ui:param name="propertyPath" value="user.dateCreated" />
+			</ui:include>
+		</f:facet>
+		<h:outputText    value="#{_user.dateCreated}"  >
+			<s:convertDateTime type="both" dateStyle="short" />
+		</h:outputText>
+	</h:column>
+		
+	<h:column rendered="#{s:hasPermission('userAction', 'view')}">
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<s:link view="/admin/entities/users/user/viewUser.xhtml">
+			<h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>
+			<f:param name="userId" value="#{_user.id}" />
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('userAction', 'edit')}">
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<s:link view="/admin/entities/users/user/editUser.xhtml">
+			<h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>
+			<f:param name="userId" value="#{_user.id}" />
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('userAction', 'archive')}">
+		<f:facet name="header">
+			<h:outputText value="" />
+		</f:facet>
+		
+		<s:link action="#{userAction.archive}" onclick="javascript:if(!confirm('Do you really want to delete #{_user.displayName} ?')){ return false; } else { return true; }" >
+			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>
+			<f:param name="id" value="#{_user.id}" />
+		</s:link>
+	</h:column>
+
+		</rich:dataTable>
+</rich:panel>	
+
+
+
+ <div class="tableControl">
+<s:link
+	view="#{request.servletPath}"
+	rendered="#{userList.previousExists}"
+	value="#{messages.left}#{messages.left} First Page" >
+	<f:param name="firstResult" value="0" />
+</s:link> 
+
+<s:link view="#{request.servletPath}"
+	rendered="#{userList.previousExists}"
+	value="#{messages.left} Previous Page" >
+	<f:param name="firstResult" value="#{userList.previousFirstResult}" />
+</s:link> 
+
+<s:link view="#{request.servletPath}"
+	rendered="#{userList.nextExists}"
+	value="Next Page #{messages.right}" >
+	<f:param name="firstResult" value="#{userList.nextFirstResult}" />
+</s:link> 
+
+<s:link view="#{request.servletPath}"
+	rendered="#{userList.nextExists}"
+	value="Last Page #{messages.right}#{messages.right}" >
+	<f:param name="firstResult" value="#{userList.lastFirstResult}" />
+</s:link>
+</div>
+
+
+<h:form>
+<s:div styleClass="actionButtons" rendered="#{empty from}">
+	<s:button value="Create New" view="/admin/entities/users/user/editUser.xhtml"  propagation="none">
+		 <f:param name="userId"/>
+		
+	</s:button>
+</s:div>
+</h:form>
+
+</html>
+	
