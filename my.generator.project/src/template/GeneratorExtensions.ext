@@ -150,6 +150,10 @@ type.getAppliedStereotype("wcprofile::Embeddable") != null;
 boolean isColumn(Property type):
 type.getAppliedStereotype("wcprofile::Column") != null;
 
+boolean isViewState(State state):
+state.getAppliedStereotype("wcprofile::ViewState") != null;
+
+
 
 String getValidatorAnnotations(Column col):
 col.notNull?"@NotNull":"";
@@ -228,4 +232,8 @@ JAVA org.wc.generatorutil.ClassUtil.setCurrentCartridge(java.lang.String);
  
 getTableName(Entity entity):
 entity.tableName!=null?entity.tableName.toLowerCase():entity.name.toLowerCase();
+
+
+getQyeryTypeByReturnType(Operation op):
+op.type == "List" ? "" : "SingleResult";
 
