@@ -19,7 +19,7 @@
        xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd"
        no-conversation-view-id="/index.jspx"
        login-view-id="/login.jspx">
-	«EXPAND SeamPageEntry FOREACH allOwnedElements().typeSelect(uml::State)-»
+	«EXPAND SeamPageEntry FOREACH allOwnedElements().typeSelect(wcprofile::ViewState)-»
 </pages>
 «ENDFILE»
 «ENDDEFINE»
@@ -42,11 +42,28 @@
  	<page view-id="/«getStateWebName()»" conversation-required="false">
     	<navigation> 
     		«FOREACH getOutgoings() AS o»
+    		«IF o.target.isViewState()»
 			 <rule if-outcome="«o.guard.specification.stringValue()»">
  				<redirect view-id="/«o.target.getStateWebName()»" />
             </rule>	
+            «ENDIF»
             «ENDFOREACH»
 		</navigation>
+		
+		
+    	«FOREACH getOutgoings() AS o»	
+    	«IF !o.target.isViewState() && !o.trigger.isEmpty»
+    	<navigation action="#{«o.trigger.get(0).event.operation.class.name.toFirstLower() + "." + o.trigger.get(0).event.operation.name»}">
+    		«FOREACH o.target.getOutgoings() AS a»
+    		«IF a.target.isViewState()»
+			 <rule if-outcome="«a.guard.specification.stringValue()»">
+ 				<redirect view-id="/«a.target.getStateWebName()»" />
+            </rule>	
+            «ENDIF»
+            «ENDFOREACH» 
+        </navigation>
+         «ENDIF»
+        «ENDFOREACH»
 	</page>
 «ENDDEFINE»
 

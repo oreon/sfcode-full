@@ -194,6 +194,12 @@ public class ClassUtil {
 		List<Parameter> params = op.getOwnedParameters();
 		StringBuffer buffer = new StringBuffer();
 		List<String> lstStrings = new ArrayList<String>();
+		
+		Transition tr;
+		//tr.getTriggers()
+		//tr.getTriggers().get(0).getEvent().getNameExpression()
+		//tr.
+		//tr.getTrigger(name)
 			
 		for (int i = 0; i < params.size(); i++) {
 			Parameter param = params.get(i);

@@ -169,7 +169,12 @@
 
 «DEFINE genOperation FOR wcprofile::NamedQueryOp»
 	«visibility» «getOpReturnType()» «name» («getParametersSignature()»){ 
-		return executeNamedQuery("«queryName»", «getParameters()»);
+		«IF getParameters().length > 0 »
+			return execute«getQyeryTypeByReturnType()»NamedQuery("«name»", «getParameters()»);
+		«ELSE»
+			return execute«getQyeryTypeByReturnType()»NamedQuery("«name»");
+		«ENDIF»
+		
 	}
 «ENDDEFINE»
 
