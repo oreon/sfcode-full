@@ -33,6 +33,12 @@ public abstract class CustomerListQueryBase extends BaseQuery<Customer, Long> {
 
 			"lower(customer.lastName) like concat(lower(#{customerList.customer.lastName}),'%')",
 
+			"lower(customer.contactDetails.primaryPhone) like concat(lower(#{customerList.customer.contactDetails.primaryPhone}),'%')",
+
+			"lower(customer.contactDetails.secondaryPhone) like concat(lower(#{customerList.customer.contactDetails.secondaryPhone}),'%')",
+
+			"lower(customer.contactDetails.email) like concat(lower(#{customerList.customer.contactDetails.email}),'%')",
+
 			"customer.customerClass = #{customerList.customer.customerClass}",
 
 			"customer.user = #{customerList.customer.user}",

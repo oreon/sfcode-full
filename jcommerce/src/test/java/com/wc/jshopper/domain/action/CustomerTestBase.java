@@ -28,4 +28,9 @@ public class CustomerTestBase
 		return customerAction;
 	}
 
+	@Test
+	public void testfindCustomerByEmail() {
+		//customerAction.findCustomerByEmail(email);
+	}
+
 }

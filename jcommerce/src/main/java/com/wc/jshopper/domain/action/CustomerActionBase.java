@@ -157,4 +157,10 @@ public class CustomerActionBase extends BaseAction<Customer>
 		return customerRecordList;
 	}
 
+	public com.wc.jshopper.domain.Customer findCustomerByEmail(String email) {
+
+		return executeSingleResultNamedQuery("findCustomerByEmail", email);
+
+	}
+
 }

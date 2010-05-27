@@ -33,70 +33,44 @@ import org.witchcraft.base.entity.*;
 import org.witchcraft.model.support.audit.Auditable;
 import org.hibernate.annotations.Filter;
 
-@MappedSuperclass
+@Embeddable
 @Indexed
-public class Person extends BusinessEntity {
+public class ContactDetails implements java.io.Serializable {
 
 	@Field(index = Index.TOKENIZED)
-	protected String firstName;
+	protected String primaryPhone;
 
 	@Field(index = Index.TOKENIZED)
-	protected String lastName;
+	protected String secondaryPhone;
 
-	@IndexedEmbedded
-	protected ContactDetails contactDetails = new ContactDetails();
+	@Field(index = Index.TOKENIZED)
+	protected String email;
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setPrimaryPhone(String primaryPhone) {
+		this.primaryPhone = primaryPhone;
 	}
 
-	public String getFirstName() {
+	public String getPrimaryPhone() {
 
-		return firstName;
+		return primaryPhone;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setSecondaryPhone(String secondaryPhone) {
+		this.secondaryPhone = secondaryPhone;
 	}
 
-	public String getLastName() {
+	public String getSecondaryPhone() {
 
-		return lastName;
+		return secondaryPhone;
 	}
 
-	public void setContactDetails(ContactDetails contactDetails) {
-		this.contactDetails = contactDetails;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public ContactDetails getContactDetails() {
+	public String getEmail() {
 
-		return contactDetails;
-	}
-
-	@Transient
-	public String getDisplayName() {
-		return lastName + ", " + firstName;
-	}
-
-	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
-	 */
-	@Override
-	public List<String> listSearchableFields() {
-		List<String> listSearchableFields = new ArrayList<String>();
-		listSearchableFields.addAll(super.listSearchableFields());
-
-		listSearchableFields.add("firstName");
-
-		listSearchableFields.add("lastName");
-
-		listSearchableFields.add("contactDetails.primaryPhone");
-
-		listSearchableFields.add("contactDetails.secondaryPhone");
-
-		listSearchableFields.add("contactDetails.email");
-
-		return listSearchableFields;
+		return email;
 	}
 
 }

@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -16,12 +15,10 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
 import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.In;
@@ -32,7 +29,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
-import org.jboss.seam.faces.Redirect;
+import org.jboss.seam.faces.Renderer;
 import org.jboss.seam.framework.EntityHome;
 import org.jboss.seam.log.Log;
 import org.witchcraft.base.entity.BusinessEntity;
@@ -59,7 +56,6 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 	@Logger
 	protected Log log;
 	@In
-	// @PersistenceContext(type=EXTENDED)
 	protected FullTextEntityManager entityManager;
 	
 	@In(create = true)
@@ -78,6 +74,11 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 	//Long id;
 	
 	private List<AuditLog> auditLog;
+	
+	@In(create=true)
+	private Renderer renderer;
+	   
+	
 	
 	
 
@@ -167,6 +168,9 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 					+ getInstance().getDisplayName());
 		return "save";
 	}
+	
+	
+	
 
 	public void loadFromTemplate(String templateName) {
 		setEntity((T) getEntityTemplate().getEntity());
@@ -204,6 +208,7 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 		return e;
 	}
 
+	@Transactional
 	public String save() {
 		try{
 		if (templateMode)
@@ -512,6 +517,17 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 	
 	protected String getClassName() {
 		return getClassName(getInstance());
+	}
+	
+	
+	public void sendMail(String template) {
+	    try {
+	       renderer.render(template);
+	       facesMessages.add("Email sent successfully");
+	   } catch (Exception e) {
+		   e.printStackTrace();
+	       facesMessages.add("Email sending failed: " + e.getMessage());
+	   }
 	}
 
 	// //////////////// Comments
