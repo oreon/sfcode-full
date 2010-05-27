@@ -50,8 +50,7 @@
 		</navigation>
 		«ENDIF»
 		
-    	«FOREACH getOutgoings() AS o»	
-    	«IF !o.target.isViewState() && !o.trigger.isEmpty»
+    	«FOREACH getOutgoings().select(o | !o.target.isViewState() && !o.trigger.isEmpty) AS o-»
     	<navigation from-action="#{«o.trigger.get(0).event.operation.class.name.toFirstLower() + "." + o.trigger.get(0).event.operation.name»}">
     		«FOREACH o.target.getOutgoings() AS a»
     		«IF a.target.isViewState()»
@@ -61,9 +60,9 @@
             «ENDIF»
             «ENDFOREACH» 
         </navigation>
-         «ENDIF»
         «ENDFOREACH»
 	</page>
+	
 «ENDDEFINE»
 
 
