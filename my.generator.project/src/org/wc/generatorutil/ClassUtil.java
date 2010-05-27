@@ -38,6 +38,8 @@ public class ClassUtil {
 	
 	static{
 		
+		Operation op;
+		//op.gette
 		//org.eclipse.uml2.codegen.
 		
 		xtendFacade = XtendFacade.create("template::GeneratorExtensions");

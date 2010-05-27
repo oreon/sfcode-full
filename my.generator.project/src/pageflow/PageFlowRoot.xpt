@@ -28,7 +28,7 @@
 «DEFINE StateMachineRoot FOR uml::State»
 	«FILE getStateWebPath()»
 <ui:composition «EXPAND richfaces::WebRoot::genIncludes FOR this»
- template = "template.«getExtension()»" >	
+ template = "/webtemplate/template.«getExtension()»" >	
 	<ui:define name="content">
 	«PROTECT CSTART '<!--' CEND '-->' ID  'USER_EDITABLE_RGN_' + getStateWebName()»
 		
@@ -40,20 +40,19 @@
 
 «DEFINE SeamPageEntry FOR uml::State»
  	<page view-id="/«getStateWebName()»" conversation-required="false">
+ 		«IF (getOutgoings().select( o|o.target.isViewState() ) ).size > 0  -»
     	<navigation> 
-    		«FOREACH getOutgoings() AS o»
-    		«IF o.target.isViewState()»
+    		«FOREACH getOutgoings().select( o|o.target.isViewState() ) AS o-»
 			 <rule if-outcome="«o.guard.specification.stringValue()»">
  				<redirect view-id="/«o.target.getStateWebName()»" />
             </rule>	
-            «ENDIF»
             «ENDFOREACH»
 		</navigation>
-		
+		«ENDIF»
 		
     	«FOREACH getOutgoings() AS o»	
     	«IF !o.target.isViewState() && !o.trigger.isEmpty»
-    	<navigation action="#{«o.trigger.get(0).event.operation.class.name.toFirstLower() + "." + o.trigger.get(0).event.operation.name»}">
+    	<navigation from-action="#{«o.trigger.get(0).event.operation.class.name.toFirstLower() + "." + o.trigger.get(0).event.operation.name»}">
     		«FOREACH o.target.getOutgoings() AS a»
     		«IF a.target.isViewState()»
 			 <rule if-outcome="«a.guard.specification.stringValue()»">
