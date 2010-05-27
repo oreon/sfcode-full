@@ -2,6 +2,7 @@ package tes;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -25,50 +26,52 @@ import cntrls.TextControlContainer;
 public class View extends ViewPart {
 	public static final String ID = "tes.view";
 
-	Map<String, ControlContainer> controls = new HashMap<String, ControlContainer>();
+	Map<String, ControlContainer> controls = new LinkedHashMap<String, ControlContainer>();
 	String[] yesNo = { "Y", "N" };
 	String[] choices =  { "Val1", "Val2", "Val3" };
+	
+	StringBuffer message = new StringBuffer();
 
 	Object[] flds = {
-			"Reference Number      ", ControlType.TEXT,
+			"ReferenceNumber      ", ControlType.TEXT,
 			
-			"New Client      ", ControlType.YESNO,
+			"NewClient      ", ControlType.YESNO,
 			
-			"Client Name", ControlType.TEXT, 
+			"ClientName", ControlType.TEXT, 
 			
-			"Client CID                  ", ControlType.TEXT,
+			"ClientCID                  ", ControlType.TEXT,
 
-			"Account Number              ", ControlType.TEXT,
+			"AccountNumber              ", ControlType.TEXT,
 
-			"Client Segment               ", ControlType.TEXT,
+			"ClientSegment               ", ControlType.TEXT,
 
-			"Business Nature              ", ControlType.TEXT,
+			"BusinessNature              ", ControlType.TEXT,
 
-			"Primary Geography Operation  ", ControlType.TEXT,
+			"PrimaryGeographyOperation  ", ControlType.TEXT,
 
-			"Cash Depost Value/Mnth       ", ControlType.TEXT,
+			"CashDepostValueMnth       ", ControlType.TEXT,
 
-			"Wire Transfer Value/Mnth     ", ControlType.TEXT,
+			"WireTransferValueMnth     ", ControlType.TEXT,
 
-			"Agent Name                  ", ControlType.TEXT,
+			"AgentName                  ", ControlType.TEXT,
 
-			"Transit Number              ", ControlType.TEXT,
+			"TransitNumber              ", ControlType.TEXT,
 
-			"Customer Type                ", ControlType.TEXT,
+			"CustomerType                ", ControlType.TEXT,
 
-			"NAFTA Region                ", ControlType.YESNO,
+			"NAFTARegion                ", ControlType.YESNO,
 
-			"European Region              ", ControlType.YESNO,
+			"EuropeanRegion              ", ControlType.YESNO,
 
-			"Initial Rating              ", ControlType.COMBO,
+			"InitialRating              ", ControlType.COMBO,
 
-			"Final Rating                 ", ControlType.COMBO,
+			"FinalRating                 ", ControlType.COMBO,
 
-			"Source of Review               ", ControlType.TEXT,
+			"SourceofReview               ", ControlType.TEXT,
 
 			"Relationship                   ", ControlType.TEXT,
 
-			"UTR Raised", ControlType.COMBO
+			"UTRRaised", ControlType.COMBO
 			
 	};
 
@@ -79,11 +82,11 @@ public class View extends ViewPart {
 		
 		for(int i = 0; i < flds.length; i+= 2){
 			if( flds[i+1] == ControlType.COMBO){
-				createComboControl(parent, (String)flds[i], Arrays.asList(choices) );
+				createComboControl(parent, ((String)flds[i]).trim(), Arrays.asList(choices) );
 			}else if (flds[i+1] == ControlType.YESNO){
-				createYesNoControl(parent, (String)flds[i]);
+				createYesNoControl(parent, ((String)flds[i]).trim() );
 			}else
-				createTextControl(parent, (String)flds[i]);
+				createTextControl(parent, ((String)flds[i]).trim() );
 		}
 
 	
@@ -121,11 +124,16 @@ public class View extends ViewPart {
 			@Override
 			public void handleEvent(Event event) {
 				Set<String> keys = controls.keySet();
+				
 				for (String key : keys) {
-					System.out.println(key + " :"
-							+ (controls.get(key)).getValue());
+					
+					message.append( MessageUtils.padString((controls.get(key)).getValue(), ManualRiskRequestData.getFieldSize(key)) );
+					System.out.println(key + " :" + ManualRiskRequestData.getFieldSize(key) + " "+ (controls.get(key)).getValue());
 				}
+				System.out.println(message);
 			}
 		});
+		
+		
 	}
 }
