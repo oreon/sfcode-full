@@ -33,6 +33,11 @@ getOpReturnType(Operation op):
 op.type == null ? "void":op.type.fqn().removeExtraPackage();
 //JAVA org.wc.generatorutil.ClassUtil.getOpReturnType(org.eclipse.uml2.uml.Operation);
 
+getOpReturnTypeTemplateParam(Operation op):
+op.ownedTemplateSignature == null ? "": "<" +  op.ownedTemplateSignature.ownedParameter.get(0).ownedElement.superClass.get(0).fqn() + ">";
+//JAVA org.wc.generatorutil.ClassUtil.getOpReturnType(org.eclipse.uml2.uml.Operation);
+
+
 //For return types we get 'collections.List' but we only want 'List'
 String removeExtraPackage(String arg):
 arg.replaceAll("collections.", "");
