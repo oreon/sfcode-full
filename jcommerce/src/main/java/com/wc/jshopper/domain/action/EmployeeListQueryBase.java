@@ -33,6 +33,12 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 
 			"lower(employee.lastName) like concat(lower(#{employeeList.employee.lastName}),'%')",
 
+			"lower(employee.contactDetails.primaryPhone) like concat(lower(#{employeeList.employee.contactDetails.primaryPhone}),'%')",
+
+			"lower(employee.contactDetails.secondaryPhone) like concat(lower(#{employeeList.employee.contactDetails.secondaryPhone}),'%')",
+
+			"lower(employee.contactDetails.email) like concat(lower(#{employeeList.employee.contactDetails.email}),'%')",
+
 			"employee.department = #{employeeList.employee.department}",
 
 			"lower(employee.employeeNumber) like concat(lower(#{employeeList.employee.employeeNumber}),'%')",

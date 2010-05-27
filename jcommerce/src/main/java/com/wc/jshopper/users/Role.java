@@ -53,7 +53,7 @@ public class Role extends BusinessEntity
 	@Field(index = Index.TOKENIZED)
 	protected String name;
 
-	//user->roles ->Role->Role->Role
+	//user->roles ->Role->User->User
 
 	@ManyToMany(mappedBy = "roles")
 	private Set<User> user = new HashSet<User>();
