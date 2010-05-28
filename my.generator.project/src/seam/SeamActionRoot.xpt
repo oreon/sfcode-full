@@ -8,14 +8,22 @@
 
 
 «DEFINE Root FOR uml::Model»
-	«EXPAND BaseGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
-	«EXPAND ManualGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
-	«EXPAND SeamEntityQueryRoot::Root FOR this»
+	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
 	«EXPAND richfaces::PagesRoot::genPages»
 «ENDDEFINE»
 
+«DEFINE PackageRoot FOR uml::Package»
+	«EXPAND BaseGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	«EXPAND ManualGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	«EXPAND SeamEntityQueryRoot::Root FOR this»
+«ENDDEFINE»
+	
+	
+
+
 
 «DEFINE ManualGen FOR wcprofile::Entity»
+«IF package !=null»
 «FILE packagePath() +"/action/" +name+ "Action.java"  man_path »
 package « packageName() ».action;
 
@@ -26,6 +34,7 @@ package « packageName() ».action;
 	
 	}
 «ENDFILE»
+«ENDIF»
 «ENDDEFINE»
 
 
