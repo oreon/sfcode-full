@@ -23,6 +23,7 @@
 	<ui:define name="content">
 		<h:form  enctype="multipart/form-data"> «REM»TODO : usemultipart «ENDREM»
 		<ui:include src = "edit«name»Component.«getExtension()»" />
+		«EXPAND genCancelSaveBtns(true) FOR this»
 		</h:form>
 	</ui:define> 
 </ui:composition>
@@ -97,7 +98,7 @@
 		</h:panelGrid>
 		«EXPAND genTable FOR this-»
 		</s:validateAll>
-		«EXPAND genCancelSaveBtns(edit) FOR this»
+		
 	</h:panelGroup>
 	</html>
 	«ENDFILE»
@@ -120,9 +121,9 @@
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
 	«FOREACH allParents() AS e-»
-	 «EXPAND genAttributeAssoc FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && a.association != null) -»
+	 «EXPAND genAttributeAssoc FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && a.association != null ) -»
 	«ENDFOREACH»
-	«EXPAND genAttributeAssoc FOREACH getAllAttributes().select(a|!a.isMultivalued() && a.association != null) -»
+	«EXPAND genAttributeAssoc FOREACH getAllAttributes().select(a|!a.isMultivalued() && a.association != null  ) -»
 
 	«FOREACH allParents() AS e-»
 	 «EXPAND genLabelAndControl FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && a.association == null) -»
@@ -140,14 +141,13 @@
 
 «DEFINE genAttributeAssoc FOR uml::Property -»
 	«IF opposite.type.name != getCurrentEntity().name || !isCurrentMultiMode() »
-		«IF type.isEmbeddable() || (association != null && opposite != null  && !this.isMultivalued() &&  !this.opposite.isMultivalued() )-»
-			«type.setCurrentEmbeddable()»
+		«IF type.isEmbeddable()  -»
+			«type.setCurrentEmbeddable()» «associationEnd.isColumn() == true ? "true" : "false"»
 			«EXPAND genAttribAsOutput FOR this.type-»
 		«ELSE»
 			«EXPAND genLabelAndControl FOR this-»
 		«ENDIF»
 	«ENDIF»
-
 «ENDDEFINE»
 
 «DEFINE genLabelAndControl FOR uml::Property»
@@ -190,10 +190,20 @@
 
 
 «DEFINE genAssociation FOR uml::Property -»
+	«isUnique» «opposite.isUnique»
 	«IF !isCurrentEditMode()-»
 	<s:link value="#{«getActionForMode()»«genPropertyLabel()-».displayName}" view="«type.getViewFile("view")»" >
 		<f:param name="id" value="#{«getCurrentEntity().asVar()»Action.«genPropertyLabel()-».id}" />
 	</s:link>
+	«ELSE»
+		«EXPAND genAssociationEdit FOR this»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genAssociationEdit FOR uml::Property»
+	«IF (associationEnd.isColumn() && includeInAssociation) »
+	«type.setCurrentEmbeddable()» «(associationEnd.isColumn() )»
+	«EXPAND genLabelAndControl FOR this.type-»
 	«ELSE»
 	<h:selectOneMenu id="«getId()»" value="#{«getActionForMode()»«genPropertyLabel()-»}" required="«!getAssocOptional()»">
 		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
@@ -201,7 +211,7 @@
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
-	«ENDIF»
+	«ENDIF»	
 «ENDDEFINE»
 
 
