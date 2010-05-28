@@ -1,88 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pages xmlns="http://jboss.com/products/seam/pages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd"
-	no-conversation-view-id="/index.jspx" login-view-id="/login.jspx">
-
-	<page view-id="/register/welcome.xhtml" conversation-required="false">
-		<navigation from-action="#{customerAction.login}">
-
-
-			<rule if-outcome="success">
-				<redirect view-id="/register/myaccount.xhtml" />
-			</rule>
-
-
-		</navigation>
+<pages xmlns="http://jboss.com/products/seam/pages"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd"
+       no-conversation-view-id="/index.jspx"
+       login-view-id="/login.jspx">
 	
-		<navigation>
-			<rule if-outcome="forgotPassword">
-				<redirect view-id="/register/retrieveCredentials.xhtml" />
-			</rule>
-			<rule if-outcome="register">
-				<redirect view-id="/register/register.xhtml" />
-			</rule>
-
+ 	<page view-id="/register/welcome.xhtml" conversation-required="false">
+    	<navigation> 
+			 <rule if-outcome="forgotPassword">
+ 				<redirect view-id="/register/retrieveCredentials.xhtml" />
+            </rule>	
+			 <rule if-outcome="register">
+ 				<redirect view-id="/register/register.xhtml" />
+            </rule>	
+            
 		</navigation>
-
-
-
 		
-
-
+		
+    	<navigation from-action="#{customerAction.login}">
+    		
+    		
+			 <rule if-outcome="success">
+ 				<redirect view-id="/register/myaccount.xhtml" />
+            </rule>	
+            
+             
+        </navigation>
+        
 	</page>
 	
-	<page view-id="/register/register.xhtml" conversation-required="false">
 
-
-
-
-		<navigation from-action="#{customerAction.register}">
-
-
-			<rule if-outcome="success">
-				<redirect view-id="/register/mailSent.xhtml" />
-			</rule>
-
-
-		</navigation>
-
-
+ 	<page view-id="/register/register.xhtml" conversation-required="false">
+ 		
+		
+    	<navigation from-action="#{customerAction.register}">
+    		
+    		
+			 <rule if-outcome="success">
+ 				<redirect view-id="/register/mailSent.xhtml" />
+            </rule>	
+            
+             
+        </navigation>
+        
 	</page>
 	
-	<page view-id="/register/retrieveCredentials.xhtml"
-		conversation-required="false">
 
-
-
-
-		<navigation action="#{customerAction.retrieveCredentials}">
-
-
-			<rule if-outcome="success">
-				<redirect view-id="/register/mailSent.xhtml" />
-			</rule>
-
-
-
-			<rule if-outcome="failure">
-				<redirect view-id="/register/retrieveCredentials.xhtml" />
-			</rule>
-
-
-		</navigation>
-
-
+ 	<page view-id="/register/retrieveCredentials.xhtml" conversation-required="false">
+ 		
+		
+    	<navigation from-action="#{customerAction.retrieveCredentials}">
+    		
+    		
+			 <rule if-outcome="success">
+ 				<redirect view-id="/register/mailSent.xhtml" />
+            </rule>	
+            
+            
+    		
+			 <rule if-outcome="failure">
+ 				<redirect view-id="/register/retrieveCredentials.xhtml" />
+            </rule>	
+            
+             
+        </navigation>
+        
 	</page>
-	<page view-id="/register/mailSent.xhtml" conversation-required="false">
+	
 
-
-
-
-
+ 	<page view-id="/register/mailSent.xhtml" conversation-required="false">
+ 		
+		
+    	
 	</page>
-	<page view-id="/register/myaccount.xhtml" conversation-required="false">
+	
 
-
-
+ 	<page view-id="/register/myaccount.xhtml" conversation-required="false">
+ 		
+		
+    	
 	</page>
+	
 </pages>

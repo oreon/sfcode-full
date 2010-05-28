@@ -10,19 +10,10 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
-	template = "/admin/template.xhtml" >	
+ template="/admin/template.xhtml"  >	
 	<ui:define name="content">
-		<h:form  enctype="multipart/form-data"> 
-		<ui:include src = "editCustomerComponent.xhtml" />
-		
-	<div class="buttonBox">
-		
-		<h:commandButton value="Save" action="#{customerAction.save}" /> 
-		<h:outputText value=" " />
-		<h:commandButton value="Cancel" immediate="true" action="#{customerAction.cancel}" /> 
-		
-	</div>
-
-		</h:form>
-	</ui:define> 
+		<ui:include src="searchCategory.xhtml" />
+		<ui:include src="listCategoryComponent.xhtml" />
+	</ui:define>
 </ui:composition>
+	

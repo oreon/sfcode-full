@@ -14,21 +14,14 @@
 	<ui:define name="content">
 		<h:form>
 			<rich:tabPanel switchType="ajax">
-				<rich:tab label="OrderItem">
-					<ui:include src = "/admin/entities/domain/orderItem/viewOrderItemComponent.xhtml" />
+				<rich:tab label="Category">
+					<ui:include src = "/admin/entities/domain/category/viewCategoryComponent.xhtml" />
 				</rich:tab>
 			
-				<rich:tab label="CustomerOrder">
-					<ui:include src = "/admin/entities/domain/customerOrder/viewCustomerOrderComponent.xhtml" >
-						<ui:param name="entityId" value="11499" />
-						<ui:param name="customerOrderId" value="#{orderItemAction.instance.customerOrder.id}" />
-					</ui:include>
-				</rich:tab>
-			
-				<rich:tab label="Product">
-					<ui:include src = "/admin/entities/domain/product/viewProductComponent.xhtml" >
-						<ui:param name="entityId" value="5143" />
-						<ui:param name="productId" value="#{orderItemAction.instance.product.id}" />
+				<rich:tab label="Parent">
+					<ui:include src = "/admin/entities/domain/category/viewCategoryComponent.xhtml" >
+						<ui:param name="entityId" value="14123" />
+						<ui:param name="categoryId" value="#{categoryAction.instance.parent.id}" />
 					</ui:include>
 				</rich:tab>
 				
@@ -44,11 +37,11 @@
 		
 		<rich:tabPanel>
 			<rich:tab label="Notes">
-				<wc:comments backingAction="#{orderItemAction}"/>
+				<wc:comments backingAction="#{categoryAction}"/>
 			</rich:tab>
 			<rich:tab label="Audit">
 				<ui:include
-					src="/admin/entities/domain/orderItem/auditListOrderItemComponent.xhtml" />
+					src="/admin/entities/domain/category/auditListCategoryComponent.xhtml" />
 			</rich:tab>
 		</rich:tabPanel>
 		

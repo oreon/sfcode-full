@@ -43,6 +43,9 @@ public class ProductActionBase extends BaseAction<Product>
 	@DataModelSelection
 	private Product product;
 
+	@In(create = true, value = "categoryAction")
+	com.wc.jshopper.domain.action.CategoryAction categoryAction;
+
 	@DataModel
 	private List<Product> productRecordList;
 
@@ -89,6 +92,11 @@ public class ProductActionBase extends BaseAction<Product>
 
 	public void wire() {
 		getInstance();
+		com.wc.jshopper.domain.Category category = categoryAction
+				.getDefinedInstance();
+		if (category != null) {
+			getInstance().setCategory(category);
+		}
 
 	}
 
@@ -115,11 +123,27 @@ public class ProductActionBase extends BaseAction<Product>
 		this.productRecordList = list;
 	}
 
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
+	 */
+	public void addAssoications(Criteria criteria) {
+
+		if (product.getCategory() != null) {
+			criteria = criteria.add(Restrictions.eq("category.id", product
+					.getCategory().getId()));
+		}
+
+	}
+
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
 	public void loadAssociations() {
+
+		if (product.getCategory() != null) {
+			categoryAction.setEntity(getEntity().getCategory());
+		}
 
 	}
 
@@ -132,6 +156,12 @@ public class ProductActionBase extends BaseAction<Product>
 			findRecords();
 		}
 		return productRecordList;
+	}
+
+	public List findSimilar() {
+
+		return executeSingleResultNamedQuery("findSimilar");
+
 	}
 
 }

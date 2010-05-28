@@ -20,6 +20,34 @@
 		
 		
 	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.product_category}  "/>
+	
+	
+	
+		
+	
+	<h:selectOneMenu id="product_category" value="#{productAction.product.category}" required="true">
+		<s:selectItems value="#{categoryList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message styleClass="error errors" for="product_category" />		
+		
+	
+	
+		
+	
 
 	
 	
@@ -83,14 +111,6 @@
 	
 		</s:validateAll>
 		
-	<div class="buttonBox">
-		
-		<h:commandButton value="Save" action="#{productAction.save}" /> 
-		<h:outputText value=" " />
-		<h:commandButton value="Cancel" immediate="true" action="#{productAction.cancel}" /> 
-		
-	</div>
-
 	</h:panelGroup>
 	</html>
 	

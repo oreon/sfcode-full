@@ -71,6 +71,14 @@
                 <redirect view-id="/admin/entities/domain/orderItem/viewOrderItem.xhtml" />
             </rule>
         
+            <rule if-outcome="category">
+                <redirect view-id="/admin/entities/domain/category/listCategory.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewCategory">
+                <redirect view-id="/admin/entities/domain/category/viewCategory.xhtml" />
+            </rule>
+        
             <rule if-outcome="user">
                 <redirect view-id="/admin/entities/users/user/listUser.xhtml" />
             </rule>
@@ -338,6 +346,12 @@
 		<param name="product_description" value="#{productList.product.description}" validateModel="false" />
 	
 		
+			
+	
+			
+		
+	
+		
 	</page>
     
     <page view-id="/admin/entities/domain/customerOrder/editCustomerOrder.xhtml" conversation-required="false" >
@@ -450,6 +464,60 @@
 		
 	
 		<param name="orderItem_quantity" value="#{orderItemList.orderItem.quantity}" validateModel="false" />
+	
+		
+	</page>
+    
+    <page view-id="/admin/entities/domain/category/editCategory.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Category: #{category.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/domain/category/viewCategory.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/category/listCategory.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="categoryId" value="#{categoryAction.categoryId}" />
+	</page>
+	
+	 <page view-id="/admin/entities/domain/category/viewCategory.xhtml" conversation-required="false" >
+	 	<!-- <description>View Category: #{category.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/category/editCategory.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/domain/category/listCategory.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="categoryId" value="#{categoryAction.categoryId}" />
+	</page>
+	
+	<page view-id="/admin/entities/domain/category/listCategory.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewCategory">
+				<redirect view-id="/admin/entities/domain/category/viewCategory.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/domain/category/editCategory.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{categoryList.firstResult}" />
+		<param name="sort" value="#{categoryList.orderColumn}" />
+		<param name="dir" value="#{categoryList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{categoryList.category.id}" />
+	
+		<param name="category_name" value="#{categoryList.category.name}" validateModel="false" />
+	
+		
+			
+	
+			
+		
 	
 		
 	</page>

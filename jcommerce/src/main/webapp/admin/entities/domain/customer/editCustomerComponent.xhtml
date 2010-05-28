@@ -1,6 +1,5 @@
 
-	<html 
- xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -8,19 +7,20 @@
 	xmlns:a="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
-	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
- >	
-	<h:panelGroup   >
-		<s:validateAll>
-		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol"  onload="#{customerAction.load(customerId )  }">
-		<f:facet name="header">
-			<h:outputText value="Customer " />
-		</f:facet>
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+<h:panelGroup>
+	<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo"
+			columnClasses="leftCol, rightCol"
+			onload="#{customerAction.load(customerId )  }">
+			<f:facet name="header">
+				<h:outputText value="Customer " />
+			</f:facet>
 		
 		
 	
-			
+			 false
 	
 
 	
@@ -28,134 +28,139 @@
 	
 	
 		
-		<h:outputText value="#{msg.contactDetails_primaryPhone}  "/>
-		
-
-	<h:inputText  id="contactDetails_primaryPhone#{entityId}" required="false"  value="#{customerAction.customer.contactDetails.primaryPhone}" />
-   
-		
-		<h:message styleClass="error errors" for="contactDetails_primaryPhone" />		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>
-		
-
-	<h:inputText  id="contactDetails_secondaryPhone#{entityId}" required="false"  value="#{customerAction.customer.contactDetails.secondaryPhone}" />
-   
-		
-		<h:message styleClass="error errors" for="contactDetails_secondaryPhone" />		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.contactDetails_email}  "/>
-		
-
-	<h:inputText  id="contactDetails_email#{entityId}" required="false"  value="#{customerAction.customer.contactDetails.email}" />
-   
-		
-		<h:message styleClass="error errors" for="contactDetails_email" />		
-		
-	
-	
-		
-	
-
-	
-	
-		
-			
-	
-	
-		
-		<h:outputText value="#{msg.customer_user}  "/>
-	
-	<h:selectOneMenu id="customer_user" value="#{customerAction.customer.user}" required="true">
-		<s:selectItems value="#{userList}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Please Select..." />
-		<s:convertEntity />
-	</h:selectOneMenu>
-	
-		
-		<h:message styleClass="error errors" for="customer_user" />		
-		
-	
-	
-		
-	
+		<h:outputText value="#{msg.contactDetails_primaryPhone}  " />
 
 
-	 
-	
-	
-		
-		<h:outputText value="#{msg.person_firstName}  "/>
-		
+			<h:inputText id="contactDetails_primaryPhone#{entityId}"
+				required="false"
+				value="#{customerAction.customer.contactDetails.primaryPhone}" />
 
-	<h:inputText  id="person_firstName#{entityId}" required="false"  value="#{customerAction.customer.firstName}" />
-   
-		
-		<h:message styleClass="error errors" for="person_firstName" />		
-		
-	
-	
 
-	
-	
-		
-		<h:outputText value="#{msg.person_lastName}  "/>
-		
+			<h:message styleClass="error errors"
+				for="contactDetails_primaryPhone" />
 
-	<h:inputText  id="person_lastName#{entityId}" required="false"  value="#{customerAction.customer.lastName}" />
-   
-		
-		<h:message styleClass="error errors" for="person_lastName" />		
-		
-	
-	
-	
-	
-	
-	
-		
-		<h:outputText value="#{msg.customer_customerClass}  "/>
-		
-	
-	<h:selectOneMenu id="customer_customerClass" value="#{customerAction.customer.customerClass}" required="false">
-		<f:selectItem itemLabel="Please Select..." itemValue="" />
-		<f:selectItem itemValue="REGULAR"  itemLabel="Regular" />
-		<f:selectItem itemValue="GOLD"  itemLabel="Gold" />
-		<f:selectItem itemValue="PLATINUM"  itemLabel="Platinum" />
-		
-	</h:selectOneMenu>
-	
-		
-		<h:message styleClass="error errors" for="customer_customerClass" />		
-		
-	
-	
+
+
+
+
+
+
+			<h:outputText value="#{msg.contactDetails_secondaryPhone}  " />
+
+
+			<h:inputText id="contactDetails_secondaryPhone#{entityId}"
+				required="false"
+				value="#{customerAction.customer.contactDetails.secondaryPhone}" />
+
+
+			<h:message styleClass="error errors"
+				for="contactDetails_secondaryPhone" />
+
+
+
+
+
+
+
+			<h:outputText value="#{msg.contactDetails_email}  " />
+
+
+			<h:inputText id="contactDetails_email#{entityId}" required="false"
+				value="#{customerAction.customer.contactDetails.email}" />
+
+
+			<h:message styleClass="error errors" for="contactDetails_email" />
+
+
+
+
+
+
+
+
+
+
+
+
+			<h:outputText value="#{msg.customer_user}  " />
+
+
+
+
+
+			<h:selectOneMenu id="customer_user"
+				value="#{customerAction.customer.user}" required="true">
+				<s:selectItems value="#{userList}" var="itemIter"
+					label="#{itemIter.displayName}" noSelectionLabel="Please Select..." />
+				<s:convertEntity />
+			</h:selectOneMenu>
+
+
+
+
+			<h:message styleClass="error errors" for="customer_user" />
+
+
+
+
+
+
+
+
+
+
+			<h:outputText value="#{msg.person_firstName}  " />
+
+
+			<h:inputText id="person_firstName#{entityId}" required="false"
+				value="#{customerAction.customer.firstName}" />
+
+
+			<h:message styleClass="error errors" for="person_firstName" />
+
+
+
+
+
+
+
+			<h:outputText value="#{msg.person_lastName}  " />
+
+
+			<h:inputText id="person_lastName#{entityId}" required="false"
+				value="#{customerAction.customer.lastName}" />
+
+
+			<h:message styleClass="error errors" for="person_lastName" />
+
+
+
+
+
+
+
+
+			<h:outputText value="#{msg.customer_customerClass}  " />
+
+
+			<h:selectOneMenu id="customer_customerClass"
+				value="#{customerAction.customer.customerClass}" required="false">
+				<f:selectItem itemLabel="Please Select..." itemValue="" />
+				<f:selectItem itemValue="REGULAR" itemLabel="Regular" />
+				<f:selectItem itemValue="GOLD" itemLabel="Gold" />
+				<f:selectItem itemValue="PLATINUM" itemLabel="Platinum" />
+
+			</h:selectOneMenu>
+
+
+			<h:message styleClass="error errors" for="customer_customerClass" />
+
+
+
 		</h:panelGrid>
-		
-	
-		</s:validateAll>
-		
-	<div class="buttonBox">
-		
-		<h:commandButton value="Save" action="#{customerAction.register}" /> 
-		<h:outputText value=" " />
-		<h:commandButton value="Cancel" immediate="true" action="#{customerAction.cancel}" /> 
-		
-	</div>
 
-	</h:panelGroup>
-	</html>
-	
+
+	</s:validateAll>
+
+</h:panelGroup>
+</html>
