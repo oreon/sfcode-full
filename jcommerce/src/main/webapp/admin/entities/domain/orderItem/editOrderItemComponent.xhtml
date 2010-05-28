@@ -28,12 +28,18 @@
 		
 		<h:outputText value="#{msg.orderItem_customerOrder}  "/>
 	
+	
+	
+		
+	
 	<h:selectOneMenu id="orderItem_customerOrder" value="#{orderItemAction.orderItem.customerOrder}" required="true">
 		<s:selectItems value="#{customerOrderList}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
+		
+
 	
 		
 		<h:message styleClass="error errors" for="orderItem_customerOrder" />		
@@ -42,7 +48,6 @@
 	
 		
 	
-
 	
 		
 			
@@ -51,12 +56,18 @@
 		
 		<h:outputText value="#{msg.orderItem_product}  "/>
 	
+	
+	
+		
+	
 	<h:selectOneMenu id="orderItem_product" value="#{orderItemAction.orderItem.product}" required="true">
 		<s:selectItems value="#{productList}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
+		
+
 	
 		
 		<h:message styleClass="error errors" for="orderItem_product" />		
@@ -65,7 +76,6 @@
 	
 		
 	
-
 
 	
 	
@@ -87,14 +97,6 @@
 	
 		</s:validateAll>
 		
-	<div class="buttonBox">
-		
-		<h:commandButton value="Save" action="#{orderItemAction.save}" /> 
-		<h:outputText value=" " />
-		<h:commandButton value="Cancel" immediate="true" action="#{orderItemAction.cancel}" /> 
-		
-	</div>
-
 	</h:panelGroup>
 	</html>
 	

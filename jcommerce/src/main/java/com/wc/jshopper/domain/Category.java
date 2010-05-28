@@ -34,37 +34,30 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.hibernate.annotations.Filter;
 
 @Entity
-@Table(name = "product")
-@Name("product")
+@Table(name = "category")
+@Name("category")
 //@Filter(name = "archiveFilterDef") 
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
-public class Product extends BusinessEntity
+public class Category extends BusinessEntity
 		implements
 			Auditable,
 			java.io.Serializable {
 
-	@NotNull
-	@Length(min = 2, max = 50)
 	@Field(index = Index.TOKENIZED)
 	protected String name;
 
-	protected Double price;
+	//subactegories->parent ->Category->Category->Category
 
-	@Column(length = 4194304)
-	protected byte[] image;
+	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Category_ID", nullable = true)
+	private Set<Category> subactegories = new HashSet<Category>();
 
-	@NotNull
-	@Lob
-	@Column(name = "description", unique = false)
-	protected String description;
-
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "category_id", nullable = false, updatable = true)
-	@ContainedIn
-	protected Category category;
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumn(name = "parent_id", nullable = true, updatable = true)
+	protected Category parent;
 
 	public void setName(String name) {
 		this.name = name;
@@ -75,40 +68,21 @@ public class Product extends BusinessEntity
 		return name;
 	}
 
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setSubactegories(Set<Category> subactegories) {
+		this.subactegories = subactegories;
 	}
 
-	public Double getPrice() {
-
-		return price;
+	public Set<Category> getSubactegories() {
+		return subactegories;
 	}
 
-	public void setImage(byte[] image) {
-		this.image = image;
+	public void setParent(Category parent) {
+		this.parent = parent;
 	}
 
-	public byte[] getImage() {
+	public Category getParent() {
 
-		return image;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getDescription() {
-
-		return description;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-	public Category getCategory() {
-
-		return category;
+		return parent;
 	}
 
 	@Transient
@@ -125,6 +99,8 @@ public class Product extends BusinessEntity
 		listSearchableFields.addAll(super.listSearchableFields());
 
 		listSearchableFields.add("name");
+
+		listSearchableFields.add("subactegories.name");
 
 		return listSearchableFields;
 	}

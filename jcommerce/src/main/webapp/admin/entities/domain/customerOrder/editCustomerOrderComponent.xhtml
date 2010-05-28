@@ -28,12 +28,18 @@
 		
 		<h:outputText value="#{msg.customerOrder_employee}  "/>
 	
+	
+	
+		
+	
 	<h:selectOneMenu id="customerOrder_employee" value="#{customerOrderAction.customerOrder.employee}" required="true">
 		<s:selectItems value="#{employeeList}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
+		
+
 	
 		
 		<h:message styleClass="error errors" for="customerOrder_employee" />		
@@ -42,7 +48,6 @@
 	
 		
 	
-
 
 	
 	
@@ -74,7 +79,6 @@
 		
 	
 	
-
 	
 		
 			
@@ -83,12 +87,18 @@
 		
 		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.orderItem_product}  "/></f:facet>
 	
+	
+	
+		
+	
 	<h:selectOneMenu id="orderItem_product" value="#{_orderItem.product}" required="true">
 		<s:selectItems value="#{productList}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
+		
+
 	
 		
 		<h:message styleClass="error errors" for="orderItem_product" />		</h:column>
@@ -97,7 +107,6 @@
 	
 		
 	
-
 
 	
 	
@@ -131,14 +140,6 @@
 	</rich:dataTable>
 		</s:validateAll>
 		
-	<div class="buttonBox">
-		
-		<h:commandButton value="Save" action="#{customerOrderAction.save}" /> 
-		<h:outputText value=" " />
-		<h:commandButton value="Cancel" immediate="true" action="#{customerOrderAction.cancel}" /> 
-		
-	</div>
-
 	</h:panelGroup>
 	</html>
 	

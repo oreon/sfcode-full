@@ -46,6 +46,8 @@ public abstract class ProductListQueryBase extends BaseQuery<Product, Long> {
 
 			"product.description = #{productList.product.description}",
 
+			"product.category = #{productList.product.category}",
+
 			"product.dateCreated <= #{productList.dateCreatedRange.end}",
 			"product.dateCreated >= #{productList.dateCreatedRange.begin}",};
 

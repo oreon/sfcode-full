@@ -31,6 +31,7 @@ import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.faces.Renderer;
 import org.jboss.seam.framework.EntityHome;
+import org.jboss.seam.international.StatusMessages;
 import org.jboss.seam.log.Log;
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.base.entity.EntityComment;
@@ -69,6 +70,9 @@ public abstract class BaseAction<T extends BusinessEntity>  extends EntityHome<T
 
 	@RequestParameter
 	private String queryString;
+	
+	@In
+	protected StatusMessages statusMessages;
 	
 	//@RequestParameter
 	//Long id;

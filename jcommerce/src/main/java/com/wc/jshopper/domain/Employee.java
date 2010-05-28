@@ -57,8 +57,9 @@ public class Employee extends com.wc.jshopper.domain.Person
 	protected EmployeeType employeeType;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false, updatable = true)
+	@JoinColumn(name = "user_id", nullable = false, updatable = false)
 	@ContainedIn
+	@Length(min = 5)
 	protected com.wc.jshopper.users.User user;
 
 	public void setDepartment(Department department) {

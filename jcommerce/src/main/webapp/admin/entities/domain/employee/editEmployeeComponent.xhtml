@@ -20,7 +20,7 @@
 		
 		
 	
-			
+			 false
 	
 
 	
@@ -68,7 +68,6 @@
 	
 		
 	
-
 	
 	
 		
@@ -78,12 +77,18 @@
 		
 		<h:outputText value="#{msg.employee_department}  "/>
 	
+	
+	
+		
+	
 	<h:selectOneMenu id="employee_department" value="#{employeeAction.employee.department}" required="true">
 		<s:selectItems value="#{departmentList}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
+		
+
 	
 		
 		<h:message styleClass="error errors" for="employee_department" />		
@@ -92,7 +97,6 @@
 	
 		
 	
-
 	
 		
 			
@@ -101,12 +105,18 @@
 		
 		<h:outputText value="#{msg.employee_user}  "/>
 	
+	
+	
+		
+	
 	<h:selectOneMenu id="employee_user" value="#{employeeAction.employee.user}" required="true">
 		<s:selectItems value="#{userList}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
+		
+
 	
 		
 		<h:message styleClass="error errors" for="employee_user" />		
@@ -115,7 +125,6 @@
 	
 		
 	
-
 
 	 
 	
@@ -185,14 +194,6 @@
 	
 		</s:validateAll>
 		
-	<div class="buttonBox">
-		
-		<h:commandButton value="Save" action="#{employeeAction.save}" /> 
-		<h:outputText value=" " />
-		<h:commandButton value="Cancel" immediate="true" action="#{employeeAction.cancel}" /> 
-		
-	</div>
-
 	</h:panelGroup>
 	</html>
 	

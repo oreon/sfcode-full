@@ -17,7 +17,7 @@
 				<br/>
 
 				<rich:dataTable id="dataAudit" var="_log"
-					value="#{productAction.auditLog}" rows="30"
+					value="#{categoryAction.auditLog}" rows="30"
 					rowClasses="odd, even" styleClass="dataTable">
 
 					<rich:column>
@@ -52,30 +52,9 @@
 	
 	<rich:column>
 		<f:facet name="header">
-			<h:outputText value="#{msg.product_name}" />
+			<h:outputText value="#{msg.category_name}" />
 		</f:facet>
 		<h:outputText value="#{_log.entity.name}" />
-	</rich:column>
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.product_price}" />
-		</f:facet>
-		<h:outputText value="#{_log.entity.price}" />
-	</rich:column>
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.product_image}" />
-		</f:facet>
-		<h:outputText value="#{_log.entity.image}" />
-	</rich:column>
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.product_description}" />
-		</f:facet>
-		<h:outputText value="#{_log.entity.description}" />
 	</rich:column>
 	
 		
@@ -83,10 +62,10 @@
 				
 	<rich:column>
 		<f:facet name="header">
-			<h:outputText value="#{msg.product_category}" />
+			<h:outputText value="#{msg.category_parent}" />
 		</f:facet>
-		<s:link    value="#{_log.entity.category.displayName}"  view="/admin/entities/domain/category/viewCategory.xhtml" >
-			<f:param name="id" value="#{_entity.category.id}" />
+		<s:link    value="#{_log.entity.parent.displayName}"  view="/admin/entities/domain/category/viewCategory.xhtml" >
+			<f:param name="id" value="#{_entity.parent.id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 		</s:link>
 	</rich:column>

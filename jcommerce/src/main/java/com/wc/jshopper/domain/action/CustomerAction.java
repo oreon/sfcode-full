@@ -1,6 +1,7 @@
 package com.wc.jshopper.domain.action;
 
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.international.StatusMessages;
 
 import com.wc.jshopper.domain.Customer;
 
@@ -12,8 +13,10 @@ public class CustomerAction extends CustomerActionBase implements
 	public String retrieveCredentials(String email) {
 
 		Customer customer = findCustomerByEmail(email);
-		if (customer == null)
+		if (customer == null){
+			statusMessages.addFromResourceBundle("noSuchCustomer", email);
 			return "failure";
+		}
 		setInstance(customer);
 		customer.getContactDetails().setEmail("singhjess@gmail.com");
 		sendMail("/mails/retrievalEmail.xhtml");
