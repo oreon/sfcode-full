@@ -1,10 +1,8 @@
 //+------------------------------------------------------------------+
-//|                                                    NeuroMACD.mq4 |
-//|                                                 Mariusz Woloszyn |
-//|                                           Fann2MQL.wordpress.com |
+//|                                    
 //+------------------------------------------------------------------+
-#property copyright "Mariusz Woloszyn"
-#property link      "Fann2MQL.wordpress.com"
+#property copyright "NeuralTraders.info"
+#property link      "NeuralTraders.info "
 
 // Include Neural Network package
 #include <ntann.mqh>
@@ -15,22 +13,32 @@
 // Global defines
 #define ANN_PATH	"C:\\ANN\\"
 // EA Name
-#define NAME		"NeuroMACD"
+#define NAME		"NextClose-V13-"
 
 //---- input parameters
 extern double Lots = 0.01;
 extern bool UseMoneyManagement = true;
-extern double RiskFactor = 1;
-int MAGIC_NUM = 345992;
-extern int Stop = 250;
-extern int Trail = 90;
+extern double RiskFactor = 0.05;
+extern int MAGIC_NUM = 345997;
+extern int Stop = 140;
+extern int Trail = 15;
+extern int TakeProfit = 10;
+extern bool UseFixedTP = true;
+extern bool TrailFractal = false;
+extern bool ContinuousMode = false;
+extern bool StepOrders = false;
+extern int RiskReducer = 20;
+//extern int TakeProfit = 55;
 
 // Global variables
+#define SLD_WND 24
 
 // Long position ticket
 int LongTicket = -1;
 
 int DebugLevel = 0;
+
+extern double MinMSE = 0.00000250;
 
 // Short position ticket
 int ShortTicket = -1;
@@ -39,30 +47,70 @@ int ShortTicket = -1;
 double LongInput[];
 double ShortInput[];
 
-double ArrInput[4];
+double ArrInput[SLD_WND];
 
 int  ann;
+extern int BarsForSL = 0;
 datetime timeprev=0;
 double mult = 0.1;
 
 extern bool TimeFilter = true;
+extern int SlidingWindow = 16;
 
-extern bool CloseAtPeriodEnd = false;
-extern bool TradeMultipleInSameTimeFrame = true;
-extern int BeginHour = 22;
-extern int EndHour = 7;
-extern int MinDiff = 8;
+extern int CloseAfter = 1;
+extern int BeginHour = 17;
+extern int EndHour = 5;
+extern int Threshhold = 70;
+/*extern*/ int Step = 20;
+extern bool AutoAdjustDigits = true;
+ int Prd = 4800;
+
+//extern int GMTOffset = 1;
+int MAX_ORDERS = 2;
+extern int Offset = 2;
+
+int timeSigPrev = -1;
+string path;
 //+------------------------------------------------------------------+
 //| expert initialization function                                   |
 //+------------------------------------------------------------------+
 
+string slcmt = "SL set to low of 10 bars";
+
 int init ()
 {
+     ArrayResize(ArrInput, SlidingWindow);
+   
+     if(!IsTesting()){
+       Offset =  TimeHour(TimeCurrent()) - getGmtHour() ;
+     }   
     
+    int day = TimeDayOfWeek(TimeGmt() );
+  
+  if(day == 0  ){  
+   Comment("Trading disabled on sunday .");
+   return (0);
+  }
+    
+    path = TerminalPath() + "//experts//files"; 
     ann = CreateAnn();
     f2M_parallel_init();
     
      double price = Close[1];
+     
+      if(AutoAdjustDigits && Digits == 3 || Digits ==5 ){
+   
+      TakeProfit= TakeProfit * 10; // Уровень прибыли в пипсаз от цены открытия.
+      //PipStep=PipStep * 10; // растоянию в пипсах убытка на котором открываеться следующий ордер колена.
+      Trail = Trail*10;
+      Stop = Stop *10;
+      Step = Step * 10;
+      //RiskReducer = RiskReducer * 10;
+   }
+     /*
+     for(int i = 0; i < Digits; i++){
+         mult = mult * .01;
+     }*/
    if(price < 1 ) mult = 1; 
    if(price < 10 ) mult = 0.1;
    if (price > 10 && price < 100 ) mult =0.01;
@@ -71,9 +119,126 @@ int init ()
     return (0);
 }
 
+int cnt = 0;
+
+int start ()
+{
+   // modifyOrder(MAGIC_NUM, Trail);
+    int orders = getOrderCount(MAGIC_NUM);
+    int j = 0;
+    
+    if(orders > 0 ){
+    
+        double force = iForce(NULL, 0, 6,MODE_SMA,PRICE_CLOSE,0);
+   
+      if(MathAbs(force) > 1){
+       // closeOrders(MAGIC_NUM);
+      }
+      /*   
+      if(TrailFractal)  
+        modifyF(MAGIC_NUM);
+      else*/
+        
+        double out = (1.0/mult) * f2M_get_output (ann, 0);
+        //setMissingTP(MAGIC_NUM, out, out);
+        modifyOrder(MAGIC_NUM, Trail);
+        //TrailingStop(MAGIC_NUM);
+        //reduceProfit(MAGIC_NUM, RiskReducer, 150 * 60);
+   }else{
+      //closeOrders(MAGIC_NUM);
+   }
+   
+   
+    int day = TimeDayOfWeek(TimeGmt() );
+       if(!doTimeFilter(day))
+         return (0) ;
+
+   int  timeSigNow = TimeMinute(Time[0])/5;
+   
+
+    if(timeprev==Time[0] )
+     {
+       /*
+       if(IsTesting()){
+       if(timeSigPrev == timeSigNow) 
+         return;
+       }*/
+     
+      if(!ContinuousMode) 
+       return(0);
+     }else{
+         Comment("Training neural net .... ");
+         double mset = 1;
+         
+         while(mset > MinMSE || cnt < 400 ){
+            for(int i = Prd ; i >= (SlidingWindow + 1); i--){
+               for(j= 0; j < SlidingWindow; j++){
+                  ArrInput[j] = Close[i - j];
+               }
+               AnnTrain( Close[i - j -1]);
+            }
+            int re2t = f2M_run (ann, ArrInput);
+            mset = f2M_get_MSE(ann);
+            cnt++;
+            
+            Comment("Training neural net ....: MSE:  " +mset + ":" + cnt);
+         }
+         //f2M_save(ann, path);
+     }
+     
+     timeprev=Time[0];
+     
+  
+   timeSigPrev = timeSigNow;
+  
+     for( j= 0; j < SlidingWindow; j++){
+         ArrInput[j] = Close[SlidingWindow - j];
+     }
+    
+    int ret = f2M_run (ann, ArrInput);
+    
+    // setTP(MAGIC_NUM, ret, ret) ;
+    
+    if (ret < 0) {
+	     debug (0, "Network RUN ERROR! ann=" + ann);
+	     return (FANN_DOUBLE_ERROR);
+    }
+    
+     out = (1.0/mult) * f2M_get_output (ann, 0);
+    out = NormalizeDouble(out, Digits);
+    double mse = f2M_get_MSE(ann);
+    if(mse > 0  ){
+     setMissingTP(MAGIC_NUM, out, out);
+    Comment("----NextClose Version 13 ---- " +
+       "\n Spread :" + MarketInfo(Symbol(), MODE_SPREAD) +
+       "\n SL :" + slcmt +
+       "\nNext Target: " + DoubleToStr(out, Digits) + " mse " + mse);
+   } 
+    
+    ObjectDelete("text_object");
+    ObjectCreate("text_object", OBJ_HLINE, 0, TimeCurrent(), out);
+    
+    
+   if(orders < MAX_ORDERS) {
+      //if(UseFixedTP)
+     //    placeOrders(TakeProfit);
+     // else
+      placeOrders(out);
+    } else{ 
+      //changeTP(MAGIC_NUM, out );
+      Print("managing order");
+      manageOrders(out);         
+     }    
+    
+    //setTP(MAGIC_NUM, out, out);
+      
+    return (0);
+}
+
+
 
 int CreateAnn(){
-   ann =f2M_create_standard (4, 4, 6, 5, 1);
+   ann =f2M_create_standard (4, SlidingWindow, 12, 18, 1);
 	f2M_set_act_function_hidden (ann, FANN_SIGMOID_SYMMETRIC_STEPWISE);
 	f2M_set_act_function_output (ann, FANN_SIGMOID_SYMMETRIC_STEPWISE);
 	f2M_randomize_weights (ann, -0.4, 0.4);
@@ -88,35 +253,17 @@ int CreateAnn(){
 
 
 
-void
-debug (int level, string text)
-{
-
-
+void debug (int level, string text){
   //  if (DebugLevel >= level) {
 	if (level == 0)
 	    text = "ERROR: " + text;
-	Print (text);
-    //}
-    
+	Print (text);  
+}
+
+
+
+void AnnTrain( double result){
   
-}
-
-
-
-
-
-
-void ann_destroy (){
-    int ret = -1;
-    ret = f2M_destroy (ann);
-    debug (1, "f2M_destroy(" + ann + ") returned: " + ret);
-}
-
-
-void AnnTrain(double open, double high, double low, double close, double result){
-   
-   CreateInputArr(open, high, low, close);
    double  resultArr[1];
    resultArr[0] = result * mult;
    
@@ -127,13 +274,14 @@ void AnnTrain(double open, double high, double low, double close, double result)
     //debug (3, "ann_train(" + ann + ") succeded");
 }
 
-void CreateInputArr(double open, double high, double low, double close){
+void CreateInputArr(double open, double close, double volume){
    //double arr[4];
    
    ArrInput[0] = open * mult;
-   ArrInput[1] = high * mult;
-   ArrInput[2] = low * mult;
-   ArrInput[3] = close* mult;
+   //ArrInput[1] = high * mult;
+   //ArrInput[2] = low * mult;
+   ArrInput[1] = close* mult;
+   ArrInput[2] = volume ; //* mult;
   // return arr;
 }
 
@@ -153,7 +301,7 @@ int obv (int prd ){
    
 }
 
-
+ 
 
 
 //+------------------------------------------------------------------+
@@ -173,66 +321,6 @@ deinit ()
 //+------------------------------------------------------------------+
 //| expert start function                                            |
 //+------------------------------------------------------------------+
-int start ()
-{
-    modifyOrder(MAGIC_NUM, Trail);
-    int orders = getOrderCount(MAGIC_NUM);
-
-    if(timeprev==Time[0] )
-     {
-      //if(orders > 0 )
-       return(0);
-     }
-   timeprev=Time[0];
-   
-   int hour = TimeHour(TimeCurrent());
-   
- /*  
- if(TimeFilter && total == 0 ){
-      int hr = TimeHour(TimeCurrent());
-      if(hr <= EndHour ) hr += 24;
- 
-      if(hr == BeginHour - 2 &  CloseAtPeriodEnd){
-         Print ("hour is " + 7 + " closing all ");
-         //CloseThisSymbolAll();
-       }
- 
-      if(! ( hr >= BeginHour && hr < 24 + EndHour)){
-          Comment( "Now is " +  hr + ":00  Trading will begin at " + BeginHour + ":00 \n");
-          return(0);
-      }else{
-          Comment( "Ready to trade \n");
-      }
-     
-   }*/ 
-
-    for(int i = 900 ; i > 2; i--){
-      
-      AnnTrain(Open[i], High[i], Low[i], Close[i], Close[i-1]);
-    }
-    
-    CreateInputArr(Open[0], High[0], Low[0], Close[0]);
-    
-    int ret = f2M_run (ann, ArrInput);
-    
-    if (ret < 0) {
-	     debug (0, "Network RUN ERROR! ann=" + ann);
-	     return (FANN_DOUBLE_ERROR);
-    }
-    
-    double out = (1.0/mult) * f2M_get_output (ann, 0);
-    double mse = f2M_get_MSE(ann);
-    Comment("Next Close " + out + " mse " + mse);
-   // debug (3, "f2M_get_output(" + ann + ") returned: " + out);
-    
-    if(orders == 0 ) {
-      placeOrders(out);
-     } else{
-         manageOrders(out);         
-     }    
-      
-    return (0);
-}
 
 
 void manageOrders(double out){
@@ -242,30 +330,50 @@ void manageOrders(double out){
        if(OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES)==false)        continue;
        if(OrderMagicNumber()== MAGIC_NUM && OrderSymbol()==Symbol()) {
          double tp = OrderTakeProfit();
+         
+       
+         //continue;
+         double minStep = 30*Point;
+         
          if(OrderType() == OP_BUY ) {
          
-            if(  out > tp ) 
-               changeTP(MAGIC_NUM, out);
+            //if (Close[0] == out) OrderClose(OrderTicket(),OrderLots(),Bid,3,Violet); 
+         
+            if( out < OrderOpenPrice() - minStep    ){
+               OrderClose(OrderTicket(),OrderLots(),Bid,3,Violet); 
+                Sleep(20000);
+            }else if (out > OrderOpenPrice() && out < Close[0] && OrderProfit() > 0 ){
+              // OrderClose(OrderTicket(),OrderLots(),Bid,3,Violet); 
+            }else changeTP(MAGIC_NUM, out );
+               
+            
+            /*
+            if(  out != OrderTakeProfit() && out > OrderOpenPrice() ) {
+              changeTPop(MAGIC_NUM, out, OP_SELL);
+             }
+             if(out < OrderOpenPrice()   ){
+                OrderClose(OrderTicket(),OrderLots(),Bid,3,Violet); 
+            }*/
+            /*
             else {
-               if(OrderProfit() > 0 ){
+              // if(OrderProfit() > 0 ){
                   OrderClose(OrderTicket(),OrderLots(),Bid,3,Violet); 
                   // timeprev = 0;  
-               }
-            }
+               //}
+            }*/
             
          }
          
           if(OrderType() == OP_SELL ) {
          
-            if(  out < tp ) 
-               changeTP(MAGIC_NUM, out);
-             else {
-              // if(out > OrderOpenPrice() )
-              if(OrderProfit() > 0 ){
-                  OrderClose(OrderTicket(),OrderLots(),Ask,3,Violet); 
-                  // timeprev = 0;
-               }
-            }
+          //  if (Close[0] == out) OrderClose(OrderTicket(),OrderLots(),Ask,3,Violet); 
+         
+           if( out > OrderOpenPrice() + minStep  ){
+                OrderClose(OrderTicket(),OrderLots(),Ask,3,Violet); 
+                Sleep(20000);
+            }else if (out < OrderOpenPrice() && out > Close[0]  && OrderProfit() > 0 ){
+              // OrderClose(OrderTicket(),OrderLots(),Ask,3,Violet); 
+            }else changeTP(MAGIC_NUM, out );
             
          }
        }
@@ -274,28 +382,44 @@ void manageOrders(double out){
      
 
 
-string name = "NHERO";
+string name = "NEXTCLOSE-V12";
 
 void placeOrders(double out){
-    double minDiff = MinDiff * Point;
-    //int macd = macd();
+    double threshhold = Threshhold * Point;
     
-    double lots = Lots;
-   
-   if(UseMoneyManagement){
-      lots = getLots(RiskFactor);
-   }
+    //int obv = obv(PERIOD_H4);
+    //double ma = iMA(NULL,PERIOD_D1,5,8,MODE_SMA,PRICE_MEDIAN,0);
     
-    int obv = obv(PERIOD_H4);
     
-    if(out > Ask + minDiff  ){
-     closeOrders(OP_SELL);
+    
+    int bo = getOrderCount(MAGIC_NUM);
+    //int so = getOrderCountOp(MAGIC_NUM, OP_SELL);
+    double ma = 0;
+    
+    if(Close[3] > Close[2]  && Close[2] > Close[1]) 
+      ma = -1;
+    if(Close[3] < Close[2]  && Close[2] < Close[1]) 
+      ma = 1;
+    ma = sar();
+      
+    
+    
+    Print(out + " "  + (Close + threshhold));
+    
+    
+    if(out > Ask + threshhold /* && ma >= 0*/ ){
+      Print("Placing Buy order " + Symbol());
+      closeOrdersOp(MAGIC_NUM, OP_SELL);
+      //out = Ask + TakeProfit * Point;
      placeOrderL(OP_BUY,  out ); //, Stop, lots, name );
-     }
+    }
+    
+   
       
-    if (out < Bid - minDiff /*&& obv < 0*/ ){
-       closeOrders(OP_BUY);
-      
+    if (out < Bid - threshhold/* && ma <= 0/*&& out < ma&& obv < 0 && bo == 0*/ ){
+      Print("Placing sell order " + Symbol());
+      closeOrdersOp(MAGIC_NUM, OP_BUY);
+    //  out = Bid - TakeProfit * Point;
        placeOrderL(OP_SELL,  out );
       //placeOrder(OP_SELL, MAGIC_NUM, out, Stop, lots, name);
     }      
@@ -308,26 +432,134 @@ void placeOrderL(int op, double tp){
    int ticket = 0;
    int ticket2 = 0;
    int totalOrders = getOrderCount(MAGIC_NUM);
-   double lots = Lots;
+    double lots = Lots;
    
    if(UseMoneyManagement){
-      lots = getLots(RiskFactor);
+      lots = getLots(RiskFactor, UseMoneyManagement, Lots);
    }
   
    if( totalOrders > 0 ){
+      //Print ("Not placing as there are " + totalOrders);
       return(0);
    }
    
+   
+   
    if(op == OP_BUY ){
-      
-      ticket=OrderSend (Symbol(),OP_BUY, lots,Ask,3,Bid - (Stop * Point) , tp,"NHERO " + getTimeFrame(), MAGIC_NUM,0, Purple);
+      ticket=OrderSend (Symbol(),OP_BUY, lots,Ask,3,0 , 0,name + getTimeFrame(), MAGIC_NUM,0, Purple);
+      double sl = Low[iLowest(NULL,0,MODE_LOW,BarsForSL,0)];
+      double minsl = Bid - (Stop * Point);
+      if ( sl < minsl || BarsForSL == 0) { sl = minsl; slcmt = "SL set to min SL: " + Stop ; }
+      //setTP(MAGIC_NUM, Ask + TakeProfit * Point/*tp*/, Ask + TakeProfit * Point);
+      setSL(MAGIC_NUM, sl);
+     changeTP(MAGIC_NUM, tp);
    }
    else if( op == OP_SELL ){
-      ticket=OrderSend(Symbol(),OP_SELL,lots,Bid,3,Ask + (Stop * Point) , tp,"NHERO " + getTimeFrame(), MAGIC_NUM,0, Yellow);
+      ticket=OrderSend(Symbol(),OP_SELL,lots,Bid,3,0 , 0,name+ getTimeFrame(), MAGIC_NUM,0, Yellow);
+       sl = High[iHighest(NULL,0,MODE_HIGH,BarsForSL,0)];
+       //tp = Bid - TakeProfit * Point;
+      // setTP(MAGIC_NUM, tp, Bid - TakeProfit * Point);
+        minsl = Ask + (Stop * Point);
+       if ( sl > minsl   || BarsForSL == 0) { sl = minsl; slcmt = "SL set to min SL: " + Stop ; }
+       setSL(MAGIC_NUM, sl);
+       changeTP(MAGIC_NUM, tp);
    }
+    
+    
+   if(StepOrders)                                                                                                                                                               
+   placeBigOrder(op, tp, lots);
    
 }
 
+
+int setTP(int num, double tp, double fbtp){
+   int ordersForThisEA = 0;
+   int total  = OrdersTotal();
+   
+   
+   for(int cnt=0;cnt<total;cnt++)
+    {
+      if(OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES)==false)       continue;
+      if(OrderMagicNumber()== num && OrderSymbol() ==Symbol() &&  MathAbs(  OrderOpenPrice() - tp ) > Threshhold * Point  && OrderTakeProfit() == 0 ){ 
+      
+        //if( (OrderType() == OP_SELL && tp < OrderOpenPrice()) || (OrderType() == OP_BUY && tp > OrderOpenPrice()))
+         if(!OrderModify(OrderTicket(),OrderOpenPrice(),OrderStopLoss(),tp,0,Green)){
+            //if(orderType == OP_SELL)
+               OrderModify(OrderTicket(),OrderOpenPrice(),OrderStopLoss(),fbtp,0,Green);
+               
+           // if(orderType == OP_BUY)
+           //   OrderModify(OrderTicket(),OrderOpenPrice(),OrderStopLoss(),fbtp,0,Green)   
+         }
+      }
+   }
+   
+   return ( ordersForThisEA );
+}
+
+
+
+int setMissingTP(int num, double tp, double fbtp){
+   int ordersForThisEA = 0;
+   int total  = OrdersTotal();
+   
+   for(int cnt=0;cnt<total;cnt++)
+    {
+      if(OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES)==false)       continue;
+      if(OrderMagicNumber()== num && OrderSymbol() ==Symbol()  && OrderTakeProfit() == 0  || MathAbs( OrderTakeProfit() -OrderOpenPrice()) > 0.3 ){ 
+         if(OrderType() == OP_BUY)
+           OrderModify(OrderTicket(),OrderOpenPrice(),OrderStopLoss(),Ask + TakeProfit * Point,0,Green);
+               
+         if(OrderType() == OP_SELL)
+           OrderModify(OrderTicket(),OrderOpenPrice(),OrderStopLoss(),Bid - TakeProfit * Point,0,Green) ;
+        
+      }
+   }
+   
+   return ( ordersForThisEA );
+}
+
+
+
+
+
+int setSL(int num, double sl){
+    int total  = OrdersTotal();
+   
+   for(int cnt=0;cnt<total;cnt++)
+    {
+      if(OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES)==false)       continue;
+      
+      if(OrderMagicNumber()== num && OrderSymbol() ==Symbol()  && OrderStopLoss() == 0){ 
+      
+         OrderModify(OrderTicket(),OrderOpenPrice(), sl ,OrderTakeProfit(),0,Green);
+         
+      }
+   }
+
+}
+
+
+void placeBigOrder(int op, double tp,  double lots){
+
+      int ticket = 0;
+      //int step = 10;
+      int count = MathAbs((Ask - tp)) / (Step * Point);
+      Print("count is " + count);
+      if(op== OP_BUY ){
+         for(int i = 1; i < count; i++){
+             ticket=OrderSend (Symbol(),OP_BUYSTOP, lots,Ask + (i *Step)* Point,3,Bid - (Stop * Point) , tp,name + getTimeFrame(), 
+             MAGIC_NUM, /*iTime( Symbol(), PERIOD_D1, 0 ) + 86400*/0, Purple);
+         }
+       }
+      else{ 
+         //Print("placing sell order at " + (Bid - profitTriggerForBig));
+         for(i = 1; i < count; i++){
+             ticket=OrderSend(Symbol(),OP_SELLSTOP,lots,Bid - (i * Step ) * Point,3,Ask + (Stop * Point) , tp,name + getTimeFrame(), 
+             MAGIC_NUM,/*iTime( Symbol(), PERIOD_D1, 0 ) + 86400*/ 0, Yellow);
+         }
+      }
+
+}
 
 
 
@@ -335,3 +567,57 @@ void dumpInput(){
    Print("  " + ArrInput[0] + " " + ArrInput[1] + " " + ArrInput[2] + " " + ArrInput[3] );
 }
 
+string timeText =  "  Trading will begin at GMT:";
+ 
+int doTimeFilter(int day){
+   int endHour = EndHour;
+   if(day == 5 ){
+      endHour = 20;
+   }
+   int trange = tradeRange(BeginHour, endHour, CloseAfter, Offset);
+   if(!TimeFilter){
+       printComment(" TimFilter off ");
+       return (1);
+   }
+   string timeText =  "\nLots:" +  Lots + " "; 
+   int ret = 0;
+        
+   if(trange == TRADING ){
+      timeText = " \nReady to trade \n Trade Range " + BeginHour + ":00 - " + EndHour + ":00 GMT ";
+      ret = 1;
+   }else if (trange == CLOSEHR){
+      if (IsTesting()) int oset = Offset ; else oset = 0;
+      int hour = TimeHour(getGmtHour(oset));
+     
+      timeText = hour + " Closing all open trades -  Trading will begin at GMT:";   
+      timeText = timeText + "\n" +  (BeginHour) + ":00 and continue until " + EndHour + ":00";
+      closeOrders(MAGIC_NUM);
+   }else if (trange == POSTEND ){
+      timeText = "\nRedcuing TP by " + RiskReducer ;
+      reduceProfit(MAGIC_NUM, RiskReducer);
+   }else {
+      timeText = "  Trading will begin at GMT:";   
+      timeText = timeText + "\n" +  (BeginHour) + ":00 and continue until " + EndHour + ":00";
+     
+   }
+   
+    printComment(timeText);
+   
+   return (ret) ;
+ }
+
+ void printComment(string cmt){
+    
+    Comment( "Now is GMT : " +  getGmtHour() + " \n" + cmt 
+         + " \n \n GMT Offset: " + Offset  );
+         
+   // double later = NormalizeDouble(iCustom (NULL, 0, "PredictedMA", 0, -2), MarketInfo(Symbol(), MODE_DIGITS) ); 
+    
+}  
+
+
+void ann_destroy (){
+    int ret = -1;
+    ret = f2M_destroy (ann);
+    debug (1, "f2M_destroy(" + ann + ") returned: " + ret);
+}
