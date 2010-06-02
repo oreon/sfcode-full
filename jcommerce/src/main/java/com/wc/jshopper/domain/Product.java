@@ -43,6 +43,7 @@ import org.hibernate.annotations.Filter;
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class Product extends BusinessEntity
 		implements
+			com.wc.jshopper.domain.TreeComposite,
 			Auditable,
 			java.io.Serializable {
 
@@ -127,6 +128,16 @@ public class Product extends BusinessEntity
 		listSearchableFields.add("name");
 
 		return listSearchableFields;
+	}
+
+	public List getChildren() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getParent() {
+		// TODO Auto-generated method stub
+		return category;
 	}
 
 }

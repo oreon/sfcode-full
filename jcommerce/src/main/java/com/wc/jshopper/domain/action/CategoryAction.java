@@ -1,39 +1,47 @@
-
 package com.wc.jshopper.domain.action;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
-import javax.persistence.EntityManager;
-
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
-
-import org.apache.commons.lang.StringUtils;
-
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Scope;
-
-import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.End;
-import org.jboss.seam.annotations.Factory;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Out;
-import org.jboss.seam.Component;
+import org.richfaces.component.html.HtmlTree;
+import org.richfaces.event.NodeSelectedEvent;
+import org.witchcraft.base.entity.BusinessEntity;
 
-import org.jboss.seam.annotations.datamodel.DataModel;
-import org.jboss.seam.annotations.datamodel.DataModelSelection;
-import org.jboss.seam.faces.FacesMessages;
-import org.jboss.seam.log.Log;
-import org.jboss.seam.annotations.Observer;
-	
+import com.wc.jshopper.domain.Category;
+import com.wc.jshopper.domain.Product;
+
 //@Scope(ScopeType.CONVERSATION)
 @Name("categoryAction")
-	public class CategoryAction extends CategoryActionBase implements java.io.Serializable{
+public class CategoryAction extends CategoryActionBase implements
+		java.io.Serializable {
 	
+	private Long productId;
+
+	public List<Category> getTopLevelCategories() {
+		return executeQuery("select c from Category c where c.parent is null");
 	}
+
+	public void processSelection(NodeSelectedEvent event) {
+
+		HtmlTree tree = (HtmlTree) event.getComponent();
+		
+
+		BusinessEntity be = (BusinessEntity) tree.getRowData();
+		if(be instanceof Product){
+			
+			productId = be.getId();
+			
+		}
+		
+		
+
+	}
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
+
+	public Long getProductId() {
+		return productId;
+	}
+}

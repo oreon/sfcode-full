@@ -7,10 +7,8 @@ import org.jboss.seam.security.Role;
      
 rule "CanUserDeleteEntities"
 when
-  $c : PermissionCheck( action == "archive")
+  $c : PermissionCheck( )
   $r : Role(name == "admin")
 then
-    System.out.println("The PermissionCheck's properties are: " +
-        "name=" + $c.getName() + ", action=" + $c.getAction()+ ":: " +  $r.getName());
   $c.grant();
 end     

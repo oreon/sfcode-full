@@ -168,7 +168,7 @@ public class CustomerOrderActionBase extends BaseAction<CustomerOrder>
 	}
 
 	public List<OrderItem> getListOrderItems() {
-		if (listOrderItems == null) {
+		if (listOrderItems == null || listOrderItems.isEmpty()) {
 			initListOrderItems();
 		}
 		return listOrderItems;
