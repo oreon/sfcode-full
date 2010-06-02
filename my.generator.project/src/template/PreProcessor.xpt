@@ -41,7 +41,7 @@
 «REM» For classes in entitiespackage we need to default to 'Enity' profile if no sterotype is specified «ENDREM»
 «DEFINE applyEntityStereotype FOR wcprofile::EntitiesPackage»
 	«FOREACH allOwnedElements().typeSelect(uml::Class) AS c»
-		«IF c.getStereotypeApplications().isEmpty »
+		«IF c.getStereotypeApplications().isEmpty && c.owningTemplateParameter == null »
 			«c.applyEntityStereoType()»
 		«ENDIF»
 	«ENDFOREACH»
