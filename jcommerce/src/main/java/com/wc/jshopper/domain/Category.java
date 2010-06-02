@@ -43,21 +43,29 @@ import org.hibernate.annotations.Filter;
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class Category extends BusinessEntity
 		implements
+			com.wc.jshopper.domain.TreeComposite,
 			Auditable,
 			java.io.Serializable {
 
 	@Field(index = Index.TOKENIZED)
 	protected String name;
 
-	//subactegories->parent ->Category->Category->Category
+	//subcategories->parent ->Category->Category->Category
 
 	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "Category_ID", nullable = true)
-	private Set<Category> subactegories = new HashSet<Category>();
+	@JoinColumn(name = "parent_ID", nullable = true)
+	private Set<Category> subcategories = new HashSet<Category>();
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_id", nullable = true, updatable = true)
 	protected Category parent;
+
+	//product->category ->Category->Category->Category
+
+	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Category_ID", nullable = true)
+	@IndexedEmbedded
+	private Set<Product> product = new HashSet<Product>();
 
 	public void setName(String name) {
 		this.name = name;
@@ -68,12 +76,12 @@ public class Category extends BusinessEntity
 		return name;
 	}
 
-	public void setSubactegories(Set<Category> subactegories) {
-		this.subactegories = subactegories;
+	public void setSubcategories(Set<Category> subcategories) {
+		this.subcategories = subcategories;
 	}
 
-	public Set<Category> getSubactegories() {
-		return subactegories;
+	public Set<Category> getSubcategories() {
+		return subcategories;
 	}
 
 	public void setParent(Category parent) {
@@ -83,6 +91,14 @@ public class Category extends BusinessEntity
 	public Category getParent() {
 
 		return parent;
+	}
+
+	public void setProduct(Set<Product> product) {
+		this.product = product;
+	}
+
+	public Set<Product> getProduct() {
+		return product;
 	}
 
 	@Transient
@@ -100,9 +116,15 @@ public class Category extends BusinessEntity
 
 		listSearchableFields.add("name");
 
-		listSearchableFields.add("subactegories.name");
+		listSearchableFields.add("subcategories.name");
 
 		return listSearchableFields;
+	}
+
+	public List getChildren() {
+		List lst = new ArrayList(getSubcategories());
+		lst.addAll(getProduct());
+		return lst; 
 	}
 
 }

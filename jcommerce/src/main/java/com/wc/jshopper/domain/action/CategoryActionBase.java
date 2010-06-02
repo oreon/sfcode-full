@@ -48,12 +48,15 @@ public class CategoryActionBase extends BaseAction<Category>
 	@In(create = true, value = "categoryAction")
 	com.wc.jshopper.domain.action.CategoryAction parentAction;
 
+	@In(create = true, value = "productList")
+	com.wc.jshopper.domain.action.ProductListQuery productList;
+
 	@DataModel
 	private List<Category> categoryRecordList;
 
 	public void setCategoryId(Long id) {
 
-		listSubactegories = new ArrayList<Category>();
+		listSubcategories = new ArrayList<Category>();
 
 		setId(id);
 		loadAssociations();
@@ -149,50 +152,63 @@ public class CategoryActionBase extends BaseAction<Category>
 			parentAction.setEntity(getEntity().getParent());
 		}
 
+		try {
+
+			productList.getProduct().setCategory(getInstance());
+
+		} catch (Exception e) {
+			facesMessages.add(e.getMessage());
+		}
+
 	}
 
 	public void updateAssociations() {
 
+		com.wc.jshopper.domain.Product product = (com.wc.jshopper.domain.Product) org.jboss.seam.Component
+				.getInstance("product");
+		product.setCategory(category);
+		events.raiseTransactionSuccessEvent("archivedProduct");
+
 	}
 
-	private List<Category> listSubactegories;
+	private List<Category> listSubcategories;
 
-	void initListSubactegories() {
-		listSubactegories = new ArrayList<Category>();
-		if (getInstance().getSubactegories().isEmpty()) {
+	void initListSubcategories() {
+		listSubcategories = new ArrayList<Category>();
+		if (getInstance().getSubcategories().isEmpty()) {
 
 		} else
-			listSubactegories.addAll(getInstance().getSubactegories());
+			listSubcategories.addAll(getInstance().getSubcategories());
 	}
 
-	public List<Category> getListSubactegories() {
-		if (listSubactegories == null) {
-			initListSubactegories();
+	public List<Category> getListSubcategories() {
+		if (listSubcategories == null || listSubcategories.isEmpty()) {
+			initListSubcategories();
 		}
-		return listSubactegories;
+		return listSubcategories;
 	}
 
-	public void setListSubactegories(List<Category> listSubactegories) {
-		this.listSubactegories = listSubactegories;
+	public void setListSubcategories(List<Category> listSubcategories) {
+		this.listSubcategories = listSubcategories;
 	}
 
-	public void deleteSubactegories(Category subactegories) {
-		listSubactegories.remove(subactegories);
+	public void deleteSubcategories(Category subcategories) {
+		listSubcategories.remove(subcategories);
 	}
 
 	@Begin(join = true)
-	public void addSubactegories() {
-		Category subactegories = new Category();
+	public void addSubcategories() {
+		Category subcategories = new Category();
 
-		subactegories.setParent(getInstance());
+		subcategories.setParent(getInstance());
 
-		listSubactegories.add(subactegories);
+		listSubcategories.add(subcategories);
 	}
 
 	public void updateComposedAssociations() {
 
-		getInstance().getSubactegories().clear();
-		getInstance().getSubactegories().addAll(listSubactegories);
+		getInstance().getSubcategories().clear();
+		getInstance().getSubcategories().addAll(listSubcategories);
 
 	}
 
