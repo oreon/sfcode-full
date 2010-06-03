@@ -13,22 +13,32 @@
 // Global defines
 #define ANN_PATH	"C:\\ANN\\"
 // EA Name
-#define NAME		"NextClose-V13-"
+#define NAME		"NextClose-V14-"
 
 //---- input parameters
 extern double Lots = 0.01;
 extern bool UseMoneyManagement = true;
 extern double RiskFactor = 0.05;
-extern int MAGIC_NUM = 345997;
+extern int MAGIC_NUM = 34777;
 extern int Stop = 140;
 extern int Trail = 15;
 extern int TakeProfit = 10;
 extern bool UseFixedTP = true;
 extern bool TrailFractal = false;
 extern bool ContinuousMode = false;
-extern bool StepOrders = false;
+
 extern int RiskReducer = 20;
-//extern int TakeProfit = 55;
+extern double MinMSE = 0.00000250;
+extern bool TimeFilter = true;
+extern int SlidingWindow = 16;
+
+extern int CloseAfter = 1;
+extern int BeginHour = 17;
+extern int EndHour = 4;
+extern int Threshhold = 70;
+extern int Offset = 2;
+/*extern*/ int Step = 20;
+extern bool AutoAdjustDigits = true;
 
 // Global variables
 #define SLD_WND 24
@@ -37,9 +47,6 @@ extern int RiskReducer = 20;
 int LongTicket = -1;
 
 int DebugLevel = 0;
-
-extern double MinMSE = 0.00000250;
-
 // Short position ticket
 int ShortTicket = -1;
 
@@ -50,27 +57,20 @@ double ShortInput[];
 double ArrInput[SLD_WND];
 
 int  ann;
-extern int BarsForSL = 0;
+/*extern*/ int BarsForSL = 0;
 datetime timeprev=0;
 double mult = 0.1;
-
-extern bool TimeFilter = true;
-extern int SlidingWindow = 16;
-
-extern int CloseAfter = 1;
-extern int BeginHour = 17;
-extern int EndHour = 5;
-extern int Threshhold = 70;
-/*extern*/ int Step = 20;
-extern bool AutoAdjustDigits = true;
- int Prd = 4800;
+int Prd = 4800;
 
 //extern int GMTOffset = 1;
 int MAX_ORDERS = 2;
-extern int Offset = 2;
+
 
 int timeSigPrev = -1;
 string path;
+
+
+
 //+------------------------------------------------------------------+
 //| expert initialization function                                   |
 //+------------------------------------------------------------------+
@@ -121,6 +121,8 @@ int init ()
 
 int cnt = 0;
 
+bool tradedInThisPrd = false;
+
 int start ()
 {
    // modifyOrder(MAGIC_NUM, Trail);
@@ -155,16 +157,14 @@ int start ()
 
    int  timeSigNow = TimeMinute(Time[0])/5;
    
+   if(timeprev != Time[0] ){
+      tradedInThisPrd = false;
+   }
+   
 
     if(timeprev==Time[0] )
      {
-       /*
-       if(IsTesting()){
-       if(timeSigPrev == timeSigNow) 
-         return;
-       }*/
-     
-      if(!ContinuousMode) 
+      if(!ContinuousMode && tradedInThisPrd) 
        return(0);
      }else{
          Comment("Training neural net .... ");
@@ -382,7 +382,7 @@ void manageOrders(double out){
      
 
 
-string name = "NEXTCLOSE-V12";
+string name = "NEXTCLOSE-V14-";
 
 void placeOrders(double out){
     double threshhold = Threshhold * Point;
@@ -433,6 +433,8 @@ void placeOrderL(int op, double tp){
    int ticket2 = 0;
    int totalOrders = getOrderCount(MAGIC_NUM);
     double lots = Lots;
+    
+    tradedInThisPrd = true;
    
    if(UseMoneyManagement){
       lots = getLots(RiskFactor, UseMoneyManagement, Lots);
@@ -466,8 +468,8 @@ void placeOrderL(int op, double tp){
    }
     
     
-   if(StepOrders)                                                                                                                                                               
-   placeBigOrder(op, tp, lots);
+ //  if(StepOrders)                                                                                                                                                               
+//   placeBigOrder(op, tp, lots);
    
 }
 
