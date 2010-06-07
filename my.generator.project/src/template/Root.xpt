@@ -46,6 +46,8 @@
 «DEFINE ClassRoot FOR uml::Interface»
 	«FILE packagePath() +"/" +name+".java"»
 	package « packageName() »;
+	«EXPAND genImports »
+	
 	
 	public interface «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»{
 		 «EXPAND genOperationDecl FOREACH getAllOperations()»
@@ -78,7 +80,7 @@
 	      @Parameter(name = "language", value = "English")
 	    })
 	  })
-	public class «name» «getParent()» implements Auditable, java.io.Serializable «getInterfaces()»{
+	public class «name» «getParent()»  «getInterfaces()» «getImplementedInterfaces().isEmpty  ?" implements " : ","»  «getAuditable()?"Auditable, ":""» java.io.Serializable {
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
 		 
@@ -209,7 +211,7 @@
 			«ENDIF»
 		«ELSE»
 		@OneToMany(mappedBy = "«opposite.name»", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-		@JoinColumn(name = "«class.name»_ID", nullable = «getAssocOptional()»)
+		@JoinColumn(name = "«opposite.name»_ID", nullable = «getAssocOptional()»)
 		«IF type.name != class.name»@IndexedEmbedded«ENDIF»
 		«ENDIF»
 		private Set<«type.fqnForPackage(this.class)»> «name» = new HashSet<«type.fqnForPackage(this.class)»>();
@@ -298,7 +300,7 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 
 
 
-«DEFINE genImports FOR uml::Class»
+«DEFINE genImports FOR uml::Type»
 	import java.util.ArrayList;
 	import java.util.HashSet;
 	import java.util.List;
