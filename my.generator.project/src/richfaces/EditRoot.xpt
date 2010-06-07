@@ -66,10 +66,12 @@
 			<rich:tab label="Notes">
 				<wc:comments backingAction="#{«getAction()»}"/>
 			</rich:tab>
+			«IF getAuditable()-»
 			<rich:tab label="Audit">
 				<ui:include
 					src="«getComponentViewFile("auditList")»" />
 			</rich:tab>
+			«ENDIF»
 		</rich:tabPanel>
 		
 		
@@ -190,7 +192,9 @@
 
 
 «DEFINE genAssociation FOR uml::Property -»
+	«REM»comment
 	«isUnique» «opposite.isUnique»
+	«ENDREM»
 	«IF !isCurrentEditMode()-»
 	<s:link value="#{«getActionForMode()»«genPropertyLabel()-».displayName}" view="«type.getViewFile("view")»" >
 		<f:param name="id" value="#{«getCurrentEntity().asVar()»Action.«genPropertyLabel()-».id}" />
@@ -202,7 +206,7 @@
 
 «DEFINE genAssociationEdit FOR uml::Property»
 	«IF (associationEnd.isColumn() && includeInAssociation) »
-	«type.setCurrentEmbeddable()» «(associationEnd.isColumn() )»
+	«type.setCurrentEmbeddable()» 
 	«EXPAND genLabelAndControl FOR this.type-»
 	«ELSE»
 	<h:selectOneMenu id="«getId()»" value="#{«getActionForMode()»«genPropertyLabel()-»}" required="«!getAssocOptional()»">
@@ -247,7 +251,7 @@
 	«setCurrentMultiMode(true)-»
 	«IF isCurrentEditMode()-» «EXPAND genNewButton FOR this» «ENDIF»
 	
-	<rich:dataTable id="«name»_data" var="_«type.asVar()»" rendered="#{not empty «class.getAction()».list«name.toFirstUpper()»}"
+	<rich:dataTable id="«name»_data#{entityId}" var="_«type.asVar()»" rendered="#{not empty «class.getAction()».list«name.toFirstUpper()»}"
 					value="#{«class.getAction()».list«name.toFirstUpper()»}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		«setAsCurrentEntity(type)»
