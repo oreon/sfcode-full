@@ -26,19 +26,10 @@ extern int TakeProfit = 10;
 extern bool UseFixedTP = true;
 extern bool TrailFractal = false;
 extern bool ContinuousMode = false;
-
+//extern bool StepOrders = false;
 extern int RiskReducer = 20;
-extern double MinMSE = 0.00000250;
-extern bool TimeFilter = true;
-extern int SlidingWindow = 16;
-
-extern int CloseAfter = 1;
-extern int BeginHour = 17;
-extern int EndHour = 4;
-extern int Threshhold = 70;
-extern int Offset = 2;
-/*extern*/ int Step = 20;
-extern bool AutoAdjustDigits = true;
+extern int Epochs = 500;
+//extern int TakeProfit = 55;
 
 // Global variables
 #define SLD_WND 24
@@ -69,13 +60,30 @@ int MAX_ORDERS = 2;
 int timeSigPrev = -1;
 string path;
 
+extern double MinMSE = 0.00000250;
+extern bool TimeFilter = true;
+extern int SlidingWindow = 16;
 
+extern int CloseAfter = 1;
+extern int BeginHour = 17;
+extern int EndHour = 4;
+extern int Threshhold = 8;
+extern int Offset = 2;
+/*extern*/ int Step = 20;
+extern bool AutoAdjustDigits = true;
+
+int cnt = 0;
+bool tradedInThisPrd = false;
+
+
+string name = "NEXTCLOSE-V15-";
 
 //+------------------------------------------------------------------+
 //| expert initialization function                                   |
 //+------------------------------------------------------------------+
 
 string slcmt = "SL set to low of 10 bars";
+string comment = "";
 
 int init ()
 {
@@ -98,13 +106,14 @@ int init ()
     
      double price = Close[1];
      
-      if(AutoAdjustDigits && Digits == 3 || Digits ==5 ){
+    if(AutoAdjustDigits && Digits == 3 || Digits ==5 ){
    
       TakeProfit= TakeProfit * 10; // Уровень прибыли в пипсаз от цены открытия.
       //PipStep=PipStep * 10; // растоянию в пипсах убытка на котором открываеться следующий ордер колена.
       Trail = Trail*10;
       Stop = Stop *10;
       Step = Step * 10;
+      Threshhold = Threshhold * 10;
       //RiskReducer = RiskReducer * 10;
    }
      /*
@@ -119,41 +128,45 @@ int init ()
     return (0);
 }
 
-int cnt = 0;
-
-bool tradedInThisPrd = false;
 
 int start ()
 {
+   int ret = perform();
+   Comment(comment);
+   return (ret);
+}
+
+
+int perform ()
+{
+   comment = "---" + name +   "--\n";
    // modifyOrder(MAGIC_NUM, Trail);
     int orders = getOrderCount(MAGIC_NUM);
     int j = 0;
     
     if(orders > 0 ){
     
-        double force = iForce(NULL, 0, 6,MODE_SMA,PRICE_CLOSE,0);
+      double force = iForce(NULL, 0, 6,MODE_SMA,PRICE_CLOSE,0);
    
       if(MathAbs(force) > 1){
        // closeOrders(MAGIC_NUM);
       }
-      /*   
+      
       if(TrailFractal)  
-        modifyF(MAGIC_NUM);
-      else*/
-        
+        TrailingStop(MAGIC_NUM);
+      else  {       
         double out = (1.0/mult) * f2M_get_output (ann, 0);
         //setMissingTP(MAGIC_NUM, out, out);
         modifyOrder(MAGIC_NUM, Trail);
-        //TrailingStop(MAGIC_NUM);
-        //reduceProfit(MAGIC_NUM, RiskReducer, 150 * 60);
-   }else{
-      //closeOrders(MAGIC_NUM);
+      }
+   
    }
    
    
-    int day = TimeDayOfWeek(TimeGmt() );
-       if(!doTimeFilter(day))
-         return (0) ;
+   int day = TimeDayOfWeek(TimeGmt() );
+   
+   if(!doTimeFilter(day))
+      return (0) ;
 
    int  timeSigNow = TimeMinute(Time[0])/5;
    
@@ -164,26 +177,10 @@ int start ()
 
     if(timeprev==Time[0] )
      {
-      if(!ContinuousMode && tradedInThisPrd) 
+      if(!ContinuousMode && tradedInThisPrd)  
        return(0);
      }else{
-         Comment("Training neural net .... ");
-         double mset = 1;
-         
-         while(mset > MinMSE || cnt < 400 ){
-            for(int i = Prd ; i >= (SlidingWindow + 1); i--){
-               for(j= 0; j < SlidingWindow; j++){
-                  ArrInput[j] = Close[i - j];
-               }
-               AnnTrain( Close[i - j -1]);
-            }
-            int re2t = f2M_run (ann, ArrInput);
-            mset = f2M_get_MSE(ann);
-            cnt++;
-            
-            Comment("Training neural net ....: MSE:  " +mset + ":" + cnt);
-         }
-         //f2M_save(ann, path);
+        trainNN();
      }
      
      timeprev=Time[0];
@@ -204,16 +201,16 @@ int start ()
 	     return (FANN_DOUBLE_ERROR);
     }
     
-     out = (1.0/mult) * f2M_get_output (ann, 0);
+    out = (1.0/mult) * f2M_get_output (ann, 0);
     out = NormalizeDouble(out, Digits);
     double mse = f2M_get_MSE(ann);
-    if(mse > 0  ){
-     setMissingTP(MAGIC_NUM, out, out);
-    Comment("----NextClose Version 13 ---- " +
-       "\n Spread :" + MarketInfo(Symbol(), MODE_SPREAD) +
-       "\n SL :" + slcmt +
+    
+    if(mse >= 0  ){
+       setMissingTP(MAGIC_NUM, out, out);
+       comment = StringConcatenate( comment,  
+       "\n Spread :" + getSpreadStr() + "\n SL :" + slcmt +
        "\nNext Target: " + DoubleToStr(out, Digits) + " mse " + mse);
-   } 
+    } 
     
     ObjectDelete("text_object");
     ObjectCreate("text_object", OBJ_HLINE, 0, TimeCurrent(), out);
@@ -231,9 +228,13 @@ int start ()
      }    
     
     //setTP(MAGIC_NUM, out, out);
-      
+    
+   
     return (0);
 }
+
+
+
 
 
 
@@ -248,6 +249,27 @@ int CreateAnn(){
 	debug (0, "ERROR INITIALIZING NETWORK!");
     }
     return (ann);
+
+}
+
+int trainNN(){
+  
+   double mset = 1;
+   
+   while(mset > MinMSE || cnt < Epochs ){
+      for(int i = Prd ; i >= (SlidingWindow + 1); i--){
+         for(int j= 0; j < SlidingWindow; j++){
+            ArrInput[j] = Close[i - j];
+         }
+         AnnTrain( Close[i - j -1]);
+      }
+      int re2t = f2M_run (ann, ArrInput);
+      mset = f2M_get_MSE(ann);
+      cnt++;
+      
+      Comment("Training neural net ....: MSE:  " +mset + ":" + cnt);
+   }
+   //f2M_save(ann, path);
 
 }
 
@@ -287,10 +309,6 @@ void CreateInputArr(double open, double close, double volume){
 
 
 int obv (int prd ){
- //  return ( iAO(NULL, prd, 1) );
-
-
-
    double one = iOBV(NULL, prd, PRICE_CLOSE, 1);
    double two=iOBV(NULL, prd, PRICE_CLOSE, 2);
    double three=iOBV(NULL, prd, PRICE_CLOSE, 3);
@@ -382,14 +400,9 @@ void manageOrders(double out){
      
 
 
-string name = "NEXTCLOSE-V14-";
 
 void placeOrders(double out){
     double threshhold = Threshhold * Point;
-    
-    //int obv = obv(PERIOD_H4);
-    //double ma = iMA(NULL,PERIOD_D1,5,8,MODE_SMA,PRICE_MEDIAN,0);
-    
     
     
     int bo = getOrderCount(MAGIC_NUM);
@@ -402,13 +415,14 @@ void placeOrders(double out){
       ma = 1;
     ma = sar();
       
+      
+   int boll = boll();
     
     
     Print(out + " "  + (Close + threshhold));
     
     
-    if(out > Ask + threshhold /* && ma >= 0*/ ){
-      Print("Placing Buy order " + Symbol());
+    if(out > Ask + threshhold  && boll >= 0  ){
       closeOrdersOp(MAGIC_NUM, OP_SELL);
       //out = Ask + TakeProfit * Point;
      placeOrderL(OP_BUY,  out ); //, Stop, lots, name );
@@ -416,7 +430,7 @@ void placeOrders(double out){
     
    
       
-    if (out < Bid - threshhold/* && ma <= 0/*&& out < ma&& obv < 0 && bo == 0*/ ){
+    if (out < Bid - threshhold && boll <= 0 /*&& out < ma&& obv < 0 && bo == 0*/ ){
       Print("Placing sell order " + Symbol());
       closeOrdersOp(MAGIC_NUM, OP_BUY);
     //  out = Bid - TakeProfit * Point;
@@ -445,9 +459,10 @@ void placeOrderL(int op, double tp){
       return(0);
    }
    
-   
+   double atr = getAtr(Symbol());
    
    if(op == OP_BUY ){
+      tp  = MathMax(tp, Ask + (atr * Point) );
       ticket=OrderSend (Symbol(),OP_BUY, lots,Ask,3,0 , 0,name + getTimeFrame(), MAGIC_NUM,0, Purple);
       double sl = Low[iLowest(NULL,0,MODE_LOW,BarsForSL,0)];
       double minsl = Bid - (Stop * Point);
@@ -457,7 +472,8 @@ void placeOrderL(int op, double tp){
      changeTP(MAGIC_NUM, tp);
    }
    else if( op == OP_SELL ){
-      ticket=OrderSend(Symbol(),OP_SELL,lots,Bid,3,0 , 0,name+ getTimeFrame(), MAGIC_NUM,0, Yellow);
+        tp  = MathMax(tp, Bid - (atr * Point) );
+       ticket=OrderSend(Symbol(),OP_SELL,lots,Bid,3,0 , 0,name+ getTimeFrame(), MAGIC_NUM,0, Yellow);
        sl = High[iHighest(NULL,0,MODE_HIGH,BarsForSL,0)];
        //tp = Bid - TakeProfit * Point;
       // setTP(MAGIC_NUM, tp, Bid - TakeProfit * Point);
@@ -467,9 +483,7 @@ void placeOrderL(int op, double tp){
        changeTP(MAGIC_NUM, tp);
    }
     
-    
- //  if(StepOrders)                                                                                                                                                               
-//   placeBigOrder(op, tp, lots);
+ 
    
 }
 
@@ -610,7 +624,7 @@ int doTimeFilter(int day){
 
  void printComment(string cmt){
     
-    Comment( "Now is GMT : " +  getGmtHour() + " \n" + cmt 
+    comment = StringConcatenate( comment,  "Traded:" +  tradedInThisPrd + "\nNow is GMT : " +  getGmtHour() + " \n" + cmt 
          + " \n \n GMT Offset: " + Offset  );
          
    // double later = NormalizeDouble(iCustom (NULL, 0, "PredictedMA", 0, -2), MarketInfo(Symbol(), MODE_DIGITS) ); 
