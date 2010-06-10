@@ -3,29 +3,10 @@
 //|                            Copyright © 2009, NeuralTraders Corp. |
 //|                                    http://www.neuraltraders.info |
 //+------------------------------------------------------------------+
-#property copyright "Copyright © 2009, NeuralTraders Corp."
-#property link      "http://www.neuraltraders.info"
+
 
 #include <stdlib.mqh>
 #include <WinUser32.mqh>
-
-
-bool validateKey(int key){
-       int accno = AccountNumber();
-       int tempkey = accno * 7 - 29;
-       if(tempkey == key){
-         return (true);
-       }
-      Comment("Your key is not valid - contact support@neuraltraders.info for a new license key");
-      return (false);
-}
-/*
-int ichi(){
-  double ichi =  iIchimoku(NULL, PERIOD_H4, 9, 26, 52, MODE_KIJUNSEN, 1);
-  if(ichi > Close[1]) return (-1);
-  if(ichi < Close[1]) return (1);
-  return (0);   
-}*/
 
 #import "kernel32.dll"
 void GetLocalTime(int& TimeArray[]);
@@ -43,13 +24,13 @@ int getOffset(){
        return (offset);
 }
 
-
-
-bool isDayLight(){
-   int TZInfoArray[43];
-   int gmt_shift=0;
-   int ret=GetTimeZoneInformation(TZInfoArray);
-   return (ret == 2);
+double getLots(double risk, bool UseMM , double Lots){
+   if(!UseMM) return (Lots);
+   
+   double lots = risk * (AccountEquity()/10000.0);
+   double minlot = MarketInfo(Symbol(), MODE_MINLOT);
+   if(lots <  minlot) lots = minlot;
+   return (lots);
 }
 
 int getGmtShift(){
@@ -57,8 +38,6 @@ int getGmtShift(){
    int TZInfoArray[43];
    int gmt_shift=0;
    int ret=GetTimeZoneInformation(TZInfoArray);
-   
-   //Print ("ashift is " + TZInfoArray[42] );
    if(ret!=0) gmt_shift=TZInfoArray[0];
    //Comment("Difference between your local time and GMT is: ",(gmt_shift/60)," hours \n");
    if(ret==2) gmt_shift+=TZInfoArray[42];
@@ -99,6 +78,20 @@ if(StringFind(Symbol(), "USD" ) == -1 ) return (0);
 
 }
 
+bool is5Digit(){
+   return (Digits == 3 || Digits ==5);
+}
+
+double getSpread(){
+   double div = 1;
+   if(is5Digit()) div = 10.0; 
+  return(  MarketInfo(Symbol(), MODE_SPREAD)/10 );
+}
+
+
+string getSpreadStr(){
+   return ( DoubleToStr(getSpread(), 2) );
+}
 
 #define TRADING 1
 #define POSTEND 2
@@ -112,23 +105,17 @@ int tradeRange(int begin, int end, int closeAfter, int Offset){
   if (IsTesting()) int oset = Offset ; else oset = 0;
 
    int hour = getGmtHour(oset);
-   int min = TimeMinute(TimeCurrent());
-   
-   int day = TimeDayOfWeek(TimeGmt());
    
    if(begin > end ) {
       end = end + 24;
       if (hour < begin ) hour = hour + 24;
    }
-   
-   if(day == 5 && (hour == MathMod((end + closeAfter - 1), 24) && min >= 58 ))
-      return (CLOSEHR);
      
    if(hour  >= begin && hour < end )
       return(TRADING);
-   else if(hour == MathMod(end + closeAfter, 24) )
+   else if(hour == MathMod(end + closeAfter, 24))
       return (CLOSEHR);
-   else if(hour >=MathMod(end,24) && hour < end + closeAfter )
+   else if(hour >=end && hour < MathMod(end + closeAfter, 24) )
       return (POSTEND);
 
 
@@ -196,23 +183,6 @@ int timeFilter(bool TimeFilter, int BeginHour, int EndHour, int CloseAfter, int 
       }
    }
    return (1);
-}
-
-
-///////////////////////////// Order and Lot functions ////////////////////////////////////////////
-
-double getLots(double risk, bool UseMM, double lots ){
-   if(UseMM){
-   lots = risk * (AccountEquity()/10000.0);
-   if(lots < MarketInfo(Symbol(), MODE_MINLOT) )
-      lots = MarketInfo(Symbol(), MODE_MINLOT);
-  }
-  return (lots);
-}
-
-bool is5Digits(){
-
-  return (Digits == 5 || Digits == 3);
 }
 
 
@@ -385,9 +355,9 @@ void closeOrders(int MagicNumber){
    
    datetime orderMaxDuration = 290000; 
    
-   for(int cnt=total;cnt>0;cnt--)
+   for(int cnt=0;cnt<total;cnt++)
     {
-      if(OrderSelect(cnt-1,SELECT_BY_POS,MODE_TRADES)==false)    continue;
+      if(OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES)==false)    continue;
      
       if( OrderSymbol() == Symbol() && OrderMagicNumber()== MagicNumber  ) {
       
@@ -408,26 +378,6 @@ void closeOrders(int MagicNumber){
        }
    }
 }
-
-
-
-bool selectOrder(int MagicNumber){
-  
-  int total  = OrdersTotal();
-   
-   for(int cnt=0;cnt<total;cnt++)
-    {
-      if(OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES)==false)    continue;
-     
-      if( OrderSymbol() == Symbol() && OrderMagicNumber()== MagicNumber  ) {
-         return (OrderTicket());
-      }
-      
-    }
-    
-   return (0);
-}
-      
 
 void deletePendingOrders(int MagicNumber){
   
@@ -459,7 +409,7 @@ void deletePendingOrders(int MagicNumber){
 }
 
 int prevmod = 0;
-void reduceProfit(int Magic,  int RiskReducer, int maxtime = 0){
+void reduceProfit(int Magic,  int RiskReducer){
    int factor = RiskReducer;
    double newtp = 0;
    int total  = OrdersTotal();
@@ -468,11 +418,10 @@ void reduceProfit(int Magic,  int RiskReducer, int maxtime = 0){
     {
       if(OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES)==false)    continue;
       
-      int orderOpenSeconds = (TimeCurrent()-OrderOpenTime() );
-      
-      int now = orderOpenSeconds/ 300;
+       int now = (TimeCurrent()-OrderOpenTime() )/ 300;
+
      
-      if( OrderSymbol() == Symbol() && OrderMagicNumber()== Magic &&  orderOpenSeconds > maxtime && now != prevmod ) {
+      if( OrderSymbol() == Symbol() && OrderMagicNumber()== Magic  && OrderProfit() < 0 && now != prevmod ) {
          
          if(OrderType() == OP_BUY)
             newtp = OrderTakeProfit() - factor * Point;
@@ -521,30 +470,6 @@ void closeOrdersOp(int MagicNumber, int op){
 
 //////////////////////////////// Indicator Functions //////////////////////////////////////////////
 
-int trend(string symbol, int tf)
-  {
-  
-    int Pair_Trend = 0; // Flat
-    
-    double EMA_020 = iMA(symbol,tf,020,0,MODE_EMA,PRICE_CLOSE,0);
-    double EMA_200 = iMA(symbol,tf,200,0,MODE_EMA,PRICE_CLOSE,0);
-    
-    if(EMA_020 < EMA_200)
-      {
-        Pair_Trend = -1; // Down
-      }
-
-    if(EMA_020 > EMA_200)
-      {
-        Pair_Trend = 1; // Up
-      }
-       
-    return(Pair_Trend);
-  
-  }
-
-
-
 int ichi(){
   int prd = PERIOD_D1;
   double buyt =  iIchimoku(NULL, prd , 9, 26, 52, MODE_TENKANSEN, 1);
@@ -555,19 +480,22 @@ int ichi(){
 
 }
 
+double getAtr(string symbol, int period = PERIOD_H1, int duration = 20){
+   return ( iATR(symbol,period,duration,0)/MarketInfo(symbol,MODE_POINT) );
+
+}
+
 int bollinger(int prd = 0){
-   if (iBands(NULL,prd,20,2,0,PRICE_CLOSE,MODE_LOWER,0) > Close ) return (1);
-   if (iBands(NULL,prd,20,2,0,PRICE_CLOSE,MODE_UPPER,0) < Close ) return (-1);
+   if (iBands(NULL,prd,20,2,0,PRICE_CLOSE,MODE_LOWER,0) > Low[0] ) return (1);
+   if (iBands(NULL,prd,20,2,0,PRICE_CLOSE,MODE_UPPER,0) < High[0] ) return (-1);
    return (0);
 }
 
-int bollingerSym(string sym,int prd = PERIOD_M15){
-   double  cls = iClose(sym, prd, 0 );
-   if (iBands(sym,prd,20,2,0,PRICE_CLOSE,MODE_LOWER,0) > cls ) return (1);
-   if (iBands(sym,prd,20,2,0,PRICE_CLOSE,MODE_UPPER,0) < cls ) return (-1);
+int boll(int prd = 0){
+   if (iBands(NULL,prd,20,2,0,PRICE_CLOSE,MODE_LOWER,0) > Close[0] ) return (1);
+   if (iBands(NULL,prd,20,2,0,PRICE_CLOSE,MODE_UPPER,0) < Close[0] ) return (-1);
    return (0);
 }
-
 
 
 int sar(int prd= 0 ){
@@ -593,6 +521,29 @@ string opName(int op){
    else 
       return (" SELL ");
 }
+
+
+int trend(string symbol, int tf)
+  {
+  
+    int Pair_Trend = 0; // Flat
+    
+    double EMA_020 = iMA(symbol,tf,020,0,MODE_EMA,PRICE_CLOSE,0);
+    double EMA_200 = iMA(symbol,tf,200,0,MODE_EMA,PRICE_CLOSE,0);
+    
+    if(EMA_020 < EMA_200)
+      {
+        Pair_Trend = -1; // Down
+      }
+
+    if(EMA_020 > EMA_200)
+      {
+        Pair_Trend = 1; // Up
+      }
+       
+    return(Pair_Trend);
+  
+  }
 
 
 
@@ -658,8 +609,6 @@ void modifyF(int MAGIC_NUM){
     }
 
 }
-
-
 
 
 void TrailingStop(int MagicNum, bool OnlyProfit = true, bool OnlyWithoutLoss = true)
@@ -744,4 +693,3 @@ double  TrailOrderFrac (string smbl, int direction, double price, int period= PE
          //Print("Returnring fr " + fr);
          return(fr);
 }    
-
