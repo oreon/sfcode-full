@@ -27,7 +27,7 @@ extern bool UseFixedTP = true;
 extern bool TrailFractal = false;
 extern bool ContinuousMode = false;
 //extern bool StepOrders = false;
-extern int RiskReducer = 20;
+extern int RiskReducer = 2;
 extern int Epochs = 500;
 //extern int TakeProfit = 55;
 
@@ -66,7 +66,7 @@ extern int SlidingWindow = 16;
 
 extern int CloseAfter = 1;
 extern int BeginHour = 17;
-extern int EndHour = 4;
+extern int EndHour = 3;
 extern int Threshhold = 8;
 extern int Offset = 2;
 /*extern*/ int Step = 20;
@@ -114,7 +114,7 @@ int init ()
       Stop = Stop *10;
       Step = Step * 10;
       Threshhold = Threshhold * 10;
-      //RiskReducer = RiskReducer * 10;
+      RiskReducer = RiskReducer * 10;
    }
      /*
      for(int i = 0; i < Digits; i++){
@@ -183,6 +183,7 @@ int perform ()
         trainNN();
      }
      
+     if(tradedInThisPrd)
      timeprev=Time[0];
      
   
@@ -586,8 +587,10 @@ void dumpInput(){
 string timeText =  "  Trading will begin at GMT:";
  
 int doTimeFilter(int day){
+
    int endHour = EndHour;
-   if(day == 5 ){
+   int hr = getGmtHour();
+   if(day == 5 && hr > 12){
       endHour = 20;
    }
    int trange = tradeRange(BeginHour, endHour, CloseAfter, Offset);
@@ -608,12 +611,16 @@ int doTimeFilter(int day){
       timeText = hour + " Closing all open trades -  Trading will begin at GMT:";   
       timeText = timeText + "\n" +  (BeginHour) + ":00 and continue until " + EndHour + ":00";
       closeOrders(MAGIC_NUM);
+      
    }else if (trange == POSTEND ){
-      timeText = "\nRedcuing TP by " + RiskReducer ;
+      timeText = "\nRedcuing TP by " + RiskReducer + " pips ";
       reduceProfit(MAGIC_NUM, RiskReducer);
    }else {
       timeText = "  Trading will begin at GMT:";   
       timeText = timeText + "\n" +  (BeginHour) + ":00 and continue until " + EndHour + ":00";
+      int orders = getOrderCount(MAGIC_NUM);
+      if(orders > 0 )
+         closeOrders(MAGIC_NUM);
      
    }
    
