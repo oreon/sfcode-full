@@ -246,9 +246,20 @@
 «ENDDEFINE»
 
 «DEFINE genBaseDecl FOR uml::Property»
-	«IF isString()» @Field(index = Index.TOKENIZED) «ENDIF»
-	«IF type.name == "imageFile"» @Column(length=4194304) «ENDIF»
-	protected «type.fqnForPackage(this.class)» «name» «getDefault() != null?" = " +getDefaultVal(type):""»;
+	
+	«IF type.name == "imageFile"»  
+	@Embedded
+    @AttributeOverrides( {
+        @AttributeOverride(name="name", column = @Column(name="«name»_name") ),
+        @AttributeOverride(name="contentType", column = @Column(name="«name»_contentType") ),
+        @AttributeOverride(name="data", column = @Column(name="«name»_data", length = 4194304) )
+    } )
+	protected FileAttachment «name» = new FileAttachment();	
+	«ELSE»
+		«IF isString()» @Field(index = Index.TOKENIZED) «ENDIF»
+		protected «type.fqnForPackage(this.class)» «name» «getDefault() != null?" = " +getDefaultVal(type):""»;
+	«ENDIF»
+	
 «ENDDEFINE»
 
 

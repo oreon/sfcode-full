@@ -129,8 +129,17 @@ String getJSFPrefix(Property prop):
 String getCurrentJSFPrefix():
 getCurrentCartridge() == "RICH" ? "h" : "ice";
 
+String getFieldNameWithAction(Property prop):
+prop.class.getAction() + "." + prop.class.asVar() + "." + prop.name;
+
 getTextForImgFile(Property prop):
-"<s:" +  ( isCurrentEditMode()?"fileUpload data=":"graphicImage value=") + "\"#{" + prop.class.asVar() + "." + prop.name + "}\"/>" ;
+if (isCurrentEditMode()) then 
+"<s:fileUpload data=\"#{" + prop.getFieldNameWithAction() + ".data}\" fileName=\"#{" + prop.getFieldNameWithAction() + ".name}\"  contentType=\"#{" + 
+	prop.getFieldNameWithAction() + ".contentType}\" />"
+else
+"<s:graphicImage value=\"#{" + prop.getFieldNameWithAction()  + ".data}\"/>" ;
+
+
 
 String getWebPath(Class cls):
  getEntitiesRoot() + cls.package.name + "/" + cls.asVar();
