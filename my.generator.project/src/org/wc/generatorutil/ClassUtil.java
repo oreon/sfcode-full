@@ -83,7 +83,7 @@ public class ClassUtil {
 	static Map<String, String[]> mapTypes = new HashMap<String, String[]>();
 	
 	static {
-		mapTypes.put("imageFile", new String[]{"byte[]",""});
+		mapTypes.put("imageFile", new String[]{"FileAttachment",""});
 		mapTypes.put("largeText", new String[]{"String","@Lob"});
 		mapTypes.put("nameType", new String[]{"String","@NotNull @Length(min=2, max=50)"});
 		mapTypes.put("uniqueNameType", new String[]{"String","@NotNull @Length(min=2, max=50)"});
