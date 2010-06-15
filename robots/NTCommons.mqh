@@ -105,6 +105,8 @@ int tradeRange(int begin, int end, int closeAfter, int Offset){
   if (IsTesting()) int oset = Offset ; else oset = 0;
 
    int hour = getGmtHour(oset);
+   int day = TimeDayOfWeek(getGmtHour());
+   
    
    // Print("BEF " + hour + " " + begin + " "  + end ); 
    if(begin > end ) {
@@ -112,12 +114,12 @@ int tradeRange(int begin, int end, int closeAfter, int Offset){
       if (hour < begin ) hour = hour + 24;
    }
   
-   Print(hour + " " + begin + " "  + end ); 
+   //Print(hour + " " + begin + " "  + end ); 
    if(hour  >= begin && hour < end )
       return(TRADING);
    else if(hour >= end && MathMod(hour,24) < MathMod(end + closeAfter, 24))
       return (POSTEND);
-   else if( MathMod(hour,24) > MathMod(end + closeAfter, 24) )
+   else if( ( MathMod(hour,24) > MathMod(end + closeAfter, 24))  || (day == 5 && hour >= 20 ) )
       return (CLOSEHR);
 
 
@@ -569,10 +571,10 @@ void modifyF(int MAGIC_NUM){
       if(lfrac > 0 )
          lval = lfrac;
          
-       Print (ufrac + " " + lfrac );
+       //Print (ufrac + " " + lfrac );
    }
    
-   Print ("finalvals " + uval + " " + lval );
+   //Print ("finalvals " + uval + " " + lval );
    
    for(int cnt=0;cnt<total;cnt++)
     {
