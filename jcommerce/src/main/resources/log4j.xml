@@ -1,56 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 
-<!-- ===================================================================== -->
-<!--                                                                       -->
-<!--  Log4j Configuration                                                  -->
-<!--                                                                       -->
-<!-- ===================================================================== -->
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+	debug="false">
 
-<!-- $Id: log4j.xml,v 1.9 2006/07/04 01:14:18 gavin Exp $ -->
+	<root>
+		<priority value="WARN" />
+		<appender-ref ref="ASYNC" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="MAIL" />
+	</root>
 
-<!--
-   | For more configuration infromation and examples see the Jakarta Log4j
-   | owebsite: http://jakarta.apache.org/log4j
- -->
-
-<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
-   
-   <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
-       <param name="Target" value="System.out"/>
-
-      <layout class="org.apache.log4j.PatternLayout">
-         <param name="ConversionPattern" value="%d{HH:mm:ss,SSS} %-5p [%c{1}] %m%n"/>
-      </layout>
-   </appender>
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} %-5p [%c{1}] %m%n" />
+		</layout>
+	</appender>
 
 
-   <category name="org.hibernate">
-      <priority value="WARN"/>
-   </category>
+	<category name="org.hibernate">
+		<priority value="WARN" />
+	</category>
 
 
-   <!-- 
-   <category name="org.jboss.seam">
-      <priority value="DEBUG"/>
-   </category>
-   -->
-   
-   <!-- 
-   <category name="org.jboss.ejb3">
-      <priority value="DEBUG"/>
-   </category>
-   -->
+	<category name="org.jboss.seam">
+		<priority value="WARN" />
+	</category>
 
-   <!-- 
-   <category name="org.jboss.kernel">
-      <priority value="DEBUG"/>
-   </category>
-   -->
 
-   <root>
-      <priority value="INFO"/>
-      <appender-ref ref="CONSOLE"/>
-   </root>
-   
+	<category name="com.wc.jshopper">
+		<priority value="WARN" />
+	</category>
+
+	<category name="org.witchcraft">
+		<priority value="WARN" />
+	</category>
+
+
+	<appender name="ASYNC" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+	</appender>
+
+	<appender name="FILE" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="/logs/output.log" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxBackupIndex" value="100" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{dd/MM/yy hh:mm:ss:sss z}] %5p %c{2}: %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="EMAIL" class="org.apache.log4j.net.SMTPAppender">
+		<param name="BufferSize" value="512" />
+		<param name="SMTPHost" value="smtp.foobar.com" />
+		<param name="From" value="log4j@server5" />
+		<param name="To" value="neo@foobar.com" />
+		<param name="Subject" value="[SMTPAppender] Application message" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{ISO8601}]%n%n%-5p%n%n%c%n%n%m%n%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="ERROR" />
+			<param name="LevelMax" value="FATAL" />
+		</filter>
+	</appender>
+
 </log4j:configuration>
