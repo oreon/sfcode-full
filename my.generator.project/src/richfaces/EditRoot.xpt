@@ -221,7 +221,7 @@
 
 
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
-«IF type.name == "imageFile"»
+«IF isFile()»
 	«getTextForImgFile()» 
 «ELSE»
 	<«getTextControl()»  id="«getId()»#{entityId}" «isCurrentEditMode()? "required=\"" + getRequired() +"\"":""»  value="#{«getActionForMode()»«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />

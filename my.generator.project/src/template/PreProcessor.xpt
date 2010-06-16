@@ -13,6 +13,9 @@
 «REM» For associations we need to
  set name to type name if the name is null ;«ENDREM»
 «DEFINE setDefaultNamesForAssocs FOR uml::Property»
+
+	«IF association != null»
+	
 	«IF !(name != null && name.length > 0 )»
 		«LET type.name.toFirstLower() AS defaultName»
 			«IF isMultivalued()» «REM» For collections we need to create a plural default type name«ENDREM»
@@ -30,8 +33,9 @@
 			«ELSE»
 				«opposite.setName(defaultName)»
 			«ENDIF»	 
-				«opposite.setName("suzz")»
+				
 		«ENDLET»
+	«ENDIF»
 	«ENDIF»
 «ENDDEFINE»
 

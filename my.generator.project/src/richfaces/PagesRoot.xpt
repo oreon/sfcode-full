@@ -177,8 +177,8 @@
 	«ENDIF»
 «ENDDEFINE»
 
-«DEFINE genProperty FOR uml::Property-»	
-		<param name="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}" validateModel="false" />
+«DEFINE genProperty FOR uml::Property-»
+	«IF type.name != "imageFile"» <param name="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}" validateModel="false" /> «ENDIF»	
 «ENDDEFINE»
 
 «DEFINE genAssociation FOR uml::Property-»	
