@@ -5,24 +5,69 @@
 «EXTENSION template::webExtensions»
 
 «DEFINE genSearchView FOR uml::Class»
-
-	«FILE getWebPath() +"/" + "search" + name+ "." + getExtension()»
-<html «EXPAND WebRoot::genIncludes-» >	
+«FILE getWebPath() +"/" + "search" + name+ "." + getExtension()»
+<ui:composition «EXPAND WebRoot::genIncludes-» >	
 	<h:form>
 	<rich:simpleTogglePanel switchType="client" label="Search">
-			<div class="entry errors"><h:messages globalOnly="true" /></div>
-			<h:panelGrid columns="6">
-			«setAsCurrentEntity(this)-»
-			«EXPAND genAttribAsOutput FOR this-»
-			«EXPAND genDateRange FOR this»
-			</h:panelGrid>
-			
-			«EXPAND genCancelSaveBtns FOR this-»
+		<rich:tabPanel>
+			<rich:tab label="Search">
+				<ui:include src="fieldSearch«name»Component.xhtml" />
+			</rich:tab>
+	
+			<rich:tab label="Text Search">
+				<ui:include src="textSearch«name»Component.xhtml" />
+			</rich:tab>
+		</rich:tabPanel>
+	
+		«EXPAND genCancelSaveBtns FOR this-»
 		</rich:simpleTogglePanel>
 	</h:form>
-</html>
-	«ENDFILE»
+</ui:composition>
+«ENDFILE»
+«EXPAND genFieldSearchView FOR this»
+«EXPAND genTextSearchView FOR this»
 «ENDDEFINE»
+
+«DEFINE genFieldSearchView FOR uml::Class»
+«FILE getWebPath() +"/" + "fieldSearch" + name + "Component." + getExtension()»
+<ui:composition «EXPAND WebRoot::genIncludes-» >
+  <div class="entry errors"><h:messages globalOnly="true" /></div>
+	<h:panelGrid columns="6">
+	«setAsCurrentEntity(this)-»
+	«EXPAND genAttribAsOutput FOR this-»
+	«EXPAND genDateRange FOR this»
+	</h:panelGrid>
+</ui:composition>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE genTextSearchView FOR uml::Class»
+«FILE getWebPath() +"/" + "textSearch" + name+ "Component." + getExtension()»
+<ui:composition «EXPAND WebRoot::genIncludes-» >
+<h:inputText value="#{departmentList.searchText}" id="text" />
+
+<rich:suggestionbox id="suggestionBoxId" for="text" tokens=",[]"
+	rules="all" suggestionAction="#{departmentList.getTextSearchList}"
+	var="result" fetchValue="#{result.displayName}" minChars="2"
+	nothingLabel="No Results found"
+	onobjectchange="processObjectsChange(suggestion)">
+
+	<h:column>
+		<h:outputText value="#{result.displayName}" />
+	</h:column>
+
+	<h:column>
+		<h:outputText value="#{result.id}" style="font-style:italic" />
+	</h:column>
+
+</rich:suggestionbox>
+</ui:composition>
+«ENDFILE»
+«ENDDEFINE»
+
+
+
 
 «DEFINE genDateRange FOR uml::Class»
 			<s:decorate template="/layout/display.xhtml">

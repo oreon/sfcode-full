@@ -153,6 +153,16 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 		this.«asVar()»RecordList = list;
 	}
 	
+	«FOREACH getAllAttributes().select ( e | e.isFile() ) AS e»	
+	public String download«e.name.toFirstUpper()»(Long id) {
+		setId(id);
+		downloadAttachment(getInstance().get«e.name.toFirstUpper()»());
+		return "success";
+	}
+	«ENDFOREACH»
+	
+	
+	
 	«IF !getOutgoingAssociations().isEmpty»
 	/** This function adds associated entities to an example criterion
 	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)

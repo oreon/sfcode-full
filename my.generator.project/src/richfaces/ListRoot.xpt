@@ -25,6 +25,7 @@
 	
 	
 <rich:panel>
+   <h:form>
 	  <f:facet name="header">«name» Search Results (#{empty «asVar()»List.resultList ? 0 : («asVar()»List.paginated ? «asVar()»List.resultCount : «asVar()»List.resultList.size)})</f:facet>
 	
 		<rich:dataTable  var="_«asVar()»" value="#{«asVar()»List.resultList}" 
@@ -37,6 +38,7 @@
 		«EXPAND genLink ("edit", "edit.png")FOR this»
 		«EXPAND genDeleteLink FOR this»
 		</rich:dataTable>
+ 	</h:form>		
 </rich:panel>	
 
 
@@ -170,11 +172,15 @@
 				<ui:param name="propertyPath" value="«genPropertyLabel()»" />
 			</ui:include>
 		</f:facet>
-		<h:outputText value="#{_«genPropertyLabel()»}">
-		«REM»
-			<s:convertDateTime type="both" dateStyle="short" />
-		«ENDREM»
-		</h:outputText>
+		«IF isFile()»
+			<s:link value="#{_«genPropertyLabel()».name}"  action="#{productAction.download«name.toFirstUpper()»(_product.id)}" propagation="none" />
+		«ELSEIF isDate()»
+			<h:outputText value="#{_«genPropertyLabel()»}">
+				<s:convertDateTime type="both" dateStyle="short" />
+			</h:outputText>
+		«ELSE»
+			<h:outputText value="#{_«genPropertyLabel()»}" />	
+		«ENDIF»
 	</h:column>
 «ENDDEFINE»
 
