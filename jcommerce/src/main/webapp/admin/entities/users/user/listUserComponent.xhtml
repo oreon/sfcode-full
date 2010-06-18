@@ -14,6 +14,7 @@
 	
 	
 <rich:panel>
+   <h:form>
 	  <f:facet name="header">User Search Results (#{empty userList.resultList ? 0 : (userList.paginated ? userList.resultCount : userList.resultList.size)})</f:facet>
 	
 		<rich:dataTable  var="_user" value="#{userList.resultList}" 
@@ -40,9 +41,9 @@
 				<ui:param name="propertyPath" value="user.userName" />
 			</ui:include>
 		</f:facet>
-		<h:outputText value="#{_user.userName}">
 		
-		</h:outputText>
+			<h:outputText value="#{_user.userName}" />	
+		
 	</h:column>
 	
 	<h:column>
@@ -53,9 +54,9 @@
 				<ui:param name="propertyPath" value="user.enabled" />
 			</ui:include>
 		</f:facet>
-		<h:outputText value="#{_user.enabled}">
 		
-		</h:outputText>
+			<h:outputText value="#{_user.enabled}" />	
+		
 	</h:column>
 	
 		
@@ -108,6 +109,7 @@
 	</h:column>
 
 		</rich:dataTable>
+ 	</h:form>		
 </rich:panel>	
 
 

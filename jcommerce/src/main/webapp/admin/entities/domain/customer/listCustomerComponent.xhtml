@@ -14,6 +14,7 @@
 	
 	
 <rich:panel>
+   <h:form>
 	  <f:facet name="header">Customer Search Results (#{empty customerList.resultList ? 0 : (customerList.paginated ? customerList.resultCount : customerList.resultList.size)})</f:facet>
 	
 		<rich:dataTable  var="_customer" value="#{customerList.resultList}" 
@@ -39,9 +40,9 @@
 				<ui:param name="propertyPath" value="customer.firstName" />
 			</ui:include>
 		</f:facet>
-		<h:outputText value="#{_customer.firstName}">
 		
-		</h:outputText>
+			<h:outputText value="#{_customer.firstName}" />	
+		
 	</h:column>
 	
 	<h:column>
@@ -52,9 +53,9 @@
 				<ui:param name="propertyPath" value="customer.lastName" />
 			</ui:include>
 		</f:facet>
-		<h:outputText value="#{_customer.lastName}">
 		
-		</h:outputText>
+			<h:outputText value="#{_customer.lastName}" />	
+		
 	</h:column>
 	
 		
@@ -69,9 +70,9 @@
 				<ui:param name="propertyPath" value="customer.contactDetails.primaryPhone" />
 			</ui:include>
 		</f:facet>
-		<h:outputText value="#{_customer.contactDetails.primaryPhone}">
 		
-		</h:outputText>
+			<h:outputText value="#{_customer.contactDetails.primaryPhone}" />	
+		
 	</h:column>
 	
 	<h:column>
@@ -82,9 +83,9 @@
 				<ui:param name="propertyPath" value="customer.contactDetails.secondaryPhone" />
 			</ui:include>
 		</f:facet>
-		<h:outputText value="#{_customer.contactDetails.secondaryPhone}">
 		
-		</h:outputText>
+			<h:outputText value="#{_customer.contactDetails.secondaryPhone}" />	
+		
 	</h:column>
 	
 	<h:column>
@@ -95,9 +96,9 @@
 				<ui:param name="propertyPath" value="customer.contactDetails.email" />
 			</ui:include>
 		</f:facet>
-		<h:outputText value="#{_customer.contactDetails.email}">
 		
-		</h:outputText>
+			<h:outputText value="#{_customer.contactDetails.email}" />	
+		
 	</h:column>
 	
 			
@@ -112,9 +113,9 @@
 				<ui:param name="propertyPath" value="customer.customerClass" />
 			</ui:include>
 		</f:facet>
-		<h:outputText value="#{_customer.customerClass}">
 		
-		</h:outputText>
+			<h:outputText value="#{_customer.customerClass}" />	
+		
 	</h:column>
 	
 		
@@ -186,6 +187,7 @@
 	</h:column>
 
 		</rich:dataTable>
+ 	</h:form>		
 </rich:panel>	
 
 

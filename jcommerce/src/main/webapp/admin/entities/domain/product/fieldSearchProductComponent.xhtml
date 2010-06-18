@@ -1,0 +1,97 @@
+
+<ui:composition 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >
+  <div class="entry errors"><h:messages globalOnly="true" /></div>
+	<h:panelGrid columns="6">
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.product_name} * "/> <br/>
+	
+		<h:inputText  id="product_name" value="#{productList.product.name}" />
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.product_price}  "/> <br/>
+	
+	
+	<h:inputText  id="product_price_begin" value="#{productList.product_priceRange.begin}" >
+			<f:converter converterId="javax.faces.Double" />
+	</h:inputText>
+	<h:inputText  id="product_price_end" value="#{productList.product_priceRange.end}" >
+		<f:converter converterId="javax.faces.Double" />
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.product_image}  "/> <br/>
+	
+	  
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.product_description} * "/> <br/>
+	
+		<h:inputText  id="product_description" value="#{productList.product.description}" />
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+		
+	<h:panelGroup>
+	<h:outputText value="#{msg.product_category}  "/> <br/>
+	<h:selectOneMenu id="product_category" value="#{productList.product.category}" >
+		<s:selectItems value="#{categoryList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Any..." />
+		<s:convertEntity />
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+		
+	
+	
+	
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">From</ui:define> <br/>
+				<rich:calendar id="from"
+					value="#{productList.dateCreatedRange.begin}" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">To</ui:define> <br/>
+				<rich:calendar id="to" value="#{productList.dateCreatedRange.end}" />
+			</s:decorate>
+
+	</h:panelGrid>
+</ui:composition>

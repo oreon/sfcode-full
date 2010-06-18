@@ -14,6 +14,7 @@
 	
 	
 <rich:panel>
+   <h:form>
 	  <f:facet name="header">CustomerOrder Search Results (#{empty customerOrderList.resultList ? 0 : (customerOrderList.paginated ? customerOrderList.resultCount : customerOrderList.resultList.size)})</f:facet>
 	
 		<rich:dataTable  var="_customerOrder" value="#{customerOrderList.resultList}" 
@@ -40,9 +41,9 @@
 				<ui:param name="propertyPath" value="customerOrder.specialInstructions" />
 			</ui:include>
 		</f:facet>
-		<h:outputText value="#{_customerOrder.specialInstructions}">
 		
-		</h:outputText>
+			<h:outputText value="#{_customerOrder.specialInstructions}" />	
+		
 	</h:column>
 	
 		
@@ -114,6 +115,7 @@
 	</h:column>
 
 		</rich:dataTable>
+ 	</h:form>		
 </rich:panel>	
 
 

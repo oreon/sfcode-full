@@ -30,7 +30,7 @@
 	
 		
 		<h:outputText value="#{msg.customerOrder_employee}  "/>		
-	true 
+	
 	<s:link value="#{customerOrderAction.customerOrder.employee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" >
 		<f:param name="id" value="#{customerOrderAction.customerOrder.employee.id}" />
 	</s:link>
@@ -62,7 +62,7 @@
 	
 	
 	
-	<rich:dataTable id="orderItems_data" var="_orderItem" rendered="#{not empty customerOrderAction.listOrderItems}"
+	<rich:dataTable id="orderItems_data#{entityId}" var="_orderItem" rendered="#{not empty customerOrderAction.listOrderItems}"
 					value="#{customerOrderAction.listOrderItems}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		
@@ -75,7 +75,7 @@
 	
 		
 		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.orderItem_product}  "/></f:facet>		
-	true 
+	
 	<s:link value="#{_orderItem.product.displayName}" view="/admin/entities/domain/product/viewProduct.xhtml" >
 		<f:param name="id" value="#{orderItemAction.orderItem.product.id}" />
 	</s:link>
