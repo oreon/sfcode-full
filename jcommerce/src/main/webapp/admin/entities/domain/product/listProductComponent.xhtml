@@ -14,6 +14,7 @@
 	
 	
 <rich:panel>
+   <h:form>
 	  <f:facet name="header">Product Search Results (#{empty productList.resultList ? 0 : (productList.paginated ? productList.resultCount : productList.resultList.size)})</f:facet>
 	
 		<rich:dataTable  var="_product" value="#{productList.resultList}" 
@@ -40,9 +41,9 @@
 				<ui:param name="propertyPath" value="product.name" />
 			</ui:include>
 		</f:facet>
-		<h:outputText value="#{_product.name}">
 		
-		</h:outputText>
+			<h:outputText value="#{_product.name}" />	
+		
 	</h:column>
 	
 	<h:column>
@@ -53,9 +54,9 @@
 				<ui:param name="propertyPath" value="product.price" />
 			</ui:include>
 		</f:facet>
-		<h:outputText value="#{_product.price}">
 		
-		</h:outputText>
+			<h:outputText value="#{_product.price}" />	
+		
 	</h:column>
 	
 	<h:column>
@@ -66,9 +67,9 @@
 				<ui:param name="propertyPath" value="product.image" />
 			</ui:include>
 		</f:facet>
-		<h:outputText value="#{_product.image}">
 		
-		</h:outputText>
+			<s:link value="#{_product.image.name}"  action="#{productAction.downloadImage(_product.id)}" propagation="none" />
+		
 	</h:column>
 	
 	<h:column>
@@ -79,9 +80,9 @@
 				<ui:param name="propertyPath" value="product.description" />
 			</ui:include>
 		</f:facet>
-		<h:outputText value="#{_product.description}">
 		
-		</h:outputText>
+			<h:outputText value="#{_product.description}" />	
+		
 	</h:column>
 	
 		
@@ -153,6 +154,7 @@
 	</h:column>
 
 		</rich:dataTable>
+ 	</h:form>		
 </rich:panel>	
 
 

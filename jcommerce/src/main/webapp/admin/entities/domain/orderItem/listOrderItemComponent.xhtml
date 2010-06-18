@@ -14,6 +14,7 @@
 	
 	
 <rich:panel>
+   <h:form>
 	  <f:facet name="header">OrderItem Search Results (#{empty orderItemList.resultList ? 0 : (orderItemList.paginated ? orderItemList.resultCount : orderItemList.resultList.size)})</f:facet>
 	
 		<rich:dataTable  var="_orderItem" value="#{orderItemList.resultList}" 
@@ -78,9 +79,9 @@
 				<ui:param name="propertyPath" value="orderItem.quantity" />
 			</ui:include>
 		</f:facet>
-		<h:outputText value="#{_orderItem.quantity}">
 		
-		</h:outputText>
+			<h:outputText value="#{_orderItem.quantity}" />	
+		
 	</h:column>
 	
 		
@@ -133,6 +134,7 @@
 	</h:column>
 
 		</rich:dataTable>
+ 	</h:form>		
 </rich:panel>	
 
 

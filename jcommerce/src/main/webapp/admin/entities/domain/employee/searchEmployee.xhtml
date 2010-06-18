@@ -1,5 +1,5 @@
 
-<html 
+<ui:composition 
  xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -13,141 +13,17 @@
  >	
 	<h:form>
 	<rich:simpleTogglePanel switchType="client" label="Search">
-			<div class="entry errors"><h:messages globalOnly="true" /></div>
-			<h:panelGrid columns="6">
+		<rich:tabPanel>
+			<rich:tab label="Search">
+				<ui:include src="fieldSearchEmployeeComponent.xhtml" />
+			</rich:tab>
 	
-	<h:panelGroup>
-	<h:outputText value="#{msg.person_firstName}  "/> <br/>
-	
-		<h:inputText  id="person_firstName" value="#{employeeList.employee.firstName}" />
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.person_lastName}  "/> <br/>
-	
-		<h:inputText  id="person_lastName" value="#{employeeList.employee.lastName}" />
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-			
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.contactDetails_primaryPhone}  "/> <br/>
-	
-		<h:inputText  id="contactDetails_primaryPhone" value="#{employeeList.employee.contactDetails.primaryPhone}" />
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.contactDetails_secondaryPhone}  "/> <br/>
-	
-		<h:inputText  id="contactDetails_secondaryPhone" value="#{employeeList.employee.contactDetails.secondaryPhone}" />
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.contactDetails_email}  "/> <br/>
-	
-		<h:inputText  id="contactDetails_email" value="#{employeeList.employee.contactDetails.email}" />
-	
-	
-	</h:panelGroup>
-
-	
+			<rich:tab label="Text Search">
+				<ui:include src="textSearchEmployeeComponent.xhtml" />
+			</rich:tab>
+		</rich:tabPanel>
 	
 		
-	
-	
-	
-	
-		
-	<h:panelGroup>
-	<h:outputText value="#{msg.employee_department}  "/> <br/>
-	<h:selectOneMenu id="employee_department" value="#{employeeList.employee.department}" >
-		<s:selectItems value="#{departmentList}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Any..." />
-		<s:convertEntity />
-		
-	</h:selectOneMenu>
-	</h:panelGroup>
-		
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.employee_employeeNumber}  "/> <br/>
-	
-		<h:inputText  id="employee_employeeNumber" value="#{employeeList.employee.employeeNumber}" />
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.employee_employeeType}  "/> <br/>
-	<h:selectOneMenu id="employee_employeeType" value="#{employeeList.employee.employeeType}" required="false">
-		<f:selectItem itemLabel="Any" itemValue=""/>
-		<f:selectItem itemLabel="None" itemValue=""/>
-		<f:selectItem itemValue="FULL_TIME"  itemLabel="Full_time" />
-		<f:selectItem itemValue="CONTRACT"  itemLabel="Contract" />
-		<f:selectItem itemValue="PART_TIME"  itemLabel="Part_time" />
-		
-	</h:selectOneMenu>
-	</h:panelGroup>
-
-	
-	
-	
-		
-	<h:panelGroup>
-	<h:outputText value="#{msg.employee_user}  "/> <br/>
-	<h:selectOneMenu id="employee_user" value="#{employeeList.employee.user}" >
-		<s:selectItems value="#{userList}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Any..." />
-		<s:convertEntity />
-		
-	</h:selectOneMenu>
-	</h:panelGroup>
-		
-	
-	
-			
-			<s:decorate template="/layout/display.xhtml">
-				<ui:define name="label">From</ui:define> <br/>
-				<rich:calendar id="from"
-					value="#{employeeList.dateCreatedRange.begin}" />
-			</s:decorate>
-
-			<s:decorate template="/layout/display.xhtml">
-				<ui:define name="label">To</ui:define> <br/>
-				<rich:calendar id="to" value="#{employeeList.dateCreatedRange.end}" />
-			</s:decorate>
-
-			</h:panelGrid>
-			
-			
 	<div class="actionButtons"><h:commandButton id="search"
 		value="Search" 
 		action="/admin/entities/domain/employee/listEmployee.xhtml" >
@@ -158,5 +34,4 @@
 
 		</rich:simpleTogglePanel>
 	</h:form>
-</html>
-	
+</ui:composition>

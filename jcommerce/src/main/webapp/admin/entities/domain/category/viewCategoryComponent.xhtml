@@ -30,7 +30,7 @@
 	
 		
 		<h:outputText value="#{msg.category_parent}  "/>		
-	true true
+	
 	<s:link value="#{categoryAction.category.parent.displayName}" view="/admin/entities/domain/category/viewCategory.xhtml" >
 		<f:param name="id" value="#{categoryAction.category.parent.id}" />
 	</s:link>
@@ -62,7 +62,7 @@
 	
 	
 	
-	<rich:dataTable id="subcategories_data" var="_category" rendered="#{not empty categoryAction.listSubcategories}"
+	<rich:dataTable id="subcategories_data#{entityId}" var="_category" rendered="#{not empty categoryAction.listSubcategories}"
 					value="#{categoryAction.listSubcategories}" rows="10"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		

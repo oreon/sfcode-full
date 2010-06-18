@@ -1,5 +1,5 @@
 
-<html 
+<ui:composition 
  xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -13,91 +13,17 @@
  >	
 	<h:form>
 	<rich:simpleTogglePanel switchType="client" label="Search">
-			<div class="entry errors"><h:messages globalOnly="true" /></div>
-			<h:panelGrid columns="6">
+		<rich:tabPanel>
+			<rich:tab label="Search">
+				<ui:include src="fieldSearchProductComponent.xhtml" />
+			</rich:tab>
 	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.product_name} * "/> <br/>
-	
-		<h:inputText  id="product_name" value="#{productList.product.name}" />
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.product_price}  "/> <br/>
-	
-	
-	<h:inputText  id="product_price_begin" value="#{productList.product_priceRange.begin}" >
-			<f:converter converterId="javax.faces.Double" />
-	</h:inputText>
-	<h:inputText  id="product_price_end" value="#{productList.product_priceRange.end}" >
-		<f:converter converterId="javax.faces.Double" />
-	</h:inputText>
-	
-
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.product_image}  "/> <br/>
-	
-	  
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.product_description} * "/> <br/>
-	
-		<h:inputText  id="product_description" value="#{productList.product.description}" />
-	
-	
-	</h:panelGroup>
-
-	
-	
+			<rich:tab label="Text Search">
+				<ui:include src="textSearchProductComponent.xhtml" />
+			</rich:tab>
+		</rich:tabPanel>
 	
 		
-	<h:panelGroup>
-	<h:outputText value="#{msg.product_category}  "/> <br/>
-	<h:selectOneMenu id="product_category" value="#{productList.product.category}" >
-		<s:selectItems value="#{categoryList}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Any..." />
-		<s:convertEntity />
-		
-	</h:selectOneMenu>
-	</h:panelGroup>
-		
-	
-	
-			
-			<s:decorate template="/layout/display.xhtml">
-				<ui:define name="label">From</ui:define> <br/>
-				<rich:calendar id="from"
-					value="#{productList.dateCreatedRange.begin}" />
-			</s:decorate>
-
-			<s:decorate template="/layout/display.xhtml">
-				<ui:define name="label">To</ui:define> <br/>
-				<rich:calendar id="to" value="#{productList.dateCreatedRange.end}" />
-			</s:decorate>
-
-			</h:panelGrid>
-			
-			
 	<div class="actionButtons"><h:commandButton id="search"
 		value="Search" 
 		action="/admin/entities/domain/product/listProduct.xhtml" >
@@ -108,5 +34,4 @@
 
 		</rich:simpleTogglePanel>
 	</h:form>
-</html>
-	
+</ui:composition>
