@@ -45,20 +45,22 @@
 «DEFINE genTextSearchView FOR uml::Class»
 «FILE getWebPath() +"/" + "textSearch" + name+ "Component." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes-» >
-<h:inputText value="#{departmentList.searchText}" id="text" />
+<h:inputText value="#{«getList()».searchText}" id="text" />
 
 <rich:suggestionbox id="suggestionBoxId" for="text" tokens=",[]"
-	rules="all" suggestionAction="#{departmentList.getTextSearchList}"
-	var="result" fetchValue="#{result.displayName}" minChars="2"
+	rules="all" suggestionAction="#{«getList()».autocomplete}"
+	var="_result" fetchValue="#{_result.id}" minChars="2"
 	nothingLabel="No Results found"
-	onobjectchange="processObjectsChange(suggestion)">
+	onselect="processObjectsChange(suggestion)">
+	
+	
+	
+	<h:column>
+		<h:outputText value="#{_result.id}" style="font-style:italic" />
+	</h:column>	
 
 	<h:column>
-		<h:outputText value="#{result.displayName}" />
-	</h:column>
-
-	<h:column>
-		<h:outputText value="#{result.id}" style="font-style:italic" />
+		<h:outputText value="#{_result.displayName}" />
 	</h:column>
 
 </rich:suggestionbox>
