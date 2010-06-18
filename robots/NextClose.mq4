@@ -27,8 +27,10 @@ extern bool UseFixedTP = true;
 extern bool TrailFractal = false;
 extern bool ContinuousMode = false;
 //extern bool StepOrders = false;
-extern int RiskReducer = 2;
+extern int RiskReducer = 20;
 extern int Epochs = 500;
+extern int MaxEpochs = 1200;
+extern double  ForceIndex = 5.5;
 //extern int TakeProfit = 55;
 
 // Global variables
@@ -57,6 +59,7 @@ int Prd = 4800;
 int MAX_ORDERS = 2;
 
 
+
 int timeSigPrev = -1;
 string path;
 
@@ -64,9 +67,9 @@ extern double MinMSE = 0.00000250;
 extern bool TimeFilter = true;
 extern int SlidingWindow = 16;
 
-extern int CloseAfter = 1;
-extern int BeginHour = 17;
-extern int EndHour = 3;
+extern int CloseAfter = 2;
+extern int BeginHour = 16;
+extern int EndHour = 5;
 extern int Threshhold = 8;
 extern int Offset = 2;
 /*extern*/ int Step = 20;
@@ -114,7 +117,7 @@ int init ()
       Stop = Stop *10;
       Step = Step * 10;
       Threshhold = Threshhold * 10;
-      RiskReducer = RiskReducer * 10;
+      //RiskReducer = RiskReducer * 10;
    }
      /*
      for(int i = 0; i < Digits; i++){
@@ -136,20 +139,25 @@ int start ()
    return (ret);
 }
 
+int prevDay = -1;
+
 
 int perform ()
 {
    comment = "---" + name +   "--\n";
    // modifyOrder(MAGIC_NUM, Trail);
     int orders = getOrderCount(MAGIC_NUM);
+    double force = iForce(NULL, 0, 6,MODE_EMA,PRICE_CLOSE,0);
     int j = 0;
     
     if(orders > 0 ){
     
-      double force = iForce(NULL, 0, 6,MODE_SMA,PRICE_CLOSE,0);
-   
-      if(MathAbs(force) > 1){
-       // closeOrders(MAGIC_NUM);
+    
+      if(MathAbs(force) > ForceIndex){
+        int orderDirection = getOrderDirection(MAGIC_NUM);
+        if( (force > ForceIndex && orderDirection == OP_SELL) || (force < -ForceIndex && orderDirection == OP_BUY)) 
+        closeOrders(MAGIC_NUM);
+       
       }
       
       if(TrailFractal)  
@@ -162,11 +170,19 @@ int perform ()
    
    }
    
-   
    int day = TimeDayOfWeek(TimeGmt() );
+   if(day != prevDay){
+      cnt = 0;
+   }
+   prevDay = day;
    
    if(!doTimeFilter(day))
       return (0) ;
+      
+   if( MathAbs(force) > ForceIndex ){
+       addComment("Force is: " + force + ", waiting for force to get below " + ForceIndex);
+       return(0);
+   }
 
    int  timeSigNow = TimeMinute(Time[0])/5;
    
@@ -183,8 +199,8 @@ int perform ()
         trainNN();
      }
      
-     if(tradedInThisPrd)
-     timeprev=Time[0];
+     
+     if(tradedInThisPrd) timeprev=Time[0];
      
   
    timeSigPrev = timeSigNow;
@@ -222,10 +238,11 @@ int perform ()
      //    placeOrders(TakeProfit);
      // else
       placeOrders(out);
+      if(orders == 1)  manageOrders(out);
     } else{ 
       //changeTP(MAGIC_NUM, out );
-      Print("managing order");
-      manageOrders(out);         
+      //Print("managing order");
+       manageOrders(out);         
      }    
     
     //setTP(MAGIC_NUM, out, out);
@@ -233,6 +250,13 @@ int perform ()
    
     return (0);
 }
+
+
+void addComment(string msg){
+    comment = StringConcatenate( comment, "\n" + msg);
+}
+
+
 
 
 
@@ -257,7 +281,7 @@ int trainNN(){
   
    double mset = 1;
    
-   while(mset > MinMSE || cnt < Epochs ){
+   while( (mset > MinMSE || cnt < Epochs) && cnt < MaxEpochs ){
       for(int i = Prd ; i >= (SlidingWindow + 1); i--){
          for(int j= 0; j < SlidingWindow; j++){
             ArrInput[j] = Close[i - j];
@@ -354,6 +378,8 @@ void manageOrders(double out){
          //continue;
          double minStep = 30*Point;
          
+         if(OrderProfit() < 0 ) return;
+         
          if(OrderType() == OP_BUY ) {
          
             //if (Close[0] == out) OrderClose(OrderTicket(),OrderLots(),Bid,3,Violet); 
@@ -362,8 +388,11 @@ void manageOrders(double out){
                OrderClose(OrderTicket(),OrderLots(),Bid,3,Violet); 
                 Sleep(20000);
             }else if (out > OrderOpenPrice() && out < Close[0] && OrderProfit() > 0 ){
-              // OrderClose(OrderTicket(),OrderLots(),Bid,3,Violet); 
-            }else changeTP(MAGIC_NUM, out );
+               OrderClose(OrderTicket(),OrderLots(),Bid,3,Violet); 
+            }else {
+            
+               //changeTP(MAGIC_NUM, out );
+            }
                
             
             /*
@@ -391,9 +420,10 @@ void manageOrders(double out){
                 OrderClose(OrderTicket(),OrderLots(),Ask,3,Violet); 
                 Sleep(20000);
             }else if (out < OrderOpenPrice() && out > Close[0]  && OrderProfit() > 0 ){
-              // OrderClose(OrderTicket(),OrderLots(),Ask,3,Violet); 
-            }else changeTP(MAGIC_NUM, out );
-            
+               OrderClose(OrderTicket(),OrderLots(),Ask,3,Violet); 
+            }else {
+               //changeTP(MAGIC_NUM, out );
+            }
          }
        }
     }
@@ -420,7 +450,7 @@ void placeOrders(double out){
    int boll = boll();
     
     
-    Print(out + " "  + (Close + threshhold));
+   // Print(out + " "  + (Close + threshhold));
     
     
     if(out > Ask + threshhold  && boll >= 0  ){
@@ -556,27 +586,6 @@ int setSL(int num, double sl){
 }
 
 
-void placeBigOrder(int op, double tp,  double lots){
-
-      int ticket = 0;
-      //int step = 10;
-      int count = MathAbs((Ask - tp)) / (Step * Point);
-      Print("count is " + count);
-      if(op== OP_BUY ){
-         for(int i = 1; i < count; i++){
-             ticket=OrderSend (Symbol(),OP_BUYSTOP, lots,Ask + (i *Step)* Point,3,Bid - (Stop * Point) , tp,name + getTimeFrame(), 
-             MAGIC_NUM, /*iTime( Symbol(), PERIOD_D1, 0 ) + 86400*/0, Purple);
-         }
-       }
-      else{ 
-         //Print("placing sell order at " + (Bid - profitTriggerForBig));
-         for(i = 1; i < count; i++){
-             ticket=OrderSend(Symbol(),OP_SELLSTOP,lots,Bid - (i * Step ) * Point,3,Ask + (Stop * Point) , tp,name + getTimeFrame(), 
-             MAGIC_NUM,/*iTime( Symbol(), PERIOD_D1, 0 ) + 86400*/ 0, Yellow);
-         }
-      }
-
-}
 
 
 
@@ -587,10 +596,8 @@ void dumpInput(){
 string timeText =  "  Trading will begin at GMT:";
  
 int doTimeFilter(int day){
-
    int endHour = EndHour;
-   int hr = getGmtHour();
-   if(day == 5 && hr > 12){
+   if(day == 5 ){
       endHour = 20;
    }
    int trange = tradeRange(BeginHour, endHour, CloseAfter, Offset);
@@ -611,9 +618,8 @@ int doTimeFilter(int day){
       timeText = hour + " Closing all open trades -  Trading will begin at GMT:";   
       timeText = timeText + "\n" +  (BeginHour) + ":00 and continue until " + EndHour + ":00";
       closeOrders(MAGIC_NUM);
-      
    }else if (trange == POSTEND ){
-      timeText = "\nRedcuing TP by " + RiskReducer + " pips ";
+      timeText = "\nRedcuing TP by " + RiskReducer ;
       reduceProfit(MAGIC_NUM, RiskReducer);
    }else {
       timeText = "  Trading will begin at GMT:";   
@@ -621,7 +627,6 @@ int doTimeFilter(int day){
       int orders = getOrderCount(MAGIC_NUM);
       if(orders > 0 )
          closeOrders(MAGIC_NUM);
-     
    }
    
     printComment(timeText);

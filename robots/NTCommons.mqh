@@ -220,6 +220,20 @@ int getOrderCountOp(int num, int op){
    return ( ordersForThisEA );
 }
 
+int getOrderDirection(int num){
+    int total  = OrdersTotal();
+  
+   for(int cnt=0;cnt<total;cnt++)
+    {
+      if(OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES)==false)      
+         continue;
+      if(OrderMagicNumber()== num && OrderSymbol() ==Symbol() && (OrderType() == OP_BUY || OrderType() == OP_SELL) )
+         return (OrderType());
+   }
+   
+   return (2570);
+
+}
 
 
 
