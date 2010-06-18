@@ -281,7 +281,7 @@ void SendOrder(string symbol, int dir, double lots)
             digit  = MarketInfo(symbol,MODE_DIGITS);
             sl     = NormalizeDouble(price-stop*point,digit);
             tp     = NormalizeDouble(price+take*point,digit);
-                        ticket = OrderSend(symbol,dir,lots,price,30,0,0,CommentText,Magic,0,CLR_NONE);
+            ticket = OrderSend(symbol,dir,lots,price,30,0,0,CommentText,Magic,0,CLR_NONE);
             if(ticket >= 0 )
              OrderModify(ticket, OrderOpenPrice(),	sl, tp, 0, CLR_NONE);
 
@@ -300,16 +300,30 @@ void SendOrder(string symbol, int dir, double lots)
             digit  = MarketInfo(symbol,MODE_DIGITS);
             sl     = NormalizeDouble(price+stop*point,digit);
             tp     = NormalizeDouble(price-take*point,digit);
-             ticket = OrderSend(symbol,dir,lots,price,30,0,0,CommentText,Magic,0,CLR_NONE);
-            if(ticket >= 0 )
-             OrderModify(ticket, OrderOpenPrice(),	sl, tp, 0, CLR_NONE);
-
+            
+            ticket = sendOrderRel( dir, sl, tp, symbol);
+            
             Print(GetLastError());
             Sleep(1000);
           }
       }
   
   }
+  
+  
+int sendOrderRel(int dir, double sl, double tp, double lots, string symbol ){
+    int prmode = MODE_ASK;
+    if (dir = OP_SELL)  prmode = MODE_BID;
+    
+    double price  = MarketInfo(symbol, prmode);
+    int ticket = OrderSend(symbol,dir,lots,price,30,0,0,CommentText,Magic,0,CLR_NONE);
+    if(ticket >= 0 )
+      OrderModify(ticket, OrderOpenPrice(),	sl, tp, 0, CLR_NONE);
+    return ticket;
+}
+
+  
+ 
 
 
 
