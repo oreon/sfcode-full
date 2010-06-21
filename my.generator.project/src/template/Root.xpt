@@ -81,8 +81,11 @@
 	    })
 	  })
 	public class «name» «getParent()»  «getInterfaces()» «getImplementedInterfaces().isEmpty  ?" implements " : ","»  «getAuditable()?"Auditable, ":""» java.io.Serializable {
+		private static final long serialVersionUID = «serialver()»;
+		
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
+		
 		 
 		«IF !getAllAttributes().isEmpty»
 		@Transient
@@ -129,6 +132,9 @@
 	@Embeddable
 	@Indexed
 	public class «name» «getParent()» «getInterfaces()» implements  java.io.Serializable{
+		private static final long serialVersionUID = «serialver()»;
+		
+	
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
 	}

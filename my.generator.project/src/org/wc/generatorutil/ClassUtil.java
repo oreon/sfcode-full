@@ -138,6 +138,14 @@ public class ClassUtil {
 		return new Random().nextInt(15000);
 
 	}
+	
+	private static final int VERSION = 1;
+
+	
+	public static String serialver (Class cls) {
+		return new Integer((cls.getName() +  "-" + cls.getPackage().getName()) .hashCode()^VERSION).toString()+"L";
+	}
+
 
 	public static EList<Property> getInts(Class cls) {
 		EList<Property> lstAttributes = cls.getAllAttributes();
