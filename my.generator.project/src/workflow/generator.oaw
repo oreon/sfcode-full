@@ -54,7 +54,9 @@ skipOnErrors="true">
 	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
 		<profile value="${model.dir}/wcprofile.profile.uml"/>
 	</metaModel>
+	
 	<expand value="template::Root::Root FOR model"/>
+	<outlet name="manual" path="${srcGenPath}/" overwrite="false" />
 	<outlet path="${srcGenPath}/">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 		<!--
@@ -94,7 +96,9 @@ organizeImports="true" format="true"/>
 		<profile value="${model.dir}/wcprofile.profile.uml"/>
 	</metaModel>
 	<expand value="template::SeamActionRoot::Root FOR model"/>
-	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
+	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" >
+		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+	</outlet>
 	<outlet path="${srcGenPath}">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 	</outlet>
@@ -111,9 +115,9 @@ organizeImports="true" format="true"/>
 	</metaModel>
 	<expand value="template::WebRoot::Root FOR model"/>
 	<outlet path="${srcGenPath}" name="webgen">
-		<postprocessor class="org.openarchitectureware.xsd.XMLBeautifier" fileExtensions=".xhtml"/>
+		<postprocessor class="oaw.xpand2.output.XmlBeautifier" fileExtensions=".xhtml"/>
 	</outlet>
-	<beautifier class="org.openarchitectureware.xsd.XMLBeautifier" fileExtensions=".xhtml" />
+	<beautifier class="oaw.xpand2.output.XmlBeautifier" fileExtensions=".xhtml" />
 	
 </component>
 

@@ -232,6 +232,13 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 	
 	«EXPAND template::Root::genOperation FOREACH getAllOperations()»
 	
+	
+	«REM» Generate methods  for  «ENDREM»
+	«FOREACH getModel().allOwnedElements().typeSelect(uml::Class).select(a | a.name == ( this.name + "Action") ) AS a»
+		«EXPAND template::Root::genOperation FOREACH a.getAllOperations()»
+	«ENDFOREACH»
+	
+	
 }
 «ENDFILE»
 «ENDDEFINE»

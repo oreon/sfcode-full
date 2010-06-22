@@ -11,19 +11,22 @@
 «ENDDEFINE»
 
 «DEFINE BaseGen FOR uml::Class»
-	«FILE packagePath() +"/action/" + name + "TestBase.java" »
-		package « packageName() ».action;
+«FILE getWebPackagePath("ActionTestBase")   »
+package « getWebPackageName() »;
+
 		«EXPAND genImports FOR this»
 		«EXPAND genClassBody FOR this»
 	«ENDFILE»
 «ENDDEFINE»
 
 «DEFINE ManualGen FOR uml::Class»
-«FILE packagePath() +"/action/" + name + "Test.java" man_path »
-package « packageName() ».action;
+«FILE getWebPackagePath("ActionTest")  man_path »
+
+package « getWebPackageName() »;
+
 «EXPAND genImports FOR this»
 
-public class «name»Test extends «name»TestBase{
+public class «name»ActionTest extends «name»ActionTestBase{
 	
 }
 «ENDFILE»
@@ -32,7 +35,7 @@ public class «name»Test extends «name»TestBase{
 
 
 «DEFINE genClassBody FOR wcprofile::Entity»
-public class «name»TestBase extends org.witchcraft.action.test.BaseTest<«name»>{
+public class «name»ActionTestBase extends org.witchcraft.action.test.BaseTest<«name»>{
 
 	«getAction().toFirstUpper()» «getAction()» = new «name»Action();
 
