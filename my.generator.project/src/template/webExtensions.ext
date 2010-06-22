@@ -15,7 +15,7 @@ String getList(Class cls):
 cls.asVar() + "List";
 
 String getActionFqn(Class type):
-type.fqnPackage("action") + "Action";
+type.getWebPackageName() + "." + type.name + "Action" ;
 
 boolean isEnum(Type type):
 type.getAppliedStereotype("uml::Enumeration") != null;
@@ -220,4 +220,12 @@ genAuditLogPropertyLabel(Property prop):
 
 getEmbeddableClassName(Property prop):
 prop.class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":"";
+
+
+getWebPackagePath(Class cls, String ext):
+getTopLevelPackage().packagePath() + "/web/action/"  + cls.package.name + "/" + cls.name + ext + ".java";
+ 
+getWebPackageName(Class cls):
+getTopLevelPackage() + ".web.action." + cls.package.name;
+ 
 

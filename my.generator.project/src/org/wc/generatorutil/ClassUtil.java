@@ -339,7 +339,7 @@ public class ClassUtil {
 		}
 
 		String value = properties.getProperty(key);
-		logger.info("Returning value " + value + " for key " + key);
+		//logger.info("Returning value " + value + " for key " + key);
 		return value;
 	}
 

@@ -11,6 +11,9 @@ extension org::openarchitectureware::uml2::profile::profiling;
 String packagePath (Element cls) :
 packageNameWithoutRoot(cls.package).replaceAll("::|\\.", "/");
 
+String packagePath(String str):
+str.replaceAll("::|\\.", "/");
+
 //fully qualified name of a class
 String fqn (Type cls) :
 packageName(cls) + "." + cls.name;
@@ -126,6 +129,9 @@ else
 
 String getCartridge():
 readProperty("cartridge");
+
+String getTopLevelPackage():
+readProperty("topLevelPackage");
 	
 	
 
