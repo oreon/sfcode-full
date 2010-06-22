@@ -110,9 +110,11 @@ organizeImports="true" format="true"/>
 		<profile value="${model.dir}/wcprofile.profile.uml"/>
 	</metaModel>
 	<expand value="template::WebRoot::Root FOR model"/>
-	<outlet path="${srcGenPath}">
-		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+	<outlet path="${srcGenPath}" name="webgen">
+		<postprocessor class="org.openarchitectureware.xsd.XMLBeautifier" fileExtensions=".xhtml"/>
 	</outlet>
+	<beautifier class="org.openarchitectureware.xsd.XMLBeautifier" fileExtensions=".xhtml" />
+	
 </component>
 
 <component id="TestGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">

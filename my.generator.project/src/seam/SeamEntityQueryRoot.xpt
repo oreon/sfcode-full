@@ -13,8 +13,8 @@
 
 
 «DEFINE ManualGen FOR wcprofile::Entity»
-«FILE packagePath() +"/action/" +name+ "ListQuery.java"  man_path »
-package « packageName() ».action;
+«FILE getWebPackagePath("ListQuery")  man_path »
+package « getWebPackageName() »;
 
 «EXPAND genImports FOR this»	
 @Name("«asVar()»List")
@@ -28,8 +28,8 @@ public class «name»ListQuery extends «name»ListQueryBase implements java.io.Seri
 
 «DEFINE BaseGen FOR uml::Class»
 «setAsCurrentEntity(this)-»
-«FILE packagePath() +"/action/" +name+"ListQueryBase.java"»
-package « packageName() ».action;
+«FILE getWebPackagePath("ListQueryBase")   »
+package « getWebPackageName() »;
 
 import « packageName() ».«name»;
 

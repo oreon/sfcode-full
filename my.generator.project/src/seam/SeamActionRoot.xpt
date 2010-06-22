@@ -24,9 +24,9 @@
 
 «DEFINE ManualGen FOR wcprofile::Entity»
 
-«FILE packagePath() +"/action/" +name+ "Action.java"  man_path »
+«FILE getWebPackagePath("Action")  man_path »
 
-package « packageName() ».action;
+package « getWebPackageName() »;
 
 «EXPAND genImports FOR this»	
 //@Scope(ScopeType.CONVERSATION)
@@ -40,8 +40,8 @@ package « packageName() ».action;
 
 
 «DEFINE BaseGen FOR uml::Class»
-«FILE packagePath() +"/action/" +name+"ActionBase.java"»
-package « packageName() ».action;
+«FILE getWebPackagePath("ActionBase")   »
+package « getWebPackageName() »;
 
 import « packageName() ».«name»;
 
@@ -68,7 +68,7 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 	
 	«FOREACH getNonComposedManyAssociations() AS e»
 	 @In(create = true,  value="«e.type.name.toFirstLower()»List")
- 	«e.type.fqnPackage("action")»ListQuery «e.name.getSingular()»List;
+ 	«e.type.getActionFqn()»ListQuery «e.name.getSingular()»List;
 	«ENDFOREACH»
 
 	@DataModel
