@@ -17,6 +17,10 @@ cls.asVar() + "List";
 String getActionFqn(Class type):
 type.getWebPackageName() + "." + type.name + "Action" ;
 
+String getListFqn(Class type):
+type.getWebPackageName() + "." + type.name + "ListQuery" ;
+
+
 boolean isEnum(Type type):
 type.getAppliedStereotype("uml::Enumeration") != null;
 
@@ -135,12 +139,10 @@ getCurrentCartridge() == "RICH" ? "h" : "ice";
 String getFieldNameWithAction(Property prop):
 prop.class.getAction() + "." + prop.class.asVar() + "." + prop.name;
 
-getTextForImgFile(Property prop):
-if (isCurrentEditMode()) then 
+getTextForImgFile(Property prop): 
 "<s:fileUpload data=\"#{" + prop.getFieldNameWithAction() + ".data}\" fileName=\"#{" + prop.getFieldNameWithAction() + ".name}\"  contentType=\"#{" + 
 	prop.getFieldNameWithAction() + ".contentType}\" />"
-else
-"<s:graphicImage value=\"#{" + prop.getFieldNameWithAction()  + ".data}\"/>" ;
+
 
 
 
@@ -168,8 +170,16 @@ else if ( getCurrentCartridge() == "DOT_NET") then
 else
 	"XXX";
 
-String getTemplate():
+String getAdminTemplate():
 "/admin/template." + getExtension();
+
+String getTemplateName(ViewState vs):
+if (vs.template != null ) then 
+	vs.template
+else if(vs.containingStateMachine().template != null) then 
+	vs.containingStateMachine().template
+else 
+  "/webtemplate/template." + getExtension();
 
 //String getId(Property prop):
 //(prop.association != null ? prop.name.toFirstLower():"") + prop.class.name.toFirstLower() + "_" + prop.name;

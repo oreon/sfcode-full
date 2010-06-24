@@ -68,7 +68,7 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 	
 	«FOREACH getNonComposedManyAssociations() AS e»
 	 @In(create = true,  value="«e.type.name.toFirstLower()»List")
- 	«e.type.getActionFqn()»ListQuery «e.name.getSingular()»List;
+ 	«e.type.getListFqn()» «e.name.getSingular()»List;
 	«ENDFOREACH»
 
 	@DataModel

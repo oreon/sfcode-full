@@ -19,7 +19,7 @@
 «DEFINE genEditFile FOR uml::Class»
 «FILE getWebPath() +"/" + "edit" + name+ "." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes-»
-	template = "«getTemplate()»" >	
+	template = "«getAdminTemplate()»" >	
 	<ui:define name="content">
 		<h:form  enctype="multipart/form-data"> «REM»TODO : usemultipart «ENDREM»
 		<ui:include src = "edit«name»Component.«getExtension()»" />
@@ -33,12 +33,13 @@
 
 «DEFINE genViewFile FOR uml::Class»
 	«FILE getWebPath() +"/" + "view" + name + "." + getExtension()»
-<ui:composition «EXPAND WebRoot::genIncludes-» template = "«getTemplate()»" >	
+<ui:composition «EXPAND WebRoot::genIncludes-» template = "«getAdminTemplate()»" >	
 	<ui:define name="content">
 		<h:form>
 			<rich:tabPanel switchType="ajax">
 				<rich:tab label="«name»">
 					<ui:include src = "«getComponentViewFile("view")»" />
+					«EXPAND genCancelSaveBtns(false) FOR this»
 				</rich:tab>
 			«FOREACH getOutgoingAssociations() AS a»
 				<rich:tab label="«a.name.toFirstUpper()»">
@@ -222,11 +223,24 @@
 
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
 «IF isFile()»
-	«getTextForImgFile()» 
+	«IF isCurrentEditMode() »  «getTextForImgFile()»  «ELSE» «EXPAND getFileView » «ENDIF»
 «ELSE»
 	<«getTextControl()»  id="«getId()»#{entityId}" «isCurrentEditMode()? "required=\"" + getRequired() +"\"":""»  value="#{«getActionForMode()»«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
 «ENDIF»   
 «ENDDEFINE»
+
+«DEFINE getFileView FOR uml::Property»
+	<c:choose>
+		<c:when test="${«getFieldNameWithAction()».contentType.startsWith('image')}">
+			<s:graphicImage
+				value="#{«getFieldNameWithAction()».data}" />
+		</c:when>
+		<c:otherwise>
+				<s:link value="#{«getFieldNameWithAction()».name}"  action="#{«class.getAction()».downloadFile(«class.getAction()».instance.id)}" propagation="none" />
+		</c:otherwise>
+	</c:choose>
+«ENDDEFINE»
+
 
 «DEFINE genPropertyEntry(wcprofile::dataTypes::imageFile cls) FOR uml::Property-»
 	«getTextForImgFile()»
