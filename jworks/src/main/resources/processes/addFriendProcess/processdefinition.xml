@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition xmlns="" name="addFriendProcess">
+
+	<swimlane name="initiator">
+		<assignment actor-id="#{actior.id}"></assignment>
+	</swimlane>
+	<swimlane name="prospective">
+		<assignment class="com.wc.sample.FriendAssignment"></assignment>
+	</swimlane>
+
+
+	<start-state name="addFriend">
+		<task swimlane='initiator'>
+		</task>
+		<transition to="reviewRequest" name="notify"></transition>
+	</start-state>
+
+
+	<task-node name="reviewRequest">
+		<task name="doAssign" swimlane="prospective">
+		</task>
+		<transition to="accept" name="accept"></transition>
+		<transition to="reject" name="reject"></transition>
+		<transition to="addDetails" name="moreDetails"></transition>
+	</task-node>
+
+	<task-node name="addDetails">
+		<task name="doAssign" swimlane="initiator" />
+		<transition to="reviewRequest" name="reviewDetails"></transition>
+	</task-node>
+
+
+	<end-state name="accept"></end-state>
+
+
+</process-definition>

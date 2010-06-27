@@ -11,7 +11,7 @@
 
    <h:form id="list">
       <div>
-         <h:outputText value="There are no order at the moment." rendered="#{empty taskInstanceList}"/>
+         <h:outputText value="There are no Tasks assigned to you at the moment." rendered="#{empty taskInstanceList}"/>
          <h:dataTable value="#{taskInstanceList}" 
             var="task" rendered="#{not empty taskInstanceList}"
             bgcolor="#F1F1F1" border="10">
@@ -40,7 +40,7 @@
             
             <h:column>
                 <f:facet name="header">
-                    <h:outputText value="Prev"/>
+                    <h:outputText value="From"/>
                 </f:facet>
                   <h:outputText value="#{task.previousActorId}"/>
             </h:column>
@@ -61,7 +61,7 @@
 			
 			 <h:column>
 			 	<ui:repeat var="trans" value="#{task.availableTransitions}">
-			 		 <s:link value="#{trans.name}" action="#{leaveRequestAction.send}" taskInstance="#{task}" /> <h:outputText value=" " />
+			 		 <s:link value="#{trans.name}" action="#{leaveRequestAction.approve}" taskInstance="#{task}" /> <h:outputText value=" " />
 			 	</ui:repeat>
                 <s:button action="#{leaveRequestAction.send}" taskInstance="#{task}" value="Send"/>
             </h:column>

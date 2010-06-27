@@ -5,8 +5,15 @@ public class LeaveRequest {
 	int numDays;
 	String explanation;
 	String title;
+	String to;
 	
 	
+	public String getTo() {
+		return to;
+	}
+	public void setTo(String to) {
+		this.to = to;
+	}
 	public int getNumDays() {
 		return numDays;
 	}
