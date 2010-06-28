@@ -1,0 +1,45 @@
+«IMPORT uml2»
+«IMPORT wcprofile»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+
+
+«DEFINE Root FOR uml::Model»
+	«EXPAND StateMachineRoot FOREACH allOwnedElements().typeSelect(uml::Activity)»
+«ENDDEFINE»
+
+
+
+«DEFINE StateMachineRoot FOR uml::Activity»
+	«FILE "../webapp/admin/" + name + ".xml"»
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition xmlns="" name="«name»">
+	«EXPAND gen FOREACH allOwnedElements().typeSelect(uml::ActivityPartition)»
+	«EXPAND genAction FOREACH allOwnedElements().typeSelect(uml::Action)»
+	«EXPAND gen FOREACH allOwnedElements().typeSelect(uml::ActivityFinalNode)»
+</process-definition>
+	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE gen FOR uml::ActivityPartition»
+<swimlane name="«name»">
+	<assignment actor-id="#{actior.id}"></assignment>
+</swimlane>
+«ENDDEFINE»
+
+«DEFINE genAction FOR uml::Action»
+	<task-node name="«name»">
+		<task name="«name»Task" swimlane="«getSwimlane()»">
+		</task>
+		«FOREACH outgoing() AS o-»
+		<transition to="«o.target.name»" name="«o.guard.stringValue()»"></transition>
+		«ENDFOREACH»
+	</task-node>
+«ENDDEFINE»
+
+ «DEFINE gen FOR uml::ActivityFinalNode»
+ 	<end-state name="«name»"></end-state>
+ «ENDDEFINE»
+
