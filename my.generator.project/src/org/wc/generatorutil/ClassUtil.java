@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.ActivityEdge;
+import org.eclipse.uml2.uml.ActivityNode;
 import org.eclipse.uml2.uml.CallBehaviorAction;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
@@ -396,11 +397,11 @@ public class ClassUtil {
 		}
 	}
 
-	public static EList<ActivityEdge> outgoing(Action act) {
+	public static EList<ActivityEdge> outgoing(ActivityNode act) {
 		return act.getOutgoings();
 	}
 
-	public static String getSwimlane(Action act) {
+	public static String getSwimlane(ActivityNode act) {
 		if (act.getInPartitions().size() > 0)
 			return act.getInPartitions().get(0).getName();
 		return null;
