@@ -44,6 +44,24 @@ skipOnErrors="true">
 	</outlet>
 </component>
 
+<component id="ActivityGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">
+	<metaModel class="oaw.type.emf.EmfMetaModel">
+	<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
+	</metaModel>
+	<metaModel class="oaw.uml2.UML2MetaModel"/>
+	<prSrcPaths value="${mainGenPath}" />
+	<prExcludes value="*.svn-base"/>
+	<prDefaultExcludes value="false"/>
+	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
+		<profile value="${model.dir}/wcprofile.profile.uml"/>
+	</metaModel>
+	<expand value="activity::activityRoot::Root FOR model"/>
+	<outlet path="${srcGenPath}">
+		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+	</outlet>
+</component>
+
+
 
 <component id="BeansGenerator" class="oaw.xpand2.Generator"
 skipOnErrors="true">
@@ -115,6 +133,7 @@ organizeImports="true" format="true"/>
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 	</outlet>
 </component>
+
 
 <component id="TestGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">
 	<metaModel class="oaw.type.emf.EmfMetaModel">

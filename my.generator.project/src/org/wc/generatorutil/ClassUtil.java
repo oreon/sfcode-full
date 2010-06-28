@@ -15,6 +15,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.uml2.uml.Action;
+import org.eclipse.uml2.uml.ActivityEdge;
+import org.eclipse.uml2.uml.CallBehaviorAction;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Interface;
@@ -39,6 +42,9 @@ public class ClassUtil {
 		Operation op;
 		// op.gette
 		// org.eclipse.uml2.codegen.
+
+		CallBehaviorAction cba;
+		// cba.getOutgoings();
 
 		xtendFacade = XtendFacade.create("template::GeneratorExtensions");
 		UML2MetaModel mm = new UML2MetaModel();
@@ -138,14 +144,15 @@ public class ClassUtil {
 		return new Random().nextInt(15000);
 
 	}
-	
+
 	private static final int VERSION = 1;
 
-	
-	public static String serialver (Class cls) {
-		return new Integer((cls.getName() +  "-" + cls.getPackage().getName()) .hashCode()^VERSION).toString()+"L";
+	public static String serialver(Class cls) {
+		return new Integer((cls.getName() + "-" + cls.getPackage().getName())
+				.hashCode()
+				^ VERSION).toString()
+				+ "L";
 	}
-
 
 	public static EList<Property> getInts(Class cls) {
 		EList<Property> lstAttributes = cls.getAllAttributes();
@@ -339,7 +346,7 @@ public class ClassUtil {
 		}
 
 		String value = properties.getProperty(key);
-		//logger.info("Returning value " + value + " for key " + key);
+		// logger.info("Returning value " + value + " for key " + key);
 		return value;
 	}
 
@@ -387,6 +394,16 @@ public class ClassUtil {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	public static EList<ActivityEdge> outgoing(Action act) {
+		return act.getOutgoings();
+	}
+
+	public static String getSwimlane(Action act) {
+		if (act.getInPartitions().size() > 0)
+			return act.getInPartitions().get(0).getName();
+		return null;
 	}
 
 	public static String getSingular(String word) {
