@@ -12,11 +12,12 @@
 
 
 «DEFINE StateMachineRoot FOR uml::Activity»
-	«FILE "../webapp/admin/" + name + ".xml"»
+	«FILE "../webapp/admin/" + name + ".xml" -»
 <?xml version="1.0" encoding="UTF-8"?>
 
 <process-definition xmlns="" name="«name»">
 	«EXPAND gen FOREACH allOwnedElements().typeSelect(uml::ActivityPartition)»
+	«EXPAND gen FOREACH allOwnedElements().typeSelect(uml::InitialNode)»
 	«EXPAND genAction FOREACH allOwnedElements().typeSelect(uml::Action)»
 	«EXPAND gen FOREACH allOwnedElements().typeSelect(uml::ActivityFinalNode)»
 </process-definition>
@@ -38,6 +39,18 @@
 		«ENDFOREACH»
 	</task-node>
 «ENDDEFINE»
+
+
+«DEFINE gen FOR uml::InitialNode»
+ 	<start-state name="«name»">
+		<task name="«name»Task" swimlane="«getSwimlane()»">
+		</task>
+		«FOREACH outgoing() AS o-»
+		<transition to="«o.target.name»" name="«o.guard.stringValue()»"></transition>
+		«ENDFOREACH»
+	</task-node>
+ «ENDDEFINE»
+
 
  «DEFINE gen FOR uml::ActivityFinalNode»
  	<end-state name="«name»"></end-state>
