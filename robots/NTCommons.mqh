@@ -105,7 +105,9 @@ int tradeRange(int begin, int end, int closeAfter, int Offset){
   if (IsTesting()) int oset = Offset ; else oset = 0;
 
    int hour = getGmtHour(oset);
-   int day = TimeDayOfWeek(getGmtHour());
+   int day = TimeDayOfWeek(TimeGmt());
+   
+   
    
    
    // Print("BEF " + hour + " " + begin + " "  + end ); 
@@ -113,18 +115,44 @@ int tradeRange(int begin, int end, int closeAfter, int Offset){
       end = end + 24;
       if (hour < begin ) hour = hour + 24;
    }
+   
+  if (day == 5 && MathMod(hour, 24)  >= begin  ){
+   end = 19;
+   closeAfter = 1;
+  }
+ // Print ("End is "+ end + " day " + day + " hour " + hour + "  begin " + begin);
+  
+ 
   
    //Print(hour + " " + begin + " "  + end ); 
    if(hour  >= begin && hour < end )
       return(TRADING);
    else if(hour >= end && MathMod(hour,24) < MathMod(end + closeAfter, 24))
       return (POSTEND);
-   else if( ( MathMod(hour,24) > MathMod(end + closeAfter, 24))  || (day == 5 && hour >= 20 ) )
+   else if( ( MathMod(hour,24) > MathMod(end + closeAfter, 24))  /*|| (day == 5 && MathMod(hour,24) >= 20 )*/ )
       return (CLOSEHR);
+      
+  if(day == 5 && getGmtHour() >= 20 && TimeMinute(TimeLocal()) > 45 )
+   return (OUTSIDE);
 
 
    return (OUTSIDE);
 } 
+
+
+bool isSunday( int begin){
+   //if (IsTesting()) int oset = Offset ; else oset = 0;
+   int hour = getGmtHour();
+   int day = getDay();
+   
+   if(day == 0 || (day == 1 && hour < begin))
+      return (true);
+   return (false);
+}
+
+int getDay(){
+   return ( TimeDayOfWeek(TimeGmt()) );
+}
 
 
 
