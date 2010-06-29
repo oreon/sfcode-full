@@ -3,11 +3,11 @@
 <process-definition  xmlns=""  name="LeaveRequest">
 
  <swimlane name="junior">
-   <assignment actor-id="#{actor.id}"></assignment>
+   <assignment actor-id="mike"></assignment>
  </swimlane>
 
  <swimlane name="manager">
-	 <assignment pooled-actors="manager"></assignment>
+	 <assignment actor-id="rob"></assignment>
  </swimlane>
 
 
@@ -17,15 +17,15 @@
 
 
 	<task-node name="createLeaveRequest">
-		<task name="leaveRequestTask" swimlane="junior">
-			
+		<task name="leaveRequestTask" notify="true">
+			 <assignment actor-id="mike@htomail.com"></assignment>
 		</task>
 		<transition to="reviewTaksRequest" name="sendRequest"></transition>
 	</task-node>
 
 	<task-node name="reviewTaksRequest">
-		<task name="reviewTaskRequestTask" swimlane="manager">
-			
+		<task name="reviewTaskRequestTask"   notify="true">
+			 <assignment actor-id="rob@gmail.com"></assignment>
 		</task>
 		<transition to="end-state1" name="reject"></transition>
 		<transition to="modifyLeaveRequest" name="modify"></transition>
@@ -33,7 +33,9 @@
 	</task-node>
 	
 	<task-node name="modifyLeaveRequest">
-		<task name="leaveRequestTask" swimlane="junior" />
+		<task name="leaveRequestTask"  notify="true" >
+			 <assignment actor-id="mike"></assignment>
+		</task>
 		<transition to="reviewTaksRequest" name="sendRequest"></transition>
 	</task-node>
 

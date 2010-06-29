@@ -13,6 +13,9 @@
     <service name="scheduler" factory="org.jbpm.scheduler.db.DbSchedulerServiceFactory" />
     <service name="logging" factory="org.jbpm.logging.db.DbLoggingServiceFactory" />
     <service name="authentication" factory="org.jbpm.security.authentication.DefaultAuthenticationServiceFactory" />
+    <bean name='jbpm.mail.address.resolver' class='org.witchcraft.users.idreslover.IdentityAddressResolver' singleton='true' />
+    <string name="resource.mail.properties" value="jbpm.mail.properties" />
+    <string name="resource.mail.templates" value="jbpm.mail.templates.xml" />
   </jbpm-context>
 
 </jbpm-configuration>
