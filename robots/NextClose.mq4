@@ -8,18 +8,19 @@
 #include <ntann.mqh>
 
 
-#include "include\NTCommons.mqh"
+#include <NTCommons.mqh>
 
 // Global defines
 #define ANN_PATH	"C:\\ANN\\"
 // EA Name
-#define NAME		"NextClose-V14-"
+
+string name = "NEXTCLOSE-V156-"; 
 
 //---- input parameters
 extern double Lots = 0.01;
 extern bool UseMoneyManagement = true;
-extern double RiskFactor = 0.05;
-extern int MAGIC_NUM = 34777;
+extern double RiskFactor = 0.2;
+extern int MAGIC_NUM = 34779;
 extern int Stop = 140;
 extern int Trail = 15;
 extern int TakeProfit = 10;
@@ -28,9 +29,10 @@ extern bool TrailFractal = false;
 extern bool ContinuousMode = false;
 //extern bool StepOrders = false;
 extern int RiskReducer = 20;
-extern int Epochs = 500;
+extern int Epochs = 80;
 extern int MaxEpochs = 1200;
 extern double  ForceIndex = 5.5;
+extern bool TradeOnSunday = false;
 //extern int TakeProfit = 55;
 
 // Global variables
@@ -65,7 +67,7 @@ string path;
 
 extern double MinMSE = 0.00000250;
 extern bool TimeFilter = true;
-extern int SlidingWindow = 16;
+extern int SlidingWindow = 32;
 
 extern int CloseAfter = 2;
 extern int BeginHour = 16;
@@ -79,7 +81,7 @@ int cnt = 0;
 bool tradedInThisPrd = false;
 
 
-string name = "NEXTCLOSE-V15-";
+
 
 //+------------------------------------------------------------------+
 //| expert initialization function                                   |
@@ -98,26 +100,26 @@ int init ()
     
     int day = TimeDayOfWeek(TimeGmt() );
   
-  if(day == 0  ){  
+  if(day == 0 && TradeOnSunday == false ){  
    Comment("Trading disabled on sunday .");
    return (0);
   }
     
     path = TerminalPath() + "//experts//files"; 
-    ann = CreateAnn();
-    f2M_parallel_init();
+    initAnn();
     
      double price = Close[1];
      
-    if(AutoAdjustDigits && Digits == 3 || Digits ==5 ){
+    if(AutoAdjustDigits && (Digits == 3 || Digits ==5)  ){
    
+      Print("multiplying ");
       TakeProfit= TakeProfit * 10; // Уровень прибыли в пипсаз от цены открытия.
       //PipStep=PipStep * 10; // растоянию в пипсах убытка на котором открываеться следующий ордер колена.
       Trail = Trail*10;
       Stop = Stop *10;
       Step = Step * 10;
       Threshhold = Threshhold * 10;
-      //RiskReducer = RiskReducer * 10;
+      RiskReducer = RiskReducer * 10;
    }
      /*
      for(int i = 0; i < Digits; i++){
@@ -129,6 +131,13 @@ int init ()
    if (price > 100 && price < 1000 ) mult =0.001;
     
     return (0);
+}
+
+void initAnn(){
+   if(ann == 0 ){
+    ann = CreateAnn();
+    f2M_parallel_init();
+    }
 }
 
 
@@ -144,21 +153,22 @@ int prevDay = -1;
 
 int perform ()
 {
+   initAnn();
    comment = "---" + name +   "--\n";
    // modifyOrder(MAGIC_NUM, Trail);
     int orders = getOrderCount(MAGIC_NUM);
-    double force = iForce(NULL, 0, 6,MODE_EMA,PRICE_CLOSE,0);
+    double force = iForce(NULL, PERIOD_M15, 6,MODE_EMA,PRICE_CLOSE,0);
     int j = 0;
     
     if(orders > 0 ){
     
-    
+    /*
       if(MathAbs(force) > ForceIndex){
         int orderDirection = getOrderDirection(MAGIC_NUM);
         if( (force > ForceIndex && orderDirection == OP_SELL) || (force < -ForceIndex && orderDirection == OP_BUY)) 
         closeOrders(MAGIC_NUM);
        
-      }
+      }*/
       
       if(TrailFractal)  
         TrailingStop(MAGIC_NUM);
@@ -373,56 +383,27 @@ void manageOrders(double out){
        if(OrderSelect(cnt,SELECT_BY_POS,MODE_TRADES)==false)        continue;
        if(OrderMagicNumber()== MAGIC_NUM && OrderSymbol()==Symbol()) {
          double tp = OrderTakeProfit();
-         
        
          //continue;
          double minStep = 30*Point;
-         
+        
          if(OrderProfit() < 0 ) return;
-         
+        
          if(OrderType() == OP_BUY ) {
-         
-            //if (Close[0] == out) OrderClose(OrderTicket(),OrderLots(),Bid,3,Violet); 
-         
-            if( out < OrderOpenPrice() - minStep    ){
-               OrderClose(OrderTicket(),OrderLots(),Bid,3,Violet); 
+        
+             if( out < OrderTakeProfit() && out > OrderOpenPrice() ){
+                changeTP(MAGIC_NUM, out );
                 Sleep(20000);
-            }else if (out > OrderOpenPrice() && out < Close[0] && OrderProfit() > 0 ){
-               OrderClose(OrderTicket(),OrderLots(),Bid,3,Violet); 
-            }else {
-            
-               //changeTP(MAGIC_NUM, out );
             }
-               
-            
-            /*
-            if(  out != OrderTakeProfit() && out > OrderOpenPrice() ) {
-              changeTPop(MAGIC_NUM, out, OP_SELL);
-             }
-             if(out < OrderOpenPrice()   ){
-                OrderClose(OrderTicket(),OrderLots(),Bid,3,Violet); 
-            }*/
-            /*
-            else {
-              // if(OrderProfit() > 0 ){
-                  OrderClose(OrderTicket(),OrderLots(),Bid,3,Violet); 
-                  // timeprev = 0;  
-               //}
-            }*/
-            
+           
          }
-         
+        
           if(OrderType() == OP_SELL ) {
-         
-          //  if (Close[0] == out) OrderClose(OrderTicket(),OrderLots(),Ask,3,Violet); 
-         
-           if( out > OrderOpenPrice() + minStep  ){
-                OrderClose(OrderTicket(),OrderLots(),Ask,3,Violet); 
+ 
+        
+           if( out > OrderTakeProfit() && out < OrderOpenPrice() ){
+                changeTP(MAGIC_NUM, out );
                 Sleep(20000);
-            }else if (out < OrderOpenPrice() && out > Close[0]  && OrderProfit() > 0 ){
-               OrderClose(OrderTicket(),OrderLots(),Ask,3,Violet); 
-            }else {
-               //changeTP(MAGIC_NUM, out );
             }
          }
        }
@@ -462,7 +443,7 @@ void placeOrders(double out){
    
       
     if (out < Bid - threshhold && boll <= 0 /*&& out < ma&& obv < 0 && bo == 0*/ ){
-      Print("Placing sell order " + Symbol());
+      //Print("Placing sell order " + Symbol());
       closeOrdersOp(MAGIC_NUM, OP_BUY);
     //  out = Bid - TakeProfit * Point;
        placeOrderL(OP_SELL,  out );
@@ -597,17 +578,21 @@ string timeText =  "  Trading will begin at GMT:";
  
 int doTimeFilter(int day){
    int endHour = EndHour;
-   if(day == 5 ){
-      endHour = 20;
+   int ret = 0;
+   
+   if(!TradeOnSunday && isSunday(BeginHour)){
+       printComment(" Trading disabled on sunday ... ");
+       return (ret);
    }
+   
    int trange = tradeRange(BeginHour, endHour, CloseAfter, Offset);
    if(!TimeFilter){
        printComment(" TimFilter off ");
        return (1);
    }
    string timeText =  "\nLots:" +  Lots + " "; 
-   int ret = 0;
-        
+  
+   //Print("time " + trange);
    if(trange == TRADING ){
       timeText = " \nReady to trade \n Trade Range " + BeginHour + ":00 - " + EndHour + ":00 GMT ";
       ret = 1;
@@ -636,12 +621,19 @@ int doTimeFilter(int day){
 
  void printComment(string cmt){
     
-    comment = StringConcatenate( comment,  "Traded:" +  tradedInThisPrd + "\nNow is GMT : " +  getGmtHour() + " \n" + cmt 
+    comment = StringConcatenate( comment,  "Traded:" +  tradedInThisPrd + "\nNow is GMT : " + getTime()  + " \n" + cmt 
          + " \n \n GMT Offset: " + Offset  );
          
    // double later = NormalizeDouble(iCustom (NULL, 0, "PredictedMA", 0, -2), MarketInfo(Symbol(), MODE_DIGITS) ); 
     
-}  
+ }
+ 
+ string getTime(){
+   int minutes = TimeMinute(TimeLocal());
+   string min = "" + minutes;
+   if(minutes < 10) min = "0" + min;
+   return ( getGmtHour() + ":" + min );
+ }  
 
 
 void ann_destroy (){
