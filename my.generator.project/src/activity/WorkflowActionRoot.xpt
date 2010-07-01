@@ -1,0 +1,74 @@
+«IMPORT uml2»
+«IMPORT wcprofile»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+
+
+«DEFINE Root FOR uml::Model»
+	«EXPAND StateMachineRoot FOREACH allOwnedElements().typeSelect(uml::Activity)»
+«ENDDEFINE»
+
+
+
+«DEFINE StateMachineRoot FOR uml::Activity»
+	«FILE getWorkflowActionPath() -»
+	
+package «getWebPackageName()»;
+	
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Out;
+import org.jboss.seam.annotations.bpm.CreateProcess;
+import org.jboss.seam.annotations.bpm.EndTask;
+import org.jboss.seam.annotations.bpm.StartTask;
+import org.jbpm.JbpmContext;
+
+@Name("«name»Action")
+// @Scope(ScopeType.CONVERSATION)
+class «name.toFirstUpper()» {
+
+	@CreateProcess(definition = "«name»")
+	public void startProcess() {
+	
+	}
+	
+	«EXPAND genAction FOREACH allOwnedElements().typeSelect(uml::Action)»
+
+}
+	«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE genAction FOR uml::Action»
+	@StartTask
+	public void start«name.toFirstUpper()»Task() {
+		
+	}
+	
+	«FOREACH outgoing() AS o-»
+	@EndTask(transition = "«o.guard.stringValue()»")
+	public void «o.guard.stringValue()»«name.toFirstUpper()»() {
+		
+	}
+	«ENDFOREACH»
+«ENDDEFINE»
+
+
+
+«DEFINE gen FOR uml::InitialNode»
+ 	<start-state name="«name»">
+		<task name="«name»Task" swimlane="«getSwimlane()»">
+		</task>
+		«FOREACH outgoing() AS o-»
+		<transition to="«o.target.name»" name="«o.guard.stringValue()»"></transition>
+		«ENDFOREACH»
+	</task-node>
+ «ENDDEFINE»
+
+
+ «DEFINE gen FOR uml::ActivityFinalNode»
+ 	<end-state name="«name»"></end-state>
+ «ENDDEFINE»
+
