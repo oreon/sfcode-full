@@ -1,9 +1,33 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.witchcraftmda.archetypes</groupId>
-  <artifactId>richfacesSeamArchetype</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <name>Archetype - richfacesSeamArchetype</name>
-  <url>http://maven.apache.org</url>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.witchcraftmda.archetypes</groupId>
+	<artifactId>richfacesSeamArchetype</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>Archetype - richfacesSeamArchetype</name>
+	<url>http://maven.apache.org</url>
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ftp</artifactId>
+				<version>1.0-beta-6</version>
+			</extension>
+		</extensions>
+	</build>
+
+	<distributionManagement>
+		<!-- use the following if you're not using a snapshot version. -->
+		<repository>
+			<id>wc-reporel</id>
+			<name>oreon</name>
+			<url>ftp://74.52.67.146</url>
+		</repository>
+		<!-- use the following if you ARE using a snapshot version. -->
+		<snapshotRepository>
+			<id>wc-repo</id>
+			<name>oreon</name>
+			<url>ftp://74.52.67.146</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
