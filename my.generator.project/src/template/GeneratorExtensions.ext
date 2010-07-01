@@ -247,7 +247,13 @@ JAVA org.wc.generatorutil.ClassUtil.serialver(org.eclipse.uml2.uml.Class);
 outgoing (Action act) : 
 JAVA org.wc.generatorutil.ClassUtil.outgoing(org.eclipse.uml2.uml.ActivityNode);
 
+outgoing (InitialNode act) : 
+JAVA org.wc.generatorutil.ClassUtil.outgoing(org.eclipse.uml2.uml.ActivityNode);
+
 getSwimlane (Action act) : 
+JAVA org.wc.generatorutil.ClassUtil.getSwimlane(org.eclipse.uml2.uml.ActivityNode);
+
+getSwimlane (InitialNode act) : 
 JAVA org.wc.generatorutil.ClassUtil.getSwimlane(org.eclipse.uml2.uml.ActivityNode);
 
  //split the given string by ',' and return a list 
@@ -265,3 +271,8 @@ entity.tableName!=null?entity.tableName.toLowerCase():entity.name.toLowerCase();
 getQyeryTypeByReturnType(Operation op):
 op.type == "List" ? "" : "SingleResult";
 
+getWorkflowActionPath(Activity act):
+getTopLevelPackage().packagePath() + "/web/action/workflows/"  + act.name.toFirstUpper() +  ".java";
+
+getWebPackageName(Activity act):
+getTopLevelPackage() + ".web.action.workflows" ;
