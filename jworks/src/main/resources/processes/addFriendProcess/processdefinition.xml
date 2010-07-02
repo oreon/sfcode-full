@@ -3,7 +3,7 @@
 <process-definition xmlns="" name="addFriendProcess">
 
 	<swimlane name="initiator">
-		<assignment actor-id="#{actior.id}"></assignment>
+		<assignment actor-id="singhjess@gmail.com"></assignment>
 	</swimlane>
 	<swimlane name="prospective">
 		<assignment class="com.wc.sample.FriendAssignment"></assignment>
@@ -13,12 +13,17 @@
 	<start-state name="addFriend">
 		<task swimlane='initiator'>
 		</task>
-		<transition to="reviewRequest" name="notify"></transition>
+		<transition to="sendmail" name="notify"></transition>
 	</start-state>
+	
+	
+	<mail-node name="sendmail" to="singhjess@gmail.com" subject="readmylips" text="nomoretaxes">
+  		<transition to="reviewRequest" name="notify" />
+	</mail-node>
 
 
 	<task-node name="reviewRequest">
-		<task name="doAssign" swimlane="prospective">
+		<task name="doAssign" swimlane="prospective" notify="yes">
 		</task>
 		<transition to="accept" name="accept"></transition>
 		<transition to="reject" name="reject"></transition>
@@ -32,6 +37,6 @@
 
 
 	<end-state name="accept"></end-state>
-
+	<end-state name="reject"></end-state>
 
 </process-definition>
