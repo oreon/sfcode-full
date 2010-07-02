@@ -6,17 +6,24 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import org.jbpm.JbpmConfiguration;
+import org.jbpm.JbpmContext;
 import org.jbpm.graph.def.ProcessDefinition;
 import org.jbpm.graph.exe.ExecutionContext;
 import org.jbpm.graph.exe.ProcessInstance;
 import org.jbpm.taskmgmt.exe.TaskInstance;
+import org.testng.annotations.Test;
 
 public class FriendRequestTest {
 	public static void main(String args[])throws Exception {
 		new FriendRequestTest().executeMine();
 	}
 	
+	@Test
 	public void executeMine() throws Exception{
+		
+		JbpmConfiguration config =JbpmConfiguration.parseInputStream(new FileInputStream(new File("src/main/resources/jbpm.cfg.xml") ));
+		JbpmContext jbpmContext = config.createJbpmContext();
 		// Extract a process definition from the processdefinition.xml file.
 		File file = new File("src/main/resources/processes/addFriendProcess/processdefinition.xml");
 		//System.out.println( file.exists() );
@@ -25,8 +32,8 @@ public class FriendRequestTest {
 		ProcessDefinition processDefinition = ProcessDefinition.parseXmlInputStream(new FileInputStream(file));
 		HashMap map = new HashMap();
 		
-		map.put("username","olivert"); 
-		map.put("from", "rodney");
+		map.put("to","singhjess@gmail.com"); 
+		map.put("from", "jagdeepskohli@yahoo.com");
 		map.put("goodsInStock",new Integer(50));
 		//map.put("leaveRequest", lr);
 
@@ -104,9 +111,11 @@ public class FriendRequestTest {
 			
 			//taskInstance..getTaskNode().g
 			//if(taskInstance.getTask())
-			transition = "addDetails";
-			if(from == "ron")
+			transition = "moreDetails";
+			if(from == "jagdeepskohli@yahoo.com")
 				transition = "accept";
+			
+			//if(task.name=="")
 			
 				
 			if (!taskInstance.hasEnded()){   
