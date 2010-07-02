@@ -11,9 +11,9 @@
 
    <h:form id="list">
       <div>
-         <h:outputText value="There are no Tasks assigned to you at the moment." rendered="#{empty taskInstanceList}"/>
-         <h:dataTable value="#{taskInstanceList}" 
-            var="task" rendered="#{not empty taskInstanceList}"
+         <h:outputText value="There are no order at the moment." rendered="#{empty taskInstancePriorityList}"/>
+         <h:dataTable value="#{taskInstancePriorityList}" 
+            var="task" rendered="#{not empty taskInstancePriorityList}"
             bgcolor="#F1F1F1" border="1">
             <h:column>
                 <f:facet name="header">
@@ -33,49 +33,35 @@
             
             <h:column>
                 <f:facet name="header">
-                    <h:outputText value="Assignee"/>
+                    <h:outputText value="Name"/>
                 </f:facet>
                   <h:outputText value="#{task.actorId}"/>
             </h:column>
             
             <h:column>
                 <f:facet name="header">
-                    <h:outputText value="From"/>
+                    <h:outputText value="Name"/>
                 </f:facet>
                   <h:outputText value="#{task.previousActorId}"/>
             </h:column>
             
             <h:column>
                 <f:facet name="header">
-                    <h:outputText value="Title"/>
+                    <h:outputText value="Quantity"/>
                 </f:facet>
-                  <h:outputText value="#{task.variables['title']}"/>
-            </h:column>
-            
-              <h:column>
-                <f:facet name="header">
-                    <h:outputText value="NumDays"/>
-                </f:facet>
-                  <h:outputText value="#{task.variables['numDays']}"/>
-            </h:column>
-			
-			 <h:column>
-			 	<ui:repeat var="trans" value="#{task.availableTransitions}">
-			 		 <s:link value="#{trans.name}" action="#{leaveRequestAction.approve}" taskInstance="#{task}" /> <h:outputText value=" " />
-			 	</ui:repeat>
-                <s:button action="#{leaveRequestAction.send}" taskInstance="#{task}" value="Send"/>
+                  <h:outputText value="#{task.variables['processQuantity']}"/>
             </h:column>
 
             <h:column>
-                <s:button action="#{leaveRequestAction.approve}" taskInstance="#{task}" value="Accept"/>
+            	<ui:repeat var="trans" value="#{task.availableTransitions}">
+			 		 <s:link value="#{trans.name}" action="#{orderStock.done}" /> 
+			 	</ui:repeat>
+			 	
+                <s:button action="#{orderStock.done}" taskInstance="#{task}" value="Done"/>
             </h:column>
             <h:column>
-                 <s:button action="#{leaveRequestAction.modify}" taskInstance="#{task}" value="Modify"/>
+                <s:button action="#{orderStock.cancel}" taskInstance="#{task}" value="Cancel"/>
             </h:column>
-            <h:column>
-                 <s:button action="#{leaveRequestAction.reject}" taskInstance="#{task}" value="Reject"/>
-            </h:column>
-            
 
          </h:dataTable>
       </div>
@@ -83,17 +69,10 @@
       <h:messages/>
       </div>
    </h:form>
-   
-   
    <h:form id="new">
       <div>
-         <h:outputText value="Num Days"  />
-         <h:inputText value="#{leaveRequestAction.leaveRequest.numDays}" />
-
-		 <h:outputText value="Title"  />
-         <h:inputText value="#{leaveRequestAction.leaveRequest.title}" />
-  	         
-         <h:commandButton value="Create Task" action="#{leaveRequestAction.startProcess}"/>
+         <h:inputText value="#{orderStock.quantity}" />
+         <h:commandButton value="Enter order quantity" action="#{orderStock.startProcess}"/>
       </div>
    </h:form>
 
