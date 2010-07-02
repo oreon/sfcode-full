@@ -3,21 +3,22 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich" template="/admin/template.xhtml">
+	xmlns:rich="http://richfaces.org/rich">
 
-	<ui:define name="content">
+	
 		<h2>Your Tasks</h2>
 
 		<h:form id="list">
 			<div><h:outputText
 				value="There are no Tasks assigned to you at the moment."
-				rendered="#{empty taskInstanceList}" /> <h:dataTable
+				rendered="#{empty taskInstanceList}" /> 
+				
+				<h:dataTable
 				value="#{taskInstanceList}" var="task"
-				rendered="#{not empty taskInstanceList}" bgcolor="#F1F1F1"
-				border="10">
+				rendered="#{not empty taskInstanceList}" border="1">
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Created" />
+						<h:outputText value="Created" /> 
 					</f:facet>
 					<h:outputText
 						value="#{task.taskMgmtInstance.processInstance.start}">
@@ -42,7 +43,7 @@
 
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Title" />
+						<h:outputText value="Description" />
 					</f:facet>
 					<h:outputText value="#{task.description}" />
 				</h:column>
@@ -57,7 +58,9 @@
 				<h:column>
 					<ui:repeat var="trans" value="#{task.availableTransitions}">
 						<s:link value="#{trans.name}"
-							action="#{leaveRequestAction.approve}" taskInstance="#{task}" />
+							action="#{leaveRequestAction.makeDecision}" taskInstance="#{task}" >
+							<f:param name="transName" value="#{trans.name}" />
+						</s:link>	
 						<h:outputText value=" " />
 					</ui:repeat>
 				</h:column>
@@ -68,5 +71,4 @@
 		</h:form>
 
 
-	</ui:define>
 </ui:composition>
