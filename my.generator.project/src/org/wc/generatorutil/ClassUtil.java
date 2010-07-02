@@ -383,7 +383,7 @@ public class ClassUtil {
 			// InputStream stream =
 			// ClassUtil.class.getResourceAsStream("/workflow.properties");
 			properties.load(new FileInputStream(
-					"src/workflow/workflow.properties"));
+					"properties/workflow.properties"));
 			if (properties == null) {
 				logger
 						.error("workflow properties file is not in the classpath");
