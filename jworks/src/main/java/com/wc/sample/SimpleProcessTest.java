@@ -96,6 +96,8 @@ public class SimpleProcessTest {
 
 			TaskInstance taskInstance = (TaskInstance)iter.next();   
 			taskInstance.getAvailableTransitions();
+			if(taskInstance.getActorId() == null)
+				taskInstance.setActorId("singhjess@gmail.com");
 			
 			//taskInstance.end(transition);
 				

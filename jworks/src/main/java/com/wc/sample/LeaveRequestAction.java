@@ -1,9 +1,15 @@
 package com.wc.sample;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import javax.faces.context.FacesContext;
+
 import org.jboss.seam.annotations.bpm.CreateProcess;
 import org.jboss.seam.annotations.bpm.EndTask;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.bpm.StartTask;
+import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.annotations.*;
 import org.jboss.seam.bpm.ProcessInstance;
 import org.jboss.seam.bpm.TaskInstance;
@@ -21,6 +27,9 @@ public class LeaveRequestAction {
 	String title;
 	
 	private LeaveRequest leaveRequest = new LeaveRequest();
+	
+	@RequestParameter
+	String transName;
 	
 	//@Out(scope = ScopeType.BUSINESS_PROCESS, required = false)
 	//private LeaveRequest taskLeaveRequest;
@@ -45,8 +54,28 @@ public class LeaveRequestAction {
 	}
 	
 	
-	public void makeDecision(String action){
-		
+	public void makeDecision(){
+		//FacesContext.getCurrentInstance()
+		System.out.println("going to execute " + transName);
+		try {
+			Method method = this.getClass().getMethod(transName);
+			method.invoke(this, null);
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 	}
 
 	@StartTask
@@ -58,6 +87,7 @@ public class LeaveRequestAction {
 	@StartTask
 	@EndTask(transition = "reject")
 	public void reject() {
+		System.out.println("task xx has been rejected");
 	}
 	
 	@StartTask
