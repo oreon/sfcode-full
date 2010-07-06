@@ -3,6 +3,7 @@
 «EXTENSION org::openarchitectureware::uml2::profile::profiling»
 «EXTENSION template::GeneratorExtensions»
 «EXTENSION template::webExtensions»
+«EXTENSION template::associationExtensions»
 
 «DEFINE genPages FOR uml::Model»
 «FILE "../webapp/WEB-INF"  + "/pages.xml"-»
@@ -56,6 +57,9 @@
             </rule>			
 		</navigation>
 		<param name="«e.asVar()»Id" value="#{«e.asVar()»Action.«e.asVar()»Id}" />
+		«FOREACH e.getOutgoingAssociations() AS a-»
+		<param name="«a.name»Id" value="#{«e.getAction()».«a.name»Id}" />
+		«ENDFOREACH»
 	</page>
 	
 	 <page view-id="«e.getViewFile("view")»" conversation-required="false" >

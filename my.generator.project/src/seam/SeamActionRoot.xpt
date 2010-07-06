@@ -81,6 +81,19 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 		setId(id);
 		loadAssociations();
 	}
+	
+	«FOREACH getOutgoingAssociations() AS e-»
+	public void set«e.name.toFirstUpper()»Id(Long id) {
+		getInstance().set«e.name.toFirstUpper()»(«e.name»Action.loadFromId(id));
+	}
+
+	public Long get«e.name.toFirstUpper()»Id() {
+		if (getInstance().get«e.name.toFirstUpper()»() != null)
+			return getInstance().get«e.name.toFirstUpper()»().getId();
+		return 0L;
+	}
+	«ENDFOREACH»
+	
 
 	public Long get«name»Id() {
 		return (Long) getId();
