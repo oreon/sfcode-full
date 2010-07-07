@@ -33,7 +33,7 @@
 
 «DEFINE genAction FOR uml::Action»
 	<task-node name="«name»">
-		<task name="«name»Task" swimlane="«getSwimlane()»">
+		<task name="«name»Task" «getSwimlane() != null ?"swimlane=" + getSwimlane()+ "\"":""»>
 		</task>
 		«FOREACH outgoing() AS o-»
 		<transition to="«o.target.name»" name="«o.guard.stringValue()»"></transition>
@@ -43,7 +43,7 @@
 
 «DEFINE genAction FOR wcprofile::Task»
 	<task-node name="«name»">
-		<task name="«name»Task" swimlane="«getSwimlane()»" notify=«getNofity()»>
+		<task name="«name»Task"  «getSwimlane() != null ?"swimlane=" + getSwimlane()+ "\"":""» days="«days»" notify="«notify»">
 		</task>
 		«FOREACH outgoing() AS o-»
 		<transition to="«o.target.name»" name="«o.guard.stringValue()»"></transition>
@@ -59,7 +59,7 @@
 		«FOREACH outgoing() AS o-»
 		<transition to="«o.target.name»" name="«o.guard.stringValue()»"></transition>
 		«ENDFOREACH»
-	</task-node>
+	</start-state>
  «ENDDEFINE»
 
 
