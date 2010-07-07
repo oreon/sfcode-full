@@ -224,6 +224,8 @@ int start()
   }
   
   
+  string name = "BREAKEA";
+  
   void placeOrder(int op){
    int ticket = 0;
    int ticket2 = 0;
@@ -245,15 +247,16 @@ int start()
       closeExistingOrders(OP_SELL);
       double sl = Bid - (Stop * Point);
       double tp = Ask+ ( Limit *Point);
-      
-      ticket=OrderSend (Symbol(),OP_BUY,Lots,Ask,7, sl, tp,"BREAKEA" + getTimeFrame(), MAGIC_NUM,0, Purple);
+      ticket=sendOrderRel(op,  sl, tp, Lots, name + getTimeFrame(), MAGIC_NUM);
    }
    else if( op == OP_SELL ){
       closeExistingOrders(OP_BUY);
       tp = Bid - (Limit * Point);
       sl = Ask+ (( Stop*Point) );
-      ticket=OrderSend(Symbol(),OP_SELL,Lots,Bid,7,sl ,tp,"BREAKEA" + getTimeFrame(), MAGIC_NUM,0, Yellow);
+      ticket=sendOrderRel(op,  sl, tp, Lots, name + getTimeFrame(), MAGIC_NUM);
+      
    }
+   
    placeBigOrder(op);
 }
 
@@ -273,7 +276,7 @@ void placeBigOrder(int op){
              double price = Ask + (i * step)* Point;
              double tp = price + (step * Point );
              double sl = Bid - (StepStopLoss * Point);
-             ticket=OrderSend (Symbol(),OP_BUYSTOP, prevLots, price , 3 ,sl, tp ,"XX BIG" + getTimeFrame(), MAGIC_NUM_BIG,0, Purple);
+              ticket=sendPendingOrderRel(price, OP_BUYSTOP,  sl, tp, prevLots, "XX BIG" + getTimeFrame(), MAGIC_NUM_BIG);
              //prevLots = newLots;
          }
        }
@@ -284,8 +287,7 @@ void placeBigOrder(int op){
             price = Bid - (i  *step)*Point;
             tp = price - (step * Point);
             sl = Ask+ (( StepStopLoss * Point) );
-            ticket=OrderSend(Symbol(),OP_SELLSTOP, prevLots,  price, 3 , sl, tp,
-                  "XX BIG" + getTimeFrame(), MAGIC_NUM_BIG,0, Yellow);
+            ticket=sendPendingOrderRel(price, OP_SELLSTOP,  sl, tp, prevLots, "XX BIG" + getTimeFrame(), MAGIC_NUM_BIG);
             //prevLots = newLots;
          }
  
@@ -293,6 +295,32 @@ void placeBigOrder(int op){
   
 
 }
+
+
+int sendPendingOrderRel(double price, int dir, double sl, double tp, double lots , string cmt, int magic ,  string symbol = "" ){
+    int prmode = MODE_ASK;
+    if(symbol == "" ) symbol = Symbol();
+    if (dir == OP_SELL || dir == OP_SELLSTOP || dir == OP_SELLLIMIT)  prmode = MODE_BID;
+    
+    //double price  = MarketInfo(symbol, prmode);
+    int ticket = OrderSend(symbol,dir,Lots,price,30,0,0,"YENBOT",magic,0,CLR_NONE);
+    if(ticket >= 0 )
+      OrderModify(ticket, OrderOpenPrice(),	sl, tp, 0, CLR_NONE);
+    return (ticket);
+}
+
+int sendOrderRel(int dir, double sl, double tp, double lots , string cmt, int magic ,  string symbol = "" ){
+    int prmode = MODE_ASK;
+    if(symbol == "" ) symbol = Symbol();
+    if (dir == OP_SELL )  prmode = MODE_BID;
+    
+    double price  = MarketInfo(symbol, prmode);
+    int ticket = OrderSend(symbol,dir,Lots,price,30,0,0,"YENBOT",magic,0,CLR_NONE);
+    if(ticket >= 0 )
+      OrderModify(ticket, OrderOpenPrice(),	sl, tp, 0, CLR_NONE);
+    return (ticket);
+}
+
 
  string opName(int op){
     if(op == OP_BUY )
