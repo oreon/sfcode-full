@@ -6,6 +6,7 @@ import wcprofile;
 
 extension org::openarchitectureware::uml2::profile::profiling;
 extension template::GeneratorExtensions;
+extension template::associationExtensions;
 
 
 String getAction(Class cls):
@@ -229,7 +230,7 @@ genAuditLogPropertyLabel(Property prop):
 
 
 getEmbeddableClassName(Property prop):
-prop.class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":"";
+prop.class.isEmbeddable() || prop.isContainedAssoc() ?getCurrentEmbeddable().asVar() + ".":"";
 
 
 getWebPackagePath(Class cls, String ext):

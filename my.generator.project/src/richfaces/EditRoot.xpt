@@ -226,7 +226,7 @@
 «IF isFile()»
 	«IF isCurrentEditMode() »  «getTextForImgFile()»  «ELSE» «EXPAND getFileView » «ENDIF»
 «ELSE»
-	<«getTextControl()»  id="«getId()»#{entityId}" «isCurrentEditMode()? "required=\"" + getRequired() +"\"":""»  value="#{«getActionForMode()»«getCurrentEntity().asVar()».«class.isEmbeddable()?getCurrentEmbeddable().asVar() + ".":""»«name.toFirstLower()»}" />
+	<«getTextControl()»  id="«getId()»#{entityId}" «isCurrentEditMode()? "required=\"" + getRequired() +"\"":""»  value="#{«getActionForMode()»«genPropertyLabel()»}" />
 «ENDIF»   
 «ENDDEFINE»
 
