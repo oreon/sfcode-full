@@ -144,8 +144,9 @@
 
 «DEFINE genAttributeAssoc FOR uml::Property -»
 	«IF opposite.type.name != getCurrentEntity().name || !isCurrentMultiMode() »
-		«IF type.isEmbeddable()  -»
-			«type.setCurrentEmbeddable()» «associationEnd.isColumn() == true ? "true" : "false"»
+	 	
+		«IF type.isEmbeddable() || isContainedAssoc()  -»
+			«type.setCurrentEmbeddable()»
 			«EXPAND genAttribAsOutput FOR this.type-»
 		«ELSE»
 			«EXPAND genLabelAndControl FOR this-»
