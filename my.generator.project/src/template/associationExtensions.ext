@@ -26,3 +26,10 @@ cls.getAllAttributes().select(a|a.isMultivalued() == false && a.association != n
 //all embedded associations
 getEmbeddable(Class cls):
 cls.getAllAttributes().select(a|a.type.isEmbeddable());
+
+
+isOneOnOne(Property prop):
+(prop.isUnique ) && prop.association != null && prop.opposite!= null &&  (prop.opposite.isUnique ) ;
+
+isContainedAssoc(Property prop):
+prop.association.getAppliedStereotype("wcprofile::ContainedAssociation") != null;
