@@ -49,6 +49,10 @@ JAVA org.wc.generatorutil.ClassUtil.getCurrentEntity();
 setCurrentEmbeddable(Class cls):
 JAVA org.wc.generatorutil.ClassUtil.setCurrentEmbeddable(org.eclipse.uml2.uml.Class);
 
+clearCurrentEmbeddable(Class cls):
+JAVA org.wc.generatorutil.ClassUtil.clearCurrentEmbeddable(org.eclipse.uml2.uml.Class);
+
+
 setCurrentMultiMode(boolean val):
 JAVA org.wc.generatorutil.ClassUtil.setCurrentMultiMode(java.lang.Boolean);
 
@@ -230,7 +234,8 @@ genAuditLogPropertyLabel(Property prop):
 
 
 getEmbeddableClassName(Property prop):
-prop.class.isEmbeddable() || prop.isContainedAssoc() ?getCurrentEmbeddable().asVar() + ".":"";
+getCurrentEmbeddable() != null ?getCurrentEmbeddable().asVar() + ".":"";
+//prop.class.isEmbeddable() || prop.class.isContainedAssoc() ?getCurrentEmbeddable().asVar() + ".":"";
 
 
 getWebPackagePath(Class cls, String ext):

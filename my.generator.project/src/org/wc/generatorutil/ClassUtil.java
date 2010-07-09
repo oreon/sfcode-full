@@ -119,6 +119,11 @@ public class ClassUtil {
 	public static void setCurrentEmbeddable(Class currentEmbeddable) {
 		ClassUtil.currentEmbeddable = currentEmbeddable;
 	}
+	
+	public static void clearCurrentEmbeddable(Class currentEmbeddable){
+		//System.out.println("clearing currentEmbeddabel");
+		ClassUtil.currentEmbeddable = null;
+	}
 
 	public static Class getCurrentEntity() {
 		return currentEntity;

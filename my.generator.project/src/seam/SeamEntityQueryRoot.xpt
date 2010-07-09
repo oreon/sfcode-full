@@ -87,6 +87,7 @@ public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
 
 
 «DEFINE genAttribAsOutput(boolean createRangeDeclarations) FOR uml::Class»
+	«clearCurrentEmbeddable()-»
 	«FOREACH allParents() AS e-»
 	«EXPAND genAttribute(createRangeDeclarations) FOREACH e.getAllAttributes().select( a |!a.isMultivalued() && !a.isSecret()  ) -»
 	«ENDFOREACH»
@@ -97,15 +98,18 @@ public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
 	«IF association != null -»
 		«IF isMultivalued() || isSecret()»
 		«ELSE»
-			«IF type.getAppliedStereotype("wcprofile::Embeddable") != null-»
+			«IF type.isEmbeddable()-»
 				«type.setCurrentEmbeddable()»
 				«EXPAND genAttribAsOutput(createRangeDeclarations) FOR this.type-»
 			«ELSE»
+				«type.clearCurrentEmbeddable()-»
 				«EXPAND genAssociation(createRangeDeclarations) FOR this-»
 			«ENDIF»
 		«ENDIF»
 	«ELSE-»
+		«IF type.isEmbeddable()-» «type.setCurrentEmbeddable()» «ENDIF»
 		«EXPAND genProperty(createRangeDeclarations) FOR this-»
+		«class.clearCurrentEmbeddable()-»
 	«ENDIF»
 «ENDDEFINE»
 
