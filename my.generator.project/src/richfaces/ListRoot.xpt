@@ -9,6 +9,7 @@
 	«FILE getWebPath() +"/list" +name+ "." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes» template="«getAdminTemplate()»"  >	
 	«setAsCurrentEntity(this)-»
+	«clearCurrentEmbeddable()-»
 	<ui:define name="content">
 		<ui:include src="search«name».«getExtension()»" />
 		<ui:include src="list«name»Component.«getExtension()»" />
@@ -118,7 +119,9 @@
 			«IF type.getAppliedStereotype("wcprofile::Embeddable") != null-»
 				«type.setCurrentEmbeddable()»
 				«EXPAND genAttribAsOutput FOR this.type-»
+				«type.clearCurrentEmbeddable()-»
 			«ELSE»
+				«type.clearCurrentEmbeddable()-»
 				«EXPAND genAssociation FOR this-»
 			«ENDIF»
 		«ENDIF»

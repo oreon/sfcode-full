@@ -6,6 +6,7 @@
 «EXTENSION template::associationExtensions»
 
 «DEFINE genPages FOR uml::Model»
+
 «FILE "../webapp/WEB-INF"  + "/pages.xml"-»
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -160,8 +161,10 @@
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
 	«FOREACH allParents() AS e-»
-	«EXPAND genAttribute FOREACH e.getAllAttributes().select( a |!a.isMultivalued() && !a.isSecret()  ) -»
+		«clearCurrentEmbeddable()-»
+		«EXPAND genAttribute FOREACH e.getAllAttributes().select( a |!a.isMultivalued() && !a.isSecret()  ) -»
 	«ENDFOREACH»
+	«clearCurrentEmbeddable()-»
 	«EXPAND genAttribute FOREACH getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret()) -»
 «ENDDEFINE»
 
@@ -169,10 +172,12 @@
 	«IF association != null -»
 		«IF isMultivalued() || isSecret()»
 		«ELSE»
-			«IF type.getAppliedStereotype("wcprofile::Embeddable") != null-»
+			«IF type.isEmbeddable()-»
 				«type.setCurrentEmbeddable()-»
 				«EXPAND genAttribAsOutput FOR this.type-»
+				«type.clearCurrentEmbeddable()-»
 			«ELSE»
+				«type.clearCurrentEmbeddable()-»
 				«EXPAND genAssociation FOR this-»
 			«ENDIF»
 		«ENDIF»

@@ -6,6 +6,7 @@
 
 «DEFINE genSearchView FOR uml::Class»
 «FILE getWebPath() +"/" + "search" + name+ "." + getExtension()»
+	«clearCurrentEmbeddable()-»
 <ui:composition «EXPAND WebRoot::genIncludes-» >	
 	<h:form>
 	<rich:simpleTogglePanel switchType="client" label="Search">
@@ -108,7 +109,9 @@
 		«IF type.isEmbeddable()-»
 			«type.setCurrentEmbeddable()»
 			«EXPAND genAttribAsOutput FOR this.type-»
+			«type.clearCurrentEmbeddable()-»
 		«ELSE»
+		«type.clearCurrentEmbeddable()-»
 			«EXPAND genAssociation FOR this-»
 		«ENDIF»
 	«ELSE-»
