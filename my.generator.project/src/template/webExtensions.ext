@@ -234,8 +234,10 @@ genAuditLogPropertyLabel(Property prop):
 
 
 getEmbeddableClassName(Property prop):
-getCurrentEmbeddable() != null ?getCurrentEmbeddable().asVar() + ".":"";
+  prop.getDeployName().length > 0? prop.getDeployName() + ".":"" ;
 //prop.class.isEmbeddable() || prop.class.isContainedAssoc() ?getCurrentEmbeddable().asVar() + ".":"";
+
+//check if the given property is contained in the class denoted by getcrruententity
 
 
 getWebPackagePath(Class cls, String ext):
