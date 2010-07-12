@@ -152,8 +152,11 @@ col.mutable;
 //both one to one and 
 //boolean isViewEmbeddable(Type type):
 //isTypeEmbeddable(type) ;
+attribsOfThisClass(Class cls):
+JAVA org.wc.generatorutil.ClassUtil.attribsOfThisClass(org.eclipse.uml2.uml.Class);
 
-
+getDeployName(Property prop):
+JAVA org.wc.generatorutil.ClassUtil.getDeployName(org.eclipse.uml2.uml.Property);
 
 
 boolean isEmbeddable(Type type):
@@ -181,7 +184,7 @@ String getLengthAnnotations(Column col):
 col.minLength > 0 ?"@Length(min=" + col.minLength + ")"  :"";
 
 String getUniqueAnnotations(Column col):
-col.uniqueProperty == true?"@Unique(entityName = " + "\"" + fqn(col.class) + "\"" + ", fieldName = " + "\"" + col.name + "\"" + ")":"";
+col.uniqueProperty == true?"//@Unique(entityName = " + "\"" + fqn(col.class) + "\"" + ", fieldName = " + "\"" + col.name + "\"" + ")":"";
 
 
 //need to add quotes if default is a string type
