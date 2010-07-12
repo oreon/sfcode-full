@@ -84,7 +84,8 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 	
 	«FOREACH getOutgoingAssociations() AS e-»
 	public void set«e.name.toFirstUpper()»Id(Long id) {
-		getInstance().set«e.name.toFirstUpper()»(«e.name»Action.loadFromId(id));
+	   if(id != null && id > 0 )
+			getInstance().set«e.name.toFirstUpper()»(«e.name»Action.loadFromId(id));
 	}
 
 	public Long get«e.name.toFirstUpper()»Id() {

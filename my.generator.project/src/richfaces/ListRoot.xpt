@@ -58,8 +58,12 @@
 	<s:button value="Create New" view="«getViewFile("edit")»"  propagation="none">
 		 <f:param name="«asVar()»Id"/>
 		«FOREACH getOutgoingAssociations() AS e-»
-		«REM»todo : this code needs to be revised in case of a self association «ENDREM»
-		<f:param name="«e.name»Id" value="#{«e.type.getAction()».«e.name».id}" />
+		«REM» in case of a self association  we need to use entity reference«ENDREM»
+		«IF e.type.name == getCurrentEntity().name-»
+			<f:param name="«e.name»Id" value="#{«e.type.getAction()».«e.name»Id}" />
+		«ELSE»
+			<f:param name="«e.name»Id" value="#{«e.type.getAction()».«e.name».id}" />
+		«ENDIF»
 		«ENDFOREACH»
 	</s:button>
 </s:div>
