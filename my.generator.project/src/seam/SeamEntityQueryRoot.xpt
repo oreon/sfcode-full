@@ -87,36 +87,16 @@ public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
 
 
 «DEFINE genAttribAsOutput(boolean createRangeDeclarations) FOR uml::Class»
-	«clearCurrentEmbeddable()-»
-	«FOREACH allParents() AS e-»
-	«EXPAND genAttribute(createRangeDeclarations) FOREACH e.getAllAttributes().select( a |!a.isMultivalued() && !a.isSecret()  ) -»
-	«ENDFOREACH»
-	«EXPAND genAttribute(createRangeDeclarations) FOREACH getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret()) -»
+	«EXPAND genAttribute(createRangeDeclarations) FOREACH attribsOfThisClass().select( a |!a.isMultivalued() && !a.isSecret()  ) -»
 «ENDDEFINE»
 
 «DEFINE genAttribute(boolean createRangeDeclarations) FOR uml::Property -»
-	«IF association != null -»
-		«IF isMultivalued() || isSecret()»
-		«ELSE»
-			«IF type.isEmbeddable()-»
-				«type.setCurrentEmbeddable()»
-				«EXPAND genAttribAsOutput(createRangeDeclarations) FOR this.type-»
-			«ELSE»
-				«type.clearCurrentEmbeddable()-»
-				«EXPAND genAssociation(createRangeDeclarations) FOR this-»
-			«ENDIF»
-		«ENDIF»
-	«ELSE-»
-		«IF type.isEmbeddable()-» «type.setCurrentEmbeddable()» «ENDIF»
-		«EXPAND genProperty(createRangeDeclarations) FOR this-»
-		«class.clearCurrentEmbeddable()-»
-	«ENDIF»
+	«EXPAND genProperty(createRangeDeclarations) FOR this-»
 «ENDDEFINE»
 
 «DEFINE genProperty(boolean createRangeDeclarations) FOR uml::Property-»
 	«IF createRangeDeclarations == true »
 	«IF this.type.isRangeType()»
-		 
 		private Range<«type.name»> «getId()»Range = new Range<«type.name»>();
 		public Range<«type.name»> get«getId().toFirstUpper()»Range(){
 			return «getId()»Range;

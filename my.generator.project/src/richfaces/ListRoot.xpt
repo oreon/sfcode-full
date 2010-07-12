@@ -58,6 +58,7 @@
 	<s:button value="Create New" view="«getViewFile("edit")»"  propagation="none">
 		 <f:param name="«asVar()»Id"/>
 		«FOREACH getOutgoingAssociations() AS e-»
+		«REM»todo : this code needs to be revised in case of a self association «ENDREM»
 		<f:param name="«e.name»Id" value="#{«e.type.getAction()».«e.name».id}" />
 		«ENDFOREACH»
 	</s:button>
@@ -106,25 +107,12 @@
 
 
 «DEFINE genAttribAsOutput FOR uml::Class»
-	«FOREACH allParents() AS e-»
-	«EXPAND genAttribute FOREACH e.getAllAttributes().select( a |!a.isMultivalued() && !a.isSecret()  ) -»
-	«ENDFOREACH»
-	«EXPAND genAttribute FOREACH getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret()) -»
+	«EXPAND genAttribute FOREACH attribsOfThisClass().select(a|!a.isMultivalued() && !a.isSecret()) -»
 «ENDDEFINE»
 
 «DEFINE genAttribute FOR uml::Property -»
 	«IF association != null -»
-		«IF isMultivalued() || isSecret()»
-		«ELSE»
-			«IF type.getAppliedStereotype("wcprofile::Embeddable") != null-»
-				«type.setCurrentEmbeddable()»
-				«EXPAND genAttribAsOutput FOR this.type-»
-				«type.clearCurrentEmbeddable()-»
-			«ELSE»
-				«type.clearCurrentEmbeddable()-»
-				«EXPAND genAssociation FOR this-»
-			«ENDIF»
-		«ENDIF»
+		«EXPAND genAssociation FOR this-»
 	«ELSE-»
 		«EXPAND genProperty FOR this-»
 	«ENDIF»
@@ -200,7 +188,7 @@
 		<f:facet name="header">
 			<h:outputText value="«msgBundleKey()-»" />
 		</f:facet>
-		ENM <h:outputText value="#{«getCurrentEntity().asVar()».«this»«this == "createdByUser"?".displayName":""»}" />
+	 <h:outputText value="#{«getCurrentEntity().asVar()».«this»«this == "createdByUser"?".displayName":""»}" />
 	</h:column>
 «ENDDEFINE»
 
