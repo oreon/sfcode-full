@@ -160,31 +160,10 @@
 
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
-	«FOREACH allParents() AS e-»
-		«clearCurrentEmbeddable()-»
-		«EXPAND genAttribute FOREACH e.getAllAttributes().select( a |!a.isMultivalued() && !a.isSecret()  ) -»
-	«ENDFOREACH»
-	«clearCurrentEmbeddable()-»
-	«EXPAND genAttribute FOREACH getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret()) -»
+	«EXPAND genProperty FOREACH attribsOfThisClass().select( a |!a.isMultivalued() && !a.isSecret() && a.type.name != "imageFile"  ) -»
 «ENDDEFINE»
 
-«DEFINE genAttribute FOR uml::Property -»
-	«IF association != null -»
-		«IF isMultivalued() || isSecret()»
-		«ELSE»
-			«IF type.isEmbeddable()-»
-				«type.setCurrentEmbeddable()-»
-				«EXPAND genAttribAsOutput FOR this.type-»
-				«type.clearCurrentEmbeddable()-»
-			«ELSE»
-				«type.clearCurrentEmbeddable()-»
-				«EXPAND genAssociation FOR this-»
-			«ENDIF»
-		«ENDIF»
-	«ELSE-»
-		«EXPAND genProperty FOR this-»
-	«ENDIF»
-«ENDDEFINE»
+
 
 «DEFINE genProperty FOR uml::Property-»
 	«IF type.name != "imageFile"» <param name="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}" validateModel="false" /> «ENDIF»	

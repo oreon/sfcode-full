@@ -6,7 +6,7 @@
 
 «DEFINE genSearchView FOR uml::Class»
 «FILE getWebPath() +"/" + "search" + name+ "." + getExtension()»
-	«clearCurrentEmbeddable()-»
+	
 <ui:composition «EXPAND WebRoot::genIncludes-» >	
 	<h:form>
 	<rich:simpleTogglePanel switchType="client" label="Search">
@@ -97,23 +97,13 @@
 «ENDDEFINE»
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
-	«FOREACH allParents() AS e-»
-			«EXPAND genAttribute FOREACH e.getAllAttributes().select(a|!a.isMultivalued()  && !a.isSecret()) -»
-	«ENDFOREACH»
-	«EXPAND genAttribute FOREACH getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret()) -»
+	«EXPAND genAttribute FOREACH attribsOfThisClass().select(a|!a.isMultivalued() && !a.isSecret()) -»
 «ENDDEFINE»
 
 «DEFINE genAttribute FOR uml::Property -»
 	«IF type.name != getCurrentEntity().name»
 	«IF association != null -»
-		«IF type.isEmbeddable()-»
-			«type.setCurrentEmbeddable()»
-			«EXPAND genAttribAsOutput FOR this.type-»
-			«type.clearCurrentEmbeddable()-»
-		«ELSE»
-		«type.clearCurrentEmbeddable()-»
-			«EXPAND genAssociation FOR this-»
-		«ENDIF»
+		«EXPAND genAssociation FOR this-»
 	«ELSE-»
 		«EXPAND genProperty FOR this»
 	«ENDIF»

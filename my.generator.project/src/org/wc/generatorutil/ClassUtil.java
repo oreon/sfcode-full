@@ -119,9 +119,9 @@ public class ClassUtil {
 	public static void setCurrentEmbeddable(Class currentEmbeddable) {
 		ClassUtil.currentEmbeddable = currentEmbeddable;
 	}
-	
-	public static void clearCurrentEmbeddable(Class currentEmbeddable){
-		//System.out.println("clearing currentEmbeddabel");
+
+	public static void clearCurrentEmbeddable(Class currentEmbeddable) {
+		// System.out.println("clearing currentEmbeddabel");
 		ClassUtil.currentEmbeddable = null;
 	}
 
@@ -380,6 +380,50 @@ public class ClassUtil {
 		System.out.println("after second loop");
 		// couldnt find any suitable display name
 		return attribs.get(0).getName() + "+ \"\"";
+	}
+
+	public static List<Property> attribsOfThisClass(Class cls) {
+		List<Property> target = new ArrayList<Property>();
+		return getAttribs(cls, target, null);
+		// return target;
+	}
+
+	public static List<Property> getAttribs(Class cls, List<Property> props, String name) {
+		List<Property> properties = new ArrayList();
+		properties.addAll( cls.getAllAttributes() );
+
+		EList<Class> classes = cls.getSuperClasses();
+		if (classes != null) {
+			for (Class class1 : classes) {
+				try{
+				properties.addAll(class1.getAllAttributes());
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		}
+
+		for (Property property : properties) {
+			if (property.getAssociation() != null && (property.getType()
+					.getAppliedStereotype("wcprofile::Embeddable") != null ||
+					property.getAssociation().getAppliedStereotype("wcprofile::ContainedAssociation") != null )
+			) {
+				getAttribs((Class) property.getType(), props, property.getName() );
+			} else {
+				property.createDeployment(name);
+				props.add(property);
+			}
+		}
+
+		return props;
+	}
+	
+	public static String getDeployName(Property prop){
+		//System.out.println( prop.getClass_().getName() + " " +  getCurrentEntity().getName());
+		if(prop.getDeployments().size() > 0 && !prop.getClass_().getName().equals( getCurrentEntity().getName() ) ){
+			return prop.getDeployments().get(0).getName();
+		}
+		return "";
 	}
 
 	private static boolean loadProperties() {
