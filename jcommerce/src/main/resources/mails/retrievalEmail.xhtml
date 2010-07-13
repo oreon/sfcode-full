@@ -9,16 +9,19 @@
     xmlns:m="http://jboss.com/products/seam/mail"
     xmlns:h="http://java.sun.com/jsf/html">
   
-    <m:from name="Peter" address="peter@example.com" />
-    <m:to >#{customerAction.instance.contactDetails.email}</m:to>
-    <m:subject>Try out Seam!</m:subject>
+    <m:from name="neonwc" address="neownwc@gmail.com" />
+    <m:to >#{userAction.user.email}</m:to>
+    <m:subject>Your NRS Credentials</m:subject>
     
     <m:body>
-        <p><h:outputText value="Dear #{customerAction.instance.user.userName}" />,</p>
-        <p>You can try out Seam by visiting 
-        <a href="http://labs.jboss.com/jbossseam">http://labs.jboss.com/jbossseam</a>.</p>
+        <p><h:outputText value="Dear #{userAction.user.userName}" />,</p>
+        
+         <p>Your username :  #{userAction.user.userName}</p> 
+         
+         <p>Your password : #{userAction.user.password}</p> 
+        
         <p>Regards,</p>
-        <p>Peter</p>
+        <p>NRS Team</p>
     </m:body>
     
 </m:message>

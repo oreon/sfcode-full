@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:m="http://jboss.com/products/seam/mail"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<m:message xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:m="http://jboss.com/products/seam/mail"
+		xmlns:h="http://java.sun.com/jsf/html">
+
+		<m:from name="neonwc" address="neonwc@gmail.com" />
+		<m:to name="#{masterAgentAction.instance.firstName} #{masterAgentAction.instance.lastName}">#{masterAgentAction.instance.contactDetails.email}</m:to>
+		<m:subject>You are now registerd with NRS </m:subject>
+
+		<m:body>
+			<p><h:outputText value="Dear #{masterAgentAction.instance.firstName}" />,</p>
+			<p>You can try out NRS by visiting <a
+				href="http://labs.jboss.com/jbossseam">http://labs.jboss.com/jbossseam</a>.</p>
+			<p>Regards,</p>
+			<p>NRS Team</p>
+		</m:body>
+
+	</m:message>
+
+</ui:composition>
