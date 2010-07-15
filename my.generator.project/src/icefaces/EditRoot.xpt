@@ -80,13 +80,21 @@
 «DEFINE genCancelSaveBtns(boolean edit) FOR uml::Class»
 	<div class="buttonBox">
 		«IF !edit»
-		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" /> 
+		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" >
+			<s:conversationPropagation type="end" />
+		</h:commandButton>
 		<h:outputText value=" " />
-		<h:commandButton value="Back To Listing" immediate="true" action="#{«getAction()».cancel}" /> 
+		<h:commandButton value="Back To Listing" immediate="true" action="#{«getAction()».cancel}" >
+			<s:conversationPropagation type="end" />
+		</h:commandButton>
 		«ELSE»
-		<h:commandButton value="Save" action="#{«getAction()».save}" /> 
+		<h:commandButton value="Save" action="#{«getAction()».save}" >
+			<s:conversationPropagation type="end" />
+		</h:commandButton> 
 		<h:outputText value=" " />
-		<h:commandButton value="Cancel" immediate="true" action="#{«getAction()».cancel}" /> 
+		<h:commandButton value="Cancel" immediate="true" action="#{«getAction()».cancel}" >
+			<s:conversationPropagation type="end" />
+		</h:commandButton> 
 		«ENDIF»
 	</div>
 «ENDDEFINE»

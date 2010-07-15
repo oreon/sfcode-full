@@ -42,6 +42,11 @@
 	«ENDIF»
 «ENDDEFINE»
 
+«DEFINE ClassRoot FOR wcprofile::WebAction»
+
+«ENDDEFINE»
+
+
 
 «DEFINE ClassRoot FOR uml::Interface»
 	«FILE packagePath() +"/" +name+".java"»
@@ -58,7 +63,7 @@
 
 
 
-«DEFINE genClassBody FOR uml::Class»
+«DEFINE genClassBody FOR uml::Class »
 	public class «name» «getParent()» «getInterfaces()»{
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
@@ -353,5 +358,6 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	import org.jboss.seam.annotations.Name;
 	import org.witchcraft.base.entity.BusinessEntity;
 	import org.witchcraft.model.support.audit.Auditable;
+	import org.witchcraft.base.entity.FileAttachment;
 	import org.hibernate.annotations.Filter;
 «ENDDEFINE»

@@ -76,7 +76,8 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 	
 	public void set«name»Id(Long id) {
 	«FOREACH getComposed() AS e»
-		list«e.name.toFirstUpper()»  = new ArrayList<«e.type.name»>();
+	   if(list«e.name.toFirstUpper()» == null || id != getInstance().getId().longValue() )
+			list«e.name.toFirstUpper()»  = new ArrayList<«e.type.name»>();
 	«ENDFOREACH»
 		setId(id);
 		loadAssociations();
