@@ -57,7 +57,7 @@
 <s:div styleClass="actionButtons" rendered="#{empty from}">
 	<s:button value="Create New" view="«getViewFile("edit")»"  propagation="none">
 		 <f:param name="«asVar()»Id"/>
-		«FOREACH getOutgoingAssociations() AS e-»
+		«FOREACH getNonComposedManyAssociationsOpposite() AS e-»
 		«REM» in case of a self association  we need to use entity reference«ENDREM»
 		«IF e.type.name == getCurrentEntity().name-»
 			<f:param name="«e.name»Id" value="#{«e.type.getAction()».«e.name»Id}" />
