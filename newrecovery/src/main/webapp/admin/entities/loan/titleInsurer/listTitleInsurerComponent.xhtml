@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	
+	
+<rich:panel>
+   <h:form>
+	  <f:facet name="header">TitleInsurer Search Results (#{empty titleInsurerList.resultList ? 0 : (titleInsurerList.paginated ? titleInsurerList.resultCount : titleInsurerList.resultList.size)})</f:facet>
+	
+		<rich:dataTable rendered="#{not empty titleInsurerList.resultList}" rowClasses="odd, even" styleClass="dataTable" value="#{titleInsurerList.resultList}" var="_titleInsurer">	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{titleInsurerList}"/>
+				<ui:param name="propertyLabel" value="Id"/>
+				<ui:param name="propertyPath" value="titleInsurer.id"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_titleInsurer.id}">
+		</h:outputText>
+	</h:column>
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{titleInsurerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.titleInsurer_policyNumber}"/>
+				<ui:param name="propertyPath" value="titleInsurer.policyNumber"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_titleInsurer.policyNumber}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{titleInsurerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.titleInsurer_claim}"/>
+				<ui:param name="propertyPath" value="titleInsurer.claim"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_titleInsurer.claim}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{titleInsurerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.company_brand}"/>
+				<ui:param name="propertyPath" value="titleInsurer.brand"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_titleInsurer.brand}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{titleInsurerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.company_name}"/>
+				<ui:param name="propertyPath" value="titleInsurer.name"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_titleInsurer.name}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{titleInsurerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.company_companyType}"/>
+				<ui:param name="propertyPath" value="titleInsurer.companyType"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_titleInsurer.companyType}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{titleInsurerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetDirection}"/>
+				<ui:param name="propertyPath" value="titleInsurer.address.streetDirection"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_titleInsurer.address.streetDirection}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{titleInsurerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetNumber}"/>
+				<ui:param name="propertyPath" value="titleInsurer.address.streetNumber"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_titleInsurer.address.streetNumber}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{titleInsurerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetName}"/>
+				<ui:param name="propertyPath" value="titleInsurer.address.streetName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_titleInsurer.address.streetName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{titleInsurerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_province}"/>
+				<ui:param name="propertyPath" value="titleInsurer.address.province"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_titleInsurer.address.province}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{titleInsurerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetType}"/>
+				<ui:param name="propertyPath" value="titleInsurer.address.streetType"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_titleInsurer.address.streetType}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{titleInsurerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_postalCode}"/>
+				<ui:param name="propertyPath" value="titleInsurer.address.postalCode"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_titleInsurer.address.postalCode}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{titleInsurerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_unitNumber}"/>
+				<ui:param name="propertyPath" value="titleInsurer.address.unitNumber"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_titleInsurer.address.unitNumber}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{titleInsurerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_city}"/>
+				<ui:param name="propertyPath" value="titleInsurer.address.city"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_titleInsurer.address.city}"/>	
+		
+	</h:column>
+	
+		
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{titleInsurerList}"/>
+				<ui:param name="propertyLabel" value="Creation Date"/>
+				<ui:param name="propertyPath" value="titleInsurer.dateCreated"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_titleInsurer.dateCreated}">
+			<s:convertDateTime dateStyle="short" type="both"/>
+		</h:outputText>
+	</h:column>
+		
+	<h:column rendered="#{s:hasPermission('titleInsurerAction', 'view')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/loan/titleInsurer/viewTitleInsurer.xhtml">
+			<h:graphicImage alt="view" style="border: 0px" value="/images/icons/eye.png"/>
+			<f:param name="titleInsurerId" value="#{_titleInsurer.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('titleInsurerAction', 'edit')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/loan/titleInsurer/editTitleInsurer.xhtml">
+			<h:graphicImage alt="edit" style="border: 0px" value="/images/icons/edit.png"/>
+			<f:param name="titleInsurerId" value="#{_titleInsurer.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('titleInsurerAction', 'archive')}">
+		<f:facet name="header">
+			<h:outputText value=""/>
+		</f:facet>
+		
+		<s:link action="#{titleInsurerAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_titleInsurer.displayName} ?')){ return false; } else { return true; }">
+			<h:graphicImage alt="archive" style="border: 0px" value="/images/icons/delete.png"/>
+			<f:param name="idToArchive" value="#{_realEstateProperty.id}"/>
+		</s:link>
+	</h:column>
+
+		</rich:dataTable>
+ 	</h:form>		
+</rich:panel>	
+
+
+
+ <div class="tableControl">
+<s:link rendered="#{titleInsurerList.previousExists}" value="#{messages.left}#{messages.left} First Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="0"/>
+</s:link> 
+
+<s:link rendered="#{titleInsurerList.previousExists}" value="#{messages.left} Previous Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{titleInsurerList.previousFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{titleInsurerList.nextExists}" value="Next Page #{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{titleInsurerList.nextFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{titleInsurerList.nextExists}" value="Last Page #{messages.right}#{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{titleInsurerList.lastFirstResult}"/>
+</s:link>
+</div>
+
+
+<h:form>
+<s:div rendered="#{empty from}" styleClass="actionButtons">
+	<s:button propagation="none" value="Create New" view="/admin/entities/loan/titleInsurer/editTitleInsurer.xhtml">
+		 <f:param name="titleInsurerId"/>
+		
+	</s:button>
+</s:div>
+</h:form>
+
+</html>

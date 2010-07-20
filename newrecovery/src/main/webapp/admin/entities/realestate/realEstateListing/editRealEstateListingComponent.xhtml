@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	<h:panelGroup>
+		<s:validateAll>
+		<h:panelGrid columnClasses="leftCol, rightCol" columns="3" onload="#{realEstateListingAction.load(realEstateListingId )  }" styleClass="viewInfo">
+		<f:facet name="header">
+			<h:outputText value="RealEstateListing "/>
+		</f:facet>
+		
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_realEstateBoard}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="realEstateListing_realEstateBoard" required="true" value="#{realEstateListingAction.realEstateListing.realEstateBoard}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{realEstateBoardList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="realEstateListing_realEstateBoard" styleClass="error errors"/>		
+		
+	
+	
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_realEstateProperty}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="realEstateListing_realEstateProperty" required="true" value="#{realEstateListingAction.realEstateListing.realEstateProperty}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{realEstatePropertyList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="realEstateListing_realEstateProperty" styleClass="error errors"/>		
+		
+	
+	
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_master}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="realEstateListing_master" required="false" value="#{realEstateListingAction.realEstateListing.master}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{masterAgentList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="realEstateListing_master" styleClass="error errors"/>		
+		
+	
+	
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_subagent}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="realEstateListing_subagent" required="false" value="#{realEstateListingAction.realEstateListing.subagent}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{masterAgentList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="realEstateListing_subagent" styleClass="error errors"/>		
+		
+	
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_listPrice}  "/>
+		
+
+	<h:inputText id="realEstateListing_listPrice#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.listPrice}"/>
+   
+		
+		<h:message for="realEstateListing_listPrice" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_propertyTaxes}  "/>
+		
+
+	<h:inputText id="realEstateListing_propertyTaxes#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.propertyTaxes}"/>
+   
+		
+		<h:message for="realEstateListing_propertyTaxes" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_soldPrice}  "/>
+		
+
+	<h:inputText id="realEstateListing_soldPrice#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.soldPrice}"/>
+   
+		
+		<h:message for="realEstateListing_soldPrice" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_lockBox}  "/>
+		
+
+	<h:inputText id="realEstateListing_lockBox#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.lockBox}"/>
+   
+		
+		<h:message for="realEstateListing_lockBox" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_costPerDiem}  "/>
+		
+
+	<h:inputText id="realEstateListing_costPerDiem#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.costPerDiem}"/>
+   
+		
+		<h:message for="realEstateListing_costPerDiem" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_vtbAccepted}  "/>
+		
+
+	<h:selectBooleanCheckbox id="realEstateListing_vtbAccepted#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.vtbAccepted}"/>
+   
+		
+		<h:message for="realEstateListing_vtbAccepted" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_realEstateNumber}  "/>
+		
+
+	<h:inputText id="realEstateListing_realEstateNumber#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.realEstateNumber}"/>
+   
+		
+		<h:message for="realEstateListing_realEstateNumber" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_status}  "/>
+		
+
+	<h:inputText id="realEstateListing_status#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.status}"/>
+   
+		
+		<h:message for="realEstateListing_status" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_cmaOrdered}  "/>
+		
+
+	<h:inputText id="realEstateListing_cmaOrdered#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.cmaOrdered}"/>
+   
+		
+		<h:message for="realEstateListing_cmaOrdered" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_occupied}  "/>
+		
+
+	<h:inputText id="realEstateListing_occupied#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.occupied}"/>
+   
+		
+		<h:message for="realEstateListing_occupied" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_commission}  "/>
+		
+
+	<h:inputText id="realEstateListing_commission#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.commission}"/>
+   
+		
+		<h:message for="realEstateListing_commission" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_mlsNumber}  "/>
+		
+
+	<h:inputText id="realEstateListing_mlsNumber#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.mlsNumber}"/>
+   
+		
+		<h:message for="realEstateListing_mlsNumber" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_condoFees}  "/>
+		
+
+	<h:inputText id="realEstateListing_condoFees#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.condoFees}"/>
+   
+		
+		<h:message for="realEstateListing_condoFees" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_dateListed}  "/>
+		
+
+	<rich:calendar id="realEstateListing_dateListed#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.dateListed}"/>
+   
+		
+		<h:message for="realEstateListing_dateListed" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_mortgageNumber}  "/>
+		
+
+	<h:inputText id="realEstateListing_mortgageNumber#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.mortgageNumber}"/>
+   
+		
+		<h:message for="realEstateListing_mortgageNumber" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_soldDate}  "/>
+		
+
+	<rich:calendar id="realEstateListing_soldDate#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.soldDate}"/>
+   
+		
+		<h:message for="realEstateListing_soldDate" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_daysOnMarket}  "/>
+		
+
+	<h:inputText id="realEstateListing_daysOnMarket#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.daysOnMarket}"/>
+   
+		
+		<h:message for="realEstateListing_daysOnMarket" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_mlsComments}  "/>
+		
+
+	<h:inputText id="realEstateListing_mlsComments#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.mlsComments}"/>
+   
+		
+		<h:message for="realEstateListing_mlsComments" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_closingDate}  "/>
+		
+
+	<rich:calendar id="realEstateListing_closingDate#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.closingDate}"/>
+   
+		
+		<h:message for="realEstateListing_closingDate" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_vtbOffered}  "/>
+		
+
+	<h:selectBooleanCheckbox id="realEstateListing_vtbOffered#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.vtbOffered}"/>
+   
+		
+		<h:message for="realEstateListing_vtbOffered" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.realEstateListing_deposit}  "/>
+		
+
+	<h:inputText id="realEstateListing_deposit#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.deposit}"/>
+   
+		
+		<h:message for="realEstateListing_deposit" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		 <s:div rendered="#{s:hasRole('admin')}">
+		<h:outputText value="#{msg.realEstateListing_expiryDate}  "/>
+		
+
+	<rich:calendar id="realEstateListing_expiryDate#{entityId}" required="false" value="#{realEstateListingAction.realEstateListing.expiryDate}"/>
+   
+		
+		<h:message for="realEstateListing_expiryDate" styleClass="error errors"/>		
+		</s:div>
+	
+	
+		</h:panelGrid>
+		
+	
+ 
+	<a:commandButton action="#{realEstateListingAction.addOfferses}" reRender="offerses_data#{entityId}" value="New Offerse">
+		<s:conversationId/>
+	</a:commandButton>
+ 
+	
+	<rich:dataTable id="offerses_data#{entityId}" rendered="#{not empty realEstateListingAction.listOfferses}" rowClasses="odd, even" rows="10" rules="all" styleClass="dataTable" value="#{realEstateListingAction.listOfferses}" var="_offers">
+		
+	
+	
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.offers_saleDate}  "/>
+          </f:facet>
+		
+
+	<rich:calendar id="offers_saleDate#{entityId}" required="false" value="#{_offers.saleDate}"/>
+   
+		
+		<h:message for="offers_saleDate" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.offers_signBackAmount}  "/>
+          </f:facet>
+		
+
+	<h:inputText id="offers_signBackAmount#{entityId}" required="false" value="#{_offers.signBackAmount}"/>
+   
+		
+		<h:message for="offers_signBackAmount" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.offers_conditionExpiry}  "/>
+          </f:facet>
+		
+
+	<h:inputText id="offers_conditionExpiry#{entityId}" required="false" value="#{_offers.conditionExpiry}"/>
+   
+		
+		<h:message for="offers_conditionExpiry" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.offers_purchaser}  "/>
+          </f:facet>
+		
+
+	<h:inputText id="offers_purchaser#{entityId}" required="false" value="#{_offers.purchaser}"/>
+   
+		
+		<h:message for="offers_purchaser" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.offers_comments}  "/>
+          </f:facet>
+		
+
+	<h:inputText id="offers_comments#{entityId}" required="false" value="#{_offers.comments}"/>
+   
+		
+		<h:message for="offers_comments" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.offers_amount}  "/>
+          </f:facet>
+		
+
+	<h:inputText id="offers_amount#{entityId}" required="false" value="#{_offers.amount}"/>
+   
+		
+		<h:message for="offers_amount" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.offers_status}  "/>
+          </f:facet>
+		
+
+	<h:inputText id="offers_status#{entityId}" required="false" value="#{_offers.status}"/>
+   
+		
+		<h:message for="offers_status" styleClass="error errors"/>		</h:column>
+		
+	
+	
+		
+	<h:column>
+		
+	<a:commandButton action="#{realEstateListingAction.addOfferses}" reRender="offerses_data#{entityId}" value="New Offerse">
+		<s:conversationId/>
+	</a:commandButton>
+	</h:column>
+		
+	<h:column>
+		<a:commandButton action="#{realEstateListingAction.deleteOfferses(_offers)}" immediate="true" reRender="offerses_data#{entityId}" value="Delete">
+			<s:conversationId/>
+		</a:commandButton>
+	</h:column>
+			
+	</rich:dataTable>
+		</s:validateAll>
+		
+	</h:panelGroup>
+	</ui:composition>

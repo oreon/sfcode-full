@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>
+	<h:panelGrid columns="6">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisalHistory_notes}  "/> <br/>
+	
+		<h:inputText id="appraisalHistory_notes" value="#{appraisalHistoryList.appraisalHistory.notes}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisalHistory_requestNumber}  "/> <br/>
+	
+	
+	<h:inputText id="appraisalHistory_requestNumber_begin" value="#{appraisalHistoryList.appraisalHistory_requestNumberRange.begin}">
+			<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	<h:inputText id="appraisalHistory_requestNumber_end" value="#{appraisalHistoryList.appraisalHistory_requestNumberRange.end}">
+		<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisalHistory_amount}  "/> <br/>
+	
+	
+	<h:inputText id="appraisalHistory_amount_begin" value="#{appraisalHistoryList.appraisalHistory_amountRange.begin}">
+			<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	<h:inputText id="appraisalHistory_amount_end" value="#{appraisalHistoryList.appraisalHistory_amountRange.end}">
+		<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisalHistory_requestDate}  "/> <br/>
+	
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">From</ui:define> <br/>
+		<rich:calendar value="#{appraisalHistoryList.appraisalHistory_requestDateRange.begin}"/>
+	</s:decorate>
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">To</ui:define> <br/>
+		<rich:calendar value="#{appraisalHistoryList.appraisalHistory_requestDateRange.end}"/>
+	</s:decorate>	
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisalHistory_type}  "/> <br/>
+	
+		<h:inputText id="appraisalHistory_type" value="#{appraisalHistoryList.appraisalHistory.type}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisalHistory_asImproved}  "/> <br/>
+	
+	<h:selectOneMenu id="appraisalHistory_asImproved" required="false" value="#{appraisalHistoryList.appraisalHistory.asImproved}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="True" itemValue="true"/>
+		<f:selectItem itemLabel="False" itemValue="false"/>
+	</h:selectOneMenu>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisalHistory_reviewed}  "/> <br/>
+	
+	<h:selectOneMenu id="appraisalHistory_reviewed" required="false" value="#{appraisalHistoryList.appraisalHistory.reviewed}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="True" itemValue="true"/>
+		<f:selectItem itemLabel="False" itemValue="false"/>
+	</h:selectOneMenu>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisalHistory_appraiser}  "/> <br/>
+	
+		<h:inputText id="appraisalHistory_appraiser" value="#{appraisalHistoryList.appraisalHistory.appraiser}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisalHistory_appraisalNumber}  "/> <br/>
+	
+	
+	<h:inputText id="appraisalHistory_appraisalNumber_begin" value="#{appraisalHistoryList.appraisalHistory_appraisalNumberRange.begin}">
+			<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	<h:inputText id="appraisalHistory_appraisalNumber_end" value="#{appraisalHistoryList.appraisalHistory_appraisalNumberRange.end}">
+		<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">From</ui:define> <br/>
+				<rich:calendar id="from" value="#{appraisalHistoryList.dateCreatedRange.begin}"/>
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">To</ui:define> <br/>
+				<rich:calendar id="to" value="#{appraisalHistoryList.dateCreatedRange.end}"/>
+			</s:decorate>
+
+	</h:panelGrid>
+</ui:composition>

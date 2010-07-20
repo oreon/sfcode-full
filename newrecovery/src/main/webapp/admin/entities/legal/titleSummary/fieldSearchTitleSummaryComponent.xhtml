@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>
+	<h:panelGrid columns="6">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.titleSummary_legalNumber}  "/> <br/>
+	
+	
+	<h:inputText id="titleSummary_legalNumber_begin" value="#{titleSummaryList.titleSummary_legalNumberRange.begin}">
+			<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	<h:inputText id="titleSummary_legalNumber_end" value="#{titleSummaryList.titleSummary_legalNumberRange.end}">
+		<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.titleSummary_chargeHolder}  "/> <br/>
+	
+		<h:inputText id="titleSummary_chargeHolder" value="#{titleSummaryList.titleSummary.chargeHolder}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.titleSummary_priority}  "/> <br/>
+	
+		<h:inputText id="titleSummary_priority" value="#{titleSummaryList.titleSummary.priority}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.titleSummary_description}  "/> <br/>
+	
+		<h:inputText id="titleSummary_description" value="#{titleSummaryList.titleSummary.description}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.titleSummary_amount}  "/> <br/>
+	
+	
+	<h:inputText id="titleSummary_amount_begin" value="#{titleSummaryList.titleSummary_amountRange.begin}">
+			<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	<h:inputText id="titleSummary_amount_end" value="#{titleSummaryList.titleSummary_amountRange.end}">
+		<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">From</ui:define> <br/>
+				<rich:calendar id="from" value="#{titleSummaryList.dateCreatedRange.begin}"/>
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">To</ui:define> <br/>
+				<rich:calendar id="to" value="#{titleSummaryList.dateCreatedRange.end}"/>
+			</s:decorate>
+
+	</h:panelGrid>
+</ui:composition>

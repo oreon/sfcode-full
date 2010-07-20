@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>
+	<h:panelGrid columns="6">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.bankruptcy_legalNumber}  "/> <br/>
+	
+	
+	<h:inputText id="bankruptcy_legalNumber_begin" value="#{bankruptcyList.bankruptcy_legalNumberRange.begin}">
+			<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	<h:inputText id="bankruptcy_legalNumber_end" value="#{bankruptcyList.bankruptcy_legalNumberRange.end}">
+		<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.bankruptcy_trustee}  "/> <br/>
+	
+		<h:inputText id="bankruptcy_trustee" value="#{bankruptcyList.bankruptcy.trustee}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.bankruptcy_name}  "/> <br/>
+	
+		<h:inputText id="bankruptcy_name" value="#{bankruptcyList.bankruptcy.name}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.bankruptcy_dateFiled}  "/> <br/>
+	
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">From</ui:define> <br/>
+		<rich:calendar value="#{bankruptcyList.bankruptcy_dateFiledRange.begin}"/>
+	</s:decorate>
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">To</ui:define> <br/>
+		<rich:calendar value="#{bankruptcyList.bankruptcy_dateFiledRange.end}"/>
+	</s:decorate>	
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.bankruptcy_dischargedDate}  "/> <br/>
+	
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">From</ui:define> <br/>
+		<rich:calendar value="#{bankruptcyList.bankruptcy_dischargedDateRange.begin}"/>
+	</s:decorate>
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">To</ui:define> <br/>
+		<rich:calendar value="#{bankruptcyList.bankruptcy_dischargedDateRange.end}"/>
+	</s:decorate>	
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.bankruptcy_proofOfClaim}  "/> <br/>
+	
+	<h:selectOneMenu id="bankruptcy_proofOfClaim" required="false" value="#{bankruptcyList.bankruptcy.proofOfClaim}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="True" itemValue="true"/>
+		<f:selectItem itemLabel="False" itemValue="false"/>
+	</h:selectOneMenu>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">From</ui:define> <br/>
+				<rich:calendar id="from" value="#{bankruptcyList.dateCreatedRange.begin}"/>
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">To</ui:define> <br/>
+				<rich:calendar id="to" value="#{bankruptcyList.dateCreatedRange.end}"/>
+			</s:decorate>
+
+	</h:panelGrid>
+</ui:composition>

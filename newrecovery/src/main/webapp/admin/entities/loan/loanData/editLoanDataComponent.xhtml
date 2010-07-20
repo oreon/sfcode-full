@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	<h:panelGroup>
+		<s:validateAll>
+		<h:panelGrid columnClasses="leftCol, rightCol" columns="3" onload="#{loanDataAction.load(loanDataId )  }" styleClass="viewInfo">
+		<f:facet name="header">
+			<h:outputText value="LoanData "/>
+		</f:facet>
+		
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.loanData_lender}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="loanData_lender" required="true" value="#{loanDataAction.loanData.lender}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{lenderList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="loanData_lender" styleClass="error errors"/>		
+		
+	
+	
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.loanData_mortgageInsurer}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="loanData_mortgageInsurer" required="false" value="#{loanDataAction.loanData.mortgageInsurer}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{mortgageInsurerList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="loanData_mortgageInsurer" styleClass="error errors"/>		
+		
+	
+	
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.loanData_titleInsurer}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="loanData_titleInsurer" required="false" value="#{loanDataAction.loanData.titleInsurer}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{titleInsurerList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="loanData_titleInsurer" styleClass="error errors"/>		
+		
+	
+	
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.loanData_broker}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="loanData_broker" required="false" value="#{loanDataAction.loanData.broker}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{brokerList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="loanData_broker" styleClass="error errors"/>		
+		
+	
+	
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.loanData_underwriter}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="loanData_underwriter" required="false" value="#{loanDataAction.loanData.underwriter}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{underwriterList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="loanData_underwriter" styleClass="error errors"/>		
+		
+	
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.loanData_fees}  "/>
+		
+
+	<h:inputText id="loanData_fees#{entityId}" required="false" value="#{loanDataAction.loanData.fees}"/>
+   
+		
+		<h:message for="loanData_fees" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.loanData_originalAppraisedValue}  "/>
+		
+
+	<h:inputText id="loanData_originalAppraisedValue#{entityId}" required="false" value="#{loanDataAction.loanData.originalAppraisedValue}"/>
+   
+		
+		<h:message for="loanData_originalAppraisedValue" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.loanData_taxPortion}  "/>
+		
+
+	<h:inputText id="loanData_taxPortion#{entityId}" required="false" value="#{loanDataAction.loanData.taxPortion}"/>
+   
+		
+		<h:message for="loanData_taxPortion" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.loanData_mortgageNumber}  "/>
+		
+
+	<h:inputText id="loanData_mortgageNumber#{entityId}" required="false" value="#{loanDataAction.loanData.mortgageNumber}"/>
+   
+		
+		<h:message for="loanData_mortgageNumber" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.loanData_interestRate}  "/>
+		
+
+	<h:inputText id="loanData_interestRate#{entityId}" required="false" value="#{loanDataAction.loanData.interestRate}"/>
+   
+		
+		<h:message for="loanData_interestRate" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.loanData_arrears}  "/>
+		
+
+	<h:inputText id="loanData_arrears#{entityId}" required="false" value="#{loanDataAction.loanData.arrears}"/>
+   
+		
+		<h:message for="loanData_arrears" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.loanData_fundingDate}  "/>
+		
+
+	<rich:calendar id="loanData_fundingDate#{entityId}" required="false" value="#{loanDataAction.loanData.fundingDate}"/>
+   
+		
+		<h:message for="loanData_fundingDate" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.loanData_condo}  "/>
+		
+
+	<h:selectBooleanCheckbox id="loanData_condo#{entityId}" required="false" value="#{loanDataAction.loanData.condo}"/>
+   
+		
+		<h:message for="loanData_condo" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.loanData_totalOutstanding}  "/>
+		
+
+	<h:inputText id="loanData_totalOutstanding#{entityId}" required="false" value="#{loanDataAction.loanData.totalOutstanding}"/>
+   
+		
+		<h:message for="loanData_totalOutstanding" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.loanData_mortgageBalance}  "/>
+		
+
+	<h:inputText id="loanData_mortgageBalance#{entityId}" required="false" value="#{loanDataAction.loanData.mortgageBalance}"/>
+   
+		
+		<h:message for="loanData_mortgageBalance" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.loanData_maturityDate}  "/>
+		
+
+	<rich:calendar id="loanData_maturityDate#{entityId}" required="false" value="#{loanDataAction.loanData.maturityDate}"/>
+   
+		
+		<h:message for="loanData_maturityDate" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.loanData_repaymentHistory}  "/>
+		
+
+	<h:inputText id="loanData_repaymentHistory#{entityId}" required="false" value="#{loanDataAction.loanData.repaymentHistory}"/>
+   
+		
+		<h:message for="loanData_repaymentHistory" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.loanData_originalPurposeTransaction}  "/>
+		
+
+	<h:inputText id="loanData_originalPurposeTransaction#{entityId}" required="false" value="#{loanDataAction.loanData.originalPurposeTransaction}"/>
+   
+		
+		<h:message for="loanData_originalPurposeTransaction" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.loanData_taxes}  "/>
+		
+
+	<h:inputText id="loanData_taxes#{entityId}" required="false" value="#{loanDataAction.loanData.taxes}"/>
+   
+		
+		<h:message for="loanData_taxes" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.loanData_rentalProperty}  "/>
+		
+
+	<h:selectBooleanCheckbox id="loanData_rentalProperty#{entityId}" required="false" value="#{loanDataAction.loanData.rentalProperty}"/>
+   
+		
+		<h:message for="loanData_rentalProperty" styleClass="error errors"/>		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	</h:panelGroup>
+	</ui:composition>

@@ -1,0 +1,2183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pages xmlns="http://jboss.com/products/seam/pages"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd"
+       no-conversation-view-id="/home.xhtml"
+       login-view-id="/login.xhtml">
+
+	<page view-id="/admin/*">
+        <restrict>#{s:hasRole('admin')}</restrict>
+     </page>
+    
+    <page view-id="/adminLogin.xhtml">     
+        <navigation from-action="#{identity.login}">
+           <redirect view-id="/admin/entities/summary.xhtml"/>
+        </navigation>
+	</page>
+
+	
+	<page view-id="*">
+        <navigation>
+        	<rule if-outcome="home">
+                <redirect view-id="/home.xhtml"/>
+            </rule>
+        
+            <rule if-outcome="appraisal">
+                <redirect view-id="/admin/entities/appraisal/appraisal/listAppraisal.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewAppraisal">
+                <redirect view-id="/admin/entities/appraisal/appraisal/viewAppraisal.xhtml" />
+            </rule>
+        
+            <rule if-outcome="legal">
+                <redirect view-id="/admin/entities/legal/legal/listLegal.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewLegal">
+                <redirect view-id="/admin/entities/legal/legal/viewLegal.xhtml" />
+            </rule>
+        
+            <rule if-outcome="mortgageeInformation">
+                <redirect view-id="/admin/entities/legal/mortgageeInformation/listMortgageeInformation.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewMortgageeInformation">
+                <redirect view-id="/admin/entities/legal/mortgageeInformation/viewMortgageeInformation.xhtml" />
+            </rule>
+        
+            <rule if-outcome="closingProcess">
+                <redirect view-id="/admin/entities/legal/closingProcess/listClosingProcess.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewClosingProcess">
+                <redirect view-id="/admin/entities/legal/closingProcess/viewClosingProcess.xhtml" />
+            </rule>
+        
+            <rule if-outcome="insurerProcess">
+                <redirect view-id="/admin/entities/legal/insurerProcess/listInsurerProcess.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewInsurerProcess">
+                <redirect view-id="/admin/entities/legal/insurerProcess/viewInsurerProcess.xhtml" />
+            </rule>
+        
+            <rule if-outcome="legalProcess">
+                <redirect view-id="/admin/entities/legal/legalProcess/listLegalProcess.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewLegalProcess">
+                <redirect view-id="/admin/entities/legal/legalProcess/viewLegalProcess.xhtml" />
+            </rule>
+        
+            <rule if-outcome="bankruptcy">
+                <redirect view-id="/admin/entities/legal/bankruptcy/listBankruptcy.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewBankruptcy">
+                <redirect view-id="/admin/entities/legal/bankruptcy/viewBankruptcy.xhtml" />
+            </rule>
+        
+            <rule if-outcome="titleSummary">
+                <redirect view-id="/admin/entities/legal/titleSummary/listTitleSummary.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewTitleSummary">
+                <redirect view-id="/admin/entities/legal/titleSummary/viewTitleSummary.xhtml" />
+            </rule>
+        
+            <rule if-outcome="lawyer">
+                <redirect view-id="/admin/entities/legal/lawyer/listLawyer.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewLawyer">
+                <redirect view-id="/admin/entities/legal/lawyer/viewLawyer.xhtml" />
+            </rule>
+        
+            <rule if-outcome="lawfirm">
+                <redirect view-id="/admin/entities/legal/lawfirm/listLawfirm.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewLawfirm">
+                <redirect view-id="/admin/entities/legal/lawfirm/viewLawfirm.xhtml" />
+            </rule>
+        
+            <rule if-outcome="loanData">
+                <redirect view-id="/admin/entities/loan/loanData/listLoanData.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewLoanData">
+                <redirect view-id="/admin/entities/loan/loanData/viewLoanData.xhtml" />
+            </rule>
+        
+            <rule if-outcome="mortgageInsurer">
+                <redirect view-id="/admin/entities/loan/mortgageInsurer/listMortgageInsurer.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewMortgageInsurer">
+                <redirect view-id="/admin/entities/loan/mortgageInsurer/viewMortgageInsurer.xhtml" />
+            </rule>
+        
+            <rule if-outcome="titleInsurer">
+                <redirect view-id="/admin/entities/loan/titleInsurer/listTitleInsurer.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewTitleInsurer">
+                <redirect view-id="/admin/entities/loan/titleInsurer/viewTitleInsurer.xhtml" />
+            </rule>
+        
+            <rule if-outcome="underwriter">
+                <redirect view-id="/admin/entities/loan/underwriter/listUnderwriter.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewUnderwriter">
+                <redirect view-id="/admin/entities/loan/underwriter/viewUnderwriter.xhtml" />
+            </rule>
+        
+            <rule if-outcome="broker">
+                <redirect view-id="/admin/entities/loan/broker/listBroker.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewBroker">
+                <redirect view-id="/admin/entities/loan/broker/viewBroker.xhtml" />
+            </rule>
+        
+            <rule if-outcome="borrower">
+                <redirect view-id="/admin/entities/loan/borrower/listBorrower.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewBorrower">
+                <redirect view-id="/admin/entities/loan/borrower/viewBorrower.xhtml" />
+            </rule>
+        
+            <rule if-outcome="lender">
+                <redirect view-id="/admin/entities/loan/lender/listLender.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewLender">
+                <redirect view-id="/admin/entities/loan/lender/viewLender.xhtml" />
+            </rule>
+        
+            <rule if-outcome="propertyManager">
+                <redirect view-id="/admin/entities/propertymanagement/propertyManager/listPropertyManager.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewPropertyManager">
+                <redirect view-id="/admin/entities/propertymanagement/propertyManager/viewPropertyManager.xhtml" />
+            </rule>
+        
+            <rule if-outcome="propertyManagementCompany">
+                <redirect view-id="/admin/entities/propertymanagement/propertyManagementCompany/listPropertyManagementCompany.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewPropertyManagementCompany">
+                <redirect view-id="/admin/entities/propertymanagement/propertyManagementCompany/viewPropertyManagementCompany.xhtml" />
+            </rule>
+        
+            <rule if-outcome="realEstateListing">
+                <redirect view-id="/admin/entities/realestate/realEstateListing/listRealEstateListing.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewRealEstateListing">
+                <redirect view-id="/admin/entities/realestate/realEstateListing/viewRealEstateListing.xhtml" />
+            </rule>
+        
+            <rule if-outcome="listingSummary">
+                <redirect view-id="/admin/entities/realestate/listingSummary/listListingSummary.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewListingSummary">
+                <redirect view-id="/admin/entities/realestate/listingSummary/viewListingSummary.xhtml" />
+            </rule>
+        
+            <rule if-outcome="agentHistory">
+                <redirect view-id="/admin/entities/realestate/agentHistory/listAgentHistory.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewAgentHistory">
+                <redirect view-id="/admin/entities/realestate/agentHistory/viewAgentHistory.xhtml" />
+            </rule>
+        
+            <rule if-outcome="filesUploaded">
+                <redirect view-id="/admin/entities/realestate/filesUploaded/listFilesUploaded.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewFilesUploaded">
+                <redirect view-id="/admin/entities/realestate/filesUploaded/viewFilesUploaded.xhtml" />
+            </rule>
+        
+            <rule if-outcome="offers">
+                <redirect view-id="/admin/entities/realestate/offers/listOffers.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewOffers">
+                <redirect view-id="/admin/entities/realestate/offers/viewOffers.xhtml" />
+            </rule>
+        
+            <rule if-outcome="masterAgent">
+                <redirect view-id="/admin/entities/realestate/masterAgent/listMasterAgent.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewMasterAgent">
+                <redirect view-id="/admin/entities/realestate/masterAgent/viewMasterAgent.xhtml" />
+            </rule>
+        
+            <rule if-outcome="realEstateBoard">
+                <redirect view-id="/admin/entities/realestate/realEstateBoard/listRealEstateBoard.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewRealEstateBoard">
+                <redirect view-id="/admin/entities/realestate/realEstateBoard/viewRealEstateBoard.xhtml" />
+            </rule>
+        
+            <rule if-outcome="realEstateProperty">
+                <redirect view-id="/admin/entities/realestate/realEstateProperty/listRealEstateProperty.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewRealEstateProperty">
+                <redirect view-id="/admin/entities/realestate/realEstateProperty/viewRealEstateProperty.xhtml" />
+            </rule>
+        
+            <rule if-outcome="realEstateFirm">
+                <redirect view-id="/admin/entities/realestate/realEstateFirm/listRealEstateFirm.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewRealEstateFirm">
+                <redirect view-id="/admin/entities/realestate/realEstateFirm/viewRealEstateFirm.xhtml" />
+            </rule>
+        
+            <rule if-outcome="attachments">
+                <redirect view-id="/admin/entities/realestate/attachments/listAttachments.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewAttachments">
+                <redirect view-id="/admin/entities/realestate/attachments/viewAttachments.xhtml" />
+            </rule>
+        
+            <rule if-outcome="tenantInfo">
+                <redirect view-id="/admin/entities/realestate/tenantInfo/listTenantInfo.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewTenantInfo">
+                <redirect view-id="/admin/entities/realestate/tenantInfo/viewTenantInfo.xhtml" />
+            </rule>
+        
+            <rule if-outcome="cMA">
+                <redirect view-id="/admin/entities/realestate/cMA/listCMA.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewCMA">
+                <redirect view-id="/admin/entities/realestate/cMA/viewCMA.xhtml" />
+            </rule>
+        
+            <rule if-outcome="user">
+                <redirect view-id="/admin/entities/users/user/listUser.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewUser">
+                <redirect view-id="/admin/entities/users/user/viewUser.xhtml" />
+            </rule>
+        
+            <rule if-outcome="role">
+                <redirect view-id="/admin/entities/users/role/listRole.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewRole">
+                <redirect view-id="/admin/entities/users/role/viewRole.xhtml" />
+            </rule>
+        
+        </navigation>
+    </page>
+
+    
+    
+    <page view-id="/admin/entities/appraisal/appraisal/editAppraisal.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Appraisal: #{appraisal.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/appraisal/appraisal/viewAppraisal.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/appraisal/appraisal/listAppraisal.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="appraisalId" value="#{appraisalAction.appraisalId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/appraisal/appraisal/viewAppraisal.xhtml" conversation-required="false" >
+	 	<!-- <description>View Appraisal: #{appraisal.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/appraisal/appraisal/editAppraisal.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/appraisal/appraisal/listAppraisal.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="appraisalId" value="#{appraisalAction.appraisalId}" />
+	</page>
+	
+	<page view-id="/admin/entities/appraisal/appraisal/listAppraisal.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewAppraisal">
+				<redirect view-id="/admin/entities/appraisal/appraisal/viewAppraisal.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/appraisal/appraisal/editAppraisal.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{appraisalList.firstResult}" />
+		<param name="sort" value="#{appraisalList.orderColumn}" />
+		<param name="dir" value="#{appraisalList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{appraisalList.appraisal.id}" />
+	 <param name="appraisal_appraisalNumber" value="#{appraisalList.appraisal.appraisalNumber}" validateModel="false" /> 	
+	 <param name="appraisal_specialInstruction" value="#{appraisalList.appraisal.specialInstruction}" validateModel="false" /> 	
+	 <param name="appraisal_serviceType" value="#{appraisalList.appraisal.serviceType}" validateModel="false" /> 	
+	 <param name="appraisal_status" value="#{appraisalList.appraisal.status}" validateModel="false" /> 	
+	 <param name="appraisal_ordered" value="#{appraisalList.appraisal.ordered}" validateModel="false" /> 	
+	 <param name="appraisal_dueDate" value="#{appraisalList.appraisal.dueDate}" validateModel="false" /> 	
+	 <param name="appraisal_received" value="#{appraisalList.appraisal.received}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/legal/legal/editLegal.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Legal: #{legal.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/legal/legal/viewLegal.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/legal/listLegal.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="legalId" value="#{legalAction.legalId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/legal/legal/viewLegal.xhtml" conversation-required="false" >
+	 	<!-- <description>View Legal: #{legal.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/legal/editLegal.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/legal/listLegal.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="legalId" value="#{legalAction.legalId}" />
+	</page>
+	
+	<page view-id="/admin/entities/legal/legal/listLegal.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewLegal">
+				<redirect view-id="/admin/entities/legal/legal/viewLegal.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/legal/editLegal.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{legalList.firstResult}" />
+		<param name="sort" value="#{legalList.orderColumn}" />
+		<param name="dir" value="#{legalList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{legalList.legal.id}" />
+	 <param name="legal_courtNumber" value="#{legalList.legal.courtNumber}" validateModel="false" /> 	
+	 <param name="legal_specialHandling" value="#{legalList.legal.specialHandling}" validateModel="false" /> 	
+	 <param name="legal_mortgageNumber" value="#{legalList.legal.mortgageNumber}" validateModel="false" /> 	
+	 <param name="legal_legalNumber" value="#{legalList.legal.legalNumber}" validateModel="false" /> 	
+	 <param name="legal_status" value="#{legalList.legal.status}" validateModel="false" /> 	
+	 <param name="legal_litigation" value="#{legalList.legal.litigation}" validateModel="false" /> 	
+	 <param name="legal_legalDescription" value="#{legalList.legal.legalDescription}" validateModel="false" /> 	
+	 <param name="legal_legalFileNumber" value="#{legalList.legal.legalFileNumber}" validateModel="false" /> 	
+	 <param name="legal_pin" value="#{legalList.legal.pin}" validateModel="false" /> 	
+	 <param name="legal_pid" value="#{legalList.legal.pid}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/legal/mortgageeInformation/editMortgageeInformation.xhtml" conversation-required="false" >
+    	<!-- <description>Edit MortgageeInformation: #{mortgageeInformation.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/legal/mortgageeInformation/viewMortgageeInformation.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/mortgageeInformation/listMortgageeInformation.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="mortgageeInformationId" value="#{mortgageeInformationAction.mortgageeInformationId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/legal/mortgageeInformation/viewMortgageeInformation.xhtml" conversation-required="false" >
+	 	<!-- <description>View MortgageeInformation: #{mortgageeInformation.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/mortgageeInformation/editMortgageeInformation.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/mortgageeInformation/listMortgageeInformation.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="mortgageeInformationId" value="#{mortgageeInformationAction.mortgageeInformationId}" />
+	</page>
+	
+	<page view-id="/admin/entities/legal/mortgageeInformation/listMortgageeInformation.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewMortgageeInformation">
+				<redirect view-id="/admin/entities/legal/mortgageeInformation/viewMortgageeInformation.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/mortgageeInformation/editMortgageeInformation.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{mortgageeInformationList.firstResult}" />
+		<param name="sort" value="#{mortgageeInformationList.orderColumn}" />
+		<param name="dir" value="#{mortgageeInformationList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{mortgageeInformationList.mortgageeInformation.id}" />
+		
+	</page>
+    
+    <page view-id="/admin/entities/legal/closingProcess/editClosingProcess.xhtml" conversation-required="false" >
+    	<!-- <description>Edit ClosingProcess: #{closingProcess.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/legal/closingProcess/viewClosingProcess.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/closingProcess/listClosingProcess.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="closingProcessId" value="#{closingProcessAction.closingProcessId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/legal/closingProcess/viewClosingProcess.xhtml" conversation-required="false" >
+	 	<!-- <description>View ClosingProcess: #{closingProcess.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/closingProcess/editClosingProcess.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/closingProcess/listClosingProcess.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="closingProcessId" value="#{closingProcessAction.closingProcessId}" />
+	</page>
+	
+	<page view-id="/admin/entities/legal/closingProcess/listClosingProcess.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewClosingProcess">
+				<redirect view-id="/admin/entities/legal/closingProcess/viewClosingProcess.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/closingProcess/editClosingProcess.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{closingProcessList.firstResult}" />
+		<param name="sort" value="#{closingProcessList.orderColumn}" />
+		<param name="dir" value="#{closingProcessList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{closingProcessList.closingProcess.id}" />
+	 <param name="process_completedDate" value="#{closingProcessList.closingProcess.completedDate}" validateModel="false" /> 	
+	 <param name="process_processNumber" value="#{closingProcessList.closingProcess.processNumber}" validateModel="false" /> 	
+	 <param name="process_expiryDate" value="#{closingProcessList.closingProcess.expiryDate}" validateModel="false" /> 	
+	 <param name="process_reason" value="#{closingProcessList.closingProcess.reason}" validateModel="false" /> 	
+	 <param name="process_type" value="#{closingProcessList.closingProcess.type}" validateModel="false" /> 	
+	 <param name="process_description" value="#{closingProcessList.closingProcess.description}" validateModel="false" /> 	
+	 <param name="process_legalNumber" value="#{closingProcessList.closingProcess.legalNumber}" validateModel="false" /> 	
+	 <param name="process_documentAdded" value="#{closingProcessList.closingProcess.documentAdded}" validateModel="false" /> 	
+	 <param name="process_skip" value="#{closingProcessList.closingProcess.skip}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/legal/insurerProcess/editInsurerProcess.xhtml" conversation-required="false" >
+    	<!-- <description>Edit InsurerProcess: #{insurerProcess.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/legal/insurerProcess/viewInsurerProcess.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/insurerProcess/listInsurerProcess.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="insurerProcessId" value="#{insurerProcessAction.insurerProcessId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/legal/insurerProcess/viewInsurerProcess.xhtml" conversation-required="false" >
+	 	<!-- <description>View InsurerProcess: #{insurerProcess.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/insurerProcess/editInsurerProcess.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/insurerProcess/listInsurerProcess.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="insurerProcessId" value="#{insurerProcessAction.insurerProcessId}" />
+	</page>
+	
+	<page view-id="/admin/entities/legal/insurerProcess/listInsurerProcess.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewInsurerProcess">
+				<redirect view-id="/admin/entities/legal/insurerProcess/viewInsurerProcess.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/insurerProcess/editInsurerProcess.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{insurerProcessList.firstResult}" />
+		<param name="sort" value="#{insurerProcessList.orderColumn}" />
+		<param name="dir" value="#{insurerProcessList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{insurerProcessList.insurerProcess.id}" />
+	 <param name="process_completedDate" value="#{insurerProcessList.insurerProcess.completedDate}" validateModel="false" /> 	
+	 <param name="process_processNumber" value="#{insurerProcessList.insurerProcess.processNumber}" validateModel="false" /> 	
+	 <param name="process_expiryDate" value="#{insurerProcessList.insurerProcess.expiryDate}" validateModel="false" /> 	
+	 <param name="process_reason" value="#{insurerProcessList.insurerProcess.reason}" validateModel="false" /> 	
+	 <param name="process_type" value="#{insurerProcessList.insurerProcess.type}" validateModel="false" /> 	
+	 <param name="process_description" value="#{insurerProcessList.insurerProcess.description}" validateModel="false" /> 	
+	 <param name="process_legalNumber" value="#{insurerProcessList.insurerProcess.legalNumber}" validateModel="false" /> 	
+	 <param name="process_documentAdded" value="#{insurerProcessList.insurerProcess.documentAdded}" validateModel="false" /> 	
+	 <param name="process_skip" value="#{insurerProcessList.insurerProcess.skip}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/legal/legalProcess/editLegalProcess.xhtml" conversation-required="false" >
+    	<!-- <description>Edit LegalProcess: #{legalProcess.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/legal/legalProcess/viewLegalProcess.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/legalProcess/listLegalProcess.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="legalProcessId" value="#{legalProcessAction.legalProcessId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/legal/legalProcess/viewLegalProcess.xhtml" conversation-required="false" >
+	 	<!-- <description>View LegalProcess: #{legalProcess.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/legalProcess/editLegalProcess.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/legalProcess/listLegalProcess.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="legalProcessId" value="#{legalProcessAction.legalProcessId}" />
+	</page>
+	
+	<page view-id="/admin/entities/legal/legalProcess/listLegalProcess.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewLegalProcess">
+				<redirect view-id="/admin/entities/legal/legalProcess/viewLegalProcess.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/legalProcess/editLegalProcess.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{legalProcessList.firstResult}" />
+		<param name="sort" value="#{legalProcessList.orderColumn}" />
+		<param name="dir" value="#{legalProcessList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{legalProcessList.legalProcess.id}" />
+	 <param name="process_completedDate" value="#{legalProcessList.legalProcess.completedDate}" validateModel="false" /> 	
+	 <param name="process_processNumber" value="#{legalProcessList.legalProcess.processNumber}" validateModel="false" /> 	
+	 <param name="process_expiryDate" value="#{legalProcessList.legalProcess.expiryDate}" validateModel="false" /> 	
+	 <param name="process_reason" value="#{legalProcessList.legalProcess.reason}" validateModel="false" /> 	
+	 <param name="process_type" value="#{legalProcessList.legalProcess.type}" validateModel="false" /> 	
+	 <param name="process_description" value="#{legalProcessList.legalProcess.description}" validateModel="false" /> 	
+	 <param name="process_legalNumber" value="#{legalProcessList.legalProcess.legalNumber}" validateModel="false" /> 	
+	 <param name="process_documentAdded" value="#{legalProcessList.legalProcess.documentAdded}" validateModel="false" /> 	
+	 <param name="process_skip" value="#{legalProcessList.legalProcess.skip}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/legal/bankruptcy/editBankruptcy.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Bankruptcy: #{bankruptcy.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/legal/bankruptcy/viewBankruptcy.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/bankruptcy/listBankruptcy.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="bankruptcyId" value="#{bankruptcyAction.bankruptcyId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/legal/bankruptcy/viewBankruptcy.xhtml" conversation-required="false" >
+	 	<!-- <description>View Bankruptcy: #{bankruptcy.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/bankruptcy/editBankruptcy.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/bankruptcy/listBankruptcy.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="bankruptcyId" value="#{bankruptcyAction.bankruptcyId}" />
+	</page>
+	
+	<page view-id="/admin/entities/legal/bankruptcy/listBankruptcy.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewBankruptcy">
+				<redirect view-id="/admin/entities/legal/bankruptcy/viewBankruptcy.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/bankruptcy/editBankruptcy.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{bankruptcyList.firstResult}" />
+		<param name="sort" value="#{bankruptcyList.orderColumn}" />
+		<param name="dir" value="#{bankruptcyList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{bankruptcyList.bankruptcy.id}" />
+	 <param name="bankruptcy_legalNumber" value="#{bankruptcyList.bankruptcy.legalNumber}" validateModel="false" /> 	
+	 <param name="bankruptcy_trustee" value="#{bankruptcyList.bankruptcy.trustee}" validateModel="false" /> 	
+	 <param name="bankruptcy_name" value="#{bankruptcyList.bankruptcy.name}" validateModel="false" /> 	
+	 <param name="bankruptcy_dateFiled" value="#{bankruptcyList.bankruptcy.dateFiled}" validateModel="false" /> 	
+	 <param name="bankruptcy_dischargedDate" value="#{bankruptcyList.bankruptcy.dischargedDate}" validateModel="false" /> 	
+	 <param name="bankruptcy_proofOfClaim" value="#{bankruptcyList.bankruptcy.proofOfClaim}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/legal/titleSummary/editTitleSummary.xhtml" conversation-required="false" >
+    	<!-- <description>Edit TitleSummary: #{titleSummary.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/legal/titleSummary/viewTitleSummary.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/titleSummary/listTitleSummary.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="titleSummaryId" value="#{titleSummaryAction.titleSummaryId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/legal/titleSummary/viewTitleSummary.xhtml" conversation-required="false" >
+	 	<!-- <description>View TitleSummary: #{titleSummary.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/titleSummary/editTitleSummary.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/titleSummary/listTitleSummary.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="titleSummaryId" value="#{titleSummaryAction.titleSummaryId}" />
+	</page>
+	
+	<page view-id="/admin/entities/legal/titleSummary/listTitleSummary.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewTitleSummary">
+				<redirect view-id="/admin/entities/legal/titleSummary/viewTitleSummary.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/titleSummary/editTitleSummary.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{titleSummaryList.firstResult}" />
+		<param name="sort" value="#{titleSummaryList.orderColumn}" />
+		<param name="dir" value="#{titleSummaryList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{titleSummaryList.titleSummary.id}" />
+	 <param name="titleSummary_legalNumber" value="#{titleSummaryList.titleSummary.legalNumber}" validateModel="false" /> 	
+	 <param name="titleSummary_chargeHolder" value="#{titleSummaryList.titleSummary.chargeHolder}" validateModel="false" /> 	
+	 <param name="titleSummary_priority" value="#{titleSummaryList.titleSummary.priority}" validateModel="false" /> 	
+	 <param name="titleSummary_description" value="#{titleSummaryList.titleSummary.description}" validateModel="false" /> 	
+	 <param name="titleSummary_amount" value="#{titleSummaryList.titleSummary.amount}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/legal/lawyer/editLawyer.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Lawyer: #{lawyer.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/legal/lawyer/viewLawyer.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/lawyer/listLawyer.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="lawyerId" value="#{lawyerAction.lawyerId}" />
+		<param name="lawfirmId" value="#{lawyerAction.lawfirmId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/legal/lawyer/viewLawyer.xhtml" conversation-required="false" >
+	 	<!-- <description>View Lawyer: #{lawyer.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/lawyer/editLawyer.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/lawyer/listLawyer.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="lawyerId" value="#{lawyerAction.lawyerId}" />
+	</page>
+	
+	<page view-id="/admin/entities/legal/lawyer/listLawyer.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewLawyer">
+				<redirect view-id="/admin/entities/legal/lawyer/viewLawyer.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/lawyer/editLawyer.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{lawyerList.firstResult}" />
+		<param name="sort" value="#{lawyerList.orderColumn}" />
+		<param name="dir" value="#{lawyerList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{lawyerList.lawyer.id}" />
+	 <param name="lawyer_lawfirm" value="#{lawyerList.lawyer.lawfirm}" validateModel="false" /> 	
+	 <param name="person_lastName" value="#{lawyerList.lawyer.lastName}" validateModel="false" /> 	
+	 <param name="person_firstName" value="#{lawyerList.lawyer.firstName}" validateModel="false" /> 	
+	 <param name="address_streetDirection" value="#{lawyerList.lawyer.address.streetDirection}" validateModel="false" /> 	
+	 <param name="address_streetNumber" value="#{lawyerList.lawyer.address.streetNumber}" validateModel="false" /> 	
+	 <param name="address_streetName" value="#{lawyerList.lawyer.address.streetName}" validateModel="false" /> 	
+	 <param name="address_province" value="#{lawyerList.lawyer.address.province}" validateModel="false" /> 	
+	 <param name="address_streetType" value="#{lawyerList.lawyer.address.streetType}" validateModel="false" /> 	
+	 <param name="address_postalCode" value="#{lawyerList.lawyer.address.postalCode}" validateModel="false" /> 	
+	 <param name="address_unitNumber" value="#{lawyerList.lawyer.address.unitNumber}" validateModel="false" /> 	
+	 <param name="address_city" value="#{lawyerList.lawyer.address.city}" validateModel="false" /> 	
+	 <param name="contactDetails_primaryPhone" value="#{lawyerList.lawyer.contactDetails.primaryPhone}" validateModel="false" /> 	
+	 <param name="contactDetails_secondaryPhone" value="#{lawyerList.lawyer.contactDetails.secondaryPhone}" validateModel="false" /> 	
+	 <param name="user_userName" value="#{lawyerList.lawyer.user.userName}" validateModel="false" /> 	
+	 <param name="user_enabled" value="#{lawyerList.lawyer.user.enabled}" validateModel="false" /> 	
+	 <param name="user_email" value="#{lawyerList.lawyer.user.email}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/legal/lawfirm/editLawfirm.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Lawfirm: #{lawfirm.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/legal/lawfirm/viewLawfirm.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/lawfirm/listLawfirm.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="lawfirmId" value="#{lawfirmAction.lawfirmId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/legal/lawfirm/viewLawfirm.xhtml" conversation-required="false" >
+	 	<!-- <description>View Lawfirm: #{lawfirm.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/lawfirm/editLawfirm.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/lawfirm/listLawfirm.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="lawfirmId" value="#{lawfirmAction.lawfirmId}" />
+	</page>
+	
+	<page view-id="/admin/entities/legal/lawfirm/listLawfirm.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewLawfirm">
+				<redirect view-id="/admin/entities/legal/lawfirm/viewLawfirm.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/lawfirm/editLawfirm.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{lawfirmList.firstResult}" />
+		<param name="sort" value="#{lawfirmList.orderColumn}" />
+		<param name="dir" value="#{lawfirmList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{lawfirmList.lawfirm.id}" />
+	 <param name="company_brand" value="#{lawfirmList.lawfirm.brand}" validateModel="false" /> 	
+	 <param name="company_name" value="#{lawfirmList.lawfirm.name}" validateModel="false" /> 	
+	 <param name="company_companyType" value="#{lawfirmList.lawfirm.companyType}" validateModel="false" /> 	
+	 <param name="address_streetDirection" value="#{lawfirmList.lawfirm.address.streetDirection}" validateModel="false" /> 	
+	 <param name="address_streetNumber" value="#{lawfirmList.lawfirm.address.streetNumber}" validateModel="false" /> 	
+	 <param name="address_streetName" value="#{lawfirmList.lawfirm.address.streetName}" validateModel="false" /> 	
+	 <param name="address_province" value="#{lawfirmList.lawfirm.address.province}" validateModel="false" /> 	
+	 <param name="address_streetType" value="#{lawfirmList.lawfirm.address.streetType}" validateModel="false" /> 	
+	 <param name="address_postalCode" value="#{lawfirmList.lawfirm.address.postalCode}" validateModel="false" /> 	
+	 <param name="address_unitNumber" value="#{lawfirmList.lawfirm.address.unitNumber}" validateModel="false" /> 	
+	 <param name="address_city" value="#{lawfirmList.lawfirm.address.city}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/loan/loanData/editLoanData.xhtml" conversation-required="false" >
+    	<!-- <description>Edit LoanData: #{loanData.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/loan/loanData/viewLoanData.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/loan/loanData/listLoanData.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="loanDataId" value="#{loanDataAction.loanDataId}" />
+		<param name="lenderId" value="#{loanDataAction.lenderId}" />
+		<param name="mortgageInsurerId" value="#{loanDataAction.mortgageInsurerId}" />
+		<param name="titleInsurerId" value="#{loanDataAction.titleInsurerId}" />
+		<param name="brokerId" value="#{loanDataAction.brokerId}" />
+		<param name="underwriterId" value="#{loanDataAction.underwriterId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/loan/loanData/viewLoanData.xhtml" conversation-required="false" >
+	 	<!-- <description>View LoanData: #{loanData.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/loan/loanData/editLoanData.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/loan/loanData/listLoanData.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="loanDataId" value="#{loanDataAction.loanDataId}" />
+	</page>
+	
+	<page view-id="/admin/entities/loan/loanData/listLoanData.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewLoanData">
+				<redirect view-id="/admin/entities/loan/loanData/viewLoanData.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/loan/loanData/editLoanData.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{loanDataList.firstResult}" />
+		<param name="sort" value="#{loanDataList.orderColumn}" />
+		<param name="dir" value="#{loanDataList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{loanDataList.loanData.id}" />
+	 <param name="loanData_fees" value="#{loanDataList.loanData.fees}" validateModel="false" /> 	
+	 <param name="loanData_originalAppraisedValue" value="#{loanDataList.loanData.originalAppraisedValue}" validateModel="false" /> 	
+	 <param name="loanData_taxPortion" value="#{loanDataList.loanData.taxPortion}" validateModel="false" /> 	
+	 <param name="loanData_mortgageNumber" value="#{loanDataList.loanData.mortgageNumber}" validateModel="false" /> 	
+	 <param name="loanData_interestRate" value="#{loanDataList.loanData.interestRate}" validateModel="false" /> 	
+	 <param name="loanData_arrears" value="#{loanDataList.loanData.arrears}" validateModel="false" /> 	
+	 <param name="loanData_fundingDate" value="#{loanDataList.loanData.fundingDate}" validateModel="false" /> 	
+	 <param name="loanData_condo" value="#{loanDataList.loanData.condo}" validateModel="false" /> 	
+	 <param name="loanData_totalOutstanding" value="#{loanDataList.loanData.totalOutstanding}" validateModel="false" /> 	
+	 <param name="loanData_mortgageBalance" value="#{loanDataList.loanData.mortgageBalance}" validateModel="false" /> 	
+	 <param name="loanData_maturityDate" value="#{loanDataList.loanData.maturityDate}" validateModel="false" /> 	
+	 <param name="loanData_repaymentHistory" value="#{loanDataList.loanData.repaymentHistory}" validateModel="false" /> 	
+	 <param name="loanData_originalPurposeTransaction" value="#{loanDataList.loanData.originalPurposeTransaction}" validateModel="false" /> 	
+	 <param name="loanData_taxes" value="#{loanDataList.loanData.taxes}" validateModel="false" /> 	
+	 <param name="loanData_rentalProperty" value="#{loanDataList.loanData.rentalProperty}" validateModel="false" /> 	
+	 <param name="loanData_lender" value="#{loanDataList.loanData.lender}" validateModel="false" /> 	
+	 <param name="loanData_mortgageInsurer" value="#{loanDataList.loanData.mortgageInsurer}" validateModel="false" /> 	
+	 <param name="loanData_titleInsurer" value="#{loanDataList.loanData.titleInsurer}" validateModel="false" /> 	
+	 <param name="loanData_broker" value="#{loanDataList.loanData.broker}" validateModel="false" /> 	
+	 <param name="loanData_underwriter" value="#{loanDataList.loanData.underwriter}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/loan/mortgageInsurer/editMortgageInsurer.xhtml" conversation-required="false" >
+    	<!-- <description>Edit MortgageInsurer: #{mortgageInsurer.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/loan/mortgageInsurer/viewMortgageInsurer.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/loan/mortgageInsurer/listMortgageInsurer.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="mortgageInsurerId" value="#{mortgageInsurerAction.mortgageInsurerId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/loan/mortgageInsurer/viewMortgageInsurer.xhtml" conversation-required="false" >
+	 	<!-- <description>View MortgageInsurer: #{mortgageInsurer.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/loan/mortgageInsurer/editMortgageInsurer.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/loan/mortgageInsurer/listMortgageInsurer.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="mortgageInsurerId" value="#{mortgageInsurerAction.mortgageInsurerId}" />
+	</page>
+	
+	<page view-id="/admin/entities/loan/mortgageInsurer/listMortgageInsurer.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewMortgageInsurer">
+				<redirect view-id="/admin/entities/loan/mortgageInsurer/viewMortgageInsurer.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/loan/mortgageInsurer/editMortgageInsurer.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{mortgageInsurerList.firstResult}" />
+		<param name="sort" value="#{mortgageInsurerList.orderColumn}" />
+		<param name="dir" value="#{mortgageInsurerList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{mortgageInsurerList.mortgageInsurer.id}" />
+	 <param name="mortgageInsurer_policyNumber" value="#{mortgageInsurerList.mortgageInsurer.policyNumber}" validateModel="false" /> 	
+	 <param name="company_brand" value="#{mortgageInsurerList.mortgageInsurer.brand}" validateModel="false" /> 	
+	 <param name="company_name" value="#{mortgageInsurerList.mortgageInsurer.name}" validateModel="false" /> 	
+	 <param name="company_companyType" value="#{mortgageInsurerList.mortgageInsurer.companyType}" validateModel="false" /> 	
+	 <param name="address_streetDirection" value="#{mortgageInsurerList.mortgageInsurer.address.streetDirection}" validateModel="false" /> 	
+	 <param name="address_streetNumber" value="#{mortgageInsurerList.mortgageInsurer.address.streetNumber}" validateModel="false" /> 	
+	 <param name="address_streetName" value="#{mortgageInsurerList.mortgageInsurer.address.streetName}" validateModel="false" /> 	
+	 <param name="address_province" value="#{mortgageInsurerList.mortgageInsurer.address.province}" validateModel="false" /> 	
+	 <param name="address_streetType" value="#{mortgageInsurerList.mortgageInsurer.address.streetType}" validateModel="false" /> 	
+	 <param name="address_postalCode" value="#{mortgageInsurerList.mortgageInsurer.address.postalCode}" validateModel="false" /> 	
+	 <param name="address_unitNumber" value="#{mortgageInsurerList.mortgageInsurer.address.unitNumber}" validateModel="false" /> 	
+	 <param name="address_city" value="#{mortgageInsurerList.mortgageInsurer.address.city}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/loan/titleInsurer/editTitleInsurer.xhtml" conversation-required="false" >
+    	<!-- <description>Edit TitleInsurer: #{titleInsurer.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/loan/titleInsurer/viewTitleInsurer.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/loan/titleInsurer/listTitleInsurer.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="titleInsurerId" value="#{titleInsurerAction.titleInsurerId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/loan/titleInsurer/viewTitleInsurer.xhtml" conversation-required="false" >
+	 	<!-- <description>View TitleInsurer: #{titleInsurer.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/loan/titleInsurer/editTitleInsurer.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/loan/titleInsurer/listTitleInsurer.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="titleInsurerId" value="#{titleInsurerAction.titleInsurerId}" />
+	</page>
+	
+	<page view-id="/admin/entities/loan/titleInsurer/listTitleInsurer.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewTitleInsurer">
+				<redirect view-id="/admin/entities/loan/titleInsurer/viewTitleInsurer.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/loan/titleInsurer/editTitleInsurer.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{titleInsurerList.firstResult}" />
+		<param name="sort" value="#{titleInsurerList.orderColumn}" />
+		<param name="dir" value="#{titleInsurerList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{titleInsurerList.titleInsurer.id}" />
+	 <param name="titleInsurer_policyNumber" value="#{titleInsurerList.titleInsurer.policyNumber}" validateModel="false" /> 	
+	 <param name="titleInsurer_claim" value="#{titleInsurerList.titleInsurer.claim}" validateModel="false" /> 	
+	 <param name="company_brand" value="#{titleInsurerList.titleInsurer.brand}" validateModel="false" /> 	
+	 <param name="company_name" value="#{titleInsurerList.titleInsurer.name}" validateModel="false" /> 	
+	 <param name="company_companyType" value="#{titleInsurerList.titleInsurer.companyType}" validateModel="false" /> 	
+	 <param name="address_streetDirection" value="#{titleInsurerList.titleInsurer.address.streetDirection}" validateModel="false" /> 	
+	 <param name="address_streetNumber" value="#{titleInsurerList.titleInsurer.address.streetNumber}" validateModel="false" /> 	
+	 <param name="address_streetName" value="#{titleInsurerList.titleInsurer.address.streetName}" validateModel="false" /> 	
+	 <param name="address_province" value="#{titleInsurerList.titleInsurer.address.province}" validateModel="false" /> 	
+	 <param name="address_streetType" value="#{titleInsurerList.titleInsurer.address.streetType}" validateModel="false" /> 	
+	 <param name="address_postalCode" value="#{titleInsurerList.titleInsurer.address.postalCode}" validateModel="false" /> 	
+	 <param name="address_unitNumber" value="#{titleInsurerList.titleInsurer.address.unitNumber}" validateModel="false" /> 	
+	 <param name="address_city" value="#{titleInsurerList.titleInsurer.address.city}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/loan/underwriter/editUnderwriter.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Underwriter: #{underwriter.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/loan/underwriter/viewUnderwriter.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/loan/underwriter/listUnderwriter.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="underwriterId" value="#{underwriterAction.underwriterId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/loan/underwriter/viewUnderwriter.xhtml" conversation-required="false" >
+	 	<!-- <description>View Underwriter: #{underwriter.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/loan/underwriter/editUnderwriter.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/loan/underwriter/listUnderwriter.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="underwriterId" value="#{underwriterAction.underwriterId}" />
+	</page>
+	
+	<page view-id="/admin/entities/loan/underwriter/listUnderwriter.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewUnderwriter">
+				<redirect view-id="/admin/entities/loan/underwriter/viewUnderwriter.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/loan/underwriter/editUnderwriter.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{underwriterList.firstResult}" />
+		<param name="sort" value="#{underwriterList.orderColumn}" />
+		<param name="dir" value="#{underwriterList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{underwriterList.underwriter.id}" />
+	 <param name="person_lastName" value="#{underwriterList.underwriter.lastName}" validateModel="false" /> 	
+	 <param name="person_firstName" value="#{underwriterList.underwriter.firstName}" validateModel="false" /> 	
+	 <param name="address_streetDirection" value="#{underwriterList.underwriter.address.streetDirection}" validateModel="false" /> 	
+	 <param name="address_streetNumber" value="#{underwriterList.underwriter.address.streetNumber}" validateModel="false" /> 	
+	 <param name="address_streetName" value="#{underwriterList.underwriter.address.streetName}" validateModel="false" /> 	
+	 <param name="address_province" value="#{underwriterList.underwriter.address.province}" validateModel="false" /> 	
+	 <param name="address_streetType" value="#{underwriterList.underwriter.address.streetType}" validateModel="false" /> 	
+	 <param name="address_postalCode" value="#{underwriterList.underwriter.address.postalCode}" validateModel="false" /> 	
+	 <param name="address_unitNumber" value="#{underwriterList.underwriter.address.unitNumber}" validateModel="false" /> 	
+	 <param name="address_city" value="#{underwriterList.underwriter.address.city}" validateModel="false" /> 	
+	 <param name="contactDetails_primaryPhone" value="#{underwriterList.underwriter.contactDetails.primaryPhone}" validateModel="false" /> 	
+	 <param name="contactDetails_secondaryPhone" value="#{underwriterList.underwriter.contactDetails.secondaryPhone}" validateModel="false" /> 	
+	 <param name="user_userName" value="#{underwriterList.underwriter.user.userName}" validateModel="false" /> 	
+	 <param name="user_enabled" value="#{underwriterList.underwriter.user.enabled}" validateModel="false" /> 	
+	 <param name="user_email" value="#{underwriterList.underwriter.user.email}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/loan/broker/editBroker.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Broker: #{broker.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/loan/broker/viewBroker.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/loan/broker/listBroker.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="brokerId" value="#{brokerAction.brokerId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/loan/broker/viewBroker.xhtml" conversation-required="false" >
+	 	<!-- <description>View Broker: #{broker.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/loan/broker/editBroker.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/loan/broker/listBroker.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="brokerId" value="#{brokerAction.brokerId}" />
+	</page>
+	
+	<page view-id="/admin/entities/loan/broker/listBroker.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewBroker">
+				<redirect view-id="/admin/entities/loan/broker/viewBroker.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/loan/broker/editBroker.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{brokerList.firstResult}" />
+		<param name="sort" value="#{brokerList.orderColumn}" />
+		<param name="dir" value="#{brokerList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{brokerList.broker.id}" />
+	 <param name="person_lastName" value="#{brokerList.broker.lastName}" validateModel="false" /> 	
+	 <param name="person_firstName" value="#{brokerList.broker.firstName}" validateModel="false" /> 	
+	 <param name="address_streetDirection" value="#{brokerList.broker.address.streetDirection}" validateModel="false" /> 	
+	 <param name="address_streetNumber" value="#{brokerList.broker.address.streetNumber}" validateModel="false" /> 	
+	 <param name="address_streetName" value="#{brokerList.broker.address.streetName}" validateModel="false" /> 	
+	 <param name="address_province" value="#{brokerList.broker.address.province}" validateModel="false" /> 	
+	 <param name="address_streetType" value="#{brokerList.broker.address.streetType}" validateModel="false" /> 	
+	 <param name="address_postalCode" value="#{brokerList.broker.address.postalCode}" validateModel="false" /> 	
+	 <param name="address_unitNumber" value="#{brokerList.broker.address.unitNumber}" validateModel="false" /> 	
+	 <param name="address_city" value="#{brokerList.broker.address.city}" validateModel="false" /> 	
+	 <param name="contactDetails_primaryPhone" value="#{brokerList.broker.contactDetails.primaryPhone}" validateModel="false" /> 	
+	 <param name="contactDetails_secondaryPhone" value="#{brokerList.broker.contactDetails.secondaryPhone}" validateModel="false" /> 	
+	 <param name="user_userName" value="#{brokerList.broker.user.userName}" validateModel="false" /> 	
+	 <param name="user_enabled" value="#{brokerList.broker.user.enabled}" validateModel="false" /> 	
+	 <param name="user_email" value="#{brokerList.broker.user.email}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/loan/borrower/editBorrower.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Borrower: #{borrower.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/loan/borrower/viewBorrower.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/loan/borrower/listBorrower.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="borrowerId" value="#{borrowerAction.borrowerId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/loan/borrower/viewBorrower.xhtml" conversation-required="false" >
+	 	<!-- <description>View Borrower: #{borrower.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/loan/borrower/editBorrower.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/loan/borrower/listBorrower.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="borrowerId" value="#{borrowerAction.borrowerId}" />
+	</page>
+	
+	<page view-id="/admin/entities/loan/borrower/listBorrower.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewBorrower">
+				<redirect view-id="/admin/entities/loan/borrower/viewBorrower.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/loan/borrower/editBorrower.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{borrowerList.firstResult}" />
+		<param name="sort" value="#{borrowerList.orderColumn}" />
+		<param name="dir" value="#{borrowerList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{borrowerList.borrower.id}" />
+	 <param name="person_lastName" value="#{borrowerList.borrower.lastName}" validateModel="false" /> 	
+	 <param name="person_firstName" value="#{borrowerList.borrower.firstName}" validateModel="false" /> 	
+	 <param name="address_streetDirection" value="#{borrowerList.borrower.address.streetDirection}" validateModel="false" /> 	
+	 <param name="address_streetNumber" value="#{borrowerList.borrower.address.streetNumber}" validateModel="false" /> 	
+	 <param name="address_streetName" value="#{borrowerList.borrower.address.streetName}" validateModel="false" /> 	
+	 <param name="address_province" value="#{borrowerList.borrower.address.province}" validateModel="false" /> 	
+	 <param name="address_streetType" value="#{borrowerList.borrower.address.streetType}" validateModel="false" /> 	
+	 <param name="address_postalCode" value="#{borrowerList.borrower.address.postalCode}" validateModel="false" /> 	
+	 <param name="address_unitNumber" value="#{borrowerList.borrower.address.unitNumber}" validateModel="false" /> 	
+	 <param name="address_city" value="#{borrowerList.borrower.address.city}" validateModel="false" /> 	
+	 <param name="contactDetails_primaryPhone" value="#{borrowerList.borrower.contactDetails.primaryPhone}" validateModel="false" /> 	
+	 <param name="contactDetails_secondaryPhone" value="#{borrowerList.borrower.contactDetails.secondaryPhone}" validateModel="false" /> 	
+	 <param name="user_userName" value="#{borrowerList.borrower.user.userName}" validateModel="false" /> 	
+	 <param name="user_enabled" value="#{borrowerList.borrower.user.enabled}" validateModel="false" /> 	
+	 <param name="user_email" value="#{borrowerList.borrower.user.email}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/loan/lender/editLender.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Lender: #{lender.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/loan/lender/viewLender.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/loan/lender/listLender.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="lenderId" value="#{lenderAction.lenderId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/loan/lender/viewLender.xhtml" conversation-required="false" >
+	 	<!-- <description>View Lender: #{lender.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/loan/lender/editLender.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/loan/lender/listLender.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="lenderId" value="#{lenderAction.lenderId}" />
+	</page>
+	
+	<page view-id="/admin/entities/loan/lender/listLender.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewLender">
+				<redirect view-id="/admin/entities/loan/lender/viewLender.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/loan/lender/editLender.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{lenderList.firstResult}" />
+		<param name="sort" value="#{lenderList.orderColumn}" />
+		<param name="dir" value="#{lenderList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{lenderList.lender.id}" />
+	 <param name="company_brand" value="#{lenderList.lender.brand}" validateModel="false" /> 	
+	 <param name="company_name" value="#{lenderList.lender.name}" validateModel="false" /> 	
+	 <param name="company_companyType" value="#{lenderList.lender.companyType}" validateModel="false" /> 	
+	 <param name="address_streetDirection" value="#{lenderList.lender.address.streetDirection}" validateModel="false" /> 	
+	 <param name="address_streetNumber" value="#{lenderList.lender.address.streetNumber}" validateModel="false" /> 	
+	 <param name="address_streetName" value="#{lenderList.lender.address.streetName}" validateModel="false" /> 	
+	 <param name="address_province" value="#{lenderList.lender.address.province}" validateModel="false" /> 	
+	 <param name="address_streetType" value="#{lenderList.lender.address.streetType}" validateModel="false" /> 	
+	 <param name="address_postalCode" value="#{lenderList.lender.address.postalCode}" validateModel="false" /> 	
+	 <param name="address_unitNumber" value="#{lenderList.lender.address.unitNumber}" validateModel="false" /> 	
+	 <param name="address_city" value="#{lenderList.lender.address.city}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/propertymanagement/propertyManager/editPropertyManager.xhtml" conversation-required="false" >
+    	<!-- <description>Edit PropertyManager: #{propertyManager.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/propertymanagement/propertyManager/viewPropertyManager.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/propertymanagement/propertyManager/listPropertyManager.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="propertyManagerId" value="#{propertyManagerAction.propertyManagerId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/propertymanagement/propertyManager/viewPropertyManager.xhtml" conversation-required="false" >
+	 	<!-- <description>View PropertyManager: #{propertyManager.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/propertymanagement/propertyManager/editPropertyManager.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/propertymanagement/propertyManager/listPropertyManager.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="propertyManagerId" value="#{propertyManagerAction.propertyManagerId}" />
+	</page>
+	
+	<page view-id="/admin/entities/propertymanagement/propertyManager/listPropertyManager.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewPropertyManager">
+				<redirect view-id="/admin/entities/propertymanagement/propertyManager/viewPropertyManager.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/propertymanagement/propertyManager/editPropertyManager.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{propertyManagerList.firstResult}" />
+		<param name="sort" value="#{propertyManagerList.orderColumn}" />
+		<param name="dir" value="#{propertyManagerList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{propertyManagerList.propertyManager.id}" />
+	 <param name="person_lastName" value="#{propertyManagerList.propertyManager.lastName}" validateModel="false" /> 	
+	 <param name="person_firstName" value="#{propertyManagerList.propertyManager.firstName}" validateModel="false" /> 	
+	 <param name="address_streetDirection" value="#{propertyManagerList.propertyManager.address.streetDirection}" validateModel="false" /> 	
+	 <param name="address_streetNumber" value="#{propertyManagerList.propertyManager.address.streetNumber}" validateModel="false" /> 	
+	 <param name="address_streetName" value="#{propertyManagerList.propertyManager.address.streetName}" validateModel="false" /> 	
+	 <param name="address_province" value="#{propertyManagerList.propertyManager.address.province}" validateModel="false" /> 	
+	 <param name="address_streetType" value="#{propertyManagerList.propertyManager.address.streetType}" validateModel="false" /> 	
+	 <param name="address_postalCode" value="#{propertyManagerList.propertyManager.address.postalCode}" validateModel="false" /> 	
+	 <param name="address_unitNumber" value="#{propertyManagerList.propertyManager.address.unitNumber}" validateModel="false" /> 	
+	 <param name="address_city" value="#{propertyManagerList.propertyManager.address.city}" validateModel="false" /> 	
+	 <param name="contactDetails_primaryPhone" value="#{propertyManagerList.propertyManager.contactDetails.primaryPhone}" validateModel="false" /> 	
+	 <param name="contactDetails_secondaryPhone" value="#{propertyManagerList.propertyManager.contactDetails.secondaryPhone}" validateModel="false" /> 	
+	 <param name="user_userName" value="#{propertyManagerList.propertyManager.user.userName}" validateModel="false" /> 	
+	 <param name="user_enabled" value="#{propertyManagerList.propertyManager.user.enabled}" validateModel="false" /> 	
+	 <param name="user_email" value="#{propertyManagerList.propertyManager.user.email}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/propertymanagement/propertyManagementCompany/editPropertyManagementCompany.xhtml" conversation-required="false" >
+    	<!-- <description>Edit PropertyManagementCompany: #{propertyManagementCompany.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/propertymanagement/propertyManagementCompany/viewPropertyManagementCompany.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/propertymanagement/propertyManagementCompany/listPropertyManagementCompany.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="propertyManagementCompanyId" value="#{propertyManagementCompanyAction.propertyManagementCompanyId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/propertymanagement/propertyManagementCompany/viewPropertyManagementCompany.xhtml" conversation-required="false" >
+	 	<!-- <description>View PropertyManagementCompany: #{propertyManagementCompany.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/propertymanagement/propertyManagementCompany/editPropertyManagementCompany.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/propertymanagement/propertyManagementCompany/listPropertyManagementCompany.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="propertyManagementCompanyId" value="#{propertyManagementCompanyAction.propertyManagementCompanyId}" />
+	</page>
+	
+	<page view-id="/admin/entities/propertymanagement/propertyManagementCompany/listPropertyManagementCompany.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewPropertyManagementCompany">
+				<redirect view-id="/admin/entities/propertymanagement/propertyManagementCompany/viewPropertyManagementCompany.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/propertymanagement/propertyManagementCompany/editPropertyManagementCompany.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{propertyManagementCompanyList.firstResult}" />
+		<param name="sort" value="#{propertyManagementCompanyList.orderColumn}" />
+		<param name="dir" value="#{propertyManagementCompanyList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{propertyManagementCompanyList.propertyManagementCompany.id}" />
+	 <param name="company_brand" value="#{propertyManagementCompanyList.propertyManagementCompany.brand}" validateModel="false" /> 	
+	 <param name="company_name" value="#{propertyManagementCompanyList.propertyManagementCompany.name}" validateModel="false" /> 	
+	 <param name="company_companyType" value="#{propertyManagementCompanyList.propertyManagementCompany.companyType}" validateModel="false" /> 	
+	 <param name="address_streetDirection" value="#{propertyManagementCompanyList.propertyManagementCompany.address.streetDirection}" validateModel="false" /> 	
+	 <param name="address_streetNumber" value="#{propertyManagementCompanyList.propertyManagementCompany.address.streetNumber}" validateModel="false" /> 	
+	 <param name="address_streetName" value="#{propertyManagementCompanyList.propertyManagementCompany.address.streetName}" validateModel="false" /> 	
+	 <param name="address_province" value="#{propertyManagementCompanyList.propertyManagementCompany.address.province}" validateModel="false" /> 	
+	 <param name="address_streetType" value="#{propertyManagementCompanyList.propertyManagementCompany.address.streetType}" validateModel="false" /> 	
+	 <param name="address_postalCode" value="#{propertyManagementCompanyList.propertyManagementCompany.address.postalCode}" validateModel="false" /> 	
+	 <param name="address_unitNumber" value="#{propertyManagementCompanyList.propertyManagementCompany.address.unitNumber}" validateModel="false" /> 	
+	 <param name="address_city" value="#{propertyManagementCompanyList.propertyManagementCompany.address.city}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/realestate/realEstateListing/editRealEstateListing.xhtml" conversation-required="false" >
+    	<!-- <description>Edit RealEstateListing: #{realEstateListing.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/realestate/realEstateListing/viewRealEstateListing.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/realEstateListing/listRealEstateListing.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="realEstateListingId" value="#{realEstateListingAction.realEstateListingId}" />
+		<param name="realEstateBoardId" value="#{realEstateListingAction.realEstateBoardId}" />
+		<param name="realEstatePropertyId" value="#{realEstateListingAction.realEstatePropertyId}" />
+		<param name="masterId" value="#{realEstateListingAction.masterId}" />
+		<param name="subagentId" value="#{realEstateListingAction.subagentId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/realestate/realEstateListing/viewRealEstateListing.xhtml" conversation-required="false" >
+	 	<!-- <description>View RealEstateListing: #{realEstateListing.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/realEstateListing/editRealEstateListing.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/realEstateListing/listRealEstateListing.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="realEstateListingId" value="#{realEstateListingAction.realEstateListingId}" />
+	</page>
+	
+	<page view-id="/admin/entities/realestate/realEstateListing/listRealEstateListing.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewRealEstateListing">
+				<redirect view-id="/admin/entities/realestate/realEstateListing/viewRealEstateListing.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/realEstateListing/editRealEstateListing.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{realEstateListingList.firstResult}" />
+		<param name="sort" value="#{realEstateListingList.orderColumn}" />
+		<param name="dir" value="#{realEstateListingList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{realEstateListingList.realEstateListing.id}" />
+	 <param name="realEstateListing_listPrice" value="#{realEstateListingList.realEstateListing.listPrice}" validateModel="false" /> 	
+	 <param name="realEstateListing_propertyTaxes" value="#{realEstateListingList.realEstateListing.propertyTaxes}" validateModel="false" /> 	
+	 <param name="realEstateListing_soldPrice" value="#{realEstateListingList.realEstateListing.soldPrice}" validateModel="false" /> 	
+	 <param name="realEstateListing_lockBox" value="#{realEstateListingList.realEstateListing.lockBox}" validateModel="false" /> 	
+	 <param name="realEstateListing_costPerDiem" value="#{realEstateListingList.realEstateListing.costPerDiem}" validateModel="false" /> 	
+	 <param name="realEstateListing_vtbAccepted" value="#{realEstateListingList.realEstateListing.vtbAccepted}" validateModel="false" /> 	
+	 <param name="realEstateListing_realEstateNumber" value="#{realEstateListingList.realEstateListing.realEstateNumber}" validateModel="false" /> 	
+	 <param name="realEstateListing_status" value="#{realEstateListingList.realEstateListing.status}" validateModel="false" /> 	
+	 <param name="realEstateListing_cmaOrdered" value="#{realEstateListingList.realEstateListing.cmaOrdered}" validateModel="false" /> 	
+	 <param name="realEstateListing_occupied" value="#{realEstateListingList.realEstateListing.occupied}" validateModel="false" /> 	
+	 <param name="realEstateListing_commission" value="#{realEstateListingList.realEstateListing.commission}" validateModel="false" /> 	
+	 <param name="realEstateListing_mlsNumber" value="#{realEstateListingList.realEstateListing.mlsNumber}" validateModel="false" /> 	
+	 <param name="realEstateListing_condoFees" value="#{realEstateListingList.realEstateListing.condoFees}" validateModel="false" /> 	
+	 <param name="realEstateListing_dateListed" value="#{realEstateListingList.realEstateListing.dateListed}" validateModel="false" /> 	
+	 <param name="realEstateListing_mortgageNumber" value="#{realEstateListingList.realEstateListing.mortgageNumber}" validateModel="false" /> 	
+	 <param name="realEstateListing_soldDate" value="#{realEstateListingList.realEstateListing.soldDate}" validateModel="false" /> 	
+	 <param name="realEstateListing_daysOnMarket" value="#{realEstateListingList.realEstateListing.daysOnMarket}" validateModel="false" /> 	
+	 <param name="realEstateListing_mlsComments" value="#{realEstateListingList.realEstateListing.mlsComments}" validateModel="false" /> 	
+	 <param name="realEstateListing_closingDate" value="#{realEstateListingList.realEstateListing.closingDate}" validateModel="false" /> 	
+	 <param name="realEstateListing_vtbOffered" value="#{realEstateListingList.realEstateListing.vtbOffered}" validateModel="false" /> 	
+	 <param name="realEstateListing_deposit" value="#{realEstateListingList.realEstateListing.deposit}" validateModel="false" /> 	
+	 <param name="realEstateListing_expiryDate" value="#{realEstateListingList.realEstateListing.expiryDate}" validateModel="false" /> 	
+	 <param name="realEstateListing_realEstateBoard" value="#{realEstateListingList.realEstateListing.realEstateBoard}" validateModel="false" /> 	
+	 <param name="realEstateListing_realEstateProperty" value="#{realEstateListingList.realEstateListing.realEstateProperty}" validateModel="false" /> 	
+	 <param name="realEstateListing_master" value="#{realEstateListingList.realEstateListing.master}" validateModel="false" /> 	
+	 <param name="realEstateListing_subagent" value="#{realEstateListingList.realEstateListing.subagent}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/realestate/listingSummary/editListingSummary.xhtml" conversation-required="false" >
+    	<!-- <description>Edit ListingSummary: #{listingSummary.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/realestate/listingSummary/viewListingSummary.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/listingSummary/listListingSummary.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="listingSummaryId" value="#{listingSummaryAction.listingSummaryId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/realestate/listingSummary/viewListingSummary.xhtml" conversation-required="false" >
+	 	<!-- <description>View ListingSummary: #{listingSummary.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/listingSummary/editListingSummary.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/listingSummary/listListingSummary.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="listingSummaryId" value="#{listingSummaryAction.listingSummaryId}" />
+	</page>
+	
+	<page view-id="/admin/entities/realestate/listingSummary/listListingSummary.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewListingSummary">
+				<redirect view-id="/admin/entities/realestate/listingSummary/viewListingSummary.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/listingSummary/editListingSummary.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{listingSummaryList.firstResult}" />
+		<param name="sort" value="#{listingSummaryList.orderColumn}" />
+		<param name="dir" value="#{listingSummaryList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{listingSummaryList.listingSummary.id}" />
+	 <param name="listingSummary_report" value="#{listingSummaryList.listingSummary.report}" validateModel="false" /> 	
+	 <param name="listingSummary_expiryDate" value="#{listingSummaryList.listingSummary.expiryDate}" validateModel="false" /> 	
+	 <param name="listingSummary_agent" value="#{listingSummaryList.listingSummary.agent}" validateModel="false" /> 	
+	 <param name="listingSummary_dateListed" value="#{listingSummaryList.listingSummary.dateListed}" validateModel="false" /> 	
+	 <param name="listingSummary_amount" value="#{listingSummaryList.listingSummary.amount}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/realestate/agentHistory/editAgentHistory.xhtml" conversation-required="false" >
+    	<!-- <description>Edit AgentHistory: #{agentHistory.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/realestate/agentHistory/viewAgentHistory.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/agentHistory/listAgentHistory.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="agentHistoryId" value="#{agentHistoryAction.agentHistoryId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/realestate/agentHistory/viewAgentHistory.xhtml" conversation-required="false" >
+	 	<!-- <description>View AgentHistory: #{agentHistory.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/agentHistory/editAgentHistory.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/agentHistory/listAgentHistory.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="agentHistoryId" value="#{agentHistoryAction.agentHistoryId}" />
+	</page>
+	
+	<page view-id="/admin/entities/realestate/agentHistory/listAgentHistory.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewAgentHistory">
+				<redirect view-id="/admin/entities/realestate/agentHistory/viewAgentHistory.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/agentHistory/editAgentHistory.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{agentHistoryList.firstResult}" />
+		<param name="sort" value="#{agentHistoryList.orderColumn}" />
+		<param name="dir" value="#{agentHistoryList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{agentHistoryList.agentHistory.id}" />
+	 <param name="agentHistory_realEstateNumber" value="#{agentHistoryList.agentHistory.realEstateNumber}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/realestate/filesUploaded/editFilesUploaded.xhtml" conversation-required="false" >
+    	<!-- <description>Edit FilesUploaded: #{filesUploaded.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/realestate/filesUploaded/viewFilesUploaded.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/filesUploaded/listFilesUploaded.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="filesUploadedId" value="#{filesUploadedAction.filesUploadedId}" />
+		<param name="realEstatePropertyId" value="#{filesUploadedAction.realEstatePropertyId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/realestate/filesUploaded/viewFilesUploaded.xhtml" conversation-required="false" >
+	 	<!-- <description>View FilesUploaded: #{filesUploaded.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/filesUploaded/editFilesUploaded.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/filesUploaded/listFilesUploaded.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="filesUploadedId" value="#{filesUploadedAction.filesUploadedId}" />
+	</page>
+	
+	<page view-id="/admin/entities/realestate/filesUploaded/listFilesUploaded.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewFilesUploaded">
+				<redirect view-id="/admin/entities/realestate/filesUploaded/viewFilesUploaded.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/filesUploaded/editFilesUploaded.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{filesUploadedList.firstResult}" />
+		<param name="sort" value="#{filesUploadedList.orderColumn}" />
+		<param name="dir" value="#{filesUploadedList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{filesUploadedList.filesUploaded.id}" />
+	 <param name="filesUploaded_title" value="#{filesUploadedList.filesUploaded.title}" validateModel="false" /> 	
+	 <param name="filesUploaded_realEstateProperty" value="#{filesUploadedList.filesUploaded.realEstateProperty}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/realestate/offers/editOffers.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Offers: #{offers.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/realestate/offers/viewOffers.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/offers/listOffers.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="offersId" value="#{offersAction.offersId}" />
+		<param name="realEstateListingId" value="#{offersAction.realEstateListingId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/realestate/offers/viewOffers.xhtml" conversation-required="false" >
+	 	<!-- <description>View Offers: #{offers.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/offers/editOffers.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/offers/listOffers.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="offersId" value="#{offersAction.offersId}" />
+	</page>
+	
+	<page view-id="/admin/entities/realestate/offers/listOffers.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewOffers">
+				<redirect view-id="/admin/entities/realestate/offers/viewOffers.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/offers/editOffers.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{offersList.firstResult}" />
+		<param name="sort" value="#{offersList.orderColumn}" />
+		<param name="dir" value="#{offersList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{offersList.offers.id}" />
+	 <param name="offers_saleDate" value="#{offersList.offers.saleDate}" validateModel="false" /> 	
+	 <param name="offers_signBackAmount" value="#{offersList.offers.signBackAmount}" validateModel="false" /> 	
+	 <param name="offers_conditionExpiry" value="#{offersList.offers.conditionExpiry}" validateModel="false" /> 	
+	 <param name="offers_purchaser" value="#{offersList.offers.purchaser}" validateModel="false" /> 	
+	 <param name="offers_comments" value="#{offersList.offers.comments}" validateModel="false" /> 	
+	 <param name="offers_amount" value="#{offersList.offers.amount}" validateModel="false" /> 	
+	 <param name="offers_status" value="#{offersList.offers.status}" validateModel="false" /> 	
+	 <param name="offers_realEstateListing" value="#{offersList.offers.realEstateListing}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/realestate/masterAgent/editMasterAgent.xhtml" conversation-required="false" >
+    	<!-- <description>Edit MasterAgent: #{masterAgent.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/realestate/masterAgent/viewMasterAgent.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/masterAgent/listMasterAgent.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="masterAgentId" value="#{masterAgentAction.masterAgentId}" />
+		<param name="realEstateFirmId" value="#{masterAgentAction.realEstateFirmId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/realestate/masterAgent/viewMasterAgent.xhtml" conversation-required="false" >
+	 	<!-- <description>View MasterAgent: #{masterAgent.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/masterAgent/editMasterAgent.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/masterAgent/listMasterAgent.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="masterAgentId" value="#{masterAgentAction.masterAgentId}" />
+	</page>
+	
+	<page view-id="/admin/entities/realestate/masterAgent/listMasterAgent.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewMasterAgent">
+				<redirect view-id="/admin/entities/realestate/masterAgent/viewMasterAgent.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/masterAgent/editMasterAgent.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{masterAgentList.firstResult}" />
+		<param name="sort" value="#{masterAgentList.orderColumn}" />
+		<param name="dir" value="#{masterAgentList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{masterAgentList.masterAgent.id}" />
+	 <param name="masterAgent_realEstateFirm" value="#{masterAgentList.masterAgent.realEstateFirm}" validateModel="false" /> 	
+	 <param name="person_lastName" value="#{masterAgentList.masterAgent.lastName}" validateModel="false" /> 	
+	 <param name="person_firstName" value="#{masterAgentList.masterAgent.firstName}" validateModel="false" /> 	
+	 <param name="address_streetDirection" value="#{masterAgentList.masterAgent.address.streetDirection}" validateModel="false" /> 	
+	 <param name="address_streetNumber" value="#{masterAgentList.masterAgent.address.streetNumber}" validateModel="false" /> 	
+	 <param name="address_streetName" value="#{masterAgentList.masterAgent.address.streetName}" validateModel="false" /> 	
+	 <param name="address_province" value="#{masterAgentList.masterAgent.address.province}" validateModel="false" /> 	
+	 <param name="address_streetType" value="#{masterAgentList.masterAgent.address.streetType}" validateModel="false" /> 	
+	 <param name="address_postalCode" value="#{masterAgentList.masterAgent.address.postalCode}" validateModel="false" /> 	
+	 <param name="address_unitNumber" value="#{masterAgentList.masterAgent.address.unitNumber}" validateModel="false" /> 	
+	 <param name="address_city" value="#{masterAgentList.masterAgent.address.city}" validateModel="false" /> 	
+	 <param name="contactDetails_primaryPhone" value="#{masterAgentList.masterAgent.contactDetails.primaryPhone}" validateModel="false" /> 	
+	 <param name="contactDetails_secondaryPhone" value="#{masterAgentList.masterAgent.contactDetails.secondaryPhone}" validateModel="false" /> 	
+	 <param name="user_userName" value="#{masterAgentList.masterAgent.user.userName}" validateModel="false" /> 	
+	 <param name="user_enabled" value="#{masterAgentList.masterAgent.user.enabled}" validateModel="false" /> 	
+	 <param name="user_email" value="#{masterAgentList.masterAgent.user.email}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/realestate/realEstateBoard/editRealEstateBoard.xhtml" conversation-required="false" >
+    	<!-- <description>Edit RealEstateBoard: #{realEstateBoard.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/realestate/realEstateBoard/viewRealEstateBoard.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/realEstateBoard/listRealEstateBoard.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="realEstateBoardId" value="#{realEstateBoardAction.realEstateBoardId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/realestate/realEstateBoard/viewRealEstateBoard.xhtml" conversation-required="false" >
+	 	<!-- <description>View RealEstateBoard: #{realEstateBoard.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/realEstateBoard/editRealEstateBoard.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/realEstateBoard/listRealEstateBoard.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="realEstateBoardId" value="#{realEstateBoardAction.realEstateBoardId}" />
+	</page>
+	
+	<page view-id="/admin/entities/realestate/realEstateBoard/listRealEstateBoard.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewRealEstateBoard">
+				<redirect view-id="/admin/entities/realestate/realEstateBoard/viewRealEstateBoard.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/realEstateBoard/editRealEstateBoard.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{realEstateBoardList.firstResult}" />
+		<param name="sort" value="#{realEstateBoardList.orderColumn}" />
+		<param name="dir" value="#{realEstateBoardList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{realEstateBoardList.realEstateBoard.id}" />
+	 <param name="realEstateBoard_name" value="#{realEstateBoardList.realEstateBoard.name}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/realestate/realEstateProperty/editRealEstateProperty.xhtml" conversation-required="false" >
+    	<!-- <description>Edit RealEstateProperty: #{realEstateProperty.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/realestate/realEstateProperty/viewRealEstateProperty.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/realEstateProperty/listRealEstateProperty.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="realEstatePropertyId" value="#{realEstatePropertyAction.realEstatePropertyId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/realestate/realEstateProperty/viewRealEstateProperty.xhtml" conversation-required="false" >
+	 	<!-- <description>View RealEstateProperty: #{realEstateProperty.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/realEstateProperty/editRealEstateProperty.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/realEstateProperty/listRealEstateProperty.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="realEstatePropertyId" value="#{realEstatePropertyAction.realEstatePropertyId}" />
+	</page>
+	
+	<page view-id="/admin/entities/realestate/realEstateProperty/listRealEstateProperty.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewRealEstateProperty">
+				<redirect view-id="/admin/entities/realestate/realEstateProperty/viewRealEstateProperty.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/realEstateProperty/editRealEstateProperty.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{realEstatePropertyList.firstResult}" />
+		<param name="sort" value="#{realEstatePropertyList.orderColumn}" />
+		<param name="dir" value="#{realEstatePropertyList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{realEstatePropertyList.realEstateProperty.id}" />
+	 <param name="realEstateProperty_streetAddress" value="#{realEstatePropertyList.realEstateProperty.streetAddress}" validateModel="false" /> 	
+	 <param name="realEstateProperty_state" value="#{realEstatePropertyList.realEstateProperty.state}" validateModel="false" /> 	
+	 <param name="realEstateProperty_zip" value="#{realEstatePropertyList.realEstateProperty.zip}" validateModel="false" /> 	
+	 <param name="realEstateProperty_city" value="#{realEstatePropertyList.realEstateProperty.city}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/realestate/realEstateFirm/editRealEstateFirm.xhtml" conversation-required="false" >
+    	<!-- <description>Edit RealEstateFirm: #{realEstateFirm.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/realestate/realEstateFirm/viewRealEstateFirm.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/realEstateFirm/listRealEstateFirm.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="realEstateFirmId" value="#{realEstateFirmAction.realEstateFirmId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/realestate/realEstateFirm/viewRealEstateFirm.xhtml" conversation-required="false" >
+	 	<!-- <description>View RealEstateFirm: #{realEstateFirm.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/realEstateFirm/editRealEstateFirm.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/realEstateFirm/listRealEstateFirm.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="realEstateFirmId" value="#{realEstateFirmAction.realEstateFirmId}" />
+	</page>
+	
+	<page view-id="/admin/entities/realestate/realEstateFirm/listRealEstateFirm.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewRealEstateFirm">
+				<redirect view-id="/admin/entities/realestate/realEstateFirm/viewRealEstateFirm.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/realEstateFirm/editRealEstateFirm.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{realEstateFirmList.firstResult}" />
+		<param name="sort" value="#{realEstateFirmList.orderColumn}" />
+		<param name="dir" value="#{realEstateFirmList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{realEstateFirmList.realEstateFirm.id}" />
+	 <param name="company_brand" value="#{realEstateFirmList.realEstateFirm.brand}" validateModel="false" /> 	
+	 <param name="company_name" value="#{realEstateFirmList.realEstateFirm.name}" validateModel="false" /> 	
+	 <param name="company_companyType" value="#{realEstateFirmList.realEstateFirm.companyType}" validateModel="false" /> 	
+	 <param name="address_streetDirection" value="#{realEstateFirmList.realEstateFirm.address.streetDirection}" validateModel="false" /> 	
+	 <param name="address_streetNumber" value="#{realEstateFirmList.realEstateFirm.address.streetNumber}" validateModel="false" /> 	
+	 <param name="address_streetName" value="#{realEstateFirmList.realEstateFirm.address.streetName}" validateModel="false" /> 	
+	 <param name="address_province" value="#{realEstateFirmList.realEstateFirm.address.province}" validateModel="false" /> 	
+	 <param name="address_streetType" value="#{realEstateFirmList.realEstateFirm.address.streetType}" validateModel="false" /> 	
+	 <param name="address_postalCode" value="#{realEstateFirmList.realEstateFirm.address.postalCode}" validateModel="false" /> 	
+	 <param name="address_unitNumber" value="#{realEstateFirmList.realEstateFirm.address.unitNumber}" validateModel="false" /> 	
+	 <param name="address_city" value="#{realEstateFirmList.realEstateFirm.address.city}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/realestate/attachments/editAttachments.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Attachments: #{attachments.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/realestate/attachments/viewAttachments.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/attachments/listAttachments.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="attachmentsId" value="#{attachmentsAction.attachmentsId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/realestate/attachments/viewAttachments.xhtml" conversation-required="false" >
+	 	<!-- <description>View Attachments: #{attachments.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/attachments/editAttachments.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/attachments/listAttachments.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="attachmentsId" value="#{attachmentsAction.attachmentsId}" />
+	</page>
+	
+	<page view-id="/admin/entities/realestate/attachments/listAttachments.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewAttachments">
+				<redirect view-id="/admin/entities/realestate/attachments/viewAttachments.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/attachments/editAttachments.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{attachmentsList.firstResult}" />
+		<param name="sort" value="#{attachmentsList.orderColumn}" />
+		<param name="dir" value="#{attachmentsList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{attachmentsList.attachments.id}" />
+	 <param name="attachments_title" value="#{attachmentsList.attachments.title}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/realestate/tenantInfo/editTenantInfo.xhtml" conversation-required="false" >
+    	<!-- <description>Edit TenantInfo: #{tenantInfo.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/realestate/tenantInfo/viewTenantInfo.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/tenantInfo/listTenantInfo.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="tenantInfoId" value="#{tenantInfoAction.tenantInfoId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/realestate/tenantInfo/viewTenantInfo.xhtml" conversation-required="false" >
+	 	<!-- <description>View TenantInfo: #{tenantInfo.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/tenantInfo/editTenantInfo.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/tenantInfo/listTenantInfo.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="tenantInfoId" value="#{tenantInfoAction.tenantInfoId}" />
+	</page>
+	
+	<page view-id="/admin/entities/realestate/tenantInfo/listTenantInfo.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewTenantInfo">
+				<redirect view-id="/admin/entities/realestate/tenantInfo/viewTenantInfo.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/tenantInfo/editTenantInfo.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{tenantInfoList.firstResult}" />
+		<param name="sort" value="#{tenantInfoList.orderColumn}" />
+		<param name="dir" value="#{tenantInfoList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{tenantInfoList.tenantInfo.id}" />
+	 <param name="tenantInfo_unit" value="#{tenantInfoList.tenantInfo.unit}" validateModel="false" /> 	
+	 <param name="tenantInfo_name" value="#{tenantInfoList.tenantInfo.name}" validateModel="false" /> 	
+	 <param name="tenantInfo_rent" value="#{tenantInfoList.tenantInfo.rent}" validateModel="false" /> 	
+	 <param name="tenantInfo_lease" value="#{tenantInfoList.tenantInfo.lease}" validateModel="false" /> 	
+	 <param name="tenantInfo_leaseExpiry" value="#{tenantInfoList.tenantInfo.leaseExpiry}" validateModel="false" /> 	
+	 <param name="tenantInfo_attornment" value="#{tenantInfoList.tenantInfo.attornment}" validateModel="false" /> 	
+	 <param name="tenantInfo_utilities" value="#{tenantInfoList.tenantInfo.utilities}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/realestate/cMA/editCMA.xhtml" conversation-required="false" >
+    	<!-- <description>Edit CMA: #{cMA.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/realestate/cMA/viewCMA.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/cMA/listCMA.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="cMAId" value="#{cMAAction.cMAId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/realestate/cMA/viewCMA.xhtml" conversation-required="false" >
+	 	<!-- <description>View CMA: #{cMA.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/cMA/editCMA.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/cMA/listCMA.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="cMAId" value="#{cMAAction.cMAId}" />
+	</page>
+	
+	<page view-id="/admin/entities/realestate/cMA/listCMA.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewCMA">
+				<redirect view-id="/admin/entities/realestate/cMA/viewCMA.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/cMA/editCMA.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{cMAList.firstResult}" />
+		<param name="sort" value="#{cMAList.orderColumn}" />
+		<param name="dir" value="#{cMAList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{cMAList.cMA.id}" />
+	 <param name="cMA_cmaOrdered" value="#{cMAList.cMA.cmaOrdered}" validateModel="false" /> 	
+	 <param name="cMA_cmaDueDate" value="#{cMAList.cMA.cmaDueDate}" validateModel="false" /> 	
+	 <param name="cMA_cmaReceived" value="#{cMAList.cMA.cmaReceived}" validateModel="false" /> 	
+	 <param name="cMA_cmaAsIsValue" value="#{cMAList.cMA.cmaAsIsValue}" validateModel="false" /> 	
+	 <param name="cMA_cmaImprovedValue" value="#{cMAList.cMA.cmaImprovedValue}" validateModel="false" /> 	
+	 <param name="cMA_lockBox" value="#{cMAList.cMA.lockBox}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/users/user/editUser.xhtml" conversation-required="false" >
+    	<!-- <description>Edit User: #{user.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/users/user/viewUser.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/users/user/listUser.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="userId" value="#{userAction.userId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/users/user/viewUser.xhtml" conversation-required="false" >
+	 	<!-- <description>View User: #{user.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/users/user/editUser.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/users/user/listUser.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="userId" value="#{userAction.userId}" />
+	</page>
+	
+	<page view-id="/admin/entities/users/user/listUser.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewUser">
+				<redirect view-id="/admin/entities/users/user/viewUser.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/users/user/editUser.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{userList.firstResult}" />
+		<param name="sort" value="#{userList.orderColumn}" />
+		<param name="dir" value="#{userList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{userList.user.id}" />
+	 <param name="user_userName" value="#{userList.user.userName}" validateModel="false" /> 	
+	 <param name="user_enabled" value="#{userList.user.enabled}" validateModel="false" /> 	
+	 <param name="user_email" value="#{userList.user.email}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/users/role/editRole.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Role: #{role.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/users/role/viewRole.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/users/role/listRole.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="roleId" value="#{roleAction.roleId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/users/role/viewRole.xhtml" conversation-required="false" >
+	 	<!-- <description>View Role: #{role.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/users/role/editRole.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/users/role/listRole.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="roleId" value="#{roleAction.roleId}" />
+	</page>
+	
+	<page view-id="/admin/entities/users/role/listRole.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewRole">
+				<redirect view-id="/admin/entities/users/role/viewRole.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/users/role/editRole.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{roleList.firstResult}" />
+		<param name="sort" value="#{roleList.orderColumn}" />
+		<param name="dir" value="#{roleList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{roleList.role.id}" />
+	 <param name="role_name" value="#{roleList.role.name}" validateModel="false" /> 	
+		
+	</page>
+    
+    
+    
+
+    <exception class="org.jboss.seam.framework.EntityNotFoundException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Record not found</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityNotFoundException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Record not found</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityExistsException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Duplicate record</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.OptimisticLockException">
+        <end-conversation/>
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Another user changed the same data, please try again</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.security.AuthorizationException">
+        <redirect view-id="/error.xhtml">
+            <message severity="error">You don't have permission to access this resource</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.security.NotLoggedInException">
+        <redirect view-id="/login.xhtml">
+            <message severity="warn">#{messages['org.jboss.seam.NotLoggedIn']}</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.faces.application.ViewExpiredException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Your session has timed out, please try again</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.ConcurrentRequestTimeoutException" log-level="trace">
+      <http-error error-code="503" />
+    </exception>
+     
+    <exception>
+        <redirect view-id="/error.xhtml">
+            <message severity="error">Unexpected error, please try again</message>
+        </redirect>
+    </exception>
+    
+</pages>

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>
+	<h:panelGrid columns="6">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_fees}  "/> <br/>
+	
+	
+	<h:inputText id="loanData_fees_begin" value="#{loanDataList.loanData_feesRange.begin}">
+			<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	<h:inputText id="loanData_fees_end" value="#{loanDataList.loanData_feesRange.end}">
+		<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_originalAppraisedValue}  "/> <br/>
+	
+	
+	<h:inputText id="loanData_originalAppraisedValue_begin" value="#{loanDataList.loanData_originalAppraisedValueRange.begin}">
+			<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	<h:inputText id="loanData_originalAppraisedValue_end" value="#{loanDataList.loanData_originalAppraisedValueRange.end}">
+		<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_taxPortion}  "/> <br/>
+	
+		<h:inputText id="loanData_taxPortion" value="#{loanDataList.loanData.taxPortion}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_mortgageNumber}  "/> <br/>
+	
+	
+	<h:inputText id="loanData_mortgageNumber_begin" value="#{loanDataList.loanData_mortgageNumberRange.begin}">
+			<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	<h:inputText id="loanData_mortgageNumber_end" value="#{loanDataList.loanData_mortgageNumberRange.end}">
+		<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_interestRate}  "/> <br/>
+	
+	
+	<h:inputText id="loanData_interestRate_begin" value="#{loanDataList.loanData_interestRateRange.begin}">
+			<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	<h:inputText id="loanData_interestRate_end" value="#{loanDataList.loanData_interestRateRange.end}">
+		<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_arrears}  "/> <br/>
+	
+	
+	<h:inputText id="loanData_arrears_begin" value="#{loanDataList.loanData_arrearsRange.begin}">
+			<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	<h:inputText id="loanData_arrears_end" value="#{loanDataList.loanData_arrearsRange.end}">
+		<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_fundingDate}  "/> <br/>
+	
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">From</ui:define> <br/>
+		<rich:calendar value="#{loanDataList.loanData_fundingDateRange.begin}"/>
+	</s:decorate>
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">To</ui:define> <br/>
+		<rich:calendar value="#{loanDataList.loanData_fundingDateRange.end}"/>
+	</s:decorate>	
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_condo}  "/> <br/>
+	
+	<h:selectOneMenu id="loanData_condo" required="false" value="#{loanDataList.loanData.condo}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="True" itemValue="true"/>
+		<f:selectItem itemLabel="False" itemValue="false"/>
+	</h:selectOneMenu>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_totalOutstanding}  "/> <br/>
+	
+	
+	<h:inputText id="loanData_totalOutstanding_begin" value="#{loanDataList.loanData_totalOutstandingRange.begin}">
+			<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	<h:inputText id="loanData_totalOutstanding_end" value="#{loanDataList.loanData_totalOutstandingRange.end}">
+		<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_mortgageBalance}  "/> <br/>
+	
+	
+	<h:inputText id="loanData_mortgageBalance_begin" value="#{loanDataList.loanData_mortgageBalanceRange.begin}">
+			<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	<h:inputText id="loanData_mortgageBalance_end" value="#{loanDataList.loanData_mortgageBalanceRange.end}">
+		<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_maturityDate}  "/> <br/>
+	
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">From</ui:define> <br/>
+		<rich:calendar value="#{loanDataList.loanData_maturityDateRange.begin}"/>
+	</s:decorate>
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">To</ui:define> <br/>
+		<rich:calendar value="#{loanDataList.loanData_maturityDateRange.end}"/>
+	</s:decorate>	
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_repaymentHistory}  "/> <br/>
+	
+		<h:inputText id="loanData_repaymentHistory" value="#{loanDataList.loanData.repaymentHistory}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_originalPurposeTransaction}  "/> <br/>
+	
+		<h:inputText id="loanData_originalPurposeTransaction" value="#{loanDataList.loanData.originalPurposeTransaction}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_taxes}  "/> <br/>
+	
+	
+	<h:inputText id="loanData_taxes_begin" value="#{loanDataList.loanData_taxesRange.begin}">
+			<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	<h:inputText id="loanData_taxes_end" value="#{loanDataList.loanData_taxesRange.end}">
+		<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_rentalProperty}  "/> <br/>
+	
+	<h:selectOneMenu id="loanData_rentalProperty" required="false" value="#{loanDataList.loanData.rentalProperty}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="True" itemValue="true"/>
+		<f:selectItem itemLabel="False" itemValue="false"/>
+	</h:selectOneMenu>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_lender}  "/> <br/>
+	<h:selectOneMenu id="loanData_lender" value="#{loanDataList.loanData.lender}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{lenderList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_mortgageInsurer}  "/> <br/>
+	<h:selectOneMenu id="loanData_mortgageInsurer" value="#{loanDataList.loanData.mortgageInsurer}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{mortgageInsurerList}" var="itemIter"/>
+		<s:convertEntity/>
+		<f:selectItem itemLabel="--None--" itemValue=""/>
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_titleInsurer}  "/> <br/>
+	<h:selectOneMenu id="loanData_titleInsurer" value="#{loanDataList.loanData.titleInsurer}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{titleInsurerList}" var="itemIter"/>
+		<s:convertEntity/>
+		<f:selectItem itemLabel="--None--" itemValue=""/>
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_broker}  "/> <br/>
+	<h:selectOneMenu id="loanData_broker" value="#{loanDataList.loanData.broker}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{brokerList}" var="itemIter"/>
+		<s:convertEntity/>
+		<f:selectItem itemLabel="--None--" itemValue=""/>
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_underwriter}  "/> <br/>
+	<h:selectOneMenu id="loanData_underwriter" value="#{loanDataList.loanData.underwriter}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{underwriterList}" var="itemIter"/>
+		<s:convertEntity/>
+		<f:selectItem itemLabel="--None--" itemValue=""/>
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">From</ui:define> <br/>
+				<rich:calendar id="from" value="#{loanDataList.dateCreatedRange.begin}"/>
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">To</ui:define> <br/>
+				<rich:calendar id="to" value="#{loanDataList.dateCreatedRange.end}"/>
+			</s:decorate>
+
+	</h:panelGrid>
+</ui:composition>

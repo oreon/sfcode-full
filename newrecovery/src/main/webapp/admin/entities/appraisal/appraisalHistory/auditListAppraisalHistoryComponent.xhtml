@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+			<h:form>
+				<rich:datascroller align="left" for="dataAudit" maxPages="20" renderIfSinglePage="false"/>
+				<br/>
+
+				<rich:dataTable id="dataAudit" rowClasses="odd, even" rows="30" styleClass="dataTable" value="#{appraisalHistoryAction.auditLog}" var="_log">
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Date"/>
+						</f:facet>
+						<h:outputText value="#{_log.dateCreated}"/>
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Action"/>
+						</f:facet>
+						<h:outputText value="#{_log.action}"/>
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="User"/>
+						</f:facet>
+						<h:outputText value="#{_log.username}"/>
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Id"/>
+						</f:facet>
+						<h:outputText value="#{_log.entityId}"/>
+					</rich:column>
+					
+				
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.appraisalHistory_notes}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.notes}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.appraisalHistory_requestNumber}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.requestNumber}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.appraisalHistory_amount}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.amount}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.appraisalHistory_requestDate}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.requestDate}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.appraisalHistory_type}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.type}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.appraisalHistory_asImproved}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.asImproved}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.appraisalHistory_reviewed}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.reviewed}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.appraisalHistory_appraiser}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.appraiser}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.appraisalHistory_appraisalNumber}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.appraisalNumber}"/>
+	</rich:column>
+	
+				
+			</rich:dataTable>
+		</h:form>
+		</html>

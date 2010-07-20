@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+
+<ui:composition>
+
+	<a:form>
+		<rich:simpleTogglePanel switchType="client" label="Comments">
+
+
+			<rich:editor id="Comment_text" required="true"
+				value="#{backingAction.currentCommentText}" />
+				
+			<br/>
+			
+
+			<a:commandButton action="#{backingAction.saveComment}"
+				value="Add Comment" reRender="cmts" />
+			<br/>
+			<br/>
+			
+
+			<rich:dataTable var="comment" value="#{backingAction.comments}"
+				id="cmts">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Comment " />
+					</f:facet>
+					<h:outputText value="#{comment.text}" escape="false" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Author" />
+					</f:facet>
+					<h:outputText value="#{comment.createdByUser.displayName}" escape="false" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Date" />
+					</f:facet>
+					<h:outputText value="#{comment.dateCreated}" escape="false" />
+				</h:column>
+			</rich:dataTable>
+
+			
+
+		</rich:simpleTogglePanel>
+	</a:form>
+
+
+</ui:composition>
+
+</html>
