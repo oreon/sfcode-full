@@ -2,14 +2,24 @@ package com.wc.jshopper.domain.action;
 
 import com.wc.jshopper.domain.Department;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
 import org.witchcraft.seam.action.BaseAction;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
@@ -34,9 +44,8 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class DepartmentActionBase extends BaseAction<Department>
-		implements
-			java.io.Serializable {
+public class DepartmentActionBase extends BaseAction<Department> implements
+		java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
@@ -118,8 +127,11 @@ public class DepartmentActionBase extends BaseAction<Department>
 		this.departmentRecordList = list;
 	}
 
-	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
-	 * that customer can be shown on the customer tab within viewOrder.xhtml
+	/**
+	 * This function is responsible for loading associations for the given
+	 * entity e.g. when viewing an order, we load the customer so that customer
+	 * can be shown on the customer tab within viewOrder.xhtml
+	 * 
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
 	public void loadAssociations() {
@@ -148,6 +160,45 @@ public class DepartmentActionBase extends BaseAction<Department>
 			findRecords();
 		}
 		return departmentRecordList;
+	}
+	
+	public void executeReport(String reportName, Map<String, String> parameters, JRBeanCollectionDataSource dataSource){
+		try{
+			byte[] bytes = JasperRunManager.runReportToPdf(this.getClass()
+					.getResourceAsStream("departmentReport.jasper"),
+					parameters, dataSource);
+			HttpServletResponse response = (HttpServletResponse) javax.faces.context.FacesContext
+					.getCurrentInstance().getExternalContext().getResponse();
+			response.setContentType("application/pdf");
+			response.addHeader("Content-Disposition",
+					"attachment;filename=Report.pdf");
+			response.setContentLength(bytes.length);
+			ServletOutputStream servletOutputStream = response
+					.getOutputStream();
+			servletOutputStream.write(bytes, 0, bytes.length);
+			servletOutputStream.flush();
+			servletOutputStream.close();
+			javax.faces.context.FacesContext.getCurrentInstance()
+					.responseComplete();
+		} catch (JRException jre) {
+			jre.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void runReport() {		
+		try {
+			Map<String, String> parameters = new HashMap<String, String>();
+			parameters.put("Title", "Department Report");
+			executeReport("departmentReport.jasper", parameters, new JRBeanCollectionDataSource(
+					getEntityList()));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 	}
 
 }
