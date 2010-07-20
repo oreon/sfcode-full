@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	<h:panelGroup>
+		<s:validateAll>
+		<h:panelGrid columnClasses="leftCol, rightCol" columns="3" onload="#{realEstateBoardAction.load(realEstateBoardId )  }" styleClass="viewInfo">
+		<f:facet name="header">
+			<h:outputText value="RealEstateBoard "/>
+		</f:facet>
+		
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.realEstateBoard_name} * "/>
+		
+
+	<h:inputText id="realEstateBoard_name#{entityId}" required="true" value="#{realEstateBoardAction.realEstateBoard.name}"/>
+   
+		
+		<h:message for="realEstateBoard_name" styleClass="error errors"/>		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+ 
+	<a:commandButton action="#{realEstateBoardAction.addAttachmentses}" reRender="attachmentses_data#{entityId}" value="New Attachmentse">
+		<s:conversationId/>
+	</a:commandButton>
+ 
+	
+	<rich:dataTable id="attachmentses_data#{entityId}" rendered="#{not empty realEstateBoardAction.listAttachmentses}" rowClasses="odd, even" rows="10" rules="all" styleClass="dataTable" value="#{realEstateBoardAction.listAttachmentses}" var="_attachments">
+		
+	
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.attachments_title}  "/>
+          </f:facet>
+		
+
+	<h:inputText id="attachments_title#{entityId}" required="false" value="#{_attachments.title}"/>
+   
+		
+		<h:message for="attachments_title" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.attachments_file}  "/>
+          </f:facet>
+		
+
+	  <s:fileUpload contentType="#{attachmentsAction.attachments.file.contentType}" data="#{attachmentsAction.attachments.file.data}" fileName="#{attachmentsAction.attachments.file.name}"/>  
+   
+		
+		<h:message for="attachments_file" styleClass="error errors"/>		</h:column>
+		
+	
+	
+		
+	<h:column>
+		
+	<a:commandButton action="#{realEstateBoardAction.addAttachmentses}" reRender="attachmentses_data#{entityId}" value="New Attachmentse">
+		<s:conversationId/>
+	</a:commandButton>
+	</h:column>
+		
+	<h:column>
+		<a:commandButton action="#{realEstateBoardAction.deleteAttachmentses(_attachments)}" immediate="true" reRender="attachmentses_data#{entityId}" value="Delete">
+			<s:conversationId/>
+		</a:commandButton>
+	</h:column>
+			
+	</rich:dataTable>
+		</s:validateAll>
+		
+	</h:panelGroup>
+	</ui:composition>

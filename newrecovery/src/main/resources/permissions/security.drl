@@ -1,0 +1,53 @@
+package permissions;
+
+import java.security.Principal;
+import org.jboss.seam.security.permission.PermissionCheck;
+import org.jboss.seam.security.Role;
+import com.nas.recovery.domain.realestate.RealEstateProperty;
+
+global RealEstateProperty realEstateProperty;
+
+     
+rule "CanUserDeleteEntities"
+no-loop 
+when
+  // $c : PermissionCheck( action == "archive")
+  $c : PermissionCheck( )
+  $r : Role(name == "admin")
+then
+    //System.out.println("The PermissionCheck's properties are: " +
+   // "name=" + $c.getName() + ", action=" + $c.getAction()+ ":: " +  $r.getName());
+  $c.grant();
+end     
+
+
+rule "CanUserViewEntities"
+no-loop 
+when
+  $c : PermissionCheck( action == "view")
+then
+  $c.grant();
+end 
+
+
+rule "CanUserViewRealEstate"
+no-loop 
+when
+  $c : PermissionCheck( name == "realEstatePropertyAction" )  	
+  $r : Role(name == "manager" )
+then
+
+  $c.grant();
+end
+
+
+rule "CanUserViewLegal"
+no-loop 
+when
+  $c : PermissionCheck( name == "legalTab" )  	
+  $r : Role(name == "Lawyer"   )
+then	
+  //System.out.println("The canuserviewleagal properties are: " + "name=" + $c.getName() + ", action=" + $c.getAction()+ ":: " +  $r.getName());		
+  $c.grant();
+end
+   

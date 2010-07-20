@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>
+	<h:panelGrid columns="6">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisal_appraisalNumber}  "/> <br/>
+	
+	
+	<h:inputText id="appraisal_appraisalNumber_begin" value="#{appraisalList.appraisal_appraisalNumberRange.begin}">
+			<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	<h:inputText id="appraisal_appraisalNumber_end" value="#{appraisalList.appraisal_appraisalNumberRange.end}">
+		<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisal_specialInstruction}  "/> <br/>
+	
+		<h:inputText id="appraisal_specialInstruction" value="#{appraisalList.appraisal.specialInstruction}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisal_serviceType}  "/> <br/>
+	<h:selectOneMenu id="appraisal_serviceType" required="false" value="#{appraisalList.appraisal.serviceType}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Full_service" itemValue="FULL_SERVICE"/>
+		<f:selectItem itemLabel="Drive_by" itemValue="DRIVE_BY"/>
+		<f:selectItem itemLabel="Desktop" itemValue="DESKTOP"/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisal_status}  "/> <br/>
+	<h:selectOneMenu id="appraisal_status" required="false" value="#{appraisalList.appraisal.status}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Ordered" itemValue="ORDERED"/>
+		<f:selectItem itemLabel="Accepted" itemValue="ACCEPTED"/>
+		<f:selectItem itemLabel="Appointment" itemValue="APPOINTMENT"/>
+		<f:selectItem itemLabel="Completed" itemValue="COMPLETED"/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisal_ordered}  "/> <br/>
+	
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">From</ui:define> <br/>
+		<rich:calendar value="#{appraisalList.appraisal_orderedRange.begin}"/>
+	</s:decorate>
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">To</ui:define> <br/>
+		<rich:calendar value="#{appraisalList.appraisal_orderedRange.end}"/>
+	</s:decorate>	
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisal_dueDate}  "/> <br/>
+	
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">From</ui:define> <br/>
+		<rich:calendar value="#{appraisalList.appraisal_dueDateRange.begin}"/>
+	</s:decorate>
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">To</ui:define> <br/>
+		<rich:calendar value="#{appraisalList.appraisal_dueDateRange.end}"/>
+	</s:decorate>	
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisal_received}  "/> <br/>
+	
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">From</ui:define> <br/>
+		<rich:calendar value="#{appraisalList.appraisal_receivedRange.begin}"/>
+	</s:decorate>
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">To</ui:define> <br/>
+		<rich:calendar value="#{appraisalList.appraisal_receivedRange.end}"/>
+	</s:decorate>	
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">From</ui:define> <br/>
+				<rich:calendar id="from" value="#{appraisalList.dateCreatedRange.begin}"/>
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">To</ui:define> <br/>
+				<rich:calendar id="to" value="#{appraisalList.dateCreatedRange.end}"/>
+			</s:decorate>
+
+	</h:panelGrid>
+</ui:composition>

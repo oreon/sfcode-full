@@ -1,0 +1,47 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+
+	<a:form>
+		<div class="loginformtable"><br />
+		
+		<s:div rendered="#{not identity.loggedIn}" >
+		<table width="150" border="0" align="right" cellpadding="0"
+			cellspacing="3">
+			<tr>
+				<td align="left" valign="middle" class="cell_padding_bottom">
+				<h:inputText id="username" value="#{credentials.username}" required="true">
+				<!-- 
+					<a:support event="onblur" reRender="username" bypassUpdates="true"
+						ajaxSingle="true" />
+					 -->
+				</h:inputText>
+				 <h:message for="username" /></td>	
+
+
+				<td rowspan="2" align="left" valign="bottom"
+					class="cell_padding_bottom"><h:commandButton value="Login"
+					action="#{identity.login}" styleClass="button" /></td>
+			</tr>
+			<tr>
+				<td align="left" valign="middle" class="cell_padding_bottom"><h:inputSecret
+					id="password" value="#{credentials.password}" required="true" /> <h:message
+					for="password" /></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="left" valign="middle"
+					class="cell_padding_bottom"><s:link action="forgotPassword">Forgot Username or Password?</s:link></td>
+			</tr>
+		</table>
+		</s:div>
+	
+		</div>
+	</a:form>
+</ui:composition>

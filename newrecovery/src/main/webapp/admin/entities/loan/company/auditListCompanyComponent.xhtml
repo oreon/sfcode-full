@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+			<h:form>
+				<rich:datascroller align="left" for="dataAudit" maxPages="20" renderIfSinglePage="false"/>
+				<br/>
+
+				<rich:dataTable id="dataAudit" rowClasses="odd, even" rows="30" styleClass="dataTable" value="#{companyAction.auditLog}" var="_log">
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Date"/>
+						</f:facet>
+						<h:outputText value="#{_log.dateCreated}"/>
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Action"/>
+						</f:facet>
+						<h:outputText value="#{_log.action}"/>
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="User"/>
+						</f:facet>
+						<h:outputText value="#{_log.username}"/>
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Id"/>
+						</f:facet>
+						<h:outputText value="#{_log.entityId}"/>
+					</rich:column>
+					
+				
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.company_brand}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.brand}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.company_companyName}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.companyName}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.company_companyType}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.companyType}"/>
+	</rich:column>
+	
+		
+				
+				
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.address_streetDirection}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.address.streetDirection}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.address_streetNumber}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.address.streetNumber}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.address_streetName}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.address.streetName}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.address_province}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.address.province}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.address_streetType}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.address.streetType}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.address_postalCode}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.address.postalCode}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.address_unitNumber}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.address.unitNumber}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.address_city}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.address.city}"/>
+	</rich:column>
+	
+			
+		
+	
+				
+			</rich:dataTable>
+		</h:form>
+		</html>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	<h:panelGroup>
+		<s:validateAll>
+		<h:panelGrid columnClasses="leftCol, rightCol" columns="3" onload="#{offersAction.load(offersId )  }" styleClass="viewInfo">
+		<f:facet name="header">
+			<h:outputText value="Offers "/>
+		</f:facet>
+		
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.offers_realEstateListing}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="offers_realEstateListing" required="true" value="#{offersAction.offers.realEstateListing}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{realEstateListingList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="offers_realEstateListing" styleClass="error errors"/>		
+		
+	
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.offers_saleDate}  "/>
+		
+
+	<rich:calendar id="offers_saleDate#{entityId}" required="false" value="#{offersAction.offers.saleDate}"/>
+   
+		
+		<h:message for="offers_saleDate" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.offers_signBackAmount}  "/>
+		
+
+	<h:inputText id="offers_signBackAmount#{entityId}" required="false" value="#{offersAction.offers.signBackAmount}"/>
+   
+		
+		<h:message for="offers_signBackAmount" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.offers_conditionExpiry}  "/>
+		
+
+	<h:inputText id="offers_conditionExpiry#{entityId}" required="false" value="#{offersAction.offers.conditionExpiry}"/>
+   
+		
+		<h:message for="offers_conditionExpiry" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.offers_purchaser}  "/>
+		
+
+	<h:inputText id="offers_purchaser#{entityId}" required="false" value="#{offersAction.offers.purchaser}"/>
+   
+		
+		<h:message for="offers_purchaser" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.offers_comments}  "/>
+		
+
+	<h:inputText id="offers_comments#{entityId}" required="false" value="#{offersAction.offers.comments}"/>
+   
+		
+		<h:message for="offers_comments" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.offers_amount}  "/>
+		
+
+	<h:inputText id="offers_amount#{entityId}" required="false" value="#{offersAction.offers.amount}"/>
+   
+		
+		<h:message for="offers_amount" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.offers_status}  "/>
+		
+
+	<h:inputText id="offers_status#{entityId}" required="false" value="#{offersAction.offers.status}"/>
+   
+		
+		<h:message for="offers_status" styleClass="error errors"/>		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	</h:panelGroup>
+	</ui:composition>

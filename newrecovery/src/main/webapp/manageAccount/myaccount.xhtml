@@ -1,0 +1,156 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template="/webtemplate/template.xhtml">
+	<ui:define name="content">
+		<!--PROTECTED REGION ID(USER_EDITABLE_RGN_manageAccount/myaccount.xhtml) ENABLED START-->
+		<rich:dataTable
+			rendered="#{not empty realEstatePropertyList.resultList}"
+			rowClasses="odd, even" styleClass="dataTable"
+			value="#{realEstatePropertyList.resultList}"
+			var="_realEstateProperty">
+
+			<h:column>
+				<f:facet name="header">
+					<ui:include src="/layout/sort.xhtml">
+						<ui:param name="entityList" value="#{realEstatePropertyList}" />
+						<ui:param name="propertyLabel" value="Id" />
+						<ui:param name="propertyPath" value="realEstateProperty.id" />
+					</ui:include>
+				</f:facet>
+				<h:outputText value="#{_realEstateProperty.id}">
+				</h:outputText>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<ui:include src="/layout/sort.xhtml">
+						<ui:param name="entityList" value="#{realEstatePropertyList}" />
+						<ui:param name="propertyLabel"
+							value="#{msg.realEstateProperty_streetAddress}" />
+						<ui:param name="propertyPath"
+							value="realEstateProperty.streetAddress" />
+					</ui:include>
+				</f:facet>
+
+				<h:outputText value="#{_realEstateProperty.streetAddress}" />
+
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<ui:include src="/layout/sort.xhtml">
+						<ui:param name="entityList" value="#{realEstatePropertyList}" />
+						<ui:param name="propertyLabel"
+							value="#{msg.realEstateProperty_state}" />
+						<ui:param name="propertyPath" value="realEstateProperty.state" />
+					</ui:include>
+				</f:facet>
+
+				<h:outputText value="#{_realEstateProperty.state}" />
+
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<ui:include src="/layout/sort.xhtml">
+						<ui:param name="entityList" value="#{realEstatePropertyList}" />
+						<ui:param name="propertyLabel"
+							value="#{msg.realEstateProperty_zip}" />
+						<ui:param name="propertyPath" value="realEstateProperty.zip" />
+					</ui:include>
+				</f:facet>
+
+				<h:outputText value="#{_realEstateProperty.zip}" />
+
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<ui:include src="/layout/sort.xhtml">
+						<ui:param name="entityList" value="#{realEstatePropertyList}" />
+						<ui:param name="propertyLabel"
+							value="#{msg.realEstateProperty_city}" />
+						<ui:param name="propertyPath" value="realEstateProperty.city" />
+					</ui:include>
+				</f:facet>
+
+				<h:outputText value="#{_realEstateProperty.city}" />
+
+			</h:column>
+
+
+
+
+			<h:column>
+				<f:facet name="header">
+					<ui:include src="/layout/sort.xhtml">
+						<ui:param name="entityList" value="#{realEstatePropertyList}" />
+						<ui:param name="propertyLabel" value="Creation Date" />
+						<ui:param name="propertyPath"
+							value="realEstateProperty.dateCreated" />
+					</ui:include>
+				</f:facet>
+				<h:outputText value="#{_realEstateProperty.dateCreated}">
+					<s:convertDateTime dateStyle="short" type="both" />
+				</h:outputText>
+			</h:column>
+
+			<h:column
+				rendered="#{s:hasRole('Realtor')}">
+				<f:facet name="header">
+					<h:outputText value=" " />
+				</f:facet>
+				<s:link
+					view="/manageAccount/realEstate.xhtml">
+					<h:graphicImage alt="view" style="border: 0px"
+						value="/images/icons/eye.png" />
+					<f:param name="realEstatePropertyId"
+						value="#{_realEstateProperty.id}" />
+				</s:link>
+			</h:column>
+			
+			<h:column
+				rendered="#{s:hasRole('pm')}">
+				<f:facet name="header">
+					<h:outputText value=" " />
+				</f:facet>
+				<s:link
+					view="/manageAccount/pm.xhtml">
+					<h:graphicImage alt="view" style="border: 0px"
+						value="/images/icons/eye.png" />
+					<f:param name="realEstatePropertyId"
+						value="#{_realEstateProperty.id}" />
+				</s:link>
+			</h:column>
+			
+			<h:column
+				rendered="#{s:hasRole('lawyer')}">
+				<f:facet name="header">
+					<h:outputText value=" " />
+				</f:facet>
+				<s:link
+					view="/manageAccount/lawyer.xhtml">
+					<h:graphicImage alt="view" style="border: 0px"
+						value="/images/icons/eye.png" />
+					<f:param name="realEstatePropertyId"
+						value="#{_realEstateProperty.id}" />
+				</s:link>
+			</h:column>
+
+
+
+		
+		</rich:dataTable>
+		<!--PROTECTED REGION END-->
+
+	</ui:define>
+</ui:composition>
