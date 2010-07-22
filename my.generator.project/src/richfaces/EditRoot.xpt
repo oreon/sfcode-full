@@ -22,10 +22,10 @@
 <ui:composition «EXPAND WebRoot::genIncludes-»
 	template = "«getAdminTemplate()»" >	
 	<ui:define name="content">
-		<h:form  enctype="multipart/form-data"> «REM»TODO : usemultipart «ENDREM»
+		<a:form  enctype="multipart/form-data"> «REM»TODO : usemultipart «ENDREM»
 		<ui:include src = "edit«name»Component.«getExtension()»" />
 		«EXPAND genCancelSaveBtns(true) FOR this»
-		</h:form>
+		</a:form>
 	</ui:define> 
 </ui:composition>
 «ENDFILE»
@@ -85,7 +85,7 @@
 
 «DEFINE genEditViewComponent(boolean edit) FOR uml::Class»
 	«FILE getWebPath() +"/" + (edit?"edit":"view") + name+ "Component." + getExtension()»
-	<html «EXPAND WebRoot::genIncludes-» >	
+	<ui:composition «EXPAND WebRoot::genIncludes-» >	
 	<h:panelGroup   >
 		<s:validateAll>
 		«setAsCurrentEntity(this)-»
@@ -104,7 +104,7 @@
 		</s:validateAll>
 		
 	</h:panelGroup>
-	</html>
+	</ui:composition>
 	«ENDFILE»
 «ENDDEFINE»
 
@@ -112,13 +112,21 @@
 «DEFINE genCancelSaveBtns(boolean edit) FOR uml::Class»
 	<div class="buttonBox">
 		«IF !edit»
-		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" /> 
+		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" >
+			<s:conversationPropagation type="end" />
+		</h:commandButton> 
 		<h:outputText value=" " />
-		<h:commandButton value="Back To Listing" immediate="true" action="#{redirect.returnToCapturedView()}" /> 
+		<h:commandButton value="Back To Listing" immediate="true" action="#{redirect.returnToCapturedView()}" >
+			<s:conversationPropagation type="end" />
+		</h:commandButton>  
 		«ELSE»
-		<h:commandButton value="Save" action="#{«getAction()».save}" /> 
+		<h:commandButton value="Save" action="#{«getAction()».save}" >
+			<s:conversationPropagation type="end" />
+		</h:commandButton>  
 		<h:outputText value=" " />
-		<h:commandButton value="Cancel" immediate="true" action="#{«getAction()».cancel}" /> 
+		<h:commandButton value="Cancel" immediate="true" action="#{«getAction()».cancel}" >
+			<s:conversationPropagation type="end" />
+		</h:commandButton>  
 		«ENDIF»
 	</div>
 «ENDDEFINE»
@@ -283,9 +291,11 @@
 
 «DEFINE genDelete FOR uml::Property»
 	<h:column>
-		<h:commandButton value="Delete" action="#{«class.getAction()».delete«name.toFirstUpper()»(_«type.asVar()»)}" immediate="true">
+		<a:commandButton value="Delete" action="#{«class.getAction()».delete«name.toFirstUpper()»(_«type.asVar()»)}" immediate="true" 
+			reRender="«name»_data#{entityId}"
+			>
 			<s:conversationId/>
-		</h:commandButton>
+		</a:commandButton>
 	</h:column>
 «ENDDEFINE»
 
@@ -296,9 +306,9 @@
 «ENDDEFINE»
 
 «DEFINE genNewButton FOR uml::Property»
-	<h:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}" >
+	<a:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  reRender="«name»_data#{entityId}" >
 		<s:conversationId/>
-	</h:commandButton>
+	</a:commandButton>
 «ENDDEFINE»
 
 «DEFINE genProperty FOR String-»

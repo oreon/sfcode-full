@@ -7,68 +7,79 @@
 
 «DEFINE Root FOR uml::Model»
 	«EXPAND StateMachineRoot FOREACH allOwnedElements().typeSelect(uml::Activity)»
+	
 «ENDDEFINE»
 
 
 
 «DEFINE StateMachineRoot FOR uml::Activity»
-	«FILE getWorkflowActionPath() -»
+	«EXPAND ManualGen »
+	«FILE getWorkflowActionPath() + "Base.java" -»
+		
+	package «getWebPackageName()»;
+		
+	«EXPAND genImports FOR this»
 	
-package «getWebPackageName()»;
+	//xxx;
 	
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Out;
-import org.jboss.seam.annotations.bpm.CreateProcess;
-import org.jboss.seam.annotations.bpm.EndTask;
-import org.jboss.seam.annotations.bpm.StartTask;
-import org.jbpm.JbpmContext;
-
-@Name("«name»Action")
-// @Scope(ScopeType.CONVERSATION)
-class «name.toFirstUpper()» {
-
-	@CreateProcess(definition = "«name»")
-	public void startProcess() {
+	// @Scope(ScopeType.CONVERSATION)
+	class «name.toFirstUpper()»Base extends BaseJbpmProcessAction implements java.io.Serializable{
+	
+		@CreateProcess(definition = "«name»")
+		public void startProcess() {
+		
+		}
+		
+		«EXPAND genAction FOREACH allOwnedElements().typeSelect(uml::Action)»
 	
 	}
-	
-	«EXPAND genAction FOREACH allOwnedElements().typeSelect(uml::Action)»
-
-}
 	«ENDFILE»
 «ENDDEFINE»
 
 
+«DEFINE ManualGen FOR uml::Activity»
+	«FILE  getWorkflowActionPath() + ".java"  man_path »
+	
+	package « getWebPackageName() »;
+	
+	«EXPAND genImports»
+	
+	@Name("«name»")	
+	//@Scope(ScopeType.CONVERSATION)
+	public class «name.toFirstUpper()» extends «name.toFirstUpper()»Base {
+		
+	}
+	«ENDFILE»
+«ENDDEFINE»
+
+
+
 «DEFINE genAction FOR uml::Action»
 	@StartTask
-	public void start«name.toFirstUpper()»Task() {
+	public void start«name.toFirstUpper().removeSpaces()»Task() {
 		
 	}
 	
 	«FOREACH outgoing() AS o-»
-	@EndTask(transition = "«o.guard.stringValue()»")
-	public void «o.guard.stringValue()»«name.toFirstUpper()»() {
+	@EndTask(transition = "«o.getTransName()»")
+	public void «o.getTransName()»«name.toFirstUpper().removeSpaces()»Task() {
 		
 	}
 	«ENDFOREACH»
 «ENDDEFINE»
 
 
+«DEFINE genImports FOR uml::Activity»
+	import org.jboss.seam.ScopeType;
+	import org.jboss.seam.annotations.In;
+	import org.jboss.seam.annotations.Name;
+	import org.jboss.seam.annotations.Out;
+	import org.jboss.seam.annotations.bpm.CreateProcess;
+	import org.jboss.seam.annotations.bpm.EndTask;
+	import org.jboss.seam.annotations.bpm.StartTask;
+	import org.jbpm.JbpmContext;
+«ENDDEFINE»
 
-«DEFINE gen FOR uml::InitialNode»
- 	<start-state name="«name»">
-		<task name="«name»Task" swimlane="«getSwimlane()»">
-		</task>
-		«FOREACH outgoing() AS o-»
-		<transition to="«o.target.name»" name="«o.guard.stringValue()»"></transition>
-		«ENDFOREACH»
-	</task-node>
- «ENDDEFINE»
 
 
- «DEFINE gen FOR uml::ActivityFinalNode»
- 	<end-state name="«name»"></end-state>
- «ENDDEFINE»
 
