@@ -16,65 +16,91 @@
 	«FILE "../resources/processes/" + name + "/processdefinition.xml" -»
 <?xml version="1.0" encoding="UTF-8"?>
 
-<process-definition xmlns="" name="«name»">
+<process-definition xmlns="" name="«name.removeSpaces()»">
 	«EXPAND gen FOREACH allOwnedElements().typeSelect(uml::ActivityPartition)»
 	«EXPAND gen FOREACH allOwnedElements().typeSelect(uml::InitialNode)»
 	«EXPAND genAction FOREACH allOwnedElements().typeSelect(uml::Action)»
+	«EXPAND gen FOREACH allOwnedElements().typeSelect(uml::DecisionNode)»
 	«EXPAND gen FOREACH allOwnedElements().typeSelect(uml::ActivityFinalNode)»
+	
 </process-definition>
 	«ENDFILE»
 «ENDDEFINE»
 
 «DEFINE gen FOR uml::ActivityPartition»
-<swimlane name="«name»">
-	<assignment actor-id="#{actor.id}"></assignment>
+<swimlane name="«name.removeSpaces()»">
+	<assignment class="«getTopLevelPackage()».web.action.workflows.«name.removeSpaces().toFirstUpper()»Assignment"  ></assignment>
 </swimlane>
 «ENDDEFINE»
 
 «DEFINE genAction FOR uml::Action»
-	<task-node name="«name»">
-		<task name="«name»Task" «getSwimlane() != null ?"swimlane=\"" + getSwimlane()+ "\"":""»>
+	<task-node name="«name.removeSpaces()»">
+		<task name="«name.removeSpaces()»Task" «getSwimlane() != null ?"swimlane=\"" + getSwimlane()+ "\"":""»>
 		</task>
 		«FOREACH outgoing() AS o-»
-		<transition to="«o.target.name»" name="«o.guard.stringValue()»"></transition>
+		<transition to="«o.target.name.removeSpaces()»" name="«o.getTransName()»"></transition>
 		«ENDFOREACH»
 	</task-node>
 «ENDDEFINE»
 
 «DEFINE genAction FOR wcprofile::Task»
-	<task-node name="«name»">
-		<task name="«name»Task"  «getSwimlane() != null ?"swimlane=\"" + getSwimlane()+ "\"":""» duedate="«days» business days" notify="«notify»">
+	<task-node name="«name.removeSpaces()»">
+		<task name="«name.removeSpaces()»Task"  «getSwimlane() != null ?"swimlane=\"" + getSwimlane()+ "\"":""» duedate="«days» business days" notify="«notify»">
 		</task>
 		«FOREACH outgoing() AS o-»
-		<transition to="«o.target.name»" name="«o.guard.stringValue()»"></transition>
+		<transition to="«o.target.name.removeSpaces()»" name="«o.getTransName()»"></transition>
 		«ENDFOREACH»
 	</task-node>`
 «ENDDEFINE»
 
+«DEFINE gen FOR wcprofile::WorkflowDecision»
+	<decision name="«name.removeSpaces()»" expression="#{«expression»}" >
+		«FOREACH outgoing() AS o-»
+		<transition to="«o.target.name.removeSpaces()»" name="«o.getTransName()»">
+		</transition>
+		«ENDFOREACH»
+	</decision>
+«ENDDEFINE»
+
+
+«DEFINE gen FOR uml::DecisionNode»
+	<decision name="«name.removeSpaces()»" >
+		«FOREACH outgoing() AS o-»
+		<transition to="«o.target.name.removeSpaces()»" name="«o.getTransName()»">
+		</transition>
+		«ENDFOREACH»
+	</decision>
+«ENDDEFINE»
+
+
 
 «DEFINE genAction FOR wcprofile::State»
-	<state name="«name»">
+	<state name="«name.removeSpaces()»">
 		«FOREACH outgoing() AS o-»
-		<transition to="«o.target.name»" name="«o.guard.stringValue()»">
+		<transition to="«o.target.name.removeSpaces()»" name="«o.getTransName()»">
+		 <!--
 			<action class="com.nas.trackrite.UpdateLeaves" />
+		-->
 		</transition>
 		«ENDFOREACH»
 	</state>
 «ENDDEFINE»
 
 
+
+
 «DEFINE gen FOR uml::InitialNode»
- 	<start-state name="«name»">
-		<task name="«name»Task" swimlane="«getSwimlane()»">
+ 	<start-state name="«name.removeSpaces()»">
+		<task name="«name.removeSpaces()»Task" swimlane="«getSwimlane()»">
 		</task>
 		«FOREACH outgoing() AS o-»
-		<transition to="«o.target.name»" name="«o.guard.stringValue()»"></transition>
+		<transition to="«o.target.name.removeSpaces()»" name="«o.getTransName()»"></transition>
 		«ENDFOREACH»
 	</start-state>
  «ENDDEFINE»
 
 
  «DEFINE gen FOR uml::ActivityFinalNode»
- 	<end-state name="«name»"></end-state>
+ 	<end-state name="«name != null? name.removeSpaces() : "endState" »"></end-state>
  «ENDDEFINE»
 

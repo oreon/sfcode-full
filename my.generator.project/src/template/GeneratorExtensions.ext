@@ -112,6 +112,14 @@ JAVA org.wc.generatorutil.ClassUtil.getSingular(java.lang.String);
 String getParent(Class cls):
 cls.parents().size > 0 ? getExtensionKeyword() + cls.parents().get(0).fqn():"";
 
+String getVariableNameForDisplay(String arg):
+JAVA org.wc.generatorutil.ClassUtil.getViewLabelFromVariable(java.lang.String);
+
+
+String removeSpaces(String arg):
+JAVA org.wc.generatorutil.ClassUtil.removeSpaces(java.lang.String);
+
+
 
 //get the parent
 String getParent(Entity cls):
@@ -248,6 +256,9 @@ JAVA org.wc.generatorutil.ClassUtil.setCurrentCartridge(java.lang.String);
 serialver (Class cls) : 
 JAVA org.wc.generatorutil.ClassUtil.serialver(org.eclipse.uml2.uml.Class);
 
+outgoing (DecisionNode act) : 
+JAVA org.wc.generatorutil.ClassUtil.outgoing(org.eclipse.uml2.uml.ActivityNode);
+
 outgoing (Action act) : 
 JAVA org.wc.generatorutil.ClassUtil.outgoing(org.eclipse.uml2.uml.ActivityNode);
 
@@ -276,7 +287,11 @@ getQyeryTypeByReturnType(Operation op):
 op.type == "List" ? "" : "SingleResult";
 
 getWorkflowActionPath(Activity act):
-getTopLevelPackage().packagePath() + "/web/action/workflows/"  + act.name.toFirstUpper() +  ".java";
+getTopLevelPackage().packagePath() + "/web/action/workflows/"  + act.name.toFirstUpper() ;
 
 getWebPackageName(Activity act):
 getTopLevelPackage() + ".web.action.workflows" ;
+
+
+getTransName(ActivityEdge o):
+o.guard.stringValue() != null ? o.guard.stringValue() : o.name;
