@@ -7,9 +7,7 @@
 
 «DEFINE Root FOR uml::Model»
 	«EXPAND StateMachineRoot FOREACH allOwnedElements().typeSelect(uml::Activity)»
-	
 «ENDDEFINE»
-
 
 
 «DEFINE StateMachineRoot FOR uml::Activity»
@@ -19,10 +17,7 @@
 	package «getWebPackageName()»;
 		
 	«EXPAND genImports FOR this»
-	
-	//xxx;
-	
-	// @Scope(ScopeType.CONVERSATION)
+
 	class «name.toFirstUpper()»Base extends BaseJbpmProcessAction implements java.io.Serializable{
 	
 		@CreateProcess(definition = "«name»")
@@ -36,21 +31,6 @@
 	«ENDFILE»
 «ENDDEFINE»
 
-
-«DEFINE ManualGen FOR uml::Activity»
-	«FILE  getWorkflowActionPath() + ".java"  man_path »
-	
-	package « getWebPackageName() »;
-	
-	«EXPAND genImports»
-	
-	@Name("«name»")	
-	//@Scope(ScopeType.CONVERSATION)
-	public class «name.toFirstUpper()» extends «name.toFirstUpper()»Base {
-		
-	}
-	«ENDFILE»
-«ENDDEFINE»
 
 
 
@@ -79,6 +59,23 @@
 	import org.jboss.seam.annotations.bpm.StartTask;
 	import org.jbpm.JbpmContext;
 «ENDDEFINE»
+
+
+«DEFINE ManualGen FOR uml::Activity»
+	«FILE  getWorkflowActionPath() + ".java"  man_path »
+	
+	package « getWebPackageName() »;
+	
+	«EXPAND genImports»
+	
+	@Name("«name»ProcessAction")	
+	//@Scope(ScopeType.CONVERSATION)
+	public class «name.toFirstUpper()» extends «name.toFirstUpper()»Base {
+		
+	}
+	«ENDFILE»
+«ENDDEFINE»
+
 
 
 

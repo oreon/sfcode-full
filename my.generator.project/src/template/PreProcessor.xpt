@@ -8,6 +8,7 @@
 	«EXPAND setDefaultNamesForAssocs FOREACH allOwnedElements().typeSelect(uml::Property) »
 	«EXPAND applyEntityStereotype FOREACH allOwnedElements().typeSelect(wcprofile::EntitiesPackage) »
 	«EXPAND massageEmbeddables FOREACH allOwnedElements().typeSelect(wcprofile::Embeddable) »
+	«EXPAND massageEdges FOREACH allOwnedElements().typeSelect(uml::ControlFlow) »
 «ENDDEFINE»
 
 «REM» For associations we need to
@@ -51,4 +52,17 @@
 
 «REM»todo add interface serializable «ENDREM»
 «DEFINE massageEmbeddables FOR wcprofile::Embeddable»
+«ENDDEFINE»
+
+
+«DEFINE massageEdges FOR uml::ControlFlow»
+	«IF name == null && gaurd.StringVal == null »
+		«setName("next")»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE massageEdges FOR uml::ActivityFinal»
+	«IF name == null»
+		«setName("next")»
+	«ENDIF»
 «ENDDEFINE»
