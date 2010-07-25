@@ -277,7 +277,7 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 	}
 	
 	public List<«type.name»> getList«name.toFirstUpper()»() {
-		if(«currentList» == null || «currentList».isEmpty()){
+		if(«currentList» == null ){
 			initList«name.toFirstUpper()»();
 		}
 		return «currentList»;
@@ -287,8 +287,8 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 		this.«currentList» = «currentList»;
 	}
 	
-	public void delete«name.toFirstUpper()»(«type.name» «name»){
-		«currentList».remove(«name»);
+	public void delete«name.toFirstUpper()»(int index){
+		«currentList».remove(index);
 	}
 	
 	@Begin(join=true)
