@@ -278,6 +278,7 @@
 	
 	<rich:dataTable id="«name»_data#{entityId}" var="_«type.asVar()»" rendered="#{not empty «class.getAction()».list«name.toFirstUpper()»}"
 					value="#{«class.getAction()».list«name.toFirstUpper()»}" rows="10"
+				rowKeyvar="rowIndex"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		«setAsCurrentEntity(type)»
 		«EXPAND genAttribAsOutput FOR type-»
@@ -291,7 +292,7 @@
 
 «DEFINE genDelete FOR uml::Property»
 	<h:column>
-		<a:commandButton value="Delete" action="#{«class.getAction()».delete«name.toFirstUpper()»(_«type.asVar()»)}" immediate="true" 
+		<a:commandButton value="Delete" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}" immediate="true" 
 			reRender="«name»_data#{entityId}"
 			>
 			<s:conversationId/>
