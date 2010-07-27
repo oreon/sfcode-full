@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+			<h:form>
+				<rich:datascroller align="left" for="dataAudit" maxPages="20" renderIfSinglePage="false"/>
+				<br/>
+
+				<rich:dataTable id="dataAudit" rowClasses="odd, even" rows="30" styleClass="dataTable" value="#{closingProcessAction.auditLog}" var="_log">
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Date"/>
+						</f:facet>
+						<h:outputText value="#{_log.dateCreated}"/>
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Action"/>
+						</f:facet>
+						<h:outputText value="#{_log.action}"/>
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="User"/>
+						</f:facet>
+						<h:outputText value="#{_log.username}"/>
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Id"/>
+						</f:facet>
+						<h:outputText value="#{_log.entityId}"/>
+					</rich:column>
+					
+				
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.process_completedDate}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.completedDate}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.process_processNumber}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.processNumber}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.process_expiryDate}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.expiryDate}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.process_reason}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.reason}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.process_type}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.type}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.process_description}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.description}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.process_legalNumber}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.legalNumber}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.process_documentAdded}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.documentAdded}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.process_skip}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.skip}"/>
+	</rich:column>
+	
+	
+				
+			</rich:dataTable>
+		</h:form>
+		</html>

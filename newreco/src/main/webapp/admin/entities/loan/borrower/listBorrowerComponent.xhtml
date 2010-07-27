@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	
+	
+<rich:panel>
+   <h:form>
+	  <f:facet name="header">Borrower Search Results (#{empty borrowerList.resultList ? 0 : (borrowerList.paginated ? borrowerList.resultCount : borrowerList.resultList.size)})</f:facet>
+	
+		<rich:dataTable rendered="#{not empty borrowerList.resultList}" rowClasses="odd, even" styleClass="dataTable" value="#{borrowerList.resultList}" var="_borrower">	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{borrowerList}"/>
+				<ui:param name="propertyLabel" value="Id"/>
+				<ui:param name="propertyPath" value="borrower.id"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_borrower.id}">
+		</h:outputText>
+	</h:column>
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{borrowerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.person_lastName}"/>
+				<ui:param name="propertyPath" value="borrower.lastName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_borrower.lastName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{borrowerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.person_firstName}"/>
+				<ui:param name="propertyPath" value="borrower.firstName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_borrower.firstName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{borrowerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetDirection}"/>
+				<ui:param name="propertyPath" value="borrower.address.streetDirection"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_borrower.address.streetDirection}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{borrowerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetNumber}"/>
+				<ui:param name="propertyPath" value="borrower.address.streetNumber"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_borrower.address.streetNumber}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{borrowerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetName}"/>
+				<ui:param name="propertyPath" value="borrower.address.streetName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_borrower.address.streetName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{borrowerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_province}"/>
+				<ui:param name="propertyPath" value="borrower.address.province"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_borrower.address.province}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{borrowerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetType}"/>
+				<ui:param name="propertyPath" value="borrower.address.streetType"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_borrower.address.streetType}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{borrowerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_postalCode}"/>
+				<ui:param name="propertyPath" value="borrower.address.postalCode"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_borrower.address.postalCode}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{borrowerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_unitNumber}"/>
+				<ui:param name="propertyPath" value="borrower.address.unitNumber"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_borrower.address.unitNumber}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{borrowerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_city}"/>
+				<ui:param name="propertyPath" value="borrower.address.city"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_borrower.address.city}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{borrowerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.contactDetails_primaryPhone}"/>
+				<ui:param name="propertyPath" value="borrower.contactDetails.primaryPhone"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_borrower.contactDetails.primaryPhone}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{borrowerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.contactDetails_secondaryPhone}"/>
+				<ui:param name="propertyPath" value="borrower.contactDetails.secondaryPhone"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_borrower.contactDetails.secondaryPhone}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{borrowerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.user_userName}"/>
+				<ui:param name="propertyPath" value="borrower.user.userName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_borrower.user.userName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{borrowerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.user_enabled}"/>
+				<ui:param name="propertyPath" value="borrower.user.enabled"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_borrower.user.enabled}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{borrowerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.user_email}"/>
+				<ui:param name="propertyPath" value="borrower.user.email"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_borrower.user.email}"/>	
+		
+	</h:column>
+	
+		
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{borrowerList}"/>
+				<ui:param name="propertyLabel" value="Creation Date"/>
+				<ui:param name="propertyPath" value="borrower.dateCreated"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_borrower.dateCreated}">
+			<s:convertDateTime dateStyle="short" type="both"/>
+		</h:outputText>
+	</h:column>
+		
+	<h:column rendered="#{s:hasPermission('borrowerAction', 'view')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/loan/borrower/viewBorrower.xhtml">
+			<h:graphicImage alt="view" style="border: 0px" value="/images/icons/eye.png"/>
+			<f:param name="borrowerId" value="#{_borrower.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('borrowerAction', 'edit')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/loan/borrower/editBorrower.xhtml">
+			<h:graphicImage alt="edit" style="border: 0px" value="/images/icons/edit.png"/>
+			<f:param name="borrowerId" value="#{_borrower.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('borrowerAction', 'archive')}">
+		<f:facet name="header">
+			<h:outputText value=""/>
+		</f:facet>
+		
+		<s:link action="#{borrowerAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_borrower.displayName} ?')){ return false; } else { return true; }">
+			<h:graphicImage alt="archive" style="border: 0px" value="/images/icons/delete.png"/>
+			<f:param name="idToArchive" value="#{_borrower.id}"/>
+		</s:link>
+	</h:column>
+
+		</rich:dataTable>
+ 	</h:form>		
+</rich:panel>	
+
+
+
+ <div class="tableControl">
+<s:link rendered="#{borrowerList.previousExists}" value="#{messages.left}#{messages.left} First Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="0"/>
+</s:link> 
+
+<s:link rendered="#{borrowerList.previousExists}" value="#{messages.left} Previous Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{borrowerList.previousFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{borrowerList.nextExists}" value="Next Page #{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{borrowerList.nextFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{borrowerList.nextExists}" value="Last Page #{messages.right}#{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{borrowerList.lastFirstResult}"/>
+</s:link>
+</div>
+
+
+<h:form>
+<s:div rendered="#{empty from}" styleClass="actionButtons">
+	<s:button propagation="none" value="Create New" view="/admin/entities/loan/borrower/editBorrower.xhtml">
+		 <f:param name="borrowerId"/>
+		
+	</s:button>
+</s:div>
+</h:form>
+
+</html>

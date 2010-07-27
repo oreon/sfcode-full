@@ -1,0 +1,42 @@
+
+<ui:composition 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	 template = "/webtemplate/template.xhtml"
+ >	
+	<ui:define name="content">
+	<!--PROTECTED REGION ID(USER_EDITABLE_RGN_register/sld.xhtml) ENABLED START-->
+			<h:form>
+	<rich:simpleTogglePanel label="Search" switchType="client">
+		<rich:tabPanel>
+			<rich:tab label="Search">
+				<ui:include src="/admin/entities/loan/loanData/fieldSearchLoanDataComponent.xhtml"/>
+			</rich:tab>
+	
+			<rich:tab label="Text Search">
+				<ui:include src="/admin/entities/loan/loanData/textSearchLoanDataComponent.xhtml"/>
+			</rich:tab>
+		</rich:tabPanel>
+	
+		
+	<div class="actionButtons">
+        <h:commandButton action="/admin/entities/loan/loanData/listLoanData.xhtml" id="search" value="Search">
+			 <s:conversationPropagation type="end"/>
+		</h:commandButton> 
+		<s:button id="reset" includePageParams="false" propagation="none" value="Reset"/>
+      </div>
+
+		</rich:simpleTogglePanel>
+	</h:form>
+	<!--PROTECTED REGION END-->	
+	</ui:define> 
+</ui:composition>
+	

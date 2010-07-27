@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	
+	
+<rich:panel>
+   <h:form>
+	  <f:facet name="header">LenderContact Search Results (#{empty lenderContactList.resultList ? 0 : (lenderContactList.paginated ? lenderContactList.resultCount : lenderContactList.resultList.size)})</f:facet>
+	
+		<rich:dataTable rendered="#{not empty lenderContactList.resultList}" rowClasses="odd, even" styleClass="dataTable" value="#{lenderContactList.resultList}" var="_lenderContact">	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{lenderContactList}"/>
+				<ui:param name="propertyLabel" value="Id"/>
+				<ui:param name="propertyPath" value="lenderContact.id"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_lenderContact.id}">
+		</h:outputText>
+	</h:column>
+		
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{lenderContactList}"/>
+				<ui:param name="propertyLabel" value="#{msg.lenderContact_lender}"/>
+				<ui:param name="propertyPath" value="lenderContact.lender"/>
+			</ui:include>
+		</f:facet>
+		<s:link value="#{_lenderContact.lender.displayName}" view="/admin/entities/loan/lender/viewLender.xhtml">
+			<f:param name="lenderId" value="#{_lenderContact.lender.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{lenderContactList}"/>
+				<ui:param name="propertyLabel" value="#{msg.person_lastName}"/>
+				<ui:param name="propertyPath" value="lenderContact.lastName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_lenderContact.lastName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{lenderContactList}"/>
+				<ui:param name="propertyLabel" value="#{msg.person_firstName}"/>
+				<ui:param name="propertyPath" value="lenderContact.firstName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_lenderContact.firstName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{lenderContactList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetDirection}"/>
+				<ui:param name="propertyPath" value="lenderContact.address.streetDirection"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_lenderContact.address.streetDirection}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{lenderContactList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetNumber}"/>
+				<ui:param name="propertyPath" value="lenderContact.address.streetNumber"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_lenderContact.address.streetNumber}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{lenderContactList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetName}"/>
+				<ui:param name="propertyPath" value="lenderContact.address.streetName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_lenderContact.address.streetName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{lenderContactList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_province}"/>
+				<ui:param name="propertyPath" value="lenderContact.address.province"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_lenderContact.address.province}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{lenderContactList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetType}"/>
+				<ui:param name="propertyPath" value="lenderContact.address.streetType"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_lenderContact.address.streetType}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{lenderContactList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_postalCode}"/>
+				<ui:param name="propertyPath" value="lenderContact.address.postalCode"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_lenderContact.address.postalCode}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{lenderContactList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_unitNumber}"/>
+				<ui:param name="propertyPath" value="lenderContact.address.unitNumber"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_lenderContact.address.unitNumber}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{lenderContactList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_city}"/>
+				<ui:param name="propertyPath" value="lenderContact.address.city"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_lenderContact.address.city}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{lenderContactList}"/>
+				<ui:param name="propertyLabel" value="#{msg.contactDetails_primaryPhone}"/>
+				<ui:param name="propertyPath" value="lenderContact.contactDetails.primaryPhone"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_lenderContact.contactDetails.primaryPhone}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{lenderContactList}"/>
+				<ui:param name="propertyLabel" value="#{msg.contactDetails_secondaryPhone}"/>
+				<ui:param name="propertyPath" value="lenderContact.contactDetails.secondaryPhone"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_lenderContact.contactDetails.secondaryPhone}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{lenderContactList}"/>
+				<ui:param name="propertyLabel" value="#{msg.user_userName}"/>
+				<ui:param name="propertyPath" value="lenderContact.user.userName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_lenderContact.user.userName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{lenderContactList}"/>
+				<ui:param name="propertyLabel" value="#{msg.user_enabled}"/>
+				<ui:param name="propertyPath" value="lenderContact.user.enabled"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_lenderContact.user.enabled}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{lenderContactList}"/>
+				<ui:param name="propertyLabel" value="#{msg.user_email}"/>
+				<ui:param name="propertyPath" value="lenderContact.user.email"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_lenderContact.user.email}"/>	
+		
+	</h:column>
+	
+		
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{lenderContactList}"/>
+				<ui:param name="propertyLabel" value="Creation Date"/>
+				<ui:param name="propertyPath" value="lenderContact.dateCreated"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_lenderContact.dateCreated}">
+			<s:convertDateTime dateStyle="short" type="both"/>
+		</h:outputText>
+	</h:column>
+		
+	<h:column rendered="#{s:hasPermission('lenderContactAction', 'view')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/loan/lenderContact/viewLenderContact.xhtml">
+			<h:graphicImage alt="view" style="border: 0px" value="/images/icons/eye.png"/>
+			<f:param name="lenderContactId" value="#{_lenderContact.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('lenderContactAction', 'edit')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/loan/lenderContact/editLenderContact.xhtml">
+			<h:graphicImage alt="edit" style="border: 0px" value="/images/icons/edit.png"/>
+			<f:param name="lenderContactId" value="#{_lenderContact.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('lenderContactAction', 'archive')}">
+		<f:facet name="header">
+			<h:outputText value=""/>
+		</f:facet>
+		
+		<s:link action="#{lenderContactAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_lenderContact.displayName} ?')){ return false; } else { return true; }">
+			<h:graphicImage alt="archive" style="border: 0px" value="/images/icons/delete.png"/>
+			<f:param name="idToArchive" value="#{_lenderContact.id}"/>
+		</s:link>
+	</h:column>
+
+		</rich:dataTable>
+ 	</h:form>		
+</rich:panel>	
+
+
+
+ <div class="tableControl">
+<s:link rendered="#{lenderContactList.previousExists}" value="#{messages.left}#{messages.left} First Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="0"/>
+</s:link> 
+
+<s:link rendered="#{lenderContactList.previousExists}" value="#{messages.left} Previous Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{lenderContactList.previousFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{lenderContactList.nextExists}" value="Next Page #{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{lenderContactList.nextFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{lenderContactList.nextExists}" value="Last Page #{messages.right}#{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{lenderContactList.lastFirstResult}"/>
+</s:link>
+</div>
+
+
+<h:form>
+<s:div rendered="#{empty from}" styleClass="actionButtons">
+	<s:button propagation="none" value="Create New" view="/admin/entities/loan/lenderContact/editLenderContact.xhtml">
+		 <f:param name="lenderContactId"/>
+		
+		
+			<f:param name="lenderId" value="#{lenderAction.lender.id}"/>
+		
+		
+	</s:button>
+</s:div>
+</h:form>
+
+</html>

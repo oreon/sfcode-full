@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>
+	<h:panelGrid columns="6">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.legal_courtNumber}  "/> <br/>
+	
+		<h:inputText id="legal_courtNumber" value="#{legalList.legal.courtNumber}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.legal_specialHandling}  "/> <br/>
+	
+		<h:inputText id="legal_specialHandling" value="#{legalList.legal.specialHandling}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.legal_mortgageNumber}  "/> <br/>
+	
+	
+	<h:inputText id="legal_mortgageNumber_begin" value="#{legalList.legal_mortgageNumberRange.begin}">
+			<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	<h:inputText id="legal_mortgageNumber_end" value="#{legalList.legal_mortgageNumberRange.end}">
+		<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.legal_legalNumber}  "/> <br/>
+	
+	
+	<h:inputText id="legal_legalNumber_begin" value="#{legalList.legal_legalNumberRange.begin}">
+			<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	<h:inputText id="legal_legalNumber_end" value="#{legalList.legal_legalNumberRange.end}">
+		<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.legal_status}  "/> <br/>
+	
+		<h:inputText id="legal_status" value="#{legalList.legal.status}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.legal_litigation}  "/> <br/>
+	
+	<h:selectOneMenu id="legal_litigation" required="false" value="#{legalList.legal.litigation}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="True" itemValue="true"/>
+		<f:selectItem itemLabel="False" itemValue="false"/>
+	</h:selectOneMenu>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.legal_legalDescription}  "/> <br/>
+	
+		<h:inputText id="legal_legalDescription" value="#{legalList.legal.legalDescription}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.legal_legalFileNumber}  "/> <br/>
+	
+		<h:inputText id="legal_legalFileNumber" value="#{legalList.legal.legalFileNumber}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.legal_pin}  "/> <br/>
+	
+		<h:inputText id="legal_pin" value="#{legalList.legal.pin}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.legal_pid}  "/> <br/>
+	
+		<h:inputText id="legal_pid" value="#{legalList.legal.pid}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">From</ui:define> <br/>
+				<rich:calendar id="from" value="#{legalList.dateCreatedRange.begin}"/>
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">To</ui:define> <br/>
+				<rich:calendar id="to" value="#{legalList.dateCreatedRange.end}"/>
+			</s:decorate>
+
+	</h:panelGrid>
+</ui:composition>

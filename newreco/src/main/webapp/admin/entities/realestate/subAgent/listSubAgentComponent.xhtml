@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	
+	
+<rich:panel>
+   <h:form>
+	  <f:facet name="header">SubAgent Search Results (#{empty subAgentList.resultList ? 0 : (subAgentList.paginated ? subAgentList.resultCount : subAgentList.resultList.size)})</f:facet>
+	
+		<rich:dataTable rendered="#{not empty subAgentList.resultList}" rowClasses="odd, even" styleClass="dataTable" value="#{subAgentList.resultList}" var="_subAgent">	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{subAgentList}"/>
+				<ui:param name="propertyLabel" value="Id"/>
+				<ui:param name="propertyPath" value="subAgent.id"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_subAgent.id}">
+		</h:outputText>
+	</h:column>
+		
+	
+		
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{subAgentList}"/>
+				<ui:param name="propertyLabel" value="Creation Date"/>
+				<ui:param name="propertyPath" value="subAgent.dateCreated"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_subAgent.dateCreated}">
+			<s:convertDateTime dateStyle="short" type="both"/>
+		</h:outputText>
+	</h:column>
+		
+	<h:column rendered="#{s:hasPermission('subAgentAction', 'view')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/realestate/subAgent/viewSubAgent.xhtml">
+			<h:graphicImage alt="view" style="border: 0px" value="/images/icons/eye.png"/>
+			<f:param name="subAgentId" value="#{_subAgent.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('subAgentAction', 'edit')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/realestate/subAgent/editSubAgent.xhtml">
+			<h:graphicImage alt="edit" style="border: 0px" value="/images/icons/edit.png"/>
+			<f:param name="subAgentId" value="#{_subAgent.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('subAgentAction', 'archive')}">
+		<f:facet name="header">
+			<h:outputText value=""/>
+		</f:facet>
+		
+		<s:link action="#{subAgentAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_subAgent.displayName} ?')){ return false; } else { return true; }">
+			<h:graphicImage alt="archive" style="border: 0px" value="/images/icons/delete.png"/>
+			<f:param name="idToArchive" value="#{_realEstateProperty.id}"/>
+		</s:link>
+	</h:column>
+
+		</rich:dataTable>
+ 	</h:form>		
+</rich:panel>	
+
+
+
+ <div class="tableControl">
+<s:link rendered="#{subAgentList.previousExists}" value="#{messages.left}#{messages.left} First Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="0"/>
+</s:link> 
+
+<s:link rendered="#{subAgentList.previousExists}" value="#{messages.left} Previous Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{subAgentList.previousFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{subAgentList.nextExists}" value="Next Page #{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{subAgentList.nextFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{subAgentList.nextExists}" value="Last Page #{messages.right}#{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{subAgentList.lastFirstResult}"/>
+</s:link>
+</div>
+
+
+<h:form>
+<s:div rendered="#{empty from}" styleClass="actionButtons">
+	<s:button propagation="none" value="Create New" view="/admin/entities/realestate/subAgent/editSubAgent.xhtml">
+		 <f:param name="subAgentId"/>
+		
+	</s:button>
+</s:div>
+</h:form>
+
+</html>

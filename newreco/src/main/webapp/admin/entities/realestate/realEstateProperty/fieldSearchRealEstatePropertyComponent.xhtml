@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>
+	<h:panelGrid columns="6">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_streetAddress}  "/> <br/>
+	
+		<h:inputText id="realEstateProperty_streetAddress" value="#{realEstatePropertyList.realEstateProperty.streetAddress}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_state}  "/> <br/>
+	<h:selectOneMenu id="realEstateProperty_state" required="false" value="#{realEstatePropertyList.realEstateProperty.state}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="On" itemValue="ON"/>
+		<f:selectItem itemLabel="Ab" itemValue="AB"/>
+		<f:selectItem itemLabel="Nb" itemValue="NB"/>
+		<f:selectItem itemLabel="Ns" itemValue="NS"/>
+		<f:selectItem itemLabel="Bc" itemValue="BC"/>
+		<f:selectItem itemLabel="Mb" itemValue="MB"/>
+		<f:selectItem itemLabel="Pei" itemValue="PEI"/>
+		<f:selectItem itemLabel="Nv" itemValue="NV"/>
+		<f:selectItem itemLabel="Yk" itemValue="YK"/>
+		<f:selectItem itemLabel="Qb" itemValue="QB"/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_zip}  "/> <br/>
+	
+		<h:inputText id="realEstateProperty_zip" value="#{realEstatePropertyList.realEstateProperty.zip}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_city}  "/> <br/>
+	
+		<h:inputText id="realEstateProperty_city" value="#{realEstatePropertyList.realEstateProperty.city}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_insurer}  "/> <br/>
+	<h:selectOneMenu id="realEstateProperty_insurer" value="#{realEstatePropertyList.realEstateProperty.insurer}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{mortgageInsurerList}" var="itemIter"/>
+		<s:convertEntity/>
+		<f:selectItem itemLabel="--None--" itemValue=""/>
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">From</ui:define> <br/>
+				<rich:calendar id="from" value="#{realEstatePropertyList.dateCreatedRange.begin}"/>
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">To</ui:define> <br/>
+				<rich:calendar id="to" value="#{realEstatePropertyList.dateCreatedRange.end}"/>
+			</s:decorate>
+
+	</h:panelGrid>
+</ui:composition>

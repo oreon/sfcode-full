@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+
+
+<rich:panel>
+	<rich:dataTable id="filesUploadeds_data#{entityId}"
+		rendered="#{not empty realEstatePropertyAction.listFilesUploadeds}"
+		rowClasses="odd, even" rows="10" rules="all" styleClass="dataTable"
+		value="#{realEstatePropertyAction.listFilesUploadeds}"
+		var="_filesUploaded">
+
+
+		<h:column style="text-align:left">
+			<f:facet name="header">
+				<h:outputText value="#{msg.filesUploaded_title}  " />
+			</f:facet>
+
+			<h:outputText id="filesUploaded_title#{entityId}"
+				value="#{_filesUploaded.title}" />
+		</h:column>
+
+		<h:column style="text-align:right">
+			<f:facet name="header">
+				<h:outputText value="#{msg.filesUploaded_file}  " />
+			</f:facet>
+
+
+			<c:choose>
+				<c:when
+					test="${_filesUploaded.file.contentType.startsWith('image')}">
+					<s:graphicImage value="#{_filesUploaded.file.data}" />
+				</c:when>
+				<c:otherwise>
+					<s:link
+						action="#{filesUploadedAction.downloadFile(_filesUploaded.id)}"
+						propagation="none" value="#{_filesUploaded.file.name}">
+						<f:param name="filesUploadedId" value="#{_filesUploaded.id}" />
+					</s:link>
+				</c:otherwise>
+			</c:choose>
+		</h:column>
+
+	</rich:dataTable>
+
+
+
+	<a:form enctype="multipart/form-data">
+		<f:facet name="header">
+			<h:outputText value="#{msg.filesUploaded_title}  " />
+		</f:facet>
+
+
+		<h:inputText id="filesUploaded_title#{entityId}" required="false"
+			value="#{realEstatePropertyAction.filesUploaded.title}" />
+
+
+		<h:message for="filesUploaded_title" styleClass="error errors" />
+
+
+
+		<f:facet name="header">
+			<h:outputText value="#{msg.filesUploaded_file}  " />
+		</f:facet>
+
+		<s:fileUpload
+			contentType="#{realEstatePropertyAction.filesUploaded.file.contentType}"
+			data="#{realEstatePropertyAction.filesUploaded.file.data}"
+			fileName="#{realEstatePropertyAction.filesUploaded.file.name}" />
+
+
+		<h:message for="filesUploaded_file" styleClass="error errors" />
+
+
+		<h:commandButton action="#{realEstatePropertyAction.uploadFile}"
+			value="Add File" reRender="filesUploadeds_data#{entityId}">
+			<s:conversationId />
+		</h:commandButton>
+
+	</a:form>
+
+
+</rich:panel>
+
+</ui:composition>

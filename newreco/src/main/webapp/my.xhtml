@@ -1,0 +1,38 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+
+ template = "/webtemplate/template.xhtml" >	
+	<ui:define name="content">
+	
+
+	
+	<a:form id="frm">
+		<a:region id="cnt">
+				<h3> Count is ${myAction.count} </h3>		
+		</a:region>
+	
+		<s:div styleClass="loginformtable"><br />
+			<a:commandButton value="SEND MAIL" action="#{myAction.meth}" reRender="cnt">
+				
+			</a:commandButton>
+			
+			<h:commandLink value="SEND MAIL" action="#{myAction.meth}">
+				<s:conversationId />
+			</h:commandLink>
+
+		</s:div>
+	</a:form>
+	
+	</ui:define>
+</ui:composition>

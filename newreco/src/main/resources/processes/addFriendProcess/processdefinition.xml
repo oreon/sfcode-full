@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition xmlns="" name="addFriendProcess">
+
+	<swimlane name="initiator">
+		<assignment class="com.nas.recovery.web.action.common.FriendFromAssignment"></assignment>
+	</swimlane>
+	<swimlane name="prospective">
+		<assignment class="com.nas.recovery.web.action.common.FriendAssignment"></assignment>
+	</swimlane>
+
+
+	<start-state name="addFriend">
+		<task swimlane='initiator'>
+		</task>
+		<transition to="reviewRequest" name="notify"></transition>
+	</start-state>
+
+
+
+	<task-node name="reviewRequest" >
+		<task name="doAssign" swimlane="prospective" notify="yes" >
+		</task>
+		<transition to="accept" name="accept"></transition>
+		<transition to="reject" name="reject"></transition>
+		<transition to="addDetails" name="moreDetails"></transition>
+	</task-node>
+
+	<task-node name="addDetails">
+		<task name="review" swimlane="initiator"  notify="yes" />
+		<transition to="reviewRequest" name="reviewDetails"></transition>
+		<transition to="reject" name="reject"></transition>
+	</task-node>
+
+
+	<end-state name="accept"></end-state>
+	<end-state name="reject"></end-state>
+
+</process-definition>
