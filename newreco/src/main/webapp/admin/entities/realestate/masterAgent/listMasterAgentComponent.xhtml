@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	
+	
+<rich:panel>
+   <h:form>
+	  <f:facet name="header">MasterAgent Search Results (#{empty masterAgentList.resultList ? 0 : (masterAgentList.paginated ? masterAgentList.resultCount : masterAgentList.resultList.size)})</f:facet>
+	
+		<rich:dataTable rendered="#{not empty masterAgentList.resultList}" rowClasses="odd, even" styleClass="dataTable" value="#{masterAgentList.resultList}" var="_masterAgent">	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{masterAgentList}"/>
+				<ui:param name="propertyLabel" value="Id"/>
+				<ui:param name="propertyPath" value="masterAgent.id"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_masterAgent.id}">
+		</h:outputText>
+	</h:column>
+		
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{masterAgentList}"/>
+				<ui:param name="propertyLabel" value="#{msg.masterAgent_realEstateFirm}"/>
+				<ui:param name="propertyPath" value="masterAgent.realEstateFirm"/>
+			</ui:include>
+		</f:facet>
+		<s:link value="#{_masterAgent.realEstateFirm.displayName}" view="/admin/entities/realestate/realEstateFirm/viewRealEstateFirm.xhtml">
+			<f:param name="realEstateFirmId" value="#{_masterAgent.realEstateFirm.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{masterAgentList}"/>
+				<ui:param name="propertyLabel" value="#{msg.person_lastName}"/>
+				<ui:param name="propertyPath" value="masterAgent.lastName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_masterAgent.lastName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{masterAgentList}"/>
+				<ui:param name="propertyLabel" value="#{msg.person_firstName}"/>
+				<ui:param name="propertyPath" value="masterAgent.firstName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_masterAgent.firstName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{masterAgentList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetDirection}"/>
+				<ui:param name="propertyPath" value="masterAgent.address.streetDirection"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_masterAgent.address.streetDirection}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{masterAgentList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetNumber}"/>
+				<ui:param name="propertyPath" value="masterAgent.address.streetNumber"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_masterAgent.address.streetNumber}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{masterAgentList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetName}"/>
+				<ui:param name="propertyPath" value="masterAgent.address.streetName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_masterAgent.address.streetName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{masterAgentList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_province}"/>
+				<ui:param name="propertyPath" value="masterAgent.address.province"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_masterAgent.address.province}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{masterAgentList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetType}"/>
+				<ui:param name="propertyPath" value="masterAgent.address.streetType"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_masterAgent.address.streetType}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{masterAgentList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_postalCode}"/>
+				<ui:param name="propertyPath" value="masterAgent.address.postalCode"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_masterAgent.address.postalCode}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{masterAgentList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_unitNumber}"/>
+				<ui:param name="propertyPath" value="masterAgent.address.unitNumber"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_masterAgent.address.unitNumber}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{masterAgentList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_city}"/>
+				<ui:param name="propertyPath" value="masterAgent.address.city"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_masterAgent.address.city}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{masterAgentList}"/>
+				<ui:param name="propertyLabel" value="#{msg.contactDetails_primaryPhone}"/>
+				<ui:param name="propertyPath" value="masterAgent.contactDetails.primaryPhone"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_masterAgent.contactDetails.primaryPhone}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{masterAgentList}"/>
+				<ui:param name="propertyLabel" value="#{msg.contactDetails_secondaryPhone}"/>
+				<ui:param name="propertyPath" value="masterAgent.contactDetails.secondaryPhone"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_masterAgent.contactDetails.secondaryPhone}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{masterAgentList}"/>
+				<ui:param name="propertyLabel" value="#{msg.user_userName}"/>
+				<ui:param name="propertyPath" value="masterAgent.user.userName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_masterAgent.user.userName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{masterAgentList}"/>
+				<ui:param name="propertyLabel" value="#{msg.user_enabled}"/>
+				<ui:param name="propertyPath" value="masterAgent.user.enabled"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_masterAgent.user.enabled}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{masterAgentList}"/>
+				<ui:param name="propertyLabel" value="#{msg.user_email}"/>
+				<ui:param name="propertyPath" value="masterAgent.user.email"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_masterAgent.user.email}"/>	
+		
+	</h:column>
+	
+		
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{masterAgentList}"/>
+				<ui:param name="propertyLabel" value="Creation Date"/>
+				<ui:param name="propertyPath" value="masterAgent.dateCreated"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_masterAgent.dateCreated}">
+			<s:convertDateTime dateStyle="short" type="both"/>
+		</h:outputText>
+	</h:column>
+		
+	<h:column rendered="#{s:hasPermission('masterAgentAction', 'view')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/realestate/masterAgent/viewMasterAgent.xhtml">
+			<h:graphicImage alt="view" style="border: 0px" value="/images/icons/eye.png"/>
+			<f:param name="masterAgentId" value="#{_masterAgent.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('masterAgentAction', 'edit')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/realestate/masterAgent/editMasterAgent.xhtml">
+			<h:graphicImage alt="edit" style="border: 0px" value="/images/icons/edit.png"/>
+			<f:param name="masterAgentId" value="#{_masterAgent.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('masterAgentAction', 'archive')}">
+		<f:facet name="header">
+			<h:outputText value=""/>
+		</f:facet>
+		
+		<s:link action="#{masterAgentAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_masterAgent.displayName} ?')){ return false; } else { return true; }">
+			<h:graphicImage alt="archive" style="border: 0px" value="/images/icons/delete.png"/>
+			<f:param name="idToArchive" value="#{_masterAgent.id}"/>
+		</s:link>
+	</h:column>
+
+		</rich:dataTable>
+ 	</h:form>		
+</rich:panel>	
+
+
+
+ <div class="tableControl">
+<s:link rendered="#{masterAgentList.previousExists}" value="#{messages.left}#{messages.left} First Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="0"/>
+</s:link> 
+
+<s:link rendered="#{masterAgentList.previousExists}" value="#{messages.left} Previous Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{masterAgentList.previousFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{masterAgentList.nextExists}" value="Next Page #{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{masterAgentList.nextFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{masterAgentList.nextExists}" value="Last Page #{messages.right}#{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{masterAgentList.lastFirstResult}"/>
+</s:link>
+</div>
+
+
+<h:form>
+<s:div rendered="#{empty from}" styleClass="actionButtons">
+	<s:button propagation="none" value="Create New" view="/admin/entities/realestate/masterAgent/editMasterAgent.xhtml">
+		 <f:param name="masterAgentId"/>
+		
+		
+			<f:param name="realEstateFirmId" value="#{realEstateFirmAction.realEstateFirm.id}"/>
+		
+		
+	</s:button>
+</s:div>
+</h:form>
+
+</html>

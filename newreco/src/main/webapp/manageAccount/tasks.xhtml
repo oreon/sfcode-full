@@ -1,0 +1,111 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/webtemplate/template.xhtml">
+
+	<ui:define name="content">
+		<h2>Order system</h2>
+
+		<h:form id="list">
+			<div><h:outputText value="There are no tasks at the moment."
+				rendered="#{empty taskInstancePriorityList}" /> <rich:dataTable
+				value="#{taskInstancePriorityList}" var="task"
+				rendered="#{not empty taskInstancePriorityList}" bgcolor="#F1F1F1"
+				border="1">
+				
+				Due Date Days Pending  Action Required M/S  File Name Service Provider File Manager 
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Id" />
+					</f:facet>
+					<h:outputText value="#{task.id}">
+					</h:outputText>
+				</h:column>
+
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Created" />
+					</f:facet>
+					<h:outputText
+						value="#{task.taskMgmtInstance.processInstance.start}">
+						<s:convertDateTime type="date" />
+					</h:outputText>
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Due" />
+					</f:facet>
+					<h:outputText value="#{task.dueDate}">
+						<s:convertDateTime type="date" />
+					</h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Days Remaining" />
+					</f:facet>
+	
+				</h:column>
+				
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Action" />
+					</f:facet>
+					<h:outputText value="#{task.name}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="File Name" />
+					</f:facet>
+					  #{task.variables['recoveryToken'].realEstateProperty.displayName}
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="PM" />
+					</f:facet>
+					 #{task.variables['recoveryToken'].propertyManager} 
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Lawyer" />
+					</f:facet>
+					 #{task.variables['recoveryToken'].lawyer} 
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Realtor" />
+					</f:facet>
+					 #{task.variables['recoveryToken'].masterAgent} 
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="File Manager" />
+					</f:facet>
+					 #{task.variables['recoveryToken'].lenderContact} 
+				</h:column>
+
+
+
+				<h:column>
+					<s:link view="/manageAccount/viewTask.xhtml" taskInstance="#{task}"
+						value="View">
+					</s:link>
+				</h:column>
+
+			</rich:dataTable></div>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

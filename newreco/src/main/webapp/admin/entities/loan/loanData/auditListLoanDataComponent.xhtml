@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+			<h:form>
+				<rich:datascroller align="left" for="dataAudit" maxPages="20" renderIfSinglePage="false"/>
+				<br/>
+
+				<rich:dataTable id="dataAudit" rowClasses="odd, even" rows="30" styleClass="dataTable" value="#{loanDataAction.auditLog}" var="_log">
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Date"/>
+						</f:facet>
+						<h:outputText value="#{_log.dateCreated}"/>
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Action"/>
+						</f:facet>
+						<h:outputText value="#{_log.action}"/>
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="User"/>
+						</f:facet>
+						<h:outputText value="#{_log.username}"/>
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Id"/>
+						</f:facet>
+						<h:outputText value="#{_log.entityId}"/>
+					</rich:column>
+					
+				
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_fees}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.fees}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_originalAppraisedValue}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.originalAppraisedValue}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_taxPortion}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.taxPortion}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_mortgageNumber}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.mortgageNumber}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_interestRate}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.interestRate}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_arrears}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.arrears}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_fundingDate}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.fundingDate}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_condo}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.condo}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_totalOutstanding}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.totalOutstanding}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_mortgageBalance}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.mortgageBalance}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_maturityDate}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.maturityDate}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_repaymentHistory}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.repaymentHistory}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_originalPurposeTransaction}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.originalPurposeTransaction}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_taxes}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.taxes}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_rentalProperty}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.rentalProperty}"/>
+	</rich:column>
+	
+		
+			
+				
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_lender}"/>
+		</f:facet>
+		<s:link value="#{_log.entity.lender.displayName}" view="/admin/entities/loan/lender/viewLender.xhtml">
+			<f:param name="id" value="#{_entity.lender.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</rich:column>
+			
+		
+	
+		
+			
+				
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_mortgageInsurer}"/>
+		</f:facet>
+		<s:link value="#{_log.entity.mortgageInsurer.displayName}" view="/admin/entities/loan/mortgageInsurer/viewMortgageInsurer.xhtml">
+			<f:param name="id" value="#{_entity.mortgageInsurer.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</rich:column>
+			
+		
+	
+		
+			
+				
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_titleInsurer}"/>
+		</f:facet>
+		<s:link value="#{_log.entity.titleInsurer.displayName}" view="/admin/entities/loan/titleInsurer/viewTitleInsurer.xhtml">
+			<f:param name="id" value="#{_entity.titleInsurer.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</rich:column>
+			
+		
+	
+		
+			
+				
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_broker}"/>
+		</f:facet>
+		<s:link value="#{_log.entity.broker.displayName}" view="/admin/entities/loan/broker/viewBroker.xhtml">
+			<f:param name="id" value="#{_entity.broker.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</rich:column>
+			
+		
+	
+		
+			
+				
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.loanData_underwriter}"/>
+		</f:facet>
+		<s:link value="#{_log.entity.underwriter.displayName}" view="/admin/entities/loan/underwriter/viewUnderwriter.xhtml">
+			<f:param name="id" value="#{_entity.underwriter.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</rich:column>
+			
+		
+	
+				
+			</rich:dataTable>
+		</h:form>
+		</html>

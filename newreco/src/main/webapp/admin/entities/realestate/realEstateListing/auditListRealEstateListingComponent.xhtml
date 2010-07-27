@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+			<h:form>
+				<rich:datascroller align="left" for="dataAudit" maxPages="20" renderIfSinglePage="false"/>
+				<br/>
+
+				<rich:dataTable id="dataAudit" rowClasses="odd, even" rows="30" styleClass="dataTable" value="#{realEstateListingAction.auditLog}" var="_log">
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Date"/>
+						</f:facet>
+						<h:outputText value="#{_log.dateCreated}"/>
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Action"/>
+						</f:facet>
+						<h:outputText value="#{_log.action}"/>
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="User"/>
+						</f:facet>
+						<h:outputText value="#{_log.username}"/>
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Id"/>
+						</f:facet>
+						<h:outputText value="#{_log.entityId}"/>
+					</rich:column>
+					
+				
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_listPrice}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.listPrice}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_propertyTaxes}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.propertyTaxes}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_soldPrice}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.soldPrice}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_lockBox}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.lockBox}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_costPerDiem}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.costPerDiem}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_vtbAccepted}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.vtbAccepted}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_realEstateNumber}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.realEstateNumber}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_status}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.status}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_cmaOrdered}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.cmaOrdered}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_occupied}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.occupied}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_commission}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.commission}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_mlsNumber}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.mlsNumber}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_condoFees}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.condoFees}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_dateListed}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.dateListed}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_mortgageNumber}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.mortgageNumber}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_soldDate}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.soldDate}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_daysOnMarket}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.daysOnMarket}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_mlsComments}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.mlsComments}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_closingDate}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.closingDate}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_vtbOffered}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.vtbOffered}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_deposit}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.deposit}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_expiryDate}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.expiryDate}"/>
+	</rich:column>
+	
+		
+			
+				
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_realEstateBoard}"/>
+		</f:facet>
+		<s:link value="#{_log.entity.realEstateBoard.displayName}" view="/admin/entities/realestate/realEstateBoard/viewRealEstateBoard.xhtml">
+			<f:param name="id" value="#{_entity.realEstateBoard.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</rich:column>
+			
+		
+	
+		
+			
+				
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_realEstateProperty}"/>
+		</f:facet>
+		<s:link value="#{_log.entity.realEstateProperty.displayName}" view="/admin/entities/realestate/realEstateProperty/viewRealEstateProperty.xhtml">
+			<f:param name="id" value="#{_entity.realEstateProperty.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</rich:column>
+			
+		
+	
+		
+			
+				
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_master}"/>
+		</f:facet>
+		<s:link value="#{_log.entity.master.displayName}" view="/admin/entities/realestate/masterAgent/viewMasterAgent.xhtml">
+			<f:param name="id" value="#{_entity.master.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</rich:column>
+			
+		
+	
+		
+			
+				
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.realEstateListing_subagent}"/>
+		</f:facet>
+		<s:link value="#{_log.entity.subagent.displayName}" view="/admin/entities/realestate/masterAgent/viewMasterAgent.xhtml">
+			<f:param name="id" value="#{_entity.subagent.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</rich:column>
+			
+		
+	
+				
+			</rich:dataTable>
+		</h:form>
+		</html>

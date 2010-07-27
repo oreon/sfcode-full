@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	
+	
+<rich:panel>
+   <h:form>
+	  <f:facet name="header">LoanData Search Results (#{empty loanDataList.resultList ? 0 : (loanDataList.paginated ? loanDataList.resultCount : loanDataList.resultList.size)})</f:facet>
+	
+		<rich:dataTable rendered="#{not empty loanDataList.resultList}" rowClasses="odd, even" styleClass="dataTable" value="#{loanDataList.resultList}" var="_loanData">	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="Id"/>
+				<ui:param name="propertyPath" value="loanData.id"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_loanData.id}">
+		</h:outputText>
+	</h:column>
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_fees}"/>
+				<ui:param name="propertyPath" value="loanData.fees"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_loanData.fees}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_originalAppraisedValue}"/>
+				<ui:param name="propertyPath" value="loanData.originalAppraisedValue"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_loanData.originalAppraisedValue}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_taxPortion}"/>
+				<ui:param name="propertyPath" value="loanData.taxPortion"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_loanData.taxPortion}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_mortgageNumber}"/>
+				<ui:param name="propertyPath" value="loanData.mortgageNumber"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_loanData.mortgageNumber}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_interestRate}"/>
+				<ui:param name="propertyPath" value="loanData.interestRate"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_loanData.interestRate}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_arrears}"/>
+				<ui:param name="propertyPath" value="loanData.arrears"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_loanData.arrears}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_fundingDate}"/>
+				<ui:param name="propertyPath" value="loanData.fundingDate"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_loanData.fundingDate}">
+				<s:convertDateTime dateStyle="short" type="both"/>
+			</h:outputText>
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_condo}"/>
+				<ui:param name="propertyPath" value="loanData.condo"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_loanData.condo}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_totalOutstanding}"/>
+				<ui:param name="propertyPath" value="loanData.totalOutstanding"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_loanData.totalOutstanding}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_mortgageBalance}"/>
+				<ui:param name="propertyPath" value="loanData.mortgageBalance"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_loanData.mortgageBalance}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_maturityDate}"/>
+				<ui:param name="propertyPath" value="loanData.maturityDate"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_loanData.maturityDate}">
+				<s:convertDateTime dateStyle="short" type="both"/>
+			</h:outputText>
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_repaymentHistory}"/>
+				<ui:param name="propertyPath" value="loanData.repaymentHistory"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_loanData.repaymentHistory}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_originalPurposeTransaction}"/>
+				<ui:param name="propertyPath" value="loanData.originalPurposeTransaction"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_loanData.originalPurposeTransaction}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_taxes}"/>
+				<ui:param name="propertyPath" value="loanData.taxes"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_loanData.taxes}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_rentalProperty}"/>
+				<ui:param name="propertyPath" value="loanData.rentalProperty"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_loanData.rentalProperty}"/>	
+		
+	</h:column>
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_lender}"/>
+				<ui:param name="propertyPath" value="loanData.lender"/>
+			</ui:include>
+		</f:facet>
+		<s:link value="#{_loanData.lender.displayName}" view="/admin/entities/loan/lender/viewLender.xhtml">
+			<f:param name="lenderId" value="#{_loanData.lender.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</h:column>
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_mortgageInsurer}"/>
+				<ui:param name="propertyPath" value="loanData.mortgageInsurer"/>
+			</ui:include>
+		</f:facet>
+		<s:link value="#{_loanData.mortgageInsurer.displayName}" view="/admin/entities/loan/mortgageInsurer/viewMortgageInsurer.xhtml">
+			<f:param name="mortgageInsurerId" value="#{_loanData.mortgageInsurer.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</h:column>
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_titleInsurer}"/>
+				<ui:param name="propertyPath" value="loanData.titleInsurer"/>
+			</ui:include>
+		</f:facet>
+		<s:link value="#{_loanData.titleInsurer.displayName}" view="/admin/entities/loan/titleInsurer/viewTitleInsurer.xhtml">
+			<f:param name="titleInsurerId" value="#{_loanData.titleInsurer.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</h:column>
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_broker}"/>
+				<ui:param name="propertyPath" value="loanData.broker"/>
+			</ui:include>
+		</f:facet>
+		<s:link value="#{_loanData.broker.displayName}" view="/admin/entities/loan/broker/viewBroker.xhtml">
+			<f:param name="brokerId" value="#{_loanData.broker.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</h:column>
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="#{msg.loanData_underwriter}"/>
+				<ui:param name="propertyPath" value="loanData.underwriter"/>
+			</ui:include>
+		</f:facet>
+		<s:link value="#{_loanData.underwriter.displayName}" view="/admin/entities/loan/underwriter/viewUnderwriter.xhtml">
+			<f:param name="underwriterId" value="#{_loanData.underwriter.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</h:column>
+	
+		
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{loanDataList}"/>
+				<ui:param name="propertyLabel" value="Creation Date"/>
+				<ui:param name="propertyPath" value="loanData.dateCreated"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_loanData.dateCreated}">
+			<s:convertDateTime dateStyle="short" type="both"/>
+		</h:outputText>
+	</h:column>
+		
+	<h:column rendered="#{s:hasPermission('loanDataAction', 'view')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/loan/loanData/viewLoanData.xhtml">
+			<h:graphicImage alt="view" style="border: 0px" value="/images/icons/eye.png"/>
+			<f:param name="loanDataId" value="#{_loanData.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('loanDataAction', 'edit')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/loan/loanData/editLoanData.xhtml">
+			<h:graphicImage alt="edit" style="border: 0px" value="/images/icons/edit.png"/>
+			<f:param name="loanDataId" value="#{_loanData.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('loanDataAction', 'archive')}">
+		<f:facet name="header">
+			<h:outputText value=""/>
+		</f:facet>
+		
+		<s:link action="#{loanDataAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_loanData.displayName} ?')){ return false; } else { return true; }">
+			<h:graphicImage alt="archive" style="border: 0px" value="/images/icons/delete.png"/>
+			<f:param name="idToArchive" value="#{_loanData.id}"/>
+		</s:link>
+	</h:column>
+
+		</rich:dataTable>
+ 	</h:form>		
+</rich:panel>	
+
+
+
+ <div class="tableControl">
+<s:link rendered="#{loanDataList.previousExists}" value="#{messages.left}#{messages.left} First Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="0"/>
+</s:link> 
+
+<s:link rendered="#{loanDataList.previousExists}" value="#{messages.left} Previous Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{loanDataList.previousFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{loanDataList.nextExists}" value="Next Page #{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{loanDataList.nextFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{loanDataList.nextExists}" value="Last Page #{messages.right}#{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{loanDataList.lastFirstResult}"/>
+</s:link>
+</div>
+
+
+<h:form>
+<s:div rendered="#{empty from}" styleClass="actionButtons">
+	<s:button propagation="none" value="Create New" view="/admin/entities/loan/loanData/editLoanData.xhtml">
+		 <f:param name="loanDataId"/>
+		
+	</s:button>
+</s:div>
+</h:form>
+
+</html>

@@ -1,0 +1,100 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+	<div id="header">
+		<s:div styleClass="left-box2" rendered="#{realEstatePropertyAction.realEstatePropertyId > 0 }">
+		<span class="footertextbottom">Loan Number:
+          <strong>123456</strong>123456123 Lender: CIBC Mortgage Group<br />
+
+Name: <strong>Johnson, James Paul | Johnson, Betty Anne</strong><br />
+Address:
+      <strong>  #{realEstatePropertyAction.realEstateProperty.streetAddress} , #{realEstatePropertyAction.realEstateProperty.city}  , 
+      	#{realEstatePropertyAction.realEstateProperty.state}, #{realEstatePropertyAction.realEstateProperty.zip}</strong></span> 
+		</s:div>
+	
+	<form class="search" method="post"
+		action="http://www.nationwideappraisals.com/"><a
+		href="home.html" class="top_footer_text">Home</a> <span
+		class="top_footer_text">&#9679;</span> <a
+		href="http://www.nationwideappraisals.com/" class="top_footer_text">Solutions</a>
+
+	<span class="top_footer_text">&#9679;</span> <a
+		href="http://www.nationwideappraisals.com/" class="top_footer_text">About
+	Us</a> <span class="top_footer_text">&#9679;</span> <a
+		href="http://www.nationwideappraisals.com/" class="top_footer_text">News</a>
+
+	<span class="top_footer_text">&#9679;</span> <a
+		href="http://www.nationwideappraisals.com/" class="top_footer_text">Contact
+	Us</a> <span class="top_footer_text"><span class="top_footer_text"><a
+		href="http://www.nationwideappraisals.com/" class="top_footer_text2"></a></span></span>
+	</form>
+
+
+	<ui:include src="/loginForm.xhtml" /> <br />
+
+
+	</div>
+
+
+	<h:form>
+
+		<rich:toolBar height="34" itemSeparator="line"
+			rendered="#{identity.loggedIn}">
+
+			<rich:toolBarGroup>
+				<h:graphicImage id="edit" value="/images/icons/edit.gif" />
+				<s:link view="/manageAccount/tasks.xhtml" value="WIP" />
+			</rich:toolBarGroup>
+
+			<rich:toolBarGroup>
+				<h:graphicImage id="find" value="/images/icons/find.gif" />
+				<s:link view="/manageAccount/myAccount" value="Real Estate" />
+			</rich:toolBarGroup>
+
+			<rich:toolBarGroup rendered="#{s:hasPermission('legalTab', 'render')}">
+				<h:graphicImage id="leg" value="/images/icons/find.gif" />
+				<s:link view="/manageAccount/legal.xhtml" value="Legal"      />
+			</rich:toolBarGroup>
+
+			<rich:toolBarGroup>
+				<h:graphicImage id="filter" value="/images/icons/filter.gif" />
+				<s:link view="/manageAccount/search.xhtml" value="Advanced Search" />
+			</rich:toolBarGroup>
+
+			<rich:toolBarGroup location="right">
+				<s:link action="#{identity.logout}" 
+					value="Logout #{identity.credentials.username}"  />
+			</rich:toolBarGroup>
+
+			<rich:toolBarGroup location="right">
+				<h:inputText id="text" value="#{realEstatePropertyList.searchText}" />
+
+				<rich:suggestionbox fetchValue="#{_result.id}" for="text"
+					id="suggestionBoxId" minChars="2" nothingLabel="No Results found"
+					onselect="processObjectsChangeLoc(suggestion, '#{request.contextPath}/manageAccount/myAccount.seam')" rules="all"
+					suggestionAction="#{realEstatePropertyList.autocomplete}"
+					tokens=",[]" var="_result">
+
+
+					<h:column>
+						<h:outputText style="font-style:italic" value="#{_result.id}" />
+					</h:column>
+
+					<h:column>
+						<h:outputText value="#{_result.displayName}" />
+					</h:column>
+
+				</rich:suggestionbox>
+			</rich:toolBarGroup>
+
+		</rich:toolBar>
+
+	</h:form>
+</ui:composition>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition xmlns="" name="albertaRecovery">
+	
+	<swimlane name="Lender">
+		<assignment class="com.nas.recovery.web.action.workflows.LenderAssignment"  ></assignment>
+	</swimlane>
+
+	<swimlane name="PropertyManager">
+		<assignment class="com.nas.recovery.web.action.workflows.PropertyManagerAssignment"  ></assignment>
+	</swimlane>
+
+	<swimlane name="Lawyer">
+		<assignment class="com.nas.recovery.web.action.workflows.LawyerAssignment"  ></assignment>
+	</swimlane>
+
+	
+ 	<start-state name="">
+		<task name="Task" swimlane="Lender">
+		</task>
+		<transition to="basefork" name=""></transition>
+		
+	</start-state>
+ 
+	<fork name="basefork" >
+		
+		<transition to="checkConflict" name="assignLawyer">
+		</transition>
+		<transition to="checkVacancy" name="assignPM">
+		</transition>
+	
+ 
+	</fork>
+	
+
+	<task-node name="checkConflict">
+		<task name="checkConflictTask" swimlane="Lawyer">
+		</task>
+		
+		<transition to="hasInsurance" name="accept">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="checkVacancy">
+		<task name="checkVacancyTask" swimlane="PropertyManager">
+		</task>
+		
+		<transition to="basejoin" name="checked">
+		</transition>
+	
+ 
+	</task-node>
+
+	<decision name="hasInsurance"  >
+			<handler class="com.nas.recovery.web.action.workflows.HasInsuranceDecision"></handler>
+		
+		
+		<transition to="serveFirstNotice" name="false">
+		</transition>
+		<transition to="notifyInsurer" name="true">
+		</transition>
+	
+ 
+	</decision>
+
+	<task-node name="serveFirstNotice">
+		<task name="serveFirstNoticeTask" swimlane="Lawyer">
+		</task>
+		
+		<transition to="basejoin" name="served">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="notifyInsurer">
+		<task name="notifyInsurerTask" swimlane="Lawyer">
+		</task>
+		
+		<transition to="serveFirstNotice" name="proceed">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="finalReview">
+		<task name="finalReviewTask" swimlane="Lender">
+		</task>
+		
+		<transition to="endProcess" name="doReview">
+		</transition>
+	
+ 
+	</task-node>
+
+	<join name="basejoin" >
+		
+		<transition to="finalReview" name="merge">
+		</transition>
+	
+ 
+	</join>
+	
+
+ 	<end-state name="endProcess"></end-state>
+ 
+</process-definition>
+	

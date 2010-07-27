@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	<h:panelGroup>
+		<s:validateAll>
+		<h:panelGrid columnClasses="leftCol, rightCol" columns="3" onload="#{filesUploadedAction.load(filesUploadedId )  }" styleClass="viewInfo">
+		<f:facet name="header">
+			<h:outputText value="FilesUploaded "/>
+		</f:facet>
+		
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.filesUploaded_realEstateProperty}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="filesUploaded_realEstateProperty" required="true" value="#{filesUploadedAction.filesUploaded.realEstateProperty}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{realEstatePropertyList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="filesUploaded_realEstateProperty" styleClass="error errors"/>		
+		
+	
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.filesUploaded_title}  "/>
+		
+
+	<h:inputText id="filesUploaded_title#{entityId}" required="false" value="#{filesUploadedAction.filesUploaded.title}"/>
+   
+		
+		<h:message for="filesUploaded_title" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.filesUploaded_file}  "/>
+		
+
+	  <s:fileUpload contentType="#{filesUploadedAction.filesUploaded.file.contentType}" data="#{filesUploadedAction.filesUploaded.file.data}" fileName="#{filesUploadedAction.filesUploaded.file.name}"/>  
+   
+		
+		<h:message for="filesUploaded_file" styleClass="error errors"/>		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	</h:panelGroup>
+	</ui:composition>

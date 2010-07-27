@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	<h:panelGroup>
+		<s:validateAll>
+		<h:panelGrid columnClasses="leftCol, rightCol" columns="2" onload="#{filesUploadedAction.load(filesUploadedId )  }" styleClass="viewInfo">
+		<f:facet name="header">
+			<h:outputText value="FilesUploaded "/>
+		</f:facet>
+		
+			<h:outputText value="#{msg.id}"/>
+			<h:outputText value="#{filesUploadedAction.filesUploaded.id}"/>
+		
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.filesUploaded_realEstateProperty}  "/>		
+	
+	<s:link value="#{filesUploadedAction.filesUploaded.realEstateProperty.displayName}" view="/admin/entities/realestate/realEstateProperty/viewRealEstateProperty.xhtml">
+		<f:param name="id" value="#{filesUploadedAction.filesUploaded.realEstateProperty.id}"/>
+	</s:link>
+	
+		
+		
+		
+	
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.filesUploaded_title}  "/>		
+
+	<h:outputText id="filesUploaded_title#{entityId}" value="#{filesUploadedAction.filesUploaded.title}"/>
+   
+		
+		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.filesUploaded_file}  "/>		
+
+	 
+	<c:choose>
+		<c:when test="${filesUploadedAction.filesUploaded.file.contentType.startsWith('image')}">
+			<s:graphicImage value="#{filesUploadedAction.filesUploaded.file.data}"/>
+		</c:when>
+		<c:otherwise>
+				<s:link action="#{filesUploadedAction.downloadFile(filesUploadedAction.instance.id)}" propagation="none" value="#{filesUploadedAction.filesUploaded.file.name}"/>
+		</c:otherwise>
+	</c:choose>
+ 
+   
+		
+		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	</h:panelGroup>
+	</ui:composition>

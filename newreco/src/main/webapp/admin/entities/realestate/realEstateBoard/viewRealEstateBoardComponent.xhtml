@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	<h:panelGroup>
+		<s:validateAll>
+		<h:panelGrid columnClasses="leftCol, rightCol" columns="2" onload="#{realEstateBoardAction.load(realEstateBoardId )  }" styleClass="viewInfo">
+		<f:facet name="header">
+			<h:outputText value="RealEstateBoard "/>
+		</f:facet>
+		
+			<h:outputText value="#{msg.id}"/>
+			<h:outputText value="#{realEstateBoardAction.realEstateBoard.id}"/>
+		
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.realEstateBoard_name}  "/>		
+
+	<h:outputText id="realEstateBoard_name#{entityId}" value="#{realEstateBoardAction.realEstateBoard.name}"/>
+   
+		
+		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+	
+	
+	<rich:dataTable id="attachmentses_data#{entityId}" rendered="#{not empty realEstateBoardAction.listAttachmentses}" rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all" styleClass="dataTable" value="#{realEstateBoardAction.listAttachmentses}" var="_attachments">
+		
+	
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.attachments_title}  "/>
+          </f:facet>		
+
+	<h:outputText id="attachments_title#{entityId}" value="#{_attachments.title}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.attachments_file}  "/>
+          </f:facet>		
+
+	 
+	<c:choose>
+		<c:when test="${attachmentsAction.attachments.file.contentType.startsWith('image')}">
+			<s:graphicImage value="#{attachmentsAction.attachments.file.data}"/>
+		</c:when>
+		<c:otherwise>
+				<s:link action="#{attachmentsAction.downloadFile(attachmentsAction.instance.id)}" propagation="none" value="#{attachmentsAction.attachments.file.name}"/>
+		</c:otherwise>
+	</c:choose>
+ 
+   
+		
+		</h:column>
+		
+	
+	
+			
+	</rich:dataTable>
+		</s:validateAll>
+		
+	</h:panelGroup>
+	</ui:composition>

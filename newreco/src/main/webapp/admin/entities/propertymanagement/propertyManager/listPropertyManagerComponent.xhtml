@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	
+	
+<rich:panel>
+   <h:form>
+	  <f:facet name="header">PropertyManager Search Results (#{empty propertyManagerList.resultList ? 0 : (propertyManagerList.paginated ? propertyManagerList.resultCount : propertyManagerList.resultList.size)})</f:facet>
+	
+		<rich:dataTable rendered="#{not empty propertyManagerList.resultList}" rowClasses="odd, even" styleClass="dataTable" value="#{propertyManagerList.resultList}" var="_propertyManager">	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{propertyManagerList}"/>
+				<ui:param name="propertyLabel" value="Id"/>
+				<ui:param name="propertyPath" value="propertyManager.id"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_propertyManager.id}">
+		</h:outputText>
+	</h:column>
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{propertyManagerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.person_lastName}"/>
+				<ui:param name="propertyPath" value="propertyManager.lastName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_propertyManager.lastName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{propertyManagerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.person_firstName}"/>
+				<ui:param name="propertyPath" value="propertyManager.firstName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_propertyManager.firstName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{propertyManagerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetDirection}"/>
+				<ui:param name="propertyPath" value="propertyManager.address.streetDirection"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_propertyManager.address.streetDirection}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{propertyManagerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetNumber}"/>
+				<ui:param name="propertyPath" value="propertyManager.address.streetNumber"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_propertyManager.address.streetNumber}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{propertyManagerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetName}"/>
+				<ui:param name="propertyPath" value="propertyManager.address.streetName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_propertyManager.address.streetName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{propertyManagerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_province}"/>
+				<ui:param name="propertyPath" value="propertyManager.address.province"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_propertyManager.address.province}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{propertyManagerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_streetType}"/>
+				<ui:param name="propertyPath" value="propertyManager.address.streetType"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_propertyManager.address.streetType}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{propertyManagerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_postalCode}"/>
+				<ui:param name="propertyPath" value="propertyManager.address.postalCode"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_propertyManager.address.postalCode}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{propertyManagerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_unitNumber}"/>
+				<ui:param name="propertyPath" value="propertyManager.address.unitNumber"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_propertyManager.address.unitNumber}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{propertyManagerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.address_city}"/>
+				<ui:param name="propertyPath" value="propertyManager.address.city"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_propertyManager.address.city}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{propertyManagerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.contactDetails_primaryPhone}"/>
+				<ui:param name="propertyPath" value="propertyManager.contactDetails.primaryPhone"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_propertyManager.contactDetails.primaryPhone}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{propertyManagerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.contactDetails_secondaryPhone}"/>
+				<ui:param name="propertyPath" value="propertyManager.contactDetails.secondaryPhone"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_propertyManager.contactDetails.secondaryPhone}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{propertyManagerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.user_userName}"/>
+				<ui:param name="propertyPath" value="propertyManager.user.userName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_propertyManager.user.userName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{propertyManagerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.user_enabled}"/>
+				<ui:param name="propertyPath" value="propertyManager.user.enabled"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_propertyManager.user.enabled}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{propertyManagerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.user_email}"/>
+				<ui:param name="propertyPath" value="propertyManager.user.email"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_propertyManager.user.email}"/>	
+		
+	</h:column>
+	
+		
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{propertyManagerList}"/>
+				<ui:param name="propertyLabel" value="Creation Date"/>
+				<ui:param name="propertyPath" value="propertyManager.dateCreated"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_propertyManager.dateCreated}">
+			<s:convertDateTime dateStyle="short" type="both"/>
+		</h:outputText>
+	</h:column>
+		
+	<h:column rendered="#{s:hasPermission('propertyManagerAction', 'view')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/propertymanagement/propertyManager/viewPropertyManager.xhtml">
+			<h:graphicImage alt="view" style="border: 0px" value="/images/icons/eye.png"/>
+			<f:param name="propertyManagerId" value="#{_propertyManager.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('propertyManagerAction', 'edit')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/propertymanagement/propertyManager/editPropertyManager.xhtml">
+			<h:graphicImage alt="edit" style="border: 0px" value="/images/icons/edit.png"/>
+			<f:param name="propertyManagerId" value="#{_propertyManager.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('propertyManagerAction', 'archive')}">
+		<f:facet name="header">
+			<h:outputText value=""/>
+		</f:facet>
+		
+		<s:link action="#{propertyManagerAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_propertyManager.displayName} ?')){ return false; } else { return true; }">
+			<h:graphicImage alt="archive" style="border: 0px" value="/images/icons/delete.png"/>
+			<f:param name="idToArchive" value="#{_propertyManager.id}"/>
+		</s:link>
+	</h:column>
+
+		</rich:dataTable>
+ 	</h:form>		
+</rich:panel>	
+
+
+
+ <div class="tableControl">
+<s:link rendered="#{propertyManagerList.previousExists}" value="#{messages.left}#{messages.left} First Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="0"/>
+</s:link> 
+
+<s:link rendered="#{propertyManagerList.previousExists}" value="#{messages.left} Previous Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{propertyManagerList.previousFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{propertyManagerList.nextExists}" value="Next Page #{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{propertyManagerList.nextFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{propertyManagerList.nextExists}" value="Last Page #{messages.right}#{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{propertyManagerList.lastFirstResult}"/>
+</s:link>
+</div>
+
+
+<h:form>
+<s:div rendered="#{empty from}" styleClass="actionButtons">
+	<s:button propagation="none" value="Create New" view="/admin/entities/propertymanagement/propertyManager/editPropertyManager.xhtml">
+		 <f:param name="propertyManagerId"/>
+		
+	</s:button>
+</s:div>
+</h:form>
+
+</html>

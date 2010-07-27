@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>
+	<h:panelGrid columns="6">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.feeIncrease_feeIncreaseStatus}  "/> <br/>
+	
+		<h:inputText id="feeIncrease_feeIncreaseStatus" value="#{feeIncreaseList.feeIncrease.feeIncreaseStatus}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.feeIncrease_feeIncreaseNumber}  "/> <br/>
+	
+	
+	<h:inputText id="feeIncrease_feeIncreaseNumber_begin" value="#{feeIncreaseList.feeIncrease_feeIncreaseNumberRange.begin}">
+			<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	<h:inputText id="feeIncrease_feeIncreaseNumber_end" value="#{feeIncreaseList.feeIncrease_feeIncreaseNumberRange.end}">
+		<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.feeIncrease_appraisalNumber}  "/> <br/>
+	
+	
+	<h:inputText id="feeIncrease_appraisalNumber_begin" value="#{feeIncreaseList.feeIncrease_appraisalNumberRange.begin}">
+			<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	<h:inputText id="feeIncrease_appraisalNumber_end" value="#{feeIncreaseList.feeIncrease_appraisalNumberRange.end}">
+		<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.feeIncrease_feeIncreaseDate}  "/> <br/>
+	
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">From</ui:define> <br/>
+		<rich:calendar value="#{feeIncreaseList.feeIncrease_feeIncreaseDateRange.begin}"/>
+	</s:decorate>
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">To</ui:define> <br/>
+		<rich:calendar value="#{feeIncreaseList.feeIncrease_feeIncreaseDateRange.end}"/>
+	</s:decorate>	
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.feeIncrease_amount}  "/> <br/>
+	
+	
+	<h:inputText id="feeIncrease_amount_begin" value="#{feeIncreaseList.feeIncrease_amountRange.begin}">
+			<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	<h:inputText id="feeIncrease_amount_end" value="#{feeIncreaseList.feeIncrease_amountRange.end}">
+		<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.feeIncrease_details}  "/> <br/>
+	
+		<h:inputText id="feeIncrease_details" value="#{feeIncreaseList.feeIncrease.details}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">From</ui:define> <br/>
+				<rich:calendar id="from" value="#{feeIncreaseList.dateCreatedRange.begin}"/>
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">To</ui:define> <br/>
+				<rich:calendar id="to" value="#{feeIncreaseList.dateCreatedRange.end}"/>
+			</s:decorate>
+
+	</h:panelGrid>
+</ui:composition>

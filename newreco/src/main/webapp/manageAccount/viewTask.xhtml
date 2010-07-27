@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/webtemplate/template.xhtml">
+
+	<ui:define name="content">
+		<h2>Task:</h2>
+
+		<h:form id="list">
+
+			<h:outputText
+				value="#{ontarioRecovery.task.taskMgmtInstance.processInstance.start}">
+				<s:convertDateTime type="date" />
+			</h:outputText>
+			
+			#{ontarioRecoveryProcessAction.task.variables['recoveryToken'].lawyer} 
+			
+			#{ontarioRecoveryProcessAction.task.variables['recoveryToken'].realEstateProperty.displayName}
+
+			<f:facet name="header">
+				<h:outputText value="Name" />
+			</f:facet>
+			<h:outputText value="#{ontarioRecoveryProcessAction.task.name}" />
+			
+		
+			<br />
+
+			
+
+			<h:outputText value="Comments" />	
+			<rich:editor id="Comment_text" required="false"
+				value="#{ontarioRecoveryProcessAction.comment}" />
+
+			<ui:repeat var="trans"
+				value="#{ontarioRecoveryProcessAction.task.availableTransitions}">
+				<s:button value="#{trans.name}"
+					action="#{ontarioRecoveryProcessAction.makeDecision}"
+					taskInstance="#{ontarioRecoveryProcessAction.task}"
+					view="/manageAccount/tasks.xhtml">
+					<f:param name="transName" value="#{trans.name}" />
+					<f:param name="taskId"
+						value="#{ontarioRecoveryProcessAction.task.id}" />
+				</s:button>
+				<h:outputText value=" " />
+			</ui:repeat>
+
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>

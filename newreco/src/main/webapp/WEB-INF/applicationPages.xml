@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages xmlns="http://jboss.com/products/seam/pages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd">
+
+	<page view-id="*">
+		<navigation from-action="#{identity.login}">
+			<redirect view-id="/manageAccount/myaccount.xhtml" />
+		</navigation>
+	</page>
+
+
+	<page view-id="/register/my.xhtml" conversation-required="false">
+
+		<navigation from-action="#{masterAgentAction.sendRegMail}">
+
+			<rule if-outcome="success">
+				<redirect view-id="/index.xhtml" />
+			</rule>
+
+			<rule if-outcome="a">
+				<redirect view-id="/register/index.xhtml" />
+			</rule>
+
+		</navigation>
+
+	</page>
+
+
+	<page view-id="/register/retrieveCredentials.xhtml">
+
+		<navigation from-action="#{userAction.retrieveCredentials}">
+
+			<rule if-outcome="success">
+				<redirect view-id="/register/mailSent.xhtml" />
+			</rule>
+
+
+			<rule if-outcome="failure">
+				<redirect view-id="/register/retrieveCredentials.xhtml" />
+			</rule>
+
+		</navigation>
+
+	</page>
+
+
+	<page view-id="/register/index.xhtml" conversation-required="false">
+		<navigation>
+			<rule if-outcome="forgotPassword">
+				<redirect view-id="/register/retrieveCredentials.xhtml" />
+			</rule>
+			<rule if-outcome="register">
+				<redirect view-id="/register/register.xhtml" />
+			</rule>
+
+		</navigation>
+
+
+		<navigation from-action="#{userAction.login}">
+
+
+			<rule if-outcome="success">
+				<redirect view-id="/manageAccount/myaccount.xhtml" />
+			</rule>
+
+
+		</navigation>
+
+	</page>
+
+	<page view-id="/register/register.xhtml" conversation-required="false">
+
+
+		<navigation from-action="#{lenderAction.register}">
+
+
+			<rule if-outcome="success">
+				<redirect view-id="/register/mailSent.xhtml" />
+			</rule>
+
+
+		</navigation>
+
+	</page>
+
+
+
+	<page view-id="/register/mailSent.xhtml">
+
+
+
+	</page>
+
+
+	<page view-id="/manageAccount/realEstate.xhtml">
+		<param name="realEstatePropertyId" value="#{realEstatePropertyAction.realEstatePropertyId}" />
+	</page>
+
+	<page view-id="/manageAccount/pm.xhtml">
+		<param name="realEstatePropertyId" value="#{realEstatePropertyAction.realEstatePropertyId}" />
+	</page>
+	
+	<page view-id="/manageAccount/startProcess.xhtml">
+		<param name="realEstatePropertyId" value="#{realEstatePropertyAction.realEstatePropertyId}" />
+	</page>
+	
+
+
+
+	<page view-id="/manageAccount/*">
+		<restrict>#{identity.loggedIn}</restrict>
+	</page>
+
+
+	<page view-id="/manageAccount/myaccount.xhtml">
+		<param name="id" value="#{realEstatePropertyList.realEstateProperty.id}" />
+	</page>
+	
+	<page view-id="/manageAccount/viewTask.xhtml">
+		<param name="taskId" value="#{ontarioRecoveryProcessAction.taskInstanceId}" />
+	</page>
+	
+	<page view-id="/manageAccount/tasks.xhtml">
+		<param name="taskId" value="#{ontarioRecoveryProcessAction.taskInstanceId}" />
+	</page>
+	
+
+	<page view-id="*">
+		<navigation from-action="#{identity.logout}">
+			<end-conversation before-redirect="true" />
+			<redirect view-id="/register/index.xhtml" />
+		</navigation>
+	</page>
+
+</pages>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition xmlns="" name="ontarioRecovery">
+	
+	<swimlane name="Lender">
+		<assignment class="com.nas.recovery.web.action.workflows.LenderAssignment"  ></assignment>
+	</swimlane>
+
+	<swimlane name="PropertyManager">
+		<assignment class="com.nas.recovery.web.action.workflows.PropertyManagerAssignment"  ></assignment>
+	</swimlane>
+
+	<swimlane name="Lawyer">
+		<assignment class="com.nas.recovery.web.action.workflows.LawyerAssignment"  ></assignment>
+	</swimlane>
+
+	
+ 	<start-state name="">
+		<task name="Task" swimlane="Lender">
+		</task>
+		<transition to="chooseLawyer" name=""></transition>
+		
+	</start-state>
+ 
+	<task-node name="reviewAssignment">
+		<task name="reviewAssignmentTask"  swimlane="Lawyer" duedate="2 business days" notify="false">
+		</task>
+		
+		<transition to="serveInitialNotice" name="accept">
+		</transition>
+		<transition to="chooseLawyer" name="conflict">
+		</transition>
+	
+ 
+	</task-node>`
+
+	<task-node name="chooseLawyer">
+		<task name="chooseLawyerTask" swimlane="Lender">
+		</task>
+		
+		<transition to="reviewAssignment" name="assign">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="serveInitialNotice">
+		<task name="serveInitialNoticeTask"  swimlane="Lawyer" duedate="4 business days" notify="false">
+		</task>
+		
+		<transition to="serverreminder" name="serve">
+		</transition>
+	
+ 
+	</task-node>`
+
+	<task-node name="serverreminder">
+		<task name="serverreminderTask"  swimlane="Lawyer" duedate="7 business days" notify="false">
+		</task>
+		
+		<transition to="finalReview" name="serveReminder">
+		</transition>
+	
+ 
+	</task-node>`
+
+ 	<end-state name="endProcess"></end-state>
+ 
+	<task-node name="finalReview">
+		<task name="finalReviewTask" swimlane="Lender">
+		</task>
+		
+		<transition to="endProcess" name="finalReview">
+		</transition>
+	
+ 
+	</task-node>
+
+</process-definition>
+	
