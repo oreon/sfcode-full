@@ -46,7 +46,10 @@
 «ENDDEFINE»
 
 «DEFINE gen FOR wcprofile::WorkflowDecision»
-	<decision name="«name.removeSpaces()»" expression="#{«expression»}" >
+	<decision name="«name.removeSpaces()»" «IF expression != null»  expression="#{«expression»}" «ENDIF» >
+		«IF handler != null-»
+			<handler class="«handler»"></handler>
+		«ENDIF»
 		«EXPAND genTransitions»
 	</decision>
 «ENDDEFINE»
