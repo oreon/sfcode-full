@@ -13,4 +13,10 @@ function processObjectsChangeLoc(suggestionBox, loc) {
 }
 
 
+function processObjectsChangeLocWithParamName(suggestionBox, loc, name) {
+	//alert(loc);
+    var id = suggestionBox.oldValue;
+    this.location.href = loc + "?" + name + "=" + id;
+}
+
 
