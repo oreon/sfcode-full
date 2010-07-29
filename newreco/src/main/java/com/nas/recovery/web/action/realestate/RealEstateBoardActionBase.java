@@ -36,9 +36,9 @@ import org.jboss.seam.annotations.Observer;
 
 import com.nas.recovery.domain.realestate.Attachments;
 
-public class RealEstateBoardActionBase extends BaseAction<RealEstateBoard>
-		implements
-			java.io.Serializable {
+public abstract class RealEstateBoardActionBase
+		extends
+			BaseAction<RealEstateBoard> implements java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)

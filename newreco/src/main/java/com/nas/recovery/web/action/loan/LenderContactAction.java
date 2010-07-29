@@ -1,7 +1,4 @@
-
-
 package com.nas.recovery.web.action.loan;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +29,16 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
-	
+
 //@Scope(ScopeType.CONVERSATION)
 @Name("lenderContactAction")
-	public class LenderContactAction extends LenderContactActionBase implements java.io.Serializable{
-	
+public class LenderContactAction extends LenderContactActionBase implements
+		java.io.Serializable {
+
+	@Override
+	public String definedRole() {
+		// TODO Auto-generated method stub
+		return "lenderContact";
 	}
+
+}

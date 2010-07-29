@@ -31,7 +31,7 @@ import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
 import com.nas.recovery.domain.users.Role;
-import com.nas.recovery.web.action.common.PersonAction;
+import com.nas.recovery.web.action.common.CurrentPersonAction;
 import com.nas.recovery.web.action.users.RoleAction;
 
 //@Scope(ScopeType.CONVERSATION)
@@ -39,38 +39,15 @@ import com.nas.recovery.web.action.users.RoleAction;
 public class PropertyManagerAction extends PropertyManagerActionBase implements
 		java.io.Serializable {
 
-	@In(create=true)
-	RoleAction roleAction;
-	
-	@In(create=true)
-	PersonAction personAction;
-	
 	
 	public static final String ROLE_NAME = "pm";
 
 	@Override
-	public String save() {
-		boolean isNew = getInstance().getId() == null;
-		if (isNew) {
-			Role role = createRole();
-			getInstance().getUser().getRoles().add(role);
-		}
-		String result = super.save();
-		if (isNew){
-			personAction.setPerson(getInstance());
-			sendMail("/mails/registrationSuccess.xhtml");
-		}
-		return result;
+	public String definedRole() {
+		// TODO Auto-generated method stub
+		return ROLE_NAME;
 	}
 
-	private Role createRole() {
-		Role role = roleAction.findByName(ROLE_NAME);
-		if(role == null) {
-			role = new Role();
-			role.setName(ROLE_NAME);
-			roleAction.persist(role);
-		}
-		return role;
-	}
+	
 
 }

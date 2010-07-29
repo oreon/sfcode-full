@@ -34,7 +34,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class FilesUploadedActionBase extends BaseAction<FilesUploaded>
+public abstract class FilesUploadedActionBase extends BaseAction<FilesUploaded>
 		implements
 			java.io.Serializable {
 

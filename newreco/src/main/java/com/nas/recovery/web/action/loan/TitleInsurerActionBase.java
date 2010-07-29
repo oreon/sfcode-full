@@ -34,7 +34,9 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class TitleInsurerActionBase extends BaseAction<TitleInsurer>
+public abstract class TitleInsurerActionBase
+		extends
+			com.nas.recovery.web.action.loan.CompanyAction<TitleInsurer>
 		implements
 			java.io.Serializable {
 

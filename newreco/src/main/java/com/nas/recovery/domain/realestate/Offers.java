@@ -45,54 +45,38 @@ import org.hibernate.annotations.Filter;
 public class Offers extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 769379393L;
 
-	protected Date saleDate;
-
-	protected Double signBackAmount;
-
-	@Field(index = Index.TOKENIZED)
-	protected String conditionExpiry;
+	protected Date offerDate;
 
 	@Field(index = Index.TOKENIZED)
 	protected String purchaser;
 
-	@Field(index = Index.TOKENIZED)
-	protected String comments;
-
 	protected Double amount;
 
-	@Field(index = Index.TOKENIZED)
-	protected String status;
+	protected OfferCondition condition;
+
+	protected OfferStatus status;
+
+	protected Double signBackAmount;
+
+	protected Date conditionExpiry;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateListing_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected RealEstateListing realEstateListing;
 
-	public void setSaleDate(Date saleDate) {
-		this.saleDate = saleDate;
+	protected Date closingDate;
+
+	@Lob
+	protected String comments;
+
+	public void setOfferDate(Date offerDate) {
+		this.offerDate = offerDate;
 	}
 
-	public Date getSaleDate() {
+	public Date getOfferDate() {
 
-		return saleDate;
-	}
-
-	public void setSignBackAmount(Double signBackAmount) {
-		this.signBackAmount = signBackAmount;
-	}
-
-	public Double getSignBackAmount() {
-
-		return signBackAmount;
-	}
-
-	public void setConditionExpiry(String conditionExpiry) {
-		this.conditionExpiry = conditionExpiry;
-	}
-
-	public String getConditionExpiry() {
-
-		return conditionExpiry;
+		return offerDate;
 	}
 
 	public void setPurchaser(String purchaser) {
@@ -104,15 +88,6 @@ public class Offers extends BusinessEntity implements java.io.Serializable {
 		return purchaser;
 	}
 
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
-
-	public String getComments() {
-
-		return comments;
-	}
-
 	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
@@ -122,13 +97,40 @@ public class Offers extends BusinessEntity implements java.io.Serializable {
 		return amount;
 	}
 
-	public void setStatus(String status) {
+	public void setCondition(OfferCondition condition) {
+		this.condition = condition;
+	}
+
+	public OfferCondition getCondition() {
+
+		return condition;
+	}
+
+	public void setStatus(OfferStatus status) {
 		this.status = status;
 	}
 
-	public String getStatus() {
+	public OfferStatus getStatus() {
 
 		return status;
+	}
+
+	public void setSignBackAmount(Double signBackAmount) {
+		this.signBackAmount = signBackAmount;
+	}
+
+	public Double getSignBackAmount() {
+
+		return signBackAmount;
+	}
+
+	public void setConditionExpiry(Date conditionExpiry) {
+		this.conditionExpiry = conditionExpiry;
+	}
+
+	public Date getConditionExpiry() {
+
+		return conditionExpiry;
 	}
 
 	public void setRealEstateListing(RealEstateListing realEstateListing) {
@@ -140,9 +142,27 @@ public class Offers extends BusinessEntity implements java.io.Serializable {
 		return realEstateListing;
 	}
 
+	public void setClosingDate(Date closingDate) {
+		this.closingDate = closingDate;
+	}
+
+	public Date getClosingDate() {
+
+		return closingDate;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
+	public String getComments() {
+
+		return comments;
+	}
+
 	@Transient
 	public String getDisplayName() {
-		return conditionExpiry;
+		return purchaser;
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
@@ -153,13 +173,7 @@ public class Offers extends BusinessEntity implements java.io.Serializable {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
-		listSearchableFields.add("conditionExpiry");
-
 		listSearchableFields.add("purchaser");
-
-		listSearchableFields.add("comments");
-
-		listSearchableFields.add("status");
 
 		return listSearchableFields;
 	}

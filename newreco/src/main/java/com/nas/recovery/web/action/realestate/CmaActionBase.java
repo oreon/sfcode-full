@@ -34,7 +34,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class CmaActionBase extends BaseAction<Cma>
+public abstract class CmaActionBase extends BaseAction<Cma>
 		implements
 			java.io.Serializable {
 

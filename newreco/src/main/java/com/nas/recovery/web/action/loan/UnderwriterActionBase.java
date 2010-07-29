@@ -34,7 +34,9 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class UnderwriterActionBase extends BaseAction<Underwriter>
+public abstract class UnderwriterActionBase
+		extends
+			com.nas.recovery.web.action.loan.PersonAction<Underwriter>
 		implements
 			java.io.Serializable {
 

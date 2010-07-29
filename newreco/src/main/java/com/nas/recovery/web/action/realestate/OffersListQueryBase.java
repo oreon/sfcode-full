@@ -28,12 +28,20 @@ public abstract class OffersListQueryBase extends BaseQuery<Offers, Long> {
 
 	private Offers offers = new Offers();
 
-	private Range<Date> offers_saleDateRange = new Range<Date>();
-	public Range<Date> getOffers_saleDateRange() {
-		return offers_saleDateRange;
+	private Range<Date> offers_offerDateRange = new Range<Date>();
+	public Range<Date> getOffers_offerDateRange() {
+		return offers_offerDateRange;
 	}
-	public void setOffers_saleDate(Range<Date> offers_saleDateRange) {
-		this.offers_saleDateRange = offers_saleDateRange;
+	public void setOffers_offerDate(Range<Date> offers_offerDateRange) {
+		this.offers_offerDateRange = offers_offerDateRange;
+	}
+
+	private Range<Double> offers_amountRange = new Range<Double>();
+	public Range<Double> getOffers_amountRange() {
+		return offers_amountRange;
+	}
+	public void setOffers_amount(Range<Double> offers_amountRange) {
+		this.offers_amountRange = offers_amountRange;
 	}
 
 	private Range<Double> offers_signBackAmountRange = new Range<Double>();
@@ -45,35 +53,50 @@ public abstract class OffersListQueryBase extends BaseQuery<Offers, Long> {
 		this.offers_signBackAmountRange = offers_signBackAmountRange;
 	}
 
-	private Range<Double> offers_amountRange = new Range<Double>();
-	public Range<Double> getOffers_amountRange() {
-		return offers_amountRange;
+	private Range<Date> offers_conditionExpiryRange = new Range<Date>();
+	public Range<Date> getOffers_conditionExpiryRange() {
+		return offers_conditionExpiryRange;
 	}
-	public void setOffers_amount(Range<Double> offers_amountRange) {
-		this.offers_amountRange = offers_amountRange;
+	public void setOffers_conditionExpiry(
+			Range<Date> offers_conditionExpiryRange) {
+		this.offers_conditionExpiryRange = offers_conditionExpiryRange;
+	}
+
+	private Range<Date> offers_closingDateRange = new Range<Date>();
+	public Range<Date> getOffers_closingDateRange() {
+		return offers_closingDateRange;
+	}
+	public void setOffers_closingDate(Range<Date> offers_closingDateRange) {
+		this.offers_closingDateRange = offers_closingDateRange;
 	}
 
 	private static final String[] RESTRICTIONS = {
 			"offers.id = #{offersList.offers.id}",
 
-			"offers.saleDate >= #{offersList.offers_saleDateRange.begin}",
-			"offers.saleDate <= #{offersList.offers_saleDateRange.end}",
-
-			"offers.signBackAmount >= #{offersList.offers_signBackAmountRange.begin}",
-			"offers.signBackAmount <= #{offersList.offers_signBackAmountRange.end}",
-
-			"lower(offers.conditionExpiry) like concat(lower(#{offersList.offers.conditionExpiry}),'%')",
+			"offers.offerDate >= #{offersList.offers_offerDateRange.begin}",
+			"offers.offerDate <= #{offersList.offers_offerDateRange.end}",
 
 			"lower(offers.purchaser) like concat(lower(#{offersList.offers.purchaser}),'%')",
-
-			"lower(offers.comments) like concat(lower(#{offersList.offers.comments}),'%')",
 
 			"offers.amount >= #{offersList.offers_amountRange.begin}",
 			"offers.amount <= #{offersList.offers_amountRange.end}",
 
-			"lower(offers.status) like concat(lower(#{offersList.offers.status}),'%')",
+			"offers.condition = #{offersList.offers.condition}",
+
+			"offers.status = #{offersList.offers.status}",
+
+			"offers.signBackAmount >= #{offersList.offers_signBackAmountRange.begin}",
+			"offers.signBackAmount <= #{offersList.offers_signBackAmountRange.end}",
+
+			"offers.conditionExpiry >= #{offersList.offers_conditionExpiryRange.begin}",
+			"offers.conditionExpiry <= #{offersList.offers_conditionExpiryRange.end}",
 
 			"offers.realEstateListing = #{offersList.offers.realEstateListing}",
+
+			"offers.closingDate >= #{offersList.offers_closingDateRange.begin}",
+			"offers.closingDate <= #{offersList.offers_closingDateRange.end}",
+
+			"offers.comments = #{offersList.offers.comments}",
 
 			"offers.dateCreated <= #{offersList.dateCreatedRange.end}",
 			"offers.dateCreated >= #{offersList.dateCreatedRange.begin}",};

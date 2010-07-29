@@ -34,7 +34,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class LoanDataActionBase extends BaseAction<LoanData>
+public abstract class LoanDataActionBase extends BaseAction<LoanData>
 		implements
 			java.io.Serializable {
 

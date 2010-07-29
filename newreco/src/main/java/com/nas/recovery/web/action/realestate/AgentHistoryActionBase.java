@@ -34,7 +34,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class AgentHistoryActionBase extends BaseAction<AgentHistory>
+public abstract class AgentHistoryActionBase extends BaseAction<AgentHistory>
 		implements
 			java.io.Serializable {
 

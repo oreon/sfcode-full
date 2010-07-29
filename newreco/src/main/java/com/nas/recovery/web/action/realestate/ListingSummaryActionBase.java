@@ -34,9 +34,9 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class ListingSummaryActionBase extends BaseAction<ListingSummary>
-		implements
-			java.io.Serializable {
+public abstract class ListingSummaryActionBase
+		extends
+			BaseAction<ListingSummary> implements java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)

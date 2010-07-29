@@ -34,7 +34,9 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class LawfirmActionBase extends BaseAction<Lawfirm>
+public abstract class LawfirmActionBase
+		extends
+			com.nas.recovery.web.action.loan.CompanyAction<Lawfirm>
 		implements
 			java.io.Serializable {
 

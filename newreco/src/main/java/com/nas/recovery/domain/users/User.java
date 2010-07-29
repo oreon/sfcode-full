@@ -61,7 +61,7 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	@Column(name = "enabled", unique = false)
 	protected Boolean enabled;
 
-	//roles->users ->User->Role->Role
+	//roles->users ->User->User->User
 
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_ID"), inverseJoinColumns = @JoinColumn(name = "roles_ID"))

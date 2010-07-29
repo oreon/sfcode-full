@@ -34,7 +34,9 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class ClosingProcessActionBase extends BaseAction<ClosingProcess>
+public abstract class ClosingProcessActionBase
+		extends
+			com.nas.recovery.web.action.legal.ProcessAction<ClosingProcess>
 		implements
 			java.io.Serializable {
 

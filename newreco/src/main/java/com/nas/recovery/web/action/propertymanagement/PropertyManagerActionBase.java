@@ -34,7 +34,9 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class PropertyManagerActionBase extends BaseAction<PropertyManager>
+public abstract class PropertyManagerActionBase
+		extends
+			com.nas.recovery.web.action.loan.PersonAction<PropertyManager>
 		implements
 			java.io.Serializable {
 

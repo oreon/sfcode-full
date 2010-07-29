@@ -1,6 +1,6 @@
 
-
-package com.nas.recovery.web.action.legal;
+	
+package com.nas.recovery.web.action.loan;
 
 
 import java.util.ArrayList;
@@ -33,8 +33,10 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 	
-//@Scope(ScopeType.CONVERSATION)
-@Name("processAction")
-	public class ProcessAction extends ProcessActionBase implements java.io.Serializable{
+import org.witchcraft.seam.action.BaseAction; 
+import org.witchcraft.base.entity.BusinessEntity;
+
+public  abstract class CompanyAction<T extends BusinessEntity> extends BaseAction<T> implements java.io.Serializable{
 	
-	}
+}
+	

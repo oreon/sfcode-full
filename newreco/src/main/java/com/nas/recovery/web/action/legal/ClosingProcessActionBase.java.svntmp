@@ -1,6 +1,6 @@
 package com.nas.recovery.web.action.legal;
 
-import com.nas.recovery.domain.legal.Process;
+import com.nas.recovery.domain.legal.ClosingProcess;
 
 import org.witchcraft.seam.action.BaseAction;
 
@@ -34,38 +34,53 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class ProcessActionBase extends BaseAction<Process>
+public abstract class ClosingProcessActionBase
+		extends
+			com.nas.recovery.web.action.legal.ProcessAction<ClosingProcess>
 		implements
 			java.io.Serializable {
 
+	@In(create = true)
+	@Out(required = false)
+	@DataModelSelection
+	private ClosingProcess closingProcess;
 
 	@DataModel
-	private List<Process> processRecordList;
+	private List<ClosingProcess> closingProcessRecordList;
 
-	public void setProcessId(Long id) {
+	public void setClosingProcessId(Long id) {
 
 		setId(id);
 		loadAssociations();
 	}
 
-	public Long getProcessId() {
+	public Long getClosingProcessId() {
 		return (Long) getId();
 	}
 
-	//@Factory("processRecordList")
-	//@Observer("archivedProcess")
+	//@Factory("closingProcessRecordList")
+	//@Observer("archivedClosingProcess")
 	public void findRecords() {
 		//search();
 	}
 
+	public ClosingProcess getEntity() {
+		return closingProcess;
+	}
 
-	public Process getProcess() {
+	@Override
+	public void setEntity(ClosingProcess t) {
+		this.closingProcess = t;
+		loadAssociations();
+	}
+
+	public ClosingProcess getClosingProcess() {
 		return getInstance();
 	}
 
 	@Override
-	protected Process createInstance() {
-		return new Process();
+	protected ClosingProcess createInstance() {
+		return new ClosingProcess();
 	}
 
 	public void load() {
@@ -83,23 +98,23 @@ public class ProcessActionBase extends BaseAction<Process>
 		return true;
 	}
 
-	public Process getDefinedInstance() {
+	public ClosingProcess getDefinedInstance() {
 		return isIdDefined() ? getInstance() : null;
 	}
 
-	public void setProcess(Process t) {
-		//this.process = t;
+	public void setClosingProcess(ClosingProcess t) {
+		this.closingProcess = t;
 		loadAssociations();
 	}
 
 	@Override
-	public Class<Process> getEntityClass() {
-		return Process.class;
+	public Class<ClosingProcess> getEntityClass() {
+		return ClosingProcess.class;
 	}
 
 	@Override
-	public void setEntityList(List<Process> list) {
-		this.processRecordList = list;
+	public void setEntityList(List<ClosingProcess> list) {
+		this.closingProcessRecordList = list;
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -114,23 +129,11 @@ public class ProcessActionBase extends BaseAction<Process>
 
 	}
 
-	public List<Process> getEntityList() {
-		if (processRecordList == null) {
+	public List<ClosingProcess> getEntityList() {
+		if (closingProcessRecordList == null) {
 			findRecords();
 		}
-		return processRecordList;
-	}
-
-	@Override
-	public Process getEntity() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setEntity(Process t) {
-		// TODO Auto-generated method stub
-		
+		return closingProcessRecordList;
 	}
 
 }

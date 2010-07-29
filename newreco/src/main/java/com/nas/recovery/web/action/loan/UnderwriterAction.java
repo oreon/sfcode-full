@@ -37,4 +37,10 @@ import org.jboss.seam.annotations.Observer;
 @Name("underwriterAction")
 	public class UnderwriterAction extends UnderwriterActionBase implements java.io.Serializable{
 	
+	@Override
+	public String definedRole() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	}

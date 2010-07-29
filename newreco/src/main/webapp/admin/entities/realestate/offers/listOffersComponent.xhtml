@@ -24,14 +24,66 @@
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{offersList}"/>
-				<ui:param name="propertyLabel" value="#{msg.offers_saleDate}"/>
-				<ui:param name="propertyPath" value="offers.saleDate"/>
+				<ui:param name="propertyLabel" value="#{msg.offers_offerDate}"/>
+				<ui:param name="propertyPath" value="offers.offerDate"/>
 			</ui:include>
 		</f:facet>
 		
-			<h:outputText value="#{_offers.saleDate}">
+			<h:outputText value="#{_offers.offerDate}">
 				<s:convertDateTime dateStyle="short" type="both"/>
 			</h:outputText>
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{offersList}"/>
+				<ui:param name="propertyLabel" value="#{msg.offers_purchaser}"/>
+				<ui:param name="propertyPath" value="offers.purchaser"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_offers.purchaser}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{offersList}"/>
+				<ui:param name="propertyLabel" value="#{msg.offers_amount}"/>
+				<ui:param name="propertyPath" value="offers.amount"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_offers.amount}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{offersList}"/>
+				<ui:param name="propertyLabel" value="#{msg.offers_condition}"/>
+				<ui:param name="propertyPath" value="offers.condition"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_offers.condition}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{offersList}"/>
+				<ui:param name="propertyLabel" value="#{msg.offers_status}"/>
+				<ui:param name="propertyPath" value="offers.status"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_offers.status}"/>	
 		
 	</h:column>
 	
@@ -57,59 +109,9 @@
 			</ui:include>
 		</f:facet>
 		
-			<h:outputText value="#{_offers.conditionExpiry}"/>	
-		
-	</h:column>
-	
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{offersList}"/>
-				<ui:param name="propertyLabel" value="#{msg.offers_purchaser}"/>
-				<ui:param name="propertyPath" value="offers.purchaser"/>
-			</ui:include>
-		</f:facet>
-		
-			<h:outputText value="#{_offers.purchaser}"/>	
-		
-	</h:column>
-	
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{offersList}"/>
-				<ui:param name="propertyLabel" value="#{msg.offers_comments}"/>
-				<ui:param name="propertyPath" value="offers.comments"/>
-			</ui:include>
-		</f:facet>
-		
-			<h:outputText value="#{_offers.comments}"/>	
-		
-	</h:column>
-	
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{offersList}"/>
-				<ui:param name="propertyLabel" value="#{msg.offers_amount}"/>
-				<ui:param name="propertyPath" value="offers.amount"/>
-			</ui:include>
-		</f:facet>
-		
-			<h:outputText value="#{_offers.amount}"/>	
-		
-	</h:column>
-	
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{offersList}"/>
-				<ui:param name="propertyLabel" value="#{msg.offers_status}"/>
-				<ui:param name="propertyPath" value="offers.status"/>
-			</ui:include>
-		</f:facet>
-		
-			<h:outputText value="#{_offers.status}"/>	
+			<h:outputText value="#{_offers.conditionExpiry}">
+				<s:convertDateTime dateStyle="short" type="both"/>
+			</h:outputText>
 		
 	</h:column>
 	
@@ -126,6 +128,34 @@
 			<f:param name="realEstateListingId" value="#{_offers.realEstateListing.id}"/>
 			<f:param name="from" value="#{request.servletPath}"/>
 		</s:link>
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{offersList}"/>
+				<ui:param name="propertyLabel" value="#{msg.offers_closingDate}"/>
+				<ui:param name="propertyPath" value="offers.closingDate"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_offers.closingDate}">
+				<s:convertDateTime dateStyle="short" type="both"/>
+			</h:outputText>
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{offersList}"/>
+				<ui:param name="propertyLabel" value="#{msg.offers_comments}"/>
+				<ui:param name="propertyPath" value="offers.comments"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_offers.comments}"/>	
+		
 	</h:column>
 	
 		

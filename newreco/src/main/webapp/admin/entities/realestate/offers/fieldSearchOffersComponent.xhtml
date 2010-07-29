@@ -6,15 +6,15 @@
 	<h:panelGrid columns="6">
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_saleDate}  "/> <br/>
+	<h:outputText value="#{msg.offers_offerDate}  "/> <br/>
 	
 	<s:decorate template="/layout/display.xhtml">
 		<ui:define name="label">From</ui:define> <br/>
-		<rich:calendar value="#{offersList.offers_saleDateRange.begin}"/>
+		<rich:calendar value="#{offersList.offers_offerDateRange.begin}"/>
 	</s:decorate>
 	<s:decorate template="/layout/display.xhtml">
 		<ui:define name="label">To</ui:define> <br/>
-		<rich:calendar value="#{offersList.offers_saleDateRange.end}"/>
+		<rich:calendar value="#{offersList.offers_offerDateRange.end}"/>
 	</s:decorate>	
 	
 
@@ -26,50 +26,9 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_signBackAmount}  "/> <br/>
-	
-	
-	<h:inputText id="offers_signBackAmount_begin" value="#{offersList.offers_signBackAmountRange.begin}">
-			<f:converter converterId="javax.faces.Double"/>
-	</h:inputText>
-	<h:inputText id="offers_signBackAmount_end" value="#{offersList.offers_signBackAmountRange.end}">
-		<f:converter converterId="javax.faces.Double"/>
-	</h:inputText>
-	
-
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.offers_conditionExpiry}  "/> <br/>
-	
-		<h:inputText id="offers_conditionExpiry" value="#{offersList.offers.conditionExpiry}"/>
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
 	<h:outputText value="#{msg.offers_purchaser}  "/> <br/>
 	
 		<h:inputText id="offers_purchaser" value="#{offersList.offers.purchaser}"/>
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.offers_comments}  "/> <br/>
-	
-		<h:inputText id="offers_comments" value="#{offersList.offers.comments}"/>
 	
 	
 	</h:panelGroup>
@@ -97,9 +56,75 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_status}  "/> <br/>
+	<h:outputText value="#{msg.offers_condition}  "/> <br/>
+	<h:selectOneMenu id="offers_condition" required="false" value="#{offersList.offers.condition}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Inspection" itemValue="Inspection"/>
+		<f:selectItem itemLabel="Finance" itemValue="Finance"/>
+		<f:selectItem itemLabel="Appraisal" itemValue="Appraisal"/>
+		<f:selectItem itemLabel="Scc" itemValue="SCC"/>
+		<f:selectItem itemLabel="Insurance" itemValue="Insurance"/>
+		<f:selectItem itemLabel="Other" itemValue="Other"/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
 	
-		<h:inputText id="offers_status" value="#{offersList.offers.status}"/>
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.offers_status}  "/> <br/>
+	<h:selectOneMenu id="offers_status" required="false" value="#{offersList.offers.status}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Offer" itemValue="Offer"/>
+		<f:selectItem itemLabel="Signbackbuyer" itemValue="SignBackBuyer"/>
+		<f:selectItem itemLabel="Signbackseller" itemValue="SignBackSeller"/>
+		<f:selectItem itemLabel="Soldfirm" itemValue="SoldFirm"/>
+		<f:selectItem itemLabel="Conditionalsale" itemValue="ConditionalSale"/>
+		<f:selectItem itemLabel="Fellthrough" itemValue="FellThrough"/>
+		<f:selectItem itemLabel="Rejected" itemValue="Rejected"/>
+		<f:selectItem itemLabel="Accepted" itemValue="Accepted"/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.offers_signBackAmount}  "/> <br/>
+	
+	
+	<h:inputText id="offers_signBackAmount_begin" value="#{offersList.offers_signBackAmountRange.begin}">
+			<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	<h:inputText id="offers_signBackAmount_end" value="#{offersList.offers_signBackAmountRange.end}">
+		<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.offers_conditionExpiry}  "/> <br/>
+	
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">From</ui:define> <br/>
+		<rich:calendar value="#{offersList.offers_conditionExpiryRange.begin}"/>
+	</s:decorate>
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">To</ui:define> <br/>
+		<rich:calendar value="#{offersList.offers_conditionExpiryRange.end}"/>
+	</s:decorate>	
+	
+
 	
 	
 	</h:panelGroup>
@@ -115,6 +140,37 @@
 		
 	</h:selectOneMenu>
 	</h:panelGroup>
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.offers_closingDate}  "/> <br/>
+	
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">From</ui:define> <br/>
+		<rich:calendar value="#{offersList.offers_closingDateRange.begin}"/>
+	</s:decorate>
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">To</ui:define> <br/>
+		<rich:calendar value="#{offersList.offers_closingDateRange.end}"/>
+	</s:decorate>	
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.offers_comments}  "/> <br/>
+	
+		<h:inputText id="offers_comments" value="#{offersList.offers.comments}"/>
+	
+	
+	</h:panelGroup>
+
 	
 	
 	

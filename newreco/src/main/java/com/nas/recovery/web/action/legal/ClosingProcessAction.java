@@ -1,8 +1,8 @@
 
-
-package com.nas.recovery.web.action.legal;
-
-
+	
+	package com.nas.recovery.web.action.legal;
+	
+	
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +33,9 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 	
-//@Scope(ScopeType.CONVERSATION)
-@Name("closingProcessAction")
+	//@Scope(ScopeType.CONVERSATION)
+	@Name("closingProcessAction")
 	public class ClosingProcessAction extends ClosingProcessActionBase implements java.io.Serializable{
-	
+		
 	}
+	

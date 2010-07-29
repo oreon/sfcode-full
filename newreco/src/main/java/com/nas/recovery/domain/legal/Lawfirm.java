@@ -47,7 +47,7 @@ public class Lawfirm extends com.nas.recovery.domain.loan.Company
 			java.io.Serializable {
 	private static final long serialVersionUID = 806483309L;
 
-	//lawyers->lawfirm ->Lawfirm->Lawfirm->Lawfirm
+	//lawyers->lawfirm ->Lawfirm->Lawyer->Lawyer
 
 	@OneToMany(mappedBy = "lawfirm", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "lawfirm_ID", nullable = true)

@@ -34,7 +34,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class BankruptcyActionBase extends BaseAction<Bankruptcy>
+public abstract class BankruptcyActionBase extends BaseAction<Bankruptcy>
 		implements
 			java.io.Serializable {
 

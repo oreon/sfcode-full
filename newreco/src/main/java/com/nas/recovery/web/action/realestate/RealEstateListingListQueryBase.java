@@ -30,6 +30,24 @@ public abstract class RealEstateListingListQueryBase
 
 	private RealEstateListing realEstateListing = new RealEstateListing();
 
+	private Range<Date> realEstateListing_dateListedRange = new Range<Date>();
+	public Range<Date> getRealEstateListing_dateListedRange() {
+		return realEstateListing_dateListedRange;
+	}
+	public void setRealEstateListing_dateListed(
+			Range<Date> realEstateListing_dateListedRange) {
+		this.realEstateListing_dateListedRange = realEstateListing_dateListedRange;
+	}
+
+	private Range<Date> realEstateListing_expiryDateRange = new Range<Date>();
+	public Range<Date> getRealEstateListing_expiryDateRange() {
+		return realEstateListing_expiryDateRange;
+	}
+	public void setRealEstateListing_expiryDate(
+			Range<Date> realEstateListing_expiryDateRange) {
+		this.realEstateListing_expiryDateRange = realEstateListing_expiryDateRange;
+	}
+
 	private Range<Double> realEstateListing_listPriceRange = new Range<Double>();
 	public Range<Double> getRealEstateListing_listPriceRange() {
 		return realEstateListing_listPriceRange;
@@ -37,6 +55,33 @@ public abstract class RealEstateListingListQueryBase
 	public void setRealEstateListing_listPrice(
 			Range<Double> realEstateListing_listPriceRange) {
 		this.realEstateListing_listPriceRange = realEstateListing_listPriceRange;
+	}
+
+	private Range<Double> realEstateListing_minSalePriceRange = new Range<Double>();
+	public Range<Double> getRealEstateListing_minSalePriceRange() {
+		return realEstateListing_minSalePriceRange;
+	}
+	public void setRealEstateListing_minSalePrice(
+			Range<Double> realEstateListing_minSalePriceRange) {
+		this.realEstateListing_minSalePriceRange = realEstateListing_minSalePriceRange;
+	}
+
+	private Range<Integer> realEstateListing_mlsNumberRange = new Range<Integer>();
+	public Range<Integer> getRealEstateListing_mlsNumberRange() {
+		return realEstateListing_mlsNumberRange;
+	}
+	public void setRealEstateListing_mlsNumber(
+			Range<Integer> realEstateListing_mlsNumberRange) {
+		this.realEstateListing_mlsNumberRange = realEstateListing_mlsNumberRange;
+	}
+
+	private Range<Integer> realEstateListing_daysOnMarketRange = new Range<Integer>();
+	public Range<Integer> getRealEstateListing_daysOnMarketRange() {
+		return realEstateListing_daysOnMarketRange;
+	}
+	public void setRealEstateListing_daysOnMarket(
+			Range<Integer> realEstateListing_daysOnMarketRange) {
+		this.realEstateListing_daysOnMarketRange = realEstateListing_daysOnMarketRange;
 	}
 
 	private Range<Double> realEstateListing_propertyTaxesRange = new Range<Double>();
@@ -48,13 +93,22 @@ public abstract class RealEstateListingListQueryBase
 		this.realEstateListing_propertyTaxesRange = realEstateListing_propertyTaxesRange;
 	}
 
-	private Range<Double> realEstateListing_soldPriceRange = new Range<Double>();
-	public Range<Double> getRealEstateListing_soldPriceRange() {
-		return realEstateListing_soldPriceRange;
+	private Range<Double> realEstateListing_condoFeesRange = new Range<Double>();
+	public Range<Double> getRealEstateListing_condoFeesRange() {
+		return realEstateListing_condoFeesRange;
 	}
-	public void setRealEstateListing_soldPrice(
-			Range<Double> realEstateListing_soldPriceRange) {
-		this.realEstateListing_soldPriceRange = realEstateListing_soldPriceRange;
+	public void setRealEstateListing_condoFees(
+			Range<Double> realEstateListing_condoFeesRange) {
+		this.realEstateListing_condoFeesRange = realEstateListing_condoFeesRange;
+	}
+
+	private Range<Double> realEstateListing_costPerDiemRange = new Range<Double>();
+	public Range<Double> getRealEstateListing_costPerDiemRange() {
+		return realEstateListing_costPerDiemRange;
+	}
+	public void setRealEstateListing_costPerDiem(
+			Range<Double> realEstateListing_costPerDiemRange) {
+		this.realEstateListing_costPerDiemRange = realEstateListing_costPerDiemRange;
 	}
 
 	private Range<Integer> realEstateListing_lockBoxRange = new Range<Integer>();
@@ -66,13 +120,13 @@ public abstract class RealEstateListingListQueryBase
 		this.realEstateListing_lockBoxRange = realEstateListing_lockBoxRange;
 	}
 
-	private Range<Double> realEstateListing_costPerDiemRange = new Range<Double>();
-	public Range<Double> getRealEstateListing_costPerDiemRange() {
-		return realEstateListing_costPerDiemRange;
+	private Range<Double> realEstateListing_soldPriceRange = new Range<Double>();
+	public Range<Double> getRealEstateListing_soldPriceRange() {
+		return realEstateListing_soldPriceRange;
 	}
-	public void setRealEstateListing_costPerDiem(
-			Range<Double> realEstateListing_costPerDiemRange) {
-		this.realEstateListing_costPerDiemRange = realEstateListing_costPerDiemRange;
+	public void setRealEstateListing_soldPrice(
+			Range<Double> realEstateListing_soldPriceRange) {
+		this.realEstateListing_soldPriceRange = realEstateListing_soldPriceRange;
 	}
 
 	private Range<Integer> realEstateListing_realEstateNumberRange = new Range<Integer>();
@@ -93,33 +147,6 @@ public abstract class RealEstateListingListQueryBase
 		this.realEstateListing_commissionRange = realEstateListing_commissionRange;
 	}
 
-	private Range<Integer> realEstateListing_mlsNumberRange = new Range<Integer>();
-	public Range<Integer> getRealEstateListing_mlsNumberRange() {
-		return realEstateListing_mlsNumberRange;
-	}
-	public void setRealEstateListing_mlsNumber(
-			Range<Integer> realEstateListing_mlsNumberRange) {
-		this.realEstateListing_mlsNumberRange = realEstateListing_mlsNumberRange;
-	}
-
-	private Range<Double> realEstateListing_condoFeesRange = new Range<Double>();
-	public Range<Double> getRealEstateListing_condoFeesRange() {
-		return realEstateListing_condoFeesRange;
-	}
-	public void setRealEstateListing_condoFees(
-			Range<Double> realEstateListing_condoFeesRange) {
-		this.realEstateListing_condoFeesRange = realEstateListing_condoFeesRange;
-	}
-
-	private Range<Date> realEstateListing_dateListedRange = new Range<Date>();
-	public Range<Date> getRealEstateListing_dateListedRange() {
-		return realEstateListing_dateListedRange;
-	}
-	public void setRealEstateListing_dateListed(
-			Range<Date> realEstateListing_dateListedRange) {
-		this.realEstateListing_dateListedRange = realEstateListing_dateListedRange;
-	}
-
 	private Range<Integer> realEstateListing_mortgageNumberRange = new Range<Integer>();
 	public Range<Integer> getRealEstateListing_mortgageNumberRange() {
 		return realEstateListing_mortgageNumberRange;
@@ -138,24 +165,6 @@ public abstract class RealEstateListingListQueryBase
 		this.realEstateListing_soldDateRange = realEstateListing_soldDateRange;
 	}
 
-	private Range<Integer> realEstateListing_daysOnMarketRange = new Range<Integer>();
-	public Range<Integer> getRealEstateListing_daysOnMarketRange() {
-		return realEstateListing_daysOnMarketRange;
-	}
-	public void setRealEstateListing_daysOnMarket(
-			Range<Integer> realEstateListing_daysOnMarketRange) {
-		this.realEstateListing_daysOnMarketRange = realEstateListing_daysOnMarketRange;
-	}
-
-	private Range<Date> realEstateListing_closingDateRange = new Range<Date>();
-	public Range<Date> getRealEstateListing_closingDateRange() {
-		return realEstateListing_closingDateRange;
-	}
-	public void setRealEstateListing_closingDate(
-			Range<Date> realEstateListing_closingDateRange) {
-		this.realEstateListing_closingDateRange = realEstateListing_closingDateRange;
-	}
-
 	private Range<Double> realEstateListing_depositRange = new Range<Double>();
 	public Range<Double> getRealEstateListing_depositRange() {
 		return realEstateListing_depositRange;
@@ -165,39 +174,52 @@ public abstract class RealEstateListingListQueryBase
 		this.realEstateListing_depositRange = realEstateListing_depositRange;
 	}
 
-	private Range<Date> realEstateListing_expiryDateRange = new Range<Date>();
-	public Range<Date> getRealEstateListing_expiryDateRange() {
-		return realEstateListing_expiryDateRange;
-	}
-	public void setRealEstateListing_expiryDate(
-			Range<Date> realEstateListing_expiryDateRange) {
-		this.realEstateListing_expiryDateRange = realEstateListing_expiryDateRange;
-	}
-
 	private static final String[] RESTRICTIONS = {
 			"realEstateListing.id = #{realEstateListingList.realEstateListing.id}",
+
+			"realEstateListing.dateListed >= #{realEstateListingList.realEstateListing_dateListedRange.begin}",
+			"realEstateListing.dateListed <= #{realEstateListingList.realEstateListing_dateListedRange.end}",
+
+			"realEstateListing.expiryDate >= #{realEstateListingList.realEstateListing_expiryDateRange.begin}",
+			"realEstateListing.expiryDate <= #{realEstateListingList.realEstateListing_expiryDateRange.end}",
 
 			"realEstateListing.listPrice >= #{realEstateListingList.realEstateListing_listPriceRange.begin}",
 			"realEstateListing.listPrice <= #{realEstateListingList.realEstateListing_listPriceRange.end}",
 
+			"realEstateListing.minSalePrice >= #{realEstateListingList.realEstateListing_minSalePriceRange.begin}",
+			"realEstateListing.minSalePrice <= #{realEstateListingList.realEstateListing_minSalePriceRange.end}",
+
+			"realEstateListing.mlsNumber >= #{realEstateListingList.realEstateListing_mlsNumberRange.begin}",
+			"realEstateListing.mlsNumber <= #{realEstateListingList.realEstateListing_mlsNumberRange.end}",
+
+			"realEstateListing.daysOnMarket >= #{realEstateListingList.realEstateListing_daysOnMarketRange.begin}",
+			"realEstateListing.daysOnMarket <= #{realEstateListingList.realEstateListing_daysOnMarketRange.end}",
+
 			"realEstateListing.propertyTaxes >= #{realEstateListingList.realEstateListing_propertyTaxesRange.begin}",
 			"realEstateListing.propertyTaxes <= #{realEstateListingList.realEstateListing_propertyTaxesRange.end}",
 
-			"realEstateListing.soldPrice >= #{realEstateListingList.realEstateListing_soldPriceRange.begin}",
-			"realEstateListing.soldPrice <= #{realEstateListingList.realEstateListing_soldPriceRange.end}",
-
-			"realEstateListing.lockBox >= #{realEstateListingList.realEstateListing_lockBoxRange.begin}",
-			"realEstateListing.lockBox <= #{realEstateListingList.realEstateListing_lockBoxRange.end}",
+			"realEstateListing.condoFees >= #{realEstateListingList.realEstateListing_condoFeesRange.begin}",
+			"realEstateListing.condoFees <= #{realEstateListingList.realEstateListing_condoFeesRange.end}",
 
 			"realEstateListing.costPerDiem >= #{realEstateListingList.realEstateListing_costPerDiemRange.begin}",
 			"realEstateListing.costPerDiem <= #{realEstateListingList.realEstateListing_costPerDiemRange.end}",
 
-			"realEstateListing.vtbAccepted = #{realEstateListingList.realEstateListing.vtbAccepted}",
+			"realEstateListing.lockBox >= #{realEstateListingList.realEstateListing_lockBoxRange.begin}",
+			"realEstateListing.lockBox <= #{realEstateListingList.realEstateListing_lockBoxRange.end}",
+
+			"realEstateListing.soldPrice >= #{realEstateListingList.realEstateListing_soldPriceRange.begin}",
+			"realEstateListing.soldPrice <= #{realEstateListingList.realEstateListing_soldPriceRange.end}",
+
+			"realEstateListing.ownerOccupied = #{realEstateListingList.realEstateListing.ownerOccupied}",
+
+			"realEstateListing.vacant = #{realEstateListingList.realEstateListing.vacant}",
+
+			"realEstateListing.tenanted = #{realEstateListingList.realEstateListing.tenanted}",
+
+			"realEstateListing.mlsComments = #{realEstateListingList.realEstateListing.mlsComments}",
 
 			"realEstateListing.realEstateNumber >= #{realEstateListingList.realEstateListing_realEstateNumberRange.begin}",
 			"realEstateListing.realEstateNumber <= #{realEstateListingList.realEstateListing_realEstateNumberRange.end}",
-
-			"lower(realEstateListing.status) like concat(lower(#{realEstateListingList.realEstateListing.status}),'%')",
 
 			"lower(realEstateListing.cmaOrdered) like concat(lower(#{realEstateListingList.realEstateListing.cmaOrdered}),'%')",
 
@@ -206,37 +228,6 @@ public abstract class RealEstateListingListQueryBase
 			"realEstateListing.commission >= #{realEstateListingList.realEstateListing_commissionRange.begin}",
 			"realEstateListing.commission <= #{realEstateListingList.realEstateListing_commissionRange.end}",
 
-			"realEstateListing.mlsNumber >= #{realEstateListingList.realEstateListing_mlsNumberRange.begin}",
-			"realEstateListing.mlsNumber <= #{realEstateListingList.realEstateListing_mlsNumberRange.end}",
-
-			"realEstateListing.condoFees >= #{realEstateListingList.realEstateListing_condoFeesRange.begin}",
-			"realEstateListing.condoFees <= #{realEstateListingList.realEstateListing_condoFeesRange.end}",
-
-			"realEstateListing.dateListed >= #{realEstateListingList.realEstateListing_dateListedRange.begin}",
-			"realEstateListing.dateListed <= #{realEstateListingList.realEstateListing_dateListedRange.end}",
-
-			"realEstateListing.mortgageNumber >= #{realEstateListingList.realEstateListing_mortgageNumberRange.begin}",
-			"realEstateListing.mortgageNumber <= #{realEstateListingList.realEstateListing_mortgageNumberRange.end}",
-
-			"realEstateListing.soldDate >= #{realEstateListingList.realEstateListing_soldDateRange.begin}",
-			"realEstateListing.soldDate <= #{realEstateListingList.realEstateListing_soldDateRange.end}",
-
-			"realEstateListing.daysOnMarket >= #{realEstateListingList.realEstateListing_daysOnMarketRange.begin}",
-			"realEstateListing.daysOnMarket <= #{realEstateListingList.realEstateListing_daysOnMarketRange.end}",
-
-			"lower(realEstateListing.mlsComments) like concat(lower(#{realEstateListingList.realEstateListing.mlsComments}),'%')",
-
-			"realEstateListing.closingDate >= #{realEstateListingList.realEstateListing_closingDateRange.begin}",
-			"realEstateListing.closingDate <= #{realEstateListingList.realEstateListing_closingDateRange.end}",
-
-			"realEstateListing.vtbOffered = #{realEstateListingList.realEstateListing.vtbOffered}",
-
-			"realEstateListing.deposit >= #{realEstateListingList.realEstateListing_depositRange.begin}",
-			"realEstateListing.deposit <= #{realEstateListingList.realEstateListing_depositRange.end}",
-
-			"realEstateListing.expiryDate >= #{realEstateListingList.realEstateListing_expiryDateRange.begin}",
-			"realEstateListing.expiryDate <= #{realEstateListingList.realEstateListing_expiryDateRange.end}",
-
 			"realEstateListing.realEstateBoard = #{realEstateListingList.realEstateListing.realEstateBoard}",
 
 			"realEstateListing.realEstateProperty = #{realEstateListingList.realEstateListing.realEstateProperty}",
@@ -244,6 +235,19 @@ public abstract class RealEstateListingListQueryBase
 			"realEstateListing.master = #{realEstateListingList.realEstateListing.master}",
 
 			"realEstateListing.subagent = #{realEstateListingList.realEstateListing.subagent}",
+
+			"realEstateListing.mortgageNumber >= #{realEstateListingList.realEstateListing_mortgageNumberRange.begin}",
+			"realEstateListing.mortgageNumber <= #{realEstateListingList.realEstateListing_mortgageNumberRange.end}",
+
+			"realEstateListing.soldDate >= #{realEstateListingList.realEstateListing_soldDateRange.begin}",
+			"realEstateListing.soldDate <= #{realEstateListingList.realEstateListing_soldDateRange.end}",
+
+			"realEstateListing.vtbOffered = #{realEstateListingList.realEstateListing.vtbOffered}",
+
+			"realEstateListing.vtbAccepted = #{realEstateListingList.realEstateListing.vtbAccepted}",
+
+			"realEstateListing.deposit >= #{realEstateListingList.realEstateListing_depositRange.begin}",
+			"realEstateListing.deposit <= #{realEstateListingList.realEstateListing_depositRange.end}",
 
 			"realEstateListing.dateCreated <= #{realEstateListingList.dateCreatedRange.end}",
 			"realEstateListing.dateCreated >= #{realEstateListingList.dateCreatedRange.begin}",};
