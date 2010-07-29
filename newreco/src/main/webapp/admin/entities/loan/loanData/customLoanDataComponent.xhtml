@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>
+	<h:panelGrid columns="3" styleClass="summarywrap">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_fees}  "/> <br/>
+	
+		<h:inputText id="loanData_fees" value="#{loanDataAction.loanData.fees}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_originalAppraisedValue}  "/> <br/>
+	
+		<h:inputText id="loanData_originalAppraisedValue" value="#{loanDataAction.loanData.originalAppraisedValue}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_taxPortion}  "/> <br/>
+	
+		<h:inputText id="loanData_taxPortion" value="#{loanDataAction.loanData.taxPortion}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_mortgageNumber}  "/> <br/>
+	
+		<h:inputText id="loanData_mortgageNumber" value="#{loanDataAction.loanData.mortgageNumber}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_interestRate}  "/> <br/>
+	
+		<h:inputText id="loanData_interestRate" value="#{loanDataAction.loanData.interestRate}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_arrears}  "/> <br/>
+	
+		<h:inputText id="loanData_arrears" value="#{loanDataAction.loanData.arrears}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_fundingDate}  "/> <br/>
+	
+		<rich:calendar id="loanData_fundingDate" value="#{loanDataAction.loanData.fundingDate}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_condo}  "/> <br/>
+	
+		<h:selectBooleanCheckbox id="loanData_condo" value="#{loanDataAction.loanData.condo}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_totalOutstanding}  "/> <br/>
+	
+		<h:inputText id="loanData_totalOutstanding" value="#{loanDataAction.loanData.totalOutstanding}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_mortgageBalance}  "/> <br/>
+	
+		<h:inputText id="loanData_mortgageBalance" value="#{loanDataAction.loanData.mortgageBalance}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_maturityDate}  "/> <br/>
+	
+		<rich:calendar id="loanData_maturityDate" value="#{loanDataAction.loanData.maturityDate}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_repaymentHistory}  "/> <br/>
+	
+		<h:inputText id="loanData_repaymentHistory" value="#{loanDataAction.loanData.repaymentHistory}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_originalPurposeTransaction}  "/> <br/>
+	
+		<h:inputText id="loanData_originalPurposeTransaction" value="#{loanDataAction.loanData.originalPurposeTransaction}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_taxes}  "/> <br/>
+	
+		<h:inputText id="loanData_taxes" value="#{loanDataAction.loanData.taxes}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_rentalProperty}  "/> <br/>
+	
+		<h:selectBooleanCheckbox id="loanData_rentalProperty" value="#{loanDataAction.loanData.rentalProperty}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_lender}  "/> <br/>
+	<h:selectOneMenu id="loanData_lender" value="#{loanDataAction.loanData.lender}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{lenderList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_mortgageInsurer}  "/> <br/>
+	<h:selectOneMenu id="loanData_mortgageInsurer" value="#{loanDataAction.loanData.mortgageInsurer}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{mortgageInsurerList}" var="itemIter"/>
+		<s:convertEntity/>
+		<f:selectItem itemLabel="--None--" itemValue=""/>
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_titleInsurer}  "/> <br/>
+	<h:selectOneMenu id="loanData_titleInsurer" value="#{loanDataAction.loanData.titleInsurer}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{titleInsurerList}" var="itemIter"/>
+		<s:convertEntity/>
+		<f:selectItem itemLabel="--None--" itemValue=""/>
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_broker}  "/> <br/>
+	<h:selectOneMenu id="loanData_broker" value="#{loanDataAction.loanData.broker}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{brokerList}" var="itemIter"/>
+		<s:convertEntity/>
+		<f:selectItem itemLabel="--None--" itemValue=""/>
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.loanData_underwriter}  "/> <br/>
+	<h:selectOneMenu id="loanData_underwriter" value="#{loanDataAction.loanData.underwriter}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{underwriterList}" var="itemIter"/>
+		<s:convertEntity/>
+		<f:selectItem itemLabel="--None--" itemValue=""/>
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	</h:panelGrid>
+</ui:composition>

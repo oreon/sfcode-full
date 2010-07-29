@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>
+	<h:panelGrid columns="3" styleClass="summarywrap">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisal_appraisalNumber}  "/> <br/>
+	
+		<h:inputText id="appraisal_appraisalNumber" value="#{appraisalAction.appraisal.appraisalNumber}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisal_specialInstruction}  "/> <br/>
+	
+		<rich:editor id="appraisal_specialInstruction" useSeamText="true" value="#{appraisalAction.appraisal.specialInstruction}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisal_serviceType}  "/> <br/>
+	<h:selectOneMenu id="appraisal_serviceType" required="false" value="#{appraisalAction.appraisal.serviceType}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Full_service" itemValue="FULL_SERVICE"/>
+		<f:selectItem itemLabel="Drive_by" itemValue="DRIVE_BY"/>
+		<f:selectItem itemLabel="Desktop" itemValue="DESKTOP"/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisal_status}  "/> <br/>
+	<h:selectOneMenu id="appraisal_status" required="false" value="#{appraisalAction.appraisal.status}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Ordered" itemValue="ORDERED"/>
+		<f:selectItem itemLabel="Accepted" itemValue="ACCEPTED"/>
+		<f:selectItem itemLabel="Appointment" itemValue="APPOINTMENT"/>
+		<f:selectItem itemLabel="Completed" itemValue="COMPLETED"/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisal_ordered}  "/> <br/>
+	
+		<rich:calendar id="appraisal_ordered" value="#{appraisalAction.appraisal.ordered}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisal_dueDate}  "/> <br/>
+	
+		<rich:calendar id="appraisal_dueDate" value="#{appraisalAction.appraisal.dueDate}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisal_received}  "/> <br/>
+	
+		<rich:calendar id="appraisal_received" value="#{appraisalAction.appraisal.received}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	</h:panelGrid>
+</ui:composition>
