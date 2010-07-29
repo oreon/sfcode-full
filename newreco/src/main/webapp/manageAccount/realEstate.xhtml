@@ -23,10 +23,10 @@
 						<f:facet name="header">
 							<h:outputText value="MLS Comments " />
 						</f:facet>
-							<rich:editor id="realEstateListing_mlsComments#{entityId}"
-								required="false" useSeamText="true"
-								value="#{realEstateListingAction.realEstateListing.mlsComments}" />
-						
+						<rich:editor id="realEstateListing_mlsComments#{entityId}"
+							required="false" useSeamText="true"
+							value="#{realEstateListingAction.realEstateListing.mlsComments}" />
+
 					</rich:panel>
 					<h:commandButton action="#{realEstateListingAction.save}"
 						value="Save">
@@ -60,13 +60,25 @@
 			</rich:tab>
 
 			<rich:tab label="CMA/Appraisal">
-				<!-- 
-				<ui:include  src="/admin/entities/realestate/cMA/listCMAComponent.xhtml" />
-				<a:commandButton ajaxSingle="true"
-                        oncomplete="Richfaces.showModalPanel('CMAModalPanel',{});"
-                        value="Quick Create" action="#{realEstateListingAction.setRealEstatePropertyId(realEstatePropertyId)}" reRender="RealEstateListingModalPanel">    
-                  </a:commandButton>
-				 -->
+				<a:form>
+					<rich:panel>
+						<ui:include
+							src="/admin/entities/realestate/cMA/customCmaComponent.xhtml" />
+					</rich:panel>
+
+
+					<a:commandButton ajaxSingle="true"
+						oncomplete="Richfaces.showModalPanel('CmaModalPanel',{});"
+						value="Quick Create"
+						action="#{realEstateListingAction.setRealEstatePropertyId(realEstatePropertyId)}"
+						reRender="RealEstateListingModalPanel">
+					</a:commandButton>
+					
+					<rich:panel>
+						<ui:include src="/manageAccount/listCmaComponent.xhtml" />
+					</rich:panel>
+				</a:form>
+
 			</rich:tab>
 
 
@@ -89,9 +101,10 @@
 
 
 		<ui:include src="/manageAccount/modalListingComponent.xhtml" />
-		<!--  
-		<ui:include src="/admin/entities/realestate/cMA/modalDlgCMAComponent.xhtml" />
-		-->
+
+		<ui:include
+			src="/admin/entities/realestate/cMA/modalDlgCMAComponent.xhtml" />
+
 
 		<!--PROTECTED REGION END-->
 
