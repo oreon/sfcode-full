@@ -37,11 +37,10 @@
 			</a:outputPanel>
 			<a:form>
 
-				<ui:include
-					src="/admin/entities/realestate/realEstateListing/editRealEstateListingComponent.xhtml" />
+				<ui:include src="/manageAccount/editListingComponent.xhtml" />
 
 				<a:commandButton action="#{realEstateListingAction.save}"
-					oncomplete="if (#{facesContext.maximumSeverity == null}) { Richfaces.hideModalPanel('RealEstateListingModalPanel'); location.reload(true) }"
+					oncomplete="if (#{facesContext.maximumSeverity == null}) { Richfaces.hideModalPanel('RealEstateListingModalPanel');  }"
 					reRender="realEstatePropertyList" value="Save">
 					<f:param name="conversationPropagation" value="end" />
 

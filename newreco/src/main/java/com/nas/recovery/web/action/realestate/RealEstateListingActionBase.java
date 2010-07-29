@@ -288,7 +288,8 @@ public abstract class RealEstateListingActionBase
 	public void updateComposedAssociations() {
 
 		getInstance().getOfferses().clear();
-		getInstance().getOfferses().addAll(listOfferses);
+		if(listOfferses != null)
+			getInstance().getOfferses().addAll(listOfferses);
 
 	}
 
