@@ -10,7 +10,7 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	template="/webtemplate/template.xhtml">
-	
+
 	<ui:define name="content">
 		<!--PROTECTED REGION ID(USER_EDITABLE_RGN_manageAccount/myaccount.xhtml) ENABLED START-->
 
@@ -18,28 +18,41 @@
 
 			<rich:tab label="Agent/Listing">
 				<a:form>
-					
-					<rich:panel style="background-color:#ded" >
-					
-					Date Listed 
-					
-					</rich:panel>
-					
-				
-
-					<ui:include
-						src="/manageAccount/listRealEstateListingComponentShort.xhtml" />
+					<ui:include src="/manageAccount/editListingComponent.xhtml" />
+					<rich:panel>
+						<f:facet name="header">
+							<h:outputText value="MLS Comments " />
+						</f:facet>
+							<rich:editor id="realEstateListing_mlsComments#{entityId}"
+								required="false" useSeamText="true"
+								value="#{realEstateListingAction.realEstateListing.mlsComments}" />
 						
-
-
-
-					<a:commandButton ajaxSingle="true"
-                        oncomplete="Richfaces.showModalPanel('RealEstateListingModalPanel',{});"
-                        value="Quick Create" action="#{realEstateListingAction.setRealEstatePropertyId(realEstatePropertyId)}" reRender="RealEstateListingModalPanel">    
-                    </a:commandButton>
+					</rich:panel>
+					<h:commandButton action="#{realEstateListingAction.save}"
+						value="Save">
+						<s:conversationPropagation type="end" />
+					</h:commandButton>
 				</a:form>
-				
-				
+
+				<br />
+
+				<rich:panel>
+					<f:facet name="header">
+						<h:outputText value="Listing History " />
+					</f:facet>
+					<a:form>
+						<ui:include
+							src="/manageAccount/listRealEstateListingComponentShort.xhtml" />
+
+						<a:commandButton ajaxSingle="true"
+							oncomplete="Richfaces.showModalPanel('RealEstateListingModalPanel',{});"
+							value=" Create New"
+							action="#{realEstateListingAction.setRealEstatePropertyId(realEstatePropertyId)}"
+							reRender="RealEstateListingModalPanel">
+						</a:commandButton>
+					</a:form>
+				</rich:panel>
+				<br />
 			</rich:tab>
 
 			<rich:tab label="Offer/Sale">
@@ -47,13 +60,13 @@
 			</rich:tab>
 
 			<rich:tab label="CMA/Appraisal">
-			<!-- 
+				<!-- 
 				<ui:include  src="/admin/entities/realestate/cMA/listCMAComponent.xhtml" />
 				<a:commandButton ajaxSingle="true"
                         oncomplete="Richfaces.showModalPanel('CMAModalPanel',{});"
                         value="Quick Create" action="#{realEstateListingAction.setRealEstatePropertyId(realEstatePropertyId)}" reRender="RealEstateListingModalPanel">    
                   </a:commandButton>
-				 -->  
+				 -->
 			</rich:tab>
 
 
@@ -75,8 +88,7 @@
 
 
 
-		<ui:include
-			src="/admin/entities/realestate/realEstateListing/modalDlgRealEstateListingComponent.xhtml" />
+		<ui:include src="/manageAccount/modalListingComponent.xhtml" />
 		<!--  
 		<ui:include src="/admin/entities/realestate/cMA/modalDlgCMAComponent.xhtml" />
 		-->

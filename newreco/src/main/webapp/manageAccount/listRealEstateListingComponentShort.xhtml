@@ -11,72 +11,110 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
 
 
-<rich:panel>
-	<h:form>
-		<f:facet name="header">RealEstateListing Search Results (#{empty realEstateListingList.resultList ? 0 : (realEstateListingList.paginated ? realEstateListingList.resultCount : realEstateListingList.resultList.size)})</f:facet>
+	<rich:panel>
+		<h:form>
+			<f:facet name="header">RealEstateListing Search Results (#{empty realEstateListingList.resultList ? 0 : (realEstateListingList.paginated ? realEstateListingList.resultCount : realEstateListingList.resultList.size)})</f:facet>
 
-		<rich:dataTable
-			rendered="#{not empty realEstateListingList.resultList}"
-			rowClasses="odd, even" styleClass="dataTable"
-			value="#{realEstateListingList.resultList}" var="_realEstateListing">
+			<rich:dataTable id="realEstatePropertyList"
+				rendered="#{not empty realEstateListingList.resultList}"
+				rowClasses="odd, even" styleClass="dataTable"
+				value="#{realEstateListingList.resultList}" var="_realEstateListing">
 
-			<h:column>
-				<f:facet name="header">
-					<ui:include src="/layout/sort.xhtml">
-						<ui:param name="entityList" value="#{realEstateListingList}" />
-						<ui:param name="propertyLabel" value="Id" />
-						<ui:param name="propertyPath" value="realEstateListing.id" />
-					</ui:include>
-				</f:facet>
-				<h:outputText value="#{_realEstateListing.id}">
-				</h:outputText>
-			</h:column>
+				<h:column>
+					<f:facet name="header">
+						<ui:include src="/layout/sort.xhtml">
+							<ui:param name="entityList" value="#{realEstateListingList}" />
+							<ui:param name="propertyLabel" value="Id" />
+							<ui:param name="propertyPath" value="realEstateListing.id" />
+						</ui:include>
+					</f:facet>
+					<h:outputText value="#{_realEstateListing.id}">
+					</h:outputText>
+				</h:column>
 
-			<h:column>
-				<f:facet name="header">
-					<ui:include src="/layout/sort.xhtml">
-						<ui:param name="entityList" value="#{realEstateListingList}" />
-						<ui:param name="propertyLabel"
-							value="#{msg.realEstateListing_listPrice}" />
-						<ui:param name="propertyPath" value="realEstateListing.listPrice" />
-					</ui:include>
-				</f:facet>
+				<h:column>
+					<f:facet name="header">
+						<ui:include src="/layout/sort.xhtml">
+							<ui:param name="entityList" value="#{realEstateListingList}" />
+							<ui:param name="propertyLabel" value="Listing Date" />
+							<ui:param name="propertyPath" value="realEstateListing.id" />
+						</ui:include>
+					</f:facet>
+					<h:outputText value="#{_realEstateListing.dateListed}">
+					</h:outputText>
+				</h:column>
 
-				<h:outputText value="#{_realEstateListing.listPrice}" />
+				<h:column>
+					<f:facet name="header">
+						<ui:include src="/layout/sort.xhtml">
+							<ui:param name="entityList" value="#{realEstateListingList}" />
+							<ui:param name="propertyLabel" value="Expiry Date" />
+							<ui:param name="propertyPath" value="realEstateListing.id" />
+						</ui:include>
+					</f:facet>
+					<h:outputText value="#{_realEstateListing.expiryDate}">
+					</h:outputText>
+				</h:column>
+			
+			
+				<h:column>
+					<f:facet name="header">
+						<ui:include src="/layout/sort.xhtml">
+							<ui:param name="entityList" value="#{realEstateListingList}" />
+							<ui:param name="propertyLabel" value="Agent" />
+							<ui:param name="propertyPath"
+								value="realEstateListing.propertyTaxes" />
+						</ui:include>
+					</f:facet>
 
-			</h:column>
+					<h:outputText value="#{_realEstateListing.master.displayName}" />
 
-			<h:column>
-				<f:facet name="header">
-					<ui:include src="/layout/sort.xhtml">
-						<ui:param name="entityList" value="#{realEstateListingList}" />
-						<ui:param name="propertyLabel"
-							value="#{msg.realEstateListing_propertyTaxes}" />
-						<ui:param name="propertyPath"
-							value="realEstateListing.propertyTaxes" />
-					</ui:include>
-				</f:facet>
+				</h:column>
 
-				<h:outputText value="#{_realEstateListing.propertyTaxes}" />
 
-			</h:column>
 
-			<h:column>
-				<f:facet name="header">
-					<ui:include src="/layout/sort.xhtml">
-						<ui:param name="entityList" value="#{realEstateListingList}" />
-						<ui:param name="propertyLabel"
-							value="#{msg.realEstateListing_soldPrice}" />
-						<ui:param name="propertyPath" value="realEstateListing.soldPrice" />
-					</ui:include>
-				</f:facet>
+				<h:column>
+					<f:facet name="header">
+						<ui:include src="/layout/sort.xhtml">
+							<ui:param name="entityList" value="#{realEstateListingList}" />
+							<ui:param name="propertyLabel" value="Report" />
+							<ui:param name="propertyPath"
+								value="realEstateListing.propertyTaxes" />
+						</ui:include>
+					</f:facet>
 
-				<h:outputText value="#{_realEstateListing.soldPrice}" />
+					<h:outputText value="Yes" />
 
-			</h:column>
-		</rich:dataTable>
-	</h:form>
-</rich:panel>
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<ui:include src="/layout/sort.xhtml">
+							<ui:param name="entityList" value="#{realEstateListingList}" />
+							<ui:param name="propertyLabel"
+								value="#{msg.realEstateListing_listPrice}" />
+							<ui:param name="propertyPath" value="realEstateListing.listPrice" />
+						</ui:include>
+					</f:facet>
+
+					<h:outputText value="#{_realEstateListing.listPrice}" />
+
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						
+					</f:facet>
+
+					<s:link value="Select" >
+						<f:param name="realEstateListingId" value="#{_realEstateListing.id}"/>
+					</s:link>
+
+				</h:column>
+
+			</rich:dataTable>
+		</h:form>
+	</rich:panel>
 
 
 </ui:composition>

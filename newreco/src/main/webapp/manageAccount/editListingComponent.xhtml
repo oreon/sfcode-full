@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+
+	<h:panelGrid>
+		<h:panelGroup rendered="true">
+	
+			<h:selectOneMenu id="realEstateListing_realEstateProperty" 
+				required="true" 
+				value="#{realEstateListingAction.realEstateListing.realEstateProperty}">
+				<s:selectItems label="#{itemIter.displayName}"
+					noSelectionLabel="Please Select..."
+					value="#{realEstatePropertyList}" var="itemIter" />
+				<s:convertEntity />
+			</h:selectOneMenu>
+
+
+			<h:message for="realEstateListing_realEstateProperty"
+				styleClass="error errors" />
+		</h:panelGroup>
+	</h:panelGrid>
+
+	<rich:panel style="width:100% ">
+		<br />
+		<f:facet name="header">Agent Info </f:facet>
+
+		<h:panelGrid columns="3" styleClass="summarywrap">
+			<h:panelGroup>
+				<h:outputText value="#{msg.realEstateListing_realEstateBoard}  " />
+				<br />
+
+				<h:selectOneMenu id="realEstateListing_realEstateBoard"
+					required="true"
+					value="#{realEstateListingAction.realEstateListing.realEstateBoard}">
+					<s:selectItems label="#{itemIter.displayName}"
+						noSelectionLabel="Please Select..." value="#{realEstateBoardList}"
+						var="itemIter" />
+					<s:convertEntity />
+				</h:selectOneMenu>
+
+				<h:message for="realEstateListing_realEstateBoard"
+					styleClass="error errors" />
+			</h:panelGroup>
+
+			<h:panelGroup>
+
+				<h:outputText value="#{msg.realEstateListing_master}  " />
+				<br />
+
+
+				<h:selectOneMenu id="realEstateListing_master" required="false"
+					value="#{realEstateListingAction.realEstateListing.master}">
+					<s:selectItems label="#{itemIter.displayName}"
+						noSelectionLabel="Please Select..." value="#{masterAgentList}"
+						var="itemIter" />
+					<s:convertEntity />
+				</h:selectOneMenu>
+
+
+				<h:message for="realEstateListing_master" styleClass="error errors" />
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.realEstateListing_subagent}  " />
+				<br />
+
+
+				<h:selectOneMenu id="realEstateListing_subagent" required="false"
+					value="#{realEstateListingAction.realEstateListing.subagent}">
+					<s:selectItems label="#{itemIter.displayName}"
+						noSelectionLabel="Please Select..." value="#{masterAgentList}"
+						var="itemIter" />
+					<s:convertEntity />
+				</h:selectOneMenu>
+
+
+				<h:message for="realEstateListing_subagent"
+					styleClass="error errors" />
+			</h:panelGroup>
+
+
+
+		</h:panelGrid>
+	</rich:panel>
+	<br />
+
+
+	<rich:panel style="width:100% ">
+		<f:facet name="header">Listing Info </f:facet>
+
+		<h:panelGrid columns="3" styleClass="summarywrap">
+
+
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.realEstateListing_dateListed}  " />
+				<br />
+
+				<rich:calendar id="realEstateListing_dateListed#{entityId}"
+					required="false"
+					value="#{realEstateListingAction.realEstateListing.dateListed}" />
+
+
+				<h:message for="realEstateListing_dateListed"
+					styleClass="error errors" />
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.realEstateListing_expiryDate}  " />
+				<br></br>
+
+
+				<rich:calendar id="realEstateListing_expiryDate#{entityId}"
+					required="false"
+					value="#{realEstateListingAction.realEstateListing.expiryDate}" />
+
+
+				<h:message for="realEstateListing_expiryDate"
+					styleClass="error errors" />
+			</h:panelGroup>
+
+			<h:panelGroup />
+
+			<h:panelGroup>
+
+				<h:outputText value="#{msg.realEstateListing_listPrice}  " />
+				<br></br>
+
+
+				<h:inputText id="realEstateListing_listPrice#{entityId}"
+					required="false"
+					value="#{realEstateListingAction.realEstateListing.listPrice}" />
+
+
+				<h:message for="realEstateListing_listPrice"
+					styleClass="error errors" />
+
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.realEstateListing_minSalePrice}  " />
+				<br></br>
+
+
+				<h:inputText id="realEstateListing_minSalePrice#{entityId}"
+					required="false"
+					value="#{realEstateListingAction.realEstateListing.minSalePrice}" />
+
+
+				<h:message for="realEstateListing_minSalePrice"
+					styleClass="error errors" />
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.realEstateListing_mlsNumber}  " />
+				<br></br>
+
+
+				<h:inputText id="realEstateListing_mlsNumber#{entityId}"
+					required="false"
+					value="#{realEstateListingAction.realEstateListing.mlsNumber}" />
+
+
+				<h:message for="realEstateListing_mlsNumber"
+					styleClass="error errors" />
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.realEstateListing_daysOnMarket}  " />
+				<br></br>
+
+
+				<h:inputText id="realEstateListing_daysOnMarket#{entityId}"
+					required="false"
+					value="#{realEstateListingAction.realEstateListing.daysOnMarket}" />
+
+
+				<h:message for="realEstateListing_daysOnMarket"
+					styleClass="error errors" />
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.realEstateListing_propertyTaxes}  " />
+				<br></br>
+
+
+				<h:inputText id="realEstateListing_propertyTaxes#{entityId}"
+					required="false"
+					value="#{realEstateListingAction.realEstateListing.propertyTaxes}" />
+
+
+				<h:message for="realEstateListing_propertyTaxes"
+					styleClass="error errors" />
+
+			</h:panelGroup>
+
+			<h:panelGroup>
+
+
+				<h:outputText value="#{msg.realEstateListing_condoFees}  " />
+				<br></br>
+
+
+				<h:inputText id="realEstateListing_condoFees#{entityId}"
+					required="false"
+					value="#{realEstateListingAction.realEstateListing.condoFees}" />
+
+
+				<h:message for="realEstateListing_condoFees"
+					styleClass="error errors" />
+
+			</h:panelGroup>
+
+
+
+			<h:panelGroup>
+
+				<h:outputText value="#{msg.realEstateListing_costPerDiem}  " />
+				<br></br>
+
+
+				<h:inputText id="realEstateListing_costPerDiem#{entityId}"
+					required="false"
+					value="#{realEstateListingAction.realEstateListing.costPerDiem}" />
+
+
+				<h:message for="realEstateListing_costPerDiem"
+					styleClass="error errors" />
+
+			</h:panelGroup>
+
+
+
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.realEstateListing_lockBox}  " />
+				<br></br>
+
+
+				<h:inputText id="realEstateListing_lockBox#{entityId}"
+					required="false"
+					value="#{realEstateListingAction.realEstateListing.lockBox}" />
+
+
+				<h:message for="realEstateListing_lockBox" styleClass="error errors" />
+
+
+			</h:panelGroup>
+
+
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.realEstateListing_soldPrice}  " />
+				<br></br>
+
+
+				<h:inputText id="realEstateListing_soldPrice#{entityId}"
+					required="false"
+					value="#{realEstateListingAction.realEstateListing.soldPrice}" />
+
+
+				<h:message for="realEstateListing_soldPrice"
+					styleClass="error errors" />
+			</h:panelGroup>
+
+
+
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.realEstateListing_ownerOccupied}  " />
+				<br></br>
+
+
+				<h:selectBooleanCheckbox
+					id="realEstateListing_ownerOccupied#{entityId}" required="false"
+					value="#{realEstateListingAction.realEstateListing.ownerOccupied}" />
+
+
+				<h:message for="realEstateListing_ownerOccupied"
+					styleClass="error errors" />
+
+			</h:panelGroup>
+
+
+
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.realEstateListing_vacant}  " />
+				<br />
+
+
+				<h:selectBooleanCheckbox id="realEstateListing_vacant#{entityId}"
+					required="false"
+					value="#{realEstateListingAction.realEstateListing.vacant}" />
+
+
+				<h:message for="realEstateListing_vacant" styleClass="error errors" />
+			</h:panelGroup>
+
+
+
+
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.realEstateListing_tenanted}  " />
+				<br></br>
+
+
+				<h:selectBooleanCheckbox id="realEstateListing_tenanted#{entityId}"
+					required="false"
+					value="#{realEstateListingAction.realEstateListing.tenanted}" />
+
+
+				<h:message for="realEstateListing_tenanted"
+					styleClass="error errors" />
+			</h:panelGroup>
+
+
+
+		</h:panelGrid>
+	</rich:panel>
+	<br />
+
+
+
+
+
+</ui:composition>
