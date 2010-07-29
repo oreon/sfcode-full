@@ -53,7 +53,7 @@ public class Role extends BusinessEntity implements java.io.Serializable {
 	@Field(index = Index.TOKENIZED)
 	protected String name;
 
-	//users->roles ->Role->Role->Role
+	//users->roles ->Role->User->User
 
 	@ManyToMany(mappedBy = "roles")
 	private Set<User> users = new HashSet<User>();

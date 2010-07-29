@@ -34,7 +34,9 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class LenderContactActionBase extends BaseAction<LenderContact>
+public class LenderContactActionBase
+		extends
+			com.nas.recovery.web.action.loan.PersonAction<LenderContact>
 		implements
 			java.io.Serializable {
 
@@ -169,4 +171,5 @@ public class LenderContactActionBase extends BaseAction<LenderContact>
 		return lenderContactRecordList;
 	}
 
+	
 }

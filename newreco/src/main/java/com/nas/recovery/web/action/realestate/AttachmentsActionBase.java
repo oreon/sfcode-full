@@ -34,7 +34,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class AttachmentsActionBase extends BaseAction<Attachments>
+public abstract class AttachmentsActionBase extends BaseAction<Attachments>
 		implements
 			java.io.Serializable {
 

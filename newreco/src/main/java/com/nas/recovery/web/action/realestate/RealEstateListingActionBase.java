@@ -36,9 +36,9 @@ import org.jboss.seam.annotations.Observer;
 
 import com.nas.recovery.domain.realestate.Offers;
 
-public class RealEstateListingActionBase extends BaseAction<RealEstateListing>
-		implements
-			java.io.Serializable {
+public abstract class RealEstateListingActionBase
+		extends
+			BaseAction<RealEstateListing> implements java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)

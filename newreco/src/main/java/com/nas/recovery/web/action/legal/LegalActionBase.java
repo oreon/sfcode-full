@@ -34,7 +34,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class LegalActionBase extends BaseAction<Legal>
+public abstract class LegalActionBase extends BaseAction<Legal>
 		implements
 			java.io.Serializable {
 

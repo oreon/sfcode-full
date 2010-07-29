@@ -8,7 +8,7 @@ import com.nas.recovery.domain.loan.Person;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("personAction")
-public class PersonAction {
+public class CurrentPersonAction {
 
 	private Person person;
 

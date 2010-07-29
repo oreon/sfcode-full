@@ -11,27 +11,15 @@ import com.nas.recovery.web.action.users.RoleAction;
 public class MasterAgentAction extends MasterAgentActionBase implements
 		java.io.Serializable {
 
-	@In(create=true)
-	RoleAction roleAction;
-	
+	public static String DEF_ROLE = "realtor";
+
 	@Override
-	public String save() {
-		boolean isNew = getInstance().getId() == null;
-		if (isNew) {
-			Role role = roleAction.loadFromId(6L);
-			getInstance().getUser().getRoles().add(role);
-		}
-		String result = super.save();
-		if (isNew){
-			sendMail("/mails/registrationSuccess.xhtml");
-		}
-		return result;
+	public String definedRole() {
+		// TODO Auto-generated method stub
+		return DEF_ROLE;
 	}
 	
 	
-	public String sendRegMail(){
-		return "a" ;
-		//sendMail("/mails/registrationSuccess.xhtml");
-	}
+
 
 }

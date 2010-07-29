@@ -34,7 +34,9 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class InsurerProcessActionBase extends BaseAction<InsurerProcess>
+public abstract class InsurerProcessActionBase
+		extends
+			com.nas.recovery.web.action.legal.ProcessAction<InsurerProcess>
 		implements
 			java.io.Serializable {
 

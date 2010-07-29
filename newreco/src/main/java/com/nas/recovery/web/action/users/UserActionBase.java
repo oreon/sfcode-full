@@ -34,7 +34,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class UserActionBase extends BaseAction<User>
+public abstract class UserActionBase extends BaseAction<User>
 		implements
 			java.io.Serializable {
 

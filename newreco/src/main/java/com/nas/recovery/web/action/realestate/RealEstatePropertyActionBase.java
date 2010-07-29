@@ -39,7 +39,7 @@ import com.nas.recovery.domain.realestate.Cma;
 import com.nas.recovery.domain.appraisal.Appraisal;
 import com.nas.recovery.domain.realestate.FilesUploaded;
 
-public class RealEstatePropertyActionBase
+public abstract class RealEstatePropertyActionBase
 		extends
 			BaseAction<RealEstateProperty> implements java.io.Serializable {
 

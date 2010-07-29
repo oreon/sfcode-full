@@ -34,7 +34,9 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class MasterAgentActionBase extends BaseAction<MasterAgent>
+public abstract class MasterAgentActionBase
+		extends
+			com.nas.recovery.web.action.loan.PersonAction<MasterAgent>
 		implements
 			java.io.Serializable {
 

@@ -47,22 +47,39 @@ public class RealEstateListing extends BusinessEntity
 			java.io.Serializable {
 	private static final long serialVersionUID = -698191460L;
 
+	protected Date dateListed;
+
+	@Column(name = "expiryDate", unique = false)
+	protected Date expiryDate;
+
 	protected Double listPrice;
+
+	protected Double minSalePrice;
+
+	protected Integer mlsNumber;
+
+	protected Integer daysOnMarket;
 
 	protected Double propertyTaxes;
 
-	protected Double soldPrice;
-
-	protected Integer lockBox;
+	protected Double condoFees;
 
 	protected Double costPerDiem;
 
-	protected Boolean vtbAccepted;
+	protected Integer lockBox;
+
+	protected Double soldPrice;
+
+	protected Boolean ownerOccupied;
+
+	protected Boolean vacant;
+
+	protected Boolean tenanted;
+
+	@Lob
+	protected String mlsComments;
 
 	protected Integer realEstateNumber;
-
-	@Field(index = Index.TOKENIZED)
-	protected String status;
 
 	@Field(index = Index.TOKENIZED)
 	protected String cmaOrdered;
@@ -71,30 +88,6 @@ public class RealEstateListing extends BusinessEntity
 	protected String occupied;
 
 	protected Double commission;
-
-	protected Integer mlsNumber;
-
-	protected Double condoFees;
-
-	protected Date dateListed;
-
-	protected Integer mortgageNumber;
-
-	protected Date soldDate;
-
-	protected Integer daysOnMarket;
-
-	@Field(index = Index.TOKENIZED)
-	protected String mlsComments;
-
-	protected Date closingDate;
-
-	protected Boolean vtbOffered;
-
-	protected Double deposit;
-
-	@Column(name = "expiryDate", unique = false)
-	protected Date expiryDate;
 
 	//listingSummarys-> ->->RealEstateListing->
 
@@ -120,7 +113,7 @@ public class RealEstateListing extends BusinessEntity
 	@ContainedIn
 	protected RealEstateProperty realEstateProperty;
 
-	//offerses->realEstateListing ->RealEstateListing->RealEstateListing->RealEstateListing
+	//offerses->realEstateListing ->RealEstateListing->Offers->Offers
 
 	@OneToMany(mappedBy = "realEstateListing", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateListing_ID", nullable = true)
@@ -137,6 +130,34 @@ public class RealEstateListing extends BusinessEntity
 	@ContainedIn
 	protected MasterAgent subagent;
 
+	protected Integer mortgageNumber;
+
+	protected Date soldDate;
+
+	protected Boolean vtbOffered;
+
+	protected Boolean vtbAccepted;
+
+	protected Double deposit;
+
+	public void setDateListed(Date dateListed) {
+		this.dateListed = dateListed;
+	}
+
+	public Date getDateListed() {
+
+		return dateListed;
+	}
+
+	public void setExpiryDate(Date expiryDate) {
+		this.expiryDate = expiryDate;
+	}
+
+	public Date getExpiryDate() {
+
+		return expiryDate;
+	}
+
 	public void setListPrice(Double listPrice) {
 		this.listPrice = listPrice;
 	}
@@ -144,6 +165,33 @@ public class RealEstateListing extends BusinessEntity
 	public Double getListPrice() {
 
 		return listPrice;
+	}
+
+	public void setMinSalePrice(Double minSalePrice) {
+		this.minSalePrice = minSalePrice;
+	}
+
+	public Double getMinSalePrice() {
+
+		return minSalePrice;
+	}
+
+	public void setMlsNumber(Integer mlsNumber) {
+		this.mlsNumber = mlsNumber;
+	}
+
+	public Integer getMlsNumber() {
+
+		return mlsNumber;
+	}
+
+	public void setDaysOnMarket(Integer daysOnMarket) {
+		this.daysOnMarket = daysOnMarket;
+	}
+
+	public Integer getDaysOnMarket() {
+
+		return daysOnMarket;
 	}
 
 	public void setPropertyTaxes(Double propertyTaxes) {
@@ -155,22 +203,13 @@ public class RealEstateListing extends BusinessEntity
 		return propertyTaxes;
 	}
 
-	public void setSoldPrice(Double soldPrice) {
-		this.soldPrice = soldPrice;
+	public void setCondoFees(Double condoFees) {
+		this.condoFees = condoFees;
 	}
 
-	public Double getSoldPrice() {
+	public Double getCondoFees() {
 
-		return soldPrice;
-	}
-
-	public void setLockBox(Integer lockBox) {
-		this.lockBox = lockBox;
-	}
-
-	public Integer getLockBox() {
-
-		return lockBox;
+		return condoFees;
 	}
 
 	public void setCostPerDiem(Double costPerDiem) {
@@ -182,13 +221,58 @@ public class RealEstateListing extends BusinessEntity
 		return costPerDiem;
 	}
 
-	public void setVtbAccepted(Boolean vtbAccepted) {
-		this.vtbAccepted = vtbAccepted;
+	public void setLockBox(Integer lockBox) {
+		this.lockBox = lockBox;
 	}
 
-	public Boolean getVtbAccepted() {
+	public Integer getLockBox() {
 
-		return vtbAccepted;
+		return lockBox;
+	}
+
+	public void setSoldPrice(Double soldPrice) {
+		this.soldPrice = soldPrice;
+	}
+
+	public Double getSoldPrice() {
+
+		return soldPrice;
+	}
+
+	public void setOwnerOccupied(Boolean ownerOccupied) {
+		this.ownerOccupied = ownerOccupied;
+	}
+
+	public Boolean getOwnerOccupied() {
+
+		return ownerOccupied;
+	}
+
+	public void setVacant(Boolean vacant) {
+		this.vacant = vacant;
+	}
+
+	public Boolean getVacant() {
+
+		return vacant;
+	}
+
+	public void setTenanted(Boolean tenanted) {
+		this.tenanted = tenanted;
+	}
+
+	public Boolean getTenanted() {
+
+		return tenanted;
+	}
+
+	public void setMlsComments(String mlsComments) {
+		this.mlsComments = mlsComments;
+	}
+
+	public String getMlsComments() {
+
+		return mlsComments;
 	}
 
 	public void setRealEstateNumber(Integer realEstateNumber) {
@@ -198,15 +282,6 @@ public class RealEstateListing extends BusinessEntity
 	public Integer getRealEstateNumber() {
 
 		return realEstateNumber;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getStatus() {
-
-		return status;
 	}
 
 	public void setCmaOrdered(String cmaOrdered) {
@@ -234,105 +309,6 @@ public class RealEstateListing extends BusinessEntity
 	public Double getCommission() {
 
 		return commission;
-	}
-
-	public void setMlsNumber(Integer mlsNumber) {
-		this.mlsNumber = mlsNumber;
-	}
-
-	public Integer getMlsNumber() {
-
-		return mlsNumber;
-	}
-
-	public void setCondoFees(Double condoFees) {
-		this.condoFees = condoFees;
-	}
-
-	public Double getCondoFees() {
-
-		return condoFees;
-	}
-
-	public void setDateListed(Date dateListed) {
-		this.dateListed = dateListed;
-	}
-
-	public Date getDateListed() {
-
-		return dateListed;
-	}
-
-	public void setMortgageNumber(Integer mortgageNumber) {
-		this.mortgageNumber = mortgageNumber;
-	}
-
-	public Integer getMortgageNumber() {
-
-		return mortgageNumber;
-	}
-
-	public void setSoldDate(Date soldDate) {
-		this.soldDate = soldDate;
-	}
-
-	public Date getSoldDate() {
-
-		return soldDate;
-	}
-
-	public void setDaysOnMarket(Integer daysOnMarket) {
-		this.daysOnMarket = daysOnMarket;
-	}
-
-	public Integer getDaysOnMarket() {
-
-		return daysOnMarket;
-	}
-
-	public void setMlsComments(String mlsComments) {
-		this.mlsComments = mlsComments;
-	}
-
-	public String getMlsComments() {
-
-		return mlsComments;
-	}
-
-	public void setClosingDate(Date closingDate) {
-		this.closingDate = closingDate;
-	}
-
-	public Date getClosingDate() {
-
-		return closingDate;
-	}
-
-	public void setVtbOffered(Boolean vtbOffered) {
-		this.vtbOffered = vtbOffered;
-	}
-
-	public Boolean getVtbOffered() {
-
-		return vtbOffered;
-	}
-
-	public void setDeposit(Double deposit) {
-		this.deposit = deposit;
-	}
-
-	public Double getDeposit() {
-
-		return deposit;
-	}
-
-	public void setExpiryDate(Date expiryDate) {
-		this.expiryDate = expiryDate;
-	}
-
-	public Date getExpiryDate() {
-
-		return expiryDate;
 	}
 
 	public void setListingSummarys(Set<ListingSummary> listingSummarys) {
@@ -395,9 +371,54 @@ public class RealEstateListing extends BusinessEntity
 		return subagent;
 	}
 
+	public void setMortgageNumber(Integer mortgageNumber) {
+		this.mortgageNumber = mortgageNumber;
+	}
+
+	public Integer getMortgageNumber() {
+
+		return mortgageNumber;
+	}
+
+	public void setSoldDate(Date soldDate) {
+		this.soldDate = soldDate;
+	}
+
+	public Date getSoldDate() {
+
+		return soldDate;
+	}
+
+	public void setVtbOffered(Boolean vtbOffered) {
+		this.vtbOffered = vtbOffered;
+	}
+
+	public Boolean getVtbOffered() {
+
+		return vtbOffered;
+	}
+
+	public void setVtbAccepted(Boolean vtbAccepted) {
+		this.vtbAccepted = vtbAccepted;
+	}
+
+	public Boolean getVtbAccepted() {
+
+		return vtbAccepted;
+	}
+
+	public void setDeposit(Double deposit) {
+		this.deposit = deposit;
+	}
+
+	public Double getDeposit() {
+
+		return deposit;
+	}
+
 	@Transient
 	public String getDisplayName() {
-		return status;
+		return cmaOrdered;
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
@@ -408,21 +429,11 @@ public class RealEstateListing extends BusinessEntity
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
-		listSearchableFields.add("status");
-
 		listSearchableFields.add("cmaOrdered");
 
 		listSearchableFields.add("occupied");
 
-		listSearchableFields.add("mlsComments");
-
-		listSearchableFields.add("offerses.conditionExpiry");
-
 		listSearchableFields.add("offerses.purchaser");
-
-		listSearchableFields.add("offerses.comments");
-
-		listSearchableFields.add("offerses.status");
 
 		return listSearchableFields;
 	}

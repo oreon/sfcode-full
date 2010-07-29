@@ -71,6 +71,33 @@
 	
 	
 	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_status}  "/> <br/>
+	<h:selectOneMenu id="realEstateProperty_status" required="false" value="#{realEstatePropertyList.realEstateProperty.status}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Drive_by" itemValue="DRIVE_BY"/>
+		<f:selectItem itemLabel="Right_to_sell" itemValue="RIGHT_TO_SELL"/>
+		<f:selectItem itemLabel="Listed" itemValue="LISTED"/>
+		<f:selectItem itemLabel="Conditional_sale" itemValue="CONDITIONAL_SALE"/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_title}  "/> <br/>
+	
+		<h:inputText id="realEstateProperty_title" value="#{realEstatePropertyList.realEstateProperty.title}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
 			<s:decorate template="/layout/display.xhtml">
 				<ui:define name="label">From</ui:define> <br/>
 				<rich:calendar id="from" value="#{realEstatePropertyList.dateCreatedRange.begin}"/>

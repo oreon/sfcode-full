@@ -6,6 +6,46 @@
 	<h:panelGrid columns="6">
 	
 	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateListing_dateListed}  "/> <br/>
+	
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">From</ui:define> <br/>
+		<rich:calendar value="#{realEstateListingList.realEstateListing_dateListedRange.begin}"/>
+	</s:decorate>
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">To</ui:define> <br/>
+		<rich:calendar value="#{realEstateListingList.realEstateListing_dateListedRange.end}"/>
+	</s:decorate>	
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateListing_expiryDate}  "/> <br/>
+	
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">From</ui:define> <br/>
+		<rich:calendar value="#{realEstateListingList.realEstateListing_expiryDateRange.begin}"/>
+	</s:decorate>
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">To</ui:define> <br/>
+		<rich:calendar value="#{realEstateListingList.realEstateListing_expiryDateRange.end}"/>
+	</s:decorate>	
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
 	<h:outputText value="#{msg.realEstateListing_listPrice}  "/> <br/>
 	
 	
@@ -14,6 +54,63 @@
 	</h:inputText>
 	<h:inputText id="realEstateListing_listPrice_end" value="#{realEstateListingList.realEstateListing_listPriceRange.end}">
 		<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateListing_minSalePrice}  "/> <br/>
+	
+	
+	<h:inputText id="realEstateListing_minSalePrice_begin" value="#{realEstateListingList.realEstateListing_minSalePriceRange.begin}">
+			<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	<h:inputText id="realEstateListing_minSalePrice_end" value="#{realEstateListingList.realEstateListing_minSalePriceRange.end}">
+		<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateListing_mlsNumber}  "/> <br/>
+	
+	
+	<h:inputText id="realEstateListing_mlsNumber_begin" value="#{realEstateListingList.realEstateListing_mlsNumberRange.begin}">
+			<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	<h:inputText id="realEstateListing_mlsNumber_end" value="#{realEstateListingList.realEstateListing_mlsNumberRange.end}">
+		<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateListing_daysOnMarket}  "/> <br/>
+	
+	
+	<h:inputText id="realEstateListing_daysOnMarket_begin" value="#{realEstateListingList.realEstateListing_daysOnMarketRange.begin}">
+			<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	<h:inputText id="realEstateListing_daysOnMarket_end" value="#{realEstateListingList.realEstateListing_daysOnMarketRange.end}">
+		<f:converter converterId="javax.faces.Integer"/>
 	</h:inputText>
 	
 
@@ -44,13 +141,32 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.realEstateListing_soldPrice}  "/> <br/>
+	<h:outputText value="#{msg.realEstateListing_condoFees}  "/> <br/>
 	
 	
-	<h:inputText id="realEstateListing_soldPrice_begin" value="#{realEstateListingList.realEstateListing_soldPriceRange.begin}">
+	<h:inputText id="realEstateListing_condoFees_begin" value="#{realEstateListingList.realEstateListing_condoFeesRange.begin}">
 			<f:converter converterId="javax.faces.Double"/>
 	</h:inputText>
-	<h:inputText id="realEstateListing_soldPrice_end" value="#{realEstateListingList.realEstateListing_soldPriceRange.end}">
+	<h:inputText id="realEstateListing_condoFees_end" value="#{realEstateListingList.realEstateListing_condoFeesRange.end}">
+		<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateListing_costPerDiem}  "/> <br/>
+	
+	
+	<h:inputText id="realEstateListing_costPerDiem_begin" value="#{realEstateListingList.realEstateListing_costPerDiemRange.begin}">
+			<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	<h:inputText id="realEstateListing_costPerDiem_end" value="#{realEstateListingList.realEstateListing_costPerDiemRange.end}">
 		<f:converter converterId="javax.faces.Double"/>
 	</h:inputText>
 	
@@ -82,13 +198,13 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.realEstateListing_costPerDiem}  "/> <br/>
+	<h:outputText value="#{msg.realEstateListing_soldPrice}  "/> <br/>
 	
 	
-	<h:inputText id="realEstateListing_costPerDiem_begin" value="#{realEstateListingList.realEstateListing_costPerDiemRange.begin}">
+	<h:inputText id="realEstateListing_soldPrice_begin" value="#{realEstateListingList.realEstateListing_soldPriceRange.begin}">
 			<f:converter converterId="javax.faces.Double"/>
 	</h:inputText>
-	<h:inputText id="realEstateListing_costPerDiem_end" value="#{realEstateListingList.realEstateListing_costPerDiemRange.end}">
+	<h:inputText id="realEstateListing_soldPrice_end" value="#{realEstateListingList.realEstateListing_soldPriceRange.end}">
 		<f:converter converterId="javax.faces.Double"/>
 	</h:inputText>
 	
@@ -101,13 +217,54 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.realEstateListing_vtbAccepted}  "/> <br/>
+	<h:outputText value="#{msg.realEstateListing_ownerOccupied}  "/> <br/>
 	
-	<h:selectOneMenu id="realEstateListing_vtbAccepted" required="false" value="#{realEstateListingList.realEstateListing.vtbAccepted}">
+	<h:selectOneMenu id="realEstateListing_ownerOccupied" required="false" value="#{realEstateListingList.realEstateListing.ownerOccupied}">
 		<f:selectItem itemLabel="Any" itemValue=""/>
 		<f:selectItem itemLabel="True" itemValue="true"/>
 		<f:selectItem itemLabel="False" itemValue="false"/>
 	</h:selectOneMenu>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateListing_vacant}  "/> <br/>
+	
+	<h:selectOneMenu id="realEstateListing_vacant" required="false" value="#{realEstateListingList.realEstateListing.vacant}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="True" itemValue="true"/>
+		<f:selectItem itemLabel="False" itemValue="false"/>
+	</h:selectOneMenu>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateListing_tenanted}  "/> <br/>
+	
+	<h:selectOneMenu id="realEstateListing_tenanted" required="false" value="#{realEstateListingList.realEstateListing.tenanted}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="True" itemValue="true"/>
+		<f:selectItem itemLabel="False" itemValue="false"/>
+	</h:selectOneMenu>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateListing_mlsComments}  "/> <br/>
+	
+		<h:inputText id="realEstateListing_mlsComments" value="#{realEstateListingList.realEstateListing.mlsComments}"/>
 	
 	
 	</h:panelGroup>
@@ -127,17 +284,6 @@
 	</h:inputText>
 	
 
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.realEstateListing_status}  "/> <br/>
-	
-		<h:inputText id="realEstateListing_status" value="#{realEstateListingList.realEstateListing.status}"/>
 	
 	
 	</h:panelGroup>
@@ -177,207 +323,6 @@
 	<h:inputText id="realEstateListing_commission_end" value="#{realEstateListingList.realEstateListing_commissionRange.end}">
 		<f:converter converterId="javax.faces.Double"/>
 	</h:inputText>
-	
-
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.realEstateListing_mlsNumber}  "/> <br/>
-	
-	
-	<h:inputText id="realEstateListing_mlsNumber_begin" value="#{realEstateListingList.realEstateListing_mlsNumberRange.begin}">
-			<f:converter converterId="javax.faces.Integer"/>
-	</h:inputText>
-	<h:inputText id="realEstateListing_mlsNumber_end" value="#{realEstateListingList.realEstateListing_mlsNumberRange.end}">
-		<f:converter converterId="javax.faces.Integer"/>
-	</h:inputText>
-	
-
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.realEstateListing_condoFees}  "/> <br/>
-	
-	
-	<h:inputText id="realEstateListing_condoFees_begin" value="#{realEstateListingList.realEstateListing_condoFeesRange.begin}">
-			<f:converter converterId="javax.faces.Double"/>
-	</h:inputText>
-	<h:inputText id="realEstateListing_condoFees_end" value="#{realEstateListingList.realEstateListing_condoFeesRange.end}">
-		<f:converter converterId="javax.faces.Double"/>
-	</h:inputText>
-	
-
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.realEstateListing_dateListed}  "/> <br/>
-	
-	<s:decorate template="/layout/display.xhtml">
-		<ui:define name="label">From</ui:define> <br/>
-		<rich:calendar value="#{realEstateListingList.realEstateListing_dateListedRange.begin}"/>
-	</s:decorate>
-	<s:decorate template="/layout/display.xhtml">
-		<ui:define name="label">To</ui:define> <br/>
-		<rich:calendar value="#{realEstateListingList.realEstateListing_dateListedRange.end}"/>
-	</s:decorate>	
-	
-
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.realEstateListing_mortgageNumber}  "/> <br/>
-	
-	
-	<h:inputText id="realEstateListing_mortgageNumber_begin" value="#{realEstateListingList.realEstateListing_mortgageNumberRange.begin}">
-			<f:converter converterId="javax.faces.Integer"/>
-	</h:inputText>
-	<h:inputText id="realEstateListing_mortgageNumber_end" value="#{realEstateListingList.realEstateListing_mortgageNumberRange.end}">
-		<f:converter converterId="javax.faces.Integer"/>
-	</h:inputText>
-	
-
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.realEstateListing_soldDate}  "/> <br/>
-	
-	<s:decorate template="/layout/display.xhtml">
-		<ui:define name="label">From</ui:define> <br/>
-		<rich:calendar value="#{realEstateListingList.realEstateListing_soldDateRange.begin}"/>
-	</s:decorate>
-	<s:decorate template="/layout/display.xhtml">
-		<ui:define name="label">To</ui:define> <br/>
-		<rich:calendar value="#{realEstateListingList.realEstateListing_soldDateRange.end}"/>
-	</s:decorate>	
-	
-
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.realEstateListing_daysOnMarket}  "/> <br/>
-	
-	
-	<h:inputText id="realEstateListing_daysOnMarket_begin" value="#{realEstateListingList.realEstateListing_daysOnMarketRange.begin}">
-			<f:converter converterId="javax.faces.Integer"/>
-	</h:inputText>
-	<h:inputText id="realEstateListing_daysOnMarket_end" value="#{realEstateListingList.realEstateListing_daysOnMarketRange.end}">
-		<f:converter converterId="javax.faces.Integer"/>
-	</h:inputText>
-	
-
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.realEstateListing_mlsComments}  "/> <br/>
-	
-		<h:inputText id="realEstateListing_mlsComments" value="#{realEstateListingList.realEstateListing.mlsComments}"/>
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.realEstateListing_closingDate}  "/> <br/>
-	
-	<s:decorate template="/layout/display.xhtml">
-		<ui:define name="label">From</ui:define> <br/>
-		<rich:calendar value="#{realEstateListingList.realEstateListing_closingDateRange.begin}"/>
-	</s:decorate>
-	<s:decorate template="/layout/display.xhtml">
-		<ui:define name="label">To</ui:define> <br/>
-		<rich:calendar value="#{realEstateListingList.realEstateListing_closingDateRange.end}"/>
-	</s:decorate>	
-	
-
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.realEstateListing_vtbOffered}  "/> <br/>
-	
-	<h:selectOneMenu id="realEstateListing_vtbOffered" required="false" value="#{realEstateListingList.realEstateListing.vtbOffered}">
-		<f:selectItem itemLabel="Any" itemValue=""/>
-		<f:selectItem itemLabel="True" itemValue="true"/>
-		<f:selectItem itemLabel="False" itemValue="false"/>
-	</h:selectOneMenu>
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.realEstateListing_deposit}  "/> <br/>
-	
-	
-	<h:inputText id="realEstateListing_deposit_begin" value="#{realEstateListingList.realEstateListing_depositRange.begin}">
-			<f:converter converterId="javax.faces.Double"/>
-	</h:inputText>
-	<h:inputText id="realEstateListing_deposit_end" value="#{realEstateListingList.realEstateListing_depositRange.end}">
-		<f:converter converterId="javax.faces.Double"/>
-	</h:inputText>
-	
-
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.realEstateListing_expiryDate}  "/> <br/>
-	
-	<s:decorate template="/layout/display.xhtml">
-		<ui:define name="label">From</ui:define> <br/>
-		<rich:calendar value="#{realEstateListingList.realEstateListing_expiryDateRange.begin}"/>
-	</s:decorate>
-	<s:decorate template="/layout/display.xhtml">
-		<ui:define name="label">To</ui:define> <br/>
-		<rich:calendar value="#{realEstateListingList.realEstateListing_expiryDateRange.end}"/>
-	</s:decorate>	
 	
 
 	
@@ -428,6 +373,94 @@
 		<f:selectItem itemLabel="--None--" itemValue=""/>
 	</h:selectOneMenu>
 	</h:panelGroup>
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateListing_mortgageNumber}  "/> <br/>
+	
+	
+	<h:inputText id="realEstateListing_mortgageNumber_begin" value="#{realEstateListingList.realEstateListing_mortgageNumberRange.begin}">
+			<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	<h:inputText id="realEstateListing_mortgageNumber_end" value="#{realEstateListingList.realEstateListing_mortgageNumberRange.end}">
+		<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateListing_soldDate}  "/> <br/>
+	
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">From</ui:define> <br/>
+		<rich:calendar value="#{realEstateListingList.realEstateListing_soldDateRange.begin}"/>
+	</s:decorate>
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">To</ui:define> <br/>
+		<rich:calendar value="#{realEstateListingList.realEstateListing_soldDateRange.end}"/>
+	</s:decorate>	
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateListing_vtbOffered}  "/> <br/>
+	
+	<h:selectOneMenu id="realEstateListing_vtbOffered" required="false" value="#{realEstateListingList.realEstateListing.vtbOffered}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="True" itemValue="true"/>
+		<f:selectItem itemLabel="False" itemValue="false"/>
+	</h:selectOneMenu>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateListing_vtbAccepted}  "/> <br/>
+	
+	<h:selectOneMenu id="realEstateListing_vtbAccepted" required="false" value="#{realEstateListingList.realEstateListing.vtbAccepted}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="True" itemValue="true"/>
+		<f:selectItem itemLabel="False" itemValue="false"/>
+	</h:selectOneMenu>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateListing_deposit}  "/> <br/>
+	
+	
+	<h:inputText id="realEstateListing_deposit_begin" value="#{realEstateListingList.realEstateListing_depositRange.begin}">
+			<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	<h:inputText id="realEstateListing_deposit_end" value="#{realEstateListingList.realEstateListing_depositRange.end}">
+		<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
 	
 	
 	

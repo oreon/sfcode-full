@@ -1,4 +1,4 @@
-package com.nas.recovery.web.action.legal;
+package com.nas.recovery.web.action.realestate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -10,13 +10,11 @@ import org.hibernate.annotations.Filter;
 
 import org.testng.annotations.BeforeClass;
 import org.witchcraft.seam.action.BaseAction;
-import com.nas.recovery.domain.legal.Process;
+import com.nas.recovery.domain.realestate.Cma;
 
-public class ProcessActionTestBase
-		extends
-			org.witchcraft.action.test.BaseTest<Process> {
+public class CmaActionTestBase extends org.witchcraft.action.test.BaseTest<Cma> {
 
-	ProcessAction processAction = new ProcessAction();
+	CmaAction cmaAction = new CmaAction();
 
 	@BeforeClass
 	public void init() {
@@ -24,8 +22,8 @@ public class ProcessActionTestBase
 	}
 
 	@Override
-	public BaseAction<Process> getAction() {
-		return processAction;
+	public BaseAction<Cma> getAction() {
+		return cmaAction;
 	}
 
 }

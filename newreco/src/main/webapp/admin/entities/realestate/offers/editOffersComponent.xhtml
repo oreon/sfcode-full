@@ -41,13 +41,89 @@
 	
 	
 		
-		<h:outputText value="#{msg.offers_saleDate}  "/>
+		<h:outputText value="#{msg.offers_offerDate}  "/>
 		
 
-	<rich:calendar id="offers_saleDate#{entityId}" required="false" value="#{offersAction.offers.saleDate}"/>
+	<rich:calendar id="offers_offerDate#{entityId}" required="false" value="#{offersAction.offers.offerDate}"/>
    
 		
-		<h:message for="offers_saleDate" styleClass="error errors"/>		
+		<h:message for="offers_offerDate" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.offers_purchaser}  "/>
+		
+
+	<h:inputText id="offers_purchaser#{entityId}" required="false" value="#{offersAction.offers.purchaser}"/>
+   
+		
+		<h:message for="offers_purchaser" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.offers_amount}  "/>
+		
+
+	<h:inputText id="offers_amount#{entityId}" required="false" value="#{offersAction.offers.amount}"/>
+   
+		
+		<h:message for="offers_amount" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.offers_condition}  "/>
+		
+	
+	<h:selectOneMenu id="offers_condition" required="false" value="#{offersAction.offers.condition}">
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
+		<f:selectItem itemLabel="Inspection" itemValue="Inspection"/>
+		<f:selectItem itemLabel="Finance" itemValue="Finance"/>
+		<f:selectItem itemLabel="Appraisal" itemValue="Appraisal"/>
+		<f:selectItem itemLabel="Scc" itemValue="SCC"/>
+		<f:selectItem itemLabel="Insurance" itemValue="Insurance"/>
+		<f:selectItem itemLabel="Other" itemValue="Other"/>
+		
+	</h:selectOneMenu>
+	
+		
+		<h:message for="offers_condition" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.offers_status}  "/>
+		
+	
+	<h:selectOneMenu id="offers_status" required="false" value="#{offersAction.offers.status}">
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
+		<f:selectItem itemLabel="Offer" itemValue="Offer"/>
+		<f:selectItem itemLabel="Signbackbuyer" itemValue="SignBackBuyer"/>
+		<f:selectItem itemLabel="Signbackseller" itemValue="SignBackSeller"/>
+		<f:selectItem itemLabel="Soldfirm" itemValue="SoldFirm"/>
+		<f:selectItem itemLabel="Conditionalsale" itemValue="ConditionalSale"/>
+		<f:selectItem itemLabel="Fellthrough" itemValue="FellThrough"/>
+		<f:selectItem itemLabel="Rejected" itemValue="Rejected"/>
+		<f:selectItem itemLabel="Accepted" itemValue="Accepted"/>
+		
+	</h:selectOneMenu>
+	
+		
+		<h:message for="offers_status" styleClass="error errors"/>		
 		
 	
 	
@@ -72,7 +148,7 @@
 		<h:outputText value="#{msg.offers_conditionExpiry}  "/>
 		
 
-	<h:inputText id="offers_conditionExpiry#{entityId}" required="false" value="#{offersAction.offers.conditionExpiry}"/>
+	<rich:calendar id="offers_conditionExpiry#{entityId}" required="false" value="#{offersAction.offers.conditionExpiry}"/>
    
 		
 		<h:message for="offers_conditionExpiry" styleClass="error errors"/>		
@@ -83,13 +159,13 @@
 	
 	
 		
-		<h:outputText value="#{msg.offers_purchaser}  "/>
+		<h:outputText value="#{msg.offers_closingDate}  "/>
 		
 
-	<h:inputText id="offers_purchaser#{entityId}" required="false" value="#{offersAction.offers.purchaser}"/>
+	<rich:calendar id="offers_closingDate#{entityId}" required="false" value="#{offersAction.offers.closingDate}"/>
    
 		
-		<h:message for="offers_purchaser" styleClass="error errors"/>		
+		<h:message for="offers_closingDate" styleClass="error errors"/>		
 		
 	
 	
@@ -100,38 +176,10 @@
 		<h:outputText value="#{msg.offers_comments}  "/>
 		
 
-	<h:inputText id="offers_comments#{entityId}" required="false" value="#{offersAction.offers.comments}"/>
+	<rich:editor id="offers_comments#{entityId}" required="false" useSeamText="true" value="#{offersAction.offers.comments}"/>
    
 		
 		<h:message for="offers_comments" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.offers_amount}  "/>
-		
-
-	<h:inputText id="offers_amount#{entityId}" required="false" value="#{offersAction.offers.amount}"/>
-   
-		
-		<h:message for="offers_amount" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.offers_status}  "/>
-		
-
-	<h:inputText id="offers_status#{entityId}" required="false" value="#{offersAction.offers.status}"/>
-   
-		
-		<h:message for="offers_status" styleClass="error errors"/>		
 		
 	
 	

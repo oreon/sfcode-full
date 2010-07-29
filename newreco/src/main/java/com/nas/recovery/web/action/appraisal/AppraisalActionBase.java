@@ -34,7 +34,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class AppraisalActionBase extends BaseAction<Appraisal>
+public abstract class AppraisalActionBase extends BaseAction<Appraisal>
 		implements
 			java.io.Serializable {
 

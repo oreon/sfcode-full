@@ -1,6 +1,6 @@
 
 
-package com.nas.recovery.web.action.legal;
+package com.nas.recovery.web.action.realestate;
 
 
 	import javax.persistence.EntityManager;
@@ -13,9 +13,9 @@ package com.nas.recovery.web.action.legal;
 	
 	import org.testng.annotations.BeforeClass;
 	import org.witchcraft.seam.action.BaseAction;
-	import com.nas.recovery.domain.legal.Process;
+	import com.nas.recovery.domain.realestate.Cma;
 
 
-public class ProcessActionTest extends ProcessActionTestBase{
+public class CmaActionTest extends CmaActionTestBase{
 	
 }

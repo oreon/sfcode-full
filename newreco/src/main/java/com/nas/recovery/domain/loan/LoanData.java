@@ -78,7 +78,7 @@ public class LoanData extends BusinessEntity implements java.io.Serializable {
 
 	protected Boolean rentalProperty;
 
-	//borrowers-> ->->LoanData->
+	//borrowers-> ->->Borrower->
 
 	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "_ID", nullable = false)

@@ -86,21 +86,21 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 	@IndexedEmbedded
 	private Set<TitleSummary> titleSummarys = new HashSet<TitleSummary>();
 
-	//legalProcesses-> ->->Legal->
+	//legalProcesses-> ->->LegalProcess->
 
 	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "_ID", nullable = false)
 	@IndexedEmbedded
 	private Set<LegalProcess> legalProcesses = new HashSet<LegalProcess>();
 
-	//closingProcesses-> ->->Legal->
+	//closingProcesses-> ->->ClosingProcess->
 
 	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<ClosingProcess> closingProcesses = new HashSet<ClosingProcess>();
 
-	//insurerProcesses-> ->->Legal->
+	//insurerProcesses-> ->->InsurerProcess->
 
 	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "_ID", nullable = true)

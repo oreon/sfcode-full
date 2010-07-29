@@ -34,7 +34,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class MortgageeInformationActionBase
+public abstract class MortgageeInformationActionBase
 		extends
 			BaseAction<MortgageeInformation> implements java.io.Serializable {
 

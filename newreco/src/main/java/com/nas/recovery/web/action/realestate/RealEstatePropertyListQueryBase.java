@@ -43,6 +43,10 @@ public abstract class RealEstatePropertyListQueryBase
 
 			"realEstateProperty.insurer = #{realEstatePropertyList.realEstateProperty.insurer}",
 
+			"realEstateProperty.status = #{realEstatePropertyList.realEstateProperty.status}",
+
+			"lower(realEstateProperty.title) like concat(lower(#{realEstatePropertyList.realEstateProperty.title}),'%')",
+
 			"realEstateProperty.dateCreated <= #{realEstatePropertyList.dateCreatedRange.end}",
 			"realEstateProperty.dateCreated >= #{realEstatePropertyList.dateCreatedRange.begin}",};
 

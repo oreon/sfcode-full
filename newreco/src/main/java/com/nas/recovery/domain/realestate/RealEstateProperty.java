@@ -80,14 +80,14 @@ public class RealEstateProperty extends BusinessEntity
 	@IndexedEmbedded
 	private Set<Cma> cmas = new HashSet<Cma>();
 
-	//appraisals-> ->->RealEstateProperty->
+	//appraisals-> ->->Appraisal->
 
 	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<com.nas.recovery.domain.appraisal.Appraisal> appraisals = new HashSet<com.nas.recovery.domain.appraisal.Appraisal>();
 
-	//filesUploadeds->realEstateProperty ->RealEstateProperty->FilesUploaded->FilesUploaded
+	//filesUploadeds->realEstateProperty ->RealEstateProperty->RealEstateProperty->RealEstateProperty
 
 	@OneToMany(mappedBy = "realEstateProperty", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateProperty_ID", nullable = true)
@@ -98,6 +98,11 @@ public class RealEstateProperty extends BusinessEntity
 	@JoinColumn(name = "insurer_id", nullable = true, updatable = true)
 	@ContainedIn
 	protected com.nas.recovery.domain.loan.MortgageInsurer insurer;
+
+	protected PropetyStatus status;
+
+	@Field(index = Index.TOKENIZED)
+	protected String title;
 
 	public void setStreetAddress(String streetAddress) {
 		this.streetAddress = streetAddress;
@@ -185,6 +190,24 @@ public class RealEstateProperty extends BusinessEntity
 		return insurer;
 	}
 
+	public void setStatus(PropetyStatus status) {
+		this.status = status;
+	}
+
+	public PropetyStatus getStatus() {
+
+		return status;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getTitle() {
+
+		return title;
+	}
+
 	@Transient
 	public String getDisplayName() {
 		return streetAddress + ", " + city + ", " + state;
@@ -203,6 +226,8 @@ public class RealEstateProperty extends BusinessEntity
 		listSearchableFields.add("zip");
 
 		listSearchableFields.add("city");
+
+		listSearchableFields.add("title");
 
 		listSearchableFields.add("tenantInfos.unit");
 

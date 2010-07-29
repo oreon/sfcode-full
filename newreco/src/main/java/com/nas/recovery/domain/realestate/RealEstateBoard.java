@@ -52,7 +52,7 @@ public class RealEstateBoard extends BusinessEntity
 	@Field(index = Index.TOKENIZED)
 	protected String name;
 
-	//attachmentses-> ->->RealEstateBoard->
+	//attachmentses-> ->->Attachments->
 
 	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "_ID", nullable = true)

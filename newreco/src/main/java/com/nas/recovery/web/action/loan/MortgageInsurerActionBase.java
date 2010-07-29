@@ -34,7 +34,9 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class MortgageInsurerActionBase extends BaseAction<MortgageInsurer>
+public abstract class MortgageInsurerActionBase
+		extends
+			com.nas.recovery.web.action.loan.CompanyAction<MortgageInsurer>
 		implements
 			java.io.Serializable {
 
