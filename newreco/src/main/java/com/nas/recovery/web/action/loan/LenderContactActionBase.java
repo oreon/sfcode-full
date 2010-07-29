@@ -34,7 +34,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public class LenderContactActionBase
+public abstract class LenderContactActionBase
 		extends
 			com.nas.recovery.web.action.loan.PersonAction<LenderContact>
 		implements
@@ -171,5 +171,4 @@ public class LenderContactActionBase
 		return lenderContactRecordList;
 	}
 
-	
 }
