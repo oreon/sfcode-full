@@ -15,6 +15,7 @@
 
 «DEFINE PackageRoot FOR uml::Package»
 	«EXPAND BaseGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	«EXPAND BaseGen FOREACH allOwnedElements().typeSelect(wcprofile::MappedSuperClass)»
 	«EXPAND ManualGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 «ENDDEFINE»
 	
@@ -24,22 +25,39 @@
 
 «DEFINE ManualGen FOR wcprofile::Entity»
 
-«FILE getWebPackagePath("Action")  man_path »
+	«FILE getWebPackagePath("Action")  man_path »
+	
+	package « getWebPackageName() »;
+	
+	«EXPAND genImports FOR this»	
+	//@Scope(ScopeType.CONVERSATION)
+	@Name("«asVar()»Action")
+	public class «name»Action extends «name»ActionBase implements java.io.Serializable{
+		
+	}
+	«ENDFILE»
 
+«ENDDEFINE»
+
+«DEFINE BaseGen FOR wcprofile::MappedSuperClass»
+
+	«FILE getWebPackagePath("Action")  man_path »
+	
 package « getWebPackageName() »;
 
 «EXPAND genImports FOR this»	
-//@Scope(ScopeType.CONVERSATION)
-@Name("«asVar()»Action")
-	public class «name»Action extends «name»ActionBase implements java.io.Serializable{
+import org.witchcraft.seam.action.BaseAction; 
+import org.witchcraft.base.entity.BusinessEntity;
+
+public  abstract class «name»Action<T extends BusinessEntity> extends BaseAction<T> implements java.io.Serializable{
 	
-	}
-«ENDFILE»
+}
+	«ENDFILE»
 
 «ENDDEFINE»
 
 
-«DEFINE BaseGen FOR uml::Class»
+«DEFINE BaseGen FOR wcprofile::Entity»
 «FILE getWebPackagePath("ActionBase")   »
 package « getWebPackageName() »;
 
@@ -53,7 +71,7 @@ import «a.type.fqn()»;
 «ENDFOREACH»
 
 
-public class «name»ActionBase extends BaseAction<«name»> implements java.io.Serializable{
+public abstract class «name»ActionBase extends «getFirstParent() == null || getFirstParent().length == 0 ? "BaseAction<" +  name + ">" : parents().get(0).getActionFqn() + " <" + name + ">" » implements java.io.Serializable{
 
 	@In(create = true)
 	@Out(required = false)
@@ -214,10 +232,6 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 		
 	}
 	
-	
-	
-	
-	
 	public void updateAssociations(){
 		«FOREACH getNonComposedManyAssociations() AS a»
 		«a.type.fqn()» «a.type.name.toFirstLower()» =(«a.type.fqn()») org.jboss.seam.Component.getInstance("«a.type.name.toFirstLower()»");
@@ -304,7 +318,7 @@ public class «name»ActionBase extends BaseAction<«name»> implements java.io.Seri
 «ENDDEFINE»
 
 
-«DEFINE genImports FOR wcprofile::Entity»
+«DEFINE genImports FOR uml::Class»
 import java.util.ArrayList;
 import java.util.List;
 
