@@ -21,7 +21,7 @@
 			<f:facet name="controls">
 				<h:panelGroup>
 					<h:graphicImage value="/img/close.png" alt="Close"
-						styleClass="hidelink" id="hidelink" />
+						styleClass="hidelink"  />
 					<rich:componentControl for="«name»ModalPanel" attachTo="hidelink"
 						operation="hide" event="onclick" />
 				</h:panelGroup>
@@ -33,7 +33,7 @@
 					<rich:messages passedLabel=""
 						style="width:100%; text-align: left; color: red; font-weight: bold;"
 						 layout="list" rendered="#{facesContext.maximumSeverity != null}"
-						id="errors">
+						>
 
 					</rich:messages>
 				</a:outputPanel>
@@ -42,8 +42,8 @@
 						<ui:include src = "«getComponentViewFile("edit")»" />
 						
 						<a:commandButton action="#{«getAction()».save}"
-							oncomplete="if (#{facesContext.maximumSeverity == null}) { Richfaces.hideModalPanel('«name»ModalPanel'); location.reload(true) }"
-							reRender="realEstatePropertyList"
+							oncomplete="if (#{facesContext.maximumSeverity == null}) { Richfaces.hideModalPanel('«name»ModalPanel'); }"
+							reRender="«name.toFirstLower()»List"
 							value="Save" >
 							 <f:param name="conversationPropagation" value="end"/>
 							

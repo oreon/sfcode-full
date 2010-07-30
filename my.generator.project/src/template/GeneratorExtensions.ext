@@ -110,7 +110,11 @@ JAVA org.wc.generatorutil.ClassUtil.getSingular(java.lang.String);
 
 //get the parent
 String getParent(Class cls):
-cls.parents().size > 0 ? getExtensionKeyword() + cls.parents().get(0).fqn():"";
+cls.parents().size > 0 ? getExtensionKeyword() + cls.getFirstParent() :"";
+
+String getFirstParent(Class cls):
+cls.parents().size > 0 ? cls.parents().get(0).fqn():"";
+
 
 String getVariableNameForDisplay(String arg):
 JAVA org.wc.generatorutil.ClassUtil.getViewLabelFromVariable(java.lang.String);
