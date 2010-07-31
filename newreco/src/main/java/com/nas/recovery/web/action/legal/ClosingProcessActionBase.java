@@ -45,6 +45,9 @@ public abstract class ClosingProcessActionBase
 	@DataModelSelection
 	private ClosingProcess closingProcess;
 
+	@In(create = true, value = "legalAction")
+	com.nas.recovery.web.action.legal.LegalAction legalAction;
+
 	@DataModel
 	private List<ClosingProcess> closingProcessRecordList;
 
@@ -52,6 +55,17 @@ public abstract class ClosingProcessActionBase
 
 		setId(id);
 		loadAssociations();
+	}
+
+	public void setLegalId(Long id) {
+		if (id != null && id > 0)
+			getInstance().setLegal(legalAction.loadFromId(id));
+	}
+
+	public Long getLegalId() {
+		if (getInstance().getLegal() != null)
+			return getInstance().getLegal().getId();
+		return 0L;
 	}
 
 	public Long getClosingProcessId() {
@@ -91,6 +105,11 @@ public abstract class ClosingProcessActionBase
 
 	public void wire() {
 		getInstance();
+		com.nas.recovery.domain.legal.Legal legal = legalAction
+				.getDefinedInstance();
+		if (legal != null) {
+			getInstance().setLegal(legal);
+		}
 
 	}
 
@@ -117,11 +136,27 @@ public abstract class ClosingProcessActionBase
 		this.closingProcessRecordList = list;
 	}
 
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
+	 */
+	public void addAssoications(Criteria criteria) {
+
+		if (closingProcess.getLegal() != null) {
+			criteria = criteria.add(Restrictions.eq("legal.id", closingProcess
+					.getLegal().getId()));
+		}
+
+	}
+
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
 	public void loadAssociations() {
+
+		if (closingProcess.getLegal() != null) {
+			legalAction.setEntity(getEntity().getLegal());
+		}
 
 	}
 

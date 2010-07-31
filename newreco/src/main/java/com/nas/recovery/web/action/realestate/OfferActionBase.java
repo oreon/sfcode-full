@@ -1,6 +1,6 @@
-package com.nas.recovery.web.action.legal;
+package com.nas.recovery.web.action.realestate;
 
-import com.nas.recovery.domain.legal.InsurerProcess;
+import com.nas.recovery.domain.realestate.Offer;
 
 import org.witchcraft.seam.action.BaseAction;
 
@@ -34,67 +34,66 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public abstract class InsurerProcessActionBase
-		extends
-			com.nas.recovery.web.action.legal.ProcessAction<InsurerProcess>
+public abstract class OfferActionBase extends BaseAction<Offer>
 		implements
 			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
 	@DataModelSelection
-	private InsurerProcess insurerProcess;
+	private Offer offer;
 
-	@In(create = true, value = "legalAction")
-	com.nas.recovery.web.action.legal.LegalAction legalAction;
+	@In(create = true, value = "realEstateListingAction")
+	com.nas.recovery.web.action.realestate.RealEstateListingAction realEstateListingAction;
 
 	@DataModel
-	private List<InsurerProcess> insurerProcessRecordList;
+	private List<Offer> offerRecordList;
 
-	public void setInsurerProcessId(Long id) {
+	public void setOfferId(Long id) {
 
 		setId(id);
 		loadAssociations();
 	}
 
-	public void setLegalId(Long id) {
+	public void setRealEstateListingId(Long id) {
 		if (id != null && id > 0)
-			getInstance().setLegal(legalAction.loadFromId(id));
+			getInstance().setRealEstateListing(
+					realEstateListingAction.loadFromId(id));
 	}
 
-	public Long getLegalId() {
-		if (getInstance().getLegal() != null)
-			return getInstance().getLegal().getId();
+	public Long getRealEstateListingId() {
+		if (getInstance().getRealEstateListing() != null)
+			return getInstance().getRealEstateListing().getId();
 		return 0L;
 	}
 
-	public Long getInsurerProcessId() {
+	public Long getOfferId() {
 		return (Long) getId();
 	}
 
-	//@Factory("insurerProcessRecordList")
-	//@Observer("archivedInsurerProcess")
+	//@Factory("offerRecordList")
+	//@Observer("archivedOffer")
 	public void findRecords() {
 		//search();
 	}
 
-	public InsurerProcess getEntity() {
-		return insurerProcess;
+	public Offer getEntity() {
+		return offer;
 	}
 
 	@Override
-	public void setEntity(InsurerProcess t) {
-		this.insurerProcess = t;
+	public void setEntity(Offer t) {
+		this.offer = t;
 		loadAssociations();
 	}
 
-	public InsurerProcess getInsurerProcess() {
+	public Offer getOffer() {
 		return getInstance();
 	}
 
 	@Override
-	protected InsurerProcess createInstance() {
-		return new InsurerProcess();
+	protected Offer createInstance() {
+		return new Offer();
 	}
 
 	public void load() {
@@ -105,10 +104,10 @@ public abstract class InsurerProcessActionBase
 
 	public void wire() {
 		getInstance();
-		com.nas.recovery.domain.legal.Legal legal = legalAction
+		com.nas.recovery.domain.realestate.RealEstateListing realEstateListing = realEstateListingAction
 				.getDefinedInstance();
-		if (legal != null) {
-			getInstance().setLegal(legal);
+		if (realEstateListing != null) {
+			getInstance().setRealEstateListing(realEstateListing);
 		}
 
 	}
@@ -117,23 +116,23 @@ public abstract class InsurerProcessActionBase
 		return true;
 	}
 
-	public InsurerProcess getDefinedInstance() {
+	public Offer getDefinedInstance() {
 		return isIdDefined() ? getInstance() : null;
 	}
 
-	public void setInsurerProcess(InsurerProcess t) {
-		this.insurerProcess = t;
+	public void setOffer(Offer t) {
+		this.offer = t;
 		loadAssociations();
 	}
 
 	@Override
-	public Class<InsurerProcess> getEntityClass() {
-		return InsurerProcess.class;
+	public Class<Offer> getEntityClass() {
+		return Offer.class;
 	}
 
 	@Override
-	public void setEntityList(List<InsurerProcess> list) {
-		this.insurerProcessRecordList = list;
+	public void setEntityList(List<Offer> list) {
+		this.offerRecordList = list;
 	}
 
 	/** This function adds associated entities to an example criterion
@@ -141,9 +140,9 @@ public abstract class InsurerProcessActionBase
 	 */
 	public void addAssoications(Criteria criteria) {
 
-		if (insurerProcess.getLegal() != null) {
-			criteria = criteria.add(Restrictions.eq("legal.id", insurerProcess
-					.getLegal().getId()));
+		if (offer.getRealEstateListing() != null) {
+			criteria = criteria.add(Restrictions.eq("realEstateListing.id",
+					offer.getRealEstateListing().getId()));
 		}
 
 	}
@@ -154,8 +153,9 @@ public abstract class InsurerProcessActionBase
 	 */
 	public void loadAssociations() {
 
-		if (insurerProcess.getLegal() != null) {
-			legalAction.setEntity(getEntity().getLegal());
+		if (offer.getRealEstateListing() != null) {
+			realEstateListingAction.setEntity(getEntity()
+					.getRealEstateListing());
 		}
 
 	}
@@ -164,11 +164,11 @@ public abstract class InsurerProcessActionBase
 
 	}
 
-	public List<InsurerProcess> getEntityList() {
-		if (insurerProcessRecordList == null) {
+	public List<Offer> getEntityList() {
+		if (offerRecordList == null) {
 			findRecords();
 		}
-		return insurerProcessRecordList;
+		return offerRecordList;
 	}
 
 }

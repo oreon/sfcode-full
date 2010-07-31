@@ -38,6 +38,8 @@ import com.nas.recovery.domain.realestate.TenantInfo;
 import com.nas.recovery.domain.realestate.Cma;
 import com.nas.recovery.domain.appraisal.Appraisal;
 import com.nas.recovery.domain.realestate.FilesUploaded;
+import com.nas.recovery.domain.propertymanagement.Inspection;
+import com.nas.recovery.domain.propertymanagement.Utilitiy;
 
 public abstract class RealEstatePropertyActionBase
 		extends
@@ -70,6 +72,12 @@ public abstract class RealEstatePropertyActionBase
 
 		if (listFilesUploadeds == null || isDifferentFromCurrent(id))
 			listFilesUploadeds = new ArrayList<FilesUploaded>();
+
+		if (listInspections == null || isDifferentFromCurrent(id))
+			listInspections = new ArrayList<Inspection>();
+
+		if (listUtilitiys == null || isDifferentFromCurrent(id))
+			listUtilitiys = new ArrayList<Utilitiy>();
 
 		setId(id);
 		loadAssociations();
@@ -326,6 +334,70 @@ public abstract class RealEstatePropertyActionBase
 		listFilesUploadeds.add(filesUploadeds);
 	}
 
+	protected List<Inspection> listInspections;
+
+	void initListInspections() {
+		listInspections = new ArrayList<Inspection>();
+		if (getInstance().getInspections().isEmpty()) {
+
+		} else
+			listInspections.addAll(getInstance().getInspections());
+	}
+
+	public List<Inspection> getListInspections() {
+		if (listInspections == null) {
+			initListInspections();
+		}
+		return listInspections;
+	}
+
+	public void setListInspections(List<Inspection> listInspections) {
+		this.listInspections = listInspections;
+	}
+
+	public void deleteInspections(int index) {
+		listInspections.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addInspections() {
+		Inspection inspections = new Inspection();
+
+		listInspections.add(inspections);
+	}
+
+	protected List<Utilitiy> listUtilitiys;
+
+	void initListUtilitiys() {
+		listUtilitiys = new ArrayList<Utilitiy>();
+		if (getInstance().getUtilitiys().isEmpty()) {
+
+		} else
+			listUtilitiys.addAll(getInstance().getUtilitiys());
+	}
+
+	public List<Utilitiy> getListUtilitiys() {
+		if (listUtilitiys == null) {
+			initListUtilitiys();
+		}
+		return listUtilitiys;
+	}
+
+	public void setListUtilitiys(List<Utilitiy> listUtilitiys) {
+		this.listUtilitiys = listUtilitiys;
+	}
+
+	public void deleteUtilitiys(int index) {
+		listUtilitiys.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addUtilitiys() {
+		Utilitiy utilitiys = new Utilitiy();
+
+		listUtilitiys.add(utilitiys);
+	}
+
 	public void updateComposedAssociations() {
 
 		getInstance().getTenantInfos().clear();
@@ -339,6 +411,12 @@ public abstract class RealEstatePropertyActionBase
 
 		getInstance().getFilesUploadeds().clear();
 		getInstance().getFilesUploadeds().addAll(listFilesUploadeds);
+
+		getInstance().getInspections().clear();
+		getInstance().getInspections().addAll(listInspections);
+
+		getInstance().getUtilitiys().clear();
+		getInstance().getUtilitiys().addAll(listUtilitiys);
 
 	}
 

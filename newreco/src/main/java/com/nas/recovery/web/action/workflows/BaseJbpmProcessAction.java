@@ -1,22 +1,24 @@
 package com.nas.recovery.web.action.workflows;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.jboss.seam.Component;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
-import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Transactional;
-import org.jboss.seam.annotations.web.RequestParameter;
+import org.jboss.seam.bpm.ManagedJbpmContext;
 import org.jboss.seam.international.StatusMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Identity;
+import org.jboss.seam.web.ServletContexts;
 import org.jbpm.JbpmContext;
 import org.jbpm.graph.exe.Comment;
 import org.jbpm.taskmgmt.exe.TaskInstance;
-import org.witchcraft.seam.action.BaseAction;
 
 /**
  * This action will fucntion as base for all workflow related actions
@@ -40,8 +42,17 @@ public class BaseJbpmProcessAction {
 	@In
 	protected StatusMessages statusMessages;
 
-	@RequestParameter
+	//@RequestParameter
 	String transName;
+
+	public String getTransName() {
+		return transName;
+	}
+
+	@Transactional
+	public void setTransName(String transName) {
+		this.transName = transName;
+	}
 
 	private TaskInstance task;
 	
@@ -67,7 +78,7 @@ public class BaseJbpmProcessAction {
 		
 		this.taskInstanceId = taskInstanceId;
 		if(taskInstanceId > 0 )
-			task = jbpmContext.getTaskInstance(taskInstanceId);
+			task = ManagedJbpmContext.instance().getTaskInstance(taskInstanceId);
 	}
 
 	public TaskInstance getTask() {
@@ -79,7 +90,7 @@ public class BaseJbpmProcessAction {
 	}
 
 	@Transactional
-	public void makeDecision() {
+	public String makeDecision() {
 		// FacesContext.getCurrentInstance()
 	//	System.out.println("going to execute " + transName);
 		String taskName = StringUtils.capitalize(task.getName());
@@ -88,21 +99,38 @@ public class BaseJbpmProcessAction {
 			String name =   task.getProcessInstance().getProcessDefinition().getName(); //this.getClass().getAnnotation(Name.class).value();
 			log.warn(" annotation name "  + name );
 			Object componet = Component.getInstance(name + PROCESS_ACTION_SUFFIX);
+			
+			String tn = ServletContexts.getInstance().getRequest().getParameter("transName");
 			Method method = componet.getClass().getMethod(transName + taskName);
 			method.invoke(componet, new Object[] {});
+			
 			if (task != null) {
-				task.end(transName);
 				task.addComment(comment);
+				task.end(transName);
 				task.setEnd(new Date());
-				
-				
+				 
+				//Comment cmt = task.getComments().get(0);
+				//cmt.getActorId() + cmt.get
 			}
+			
+			return "next";
 			// jbpmContext.
 		} catch (Exception e) {
 			statusMessages.add(e.getMessage());
 			log.error("Error invoking workflow transition -> " + transName, e);
 			e.printStackTrace();
 		}
+		
+		return "failed";
+	}
+	
+	public List<Comment> getComments(){
+		Collection<TaskInstance> tasks = task.getProcessInstance().getTaskMgmtInstance().getTaskInstances();
+		List<Comment> cmts = new ArrayList<Comment>();
+		for (TaskInstance taskInstance : tasks) {
+			cmts.addAll(taskInstance.getComments());
+		}
+		return cmts;
 	}
 
 }

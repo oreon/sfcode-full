@@ -34,7 +34,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-import com.nas.recovery.domain.realestate.Offers;
+import com.nas.recovery.domain.realestate.Offer;
 
 public abstract class RealEstateListingActionBase
 		extends
@@ -62,8 +62,8 @@ public abstract class RealEstateListingActionBase
 
 	public void setRealEstateListingId(Long id) {
 
-		if (listOfferses == null || isDifferentFromCurrent(id))
-			listOfferses = new ArrayList<Offers>();
+		if (listOffers == null || isDifferentFromCurrent(id))
+			listOffers = new ArrayList<Offer>();
 
 		setId(id);
 		loadAssociations();
@@ -251,44 +251,44 @@ public abstract class RealEstateListingActionBase
 
 	}
 
-	protected List<Offers> listOfferses;
+	protected List<Offer> listOffers;
 
-	void initListOfferses() {
-		listOfferses = new ArrayList<Offers>();
-		if (getInstance().getOfferses().isEmpty()) {
+	void initListOffers() {
+		listOffers = new ArrayList<Offer>();
+		if (getInstance().getOffers().isEmpty()) {
 
 		} else
-			listOfferses.addAll(getInstance().getOfferses());
+			listOffers.addAll(getInstance().getOffers());
 	}
 
-	public List<Offers> getListOfferses() {
-		if (listOfferses == null) {
-			initListOfferses();
+	public List<Offer> getListOffers() {
+		if (listOffers == null) {
+			initListOffers();
 		}
-		return listOfferses;
+		return listOffers;
 	}
 
-	public void setListOfferses(List<Offers> listOfferses) {
-		this.listOfferses = listOfferses;
+	public void setListOffers(List<Offer> listOffers) {
+		this.listOffers = listOffers;
 	}
 
-	public void deleteOfferses(int index) {
-		listOfferses.remove(index);
+	public void deleteOffers(int index) {
+		listOffers.remove(index);
 	}
 
 	@Begin(join = true)
-	public void addOfferses() {
-		Offers offerses = new Offers();
+	public void addOffers() {
+		Offer offers = new Offer();
 
-		offerses.setRealEstateListing(getInstance());
+		offers.setRealEstateListing(getInstance());
 
-		listOfferses.add(offerses);
+		listOffers.add(offers);
 	}
 
 	public void updateComposedAssociations() {
 
-		getInstance().getOfferses().clear();
-		getInstance().getOfferses().addAll(listOfferses);
+		getInstance().getOffers().clear();
+		getInstance().getOffers().addAll(listOffers);
 
 	}
 

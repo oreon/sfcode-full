@@ -38,6 +38,14 @@ public abstract class ClosingProcessListQueryBase
 		this.process_completedDateRange = process_completedDateRange;
 	}
 
+	private Range<Date> process_dueDateRange = new Range<Date>();
+	public Range<Date> getProcess_dueDateRange() {
+		return process_dueDateRange;
+	}
+	public void setProcess_dueDate(Range<Date> process_dueDateRange) {
+		this.process_dueDateRange = process_dueDateRange;
+	}
+
 	private Range<Integer> process_processNumberRange = new Range<Integer>();
 	public Range<Integer> getProcess_processNumberRange() {
 		return process_processNumberRange;
@@ -47,46 +55,27 @@ public abstract class ClosingProcessListQueryBase
 		this.process_processNumberRange = process_processNumberRange;
 	}
 
-	private Range<Date> process_expiryDateRange = new Range<Date>();
-	public Range<Date> getProcess_expiryDateRange() {
-		return process_expiryDateRange;
-	}
-	public void setProcess_expiryDate(Range<Date> process_expiryDateRange) {
-		this.process_expiryDateRange = process_expiryDateRange;
-	}
-
-	private Range<Integer> process_legalNumberRange = new Range<Integer>();
-	public Range<Integer> getProcess_legalNumberRange() {
-		return process_legalNumberRange;
-	}
-	public void setProcess_legalNumber(Range<Integer> process_legalNumberRange) {
-		this.process_legalNumberRange = process_legalNumberRange;
-	}
-
 	private static final String[] RESTRICTIONS = {
 			"closingProcess.id = #{closingProcessList.closingProcess.id}",
+
+			"closingProcess.legal = #{closingProcessList.closingProcess.legal}",
+
+			"closingProcess.process = #{closingProcessList.closingProcess.process}",
 
 			"closingProcess.completedDate >= #{closingProcessList.process_completedDateRange.begin}",
 			"closingProcess.completedDate <= #{closingProcessList.process_completedDateRange.end}",
 
+			"closingProcess.dueDate >= #{closingProcessList.process_dueDateRange.begin}",
+			"closingProcess.dueDate <= #{closingProcessList.process_dueDateRange.end}",
+
 			"closingProcess.processNumber >= #{closingProcessList.process_processNumberRange.begin}",
 			"closingProcess.processNumber <= #{closingProcessList.process_processNumberRange.end}",
 
-			"closingProcess.expiryDate >= #{closingProcessList.process_expiryDateRange.begin}",
-			"closingProcess.expiryDate <= #{closingProcessList.process_expiryDateRange.end}",
-
-			"lower(closingProcess.reason) like concat(lower(#{closingProcessList.closingProcess.reason}),'%')",
-
-			"lower(closingProcess.type) like concat(lower(#{closingProcessList.closingProcess.type}),'%')",
-
-			"lower(closingProcess.description) like concat(lower(#{closingProcessList.closingProcess.description}),'%')",
-
-			"closingProcess.legalNumber >= #{closingProcessList.process_legalNumberRange.begin}",
-			"closingProcess.legalNumber <= #{closingProcessList.process_legalNumberRange.end}",
-
 			"closingProcess.documentAdded = #{closingProcessList.closingProcess.documentAdded}",
 
-			"closingProcess.skip = #{closingProcessList.closingProcess.skip}",
+			"closingProcess.notRequired = #{closingProcessList.closingProcess.notRequired}",
+
+			"closingProcess.explanation = #{closingProcessList.closingProcess.explanation}",
 
 			"closingProcess.dateCreated <= #{closingProcessList.dateCreatedRange.end}",
 			"closingProcess.dateCreated >= #{closingProcessList.dateCreatedRange.begin}",};

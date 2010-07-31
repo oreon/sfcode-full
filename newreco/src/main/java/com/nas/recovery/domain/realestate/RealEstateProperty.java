@@ -104,6 +104,20 @@ public class RealEstateProperty extends BusinessEntity
 	@Field(index = Index.TOKENIZED)
 	protected String title;
 
+	//inspections-> ->->RealEstateProperty->
+
+	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "_ID", nullable = true)
+	@IndexedEmbedded
+	private Set<com.nas.recovery.domain.propertymanagement.Inspection> inspections = new HashSet<com.nas.recovery.domain.propertymanagement.Inspection>();
+
+	//utilitiys-> ->->Utilitiy->
+
+	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "_ID", nullable = true)
+	@IndexedEmbedded
+	private Set<com.nas.recovery.domain.propertymanagement.Utilitiy> utilitiys = new HashSet<com.nas.recovery.domain.propertymanagement.Utilitiy>();
+
 	public void setStreetAddress(String streetAddress) {
 		this.streetAddress = streetAddress;
 	}
@@ -208,6 +222,24 @@ public class RealEstateProperty extends BusinessEntity
 		return title;
 	}
 
+	public void setInspections(
+			Set<com.nas.recovery.domain.propertymanagement.Inspection> inspections) {
+		this.inspections = inspections;
+	}
+
+	public Set<com.nas.recovery.domain.propertymanagement.Inspection> getInspections() {
+		return inspections;
+	}
+
+	public void setUtilitiys(
+			Set<com.nas.recovery.domain.propertymanagement.Utilitiy> utilitiys) {
+		this.utilitiys = utilitiys;
+	}
+
+	public Set<com.nas.recovery.domain.propertymanagement.Utilitiy> getUtilitiys() {
+		return utilitiys;
+	}
+
 	@Transient
 	public String getDisplayName() {
 		return streetAddress + ", " + city + ", " + state;
@@ -234,6 +266,10 @@ public class RealEstateProperty extends BusinessEntity
 		listSearchableFields.add("tenantInfos.name");
 
 		listSearchableFields.add("filesUploadeds.title");
+
+		listSearchableFields.add("utilitiys.name");
+
+		listSearchableFields.add("utilitiys.accountNumber");
 
 		return listSearchableFields;
 	}

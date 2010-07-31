@@ -1,4 +1,4 @@
-package com.nas.recovery.domain.legal;
+package com.nas.recovery.domain.realestate;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -35,101 +35,134 @@ import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
 @Entity
-@Table(name = "bankruptcy")
-@Name("bankruptcy")
+@Table(name = "offer")
+@Name("offer")
 @Filter(name = "archiveFilterDef")
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
-public class Bankruptcy extends BusinessEntity implements java.io.Serializable {
-	private static final long serialVersionUID = -93994108L;
+public class Offer extends BusinessEntity implements java.io.Serializable {
+	private static final long serialVersionUID = -1025889638L;
 
-	protected Integer legalNumber;
-
-	@Field(index = Index.TOKENIZED)
-	protected String trustee;
+	protected Date offerDate;
 
 	@Field(index = Index.TOKENIZED)
-	protected String name;
+	protected String purchaser;
 
-	protected Date dateFiled;
+	protected Double amount;
 
-	protected Date dischargedDate;
+	protected OfferCondition condition;
 
-	protected Boolean proofOfClaim;
+	protected OfferStatus status;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "legal_id", nullable = true, updatable = true)
+	protected Double signBackAmount;
+
+	protected Date conditionExpiry;
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "realEstateListing_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected Legal legal;
+	protected RealEstateListing realEstateListing;
 
-	public void setLegalNumber(Integer legalNumber) {
-		this.legalNumber = legalNumber;
+	protected Date closingDate;
+
+	@Lob
+	protected String comments;
+
+	public void setOfferDate(Date offerDate) {
+		this.offerDate = offerDate;
 	}
 
-	public Integer getLegalNumber() {
+	public Date getOfferDate() {
 
-		return legalNumber;
+		return offerDate;
 	}
 
-	public void setTrustee(String trustee) {
-		this.trustee = trustee;
+	public void setPurchaser(String purchaser) {
+		this.purchaser = purchaser;
 	}
 
-	public String getTrustee() {
+	public String getPurchaser() {
 
-		return trustee;
+		return purchaser;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
 
-	public String getName() {
+	public Double getAmount() {
 
-		return name;
+		return amount;
 	}
 
-	public void setDateFiled(Date dateFiled) {
-		this.dateFiled = dateFiled;
+	public void setCondition(OfferCondition condition) {
+		this.condition = condition;
 	}
 
-	public Date getDateFiled() {
+	public OfferCondition getCondition() {
 
-		return dateFiled;
+		return condition;
 	}
 
-	public void setDischargedDate(Date dischargedDate) {
-		this.dischargedDate = dischargedDate;
+	public void setStatus(OfferStatus status) {
+		this.status = status;
 	}
 
-	public Date getDischargedDate() {
+	public OfferStatus getStatus() {
 
-		return dischargedDate;
+		return status;
 	}
 
-	public void setProofOfClaim(Boolean proofOfClaim) {
-		this.proofOfClaim = proofOfClaim;
+	public void setSignBackAmount(Double signBackAmount) {
+		this.signBackAmount = signBackAmount;
 	}
 
-	public Boolean getProofOfClaim() {
+	public Double getSignBackAmount() {
 
-		return proofOfClaim;
+		return signBackAmount;
 	}
 
-	public void setLegal(Legal legal) {
-		this.legal = legal;
+	public void setConditionExpiry(Date conditionExpiry) {
+		this.conditionExpiry = conditionExpiry;
 	}
 
-	public Legal getLegal() {
+	public Date getConditionExpiry() {
 
-		return legal;
+		return conditionExpiry;
+	}
+
+	public void setRealEstateListing(RealEstateListing realEstateListing) {
+		this.realEstateListing = realEstateListing;
+	}
+
+	public RealEstateListing getRealEstateListing() {
+
+		return realEstateListing;
+	}
+
+	public void setClosingDate(Date closingDate) {
+		this.closingDate = closingDate;
+	}
+
+	public Date getClosingDate() {
+
+		return closingDate;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
+	public String getComments() {
+
+		return comments;
 	}
 
 	@Transient
 	public String getDisplayName() {
-		return name;
+		return purchaser;
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
@@ -140,9 +173,7 @@ public class Bankruptcy extends BusinessEntity implements java.io.Serializable {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
-		listSearchableFields.add("trustee");
-
-		listSearchableFields.add("name");
+		listSearchableFields.add("purchaser");
 
 		return listSearchableFields;
 	}

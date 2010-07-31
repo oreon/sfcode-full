@@ -1,4 +1,4 @@
-package com.nas.recovery.domain.legal;
+package com.nas.recovery.domain.propertymanagement;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -35,101 +35,78 @@ import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
 @Entity
-@Table(name = "bankruptcy")
-@Name("bankruptcy")
+@Table(name = "inspection")
+@Name("inspection")
 @Filter(name = "archiveFilterDef")
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
-public class Bankruptcy extends BusinessEntity implements java.io.Serializable {
-	private static final long serialVersionUID = -93994108L;
+public class Inspection extends BusinessEntity implements java.io.Serializable {
+	private static final long serialVersionUID = 700474544L;
 
-	protected Integer legalNumber;
+	protected InspectionType type;
 
-	@Field(index = Index.TOKENIZED)
-	protected String trustee;
+	protected Date date;
 
-	@Field(index = Index.TOKENIZED)
-	protected String name;
+	@Lob
+	protected String Observation;
 
-	protected Date dateFiled;
+	protected Boolean actionRequired;
 
-	protected Date dischargedDate;
-
-	protected Boolean proofOfClaim;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "legal_id", nullable = true, updatable = true)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "propertyManager_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected Legal legal;
+	protected PropertyManager propertyManager;
 
-	public void setLegalNumber(Integer legalNumber) {
-		this.legalNumber = legalNumber;
+	public void setType(InspectionType type) {
+		this.type = type;
 	}
 
-	public Integer getLegalNumber() {
+	public InspectionType getType() {
 
-		return legalNumber;
+		return type;
 	}
 
-	public void setTrustee(String trustee) {
-		this.trustee = trustee;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
-	public String getTrustee() {
+	public Date getDate() {
 
-		return trustee;
+		return date;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setObservation(String Observation) {
+		this.Observation = Observation;
 	}
 
-	public String getName() {
+	public String getObservation() {
 
-		return name;
+		return Observation;
 	}
 
-	public void setDateFiled(Date dateFiled) {
-		this.dateFiled = dateFiled;
+	public void setActionRequired(Boolean actionRequired) {
+		this.actionRequired = actionRequired;
 	}
 
-	public Date getDateFiled() {
+	public Boolean getActionRequired() {
 
-		return dateFiled;
+		return actionRequired;
 	}
 
-	public void setDischargedDate(Date dischargedDate) {
-		this.dischargedDate = dischargedDate;
+	public void setPropertyManager(PropertyManager propertyManager) {
+		this.propertyManager = propertyManager;
 	}
 
-	public Date getDischargedDate() {
+	public PropertyManager getPropertyManager() {
 
-		return dischargedDate;
-	}
-
-	public void setProofOfClaim(Boolean proofOfClaim) {
-		this.proofOfClaim = proofOfClaim;
-	}
-
-	public Boolean getProofOfClaim() {
-
-		return proofOfClaim;
-	}
-
-	public void setLegal(Legal legal) {
-		this.legal = legal;
-	}
-
-	public Legal getLegal() {
-
-		return legal;
+		return propertyManager;
 	}
 
 	@Transient
 	public String getDisplayName() {
-		return name;
+		return type + "";
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
@@ -139,10 +116,6 @@ public class Bankruptcy extends BusinessEntity implements java.io.Serializable {
 	public List<String> listSearchableFields() {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
-
-		listSearchableFields.add("trustee");
-
-		listSearchableFields.add("name");
 
 		return listSearchableFields;
 	}
