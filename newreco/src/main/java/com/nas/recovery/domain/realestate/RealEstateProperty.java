@@ -59,35 +59,35 @@ public class RealEstateProperty extends BusinessEntity
 	@Field(index = Index.TOKENIZED)
 	protected String city;
 
-	//realEstateListings->realEstateProperty ->RealEstateProperty->RealEstateProperty->RealEstateProperty
+	//realEstateListings->realEstateProperty ->RealEstateProperty->RealEstateListing->RealEstateListing
 
 	@OneToMany(mappedBy = "realEstateProperty", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateProperty_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<RealEstateListing> realEstateListings = new HashSet<RealEstateListing>();
 
-	//tenantInfos-> ->->RealEstateProperty->
+	//tenantInfos-> ->->TenantInfo->
 
 	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "_ID", nullable = true)
+	@JoinColumn(name = "tenantInfos_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<TenantInfo> tenantInfos = new HashSet<TenantInfo>();
 
 	//cmas-> ->->RealEstateProperty->
 
 	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "_ID", nullable = true)
+	@JoinColumn(name = "cmas_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<Cma> cmas = new HashSet<Cma>();
 
-	//appraisals-> ->->Appraisal->
+	//appraisals-> ->->RealEstateProperty->
 
 	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "_ID", nullable = true)
+	@JoinColumn(name = "appraisals_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<com.nas.recovery.domain.appraisal.Appraisal> appraisals = new HashSet<com.nas.recovery.domain.appraisal.Appraisal>();
 
-	//filesUploadeds->realEstateProperty ->RealEstateProperty->RealEstateProperty->RealEstateProperty
+	//filesUploadeds->realEstateProperty ->RealEstateProperty->FilesUploaded->FilesUploaded
 
 	@OneToMany(mappedBy = "realEstateProperty", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateProperty_ID", nullable = true)
@@ -107,14 +107,14 @@ public class RealEstateProperty extends BusinessEntity
 	//inspections-> ->->RealEstateProperty->
 
 	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "_ID", nullable = true)
+	@JoinColumn(name = "inspections_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<com.nas.recovery.domain.propertymanagement.Inspection> inspections = new HashSet<com.nas.recovery.domain.propertymanagement.Inspection>();
 
-	//utilitiys-> ->->Utilitiy->
+	//utilitiys-> ->->RealEstateProperty->
 
 	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "_ID", nullable = true)
+	@JoinColumn(name = "utilitiys_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<com.nas.recovery.domain.propertymanagement.Utilitiy> utilitiys = new HashSet<com.nas.recovery.domain.propertymanagement.Utilitiy>();
 

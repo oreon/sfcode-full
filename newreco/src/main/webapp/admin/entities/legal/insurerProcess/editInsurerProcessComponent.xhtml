@@ -9,6 +9,32 @@
 		
 		
 	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.insurerProcess_legal}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="insurerProcess_legal" required="true" value="#{insurerProcessAction.insurerProcess.legal}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{legalList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="insurerProcess_legal" styleClass="error errors"/>		
+		
+	
+	
+		
+	
 
 	 
 	
@@ -21,6 +47,20 @@
    
 		
 		<h:message for="process_completedDate" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.process_dueDate}  "/>
+		
+
+	<rich:calendar id="process_dueDate#{entityId}" required="false" value="#{insurerProcessAction.insurerProcess.dueDate}"/>
+   
+		
+		<h:message for="process_dueDate" styleClass="error errors"/>		
 		
 	
 	
@@ -42,76 +82,6 @@
 	
 	
 		
-		<h:outputText value="#{msg.process_expiryDate}  "/>
-		
-
-	<rich:calendar id="process_expiryDate#{entityId}" required="false" value="#{insurerProcessAction.insurerProcess.expiryDate}"/>
-   
-		
-		<h:message for="process_expiryDate" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.process_reason}  "/>
-		
-
-	<h:inputText id="process_reason#{entityId}" required="false" value="#{insurerProcessAction.insurerProcess.reason}"/>
-   
-		
-		<h:message for="process_reason" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.process_type}  "/>
-		
-
-	<h:inputText id="process_type#{entityId}" required="false" value="#{insurerProcessAction.insurerProcess.type}"/>
-   
-		
-		<h:message for="process_type" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.process_description}  "/>
-		
-
-	<h:inputText id="process_description#{entityId}" required="false" value="#{insurerProcessAction.insurerProcess.description}"/>
-   
-		
-		<h:message for="process_description" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.process_legalNumber}  "/>
-		
-
-	<h:inputText id="process_legalNumber#{entityId}" required="false" value="#{insurerProcessAction.insurerProcess.legalNumber}"/>
-   
-		
-		<h:message for="process_legalNumber" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
 		<h:outputText value="#{msg.process_documentAdded}  "/>
 		
 
@@ -126,15 +96,49 @@
 	
 	
 		
-		<h:outputText value="#{msg.process_skip}  "/>
+		<h:outputText value="#{msg.process_notRequired}  "/>
 		
 
-	<h:selectBooleanCheckbox id="process_skip#{entityId}" required="false" value="#{insurerProcessAction.insurerProcess.skip}"/>
+	<h:selectBooleanCheckbox id="process_notRequired#{entityId}" required="false" value="#{insurerProcessAction.insurerProcess.notRequired}"/>
    
 		
-		<h:message for="process_skip" styleClass="error errors"/>		
+		<h:message for="process_notRequired" styleClass="error errors"/>		
 		
 	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.process_explanation}  "/>
+		
+
+	<rich:editor id="process_explanation#{entityId}" required="false" useSeamText="true" value="#{insurerProcessAction.insurerProcess.explanation}"/>
+   
+		
+		<h:message for="process_explanation" styleClass="error errors"/>		
+		
+	
+	
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.insurerProcess_process}  "/>
+		
+	
+	<h:selectOneMenu id="insurerProcess_process" required="false" value="#{insurerProcessAction.insurerProcess.process}">
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
+		<f:selectItem itemLabel="Document_transferred_to_lender" itemValue="DOCUMENT_TRANSFERRED_TO_LENDER"/>
+		<f:selectItem itemLabel="Assignment_of_justice" itemValue="ASSIGNMENT_OF_JUSTICE"/>
+		<f:selectItem itemLabel="Claim_to_insurer" itemValue="CLAIM_TO_INSURER"/>
+		
+	</h:selectOneMenu>
+	
+		
+		<h:message for="insurerProcess_process" styleClass="error errors"/>		
+		
 	
 	
 		</h:panelGrid>

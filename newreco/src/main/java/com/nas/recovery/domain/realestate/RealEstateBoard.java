@@ -52,10 +52,10 @@ public class RealEstateBoard extends BusinessEntity
 	@Field(index = Index.TOKENIZED)
 	protected String name;
 
-	//attachmentses-> ->->Attachments->
+	//attachmentses-> ->->RealEstateBoard->
 
 	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "_ID", nullable = true)
+	@JoinColumn(name = "attachmentses_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<Attachments> attachmentses = new HashSet<Attachments>();
 

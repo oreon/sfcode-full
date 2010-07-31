@@ -636,6 +636,211 @@
 	</h:column>
 			
 	</rich:dataTable>
+ 
+	<a:commandButton action="#{realEstatePropertyAction.addInspections}" reRender="inspections_data#{entityId}" value="New Inspection">
+		<s:conversationId/>
+	</a:commandButton>
+ 
+	
+	<rich:dataTable id="inspections_data#{entityId}" rendered="#{not empty realEstatePropertyAction.listInspections}" rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all" styleClass="dataTable" value="#{realEstatePropertyAction.listInspections}" var="_inspection">
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.inspection_propertyManager}  "/>
+          </f:facet>
+	
+	
+		
+	
+	<h:selectOneMenu id="inspection_propertyManager" required="true" value="#{_inspection.propertyManager}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{propertyManagerList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="inspection_propertyManager" styleClass="error errors"/>		</h:column>
+		
+	
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.inspection_type}  "/>
+          </f:facet>
+		
+	
+	<h:selectOneMenu id="inspection_type" required="false" value="#{_inspection.type}">
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
+		<f:selectItem itemLabel="Monitoring" itemValue="Monitoring"/>
+		<f:selectItem itemLabel="Securing" itemValue="Securing"/>
+		
+	</h:selectOneMenu>
+	
+		
+		<h:message for="inspection_type" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.inspection_date}  "/>
+          </f:facet>
+		
+
+	<rich:calendar id="inspection_date#{entityId}" required="false" value="#{_inspection.date}"/>
+   
+		
+		<h:message for="inspection_date" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.inspection_Observation}  "/>
+          </f:facet>
+		
+
+	<rich:editor id="inspection_Observation#{entityId}" required="false" useSeamText="true" value="#{_inspection.observation}"/>
+   
+		
+		<h:message for="inspection_Observation" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.inspection_actionRequired}  "/>
+          </f:facet>
+		
+
+	<h:selectBooleanCheckbox id="inspection_actionRequired#{entityId}" required="false" value="#{_inspection.actionRequired}"/>
+   
+		
+		<h:message for="inspection_actionRequired" styleClass="error errors"/>		</h:column>
+		
+	
+	
+		
+	<h:column>
+		
+	<a:commandButton action="#{realEstatePropertyAction.addInspections}" reRender="inspections_data#{entityId}" value="New Inspection">
+		<s:conversationId/>
+	</a:commandButton>
+	</h:column>
+		
+	<h:column>
+		<a:commandButton action="#{realEstatePropertyAction.deleteInspections(rowIndex)}" immediate="true" reRender="inspections_data#{entityId}" value="Delete">
+			<s:conversationId/>
+		</a:commandButton>
+	</h:column>
+			
+	</rich:dataTable>
+ 
+	<a:commandButton action="#{realEstatePropertyAction.addUtilitiys}" reRender="utilitiys_data#{entityId}" value="New Utilitiy">
+		<s:conversationId/>
+	</a:commandButton>
+ 
+	
+	<rich:dataTable id="utilitiys_data#{entityId}" rendered="#{not empty realEstatePropertyAction.listUtilitiys}" rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all" styleClass="dataTable" value="#{realEstatePropertyAction.listUtilitiys}" var="_utilitiy">
+		
+	
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.utilitiy_name} * "/>
+          </f:facet>
+		
+
+	<h:inputText id="utilitiy_name#{entityId}" required="true" value="#{_utilitiy.name}"/>
+   
+		
+		<h:message for="utilitiy_name" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.utilitiy_transferred}  "/>
+          </f:facet>
+		
+
+	<h:selectBooleanCheckbox id="utilitiy_transferred#{entityId}" required="false" value="#{_utilitiy.transferred}"/>
+   
+		
+		<h:message for="utilitiy_transferred" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.utilitiy_accountNumber}  "/>
+          </f:facet>
+		
+
+	<h:inputText id="utilitiy_accountNumber#{entityId}" required="false" value="#{_utilitiy.accountNumber}"/>
+   
+		
+		<h:message for="utilitiy_accountNumber" styleClass="error errors"/>		</h:column>
+		
+	
+	
+		
+	<h:column>
+		
+	<a:commandButton action="#{realEstatePropertyAction.addUtilitiys}" reRender="utilitiys_data#{entityId}" value="New Utilitiy">
+		<s:conversationId/>
+	</a:commandButton>
+	</h:column>
+		
+	<h:column>
+		<a:commandButton action="#{realEstatePropertyAction.deleteUtilitiys(rowIndex)}" immediate="true" reRender="utilitiys_data#{entityId}" value="Delete">
+			<s:conversationId/>
+		</a:commandButton>
+	</h:column>
+			
+	</rich:dataTable>
 		</s:validateAll>
 		
 	</h:panelGroup>

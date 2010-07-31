@@ -455,12 +455,12 @@
 		
 	
  
-	<a:commandButton action="#{realEstateListingAction.addOfferses}" reRender="offerses_data#{entityId}" value="New Offerse">
+	<a:commandButton action="#{realEstateListingAction.addOffers}" reRender="offers_data#{entityId}" value="New Offer">
 		<s:conversationId/>
 	</a:commandButton>
  
 	
-	<rich:dataTable id="offerses_data#{entityId}" rendered="#{not empty realEstateListingAction.listOfferses}" rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all" styleClass="dataTable" value="#{realEstateListingAction.listOfferses}" var="_offers">
+	<rich:dataTable id="offers_data#{entityId}" rendered="#{not empty realEstateListingAction.listOffers}" rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all" styleClass="dataTable" value="#{realEstateListingAction.listOffers}" var="_offer">
 		
 	
 	
@@ -472,14 +472,14 @@
 		
 		<h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.offers_offerDate}  "/>
+            <h:outputText value="#{msg.offer_offerDate}  "/>
           </f:facet>
 		
 
-	<rich:calendar id="offers_offerDate#{entityId}" required="false" value="#{_offers.offerDate}"/>
+	<rich:calendar id="offer_offerDate#{entityId}" required="false" value="#{_offer.offerDate}"/>
    
 		
-		<h:message for="offers_offerDate" styleClass="error errors"/>		</h:column>
+		<h:message for="offer_offerDate" styleClass="error errors"/>		</h:column>
 		
 	
 	
@@ -489,14 +489,14 @@
 		
 		<h:column style="text-align:left">
           <f:facet name="header">
-            <h:outputText value="#{msg.offers_purchaser}  "/>
+            <h:outputText value="#{msg.offer_purchaser}  "/>
           </f:facet>
 		
 
-	<h:inputText id="offers_purchaser#{entityId}" required="false" value="#{_offers.purchaser}"/>
+	<h:inputText id="offer_purchaser#{entityId}" required="false" value="#{_offer.purchaser}"/>
    
 		
-		<h:message for="offers_purchaser" styleClass="error errors"/>		</h:column>
+		<h:message for="offer_purchaser" styleClass="error errors"/>		</h:column>
 		
 	
 	
@@ -506,14 +506,14 @@
 		
 		<h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.offers_amount}  "/>
+            <h:outputText value="#{msg.offer_amount}  "/>
           </f:facet>
 		
 
-	<h:inputText id="offers_amount#{entityId}" required="false" value="#{_offers.amount}"/>
+	<h:inputText id="offer_amount#{entityId}" required="false" value="#{_offer.amount}"/>
    
 		
-		<h:message for="offers_amount" styleClass="error errors"/>		</h:column>
+		<h:message for="offer_amount" styleClass="error errors"/>		</h:column>
 		
 	
 	
@@ -523,11 +523,11 @@
 		
 		<h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.offers_condition}  "/>
+            <h:outputText value="#{msg.offer_offerCondition}  "/>
           </f:facet>
 		
 	
-	<h:selectOneMenu id="offers_condition" required="false" value="#{_offers.condition}">
+	<h:selectOneMenu id="offer_offerCondition" required="false" value="#{_offer.offerCondition}">
 		<f:selectItem itemLabel="Please Select..." itemValue=""/>
 		<f:selectItem itemLabel="Inspection" itemValue="Inspection"/>
 		<f:selectItem itemLabel="Finance" itemValue="Finance"/>
@@ -539,7 +539,7 @@
 	</h:selectOneMenu>
 	
 		
-		<h:message for="offers_condition" styleClass="error errors"/>		</h:column>
+		<h:message for="offer_offerCondition" styleClass="error errors"/>		</h:column>
 		
 	
 	
@@ -549,11 +549,11 @@
 		
 		<h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.offers_status}  "/>
+            <h:outputText value="#{msg.offer_status}  "/>
           </f:facet>
 		
 	
-	<h:selectOneMenu id="offers_status" required="false" value="#{_offers.status}">
+	<h:selectOneMenu id="offer_status" required="false" value="#{_offer.status}">
 		<f:selectItem itemLabel="Please Select..." itemValue=""/>
 		<f:selectItem itemLabel="Offer" itemValue="Offer"/>
 		<f:selectItem itemLabel="Signbackbuyer" itemValue="SignBackBuyer"/>
@@ -567,7 +567,7 @@
 	</h:selectOneMenu>
 	
 		
-		<h:message for="offers_status" styleClass="error errors"/>		</h:column>
+		<h:message for="offer_status" styleClass="error errors"/>		</h:column>
 		
 	
 	
@@ -577,14 +577,14 @@
 		
 		<h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.offers_signBackAmount}  "/>
+            <h:outputText value="#{msg.offer_signBackAmount}  "/>
           </f:facet>
 		
 
-	<h:inputText id="offers_signBackAmount#{entityId}" required="false" value="#{_offers.signBackAmount}"/>
+	<h:inputText id="offer_signBackAmount#{entityId}" required="false" value="#{_offer.signBackAmount}"/>
    
 		
-		<h:message for="offers_signBackAmount" styleClass="error errors"/>		</h:column>
+		<h:message for="offer_signBackAmount" styleClass="error errors"/>		</h:column>
 		
 	
 	
@@ -594,14 +594,14 @@
 		
 		<h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.offers_conditionExpiry}  "/>
+            <h:outputText value="#{msg.offer_conditionExpiry}  "/>
           </f:facet>
 		
 
-	<rich:calendar id="offers_conditionExpiry#{entityId}" required="false" value="#{_offers.conditionExpiry}"/>
+	<rich:calendar id="offer_conditionExpiry#{entityId}" required="false" value="#{_offer.conditionExpiry}"/>
    
 		
-		<h:message for="offers_conditionExpiry" styleClass="error errors"/>		</h:column>
+		<h:message for="offer_conditionExpiry" styleClass="error errors"/>		</h:column>
 		
 	
 	
@@ -611,14 +611,14 @@
 		
 		<h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.offers_closingDate}  "/>
+            <h:outputText value="#{msg.offer_closingDate}  "/>
           </f:facet>
 		
 
-	<rich:calendar id="offers_closingDate#{entityId}" required="false" value="#{_offers.closingDate}"/>
+	<rich:calendar id="offer_closingDate#{entityId}" required="false" value="#{_offer.closingDate}"/>
    
 		
-		<h:message for="offers_closingDate" styleClass="error errors"/>		</h:column>
+		<h:message for="offer_closingDate" styleClass="error errors"/>		</h:column>
 		
 	
 	
@@ -628,27 +628,27 @@
 		
 		<h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.offers_comments}  "/>
+            <h:outputText value="#{msg.offer_comments}  "/>
           </f:facet>
 		
 
-	<rich:editor id="offers_comments#{entityId}" required="false" useSeamText="true" value="#{_offers.comments}"/>
+	<rich:editor id="offer_comments#{entityId}" required="false" useSeamText="true" value="#{_offer.comments}"/>
    
 		
-		<h:message for="offers_comments" styleClass="error errors"/>		</h:column>
+		<h:message for="offer_comments" styleClass="error errors"/>		</h:column>
 		
 	
 	
 		
 	<h:column>
 		
-	<a:commandButton action="#{realEstateListingAction.addOfferses}" reRender="offerses_data#{entityId}" value="New Offerse">
+	<a:commandButton action="#{realEstateListingAction.addOffers}" reRender="offers_data#{entityId}" value="New Offer">
 		<s:conversationId/>
 	</a:commandButton>
 	</h:column>
 		
 	<h:column>
-		<a:commandButton action="#{realEstateListingAction.deleteOfferses(rowIndex)}" immediate="true" reRender="offerses_data#{entityId}" value="Delete">
+		<a:commandButton action="#{realEstateListingAction.deleteOffers(rowIndex)}" immediate="true" reRender="offers_data#{entityId}" value="Delete">
 			<s:conversationId/>
 		</a:commandButton>
 	</h:column>

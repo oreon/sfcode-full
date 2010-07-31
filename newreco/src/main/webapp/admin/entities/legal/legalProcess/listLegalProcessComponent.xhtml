@@ -6,7 +6,7 @@
    <h:form>
 	  <f:facet name="header">LegalProcess Search Results (#{empty legalProcessList.resultList ? 0 : (legalProcessList.paginated ? legalProcessList.resultCount : legalProcessList.resultList.size)})</f:facet>
 	
-		<rich:dataTable rendered="#{not empty legalProcessList.resultList}" rowClasses="odd, even" styleClass="dataTable" value="#{legalProcessList.resultList}" var="_legalProcess">	
+		<rich:dataTable id="legalProcessList" rendered="#{not empty legalProcessList.resultList}" rowClasses="odd, even" styleClass="dataTable" value="#{legalProcessList.resultList}" var="_legalProcess">	
 		
 	<h:column>
 		<f:facet name="header">
@@ -20,6 +20,34 @@
 		</h:outputText>
 	</h:column>
 		
+		
+	<h:column groupOn="#{legalProcess.legal.displayName}">
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{legalProcessList}"/>
+				<ui:param name="propertyLabel" value="#{msg.legalProcess_legal}"/>
+				<ui:param name="propertyPath" value="legalProcess.legal"/>
+			</ui:include>
+		</f:facet>
+		<s:link value="#{_legalProcess.legal.displayName}" view="/admin/entities/legal/legal/viewLegal.xhtml">
+			<f:param name="legalId" value="#{_legalProcess.legal.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{legalProcessList}"/>
+				<ui:param name="propertyLabel" value="#{msg.legalProcess_process}"/>
+				<ui:param name="propertyPath" value="legalProcess.process"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_legalProcess.process}"/>	
+		
+	</h:column>
+	
 	<h:column>
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
@@ -30,6 +58,21 @@
 		</f:facet>
 		
 			<h:outputText value="#{_legalProcess.completedDate}">
+				<s:convertDateTime dateStyle="short" type="both"/>
+			</h:outputText>
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{legalProcessList}"/>
+				<ui:param name="propertyLabel" value="#{msg.process_dueDate}"/>
+				<ui:param name="propertyPath" value="legalProcess.dueDate"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_legalProcess.dueDate}">
 				<s:convertDateTime dateStyle="short" type="both"/>
 			</h:outputText>
 		
@@ -52,73 +95,6 @@
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{legalProcessList}"/>
-				<ui:param name="propertyLabel" value="#{msg.process_expiryDate}"/>
-				<ui:param name="propertyPath" value="legalProcess.expiryDate"/>
-			</ui:include>
-		</f:facet>
-		
-			<h:outputText value="#{_legalProcess.expiryDate}">
-				<s:convertDateTime dateStyle="short" type="both"/>
-			</h:outputText>
-		
-	</h:column>
-	
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{legalProcessList}"/>
-				<ui:param name="propertyLabel" value="#{msg.process_reason}"/>
-				<ui:param name="propertyPath" value="legalProcess.reason"/>
-			</ui:include>
-		</f:facet>
-		
-			<h:outputText value="#{_legalProcess.reason}"/>	
-		
-	</h:column>
-	
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{legalProcessList}"/>
-				<ui:param name="propertyLabel" value="#{msg.process_type}"/>
-				<ui:param name="propertyPath" value="legalProcess.type"/>
-			</ui:include>
-		</f:facet>
-		
-			<h:outputText value="#{_legalProcess.type}"/>	
-		
-	</h:column>
-	
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{legalProcessList}"/>
-				<ui:param name="propertyLabel" value="#{msg.process_description}"/>
-				<ui:param name="propertyPath" value="legalProcess.description"/>
-			</ui:include>
-		</f:facet>
-		
-			<h:outputText value="#{_legalProcess.description}"/>	
-		
-	</h:column>
-	
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{legalProcessList}"/>
-				<ui:param name="propertyLabel" value="#{msg.process_legalNumber}"/>
-				<ui:param name="propertyPath" value="legalProcess.legalNumber"/>
-			</ui:include>
-		</f:facet>
-		
-			<h:outputText value="#{_legalProcess.legalNumber}"/>	
-		
-	</h:column>
-	
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{legalProcessList}"/>
 				<ui:param name="propertyLabel" value="#{msg.process_documentAdded}"/>
 				<ui:param name="propertyPath" value="legalProcess.documentAdded"/>
 			</ui:include>
@@ -132,12 +108,25 @@
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{legalProcessList}"/>
-				<ui:param name="propertyLabel" value="#{msg.process_skip}"/>
-				<ui:param name="propertyPath" value="legalProcess.skip"/>
+				<ui:param name="propertyLabel" value="#{msg.process_notRequired}"/>
+				<ui:param name="propertyPath" value="legalProcess.notRequired"/>
 			</ui:include>
 		</f:facet>
 		
-			<h:outputText value="#{_legalProcess.skip}"/>	
+			<h:outputText value="#{_legalProcess.notRequired}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{legalProcessList}"/>
+				<ui:param name="propertyLabel" value="#{msg.process_explanation}"/>
+				<ui:param name="propertyPath" value="legalProcess.explanation"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_legalProcess.explanation}"/>	
 		
 	</h:column>
 	

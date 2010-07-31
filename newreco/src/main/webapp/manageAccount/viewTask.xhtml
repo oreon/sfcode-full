@@ -4,50 +4,74 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
 	template="/webtemplate/template.xhtml">
 
 	<ui:define name="content">
 		<h2>Task:</h2>
 
-		<h:form id="list">
+		<a:form id="list">
 
 			<h:outputText
 				value="#{ontarioRecovery.task.taskMgmtInstance.processInstance.start}">
 				<s:convertDateTime type="date" />
 			</h:outputText>
 			
-			#{ontarioRecoveryProcessAction.task.variables['recoveryToken'].lawyer} 
-			
-			#{ontarioRecoveryProcessAction.task.variables['recoveryToken'].realEstateProperty.displayName}
+			Property: #{ontarioRecoveryProcessAction.task.variables['recoveryToken'].realEstateProperty.displayName}
 
+			
 			<f:facet name="header">
 				<h:outputText value="Name" />
 			</f:facet>
 			<h:outputText value="#{ontarioRecoveryProcessAction.task.name}" />
-			
-		
+
+
 			<br />
 
-			
 
-			<h:outputText value="Comments" />	
+
+			<h:outputText value="Comments" />
 			<rich:editor id="Comment_text" required="false"
 				value="#{ontarioRecoveryProcessAction.comment}" />
 
 			<ui:repeat var="trans"
 				value="#{ontarioRecoveryProcessAction.task.availableTransitions}">
-				<s:button value="#{trans.name}"
+				<h:commandLink value="#{trans.name}"
 					action="#{ontarioRecoveryProcessAction.makeDecision}"
-					taskInstance="#{ontarioRecoveryProcessAction.task}"
-					view="/manageAccount/tasks.xhtml">
+					taskInstance="#{ontarioRecoveryProcessAction.task}">
 					<f:param name="transName" value="#{trans.name}" />
 					<f:param name="taskId"
 						value="#{ontarioRecoveryProcessAction.task.id}" />
-				</s:button>
+				</h:commandLink>
 				<h:outputText value=" " />
 			</ui:repeat>
 
-		</h:form>
+			<br />
+
+			<rich:dataTable
+				rendered="#{not empty ontarioRecoveryProcessAction.comments}"
+				rowClasses="odd, even" id="cmaList" styleClass="dataTable"
+				value="#{ontarioRecoveryProcessAction.comments}" var="_cmt">
+				<h:column>
+					<f:facet name="header">
+					Comment
+				</f:facet>
+					<h:outputText value="#{_cmt.message}">
+					</h:outputText>
+
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+					Actor
+				</f:facet>
+					<h:outputText value="#{_cmt.actorId}">
+					</h:outputText>
+
+				</h:column>
+			</rich:dataTable>
+
+
+		</a:form>
 
 
 	</ui:define>

@@ -89,17 +89,17 @@ public class RealEstateListing extends BusinessEntity
 
 	protected Double commission;
 
-	//listingSummarys-> ->->RealEstateListing->
+	//listingSummarys-> ->->ListingSummary->
 
 	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "_ID", nullable = true)
+	@JoinColumn(name = "listingSummarys_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<ListingSummary> listingSummarys = new HashSet<ListingSummary>();
 
-	//agentHistorys-> ->->RealEstateListing->
+	//agentHistorys-> ->->AgentHistory->
 
 	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "_ID", nullable = true)
+	@JoinColumn(name = "agentHistorys_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<AgentHistory> agentHistorys = new HashSet<AgentHistory>();
 

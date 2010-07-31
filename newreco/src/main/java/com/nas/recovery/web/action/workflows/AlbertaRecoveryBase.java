@@ -23,12 +23,12 @@ class AlbertaRecoveryBase extends BaseJbpmProcessAction
 
 	}
 
-	@EndTask(transition = "conflict")
-	public void conflictCheckConflictTask() {
-
-	}
 	@EndTask(transition = "accept")
 	public void acceptCheckConflictTask() {
+
+	}
+	@EndTask(transition = "conflict")
+	public void conflictCheckConflictTask() {
 
 	}
 

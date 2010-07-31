@@ -78,10 +78,10 @@ public class LoanData extends BusinessEntity implements java.io.Serializable {
 
 	protected Boolean rentalProperty;
 
-	//borrowers-> ->->Borrower->
+	//borrowers-> ->->LoanData->
 
 	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "_ID", nullable = false)
+	@JoinColumn(name = "borrowers_ID", nullable = false)
 	@IndexedEmbedded
 	private Set<Borrower> borrowers = new HashSet<Borrower>();
 

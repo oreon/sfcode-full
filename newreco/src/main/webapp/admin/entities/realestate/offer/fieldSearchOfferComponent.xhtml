@@ -6,15 +6,15 @@
 	<h:panelGrid columns="6">
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_offerDate}  "/> <br/>
+	<h:outputText value="#{msg.offer_offerDate}  "/> <br/>
 	
 	<s:decorate template="/layout/display.xhtml">
 		<ui:define name="label">From</ui:define> <br/>
-		<rich:calendar value="#{offersList.offers_offerDateRange.begin}"/>
+		<rich:calendar value="#{offerList.offer_offerDateRange.begin}"/>
 	</s:decorate>
 	<s:decorate template="/layout/display.xhtml">
 		<ui:define name="label">To</ui:define> <br/>
-		<rich:calendar value="#{offersList.offers_offerDateRange.end}"/>
+		<rich:calendar value="#{offerList.offer_offerDateRange.end}"/>
 	</s:decorate>	
 	
 
@@ -26,9 +26,9 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_purchaser}  "/> <br/>
+	<h:outputText value="#{msg.offer_purchaser}  "/> <br/>
 	
-		<h:inputText id="offers_purchaser" value="#{offersList.offers.purchaser}"/>
+		<h:inputText id="offer_purchaser" value="#{offerList.offer.purchaser}"/>
 	
 	
 	</h:panelGroup>
@@ -37,13 +37,13 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_amount}  "/> <br/>
+	<h:outputText value="#{msg.offer_amount}  "/> <br/>
 	
 	
-	<h:inputText id="offers_amount_begin" value="#{offersList.offers_amountRange.begin}">
+	<h:inputText id="offer_amount_begin" value="#{offerList.offer_amountRange.begin}">
 			<f:converter converterId="javax.faces.Double"/>
 	</h:inputText>
-	<h:inputText id="offers_amount_end" value="#{offersList.offers_amountRange.end}">
+	<h:inputText id="offer_amount_end" value="#{offerList.offer_amountRange.end}">
 		<f:converter converterId="javax.faces.Double"/>
 	</h:inputText>
 	
@@ -56,8 +56,8 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_condition}  "/> <br/>
-	<h:selectOneMenu id="offers_condition" required="false" value="#{offersList.offers.condition}">
+	<h:outputText value="#{msg.offer_offerCondition}  "/> <br/>
+	<h:selectOneMenu id="offer_offerCondition" required="false" value="#{offerList.offer.offerCondition}">
 		<f:selectItem itemLabel="Any" itemValue=""/>
 		<f:selectItem itemLabel="None" itemValue=""/>
 		<f:selectItem itemLabel="Inspection" itemValue="Inspection"/>
@@ -74,8 +74,8 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_status}  "/> <br/>
-	<h:selectOneMenu id="offers_status" required="false" value="#{offersList.offers.status}">
+	<h:outputText value="#{msg.offer_status}  "/> <br/>
+	<h:selectOneMenu id="offer_status" required="false" value="#{offerList.offer.status}">
 		<f:selectItem itemLabel="Any" itemValue=""/>
 		<f:selectItem itemLabel="None" itemValue=""/>
 		<f:selectItem itemLabel="Offer" itemValue="Offer"/>
@@ -94,13 +94,13 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_signBackAmount}  "/> <br/>
+	<h:outputText value="#{msg.offer_signBackAmount}  "/> <br/>
 	
 	
-	<h:inputText id="offers_signBackAmount_begin" value="#{offersList.offers_signBackAmountRange.begin}">
+	<h:inputText id="offer_signBackAmount_begin" value="#{offerList.offer_signBackAmountRange.begin}">
 			<f:converter converterId="javax.faces.Double"/>
 	</h:inputText>
-	<h:inputText id="offers_signBackAmount_end" value="#{offersList.offers_signBackAmountRange.end}">
+	<h:inputText id="offer_signBackAmount_end" value="#{offerList.offer_signBackAmountRange.end}">
 		<f:converter converterId="javax.faces.Double"/>
 	</h:inputText>
 	
@@ -113,15 +113,15 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_conditionExpiry}  "/> <br/>
+	<h:outputText value="#{msg.offer_conditionExpiry}  "/> <br/>
 	
 	<s:decorate template="/layout/display.xhtml">
 		<ui:define name="label">From</ui:define> <br/>
-		<rich:calendar value="#{offersList.offers_conditionExpiryRange.begin}"/>
+		<rich:calendar value="#{offerList.offer_conditionExpiryRange.begin}"/>
 	</s:decorate>
 	<s:decorate template="/layout/display.xhtml">
 		<ui:define name="label">To</ui:define> <br/>
-		<rich:calendar value="#{offersList.offers_conditionExpiryRange.end}"/>
+		<rich:calendar value="#{offerList.offer_conditionExpiryRange.end}"/>
 	</s:decorate>	
 	
 
@@ -133,8 +133,8 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_realEstateListing}  "/> <br/>
-	<h:selectOneMenu id="offers_realEstateListing" value="#{offersList.offers.realEstateListing}">
+	<h:outputText value="#{msg.offer_realEstateListing}  "/> <br/>
+	<h:selectOneMenu id="offer_realEstateListing" value="#{offerList.offer.realEstateListing}">
 		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{realEstateListingList}" var="itemIter"/>
 		<s:convertEntity/>
 		
@@ -144,15 +144,15 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_closingDate}  "/> <br/>
+	<h:outputText value="#{msg.offer_closingDate}  "/> <br/>
 	
 	<s:decorate template="/layout/display.xhtml">
 		<ui:define name="label">From</ui:define> <br/>
-		<rich:calendar value="#{offersList.offers_closingDateRange.begin}"/>
+		<rich:calendar value="#{offerList.offer_closingDateRange.begin}"/>
 	</s:decorate>
 	<s:decorate template="/layout/display.xhtml">
 		<ui:define name="label">To</ui:define> <br/>
-		<rich:calendar value="#{offersList.offers_closingDateRange.end}"/>
+		<rich:calendar value="#{offerList.offer_closingDateRange.end}"/>
 	</s:decorate>	
 	
 
@@ -164,9 +164,9 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_comments}  "/> <br/>
+	<h:outputText value="#{msg.offer_comments}  "/> <br/>
 	
-		<h:inputText id="offers_comments" value="#{offersList.offers.comments}"/>
+		<h:inputText id="offer_comments" value="#{offerList.offer.comments}"/>
 	
 	
 	</h:panelGroup>
@@ -176,12 +176,12 @@
 	
 			<s:decorate template="/layout/display.xhtml">
 				<ui:define name="label">From</ui:define> <br/>
-				<rich:calendar id="from" value="#{offersList.dateCreatedRange.begin}"/>
+				<rich:calendar id="from" value="#{offerList.dateCreatedRange.begin}"/>
 			</s:decorate>
 
 			<s:decorate template="/layout/display.xhtml">
 				<ui:define name="label">To</ui:define> <br/>
-				<rich:calendar id="to" value="#{offersList.dateCreatedRange.end}"/>
+				<rich:calendar id="to" value="#{offerList.dateCreatedRange.end}"/>
 			</s:decorate>
 
 	</h:panelGrid>

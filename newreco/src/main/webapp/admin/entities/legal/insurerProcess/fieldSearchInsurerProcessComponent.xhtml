@@ -6,6 +6,32 @@
 	<h:panelGrid columns="6">
 	
 	<h:panelGroup>
+	<h:outputText value="#{msg.insurerProcess_legal}  "/> <br/>
+	<h:selectOneMenu id="insurerProcess_legal" value="#{insurerProcessList.insurerProcess.legal}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{legalList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.insurerProcess_process}  "/> <br/>
+	<h:selectOneMenu id="insurerProcess_process" required="false" value="#{insurerProcessList.insurerProcess.process}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Document_transferred_to_lender" itemValue="DOCUMENT_TRANSFERRED_TO_LENDER"/>
+		<f:selectItem itemLabel="Assignment_of_justice" itemValue="ASSIGNMENT_OF_JUSTICE"/>
+		<f:selectItem itemLabel="Claim_to_insurer" itemValue="CLAIM_TO_INSURER"/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
 	<h:outputText value="#{msg.process_completedDate}  "/> <br/>
 	
 	<s:decorate template="/layout/display.xhtml">
@@ -15,6 +41,26 @@
 	<s:decorate template="/layout/display.xhtml">
 		<ui:define name="label">To</ui:define> <br/>
 		<rich:calendar value="#{insurerProcessList.process_completedDateRange.end}"/>
+	</s:decorate>	
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.process_dueDate}  "/> <br/>
+	
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">From</ui:define> <br/>
+		<rich:calendar value="#{insurerProcessList.process_dueDateRange.begin}"/>
+	</s:decorate>
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">To</ui:define> <br/>
+		<rich:calendar value="#{insurerProcessList.process_dueDateRange.end}"/>
 	</s:decorate>	
 	
 
@@ -45,78 +91,6 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.process_expiryDate}  "/> <br/>
-	
-	<s:decorate template="/layout/display.xhtml">
-		<ui:define name="label">From</ui:define> <br/>
-		<rich:calendar value="#{insurerProcessList.process_expiryDateRange.begin}"/>
-	</s:decorate>
-	<s:decorate template="/layout/display.xhtml">
-		<ui:define name="label">To</ui:define> <br/>
-		<rich:calendar value="#{insurerProcessList.process_expiryDateRange.end}"/>
-	</s:decorate>	
-	
-
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.process_reason}  "/> <br/>
-	
-		<h:inputText id="process_reason" value="#{insurerProcessList.insurerProcess.reason}"/>
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.process_type}  "/> <br/>
-	
-		<h:inputText id="process_type" value="#{insurerProcessList.insurerProcess.type}"/>
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.process_description}  "/> <br/>
-	
-		<h:inputText id="process_description" value="#{insurerProcessList.insurerProcess.description}"/>
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.process_legalNumber}  "/> <br/>
-	
-	
-	<h:inputText id="process_legalNumber_begin" value="#{insurerProcessList.process_legalNumberRange.begin}">
-			<f:converter converterId="javax.faces.Integer"/>
-	</h:inputText>
-	<h:inputText id="process_legalNumber_end" value="#{insurerProcessList.process_legalNumberRange.end}">
-		<f:converter converterId="javax.faces.Integer"/>
-	</h:inputText>
-	
-
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
 	<h:outputText value="#{msg.process_documentAdded}  "/> <br/>
 	
 	<h:selectOneMenu id="process_documentAdded" required="false" value="#{insurerProcessList.insurerProcess.documentAdded}">
@@ -132,13 +106,24 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.process_skip}  "/> <br/>
+	<h:outputText value="#{msg.process_notRequired}  "/> <br/>
 	
-	<h:selectOneMenu id="process_skip" required="false" value="#{insurerProcessList.insurerProcess.skip}">
+	<h:selectOneMenu id="process_notRequired" required="false" value="#{insurerProcessList.insurerProcess.notRequired}">
 		<f:selectItem itemLabel="Any" itemValue=""/>
 		<f:selectItem itemLabel="True" itemValue="true"/>
 		<f:selectItem itemLabel="False" itemValue="false"/>
 	</h:selectOneMenu>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.process_explanation}  "/> <br/>
+	
+		<h:inputText id="process_explanation" value="#{insurerProcessList.insurerProcess.explanation}"/>
 	
 	
 	</h:panelGroup>

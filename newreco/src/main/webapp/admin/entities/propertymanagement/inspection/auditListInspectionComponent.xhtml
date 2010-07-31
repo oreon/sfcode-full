@@ -4,7 +4,7 @@
 				<rich:datascroller align="left" for="dataAudit" maxPages="20" renderIfSinglePage="false"/>
 				<br/>
 
-				<rich:dataTable id="dataAudit" rowClasses="odd, even" rows="30" styleClass="dataTable" value="#{offersAction.auditLog}" var="_log">
+				<rich:dataTable id="dataAudit" rowClasses="odd, even" rows="30" styleClass="dataTable" value="#{inspectionAction.auditLog}" var="_log">
 
 					<rich:column>
 						<f:facet name="header">
@@ -38,51 +38,30 @@
 	
 	<rich:column>
 		<f:facet name="header">
-			<h:outputText value="#{msg.offers_offerDate}"/>
+			<h:outputText value="#{msg.inspection_type}"/>
 		</f:facet>
-		<h:outputText value="#{_log.entity.offerDate}"/>
+		<h:outputText value="#{_log.entity.type}"/>
 	</rich:column>
 	
 	<rich:column>
 		<f:facet name="header">
-			<h:outputText value="#{msg.offers_purchaser}"/>
+			<h:outputText value="#{msg.inspection_date}"/>
 		</f:facet>
-		<h:outputText value="#{_log.entity.purchaser}"/>
+		<h:outputText value="#{_log.entity.date}"/>
 	</rich:column>
 	
 	<rich:column>
 		<f:facet name="header">
-			<h:outputText value="#{msg.offers_amount}"/>
+			<h:outputText value="#{msg.inspection_Observation}"/>
 		</f:facet>
-		<h:outputText value="#{_log.entity.amount}"/>
+		<h:outputText value="#{_log.entity.observation}"/>
 	</rich:column>
 	
 	<rich:column>
 		<f:facet name="header">
-			<h:outputText value="#{msg.offers_condition}"/>
+			<h:outputText value="#{msg.inspection_actionRequired}"/>
 		</f:facet>
-		<h:outputText value="#{_log.entity.condition}"/>
-	</rich:column>
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.offers_status}"/>
-		</f:facet>
-		<h:outputText value="#{_log.entity.status}"/>
-	</rich:column>
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.offers_signBackAmount}"/>
-		</f:facet>
-		<h:outputText value="#{_log.entity.signBackAmount}"/>
-	</rich:column>
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.offers_conditionExpiry}"/>
-		</f:facet>
-		<h:outputText value="#{_log.entity.conditionExpiry}"/>
+		<h:outputText value="#{_log.entity.actionRequired}"/>
 	</rich:column>
 	
 		
@@ -90,29 +69,15 @@
 				
 	<rich:column>
 		<f:facet name="header">
-			<h:outputText value="#{msg.offers_realEstateListing}"/>
+			<h:outputText value="#{msg.inspection_propertyManager}"/>
 		</f:facet>
-		<s:link value="#{_log.entity.realEstateListing.displayName}" view="/admin/entities/realestate/realEstateListing/viewRealEstateListing.xhtml">
-			<f:param name="id" value="#{_entity.realEstateListing.id}"/>
+		<s:link value="#{_log.entity.propertyManager.displayName}" view="/admin/entities/propertymanagement/propertyManager/viewPropertyManager.xhtml">
+			<f:param name="id" value="#{_entity.propertyManager.id}"/>
 			<f:param name="from" value="#{request.servletPath}"/>
 		</s:link>
 	</rich:column>
 			
 		
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.offers_closingDate}"/>
-		</f:facet>
-		<h:outputText value="#{_log.entity.closingDate}"/>
-	</rich:column>
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.offers_comments}"/>
-		</f:facet>
-		<h:outputText value="#{_log.entity.comments}"/>
-	</rich:column>
 	
 				
 			</rich:dataTable>

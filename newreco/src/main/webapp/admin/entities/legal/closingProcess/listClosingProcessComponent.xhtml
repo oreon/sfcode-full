@@ -6,7 +6,7 @@
    <h:form>
 	  <f:facet name="header">ClosingProcess Search Results (#{empty closingProcessList.resultList ? 0 : (closingProcessList.paginated ? closingProcessList.resultCount : closingProcessList.resultList.size)})</f:facet>
 	
-		<rich:dataTable rendered="#{not empty closingProcessList.resultList}" rowClasses="odd, even" styleClass="dataTable" value="#{closingProcessList.resultList}" var="_closingProcess">	
+		<rich:dataTable id="closingProcessList" rendered="#{not empty closingProcessList.resultList}" rowClasses="odd, even" styleClass="dataTable" value="#{closingProcessList.resultList}" var="_closingProcess">	
 		
 	<h:column>
 		<f:facet name="header">
@@ -20,6 +20,34 @@
 		</h:outputText>
 	</h:column>
 		
+		
+	<h:column groupOn="#{closingProcess.legal.displayName}">
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{closingProcessList}"/>
+				<ui:param name="propertyLabel" value="#{msg.closingProcess_legal}"/>
+				<ui:param name="propertyPath" value="closingProcess.legal"/>
+			</ui:include>
+		</f:facet>
+		<s:link value="#{_closingProcess.legal.displayName}" view="/admin/entities/legal/legal/viewLegal.xhtml">
+			<f:param name="legalId" value="#{_closingProcess.legal.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{closingProcessList}"/>
+				<ui:param name="propertyLabel" value="#{msg.closingProcess_process}"/>
+				<ui:param name="propertyPath" value="closingProcess.process"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_closingProcess.process}"/>	
+		
+	</h:column>
+	
 	<h:column>
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
@@ -30,6 +58,21 @@
 		</f:facet>
 		
 			<h:outputText value="#{_closingProcess.completedDate}">
+				<s:convertDateTime dateStyle="short" type="both"/>
+			</h:outputText>
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{closingProcessList}"/>
+				<ui:param name="propertyLabel" value="#{msg.process_dueDate}"/>
+				<ui:param name="propertyPath" value="closingProcess.dueDate"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_closingProcess.dueDate}">
 				<s:convertDateTime dateStyle="short" type="both"/>
 			</h:outputText>
 		
@@ -52,73 +95,6 @@
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{closingProcessList}"/>
-				<ui:param name="propertyLabel" value="#{msg.process_expiryDate}"/>
-				<ui:param name="propertyPath" value="closingProcess.expiryDate"/>
-			</ui:include>
-		</f:facet>
-		
-			<h:outputText value="#{_closingProcess.expiryDate}">
-				<s:convertDateTime dateStyle="short" type="both"/>
-			</h:outputText>
-		
-	</h:column>
-	
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{closingProcessList}"/>
-				<ui:param name="propertyLabel" value="#{msg.process_reason}"/>
-				<ui:param name="propertyPath" value="closingProcess.reason"/>
-			</ui:include>
-		</f:facet>
-		
-			<h:outputText value="#{_closingProcess.reason}"/>	
-		
-	</h:column>
-	
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{closingProcessList}"/>
-				<ui:param name="propertyLabel" value="#{msg.process_type}"/>
-				<ui:param name="propertyPath" value="closingProcess.type"/>
-			</ui:include>
-		</f:facet>
-		
-			<h:outputText value="#{_closingProcess.type}"/>	
-		
-	</h:column>
-	
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{closingProcessList}"/>
-				<ui:param name="propertyLabel" value="#{msg.process_description}"/>
-				<ui:param name="propertyPath" value="closingProcess.description"/>
-			</ui:include>
-		</f:facet>
-		
-			<h:outputText value="#{_closingProcess.description}"/>	
-		
-	</h:column>
-	
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{closingProcessList}"/>
-				<ui:param name="propertyLabel" value="#{msg.process_legalNumber}"/>
-				<ui:param name="propertyPath" value="closingProcess.legalNumber"/>
-			</ui:include>
-		</f:facet>
-		
-			<h:outputText value="#{_closingProcess.legalNumber}"/>	
-		
-	</h:column>
-	
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{closingProcessList}"/>
 				<ui:param name="propertyLabel" value="#{msg.process_documentAdded}"/>
 				<ui:param name="propertyPath" value="closingProcess.documentAdded"/>
 			</ui:include>
@@ -132,12 +108,25 @@
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{closingProcessList}"/>
-				<ui:param name="propertyLabel" value="#{msg.process_skip}"/>
-				<ui:param name="propertyPath" value="closingProcess.skip"/>
+				<ui:param name="propertyLabel" value="#{msg.process_notRequired}"/>
+				<ui:param name="propertyPath" value="closingProcess.notRequired"/>
 			</ui:include>
 		</f:facet>
 		
-			<h:outputText value="#{_closingProcess.skip}"/>	
+			<h:outputText value="#{_closingProcess.notRequired}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{closingProcessList}"/>
+				<ui:param name="propertyLabel" value="#{msg.process_explanation}"/>
+				<ui:param name="propertyPath" value="closingProcess.explanation"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_closingProcess.explanation}"/>	
 		
 	</h:column>
 	

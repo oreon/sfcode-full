@@ -183,6 +183,22 @@
                 <redirect view-id="/admin/entities/propertymanagement/propertyManagementCompany/viewPropertyManagementCompany.xhtml" />
             </rule>
         
+            <rule if-outcome="inspection">
+                <redirect view-id="/admin/entities/propertymanagement/inspection/listInspection.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewInspection">
+                <redirect view-id="/admin/entities/propertymanagement/inspection/viewInspection.xhtml" />
+            </rule>
+        
+            <rule if-outcome="utilitiy">
+                <redirect view-id="/admin/entities/propertymanagement/utilitiy/listUtilitiy.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewUtilitiy">
+                <redirect view-id="/admin/entities/propertymanagement/utilitiy/viewUtilitiy.xhtml" />
+            </rule>
+        
             <rule if-outcome="realEstateListing">
                 <redirect view-id="/admin/entities/realestate/realEstateListing/listRealEstateListing.xhtml" />
             </rule>
@@ -215,12 +231,12 @@
                 <redirect view-id="/admin/entities/realestate/filesUploaded/viewFilesUploaded.xhtml" />
             </rule>
         
-            <rule if-outcome="offers">
-                <redirect view-id="/admin/entities/realestate/offers/listOffers.xhtml" />
+            <rule if-outcome="offer">
+                <redirect view-id="/admin/entities/realestate/offer/listOffer.xhtml" />
             </rule>
             
-            <rule if-outcome="viewOffers">
-                <redirect view-id="/admin/entities/realestate/offers/viewOffers.xhtml" />
+            <rule if-outcome="viewOffer">
+                <redirect view-id="/admin/entities/realestate/offer/viewOffer.xhtml" />
             </rule>
         
             <rule if-outcome="masterAgent">
@@ -364,6 +380,8 @@
             </rule>			
 		</navigation>
 		<param name="legalId" value="#{legalAction.legalId}" />
+		<param name="lawyerId" value="#{legalAction.lawyerId}" />
+		<param name="realEstatePropertyId" value="#{legalAction.realEstatePropertyId}" />
 		
 	</page>
 	
@@ -396,16 +414,17 @@
 
 		<param name="from" />
 		<param name="id" value="#{legalList.legal.id}" />
-	 <param name="legal_courtNumber" value="#{legalList.legal.courtNumber}" validateModel="false" /> 	
-	 <param name="legal_specialHandling" value="#{legalList.legal.specialHandling}" validateModel="false" /> 	
-	 <param name="legal_mortgageNumber" value="#{legalList.legal.mortgageNumber}" validateModel="false" /> 	
-	 <param name="legal_legalNumber" value="#{legalList.legal.legalNumber}" validateModel="false" /> 	
-	 <param name="legal_status" value="#{legalList.legal.status}" validateModel="false" /> 	
-	 <param name="legal_litigation" value="#{legalList.legal.litigation}" validateModel="false" /> 	
-	 <param name="legal_legalDescription" value="#{legalList.legal.legalDescription}" validateModel="false" /> 	
 	 <param name="legal_legalFileNumber" value="#{legalList.legal.legalFileNumber}" validateModel="false" /> 	
-	 <param name="legal_pin" value="#{legalList.legal.pin}" validateModel="false" /> 	
-	 <param name="legal_pid" value="#{legalList.legal.pid}" validateModel="false" /> 	
+	 <param name="legal_courtNumber" value="#{legalList.legal.courtNumber}" validateModel="false" /> 	
+	 <param name="legal_litigation" value="#{legalList.legal.litigation}" validateModel="false" /> 	
+	 <param name="legal_specialHandling" value="#{legalList.legal.specialHandling}" validateModel="false" /> 	
+	 <param name="legal_status" value="#{legalList.legal.status}" validateModel="false" /> 	
+	 <param name="legal_legalDescription" value="#{legalList.legal.legalDescription}" validateModel="false" /> 	
+	 <param name="legal_lawyer" value="#{legalList.legal.lawyer}" validateModel="false" /> 	
+	 <param name="legal_realEstateProperty" value="#{legalList.legal.realEstateProperty}" validateModel="false" /> 	
+	 <param name="legal_titleInsurer" value="#{legalList.legal.titleInsurer}" validateModel="false" /> 	
+	 <param name="legal_titleInsuranceClaim" value="#{legalList.legal.titleInsuranceClaim}" validateModel="false" /> 	
+	 <param name="legal_titleInsuranceClaimNumber" value="#{legalList.legal.titleInsuranceClaimNumber}" validateModel="false" /> 	
 		
 	</page>
     
@@ -466,6 +485,7 @@
             </rule>			
 		</navigation>
 		<param name="closingProcessId" value="#{closingProcessAction.closingProcessId}" />
+		<param name="legalId" value="#{closingProcessAction.legalId}" />
 		
 	</page>
 	
@@ -498,15 +518,14 @@
 
 		<param name="from" />
 		<param name="id" value="#{closingProcessList.closingProcess.id}" />
+	 <param name="closingProcess_legal" value="#{closingProcessList.closingProcess.legal}" validateModel="false" /> 	
+	 <param name="closingProcess_process" value="#{closingProcessList.closingProcess.process}" validateModel="false" /> 	
 	 <param name="process_completedDate" value="#{closingProcessList.closingProcess.completedDate}" validateModel="false" /> 	
+	 <param name="process_dueDate" value="#{closingProcessList.closingProcess.dueDate}" validateModel="false" /> 	
 	 <param name="process_processNumber" value="#{closingProcessList.closingProcess.processNumber}" validateModel="false" /> 	
-	 <param name="process_expiryDate" value="#{closingProcessList.closingProcess.expiryDate}" validateModel="false" /> 	
-	 <param name="process_reason" value="#{closingProcessList.closingProcess.reason}" validateModel="false" /> 	
-	 <param name="process_type" value="#{closingProcessList.closingProcess.type}" validateModel="false" /> 	
-	 <param name="process_description" value="#{closingProcessList.closingProcess.description}" validateModel="false" /> 	
-	 <param name="process_legalNumber" value="#{closingProcessList.closingProcess.legalNumber}" validateModel="false" /> 	
 	 <param name="process_documentAdded" value="#{closingProcessList.closingProcess.documentAdded}" validateModel="false" /> 	
-	 <param name="process_skip" value="#{closingProcessList.closingProcess.skip}" validateModel="false" /> 	
+	 <param name="process_notRequired" value="#{closingProcessList.closingProcess.notRequired}" validateModel="false" /> 	
+	 <param name="process_explanation" value="#{closingProcessList.closingProcess.explanation}" validateModel="false" /> 	
 		
 	</page>
     
@@ -521,6 +540,7 @@
             </rule>			
 		</navigation>
 		<param name="insurerProcessId" value="#{insurerProcessAction.insurerProcessId}" />
+		<param name="legalId" value="#{insurerProcessAction.legalId}" />
 		
 	</page>
 	
@@ -553,15 +573,14 @@
 
 		<param name="from" />
 		<param name="id" value="#{insurerProcessList.insurerProcess.id}" />
+	 <param name="insurerProcess_legal" value="#{insurerProcessList.insurerProcess.legal}" validateModel="false" /> 	
+	 <param name="insurerProcess_process" value="#{insurerProcessList.insurerProcess.process}" validateModel="false" /> 	
 	 <param name="process_completedDate" value="#{insurerProcessList.insurerProcess.completedDate}" validateModel="false" /> 	
+	 <param name="process_dueDate" value="#{insurerProcessList.insurerProcess.dueDate}" validateModel="false" /> 	
 	 <param name="process_processNumber" value="#{insurerProcessList.insurerProcess.processNumber}" validateModel="false" /> 	
-	 <param name="process_expiryDate" value="#{insurerProcessList.insurerProcess.expiryDate}" validateModel="false" /> 	
-	 <param name="process_reason" value="#{insurerProcessList.insurerProcess.reason}" validateModel="false" /> 	
-	 <param name="process_type" value="#{insurerProcessList.insurerProcess.type}" validateModel="false" /> 	
-	 <param name="process_description" value="#{insurerProcessList.insurerProcess.description}" validateModel="false" /> 	
-	 <param name="process_legalNumber" value="#{insurerProcessList.insurerProcess.legalNumber}" validateModel="false" /> 	
 	 <param name="process_documentAdded" value="#{insurerProcessList.insurerProcess.documentAdded}" validateModel="false" /> 	
-	 <param name="process_skip" value="#{insurerProcessList.insurerProcess.skip}" validateModel="false" /> 	
+	 <param name="process_notRequired" value="#{insurerProcessList.insurerProcess.notRequired}" validateModel="false" /> 	
+	 <param name="process_explanation" value="#{insurerProcessList.insurerProcess.explanation}" validateModel="false" /> 	
 		
 	</page>
     
@@ -576,6 +595,7 @@
             </rule>			
 		</navigation>
 		<param name="legalProcessId" value="#{legalProcessAction.legalProcessId}" />
+		<param name="legalId" value="#{legalProcessAction.legalId}" />
 		
 	</page>
 	
@@ -608,15 +628,14 @@
 
 		<param name="from" />
 		<param name="id" value="#{legalProcessList.legalProcess.id}" />
+	 <param name="legalProcess_legal" value="#{legalProcessList.legalProcess.legal}" validateModel="false" /> 	
+	 <param name="legalProcess_process" value="#{legalProcessList.legalProcess.process}" validateModel="false" /> 	
 	 <param name="process_completedDate" value="#{legalProcessList.legalProcess.completedDate}" validateModel="false" /> 	
+	 <param name="process_dueDate" value="#{legalProcessList.legalProcess.dueDate}" validateModel="false" /> 	
 	 <param name="process_processNumber" value="#{legalProcessList.legalProcess.processNumber}" validateModel="false" /> 	
-	 <param name="process_expiryDate" value="#{legalProcessList.legalProcess.expiryDate}" validateModel="false" /> 	
-	 <param name="process_reason" value="#{legalProcessList.legalProcess.reason}" validateModel="false" /> 	
-	 <param name="process_type" value="#{legalProcessList.legalProcess.type}" validateModel="false" /> 	
-	 <param name="process_description" value="#{legalProcessList.legalProcess.description}" validateModel="false" /> 	
-	 <param name="process_legalNumber" value="#{legalProcessList.legalProcess.legalNumber}" validateModel="false" /> 	
 	 <param name="process_documentAdded" value="#{legalProcessList.legalProcess.documentAdded}" validateModel="false" /> 	
-	 <param name="process_skip" value="#{legalProcessList.legalProcess.skip}" validateModel="false" /> 	
+	 <param name="process_notRequired" value="#{legalProcessList.legalProcess.notRequired}" validateModel="false" /> 	
+	 <param name="process_explanation" value="#{legalProcessList.legalProcess.explanation}" validateModel="false" /> 	
 		
 	</page>
     
@@ -631,6 +650,7 @@
             </rule>			
 		</navigation>
 		<param name="bankruptcyId" value="#{bankruptcyAction.bankruptcyId}" />
+		<param name="legalId" value="#{bankruptcyAction.legalId}" />
 		
 	</page>
 	
@@ -669,6 +689,7 @@
 	 <param name="bankruptcy_dateFiled" value="#{bankruptcyList.bankruptcy.dateFiled}" validateModel="false" /> 	
 	 <param name="bankruptcy_dischargedDate" value="#{bankruptcyList.bankruptcy.dischargedDate}" validateModel="false" /> 	
 	 <param name="bankruptcy_proofOfClaim" value="#{bankruptcyList.bankruptcy.proofOfClaim}" validateModel="false" /> 	
+	 <param name="bankruptcy_legal" value="#{bankruptcyList.bankruptcy.legal}" validateModel="false" /> 	
 		
 	</page>
     
@@ -1452,6 +1473,107 @@
 		
 	</page>
     
+    <page view-id="/admin/entities/propertymanagement/inspection/editInspection.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Inspection: #{inspection.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/propertymanagement/inspection/viewInspection.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/propertymanagement/inspection/listInspection.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="inspectionId" value="#{inspectionAction.inspectionId}" />
+		<param name="propertyManagerId" value="#{inspectionAction.propertyManagerId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/propertymanagement/inspection/viewInspection.xhtml" conversation-required="false" >
+	 	<!-- <description>View Inspection: #{inspection.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/propertymanagement/inspection/editInspection.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/propertymanagement/inspection/listInspection.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="inspectionId" value="#{inspectionAction.inspectionId}" />
+	</page>
+	
+	<page view-id="/admin/entities/propertymanagement/inspection/listInspection.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewInspection">
+				<redirect view-id="/admin/entities/propertymanagement/inspection/viewInspection.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/propertymanagement/inspection/editInspection.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{inspectionList.firstResult}" />
+		<param name="sort" value="#{inspectionList.orderColumn}" />
+		<param name="dir" value="#{inspectionList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{inspectionList.inspection.id}" />
+	 <param name="inspection_type" value="#{inspectionList.inspection.type}" validateModel="false" /> 	
+	 <param name="inspection_date" value="#{inspectionList.inspection.date}" validateModel="false" /> 	
+	 <param name="inspection_Observation" value="#{inspectionList.inspection.observation}" validateModel="false" /> 	
+	 <param name="inspection_actionRequired" value="#{inspectionList.inspection.actionRequired}" validateModel="false" /> 	
+	 <param name="inspection_propertyManager" value="#{inspectionList.inspection.propertyManager}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/propertymanagement/utilitiy/editUtilitiy.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Utilitiy: #{utilitiy.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/propertymanagement/utilitiy/viewUtilitiy.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/propertymanagement/utilitiy/listUtilitiy.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="utilitiyId" value="#{utilitiyAction.utilitiyId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/propertymanagement/utilitiy/viewUtilitiy.xhtml" conversation-required="false" >
+	 	<!-- <description>View Utilitiy: #{utilitiy.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/propertymanagement/utilitiy/editUtilitiy.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/propertymanagement/utilitiy/listUtilitiy.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="utilitiyId" value="#{utilitiyAction.utilitiyId}" />
+	</page>
+	
+	<page view-id="/admin/entities/propertymanagement/utilitiy/listUtilitiy.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewUtilitiy">
+				<redirect view-id="/admin/entities/propertymanagement/utilitiy/viewUtilitiy.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/propertymanagement/utilitiy/editUtilitiy.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{utilitiyList.firstResult}" />
+		<param name="sort" value="#{utilitiyList.orderColumn}" />
+		<param name="dir" value="#{utilitiyList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{utilitiyList.utilitiy.id}" />
+	 <param name="utilitiy_name" value="#{utilitiyList.utilitiy.name}" validateModel="false" /> 	
+	 <param name="utilitiy_transferred" value="#{utilitiyList.utilitiy.transferred}" validateModel="false" /> 	
+	 <param name="utilitiy_accountNumber" value="#{utilitiyList.utilitiy.accountNumber}" validateModel="false" /> 	
+		
+	</page>
+    
     <page view-id="/admin/entities/realestate/realEstateListing/editRealEstateListing.xhtml" conversation-required="false" >
     	<!-- <description>Edit RealEstateListing: #{realEstateListing.displayName}</description> -->
     	<navigation> 
@@ -1677,60 +1799,60 @@
 		
 	</page>
     
-    <page view-id="/admin/entities/realestate/offers/editOffers.xhtml" conversation-required="false" >
-    	<!-- <description>Edit Offers: #{offers.displayName}</description> -->
+    <page view-id="/admin/entities/realestate/offer/editOffer.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Offer: #{offer.displayName}</description> -->
     	<navigation> 
 			 <rule if-outcome="save">
- 				<redirect view-id="/admin/entities/realestate/offers/viewOffers.xhtml" />
+ 				<redirect view-id="/admin/entities/realestate/offer/viewOffer.xhtml" />
             </rule>	
              <rule if-outcome="cancel">
- 				<redirect view-id="/admin/entities/realestate/offers/listOffers.xhtml" />
+ 				<redirect view-id="/admin/entities/realestate/offer/listOffer.xhtml" />
             </rule>			
 		</navigation>
-		<param name="offersId" value="#{offersAction.offersId}" />
-		<param name="realEstateListingId" value="#{offersAction.realEstateListingId}" />
+		<param name="offerId" value="#{offerAction.offerId}" />
+		<param name="realEstateListingId" value="#{offerAction.realEstateListingId}" />
 		
 	</page>
 	
-	 <page view-id="/admin/entities/realestate/offers/viewOffers.xhtml" conversation-required="false" >
-	 	<!-- <description>View Offers: #{offers.displayName}</description> -->
+	 <page view-id="/admin/entities/realestate/offer/viewOffer.xhtml" conversation-required="false" >
+	 	<!-- <description>View Offer: #{offer.displayName}</description> -->
 	 	<navigation> 
 			 <rule if-outcome="edit">
- 				<redirect view-id="/admin/entities/realestate/offers/editOffers.xhtml" />
+ 				<redirect view-id="/admin/entities/realestate/offer/editOffer.xhtml" />
             </rule>	
              <rule if-outcome="cancel">
- 				<redirect view-id="/admin/entities/realestate/offers/listOffers.xhtml" />
+ 				<redirect view-id="/admin/entities/realestate/offer/listOffer.xhtml" />
             </rule>			
 		</navigation>
-		<param name="offersId" value="#{offersAction.offersId}" />
+		<param name="offerId" value="#{offerAction.offerId}" />
 	</page>
 	
-	<page view-id="/admin/entities/realestate/offers/listOffers.xhtml" action="#{redirect.captureCurrentView()}" >
+	<page view-id="/admin/entities/realestate/offer/listOffer.xhtml" action="#{redirect.captureCurrentView()}" >
 		<navigation>
-			<rule if-outcome="viewOffers">
-				<redirect view-id="/admin/entities/realestate/offers/viewOffers.xhtml" />
+			<rule if-outcome="viewOffer">
+				<redirect view-id="/admin/entities/realestate/offer/viewOffer.xhtml" />
 			</rule> 
 			 <rule if-outcome="edit">
- 				<redirect view-id="/admin/entities/realestate/offers/editOffers.xhtml" />
+ 				<redirect view-id="/admin/entities/realestate/offer/editOffer.xhtml" />
             </rule>			
 		</navigation>
 		
-		<param name="firstResult" value="#{offersList.firstResult}" />
-		<param name="sort" value="#{offersList.orderColumn}" />
-		<param name="dir" value="#{offersList.orderDirection}" />
+		<param name="firstResult" value="#{offerList.firstResult}" />
+		<param name="sort" value="#{offerList.orderColumn}" />
+		<param name="dir" value="#{offerList.orderDirection}" />
 
 		<param name="from" />
-		<param name="id" value="#{offersList.offers.id}" />
-	 <param name="offers_offerDate" value="#{offersList.offers.offerDate}" validateModel="false" /> 	
-	 <param name="offers_purchaser" value="#{offersList.offers.purchaser}" validateModel="false" /> 	
-	 <param name="offers_amount" value="#{offersList.offers.amount}" validateModel="false" /> 	
-	 <param name="offers_condition" value="#{offersList.offers.condition}" validateModel="false" /> 	
-	 <param name="offers_status" value="#{offersList.offers.status}" validateModel="false" /> 	
-	 <param name="offers_signBackAmount" value="#{offersList.offers.signBackAmount}" validateModel="false" /> 	
-	 <param name="offers_conditionExpiry" value="#{offersList.offers.conditionExpiry}" validateModel="false" /> 	
-	 <param name="offers_realEstateListing" value="#{offersList.offers.realEstateListing}" validateModel="false" /> 	
-	 <param name="offers_closingDate" value="#{offersList.offers.closingDate}" validateModel="false" /> 	
-	 <param name="offers_comments" value="#{offersList.offers.comments}" validateModel="false" /> 	
+		<param name="id" value="#{offerList.offer.id}" />
+	 <param name="offer_offerDate" value="#{offerList.offer.offerDate}" validateModel="false" /> 	
+	 <param name="offer_purchaser" value="#{offerList.offer.purchaser}" validateModel="false" /> 	
+	 <param name="offer_amount" value="#{offerList.offer.amount}" validateModel="false" /> 	
+	 <param name="offer_offerCondition" value="#{offerList.offer.offerCondition}" validateModel="false" /> 	
+	 <param name="offer_status" value="#{offerList.offer.status}" validateModel="false" /> 	
+	 <param name="offer_signBackAmount" value="#{offerList.offer.signBackAmount}" validateModel="false" /> 	
+	 <param name="offer_conditionExpiry" value="#{offerList.offer.conditionExpiry}" validateModel="false" /> 	
+	 <param name="offer_realEstateListing" value="#{offerList.offer.realEstateListing}" validateModel="false" /> 	
+	 <param name="offer_closingDate" value="#{offerList.offer.closingDate}" validateModel="false" /> 	
+	 <param name="offer_comments" value="#{offerList.offer.comments}" validateModel="false" /> 	
 		
 	</page>
     

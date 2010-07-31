@@ -6,7 +6,7 @@
    <h:form>
 	  <f:facet name="header">Bankruptcy Search Results (#{empty bankruptcyList.resultList ? 0 : (bankruptcyList.paginated ? bankruptcyList.resultCount : bankruptcyList.resultList.size)})</f:facet>
 	
-		<rich:dataTable rendered="#{not empty bankruptcyList.resultList}" rowClasses="odd, even" styleClass="dataTable" value="#{bankruptcyList.resultList}" var="_bankruptcy">	
+		<rich:dataTable id="bankruptcyList" rendered="#{not empty bankruptcyList.resultList}" rowClasses="odd, even" styleClass="dataTable" value="#{bankruptcyList.resultList}" var="_bankruptcy">	
 		
 	<h:column>
 		<f:facet name="header">
@@ -100,6 +100,21 @@
 		
 			<h:outputText value="#{_bankruptcy.proofOfClaim}"/>	
 		
+	</h:column>
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{bankruptcyList}"/>
+				<ui:param name="propertyLabel" value="#{msg.bankruptcy_legal}"/>
+				<ui:param name="propertyPath" value="bankruptcy.legal"/>
+			</ui:include>
+		</f:facet>
+		<s:link value="#{_bankruptcy.legal.displayName}" view="/admin/entities/legal/legal/viewLegal.xhtml">
+			<f:param name="legalId" value="#{_bankruptcy.legal.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
 	</h:column>
 	
 		

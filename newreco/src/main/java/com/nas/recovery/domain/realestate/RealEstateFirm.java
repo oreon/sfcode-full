@@ -47,7 +47,7 @@ public class RealEstateFirm extends com.nas.recovery.domain.loan.Company
 			java.io.Serializable {
 	private static final long serialVersionUID = -747943602L;
 
-	//masterAgents->realEstateFirm ->RealEstateFirm->RealEstateFirm->RealEstateFirm
+	//masterAgents->realEstateFirm ->RealEstateFirm->MasterAgent->MasterAgent
 
 	@OneToMany(mappedBy = "realEstateFirm", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateFirm_ID", nullable = true)

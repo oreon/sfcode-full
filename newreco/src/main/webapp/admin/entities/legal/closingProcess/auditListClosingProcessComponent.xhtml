@@ -44,44 +44,16 @@
 	
 	<rich:column>
 		<f:facet name="header">
+			<h:outputText value="#{msg.process_dueDate}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.dueDate}"/>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
 			<h:outputText value="#{msg.process_processNumber}"/>
 		</f:facet>
 		<h:outputText value="#{_log.entity.processNumber}"/>
-	</rich:column>
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.process_expiryDate}"/>
-		</f:facet>
-		<h:outputText value="#{_log.entity.expiryDate}"/>
-	</rich:column>
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.process_reason}"/>
-		</f:facet>
-		<h:outputText value="#{_log.entity.reason}"/>
-	</rich:column>
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.process_type}"/>
-		</f:facet>
-		<h:outputText value="#{_log.entity.type}"/>
-	</rich:column>
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.process_description}"/>
-		</f:facet>
-		<h:outputText value="#{_log.entity.description}"/>
-	</rich:column>
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.process_legalNumber}"/>
-		</f:facet>
-		<h:outputText value="#{_log.entity.legalNumber}"/>
 	</rich:column>
 	
 	<rich:column>
@@ -93,11 +65,40 @@
 	
 	<rich:column>
 		<f:facet name="header">
-			<h:outputText value="#{msg.process_skip}"/>
+			<h:outputText value="#{msg.process_notRequired}"/>
 		</f:facet>
-		<h:outputText value="#{_log.entity.skip}"/>
+		<h:outputText value="#{_log.entity.notRequired}"/>
 	</rich:column>
 	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.process_explanation}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.explanation}"/>
+	</rich:column>
+	
+	
+		
+			
+				
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.closingProcess_legal}"/>
+		</f:facet>
+		<s:link value="#{_log.entity.legal.displayName}" view="/admin/entities/legal/legal/viewLegal.xhtml">
+			<f:param name="id" value="#{_entity.legal.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</rich:column>
+			
+		
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.closingProcess_process}"/>
+		</f:facet>
+		<h:outputText value="#{_log.entity.process}"/>
+	</rich:column>
 	
 				
 			</rich:dataTable>

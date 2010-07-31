@@ -9,6 +9,32 @@
 		
 		
 	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.closingProcess_legal}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="closingProcess_legal" required="true" value="#{closingProcessAction.closingProcess.legal}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{legalList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="closingProcess_legal" styleClass="error errors"/>		
+		
+	
+	
+		
+	
 
 	 
 	
@@ -21,6 +47,20 @@
    
 		
 		<h:message for="process_completedDate" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.process_dueDate}  "/>
+		
+
+	<rich:calendar id="process_dueDate#{entityId}" required="false" value="#{closingProcessAction.closingProcess.dueDate}"/>
+   
+		
+		<h:message for="process_dueDate" styleClass="error errors"/>		
 		
 	
 	
@@ -42,76 +82,6 @@
 	
 	
 		
-		<h:outputText value="#{msg.process_expiryDate}  "/>
-		
-
-	<rich:calendar id="process_expiryDate#{entityId}" required="false" value="#{closingProcessAction.closingProcess.expiryDate}"/>
-   
-		
-		<h:message for="process_expiryDate" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.process_reason}  "/>
-		
-
-	<h:inputText id="process_reason#{entityId}" required="false" value="#{closingProcessAction.closingProcess.reason}"/>
-   
-		
-		<h:message for="process_reason" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.process_type}  "/>
-		
-
-	<h:inputText id="process_type#{entityId}" required="false" value="#{closingProcessAction.closingProcess.type}"/>
-   
-		
-		<h:message for="process_type" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.process_description}  "/>
-		
-
-	<h:inputText id="process_description#{entityId}" required="false" value="#{closingProcessAction.closingProcess.description}"/>
-   
-		
-		<h:message for="process_description" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.process_legalNumber}  "/>
-		
-
-	<h:inputText id="process_legalNumber#{entityId}" required="false" value="#{closingProcessAction.closingProcess.legalNumber}"/>
-   
-		
-		<h:message for="process_legalNumber" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
 		<h:outputText value="#{msg.process_documentAdded}  "/>
 		
 
@@ -126,15 +96,51 @@
 	
 	
 		
-		<h:outputText value="#{msg.process_skip}  "/>
+		<h:outputText value="#{msg.process_notRequired}  "/>
 		
 
-	<h:selectBooleanCheckbox id="process_skip#{entityId}" required="false" value="#{closingProcessAction.closingProcess.skip}"/>
+	<h:selectBooleanCheckbox id="process_notRequired#{entityId}" required="false" value="#{closingProcessAction.closingProcess.notRequired}"/>
    
 		
-		<h:message for="process_skip" styleClass="error errors"/>		
+		<h:message for="process_notRequired" styleClass="error errors"/>		
 		
 	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.process_explanation}  "/>
+		
+
+	<rich:editor id="process_explanation#{entityId}" required="false" useSeamText="true" value="#{closingProcessAction.closingProcess.explanation}"/>
+   
+		
+		<h:message for="process_explanation" styleClass="error errors"/>		
+		
+	
+	
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.closingProcess_process}  "/>
+		
+	
+	<h:selectOneMenu id="closingProcess_process" required="false" value="#{closingProcessAction.closingProcess.process}">
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
+		<f:selectItem itemLabel="Agreement_pands" itemValue="AGREEMENT_PANDS"/>
+		<f:selectItem itemLabel="Closing_documents" itemValue="CLOSING_DOCUMENTS"/>
+		<f:selectItem itemLabel="Sale_completed" itemValue="SALE_COMPLETED"/>
+		<f:selectItem itemLabel="Sale_proceeds_deposited" itemValue="SALE_PROCEEDS_DEPOSITED"/>
+		<f:selectItem itemLabel="Closing_report" itemValue="CLOSING_REPORT"/>
+		
+	</h:selectOneMenu>
+	
+		
+		<h:message for="closingProcess_process" styleClass="error errors"/>		
+		
 	
 	
 		</h:panelGrid>
