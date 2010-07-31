@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	
+	
+<rich:panel>
+   <h:form>
+	  <f:facet name="header">Offer Search Results (#{empty offerList.resultList ? 0 : (offerList.paginated ? offerList.resultCount : offerList.resultList.size)})</f:facet>
+	
+		<rich:dataTable id="offerList" rendered="#{not empty offerList.resultList}" rowClasses="odd, even" styleClass="dataTable" value="#{offerList.resultList}" var="_offer">	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{offerList}"/>
+				<ui:param name="propertyLabel" value="Id"/>
+				<ui:param name="propertyPath" value="offer.id"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_offer.id}">
+		</h:outputText>
+	</h:column>
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{offerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.offer_offerDate}"/>
+				<ui:param name="propertyPath" value="offer.offerDate"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_offer.offerDate}">
+				<s:convertDateTime dateStyle="short" type="both"/>
+			</h:outputText>
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{offerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.offer_purchaser}"/>
+				<ui:param name="propertyPath" value="offer.purchaser"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_offer.purchaser}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{offerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.offer_amount}"/>
+				<ui:param name="propertyPath" value="offer.amount"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_offer.amount}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{offerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.offer_offerCondition}"/>
+				<ui:param name="propertyPath" value="offer.offerCondition"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_offer.offerCondition}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{offerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.offer_status}"/>
+				<ui:param name="propertyPath" value="offer.status"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_offer.status}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{offerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.offer_signBackAmount}"/>
+				<ui:param name="propertyPath" value="offer.signBackAmount"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_offer.signBackAmount}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{offerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.offer_conditionExpiry}"/>
+				<ui:param name="propertyPath" value="offer.conditionExpiry"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_offer.conditionExpiry}">
+				<s:convertDateTime dateStyle="short" type="both"/>
+			</h:outputText>
+		
+	</h:column>
+	
+		
+	<h:column groupOn="#{offer.realEstateListing.displayName}">
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{offerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.offer_realEstateListing}"/>
+				<ui:param name="propertyPath" value="offer.realEstateListing"/>
+			</ui:include>
+		</f:facet>
+		<s:link value="#{_offer.realEstateListing.displayName}" view="/admin/entities/realestate/realEstateListing/viewRealEstateListing.xhtml">
+			<f:param name="realEstateListingId" value="#{_offer.realEstateListing.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{offerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.offer_closingDate}"/>
+				<ui:param name="propertyPath" value="offer.closingDate"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_offer.closingDate}">
+				<s:convertDateTime dateStyle="short" type="both"/>
+			</h:outputText>
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{offerList}"/>
+				<ui:param name="propertyLabel" value="#{msg.offer_comments}"/>
+				<ui:param name="propertyPath" value="offer.comments"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_offer.comments}"/>	
+		
+	</h:column>
+	
+		
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{offerList}"/>
+				<ui:param name="propertyLabel" value="Creation Date"/>
+				<ui:param name="propertyPath" value="offer.dateCreated"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_offer.dateCreated}">
+			<s:convertDateTime dateStyle="short" type="both"/>
+		</h:outputText>
+	</h:column>
+		
+	<h:column rendered="#{s:hasPermission('offerAction', 'view')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/realestate/offer/viewOffer.xhtml">
+			<h:graphicImage alt="view" style="border: 0px" value="/images/icons/eye.png"/>
+			<f:param name="offerId" value="#{_offer.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('offerAction', 'edit')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/realestate/offer/editOffer.xhtml">
+			<h:graphicImage alt="edit" style="border: 0px" value="/images/icons/edit.png"/>
+			<f:param name="offerId" value="#{_offer.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('offerAction', 'archive')}">
+		<f:facet name="header">
+			<h:outputText value=""/>
+		</f:facet>
+		
+		<s:link action="#{offerAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_offer.displayName} ?')){ return false; } else { return true; }">
+			<h:graphicImage alt="archive" style="border: 0px" value="/images/icons/delete.png"/>
+			<f:param name="idToArchive" value="#{_offer.id}"/>
+		</s:link>
+	</h:column>
+
+		</rich:dataTable>
+ 	</h:form>		
+</rich:panel>	
+
+
+
+ <div class="tableControl">
+<s:link rendered="#{offerList.previousExists}" value="#{messages.left}#{messages.left} First Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="0"/>
+</s:link> 
+
+<s:link rendered="#{offerList.previousExists}" value="#{messages.left} Previous Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{offerList.previousFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{offerList.nextExists}" value="Next Page #{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{offerList.nextFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{offerList.nextExists}" value="Last Page #{messages.right}#{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{offerList.lastFirstResult}"/>
+</s:link>
+</div>
+
+
+<h:form>
+<s:div rendered="#{empty from}" styleClass="actionButtons">
+	<s:button propagation="none" value="Create New" view="/admin/entities/realestate/offer/editOffer.xhtml">
+		 <f:param name="offerId"/>
+		
+	</s:button>
+</s:div>
+</h:form>
+
+</html>

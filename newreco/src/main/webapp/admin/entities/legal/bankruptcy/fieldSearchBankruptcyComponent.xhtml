@@ -101,6 +101,17 @@
 	
 	
 	
+	<h:panelGroup>
+	<h:outputText value="#{msg.bankruptcy_legal}  "/> <br/>
+	<h:selectOneMenu id="bankruptcy_legal" value="#{bankruptcyList.bankruptcy.legal}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{legalList}" var="itemIter"/>
+		<s:convertEntity/>
+		<f:selectItem itemLabel="--None--" itemValue=""/>
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
 			<s:decorate template="/layout/display.xhtml">
 				<ui:define name="label">From</ui:define> <br/>
 				<rich:calendar id="from" value="#{bankruptcyList.dateCreatedRange.begin}"/>

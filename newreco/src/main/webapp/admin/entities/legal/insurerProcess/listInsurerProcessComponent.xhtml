@@ -6,7 +6,7 @@
    <h:form>
 	  <f:facet name="header">InsurerProcess Search Results (#{empty insurerProcessList.resultList ? 0 : (insurerProcessList.paginated ? insurerProcessList.resultCount : insurerProcessList.resultList.size)})</f:facet>
 	
-		<rich:dataTable rendered="#{not empty insurerProcessList.resultList}" rowClasses="odd, even" styleClass="dataTable" value="#{insurerProcessList.resultList}" var="_insurerProcess">	
+		<rich:dataTable id="insurerProcessList" rendered="#{not empty insurerProcessList.resultList}" rowClasses="odd, even" styleClass="dataTable" value="#{insurerProcessList.resultList}" var="_insurerProcess">	
 		
 	<h:column>
 		<f:facet name="header">
@@ -20,6 +20,34 @@
 		</h:outputText>
 	</h:column>
 		
+		
+	<h:column groupOn="#{insurerProcess.legal.displayName}">
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{insurerProcessList}"/>
+				<ui:param name="propertyLabel" value="#{msg.insurerProcess_legal}"/>
+				<ui:param name="propertyPath" value="insurerProcess.legal"/>
+			</ui:include>
+		</f:facet>
+		<s:link value="#{_insurerProcess.legal.displayName}" view="/admin/entities/legal/legal/viewLegal.xhtml">
+			<f:param name="legalId" value="#{_insurerProcess.legal.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{insurerProcessList}"/>
+				<ui:param name="propertyLabel" value="#{msg.insurerProcess_process}"/>
+				<ui:param name="propertyPath" value="insurerProcess.process"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_insurerProcess.process}"/>	
+		
+	</h:column>
+	
 	<h:column>
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
@@ -30,6 +58,21 @@
 		</f:facet>
 		
 			<h:outputText value="#{_insurerProcess.completedDate}">
+				<s:convertDateTime dateStyle="short" type="both"/>
+			</h:outputText>
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{insurerProcessList}"/>
+				<ui:param name="propertyLabel" value="#{msg.process_dueDate}"/>
+				<ui:param name="propertyPath" value="insurerProcess.dueDate"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_insurerProcess.dueDate}">
 				<s:convertDateTime dateStyle="short" type="both"/>
 			</h:outputText>
 		
@@ -52,73 +95,6 @@
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{insurerProcessList}"/>
-				<ui:param name="propertyLabel" value="#{msg.process_expiryDate}"/>
-				<ui:param name="propertyPath" value="insurerProcess.expiryDate"/>
-			</ui:include>
-		</f:facet>
-		
-			<h:outputText value="#{_insurerProcess.expiryDate}">
-				<s:convertDateTime dateStyle="short" type="both"/>
-			</h:outputText>
-		
-	</h:column>
-	
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{insurerProcessList}"/>
-				<ui:param name="propertyLabel" value="#{msg.process_reason}"/>
-				<ui:param name="propertyPath" value="insurerProcess.reason"/>
-			</ui:include>
-		</f:facet>
-		
-			<h:outputText value="#{_insurerProcess.reason}"/>	
-		
-	</h:column>
-	
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{insurerProcessList}"/>
-				<ui:param name="propertyLabel" value="#{msg.process_type}"/>
-				<ui:param name="propertyPath" value="insurerProcess.type"/>
-			</ui:include>
-		</f:facet>
-		
-			<h:outputText value="#{_insurerProcess.type}"/>	
-		
-	</h:column>
-	
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{insurerProcessList}"/>
-				<ui:param name="propertyLabel" value="#{msg.process_description}"/>
-				<ui:param name="propertyPath" value="insurerProcess.description"/>
-			</ui:include>
-		</f:facet>
-		
-			<h:outputText value="#{_insurerProcess.description}"/>	
-		
-	</h:column>
-	
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{insurerProcessList}"/>
-				<ui:param name="propertyLabel" value="#{msg.process_legalNumber}"/>
-				<ui:param name="propertyPath" value="insurerProcess.legalNumber"/>
-			</ui:include>
-		</f:facet>
-		
-			<h:outputText value="#{_insurerProcess.legalNumber}"/>	
-		
-	</h:column>
-	
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{insurerProcessList}"/>
 				<ui:param name="propertyLabel" value="#{msg.process_documentAdded}"/>
 				<ui:param name="propertyPath" value="insurerProcess.documentAdded"/>
 			</ui:include>
@@ -132,12 +108,25 @@
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{insurerProcessList}"/>
-				<ui:param name="propertyLabel" value="#{msg.process_skip}"/>
-				<ui:param name="propertyPath" value="insurerProcess.skip"/>
+				<ui:param name="propertyLabel" value="#{msg.process_notRequired}"/>
+				<ui:param name="propertyPath" value="insurerProcess.notRequired"/>
 			</ui:include>
 		</f:facet>
 		
-			<h:outputText value="#{_insurerProcess.skip}"/>	
+			<h:outputText value="#{_insurerProcess.notRequired}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{insurerProcessList}"/>
+				<ui:param name="propertyLabel" value="#{msg.process_explanation}"/>
+				<ui:param name="propertyPath" value="insurerProcess.explanation"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_insurerProcess.explanation}"/>	
 		
 	</h:column>
 	

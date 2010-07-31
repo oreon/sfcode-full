@@ -2,20 +2,20 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
 
 
-<rich:modalPanel autosized="true" id="OffersModalPanel" zindex="2000">
+<rich:modalPanel autosized="true" id="UtilitiyModalPanel" zindex="2000">
 			<f:facet name="header">
 				<h:panelGroup>
-					<h:outputText value="New Offers"/>
+					<h:outputText value="New Utilitiy"/>
 				</h:panelGroup>
 			</f:facet>
 			<f:facet name="controls">
 				<h:panelGroup>
 					<h:graphicImage alt="Close" styleClass="hidelink" value="/img/close.png"/>
-					<rich:componentControl attachTo="hidelink" event="onclick" for="OffersModalPanel" operation="hide"/>
+					<rich:componentControl attachTo="hidelink" event="onclick" for="UtilitiyModalPanel" operation="hide"/>
 				</h:panelGroup>
 			</f:facet>
 			
-			<s:div id="OffersModalDiv">
+			<s:div id="UtilitiyModalDiv">
 			
 				<a:outputPanel ajaxRendered="true">
 					<rich:messages layout="list" passedLabel="" rendered="#{facesContext.maximumSeverity != null}" style="width:100%; text-align: left; color: red; font-weight: bold;">
@@ -24,16 +24,16 @@
 				</a:outputPanel>
 					<a:form>
 
-						<ui:include src="/admin/entities/realestate/offers/editOffersComponent.xhtml"/>
+						<ui:include src="/admin/entities/propertymanagement/utilitiy/editUtilitiyComponent.xhtml"/>
 						
-						<a:commandButton action="#{offersAction.save}" oncomplete="if (#{facesContext.maximumSeverity == null}) { Richfaces.hideModalPanel('OffersModalPanel'); location.reload(true) }" reRender="realEstatePropertyList" value="Save">
+						<a:commandButton action="#{utilitiyAction.save}" oncomplete="if (#{facesContext.maximumSeverity == null}) { Richfaces.hideModalPanel('UtilitiyModalPanel'); }" reRender="utilitiyList" value="Save">
 							 <f:param name="conversationPropagation" value="end"/>
 							
 						</a:commandButton>
 						<h:outputText value=" "/>
-							<a:commandButton oncomplete="Richfaces.hideModalPanel('OffersModalPanel')" value="Hide"/>
+							<a:commandButton oncomplete="Richfaces.hideModalPanel('UtilitiyModalPanel')" value="Hide"/>
 						<h:outputText value=" "/>
-						<s:button action="#{offersAction.cancel}" id="cancelbtn" immediate="true" propagation="end" value="Cancel"/>
+						<s:button action="#{utilitiyAction.cancel}" id="cancelbtn" immediate="true" propagation="end" value="Cancel"/>
 
 					</a:form>
 				

@@ -6,6 +6,44 @@
 	<h:panelGrid columns="6">
 	
 	<h:panelGroup>
+	<h:outputText value="#{msg.legalProcess_legal}  "/> <br/>
+	<h:selectOneMenu id="legalProcess_legal" value="#{legalProcessList.legalProcess.legal}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{legalList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.legalProcess_process}  "/> <br/>
+	<h:selectOneMenu id="legalProcess_process" required="false" value="#{legalProcessList.legalProcess.process}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Assignment_judgement" itemValue="ASSIGNMENT_JUDGEMENT"/>
+		<f:selectItem itemLabel="Demand_letter" itemValue="DEMAND_LETTER"/>
+		<f:selectItem itemLabel="Eviction_letter" itemValue="EVICTION_LETTER"/>
+		<f:selectItem itemLabel="Judgement" itemValue="JUDGEMENT"/>
+		<f:selectItem itemLabel="Notice_of_sale" itemValue="NOTICE_OF_SALE"/>
+		<f:selectItem itemLabel="Right_to_sell" itemValue="RIGHT_TO_SELL"/>
+		<f:selectItem itemLabel="Statement_of_claim" itemValue="STATEMENT_OF_CLAIM"/>
+		<f:selectItem itemLabel="Statement_of_defence" itemValue="STATEMENT_OF_DEFENCE"/>
+		<f:selectItem itemLabel="Tenancy_attornment_notice" itemValue="TENANCY_ATTORNMENT_NOTICE"/>
+		<f:selectItem itemLabel="Tenancy_eviction_order" itemValue="TENANCY_EVICTION_ORDER"/>
+		<f:selectItem itemLabel="Tenancy_ltb_dearing_date" itemValue="TENANCY_LTB_DEARING_DATE"/>
+		<f:selectItem itemLabel="Tenancy_n4_issued" itemValue="TENANCY_N4_ISSUED"/>
+		<f:selectItem itemLabel="Writ_possession" itemValue="WRIT_POSSESSION"/>
+		<f:selectItem itemLabel="Writ_seizure_and_sale" itemValue="WRIT_SEIZURE_AND_SALE"/>
+		<f:selectItem itemLabel="Other" itemValue="OTHER"/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
 	<h:outputText value="#{msg.process_completedDate}  "/> <br/>
 	
 	<s:decorate template="/layout/display.xhtml">
@@ -15,6 +53,26 @@
 	<s:decorate template="/layout/display.xhtml">
 		<ui:define name="label">To</ui:define> <br/>
 		<rich:calendar value="#{legalProcessList.process_completedDateRange.end}"/>
+	</s:decorate>	
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.process_dueDate}  "/> <br/>
+	
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">From</ui:define> <br/>
+		<rich:calendar value="#{legalProcessList.process_dueDateRange.begin}"/>
+	</s:decorate>
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">To</ui:define> <br/>
+		<rich:calendar value="#{legalProcessList.process_dueDateRange.end}"/>
 	</s:decorate>	
 	
 
@@ -45,78 +103,6 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.process_expiryDate}  "/> <br/>
-	
-	<s:decorate template="/layout/display.xhtml">
-		<ui:define name="label">From</ui:define> <br/>
-		<rich:calendar value="#{legalProcessList.process_expiryDateRange.begin}"/>
-	</s:decorate>
-	<s:decorate template="/layout/display.xhtml">
-		<ui:define name="label">To</ui:define> <br/>
-		<rich:calendar value="#{legalProcessList.process_expiryDateRange.end}"/>
-	</s:decorate>	
-	
-
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.process_reason}  "/> <br/>
-	
-		<h:inputText id="process_reason" value="#{legalProcessList.legalProcess.reason}"/>
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.process_type}  "/> <br/>
-	
-		<h:inputText id="process_type" value="#{legalProcessList.legalProcess.type}"/>
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.process_description}  "/> <br/>
-	
-		<h:inputText id="process_description" value="#{legalProcessList.legalProcess.description}"/>
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.process_legalNumber}  "/> <br/>
-	
-	
-	<h:inputText id="process_legalNumber_begin" value="#{legalProcessList.process_legalNumberRange.begin}">
-			<f:converter converterId="javax.faces.Integer"/>
-	</h:inputText>
-	<h:inputText id="process_legalNumber_end" value="#{legalProcessList.process_legalNumberRange.end}">
-		<f:converter converterId="javax.faces.Integer"/>
-	</h:inputText>
-	
-
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
 	<h:outputText value="#{msg.process_documentAdded}  "/> <br/>
 	
 	<h:selectOneMenu id="process_documentAdded" required="false" value="#{legalProcessList.legalProcess.documentAdded}">
@@ -132,13 +118,24 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.process_skip}  "/> <br/>
+	<h:outputText value="#{msg.process_notRequired}  "/> <br/>
 	
-	<h:selectOneMenu id="process_skip" required="false" value="#{legalProcessList.legalProcess.skip}">
+	<h:selectOneMenu id="process_notRequired" required="false" value="#{legalProcessList.legalProcess.notRequired}">
 		<f:selectItem itemLabel="Any" itemValue=""/>
 		<f:selectItem itemLabel="True" itemValue="true"/>
 		<f:selectItem itemLabel="False" itemValue="false"/>
 	</h:selectOneMenu>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.process_explanation}  "/> <br/>
+	
+		<h:inputText id="process_explanation" value="#{legalProcessList.legalProcess.explanation}"/>
 	
 	
 	</h:panelGroup>

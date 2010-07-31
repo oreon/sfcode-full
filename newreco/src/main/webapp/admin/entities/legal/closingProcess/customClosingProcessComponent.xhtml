@@ -6,9 +6,47 @@
 	<h:panelGrid columns="3" styleClass="summarywrap">
 	
 	<h:panelGroup>
+	<h:outputText value="#{msg.closingProcess_legal}  "/> <br/>
+	<h:selectOneMenu id="closingProcess_legal" value="#{closingProcessAction.closingProcess.legal}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{legalList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.closingProcess_process}  "/> <br/>
+	<h:selectOneMenu id="closingProcess_process" required="false" value="#{closingProcessAction.closingProcess.process}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Agreement_pands" itemValue="AGREEMENT_PANDS"/>
+		<f:selectItem itemLabel="Closing_documents" itemValue="CLOSING_DOCUMENTS"/>
+		<f:selectItem itemLabel="Sale_completed" itemValue="SALE_COMPLETED"/>
+		<f:selectItem itemLabel="Sale_proceeds_deposited" itemValue="SALE_PROCEEDS_DEPOSITED"/>
+		<f:selectItem itemLabel="Closing_report" itemValue="CLOSING_REPORT"/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
 	<h:outputText value="#{msg.process_completedDate}  "/> <br/>
 	
 		<rich:calendar id="process_completedDate" value="#{closingProcessAction.closingProcess.completedDate}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.process_dueDate}  "/> <br/>
+	
+		<rich:calendar id="process_dueDate" value="#{closingProcessAction.closingProcess.dueDate}"/>
 	
 	</h:panelGroup>
 
@@ -26,56 +64,6 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.process_expiryDate}  "/> <br/>
-	
-		<rich:calendar id="process_expiryDate" value="#{closingProcessAction.closingProcess.expiryDate}"/>
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.process_reason}  "/> <br/>
-	
-		<h:inputText id="process_reason" value="#{closingProcessAction.closingProcess.reason}"/>
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.process_type}  "/> <br/>
-	
-		<h:inputText id="process_type" value="#{closingProcessAction.closingProcess.type}"/>
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.process_description}  "/> <br/>
-	
-		<h:inputText id="process_description" value="#{closingProcessAction.closingProcess.description}"/>
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.process_legalNumber}  "/> <br/>
-	
-		<h:inputText id="process_legalNumber" value="#{closingProcessAction.closingProcess.legalNumber}"/>
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
 	<h:outputText value="#{msg.process_documentAdded}  "/> <br/>
 	
 		<h:selectBooleanCheckbox id="process_documentAdded" value="#{closingProcessAction.closingProcess.documentAdded}"/>
@@ -86,9 +74,19 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.process_skip}  "/> <br/>
+	<h:outputText value="#{msg.process_notRequired}  "/> <br/>
 	
-		<h:selectBooleanCheckbox id="process_skip" value="#{closingProcessAction.closingProcess.skip}"/>
+		<h:selectBooleanCheckbox id="process_notRequired" value="#{closingProcessAction.closingProcess.notRequired}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.process_explanation}  "/> <br/>
+	
+		<rich:editor id="process_explanation" useSeamText="true" value="#{closingProcessAction.closingProcess.explanation}"/>
 	
 	</h:panelGroup>
 

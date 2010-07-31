@@ -6,19 +6,9 @@
 	<h:panelGrid columns="3" styleClass="summarywrap">
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_offerDate}  "/> <br/>
+	<h:outputText value="#{msg.offer_offerDate}  "/> <br/>
 	
-		<rich:calendar id="offers_offerDate" value="#{offersAction.offers.offerDate}"/>
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.offers_purchaser}  "/> <br/>
-	
-		<h:inputText id="offers_purchaser" value="#{offersAction.offers.purchaser}"/>
+		<rich:calendar id="offer_offerDate" value="#{offerAction.offer.offerDate}"/>
 	
 	</h:panelGroup>
 
@@ -26,9 +16,9 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_amount}  "/> <br/>
+	<h:outputText value="#{msg.offer_purchaser}  "/> <br/>
 	
-		<h:inputText id="offers_amount" value="#{offersAction.offers.amount}"/>
+		<h:inputText id="offer_purchaser" value="#{offerAction.offer.purchaser}"/>
 	
 	</h:panelGroup>
 
@@ -36,8 +26,18 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_condition}  "/> <br/>
-	<h:selectOneMenu id="offers_condition" required="false" value="#{offersAction.offers.condition}">
+	<h:outputText value="#{msg.offer_amount}  "/> <br/>
+	
+		<h:inputText id="offer_amount" value="#{offerAction.offer.amount}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.offer_offerCondition}  "/> <br/>
+	<h:selectOneMenu id="offer_offerCondition" required="false" value="#{offerAction.offer.offerCondition}">
 		<f:selectItem itemLabel="Any" itemValue=""/>
 		<f:selectItem itemLabel="None" itemValue=""/>
 		<f:selectItem itemLabel="Inspection" itemValue="Inspection"/>
@@ -54,8 +54,8 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_status}  "/> <br/>
-	<h:selectOneMenu id="offers_status" required="false" value="#{offersAction.offers.status}">
+	<h:outputText value="#{msg.offer_status}  "/> <br/>
+	<h:selectOneMenu id="offer_status" required="false" value="#{offerAction.offer.status}">
 		<f:selectItem itemLabel="Any" itemValue=""/>
 		<f:selectItem itemLabel="None" itemValue=""/>
 		<f:selectItem itemLabel="Offer" itemValue="Offer"/>
@@ -74,19 +74,9 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_signBackAmount}  "/> <br/>
+	<h:outputText value="#{msg.offer_signBackAmount}  "/> <br/>
 	
-		<h:inputText id="offers_signBackAmount" value="#{offersAction.offers.signBackAmount}"/>
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.offers_conditionExpiry}  "/> <br/>
-	
-		<rich:calendar id="offers_conditionExpiry" value="#{offersAction.offers.conditionExpiry}"/>
+		<h:inputText id="offer_signBackAmount" value="#{offerAction.offer.signBackAmount}"/>
 	
 	</h:panelGroup>
 
@@ -94,8 +84,18 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_realEstateListing}  "/> <br/>
-	<h:selectOneMenu id="offers_realEstateListing" value="#{offersAction.offers.realEstateListing}">
+	<h:outputText value="#{msg.offer_conditionExpiry}  "/> <br/>
+	
+		<rich:calendar id="offer_conditionExpiry" value="#{offerAction.offer.conditionExpiry}"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.offer_realEstateListing}  "/> <br/>
+	<h:selectOneMenu id="offer_realEstateListing" value="#{offerAction.offer.realEstateListing}">
 		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{realEstateListingList}" var="itemIter"/>
 		<s:convertEntity/>
 		
@@ -105,9 +105,9 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_closingDate}  "/> <br/>
+	<h:outputText value="#{msg.offer_closingDate}  "/> <br/>
 	
-		<rich:calendar id="offers_closingDate" value="#{offersAction.offers.closingDate}"/>
+		<rich:calendar id="offer_closingDate" value="#{offerAction.offer.closingDate}"/>
 	
 	</h:panelGroup>
 
@@ -115,9 +115,9 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.offers_comments}  "/> <br/>
+	<h:outputText value="#{msg.offer_comments}  "/> <br/>
 	
-		<rich:editor id="offers_comments" useSeamText="true" value="#{offersAction.offers.comments}"/>
+		<rich:editor id="offer_comments" useSeamText="true" value="#{offerAction.offer.comments}"/>
 	
 	</h:panelGroup>
 

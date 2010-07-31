@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	<h:panelGroup>
+		<s:validateAll>
+		<h:panelGrid columnClasses="leftCol, rightCol" columns="3" onload="#{inspectionAction.load(inspectionId )  }" styleClass="viewInfo">
+		<f:facet name="header">
+			<h:outputText value="Inspection "/>
+		</f:facet>
+		
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.inspection_propertyManager}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="inspection_propertyManager" required="true" value="#{inspectionAction.inspection.propertyManager}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{propertyManagerList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="inspection_propertyManager" styleClass="error errors"/>		
+		
+	
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.inspection_type}  "/>
+		
+	
+	<h:selectOneMenu id="inspection_type" required="false" value="#{inspectionAction.inspection.type}">
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
+		<f:selectItem itemLabel="Monitoring" itemValue="Monitoring"/>
+		<f:selectItem itemLabel="Securing" itemValue="Securing"/>
+		
+	</h:selectOneMenu>
+	
+		
+		<h:message for="inspection_type" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.inspection_date}  "/>
+		
+
+	<rich:calendar id="inspection_date#{entityId}" required="false" value="#{inspectionAction.inspection.date}"/>
+   
+		
+		<h:message for="inspection_date" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.inspection_Observation}  "/>
+		
+
+	<rich:editor id="inspection_Observation#{entityId}" required="false" useSeamText="true" value="#{inspectionAction.inspection.observation}"/>
+   
+		
+		<h:message for="inspection_Observation" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.inspection_actionRequired}  "/>
+		
+
+	<h:selectBooleanCheckbox id="inspection_actionRequired#{entityId}" required="false" value="#{inspectionAction.inspection.actionRequired}"/>
+   
+		
+		<h:message for="inspection_actionRequired" styleClass="error errors"/>		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	</h:panelGroup>
+	</ui:composition>

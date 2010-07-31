@@ -52,7 +52,7 @@ public class Offer extends BusinessEntity implements java.io.Serializable {
 
 	protected Double amount;
 
-	protected OfferCondition condition;
+	protected OfferCondition offerCondition;
 
 	protected OfferStatus status;
 
@@ -97,13 +97,13 @@ public class Offer extends BusinessEntity implements java.io.Serializable {
 		return amount;
 	}
 
-	public void setCondition(OfferCondition condition) {
-		this.condition = condition;
+	public void setOfferCondition(OfferCondition offerCondition) {
+		this.offerCondition = offerCondition;
 	}
 
-	public OfferCondition getCondition() {
+	public OfferCondition getOfferCondition() {
 
-		return condition;
+		return offerCondition;
 	}
 
 	public void setStatus(OfferStatus status) {

@@ -6,69 +6,20 @@
 	<h:panelGrid columns="6">
 	
 	<h:panelGroup>
+	<h:outputText value="#{msg.legal_legalFileNumber}  "/> <br/>
+	
+		<h:inputText id="legal_legalFileNumber" value="#{legalList.legal.legalFileNumber}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
 	<h:outputText value="#{msg.legal_courtNumber}  "/> <br/>
 	
 		<h:inputText id="legal_courtNumber" value="#{legalList.legal.courtNumber}"/>
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.legal_specialHandling}  "/> <br/>
-	
-		<h:inputText id="legal_specialHandling" value="#{legalList.legal.specialHandling}"/>
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.legal_mortgageNumber}  "/> <br/>
-	
-	
-	<h:inputText id="legal_mortgageNumber_begin" value="#{legalList.legal_mortgageNumberRange.begin}">
-			<f:converter converterId="javax.faces.Integer"/>
-	</h:inputText>
-	<h:inputText id="legal_mortgageNumber_end" value="#{legalList.legal_mortgageNumberRange.end}">
-		<f:converter converterId="javax.faces.Integer"/>
-	</h:inputText>
-	
-
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.legal_legalNumber}  "/> <br/>
-	
-	
-	<h:inputText id="legal_legalNumber_begin" value="#{legalList.legal_legalNumberRange.begin}">
-			<f:converter converterId="javax.faces.Integer"/>
-	</h:inputText>
-	<h:inputText id="legal_legalNumber_end" value="#{legalList.legal_legalNumberRange.end}">
-		<f:converter converterId="javax.faces.Integer"/>
-	</h:inputText>
-	
-
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.legal_status}  "/> <br/>
-	
-		<h:inputText id="legal_status" value="#{legalList.legal.status}"/>
 	
 	
 	</h:panelGroup>
@@ -92,6 +43,46 @@
 	
 	
 	<h:panelGroup>
+	<h:outputText value="#{msg.legal_specialHandling}  "/> <br/>
+	<h:selectOneMenu id="legal_specialHandling" required="false" value="#{legalList.legal.specialHandling}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Breach_of_contract" itemValue="BREACH_OF_CONTRACT"/>
+		<f:selectItem itemLabel="Drug_lab_or_growup" itemValue="DRUG_LAB_OR_GROWUP"/>
+		<f:selectItem itemLabel="Environmental" itemValue="ENVIRONMENTAL"/>
+		<f:selectItem itemLabel="Fraud" itemValue="FRAUD"/>
+		<f:selectItem itemLabel="Impariment_insurance_claim" itemValue="IMPARIMENT_INSURANCE_CLAIM"/>
+		<f:selectItem itemLabel="Litigation" itemValue="LITIGATION"/>
+		<f:selectItem itemLabel="Title_insurance" itemValue="TITLE_INSURANCE"/>
+		<f:selectItem itemLabel="Other" itemValue="OTHER"/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.legal_status}  "/> <br/>
+	<h:selectOneMenu id="legal_status" required="false" value="#{legalList.legal.status}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Demand_issued" itemValue="DEMAND_ISSUED"/>
+		<f:selectItem itemLabel="Soc_issued" itemValue="SOC_ISSUED"/>
+		<f:selectItem itemLabel="Soc_served" itemValue="SOC_SERVED"/>
+		<f:selectItem itemLabel="Nos_issued" itemValue="NOS_ISSUED"/>
+		<f:selectItem itemLabel="Nos_expired_vt" itemValue="NOS_EXPIRED_VT"/>
+		<f:selectItem itemLabel="Nos_expired_er" itemValue="NOS_EXPIRED_ER"/>
+		<f:selectItem itemLabel="On_hold_pending_sale" itemValue="ON_HOLD_PENDING_SALE"/>
+		<f:selectItem itemLabel="Sold_pending_cd" itemValue="SOLD_PENDING_CD"/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
 	<h:outputText value="#{msg.legal_legalDescription}  "/> <br/>
 	
 		<h:inputText id="legal_legalDescription" value="#{legalList.legal.legalDescription}"/>
@@ -103,9 +94,31 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.legal_legalFileNumber}  "/> <br/>
+	<h:outputText value="#{msg.legal_lawyer}  "/> <br/>
+	<h:selectOneMenu id="legal_lawyer" value="#{legalList.legal.lawyer}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{lawyerList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
 	
-		<h:inputText id="legal_legalFileNumber" value="#{legalList.legal.legalFileNumber}"/>
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.legal_realEstateProperty}  "/> <br/>
+	<h:selectOneMenu id="legal_realEstateProperty" value="#{legalList.legal.realEstateProperty}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{realEstatePropertyList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.legal_titleInsurer}  "/> <br/>
+	
+		<h:inputText id="legal_titleInsurer" value="#{legalList.legal.titleInsurer}"/>
 	
 	
 	</h:panelGroup>
@@ -114,9 +127,13 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.legal_pin}  "/> <br/>
+	<h:outputText value="#{msg.legal_titleInsuranceClaim}  "/> <br/>
 	
-		<h:inputText id="legal_pin" value="#{legalList.legal.pin}"/>
+	<h:selectOneMenu id="legal_titleInsuranceClaim" required="false" value="#{legalList.legal.titleInsuranceClaim}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="True" itemValue="true"/>
+		<f:selectItem itemLabel="False" itemValue="false"/>
+	</h:selectOneMenu>
 	
 	
 	</h:panelGroup>
@@ -125,9 +142,9 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.legal_pid}  "/> <br/>
+	<h:outputText value="#{msg.legal_titleInsuranceClaimNumber}  "/> <br/>
 	
-		<h:inputText id="legal_pid" value="#{legalList.legal.pid}"/>
+		<h:inputText id="legal_titleInsuranceClaimNumber" value="#{legalList.legal.titleInsuranceClaimNumber}"/>
 	
 	
 	</h:panelGroup>

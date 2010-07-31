@@ -79,7 +79,7 @@ public abstract class OfferListQueryBase extends BaseQuery<Offer, Long> {
 			"offer.amount >= #{offerList.offer_amountRange.begin}",
 			"offer.amount <= #{offerList.offer_amountRange.end}",
 
-			"offer.condition = #{offerList.offer.condition}",
+			"offer.offerCondition = #{offerList.offer.offerCondition}",
 
 			"offer.status = #{offerList.offer.status}",
 

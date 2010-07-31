@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	<h:panelGroup>
+		<s:validateAll>
+		<h:panelGrid columnClasses="leftCol, rightCol" columns="2" onload="#{inspectionAction.load(inspectionId )  }" styleClass="viewInfo">
+		<f:facet name="header">
+			<h:outputText value="Inspection "/>
+		</f:facet>
+		
+			<h:outputText value="#{msg.id}"/>
+			<h:outputText value="#{inspectionAction.inspection.id}"/>
+		
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.inspection_propertyManager}  "/>		
+	
+	<s:link value="#{inspectionAction.inspection.propertyManager.displayName}" view="/admin/entities/propertymanagement/propertyManager/viewPropertyManager.xhtml">
+		<f:param name="id" value="#{inspectionAction.inspection.propertyManager.id}"/>
+	</s:link>
+	
+		
+		
+		
+	
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.inspection_type}  "/>		
+	<h:outputText value="#{inspectionAction.inspection.type}"/>
+	
+		
+		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.inspection_date}  "/>		
+
+	<h:outputText id="inspection_date#{entityId}" value="#{inspectionAction.inspection.date}"/>
+   
+		
+		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.inspection_Observation}  "/>		
+
+	<s:formattedText escape="false" id="inspection_Observation#{entityId}" value="#{inspectionAction.inspection.observation}"/>
+   
+		
+		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.inspection_actionRequired}  "/>		
+
+	<h:outputText id="inspection_actionRequired#{entityId}" value="#{inspectionAction.inspection.actionRequired}"/>
+   
+		
+		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	</h:panelGroup>
+	</ui:composition>

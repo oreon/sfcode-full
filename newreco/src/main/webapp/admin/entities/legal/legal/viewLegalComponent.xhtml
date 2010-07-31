@@ -12,67 +12,68 @@
 		
 		
 	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.legal_lawyer}  "/>		
+	
+	<s:link value="#{legalAction.legal.lawyer.displayName}" view="/admin/entities/legal/lawyer/viewLawyer.xhtml">
+		<f:param name="id" value="#{legalAction.legal.lawyer.id}"/>
+	</s:link>
+	
+		
+		
+		
+	
+	
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.legal_realEstateProperty}  "/>		
+	
+	<s:link value="#{legalAction.legal.realEstateProperty.displayName}" view="/admin/entities/realestate/realEstateProperty/viewRealEstateProperty.xhtml">
+		<f:param name="id" value="#{legalAction.legal.realEstateProperty.id}"/>
+	</s:link>
+	
+		
+		
+		
+	
+	
+		
+	
 
 	
 	
+	
+	
+		
+		<h:outputText value="#{msg.legal_legalFileNumber}  "/>		
+
+	<h:outputText id="legal_legalFileNumber#{entityId}" value="#{legalAction.legal.legalFileNumber}"/>
+   
+		
+		
+		
+	
+	
+
 	
 	
 		
 		<h:outputText value="#{msg.legal_courtNumber}  "/>		
 
 	<h:outputText id="legal_courtNumber#{entityId}" value="#{legalAction.legal.courtNumber}"/>
-   
-		
-		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.legal_specialHandling}  "/>		
-
-	<h:outputText id="legal_specialHandling#{entityId}" value="#{legalAction.legal.specialHandling}"/>
-   
-		
-		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.legal_mortgageNumber}  "/>		
-
-	<h:outputText id="legal_mortgageNumber#{entityId}" value="#{legalAction.legal.mortgageNumber}"/>
-   
-		
-		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.legal_legalNumber}  "/>		
-
-	<h:outputText id="legal_legalNumber#{entityId}" value="#{legalAction.legal.legalNumber}"/>
-   
-		
-		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.legal_status}  "/>		
-
-	<h:outputText id="legal_status#{entityId}" value="#{legalAction.legal.status}"/>
    
 		
 		
@@ -96,9 +97,33 @@
 	
 	
 		
+		<h:outputText value="#{msg.legal_specialHandling}  "/>		
+	<h:outputText value="#{legalAction.legal.specialHandling}"/>
+	
+		
+		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.legal_status}  "/>		
+	<h:outputText value="#{legalAction.legal.status}"/>
+	
+		
+		
+		
+	
+	
+
+	
+	
+		
 		<h:outputText value="#{msg.legal_legalDescription}  "/>		
 
-	<h:outputText id="legal_legalDescription#{entityId}" value="#{legalAction.legal.legalDescription}"/>
+	<s:formattedText escape="false" id="legal_legalDescription#{entityId}" value="#{legalAction.legal.legalDescription}"/>
    
 		
 		
@@ -109,9 +134,9 @@
 	
 	
 		
-		<h:outputText value="#{msg.legal_legalFileNumber}  "/>		
+		<h:outputText value="#{msg.legal_titleInsurer}  "/>		
 
-	<h:outputText id="legal_legalFileNumber#{entityId}" value="#{legalAction.legal.legalFileNumber}"/>
+	<h:outputText id="legal_titleInsurer#{entityId}" value="#{legalAction.legal.titleInsurer}"/>
    
 		
 		
@@ -122,9 +147,9 @@
 	
 	
 		
-		<h:outputText value="#{msg.legal_pin}  "/>		
+		<h:outputText value="#{msg.legal_titleInsuranceClaim}  "/>		
 
-	<h:outputText id="legal_pin#{entityId}" value="#{legalAction.legal.pin}"/>
+	<h:outputText id="legal_titleInsuranceClaim#{entityId}" value="#{legalAction.legal.titleInsuranceClaim}"/>
    
 		
 		
@@ -135,9 +160,9 @@
 	
 	
 		
-		<h:outputText value="#{msg.legal_pid}  "/>		
+		<h:outputText value="#{msg.legal_titleInsuranceClaimNumber}  "/>		
 
-	<h:outputText id="legal_pid#{entityId}" value="#{legalAction.legal.pid}"/>
+	<h:outputText id="legal_titleInsuranceClaimNumber#{entityId}" value="#{legalAction.legal.titleInsuranceClaimNumber}"/>
    
 		
 		
@@ -147,6 +172,369 @@
 		</h:panelGrid>
 		
 	
+	
+	
+	<rich:dataTable id="closingProcesses_data#{entityId}" rendered="#{not empty legalAction.listClosingProcesses}" rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all" styleClass="dataTable" value="#{legalAction.listClosingProcesses}" var="_closingProcess">
+		
+	
+	
+
+	 
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_completedDate}  "/>
+          </f:facet>		
+
+	<h:outputText id="process_completedDate#{entityId}" value="#{_closingProcess.completedDate}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_dueDate}  "/>
+          </f:facet>		
+
+	<h:outputText id="process_dueDate#{entityId}" value="#{_closingProcess.dueDate}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_processNumber}  "/>
+          </f:facet>		
+
+	<h:outputText id="process_processNumber#{entityId}" value="#{_closingProcess.processNumber}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_documentAdded}  "/>
+          </f:facet>		
+
+	<h:outputText id="process_documentAdded#{entityId}" value="#{_closingProcess.documentAdded}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_notRequired}  "/>
+          </f:facet>		
+
+	<h:outputText id="process_notRequired#{entityId}" value="#{_closingProcess.notRequired}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_explanation}  "/>
+          </f:facet>		
+
+	<s:formattedText escape="false" id="process_explanation#{entityId}" value="#{_closingProcess.explanation}"/>
+   
+		
+		</h:column>
+		
+	
+	
+	
+	
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.closingProcess_process}  "/>
+          </f:facet>		
+	<h:outputText value="#{_closingProcess.process}"/>
+	
+		
+		</h:column>
+		
+	
+	
+			
+	</rich:dataTable>
+	
+	
+	<rich:dataTable id="legalProcesses_data#{entityId}" rendered="#{not empty legalAction.listLegalProcesses}" rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all" styleClass="dataTable" value="#{legalAction.listLegalProcesses}" var="_legalProcess">
+		
+	
+	
+
+	 
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_completedDate}  "/>
+          </f:facet>		
+
+	<h:outputText id="process_completedDate#{entityId}" value="#{_legalProcess.completedDate}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_dueDate}  "/>
+          </f:facet>		
+
+	<h:outputText id="process_dueDate#{entityId}" value="#{_legalProcess.dueDate}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_processNumber}  "/>
+          </f:facet>		
+
+	<h:outputText id="process_processNumber#{entityId}" value="#{_legalProcess.processNumber}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_documentAdded}  "/>
+          </f:facet>		
+
+	<h:outputText id="process_documentAdded#{entityId}" value="#{_legalProcess.documentAdded}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_notRequired}  "/>
+          </f:facet>		
+
+	<h:outputText id="process_notRequired#{entityId}" value="#{_legalProcess.notRequired}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_explanation}  "/>
+          </f:facet>		
+
+	<s:formattedText escape="false" id="process_explanation#{entityId}" value="#{_legalProcess.explanation}"/>
+   
+		
+		</h:column>
+		
+	
+	
+	
+	
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.legalProcess_process}  "/>
+          </f:facet>		
+	<h:outputText value="#{_legalProcess.process}"/>
+	
+		
+		</h:column>
+		
+	
+	
+			
+	</rich:dataTable>
+	
+	
+	<rich:dataTable id="insurerProcesses_data#{entityId}" rendered="#{not empty legalAction.listInsurerProcesses}" rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all" styleClass="dataTable" value="#{legalAction.listInsurerProcesses}" var="_insurerProcess">
+		
+	
+	
+
+	 
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_completedDate}  "/>
+          </f:facet>		
+
+	<h:outputText id="process_completedDate#{entityId}" value="#{_insurerProcess.completedDate}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_dueDate}  "/>
+          </f:facet>		
+
+	<h:outputText id="process_dueDate#{entityId}" value="#{_insurerProcess.dueDate}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_processNumber}  "/>
+          </f:facet>		
+
+	<h:outputText id="process_processNumber#{entityId}" value="#{_insurerProcess.processNumber}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_documentAdded}  "/>
+          </f:facet>		
+
+	<h:outputText id="process_documentAdded#{entityId}" value="#{_insurerProcess.documentAdded}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_notRequired}  "/>
+          </f:facet>		
+
+	<h:outputText id="process_notRequired#{entityId}" value="#{_insurerProcess.notRequired}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_explanation}  "/>
+          </f:facet>		
+
+	<s:formattedText escape="false" id="process_explanation#{entityId}" value="#{_insurerProcess.explanation}"/>
+   
+		
+		</h:column>
+		
+	
+	
+	
+	
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.insurerProcess_process}  "/>
+          </f:facet>		
+	<h:outputText value="#{_insurerProcess.process}"/>
+	
+		
+		</h:column>
+		
+	
+	
+			
+	</rich:dataTable>
 		</s:validateAll>
 		
 	</h:panelGroup>

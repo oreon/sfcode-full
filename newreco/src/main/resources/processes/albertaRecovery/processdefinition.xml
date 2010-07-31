@@ -39,6 +39,8 @@
 		
 		<transition to="hasInsurance" name="accept">
 		</transition>
+		<transition to="assignLawyer" name="conflict">
+		</transition>
 	
  
 	</task-node>
@@ -57,9 +59,9 @@
 			<handler class="com.nas.recovery.web.action.workflows.HasInsuranceDecision"></handler>
 		
 		
-		<transition to="notifyInsurer" name="true">
-		</transition>
 		<transition to="serveFirstNotice" name="false">
+		</transition>
+		<transition to="notifyInsurer" name="true">
 		</transition>
 	
  
@@ -106,5 +108,15 @@
 
  	<end-state name="endProcess"></end-state>
  
+	<task-node name="assignLawyer">
+		<task name="assignLawyerTask" swimlane="Lender">
+		</task>
+		
+		<transition to="checkConflict" name="assignLawyer">
+		</transition>
+	
+ 
+	</task-node>
+
 </process-definition>
 	

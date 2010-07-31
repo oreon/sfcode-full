@@ -9,6 +9,32 @@
 		
 		
 	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.legalProcess_legal}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="legalProcess_legal" required="true" value="#{legalProcessAction.legalProcess.legal}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{legalList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="legalProcess_legal" styleClass="error errors"/>		
+		
+	
+	
+		
+	
 
 	 
 	
@@ -21,6 +47,20 @@
    
 		
 		<h:message for="process_completedDate" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.process_dueDate}  "/>
+		
+
+	<rich:calendar id="process_dueDate#{entityId}" required="false" value="#{legalProcessAction.legalProcess.dueDate}"/>
+   
+		
+		<h:message for="process_dueDate" styleClass="error errors"/>		
 		
 	
 	
@@ -42,76 +82,6 @@
 	
 	
 		
-		<h:outputText value="#{msg.process_expiryDate}  "/>
-		
-
-	<rich:calendar id="process_expiryDate#{entityId}" required="false" value="#{legalProcessAction.legalProcess.expiryDate}"/>
-   
-		
-		<h:message for="process_expiryDate" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.process_reason}  "/>
-		
-
-	<h:inputText id="process_reason#{entityId}" required="false" value="#{legalProcessAction.legalProcess.reason}"/>
-   
-		
-		<h:message for="process_reason" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.process_type}  "/>
-		
-
-	<h:inputText id="process_type#{entityId}" required="false" value="#{legalProcessAction.legalProcess.type}"/>
-   
-		
-		<h:message for="process_type" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.process_description}  "/>
-		
-
-	<h:inputText id="process_description#{entityId}" required="false" value="#{legalProcessAction.legalProcess.description}"/>
-   
-		
-		<h:message for="process_description" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.process_legalNumber}  "/>
-		
-
-	<h:inputText id="process_legalNumber#{entityId}" required="false" value="#{legalProcessAction.legalProcess.legalNumber}"/>
-   
-		
-		<h:message for="process_legalNumber" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
 		<h:outputText value="#{msg.process_documentAdded}  "/>
 		
 
@@ -126,15 +96,61 @@
 	
 	
 		
-		<h:outputText value="#{msg.process_skip}  "/>
+		<h:outputText value="#{msg.process_notRequired}  "/>
 		
 
-	<h:selectBooleanCheckbox id="process_skip#{entityId}" required="false" value="#{legalProcessAction.legalProcess.skip}"/>
+	<h:selectBooleanCheckbox id="process_notRequired#{entityId}" required="false" value="#{legalProcessAction.legalProcess.notRequired}"/>
    
 		
-		<h:message for="process_skip" styleClass="error errors"/>		
+		<h:message for="process_notRequired" styleClass="error errors"/>		
 		
 	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.process_explanation}  "/>
+		
+
+	<rich:editor id="process_explanation#{entityId}" required="false" useSeamText="true" value="#{legalProcessAction.legalProcess.explanation}"/>
+   
+		
+		<h:message for="process_explanation" styleClass="error errors"/>		
+		
+	
+	
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.legalProcess_process}  "/>
+		
+	
+	<h:selectOneMenu id="legalProcess_process" required="false" value="#{legalProcessAction.legalProcess.process}">
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
+		<f:selectItem itemLabel="Assignment_judgement" itemValue="ASSIGNMENT_JUDGEMENT"/>
+		<f:selectItem itemLabel="Demand_letter" itemValue="DEMAND_LETTER"/>
+		<f:selectItem itemLabel="Eviction_letter" itemValue="EVICTION_LETTER"/>
+		<f:selectItem itemLabel="Judgement" itemValue="JUDGEMENT"/>
+		<f:selectItem itemLabel="Notice_of_sale" itemValue="NOTICE_OF_SALE"/>
+		<f:selectItem itemLabel="Right_to_sell" itemValue="RIGHT_TO_SELL"/>
+		<f:selectItem itemLabel="Statement_of_claim" itemValue="STATEMENT_OF_CLAIM"/>
+		<f:selectItem itemLabel="Statement_of_defence" itemValue="STATEMENT_OF_DEFENCE"/>
+		<f:selectItem itemLabel="Tenancy_attornment_notice" itemValue="TENANCY_ATTORNMENT_NOTICE"/>
+		<f:selectItem itemLabel="Tenancy_eviction_order" itemValue="TENANCY_EVICTION_ORDER"/>
+		<f:selectItem itemLabel="Tenancy_ltb_dearing_date" itemValue="TENANCY_LTB_DEARING_DATE"/>
+		<f:selectItem itemLabel="Tenancy_n4_issued" itemValue="TENANCY_N4_ISSUED"/>
+		<f:selectItem itemLabel="Writ_possession" itemValue="WRIT_POSSESSION"/>
+		<f:selectItem itemLabel="Writ_seizure_and_sale" itemValue="WRIT_SEIZURE_AND_SALE"/>
+		<f:selectItem itemLabel="Other" itemValue="OTHER"/>
+		
+	</h:selectOneMenu>
+	
+		
+		<h:message for="legalProcess_process" styleClass="error errors"/>		
+		
 	
 	
 		</h:panelGrid>

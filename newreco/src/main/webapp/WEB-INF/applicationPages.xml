@@ -119,6 +119,10 @@
 	
 	<page view-id="/manageAccount/viewTask.xhtml">
 		<param name="taskId" value="#{ontarioRecoveryProcessAction.taskInstanceId}" />
+		<param name="transName" value="#{ontarioRecoveryProcessAction.transName}" />
+		<rule if-outcome="next">
+				<redirect view-id="/manageAccount/myaccount.xhtml" />
+		</rule>
 	</page>
 	
 	<page view-id="/manageAccount/tasks.xhtml">

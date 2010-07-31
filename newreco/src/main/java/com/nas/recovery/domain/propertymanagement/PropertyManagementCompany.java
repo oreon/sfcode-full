@@ -49,10 +49,10 @@ public class PropertyManagementCompany
 			java.io.Serializable {
 	private static final long serialVersionUID = 1480361313L;
 
-	//propertyManagers-> ->->PropertyManager->
+	//propertyManagers-> ->->PropertyManagementCompany->
 
 	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "_ID", nullable = true)
+	@JoinColumn(name = "propertyManagers_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<PropertyManager> propertyManagers = new HashSet<PropertyManager>();
 

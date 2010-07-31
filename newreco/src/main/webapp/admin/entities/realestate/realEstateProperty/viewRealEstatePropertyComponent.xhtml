@@ -509,6 +509,158 @@
 	
 			
 	</rich:dataTable>
+	
+	
+	<rich:dataTable id="inspections_data#{entityId}" rendered="#{not empty realEstatePropertyAction.listInspections}" rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all" styleClass="dataTable" value="#{realEstatePropertyAction.listInspections}" var="_inspection">
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.inspection_propertyManager}  "/>
+          </f:facet>		
+	
+	<s:link value="#{_inspection.propertyManager.displayName}" view="/admin/entities/propertymanagement/propertyManager/viewPropertyManager.xhtml">
+		<f:param name="id" value="#{inspectionAction.inspection.propertyManager.id}"/>
+	</s:link>
+	
+		
+		</h:column>
+		
+	
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.inspection_type}  "/>
+          </f:facet>		
+	<h:outputText value="#{_inspection.type}"/>
+	
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.inspection_date}  "/>
+          </f:facet>		
+
+	<h:outputText id="inspection_date#{entityId}" value="#{_inspection.date}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.inspection_Observation}  "/>
+          </f:facet>		
+
+	<s:formattedText escape="false" id="inspection_Observation#{entityId}" value="#{_inspection.observation}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.inspection_actionRequired}  "/>
+          </f:facet>		
+
+	<h:outputText id="inspection_actionRequired#{entityId}" value="#{_inspection.actionRequired}"/>
+   
+		
+		</h:column>
+		
+	
+	
+			
+	</rich:dataTable>
+	
+	
+	<rich:dataTable id="utilitiys_data#{entityId}" rendered="#{not empty realEstatePropertyAction.listUtilitiys}" rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all" styleClass="dataTable" value="#{realEstatePropertyAction.listUtilitiys}" var="_utilitiy">
+		
+	
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.utilitiy_name}  "/>
+          </f:facet>		
+
+	<h:outputText id="utilitiy_name#{entityId}" value="#{_utilitiy.name}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.utilitiy_transferred}  "/>
+          </f:facet>		
+
+	<h:outputText id="utilitiy_transferred#{entityId}" value="#{_utilitiy.transferred}"/>
+   
+		
+		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.utilitiy_accountNumber}  "/>
+          </f:facet>		
+
+	<h:outputText id="utilitiy_accountNumber#{entityId}" value="#{_utilitiy.accountNumber}"/>
+   
+		
+		</h:column>
+		
+	
+	
+			
+	</rich:dataTable>
 		</s:validateAll>
 		
 	</h:panelGroup>

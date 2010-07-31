@@ -23,12 +23,12 @@ class OntarioRecoveryBase extends BaseJbpmProcessAction
 
 	}
 
-	@EndTask(transition = "accept")
-	public void acceptReviewAssignmentTask() {
-
-	}
 	@EndTask(transition = "conflict")
 	public void conflictReviewAssignmentTask() {
+
+	}
+	@EndTask(transition = "accept")
+	public void acceptReviewAssignmentTask() {
 
 	}
 

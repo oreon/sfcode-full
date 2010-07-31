@@ -9,9 +9,75 @@
 		
 		
 	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.legal_lawyer}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="legal_lawyer" required="true" value="#{legalAction.legal.lawyer}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{lawyerList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="legal_lawyer" styleClass="error errors"/>		
+		
+	
+	
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.legal_realEstateProperty}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="legal_realEstateProperty" required="true" value="#{legalAction.legal.realEstateProperty}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{realEstatePropertyList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="legal_realEstateProperty" styleClass="error errors"/>		
+		
+	
+	
+		
+	
 
 	
 	
+	
+	
+		
+		<h:outputText value="#{msg.legal_legalFileNumber}  "/>
+		
+
+	<h:inputText id="legal_legalFileNumber#{entityId}" required="false" value="#{legalAction.legal.legalFileNumber}"/>
+   
+		
+		<h:message for="legal_legalFileNumber" styleClass="error errors"/>		
+		
+	
+	
+
 	
 	
 		
@@ -22,62 +88,6 @@
    
 		
 		<h:message for="legal_courtNumber" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.legal_specialHandling}  "/>
-		
-
-	<h:inputText id="legal_specialHandling#{entityId}" required="false" value="#{legalAction.legal.specialHandling}"/>
-   
-		
-		<h:message for="legal_specialHandling" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.legal_mortgageNumber}  "/>
-		
-
-	<h:inputText id="legal_mortgageNumber#{entityId}" required="false" value="#{legalAction.legal.mortgageNumber}"/>
-   
-		
-		<h:message for="legal_mortgageNumber" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.legal_legalNumber}  "/>
-		
-
-	<h:inputText id="legal_legalNumber#{entityId}" required="false" value="#{legalAction.legal.legalNumber}"/>
-   
-		
-		<h:message for="legal_legalNumber" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.legal_status}  "/>
-		
-
-	<h:inputText id="legal_status#{entityId}" required="false" value="#{legalAction.legal.status}"/>
-   
-		
-		<h:message for="legal_status" styleClass="error errors"/>		
 		
 	
 	
@@ -99,10 +109,60 @@
 	
 	
 		
+		<h:outputText value="#{msg.legal_specialHandling}  "/>
+		
+	
+	<h:selectOneMenu id="legal_specialHandling" required="false" value="#{legalAction.legal.specialHandling}">
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
+		<f:selectItem itemLabel="Breach_of_contract" itemValue="BREACH_OF_CONTRACT"/>
+		<f:selectItem itemLabel="Drug_lab_or_growup" itemValue="DRUG_LAB_OR_GROWUP"/>
+		<f:selectItem itemLabel="Environmental" itemValue="ENVIRONMENTAL"/>
+		<f:selectItem itemLabel="Fraud" itemValue="FRAUD"/>
+		<f:selectItem itemLabel="Impariment_insurance_claim" itemValue="IMPARIMENT_INSURANCE_CLAIM"/>
+		<f:selectItem itemLabel="Litigation" itemValue="LITIGATION"/>
+		<f:selectItem itemLabel="Title_insurance" itemValue="TITLE_INSURANCE"/>
+		<f:selectItem itemLabel="Other" itemValue="OTHER"/>
+		
+	</h:selectOneMenu>
+	
+		
+		<h:message for="legal_specialHandling" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.legal_status}  "/>
+		
+	
+	<h:selectOneMenu id="legal_status" required="false" value="#{legalAction.legal.status}">
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
+		<f:selectItem itemLabel="Demand_issued" itemValue="DEMAND_ISSUED"/>
+		<f:selectItem itemLabel="Soc_issued" itemValue="SOC_ISSUED"/>
+		<f:selectItem itemLabel="Soc_served" itemValue="SOC_SERVED"/>
+		<f:selectItem itemLabel="Nos_issued" itemValue="NOS_ISSUED"/>
+		<f:selectItem itemLabel="Nos_expired_vt" itemValue="NOS_EXPIRED_VT"/>
+		<f:selectItem itemLabel="Nos_expired_er" itemValue="NOS_EXPIRED_ER"/>
+		<f:selectItem itemLabel="On_hold_pending_sale" itemValue="ON_HOLD_PENDING_SALE"/>
+		<f:selectItem itemLabel="Sold_pending_cd" itemValue="SOLD_PENDING_CD"/>
+		
+	</h:selectOneMenu>
+	
+		
+		<h:message for="legal_status" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
 		<h:outputText value="#{msg.legal_legalDescription}  "/>
 		
 
-	<h:inputText id="legal_legalDescription#{entityId}" required="false" value="#{legalAction.legal.legalDescription}"/>
+	<rich:editor id="legal_legalDescription#{entityId}" required="false" useSeamText="true" value="#{legalAction.legal.legalDescription}"/>
    
 		
 		<h:message for="legal_legalDescription" styleClass="error errors"/>		
@@ -113,13 +173,13 @@
 	
 	
 		
-		<h:outputText value="#{msg.legal_legalFileNumber}  "/>
+		<h:outputText value="#{msg.legal_titleInsurer}  "/>
 		
 
-	<h:inputText id="legal_legalFileNumber#{entityId}" required="false" value="#{legalAction.legal.legalFileNumber}"/>
+	<h:inputText id="legal_titleInsurer#{entityId}" required="false" value="#{legalAction.legal.titleInsurer}"/>
    
 		
-		<h:message for="legal_legalFileNumber" styleClass="error errors"/>		
+		<h:message for="legal_titleInsurer" styleClass="error errors"/>		
 		
 	
 	
@@ -127,13 +187,13 @@
 	
 	
 		
-		<h:outputText value="#{msg.legal_pin}  "/>
+		<h:outputText value="#{msg.legal_titleInsuranceClaim}  "/>
 		
 
-	<h:inputText id="legal_pin#{entityId}" required="false" value="#{legalAction.legal.pin}"/>
+	<h:selectBooleanCheckbox id="legal_titleInsuranceClaim#{entityId}" required="false" value="#{legalAction.legal.titleInsuranceClaim}"/>
    
 		
-		<h:message for="legal_pin" styleClass="error errors"/>		
+		<h:message for="legal_titleInsuranceClaim" styleClass="error errors"/>		
 		
 	
 	
@@ -141,19 +201,489 @@
 	
 	
 		
-		<h:outputText value="#{msg.legal_pid}  "/>
+		<h:outputText value="#{msg.legal_titleInsuranceClaimNumber}  "/>
 		
 
-	<h:inputText id="legal_pid#{entityId}" required="false" value="#{legalAction.legal.pid}"/>
+	<h:inputText id="legal_titleInsuranceClaimNumber#{entityId}" required="false" value="#{legalAction.legal.titleInsuranceClaimNumber}"/>
    
 		
-		<h:message for="legal_pid" styleClass="error errors"/>		
+		<h:message for="legal_titleInsuranceClaimNumber" styleClass="error errors"/>		
 		
 	
 	
 		</h:panelGrid>
 		
 	
+ 
+	<a:commandButton action="#{legalAction.addClosingProcesses}" reRender="closingProcesses_data#{entityId}" value="New ClosingProcesse">
+		<s:conversationId/>
+	</a:commandButton>
+ 
+	
+	<rich:dataTable id="closingProcesses_data#{entityId}" rendered="#{not empty legalAction.listClosingProcesses}" rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all" styleClass="dataTable" value="#{legalAction.listClosingProcesses}" var="_closingProcess">
+		
+	
+	
+
+	 
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_completedDate}  "/>
+          </f:facet>
+		
+
+	<rich:calendar id="process_completedDate#{entityId}" required="false" value="#{_closingProcess.completedDate}"/>
+   
+		
+		<h:message for="process_completedDate" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_dueDate}  "/>
+          </f:facet>
+		
+
+	<rich:calendar id="process_dueDate#{entityId}" required="false" value="#{_closingProcess.dueDate}"/>
+   
+		
+		<h:message for="process_dueDate" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_processNumber}  "/>
+          </f:facet>
+		
+
+	<h:inputText id="process_processNumber#{entityId}" required="false" value="#{_closingProcess.processNumber}"/>
+   
+		
+		<h:message for="process_processNumber" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_documentAdded}  "/>
+          </f:facet>
+		
+
+	<h:selectBooleanCheckbox id="process_documentAdded#{entityId}" required="false" value="#{_closingProcess.documentAdded}"/>
+   
+		
+		<h:message for="process_documentAdded" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_notRequired}  "/>
+          </f:facet>
+		
+
+	<h:selectBooleanCheckbox id="process_notRequired#{entityId}" required="false" value="#{_closingProcess.notRequired}"/>
+   
+		
+		<h:message for="process_notRequired" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_explanation}  "/>
+          </f:facet>
+		
+
+	<rich:editor id="process_explanation#{entityId}" required="false" useSeamText="true" value="#{_closingProcess.explanation}"/>
+   
+		
+		<h:message for="process_explanation" styleClass="error errors"/>		</h:column>
+		
+	
+	
+	
+	
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.closingProcess_process}  "/>
+          </f:facet>
+		
+	
+	<h:selectOneMenu id="closingProcess_process" required="false" value="#{_closingProcess.process}">
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
+		<f:selectItem itemLabel="Agreement_pands" itemValue="AGREEMENT_PANDS"/>
+		<f:selectItem itemLabel="Closing_documents" itemValue="CLOSING_DOCUMENTS"/>
+		<f:selectItem itemLabel="Sale_completed" itemValue="SALE_COMPLETED"/>
+		<f:selectItem itemLabel="Sale_proceeds_deposited" itemValue="SALE_PROCEEDS_DEPOSITED"/>
+		<f:selectItem itemLabel="Closing_report" itemValue="CLOSING_REPORT"/>
+		
+	</h:selectOneMenu>
+	
+		
+		<h:message for="closingProcess_process" styleClass="error errors"/>		</h:column>
+		
+	
+	
+		
+	<h:column>
+		
+	<a:commandButton action="#{legalAction.addClosingProcesses}" reRender="closingProcesses_data#{entityId}" value="New ClosingProcesse">
+		<s:conversationId/>
+	</a:commandButton>
+	</h:column>
+		
+	<h:column>
+		<a:commandButton action="#{legalAction.deleteClosingProcesses(rowIndex)}" immediate="true" reRender="closingProcesses_data#{entityId}" value="Delete">
+			<s:conversationId/>
+		</a:commandButton>
+	</h:column>
+			
+	</rich:dataTable>
+ 
+	<a:commandButton action="#{legalAction.addLegalProcesses}" reRender="legalProcesses_data#{entityId}" value="New LegalProcesse">
+		<s:conversationId/>
+	</a:commandButton>
+ 
+	
+	<rich:dataTable id="legalProcesses_data#{entityId}" rendered="#{not empty legalAction.listLegalProcesses}" rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all" styleClass="dataTable" value="#{legalAction.listLegalProcesses}" var="_legalProcess">
+		
+	
+	
+
+	 
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_completedDate}  "/>
+          </f:facet>
+		
+
+	<rich:calendar id="process_completedDate#{entityId}" required="false" value="#{_legalProcess.completedDate}"/>
+   
+		
+		<h:message for="process_completedDate" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_dueDate}  "/>
+          </f:facet>
+		
+
+	<rich:calendar id="process_dueDate#{entityId}" required="false" value="#{_legalProcess.dueDate}"/>
+   
+		
+		<h:message for="process_dueDate" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_processNumber}  "/>
+          </f:facet>
+		
+
+	<h:inputText id="process_processNumber#{entityId}" required="false" value="#{_legalProcess.processNumber}"/>
+   
+		
+		<h:message for="process_processNumber" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_documentAdded}  "/>
+          </f:facet>
+		
+
+	<h:selectBooleanCheckbox id="process_documentAdded#{entityId}" required="false" value="#{_legalProcess.documentAdded}"/>
+   
+		
+		<h:message for="process_documentAdded" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_notRequired}  "/>
+          </f:facet>
+		
+
+	<h:selectBooleanCheckbox id="process_notRequired#{entityId}" required="false" value="#{_legalProcess.notRequired}"/>
+   
+		
+		<h:message for="process_notRequired" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_explanation}  "/>
+          </f:facet>
+		
+
+	<rich:editor id="process_explanation#{entityId}" required="false" useSeamText="true" value="#{_legalProcess.explanation}"/>
+   
+		
+		<h:message for="process_explanation" styleClass="error errors"/>		</h:column>
+		
+	
+	
+	
+	
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.legalProcess_process}  "/>
+          </f:facet>
+		
+	
+	<h:selectOneMenu id="legalProcess_process" required="false" value="#{_legalProcess.process}">
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
+		<f:selectItem itemLabel="Assignment_judgement" itemValue="ASSIGNMENT_JUDGEMENT"/>
+		<f:selectItem itemLabel="Demand_letter" itemValue="DEMAND_LETTER"/>
+		<f:selectItem itemLabel="Eviction_letter" itemValue="EVICTION_LETTER"/>
+		<f:selectItem itemLabel="Judgement" itemValue="JUDGEMENT"/>
+		<f:selectItem itemLabel="Notice_of_sale" itemValue="NOTICE_OF_SALE"/>
+		<f:selectItem itemLabel="Right_to_sell" itemValue="RIGHT_TO_SELL"/>
+		<f:selectItem itemLabel="Statement_of_claim" itemValue="STATEMENT_OF_CLAIM"/>
+		<f:selectItem itemLabel="Statement_of_defence" itemValue="STATEMENT_OF_DEFENCE"/>
+		<f:selectItem itemLabel="Tenancy_attornment_notice" itemValue="TENANCY_ATTORNMENT_NOTICE"/>
+		<f:selectItem itemLabel="Tenancy_eviction_order" itemValue="TENANCY_EVICTION_ORDER"/>
+		<f:selectItem itemLabel="Tenancy_ltb_dearing_date" itemValue="TENANCY_LTB_DEARING_DATE"/>
+		<f:selectItem itemLabel="Tenancy_n4_issued" itemValue="TENANCY_N4_ISSUED"/>
+		<f:selectItem itemLabel="Writ_possession" itemValue="WRIT_POSSESSION"/>
+		<f:selectItem itemLabel="Writ_seizure_and_sale" itemValue="WRIT_SEIZURE_AND_SALE"/>
+		<f:selectItem itemLabel="Other" itemValue="OTHER"/>
+		
+	</h:selectOneMenu>
+	
+		
+		<h:message for="legalProcess_process" styleClass="error errors"/>		</h:column>
+		
+	
+	
+		
+	<h:column>
+		
+	<a:commandButton action="#{legalAction.addLegalProcesses}" reRender="legalProcesses_data#{entityId}" value="New LegalProcesse">
+		<s:conversationId/>
+	</a:commandButton>
+	</h:column>
+		
+	<h:column>
+		<a:commandButton action="#{legalAction.deleteLegalProcesses(rowIndex)}" immediate="true" reRender="legalProcesses_data#{entityId}" value="Delete">
+			<s:conversationId/>
+		</a:commandButton>
+	</h:column>
+			
+	</rich:dataTable>
+ 
+	<a:commandButton action="#{legalAction.addInsurerProcesses}" reRender="insurerProcesses_data#{entityId}" value="New InsurerProcesse">
+		<s:conversationId/>
+	</a:commandButton>
+ 
+	
+	<rich:dataTable id="insurerProcesses_data#{entityId}" rendered="#{not empty legalAction.listInsurerProcesses}" rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all" styleClass="dataTable" value="#{legalAction.listInsurerProcesses}" var="_insurerProcess">
+		
+	
+	
+
+	 
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_completedDate}  "/>
+          </f:facet>
+		
+
+	<rich:calendar id="process_completedDate#{entityId}" required="false" value="#{_insurerProcess.completedDate}"/>
+   
+		
+		<h:message for="process_completedDate" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_dueDate}  "/>
+          </f:facet>
+		
+
+	<rich:calendar id="process_dueDate#{entityId}" required="false" value="#{_insurerProcess.dueDate}"/>
+   
+		
+		<h:message for="process_dueDate" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_processNumber}  "/>
+          </f:facet>
+		
+
+	<h:inputText id="process_processNumber#{entityId}" required="false" value="#{_insurerProcess.processNumber}"/>
+   
+		
+		<h:message for="process_processNumber" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_documentAdded}  "/>
+          </f:facet>
+		
+
+	<h:selectBooleanCheckbox id="process_documentAdded#{entityId}" required="false" value="#{_insurerProcess.documentAdded}"/>
+   
+		
+		<h:message for="process_documentAdded" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_notRequired}  "/>
+          </f:facet>
+		
+
+	<h:selectBooleanCheckbox id="process_notRequired#{entityId}" required="false" value="#{_insurerProcess.notRequired}"/>
+   
+		
+		<h:message for="process_notRequired" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.process_explanation}  "/>
+          </f:facet>
+		
+
+	<rich:editor id="process_explanation#{entityId}" required="false" useSeamText="true" value="#{_insurerProcess.explanation}"/>
+   
+		
+		<h:message for="process_explanation" styleClass="error errors"/>		</h:column>
+		
+	
+	
+	
+	
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.insurerProcess_process}  "/>
+          </f:facet>
+		
+	
+	<h:selectOneMenu id="insurerProcess_process" required="false" value="#{_insurerProcess.process}">
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
+		<f:selectItem itemLabel="Document_transferred_to_lender" itemValue="DOCUMENT_TRANSFERRED_TO_LENDER"/>
+		<f:selectItem itemLabel="Assignment_of_justice" itemValue="ASSIGNMENT_OF_JUSTICE"/>
+		<f:selectItem itemLabel="Claim_to_insurer" itemValue="CLAIM_TO_INSURER"/>
+		
+	</h:selectOneMenu>
+	
+		
+		<h:message for="insurerProcess_process" styleClass="error errors"/>		</h:column>
+		
+	
+	
+		
+	<h:column>
+		
+	<a:commandButton action="#{legalAction.addInsurerProcesses}" reRender="insurerProcesses_data#{entityId}" value="New InsurerProcesse">
+		<s:conversationId/>
+	</a:commandButton>
+	</h:column>
+		
+	<h:column>
+		<a:commandButton action="#{legalAction.deleteInsurerProcesses(rowIndex)}" immediate="true" reRender="insurerProcesses_data#{entityId}" value="Delete">
+			<s:conversationId/>
+		</a:commandButton>
+	</h:column>
+			
+	</rich:dataTable>
 		</s:validateAll>
 		
 	</h:panelGroup>
