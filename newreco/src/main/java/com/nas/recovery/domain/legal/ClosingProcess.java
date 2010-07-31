@@ -47,6 +47,36 @@ public class ClosingProcess extends com.nas.recovery.domain.legal.Process
 			java.io.Serializable {
 	private static final long serialVersionUID = 423680839L;
 
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "legal_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected Legal legal;
+
+	protected SaleClosingProcess process;
+
+	public void setLegal(Legal legal) {
+		this.legal = legal;
+	}
+
+	public Legal getLegal() {
+
+		return legal;
+	}
+
+	public void setProcess(SaleClosingProcess process) {
+		this.process = process;
+	}
+
+	public SaleClosingProcess getProcess() {
+
+		return process;
+	}
+
+	@Transient
+	public String getDisplayName() {
+		return legal + "";
+	}
+
 	/** This method is used by hibernate full text search - override to add additional fields
 	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
 	 */

@@ -46,66 +46,67 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 1019597444L;
 
 	@Field(index = Index.TOKENIZED)
-	protected String courtNumber;
-
-	@Field(index = Index.TOKENIZED)
-	protected String specialHandling;
-
-	protected Integer mortgageNumber;
-
-	protected Integer legalNumber;
-
-	@Field(index = Index.TOKENIZED)
-	protected String status;
-
-	protected Boolean litigation;
-
-	@Field(index = Index.TOKENIZED)
-	protected String legalDescription;
-
-	@Field(index = Index.TOKENIZED)
 	protected String legalFileNumber;
 
 	@Field(index = Index.TOKENIZED)
-	protected String pin;
+	protected String courtNumber;
 
-	@Field(index = Index.TOKENIZED)
-	protected String pid;
+	protected Boolean litigation;
 
-	//bankruptcys-> ->->Legal->
+	protected SpecialHandling specialHandling;
 
-	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "_ID", nullable = true)
-	@IndexedEmbedded
-	private Set<Bankruptcy> bankruptcys = new HashSet<Bankruptcy>();
+	protected LegalStatus status;
 
-	//titleSummarys-> ->->TitleSummary->
+	@Lob
+	protected String legalDescription;
 
-	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "_ID", nullable = true)
-	@IndexedEmbedded
-	private Set<TitleSummary> titleSummarys = new HashSet<TitleSummary>();
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "lawyer_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected Lawyer lawyer;
 
-	//legalProcesses-> ->->LegalProcess->
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "realEstateProperty_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected com.nas.recovery.domain.realestate.RealEstateProperty realEstateProperty;
 
-	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "_ID", nullable = false)
-	@IndexedEmbedded
-	private Set<LegalProcess> legalProcesses = new HashSet<LegalProcess>();
+	//closingProcesses->legal ->Legal->ClosingProcess->ClosingProcess
 
-	//closingProcesses-> ->->ClosingProcess->
-
-	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "_ID", nullable = true)
+	@OneToMany(mappedBy = "legal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "legal_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<ClosingProcess> closingProcesses = new HashSet<ClosingProcess>();
 
-	//insurerProcesses-> ->->InsurerProcess->
+	//legalProcesses->legal ->Legal->LegalProcess->LegalProcess
 
-	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "_ID", nullable = true)
+	@OneToMany(mappedBy = "legal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "legal_ID", nullable = true)
+	@IndexedEmbedded
+	private Set<LegalProcess> legalProcesses = new HashSet<LegalProcess>();
+
+	//insurerProcesses->legal ->Legal->Legal->Legal
+
+	@OneToMany(mappedBy = "legal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "legal_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<InsurerProcess> insurerProcesses = new HashSet<InsurerProcess>();
+
+	@Field(index = Index.TOKENIZED)
+	protected String titleInsurer;
+
+	protected Boolean titleInsuranceClaim;
+
+	@Field(index = Index.TOKENIZED)
+	protected String titleInsuranceClaimNumber;
+
+	public void setLegalFileNumber(String legalFileNumber) {
+		this.legalFileNumber = legalFileNumber;
+	}
+
+	public String getLegalFileNumber() {
+
+		return legalFileNumber;
+	}
 
 	public void setCourtNumber(String courtNumber) {
 		this.courtNumber = courtNumber;
@@ -114,42 +115,6 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 	public String getCourtNumber() {
 
 		return courtNumber;
-	}
-
-	public void setSpecialHandling(String specialHandling) {
-		this.specialHandling = specialHandling;
-	}
-
-	public String getSpecialHandling() {
-
-		return specialHandling;
-	}
-
-	public void setMortgageNumber(Integer mortgageNumber) {
-		this.mortgageNumber = mortgageNumber;
-	}
-
-	public Integer getMortgageNumber() {
-
-		return mortgageNumber;
-	}
-
-	public void setLegalNumber(Integer legalNumber) {
-		this.legalNumber = legalNumber;
-	}
-
-	public Integer getLegalNumber() {
-
-		return legalNumber;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getStatus() {
-
-		return status;
 	}
 
 	public void setLitigation(Boolean litigation) {
@@ -161,6 +126,24 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 		return litigation;
 	}
 
+	public void setSpecialHandling(SpecialHandling specialHandling) {
+		this.specialHandling = specialHandling;
+	}
+
+	public SpecialHandling getSpecialHandling() {
+
+		return specialHandling;
+	}
+
+	public void setStatus(LegalStatus status) {
+		this.status = status;
+	}
+
+	public LegalStatus getStatus() {
+
+		return status;
+	}
+
 	public void setLegalDescription(String legalDescription) {
 		this.legalDescription = legalDescription;
 	}
@@ -170,55 +153,23 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 		return legalDescription;
 	}
 
-	public void setLegalFileNumber(String legalFileNumber) {
-		this.legalFileNumber = legalFileNumber;
+	public void setLawyer(Lawyer lawyer) {
+		this.lawyer = lawyer;
 	}
 
-	public String getLegalFileNumber() {
+	public Lawyer getLawyer() {
 
-		return legalFileNumber;
+		return lawyer;
 	}
 
-	public void setPin(String pin) {
-		this.pin = pin;
+	public void setRealEstateProperty(
+			com.nas.recovery.domain.realestate.RealEstateProperty realEstateProperty) {
+		this.realEstateProperty = realEstateProperty;
 	}
 
-	public String getPin() {
+	public com.nas.recovery.domain.realestate.RealEstateProperty getRealEstateProperty() {
 
-		return pin;
-	}
-
-	public void setPid(String pid) {
-		this.pid = pid;
-	}
-
-	public String getPid() {
-
-		return pid;
-	}
-
-	public void setBankruptcys(Set<Bankruptcy> bankruptcys) {
-		this.bankruptcys = bankruptcys;
-	}
-
-	public Set<Bankruptcy> getBankruptcys() {
-		return bankruptcys;
-	}
-
-	public void setTitleSummarys(Set<TitleSummary> titleSummarys) {
-		this.titleSummarys = titleSummarys;
-	}
-
-	public Set<TitleSummary> getTitleSummarys() {
-		return titleSummarys;
-	}
-
-	public void setLegalProcesses(Set<LegalProcess> legalProcesses) {
-		this.legalProcesses = legalProcesses;
-	}
-
-	public Set<LegalProcess> getLegalProcesses() {
-		return legalProcesses;
+		return realEstateProperty;
 	}
 
 	public void setClosingProcesses(Set<ClosingProcess> closingProcesses) {
@@ -229,6 +180,14 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 		return closingProcesses;
 	}
 
+	public void setLegalProcesses(Set<LegalProcess> legalProcesses) {
+		this.legalProcesses = legalProcesses;
+	}
+
+	public Set<LegalProcess> getLegalProcesses() {
+		return legalProcesses;
+	}
+
 	public void setInsurerProcesses(Set<InsurerProcess> insurerProcesses) {
 		this.insurerProcesses = insurerProcesses;
 	}
@@ -237,9 +196,36 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 		return insurerProcesses;
 	}
 
+	public void setTitleInsurer(String titleInsurer) {
+		this.titleInsurer = titleInsurer;
+	}
+
+	public String getTitleInsurer() {
+
+		return titleInsurer;
+	}
+
+	public void setTitleInsuranceClaim(Boolean titleInsuranceClaim) {
+		this.titleInsuranceClaim = titleInsuranceClaim;
+	}
+
+	public Boolean getTitleInsuranceClaim() {
+
+		return titleInsuranceClaim;
+	}
+
+	public void setTitleInsuranceClaimNumber(String titleInsuranceClaimNumber) {
+		this.titleInsuranceClaimNumber = titleInsuranceClaimNumber;
+	}
+
+	public String getTitleInsuranceClaimNumber() {
+
+		return titleInsuranceClaimNumber;
+	}
+
 	@Transient
 	public String getDisplayName() {
-		return courtNumber;
+		return legalFileNumber;
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
@@ -250,19 +236,13 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
-		listSearchableFields.add("courtNumber");
-
-		listSearchableFields.add("specialHandling");
-
-		listSearchableFields.add("status");
-
-		listSearchableFields.add("legalDescription");
-
 		listSearchableFields.add("legalFileNumber");
 
-		listSearchableFields.add("pin");
+		listSearchableFields.add("courtNumber");
 
-		listSearchableFields.add("pid");
+		listSearchableFields.add("titleInsurer");
+
+		listSearchableFields.add("titleInsuranceClaimNumber");
 
 		return listSearchableFields;
 	}

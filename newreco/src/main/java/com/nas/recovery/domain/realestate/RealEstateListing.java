@@ -113,12 +113,12 @@ public class RealEstateListing extends BusinessEntity
 	@ContainedIn
 	protected RealEstateProperty realEstateProperty;
 
-	//offerses->realEstateListing ->RealEstateListing->Offers->Offers
+	//offers->realEstateListing ->RealEstateListing->Offer->Offer
 
 	@OneToMany(mappedBy = "realEstateListing", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateListing_ID", nullable = true)
 	@IndexedEmbedded
-	private Set<Offers> offerses = new HashSet<Offers>();
+	private Set<Offer> offers = new HashSet<Offer>();
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "master_id", nullable = true, updatable = true)
@@ -345,12 +345,12 @@ public class RealEstateListing extends BusinessEntity
 		return realEstateProperty;
 	}
 
-	public void setOfferses(Set<Offers> offerses) {
-		this.offerses = offerses;
+	public void setOffers(Set<Offer> offers) {
+		this.offers = offers;
 	}
 
-	public Set<Offers> getOfferses() {
-		return offerses;
+	public Set<Offer> getOffers() {
+		return offers;
 	}
 
 	public void setMaster(MasterAgent master) {
@@ -433,7 +433,7 @@ public class RealEstateListing extends BusinessEntity
 
 		listSearchableFields.add("occupied");
 
-		listSearchableFields.add("offerses.purchaser");
+		listSearchableFields.add("offers.purchaser");
 
 		return listSearchableFields;
 	}

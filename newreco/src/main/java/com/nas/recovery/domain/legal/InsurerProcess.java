@@ -47,6 +47,36 @@ public class InsurerProcess extends com.nas.recovery.domain.legal.Process
 			java.io.Serializable {
 	private static final long serialVersionUID = 1340974050L;
 
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "legal_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected Legal legal;
+
+	protected TransferToInsurerProcessType process;
+
+	public void setLegal(Legal legal) {
+		this.legal = legal;
+	}
+
+	public Legal getLegal() {
+
+		return legal;
+	}
+
+	public void setProcess(TransferToInsurerProcessType process) {
+		this.process = process;
+	}
+
+	public TransferToInsurerProcessType getProcess() {
+
+		return process;
+	}
+
+	@Transient
+	public String getDisplayName() {
+		return legal + "";
+	}
+
 	/** This method is used by hibernate full text search - override to add additional fields
 	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
 	 */

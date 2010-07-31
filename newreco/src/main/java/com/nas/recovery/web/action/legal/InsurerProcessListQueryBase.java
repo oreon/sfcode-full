@@ -38,6 +38,14 @@ public abstract class InsurerProcessListQueryBase
 		this.process_completedDateRange = process_completedDateRange;
 	}
 
+	private Range<Date> process_dueDateRange = new Range<Date>();
+	public Range<Date> getProcess_dueDateRange() {
+		return process_dueDateRange;
+	}
+	public void setProcess_dueDate(Range<Date> process_dueDateRange) {
+		this.process_dueDateRange = process_dueDateRange;
+	}
+
 	private Range<Integer> process_processNumberRange = new Range<Integer>();
 	public Range<Integer> getProcess_processNumberRange() {
 		return process_processNumberRange;
@@ -47,46 +55,27 @@ public abstract class InsurerProcessListQueryBase
 		this.process_processNumberRange = process_processNumberRange;
 	}
 
-	private Range<Date> process_expiryDateRange = new Range<Date>();
-	public Range<Date> getProcess_expiryDateRange() {
-		return process_expiryDateRange;
-	}
-	public void setProcess_expiryDate(Range<Date> process_expiryDateRange) {
-		this.process_expiryDateRange = process_expiryDateRange;
-	}
-
-	private Range<Integer> process_legalNumberRange = new Range<Integer>();
-	public Range<Integer> getProcess_legalNumberRange() {
-		return process_legalNumberRange;
-	}
-	public void setProcess_legalNumber(Range<Integer> process_legalNumberRange) {
-		this.process_legalNumberRange = process_legalNumberRange;
-	}
-
 	private static final String[] RESTRICTIONS = {
 			"insurerProcess.id = #{insurerProcessList.insurerProcess.id}",
+
+			"insurerProcess.legal = #{insurerProcessList.insurerProcess.legal}",
+
+			"insurerProcess.process = #{insurerProcessList.insurerProcess.process}",
 
 			"insurerProcess.completedDate >= #{insurerProcessList.process_completedDateRange.begin}",
 			"insurerProcess.completedDate <= #{insurerProcessList.process_completedDateRange.end}",
 
+			"insurerProcess.dueDate >= #{insurerProcessList.process_dueDateRange.begin}",
+			"insurerProcess.dueDate <= #{insurerProcessList.process_dueDateRange.end}",
+
 			"insurerProcess.processNumber >= #{insurerProcessList.process_processNumberRange.begin}",
 			"insurerProcess.processNumber <= #{insurerProcessList.process_processNumberRange.end}",
 
-			"insurerProcess.expiryDate >= #{insurerProcessList.process_expiryDateRange.begin}",
-			"insurerProcess.expiryDate <= #{insurerProcessList.process_expiryDateRange.end}",
-
-			"lower(insurerProcess.reason) like concat(lower(#{insurerProcessList.insurerProcess.reason}),'%')",
-
-			"lower(insurerProcess.type) like concat(lower(#{insurerProcessList.insurerProcess.type}),'%')",
-
-			"lower(insurerProcess.description) like concat(lower(#{insurerProcessList.insurerProcess.description}),'%')",
-
-			"insurerProcess.legalNumber >= #{insurerProcessList.process_legalNumberRange.begin}",
-			"insurerProcess.legalNumber <= #{insurerProcessList.process_legalNumberRange.end}",
-
 			"insurerProcess.documentAdded = #{insurerProcessList.insurerProcess.documentAdded}",
 
-			"insurerProcess.skip = #{insurerProcessList.insurerProcess.skip}",
+			"insurerProcess.notRequired = #{insurerProcessList.insurerProcess.notRequired}",
+
+			"insurerProcess.explanation = #{insurerProcessList.insurerProcess.explanation}",
 
 			"insurerProcess.dateCreated <= #{insurerProcessList.dateCreatedRange.end}",
 			"insurerProcess.dateCreated >= #{insurerProcessList.dateCreatedRange.begin}",};

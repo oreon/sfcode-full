@@ -23,6 +23,10 @@ class AlbertaRecoveryBase extends BaseJbpmProcessAction
 
 	}
 
+	@EndTask(transition = "conflict")
+	public void conflictCheckConflictTask() {
+
+	}
 	@EndTask(transition = "accept")
 	public void acceptCheckConflictTask() {
 
@@ -65,6 +69,16 @@ class AlbertaRecoveryBase extends BaseJbpmProcessAction
 
 	@EndTask(transition = "doReview")
 	public void doReviewFinalReviewTask() {
+
+	}
+
+	@StartTask
+	public void startAssignLawyerTask() {
+
+	}
+
+	@EndTask(transition = "assignLawyer")
+	public void assignLawyerAssignLawyerTask() {
 
 	}
 

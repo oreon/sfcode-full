@@ -1,4 +1,4 @@
-package com.nas.recovery.domain.legal;
+package com.nas.recovery.domain.propertymanagement;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -35,52 +35,25 @@ import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
 @Entity
-@Table(name = "bankruptcy")
-@Name("bankruptcy")
+@Table(name = "utilitiy")
+@Name("utilitiy")
 @Filter(name = "archiveFilterDef")
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
-public class Bankruptcy extends BusinessEntity implements java.io.Serializable {
-	private static final long serialVersionUID = -93994108L;
+public class Utilitiy extends BusinessEntity implements java.io.Serializable {
+	private static final long serialVersionUID = 1691845865L;
 
-	protected Integer legalNumber;
-
-	@Field(index = Index.TOKENIZED)
-	protected String trustee;
-
+	@NotNull
+	@Length(min = 2, max = 50)
 	@Field(index = Index.TOKENIZED)
 	protected String name;
 
-	protected Date dateFiled;
+	protected Boolean transferred;
 
-	protected Date dischargedDate;
-
-	protected Boolean proofOfClaim;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "legal_id", nullable = true, updatable = true)
-	@ContainedIn
-	protected Legal legal;
-
-	public void setLegalNumber(Integer legalNumber) {
-		this.legalNumber = legalNumber;
-	}
-
-	public Integer getLegalNumber() {
-
-		return legalNumber;
-	}
-
-	public void setTrustee(String trustee) {
-		this.trustee = trustee;
-	}
-
-	public String getTrustee() {
-
-		return trustee;
-	}
+	@Field(index = Index.TOKENIZED)
+	protected String accountNumber;
 
 	public void setName(String name) {
 		this.name = name;
@@ -91,40 +64,22 @@ public class Bankruptcy extends BusinessEntity implements java.io.Serializable {
 		return name;
 	}
 
-	public void setDateFiled(Date dateFiled) {
-		this.dateFiled = dateFiled;
+	public void setTransferred(Boolean transferred) {
+		this.transferred = transferred;
 	}
 
-	public Date getDateFiled() {
+	public Boolean getTransferred() {
 
-		return dateFiled;
+		return transferred;
 	}
 
-	public void setDischargedDate(Date dischargedDate) {
-		this.dischargedDate = dischargedDate;
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
 	}
 
-	public Date getDischargedDate() {
+	public String getAccountNumber() {
 
-		return dischargedDate;
-	}
-
-	public void setProofOfClaim(Boolean proofOfClaim) {
-		this.proofOfClaim = proofOfClaim;
-	}
-
-	public Boolean getProofOfClaim() {
-
-		return proofOfClaim;
-	}
-
-	public void setLegal(Legal legal) {
-		this.legal = legal;
-	}
-
-	public Legal getLegal() {
-
-		return legal;
+		return accountNumber;
 	}
 
 	@Transient
@@ -140,9 +95,9 @@ public class Bankruptcy extends BusinessEntity implements java.io.Serializable {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
-		listSearchableFields.add("trustee");
-
 		listSearchableFields.add("name");
+
+		listSearchableFields.add("accountNumber");
 
 		return listSearchableFields;
 	}

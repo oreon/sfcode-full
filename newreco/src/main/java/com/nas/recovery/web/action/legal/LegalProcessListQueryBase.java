@@ -38,6 +38,14 @@ public abstract class LegalProcessListQueryBase
 		this.process_completedDateRange = process_completedDateRange;
 	}
 
+	private Range<Date> process_dueDateRange = new Range<Date>();
+	public Range<Date> getProcess_dueDateRange() {
+		return process_dueDateRange;
+	}
+	public void setProcess_dueDate(Range<Date> process_dueDateRange) {
+		this.process_dueDateRange = process_dueDateRange;
+	}
+
 	private Range<Integer> process_processNumberRange = new Range<Integer>();
 	public Range<Integer> getProcess_processNumberRange() {
 		return process_processNumberRange;
@@ -47,46 +55,27 @@ public abstract class LegalProcessListQueryBase
 		this.process_processNumberRange = process_processNumberRange;
 	}
 
-	private Range<Date> process_expiryDateRange = new Range<Date>();
-	public Range<Date> getProcess_expiryDateRange() {
-		return process_expiryDateRange;
-	}
-	public void setProcess_expiryDate(Range<Date> process_expiryDateRange) {
-		this.process_expiryDateRange = process_expiryDateRange;
-	}
-
-	private Range<Integer> process_legalNumberRange = new Range<Integer>();
-	public Range<Integer> getProcess_legalNumberRange() {
-		return process_legalNumberRange;
-	}
-	public void setProcess_legalNumber(Range<Integer> process_legalNumberRange) {
-		this.process_legalNumberRange = process_legalNumberRange;
-	}
-
 	private static final String[] RESTRICTIONS = {
 			"legalProcess.id = #{legalProcessList.legalProcess.id}",
+
+			"legalProcess.legal = #{legalProcessList.legalProcess.legal}",
+
+			"legalProcess.process = #{legalProcessList.legalProcess.process}",
 
 			"legalProcess.completedDate >= #{legalProcessList.process_completedDateRange.begin}",
 			"legalProcess.completedDate <= #{legalProcessList.process_completedDateRange.end}",
 
+			"legalProcess.dueDate >= #{legalProcessList.process_dueDateRange.begin}",
+			"legalProcess.dueDate <= #{legalProcessList.process_dueDateRange.end}",
+
 			"legalProcess.processNumber >= #{legalProcessList.process_processNumberRange.begin}",
 			"legalProcess.processNumber <= #{legalProcessList.process_processNumberRange.end}",
 
-			"legalProcess.expiryDate >= #{legalProcessList.process_expiryDateRange.begin}",
-			"legalProcess.expiryDate <= #{legalProcessList.process_expiryDateRange.end}",
-
-			"lower(legalProcess.reason) like concat(lower(#{legalProcessList.legalProcess.reason}),'%')",
-
-			"lower(legalProcess.type) like concat(lower(#{legalProcessList.legalProcess.type}),'%')",
-
-			"lower(legalProcess.description) like concat(lower(#{legalProcessList.legalProcess.description}),'%')",
-
-			"legalProcess.legalNumber >= #{legalProcessList.process_legalNumberRange.begin}",
-			"legalProcess.legalNumber <= #{legalProcessList.process_legalNumberRange.end}",
-
 			"legalProcess.documentAdded = #{legalProcessList.legalProcess.documentAdded}",
 
-			"legalProcess.skip = #{legalProcessList.legalProcess.skip}",
+			"legalProcess.notRequired = #{legalProcessList.legalProcess.notRequired}",
+
+			"legalProcess.explanation = #{legalProcessList.legalProcess.explanation}",
 
 			"legalProcess.dateCreated <= #{legalProcessList.dateCreatedRange.end}",
 			"legalProcess.dateCreated >= #{legalProcessList.dateCreatedRange.begin}",};

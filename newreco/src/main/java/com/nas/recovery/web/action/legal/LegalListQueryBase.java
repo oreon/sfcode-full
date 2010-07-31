@@ -28,46 +28,30 @@ public abstract class LegalListQueryBase extends BaseQuery<Legal, Long> {
 
 	private Legal legal = new Legal();
 
-	private Range<Integer> legal_mortgageNumberRange = new Range<Integer>();
-	public Range<Integer> getLegal_mortgageNumberRange() {
-		return legal_mortgageNumberRange;
-	}
-	public void setLegal_mortgageNumber(Range<Integer> legal_mortgageNumberRange) {
-		this.legal_mortgageNumberRange = legal_mortgageNumberRange;
-	}
-
-	private Range<Integer> legal_legalNumberRange = new Range<Integer>();
-	public Range<Integer> getLegal_legalNumberRange() {
-		return legal_legalNumberRange;
-	}
-	public void setLegal_legalNumber(Range<Integer> legal_legalNumberRange) {
-		this.legal_legalNumberRange = legal_legalNumberRange;
-	}
-
 	private static final String[] RESTRICTIONS = {
 			"legal.id = #{legalList.legal.id}",
 
+			"lower(legal.legalFileNumber) like concat(lower(#{legalList.legal.legalFileNumber}),'%')",
+
 			"lower(legal.courtNumber) like concat(lower(#{legalList.legal.courtNumber}),'%')",
-
-			"lower(legal.specialHandling) like concat(lower(#{legalList.legal.specialHandling}),'%')",
-
-			"legal.mortgageNumber >= #{legalList.legal_mortgageNumberRange.begin}",
-			"legal.mortgageNumber <= #{legalList.legal_mortgageNumberRange.end}",
-
-			"legal.legalNumber >= #{legalList.legal_legalNumberRange.begin}",
-			"legal.legalNumber <= #{legalList.legal_legalNumberRange.end}",
-
-			"lower(legal.status) like concat(lower(#{legalList.legal.status}),'%')",
 
 			"legal.litigation = #{legalList.legal.litigation}",
 
-			"lower(legal.legalDescription) like concat(lower(#{legalList.legal.legalDescription}),'%')",
+			"legal.specialHandling = #{legalList.legal.specialHandling}",
 
-			"lower(legal.legalFileNumber) like concat(lower(#{legalList.legal.legalFileNumber}),'%')",
+			"legal.status = #{legalList.legal.status}",
 
-			"lower(legal.pin) like concat(lower(#{legalList.legal.pin}),'%')",
+			"legal.legalDescription = #{legalList.legal.legalDescription}",
 
-			"lower(legal.pid) like concat(lower(#{legalList.legal.pid}),'%')",
+			"legal.lawyer = #{legalList.legal.lawyer}",
+
+			"legal.realEstateProperty = #{legalList.legal.realEstateProperty}",
+
+			"lower(legal.titleInsurer) like concat(lower(#{legalList.legal.titleInsurer}),'%')",
+
+			"legal.titleInsuranceClaim = #{legalList.legal.titleInsuranceClaim}",
+
+			"lower(legal.titleInsuranceClaimNumber) like concat(lower(#{legalList.legal.titleInsuranceClaimNumber}),'%')",
 
 			"legal.dateCreated <= #{legalList.dateCreatedRange.end}",
 			"legal.dateCreated >= #{legalList.dateCreatedRange.begin}",};

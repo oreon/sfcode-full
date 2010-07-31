@@ -1,6 +1,6 @@
-package com.nas.recovery.web.action.legal;
+package com.nas.recovery.web.action.propertymanagement;
 
-import com.nas.recovery.domain.legal.InsurerProcess;
+import com.nas.recovery.domain.propertymanagement.Inspection;
 
 import org.witchcraft.seam.action.BaseAction;
 
@@ -34,67 +34,66 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public abstract class InsurerProcessActionBase
-		extends
-			com.nas.recovery.web.action.legal.ProcessAction<InsurerProcess>
+public abstract class InspectionActionBase extends BaseAction<Inspection>
 		implements
 			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
 	@DataModelSelection
-	private InsurerProcess insurerProcess;
+	private Inspection inspection;
 
-	@In(create = true, value = "legalAction")
-	com.nas.recovery.web.action.legal.LegalAction legalAction;
+	@In(create = true, value = "propertyManagerAction")
+	com.nas.recovery.web.action.propertymanagement.PropertyManagerAction propertyManagerAction;
 
 	@DataModel
-	private List<InsurerProcess> insurerProcessRecordList;
+	private List<Inspection> inspectionRecordList;
 
-	public void setInsurerProcessId(Long id) {
+	public void setInspectionId(Long id) {
 
 		setId(id);
 		loadAssociations();
 	}
 
-	public void setLegalId(Long id) {
+	public void setPropertyManagerId(Long id) {
 		if (id != null && id > 0)
-			getInstance().setLegal(legalAction.loadFromId(id));
+			getInstance().setPropertyManager(
+					propertyManagerAction.loadFromId(id));
 	}
 
-	public Long getLegalId() {
-		if (getInstance().getLegal() != null)
-			return getInstance().getLegal().getId();
+	public Long getPropertyManagerId() {
+		if (getInstance().getPropertyManager() != null)
+			return getInstance().getPropertyManager().getId();
 		return 0L;
 	}
 
-	public Long getInsurerProcessId() {
+	public Long getInspectionId() {
 		return (Long) getId();
 	}
 
-	//@Factory("insurerProcessRecordList")
-	//@Observer("archivedInsurerProcess")
+	//@Factory("inspectionRecordList")
+	//@Observer("archivedInspection")
 	public void findRecords() {
 		//search();
 	}
 
-	public InsurerProcess getEntity() {
-		return insurerProcess;
+	public Inspection getEntity() {
+		return inspection;
 	}
 
 	@Override
-	public void setEntity(InsurerProcess t) {
-		this.insurerProcess = t;
+	public void setEntity(Inspection t) {
+		this.inspection = t;
 		loadAssociations();
 	}
 
-	public InsurerProcess getInsurerProcess() {
+	public Inspection getInspection() {
 		return getInstance();
 	}
 
 	@Override
-	protected InsurerProcess createInstance() {
-		return new InsurerProcess();
+	protected Inspection createInstance() {
+		return new Inspection();
 	}
 
 	public void load() {
@@ -105,10 +104,10 @@ public abstract class InsurerProcessActionBase
 
 	public void wire() {
 		getInstance();
-		com.nas.recovery.domain.legal.Legal legal = legalAction
+		com.nas.recovery.domain.propertymanagement.PropertyManager propertyManager = propertyManagerAction
 				.getDefinedInstance();
-		if (legal != null) {
-			getInstance().setLegal(legal);
+		if (propertyManager != null) {
+			getInstance().setPropertyManager(propertyManager);
 		}
 
 	}
@@ -117,23 +116,23 @@ public abstract class InsurerProcessActionBase
 		return true;
 	}
 
-	public InsurerProcess getDefinedInstance() {
+	public Inspection getDefinedInstance() {
 		return isIdDefined() ? getInstance() : null;
 	}
 
-	public void setInsurerProcess(InsurerProcess t) {
-		this.insurerProcess = t;
+	public void setInspection(Inspection t) {
+		this.inspection = t;
 		loadAssociations();
 	}
 
 	@Override
-	public Class<InsurerProcess> getEntityClass() {
-		return InsurerProcess.class;
+	public Class<Inspection> getEntityClass() {
+		return Inspection.class;
 	}
 
 	@Override
-	public void setEntityList(List<InsurerProcess> list) {
-		this.insurerProcessRecordList = list;
+	public void setEntityList(List<Inspection> list) {
+		this.inspectionRecordList = list;
 	}
 
 	/** This function adds associated entities to an example criterion
@@ -141,9 +140,9 @@ public abstract class InsurerProcessActionBase
 	 */
 	public void addAssoications(Criteria criteria) {
 
-		if (insurerProcess.getLegal() != null) {
-			criteria = criteria.add(Restrictions.eq("legal.id", insurerProcess
-					.getLegal().getId()));
+		if (inspection.getPropertyManager() != null) {
+			criteria = criteria.add(Restrictions.eq("propertyManager.id",
+					inspection.getPropertyManager().getId()));
 		}
 
 	}
@@ -154,8 +153,8 @@ public abstract class InsurerProcessActionBase
 	 */
 	public void loadAssociations() {
 
-		if (insurerProcess.getLegal() != null) {
-			legalAction.setEntity(getEntity().getLegal());
+		if (inspection.getPropertyManager() != null) {
+			propertyManagerAction.setEntity(getEntity().getPropertyManager());
 		}
 
 	}
@@ -164,11 +163,11 @@ public abstract class InsurerProcessActionBase
 
 	}
 
-	public List<InsurerProcess> getEntityList() {
-		if (insurerProcessRecordList == null) {
+	public List<Inspection> getEntityList() {
+		if (inspectionRecordList == null) {
 			findRecords();
 		}
-		return insurerProcessRecordList;
+		return inspectionRecordList;
 	}
 
 }

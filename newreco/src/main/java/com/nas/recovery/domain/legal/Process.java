@@ -40,24 +40,16 @@ public class Process extends BusinessEntity {
 
 	protected Date completedDate;
 
+	protected Date dueDate;
+
 	protected Integer processNumber;
-
-	protected Date expiryDate;
-
-	@Field(index = Index.TOKENIZED)
-	protected String reason;
-
-	@Field(index = Index.TOKENIZED)
-	protected String type;
-
-	@Field(index = Index.TOKENIZED)
-	protected String description;
-
-	protected Integer legalNumber;
 
 	protected Boolean documentAdded;
 
-	protected Boolean skip;
+	protected Boolean notRequired;
+
+	@Lob
+	protected String explanation;
 
 	public void setCompletedDate(Date completedDate) {
 		this.completedDate = completedDate;
@@ -66,6 +58,15 @@ public class Process extends BusinessEntity {
 	public Date getCompletedDate() {
 
 		return completedDate;
+	}
+
+	public void setDueDate(Date dueDate) {
+		this.dueDate = dueDate;
+	}
+
+	public Date getDueDate() {
+
+		return dueDate;
 	}
 
 	public void setProcessNumber(Integer processNumber) {
@@ -77,51 +78,6 @@ public class Process extends BusinessEntity {
 		return processNumber;
 	}
 
-	public void setExpiryDate(Date expiryDate) {
-		this.expiryDate = expiryDate;
-	}
-
-	public Date getExpiryDate() {
-
-		return expiryDate;
-	}
-
-	public void setReason(String reason) {
-		this.reason = reason;
-	}
-
-	public String getReason() {
-
-		return reason;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getType() {
-
-		return type;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getDescription() {
-
-		return description;
-	}
-
-	public void setLegalNumber(Integer legalNumber) {
-		this.legalNumber = legalNumber;
-	}
-
-	public Integer getLegalNumber() {
-
-		return legalNumber;
-	}
-
 	public void setDocumentAdded(Boolean documentAdded) {
 		this.documentAdded = documentAdded;
 	}
@@ -131,18 +87,27 @@ public class Process extends BusinessEntity {
 		return documentAdded;
 	}
 
-	public void setSkip(Boolean skip) {
-		this.skip = skip;
+	public void setNotRequired(Boolean notRequired) {
+		this.notRequired = notRequired;
 	}
 
-	public Boolean getSkip() {
+	public Boolean getNotRequired() {
 
-		return skip;
+		return notRequired;
+	}
+
+	public void setExplanation(String explanation) {
+		this.explanation = explanation;
+	}
+
+	public String getExplanation() {
+
+		return explanation;
 	}
 
 	@Transient
 	public String getDisplayName() {
-		return reason;
+		return completedDate + "";
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
@@ -152,12 +117,6 @@ public class Process extends BusinessEntity {
 	public List<String> listSearchableFields() {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
-
-		listSearchableFields.add("reason");
-
-		listSearchableFields.add("type");
-
-		listSearchableFields.add("description");
 
 		return listSearchableFields;
 	}

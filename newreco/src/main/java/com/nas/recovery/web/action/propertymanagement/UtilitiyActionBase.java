@@ -1,6 +1,6 @@
-package com.nas.recovery.web.action.legal;
+package com.nas.recovery.web.action.propertymanagement;
 
-import com.nas.recovery.domain.legal.Bankruptcy;
+import com.nas.recovery.domain.propertymanagement.Utilitiy;
 
 import org.witchcraft.seam.action.BaseAction;
 
@@ -34,65 +34,51 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public abstract class BankruptcyActionBase extends BaseAction<Bankruptcy>
+public abstract class UtilitiyActionBase extends BaseAction<Utilitiy>
 		implements
 			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
 	@DataModelSelection
-	private Bankruptcy bankruptcy;
-
-	@In(create = true, value = "legalAction")
-	com.nas.recovery.web.action.legal.LegalAction legalAction;
+	private Utilitiy utilitiy;
 
 	@DataModel
-	private List<Bankruptcy> bankruptcyRecordList;
+	private List<Utilitiy> utilitiyRecordList;
 
-	public void setBankruptcyId(Long id) {
+	public void setUtilitiyId(Long id) {
 
 		setId(id);
 		loadAssociations();
 	}
 
-	public void setLegalId(Long id) {
-		if (id != null && id > 0)
-			getInstance().setLegal(legalAction.loadFromId(id));
-	}
-
-	public Long getLegalId() {
-		if (getInstance().getLegal() != null)
-			return getInstance().getLegal().getId();
-		return 0L;
-	}
-
-	public Long getBankruptcyId() {
+	public Long getUtilitiyId() {
 		return (Long) getId();
 	}
 
-	//@Factory("bankruptcyRecordList")
-	//@Observer("archivedBankruptcy")
+	//@Factory("utilitiyRecordList")
+	//@Observer("archivedUtilitiy")
 	public void findRecords() {
 		//search();
 	}
 
-	public Bankruptcy getEntity() {
-		return bankruptcy;
+	public Utilitiy getEntity() {
+		return utilitiy;
 	}
 
 	@Override
-	public void setEntity(Bankruptcy t) {
-		this.bankruptcy = t;
+	public void setEntity(Utilitiy t) {
+		this.utilitiy = t;
 		loadAssociations();
 	}
 
-	public Bankruptcy getBankruptcy() {
+	public Utilitiy getUtilitiy() {
 		return getInstance();
 	}
 
 	@Override
-	protected Bankruptcy createInstance() {
-		return new Bankruptcy();
+	protected Utilitiy createInstance() {
+		return new Utilitiy();
 	}
 
 	public void load() {
@@ -103,11 +89,6 @@ public abstract class BankruptcyActionBase extends BaseAction<Bankruptcy>
 
 	public void wire() {
 		getInstance();
-		com.nas.recovery.domain.legal.Legal legal = legalAction
-				.getDefinedInstance();
-		if (legal != null) {
-			getInstance().setLegal(legal);
-		}
 
 	}
 
@@ -115,35 +96,23 @@ public abstract class BankruptcyActionBase extends BaseAction<Bankruptcy>
 		return true;
 	}
 
-	public Bankruptcy getDefinedInstance() {
+	public Utilitiy getDefinedInstance() {
 		return isIdDefined() ? getInstance() : null;
 	}
 
-	public void setBankruptcy(Bankruptcy t) {
-		this.bankruptcy = t;
+	public void setUtilitiy(Utilitiy t) {
+		this.utilitiy = t;
 		loadAssociations();
 	}
 
 	@Override
-	public Class<Bankruptcy> getEntityClass() {
-		return Bankruptcy.class;
+	public Class<Utilitiy> getEntityClass() {
+		return Utilitiy.class;
 	}
 
 	@Override
-	public void setEntityList(List<Bankruptcy> list) {
-		this.bankruptcyRecordList = list;
-	}
-
-	/** This function adds associated entities to an example criterion
-	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
-	 */
-	public void addAssoications(Criteria criteria) {
-
-		if (bankruptcy.getLegal() != null) {
-			criteria = criteria.add(Restrictions.eq("legal.id", bankruptcy
-					.getLegal().getId()));
-		}
-
+	public void setEntityList(List<Utilitiy> list) {
+		this.utilitiyRecordList = list;
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -152,21 +121,17 @@ public abstract class BankruptcyActionBase extends BaseAction<Bankruptcy>
 	 */
 	public void loadAssociations() {
 
-		if (bankruptcy.getLegal() != null) {
-			legalAction.setEntity(getEntity().getLegal());
-		}
-
 	}
 
 	public void updateAssociations() {
 
 	}
 
-	public List<Bankruptcy> getEntityList() {
-		if (bankruptcyRecordList == null) {
+	public List<Utilitiy> getEntityList() {
+		if (utilitiyRecordList == null) {
 			findRecords();
 		}
-		return bankruptcyRecordList;
+		return utilitiyRecordList;
 	}
 
 }
