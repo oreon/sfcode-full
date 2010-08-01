@@ -56,6 +56,26 @@
 			</rich:tab>
 
 			<rich:tab label="Offer/Sale">
+			
+			<a:form name="offerForm">
+					<rich:panel>
+						<ui:include
+							src="customOfferComponent.xhtml" />
+					</rich:panel>
+
+
+					<a:commandButton ajaxSingle="true"
+						oncomplete="Richfaces.showModalPanel('OffersModalPanel',{});"
+						value="Quick Create"
+						action="#{realEstateListingAction.setRealEstatePropertyId(realEstatePropertyId)}"
+						reRender="OffersModalPanel">
+					</a:commandButton>
+					
+					<rich:panel>
+						<ui:include src="listOfferComponent.xhtml" />
+					</rich:panel>
+				</a:form>
+			
 
 			</rich:tab>
 
