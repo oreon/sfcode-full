@@ -1,192 +1,213 @@
 <?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
 	<h:panelGroup>
 		<s:validateAll>
-		<h:panelGrid columnClasses="leftCol, rightCol" columns="3" onload="#{offerAction.load(offerId )  }" styleClass="viewInfo">
-		<f:facet name="header">
-			<h:outputText value="Offer "/>
-		</f:facet>
-		
-		
-	
-	
-		
-			
-			
-	
-	
-		
-		<h:outputText value="#{msg.offer_realEstateListing}  "/>
-	
-	
-		
-	
-	<h:selectOneMenu id="offer_realEstateListing" required="true" value="#{offerAction.offer.realEstateListing}">
-		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{realEstateListingList}" var="itemIter"/>
-		<s:convertEntity/>
-	</h:selectOneMenu>
-		
+			<h:panelGrid columnClasses="leftCol, rightCol" columns="3"
+				onload="#{offerAction.load(offerId )  }" styleClass="viewInfo">
+				<f:facet name="header">
+					<h:outputText value="Offer " />
+				</f:facet>
 
-	
-		
-		<h:message for="offer_realEstateListing" styleClass="error errors"/>		
-		
-	
-	
-		
-	
 
-	
-	
-	
-	
-		
-		<h:outputText value="#{msg.offer_offerDate}  "/>
-		
 
-	<rich:calendar id="offer_offerDate#{entityId}" required="false" value="#{offerAction.offer.offerDate}"/>
-   
-		
-		<h:message for="offer_offerDate" styleClass="error errors"/>		
-		
-	
-	
 
-	
-	
-		
-		<h:outputText value="#{msg.offer_purchaser}  "/>
-		
 
-	<h:inputText id="offer_purchaser#{entityId}" required="false" value="#{offerAction.offer.purchaser}"/>
-   
-		
-		<h:message for="offer_purchaser" styleClass="error errors"/>		
-		
-	
-	
 
-	
-	
-		
-		<h:outputText value="#{msg.offer_amount}  "/>
-		
 
-	<h:inputText id="offer_amount#{entityId}" required="false" value="#{offerAction.offer.amount}"/>
-   
-		
-		<h:message for="offer_amount" styleClass="error errors"/>		
-		
-	
-	
 
-	
-	
-		
-		<h:outputText value="#{msg.offer_offerCondition}  "/>
-		
-	
-	<h:selectOneMenu id="offer_offerCondition" required="false" value="#{offerAction.offer.offerCondition}">
-		<f:selectItem itemLabel="Please Select..." itemValue=""/>
-		<f:selectItem itemLabel="Inspection" itemValue="Inspection"/>
-		<f:selectItem itemLabel="Finance" itemValue="Finance"/>
-		<f:selectItem itemLabel="Appraisal" itemValue="Appraisal"/>
-		<f:selectItem itemLabel="Scc" itemValue="SCC"/>
-		<f:selectItem itemLabel="Insurance" itemValue="Insurance"/>
-		<f:selectItem itemLabel="Other" itemValue="Other"/>
-		
-	</h:selectOneMenu>
-	
-		
-		<h:message for="offer_offerCondition" styleClass="error errors"/>		
-		
-	
-	
 
-	
-	
-		
-		<h:outputText value="#{msg.offer_status}  "/>
-		
-	
-	<h:selectOneMenu id="offer_status" required="false" value="#{offerAction.offer.status}">
-		<f:selectItem itemLabel="Please Select..." itemValue=""/>
-		<f:selectItem itemLabel="Offer" itemValue="Offer"/>
-		<f:selectItem itemLabel="Signbackbuyer" itemValue="SignBackBuyer"/>
-		<f:selectItem itemLabel="Signbackseller" itemValue="SignBackSeller"/>
-		<f:selectItem itemLabel="Soldfirm" itemValue="SoldFirm"/>
-		<f:selectItem itemLabel="Conditionalsale" itemValue="ConditionalSale"/>
-		<f:selectItem itemLabel="Fellthrough" itemValue="FellThrough"/>
-		<f:selectItem itemLabel="Rejected" itemValue="Rejected"/>
-		<f:selectItem itemLabel="Accepted" itemValue="Accepted"/>
-		
-	</h:selectOneMenu>
-	
-		
-		<h:message for="offer_status" styleClass="error errors"/>		
-		
-	
-	
 
-	
-	
-		
-		<h:outputText value="#{msg.offer_signBackAmount}  "/>
-		
+				<h:outputText value="#{msg.offer_realEstateListing}  " />
 
-	<h:inputText id="offer_signBackAmount#{entityId}" required="false" value="#{offerAction.offer.signBackAmount}"/>
-   
-		
-		<h:message for="offer_signBackAmount" styleClass="error errors"/>		
-		
-	
-	
 
-	
-	
-		
-		<h:outputText value="#{msg.offer_conditionExpiry}  "/>
-		
 
-	<rich:calendar id="offer_conditionExpiry#{entityId}" required="false" value="#{offerAction.offer.conditionExpiry}"/>
-   
-		
-		<h:message for="offer_conditionExpiry" styleClass="error errors"/>		
-		
-	
-	
 
-	
-	
-		
-		<h:outputText value="#{msg.offer_closingDate}  "/>
-		
+				<h:selectOneMenu id="offer_realEstateListing" required="true"
+					value="#{offerAction.offer.realEstateListing}">
+					<s:selectItems label="#{itemIter.displayName}"
+						noSelectionLabel="Please Select..."
+						value="#{realEstateListingList}" var="itemIter" />
+					<s:convertEntity />
+				</h:selectOneMenu>
 
-	<rich:calendar id="offer_closingDate#{entityId}" required="false" value="#{offerAction.offer.closingDate}"/>
-   
-		
-		<h:message for="offer_closingDate" styleClass="error errors"/>		
-		
-	
-	
 
-	
-	
-		
-		<h:outputText value="#{msg.offer_comments}  "/>
-		
 
-	<rich:editor id="offer_comments#{entityId}" required="false" useSeamText="true" value="#{offerAction.offer.comments}"/>
-   
-		
-		<h:message for="offer_comments" styleClass="error errors"/>		
-		
-	
-	
-		</h:panelGrid>
-		
-	
+
+				<h:message for="offer_realEstateListing" styleClass="error errors" />
+
+
+
+
+
+
+
+
+
+
+
+				<h:outputText value="#{msg.offer_offerDate}  " />
+
+
+				<rich:calendar id="offer_offerDate#{entityId}" required="false"
+					value="#{offerAction.offer.offerDate}" />
+
+
+				<h:message for="offer_offerDate" styleClass="error errors" />
+
+
+
+
+
+
+
+				<h:outputText value="#{msg.offer_purchaser}  " />
+
+
+				<h:inputText id="offer_purchaser#{entityId}" required="false"
+					value="#{offerAction.offer.purchaser}" />
+
+
+				<h:message for="offer_purchaser" styleClass="error errors" />
+
+
+
+
+
+
+
+				<h:outputText value="#{msg.offer_amount}  " />
+
+
+				<h:inputText id="offer_amount#{entityId}" required="false"
+					value="#{offerAction.offer.amount}" />
+
+
+				<h:message for="offer_amount" styleClass="error errors" />
+
+
+
+
+
+
+
+				<h:outputText value="#{msg.offer_offerCondition}  " />
+
+
+				<h:selectOneMenu id="offer_offerCondition" required="false"
+					value="#{offerAction.offer.offerCondition}">
+					<f:selectItem itemLabel="Please Select..." itemValue="" />
+					<f:selectItem itemLabel="Inspection" itemValue="Inspection" />
+					<f:selectItem itemLabel="Finance" itemValue="Finance" />
+					<f:selectItem itemLabel="Appraisal" itemValue="Appraisal" />
+					<f:selectItem itemLabel="Scc" itemValue="SCC" />
+					<f:selectItem itemLabel="Insurance" itemValue="Insurance" />
+					<f:selectItem itemLabel="Other" itemValue="Other" />
+
+				</h:selectOneMenu>
+
+
+				<h:message for="offer_offerCondition" styleClass="error errors" />
+
+
+
+
+
+
+
+				<h:outputText value="#{msg.offer_status}  " />
+
+
+				<h:selectOneMenu id="offer_status" required="false"
+					value="#{offerAction.offer.status}">
+					<f:selectItem itemLabel="Please Select..." itemValue="" />
+					<f:selectItem itemLabel="Offer" itemValue="Offer" />
+					<f:selectItem itemLabel="Signbackbuyer" itemValue="SignBackBuyer" />
+					<f:selectItem itemLabel="Signbackseller" itemValue="SignBackSeller" />
+					<f:selectItem itemLabel="Soldfirm" itemValue="SoldFirm" />
+					<f:selectItem itemLabel="Conditionalsale"
+						itemValue="ConditionalSale" />
+					<f:selectItem itemLabel="Fellthrough" itemValue="FellThrough" />
+					<f:selectItem itemLabel="Rejected" itemValue="Rejected" />
+					<f:selectItem itemLabel="Accepted" itemValue="Accepted" />
+
+				</h:selectOneMenu>
+
+
+				<h:message for="offer_status" styleClass="error errors" />
+
+
+
+
+
+
+
+				<h:outputText value="#{msg.offer_signBackAmount}  " />
+
+
+				<h:inputText id="offer_signBackAmount#{entityId}" required="false"
+					value="#{offerAction.offer.signBackAmount}" />
+
+
+				<h:message for="offer_signBackAmount" styleClass="error errors" />
+
+
+
+
+
+
+
+				<h:outputText value="#{msg.offer_conditionExpiry}  " />
+
+
+				<rich:calendar id="offer_conditionExpiry#{entityId}"
+					required="false" value="#{offerAction.offer.conditionExpiry}" />
+
+
+				<h:message for="offer_conditionExpiry" styleClass="error errors" />
+
+
+
+
+
+
+
+				<h:outputText value="#{msg.offer_closingDate}  " />
+
+
+				<rich:calendar id="offer_closingDate#{entityId}" required="false"
+					value="#{offerAction.offer.closingDate}" />
+
+
+				<h:message for="offer_closingDate" styleClass="error errors" />
+
+
+
+
+
+
+
+				<h:outputText value="#{msg.offer_comments}  " />
+
+
+				<h:inputTextarea  id="offer_comments#{entityId}" required="false"  value="#{offerAction.offer.comments}" />
+
+
+				<h:message for="offer_comments" styleClass="error errors" />
+
+
+
+			</h:panelGrid>
+
+
 		</s:validateAll>
-		
+
 	</h:panelGroup>
-	</ui:composition>
+</ui:composition>
