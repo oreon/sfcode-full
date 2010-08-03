@@ -56,26 +56,25 @@
 			</rich:tab>
 
 			<rich:tab label="Offer/Sale">
-			
-			<a:form name="offerForm">
+
+				<a:form name="offerForm">
 					<rich:panel>
-						<ui:include
-							src="customOfferComponent.xhtml" />
+						<ui:include src="customOfferComponent.xhtml" />
 					</rich:panel>
 
 
 					<a:commandButton ajaxSingle="true"
-						oncomplete="Richfaces.showModalPanel('OffersModalPanel',{});"
+						oncomplete="Richfaces.showModalPanel('OfferModalPanel',{});"
 						value="Quick Create"
-						action="#{realEstateListingAction.setRealEstatePropertyId(realEstatePropertyId)}"
-						reRender="OffersModalPanel">
+						action="#{offerAction.setRealEstateListingId(realEstateListingId)}"
+						reRender="OfferModalPanel">
 					</a:commandButton>
-					
+
 					<rich:panel>
 						<ui:include src="listOfferComponent.xhtml" />
 					</rich:panel>
 				</a:form>
-			
+
 
 			</rich:tab>
 
@@ -93,29 +92,28 @@
 						action="#{realEstateListingAction.setRealEstatePropertyId(realEstatePropertyId)}"
 						reRender="RealEstateListingModalPanel">
 					</a:commandButton>
-					
+
 					<rich:panel>
 						<ui:include src="/manageAccount/listCmaComponent.xhtml" />
 					</rich:panel>
-					
-					
-						
-					
+
+
+
+
 				</a:form>
-				
+
 				<a:form>
 					<rich:panel>
-						<ui:include
-							src="customAppraisalComponent.xhtml" />
+						<ui:include src="customAppraisalComponent.xhtml" />
 					</rich:panel>
 
 
 					<rich:panel>
 						<ui:include src="listAppraisalComponentShort.xhtml" />
 					</rich:panel>
-					
+
 				</a:form>
-				
+
 
 			</rich:tab>
 
@@ -142,6 +140,8 @@
 
 		<ui:include
 			src="/admin/entities/realestate/cMA/modalDlgCMAComponent.xhtml" />
+		<ui:include
+			src="/admin/entities/realestate/offer/modalDlgOfferComponent.xhtml" />
 
 
 		<!--PROTECTED REGION END-->

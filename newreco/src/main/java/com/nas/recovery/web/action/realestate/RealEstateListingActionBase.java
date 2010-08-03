@@ -36,9 +36,8 @@ import org.jboss.seam.annotations.Observer;
 
 import com.nas.recovery.domain.realestate.Offer;
 
-public abstract class RealEstateListingActionBase
-		extends
-			BaseAction<RealEstateListing> implements java.io.Serializable {
+public abstract class RealEstateListingActionBase extends
+		BaseAction<RealEstateListing> implements java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
@@ -80,6 +79,7 @@ public abstract class RealEstateListingActionBase
 			return getInstance().getRealEstateBoard().getId();
 		return 0L;
 	}
+
 	public void setRealEstatePropertyId(Long id) {
 		if (id != null && id > 0)
 			getInstance().setRealEstateProperty(
@@ -91,6 +91,7 @@ public abstract class RealEstateListingActionBase
 			return getInstance().getRealEstateProperty().getId();
 		return 0L;
 	}
+
 	public void setMasterId(Long id) {
 		if (id != null && id > 0)
 			getInstance().setMaster(masterAction.loadFromId(id));
@@ -101,6 +102,7 @@ public abstract class RealEstateListingActionBase
 			return getInstance().getMaster().getId();
 		return 0L;
 	}
+
 	public void setSubagentId(Long id) {
 		if (id != null && id > 0)
 			getInstance().setSubagent(subagentAction.loadFromId(id));
@@ -116,10 +118,10 @@ public abstract class RealEstateListingActionBase
 		return (Long) getId();
 	}
 
-	//@Factory("realEstateListingRecordList")
-	//@Observer("archivedRealEstateListing")
+	// @Factory("realEstateListingRecordList")
+	// @Observer("archivedRealEstateListing")
 	public void findRecords() {
-		//search();
+		// search();
 	}
 
 	public RealEstateListing getEntity() {
@@ -195,7 +197,9 @@ public abstract class RealEstateListingActionBase
 		this.realEstateListingRecordList = list;
 	}
 
-	/** This function adds associated entities to an example criterion
+	/**
+	 * This function adds associated entities to an example criterion
+	 * 
 	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
 	 */
 	public void addAssoications(Criteria criteria) {
@@ -222,8 +226,11 @@ public abstract class RealEstateListingActionBase
 
 	}
 
-	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
-	 * that customer can be shown on the customer tab within viewOrder.xhtml
+	/**
+	 * This function is responsible for loading associations for the given
+	 * entity e.g. when viewing an order, we load the customer so that customer
+	 * can be shown on the customer tab within viewOrder.xhtml
+	 * 
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
 	public void loadAssociations() {
@@ -287,9 +294,10 @@ public abstract class RealEstateListingActionBase
 
 	public void updateComposedAssociations() {
 
-		getInstance().getOffers().clear();
-		getInstance().getOffers().addAll(listOffers);
-
+		if (listOffers != null) {
+			getInstance().getOffers().clear();
+			getInstance().getOffers().addAll(listOffers);
+		}
 	}
 
 	public List<RealEstateListing> getEntityList() {
