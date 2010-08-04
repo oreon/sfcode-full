@@ -221,8 +221,8 @@
 		    	 @ManyToMany(mappedBy="«opposite.name»")
 			«ENDIF»
 		«ELSE»
-		@OneToMany(mappedBy = "«opposite.name»", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-		@JoinColumn(name = "«opposite.name != null ? opposite.name : name»_ID", nullable = «getAssocOptional()»)
+		@OneToMany(«IF isBidirectional()»mappedBy = "« class.asVar()»", «ENDIF» fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+		@JoinColumn(name = "«opposite.name != null ? opposite.name : class.asVar()»_ID", nullable = «getAssocOptional()»)
 		«IF type.name != class.name»@IndexedEmbedded«ENDIF»
 		«ENDIF»
 		private Set<«type.fqnForPackage(this.class)»> «name» = new HashSet<«type.fqnForPackage(this.class)»>();
