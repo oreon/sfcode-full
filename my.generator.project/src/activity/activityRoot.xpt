@@ -1,13 +1,42 @@
-«IMPORT uml2»
 «IMPORT wcprofile»
 
 «EXTENSION org::openarchitectureware::uml2::profile::profiling»
 «EXTENSION template::GeneratorExtensions»
+«EXTENSION template::webExtensions»
+«EXTENSION template::associationExtensions»
 
 
 «DEFINE Root FOR uml::Model»
+	«EXPAND genNavigation FOR this»
+	«EXPAND StateMachineRoot FOREACH allOwnedElements().typeSelect(uml::Activity)»
 	«EXPAND StateMachineRoot FOREACH allOwnedElements().typeSelect(uml::Activity)»
 	«EXPAND WorkflowActionRoot::StateMachineRoot FOREACH allOwnedElements().typeSelect(uml::Activity)»
+«ENDDEFINE»
+
+
+«DEFINE genNavigation FOR uml::Model»
+	«FILE getTasksRoot() + "navigation." + getExtension() -»
+		<html «EXPAND richfaces::WebRoot::genIncludes-» >
+		<a:form>
+		<rich:panelMenu style="width:162px" mode="ajax"
+				iconExpandedGroup="disc" iconCollapsedGroup="disc"
+				iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right"
+				iconCollapsedTopGroup="chevronDown" iconCollapsedTopPosition="right">
+		«FOREACH allOwnedElements().typeSelect(uml::Activity) AS a»
+	
+		    <rich:panelMenuGroup label="«a.name.toFirstUpper()»"  expanded="true" >
+					<rich:panelMenuItem>
+						<s:link propagation="none"  value="«a.name»" action="«a.name»" />
+					</rich:panelMenuItem>
+	
+			</rich:panelMenuGroup>
+		
+		«ENDFOREACH»
+		</rich:panelMenu>
+		</a:form>
+	</html>
+
+	«ENDFILE»
 «ENDDEFINE»
 
 

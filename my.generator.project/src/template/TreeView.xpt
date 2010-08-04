@@ -1,0 +1,53 @@
+«IMPORT wcprofile»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+«EXTENSION template::webExtensions»
+«EXTENSION template::associationExtensions»
+
+
+«DEFINE genTreeViewComponent FOR uml::Class»
+	«FILE getWebPath() +"/treeView" + name + "Component." + getExtension()»
+
+<ui:composition «EXPAND WebRoot::genIncludes-»>	
+
+<rich:panel id="dynamicTreePanel" header="Dynamic Tree User Interface">
+
+	<a:form>
+		<h:panelGrid columns="2">
+			<rich:tree icon="/image/node.gif" iconLeaf="/image/node.gif"
+				nodeSelectListener="#{«getAction()».processSelection}"
+				reRender="selectedNode, detailsView" ajaxSubmitSelection="true">
+
+				<rich:recursiveTreeNodesAdaptor
+					roots="#{«getAction()».topLevel«getTreeParent()»}" var="_«name»">
+					<rich:treeNode>
+						<h:outputText value="#{_«name».«displayName»}" />
+					</rich:treeNode>
+
+					<rich:recursiveTreeNodesAdaptor roots="#{_«name».«getTreeChildren()»}"
+						var="_child" nodes="#{_child.«getTreeChildren()»}">
+						<rich:treeNode>
+							<h:outputText value="#{_child.«displayName»}" />
+						</rich:treeNode>
+					</rich:recursiveTreeNodesAdaptor>
+
+				</rich:recursiveTreeNodesAdaptor>
+			</rich:tree>
+
+
+			<rich:panel id="detailsView">
+				<ui:include
+					src="/admin/entities/domain/product/viewProductComponent.xhtml">
+					<ui:param name="productId" value="#{«getAction()».productId}" />
+				</ui:include>
+			</rich:panel>
+			
+		</h:panelGrid>
+	</a:form>
+
+</rich:panel>
+
+</ui:composition>
+«ENDFILE»
+«ENDDEFINE»
