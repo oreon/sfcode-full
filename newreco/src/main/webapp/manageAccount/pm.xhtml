@@ -16,157 +16,11 @@
 		<rich:tabPanel switchType="ajax" >
 
 			<rich:tab label="PM/ Property Info">
-				<a:form id="sss">
-
-					<a:commandButton
-						action="#{realEstatePropertyAction.addTenantInfos}"
-						reRender="tenantInfos_data#{entityId}" value="New TenantInfo">
-						<s:conversationId />
-					</a:commandButton>
-
-					<rich:dataTable id="tenantInfos_data#{entityId}"
-						
-						rowClasses="odd, even" rows="10" rules="all"
-						styleClass="dataTable"
-						value="#{realEstatePropertyAction.listTenantInfos}"
-						var="_tenantInfo">
-
-
-						<h:column style="text-align:left">
-							<f:facet name="header">
-								<h:outputText value="#{msg.tenantInfo_unit}  " />
-							</f:facet>
-
-
-							<h:inputText id="tenantInfo_unit#{entityId}" required="false"
-								value="#{_tenantInfo.unit}" />
-
-
-							<h:message for="tenantInfo_unit" styleClass="error errors" />
-						</h:column>
-
-
-						<h:column style="text-align:left">
-							<f:facet name="header">
-								<h:outputText value="#{msg.tenantInfo_name}  " />
-							</f:facet>
-
-
-							<h:inputText id="tenantInfo_name#{entityId}" required="false"
-								value="#{_tenantInfo.name}" />
-
-
-							<h:message for="tenantInfo_name" styleClass="error errors" />
-						</h:column>
-
-
-
-						<h:column style="text-align:right">
-							<f:facet name="header">
-								<h:outputText value="#{msg.tenantInfo_rent}  " />
-							</f:facet>
-
-
-							<h:inputText id="tenantInfo_rent#{entityId}" required="false"
-								value="#{_tenantInfo.rent}" />
-
-
-							<h:message for="tenantInfo_rent" styleClass="error errors" />
-						</h:column>
-
-
-						<h:column style="text-align:right">
-							<f:facet name="header">
-								<h:outputText value="#{msg.tenantInfo_lease}  " />
-							</f:facet>
-
-
-							<h:selectBooleanCheckbox id="tenantInfo_lease#{entityId}"
-								required="false" value="#{_tenantInfo.lease}" />
-
-
-							<h:message for="tenantInfo_lease" styleClass="error errors" />
-						</h:column>
-
-
-
-						<h:column style="text-align:right">
-							<f:facet name="header">
-								<h:outputText value="#{msg.tenantInfo_leaseExpiry}  " />
-							</f:facet>
-
-
-							<rich:calendar id="tenantInfo_leaseExpiry#{entityId}"
-								required="false" value="#{_tenantInfo.leaseExpiry}" />
-
-
-							<h:message for="tenantInfo_leaseExpiry" styleClass="error errors" />
-						</h:column>
-
-
-						<h:column style="text-align:right">
-							<f:facet name="header">
-								<h:outputText value="#{msg.tenantInfo_attornment}  " />
-							</f:facet>
-
-
-							<rich:calendar id="tenantInfo_attornment#{entityId}"
-								required="false" value="#{_tenantInfo.attornment}" />
-
-
-							<h:message for="tenantInfo_attornment" styleClass="error errors" />
-						</h:column>
-
-
-
-
-
-
-
-						<h:column style="text-align:right">
-							<f:facet name="header">
-								<h:outputText value="#{msg.tenantInfo_utilities}  " />
-							</f:facet>
-
-
-							<h:selectBooleanCheckbox id="tenantInfo_utilities#{entityId}"
-								required="false" value="#{_tenantInfo.utilities}" />
-
-
-							<h:message for="tenantInfo_utilities" styleClass="error errors" />
-						</h:column>
-
-
-
-
-						<h:column>
-
-							<a:commandButton
-								action="#{realEstatePropertyAction.addTenantInfos}"
-								reRender="atenantInfos_data#{entityId}" value="New TenantInfo">
-								<s:conversationId />
-							</a:commandButton>
-						</h:column>
-
-						<h:column>
-							<a:commandButton
-								action="#{realEstatePropertyAction.deleteTenantInfos(_tenantInfo)}"
-								immediate="true" reRender="tenantInfos_data#{entityId}"
-								value="Delete">
-								<s:conversationId />
-							</a:commandButton>
-						</h:column>
-
-					</rich:dataTable>
-
-
-					<h:commandButton action="#{realEstatePropertyAction.save}"
-						view="/manageAccount/pm.xhtml" value="Save" />
-				</a:form>
+				<ui:include src="/manageAccount/listTenantInfoComponent.xhtml" />
 			</rich:tab>
 
 			<rich:tab label="Inspection/Utilities">
-
+				<ui:include src="/manageAccount/customInspectionComponent.xhtml" />
 			</rich:tab>
 
 			<rich:tab label="Quotes">
@@ -191,10 +45,7 @@
 
 
 
-		<ui:include
-			src="/admin/entities/realestate/realEstateListing/modalDlgRealEstateListingComponent.xhtml" />
-
-
+	
 		<!--PROTECTED REGION END-->
 
 	</ui:define>
