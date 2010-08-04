@@ -87,7 +87,7 @@ public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
 
 
 «DEFINE genAttribAsOutput(boolean createRangeDeclarations) FOR uml::Class»
-	«EXPAND genAttribute(createRangeDeclarations) FOREACH attribsOfThisClass().select( a |!a.isMultivalued() && !a.isSecret()  ) -»
+	«EXPAND genAttribute(createRangeDeclarations) FOREACH attribsOfThisClass().select( a |!a.isMultivalued() && !a.isSecret() && !a.isFile() ) -»
 «ENDDEFINE»
 
 «DEFINE genAttribute(boolean createRangeDeclarations) FOR uml::Property -»

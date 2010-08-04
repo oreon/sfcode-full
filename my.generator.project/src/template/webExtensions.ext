@@ -154,7 +154,14 @@ String getWebPath(Class cls):
  getEntitiesRoot() + cls.package.name + "/" + cls.asVar();
 
 String getEntitiesRoot():
-"../webapp/admin/entities/";
+getAdminRoot() +  "entities/";
+
+String getTasksRoot():
+ getAdminRoot() + "tasks/";
+
+String getAdminRoot():
+"../webapp/admin/";
+
 
 //returns full path of a state
 String getStateWebPath(State st):
@@ -198,7 +205,11 @@ String getActionForMode():
 
 
 String getErrorMessageHolder(Property prop):
-isCurrentEditMode()?"<h:message styleClass=\"error errors\" for=\"" + prop.getId() + "\" />":"";
+isCurrentEditMode()?getErrorMessage(prop):"";
+
+String getErrorMessage(Property prop):
+"<h:message styleClass=\"error errors\" for=\"" + prop.getId() + "\" />";
+
 
 String getViewFile(Class e,String mode):
 getViewFileName(e, mode) + "." + getExtension();
