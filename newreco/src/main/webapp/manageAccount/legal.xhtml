@@ -17,22 +17,90 @@
 
 			<rich:tab label="Legal">
 				<a:form>
-				<rich:panel>
-					<f:facet name="header">
-						<h:outputText value="Legal Info" />
-					</f:facet>
-					<ui:include
-						src="/admin/entities/legal/legal/customLegalComponent.xhtml" />
-					<a:commandButton action="#{legalAction.save}" value="Update" ></a:commandButton>
-				</rich:panel>
+					<rich:panel>
+						<f:facet name="header">
+							<h:outputText value="Legal Info" />
+						</f:facet>
+						<ui:include
+							src="/admin/entities/legal/legal/customLegalComponent.xhtml" />
+						<a:commandButton action="#{realEstatePropertyAction.save}" value="Update"></a:commandButton>
+					</rich:panel>
 				</a:form>
 			</rich:tab>
 
 			<rich:tab label="Process">
+				<a:form>
+					<rich:panel>
+						<f:facet name="header">
+							<h:outputText value="Legal PRocess" />
+						</f:facet>
+						<ui:include
+							src="/admin/entities/legal/legalProcess/customLegalProcessComponent.xhtml" />
+					</rich:panel>
+
+					<a:commandButton action="#{chargeeAction.save}" value="Update">
+					</a:commandButton>
+				</a:form>
+
+
+				<a:form>
+					<rich:panel>
+						<f:facet name="header">
+							<h:outputText value="Closing PRocess" />
+						</f:facet>
+						<ui:include
+							src="/admin/entities/legal/closingProcess/customClosingProcessComponent.xhtml" />
+					</rich:panel>
+
+					<a:commandButton action="#{chargeeAction.save}" value="Update">
+					</a:commandButton>
+				</a:form>
+				
+				<a:form>
+					<rich:panel>
+						<f:facet name="header">
+							<h:outputText value="Insurer Process" />
+						</f:facet>
+						<ui:include
+							src="/admin/entities/legal/insurerProcess/customInsurerProcessComponent.xhtml" />
+					</rich:panel>
+
+					<a:commandButton action="#{saleProcessAction.save}" value="Update">
+					</a:commandButton>
+				</a:form>
+
+
+
+
+
 
 			</rich:tab>
 
 			<rich:tab label="Title/Bankruptcy">
+				<a:form>
+					<rich:panel>
+						<f:facet name="header">
+							<h:outputText value="Chargee Info" />
+						</f:facet>
+
+						<ui:include
+							src="/admin/entities/legal/chargee/customChargeeComponent.xhtml" />
+
+					</rich:panel>
+
+					<h:commandButton action="#{chargeeAction.save}" value="Update" />
+
+				</a:form>
+				<rich:panel>
+					<f:facet name="header">
+						<h:outputText value="Bankruptcy" />
+					</f:facet>
+					<ui:include
+						src="/admin/entities/legal/bankruptcy/customBankruptcyComponent.xhtml" />
+				</rich:panel>
+
+				<a:commandButton action="#{bankruptcyAction.save}" value="Update">
+				</a:commandButton>
 
 			</rich:tab>
 
