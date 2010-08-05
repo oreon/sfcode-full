@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+
+
+
+	<h:form>
+		<rich:dataTable id="testPersonList"
+			rendered="#{not empty testPersonList.resultList}"
+			rowClasses="odd, even" styleClass="dataTable"
+			value="#{testPersonList.resultList}" var="_testPerson">
+
+			<h:column>
+				<f:facet name="header">
+					<ui:include src="/layout/sort.xhtml">
+						<ui:param name="entityList" value="#{testPersonList}" />
+						<ui:param name="propertyLabel" value="Id" />
+						<ui:param name="propertyPath" value="testPerson.id" />
+					</ui:include>
+				</f:facet>
+				<h:outputText value="#{_testPerson.id}">
+				</h:outputText>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<ui:include src="/layout/sort.xhtml">
+						<ui:param name="entityList" value="#{testPersonList}" />
+						<ui:param name="propertyLabel" value="First Name" />
+						<ui:param name="propertyPath" value="testPerson.firstName" />
+					</ui:include>
+				</f:facet>
+				<h:outputText value="#{_testPerson.firstName}">
+				</h:outputText>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<ui:include src="/layout/sort.xhtml">
+						<ui:param name="entityList" value="#{testPersonList}" />
+						<ui:param name="propertyLabel" value="Last Name" />
+						<ui:param name="propertyPath" value="testPerson.lastName" />
+					</ui:include>
+				</f:facet>
+				<h:outputText value="#{_testPerson.lastName}">
+				</h:outputText>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<ui:include src="/layout/sort.xhtml">
+						<ui:param name="entityList" value="#{testPersonList}" />
+						<ui:param name="propertyLabel" value="Date of Birth" />
+						<ui:param name="propertyPath" value="testPerson.dateOfBirth" />
+					</ui:include>
+				</f:facet>
+				<h:outputText value="#{_testPerson.dateOfBirth}">
+					<s:convertDateTime dateStyle="short" type="both" />
+				</h:outputText>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<ui:include src="/layout/sort.xhtml">
+						<ui:param name="entityList" value="#{testPersonList}" />
+						<ui:param name="propertyLabel" value="Observation" />
+						<ui:param name="propertyPath" value="testPerson.observation" />
+					</ui:include>
+				</f:facet>
+				<h:outputText value="#{_testPerson.observation}">
+				</h:outputText>
+			</h:column>
+
+						
+
+			<h:column>
+				<f:facet name="header">
+					<ui:include src="/layout/sort.xhtml">
+						<ui:param name="entityList" value="#{testPersonList}" />
+						<ui:param name="propertyLabel"
+							value="ActionRequired}" />
+						<ui:param name="propertyPath" value="testPerson.actionRequired" />
+					</ui:include>
+				</f:facet>
+
+				<h:outputText value="#{_testPerson.actionRequired}" />
+
+			</h:column>
+
+
+			<h:column>
+				<f:facet name="header">
+					<ui:include src="/layout/sort.xhtml">
+						<ui:param name="entityList" value="#{testPersonList}" />
+						<ui:param name="propertyLabel" value="Creation Date" />
+						<ui:param name="propertyPath" value="testPerson.dateCreated" />
+					</ui:include>
+				</f:facet>
+				<h:outputText value="#{_testPerson.dateCreated}">
+					<s:convertDateTime dateStyle="short" type="both" />
+				</h:outputText>
+			</h:column>
+
+			
+
+
+		</rich:dataTable>
+	</h:form>
+
+</ui:composition>
