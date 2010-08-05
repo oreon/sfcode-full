@@ -49,10 +49,6 @@ public abstract class TitleInsurerListQueryBase
 	private static final String[] RESTRICTIONS = {
 			"titleInsurer.id = #{titleInsurerList.titleInsurer.id}",
 
-			"lower(titleInsurer.policyNumber) like concat(lower(#{titleInsurerList.titleInsurer.policyNumber}),'%')",
-
-			"lower(titleInsurer.claim) like concat(lower(#{titleInsurerList.titleInsurer.claim}),'%')",
-
 			"lower(titleInsurer.brand) like concat(lower(#{titleInsurerList.titleInsurer.brand}),'%')",
 
 			"lower(titleInsurer.name) like concat(lower(#{titleInsurerList.titleInsurer.name}),'%')",

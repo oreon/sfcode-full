@@ -143,7 +143,7 @@ public abstract class RealEstateBoardActionBase
 	}
 
 	public List<Attachments> getListAttachmentses() {
-		if (listAttachmentses == null) {
+		if (listAttachmentses == null || listAttachmentses.isEmpty()) {
 			initListAttachmentses();
 		}
 		return listAttachmentses;
@@ -166,8 +166,10 @@ public abstract class RealEstateBoardActionBase
 
 	public void updateComposedAssociations() {
 
-		getInstance().getAttachmentses().clear();
-		getInstance().getAttachmentses().addAll(listAttachmentses);
+		if (listAttachmentses != null) {
+			getInstance().getAttachmentses().clear();
+			getInstance().getAttachmentses().addAll(listAttachmentses);
+		}
 
 	}
 

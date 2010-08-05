@@ -8,6 +8,7 @@ import org.jboss.seam.annotations.bpm.CreateProcess;
 import org.jboss.seam.annotations.bpm.EndTask;
 import org.jboss.seam.annotations.bpm.StartTask;
 import org.jbpm.JbpmContext;
+import org.witchcraft.jbpm.BaseJbpmProcessAction;
 
 class OntarioRecoveryBase extends BaseJbpmProcessAction
 		implements

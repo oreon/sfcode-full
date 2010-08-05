@@ -215,7 +215,7 @@ public abstract class RealEstatePropertyActionBase
 	}
 
 	public List<TenantInfo> getListTenantInfos() {
-		if (listTenantInfos == null) {
+		if (listTenantInfos == null || listTenantInfos.isEmpty()) {
 			initListTenantInfos();
 		}
 		return listTenantInfos;
@@ -233,6 +233,8 @@ public abstract class RealEstatePropertyActionBase
 	public void addTenantInfos() {
 		TenantInfo tenantInfos = new TenantInfo();
 
+		tenantInfos.setRealEstateProperty(getInstance());
+
 		listTenantInfos.add(tenantInfos);
 	}
 
@@ -247,7 +249,7 @@ public abstract class RealEstatePropertyActionBase
 	}
 
 	public List<Cma> getListCmas() {
-		if (listCmas == null) {
+		if (listCmas == null || listCmas.isEmpty()) {
 			initListCmas();
 		}
 		return listCmas;
@@ -279,7 +281,7 @@ public abstract class RealEstatePropertyActionBase
 	}
 
 	public List<Appraisal> getListAppraisals() {
-		if (listAppraisals == null) {
+		if (listAppraisals == null || listAppraisals.isEmpty()) {
 			initListAppraisals();
 		}
 		return listAppraisals;
@@ -297,6 +299,8 @@ public abstract class RealEstatePropertyActionBase
 	public void addAppraisals() {
 		Appraisal appraisals = new Appraisal();
 
+		appraisals.setRealEstateProperty(getInstance());
+
 		listAppraisals.add(appraisals);
 	}
 
@@ -311,7 +315,7 @@ public abstract class RealEstatePropertyActionBase
 	}
 
 	public List<FilesUploaded> getListFilesUploadeds() {
-		if (listFilesUploadeds == null) {
+		if (listFilesUploadeds == null || listFilesUploadeds.isEmpty()) {
 			initListFilesUploadeds();
 		}
 		return listFilesUploadeds;
@@ -345,7 +349,7 @@ public abstract class RealEstatePropertyActionBase
 	}
 
 	public List<Inspection> getListInspections() {
-		if (listInspections == null) {
+		if (listInspections == null || listInspections.isEmpty()) {
 			initListInspections();
 		}
 		return listInspections;
@@ -377,7 +381,7 @@ public abstract class RealEstatePropertyActionBase
 	}
 
 	public List<Utilitiy> getListUtilitiys() {
-		if (listUtilitiys == null) {
+		if (listUtilitiys == null || listUtilitiys.isEmpty()) {
 			initListUtilitiys();
 		}
 		return listUtilitiys;
@@ -400,23 +404,35 @@ public abstract class RealEstatePropertyActionBase
 
 	public void updateComposedAssociations() {
 
-		getInstance().getTenantInfos().clear();
-		getInstance().getTenantInfos().addAll(listTenantInfos);
+		if (listTenantInfos != null) {
+			getInstance().getTenantInfos().clear();
+			getInstance().getTenantInfos().addAll(listTenantInfos);
+		}
 
-		getInstance().getCmas().clear();
-		getInstance().getCmas().addAll(listCmas);
+		if (listCmas != null) {
+			getInstance().getCmas().clear();
+			getInstance().getCmas().addAll(listCmas);
+		}
 
-		getInstance().getAppraisals().clear();
-		getInstance().getAppraisals().addAll(listAppraisals);
+		if (listAppraisals != null) {
+			getInstance().getAppraisals().clear();
+			getInstance().getAppraisals().addAll(listAppraisals);
+		}
 
-		getInstance().getFilesUploadeds().clear();
-		getInstance().getFilesUploadeds().addAll(listFilesUploadeds);
+		if (listFilesUploadeds != null) {
+			getInstance().getFilesUploadeds().clear();
+			getInstance().getFilesUploadeds().addAll(listFilesUploadeds);
+		}
 
-		getInstance().getInspections().clear();
-		getInstance().getInspections().addAll(listInspections);
+		if (listInspections != null) {
+			getInstance().getInspections().clear();
+			getInstance().getInspections().addAll(listInspections);
+		}
 
-		getInstance().getUtilitiys().clear();
-		getInstance().getUtilitiys().addAll(listUtilitiys);
+		if (listUtilitiys != null) {
+			getInstance().getUtilitiys().clear();
+			getInstance().getUtilitiys().addAll(listUtilitiys);
+		}
 
 	}
 

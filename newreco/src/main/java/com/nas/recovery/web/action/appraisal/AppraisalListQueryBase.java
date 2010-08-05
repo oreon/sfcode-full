@@ -82,6 +82,8 @@ public abstract class AppraisalListQueryBase extends BaseQuery<Appraisal, Long> 
 			"appraisal.received >= #{appraisalList.appraisal_receivedRange.begin}",
 			"appraisal.received <= #{appraisalList.appraisal_receivedRange.end}",
 
+			"appraisal.realEstateProperty = #{appraisalList.appraisal.realEstateProperty}",
+
 			"appraisal.dateCreated <= #{appraisalList.dateCreatedRange.end}",
 			"appraisal.dateCreated >= #{appraisalList.dateCreatedRange.begin}",};
 

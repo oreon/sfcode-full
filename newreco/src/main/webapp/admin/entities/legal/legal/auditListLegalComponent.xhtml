@@ -73,9 +73,9 @@
 	
 	<rich:column>
 		<f:facet name="header">
-			<h:outputText value="#{msg.legal_legalDescription}"/>
+			<h:outputText value="#{msg.legal_legalComments}"/>
 		</f:facet>
-		<h:outputText value="#{_log.entity.legalDescription}"/>
+		<h:outputText value="#{_log.entity.legalComments}"/>
 	</rich:column>
 	
 		
@@ -110,9 +110,9 @@
 	
 	<rich:column>
 		<f:facet name="header">
-			<h:outputText value="#{msg.legal_titleInsurer}"/>
+			<h:outputText value="#{msg.legal_legalDescription}"/>
 		</f:facet>
-		<h:outputText value="#{_log.entity.titleInsurer}"/>
+		<h:outputText value="#{_log.entity.legalDescription}"/>
 	</rich:column>
 	
 	<rich:column>
@@ -128,6 +128,21 @@
 		</f:facet>
 		<h:outputText value="#{_log.entity.titleInsuranceClaimNumber}"/>
 	</rich:column>
+	
+		
+			
+				
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="#{msg.legal_titleInsurer}"/>
+		</f:facet>
+		<s:link value="#{_log.entity.titleInsurer.displayName}" view="/admin/entities/loan/titleInsurer/viewTitleInsurer.xhtml">
+			<f:param name="id" value="#{_entity.titleInsurer.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</rich:column>
+			
+		
 	
 				
 			</rich:dataTable>

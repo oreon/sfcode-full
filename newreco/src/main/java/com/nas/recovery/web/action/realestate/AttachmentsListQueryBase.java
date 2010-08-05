@@ -35,8 +35,6 @@ public abstract class AttachmentsListQueryBase
 
 			"lower(attachments.title) like concat(lower(#{attachmentsList.attachments.title}),'%')",
 
-			"attachments.file = #{attachmentsList.attachments.file}",
-
 			"attachments.dateCreated <= #{attachmentsList.dateCreatedRange.end}",
 			"attachments.dateCreated >= #{attachmentsList.dateCreatedRange.begin}",};
 

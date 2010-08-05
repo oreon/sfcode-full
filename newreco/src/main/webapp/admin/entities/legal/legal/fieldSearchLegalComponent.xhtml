@@ -83,9 +83,9 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.legal_legalDescription}  "/> <br/>
+	<h:outputText value="#{msg.legal_legalComments}  "/> <br/>
 	
-		<h:inputText id="legal_legalDescription" value="#{legalList.legal.legalDescription}"/>
+		<h:inputText id="legal_legalComments" value="#{legalList.legal.legalComments}"/>
 	
 	
 	</h:panelGroup>
@@ -116,9 +116,9 @@
 	
 	
 	<h:panelGroup>
-	<h:outputText value="#{msg.legal_titleInsurer}  "/> <br/>
+	<h:outputText value="#{msg.legal_legalDescription}  "/> <br/>
 	
-		<h:inputText id="legal_titleInsurer" value="#{legalList.legal.titleInsurer}"/>
+		<h:inputText id="legal_legalDescription" value="#{legalList.legal.legalDescription}"/>
 	
 	
 	</h:panelGroup>
@@ -149,6 +149,17 @@
 	
 	</h:panelGroup>
 
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.legal_titleInsurer}  "/> <br/>
+	<h:selectOneMenu id="legal_titleInsurer" value="#{legalList.legal.titleInsurer}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{titleInsurerList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
 	
 	
 	

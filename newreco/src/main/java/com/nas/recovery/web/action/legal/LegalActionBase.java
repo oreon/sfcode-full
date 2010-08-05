@@ -53,6 +53,9 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 	@In(create = true, value = "realEstatePropertyAction")
 	com.nas.recovery.web.action.realestate.RealEstatePropertyAction realEstatePropertyAction;
 
+	@In(create = true, value = "titleInsurerAction")
+	com.nas.recovery.web.action.loan.TitleInsurerAction titleInsurerAction;
+
 	@DataModel
 	private List<Legal> legalRecordList;
 
@@ -90,6 +93,16 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 	public Long getRealEstatePropertyId() {
 		if (getInstance().getRealEstateProperty() != null)
 			return getInstance().getRealEstateProperty().getId();
+		return 0L;
+	}
+	public void setTitleInsurerId(Long id) {
+		if (id != null && id > 0)
+			getInstance().setTitleInsurer(titleInsurerAction.loadFromId(id));
+	}
+
+	public Long getTitleInsurerId() {
+		if (getInstance().getTitleInsurer() != null)
+			return getInstance().getTitleInsurer().getId();
 		return 0L;
 	}
 
@@ -140,6 +153,11 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 		if (realEstateProperty != null) {
 			getInstance().setRealEstateProperty(realEstateProperty);
 		}
+		com.nas.recovery.domain.loan.TitleInsurer titleInsurer = titleInsurerAction
+				.getDefinedInstance();
+		if (titleInsurer != null) {
+			getInstance().setTitleInsurer(titleInsurer);
+		}
 
 	}
 
@@ -181,6 +199,11 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 					legal.getRealEstateProperty().getId()));
 		}
 
+		if (legal.getTitleInsurer() != null) {
+			criteria = criteria.add(Restrictions.eq("titleInsurer.id", legal
+					.getTitleInsurer().getId()));
+		}
+
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -196,6 +219,10 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 		if (legal.getRealEstateProperty() != null) {
 			realEstatePropertyAction.setEntity(getEntity()
 					.getRealEstateProperty());
+		}
+
+		if (legal.getTitleInsurer() != null) {
+			titleInsurerAction.setEntity(getEntity().getTitleInsurer());
 		}
 
 	}
@@ -215,7 +242,7 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 	}
 
 	public List<ClosingProcess> getListClosingProcesses() {
-		if (listClosingProcesses == null) {
+		if (listClosingProcesses == null || listClosingProcesses.isEmpty()) {
 			initListClosingProcesses();
 		}
 		return listClosingProcesses;
@@ -250,7 +277,7 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 	}
 
 	public List<LegalProcess> getListLegalProcesses() {
-		if (listLegalProcesses == null) {
+		if (listLegalProcesses == null || listLegalProcesses.isEmpty()) {
 			initListLegalProcesses();
 		}
 		return listLegalProcesses;
@@ -284,7 +311,7 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 	}
 
 	public List<InsurerProcess> getListInsurerProcesses() {
-		if (listInsurerProcesses == null) {
+		if (listInsurerProcesses == null || listInsurerProcesses.isEmpty()) {
 			initListInsurerProcesses();
 		}
 		return listInsurerProcesses;
@@ -310,14 +337,20 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 
 	public void updateComposedAssociations() {
 
-		getInstance().getClosingProcesses().clear();
-		getInstance().getClosingProcesses().addAll(listClosingProcesses);
+		if (listClosingProcesses != null) {
+			getInstance().getClosingProcesses().clear();
+			getInstance().getClosingProcesses().addAll(listClosingProcesses);
+		}
 
-		getInstance().getLegalProcesses().clear();
-		getInstance().getLegalProcesses().addAll(listLegalProcesses);
+		if (listLegalProcesses != null) {
+			getInstance().getLegalProcesses().clear();
+			getInstance().getLegalProcesses().addAll(listLegalProcesses);
+		}
 
-		getInstance().getInsurerProcesses().clear();
-		getInstance().getInsurerProcesses().addAll(listInsurerProcesses);
+		if (listInsurerProcesses != null) {
+			getInstance().getInsurerProcesses().clear();
+			getInstance().getInsurerProcesses().addAll(listInsurerProcesses);
+		}
 
 	}
 

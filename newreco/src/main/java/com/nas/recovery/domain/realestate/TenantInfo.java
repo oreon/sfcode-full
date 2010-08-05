@@ -61,6 +61,11 @@ public class TenantInfo extends BusinessEntity implements java.io.Serializable {
 
 	protected Boolean utilities;
 
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "realEstateProperty_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected RealEstateProperty realEstateProperty;
+
 	public void setUnit(String unit) {
 		this.unit = unit;
 	}
@@ -122,6 +127,15 @@ public class TenantInfo extends BusinessEntity implements java.io.Serializable {
 	public Boolean getUtilities() {
 
 		return utilities;
+	}
+
+	public void setRealEstateProperty(RealEstateProperty realEstateProperty) {
+		this.realEstateProperty = realEstateProperty;
+	}
+
+	public RealEstateProperty getRealEstateProperty() {
+
+		return realEstateProperty;
 	}
 
 	@Transient

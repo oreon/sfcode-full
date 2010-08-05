@@ -58,7 +58,7 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 	protected LegalStatus status;
 
 	@Lob
-	protected String legalDescription;
+	protected String legalComments;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "lawyer_id", nullable = false, updatable = true)
@@ -91,13 +91,18 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 	@IndexedEmbedded
 	private Set<InsurerProcess> insurerProcesses = new HashSet<InsurerProcess>();
 
-	@Field(index = Index.TOKENIZED)
-	protected String titleInsurer;
+	@Lob
+	protected String legalDescription;
 
 	protected Boolean titleInsuranceClaim;
 
 	@Field(index = Index.TOKENIZED)
 	protected String titleInsuranceClaimNumber;
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "titleInsurer_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected com.nas.recovery.domain.loan.TitleInsurer titleInsurer;
 
 	public void setLegalFileNumber(String legalFileNumber) {
 		this.legalFileNumber = legalFileNumber;
@@ -144,13 +149,13 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 		return status;
 	}
 
-	public void setLegalDescription(String legalDescription) {
-		this.legalDescription = legalDescription;
+	public void setLegalComments(String legalComments) {
+		this.legalComments = legalComments;
 	}
 
-	public String getLegalDescription() {
+	public String getLegalComments() {
 
-		return legalDescription;
+		return legalComments;
 	}
 
 	public void setLawyer(Lawyer lawyer) {
@@ -196,13 +201,13 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 		return insurerProcesses;
 	}
 
-	public void setTitleInsurer(String titleInsurer) {
-		this.titleInsurer = titleInsurer;
+	public void setLegalDescription(String legalDescription) {
+		this.legalDescription = legalDescription;
 	}
 
-	public String getTitleInsurer() {
+	public String getLegalDescription() {
 
-		return titleInsurer;
+		return legalDescription;
 	}
 
 	public void setTitleInsuranceClaim(Boolean titleInsuranceClaim) {
@@ -223,6 +228,16 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 		return titleInsuranceClaimNumber;
 	}
 
+	public void setTitleInsurer(
+			com.nas.recovery.domain.loan.TitleInsurer titleInsurer) {
+		this.titleInsurer = titleInsurer;
+	}
+
+	public com.nas.recovery.domain.loan.TitleInsurer getTitleInsurer() {
+
+		return titleInsurer;
+	}
+
 	@Transient
 	public String getDisplayName() {
 		return legalFileNumber;
@@ -239,8 +254,6 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 		listSearchableFields.add("legalFileNumber");
 
 		listSearchableFields.add("courtNumber");
-
-		listSearchableFields.add("titleInsurer");
 
 		listSearchableFields.add("titleInsuranceClaimNumber");
 

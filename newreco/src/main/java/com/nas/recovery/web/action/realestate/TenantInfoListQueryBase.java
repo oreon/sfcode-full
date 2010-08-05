@@ -75,6 +75,8 @@ public abstract class TenantInfoListQueryBase
 
 			"tenantInfo.utilities = #{tenantInfoList.tenantInfo.utilities}",
 
+			"tenantInfo.realEstateProperty = #{tenantInfoList.tenantInfo.realEstateProperty}",
+
 			"tenantInfo.dateCreated <= #{tenantInfoList.dateCreatedRange.end}",
 			"tenantInfo.dateCreated >= #{tenantInfoList.dateCreatedRange.begin}",};
 

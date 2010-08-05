@@ -13,11 +13,19 @@
 	<ui:define name="content">
 		<!--PROTECTED REGION ID(USER_EDITABLE_RGN_manageAccount/myaccount.xhtml) ENABLED START-->
 
-		<rich:tabPanel switchType="ajax" >
+		<rich:tabPanel switchType="ajax">
 
 			<rich:tab label="Legal">
-				
-				
+				<a:form>
+				<rich:panel>
+					<f:facet name="header">
+						<h:outputText value="Legal Info" />
+					</f:facet>
+					<ui:include
+						src="/admin/entities/legal/legal/customLegalComponent.xhtml" />
+					<a:commandButton action="#{legalAction.save}" value="Update" ></a:commandButton>
+				</rich:panel>
+				</a:form>
 			</rich:tab>
 
 			<rich:tab label="Process">
@@ -31,11 +39,11 @@
 
 
 			<rich:tab label="Notes">
-				<wc:comments backingAction="#{realEstatePropertyAction}"/>
+				<wc:comments backingAction="#{realEstatePropertyAction}" />
 			</rich:tab>
 
 
-			<rich:tab label="Documents" name="documents"  >
+			<rich:tab label="Documents" name="documents">
 
 				<ui:include src="/manageAccount/documents.xhtml" />
 

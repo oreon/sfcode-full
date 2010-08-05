@@ -54,8 +54,8 @@ public class RealEstateBoard extends BusinessEntity
 
 	//attachmentses-> ->->RealEstateBoard->
 
-	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "attachmentses_ID", nullable = true)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "realEstateBoard_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<Attachments> attachmentses = new HashSet<Attachments>();
 

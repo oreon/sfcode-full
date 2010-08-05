@@ -118,6 +118,21 @@
 	</h:column>
 	
 		
+	<h:column groupOn="#{appraisal.realEstateProperty.displayName}">
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{appraisalList}"/>
+				<ui:param name="propertyLabel" value="#{msg.appraisal_realEstateProperty}"/>
+				<ui:param name="propertyPath" value="appraisal.realEstateProperty"/>
+			</ui:include>
+		</f:facet>
+		<s:link value="#{_appraisal.realEstateProperty.displayName}" view="/admin/entities/realestate/realEstateProperty/viewRealEstateProperty.xhtml">
+			<f:param name="realEstatePropertyId" value="#{_appraisal.realEstateProperty.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</h:column>
+	
+		
 	
 		
 	<h:column>

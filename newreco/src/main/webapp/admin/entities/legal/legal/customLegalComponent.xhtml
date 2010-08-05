@@ -13,6 +13,7 @@
 	</h:panelGroup>
 
 	
+	<h:message for="legal_legalFileNumber" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
@@ -23,6 +24,7 @@
 	</h:panelGroup>
 
 	
+	<h:message for="legal_courtNumber" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
@@ -33,6 +35,7 @@
 	</h:panelGroup>
 
 	
+	<h:message for="legal_litigation" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
@@ -53,6 +56,7 @@
 	</h:panelGroup>
 
 	
+	<h:message for="legal_specialHandling" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
@@ -73,6 +77,42 @@
 	</h:panelGroup>
 
 	
+	<h:message for="legal_status" styleClass="error errors"/>
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.legal_legalComments}  "/> <br/>
+	
+		<rich:editor id="legal_legalComments" useSeamText="true" value="#{legalAction.legal.legalComments}"/>
+	
+	</h:panelGroup>
+
+	
+	<h:message for="legal_legalComments" styleClass="error errors"/>
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.legal_lawyer}  "/> <br/>
+	<h:selectOneMenu id="legal_lawyer" value="#{legalAction.legal.lawyer}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Select.." value="#{lawyerList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	<h:message for="legal_lawyer" styleClass="error errors"/>
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.legal_realEstateProperty}  "/> <br/>
+	<h:selectOneMenu id="legal_realEstateProperty" value="#{legalAction.legal.realEstateProperty}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Select.." value="#{realEstatePropertyList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	<h:message for="legal_realEstateProperty" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
@@ -83,38 +123,7 @@
 	</h:panelGroup>
 
 	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.legal_lawyer}  "/> <br/>
-	<h:selectOneMenu id="legal_lawyer" value="#{legalAction.legal.lawyer}">
-		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{lawyerList}" var="itemIter"/>
-		<s:convertEntity/>
-		
-	</h:selectOneMenu>
-	</h:panelGroup>
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.legal_realEstateProperty}  "/> <br/>
-	<h:selectOneMenu id="legal_realEstateProperty" value="#{legalAction.legal.realEstateProperty}">
-		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{realEstatePropertyList}" var="itemIter"/>
-		<s:convertEntity/>
-		
-	</h:selectOneMenu>
-	</h:panelGroup>
-	
-	
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.legal_titleInsurer}  "/> <br/>
-	
-		<h:inputText id="legal_titleInsurer" value="#{legalAction.legal.titleInsurer}"/>
-	
-	</h:panelGroup>
-
-	
+	<h:message for="legal_legalDescription" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
@@ -125,6 +134,7 @@
 	</h:panelGroup>
 
 	
+	<h:message for="legal_titleInsuranceClaim" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
@@ -135,6 +145,19 @@
 	</h:panelGroup>
 
 	
+	<h:message for="legal_titleInsuranceClaimNumber" styleClass="error errors"/>
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.legal_titleInsurer}  "/> <br/>
+	<h:selectOneMenu id="legal_titleInsurer" value="#{legalAction.legal.titleInsurer}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Select.." value="#{titleInsurerList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	<h:message for="legal_titleInsurer" styleClass="error errors"/>
 	
 	</h:panelGrid>
 </ui:composition>

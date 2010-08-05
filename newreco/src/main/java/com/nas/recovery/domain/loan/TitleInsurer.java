@@ -47,35 +47,6 @@ public class TitleInsurer extends com.nas.recovery.domain.loan.Company
 			java.io.Serializable {
 	private static final long serialVersionUID = -1446913284L;
 
-	@Field(index = Index.TOKENIZED)
-	protected String policyNumber;
-
-	@Field(index = Index.TOKENIZED)
-	protected String claim;
-
-	public void setPolicyNumber(String policyNumber) {
-		this.policyNumber = policyNumber;
-	}
-
-	public String getPolicyNumber() {
-
-		return policyNumber;
-	}
-
-	public void setClaim(String claim) {
-		this.claim = claim;
-	}
-
-	public String getClaim() {
-
-		return claim;
-	}
-
-	@Transient
-	public String getDisplayName() {
-		return super.getDisplayName();
-	}
-
 	/** This method is used by hibernate full text search - override to add additional fields
 	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
 	 */
@@ -83,10 +54,6 @@ public class TitleInsurer extends com.nas.recovery.domain.loan.Company
 	public List<String> listSearchableFields() {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
-
-		listSearchableFields.add("policyNumber");
-
-		listSearchableFields.add("claim");
 
 		return listSearchableFields;
 	}
