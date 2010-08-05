@@ -89,12 +89,12 @@
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{legalList}"/>
-				<ui:param name="propertyLabel" value="#{msg.legal_legalDescription}"/>
-				<ui:param name="propertyPath" value="legal.legalDescription"/>
+				<ui:param name="propertyLabel" value="#{msg.legal_legalComments}"/>
+				<ui:param name="propertyPath" value="legal.legalComments"/>
 			</ui:include>
 		</f:facet>
 		
-			<h:outputText value="#{_legal.legalDescription}"/>	
+			<h:outputText value="#{_legal.legalComments}"/>	
 		
 	</h:column>
 	
@@ -132,12 +132,12 @@
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{legalList}"/>
-				<ui:param name="propertyLabel" value="#{msg.legal_titleInsurer}"/>
-				<ui:param name="propertyPath" value="legal.titleInsurer"/>
+				<ui:param name="propertyLabel" value="#{msg.legal_legalDescription}"/>
+				<ui:param name="propertyPath" value="legal.legalDescription"/>
 			</ui:include>
 		</f:facet>
 		
-			<h:outputText value="#{_legal.titleInsurer}"/>	
+			<h:outputText value="#{_legal.legalDescription}"/>	
 		
 	</h:column>
 	
@@ -165,6 +165,21 @@
 		
 			<h:outputText value="#{_legal.titleInsuranceClaimNumber}"/>	
 		
+	</h:column>
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{legalList}"/>
+				<ui:param name="propertyLabel" value="#{msg.legal_titleInsurer}"/>
+				<ui:param name="propertyPath" value="legal.titleInsurer"/>
+			</ui:include>
+		</f:facet>
+		<s:link value="#{_legal.titleInsurer.displayName}" view="/admin/entities/loan/titleInsurer/viewTitleInsurer.xhtml">
+			<f:param name="titleInsurerId" value="#{_legal.titleInsurer.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
 	</h:column>
 	
 		

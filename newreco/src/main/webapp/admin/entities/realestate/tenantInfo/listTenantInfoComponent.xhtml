@@ -116,6 +116,21 @@
 	</h:column>
 	
 		
+	<h:column groupOn="#{tenantInfo.realEstateProperty.displayName}">
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{tenantInfoList}"/>
+				<ui:param name="propertyLabel" value="#{msg.tenantInfo_realEstateProperty}"/>
+				<ui:param name="propertyPath" value="tenantInfo.realEstateProperty"/>
+			</ui:include>
+		</f:facet>
+		<s:link value="#{_tenantInfo.realEstateProperty.displayName}" view="/admin/entities/realestate/realEstateProperty/viewRealEstateProperty.xhtml">
+			<f:param name="realEstatePropertyId" value="#{_tenantInfo.realEstateProperty.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</h:column>
+	
+		
 	
 		
 	<h:column>

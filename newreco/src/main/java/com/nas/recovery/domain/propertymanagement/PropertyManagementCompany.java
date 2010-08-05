@@ -51,8 +51,8 @@ public class PropertyManagementCompany
 
 	//propertyManagers-> ->->PropertyManagementCompany->
 
-	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "propertyManagers_ID", nullable = true)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "propertyManagementCompany_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<PropertyManager> propertyManagers = new HashSet<PropertyManager>();
 

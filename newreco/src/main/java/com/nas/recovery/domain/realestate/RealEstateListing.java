@@ -91,15 +91,15 @@ public class RealEstateListing extends BusinessEntity
 
 	//listingSummarys-> ->->ListingSummary->
 
-	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "listingSummarys_ID", nullable = true)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "realEstateListing_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<ListingSummary> listingSummarys = new HashSet<ListingSummary>();
 
 	//agentHistorys-> ->->AgentHistory->
 
-	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "agentHistorys_ID", nullable = true)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "realEstateListing_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<AgentHistory> agentHistorys = new HashSet<AgentHistory>();
 

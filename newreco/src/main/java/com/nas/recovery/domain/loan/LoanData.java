@@ -80,8 +80,8 @@ public class LoanData extends BusinessEntity implements java.io.Serializable {
 
 	//borrowers-> ->->LoanData->
 
-	@OneToMany(mappedBy = "", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "borrowers_ID", nullable = false)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "loanData_ID", nullable = false)
 	@IndexedEmbedded
 	private Set<Borrower> borrowers = new HashSet<Borrower>();
 

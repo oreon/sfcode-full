@@ -54,11 +54,7 @@ public class Authenticator {
 			}else{
 				log.warn("no role found for user " + user.getUserName());
 			}
-			actor.setId(user.getUserName());
-			Set<Role> roles = user.getRoles();
-			for (Role role : roles) {
-				actor.getGroupActorIds().add( role.getName() );
-			}
+			updateActor(user);
 			
 			UserUtilAction userUtilAction = (UserUtilAction)Component.getInstance("userUtilAction");
 			
@@ -72,6 +68,14 @@ public class Authenticator {
 
 		}
 
+	}
+
+	private void updateActor(User user) {
+		actor.setId(user.getUserName());
+		Set<Role> roles = user.getRoles();
+		for (Role role : roles) {
+			actor.getGroupActorIds().add( role.getName() );
+		}
 	}
 
 }

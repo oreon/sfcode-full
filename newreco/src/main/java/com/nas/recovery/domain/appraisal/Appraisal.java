@@ -60,6 +60,11 @@ public class Appraisal extends BusinessEntity implements java.io.Serializable {
 
 	protected Date received;
 
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "realEstateProperty_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected com.nas.recovery.domain.realestate.RealEstateProperty realEstateProperty;
+
 	public void setAppraisalNumber(Integer appraisalNumber) {
 		this.appraisalNumber = appraisalNumber;
 	}
@@ -121,6 +126,16 @@ public class Appraisal extends BusinessEntity implements java.io.Serializable {
 	public Date getReceived() {
 
 		return received;
+	}
+
+	public void setRealEstateProperty(
+			com.nas.recovery.domain.realestate.RealEstateProperty realEstateProperty) {
+		this.realEstateProperty = realEstateProperty;
+	}
+
+	public com.nas.recovery.domain.realestate.RealEstateProperty getRealEstateProperty() {
+
+		return realEstateProperty;
 	}
 
 	@Transient

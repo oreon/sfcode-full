@@ -61,6 +61,32 @@
 	
 		
 	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.legal_titleInsurer}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="legal_titleInsurer" required="true" value="#{legalAction.legal.titleInsurer}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{titleInsurerList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="legal_titleInsurer" styleClass="error errors"/>		
+		
+	
+	
+		
+	
 
 	
 	
@@ -159,6 +185,20 @@
 	
 	
 		
+		<h:outputText value="#{msg.legal_legalComments}  "/>
+		
+
+	<rich:editor id="legal_legalComments#{entityId}" required="false" useSeamText="true" value="#{legalAction.legal.legalComments}"/>
+   
+		
+		<h:message for="legal_legalComments" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
 		<h:outputText value="#{msg.legal_legalDescription}  "/>
 		
 
@@ -166,20 +206,6 @@
    
 		
 		<h:message for="legal_legalDescription" styleClass="error errors"/>		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.legal_titleInsurer}  "/>
-		
-
-	<h:inputText id="legal_titleInsurer#{entityId}" required="false" value="#{legalAction.legal.titleInsurer}"/>
-   
-		
-		<h:message for="legal_titleInsurer" styleClass="error errors"/>		
 		
 	
 	

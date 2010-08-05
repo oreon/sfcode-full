@@ -126,6 +126,17 @@
 	
 	
 	
+	<h:panelGroup>
+	<h:outputText value="#{msg.appraisal_realEstateProperty}  "/> <br/>
+	<h:selectOneMenu id="appraisal_realEstateProperty" value="#{appraisalList.appraisal.realEstateProperty}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{realEstatePropertyList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
 			<s:decorate template="/layout/display.xhtml">
 				<ui:define name="label">From</ui:define> <br/>
 				<rich:calendar id="from" value="#{appraisalList.dateCreatedRange.begin}"/>
