@@ -3,17 +3,19 @@
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>
+  <s:validateAll>
 	<h:panelGrid columns="3" styleClass="summarywrap">
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.role_name} * "/> <br/>
 	
 		<h:inputText id="role_name" value="#{roleAction.role.name}"/>
+		<h:message for="role_name" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="role_name" styleClass="error errors"/>
 	
 	</h:panelGrid>
+  </s:validateAll>
 </ui:composition>

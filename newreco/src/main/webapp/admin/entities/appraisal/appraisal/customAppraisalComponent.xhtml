@@ -3,94 +3,93 @@
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>
+  <s:validateAll>
 	<h:panelGrid columns="3" styleClass="summarywrap">
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.appraisal_appraisalNumber}  "/> <br/>
 	
 		<h:inputText id="appraisal_appraisalNumber" value="#{appraisalAction.appraisal.appraisalNumber}"/>
+		<h:message for="appraisal_appraisalNumber" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="appraisal_appraisalNumber" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.appraisal_specialInstruction}  "/> <br/>
 	
 		<rich:editor id="appraisal_specialInstruction" useSeamText="true" value="#{appraisalAction.appraisal.specialInstruction}"/>
+		<h:message for="appraisal_specialInstruction" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="appraisal_specialInstruction" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.appraisal_serviceType}  "/> <br/>
 	<h:selectOneMenu id="appraisal_serviceType" required="false" value="#{appraisalAction.appraisal.serviceType}">
-		<f:selectItem itemLabel="Any" itemValue=""/>
-		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
 		<f:selectItem itemLabel="Full_service" itemValue="FULL_SERVICE"/>
 		<f:selectItem itemLabel="Drive_by" itemValue="DRIVE_BY"/>
 		<f:selectItem itemLabel="Desktop" itemValue="DESKTOP"/>
 		
 	</h:selectOneMenu>
+	<h:message for="appraisal_serviceType" styleClass="error errors"/>
 	</h:panelGroup>
 
 	
-	<h:message for="appraisal_serviceType" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.appraisal_status}  "/> <br/>
 	<h:selectOneMenu id="appraisal_status" required="false" value="#{appraisalAction.appraisal.status}">
-		<f:selectItem itemLabel="Any" itemValue=""/>
-		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
 		<f:selectItem itemLabel="Ordered" itemValue="ORDERED"/>
 		<f:selectItem itemLabel="Accepted" itemValue="ACCEPTED"/>
 		<f:selectItem itemLabel="Appointment" itemValue="APPOINTMENT"/>
 		<f:selectItem itemLabel="Completed" itemValue="COMPLETED"/>
 		
 	</h:selectOneMenu>
+	<h:message for="appraisal_status" styleClass="error errors"/>
 	</h:panelGroup>
 
 	
-	<h:message for="appraisal_status" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.appraisal_ordered}  "/> <br/>
 	
 		<rich:calendar id="appraisal_ordered" value="#{appraisalAction.appraisal.ordered}"/>
+		<h:message for="appraisal_ordered" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="appraisal_ordered" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.appraisal_dueDate}  "/> <br/>
 	
 		<rich:calendar id="appraisal_dueDate" value="#{appraisalAction.appraisal.dueDate}"/>
+		<h:message for="appraisal_dueDate" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="appraisal_dueDate" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.appraisal_received}  "/> <br/>
 	
 		<rich:calendar id="appraisal_received" value="#{appraisalAction.appraisal.received}"/>
+		<h:message for="appraisal_received" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="appraisal_received" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
@@ -100,9 +99,10 @@
 		<s:convertEntity/>
 		
 	</h:selectOneMenu>
+	<h:message for="appraisal_realEstateProperty" styleClass="error errors"/>
 	</h:panelGroup>
 	
-	<h:message for="appraisal_realEstateProperty" styleClass="error errors"/>
 	
 	</h:panelGrid>
+  </s:validateAll>
 </ui:composition>

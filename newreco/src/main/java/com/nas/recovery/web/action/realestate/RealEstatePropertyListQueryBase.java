@@ -47,6 +47,8 @@ public abstract class RealEstatePropertyListQueryBase
 
 			"lower(realEstateProperty.title) like concat(lower(#{realEstatePropertyList.realEstateProperty.title}),'%')",
 
+			"realEstateProperty.legal = #{realEstatePropertyList.realEstateProperty.legal}",
+
 			"realEstateProperty.dateCreated <= #{realEstatePropertyList.dateCreatedRange.end}",
 			"realEstateProperty.dateCreated >= #{realEstatePropertyList.dateCreatedRange.begin}",};
 

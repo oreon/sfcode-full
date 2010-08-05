@@ -3,6 +3,7 @@
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>
+  <s:validateAll>
 	<h:panelGrid columns="3" styleClass="summarywrap">
 	
 	<h:panelGroup>
@@ -12,16 +13,15 @@
 		<s:convertEntity/>
 		
 	</h:selectOneMenu>
+	<h:message for="closingProcess_legal" styleClass="error errors"/>
 	</h:panelGroup>
 	
-	<h:message for="closingProcess_legal" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.closingProcess_process}  "/> <br/>
 	<h:selectOneMenu id="closingProcess_process" required="false" value="#{closingProcessAction.closingProcess.process}">
-		<f:selectItem itemLabel="Any" itemValue=""/>
-		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
 		<f:selectItem itemLabel="Agreement_pands" itemValue="AGREEMENT_PANDS"/>
 		<f:selectItem itemLabel="Closing_documents" itemValue="CLOSING_DOCUMENTS"/>
 		<f:selectItem itemLabel="Sale_completed" itemValue="SALE_COMPLETED"/>
@@ -29,76 +29,77 @@
 		<f:selectItem itemLabel="Closing_report" itemValue="CLOSING_REPORT"/>
 		
 	</h:selectOneMenu>
+	<h:message for="closingProcess_process" styleClass="error errors"/>
 	</h:panelGroup>
 
 	
-	<h:message for="closingProcess_process" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.process_completedDate}  "/> <br/>
 	
 		<rich:calendar id="process_completedDate" value="#{closingProcessAction.closingProcess.completedDate}"/>
+		<h:message for="process_completedDate" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="process_completedDate" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.process_dueDate}  "/> <br/>
 	
 		<rich:calendar id="process_dueDate" value="#{closingProcessAction.closingProcess.dueDate}"/>
+		<h:message for="process_dueDate" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="process_dueDate" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.process_processNumber}  "/> <br/>
 	
 		<h:inputText id="process_processNumber" value="#{closingProcessAction.closingProcess.processNumber}"/>
+		<h:message for="process_processNumber" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="process_processNumber" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.process_documentAdded}  "/> <br/>
 	
 		<h:selectBooleanCheckbox id="process_documentAdded" value="#{closingProcessAction.closingProcess.documentAdded}"/>
+		<h:message for="process_documentAdded" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="process_documentAdded" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.process_notRequired}  "/> <br/>
 	
 		<h:selectBooleanCheckbox id="process_notRequired" value="#{closingProcessAction.closingProcess.notRequired}"/>
+		<h:message for="process_notRequired" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="process_notRequired" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.process_explanation}  "/> <br/>
 	
 		<rich:editor id="process_explanation" useSeamText="true" value="#{closingProcessAction.closingProcess.explanation}"/>
+		<h:message for="process_explanation" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="process_explanation" styleClass="error errors"/>
 	
 	</h:panelGrid>
+  </s:validateAll>
 </ui:composition>

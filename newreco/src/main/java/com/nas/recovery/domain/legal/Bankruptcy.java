@@ -59,8 +59,8 @@ public class Bankruptcy extends BusinessEntity implements java.io.Serializable {
 
 	protected Boolean proofOfClaim;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "legal_id", nullable = true, updatable = true)
+	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "legal_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Legal legal;
 

@@ -3,24 +3,24 @@
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>
+  <s:validateAll>
 	<h:panelGrid columns="3" styleClass="summarywrap">
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.realEstateProperty_streetAddress}  "/> <br/>
 	
 		<h:inputText id="realEstateProperty_streetAddress" value="#{realEstatePropertyAction.realEstateProperty.streetAddress}"/>
+		<h:message for="realEstateProperty_streetAddress" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="realEstateProperty_streetAddress" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.realEstateProperty_state}  "/> <br/>
 	<h:selectOneMenu id="realEstateProperty_state" required="false" value="#{realEstatePropertyAction.realEstateProperty.state}">
-		<f:selectItem itemLabel="Any" itemValue=""/>
-		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
 		<f:selectItem itemLabel="On" itemValue="ON"/>
 		<f:selectItem itemLabel="Ab" itemValue="AB"/>
 		<f:selectItem itemLabel="Nb" itemValue="NB"/>
@@ -33,32 +33,32 @@
 		<f:selectItem itemLabel="Qb" itemValue="QB"/>
 		
 	</h:selectOneMenu>
+	<h:message for="realEstateProperty_state" styleClass="error errors"/>
 	</h:panelGroup>
 
 	
-	<h:message for="realEstateProperty_state" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.realEstateProperty_zip}  "/> <br/>
 	
 		<h:inputText id="realEstateProperty_zip" value="#{realEstatePropertyAction.realEstateProperty.zip}"/>
+		<h:message for="realEstateProperty_zip" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="realEstateProperty_zip" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.realEstateProperty_city}  "/> <br/>
 	
 		<h:inputText id="realEstateProperty_city" value="#{realEstatePropertyAction.realEstateProperty.city}"/>
+		<h:message for="realEstateProperty_city" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="realEstateProperty_city" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
@@ -68,37 +68,49 @@
 		<s:convertEntity/>
 		
 	</h:selectOneMenu>
+	<h:message for="realEstateProperty_insurer" styleClass="error errors"/>
 	</h:panelGroup>
 	
-	<h:message for="realEstateProperty_insurer" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.realEstateProperty_status}  "/> <br/>
 	<h:selectOneMenu id="realEstateProperty_status" required="false" value="#{realEstatePropertyAction.realEstateProperty.status}">
-		<f:selectItem itemLabel="Any" itemValue=""/>
-		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
 		<f:selectItem itemLabel="Drive_by" itemValue="DRIVE_BY"/>
 		<f:selectItem itemLabel="Right_to_sell" itemValue="RIGHT_TO_SELL"/>
 		<f:selectItem itemLabel="Listed" itemValue="LISTED"/>
 		<f:selectItem itemLabel="Conditional_sale" itemValue="CONDITIONAL_SALE"/>
 		
 	</h:selectOneMenu>
+	<h:message for="realEstateProperty_status" styleClass="error errors"/>
 	</h:panelGroup>
 
 	
-	<h:message for="realEstateProperty_status" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.realEstateProperty_title}  "/> <br/>
 	
 		<h:inputText id="realEstateProperty_title" value="#{realEstatePropertyAction.realEstateProperty.title}"/>
+		<h:message for="realEstateProperty_title" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="realEstateProperty_title" styleClass="error errors"/>
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_legal}  "/> <br/>
+	<h:selectOneMenu id="realEstateProperty_legal" value="#{realEstatePropertyAction.realEstateProperty.legal}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Select.." value="#{legalList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	<h:message for="realEstateProperty_legal" styleClass="error errors"/>
+	</h:panelGroup>
+	
 	
 	</h:panelGrid>
+  </s:validateAll>
 </ui:composition>

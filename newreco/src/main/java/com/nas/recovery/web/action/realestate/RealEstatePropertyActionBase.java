@@ -53,6 +53,9 @@ public abstract class RealEstatePropertyActionBase
 	@In(create = true, value = "mortgageInsurerAction")
 	com.nas.recovery.web.action.loan.MortgageInsurerAction insurerAction;
 
+	@In(create = true, value = "legalAction")
+	com.nas.recovery.web.action.legal.LegalAction legalAction;
+
 	@In(create = true, value = "realEstateListingList")
 	com.nas.recovery.web.action.realestate.RealEstateListingListQuery realEstateListingList;
 
@@ -91,6 +94,16 @@ public abstract class RealEstatePropertyActionBase
 	public Long getInsurerId() {
 		if (getInstance().getInsurer() != null)
 			return getInstance().getInsurer().getId();
+		return 0L;
+	}
+	public void setLegalId(Long id) {
+		if (id != null && id > 0)
+			getInstance().setLegal(legalAction.loadFromId(id));
+	}
+
+	public Long getLegalId() {
+		if (getInstance().getLegal() != null)
+			return getInstance().getLegal().getId();
 		return 0L;
 	}
 
@@ -136,6 +149,11 @@ public abstract class RealEstatePropertyActionBase
 		if (insurer != null) {
 			getInstance().setInsurer(insurer);
 		}
+		com.nas.recovery.domain.legal.Legal legal = legalAction
+				.getDefinedInstance();
+		if (legal != null) {
+			getInstance().setLegal(legal);
+		}
 
 	}
 
@@ -172,6 +190,11 @@ public abstract class RealEstatePropertyActionBase
 					realEstateProperty.getInsurer().getId()));
 		}
 
+		if (realEstateProperty.getLegal() != null) {
+			criteria = criteria.add(Restrictions.eq("legal.id",
+					realEstateProperty.getLegal().getId()));
+		}
+
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -182,6 +205,10 @@ public abstract class RealEstatePropertyActionBase
 
 		if (realEstateProperty.getInsurer() != null) {
 			insurerAction.setEntity(getEntity().getInsurer());
+		}
+
+		if (realEstateProperty.getLegal() != null) {
+			legalAction.setEntity(getEntity().getLegal());
 		}
 
 		try {

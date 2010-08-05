@@ -98,6 +98,17 @@
 	
 	
 	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_legal}  "/> <br/>
+	<h:selectOneMenu id="realEstateProperty_legal" value="#{realEstatePropertyList.realEstateProperty.legal}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{legalList}" var="itemIter"/>
+		<s:convertEntity/>
+		<f:selectItem itemLabel="--None--" itemValue=""/>
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
 			<s:decorate template="/layout/display.xhtml">
 				<ui:define name="label">From</ui:define> <br/>
 				<rich:calendar id="from" value="#{realEstatePropertyList.dateCreatedRange.begin}"/>

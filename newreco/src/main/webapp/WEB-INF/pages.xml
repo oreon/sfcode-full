@@ -103,6 +103,14 @@
                 <redirect view-id="/admin/entities/legal/lawfirm/viewLawfirm.xhtml" />
             </rule>
         
+            <rule if-outcome="chargee">
+                <redirect view-id="/admin/entities/legal/chargee/listChargee.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewChargee">
+                <redirect view-id="/admin/entities/legal/chargee/viewChargee.xhtml" />
+            </rule>
+        
             <rule if-outcome="loanData">
                 <redirect view-id="/admin/entities/loan/loanData/listLoanData.xhtml" />
             </rule>
@@ -383,8 +391,9 @@
 		</navigation>
 		<param name="legalId" value="#{legalAction.legalId}" />
 		<param name="lawyerId" value="#{legalAction.lawyerId}" />
-		<param name="realEstatePropertyId" value="#{legalAction.realEstatePropertyId}" />
 		<param name="titleInsurerId" value="#{legalAction.titleInsurerId}" />
+		<param name="chargeeId" value="#{legalAction.chargeeId}" />
+		<param name="realEstatePropertyId" value="#{legalAction.realEstatePropertyId}" />
 		
 	</page>
 	
@@ -424,11 +433,12 @@
 	 <param name="legal_status" value="#{legalList.legal.status}" validateModel="false" /> 	
 	 <param name="legal_legalComments" value="#{legalList.legal.legalComments}" validateModel="false" /> 	
 	 <param name="legal_lawyer" value="#{legalList.legal.lawyer}" validateModel="false" /> 	
-	 <param name="legal_realEstateProperty" value="#{legalList.legal.realEstateProperty}" validateModel="false" /> 	
 	 <param name="legal_legalDescription" value="#{legalList.legal.legalDescription}" validateModel="false" /> 	
 	 <param name="legal_titleInsuranceClaim" value="#{legalList.legal.titleInsuranceClaim}" validateModel="false" /> 	
 	 <param name="legal_titleInsuranceClaimNumber" value="#{legalList.legal.titleInsuranceClaimNumber}" validateModel="false" /> 	
 	 <param name="legal_titleInsurer" value="#{legalList.legal.titleInsurer}" validateModel="false" /> 	
+	 <param name="legal_chargee" value="#{legalList.legal.chargee}" validateModel="false" /> 	
+	 <param name="legal_realEstateProperty" value="#{legalList.legal.realEstateProperty}" validateModel="false" /> 	
 		
 	</page>
     
@@ -865,6 +875,60 @@
 	 <param name="address_postalCode" value="#{lawfirmList.lawfirm.address.postalCode}" validateModel="false" /> 	
 	 <param name="address_unitNumber" value="#{lawfirmList.lawfirm.address.unitNumber}" validateModel="false" /> 	
 	 <param name="address_city" value="#{lawfirmList.lawfirm.address.city}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/legal/chargee/editChargee.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Chargee: #{chargee.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/legal/chargee/viewChargee.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/chargee/listChargee.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="chargeeId" value="#{chargeeAction.chargeeId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/legal/chargee/viewChargee.xhtml" conversation-required="false" >
+	 	<!-- <description>View Chargee: #{chargee.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/chargee/editChargee.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/legal/chargee/listChargee.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="chargeeId" value="#{chargeeAction.chargeeId}" />
+	</page>
+	
+	<page view-id="/admin/entities/legal/chargee/listChargee.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewChargee">
+				<redirect view-id="/admin/entities/legal/chargee/viewChargee.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/legal/chargee/editChargee.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{chargeeList.firstResult}" />
+		<param name="sort" value="#{chargeeList.orderColumn}" />
+		<param name="dir" value="#{chargeeList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{chargeeList.chargee.id}" />
+	 <param name="chargee_firstName" value="#{chargeeList.chargee.firstName}" validateModel="false" /> 	
+	 <param name="chargee_lastName" value="#{chargeeList.chargee.lastName}" validateModel="false" /> 	
+	 <param name="chargee_phone" value="#{chargeeList.chargee.phone}" validateModel="false" /> 	
+	 <param name="chargee_email" value="#{chargeeList.chargee.email}" validateModel="false" /> 	
+	 <param name="chargee_company" value="#{chargeeList.chargee.company}" validateModel="false" /> 	
+	 <param name="chargee_amount" value="#{chargeeList.chargee.amount}" validateModel="false" /> 	
+	 <param name="chargee_priority" value="#{chargeeList.chargee.priority}" validateModel="false" /> 	
+	 <param name="chargee_chargeeType" value="#{chargeeList.chargee.chargeeType}" validateModel="false" /> 	
 		
 	</page>
     
@@ -1980,6 +2044,7 @@
 		</navigation>
 		<param name="realEstatePropertyId" value="#{realEstatePropertyAction.realEstatePropertyId}" />
 		<param name="insurerId" value="#{realEstatePropertyAction.insurerId}" />
+		<param name="legalId" value="#{realEstatePropertyAction.legalId}" />
 		
 	</page>
 	
@@ -2019,6 +2084,7 @@
 	 <param name="realEstateProperty_insurer" value="#{realEstatePropertyList.realEstateProperty.insurer}" validateModel="false" /> 	
 	 <param name="realEstateProperty_status" value="#{realEstatePropertyList.realEstateProperty.status}" validateModel="false" /> 	
 	 <param name="realEstateProperty_title" value="#{realEstatePropertyList.realEstateProperty.title}" validateModel="false" /> 	
+	 <param name="realEstateProperty_legal" value="#{realEstatePropertyList.realEstateProperty.legal}" validateModel="false" /> 	
 		
 	</page>
     

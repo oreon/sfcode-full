@@ -3,72 +3,73 @@
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>
+  <s:validateAll>
 	<h:panelGrid columns="3" styleClass="summarywrap">
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.bankruptcy_legalNumber}  "/> <br/>
 	
 		<h:inputText id="bankruptcy_legalNumber" value="#{bankruptcyAction.bankruptcy.legalNumber}"/>
+		<h:message for="bankruptcy_legalNumber" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="bankruptcy_legalNumber" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.bankruptcy_trustee}  "/> <br/>
 	
 		<h:inputText id="bankruptcy_trustee" value="#{bankruptcyAction.bankruptcy.trustee}"/>
+		<h:message for="bankruptcy_trustee" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="bankruptcy_trustee" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.bankruptcy_name}  "/> <br/>
 	
 		<h:inputText id="bankruptcy_name" value="#{bankruptcyAction.bankruptcy.name}"/>
+		<h:message for="bankruptcy_name" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="bankruptcy_name" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.bankruptcy_dateFiled}  "/> <br/>
 	
 		<rich:calendar id="bankruptcy_dateFiled" value="#{bankruptcyAction.bankruptcy.dateFiled}"/>
+		<h:message for="bankruptcy_dateFiled" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="bankruptcy_dateFiled" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.bankruptcy_dischargedDate}  "/> <br/>
 	
 		<rich:calendar id="bankruptcy_dischargedDate" value="#{bankruptcyAction.bankruptcy.dischargedDate}"/>
+		<h:message for="bankruptcy_dischargedDate" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="bankruptcy_dischargedDate" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.bankruptcy_proofOfClaim}  "/> <br/>
 	
 		<h:selectBooleanCheckbox id="bankruptcy_proofOfClaim" value="#{bankruptcyAction.bankruptcy.proofOfClaim}"/>
+		<h:message for="bankruptcy_proofOfClaim" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="bankruptcy_proofOfClaim" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
@@ -78,9 +79,10 @@
 		<s:convertEntity/>
 		
 	</h:selectOneMenu>
+	<h:message for="bankruptcy_legal" styleClass="error errors"/>
 	</h:panelGroup>
 	
-	<h:message for="bankruptcy_legal" styleClass="error errors"/>
 	
 	</h:panelGrid>
+  </s:validateAll>
 </ui:composition>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	
+	
+<rich:panel>
+   <h:form>
+	  <f:facet name="header">Chargee Search Results (#{empty chargeeList.resultList ? 0 : (chargeeList.paginated ? chargeeList.resultCount : chargeeList.resultList.size)})</f:facet>
+	
+		<rich:dataTable id="chargeeList" rendered="#{not empty chargeeList.resultList}" rowClasses="odd, even" styleClass="dataTable" value="#{chargeeList.resultList}" var="_chargee">	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{chargeeList}"/>
+				<ui:param name="propertyLabel" value="Id"/>
+				<ui:param name="propertyPath" value="chargee.id"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_chargee.id}">
+		</h:outputText>
+	</h:column>
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{chargeeList}"/>
+				<ui:param name="propertyLabel" value="#{msg.chargee_firstName}"/>
+				<ui:param name="propertyPath" value="chargee.firstName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_chargee.firstName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{chargeeList}"/>
+				<ui:param name="propertyLabel" value="#{msg.chargee_lastName}"/>
+				<ui:param name="propertyPath" value="chargee.lastName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_chargee.lastName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{chargeeList}"/>
+				<ui:param name="propertyLabel" value="#{msg.chargee_phone}"/>
+				<ui:param name="propertyPath" value="chargee.phone"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_chargee.phone}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{chargeeList}"/>
+				<ui:param name="propertyLabel" value="#{msg.chargee_email}"/>
+				<ui:param name="propertyPath" value="chargee.email"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_chargee.email}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{chargeeList}"/>
+				<ui:param name="propertyLabel" value="#{msg.chargee_company}"/>
+				<ui:param name="propertyPath" value="chargee.company"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_chargee.company}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{chargeeList}"/>
+				<ui:param name="propertyLabel" value="#{msg.chargee_amount}"/>
+				<ui:param name="propertyPath" value="chargee.amount"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_chargee.amount}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{chargeeList}"/>
+				<ui:param name="propertyLabel" value="#{msg.chargee_priority}"/>
+				<ui:param name="propertyPath" value="chargee.priority"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_chargee.priority}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{chargeeList}"/>
+				<ui:param name="propertyLabel" value="#{msg.chargee_chargeeType}"/>
+				<ui:param name="propertyPath" value="chargee.chargeeType"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_chargee.chargeeType}"/>	
+		
+	</h:column>
+	
+		
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{chargeeList}"/>
+				<ui:param name="propertyLabel" value="Creation Date"/>
+				<ui:param name="propertyPath" value="chargee.dateCreated"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_chargee.dateCreated}">
+			<s:convertDateTime dateStyle="short" type="both"/>
+		</h:outputText>
+	</h:column>
+		
+	<h:column rendered="#{s:hasPermission('chargeeAction', 'view')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/legal/chargee/viewChargee.xhtml">
+			<h:graphicImage alt="view" style="border: 0px" value="/images/icons/eye.png"/>
+			<f:param name="chargeeId" value="#{_chargee.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('chargeeAction', 'edit')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/legal/chargee/editChargee.xhtml">
+			<h:graphicImage alt="edit" style="border: 0px" value="/images/icons/edit.png"/>
+			<f:param name="chargeeId" value="#{_chargee.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('chargeeAction', 'archive')}">
+		<f:facet name="header">
+			<h:outputText value=""/>
+		</f:facet>
+		
+		<s:link action="#{chargeeAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_chargee.displayName} ?')){ return false; } else { return true; }">
+			<h:graphicImage alt="archive" style="border: 0px" value="/images/icons/delete.png"/>
+			<f:param name="idToArchive" value="#{_chargee.id}"/>
+		</s:link>
+	</h:column>
+
+		</rich:dataTable>
+ 	</h:form>		
+</rich:panel>	
+
+
+
+ <div class="tableControl">
+<s:link rendered="#{chargeeList.previousExists}" value="#{messages.left}#{messages.left} First Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="0"/>
+</s:link> 
+
+<s:link rendered="#{chargeeList.previousExists}" value="#{messages.left} Previous Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{chargeeList.previousFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{chargeeList.nextExists}" value="Next Page #{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{chargeeList.nextFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{chargeeList.nextExists}" value="Last Page #{messages.right}#{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{chargeeList.lastFirstResult}"/>
+</s:link>
+</div>
+
+
+<h:form>
+<s:div rendered="#{empty from}" styleClass="actionButtons">
+	<s:button propagation="none" value="Create New" view="/admin/entities/legal/chargee/editChargee.xhtml">
+		 <f:param name="chargeeId"/>
+		
+	</s:button>
+</s:div>
+</h:form>
+
+</ui:composition>

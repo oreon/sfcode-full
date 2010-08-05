@@ -103,7 +103,7 @@ public class RealEstateListing extends BusinessEntity
 	@IndexedEmbedded
 	private Set<AgentHistory> agentHistorys = new HashSet<AgentHistory>();
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateBoard_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected RealEstateBoard realEstateBoard;
@@ -120,12 +120,12 @@ public class RealEstateListing extends BusinessEntity
 	@IndexedEmbedded
 	private Set<Offer> offers = new HashSet<Offer>();
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "master_id", nullable = true, updatable = true)
 	@ContainedIn
 	protected MasterAgent master;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "subagent_id", nullable = true, updatable = true)
 	@ContainedIn
 	protected MasterAgent subagent;

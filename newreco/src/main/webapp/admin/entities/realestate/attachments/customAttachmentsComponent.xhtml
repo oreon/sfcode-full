@@ -3,17 +3,18 @@
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>
+  <s:validateAll>
 	<h:panelGrid columns="3" styleClass="summarywrap">
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.attachments_title}  "/> <br/>
 	
 		<h:inputText id="attachments_title" value="#{attachmentsAction.attachments.title}"/>
+		<h:message for="attachments_title" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="attachments_title" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
@@ -24,7 +25,7 @@
 	</h:panelGroup>
 
 	
-	<h:message for="attachments_file" styleClass="error errors"/>
 	
 	</h:panelGrid>
+  </s:validateAll>
 </ui:composition>

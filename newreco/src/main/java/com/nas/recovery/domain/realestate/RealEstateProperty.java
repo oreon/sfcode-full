@@ -94,7 +94,7 @@ public class RealEstateProperty extends BusinessEntity
 	@IndexedEmbedded
 	private Set<FilesUploaded> filesUploadeds = new HashSet<FilesUploaded>();
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "insurer_id", nullable = true, updatable = true)
 	@ContainedIn
 	protected com.nas.recovery.domain.loan.MortgageInsurer insurer;
@@ -117,6 +117,10 @@ public class RealEstateProperty extends BusinessEntity
 	@JoinColumn(name = "realEstateProperty_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<com.nas.recovery.domain.propertymanagement.Utilitiy> utilitiys = new HashSet<com.nas.recovery.domain.propertymanagement.Utilitiy>();
+
+	@OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ContainedIn
+	protected com.nas.recovery.domain.legal.Legal legal;
 
 	public void setStreetAddress(String streetAddress) {
 		this.streetAddress = streetAddress;
@@ -238,6 +242,15 @@ public class RealEstateProperty extends BusinessEntity
 
 	public Set<com.nas.recovery.domain.propertymanagement.Utilitiy> getUtilitiys() {
 		return utilitiys;
+	}
+
+	public void setLegal(com.nas.recovery.domain.legal.Legal legal) {
+		this.legal = legal;
+	}
+
+	public com.nas.recovery.domain.legal.Legal getLegal() {
+
+		return legal;
 	}
 
 	@Transient

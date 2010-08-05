@@ -3,46 +3,46 @@
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>
+  <s:validateAll>
 	<h:panelGrid columns="3" styleClass="summarywrap">
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.offer_offerDate}  "/> <br/>
 	
 		<rich:calendar id="offer_offerDate" value="#{offerAction.offer.offerDate}"/>
+		<h:message for="offer_offerDate" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="offer_offerDate" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.offer_purchaser}  "/> <br/>
 	
 		<h:inputText id="offer_purchaser" value="#{offerAction.offer.purchaser}"/>
+		<h:message for="offer_purchaser" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="offer_purchaser" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.offer_amount}  "/> <br/>
 	
 		<h:inputText id="offer_amount" value="#{offerAction.offer.amount}"/>
+		<h:message for="offer_amount" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="offer_amount" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.offer_offerCondition}  "/> <br/>
 	<h:selectOneMenu id="offer_offerCondition" required="false" value="#{offerAction.offer.offerCondition}">
-		<f:selectItem itemLabel="Any" itemValue=""/>
-		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
 		<f:selectItem itemLabel="Inspection" itemValue="Inspection"/>
 		<f:selectItem itemLabel="Finance" itemValue="Finance"/>
 		<f:selectItem itemLabel="Appraisal" itemValue="Appraisal"/>
@@ -51,17 +51,16 @@
 		<f:selectItem itemLabel="Other" itemValue="Other"/>
 		
 	</h:selectOneMenu>
+	<h:message for="offer_offerCondition" styleClass="error errors"/>
 	</h:panelGroup>
 
 	
-	<h:message for="offer_offerCondition" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.offer_status}  "/> <br/>
 	<h:selectOneMenu id="offer_status" required="false" value="#{offerAction.offer.status}">
-		<f:selectItem itemLabel="Any" itemValue=""/>
-		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
 		<f:selectItem itemLabel="Offer" itemValue="Offer"/>
 		<f:selectItem itemLabel="Signbackbuyer" itemValue="SignBackBuyer"/>
 		<f:selectItem itemLabel="Signbackseller" itemValue="SignBackSeller"/>
@@ -72,32 +71,32 @@
 		<f:selectItem itemLabel="Accepted" itemValue="Accepted"/>
 		
 	</h:selectOneMenu>
+	<h:message for="offer_status" styleClass="error errors"/>
 	</h:panelGroup>
 
 	
-	<h:message for="offer_status" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.offer_signBackAmount}  "/> <br/>
 	
 		<h:inputText id="offer_signBackAmount" value="#{offerAction.offer.signBackAmount}"/>
+		<h:message for="offer_signBackAmount" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="offer_signBackAmount" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.offer_conditionExpiry}  "/> <br/>
 	
 		<rich:calendar id="offer_conditionExpiry" value="#{offerAction.offer.conditionExpiry}"/>
+		<h:message for="offer_conditionExpiry" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="offer_conditionExpiry" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
@@ -107,31 +106,32 @@
 		<s:convertEntity/>
 		
 	</h:selectOneMenu>
+	<h:message for="offer_realEstateListing" styleClass="error errors"/>
 	</h:panelGroup>
 	
-	<h:message for="offer_realEstateListing" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.offer_closingDate}  "/> <br/>
 	
 		<rich:calendar id="offer_closingDate" value="#{offerAction.offer.closingDate}"/>
+		<h:message for="offer_closingDate" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="offer_closingDate" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.offer_comments}  "/> <br/>
 	
 		<rich:editor id="offer_comments" useSeamText="true" value="#{offerAction.offer.comments}"/>
+		<h:message for="offer_comments" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="offer_comments" styleClass="error errors"/>
 	
 	</h:panelGrid>
+  </s:validateAll>
 </ui:composition>

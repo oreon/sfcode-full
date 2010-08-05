@@ -60,15 +60,10 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 	@Lob
 	protected String legalComments;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "lawyer_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Lawyer lawyer;
-
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "realEstateProperty_id", nullable = false, updatable = true)
-	@ContainedIn
-	protected com.nas.recovery.domain.realestate.RealEstateProperty realEstateProperty;
 
 	//closingProcesses->legal ->Legal->ClosingProcess->ClosingProcess
 
@@ -99,10 +94,20 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 	@Field(index = Index.TOKENIZED)
 	protected String titleInsuranceClaimNumber;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "titleInsurer_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected com.nas.recovery.domain.loan.TitleInsurer titleInsurer;
+
+	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "chargee_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected Chargee chargee;
+
+	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "realEstateProperty_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected com.nas.recovery.domain.realestate.RealEstateProperty realEstateProperty;
 
 	public void setLegalFileNumber(String legalFileNumber) {
 		this.legalFileNumber = legalFileNumber;
@@ -167,16 +172,6 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 		return lawyer;
 	}
 
-	public void setRealEstateProperty(
-			com.nas.recovery.domain.realestate.RealEstateProperty realEstateProperty) {
-		this.realEstateProperty = realEstateProperty;
-	}
-
-	public com.nas.recovery.domain.realestate.RealEstateProperty getRealEstateProperty() {
-
-		return realEstateProperty;
-	}
-
 	public void setClosingProcesses(Set<ClosingProcess> closingProcesses) {
 		this.closingProcesses = closingProcesses;
 	}
@@ -236,6 +231,25 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 	public com.nas.recovery.domain.loan.TitleInsurer getTitleInsurer() {
 
 		return titleInsurer;
+	}
+
+	public void setChargee(Chargee chargee) {
+		this.chargee = chargee;
+	}
+
+	public Chargee getChargee() {
+
+		return chargee;
+	}
+
+	public void setRealEstateProperty(
+			com.nas.recovery.domain.realestate.RealEstateProperty realEstateProperty) {
+		this.realEstateProperty = realEstateProperty;
+	}
+
+	public com.nas.recovery.domain.realestate.RealEstateProperty getRealEstateProperty() {
+
+		return realEstateProperty;
 	}
 
 	@Transient

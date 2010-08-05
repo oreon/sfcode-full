@@ -3,17 +3,18 @@
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>
+  <s:validateAll>
 	<h:panelGrid columns="3" styleClass="summarywrap">
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.filesUploaded_title}  "/> <br/>
 	
 		<h:inputText id="filesUploaded_title" value="#{filesUploadedAction.filesUploaded.title}"/>
+		<h:message for="filesUploaded_title" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="filesUploaded_title" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
@@ -24,7 +25,6 @@
 	</h:panelGroup>
 
 	
-	<h:message for="filesUploaded_file" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
@@ -34,9 +34,10 @@
 		<s:convertEntity/>
 		
 	</h:selectOneMenu>
+	<h:message for="filesUploaded_realEstateProperty" styleClass="error errors"/>
 	</h:panelGroup>
 	
-	<h:message for="filesUploaded_realEstateProperty" styleClass="error errors"/>
 	
 	</h:panelGrid>
+  </s:validateAll>
 </ui:composition>
