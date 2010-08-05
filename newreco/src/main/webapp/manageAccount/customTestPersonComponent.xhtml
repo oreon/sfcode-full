@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+	<div class="entry errors"><h:messages globalOnly="true" /></div>
+
+	<h:form>
+		<h:panelGrid columns="3" styleClass="summarywrap">
+
+
+			<h:column>
+				<h:outputText value="Test Person First Name  " />
+				<br />
+				<h:inputText id="testPerson_firstName"
+					value="#{testPersonAction.testPerson.firstName}" size="40" />
+			</h:column>
+
+			<h:column>
+				<h:outputText value="Test Person Last Name  " />
+				<br />
+				<h:inputText id="testPerson_lastName"
+					value="#{testPersonAction.testPerson.lastName}" size="40" />
+			</h:column>
+
+			<h:column>
+				<h:outputText value="Test Person Observation  " />
+				<br />
+				<h:inputTextarea id="testPerson_observation"
+					value="#{testPersonAction.testPerson.observation}" size="40" />
+			</h:column>
+
+			<h:column>
+				<h:panelGroup>
+					<h:outputText value="Date of Birth  " />
+					<br />
+
+					<rich:calendar id="testPerson_dateOfBirth"
+						value="#{testPersonAction.testPerson.dateOfBirth}" />
+				</h:panelGroup>
+			</h:column>
+
+			<h:column>
+				<h:panelGroup>
+					<h:outputText value="Action Required  " />
+					<br />
+
+					<h:selectBooleanCheckbox id="testPerson_actionRequired"
+						value="#{testPersonAction.testPerson.actionRequired}" />
+
+				</h:panelGroup>
+			</h:column>
+
+
+
+
+		</h:panelGrid>
+		<br />
+
+		<h:panelGrid>
+
+			<h:column>
+				<h:panelGroup>
+					<h:column>
+						<h:commandButton action="#{testPersonAction.save}" value="Add">
+							<f:param name="conversationPropagation" value="end" />
+						</h:commandButton>
+					</h:column>
+				</h:panelGroup>
+			</h:column>
+		</h:panelGrid>
+
+
+	</h:form>
+
+
+
+
+
+
+</ui:composition>
+
