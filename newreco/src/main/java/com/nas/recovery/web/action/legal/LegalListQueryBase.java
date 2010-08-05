@@ -45,8 +45,6 @@ public abstract class LegalListQueryBase extends BaseQuery<Legal, Long> {
 
 			"legal.lawyer = #{legalList.legal.lawyer}",
 
-			"legal.realEstateProperty = #{legalList.legal.realEstateProperty}",
-
 			"legal.legalDescription = #{legalList.legal.legalDescription}",
 
 			"legal.titleInsuranceClaim = #{legalList.legal.titleInsuranceClaim}",
@@ -54,6 +52,10 @@ public abstract class LegalListQueryBase extends BaseQuery<Legal, Long> {
 			"lower(legal.titleInsuranceClaimNumber) like concat(lower(#{legalList.legal.titleInsuranceClaimNumber}),'%')",
 
 			"legal.titleInsurer = #{legalList.legal.titleInsurer}",
+
+			"legal.chargee = #{legalList.legal.chargee}",
+
+			"legal.realEstateProperty = #{legalList.legal.realEstateProperty}",
 
 			"legal.dateCreated <= #{legalList.dateCreatedRange.end}",
 			"legal.dateCreated >= #{legalList.dateCreatedRange.begin}",};

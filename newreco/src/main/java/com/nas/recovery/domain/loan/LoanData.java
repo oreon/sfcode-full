@@ -85,27 +85,27 @@ public class LoanData extends BusinessEntity implements java.io.Serializable {
 	@IndexedEmbedded
 	private Set<Borrower> borrowers = new HashSet<Borrower>();
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "lender_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Lender lender;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "mortgageInsurer_id", nullable = true, updatable = true)
 	@ContainedIn
 	protected MortgageInsurer mortgageInsurer;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "titleInsurer_id", nullable = true, updatable = true)
 	@ContainedIn
 	protected TitleInsurer titleInsurer;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "broker_id", nullable = true, updatable = true)
 	@ContainedIn
 	protected Broker broker;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "underwriter_id", nullable = true, updatable = true)
 	@ContainedIn
 	protected Underwriter underwriter;

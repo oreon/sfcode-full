@@ -50,11 +50,14 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 	@In(create = true, value = "lawyerAction")
 	com.nas.recovery.web.action.legal.LawyerAction lawyerAction;
 
-	@In(create = true, value = "realEstatePropertyAction")
-	com.nas.recovery.web.action.realestate.RealEstatePropertyAction realEstatePropertyAction;
-
 	@In(create = true, value = "titleInsurerAction")
 	com.nas.recovery.web.action.loan.TitleInsurerAction titleInsurerAction;
+
+	@In(create = true, value = "chargeeAction")
+	com.nas.recovery.web.action.legal.ChargeeAction chargeeAction;
+
+	@In(create = true, value = "realEstatePropertyAction")
+	com.nas.recovery.web.action.realestate.RealEstatePropertyAction realEstatePropertyAction;
 
 	@DataModel
 	private List<Legal> legalRecordList;
@@ -84,6 +87,26 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 			return getInstance().getLawyer().getId();
 		return 0L;
 	}
+	public void setTitleInsurerId(Long id) {
+		if (id != null && id > 0)
+			getInstance().setTitleInsurer(titleInsurerAction.loadFromId(id));
+	}
+
+	public Long getTitleInsurerId() {
+		if (getInstance().getTitleInsurer() != null)
+			return getInstance().getTitleInsurer().getId();
+		return 0L;
+	}
+	public void setChargeeId(Long id) {
+		if (id != null && id > 0)
+			getInstance().setChargee(chargeeAction.loadFromId(id));
+	}
+
+	public Long getChargeeId() {
+		if (getInstance().getChargee() != null)
+			return getInstance().getChargee().getId();
+		return 0L;
+	}
 	public void setRealEstatePropertyId(Long id) {
 		if (id != null && id > 0)
 			getInstance().setRealEstateProperty(
@@ -93,16 +116,6 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 	public Long getRealEstatePropertyId() {
 		if (getInstance().getRealEstateProperty() != null)
 			return getInstance().getRealEstateProperty().getId();
-		return 0L;
-	}
-	public void setTitleInsurerId(Long id) {
-		if (id != null && id > 0)
-			getInstance().setTitleInsurer(titleInsurerAction.loadFromId(id));
-	}
-
-	public Long getTitleInsurerId() {
-		if (getInstance().getTitleInsurer() != null)
-			return getInstance().getTitleInsurer().getId();
 		return 0L;
 	}
 
@@ -148,15 +161,20 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 		if (lawyer != null) {
 			getInstance().setLawyer(lawyer);
 		}
-		com.nas.recovery.domain.realestate.RealEstateProperty realEstateProperty = realEstatePropertyAction
-				.getDefinedInstance();
-		if (realEstateProperty != null) {
-			getInstance().setRealEstateProperty(realEstateProperty);
-		}
 		com.nas.recovery.domain.loan.TitleInsurer titleInsurer = titleInsurerAction
 				.getDefinedInstance();
 		if (titleInsurer != null) {
 			getInstance().setTitleInsurer(titleInsurer);
+		}
+		com.nas.recovery.domain.legal.Chargee chargee = chargeeAction
+				.getDefinedInstance();
+		if (chargee != null) {
+			getInstance().setChargee(chargee);
+		}
+		com.nas.recovery.domain.realestate.RealEstateProperty realEstateProperty = realEstatePropertyAction
+				.getDefinedInstance();
+		if (realEstateProperty != null) {
+			getInstance().setRealEstateProperty(realEstateProperty);
 		}
 
 	}
@@ -194,14 +212,19 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 					.getLawyer().getId()));
 		}
 
-		if (legal.getRealEstateProperty() != null) {
-			criteria = criteria.add(Restrictions.eq("realEstateProperty.id",
-					legal.getRealEstateProperty().getId()));
-		}
-
 		if (legal.getTitleInsurer() != null) {
 			criteria = criteria.add(Restrictions.eq("titleInsurer.id", legal
 					.getTitleInsurer().getId()));
+		}
+
+		if (legal.getChargee() != null) {
+			criteria = criteria.add(Restrictions.eq("chargee.id", legal
+					.getChargee().getId()));
+		}
+
+		if (legal.getRealEstateProperty() != null) {
+			criteria = criteria.add(Restrictions.eq("realEstateProperty.id",
+					legal.getRealEstateProperty().getId()));
 		}
 
 	}
@@ -216,13 +239,17 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 			lawyerAction.setEntity(getEntity().getLawyer());
 		}
 
+		if (legal.getTitleInsurer() != null) {
+			titleInsurerAction.setEntity(getEntity().getTitleInsurer());
+		}
+
+		if (legal.getChargee() != null) {
+			chargeeAction.setEntity(getEntity().getChargee());
+		}
+
 		if (legal.getRealEstateProperty() != null) {
 			realEstatePropertyAction.setEntity(getEntity()
 					.getRealEstateProperty());
-		}
-
-		if (legal.getTitleInsurer() != null) {
-			titleInsurerAction.setEntity(getEntity().getTitleInsurer());
 		}
 
 	}

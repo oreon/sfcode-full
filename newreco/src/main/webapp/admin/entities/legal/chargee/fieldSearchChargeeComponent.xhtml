@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>
+	<h:panelGrid columns="6">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.chargee_firstName}  "/> <br/>
+	
+		<h:inputText id="chargee_firstName" value="#{chargeeList.chargee.firstName}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.chargee_lastName}  "/> <br/>
+	
+		<h:inputText id="chargee_lastName" value="#{chargeeList.chargee.lastName}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.chargee_phone}  "/> <br/>
+	
+		<h:inputText id="chargee_phone" value="#{chargeeList.chargee.phone}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.chargee_email}  "/> <br/>
+	
+		<h:inputText id="chargee_email" value="#{chargeeList.chargee.email}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.chargee_company}  "/> <br/>
+	
+		<h:inputText id="chargee_company" value="#{chargeeList.chargee.company}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.chargee_amount}  "/> <br/>
+	
+	
+	<h:inputText id="chargee_amount_begin" value="#{chargeeList.chargee_amountRange.begin}">
+			<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	<h:inputText id="chargee_amount_end" value="#{chargeeList.chargee_amountRange.end}">
+		<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.chargee_priority}  "/> <br/>
+	
+	
+	<h:inputText id="chargee_priority_begin" value="#{chargeeList.chargee_priorityRange.begin}">
+			<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	<h:inputText id="chargee_priority_end" value="#{chargeeList.chargee_priorityRange.end}">
+		<f:converter converterId="javax.faces.Integer"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.chargee_chargeeType}  "/> <br/>
+	<h:selectOneMenu id="chargee_chargeeType" required="false" value="#{chargeeList.chargee.chargeeType}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Mortgage" itemValue="Mortgage"/>
+		<f:selectItem itemLabel="Mortgage_scl" itemValue="Mortgage_SCL"/>
+		<f:selectItem itemLabel="Lien_condo" itemValue="Lien_Condo"/>
+		<f:selectItem itemLabel="Lien_construction" itemValue="Lien_Construction"/>
+		<f:selectItem itemLabel="Mechanics" itemValue="Mechanics"/>
+		<f:selectItem itemLabel="Other" itemValue="Other"/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+	
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">From</ui:define> <br/>
+				<rich:calendar id="from" value="#{chargeeList.dateCreatedRange.begin}"/>
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">To</ui:define> <br/>
+				<rich:calendar id="to" value="#{chargeeList.dateCreatedRange.end}"/>
+			</s:decorate>
+
+	</h:panelGrid>
+</ui:composition>

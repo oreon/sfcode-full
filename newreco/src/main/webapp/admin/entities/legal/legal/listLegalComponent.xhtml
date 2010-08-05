@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
 	
 	
 <rich:panel>
@@ -113,21 +113,6 @@
 		</s:link>
 	</h:column>
 	
-		
-	<h:column>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{legalList}"/>
-				<ui:param name="propertyLabel" value="#{msg.legal_realEstateProperty}"/>
-				<ui:param name="propertyPath" value="legal.realEstateProperty"/>
-			</ui:include>
-		</f:facet>
-		<s:link value="#{_legal.realEstateProperty.displayName}" view="/admin/entities/realestate/realEstateProperty/viewRealEstateProperty.xhtml">
-			<f:param name="realEstatePropertyId" value="#{_legal.realEstateProperty.id}"/>
-			<f:param name="from" value="#{request.servletPath}"/>
-		</s:link>
-	</h:column>
-	
 	<h:column>
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
@@ -178,6 +163,36 @@
 		</f:facet>
 		<s:link value="#{_legal.titleInsurer.displayName}" view="/admin/entities/loan/titleInsurer/viewTitleInsurer.xhtml">
 			<f:param name="titleInsurerId" value="#{_legal.titleInsurer.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</h:column>
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{legalList}"/>
+				<ui:param name="propertyLabel" value="#{msg.legal_chargee}"/>
+				<ui:param name="propertyPath" value="legal.chargee"/>
+			</ui:include>
+		</f:facet>
+		<s:link value="#{_legal.chargee.displayName}" view="/admin/entities/legal/chargee/viewChargee.xhtml">
+			<f:param name="chargeeId" value="#{_legal.chargee.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</h:column>
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{legalList}"/>
+				<ui:param name="propertyLabel" value="#{msg.legal_realEstateProperty}"/>
+				<ui:param name="propertyPath" value="legal.realEstateProperty"/>
+			</ui:include>
+		</f:facet>
+		<s:link value="#{_legal.realEstateProperty.displayName}" view="/admin/entities/realestate/realEstateProperty/viewRealEstateProperty.xhtml">
+			<f:param name="realEstatePropertyId" value="#{_legal.realEstateProperty.id}"/>
 			<f:param name="from" value="#{request.servletPath}"/>
 		</s:link>
 	</h:column>
@@ -265,4 +280,4 @@
 </s:div>
 </h:form>
 
-</html>
+</ui:composition>

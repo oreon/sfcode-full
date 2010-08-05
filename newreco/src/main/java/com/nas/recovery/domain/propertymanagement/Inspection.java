@@ -54,7 +54,7 @@ public class Inspection extends BusinessEntity implements java.io.Serializable {
 
 	protected Boolean actionRequired;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "propertyManager_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected PropertyManager propertyManager;

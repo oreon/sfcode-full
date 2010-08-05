@@ -3,39 +3,41 @@
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>
+  <s:validateAll>
 	<h:panelGrid columns="3" styleClass="summarywrap">
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.utilitiy_name} * "/> <br/>
 	
 		<h:inputText id="utilitiy_name" value="#{utilitiyAction.utilitiy.name}"/>
+		<h:message for="utilitiy_name" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="utilitiy_name" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.utilitiy_transferred}  "/> <br/>
 	
 		<h:selectBooleanCheckbox id="utilitiy_transferred" value="#{utilitiyAction.utilitiy.transferred}"/>
+		<h:message for="utilitiy_transferred" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="utilitiy_transferred" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.utilitiy_accountNumber}  "/> <br/>
 	
 		<h:inputText id="utilitiy_accountNumber" value="#{utilitiyAction.utilitiy.accountNumber}"/>
+		<h:message for="utilitiy_accountNumber" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="utilitiy_accountNumber" styleClass="error errors"/>
 	
 	</h:panelGrid>
+  </s:validateAll>
 </ui:composition>

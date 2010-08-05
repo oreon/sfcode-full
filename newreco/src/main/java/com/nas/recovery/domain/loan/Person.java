@@ -54,7 +54,7 @@ public class Person extends BusinessEntity {
 	@IndexedEmbedded
 	protected ContactDetails contactDetails = new ContactDetails();
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", nullable = false, updatable = true)
 	@ContainedIn
 	@IndexedEmbedded

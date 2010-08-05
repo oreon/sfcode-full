@@ -3,6 +3,7 @@
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>
+  <s:validateAll>
 	<h:panelGrid columns="3" styleClass="summarywrap">
 	
 	<h:panelGroup>
@@ -12,91 +13,91 @@
 		<s:convertEntity/>
 		
 	</h:selectOneMenu>
+	<h:message for="insurerProcess_legal" styleClass="error errors"/>
 	</h:panelGroup>
 	
-	<h:message for="insurerProcess_legal" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.insurerProcess_process}  "/> <br/>
 	<h:selectOneMenu id="insurerProcess_process" required="false" value="#{insurerProcessAction.insurerProcess.process}">
-		<f:selectItem itemLabel="Any" itemValue=""/>
-		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
 		<f:selectItem itemLabel="Document_transferred_to_lender" itemValue="DOCUMENT_TRANSFERRED_TO_LENDER"/>
 		<f:selectItem itemLabel="Assignment_of_justice" itemValue="ASSIGNMENT_OF_JUSTICE"/>
 		<f:selectItem itemLabel="Claim_to_insurer" itemValue="CLAIM_TO_INSURER"/>
 		
 	</h:selectOneMenu>
+	<h:message for="insurerProcess_process" styleClass="error errors"/>
 	</h:panelGroup>
 
 	
-	<h:message for="insurerProcess_process" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.process_completedDate}  "/> <br/>
 	
 		<rich:calendar id="process_completedDate" value="#{insurerProcessAction.insurerProcess.completedDate}"/>
+		<h:message for="process_completedDate" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="process_completedDate" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.process_dueDate}  "/> <br/>
 	
 		<rich:calendar id="process_dueDate" value="#{insurerProcessAction.insurerProcess.dueDate}"/>
+		<h:message for="process_dueDate" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="process_dueDate" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.process_processNumber}  "/> <br/>
 	
 		<h:inputText id="process_processNumber" value="#{insurerProcessAction.insurerProcess.processNumber}"/>
+		<h:message for="process_processNumber" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="process_processNumber" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.process_documentAdded}  "/> <br/>
 	
 		<h:selectBooleanCheckbox id="process_documentAdded" value="#{insurerProcessAction.insurerProcess.documentAdded}"/>
+		<h:message for="process_documentAdded" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="process_documentAdded" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.process_notRequired}  "/> <br/>
 	
 		<h:selectBooleanCheckbox id="process_notRequired" value="#{insurerProcessAction.insurerProcess.notRequired}"/>
+		<h:message for="process_notRequired" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="process_notRequired" styleClass="error errors"/>
 	
 	
 	<h:panelGroup>
 	<h:outputText value="#{msg.process_explanation}  "/> <br/>
 	
 		<rich:editor id="process_explanation" useSeamText="true" value="#{insurerProcessAction.insurerProcess.explanation}"/>
+		<h:message for="process_explanation" styleClass="error errors"/>
 	
 	</h:panelGroup>
 
 	
-	<h:message for="process_explanation" styleClass="error errors"/>
 	
 	</h:panelGrid>
+  </s:validateAll>
 </ui:composition>
