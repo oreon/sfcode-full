@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+	<div class="entry errors"><h:messages globalOnly="true" /></div>
+	<s:validateAll>
+		<h:panelGrid columns="3" styleClass="summarywrap">
+			<h:panelGroup>
+				<h:outputText value="#{msg.lawyer_lawfirm}  " />
+				<br />
+
+
+
+				<h:selectOneMenu id="lawyer_lawfirm" required="true"
+					value="#{lawyerAction.lawyer.lawfirm}">
+					<s:selectItems label="#{itemIter.displayName}"
+						noSelectionLabel="Please Select..." value="#{lawfirmList}"
+						var="itemIter" />
+					<s:convertEntity />
+				</h:selectOneMenu>
+			</h:panelGroup>
+
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.legal_lawyer}  " />
+				<br />
+				<h:selectOneMenu id="legal_lawyer"
+					value="#{legalAction.legal.lawyer}">
+					<s:selectItems label="#{itemIter.displayName}"
+						noSelectionLabel="Select.." value="#{lawyerList}" var="itemIter" />
+					<s:convertEntity />
+
+				</h:selectOneMenu>
+				<h:message for="legal_lawyer" styleClass="error errors" />
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.legal_lawClerk}  " />
+				<br />
+				<h:selectOneMenu id="legal_lawClerk" label="#{msg.legal_lawClerk}"
+					value="#{legalAction.legal.lawyer}">
+					<s:selectItems label="#{itemIter.displayName}"
+						noSelectionLabel="Select.." value="#{lawClerkList}" var="itemIter" />
+					<s:convertEntity />
+
+				</h:selectOneMenu>
+				<h:message for="legal_lawClerk" styleClass="error errors" />
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.legal_legalFileNumber}  " />
+				<br />
+
+				<h:inputText id="legal_legalFileNumber"
+					value="#{legalAction.legal.legalFileNumber}" />
+				<h:message for="legal_legalFileNumber" styleClass="error errors" />
+
+			</h:panelGroup>
+
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.legal_litigation}  " />
+				<br />
+
+				<h:selectBooleanCheckbox id="legal_litigation"
+					value="#{legalAction.legal.litigation}" />
+				<h:message for="legal_litigation" styleClass="error errors" />
+
+			</h:panelGroup>
+
+
+		</h:panelGrid>
+
+		<h:panelGroup>
+			<h:outputText value="#{msg.legal_legalComments}  " />
+			<br />
+
+			<rich:editor id="legal_legalComments" useSeamText="true"
+				value="#{legalAction.legal.legalComments}" />
+			<h:message for="legal_legalComments" styleClass="error errors" />
+
+		</h:panelGroup>
+
+
+		<h:panelGroup>
+			<h:outputText value="#{msg.legal_courtNumber}  " />
+			<br />
+
+			<h:inputText id="legal_courtNumber"
+				value="#{legalAction.legal.courtNumber}" />
+			<h:message for="legal_courtNumber" styleClass="error errors" />
+
+		</h:panelGroup>
+
+
+
+		<br />
+
+		<h:panelGroup>
+			<h:outputText value="#{msg.legal_legalDescription}  " />
+			<br />
+
+			<rich:editor id="legal_legalDescription" useSeamText="true"
+				value="#{legalAction.legal.legalDescription}" />
+			<h:message for="legal_legalDescription" styleClass="error errors" />
+
+		</h:panelGroup>
+
+		<h:panelGrid columns="2" styleClass="summarywrap">
+		
+			<h:panelGroup>
+				<h:outputText value="#{msg.legal_pid}:  " />
+				
+
+				<h:outputText value="PID  " />
+
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.legal_landRegistryId}:  " />
+				
+
+				<h:outputText value="Land Registry ID  " />
+
+			</h:panelGroup>
+ 			
+  		</h:panelGrid>
+
+
+		<h:panelGroup>
+			<h:outputText value="#{msg.legal_specialHandling}  " />
+			<br />
+			<h:selectOneMenu id="legal_specialHandling" required="false"
+				value="#{legalAction.legal.specialHandling}">
+				<f:selectItem itemLabel="Please Select..." itemValue="" />
+				<f:selectItem itemLabel="Breach_of_contract"
+					itemValue="BREACH_OF_CONTRACT" />
+				<f:selectItem itemLabel="Drug_lab_or_growup"
+					itemValue="DRUG_LAB_OR_GROWUP" />
+				<f:selectItem itemLabel="Environmental" itemValue="ENVIRONMENTAL" />
+				<f:selectItem itemLabel="Fraud" itemValue="FRAUD" />
+				<f:selectItem itemLabel="Impariment_insurance_claim"
+					itemValue="IMPARIMENT_INSURANCE_CLAIM" />
+				<f:selectItem itemLabel="Litigation" itemValue="LITIGATION" />
+				<f:selectItem itemLabel="Title_insurance"
+					itemValue="TITLE_INSURANCE" />
+				<f:selectItem itemLabel="Other" itemValue="OTHER" />
+
+			</h:selectOneMenu>
+			<h:message for="legal_specialHandling" styleClass="error errors" />
+		</h:panelGroup>
+
+		<h:panelGrid columns="3" styleClass="summarywrap">
+			<h:panelGroup>
+				<h:outputText value="#{msg.legal_titleInsurer}  " />
+				<br />
+				<h:selectOneMenu id="legal_titleInsurer"
+					value="#{legalAction.legal.titleInsurer}">
+					<s:selectItems label="#{itemIter.displayName}"
+						noSelectionLabel="Select.." value="#{titleInsurerList}"
+						var="itemIter" />
+					<s:convertEntity />
+
+				</h:selectOneMenu>
+				<h:message for="legal_titleInsurer" styleClass="error errors" />
+			</h:panelGroup>
+
+
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.legal_titleInsuranceClaim}  " />
+				<br />
+
+				<h:selectBooleanCheckbox id="legal_titleInsuranceClaim"
+					value="#{legalAction.legal.titleInsuranceClaim}" />
+				<h:message for="legal_titleInsuranceClaim" styleClass="error errors" />
+
+			</h:panelGroup>
+
+
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.legal_titleInsuranceClaimNumber}  " />
+				<br />
+
+				<h:inputText id="legal_titleInsuranceClaimNumber"
+					value="#{legalAction.legal.titleInsuranceClaimNumber}" />
+				<h:message for="legal_titleInsuranceClaimNumber"
+					styleClass="error errors" />
+
+			</h:panelGroup>
+		</h:panelGrid>
+
+		<h:panelGrid columns="3" styleClass="summarywrap">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.legal_chargee}  " />
+				<br />
+				<h:selectOneMenu id="legal_chargee"
+					value="#{legalAction.legal.chargee}">
+					<s:selectItems label="#{itemIter.displayName}"
+						noSelectionLabel="Select.." value="#{chargeeList}" var="itemIter" />
+					<s:convertEntity />
+
+				</h:selectOneMenu>
+				<h:message for="legal_chargee" styleClass="error errors" />
+			</h:panelGroup>
+
+
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.legal_realEstateProperty}  " />
+				<br />
+				<h:selectOneMenu id="legal_realEstateProperty"
+					value="#{legalAction.legal.realEstateProperty}">
+					<s:selectItems label="#{itemIter.displayName}"
+						noSelectionLabel="Select.." value="#{realEstatePropertyList}"
+						var="itemIter" />
+					<s:convertEntity />
+
+				</h:selectOneMenu>
+				<h:message for="legal_realEstateProperty" styleClass="error errors" />
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.legal_status}  " />
+				<br />
+				<h:selectOneMenu id="legal_status" required="false"
+					value="#{legalAction.legal.status}">
+					<f:selectItem itemLabel="Please Select..." itemValue="" />
+					<f:selectItem itemLabel="Demand_issued" itemValue="DEMAND_ISSUED" />
+					<f:selectItem itemLabel="Soc_issued" itemValue="SOC_ISSUED" />
+					<f:selectItem itemLabel="Soc_served" itemValue="SOC_SERVED" />
+					<f:selectItem itemLabel="Nos_issued" itemValue="NOS_ISSUED" />
+					<f:selectItem itemLabel="Nos_expired_vt" itemValue="NOS_EXPIRED_VT" />
+					<f:selectItem itemLabel="Nos_expired_er" itemValue="NOS_EXPIRED_ER" />
+					<f:selectItem itemLabel="On_hold_pending_sale"
+						itemValue="ON_HOLD_PENDING_SALE" />
+					<f:selectItem itemLabel="Sold_pending_cd"
+						itemValue="SOLD_PENDING_CD" />
+
+				</h:selectOneMenu>
+				<h:message for="legal_status" styleClass="error errors" />
+			</h:panelGroup>
+
+
+		</h:panelGrid>
+	</s:validateAll>
+</ui:composition>
