@@ -10,6 +10,30 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
 	<div class="entry errors"><h:messages globalOnly="true" /></div>
 	<s:validateAll>
+
+		<h:panelGroup>
+			<h:outputText value="#{msg.legal_status}  " />
+			<br />
+			<h:selectOneMenu id="legal_status" required="false"
+				value="#{legalAction.legal.status}">
+				<f:selectItem itemLabel="Please Select..." itemValue="" />
+				<f:selectItem itemLabel="Demand_issued" itemValue="DEMAND_ISSUED" />
+				<f:selectItem itemLabel="Soc_issued" itemValue="SOC_ISSUED" />
+				<f:selectItem itemLabel="Soc_served" itemValue="SOC_SERVED" />
+				<f:selectItem itemLabel="Nos_issued" itemValue="NOS_ISSUED" />
+				<f:selectItem itemLabel="Nos_expired_vt" itemValue="NOS_EXPIRED_VT" />
+				<f:selectItem itemLabel="Nos_expired_er" itemValue="NOS_EXPIRED_ER" />
+				<f:selectItem itemLabel="On_hold_pending_sale"
+					itemValue="ON_HOLD_PENDING_SALE" />
+				<f:selectItem itemLabel="Sold_pending_cd"
+					itemValue="SOLD_PENDING_CD" />
+
+			</h:selectOneMenu>
+			<h:message for="legal_status" styleClass="error errors" />
+		</h:panelGroup>
+
+		<br />
+		<br />
 		<h:panelGrid columns="3" styleClass="summarywrap">
 			<h:panelGroup>
 				<h:outputText value="#{msg.lawyer_lawfirm}  " />
@@ -52,6 +76,7 @@
 				<h:message for="legal_lawClerk" styleClass="error errors" />
 			</h:panelGroup>
 
+
 			<h:panelGroup>
 				<h:outputText value="#{msg.legal_legalFileNumber}  " />
 				<br />
@@ -75,46 +100,49 @@
 
 
 		</h:panelGrid>
-
-		<h:panelGroup>
-			<h:outputText value="#{msg.legal_legalComments}  " />
-			<br />
-
-			<rich:editor id="legal_legalComments" useSeamText="true"
-				value="#{legalAction.legal.legalComments}" />
-			<h:message for="legal_legalComments" styleClass="error errors" />
-
-		</h:panelGroup>
-
-
-		<h:panelGroup>
-			<h:outputText value="#{msg.legal_courtNumber}  " />
-			<br />
-
-			<h:inputText id="legal_courtNumber"
-				value="#{legalAction.legal.courtNumber}" />
-			<h:message for="legal_courtNumber" styleClass="error errors" />
-
-		</h:panelGroup>
-
-
 		<br />
+		<h:panelGrid>
+			<h:panelGroup>
+				<h:outputText value="#{msg.legal_legalComments}  " />
+				<br />
 
-		<h:panelGroup>
-			<h:outputText value="#{msg.legal_legalDescription}  " />
-			<br />
+				<rich:editor id="legal_legalComments" useSeamText="true"
+					value="#{legalAction.legal.legalComments}" />
+				<h:message for="legal_legalComments" styleClass="error errors" />
 
-			<rich:editor id="legal_legalDescription" useSeamText="true"
-				value="#{legalAction.legal.legalDescription}" />
-			<h:message for="legal_legalDescription" styleClass="error errors" />
+			</h:panelGroup>
+		</h:panelGrid>
+		<br />
+		<h:panelGrid>
+			<h:panelGroup>
+				<h:outputText value="#{msg.legal_courtNumber}  " />
+				<br />
 
-		</h:panelGroup>
+				<h:inputText id="legal_courtNumber"
+					value="#{legalAction.legal.courtNumber}" />
+				<h:message for="legal_courtNumber" styleClass="error errors" />
 
-		<h:panelGrid columns="2" styleClass="summarywrap">
+			</h:panelGroup>
+		</h:panelGrid>
+		<br />
 		
+		<h:panelGrid>
+			<h:panelGroup>
+				<h:outputText value="#{msg.legal_legalDescription}  " />
+				<br />
+
+				<rich:editor id="legal_legalDescription" useSeamText="true"
+					value="#{legalAction.legal.legalDescription}" />
+				<h:message for="legal_legalDescription" styleClass="error errors" />
+
+			</h:panelGroup>
+		</h:panelGrid>
+		<br />
+		<h:panelGrid columns="2" styleClass="summarywrap">
+
 			<h:panelGroup>
 				<h:outputText value="#{msg.legal_pid}:  " />
-				
+
 
 				<h:outputText value="PID  " />
 
@@ -122,13 +150,13 @@
 
 			<h:panelGroup>
 				<h:outputText value="#{msg.legal_landRegistryId}:  " />
-				
+
 
 				<h:outputText value="Land Registry ID  " />
 
 			</h:panelGroup>
- 			
-  		</h:panelGrid>
+
+		</h:panelGrid>
 
 
 		<h:panelGroup>
@@ -179,7 +207,7 @@
 				<h:message for="legal_titleInsuranceClaim" styleClass="error errors" />
 
 			</h:panelGroup>
-
+			<br />
 
 			<h:panelGroup>
 				<h:outputText value="#{msg.legal_titleInsuranceClaimNumber}  " />
@@ -193,7 +221,7 @@
 			</h:panelGroup>
 		</h:panelGrid>
 
-		<h:panelGrid columns="3" styleClass="summarywrap">
+		<h:panelGrid columns="3" styleClass="summarywrap" rendered="false">
 
 
 			<h:panelGroup>
@@ -224,26 +252,7 @@
 				<h:message for="legal_realEstateProperty" styleClass="error errors" />
 			</h:panelGroup>
 
-			<h:panelGroup>
-				<h:outputText value="#{msg.legal_status}  " />
-				<br />
-				<h:selectOneMenu id="legal_status" required="false"
-					value="#{legalAction.legal.status}">
-					<f:selectItem itemLabel="Please Select..." itemValue="" />
-					<f:selectItem itemLabel="Demand_issued" itemValue="DEMAND_ISSUED" />
-					<f:selectItem itemLabel="Soc_issued" itemValue="SOC_ISSUED" />
-					<f:selectItem itemLabel="Soc_served" itemValue="SOC_SERVED" />
-					<f:selectItem itemLabel="Nos_issued" itemValue="NOS_ISSUED" />
-					<f:selectItem itemLabel="Nos_expired_vt" itemValue="NOS_EXPIRED_VT" />
-					<f:selectItem itemLabel="Nos_expired_er" itemValue="NOS_EXPIRED_ER" />
-					<f:selectItem itemLabel="On_hold_pending_sale"
-						itemValue="ON_HOLD_PENDING_SALE" />
-					<f:selectItem itemLabel="Sold_pending_cd"
-						itemValue="SOLD_PENDING_CD" />
 
-				</h:selectOneMenu>
-				<h:message for="legal_status" styleClass="error errors" />
-			</h:panelGroup>
 
 
 		</h:panelGrid>
