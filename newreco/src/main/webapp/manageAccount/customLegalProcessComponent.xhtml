@@ -64,15 +64,7 @@
 
 			<br />
 
-			<h:panelGroup>
-				<h:outputText value="#{msg.process_explanation}  " />
-				<br />
 
-				<rich:editor id="process_explanation" useSeamText="true"
-					value="#{legalProcessAction.legalProcess.explanation}" />
-				<h:message for="process_explanation" styleClass="error errors" />
-
-			</h:panelGroup>
 
 		</h:panelGrid>
 
@@ -88,7 +80,6 @@
 
 			</h:panelGroup>
 
-
 			<h:panelGroup>
 				<h:outputText value="#{msg.process_notRequired}  " />
 				<br />
@@ -96,22 +87,45 @@
 				<h:selectBooleanCheckbox id="process_notRequired"
 					value="#{legalProcessAction.legalProcess.notRequired}" />
 				<h:message for="process_notRequired" styleClass="error errors" />
-
 			</h:panelGroup>
+			
+			<br />
+		</h:panelGrid>
 
 
-			<h:panelGroup rendered="false">
-				<h:outputText value="#{msg.process_processNumber}  " />
-				<br />
 
-				<h:inputText id="process_processNumber"
-					value="#{legalProcessAction.legalProcess.processNumber}" />
-				<h:message for="process_processNumber" styleClass="error errors" />
 
-			</h:panelGroup>
 
+
+
+		<h:panelGroup rendered="false">
+			<h:outputText value="#{msg.process_processNumber}  " />
 			<br />
 
+			<h:inputText id="process_processNumber"
+				value="#{legalProcessAction.legalProcess.processNumber}" />
+			<h:message for="process_processNumber" styleClass="error errors" />
+
+		</h:panelGroup>
+
+
+
+		<h:panelGroup>
+			<br />
+			<h:outputText value="#{msg.process_explanation}  " />
+			<br />
+
+			<rich:editor id="process_explanation" useSeamText="true"
+				value="#{legalProcessAction.legalProcess.explanation}" />
+			<h:message for="process_explanation" styleClass="error errors" />
+
+		</h:panelGroup>
+
+		<br />
+
+
+
+		<h:panelGrid columns="3" styleClass="summarywrap">
 			<h:panelGroup>
 				<h:outputText value="#{msg.process_completedDate}  " />
 				<br />
@@ -134,8 +148,11 @@
 				<h:message for="process_documentAdded" styleClass="error errors" />
 
 			</h:panelGroup>
-
-
+			
 		</h:panelGrid>
+
+
+
+
 	</s:validateAll>
 </ui:composition>

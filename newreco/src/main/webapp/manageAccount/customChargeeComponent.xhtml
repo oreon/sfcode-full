@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>
+  <s:validateAll>
+	<h:panelGrid columns="3" styleClass="summarywrap">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.chargee_firstName}  "/> <br/>
+	
+		<h:inputText id="chargee_firstName" value="#{chargeeAction.chargee.firstName}"/>
+		<h:message for="chargee_firstName" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.chargee_lastName}  "/> <br/>
+	
+		<h:inputText id="chargee_lastName" value="#{chargeeAction.chargee.lastName}"/>
+		<h:message for="chargee_lastName" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.chargee_phone}  "/> <br/>
+	
+		<h:inputText id="chargee_phone" value="#{chargeeAction.chargee.phone}"/>
+		<h:message for="chargee_phone" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.chargee_email}  "/> <br/>
+	
+		<h:inputText id="chargee_email" value="#{chargeeAction.chargee.email}"/>
+		<h:message for="chargee_email" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.chargee_company}  "/> <br/>
+	
+		<h:inputText id="chargee_company" value="#{chargeeAction.chargee.company}"/>
+		<h:message for="chargee_company" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.chargee_amount}  "/> <br/>
+	
+		<h:inputText id="chargee_amount" value="#{chargeeAction.chargee.amount}"/>
+		<h:message for="chargee_amount" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.chargee_priority}  "/> <br/>
+	
+		<h:inputText id="chargee_priority" value="#{chargeeAction.chargee.priority}"/>
+		<h:message for="chargee_priority" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.chargee_chargeeType}  "/> <br/>
+	<h:selectOneMenu id="chargee_chargeeType" required="false" value="#{chargeeAction.chargee.chargeeType}">
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
+		<f:selectItem itemLabel="Mortgage" itemValue="Mortgage"/>
+		<f:selectItem itemLabel="Mortgage_scl" itemValue="Mortgage_SCL"/>
+		<f:selectItem itemLabel="Lien_condo" itemValue="Lien_Condo"/>
+		<f:selectItem itemLabel="Lien_construction" itemValue="Lien_Construction"/>
+		<f:selectItem itemLabel="Mechanics" itemValue="Mechanics"/>
+		<f:selectItem itemLabel="Other" itemValue="Other"/>
+		
+	</h:selectOneMenu>
+	<h:message for="chargee_chargeeType" styleClass="error errors"/>
+	</h:panelGroup>
+
+	
+	
+	</h:panelGrid>
+  </s:validateAll>
+</ui:composition>
