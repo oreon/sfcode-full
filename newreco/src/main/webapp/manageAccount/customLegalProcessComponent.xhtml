@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+	<div class="entry errors"><h:messages globalOnly="true" /></div>
+	<s:validateAll>
+		<h:panelGrid columns="1" styleClass="summarywrap">
+
+			<h:panelGroup rendered="false">
+				<h:outputText value="#{msg.legalProcess_legal}  " />
+				<br />
+				<h:selectOneMenu id="legalProcess_legal"
+					value="#{legalProcessAction.legalProcess.legal}">
+					<s:selectItems label="#{itemIter.displayName}"
+						noSelectionLabel="Select.." value="#{legalList}" var="itemIter" />
+					<s:convertEntity />
+
+				</h:selectOneMenu>
+				<h:message for="legalProcess_legal" styleClass="error errors" />
+			</h:panelGroup>
+
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.legalProcess_process}  " />
+				<br />
+				<h:selectOneMenu id="legalProcess_process" required="false"
+					value="#{legalProcessAction.legalProcess.process}">
+					<f:selectItem itemLabel="Please Select..." itemValue="" />
+					<f:selectItem itemLabel="Assignment_judgement"
+						itemValue="ASSIGNMENT_JUDGEMENT" />
+					<f:selectItem itemLabel="Demand_letter" itemValue="DEMAND_LETTER" />
+					<f:selectItem itemLabel="Eviction_letter"
+						itemValue="EVICTION_LETTER" />
+					<f:selectItem itemLabel="Judgement" itemValue="JUDGEMENT" />
+					<f:selectItem itemLabel="Notice_of_sale" itemValue="NOTICE_OF_SALE" />
+					<f:selectItem itemLabel="Right_to_sell" itemValue="RIGHT_TO_SELL" />
+					<f:selectItem itemLabel="Statement_of_claim"
+						itemValue="STATEMENT_OF_CLAIM" />
+					<f:selectItem itemLabel="Statement_of_defence"
+						itemValue="STATEMENT_OF_DEFENCE" />
+					<f:selectItem itemLabel="Tenancy_attornment_notice"
+						itemValue="TENANCY_ATTORNMENT_NOTICE" />
+					<f:selectItem itemLabel="Tenancy_eviction_order"
+						itemValue="TENANCY_EVICTION_ORDER" />
+					<f:selectItem itemLabel="Tenancy_ltb_dearing_date"
+						itemValue="TENANCY_LTB_DEARING_DATE" />
+					<f:selectItem itemLabel="Tenancy_n4_issued"
+						itemValue="TENANCY_N4_ISSUED" />
+					<f:selectItem itemLabel="Writ_possession"
+						itemValue="WRIT_POSSESSION" />
+					<f:selectItem itemLabel="Writ_seizure_and_sale"
+						itemValue="WRIT_SEIZURE_AND_SALE" />
+					<f:selectItem itemLabel="Other" itemValue="OTHER" />
+
+				</h:selectOneMenu>
+				<h:message for="legalProcess_process" styleClass="error errors" />
+			</h:panelGroup>
+
+			<br />
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.process_explanation}  " />
+				<br />
+
+				<rich:editor id="process_explanation" useSeamText="true"
+					value="#{legalProcessAction.legalProcess.explanation}" />
+				<h:message for="process_explanation" styleClass="error errors" />
+
+			</h:panelGroup>
+
+		</h:panelGrid>
+
+		<h:panelGrid columns="3" styleClass="summarywrap">
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.process_dueDate}  " />
+				<br />
+
+				<rich:calendar id="process_dueDate"
+					value="#{legalProcessAction.legalProcess.dueDate}" />
+				<h:message for="process_dueDate" styleClass="error errors" />
+
+			</h:panelGroup>
+
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.process_notRequired}  " />
+				<br />
+
+				<h:selectBooleanCheckbox id="process_notRequired"
+					value="#{legalProcessAction.legalProcess.notRequired}" />
+				<h:message for="process_notRequired" styleClass="error errors" />
+
+			</h:panelGroup>
+
+
+			<h:panelGroup rendered="false">
+				<h:outputText value="#{msg.process_processNumber}  " />
+				<br />
+
+				<h:inputText id="process_processNumber"
+					value="#{legalProcessAction.legalProcess.processNumber}" />
+				<h:message for="process_processNumber" styleClass="error errors" />
+
+			</h:panelGroup>
+
+			<br />
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.process_completedDate}  " />
+				<br />
+
+				<rich:calendar id="process_completedDate"
+					value="#{legalProcessAction.legalProcess.completedDate}" />
+				<h:message for="process_completedDate" styleClass="error errors" />
+
+			</h:panelGroup>
+
+
+
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.process_documentAdded}  " />
+				<br />
+
+				<h:selectBooleanCheckbox id="process_documentAdded"
+					value="#{legalProcessAction.legalProcess.documentAdded}" />
+				<h:message for="process_documentAdded" styleClass="error errors" />
+
+			</h:panelGroup>
+
+
+		</h:panelGrid>
+	</s:validateAll>
+</ui:composition>
