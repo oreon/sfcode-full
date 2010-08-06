@@ -155,7 +155,7 @@ public abstract class LawyerActionBase
 	public void loadAssociations() {
 
 		if (lawyer.getLawfirm() != null) {
-			lawfirmAction.setEntity(getEntity().getLawfirm());
+			lawfirmAction.setInstance(getInstance().getLawfirm());
 		}
 
 	}

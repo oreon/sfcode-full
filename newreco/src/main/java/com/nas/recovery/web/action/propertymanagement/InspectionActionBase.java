@@ -154,7 +154,8 @@ public abstract class InspectionActionBase extends BaseAction<Inspection>
 	public void loadAssociations() {
 
 		if (inspection.getPropertyManager() != null) {
-			propertyManagerAction.setEntity(getEntity().getPropertyManager());
+			propertyManagerAction.setInstance(getInstance()
+					.getPropertyManager());
 		}
 
 	}

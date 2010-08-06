@@ -154,7 +154,7 @@ public abstract class AppraisalActionBase extends BaseAction<Appraisal>
 	public void loadAssociations() {
 
 		if (appraisal.getRealEstateProperty() != null) {
-			realEstatePropertyAction.setEntity(getEntity()
+			realEstatePropertyAction.setInstance(getInstance()
 					.getRealEstateProperty());
 		}
 

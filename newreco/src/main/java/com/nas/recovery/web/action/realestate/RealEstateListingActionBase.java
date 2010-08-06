@@ -229,20 +229,21 @@ public abstract class RealEstateListingActionBase
 	public void loadAssociations() {
 
 		if (realEstateListing.getRealEstateBoard() != null) {
-			realEstateBoardAction.setEntity(getEntity().getRealEstateBoard());
+			realEstateBoardAction.setInstance(getInstance()
+					.getRealEstateBoard());
 		}
 
 		if (realEstateListing.getRealEstateProperty() != null) {
-			realEstatePropertyAction.setEntity(getEntity()
+			realEstatePropertyAction.setInstance(getInstance()
 					.getRealEstateProperty());
 		}
 
 		if (realEstateListing.getMaster() != null) {
-			masterAction.setEntity(getEntity().getMaster());
+			masterAction.setInstance(getInstance().getMaster());
 		}
 
 		if (realEstateListing.getSubagent() != null) {
-			subagentAction.setEntity(getEntity().getSubagent());
+			subagentAction.setInstance(getInstance().getSubagent());
 		}
 
 	}
