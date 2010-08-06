@@ -236,7 +236,7 @@
 «IF isFile()»
 	«IF isCurrentEditMode() »  «getTextForImgFile()»  «ELSE» «EXPAND getFileView » «ENDIF»
 «ELSE»
-	<«getTextControl()»  id="«getId()»#{entityId}" «isCurrentEditMode()? "required=\"" + getRequired() +"\"":""»  value="#{«getActionForMode()»«genPropertyLabel()»}" />
+	<«getTextControl()»  id="«getId()»#{entityId}" «isCurrentEditMode()? " label=\"#{" + msgBundleKey() + "}\"  required=\"" + getRequired() +"\"":""»  value="#{«getActionForMode()»«genPropertyLabel()»}" />
 «ENDIF»   
 «ENDDEFINE»
 
