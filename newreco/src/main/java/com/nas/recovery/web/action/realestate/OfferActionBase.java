@@ -154,7 +154,7 @@ public abstract class OfferActionBase extends BaseAction<Offer>
 	public void loadAssociations() {
 
 		if (offer.getRealEstateListing() != null) {
-			realEstateListingAction.setEntity(getEntity()
+			realEstateListingAction.setInstance(getInstance()
 					.getRealEstateListing());
 		}
 

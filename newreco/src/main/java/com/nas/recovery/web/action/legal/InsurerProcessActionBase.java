@@ -155,7 +155,7 @@ public abstract class InsurerProcessActionBase
 	public void loadAssociations() {
 
 		if (insurerProcess.getLegal() != null) {
-			legalAction.setEntity(getEntity().getLegal());
+			legalAction.setInstance(getInstance().getLegal());
 		}
 
 	}

@@ -155,7 +155,7 @@ public abstract class ClosingProcessActionBase
 	public void loadAssociations() {
 
 		if (closingProcess.getLegal() != null) {
-			legalAction.setEntity(getEntity().getLegal());
+			legalAction.setInstance(getInstance().getLegal());
 		}
 
 	}

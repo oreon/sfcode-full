@@ -155,7 +155,7 @@ public abstract class LenderContactActionBase
 	public void loadAssociations() {
 
 		if (lenderContact.getLender() != null) {
-			lenderAction.setEntity(getEntity().getLender());
+			lenderAction.setInstance(getInstance().getLender());
 		}
 
 	}

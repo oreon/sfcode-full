@@ -153,7 +153,7 @@ public abstract class BankruptcyActionBase extends BaseAction<Bankruptcy>
 	public void loadAssociations() {
 
 		if (bankruptcy.getLegal() != null) {
-			legalAction.setEntity(getEntity().getLegal());
+			legalAction.setInstance(getInstance().getLegal());
 		}
 
 	}

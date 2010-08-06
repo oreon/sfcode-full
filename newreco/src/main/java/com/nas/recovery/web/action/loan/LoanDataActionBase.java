@@ -246,23 +246,24 @@ public abstract class LoanDataActionBase extends BaseAction<LoanData>
 	public void loadAssociations() {
 
 		if (loanData.getLender() != null) {
-			lenderAction.setEntity(getEntity().getLender());
+			lenderAction.setInstance(getInstance().getLender());
 		}
 
 		if (loanData.getMortgageInsurer() != null) {
-			mortgageInsurerAction.setEntity(getEntity().getMortgageInsurer());
+			mortgageInsurerAction.setInstance(getInstance()
+					.getMortgageInsurer());
 		}
 
 		if (loanData.getTitleInsurer() != null) {
-			titleInsurerAction.setEntity(getEntity().getTitleInsurer());
+			titleInsurerAction.setInstance(getInstance().getTitleInsurer());
 		}
 
 		if (loanData.getBroker() != null) {
-			brokerAction.setEntity(getEntity().getBroker());
+			brokerAction.setInstance(getInstance().getBroker());
 		}
 
 		if (loanData.getUnderwriter() != null) {
-			underwriterAction.setEntity(getEntity().getUnderwriter());
+			underwriterAction.setInstance(getInstance().getUnderwriter());
 		}
 
 	}

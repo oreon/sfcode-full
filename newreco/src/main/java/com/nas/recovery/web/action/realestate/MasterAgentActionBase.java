@@ -156,7 +156,7 @@ public abstract class MasterAgentActionBase
 	public void loadAssociations() {
 
 		if (masterAgent.getRealEstateFirm() != null) {
-			realEstateFirmAction.setEntity(getEntity().getRealEstateFirm());
+			realEstateFirmAction.setInstance(getInstance().getRealEstateFirm());
 		}
 
 	}

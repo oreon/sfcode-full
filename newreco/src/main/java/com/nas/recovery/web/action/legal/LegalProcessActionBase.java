@@ -155,7 +155,7 @@ public abstract class LegalProcessActionBase
 	public void loadAssociations() {
 
 		if (legalProcess.getLegal() != null) {
-			legalAction.setEntity(getEntity().getLegal());
+			legalAction.setInstance(getInstance().getLegal());
 		}
 
 	}

@@ -204,11 +204,11 @@ public abstract class RealEstatePropertyActionBase
 	public void loadAssociations() {
 
 		if (realEstateProperty.getInsurer() != null) {
-			insurerAction.setEntity(getEntity().getInsurer());
+			insurerAction.setInstance(getInstance().getInsurer());
 		}
 
 		if (realEstateProperty.getLegal() != null) {
-			legalAction.setEntity(getEntity().getLegal());
+			legalAction.setInstance(getInstance().getLegal());
 		}
 
 		try {

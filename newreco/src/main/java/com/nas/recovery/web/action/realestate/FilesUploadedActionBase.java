@@ -160,7 +160,7 @@ public abstract class FilesUploadedActionBase extends BaseAction<FilesUploaded>
 	public void loadAssociations() {
 
 		if (filesUploaded.getRealEstateProperty() != null) {
-			realEstatePropertyAction.setEntity(getEntity()
+			realEstatePropertyAction.setInstance(getInstance()
 					.getRealEstateProperty());
 		}
 

@@ -154,7 +154,7 @@ public abstract class TenantInfoActionBase extends BaseAction<TenantInfo>
 	public void loadAssociations() {
 
 		if (tenantInfo.getRealEstateProperty() != null) {
-			realEstatePropertyAction.setEntity(getEntity()
+			realEstatePropertyAction.setInstance(getInstance()
 					.getRealEstateProperty());
 		}
 

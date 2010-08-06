@@ -236,19 +236,19 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 	public void loadAssociations() {
 
 		if (legal.getLawyer() != null) {
-			lawyerAction.setEntity(getEntity().getLawyer());
+			lawyerAction.setInstance(getInstance().getLawyer());
 		}
 
 		if (legal.getTitleInsurer() != null) {
-			titleInsurerAction.setEntity(getEntity().getTitleInsurer());
+			titleInsurerAction.setInstance(getInstance().getTitleInsurer());
 		}
 
 		if (legal.getChargee() != null) {
-			chargeeAction.setEntity(getEntity().getChargee());
+			chargeeAction.setInstance(getInstance().getChargee());
 		}
 
 		if (legal.getRealEstateProperty() != null) {
-			realEstatePropertyAction.setEntity(getEntity()
+			realEstatePropertyAction.setInstance(getInstance()
 					.getRealEstateProperty());
 		}
 
