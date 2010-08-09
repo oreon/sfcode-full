@@ -30,7 +30,7 @@ public class UserActionTestBase
 
 	@Test
 	public void testfindByUserName() {
-		//userAction.findByUserName(String name);
+		//userAction.findByUserName(name);
 	}
 
 }
