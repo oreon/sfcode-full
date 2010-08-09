@@ -5,12 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
@@ -37,6 +39,8 @@ public class ClassUtil {
 
 	static XtendFacade xtendFacade;
 	static Properties properties = new Properties();
+	
+	static int count = 0;
 
 	static {
 
@@ -182,6 +186,11 @@ public class ClassUtil {
 				buffer.append(", ");
 		}
 		return buffer.toString();
+	}
+	
+	public static List<String> getListFromCommaDeleimtedString(String arg){
+		String[] arr = arg.split(",");
+		return Arrays.asList(arr);
 	}
 
 	/**
@@ -466,6 +475,16 @@ public class ClassUtil {
 		return (name.equalsIgnoreCase("String")
 				|| name.equalsIgnoreCase("nameType") || name
 				.equalsIgnoreCase("uniqueNameType"));
+	}
+	
+	
+	public static int getCounter() {
+		return count++;
+	}
+
+	public static String resetCounter() {
+		count = 0;
+		return "";
 	}
 
 }

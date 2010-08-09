@@ -32,8 +32,15 @@ getEmbeddable(Class cls):
 cls.getAllAttributes().select(a|a.type.isEmbeddable());
 
 
+String getAssocOptional(Property prop):
+prop.lowerBound() > 0?false:true;
+
+
 isOneOnOne(Property prop):
 (prop.isUnique ) && prop.association != null && prop.opposite!= null &&  (prop.opposite.isUnique ) ;
+
+isBidirectional(Property prop):
+prop.association != null && prop.opposite!= null;
 
 isContainedAssoc(Property prop):
 prop.association.getAppliedStereotype("wcprofile::ContainedAssociation") != null;

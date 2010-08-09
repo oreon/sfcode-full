@@ -31,6 +31,10 @@ JAVA org.wc.generatorutil.ClassUtil.getInterfaces(org.eclipse.uml2.uml.Class);
 getRandomNumber():
 JAVA org.wc.generatorutil.ClassUtil.getRandomNumber();
 
+getAsList(String str):
+JAVA org.wc.generatorutil.ClassUtil.getListFromCommaDeleimtedString(java.lang.String);
+
+
 
 getOpReturnType(Operation op):
 op.type == null ? "void":op.type.fqn().removeExtraPackage();
@@ -146,9 +150,6 @@ String getTopLevelPackage():
 readProperty("topLevelPackage");
 	
 	
-
-String getAssocOptional(Property prop):
-prop.lowerBound() > 0?false:true;
 
 ModelObject getContainer(Operation op):
 op.class != null ? op.class : op.interface;
@@ -306,3 +307,10 @@ getTopLevelPackage() + ".web.action.workflows" ;
 
 getTransName(ActivityEdge o):
 o.guard.stringValue() != null ? o.guard.stringValue() : o.name;
+
+
+getCounter() :
+JAVA org.wc.generatorutil.ClassUtil.getCounter();
+
+resetCounter():
+JAVA org.wc.generatorutil.ClassUtil.resetCounter();

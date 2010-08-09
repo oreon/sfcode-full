@@ -1,0 +1,282 @@
+«IMPORT wcprofile»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+«EXTENSION template::webExtensions»
+«EXTENSION template::associationExtensions»
+
+
+«DEFINE Root FOR uml::Model»
+	«EXPAND gen FOREACH allOwnedElements().typeSelect(wcprofile::Report)»
+«ENDDEFINE»
+
+
+«DEFINE gen FOR Report»
+«FILE "../resources/reports/" + name + ".jrxml" -»
+<?xml version="1.0"?>
+<!DOCTYPE jasperReport
+PUBLIC "-//JasperReports//DTD Report Design//EN"
+"http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+
+<jasperReport name="«name»">
+
+	<parameter name="ReportTitle" class="java.lang.String"/>
+
+	<queryString language="«language»">
+		<![CDATA[«query»]]>
+	</queryString>
+
+	«EXPAND FieldDec FOREACH getAllAttributes()-»
+	
+	«EXPAND GenGroupCounter FOREACH getAllAttributes()-»
+	
+	«EXPAND GenGroupSummaryVar FOREACH getAllAttributes()-»
+	
+	«EXPAND GroupGen FOREACH getAllAttributes()-»
+	«resetCounter()-»
+	
+	«EXPAND GenTitle FOR this»
+	
+	<pageHeader>
+		<band height="20">
+			<rectangle>
+				<reportElement x="0" y="5" width="515" height="15" forecolor="#333333" backcolor="#333333"/>
+				<graphicElement/>
+			</rectangle>
+			«EXPAND FieldHdr FOREACH getAllAttributes()-»
+			«resetCounter()-»
+		</band>
+	</pageHeader>
+	
+	<detail>
+	 	<band height="30">
+		«EXPAND FieldGen FOREACH getAllAttributes()-»
+		«resetCounter()-»
+	 	</band>
+	</detail> 	
+	
+	<summary>
+		<band height="«20 + (1 * 300) »">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="1" width="515" height="15" backcolor="#c0c0c0" />
+				<box leftPadding="10" bottomBorder="1Point"/>
+				<text><![CDATA[Summary]]> </text>
+			</staticText>
+			«EXPAND SummaryGen FOREACH getAllAttributes()-»
+			«REM»comment
+			«EXPAND ChartGen FOREACH AssociationEnd.Opposite.select(ae|ae.isNavigable).Class»
+			«ENDREM»
+		</band>
+	</summary>
+	
+
+</jasperReport>
+«ENDFILE»
+
+«ENDDEFINE»  
+
+«REM» Generate the  field declarations «ENDREM»
+«DEFINE FieldDec FOR ReportField-»
+	«IF getFieldExpression == null-»
+	<field name="«name»" class="java.lang.«type.name»"/>
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE FieldDec FOR uml::Property-»
+	<field name="«name»" class="java.lang.«type.name-»"/>
+«ENDDEFINE»
+
+«REM» Generate the displayed fields «ENDREM»
+«DEFINE FieldGen FOR ReportGroup-»
+«ENDDEFINE»
+
+«DEFINE FieldGen FOR ReportField-»
+	«IF isVisible»
+		<textField>
+			<reportElement x="«getCounter() * 65»" y="0" width="69" height="24"/>
+			<textElement textAlignment="Center"/>
+			<textFieldExpression class="java.lang.«type.name»">
+				<![CDATA[«getFieldExpression != null ? getFieldExpression :"$F{" + name + "}"»]]>
+			</textFieldExpression>
+		</textField>
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE FieldGen FOR uml::Property»
+		<textField>
+			<reportElement x="«getCounter() * 65»" y="0" width="69" height="24"/>
+			<textElement textAlignment="Center"/>
+			<textFieldExpression class="java.lang.«type.name»">
+				<![CDATA[«"$F{" + name + "}"»]]>
+			</textFieldExpression>
+		</textField>
+«ENDDEFINE»
+
+«REM» Generate the  field headers «ENDREM»
+«DEFINE FieldHdr FOR ReportGroup-»
+«ENDDEFINE»
+
+«DEFINE FieldHdr FOR ReportField-»
+	«IF isVisible»
+			<staticText>
+				<reportElement mode="Opaque" x="«getCounter() * 65»" y="5" width="205" height="15" forecolor="#ffffff" backcolor="#333333" />
+				<text><![CDATA[«name.toFirstUpper()»]]></text>
+			</staticText>
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE FieldHdr FOR uml::Property-»
+			<staticText>
+				<reportElement mode="Opaque" x="«getCounter() * 65»" y="5" width="205" height="15" forecolor="#ffffff" backcolor="#333333" />
+				<text><![CDATA[«name.toFirstUpper()»]]></text>
+			</staticText>
+«ENDDEFINE»
+
+«DEFINE GroupGen FOR ReportGroup»
+	<group name="Group«name»" minHeightToStartNewPage="60">
+		<groupExpression><![CDATA[$F{«name»}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField evaluationTime="Group" evaluationGroup="Group«name»" bookmarkLevel="1">
+					<reportElement mode="Opaque" x="0" y="5" width="515" height="15" backcolor="#c0c0c0" />
+					<box leftPadding="10" bottomBorder="1Point"/>
+					<textFieldExpression class="java.lang.String">
+						<![CDATA["  " + String.valueOf($V{Group«name»Counter}) + ". " + String.valueOf($F{«name»})]]>
+					</textFieldExpression>
+					<anchorNameExpression><![CDATA[String.valueOf($F{«name»})]]></anchorNameExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		
+		<groupFooter>
+			<band height="20">
+				«LET summaryFields.getAsList() AS summaryList»
+				«FOREACH  summaryList AS s»
+				<staticText>
+					<reportElement x="«((515/65) - (summaryList.size * 2) + getCounter()) * 65»" y="1" width="60" height="15" />
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[«s»]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="«((515/65) - (summaryList.size * 2) + getCounter()) * 65 »" y="1" width="30" height="15" />
+					<textElement textAlignment="Right"/>
+					<textFieldExpression class="«s == "count"?"java.lang.Integer":java.lang.Double»">
+						<![CDATA[$V{Group«name»_«s»}]]>
+					</textFieldExpression>
+				</textField>
+				«ENDFOREACH»
+				«ENDLET»
+			</band>	
+		</groupFooter> 
+	</group>
+«ENDDEFINE»
+
+«DEFINE GroupGen FOR uml::Property-»
+«ENDDEFINE»
+
+«DEFINE GenGroupCounter FOR ReportGroup-»
+	<variable name="Group«name»Counter" class="java.lang.Integer" incrementType="Group" 
+		incrementGroup="Group«name»" calculation="Count">
+		<variableExpression><![CDATA[Boolean.TRUE]]></variableExpression>
+	</variable>
+«ENDDEFINE»
+
+«DEFINE GenGroupCounter FOR uml::Property-»
+«ENDDEFINE»
+
+
+«REM» for group summary variables«ENDREM»
+
+«DEFINE GenGroupSummaryVar FOR ReportGroup-»
+	«FOREACH summaryFields.getAsList() AS s»
+	«IF s.toUpperCase() != "COUNT"»
+	<variable name="Group«name»_«s»" class="«Class.getElementType(s)»"
+		calculation="«s»" resetType="Group" resetGroup="Group«name»">
+		<variableExpression>
+			<![CDATA[$F{«s»}]]>
+		</variableExpression>
+	</variable>
+	
+	<variable name="«s»" class="«java.lang.Double»"
+		calculation="«s»" >
+		<variableExpression>
+			<![CDATA[$F{«s»}]]>
+		</variableExpression>
+	</variable>
+	«ENDIF»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE GenGroupSummaryVar FOR uml::Property-»
+«ENDDEFINE»
+
+«DEFINE SummaryGen FOR uml::Property-»
+«ENDDEFINE»
+
+«DEFINE SummaryGen FOR ReportGroup-»
+	«FOREACH summaryFields.getAsList() AS s»
+	«IF s.toUpperCase() != "COUNT"»
+			<textField>
+				<reportElement x="420" y="1" width="30" height="15" />
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.Integer">
+					<![CDATA[$V{«s»}]]>
+				</textFieldExpression>
+			</textField>
+	«ELSE»	
+			<textField>
+				<reportElement x="460" y="1" width="30" height="15" />
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+	 «ENDIF»	
+	 «ENDFOREACH»
+«ENDDEFINE»
+		
+		
+«DEFINE GenTitle FOR wcprofile::Report»
+	<title>
+		<band height="70">
+			<line>
+				<reportElement x="0" y="0" width="515" height="1"/>
+				<graphicElement/>
+			</line>
+			<textField isBlankWhenNull="true" bookmarkLevel="1">
+				<reportElement x="0" y="10" width="515" height="30" />
+				<textElement textAlignment="Center">
+					<font size="22"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ReportTitle}]]></textFieldExpression>
+				<anchorNameExpression><![CDATA["Title"]]></anchorNameExpression>
+			</textField>
+			
+		</band>
+	</title>
+«ENDDEFINE»		
+
+«REM»comment
+«DEFINE ChartGen FOR ReportChart»
+			<«getChartType»Chart>
+				<chart evaluationTime="Report">
+					<reportElement x="135" y="0" width="270" height="270"/>
+				</chart>
+				<«getChartTypeWithoutD»Dataset>
+					<dataset incrementType="None"/>
+					«IF ! isPie »
+						<seriesExpression>
+							<![CDATA[$F{«getSeriesExpression»}]]>
+						</seriesExpression>
+					«ENDIF»
+					<«getCategoryExpressionName»>
+						<![CDATA[$F{«getCategoryExpression»}]]>
+					</«getCategoryExpressionName»>
+					<valueExpression>
+						<![CDATA[$V{«getValueExpression»}]]>
+					</valueExpression>
+				</«getChartTypeWithoutD»Dataset>
+				<«getChartType»Plot>
+					<plot/>
+				</«getChartType»Plot>
+			</«getChartType»Chart>
+«ENDDEFINE»
+«ENDREM»

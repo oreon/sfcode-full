@@ -1,0 +1,30 @@
+//import metamodel;
+import uml;
+import java;
+import wcprofile;
+
+extension org::openarchitectureware::uml2::profile::profiling;
+
+int getCounter() :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getCounter();
+
+String resetCounter():
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.resetCounter();
+
+String packageName (Class cls) :
+JAVA oaw4.demo.classic.uml.extend.ClassUtil.getPackageName(org.openarchitectureware.meta.uml.classifier.Class);
+
+
+String getSimpleName(String s):
+JAVA oaw4.demo.classic.uml.extend.GenericUtils.getSimpleName(java.lang.String);
+
+String removeSquareBrackets(String s):
+JAVA oaw4.demo.classic.uml.extend.GenericUtils.removeSquareBrackets(java.lang.String);
+
+String getElementType(Class c, String varName):
+(c.Attribute.select(a| a.NameS == varName).get(0)).Type.fqn();
+
+String fqn (Class cls) :
+packageName(cls).length>0 ? packageName(cls)+"."+cls.NameS :cls.NameS;
+
+
