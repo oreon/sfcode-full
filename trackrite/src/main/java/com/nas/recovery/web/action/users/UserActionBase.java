@@ -1,10 +1,8 @@
-
 package com.nas.recovery.web.action.users;
 
 import org.wc.trackrite.users.User;
 
-import org.witchcraft.seam.action.BaseAction; 
-
+import org.witchcraft.seam.action.BaseAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,45 +34,35 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-
-
-
-public abstract class UserActionBase extends BaseAction<User> implements java.io.Serializable{
+public abstract class UserActionBase extends BaseAction<User>
+		implements
+			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
 	@DataModelSelection
 	private User user;
-	
-	
-	
-	
-	
 
 	@DataModel
-	private List<User> userRecordList;	
-	
+	private List<User> userRecordList;
+
 	public void setUserId(Long id) {
-	
+
 		setId(id);
 		loadAssociations();
 	}
-	
-	
-	
 
 	public Long getUserId() {
 		return (Long) getId();
 	}
-	
 
 	//@Factory("userRecordList")
 	//@Observer("archivedUser")
 	public void findRecords() {
 		//search();
-	}	
+	}
 
-	public User getEntity(){
+	public User getEntity() {
 		return user;
 	}
 
@@ -83,12 +71,11 @@ public abstract class UserActionBase extends BaseAction<User> implements java.io
 		this.user = t;
 		loadAssociations();
 	}
-	
-	public User getUser(){
+
+	public User getUser() {
 		return getInstance();
 	}
-	
-	
+
 	@Override
 	protected User createInstance() {
 		return new User();
@@ -102,7 +89,7 @@ public abstract class UserActionBase extends BaseAction<User> implements java.io
 
 	public void wire() {
 		getInstance();
-		
+
 	}
 
 	public boolean isWired() {
@@ -112,13 +99,12 @@ public abstract class UserActionBase extends BaseAction<User> implements java.io
 	public User getDefinedInstance() {
 		return isIdDefined() ? getInstance() : null;
 	}
-	
 
 	public void setUser(User t) {
 		this.user = t;
 		loadAssociations();
 	}
-	
+
 	@Override
 	public Class<User> getEntityClass() {
 		return User.class;
@@ -128,53 +114,30 @@ public abstract class UserActionBase extends BaseAction<User> implements java.io
 	public void setEntityList(List<User> list) {
 		this.userRecordList = list;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
-	public void loadAssociations(){
-		
-		
-		
-		
+	public void loadAssociations() {
+
 	}
-	
-	public void updateAssociations(){
-		
+
+	public void updateAssociations() {
+
 	}
-	
-	
-	
-	
-	
-	public List<User> getEntityList(){
-		if(userRecordList == null){
+
+	public List<User> getEntityList() {
+		if (userRecordList == null) {
 			findRecords();
 		}
 		return userRecordList;
 	}
-	
-	
-	public org.wc.trackrite.users.User findByUserName (null String name){ 
-		
-			return executeSingleResultNamedQuery("findByUserName", String name);
-		
-		
+
+	public org.wc.trackrite.users.User findByUserName(String name) {
+
+		return executeSingleResultNamedQuery("findByUserName", name);
+
 	}
 
-	
-	
-	
-	
-	
-	
 }

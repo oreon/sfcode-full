@@ -1,6 +1,7 @@
 package org.witchcraft.jbpm.mail;
 
 import org.jboss.seam.Component;
+import org.wc.trackrite.users.User;
 
 import com.nas.recovery.web.action.users.UserAction;
 
@@ -20,8 +21,8 @@ public class IdentityAddressResolver extends org.jbpm.identity.mail.IdentityAddr
 		// TODO Auto-generated method stub
 		System.out.println("resolving id for " + actorId);
 		UserAction userAction = (UserAction) Component.getInstance("userAction");
-		userAction.ex
-		return "singhjess@gmail.com";
+		User user = userAction.findByUserName(actorId);
+		return user.getEmail();
 	}
 
 }
