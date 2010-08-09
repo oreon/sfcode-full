@@ -1,0 +1,24 @@
+<mail-templates>
+
+  <variable name="BaseTaskListURL" value="http://localhost:8080/jbpm/task?id=" />
+
+  <mail-template name='task-assign'>
+    <actors>#{taskInstance.actorId}</actors>
+    <subject>Task '#{taskInstance.name}'</subject>
+    <text><![CDATA[Hi,
+Task '#{taskInstance.name}' has been assigned to you.
+You can view it here : http://192.168.0.51:8080/newrecovery/manageAccount/viewTask.seam?taskId=#{taskInstance.id}
+Thanks.
+---powered by JBoss jBPM---]]></text>
+  </mail-template>
+
+  <mail-template name='task-reminder'>
+    <actors>#{taskInstance.actorId}</actors>
+    <subject>Task '#{taskInstance.name}' !</subject>
+    <text><![CDATA[Hey,
+Don't forget about #{BaseTaskListURL}#{taskInstance.id} 
+Get going !
+---powered by JBoss jBPM---]]></text>
+  </mail-template>
+
+</mail-templates>    

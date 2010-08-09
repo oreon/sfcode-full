@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	<h:panelGroup>
+		<s:validateAll>
+		<h:panelGrid columnClasses="leftCol, rightCol" columns="3" onload="#{endUserAction.load(endUserId )  }" styleClass="viewInfo">
+		<f:facet name="header">
+			<h:outputText value="EndUser "/>
+		</f:facet>
+		
+		
+	
+			
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.user_userName} * "/>
+		
+
+	<h:inputText id="user_userName#{entityId}" label="#{msg.user_userName}" required="true" value="#{endUserAction.endUser.user.userName}"/>
+   
+		
+		<h:message for="user_userName" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.user_password} * "/>
+		
+
+	<h:inputSecret id="user_password#{entityId}" label="#{msg.user_password}" redisplay="true" required="true" value="#{endUserAction.endUser.user.password}"/>
+   
+		
+		<h:message for="user_password" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.user_enabled}  "/>
+		
+
+	<h:selectBooleanCheckbox id="user_enabled#{entityId}" label="#{msg.user_enabled}" required="false" value="#{endUserAction.endUser.user.enabled}"/>
+   
+		
+		<h:message for="user_enabled" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.user_email} * "/>
+		
+
+	<h:inputText id="user_email#{entityId}" label="#{msg.user_email}" required="true" value="#{endUserAction.endUser.user.email}"/>
+   
+		
+		<h:message for="user_email" styleClass="error errors"/>		
+		
+	
+	
+		
+	
+	
+
+	 
+	
+	
+		
+		<h:outputText value="#{msg.person_firstName}  "/>
+		
+
+	<h:inputText id="person_firstName#{entityId}" label="#{msg.person_firstName}" required="false" value="#{endUserAction.endUser.firstName}"/>
+   
+		
+		<h:message for="person_firstName" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.person_lastName}  "/>
+		
+
+	<h:inputText id="person_lastName#{entityId}" label="#{msg.person_lastName}" required="false" value="#{endUserAction.endUser.lastName}"/>
+   
+		
+		<h:message for="person_lastName" styleClass="error errors"/>		
+		
+	
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	</h:panelGroup>
+	</ui:composition>
