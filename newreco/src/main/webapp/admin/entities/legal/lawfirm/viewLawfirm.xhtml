@@ -1,46 +1,67 @@
 <?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">	
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template="/admin/template.xhtml">
 	<ui:define name="content">
-		<h:form>
+		<a:form>
 			<rich:tabPanel switchType="ajax">
 				<rich:tab label="Lawfirm">
-					<ui:include src="/admin/entities/legal/lawfirm/viewLawfirmComponent.xhtml"/>
+					<ui:include
+						src="/admin/entities/legal/lawfirm/viewLawfirmComponent.xhtml" />
+
+					<div class="buttonBox"><h:commandButton action="edit"
+						rendered="#{s:hasRole('admin')}" value="Edit">
+						<s:conversationPropagation type="end" />
+					</h:commandButton> <h:outputText value=" " /> <h:commandButton
+						action="#{redirect.returnToCapturedView()}" immediate="true"
+						value="Back To Listing">
+						<s:conversationPropagation type="end" />
+					</h:commandButton></div>
+
+
+
+
+					<a:commandButton
+						oncomplete="Richfaces.showModalPanel('LawfirmModalPanel',{});"
+						value="Quick Edit">
+					</a:commandButton>
+
 					
-	<div class="buttonBox">
-		
-		<h:commandButton action="edit" rendered="#{s:hasRole('admin')}" value="Edit">
-			<s:conversationPropagation type="end"/>
-		</h:commandButton> 
-		<h:outputText value=" "/>
-		<h:commandButton action="#{redirect.returnToCapturedView()}" immediate="true" value="Back To Listing">
-			<s:conversationPropagation type="end"/>
-		</h:commandButton>  
-		
-	</div>
 
 				</rich:tab>
-				
-				
 			</rich:tabPanel>
-			<br/>
-			
+
+			<br />
+
 			<rich:tabPanel>
-			
-			<rich:tab icon="/images/icons/bricks.png" label="Lawyers">
-				<ui:include src="/admin/entities/legal/lawyer/listLawyerComponent.xhtml"/>
-			</rich:tab>
-			
+
+				<rich:tab icon="/images/icons/bricks.png" label="Lawyers">
+					<ui:include
+						src="/admin/entities/legal/lawyer/listLawyerComponent.xhtml" />
+				</rich:tab>
+
 			</rich:tabPanel>
-		</h:form>
-		<br/>
+
+			<br />
+
+			<rich:tabPanel>
+				<rich:tab label="Notes">
+					<wc:comments backingAction="#{lawfirmAction}" />
+				</rich:tab>
+
+			</rich:tabPanel>
+		</a:form>
 		
-		<rich:tabPanel>
-			<rich:tab label="Notes">
-				<wc:comments backingAction="#{lawfirmAction}"/>
-			</rich:tab>
-			
-		</rich:tabPanel>
 		
+		<ui:include src="/admin/entities/legal/lawfirm/modalDlgLawfirmComponent.xhtml" />
 		
-	</ui:define> 
+
+	</ui:define>
 </ui:composition>
