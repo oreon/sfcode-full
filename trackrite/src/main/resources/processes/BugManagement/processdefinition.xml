@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition xmlns="" name="bugManagement">
+
+	<swimlane name="initiator">
+		<assignment class="com.nas.recovery.web.action.workflows.actionhandlers.InitiatorAssignment"></assignment>
+	</swimlane>
+	<swimlane name="developer">
+		<assignment actor-id="#{issueAction.instance.employee.user.userName}"></assignment>
+	</swimlane>
+	<swimlane name="qa">
+		<assignment actor-id="qa"></assignment>
+	</swimlane>
+
+	<task-node name="assignDeveloper">
+		<task name="assignDeveloperTask" swimlane="initiator" duedate="0 business days"
+			notify="true">
+			<description>
+				#{issueAction.instance.displayName}
+			</description>
+		</task>
+
+		<transition to="reviewIssue" name="assign">
+		</transition>
+		<transition to="nonissue" name="nonissue">
+		</transition>
+
+	</task-node>
+	`
+
+	<task-node name="reviewIssue">
+		<task name="reviewIssueTask" swimlane="developer" duedate="0 business days"
+			notify="true">
+			<description>
+				#{issueAction.instance.displayName}
+		</description>
+		</task>
+
+		<transition to="workOnIssue" name="accept">
+		</transition>
+		<transition to="assignDeveloper" name="reject">
+		</transition>
+
+	</task-node>
+	`
+
+	<start-state name="">
+		<task name="Task" swimlane="initiator">
+		</task>
+		<transition to="reviewIssue" name=""></transition>
+
+	</start-state>
+
+	<task-node name="verifyfix">
+		<task name="verifyfixTask" swimlane="qa" duedate="0 business days">
+		</task>
+
+		<transition to="fixed" name="close">
+		</transition>
+		<transition to="workOnIssue" name="requestModification">
+		</transition>
+
+	</task-node>
+	`
+
+	<end-state name="fixed"></end-state>
+
+	<task-node name="workOnIssue">
+		<task name="workOnIssueTask" swimlane="developer" duedate="0 business days"
+			notify="true">
+		</task>
+
+		<transition to="verifyfix" name="fixed">
+		</transition>
+
+	</task-node>
+	`
+
+	<end-state name="nonissue"></end-state>
+
+</process-definition>
+	

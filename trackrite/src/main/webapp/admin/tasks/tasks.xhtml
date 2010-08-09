@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/admin/tasks/template.xhtml">
+
+	<ui:define name="content">
+		<ui:include src="tasksComponent.xhtml" />
+
+		<rich:panel>
+			<h:dataTable value="#{pooledTaskInstanceList}" var="task">
+				<h:column>
+					<f:facet name="header">Description</f:facet>
+					<h:outputText value="#{task.description}" />
+
+				</h:column>
+
+				<h:column>
+					<s:link action="#{pooledTask.assignToCurrentActor}" value="Assign"
+						taskInstance="#{task}" />
+				</h:column>
+
+			</h:dataTable>
+
+		</rich:panel>
+
+
+		<h:form>
+			<ui:include
+				src="/admin/entities/issues/issue/editIssueComponent.xhtml" />
+			<h:commandButton action="#{bugManagementProcessAction.startProcess}"
+				value="Create " />
+		</h:form>
+	</ui:define>
+
+
+
+
+</ui:composition>

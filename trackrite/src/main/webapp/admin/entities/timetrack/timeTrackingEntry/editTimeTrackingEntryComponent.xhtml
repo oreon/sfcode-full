@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	<h:panelGroup>
+		<s:validateAll>
+		<h:panelGrid columnClasses="leftCol, rightCol" columns="3" onload="#{timeTrackingEntryAction.load(timeTrackingEntryId )  }" styleClass="viewInfo">
+		<f:facet name="header">
+			<h:outputText value="TimeTrackingEntry "/>
+		</f:facet>
+		
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.timeTrackingEntry_employee}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="timeTrackingEntry_employee" required="true" value="#{timeTrackingEntryAction.timeTrackingEntry.employee}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{employeeList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="timeTrackingEntry_employee" styleClass="error errors"/>		
+		
+	
+	
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.timeTrackingEntry_project}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="timeTrackingEntry_project" required="true" value="#{timeTrackingEntryAction.timeTrackingEntry.project}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{projectList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="timeTrackingEntry_project" styleClass="error errors"/>		
+		
+	
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.timeTrackingEntry_hours} * "/>
+		
+
+	<h:inputText id="timeTrackingEntry_hours#{entityId}" label="#{msg.timeTrackingEntry_hours}" required="true" value="#{timeTrackingEntryAction.timeTrackingEntry.hours}"/>
+   
+		
+		<h:message for="timeTrackingEntry_hours" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.timeTrackingEntry_details} * "/>
+		
+
+	<h:inputText id="timeTrackingEntry_details#{entityId}" label="#{msg.timeTrackingEntry_details}" required="true" value="#{timeTrackingEntryAction.timeTrackingEntry.details}"/>
+   
+		
+		<h:message for="timeTrackingEntry_details" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.timeTrackingEntry_date} * "/>
+		
+
+	<rich:calendar id="timeTrackingEntry_date#{entityId}" label="#{msg.timeTrackingEntry_date}" required="true" value="#{timeTrackingEntryAction.timeTrackingEntry.date}"/>
+   
+		
+		<h:message for="timeTrackingEntry_date" styleClass="error errors"/>		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	</h:panelGroup>
+	</ui:composition>
