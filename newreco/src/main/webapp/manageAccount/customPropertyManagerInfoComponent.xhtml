@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+
+	<div class="entry errors"><h:messages globalOnly="true" /></div>
+
+	<h:panelGrid columns="2" styleClass="summarywrap">
+		<h:column>
+			<h:panelGroup>
+				<br />
+			</h:panelGroup>
+		</h:column>
+		<h:column>
+			<h:panelGroup>
+				<h:outputText value="#{msg.realEstateProperty_occupancy}  " />
+				<br />
+				<h:selectOneMenu id="realEstateProperty_occupancy" required="false"
+					value="#{realEstatePropertyAction.realEstateProperty.occupancy}">
+					<f:selectItem itemLabel="Please Select..." itemValue="" />
+					<f:selectItem itemLabel="Owner" itemValue="Owner" />
+					<f:selectItem itemLabel="Tenanted" itemValue="Tenanted" />
+					<f:selectItem itemLabel="Unconfirmed" itemValue="Unconfirmed" />
+
+				</h:selectOneMenu>
+				<h:message for="realEstateProperty_occupancy"
+					styleClass="error errors" />
+			</h:panelGroup>
+		</h:column>
+
+
+	</h:panelGrid>
+
+</ui:composition>
