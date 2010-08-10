@@ -59,7 +59,7 @@ public class Employee extends org.wc.trackrite.domain.Person
 
 	//issues->developer ->Employee->Employee->Employee
 
-	@OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "developer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "developer_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<org.wc.trackrite.issues.Issue> issues = new HashSet<org.wc.trackrite.issues.Issue>();
