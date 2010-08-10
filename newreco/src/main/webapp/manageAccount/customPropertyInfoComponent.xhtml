@@ -10,7 +10,80 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
 
+	<div class="entry errors"><h:messages globalOnly="true" /></div>
+	<rich:panel>
+		<f:facet name="header">Property Manager Information</f:facet>
+		<h:panelGrid columns="2" styleClass="summarywrap">
 
+			<h:column>
+				<h:panelGroup>
+					<h:outputText value="#{msg.realEstateProperty_occupancy}  " />
+					<br />
+					<h:selectOneMenu id="realEstateProperty_occupancy" required="false"
+						value="#{realEstatePropertyAction.realEstateProperty.occupancy}">
+						<f:selectItem itemLabel="Please Select..." itemValue="" />
+						<f:selectItem itemLabel="Owner" itemValue="Owner" />
+						<f:selectItem itemLabel="Tenanted" itemValue="Tenanted" />
+						<f:selectItem itemLabel="Unconfirmed" itemValue="Unconfirmed" />
+
+					</h:selectOneMenu>
+					<h:message for="realEstateProperty_occupancy"
+						styleClass="error errors" />
+				</h:panelGroup>
+			</h:column>
+
+
+		</h:panelGrid>
+	</rich:panel>
+
+	<rich:panel>
+		<f:facet name="header">Owner Information</f:facet>
+		<h:panelGrid columns="3" styleClass="summarywrap">
+
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.realEstateProperty_ownerPrimaryPhone}  " />
+				<br />
+
+				<h:inputText id="realEstateProperty_ownerPrimaryPhone"
+					value="#{realEstatePropertyAction.realEstateProperty.ownerPrimaryPhone}" />
+				<h:message for="realEstateProperty_ownerPrimaryPhone"
+					styleClass="error errors" />
+
+			</h:panelGroup>
+
+
+
+
+			<h:panelGroup>
+				<h:outputText
+					value="#{msg.realEstateProperty_ownerAlternativePhone}  " />
+				<br />
+
+				<h:inputText id="realEstateProperty_ownerAlternativePhone"
+					value="#{realEstatePropertyAction.realEstateProperty.ownerAlternativePhone}" />
+				<h:message for="realEstateProperty_ownerAlternativePhone"
+					styleClass="error errors" />
+
+			</h:panelGroup>
+
+
+
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.realEstateProperty_numberOfOccupants}  " />
+				<br />
+
+				<h:inputText id="realEstateProperty_numberOfOccupants"
+					value="#{realEstatePropertyAction.realEstateProperty.numberOfOccupants}" />
+				<h:message for="realEstateProperty_numberOfOccupants"
+					styleClass="error errors" />
+
+			</h:panelGroup>
+
+
+		</h:panelGrid>
+	</rich:panel>
 
 
 	<rich:panel>
@@ -179,4 +252,59 @@
 			src="/admin/entities/realestate/tenantInfo/modalDlgTenantInfoComponent.xhtml" />
 	</rich:panel>
 
+	<rich:panel>
+		<f:facet name="header">Vacancy Status</f:facet>
+		<h:panelGrid columns="2" styleClass="summarywrap">
+
+			<h:panelGroup>
+				<h:outputText value="#{msg.realEstateProperty_vacancyStatus}  " />
+				<br />
+				<h:selectOneMenu id="realEstateProperty_vacancyStatus"
+					required="false"
+					value="#{realEstatePropertyAction.realEstateProperty.vacancyStatus}">
+					<f:selectItem itemLabel="Please Select..." itemValue="" />
+					<f:selectItem itemLabel="Secured" itemValue="Secured" />
+					<f:selectItem itemLabel="Preservationorder"
+						itemValue="PreservationOrder" />
+					<f:selectItem itemLabel="Anticipatedjudgement"
+						itemValue="AnticipatedJudgement" />
+					<f:selectItem itemLabel="Unsecured" itemValue="Unsecured" />
+
+				</h:selectOneMenu>
+				<h:message for="realEstateProperty_vacancyStatus"
+					styleClass="error errors" />
+			</h:panelGroup>
+
+
+
+
+
+			<h:panelGroup>
+
+				<h:outputText value="#{msg.realEstateProperty_lockboxCode}  " />
+				<br />
+
+				<h:inputText id="realEstateProperty_lockboxCode"
+					value="#{realEstatePropertyAction.realEstateProperty.lockboxCode}" />
+				<h:message for="realEstateProperty_lockboxCode"
+					styleClass="error errors" />
+
+			</h:panelGroup>
+
+		</h:panelGrid>
+	</rich:panel>
+
+	<a:form enctype="multipart/form-data">
+
+
+		<div class="buttonBox"><h:commandButton
+			action="#{realEstatePropertyAction.save}" value="Save">
+			<s:conversationPropagation type="end" />
+		</h:commandButton> <h:outputText value=" " /> <h:commandButton
+			action="#{realEstatePropertyAction.cancel}" immediate="true"
+			value="Cancel">
+			<s:conversationPropagation type="end" />
+		</h:commandButton></div>
+
+	</a:form>
 </ui:composition>
