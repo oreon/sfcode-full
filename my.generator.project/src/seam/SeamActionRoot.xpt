@@ -187,7 +187,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	}
 	
 	«REM»comment
-	«IF  treeHierarchy != null»
+	«IF treeHierarchy != null»
 		public List<«name»> getTopLevel«getTreeParent().toFirstUpper»(){
 			return  getEntityManager().createQuery("select e from «name» e where e.«getTreeParent()» is null").getResultList();
 		}
@@ -224,7 +224,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	public void loadAssociations(){
 		«FOREACH getOutgoingAssociations() AS e»
 		if («asVar()».get«e.name.toFirstUpper()»() != null) {
-			«e.name»Action.setEntity(getEntity().get«e.name.toFirstUpper()»());
+			«e.name»Action.setInstance(getInstance().get«e.name.toFirstUpper()»());
 		}
 		«ENDFOREACH»
 		
@@ -254,8 +254,10 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	«IF ! ( getComposed().isEmpty )»
 	public void updateComposedAssociations(){
 	«FOREACH getComposed() AS e»
+	  if (list«e.name.toFirstUpper()» != null) {
 		getInstance().get«e.name.toFirstUpper()»().clear();
-		getInstance().get«e.name.toFirstUpper()»().addAll(«"list" + e.name.toFirstUpper()»);
+		getInstance().get«e.name.toFirstUpper()»().addAll(list«e.name.toFirstUpper()»);
+	  }
 	«ENDFOREACH»
 	}
 	«ENDIF»
@@ -299,7 +301,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	}
 	
 	public List<«type.name»> getList«name.toFirstUpper()»() {
-		if(«currentList» == null ){
+		if(«currentList» == null || «currentList».isEmpty() ){
 			initList«name.toFirstUpper()»();
 		}
 		return «currentList»;
