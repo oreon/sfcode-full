@@ -30,6 +30,15 @@ public abstract class RealEstatePropertyListQueryBase
 
 	private RealEstateProperty realEstateProperty = new RealEstateProperty();
 
+	private Range<Integer> realEstateProperty_numberOfOccupantsRange = new Range<Integer>();
+	public Range<Integer> getRealEstateProperty_numberOfOccupantsRange() {
+		return realEstateProperty_numberOfOccupantsRange;
+	}
+	public void setRealEstateProperty_numberOfOccupants(
+			Range<Integer> realEstateProperty_numberOfOccupantsRange) {
+		this.realEstateProperty_numberOfOccupantsRange = realEstateProperty_numberOfOccupantsRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"realEstateProperty.id = #{realEstatePropertyList.realEstateProperty.id}",
 
@@ -48,6 +57,21 @@ public abstract class RealEstatePropertyListQueryBase
 			"lower(realEstateProperty.title) like concat(lower(#{realEstatePropertyList.realEstateProperty.title}),'%')",
 
 			"realEstateProperty.legal = #{realEstatePropertyList.realEstateProperty.legal}",
+
+			"lower(realEstateProperty.ownerPrimaryPhone) like concat(lower(#{realEstatePropertyList.realEstateProperty.ownerPrimaryPhone}),'%')",
+
+			"lower(realEstateProperty.ownerAlternativePhone) like concat(lower(#{realEstatePropertyList.realEstateProperty.ownerAlternativePhone}),'%')",
+
+			"realEstateProperty.numberOfOccupants >= #{realEstatePropertyList.realEstateProperty_numberOfOccupantsRange.begin}",
+			"realEstateProperty.numberOfOccupants <= #{realEstatePropertyList.realEstateProperty_numberOfOccupantsRange.end}",
+
+			"realEstateProperty.vacancyStatus = #{realEstatePropertyList.realEstateProperty.vacancyStatus}",
+
+			"lower(realEstateProperty.lockboxCode) like concat(lower(#{realEstatePropertyList.realEstateProperty.lockboxCode}),'%')",
+
+			"realEstateProperty.occupancy = #{realEstatePropertyList.realEstateProperty.occupancy}",
+
+			"realEstateProperty.inspectionFrequency = #{realEstatePropertyList.realEstateProperty.inspectionFrequency}",
 
 			"realEstateProperty.dateCreated <= #{realEstatePropertyList.dateCreatedRange.end}",
 			"realEstateProperty.dateCreated >= #{realEstatePropertyList.dateCreatedRange.begin}",};

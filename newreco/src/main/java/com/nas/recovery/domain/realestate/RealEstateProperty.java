@@ -118,9 +118,26 @@ public class RealEstateProperty extends BusinessEntity
 	@IndexedEmbedded
 	private Set<com.nas.recovery.domain.propertymanagement.Utilitiy> utilitiys = new HashSet<com.nas.recovery.domain.propertymanagement.Utilitiy>();
 
-	@OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "realEstateProperty", optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@ContainedIn
 	protected com.nas.recovery.domain.legal.Legal legal;
+
+	@Field(index = Index.TOKENIZED)
+	protected String ownerPrimaryPhone;
+
+	@Field(index = Index.TOKENIZED)
+	protected String ownerAlternativePhone;
+
+	protected Integer numberOfOccupants;
+
+	protected com.nas.recovery.domain.propertymanagement.VacancyStatus vacancyStatus;
+
+	@Field(index = Index.TOKENIZED)
+	protected String lockboxCode;
+
+	protected com.nas.recovery.domain.propertymanagement.Occupancy occupancy;
+
+	protected com.nas.recovery.domain.propertymanagement.InspectionFrequency inspectionFrequency;
 
 	public void setStreetAddress(String streetAddress) {
 		this.streetAddress = streetAddress;
@@ -253,6 +270,72 @@ public class RealEstateProperty extends BusinessEntity
 		return legal;
 	}
 
+	public void setOwnerPrimaryPhone(String ownerPrimaryPhone) {
+		this.ownerPrimaryPhone = ownerPrimaryPhone;
+	}
+
+	public String getOwnerPrimaryPhone() {
+
+		return ownerPrimaryPhone;
+	}
+
+	public void setOwnerAlternativePhone(String ownerAlternativePhone) {
+		this.ownerAlternativePhone = ownerAlternativePhone;
+	}
+
+	public String getOwnerAlternativePhone() {
+
+		return ownerAlternativePhone;
+	}
+
+	public void setNumberOfOccupants(Integer numberOfOccupants) {
+		this.numberOfOccupants = numberOfOccupants;
+	}
+
+	public Integer getNumberOfOccupants() {
+
+		return numberOfOccupants;
+	}
+
+	public void setVacancyStatus(
+			com.nas.recovery.domain.propertymanagement.VacancyStatus vacancyStatus) {
+		this.vacancyStatus = vacancyStatus;
+	}
+
+	public com.nas.recovery.domain.propertymanagement.VacancyStatus getVacancyStatus() {
+
+		return vacancyStatus;
+	}
+
+	public void setLockboxCode(String lockboxCode) {
+		this.lockboxCode = lockboxCode;
+	}
+
+	public String getLockboxCode() {
+
+		return lockboxCode;
+	}
+
+	public void setOccupancy(
+			com.nas.recovery.domain.propertymanagement.Occupancy occupancy) {
+		this.occupancy = occupancy;
+	}
+
+	public com.nas.recovery.domain.propertymanagement.Occupancy getOccupancy() {
+
+		return occupancy;
+	}
+
+	public void setInspectionFrequency(
+			com.nas.recovery.domain.propertymanagement.InspectionFrequency inspectionFrequency) {
+		this.inspectionFrequency = inspectionFrequency;
+	}
+
+	public com.nas.recovery.domain.propertymanagement.InspectionFrequency getInspectionFrequency() {
+
+		return inspectionFrequency;
+	}
+
 	@Transient
 	public String getDisplayName() {
 		return streetAddress + ", " + city + ", " + state;
@@ -273,6 +356,12 @@ public class RealEstateProperty extends BusinessEntity
 		listSearchableFields.add("city");
 
 		listSearchableFields.add("title");
+
+		listSearchableFields.add("ownerPrimaryPhone");
+
+		listSearchableFields.add("ownerAlternativePhone");
+
+		listSearchableFields.add("lockboxCode");
 
 		listSearchableFields.add("tenantInfos.unit");
 
