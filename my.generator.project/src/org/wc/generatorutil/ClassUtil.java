@@ -20,6 +20,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.ActivityEdge;
 import org.eclipse.uml2.uml.ActivityNode;
+import org.eclipse.uml2.uml.AggregationKind;
 import org.eclipse.uml2.uml.CallBehaviorAction;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
@@ -476,11 +477,19 @@ public class ClassUtil {
 				|| name.equalsIgnoreCase("nameType") || name
 				.equalsIgnoreCase("uniqueNameType"));
 	}
+
+	
+	
+	public static boolean isAggregate(Property prop){
+		Class c;
+		return prop.getAggregation().getValue() == AggregationKind.SHARED;
+}
 	
 	
 	public static int getCounter() {
 		return count++;
 	}
+
 
 	public static String resetCounter() {
 		count = 0;

@@ -19,6 +19,14 @@ entity.getAllAttributes().select(a|a.association != null && a.opposite.isMultiva
 isCompositionContainer(Property prop):
 prop.opposite != null && prop.opposite.isComposite();
 
+getOppositeName(Property p):
+p.opposite.name != null ? p.opposite.name : p.class.asVar();
+
+
+
+isAggregate(Property prop):
+JAVA org.wc.generatorutil.ClassUtil.isAggregate(org.eclipse.uml2.uml.Property);
+
 //e.g. To get order Items for an order 
 getComposed(Class cls):
 cls.getAllAttributes().select(a|a.isMultivalued() && a.association != null && a.isComposite()) ;
@@ -30,7 +38,6 @@ cls.getAllAttributes().select(a|a.isMultivalued() == false && a.association != n
 //all embedded associations
 getEmbeddable(Class cls):
 cls.getAllAttributes().select(a|a.type.isEmbeddable());
-
 
 String getAssocOptional(Property prop):
 prop.lowerBound() > 0?false:true;
@@ -44,3 +51,9 @@ prop.association != null && prop.opposite!= null;
 
 isContainedAssoc(Property prop):
 prop.association.getAppliedStereotype("wcprofile::ContainedAssociation") != null;
+
+isBidirectional(Property prop):
+ prop.association != null && prop.opposite!= null  ;
+
+
+

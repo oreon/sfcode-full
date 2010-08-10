@@ -12,18 +12,14 @@
 
 «DEFINE StateMachineRoot FOR uml::Activity»
 	«EXPAND ManualGen »
+	«EXPAND genAssignmentHandler FOREACH allOwnedElements().typeSelect(uml::ActivityPartition)»
 	«FILE getWorkflowActionPath() + "Base.java" -»
 		
 	package «getWebPackageName()»;
 		
 	«EXPAND genImports FOR this»
 
-	class «name.toFirstUpper()»Base extends BaseJbpmProcessAction implements java.io.Serializable{
-	
-		@CreateProcess(definition = "«name»")
-		public void startProcess() {
-		
-		}
+	public class «name.toFirstUpper()»Base extends BaseJbpmProcessAction implements java.io.Serializable{
 		
 		«EXPAND genAction FOREACH allOwnedElements().typeSelect(uml::Action)»
 	
@@ -31,7 +27,26 @@
 	«ENDFILE»
 «ENDDEFINE»
 
+«DEFINE genAssignmentHandler FOR uml::ActivityPartition»
+	«FILE  activity.getWorkflowActionPath() + name.toFirstUpper() + "Assignment.java"  man_path »
+import org.jboss.seam.Component;
+import org.jbpm.graph.exe.ExecutionContext;
+import org.jbpm.taskmgmt.def.AssignmentHandler;
+import org.jbpm.taskmgmt.exe.Assignable;
 
+import com.nas.recovery.web.action.issues.IssueAction;
+import com.nas.recovery.web.action.workflows.IssueToken;
+
+public class «name.toFirstUpper() + "Assignment.java"» implements AssignmentHandler {
+
+	public void assign(Assignable assignable, ExecutionContext executionContext)
+			throws Exception {
+			
+	}
+	
+}
+	«ENDFILE»
+«ENDDEFINE»
 
 
 «DEFINE genAction FOR uml::Action»
@@ -69,9 +84,14 @@
 	
 	«EXPAND genImports»
 	
-	@Name("«name»ProcessAction")	
+	@Name("«name.toFirstLower()»ProcessAction")	
 	//@Scope(ScopeType.CONVERSATION)
 	public class «name.toFirstUpper()» extends «name.toFirstUpper()»Base {
+	
+		@CreateProcess(definition = "«name»")
+		public void startProcess() {
+		
+		}
 		
 	}
 	«ENDFILE»

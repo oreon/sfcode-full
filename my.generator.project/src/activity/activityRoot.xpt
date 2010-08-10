@@ -45,7 +45,7 @@
 	«FILE "../resources/processes/" + name + "/processdefinition.xml" -»
 <?xml version="1.0" encoding="UTF-8"?>
 
-<process-definition xmlns="" name="«name.removeSpaces()»">
+<process-definition xmlns="" name="«name.removeSpaces().toFirstLower()»">
 	«EXPAND gen FOREACH allOwnedElements().typeSelect(uml::ActivityPartition)»
 	«EXPAND gen FOREACH allOwnedElements().typeSelect(uml::ActivityNode)»
 </process-definition>
