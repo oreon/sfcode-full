@@ -10,354 +10,172 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
 
+	
+	
 
 	<rich:panel>
-		<h:form>
-			<f:facet name="header">TenantInfo Search Results (#{empty tenantInfoList.resultList ? 0 : (tenantInfoList.paginated ? tenantInfoList.resultCount : tenantInfoList.resultList.size)})</f:facet>
 
-			<rich:dataTable id="tenantInfoList"
-				rendered="#{not empty tenantInfoList.resultList}"
-				rowClasses="odd, even" styleClass="dataTable"
-				value="#{tenantInfoList.resultList}" var="_tenantInfo">
+		<f:facet name="header">Tenant Information </f:facet>
 
-				<h:column>
+		<a:form id="sss">
+
+			<a:commandButton action="#{realEstatePropertyAction.addTenantInfos}"
+				reRender="tenantInfos_data#{entityId}" value="New TenantInfo">
+				<s:conversationId />
+			</a:commandButton>
+
+			<rich:dataTable id="tenantInfos_data#{entityId}"
+				rowClasses="odd, even" rows="10" rules="all" styleClass="dataTable"
+				value="#{realEstatePropertyAction.listTenantInfos}"
+				var="_tenantInfo">
+
+
+				<h:column style="text-align:left">
 					<f:facet name="header">
-						<ui:include src="/layout/sort.xhtml">
-							<ui:param name="entityList" value="#{tenantInfoList}" />
-							<ui:param name="propertyLabel" value="Id" />
-							<ui:param name="propertyPath" value="tenantInfo.id" />
-						</ui:include>
-					</f:facet>
-					<h:outputText value="#{_tenantInfo.id}">
-					</h:outputText>
-				</h:column>
-
-				<h:column>
-					<f:facet name="header">
-						<ui:include src="/layout/sort.xhtml">
-							<ui:param name="entityList" value="#{tenantInfoList}" />
-							<ui:param name="propertyLabel" value="#{msg.tenantInfo_unit}" />
-							<ui:param name="propertyPath" value="tenantInfo.unit" />
-						</ui:include>
+						<h:outputText value="#{msg.tenantInfo_unit}  " />
 					</f:facet>
 
-					<h:outputText value="#{_tenantInfo.unit}" />
 
-				</h:column>
+					<h:inputText id="tenantInfo_unit#{entityId}" required="false"
+						value="#{_tenantInfo.unit}" />
 
-				<h:column>
-					<f:facet name="header">
-						<ui:include src="/layout/sort.xhtml">
-							<ui:param name="entityList" value="#{tenantInfoList}" />
-							<ui:param name="propertyLabel" value="#{msg.tenantInfo_name}" />
-							<ui:param name="propertyPath" value="tenantInfo.name" />
-						</ui:include>
-					</f:facet>
 
-					<h:outputText value="#{_tenantInfo.name}" />
-
-				</h:column>
-
-				<h:column>
-					<f:facet name="header">
-						<ui:include src="/layout/sort.xhtml">
-							<ui:param name="entityList" value="#{tenantInfoList}" />
-							<ui:param name="propertyLabel" value="#{msg.tenantInfo_rent}" />
-							<ui:param name="propertyPath" value="tenantInfo.rent" />
-						</ui:include>
-					</f:facet>
-
-					<h:outputText value="#{_tenantInfo.rent}" />
-
-				</h:column>
-
-				<h:column>
-					<f:facet name="header">
-						<ui:include src="/layout/sort.xhtml">
-							<ui:param name="entityList" value="#{tenantInfoList}" />
-							<ui:param name="propertyLabel" value="#{msg.tenantInfo_lease}" />
-							<ui:param name="propertyPath" value="tenantInfo.lease" />
-						</ui:include>
-					</f:facet>
-
-					<h:outputText value="#{_tenantInfo.lease}" />
-
-				</h:column>
-
-				<h:column>
-					<f:facet name="header">
-						<ui:include src="/layout/sort.xhtml">
-							<ui:param name="entityList" value="#{tenantInfoList}" />
-							<ui:param name="propertyLabel"
-								value="#{msg.tenantInfo_leaseExpiry}" />
-							<ui:param name="propertyPath" value="tenantInfo.leaseExpiry" />
-						</ui:include>
-					</f:facet>
-
-					<h:outputText value="#{_tenantInfo.leaseExpiry}">
-						<s:convertDateTime dateStyle="short" type="both" />
-					</h:outputText>
-
-				</h:column>
-
-				<h:column>
-					<f:facet name="header">
-						<ui:include src="/layout/sort.xhtml">
-							<ui:param name="entityList" value="#{tenantInfoList}" />
-							<ui:param name="propertyLabel"
-								value="#{msg.tenantInfo_attornment}" />
-							<ui:param name="propertyPath" value="tenantInfo.attornment" />
-						</ui:include>
-					</f:facet>
-
-					<h:outputText value="#{_tenantInfo.attornment}">
-						<s:convertDateTime dateStyle="short" type="both" />
-					</h:outputText>
-
-				</h:column>
-
-				<h:column>
-					<f:facet name="header">
-						<ui:include src="/layout/sort.xhtml">
-							<ui:param name="entityList" value="#{tenantInfoList}" />
-							<ui:param name="propertyLabel"
-								value="#{msg.tenantInfo_utilities}" />
-							<ui:param name="propertyPath" value="tenantInfo.utilities" />
-						</ui:include>
-					</f:facet>
-
-					<h:outputText value="#{_tenantInfo.utilities}" />
-
+					<h:message for="tenantInfo_unit" styleClass="error errors" />
 				</h:column>
 
 
-				<h:column groupOn="#{tenantInfo.realEstateProperty.displayName}">
+				<h:column style="text-align:left">
 					<f:facet name="header">
-						<ui:include src="/layout/sort.xhtml">
-							<ui:param name="entityList" value="#{tenantInfoList}" />
-							<ui:param name="propertyLabel"
-								value="#{msg.tenantInfo_realEstateProperty}" />
-							<ui:param name="propertyPath"
-								value="tenantInfo.realEstateProperty" />
-						</ui:include>
+						<h:outputText value="#{msg.tenantInfo_name}  " />
 					</f:facet>
-					<s:link value="#{_tenantInfo.realEstateProperty.displayName}"
-						view="/admin/entities/realestate/realEstateProperty/viewRealEstateProperty.xhtml">
-						<f:param name="realEstatePropertyId"
-							value="#{_tenantInfo.realEstateProperty.id}" />
-						<f:param name="from" value="#{request.servletPath}" />
-					</s:link>
+
+
+					<h:inputText id="tenantInfo_name#{entityId}" required="false"
+						value="#{_tenantInfo.name}" />
+
+
+					<h:message for="tenantInfo_name" styleClass="error errors" />
+				</h:column>
+
+
+
+				<h:column style="text-align:right">
+					<f:facet name="header">
+						<h:outputText value="#{msg.tenantInfo_rent}  " />
+					</f:facet>
+
+
+					<h:inputText id="tenantInfo_rent#{entityId}" required="false"
+						value="#{_tenantInfo.rent}" />
+
+
+					<h:message for="tenantInfo_rent" styleClass="error errors" />
+				</h:column>
+
+
+				<h:column style="text-align:right">
+					<f:facet name="header">
+						<h:outputText value="#{msg.tenantInfo_lease}  " />
+					</f:facet>
+
+
+					<h:selectBooleanCheckbox id="tenantInfo_lease#{entityId}"
+						required="false" value="#{_tenantInfo.lease}" />
+
+
+					<h:message for="tenantInfo_lease" styleClass="error errors" />
+				</h:column>
+
+
+
+				<h:column style="text-align:right">
+					<f:facet name="header">
+						<h:outputText value="#{msg.tenantInfo_leaseExpiry}  " />
+					</f:facet>
+
+
+					<rich:calendar id="tenantInfo_leaseExpiry#{entityId}"
+						required="false" value="#{_tenantInfo.leaseExpiry}" />
+
+
+					<h:message for="tenantInfo_leaseExpiry" styleClass="error errors" />
+				</h:column>
+
+
+				<h:column style="text-align:right">
+					<f:facet name="header">
+						<h:outputText value="#{msg.tenantInfo_attornment}  " />
+					</f:facet>
+
+
+					<rich:calendar id="tenantInfo_attornment#{entityId}"
+						required="false" value="#{_tenantInfo.attornment}" />
+
+
+					<h:message for="tenantInfo_attornment" styleClass="error errors" />
+				</h:column>
+
+
+
+
+
+
+
+				<h:column style="text-align:right">
+					<f:facet name="header">
+						<h:outputText value="#{msg.tenantInfo_utilities}  " />
+					</f:facet>
+
+
+					<h:selectBooleanCheckbox id="tenantInfo_utilities#{entityId}"
+						required="false" value="#{_tenantInfo.utilities}" />
+
+
+					<h:message for="tenantInfo_utilities" styleClass="error errors" />
 				</h:column>
 
 
 
 
 				<h:column>
-					<f:facet name="header">
-						<ui:include src="/layout/sort.xhtml">
-							<ui:param name="entityList" value="#{tenantInfoList}" />
-							<ui:param name="propertyLabel" value="Creation Date" />
-							<ui:param name="propertyPath" value="tenantInfo.dateCreated" />
-						</ui:include>
-					</f:facet>
-					<h:outputText value="#{_tenantInfo.dateCreated}">
-						<s:convertDateTime dateStyle="short" type="both" />
-					</h:outputText>
+
+					<a:commandButton
+						action="#{realEstatePropertyAction.addTenantInfos}"
+						reRender="tenantInfos_data#{entityId}" value="New TenantInfo">
+						<s:conversationId />
+					</a:commandButton>
 				</h:column>
 
-				<h:column rendered="#{s:hasPermission('tenantInfoAction', 'view')}">
-					<f:facet name="header">
-						<h:outputText value=" " />
-					</f:facet>
-					<s:link
-						view="/admin/entities/realestate/tenantInfo/viewTenantInfo.xhtml">
-						<h:graphicImage alt="view" style="border: 0px"
-							value="/images/icons/eye.png" />
-						<f:param name="tenantInfoId" value="#{_tenantInfo.id}" />
-					</s:link>
+				<h:column>
+					<a:commandButton
+						action="#{realEstatePropertyAction.deleteTenantInfos(_tenantInfo)}"
+						immediate="true" reRender="tenantInfos_data#{entityId}"
+						value="Delete">
+						<s:conversationId />
+					</a:commandButton>
 				</h:column>
 
 
-				<h:column rendered="#{s:hasPermission('tenantInfoAction', 'edit')}">
-					<f:facet name="header">
-						<h:outputText value=" " />
-					</f:facet>
-					<s:link
-						view="/admin/entities/realestate/tenantInfo/editTenantInfo.xhtml">
-						<h:graphicImage alt="edit" style="border: 0px"
-							value="/images/icons/edit.png" />
-						<f:param name="tenantInfoId" value="#{_tenantInfo.id}" />
-					</s:link>
+
+				<h:column rendered="false">
+					<a:commandButton reRender="tenantInfoList"
+						oncomplete="Richfaces.showModalPanel('TenantInfoModalPanel',{});"
+						value="Quick Create">
+					</a:commandButton>
 				</h:column>
 
 
-				<h:column
-					rendered="#{s:hasPermission('tenantInfoAction', 'archive')}">
-					<f:facet name="header">
-						<h:outputText value="" />
-					</f:facet>
 
-					<s:link action="#{tenantInfoAction.archiveById}"
-						onclick="javascript:if(!confirm('Do you really want to delete #{_tenantInfo.displayName} ?')){ return false; } else { return true; }">
-						<h:graphicImage alt="archive" style="border: 0px"
-							value="/images/icons/delete.png" />
-						<f:param name="idToArchive" value="#{_tenantInfo.id}" />
-					</s:link>
-				</h:column>
+
 
 			</rich:dataTable>
-		</h:form>
+
+
+			<h:commandButton action="#{realEstatePropertyAction.save}"
+				view="/manageAccount/pm.xhtml" value="Save" />
+		</a:form>
+		<ui:include
+			src="/admin/entities/realestate/tenantInfo/modalDlgTenantInfoComponent.xhtml" />
 	</rich:panel>
-	<br />
 
-	<rich:panel>
-		<h:form>
-			<f:facet name="header">Appraisal Search Results </f:facet>
-
-			<a:form id="sss">
-
-				<a:commandButton action="#{realEstatePropertyAction.addTenantInfos}"
-					reRender="tenantInfos_data#{entityId}" value="New TenantInfo">
-					<s:conversationId />
-				</a:commandButton>
-
-				<rich:dataTable id="tenantInfos_data#{entityId}"
-					rowClasses="odd, even" rows="10" rules="all" styleClass="dataTable"
-					value="#{realEstatePropertyAction.listTenantInfos}"
-					var="_tenantInfo">
-
-
-					<h:column style="text-align:left">
-						<f:facet name="header">
-							<h:outputText value="#{msg.tenantInfo_unit}  " />
-						</f:facet>
-
-
-						<h:inputText id="tenantInfo_unit#{entityId}" required="false"
-							value="#{_tenantInfo.unit}" />
-
-
-						<h:message for="tenantInfo_unit" styleClass="error errors" />
-					</h:column>
-
-
-					<h:column style="text-align:left">
-						<f:facet name="header">
-							<h:outputText value="#{msg.tenantInfo_name}  " />
-						</f:facet>
-
-
-						<h:inputText id="tenantInfo_name#{entityId}" required="false"
-							value="#{_tenantInfo.name}" />
-
-
-						<h:message for="tenantInfo_name" styleClass="error errors" />
-					</h:column>
-
-
-
-					<h:column style="text-align:right">
-						<f:facet name="header">
-							<h:outputText value="#{msg.tenantInfo_rent}  " />
-						</f:facet>
-
-
-						<h:inputText id="tenantInfo_rent#{entityId}" required="false"
-							value="#{_tenantInfo.rent}" />
-
-
-						<h:message for="tenantInfo_rent" styleClass="error errors" />
-					</h:column>
-
-
-					<h:column style="text-align:right">
-						<f:facet name="header">
-							<h:outputText value="#{msg.tenantInfo_lease}  " />
-						</f:facet>
-
-
-						<h:selectBooleanCheckbox id="tenantInfo_lease#{entityId}"
-							required="false" value="#{_tenantInfo.lease}" />
-
-
-						<h:message for="tenantInfo_lease" styleClass="error errors" />
-					</h:column>
-
-
-
-					<h:column style="text-align:right">
-						<f:facet name="header">
-							<h:outputText value="#{msg.tenantInfo_leaseExpiry}  " />
-						</f:facet>
-
-
-						<rich:calendar id="tenantInfo_leaseExpiry#{entityId}"
-							required="false" value="#{_tenantInfo.leaseExpiry}" />
-
-
-						<h:message for="tenantInfo_leaseExpiry" styleClass="error errors" />
-					</h:column>
-
-
-					<h:column style="text-align:right">
-						<f:facet name="header">
-							<h:outputText value="#{msg.tenantInfo_attornment}  " />
-						</f:facet>
-
-
-						<rich:calendar id="tenantInfo_attornment#{entityId}"
-							required="false" value="#{_tenantInfo.attornment}" />
-
-
-						<h:message for="tenantInfo_attornment" styleClass="error errors" />
-					</h:column>
-
-
-
-
-
-
-
-					<h:column style="text-align:right">
-						<f:facet name="header">
-							<h:outputText value="#{msg.tenantInfo_utilities}  " />
-						</f:facet>
-
-
-						<h:selectBooleanCheckbox id="tenantInfo_utilities#{entityId}"
-							required="false" value="#{_tenantInfo.utilities}" />
-
-
-						<h:message for="tenantInfo_utilities" styleClass="error errors" />
-					</h:column>
-
-
-
-
-					<h:column>
-
-						<a:commandButton
-							action="#{realEstatePropertyAction.addTenantInfos}"
-							reRender="tenantInfos_data#{entityId}" value="New TenantInfo">
-							<s:conversationId />
-						</a:commandButton>
-					</h:column>
-
-					<h:column>
-						<a:commandButton
-							action="#{realEstatePropertyAction.deleteTenantInfos(_tenantInfo)}"
-							immediate="true" reRender="tenantInfos_data#{entityId}"
-							value="Delete">
-							<s:conversationId />
-						</a:commandButton>
-					</h:column>
-
-				</rich:dataTable>
-
-
-				<h:commandButton action="#{realEstatePropertyAction.save}"
-					view="/manageAccount/pm.xhtml" value="Save" />
-			</a:form>
-		</h:form>
-	</rich:panel>
 </ui:composition>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+
+	
+	<rich:panel>
+	<f:facet name="header">Vacancy Status</f:facet>
+		<h:panelGrid columns="2" styleClass="summarywrap">
+		
+				<h:panelGroup>
+					<h:outputText value="#{msg.realEstateProperty_vacancyStatus}  " />
+					<br />
+					<h:selectOneMenu id="realEstateProperty_vacancyStatus"
+						required="false"
+						value="#{realEstatePropertyAction.realEstateProperty.vacancyStatus}">
+						<f:selectItem itemLabel="Please Select..." itemValue="" />
+						<f:selectItem itemLabel="Secured" itemValue="Secured" />
+						<f:selectItem itemLabel="Preservationorder"
+							itemValue="PreservationOrder" />
+						<f:selectItem itemLabel="Anticipatedjudgement"
+							itemValue="AnticipatedJudgement" />
+						<f:selectItem itemLabel="Unsecured" itemValue="Unsecured" />
+
+					</h:selectOneMenu>
+					<h:message for="realEstateProperty_vacancyStatus"
+						styleClass="error errors" />
+				</h:panelGroup>
+
+			
+			
+			
+			
+				<h:panelGroup>
+				
+					<h:outputText value="#{msg.realEstateProperty_lockboxCode}  " />
+					<br />
+
+					<h:inputText id="realEstateProperty_lockboxCode"
+						value="#{realEstatePropertyAction.realEstateProperty.lockboxCode}" />
+					<h:message for="realEstateProperty_lockboxCode"
+						styleClass="error errors" />
+
+				</h:panelGroup>
+			
+		</h:panelGrid>
+	</rich:panel>
+	
+
+</ui:composition>

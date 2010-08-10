@@ -11,31 +11,28 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
 
 	<div class="entry errors"><h:messages globalOnly="true" /></div>
+	<rich:panel>
+		<f:facet name="header">Property Manager Information</f:facet>
+		<h:panelGrid columns="2" styleClass="summarywrap">
 
-	<h:panelGrid columns="2" styleClass="summarywrap">
-		<h:column>
-			<h:panelGroup>
-				<br />
-			</h:panelGroup>
-		</h:column>
-		<h:column>
-			<h:panelGroup>
-				<h:outputText value="#{msg.realEstateProperty_occupancy}  " />
-				<br />
-				<h:selectOneMenu id="realEstateProperty_occupancy" required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.occupancy}">
-					<f:selectItem itemLabel="Please Select..." itemValue="" />
-					<f:selectItem itemLabel="Owner" itemValue="Owner" />
-					<f:selectItem itemLabel="Tenanted" itemValue="Tenanted" />
-					<f:selectItem itemLabel="Unconfirmed" itemValue="Unconfirmed" />
+			<h:column>
+				<h:panelGroup>
+					<h:outputText value="#{msg.realEstateProperty_occupancy}  " />
+					<br />
+					<h:selectOneMenu id="realEstateProperty_occupancy" required="false"
+						value="#{realEstatePropertyAction.realEstateProperty.occupancy}">
+						<f:selectItem itemLabel="Please Select..." itemValue="" />
+						<f:selectItem itemLabel="Owner" itemValue="Owner" />
+						<f:selectItem itemLabel="Tenanted" itemValue="Tenanted" />
+						<f:selectItem itemLabel="Unconfirmed" itemValue="Unconfirmed" />
 
-				</h:selectOneMenu>
-				<h:message for="realEstateProperty_occupancy"
-					styleClass="error errors" />
-			</h:panelGroup>
-		</h:column>
+					</h:selectOneMenu>
+					<h:message for="realEstateProperty_occupancy"
+						styleClass="error errors" />
+				</h:panelGroup>
+			</h:column>
 
 
-	</h:panelGrid>
-
+		</h:panelGrid>
+	</rich:panel>
 </ui:composition>
