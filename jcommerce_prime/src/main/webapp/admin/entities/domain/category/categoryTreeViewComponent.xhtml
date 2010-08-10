@@ -1,0 +1,51 @@
+<ui:composition 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template = "/admin/template.xhtml" >	
+
+<rich:panel id="dynamicTreePanel" header="Dynamic Tree User Interface">
+
+	<a:form>
+		<h:panelGrid columns="2">
+			<rich:tree icon="/image/node.gif" iconLeaf="/image/node.gif"
+				nodeSelectListener="#{categoryAction.processSelection}"
+				reRender="selectedNode, prd" ajaxSubmitSelection="true">
+
+				<rich:recursiveTreeNodesAdaptor
+					roots="#{categoryAction.topLevelCategories}" var="_category">
+					<rich:treeNode>
+						<h:outputText value="#{_category.name}" />
+					</rich:treeNode>
+
+					<rich:recursiveTreeNodesAdaptor roots="#{_category.children}"
+						var="_child" nodes="#{_child.children}">
+						<rich:treeNode>
+							<h:outputText value="#{_child.name}" />
+						</rich:treeNode>
+					</rich:recursiveTreeNodesAdaptor>
+
+
+				</rich:recursiveTreeNodesAdaptor>
+			</rich:tree>
+
+
+			<rich:panel id="prd">
+				<ui:include
+					src="/admin/entities/domain/product/viewProductComponent.xhtml">
+					<ui:param name="productId" value="#{categoryAction.productId}" />
+				</ui:include>
+			</rich:panel>
+		</h:panelGrid>
+	</a:form>
+
+</rich:panel>
+
+</ui:composition>

@@ -1,0 +1,100 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:panelGroup   >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol"  onload="#{orderItemAction.load(orderItemId )  }">
+		<f:facet name="header">
+			<h:outputText value="OrderItem " />
+		</f:facet>
+		
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.orderItem_customerOrder}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="orderItem_customerOrder" value="#{orderItemAction.orderItem.customerOrder}" required="true">
+		<s:selectItems value="#{customerOrderList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message styleClass="error errors" for="orderItem_customerOrder" />		
+		
+	
+	
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.orderItem_product}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="orderItem_product" value="#{orderItemAction.orderItem.product}" required="true">
+		<s:selectItems value="#{productList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message styleClass="error errors" for="orderItem_product" />		
+		
+	
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.orderItem_quantity}  "/>
+		
+
+	<h:inputText  id="orderItem_quantity#{entityId}" required="false"  value="#{orderItemAction.orderItem.quantity}" />
+   
+		
+		<h:message styleClass="error errors" for="orderItem_quantity" />		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	</h:panelGroup>
+	</html>
+	

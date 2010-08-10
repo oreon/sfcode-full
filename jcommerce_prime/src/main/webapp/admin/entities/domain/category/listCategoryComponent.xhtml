@@ -1,0 +1,163 @@
+
+<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	
+	
+<rich:panel>
+   <h:form>
+	  <f:facet name="header">Category Search Results (#{empty categoryList.resultList ? 0 : (categoryList.paginated ? categoryList.resultCount : categoryList.resultList.size)})</f:facet>
+	
+		<rich:dataTable  var="_category" value="#{categoryList.resultList}" 
+		rowClasses="odd, even" styleClass="dataTable"  rendered="#{not empty categoryList.resultList}">	
+		
+	<h:column >
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{categoryList}" />
+				<ui:param name="propertyLabel" value="Id" />
+				<ui:param name="propertyPath" value="category.id" />
+			</ui:include>
+		</f:facet>
+		<h:outputText    value="#{_category.id}"  >
+		</h:outputText>
+	</h:column>
+		
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{categoryList}" />
+				<ui:param name="propertyLabel" value="#{msg.category_name}" />
+				<ui:param name="propertyPath" value="category.name" />
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_category.name}" />	
+		
+	</h:column>
+	
+		
+			
+				
+	<h:column  groupOn="#{category.parent.displayName}" >
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{categoryList}" />
+				<ui:param name="propertyLabel" value="#{msg.category_parent}" />
+				<ui:param name="propertyPath" value="category.parent" />
+			</ui:include>
+		</f:facet>
+		<s:link    value="#{_category.parent.displayName}"  view="/admin/entities/domain/category/viewCategory.xhtml" >
+			<f:param name="parentId" value="#{_category.parent.id}" />
+			<f:param name="from" value="#{request.servletPath}" />
+		</s:link>
+	</h:column>
+			
+		
+	
+		
+	
+		
+	<h:column >
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{categoryList}" />
+				<ui:param name="propertyLabel" value="Creation Date" />
+				<ui:param name="propertyPath" value="category.dateCreated" />
+			</ui:include>
+		</f:facet>
+		<h:outputText    value="#{_category.dateCreated}"  >
+			<s:convertDateTime type="both" dateStyle="short" />
+		</h:outputText>
+	</h:column>
+		
+	<h:column rendered="#{s:hasPermission('categoryAction', 'view')}">
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<s:link view="/admin/entities/domain/category/viewCategory.xhtml">
+			<h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>
+			<f:param name="categoryId" value="#{_category.id}" />
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('categoryAction', 'edit')}">
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<s:link view="/admin/entities/domain/category/editCategory.xhtml">
+			<h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>
+			<f:param name="categoryId" value="#{_category.id}" />
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('categoryAction', 'archive')}">
+		<f:facet name="header">
+			<h:outputText value="" />
+		</f:facet>
+		
+		<s:link action="#{categoryAction.archive}" onclick="javascript:if(!confirm('Do you really want to delete #{_category.displayName} ?')){ return false; } else { return true; }" >
+			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>
+			<f:param name="id" value="#{_category.id}" />
+		</s:link>
+	</h:column>
+
+		</rich:dataTable>
+ 	</h:form>		
+</rich:panel>	
+
+
+
+ <div class="tableControl">
+<s:link
+	view="#{request.servletPath}"
+	rendered="#{categoryList.previousExists}"
+	value="#{messages.left}#{messages.left} First Page" >
+	<f:param name="firstResult" value="0" />
+</s:link> 
+
+<s:link view="#{request.servletPath}"
+	rendered="#{categoryList.previousExists}"
+	value="#{messages.left} Previous Page" >
+	<f:param name="firstResult" value="#{categoryList.previousFirstResult}" />
+</s:link> 
+
+<s:link view="#{request.servletPath}"
+	rendered="#{categoryList.nextExists}"
+	value="Next Page #{messages.right}" >
+	<f:param name="firstResult" value="#{categoryList.nextFirstResult}" />
+</s:link> 
+
+<s:link view="#{request.servletPath}"
+	rendered="#{categoryList.nextExists}"
+	value="Last Page #{messages.right}#{messages.right}" >
+	<f:param name="firstResult" value="#{categoryList.lastFirstResult}" />
+</s:link>
+</div>
+
+
+<h:form>
+<s:div styleClass="actionButtons" rendered="#{empty from}">
+	<s:button value="Create New" view="/admin/entities/domain/category/editCategory.xhtml"  propagation="none">
+		 <f:param name="categoryId"/>
+		
+		<f:param name="parentId" value="#{category.parent.id}" />
+		
+	</s:button>
+</s:div>
+</h:form>
+
+</html>
+	
