@@ -52,12 +52,12 @@ public class Inspection extends BusinessEntity implements java.io.Serializable {
 	@Lob
 	protected String Observation;
 
-	protected Boolean actionRequired;
-
 	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "propertyManager_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected PropertyManager propertyManager;
+
+	protected Boolean actionRequired;
 
 	public void setType(InspectionType type) {
 		this.type = type;
@@ -86,15 +86,6 @@ public class Inspection extends BusinessEntity implements java.io.Serializable {
 		return Observation;
 	}
 
-	public void setActionRequired(Boolean actionRequired) {
-		this.actionRequired = actionRequired;
-	}
-
-	public Boolean getActionRequired() {
-
-		return actionRequired;
-	}
-
 	public void setPropertyManager(PropertyManager propertyManager) {
 		this.propertyManager = propertyManager;
 	}
@@ -102,6 +93,15 @@ public class Inspection extends BusinessEntity implements java.io.Serializable {
 	public PropertyManager getPropertyManager() {
 
 		return propertyManager;
+	}
+
+	public void setActionRequired(Boolean actionRequired) {
+		this.actionRequired = actionRequired;
+	}
+
+	public Boolean getActionRequired() {
+
+		return actionRequired;
 	}
 
 	@Transient

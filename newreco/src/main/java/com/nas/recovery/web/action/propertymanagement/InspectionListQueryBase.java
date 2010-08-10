@@ -48,9 +48,9 @@ public abstract class InspectionListQueryBase
 
 			"inspection.observation = #{inspectionList.inspection.observation}",
 
-			"inspection.actionRequired = #{inspectionList.inspection.actionRequired}",
-
 			"inspection.propertyManager = #{inspectionList.inspection.propertyManager}",
+
+			"inspection.actionRequired = #{inspectionList.inspection.actionRequired}",
 
 			"inspection.dateCreated <= #{inspectionList.dateCreatedRange.end}",
 			"inspection.dateCreated >= #{inspectionList.dateCreatedRange.begin}",};
