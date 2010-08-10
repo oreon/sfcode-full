@@ -1,0 +1,86 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:panelGroup   >
+		<s:validateAll>
+		<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol"  onload="#{orderItemAction.load(orderItemId )  }">
+		<f:facet name="header">
+			<h:outputText value="OrderItem " />
+		</f:facet>
+		
+			<h:outputText value="#{msg.id}" />
+			<h:outputText  value="#{orderItemAction.orderItem.id}" />
+		
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.orderItem_customerOrder}  "/>		
+	
+	<s:link value="#{orderItemAction.orderItem.customerOrder.displayName}" view="/admin/entities/domain/customerOrder/viewCustomerOrder.xhtml" >
+		<f:param name="id" value="#{orderItemAction.orderItem.customerOrder.id}" />
+	</s:link>
+	
+		
+		
+		
+	
+	
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.orderItem_product}  "/>		
+	
+	<s:link value="#{orderItemAction.orderItem.product.displayName}" view="/admin/entities/domain/product/viewProduct.xhtml" >
+		<f:param name="id" value="#{orderItemAction.orderItem.product.id}" />
+	</s:link>
+	
+		
+		
+		
+	
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.orderItem_quantity}  "/>		
+
+	<h:outputText   id="orderItem_quantity#{entityId}"   value="#{orderItemAction.orderItem.quantity}" />
+   
+		
+		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	</h:panelGroup>
+	</html>
+	

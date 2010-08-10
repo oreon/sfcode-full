@@ -1,0 +1,106 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:panelGroup   >
+		<s:validateAll>
+		<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol"  onload="#{productAction.load(productId )  }">
+		<f:facet name="header">
+			<h:outputText value="Product " />
+		</f:facet>
+		
+			<h:outputText value="#{msg.id}" />
+			<h:outputText  value="#{productAction.product.id}" />
+		
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.product_category}  "/>		
+	
+	<s:link value="#{productAction.product.category.displayName}" view="/admin/entities/domain/category/viewCategory.xhtml" >
+		<f:param name="id" value="#{productAction.product.category.id}" />
+	</s:link>
+	
+		
+		
+		
+	
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.product_name}  "/>		
+
+	<h:outputText   id="product_name#{entityId}"   value="#{productAction.product.name}" />
+   
+		
+		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.product_price}  "/>		
+
+	<h:outputText   id="product_price#{entityId}"   value="#{productAction.product.price}" />
+   
+		
+		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.product_image}  "/>		
+
+	<s:graphicImage value="#{productAction.product.image.data}"/> 
+   
+		
+		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.product_description}  "/>		
+
+	<s:formattedText escape="false"   id="product_description#{entityId}"   value="#{productAction.product.description}" />
+   
+		
+		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	</h:panelGroup>
+	</html>
+	

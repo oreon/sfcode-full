@@ -1,0 +1,55 @@
+
+<ui:composition 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ template = "/admin/template.xhtml" >	
+	<ui:define name="content">
+		<h:form>
+			<rich:tabPanel switchType="ajax">
+				<rich:tab label="OrderItem">
+					<ui:include src = "/admin/entities/domain/orderItem/viewOrderItemComponent.xhtml" />
+				</rich:tab>
+			
+				<rich:tab label="CustomerOrder">
+					<ui:include src = "/admin/entities/domain/customerOrder/viewCustomerOrderComponent.xhtml" >
+						<ui:param name="entityId" value="118" />
+						<ui:param name="customerOrderId" value="#{orderItemAction.instance.customerOrder.id}" />
+					</ui:include>
+				</rich:tab>
+			
+				<rich:tab label="Product">
+					<ui:include src = "/admin/entities/domain/product/viewProductComponent.xhtml" >
+						<ui:param name="entityId" value="7977" />
+						<ui:param name="productId" value="#{orderItemAction.instance.product.id}" />
+					</ui:include>
+				</rich:tab>
+				
+				
+			</rich:tabPanel>
+			<br/>
+			
+			<rich:tabPanel>
+			
+			</rich:tabPanel>
+		</h:form>
+		<br/>
+		
+		<rich:tabPanel>
+			<rich:tab label="Notes">
+				<wc:comments backingAction="#{orderItemAction}"/>
+			</rich:tab>
+			
+		</rich:tabPanel>
+		
+		
+	</ui:define> 
+</ui:composition>
+	

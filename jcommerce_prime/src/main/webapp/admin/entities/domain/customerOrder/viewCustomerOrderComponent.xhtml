@@ -1,0 +1,111 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:panelGroup   >
+		<s:validateAll>
+		<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol"  onload="#{customerOrderAction.load(customerOrderId )  }">
+		<f:facet name="header">
+			<h:outputText value="CustomerOrder " />
+		</f:facet>
+		
+			<h:outputText value="#{msg.id}" />
+			<h:outputText  value="#{customerOrderAction.customerOrder.id}" />
+		
+		
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.customerOrder_employee}  "/>		
+	
+	<s:link value="#{customerOrderAction.customerOrder.employee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" >
+		<f:param name="id" value="#{customerOrderAction.customerOrder.employee.id}" />
+	</s:link>
+	
+		
+		
+		
+	
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.customerOrder_specialInstructions}  "/>		
+
+	<s:formattedText escape="false"   id="customerOrder_specialInstructions#{entityId}"   value="#{customerOrderAction.customerOrder.specialInstructions}" />
+   
+		
+		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+	
+	
+	<rich:dataTable id="orderItems_data#{entityId}" var="_orderItem" rendered="#{not empty customerOrderAction.listOrderItems}"
+					value="#{customerOrderAction.listOrderItems}" rows="10"
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.orderItem_product}  "/></f:facet>		
+	
+	<s:link value="#{_orderItem.product.displayName}" view="/admin/entities/domain/product/viewProduct.xhtml" >
+		<f:param name="id" value="#{orderItemAction.orderItem.product.id}" />
+	</s:link>
+	
+		
+		</h:column>
+		
+	
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.orderItem_quantity}  "/></f:facet>		
+
+	<h:outputText   id="orderItem_quantity#{entityId}"   value="#{_orderItem.quantity}" />
+   
+		
+		</h:column>
+		
+	
+	
+			
+	</rich:dataTable>
+		</s:validateAll>
+		
+	</h:panelGroup>
+	</html>
+	

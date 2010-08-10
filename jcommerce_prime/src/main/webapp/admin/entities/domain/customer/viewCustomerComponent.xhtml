@@ -1,0 +1,138 @@
+
+	<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	<h:panelGroup   >
+		<s:validateAll>
+		<h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol"  onload="#{customerAction.load(customerId )  }">
+		<f:facet name="header">
+			<h:outputText value="Customer " />
+		</f:facet>
+		
+			<h:outputText value="#{msg.id}" />
+			<h:outputText  value="#{customerAction.customer.id}" />
+		
+		
+	
+			 false
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.contactDetails_primaryPhone}  "/>		
+
+	<h:outputText   id="contactDetails_primaryPhone#{entityId}"   value="#{customerAction.customer.contactDetails.primaryPhone}" />
+   
+		
+		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>		
+
+	<h:outputText   id="contactDetails_secondaryPhone#{entityId}"   value="#{customerAction.customer.contactDetails.secondaryPhone}" />
+   
+		
+		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.contactDetails_email}  "/>		
+
+	<h:outputText   id="contactDetails_email#{entityId}"   value="#{customerAction.customer.contactDetails.email}" />
+   
+		
+		
+		
+	
+	
+		
+	
+	
+	
+		
+			
+	
+	
+		
+		<h:outputText value="#{msg.customer_user}  "/>		
+	
+	<s:link value="#{customerAction.customer.user.displayName}" view="/admin/entities/users/user/viewUser.xhtml" >
+		<f:param name="id" value="#{customerAction.customer.user.id}" />
+	</s:link>
+	
+		
+		
+		
+	
+	
+		
+	
+
+	 
+	
+	
+		
+		<h:outputText value="#{msg.person_firstName}  "/>		
+
+	<h:outputText   id="person_firstName#{entityId}"   value="#{customerAction.customer.firstName}" />
+   
+		
+		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.person_lastName}  "/>		
+
+	<h:outputText   id="person_lastName#{entityId}"   value="#{customerAction.customer.lastName}" />
+   
+		
+		
+		
+	
+	
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.customer_customerClass}  "/>		
+	<h:outputText   value="#{customerAction.customer.customerClass}" />
+	
+		
+		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	</h:panelGroup>
+	</html>
+	
