@@ -10,11 +10,8 @@
 	<ui:define name="content">
 
 		
-		<h2>Task: #{bugManagementProcessAction.task.description}</h2>
+		<h2>Task: #{bugManagementProcessAction.task.task.taskNode.name}  #{bugManagementProcessAction.task.variables['title']}</h2>
 		<h:form>
-			<h:commandButton action="editIssue" value="Edit">
-			</h:commandButton>
-
 			<ui:include
 				src="/admin/entities/issues/issue/viewIssueComponent.xhtml">
 				<ui:param name="issueId"
@@ -22,7 +19,12 @@
 			</ui:include>
 		</h:form>
 		
-		Creator #{issueAction.instance.createdByUser.userName}
+		<a:form>
+			<a:commandButton oncomplete="Richfaces.showModalPanel('IssueModalPanel',{});" value="Edit">
+			</a:commandButton>
+		</a:form>
+		<ui:include src="/admin/entities/issues/issue/modalDlgIssueComponent.xhtml"/>
+		
 
 
 		<h:form id="list">
@@ -72,8 +74,8 @@
 				<f:facet name="header">
 					Comment
 				</f:facet>
-				<h:outputText value="#{_cmt.message}">
-				</h:outputText>
+				<s:formattedText value="#{_cmt.message}"  />
+			
 
 			</h:column>
 
@@ -87,7 +89,7 @@
 
 			<h:column>
 				<f:facet name="header">
-					Time
+					Date
 				</f:facet>
 				<h:outputText value="#{_cmt.time}" />
 			</h:column>

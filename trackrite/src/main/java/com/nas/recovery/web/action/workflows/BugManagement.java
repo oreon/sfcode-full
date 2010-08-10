@@ -12,8 +12,10 @@ import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Transactional;
 import org.jboss.seam.annotations.bpm.CreateProcess;
 import org.jboss.seam.annotations.bpm.EndTask;
+import org.jboss.seam.annotations.bpm.StartTask;
 import org.jboss.seam.web.ServletContexts;
 import org.wc.trackrite.issues.Issue;
+import org.wc.trackrite.issues.Status;
 
 import com.nas.recovery.web.action.issues.IssueAction;
 
@@ -33,10 +35,18 @@ public class BugManagement extends BugManagementBase {
 	String initiator ;
 	
 	@Out(scope = ScopeType.BUSINESS_PROCESS, required = false)
+	String developer ;
+	
+	@Out(scope = ScopeType.BUSINESS_PROCESS, required = false)
+	String qa ;
+	
+	@Out(scope = ScopeType.BUSINESS_PROCESS, required = false)
 	Long issueId ;
 	
 	@Out(scope = ScopeType.BUSINESS_PROCESS, required = false)
 	String title;
+	
+	
 	
 	@CreateProcess(definition = "bugManagement")
 	public void startProcess() {
@@ -45,6 +55,7 @@ public class BugManagement extends BugManagementBase {
 		issueAction.save();
 		issueId = issueAction.getInstance().getId();
 		title = issueAction.getInstance().getTitle();
+		statusMessages.add("Process Started");
 		//super.startProcess();
 	}
 	
@@ -61,6 +72,41 @@ public class BugManagement extends BugManagementBase {
 	@EndTask(transition = "assign")
 	public void assignAssignDeveloperTask() {
 		//issueToken.getIssue().setEmployee("tammy");
+	}
+	
+	@EndTask(transition = "accept")
+	public void acceptReviewIssueTask() {
+		developer = identity.getCredentials().getUsername();
+		updateIssue(Status.Started);
+	}
+	
+	@EndTask(transition = "requestModification")
+	public void requestModificationVerifyfixTask() {
+		updateIssue(Status.Started);
+		
+	}
+	
+	@EndTask(transition = "reject")
+	public void rejectReviewIssueTask() {
+		updateIssue(Status.Unassigned);
+	}
+
+
+
+	@EndTask(transition = "close")
+	public void closeVerifyfixTask() {
+		updateIssue(Status.Closed);
+	}
+	
+	@EndTask(transition = "fixed")
+	public void fixedWorkOnIssueTask() {
+		updateIssue(Status.ReadyForQA);
+	}
+
+	private void updateIssue(Status status) {
+		issueAction.load((Long)task.getVariable("issueId"));
+		issueAction.getInstance().setStatus(status);
+		issueAction.save();
 	}
 	
 	

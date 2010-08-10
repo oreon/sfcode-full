@@ -49,11 +49,10 @@ public class BaseJbpmProcessAction {
 	protected String comment;
 
 	@RequestParameter
-	private Long taskId;
+	private Long taskId = 0L;
 
 	@RequestParameter
-	protected
-	String transName;
+	protected String transName;
 
 	public String getTransName() {
 		return transName;
@@ -73,6 +72,8 @@ public class BaseJbpmProcessAction {
 	}
 
 	public long getTaskId() {
+		if(taskId == null)
+			return 0;
 		return taskId;
 	}
 
@@ -95,7 +96,7 @@ public class BaseJbpmProcessAction {
 	public void setTask(TaskInstance task) {
 		this.task = task;
 	}
-	
+
 	@Transactional
 	public String makeDecision() {
 		// FacesContext.getCurrentInstance()
@@ -107,24 +108,25 @@ public class BaseJbpmProcessAction {
 					.getName(); // this.getClass().getAnnotation(Name.class).value();
 			name = StringUtils.uncapitalize(name);
 			name = name + PROCESS_ACTION_SUFFIX;
-			//log.warn(" annotation name " + name);
+			// log.warn(" annotation name " + name);
 			Object component = Component.getInstance(name);
-			
-		
-			if(component == null){
+
+			if (component == null) {
 				statusMessages.add("No such component " + name);
 				return "failure";
 			}
 
 			loadInstance();
-			String tn = ServletContexts.getInstance().getRequest().getParameter("transName");
-			Method method = component.getClass().getMethod(transName + taskName);
+			if(transName == null)
+			transName = ServletContexts.getInstance().getRequest()
+					.getParameter("transName");
+			Method method = component.getClass()
+					.getMethod(transName + taskName);
 			method.setAccessible(true);
 			method.invoke(component, new Object[] {});
 
 			if (task != null) {
-				Comment comm = createComment();
-				task.addComment(comm);
+				createComment();
 				task.end(transName);
 				task.setEnd(new Date());
 			}
@@ -142,18 +144,21 @@ public class BaseJbpmProcessAction {
 
 	protected void loadInstance() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	private Comment createComment() {
-		Comment comm = new Comment();
-		comm.setMessage(comment);
-		comm.setTime(new Date());
-		comm.setActorId(identity.getCredentials().getUsername());
-		return comm;
+	private void createComment() {
+		if (comment != null && comment.length() > 0) {
+			
+			Comment comm = new Comment();
+			comm.setMessage(comment);
+			comm.setTime(new Date());
+			comm.setActorId(identity.getCredentials().getUsername());
+			task.addComment(comm);
+			//task.getTask
+		}
+
 	}
-	
-	
 
 	public List<Comment> getComments() {
 		List<Comment> cmts = new ArrayList<Comment>();
@@ -162,7 +167,7 @@ public class BaseJbpmProcessAction {
 					.getTaskMgmtInstance().getTaskInstances();
 
 			for (TaskInstance taskInstance : tasks) {
-				if(taskInstance.getComments() != null)
+				if (taskInstance.getComments() != null)
 					cmts.addAll(taskInstance.getComments());
 			}
 		}
