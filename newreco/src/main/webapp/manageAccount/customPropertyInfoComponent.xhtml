@@ -101,10 +101,10 @@
 			</a:commandButton>
 			<br />
 			<rich:dataTable id="tenantInfos_data#{entityId}"
-				rowClasses="odd, even" rows="10" rules="all" styleClass="dataTable"
+				rowClasses="odd, even" styleClass="dataTable" rowKeyvar="rowIndex"
+				rows="10" rules="all"
 				value="#{realEstatePropertyAction.listTenantInfos}"
 				var="_tenantInfo">
-
 
 				<h:column style="text-align:left">
 					<f:facet name="header">
@@ -223,9 +223,19 @@
 
 				</h:column>
 
+
 				<h:column>
 					<a:commandButton
-						action="#{realEstatePropertyAction.deleteTenantInfos(_tenantInfo)}"
+						action="#{realEstatePropertyAction.deleteTenantInfos(rowIndex)}"
+						immediate="true" reRender="tenantInfos_data#{entityId}"
+						value="Delete">
+						<s:conversationId />
+					</a:commandButton>
+				</h:column>
+
+				<h:column>
+					<a:commandButton
+						action="#{realEstatePropertyAction.deleteTenantInfos(rowIndex)}"
 						immediate="true" reRender="tenantInfos_data#{entityId}"
 						value="Delete">
 						<s:conversationId />
@@ -248,7 +258,7 @@
 			</rich:dataTable>
 
 
-			
+
 
 		</rich:panel>
 
