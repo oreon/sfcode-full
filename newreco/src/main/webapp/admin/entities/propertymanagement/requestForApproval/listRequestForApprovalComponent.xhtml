@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	
+	
+<rich:panel>
+   <h:form>
+	  <f:facet name="header">RequestForApproval Search Results (#{empty requestForApprovalList.resultList ? 0 : (requestForApprovalList.paginated ? requestForApprovalList.resultCount : requestForApprovalList.resultList.size)})</f:facet>
+	
+		<rich:dataTable id="requestForApprovalList" rendered="#{not empty requestForApprovalList.resultList}" rowClasses="odd, even" styleClass="dataTable" value="#{requestForApprovalList.resultList}" var="_requestForApproval">	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{requestForApprovalList}"/>
+				<ui:param name="propertyLabel" value="Id"/>
+				<ui:param name="propertyPath" value="requestForApproval.id"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_requestForApproval.id}">
+		</h:outputText>
+	</h:column>
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{requestForApprovalList}"/>
+				<ui:param name="propertyLabel" value="#{msg.requestForApproval_requestDate}"/>
+				<ui:param name="propertyPath" value="requestForApproval.requestDate"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_requestForApproval.requestDate}">
+				<s:convertDateTime dateStyle="short" type="both"/>
+			</h:outputText>
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{requestForApprovalList}"/>
+				<ui:param name="propertyLabel" value="#{msg.requestForApproval_referenceNumber}"/>
+				<ui:param name="propertyPath" value="requestForApproval.referenceNumber"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_requestForApproval.referenceNumber}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{requestForApprovalList}"/>
+				<ui:param name="propertyLabel" value="#{msg.requestForApproval_recievedDate}"/>
+				<ui:param name="propertyPath" value="requestForApproval.recievedDate"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_requestForApproval.recievedDate}">
+				<s:convertDateTime dateStyle="short" type="both"/>
+			</h:outputText>
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{requestForApprovalList}"/>
+				<ui:param name="propertyLabel" value="#{msg.requestForApproval_contractor}"/>
+				<ui:param name="propertyPath" value="requestForApproval.contractor"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_requestForApproval.contractor}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{requestForApprovalList}"/>
+				<ui:param name="propertyLabel" value="#{msg.requestForApproval_item}"/>
+				<ui:param name="propertyPath" value="requestForApproval.item"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_requestForApproval.item}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{requestForApprovalList}"/>
+				<ui:param name="propertyLabel" value="#{msg.requestForApproval_estimate}"/>
+				<ui:param name="propertyPath" value="requestForApproval.estimate"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_requestForApproval.estimate}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{requestForApprovalList}"/>
+				<ui:param name="propertyLabel" value="#{msg.requestForApproval_details}"/>
+				<ui:param name="propertyPath" value="requestForApproval.details"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_requestForApproval.details}"/>	
+		
+	</h:column>
+	
+		
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{requestForApprovalList}"/>
+				<ui:param name="propertyLabel" value="Creation Date"/>
+				<ui:param name="propertyPath" value="requestForApproval.dateCreated"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_requestForApproval.dateCreated}">
+			<s:convertDateTime dateStyle="short" type="both"/>
+		</h:outputText>
+	</h:column>
+		
+	<h:column rendered="#{s:hasPermission('requestForApprovalAction', 'view')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/propertymanagement/requestForApproval/viewRequestForApproval.xhtml">
+			<h:graphicImage alt="view" style="border: 0px" value="/images/icons/eye.png"/>
+			<f:param name="requestForApprovalId" value="#{_requestForApproval.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('requestForApprovalAction', 'edit')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/propertymanagement/requestForApproval/editRequestForApproval.xhtml">
+			<h:graphicImage alt="edit" style="border: 0px" value="/images/icons/edit.png"/>
+			<f:param name="requestForApprovalId" value="#{_requestForApproval.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('requestForApprovalAction', 'archive')}">
+		<f:facet name="header">
+			<h:outputText value=""/>
+		</f:facet>
+		
+		<s:link action="#{requestForApprovalAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_requestForApproval.displayName} ?')){ return false; } else { return true; }">
+			<h:graphicImage alt="archive" style="border: 0px" value="/images/icons/delete.png"/>
+			<f:param name="idToArchive" value="#{_requestForApproval.id}"/>
+		</s:link>
+	</h:column>
+
+		</rich:dataTable>
+ 	</h:form>		
+</rich:panel>	
+
+
+
+ <div class="tableControl">
+<s:link rendered="#{requestForApprovalList.previousExists}" value="#{messages.left}#{messages.left} First Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="0"/>
+</s:link> 
+
+<s:link rendered="#{requestForApprovalList.previousExists}" value="#{messages.left} Previous Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{requestForApprovalList.previousFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{requestForApprovalList.nextExists}" value="Next Page #{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{requestForApprovalList.nextFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{requestForApprovalList.nextExists}" value="Last Page #{messages.right}#{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{requestForApprovalList.lastFirstResult}"/>
+</s:link>
+</div>
+
+
+<h:form>
+<s:div rendered="#{empty from}" styleClass="actionButtons">
+	<s:button propagation="none" value="Create New" view="/admin/entities/propertymanagement/requestForApproval/editRequestForApproval.xhtml">
+		 <f:param name="requestForApprovalId"/>
+		
+	</s:button>
+</s:div>
+</h:form>
+
+</ui:composition>

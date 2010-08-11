@@ -987,6 +987,151 @@
 	</h:column>
 			
 	</rich:dataTable>
+ 
+	<a:commandButton action="#{realEstatePropertyAction.addRequestForApprovals}" reRender="requestForApprovals_data#{entityId}" value="New RequestForApproval">
+		<s:conversationId/>
+	</a:commandButton>
+ 
+	
+	<rich:dataTable id="requestForApprovals_data#{entityId}" rendered="#{not empty realEstatePropertyAction.listRequestForApprovals}" rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all" styleClass="dataTable" value="#{realEstatePropertyAction.listRequestForApprovals}" var="_requestForApproval">
+		
+	
+
+	
+	
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.requestForApproval_requestDate}  "/>
+          </f:facet>
+		
+
+	<rich:calendar id="requestForApproval_requestDate#{entityId}" label="#{msg.requestForApproval_requestDate}" required="false" value="#{_requestForApproval.requestDate}"/>
+   
+		
+		<h:message for="requestForApproval_requestDate" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.requestForApproval_referenceNumber}  "/>
+          </f:facet>
+		
+
+	<h:inputText id="requestForApproval_referenceNumber#{entityId}" label="#{msg.requestForApproval_referenceNumber}" required="false" value="#{_requestForApproval.referenceNumber}"/>
+   
+		
+		<h:message for="requestForApproval_referenceNumber" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.requestForApproval_recievedDate}  "/>
+          </f:facet>
+		
+
+	<rich:calendar id="requestForApproval_recievedDate#{entityId}" label="#{msg.requestForApproval_recievedDate}" required="false" value="#{_requestForApproval.recievedDate}"/>
+   
+		
+		<h:message for="requestForApproval_recievedDate" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.requestForApproval_contractor}  "/>
+          </f:facet>
+		
+
+	<h:inputText id="requestForApproval_contractor#{entityId}" label="#{msg.requestForApproval_contractor}" required="false" value="#{_requestForApproval.contractor}"/>
+   
+		
+		<h:message for="requestForApproval_contractor" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.requestForApproval_item}  "/>
+          </f:facet>
+		
+
+	<h:inputText id="requestForApproval_item#{entityId}" label="#{msg.requestForApproval_item}" required="false" value="#{_requestForApproval.item}"/>
+   
+		
+		<h:message for="requestForApproval_item" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.requestForApproval_estimate}  "/>
+          </f:facet>
+		
+
+	<h:inputText id="requestForApproval_estimate#{entityId}" label="#{msg.requestForApproval_estimate}" required="false" value="#{_requestForApproval.estimate}"/>
+   
+		
+		<h:message for="requestForApproval_estimate" styleClass="error errors"/>		</h:column>
+		
+	
+	
+
+	
+	
+		
+		<h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.requestForApproval_details}  "/>
+          </f:facet>
+		
+
+	<rich:editor id="requestForApproval_details#{entityId}" label="#{msg.requestForApproval_details}" required="false" useSeamText="true" value="#{_requestForApproval.details}"/>
+   
+		
+		<h:message for="requestForApproval_details" styleClass="error errors"/>		</h:column>
+		
+	
+	
+		
+	<h:column>
+		
+	<a:commandButton action="#{realEstatePropertyAction.addRequestForApprovals}" reRender="requestForApprovals_data#{entityId}" value="New RequestForApproval">
+		<s:conversationId/>
+	</a:commandButton>
+	</h:column>
+		
+	<h:column>
+		<a:commandButton action="#{realEstatePropertyAction.deleteRequestForApprovals(rowIndex)}" immediate="true" reRender="requestForApprovals_data#{entityId}" value="Delete">
+			<s:conversationId/>
+		</a:commandButton>
+	</h:column>
+			
+	</rich:dataTable>
 		</s:validateAll>
 		
 	</h:panelGroup>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>
+  <s:validateAll>
+	<h:panelGrid columns="3" styleClass="summarywrap">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.sale_soldDate}  "/> <br/>
+	
+		<rich:calendar id="sale_soldDate" value="#{saleAction.sale.soldDate}"/>
+		<h:message for="sale_soldDate" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.sale_closingDate}  "/> <br/>
+	
+		<rich:calendar id="sale_closingDate" value="#{saleAction.sale.closingDate}"/>
+		<h:message for="sale_closingDate" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.sale_soldPrice}  "/> <br/>
+	
+		<h:inputText id="sale_soldPrice" value="#{saleAction.sale.soldPrice}"/>
+		<h:message for="sale_soldPrice" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.sale_deposit}  "/> <br/>
+	
+		<h:inputText id="sale_deposit" value="#{saleAction.sale.deposit}"/>
+		<h:message for="sale_deposit" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.sale_commission}  "/> <br/>
+	
+		<h:inputText id="sale_commission" value="#{saleAction.sale.commission}"/>
+		<h:message for="sale_commission" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.sale_realEstateListing}  "/> <br/>
+	<h:selectOneMenu id="sale_realEstateListing" value="#{saleAction.sale.realEstateListing}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Select.." value="#{realEstateListingList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	<h:message for="sale_realEstateListing" styleClass="error errors"/>
+	</h:panelGroup>
+	
+	
+	</h:panelGrid>
+  </s:validateAll>
+</ui:composition>

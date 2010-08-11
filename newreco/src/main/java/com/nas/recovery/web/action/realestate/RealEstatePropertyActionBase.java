@@ -40,6 +40,7 @@ import com.nas.recovery.domain.appraisal.Appraisal;
 import com.nas.recovery.domain.realestate.FilesUploaded;
 import com.nas.recovery.domain.propertymanagement.Inspection;
 import com.nas.recovery.domain.propertymanagement.Utilitiy;
+import com.nas.recovery.domain.propertymanagement.RequestForApproval;
 
 public abstract class RealEstatePropertyActionBase
 		extends
@@ -81,6 +82,9 @@ public abstract class RealEstatePropertyActionBase
 
 		if (listUtilitiys == null || isDifferentFromCurrent(id))
 			listUtilitiys = new ArrayList<Utilitiy>();
+
+		if (listRequestForApprovals == null || isDifferentFromCurrent(id))
+			listRequestForApprovals = new ArrayList<RequestForApproval>();
 
 		setId(id);
 		loadAssociations();
@@ -429,6 +433,41 @@ public abstract class RealEstatePropertyActionBase
 		listUtilitiys.add(utilitiys);
 	}
 
+	protected List<RequestForApproval> listRequestForApprovals;
+
+	void initListRequestForApprovals() {
+		listRequestForApprovals = new ArrayList<RequestForApproval>();
+		if (getInstance().getRequestForApprovals().isEmpty()) {
+
+		} else
+			listRequestForApprovals.addAll(getInstance()
+					.getRequestForApprovals());
+	}
+
+	public List<RequestForApproval> getListRequestForApprovals() {
+		if (listRequestForApprovals == null
+				|| listRequestForApprovals.isEmpty()) {
+			initListRequestForApprovals();
+		}
+		return listRequestForApprovals;
+	}
+
+	public void setListRequestForApprovals(
+			List<RequestForApproval> listRequestForApprovals) {
+		this.listRequestForApprovals = listRequestForApprovals;
+	}
+
+	public void deleteRequestForApprovals(int index) {
+		listRequestForApprovals.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addRequestForApprovals() {
+		RequestForApproval requestForApprovals = new RequestForApproval();
+
+		listRequestForApprovals.add(requestForApprovals);
+	}
+
 	public void updateComposedAssociations() {
 
 		if (listTenantInfos != null) {
@@ -459,6 +498,12 @@ public abstract class RealEstatePropertyActionBase
 		if (listUtilitiys != null) {
 			getInstance().getUtilitiys().clear();
 			getInstance().getUtilitiys().addAll(listUtilitiys);
+		}
+
+		if (listRequestForApprovals != null) {
+			getInstance().getRequestForApprovals().clear();
+			getInstance().getRequestForApprovals().addAll(
+					listRequestForApprovals);
 		}
 
 	}

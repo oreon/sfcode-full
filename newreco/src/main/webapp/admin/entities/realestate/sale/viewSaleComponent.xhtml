@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	<h:panelGroup>
+		<s:validateAll>
+		<h:panelGrid columnClasses="leftCol, rightCol" columns="2" onload="#{saleAction.load(saleId )  }" styleClass="viewInfo">
+		<f:facet name="header">
+			<h:outputText value="Sale "/>
+		</f:facet>
+		
+			<h:outputText value="#{msg.id}"/>
+			<h:outputText value="#{saleAction.sale.id}"/>
+		
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.sale_realEstateListing}  "/>		
+	
+	<s:link value="#{saleAction.sale.realEstateListing.displayName}" view="/admin/entities/realestate/realEstateListing/viewRealEstateListing.xhtml">
+		<f:param name="id" value="#{saleAction.sale.realEstateListing.id}"/>
+	</s:link>
+	
+		
+		
+		
+	
+	
+		
+	
+
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.sale_soldDate}  "/>		
+
+	<h:outputText id="sale_soldDate#{entityId}" value="#{saleAction.sale.soldDate}"/>
+   
+		
+		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.sale_closingDate}  "/>		
+
+	<h:outputText id="sale_closingDate#{entityId}" value="#{saleAction.sale.closingDate}"/>
+   
+		
+		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.sale_soldPrice}  "/>		
+
+	<h:outputText id="sale_soldPrice#{entityId}" value="#{saleAction.sale.soldPrice}"/>
+   
+		
+		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.sale_deposit}  "/>		
+
+	<h:outputText id="sale_deposit#{entityId}" value="#{saleAction.sale.deposit}"/>
+   
+		
+		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.sale_commission}  "/>		
+
+	<h:outputText id="sale_commission#{entityId}" value="#{saleAction.sale.commission}"/>
+   
+		
+		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	</h:panelGroup>
+	</ui:composition>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+	<div class="entry errors"><h:messages globalOnly="true" /></div>
+
+	<a:form>
+		<s:validateAll>
+			<h:panelGrid columns="3" styleClass="summarywrap">
+				<a:commandButton action="#{realEstatePropertyAction.addUtilitiys}"
+					reRender="utilitiys_data#{entityId}" value="New Utilitiy">
+					<s:conversationId />
+				</a:commandButton>
+
+
+				<rich:dataTable id="utilitiys_data#{entityId}"
+					rendered="#{not empty realEstatePropertyAction.listUtilitiys}"
+					rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all"
+					styleClass="dataTable"
+					value="#{realEstatePropertyAction.listUtilitiys}" var="_utilitiy">
+
+
+					<h:column style="text-align:right">
+						<f:facet name="header">
+							<h:outputText value="#{msg.utilitiy_name} * " />
+						</f:facet>
+
+
+						<h:inputText id="utilitiy_name#{entityId}"
+							label="#{msg.utilitiy_name}" required="true"
+							value="#{_utilitiy.name}" />
+
+
+						<h:message for="utilitiy_name" styleClass="error errors" />
+					</h:column>
+
+
+					<h:column style="text-align:right">
+						<f:facet name="header">
+							<h:outputText value="#{msg.utilitiy_transferred}  " />
+						</f:facet>
+
+
+						<h:selectBooleanCheckbox id="utilitiy_transferred#{entityId}"
+							label="#{msg.utilitiy_transferred}" required="false"
+							value="#{_utilitiy.transferred}" />
+
+
+						<h:message for="utilitiy_transferred" styleClass="error errors" />
+					</h:column>
+
+
+
+
+
+
+
+					<h:column style="text-align:left">
+						<f:facet name="header">
+							<h:outputText value="#{msg.utilitiy_accountNumber}  " />
+						</f:facet>
+
+
+						<h:inputText id="utilitiy_accountNumber#{entityId}"
+							label="#{msg.utilitiy_accountNumber}" required="false"
+							value="#{_utilitiy.accountNumber}" />
+
+
+						<h:message for="utilitiy_accountNumber" styleClass="error errors" />
+					</h:column>
+
+
+
+
+					<h:column>
+
+						<a:commandButton action="#{realEstatePropertyAction.addUtilitiys}"
+							reRender="utilitiys_data#{entityId}" value="New Utilitiy">
+							<s:conversationId />
+						</a:commandButton>
+					</h:column>
+
+					<h:column>
+						<a:commandButton
+							action="#{realEstatePropertyAction.deleteUtilitiys(rowIndex)}"
+							immediate="true" reRender="utilitiys_data#{entityId}"
+							value="Delete">
+							<s:conversationId />
+						</a:commandButton>
+					</h:column>
+
+				</rich:dataTable>
+
+			</h:panelGrid>
+		</s:validateAll>
+		<a:commandButton action="#{realEstatePropertyAction.save}" value="Update"></a:commandButton>
+	</a:form>
+</ui:composition>
