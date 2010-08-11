@@ -464,6 +464,17 @@
 	
 	
 	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateListing_sale}  "/> <br/>
+	<h:selectOneMenu id="realEstateListing_sale" value="#{realEstateListingList.realEstateListing.sale}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{saleList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
 			<s:decorate template="/layout/display.xhtml">
 				<ui:define name="label">From</ui:define> <br/>
 				<rich:calendar id="from" value="#{realEstateListingList.dateCreatedRange.begin}"/>

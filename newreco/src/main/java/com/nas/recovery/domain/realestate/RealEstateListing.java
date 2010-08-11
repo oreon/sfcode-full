@@ -140,6 +140,11 @@ public class RealEstateListing extends BusinessEntity
 
 	protected Double deposit;
 
+	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "sale_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected Sale sale;
+
 	public void setDateListed(Date dateListed) {
 		this.dateListed = dateListed;
 	}
@@ -414,6 +419,15 @@ public class RealEstateListing extends BusinessEntity
 	public Double getDeposit() {
 
 		return deposit;
+	}
+
+	public void setSale(Sale sale) {
+		this.sale = sale;
+	}
+
+	public Sale getSale() {
+
+		return sale;
 	}
 
 	@Transient

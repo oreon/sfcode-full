@@ -207,6 +207,14 @@
                 <redirect view-id="/admin/entities/propertymanagement/utilitiy/viewUtilitiy.xhtml" />
             </rule>
         
+            <rule if-outcome="requestForApproval">
+                <redirect view-id="/admin/entities/propertymanagement/requestForApproval/listRequestForApproval.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewRequestForApproval">
+                <redirect view-id="/admin/entities/propertymanagement/requestForApproval/viewRequestForApproval.xhtml" />
+            </rule>
+        
             <rule if-outcome="realEstateListing">
                 <redirect view-id="/admin/entities/realestate/realEstateListing/listRealEstateListing.xhtml" />
             </rule>
@@ -301,6 +309,14 @@
             
             <rule if-outcome="viewCma">
                 <redirect view-id="/admin/entities/realestate/cma/viewCma.xhtml" />
+            </rule>
+        
+            <rule if-outcome="sale">
+                <redirect view-id="/admin/entities/realestate/sale/listSale.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewSale">
+                <redirect view-id="/admin/entities/realestate/sale/viewSale.xhtml" />
             </rule>
         
             <rule if-outcome="user">
@@ -821,7 +837,7 @@
 		
 	</page>
     
-    <page view-id="/admin/entities/legal/lawfirm/editLawfirm.xhtml" conversation-required="false" >
+    <page view-id="/admin/entities/legal/lawfirm/editLawfirm.xhtml"  >
     	<!-- <description>Edit Lawfirm: #{lawfirm.displayName}</description> -->
     	<navigation> 
 			 <rule if-outcome="save">
@@ -835,7 +851,7 @@
 		
 	</page>
 	
-	 <page view-id="/admin/entities/legal/lawfirm/viewLawfirm.xhtml" conversation-required="false" >
+	 <page view-id="/admin/entities/legal/lawfirm/viewLawfirm.xhtml" >
 	 	<!-- <description>View Lawfirm: #{lawfirm.displayName}</description> -->
 	 	<navigation> 
 			 <rule if-outcome="edit">
@@ -1640,6 +1656,59 @@
 		
 	</page>
     
+    <page view-id="/admin/entities/propertymanagement/requestForApproval/editRequestForApproval.xhtml" conversation-required="false" >
+    	<!-- <description>Edit RequestForApproval: #{requestForApproval.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/propertymanagement/requestForApproval/viewRequestForApproval.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/propertymanagement/requestForApproval/listRequestForApproval.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="requestForApprovalId" value="#{requestForApprovalAction.requestForApprovalId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/propertymanagement/requestForApproval/viewRequestForApproval.xhtml" conversation-required="false" >
+	 	<!-- <description>View RequestForApproval: #{requestForApproval.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/propertymanagement/requestForApproval/editRequestForApproval.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/propertymanagement/requestForApproval/listRequestForApproval.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="requestForApprovalId" value="#{requestForApprovalAction.requestForApprovalId}" />
+	</page>
+	
+	<page view-id="/admin/entities/propertymanagement/requestForApproval/listRequestForApproval.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewRequestForApproval">
+				<redirect view-id="/admin/entities/propertymanagement/requestForApproval/viewRequestForApproval.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/propertymanagement/requestForApproval/editRequestForApproval.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{requestForApprovalList.firstResult}" />
+		<param name="sort" value="#{requestForApprovalList.orderColumn}" />
+		<param name="dir" value="#{requestForApprovalList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{requestForApprovalList.requestForApproval.id}" />
+	 <param name="requestForApproval_requestDate" value="#{requestForApprovalList.requestForApproval.requestDate}" validateModel="false" /> 	
+	 <param name="requestForApproval_referenceNumber" value="#{requestForApprovalList.requestForApproval.referenceNumber}" validateModel="false" /> 	
+	 <param name="requestForApproval_recievedDate" value="#{requestForApprovalList.requestForApproval.recievedDate}" validateModel="false" /> 	
+	 <param name="requestForApproval_contractor" value="#{requestForApprovalList.requestForApproval.contractor}" validateModel="false" /> 	
+	 <param name="requestForApproval_item" value="#{requestForApprovalList.requestForApproval.item}" validateModel="false" /> 	
+	 <param name="requestForApproval_estimate" value="#{requestForApprovalList.requestForApproval.estimate}" validateModel="false" /> 	
+	 <param name="requestForApproval_details" value="#{requestForApprovalList.requestForApproval.details}" validateModel="false" /> 	
+		
+	</page>
+    
     <page view-id="/admin/entities/realestate/realEstateListing/editRealEstateListing.xhtml" conversation-required="false" >
     	<!-- <description>Edit RealEstateListing: #{realEstateListing.displayName}</description> -->
     	<navigation> 
@@ -1655,6 +1724,7 @@
 		<param name="realEstatePropertyId" value="#{realEstateListingAction.realEstatePropertyId}" />
 		<param name="masterId" value="#{realEstateListingAction.masterId}" />
 		<param name="subagentId" value="#{realEstateListingAction.subagentId}" />
+		<param name="saleId" value="#{realEstateListingAction.saleId}" />
 		
 	</page>
 	
@@ -1715,6 +1785,7 @@
 	 <param name="realEstateListing_vtbOffered" value="#{realEstateListingList.realEstateListing.vtbOffered}" validateModel="false" /> 	
 	 <param name="realEstateListing_vtbAccepted" value="#{realEstateListingList.realEstateListing.vtbAccepted}" validateModel="false" /> 	
 	 <param name="realEstateListing_deposit" value="#{realEstateListingList.realEstateListing.deposit}" validateModel="false" /> 	
+	 <param name="realEstateListing_sale" value="#{realEstateListingList.realEstateListing.sale}" validateModel="false" /> 	
 		
 	</page>
     
@@ -2303,6 +2374,59 @@
 	 <param name="cma_cmaAsIsValue" value="#{cmaList.cma.cmaAsIsValue}" validateModel="false" /> 	
 	 <param name="cma_cmaImprovedValue" value="#{cmaList.cma.cmaImprovedValue}" validateModel="false" /> 	
 	 <param name="cma_lockBox" value="#{cmaList.cma.lockBox}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/realestate/sale/editSale.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Sale: #{sale.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/realestate/sale/viewSale.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/sale/listSale.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="saleId" value="#{saleAction.saleId}" />
+		<param name="realEstateListingId" value="#{saleAction.realEstateListingId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/realestate/sale/viewSale.xhtml" conversation-required="false" >
+	 	<!-- <description>View Sale: #{sale.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/sale/editSale.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/realestate/sale/listSale.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="saleId" value="#{saleAction.saleId}" />
+	</page>
+	
+	<page view-id="/admin/entities/realestate/sale/listSale.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewSale">
+				<redirect view-id="/admin/entities/realestate/sale/viewSale.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/realestate/sale/editSale.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{saleList.firstResult}" />
+		<param name="sort" value="#{saleList.orderColumn}" />
+		<param name="dir" value="#{saleList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{saleList.sale.id}" />
+	 <param name="sale_soldDate" value="#{saleList.sale.soldDate}" validateModel="false" /> 	
+	 <param name="sale_closingDate" value="#{saleList.sale.closingDate}" validateModel="false" /> 	
+	 <param name="sale_soldPrice" value="#{saleList.sale.soldPrice}" validateModel="false" /> 	
+	 <param name="sale_deposit" value="#{saleList.sale.deposit}" validateModel="false" /> 	
+	 <param name="sale_commission" value="#{saleList.sale.commission}" validateModel="false" /> 	
+	 <param name="sale_realEstateListing" value="#{saleList.sale.realEstateListing}" validateModel="false" /> 	
 		
 	</page>
     

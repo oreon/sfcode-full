@@ -399,6 +399,21 @@
 	</h:column>
 	
 		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{realEstateListingList}"/>
+				<ui:param name="propertyLabel" value="#{msg.realEstateListing_sale}"/>
+				<ui:param name="propertyPath" value="realEstateListing.sale"/>
+			</ui:include>
+		</f:facet>
+		<s:link value="#{_realEstateListing.sale.displayName}" view="/admin/entities/realestate/sale/viewSale.xhtml">
+			<f:param name="saleId" value="#{_realEstateListing.sale.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</h:column>
+	
+		
 	
 		
 	<h:column>

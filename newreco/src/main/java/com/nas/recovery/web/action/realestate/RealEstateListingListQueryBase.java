@@ -249,6 +249,8 @@ public abstract class RealEstateListingListQueryBase
 			"realEstateListing.deposit >= #{realEstateListingList.realEstateListing_depositRange.begin}",
 			"realEstateListing.deposit <= #{realEstateListingList.realEstateListing_depositRange.end}",
 
+			"realEstateListing.sale = #{realEstateListingList.realEstateListing.sale}",
+
 			"realEstateListing.dateCreated <= #{realEstateListingList.dateCreatedRange.end}",
 			"realEstateListing.dateCreated >= #{realEstateListingList.dateCreatedRange.begin}",};
 

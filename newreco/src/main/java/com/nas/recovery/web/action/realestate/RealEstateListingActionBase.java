@@ -57,6 +57,9 @@ public abstract class RealEstateListingActionBase
 	@In(create = true, value = "masterAgentAction")
 	com.nas.recovery.web.action.realestate.MasterAgentAction subagentAction;
 
+	@In(create = true, value = "saleAction")
+	com.nas.recovery.web.action.realestate.SaleAction saleAction;
+
 	@DataModel
 	private List<RealEstateListing> realEstateListingRecordList;
 
@@ -109,6 +112,16 @@ public abstract class RealEstateListingActionBase
 	public Long getSubagentId() {
 		if (getInstance().getSubagent() != null)
 			return getInstance().getSubagent().getId();
+		return 0L;
+	}
+	public void setSaleId(Long id) {
+		if (id != null && id > 0)
+			getInstance().setSale(saleAction.loadFromId(id));
+	}
+
+	public Long getSaleId() {
+		if (getInstance().getSale() != null)
+			return getInstance().getSale().getId();
 		return 0L;
 	}
 
@@ -169,6 +182,11 @@ public abstract class RealEstateListingActionBase
 		if (subagent != null) {
 			getInstance().setSubagent(subagent);
 		}
+		com.nas.recovery.domain.realestate.Sale sale = saleAction
+				.getDefinedInstance();
+		if (sale != null) {
+			getInstance().setSale(sale);
+		}
 
 	}
 
@@ -220,6 +238,11 @@ public abstract class RealEstateListingActionBase
 					realEstateListing.getSubagent().getId()));
 		}
 
+		if (realEstateListing.getSale() != null) {
+			criteria = criteria.add(Restrictions.eq("sale.id",
+					realEstateListing.getSale().getId()));
+		}
+
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -244,6 +267,10 @@ public abstract class RealEstateListingActionBase
 
 		if (realEstateListing.getSubagent() != null) {
 			subagentAction.setInstance(getInstance().getSubagent());
+		}
+
+		if (realEstateListing.getSale() != null) {
+			saleAction.setInstance(getInstance().getSale());
 		}
 
 	}

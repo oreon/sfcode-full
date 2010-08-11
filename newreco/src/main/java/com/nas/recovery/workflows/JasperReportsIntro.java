@@ -21,6 +21,7 @@ import net.sf.jasperreports.engine.query.JRJpaQueryExecuterFactory;
 public class JasperReportsIntro {
 	
 	public static void main(String[] args) {
+		
 		JasperReport jasperReport;
 		JasperPrint jasperPrint;
 		

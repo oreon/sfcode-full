@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>
+	<h:panelGrid columns="6">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.sale_soldDate}  "/> <br/>
+	
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">From</ui:define> <br/>
+		<rich:calendar value="#{saleList.sale_soldDateRange.begin}"/>
+	</s:decorate>
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">To</ui:define> <br/>
+		<rich:calendar value="#{saleList.sale_soldDateRange.end}"/>
+	</s:decorate>	
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.sale_closingDate}  "/> <br/>
+	
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">From</ui:define> <br/>
+		<rich:calendar value="#{saleList.sale_closingDateRange.begin}"/>
+	</s:decorate>
+	<s:decorate template="/layout/display.xhtml">
+		<ui:define name="label">To</ui:define> <br/>
+		<rich:calendar value="#{saleList.sale_closingDateRange.end}"/>
+	</s:decorate>	
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.sale_soldPrice}  "/> <br/>
+	
+	
+	<h:inputText id="sale_soldPrice_begin" value="#{saleList.sale_soldPriceRange.begin}">
+			<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	<h:inputText id="sale_soldPrice_end" value="#{saleList.sale_soldPriceRange.end}">
+		<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.sale_deposit}  "/> <br/>
+	
+	
+	<h:inputText id="sale_deposit_begin" value="#{saleList.sale_depositRange.begin}">
+			<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	<h:inputText id="sale_deposit_end" value="#{saleList.sale_depositRange.end}">
+		<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.sale_commission}  "/> <br/>
+	
+	
+	<h:inputText id="sale_commission_begin" value="#{saleList.sale_commissionRange.begin}">
+			<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	<h:inputText id="sale_commission_end" value="#{saleList.sale_commissionRange.end}">
+		<f:converter converterId="javax.faces.Double"/>
+	</h:inputText>
+	
+
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.sale_realEstateListing}  "/> <br/>
+	<h:selectOneMenu id="sale_realEstateListing" value="#{saleList.sale.realEstateListing}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{realEstateListingList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">From</ui:define> <br/>
+				<rich:calendar id="from" value="#{saleList.dateCreatedRange.begin}"/>
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">To</ui:define> <br/>
+				<rich:calendar id="to" value="#{saleList.dateCreatedRange.end}"/>
+			</s:decorate>
+
+	</h:panelGrid>
+</ui:composition>

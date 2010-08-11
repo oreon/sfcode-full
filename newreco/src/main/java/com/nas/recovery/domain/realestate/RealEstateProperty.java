@@ -139,6 +139,13 @@ public class RealEstateProperty extends BusinessEntity
 
 	protected com.nas.recovery.domain.propertymanagement.InspectionFrequency inspectionFrequency;
 
+	//requestForApprovals-> ->->RealEstateProperty->
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "realEstateProperty_ID", nullable = true)
+	@IndexedEmbedded
+	private Set<com.nas.recovery.domain.propertymanagement.RequestForApproval> requestForApprovals = new HashSet<com.nas.recovery.domain.propertymanagement.RequestForApproval>();
+
 	public void setStreetAddress(String streetAddress) {
 		this.streetAddress = streetAddress;
 	}
@@ -336,6 +343,15 @@ public class RealEstateProperty extends BusinessEntity
 		return inspectionFrequency;
 	}
 
+	public void setRequestForApprovals(
+			Set<com.nas.recovery.domain.propertymanagement.RequestForApproval> requestForApprovals) {
+		this.requestForApprovals = requestForApprovals;
+	}
+
+	public Set<com.nas.recovery.domain.propertymanagement.RequestForApproval> getRequestForApprovals() {
+		return requestForApprovals;
+	}
+
 	@Transient
 	public String getDisplayName() {
 		return streetAddress + ", " + city + ", " + state;
@@ -372,6 +388,12 @@ public class RealEstateProperty extends BusinessEntity
 		listSearchableFields.add("utilitiys.name");
 
 		listSearchableFields.add("utilitiys.accountNumber");
+
+		listSearchableFields.add("requestForApprovals.referenceNumber");
+
+		listSearchableFields.add("requestForApprovals.contractor");
+
+		listSearchableFields.add("requestForApprovals.item");
 
 		return listSearchableFields;
 	}
