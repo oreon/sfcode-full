@@ -295,7 +295,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
         while (iterator.hasNext()) {
             E elem =  iterator.next();
             String elemProperty = elem.getDisplayName();
-            if ((elemProperty != null && elemProperty.toLowerCase().indexOf(input.toLowerCase()) == 0) || "".equals(input)){
+            if ((elemProperty != null && elemProperty.toLowerCase().indexOf(input.toLowerCase()) != -1) || "".equals(input)){
                 result.add(elem);
             }
         }
