@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+
+<rich:panel header="Dynamic Tree User Interface" id="dynamicTreePanel">
+
+	<a:form>
+		<h:panelGrid columns="2">
+			<rich:tree ajaxSubmitSelection="true" icon="/image/node.gif" iconLeaf="/image/node.gif" nodeSelectListener="#{atcDrugAction.processSelection}" reRender="selectedNode, detailsView">
+
+				<rich:recursiveTreeNodesAdaptor roots="#{atcDrugAction.topLevelParent}" var="_AtcDrug">
+					<rich:treeNode>
+						<h:outputText value="#{_AtcDrug.displayName}"/>
+					</rich:treeNode>
+
+					<rich:recursiveTreeNodesAdaptor nodes="#{_child.subcategories}" roots="#{_AtcDrug.subcategories}" var="_child">
+						<rich:treeNode>
+							<h:outputText value="#{_child.displayName}"/>
+						</rich:treeNode>
+					</rich:recursiveTreeNodesAdaptor>
+
+				</rich:recursiveTreeNodesAdaptor>
+			</rich:tree>
+
+			
+			<rich:panel id="detailsView">
+				<ui:include src="/admin/entities/drugs/drug/viewDrugComponent.xhtml">
+					<ui:param name="drugId" value="#{atcDrugAction.currentDrugId}"/>
+				</ui:include>
+			</rich:panel>
+			
+			
+		</h:panelGrid>
+	</a:form>
+
+</rich:panel>
+
+</ui:composition>
