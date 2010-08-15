@@ -52,6 +52,10 @@ arg.replaceAll("collections.", "");
 getParametersSignature(Operation op):
 JAVA org.wc.generatorutil.ClassUtil.getParametersSignature(org.eclipse.uml2.uml.Operation);
 
+getParametersSignature(Property p):
+p.type.fqnForPackage(p.class) + " " + p.name;
+
+
 getParameters(Operation op):
 JAVA org.wc.generatorutil.ClassUtil.getParameters(org.eclipse.uml2.uml.Operation);
 
@@ -228,7 +232,7 @@ isType(Property prop, String typeName):
 prop.type.name == typeName;
 
 isString(Property prop):
-isType(prop, "String") || isType(prop, "uniqueNameType") || isType(prop, "nameType");
+isType(prop, "String") || isType(prop, "uniqueNameType") || isType(prop, "nameType") || isType(prop, "largeText");
 
 
 //Read property from workflow properties file
@@ -314,3 +318,29 @@ JAVA org.wc.generatorutil.ClassUtil.getCounter();
 
 resetCounter():
 JAVA org.wc.generatorutil.ClassUtil.resetCounter();
+
+//tree fields
+String getTreeParent(Entity e):
+getTreeParentJava ( e.treeFlds );
+
+String getTreeParentJava(String s):
+JAVA org.wc.generatorutil.ClassUtil.getTreeParent(java.lang.String);
+
+String getTreeChildren(Entity e):
+getTreeChildrenJava ( e.treeFlds );
+
+String getTreeChildrenJava(String s):
+JAVA org.wc.generatorutil.ClassUtil.getTreeChildren(java.lang.String);
+
+String getTreeDetailsFld(Entity e):
+getTreeDetailsFldJava ( e.treeFlds );
+
+String getTreeDetailsFldJava(String s):
+JAVA org.wc.generatorutil.ClassUtil.getTreeDetails(java.lang.String);
+
+getAttrib(Class c,String s):
+JAVA org.wc.generatorutil.ClassUtil.getAttrib(org.eclipse.uml2.uml.Class, java.lang.String);
+
+
+
+
