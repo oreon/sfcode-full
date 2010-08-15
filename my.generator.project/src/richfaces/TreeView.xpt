@@ -6,7 +6,9 @@
 «EXTENSION template::associationExtensions»
 
 
-«DEFINE genTreeViewComponent FOR uml::Class»
+«DEFINE genTreeViewComponent FOR wcprofile::Entity»
+«IF treeFlds != null»
+
 	«FILE getWebPath() +"/treeView" + name + "Component." + getExtension()»
 
 <ui:composition «EXPAND WebRoot::genIncludes-»>	
@@ -22,26 +24,26 @@
 				<rich:recursiveTreeNodesAdaptor
 					roots="#{«getAction()».topLevel«getTreeParent()»}" var="_«name»">
 					<rich:treeNode>
-						<h:outputText value="#{_«name».«displayName»}" />
+						<h:outputText value="#{_«name».displayName}" />
 					</rich:treeNode>
 
 					<rich:recursiveTreeNodesAdaptor roots="#{_«name».«getTreeChildren()»}"
 						var="_child" nodes="#{_child.«getTreeChildren()»}">
 						<rich:treeNode>
-							<h:outputText value="#{_child.«displayName»}" />
+							<h:outputText value="#{_child.displayName}" />
 						</rich:treeNode>
 					</rich:recursiveTreeNodesAdaptor>
 
 				</rich:recursiveTreeNodesAdaptor>
 			</rich:tree>
 
-
+			«LET getAttrib(getTreeDetailsFld()) AS e»
 			<rich:panel id="detailsView">
-				<ui:include
-					src="/admin/entities/domain/product/viewProductComponent.xhtml">
-					<ui:param name="productId" value="#{«getAction()».productId}" />
+				<ui:include src="«getViewFile(e.type, "view")»">
+					<ui:param name="«e.type.name.toFirstLower()»Id" value="#{«e.type.getAction()».«e.type.name.toFirstLower()»Id}" />
 				</ui:include>
 			</rich:panel>
+			«ENDLET»
 			
 		</h:panelGrid>
 	</a:form>
@@ -49,5 +51,7 @@
 </rich:panel>
 
 </ui:composition>
+
 «ENDFILE»
+«ENDIF»
 «ENDDEFINE»

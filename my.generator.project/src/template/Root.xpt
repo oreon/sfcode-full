@@ -91,6 +91,7 @@
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
 		
+		
 		 
 		«IF !getAllAttributes().isEmpty»
 		@Transient
@@ -192,7 +193,17 @@
 «ENDDEFINE»
 
 
+«DEFINE genUnqNamedQryOp FOR wcprofile::Column»
+	«IF uniqueProperty »
+	public «class.fqn()» findByUnq«name.toFirstUpper()» («getParametersSignature()»){ 
+		return executeSingleResultNamedQuery("findByUnq«name.toFirstUpper()»", «name»);
+	}
+	«ENDIF»
+«ENDDEFINE»
 
+
+«DEFINE genUnqNamedQryOp FOR uml::Property»
+«ENDDEFINE»
 
 
 
@@ -210,7 +221,7 @@
 	«IF isMultivalued()»
 		//«name»->«opposite.name» ->«opposite.type.name»->«association.endType.get(0).name»->«opposite.association.endType.get(0).name»
 		«IF opposite!= null && opposite.isMultivalued() » «REM»Many to many relationship«ENDREM»
-			«IF this.isColumn() && this.leadingInManyToMany»
+			«IF  isAggregate()»
 			@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
 		    @JoinTable(
 		        name="«opposite.name»_«name»",

@@ -41,6 +41,7 @@
 		«ENDREM»
 		</table>
  	«EXPAND genOperation FOREACH getAllOperations()»
+ 	«EXPAND genFindQry FOREACH getAllAttributes()»
 	</entity>
 «ENDDEFINE»
 
@@ -58,5 +59,20 @@
 		</query>
 	</named-query>
 	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genFindQry FOR wcprofile::Column»
+	«IF uniqueProperty »
+	<named-query name="findByUnq«name.toFirstUpper()-»">
+		<query>
+			<![CDATA[
+			select u from «class.name» u where u.«name» = ?1
+			]]>
+		</query>
+	</named-query>
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genFindQry FOR uml::Property»
 «ENDDEFINE»
 

@@ -62,7 +62,7 @@
 		«IF e.type.name == getCurrentEntity().name-»
 			<f:param name="«e.name»Id" value="#{«e.type.getAction()».«e.name»Id}" />
 		«ELSE»
-			<f:param name="«e.name»Id" value="#{«e.type.getAction()».«e.name».id}" />
+			<f:param name="«e.name»Id" value="#{«e.type.getAction()».«e.type.name.toFirstLower()».id}" />
 		«ENDIF»
 		«ENDFOREACH»
 	</s:button>

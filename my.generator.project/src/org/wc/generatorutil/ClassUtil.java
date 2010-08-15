@@ -398,6 +398,8 @@ public class ClassUtil {
 			String name) {
 		List<Property> properties = new ArrayList();
 		properties.addAll(cls.getAllAttributes());
+		
+		//cls.getat
 
 		EList<Class> classes = cls.getSuperClasses();
 		if (classes != null) {
@@ -494,6 +496,36 @@ public class ClassUtil {
 	public static String resetCounter() {
 		count = 0;
 		return "";
+	}
+	
+	
+	public static String getTreeParent(String arg){
+		System.out.println("arg is " + arg);
+		String[] tokens = arg.split(",");
+		if(tokens.length < 2){
+			System.out.println("Invalid tree field in the model");
+		}
+		return tokens[0].trim();
+	}
+	
+	public static String getTreeChildren(String arg){
+		String[] tokens = arg.split(",");
+		if(tokens.length < 2){
+			System.out.println("Invalid tree field in the model");
+		}
+		return tokens[1].trim();
+	}
+	
+	public static String getTreeDetails(String arg){
+		String[] tokens = arg.split(",");
+		if(tokens.length < 3){
+			System.out.println("Invalid tree field in the model / or no details provided");
+		}
+		return tokens[2].trim();
+	}
+	
+	public static Property getAttrib(Class cls, String name){
+		return cls.getAttribute(name, null);
 	}
 
 }
