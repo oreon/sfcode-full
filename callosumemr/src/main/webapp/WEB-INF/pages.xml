@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pages xmlns="http://jboss.com/products/seam/pages"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd"
+       no-conversation-view-id="/home.xhtml"
+       login-view-id="/login.xhtml">
+
+	<page view-id="/admin/*">
+        <restrict>#{s:hasRole('admin')}</restrict>
+     </page>
+    
+    <page view-id="/adminLogin.xhtml">     
+        <navigation from-action="#{identity.login}">
+           <redirect view-id="/admin/entities/summary.xhtml"/>
+        </navigation>
+	</page>
+
+	
+	<page view-id="*">
+        <navigation>
+        	<rule if-outcome="home">
+                <redirect view-id="/home.xhtml"/>
+            </rule>
+        
+            <rule if-outcome="atcDrug">
+                <redirect view-id="/admin/entities/drugs/atcDrug/listAtcDrug.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewAtcDrug">
+                <redirect view-id="/admin/entities/drugs/atcDrug/viewAtcDrug.xhtml" />
+            </rule>
+        
+            <rule if-outcome="drug">
+                <redirect view-id="/admin/entities/drugs/drug/listDrug.xhtml" />
+            </rule>
+            
+            <rule if-outcome="viewDrug">
+                <redirect view-id="/admin/entities/drugs/drug/viewDrug.xhtml" />
+            </rule>
+        
+        </navigation>
+    </page>
+
+    
+    
+    <page view-id="/admin/entities/drugs/atcDrug/editAtcDrug.xhtml" conversation-required="false" >
+    	<!-- <description>Edit AtcDrug: #{atcDrug.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/drugs/atcDrug/viewAtcDrug.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/drugs/atcDrug/listAtcDrug.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="atcDrugId" value="#{atcDrugAction.atcDrugId}" />
+		<param name="drugId" value="#{atcDrugAction.drugId}" />
+		<param name="parentId" value="#{atcDrugAction.parentId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/drugs/atcDrug/viewAtcDrug.xhtml" conversation-required="false" >
+	 	<!-- <description>View AtcDrug: #{atcDrug.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/drugs/atcDrug/editAtcDrug.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/drugs/atcDrug/listAtcDrug.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="atcDrugId" value="#{atcDrugAction.atcDrugId}" />
+	</page>
+	
+	<page view-id="/admin/entities/drugs/atcDrug/listAtcDrug.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewAtcDrug">
+				<redirect view-id="/admin/entities/drugs/atcDrug/viewAtcDrug.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/drugs/atcDrug/editAtcDrug.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{atcDrugList.firstResult}" />
+		<param name="sort" value="#{atcDrugList.orderColumn}" />
+		<param name="dir" value="#{atcDrugList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{atcDrugList.atcDrug.id}" />
+	 <param name="atcDrug_code" value="#{atcDrugList.atcDrug.code}" validateModel="false" /> 	
+	 <param name="atcDrug_name" value="#{atcDrugList.atcDrug.name}" validateModel="false" /> 	
+	 <param name="atcDrug_drug" value="#{atcDrugList.atcDrug.drug}" validateModel="false" /> 	
+	 <param name="atcDrug_parent" value="#{atcDrugList.atcDrug.parent}" validateModel="false" /> 	
+		
+	</page>
+    
+    <page view-id="/admin/entities/drugs/drug/editDrug.xhtml" conversation-required="false" >
+    	<!-- <description>Edit Drug: #{drug.displayName}</description> -->
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="/admin/entities/drugs/drug/viewDrug.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/drugs/drug/listDrug.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="drugId" value="#{drugAction.drugId}" />
+		
+	</page>
+	
+	 <page view-id="/admin/entities/drugs/drug/viewDrug.xhtml" conversation-required="false" >
+	 	<!-- <description>View Drug: #{drug.displayName}</description> -->
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/drugs/drug/editDrug.xhtml" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/admin/entities/drugs/drug/listDrug.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="drugId" value="#{drugAction.drugId}" />
+	</page>
+	
+	<page view-id="/admin/entities/drugs/drug/listDrug.xhtml" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="viewDrug">
+				<redirect view-id="/admin/entities/drugs/drug/viewDrug.xhtml" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="/admin/entities/drugs/drug/editDrug.xhtml" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{drugList.firstResult}" />
+		<param name="sort" value="#{drugList.orderColumn}" />
+		<param name="dir" value="#{drugList.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{drugList.drug.id}" />
+	 <param name="drug_absorption" value="#{drugList.drug.absorption}" validateModel="false" /> 	
+	 <param name="drug_biotransformation" value="#{drugList.drug.biotransformation}" validateModel="false" /> 	
+	 <param name="drug_atcCodes" value="#{drugList.drug.atcCodes}" validateModel="false" /> 	
+	 <param name="drug_contraIndication" value="#{drugList.drug.contraIndication}" validateModel="false" /> 	
+	 <param name="drug_description" value="#{drugList.drug.description}" validateModel="false" /> 	
+	 <param name="drug_dosageForm" value="#{drugList.drug.dosageForm}" validateModel="false" /> 	
+	 <param name="drug_drugCategory" value="#{drugList.drug.drugCategory}" validateModel="false" /> 	
+	 <param name="drug_foodInteractions" value="#{drugList.drug.foodInteractions}" validateModel="false" /> 	
+	 <param name="drug_halfLife" value="#{drugList.drug.halfLife}" validateModel="false" /> 	
+	 <param name="drug_indication" value="#{drugList.drug.indication}" validateModel="false" /> 	
+	 <param name="drug_interactions" value="#{drugList.drug.interactions}" validateModel="false" /> 	
+	 <param name="drug_mechanism" value="#{drugList.drug.mechanism}" validateModel="false" /> 	
+	 <param name="drug_name" value="#{drugList.drug.name}" validateModel="false" /> 	
+	 <param name="drug_patientInfo" value="#{drugList.drug.patientInfo}" validateModel="false" /> 	
+	 <param name="drug_pharmacology" value="#{drugList.drug.pharmacology}" validateModel="false" /> 	
+	 <param name="drug_toxicity" value="#{drugList.drug.toxicity}" validateModel="false" /> 	
+		
+	</page>
+    
+    
+    
+
+    <exception class="org.jboss.seam.framework.EntityNotFoundException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Record not found</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityNotFoundException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Record not found</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityExistsException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Duplicate record</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.OptimisticLockException">
+        <end-conversation/>
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Another user changed the same data, please try again</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.security.AuthorizationException">
+        <redirect view-id="/error.xhtml">
+            <message severity="error">You don't have permission to access this resource</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.security.NotLoggedInException">
+        <redirect view-id="/login.xhtml">
+            <message severity="warn">#{messages['org.jboss.seam.NotLoggedIn']}</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.faces.application.ViewExpiredException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Your session has timed out, please try again</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.ConcurrentRequestTimeoutException" log-level="trace">
+      <http-error error-code="503" />
+    </exception>
+     
+    <exception>
+        <redirect view-id="/error.xhtml">
+            <message severity="error">Unexpected error, please try again</message>
+        </redirect>
+    </exception>
+    
+</pages>
