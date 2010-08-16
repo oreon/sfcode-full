@@ -14,6 +14,9 @@
 		<h:panelGrid columns="7" styleClass="summarywrap">
 
 			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{msg.Inspection} * " />
+				</f:facet>
 				<h:panelGroup>
 					<h:outputText value="#{msg.inspection_type}  " />
 					<br />
@@ -37,7 +40,20 @@
 			</h:column>
 
 
+			<h:column>
+				<h:panelGroup>
+					<h:outputText value="#{msg.inspection_propertyManager}  " />
+					<br />
+					<h:selectOneMenu id="inspection_propertyManager"
+						value="#{inspectionAction.inspection.propertyManager}">
+						<s:selectItems label="#{itemIter.displayName}"
+							noSelectionLabel="Select..." value="#{propertyManagerList}"
+							var="itemIter" />
+						<s:convertEntity />
 
+					</h:selectOneMenu>
+				</h:panelGroup>
+			</h:column>
 
 
 			<h:column>
@@ -60,20 +76,7 @@
 		<br />
 
 		<h:panelGrid columns="2">
-			<h:column>
-				<h:panelGroup>
-					<h:outputText value="#{msg.inspection_propertyManager}  " />
-					<br />
-					<h:selectOneMenu id="inspection_propertyManager"
-						value="#{inspectionAction.inspection.propertyManager}">
-						<s:selectItems label="#{itemIter.displayName}"
-							noSelectionLabel="Select..." value="#{propertyManagerList}"
-							var="itemIter" />
-						<s:convertEntity />
 
-					</h:selectOneMenu>
-				</h:panelGroup>
-			</h:column>
 			<h:column>
 				<h:outputText value="#{msg.inspection_Observation}  " />
 				<br />
@@ -94,7 +97,7 @@
 
 	</h:form>
 
-	
+
 
 
 
