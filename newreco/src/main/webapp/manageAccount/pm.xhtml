@@ -36,21 +36,31 @@
 
 					<ui:include src="/manageAccount/listInspectionComponent.xhtml" />
 				</rich:panel>
-				
+
 				<rich:panel>
 					<f:facet name="header">
 						<h:outputText value="Utilities" />
 					</f:facet>
 					<ui:include src="/manageAccount/customUtilsComponent.xhtml" />
 				</rich:panel>
-				
+
 
 			</rich:tab>
 
 
 
 			<rich:tab label="Quotes">
-				<ui:include src="/admin/entities/propertymanagement/requestForApproval/customRequestForApprovalComponent.xhtml" />
+				<a:form>
+					<ui:include
+						src="/admin/entities/propertymanagement/requestForApproval/customRequestForApprovalComponent.xhtml" />
+					<a:commandButton action="#{requestForApprovalAction.save}" reRender="requestForApprovalList"
+						value="Request Approval">
+					</a:commandButton>
+					
+					<ui:include
+						src="/admin/entities/propertymanagement/requestForApproval/listRequestForApprovalComponent.xhtml" />
+				</a:form>
+
 			</rich:tab>
 
 
