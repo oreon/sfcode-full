@@ -1,262 +1,207 @@
 <?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:s="http://jboss.com/products/seam/taglib"
-	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
-	<div class="entry errors"><h:messages globalOnly="true" /></div>
-	<s:validateAll>
-		<h:panelGrid columns="3" styleClass="summarywrap">
-
-			<h:panelGroup>
-				<h:outputText value="#{msg.realEstateProperty_streetAddress}  " />
-				<br />
-
-				<h:inputText id="realEstateProperty_streetAddress"
-					value="#{realEstatePropertyAction.realEstateProperty.streetAddress}" />
-				<h:message for="realEstateProperty_streetAddress"
-					styleClass="error errors" />
-
-			</h:panelGroup>
-
-
-
-
-			<h:panelGroup>
-				<h:outputText value="#{msg.realEstateProperty_state}  " />
-				<br />
-				<h:selectOneMenu id="realEstateProperty_state" required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.state}">
-					<f:selectItem itemLabel="Please Select..." itemValue="" />
-					<f:selectItem itemLabel="On" itemValue="ON" />
-					<f:selectItem itemLabel="Ab" itemValue="AB" />
-					<f:selectItem itemLabel="Nb" itemValue="NB" />
-					<f:selectItem itemLabel="Ns" itemValue="NS" />
-					<f:selectItem itemLabel="Bc" itemValue="BC" />
-					<f:selectItem itemLabel="Mb" itemValue="MB" />
-					<f:selectItem itemLabel="Pei" itemValue="PEI" />
-					<f:selectItem itemLabel="Nv" itemValue="NV" />
-					<f:selectItem itemLabel="Yk" itemValue="YK" />
-					<f:selectItem itemLabel="Qb" itemValue="QB" />
-
-				</h:selectOneMenu>
-				<h:message for="realEstateProperty_state" styleClass="error errors" />
-			</h:panelGroup>
-
-
-
-
-			<h:panelGroup>
-				<h:outputText value="#{msg.realEstateProperty_zip}  " />
-				<br />
-
-				<h:inputText id="realEstateProperty_zip"
-					value="#{realEstatePropertyAction.realEstateProperty.zip}" />
-				<h:message for="realEstateProperty_zip" styleClass="error errors" />
-
-			</h:panelGroup>
-
-
-
-
-			<h:panelGroup>
-				<h:outputText value="#{msg.realEstateProperty_city}  " />
-				<br />
-
-				<h:inputText id="realEstateProperty_city"
-					value="#{realEstatePropertyAction.realEstateProperty.city}" />
-				<h:message for="realEstateProperty_city" styleClass="error errors" />
-
-			</h:panelGroup>
-
-
-
-
-			<h:panelGroup>
-				<h:outputText value="#{msg.realEstateProperty_insurer}  " />
-				<br />
-				<h:selectOneMenu id="realEstateProperty_insurer"
-					value="#{realEstatePropertyAction.realEstateProperty.insurer}">
-					<s:selectItems label="#{itemIter.displayName}"
-						noSelectionLabel="Select.." value="#{mortgageInsurerList}"
-						var="itemIter" />
-					<s:convertEntity />
-
-				</h:selectOneMenu>
-				<h:message for="realEstateProperty_insurer"
-					styleClass="error errors" />
-			</h:panelGroup>
-
-
-
-			<h:panelGroup>
-				<h:outputText value="#{msg.realEstateProperty_status}  " />
-				<br />
-				<h:selectOneMenu id="realEstateProperty_status" required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.status}">
-					<f:selectItem itemLabel="Please Select..." itemValue="" />
-					<f:selectItem itemLabel="Drive_by" itemValue="DRIVE_BY" />
-					<f:selectItem itemLabel="Right_to_sell" itemValue="RIGHT_TO_SELL" />
-					<f:selectItem itemLabel="Listed" itemValue="LISTED" />
-					<f:selectItem itemLabel="Conditional_sale"
-						itemValue="CONDITIONAL_SALE" />
-
-				</h:selectOneMenu>
-				<h:message for="realEstateProperty_status" styleClass="error errors" />
-			</h:panelGroup>
-
-
-
-
-			<h:panelGroup>
-				<h:outputText value="#{msg.realEstateProperty_title}  " />
-				<br />
-
-				<h:inputText id="realEstateProperty_title"
-					value="#{realEstatePropertyAction.realEstateProperty.title}" />
-				<h:message for="realEstateProperty_title" styleClass="error errors" />
-
-			</h:panelGroup>
-
-
-
-
-			<h:panelGroup>
-				<h:outputText value="#{msg.realEstateProperty_legal}  " />
-				<br />
-				<h:selectOneMenu id="realEstateProperty_legal"
-					value="#{realEstatePropertyAction.realEstateProperty.legal}">
-					<s:selectItems label="#{itemIter.displayName}"
-						noSelectionLabel="Select.." value="#{legalList}" var="itemIter" />
-					<s:convertEntity />
-
-				</h:selectOneMenu>
-				<h:message for="realEstateProperty_legal" styleClass="error errors" />
-			</h:panelGroup>
-
-
-
-			<h:panelGroup>
-				<h:outputText value="#{msg.realEstateProperty_ownerPrimaryPhone}  " />
-				<br />
-
-				<h:inputText id="realEstateProperty_ownerPrimaryPhone"
-					value="#{realEstatePropertyAction.realEstateProperty.ownerPrimaryPhone}" />
-				<h:message for="realEstateProperty_ownerPrimaryPhone"
-					styleClass="error errors" />
-
-			</h:panelGroup>
-
-
-
-
-			<h:panelGroup>
-				<h:outputText
-					value="#{msg.realEstateProperty_ownerAlternativePhone}  " />
-				<br />
-
-				<h:inputText id="realEstateProperty_ownerAlternativePhone"
-					value="#{realEstatePropertyAction.realEstateProperty.ownerAlternativePhone}" />
-				<h:message for="realEstateProperty_ownerAlternativePhone"
-					styleClass="error errors" />
-
-			</h:panelGroup>
-
-
-
-
-			<h:panelGroup>
-				<h:outputText value="#{msg.realEstateProperty_numberOfOccupants}  " />
-				<br />
-
-				<h:inputText id="realEstateProperty_numberOfOccupants"
-					value="#{realEstatePropertyAction.realEstateProperty.numberOfOccupants}" />
-				<h:message for="realEstateProperty_numberOfOccupants"
-					styleClass="error errors" />
-
-			</h:panelGroup>
-
-
-
-
-			<h:panelGroup>
-				<h:outputText value="#{msg.realEstateProperty_vacancyStatus}  " />
-				<br />
-				<h:selectOneMenu id="realEstateProperty_vacancyStatus"
-					required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.vacancyStatus}">
-					<f:selectItem itemLabel="Please Select..." itemValue="" />
-					<f:selectItem itemLabel="Secured" itemValue="Secured" />
-					<f:selectItem itemLabel="Preservationorder"
-						itemValue="PreservationOrder" />
-					<f:selectItem itemLabel="Anticipatedjudgement"
-						itemValue="AnticipatedJudgement" />
-					<f:selectItem itemLabel="Unsecured" itemValue="Unsecured" />
-
-				</h:selectOneMenu>
-				<h:message for="realEstateProperty_vacancyStatus"
-					styleClass="error errors" />
-			</h:panelGroup>
-
-
-
-
-			<h:panelGroup>
-				<h:outputText value="#{msg.realEstateProperty_lockboxCode}  " />
-				<br />
-
-				<h:inputText id="realEstateProperty_lockboxCode"
-					value="#{realEstatePropertyAction.realEstateProperty.lockboxCode}" />
-				<h:message for="realEstateProperty_lockboxCode"
-					styleClass="error errors" />
-
-			</h:panelGroup>
-
-
-
-
-			<h:panelGroup>
-				<h:outputText value="#{msg.realEstateProperty_occupancy}  " />
-				<br />
-				<h:selectOneMenu id="realEstateProperty_occupancy" required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.occupancy}">
-					<f:selectItem itemLabel="Please Select..." itemValue="" />
-					<f:selectItem itemLabel="Owner" itemValue="Owner" />
-					<f:selectItem itemLabel="Tenanted" itemValue="Tenanted" />
-					<f:selectItem itemLabel="Unconfirmed" itemValue="Unconfirmed" />
-
-				</h:selectOneMenu>
-				<h:message for="realEstateProperty_occupancy"
-					styleClass="error errors" />
-			</h:panelGroup>
-
-
-
-
-			<h:panelGroup>
-				<h:outputText
-					value="#{msg.realEstateProperty_inspectionFrequency}  " />
-				<br />
-				<h:selectOneMenu id="realEstateProperty_inspectionFrequency"
-					required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.inspectionFrequency}">
-					<f:selectItem itemLabel="Please Select..." itemValue="" />
-					<f:selectItem itemLabel="Semi_weekly" itemValue="SEMI_WEEKLY" />
-					<f:selectItem itemLabel="Weekly" itemValue="WEEKLY" />
-					<f:selectItem itemLabel="Biweekly" itemValue="BIWEEKLY" />
-					<f:selectItem itemLabel="Monthly" itemValue="MONTHLY" />
-
-				</h:selectOneMenu>
-				<h:message for="realEstateProperty_inspectionFrequency"
-					styleClass="error errors" />
-			</h:panelGroup>
-
-
-
-		</h:panelGrid>
-	</s:validateAll>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>
+  <s:validateAll>
+	<h:panelGrid columns="3" styleClass="summarywrap">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_streetAddress}  "/> <br/>
+	
+		<h:inputText id="realEstateProperty_streetAddress" value="#{realEstatePropertyAction.realEstateProperty.streetAddress}"/>
+		<h:message for="realEstateProperty_streetAddress" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_state}  "/> <br/>
+	<h:selectOneMenu id="realEstateProperty_state" required="false" value="#{realEstatePropertyAction.realEstateProperty.state}">
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
+		<f:selectItem itemLabel="On" itemValue="ON"/>
+		<f:selectItem itemLabel="Ab" itemValue="AB"/>
+		<f:selectItem itemLabel="Nb" itemValue="NB"/>
+		<f:selectItem itemLabel="Ns" itemValue="NS"/>
+		<f:selectItem itemLabel="Bc" itemValue="BC"/>
+		<f:selectItem itemLabel="Mb" itemValue="MB"/>
+		<f:selectItem itemLabel="Pei" itemValue="PEI"/>
+		<f:selectItem itemLabel="Nv" itemValue="NV"/>
+		<f:selectItem itemLabel="Yk" itemValue="YK"/>
+		<f:selectItem itemLabel="Qb" itemValue="QB"/>
+		
+	</h:selectOneMenu>
+	<h:message for="realEstateProperty_state" styleClass="error errors"/>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_zip}  "/> <br/>
+	
+		<h:inputText id="realEstateProperty_zip" value="#{realEstatePropertyAction.realEstateProperty.zip}"/>
+		<h:message for="realEstateProperty_zip" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_city}  "/> <br/>
+	
+		<h:inputText id="realEstateProperty_city" value="#{realEstatePropertyAction.realEstateProperty.city}"/>
+		<h:message for="realEstateProperty_city" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_insurer}  "/> <br/>
+	<h:selectOneMenu id="realEstateProperty_insurer" value="#{realEstatePropertyAction.realEstateProperty.insurer}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Select.." value="#{mortgageInsurerList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	<h:message for="realEstateProperty_insurer" styleClass="error errors"/>
+	</h:panelGroup>
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_status}  "/> <br/>
+	<h:selectOneMenu id="realEstateProperty_status" required="false" value="#{realEstatePropertyAction.realEstateProperty.status}">
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
+		<f:selectItem itemLabel="Drive_by" itemValue="DRIVE_BY"/>
+		<f:selectItem itemLabel="Right_to_sell" itemValue="RIGHT_TO_SELL"/>
+		<f:selectItem itemLabel="Listed" itemValue="LISTED"/>
+		<f:selectItem itemLabel="Conditional_sale" itemValue="CONDITIONAL_SALE"/>
+		
+	</h:selectOneMenu>
+	<h:message for="realEstateProperty_status" styleClass="error errors"/>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_title}  "/> <br/>
+	
+		<h:inputText id="realEstateProperty_title" value="#{realEstatePropertyAction.realEstateProperty.title}"/>
+		<h:message for="realEstateProperty_title" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_legal}  "/> <br/>
+	<h:selectOneMenu id="realEstateProperty_legal" value="#{realEstatePropertyAction.realEstateProperty.legal}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Select.." value="#{legalList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	<h:message for="realEstateProperty_legal" styleClass="error errors"/>
+	</h:panelGroup>
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_ownerPrimaryPhone}  "/> <br/>
+	
+		<h:inputText id="realEstateProperty_ownerPrimaryPhone" value="#{realEstatePropertyAction.realEstateProperty.ownerPrimaryPhone}"/>
+		<h:message for="realEstateProperty_ownerPrimaryPhone" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_ownerAlternativePhone}  "/> <br/>
+	
+		<h:inputText id="realEstateProperty_ownerAlternativePhone" value="#{realEstatePropertyAction.realEstateProperty.ownerAlternativePhone}"/>
+		<h:message for="realEstateProperty_ownerAlternativePhone" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_numberOfOccupants}  "/> <br/>
+	
+		<h:inputText id="realEstateProperty_numberOfOccupants" value="#{realEstatePropertyAction.realEstateProperty.numberOfOccupants}"/>
+		<h:message for="realEstateProperty_numberOfOccupants" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_vacancyStatus}  "/> <br/>
+	<h:selectOneMenu id="realEstateProperty_vacancyStatus" required="false" value="#{realEstatePropertyAction.realEstateProperty.vacancyStatus}">
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
+		<f:selectItem itemLabel="Secured" itemValue="Secured"/>
+		<f:selectItem itemLabel="Preservationorder" itemValue="PreservationOrder"/>
+		<f:selectItem itemLabel="Anticipatedjudgement" itemValue="AnticipatedJudgement"/>
+		<f:selectItem itemLabel="Unsecured" itemValue="Unsecured"/>
+		
+	</h:selectOneMenu>
+	<h:message for="realEstateProperty_vacancyStatus" styleClass="error errors"/>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_lockboxCode}  "/> <br/>
+	
+		<h:inputText id="realEstateProperty_lockboxCode" value="#{realEstatePropertyAction.realEstateProperty.lockboxCode}"/>
+		<h:message for="realEstateProperty_lockboxCode" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_occupancy}  "/> <br/>
+	<h:selectOneMenu id="realEstateProperty_occupancy" required="false" value="#{realEstatePropertyAction.realEstateProperty.occupancy}">
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
+		<f:selectItem itemLabel="Owner" itemValue="Owner"/>
+		<f:selectItem itemLabel="Tenanted" itemValue="Tenanted"/>
+		<f:selectItem itemLabel="Unconfirmed" itemValue="Unconfirmed"/>
+		
+	</h:selectOneMenu>
+	<h:message for="realEstateProperty_occupancy" styleClass="error errors"/>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.realEstateProperty_inspectionFrequency}  "/> <br/>
+	<h:selectOneMenu id="realEstateProperty_inspectionFrequency" required="false" value="#{realEstatePropertyAction.realEstateProperty.inspectionFrequency}">
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
+		<f:selectItem itemLabel="Semi_weekly" itemValue="SEMI_WEEKLY"/>
+		<f:selectItem itemLabel="Weekly" itemValue="WEEKLY"/>
+		<f:selectItem itemLabel="Biweekly" itemValue="BIWEEKLY"/>
+		<f:selectItem itemLabel="Monthly" itemValue="MONTHLY"/>
+		
+	</h:selectOneMenu>
+	<h:message for="realEstateProperty_inspectionFrequency" styleClass="error errors"/>
+	</h:panelGroup>
+
+	
+	
+	</h:panelGrid>
+  </s:validateAll>
 </ui:composition>
