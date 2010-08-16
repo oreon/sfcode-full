@@ -34,7 +34,7 @@ public class UserAction extends BaseAction<User>
 	@DataModel
 	private List<User> userList;
 
-	@Factory("userList")
+	//@Factory("userList")
 	@Observer("archivedUser")
 	public void findRecords() {
 		search();
