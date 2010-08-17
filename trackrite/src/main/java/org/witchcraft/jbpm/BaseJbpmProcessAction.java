@@ -143,6 +143,7 @@ public class BaseJbpmProcessAction {
 	}
 
 	protected void loadInstance() {
+		//jbpmContext.getp
 		// TODO Auto-generated method stub
 
 	}

@@ -1,8 +1,10 @@
 package org.witchcraft.users.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
@@ -11,14 +13,14 @@ import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
+import org.wc.trackrite.users.Role;
 import org.wc.trackrite.users.User;
 import org.witchcraft.seam.action.BaseAction;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("userActionOrg")
-public class UserAction extends BaseAction<User>
-		implements
-			java.io.Serializable {
+public class UserAction extends BaseAction<User> implements
+		java.io.Serializable {
 
 	/**
 	 * 
@@ -33,7 +35,7 @@ public class UserAction extends BaseAction<User>
 	@DataModel
 	private List<User> userList;
 
-	@Factory("userList")
+	@Factory("usersList")
 	@Observer("archivedUser")
 	public void findRecords() {
 		search();
@@ -48,7 +50,7 @@ public class UserAction extends BaseAction<User>
 		instance = t;
 		this.user = t;
 	}
-	
+
 	@Override
 	public void setInstance(User instance) {
 		// TODO Auto-generated method stub
@@ -70,5 +72,7 @@ public class UserAction extends BaseAction<User>
 		}
 		return userList;
 	}
+	
+	
 
 }

@@ -45,7 +45,7 @@ import org.hibernate.annotations.Filter;
 public class Department extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1899938946L;
 
-	//employees->department ->Department->Employee->Employee
+	//employees->department ->Department->Department->Department
 
 	@OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "department_ID", nullable = true)

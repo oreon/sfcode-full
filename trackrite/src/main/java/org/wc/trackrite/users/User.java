@@ -66,8 +66,11 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_ID"), inverseJoinColumns = @JoinColumn(name = "roles_ID"))
 	private Set<Role> roles = new HashSet<Role>();
 
+	//@Unique(entityName = "org.wc.trackrite.users.User", fieldName = "email")
+
 	@NotNull
 	@Length(min = 2, max = 50)
+	@Column(name = "email", unique = true)
 	@Field(index = Index.TOKENIZED)
 	protected String email;
 

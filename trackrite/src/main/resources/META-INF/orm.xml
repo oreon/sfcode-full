@@ -12,6 +12,12 @@
 		
 		</table>
  	
+ 	
+
+
+
+
+
 	</entity>
 
 	
@@ -20,6 +26,9 @@
 		
 		</table>
  	
+ 	
+
+
 	</entity>
 
 	
@@ -27,6 +36,7 @@
 		<table name="enduser"  >
 		
 		</table>
+ 	
  	
 	</entity>
 
@@ -36,6 +46,12 @@
 		
 		</table>
  	
+ 	
+
+
+	
+
+
 	</entity>
 
 	
@@ -44,6 +60,14 @@
 		
 		</table>
  	
+ 	
+
+
+
+
+
+
+
 	</entity>
 
 	
@@ -56,7 +80,33 @@
 	<named-query name="findByUserName">
 		<query>
 			<![CDATA[
-			select u from User u where u.userName = :1
+			select u from User u where u.userName = ?1
+			]]>
+		</query>
+	</named-query>
+	
+
+ 	
+	
+	<named-query name="findByUnqUserName">
+		<query>
+			<![CDATA[
+			select u from User u where u.userName = ?1
+			]]>
+		</query>
+	</named-query>
+	
+
+	
+
+
+	
+
+	
+	<named-query name="findByUnqEmail">
+		<query>
+			<![CDATA[
+			select u from User u where u.email = ?1
 			]]>
 		</query>
 	</named-query>
@@ -70,6 +120,18 @@
 		
 		</table>
  	
+ 	
+	
+	<named-query name="findByUnqName">
+		<query>
+			<![CDATA[
+			select u from Role u where u.name = ?1
+			]]>
+		</query>
+	</named-query>
+	
+
+
 	</entity>
 
 	
@@ -78,6 +140,15 @@
 		
 		</table>
  	
+ 	
+
+	
+
+	
+
+	
+
+
 	</entity>
 </entity-mappings>
 	

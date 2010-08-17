@@ -48,7 +48,7 @@ public class BugManagement extends BugManagementBase {
 	
 	
 	
-	@CreateProcess(definition = "bugManagement")
+	@CreateProcess(definition = "bugManagement" , processKey= "#{issueAction.instance.id}")
 	public void startProcess() {
 		// TODO Auto-generated method stub
 		initiator = identity.getCredentials().getUsername();

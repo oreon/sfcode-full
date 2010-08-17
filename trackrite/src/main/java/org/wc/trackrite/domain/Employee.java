@@ -57,12 +57,17 @@ public class Employee extends org.wc.trackrite.domain.Person
 
 	protected EmployeeType employeeType;
 
-	//issues->developer ->Employee->Employee->Employee
+	//issues->developer ->Employee->Issue->Issue
 
 	@OneToMany(mappedBy = "developer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "developer_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<org.wc.trackrite.issues.Issue> issues = new HashSet<org.wc.trackrite.issues.Issue>();
+
+	//projects->employees ->Employee->Employee->Employee
+
+	@ManyToMany(mappedBy = "employees")
+	private Set<org.wc.trackrite.issues.Project> projects = new HashSet<org.wc.trackrite.issues.Project>();
 
 	public void setDepartment(Department department) {
 		this.department = department;
@@ -97,6 +102,14 @@ public class Employee extends org.wc.trackrite.domain.Person
 
 	public Set<org.wc.trackrite.issues.Issue> getIssues() {
 		return issues;
+	}
+
+	public void setProjects(Set<org.wc.trackrite.issues.Project> projects) {
+		this.projects = projects;
+	}
+
+	public Set<org.wc.trackrite.issues.Project> getProjects() {
+		return projects;
 	}
 
 	@Transient

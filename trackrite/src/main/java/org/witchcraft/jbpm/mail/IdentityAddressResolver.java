@@ -21,7 +21,7 @@ public class IdentityAddressResolver extends org.jbpm.identity.mail.IdentityAddr
 		// TODO Auto-generated method stub
 		System.out.println("resolving id for " + actorId);
 		UserAction userAction = (UserAction) Component.getInstance("userAction");
-		User user = userAction.findByUserName(actorId);
+		User user = userAction.findByUnqUserName(actorId);
 		return user.getEmail();
 	}
 
