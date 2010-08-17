@@ -45,7 +45,7 @@ import org.hibernate.annotations.Filter;
 public class Project extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1744216049L;
 
-	//issues->project ->Project->Project->Project
+	//issues->project ->Project->Issue->Issue
 
 	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "project_ID", nullable = true)
@@ -59,6 +59,12 @@ public class Project extends BusinessEntity implements java.io.Serializable {
 	@Lob
 	@Column(name = "description", unique = false)
 	protected String description;
+
+	//employees->projects ->Project->Employee->Employee
+
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "projects_employees", joinColumns = @JoinColumn(name = "projects_ID"), inverseJoinColumns = @JoinColumn(name = "employees_ID"))
+	private Set<org.wc.trackrite.domain.Employee> employees = new HashSet<org.wc.trackrite.domain.Employee>();
 
 	public void setIssues(Set<Issue> issues) {
 		this.issues = issues;
@@ -84,6 +90,14 @@ public class Project extends BusinessEntity implements java.io.Serializable {
 	public String getDescription() {
 
 		return description;
+	}
+
+	public void setEmployees(Set<org.wc.trackrite.domain.Employee> employees) {
+		this.employees = employees;
+	}
+
+	public Set<org.wc.trackrite.domain.Employee> getEmployees() {
+		return employees;
 	}
 
 	@Transient

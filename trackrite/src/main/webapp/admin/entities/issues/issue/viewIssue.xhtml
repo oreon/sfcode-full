@@ -15,6 +15,8 @@
 		<h:commandButton action="#{redirect.returnToCapturedView()}" immediate="true" value="Back To Listing">
 			<s:conversationPropagation type="end"/>
 		</h:commandButton>  
+		<h:commandButton action="#{bugManagementProcessAction.startProcess}"  value="Start Process">
+		</h:commandButton> 
 		
 	</div>
 
@@ -22,14 +24,14 @@
 			
 				<rich:tab label="Project">
 					<ui:include src="/admin/entities/issues/project/viewProjectComponent.xhtml">
-						<ui:param name="entityId" value="7221"/>
+						<ui:param name="entityId" value="4541"/>
 						<ui:param name="projectId" value="#{issueAction.instance.project.id}"/>
 					</ui:include>
 				</rich:tab>
 			
 				<rich:tab label="Developer">
 					<ui:include src="/admin/entities/domain/employee/viewEmployeeComponent.xhtml">
-						<ui:param name="entityId" value="13714"/>
+						<ui:param name="entityId" value="9158"/>
 						<ui:param name="employeeId" value="#{issueAction.instance.developer.id}"/>
 					</ui:include>
 				</rich:tab>
