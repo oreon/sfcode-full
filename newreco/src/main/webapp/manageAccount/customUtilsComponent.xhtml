@@ -9,18 +9,19 @@
 	xmlns:s="http://jboss.com/products/seam/taglib"
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
 	<div class="entry errors"><h:messages globalOnly="true" /></div>
-
-	<a:form>
+<!-- 
+removed from the datatable, otherwise when we want to add the first utility, the list won't show because it is empty. 
+rendered="#{not empty realEstatePropertyAction.listUtilitiys}"
+ -->
+	<a:form enctype="multipart/form-data">
 		<s:validateAll>
-			<h:panelGrid columns="3" styleClass="summarywrap">
+			<rich:panel>
 				<a:commandButton action="#{realEstatePropertyAction.addUtilitiys}"
 					reRender="utilitiys_data#{entityId}" value="New Utilitiy">
 					<s:conversationId />
 				</a:commandButton>
 
-
 				<rich:dataTable id="utilitiys_data#{entityId}"
-					rendered="#{not empty realEstatePropertyAction.listUtilitiys}"
 					rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all"
 					styleClass="dataTable"
 					value="#{realEstatePropertyAction.listUtilitiys}" var="_utilitiy">
@@ -72,7 +73,7 @@
 							value="#{_utilitiy.accountNumber}" />
 
 
-						<h:message for="utilitiy_accountNumber" styleClass="error errors" />
+						<h:message errorStyle="color:red" warnStyle="color:orange" infoStyle="color:green" for="utilitiy_accountNumber" styleClass="error errors" />
 					</h:column>
 
 
@@ -97,8 +98,17 @@
 
 				</rich:dataTable>
 
-			</h:panelGrid>
+			</rich:panel>
 		</s:validateAll>
-		<a:commandButton action="#{realEstatePropertyAction.save}" value="Update"></a:commandButton>
+		
+			
+		<div class="buttonBox"><h:commandButton
+			action="#{realEstatePropertyAction.save}" value="Save">
+			<s:conversationPropagation type="end" />
+		</h:commandButton> <h:outputText value=" " /> <h:commandButton
+			action="#{realEstatePropertyAction.cancel}" immediate="true"
+			value="Cancel">
+			<s:conversationPropagation type="end" />
+		</h:commandButton></div>
 	</a:form>
 </ui:composition>
