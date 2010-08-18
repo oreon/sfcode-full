@@ -118,14 +118,14 @@ public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
 	"«genPropertyLabel()» >= #{«getCurrentEntity().asVar()»List.«getId()»Range.begin}",
 	"«genPropertyLabel()» <= #{«getCurrentEntity().asVar()»List.«getId()»Range.end}",			
 «ELSE»
-  "«genPropertyLabel()» = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}",
+  "«genPropertyLabel()»«association != null ? ".id" : "" » = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»«association != null ? ".id" : "" »}",
 «ENDIF»
 
 «ENDDEFINE»
 
 «DEFINE genAssociation(boolean createRangeDeclarations) FOR uml::Property-»	
 «IF !createRangeDeclarations»
- "«genPropertyLabel()» = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}",
+ "«genPropertyLabel()».id = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()».id}",
 «ENDIF»
 «ENDDEFINE»
 

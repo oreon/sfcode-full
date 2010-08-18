@@ -253,17 +253,14 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	
 	
 	«EXPAND genCompositeCode FOREACH getComposed() -»
+	«EXPAND genManyToMany FOREACH getLeadingManyToMany() -»
 	
-	«IF ! ( getComposed().isEmpty )»
+	
 	public void updateComposedAssociations(){
-	«FOREACH getComposed() AS e»
-	  if (list«e.name.toFirstUpper()» != null) {
-		getInstance().get«e.name.toFirstUpper()»().clear();
-		getInstance().get«e.name.toFirstUpper()»().addAll(list«e.name.toFirstUpper()»);
-	  }
-	«ENDFOREACH»
+		«EXPAND updateList FOREACH getComposed() -»
+		«EXPAND updateList FOREACH getLeadingManyToMany() -»
 	}
-	«ENDIF»
+	
 	
 	public List<«name»> getEntityList(){
 		if(«asVar()»RecordList == null){
@@ -285,35 +282,25 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 «ENDFILE»
 «ENDDEFINE»
 
+«DEFINE updateList FOR uml::Property»
+	  if (list«name.toFirstUpper()» != null) {
+		getInstance().get«name.toFirstUpper()»().clear();
+		getInstance().get«name.toFirstUpper()»().addAll(list«name.toFirstUpper()»);
+	  }
+«ENDDEFINE»
+
+
+«DEFINE genManyToMany FOR uml::Property»
+	«EXPAND genList( "") FOR this»
+	«EXPAND genList( "Available") FOR this»
+«ENDDEFINE»
+
+
 
 «DEFINE genCompositeCode FOR uml::Property»
 	
+	«EXPAND genList("") FOR this»
 	«LET "list" + name.toFirstUpper()  AS currentList»
-	
-	protected List<«type.name»> «currentList»;
-	
-	void initList«name.toFirstUpper()»(){
-		«currentList» = new ArrayList<«type.name»>();
-		if(getInstance().get«name.toFirstUpper()»().isEmpty()){
-			«IF !getAssocOptional()»
-			add«name.toFirstUpper()»();
-			«ENDIF»
-		}
-		else
-			«currentList».addAll(getInstance().get«name.toFirstUpper()»());
-	}
-	
-	public List<«type.name»> getList«name.toFirstUpper()»() {
-		if(«currentList» == null || «currentList».isEmpty() ){
-			initList«name.toFirstUpper()»();
-		}
-		return «currentList»;
-	}
-
-	public void setList«name.toFirstUpper()»(List<«type.name»> «currentList») {
-		this.«currentList» = «currentList»;
-	}
-	
 	public void delete«name.toFirstUpper()»(int index){
 		«currentList».remove(index);
 	}
@@ -327,6 +314,40 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		«currentList».add(«name»);
 	}
 	
+	«ENDLET»
+«ENDDEFINE»
+
+«DEFINE genList(String prefix) FOR uml::Property»
+	
+	«LET "list" + prefix + name.toFirstUpper()  AS currentList»
+	
+	protected List<«type.fqn()»> «currentList»;
+	
+	void init«currentList.toFirstUpper()»(){
+		«currentList» = new ArrayList<«type.fqn()»>();
+		
+		«IF isLeadingManyToMany() && prefix == "Available"»
+			«currentList» = getEntityManager().createQuery("select r from «type.name» r").getResultList();
+			«currentList».removeAll(getInstance().get«name.toFirstUpper()»());
+		«ELSE»
+		if(getInstance().get«name.toFirstUpper()»().isEmpty()){
+			«IF !getAssocOptional()»add«name.toFirstUpper()»();«ENDIF»
+		}
+		else
+			«currentList».addAll(getInstance().get«name.toFirstUpper()»());
+		«ENDIF»
+	}
+	
+	public List<«type.fqn()»> get«currentList.toFirstUpper()»() {
+		if(«currentList» == null || «currentList».isEmpty() ){
+			init«currentList.toFirstUpper()»();
+		}
+		return «currentList»;
+	}
+
+	public void set«currentList.toFirstUpper()»(List<«type.fqn()»> «currentList») {
+		this.«currentList» = «currentList»;
+	}
 	«ENDLET»
 «ENDDEFINE»
 

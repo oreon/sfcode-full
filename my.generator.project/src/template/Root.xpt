@@ -78,20 +78,20 @@
 	@Filter(name = "archiveFilterDef") 
 	@Indexed
 	@AnalyzerDef(name = "customanalyzer",
-	  tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
-	  filters = {
-	    @TokenFilterDef(factory = LowerCaseFilterFactory.class),
-	    @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
-	      @Parameter(name = "language", value = "English")
-	    })
-	  })
+		  tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
+		  filters = {
+		    @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+		    @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
+		      @Parameter(name = "language", value = "English")
+		    })
+	})
 	public class «name» «getParent()»  «getInterfaces()» «getImplementedInterfaces().isEmpty  ?" implements " : ","»  «getAuditable()?"Auditable, ":""» java.io.Serializable {
 		private static final long serialVersionUID = «serialver()»;
 		
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
 		
-		
+	
 		 
 		«IF !getAllAttributes().isEmpty»
 		@Transient
@@ -152,7 +152,7 @@
 
 «DEFINE genClassBody FOR wcprofile::MappedSuperClass»
 	@MappedSuperclass
-	@Indexed
+	//@Indexed
 	public class «name» «getParent()» «getInterfaces()»{
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
@@ -278,7 +278,7 @@
     } )
 	protected FileAttachment «name» = new FileAttachment();	
 	«ELSE»
-		«IF isString()» @Field(index = Index.TOKENIZED) «ENDIF»
+		«IF isString()» @Field(index = Index.TOKENIZED) @Analyzer(definition = "customanalyzer") «ENDIF»
 		protected «type.fqnForPackage(this.class)» «name» «getDefault() != null?" = " +getDefaultVal(type):""»;
 	«ENDIF»
 	
@@ -323,10 +323,18 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	«FILE packagePath() + "/"+ name +".java"»  
 	package «packageName()»;
 	
-	public enum «name» {		
+	public enum «name» {	
+		
 		«FOREACH  ownedLiteral AS e»
 			«e.name»,
 		«ENDFOREACH»
+		;
+		
+		«name»() { }
+		
+		public String getName(){
+        	return this.toString();
+    	}
 	} 
 	«ENDFILE»
 «ENDDEFINE»
@@ -353,7 +361,9 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	import org.hibernate.annotations.Formula;
 	import org.hibernate.annotations.CacheConcurrencyStrategy;
 	import org.hibernate.annotations.Filter;
+	
 	import org.hibernate.search.annotations.AnalyzerDef;
+	import org.hibernate.search.annotations.Analyzer;
 	import org.hibernate.search.annotations.Field;
 	import org.hibernate.search.annotations.Index;
 	import org.hibernate.search.annotations.Indexed;
