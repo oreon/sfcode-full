@@ -60,7 +60,7 @@
 		«FOREACH getNonComposedManyAssociationsOpposite() AS e-»
 		«REM» in case of a self association  we need to use entity reference«ENDREM»
 		«IF e.type.name == getCurrentEntity().name-»
-			<f:param name="«e.name»Id" value="#{«e.type.getAction()».«e.name»Id}" />
+			<f:param name="«e.name»Id" value="#{«e.type.getAction()».«e.name.toFirstLower()»Id}" />
 		«ELSE»
 			<f:param name="«e.name»Id" value="#{«e.type.getAction()».«e.type.name.toFirstLower()».id}" />
 		«ENDIF»

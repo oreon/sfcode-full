@@ -14,6 +14,13 @@ entity.getAllAttributes().select(a|a.isMultivalued()  && a.association != null  
 getNonComposedManyAssociationsOpposite(Entity entity):
 entity.getAllAttributes().select(a|a.association != null && a.opposite.isMultivalued()    && !a.isMultivalued() && !a.opposite.isComposite());
 
+getLeadingManyToMany(Class entity):
+entity.getAllAttributes().select(a|a.isLeadingManyToMany());
+
+isLeadingManyToMany(Property a):
+a.association != null && a.opposite != null && a.opposite.isMultivalued() && a.isMultivalued() && a.isAggregate();
+
+
 
 //If this class is container for the given composed element e.g an order will be container for order items
 isCompositionContainer(Property prop):

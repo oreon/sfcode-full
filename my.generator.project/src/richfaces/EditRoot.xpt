@@ -101,6 +101,7 @@
 		«EXPAND genAttribAsOutput FOR this-»
 		</h:panelGrid>
 		«EXPAND genTable FOR this-»
+		«EXPAND genManyToManyShuttle FOR this-»
 		</s:validateAll>
 		
 	</h:panelGroup>
@@ -150,6 +151,33 @@
 	«ENDFOREACH»
 	«EXPAND gentEditableTable FOREACH getComposed() -»
 «ENDDEFINE»
+
+
+«DEFINE genManyToManyShuttle FOR uml::Class»
+	«FOREACH allParents() AS e-»
+		«EXPAND genEditManyToManyShuttle FOREACH e.getLeadingManyToMany() -»
+	«ENDFOREACH»
+	«EXPAND genEditManyToManyShuttle FOREACH getLeadingManyToMany() -»
+«ENDDEFINE»
+
+«DEFINE genEditManyToManyShuttle FOR uml::Property»
+	«IF isCurrentEditMode()»
+	<rich:listShuttle sourceValue="#{«class.getAction()».listAvailable«name.toFirstUpper()»}" 
+		targetValue="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
+        <s:convertEntity />
+        <rich:column> #{item.displayName} </rich:column>
+     </rich:listShuttle>
+	«ELSE»
+	<rich:simpleTogglePanel label=""  >
+        <rich:dataTable value="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
+        	<rich:column> #{item.displayName} </rich:column>
+     	</rich:dataTable>
+     </rich:simpleTogglePanel>
+	«ENDIF»
+«ENDDEFINE»
+
+
+
 
 «DEFINE genAttributeAssoc FOR uml::Property -»
 	«IF opposite.type.name != getCurrentEntity().name || !isCurrentMultiMode() »
