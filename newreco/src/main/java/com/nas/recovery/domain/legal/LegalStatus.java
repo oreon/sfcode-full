@@ -18,4 +18,12 @@ public enum LegalStatus {
 
 	SOLD_PENDING_CD,
 
+	;
+
+	LegalStatus() {
+	}
+
+	public String getName() {
+		return this.toString();
+	}
 }

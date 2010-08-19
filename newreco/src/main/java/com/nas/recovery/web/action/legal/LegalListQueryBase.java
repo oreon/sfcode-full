@@ -41,21 +41,21 @@ public abstract class LegalListQueryBase extends BaseQuery<Legal, Long> {
 
 			"legal.status = #{legalList.legal.status}",
 
-			"legal.legalComments = #{legalList.legal.legalComments}",
+			"lower(legal.legalComments) like concat(lower(#{legalList.legal.legalComments}),'%')",
 
-			"legal.lawyer = #{legalList.legal.lawyer}",
+			"legal.lawyer.id = #{legalList.legal.lawyer.id}",
 
-			"legal.legalDescription = #{legalList.legal.legalDescription}",
+			"lower(legal.legalDescription) like concat(lower(#{legalList.legal.legalDescription}),'%')",
 
 			"legal.titleInsuranceClaim = #{legalList.legal.titleInsuranceClaim}",
 
 			"lower(legal.titleInsuranceClaimNumber) like concat(lower(#{legalList.legal.titleInsuranceClaimNumber}),'%')",
 
-			"legal.titleInsurer = #{legalList.legal.titleInsurer}",
+			"legal.titleInsurer.id = #{legalList.legal.titleInsurer.id}",
 
-			"legal.chargee = #{legalList.legal.chargee}",
+			"legal.chargee.id = #{legalList.legal.chargee.id}",
 
-			"legal.realEstateProperty = #{legalList.legal.realEstateProperty}",
+			"legal.realEstateProperty.id = #{legalList.legal.realEstateProperty.id}",
 
 			"legal.dateCreated <= #{legalList.dateCreatedRange.end}",
 			"legal.dateCreated >= #{legalList.dateCreatedRange.begin}",};

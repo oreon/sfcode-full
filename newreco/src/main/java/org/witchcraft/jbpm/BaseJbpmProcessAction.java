@@ -11,6 +11,7 @@ import org.jboss.seam.Component;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Transactional;
+import org.jboss.seam.bpm.BusinessProcess;
 import org.jboss.seam.bpm.ManagedJbpmContext;
 import org.jboss.seam.international.StatusMessages;
 import org.jboss.seam.log.Log;
@@ -35,6 +36,9 @@ public class BaseJbpmProcessAction {
 
 	@In
 	protected Identity identity;
+	
+	@In 
+	protected BusinessProcess businessProcess;
 	
 	@Logger
 	protected Log log;
@@ -124,11 +128,16 @@ public class BaseJbpmProcessAction {
 		return "failed";
 	}
 	
-	public List<Comment> getComments(){
-		Collection<TaskInstance> tasks = task.getProcessInstance().getTaskMgmtInstance().getTaskInstances();
+	public List<Comment> getComments() {
 		List<Comment> cmts = new ArrayList<Comment>();
-		for (TaskInstance taskInstance : tasks) {
-			cmts.addAll(taskInstance.getComments());
+		if (task != null) {
+			Collection<TaskInstance> tasks = task.getProcessInstance()
+					.getTaskMgmtInstance().getTaskInstances();
+
+			for (TaskInstance taskInstance : tasks) {
+				if (taskInstance.getComments() != null)
+					cmts.addAll(taskInstance.getComments());
+			}
 		}
 		return cmts;
 	}

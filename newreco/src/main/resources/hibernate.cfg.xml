@@ -1,79 +1,38 @@
-<?xml version='1.0' encoding='utf-8'?>
-
-<!DOCTYPE hibernate-configuration PUBLIC
-          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-	<session-factory>
-
-		<property name="show_sql">true</property>
-
-		 <property name="connection.datasource">java:/comp/env/jdbc/jworksDB</property> 
+	<session-factory name="appEntityManager">
+		<property name="show_sql">false</property>
+		<property name="connection.datasource">java:/comp/env/jdbc/jworksdb</property>
 		<property name="hbm2ddl.auto">update</property>
 		
 		<!--
-			To run the tests on a J2SE environment, uncomment this section.
-			
-			<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-			<property name="connection.username">root</property>
-			<property name="connection.password">root</property>
-			<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-			<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-			<property name="hibernate.show_sql">false</property>
-			<property name="hbm2ddl.auto">update</property>
-			<property name="connection.url">jdbc:mysql://localhost/newrecoverydb</property>
-			<property name="show_sql">false</property> 
-		-->
-		
-		<!--
 			property name="transaction.flush_before_completion">true</property
+			############################################ # mapping files with
+			external dependencies # ############################################
+			following mapping file has a dependendy on 'bsh-{version}.jar'.
+			uncomment this if you don't have bsh on your classpath. you won't be
+			able to use the script element in process definition files
 		-->
-
-		<!-- ############################################ -->
-		<!-- # mapping files with external dependencies # -->
-		<!-- ############################################ -->
-
-		<!-- following mapping file has a dependendy on   -->
-		<!-- 'bsh-{version}.jar'.                         -->
-		<!-- uncomment this if you don't have bsh on your -->
-		<!-- classpath.  you won't be able to use the     -->
-		<!-- script element in process definition files   -->
 		<mapping resource="org/jbpm/graph/action/Script.hbm.xml" />
-
-		<!-- following mapping files have a dependendy on  -->
-		<!-- 'jbpm-identity.jar', mapping files            -->
-		<!-- of the pluggable jbpm identity component.     -->
-		<!-- Uncomment the following 3 lines if you        -->
-		<!-- want to use the jBPM identity mgmgt           -->
-		<!-- component.                                    -->
 		<!--
-			identity mappings (begin) === <mapping
+			following mapping files have a dependendy on 'jbpm-identity.jar',
+			mapping files of the pluggable jbpm identity component. Uncomment the
+			following 3 lines if you want to use the jBPM identity mgmgt
+			component. identity mappings (begin) === <mapping
 			resource="org/jbpm/identity/User.hbm.xml"/> <mapping
 			resource="org/jbpm/identity/Group.hbm.xml"/> <mapping
 			resource="org/jbpm/identity/Membership.hbm.xml"/> ==== identity
-			mappings (end)
-		-->
-
-		<!-- following mapping files have a dependendy on  -->
-		<!-- the JCR API                                   -->
-		<!--
-			jcr mappings (begin) === <mapping
+			mappings (end) following mapping files have a dependendy on the JCR
+			API jcr mappings (begin) === <mapping
 			resource="org/jbpm/context/exe/variableinstance/JcrNodeInstance.hbm.xml"/>
-			==== jcr mappings (end)
+			==== jcr mappings (end) ###################### # jbpm mapping files #
+			###################### hql queries and type defs
 		-->
-
-
-		<!-- ###################### -->
-		<!-- # jbpm mapping files # -->
-		<!-- ###################### -->
-
-		<!-- hql queries and type defs -->
 		<mapping resource="org/jbpm/db/hibernate.queries.hbm.xml" />
-
 		<!-- graph.action mapping files -->
 		<mapping resource="org/jbpm/graph/action/MailAction.hbm.xml" />
-
 		<!-- graph.def mapping files -->
 		<mapping resource="org/jbpm/graph/def/ProcessDefinition.hbm.xml" />
 		<mapping resource="org/jbpm/graph/def/Node.hbm.xml" />
@@ -83,7 +42,6 @@
 		<mapping resource="org/jbpm/graph/def/SuperState.hbm.xml" />
 		<mapping resource="org/jbpm/graph/def/ExceptionHandler.hbm.xml" />
 		<mapping resource="org/jbpm/instantiation/Delegation.hbm.xml" />
-
 		<!-- graph.node mapping files -->
 		<mapping resource="org/jbpm/graph/node/StartState.hbm.xml" />
 		<mapping resource="org/jbpm/graph/node/EndState.hbm.xml" />
@@ -94,39 +52,30 @@
 		<mapping resource="org/jbpm/graph/node/MailNode.hbm.xml" />
 		<mapping resource="org/jbpm/graph/node/State.hbm.xml" />
 		<mapping resource="org/jbpm/graph/node/TaskNode.hbm.xml" />
-
 		<!-- context.def mapping files -->
 		<mapping resource="org/jbpm/context/def/ContextDefinition.hbm.xml" />
 		<mapping resource="org/jbpm/context/def/VariableAccess.hbm.xml" />
-
 		<!-- taskmgmt.def mapping files -->
 		<mapping resource="org/jbpm/taskmgmt/def/TaskMgmtDefinition.hbm.xml" />
 		<mapping resource="org/jbpm/taskmgmt/def/Swimlane.hbm.xml" />
 		<mapping resource="org/jbpm/taskmgmt/def/Task.hbm.xml" />
 		<mapping resource="org/jbpm/taskmgmt/def/TaskController.hbm.xml" />
-
 		<!-- module.def mapping files -->
 		<mapping resource="org/jbpm/module/def/ModuleDefinition.hbm.xml" />
-
 		<!-- bytes mapping files -->
 		<mapping resource="org/jbpm/bytes/ByteArray.hbm.xml" />
-
 		<!-- file.def mapping files -->
 		<mapping resource="org/jbpm/file/def/FileDefinition.hbm.xml" />
-
 		<!-- scheduler.def mapping files -->
 		<mapping resource="org/jbpm/scheduler/def/CreateTimerAction.hbm.xml" />
 		<mapping resource="org/jbpm/scheduler/def/CancelTimerAction.hbm.xml" />
-
 		<!-- graph.exe mapping files -->
 		<mapping resource="org/jbpm/graph/exe/Comment.hbm.xml" />
 		<mapping resource="org/jbpm/graph/exe/ProcessInstance.hbm.xml" />
 		<mapping resource="org/jbpm/graph/exe/Token.hbm.xml" />
 		<mapping resource="org/jbpm/graph/exe/RuntimeAction.hbm.xml" />
-
 		<!-- module.exe mapping files -->
 		<mapping resource="org/jbpm/module/exe/ModuleInstance.hbm.xml" />
-
 		<!-- context.exe mapping files -->
 		<mapping resource="org/jbpm/context/exe/ContextInstance.hbm.xml" />
 		<mapping resource="org/jbpm/context/exe/TokenVariableMap.hbm.xml" />
@@ -144,19 +93,16 @@
 		<mapping resource="org/jbpm/context/exe/variableinstance/NullInstance.hbm.xml" />
 		<mapping
 			resource="org/jbpm/context/exe/variableinstance/StringInstance.hbm.xml" />
-
 		<!-- job mapping files -->
 		<mapping resource="org/jbpm/job/Job.hbm.xml" />
 		<mapping resource="org/jbpm/job/Timer.hbm.xml" />
 		<mapping resource="org/jbpm/job/ExecuteNodeJob.hbm.xml" />
 		<mapping resource="org/jbpm/job/ExecuteActionJob.hbm.xml" />
-
 		<!-- taskmgmt.exe mapping files -->
 		<mapping resource="org/jbpm/taskmgmt/exe/TaskMgmtInstance.hbm.xml" />
 		<mapping resource="org/jbpm/taskmgmt/exe/TaskInstance.hbm.xml" />
 		<mapping resource="org/jbpm/taskmgmt/exe/PooledActor.hbm.xml" />
 		<mapping resource="org/jbpm/taskmgmt/exe/SwimlaneInstance.hbm.xml" />
-
 		<!-- logging mapping files -->
 		<mapping resource="org/jbpm/logging/log/ProcessLog.hbm.xml" />
 		<mapping resource="org/jbpm/logging/log/MessageLog.hbm.xml" />
@@ -193,6 +139,5 @@
 		<mapping resource="org/jbpm/taskmgmt/log/SwimlaneLog.hbm.xml" />
 		<mapping resource="org/jbpm/taskmgmt/log/SwimlaneCreateLog.hbm.xml" />
 		<mapping resource="org/jbpm/taskmgmt/log/SwimlaneAssignLog.hbm.xml" />
-
 	</session-factory>
 </hibernate-configuration>

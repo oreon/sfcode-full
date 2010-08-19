@@ -16,7 +16,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -35,18 +37,21 @@ import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
 @MappedSuperclass
-@Indexed
+//@Indexed
 public class Company extends BusinessEntity {
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String brand;
 
 	@NotNull
 	@Length(min = 2, max = 50)
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String name;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String companyType;
 
 	@IndexedEmbedded

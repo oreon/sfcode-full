@@ -16,7 +16,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -48,11 +50,13 @@ public class Utilitiy extends BusinessEntity implements java.io.Serializable {
 	@NotNull
 	@Length(min = 2, max = 50)
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String name;
 
 	protected Boolean transferred;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String accountNumber;
 
 	public void setName(String name) {

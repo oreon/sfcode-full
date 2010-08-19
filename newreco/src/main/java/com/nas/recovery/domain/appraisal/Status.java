@@ -10,4 +10,12 @@ public enum Status {
 
 	COMPLETED,
 
+	;
+
+	Status() {
+	}
+
+	public String getName() {
+		return this.toString();
+	}
 }

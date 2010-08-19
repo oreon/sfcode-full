@@ -127,6 +127,9 @@ public abstract class UtilitiyActionBase extends BaseAction<Utilitiy>
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<Utilitiy> getEntityList() {
 		if (utilitiyRecordList == null) {
 			findRecords();

@@ -165,6 +165,9 @@ public abstract class MasterAgentActionBase
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<MasterAgent> getEntityList() {
 		if (masterAgentRecordList == null) {
 			findRecords();

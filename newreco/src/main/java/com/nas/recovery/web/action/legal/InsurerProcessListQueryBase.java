@@ -58,7 +58,7 @@ public abstract class InsurerProcessListQueryBase
 	private static final String[] RESTRICTIONS = {
 			"insurerProcess.id = #{insurerProcessList.insurerProcess.id}",
 
-			"insurerProcess.legal = #{insurerProcessList.insurerProcess.legal}",
+			"insurerProcess.legal.id = #{insurerProcessList.insurerProcess.legal.id}",
 
 			"insurerProcess.process = #{insurerProcessList.insurerProcess.process}",
 
@@ -75,7 +75,7 @@ public abstract class InsurerProcessListQueryBase
 
 			"insurerProcess.notRequired = #{insurerProcessList.insurerProcess.notRequired}",
 
-			"insurerProcess.explanation = #{insurerProcessList.insurerProcess.explanation}",
+			"lower(insurerProcess.explanation) like concat(lower(#{insurerProcessList.insurerProcess.explanation}),'%')",
 
 			"insurerProcess.dateCreated <= #{insurerProcessList.dateCreatedRange.end}",
 			"insurerProcess.dateCreated >= #{insurerProcessList.dateCreatedRange.begin}",};

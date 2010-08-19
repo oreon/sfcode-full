@@ -74,7 +74,7 @@ public abstract class BankruptcyListQueryBase
 
 			"bankruptcy.proofOfClaim = #{bankruptcyList.bankruptcy.proofOfClaim}",
 
-			"bankruptcy.legal = #{bankruptcyList.bankruptcy.legal}",
+			"bankruptcy.legal.id = #{bankruptcyList.bankruptcy.legal.id}",
 
 			"bankruptcy.dateCreated <= #{bankruptcyList.dateCreatedRange.end}",
 			"bankruptcy.dateCreated >= #{bankruptcyList.dateCreatedRange.begin}",};

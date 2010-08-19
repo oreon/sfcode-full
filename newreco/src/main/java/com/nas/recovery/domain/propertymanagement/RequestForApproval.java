@@ -16,7 +16,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -50,19 +52,24 @@ public class RequestForApproval extends BusinessEntity
 	protected Date requestDate;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String referenceNumber;
 
 	protected Date recievedDate;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String contractor;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String item;
 
 	protected double estimate;
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String details;
 
 	public void setRequestDate(Date requestDate) {
@@ -146,6 +153,8 @@ public class RequestForApproval extends BusinessEntity
 		listSearchableFields.add("contractor");
 
 		listSearchableFields.add("item");
+
+		listSearchableFields.add("details");
 
 		return listSearchableFields;
 	}

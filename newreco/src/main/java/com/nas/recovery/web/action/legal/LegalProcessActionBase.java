@@ -164,6 +164,9 @@ public abstract class LegalProcessActionBase
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<LegalProcess> getEntityList() {
 		if (legalProcessRecordList == null) {
 			findRecords();

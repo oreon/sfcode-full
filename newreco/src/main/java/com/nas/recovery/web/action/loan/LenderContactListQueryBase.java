@@ -49,7 +49,7 @@ public abstract class LenderContactListQueryBase
 	private static final String[] RESTRICTIONS = {
 			"lenderContact.id = #{lenderContactList.lenderContact.id}",
 
-			"lenderContact.lender = #{lenderContactList.lenderContact.lender}",
+			"lenderContact.lender.id = #{lenderContactList.lenderContact.lender.id}",
 
 			"lower(lenderContact.lastName) like concat(lower(#{lenderContactList.lenderContact.lastName}),'%')",
 

@@ -156,15 +156,15 @@ public abstract class LoanDataListQueryBase extends BaseQuery<LoanData, Long> {
 
 			"loanData.rentalProperty = #{loanDataList.loanData.rentalProperty}",
 
-			"loanData.lender = #{loanDataList.loanData.lender}",
+			"loanData.lender.id = #{loanDataList.loanData.lender.id}",
 
-			"loanData.mortgageInsurer = #{loanDataList.loanData.mortgageInsurer}",
+			"loanData.mortgageInsurer.id = #{loanDataList.loanData.mortgageInsurer.id}",
 
-			"loanData.titleInsurer = #{loanDataList.loanData.titleInsurer}",
+			"loanData.titleInsurer.id = #{loanDataList.loanData.titleInsurer.id}",
 
-			"loanData.broker = #{loanDataList.loanData.broker}",
+			"loanData.broker.id = #{loanDataList.loanData.broker.id}",
 
-			"loanData.underwriter = #{loanDataList.loanData.underwriter}",
+			"loanData.underwriter.id = #{loanDataList.loanData.underwriter.id}",
 
 			"loanData.dateCreated <= #{loanDataList.dateCreatedRange.end}",
 			"loanData.dateCreated >= #{loanDataList.dateCreatedRange.begin}",};

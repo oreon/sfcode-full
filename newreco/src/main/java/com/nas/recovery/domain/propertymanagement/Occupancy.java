@@ -8,4 +8,12 @@ public enum Occupancy {
 
 	Unconfirmed,
 
+	;
+
+	Occupancy() {
+	}
+
+	public String getName() {
+		return this.toString();
+	}
 }

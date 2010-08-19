@@ -16,7 +16,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -50,6 +52,8 @@ public class Inspection extends BusinessEntity implements java.io.Serializable {
 	protected Date date;
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String Observation;
 
 	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -116,6 +120,8 @@ public class Inspection extends BusinessEntity implements java.io.Serializable {
 	public List<String> listSearchableFields() {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
+
+		listSearchableFields.add("Observation");
 
 		return listSearchableFields;
 	}

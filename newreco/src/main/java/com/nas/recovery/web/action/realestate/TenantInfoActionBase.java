@@ -164,6 +164,9 @@ public abstract class TenantInfoActionBase extends BaseAction<TenantInfo>
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<TenantInfo> getEntityList() {
 		if (tenantInfoRecordList == null) {
 			findRecords();

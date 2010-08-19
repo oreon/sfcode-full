@@ -46,9 +46,9 @@ public abstract class InspectionListQueryBase
 			"inspection.date >= #{inspectionList.inspection_dateRange.begin}",
 			"inspection.date <= #{inspectionList.inspection_dateRange.end}",
 
-			"inspection.observation = #{inspectionList.inspection.observation}",
+			"lower(inspection.observation) like concat(lower(#{inspectionList.inspection.observation}),'%')",
 
-			"inspection.propertyManager = #{inspectionList.inspection.propertyManager}",
+			"inspection.propertyManager.id = #{inspectionList.inspection.propertyManager.id}",
 
 			"inspection.actionRequired = #{inspectionList.inspection.actionRequired}",
 

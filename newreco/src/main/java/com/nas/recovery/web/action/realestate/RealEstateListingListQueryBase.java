@@ -216,7 +216,7 @@ public abstract class RealEstateListingListQueryBase
 
 			"realEstateListing.tenanted = #{realEstateListingList.realEstateListing.tenanted}",
 
-			"realEstateListing.mlsComments = #{realEstateListingList.realEstateListing.mlsComments}",
+			"lower(realEstateListing.mlsComments) like concat(lower(#{realEstateListingList.realEstateListing.mlsComments}),'%')",
 
 			"realEstateListing.realEstateNumber >= #{realEstateListingList.realEstateListing_realEstateNumberRange.begin}",
 			"realEstateListing.realEstateNumber <= #{realEstateListingList.realEstateListing_realEstateNumberRange.end}",
@@ -228,13 +228,13 @@ public abstract class RealEstateListingListQueryBase
 			"realEstateListing.commission >= #{realEstateListingList.realEstateListing_commissionRange.begin}",
 			"realEstateListing.commission <= #{realEstateListingList.realEstateListing_commissionRange.end}",
 
-			"realEstateListing.realEstateBoard = #{realEstateListingList.realEstateListing.realEstateBoard}",
+			"realEstateListing.realEstateBoard.id = #{realEstateListingList.realEstateListing.realEstateBoard.id}",
 
-			"realEstateListing.realEstateProperty = #{realEstateListingList.realEstateListing.realEstateProperty}",
+			"realEstateListing.realEstateProperty.id = #{realEstateListingList.realEstateListing.realEstateProperty.id}",
 
-			"realEstateListing.master = #{realEstateListingList.realEstateListing.master}",
+			"realEstateListing.master.id = #{realEstateListingList.realEstateListing.master.id}",
 
-			"realEstateListing.subagent = #{realEstateListingList.realEstateListing.subagent}",
+			"realEstateListing.subagent.id = #{realEstateListingList.realEstateListing.subagent.id}",
 
 			"realEstateListing.mortgageNumber >= #{realEstateListingList.realEstateListing_mortgageNumberRange.begin}",
 			"realEstateListing.mortgageNumber <= #{realEstateListingList.realEstateListing_mortgageNumberRange.end}",
@@ -249,7 +249,7 @@ public abstract class RealEstateListingListQueryBase
 			"realEstateListing.deposit >= #{realEstateListingList.realEstateListing_depositRange.begin}",
 			"realEstateListing.deposit <= #{realEstateListingList.realEstateListing_depositRange.end}",
 
-			"realEstateListing.sale = #{realEstateListingList.realEstateListing.sale}",
+			"realEstateListing.sale.id = #{realEstateListingList.realEstateListing.sale.id}",
 
 			"realEstateListing.dateCreated <= #{realEstateListingList.dateCreatedRange.end}",
 			"realEstateListing.dateCreated >= #{realEstateListingList.dateCreatedRange.begin}",};

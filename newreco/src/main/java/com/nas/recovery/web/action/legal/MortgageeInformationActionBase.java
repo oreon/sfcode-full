@@ -127,6 +127,9 @@ public abstract class MortgageeInformationActionBase
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<MortgageeInformation> getEntityList() {
 		if (mortgageeInformationRecordList == null) {
 			findRecords();

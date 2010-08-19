@@ -129,6 +129,9 @@ public abstract class BorrowerActionBase
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<Borrower> getEntityList() {
 		if (borrowerRecordList == null) {
 			findRecords();

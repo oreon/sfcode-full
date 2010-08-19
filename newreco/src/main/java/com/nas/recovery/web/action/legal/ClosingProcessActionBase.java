@@ -164,6 +164,9 @@ public abstract class ClosingProcessActionBase
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<ClosingProcess> getEntityList() {
 		if (closingProcessRecordList == null) {
 			findRecords();

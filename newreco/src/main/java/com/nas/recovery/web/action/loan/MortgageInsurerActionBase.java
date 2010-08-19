@@ -129,6 +129,9 @@ public abstract class MortgageInsurerActionBase
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<MortgageInsurer> getEntityList() {
 		if (mortgageInsurerRecordList == null) {
 			findRecords();

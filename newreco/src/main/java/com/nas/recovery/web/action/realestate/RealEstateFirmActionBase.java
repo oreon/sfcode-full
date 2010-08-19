@@ -145,6 +145,9 @@ public abstract class RealEstateFirmActionBase
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<RealEstateFirm> getEntityList() {
 		if (realEstateFirmRecordList == null) {
 			findRecords();

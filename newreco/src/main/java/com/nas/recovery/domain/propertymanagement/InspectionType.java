@@ -6,4 +6,12 @@ public enum InspectionType {
 
 	Securing,
 
+	;
+
+	InspectionType() {
+	}
+
+	public String getName() {
+		return this.toString();
+	}
 }

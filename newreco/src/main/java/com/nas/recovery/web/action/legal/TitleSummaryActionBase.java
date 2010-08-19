@@ -127,6 +127,9 @@ public abstract class TitleSummaryActionBase extends BaseAction<TitleSummary>
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<TitleSummary> getEntityList() {
 		if (titleSummaryRecordList == null) {
 			findRecords();

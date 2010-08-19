@@ -164,6 +164,9 @@ public abstract class OfferActionBase extends BaseAction<Offer>
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<Offer> getEntityList() {
 		if (offerRecordList == null) {
 			findRecords();

@@ -12,4 +12,12 @@ public enum SaleClosingProcess {
 
 	CLOSING_REPORT,
 
+	;
+
+	SaleClosingProcess() {
+	}
+
+	public String getName() {
+		return this.toString();
+	}
 }

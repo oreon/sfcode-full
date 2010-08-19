@@ -127,6 +127,9 @@ public abstract class AgentHistoryActionBase extends BaseAction<AgentHistory>
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<AgentHistory> getEntityList() {
 		if (agentHistoryRecordList == null) {
 			findRecords();

@@ -7,6 +7,8 @@ import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.bpm.CreateProcess;
 import org.jboss.seam.annotations.bpm.EndTask;
 import org.jboss.seam.annotations.bpm.StartTask;
+import org.jboss.seam.contexts.BusinessProcessContext;
+import org.jboss.seam.international.StatusMessage.Severity;
 import org.jbpm.JbpmContext;
 import org.jbpm.graph.exe.ExecutionContext;
 
@@ -27,7 +29,37 @@ public class AlbertaRecovery extends AlbertaRecoveryBase {
 	String desc ;
 	
 	
-	private String lawyer;
+	private String lawyer = "ericl";
+	
+	private String masterAgent = "john";
+	
+	private String propertyManager = "jimmy";
+	
+	public String getMasterAgent() {
+		return masterAgent;
+	}
+
+
+	public void setMasterAgent(String masterAgent) {
+		this.masterAgent = masterAgent;
+	}
+
+
+	public String getPropertyManager() {
+		return propertyManager;
+	}
+
+
+	public void setPropertyManager(String propertyManager) {
+		this.propertyManager = propertyManager;
+	}
+
+
+
+
+
+
+	
 	
 	
 	public RecoveryToken getRecoveryToken() {
@@ -54,13 +86,24 @@ public class AlbertaRecovery extends AlbertaRecoveryBase {
 
 	
 	
-	@CreateProcess(definition = "albertaRecovery")
-	public void startProcess() {
+	@CreateProcess(definition = "albertaRecovery") //,  processKey= "#{issueAction.instance.id}")
+	public String startProcess() {
 		recoveryToken.setLawyer( lawyer );//leaveRequest.getTo();
-		recoveryToken.setPropertyManager("jimmy");
+		recoveryToken.setPropertyManager(propertyManager);
+		recoveryToken.setMasterAgent(masterAgent);
 		recoveryToken.setLenderContact( identity.getCredentials().getUsername() ); 
+		
+		//BusinessProcessContext bpc = BusinessProcessContext.
+		
+		realEstatePropertyAction.getInstance().setProcessId(4); //businessProcess.getProcessId());
+		realEstatePropertyAction.getInstance().setProcessName("albertaRecovery");
+		realEstatePropertyAction.save();
+		
 		recoveryToken.setRealEstateProperty(realEstatePropertyAction.getInstance());
 		desc = realEstatePropertyAction.getInstance().getDisplayName();
+		
+		statusMessages.add(Severity.INFO, "Process Started for {0}", desc);
+		return "success" ;
 	}
 	
 	

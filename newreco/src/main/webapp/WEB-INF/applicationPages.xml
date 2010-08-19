@@ -78,13 +78,9 @@
 
 
 		<navigation from-action="#{lenderAction.register}">
-
-
 			<rule if-outcome="success">
 				<redirect view-id="/register/mailSent.xhtml" />
 			</rule>
-
-
 		</navigation>
 
 	</page>
@@ -112,9 +108,7 @@
 	</page>
 	
 	
-	<page view-id="/manageAccount/startProcess.xhtml">
-		<param name="realEstatePropertyId" value="#{realEstatePropertyAction.realEstatePropertyId}" />
-	</page>
+	
 	
 
 
@@ -134,6 +128,17 @@
 		<rule if-outcome="next">
 				<redirect view-id="/manageAccount/myaccount.xhtml" />
 		</rule>
+	</page>
+	
+	<page view-id="/manageAccount/startProcess.xhtml">
+		<param name="realEstatePropertyId" value="#{realEstatePropertyAction.realEstatePropertyId}" />
+		
+		<navigation from-action="#{albertaRecoveryProcessAction.startProcess}">
+			<rule if-outcome="success">
+				<redirect view-id="/manageAccount/tasks.xhtml" />
+			</rule>
+		</navigation>
+		
 	</page>
 	
 	<page view-id="/manageAccount/tasks.xhtml">

@@ -16,7 +16,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -51,23 +53,26 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	@Length(min = 2, max = 50)
 	@Column(name = "userName", unique = true)
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String userName;
 
 	@NotNull
 	@Column(name = "password", unique = false)
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String password;
 
 	@Column(name = "enabled", unique = false)
 	protected Boolean enabled;
 
-	//roles->users ->User->User->User
+	//roles->users ->User->Role->Role
 
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_ID"), inverseJoinColumns = @JoinColumn(name = "roles_ID"))
 	private Set<Role> roles = new HashSet<Role>();
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String email;
 
 	public void setUserName(String userName) {

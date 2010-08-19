@@ -67,7 +67,7 @@ public abstract class AppraisalListQueryBase extends BaseQuery<Appraisal, Long> 
 			"appraisal.appraisalNumber >= #{appraisalList.appraisal_appraisalNumberRange.begin}",
 			"appraisal.appraisalNumber <= #{appraisalList.appraisal_appraisalNumberRange.end}",
 
-			"appraisal.specialInstruction = #{appraisalList.appraisal.specialInstruction}",
+			"lower(appraisal.specialInstruction) like concat(lower(#{appraisalList.appraisal.specialInstruction}),'%')",
 
 			"appraisal.serviceType = #{appraisalList.appraisal.serviceType}",
 
@@ -82,7 +82,7 @@ public abstract class AppraisalListQueryBase extends BaseQuery<Appraisal, Long> 
 			"appraisal.received >= #{appraisalList.appraisal_receivedRange.begin}",
 			"appraisal.received <= #{appraisalList.appraisal_receivedRange.end}",
 
-			"appraisal.realEstateProperty = #{appraisalList.appraisal.realEstateProperty}",
+			"appraisal.realEstateProperty.id = #{appraisalList.appraisal.realEstateProperty.id}",
 
 			"appraisal.dateCreated <= #{appraisalList.dateCreatedRange.end}",
 			"appraisal.dateCreated >= #{appraisalList.dateCreatedRange.begin}",};

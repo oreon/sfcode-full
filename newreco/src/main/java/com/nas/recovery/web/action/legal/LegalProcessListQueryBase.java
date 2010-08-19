@@ -58,7 +58,7 @@ public abstract class LegalProcessListQueryBase
 	private static final String[] RESTRICTIONS = {
 			"legalProcess.id = #{legalProcessList.legalProcess.id}",
 
-			"legalProcess.legal = #{legalProcessList.legalProcess.legal}",
+			"legalProcess.legal.id = #{legalProcessList.legalProcess.legal.id}",
 
 			"legalProcess.process = #{legalProcessList.legalProcess.process}",
 
@@ -75,7 +75,7 @@ public abstract class LegalProcessListQueryBase
 
 			"legalProcess.notRequired = #{legalProcessList.legalProcess.notRequired}",
 
-			"legalProcess.explanation = #{legalProcessList.legalProcess.explanation}",
+			"lower(legalProcess.explanation) like concat(lower(#{legalProcessList.legalProcess.explanation}),'%')",
 
 			"legalProcess.dateCreated <= #{legalProcessList.dateCreatedRange.end}",
 			"legalProcess.dateCreated >= #{legalProcessList.dateCreatedRange.begin}",};

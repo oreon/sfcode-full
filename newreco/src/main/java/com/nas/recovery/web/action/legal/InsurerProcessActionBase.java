@@ -164,6 +164,9 @@ public abstract class InsurerProcessActionBase
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<InsurerProcess> getEntityList() {
 		if (insurerProcessRecordList == null) {
 			findRecords();

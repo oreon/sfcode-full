@@ -133,6 +133,9 @@ public abstract class AttachmentsActionBase extends BaseAction<Attachments>
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<Attachments> getEntityList() {
 		if (attachmentsRecordList == null) {
 			findRecords();

@@ -16,7 +16,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -48,6 +50,7 @@ public class Offer extends BusinessEntity implements java.io.Serializable {
 	protected Date offerDate;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String purchaser;
 
 	protected Double amount;
@@ -68,6 +71,8 @@ public class Offer extends BusinessEntity implements java.io.Serializable {
 	protected Date closingDate;
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String comments;
 
 	public void setOfferDate(Date offerDate) {
@@ -174,6 +179,8 @@ public class Offer extends BusinessEntity implements java.io.Serializable {
 		listSearchableFields.addAll(super.listSearchableFields());
 
 		listSearchableFields.add("purchaser");
+
+		listSearchableFields.add("comments");
 
 		return listSearchableFields;
 	}

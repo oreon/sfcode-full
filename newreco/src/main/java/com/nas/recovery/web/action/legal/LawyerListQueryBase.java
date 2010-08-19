@@ -47,7 +47,7 @@ public abstract class LawyerListQueryBase extends BaseQuery<Lawyer, Long> {
 	private static final String[] RESTRICTIONS = {
 			"lawyer.id = #{lawyerList.lawyer.id}",
 
-			"lawyer.lawfirm = #{lawyerList.lawyer.lawfirm}",
+			"lawyer.lawfirm.id = #{lawyerList.lawyer.lawfirm.id}",
 
 			"lower(lawyer.lastName) like concat(lower(#{lawyerList.lawyer.lastName}),'%')",
 

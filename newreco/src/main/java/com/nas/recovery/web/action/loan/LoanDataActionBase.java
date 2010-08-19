@@ -272,6 +272,9 @@ public abstract class LoanDataActionBase extends BaseAction<LoanData>
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<LoanData> getEntityList() {
 		if (loanDataRecordList == null) {
 			findRecords();

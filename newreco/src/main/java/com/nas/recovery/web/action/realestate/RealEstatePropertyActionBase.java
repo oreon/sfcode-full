@@ -235,24 +235,27 @@ public abstract class RealEstatePropertyActionBase
 
 	}
 
-	protected List<TenantInfo> listTenantInfos;
+	protected List<com.nas.recovery.domain.realestate.TenantInfo> listTenantInfos;
 
 	void initListTenantInfos() {
-		listTenantInfos = new ArrayList<TenantInfo>();
+		listTenantInfos = new ArrayList<com.nas.recovery.domain.realestate.TenantInfo>();
+
 		if (getInstance().getTenantInfos().isEmpty()) {
 
 		} else
 			listTenantInfos.addAll(getInstance().getTenantInfos());
+
 	}
 
-	public List<TenantInfo> getListTenantInfos() {
+	public List<com.nas.recovery.domain.realestate.TenantInfo> getListTenantInfos() {
 		if (listTenantInfos == null || listTenantInfos.isEmpty()) {
 			initListTenantInfos();
 		}
 		return listTenantInfos;
 	}
 
-	public void setListTenantInfos(List<TenantInfo> listTenantInfos) {
+	public void setListTenantInfos(
+			List<com.nas.recovery.domain.realestate.TenantInfo> listTenantInfos) {
 		this.listTenantInfos = listTenantInfos;
 	}
 
@@ -269,24 +272,27 @@ public abstract class RealEstatePropertyActionBase
 		listTenantInfos.add(tenantInfos);
 	}
 
-	protected List<Cma> listCmas;
+	protected List<com.nas.recovery.domain.realestate.Cma> listCmas;
 
 	void initListCmas() {
-		listCmas = new ArrayList<Cma>();
+		listCmas = new ArrayList<com.nas.recovery.domain.realestate.Cma>();
+
 		if (getInstance().getCmas().isEmpty()) {
 
 		} else
 			listCmas.addAll(getInstance().getCmas());
+
 	}
 
-	public List<Cma> getListCmas() {
+	public List<com.nas.recovery.domain.realestate.Cma> getListCmas() {
 		if (listCmas == null || listCmas.isEmpty()) {
 			initListCmas();
 		}
 		return listCmas;
 	}
 
-	public void setListCmas(List<Cma> listCmas) {
+	public void setListCmas(
+			List<com.nas.recovery.domain.realestate.Cma> listCmas) {
 		this.listCmas = listCmas;
 	}
 
@@ -301,24 +307,27 @@ public abstract class RealEstatePropertyActionBase
 		listCmas.add(cmas);
 	}
 
-	protected List<Appraisal> listAppraisals;
+	protected List<com.nas.recovery.domain.appraisal.Appraisal> listAppraisals;
 
 	void initListAppraisals() {
-		listAppraisals = new ArrayList<Appraisal>();
+		listAppraisals = new ArrayList<com.nas.recovery.domain.appraisal.Appraisal>();
+
 		if (getInstance().getAppraisals().isEmpty()) {
 
 		} else
 			listAppraisals.addAll(getInstance().getAppraisals());
+
 	}
 
-	public List<Appraisal> getListAppraisals() {
+	public List<com.nas.recovery.domain.appraisal.Appraisal> getListAppraisals() {
 		if (listAppraisals == null || listAppraisals.isEmpty()) {
 			initListAppraisals();
 		}
 		return listAppraisals;
 	}
 
-	public void setListAppraisals(List<Appraisal> listAppraisals) {
+	public void setListAppraisals(
+			List<com.nas.recovery.domain.appraisal.Appraisal> listAppraisals) {
 		this.listAppraisals = listAppraisals;
 	}
 
@@ -335,24 +344,27 @@ public abstract class RealEstatePropertyActionBase
 		listAppraisals.add(appraisals);
 	}
 
-	protected List<FilesUploaded> listFilesUploadeds;
+	protected List<com.nas.recovery.domain.realestate.FilesUploaded> listFilesUploadeds;
 
 	void initListFilesUploadeds() {
-		listFilesUploadeds = new ArrayList<FilesUploaded>();
+		listFilesUploadeds = new ArrayList<com.nas.recovery.domain.realestate.FilesUploaded>();
+
 		if (getInstance().getFilesUploadeds().isEmpty()) {
 
 		} else
 			listFilesUploadeds.addAll(getInstance().getFilesUploadeds());
+
 	}
 
-	public List<FilesUploaded> getListFilesUploadeds() {
+	public List<com.nas.recovery.domain.realestate.FilesUploaded> getListFilesUploadeds() {
 		if (listFilesUploadeds == null || listFilesUploadeds.isEmpty()) {
 			initListFilesUploadeds();
 		}
 		return listFilesUploadeds;
 	}
 
-	public void setListFilesUploadeds(List<FilesUploaded> listFilesUploadeds) {
+	public void setListFilesUploadeds(
+			List<com.nas.recovery.domain.realestate.FilesUploaded> listFilesUploadeds) {
 		this.listFilesUploadeds = listFilesUploadeds;
 	}
 
@@ -369,24 +381,27 @@ public abstract class RealEstatePropertyActionBase
 		listFilesUploadeds.add(filesUploadeds);
 	}
 
-	protected List<Inspection> listInspections;
+	protected List<com.nas.recovery.domain.propertymanagement.Inspection> listInspections;
 
 	void initListInspections() {
-		listInspections = new ArrayList<Inspection>();
+		listInspections = new ArrayList<com.nas.recovery.domain.propertymanagement.Inspection>();
+
 		if (getInstance().getInspections().isEmpty()) {
 
 		} else
 			listInspections.addAll(getInstance().getInspections());
+
 	}
 
-	public List<Inspection> getListInspections() {
+	public List<com.nas.recovery.domain.propertymanagement.Inspection> getListInspections() {
 		if (listInspections == null || listInspections.isEmpty()) {
 			initListInspections();
 		}
 		return listInspections;
 	}
 
-	public void setListInspections(List<Inspection> listInspections) {
+	public void setListInspections(
+			List<com.nas.recovery.domain.propertymanagement.Inspection> listInspections) {
 		this.listInspections = listInspections;
 	}
 
@@ -401,24 +416,27 @@ public abstract class RealEstatePropertyActionBase
 		listInspections.add(inspections);
 	}
 
-	protected List<Utilitiy> listUtilitiys;
+	protected List<com.nas.recovery.domain.propertymanagement.Utilitiy> listUtilitiys;
 
 	void initListUtilitiys() {
-		listUtilitiys = new ArrayList<Utilitiy>();
+		listUtilitiys = new ArrayList<com.nas.recovery.domain.propertymanagement.Utilitiy>();
+
 		if (getInstance().getUtilitiys().isEmpty()) {
 
 		} else
 			listUtilitiys.addAll(getInstance().getUtilitiys());
+
 	}
 
-	public List<Utilitiy> getListUtilitiys() {
+	public List<com.nas.recovery.domain.propertymanagement.Utilitiy> getListUtilitiys() {
 		if (listUtilitiys == null || listUtilitiys.isEmpty()) {
 			initListUtilitiys();
 		}
 		return listUtilitiys;
 	}
 
-	public void setListUtilitiys(List<Utilitiy> listUtilitiys) {
+	public void setListUtilitiys(
+			List<com.nas.recovery.domain.propertymanagement.Utilitiy> listUtilitiys) {
 		this.listUtilitiys = listUtilitiys;
 	}
 
@@ -433,18 +451,20 @@ public abstract class RealEstatePropertyActionBase
 		listUtilitiys.add(utilitiys);
 	}
 
-	protected List<RequestForApproval> listRequestForApprovals;
+	protected List<com.nas.recovery.domain.propertymanagement.RequestForApproval> listRequestForApprovals;
 
 	void initListRequestForApprovals() {
-		listRequestForApprovals = new ArrayList<RequestForApproval>();
+		listRequestForApprovals = new ArrayList<com.nas.recovery.domain.propertymanagement.RequestForApproval>();
+
 		if (getInstance().getRequestForApprovals().isEmpty()) {
 
 		} else
 			listRequestForApprovals.addAll(getInstance()
 					.getRequestForApprovals());
+
 	}
 
-	public List<RequestForApproval> getListRequestForApprovals() {
+	public List<com.nas.recovery.domain.propertymanagement.RequestForApproval> getListRequestForApprovals() {
 		if (listRequestForApprovals == null
 				|| listRequestForApprovals.isEmpty()) {
 			initListRequestForApprovals();
@@ -453,7 +473,7 @@ public abstract class RealEstatePropertyActionBase
 	}
 
 	public void setListRequestForApprovals(
-			List<RequestForApproval> listRequestForApprovals) {
+			List<com.nas.recovery.domain.propertymanagement.RequestForApproval> listRequestForApprovals) {
 		this.listRequestForApprovals = listRequestForApprovals;
 	}
 
@@ -505,7 +525,6 @@ public abstract class RealEstatePropertyActionBase
 			getInstance().getRequestForApprovals().addAll(
 					listRequestForApprovals);
 		}
-
 	}
 
 	public List<RealEstateProperty> getEntityList() {

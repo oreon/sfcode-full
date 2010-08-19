@@ -258,17 +258,19 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 
 	}
 
-	protected List<ClosingProcess> listClosingProcesses;
+	protected List<com.nas.recovery.domain.legal.ClosingProcess> listClosingProcesses;
 
 	void initListClosingProcesses() {
-		listClosingProcesses = new ArrayList<ClosingProcess>();
+		listClosingProcesses = new ArrayList<com.nas.recovery.domain.legal.ClosingProcess>();
+
 		if (getInstance().getClosingProcesses().isEmpty()) {
 
 		} else
 			listClosingProcesses.addAll(getInstance().getClosingProcesses());
+
 	}
 
-	public List<ClosingProcess> getListClosingProcesses() {
+	public List<com.nas.recovery.domain.legal.ClosingProcess> getListClosingProcesses() {
 		if (listClosingProcesses == null || listClosingProcesses.isEmpty()) {
 			initListClosingProcesses();
 		}
@@ -276,7 +278,7 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 	}
 
 	public void setListClosingProcesses(
-			List<ClosingProcess> listClosingProcesses) {
+			List<com.nas.recovery.domain.legal.ClosingProcess> listClosingProcesses) {
 		this.listClosingProcesses = listClosingProcesses;
 	}
 
@@ -293,24 +295,27 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 		listClosingProcesses.add(closingProcesses);
 	}
 
-	protected List<LegalProcess> listLegalProcesses;
+	protected List<com.nas.recovery.domain.legal.LegalProcess> listLegalProcesses;
 
 	void initListLegalProcesses() {
-		listLegalProcesses = new ArrayList<LegalProcess>();
+		listLegalProcesses = new ArrayList<com.nas.recovery.domain.legal.LegalProcess>();
+
 		if (getInstance().getLegalProcesses().isEmpty()) {
 
 		} else
 			listLegalProcesses.addAll(getInstance().getLegalProcesses());
+
 	}
 
-	public List<LegalProcess> getListLegalProcesses() {
+	public List<com.nas.recovery.domain.legal.LegalProcess> getListLegalProcesses() {
 		if (listLegalProcesses == null || listLegalProcesses.isEmpty()) {
 			initListLegalProcesses();
 		}
 		return listLegalProcesses;
 	}
 
-	public void setListLegalProcesses(List<LegalProcess> listLegalProcesses) {
+	public void setListLegalProcesses(
+			List<com.nas.recovery.domain.legal.LegalProcess> listLegalProcesses) {
 		this.listLegalProcesses = listLegalProcesses;
 	}
 
@@ -327,17 +332,19 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 		listLegalProcesses.add(legalProcesses);
 	}
 
-	protected List<InsurerProcess> listInsurerProcesses;
+	protected List<com.nas.recovery.domain.legal.InsurerProcess> listInsurerProcesses;
 
 	void initListInsurerProcesses() {
-		listInsurerProcesses = new ArrayList<InsurerProcess>();
+		listInsurerProcesses = new ArrayList<com.nas.recovery.domain.legal.InsurerProcess>();
+
 		if (getInstance().getInsurerProcesses().isEmpty()) {
 
 		} else
 			listInsurerProcesses.addAll(getInstance().getInsurerProcesses());
+
 	}
 
-	public List<InsurerProcess> getListInsurerProcesses() {
+	public List<com.nas.recovery.domain.legal.InsurerProcess> getListInsurerProcesses() {
 		if (listInsurerProcesses == null || listInsurerProcesses.isEmpty()) {
 			initListInsurerProcesses();
 		}
@@ -345,7 +352,7 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 	}
 
 	public void setListInsurerProcesses(
-			List<InsurerProcess> listInsurerProcesses) {
+			List<com.nas.recovery.domain.legal.InsurerProcess> listInsurerProcesses) {
 		this.listInsurerProcesses = listInsurerProcesses;
 	}
 
@@ -378,7 +385,6 @@ public abstract class LegalActionBase extends BaseAction<Legal>
 			getInstance().getInsurerProcesses().clear();
 			getInstance().getInsurerProcesses().addAll(listInsurerProcesses);
 		}
-
 	}
 
 	public List<Legal> getEntityList() {

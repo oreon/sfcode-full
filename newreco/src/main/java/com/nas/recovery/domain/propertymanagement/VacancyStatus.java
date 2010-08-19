@@ -10,4 +10,12 @@ public enum VacancyStatus {
 
 	Unsecured,
 
+	;
+
+	VacancyStatus() {
+	}
+
+	public String getName() {
+		return this.toString();
+	}
 }
