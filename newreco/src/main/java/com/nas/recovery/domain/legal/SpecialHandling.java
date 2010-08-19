@@ -18,4 +18,12 @@ public enum SpecialHandling {
 
 	OTHER,
 
+	;
+
+	SpecialHandling() {
+	}
+
+	public String getName() {
+		return this.toString();
+	}
 }

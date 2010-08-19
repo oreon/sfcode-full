@@ -16,7 +16,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -77,14 +79,18 @@ public class RealEstateListing extends BusinessEntity
 	protected Boolean tenanted;
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String mlsComments;
 
 	protected Integer realEstateNumber;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String cmaOrdered;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String occupied;
 
 	protected Double commission;
@@ -96,7 +102,7 @@ public class RealEstateListing extends BusinessEntity
 	@IndexedEmbedded
 	private Set<ListingSummary> listingSummarys = new HashSet<ListingSummary>();
 
-	//agentHistorys-> ->->AgentHistory->
+	//agentHistorys-> ->->RealEstateListing->
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateListing_ID", nullable = true)
@@ -113,7 +119,7 @@ public class RealEstateListing extends BusinessEntity
 	@ContainedIn
 	protected RealEstateProperty realEstateProperty;
 
-	//offers->realEstateListing ->RealEstateListing->Offer->Offer
+	//offers->realEstateListing ->RealEstateListing->RealEstateListing->RealEstateListing
 
 	@OneToMany(mappedBy = "realEstateListing", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateListing_ID", nullable = true)
@@ -140,8 +146,8 @@ public class RealEstateListing extends BusinessEntity
 
 	protected Double deposit;
 
-	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "sale_id", nullable = false, updatable = true)
+	@OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "sale_id", nullable = true, updatable = true)
 	@ContainedIn
 	protected Sale sale;
 
@@ -443,11 +449,15 @@ public class RealEstateListing extends BusinessEntity
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
+		listSearchableFields.add("mlsComments");
+
 		listSearchableFields.add("cmaOrdered");
 
 		listSearchableFields.add("occupied");
 
 		listSearchableFields.add("offers.purchaser");
+
+		listSearchableFields.add("offers.comments");
 
 		return listSearchableFields;
 	}

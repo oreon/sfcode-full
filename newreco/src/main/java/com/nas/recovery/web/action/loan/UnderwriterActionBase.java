@@ -129,6 +129,9 @@ public abstract class UnderwriterActionBase
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<Underwriter> getEntityList() {
 		if (underwriterRecordList == null) {
 			findRecords();

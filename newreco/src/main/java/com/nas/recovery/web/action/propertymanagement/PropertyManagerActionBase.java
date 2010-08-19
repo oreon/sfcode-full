@@ -129,6 +129,9 @@ public abstract class PropertyManagerActionBase
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<PropertyManager> getEntityList() {
 		if (propertyManagerRecordList == null) {
 			findRecords();

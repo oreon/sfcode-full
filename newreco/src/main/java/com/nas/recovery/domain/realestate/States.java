@@ -20,15 +20,14 @@ public enum States {
 
 	YK,
 
-	QB;
-	
-	
-	States(){
-		
+	QB,
+
+	;
+
+	States() {
 	}
-	public String getName(){
+
+	public String getName() {
 		return this.toString();
 	}
-
-
 }

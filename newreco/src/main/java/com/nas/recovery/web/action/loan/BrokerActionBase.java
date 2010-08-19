@@ -129,6 +129,9 @@ public abstract class BrokerActionBase
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<Broker> getEntityList() {
 		if (brokerRecordList == null) {
 			findRecords();

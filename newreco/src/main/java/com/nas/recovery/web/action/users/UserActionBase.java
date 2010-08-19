@@ -115,6 +115,10 @@ public abstract class UserActionBase extends BaseAction<User>
 		this.userRecordList = list;
 	}
 
+	public com.nas.recovery.domain.users.User findByUnqUserName(String userName) {
+		return executeSingleResultNamedQuery("findByUnqUserName", userName);
+	}
+
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
@@ -125,6 +129,60 @@ public abstract class UserActionBase extends BaseAction<User>
 
 	public void updateAssociations() {
 
+	}
+
+	protected List<com.nas.recovery.domain.users.Role> listRoles;
+
+	void initListRoles() {
+		listRoles = new ArrayList<com.nas.recovery.domain.users.Role>();
+
+		if (getInstance().getRoles().isEmpty()) {
+
+		} else
+			listRoles.addAll(getInstance().getRoles());
+
+	}
+
+	public List<com.nas.recovery.domain.users.Role> getListRoles() {
+		if (listRoles == null || listRoles.isEmpty()) {
+			initListRoles();
+		}
+		return listRoles;
+	}
+
+	public void setListRoles(List<com.nas.recovery.domain.users.Role> listRoles) {
+		this.listRoles = listRoles;
+	}
+
+	protected List<com.nas.recovery.domain.users.Role> listAvailableRoles;
+
+	void initListAvailableRoles() {
+		listAvailableRoles = new ArrayList<com.nas.recovery.domain.users.Role>();
+
+		listAvailableRoles = getEntityManager().createQuery(
+				"select r from Role r").getResultList();
+		listAvailableRoles.removeAll(getInstance().getRoles());
+
+	}
+
+	public List<com.nas.recovery.domain.users.Role> getListAvailableRoles() {
+		if (listAvailableRoles == null || listAvailableRoles.isEmpty()) {
+			initListAvailableRoles();
+		}
+		return listAvailableRoles;
+	}
+
+	public void setListAvailableRoles(
+			List<com.nas.recovery.domain.users.Role> listAvailableRoles) {
+		this.listAvailableRoles = listAvailableRoles;
+	}
+
+	public void updateComposedAssociations() {
+
+		if (listRoles != null) {
+			getInstance().getRoles().clear();
+			getInstance().getRoles().addAll(listRoles);
+		}
 	}
 
 	public List<User> getEntityList() {

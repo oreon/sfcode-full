@@ -14,4 +14,12 @@ public enum ChargeeType {
 
 	Other,
 
+	;
+
+	ChargeeType() {
+	}
+
+	public String getName() {
+		return this.toString();
+	}
 }

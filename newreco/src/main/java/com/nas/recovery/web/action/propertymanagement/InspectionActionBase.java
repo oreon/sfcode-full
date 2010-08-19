@@ -164,6 +164,9 @@ public abstract class InspectionActionBase extends BaseAction<Inspection>
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<Inspection> getEntityList() {
 		if (inspectionRecordList == null) {
 			findRecords();

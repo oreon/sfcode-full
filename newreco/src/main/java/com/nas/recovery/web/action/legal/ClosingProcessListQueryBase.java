@@ -58,7 +58,7 @@ public abstract class ClosingProcessListQueryBase
 	private static final String[] RESTRICTIONS = {
 			"closingProcess.id = #{closingProcessList.closingProcess.id}",
 
-			"closingProcess.legal = #{closingProcessList.closingProcess.legal}",
+			"closingProcess.legal.id = #{closingProcessList.closingProcess.legal.id}",
 
 			"closingProcess.process = #{closingProcessList.closingProcess.process}",
 
@@ -75,7 +75,7 @@ public abstract class ClosingProcessListQueryBase
 
 			"closingProcess.notRequired = #{closingProcessList.closingProcess.notRequired}",
 
-			"closingProcess.explanation = #{closingProcessList.closingProcess.explanation}",
+			"lower(closingProcess.explanation) like concat(lower(#{closingProcessList.closingProcess.explanation}),'%')",
 
 			"closingProcess.dateCreated <= #{closingProcessList.dateCreatedRange.end}",
 			"closingProcess.dateCreated >= #{closingProcessList.dateCreatedRange.begin}",};

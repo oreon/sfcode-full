@@ -8,4 +8,12 @@ public enum ServiceType {
 
 	DESKTOP,
 
+	;
+
+	ServiceType() {
+	}
+
+	public String getName() {
+		return this.toString();
+	}
 }

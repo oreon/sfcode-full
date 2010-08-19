@@ -164,6 +164,9 @@ public abstract class AppraisalActionBase extends BaseAction<Appraisal>
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<Appraisal> getEntityList() {
 		if (appraisalRecordList == null) {
 			findRecords();

@@ -17,12 +17,38 @@
 		<rich:tabPanel switchType="ajax">
 
 			<rich:tab label="Agent/Listing">
-			
-				<h:form >
-					<div>Lawyer <h:inputText value="#{albertaRecoveryProcessAction.lawyer}" /> <h:commandButton
-						value="Start Process" action="#{albertaRecoveryProcessAction.startProcess}" />
-					</div>
-					
+
+				<h:form>
+					<h:panelGrid columns="1">
+						<h:panelGroup>
+					<h:outputText value="Lawyer"/> 
+					<h:inputText value="#{albertaRecoveryProcessAction.lawyer}" required="true" />
+						<a:commandButton ajaxSingle="true"
+						oncomplete="Richfaces.showModalPanel('CmaModalPanel',{});"
+						value="Select "
+						reRender="RealEstateListingModalPanel">
+					</a:commandButton>
+						</h:panelGroup>
+						<h:panelGroup>
+					<h:outputText value="Realtor"/>  
+					<h:inputText value="#{albertaRecoveryProcessAction.masterAgent}" required="true"/>
+					<a:commandButton ajaxSingle="true"
+						oncomplete="Richfaces.showModalPanel('CmaModalPanel',{});"
+						value="Select "
+						reRender="RealEstateListingModalPanel" />
+					</h:panelGroup>
+						<h:panelGroup>
+					Property Manager <h:inputText value="#{albertaRecoveryProcessAction.propertyManager}" required="true" />
+					<a:commandButton ajaxSingle="true"
+						oncomplete="Richfaces.showModalPanel('CmaModalPanel',{});"
+						value="Select "
+						reRender="RealEstateListingModalPanel" />
+					</h:panelGroup>
+					</h:panelGrid>
+
+
+					<h:commandButton value="Start Process"
+						action="#{albertaRecoveryProcessAction.startProcess}" />
 				</h:form>
 			</rich:tab>
 

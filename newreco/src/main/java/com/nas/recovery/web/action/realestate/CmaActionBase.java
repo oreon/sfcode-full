@@ -127,6 +127,9 @@ public abstract class CmaActionBase extends BaseAction<Cma>
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<Cma> getEntityList() {
 		if (cmaRecordList == null) {
 			findRecords();

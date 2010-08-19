@@ -132,24 +132,27 @@ public abstract class RealEstateBoardActionBase
 
 	}
 
-	protected List<Attachments> listAttachmentses;
+	protected List<com.nas.recovery.domain.realestate.Attachments> listAttachmentses;
 
 	void initListAttachmentses() {
-		listAttachmentses = new ArrayList<Attachments>();
+		listAttachmentses = new ArrayList<com.nas.recovery.domain.realestate.Attachments>();
+
 		if (getInstance().getAttachmentses().isEmpty()) {
 
 		} else
 			listAttachmentses.addAll(getInstance().getAttachmentses());
+
 	}
 
-	public List<Attachments> getListAttachmentses() {
+	public List<com.nas.recovery.domain.realestate.Attachments> getListAttachmentses() {
 		if (listAttachmentses == null || listAttachmentses.isEmpty()) {
 			initListAttachmentses();
 		}
 		return listAttachmentses;
 	}
 
-	public void setListAttachmentses(List<Attachments> listAttachmentses) {
+	public void setListAttachmentses(
+			List<com.nas.recovery.domain.realestate.Attachments> listAttachmentses) {
 		this.listAttachmentses = listAttachmentses;
 	}
 
@@ -170,7 +173,6 @@ public abstract class RealEstateBoardActionBase
 			getInstance().getAttachmentses().clear();
 			getInstance().getAttachmentses().addAll(listAttachmentses);
 		}
-
 	}
 
 	public List<RealEstateBoard> getEntityList() {

@@ -162,6 +162,9 @@ public abstract class BankruptcyActionBase extends BaseAction<Bankruptcy>
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<Bankruptcy> getEntityList() {
 		if (bankruptcyRecordList == null) {
 			findRecords();

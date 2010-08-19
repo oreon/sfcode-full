@@ -65,7 +65,7 @@ public abstract class RequestForApprovalListQueryBase
 
 			"requestForApproval.estimate = #{requestForApprovalList.requestForApproval.estimate}",
 
-			"requestForApproval.details = #{requestForApprovalList.requestForApproval.details}",
+			"lower(requestForApproval.details) like concat(lower(#{requestForApprovalList.requestForApproval.details}),'%')",
 
 			"requestForApproval.dateCreated <= #{requestForApprovalList.dateCreatedRange.end}",
 			"requestForApproval.dateCreated >= #{requestForApprovalList.dateCreatedRange.begin}",};

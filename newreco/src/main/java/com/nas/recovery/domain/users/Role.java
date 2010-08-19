@@ -16,7 +16,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -51,9 +53,10 @@ public class Role extends BusinessEntity implements java.io.Serializable {
 	@Length(min = 2, max = 50)
 	@Column(name = "name", unique = true)
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String name;
 
-	//users->roles ->Role->User->User
+	//users->roles ->Role->Role->Role
 
 	@ManyToMany(mappedBy = "roles")
 	private Set<User> users = new HashSet<User>();

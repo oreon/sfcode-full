@@ -70,6 +70,17 @@
 		</h:panelGrid>
 		
 	
+		
+	
+	
+	
+	<rich:simpleTogglePanel label="#{msg.user_roles}" switchType="client">
+		<rich:listShuttle sourceValue="#{userAction.listAvailableRoles}" targetValue="#{userAction.listRoles}" var="item">
+	        <s:convertEntity/>
+	        <rich:column> #{item.displayName} </rich:column>
+	     </rich:listShuttle>
+    </rich:simpleTogglePanel>
+	
 		</s:validateAll>
 		
 	</h:panelGroup>

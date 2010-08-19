@@ -12,159 +12,255 @@
 	template="/webtemplate/template.xhtml">
 	<ui:define name="content">
 		<!--PROTECTED REGION ID(USER_EDITABLE_RGN_manageAccount/myaccount.xhtml) ENABLED START-->
-		<rich:dataTable
-			rendered="#{not empty realEstatePropertyList.resultList}"
-			rowClasses="odd, even" styleClass="dataTable"
-			value="#{realEstatePropertyList.resultList}"
-			var="_realEstateProperty">
 
-			<h:column>
-				<f:facet name="header">
-					<ui:include src="/layout/sort.xhtml">
-						<ui:param name="entityList" value="#{realEstatePropertyList}" />
-						<ui:param name="propertyLabel" value="Id" />
-						<ui:param name="propertyPath" value="realEstateProperty.id" />
-					</ui:include>
-				</f:facet>
-				<h:outputText value="#{_realEstateProperty.id}">
-				</h:outputText>
-			</h:column>
+		<rich:tabPanel switchType="ajax">
+			<rich:tab label="Files In Process">
+				<rich:dataTable
+					rendered="#{not empty realEstatePropertyList.inProcess}"
+					rowClasses="odd, even" styleClass="dataTable"
+					value="#{realEstatePropertyList.inProcess}"
+					var="_realEstateProperty">
 
-			<h:column>
-				<f:facet name="header">
-					<ui:include src="/layout/sort.xhtml">
-						<ui:param name="entityList" value="#{realEstatePropertyList}" />
-						<ui:param name="propertyLabel"
-							value="#{msg.realEstateProperty_streetAddress}" />
-						<ui:param name="propertyPath"
-							value="realEstateProperty.streetAddress" />
-					</ui:include>
-				</f:facet>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="/layout/sort.xhtml">
+								<ui:param name="entityList" value="#{realEstatePropertyList}" />
+								<ui:param name="propertyLabel" value="Id" />
+								<ui:param name="propertyPath" value="realEstateProperty.id" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_realEstateProperty.id}">
+						</h:outputText>
+					</h:column>
 
-				<h:outputText value="#{_realEstateProperty.streetAddress}" />
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="/layout/sort.xhtml">
+								<ui:param name="entityList" value="#{realEstatePropertyList}" />
+								<ui:param name="propertyLabel"
+									value="#{msg.realEstateProperty_streetAddress}" />
+								<ui:param name="propertyPath"
+									value="realEstateProperty.streetAddress" />
+							</ui:include>
+						</f:facet>
 
-			</h:column>
+						<h:outputText value="#{_realEstateProperty.streetAddress}" />
 
-			<h:column>
-				<f:facet name="header">
-					<ui:include src="/layout/sort.xhtml">
-						<ui:param name="entityList" value="#{realEstatePropertyList}" />
-						<ui:param name="propertyLabel"
-							value="#{msg.realEstateProperty_state}" />
-						<ui:param name="propertyPath" value="realEstateProperty.state" />
-					</ui:include>
-				</f:facet>
+					</h:column>
 
-				<h:outputText value="#{_realEstateProperty.state}" />
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="/layout/sort.xhtml">
+								<ui:param name="entityList" value="#{realEstatePropertyList}" />
+								<ui:param name="propertyLabel"
+									value="#{msg.realEstateProperty_state}" />
+								<ui:param name="propertyPath" value="realEstateProperty.state" />
+							</ui:include>
+						</f:facet>
 
-			</h:column>
+						<h:outputText value="#{_realEstateProperty.state}" />
 
-			<h:column>
-				<f:facet name="header">
-					<ui:include src="/layout/sort.xhtml">
-						<ui:param name="entityList" value="#{realEstatePropertyList}" />
-						<ui:param name="propertyLabel"
-							value="#{msg.realEstateProperty_zip}" />
-						<ui:param name="propertyPath" value="realEstateProperty.zip" />
-					</ui:include>
-				</f:facet>
+					</h:column>
 
-				<h:outputText value="#{_realEstateProperty.zip}" />
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="/layout/sort.xhtml">
+								<ui:param name="entityList" value="#{realEstatePropertyList}" />
+								<ui:param name="propertyLabel"
+									value="#{msg.realEstateProperty_zip}" />
+								<ui:param name="propertyPath" value="realEstateProperty.zip" />
+							</ui:include>
+						</f:facet>
 
-			</h:column>
+						<h:outputText value="#{_realEstateProperty.zip}" />
 
-			<h:column>
-				<f:facet name="header">
-					<ui:include src="/layout/sort.xhtml">
-						<ui:param name="entityList" value="#{realEstatePropertyList}" />
-						<ui:param name="propertyLabel"
-							value="#{msg.realEstateProperty_city}" />
-						<ui:param name="propertyPath" value="realEstateProperty.city" />
-					</ui:include>
-				</f:facet>
+					</h:column>
 
-				<h:outputText value="#{_realEstateProperty.city}" />
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="/layout/sort.xhtml">
+								<ui:param name="entityList" value="#{realEstatePropertyList}" />
+								<ui:param name="propertyLabel"
+									value="#{msg.realEstateProperty_city}" />
+								<ui:param name="propertyPath" value="realEstateProperty.city" />
+							</ui:include>
+						</f:facet>
 
-			</h:column>
+						<h:outputText value="#{_realEstateProperty.city}" />
+
+					</h:column>
 
 
 
 
-			<h:column>
-				<f:facet name="header">
-					<ui:include src="/layout/sort.xhtml">
-						<ui:param name="entityList" value="#{realEstatePropertyList}" />
-						<ui:param name="propertyLabel" value="Creation Date" />
-						<ui:param name="propertyPath"
-							value="realEstateProperty.dateCreated" />
-					</ui:include>
-				</f:facet>
-				<h:outputText value="#{_realEstateProperty.dateCreated}">
-					<s:convertDateTime dateStyle="short" type="both" />
-				</h:outputText>
-			</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="/layout/sort.xhtml">
+								<ui:param name="entityList" value="#{realEstatePropertyList}" />
+								<ui:param name="propertyLabel" value="Creation Date" />
+								<ui:param name="propertyPath"
+									value="realEstateProperty.dateCreated" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_realEstateProperty.dateCreated}">
+							<s:convertDateTime dateStyle="short" type="both" />
+						</h:outputText>
+					</h:column>
 
-			<h:column
-				rendered="#{s:hasRole('realtor')}">
-				<f:facet name="header">
-					<h:outputText value=" " />
-				</f:facet>
-				<s:link
-					view="/manageAccount/realEstate.xhtml">
-					<h:graphicImage alt="view" style="border: 0px"
-						value="/images/icons/eye.png" />
-					<f:param name="realEstatePropertyId"
-						value="#{_realEstateProperty.id}" />
-				</s:link>
-			</h:column>
+					<h:column rendered="#{s:hasPermission('realEstateTab', 'render')}">
+						<f:facet name="header">
+							<h:outputText value="Real Estate Info " />
+						</f:facet>
+						<s:link view="/manageAccount/realEstate.xhtml">
+							<h:graphicImage alt="view" style="border: 0px"
+								value="/images/icons/eye.png" />
+							<f:param name="realEstatePropertyId"
+								value="#{_realEstateProperty.id}" />
+						</s:link>
+					</h:column>
+
+					<h:column rendered="#{s:hasPermission('pmTab', 'render')}">
+						<f:facet name="header">
+							<h:outputText value="PM Info " />
+						</f:facet>
+						<s:link view="/manageAccount/pm.xhtml">
+							<h:graphicImage alt="view" style="border: 0px"
+								value="/images/icons/eye.png" />
+							<f:param name="realEstatePropertyId"
+								value="#{_realEstateProperty.id}" />
+						</s:link>
+					</h:column>
+
+					<h:column rendered="#{s:hasPermission('legalTab', 'render')}">
+						<f:facet name="header">
+							<h:outputText value=" Legal Info" />
+						</f:facet>
+						<s:link view="/manageAccount/legal.xhtml">
+							<h:graphicImage alt="view" style="border: 0px"
+								value="/images/icons/eye.png" />
+							<f:param name="realEstatePropertyId"
+								value="#{_realEstateProperty.id}" />
+						</s:link>
+					</h:column>
+
+
+				</rich:dataTable>
+			</rich:tab>
+
+			<rich:tab label="New Files" rendered="#{s:hasRole('lenderContact')}">
 			
-			<h:column
-				rendered="#{s:hasRole('pm')}">
-				<f:facet name="header">
-					<h:outputText value=" " />
-				</f:facet>
-				<s:link
-					view="/manageAccount/pm.xhtml">
-					<h:graphicImage alt="view" style="border: 0px"
-						value="/images/icons/eye.png" />
-					<f:param name="realEstatePropertyId"
-						value="#{_realEstateProperty.id}" />
-				</s:link>
-			</h:column>
-			
-			<h:column
-				rendered="#{s:hasRole('lawyer')}">
-				<f:facet name="header">
-					<h:outputText value=" " />
-				</f:facet>
-				<s:link
-					view="/manageAccount/legal.xhtml">
-					<h:graphicImage alt="view" style="border: 0px"
-						value="/images/icons/eye.png" />
-					<f:param name="realEstatePropertyId"
-						value="#{_realEstateProperty.id}" />
-					
-				</s:link>
-			</h:column>
-			
-			<h:column rendered="#{s:hasRole('lenderContact')}"
-				>
-				<f:facet name="header">
-					<h:outputText value=" " />
-				</f:facet>
-				<s:link
-					view="/manageAccount/startProcess.xhtml">
-					<h:graphicImage alt="Start Process" style="border: 0px"
-						value="/images/icons/eye2.png" />
-					<f:param name="realEstatePropertyId"
-						value="#{_realEstateProperty.id}" />
-				</s:link>
-			</h:column>
+				<rich:dataTable
+					rendered="#{not empty realEstatePropertyList.listNew }"
+					rowClasses="odd, even" styleClass="dataTable"
+					value="#{realEstatePropertyList.listNew}"
+					var="_realEstateProperty">
+
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="/layout/sort.xhtml">
+								<ui:param name="entityList" value="#{realEstatePropertyList}" />
+								<ui:param name="propertyLabel" value="Id" />
+								<ui:param name="propertyPath" value="realEstateProperty.id" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_realEstateProperty.id}">
+						</h:outputText>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="/layout/sort.xhtml">
+								<ui:param name="entityList" value="#{realEstatePropertyList}" />
+								<ui:param name="propertyLabel"
+									value="#{msg.realEstateProperty_streetAddress}" />
+								<ui:param name="propertyPath"
+									value="realEstateProperty.streetAddress" />
+							</ui:include>
+						</f:facet>
+
+						<h:outputText value="#{_realEstateProperty.streetAddress}" />
+
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="/layout/sort.xhtml">
+								<ui:param name="entityList" value="#{realEstatePropertyList}" />
+								<ui:param name="propertyLabel"
+									value="#{msg.realEstateProperty_state}" />
+								<ui:param name="propertyPath" value="realEstateProperty.state" />
+							</ui:include>
+						</f:facet>
+
+						<h:outputText value="#{_realEstateProperty.state}" />
+
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="/layout/sort.xhtml">
+								<ui:param name="entityList" value="#{realEstatePropertyList}" />
+								<ui:param name="propertyLabel"
+									value="#{msg.realEstateProperty_zip}" />
+								<ui:param name="propertyPath" value="realEstateProperty.zip" />
+							</ui:include>
+						</f:facet>
+
+						<h:outputText value="#{_realEstateProperty.zip}" />
+
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="/layout/sort.xhtml">
+								<ui:param name="entityList" value="#{realEstatePropertyList}" />
+								<ui:param name="propertyLabel"
+									value="#{msg.realEstateProperty_city}" />
+								<ui:param name="propertyPath" value="realEstateProperty.city" />
+							</ui:include>
+						</f:facet>
+
+						<h:outputText value="#{_realEstateProperty.city}" />
+
+					</h:column>
+
+
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="/layout/sort.xhtml">
+								<ui:param name="entityList" value="#{realEstatePropertyList}" />
+								<ui:param name="propertyLabel" value="Creation Date" />
+								<ui:param name="propertyPath"
+									value="realEstateProperty.dateCreated" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_realEstateProperty.dateCreated}">
+							<s:convertDateTime dateStyle="short" type="both" />
+						</h:outputText>
+					</h:column>
+
+
+					<h:column rendered="#{s:hasRole('lenderContact')}">
+						<f:facet name="header">
+							<h:outputText value=" " />
+						</f:facet>
+						<s:link view="/manageAccount/startProcess.xhtml">
+							<h:outputText value="Start Process" />
+							<f:param name="realEstatePropertyId"
+								value="#{_realEstateProperty.id}" />
+						</s:link>
+					</h:column>
 
 
 
-		
-		</rich:dataTable>
+
+				</rich:dataTable>
+			</rich:tab>
+
+		</rich:tabPanel>
+
+
+
 		<!--PROTECTED REGION END-->
 
 	</ui:define>

@@ -35,7 +35,7 @@ public abstract class FilesUploadedListQueryBase
 
 			"lower(filesUploaded.title) like concat(lower(#{filesUploadedList.filesUploaded.title}),'%')",
 
-			"filesUploaded.realEstateProperty = #{filesUploadedList.filesUploaded.realEstateProperty}",
+			"filesUploaded.realEstateProperty.id = #{filesUploadedList.filesUploaded.realEstateProperty.id}",
 
 			"filesUploaded.dateCreated <= #{filesUploadedList.dateCreatedRange.end}",
 			"filesUploaded.dateCreated >= #{filesUploadedList.dateCreatedRange.begin}",};

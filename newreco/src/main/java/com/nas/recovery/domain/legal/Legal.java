@@ -16,7 +16,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -46,9 +48,11 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 1019597444L;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String legalFileNumber;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String courtNumber;
 
 	protected Boolean litigation;
@@ -58,6 +62,8 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 	protected LegalStatus status;
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String legalComments;
 
 	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -65,7 +71,7 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 	@ContainedIn
 	protected Lawyer lawyer;
 
-	//closingProcesses->legal ->Legal->ClosingProcess->ClosingProcess
+	//closingProcesses->legal ->Legal->Legal->Legal
 
 	@OneToMany(mappedBy = "legal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "legal_ID", nullable = true)
@@ -79,7 +85,7 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 	@IndexedEmbedded
 	private Set<LegalProcess> legalProcesses = new HashSet<LegalProcess>();
 
-	//insurerProcesses->legal ->Legal->Legal->Legal
+	//insurerProcesses->legal ->Legal->InsurerProcess->InsurerProcess
 
 	@OneToMany(mappedBy = "legal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "legal_ID", nullable = true)
@@ -87,11 +93,14 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 	private Set<InsurerProcess> insurerProcesses = new HashSet<InsurerProcess>();
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String legalDescription;
 
 	protected Boolean titleInsuranceClaim;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String titleInsuranceClaimNumber;
 
 	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -268,6 +277,10 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 		listSearchableFields.add("legalFileNumber");
 
 		listSearchableFields.add("courtNumber");
+
+		listSearchableFields.add("legalComments");
+
+		listSearchableFields.add("legalDescription");
 
 		listSearchableFields.add("titleInsuranceClaimNumber");
 

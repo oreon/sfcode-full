@@ -127,6 +127,9 @@ public abstract class ChargeeActionBase extends BaseAction<Chargee>
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<Chargee> getEntityList() {
 		if (chargeeRecordList == null) {
 			findRecords();

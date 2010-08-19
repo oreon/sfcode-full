@@ -145,6 +145,9 @@ public abstract class LenderActionBase
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<Lender> getEntityList() {
 		if (lenderRecordList == null) {
 			findRecords();

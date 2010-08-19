@@ -164,6 +164,9 @@ public abstract class SaleActionBase extends BaseAction<Sale>
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<Sale> getEntityList() {
 		if (saleRecordList == null) {
 			findRecords();

@@ -49,7 +49,7 @@ public abstract class MasterAgentListQueryBase
 	private static final String[] RESTRICTIONS = {
 			"masterAgent.id = #{masterAgentList.masterAgent.id}",
 
-			"masterAgent.realEstateFirm = #{masterAgentList.masterAgent.realEstateFirm}",
+			"masterAgent.realEstateFirm.id = #{masterAgentList.masterAgent.realEstateFirm.id}",
 
 			"lower(masterAgent.lastName) like concat(lower(#{masterAgentList.masterAgent.lastName}),'%')",
 

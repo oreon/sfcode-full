@@ -32,4 +32,12 @@ public enum LegalProcessType {
 
 	OTHER,
 
+	;
+
+	LegalProcessType() {
+	}
+
+	public String getName() {
+		return this.toString();
+	}
 }

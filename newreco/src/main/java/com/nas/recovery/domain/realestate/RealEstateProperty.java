@@ -16,7 +16,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -49,31 +51,54 @@ public class RealEstateProperty extends BusinessEntity
 	private static final long serialVersionUID = 1293066841L;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String streetAddress;
 
 	protected States state;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String zip;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String city;
+	
+	private Long processId;
+	
+	private String processName;
 
-	//realEstateListings->realEstateProperty ->RealEstateProperty->RealEstateListing->RealEstateListing
+	//realEstateListings->realEstateProperty ->RealEstateProperty->RealEstateProperty->RealEstateProperty
+
+	public Long getProcessId() {
+		return processId;
+	}
+
+	public void setProcessId(long processId) {
+		this.processId = processId;
+	}
+
+	public String getProcessName() {
+		return processName;
+	}
+
+	public void setProcessName(String processName) {
+		this.processName = processName;
+	}
 
 	@OneToMany(mappedBy = "realEstateProperty", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateProperty_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<RealEstateListing> realEstateListings = new HashSet<RealEstateListing>();
 
-	//tenantInfos->realEstateProperty ->RealEstateProperty->TenantInfo->TenantInfo
+	//tenantInfos->realEstateProperty ->RealEstateProperty->RealEstateProperty->RealEstateProperty
 
 	@OneToMany(mappedBy = "realEstateProperty", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateProperty_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<TenantInfo> tenantInfos = new HashSet<TenantInfo>();
 
-	//cmas-> ->->RealEstateProperty->
+	//cmas-> ->->Cma->
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateProperty_ID", nullable = true)
@@ -102,16 +127,17 @@ public class RealEstateProperty extends BusinessEntity
 	protected PropetyStatus status;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String title;
 
-	//inspections-> ->->RealEstateProperty->
+	//inspections-> ->->Inspection->
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateProperty_ID", nullable = true)
 	@IndexedEmbedded
 	private Set<com.nas.recovery.domain.propertymanagement.Inspection> inspections = new HashSet<com.nas.recovery.domain.propertymanagement.Inspection>();
 
-	//utilitiys-> ->->RealEstateProperty->
+	//utilitiys-> ->->Utilitiy->
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateProperty_ID", nullable = true)
@@ -123,9 +149,11 @@ public class RealEstateProperty extends BusinessEntity
 	protected com.nas.recovery.domain.legal.Legal legal;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String ownerPrimaryPhone;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String ownerAlternativePhone;
 
 	protected Integer numberOfOccupants;
@@ -133,6 +161,7 @@ public class RealEstateProperty extends BusinessEntity
 	protected com.nas.recovery.domain.propertymanagement.VacancyStatus vacancyStatus;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String lockboxCode;
 
 	protected com.nas.recovery.domain.propertymanagement.Occupancy occupancy;
@@ -383,7 +412,11 @@ public class RealEstateProperty extends BusinessEntity
 
 		listSearchableFields.add("tenantInfos.name");
 
+		listSearchableFields.add("appraisals.specialInstruction");
+
 		listSearchableFields.add("filesUploadeds.title");
+
+		listSearchableFields.add("inspections.Observation");
 
 		listSearchableFields.add("utilitiys.name");
 
@@ -394,6 +427,8 @@ public class RealEstateProperty extends BusinessEntity
 		listSearchableFields.add("requestForApprovals.contractor");
 
 		listSearchableFields.add("requestForApprovals.item");
+
+		listSearchableFields.add("requestForApprovals.details");
 
 		return listSearchableFields;
 	}

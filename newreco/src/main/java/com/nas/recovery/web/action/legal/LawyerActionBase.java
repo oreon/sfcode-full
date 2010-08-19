@@ -164,6 +164,9 @@ public abstract class LawyerActionBase
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<Lawyer> getEntityList() {
 		if (lawyerRecordList == null) {
 			findRecords();

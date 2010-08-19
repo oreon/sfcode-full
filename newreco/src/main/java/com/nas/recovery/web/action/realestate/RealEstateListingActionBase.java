@@ -279,24 +279,27 @@ public abstract class RealEstateListingActionBase
 
 	}
 
-	protected List<Offer> listOffers;
+	protected List<com.nas.recovery.domain.realestate.Offer> listOffers;
 
 	void initListOffers() {
-		listOffers = new ArrayList<Offer>();
+		listOffers = new ArrayList<com.nas.recovery.domain.realestate.Offer>();
+
 		if (getInstance().getOffers().isEmpty()) {
 
 		} else
 			listOffers.addAll(getInstance().getOffers());
+
 	}
 
-	public List<Offer> getListOffers() {
+	public List<com.nas.recovery.domain.realestate.Offer> getListOffers() {
 		if (listOffers == null || listOffers.isEmpty()) {
 			initListOffers();
 		}
 		return listOffers;
 	}
 
-	public void setListOffers(List<Offer> listOffers) {
+	public void setListOffers(
+			List<com.nas.recovery.domain.realestate.Offer> listOffers) {
 		this.listOffers = listOffers;
 	}
 
@@ -319,7 +322,6 @@ public abstract class RealEstateListingActionBase
 			getInstance().getOffers().clear();
 			getInstance().getOffers().addAll(listOffers);
 		}
-
 	}
 
 	public List<RealEstateListing> getEntityList() {

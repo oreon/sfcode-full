@@ -16,7 +16,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -35,7 +37,7 @@ import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
 @MappedSuperclass
-@Indexed
+//@Indexed
 public class Process extends BusinessEntity {
 
 	protected Date completedDate;
@@ -49,6 +51,8 @@ public class Process extends BusinessEntity {
 	protected Boolean notRequired;
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String explanation;
 
 	public void setCompletedDate(Date completedDate) {
@@ -117,6 +121,8 @@ public class Process extends BusinessEntity {
 	public List<String> listSearchableFields() {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
+
+		listSearchableFields.add("explanation");
 
 		return listSearchableFields;
 	}

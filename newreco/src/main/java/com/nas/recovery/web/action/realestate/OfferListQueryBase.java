@@ -89,12 +89,12 @@ public abstract class OfferListQueryBase extends BaseQuery<Offer, Long> {
 			"offer.conditionExpiry >= #{offerList.offer_conditionExpiryRange.begin}",
 			"offer.conditionExpiry <= #{offerList.offer_conditionExpiryRange.end}",
 
-			"offer.realEstateListing = #{offerList.offer.realEstateListing}",
+			"offer.realEstateListing.id = #{offerList.offer.realEstateListing.id}",
 
 			"offer.closingDate >= #{offerList.offer_closingDateRange.begin}",
 			"offer.closingDate <= #{offerList.offer_closingDateRange.end}",
 
-			"offer.comments = #{offerList.offer.comments}",
+			"lower(offer.comments) like concat(lower(#{offerList.offer.comments}),'%')",
 
 			"offer.dateCreated <= #{offerList.dateCreatedRange.end}",
 			"offer.dateCreated >= #{offerList.dateCreatedRange.begin}",};

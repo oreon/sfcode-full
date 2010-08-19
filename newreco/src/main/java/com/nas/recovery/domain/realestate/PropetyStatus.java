@@ -10,4 +10,12 @@ public enum PropetyStatus {
 
 	CONDITIONAL_SALE,
 
+	;
+
+	PropetyStatus() {
+	}
+
+	public String getName() {
+		return this.toString();
+	}
 }

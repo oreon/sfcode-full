@@ -129,6 +129,9 @@ public abstract class TitleInsurerActionBase
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<TitleInsurer> getEntityList() {
 		if (titleInsurerRecordList == null) {
 			findRecords();

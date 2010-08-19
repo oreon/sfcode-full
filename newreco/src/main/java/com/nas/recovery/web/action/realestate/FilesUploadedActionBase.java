@@ -170,6 +170,9 @@ public abstract class FilesUploadedActionBase extends BaseAction<FilesUploaded>
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<FilesUploaded> getEntityList() {
 		if (filesUploadedRecordList == null) {
 			findRecords();

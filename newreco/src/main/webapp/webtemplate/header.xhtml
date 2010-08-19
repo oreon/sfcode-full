@@ -49,23 +49,33 @@ Address:
 			rendered="#{identity.loggedIn}">
 
 			<rich:toolBarGroup>
-				<h:graphicImage id="edit" value="/images/icons/edit.gif" />
+				<h:graphicImage id="edit" value="/images/icons/clock.png" />
 				<s:link view="/manageAccount/tasks.xhtml" value="WIP" />
 			</rich:toolBarGroup>
+			
+			<rich:toolBarGroup >
+				<h:graphicImage  value="/images/icons/bricks.png" />
+				<s:link view="/manageAccount/myAccount.xhtml" value="Files" />
+			</rich:toolBarGroup>
 
-			<rich:toolBarGroup>
-				<h:graphicImage id="find" value="/images/icons/find.gif" />
-				<s:link view="/manageAccount/myAccount" value="Real Estate" />
+			<rich:toolBarGroup rendered="#{s:hasPermission('realEstateTab', 'render')}">
+				<h:graphicImage id="find" value="/images/icons/house_go.png" />
+				<s:link view="/manageAccount/realEstate.xhtml" value="Real Estate" />
 			</rich:toolBarGroup>
 
 			<rich:toolBarGroup rendered="#{s:hasPermission('legalTab', 'render')}">
-				<h:graphicImage id="leg" value="/images/icons/find.gif" />
+				<h:graphicImage id="leg" value="/images/icons/group.png" />
 				<s:link view="/manageAccount/legal.xhtml" value="Legal"      />
 			</rich:toolBarGroup>
-
+			
+			<rich:toolBarGroup rendered="#{s:hasPermission('pmTab', 'render')}">
+				<h:graphicImage  value="/images/icons/house.png" />
+				<s:link view="/manageAccount/pm.xhtml" value="Property Manager" />
+			</rich:toolBarGroup>
+			
 			<rich:toolBarGroup>
-				<h:graphicImage id="filter" value="/images/icons/filter.gif" />
-				<s:link view="/manageAccount/search.xhtml" value="Advanced Search" />
+				<h:graphicImage  value="/images/icons/search_icon.gif" />
+				<s:link view="/manageAccount/search.xhtml" value="Search" />
 			</rich:toolBarGroup>
 
 			<rich:toolBarGroup location="right">

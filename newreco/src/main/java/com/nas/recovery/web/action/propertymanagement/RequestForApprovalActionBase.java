@@ -127,6 +127,9 @@ public abstract class RequestForApprovalActionBase
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<RequestForApproval> getEntityList() {
 		if (requestForApprovalRecordList == null) {
 			findRecords();

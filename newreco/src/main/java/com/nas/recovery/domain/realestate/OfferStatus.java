@@ -18,4 +18,12 @@ public enum OfferStatus {
 
 	Accepted,
 
+	;
+
+	OfferStatus() {
+	}
+
+	public String getName() {
+		return this.toString();
+	}
 }

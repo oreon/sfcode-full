@@ -127,6 +127,9 @@ public abstract class ListingSummaryActionBase
 
 	}
 
+	public void updateComposedAssociations() {
+	}
+
 	public List<ListingSummary> getEntityList() {
 		if (listingSummaryRecordList == null) {
 			findRecords();

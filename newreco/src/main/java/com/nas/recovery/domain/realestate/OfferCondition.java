@@ -14,4 +14,12 @@ public enum OfferCondition {
 
 	Other,
 
+	;
+
+	OfferCondition() {
+	}
+
+	public String getName() {
+		return this.toString();
+	}
 }

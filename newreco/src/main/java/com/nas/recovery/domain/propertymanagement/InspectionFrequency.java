@@ -10,4 +10,12 @@ public enum InspectionFrequency {
 
 	MONTHLY,
 
+	;
+
+	InspectionFrequency() {
+	}
+
+	public String getName() {
+		return this.toString();
+	}
 }

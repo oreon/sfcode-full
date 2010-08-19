@@ -50,13 +50,13 @@ public abstract class RealEstatePropertyListQueryBase
 
 			"lower(realEstateProperty.city) like concat(lower(#{realEstatePropertyList.realEstateProperty.city}),'%')",
 
-			"realEstateProperty.insurer = #{realEstatePropertyList.realEstateProperty.insurer}",
+			"realEstateProperty.insurer.id = #{realEstatePropertyList.realEstateProperty.insurer.id}",
 
 			"realEstateProperty.status = #{realEstatePropertyList.realEstateProperty.status}",
 
 			"lower(realEstateProperty.title) like concat(lower(#{realEstatePropertyList.realEstateProperty.title}),'%')",
 
-			"realEstateProperty.legal = #{realEstatePropertyList.realEstateProperty.legal}",
+			"realEstateProperty.legal.id = #{realEstatePropertyList.realEstateProperty.legal.id}",
 
 			"lower(realEstateProperty.ownerPrimaryPhone) like concat(lower(#{realEstatePropertyList.realEstateProperty.ownerPrimaryPhone}),'%')",
 

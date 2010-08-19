@@ -86,7 +86,7 @@ public abstract class SaleListQueryBase extends BaseQuery<Sale, Long> {
 			"sale.commission >= #{saleList.sale_commissionRange.begin}",
 			"sale.commission <= #{saleList.sale_commissionRange.end}",
 
-			"sale.realEstateListing = #{saleList.sale.realEstateListing}",
+			"sale.realEstateListing.id = #{saleList.sale.realEstateListing.id}",
 
 			"sale.dateCreated <= #{saleList.dateCreatedRange.end}",
 			"sale.dateCreated >= #{saleList.dateCreatedRange.begin}",};

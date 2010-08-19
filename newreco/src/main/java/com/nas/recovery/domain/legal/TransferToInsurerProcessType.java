@@ -8,4 +8,12 @@ public enum TransferToInsurerProcessType {
 
 	CLAIM_TO_INSURER,
 
+	;
+
+	TransferToInsurerProcessType() {
+	}
+
+	public String getName() {
+		return this.toString();
+	}
 }

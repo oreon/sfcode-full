@@ -15,9 +15,9 @@ class AlbertaRecoveryBase extends BaseJbpmProcessAction
 			java.io.Serializable {
 
 	@CreateProcess(definition = "albertaRecovery")
-	public void startProcess() {
-
-	}
+	public String startProcess() {
+		return "success" ;
+	}	
 
 	@StartTask
 	public void startCheckConflictTask() {
