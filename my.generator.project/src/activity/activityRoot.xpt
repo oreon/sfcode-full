@@ -23,14 +23,11 @@
 				iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right"
 				iconCollapsedTopGroup="chevronDown" iconCollapsedTopPosition="right">
 		«FOREACH allOwnedElements().typeSelect(uml::Activity) AS a»
-	
 		    <rich:panelMenuGroup label="«a.name.toFirstUpper()»"  expanded="true" >
-					<rich:panelMenuItem>
-						<s:link propagation="none"  value="«a.name»" action="«a.name»" />
-					</rich:panelMenuItem>
-	
+				<rich:panelMenuItem>
+					<s:link propagation="none"  value="«a.name»" action="«a.name»" />
+				</rich:panelMenuItem>
 			</rich:panelMenuGroup>
-		
 		«ENDFOREACH»
 		</rich:panelMenu>
 		</a:form>
@@ -135,6 +132,14 @@
 
  «DEFINE gen FOR uml::ActivityFinalNode»
  	<end-state name="«name != null? name.removeSpaces() : "endState" »"></end-state>
+ «ENDDEFINE»
+ 
+  «DEFINE gen FOR uml::FlowFinalNode»
+ 	<end-state name="«name != null? name.removeSpaces() : "endState" »"></end-state>
+ «ENDDEFINE»
+ 
+   «DEFINE gen FOR uml::CentralBufferNode»
+ 	<end-state name="cbn"></end-state>
  «ENDDEFINE»
  
  «DEFINE genTransitions FOR uml::ActivityNode»
