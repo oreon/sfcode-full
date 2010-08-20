@@ -8,7 +8,8 @@
 	«EXPAND setDefaultNamesForAssocs FOREACH allOwnedElements().typeSelect(uml::Property) »
 	«EXPAND applyEntityStereotype FOREACH allOwnedElements().typeSelect(wcprofile::EntitiesPackage) »
 	«EXPAND massageEmbeddables FOREACH allOwnedElements().typeSelect(wcprofile::Embeddable) »
-	«EXPAND massageTasks FOREACH allOwnedElements().typeSelect(uml::CallBehaviorAction) »
+	
+	«EXPAND massageTasks FOREACH allOwnedElements().typeSelect(uml::ActivityNode) »
 	«EXPAND massageEdges FOREACH allOwnedElements().typeSelect(uml::ControlFlow) »
 «ENDDEFINE»
 
@@ -87,12 +88,12 @@
 
 
 «DEFINE massageEdges FOR uml::ControlFlow»
-	«IF name == null || name == "" && guard.stringValue() == null || guard.stringValue() == "" »
-		«setName("proceedTo" + target.name) »
+	«IF (name == null || name == "") &&( guard.stringValue() == null || guard.stringValue() == "") »
+		«setName("proceedTo" + target.getTaskMassagedName())»
 	«ELSE»	
-		
+		«this.setName(getTaskMassagedName()) »
 	«ENDIF»
-	«setName(getTaskMassagedName()) »
+	
 «ENDDEFINE»
 
 «DEFINE massageEdges FOR uml::ActivityFinal»
