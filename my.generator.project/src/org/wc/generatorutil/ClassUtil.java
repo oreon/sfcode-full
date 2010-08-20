@@ -24,7 +24,9 @@ import org.eclipse.uml2.uml.AggregationKind;
 import org.eclipse.uml2.uml.CallBehaviorAction;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Interface;
+import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Parameter;
@@ -448,8 +450,7 @@ public class ClassUtil {
 			properties.load(new FileInputStream(
 					"properties/workflow.properties"));
 			if (properties == null) {
-				logger
-						.error("workflow properties file is not in the classpath");
+				logger.error("workflow properties file is not in the classpath");
 				return false;
 			}
 			// properties.load(stream);
@@ -468,6 +469,18 @@ public class ClassUtil {
 		if (act.getInPartitions().size() > 0)
 			return act.getInPartitions().get(0).getName();
 		return null;
+	}
+	
+	public static String getTaskMassagedName(NamedElement act) {
+		String orgName = act.getName();
+		System.out.println(act.getName());
+		String dest = orgName.replace("/", "Or");
+		dest = dest.replace("\\", "Or");
+		dest = dest.replace("=", "Is");
+		dest = dest.replace(" ", "");
+		act.setName(dest);
+		System.out.println(act.getName());
+		return dest;
 	}
 
 	public static String getSingular(String word) {
