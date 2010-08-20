@@ -24,6 +24,7 @@ import org.eclipse.uml2.uml.AggregationKind;
 import org.eclipse.uml2.uml.CallBehaviorAction;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.ControlFlow;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.NamedElement;
@@ -472,14 +473,29 @@ public class ClassUtil {
 	}
 	
 	public static String getTaskMassagedName(NamedElement act) {
-		String orgName = act.getName();
+		
+		if(act instanceof ControlFlow){
+			ControlFlow cf = (ControlFlow) act;
+			if(act.getName() == null || act.getName() == "")
+			act.setName(cf.getGuard().stringValue());
+		}
+	
+		act.setName(massagedName(act.getName() ));
 		System.out.println(act.getName());
-		String dest = orgName.replace("/", "Or");
+		return act.getName();
+	}
+	
+	public static String massagedName(String orgName) {
+	//	String orgName = act.getName();
+	//	System.out.println(act.getName());
+		String dest = orgName.trim();
+		dest = orgName.replace("/", "Or");
 		dest = dest.replace("\\", "Or");
 		dest = dest.replace("=", "Is");
 		dest = dest.replace(" ", "");
-		act.setName(dest);
-		System.out.println(act.getName());
+		dest = dest.replace("+", "And");
+		//act.setName(dest);
+		System.out.println(dest);
 		return dest;
 	}
 
