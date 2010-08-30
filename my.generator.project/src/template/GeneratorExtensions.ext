@@ -303,10 +303,10 @@ getQyeryTypeByReturnType(Operation op):
 op.type == "List" ? "" : "SingleResult";
 
 getWorkflowActionPath(Activity act):
-getTopLevelPackage().packagePath() + "/web/action/workflows/"  + act.name.toFirstUpper() ;
+getTopLevelPackage().packagePath() + "/web/action/workflowmgt/"  + act.name.toFirstLower() ;
 
 getWebPackageName(Activity act):
-getTopLevelPackage() + ".web.action.workflows" ;
+getTopLevelPackage() + ".web.action.workflowmgt" ;
 
 
 getTransName(ActivityEdge o):
@@ -314,6 +314,11 @@ o.name;
 
 getTaskMassagedName(ActivityNode a):
 JAVA org.wc.generatorutil.ClassUtil.getTaskMassagedName(org.eclipse.uml2.uml.NamedElement);
+
+getTaskMassagedName(ActivityPartition a):
+JAVA org.wc.generatorutil.ClassUtil.getTaskMassagedName(org.eclipse.uml2.uml.NamedElement);
+
+
 
 getTaskMassagedName(ControlFlow a):
 JAVA org.wc.generatorutil.ClassUtil.getTaskMassagedName(org.eclipse.uml2.uml.NamedElement);

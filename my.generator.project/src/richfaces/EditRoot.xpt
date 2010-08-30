@@ -162,13 +162,15 @@
 
 «DEFINE genEditManyToManyShuttle FOR uml::Property»
 	«IF isCurrentEditMode()»
-	<rich:listShuttle sourceValue="#{«class.getAction()».listAvailable«name.toFirstUpper()»}" 
-		targetValue="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
-        <s:convertEntity />
-        <rich:column> #{item.displayName} </rich:column>
-     </rich:listShuttle>
+	<rich:simpleTogglePanel label="«msgBundleKey()»" switchType="client"  >
+		<rich:listShuttle sourceValue="#{«class.getAction()».listAvailable«name.toFirstUpper()»}" 
+			targetValue="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
+	        <s:convertEntity />
+	        <rich:column> #{item.displayName} </rich:column>
+	     </rich:listShuttle>
+    </rich:simpleTogglePanel>
 	«ELSE»
-	<rich:simpleTogglePanel label=""  >
+	<rich:simpleTogglePanel label="«msgBundleKey()»" switchType="client"  >
         <rich:dataTable value="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
         	<rich:column> #{item.displayName} </rich:column>
      	</rich:dataTable>
@@ -311,7 +313,7 @@ THISISCRAP «ent.name»
 	
 	<rich:dataTable id="«name»_data#{entityId}" var="_«type.asVar()»" rendered="#{not empty «class.getAction()».list«name.toFirstUpper()»}"
 					value="#{«class.getAction()».list«name.toFirstUpper()»}" rows="10"
-				rowKeyvar="rowIndex"
+				rowKeyVar="rowIndex"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		«setAsCurrentEntity(type)»
 		«EXPAND genAttribAsOutput FOR type-»
@@ -325,7 +327,7 @@ THISISCRAP «ent.name»
 
 «DEFINE genDelete FOR uml::Property»
 	<h:column>
-		<a:commandButton value="Delete" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}" immediate="true" 
+		<a:commandButton value="Delete" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}"  
 			reRender="«name»_data#{entityId}"
 			>
 			<s:conversationId/>
@@ -335,7 +337,9 @@ THISISCRAP «ent.name»
 
 «DEFINE genNew FOR uml::Property»
 	<h:column>
-		«EXPAND genNewButton FOR this -»
+		<h:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  reRender="«name»_data#{entityId}" >
+			<s:conversationId/>
+		</h:commandButton>
 	</h:column>
 «ENDDEFINE»
 

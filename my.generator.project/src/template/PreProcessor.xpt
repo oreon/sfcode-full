@@ -10,6 +10,7 @@
 	«EXPAND massageEmbeddables FOREACH allOwnedElements().typeSelect(wcprofile::Embeddable) »
 	
 	«EXPAND massageTasks FOREACH allOwnedElements().typeSelect(uml::ActivityNode) »
+	«EXPAND massageTasks FOREACH allOwnedElements().typeSelect(uml::ActivityPartition) »
 	«EXPAND massageEdges FOREACH allOwnedElements().typeSelect(uml::ControlFlow) »
 «ENDDEFINE»
 
@@ -57,6 +58,10 @@
 «ENDDEFINE»
 
 «DEFINE massageTasks FOR uml::ActiviyNode»
+	«setName(getTaskMassagedName()) »
+«ENDDEFINE»
+
+«DEFINE massageTasks FOR uml::ActivityPartition»
 	«setName(getTaskMassagedName()) »
 «ENDDEFINE»
 

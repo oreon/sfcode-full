@@ -43,15 +43,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <process-definition xmlns="" name="«name.removeSpaces().toFirstLower()»">
-	«EXPAND gen FOREACH allOwnedElements().typeSelect(uml::ActivityPartition)»
+	«EXPAND gen(this) FOREACH allOwnedElements().typeSelect(uml::ActivityPartition)»
 	«EXPAND gen FOREACH allOwnedElements().typeSelect(uml::ActivityNode)»
 </process-definition>
 	«ENDFILE»
 «ENDDEFINE»
 
-«DEFINE gen FOR uml::ActivityPartition»
+«DEFINE gen(uml::Activity activity) FOR uml::ActivityPartition»
 	<swimlane name="«name.removeSpaces()»">
-		<assignment class="«getTopLevelPackage()».web.action.workflows.«name.removeSpaces().toFirstUpper()»Assignment"  ></assignment>
+		<assignment class="«activity.getWebPackageName()+ "." + activity.name.toFirstLower() + ".assign"».«name.removeSpaces().toFirstUpper()»Assignment"  ></assignment>
 	</swimlane>
 «ENDDEFINE»
 
@@ -83,6 +83,7 @@
 
 «DEFINE gen FOR uml::DecisionNode»
 	<decision name="«name.removeSpaces()»" >
+	 <handler class="«activity.getWebPackageName()+ "." + activity.name.toFirstLower() + ".decisions"».«name»DecisionHandlder" />
 		«EXPAND genTransitions»
 	</decision>
 «ENDDEFINE»
