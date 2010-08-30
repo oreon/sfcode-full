@@ -481,20 +481,24 @@ public class ClassUtil {
 		}
 	
 		act.setName(massagedName(act.getName() ));
-		System.out.println(act.getName());
+		//System.out.println(act.getName());
 		return act.getName();
 	}
 	
 	public static String massagedName(String orgName) {
 	//	String orgName = act.getName();
-	//	System.out.println(act.getName());
+	//	System.out.println(act.getName());vf
 		String dest = orgName.trim();
+		
 		dest = orgName.replace("/", "Or");
 		dest = dest.replace("\\", "Or");
 		dest = dest.replace("=", "Is");
 		dest = dest.replace(" ", "");
 		dest = dest.replace("+", "And");
 		//act.setName(dest);
+		
+		System.out.println(dest);
+		dest = StringUtils.uncapitalize(dest);
 		System.out.println(dest);
 		return dest;
 	}

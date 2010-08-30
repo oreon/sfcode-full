@@ -1,8 +1,9 @@
-«IMPORT uml2»
 «IMPORT wcprofile»
 
 «EXTENSION org::openarchitectureware::uml2::profile::profiling»
 «EXTENSION template::GeneratorExtensions»
+«EXTENSION template::webExtensions»
+«EXTENSION template::associationExtensions»
 
 
 «DEFINE Root FOR uml::Model»
@@ -11,8 +12,7 @@
 
 
 «DEFINE StateMachineRoot FOR uml::Activity»
-	«EXPAND ManualGen »
-	«EXPAND genAssignmentHandler FOREACH allOwnedElements().typeSelect(uml::ActivityPartition)»
+	
 	«FILE getWorkflowActionPath() + "Base.java" -»
 		
 	package «getWebPackageName()»;
@@ -25,28 +25,55 @@
 	
 	}
 	«ENDFILE»
-«ENDDEFINE»
-
-«DEFINE genAssignmentHandler FOR uml::ActivityPartition»
-	«FILE  activity.getWorkflowActionPath() + name.toFirstUpper() + "Assignment.java"  man_path »
-import org.jboss.seam.Component;
-import org.jbpm.graph.exe.ExecutionContext;
-import org.jbpm.taskmgmt.def.AssignmentHandler;
-import org.jbpm.taskmgmt.exe.Assignable;
-
-import com.nas.recovery.web.action.issues.IssueAction;
-import com.nas.recovery.web.action.workflows.IssueToken;
-
-public class «name.toFirstUpper() + "Assignment.java"» implements AssignmentHandler {
-
-	public void assign(Assignable assignable, ExecutionContext executionContext)
-			throws Exception {
-			
-	}
+	«EXPAND ManualGen » 
 	
-}
-	«ENDFILE»
+	«EXPAND genAssignmentHandler(this) FOREACH allOwnedElements().typeSelect(uml::ActivityPartition)»
+	
 «ENDDEFINE»
+
+
+«DEFINE genAssignmentHandler(uml::Activity act) FOR uml::ActivityPartition»
+ «FILE  act.getWorkflowActionPath() +   "/assign/" + name.toFirstUpper()  + "Assignment.java"   »
+	package «act.getWebPackageName()+ "." + act.name.toFirstLower() + ".assign"»;
+	
+	import org.jboss.seam.Component;
+	import org.jbpm.graph.exe.ExecutionContext;
+	import org.jbpm.taskmgmt.def.AssignmentHandler;
+	import org.jbpm.taskmgmt.exe.Assignable;
+	
+	
+	public class «name.toFirstUpper() + "Assignment"» implements AssignmentHandler {
+	
+		public void assign(Assignable assignable, ExecutionContext executionContext)
+				throws Exception {
+				
+		}
+		
+	}
+ «ENDFILE»
+«ENDDEFINE»
+
+«DEFINE genDecisionHandler(uml::Activity act) FOR uml::ActivityPartition»
+ «FILE  act.getWorkflowActionPath() +   "/decisions/" + name.toFirstUpper()  + "DecisionHandler.java"   »
+	package «act.getWebPackageName()+ "." + act.name.toFirstLower() + ".decisions"»;
+	
+	import org.jboss.seam.Component;
+	import org.jbpm.graph.exe.ExecutionContext;
+	import org.jbpm.taskmgmt.def.AssignmentHandler;
+	import org.jbpm.taskmgmt.exe.Assignable;
+	
+	
+	public class «name.toFirstUpper() + "DecisionHandler"» implements AssignmentHandler {
+	
+		public void assign(Assignable assignable, ExecutionContext executionContext)
+				throws Exception {
+				
+		}
+		
+	}
+ «ENDFILE»
+«ENDDEFINE»
+
 
 
 «DEFINE genAction FOR uml::Action»
