@@ -593,6 +593,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	// ////////////////////////////////////////
 
 	private boolean deleteDialogRendered = false;
+	
 
 	public boolean isDeleteDialogRendered() {
 		return deleteDialogRendered;

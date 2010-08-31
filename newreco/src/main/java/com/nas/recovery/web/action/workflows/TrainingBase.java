@@ -1,0 +1,57 @@
+package com.nas.recovery.web.action.workflows;
+
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Out;
+import org.jboss.seam.annotations.bpm.CreateProcess;
+import org.jboss.seam.annotations.bpm.EndTask;
+import org.jboss.seam.annotations.bpm.StartTask;
+import org.jbpm.JbpmContext;
+import org.witchcraft.jbpm.BaseJbpmProcessAction;
+
+public class TrainingBase extends BaseJbpmProcessAction
+		implements
+			java.io.Serializable {
+
+	@StartTask
+	public void startWakeupTask() {
+
+	}
+
+	@EndTask(transition = "proceedTo")
+	public void proceedToWakeupTask() {
+
+	}
+
+	@StartTask
+	public void startWurealtorTask() {
+
+	}
+
+	@EndTask(transition = "proceedTo")
+	public void proceedToWurealtorTask() {
+
+	}
+
+	@StartTask
+	public void startWupmTask() {
+
+	}
+
+	@EndTask(transition = "proceedTo")
+	public void proceedToWupmTask() {
+
+	}
+
+	@StartTask
+	public void startWulawyerTask() {
+
+	}
+
+	@EndTask(transition = "proceedTo")
+	public void proceedToWulawyerTask() {
+
+	}
+
+}

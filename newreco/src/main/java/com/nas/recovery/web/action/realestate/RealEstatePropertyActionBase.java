@@ -65,8 +65,8 @@ public abstract class RealEstatePropertyActionBase
 
 	public void setRealEstatePropertyId(Long id) {
 
-		if (listTenantInfos == null || isDifferentFromCurrent(id))
-			listTenantInfos = new ArrayList<TenantInfo>();
+		//if (listTenantInfos == null || isDifferentFromCurrent(id))
+		//	listTenantInfos = new ArrayList<TenantInfo>();
 
 		if (listCmas == null || isDifferentFromCurrent(id))
 			listCmas = new ArrayList<Cma>();
@@ -260,7 +260,7 @@ public abstract class RealEstatePropertyActionBase
 	}
 
 	public void deleteTenantInfos(int index) {
-		listTenantInfos.remove(index);
+		realEstateProperty.getTenantInfos().remove(index);
 	}
 
 	@Begin(join = true)
@@ -269,7 +269,7 @@ public abstract class RealEstatePropertyActionBase
 
 		tenantInfos.setRealEstateProperty(getInstance());
 
-		listTenantInfos.add(tenantInfos);
+		realEstateProperty.getTenantInfos().add(tenantInfos);
 	}
 
 	protected List<com.nas.recovery.domain.realestate.Cma> listCmas;
@@ -303,7 +303,6 @@ public abstract class RealEstatePropertyActionBase
 	@Begin(join = true)
 	public void addCmas() {
 		Cma cmas = new Cma();
-
 		listCmas.add(cmas);
 	}
 
@@ -489,11 +488,11 @@ public abstract class RealEstatePropertyActionBase
 	}
 
 	public void updateComposedAssociations() {
-
+		/*
 		if (listTenantInfos != null) {
 			getInstance().getTenantInfos().clear();
 			getInstance().getTenantInfos().addAll(listTenantInfos);
-		}
+		}*/
 
 		if (listCmas != null) {
 			getInstance().getCmas().clear();

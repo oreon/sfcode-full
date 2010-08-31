@@ -1,0 +1,963 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition xmlns="" name="on_workflow">
+	
+	<swimlane name="appraiser">
+		<assignment class="com.nas.recovery.web.action.workflowmgt.on_workflow.assign.AppraiserAssignment"  ></assignment>
+	</swimlane>
+
+	<swimlane name="realEstate">
+		<assignment class="com.nas.recovery.web.action.workflowmgt.on_workflow.assign.RealEstateAssignment"  ></assignment>
+	</swimlane>
+
+	<swimlane name="mortgageInsurer">
+		<assignment class="com.nas.recovery.web.action.workflowmgt.on_workflow.assign.MortgageInsurerAssignment"  ></assignment>
+	</swimlane>
+
+	<swimlane name="lender">
+		<assignment class="com.nas.recovery.web.action.workflowmgt.on_workflow.assign.LenderAssignment"  ></assignment>
+	</swimlane>
+
+	<swimlane name="legal">
+		<assignment class="com.nas.recovery.web.action.workflowmgt.on_workflow.assign.LegalAssignment"  ></assignment>
+	</swimlane>
+
+	<swimlane name="propertyManager">
+		<assignment class="com.nas.recovery.web.action.workflowmgt.on_workflow.assign.PropertyManagerAssignment"  ></assignment>
+	</swimlane>
+
+	
+	<task-node name="writSeizureAndSale">
+		<task name="writSeizureAndSaleTask" swimlane="legal">
+		</task>
+		
+		<transition to="writOfPossesion" name="proceedTowritOfPossesion">
+		</transition>
+	
+ 
+	</task-node>
+
+ 	<end-state name="closeFile"></end-state>
+ 
+	<task-node name="inspectionReport">
+		<task name="inspectionReportTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="securementReport" name="statusIsSecured">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="newFile">
+		<task name="newFileTask" swimlane="lender">
+		</task>
+		
+		<transition to="assignFileFork" name="proceedToassignFileFork">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="saleProceedsDeposited">
+		<task name="saleProceedsDepositedTask" swimlane="legal">
+		</task>
+		
+		<transition to="insuredLoan" name="proceedToinsuredLoan">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="reassignAppraisal">
+		<task name="reassignAppraisalTask" swimlane="appraiser">
+		</task>
+		
+		<transition to="fullAppraisalOrder" name="proceedTofullAppraisalOrder">
+		</transition>
+		<transition to="desktopAppraisalOrder" name="proceedTodesktopAppraisalOrder">
+		</transition>
+	
+ 
+	</task-node>
+
+	<decision name="feeIncrease" >
+	 <handler class="com.nas.recovery.web.action.workflowmgt.on_workflow.decisions.feeIncreaseDecisionHandlder" />
+		
+		<transition to="reassignAppraisal" name="yesAndReject">
+		</transition>
+		<transition to="appraisalComplete" name="noOrYesAndAccept">
+		</transition>
+		<transition to="reassignAppraisal" name="yesAndReject">
+		</transition>
+		<transition to="appraisalComplete" name="noOrYesAndAccept">
+		</transition>
+	
+ 
+	</decision>
+
+	<task-node name="securementReport">
+		<task name="securementReportTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="redirectUtilitiesIn" name="proceedToredirectUtilitiesIn">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="cMA84">
+		<task name="cMA84Task" swimlane="realEstate">
+		</task>
+		
+		<transition to="mortgageInsuranceType" name="proceedTomortgageInsuranceType">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="writOfPossesion">
+		<task name="writOfPossesionTask" swimlane="legal">
+		</task>
+		
+		<transition to="writOfPossessionFork" name="evictionDate">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="accept">
+		<task name="acceptTask" swimlane="legal">
+		</task>
+		
+		<transition to="issueDemandLetter" name="proceedToissueDemandLetter">
+		</transition>
+		<transition to="titleSearch" name="proceedTotitleSearch">
+		</transition>
+		<transition to="firstOccupancyCheck" name="yes">
+		</transition>
+		<transition to="reassign" name="no">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="vacantSecureProperty">
+		<task name="vacantSecurePropertyTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="inspectionReport" name="proceedToinspectionReport">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="issueDemandLetter">
+		<task name="issueDemandLetterTask" swimlane="legal">
+		</task>
+		
+		<transition to="demandExpires" name="proceedTodemandExpires">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="cMA28">
+		<task name="cMA28Task" swimlane="realEstate">
+		</task>
+		
+		<transition to="enterOfferDetails" name="proceedToenterOfferDetails">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="cMA56">
+		<task name="cMA56Task" swimlane="realEstate">
+		</task>
+		
+		<transition to="enterOfferDetails" name="proceedToenterOfferDetails">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="issueRentalAttornment">
+		<task name="issueRentalAttornmentTask" swimlane="legal">
+		</task>
+		
+		<transition to="serveRentalAttornment" name="proceedToserveRentalAttornment">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="nOSIssued">
+		<task name="nOSIssuedTask" swimlane="legal">
+		</task>
+		
+		<transition to="nOSExpiry" name="proceedTonOSExpiry">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="attendEviction">
+		<task name="attendEvictionTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="vacantSecureProperty" name="proceedTovacantSecureProperty">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="motionForJudgement">
+		<task name="motionForJudgementTask" swimlane="legal">
+		</task>
+		
+		<transition to="writSeizureAndSale" name="proceedTowritSeizureAndSale">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="serveSOC">
+		<task name="serveSOCTask" swimlane="legal">
+		</task>
+		
+		<transition to="nOSIssued" name="proceedTonOSIssued">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="reassign">
+		<task name="reassignTask" swimlane="lender">
+		</task>
+		
+ 	
+ 
+	</task-node>
+
+	<task-node name="uploadClosingDocuments">
+		<task name="uploadClosingDocumentsTask" swimlane="legal">
+		</task>
+		
+		<transition to="closing" name="proceedToclosing">
+		</transition>
+	
+ 
+	</task-node>
+
+	<decision name="acceptAppraisalOrder" >
+	 <handler class="com.nas.recovery.web.action.workflowmgt.on_workflow.decisions.acceptAppraisalOrderDecisionHandlder" />
+		
+		<transition to="feeIncrease" name="yes">
+		</transition>
+		<transition to="feeIncrease" name="yes">
+		</transition>
+		<transition to="reassignAppraisal" name="no">
+		</transition>
+		<transition to="reassignAppraisal" name="no">
+		</transition>
+	
+ 
+	</decision>
+
+	<task-node name="fullAppraisalOrder">
+		<task name="fullAppraisalOrderTask" swimlane="appraiser">
+		</task>
+		
+		<transition to="acceptAppraisalOrder" name="proceedToacceptAppraisalOrder">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="confirmSaleClosed">
+		<task name="confirmSaleClosedTask" swimlane="legal">
+		</task>
+		
+		<transition to="insuredLoan" name="proceedToinsuredLoan">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="listingSummary">
+		<task name="listingSummaryTask" swimlane="realEstate">
+		</task>
+		
+		<transition to="listProperty" name="proceedTolistProperty">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="serveRentalAttornment">
+		<task name="serveRentalAttornmentTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="collectRents" name="proceedTocollectRents">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="driveBy">
+		<task name="driveByTask" swimlane="realEstate">
+		</task>
+		
+		<transition to="loanLossProvisionReport" name="proceedToloanLossProvisionReport">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="eviction">
+		<task name="evictionTask" swimlane="legal">
+		</task>
+		
+		<transition to="evictionFork" name="proceedToevictionFork">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="uploadClosingReport">
+		<task name="uploadClosingReportTask" swimlane="legal">
+		</task>
+		
+		<transition to="insuredLoan" name="proceedToinsuredLoan">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="listProperty">
+		<task name="listPropertyTask" swimlane="realEstate">
+		</task>
+		
+		<transition to="monitorListing" name="proceedTomonitorListing">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="uploadFinalInvoices">
+		<task name="uploadFinalInvoicesTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="pMComplete" name="proceedTopMComplete">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="transferUtilitiesOut">
+		<task name="transferUtilitiesOutTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="uploadFinalInvoices" name="proceedTouploadFinalInvoices">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="issueSOC">
+		<task name="issueSOCTask" swimlane="legal">
+		</task>
+		
+		<transition to="enterLegalProcessType" name="proceedToenterLegalProcessType">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="appraisalComplete">
+		<task name="appraisalCompleteTask" swimlane="appraiser">
+		</task>
+		
+		<transition to="listingSummary" name="proceedTolistingSummary">
+		</transition>
+		<transition to="listingSummary" name="proceedTolistingSummary">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="checkConditionsWaived">
+		<task name="checkConditionsWaivedTask" >
+		</task>
+		
+		<transition to="monitorListing" name="notWaivedFallThrough">
+		</transition>
+		<transition to="waiverCheck" name="proceedTowaiverCheck">
+		</transition>
+		<transition to="offerExpiry" name="waived">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="waiverCheck">
+		<task name="waiverCheckTask" >
+		</task>
+		
+ 	
+ 
+	</task-node>
+
+	<task-node name="noticeOfEviction">
+		<task name="noticeOfEvictionTask" swimlane="legal">
+		</task>
+		
+		<transition to="evictionDate" name="proceedToevictionDate">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="quotesReport">
+		<task name="quotesReportTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="approveQuote" name="proceedToapproveQuote">
+		</transition>
+		<transition to="vacantMonitoring" name="proceedTovacantMonitoring">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="onHold">
+		<task name="onHoldTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="writOfPossesion" name="ownerOccupiedOrUnknown">
+		</transition>
+		<transition to="nOSExpiry" name="proceedTonOSExpiry">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="loanLossProvisionReport">
+		<task name="loanLossProvisionReportTask" swimlane="lender">
+		</task>
+		
+ 	
+ 
+	</task-node>
+
+	<decision name="accept" >
+	 <handler class="com.nas.recovery.web.action.workflowmgt.on_workflow.decisions.acceptDecisionHandlder" />
+		
+		<transition to="accept" name="yes">
+		</transition>
+	
+ 
+	</decision>
+
+	<task-node name="desktopAppraisalOrder">
+		<task name="desktopAppraisalOrderTask" swimlane="appraiser">
+		</task>
+		
+		<transition to="acceptAppraisalOrder" name="proceedToacceptAppraisalOrder">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="vacantMonitoring">
+		<task name="vacantMonitoringTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="setVacantMonitoringFrequency" name="proceedTosetVacantMonitoringFrequency">
+		</transition>
+		<transition to="closing" name="proceedToclosing">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="redirectUtilitiesIn">
+		<task name="redirectUtilitiesInTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="quotesReport" name="proceedToquotesReport">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="tenantedMonitor">
+		<task name="tenantedMonitorTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="rentalAttornment" name="statusIsTenanted">
+		</transition>
+		<transition to="closing" name="proceedToclosing">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="nOSExpiry">
+		<task name="nOSExpiryTask" swimlane="legal">
+		</task>
+		
+		<transition to="nOSExpiryFork" name="proceedTonOSExpiryFork">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="evictionDate">
+		<task name="evictionDateTask" swimlane="legal">
+		</task>
+		
+		<transition to="eviction" name="proceedToeviction">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="titleSearch">
+		<task name="titleSearchTask" swimlane="legal">
+		</task>
+		
+		<transition to="demandExpires" name="proceedTodemandExpires">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="closing">
+		<task name="closingTask" swimlane="realEstate">
+		</task>
+		
+		<transition to="transferUtilitiesOut" name="proceedTotransferUtilitiesOut">
+		</transition>
+		<transition to="uploadClosingReport" name="proceedTouploadClosingReport">
+		</transition>
+		<transition to="confirmSaleClosed" name="proceedToconfirmSaleClosed">
+		</transition>
+		<transition to="saleProceedsDeposited" name="proceedTosaleProceedsDeposited">
+		</transition>
+		<transition to="preFinalInvoices" name="proceedTopreFinalInvoices">
+		</transition>
+		<transition to="realEstateComplete" name="proceedTorealEstateComplete">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="ownerOccupiedMonitor">
+		<task name="ownerOccupiedMonitorTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="evictionDate" name="proceedToevictionDate">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="preFinalInvoices">
+		<task name="preFinalInvoicesTask" swimlane="propertyManager">
+		</task>
+		
+ 	
+ 
+	</task-node>
+
+	<task-node name="delete">
+		<task name="deleteTask" >
+		</task>
+		
+		<transition to="monitorListing" name="proceedTomonitorListing">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="offerExpiry">
+		<task name="offerExpiryTask" >
+		</task>
+		
+		<transition to="uploadClosingDocuments" name="soldFirm">
+		</transition>
+	
+ 
+	</task-node>
+
+	<decision name="appraisalType" >
+	 <handler class="com.nas.recovery.web.action.workflowmgt.on_workflow.decisions.appraisalTypeDecisionHandlder" />
+		
+		<transition to="desktopAppraisalOrder" name="desktop">
+		</transition>
+		<transition to="fullAppraisalOrder" name="full">
+		</transition>
+	
+ 
+	</decision>
+
+ 	<end-state name="cbn"></end-state>
+ 
+	<task-node name="assignSubAgent">
+		<task name="assignSubAgentTask" swimlane="realEstate">
+		</task>
+		
+		<transition to="listProperty" name="proceedTolistProperty">
+		</transition>
+	
+ 
+	</task-node>
+
+	<decision name="mortgageInsuranceType" >
+	 <handler class="com.nas.recovery.web.action.workflowmgt.on_workflow.decisions.mortgageInsuranceTypeDecisionHandlder" />
+		
+		<transition to="assignSubAgent" name="conventional">
+		</transition>
+		<transition to="transferTitle" name="cMHCandOrorGenworth">
+		</transition>
+	
+ 
+	</decision>
+
+	<task-node name="transferTitle">
+		<task name="transferTitleTask" swimlane="lender">
+		</task>
+		
+		<transition to="listProperty" name="yes">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="approveQuote">
+		<task name="approveQuoteTask" swimlane="lender">
+		</task>
+		
+		<transition to="vacantMonitoring" name="no">
+		</transition>
+		<transition to="quoteWorkComplete" name="yesOrPartial">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="quoteWorkComplete">
+		<task name="quoteWorkCompleteTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="uploadPhotoEvidence" name="proceedTouploadPhotoEvidence">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="setVacantMonitoringFrequency">
+		<task name="setVacantMonitoringFrequencyTask" swimlane="lender">
+		</task>
+		
+ 	
+ 
+	</task-node>
+
+	<task-node name="demandExpires">
+		<task name="demandExpiresTask" swimlane="legal">
+		</task>
+		
+		<transition to="issueSOC" name="proceedToissueSOC">
+		</transition>
+	
+ 
+	</task-node>
+
+	<decision name="insuredLoan" >
+	 <handler class="com.nas.recovery.web.action.workflowmgt.on_workflow.decisions.insuredLoanDecisionHandlder" />
+		
+		<transition to="assignJudgmentAndFinalReportToMI" name="yes">
+		</transition>
+		<transition to="lawyerComplete" name="no">
+		</transition>
+	
+ 
+	</decision>
+
+	<task-node name="assignJudgmentAndFinalReportToMI">
+		<task name="assignJudgmentAndFinalReportToMITask" swimlane="legal">
+		</task>
+		
+		<transition to="lawyerComplete" name="proceedTolawyerComplete">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="uploadPhotoEvidence">
+		<task name="uploadPhotoEvidenceTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="vacantMonitoring" name="proceedTovacantMonitoring">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="fullCMA">
+		<task name="fullCMATask" swimlane="realEstate">
+		</task>
+		
+		<transition to="listingSummary" name="proceedTolistingSummary">
+		</transition>
+		<transition to="listProperty" name="proceedTolistProperty">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="wOPOccupancyCheck">
+		<task name="wOPOccupancyCheckTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="vacantSecureProperty" name="vacant">
+		</transition>
+		<transition to="ownerOccupiedMonitor" name="ownerOccupied">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="firstOccupancyCheck">
+		<task name="firstOccupancyCheckTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="onHold" name="ownerOccupied">
+		</transition>
+		<transition to="vacantSecureProperty" name="vacant">
+		</transition>
+		<transition to="onHold" name="unconfirmed">
+		</transition>
+		<transition to="tenantedMonitor" name="tenantorOwnerOrTenant">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="collectRents">
+		<task name="collectRentsTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="noticeOfEviction" name="no">
+		</transition>
+		<transition to="tenantedMonitor" name="yes">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="secondOccupancyCheck">
+		<task name="secondOccupancyCheckTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="onHold" name="ownerOccupied">
+		</transition>
+		<transition to="vacantSecureProperty" name="vacant">
+		</transition>
+		<transition to="onHold" name="unconfirmed">
+		</transition>
+		<transition to="tenantedMonitor" name="tenant">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="rentalAttornment">
+		<task name="rentalAttornmentTask" swimlane="lender">
+		</task>
+		
+		<transition to="onHold" name="no">
+		</transition>
+		<transition to="issueRentalAttornment" name="yes">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="enterLegalProcessType">
+		<task name="enterLegalProcessTypeTask" swimlane="legal">
+		</task>
+		
+		<transition to="serveSOC" name="foreclosure">
+		</transition>
+		<transition to="serveSOC" name="saleForArrears">
+		</transition>
+		<transition to="serveSOC" name="powerOfSale">
+		</transition>
+		<transition to="serveSOC" name="judicialSale">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="reviewOffer">
+		<task name="reviewOfferTask" swimlane="realEstate">
+		</task>
+		
+		<transition to="monitorListing" name="reject">
+		</transition>
+		<transition to="checkConditionsWaived" name="acceptConditionalSale">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="monitorListing">
+		<task name="monitorListingTask" swimlane="realEstate">
+		</task>
+		
+		<transition to="enterOfferDetails" name="proceedToenterOfferDetails">
+		</transition>
+	
+ 
+	</task-node>
+
+	<fork name="writOfPossessionFork" >
+		
+		<transition to="evictionDate" name="proceedToevictionDate">
+		</transition>
+		<transition to="wOPOccupancyCheck" name="proceedTowOPOccupancyCheck">
+		</transition>
+	
+ 
+	</fork>
+	
+
+	<fork name="nOSExpiryFork" >
+		
+		<transition to="motionForJudgement" name="proceedTomotionForJudgement">
+		</transition>
+		<transition to="listProperty" name="proceedTolistProperty">
+		</transition>
+		<transition to="secondOccupancyCheck" name="proceedTosecondOccupancyCheck">
+		</transition>
+	
+ 
+	</fork>
+	
+
+	<fork name="assignFileFork" >
+		
+		<transition to="appraisalType" name="proceedToappraisalType">
+		</transition>
+		<transition to="conflictCheck" name="proceedToconflictCheck">
+		</transition>
+		<transition to="accept" name="proceedToaccept">
+		</transition>
+		<transition to="rEAccept" name="proceedTorEAccept">
+		</transition>
+	
+ 
+	</fork>
+	
+
+	<task-node name="conflictCheck">
+		<task name="conflictCheckTask" swimlane="legal">
+		</task>
+		
+		<transition to="reassign" name="yes">
+		</transition>
+		<transition to="accept" name="no">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="rEAccept">
+		<task name="rEAcceptTask" swimlane="realEstate">
+		</task>
+		
+		<transition to="reassign" name="no">
+		</transition>
+		<transition to="driveBy" name="yes">
+		</transition>
+	
+ 
+	</task-node>
+
+	<fork name="evictionFork" >
+		
+		<transition to="attendEviction" name="proceedToattendEviction">
+		</transition>
+		<transition to="fullCMA" name="proceedTofullCMA">
+		</transition>
+	
+ 
+	</fork>
+	
+
+	<task-node name="enterOfferDetails">
+		<task name="enterOfferDetailsTask" swimlane="realEstate">
+		</task>
+		
+		<transition to="reviewOffer" name="yes">
+		</transition>
+		<transition to="reviewOffer" name="yes">
+		</transition>
+		<transition to="cMA28" name="no">
+		</transition>
+		<transition to="reviewOffer" name="yes">
+		</transition>
+		<transition to="cMA56" name="no">
+		</transition>
+		<transition to="cMA84" name="no">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="lawyerComplete">
+		<task name="lawyerCompleteTask" swimlane="legal">
+		</task>
+		
+		<transition to="lenderCloseFIle" name="proceedTolenderCloseFIle">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="pMComplete">
+		<task name="pMCompleteTask" swimlane="propertyManager">
+		</task>
+		
+		<transition to="lenderCloseFIle" name="proceedTolenderCloseFIle">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="lenderCloseFIle">
+		<task name="lenderCloseFIleTask" swimlane="lender">
+		</task>
+		
+		<transition to="closeFile" name="proceedTocloseFile">
+		</transition>
+	
+ 
+	</task-node>
+
+	<task-node name="realEstateComplete">
+		<task name="realEstateCompleteTask" swimlane="realEstate">
+		</task>
+		
+		<transition to="lenderCloseFIle" name="proceedTolenderCloseFIle">
+		</transition>
+	
+ 
+	</task-node>
+
+</process-definition>
+	
