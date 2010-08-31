@@ -65,7 +65,7 @@ public class TenantInfo extends BusinessEntity implements java.io.Serializable {
 
 	protected Boolean utilities;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "realEstateProperty_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected RealEstateProperty realEstateProperty;

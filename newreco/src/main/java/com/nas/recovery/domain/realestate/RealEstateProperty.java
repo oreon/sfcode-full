@@ -96,7 +96,7 @@ public class RealEstateProperty extends BusinessEntity
 	@OneToMany(mappedBy = "realEstateProperty", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateProperty_ID", nullable = true)
 	@IndexedEmbedded
-	private Set<TenantInfo> tenantInfos = new HashSet<TenantInfo>();
+	private List<TenantInfo> tenantInfos = new ArrayList<TenantInfo>();
 
 	//cmas-> ->->Cma->
 
@@ -219,11 +219,11 @@ public class RealEstateProperty extends BusinessEntity
 		return realEstateListings;
 	}
 
-	public void setTenantInfos(Set<TenantInfo> tenantInfos) {
+	public void setTenantInfos(List<TenantInfo> tenantInfos) {
 		this.tenantInfos = tenantInfos;
 	}
 
-	public Set<TenantInfo> getTenantInfos() {
+	public List<TenantInfo> getTenantInfos() {
 		return tenantInfos;
 	}
 

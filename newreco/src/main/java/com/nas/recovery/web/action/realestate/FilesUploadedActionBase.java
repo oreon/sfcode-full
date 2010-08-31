@@ -30,6 +30,7 @@ import org.jboss.seam.Component;
 
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
+import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
@@ -42,13 +43,16 @@ public abstract class FilesUploadedActionBase extends BaseAction<FilesUploaded>
 	@Out(required = false)
 	@DataModelSelection
 	private FilesUploaded filesUploaded;
+	
+	@RequestParameter
+	protected Long entityId;
 
 	@In(create = true, value = "realEstatePropertyAction")
 	com.nas.recovery.web.action.realestate.RealEstatePropertyAction realEstatePropertyAction;
 
 	@DataModel
 	private List<FilesUploaded> filesUploadedRecordList;
-
+	
 	public void setFilesUploadedId(Long id) {
 
 		setId(id);
@@ -136,6 +140,8 @@ public abstract class FilesUploadedActionBase extends BaseAction<FilesUploaded>
 	}
 
 	public String downloadFile(Long id) {
+		if(id == null || id == 0)
+			id = entityId;
 		setId(id);
 		downloadAttachment(getInstance().getFile());
 		return "success";

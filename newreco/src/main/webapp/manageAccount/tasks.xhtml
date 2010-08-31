@@ -7,31 +7,26 @@
 	template="/webtemplate/template.xhtml">
 
 	<ui:define name="content">
-
+		
 
 		<h:form id="list">
 			<div><h:outputText value="There are no tasks at the moment."
 				rendered="#{empty taskInstancePriorityList}" /> <rich:dataTable
 				value="#{taskInstancePriorityList}" var="task"
 				rendered="#{not empty taskInstancePriorityList}" bgcolor="#F1F1F1"
-				border="1" sortMode="single">
+				border="1">
 				
 				Due Date Days Pending  Action Required M/S  File Name Service Provider File Manager 
-				<rich:column sortBy="#{task.id}">
+				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Id" />
 					</f:facet>
 					<h:outputText value="#{task.id}">
 					</h:outputText>
-				</rich:column>
+				</h:column>
 
 
-
-
-
-
-
-				<rich:column sortBy="#{task.taskMgmtInstance.processInstance.start}">
+				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Created" />
 					</f:facet>
@@ -39,84 +34,76 @@
 						value="#{task.taskMgmtInstance.processInstance.start}">
 						<s:convertDateTime type="date" />
 					</h:outputText>
-				</rich:column>
+				</h:column>
 
-				<rich:column sortBy="#{task.dueDate}">
+				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Due" />
 					</f:facet>
 					<h:outputText value="#{task.dueDate}">
 						<s:convertDateTime type="date" />
 					</h:outputText>
-				</rich:column>
-
-				<rich:column>
+				</h:column>
+				
+				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Days Remaining" />
 					</f:facet>
+	
+				</h:column>
+				
 
-				</rich:column>
-
-
-				<rich:column sortBy="#{task.name}">
+				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Action" />
 					</f:facet>
 					<h:outputText value="#{task.name}" />
-				</rich:column>
+				</h:column>
 
-				<rich:column
-					sortBy="#{task.variables['recoveryToken'].realEstateProperty.displayName}">
+				<h:column>
 					<f:facet name="header">
 						<h:outputText value="File Name" />
 					</f:facet>
-					<h:outputText
-						value="#{task.variables['recoveryToken'].realEstateProperty.displayName}" />
+					  <s:link value="#{task.variables['recoveryToken'].realEstateProperty.displayName}" >
+					  	<f:param name="realEstatPropertyId"/>
+					  </s:link>
+				</h:column>
 
-				</rich:column>
-
-				<rich:column sortBy="#{task.variables['recoveryToken'].propertyManager}">
+				<h:column>
 					<f:facet name="header">
 						<h:outputText value="PM" />
 					</f:facet>
-					<h:outputText
-						value="#{task.variables['recoveryToken'].propertyManager}" />
+					 #{task.variables['recoveryToken'].propertyManager} 
+				</h:column>
 
-				</rich:column>
-
-				<rich:column sortBy="#{task.variables['recoveryToken'].lawyer}">
+				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Lawyer" />
 					</f:facet>
-					<h:outputText value="#{task.variables['recoveryToken'].lawyer}" />
+					 #{task.variables['recoveryToken'].lawyer} 
+				</h:column>
 
-				</rich:column>
-
-				<rich:column sortBy="#{task.variables['recoveryToken'].masterAgent}"> 
+				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Realtor" />
 					</f:facet>
-					<h:outputText
-						value="#{task.variables['recoveryToken'].masterAgent}" />
+					 #{task.variables['recoveryToken'].masterAgent} 
+				</h:column>
 
-				</rich:column>
-
-				<rich:column sortBy="#{task.variables['recoveryToken'].lenderContact}">
+				<h:column>
 					<f:facet name="header">
 						<h:outputText value="File Manager" />
 					</f:facet>
-					<h:outputText
-						value="#{task.variables['recoveryToken'].lenderContact}" />
-
-				</rich:column>
+					 #{task.variables['recoveryToken'].lenderContact} 
+				</h:column>
 
 
 
-				<rich:column>
+				<h:column>
 					<s:link view="/manageAccount/viewTask.xhtml" taskInstance="#{task}"
 						value="View">
 					</s:link>
-				</rich:column>
+				</h:column>
 
 			</rich:dataTable></div>
 
