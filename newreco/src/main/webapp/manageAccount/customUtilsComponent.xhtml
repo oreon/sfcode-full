@@ -22,7 +22,7 @@ rendered="#{not empty realEstatePropertyAction.listUtilitiys}"
 				</a:commandButton>
 
 				<rich:dataTable id="utilitiys_data#{entityId}"
-					rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all"
+					rowClasses="odd, even" rowKeyVar="rowIndex" rows="10" rules="all"
 					styleClass="dataTable" 
 					value="#{realEstatePropertyAction.listUtilitiys}" var="_utilitiy">
 
@@ -90,11 +90,10 @@ rendered="#{not empty realEstatePropertyAction.listUtilitiys}"
 					<h:column>
 						<a:commandButton
 							action="#{realEstatePropertyAction.deleteUtilitiys(rowIndex)}"
-							immediate="true" reRender="utilitiys_data#{entityId}"
+							immediate="false" reRender="utilitiys_data#{entityId}"
 							value="Delete">
 							<s:conversationId />
-							<f:param  name="index" value="#{_utilitiy.id}"/>
-							<f:param  name="test" value="#{rowIndex}"/>
+							
 						</a:commandButton>
 					</h:column>
 					

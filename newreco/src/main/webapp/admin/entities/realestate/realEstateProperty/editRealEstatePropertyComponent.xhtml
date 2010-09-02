@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:s="http://jboss.com/products/seam/taglib"
-	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
-	<h:panelGroup>
-		<s:validateAll>
-			<h:panelGrid columnClasses="leftCol, rightCol" columns="3"
-				onload="#{realEstatePropertyAction.load(realEstatePropertyId )  }"
-				styleClass="viewInfo">
-				<f:facet name="header">
-					<h:outputText value="RealEstateProperty " />
-				</f:facet>
+                xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j"
+                xmlns:c="http://java.sun.com/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+            <!--onload="#{realEstatePropertyAction.load(realEstatePropertyId )}"-->
+    <h:panelGroup>
+        <s:validateAll>
+            <h:panelGrid columnClasses="leftCol, rightCol" columns="3"
+                         styleClass="viewInfo">
+                <f:facet name="header">
+                    <h:outputText value="RealEstateProperty " />
+                </f:facet>
 
 
 
@@ -26,24 +26,24 @@
 
 
 
-				<h:outputText value="#{msg.realEstateProperty_insurer}  " />
+                <h:outputText value="#{msg.realEstateProperty_insurer}  " />
 
 
 
 
-				<h:selectOneMenu id="realEstateProperty_insurer" required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.insurer}">
-					<s:selectItems label="#{itemIter.displayName}"
-						noSelectionLabel="Please Select..." value="#{mortgageInsurerList}"
-						var="itemIter" />
-					<s:convertEntity />
-				</h:selectOneMenu>
+                <h:selectOneMenu id="realEstateProperty_insurer" required="false"
+                                 value="#{realEstatePropertyAction.realEstateProperty.insurer}">
+                    <s:selectItems label="#{itemIter.displayName}"
+                                   noSelectionLabel="Please Select..." value="#{mortgageInsurerList}"
+                                   var="itemIter" />
+                    <s:convertEntity />
+                </h:selectOneMenu>
 
 
 
 
-				<h:message for="realEstateProperty_insurer"
-					styleClass="error errors" />
+                <h:message for="realEstateProperty_insurer"
+                           styleClass="error errors" />
 
 
 
@@ -56,23 +56,23 @@
 
 
 
-				<h:outputText value="#{msg.realEstateProperty_legal}  " />
+                <h:outputText value="#{msg.realEstateProperty_legal}  " />
 
 
 
 
-				<h:selectOneMenu id="realEstateProperty_legal" required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.legal}">
-					<s:selectItems label="#{itemIter.displayName}"
-						noSelectionLabel="Please Select..." value="#{legalList}"
-						var="itemIter" />
-					<s:convertEntity />
-				</h:selectOneMenu>
+                <h:selectOneMenu id="realEstateProperty_legal" required="false"
+                                 value="#{realEstatePropertyAction.realEstateProperty.legal}">
+                    <s:selectItems label="#{itemIter.displayName}"
+                                   noSelectionLabel="Please Select..." value="#{legalList}"
+                                   var="itemIter" />
+                    <s:convertEntity />
+                </h:selectOneMenu>
 
 
 
 
-				<h:message for="realEstateProperty_legal" styleClass="error errors" />
+                <h:message for="realEstateProperty_legal" styleClass="error errors" />
 
 
 
@@ -84,16 +84,16 @@
 
 
 
-				<h:outputText value="#{msg.realEstateProperty_streetAddress}  " />
+                <h:outputText value="#{msg.realEstateProperty_streetAddress}  " />
 
 
-				<h:inputText id="realEstateProperty_streetAddress#{entityId}"
-					label="#{msg.realEstateProperty_streetAddress}" required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.streetAddress}" />
+                <h:inputText id="realEstateProperty_streetAddress#{entityId}"
+                             label="#{msg.realEstateProperty_streetAddress}" required="false"
+                             value="#{realEstatePropertyAction.realEstateProperty.streetAddress}" />
 
 
-				<h:message for="realEstateProperty_streetAddress"
-					styleClass="error errors" />
+                <h:message for="realEstateProperty_streetAddress"
+                           styleClass="error errors" />
 
 
 
@@ -101,27 +101,27 @@
 
 
 
-				<h:outputText value="#{msg.realEstateProperty_state}  " />
+                <h:outputText value="#{msg.realEstateProperty_state}  " />
 
 
-				<h:selectOneMenu id="realEstateProperty_state" required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.state}">
-					<f:selectItem itemLabel="Please Select..." itemValue="" />
-					<f:selectItem itemLabel="On" itemValue="ON" />
-					<f:selectItem itemLabel="Ab" itemValue="AB" />
-					<f:selectItem itemLabel="Nb" itemValue="NB" />
-					<f:selectItem itemLabel="Ns" itemValue="NS" />
-					<f:selectItem itemLabel="Bc" itemValue="BC" />
-					<f:selectItem itemLabel="Mb" itemValue="MB" />
-					<f:selectItem itemLabel="Pei" itemValue="PEI" />
-					<f:selectItem itemLabel="Nv" itemValue="NV" />
-					<f:selectItem itemLabel="Yk" itemValue="YK" />
-					<f:selectItem itemLabel="Qb" itemValue="QB" />
+                <h:selectOneMenu id="realEstateProperty_state" required="false"
+                                 value="#{realEstatePropertyAction.realEstateProperty.state}">
+                    <f:selectItem itemLabel="Please Select..." itemValue="" />
+                    <f:selectItem itemLabel="On" itemValue="ON" />
+                    <f:selectItem itemLabel="Ab" itemValue="AB" />
+                    <f:selectItem itemLabel="Nb" itemValue="NB" />
+                    <f:selectItem itemLabel="Ns" itemValue="NS" />
+                    <f:selectItem itemLabel="Bc" itemValue="BC" />
+                    <f:selectItem itemLabel="Mb" itemValue="MB" />
+                    <f:selectItem itemLabel="Pei" itemValue="PEI" />
+                    <f:selectItem itemLabel="Nv" itemValue="NV" />
+                    <f:selectItem itemLabel="Yk" itemValue="YK" />
+                    <f:selectItem itemLabel="Qb" itemValue="QB" />
 
-				</h:selectOneMenu>
+                </h:selectOneMenu>
 
 
-				<h:message for="realEstateProperty_state" styleClass="error errors" />
+                <h:message for="realEstateProperty_state" styleClass="error errors" />
 
 
 
@@ -129,15 +129,15 @@
 
 
 
-				<h:outputText value="#{msg.realEstateProperty_zip}  " />
+                <h:outputText value="#{msg.realEstateProperty_zip}  " />
 
 
-				<h:inputText id="realEstateProperty_zip#{entityId}"
-					label="#{msg.realEstateProperty_zip}" required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.zip}" />
+                <h:inputText id="realEstateProperty_zip#{entityId}"
+                             label="#{msg.realEstateProperty_zip}" required="false"
+                             value="#{realEstatePropertyAction.realEstateProperty.zip}" />
 
 
-				<h:message for="realEstateProperty_zip" styleClass="error errors" />
+                <h:message for="realEstateProperty_zip" styleClass="error errors" />
 
 
 
@@ -145,15 +145,15 @@
 
 
 
-				<h:outputText value="#{msg.realEstateProperty_city}  " />
+                <h:outputText value="#{msg.realEstateProperty_city}  " />
 
 
-				<h:inputText id="realEstateProperty_city#{entityId}"
-					label="#{msg.realEstateProperty_city}" required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.city}" />
+                <h:inputText id="realEstateProperty_city#{entityId}"
+                             label="#{msg.realEstateProperty_city}" required="false"
+                             value="#{realEstatePropertyAction.realEstateProperty.city}" />
 
 
-				<h:message for="realEstateProperty_city" styleClass="error errors" />
+                <h:message for="realEstateProperty_city" styleClass="error errors" />
 
 
 
@@ -161,22 +161,22 @@
 
 
 
-				<h:outputText value="#{msg.realEstateProperty_status}  " />
+                <h:outputText value="#{msg.realEstateProperty_status}  " />
 
 
-				<h:selectOneMenu id="realEstateProperty_status" required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.status}">
-					<f:selectItem itemLabel="Please Select..." itemValue="" />
-					<f:selectItem itemLabel="Drive_by" itemValue="DRIVE_BY" />
-					<f:selectItem itemLabel="Right_to_sell" itemValue="RIGHT_TO_SELL" />
-					<f:selectItem itemLabel="Listed" itemValue="LISTED" />
-					<f:selectItem itemLabel="Conditional_sale"
-						itemValue="CONDITIONAL_SALE" />
+                <h:selectOneMenu id="realEstateProperty_status" required="false"
+                                 value="#{realEstatePropertyAction.realEstateProperty.status}">
+                    <f:selectItem itemLabel="Please Select..." itemValue="" />
+                    <f:selectItem itemLabel="Drive_by" itemValue="DRIVE_BY" />
+                    <f:selectItem itemLabel="Right_to_sell" itemValue="RIGHT_TO_SELL" />
+                    <f:selectItem itemLabel="Listed" itemValue="LISTED" />
+                    <f:selectItem itemLabel="Conditional_sale"
+                                  itemValue="CONDITIONAL_SALE" />
 
-				</h:selectOneMenu>
+                </h:selectOneMenu>
 
 
-				<h:message for="realEstateProperty_status" styleClass="error errors" />
+                <h:message for="realEstateProperty_status" styleClass="error errors" />
 
 
 
@@ -184,15 +184,15 @@
 
 
 
-				<h:outputText value="#{msg.realEstateProperty_title}  " />
+                <h:outputText value="#{msg.realEstateProperty_title}  " />
 
 
-				<h:inputText id="realEstateProperty_title#{entityId}"
-					label="#{msg.realEstateProperty_title}" required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.title}" />
+                <h:inputText id="realEstateProperty_title#{entityId}"
+                             label="#{msg.realEstateProperty_title}" required="false"
+                             value="#{realEstatePropertyAction.realEstateProperty.title}" />
 
 
-				<h:message for="realEstateProperty_title" styleClass="error errors" />
+                <h:message for="realEstateProperty_title" styleClass="error errors" />
 
 
 
@@ -200,17 +200,17 @@
 
 
 
-				<h:outputText value="#{msg.realEstateProperty_ownerPrimaryPhone}  " />
+                <h:outputText value="#{msg.realEstateProperty_ownerPrimaryPhone}  " />
 
 
-				<h:inputText id="realEstateProperty_ownerPrimaryPhone#{entityId}"
-					label="#{msg.realEstateProperty_ownerPrimaryPhone}"
-					required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.ownerPrimaryPhone}" />
+                <h:inputText id="realEstateProperty_ownerPrimaryPhone#{entityId}"
+                             label="#{msg.realEstateProperty_ownerPrimaryPhone}"
+                             required="false"
+                             value="#{realEstatePropertyAction.realEstateProperty.ownerPrimaryPhone}" />
 
 
-				<h:message for="realEstateProperty_ownerPrimaryPhone"
-					styleClass="error errors" />
+                <h:message for="realEstateProperty_ownerPrimaryPhone"
+                           styleClass="error errors" />
 
 
 
@@ -218,19 +218,19 @@
 
 
 
-				<h:outputText
-					value="#{msg.realEstateProperty_ownerAlternativePhone}  " />
+                <h:outputText
+                    value="#{msg.realEstateProperty_ownerAlternativePhone}  " />
 
 
-				<h:inputText
-					id="realEstateProperty_ownerAlternativePhone#{entityId}"
-					label="#{msg.realEstateProperty_ownerAlternativePhone}"
-					required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.ownerAlternativePhone}" />
+                <h:inputText
+                    id="realEstateProperty_ownerAlternativePhone#{entityId}"
+                    label="#{msg.realEstateProperty_ownerAlternativePhone}"
+                    required="false"
+                    value="#{realEstatePropertyAction.realEstateProperty.ownerAlternativePhone}" />
 
 
-				<h:message for="realEstateProperty_ownerAlternativePhone"
-					styleClass="error errors" />
+                <h:message for="realEstateProperty_ownerAlternativePhone"
+                           styleClass="error errors" />
 
 
 
@@ -238,17 +238,17 @@
 
 
 
-				<h:outputText value="#{msg.realEstateProperty_numberOfOccupants}  " />
+                <h:outputText value="#{msg.realEstateProperty_numberOfOccupants}  " />
 
 
-				<h:inputText id="realEstateProperty_numberOfOccupants#{entityId}"
-					label="#{msg.realEstateProperty_numberOfOccupants}"
-					required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.numberOfOccupants}" />
+                <h:inputText id="realEstateProperty_numberOfOccupants#{entityId}"
+                             label="#{msg.realEstateProperty_numberOfOccupants}"
+                             required="false"
+                             value="#{realEstatePropertyAction.realEstateProperty.numberOfOccupants}" />
 
 
-				<h:message for="realEstateProperty_numberOfOccupants"
-					styleClass="error errors" />
+                <h:message for="realEstateProperty_numberOfOccupants"
+                           styleClass="error errors" />
 
 
 
@@ -256,25 +256,25 @@
 
 
 
-				<h:outputText value="#{msg.realEstateProperty_vacancyStatus}  " />
+                <h:outputText value="#{msg.realEstateProperty_vacancyStatus}  " />
 
 
-				<h:selectOneMenu id="realEstateProperty_vacancyStatus"
-					required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.vacancyStatus}">
-					<f:selectItem itemLabel="Please Select..." itemValue="" />
-					<f:selectItem itemLabel="Secured" itemValue="Secured" />
-					<f:selectItem itemLabel="Preservationorder"
-						itemValue="PreservationOrder" />
-					<f:selectItem itemLabel="Anticipatedjudgement"
-						itemValue="AnticipatedJudgement" />
-					<f:selectItem itemLabel="Unsecured" itemValue="Unsecured" />
+                <h:selectOneMenu id="realEstateProperty_vacancyStatus"
+                                 required="false"
+                                 value="#{realEstatePropertyAction.realEstateProperty.vacancyStatus}">
+                    <f:selectItem itemLabel="Please Select..." itemValue="" />
+                    <f:selectItem itemLabel="Secured" itemValue="Secured" />
+                    <f:selectItem itemLabel="Preservationorder"
+                                  itemValue="PreservationOrder" />
+                    <f:selectItem itemLabel="Anticipatedjudgement"
+                                  itemValue="AnticipatedJudgement" />
+                    <f:selectItem itemLabel="Unsecured" itemValue="Unsecured" />
 
-				</h:selectOneMenu>
+                </h:selectOneMenu>
 
 
-				<h:message for="realEstateProperty_vacancyStatus"
-					styleClass="error errors" />
+                <h:message for="realEstateProperty_vacancyStatus"
+                           styleClass="error errors" />
 
 
 
@@ -282,16 +282,16 @@
 
 
 
-				<h:outputText value="#{msg.realEstateProperty_lockboxCode}  " />
+                <h:outputText value="#{msg.realEstateProperty_lockboxCode}  " />
 
 
-				<h:inputText id="realEstateProperty_lockboxCode#{entityId}"
-					label="#{msg.realEstateProperty_lockboxCode}" required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.lockboxCode}" />
+                <h:inputText id="realEstateProperty_lockboxCode#{entityId}"
+                             label="#{msg.realEstateProperty_lockboxCode}" required="false"
+                             value="#{realEstatePropertyAction.realEstateProperty.lockboxCode}" />
 
 
-				<h:message for="realEstateProperty_lockboxCode"
-					styleClass="error errors" />
+                <h:message for="realEstateProperty_lockboxCode"
+                           styleClass="error errors" />
 
 
 
@@ -299,21 +299,21 @@
 
 
 
-				<h:outputText value="#{msg.realEstateProperty_occupancy}  " />
+                <h:outputText value="#{msg.realEstateProperty_occupancy}  " />
 
 
-				<h:selectOneMenu id="realEstateProperty_occupancy" required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.occupancy}">
-					<f:selectItem itemLabel="Please Select..." itemValue="" />
-					<f:selectItem itemLabel="Owner" itemValue="Owner" />
-					<f:selectItem itemLabel="Tenanted" itemValue="Tenanted" />
-					<f:selectItem itemLabel="Unconfirmed" itemValue="Unconfirmed" />
+                <h:selectOneMenu id="realEstateProperty_occupancy" required="false"
+                                 value="#{realEstatePropertyAction.realEstateProperty.occupancy}">
+                    <f:selectItem itemLabel="Please Select..." itemValue="" />
+                    <f:selectItem itemLabel="Owner" itemValue="Owner" />
+                    <f:selectItem itemLabel="Tenanted" itemValue="Tenanted" />
+                    <f:selectItem itemLabel="Unconfirmed" itemValue="Unconfirmed" />
 
-				</h:selectOneMenu>
+                </h:selectOneMenu>
 
 
-				<h:message for="realEstateProperty_occupancy"
-					styleClass="error errors" />
+                <h:message for="realEstateProperty_occupancy"
+                           styleClass="error errors" />
 
 
 
@@ -321,56 +321,56 @@
 
 
 
-				<h:outputText
-					value="#{msg.realEstateProperty_inspectionFrequency}  " />
+                <h:outputText
+                    value="#{msg.realEstateProperty_inspectionFrequency}  " />
 
 
-				<h:selectOneMenu id="realEstateProperty_inspectionFrequency"
-					required="false"
-					value="#{realEstatePropertyAction.realEstateProperty.inspectionFrequency}">
-					<f:selectItem itemLabel="Please Select..." itemValue="" />
-					<f:selectItem itemLabel="Semi_weekly" itemValue="SEMI_WEEKLY" />
-					<f:selectItem itemLabel="Weekly" itemValue="WEEKLY" />
-					<f:selectItem itemLabel="Biweekly" itemValue="BIWEEKLY" />
-					<f:selectItem itemLabel="Monthly" itemValue="MONTHLY" />
+                <h:selectOneMenu id="realEstateProperty_inspectionFrequency"
+                                 required="false"
+                                 value="#{realEstatePropertyAction.realEstateProperty.inspectionFrequency}">
+                    <f:selectItem itemLabel="Please Select..." itemValue="" />
+                    <f:selectItem itemLabel="Semi_weekly" itemValue="SEMI_WEEKLY" />
+                    <f:selectItem itemLabel="Weekly" itemValue="WEEKLY" />
+                    <f:selectItem itemLabel="Biweekly" itemValue="BIWEEKLY" />
+                    <f:selectItem itemLabel="Monthly" itemValue="MONTHLY" />
 
-				</h:selectOneMenu>
+                </h:selectOneMenu>
 
 
-				<h:message for="realEstateProperty_inspectionFrequency"
-					styleClass="error errors" />
+                <h:message for="realEstateProperty_inspectionFrequency"
+                           styleClass="error errors" />
 
 
 
-			</h:panelGrid>
+            </h:panelGrid>
 
 
 
-			<h:commandButton action="#{realEstatePropertyAction.addTenantInfos}"
-				reRender="tenantInfos_data#{entityId}" value="New TenantInfo">
-				<s:conversationId />
-			</h:commandButton>
+            <h:commandButton action="#{realEstatePropertyAction.addTenantInfos}"
+                             value="New TenantInfo">
+                <s:conversationId />
+            </h:commandButton>
 
 
-			<rich:dataTable id="tenantInfos_data#{entityId}"
-				rowClasses="odd, even" rowKeyVar="rowIndex" rows="10" rules="all"
-				styleClass="dataTable"
-				value="#{realEstatePropertyAction.realEstateProperty.tenantInfos}"
-				var="_tenantInfo">
+            <rich:dataTable id="tenantInfos_data#{entityId}"
+                            rowClasses="odd, even" rowKeyVar="rowIndex" rows="10" rules="all"
+                            styleClass="dataTable"
+                            value="#{realEstatePropertyAction.listTenantInfos}"
+                            var="_tenantInfo">
 
-				<h:column style="text-align:left">
-					<f:facet name="header">
-						<h:outputText value="#{msg.tenantInfo_unit}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.tenantInfo_unit}  " />
+                    </f:facet>
 
 
-					<h:inputText id="tenantInfo_unit#{entityId}"
-						label="#{msg.tenantInfo_unit}" required="false"
-						value="#{_tenantInfo.unit}" />
+                    <h:inputText id="tenantInfo_unit#{entityId}"
+                                 label="#{msg.tenantInfo_unit}" required="false"
+                                 value="#{_tenantInfo.unit}" />
 
 
-					<h:message for="tenantInfo_unit" styleClass="error errors" />
-				</h:column>
+                    <h:message for="tenantInfo_unit" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -378,19 +378,19 @@
 
 
 
-				<h:column style="text-align:left">
-					<f:facet name="header">
-						<h:outputText value="#{msg.tenantInfo_name}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.tenantInfo_name}  " />
+                    </f:facet>
 
 
-					<h:inputText id="tenantInfo_name#{entityId}"
-						label="#{msg.tenantInfo_name}" required="false"
-						value="#{_tenantInfo.name}" />
+                    <h:inputText id="tenantInfo_name#{entityId}"
+                                 label="#{msg.tenantInfo_name}" required="false"
+                                 value="#{_tenantInfo.name}" />
 
 
-					<h:message for="tenantInfo_name" styleClass="error errors" />
-				</h:column>
+                    <h:message for="tenantInfo_name" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -398,19 +398,19 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.tenantInfo_rent}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.tenantInfo_rent}  " />
+                    </f:facet>
 
 
-					<h:inputText id="tenantInfo_rent#{entityId}"
-						label="#{msg.tenantInfo_rent}" required="false"
-						value="#{_tenantInfo.rent}" />
+                    <h:inputText id="tenantInfo_rent#{entityId}"
+                                 label="#{msg.tenantInfo_rent}" required="false"
+                                 value="#{_tenantInfo.rent}" />
 
 
-					<h:message for="tenantInfo_rent" styleClass="error errors" />
-				</h:column>
+                    <h:message for="tenantInfo_rent" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -418,19 +418,19 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.tenantInfo_lease}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.tenantInfo_lease}  " />
+                    </f:facet>
 
 
-					<h:selectBooleanCheckbox id="tenantInfo_lease#{entityId}"
-						label="#{msg.tenantInfo_lease}" required="false"
-						value="#{_tenantInfo.lease}" />
+                    <h:selectBooleanCheckbox id="tenantInfo_lease#{entityId}"
+                                             label="#{msg.tenantInfo_lease}" required="false"
+                                             value="#{_tenantInfo.lease}" />
 
 
-					<h:message for="tenantInfo_lease" styleClass="error errors" />
-				</h:column>
+                    <h:message for="tenantInfo_lease" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -438,19 +438,19 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.tenantInfo_leaseExpiry}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.tenantInfo_leaseExpiry}  " />
+                    </f:facet>
 
 
-					<rich:calendar id="tenantInfo_leaseExpiry#{entityId}"
-						label="#{msg.tenantInfo_leaseExpiry}" required="false"
-						value="#{_tenantInfo.leaseExpiry}" />
+                    <rich:calendar id="tenantInfo_leaseExpiry#{entityId}"
+                                   label="#{msg.tenantInfo_leaseExpiry}" required="false"
+                                   value="#{_tenantInfo.leaseExpiry}" />
 
 
-					<h:message for="tenantInfo_leaseExpiry" styleClass="error errors" />
-				</h:column>
+                    <h:message for="tenantInfo_leaseExpiry" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -458,19 +458,19 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.tenantInfo_attornment}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.tenantInfo_attornment}  " />
+                    </f:facet>
 
 
-					<rich:calendar id="tenantInfo_attornment#{entityId}"
-						label="#{msg.tenantInfo_attornment}" required="false"
-						value="#{_tenantInfo.attornment}" />
+                    <rich:calendar id="tenantInfo_attornment#{entityId}"
+                                   label="#{msg.tenantInfo_attornment}" required="false"
+                                   value="#{_tenantInfo.attornment}" />
 
 
-					<h:message for="tenantInfo_attornment" styleClass="error errors" />
-				</h:column>
+                    <h:message for="tenantInfo_attornment" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -478,80 +478,89 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.tenantInfo_utilities}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.tenantInfo_utilities}  " />
+                    </f:facet>
 
 
-					<h:selectBooleanCheckbox id="tenantInfo_utilities#{entityId}"
-						label="#{msg.tenantInfo_utilities}" required="false"
-						value="#{_tenantInfo.utilities}" />
+                    <h:selectBooleanCheckbox id="tenantInfo_utilities#{entityId}"
+                                             label="#{msg.tenantInfo_utilities}" required="false"
+                                             value="#{_tenantInfo.utilities}" />
 
 
-					<h:message for="tenantInfo_utilities" styleClass="error errors" />
-				</h:column>
+                    <h:message for="tenantInfo_utilities" styleClass="error errors" />
+                </h:column>
 
 
 
 
-				<h:column>
+                <h:column>
 
-					<a:commandButton
-						action="#{realEstatePropertyAction.addTenantInfos}"
-						reRender="tenantInfos_data#{entityId}" value="New TenantInfo">
-						<s:conversationId />
-					</a:commandButton>
-				</h:column>
+                    <a:commandButton
+                        action="#{realEstatePropertyAction.addTenantInfos}"
+                        reRender="tenantInfos_data#{entityId}" value="New TenantInfo">
+                        <s:conversationId />
+                    </a:commandButton>
+                </h:column>
 
-				<h:column>
-					<a:commandButton
-						action="#{realEstatePropertyAction.deleteTenantInfos(rowIndex)}"
-						immediate="true" reRender="tenantInfos_data#{entityId}"
-						value="Delete">
-						<s:conversationId />
-					</a:commandButton>
-				</h:column>
+                <h:column>
+                    <a:commandButton
+                        action="#{realEstatePropertyAction.deleteTenantInfos(rowIndex)}"
+                        immediate="true" reRender="tenantInfos_data#{entityId}"
+                        value="Delete">
+                        <s:conversationId />
+                    </a:commandButton>
+                </h:column>
+                
+                <h:column>
+                    <a:commandButton
+                        action="#{realEstatePropertyAction.deleteTenantInfo(_tenantInfo)}"
+                        immediate="true" reRender="tenantInfos_data#{entityId}"
+                        value="Delete TenantInfo">
+                        <s:conversationId />
+                    </a:commandButton>
+                </h:column>
 
-			</rich:dataTable>
+            </rich:dataTable>
 
-			<h:commandButton action="#{realEstatePropertyAction.addCmas}"
-				 value="New Cma">
-				<s:conversationId />
-			</h:commandButton>
+            <h:commandButton action="#{realEstatePropertyAction.addCmas}"
+                             value="New Cma">
+                <s:conversationId />
+            </h:commandButton>
 
-			<rich:dataTable id="cmas_data#{entityId}" rendered="#{not empty realEstatePropertyAction.listCmas}"
-				rowClasses="odd, even" rowKeyVar="rowIndex" rows="10" rules="all"
-				styleClass="dataTable" value="#{realEstatePropertyAction.listCmas}"
-				var="_cma">
+            <rich:dataTable id="cmas_data#{entityId}" rendered="#{not empty realEstatePropertyAction.listCmas}"
+                            rowClasses="odd, even" rowKeyVar="rowIndex" rows="10" rules="all"
+                            styleClass="dataTable" value="#{realEstatePropertyAction.listCmas}"
+                            var="_cma">
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.cma_cmaOrdered}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.cma_cmaOrdered}  " />
+                    </f:facet>
 
 
-					<rich:calendar id="cma_cmaOrdered#{entityId}"
-						label="#{msg.cma_cmaOrdered}" required="false"
-						value="#{_cma.cmaOrdered}" />
+                    <rich:calendar id="cma_cmaOrdered#{entityId}"
+                                   label="#{msg.cma_cmaOrdered}" required="false"
+                                   value="#{_cma.cmaOrdered}" />
 
 
-					<h:message for="cma_cmaOrdered" styleClass="error errors" />
-				</h:column>
+                    <h:message for="cma_cmaOrdered" styleClass="error errors" />
+                </h:column>
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.cma_cmaDueDate}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.cma_cmaDueDate}  " />
+                    </f:facet>
 
 
-					<rich:calendar id="cma_cmaDueDate#{entityId}"
-						label="#{msg.cma_cmaDueDate}" required="false"
-						value="#{_cma.cmaDueDate}" />
+                    <rich:calendar id="cma_cmaDueDate#{entityId}"
+                                   label="#{msg.cma_cmaDueDate}" required="false"
+                                   value="#{_cma.cmaDueDate}" />
 
 
-					<h:message for="cma_cmaDueDate" styleClass="error errors" />
-				</h:column>
+                    <h:message for="cma_cmaDueDate" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -559,19 +568,19 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.cma_cmaReceived}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.cma_cmaReceived}  " />
+                    </f:facet>
 
 
-					<rich:calendar id="cma_cmaReceived#{entityId}"
-						label="#{msg.cma_cmaReceived}" required="false"
-						value="#{_cma.cmaReceived}" />
+                    <rich:calendar id="cma_cmaReceived#{entityId}"
+                                   label="#{msg.cma_cmaReceived}" required="false"
+                                   value="#{_cma.cmaReceived}" />
 
 
-					<h:message for="cma_cmaReceived" styleClass="error errors" />
-				</h:column>
+                    <h:message for="cma_cmaReceived" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -579,19 +588,19 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.cma_cmaAsIsValue}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.cma_cmaAsIsValue}  " />
+                    </f:facet>
 
 
-					<h:inputText id="cma_cmaAsIsValue#{entityId}"
-						label="#{msg.cma_cmaAsIsValue}" required="false"
-						value="#{_cma.cmaAsIsValue}" />
+                    <h:inputText id="cma_cmaAsIsValue#{entityId}"
+                                 label="#{msg.cma_cmaAsIsValue}" required="false"
+                                 value="#{_cma.cmaAsIsValue}" />
 
 
-					<h:message for="cma_cmaAsIsValue" styleClass="error errors" />
-				</h:column>
+                    <h:message for="cma_cmaAsIsValue" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -599,19 +608,19 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.cma_cmaImprovedValue}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.cma_cmaImprovedValue}  " />
+                    </f:facet>
 
 
-					<h:inputText id="cma_cmaImprovedValue#{entityId}"
-						label="#{msg.cma_cmaImprovedValue}" required="false"
-						value="#{_cma.cmaImprovedValue}" />
+                    <h:inputText id="cma_cmaImprovedValue#{entityId}"
+                                 label="#{msg.cma_cmaImprovedValue}" required="false"
+                                 value="#{_cma.cmaImprovedValue}" />
 
 
-					<h:message for="cma_cmaImprovedValue" styleClass="error errors" />
-				</h:column>
+                    <h:message for="cma_cmaImprovedValue" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -619,52 +628,52 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.cma_lockBox}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.cma_lockBox}  " />
+                    </f:facet>
 
 
-					<h:selectBooleanCheckbox id="cma_lockBox#{entityId}"
-						label="#{msg.cma_lockBox}" required="false"
-						value="#{_cma.lockBox}" />
+                    <h:selectBooleanCheckbox id="cma_lockBox#{entityId}"
+                                             label="#{msg.cma_lockBox}" required="false"
+                                             value="#{_cma.lockBox}" />
 
 
-					<h:message for="cma_lockBox" styleClass="error errors" />
-				</h:column>
+                    <h:message for="cma_lockBox" styleClass="error errors" />
+                </h:column>
 
 
 
 
-				<h:column>
+                <h:column>
 
-					<a:commandButton action="#{realEstatePropertyAction.addCmas}"
-						reRender="cmas_data#{entityId}" value="New Cma">
-						<s:conversationId />
-					</a:commandButton>
-				</h:column>
+                    <a:commandButton action="#{realEstatePropertyAction.addCmas}"
+                                     reRender="cmas_data#{entityId}" value="New Cma">
+                        <s:conversationId />
+                    </a:commandButton>
+                </h:column>
 
-				<h:column>
-					<a:commandButton
-						action="#{realEstatePropertyAction.deleteCmas(rowIndex)}"
-						immediate="false" reRender="cmas_data#{entityId}" value="Delete">
-						<s:conversationId />
-					</a:commandButton>
-				</h:column>
+                <h:column>
+                    <a:commandButton
+                        action="#{realEstatePropertyAction.deleteCmas(rowIndex)}"
+                        immediate="false" reRender="cmas_data#{entityId}" value="Delete">
+                        <s:conversationId />
+                    </a:commandButton>
+                </h:column>
 
-			</rich:dataTable>
+            </rich:dataTable>
 
-			<a:commandButton action="#{realEstatePropertyAction.addAppraisals}"
-				reRender="appraisals_data#{entityId}" value="New Appraisal">
-				<s:conversationId />
-			</a:commandButton>
+            <a:commandButton action="#{realEstatePropertyAction.addAppraisals}"
+                             reRender="appraisals_data#{entityId}" value="New Appraisal">
+                <s:conversationId />
+            </a:commandButton>
 
 
-			<rich:dataTable id="appraisals_data#{entityId}"
-				rendered="#{not empty realEstatePropertyAction.listAppraisals}"
-				rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all"
-				styleClass="dataTable"
-				value="#{realEstatePropertyAction.listAppraisals}" var="_appraisal">
+            <rich:dataTable id="appraisals_data#{entityId}"
+                            rendered="#{not empty realEstatePropertyAction.listAppraisals}"
+                            rowClasses="odd, even" rowKeyVar="rowIndex" rows="10" rules="all"
+                            styleClass="dataTable"
+                            value="#{realEstatePropertyAction.listAppraisals}" var="_appraisal">
 
 
 
@@ -674,20 +683,20 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.appraisal_appraisalNumber}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.appraisal_appraisalNumber}  " />
+                    </f:facet>
 
 
-					<h:inputText id="appraisal_appraisalNumber#{entityId}"
-						label="#{msg.appraisal_appraisalNumber}" required="false"
-						value="#{_appraisal.appraisalNumber}" />
+                    <h:inputText id="appraisal_appraisalNumber#{entityId}"
+                                 label="#{msg.appraisal_appraisalNumber}" required="false"
+                                 value="#{_appraisal.appraisalNumber}" />
 
 
-					<h:message for="appraisal_appraisalNumber"
-						styleClass="error errors" />
-				</h:column>
+                    <h:message for="appraisal_appraisalNumber"
+                               styleClass="error errors" />
+                </h:column>
 
 
 
@@ -695,20 +704,20 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.appraisal_specialInstruction}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.appraisal_specialInstruction}  " />
+                    </f:facet>
 
 
-					<rich:editor id="appraisal_specialInstruction#{entityId}"
-						label="#{msg.appraisal_specialInstruction}" required="false"
-						useSeamText="true" value="#{_appraisal.specialInstruction}" />
+                    <rich:editor id="appraisal_specialInstruction#{entityId}"
+                                 label="#{msg.appraisal_specialInstruction}" required="false"
+                                 useSeamText="true" value="#{_appraisal.specialInstruction}" />
 
 
-					<h:message for="appraisal_specialInstruction"
-						styleClass="error errors" />
-				</h:column>
+                    <h:message for="appraisal_specialInstruction"
+                               styleClass="error errors" />
+                </h:column>
 
 
 
@@ -716,24 +725,24 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.appraisal_serviceType}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.appraisal_serviceType}  " />
+                    </f:facet>
 
 
-					<h:selectOneMenu id="appraisal_serviceType" required="false"
-						value="#{_appraisal.serviceType}">
-						<f:selectItem itemLabel="Please Select..." itemValue="" />
-						<f:selectItem itemLabel="Full_service" itemValue="FULL_SERVICE" />
-						<f:selectItem itemLabel="Drive_by" itemValue="DRIVE_BY" />
-						<f:selectItem itemLabel="Desktop" itemValue="DESKTOP" />
+                    <h:selectOneMenu id="appraisal_serviceType" required="false"
+                                     value="#{_appraisal.serviceType}">
+                        <f:selectItem itemLabel="Please Select..." itemValue="" />
+                        <f:selectItem itemLabel="Full_service" itemValue="FULL_SERVICE" />
+                        <f:selectItem itemLabel="Drive_by" itemValue="DRIVE_BY" />
+                        <f:selectItem itemLabel="Desktop" itemValue="DESKTOP" />
 
-					</h:selectOneMenu>
+                    </h:selectOneMenu>
 
 
-					<h:message for="appraisal_serviceType" styleClass="error errors" />
-				</h:column>
+                    <h:message for="appraisal_serviceType" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -741,25 +750,25 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.appraisal_status}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.appraisal_status}  " />
+                    </f:facet>
 
 
-					<h:selectOneMenu id="appraisal_status" required="false"
-						value="#{_appraisal.status}">
-						<f:selectItem itemLabel="Please Select..." itemValue="" />
-						<f:selectItem itemLabel="Ordered" itemValue="ORDERED" />
-						<f:selectItem itemLabel="Accepted" itemValue="ACCEPTED" />
-						<f:selectItem itemLabel="Appointment" itemValue="APPOINTMENT" />
-						<f:selectItem itemLabel="Completed" itemValue="COMPLETED" />
+                    <h:selectOneMenu id="appraisal_status" required="false"
+                                     value="#{_appraisal.status}">
+                        <f:selectItem itemLabel="Please Select..." itemValue="" />
+                        <f:selectItem itemLabel="Ordered" itemValue="ORDERED" />
+                        <f:selectItem itemLabel="Accepted" itemValue="ACCEPTED" />
+                        <f:selectItem itemLabel="Appointment" itemValue="APPOINTMENT" />
+                        <f:selectItem itemLabel="Completed" itemValue="COMPLETED" />
 
-					</h:selectOneMenu>
+                    </h:selectOneMenu>
 
 
-					<h:message for="appraisal_status" styleClass="error errors" />
-				</h:column>
+                    <h:message for="appraisal_status" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -767,19 +776,19 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.appraisal_ordered}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.appraisal_ordered}  " />
+                    </f:facet>
 
 
-					<rich:calendar id="appraisal_ordered#{entityId}"
-						label="#{msg.appraisal_ordered}" required="false"
-						value="#{_appraisal.ordered}" />
+                    <rich:calendar id="appraisal_ordered#{entityId}"
+                                   label="#{msg.appraisal_ordered}" required="false"
+                                   value="#{_appraisal.ordered}" />
 
 
-					<h:message for="appraisal_ordered" styleClass="error errors" />
-				</h:column>
+                    <h:message for="appraisal_ordered" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -787,19 +796,19 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.appraisal_dueDate}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.appraisal_dueDate}  " />
+                    </f:facet>
 
 
-					<rich:calendar id="appraisal_dueDate#{entityId}"
-						label="#{msg.appraisal_dueDate}" required="false"
-						value="#{_appraisal.dueDate}" />
+                    <rich:calendar id="appraisal_dueDate#{entityId}"
+                                   label="#{msg.appraisal_dueDate}" required="false"
+                                   value="#{_appraisal.dueDate}" />
 
 
-					<h:message for="appraisal_dueDate" styleClass="error errors" />
-				</h:column>
+                    <h:message for="appraisal_dueDate" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -807,55 +816,55 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.appraisal_received}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.appraisal_received}  " />
+                    </f:facet>
 
 
-					<rich:calendar id="appraisal_received#{entityId}"
-						label="#{msg.appraisal_received}" required="false"
-						value="#{_appraisal.received}" />
+                    <rich:calendar id="appraisal_received#{entityId}"
+                                   label="#{msg.appraisal_received}" required="false"
+                                   value="#{_appraisal.received}" />
 
 
-					<h:message for="appraisal_received" styleClass="error errors" />
-				</h:column>
+                    <h:message for="appraisal_received" styleClass="error errors" />
+                </h:column>
 
 
 
 
-				<h:column>
+                <h:column>
 
-					<a:commandButton action="#{realEstatePropertyAction.addAppraisals}"
-						reRender="appraisals_data#{entityId}" value="New Appraisal">
-						<s:conversationId />
-					</a:commandButton>
-				</h:column>
+                    <a:commandButton action="#{realEstatePropertyAction.addAppraisals}"
+                                     reRender="appraisals_data#{entityId}" value="New Appraisal">
+                        <s:conversationId />
+                    </a:commandButton>
+                </h:column>
 
-				<h:column>
-					<a:commandButton
-						action="#{realEstatePropertyAction.deleteAppraisals(rowIndex)}"
-						immediate="true" reRender="appraisals_data#{entityId}"
-						value="Delete">
-						<s:conversationId />
-					</a:commandButton>
-				</h:column>
+                <h:column>
+                    <a:commandButton
+                        action="#{realEstatePropertyAction.deleteAppraisals(rowIndex)}"
+                        immediate="false" reRender="appraisals_data#{entityId}"
+                        value="Delete">
+                        <s:conversationId />
+                    </a:commandButton>
+                </h:column>
 
-			</rich:dataTable>
+            </rich:dataTable>
 
-			<a:commandButton
-				action="#{realEstatePropertyAction.addFilesUploadeds}"
-				reRender="filesUploadeds_data#{entityId}" value="New FilesUploaded">
-				<s:conversationId />
-			</a:commandButton>
+            <a:commandButton
+                action="#{realEstatePropertyAction.addFilesUploadeds}"
+                reRender="filesUploadeds_data#{entityId}" value="New FilesUploaded">
+                <s:conversationId />
+            </a:commandButton>
 
 
-			<rich:dataTable id="filesUploadeds_data#{entityId}"
-				rendered="#{not empty realEstatePropertyAction.listFilesUploadeds}"
-				rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all"
-				styleClass="dataTable"
-				value="#{realEstatePropertyAction.listFilesUploadeds}"
-				var="_filesUploaded">
+            <rich:dataTable id="filesUploadeds_data#{entityId}"
+                            rendered="#{not empty realEstatePropertyAction.listFilesUploadeds}"
+                            rowClasses="odd, even" rowKeyVar="rowIndex" rows="10" rules="all"
+                            styleClass="dataTable"
+                            value="#{realEstatePropertyAction.listFilesUploadeds}"
+                            var="_filesUploaded">
 
 
 
@@ -865,19 +874,19 @@
 
 
 
-				<h:column style="text-align:left">
-					<f:facet name="header">
-						<h:outputText value="#{msg.filesUploaded_title}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.filesUploaded_title}  " />
+                    </f:facet>
 
 
-					<h:inputText id="filesUploaded_title#{entityId}"
-						label="#{msg.filesUploaded_title}" required="false"
-						value="#{_filesUploaded.title}" />
+                    <h:inputText id="filesUploaded_title#{entityId}"
+                                 label="#{msg.filesUploaded_title}" required="false"
+                                 value="#{_filesUploaded.title}" />
 
 
-					<h:message for="filesUploaded_title" styleClass="error errors" />
-				</h:column>
+                    <h:message for="filesUploaded_title" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -885,57 +894,57 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.filesUploaded_file}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.filesUploaded_file}  " />
+                    </f:facet>
 
 
-					<s:fileUpload
-						contentType="#{filesUploadedAction.filesUploaded.file.contentType}"
-						data="#{filesUploadedAction.filesUploaded.file.data}"
-						fileName="#{filesUploadedAction.filesUploaded.file.name}" />
+                    <s:fileUpload
+                        contentType="#{filesUploadedAction.filesUploaded.file.contentType}"
+                        data="#{filesUploadedAction.filesUploaded.file.data}"
+                        fileName="#{filesUploadedAction.filesUploaded.file.name}" />
 
 
-					<h:message for="filesUploaded_file" styleClass="error errors" />
-				</h:column>
+                    <h:message for="filesUploaded_file" styleClass="error errors" />
+                </h:column>
 
 
 
 
-				<h:column>
+                <h:column>
 
-					<a:commandButton
-						action="#{realEstatePropertyAction.addFilesUploadeds}"
-						reRender="filesUploadeds_data#{entityId}"
-						value="New FilesUploaded">
-						<s:conversationId />
-					</a:commandButton>
-				</h:column>
+                    <a:commandButton
+                        action="#{realEstatePropertyAction.addFilesUploadeds}"
+                        reRender="filesUploadeds_data#{entityId}"
+                        value="New FilesUploaded">
+                        <s:conversationId />
+                    </a:commandButton>
+                </h:column>
 
-				<h:column>
-					<a:commandButton
-						action="#{realEstatePropertyAction.deleteFilesUploadeds(rowIndex)}"
-						immediate="true" reRender="filesUploadeds_data#{entityId}"
-						value="Delete">
-						<s:conversationId />
-					</a:commandButton>
-				</h:column>
+                <h:column>
+                    <a:commandButton
+                        action="#{realEstatePropertyAction.deleteFilesUploadeds(rowIndex)}"
+                        immediate="true" reRender="filesUploadeds_data#{entityId}"
+                        value="Delete">
+                        <s:conversationId />
+                    </a:commandButton>
+                </h:column>
 
-			</rich:dataTable>
+            </rich:dataTable>
 
-			<a:commandButton action="#{realEstatePropertyAction.addInspections}"
-				reRender="inspections_data#{entityId}" value="New Inspection">
-				<s:conversationId />
-			</a:commandButton>
+            <a:commandButton action="#{realEstatePropertyAction.addInspections}"
+                             reRender="inspections_data#{entityId}" value="New Inspection">
+                <s:conversationId />
+            </a:commandButton>
 
 
-			<rich:dataTable id="inspections_data#{entityId}"
-				rendered="#{not empty realEstatePropertyAction.listInspections}"
-				rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all"
-				styleClass="dataTable"
-				value="#{realEstatePropertyAction.listInspections}"
-				var="_inspection">
+            <rich:dataTable id="inspections_data#{entityId}"
+                            rendered="#{not empty realEstatePropertyAction.listInspections}"
+                            rowClasses="odd, even" rowKeyVar="rowIndex" rows="10" rules="all"
+                            styleClass="dataTable"
+                            value="#{realEstatePropertyAction.listInspections}"
+                            var="_inspection">
 
 
 
@@ -945,28 +954,28 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.inspection_propertyManager}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.inspection_propertyManager}  " />
+                    </f:facet>
 
 
 
 
-					<h:selectOneMenu id="inspection_propertyManager" required="true"
-						value="#{_inspection.propertyManager}">
-						<s:selectItems label="#{itemIter.displayName}"
-							noSelectionLabel="Please Select..."
-							value="#{propertyManagerList}" var="itemIter" />
-						<s:convertEntity />
-					</h:selectOneMenu>
+                    <h:selectOneMenu id="inspection_propertyManager" required="true"
+                                     value="#{_inspection.propertyManager}">
+                        <s:selectItems label="#{itemIter.displayName}"
+                                       noSelectionLabel="Please Select..."
+                                       value="#{propertyManagerList}" var="itemIter" />
+                        <s:convertEntity />
+                    </h:selectOneMenu>
 
 
 
 
-					<h:message for="inspection_propertyManager"
-						styleClass="error errors" />
-				</h:column>
+                    <h:message for="inspection_propertyManager"
+                               styleClass="error errors" />
+                </h:column>
 
 
 
@@ -978,23 +987,23 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.inspection_type}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.inspection_type}  " />
+                    </f:facet>
 
 
-					<h:selectOneMenu id="inspection_type" required="false"
-						value="#{_inspection.type}">
-						<f:selectItem itemLabel="Please Select..." itemValue="" />
-						<f:selectItem itemLabel="Monitoring" itemValue="Monitoring" />
-						<f:selectItem itemLabel="Securing" itemValue="Securing" />
+                    <h:selectOneMenu id="inspection_type" required="false"
+                                     value="#{_inspection.type}">
+                        <f:selectItem itemLabel="Please Select..." itemValue="" />
+                        <f:selectItem itemLabel="Monitoring" itemValue="Monitoring" />
+                        <f:selectItem itemLabel="Securing" itemValue="Securing" />
 
-					</h:selectOneMenu>
+                    </h:selectOneMenu>
 
 
-					<h:message for="inspection_type" styleClass="error errors" />
-				</h:column>
+                    <h:message for="inspection_type" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -1002,19 +1011,19 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.inspection_date}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.inspection_date}  " />
+                    </f:facet>
 
 
-					<rich:calendar id="inspection_date#{entityId}"
-						label="#{msg.inspection_date}" required="false"
-						value="#{_inspection.date}" />
+                    <rich:calendar id="inspection_date#{entityId}"
+                                   label="#{msg.inspection_date}" required="false"
+                                   value="#{_inspection.date}" />
 
 
-					<h:message for="inspection_date" styleClass="error errors" />
-				</h:column>
+                    <h:message for="inspection_date" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -1022,19 +1031,19 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.inspection_Observation}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.inspection_Observation}  " />
+                    </f:facet>
 
 
-					<rich:editor id="inspection_Observation#{entityId}"
-						label="#{msg.inspection_Observation}" required="false"
-						useSeamText="true" value="#{_inspection.observation}" />
+                    <rich:editor id="inspection_Observation#{entityId}"
+                                 label="#{msg.inspection_Observation}" required="false"
+                                 useSeamText="true" value="#{_inspection.observation}" />
 
 
-					<h:message for="inspection_Observation" styleClass="error errors" />
-				</h:column>
+                    <h:message for="inspection_Observation" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -1042,55 +1051,55 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.inspection_actionRequired}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.inspection_actionRequired}  " />
+                    </f:facet>
 
 
-					<h:selectBooleanCheckbox id="inspection_actionRequired#{entityId}"
-						label="#{msg.inspection_actionRequired}" required="false"
-						value="#{_inspection.actionRequired}" />
+                    <h:selectBooleanCheckbox id="inspection_actionRequired#{entityId}"
+                                             label="#{msg.inspection_actionRequired}" required="false"
+                                             value="#{_inspection.actionRequired}" />
 
 
-					<h:message for="inspection_actionRequired"
-						styleClass="error errors" />
-				</h:column>
+                    <h:message for="inspection_actionRequired"
+                               styleClass="error errors" />
+                </h:column>
 
 
 
 
-				<h:column>
+                <h:column>
 
-					<a:commandButton
-						action="#{realEstatePropertyAction.addInspections}"
-						reRender="inspections_data#{entityId}" value="New Inspection">
-						<s:conversationId />
-					</a:commandButton>
-				</h:column>
+                    <a:commandButton
+                        action="#{realEstatePropertyAction.addInspections}"
+                        reRender="inspections_data#{entityId}" value="New Inspection">
+                        <s:conversationId />
+                    </a:commandButton>
+                </h:column>
 
-				<h:column>
-					<a:commandButton
-						action="#{realEstatePropertyAction.deleteInspections(rowIndex)}"
-						immediate="true" reRender="inspections_data#{entityId}"
-						value="Delete">
-						<s:conversationId />
-					</a:commandButton>
-				</h:column>
+                <h:column>
+                    <a:commandButton
+                        action="#{realEstatePropertyAction.deleteInspections(rowIndex)}"
+                        immediate="true" reRender="inspections_data#{entityId}"
+                        value="Delete">
+                        <s:conversationId />
+                    </a:commandButton>
+                </h:column>
 
-			</rich:dataTable>
+            </rich:dataTable>
 
-			<a:commandButton action="#{realEstatePropertyAction.addUtilitiys}"
-				reRender="utilitiys_data#{entityId}" value="New Utilitiy">
-				<s:conversationId />
-			</a:commandButton>
+            <h:commandButton action="#{realEstatePropertyAction.addUtilitiys}"
+                             value="New Utilitiy">
+                <s:conversationId />
+            </h:commandButton>
 
 
-			<rich:dataTable id="utilitiys_data#{entityId}"
-				rendered="#{not empty realEstatePropertyAction.listUtilitiys}"
-				rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all"
-				styleClass="dataTable"
-				value="#{realEstatePropertyAction.listUtilitiys}" var="_utilitiy">
+            <rich:dataTable id="utilitiys_data#{entityId}"
+                            rendered="#{not empty realEstatePropertyAction.listUtilitiys}"
+                            rowClasses="odd, even" rowKeyVar="rowIndex" rows="10" rules="all"
+                            styleClass="dataTable"
+                            value="#{realEstatePropertyAction.listUtilitiys}" var="_utilitiy">
 
 
 
@@ -1099,19 +1108,19 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.utilitiy_name} * " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.utilitiy_name} * " />
+                    </f:facet>
 
 
-					<h:inputText id="utilitiy_name#{entityId}"
-						label="#{msg.utilitiy_name}" required="true"
-						value="#{_utilitiy.name}" />
+                    <h:inputText id="utilitiy_name#{entityId}"
+                                 label="#{msg.utilitiy_name}" required="true"
+                                 value="#{_utilitiy.name}" />
 
 
-					<h:message for="utilitiy_name" styleClass="error errors" />
-				</h:column>
+                    <h:message for="utilitiy_name" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -1119,19 +1128,19 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.utilitiy_transferred}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.utilitiy_transferred}  " />
+                    </f:facet>
 
 
-					<h:selectBooleanCheckbox id="utilitiy_transferred#{entityId}"
-						label="#{msg.utilitiy_transferred}" required="false"
-						value="#{_utilitiy.transferred}" />
+                    <h:selectBooleanCheckbox id="utilitiy_transferred#{entityId}"
+                                             label="#{msg.utilitiy_transferred}" required="false"
+                                             value="#{_utilitiy.transferred}" />
 
 
-					<h:message for="utilitiy_transferred" styleClass="error errors" />
-				</h:column>
+                    <h:message for="utilitiy_transferred" styleClass="error errors" />
+                </h:column>
 
 
 
@@ -1139,57 +1148,65 @@
 
 
 
-				<h:column style="text-align:left">
-					<f:facet name="header">
-						<h:outputText value="#{msg.utilitiy_accountNumber}  " />
-					</f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.utilitiy_accountNumber}  " />
+                    </f:facet>
 
 
-					<h:inputText id="utilitiy_accountNumber#{entityId}"
-						label="#{msg.utilitiy_accountNumber}" required="false"
-						value="#{_utilitiy.accountNumber}" />
+                    <h:inputText id="utilitiy_accountNumber#{entityId}"
+                                 label="#{msg.utilitiy_accountNumber}" required="false"
+                                 value="#{_utilitiy.accountNumber}" />
 
 
-					<h:message for="utilitiy_accountNumber" styleClass="error errors" />
-				</h:column>
+                    <h:message for="utilitiy_accountNumber" styleClass="error errors" />
+                </h:column>
 
 
 
 
-				<h:column>
+                <h:column>
 
-					<a:commandButton action="#{realEstatePropertyAction.addUtilitiys}"
-						reRender="utilitiys_data#{entityId}" value="New Utilitiy">
-						<s:conversationId />
-					</a:commandButton>
-				</h:column>
+                    <a:commandButton action="#{realEstatePropertyAction.addUtilitiys}"
+                                     reRender="utilitiys_data#{entityId}" value="New Utilitiy">
+                        <s:conversationId />
+                    </a:commandButton>
+                </h:column>
 
-				<h:column>
-					<a:commandButton
-						action="#{realEstatePropertyAction.deleteUtilitiys(rowIndex)}"
-						immediate="true" reRender="utilitiys_data#{entityId}"
-						value="Delete">
-						<s:conversationId />
-					</a:commandButton>
-				</h:column>
+                <h:column>
+                    <a:commandButton
+                        action="#{realEstatePropertyAction.deleteUtilitiys(rowIndex)}"
+                        immediate="false" reRender="utilitiys_data#{entityId}"
+                        value="Delete">
+                        <s:conversationId />
+                    </a:commandButton>
+                </h:column>
 
-			</rich:dataTable>
+                <h:column>
+                    <a:commandButton
+                        action="#{realEstatePropertyAction.deleteUtilitiy(_utilitiy)}"
+                        immediate="true" reRender="utilitiys_data#{entityId}"
+                        value="Delete Utility">
+                        <s:conversationId />
+                    </a:commandButton>
+                </h:column>
 
-			<a:commandButton
-				action="#{realEstatePropertyAction.addRequestForApprovals}"
-				reRender="requestForApprovals_data#{entityId}"
-				value="New RequestForApproval">
-				<s:conversationId />
-			</a:commandButton>
+            </rich:dataTable>
 
+            <a:commandButton
+                action="#{realEstatePropertyAction.addRequestForApprovals}"
+                reRender="requestForApprovals_data#{entityId}"
+                value="New RequestForApproval">
+                <s:conversationId />
+            </a:commandButton>
 
-			<rich:dataTable id="requestForApprovals_data#{entityId}"
-				rendered="#{not empty realEstatePropertyAction.listRequestForApprovals}"
-				rowClasses="odd, even" rowKeyvar="rowIndex" rows="10" rules="all"
-				styleClass="dataTable"
-				value="#{realEstatePropertyAction.listRequestForApprovals}"
-				var="_requestForApproval">
 
+            <rich:dataTable id="requestForApprovals_data#{entityId}"
+                            rendered="#{not empty realEstatePropertyAction.listRequestForApprovals}"
+                            rowClasses="odd, even" rowKeyVar="rowIndex" rows="10" rules="all"
+                            styleClass="dataTable"
+                            value="#{realEstatePropertyAction.listRequestForApprovals}"
+                            var="_requestForApproval">
 
 
 
@@ -1197,172 +1214,173 @@
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.requestForApproval_requestDate}  " />
-					</f:facet>
 
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.requestForApproval_requestDate}  " />
+                    </f:facet>
 
-					<rich:calendar id="requestForApproval_requestDate#{entityId}"
-						label="#{msg.requestForApproval_requestDate}" required="false"
-						value="#{_requestForApproval.requestDate}" />
 
+                    <rich:calendar id="requestForApproval_requestDate#{entityId}"
+                                   label="#{msg.requestForApproval_requestDate}" required="false"
+                                   value="#{_requestForApproval.requestDate}" />
 
-					<h:message for="requestForApproval_requestDate"
-						styleClass="error errors" />
-				</h:column>
 
+                    <h:message for="requestForApproval_requestDate"
+                               styleClass="error errors" />
+                </h:column>
 
 
 
 
 
 
-				<h:column style="text-align:left">
-					<f:facet name="header">
-						<h:outputText value="#{msg.requestForApproval_referenceNumber}  " />
-					</f:facet>
 
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.requestForApproval_referenceNumber}  " />
+                    </f:facet>
 
-					<h:inputText id="requestForApproval_referenceNumber#{entityId}"
-						label="#{msg.requestForApproval_referenceNumber}" required="false"
-						value="#{_requestForApproval.referenceNumber}" />
 
+                    <h:inputText id="requestForApproval_referenceNumber#{entityId}"
+                                 label="#{msg.requestForApproval_referenceNumber}" required="false"
+                                 value="#{_requestForApproval.referenceNumber}" />
 
-					<h:message for="requestForApproval_referenceNumber"
-						styleClass="error errors" />
-				</h:column>
 
+                    <h:message for="requestForApproval_referenceNumber"
+                               styleClass="error errors" />
+                </h:column>
 
 
 
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.requestForApproval_recievedDate}  " />
-					</f:facet>
 
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.requestForApproval_recievedDate}  " />
+                    </f:facet>
 
-					<rich:calendar id="requestForApproval_recievedDate#{entityId}"
-						label="#{msg.requestForApproval_recievedDate}" required="false"
-						value="#{_requestForApproval.recievedDate}" />
 
+                    <rich:calendar id="requestForApproval_recievedDate#{entityId}"
+                                   label="#{msg.requestForApproval_recievedDate}" required="false"
+                                   value="#{_requestForApproval.recievedDate}" />
 
-					<h:message for="requestForApproval_recievedDate"
-						styleClass="error errors" />
-				</h:column>
 
+                    <h:message for="requestForApproval_recievedDate"
+                               styleClass="error errors" />
+                </h:column>
 
 
 
 
 
 
-				<h:column style="text-align:left">
-					<f:facet name="header">
-						<h:outputText value="#{msg.requestForApproval_contractor}  " />
-					</f:facet>
 
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.requestForApproval_contractor}  " />
+                    </f:facet>
 
-					<h:inputText id="requestForApproval_contractor#{entityId}"
-						label="#{msg.requestForApproval_contractor}" required="false"
-						value="#{_requestForApproval.contractor}" />
 
+                    <h:inputText id="requestForApproval_contractor#{entityId}"
+                                 label="#{msg.requestForApproval_contractor}" required="false"
+                                 value="#{_requestForApproval.contractor}" />
 
-					<h:message for="requestForApproval_contractor"
-						styleClass="error errors" />
-				</h:column>
 
+                    <h:message for="requestForApproval_contractor"
+                               styleClass="error errors" />
+                </h:column>
 
 
 
 
 
 
-				<h:column style="text-align:left">
-					<f:facet name="header">
-						<h:outputText value="#{msg.requestForApproval_item}  " />
-					</f:facet>
 
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.requestForApproval_item}  " />
+                    </f:facet>
 
-					<h:inputText id="requestForApproval_item#{entityId}"
-						label="#{msg.requestForApproval_item}" required="false"
-						value="#{_requestForApproval.item}" />
 
+                    <h:inputText id="requestForApproval_item#{entityId}"
+                                 label="#{msg.requestForApproval_item}" required="false"
+                                 value="#{_requestForApproval.item}" />
 
-					<h:message for="requestForApproval_item" styleClass="error errors" />
-				</h:column>
 
+                    <h:message for="requestForApproval_item" styleClass="error errors" />
+                </h:column>
 
 
 
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.requestForApproval_estimate}  " />
-					</f:facet>
 
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.requestForApproval_estimate}  " />
+                    </f:facet>
 
-					<h:inputText id="requestForApproval_estimate#{entityId}"
-						label="#{msg.requestForApproval_estimate}" required="false"
-						value="#{_requestForApproval.estimate}" />
 
+                    <h:inputText id="requestForApproval_estimate#{entityId}"
+                                 label="#{msg.requestForApproval_estimate}" required="false"
+                                 value="#{_requestForApproval.estimate}" />
 
-					<h:message for="requestForApproval_estimate"
-						styleClass="error errors" />
-				</h:column>
 
+                    <h:message for="requestForApproval_estimate"
+                               styleClass="error errors" />
+                </h:column>
 
 
 
 
 
 
-				<h:column style="text-align:right">
-					<f:facet name="header">
-						<h:outputText value="#{msg.requestForApproval_details}  " />
-					</f:facet>
 
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.requestForApproval_details}  " />
+                    </f:facet>
 
-					<rich:editor id="requestForApproval_details#{entityId}"
-						label="#{msg.requestForApproval_details}" required="false"
-						useSeamText="true" value="#{_requestForApproval.details}" />
 
+                    <rich:editor id="requestForApproval_details#{entityId}"
+                                 label="#{msg.requestForApproval_details}" required="false"
+                                 useSeamText="true" value="#{_requestForApproval.details}" />
 
-					<h:message for="requestForApproval_details"
-						styleClass="error errors" />
-				</h:column>
 
+                    <h:message for="requestForApproval_details"
+                               styleClass="error errors" />
+                </h:column>
 
 
 
-				<h:column>
 
-					<a:commandButton
-						action="#{realEstatePropertyAction.addRequestForApprovals}"
-						reRender="requestForApprovals_data#{entityId}"
-						value="New RequestForApproval">
-						<s:conversationId />
-					</a:commandButton>
-				</h:column>
+                <h:column>
 
-				<h:column>
-					<a:commandButton
-						action="#{realEstatePropertyAction.deleteRequestForApprovals(rowIndex)}"
-						immediate="true" reRender="requestForApprovals_data#{entityId}"
-						value="Delete">
-						<s:conversationId />
-					</a:commandButton>
-				</h:column>
+                    <a:commandButton
+                        action="#{realEstatePropertyAction.addRequestForApprovals}"
+                        reRender="requestForApprovals_data#{entityId}"
+                        value="New RequestForApproval">
+                        <s:conversationId />
+                    </a:commandButton>
+                </h:column>
 
-			</rich:dataTable>
+                <h:column>
+                    <a:commandButton
+                        action="#{realEstatePropertyAction.deleteRequestForApprovals(rowIndex)}"
+                        immediate="false" reRender="requestForApprovals_data#{entityId}"
+                        value="Delete">
+                        <s:conversationId />
+                    </a:commandButton>
+                </h:column>
 
+            </rich:dataTable>
 
-		</s:validateAll>
 
-	</h:panelGroup>
+        </s:validateAll>
+
+    </h:panelGroup>
 </ui:composition>
