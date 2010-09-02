@@ -7,32 +7,18 @@ import org.witchcraft.seam.action.BaseAction;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
-import javax.persistence.EntityManager;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
-import org.apache.commons.lang.StringUtils;
 
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Scope;
 
 import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.End;
-import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
-import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
-import org.jboss.seam.Component;
 
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
-import org.jboss.seam.faces.FacesMessages;
-import org.jboss.seam.log.Log;
-import org.jboss.seam.annotations.Observer;
 
 import com.nas.recovery.domain.realestate.TenantInfo;
 import com.nas.recovery.domain.realestate.Cma;
@@ -53,9 +39,14 @@ public abstract class RealEstatePropertyActionBase
 
 	@In(create = true, value = "mortgageInsurerAction")
 	com.nas.recovery.web.action.loan.MortgageInsurerAction insurerAction;
+	@In(create = true, value = "tenantInfoAction")
+	com.nas.recovery.web.action.realestate.TenantInfoAction tenantInfoAction;
 
 	@In(create = true, value = "legalAction")
 	com.nas.recovery.web.action.legal.LegalAction legalAction;
+
+        @In(create = true, value = "utilitiyAction")
+	com.nas.recovery.web.action.propertymanagement.UtilitiyAction utilityAction;
 
 	@In(create = true, value = "realEstateListingList")
 	com.nas.recovery.web.action.realestate.RealEstateListingListQuery realEstateListingList;
@@ -260,7 +251,11 @@ public abstract class RealEstatePropertyActionBase
 	}
 
 	public void deleteTenantInfos(int index) {
-		realEstateProperty.getTenantInfos().remove(index);
+            listTenantInfos.remove(index);
+	}
+        public void deleteTenantInfo(TenantInfo ten) {
+                listTenantInfos.remove(ten);
+		getInstance().getTenantInfos().remove(ten);
 	}
 
 	@Begin(join = true)
@@ -269,7 +264,7 @@ public abstract class RealEstatePropertyActionBase
 
 		tenantInfos.setRealEstateProperty(getInstance());
 
-		realEstateProperty.getTenantInfos().add(tenantInfos);
+		listTenantInfos.add(tenantInfos);
 	}
 
 	protected List<com.nas.recovery.domain.realestate.Cma> listCmas;
@@ -441,6 +436,12 @@ public abstract class RealEstatePropertyActionBase
 
 	public void deleteUtilitiys(int index) {
 		listUtilitiys.remove(index);
+	}
+
+        public void deleteUtilitiy(Utilitiy util) {
+		listUtilitiys.remove(util);
+                getInstance().getUtilitiys().remove(util);
+                utilityAction.archive(util);
 	}
 
 	@Begin(join = true)

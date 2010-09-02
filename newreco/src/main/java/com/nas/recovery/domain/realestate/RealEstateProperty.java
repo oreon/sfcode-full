@@ -36,6 +36,9 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
+import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Out;
+
 @Entity
 @Table(name = "realestateproperty")
 @Name("realEstateProperty")
@@ -89,11 +92,11 @@ public class RealEstateProperty extends BusinessEntity
 	@OneToMany(mappedBy = "realEstateProperty", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateProperty_ID", nullable = true)
 	@IndexedEmbedded
-	private Set<RealEstateListing> realEstateListings = new HashSet<RealEstateListing>();
+	private List<RealEstateListing> realEstateListings = new ArrayList<RealEstateListing>();
 
 	//tenantInfos->realEstateProperty ->RealEstateProperty->RealEstateProperty->RealEstateProperty
 
-	@OneToMany(mappedBy = "realEstateProperty", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateProperty_ID", nullable = true)
 	@IndexedEmbedded
 	private List<TenantInfo> tenantInfos = new ArrayList<TenantInfo>();
@@ -103,21 +106,21 @@ public class RealEstateProperty extends BusinessEntity
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateProperty_ID", nullable = true)
 	@IndexedEmbedded
-	private Set<Cma> cmas = new HashSet<Cma>();
+	private List<Cma> cmas = new ArrayList<Cma>();
 
 	//appraisals->realEstateProperty ->RealEstateProperty->Appraisal->Appraisal
 
 	@OneToMany(mappedBy = "realEstateProperty", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateProperty_ID", nullable = true)
 	@IndexedEmbedded
-	private Set<com.nas.recovery.domain.appraisal.Appraisal> appraisals = new HashSet<com.nas.recovery.domain.appraisal.Appraisal>();
+	private List<com.nas.recovery.domain.appraisal.Appraisal> appraisals = new ArrayList<com.nas.recovery.domain.appraisal.Appraisal>();
 
 	//filesUploadeds->realEstateProperty ->RealEstateProperty->FilesUploaded->FilesUploaded
 
 	@OneToMany(mappedBy = "realEstateProperty", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateProperty_ID", nullable = true)
 	@IndexedEmbedded
-	private Set<FilesUploaded> filesUploadeds = new HashSet<FilesUploaded>();
+	private List<FilesUploaded> filesUploadeds = new ArrayList<FilesUploaded>();
 
 	@OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "insurer_id", nullable = true, updatable = true)
@@ -135,14 +138,14 @@ public class RealEstateProperty extends BusinessEntity
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateProperty_ID", nullable = true)
 	@IndexedEmbedded
-	private Set<com.nas.recovery.domain.propertymanagement.Inspection> inspections = new HashSet<com.nas.recovery.domain.propertymanagement.Inspection>();
+	private List<com.nas.recovery.domain.propertymanagement.Inspection> inspections = new ArrayList<com.nas.recovery.domain.propertymanagement.Inspection>();
 
 	//utilitiys-> ->->Utilitiy->
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateProperty_ID", nullable = true)
 	@IndexedEmbedded
-	private Set<com.nas.recovery.domain.propertymanagement.Utilitiy> utilitiys = new HashSet<com.nas.recovery.domain.propertymanagement.Utilitiy>();
+	private List<com.nas.recovery.domain.propertymanagement.Utilitiy> utilitiys = new ArrayList<com.nas.recovery.domain.propertymanagement.Utilitiy>();
 
 	@OneToOne(mappedBy = "realEstateProperty", optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@ContainedIn
@@ -173,7 +176,7 @@ public class RealEstateProperty extends BusinessEntity
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "realEstateProperty_ID", nullable = true)
 	@IndexedEmbedded
-	private Set<com.nas.recovery.domain.propertymanagement.RequestForApproval> requestForApprovals = new HashSet<com.nas.recovery.domain.propertymanagement.RequestForApproval>();
+	private List<com.nas.recovery.domain.propertymanagement.RequestForApproval> requestForApprovals = new ArrayList<com.nas.recovery.domain.propertymanagement.RequestForApproval>();
 
 	public void setStreetAddress(String streetAddress) {
 		this.streetAddress = streetAddress;
@@ -211,11 +214,11 @@ public class RealEstateProperty extends BusinessEntity
 		return city;
 	}
 
-	public void setRealEstateListings(Set<RealEstateListing> realEstateListings) {
+	public void setRealEstateListings(List<RealEstateListing> realEstateListings) {
 		this.realEstateListings = realEstateListings;
 	}
 
-	public Set<RealEstateListing> getRealEstateListings() {
+	public List<RealEstateListing> getRealEstateListings() {
 		return realEstateListings;
 	}
 
@@ -227,28 +230,28 @@ public class RealEstateProperty extends BusinessEntity
 		return tenantInfos;
 	}
 
-	public void setCmas(Set<Cma> cmas) {
+	public void setCmas(List<Cma> cmas) {
 		this.cmas = cmas;
 	}
 
-	public Set<Cma> getCmas() {
+	public List<Cma> getCmas() {
 		return cmas;
 	}
 
 	public void setAppraisals(
-			Set<com.nas.recovery.domain.appraisal.Appraisal> appraisals) {
+			List<com.nas.recovery.domain.appraisal.Appraisal> appraisals) {
 		this.appraisals = appraisals;
 	}
 
-	public Set<com.nas.recovery.domain.appraisal.Appraisal> getAppraisals() {
+	public List<com.nas.recovery.domain.appraisal.Appraisal> getAppraisals() {
 		return appraisals;
 	}
 
-	public void setFilesUploadeds(Set<FilesUploaded> filesUploadeds) {
+	public void setFilesUploadeds(List<FilesUploaded> filesUploadeds) {
 		this.filesUploadeds = filesUploadeds;
 	}
 
-	public Set<FilesUploaded> getFilesUploadeds() {
+	public List<FilesUploaded> getFilesUploadeds() {
 		return filesUploadeds;
 	}
 
@@ -280,20 +283,20 @@ public class RealEstateProperty extends BusinessEntity
 	}
 
 	public void setInspections(
-			Set<com.nas.recovery.domain.propertymanagement.Inspection> inspections) {
+			List<com.nas.recovery.domain.propertymanagement.Inspection> inspections) {
 		this.inspections = inspections;
 	}
 
-	public Set<com.nas.recovery.domain.propertymanagement.Inspection> getInspections() {
+	public List<com.nas.recovery.domain.propertymanagement.Inspection> getInspections() {
 		return inspections;
 	}
 
 	public void setUtilitiys(
-			Set<com.nas.recovery.domain.propertymanagement.Utilitiy> utilitiys) {
+			List<com.nas.recovery.domain.propertymanagement.Utilitiy> utilitiys) {
 		this.utilitiys = utilitiys;
 	}
 
-	public Set<com.nas.recovery.domain.propertymanagement.Utilitiy> getUtilitiys() {
+	public List<com.nas.recovery.domain.propertymanagement.Utilitiy> getUtilitiys() {
 		return utilitiys;
 	}
 
@@ -373,11 +376,11 @@ public class RealEstateProperty extends BusinessEntity
 	}
 
 	public void setRequestForApprovals(
-			Set<com.nas.recovery.domain.propertymanagement.RequestForApproval> requestForApprovals) {
+			List<com.nas.recovery.domain.propertymanagement.RequestForApproval> requestForApprovals) {
 		this.requestForApprovals = requestForApprovals;
 	}
 
-	public Set<com.nas.recovery.domain.propertymanagement.RequestForApproval> getRequestForApprovals() {
+	public List<com.nas.recovery.domain.propertymanagement.RequestForApproval> getRequestForApprovals() {
 		return requestForApprovals;
 	}
 
