@@ -63,6 +63,7 @@ public class Cma extends BusinessEntity implements java.io.Serializable {
 		this.cmaOrdered = cmaOrdered;
 	}
 
+    @Temporal(javax.persistence.TemporalType.DATE)
 	public Date getCmaOrdered() {
 
 		return cmaOrdered;
@@ -72,6 +73,7 @@ public class Cma extends BusinessEntity implements java.io.Serializable {
 		this.cmaDueDate = cmaDueDate;
 	}
 
+    @Temporal(javax.persistence.TemporalType.DATE)
 	public Date getCmaDueDate() {
 
 		return cmaDueDate;

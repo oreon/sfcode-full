@@ -103,17 +103,17 @@ public class Legal extends BusinessEntity implements java.io.Serializable {
 	@Analyzer(definition = "customanalyzer")
 	protected String titleInsuranceClaimNumber;
 
-	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "titleInsurer_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected com.nas.recovery.domain.loan.TitleInsurer titleInsurer;
 
-	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "chargee_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Chargee chargee;
 
-	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "realEstateProperty_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected com.nas.recovery.domain.realestate.RealEstateProperty realEstateProperty;
