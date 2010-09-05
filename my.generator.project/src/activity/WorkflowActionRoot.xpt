@@ -13,7 +13,7 @@
 
 «DEFINE StateMachineRoot FOR uml::Activity»
 	
-	«FILE getWorkflowActionPath() + "Base.java" -»
+	«FILE getWorkflowPathForFile() + "Base.java" -»
 		
 	package «getWebPackageName()»;
 		
@@ -28,6 +28,7 @@
 	«EXPAND ManualGen » 
 	
 	«EXPAND genAssignmentHandler(this) FOREACH allOwnedElements().typeSelect(uml::ActivityPartition)»
+	«EXPAND genDecisionHandler(this) FOREACH allOwnedElements().typeSelect(uml::DecisionNode)»
 	
 «ENDDEFINE»
 
@@ -53,23 +54,21 @@
  «ENDFILE»
 «ENDDEFINE»
 
-«DEFINE genDecisionHandler(uml::Activity act) FOR uml::ActivityPartition»
+«DEFINE genDecisionHandler(uml::Activity act) FOR uml::DecisionNode »
  «FILE  act.getWorkflowActionPath() +   "/decisions/" + name.toFirstUpper()  + "DecisionHandler.java"   »
 	package «act.getWebPackageName()+ "." + act.name.toFirstLower() + ".decisions"»;
 	
 	import org.jboss.seam.Component;
 	import org.jbpm.graph.exe.ExecutionContext;
-	import org.jbpm.taskmgmt.def.AssignmentHandler;
-	import org.jbpm.taskmgmt.exe.Assignable;
 	
-	
-	public class «name.toFirstUpper() + "DecisionHandler"» implements AssignmentHandler {
-	
-		public void assign(Assignable assignable, ExecutionContext executionContext)
-				throws Exception {
-				
+	import org.jbpm.graph.exe.ExecutionContext;
+	import org.jbpm.graph.node.DecisionHandler;
+
+	public class «name.toFirstUpper()»DecisionHandler implements DecisionHandler{
+		public String decide(ExecutionContext executionContext) throws Exception { 
+			return "";
+			
 		}
-		
 	}
  «ENDFILE»
 «ENDDEFINE»
@@ -105,22 +104,22 @@
 
 
 «DEFINE ManualGen FOR uml::Activity»
-	«FILE  getWorkflowActionPath() + ".java"  man_path »
+	«FILE  getWorkflowPathForFile() + ".java"  man_path »
 	
-	package « getWebPackageName() »;
+package « getWebPackageName() »;
+
+«EXPAND genImports»
+
+@Name("«name.toFirstLower()»ProcessAction")	
+//@Scope(ScopeType.CONVERSATION)
+public class «name.toFirstUpper()» extends «name.toFirstUpper()»Base {
+
+	@CreateProcess(definition = "«name»")
+	public void startProcess() {
 	
-	«EXPAND genImports»
-	
-	@Name("«name.toFirstLower()»ProcessAction")	
-	//@Scope(ScopeType.CONVERSATION)
-	public class «name.toFirstUpper()» extends «name.toFirstUpper()»Base {
-	
-		@CreateProcess(definition = "«name»")
-		public void startProcess() {
-		
-		}
-		
 	}
+	
+}
 	«ENDFILE»
 «ENDDEFINE»
 
