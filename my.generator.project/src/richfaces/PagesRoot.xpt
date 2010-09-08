@@ -47,7 +47,7 @@
     
     «FOREACH allOwnedElements().typeSelect(wcprofile::Entity) AS e»
     «setAsCurrentEntity(e)-»
-    <page view-id="«e.getViewFile("edit")»" conversation-required="false" >
+    <page view-id="«e.getViewFile("edit")»"  >
     	<!-- <description>Edit «e.name»: #{«e.name.toFirstLower()».displayName}</description> -->
     	<navigation> 
 			 <rule if-outcome="save">
@@ -63,7 +63,7 @@
 		«ENDFOREACH»
 	</page>
 	
-	 <page view-id="«e.getViewFile("view")»" conversation-required="false" >
+	 <page view-id="«e.getViewFile("view")»"  >
 	 	<!-- <description>View «e.name»: #{«e.name.toFirstLower()».displayName}</description> -->
 	 	<navigation> 
 			 <rule if-outcome="edit">

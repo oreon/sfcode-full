@@ -103,7 +103,7 @@
 		«EXPAND genTable FOR this-»
 		«EXPAND genManyToManyShuttle FOR this-»
 		</s:validateAll>
-		
+	
 	</h:panelGroup>
 	</ui:composition>
 	«ENDFILE»
@@ -264,27 +264,49 @@
 
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
 «IF isFile()»
-	«IF isCurrentEditMode() »  «getTextForImgFile()»  «ELSE» «EXPAND getFileView » «ENDIF»
+«EXPAND genFilePropertyEntry»
 «ELSE»
-	<«getTextControl()»  id="«getId()»#{entityId}" «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"":""»  value="#{«getActionForMode()»«genPropertyLabel()»}" />
-«ENDIF»   
+<«getTextControl()»  id="«getId()»#{entityId}" «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"":""»  value="#{«getActionForMode()»«genPropertyLabel()»}" />
+«ENDIF»
 «ENDDEFINE»
+
 
 «DEFINE getFileView FOR uml::Property»
+«LET isCurrentMultiMode()?"_" + getCurrentEntity().asVar(): getFieldNameWithAction() AS currentFile»
 	<c:choose>
-		<c:when test="${«getFieldNameWithAction()».contentType.startsWith('image')}">
-			<s:graphicImage
-				value="#{«getFieldNameWithAction()».data}" />
+		<c:when test="${«currentFile».file.contentType.startsWith('image')}">
+			<s:graphicImage value="#{«currentFile».file.data}" />
 		</c:when>
 		<c:otherwise>
-				<s:link value="#{«getFieldNameWithAction()».name}"  action="#{«class.getAction()».downloadFile(«class.getAction()».instance.id)}" propagation="none" />
+			<s:link value="#{«currentFile».file.name}"  action="#{«class.getAction()».downloadFile(«currentFile».«IF isCurrentMultiMode()»instance.«ENDIF»id)}" propagation="none" >
+				<f:param name="currentEntityId" value="#{«currentFile».id}" />
+			</s:link>
 		</c:otherwise>
 	</c:choose>
+«ENDLET»
 «ENDDEFINE»
 
 
-«DEFINE genPropertyEntry(wcprofile::dataTypes::imageFile cls) FOR uml::Property-»
-	«getTextForImgFile()»
+«DEFINE genFilePropertyEntry FOR uml::Property-»
+	«LET "_" + getCurrentEntity().asVar() AS currentFile»
+	«IF isCurrentEditMode() »  
+		«IF isCurrentMultiMode()»
+		<s:div rendered="#{«currentFile».id > 0 }">
+			«EXPAND getFileView »			
+		</s:div>
+		<s:div rendered="#{«currentFile».id == null }">
+			<s:fileUpload
+				contentType="#{«currentFile».file.contentType}"
+				data="#{«currentFile».file.data}"
+				fileName="#{«currentFile».file.name}" />
+		</s:div>
+		«ELSE»
+		«getTextForImgFile()» 
+		«ENDIF»
+	«ELSE» 
+		«EXPAND getFileView » 
+	«ENDIF»
+	«ENDLET»
 «ENDDEFINE»
 
 
@@ -301,17 +323,14 @@
 	«ENDIF»
 «ENDDEFINE»
 
-«DEFINE genPropertyEntry(wcprofile::Entity ent) FOR  uml::Property-»
-THISISCRAP «ent.name»
-«ENDDEFINE»
-
 
 
 «DEFINE gentEditableTable FOR uml::Property-»
 	«setCurrentMultiMode(true)-»
 	«IF isCurrentEditMode()-» «EXPAND genNewButton FOR this» «ENDIF»
 	
-	<rich:dataTable id="«name»_data#{entityId}" var="_«type.asVar()»" rendered="#{not empty «class.getAction()».list«name.toFirstUpper()»}"
+	<rich:dataTable id="«name»_data#{entityId}" var="_«type.asVar()»" 
+		«IF !isCurrentEditMode()» rendered="#{not empty «class.getAction()».list«name.toFirstUpper()»}" «ENDIF»
 					value="#{«class.getAction()».list«name.toFirstUpper()»}" rows="10"
 				rowKeyVar="rowIndex"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
@@ -337,16 +356,14 @@ THISISCRAP «ent.name»
 
 «DEFINE genNew FOR uml::Property»
 	<h:column>
-		<a:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  reRender="«name»_data#{entityId}" >
-			<s:conversationId/>
-		</a:commandButton>
+		«EXPAND genNewButton FOR this»
 	</h:column>
 «ENDDEFINE»
 
 «DEFINE genNewButton FOR uml::Property»
-	<h:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  reRender="«name»_data#{entityId}" >
+	<a:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  reRender="«name»_data#{entityId}" >
 		<s:conversationId/>
-	</h:commandButton>
+	</a:commandButton>
 «ENDDEFINE»
 
 «DEFINE genProperty FOR String-»
