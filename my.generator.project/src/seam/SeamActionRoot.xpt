@@ -93,12 +93,9 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	private List<«name»> «asVar()»RecordList;	
 	
 	public void set«name»Id(Long id) {
-	«FOREACH getComposed() AS e»
-	   if(list«e.name.toFirstUpper()» == null || isDifferentFromCurrent(id ) )
-			list«e.name.toFirstUpper()»  = new ArrayList<«e.type.name»>();
-	«ENDFOREACH»
 		setId(id);
-		loadAssociations();
+		if(!isPostBack())
+			loadAssociations();
 	}
 	
 	«FOREACH getOutgoingAssociations() AS e-»
@@ -199,6 +196,8 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	
 	«FOREACH getAllAttributes().select ( e | e.isFile() ) AS e»	
 	public String download«e.name.toFirstUpper()»(Long id) {
+		if(id == null || id == 0)
+            id = currentEntityId;
 		setId(id);
 		downloadAttachment(getInstance().get«e.name.toFirstUpper()»());
 		return "success";
@@ -229,6 +228,10 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		if («asVar()».get«e.name.toFirstUpper()»() != null) {
 			«e.name»Action.setInstance(getInstance().get«e.name.toFirstUpper()»());
 		}
+		«ENDFOREACH»
+		
+		«FOREACH getComposed() AS e»
+			initList«e.name.toFirstUpper()»(); 
 		«ENDFOREACH»
 		
 		«IF !getNonComposedManyAssociations().isEmpty»
@@ -311,10 +314,10 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		«IF opposite != null && opposite.isNavigable()»
 			«name».set«opposite.name.toFirstUpper()»(getInstance());
 		«ENDIF»
-		«currentList».add(«name»);
+		get«currentList.toFirstUpper()»().add(«name»);
 	}
 	
-	«ENDLET»
+	«ENDLET»	
 «ENDDEFINE»
 
 «DEFINE genList(String prefix) FOR uml::Property»
@@ -339,9 +342,8 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	}
 	
 	public List<«type.fqn()»> get«currentList.toFirstUpper()»() {
-		if(«currentList» == null || «currentList».isEmpty() ){
+		if(«currentList» == null)
 			init«currentList.toFirstUpper()»();
-		}
 		return «currentList»;
 	}
 

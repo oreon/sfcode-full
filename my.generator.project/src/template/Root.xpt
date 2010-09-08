@@ -101,6 +101,30 @@
 	    «ENDIF»
 	    
 	    «EXPAND genSearchFieldsArray FOR this»
+	    
+	    
+	    «IF isProcessToken()»
+	    	private Long processId;
+
+			private String processName;
+		
+			public Long getProcessId() {
+				return processId;
+			}
+		
+			public void setProcessId(Long processId) {
+				this.processId = processId;
+			}
+
+		
+			public String getProcessName() {
+				return processName;
+			}
+		
+			public void setProcessName(String processName) {
+				this.processName = processName;
+			}
+	    «ENDIF»
 	    «REM»comment
 	    «EXPAND genOperation FOREACH getAllOperations()»
 	    «ENDREM»
