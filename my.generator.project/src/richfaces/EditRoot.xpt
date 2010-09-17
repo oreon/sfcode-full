@@ -45,7 +45,8 @@
 			«FOREACH getOutgoingAssociations() AS a»
 				<rich:tab label="«a.name.toFirstUpper()»">
 					<ui:include src = "«a.type.getComponentViewFile("view")»" >
-						<ui:param name="entityId" value="«getRandomNumber()»" />
+						«REM»comment<ui:param name="entityId" value="«getRandomNumber()»" />«ENDREM»
+						<ui:param name="entityId" value="777" />
 						<ui:param name="«a.type.name.toFirstLower()»Id" value="#{«getAction()».instance.«a.name».id}" />
 					</ui:include>
 				</rich:tab>
