@@ -210,7 +210,8 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	/** This function adds associated entities to an example criterion
 	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
 	 */
-	public void addAssoications(Criteria criteria) {
+	 @Override
+	public void addAssociations(Criteria criteria) {
 		«FOREACH getOutgoingAssociations() AS e»
 		if («asVar()».get«e.name.toFirstUpper()»() != null) {
 			criteria = criteria.add(Restrictions.eq("«e.name».id", «asVar()».get«e.name.toFirstUpper()»().getId()));
