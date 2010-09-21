@@ -20,6 +20,9 @@
 	«EXPAND genImports FOR this»
 
 	public class «name.toFirstUpper()»Base extends BaseJbpmProcessAction implements java.io.Serializable{
+	
+		@Out(scope = ScopeType.BUSINESS_PROCESS, required = false)
+		protected RecoveryToken recoveryToken = new RecoveryToken();
 		
 		«EXPAND genAction FOREACH allOwnedElements().typeSelect(uml::Action)»
 	

@@ -364,6 +364,14 @@ public class ClassUtil {
 		// logger.info("Returning value " + value + " for key " + key);
 		return value;
 	}
+	
+	public static String readProperty(String key, String def){
+		String ret = readProperty(key);
+		if ( ret == null || ret.equals(""))
+			ret = def;
+		return ret;
+			
+	}
 
 	public static String getDisplayNameFromAttribs(Class cls) {
 		EList<Property> attribs = cls.getAllAttributes();

@@ -242,6 +242,10 @@ isType(prop, "String") || isType(prop, "uniqueNameType") || isType(prop, "nameTy
 String readProperty(String arg):
 JAVA org.wc.generatorutil.ClassUtil.readProperty(java.lang.String);
 
+String readPropertyDef(String arg, String def):
+JAVA org.wc.generatorutil.ClassUtil.readProperty(java.lang.String, java.lang.String);
+
+
 
 getDisplayName(Class entity):
 //JAVA org.wc.generatorutil.ClassUtil.readProperty(java.lang.String);
@@ -317,6 +321,15 @@ getTopLevelPackage() + ".web.action.workflowmgt" ;
 
 getTransName(ActivityEdge o):
 o.name;
+
+getNotify(Action a):
+getDefaultNotify();
+
+getNotify(Task a):
+a.notify == null ? getDefaultNotify() : a.notify;
+
+getDefaultNotify():
+readPropertyDef("defaultNotify", "false" );
 
 getTaskMassagedName(ActivityNode a):
 JAVA org.wc.generatorutil.ClassUtil.getTaskMassagedName(org.eclipse.uml2.uml.NamedElement);
