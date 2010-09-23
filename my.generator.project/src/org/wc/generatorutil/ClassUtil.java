@@ -376,7 +376,7 @@ public class ClassUtil {
 	public static String getDisplayNameFromAttribs(Class cls) {
 		EList<Property> attribs = cls.getAllAttributes();
 
-		System.out.println("before first loop");
+	//	System.out.println("before first loop");
 		for (Property property : attribs) {
 			if (property.getName().contains("name")
 					&& property.getAssociation() == null
@@ -384,7 +384,7 @@ public class ClassUtil {
 				return property.getName();
 		}
 
-		System.out.println("after first loop");
+	//	System.out.println("after first loop");
 		for (Property property : attribs) {
 			if (property.getType() != null) {
 				System.out.println(property.getType().getName() + " : prp "
@@ -394,7 +394,7 @@ public class ClassUtil {
 					return property.getName();
 			}
 		}
-		System.out.println("after second loop");
+	//	System.out.println("after second loop");
 		// couldnt find any suitable display name
 		return attribs.get(0).getName() + "+ \"\"";
 	}
