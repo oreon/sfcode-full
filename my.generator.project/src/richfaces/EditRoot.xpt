@@ -42,11 +42,11 @@
 					<ui:include src = "«getComponentViewFile("view")»" />
 					«EXPAND genCancelSaveBtns(false) FOR this»
 				</rich:tab>
-			«FOREACH getOutgoingAssociations() AS a»
+			«FOREACH getOutgoingAssociations() AS a ITERATOR iter»
 				<rich:tab label="«a.name.toFirstUpper()»">
 					<ui:include src = "«a.type.getComponentViewFile("view")»" >
 						«REM»comment<ui:param name="entityId" value="«getRandomNumber()»" />«ENDREM»
-						<ui:param name="entityId" value="777" />
+						<ui:param name="entityId" value="«iter.counter1»" />
 						<ui:param name="«a.type.name.toFirstLower()»Id" value="#{«getAction()».instance.«a.name».id}" />
 					</ui:include>
 				</rich:tab>
