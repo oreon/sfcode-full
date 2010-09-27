@@ -107,7 +107,7 @@
 			<version>${seam.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.jboss.el</groupId>
+			<groupId>org.jboss.seam</groupId>
 			<artifactId>jboss-el</artifactId>
 			<version>${jboss.el.version}</version>
 		</dependency>
@@ -321,6 +321,16 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.5.6</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>xercesImpl</artifactId>
+					<groupId>xerces</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 
@@ -328,6 +338,22 @@
 			<groupId>org.drools</groupId>
 			<artifactId>drools-core</artifactId>
 			<version>${drools.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>xercesImpl</artifactId>
+					<groupId>xerces</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -358,14 +384,14 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-	
-    <dependency>
-    		<groupId>net.sf.jasperreports</groupId>
-    		<artifactId>jasperreports</artifactId>
-    		<version>3.7.3</version>
+
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>3.7.4</version>
 		</dependency>
 
-		
+
 
 
 	</dependencies>
@@ -383,12 +409,12 @@
 		<repository>
 			<id>jboss-repo</id>
 			<name>JBoss Maven 2 repo</name>
-			<url>http://repository.jboss.com/maven2/</url>
+			<url>http://repository.jboss.org/maven2/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
 			<snapshots>
-				<enabled>false</enabled>
+				<enabled>true</enabled>
 			</snapshots>
 		</repository>
 	</repositories>
@@ -409,10 +435,10 @@
 	</pluginRepositories>
 
 	<properties>
-		<seam.version>2.2.0.GA</seam.version>
-		<seam.ui.version>2.2.0.GA</seam.ui.version>
-		<seam.debug.version>2.2.0.GA</seam.debug.version>
-		<jboss.el.version>1.0_02.CR4</jboss.el.version>
+		<seam.version>2.2.1.CR1</seam.version>
+		<seam.ui.version>2.2.1.CR1</seam.ui.version>
+		<seam.debug.version>2.2.1.CR1</seam.debug.version>
+		<jboss.el.version>2.0.0.GA</jboss.el.version>
 		<richfaces.api.version>3.3.1.GA</richfaces.api.version>
 		<richfaces.impl.version>3.3.1.GA</richfaces.impl.version>
 		<richfaces.ui.version>3.3.1.GA</richfaces.ui.version>
