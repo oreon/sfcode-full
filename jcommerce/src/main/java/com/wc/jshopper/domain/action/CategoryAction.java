@@ -16,6 +16,14 @@ public class CategoryAction extends CategoryActionBase implements
 		java.io.Serializable {
 	
 	private Long productId;
+	
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
+
+	public Long getProductId() {
+		return productId;
+	}
 
 	public List<Category> getTopLevelCategories() {
 		return executeQuery("select c from Category c where c.parent is null");
@@ -25,23 +33,10 @@ public class CategoryAction extends CategoryActionBase implements
 
 		HtmlTree tree = (HtmlTree) event.getComponent();
 		
-
 		BusinessEntity be = (BusinessEntity) tree.getRowData();
 		if(be instanceof Product){
-			
 			productId = be.getId();
-			
 		}
-		
-		
-
 	}
 
-	public void setProductId(Long productId) {
-		this.productId = productId;
-	}
-
-	public Long getProductId() {
-		return productId;
-	}
 }
