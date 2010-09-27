@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.Date;
 
+import org.jboss.seam.servlet.SeamListener;
+
 public class CustomerAction {
 
 	public String register() {
@@ -15,8 +17,10 @@ public class CustomerAction {
 	}
 
 	public String retrieveCredentials() {
-
+	
+		
 		return null;
+		
 
 	}
 
