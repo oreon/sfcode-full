@@ -268,12 +268,20 @@
     		«IF type.name != class.name»@ContainedIn«ENDIF»
 		«ENDIF»
 		«IF type.isEmbeddable() || isContainedAssoc() »
-			«IF type.name != class.name»@IndexedEmbedded«ENDIF»
+			«IF type.name != class.name»@IndexedEmbedded «EXPAND EmbeddedAttributes FOR this»  «ENDIF»
 			protected «type.fqnForPackage(this.class)» «name» = new «type.fqnForPackage(this.class)»();
 		«ELSE»
 			«EXPAND genPropertyDecl FOR this»
 		«ENDIF»
 	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE EmbeddedAttributes FOR uml::Property»
+	@AttributeOverrides( {
+	«FOREACH type.getAllAttributes() AS e»
+		@AttributeOverride(name="«e.name»", column = @Column(name="«name»_«e.name»") ),
+	«ENDFOREACH»
+    } )
 «ENDDEFINE»
 
 «DEFINE genPropertyDecl FOR uml::Property»
