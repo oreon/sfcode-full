@@ -46,11 +46,15 @@ JAVA org.wc.generatorutil.ClassUtil.setCurrentEntity(org.eclipse.uml2.uml.Class)
 Class getCurrentEntity():
 JAVA org.wc.generatorutil.ClassUtil.getCurrentEntity();
 
-setCurrentEmbeddable(Class cls):
-JAVA org.wc.generatorutil.ClassUtil.setCurrentEmbeddable(org.eclipse.uml2.uml.Class);
+setCurrentEmbeddable(Property cls):
+JAVA org.wc.generatorutil.ClassUtil.setCurrentEmbeddable(org.eclipse.uml2.uml.Property);
 
-clearCurrentEmbeddable(Class cls):
-JAVA org.wc.generatorutil.ClassUtil.clearCurrentEmbeddable(org.eclipse.uml2.uml.Class);
+Class getCurrentEmbeddable():
+JAVA org.wc.generatorutil.ClassUtil.getCurrentEmbeddable();
+
+
+clearCurrentEmbeddable():
+JAVA org.wc.generatorutil.ClassUtil.clearCurrentEmbeddable();
 
 
 setCurrentMultiMode(boolean val):
@@ -66,8 +70,6 @@ boolean isCurrentEditMode():
 JAVA org.wc.generatorutil.ClassUtil.isCurrentEditMode();
 
 
-Class getCurrentEmbeddable():
-JAVA org.wc.generatorutil.ClassUtil.getCurrentEmbeddable();
 
 
 
@@ -196,7 +198,7 @@ else
 //(prop.association != null ? prop.name.toFirstLower():"") + prop.class.name.toFirstLower() + "_" + prop.name;
 
 String getId(Property prop):
-prop.class.name.toFirstLower() + "_" + prop.name;
+prop.getEmbeddableClassNameSuffix("_") + prop.name;
 
 
 String getActionForMode():
@@ -242,19 +244,19 @@ getCurrentEntity().asVar() + "." + (prop.getEmbeddableClassName()) + prop.name.t
 genAuditLogPropertyLabel(Property prop):
 "entity." + (prop.getEmbeddableClassName()) + prop.name.toFirstLower();
 
-
+//check if the given property is contained in the class denoted by getcrruententity
 getEmbeddableClassName(Property prop):
-  prop.getDeployName().length > 0? prop.getDeployName() + ".":"" ;
+getEmbeddableClassNameSuffix( prop, ".");
+
 //prop.class.isEmbeddable() || prop.class.isContainedAssoc() ?getCurrentEmbeddable().asVar() + ".":"";
 
-//check if the given property is contained in the class denoted by getcrruententity
+getEmbeddableClassNameSuffix(Property prop, String suffix):
+getCurrentEmbeddable() != null? getCurrentEmbeddable().name + suffix:"" ;
 
 
 getWebPackagePath(Class cls, String ext):
 getTopLevelPackage().packagePath() + "/web/action/"  + cls.package.name + "/" + cls.name + ext + ".java";
 
-
- 
 getWebPackageName(Class cls):
 getTopLevelPackage() + ".web.action." + cls.package.name;
  

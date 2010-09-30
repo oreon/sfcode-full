@@ -66,7 +66,7 @@
 		«IF isMultivalued() || isSecret()»
 		«ELSE»
 			«IF type.getAppliedStereotype("wcprofile::Embeddable") != null-»
-				«type.setCurrentEmbeddable()»
+				«setCurrentEmbeddable()»
 				«EXPAND genAttribAsOutput FOR this.type-»
 			«ELSE»
 				«EXPAND genAssociation FOR this-»
