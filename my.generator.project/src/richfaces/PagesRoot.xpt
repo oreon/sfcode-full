@@ -26,7 +26,6 @@
         </navigation>
 	</page>
 
-	
 	<page view-id="*">
         <navigation>
         	<rule if-outcome="home">
@@ -157,16 +156,22 @@
 «ENDDEFINE»
 
 
-
-
 «DEFINE genAttribAsOutput FOR uml::Class-»
-	«EXPAND genProperty FOREACH attribsOfThisClass().select( a |!a.isMultivalued() && !a.isSecret() && a.type.name != "imageFile"  ) -»
+	«FOREACH allParents() AS e-»
+	 «EXPAND genProperty FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret() && a.type.name != "imageFile" ) -»
+	«ENDFOREACH»
+	«EXPAND genProperty FOREACH getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret() && a.type.name != "imageFile"  ) -»
 «ENDDEFINE»
 
 
-
 «DEFINE genProperty FOR uml::Property-»
- <param name="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»«association != null ? ".id" : "" »}" validateModel="false" />
+	«IF isExpandableAssoc() -» 
+		«setCurrentEmbeddable()-» 
+		«EXPAND genProperty FOREACH type.getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret() && a.type.name != "imageFile" ) -»
+		«clearCurrentEmbeddable()-»
+	«ELSE-»
+		<param name="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»«isNonExpandableAssoc() ? ".id" : "" »}"  validateModel="false" />
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE genAssociation FOR uml::Property-»	

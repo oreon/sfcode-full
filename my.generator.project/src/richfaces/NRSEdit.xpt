@@ -34,7 +34,20 @@
 «ENDDEFINE»
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
-	«EXPAND genAttribute FOREACH attribsOfThisClass().select(a|!a.isMultivalued() && !a.isSecret()) -»
+	«FOREACH allParents() AS e-»
+	 «EXPAND genPropertyRec FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret()  ) -»
+	«ENDFOREACH»
+	«EXPAND genPropertyRec FOREACH getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret()   ) -»
+«ENDDEFINE»
+
+«DEFINE genPropertyRec FOR uml::Property-»
+	«IF isExpandableAssoc() -» 
+		«setCurrentEmbeddable()-» 
+		«EXPAND genProperty FOREACH type.getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret() && a.type.name != "imageFile" ) -»
+		«clearCurrentEmbeddable()-»
+	«ELSE-»
+		«EXPAND genAttribute -»
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE genAttribute FOR uml::Property -»

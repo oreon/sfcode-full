@@ -47,13 +47,9 @@ public class ClassUtil {
 	static int count = 0;
 
 	static {
-
 		Operation op;
-		// op.gette
-		// org.eclipse.uml2.codegen.
 
 		CallBehaviorAction cba;
-		// cba.getOutgoings();
 
 		xtendFacade = XtendFacade.create("template::GeneratorExtensions");
 		UML2MetaModel mm = new UML2MetaModel();
@@ -69,7 +65,9 @@ public class ClassUtil {
 	// state variables
 	private static Class currentEntity;
 
-	private static Class currentEmbeddable;
+	private static Property currentEmbeddable;
+	
+	private static String currentEmbeddableName;
 
 	private static String currentCartridge = null;
 
@@ -102,7 +100,6 @@ public class ClassUtil {
 
 	private static Boolean currentEditMode = false;
 
-	// static org.eclipse.uml2.uml.Class cls;
 
 	public static Boolean isCurrentMultiMode() {
 		return currentMultiMode;
@@ -120,16 +117,23 @@ public class ClassUtil {
 		ClassUtil.currentEditMode = currentEditMode;
 	}
 
-	public static Class getCurrentEmbeddable() {
+	public static Property getCurrentEmbeddable() {
+		if(currentEmbeddable != null)
+		System.out.println("getting embeddable -> " + currentEmbeddable.getName());
 		return currentEmbeddable;
 	}
+	
+	public static String getCurrentEmbeddableName() {
+		return currentEmbeddableName;
+	}
+	
 
-	public static void setCurrentEmbeddable(Class currentEmbeddable) {
+	public static void setCurrentEmbeddable(Property currentEmbeddable) {
+		System.out.println("setting embeddable to " + currentEmbeddable.getName());
 		ClassUtil.currentEmbeddable = currentEmbeddable;
 	}
 
-	public static void clearCurrentEmbeddable(Class currentEmbeddable) {
-		// System.out.println("clearing currentEmbeddabel");
+	public static void clearCurrentEmbeddable() {
 		ClassUtil.currentEmbeddable = null;
 	}
 
@@ -211,10 +215,6 @@ public class ClassUtil {
 		List<String> lstStrings = new ArrayList<String>();
 
 		Transition tr;
-		// tr.getTriggers()
-		// tr.getTriggers().get(0).getEvent().getNameExpression()
-		// tr.
-		// tr.getTrigger(name)
 
 		for (int i = 0; i < params.size(); i++) {
 			Parameter param = params.get(i);
@@ -429,9 +429,10 @@ public class ClassUtil {
 							"wcprofile::Embeddable") != null || property
 							.getAssociation().getAppliedStereotype(
 									"wcprofile::ContainedAssociation") != null)) {
-				getAttribs((Class) property.getType(), props, property
-						.getName());
+				
+				getAttribs((Class) property.getType(), props, property.getName());
 			} else {
+				//System.out.println("deployment is " + name);
 				property.createDeployment(name);
 				props.add(property);
 			}
@@ -442,10 +443,9 @@ public class ClassUtil {
 
 	public static String getDeployName(Property prop) {
 		// System.out.println( prop.getClass_().getName() + " " +
-		// getCurrentEntity().getName());
+		
 		if (prop.getDeployments().size() > 0
-				&& !prop.getClass_().getName().equals(
-						getCurrentEntity().getName())) {
+				&& !prop.getClass_().getName().equals(getCurrentEntity().getName())) {
 			return prop.getDeployments().get(0).getName();
 		}
 		return "";
