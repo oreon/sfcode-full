@@ -259,11 +259,9 @@
 «ENDDEFINE»
 
 
-
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
-«IF isFile()»
-«EXPAND genFilePropertyEntry»
-«ELSE»
+«IF isFile()-» «EXPAND genFilePropertyEntry»
+«ELSE-»
 <«getTextControl()»  id="«getId()»#{entityId}" «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"":""»  value="#{«getActionForMode()»«genPropertyLabel()»}" />
 «ENDIF»
 «ENDDEFINE»
