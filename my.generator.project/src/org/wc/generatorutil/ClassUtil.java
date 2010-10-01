@@ -118,8 +118,8 @@ public class ClassUtil {
 	}
 
 	public static Property getCurrentEmbeddable() {
-		if(currentEmbeddable != null)
-		System.out.println("getting embeddable -> " + currentEmbeddable.getName());
+		//if(currentEmbeddable != null)
+		//System.out.println("getting embeddable -> " + currentEmbeddable.getName());
 		return currentEmbeddable;
 	}
 	
@@ -129,7 +129,7 @@ public class ClassUtil {
 	
 
 	public static void setCurrentEmbeddable(Property currentEmbeddable) {
-		System.out.println("setting embeddable to " + currentEmbeddable.getName());
+		//System.out.println("setting embeddable to " + currentEmbeddable.getName());
 		ClassUtil.currentEmbeddable = currentEmbeddable;
 	}
 

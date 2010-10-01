@@ -30,15 +30,13 @@
 	
 	<entity class="«fqn()»" name="«name»">
 		<table name="«getTableName()»"  >
-		«REM» comment
-		«IF getUniqueConstraints != null-»
+		«IF uniqueConstraints != null-»
 			<unique-constraint>
-			«FOREACH getUniqueConstraintsAsCollection AS e-»
-				<column-name>«e.trim()-»_ID</column-name>
+			«FOREACH uniqueConstraints.getAsList() AS e-»
+				<column-name>«e.trim()-»</column-name>
 			«ENDFOREACH-»
 			</unique-constraint>
 		«ENDIF»
-		«ENDREM»
 		</table>
  	«EXPAND genOperation FOREACH getAllOperations()»
  	«EXPAND genFindQry FOREACH getAllAttributes()»
