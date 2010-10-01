@@ -57,8 +57,6 @@
 	nothingLabel="No Results found"
 	onselect="processObjectsChange(suggestion)">
 	
-	
-	
 	<h:column>
 		<h:outputText value="#{_result.id}" style="font-style:italic" />
 	</h:column>	
@@ -71,7 +69,6 @@
 </ui:composition>
 «ENDFILE»
 «ENDDEFINE»
-
 
 
 
@@ -100,6 +97,7 @@
 «ENDDEFINE»
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
+	«clearCurrentEmbeddable()-»
 	«FOREACH allParents() AS e-»
 	 «EXPAND genPropertyRec FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret() && !a.isFile()  ) -»
 	«ENDFOREACH»
