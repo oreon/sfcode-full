@@ -250,13 +250,15 @@
 	«EXPAND genLabelAndControl FOR this.type-»
 	«ELSE»
 	<h:selectOneMenu id="«getId()»" value="#{«getActionForMode()»«genPropertyLabel()-»}" required="«!getAssocOptional()»">
-		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
+		«IF isColumn() && this.controls != null » <a:support event="onchange" reRender="«controls»" ajaxSingle="true" /> «ENDIF»
+		<s:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List"»}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
 	«ENDIF»	
 «ENDDEFINE»
+
 
 
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
