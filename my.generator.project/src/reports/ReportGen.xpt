@@ -4,6 +4,7 @@
 «EXTENSION template::GeneratorExtensions»
 «EXTENSION template::webExtensions»
 «EXTENSION template::associationExtensions»
+«EXTENSION reports::ReportExt»
 
 
 «DEFINE Root FOR uml::Model»
@@ -22,7 +23,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 
 	<parameter name="ReportTitle" class="java.lang.String"/>
 
-	<queryString language="«language»">
+	<queryString language="«getQueryLanguage()»">
 		<![CDATA[«query»]]>
 	</queryString>
 
@@ -76,18 +77,18 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 «ENDDEFINE»  
 
 «REM» Generate the  field declarations «ENDREM»
-«DEFINE FieldDec FOR ReportField-»
+«DEFINE FieldDec FOR wcprofile::reports::ReportField-»
 	«IF getFieldExpression == null-»
-	<field name="«name»" class="java.lang.«type.name»"/>
+	<field name="«genFieldExpr(type)-»" class="java.lang.«getFieldType()-»"/>
 	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE FieldDec FOR uml::Property-»
-	<field name="«name»" class="java.lang.«type.name-»"/>
+	<field name="«genFieldExpr(type)-»" class="java.lang.«getFieldType()-»"/>
 «ENDDEFINE»
 
 «REM» Generate the displayed fields «ENDREM»
-«DEFINE FieldGen FOR ReportGroup-»
+«DEFINE FieldGen FOR wcprofile::reports::ReportGroup-»
 «ENDDEFINE»
 
 «DEFINE FieldGen FOR ReportField-»
@@ -95,7 +96,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 		<textField>
 			<reportElement x="«getCounter() * 65»" y="0" width="69" height="24"/>
 			<textElement textAlignment="Center"/>
-			<textFieldExpression class="java.lang.«type.name»">
+			<textFieldExpression class="java.lang.«getFieldType()»">
 				<![CDATA[«getFieldExpression != null ? getFieldExpression :"$F{" + name + "}"»]]>
 			</textFieldExpression>
 		</textField>
@@ -106,14 +107,17 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 		<textField>
 			<reportElement x="«getCounter() * 65»" y="0" width="69" height="24"/>
 			<textElement textAlignment="Center"/>
-			<textFieldExpression class="java.lang.«type.name»">
-				<![CDATA[«"$F{" + name + "}"»]]>
+			<textFieldExpression class="java.lang.«getFieldType()»"> 
+				<![CDATA[$F{«genFieldExpr(type)-»}]]>
 			</textFieldExpression>
 		</textField>
 «ENDDEFINE»
 
+
+
+
 «REM» Generate the  field headers «ENDREM»
-«DEFINE FieldHdr FOR ReportGroup-»
+«DEFINE FieldHdr FOR wcprofile::reports::ReportGroup-»
 «ENDDEFINE»
 
 «DEFINE FieldHdr FOR ReportField-»
@@ -174,7 +178,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 «DEFINE GroupGen FOR uml::Property-»
 «ENDDEFINE»
 
-«DEFINE GenGroupCounter FOR ReportGroup-»
+«DEFINE GenGroupCounter FOR wcprofile::reports::ReportGroup-»
 	<variable name="Group«name»Counter" class="java.lang.Integer" incrementType="Group" 
 		incrementGroup="Group«name»" calculation="Count">
 		<variableExpression><![CDATA[Boolean.TRUE]]></variableExpression>
@@ -187,7 +191,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 
 «REM» for group summary variables«ENDREM»
 
-«DEFINE GenGroupSummaryVar FOR ReportGroup-»
+«DEFINE GenGroupSummaryVar FOR wcprofile::reports::ReportGroup-»
 	«FOREACH summaryFields.getAsList() AS s»
 	«IF s.toUpperCase() != "COUNT"»
 	<variable name="Group«name»_«s»" class="«Class.getElementType(s)»"
@@ -213,7 +217,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 «DEFINE SummaryGen FOR uml::Property-»
 «ENDDEFINE»
 
-«DEFINE SummaryGen FOR ReportGroup-»
+«DEFINE SummaryGen FOR wcprofile::reports::ReportGroup-»
 	«FOREACH summaryFields.getAsList() AS s»
 	«IF s.toUpperCase() != "COUNT"»
 			<textField>

@@ -16,14 +16,12 @@
 «ENDDEFINE»
 
 «DEFINE ClassRoot FOR uml::Class»
-	«IF name != null && package != null»
-	
+	«IF name != null && package != null && getAppliedStereotypes().size == 0»
 	«FILE packagePath() +"/" +name + ".java" man_path »
 		package « packageName() »;
 		«EXPAND genImports FOR this»
 		«EXPAND genClassBody FOR this»
 	«ENDFILE»
-	
 	«ENDIF»
 «ENDDEFINE»
 
@@ -365,6 +363,10 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 		«name»() { }
 		
 		public String getName(){
+        	return this.toString();
+    	}
+    	
+    	public String getDisplayName(){
         	return this.toString();
     	}
 	} 

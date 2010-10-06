@@ -85,6 +85,22 @@ organizeImports="true" format="true"/>
 	</outlet>
 </component>
 
+<component id="ReportGenerator" class="oaw.xpand2.Generator"
+skipOnErrors="true">
+	<metaModel class="oaw.type.emf.EmfMetaModel">
+	<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
+	</metaModel>
+	<metaModel class="oaw.uml2.UML2MetaModel"/>
+	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
+		<profile value="${model.dir}/wcprofile.profile.uml"/>
+	</metaModel>
+	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
+	<expand value="reports::ReportGen::Root FOR model"/>
+	<outlet path="${srcGenPath}/">
+		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+	</outlet>
+</component>
+
 <component id="SeamGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">
 	<metaModel class="oaw.type.emf.EmfMetaModel">
 	<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
