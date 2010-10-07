@@ -43,6 +43,10 @@ JAVA org.wc.generatorutil.ClassUtil.isAggregate(org.eclipse.uml2.uml.Property);
 getComposed(Class cls):
 cls.getAllAttributes().select(a|a.isMultivalued() && a.association != null && a.isComposite()) ;
 
+//e.g. To get order Items for an order 
+getMultiValued(Class cls):
+cls.getAllAttributes().select(a|a.isMultivalued() && a.association != null  );
+
 //e.g customer would be needed of the given order
 getOutgoingAssociations(Class cls):
 cls.getAllAttributes().select(a|a.isMultivalued() == false && a.association != null && !a.type.isEmbeddable() );
