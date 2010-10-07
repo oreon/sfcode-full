@@ -66,7 +66,7 @@ import « packageName() ».«name»;
 import org.witchcraft.seam.action.BaseAction; 
 
 «EXPAND genImports FOR this»
-«FOREACH getComposed() AS a-»
+«FOREACH getMultiValued() AS a-»
 import «a.type.fqn()»;
 «ENDFOREACH»
 
@@ -231,7 +231,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		}
 		«ENDFOREACH»
 		
-		«FOREACH getComposed() AS e»
+		«FOREACH getMultiValued() AS e»
 			initList«e.name.toFirstUpper()»(); 
 		«ENDFOREACH»
 		
@@ -256,12 +256,12 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	}
 	
 	
-	«EXPAND genCompositeCode FOREACH getComposed() -»
+	«EXPAND genCompositeCode FOREACH getMultiValued() -»
 	«EXPAND genManyToMany FOREACH getLeadingManyToMany() -»
 	
 	
 	public void updateComposedAssociations(){
-		«EXPAND updateList FOREACH getComposed() -»
+		«EXPAND updateList FOREACH getMultiValued() -»
 		«EXPAND updateList FOREACH getLeadingManyToMany() -»
 	}
 	
