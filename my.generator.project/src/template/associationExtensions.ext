@@ -45,7 +45,7 @@ cls.getAllAttributes().select(a|a.isMultivalued() && a.association != null && a.
 
 //e.g. To get order Items for an order 
 getMultiValued(Class cls):
-cls.getAllAttributes().select(a|a.isMultivalued() && a.association != null  );
+cls.getAllAttributes().select(a|a.isMultivalued() && a.association != null && !a.opposite.isMultivalued() );
 
 //e.g customer would be needed of the given order
 getOutgoingAssociations(Class cls):
