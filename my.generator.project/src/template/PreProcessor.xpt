@@ -6,6 +6,7 @@
 «DEFINE Root FOR uml::Model»
 	«REM» Massage the model «ENDREM»
 	«EXPAND setDefaultNamesForAssocs FOREACH allOwnedElements().typeSelect(uml::Property) »
+	«EXPAND setDefaultMultiplicityForAssocs FOREACH allOwnedElements().typeSelect(uml::Property) »
 	«EXPAND applyEntityStereotype FOREACH allOwnedElements().typeSelect(wcprofile::EntitiesPackage) »
 	«EXPAND massageEmbeddables FOREACH allOwnedElements().typeSelect(wcprofile::Embeddable) »
 	
@@ -16,30 +17,55 @@
 
 «REM» For associations we need to
  set name to type name if the name is null ;«ENDREM»
+«DEFINE setDefaultMultiplicityForAssocs FOR uml::Property»
+
+	«IF association != null»
+		«IF !(name != null && name.length > 0 )»
+			«LET type.name.toFirstLower() AS defaultName»
+				«IF isMultivalued()» «REM» For collections we need to create a plural default type name«ENDREM»
+					«setName(defaultName.getPlural())»
+				«ELSE»
+					«setName(defaultName)»
+				«ENDIF»		
+			«ENDLET»
+		«ENDIF»
+			
+		«IF !(opposite.name != null && opposite.name.length > 0 )»
+			«LET class.name.toFirstLower() AS defaultName»
+				«IF opposite!= null && opposite.isMultivalued()» 
+					«opposite.setName(defaultName.getPlural())»
+				«ELSE»
+					«opposite.setName(defaultName)»
+				«ENDIF»	 
+					
+			«ENDLET»
+		«ENDIF»
+	«ENDIF»
+«ENDDEFINE»
+
 «DEFINE setDefaultNamesForAssocs FOR uml::Property»
 
 	«IF association != null»
-	
-	«IF !(name != null && name.length > 0 )»
-		«LET type.name.toFirstLower() AS defaultName»
-			«IF isMultivalued()» «REM» For collections we need to create a plural default type name«ENDREM»
-				«setName(defaultName.getPlural())»
-			«ELSE»
-				«setName(defaultName)»
-			«ENDIF»		
-		«ENDLET»
-	«ENDIF»
-		
-	«IF !(opposite.name != null && opposite.name.length > 0 )»
-		«LET class.name.toFirstLower() AS defaultName»
-			«IF opposite!= null && opposite.isMultivalued()» 
-				«opposite.setName(defaultName.getPlural())»
-			«ELSE»
-				«opposite.setName(defaultName)»
-			«ENDIF»	 
-				
-		«ENDLET»
-	«ENDIF»
+		«IF !(name != null && name.length > 0 )»
+			«LET type.name.toFirstLower() AS defaultName»
+				«IF isMultivalued()» «REM» For collections we need to create a plural default type name«ENDREM»
+					«setName(defaultName.getPlural())»
+				«ELSE»
+					«setName(defaultName)»
+				«ENDIF»		
+			«ENDLET»
+		«ENDIF»
+			
+		«IF !(opposite.name != null && opposite.name.length > 0 )»
+			«LET class.name.toFirstLower() AS defaultName»
+				«IF opposite!= null && opposite.isMultivalued()» 
+					«opposite.setName(defaultName.getPlural())»
+				«ELSE»
+					«opposite.setName(defaultName)»
+				«ENDIF»	 
+					
+			«ENDLET»
+		«ENDIF»
 	«ENDIF»
 «ENDDEFINE»
 
