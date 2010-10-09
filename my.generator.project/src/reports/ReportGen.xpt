@@ -164,8 +164,8 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 				<textField>
 					<reportElement x="«((515/65) - (summaryList.size * 2) + getCounter()) * 65 »" y="1" width="30" height="15" />
 					<textElement textAlignment="Right"/>
-					<textFieldExpression class="«s == "count"?"java.lang.Integer":java.lang.Double»">
-						<![CDATA[$V{Group«name»_«s»}]]>
+					<textFieldExpression class="«s == "count"?"java.lang.Integer":"java.lang.Double"»">
+						<![CDATA[$V{Group«name»_«s.toUpperCase()»}]]>
 					</textFieldExpression>
 				</textField>
 				«ENDFOREACH»
@@ -178,7 +178,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 «DEFINE GroupGen FOR uml::Property-»
 «ENDDEFINE»
 
-«DEFINE GenGroupCounter FOR wcprofile::reports::ReportGroup-»
+«DEFINE GenGroupCounter FOR wcprofile::ReportGroup-»
 	<variable name="Group«name»Counter" class="java.lang.Integer" incrementType="Group" 
 		incrementGroup="Group«name»" calculation="Count">
 		<variableExpression><![CDATA[Boolean.TRUE]]></variableExpression>

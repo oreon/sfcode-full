@@ -10,6 +10,8 @@
 </component>
 
 
+
+
 <!--
 <component class="oaw.check.CheckComponent">
 	<metaModel class="oaw.type.emf.EmfMetaModel">
@@ -39,6 +41,22 @@ skipOnErrors="true">
 		<profile value="${model.dir}/wcprofile.profile.uml"/>
 	</metaModel>
 	<expand value="template::PreProcessor::Root FOR model"/>
+	<outlet path="${srcGenPath}/">
+		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+	</outlet>
+</component>
+
+<component id="TestDataGenerator" class="oaw.xpand2.Generator"
+skipOnErrors="true">
+	<metaModel class="oaw.type.emf.EmfMetaModel">
+	<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
+	</metaModel>
+	<metaModel class="oaw.uml2.UML2MetaModel"/>
+	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
+		<profile value="${model.dir}/wcprofile.profile.uml"/>
+	</metaModel>
+	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
+	<expand value="testdata::root::Root FOR model"/>
 	<outlet path="${srcGenPath}/">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 	</outlet>
@@ -101,6 +119,9 @@ skipOnErrors="true">
 	</outlet>
 </component>
 
+
+
+
 <component id="SeamGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">
 	<metaModel class="oaw.type.emf.EmfMetaModel">
 	<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
@@ -128,10 +149,10 @@ skipOnErrors="true">
 	<expand value="richfaces::WebRoot::Root FOR model"/>
 	<outlet path="${srcGenPath}">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
-		<postprocessor class="org.openarchitectureware.xpand2.output.XmlBeautifier" fileExtensions=".xhtml"/>
+		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter" fileExtensions=".xhtml" />
 	</outlet>
+	
 
-	<beautifier class="org.openarchitectureware.xpand2.output.XmlBeautifier" fileExtensions=".xhtml" />
 </component>
 
 

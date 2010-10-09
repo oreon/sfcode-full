@@ -568,5 +568,12 @@ public class ClassUtil {
 	public static Property getAttrib(Class cls, String name){
 		return cls.getAttribute(name, null);
 	}
+	
+	private static String[] arrString = { "One", "Two", "Three", "Four", "Five" };
+
+
+	public static List getCounters() {
+		return Arrays.asList(arrString);
+	}
 
 }
