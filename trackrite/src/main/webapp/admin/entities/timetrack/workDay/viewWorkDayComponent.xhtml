@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{workDayAction.load(workDayId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="WorkDay "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{workDayAction.workDay.id}"/>  
+        <h:outputText value="#{msg.workDay_date}  "/>  
+        <h:outputText id="date#{entityId}" value="#{workDayAction.workDay.date}"/> 
+      </h:panelGrid>  
+      <rich:dataTable id="timeTrackingEntrys_data#{entityId}" var="_timeTrackingEntry" rendered="#{not empty workDayAction.listTimeTrackingEntrys}" value="#{workDayAction.listTimeTrackingEntrys}" rows="10" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.timeTrackingEntry_issue}  "/>
+          </f:facet>  
+          <s:link value="#{_timeTrackingEntry.issue.displayName}" view="/admin/entities/issues/issue/viewIssue.xhtml"> 
+            <f:param name="id" value="#{timeTrackingEntryAction.timeTrackingEntry.issue.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.timeTrackingEntry_hours}  "/>
+          </f:facet>  
+          <h:outputText id="hours#{entityId}" value="#{_timeTrackingEntry.hours}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.timeTrackingEntry_details}  "/>
+          </f:facet>  
+          <s:formattedText escape="false" id="details#{entityId}" value="#{_timeTrackingEntry.details}"/> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

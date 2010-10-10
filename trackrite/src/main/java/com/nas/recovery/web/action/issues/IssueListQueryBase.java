@@ -26,22 +26,44 @@ public abstract class IssueListQueryBase extends BaseQuery<Issue, Long> {
 
 	//private static final String EJBQL = "select issue from Issue issue";
 
-	private Issue issue = new Issue();
+	protected Issue issue = new Issue();
+
+	private Range<Date> closeTimeRange = new Range<Date>();
+	public Range<Date> getCloseTimeRange() {
+		return closeTimeRange;
+	}
+	public void setCloseTime(Range<Date> closeTimeRange) {
+		this.closeTimeRange = closeTimeRange;
+	}
+
+	private Range<Integer> estimateRange = new Range<Integer>();
+	public Range<Integer> getEstimateRange() {
+		return estimateRange;
+	}
+	public void setEstimate(Range<Integer> estimateRange) {
+		this.estimateRange = estimateRange;
+	}
 
 	private static final String[] RESTRICTIONS = {
 			"issue.id = #{issueList.issue.id}",
 
 			"lower(issue.title) like concat(lower(#{issueList.issue.title}),'%')",
 
-			"issue.description = #{issueList.issue.description}",
+			"lower(issue.description) like concat(lower(#{issueList.issue.description}),'%')",
 
-			"issue.project = #{issueList.issue.project}",
+			"issue.project.id = #{issueList.issue.project.id}",
 
 			"issue.status = #{issueList.issue.status}",
 
 			"issue.priority = #{issueList.issue.priority}",
 
-			"issue.developer = #{issueList.issue.developer}",
+			"issue.developer.id = #{issueList.issue.developer.id}",
+
+			"issue.closeTime >= #{issueList.closeTimeRange.begin}",
+			"issue.closeTime <= #{issueList.closeTimeRange.end}",
+
+			"issue.estimate >= #{issueList.estimateRange.begin}",
+			"issue.estimate <= #{issueList.estimateRange.end}",
 
 			"issue.dateCreated <= #{issueList.dateCreatedRange.end}",
 			"issue.dateCreated >= #{issueList.dateCreatedRange.begin}",};

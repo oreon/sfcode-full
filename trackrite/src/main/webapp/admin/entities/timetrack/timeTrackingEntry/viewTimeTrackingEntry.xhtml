@@ -1,56 +1,40 @@
-<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">	
-	<ui:define name="content">
-		<h:form>
-			<rich:tabPanel switchType="ajax">
-				<rich:tab label="TimeTrackingEntry">
-					<ui:include src="/admin/entities/timetrack/timeTrackingEntry/viewTimeTrackingEntryComponent.xhtml"/>
-					
-	<div class="buttonBox">
-		
-		<h:commandButton action="edit" rendered="#{s:hasRole('admin')}" value="Edit">
-			<s:conversationPropagation type="end"/>
-		</h:commandButton> 
-		<h:outputText value=" "/>
-		<h:commandButton action="#{redirect.returnToCapturedView()}" immediate="true" value="Back To Listing">
-			<s:conversationPropagation type="end"/>
-		</h:commandButton>  
-		
-	</div>
+<?xml version="1.0" encoding="UTF-8"?>
 
-				</rich:tab>
-			
-				<rich:tab label="Employee">
-					<ui:include src="/admin/entities/domain/employee/viewEmployeeComponent.xhtml">
-						<ui:param name="entityId" value="9637"/>
-						<ui:param name="employeeId" value="#{timeTrackingEntryAction.instance.employee.id}"/>
-					</ui:include>
-				</rich:tab>
-			
-				<rich:tab label="Project">
-					<ui:include src="/admin/entities/issues/project/viewProjectComponent.xhtml">
-						<ui:param name="entityId" value="13941"/>
-						<ui:param name="projectId" value="#{timeTrackingEntryAction.instance.project.id}"/>
-					</ui:include>
-				</rich:tab>
-				
-				
-			</rich:tabPanel>
-			<br/>
-			
-			<rich:tabPanel>
-			
-			</rich:tabPanel>
-		</h:form>
-		<br/>
-		
-		<rich:tabPanel>
-			<rich:tab label="Notes">
-				<wc:comments backingAction="#{timeTrackingEntryAction}"/>
-			</rich:tab>
-			
-		</rich:tabPanel>
-		
-		
-	</ui:define> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <rich:tabPanel switchType="ajax"> 
+        <rich:tab label="TimeTrackingEntry"> 
+          <ui:include src="/admin/entities/timetrack/timeTrackingEntry/viewTimeTrackingEntryComponent.xhtml"/>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasRole('admin')}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" immediate="true" action="#{redirect.returnToCapturedView()}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </rich:tab>  
+        <rich:tab label="Issue"> 
+          <ui:include src="/admin/entities/issues/issue/viewIssueComponent.xhtml"> 
+            <ui:param name="entityId" value="1"/>  
+            <ui:param name="issueId" value="#{timeTrackingEntryAction.instance.issue.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="WorkDay"> 
+          <ui:include src="/admin/entities/timetrack/workDay/viewWorkDayComponent.xhtml"> 
+            <ui:param name="entityId" value="2"/>  
+            <ui:param name="workDayId" value="#{timeTrackingEntryAction.instance.workDay.id}"/> 
+          </ui:include> 
+        </rich:tab> 
+      </rich:tabPanel>  
+      <br/>  
+      <rich:tabPanel></rich:tabPanel> 
+    </h:form>  
+    <br/>  
+    <rich:tabPanel> 
+      <rich:tab label="Notes"> 
+        <wc:comments backingAction="#{timeTrackingEntryAction}"/> 
+      </rich:tab> 
+    </rich:tabPanel> 
+  </ui:define> 
 </ui:composition>

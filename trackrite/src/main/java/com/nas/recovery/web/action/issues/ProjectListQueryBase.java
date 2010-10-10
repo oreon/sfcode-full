@@ -26,14 +26,14 @@ public abstract class ProjectListQueryBase extends BaseQuery<Project, Long> {
 
 	//private static final String EJBQL = "select project from Project project";
 
-	private Project project = new Project();
+	protected Project project = new Project();
 
 	private static final String[] RESTRICTIONS = {
 			"project.id = #{projectList.project.id}",
 
 			"lower(project.name) like concat(lower(#{projectList.project.name}),'%')",
 
-			"project.description = #{projectList.project.description}",
+			"lower(project.description) like concat(lower(#{projectList.project.description}),'%')",
 
 			"project.dateCreated <= #{projectList.dateCreatedRange.end}",
 			"project.dateCreated >= #{projectList.dateCreatedRange.begin}",};

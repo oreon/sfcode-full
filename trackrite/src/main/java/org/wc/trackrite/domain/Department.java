@@ -16,7 +16,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -45,7 +47,7 @@ import org.hibernate.annotations.Filter;
 public class Department extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1899938946L;
 
-	//employees->department ->Department->Department->Department
+	//employees->department ->Department->Employee->Employee
 
 	@OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "department_ID", nullable = true)
@@ -55,6 +57,7 @@ public class Department extends BusinessEntity implements java.io.Serializable {
 	@NotNull
 	@Length(min = 2, max = 50)
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String name;
 
 	public void setEmployees(Set<Employee> employees) {

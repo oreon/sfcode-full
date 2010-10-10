@@ -49,9 +49,9 @@ public abstract class EndUserActionBase
 	private List<EndUser> endUserRecordList;
 
 	public void setEndUserId(Long id) {
-
 		setId(id);
-		loadAssociations();
+		if (!isPostBack())
+			loadAssociations();
 	}
 
 	public Long getEndUserId() {
@@ -127,6 +127,9 @@ public abstract class EndUserActionBase
 
 	public void updateAssociations() {
 
+	}
+
+	public void updateComposedAssociations() {
 	}
 
 	public List<EndUser> getEntityList() {

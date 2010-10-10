@@ -1,15 +1,35 @@
 package org.witchcraft.seam.action;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.render.ResponseStateManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.export.JRHtmlExporter;
+import net.sf.jasperreports.engine.query.JRJpaQueryExecuterFactory;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -81,8 +101,8 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	@In(create = true)
 	private Renderer renderer;
 
-	// @RequestParameter
-	// Long id;
+	@RequestParameter
+	protected Long currentEntityId;
 
 	private List<AuditLog> auditLog;
 
@@ -381,7 +401,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		 * for (String exclude : excludedProperties) {
 		 * example.excludeProperty(exclude); }
 		 */
-		addAssoications(criteria);
+		addAssociations(criteria);
 
 		criteria.addOrder(getOrder());
 
@@ -398,7 +418,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	 * 
 	 * @param criteria
 	 */
-	public void addAssoications(Criteria criteria) {
+	public void addAssociations(Criteria criteria) {
 	}
 
 	public void updateAssociations() {
@@ -519,6 +539,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		Query query = entityManager.createNativeQuery(queryString);
 		setQueryParams(query, params);
 		return (S) query.getSingleResult();
+		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -647,10 +668,68 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		}
 	}
 
-	protected boolean  isDifferentFromCurrent(Long id) {
-		if (id == null || getInstance() == null || getInstance().getId() == null)
+	protected boolean isDifferentFromCurrent(Long id) {
+		if (id == null || getInstance() == null
+				|| getInstance().getId() == null)
 			return true;
 		return id != getInstance().getId().longValue();
+	}
+	
+	protected boolean isNew() {
+		boolean isNew = getInstance().getId() == null;
+		return isNew;
+	}
+
+	protected boolean isPostBack() {
+		ResponseStateManager rtm = FacesContext.getCurrentInstance()
+				.getRenderKit().getResponseStateManager();
+		return rtm.isPostback(FacesContext.getCurrentInstance());
+	}
+	
+	
+	/////// Jasper Reports //////////////////////////////////////////////
+	public  void runReport(String reportName) {
+
+		JasperReport jasperReport;
+		//JasperPrint jasperPrint;
+
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, getEntityManager());
+
+		try {
+			InputStream reportStreamXML = this.getClass()
+					.getResourceAsStream(
+							"/reports/" + reportName + ".jrxml");
+			jasperReport = JasperCompileManager.compileReport(reportStreamXML);
+			//new JRHtmlExporter().exportReport()
+			sendReportToPdf(jasperReport, parameters );
+			//JasperRunManager.runReportToHtmlFile(jasperReport, parameters);
+		} catch (Exception e) {
+			addErrorMessage("Error Running Report: " + e.getMessage());
+		} 
+	}
+
+	public void sendReportToPdf(JasperReport jasperReport, Map<String, Object> parameters) {
+		try {
+			byte[] bytes = JasperRunManager.runReportToPdf(jasperReport, parameters);
+			HttpServletResponse response = (HttpServletResponse) javax.faces.context.FacesContext
+					.getCurrentInstance().getExternalContext().getResponse();
+			response.setContentType("application/pdf");
+			response.addHeader("Content-Disposition",
+					"attachment;filename=Report.pdf");
+			response.setContentLength(bytes.length);
+			ServletOutputStream servletOutputStream = response
+					.getOutputStream();
+			servletOutputStream.write(bytes, 0, bytes.length);
+			servletOutputStream.flush();
+			servletOutputStream.close();
+			javax.faces.context.FacesContext.getCurrentInstance()
+					.responseComplete();
+		} catch (Exception e) {
+			e.printStackTrace();
+			//throw new BusinessException(e);
+		}
+		
 	}
 
 }

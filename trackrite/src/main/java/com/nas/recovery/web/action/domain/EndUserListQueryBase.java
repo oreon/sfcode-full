@@ -26,7 +26,7 @@ public abstract class EndUserListQueryBase extends BaseQuery<EndUser, Long> {
 
 	//private static final String EJBQL = "select endUser from EndUser endUser";
 
-	private EndUser endUser = new EndUser();
+	protected EndUser endUser = new EndUser();
 
 	private static final String[] RESTRICTIONS = {
 			"endUser.id = #{endUserList.endUser.id}",

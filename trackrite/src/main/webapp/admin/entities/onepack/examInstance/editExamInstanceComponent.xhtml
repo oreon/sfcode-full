@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{examInstanceAction.load(examInstanceId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="ExamInstance "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.examInstance_exam}  "/>  
+        <h:selectOneMenu id="exam" value="#{examInstanceAction.examInstance.exam}" required="true"> 
+          <s:selectItems value="#{examList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="exam"/>  
+        <h:outputText value="#{msg.examInstance_candidate}  "/>  
+        <h:selectOneMenu id="candidate" value="#{examInstanceAction.examInstance.candidate}" required="true"> 
+          <s:selectItems value="#{candidateList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="candidate"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New Answer" action="#{examInstanceAction.addAnswers}" reRender="answers_data#{entityId}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="answers_data#{entityId}" var="_answer" value="#{examInstanceAction.listAnswers}" rows="10" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.answer_question}  "/>
+          </f:facet>  
+          <h:selectOneMenu id="question" value="#{_answer.question}" required="true"> 
+            <s:selectItems value="#{questionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu>  
+          <h:message styleClass="error errors" for="question"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.answer_choice}  "/>
+          </f:facet>  
+          <h:selectOneMenu id="choice" value="#{_answer.choice}" required="true"> 
+            <s:selectItems value="#{choiceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu>  
+          <h:message styleClass="error errors" for="choice"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New Answer" action="#{examInstanceAction.addAnswers}" reRender="answers_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" action="#{examInstanceAction.deleteAnswers(rowIndex)}" reRender="answers_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

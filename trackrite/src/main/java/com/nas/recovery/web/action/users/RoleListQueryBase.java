@@ -26,7 +26,7 @@ public abstract class RoleListQueryBase extends BaseQuery<Role, Long> {
 
 	//private static final String EJBQL = "select role from Role role";
 
-	private Role role = new Role();
+	protected Role role = new Role();
 
 	private static final String[] RESTRICTIONS = {
 			"role.id = #{roleList.role.id}",

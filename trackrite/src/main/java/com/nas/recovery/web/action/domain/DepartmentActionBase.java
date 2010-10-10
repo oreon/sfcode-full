@@ -34,6 +34,8 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
+import org.wc.trackrite.domain.Employee;
+
 public abstract class DepartmentActionBase extends BaseAction<Department>
 		implements
 			java.io.Serializable {
@@ -50,9 +52,9 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	private List<Department> departmentRecordList;
 
 	public void setDepartmentId(Long id) {
-
 		setId(id);
-		loadAssociations();
+		if (!isPostBack())
+			loadAssociations();
 	}
 
 	public Long getDepartmentId() {
@@ -124,6 +126,8 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	 */
 	public void loadAssociations() {
 
+		initListEmployees();
+
 		try {
 
 			employeeList.getEmployee().setDepartment(getInstance());
@@ -141,6 +145,50 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 		employee.setDepartment(department);
 		events.raiseTransactionSuccessEvent("archivedEmployee");
 
+	}
+
+	protected List<org.wc.trackrite.domain.Employee> listEmployees;
+
+	void initListEmployees() {
+		listEmployees = new ArrayList<org.wc.trackrite.domain.Employee>();
+
+		if (getInstance().getEmployees().isEmpty()) {
+
+		} else
+			listEmployees.addAll(getInstance().getEmployees());
+
+	}
+
+	public List<org.wc.trackrite.domain.Employee> getListEmployees() {
+		if (listEmployees == null)
+			initListEmployees();
+		return listEmployees;
+	}
+
+	public void setListEmployees(
+			List<org.wc.trackrite.domain.Employee> listEmployees) {
+		this.listEmployees = listEmployees;
+	}
+
+	public void deleteEmployees(int index) {
+		listEmployees.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addEmployees() {
+		Employee employees = new Employee();
+
+		employees.setDepartment(getInstance());
+
+		getListEmployees().add(employees);
+	}
+
+	public void updateComposedAssociations() {
+
+		if (listEmployees != null) {
+			getInstance().getEmployees().clear();
+			getInstance().getEmployees().addAll(listEmployees);
+		}
 	}
 
 	public List<Department> getEntityList() {

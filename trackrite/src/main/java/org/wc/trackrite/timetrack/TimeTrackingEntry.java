@@ -16,7 +16,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -47,37 +49,26 @@ public class TimeTrackingEntry extends BusinessEntity
 			java.io.Serializable {
 	private static final long serialVersionUID = -96082530L;
 
-	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "employee_id", nullable = false, updatable = true)
-	@ContainedIn
-	protected org.wc.trackrite.domain.Employee employee;
-
 	@NotNull
 	@Column(name = "hours", unique = false)
 	protected Integer hours;
 
 	@NotNull
+	@Lob
 	@Column(name = "details", unique = false)
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String details;
 
-	@NotNull
-	@Column(name = "date", unique = false)
-	protected Date date;
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "issue_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected org.wc.trackrite.issues.Issue issue;
 
 	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "project_id", nullable = false, updatable = true)
+	@JoinColumn(name = "workDay_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected org.wc.trackrite.issues.Project project;
-
-	public void setEmployee(org.wc.trackrite.domain.Employee employee) {
-		this.employee = employee;
-	}
-
-	public org.wc.trackrite.domain.Employee getEmployee() {
-
-		return employee;
-	}
+	protected WorkDay workDay;
 
 	public void setHours(Integer hours) {
 		this.hours = hours;
@@ -97,27 +88,27 @@ public class TimeTrackingEntry extends BusinessEntity
 		return details;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setIssue(org.wc.trackrite.issues.Issue issue) {
+		this.issue = issue;
 	}
 
-	public Date getDate() {
+	public org.wc.trackrite.issues.Issue getIssue() {
 
-		return date;
+		return issue;
 	}
 
-	public void setProject(org.wc.trackrite.issues.Project project) {
-		this.project = project;
+	public void setWorkDay(WorkDay workDay) {
+		this.workDay = workDay;
 	}
 
-	public org.wc.trackrite.issues.Project getProject() {
+	public WorkDay getWorkDay() {
 
-		return project;
+		return workDay;
 	}
 
 	@Transient
 	public String getDisplayName() {
-		return details;
+		return hours + "";
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

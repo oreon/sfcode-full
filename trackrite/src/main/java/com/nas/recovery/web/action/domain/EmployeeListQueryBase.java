@@ -26,16 +26,10 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 
 	//private static final String EJBQL = "select employee from Employee employee";
 
-	private Employee employee = new Employee();
+	protected Employee employee = new Employee();
 
 	private static final String[] RESTRICTIONS = {
 			"employee.id = #{employeeList.employee.id}",
-
-			"employee.department = #{employeeList.employee.department}",
-
-			"lower(employee.employeeNumber) like concat(lower(#{employeeList.employee.employeeNumber}),'%')",
-
-			"employee.employeeType = #{employeeList.employee.employeeType}",
 
 			"lower(employee.firstName) like concat(lower(#{employeeList.employee.firstName}),'%')",
 
@@ -46,6 +40,24 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 			"employee.user.enabled = #{employeeList.employee.user.enabled}",
 
 			"lower(employee.user.email) like concat(lower(#{employeeList.employee.user.email}),'%')",
+
+			"employee.department.id = #{employeeList.employee.department.id}",
+
+			"lower(employee.employeeNumber) like concat(lower(#{employeeList.employee.employeeNumber}),'%')",
+
+			"employee.employeeType = #{employeeList.employee.employeeType}",
+
+			"lower(employee.home.primaryPhone) like concat(lower(#{employeeList.employee.home.primaryPhone}),'%')",
+
+			"lower(employee.home.secondaryPhone) like concat(lower(#{employeeList.employee.home.secondaryPhone}),'%')",
+
+			"lower(employee.home.email) like concat(lower(#{employeeList.employee.home.email}),'%')",
+
+			"lower(employee.mailing.primaryPhone) like concat(lower(#{employeeList.employee.mailing.primaryPhone}),'%')",
+
+			"lower(employee.mailing.secondaryPhone) like concat(lower(#{employeeList.employee.mailing.secondaryPhone}),'%')",
+
+			"lower(employee.mailing.email) like concat(lower(#{employeeList.employee.mailing.email}),'%')",
 
 			"employee.dateCreated <= #{employeeList.dateCreatedRange.end}",
 			"employee.dateCreated >= #{employeeList.dateCreatedRange.begin}",};

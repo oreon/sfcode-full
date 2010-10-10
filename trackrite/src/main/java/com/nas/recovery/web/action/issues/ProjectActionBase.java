@@ -34,6 +34,8 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
+import org.wc.trackrite.issues.Issue;
+
 public abstract class ProjectActionBase extends BaseAction<Project>
 		implements
 			java.io.Serializable {
@@ -50,9 +52,9 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 	private List<Project> projectRecordList;
 
 	public void setProjectId(Long id) {
-
 		setId(id);
-		loadAssociations();
+		if (!isPostBack())
+			loadAssociations();
 	}
 
 	public Long getProjectId() {
@@ -124,6 +126,8 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 	 */
 	public void loadAssociations() {
 
+		initListIssues();
+
 		try {
 
 			issueList.getIssue().setProject(getInstance());
@@ -141,6 +145,99 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 		issue.setProject(project);
 		events.raiseTransactionSuccessEvent("archivedIssue");
 
+	}
+
+	protected List<org.wc.trackrite.issues.Issue> listIssues;
+
+	void initListIssues() {
+		listIssues = new ArrayList<org.wc.trackrite.issues.Issue>();
+
+		if (getInstance().getIssues().isEmpty()) {
+
+		} else
+			listIssues.addAll(getInstance().getIssues());
+
+	}
+
+	public List<org.wc.trackrite.issues.Issue> getListIssues() {
+		if (listIssues == null)
+			initListIssues();
+		return listIssues;
+	}
+
+	public void setListIssues(List<org.wc.trackrite.issues.Issue> listIssues) {
+		this.listIssues = listIssues;
+	}
+
+	public void deleteIssues(int index) {
+		listIssues.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addIssues() {
+		Issue issues = new Issue();
+
+		issues.setProject(getInstance());
+
+		getListIssues().add(issues);
+	}
+
+	protected List<org.wc.trackrite.domain.Employee> listEmployees;
+
+	void initListEmployees() {
+		listEmployees = new ArrayList<org.wc.trackrite.domain.Employee>();
+
+		if (getInstance().getEmployees().isEmpty()) {
+
+		} else
+			listEmployees.addAll(getInstance().getEmployees());
+
+	}
+
+	public List<org.wc.trackrite.domain.Employee> getListEmployees() {
+		if (listEmployees == null)
+			initListEmployees();
+		return listEmployees;
+	}
+
+	public void setListEmployees(
+			List<org.wc.trackrite.domain.Employee> listEmployees) {
+		this.listEmployees = listEmployees;
+	}
+
+	protected List<org.wc.trackrite.domain.Employee> listAvailableEmployees;
+
+	void initListAvailableEmployees() {
+		listAvailableEmployees = new ArrayList<org.wc.trackrite.domain.Employee>();
+
+		listAvailableEmployees = getEntityManager().createQuery(
+				"select r from Employee r").getResultList();
+		listAvailableEmployees.removeAll(getInstance().getEmployees());
+
+	}
+
+	public List<org.wc.trackrite.domain.Employee> getListAvailableEmployees() {
+		if (listAvailableEmployees == null)
+			initListAvailableEmployees();
+		return listAvailableEmployees;
+	}
+
+	public void setListAvailableEmployees(
+			List<org.wc.trackrite.domain.Employee> listAvailableEmployees) {
+		this.listAvailableEmployees = listAvailableEmployees;
+	}
+
+	public void updateComposedAssociations() {
+
+		if (listIssues != null) {
+			getInstance().getIssues().clear();
+			getInstance().getIssues().addAll(listIssues);
+		}
+
+		if (listEmployees != null) {
+			getInstance().getEmployees().clear();
+			getInstance().getEmployees().addAll(listEmployees);
+		}
 	}
 
 	public List<Project> getEntityList() {

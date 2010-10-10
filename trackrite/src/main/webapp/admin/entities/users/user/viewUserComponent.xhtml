@@ -1,66 +1,26 @@
-<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
-	<h:panelGroup>
-		<s:validateAll>
-		<h:panelGrid columnClasses="leftCol, rightCol" columns="2" onload="#{userAction.load(userId )  }" styleClass="viewInfo">
-		<f:facet name="header">
-			<h:outputText value="User "/>
-		</f:facet>
-		
-			<h:outputText value="#{msg.id}"/>
-			<h:outputText value="#{userAction.user.id}"/>
-		
-		
-	
+<?xml version="1.0" encoding="UTF-8"?>
 
-	
-	
-	
-	
-		
-		<h:outputText value="#{msg.user_userName}  "/>		
-
-	<h:outputText id="user_userName#{entityId}" value="#{userAction.user.userName}"/>
-   
-		
-		
-		
-	
-	
-
-	
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.user_enabled}  "/>		
-
-	<h:outputText id="user_enabled#{entityId}" value="#{userAction.user.enabled}"/>
-   
-		
-		
-		
-	
-	
-
-	
-	
-		
-		<h:outputText value="#{msg.user_email}  "/>		
-
-	<h:outputText id="user_email#{entityId}" value="#{userAction.user.email}"/>
-   
-		
-		
-		
-	
-	
-		</h:panelGrid>
-		
-	
-		</s:validateAll>
-		
-	</h:panelGroup>
-	</ui:composition>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{userAction.load(userId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="User "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{userAction.user.id}"/>  
+        <h:outputText value="#{msg.user_userName}  "/>  
+        <h:outputText id="userName#{entityId}" value="#{userAction.user.userName}"/>  
+        <h:outputText value="#{msg.user_enabled}  "/>  
+        <h:outputText id="enabled#{entityId}" value="#{userAction.user.enabled}"/>  
+        <h:outputText value="#{msg.user_email}  "/>  
+        <h:outputText id="email#{entityId}" value="#{userAction.user.email}"/> 
+      </h:panelGrid>  
+      <rich:simpleTogglePanel label="#{msg.user_roles}" switchType="client"> 
+        <rich:dataTable value="#{userAction.listRoles}" var="item"> 
+          <rich:column>#{item.displayName}</rich:column> 
+        </rich:dataTable> 
+      </rich:simpleTogglePanel> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

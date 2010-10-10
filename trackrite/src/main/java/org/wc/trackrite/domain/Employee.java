@@ -16,7 +16,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -47,12 +49,13 @@ public class Employee extends org.wc.trackrite.domain.Person
 			java.io.Serializable {
 	private static final long serialVersionUID = 2046415010L;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "department_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Department department;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String employeeNumber;
 
 	protected EmployeeType employeeType;
@@ -64,7 +67,31 @@ public class Employee extends org.wc.trackrite.domain.Person
 	@IndexedEmbedded
 	private Set<org.wc.trackrite.issues.Issue> issues = new HashSet<org.wc.trackrite.issues.Issue>();
 
-	//projects->employees ->Employee->Employee->Employee
+	@IndexedEmbedded
+	@AttributeOverrides({
+
+			@AttributeOverride(name = "primaryPhone", column = @Column(name = "home_primaryPhone")),
+
+			@AttributeOverride(name = "secondaryPhone", column = @Column(name = "home_secondaryPhone")),
+
+			@AttributeOverride(name = "email", column = @Column(name = "home_email"))
+
+	})
+	protected ContactDetails home = new ContactDetails();
+
+	@IndexedEmbedded
+	@AttributeOverrides({
+
+			@AttributeOverride(name = "primaryPhone", column = @Column(name = "mailing_primaryPhone")),
+
+			@AttributeOverride(name = "secondaryPhone", column = @Column(name = "mailing_secondaryPhone")),
+
+			@AttributeOverride(name = "email", column = @Column(name = "mailing_email"))
+
+	})
+	protected ContactDetails mailing = new ContactDetails();
+
+	//projects->employees ->Employee->Project->Project
 
 	@ManyToMany(mappedBy = "employees")
 	private Set<org.wc.trackrite.issues.Project> projects = new HashSet<org.wc.trackrite.issues.Project>();
@@ -104,6 +131,24 @@ public class Employee extends org.wc.trackrite.domain.Person
 		return issues;
 	}
 
+	public void setHome(ContactDetails home) {
+		this.home = home;
+	}
+
+	public ContactDetails getHome() {
+
+		return home;
+	}
+
+	public void setMailing(ContactDetails mailing) {
+		this.mailing = mailing;
+	}
+
+	public ContactDetails getMailing() {
+
+		return mailing;
+	}
+
 	public void setProjects(Set<org.wc.trackrite.issues.Project> projects) {
 		this.projects = projects;
 	}
@@ -126,6 +171,18 @@ public class Employee extends org.wc.trackrite.domain.Person
 		listSearchableFields.addAll(super.listSearchableFields());
 
 		listSearchableFields.add("employeeNumber");
+
+		listSearchableFields.add("home.primaryPhone");
+
+		listSearchableFields.add("home.secondaryPhone");
+
+		listSearchableFields.add("home.email");
+
+		listSearchableFields.add("mailing.primaryPhone");
+
+		listSearchableFields.add("mailing.secondaryPhone");
+
+		listSearchableFields.add("mailing.email");
 
 		return listSearchableFields;
 	}
