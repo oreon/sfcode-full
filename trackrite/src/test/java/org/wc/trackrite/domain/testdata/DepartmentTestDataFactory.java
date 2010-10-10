@@ -40,7 +40,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("delta");
+			department.setName("gamma");
 
 			//	 department.addAllEmployees(employeesTestDataFactory.getFewRandomRecords());
 
@@ -58,7 +58,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("gamma");
+			department.setName("pi");
 
 			//	 department.addAllEmployees(employeesTestDataFactory.getFewRandomRecords());
 
@@ -76,7 +76,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("zeta");
+			department.setName("theta");
 
 			//	 department.addAllEmployees(employeesTestDataFactory.getFewRandomRecords());
 
@@ -94,7 +94,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("alpha");
+			department.setName("Lavendar");
 
 			//	 department.addAllEmployees(employeesTestDataFactory.getFewRandomRecords());
 
@@ -112,7 +112,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("gamma");
+			department.setName("zeta");
 
 			//	 department.addAllEmployees(employeesTestDataFactory.getFewRandomRecords());
 

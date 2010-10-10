@@ -37,7 +37,7 @@ public class RoleTestDataFactory
 
 		try {
 
-			role.setName("beta");
+			role.setName("Mark");
 
 			register(role);
 
@@ -53,7 +53,7 @@ public class RoleTestDataFactory
 
 		try {
 
-			role.setName("beta");
+			role.setName("Lavendar");
 
 			register(role);
 
@@ -69,7 +69,7 @@ public class RoleTestDataFactory
 
 		try {
 
-			role.setName("zeta");
+			role.setName("gamma");
 
 			register(role);
 
@@ -85,7 +85,7 @@ public class RoleTestDataFactory
 
 		try {
 
-			role.setName("alpha");
+			role.setName("beta");
 
 			register(role);
 

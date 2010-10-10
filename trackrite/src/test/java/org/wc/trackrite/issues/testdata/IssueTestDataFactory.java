@@ -41,13 +41,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("zeta");
+			issue.setTitle("theta");
 
-			issue.setDescription("John");
+			issue.setDescription("Lavendar");
 
-			issue.setCloseTime(dateFormat.parse("2010.10.11 07:46:44 EDT"));
+			issue.setCloseTime(dateFormat.parse("2010.09.22 22:16:55 EDT"));
 
-			issue.setEstimate(4562);
+			issue.setEstimate(2193);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -67,13 +67,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("John");
+			issue.setTitle("delta");
 
-			issue.setDescription("zeta");
+			issue.setDescription("Mark");
 
-			issue.setCloseTime(dateFormat.parse("2010.10.14 10:35:38 EDT"));
+			issue.setCloseTime(dateFormat.parse("2010.10.03 05:46:55 EDT"));
 
-			issue.setEstimate(3094);
+			issue.setEstimate(2959);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -93,13 +93,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("Eric");
+			issue.setTitle("gamma");
 
-			issue.setDescription("beta");
+			issue.setDescription("Lavendar");
 
-			issue.setCloseTime(dateFormat.parse("2010.09.28 08:26:44 EDT"));
+			issue.setCloseTime(dateFormat.parse("2010.10.25 04:35:50 EDT"));
 
-			issue.setEstimate(7732);
+			issue.setEstimate(1220);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -119,13 +119,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("gamma");
+			issue.setTitle("beta");
 
-			issue.setDescription("zeta");
+			issue.setDescription("alpha");
 
-			issue.setCloseTime(dateFormat.parse("2010.10.08 21:16:44 EDT"));
+			issue.setCloseTime(dateFormat.parse("2010.11.02 09:56:22 EDT"));
 
-			issue.setEstimate(9355);
+			issue.setEstimate(2662);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -145,13 +145,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("Malissa");
+			issue.setTitle("Eric");
 
-			issue.setDescription("beta");
+			issue.setDescription("alpha");
 
-			issue.setCloseTime(dateFormat.parse("2010.09.17 11:47:17 EDT"));
+			issue.setCloseTime(dateFormat.parse("2010.09.24 18:03:02 EDT"));
 
-			issue.setEstimate(327);
+			issue.setEstimate(5709);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 
