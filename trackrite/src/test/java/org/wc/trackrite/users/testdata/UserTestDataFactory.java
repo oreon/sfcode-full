@@ -37,13 +37,13 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("Wilson");
+			user.setUserName("epsilon");
 
-			user.setPassword("Wilson");
+			user.setPassword("Lavendar");
 
-			user.setEnabled(true);
+			user.setEnabled(false);
 
-			user.setEmail("theta");
+			user.setEmail("pi");
 
 			register(user);
 
@@ -59,29 +59,7 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("pi");
-
-			user.setPassword("Malissa");
-
-			user.setEnabled(true);
-
-			user.setEmail("theta");
-
-			register(user);
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		return user;
-	}
-
-	public org.wc.trackrite.users.User createUserThree() {
-		org.wc.trackrite.users.User user = new org.wc.trackrite.users.User();
-
-		try {
-
-			user.setUserName("epsilon");
+			user.setUserName("Malissa");
 
 			user.setPassword("alpha");
 
@@ -98,18 +76,40 @@ public class UserTestDataFactory
 		return user;
 	}
 
+	public org.wc.trackrite.users.User createUserThree() {
+		org.wc.trackrite.users.User user = new org.wc.trackrite.users.User();
+
+		try {
+
+			user.setUserName("alpha");
+
+			user.setPassword("Mark");
+
+			user.setEnabled(true);
+
+			user.setEmail("alpha");
+
+			register(user);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return user;
+	}
+
 	public org.wc.trackrite.users.User createUserFour() {
 		org.wc.trackrite.users.User user = new org.wc.trackrite.users.User();
 
 		try {
 
-			user.setUserName("zeta");
+			user.setUserName("Lavendar");
 
-			user.setPassword("theta");
+			user.setPassword("Wilson");
 
 			user.setEnabled(true);
 
-			user.setEmail("Malissa");
+			user.setEmail("theta");
 
 			register(user);
 
@@ -125,13 +125,13 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("Eric");
+			user.setUserName("epsilon");
 
-			user.setPassword("gamma");
+			user.setPassword("Eric");
 
 			user.setEnabled(false);
 
-			user.setEmail("zeta");
+			user.setEmail("pi");
 
 			register(user);
 

@@ -37,7 +37,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.09.25 05:50:37 EDT"));
+			workDay.setDate(dateFormat.parse("2010.09.23 17:15:50 EDT"));
 
 			register(workDay);
 
@@ -53,7 +53,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.10.18 19:02:19 EDT"));
+			workDay.setDate(dateFormat.parse("2010.10.19 03:57:28 EDT"));
 
 			register(workDay);
 
@@ -69,7 +69,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.10.14 08:02:19 EDT"));
+			workDay.setDate(dateFormat.parse("2010.10.09 21:13:03 EDT"));
 
 			register(workDay);
 
@@ -85,7 +85,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.10.13 04:26:44 EDT"));
+			workDay.setDate(dateFormat.parse("2010.10.14 09:23:03 EDT"));
 
 			register(workDay);
 
@@ -101,7 +101,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.10.02 20:07:17 EDT"));
+			workDay.setDate(dateFormat.parse("2010.09.20 14:02:30 EDT"));
 
 			register(workDay);
 
