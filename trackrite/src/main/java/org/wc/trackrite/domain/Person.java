@@ -16,7 +16,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -35,19 +37,34 @@ import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
 @MappedSuperclass
-@Indexed
+//@Indexed
 public class Person extends BusinessEntity {
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String firstName;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String lastName;
 
-	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", nullable = false, updatable = true)
 	@ContainedIn
 	@IndexedEmbedded
+	@AttributeOverrides({
+
+			@AttributeOverride(name = "userName", column = @Column(name = "user_userName")),
+
+			@AttributeOverride(name = "password", column = @Column(name = "user_password")),
+
+			@AttributeOverride(name = "enabled", column = @Column(name = "user_enabled")),
+
+			@AttributeOverride(name = "roles", column = @Column(name = "user_roles")),
+
+			@AttributeOverride(name = "email", column = @Column(name = "user_email"))
+
+	})
 	protected org.wc.trackrite.users.User user = new org.wc.trackrite.users.User();
 
 	public void setFirstName(String firstName) {

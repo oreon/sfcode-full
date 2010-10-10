@@ -47,9 +47,9 @@ public abstract class RoleActionBase extends BaseAction<Role>
 	private List<Role> roleRecordList;
 
 	public void setRoleId(Long id) {
-
 		setId(id);
-		loadAssociations();
+		if (!isPostBack())
+			loadAssociations();
 	}
 
 	public Long getRoleId() {
@@ -129,6 +129,9 @@ public abstract class RoleActionBase extends BaseAction<Role>
 
 	public void updateAssociations() {
 
+	}
+
+	public void updateComposedAssociations() {
 	}
 
 	public List<Role> getEntityList() {

@@ -3,8 +3,10 @@
 	xmlns:core="http://jboss.com/products/seam/core" 
 	xmlns:drools="http://jboss.com/products/seam/drools"
 	xmlns:bpm="http://jboss.com/products/seam/bpm"
+	xmlns:international="http://jboss.com/products/seam/international"
 	xmlns:security="http://jboss.com/products/seam/security" xmlns:web="http://jboss.com/products/seam/web"
 	xmlns:mail="http://jboss.com/products/seam/mail" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	
 	xmlns:persistence="http://jboss.com/products/seam/persistence"
 	xmlns:transaction="http://jboss.com/products/seam/transaction"
 	xmlns:navigation="http://jboss.com/products/seam/navigation"
@@ -22,6 +24,8 @@
  					http://jboss.com/products/seam/navigation-2.0.xsd 
  					http://jboss.com/products/seam/bpm 
  			      	http://jboss.com/products/seam/bpm-2.0.xsd
+ 			      	http://jboss.com/products/seam/international 
+ 			      	http://jboss.com/products/seam/international-2.0.xsd
  					http://jboss.com/products/seam/persistence 
  					http://jboss.com/products/seam/persistence-2.0.xsd">
 
@@ -80,6 +84,7 @@
 	<event type="org.jboss.seam.security.postAuthenticate">
 		<action execute="#{redirect.returnToCapturedView}" />
 	</event>
+	
 
 	<bpm:jbpm>
 		<bpm:process-definitions>
@@ -88,5 +93,6 @@
 	</bpm:jbpm>
 
 
+	<international:locale-selector cookie-enabled="true"/>
 
 </components>

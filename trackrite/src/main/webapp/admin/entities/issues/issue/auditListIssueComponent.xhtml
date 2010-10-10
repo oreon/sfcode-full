@@ -1,107 +1,94 @@
-<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
-			<h:form>
-				<rich:datascroller align="left" for="dataAudit" maxPages="20" renderIfSinglePage="false"/>
-				<br/>
+<?xml version="1.0" encoding="UTF-8"?>
 
-				<rich:dataTable id="dataAudit" rowClasses="odd, even" rows="30" styleClass="dataTable" value="#{issueAction.auditLog}" var="_log">
-
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Date"/>
-						</f:facet>
-						<h:outputText value="#{_log.dateCreated}"/>
-					</rich:column>
-
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Action"/>
-						</f:facet>
-						<h:outputText value="#{_log.action}"/>
-					</rich:column>
-
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="User"/>
-						</f:facet>
-						<h:outputText value="#{_log.username}"/>
-					</rich:column>
-					
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="Id"/>
-						</f:facet>
-						<h:outputText value="#{_log.entityId}"/>
-					</rich:column>
-					
-				
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.issue_title}"/>
-		</f:facet>
-		<h:outputText value="#{_log.entity.title}"/>
-	</rich:column>
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.issue_description}"/>
-		</f:facet>
-		<h:outputText value="#{_log.entity.description}"/>
-	</rich:column>
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.issue_screenShot}"/>
-		</f:facet>
-		<h:outputText value="#{_log.entity.screenShot}"/>
-	</rich:column>
-	
-		
-			
-				
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.issue_project}"/>
-		</f:facet>
-		<s:link value="#{_log.entity.project.displayName}" view="/admin/entities/issues/project/viewProject.xhtml">
-			<f:param name="id" value="#{_entity.project.id}"/>
-			<f:param name="from" value="#{request.servletPath}"/>
-		</s:link>
-	</rich:column>
-			
-		
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.issue_status}"/>
-		</f:facet>
-		<h:outputText value="#{_log.entity.status}"/>
-	</rich:column>
-	
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.issue_priority}"/>
-		</f:facet>
-		<h:outputText value="#{_log.entity.priority}"/>
-	</rich:column>
-	
-		
-			
-				
-	<rich:column>
-		<f:facet name="header">
-			<h:outputText value="#{msg.issue_developer}"/>
-		</f:facet>
-		<s:link value="#{_log.entity.developer.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml">
-			<f:param name="id" value="#{_entity.developer.id}"/>
-			<f:param name="from" value="#{request.servletPath}"/>
-		</s:link>
-	</rich:column>
-			
-		
-	
-				
-			</rich:dataTable>
-		</h:form>
-		</html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:form> 
+    <rich:datascroller align="left" for="dataAudit" maxPages="20" renderIfSinglePage="false"/>  
+    <br/>  
+    <rich:dataTable id="dataAudit" var="_log" value="#{issueAction.auditLog}" rows="30" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Date"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.dateCreated}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Action"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.action}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="User"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.username}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Id"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entityId}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.issue_title}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.title}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.issue_description}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.description}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.issue_screenShot}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.screenShot}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.issue_project}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.project.displayName}" view="/admin/entities/issues/project/viewProject.xhtml"> 
+          <f:param name="id" value="#{_entity.project.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.issue_status}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.status}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.issue_priority}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.priority}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.issue_developer}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.developer.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml"> 
+          <f:param name="id" value="#{_entity.developer.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.issue_closeTime}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.closeTime}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.issue_estimate}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.estimate}"/> 
+      </rich:column> 
+    </rich:dataTable> 
+  </h:form> 
+</html>

@@ -10,13 +10,14 @@
 	<ui:define name="body">
 		Choose role
 		<h:form>
-			<rich:pickList value="#{userAction.listRoles}" >
-				<s:convertEntity />
-				<s:selectItems value="#{userAction.availableRoles}" var="group"
-					label="#{group.name}" />
-			</rich:pickList>
-
-			<rich:spacer height="15" />
+			
+			
+			<rich:listShuttle sourceValue="#{userAction.availableRoles}"
+            	targetValue="#{userAction.listRoles}" var="item" >
+            	<s:convertEntity />
+            	<rich:column> #{item.displayName} </rich:column>
+            </rich:listShuttle>
+            
 
 			<center><h:commandButton value="Save"
 				action="#{userAction.save}" /></center>

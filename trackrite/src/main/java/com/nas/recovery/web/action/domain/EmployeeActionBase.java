@@ -34,6 +34,8 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
+import org.wc.trackrite.issues.Issue;
+
 public abstract class EmployeeActionBase
 		extends
 			com.nas.recovery.web.action.domain.PersonAction<Employee>
@@ -55,9 +57,9 @@ public abstract class EmployeeActionBase
 	private List<Employee> employeeRecordList;
 
 	public void setEmployeeId(Long id) {
-
 		setId(id);
-		loadAssociations();
+		if (!isPostBack())
+			loadAssociations();
 	}
 
 	public void setDepartmentId(Long id) {
@@ -142,7 +144,8 @@ public abstract class EmployeeActionBase
 	/** This function adds associated entities to an example criterion
 	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
 	 */
-	public void addAssoications(Criteria criteria) {
+	@Override
+	public void addAssociations(Criteria criteria) {
 
 		if (employee.getDepartment() != null) {
 			criteria = criteria.add(Restrictions.eq("department.id", employee
@@ -161,6 +164,8 @@ public abstract class EmployeeActionBase
 			departmentAction.setInstance(getInstance().getDepartment());
 		}
 
+		initListIssues();
+
 		try {
 
 			issueList.getIssue().setDeveloper(getInstance());
@@ -178,6 +183,49 @@ public abstract class EmployeeActionBase
 		issue.setDeveloper(employee);
 		events.raiseTransactionSuccessEvent("archivedIssue");
 
+	}
+
+	protected List<org.wc.trackrite.issues.Issue> listIssues;
+
+	void initListIssues() {
+		listIssues = new ArrayList<org.wc.trackrite.issues.Issue>();
+
+		if (getInstance().getIssues().isEmpty()) {
+
+		} else
+			listIssues.addAll(getInstance().getIssues());
+
+	}
+
+	public List<org.wc.trackrite.issues.Issue> getListIssues() {
+		if (listIssues == null)
+			initListIssues();
+		return listIssues;
+	}
+
+	public void setListIssues(List<org.wc.trackrite.issues.Issue> listIssues) {
+		this.listIssues = listIssues;
+	}
+
+	public void deleteIssues(int index) {
+		listIssues.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addIssues() {
+		Issue issues = new Issue();
+
+		issues.setDeveloper(getInstance());
+
+		getListIssues().add(issues);
+	}
+
+	public void updateComposedAssociations() {
+
+		if (listIssues != null) {
+			getInstance().getIssues().clear();
+			getInstance().getIssues().addAll(listIssues);
+		}
 	}
 
 	public List<Employee> getEntityList() {

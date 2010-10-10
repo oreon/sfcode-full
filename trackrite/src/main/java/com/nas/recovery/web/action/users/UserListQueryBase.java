@@ -26,7 +26,7 @@ public abstract class UserListQueryBase extends BaseQuery<User, Long> {
 
 	//private static final String EJBQL = "select user from User user";
 
-	private User user = new User();
+	protected User user = new User();
 
 	private static final String[] RESTRICTIONS = {
 			"user.id = #{userList.user.id}",

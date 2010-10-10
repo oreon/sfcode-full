@@ -43,39 +43,39 @@ public abstract class TimeTrackingEntryActionBase
 	@DataModelSelection
 	private TimeTrackingEntry timeTrackingEntry;
 
-	@In(create = true, value = "employeeAction")
-	com.nas.recovery.web.action.domain.EmployeeAction employeeAction;
+	@In(create = true, value = "issueAction")
+	com.nas.recovery.web.action.issues.IssueAction issueAction;
 
-	@In(create = true, value = "projectAction")
-	com.nas.recovery.web.action.issues.ProjectAction projectAction;
+	@In(create = true, value = "workDayAction")
+	com.nas.recovery.web.action.timetrack.WorkDayAction workDayAction;
 
 	@DataModel
 	private List<TimeTrackingEntry> timeTrackingEntryRecordList;
 
 	public void setTimeTrackingEntryId(Long id) {
-
 		setId(id);
-		loadAssociations();
+		if (!isPostBack())
+			loadAssociations();
 	}
 
-	public void setEmployeeId(Long id) {
+	public void setIssueId(Long id) {
 		if (id != null && id > 0)
-			getInstance().setEmployee(employeeAction.loadFromId(id));
+			getInstance().setIssue(issueAction.loadFromId(id));
 	}
 
-	public Long getEmployeeId() {
-		if (getInstance().getEmployee() != null)
-			return getInstance().getEmployee().getId();
+	public Long getIssueId() {
+		if (getInstance().getIssue() != null)
+			return getInstance().getIssue().getId();
 		return 0L;
 	}
-	public void setProjectId(Long id) {
+	public void setWorkDayId(Long id) {
 		if (id != null && id > 0)
-			getInstance().setProject(projectAction.loadFromId(id));
+			getInstance().setWorkDay(workDayAction.loadFromId(id));
 	}
 
-	public Long getProjectId() {
-		if (getInstance().getProject() != null)
-			return getInstance().getProject().getId();
+	public Long getWorkDayId() {
+		if (getInstance().getWorkDay() != null)
+			return getInstance().getWorkDay().getId();
 		return 0L;
 	}
 
@@ -116,15 +116,14 @@ public abstract class TimeTrackingEntryActionBase
 
 	public void wire() {
 		getInstance();
-		org.wc.trackrite.domain.Employee employee = employeeAction
-				.getDefinedInstance();
-		if (employee != null) {
-			getInstance().setEmployee(employee);
+		org.wc.trackrite.issues.Issue issue = issueAction.getDefinedInstance();
+		if (issue != null) {
+			getInstance().setIssue(issue);
 		}
-		org.wc.trackrite.issues.Project project = projectAction
+		org.wc.trackrite.timetrack.WorkDay workDay = workDayAction
 				.getDefinedInstance();
-		if (project != null) {
-			getInstance().setProject(project);
+		if (workDay != null) {
+			getInstance().setWorkDay(workDay);
 		}
 
 	}
@@ -155,16 +154,17 @@ public abstract class TimeTrackingEntryActionBase
 	/** This function adds associated entities to an example criterion
 	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
 	 */
-	public void addAssoications(Criteria criteria) {
+	@Override
+	public void addAssociations(Criteria criteria) {
 
-		if (timeTrackingEntry.getEmployee() != null) {
-			criteria = criteria.add(Restrictions.eq("employee.id",
-					timeTrackingEntry.getEmployee().getId()));
+		if (timeTrackingEntry.getIssue() != null) {
+			criteria = criteria.add(Restrictions.eq("issue.id",
+					timeTrackingEntry.getIssue().getId()));
 		}
 
-		if (timeTrackingEntry.getProject() != null) {
-			criteria = criteria.add(Restrictions.eq("project.id",
-					timeTrackingEntry.getProject().getId()));
+		if (timeTrackingEntry.getWorkDay() != null) {
+			criteria = criteria.add(Restrictions.eq("workDay.id",
+					timeTrackingEntry.getWorkDay().getId()));
 		}
 
 	}
@@ -175,18 +175,21 @@ public abstract class TimeTrackingEntryActionBase
 	 */
 	public void loadAssociations() {
 
-		if (timeTrackingEntry.getEmployee() != null) {
-			employeeAction.setInstance(getInstance().getEmployee());
+		if (timeTrackingEntry.getIssue() != null) {
+			issueAction.setInstance(getInstance().getIssue());
 		}
 
-		if (timeTrackingEntry.getProject() != null) {
-			projectAction.setInstance(getInstance().getProject());
+		if (timeTrackingEntry.getWorkDay() != null) {
+			workDayAction.setInstance(getInstance().getWorkDay());
 		}
 
 	}
 
 	public void updateAssociations() {
 
+	}
+
+	public void updateComposedAssociations() {
 	}
 
 	public List<TimeTrackingEntry> getEntityList() {

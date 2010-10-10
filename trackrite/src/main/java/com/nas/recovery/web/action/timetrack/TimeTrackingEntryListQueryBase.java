@@ -28,40 +28,27 @@ public abstract class TimeTrackingEntryListQueryBase
 
 	//private static final String EJBQL = "select timeTrackingEntry from TimeTrackingEntry timeTrackingEntry";
 
-	private TimeTrackingEntry timeTrackingEntry = new TimeTrackingEntry();
+	protected TimeTrackingEntry timeTrackingEntry = new TimeTrackingEntry();
 
-	private Range<Integer> timeTrackingEntry_hoursRange = new Range<Integer>();
-	public Range<Integer> getTimeTrackingEntry_hoursRange() {
-		return timeTrackingEntry_hoursRange;
+	private Range<Integer> hoursRange = new Range<Integer>();
+	public Range<Integer> getHoursRange() {
+		return hoursRange;
 	}
-	public void setTimeTrackingEntry_hours(
-			Range<Integer> timeTrackingEntry_hoursRange) {
-		this.timeTrackingEntry_hoursRange = timeTrackingEntry_hoursRange;
-	}
-
-	private Range<Date> timeTrackingEntry_dateRange = new Range<Date>();
-	public Range<Date> getTimeTrackingEntry_dateRange() {
-		return timeTrackingEntry_dateRange;
-	}
-	public void setTimeTrackingEntry_date(
-			Range<Date> timeTrackingEntry_dateRange) {
-		this.timeTrackingEntry_dateRange = timeTrackingEntry_dateRange;
+	public void setHours(Range<Integer> hoursRange) {
+		this.hoursRange = hoursRange;
 	}
 
 	private static final String[] RESTRICTIONS = {
 			"timeTrackingEntry.id = #{timeTrackingEntryList.timeTrackingEntry.id}",
 
-			"timeTrackingEntry.employee = #{timeTrackingEntryList.timeTrackingEntry.employee}",
-
-			"timeTrackingEntry.hours >= #{timeTrackingEntryList.timeTrackingEntry_hoursRange.begin}",
-			"timeTrackingEntry.hours <= #{timeTrackingEntryList.timeTrackingEntry_hoursRange.end}",
+			"timeTrackingEntry.hours >= #{timeTrackingEntryList.hoursRange.begin}",
+			"timeTrackingEntry.hours <= #{timeTrackingEntryList.hoursRange.end}",
 
 			"lower(timeTrackingEntry.details) like concat(lower(#{timeTrackingEntryList.timeTrackingEntry.details}),'%')",
 
-			"timeTrackingEntry.date >= #{timeTrackingEntryList.timeTrackingEntry_dateRange.begin}",
-			"timeTrackingEntry.date <= #{timeTrackingEntryList.timeTrackingEntry_dateRange.end}",
+			"timeTrackingEntry.issue.id = #{timeTrackingEntryList.timeTrackingEntry.issue.id}",
 
-			"timeTrackingEntry.project = #{timeTrackingEntryList.timeTrackingEntry.project}",
+			"timeTrackingEntry.workDay.id = #{timeTrackingEntryList.timeTrackingEntry.workDay.id}",
 
 			"timeTrackingEntry.dateCreated <= #{timeTrackingEntryList.dateCreatedRange.end}",
 			"timeTrackingEntry.dateCreated >= #{timeTrackingEntryList.dateCreatedRange.begin}",};

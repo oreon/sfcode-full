@@ -28,7 +28,7 @@ public abstract class DepartmentListQueryBase
 
 	//private static final String EJBQL = "select department from Department department";
 
-	private Department department = new Department();
+	protected Department department = new Department();
 
 	private static final String[] RESTRICTIONS = {
 			"department.id = #{departmentList.department.id}",

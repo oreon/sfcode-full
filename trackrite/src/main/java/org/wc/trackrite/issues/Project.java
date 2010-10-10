@@ -16,7 +16,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -45,7 +47,7 @@ import org.hibernate.annotations.Filter;
 public class Project extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1744216049L;
 
-	//issues->project ->Project->Issue->Issue
+	//issues->project ->Project->Project->Project
 
 	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "project_ID", nullable = true)
@@ -53,14 +55,17 @@ public class Project extends BusinessEntity implements java.io.Serializable {
 	private Set<Issue> issues = new HashSet<Issue>();
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String name;
 
 	@Length(min = 40)
 	@Lob
 	@Column(name = "description", unique = false)
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String description;
 
-	//employees->projects ->Project->Employee->Employee
+	//employees->projects ->Project->Project->Project
 
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "projects_employees", joinColumns = @JoinColumn(name = "projects_ID"), inverseJoinColumns = @JoinColumn(name = "employees_ID"))
@@ -114,6 +119,8 @@ public class Project extends BusinessEntity implements java.io.Serializable {
 		listSearchableFields.addAll(super.listSearchableFields());
 
 		listSearchableFields.add("name");
+
+		listSearchableFields.add("description");
 
 		return listSearchableFields;
 	}

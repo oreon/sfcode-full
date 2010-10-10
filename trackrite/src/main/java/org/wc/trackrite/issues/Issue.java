@@ -16,7 +16,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -48,9 +50,12 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	@NotNull
 	@Length(min = 2, max = 50)
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String title;
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String description;
 
 	@Embedded
@@ -60,8 +65,8 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 			@AttributeOverride(name = "data", column = @Column(name = "screenShot_data", length = 4194304))})
 	protected FileAttachment screenShot = new FileAttachment();
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "project_id", nullable = false, updatable = true)
+	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "project_id", nullable = false, updatable = false)
 	@ContainedIn
 	protected Project project;
 
@@ -69,10 +74,14 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 
 	protected Priority priority = Priority.CRITICAL_NOT_URGENT;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "developer_id", nullable = true, updatable = true)
+	@OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "developer_id", nullable = true, updatable = false)
 	@ContainedIn
 	protected org.wc.trackrite.domain.Employee developer;
+
+	protected Date closeTime;
+
+	protected Integer estimate;
 
 	public void setTitle(String title) {
 		this.title = title;
@@ -137,6 +146,24 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 		return developer;
 	}
 
+	public void setCloseTime(Date closeTime) {
+		this.closeTime = closeTime;
+	}
+
+	public Date getCloseTime() {
+
+		return closeTime;
+	}
+
+	public void setEstimate(Integer estimate) {
+		this.estimate = estimate;
+	}
+
+	public Integer getEstimate() {
+
+		return estimate;
+	}
+
 	@Transient
 	public String getDisplayName() {
 		return title;
@@ -151,6 +178,8 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 		listSearchableFields.addAll(super.listSearchableFields());
 
 		listSearchableFields.add("title");
+
+		listSearchableFields.add("description");
 
 		return listSearchableFields;
 	}

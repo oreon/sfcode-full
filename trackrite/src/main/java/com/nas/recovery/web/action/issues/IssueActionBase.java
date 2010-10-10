@@ -53,9 +53,9 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 	private List<Issue> issueRecordList;
 
 	public void setIssueId(Long id) {
-
 		setId(id);
-		loadAssociations();
+		if (!isPostBack())
+			loadAssociations();
 	}
 
 	public void setProjectId(Long id) {
@@ -153,6 +153,8 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 	}
 
 	public String downloadScreenShot(Long id) {
+		if (id == null || id == 0)
+			id = currentEntityId;
 		setId(id);
 		downloadAttachment(getInstance().getScreenShot());
 		return "success";
@@ -161,7 +163,8 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 	/** This function adds associated entities to an example criterion
 	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
 	 */
-	public void addAssoications(Criteria criteria) {
+	@Override
+	public void addAssociations(Criteria criteria) {
 
 		if (issue.getProject() != null) {
 			criteria = criteria.add(Restrictions.eq("project.id", issue
@@ -193,6 +196,9 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 
 	public void updateAssociations() {
 
+	}
+
+	public void updateComposedAssociations() {
 	}
 
 	public List<Issue> getEntityList() {

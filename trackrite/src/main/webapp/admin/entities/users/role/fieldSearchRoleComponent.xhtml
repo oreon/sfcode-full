@@ -1,30 +1,24 @@
-<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <div class="entry errors">
     <h:messages globalOnly="true"/>
-  </div>
-	<h:panelGrid columns="6">
-	
-	<h:panelGroup>
-	<h:outputText value="#{msg.role_name} * "/> <br/>
-	
-		<h:inputText id="role_name" value="#{roleList.role.name}"/>
-	
-	
-	</h:panelGroup>
-
-	
-	
-	
-			<s:decorate template="/layout/display.xhtml">
-				<ui:define name="label">From</ui:define> <br/>
-				<rich:calendar id="from" value="#{roleList.dateCreatedRange.begin}"/>
-			</s:decorate>
-
-			<s:decorate template="/layout/display.xhtml">
-				<ui:define name="label">To</ui:define> <br/>
-				<rich:calendar id="to" value="#{roleList.dateCreatedRange.end}"/>
-			</s:decorate>
-
-	</h:panelGrid>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.role_name} * "/>  
+      <br/>  
+      <h:inputText id="name" value="#{roleList.role.name}"/> 
+    </h:panelGroup>  
+    <s:decorate template="/layout/display.xhtml"> 
+      <ui:define name="label">From</ui:define>  
+      <br/>  
+      <rich:calendar id="from" value="#{roleList.dateCreatedRange.begin}"/> 
+    </s:decorate>  
+    <s:decorate template="/layout/display.xhtml"> 
+      <ui:define name="label">To</ui:define>  
+      <br/>  
+      <rich:calendar id="to" value="#{roleList.dateCreatedRange.end}"/> 
+    </s:decorate> 
+  </h:panelGrid> 
 </ui:composition>

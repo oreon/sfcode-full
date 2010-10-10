@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition xmlns="" name="leaveRequest">
+	
+	<swimlane name="initiator">
+		<assignment class="com.nas.recovery.web.action.workflowmgt.leaveRequest.assign.InitiatorAssignment"  ></assignment>
+	</swimlane>
+
+	<swimlane name="manager">
+		<assignment class="com.nas.recovery.web.action.workflowmgt.leaveRequest.assign.ManagerAssignment"  ></assignment>
+	</swimlane>
+
+	
+	<task-node name="provideDetails">
+		<task name="provideDetailsTask" swimlane="initiator" notify="true">
+		</task>
+		
+		<transition to="retracted" name="retract">
+		</transition>
+		<transition to="reviewRequest" name="submit">
+		</transition>
+	
+ 
+	</task-node>
+
+ 	<start-state name="">
+		<task name="Task" swimlane="initiator">
+		</task>
+		<transition to="reviewRequest" name="createRequest"></transition>
+		
+	</start-state>
+ 
+ 	<end-state name="retracted"></end-state>
+ 
+ 	<end-state name="rejected"></end-state>
+ 
+	<task-node name="reviewRequest">
+		<task name="reviewRequestTask" swimlane="manager" notify="true">
+		</task>
+		
+		<transition to="provideDetails" name="moreDetails">
+		</transition>
+		<transition to="accepted" name="accept">
+		</transition>
+		<transition to="rejected" name="reject">
+		</transition>
+	
+ 
+	</task-node>
+
+ 	<end-state name="accepted"></end-state>
+ 
+</process-definition>
+	

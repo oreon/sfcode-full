@@ -11,9 +11,11 @@ import org.wc.trackrite.users.Role;
 @Name("userAction")
 public class UserAction extends UserActionBase implements java.io.Serializable {
 	
+	List<Role> availableRoles = null;
+	
 	public List<Role> getAvailableRoles() {
-		if(availableRoles == null){
-			init();
+		if(availableRoles == null ){
+			initAvailableRoles();
 		}
 		return availableRoles;
 	}
@@ -22,9 +24,13 @@ public class UserAction extends UserActionBase implements java.io.Serializable {
 		this.availableRoles = availableRoles;
 	}
 	
-	
+	public void initAvailableRoles() {
+		availableRoles = getEntityManager().createQuery("select r from Role r").getResultList();
+		availableRoles.removeAll(getInstance().getRoles());
+	}
 
-	List<Role>  availableRoles = null;
+
+	
 	List<Role>  listRoles = null;
 	
 	void initListRoles() {
@@ -47,14 +53,17 @@ public class UserAction extends UserActionBase implements java.io.Serializable {
 		return listRoles;
 	}
 
-	@Begin
-	public String init() {
-		if(instance == null){
-			instance = loadFromId(1L);
-		}
-		availableRoles = getEntityManager().createQuery("select r from Role r").getResultList();
-		availableRoles.removeAll(getInstance().getRoles());
-		return null;
+	
+	
+	public void setListRoles(List<Role> listRoles) {
+		this.listRoles = listRoles;
+	}
+
+	@Override
+	public String save() {
+		instance.getRoles().clear();
+		instance.getRoles().addAll(listRoles);
+		return super.save();
 	}
 
 }
