@@ -108,15 +108,10 @@
 
 «DEFINE genAction FOR wcprofile::State»
 	<state name="«name.removeSpaces()»">
-		«FOREACH outgoing() AS o-»
-		<transition to="«o.target.name.removeSpaces()»" name="«o.getTransName()»">
-		 <!--
-			<action class="com.nas.trackrite.UpdateLeaves" />
-		-->
-		</transition>
-		«ENDFOREACH»
+		«EXPAND genTransitions»
 	</state>
 «ENDDEFINE»
+
 
 
 
@@ -125,9 +120,7 @@
  	<start-state name="«name.removeSpaces()»">
 		<task name="«name.removeSpaces()»Task" swimlane="«getSwimlane()»">
 		</task>
-		«FOREACH outgoing() AS o-»
-		<transition to="«o.target.name.removeSpaces()»" name="«o.getTransName()»"></transition>
-		«ENDFOREACH»
+		«EXPAND genTransitions»
 	</start-state>
  «ENDDEFINE»
 
@@ -147,7 +140,14 @@
  «DEFINE genTransitions FOR uml::ActivityNode»
  	«FOREACH outgoing() AS o-»
 		<transition to="«o.target.name.removeSpaces()»" name="«o.getTransName()»">
+			«EXPAND genActionExpr(o) -»
 		</transition>
 	«ENDFOREACH»
  «ENDDEFINE»
-
+ 
+ «DEFINE genActionExpr(uml::ControlFlow a) FOR uml::ActivityNode»
+ «ENDDEFINE»
+ 
+«DEFINE genActionExpr (wcprofile::WorkflowTransition a) FOR uml::ActivityNode »
+	«IF a.expression != null»<action expression="#{«a.expression»}" />«ENDIF»
+«ENDDEFINE»
