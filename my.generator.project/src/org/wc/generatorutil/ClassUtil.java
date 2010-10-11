@@ -575,5 +575,19 @@ public class ClassUtil {
 	public static List getCounters() {
 		return Arrays.asList(arrString);
 	}
+	
+	//for report group generation we need to seperate calc from field
+	public static String getCalc(String t){
+		return t.split(":")[0].trim();
+	}
+	
+	//for report group generation we need to seperate calc from field
+	public static String getField(String t){
+		String[] arr = t.split(":");
+		return (arr.length > 1 )? arr[1].trim(): "";
+	}
+	
+	
+	
 
 }

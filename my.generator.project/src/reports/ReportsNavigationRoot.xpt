@@ -6,21 +6,21 @@
 «EXTENSION template::webExtensions»
 
 «DEFINE genNav FOR uml::Model»
-	«FILE getEntitiesRoot() +"/" + "navigation"  + "." + getExtension()»
-	<html «EXPAND WebRoot::genIncludes-» >
+	«FILE getReportsRoot() +"/" + "navigation"  + "." + getExtension()»
+	<html «EXPAND richfaces::WebRoot::genIncludes-» >
 		<h:form>
 		<rich:panelMenu style="width:162px" mode="ajax"
 				iconExpandedGroup="disc" iconCollapsedGroup="disc"
 				iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right"
 				iconCollapsedTopGroup="chevronDown" iconCollapsedTopPosition="right">
 		«FOREACH allOwnedElements().typeSelect(uml::Package) AS p»
-		«IF !p.packagedElement.typeSelect(wcprofile::Entity).isEmpty-»
+		«IF !p.packagedElement.typeSelect(wcprofile::Report).isEmpty-»
 	
 	    <rich:panelMenuGroup label="«p.name.toFirstUpper()»"  expanded="true" >
 		
-		«FOREACH p.packagedElement.typeSelect(wcprofile::Entity) AS e-»
+		«FOREACH p.packagedElement.typeSelect(wcprofile::Report) AS e-»
 		<rich:panelMenuItem>
-			<s:link propagation="none"  value="«e.name»" action="«e.asVar()»" />
+			<s:link propagation="none"  value="«e.name»" action="#{userAction.runReport('«e.name»')}" />
 		</rich:panelMenuItem>
 		«ENDFOREACH»
 		
@@ -33,19 +33,3 @@
 	«ENDFILE»
 «ENDDEFINE»
 
-«DEFINE genSummaryPage FOR uml::Model»
-	«FILE getEntitiesRoot() +"/" + "summary"  + "." + getExtension()»
-<ui:composition «EXPAND WebRoot::genIncludes-»
-	template = "«getAdminTemplate()»" >	
-	<ui:define name="content">
-	<h:form>
-	<ul>
-	«FOREACH allOwnedElements().typeSelect(wcprofile::Entity) AS e»
-			<li><h:commandLink value="«e.name»" action="«e.asVar()»" /> </li>
-	«ENDFOREACH»
-	</ul>
-	</h:form>
-	</ui:define> 
-</ui:composition>
-	«ENDFILE»
-«ENDDEFINE»

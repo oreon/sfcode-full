@@ -9,6 +9,7 @@
 
 «DEFINE Root FOR uml::Model»
 	«EXPAND gen FOREACH allOwnedElements().typeSelect(wcprofile::Report)»
+	«EXPAND ReportsNavigationRoot::genNav FOR this»
 «ENDDEFINE»
 
 
@@ -19,7 +20,8 @@
 PUBLIC "-//JasperReports//DTD Report Design//EN"
 "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
-<jasperReport name="«name»">
+<jasperReport name="«name»" isTitleNewPage="false"
+		 isSummaryNewPage="false">
 
 	<parameter name="ReportTitle" class="java.lang.String"/>
 
@@ -70,14 +72,13 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 		</band>
 	</summary>
 	
-
 </jasperReport>
 «ENDFILE»
 
 «ENDDEFINE»  
 
 «REM» Generate the  field declarations «ENDREM»
-«DEFINE FieldDec FOR wcprofile::reports::ReportField-»
+«DEFINE FieldDec FOR wcprofile::ReportField-»
 	«IF getFieldExpression == null-»
 	<field name="«genFieldExpr(type)-»" class="java.lang.«getFieldType()-»"/>
 	«ENDIF»
@@ -88,7 +89,8 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 «ENDDEFINE»
 
 «REM» Generate the displayed fields «ENDREM»
-«DEFINE FieldGen FOR wcprofile::reports::ReportGroup-»
+«DEFINE FieldDec FOR wcprofile::ReportGroup-»
+	<field name="«genFieldExpr(type)-»" class="java.lang.«type.name-»"/>
 «ENDDEFINE»
 
 «DEFINE FieldGen FOR ReportField-»
@@ -117,7 +119,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 
 
 «REM» Generate the  field headers «ENDREM»
-«DEFINE FieldHdr FOR wcprofile::reports::ReportGroup-»
+«DEFINE FieldHdr FOR wcprofile::ReportGroup-»
 «ENDDEFINE»
 
 «DEFINE FieldHdr FOR ReportField-»
@@ -137,15 +139,15 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 «ENDDEFINE»
 
 «DEFINE GroupGen FOR ReportGroup»
-	<group name="Group«name»" minHeightToStartNewPage="60">
+	<group name="Group«getGroupName()»" minHeightToStartNewPage="60">
 		<groupExpression><![CDATA[$F{«name»}]]></groupExpression>
 		<groupHeader>
 			<band height="20">
-				<textField evaluationTime="Group" evaluationGroup="Group«name»" bookmarkLevel="1">
+				<textField evaluationTime="Group" evaluationGroup="Group«getGroupName()»" bookmarkLevel="1">
 					<reportElement mode="Opaque" x="0" y="5" width="515" height="15" backcolor="#c0c0c0" />
 					<box leftPadding="10" bottomBorder="1Point"/>
 					<textFieldExpression class="java.lang.String">
-						<![CDATA["  " + String.valueOf($V{Group«name»Counter}) + ". " + String.valueOf($F{«name»})]]>
+						<![CDATA["  " + String.valueOf($V{Group«getGroupName()»Counter}) + ". " + String.valueOf($F{«name»})]]>
 					</textFieldExpression>
 					<anchorNameExpression><![CDATA[String.valueOf($F{«name»})]]></anchorNameExpression>
 				</textField>
@@ -159,13 +161,13 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 				<staticText>
 					<reportElement x="«((515/65) - (summaryList.size * 2) + getCounter()) * 65»" y="1" width="60" height="15" />
 					<textElement textAlignment="Right"/>
-					<text><![CDATA[«s»]]></text>
+					<text><![CDATA[«s.toFirstUpper()»:]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="«((515/65) - (summaryList.size * 2) + getCounter()) * 65 »" y="1" width="30" height="15" />
 					<textElement textAlignment="Right"/>
-					<textFieldExpression class="«s == "count"?"java.lang.Integer":"java.lang.Double"»">
-						<![CDATA[$V{Group«name»_«s.toUpperCase()»}]]>
+					<textFieldExpression class="«s == "count"?"java.lang.Integer":"java.lang." + class.getAttrib(s.getField()).getFieldType()»">
+						<![CDATA[$V{Group«getGroupName()»_«s == "count"?s.getCalculation().toUpperCase():s.getCalculation()»}]]>
 					</textFieldExpression>
 				</textField>
 				«ENDFOREACH»
@@ -179,8 +181,8 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 «ENDDEFINE»
 
 «DEFINE GenGroupCounter FOR wcprofile::ReportGroup-»
-	<variable name="Group«name»Counter" class="java.lang.Integer" incrementType="Group" 
-		incrementGroup="Group«name»" calculation="Count">
+	<variable name="Group«getGroupName()»Counter" class="java.lang.Integer" incrementType="Group" 
+		incrementGroup="Group«getGroupName()»" calculation="Count">
 		<variableExpression><![CDATA[Boolean.TRUE]]></variableExpression>
 	</variable>
 «ENDDEFINE»
@@ -191,23 +193,31 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 
 «REM» for group summary variables«ENDREM»
 
-«DEFINE GenGroupSummaryVar FOR wcprofile::reports::ReportGroup-»
+«DEFINE GenGroupSummaryVar FOR wcprofile::ReportGroup-»
 	«FOREACH summaryFields.getAsList() AS s»
+	«LET s.getCalculation() AS calc»
+	«LET s.getField() AS field»
+	
+	
 	«IF s.toUpperCase() != "COUNT"»
-	<variable name="Group«name»_«s»" class="«Class.getElementType(s)»"
-		calculation="«s»" resetType="Group" resetGroup="Group«name»">
+	<variable name="Group«getGroupName()»_«calc»" class="java.lang.«class.getAttrib(s.getField()).getFieldType()-»"
+		calculation="«calc.toFirstUpper()»" resetType="Group" resetGroup="Group«getGroupName()»">
 		<variableExpression>
-			<![CDATA[$F{«s»}]]>
+			<![CDATA[$F{«field»}]]>
 		</variableExpression>
 	</variable>
 	
-	<variable name="«s»" class="«java.lang.Double»"
+	«REM»comment
+	<variable name="«s»" class="java.lang.Double"
 		calculation="«s»" >
 		<variableExpression>
 			<![CDATA[$F{«s»}]]>
 		</variableExpression>
 	</variable>
+	«ENDREM»
 	«ENDIF»
+	«ENDLET»
+	«ENDLET»
 	«ENDFOREACH»
 «ENDDEFINE»
 
@@ -217,14 +227,14 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 «DEFINE SummaryGen FOR uml::Property-»
 «ENDDEFINE»
 
-«DEFINE SummaryGen FOR wcprofile::reports::ReportGroup-»
+«DEFINE SummaryGen FOR wcprofile::ReportGroup-»
 	«FOREACH summaryFields.getAsList() AS s»
 	«IF s.toUpperCase() != "COUNT"»
 			<textField>
 				<reportElement x="420" y="1" width="30" height="15" />
 				<textElement textAlignment="Right"/>
 				<textFieldExpression class="java.lang.Integer">
-					<![CDATA[$V{«s»}]]>
+					<![CDATA[$V{Group«getGroupName()»_«s.getCalculation()»}]]>
 				</textFieldExpression>
 			</textField>
 	«ELSE»	
@@ -245,6 +255,14 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 				<reportElement x="0" y="0" width="515" height="1"/>
 				<graphicElement/>
 			</line>
+			<staticText>
+				<reportElement x="0" y="10" width="515" height="30" />
+				<textElement textAlignment="Center">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[«title == null? name : title»]]></text>
+			</staticText>
+			«REM»comment
 			<textField isBlankWhenNull="true" bookmarkLevel="1">
 				<reportElement x="0" y="10" width="515" height="30" />
 				<textElement textAlignment="Center">
@@ -253,7 +271,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{ReportTitle}]]></textFieldExpression>
 				<anchorNameExpression><![CDATA["Title"]]></anchorNameExpression>
 			</textField>
-			
+			«ENDREM»
 		</band>
 	</title>
 «ENDDEFINE»		
