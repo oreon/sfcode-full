@@ -7,16 +7,31 @@ extension org::openarchitectureware::uml2::profile::profiling;
 
 //in case of magicdraw we need to remove the root "Data" package
 getFieldType(Property prop):
-if(prop.type != PrimitiveType) then 
+if(prop.type.name == "Integer" || prop.type.name == "Double" || prop.type.name == "Date") then
+prop.type.name
+else if(prop.type != PrimitiveType) then 
 	"String"
 else if ( prop.association != null ) then 
 	"String"
 else
 	prop.type.name;
+	
+
+getGroupName(ReportGroup grp):
+grp.groupId == null ? grp.name : grp.groupId;
+
 
 	
 genFieldExpr(uml::Property p, uml::Enumeration t):
 p.name + ".displayName";
+
+
+getCalculation(String t ):
+JAVA org.wc.generatorutil.ClassUtil.getCalc(java.lang.String);
+
+getField(String t ):
+JAVA org.wc.generatorutil.ClassUtil.getField(java.lang.String);
+
  
 
 genFieldExpr(uml::Property p, uml::PrimitiveType t):
