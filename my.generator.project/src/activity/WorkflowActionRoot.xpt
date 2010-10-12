@@ -123,7 +123,7 @@
 
 
 «DEFINE ManualGen FOR uml::Activity»
-	«FILE  getWorkflowPathForFile() + ".java"  man_path »
+	«FILE  getWorkflowPathForFile() + ".java"  »
 	
 package « getWebPackageName() »;
 
@@ -133,16 +133,21 @@ package « getWebPackageName() »;
 //@Scope(ScopeType.CONVERSATION)
 public class «name.toFirstUpper()» extends «name.toFirstUpper()»Base {
 
-	@CreateProcess(definition = "«name»")
+	@CreateProcess(definition = "«name»" «EXPAND genProcessToken FOR this» )
 	public void startProcess() {
 	
 	}
 	
 }
 	«ENDFILE»
+«ENDDEFINE» 
+
+«DEFINE genProcessToken FOR wcprofile::WorkflowActivity»
+	«IF getAttrib('token') != null», processKey="#{«getAttrib('token').type.getAction()».instance.id}"«ENDIF»
 «ENDDEFINE»
 
 
+«DEFINE genProcessToken FOR uml::Activity»
+«ENDDEFINE»
 
-
-
+ 

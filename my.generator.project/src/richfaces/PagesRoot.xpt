@@ -16,9 +16,23 @@
        no-conversation-view-id="/home.«getExtension()»"
        login-view-id="/login.«getExtension()»">
 
+«PROTECT CSTART '<!--' CEND '-->' ID 'USER_EDITABLE_PAGESROOT'»
 	<page view-id="/admin/*">
         <restrict>#{s:hasRole('admin')}</restrict>
      </page>
+
+	<page view-id="/admin/tasks/viewTask.xhtml">
+		<param name="taskId" value="#{bugManagementProcessAction.taskId}" />
+		<navigation>
+			<rule if-outcome="next">
+				<redirect view-id="/admin/tasks/tasks.xhtml" />
+			</rule>
+		</navigation>
+	</page>
+«ENDPROTECT»
+	
+     
+     
     
     <page view-id="/adminLogin.«getExtension()»">     
         <navigation from-action="#{identity.login}">
