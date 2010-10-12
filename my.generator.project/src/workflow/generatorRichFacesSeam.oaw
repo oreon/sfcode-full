@@ -78,6 +78,7 @@ skipOnErrors="true">
 	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
 	<outlet path="${srcGenPath}">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter" />
 	</outlet>
 </component>
 
@@ -116,6 +117,7 @@ skipOnErrors="true">
 	<expand value="reports::ReportGen::Root FOR model"/>
 	<outlet path="${srcGenPath}/">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter" fileExtensions=".jrxml" />
 	</outlet>
 </component>
 
@@ -130,10 +132,14 @@ skipOnErrors="true">
 	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
 		<profile value="${model.dir}/wcprofile.profile.uml"/>
 	</metaModel>
+	<prSrcPaths value="${mainGenPath}" />
+	<prExcludes value="*.svn-base"/>
+	<prDefaultExcludes value="false"/>
 	<expand value="seam::SeamActionRoot::Root FOR model"/>
 	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
 	<outlet path="${srcGenPath}">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter"  />
 	</outlet>
 </component>
 
@@ -146,13 +152,14 @@ skipOnErrors="true">
 	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
 		<profile value="${model.dir}/wcprofile.profile.uml"/>
 	</metaModel>
+	<prSrcPaths value="${mainGenPath}" />
+	<prExcludes value="*.svn-base"/>
+	<prDefaultExcludes value="false"/>
 	<expand value="richfaces::WebRoot::Root FOR model"/>
 	<outlet path="${srcGenPath}">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter" fileExtensions=".xhtml" />
 	</outlet>
-	
-
 </component>
 
 
