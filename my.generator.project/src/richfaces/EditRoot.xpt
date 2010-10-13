@@ -117,7 +117,7 @@
 		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" >
 		</h:commandButton> 
 		<h:outputText value=" " />
-		<h:commandButton value="Back To Listing" immediate="true" action="#{redirect.returnToCapturedView()}" >
+		<h:commandButton value="Back To Listing" action="#{redirect.returnToCapturedView()}" >
 			<s:conversationPropagation type="end" />
 		</h:commandButton>  
 		«ELSE»
@@ -272,11 +272,11 @@
 «DEFINE getFileView FOR uml::Property»
 «LET isCurrentMultiMode()?"_" + getCurrentEntity().asVar(): getFieldNameWithAction() AS currentFile»
 	<c:choose>
-		<c:when test="${«currentFile».file.contentType.startsWith('image')}">
-			<s:graphicImage value="#{«currentFile».file.data}" />
+		<c:when test="${«currentFile».contentType.startsWith('image')}">
+			<s:graphicImage value="#{«currentFile».data}" />
 		</c:when>
 		<c:otherwise>
-			<s:link value="#{«currentFile».file.name}"  action="#{«class.getAction()».downloadFile(«currentFile».«IF isCurrentMultiMode()»instance.«ENDIF»id)}" propagation="none" >
+			<s:link value="#{«currentFile».name}"  action="#{«class.getAction()».downloadFile(«currentFile».«IF isCurrentMultiMode()»instance.«ENDIF»id)}" propagation="none" >
 				<f:param name="currentEntityId" value="#{«currentFile».id}" />
 			</s:link>
 		</c:otherwise>
@@ -294,9 +294,9 @@
 		</s:div>
 		<s:div rendered="#{«currentFile».id == null }">
 			<s:fileUpload
-				contentType="#{«currentFile».file.contentType}"
-				data="#{«currentFile».file.data}"
-				fileName="#{«currentFile».file.name}" />
+				contentType="#{«currentFile».contentType}"
+				data="#{«currentFile».data}"
+				fileName="#{«currentFile».name}" />
 		</s:div>
 		«ELSE»
 		«getTextForImgFile()» 

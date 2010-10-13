@@ -60,7 +60,7 @@ prop.lowerBound() > 0?false:true;
 
 
 isOneOnOne(Property prop):
-(prop.isUnique ) && prop.association != null && prop.opposite!= null &&  (prop.opposite.isUnique ) ;
+(!prop.isMultivalued()) && prop.association != null && prop.isContainedAssoc(); //prop.opposite!= null &&  (!prop.opposite.isMultivalued() ) ;
 
 isBidirectional(Property prop):
 prop.association != null && prop.opposite!= null;
@@ -69,7 +69,7 @@ isContainedAssoc(Property prop):
 prop.association.getAppliedStereotype("wcprofile::ContainedAssociation") != null;
 
 isBidirectional(Property prop):
- prop.association != null && prop.opposite!= null  ;
+prop.association != null && prop.opposite!= null  ;
 
 
 
