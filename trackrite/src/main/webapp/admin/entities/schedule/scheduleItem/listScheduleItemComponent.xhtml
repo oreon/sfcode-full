@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <rich:panel> 
+    <h:form> 
+      <f:facet name="header">ScheduleItem Search Results (#{empty scheduleItemList.resultList ? 0 : (scheduleItemList.paginated ? scheduleItemList.resultCount : scheduleItemList.resultList.size)})</f:facet>  
+      <rich:dataTable var="_scheduleItem" value="#{scheduleItemList.resultList}" id="scheduleItemList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty scheduleItemList.resultList}"> 
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{scheduleItemList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="scheduleItem.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_scheduleItem.id}"></h:outputText> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{scheduleItemList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.scheduleItem_startDate}"/>  
+              <ui:param name="propertyPath" value="scheduleItem.startDate"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_scheduleItem.startDate}"> 
+            <s:convertDateTime type="both" dateStyle="short"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{scheduleItemList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.scheduleItem_endDate}"/>  
+              <ui:param name="propertyPath" value="scheduleItem.endDate"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_scheduleItem.endDate}"> 
+            <s:convertDateTime type="both" dateStyle="short"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{scheduleItemList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="scheduleItem.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_scheduleItem.dateCreated}"> 
+            <s:convertDateTime type="both" dateStyle="short"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('scheduleItemAction', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/schedule/scheduleItem/viewScheduleItem.xhtml"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="scheduleItemId" value="#{_scheduleItem.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('scheduleItemAction', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/schedule/scheduleItem/editScheduleItem.xhtml"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="scheduleItemId" value="#{_scheduleItem.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('scheduleItemAction', 'archive')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{scheduleItemAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_scheduleItem.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_scheduleItem.id}"/> 
+          </s:link> 
+        </h:column> 
+      </rich:dataTable> 
+    </h:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{scheduleItemList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{scheduleItemList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{scheduleItemList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{scheduleItemList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{scheduleItemList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{scheduleItemList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{scheduleItemList.lastFirstResult}"/> 
+    </s:link> 
+  </div>  
+  <h:form> 
+    <s:div styleClass="actionButtons" rendered="#{empty from}"> 
+      <s:button value="Create New" view="/admin/entities/schedule/scheduleItem/editScheduleItem.xhtml" propagation="none"> 
+        <f:param name="scheduleItemId"/> 
+      </s:button> 
+    </s:div> 
+  </h:form> 
+</ui:composition>

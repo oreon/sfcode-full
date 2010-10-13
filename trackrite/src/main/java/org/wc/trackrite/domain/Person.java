@@ -48,23 +48,9 @@ public class Person extends BusinessEntity {
 	@Analyzer(definition = "customanalyzer")
 	protected String lastName;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", nullable = false, updatable = true)
 	@ContainedIn
-	@IndexedEmbedded
-	@AttributeOverrides({
-
-			@AttributeOverride(name = "userName", column = @Column(name = "user_userName")),
-
-			@AttributeOverride(name = "password", column = @Column(name = "user_password")),
-
-			@AttributeOverride(name = "enabled", column = @Column(name = "user_enabled")),
-
-			@AttributeOverride(name = "roles", column = @Column(name = "user_roles")),
-
-			@AttributeOverride(name = "email", column = @Column(name = "user_email"))
-
-	})
 	protected org.wc.trackrite.users.User user = new org.wc.trackrite.users.User();
 
 	public void setFirstName(String firstName) {

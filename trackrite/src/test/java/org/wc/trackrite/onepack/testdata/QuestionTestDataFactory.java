@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 import org.jboss.seam.Component;
-import org.witchcraft.seam.action.AbstractTestDataFactory; //import org.witchcraft.model.support.testing.AbstractTestDataFactory;
-//import org.witchcraft.model.support.testing.TestDataFactory;
+import org.witchcraft.action.test.AbstractTestDataFactory;
+
 //import org.witchcraft.model.support.errorhandling.BusinessException;
 //import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
 
@@ -39,7 +39,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("Malissa");
+			question.setText("delta");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -57,7 +57,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("beta");
+			question.setText("zeta");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -75,7 +75,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("Mark");
+			question.setText("gamma");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -93,7 +93,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("zeta");
+			question.setText("gamma");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -111,7 +111,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("theta");
+			question.setText("Lavendar");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 

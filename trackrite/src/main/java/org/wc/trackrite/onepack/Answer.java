@@ -57,7 +57,7 @@ public class Answer extends BusinessEntity implements java.io.Serializable {
 	@ContainedIn
 	protected Choice choice;
 
-	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "examInstance_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected ExamInstance examInstance;

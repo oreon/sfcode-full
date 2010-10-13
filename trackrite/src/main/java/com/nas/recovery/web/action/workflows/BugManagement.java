@@ -19,7 +19,7 @@ import org.wc.trackrite.issues.Status;
 
 import com.nas.recovery.web.action.issues.IssueAction;
 
-@Name("bugManagementProcessAction")
+@Name("bugManagementProcessAction22")
 // @Scope(ScopeType.CONVERSATION)
 public class BugManagement extends BugManagementBase {
 	

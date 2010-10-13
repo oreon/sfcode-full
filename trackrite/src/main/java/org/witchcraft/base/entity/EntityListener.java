@@ -13,7 +13,8 @@ public class EntityListener {
 	
 	Log log = LogFactory.getLog(EntityListener.class);
 	
-	@PrePersist
+	//@PrePersist
+	/*
 	public void setDatesAndUser(BusinessEntity modelBase) {
 		Date now = new Date();
 		if (modelBase.getDateCreated() == null) {
@@ -34,11 +35,11 @@ public class EntityListener {
 				}
 			}
 
-		} catch (IllegalStateException e) {
+		} catch (IllegalStateException e) {*
 			if (log.isInfoEnabled())
 				log.info("couldn't get component instance");
 		}
 
-	}
+	}*/
 
 }

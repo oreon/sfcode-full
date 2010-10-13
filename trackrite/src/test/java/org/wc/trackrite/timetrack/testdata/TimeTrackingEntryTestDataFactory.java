@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 import org.jboss.seam.Component;
-import org.witchcraft.seam.action.AbstractTestDataFactory; //import org.witchcraft.model.support.testing.AbstractTestDataFactory;
-//import org.witchcraft.model.support.testing.TestDataFactory;
+import org.witchcraft.action.test.AbstractTestDataFactory;
+
 //import org.witchcraft.model.support.errorhandling.BusinessException;
 //import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
 
@@ -42,9 +42,9 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(5074);
+			timeTrackingEntry.setHours(5861);
 
-			timeTrackingEntry.setDetails("gamma");
+			timeTrackingEntry.setDetails("beta");
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -65,9 +65,9 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(2948);
+			timeTrackingEntry.setHours(2216);
 
-			timeTrackingEntry.setDetails("Lavendar");
+			timeTrackingEntry.setDetails("beta");
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -88,9 +88,9 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(9339);
+			timeTrackingEntry.setHours(9048);
 
-			timeTrackingEntry.setDetails("pi");
+			timeTrackingEntry.setDetails("delta");
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -111,9 +111,9 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(4906);
+			timeTrackingEntry.setHours(5108);
 
-			timeTrackingEntry.setDetails("gamma");
+			timeTrackingEntry.setDetails("theta");
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -134,7 +134,7 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(8489);
+			timeTrackingEntry.setHours(677);
 
 			timeTrackingEntry.setDetails("Mark");
 

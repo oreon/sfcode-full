@@ -49,7 +49,7 @@ public class Employee extends org.wc.trackrite.domain.Person
 			java.io.Serializable {
 	private static final long serialVersionUID = 2046415010L;
 
-	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "department_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Department department;

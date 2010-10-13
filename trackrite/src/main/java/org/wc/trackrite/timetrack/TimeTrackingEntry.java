@@ -65,7 +65,7 @@ public class TimeTrackingEntry extends BusinessEntity
 	@ContainedIn
 	protected org.wc.trackrite.issues.Issue issue;
 
-	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "workDay_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected WorkDay workDay;

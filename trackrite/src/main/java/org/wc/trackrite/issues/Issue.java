@@ -65,7 +65,7 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 			@AttributeOverride(name = "data", column = @Column(name = "screenShot_data", length = 4194304))})
 	protected FileAttachment screenShot = new FileAttachment();
 
-	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "project_id", nullable = false, updatable = false)
 	@ContainedIn
 	protected Project project;
@@ -74,7 +74,7 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 
 	protected Priority priority = Priority.CRITICAL_NOT_URGENT;
 
-	@OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "developer_id", nullable = true, updatable = false)
 	@ContainedIn
 	protected org.wc.trackrite.domain.Employee developer;
@@ -182,6 +182,26 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 		listSearchableFields.add("description");
 
 		return listSearchableFields;
+	}
+
+	private Long processId;
+
+	private String processName;
+
+	public Long getProcessId() {
+		return processId;
+	}
+
+	public void setProcessId(Long processId) {
+		this.processId = processId;
+	}
+
+	public String getProcessName() {
+		return processName;
+	}
+
+	public void setProcessName(String processName) {
+		this.processName = processName;
 	}
 
 }

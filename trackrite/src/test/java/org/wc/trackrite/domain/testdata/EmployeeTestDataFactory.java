@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 import org.jboss.seam.Component;
-import org.witchcraft.seam.action.AbstractTestDataFactory; //import org.witchcraft.model.support.testing.AbstractTestDataFactory;
-//import org.witchcraft.model.support.testing.TestDataFactory;
+import org.witchcraft.action.test.AbstractTestDataFactory;
+
 //import org.witchcraft.model.support.errorhandling.BusinessException;
 //import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
 
@@ -42,7 +42,7 @@ public class EmployeeTestDataFactory
 
 		try {
 
-			employee.setEmployeeNumber("John");
+			employee.setEmployeeNumber("zeta");
 
 			employee.setDepartment(departmentTestDataFactory.getRandomRecord());
 
@@ -82,7 +82,7 @@ public class EmployeeTestDataFactory
 
 		try {
 
-			employee.setEmployeeNumber("Lavendar");
+			employee.setEmployeeNumber("zeta");
 
 			employee.setDepartment(departmentTestDataFactory.getRandomRecord());
 
@@ -102,7 +102,7 @@ public class EmployeeTestDataFactory
 
 		try {
 
-			employee.setEmployeeNumber("John");
+			employee.setEmployeeNumber("Eric");
 
 			employee.setDepartment(departmentTestDataFactory.getRandomRecord());
 
@@ -122,7 +122,7 @@ public class EmployeeTestDataFactory
 
 		try {
 
-			employee.setEmployeeNumber("beta");
+			employee.setEmployeeNumber("John");
 
 			employee.setDepartment(departmentTestDataFactory.getRandomRecord());
 

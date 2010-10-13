@@ -60,7 +60,7 @@ public class Question extends BusinessEntity implements java.io.Serializable {
 	@IndexedEmbedded
 	private Set<Choice> choices = new HashSet<Choice>();
 
-	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "exam_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Exam exam;

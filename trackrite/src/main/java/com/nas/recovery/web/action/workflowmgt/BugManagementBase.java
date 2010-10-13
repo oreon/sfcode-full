@@ -14,6 +14,17 @@ public class BugManagementBase extends BaseJbpmProcessAction
 		implements
 			java.io.Serializable {
 
+	@Out(scope = ScopeType.BUSINESS_PROCESS, required = false)
+	protected org.wc.trackrite.issues.Issue token = new org.wc.trackrite.issues.Issue();
+
+	public void setToken(org.wc.trackrite.issues.Issue token) {
+		this.token = token;
+	}
+
+	public org.wc.trackrite.issues.Issue getToken() {
+		return this.token;
+	}
+
 	@StartTask
 	public void startAssignDeveloperTask() {
 

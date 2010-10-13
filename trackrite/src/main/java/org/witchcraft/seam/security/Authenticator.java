@@ -55,7 +55,7 @@ public class Authenticator {
 			}
 			updateActor(user);
 			UserUtilAction userUtilAction = (UserUtilAction)Component.getInstance("userUtilAction");
-			userUtilAction.setCurrentUser(user);
+			//userUtilAction.setCurrentUser(user);
 			return true;
 		}
 

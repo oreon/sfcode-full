@@ -47,7 +47,7 @@ import org.hibernate.annotations.Filter;
 public class Choice extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 1432504690L;
 
-	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "question_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Question question;
