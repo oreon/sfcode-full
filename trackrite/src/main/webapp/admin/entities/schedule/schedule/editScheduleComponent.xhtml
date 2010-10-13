@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{scheduleAction.load(scheduleId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Schedule "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.schedule_project}  "/>  
+        <h:selectOneMenu id="project" value="#{scheduleAction.schedule.project}" required="true"> 
+          <s:selectItems value="#{projectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="project"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New ScheduleItem" action="#{scheduleAction.addScheduleItems}" reRender="scheduleItems_data#{entityId}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="scheduleItems_data#{entityId}" var="_scheduleItem" value="#{scheduleAction.listScheduleItems}" rows="10" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.scheduleItem_startDate}  "/>
+          </f:facet>  
+          <rich:calendar id="startDate#{entityId}" label="#{msg.scheduleItem_startDate}" required="false" value="#{_scheduleItem.startDate}"/>  
+          <h:message styleClass="error errors" for="startDate"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.scheduleItem_endDate}  "/>
+          </f:facet>  
+          <rich:calendar id="endDate#{entityId}" label="#{msg.scheduleItem_endDate}" required="false" value="#{_scheduleItem.endDate}"/>  
+          <h:message styleClass="error errors" for="endDate"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New ScheduleItem" action="#{scheduleAction.addScheduleItems}" reRender="scheduleItems_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" action="#{scheduleAction.deleteScheduleItems(rowIndex)}" reRender="scheduleItems_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

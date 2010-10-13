@@ -23,11 +23,11 @@
         <s:formattedText escape="false" id="description#{entityId}" value="#{issueAction.issue.description}"/>  
         <h:outputText value="#{msg.issue_screenShot}  "/>  
         <c:choose> 
-          <c:when test="${issueAction.issue.screenShot.file.contentType.startsWith('image')}"> 
-            <s:graphicImage value="#{issueAction.issue.screenShot.file.data}"/> 
+          <c:when test="${issueAction.issue.screenShot.contentType.startsWith('image')}"> 
+            <s:graphicImage value="#{issueAction.issue.screenShot.data}"/> 
           </c:when>  
           <c:otherwise> 
-            <s:link value="#{issueAction.issue.screenShot.file.name}" action="#{issueAction.downloadFile(issueAction.issue.screenShot.id)}" propagation="none"> 
+            <s:link value="#{issueAction.issue.screenShot.name}" action="#{issueAction.downloadFile(issueAction.issue.screenShot.id)}" propagation="none"> 
               <f:param name="currentEntityId" value="#{issueAction.issue.screenShot.id}"/> 
             </s:link> 
           </c:otherwise> 

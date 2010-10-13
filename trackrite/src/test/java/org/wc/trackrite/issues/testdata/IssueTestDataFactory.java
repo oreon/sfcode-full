@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 import org.jboss.seam.Component;
-import org.witchcraft.seam.action.AbstractTestDataFactory; //import org.witchcraft.model.support.testing.AbstractTestDataFactory;
-//import org.witchcraft.model.support.testing.TestDataFactory;
+import org.witchcraft.action.test.AbstractTestDataFactory;
+
 //import org.witchcraft.model.support.errorhandling.BusinessException;
 //import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
 
@@ -41,13 +41,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("theta");
+			issue.setTitle("gamma");
 
-			issue.setDescription("Lavendar");
+			issue.setDescription("zeta");
 
-			issue.setCloseTime(dateFormat.parse("2010.09.22 22:16:55 EDT"));
+			issue.setCloseTime(dateFormat.parse("2010.09.23 10:50:54 EDT"));
 
-			issue.setEstimate(2193);
+			issue.setEstimate(351);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -67,13 +67,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("delta");
+			issue.setTitle("Eric");
 
-			issue.setDescription("Mark");
+			issue.setDescription("epsilon");
 
-			issue.setCloseTime(dateFormat.parse("2010.10.03 05:46:55 EDT"));
+			issue.setCloseTime(dateFormat.parse("2010.10.09 19:49:45 EDT"));
 
-			issue.setEstimate(2959);
+			issue.setEstimate(8294);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -93,13 +93,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("gamma");
+			issue.setTitle("alpha");
 
-			issue.setDescription("Lavendar");
+			issue.setDescription("gamma");
 
-			issue.setCloseTime(dateFormat.parse("2010.10.25 04:35:50 EDT"));
+			issue.setCloseTime(dateFormat.parse("2010.10.16 07:01:59 EDT"));
 
-			issue.setEstimate(1220);
+			issue.setEstimate(9760);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -119,13 +119,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("beta");
+			issue.setTitle("gamma");
 
-			issue.setDescription("alpha");
+			issue.setDescription("Lavendar");
 
-			issue.setCloseTime(dateFormat.parse("2010.11.02 09:56:22 EDT"));
+			issue.setCloseTime(dateFormat.parse("2010.10.05 09:09:12 EDT"));
 
-			issue.setEstimate(2662);
+			issue.setEstimate(8843);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -145,13 +145,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("Eric");
+			issue.setTitle("delta");
 
-			issue.setDescription("alpha");
+			issue.setDescription("Wilson");
 
-			issue.setCloseTime(dateFormat.parse("2010.09.24 18:03:02 EDT"));
+			issue.setCloseTime(dateFormat.parse("2010.10.26 10:14:46 EDT"));
 
-			issue.setEstimate(5709);
+			issue.setEstimate(6082);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 

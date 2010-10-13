@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 import org.jboss.seam.Component;
-import org.witchcraft.seam.action.AbstractTestDataFactory; //import org.witchcraft.model.support.testing.AbstractTestDataFactory;
-//import org.witchcraft.model.support.testing.TestDataFactory;
+import org.witchcraft.action.test.AbstractTestDataFactory;
+
 //import org.witchcraft.model.support.errorhandling.BusinessException;
 //import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
 
@@ -37,7 +37,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.09.23 17:15:50 EDT"));
+			workDay.setDate(dateFormat.parse("2010.10.01 06:54:14 EDT"));
 
 			register(workDay);
 
@@ -53,7 +53,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.10.19 03:57:28 EDT"));
+			workDay.setDate(dateFormat.parse("2010.11.04 12:58:07 EDT"));
 
 			register(workDay);
 
@@ -69,7 +69,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.10.09 21:13:03 EDT"));
+			workDay.setDate(dateFormat.parse("2010.10.19 06:11:59 EDT"));
 
 			register(workDay);
 
@@ -85,7 +85,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.10.14 09:23:03 EDT"));
+			workDay.setDate(dateFormat.parse("2010.09.28 20:29:45 EDT"));
 
 			register(workDay);
 
@@ -101,7 +101,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.09.20 14:02:30 EDT"));
+			workDay.setDate(dateFormat.parse("2010.09.20 08:43:05 EDT"));
 
 			register(workDay);
 

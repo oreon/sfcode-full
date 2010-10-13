@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 import org.jboss.seam.Component;
-import org.witchcraft.seam.action.AbstractTestDataFactory; //import org.witchcraft.model.support.testing.AbstractTestDataFactory;
-//import org.witchcraft.model.support.testing.TestDataFactory;
+import org.witchcraft.action.test.AbstractTestDataFactory;
+
 //import org.witchcraft.model.support.errorhandling.BusinessException;
 //import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
 
@@ -40,9 +40,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("Malissa");
+			project.setName("zeta");
 
-			project.setDescription("Wilson");
+			project.setDescription("epsilon");
 
 			//	 project.addAllIssues(issuesTestDataFactory.getFewRandomRecords());
 
@@ -62,7 +62,7 @@ public class ProjectTestDataFactory
 
 			project.setName("Mark");
 
-			project.setDescription("delta");
+			project.setDescription("Mark");
 
 			//	 project.addAllIssues(issuesTestDataFactory.getFewRandomRecords());
 
@@ -80,9 +80,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("theta");
+			project.setName("Eric");
 
-			project.setDescription("epsilon");
+			project.setDescription("delta");
 
 			//	 project.addAllIssues(issuesTestDataFactory.getFewRandomRecords());
 
@@ -100,9 +100,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("Wilson");
+			project.setName("Malissa");
 
-			project.setDescription("epsilon");
+			project.setDescription("beta");
 
 			//	 project.addAllIssues(issuesTestDataFactory.getFewRandomRecords());
 
@@ -122,7 +122,7 @@ public class ProjectTestDataFactory
 
 			project.setName("Malissa");
 
-			project.setDescription("gamma");
+			project.setDescription("Malissa");
 
 			//	 project.addAllIssues(issuesTestDataFactory.getFewRandomRecords());
 

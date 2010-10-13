@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 import org.jboss.seam.Component;
-import org.witchcraft.seam.action.AbstractTestDataFactory; //import org.witchcraft.model.support.testing.AbstractTestDataFactory;
-//import org.witchcraft.model.support.testing.TestDataFactory;
+import org.witchcraft.action.test.AbstractTestDataFactory;
+
 //import org.witchcraft.model.support.errorhandling.BusinessException;
 //import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
 
@@ -37,9 +37,9 @@ public class ExamTestDataFactory
 
 		try {
 
-			exam.setName("Wilson");
+			exam.setName("alpha");
 
-			exam.setDuration(4031);
+			exam.setDuration(3022);
 
 			register(exam);
 
@@ -55,9 +55,9 @@ public class ExamTestDataFactory
 
 		try {
 
-			exam.setName("theta");
+			exam.setName("Eric");
 
-			exam.setDuration(8465);
+			exam.setDuration(3859);
 
 			register(exam);
 
@@ -73,9 +73,9 @@ public class ExamTestDataFactory
 
 		try {
 
-			exam.setName("gamma");
+			exam.setName("John");
 
-			exam.setDuration(4145);
+			exam.setDuration(4727);
 
 			register(exam);
 
@@ -91,9 +91,9 @@ public class ExamTestDataFactory
 
 		try {
 
-			exam.setName("Eric");
+			exam.setName("John");
 
-			exam.setDuration(9806);
+			exam.setDuration(5006);
 
 			register(exam);
 
@@ -109,9 +109,9 @@ public class ExamTestDataFactory
 
 		try {
 
-			exam.setName("gamma");
+			exam.setName("Wilson");
 
-			exam.setDuration(9577);
+			exam.setDuration(2312);
 
 			register(exam);
 

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 import org.jboss.seam.Component;
-import org.witchcraft.seam.action.AbstractTestDataFactory; //import org.witchcraft.model.support.testing.AbstractTestDataFactory;
-//import org.witchcraft.model.support.testing.TestDataFactory;
+import org.witchcraft.action.test.AbstractTestDataFactory;
+
 //import org.witchcraft.model.support.errorhandling.BusinessException;
 //import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
 
@@ -37,13 +37,13 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("epsilon");
+			user.setUserName("Eric");
 
-			user.setPassword("Lavendar");
+			user.setPassword("Mark");
 
-			user.setEnabled(false);
+			user.setEnabled(true);
 
-			user.setEmail("pi");
+			user.setEmail("delta");
 
 			register(user);
 
@@ -59,13 +59,13 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("Malissa");
+			user.setUserName("gamma");
 
-			user.setPassword("alpha");
+			user.setPassword("John");
 
 			user.setEnabled(true);
 
-			user.setEmail("delta");
+			user.setEmail("epsilon");
 
 			register(user);
 
@@ -81,13 +81,13 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("alpha");
+			user.setUserName("Malissa");
 
 			user.setPassword("Mark");
 
 			user.setEnabled(true);
 
-			user.setEmail("alpha");
+			user.setEmail("Eric");
 
 			register(user);
 
@@ -103,13 +103,13 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("Lavendar");
+			user.setUserName("gamma");
 
-			user.setPassword("Wilson");
+			user.setPassword("alpha");
 
 			user.setEnabled(true);
 
-			user.setEmail("theta");
+			user.setEmail("gamma");
 
 			register(user);
 
@@ -125,13 +125,13 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("epsilon");
+			user.setUserName("Wilson");
 
-			user.setPassword("Eric");
+			user.setPassword("theta");
 
-			user.setEnabled(false);
+			user.setEnabled(true);
 
-			user.setEmail("pi");
+			user.setEmail("Eric");
 
 			register(user);
 

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 import org.jboss.seam.Component;
-import org.witchcraft.seam.action.AbstractTestDataFactory; //import org.witchcraft.model.support.testing.AbstractTestDataFactory;
-//import org.witchcraft.model.support.testing.TestDataFactory;
+import org.witchcraft.action.test.AbstractTestDataFactory;
+
 //import org.witchcraft.model.support.errorhandling.BusinessException;
 //import org.witchcraft.model.randomgen.RandomValueGeneratorFactory;
 
@@ -40,7 +40,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("gamma");
+			department.setName("pi");
 
 			//	 department.addAllEmployees(employeesTestDataFactory.getFewRandomRecords());
 
@@ -58,7 +58,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("pi");
+			department.setName("John");
 
 			//	 department.addAllEmployees(employeesTestDataFactory.getFewRandomRecords());
 
@@ -76,7 +76,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("theta");
+			department.setName("Eric");
 
 			//	 department.addAllEmployees(employeesTestDataFactory.getFewRandomRecords());
 
@@ -94,7 +94,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("Lavendar");
+			department.setName("alpha");
 
 			//	 department.addAllEmployees(employeesTestDataFactory.getFewRandomRecords());
 
@@ -112,7 +112,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("zeta");
+			department.setName("epsilon");
 
 			//	 department.addAllEmployees(employeesTestDataFactory.getFewRandomRecords());
 

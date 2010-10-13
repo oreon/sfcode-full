@@ -13,17 +13,5 @@ import org.wc.trackrite.users.User;
 @Scope(ScopeType.SESSION)
 public class UserUtilAction {
 	
-	private User currentUser;
 	
-	@In
-	EntityManager entityManager;
-
-	public User getCurrentUser() {
-		return currentUser;
-	}
-
-	public void setCurrentUser(User currentUser) {
-		this.currentUser = entityManager.merge(currentUser);	
-	}
-
 }

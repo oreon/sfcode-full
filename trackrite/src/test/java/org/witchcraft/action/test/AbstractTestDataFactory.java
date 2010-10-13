@@ -1,4 +1,4 @@
-package org.witchcraft.seam.action;
+package org.witchcraft.action.test;
 
 import javax.faces.FactoryFinder;
 

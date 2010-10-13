@@ -52,8 +52,10 @@ import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Transactional;
 import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.annotations.web.RequestParameter;
+import org.jboss.seam.core.Conversation;
 import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
+import org.jboss.seam.faces.Redirect;
 import org.jboss.seam.faces.Renderer;
 import org.jboss.seam.framework.EntityHome;
 import org.jboss.seam.international.StatusMessages;
@@ -267,9 +269,12 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 	}
 
+	@Begin(join=true)
 	public String save() {
 		return doSave();
 	}
+	
+	
 
 	@SuppressWarnings("unchecked")
 	public T loadFromId(Long entityId) {
@@ -342,6 +347,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 	@End
 	public String cancel() {
+		Conversation.instance().end();
 		return "cancel";
 	}
 
@@ -361,6 +367,12 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 			e.printStackTrace();
 		}
 		findRecords();
+	}
+	
+	@End
+	public String returnToListingView(){
+		String retVal =  Redirect.instance().getViewId() == null ? StringUtils.uncapitalize(getClassName()):Redirect.instance().getViewId();
+		return retVal;
 	}
 
 	public List<AuditLog> getAuditLog() {
@@ -562,6 +574,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 	@Destroy
 	public void destroy() {
+		
 	}
 
 	protected String getClassName(T t) {

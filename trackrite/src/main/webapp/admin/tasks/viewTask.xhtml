@@ -9,22 +9,26 @@
 
 	<ui:define name="content">
 
-		
-		<h2>Task: #{bugManagementProcessAction.task.task.taskNode.name}  #{bugManagementProcessAction.task.variables['title']}</h2>
+		<h2>Task: #{bugManagementProcessAction.task.task.taskNode.name}
+		#{bugManagementProcessAction.task.variables['title']}</h2>
+		Token : #{bugManagementProcessAction.task.variables['token'].displayName}
 		<h:form>
 			<ui:include
 				src="/admin/entities/issues/issue/viewIssueComponent.xhtml">
 				<ui:param name="issueId"
-					value="#{bugManagementProcessAction.task.variables['issueId']}" />
+					value="#{bugManagementProcessAction.task.variables['token'].id}" />
 			</ui:include>
 		</h:form>
-		
+
 		<a:form>
-			<a:commandButton oncomplete="Richfaces.showModalPanel('IssueModalPanel',{});" value="Edit">
+			<a:commandButton
+				oncomplete="Richfaces.showModalPanel('IssueModalPanel',{});"
+				value="Edit">
 			</a:commandButton>
 		</a:form>
-		<ui:include src="/admin/entities/issues/issue/modalDlgIssueComponent.xhtml"/>
-		
+		<ui:include
+			src="/admin/entities/issues/issue/modalDlgIssueComponent.xhtml" />
+
 
 
 		<h:form id="list">
@@ -52,7 +56,7 @@
 
 			<ui:repeat var="trans"
 				value="#{bugManagementProcessAction.task.availableTransitions}">
-				<h:commandLink value="#{trans.name}" 
+				<h:commandLink value="#{trans.name}"
 					action="#{bugManagementProcessAction.makeDecision}"
 					taskInstance="#{bugManagementProcessAction.task}">
 					<f:param name="transName" value="#{trans.name}" />
@@ -74,8 +78,8 @@
 				<f:facet name="header">
 					Comment
 				</f:facet>
-				<s:formattedText value="#{_cmt.message}"  />
-			
+				<s:formattedText value="#{_cmt.message}" />
+
 
 			</h:column>
 
