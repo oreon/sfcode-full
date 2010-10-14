@@ -59,10 +59,11 @@ public class ExamInstance extends BusinessEntity
 	@ContainedIn
 	protected Candidate candidate;
 
-	//answers->examInstance ->ExamInstance->ExamInstance->ExamInstance
+	//answers->examInstance ->ExamInstance->Answer->Answer
 
 	@OneToMany(mappedBy = "examInstance", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "examInstance_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<Answer> answers = new HashSet<Answer>();
 

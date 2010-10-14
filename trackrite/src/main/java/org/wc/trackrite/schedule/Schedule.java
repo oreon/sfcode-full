@@ -51,6 +51,7 @@ public class Schedule extends BusinessEntity implements java.io.Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "schedule_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<ScheduleItem> scheduleItems = new HashSet<ScheduleItem>();
 

@@ -5,6 +5,7 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.wc.trackrite.issues.Issue;
 import org.wc.trackrite.issues.Status;
+import org.jboss.seam.bpm.ProcessInstance;
 
 import com.nas.recovery.web.action.workflowmgt.BugManagement;
 
@@ -26,7 +27,7 @@ public class IssueAction extends IssueActionBase implements
 		String ret = super.save();
 		if (isNew) {
 			launchProcess();
-			getInstance().setProcessId(org.jboss.seam.bpm.ProcessInstance.instance().getId());
+			getInstance().setProcessId(ProcessInstance.instance().getId());
 		}
 		
 		super.save();
@@ -38,16 +39,14 @@ public class IssueAction extends IssueActionBase implements
 		bugManagement.startProcess();
 	}
 	
-	public void updateStatusStr(String status){
-		//status.
-		//load(token.getId());
-		System.out.println("setting status to " + status);
+	public void updateStatus(String status){
+		load(token.getId());
 		getInstance().setStatus(Status.valueOf(status));
 		save();
 	}
 	
 	
-	public void updateStatus(Status status){
+	public void updateStatusEnum(Status status){
 		//status.
 		//load(token.getId());
 		getInstance().setStatus(status);

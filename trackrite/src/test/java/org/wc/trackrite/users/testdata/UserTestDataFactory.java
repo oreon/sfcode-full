@@ -37,9 +37,9 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("Eric");
+			user.setUserName("gamma");
 
-			user.setPassword("Mark");
+			user.setPassword("Wilson");
 
 			user.setEnabled(true);
 
@@ -59,9 +59,9 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("gamma");
+			user.setUserName("John");
 
-			user.setPassword("John");
+			user.setPassword("alpha");
 
 			user.setEnabled(true);
 
@@ -81,13 +81,13 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("Malissa");
+			user.setUserName("gamma");
 
-			user.setPassword("Mark");
+			user.setPassword("beta");
 
-			user.setEnabled(true);
+			user.setEnabled(false);
 
-			user.setEmail("Eric");
+			user.setEmail("beta");
 
 			register(user);
 
@@ -103,13 +103,13 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("gamma");
+			user.setUserName("Lavendar");
 
-			user.setPassword("alpha");
+			user.setPassword("beta");
 
 			user.setEnabled(true);
 
-			user.setEmail("gamma");
+			user.setEmail("pi");
 
 			register(user);
 
@@ -127,11 +127,11 @@ public class UserTestDataFactory
 
 			user.setUserName("Wilson");
 
-			user.setPassword("theta");
+			user.setPassword("Eric");
 
-			user.setEnabled(true);
+			user.setEnabled(false);
 
-			user.setEmail("Eric");
+			user.setEmail("Mark");
 
 			register(user);
 

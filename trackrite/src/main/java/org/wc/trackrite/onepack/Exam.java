@@ -59,6 +59,7 @@ public class Exam extends BusinessEntity implements java.io.Serializable {
 
 	@OneToMany(mappedBy = "exam", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "exam_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<Question> questions = new HashSet<Question>();
 

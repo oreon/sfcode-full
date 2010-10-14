@@ -47,10 +47,11 @@ import org.hibernate.annotations.Filter;
 public class Project extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1744216049L;
 
-	//issues->project ->Project->Project->Project
+	//issues->project ->Project->Issue->Issue
 
 	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "project_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<Issue> issues = new HashSet<Issue>();
 
@@ -65,7 +66,7 @@ public class Project extends BusinessEntity implements java.io.Serializable {
 	@Analyzer(definition = "customanalyzer")
 	protected String description;
 
-	//employees->projects ->Project->Project->Project
+	//employees->projects ->Project->Employee->Employee
 
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "projects_employees", joinColumns = @JoinColumn(name = "projects_ID"), inverseJoinColumns = @JoinColumn(name = "employees_ID"))

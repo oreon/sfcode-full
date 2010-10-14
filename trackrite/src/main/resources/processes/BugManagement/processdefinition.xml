@@ -16,35 +16,35 @@
     <transition to="nonissue" name="nonissue"> 
       <action expression="#{issueAction.updateStatus('Closed')}"/> 
     </transition> 
-  </task-node>` 
+  </task-node>  
   <task-node name="reviewIssue"> 
     <task name="reviewIssueTask" swimlane="developer" duedate="0 business days" notify="true"></task>  
     <transition to="assignDeveloper" name="reject"></transition>  
     <transition to="workOnIssue" name="accept"> 
       <action expression="#{issueAction.updateStatus('Started')}"/> 
     </transition> 
-  </task-node>` 
+  </task-node>  
   <start-state name=""> 
     <task name="Task" swimlane="initiator"></task>  
     <transition to="reviewIssue" name="proceedToreviewIssue"></transition> 
   </start-state>  
   <task-node name="verifyfix"> 
     <task name="verifyfixTask" swimlane="qa" duedate="0 business days" notify="true"></task>  
+    <transition to="workOnIssue" name="requestModification"></transition>  
     <transition to="notifyClose" name="close"> 
       <action expression="#{issueAction.updateStatus('Closed')}"/> 
-    </transition>  
-    <transition to="workOnIssue" name="requestModification"></transition> 
-  </task-node>` 
+    </transition> 
+  </task-node>  
   <end-state name="fixed"/>  
   <task-node name="workOnIssue"> 
     <task name="workOnIssueTask" swimlane="developer" duedate="2 business days" notify="false"></task>  
     <transition to="verifyfix" name="fixed"> 
       <action expression="#{issueAction.updateStatus('ReadyForQA')}"/> 
     </transition> 
-  </task-node>` 
+  </task-node>  
   <end-state name="nonissue"/>  
   <task-node name="notifyClose"> 
-    <task name="notifyCloseTask" swimlane="qa" notify="true"></task>  
+    <task name="notifyCloseTask" swimlane="qa" notify="false"></task>  
     <transition to="fixed" name="close"></transition> 
   </task-node> 
 </process-definition>
