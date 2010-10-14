@@ -53,10 +53,11 @@ public class Question extends BusinessEntity implements java.io.Serializable {
 	@Analyzer(definition = "customanalyzer")
 	protected String text;
 
-	//choices->question ->Question->Choice->Choice
+	//choices->question ->Question->Question->Question
 
 	@OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "question_ID", nullable = false)
+	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<Choice> choices = new HashSet<Choice>();
 

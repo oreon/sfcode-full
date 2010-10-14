@@ -42,7 +42,7 @@ public class EmployeeTestDataFactory
 
 		try {
 
-			employee.setEmployeeNumber("zeta");
+			employee.setEmployeeNumber("Lavendar");
 
 			employee.setDepartment(departmentTestDataFactory.getRandomRecord());
 
@@ -82,7 +82,7 @@ public class EmployeeTestDataFactory
 
 		try {
 
-			employee.setEmployeeNumber("zeta");
+			employee.setEmployeeNumber("delta");
 
 			employee.setDepartment(departmentTestDataFactory.getRandomRecord());
 
@@ -102,7 +102,7 @@ public class EmployeeTestDataFactory
 
 		try {
 
-			employee.setEmployeeNumber("Eric");
+			employee.setEmployeeNumber("Wilson");
 
 			employee.setDepartment(departmentTestDataFactory.getRandomRecord());
 
@@ -122,7 +122,7 @@ public class EmployeeTestDataFactory
 
 		try {
 
-			employee.setEmployeeNumber("John");
+			employee.setEmployeeNumber("gamma");
 
 			employee.setDepartment(departmentTestDataFactory.getRandomRecord());
 

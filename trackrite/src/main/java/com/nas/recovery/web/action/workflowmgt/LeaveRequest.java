@@ -14,7 +14,9 @@ import org.witchcraft.jbpm.BaseJbpmProcessAction;
 //@Scope(ScopeType.CONVERSATION)
 public class LeaveRequest extends LeaveRequestBase {
 
-	@CreateProcess(definition = "leaveRequest")
+	@CreateProcess(definition = "leaveRequest"
+
+	)
 	public void startProcess() {
 
 	}

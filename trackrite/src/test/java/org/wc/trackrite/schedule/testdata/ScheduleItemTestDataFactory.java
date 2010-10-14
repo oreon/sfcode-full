@@ -38,10 +38,10 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.10.15 10:54:14 EDT"));
+					.parse("2010.10.16 20:56:54 EDT"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.09.20 04:34:47 EDT"));
+					.setEndDate(dateFormat.parse("2010.09.26 12:41:52 EDT"));
 
 			register(scheduleItem);
 
@@ -58,10 +58,10 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.11.04 21:07:34 EDT"));
+					.parse("2010.10.26 05:30:14 EDT"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.10.02 05:00:54 EDT"));
+					.setEndDate(dateFormat.parse("2010.10.10 18:20:47 EDT"));
 
 			register(scheduleItem);
 
@@ -78,10 +78,10 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.10.07 18:53:05 EDT"));
+					.parse("2010.10.02 05:00:47 EDT"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.10.31 06:28:40 EDT"));
+					.setEndDate(dateFormat.parse("2010.11.04 02:54:07 EDT"));
 
 			register(scheduleItem);
 
@@ -98,10 +98,10 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.09.27 16:54:14 EDT"));
+					.parse("2010.10.07 09:09:05 EDT"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.09.19 18:59:45 EDT"));
+					.setEndDate(dateFormat.parse("2010.10.03 13:12:25 EDT"));
 
 			register(scheduleItem);
 
@@ -118,10 +118,10 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.10.09 22:24:47 EDT"));
+					.parse("2010.10.01 13:04:40 EDT"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.10.31 14:18:07 EDT"));
+					.setEndDate(dateFormat.parse("2010.11.07 23:38:32 EST"));
 
 			register(scheduleItem);
 

@@ -51,6 +51,7 @@ public class WorkDay extends BusinessEntity implements java.io.Serializable {
 
 	@OneToMany(mappedBy = "workDay", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "workDay_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<TimeTrackingEntry> timeTrackingEntrys = new HashSet<TimeTrackingEntry>();
 

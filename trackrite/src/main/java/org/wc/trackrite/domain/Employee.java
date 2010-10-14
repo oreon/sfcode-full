@@ -64,6 +64,7 @@ public class Employee extends org.wc.trackrite.domain.Person
 
 	@OneToMany(mappedBy = "developer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "developer_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<org.wc.trackrite.issues.Issue> issues = new HashSet<org.wc.trackrite.issues.Issue>();
 
@@ -91,7 +92,7 @@ public class Employee extends org.wc.trackrite.domain.Person
 	})
 	protected ContactDetails mailing = new ContactDetails();
 
-	//projects->employees ->Employee->Project->Project
+	//projects->employees ->Employee->Employee->Employee
 
 	@ManyToMany(mappedBy = "employees")
 	private Set<org.wc.trackrite.issues.Project> projects = new HashSet<org.wc.trackrite.issues.Project>();

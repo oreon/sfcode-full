@@ -3,12 +3,15 @@
 
 <jasperReport name="ActiveBugsReport" isTitleNewPage="false" isSummaryNewPage="false"> 
   <parameter name="ReportTitle" class="java.lang.String"/>  
-  <queryString language="ejbql"> <![CDATA[select i from Issue i]]> </queryString>  
+  <queryString language="ejbql"> <![CDATA[select i from Issue i ORDER BY i.developer.lastName, i.priority]]> </queryString>  
   <field name="title" class="java.lang.String"/>  
-  <field name="priority.displayName" class="java.lang.String"/>  
   <field name="estimate" class="java.lang.Integer"/>  
   <field name="developer.displayName" class="java.lang.String"/>  
+  <field name="priority.displayName" class="java.lang.String"/>  
   <variable name="GroupdevGrpCounter" class="java.lang.Integer" incrementType="Group" incrementGroup="GroupdevGrp" calculation="Count"> 
+    <variableExpression><![CDATA[Boolean.TRUE]]></variableExpression> 
+  </variable>  
+  <variable name="GrouppriorityCounter" class="java.lang.Integer" incrementType="Group" incrementGroup="Grouppriority" calculation="Count"> 
     <variableExpression><![CDATA[Boolean.TRUE]]></variableExpression> 
   </variable>  
   <variable name="GroupdevGrp_sum" class="java.lang.Integer" calculation="Sum" resetType="Group" resetGroup="GroupdevGrp"> 
@@ -51,6 +54,33 @@
       </band> 
     </groupFooter> 
   </group>  
+  <group name="Grouppriority" minHeightToStartNewPage="60"> 
+    <groupExpression><![CDATA[$F{priority.displayName}]]></groupExpression>  
+    <groupHeader> 
+      <band height="20"> 
+        <textField evaluationTime="Group" evaluationGroup="Grouppriority" bookmarkLevel="1"> 
+          <reportElement mode="Opaque" x="0" y="5" width="515" height="15" backcolor="#c0c0c0"/>  
+          <box leftPadding="10" bottomBorder="1Point"/>  
+          <textFieldExpression class="java.lang.String"> <![CDATA["  " + String.valueOf($V{GrouppriorityCounter}) + ". " + String.valueOf($F{priority.displayName})]]> </textFieldExpression>  
+          <anchorNameExpression><![CDATA[String.valueOf($F{priority.displayName})]]></anchorNameExpression> 
+        </textField> 
+      </band> 
+    </groupHeader>  
+    <groupFooter> 
+      <band height="20"> 
+        <staticText> 
+          <reportElement x="585" y="1" width="60" height="15"/>  
+          <textElement textAlignment="Right"/>  
+          <text><![CDATA[Count:]]></text> 
+        </staticText>  
+        <textField> 
+          <reportElement x="650" y="1" width="30" height="15"/>  
+          <textElement textAlignment="Right"/>  
+          <textFieldExpression class="java.lang.Integer"> <![CDATA[$V{Grouppriority_COUNT}]]> </textFieldExpression> 
+        </textField> 
+      </band> 
+    </groupFooter> 
+  </group>  
   <title> 
     <band height="70"> 
       <line> 
@@ -78,10 +108,6 @@
       </staticText>  
       <staticText> 
         <reportElement mode="Opaque" x="65" y="5" width="205" height="15" forecolor="#ffffff" backcolor="#333333"/>  
-        <text><![CDATA[Priority]]></text> 
-      </staticText>  
-      <staticText> 
-        <reportElement mode="Opaque" x="130" y="5" width="205" height="15" forecolor="#ffffff" backcolor="#333333"/>  
         <text><![CDATA[Estimate]]></text> 
       </staticText> 
     </band> 
@@ -96,17 +122,17 @@
       <textField> 
         <reportElement x="65" y="0" width="69" height="24"/>  
         <textElement textAlignment="Center"/>  
-        <textFieldExpression class="java.lang.String"> <![CDATA[$F{priority.displayName}]]> </textFieldExpression> 
+        <textFieldExpression class="java.lang.Integer"> <![CDATA[$F{estimate}]]> </textFieldExpression> 
       </textField>  
       <textField> 
         <reportElement x="130" y="0" width="69" height="24"/>  
         <textElement textAlignment="Center"/>  
-        <textFieldExpression class="java.lang.Integer"> <![CDATA[$F{estimate}]]> </textFieldExpression> 
+        <textFieldExpression class="java.lang.String"> <![CDATA[$F{developer.displayName}]]> </textFieldExpression> 
       </textField>  
       <textField> 
         <reportElement x="195" y="0" width="69" height="24"/>  
         <textElement textAlignment="Center"/>  
-        <textFieldExpression class="java.lang.String"> <![CDATA[$F{developer.displayName}]]> </textFieldExpression> 
+        <textFieldExpression class="java.lang.String"> <![CDATA[$F{priority.displayName}]]> </textFieldExpression> 
       </textField> 
     </band> 
   </detail>  
@@ -126,6 +152,11 @@
         <reportElement x="420" y="1" width="30" height="15"/>  
         <textElement textAlignment="Right"/>  
         <textFieldExpression class="java.lang.Integer"> <![CDATA[$V{GroupdevGrp_sum}]]> </textFieldExpression> 
+      </textField>  
+      <textField> 
+        <reportElement x="460" y="1" width="30" height="15"/>  
+        <textElement textAlignment="Right"/>  
+        <textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression> 
       </textField> 
     </band> 
   </summary> 

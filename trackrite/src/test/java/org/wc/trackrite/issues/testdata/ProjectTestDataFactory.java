@@ -40,9 +40,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("zeta");
+			project.setName("gamma");
 
-			project.setDescription("epsilon");
+			project.setDescription("Lavendar");
 
 			//	 project.addAllIssues(issuesTestDataFactory.getFewRandomRecords());
 
@@ -60,9 +60,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("Mark");
+			project.setName("pi");
 
-			project.setDescription("Mark");
+			project.setDescription("alpha");
 
 			//	 project.addAllIssues(issuesTestDataFactory.getFewRandomRecords());
 
@@ -80,9 +80,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("Eric");
+			project.setName("beta");
 
-			project.setDescription("delta");
+			project.setDescription("zeta");
 
 			//	 project.addAllIssues(issuesTestDataFactory.getFewRandomRecords());
 
@@ -100,9 +100,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("Malissa");
+			project.setName("Wilson");
 
-			project.setDescription("beta");
+			project.setDescription("Lavendar");
 
 			//	 project.addAllIssues(issuesTestDataFactory.getFewRandomRecords());
 
@@ -120,9 +120,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("Malissa");
+			project.setName("John");
 
-			project.setDescription("Malissa");
+			project.setDescription("zeta");
 
 			//	 project.addAllIssues(issuesTestDataFactory.getFewRandomRecords());
 
