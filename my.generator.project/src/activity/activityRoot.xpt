@@ -63,13 +63,15 @@
 	</task-node>
 «ENDDEFINE»
 
+
+
 «DEFINE gen FOR wcprofile::Task»
 	<task-node name="«name.removeSpaces()»">
 		<task name="«name.removeSpaces()»Task"  «getSwimlane() != null ?"swimlane=\"" + getSwimlane()+ "\"":""»
 			 duedate="«days» business days" notify="«getNotify()»">
 		</task>
 		«EXPAND genTransitions»
-	</task-node>`
+	</task-node>
 «ENDDEFINE»
 
 «DEFINE gen FOR wcprofile::WorkflowDecision»
@@ -84,7 +86,7 @@
 
 «DEFINE gen FOR uml::DecisionNode»
 	<decision name="«name.removeSpaces()»" >
-	 <handler class="«activity.getWebPackageName()+ "." + activity.name.toFirstLower() + ".decisions"».«name»DecisionHandlder" />
+	 <handler class="«activity.getWebPackageName()+ "." + activity.name.toFirstLower() + ".decisions"».«name.toFirstUpper()»DecisionHandler" />
 		«EXPAND genTransitions»
 	</decision>
 «ENDDEFINE»
