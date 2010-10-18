@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition name="play">
+	<swimlane name="admin">
+		<assignment actor-id="admin" />
+	</swimlane>
+	
+	<start-state name="">
+		<task name="Task" swimlane="admin"></task>
+		<transition to="firstTask" name="proceedTofirstTask"></transition>
+	</start-state>
+	
+	<task-node name="firstTask" end-tasks="true">
+		<task name="firstTaskTask"  notify="false" swimlane="admin">
+			<timer name='reminder' duedate="60 seconds" transition="timeout" />
+		</task>
+		<transition to="second" name="done"></transition>
+		<transition to="second" name="timeout"></transition>
+	</task-node>
+	
+	<task-node name="second">
+		<task name="secondTask" notify="false" swimlane="admin"></task>
+		<transition to="third" name="proceedTothird"></transition>
+	</task-node>
+	
+	<node name="third">
+		<timer name='re' duedate='1 minute' transition='fourth'>
+		</timer>
+		<transition to="fourth" name="proceedTofourth"></transition>
+	</node>
+	<task-node name="fourth">
+		<task name="fourthTask" swimlane="admin" notify="false"></task>
+		<transition to="finished" name="proceedTo"></transition>
+	</task-node>
+	<end-state name="finished" />
+</process-definition>
