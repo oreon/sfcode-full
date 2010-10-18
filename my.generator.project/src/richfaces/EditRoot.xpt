@@ -249,7 +249,7 @@
 	«type.setCurrentEmbeddable()» 
 	«EXPAND genLabelAndControl FOR this.type-»
 	«ELSE»
-	<h:selectOneMenu id="«getId()»" value="#{«getActionForMode()»«genPropertyLabel()-»}" required="«!getAssocOptional()»">
+	<h:selectOneMenu id="«getId()»"   label="«msgBundleKey()»" value="#{«getActionForMode()»«genPropertyLabel()-»}" required="«!getAssocOptional()»">
 		«IF isColumn() && this.controls != null » <a:support event="onchange" reRender="«controls»" ajaxSingle="true" /> «ENDIF»
 		<s:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List"»}" var="itemIter"
 			label="#{itemIter.displayName}"
@@ -312,7 +312,7 @@
 	«IF !isCurrentEditMode() -»
 	<«getTextControl()»  value="#{«getActionForMode()»«genPropertyLabel()»}" />
 	«ELSE»
-	<h:selectOneMenu id="«getId()»" value="#{«getActionForMode()»«genPropertyLabel()»}" required="«getAssocOptional()»">
+	<h:selectOneMenu id="«getId()»" value="#{«getActionForMode()»«genPropertyLabel()»}" required="«getAssocOptional()»"  label="«msgBundleKey()»">
 		<f:selectItem itemLabel="Please Select..." itemValue="" />
 		«FOREACH  enm.ownedLiteral AS e-»
 		<f:selectItem itemValue="«e.name»"  itemLabel="«e.name.toLowerCase().getVariableNameForDisplay()-»" />
