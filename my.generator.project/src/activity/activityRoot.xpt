@@ -51,7 +51,14 @@
 
 «DEFINE gen(uml::Activity activity) FOR uml::ActivityPartition»
 	<swimlane name="«name.removeSpaces()»">
-		<assignment class="«activity.getWebPackageName()+ "." + activity.name.toFirstLower() + ".assign"».«name.removeSpaces().toFirstUpper()»Assignment"  ></assignment>
+		<assignment  class="«activity.getWebPackageName()+ "." + activity.name.toFirstLower() + ".assign"».«name.removeSpaces().toFirstUpper()»Assignment"  ></assignment>
+	</swimlane>
+«ENDDEFINE»
+
+«DEFINE gen(uml::Activity activity) FOR wcprofile::WorkflowSwimlane»
+	<swimlane name="«name.removeSpaces()»" >
+		<assignment «IF actorId != null»actor-id="«actorId»" «ENDIF» 
+		  «IF assignmentClass != null»class="«assignmentClass»"«ENDIF»  />
 	</swimlane>
 «ENDDEFINE»
 
@@ -60,13 +67,18 @@
 		<task name="«name.removeSpaces()»Task" «getSwimlane() != null ?"swimlane=\"" + getSwimlane()+ "\"":""» notify="«getNotify()»">
 		</task>
 		«EXPAND genTransitions»
-	</task-node>
+	</task-node>	
 «ENDDEFINE»
 
 
 
 «DEFINE gen FOR wcprofile::Task»
 	<task-node name="«name.removeSpaces()»">
+		«IF actionExpression != null»
+		<event type="node-enter">
+			<action expression="#{«actionExpression»}" />
+		</event>
+		«ENDIF»
 		<task name="«name.removeSpaces()»Task"  «getSwimlane() != null ?"swimlane=\"" + getSwimlane()+ "\"":""»
 			 duedate="«days» business days" notify="«getNotify()»">
 		</task>

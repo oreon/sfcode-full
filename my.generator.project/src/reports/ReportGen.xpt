@@ -31,11 +31,12 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 
 	«EXPAND FieldDec FOREACH getAllAttributes()-»
 	
-	«EXPAND GenGroupCounter FOREACH getAllAttributes()-»
+	«FOREACH getAllAttributes().select(a| a.getAppliedStereotype("wcprofile::ReportGroup") != null) AS a»
+		«EXPAND GenGroupCounter FOR a -»
+		«EXPAND GenGroupSummaryVar FOR a-»
+		«EXPAND GroupGen FOR a-»
+	«ENDFOREACH»
 	
-	«EXPAND GenGroupSummaryVar FOREACH getAllAttributes()-»
-	
-	«EXPAND GroupGen FOREACH getAllAttributes()-»
 	«resetCounter()-»
 	
 	«EXPAND GenTitle FOR this»
@@ -69,6 +70,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 			«REM»comment
 			«EXPAND ChartGen FOREACH AssociationEnd.Opposite.select(ae|ae.isNavigable).Class»
 			«ENDREM»
+			«EXPAND genChart FOREACH allOwnedElements().typeSelect(wcprofile::ReportChart)»
 		</band>
 	</summary>
 	
@@ -90,7 +92,13 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 
 «REM» Generate the displayed fields «ENDREM»
 «DEFINE FieldDec FOR wcprofile::ReportGroup-»
-	<field name="«genFieldExpr(type)-»" class="java.lang.«type.name-»"/>
+	<field name="«genFieldExpr(type)-»" class="java.lang.«getFieldType()-»"/>
+«ENDDEFINE»
+
+«DEFINE FieldDec FOR wcprofile::ReportChart-»
+«ENDDEFINE»
+
+«DEFINE FieldGen FOR wcprofile::ReportChart-»
 «ENDDEFINE»
 
 «DEFINE FieldGen FOR ReportField-»
@@ -140,16 +148,16 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 
 «DEFINE GroupGen FOR ReportGroup»
 	<group name="Group«getGroupName()»" minHeightToStartNewPage="60">
-		<groupExpression><![CDATA[$F{«name»}]]></groupExpression>
+		<groupExpression><![CDATA[$F{«genFieldExpr(type)»}]]></groupExpression>
 		<groupHeader>
 			<band height="20">
 				<textField evaluationTime="Group" evaluationGroup="Group«getGroupName()»" bookmarkLevel="1">
 					<reportElement mode="Opaque" x="0" y="5" width="515" height="15" backcolor="#c0c0c0" />
 					<box leftPadding="10" bottomBorder="1Point"/>
 					<textFieldExpression class="java.lang.String">
-						<![CDATA["  " + String.valueOf($V{Group«getGroupName()»Counter}) + ". " + String.valueOf($F{«name»})]]>
+						<![CDATA["  " + String.valueOf($V{Group«getGroupName()»Counter}) + ". " + String.valueOf($F{«genFieldExpr(type)»})]]>
 					</textFieldExpression>
-					<anchorNameExpression><![CDATA[String.valueOf($F{«name»})]]></anchorNameExpression>
+					<anchorNameExpression><![CDATA[String.valueOf($F{«genFieldExpr(type)»})]]></anchorNameExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -276,29 +284,21 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 	</title>
 «ENDDEFINE»		
 
-«REM»comment
-«DEFINE ChartGen FOR ReportChart»
-			<«getChartType»Chart>
-				<chart evaluationTime="Report">
-					<reportElement x="135" y="0" width="270" height="270"/>
-				</chart>
-				<«getChartTypeWithoutD»Dataset>
-					<dataset incrementType="None"/>
-					«IF ! isPie »
-						<seriesExpression>
-							<![CDATA[$F{«getSeriesExpression»}]]>
-						</seriesExpression>
-					«ENDIF»
-					<«getCategoryExpressionName»>
-						<![CDATA[$F{«getCategoryExpression»}]]>
-					</«getCategoryExpressionName»>
-					<valueExpression>
-						<![CDATA[$V{«getValueExpression»}]]>
-					</valueExpression>
-				</«getChartTypeWithoutD»Dataset>
-				<«getChartType»Plot>
-					<plot/>
-				</«getChartType»Plot>
-			</«getChartType»Chart>
+
+«DEFINE genChart FOR ReportChart»
+	«LET chartType.name.toLowerCase() AS chartTypeStr»
+		<«chartTypeStr»Chart>
+			<chart evaluationTime="Report">
+				<reportElement x="135" y="0" width="270" height="270"/>
+			</chart>
+      		<pieDataset>
+      			<keyExpression><![CDATA[$F{«key»}]]></keyExpression>
+      			<valueExpression><![CDATA[$V{«value»}]]></valueExpression>
+      		</pieDataset>
+      		<«chartTypeStr»Plot>
+      			<plot/>
+      		</«chartTypeStr»Plot>
+		</«chartTypeStr»Chart>
+	«ENDLET»
 «ENDDEFINE»
-«ENDREM»
+
