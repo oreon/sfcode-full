@@ -27,6 +27,12 @@
 		«EXPAND genCancelSaveBtns(true) FOR this»
 		</a:form>
 	</ui:define> 
+	
+	«REM»comment
+	«FOREACH getOutgoingAssociations() AS e»
+	 <ui:include src="«e.type.getComponentFile("modalDlg")»"/> 
+	«ENDFOREACH»
+	«ENDREM»
 </ui:composition>
 «ENDFILE»
 
@@ -256,6 +262,10 @@
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
+	«REM»comment
+	<a:commandButton oncomplete="Richfaces.showModalPanel('«type.name»ModalPanel',{});" value="Create" /> 
+	<a:commandButton oncomplete="Richfaces.showModalPanel('«type.name»SelectModalPanel',{});" value="Choose" />
+	«ENDREM» 
 	«ENDIF»	
 «ENDDEFINE»
 

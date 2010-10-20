@@ -19,7 +19,8 @@
 	version="1.0">
 	<description></description>
 	
-	«EXPAND GenerateEntityMapping FOREACH allOwnedElements().typeSelect(wcprofile::Entity)-»
+	«EXPAND GenerateEntityMapping FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	
 </entity-mappings>
 	«ENDFILE»
 «ENDDEFINE»
@@ -27,7 +28,7 @@
 
 
 «DEFINE GenerateEntityMapping FOR wcprofile::Entity»
-	
+	<!--  «name»  JPA Configurations -->
 	<entity class="«fqn()»" name="«name»">
 		<table name="«getTableName()»"  >
 		«IF uniqueConstraints != null-»

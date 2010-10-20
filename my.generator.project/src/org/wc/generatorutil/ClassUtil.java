@@ -26,6 +26,7 @@ import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.ControlFlow;
 import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.ForkNode;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
@@ -43,7 +44,7 @@ public class ClassUtil {
 
 	static XtendFacade xtendFacade;
 	static Properties properties = new Properties();
-	
+
 	static int count = 0;
 
 	static {
@@ -66,7 +67,7 @@ public class ClassUtil {
 	private static Class currentEntity;
 
 	private static Property currentEmbeddable;
-	
+
 	private static String currentEmbeddableName;
 
 	private static String currentCartridge = null;
@@ -100,7 +101,6 @@ public class ClassUtil {
 
 	private static Boolean currentEditMode = false;
 
-
 	public static Boolean isCurrentMultiMode() {
 		return currentMultiMode;
 	}
@@ -118,18 +118,19 @@ public class ClassUtil {
 	}
 
 	public static Property getCurrentEmbeddable() {
-		//if(currentEmbeddable != null)
-		//System.out.println("getting embeddable -> " + currentEmbeddable.getName());
+		// if(currentEmbeddable != null)
+		// System.out.println("getting embeddable -> " +
+		// currentEmbeddable.getName());
 		return currentEmbeddable;
 	}
-	
+
 	public static String getCurrentEmbeddableName() {
 		return currentEmbeddableName;
 	}
-	
 
 	public static void setCurrentEmbeddable(Property currentEmbeddable) {
-		//System.out.println("setting embeddable to " + currentEmbeddable.getName());
+		// System.out.println("setting embeddable to " +
+		// currentEmbeddable.getName());
 		ClassUtil.currentEmbeddable = currentEmbeddable;
 	}
 
@@ -146,7 +147,7 @@ public class ClassUtil {
 	}
 
 	public static void main(String[] args) {
-	
+
 	}
 
 	public static int getRandomNumber() {
@@ -195,8 +196,8 @@ public class ClassUtil {
 		}
 		return buffer.toString();
 	}
-	
-	public static List<String> getListFromCommaDeleimtedString(String arg){
+
+	public static List<String> getListFromCommaDeleimtedString(String arg) {
 		String[] arr = arg.split(",");
 		return Arrays.asList(arr);
 	}
@@ -320,8 +321,8 @@ public class ClassUtil {
 	}
 
 	public static String removeSpaces(String target) {
-		 target = target.replace(" ", "");
-		 return target;
+		target = target.replace(" ", "");
+		return target;
 	}
 
 	/**
@@ -364,19 +365,19 @@ public class ClassUtil {
 		// logger.info("Returning value " + value + " for key " + key);
 		return value;
 	}
-	
-	public static String readProperty(String key, String def){
+
+	public static String readProperty(String key, String def) {
 		String ret = readProperty(key);
-		if ( ret == null || ret.equals(""))
+		if (ret == null || ret.equals(""))
 			ret = def;
 		return ret;
-			
+
 	}
 
 	public static String getDisplayNameFromAttribs(Class cls) {
 		EList<Property> attribs = cls.getAllAttributes();
 
-	//	System.out.println("before first loop");
+		// System.out.println("before first loop");
 		for (Property property : attribs) {
 			if (property.getName().contains("name")
 					&& property.getAssociation() == null
@@ -384,7 +385,7 @@ public class ClassUtil {
 				return property.getName();
 		}
 
-	//	System.out.println("after first loop");
+		// System.out.println("after first loop");
 		for (Property property : attribs) {
 			if (property.getType() != null) {
 				System.out.println(property.getType().getName() + " : prp "
@@ -394,7 +395,7 @@ public class ClassUtil {
 					return property.getName();
 			}
 		}
-	//	System.out.println("after second loop");
+		// System.out.println("after second loop");
 		// couldnt find any suitable display name
 		return attribs.get(0).getName() + "+ \"\"";
 	}
@@ -409,8 +410,8 @@ public class ClassUtil {
 			String name) {
 		List<Property> properties = new ArrayList();
 		properties.addAll(cls.getAllAttributes());
-		
-		//cls.getat
+
+		// cls.getat
 
 		EList<Class> classes = cls.getSuperClasses();
 		if (classes != null) {
@@ -429,10 +430,11 @@ public class ClassUtil {
 							"wcprofile::Embeddable") != null || property
 							.getAssociation().getAppliedStereotype(
 									"wcprofile::ContainedAssociation") != null)) {
-				
-				getAttribs((Class) property.getType(), props, property.getName());
+
+				getAttribs((Class) property.getType(), props, property
+						.getName());
 			} else {
-				//System.out.println("deployment is " + name);
+				// System.out.println("deployment is " + name);
 				property.createDeployment(name);
 				props.add(property);
 			}
@@ -443,9 +445,10 @@ public class ClassUtil {
 
 	public static String getDeployName(Property prop) {
 		// System.out.println( prop.getClass_().getName() + " " +
-		
+
 		if (prop.getDeployments().size() > 0
-				&& !prop.getClass_().getName().equals(getCurrentEntity().getName())) {
+				&& !prop.getClass_().getName().equals(
+						getCurrentEntity().getName())) {
 			return prop.getDeployments().get(0).getName();
 		}
 		return "";
@@ -459,7 +462,8 @@ public class ClassUtil {
 			properties.load(new FileInputStream(
 					"properties/workflow.properties"));
 			if (properties == null) {
-				logger.error("workflow properties file is not in the classpath");
+				logger
+						.error("workflow properties file is not in the classpath");
 				return false;
 			}
 			// properties.load(stream);
@@ -479,32 +483,40 @@ public class ClassUtil {
 			return act.getInPartitions().get(0).getName();
 		return null;
 	}
-	
+
 	public static String getTaskMassagedName(NamedElement act) {
-		
-		if(act instanceof ControlFlow){
-			ControlFlow cf = (ControlFlow) act;
-			if(act.getName() == null || act.getName() == "")
-			act.setName(cf.getGuard().stringValue());
+
+		if (act.getName() == null || act.getName() == "") {
+
+			if (act instanceof ControlFlow) {
+				ControlFlow cf = (ControlFlow) act;
+				act.setName(cf.getGuard().stringValue());
+			}
+			
+			if (act instanceof ForkNode) {
+				ForkNode forkNode = (ForkNode) act;
+				forkNode.setName("from" + forkNode.getIncomings().get(0).getName() + "Fork");
+			}
+
 		}
-	
-		act.setName(massagedName(act.getName() ));
-		//System.out.println(act.getName());
+
+		act.setName(massagedName(act.getName()));
+		// System.out.println(act.getName());
 		return act.getName();
 	}
-	
+
 	public static String massagedName(String orgName) {
-	//	String orgName = act.getName();
-	//	System.out.println(act.getName());vf
+		// String orgName = act.getName();
+		// System.out.println(act.getName());vf
 		String dest = orgName.trim();
-		
+
 		dest = orgName.replace("/", "Or");
 		dest = dest.replace("\\", "Or");
 		dest = dest.replace("=", "Is");
 		dest = dest.replace(" ", "");
 		dest = dest.replace("+", "And");
-		//act.setName(dest);
-		
+		// act.setName(dest);
+
 		System.out.println(dest);
 		dest = StringUtils.uncapitalize(dest);
 		System.out.println(dest);
@@ -521,73 +533,65 @@ public class ClassUtil {
 				.equalsIgnoreCase("uniqueNameType"));
 	}
 
-	
-	
-	public static boolean isAggregate(Property prop){
+	public static boolean isAggregate(Property prop) {
 		Class c;
 		return prop.getAggregation().getValue() == AggregationKind.SHARED;
-}
-	
-	
+	}
+
 	public static int getCounter() {
 		return count++;
 	}
-
 
 	public static String resetCounter() {
 		count = 0;
 		return "";
 	}
-	
-	
-	public static String getTreeParent(String arg){
+
+	public static String getTreeParent(String arg) {
 		System.out.println("arg is " + arg);
 		String[] tokens = arg.split(",");
-		if(tokens.length < 2){
+		if (tokens.length < 2) {
 			System.out.println("Invalid tree field in the model");
 		}
 		return tokens[0].trim();
 	}
-	
-	public static String getTreeChildren(String arg){
+
+	public static String getTreeChildren(String arg) {
 		String[] tokens = arg.split(",");
-		if(tokens.length < 2){
+		if (tokens.length < 2) {
 			System.out.println("Invalid tree field in the model");
 		}
 		return tokens[1].trim();
 	}
-	
-	public static String getTreeDetails(String arg){
+
+	public static String getTreeDetails(String arg) {
 		String[] tokens = arg.split(",");
-		if(tokens.length < 3){
-			System.out.println("Invalid tree field in the model / or no details provided");
+		if (tokens.length < 3) {
+			System.out
+					.println("Invalid tree field in the model / or no details provided");
 		}
 		return tokens[2].trim();
 	}
-	
-	public static Property getAttrib(Class cls, String name){
+
+	public static Property getAttrib(Class cls, String name) {
 		return cls.getAttribute(name, null);
 	}
-	
-	private static String[] arrString = { "One", "Two", "Three", "Four", "Five" };
 
+	private static String[] arrString = { "One", "Two", "Three", "Four", "Five" };
 
 	public static List getCounters() {
 		return Arrays.asList(arrString);
 	}
-	
-	//for report group generation we need to seperate calc from field
-	public static String getCalc(String t){
+
+	// for report group generation we need to seperate calc from field
+	public static String getCalc(String t) {
 		return t.split(":")[0].trim();
 	}
-	
-	//for report group generation we need to seperate calc from field
-	public static String getField(String t){
+
+	// for report group generation we need to seperate calc from field
+	public static String getField(String t) {
 		String[] arr = t.split(":");
-		return (arr.length > 1 )? arr[1].trim(): "";
+		return (arr.length > 1) ? arr[1].trim() : "";
 	}
-	
-	
-	
 
 }
