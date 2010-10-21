@@ -51,6 +51,9 @@ public class ClassUtil {
 		Operation op;
 
 		CallBehaviorAction cba;
+		
+		Property prop;
+		
 
 		xtendFacade = XtendFacade.create("template::GeneratorExtensions");
 		UML2MetaModel mm = new UML2MetaModel();
