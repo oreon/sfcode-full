@@ -60,17 +60,8 @@
 			
 			try{
 			
-			«FOREACH getAllAttributes().select(a| a.association == null && !a.isFile()) AS attrib-»
-				«EXPAND randValue(attrib.type) FOR attrib»
-			«ENDFOREACH»
-			
-			«FOREACH getOutgoingAssociations() AS a»
-				 «asVar()».set«a.name.toFirstUpper()»(«a.name»TestDataFactory.getRandomRecord());
-			«ENDFOREACH»
-		
-			«FOREACH getNonComposedManyAssociations() AS attrib»
-	 		//	 «asVar()».addAll«attrib.name.toFirstUpper()»(«attrib.name»TestDataFactory.getFewRandomRecords());
-			«ENDFOREACH»
+			«EXPAND genData(this) FOREACH allParents() -»
+	 		«EXPAND genData(this) FOR this»
 			
 			register(«asVar()»);
 			
@@ -102,25 +93,12 @@
 		}
 		
 		public  void persistAll(){
-			//if (!isPersistable() || alreadyPersisted)
-			//	return;
-	
+			init();
 			createAll();
 		
-			if(«asVar()»Action == null)
-				«asVar()»Action = («getActionFqn()») Component.getInstance("«asVar()»Action");
-						
 			for («fqn()» «asVar()» : «asVar()»s) {
-				//try {
-				«asVar()»Action.setInstance(«asVar()»);
-				«asVar()»Action.save();
-				//} catch (BusinessException be) {
-				//logger.warn(" «name» " + «asVar()».getDisplayName()
-				//		+ "couldn't be saved " + be.getMessage());
-				//}
+				persist(«asVar()»)
 			}
-			
-			//alreadyPersisted = true;
 		}
 		
 		/** Execute this method to manually generate objects
@@ -134,13 +112,45 @@
 	«ENDFILE»
 «ENDDEFINE»
 
-«DEFINE randValue(uml::Enumeration e ) FOR uml::Property»
+
+«DEFINE genData(uml::Class target) FOR uml::Class»
+	«FOREACH getAllAttributes().select(a| a.association == null && !a.isFile()) AS attrib-»
+			«EXPAND randValue(attrib.type, target) FOR attrib»
+	«ENDFOREACH»
+	
+	«FOREACH getAllAttributes().select(a| a.type.isEmbeddable() || a.isContainedAssoc()) AS attrib-»
+			«attrib.setCurrentEmbeddable()»
+			 «FOREACH attrib.type.getAllAttributes().select(a| a.association == null && !a.isFile()) AS a»
+			 «EXPAND randValue(a.type, target) FOR a »
+			 «ENDFOREACH»
+			«clearCurrentEmbeddable()-»		
+	«ENDFOREACH»
+	
+	«FOREACH getOutgoingAssociations().select(a| !( a.type.isEmbeddable() || a.isContainedAssoc()) ) AS a»
+		 «target.asVar()».set«a.name.toFirstUpper()»(«a.name»TestDataFactory.getRandomRecord());
+	«ENDFOREACH»
+
+«REM»comment
+	«FOREACH getNonComposedManyAssociations() AS attrib»
+ 		//	 «asVar()».addAll«attrib.name.toFirstUpper()»(«attrib.name»TestDataFactory.getFewRandomRecords());
+	«ENDFOREACH»
+«ENDREM»
+
+«ENDDEFINE»
+
+«DEFINE randValue(uml::Enumeration e, uml::Class target ) FOR uml::Property»
 	
 «ENDDEFINE»
 
-«DEFINE randValue(uml::PrimitiveType e ) FOR uml::Property»
-	«class.asVar()».set«name.toFirstUpper()»(«getRandValue()»);
+«DEFINE randValue(uml::PrimitiveType e , uml::Class target) FOR uml::Property»
+	«target.asVar()»«getCurrentEmbeddable() != null? ".get" + getCurrentEmbeddable().name.toFirstUpper() + "()" :"" ».set«name.toFirstUpper()»(«getRandValue()»);
 «ENDDEFINE»
+
+«DEFINE randValue(uml::Class e, uml::Class target ) FOR uml::Property»
+	«target.asVar()»«getCurrentEmbeddable() != null? ".get" + getCurrentEmbeddable().name.toFirstUpper() + "()" :"" ».set«name.toFirstUpper()»(«getRandValue()»);
+«ENDDEFINE»
+
+
 
 «REM» Create a random object using random value generator (static) «ENDREM»
 «DEFINE createRandomObject(String name) FOR wcprofile::Entity»
