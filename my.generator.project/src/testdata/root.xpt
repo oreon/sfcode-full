@@ -127,7 +127,9 @@
 	«ENDFOREACH»
 	
 	«FOREACH getOutgoingAssociations().select(a| !( a.type.isEmbeddable() || a.isContainedAssoc()) ) AS a»
+		«IF !a.isOneOnOne() ||( a.isOneOnOne() && a.isAggregate() )»«REM» need to have only one side in one to one bidrecitonals«ENDREM»
 		 «target.asVar()».set«a.name.toFirstUpper()»(«a.name»TestDataFactory.getRandomRecord());
+		«ENDIF»
 	«ENDFOREACH»
 
 «REM»comment
