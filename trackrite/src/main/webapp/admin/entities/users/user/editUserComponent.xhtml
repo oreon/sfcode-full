@@ -18,7 +18,10 @@
         <h:message styleClass="error errors" for="enabled"/>  
         <h:outputText value="#{msg.user_email} * "/>  
         <h:inputText id="email#{entityId}" label="#{msg.user_email}" required="true" value="#{userAction.user.email}"/>  
-        <h:message styleClass="error errors" for="email"/> 
+        <h:message styleClass="error errors" for="email"/>  
+        <h:outputText value="#{msg.user_lastLogin}  "/>  
+        <rich:calendar id="lastLogin#{entityId}" label="#{msg.user_lastLogin}" required="false" value="#{userAction.user.lastLogin}"/>  
+        <h:message styleClass="error errors" for="lastLogin"/> 
       </h:panelGrid>  
       <rich:simpleTogglePanel label="#{msg.user_roles}" switchType="client"> 
         <rich:listShuttle sourceValue="#{userAction.listAvailableRoles}" targetValue="#{userAction.listRoles}" var="item"> 

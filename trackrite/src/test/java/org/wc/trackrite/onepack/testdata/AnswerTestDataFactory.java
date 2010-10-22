@@ -163,26 +163,12 @@ public class AnswerTestDataFactory
 	}
 
 	public void persistAll() {
-		//if (!isPersistable() || alreadyPersisted)
-		//	return;
-
+		init();
 		createAll();
 
-		if (answerAction == null)
-			answerAction = (com.nas.recovery.web.action.onepack.AnswerAction) Component
-					.getInstance("answerAction");
-
 		for (org.wc.trackrite.onepack.Answer answer : answers) {
-			//try {
-			answerAction.setInstance(answer);
-			answerAction.save();
-			//} catch (BusinessException be) {
-			//logger.warn(" Answer " + answer.getDisplayName()
-			//		+ "couldn't be saved " + be.getMessage());
-			//}
+			persist(answer);
 		}
-
-		//alreadyPersisted = true;
 	}
 
 	/** Execute this method to manually generate objects

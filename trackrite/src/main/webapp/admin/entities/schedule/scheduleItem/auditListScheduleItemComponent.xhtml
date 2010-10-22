@@ -40,6 +40,15 @@
           <h:outputText value="#{msg.scheduleItem_endDate}"/> 
         </f:facet>  
         <h:outputText value="#{_log.entity.endDate}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.scheduleItem_detailItem}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.detailItem.displayName}" view="/admin/entities/schedule/detailItem/viewDetailItem.xhtml"> 
+          <f:param name="id" value="#{_entity.detailItem.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
       </rich:column> 
     </rich:dataTable> 
   </h:form> 

@@ -37,9 +37,9 @@ public class ExamTestDataFactory
 
 		try {
 
-			exam.setName("Eric");
+			exam.setName("Lavendar");
 
-			exam.setDuration(9727);
+			exam.setDuration(8038);
 
 			register(exam);
 
@@ -55,9 +55,9 @@ public class ExamTestDataFactory
 
 		try {
 
-			exam.setName("delta");
+			exam.setName("Eric");
 
-			exam.setDuration(992);
+			exam.setDuration(7263);
 
 			register(exam);
 
@@ -73,9 +73,9 @@ public class ExamTestDataFactory
 
 		try {
 
-			exam.setName("Eric");
+			exam.setName("delta");
 
-			exam.setDuration(3381);
+			exam.setDuration(5324);
 
 			register(exam);
 
@@ -91,9 +91,9 @@ public class ExamTestDataFactory
 
 		try {
 
-			exam.setName("zeta");
+			exam.setName("epsilon");
 
-			exam.setDuration(630);
+			exam.setDuration(1153);
 
 			register(exam);
 
@@ -109,9 +109,9 @@ public class ExamTestDataFactory
 
 		try {
 
-			exam.setName("theta");
+			exam.setName("Mark");
 
-			exam.setDuration(8979);
+			exam.setDuration(7399);
 
 			register(exam);
 
@@ -142,26 +142,12 @@ public class ExamTestDataFactory
 	}
 
 	public void persistAll() {
-		//if (!isPersistable() || alreadyPersisted)
-		//	return;
-
+		init();
 		createAll();
 
-		if (examAction == null)
-			examAction = (com.nas.recovery.web.action.onepack.ExamAction) Component
-					.getInstance("examAction");
-
 		for (org.wc.trackrite.onepack.Exam exam : exams) {
-			//try {
-			examAction.setInstance(exam);
-			examAction.save();
-			//} catch (BusinessException be) {
-			//logger.warn(" Exam " + exam.getDisplayName()
-			//		+ "couldn't be saved " + be.getMessage());
-			//}
+			persist(exam);
 		}
-
-		//alreadyPersisted = true;
 	}
 
 	/** Execute this method to manually generate objects

@@ -37,7 +37,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.10.08 22:22:25 EDT"));
+			workDay.setDate(dateFormat.parse("2010.09.29 06:33:29 EDT"));
 
 			register(workDay);
 
@@ -53,7 +53,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.10.28 04:47:27 EDT"));
+			workDay.setDate(dateFormat.parse("2010.11.15 03:56:17 EST"));
 
 			register(workDay);
 
@@ -69,7 +69,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.10.24 05:58:32 EDT"));
+			workDay.setDate(dateFormat.parse("2010.11.07 22:02:57 EST"));
 
 			register(workDay);
 
@@ -85,7 +85,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.09.23 08:11:19 EDT"));
+			workDay.setDate(dateFormat.parse("2010.10.27 19:42:24 EDT"));
 
 			register(workDay);
 
@@ -101,7 +101,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.09.30 23:54:07 EDT"));
+			workDay.setDate(dateFormat.parse("2010.10.09 00:42:24 EDT"));
 
 			register(workDay);
 
@@ -132,26 +132,12 @@ public class WorkDayTestDataFactory
 	}
 
 	public void persistAll() {
-		//if (!isPersistable() || alreadyPersisted)
-		//	return;
-
+		init();
 		createAll();
 
-		if (workDayAction == null)
-			workDayAction = (com.nas.recovery.web.action.timetrack.WorkDayAction) Component
-					.getInstance("workDayAction");
-
 		for (org.wc.trackrite.timetrack.WorkDay workDay : workDays) {
-			//try {
-			workDayAction.setInstance(workDay);
-			workDayAction.save();
-			//} catch (BusinessException be) {
-			//logger.warn(" WorkDay " + workDay.getDisplayName()
-			//		+ "couldn't be saved " + be.getMessage());
-			//}
+			persist(workDay);
 		}
-
-		//alreadyPersisted = true;
 	}
 
 	/** Execute this method to manually generate objects

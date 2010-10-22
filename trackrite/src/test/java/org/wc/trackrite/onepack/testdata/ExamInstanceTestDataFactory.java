@@ -151,26 +151,12 @@ public class ExamInstanceTestDataFactory
 	}
 
 	public void persistAll() {
-		//if (!isPersistable() || alreadyPersisted)
-		//	return;
-
+		init();
 		createAll();
 
-		if (examInstanceAction == null)
-			examInstanceAction = (com.nas.recovery.web.action.onepack.ExamInstanceAction) Component
-					.getInstance("examInstanceAction");
-
 		for (org.wc.trackrite.onepack.ExamInstance examInstance : examInstances) {
-			//try {
-			examInstanceAction.setInstance(examInstance);
-			examInstanceAction.save();
-			//} catch (BusinessException be) {
-			//logger.warn(" ExamInstance " + examInstance.getDisplayName()
-			//		+ "couldn't be saved " + be.getMessage());
-			//}
+			persist(examInstance);
 		}
-
-		//alreadyPersisted = true;
 	}
 
 	/** Execute this method to manually generate objects

@@ -40,9 +40,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("delta");
-
-			//	 department.addAllEmployees(employeesTestDataFactory.getFewRandomRecords());
+			department.setName("Mark");
 
 			register(department);
 
@@ -58,9 +56,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("pi");
-
-			//	 department.addAllEmployees(employeesTestDataFactory.getFewRandomRecords());
+			department.setName("John");
 
 			register(department);
 
@@ -78,8 +74,6 @@ public class DepartmentTestDataFactory
 
 			department.setName("delta");
 
-			//	 department.addAllEmployees(employeesTestDataFactory.getFewRandomRecords());
-
 			register(department);
 
 		} catch (Exception ex) {
@@ -94,9 +88,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("beta");
-
-			//	 department.addAllEmployees(employeesTestDataFactory.getFewRandomRecords());
+			department.setName("Lavendar");
 
 			register(department);
 
@@ -112,9 +104,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("Lavendar");
-
-			//	 department.addAllEmployees(employeesTestDataFactory.getFewRandomRecords());
+			department.setName("Mark");
 
 			register(department);
 
@@ -145,26 +135,12 @@ public class DepartmentTestDataFactory
 	}
 
 	public void persistAll() {
-		//if (!isPersistable() || alreadyPersisted)
-		//	return;
-
+		init();
 		createAll();
 
-		if (departmentAction == null)
-			departmentAction = (com.nas.recovery.web.action.domain.DepartmentAction) Component
-					.getInstance("departmentAction");
-
 		for (org.wc.trackrite.domain.Department department : departments) {
-			//try {
-			departmentAction.setInstance(department);
-			departmentAction.save();
-			//} catch (BusinessException be) {
-			//logger.warn(" Department " + department.getDisplayName()
-			//		+ "couldn't be saved " + be.getMessage());
-			//}
+			persist(department);
 		}
-
-		//alreadyPersisted = true;
 	}
 
 	/** Execute this method to manually generate objects

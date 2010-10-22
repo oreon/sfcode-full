@@ -134,26 +134,12 @@ public class ScheduleTestDataFactory
 	}
 
 	public void persistAll() {
-		//if (!isPersistable() || alreadyPersisted)
-		//	return;
-
+		init();
 		createAll();
 
-		if (scheduleAction == null)
-			scheduleAction = (com.nas.recovery.web.action.schedule.ScheduleAction) Component
-					.getInstance("scheduleAction");
-
 		for (org.wc.trackrite.schedule.Schedule schedule : schedules) {
-			//try {
-			scheduleAction.setInstance(schedule);
-			scheduleAction.save();
-			//} catch (BusinessException be) {
-			//logger.warn(" Schedule " + schedule.getDisplayName()
-			//		+ "couldn't be saved " + be.getMessage());
-			//}
+			persist(schedule);
 		}
-
-		//alreadyPersisted = true;
 	}
 
 	/** Execute this method to manually generate objects

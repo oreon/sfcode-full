@@ -6,10 +6,4 @@ import org.jboss.seam.annotations.Name;
 @Name("roleAction")
 public class RoleAction extends RoleActionBase implements java.io.Serializable {
 
-	
-	public org.wc.trackrite.users.Role findByName(String name) {
-
-		return executeSingleResultNamedQuery("findByName", name);
-
-	}
 }

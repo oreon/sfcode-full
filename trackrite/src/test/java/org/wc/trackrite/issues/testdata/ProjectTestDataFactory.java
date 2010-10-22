@@ -40,11 +40,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("gamma");
+			project.setName("Eric");
 
-			project.setDescription("Lavendar");
-
-			//	 project.addAllIssues(issuesTestDataFactory.getFewRandomRecords());
+			project.setDescription("Wilson");
 
 			register(project);
 
@@ -60,11 +58,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("pi");
+			project.setName("Eric");
 
-			project.setDescription("alpha");
-
-			//	 project.addAllIssues(issuesTestDataFactory.getFewRandomRecords());
+			project.setDescription("beta");
 
 			register(project);
 
@@ -80,11 +76,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("beta");
+			project.setName("delta");
 
-			project.setDescription("zeta");
-
-			//	 project.addAllIssues(issuesTestDataFactory.getFewRandomRecords());
+			project.setDescription("Mark");
 
 			register(project);
 
@@ -100,11 +94,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("Wilson");
+			project.setName("Lavendar");
 
-			project.setDescription("Lavendar");
-
-			//	 project.addAllIssues(issuesTestDataFactory.getFewRandomRecords());
+			project.setDescription("zeta");
 
 			register(project);
 
@@ -122,9 +114,7 @@ public class ProjectTestDataFactory
 
 			project.setName("John");
 
-			project.setDescription("zeta");
-
-			//	 project.addAllIssues(issuesTestDataFactory.getFewRandomRecords());
+			project.setDescription("theta");
 
 			register(project);
 
@@ -155,26 +145,12 @@ public class ProjectTestDataFactory
 	}
 
 	public void persistAll() {
-		//if (!isPersistable() || alreadyPersisted)
-		//	return;
-
+		init();
 		createAll();
 
-		if (projectAction == null)
-			projectAction = (com.nas.recovery.web.action.issues.ProjectAction) Component
-					.getInstance("projectAction");
-
 		for (org.wc.trackrite.issues.Project project : projects) {
-			//try {
-			projectAction.setInstance(project);
-			projectAction.save();
-			//} catch (BusinessException be) {
-			//logger.warn(" Project " + project.getDisplayName()
-			//		+ "couldn't be saved " + be.getMessage());
-			//}
+			persist(project);
 		}
-
-		//alreadyPersisted = true;
 	}
 
 	/** Execute this method to manually generate objects

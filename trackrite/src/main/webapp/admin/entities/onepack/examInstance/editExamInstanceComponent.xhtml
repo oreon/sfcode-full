@@ -8,13 +8,13 @@
           <h:outputText value="ExamInstance "/> 
         </f:facet>  
         <h:outputText value="#{msg.examInstance_exam}  "/>  
-        <h:selectOneMenu id="exam" value="#{examInstanceAction.examInstance.exam}" required="true"> 
+        <h:selectOneMenu id="exam" label="#{msg.examInstance_exam}" value="#{examInstanceAction.examInstance.exam}" required="true"> 
           <s:selectItems value="#{examList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="exam"/>  
         <h:outputText value="#{msg.examInstance_candidate}  "/>  
-        <h:selectOneMenu id="candidate" value="#{examInstanceAction.examInstance.candidate}" required="true"> 
+        <h:selectOneMenu id="candidate" label="#{msg.examInstance_candidate}" value="#{examInstanceAction.examInstance.candidate}" required="true"> 
           <s:selectItems value="#{candidateList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
@@ -28,7 +28,7 @@
           <f:facet name="header">
             <h:outputText value="#{msg.answer_question}  "/>
           </f:facet>  
-          <h:selectOneMenu id="question" value="#{_answer.question}" required="true"> 
+          <h:selectOneMenu id="question" label="#{msg.answer_question}" value="#{_answer.question}" required="true"> 
             <s:selectItems value="#{questionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <s:convertEntity/> 
           </h:selectOneMenu>  
@@ -38,7 +38,7 @@
           <f:facet name="header">
             <h:outputText value="#{msg.answer_choice}  "/>
           </f:facet>  
-          <h:selectOneMenu id="choice" value="#{_answer.choice}" required="true"> 
+          <h:selectOneMenu id="choice" label="#{msg.answer_choice}" value="#{_answer.choice}" required="true"> 
             <s:selectItems value="#{choiceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <s:convertEntity/> 
           </h:selectOneMenu>  

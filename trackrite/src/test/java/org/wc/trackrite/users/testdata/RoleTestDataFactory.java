@@ -37,7 +37,7 @@ public class RoleTestDataFactory
 
 		try {
 
-			role.setName("delta");
+			role.setName("theta");
 
 			register(role);
 
@@ -53,7 +53,7 @@ public class RoleTestDataFactory
 
 		try {
 
-			role.setName("Lavendar");
+			role.setName("pi");
 
 			register(role);
 
@@ -69,7 +69,7 @@ public class RoleTestDataFactory
 
 		try {
 
-			role.setName("delta");
+			role.setName("beta");
 
 			register(role);
 
@@ -85,7 +85,7 @@ public class RoleTestDataFactory
 
 		try {
 
-			role.setName("Wilson");
+			role.setName("alpha");
 
 			register(role);
 
@@ -101,7 +101,7 @@ public class RoleTestDataFactory
 
 		try {
 
-			role.setName("gamma");
+			role.setName("Wilson");
 
 			register(role);
 
@@ -132,26 +132,12 @@ public class RoleTestDataFactory
 	}
 
 	public void persistAll() {
-		//if (!isPersistable() || alreadyPersisted)
-		//	return;
-
+		init();
 		createAll();
 
-		if (roleAction == null)
-			roleAction = (com.nas.recovery.web.action.users.RoleAction) Component
-					.getInstance("roleAction");
-
 		for (org.wc.trackrite.users.Role role : roles) {
-			//try {
-			roleAction.setInstance(role);
-			roleAction.save();
-			//} catch (BusinessException be) {
-			//logger.warn(" Role " + role.getDisplayName()
-			//		+ "couldn't be saved " + be.getMessage());
-			//}
+			persist(role);
 		}
-
-		//alreadyPersisted = true;
 	}
 
 	/** Execute this method to manually generate objects

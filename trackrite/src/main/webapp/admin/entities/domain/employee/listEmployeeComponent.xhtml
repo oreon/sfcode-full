@@ -69,6 +69,18 @@
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{employeeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.user_lastLogin}"/>  
+              <ui:param name="propertyPath" value="employee.user.lastLogin"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_employee.user.lastLogin}"> 
+            <s:convertDateTime type="both" dateStyle="short"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{employeeList}"/>  
               <ui:param name="propertyLabel" value="#{msg.employee_department}"/>  
               <ui:param name="propertyPath" value="employee.department"/> 
             </ui:include> 

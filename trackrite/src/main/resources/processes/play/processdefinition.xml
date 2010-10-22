@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition name="play">  
+  <swimlane name="admin"> 
+    <assignment actor-id="admin"/> 
+  </swimlane>  
+  <task-node name="firstTask"> 
+    <event type="node-enter"> 
+      <action expression="#{issueAction.createMessage}"/> 
+    </event>  
+    <task name="firstTaskTask" swimlane="admin" duedate="3 business days" notify="false"></task>  
+    <transition to="second" name="timeout"></transition>  
+    <transition to="second" name="done"> 
+      <action expression="#{employeeAction.updateDueDate()}"/> 
+    </transition> 
+  </task-node>  
+  <start-state name=""> 
+    <task name="Task" swimlane="admin"></task>  
+    <transition to="firstTask" name="proceedTofirstTask"></transition> 
+  </start-state>  
+  <task-node name="second"> 
+    <task name="secondTask" swimlane="admin" notify="false"></task>  
+    <transition to="third" name="proceedTothird"></transition> 
+  </task-node>  
+  <task-node name="third"> 
+    <task name="thirdTask" swimlane="admin" notify="false"></task>  
+    <transition to="fourth" name="proceedTofourth"></transition> 
+  </task-node>  
+  <task-node name="fourth"> 
+    <task name="fourthTask" swimlane="admin" notify="false"></task>  
+    <transition to="end" name="proceedToend"></transition> 
+  </task-node>  
+  <end-state name="end"/> 
+</process-definition>

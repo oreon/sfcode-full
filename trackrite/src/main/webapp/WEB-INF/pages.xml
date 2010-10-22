@@ -125,6 +125,12 @@
       </rule>  
       <rule if-outcome="viewScheduleItem"> 
         <redirect view-id="/admin/entities/schedule/scheduleItem/viewScheduleItem.xhtml"/> 
+      </rule>  
+      <rule if-outcome="detailItem"> 
+        <redirect view-id="/admin/entities/schedule/detailItem/listDetailItem.xhtml"/> 
+      </rule>  
+      <rule if-outcome="viewDetailItem"> 
+        <redirect view-id="/admin/entities/schedule/detailItem/viewDetailItem.xhtml"/> 
       </rule> 
     </navigation> 
   </page>  
@@ -172,6 +178,7 @@
     <param name="user_userName" value="#{employeeList.employee.user.userName}" validateModel="false"/>  
     <param name="user_enabled" value="#{employeeList.employee.user.enabled}" validateModel="false"/>  
     <param name="user_email" value="#{employeeList.employee.user.email}" validateModel="false"/>  
+    <param name="user_lastLogin" value="#{employeeList.employee.user.lastLogin}" validateModel="false"/>  
     <param name="department" value="#{employeeList.employee.department.id}" validateModel="false"/>  
     <param name="employeeNumber" value="#{employeeList.employee.employeeNumber}" validateModel="false"/>  
     <param name="employeeType" value="#{employeeList.employee.employeeType}" validateModel="false"/>  
@@ -264,7 +271,8 @@
     <param name="lastName" value="#{endUserList.endUser.lastName}" validateModel="false"/>  
     <param name="user_userName" value="#{endUserList.endUser.user.userName}" validateModel="false"/>  
     <param name="user_enabled" value="#{endUserList.endUser.user.enabled}" validateModel="false"/>  
-    <param name="user_email" value="#{endUserList.endUser.user.email}" validateModel="false"/> 
+    <param name="user_email" value="#{endUserList.endUser.user.email}" validateModel="false"/>  
+    <param name="user_lastLogin" value="#{endUserList.endUser.user.lastLogin}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/issues/project/editProject.xhtml"> 
     <!-- <description>Edit Project: #{project.displayName}</description> -->  
@@ -396,7 +404,8 @@
     <param name="id" value="#{userList.user.id}"/>  
     <param name="userName" value="#{userList.user.userName}" validateModel="false"/>  
     <param name="enabled" value="#{userList.user.enabled}" validateModel="false"/>  
-    <param name="email" value="#{userList.user.email}" validateModel="false"/> 
+    <param name="email" value="#{userList.user.email}" validateModel="false"/>  
+    <param name="lastLogin" value="#{userList.user.lastLogin}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/users/role/editRole.xhtml"> 
     <!-- <description>Edit Role: #{role.displayName}</description> -->  
@@ -826,7 +835,8 @@
         <redirect view-id="/admin/entities/schedule/scheduleItem/listScheduleItem.xhtml"/> 
       </rule> 
     </navigation>  
-    <param name="scheduleItemId" value="#{scheduleItemAction.scheduleItemId}"/> 
+    <param name="scheduleItemId" value="#{scheduleItemAction.scheduleItemId}"/>  
+    <param name="detailItemId" value="#{scheduleItemAction.detailItemId}"/> 
   </page>  
   <page view-id="/admin/entities/schedule/scheduleItem/viewScheduleItem.xhtml"> 
     <!-- <description>View ScheduleItem: #{scheduleItem.displayName}</description> -->  
@@ -855,7 +865,49 @@
     <param name="from"/>  
     <param name="id" value="#{scheduleItemList.scheduleItem.id}"/>  
     <param name="startDate" value="#{scheduleItemList.scheduleItem.startDate}" validateModel="false"/>  
-    <param name="endDate" value="#{scheduleItemList.scheduleItem.endDate}" validateModel="false"/> 
+    <param name="endDate" value="#{scheduleItemList.scheduleItem.endDate}" validateModel="false"/>  
+    <param name="detailItem" value="#{scheduleItemList.scheduleItem.detailItem.id}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/schedule/detailItem/editDetailItem.xhtml"> 
+    <!-- <description>Edit DetailItem: #{detailItem.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/schedule/detailItem/viewDetailItem.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/schedule/detailItem/listDetailItem.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="detailItemId" value="#{detailItemAction.detailItemId}"/>  
+    <param name="scheduleItemId" value="#{detailItemAction.scheduleItemId}"/> 
+  </page>  
+  <page view-id="/admin/entities/schedule/detailItem/viewDetailItem.xhtml"> 
+    <!-- <description>View DetailItem: #{detailItem.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/schedule/detailItem/editDetailItem.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/schedule/detailItem/listDetailItem.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="detailItemId" value="#{detailItemAction.detailItemId}"/> 
+  </page>  
+  <page view-id="/admin/entities/schedule/detailItem/listDetailItem.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewDetailItem"> 
+        <redirect view-id="/admin/entities/schedule/detailItem/viewDetailItem.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/schedule/detailItem/editDetailItem.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{detailItemList.firstResult}"/>  
+    <param name="sort" value="#{detailItemList.orderColumn}"/>  
+    <param name="dir" value="#{detailItemList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{detailItemList.detailItem.id}"/>  
+    <param name="scheduleItem" value="#{detailItemList.detailItem.scheduleItem.id}" validateModel="false"/> 
   </page>  
   <exception class="org.jboss.seam.framework.EntityNotFoundException"> 
     <redirect view-id="/error.xhtml"> 
