@@ -6,7 +6,45 @@
 «EXTENSION template::WebExtensions»
 
 «DEFINE Root FOR uml::Model»
+	«EXPAND GenerateTestDataFactoryManager FOR this»
 	«EXPAND GenerateTestDataFactory FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+«ENDDEFINE»
+
+
+«DEFINE GenerateTestDataFactoryManager FOR uml::Model»
+«FILE "../../test/java/" + getTopLevelPackagePath() + "/testdata/" +  "TestDataGenerator.java"»  
+package «getTopLevelPackage()».testdata;
+
+import java.util.List;
+import java.util.ArrayList;
+import org.witchcraft.action.test.AbstractTestDataFactory;
+
+public class TestDataGenerator{
+
+	public static List<AbstractTestDataFactory> listDataFactory = new ArrayList<AbstractTestDataFactory>();
+
+	static {
+	«FOREACH allOwnedElements().typeSelect(wcprofile::Entity)  AS a»
+		listDataFactory.add(new «a.packageName()».testdata.«a.name»TestDataFactory());
+	«ENDFOREACH»
+	}
+	
+	public void persist(){
+		for (AbstractTestDataFactory dataFactory: listDataFactory) {
+			dataFactory.persistAll();
+		}
+	}
+
+	/** Execute this method to manually generate objects
+	 * @param args
+	 */
+	public static void main(String args[]) {
+		new TestDataGenerator().persist();
+	}
+	
+
+}
+«ENDFILE»
 «ENDDEFINE»
 
 «DEFINE GenerateTestDataFactory FOR wcprofile::Entity»
