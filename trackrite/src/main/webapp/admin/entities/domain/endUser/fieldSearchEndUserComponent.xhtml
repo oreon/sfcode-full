@@ -34,6 +34,20 @@
       <br/>  
       <h:inputText id="user_email" value="#{endUserList.endUser.user.email}"/> 
     </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.user_lastLogin}  "/>  
+      <br/>  
+      <s:decorate template="/layout/display.xhtml"> 
+        <ui:define name="label">From</ui:define>  
+        <br/>  
+        <rich:calendar value="#{endUserList.user_lastLoginRange.begin}"/> 
+      </s:decorate>  
+      <s:decorate template="/layout/display.xhtml"> 
+        <ui:define name="label">To</ui:define>  
+        <br/>  
+        <rich:calendar value="#{endUserList.user_lastLoginRange.end}"/> 
+      </s:decorate> 
+    </h:panelGroup>  
     <s:decorate template="/layout/display.xhtml"> 
       <ui:define name="label">From</ui:define>  
       <br/>  

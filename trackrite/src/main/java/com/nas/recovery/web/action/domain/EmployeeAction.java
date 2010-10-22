@@ -5,6 +5,7 @@ import org.jboss.seam.annotations.Name;
 import org.wc.trackrite.users.Role;
 
 import com.nas.recovery.web.action.users.RoleAction;
+import com.nas.recovery.web.action.workflowmgt.Play;
 
 //@Scope(ScopeType.CONVERSATION)
 @Name("employeeAction")
@@ -30,7 +31,7 @@ public class EmployeeAction extends EmployeeActionBase implements
 	}
 
 	private Role createRole() {
-		Role role = roleAction.findByName(definedRole());
+		Role role = roleAction.findByUnqName(definedRole());
 		if(role == null) {
 			role = new Role();
 			role.setName(definedRole());
@@ -42,6 +43,12 @@ public class EmployeeAction extends EmployeeActionBase implements
 	private String definedRole() {
 		// TODO Auto-generated method stub
 		return "developer";
+	}
+	
+	public String updateDuedate(){
+		Play play;
+		//play.getT
+		return "";
 	}
 
 }

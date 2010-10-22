@@ -28,6 +28,7 @@ import org.joda.time.DateTime;
  * @author jagdeep.singh
  * 
  */
+@Transactional
 public class BaseJbpmProcessAction {
 
 	public static final String PROCESS_ACTION_SUFFIX = "ProcessAction";

@@ -16,7 +16,7 @@ import org.wc.trackrite.issues.Issue;
 			if (issueToken.getDeveloper() != null)
 				assignable.setActorId(issueToken.getDeveloper().getUser().getUserName());
 			else
-				assignable.setPooledActors("developer");
+				assignable.setPooledActors(new String[]{"developer"});
 				
 		}
 		

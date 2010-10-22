@@ -43,6 +43,9 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 	@DataModelSelection
 	private ScheduleItem scheduleItem;
 
+	@In(create = true, value = "detailItemAction")
+	com.nas.recovery.web.action.schedule.DetailItemAction detailItemAction;
+
 	@DataModel
 	private List<ScheduleItem> scheduleItemRecordList;
 
@@ -50,6 +53,17 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
+	}
+
+	public void setDetailItemId(Long id) {
+		if (id != null && id > 0)
+			getInstance().setDetailItem(detailItemAction.loadFromId(id));
+	}
+
+	public Long getDetailItemId() {
+		if (getInstance().getDetailItem() != null)
+			return getInstance().getDetailItem().getId();
+		return 0L;
 	}
 
 	public Long getScheduleItemId() {
@@ -89,6 +103,11 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 
 	public void wire() {
 		getInstance();
+		org.wc.trackrite.schedule.DetailItem detailItem = detailItemAction
+				.getDefinedInstance();
+		if (detailItem != null) {
+			getInstance().setDetailItem(detailItem);
+		}
 
 	}
 
@@ -115,11 +134,28 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 		this.scheduleItemRecordList = list;
 	}
 
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
+	 */
+	@Override
+	public void addAssociations(Criteria criteria) {
+
+		if (scheduleItem.getDetailItem() != null) {
+			criteria = criteria.add(Restrictions.eq("detailItem.id",
+					scheduleItem.getDetailItem().getId()));
+		}
+
+	}
+
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
 	public void loadAssociations() {
+
+		if (scheduleItem.getDetailItem() != null) {
+			detailItemAction.setInstance(getInstance().getDetailItem());
+		}
 
 	}
 

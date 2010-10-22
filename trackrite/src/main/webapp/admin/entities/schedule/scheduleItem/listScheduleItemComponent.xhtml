@@ -43,6 +43,19 @@
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{scheduleItemList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.scheduleItem_detailItem}"/>  
+              <ui:param name="propertyPath" value="scheduleItem.detailItem"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_scheduleItem.detailItem.displayName}" view="/admin/entities/schedule/detailItem/viewDetailItem.xhtml"> 
+            <f:param name="detailItemId" value="#{_scheduleItem.detailItem.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{scheduleItemList}"/>  
               <ui:param name="propertyLabel" value="Creation Date"/>  
               <ui:param name="propertyPath" value="scheduleItem.dateCreated"/> 
             </ui:include> 

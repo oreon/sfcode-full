@@ -28,6 +28,14 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 
 	protected Employee employee = new Employee();
 
+	private Range<Date> user_lastLoginRange = new Range<Date>();
+	public Range<Date> getUser_lastLoginRange() {
+		return user_lastLoginRange;
+	}
+	public void setUser_lastLogin(Range<Date> user_lastLoginRange) {
+		this.user_lastLoginRange = user_lastLoginRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"employee.id = #{employeeList.employee.id}",
 
@@ -40,6 +48,9 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 			"employee.user.enabled = #{employeeList.employee.user.enabled}",
 
 			"lower(employee.user.email) like concat(lower(#{employeeList.employee.user.email}),'%')",
+
+			"employee.user.lastLogin >= #{employeeList.user_lastLoginRange.begin}",
+			"employee.user.lastLogin <= #{employeeList.user_lastLoginRange.end}",
 
 			"employee.department.id = #{employeeList.employee.department.id}",
 

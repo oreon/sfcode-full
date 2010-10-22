@@ -53,6 +53,10 @@ public class ScheduleItem extends BusinessEntity
 
 	protected Date endDate;
 
+	@OneToOne(mappedBy = "scheduleItem", optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ContainedIn
+	protected DetailItem detailItem;
+
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
@@ -69,6 +73,15 @@ public class ScheduleItem extends BusinessEntity
 	public Date getEndDate() {
 
 		return endDate;
+	}
+
+	public void setDetailItem(DetailItem detailItem) {
+		this.detailItem = detailItem;
+	}
+
+	public DetailItem getDetailItem() {
+
+		return detailItem;
 	}
 
 	@Transient

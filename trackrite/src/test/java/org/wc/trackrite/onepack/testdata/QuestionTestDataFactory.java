@@ -39,7 +39,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("Lavendar");
+			question.setText("alpha");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -57,7 +57,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("theta");
+			question.setText("Mark");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -75,7 +75,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("delta");
+			question.setText("gamma");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -93,7 +93,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("John");
+			question.setText("epsilon");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -111,7 +111,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("epsilon");
+			question.setText("Malissa");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -144,26 +144,12 @@ public class QuestionTestDataFactory
 	}
 
 	public void persistAll() {
-		//if (!isPersistable() || alreadyPersisted)
-		//	return;
-
+		init();
 		createAll();
 
-		if (questionAction == null)
-			questionAction = (com.nas.recovery.web.action.onepack.QuestionAction) Component
-					.getInstance("questionAction");
-
 		for (org.wc.trackrite.onepack.Question question : questions) {
-			//try {
-			questionAction.setInstance(question);
-			questionAction.save();
-			//} catch (BusinessException be) {
-			//logger.warn(" Question " + question.getDisplayName()
-			//		+ "couldn't be saved " + be.getMessage());
-			//}
+			persist(question);
 		}
-
-		//alreadyPersisted = true;
 	}
 
 	/** Execute this method to manually generate objects

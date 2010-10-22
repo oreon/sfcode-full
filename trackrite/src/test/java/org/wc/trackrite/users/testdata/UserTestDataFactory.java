@@ -37,13 +37,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("gamma");
+			user.setUserName("Lavendar");
 
-			user.setPassword("Wilson");
+			user.setPassword("gamma");
 
 			user.setEnabled(true);
 
-			user.setEmail("delta");
+			user.setEmail("John");
+
+			user.setLastLogin(dateFormat.parse("2010.10.27 07:09:36 EDT"));
 
 			register(user);
 
@@ -59,13 +61,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("John");
+			user.setUserName("alpha");
 
-			user.setPassword("alpha");
+			user.setPassword("Wilson");
 
 			user.setEnabled(true);
 
-			user.setEmail("epsilon");
+			user.setEmail("Wilson");
+
+			user.setLastLogin(dateFormat.parse("2010.11.07 04:07:22 EST"));
 
 			register(user);
 
@@ -81,13 +85,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("gamma");
+			user.setUserName("theta");
 
-			user.setPassword("beta");
+			user.setPassword("zeta");
 
-			user.setEnabled(false);
+			user.setEnabled(true);
 
-			user.setEmail("beta");
+			user.setEmail("epsilon");
+
+			user.setLastLogin(dateFormat.parse("2010.10.11 12:50:42 EDT"));
 
 			register(user);
 
@@ -103,13 +109,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("Lavendar");
+			user.setUserName("theta");
 
-			user.setPassword("beta");
+			user.setPassword("gamma");
 
 			user.setEnabled(true);
 
-			user.setEmail("pi");
+			user.setEmail("Lavendar");
+
+			user.setLastLogin(dateFormat.parse("2010.10.23 18:36:49 EDT"));
 
 			register(user);
 
@@ -125,13 +133,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("Wilson");
+			user.setUserName("John");
 
-			user.setPassword("Eric");
+			user.setPassword("Lavendar");
 
-			user.setEnabled(false);
+			user.setEnabled(true);
 
-			user.setEmail("Mark");
+			user.setEmail("John");
+
+			user.setLastLogin(dateFormat.parse("2010.10.08 00:01:15 EDT"));
 
 			register(user);
 
@@ -162,26 +172,12 @@ public class UserTestDataFactory
 	}
 
 	public void persistAll() {
-		//if (!isPersistable() || alreadyPersisted)
-		//	return;
-
+		init();
 		createAll();
 
-		if (userAction == null)
-			userAction = (com.nas.recovery.web.action.users.UserAction) Component
-					.getInstance("userAction");
-
 		for (org.wc.trackrite.users.User user : users) {
-			//try {
-			userAction.setInstance(user);
-			userAction.save();
-			//} catch (BusinessException be) {
-			//logger.warn(" User " + user.getDisplayName()
-			//		+ "couldn't be saved " + be.getMessage());
-			//}
+			persist(user);
 		}
-
-		//alreadyPersisted = true;
 	}
 
 	/** Execute this method to manually generate objects

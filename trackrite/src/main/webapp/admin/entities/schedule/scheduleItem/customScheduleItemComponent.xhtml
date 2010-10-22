@@ -17,6 +17,15 @@
         <br/>  
         <rich:calendar id="endDate" value="#{scheduleItemAction.scheduleItem.endDate}"/>  
         <h:message styleClass="error errors" for="endDate"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.scheduleItem_detailItem}  "/>  
+        <br/>  
+        <h:selectOneMenu id="detailItem" value="#{scheduleItemAction.scheduleItem.detailItem}"> 
+          <s:selectItems value="#{detailItemList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="detailItem"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

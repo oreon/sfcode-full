@@ -62,7 +62,7 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	@Analyzer(definition = "customanalyzer")
 	protected String password;
 
-	protected Boolean enabled;
+	protected Boolean enabled = true;
 
 	//roles->users ->User->User->User
 
@@ -75,6 +75,8 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
 	protected String email;
+
+	protected Date lastLogin;
 
 	public void setUserName(String userName) {
 		this.userName = userName;
@@ -118,6 +120,15 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	public String getEmail() {
 
 		return email;
+	}
+
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
+	public Date getLastLogin() {
+
+		return lastLogin;
 	}
 
 	@Transient

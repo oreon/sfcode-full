@@ -41,13 +41,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("Eric");
+			issue.setTitle("pi");
 
-			issue.setDescription("beta");
+			issue.setDescription("alpha");
 
-			issue.setCloseTime(dateFormat.parse("2010.09.28 12:35:45 EDT"));
+			issue.setCloseTime(dateFormat.parse("2010.11.13 03:29:36 EST"));
 
-			issue.setEstimate(4210);
+			issue.setEstimate(4963);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -67,13 +67,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("delta");
+			issue.setTitle("Lavendar");
 
-			issue.setDescription("zeta");
+			issue.setDescription("Wilson");
 
-			issue.setCloseTime(dateFormat.parse("2010.10.11 13:50:47 EDT"));
+			issue.setCloseTime(dateFormat.parse("2010.10.05 03:57:22 EDT"));
 
-			issue.setEstimate(2210);
+			issue.setEstimate(6552);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -93,13 +93,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("alpha");
+			issue.setTitle("Lavendar");
 
-			issue.setDescription("epsilon");
+			issue.setDescription("beta");
 
-			issue.setCloseTime(dateFormat.parse("2010.09.23 20:17:59 EDT"));
+			issue.setCloseTime(dateFormat.parse("2010.09.29 21:40:42 EDT"));
 
-			issue.setEstimate(5178);
+			issue.setEstimate(9714);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -119,13 +119,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("alpha");
+			issue.setTitle("Malissa");
 
-			issue.setDescription("pi");
+			issue.setDescription("Mark");
 
-			issue.setCloseTime(dateFormat.parse("2010.10.17 21:15:12 EDT"));
+			issue.setCloseTime(dateFormat.parse("2010.10.30 15:12:56 EDT"));
 
-			issue.setEstimate(3377);
+			issue.setEstimate(9025);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -145,13 +145,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("Wilson");
+			issue.setTitle("beta");
 
-			issue.setDescription("Malissa");
+			issue.setDescription("Lavendar");
 
-			issue.setCloseTime(dateFormat.parse("2010.11.08 08:10:47 EST"));
+			issue.setCloseTime(dateFormat.parse("2010.11.14 21:34:02 EST"));
 
-			issue.setEstimate(6981);
+			issue.setEstimate(3130);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -186,26 +186,12 @@ public class IssueTestDataFactory
 	}
 
 	public void persistAll() {
-		//if (!isPersistable() || alreadyPersisted)
-		//	return;
-
+		init();
 		createAll();
 
-		if (issueAction == null)
-			issueAction = (com.nas.recovery.web.action.issues.IssueAction) Component
-					.getInstance("issueAction");
-
 		for (org.wc.trackrite.issues.Issue issue : issues) {
-			//try {
-			issueAction.setInstance(issue);
-			issueAction.save();
-			//} catch (BusinessException be) {
-			//logger.warn(" Issue " + issue.getDisplayName()
-			//		+ "couldn't be saved " + be.getMessage());
-			//}
+			persist(issue);
 		}
-
-		//alreadyPersisted = true;
 	}
 
 	/** Execute this method to manually generate objects

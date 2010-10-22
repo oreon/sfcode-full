@@ -39,6 +39,46 @@
 				<version>6.1.11</version>
 			</plugin>
 
+
+			<plugin>
+				<groupId>org.apache.activemq.tooling</groupId>
+				<artifactId>maven-activemq-plugin</artifactId>
+				<version>5.4.1</version>
+				<configuration>
+					<configUri>xbean:file:conf/activemq.xml</configUri>
+					<fork>false</fork>
+					<systemProperties>
+						<property>
+							<name>javax.net.ssl.keyStorePassword</name>
+							<value>password</value>
+						</property>
+						<property>
+							<name>org.apache.activemq.default.directory.prefix</name>
+							<value>./target/</value>
+						</property>
+					</systemProperties>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring</artifactId>
+						<version>2.5.5</version>
+					</dependency>
+					<dependency>
+						<groupId>org.mortbay.jetty</groupId>
+						<artifactId>jetty-xbean</artifactId>
+						<version>6.1.11</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.camel</groupId>
+						<artifactId>camel-activemq</artifactId>
+						<version>1.1.0</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -178,13 +218,13 @@
 		<dependency>
 			<groupId>org.jbpm.jbpm3</groupId>
 			<artifactId>jbpm-jpdl</artifactId>
-			<version>3.2.6.GA</version>
+			<version>3.2.6.SP1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.jbpm.jbpm3</groupId>
 			<artifactId>jbpm-identity</artifactId>
-			<version>3.2.6.GA</version>
+			<version>3.2.6.SP1</version>
 		</dependency>
 
 		<dependency>
@@ -361,6 +401,12 @@
 			<version>${drools.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-core</artifactId>
+			<version>5.4.1</version>
+		</dependency>
+
 
 
 		<dependency>
@@ -403,10 +449,10 @@
 			<id>softeu-repo</id>
 			<url>http://maven.softeu.cz</url>
 		</repository>
-		
+
 	</repositories>
-	
-	
+
+
 	<pluginRepositories>
 		<pluginRepository>
 			<id>softeu-repo</id>

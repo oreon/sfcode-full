@@ -55,6 +55,8 @@ public abstract class ScheduleItemListQueryBase
 			"scheduleItem.endDate >= #{scheduleItemList.endDateRange.begin}",
 			"scheduleItem.endDate <= #{scheduleItemList.endDateRange.end}",
 
+			"scheduleItem.detailItem.id = #{scheduleItemList.scheduleItem.detailItem.id}",
+
 			"scheduleItem.dateCreated <= #{scheduleItemList.dateCreatedRange.end}",
 			"scheduleItem.dateCreated >= #{scheduleItemList.dateCreatedRange.begin}",};
 

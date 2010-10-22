@@ -59,7 +59,7 @@ public class ExamInstance extends BusinessEntity
 	@ContainedIn
 	protected Candidate candidate;
 
-	//answers->examInstance ->ExamInstance->Answer->Answer
+	//answers->examInstance ->ExamInstance->ExamInstance->ExamInstance
 
 	@OneToMany(mappedBy = "examInstance", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "examInstance_ID", nullable = true)

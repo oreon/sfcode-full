@@ -30,12 +30,12 @@ public class BugManagementBase extends BaseJbpmProcessAction
 
 	}
 
-	@EndTask(transition = "assign")
-	public void assignAssignDeveloperTask() {
-
-	}
 	@EndTask(transition = "nonissue")
 	public void nonissueAssignDeveloperTask() {
+
+	}
+	@EndTask(transition = "assign")
+	public void assignAssignDeveloperTask() {
 
 	}
 
@@ -58,12 +58,12 @@ public class BugManagementBase extends BaseJbpmProcessAction
 
 	}
 
-	@EndTask(transition = "requestModification")
-	public void requestModificationVerifyfixTask() {
-
-	}
 	@EndTask(transition = "close")
 	public void closeVerifyfixTask() {
+
+	}
+	@EndTask(transition = "requestModification")
+	public void requestModificationVerifyfixTask() {
 
 	}
 

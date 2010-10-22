@@ -57,7 +57,7 @@ public class ChoiceTestDataFactory
 
 		try {
 
-			choice.setText("Eric");
+			choice.setText("theta");
 
 			choice.setQuestion(questionTestDataFactory.getRandomRecord());
 
@@ -75,7 +75,7 @@ public class ChoiceTestDataFactory
 
 		try {
 
-			choice.setText("epsilon");
+			choice.setText("theta");
 
 			choice.setQuestion(questionTestDataFactory.getRandomRecord());
 
@@ -93,7 +93,7 @@ public class ChoiceTestDataFactory
 
 		try {
 
-			choice.setText("Mark");
+			choice.setText("Lavendar");
 
 			choice.setQuestion(questionTestDataFactory.getRandomRecord());
 
@@ -111,7 +111,7 @@ public class ChoiceTestDataFactory
 
 		try {
 
-			choice.setText("Lavendar");
+			choice.setText("John");
 
 			choice.setQuestion(questionTestDataFactory.getRandomRecord());
 
@@ -144,26 +144,12 @@ public class ChoiceTestDataFactory
 	}
 
 	public void persistAll() {
-		//if (!isPersistable() || alreadyPersisted)
-		//	return;
-
+		init();
 		createAll();
 
-		if (choiceAction == null)
-			choiceAction = (com.nas.recovery.web.action.onepack.ChoiceAction) Component
-					.getInstance("choiceAction");
-
 		for (org.wc.trackrite.onepack.Choice choice : choices) {
-			//try {
-			choiceAction.setInstance(choice);
-			choiceAction.save();
-			//} catch (BusinessException be) {
-			//logger.warn(" Choice " + choice.getDisplayName()
-			//		+ "couldn't be saved " + be.getMessage());
-			//}
+			persist(choice);
 		}
-
-		//alreadyPersisted = true;
 	}
 
 	/** Execute this method to manually generate objects

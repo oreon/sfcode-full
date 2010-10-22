@@ -47,7 +47,7 @@ import org.hibernate.annotations.Filter;
 public class Schedule extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -949895956L;
 
-	//scheduleItems-> ->->Schedule->
+	//scheduleItems-> ->->ScheduleItem->
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "schedule_ID", nullable = true)

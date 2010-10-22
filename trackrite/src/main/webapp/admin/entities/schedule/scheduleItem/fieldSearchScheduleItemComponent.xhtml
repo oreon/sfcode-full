@@ -33,6 +33,15 @@
         <rich:calendar value="#{scheduleItemList.endDateRange.end}"/> 
       </s:decorate> 
     </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.scheduleItem_detailItem}  "/>  
+      <br/>  
+      <h:selectOneMenu id="detailItem" value="#{scheduleItemList.scheduleItem.detailItem}"> 
+        <s:selectItems value="#{detailItemList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
     <s:decorate template="/layout/display.xhtml"> 
       <ui:define name="label">From</ui:define>  
       <br/>  

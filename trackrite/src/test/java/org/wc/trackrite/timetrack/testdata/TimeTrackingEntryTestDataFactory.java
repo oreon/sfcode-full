@@ -42,9 +42,9 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(934);
+			timeTrackingEntry.setHours(3734);
 
-			timeTrackingEntry.setDetails("pi");
+			timeTrackingEntry.setDetails("John");
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -65,9 +65,9 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(2872);
+			timeTrackingEntry.setHours(7510);
 
-			timeTrackingEntry.setDetails("theta");
+			timeTrackingEntry.setDetails("delta");
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -88,9 +88,9 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(5058);
+			timeTrackingEntry.setHours(3881);
 
-			timeTrackingEntry.setDetails("pi");
+			timeTrackingEntry.setDetails("beta");
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -111,9 +111,9 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(2088);
+			timeTrackingEntry.setHours(4756);
 
-			timeTrackingEntry.setDetails("beta");
+			timeTrackingEntry.setDetails("Eric");
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -134,9 +134,9 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(9943);
+			timeTrackingEntry.setHours(9435);
 
-			timeTrackingEntry.setDetails("epsilon");
+			timeTrackingEntry.setDetails("zeta");
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -173,26 +173,12 @@ public class TimeTrackingEntryTestDataFactory
 	}
 
 	public void persistAll() {
-		//if (!isPersistable() || alreadyPersisted)
-		//	return;
-
+		init();
 		createAll();
 
-		if (timeTrackingEntryAction == null)
-			timeTrackingEntryAction = (com.nas.recovery.web.action.timetrack.TimeTrackingEntryAction) Component
-					.getInstance("timeTrackingEntryAction");
-
 		for (org.wc.trackrite.timetrack.TimeTrackingEntry timeTrackingEntry : timeTrackingEntrys) {
-			//try {
-			timeTrackingEntryAction.setInstance(timeTrackingEntry);
-			timeTrackingEntryAction.save();
-			//} catch (BusinessException be) {
-			//logger.warn(" TimeTrackingEntry " + timeTrackingEntry.getDisplayName()
-			//		+ "couldn't be saved " + be.getMessage());
-			//}
+			persist(timeTrackingEntry);
 		}
-
-		//alreadyPersisted = true;
 	}
 
 	/** Execute this method to manually generate objects

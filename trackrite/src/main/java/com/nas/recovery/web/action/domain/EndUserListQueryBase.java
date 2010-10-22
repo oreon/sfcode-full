@@ -28,6 +28,14 @@ public abstract class EndUserListQueryBase extends BaseQuery<EndUser, Long> {
 
 	protected EndUser endUser = new EndUser();
 
+	private Range<Date> user_lastLoginRange = new Range<Date>();
+	public Range<Date> getUser_lastLoginRange() {
+		return user_lastLoginRange;
+	}
+	public void setUser_lastLogin(Range<Date> user_lastLoginRange) {
+		this.user_lastLoginRange = user_lastLoginRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"endUser.id = #{endUserList.endUser.id}",
 
@@ -40,6 +48,9 @@ public abstract class EndUserListQueryBase extends BaseQuery<EndUser, Long> {
 			"endUser.user.enabled = #{endUserList.endUser.user.enabled}",
 
 			"lower(endUser.user.email) like concat(lower(#{endUserList.endUser.user.email}),'%')",
+
+			"endUser.user.lastLogin >= #{endUserList.user_lastLoginRange.begin}",
+			"endUser.user.lastLogin <= #{endUserList.user_lastLoginRange.end}",
 
 			"endUser.dateCreated <= #{endUserList.dateCreatedRange.end}",
 			"endUser.dateCreated >= #{endUserList.dateCreatedRange.begin}",};

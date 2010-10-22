@@ -122,26 +122,12 @@ public class CandidateTestDataFactory
 	}
 
 	public void persistAll() {
-		//if (!isPersistable() || alreadyPersisted)
-		//	return;
-
+		init();
 		createAll();
 
-		if (candidateAction == null)
-			candidateAction = (com.nas.recovery.web.action.onepack.CandidateAction) Component
-					.getInstance("candidateAction");
-
 		for (org.wc.trackrite.onepack.Candidate candidate : candidates) {
-			//try {
-			candidateAction.setInstance(candidate);
-			candidateAction.save();
-			//} catch (BusinessException be) {
-			//logger.warn(" Candidate " + candidate.getDisplayName()
-			//		+ "couldn't be saved " + be.getMessage());
-			//}
+			persist(candidate);
 		}
-
-		//alreadyPersisted = true;
 	}
 
 	/** Execute this method to manually generate objects

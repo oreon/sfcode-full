@@ -19,8 +19,11 @@
         <h:outputText value="#{msg.user_email} * "/>  
         <h:inputText id="user_email#{entityId}" label="#{msg.user_email}" required="true" value="#{employeeAction.employee.user.email}"/>  
         <h:message styleClass="error errors" for="user_email"/>  
+        <h:outputText value="#{msg.user_lastLogin}  "/>  
+        <rich:calendar id="user_lastLogin#{entityId}" label="#{msg.user_lastLogin}" required="false" value="#{employeeAction.employee.user.lastLogin}"/>  
+        <h:message styleClass="error errors" for="user_lastLogin"/>  
         <h:outputText value="#{msg.employee_department}  "/>  
-        <h:selectOneMenu id="department" value="#{employeeAction.employee.department}" required="true"> 
+        <h:selectOneMenu id="department" label="#{msg.employee_department}" value="#{employeeAction.employee.department}" required="true"> 
           <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
@@ -53,7 +56,7 @@
         <h:inputText id="employeeNumber#{entityId}" label="#{msg.employee_employeeNumber}" required="false" value="#{employeeAction.employee.employeeNumber}"/>  
         <h:message styleClass="error errors" for="employeeNumber"/>  
         <h:outputText value="#{msg.employee_employeeType}  "/>  
-        <h:selectOneMenu id="employeeType" value="#{employeeAction.employee.employeeType}" required="false"> 
+        <h:selectOneMenu id="employeeType" value="#{employeeAction.employee.employeeType}" required="false" label="#{msg.employee_employeeType}"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="FULL_TIME" itemLabel="Full_time"/>  
           <f:selectItem itemValue="CONTRACT" itemLabel="Contract"/>  

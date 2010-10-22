@@ -8,14 +8,14 @@
           <h:outputText value="Issue "/> 
         </f:facet>  
         <h:outputText value="#{msg.issue_project}  "/>  
-        <h:selectOneMenu id="project" value="#{issueAction.issue.project}" required="true"> 
+        <h:selectOneMenu id="project" label="#{msg.issue_project}" value="#{issueAction.issue.project}" required="true"> 
           <a:support event="onchange" reRender="developer" ajaxSingle="true"/>  
           <s:selectItems value="#{projectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="project"/>  
         <h:outputText value="#{msg.issue_developer}  "/>  
-        <h:selectOneMenu id="developer" value="#{issueAction.issue.developer}" required="false"> 
+        <h:selectOneMenu id="developer" label="#{msg.issue_developer}" value="#{issueAction.issue.developer}" required="false"> 
           <s:selectItems value="#{issueAction.issue.project.employees}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
@@ -30,7 +30,7 @@
         <s:fileUpload data="#{issueAction.issue.screenShot.data}" fileName="#{issueAction.issue.screenShot.name}" contentType="#{issueAction.issue.screenShot.contentType}"/>  
         <h:message styleClass="error errors" for="screenShot"/>  
         <h:outputText value="#{msg.issue_status}  "/>  
-        <h:selectOneMenu id="status" value="#{issueAction.issue.status}" required="false"> 
+        <h:selectOneMenu id="status" value="#{issueAction.issue.status}" required="false" label="#{msg.issue_status}"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="Unassigned" itemLabel="Unassigned"/>  
           <f:selectItem itemValue="Started" itemLabel="Started"/>  
@@ -39,7 +39,7 @@
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="status"/>  
         <h:outputText value="#{msg.issue_priority}  "/>  
-        <h:selectOneMenu id="priority" value="#{issueAction.issue.priority}" required="false"> 
+        <h:selectOneMenu id="priority" value="#{issueAction.issue.priority}" required="false" label="#{msg.issue_priority}"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="SHOW_STOPPER" itemLabel="Show_stopper"/>  
           <f:selectItem itemValue="CRITICAL_URGENT" itemLabel="Critical_urgent"/>  

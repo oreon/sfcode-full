@@ -37,6 +37,21 @@ public class EndUserTestDataFactory
 
 		try {
 
+			endUser.setFirstName("Mark");
+
+			endUser.setLastName("epsilon");
+
+			endUser.getUser().setUserName("theta");
+
+			endUser.getUser().setPassword("Wilson");
+
+			endUser.getUser().setEnabled(true);
+
+			endUser.getUser().setEmail("alpha");
+
+			endUser.getUser().setLastLogin(
+					dateFormat.parse("2010.10.18 07:10:09 EDT"));
+
 			register(endUser);
 
 		} catch (Exception ex) {
@@ -50,6 +65,21 @@ public class EndUserTestDataFactory
 		org.wc.trackrite.domain.EndUser endUser = new org.wc.trackrite.domain.EndUser();
 
 		try {
+
+			endUser.setFirstName("Mark");
+
+			endUser.setLastName("John");
+
+			endUser.getUser().setUserName("gamma");
+
+			endUser.getUser().setPassword("zeta");
+
+			endUser.getUser().setEnabled(true);
+
+			endUser.getUser().setEmail("Malissa");
+
+			endUser.getUser().setLastLogin(
+					dateFormat.parse("2010.10.11 12:30:41 EDT"));
 
 			register(endUser);
 
@@ -65,6 +95,21 @@ public class EndUserTestDataFactory
 
 		try {
 
+			endUser.setFirstName("pi");
+
+			endUser.setLastName("Eric");
+
+			endUser.getUser().setUserName("delta");
+
+			endUser.getUser().setPassword("Eric");
+
+			endUser.getUser().setEnabled(true);
+
+			endUser.getUser().setEmail("Lavendar");
+
+			endUser.getUser().setLastLogin(
+					dateFormat.parse("2010.11.11 10:10:41 EST"));
+
 			register(endUser);
 
 		} catch (Exception ex) {
@@ -79,6 +124,21 @@ public class EndUserTestDataFactory
 
 		try {
 
+			endUser.setFirstName("beta");
+
+			endUser.setLastName("delta");
+
+			endUser.getUser().setUserName("Malissa");
+
+			endUser.getUser().setPassword("pi");
+
+			endUser.getUser().setEnabled(true);
+
+			endUser.getUser().setEmail("delta");
+
+			endUser.getUser().setLastLogin(
+					dateFormat.parse("2010.11.03 14:29:36 EDT"));
+
 			register(endUser);
 
 		} catch (Exception ex) {
@@ -92,6 +152,21 @@ public class EndUserTestDataFactory
 		org.wc.trackrite.domain.EndUser endUser = new org.wc.trackrite.domain.EndUser();
 
 		try {
+
+			endUser.setFirstName("zeta");
+
+			endUser.setLastName("delta");
+
+			endUser.getUser().setUserName("gamma");
+
+			endUser.getUser().setPassword("alpha");
+
+			endUser.getUser().setEnabled(true);
+
+			endUser.getUser().setEmail("zeta");
+
+			endUser.getUser().setLastLogin(
+					dateFormat.parse("2010.11.13 14:17:21 EST"));
 
 			register(endUser);
 
@@ -122,26 +197,12 @@ public class EndUserTestDataFactory
 	}
 
 	public void persistAll() {
-		//if (!isPersistable() || alreadyPersisted)
-		//	return;
-
+		init();
 		createAll();
 
-		if (endUserAction == null)
-			endUserAction = (com.nas.recovery.web.action.domain.EndUserAction) Component
-					.getInstance("endUserAction");
-
 		for (org.wc.trackrite.domain.EndUser endUser : endUsers) {
-			//try {
-			endUserAction.setInstance(endUser);
-			endUserAction.save();
-			//} catch (BusinessException be) {
-			//logger.warn(" EndUser " + endUser.getDisplayName()
-			//		+ "couldn't be saved " + be.getMessage());
-			//}
+			persist(endUser);
 		}
-
-		//alreadyPersisted = true;
 	}
 
 	/** Execute this method to manually generate objects

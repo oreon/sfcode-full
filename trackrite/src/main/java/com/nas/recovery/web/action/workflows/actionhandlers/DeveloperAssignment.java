@@ -14,7 +14,7 @@ public class DeveloperAssignment implements AssignmentHandler {
 		if (issueToken.getIssue().getDeveloper() != null)
 			assignable.setActorId(issueToken.getIssue().getDeveloper().getUser().getUserName());
 		else
-			assignable.setPooledActors("developer");
+			assignable.setPooledActors(new String[]{"developer"});
 	}
 
 }

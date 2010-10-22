@@ -28,6 +28,8 @@ public class ScheduleItemTestDataFactory
 
 	com.nas.recovery.web.action.schedule.ScheduleItemAction scheduleItemAction;
 
+	org.wc.trackrite.schedule.testdata.DetailItemTestDataFactory detailItemTestDataFactory = new org.wc.trackrite.schedule.testdata.DetailItemTestDataFactory();
+
 	public void register(org.wc.trackrite.schedule.ScheduleItem scheduleItem) {
 		scheduleItems.add(scheduleItem);
 	}
@@ -38,10 +40,13 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.10.16 20:56:54 EDT"));
+					.parse("2010.10.15 03:25:45 EDT"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.09.26 12:41:52 EDT"));
+					.setEndDate(dateFormat.parse("2010.10.03 04:47:56 EDT"));
+
+			scheduleItem.setDetailItem(detailItemTestDataFactory
+					.getRandomRecord());
 
 			register(scheduleItem);
 
@@ -58,10 +63,13 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.10.26 05:30:14 EDT"));
+					.parse("2010.11.08 13:10:10 EST"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.10.10 18:20:47 EDT"));
+					.setEndDate(dateFormat.parse("2010.10.08 05:35:45 EDT"));
+
+			scheduleItem.setDetailItem(detailItemTestDataFactory
+					.getRandomRecord());
 
 			register(scheduleItem);
 
@@ -78,10 +86,13 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.10.02 05:00:47 EDT"));
+					.parse("2010.10.31 12:09:05 EDT"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.11.04 02:54:07 EDT"));
+					.setEndDate(dateFormat.parse("2010.10.26 12:29:05 EDT"));
+
+			scheduleItem.setDetailItem(detailItemTestDataFactory
+					.getRandomRecord());
 
 			register(scheduleItem);
 
@@ -98,10 +109,13 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.10.07 09:09:05 EDT"));
+					.parse("2010.10.28 00:20:43 EDT"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.10.03 13:12:25 EDT"));
+					.setEndDate(dateFormat.parse("2010.11.07 07:15:45 EST"));
+
+			scheduleItem.setDetailItem(detailItemTestDataFactory
+					.getRandomRecord());
 
 			register(scheduleItem);
 
@@ -118,10 +132,13 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.10.01 13:04:40 EDT"));
+					.parse("2010.10.10 21:44:03 EDT"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.11.07 23:38:32 EST"));
+					.setEndDate(dateFormat.parse("2010.11.09 04:32:57 EST"));
+
+			scheduleItem.setDetailItem(detailItemTestDataFactory
+					.getRandomRecord());
 
 			register(scheduleItem);
 
@@ -152,26 +169,12 @@ public class ScheduleItemTestDataFactory
 	}
 
 	public void persistAll() {
-		//if (!isPersistable() || alreadyPersisted)
-		//	return;
-
+		init();
 		createAll();
 
-		if (scheduleItemAction == null)
-			scheduleItemAction = (com.nas.recovery.web.action.schedule.ScheduleItemAction) Component
-					.getInstance("scheduleItemAction");
-
 		for (org.wc.trackrite.schedule.ScheduleItem scheduleItem : scheduleItems) {
-			//try {
-			scheduleItemAction.setInstance(scheduleItem);
-			scheduleItemAction.save();
-			//} catch (BusinessException be) {
-			//logger.warn(" ScheduleItem " + scheduleItem.getDisplayName()
-			//		+ "couldn't be saved " + be.getMessage());
-			//}
+			persist(scheduleItem);
 		}
-
-		//alreadyPersisted = true;
 	}
 
 	/** Execute this method to manually generate objects

@@ -49,6 +49,7 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 
 	@NotNull
 	@Length(min = 2, max = 50)
+	@Column(name = "title", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
 	protected String title;
