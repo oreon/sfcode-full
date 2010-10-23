@@ -21,8 +21,13 @@ getGroupName(ReportGroup grp):
 grp.groupId == null ? grp.name : grp.groupId;
 
 
+genFieldExpr(uml::Property p, uml::PrimitiveType t):
+p.name ;
 	
 genFieldExpr(uml::Property p, uml::Enumeration t):
+p.name + ".displayName";
+
+genFieldExpr(uml::Property p, uml::Class t):
 p.name + ".displayName";
 
 
