@@ -208,4 +208,8 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 		return issueRecordList;
 	}
 
+	public void updateStatus(String status) {
+
+	}
+
 }

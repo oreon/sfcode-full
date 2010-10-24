@@ -47,7 +47,7 @@ import org.hibernate.annotations.Filter;
 public class Project extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1744216049L;
 
-	//issues->project ->Project->Project->Project
+	//issues->project ->Project->Issue->Issue
 
 	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "project_ID", nullable = true)
@@ -55,6 +55,8 @@ public class Project extends BusinessEntity implements java.io.Serializable {
 	@IndexedEmbedded
 	private Set<Issue> issues = new HashSet<Issue>();
 
+	@NotNull
+	@Length(min = 2, max = 50)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
 	protected String name;

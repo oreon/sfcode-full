@@ -12,9 +12,19 @@
         <h:outputText value="#{msg.schedule_project}  "/>  
         <s:link value="#{scheduleAction.schedule.project.displayName}" view="/admin/entities/issues/project/viewProject.xhtml"> 
           <f:param name="id" value="#{scheduleAction.schedule.project.id}"/> 
-        </s:link> 
+        </s:link>  
+        <h:outputText value="#{msg.schedule_name}  "/>  
+        <h:outputText id="name#{entityId}" value="#{scheduleAction.schedule.name}"/> 
       </h:panelGrid>  
       <rich:dataTable id="scheduleItems_data#{entityId}" var="_scheduleItem" rendered="#{not empty scheduleAction.listScheduleItems}" value="#{scheduleAction.listScheduleItems}" rows="10" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.scheduleItem_employee}  "/>
+          </f:facet>  
+          <s:link value="#{_scheduleItem.employee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml"> 
+            <f:param name="id" value="#{scheduleItemAction.scheduleItem.employee.id}"/> 
+          </s:link> 
+        </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.scheduleItem_startDate}  "/>

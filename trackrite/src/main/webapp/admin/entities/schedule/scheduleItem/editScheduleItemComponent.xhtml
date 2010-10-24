@@ -7,12 +7,12 @@
         <f:facet name="header"> 
           <h:outputText value="ScheduleItem "/> 
         </f:facet>  
-        <h:outputText value="#{msg.scheduleItem_detailItem}  "/>  
-        <h:selectOneMenu id="detailItem" label="#{msg.scheduleItem_detailItem}" value="#{scheduleItemAction.scheduleItem.detailItem}" required="false"> 
-          <s:selectItems value="#{detailItemList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+        <h:outputText value="#{msg.scheduleItem_employee}  "/>  
+        <h:selectOneMenu id="employee" label="#{msg.scheduleItem_employee}" value="#{scheduleItemAction.scheduleItem.employee}" required="true"> 
+          <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="detailItem"/>  
+        <h:message styleClass="error errors" for="employee"/>  
         <h:outputText value="#{msg.scheduleItem_startDate}  "/>  
         <rich:calendar id="startDate#{entityId}" label="#{msg.scheduleItem_startDate}" required="false" value="#{scheduleItemAction.scheduleItem.startDate}"/>  
         <h:message styleClass="error errors" for="startDate"/>  

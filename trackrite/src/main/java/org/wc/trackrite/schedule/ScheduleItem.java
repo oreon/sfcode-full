@@ -53,9 +53,10 @@ public class ScheduleItem extends BusinessEntity
 
 	protected Date endDate;
 
-	@OneToOne(mappedBy = "scheduleItem", optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "employee_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected DetailItem detailItem;
+	protected org.wc.trackrite.domain.Employee employee;
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
@@ -75,13 +76,13 @@ public class ScheduleItem extends BusinessEntity
 		return endDate;
 	}
 
-	public void setDetailItem(DetailItem detailItem) {
-		this.detailItem = detailItem;
+	public void setEmployee(org.wc.trackrite.domain.Employee employee) {
+		this.employee = employee;
 	}
 
-	public DetailItem getDetailItem() {
+	public org.wc.trackrite.domain.Employee getEmployee() {
 
-		return detailItem;
+		return employee;
 	}
 
 	@Transient

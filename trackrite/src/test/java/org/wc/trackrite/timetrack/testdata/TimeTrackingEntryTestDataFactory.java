@@ -42,9 +42,9 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(3734);
+			timeTrackingEntry.setHours(3712);
 
-			timeTrackingEntry.setDetails("John");
+			timeTrackingEntry.setDetails("delta");
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -65,9 +65,9 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(7510);
+			timeTrackingEntry.setHours(4780);
 
-			timeTrackingEntry.setDetails("delta");
+			timeTrackingEntry.setDetails("gamma");
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -88,9 +88,9 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(3881);
+			timeTrackingEntry.setHours(8348);
 
-			timeTrackingEntry.setDetails("beta");
+			timeTrackingEntry.setDetails("delta");
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -111,9 +111,9 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(4756);
+			timeTrackingEntry.setHours(6012);
 
-			timeTrackingEntry.setDetails("Eric");
+			timeTrackingEntry.setDetails("gamma");
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -134,9 +134,9 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(9435);
+			timeTrackingEntry.setHours(2693);
 
-			timeTrackingEntry.setDetails("zeta");
+			timeTrackingEntry.setDetails("alpha");
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 

@@ -33,6 +33,8 @@ public abstract class ScheduleListQueryBase extends BaseQuery<Schedule, Long> {
 
 			"schedule.project.id = #{scheduleList.schedule.project.id}",
 
+			"lower(schedule.name) like concat(lower(#{scheduleList.schedule.name}),'%')",
+
 			"schedule.dateCreated <= #{scheduleList.dateCreatedRange.end}",
 			"schedule.dateCreated >= #{scheduleList.dateCreatedRange.begin}",};
 

@@ -9,10 +9,10 @@
       <action expression="#{issueAction.createMessage}"/> 
     </event>  
     <task name="firstTaskTask" swimlane="admin" duedate="3 business days" notify="false"></task>  
-    <transition to="second" name="timeout"></transition>  
     <transition to="second" name="done"> 
       <action expression="#{employeeAction.updateDueDate()}"/> 
-    </transition> 
+    </transition>  
+    <transition to="second" name="timeout"></transition> 
   </task-node>  
   <start-state name=""> 
     <task name="Task" swimlane="admin"></task>  

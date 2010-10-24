@@ -28,8 +28,6 @@ public class DetailItemTestDataFactory
 
 	com.nas.recovery.web.action.schedule.DetailItemAction detailItemAction;
 
-	org.wc.trackrite.schedule.testdata.ScheduleItemTestDataFactory scheduleItemTestDataFactory = new org.wc.trackrite.schedule.testdata.ScheduleItemTestDataFactory();
-
 	public void register(org.wc.trackrite.schedule.DetailItem detailItem) {
 		detailItems.add(detailItem);
 	}
@@ -38,9 +36,6 @@ public class DetailItemTestDataFactory
 		org.wc.trackrite.schedule.DetailItem detailItem = new org.wc.trackrite.schedule.DetailItem();
 
 		try {
-
-			detailItem.setScheduleItem(scheduleItemTestDataFactory
-					.getRandomRecord());
 
 			register(detailItem);
 
@@ -56,9 +51,6 @@ public class DetailItemTestDataFactory
 
 		try {
 
-			detailItem.setScheduleItem(scheduleItemTestDataFactory
-					.getRandomRecord());
-
 			register(detailItem);
 
 		} catch (Exception ex) {
@@ -72,9 +64,6 @@ public class DetailItemTestDataFactory
 		org.wc.trackrite.schedule.DetailItem detailItem = new org.wc.trackrite.schedule.DetailItem();
 
 		try {
-
-			detailItem.setScheduleItem(scheduleItemTestDataFactory
-					.getRandomRecord());
 
 			register(detailItem);
 
@@ -90,9 +79,6 @@ public class DetailItemTestDataFactory
 
 		try {
 
-			detailItem.setScheduleItem(scheduleItemTestDataFactory
-					.getRandomRecord());
-
 			register(detailItem);
 
 		} catch (Exception ex) {
@@ -106,9 +92,6 @@ public class DetailItemTestDataFactory
 		org.wc.trackrite.schedule.DetailItem detailItem = new org.wc.trackrite.schedule.DetailItem();
 
 		try {
-
-			detailItem.setScheduleItem(scheduleItemTestDataFactory
-					.getRandomRecord());
 
 			register(detailItem);
 

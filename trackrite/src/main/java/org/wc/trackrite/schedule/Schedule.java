@@ -47,7 +47,7 @@ import org.hibernate.annotations.Filter;
 public class Schedule extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -949895956L;
 
-	//scheduleItems-> ->->ScheduleItem->
+	//scheduleItems-> ->->Schedule->
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "schedule_ID", nullable = true)
@@ -59,6 +59,12 @@ public class Schedule extends BusinessEntity implements java.io.Serializable {
 	@JoinColumn(name = "project_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected org.wc.trackrite.issues.Project project;
+
+	@NotNull
+	@Length(min = 2, max = 50)
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
+	protected String name;
 
 	public void setScheduleItems(Set<ScheduleItem> scheduleItems) {
 		this.scheduleItems = scheduleItems;
@@ -77,9 +83,18 @@ public class Schedule extends BusinessEntity implements java.io.Serializable {
 		return project;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+
+		return name;
+	}
+
 	@Transient
 	public String getDisplayName() {
-		return scheduleItems + "";
+		return name;
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
@@ -89,6 +104,8 @@ public class Schedule extends BusinessEntity implements java.io.Serializable {
 	public List<String> listSearchableFields() {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
+
+		listSearchableFields.add("name");
 
 		return listSearchableFields;
 	}

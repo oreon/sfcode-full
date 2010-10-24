@@ -37,9 +37,9 @@ public class ExamTestDataFactory
 
 		try {
 
-			exam.setName("Lavendar");
+			exam.setName("Mark");
 
-			exam.setDuration(8038);
+			exam.setDuration(1932);
 
 			register(exam);
 
@@ -57,7 +57,7 @@ public class ExamTestDataFactory
 
 			exam.setName("Eric");
 
-			exam.setDuration(7263);
+			exam.setDuration(7422);
 
 			register(exam);
 
@@ -73,9 +73,9 @@ public class ExamTestDataFactory
 
 		try {
 
-			exam.setName("delta");
+			exam.setName("beta");
 
-			exam.setDuration(5324);
+			exam.setDuration(6766);
 
 			register(exam);
 
@@ -91,9 +91,9 @@ public class ExamTestDataFactory
 
 		try {
 
-			exam.setName("epsilon");
+			exam.setName("John");
 
-			exam.setDuration(1153);
+			exam.setDuration(7902);
 
 			register(exam);
 
@@ -109,9 +109,9 @@ public class ExamTestDataFactory
 
 		try {
 
-			exam.setName("Mark");
+			exam.setName("zeta");
 
-			exam.setDuration(7399);
+			exam.setDuration(1247);
 
 			register(exam);
 

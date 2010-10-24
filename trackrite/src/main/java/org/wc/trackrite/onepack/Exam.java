@@ -55,7 +55,7 @@ public class Exam extends BusinessEntity implements java.io.Serializable {
 
 	protected Integer duration;
 
-	//questions->exam ->Exam->Question->Question
+	//questions->exam ->Exam->Exam->Exam
 
 	@OneToMany(mappedBy = "exam", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "exam_ID", nullable = true)

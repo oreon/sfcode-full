@@ -12,12 +12,25 @@
           <s:selectItems value="#{projectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="project"/> 
+        <h:message styleClass="error errors" for="project"/>  
+        <h:outputText value="#{msg.schedule_name} * "/>  
+        <h:inputText id="name#{entityId}" label="#{msg.schedule_name}" required="true" value="#{scheduleAction.schedule.name}"/>  
+        <h:message styleClass="error errors" for="name"/> 
       </h:panelGrid>  
       <a:commandButton value="New ScheduleItem" action="#{scheduleAction.addScheduleItems}" reRender="scheduleItems_data#{entityId}"> 
         <s:conversationId/> 
       </a:commandButton>  
       <rich:dataTable id="scheduleItems_data#{entityId}" var="_scheduleItem" value="#{scheduleAction.listScheduleItems}" rows="10" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.scheduleItem_employee}  "/>
+          </f:facet>  
+          <h:selectOneMenu id="employee" label="#{msg.scheduleItem_employee}" value="#{_scheduleItem.employee}" required="true"> 
+            <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu>  
+          <h:message styleClass="error errors" for="employee"/> 
+        </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.scheduleItem_startDate}  "/>
