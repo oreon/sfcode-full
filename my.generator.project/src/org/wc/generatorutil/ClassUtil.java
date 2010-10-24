@@ -596,5 +596,24 @@ public class ClassUtil {
 		String[] arr = t.split(":");
 		return (arr.length > 1) ? arr[1].trim() : "";
 	}
+	
+	public static Map<String, String> mapFieldsForReports = new HashMap<String, String>();
+	
+	public static String getFieldTypeForReports(String key){
+		mapFieldsForReports.put("String", "java.lang.String");
+		mapFieldsForReports.put("long", "java.lang.Long");
+		mapFieldsForReports.put("Long", "java.lang.Long");
+		mapFieldsForReports.put("Double", "java.lang.Double");
+		mapFieldsForReports.put("Date", "java.util.Date");
+		mapFieldsForReports.put("Integer", "java.lang.Integer");
+		
+		if(mapFieldsForReports.containsKey(key))
+			return mapFieldsForReports.get(key);
+		
+		System.out.println("Couldnt find report type for " + key);
+		return "java.lang.String";
+	
+		
+	}
 
 }
