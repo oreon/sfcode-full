@@ -13,7 +13,7 @@ import org.jboss.seam.init.Initialization;
 import org.jboss.seam.mock.MockApplicationFactory;
 import org.jboss.seam.mock.MockServletContext;
 
-public class AbstractTestDataFactory<T> {
+public abstract class AbstractTestDataFactory<T> {
 
 	private static final String NOMBRE_PERSISTENCE_UNIT = "appEntityManager";
 	protected EntityManagerFactory emf;
@@ -49,7 +49,10 @@ public class AbstractTestDataFactory<T> {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
-			em.getTransaction().rollback();
+			if(em.getTransaction().isActive())
+				em.getTransaction().rollback();
 		}
 	}
+	
+	public abstract void persistAll();
 }

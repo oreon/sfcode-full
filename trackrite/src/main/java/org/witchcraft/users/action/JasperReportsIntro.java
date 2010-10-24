@@ -31,6 +31,7 @@ public class JasperReportsIntro {
 		JasperPrint jasperPrint;
 
 		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("userId", 1L);
 		EntityManagerFactory emf = Persistence
 				.createEntityManagerFactory("appEntityManager");
 
@@ -38,14 +39,9 @@ public class JasperReportsIntro {
 				emf.createEntityManager());
 
 		try {
-
-		//	Class.forName("com.mysql.jdbc.Driver");
-		//	Connection connection = DriverManager
-		//			.getConnection("jdbc:mysql://localhost:3306/newrecoverydb?user=root&password=root");
-
 			InputStream reportStreamXML = new JasperReportsIntro().getClass()
 					.getResourceAsStream(
-							"/reports/" + "ActiveBugsReport" + ".jrxml");
+							"/reports/" + "TimeSheetReport" + ".jrxml");
 
 			jasperReport = JasperCompileManager.compileReport(reportStreamXML);
 			jasperPrint = JasperFillManager.fillReport(jasperReport,

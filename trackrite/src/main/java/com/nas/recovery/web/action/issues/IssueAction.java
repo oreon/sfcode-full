@@ -3,13 +3,14 @@ package com.nas.recovery.web.action.issues;
 import javax.jms.ConnectionFactory;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.commons.lang.StringUtils;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.bpm.ProcessInstance;
 import org.wc.trackrite.issues.Issue;
 import org.wc.trackrite.issues.Status;
-import org.jboss.seam.bpm.ManagedJbpmContext;
-import org.jboss.seam.bpm.ProcessInstance;
+import org.witchcraft.exceptions.ContractViolationException;
 
 import com.nas.recovery.web.action.workflowmgt.BugManagement;
 
@@ -44,8 +45,15 @@ public class IssueAction extends IssueActionBase implements
 	}
 
 	public void updateStatus(String status) {
+		if (StringUtils.isEmpty(status))
+			throw new ContractViolationException(
+					"Recieved empty string for updating status");
 		load(token.getId());
-		getInstance().setStatus(Status.valueOf(status));
+		try {
+			getInstance().setStatus(Status.valueOf(status));
+		} catch (Exception e) {
+			throw new ContractViolationException(status + " couldnt be cast to an enum literal of type 'Status'");
+		}
 		save();
 	}
 

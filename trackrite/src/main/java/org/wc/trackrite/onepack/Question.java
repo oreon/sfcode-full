@@ -53,7 +53,7 @@ public class Question extends BusinessEntity implements java.io.Serializable {
 	@Analyzer(definition = "customanalyzer")
 	protected String text;
 
-	//choices->question ->Question->Question->Question
+	//choices->question ->Question->Choice->Choice
 
 	@OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "question_ID", nullable = false)

@@ -75,7 +75,7 @@ public class ChoiceTestDataFactory
 
 		try {
 
-			choice.setText("theta");
+			choice.setText("Malissa");
 
 			choice.setQuestion(questionTestDataFactory.getRandomRecord());
 
@@ -93,7 +93,7 @@ public class ChoiceTestDataFactory
 
 		try {
 
-			choice.setText("Lavendar");
+			choice.setText("Eric");
 
 			choice.setQuestion(questionTestDataFactory.getRandomRecord());
 
@@ -111,7 +111,7 @@ public class ChoiceTestDataFactory
 
 		try {
 
-			choice.setText("John");
+			choice.setText("delta");
 
 			choice.setQuestion(questionTestDataFactory.getRandomRecord());
 

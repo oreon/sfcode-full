@@ -54,6 +54,12 @@
       <rule if-outcome="viewIssue"> 
         <redirect view-id="/admin/entities/issues/issue/viewIssue.xhtml"/> 
       </rule>  
+      <rule if-outcome="module"> 
+        <redirect view-id="/admin/entities/issues/module/listModule.xhtml"/> 
+      </rule>  
+      <rule if-outcome="viewModule"> 
+        <redirect view-id="/admin/entities/issues/module/viewModule.xhtml"/> 
+      </rule>  
       <rule if-outcome="user"> 
         <redirect view-id="/admin/entities/users/user/listUser.xhtml"/> 
       </rule>  
@@ -125,12 +131,6 @@
       </rule>  
       <rule if-outcome="viewScheduleItem"> 
         <redirect view-id="/admin/entities/schedule/scheduleItem/viewScheduleItem.xhtml"/> 
-      </rule>  
-      <rule if-outcome="detailItem"> 
-        <redirect view-id="/admin/entities/schedule/detailItem/listDetailItem.xhtml"/> 
-      </rule>  
-      <rule if-outcome="viewDetailItem"> 
-        <redirect view-id="/admin/entities/schedule/detailItem/viewDetailItem.xhtml"/> 
       </rule> 
     </navigation> 
   </page>  
@@ -363,6 +363,46 @@
     <param name="developer" value="#{issueList.issue.developer.id}" validateModel="false"/>  
     <param name="closeTime" value="#{issueList.issue.closeTime}" validateModel="false"/>  
     <param name="estimate" value="#{issueList.issue.estimate}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/issues/module/editModule.xhtml"> 
+    <!-- <description>Edit Module: #{module.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/issues/module/viewModule.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/issues/module/listModule.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="moduleId" value="#{moduleAction.moduleId}"/> 
+  </page>  
+  <page view-id="/admin/entities/issues/module/viewModule.xhtml"> 
+    <!-- <description>View Module: #{module.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/issues/module/editModule.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/issues/module/listModule.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="moduleId" value="#{moduleAction.moduleId}"/> 
+  </page>  
+  <page view-id="/admin/entities/issues/module/listModule.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewModule"> 
+        <redirect view-id="/admin/entities/issues/module/viewModule.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/issues/module/editModule.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{moduleList.firstResult}"/>  
+    <param name="sort" value="#{moduleList.orderColumn}"/>  
+    <param name="dir" value="#{moduleList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{moduleList.module.id}"/>  
+    <param name="name" value="#{moduleList.module.name}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/users/user/editUser.xhtml"> 
     <!-- <description>Edit User: #{user.displayName}</description> -->  
@@ -823,7 +863,8 @@
     <param name="dir" value="#{scheduleList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{scheduleList.schedule.id}"/>  
-    <param name="project" value="#{scheduleList.schedule.project.id}" validateModel="false"/> 
+    <param name="project" value="#{scheduleList.schedule.project.id}" validateModel="false"/>  
+    <param name="name" value="#{scheduleList.schedule.name}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/schedule/scheduleItem/editScheduleItem.xhtml"> 
     <!-- <description>Edit ScheduleItem: #{scheduleItem.displayName}</description> -->  
@@ -836,7 +877,7 @@
       </rule> 
     </navigation>  
     <param name="scheduleItemId" value="#{scheduleItemAction.scheduleItemId}"/>  
-    <param name="detailItemId" value="#{scheduleItemAction.detailItemId}"/> 
+    <param name="employeeId" value="#{scheduleItemAction.employeeId}"/> 
   </page>  
   <page view-id="/admin/entities/schedule/scheduleItem/viewScheduleItem.xhtml"> 
     <!-- <description>View ScheduleItem: #{scheduleItem.displayName}</description> -->  
@@ -866,48 +907,7 @@
     <param name="id" value="#{scheduleItemList.scheduleItem.id}"/>  
     <param name="startDate" value="#{scheduleItemList.scheduleItem.startDate}" validateModel="false"/>  
     <param name="endDate" value="#{scheduleItemList.scheduleItem.endDate}" validateModel="false"/>  
-    <param name="detailItem" value="#{scheduleItemList.scheduleItem.detailItem.id}" validateModel="false"/> 
-  </page>  
-  <page view-id="/admin/entities/schedule/detailItem/editDetailItem.xhtml"> 
-    <!-- <description>Edit DetailItem: #{detailItem.displayName}</description> -->  
-    <navigation> 
-      <rule if-outcome="save"> 
-        <redirect view-id="/admin/entities/schedule/detailItem/viewDetailItem.xhtml"/> 
-      </rule>  
-      <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/schedule/detailItem/listDetailItem.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="detailItemId" value="#{detailItemAction.detailItemId}"/>  
-    <param name="scheduleItemId" value="#{detailItemAction.scheduleItemId}"/> 
-  </page>  
-  <page view-id="/admin/entities/schedule/detailItem/viewDetailItem.xhtml"> 
-    <!-- <description>View DetailItem: #{detailItem.displayName}</description> -->  
-    <navigation> 
-      <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/schedule/detailItem/editDetailItem.xhtml"/> 
-      </rule>  
-      <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/schedule/detailItem/listDetailItem.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="detailItemId" value="#{detailItemAction.detailItemId}"/> 
-  </page>  
-  <page view-id="/admin/entities/schedule/detailItem/listDetailItem.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <navigation> 
-      <rule if-outcome="viewDetailItem"> 
-        <redirect view-id="/admin/entities/schedule/detailItem/viewDetailItem.xhtml"/> 
-      </rule>  
-      <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/schedule/detailItem/editDetailItem.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="firstResult" value="#{detailItemList.firstResult}"/>  
-    <param name="sort" value="#{detailItemList.orderColumn}"/>  
-    <param name="dir" value="#{detailItemList.orderDirection}"/>  
-    <param name="from"/>  
-    <param name="id" value="#{detailItemList.detailItem.id}"/>  
-    <param name="scheduleItem" value="#{detailItemList.detailItem.scheduleItem.id}" validateModel="false"/> 
+    <param name="employee" value="#{scheduleItemList.scheduleItem.employee.id}" validateModel="false"/> 
   </page>  
   <exception class="org.jboss.seam.framework.EntityNotFoundException"> 
     <redirect view-id="/error.xhtml"> 

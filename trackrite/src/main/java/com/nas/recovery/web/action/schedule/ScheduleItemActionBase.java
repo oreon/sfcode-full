@@ -43,8 +43,8 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 	@DataModelSelection
 	private ScheduleItem scheduleItem;
 
-	@In(create = true, value = "detailItemAction")
-	com.nas.recovery.web.action.schedule.DetailItemAction detailItemAction;
+	@In(create = true, value = "employeeAction")
+	com.nas.recovery.web.action.domain.EmployeeAction employeeAction;
 
 	@DataModel
 	private List<ScheduleItem> scheduleItemRecordList;
@@ -55,14 +55,14 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 			loadAssociations();
 	}
 
-	public void setDetailItemId(Long id) {
+	public void setEmployeeId(Long id) {
 		if (id != null && id > 0)
-			getInstance().setDetailItem(detailItemAction.loadFromId(id));
+			getInstance().setEmployee(employeeAction.loadFromId(id));
 	}
 
-	public Long getDetailItemId() {
-		if (getInstance().getDetailItem() != null)
-			return getInstance().getDetailItem().getId();
+	public Long getEmployeeId() {
+		if (getInstance().getEmployee() != null)
+			return getInstance().getEmployee().getId();
 		return 0L;
 	}
 
@@ -103,10 +103,10 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 
 	public void wire() {
 		getInstance();
-		org.wc.trackrite.schedule.DetailItem detailItem = detailItemAction
+		org.wc.trackrite.domain.Employee employee = employeeAction
 				.getDefinedInstance();
-		if (detailItem != null) {
-			getInstance().setDetailItem(detailItem);
+		if (employee != null) {
+			getInstance().setEmployee(employee);
 		}
 
 	}
@@ -140,9 +140,9 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (scheduleItem.getDetailItem() != null) {
-			criteria = criteria.add(Restrictions.eq("detailItem.id",
-					scheduleItem.getDetailItem().getId()));
+		if (scheduleItem.getEmployee() != null) {
+			criteria = criteria.add(Restrictions.eq("employee.id", scheduleItem
+					.getEmployee().getId()));
 		}
 
 	}
@@ -153,8 +153,8 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 	 */
 	public void loadAssociations() {
 
-		if (scheduleItem.getDetailItem() != null) {
-			detailItemAction.setInstance(getInstance().getDetailItem());
+		if (scheduleItem.getEmployee() != null) {
+			employeeAction.setInstance(getInstance().getEmployee());
 		}
 
 	}

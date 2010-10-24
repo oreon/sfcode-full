@@ -37,15 +37,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("Lavendar");
+			user.setUserName("Wilson");
 
-			user.setPassword("gamma");
+			user.setPassword("Lavendar");
 
 			user.setEnabled(true);
 
-			user.setEmail("John");
+			user.setEmail("Eric");
 
-			user.setLastLogin(dateFormat.parse("2010.10.27 07:09:36 EDT"));
+			user.setLastLogin(dateFormat.parse("2010.11.13 17:56:27 EST"));
 
 			register(user);
 
@@ -61,15 +61,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("alpha");
+			user.setUserName("delta");
 
-			user.setPassword("Wilson");
+			user.setPassword("Lavendar");
 
 			user.setEnabled(true);
 
-			user.setEmail("Wilson");
+			user.setEmail("Mark");
 
-			user.setLastLogin(dateFormat.parse("2010.11.07 04:07:22 EST"));
+			user.setLastLogin(dateFormat.parse("2010.11.11 10:26:27 EST"));
 
 			register(user);
 
@@ -85,15 +85,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("theta");
+			user.setUserName("delta");
 
-			user.setPassword("zeta");
+			user.setPassword("Eric");
 
 			user.setEnabled(true);
 
-			user.setEmail("epsilon");
+			user.setEmail("John");
 
-			user.setLastLogin(dateFormat.parse("2010.10.11 12:50:42 EDT"));
+			user.setLastLogin(dateFormat.parse("2010.11.15 14:13:07 EST"));
 
 			register(user);
 
@@ -109,15 +109,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("theta");
+			user.setUserName("John");
 
-			user.setPassword("gamma");
+			user.setPassword("Mark");
 
 			user.setEnabled(true);
 
-			user.setEmail("Lavendar");
+			user.setEmail("Eric");
 
-			user.setLastLogin(dateFormat.parse("2010.10.23 18:36:49 EDT"));
+			user.setLastLogin(dateFormat.parse("2010.10.22 12:23:07 EDT"));
 
 			register(user);
 
@@ -133,15 +133,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("John");
+			user.setUserName("zeta");
 
 			user.setPassword("Lavendar");
 
 			user.setEnabled(true);
 
-			user.setEmail("John");
+			user.setEmail("beta");
 
-			user.setLastLogin(dateFormat.parse("2010.10.08 00:01:15 EDT"));
+			user.setLastLogin(dateFormat.parse("2010.10.13 11:35:18 EDT"));
 
 			register(user);
 

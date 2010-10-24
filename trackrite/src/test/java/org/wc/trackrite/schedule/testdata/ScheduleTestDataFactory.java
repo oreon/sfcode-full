@@ -39,6 +39,8 @@ public class ScheduleTestDataFactory
 
 		try {
 
+			schedule.setName("beta");
+
 			schedule.setProject(projectTestDataFactory.getRandomRecord());
 
 			register(schedule);
@@ -54,6 +56,8 @@ public class ScheduleTestDataFactory
 		org.wc.trackrite.schedule.Schedule schedule = new org.wc.trackrite.schedule.Schedule();
 
 		try {
+
+			schedule.setName("delta");
 
 			schedule.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -71,6 +75,8 @@ public class ScheduleTestDataFactory
 
 		try {
 
+			schedule.setName("pi");
+
 			schedule.setProject(projectTestDataFactory.getRandomRecord());
 
 			register(schedule);
@@ -87,6 +93,8 @@ public class ScheduleTestDataFactory
 
 		try {
 
+			schedule.setName("alpha");
+
 			schedule.setProject(projectTestDataFactory.getRandomRecord());
 
 			register(schedule);
@@ -102,6 +110,8 @@ public class ScheduleTestDataFactory
 		org.wc.trackrite.schedule.Schedule schedule = new org.wc.trackrite.schedule.Schedule();
 
 		try {
+
+			schedule.setName("Malissa");
 
 			schedule.setProject(projectTestDataFactory.getRandomRecord());
 
