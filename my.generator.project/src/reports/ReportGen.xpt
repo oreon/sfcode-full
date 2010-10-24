@@ -24,10 +24,12 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 		 isSummaryNewPage="false">
 
 	<parameter name="ReportTitle" class="java.lang.String"/>
+	«EXPAND paramGen FOREACH allOwnedElements().typeSelect(wcprofile::ReportParameter)»
 
 	<queryString language="«getQueryLanguage()»">
 		<![CDATA[«query»]]>
 	</queryString>
+	
 
 	«EXPAND FieldDec FOREACH getAllAttributes()-»
 	
@@ -79,20 +81,25 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 
 «ENDDEFINE»  
 
+
+«DEFINE paramGen FOR wcprofile::ReportParameter»
+	<parameter name="«genFieldExpr(type)-»" class="«getFieldType()-»"/>
+«ENDDEFINE»
+
 «REM» Generate the  field declarations «ENDREM»
 «DEFINE FieldDec FOR wcprofile::ReportField-»
 	«IF getFieldExpression == null-»
-	<field name="«genFieldExpr(type)-»" class="java.lang.«getFieldType()-»"/>
+	<field name="«genFieldExpr(type)-»" class="«getFieldType()-»"/>
 	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE FieldDec FOR uml::Property-»
-	<field name="«genFieldExpr(type)-»" class="java.lang.«getFieldType()-»"/>
+	<field name="«genFieldExpr(type)-»" class="«getFieldType()-»"/>
 «ENDDEFINE»
 
 «REM» Generate the displayed fields «ENDREM»
 «DEFINE FieldDec FOR wcprofile::ReportGroup-»
-	<field name="«genFieldExpr(type)-»" class="java.lang.«getFieldType()-»"/>
+	<field name="«genFieldExpr(type)-»" class="«getFieldType()-»"/>
 «ENDDEFINE»
 
 «DEFINE FieldDec FOR wcprofile::ReportChart-»
@@ -101,12 +108,18 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 «DEFINE FieldGen FOR wcprofile::ReportChart-»
 «ENDDEFINE»
 
+«DEFINE FieldDec FOR wcprofile::ReportParam-»
+«ENDDEFINE»
+
+«DEFINE FieldGen FOR wcprofile::ReportParam-»
+«ENDDEFINE»
+
 «DEFINE FieldGen FOR ReportField-»
 	«IF isVisible»
 		<textField>
 			<reportElement x="«getCounter() * 65»" y="0" width="69" height="24"/>
 			<textElement textAlignment="Center"/>
-			<textFieldExpression class="java.lang.«getFieldType()»">
+			<textFieldExpression class="«getFieldType()»">
 				<![CDATA[«getFieldExpression != null ? getFieldExpression :"$F{" + name + "}"»]]>
 			</textFieldExpression>
 		</textField>
@@ -117,7 +130,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 		<textField>
 			<reportElement x="«getCounter() * 65»" y="0" width="69" height="24"/>
 			<textElement textAlignment="Center"/>
-			<textFieldExpression class="java.lang.«getFieldType()»"> 
+			<textFieldExpression class="«getFieldType()»"> 
 				<![CDATA[$F{«genFieldExpr(type)-»}]]>
 			</textFieldExpression>
 		</textField>
@@ -174,7 +187,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 				<textField>
 					<reportElement x="«((515/65) - (summaryList.size * 2) + getCounter()) * 65 »" y="1" width="30" height="15" />
 					<textElement textAlignment="Right"/>
-					<textFieldExpression class="«s == "count"?"java.lang.Integer":"java.lang." + class.getAttrib(s.getField()).getFieldType()»">
+					<textFieldExpression class="«s == "count"?"java.lang.Integer": class.getAttrib(s.getField()).getFieldType()»">
 						<![CDATA[$V{Group«getGroupName()»_«s == "count"?s.getCalculation().toUpperCase():s.getCalculation()»}]]>
 					</textFieldExpression>
 				</textField>
@@ -208,7 +221,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 	
 	
 	«IF s.toUpperCase() != "COUNT"»
-	<variable name="Group«getGroupName()»_«calc»" class="java.lang.«class.getAttrib(s.getField()).getFieldType()-»"
+	<variable name="Group«getGroupName()»_«calc»" class="«class.getAttrib(s.getField()).getFieldType()-»"
 		calculation="«calc.toFirstUpper()»" resetType="Group" resetGroup="Group«getGroupName()»">
 		<variableExpression>
 			<![CDATA[$F{«field»}]]>
