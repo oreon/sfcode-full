@@ -96,13 +96,13 @@
 
 «DEFINE genAction FOR uml::Action»
 	@StartTask
-	public void start«name.toFirstUpper().removeSpaces()»Task() {
+	public void start«name.toFirstUpper().removeSpaces()»() {
 		
 	}
 	
 	«FOREACH outgoing() AS o-»
 	@EndTask(transition = "«o.getTransName()»")
-	public void «o.getTransName()»«name.toFirstUpper().removeSpaces()»Task() {
+	public void «o.getTransName()»«name.toFirstUpper().removeSpaces()»() {
 		
 	}
 	«ENDFOREACH»

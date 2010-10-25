@@ -10,6 +10,8 @@
 		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(wcprofile::Entity)-»
 		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(wcprofile::MappedSuperClass)-»
 		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(wcprofile::Embeddable)-»
+		
+		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(uml::ActivityNode)»
 		«EXPAND genUserManagedMessages("")»
 	«ENDFILE»
 	
@@ -17,6 +19,8 @@
 		«EXPAND genBundle("fr") FOREACH allOwnedElements().typeSelect(wcprofile::Entity)-»
 		«EXPAND genBundle("fr") FOREACH allOwnedElements().typeSelect(wcprofile::MappedSuperClass)-»
 		«EXPAND genBundle("fr") FOREACH allOwnedElements().typeSelect(wcprofile::Embeddable)-»
+		
+		«EXPAND genBundle("fr") FOREACH allOwnedElements().typeSelect(uml::ActivityNode)»
 		«EXPAND genUserManagedMessages("fr")»
 	«ENDFILE»
 «ENDDEFINE»
@@ -30,6 +34,22 @@
 «name.toFirstLower()»_«a.name»=«localeName»«a.name.getVariableNameForDisplay()-»
 «ENDFOREACH-»
 «ENDDEFINE»
+
+
+«DEFINE genBundle(String localeName) FOR uml::ActivityNode»
+«name»=«localeName»«name.getVariableNameForDisplay()»
+«FOREACH outgoing() AS o-»
+«o.getTransName()»=«localeName»«o.getTransName().getVariableNameForDisplay()»
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE genBundle(String localeName) FOR uml::ActivityFinalNode»
+«IF name!= null»«name»=«localeName»«name.getVariableNameForDisplay()»«ENDIF»
+«ENDDEFINE»
+
+
+
+
 
 «REM»These messages would be generated inside a protected block so the users can change them freely«ENDREM»
 «DEFINE genUserManagedMessages(String localeName) FOR uml::Model»
@@ -54,6 +74,18 @@ validator.pattern=must match "{regex}"
 validator.range=must be between {min} and {max}
 validator.size=size must be between {min} and {max}
 validator.email=must be a well-formed email address
+
+org.jboss.seam.loginFailed=Login failed
+org.jboss.seam.loginSuccessful=Welcome, #0!
+
+org.jboss.seam.TransactionFailed=Transaction failed
+org.jboss.seam.NoConversation=The conversation ended, timed out or was processing another request
+org.jboss.seam.IllegalNavigation=Illegal navigation
+org.jboss.seam.ProcessEnded=Process #0 already ended
+org.jboss.seam.ProcessNotFound=Process #0 not found
+org.jboss.seam.TaskEnded=Task #0 already ended
+org.jboss.seam.TaskNotFound=Task #0 not found
+org.jboss.seam.NotLoggedIn=Please log in first
 
 javax.faces.component.UIInput.CONVERSION={0}value could not be converted to the expected type
 javax.faces.component.UIInput.REQUIRED={0} value is required
