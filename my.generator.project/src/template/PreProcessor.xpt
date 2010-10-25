@@ -100,11 +100,10 @@
 
 «DEFINE massageEdges FOR uml::ControlFlow»
 	«IF (name == null || name == "") &&( guard.stringValue() == null || guard.stringValue() == "") »
-		«setName("proceedTo" + target.getTaskMassagedName())»
+		«setName("proceedTo" + target.getTaskMassagedName().toFirstUpper())»
 	«ELSE»	
 		«this.setName(getTaskMassagedName()) »
 	«ENDIF»
-	
 «ENDDEFINE»
 
 «DEFINE massageEdges FOR uml::ActivityFinal»

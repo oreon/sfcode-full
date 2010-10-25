@@ -64,7 +64,7 @@
 
 «DEFINE gen FOR uml::Action»
 	<task-node name="«name.removeSpaces()»">
-		<task name="«name.removeSpaces()»Task" «getSwimlane() != null ?"swimlane=\"" + getSwimlane()+ "\"":""» notify="«getNotify()»">
+		<task name="«name.removeSpaces()»" «getSwimlane() != null ?"swimlane=\"" + getSwimlane()+ "\"":""» notify="«getNotify()»">
 		</task>
 		«EXPAND genTransitions»
 	</task-node>	
@@ -79,7 +79,7 @@
 			<action expression="#{«actionExpression»}" />
 		</event>
 		«ENDIF»
-		<task name="«name.removeSpaces()»Task"  «getSwimlane() != null ?"swimlane=\"" + getSwimlane()+ "\"":""»
+		<task name="«name.removeSpaces()»"  «getSwimlane() != null ?"swimlane=\"" + getSwimlane()+ "\"":""»
 			 duedate="«days» business days" notify="«getNotify()»">
 		</task>
 		«EXPAND genTransitions»
@@ -132,7 +132,7 @@
 
 «DEFINE gen FOR uml::InitialNode»
  	<start-state name="«name.removeSpaces()»">
-		<task name="«name.removeSpaces()»Task" swimlane="«getSwimlane()»">
+		<task name="«name.removeSpaces()»" swimlane="«getSwimlane()»">
 		</task>
 		«EXPAND genTransitions»
 	</start-state>
