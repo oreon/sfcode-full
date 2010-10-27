@@ -74,13 +74,13 @@
 
 «DEFINE gen FOR wcprofile::Task»
 	<task-node name="«name.removeSpaces()»">
-		«IF actionExpression != null»
-		<event type="node-enter">
-			<action expression="#{«actionExpression»}" />
-		</event>
-		«ENDIF»
 		<task name="«name.removeSpaces()»"  «getSwimlane() != null ?"swimlane=\"" + getSwimlane()+ "\"":""»
 			 duedate="«days» business days" notify="«getNotify()»">
+			 «IF actionExpression != null»
+			 <event type="task-assign">
+				<action expression="#{«actionExpression»}" />
+			</event>
+			«ENDIF»
 		</task>
 		«EXPAND genTransitions»
 	</task-node>

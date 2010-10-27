@@ -105,6 +105,24 @@ organizeImports="true" format="true"/>
 	</outlet>
 </component>
 
+<component id="MessageBundleGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">
+	<metaModel class="oaw.type.emf.EmfMetaModel">
+	<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
+	</metaModel>
+	<metaModel class="oaw.uml2.UML2MetaModel"/>
+	<prSrcPaths value="${mainGenPath}" />
+	<prExcludes value="*.svn-base, *.svn"/>
+	<prDefaultExcludes value="false"/>
+	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
+		<profile value="${model.dir}/wcprofile.profile.uml"/>
+	</metaModel>
+	<expand value="messagebundle::GenMessageBundle::Root FOR model"/>
+	<outlet path="${srcGenPath}/">
+		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+	</outlet>
+</component>
+
+
 <!--
 <component id="ReportGenerator" class="oaw.xpand2.Generator"
 skipOnErrors="true">
@@ -135,7 +153,7 @@ skipOnErrors="true">
 		<profile value="${model.dir}/wcprofile.profile.uml"/>
 	</metaModel>
 	<prSrcPaths value="${mainGenPath}" />
-	<prExcludes value="*.svn-base"/>
+	<prExcludes value="*.svn-base, *.svn"/>
 	<prDefaultExcludes value="false"/>
 	<expand value="seam::SeamActionRoot::Root FOR model"/>
 	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
@@ -155,7 +173,7 @@ skipOnErrors="true">
 		<profile value="${model.dir}/wcprofile.profile.uml"/>
 	</metaModel>
 	<prSrcPaths value="${mainGenPath}" />
-	<prExcludes value="*.svn-base"/>
+	<prExcludes value="*.svn-base, *.svn"/>
 	<prDefaultExcludes value="false"/>
 	<expand value="richfaces::WebRoot::Root FOR model"/>
 	<outlet path="${srcGenPath}">
@@ -181,22 +199,7 @@ skipOnErrors="true">
 	</outlet>
 </component>
 
-<component id="MessageBundleGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">
-	<metaModel class="oaw.type.emf.EmfMetaModel">
-	<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
-	</metaModel>
-	<metaModel class="oaw.uml2.UML2MetaModel"/>
-	<prSrcPaths value="${mainGenPath}" />
-	<prExcludes value="*.svn-base"/>
-	<prDefaultExcludes value="false"/>
-	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
-		<profile value="${model.dir}/wcprofile.profile.uml"/>
-	</metaModel>
-	<expand value="template::GenMessageBundle::Root FOR model"/>
-	<outlet path="${srcGenPath}/">
-		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
-	</outlet>
-</component>
+
 
 <!--
 <component id="PageFlowGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">
