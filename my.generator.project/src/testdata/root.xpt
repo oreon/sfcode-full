@@ -114,15 +114,6 @@ public class TestDataGenerator{
 	
 	«ENDFOREACH»
 	
-		public  «fqn()» getRandomRecord() {
-			
-			if(«asVar()»s.isEmpty()){
-				createAll();
-			}
-			
-			return «asVar()»s.get(new Random().nextInt(«asVar()»s.size()));
-		}
-       
 		
 		public List<«fqn()»> createAll(){
 			«FOREACH getCounters() AS counter-»
@@ -131,6 +122,17 @@ public class TestDataGenerator{
 		
 			return «asVar()»s;
 		}
+		
+		@Override
+		public List<«fqn()»> getListOfRecords() {
+			return  «asVar()»s;
+		}
+		
+		@Override
+		public String getQuery() {
+			return "Select e from «fqn()» e ";
+		}
+		
 		
 		public  void persistAll(){
 			init();
