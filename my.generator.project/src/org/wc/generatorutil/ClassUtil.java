@@ -1,9 +1,7 @@
 package org.wc.generatorutil;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,12 +10,10 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.ActivityEdge;
 import org.eclipse.uml2.uml.ActivityNode;
 import org.eclipse.uml2.uml.AggregationKind;
@@ -25,7 +21,6 @@ import org.eclipse.uml2.uml.CallBehaviorAction;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.ControlFlow;
-import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ForkNode;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.NamedElement;
@@ -33,8 +28,8 @@ import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.Property;
-import org.eclipse.uml2.uml.StateMachine;
 import org.eclipse.uml2.uml.Transition;
+import org.eclipse.uml2.uml.Type;
 import org.openarchitectureware.uml2.UML2MetaModel;
 import org.openarchitectureware.uml2.profile.ProfileMetaModel;
 import org.openarchitectureware.xtend.XtendFacade;
@@ -610,10 +605,19 @@ public class ClassUtil {
 		if(mapFieldsForReports.containsKey(key))
 			return mapFieldsForReports.get(key);
 		
-		System.out.println("Couldnt find report type for " + key);
-		return "java.lang.String";
+		Property property;
 	
 		
+		System.out.println("Couldnt find report type for " + key);
+		
+		return "java.lang.String";
+	}
+	
+	static String[] primitives = {"date", "long", "integer", "boolean", "double", "float", "string"};
+	
+	public static boolean isPrimitive(Type type){
+		String name =type.getName().toLowerCase();
+		return Arrays.asList(primitives).contains(name) ;
 	}
 
 }

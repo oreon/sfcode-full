@@ -3,11 +3,11 @@ import java;
 import wcprofile;
 
 extension org::openarchitectureware::uml2::profile::profiling;
+extension template::GeneratorExtensions;
 
 
-//in case of magicdraw we need to remove the root "Data" package
 getFieldType(Property prop):
-getFieldTypeForReports(prop.type.name);
+ prop.type.isPrimitive() ? getFieldTypeForReports(prop.type.name) : prop.type.fqn();
 
 	
 

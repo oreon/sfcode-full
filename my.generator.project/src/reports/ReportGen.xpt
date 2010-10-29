@@ -10,6 +10,8 @@
 «DEFINE Root FOR uml::Model»
 	«EXPAND gen FOREACH allOwnedElements().typeSelect(wcprofile::Report)»
 	«EXPAND ReportsNavigationRoot::genNav FOR this»
+	«EXPAND ParamScreenGen::genParamScreen FOREACH allOwnedElements().typeSelect(wcprofile::Report)»
+	«EXPAND ParamScreenGen::genReportsAction FOREACH allOwnedElements().typeSelect(wcprofile::Report)»
 «ENDDEFINE»
 
 
@@ -85,7 +87,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 
 
 «DEFINE paramGen FOR wcprofile::ReportParameter»
-	<parameter name="«genFieldExpr(type)-»" class="«getFieldType()-»"/>
+	<parameter name="«name»" class="«getFieldType()-»"/>
 «ENDDEFINE»
 
 «REM» Generate the  field declarations «ENDREM»
