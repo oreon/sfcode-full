@@ -1,11 +1,7 @@
 package org.witchcraft.seam.action;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,21 +10,15 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.ResponseStateManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
-import net.sf.jasperreports.engine.export.JRHtmlExporter;
 import net.sf.jasperreports.engine.query.JRJpaQueryExecuterFactory;
 
 import org.apache.commons.lang.StringUtils;
@@ -81,8 +71,9 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 	@Logger
 	protected Log log;
+	
 	@In
-	// @PersistenceContext(type=EXTENDED)
+	//@PersistenceContext(type=EXTENDED)
 	protected FullTextEntityManager entityManager;
 
 	@In(create = true)
@@ -153,7 +144,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 	@Begin(join = true)
 	public String select(T t) {
-		setEntity(entityManager.merge(t));
+		//setEntity(entityManager.merge(t));
 		log
 				.info("User selected #{t.getClass().getName()}: #{t.displayName} #{t.id} ");
 		updateAssociations();
@@ -369,11 +360,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		findRecords();
 	}
 	
-	@End
-	public String returnToListingView(){
-		String retVal =  Redirect.instance().getViewId() == null ? StringUtils.uncapitalize(getClassName()):Redirect.instance().getViewId();
-		return retVal;
-	}
+	
 
 	public List<AuditLog> getAuditLog() {
 		if (auditLog == null) {
@@ -436,6 +423,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	public void updateAssociations() {
 	}
 
+	
 	public abstract T getEntity();
 
 	public abstract void setEntity(T t);
@@ -443,9 +431,10 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	public abstract void findRecords();
 
 	public abstract void setEntityList(List<T> list);
+	
 
 	/**
-	 * This method should be overridden by classes that need to fck
+	 * This method should be overridden by classes that need to update composed associations once this 
 	 */
 	public void updateComposedAssociations() {
 	}
@@ -471,6 +460,12 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 			log.info("No " + "record " + " found !");
 			return null;
 		}
+	}
+	
+	@End
+	public String returnToListingView(){
+		String retVal =  Redirect.instance().getViewId() == null ? StringUtils.uncapitalize(getClassName()):Redirect.instance().getViewId();
+		return retVal;
 	}
 
 	/**
@@ -704,7 +699,6 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	public  void runReport(String reportName) {
 
 		JasperReport jasperReport;
-		//JasperPrint jasperPrint;
 
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, getEntityManager());

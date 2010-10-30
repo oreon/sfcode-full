@@ -102,15 +102,6 @@ public class CandidateTestDataFactory
 		return candidate;
 	}
 
-	public org.wc.trackrite.onepack.Candidate getRandomRecord() {
-
-		if (candidates.isEmpty()) {
-			createAll();
-		}
-
-		return candidates.get(new Random().nextInt(candidates.size()));
-	}
-
 	public List<org.wc.trackrite.onepack.Candidate> createAll() {
 		createCandidateOne();
 		createCandidateTwo();
@@ -119,6 +110,16 @@ public class CandidateTestDataFactory
 		createCandidateFive();
 
 		return candidates;
+	}
+
+	@Override
+	public List<org.wc.trackrite.onepack.Candidate> getListOfRecords() {
+		return candidates;
+	}
+
+	@Override
+	public String getQuery() {
+		return "Select e from org.wc.trackrite.onepack.Candidate e ";
 	}
 
 	public void persistAll() {

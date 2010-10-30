@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <pages xmlns="http://jboss.com/products/seam/pages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd" no-conversation-view-id="/home.xhtml" login-view-id="/login.xhtml">  
-  <!--PROTECTED REGION ID(USER_EDITABLE_PAGESROOT) ENABLED START-->  
-  <page view-id="/admin/*"> 
-    <restrict>#{identity.loggedIn}</restrict> 
-  </page>  
-  <page view-id="/admin/tasks/viewTask.xhtml"> 
-    <param name="taskId" value="#{bugManagementProcessAction.taskId}"/>  
-    <navigation> 
-      <rule if-outcome="next"> 
-        <redirect view-id="/admin/tasks/tasks.xhtml"/> 
-      </rule> 
-    </navigation> 
-  </page>  
-  <!--PROTECTED REGION END-->  
   <page view-id="/adminLogin.xhtml"> 
     <navigation from-action="#{identity.login}"> 
       <redirect view-id="/admin/entities/summary.xhtml"/> 

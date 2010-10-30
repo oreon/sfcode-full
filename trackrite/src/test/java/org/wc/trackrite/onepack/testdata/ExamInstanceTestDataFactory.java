@@ -131,15 +131,6 @@ public class ExamInstanceTestDataFactory
 		return examInstance;
 	}
 
-	public org.wc.trackrite.onepack.ExamInstance getRandomRecord() {
-
-		if (examInstances.isEmpty()) {
-			createAll();
-		}
-
-		return examInstances.get(new Random().nextInt(examInstances.size()));
-	}
-
 	public List<org.wc.trackrite.onepack.ExamInstance> createAll() {
 		createExamInstanceOne();
 		createExamInstanceTwo();
@@ -148,6 +139,16 @@ public class ExamInstanceTestDataFactory
 		createExamInstanceFive();
 
 		return examInstances;
+	}
+
+	@Override
+	public List<org.wc.trackrite.onepack.ExamInstance> getListOfRecords() {
+		return examInstances;
+	}
+
+	@Override
+	public String getQuery() {
+		return "Select e from org.wc.trackrite.onepack.ExamInstance e ";
 	}
 
 	public void persistAll() {

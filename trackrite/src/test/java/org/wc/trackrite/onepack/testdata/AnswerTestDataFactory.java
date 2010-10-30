@@ -143,15 +143,6 @@ public class AnswerTestDataFactory
 		return answer;
 	}
 
-	public org.wc.trackrite.onepack.Answer getRandomRecord() {
-
-		if (answers.isEmpty()) {
-			createAll();
-		}
-
-		return answers.get(new Random().nextInt(answers.size()));
-	}
-
 	public List<org.wc.trackrite.onepack.Answer> createAll() {
 		createAnswerOne();
 		createAnswerTwo();
@@ -160,6 +151,16 @@ public class AnswerTestDataFactory
 		createAnswerFive();
 
 		return answers;
+	}
+
+	@Override
+	public List<org.wc.trackrite.onepack.Answer> getListOfRecords() {
+		return answers;
+	}
+
+	@Override
+	public String getQuery() {
+		return "Select e from org.wc.trackrite.onepack.Answer e ";
 	}
 
 	public void persistAll() {

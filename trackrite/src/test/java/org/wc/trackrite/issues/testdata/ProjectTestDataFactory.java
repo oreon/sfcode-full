@@ -40,9 +40,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("epsilon");
+			project.setName("delta");
 
-			project.setDescription("beta");
+			project.setDescription("Malissa");
 
 			register(project);
 
@@ -60,7 +60,7 @@ public class ProjectTestDataFactory
 
 			project.setName("alpha");
 
-			project.setDescription("zeta");
+			project.setDescription("Eric");
 
 			register(project);
 
@@ -76,9 +76,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("beta");
+			project.setName("Lavendar");
 
-			project.setDescription("pi");
+			project.setDescription("delta");
 
 			register(project);
 
@@ -94,9 +94,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("epsilon");
+			project.setName("alpha");
 
-			project.setDescription("pi");
+			project.setDescription("Wilson");
 
 			register(project);
 
@@ -112,9 +112,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("beta");
+			project.setName("Wilson");
 
-			project.setDescription("Mark");
+			project.setDescription("Lavendar");
 
 			register(project);
 
@@ -125,15 +125,6 @@ public class ProjectTestDataFactory
 		return project;
 	}
 
-	public org.wc.trackrite.issues.Project getRandomRecord() {
-
-		if (projects.isEmpty()) {
-			createAll();
-		}
-
-		return projects.get(new Random().nextInt(projects.size()));
-	}
-
 	public List<org.wc.trackrite.issues.Project> createAll() {
 		createProjectOne();
 		createProjectTwo();
@@ -142,6 +133,16 @@ public class ProjectTestDataFactory
 		createProjectFive();
 
 		return projects;
+	}
+
+	@Override
+	public List<org.wc.trackrite.issues.Project> getListOfRecords() {
+		return projects;
+	}
+
+	@Override
+	public String getQuery() {
+		return "Select e from org.wc.trackrite.issues.Project e ";
 	}
 
 	public void persistAll() {

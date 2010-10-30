@@ -1,5 +1,16 @@
 package org.witchcraft.action.test;
 
+import java.lang.reflect.Array;
+import java.lang.reflect.GenericArrayType;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
 import javax.faces.FactoryFinder;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,6 +23,7 @@ import org.jboss.seam.core.Init;
 import org.jboss.seam.init.Initialization;
 import org.jboss.seam.mock.MockApplicationFactory;
 import org.jboss.seam.mock.MockServletContext;
+import org.witchcraft.exceptions.ContractViolationException;
 
 public abstract class AbstractTestDataFactory<T> {
 
@@ -49,10 +61,48 @@ public abstract class AbstractTestDataFactory<T> {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
-			if(em.getTransaction().isActive())
+			if (em.getTransaction().isActive())
 				em.getTransaction().rollback();
 		}
 	}
+
+	@SuppressWarnings("unchecked")
+	public T getRandomRecord() {
+		try {
 	
+			if (getListOfRecords().isEmpty()) {
+				persistAll();
+			}
+
+			List<T> records = em.createQuery(getQuery()).getResultList();
+
+			return records.get(new Random().nextInt(records.size()));
+		} catch (Exception e) {
+			throw new ContractViolationException(
+					"error instaniating object of type ", e);
+		}
+	}
+
 	public abstract void persistAll();
+
+	public abstract List<T> getListOfRecords();
+	
+	public abstract String getQuery();
+
+	protected String getClassName(T t) {
+		String name = t.getClass().getSimpleName();
+		if (name.indexOf("$$") > 0)
+			name = name.substring(0, name.indexOf("$$"));
+		return name;
+	}
+	
+	@Override
+	protected void finalize() throws Throwable {
+		em.close();
+		emf.close();
+		super.finalize();
+	}
+
+	
+
 }

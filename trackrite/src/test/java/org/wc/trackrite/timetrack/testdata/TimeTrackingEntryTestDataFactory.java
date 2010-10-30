@@ -42,9 +42,9 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(3712);
+			timeTrackingEntry.setHours(334);
 
-			timeTrackingEntry.setDetails("delta");
+			timeTrackingEntry.setDetails("pi");
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -65,9 +65,9 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(4780);
+			timeTrackingEntry.setHours(4787);
 
-			timeTrackingEntry.setDetails("gamma");
+			timeTrackingEntry.setDetails("beta");
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -88,9 +88,9 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(8348);
+			timeTrackingEntry.setHours(8446);
 
-			timeTrackingEntry.setDetails("delta");
+			timeTrackingEntry.setDetails("Malissa");
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -111,9 +111,9 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(6012);
+			timeTrackingEntry.setHours(4472);
 
-			timeTrackingEntry.setDetails("gamma");
+			timeTrackingEntry.setDetails("Eric");
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -134,9 +134,9 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(2693);
+			timeTrackingEntry.setHours(8182);
 
-			timeTrackingEntry.setDetails("alpha");
+			timeTrackingEntry.setDetails("Wilson");
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -152,16 +152,6 @@ public class TimeTrackingEntryTestDataFactory
 		return timeTrackingEntry;
 	}
 
-	public org.wc.trackrite.timetrack.TimeTrackingEntry getRandomRecord() {
-
-		if (timeTrackingEntrys.isEmpty()) {
-			createAll();
-		}
-
-		return timeTrackingEntrys.get(new Random().nextInt(timeTrackingEntrys
-				.size()));
-	}
-
 	public List<org.wc.trackrite.timetrack.TimeTrackingEntry> createAll() {
 		createTimeTrackingEntryOne();
 		createTimeTrackingEntryTwo();
@@ -170,6 +160,16 @@ public class TimeTrackingEntryTestDataFactory
 		createTimeTrackingEntryFive();
 
 		return timeTrackingEntrys;
+	}
+
+	@Override
+	public List<org.wc.trackrite.timetrack.TimeTrackingEntry> getListOfRecords() {
+		return timeTrackingEntrys;
+	}
+
+	@Override
+	public String getQuery() {
+		return "Select e from org.wc.trackrite.timetrack.TimeTrackingEntry e ";
 	}
 
 	public void persistAll() {

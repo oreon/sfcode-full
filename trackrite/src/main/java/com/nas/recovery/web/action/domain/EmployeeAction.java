@@ -2,6 +2,9 @@ package com.nas.recovery.web.action.domain;
 
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.bpm.ManagedJbpmContext;
+import org.jbpm.graph.exe.ExecutionContext;
+import org.jbpm.taskmgmt.exe.TaskInstance;
 import org.wc.trackrite.users.Role;
 
 import com.nas.recovery.web.action.users.RoleAction;
@@ -14,6 +17,12 @@ public class EmployeeAction extends EmployeeActionBase implements
 	
 	@In(create=true)
 	RoleAction roleAction;
+	
+	//@In(create=true)
+	//ExecutionContext executionContext;
+	
+	@In(create=true, value="playProcessAction") 
+	Play play;
 	
 	@Override
 	public String save() {
@@ -45,9 +54,11 @@ public class EmployeeAction extends EmployeeActionBase implements
 		return "developer";
 	}
 	
-	public String updateDuedate(){
-		Play play;
-		//play.getT
+	public String updateDueDate(TaskInstance task){
+	//	TaskInstance task = executionContext.getTaskInstance();
+		//ManagedJbpmContext.instance().getGraphSession();
+		task = ExecutionContext.currentExecutionContext().getTaskInstance();
+		task.setDueDate(new java.util.Date());
 		return "";
 	}
 

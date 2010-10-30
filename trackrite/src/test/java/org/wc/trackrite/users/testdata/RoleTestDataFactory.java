@@ -37,7 +37,7 @@ public class RoleTestDataFactory
 
 		try {
 
-			role.setName("delta");
+			role.setName("pi");
 
 			register(role);
 
@@ -53,7 +53,7 @@ public class RoleTestDataFactory
 
 		try {
 
-			role.setName("Malissa");
+			role.setName("Wilson");
 
 			register(role);
 
@@ -69,7 +69,7 @@ public class RoleTestDataFactory
 
 		try {
 
-			role.setName("epsilon");
+			role.setName("pi");
 
 			register(role);
 
@@ -85,7 +85,7 @@ public class RoleTestDataFactory
 
 		try {
 
-			role.setName("John");
+			role.setName("Mark");
 
 			register(role);
 
@@ -101,7 +101,7 @@ public class RoleTestDataFactory
 
 		try {
 
-			role.setName("zeta");
+			role.setName("Mark");
 
 			register(role);
 
@@ -112,15 +112,6 @@ public class RoleTestDataFactory
 		return role;
 	}
 
-	public org.wc.trackrite.users.Role getRandomRecord() {
-
-		if (roles.isEmpty()) {
-			createAll();
-		}
-
-		return roles.get(new Random().nextInt(roles.size()));
-	}
-
 	public List<org.wc.trackrite.users.Role> createAll() {
 		createRoleOne();
 		createRoleTwo();
@@ -129,6 +120,16 @@ public class RoleTestDataFactory
 		createRoleFive();
 
 		return roles;
+	}
+
+	@Override
+	public List<org.wc.trackrite.users.Role> getListOfRecords() {
+		return roles;
+	}
+
+	@Override
+	public String getQuery() {
+		return "Select e from org.wc.trackrite.users.Role e ";
 	}
 
 	public void persistAll() {

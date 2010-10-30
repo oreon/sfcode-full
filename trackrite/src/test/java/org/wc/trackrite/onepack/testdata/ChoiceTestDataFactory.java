@@ -39,7 +39,7 @@ public class ChoiceTestDataFactory
 
 		try {
 
-			choice.setText("alpha");
+			choice.setText("beta");
 
 			choice.setQuestion(questionTestDataFactory.getRandomRecord());
 
@@ -57,7 +57,7 @@ public class ChoiceTestDataFactory
 
 		try {
 
-			choice.setText("theta");
+			choice.setText("Wilson");
 
 			choice.setQuestion(questionTestDataFactory.getRandomRecord());
 
@@ -75,7 +75,7 @@ public class ChoiceTestDataFactory
 
 		try {
 
-			choice.setText("Malissa");
+			choice.setText("pi");
 
 			choice.setQuestion(questionTestDataFactory.getRandomRecord());
 
@@ -93,7 +93,7 @@ public class ChoiceTestDataFactory
 
 		try {
 
-			choice.setText("Eric");
+			choice.setText("pi");
 
 			choice.setQuestion(questionTestDataFactory.getRandomRecord());
 
@@ -111,7 +111,7 @@ public class ChoiceTestDataFactory
 
 		try {
 
-			choice.setText("delta");
+			choice.setText("gamma");
 
 			choice.setQuestion(questionTestDataFactory.getRandomRecord());
 
@@ -124,15 +124,6 @@ public class ChoiceTestDataFactory
 		return choice;
 	}
 
-	public org.wc.trackrite.onepack.Choice getRandomRecord() {
-
-		if (choices.isEmpty()) {
-			createAll();
-		}
-
-		return choices.get(new Random().nextInt(choices.size()));
-	}
-
 	public List<org.wc.trackrite.onepack.Choice> createAll() {
 		createChoiceOne();
 		createChoiceTwo();
@@ -141,6 +132,16 @@ public class ChoiceTestDataFactory
 		createChoiceFive();
 
 		return choices;
+	}
+
+	@Override
+	public List<org.wc.trackrite.onepack.Choice> getListOfRecords() {
+		return choices;
+	}
+
+	@Override
+	public String getQuery() {
+		return "Select e from org.wc.trackrite.onepack.Choice e ";
 	}
 
 	public void persistAll() {

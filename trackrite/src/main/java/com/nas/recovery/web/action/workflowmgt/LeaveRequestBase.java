@@ -15,34 +15,34 @@ public class LeaveRequestBase extends BaseJbpmProcessAction
 			java.io.Serializable {
 
 	@StartTask
-	public void startProvideDetailsTask() {
+	public void startProvideDetails() {
 
 	}
 
 	@EndTask(transition = "retract")
-	public void retractProvideDetailsTask() {
+	public void retractProvideDetails() {
 
 	}
 	@EndTask(transition = "submit")
-	public void submitProvideDetailsTask() {
+	public void submitProvideDetails() {
 
 	}
 
 	@StartTask
-	public void startReviewRequestTask() {
+	public void startReviewRequest() {
 
 	}
 
 	@EndTask(transition = "reject")
-	public void rejectReviewRequestTask() {
+	public void rejectReviewRequest() {
 
 	}
 	@EndTask(transition = "moreDetails")
-	public void moreDetailsReviewRequestTask() {
+	public void moreDetailsReviewRequest() {
 
 	}
 	@EndTask(transition = "accept")
-	public void acceptReviewRequestTask() {
+	public void acceptReviewRequest() {
 
 	}
 

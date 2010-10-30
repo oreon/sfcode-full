@@ -5,30 +5,33 @@
     <assignment actor-id="admin"/> 
   </swimlane>  
   <task-node name="firstTask"> 
-    <event type="node-enter"> 
-      <action expression="#{issueAction.createMessage}"/> 
-    </event>  
-    <task name="firstTaskTask" swimlane="admin" duedate="3 business days" notify="false"></task>  
-    <transition to="second" name="done"> 
-      <action expression="#{employeeAction.updateDueDate()}"/> 
-    </transition>  
+    <task name="firstTask" swimlane="admin" duedate="3 business days" notify="false"> 
+      <event type="task-assign"> 
+        <action expression="#{issueAction.createMessage}"/> 
+      </event> 
+    </task>  
+    <transition to="second" name="done"></transition>  
     <transition to="second" name="timeout"></transition> 
   </task-node>  
   <start-state name=""> 
-    <task name="Task" swimlane="admin"></task>  
-    <transition to="firstTask" name="proceedTofirstTask"></transition> 
+    <task name="" swimlane="admin"></task>  
+    <transition to="firstTask" name="proceedToFirstTask"></transition> 
   </start-state>  
   <task-node name="second"> 
-    <task name="secondTask" swimlane="admin" notify="false"></task>  
-    <transition to="third" name="proceedTothird"></transition> 
+    <task name="second" swimlane="admin" duedate="0 business days" notify="false"> 
+      <event type="task-assign"> 
+        <action expression="#{employeeAction.updateDueDate()}"/> 
+      </event> 
+    </task>  
+    <transition to="third" name="proceedToThird"></transition> 
   </task-node>  
   <task-node name="third"> 
-    <task name="thirdTask" swimlane="admin" notify="false"></task>  
-    <transition to="fourth" name="proceedTofourth"></transition> 
+    <task name="third" swimlane="admin" notify="false"></task>  
+    <transition to="fourth" name="proceedToFourth"></transition> 
   </task-node>  
   <task-node name="fourth"> 
-    <task name="fourthTask" swimlane="admin" notify="false"></task>  
-    <transition to="end" name="proceedToend"></transition> 
+    <task name="fourth" swimlane="admin" notify="false"></task>  
+    <transition to="end" name="proceedToEnd"></transition> 
   </task-node>  
   <end-state name="end"/> 
 </process-definition>

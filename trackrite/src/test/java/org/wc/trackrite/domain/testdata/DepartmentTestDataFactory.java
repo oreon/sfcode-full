@@ -40,7 +40,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("Malissa");
+			department.setName("beta");
 
 			register(department);
 
@@ -56,7 +56,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("Lavendar");
+			department.setName("Wilson");
 
 			register(department);
 
@@ -72,7 +72,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("John");
+			department.setName("alpha");
 
 			register(department);
 
@@ -88,7 +88,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("beta");
+			department.setName("Eric");
 
 			register(department);
 
@@ -104,7 +104,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("gamma");
+			department.setName("Mark");
 
 			register(department);
 
@@ -115,15 +115,6 @@ public class DepartmentTestDataFactory
 		return department;
 	}
 
-	public org.wc.trackrite.domain.Department getRandomRecord() {
-
-		if (departments.isEmpty()) {
-			createAll();
-		}
-
-		return departments.get(new Random().nextInt(departments.size()));
-	}
-
 	public List<org.wc.trackrite.domain.Department> createAll() {
 		createDepartmentOne();
 		createDepartmentTwo();
@@ -132,6 +123,16 @@ public class DepartmentTestDataFactory
 		createDepartmentFive();
 
 		return departments;
+	}
+
+	@Override
+	public List<org.wc.trackrite.domain.Department> getListOfRecords() {
+		return departments;
+	}
+
+	@Override
+	public String getQuery() {
+		return "Select e from org.wc.trackrite.domain.Department e ";
 	}
 
 	public void persistAll() {

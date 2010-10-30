@@ -37,15 +37,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("Wilson");
+			user.setUserName("alpha");
 
-			user.setPassword("Lavendar");
+			user.setPassword("Mark");
 
 			user.setEnabled(true);
 
-			user.setEmail("Eric");
+			user.setEmail("delta");
 
-			user.setLastLogin(dateFormat.parse("2010.11.13 17:56:27 EST"));
+			user.setLastLogin(dateFormat.parse("2010.10.21 17:29:45 EDT"));
 
 			register(user);
 
@@ -61,15 +61,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("delta");
+			user.setUserName("Wilson");
 
-			user.setPassword("Lavendar");
+			user.setPassword("Malissa");
 
 			user.setEnabled(true);
 
-			user.setEmail("Mark");
+			user.setEmail("gamma");
 
-			user.setLastLogin(dateFormat.parse("2010.11.11 10:26:27 EST"));
+			user.setLastLogin(dateFormat.parse("2010.10.26 17:51:23 EDT"));
 
 			register(user);
 
@@ -85,15 +85,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("delta");
+			user.setUserName("Eric");
 
 			user.setPassword("Eric");
 
 			user.setEnabled(true);
 
-			user.setEmail("John");
+			user.setEmail("pi");
 
-			user.setLastLogin(dateFormat.parse("2010.11.15 14:13:07 EST"));
+			user.setLastLogin(dateFormat.parse("2010.10.24 12:07:30 EDT"));
 
 			register(user);
 
@@ -109,15 +109,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("John");
+			user.setUserName("Mark");
 
 			user.setPassword("Mark");
 
 			user.setEnabled(true);
 
-			user.setEmail("Eric");
+			user.setEmail("delta");
 
-			user.setLastLogin(dateFormat.parse("2010.10.22 12:23:07 EDT"));
+			user.setLastLogin(dateFormat.parse("2010.10.19 22:53:38 EDT"));
 
 			register(user);
 
@@ -133,15 +133,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("zeta");
+			user.setUserName("Malissa");
 
-			user.setPassword("Lavendar");
+			user.setPassword("beta");
 
 			user.setEnabled(true);
 
-			user.setEmail("beta");
+			user.setEmail("Malissa");
 
-			user.setLastLogin(dateFormat.parse("2010.10.13 11:35:18 EDT"));
+			user.setLastLogin(dateFormat.parse("2010.11.22 17:03:38 EST"));
 
 			register(user);
 
@@ -152,15 +152,6 @@ public class UserTestDataFactory
 		return user;
 	}
 
-	public org.wc.trackrite.users.User getRandomRecord() {
-
-		if (users.isEmpty()) {
-			createAll();
-		}
-
-		return users.get(new Random().nextInt(users.size()));
-	}
-
 	public List<org.wc.trackrite.users.User> createAll() {
 		createUserOne();
 		createUserTwo();
@@ -169,6 +160,16 @@ public class UserTestDataFactory
 		createUserFive();
 
 		return users;
+	}
+
+	@Override
+	public List<org.wc.trackrite.users.User> getListOfRecords() {
+		return users;
+	}
+
+	@Override
+	public String getQuery() {
+		return "Select e from org.wc.trackrite.users.User e ";
 	}
 
 	public void persistAll() {

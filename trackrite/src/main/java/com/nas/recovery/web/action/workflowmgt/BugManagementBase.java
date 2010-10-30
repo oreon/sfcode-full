@@ -26,64 +26,64 @@ public class BugManagementBase extends BaseJbpmProcessAction
 	}
 
 	@StartTask
-	public void startAssignDeveloperTask() {
+	public void startAssignDeveloper() {
 
 	}
 
 	@EndTask(transition = "nonissue")
-	public void nonissueAssignDeveloperTask() {
+	public void nonissueAssignDeveloper() {
 
 	}
 	@EndTask(transition = "assign")
-	public void assignAssignDeveloperTask() {
+	public void assignAssignDeveloper() {
 
 	}
 
 	@StartTask
-	public void startReviewIssueTask() {
+	public void startReviewIssue() {
 
 	}
 
 	@EndTask(transition = "accept")
-	public void acceptReviewIssueTask() {
+	public void acceptReviewIssue() {
 
 	}
 	@EndTask(transition = "reject")
-	public void rejectReviewIssueTask() {
+	public void rejectReviewIssue() {
 
 	}
 
 	@StartTask
-	public void startVerifyfixTask() {
+	public void startVerifyfix() {
 
 	}
 
 	@EndTask(transition = "requestModification")
-	public void requestModificationVerifyfixTask() {
+	public void requestModificationVerifyfix() {
 
 	}
 	@EndTask(transition = "close")
-	public void closeVerifyfixTask() {
+	public void closeVerifyfix() {
 
 	}
 
 	@StartTask
-	public void startWorkOnIssueTask() {
+	public void startWorkOnIssue() {
 
 	}
 
 	@EndTask(transition = "fixed")
-	public void fixedWorkOnIssueTask() {
+	public void fixedWorkOnIssue() {
 
 	}
 
 	@StartTask
-	public void startNotifyCloseTask() {
+	public void startNotifyClose() {
 
 	}
 
 	@EndTask(transition = "close")
-	public void closeNotifyCloseTask() {
+	public void closeNotifyClose() {
 
 	}
 

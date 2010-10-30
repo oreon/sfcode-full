@@ -39,7 +39,7 @@ public class ScheduleTestDataFactory
 
 		try {
 
-			schedule.setName("beta");
+			schedule.setName("Malissa");
 
 			schedule.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -57,7 +57,7 @@ public class ScheduleTestDataFactory
 
 		try {
 
-			schedule.setName("delta");
+			schedule.setName("Wilson");
 
 			schedule.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -75,7 +75,7 @@ public class ScheduleTestDataFactory
 
 		try {
 
-			schedule.setName("pi");
+			schedule.setName("beta");
 
 			schedule.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -93,7 +93,7 @@ public class ScheduleTestDataFactory
 
 		try {
 
-			schedule.setName("alpha");
+			schedule.setName("John");
 
 			schedule.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -111,7 +111,7 @@ public class ScheduleTestDataFactory
 
 		try {
 
-			schedule.setName("Malissa");
+			schedule.setName("alpha");
 
 			schedule.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -124,15 +124,6 @@ public class ScheduleTestDataFactory
 		return schedule;
 	}
 
-	public org.wc.trackrite.schedule.Schedule getRandomRecord() {
-
-		if (schedules.isEmpty()) {
-			createAll();
-		}
-
-		return schedules.get(new Random().nextInt(schedules.size()));
-	}
-
 	public List<org.wc.trackrite.schedule.Schedule> createAll() {
 		createScheduleOne();
 		createScheduleTwo();
@@ -141,6 +132,16 @@ public class ScheduleTestDataFactory
 		createScheduleFive();
 
 		return schedules;
+	}
+
+	@Override
+	public List<org.wc.trackrite.schedule.Schedule> getListOfRecords() {
+		return schedules;
+	}
+
+	@Override
+	public String getQuery() {
+		return "Select e from org.wc.trackrite.schedule.Schedule e ";
 	}
 
 	public void persistAll() {
