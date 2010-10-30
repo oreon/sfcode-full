@@ -1,0 +1,39 @@
+<ui:composition 
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template = "/admin/reports/template.xhtml" >	
+	<ui:define name="content">
+	<h:form>
+	<h:panelGrid  columns="3"  >
+	
+		<h:outputText value="#{msg.timeSheetReport_developer}  "/>
+	<h:selectOneMenu id="developer"   label="#{msg.timeSheetReport_developer}" value="#{timeSheetReportAction.developer}"  required="true">
+		<s:selectItems value="#{employeeList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+		<h:message styleClass="error errors" for="developer" />
+	
+		<h:outputText value="#{msg.timeSheetReport_from}  "/>
+<rich:calendar  id="from"  label="#{msg.timeSheetReport_from}"  required="true"  value="#{timeSheetReportAction.from}" />
+		<h:message styleClass="error errors" for="from" />
+	
+		<h:outputText value="#{msg.timeSheetReport_to}  "/>
+<rich:calendar  id="to"  label="#{msg.timeSheetReport_to}"  required="true"  value="#{timeSheetReportAction.to}" />
+		<h:message styleClass="error errors" for="to" />
+	
+	</h:panelGrid>
+	<h:commandButton propagation="none" value="Run Report"
+				action="#{timeSheetReportAction.runReport('TimeSheetReport')}" />
+	</h:form>
+	</ui:define>
+</ui:composition>

@@ -37,7 +37,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.10.19 08:35:18 EDT"));
+			workDay.setDate(dateFormat.parse("2010.11.23 12:55:53 EST"));
 
 			register(workDay);
 
@@ -53,7 +53,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.10.13 10:48:06 EDT"));
+			workDay.setDate(dateFormat.parse("2010.11.16 09:04:11 EST"));
 
 			register(workDay);
 
@@ -69,7 +69,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.10.06 18:41:59 EDT"));
+			workDay.setDate(dateFormat.parse("2010.10.12 13:25:16 EDT"));
 
 			register(workDay);
 
@@ -85,7 +85,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.11.03 17:27:33 EDT"));
+			workDay.setDate(dateFormat.parse("2010.11.14 13:33:38 EST"));
 
 			register(workDay);
 
@@ -101,7 +101,7 @@ public class WorkDayTestDataFactory
 
 		try {
 
-			workDay.setDate(dateFormat.parse("2010.10.10 06:15:19 EDT"));
+			workDay.setDate(dateFormat.parse("2010.11.18 19:52:33 EST"));
 
 			register(workDay);
 
@@ -112,15 +112,6 @@ public class WorkDayTestDataFactory
 		return workDay;
 	}
 
-	public org.wc.trackrite.timetrack.WorkDay getRandomRecord() {
-
-		if (workDays.isEmpty()) {
-			createAll();
-		}
-
-		return workDays.get(new Random().nextInt(workDays.size()));
-	}
-
 	public List<org.wc.trackrite.timetrack.WorkDay> createAll() {
 		createWorkDayOne();
 		createWorkDayTwo();
@@ -129,6 +120,16 @@ public class WorkDayTestDataFactory
 		createWorkDayFive();
 
 		return workDays;
+	}
+
+	@Override
+	public List<org.wc.trackrite.timetrack.WorkDay> getListOfRecords() {
+		return workDays;
+	}
+
+	@Override
+	public String getQuery() {
+		return "Select e from org.wc.trackrite.timetrack.WorkDay e ";
 	}
 
 	public void persistAll() {

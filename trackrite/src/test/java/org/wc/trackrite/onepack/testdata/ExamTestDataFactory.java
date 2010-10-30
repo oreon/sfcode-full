@@ -39,7 +39,7 @@ public class ExamTestDataFactory
 
 			exam.setName("Mark");
 
-			exam.setDuration(1932);
+			exam.setDuration(8230);
 
 			register(exam);
 
@@ -55,9 +55,9 @@ public class ExamTestDataFactory
 
 		try {
 
-			exam.setName("Eric");
+			exam.setName("pi");
 
-			exam.setDuration(7422);
+			exam.setDuration(1302);
 
 			register(exam);
 
@@ -73,9 +73,9 @@ public class ExamTestDataFactory
 
 		try {
 
-			exam.setName("beta");
+			exam.setName("Wilson");
 
-			exam.setDuration(6766);
+			exam.setDuration(5132);
 
 			register(exam);
 
@@ -91,9 +91,9 @@ public class ExamTestDataFactory
 
 		try {
 
-			exam.setName("John");
+			exam.setName("gamma");
 
-			exam.setDuration(7902);
+			exam.setDuration(8194);
 
 			register(exam);
 
@@ -109,9 +109,9 @@ public class ExamTestDataFactory
 
 		try {
 
-			exam.setName("zeta");
+			exam.setName("Eric");
 
-			exam.setDuration(1247);
+			exam.setDuration(2698);
 
 			register(exam);
 
@@ -122,15 +122,6 @@ public class ExamTestDataFactory
 		return exam;
 	}
 
-	public org.wc.trackrite.onepack.Exam getRandomRecord() {
-
-		if (exams.isEmpty()) {
-			createAll();
-		}
-
-		return exams.get(new Random().nextInt(exams.size()));
-	}
-
 	public List<org.wc.trackrite.onepack.Exam> createAll() {
 		createExamOne();
 		createExamTwo();
@@ -139,6 +130,16 @@ public class ExamTestDataFactory
 		createExamFive();
 
 		return exams;
+	}
+
+	@Override
+	public List<org.wc.trackrite.onepack.Exam> getListOfRecords() {
+		return exams;
+	}
+
+	@Override
+	public String getQuery() {
+		return "Select e from org.wc.trackrite.onepack.Exam e ";
 	}
 
 	public void persistAll() {

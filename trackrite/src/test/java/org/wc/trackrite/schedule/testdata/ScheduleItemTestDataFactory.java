@@ -40,10 +40,10 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.11.01 00:48:06 EDT"));
+					.parse("2010.11.10 08:13:06 EST"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.10.23 19:00:21 EDT"));
+					.setEndDate(dateFormat.parse("2010.10.06 15:34:11 EDT"));
 
 			scheduleItem.setEmployee(employeeTestDataFactory.getRandomRecord());
 
@@ -62,10 +62,10 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.10.06 03:31:26 EDT"));
+					.parse("2010.10.19 03:53:39 EDT"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.10.16 15:40:21 EDT"));
+					.setEndDate(dateFormat.parse("2010.10.11 01:07:31 EDT"));
 
 			scheduleItem.setEmployee(employeeTestDataFactory.getRandomRecord());
 
@@ -84,10 +84,10 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.11.10 20:41:26 EST"));
+					.parse("2010.10.29 10:57:31 EDT"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.10.17 02:03:41 EDT"));
+					.setEndDate(dateFormat.parse("2010.10.15 13:15:17 EDT"));
 
 			scheduleItem.setEmployee(employeeTestDataFactory.getRandomRecord());
 
@@ -106,10 +106,10 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.10.14 18:50:21 EDT"));
+					.parse("2010.10.29 06:24:11 EDT"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.10.25 02:17:01 EDT"));
+					.setEndDate(dateFormat.parse("2010.11.08 11:54:44 EST"));
 
 			scheduleItem.setEmployee(employeeTestDataFactory.getRandomRecord());
 
@@ -128,10 +128,10 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.09.30 04:47:34 EDT"));
+					.parse("2010.11.06 18:09:46 EDT"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.11.10 07:20:21 EST"));
+					.setEndDate(dateFormat.parse("2010.10.21 17:58:04 EDT"));
 
 			scheduleItem.setEmployee(employeeTestDataFactory.getRandomRecord());
 
@@ -144,15 +144,6 @@ public class ScheduleItemTestDataFactory
 		return scheduleItem;
 	}
 
-	public org.wc.trackrite.schedule.ScheduleItem getRandomRecord() {
-
-		if (scheduleItems.isEmpty()) {
-			createAll();
-		}
-
-		return scheduleItems.get(new Random().nextInt(scheduleItems.size()));
-	}
-
 	public List<org.wc.trackrite.schedule.ScheduleItem> createAll() {
 		createScheduleItemOne();
 		createScheduleItemTwo();
@@ -161,6 +152,16 @@ public class ScheduleItemTestDataFactory
 		createScheduleItemFive();
 
 		return scheduleItems;
+	}
+
+	@Override
+	public List<org.wc.trackrite.schedule.ScheduleItem> getListOfRecords() {
+		return scheduleItems;
+	}
+
+	@Override
+	public String getQuery() {
+		return "Select e from org.wc.trackrite.schedule.ScheduleItem e ";
 	}
 
 	public void persistAll() {

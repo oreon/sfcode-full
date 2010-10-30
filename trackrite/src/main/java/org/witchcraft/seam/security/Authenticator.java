@@ -13,6 +13,7 @@ import org.jboss.seam.bpm.Actor;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
+import org.jboss.seam.security.permission.RuleBasedPermissionResolver;
 import org.wc.trackrite.users.Role;
 import org.wc.trackrite.users.User;
 import org.witchcraft.base.entity.UserUtilAction;
@@ -55,6 +56,12 @@ public class Authenticator {
 			}
 			updateActor(user);
 			UserUtilAction userUtilAction = (UserUtilAction)Component.getInstance("userUtilAction");
+			
+			RuleBasedPermissionResolver resolver = RuleBasedPermissionResolver.instance();
+			if(resolver != null) {
+				resolver.getSecurityContext().insert(user);
+			}
+
 			//userUtilAction.setCurrentUser(user);
 			return true;
 		}

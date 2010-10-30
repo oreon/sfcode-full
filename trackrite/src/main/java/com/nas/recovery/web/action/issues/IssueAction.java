@@ -51,9 +51,12 @@ public class IssueAction extends IssueActionBase implements
 		load(token.getId());
 		try {
 			getInstance().setStatus(Status.valueOf(status));
-		} catch (Exception e) {
+		}catch (NullPointerException npe){
+			throw new ContractViolationException("Issue is null");
+		}catch (Exception e){
 			throw new ContractViolationException(status + " couldnt be cast to an enum literal of type 'Status'");
 		}
+	
 		save();
 	}
 

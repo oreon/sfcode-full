@@ -39,18 +39,18 @@ public class EndUserTestDataFactory
 
 			endUser.setFirstName("theta");
 
-			endUser.setLastName("delta");
+			endUser.setLastName("alpha");
 
-			endUser.getUser().setUserName("beta");
+			endUser.getUser().setUserName("delta");
 
-			endUser.getUser().setPassword("Eric");
+			endUser.getUser().setPassword("John");
 
 			endUser.getUser().setEnabled(true);
 
-			endUser.getUser().setEmail("Malissa");
+			endUser.getUser().setEmail("John");
 
 			endUser.getUser().setLastLogin(
-					dateFormat.parse("2010.10.03 01:20:52 EDT"));
+					dateFormat.parse("2010.11.23 12:18:03 EST"));
 
 			register(endUser);
 
@@ -68,18 +68,18 @@ public class EndUserTestDataFactory
 
 			endUser.setFirstName("epsilon");
 
-			endUser.setLastName("Lavendar");
+			endUser.setLastName("gamma");
 
-			endUser.getUser().setUserName("gamma");
+			endUser.getUser().setUserName("theta");
 
-			endUser.getUser().setPassword("pi");
+			endUser.getUser().setPassword("Lavendar");
 
 			endUser.getUser().setEnabled(true);
 
-			endUser.getUser().setEmail("theta");
+			endUser.getUser().setEmail("epsilon");
 
 			endUser.getUser().setLastLogin(
-					dateFormat.parse("2010.10.26 03:43:40 EDT"));
+					dateFormat.parse("2010.11.16 06:46:24 EST"));
 
 			register(endUser);
 
@@ -95,20 +95,20 @@ public class EndUserTestDataFactory
 
 		try {
 
-			endUser.setFirstName("Malissa");
+			endUser.setFirstName("gamma");
 
-			endUser.setLastName("alpha");
+			endUser.setLastName("Lavendar");
 
-			endUser.getUser().setUserName("Mark");
+			endUser.getUser().setUserName("epsilon");
 
-			endUser.getUser().setPassword("Mark");
+			endUser.getUser().setPassword("beta");
 
 			endUser.getUser().setEnabled(true);
 
-			endUser.getUser().setEmail("Malissa");
+			endUser.getUser().setEmail("alpha");
 
 			endUser.getUser().setLastLogin(
-					dateFormat.parse("2010.09.30 10:18:38 EDT"));
+					dateFormat.parse("2010.10.19 16:04:10 EDT"));
 
 			register(endUser);
 
@@ -124,20 +124,20 @@ public class EndUserTestDataFactory
 
 		try {
 
-			endUser.setFirstName("Mark");
+			endUser.setFirstName("John");
 
-			endUser.setLastName("pi");
+			endUser.setLastName("Malissa");
 
 			endUser.getUser().setUserName("zeta");
 
-			endUser.getUser().setPassword("alpha");
+			endUser.getUser().setPassword("Lavendar");
 
 			endUser.getUser().setEnabled(true);
 
-			endUser.getUser().setEmail("pi");
+			endUser.getUser().setEmail("Eric");
 
 			endUser.getUser().setLastLogin(
-					dateFormat.parse("2010.09.29 03:24:12 EDT"));
+					dateFormat.parse("2010.10.30 15:23:05 EDT"));
 
 			register(endUser);
 
@@ -153,20 +153,20 @@ public class EndUserTestDataFactory
 
 		try {
 
-			endUser.setFirstName("gamma");
+			endUser.setFirstName("zeta");
 
-			endUser.setLastName("beta");
+			endUser.setLastName("epsilon");
 
-			endUser.getUser().setUserName("zeta");
+			endUser.getUser().setUserName("Malissa");
 
-			endUser.getUser().setPassword("alpha");
+			endUser.getUser().setPassword("Mark");
 
 			endUser.getUser().setEnabled(true);
 
-			endUser.getUser().setEmail("gamma");
+			endUser.getUser().setEmail("Malissa");
 
 			endUser.getUser().setLastLogin(
-					dateFormat.parse("2010.11.12 02:04:45 EST"));
+					dateFormat.parse("2010.10.11 20:26:25 EDT"));
 
 			register(endUser);
 
@@ -177,15 +177,6 @@ public class EndUserTestDataFactory
 		return endUser;
 	}
 
-	public org.wc.trackrite.domain.EndUser getRandomRecord() {
-
-		if (endUsers.isEmpty()) {
-			createAll();
-		}
-
-		return endUsers.get(new Random().nextInt(endUsers.size()));
-	}
-
 	public List<org.wc.trackrite.domain.EndUser> createAll() {
 		createEndUserOne();
 		createEndUserTwo();
@@ -194,6 +185,16 @@ public class EndUserTestDataFactory
 		createEndUserFive();
 
 		return endUsers;
+	}
+
+	@Override
+	public List<org.wc.trackrite.domain.EndUser> getListOfRecords() {
+		return endUsers;
+	}
+
+	@Override
+	public String getQuery() {
+		return "Select e from org.wc.trackrite.domain.EndUser e ";
 	}
 
 	public void persistAll() {

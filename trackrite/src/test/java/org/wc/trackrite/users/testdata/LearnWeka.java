@@ -2,6 +2,7 @@ package org.wc.trackrite.users.testdata;
 
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
+import weka.classifiers.functions.MultilayerPerceptron;
 import weka.classifiers.functions.RBFNetwork;
 import weka.core.Attribute;
 import weka.core.FastVector;
@@ -60,8 +61,11 @@ public class LearnWeka {
 		addInstance(trainingData, 2, Degree.DIPLOMA, 9);
 		addInstance(trainingData, 1, Degree.DIPLOMA, 8);
 		addInstance(trainingData, 7, Degree.DIPLOMA, 6);
-
-		Classifier classifier = new RBFNetwork();
+		
+		//weka.classifiers.functions.MultilayerPerceptron
+		
+	
+		Classifier classifier = getClassifier();
 		try {
 			classifier.buildClassifier(trainingData);
 			Evaluation eval = new Evaluation(trainingData);
@@ -70,7 +74,7 @@ public class LearnWeka {
 			System.out.println(eval.toSummaryString());
 			
 			double prediction = classifier.classifyInstance(createInstance(8, Degree.DIPLOMA, 0));
-			double mastersPrediction = classifier.classifyInstance(createInstance(4, Degree.BATCHELORS, 0));
+			double mastersPrediction = classifier.classifyInstance(createInstance(4, Degree.MASTERS, 0));
 			System.out.println(prediction + " " + mastersPrediction);
 			
 			
@@ -79,6 +83,13 @@ public class LearnWeka {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public static Classifier getClassifier(){
+		MultilayerPerceptron perceptron = new MultilayerPerceptron();
+		//Classifier perceptron = new RBFNetwork();
+		return perceptron;
+		//perceptron.setHiddenLayers(arg0);
 	}
 
 }

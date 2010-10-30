@@ -5,8 +5,8 @@
   <parameter name="ReportTitle" class="java.lang.String"/>  
   <parameter name="developer" class="org.wc.trackrite.domain.Employee"/>  
   <parameter name="from" class="java.util.Date"/>  
-  <parameter name="to" class="java.util.Date"/>   	
-  <queryString language="ejbql"> <![CDATA[select t from TimeTrackingEntry t, Employee e where t.createdByUser.id = e.user.id and e = $P{developer} order by t.dateCreated]]> </queryString>  
+  <parameter name="to" class="java.util.Date"/>  
+  <queryString language="ejbql"> <![CDATA[select t from TimeTrackingEntry t, Employee e where t.createdByUser.id = e.user.id and e = $P{developer}  and t.workDay.date >= $P{from} and t.workDay.date <= $P{to} order by t.dateCreated]]> </queryString>  
   <field name="issue.title" class="java.lang.String"/>  
   <field name="details" class="java.lang.String"/>  
   <field name="hours" class="java.lang.Integer"/>  
@@ -58,7 +58,7 @@
         <textElement textAlignment="Center"> 
           <font size="20"/> 
         </textElement>  
-        <text><![CDATA[TimeSheet]]></text> 
+        <text><![CDATA[TimeSheet For $P{developer}.getDisplayName() $P{from} - $P{to}]]></text> 
       </staticText> 
     </band> 
   </title>  

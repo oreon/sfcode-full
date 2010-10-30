@@ -37,7 +37,7 @@ public class ModuleTestDataFactory
 
 		try {
 
-			module.setName("Malissa");
+			module.setName("John");
 
 			register(module);
 
@@ -53,7 +53,7 @@ public class ModuleTestDataFactory
 
 		try {
 
-			module.setName("delta");
+			module.setName("epsilon");
 
 			register(module);
 
@@ -69,7 +69,7 @@ public class ModuleTestDataFactory
 
 		try {
 
-			module.setName("epsilon");
+			module.setName("pi");
 
 			register(module);
 
@@ -101,7 +101,7 @@ public class ModuleTestDataFactory
 
 		try {
 
-			module.setName("Lavendar");
+			module.setName("beta");
 
 			register(module);
 
@@ -112,15 +112,6 @@ public class ModuleTestDataFactory
 		return module;
 	}
 
-	public org.wc.trackrite.issues.Module getRandomRecord() {
-
-		if (modules.isEmpty()) {
-			createAll();
-		}
-
-		return modules.get(new Random().nextInt(modules.size()));
-	}
-
 	public List<org.wc.trackrite.issues.Module> createAll() {
 		createModuleOne();
 		createModuleTwo();
@@ -129,6 +120,16 @@ public class ModuleTestDataFactory
 		createModuleFive();
 
 		return modules;
+	}
+
+	@Override
+	public List<org.wc.trackrite.issues.Module> getListOfRecords() {
+		return modules;
+	}
+
+	@Override
+	public String getQuery() {
+		return "Select e from org.wc.trackrite.issues.Module e ";
 	}
 
 	public void persistAll() {

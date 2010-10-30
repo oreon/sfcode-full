@@ -15,46 +15,46 @@ public class PlayBase extends BaseJbpmProcessAction
 			java.io.Serializable {
 
 	@StartTask
-	public void startFirstTaskTask() {
+	public void startFirstTask() {
 
 	}
 
 	@EndTask(transition = "done")
-	public void doneFirstTaskTask() {
+	public void doneFirstTask() {
 
 	}
 	@EndTask(transition = "timeout")
-	public void timeoutFirstTaskTask() {
+	public void timeoutFirstTask() {
 
 	}
 
 	@StartTask
-	public void startSecondTask() {
+	public void startSecond() {
 
 	}
 
-	@EndTask(transition = "proceedTothird")
-	public void proceedTothirdSecondTask() {
-
-	}
-
-	@StartTask
-	public void startThirdTask() {
-
-	}
-
-	@EndTask(transition = "proceedTofourth")
-	public void proceedTofourthThirdTask() {
+	@EndTask(transition = "proceedToThird")
+	public void proceedToThirdSecond() {
 
 	}
 
 	@StartTask
-	public void startFourthTask() {
+	public void startThird() {
 
 	}
 
-	@EndTask(transition = "proceedToend")
-	public void proceedToendFourthTask() {
+	@EndTask(transition = "proceedToFourth")
+	public void proceedToFourthThird() {
+
+	}
+
+	@StartTask
+	public void startFourth() {
+
+	}
+
+	@EndTask(transition = "proceedToEnd")
+	public void proceedToEndFourth() {
 
 	}
 

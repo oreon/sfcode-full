@@ -57,7 +57,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("zeta");
+			question.setText("John");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -75,7 +75,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("theta");
+			question.setText("pi");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -93,7 +93,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("Wilson");
+			question.setText("pi");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -111,7 +111,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("theta");
+			question.setText("Mark");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -124,15 +124,6 @@ public class QuestionTestDataFactory
 		return question;
 	}
 
-	public org.wc.trackrite.onepack.Question getRandomRecord() {
-
-		if (questions.isEmpty()) {
-			createAll();
-		}
-
-		return questions.get(new Random().nextInt(questions.size()));
-	}
-
 	public List<org.wc.trackrite.onepack.Question> createAll() {
 		createQuestionOne();
 		createQuestionTwo();
@@ -141,6 +132,16 @@ public class QuestionTestDataFactory
 		createQuestionFive();
 
 		return questions;
+	}
+
+	@Override
+	public List<org.wc.trackrite.onepack.Question> getListOfRecords() {
+		return questions;
+	}
+
+	@Override
+	public String getQuery() {
+		return "Select e from org.wc.trackrite.onepack.Question e ";
 	}
 
 	public void persistAll() {

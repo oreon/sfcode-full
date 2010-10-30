@@ -42,34 +42,34 @@ public class EmployeeTestDataFactory
 
 		try {
 
-			employee.setFirstName("delta");
+			employee.setFirstName("theta");
 
-			employee.setLastName("Mark");
+			employee.setLastName("epsilon");
 
-			employee.getUser().setUserName("Wilson");
+			employee.getUser().setUserName("Mark");
 
-			employee.getUser().setPassword("epsilon");
+			employee.getUser().setPassword("Lavendar");
 
 			employee.getUser().setEnabled(true);
 
-			employee.getUser().setEmail("delta");
+			employee.getUser().setEmail("Eric");
 
 			employee.getUser().setLastLogin(
-					dateFormat.parse("2010.11.11 18:32:34 EST"));
+					dateFormat.parse("2010.10.22 03:31:55 EDT"));
 
-			employee.setEmployeeNumber("gamma");
+			employee.setEmployeeNumber("zeta");
 
-			employee.getHome().setPrimaryPhone("Wilson");
+			employee.getHome().setPrimaryPhone("Eric");
 
-			employee.getHome().setSecondaryPhone("zeta");
+			employee.getHome().setSecondaryPhone("theta");
 
-			employee.getHome().setEmail("zeta");
+			employee.getHome().setEmail("Wilson");
 
-			employee.getMailing().setPrimaryPhone("John");
+			employee.getMailing().setPrimaryPhone("Wilson");
 
-			employee.getMailing().setSecondaryPhone("theta");
+			employee.getMailing().setSecondaryPhone("Malissa");
 
-			employee.getMailing().setEmail("beta");
+			employee.getMailing().setEmail("pi");
 
 			employee.setDepartment(departmentTestDataFactory.getRandomRecord());
 
@@ -87,34 +87,34 @@ public class EmployeeTestDataFactory
 
 		try {
 
-			employee.setFirstName("Malissa");
+			employee.setFirstName("beta");
 
-			employee.setLastName("theta");
+			employee.setLastName("zeta");
 
-			employee.getUser().setUserName("alpha");
+			employee.getUser().setUserName("theta");
 
-			employee.getUser().setPassword("Mark");
+			employee.getUser().setPassword("theta");
 
 			employee.getUser().setEnabled(true);
 
-			employee.getUser().setEmail("epsilon");
+			employee.getUser().setEmail("Mark");
 
 			employee.getUser().setLastLogin(
-					dateFormat.parse("2010.10.18 11:33:39 EDT"));
+					dateFormat.parse("2010.11.21 17:16:24 EST"));
 
-			employee.setEmployeeNumber("delta");
+			employee.setEmployeeNumber("alpha");
 
-			employee.getHome().setPrimaryPhone("beta");
+			employee.getHome().setPrimaryPhone("epsilon");
 
-			employee.getHome().setSecondaryPhone("epsilon");
+			employee.getHome().setSecondaryPhone("Wilson");
 
-			employee.getHome().setEmail("alpha");
+			employee.getHome().setEmail("gamma");
 
-			employee.getMailing().setPrimaryPhone("theta");
+			employee.getMailing().setPrimaryPhone("epsilon");
 
-			employee.getMailing().setSecondaryPhone("Eric");
+			employee.getMailing().setSecondaryPhone("Malissa");
 
-			employee.getMailing().setEmail("Malissa");
+			employee.getMailing().setEmail("delta");
 
 			employee.setDepartment(departmentTestDataFactory.getRandomRecord());
 
@@ -132,34 +132,34 @@ public class EmployeeTestDataFactory
 
 		try {
 
-			employee.setFirstName("Wilson");
+			employee.setFirstName("Mark");
 
-			employee.setLastName("John");
+			employee.setLastName("Malissa");
 
-			employee.getUser().setUserName("alpha");
+			employee.getUser().setUserName("epsilon");
 
-			employee.getUser().setPassword("Wilson");
+			employee.getUser().setPassword("gamma");
 
 			employee.getUser().setEnabled(true);
 
-			employee.getUser().setEmail("pi");
+			employee.getUser().setEmail("delta");
 
 			employee.getUser().setLastLogin(
-					dateFormat.parse("2010.11.08 22:56:27 EST"));
+					dateFormat.parse("2010.11.16 14:56:24 EST"));
 
-			employee.setEmployeeNumber("delta");
+			employee.setEmployeeNumber("alpha");
 
-			employee.getHome().setPrimaryPhone("Mark");
+			employee.getHome().setPrimaryPhone("epsilon");
 
-			employee.getHome().setSecondaryPhone("epsilon");
+			employee.getHome().setSecondaryPhone("Mark");
 
-			employee.getHome().setEmail("gamma");
+			employee.getHome().setEmail("delta");
 
-			employee.getMailing().setPrimaryPhone("pi");
+			employee.getMailing().setPrimaryPhone("zeta");
 
-			employee.getMailing().setSecondaryPhone("epsilon");
+			employee.getMailing().setSecondaryPhone("pi");
 
-			employee.getMailing().setEmail("pi");
+			employee.getMailing().setEmail("theta");
 
 			employee.setDepartment(departmentTestDataFactory.getRandomRecord());
 
@@ -177,34 +177,34 @@ public class EmployeeTestDataFactory
 
 		try {
 
-			employee.setFirstName("Eric");
+			employee.setFirstName("delta");
 
-			employee.setLastName("alpha");
+			employee.setLastName("Malissa");
 
-			employee.getUser().setUserName("Lavendar");
+			employee.getUser().setUserName("zeta");
 
-			employee.getUser().setPassword("pi");
+			employee.getUser().setPassword("zeta");
 
 			employee.getUser().setEnabled(true);
 
-			employee.getUser().setEmail("Malissa");
+			employee.getUser().setEmail("theta");
 
 			employee.getUser().setLastLogin(
-					dateFormat.parse("2010.10.24 16:14:12 EDT"));
+					dateFormat.parse("2010.10.10 02:00:50 EDT"));
 
-			employee.setEmployeeNumber("alpha");
+			employee.setEmployeeNumber("Eric");
 
-			employee.getHome().setPrimaryPhone("epsilon");
+			employee.getHome().setPrimaryPhone("theta");
 
-			employee.getHome().setSecondaryPhone("gamma");
+			employee.getHome().setSecondaryPhone("Eric");
 
-			employee.getHome().setEmail("alpha");
+			employee.getHome().setEmail("pi");
 
-			employee.getMailing().setPrimaryPhone("alpha");
+			employee.getMailing().setPrimaryPhone("beta");
 
-			employee.getMailing().setSecondaryPhone("zeta");
+			employee.getMailing().setSecondaryPhone("Wilson");
 
-			employee.getMailing().setEmail("alpha");
+			employee.getMailing().setEmail("Malissa");
 
 			employee.setDepartment(departmentTestDataFactory.getRandomRecord());
 
@@ -222,34 +222,34 @@ public class EmployeeTestDataFactory
 
 		try {
 
-			employee.setFirstName("alpha");
+			employee.setFirstName("Eric");
 
-			employee.setLastName("gamma");
+			employee.setLastName("epsilon");
 
-			employee.getUser().setUserName("zeta");
+			employee.getUser().setUserName("Wilson");
 
-			employee.getUser().setPassword("Mark");
+			employee.getUser().setPassword("alpha");
 
 			employee.getUser().setEnabled(true);
 
 			employee.getUser().setEmail("beta");
 
 			employee.getUser().setLastLogin(
-					dateFormat.parse("2010.09.30 23:11:58 EDT"));
+					dateFormat.parse("2010.11.13 08:39:44 EST"));
 
-			employee.setEmployeeNumber("Mark");
+			employee.setEmployeeNumber("John");
 
-			employee.getHome().setPrimaryPhone("John");
+			employee.getHome().setPrimaryPhone("beta");
 
-			employee.getHome().setSecondaryPhone("zeta");
+			employee.getHome().setSecondaryPhone("Lavendar");
 
-			employee.getHome().setEmail("epsilon");
+			employee.getHome().setEmail("zeta");
 
-			employee.getMailing().setPrimaryPhone("epsilon");
+			employee.getMailing().setPrimaryPhone("delta");
 
-			employee.getMailing().setSecondaryPhone("epsilon");
+			employee.getMailing().setSecondaryPhone("delta");
 
-			employee.getMailing().setEmail("pi");
+			employee.getMailing().setEmail("epsilon");
 
 			employee.setDepartment(departmentTestDataFactory.getRandomRecord());
 
@@ -262,15 +262,6 @@ public class EmployeeTestDataFactory
 		return employee;
 	}
 
-	public org.wc.trackrite.domain.Employee getRandomRecord() {
-
-		if (employees.isEmpty()) {
-			createAll();
-		}
-
-		return employees.get(new Random().nextInt(employees.size()));
-	}
-
 	public List<org.wc.trackrite.domain.Employee> createAll() {
 		createEmployeeOne();
 		createEmployeeTwo();
@@ -279,6 +270,16 @@ public class EmployeeTestDataFactory
 		createEmployeeFive();
 
 		return employees;
+	}
+
+	@Override
+	public List<org.wc.trackrite.domain.Employee> getListOfRecords() {
+		return employees;
+	}
+
+	@Override
+	public String getQuery() {
+		return "Select e from org.wc.trackrite.domain.Employee e ";
 	}
 
 	public void persistAll() {

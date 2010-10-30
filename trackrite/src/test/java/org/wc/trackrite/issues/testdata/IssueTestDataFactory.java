@@ -41,13 +41,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("Mark");
+			issue.setTitle("Eric");
 
-			issue.setDescription("John");
+			issue.setDescription("alpha");
 
-			issue.setCloseTime(dateFormat.parse("2010.10.21 00:07:33 EDT"));
+			issue.setCloseTime(dateFormat.parse("2010.10.22 21:18:36 EDT"));
 
-			issue.setEstimate(7720);
+			issue.setEstimate(5667);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -67,13 +67,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("pi");
+			issue.setTitle("gamma");
 
-			issue.setDescription("theta");
+			issue.setDescription("Mark");
 
-			issue.setCloseTime(dateFormat.parse("2010.10.13 16:01:25 EDT"));
+			issue.setCloseTime(dateFormat.parse("2010.11.01 07:56:57 EDT"));
 
-			issue.setEstimate(9869);
+			issue.setEstimate(6588);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -93,13 +93,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("Wilson");
+			issue.setTitle("Mark");
 
-			issue.setDescription("Malissa");
+			issue.setDescription("John");
 
-			issue.setCloseTime(dateFormat.parse("2010.11.13 15:14:13 EST"));
+			issue.setCloseTime(dateFormat.parse("2010.11.07 02:30:50 EST"));
 
-			issue.setEstimate(7116);
+			issue.setEstimate(9846);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -119,13 +119,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("Lavendar");
+			issue.setTitle("Eric");
 
-			issue.setDescription("zeta");
+			issue.setDescription("Wilson");
 
-			issue.setCloseTime(dateFormat.parse("2010.10.06 16:27:00 EDT"));
+			issue.setCloseTime(dateFormat.parse("2010.10.07 13:21:23 EDT"));
 
-			issue.setEstimate(8305);
+			issue.setEstimate(8161);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -145,13 +145,13 @@ public class IssueTestDataFactory
 
 		try {
 
-			issue.setTitle("Eric");
+			issue.setTitle("Mark");
 
-			issue.setDescription("Lavendar");
+			issue.setDescription("Eric");
 
-			issue.setCloseTime(dateFormat.parse("2010.10.09 17:24:13 EDT"));
+			issue.setCloseTime(dateFormat.parse("2010.11.12 19:13:38 EST"));
 
-			issue.setEstimate(5756);
+			issue.setEstimate(5122);
 
 			issue.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -166,15 +166,6 @@ public class IssueTestDataFactory
 		return issue;
 	}
 
-	public org.wc.trackrite.issues.Issue getRandomRecord() {
-
-		if (issues.isEmpty()) {
-			createAll();
-		}
-
-		return issues.get(new Random().nextInt(issues.size()));
-	}
-
 	public List<org.wc.trackrite.issues.Issue> createAll() {
 		createIssueOne();
 		createIssueTwo();
@@ -183,6 +174,16 @@ public class IssueTestDataFactory
 		createIssueFive();
 
 		return issues;
+	}
+
+	@Override
+	public List<org.wc.trackrite.issues.Issue> getListOfRecords() {
+		return issues;
+	}
+
+	@Override
+	public String getQuery() {
+		return "Select e from org.wc.trackrite.issues.Issue e ";
 	}
 
 	public void persistAll() {
