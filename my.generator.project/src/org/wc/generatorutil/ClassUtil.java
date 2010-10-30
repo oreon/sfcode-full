@@ -605,9 +605,6 @@ public class ClassUtil {
 		if(mapFieldsForReports.containsKey(key))
 			return mapFieldsForReports.get(key);
 		
-		Property property;
-	
-		
 		System.out.println("Couldnt find report type for " + key);
 		
 		return "java.lang.String";
