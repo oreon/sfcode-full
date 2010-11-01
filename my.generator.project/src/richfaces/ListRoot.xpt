@@ -141,7 +141,7 @@
 		<f:facet name="header">
 			<h:outputText value=" " />
 		</f:facet>
-		<s:link view="«getViewFile(action)»">
+		<s:link view="«getViewFile(action)»"  rendered="#{s:hasPermission(_issue, '«action»')}">
 			<h:graphicImage value="/images/icons/«icon»" style="border: 0px" alt="«action»"/>
 			<f:param name="«asVar()»Id" value="#{_«asVar()».id}" />
 		</s:link>
