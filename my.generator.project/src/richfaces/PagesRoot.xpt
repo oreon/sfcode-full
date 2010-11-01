@@ -13,14 +13,13 @@
 <pages xmlns="http://jboss.com/products/seam/pages"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd"
-       no-conversation-view-id="/home.«getExtension()»"
+       no-conversation-view-id="/admin/home.«getExtension()»"
        login-view-id="/login.«getExtension()»">
-
-«REM»comment
+       
 «PROTECT CSTART '<!--' CEND '-->' ID 'USER_EDITABLE_PAGESROOT'»
 	<page view-id="/admin/*">
-        <restrict>#{s:hasRole('admin')}</restrict>
-     </page>
+		<restrict>#{identity.loggedIn}</restrict>
+	</page>
 
 	<page view-id="/admin/tasks/viewTask.xhtml">
 		<param name="taskId" value="#{bugManagementProcessAction.taskId}" />
@@ -31,8 +30,7 @@
 		</navigation>
 	</page>
 «ENDPROTECT»
-«ENDREM»
-     
+
     
     <page view-id="/adminLogin.«getExtension()»">     
         <navigation from-action="#{identity.login}">

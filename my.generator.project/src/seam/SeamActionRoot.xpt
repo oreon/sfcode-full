@@ -239,7 +239,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		«e.type.asVar()»List.get«e.name.toFirstUpper().getSingular()»().set«e.opposite.name.toFirstUpper()»(getInstance());
 		«ENDFOREACH»
 		}catch(Exception e){
-			facesMessages.add(e.getMessage());
+			addErrorMessage("Error updating associaiton " + e.getMessage());
 		}
 		«ENDIF»
 		
