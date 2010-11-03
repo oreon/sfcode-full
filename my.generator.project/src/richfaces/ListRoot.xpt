@@ -34,7 +34,7 @@
 	
 	
 <rich:panel>
-   <h:form>
+   <a:form>
 	  <f:facet name="header">«name» Search Results (#{empty «asVar()»List.resultList ? 0 : («asVar()»List.paginated ? «asVar()»List.resultCount : «asVar()»List.resultList.size)})</f:facet>
 	
 		<rich:dataTable  var="_«asVar()»" value="#{«asVar()»List.resultList}"  id="«name.toFirstLower()»List"
@@ -46,8 +46,9 @@
 		«EXPAND genLink("view", "eye.png") FOR this»
 		«EXPAND genLink ("edit", "edit.png")FOR this»
 		«EXPAND genDeleteLink FOR this»
+		«EXPAND genQuickEditLink FOR this»
 		</rich:dataTable>
- 	</h:form>		
+ 	</a:form>		
 </rich:panel>	
 
 
@@ -57,14 +58,16 @@
 <s:div styleClass="actionButtons" rendered="#{empty from}">
 	<s:button value="Create New" view="«getViewFile("edit")»"  propagation="none">
 		 <f:param name="«asVar()»Id"/>
+		 «REM»comment
 		«FOREACH getNonComposedManyAssociationsOpposite() AS e-»
-		«REM» in case of a self association  we need to use entity reference«ENDREM»
+		REM in case of a self association  we need to use entity reference ENDREM
 		«IF e.type.name == getCurrentEntity().name-»
 			<f:param name="«e.name»Id" value="#{«e.type.getAction()».«e.name.toFirstLower()»Id}" />
 		«ELSE»
 			<f:param name="«e.name»Id" value="#{«e.type.getAction()».«e.type.name.toFirstLower()».id}" />
 		«ENDIF»
 		«ENDFOREACH»
+		«ENDREM»
 	</s:button>
 </s:div>
 </h:form>
@@ -147,6 +150,18 @@
 		</s:link>
 	</h:column>
 «ENDDEFINE»
+
+«DEFINE genQuickEditLink FOR uml::Class»
+	<h:column rendered="#{s:hasPermission('«asVar()»Action', 'edit')}">
+		<f:facet name="header">
+			<h:outputText value=" " />
+		</f:facet>
+		<a:commandButton 
+				oncomplete="Richfaces.showModalPanel('«name»ModalPanel',{});" value="Quick Edit" >
+		</a:commandButton>
+	</h:column>
+«ENDDEFINE»
+
 
 
 «DEFINE genDeleteLink FOR uml::Class»

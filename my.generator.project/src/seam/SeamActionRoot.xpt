@@ -279,6 +279,14 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		«EXPAND template::Root::genOperation FOREACH a.getAllOperations()»
 	«ENDFOREACH»
 	
+	«REM»system user«ENDREM»
+	«IF getAppliedStereotype("wcprofile::SystemUser") != null»
+		public «name» getCurrentLoggedIn«name»(){
+			String query = "Select e from «name» e where e.user.username == ?1";
+			return executeSingleResultQuery(query, Identity.getUser().getUsername());
+		}
+	«ENDIF»
+	
 	
 }
 «ENDFILE»
