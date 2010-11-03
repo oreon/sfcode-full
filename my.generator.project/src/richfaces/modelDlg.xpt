@@ -40,9 +40,9 @@
 					<a:form>
 
 						<ui:include src = "«getComponentViewFile("edit")»" />
-						
+						facesContext.maximumSeverity
 						<a:commandButton action="#{«getAction()».save}"
-							oncomplete="if (#{facesContext.maximumSeverity == null}) { Richfaces.hideModalPanel('«name»ModalPanel'); }"
+							oncomplete="if (#{facesContext.maximumSeverity == null || facesContext.maximumSeverity.ordinal le 1 }) { Richfaces.hideModalPanel('«name»ModalPanel'); }"
 							reRender="«name.toFirstLower()»List"
 							value="Save" >
 							 <f:param name="conversationPropagation" value="end"/>
@@ -52,8 +52,10 @@
 							<a:commandButton 
 							oncomplete="Richfaces.hideModalPanel('«name»ModalPanel')" value="Hide" />
 						<h:outputText value=" " />
-						<s:button action="#{«getAction()».cancel}"
-							immediate="true" value="Cancel" id="cancelbtn" propagation="end"  />
+						<a:commandButton action="#{«getAction()».cancel}" immediate="true" type="reset" oncomplete="Richfaces.hideModalPanel('«name»ModalPanel');"  value="Cancel"> 
+				          <f:param name="conversationPropagation" value="end"/> 
+				        </a:commandButton>
+						
 
 					</a:form>
 				
