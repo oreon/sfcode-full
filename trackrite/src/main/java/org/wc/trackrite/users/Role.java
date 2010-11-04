@@ -56,7 +56,7 @@ public class Role extends BusinessEntity implements java.io.Serializable {
 	@Analyzer(definition = "customanalyzer")
 	protected String name;
 
-	//users->roles ->Role->User->User
+	//users->roles ->Role->Role->Role
 
 	@ManyToMany(mappedBy = "roles")
 	private Set<User> users = new HashSet<User>();

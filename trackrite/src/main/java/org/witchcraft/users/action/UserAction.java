@@ -17,7 +17,7 @@ import org.wc.trackrite.users.Role;
 import org.wc.trackrite.users.User;
 import org.witchcraft.seam.action.BaseAction;
 
-@Scope(ScopeType.CONVERSATION)
+// CMTD @Scope(ScopeType.CONVERSATION)
 @Name("userActionOrg")
 public class UserAction extends BaseAction<User> implements
 		java.io.Serializable {

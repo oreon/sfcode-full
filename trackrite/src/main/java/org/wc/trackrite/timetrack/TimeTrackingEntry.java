@@ -66,9 +66,13 @@ public class TimeTrackingEntry extends BusinessEntity
 	protected org.wc.trackrite.issues.Issue issue;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "workDay_id", nullable = false, updatable = true)
+	@JoinColumn(name = "timeSheet_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected WorkDay workDay;
+	protected TimeSheet timeSheet;
+
+	@NotNull
+	@Column(name = "date", unique = false)
+	protected Date date;
 
 	public void setHours(Integer hours) {
 		this.hours = hours;
@@ -97,13 +101,22 @@ public class TimeTrackingEntry extends BusinessEntity
 		return issue;
 	}
 
-	public void setWorkDay(WorkDay workDay) {
-		this.workDay = workDay;
+	public void setTimeSheet(TimeSheet timeSheet) {
+		this.timeSheet = timeSheet;
 	}
 
-	public WorkDay getWorkDay() {
+	public TimeSheet getTimeSheet() {
 
-		return workDay;
+		return timeSheet;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Date getDate() {
+
+		return date;
 	}
 
 	@Transient
