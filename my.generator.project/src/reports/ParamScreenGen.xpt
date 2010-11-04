@@ -53,11 +53,16 @@ public class «name»Action extends BaseReportAction {
 	template = "/admin/reports/template.xhtml" >	
 	<ui:define name="content">
 	<h:form>
-	<h:panelGrid  columns="3"  >
+	<s:validateAll>
+	<h:panelGrid  columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol"  >
+		<f:facet name="header">
+			<h:outputText value="«name»" />
+		</f:facet>
 	«FOREACH allOwnedElements().typeSelect(wcprofile::ReportParameter) AS param»
 		«EXPAND genLabelAndInput FOR param»
 	«ENDFOREACH»
 	</h:panelGrid>
+	</s:validateAll>
 	<h:commandButton propagation="none" value="Run Report"
 				action="#{«name.toFirstLower()»Action.runReport('«name»')}" />
 	</h:form>
