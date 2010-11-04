@@ -30,7 +30,7 @@ public class TimeTrackingEntryTestDataFactory
 
 	org.wc.trackrite.issues.testdata.IssueTestDataFactory issueTestDataFactory = new org.wc.trackrite.issues.testdata.IssueTestDataFactory();
 
-	org.wc.trackrite.timetrack.testdata.WorkDayTestDataFactory workDayTestDataFactory = new org.wc.trackrite.timetrack.testdata.WorkDayTestDataFactory();
+	org.wc.trackrite.timetrack.testdata.TimeSheetTestDataFactory timeSheetTestDataFactory = new org.wc.trackrite.timetrack.testdata.TimeSheetTestDataFactory();
 
 	public void register(
 			org.wc.trackrite.timetrack.TimeTrackingEntry timeTrackingEntry) {
@@ -42,13 +42,16 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(334);
+			timeTrackingEntry.setHours(3520);
 
 			timeTrackingEntry.setDetails("pi");
 
+			timeTrackingEntry.setDate(dateFormat
+					.parse("2010.10.23 09:21:22 EDT"));
+
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
-			timeTrackingEntry.setWorkDay(workDayTestDataFactory
+			timeTrackingEntry.setTimeSheet(timeSheetTestDataFactory
 					.getRandomRecord());
 
 			register(timeTrackingEntry);
@@ -65,13 +68,16 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(4787);
+			timeTrackingEntry.setHours(8770);
 
-			timeTrackingEntry.setDetails("beta");
+			timeTrackingEntry.setDetails("Mark");
+
+			timeTrackingEntry.setDate(dateFormat
+					.parse("2010.10.18 00:53:33 EDT"));
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
-			timeTrackingEntry.setWorkDay(workDayTestDataFactory
+			timeTrackingEntry.setTimeSheet(timeSheetTestDataFactory
 					.getRandomRecord());
 
 			register(timeTrackingEntry);
@@ -88,13 +94,16 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(8446);
+			timeTrackingEntry.setHours(9913);
 
-			timeTrackingEntry.setDetails("Malissa");
+			timeTrackingEntry.setDetails("alpha");
+
+			timeTrackingEntry.setDate(dateFormat
+					.parse("2010.10.31 11:39:08 EDT"));
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
-			timeTrackingEntry.setWorkDay(workDayTestDataFactory
+			timeTrackingEntry.setTimeSheet(timeSheetTestDataFactory
 					.getRandomRecord());
 
 			register(timeTrackingEntry);
@@ -111,13 +120,16 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(4472);
+			timeTrackingEntry.setHours(2335);
 
-			timeTrackingEntry.setDetails("Eric");
+			timeTrackingEntry.setDetails("Malissa");
+
+			timeTrackingEntry.setDate(dateFormat
+					.parse("2010.10.14 14:23:33 EDT"));
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
-			timeTrackingEntry.setWorkDay(workDayTestDataFactory
+			timeTrackingEntry.setTimeSheet(timeSheetTestDataFactory
 					.getRandomRecord());
 
 			register(timeTrackingEntry);
@@ -134,13 +146,16 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(8182);
+			timeTrackingEntry.setHours(444);
 
-			timeTrackingEntry.setDetails("Wilson");
+			timeTrackingEntry.setDetails("alpha");
+
+			timeTrackingEntry.setDate(dateFormat
+					.parse("2010.10.31 21:08:35 EDT"));
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
-			timeTrackingEntry.setWorkDay(workDayTestDataFactory
+			timeTrackingEntry.setTimeSheet(timeSheetTestDataFactory
 					.getRandomRecord());
 
 			register(timeTrackingEntry);
