@@ -13,6 +13,7 @@ import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Transactional;
 import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.bpm.ManagedJbpmContext;
+import org.jboss.seam.bpm.PooledTask;
 import org.jboss.seam.international.StatusMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Identity;
@@ -38,6 +39,9 @@ public class BaseJbpmProcessAction {
 
 	@In
 	protected Identity identity;
+	
+	@In
+	PooledTask pooledTask;
 
 	@Logger
 	protected Log log;
@@ -141,6 +145,11 @@ public class BaseJbpmProcessAction {
 		}
 
 		return "failed";
+	}
+	
+	public String assignToCurrentActor(){
+		task = pooledTask.getTaskInstance();
+		return pooledTask.assignToCurrentActor();
 	}
 
 	protected void loadInstance() {
