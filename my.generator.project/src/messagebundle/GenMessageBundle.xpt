@@ -12,6 +12,7 @@
 		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(wcprofile::Embeddable)-»
 		
 		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(uml::ActivityNode)»
+		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(wcprofile::ReportParameter)»
 		«EXPAND genUserManagedMessages("")»
 	«ENDFILE»
 	
@@ -21,6 +22,7 @@
 		«EXPAND genBundle("fr") FOREACH allOwnedElements().typeSelect(wcprofile::Embeddable)-»
 		
 		«EXPAND genBundle("fr") FOREACH allOwnedElements().typeSelect(uml::ActivityNode)»
+		«EXPAND genBundle("fr") FOREACH allOwnedElements().typeSelect(wcprofile::ReportParameter)»
 		«EXPAND genUserManagedMessages("fr")»
 	«ENDFILE»
 «ENDDEFINE»
@@ -36,6 +38,8 @@
 «ENDDEFINE»
 
 
+
+
 «DEFINE genBundle(String localeName) FOR uml::ActivityNode»
 «name»=«localeName»«name.getVariableNameForDisplay()»
 «FOREACH outgoing() AS o-»
@@ -49,6 +53,9 @@
 
 
 
+«DEFINE genBundle(String localeName) FOR wcprofile::ReportParameter»
+«class.asVar()»_«name»=«localeName»«name.getVariableNameForDisplay()»
+«ENDDEFINE»
 
 
 «REM»These messages would be generated inside a protected block so the users can change them freely«ENDREM»
