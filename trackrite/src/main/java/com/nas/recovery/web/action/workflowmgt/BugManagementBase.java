@@ -87,4 +87,14 @@ public class BugManagementBase extends BaseJbpmProcessAction
 
 	}
 
+	@StartTask
+	public void startNotifyCreate() {
+
+	}
+
+	@EndTask(transition = "proceedToReviewIssue")
+	public void proceedToReviewIssueNotifyCreate() {
+
+	}
+
 }
