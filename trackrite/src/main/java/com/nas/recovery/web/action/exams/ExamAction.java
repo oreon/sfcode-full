@@ -1,5 +1,8 @@
-package com.nas.recovery.web.action.timetrack;
 
+	
+	package com.nas.recovery.web.action.exams;
+	
+	
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,10 +32,10 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
-
-//@Scope(ScopeType.CONVERSATION)
-@Name("workDayAction")
-public class WorkDayAction extends WorkDayActionBase implements
-		java.io.Serializable {
-
-}
+	
+	//@Scope(ScopeType.CONVERSATION)
+	@Name("examAction")
+	public class ExamAction extends ExamActionBase implements java.io.Serializable{
+		
+	}
+	

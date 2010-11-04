@@ -27,6 +27,7 @@ import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.Component;
+import org.jboss.seam.security.Identity;
 
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
@@ -171,7 +172,7 @@ public abstract class EmployeeActionBase
 			issueList.getIssue().setDeveloper(getInstance());
 
 		} catch (Exception e) {
-			facesMessages.add(e.getMessage());
+			addErrorMessage("Error updating associaiton " + e.getMessage());
 		}
 
 	}
@@ -233,6 +234,12 @@ public abstract class EmployeeActionBase
 			findRecords();
 		}
 		return employeeRecordList;
+	}
+
+	public Employee getCurrentLoggedInEmployee() {
+		String query = "Select e from Employee e where e.user.userName = ?1";
+		return executeSingleResultQuery(query, Identity.instance()
+				.getCredentials().getUsername());
 	}
 
 }

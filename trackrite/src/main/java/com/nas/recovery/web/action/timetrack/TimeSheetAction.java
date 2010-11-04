@@ -1,6 +1,6 @@
 
 	
-	package com.nas.recovery.web.action.schedule;
+	package com.nas.recovery.web.action.timetrack;
 	
 	
 import java.util.ArrayList;
@@ -33,9 +33,9 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 	
-	//// CMTD @Scope(ScopeType.CONVERSATION)
-	@Name("scheduleAction")
-	public class ScheduleAction extends ScheduleActionBase implements java.io.Serializable{
+	//@Scope(ScopeType.CONVERSATION)
+	@Name("timeSheetAction")
+	public class TimeSheetAction extends TimeSheetActionBase implements java.io.Serializable{
 		
 	}
 	

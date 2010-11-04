@@ -7,7 +7,7 @@ import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.Name;
 import org.wc.trackrite.users.Role;
 
-//@Scope(ScopeType.CONVERSATION)
+//// CMTD @Scope(ScopeType.CONVERSATION)
 @Name("userAction")
 public class UserAction extends UserActionBase implements java.io.Serializable {
 	

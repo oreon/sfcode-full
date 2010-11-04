@@ -1,6 +1,6 @@
-package com.nas.recovery.web.action.domain;
+package com.nas.recovery.web.action.exams;
 
-import org.wc.trackrite.domain.EndUser;
+import org.wc.trackrite.exams.Candidate;
 
 import org.witchcraft.seam.action.BaseAction;
 
@@ -35,53 +35,51 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public abstract class EndUserActionBase
-		extends
-			com.nas.recovery.web.action.domain.PersonAction<EndUser>
+public abstract class CandidateActionBase extends BaseAction<Candidate>
 		implements
 			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
 	@DataModelSelection
-	private EndUser endUser;
+	private Candidate candidate;
 
 	@DataModel
-	private List<EndUser> endUserRecordList;
+	private List<Candidate> candidateRecordList;
 
-	public void setEndUserId(Long id) {
+	public void setCandidateId(Long id) {
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
 	}
 
-	public Long getEndUserId() {
+	public Long getCandidateId() {
 		return (Long) getId();
 	}
 
-	//@Factory("endUserRecordList")
-	//@Observer("archivedEndUser")
+	//@Factory("candidateRecordList")
+	//@Observer("archivedCandidate")
 	public void findRecords() {
 		//search();
 	}
 
-	public EndUser getEntity() {
-		return endUser;
+	public Candidate getEntity() {
+		return candidate;
 	}
 
 	@Override
-	public void setEntity(EndUser t) {
-		this.endUser = t;
+	public void setEntity(Candidate t) {
+		this.candidate = t;
 		loadAssociations();
 	}
 
-	public EndUser getEndUser() {
+	public Candidate getCandidate() {
 		return getInstance();
 	}
 
 	@Override
-	protected EndUser createInstance() {
-		return new EndUser();
+	protected Candidate createInstance() {
+		return new Candidate();
 	}
 
 	public void load() {
@@ -99,23 +97,23 @@ public abstract class EndUserActionBase
 		return true;
 	}
 
-	public EndUser getDefinedInstance() {
+	public Candidate getDefinedInstance() {
 		return isIdDefined() ? getInstance() : null;
 	}
 
-	public void setEndUser(EndUser t) {
-		this.endUser = t;
+	public void setCandidate(Candidate t) {
+		this.candidate = t;
 		loadAssociations();
 	}
 
 	@Override
-	public Class<EndUser> getEntityClass() {
-		return EndUser.class;
+	public Class<Candidate> getEntityClass() {
+		return Candidate.class;
 	}
 
 	@Override
-	public void setEntityList(List<EndUser> list) {
-		this.endUserRecordList = list;
+	public void setEntityList(List<Candidate> list) {
+		this.candidateRecordList = list;
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -133,11 +131,11 @@ public abstract class EndUserActionBase
 	public void updateComposedAssociations() {
 	}
 
-	public List<EndUser> getEntityList() {
-		if (endUserRecordList == null) {
+	public List<Candidate> getEntityList() {
+		if (candidateRecordList == null) {
 			findRecords();
 		}
-		return endUserRecordList;
+		return candidateRecordList;
 	}
 
 }

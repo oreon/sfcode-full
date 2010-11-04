@@ -1,5 +1,5 @@
 
-package com.nas.recovery.web.action.timetrack;
+package com.nas.recovery.web.action.exams;
 
 
 
@@ -16,8 +16,8 @@ import org.witchcraft.base.entity.Range;
 import org.jboss.seam.annotations.Observer;
 	
 	
-@Name("workDayList")
+@Name("examInstanceList")
 @Scope(ScopeType.CONVERSATION)
-public class WorkDayListQuery extends WorkDayListQueryBase implements java.io.Serializable{
+public class ExamInstanceListQuery extends ExamInstanceListQueryBase implements java.io.Serializable{
 	
 }

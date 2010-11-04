@@ -27,6 +27,7 @@ import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.Component;
+import org.jboss.seam.security.Identity;
 
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
@@ -150,14 +151,6 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 	@Override
 	public void setEntityList(List<Issue> list) {
 		this.issueRecordList = list;
-	}
-
-	public String downloadScreenShot(Long id) {
-		if (id == null || id == 0)
-			id = currentEntityId;
-		setId(id);
-		downloadAttachment(getInstance().getScreenShot());
-		return "success";
 	}
 
 	/** This function adds associated entities to an example criterion

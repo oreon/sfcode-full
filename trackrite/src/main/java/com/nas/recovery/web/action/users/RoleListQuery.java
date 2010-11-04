@@ -9,7 +9,7 @@ import org.jboss.seam.annotations.Scope;
 	
 	
 @Name("roleList")
-@Scope(ScopeType.CONVERSATION)
+// CMTD @Scope(ScopeType.CONVERSATION)
 public class RoleListQuery extends RoleListQueryBase implements java.io.Serializable{
 	
 }

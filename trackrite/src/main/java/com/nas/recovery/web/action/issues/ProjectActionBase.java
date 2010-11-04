@@ -27,6 +27,7 @@ import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.Component;
+import org.jboss.seam.security.Identity;
 
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
@@ -133,7 +134,7 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 			issueList.getIssue().setProject(getInstance());
 
 		} catch (Exception e) {
-			facesMessages.add(e.getMessage());
+			addErrorMessage("Error updating associaiton " + e.getMessage());
 		}
 
 	}

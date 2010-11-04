@@ -10,7 +10,7 @@ import org.wc.trackrite.users.Role;
 import com.nas.recovery.web.action.users.RoleAction;
 import com.nas.recovery.web.action.workflowmgt.Play;
 
-//@Scope(ScopeType.CONVERSATION)
+//// CMTD @Scope(ScopeType.CONVERSATION)
 @Name("employeeAction")
 public class EmployeeAction extends EmployeeActionBase implements
 		java.io.Serializable {

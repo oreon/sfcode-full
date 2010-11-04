@@ -33,7 +33,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 	
-	//@Scope(ScopeType.CONVERSATION)
+	//// CMTD @Scope(ScopeType.CONVERSATION)
 	@Name("scheduleItemAction")
 	public class ScheduleItemAction extends ScheduleItemActionBase implements java.io.Serializable{
 		

@@ -38,6 +38,14 @@ public abstract class TimeTrackingEntryListQueryBase
 		this.hoursRange = hoursRange;
 	}
 
+	private Range<Date> dateRange = new Range<Date>();
+	public Range<Date> getDateRange() {
+		return dateRange;
+	}
+	public void setDate(Range<Date> dateRange) {
+		this.dateRange = dateRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"timeTrackingEntry.id = #{timeTrackingEntryList.timeTrackingEntry.id}",
 
@@ -48,7 +56,10 @@ public abstract class TimeTrackingEntryListQueryBase
 
 			"timeTrackingEntry.issue.id = #{timeTrackingEntryList.timeTrackingEntry.issue.id}",
 
-			"timeTrackingEntry.workDay.id = #{timeTrackingEntryList.timeTrackingEntry.workDay.id}",
+			"timeTrackingEntry.timeSheet.id = #{timeTrackingEntryList.timeTrackingEntry.timeSheet.id}",
+
+			"timeTrackingEntry.date >= #{timeTrackingEntryList.dateRange.begin}",
+			"timeTrackingEntry.date <= #{timeTrackingEntryList.dateRange.end}",
 
 			"timeTrackingEntry.dateCreated <= #{timeTrackingEntryList.dateCreatedRange.end}",
 			"timeTrackingEntry.dateCreated >= #{timeTrackingEntryList.dateCreatedRange.begin}",};

@@ -1,6 +1,6 @@
-package com.nas.recovery.web.action.domain;
+package com.nas.recovery.web.action.exams;
 
-import org.wc.trackrite.domain.EndUser;
+import org.wc.trackrite.exams.Exam;
 
 import org.witchcraft.seam.action.BaseAction;
 
@@ -35,53 +35,53 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public abstract class EndUserActionBase
-		extends
-			com.nas.recovery.web.action.domain.PersonAction<EndUser>
+import org.wc.trackrite.exams.Question;
+
+public abstract class ExamActionBase extends BaseAction<Exam>
 		implements
 			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
 	@DataModelSelection
-	private EndUser endUser;
+	private Exam exam;
 
 	@DataModel
-	private List<EndUser> endUserRecordList;
+	private List<Exam> examRecordList;
 
-	public void setEndUserId(Long id) {
+	public void setExamId(Long id) {
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
 	}
 
-	public Long getEndUserId() {
+	public Long getExamId() {
 		return (Long) getId();
 	}
 
-	//@Factory("endUserRecordList")
-	//@Observer("archivedEndUser")
+	//@Factory("examRecordList")
+	//@Observer("archivedExam")
 	public void findRecords() {
 		//search();
 	}
 
-	public EndUser getEntity() {
-		return endUser;
+	public Exam getEntity() {
+		return exam;
 	}
 
 	@Override
-	public void setEntity(EndUser t) {
-		this.endUser = t;
+	public void setEntity(Exam t) {
+		this.exam = t;
 		loadAssociations();
 	}
 
-	public EndUser getEndUser() {
+	public Exam getExam() {
 		return getInstance();
 	}
 
 	@Override
-	protected EndUser createInstance() {
-		return new EndUser();
+	protected Exam createInstance() {
+		return new Exam();
 	}
 
 	public void load() {
@@ -99,23 +99,23 @@ public abstract class EndUserActionBase
 		return true;
 	}
 
-	public EndUser getDefinedInstance() {
+	public Exam getDefinedInstance() {
 		return isIdDefined() ? getInstance() : null;
 	}
 
-	public void setEndUser(EndUser t) {
-		this.endUser = t;
+	public void setExam(Exam t) {
+		this.exam = t;
 		loadAssociations();
 	}
 
 	@Override
-	public Class<EndUser> getEntityClass() {
-		return EndUser.class;
+	public Class<Exam> getEntityClass() {
+		return Exam.class;
 	}
 
 	@Override
-	public void setEntityList(List<EndUser> list) {
-		this.endUserRecordList = list;
+	public void setEntityList(List<Exam> list) {
+		this.examRecordList = list;
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -124,20 +124,63 @@ public abstract class EndUserActionBase
 	 */
 	public void loadAssociations() {
 
+		initListQuestions();
+
 	}
 
 	public void updateAssociations() {
 
 	}
 
-	public void updateComposedAssociations() {
+	protected List<org.wc.trackrite.exams.Question> listQuestions;
+
+	void initListQuestions() {
+		listQuestions = new ArrayList<org.wc.trackrite.exams.Question>();
+
+		if (getInstance().getQuestions().isEmpty()) {
+
+		} else
+			listQuestions.addAll(getInstance().getQuestions());
+
 	}
 
-	public List<EndUser> getEntityList() {
-		if (endUserRecordList == null) {
+	public List<org.wc.trackrite.exams.Question> getListQuestions() {
+		if (listQuestions == null)
+			initListQuestions();
+		return listQuestions;
+	}
+
+	public void setListQuestions(
+			List<org.wc.trackrite.exams.Question> listQuestions) {
+		this.listQuestions = listQuestions;
+	}
+
+	public void deleteQuestions(int index) {
+		listQuestions.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addQuestions() {
+		Question questions = new Question();
+
+		questions.setExam(getInstance());
+
+		getListQuestions().add(questions);
+	}
+
+	public void updateComposedAssociations() {
+
+		if (listQuestions != null) {
+			getInstance().getQuestions().clear();
+			getInstance().getQuestions().addAll(listQuestions);
+		}
+	}
+
+	public List<Exam> getEntityList() {
+		if (examRecordList == null) {
 			findRecords();
 		}
-		return endUserRecordList;
+		return examRecordList;
 	}
 
 }
