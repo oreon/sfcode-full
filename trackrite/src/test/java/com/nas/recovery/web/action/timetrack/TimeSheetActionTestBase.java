@@ -10,13 +10,13 @@ import org.hibernate.annotations.Filter;
 
 import org.testng.annotations.BeforeClass;
 import org.witchcraft.seam.action.BaseAction;
-import org.wc.trackrite.timetrack.WorkDay;
+import org.wc.trackrite.timetrack.TimeSheet;
 
-public class WorkDayActionTestBase
+public class TimeSheetActionTestBase
 		extends
-			org.witchcraft.action.test.BaseTest<WorkDay> {
+			org.witchcraft.action.test.BaseTest<TimeSheet> {
 
-	WorkDayAction workDayAction = new WorkDayAction();
+	TimeSheetAction timeSheetAction = new TimeSheetAction();
 
 	@BeforeClass
 	public void init() {
@@ -24,8 +24,8 @@ public class WorkDayActionTestBase
 	}
 
 	@Override
-	public BaseAction<WorkDay> getAction() {
-		return workDayAction;
+	public BaseAction<TimeSheet> getAction() {
+		return timeSheetAction;
 	}
 
 }
