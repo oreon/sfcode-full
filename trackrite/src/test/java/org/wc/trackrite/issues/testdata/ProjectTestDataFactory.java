@@ -42,7 +42,7 @@ public class ProjectTestDataFactory
 
 			project.setName("delta");
 
-			project.setDescription("Malissa");
+			project.setDescription("Wilson");
 
 			register(project);
 
@@ -54,24 +54,6 @@ public class ProjectTestDataFactory
 	}
 
 	public org.wc.trackrite.issues.Project createProjectTwo() {
-		org.wc.trackrite.issues.Project project = new org.wc.trackrite.issues.Project();
-
-		try {
-
-			project.setName("alpha");
-
-			project.setDescription("Eric");
-
-			register(project);
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		return project;
-	}
-
-	public org.wc.trackrite.issues.Project createProjectThree() {
 		org.wc.trackrite.issues.Project project = new org.wc.trackrite.issues.Project();
 
 		try {
@@ -89,14 +71,32 @@ public class ProjectTestDataFactory
 		return project;
 	}
 
+	public org.wc.trackrite.issues.Project createProjectThree() {
+		org.wc.trackrite.issues.Project project = new org.wc.trackrite.issues.Project();
+
+		try {
+
+			project.setName("Eric");
+
+			project.setDescription("alpha");
+
+			register(project);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return project;
+	}
+
 	public org.wc.trackrite.issues.Project createProjectFour() {
 		org.wc.trackrite.issues.Project project = new org.wc.trackrite.issues.Project();
 
 		try {
 
-			project.setName("alpha");
+			project.setName("theta");
 
-			project.setDescription("Wilson");
+			project.setDescription("alpha");
 
 			register(project);
 
@@ -112,9 +112,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("Wilson");
+			project.setName("John");
 
-			project.setDescription("Lavendar");
+			project.setDescription("epsilon");
 
 			register(project);
 
