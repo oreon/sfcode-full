@@ -38,25 +38,25 @@ public class TestDataGenerator {
 				.add(new org.wc.trackrite.timetrack.testdata.TimeTrackingEntryTestDataFactory());
 
 		listDataFactory
-				.add(new org.wc.trackrite.timetrack.testdata.WorkDayTestDataFactory());
+				.add(new org.wc.trackrite.timetrack.testdata.TimeSheetTestDataFactory());
 
 		listDataFactory
-				.add(new org.wc.trackrite.onepack.testdata.ExamTestDataFactory());
+				.add(new org.wc.trackrite.exams.testdata.ExamTestDataFactory());
 
 		listDataFactory
-				.add(new org.wc.trackrite.onepack.testdata.QuestionTestDataFactory());
+				.add(new org.wc.trackrite.exams.testdata.QuestionTestDataFactory());
 
 		listDataFactory
-				.add(new org.wc.trackrite.onepack.testdata.ChoiceTestDataFactory());
+				.add(new org.wc.trackrite.exams.testdata.ChoiceTestDataFactory());
 
 		listDataFactory
-				.add(new org.wc.trackrite.onepack.testdata.CandidateTestDataFactory());
+				.add(new org.wc.trackrite.exams.testdata.CandidateTestDataFactory());
 
 		listDataFactory
-				.add(new org.wc.trackrite.onepack.testdata.ExamInstanceTestDataFactory());
+				.add(new org.wc.trackrite.exams.testdata.ExamInstanceTestDataFactory());
 
 		listDataFactory
-				.add(new org.wc.trackrite.onepack.testdata.AnswerTestDataFactory());
+				.add(new org.wc.trackrite.exams.testdata.AnswerTestDataFactory());
 
 		listDataFactory
 				.add(new org.wc.trackrite.schedule.testdata.ScheduleTestDataFactory());
