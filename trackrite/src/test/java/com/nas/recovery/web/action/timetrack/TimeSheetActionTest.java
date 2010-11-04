@@ -13,9 +13,9 @@ package com.nas.recovery.web.action.timetrack;
 	
 	import org.testng.annotations.BeforeClass;
 	import org.witchcraft.seam.action.BaseAction;
-	import org.wc.trackrite.timetrack.WorkDay;
+	import org.wc.trackrite.timetrack.TimeSheet;
 
 
-public class WorkDayActionTest extends WorkDayActionTestBase{
+public class TimeSheetActionTest extends TimeSheetActionTestBase{
 	
 }
