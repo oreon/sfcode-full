@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_firstName} * "/>  
+      <br/>  
+      <h:inputText id="firstName" value="#{endUserList.endUser.firstName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_lastName} * "/>  
+      <br/>  
+      <h:inputText id="lastName" value="#{endUserList.endUser.lastName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.user_userName} * "/>  
+      <br/>  
+      <h:inputText id="user_userName" value="#{endUserList.endUser.user.userName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.user_enabled}  "/>  
+      <br/>  
+      <h:selectOneMenu id="user_enabled" value="#{endUserList.endUser.user.enabled}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.user_email} * "/>  
+      <br/>  
+      <h:inputText id="user_email" value="#{endUserList.endUser.user.email}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.user_lastLogin}  "/>  
+      <br/>  
+      <s:decorate template="/layout/display.xhtml"> 
+        <ui:define name="label">From</ui:define>  
+        <br/>  
+        <rich:calendar value="#{endUserList.user_lastLoginRange.begin}"/> 
+      </s:decorate>  
+      <s:decorate template="/layout/display.xhtml"> 
+        <ui:define name="label">To</ui:define>  
+        <br/>  
+        <rich:calendar value="#{endUserList.user_lastLoginRange.end}"/> 
+      </s:decorate> 
+    </h:panelGroup>  
+    <s:decorate template="/layout/display.xhtml"> 
+      <ui:define name="label">From</ui:define>  
+      <br/>  
+      <rich:calendar id="from" value="#{endUserList.dateCreatedRange.begin}"/> 
+    </s:decorate>  
+    <s:decorate template="/layout/display.xhtml"> 
+      <ui:define name="label">To</ui:define>  
+      <br/>  
+      <rich:calendar id="to" value="#{endUserList.dateCreatedRange.end}"/> 
+    </s:decorate> 
+  </h:panelGrid> 
+</ui:composition>

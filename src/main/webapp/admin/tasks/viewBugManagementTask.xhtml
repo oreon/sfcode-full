@@ -1,0 +1,83 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
+	template="/admin/tasks/template.xhtml">
+
+	<ui:define name="content">
+
+		<h2>Task: #{bugManagementProcessAction.task.description}</h2>
+		
+		<ui:include src="/admin/entities/issues/issue/viewIssueComponent.xhtml" >
+			<f:param name="issueId" value="3" />
+		</ui:include>
+
+		<h:form id="list">
+
+			<h:outputText
+				value="#{bugProcessManagement.task.taskMgmtInstance.processInstance.start}">
+				<s:convertDateTime type="date" />
+			</h:outputText>
+			
+	
+			
+			<f:facet name="header">
+				<h:outputText value="Name" />
+			</f:facet>
+			<h:outputText value="#{bugManagementProcessAction.task.name}" />
+
+
+			<br />
+
+
+
+			<h:outputText value="Comments" />
+			<rich:editor id="Comment_text" required="false"
+				value="#{bugManagementProcessAction.comment}" />
+
+			<ui:repeat var="trans"
+				value="#{bugManagementProcessAction.task.availableTransitions}">
+				<h:commandLink value="#{trans.name}"  view="/admin/tasks/tasks.xhtml"
+					action="#{bugManagementProcessAction.makeDecision}"
+					taskInstance="#{bugManagementProcessAction.task}">
+					<f:param name="transName" value="#{trans.name}" />
+					<f:param name="taskId"
+						value="#{bugManagementProcessAction.task.id}" />
+				</h:commandLink>
+				<h:outputText value=" " />
+			</ui:repeat>
+			
+			
+		</h:form>
+		 Comments
+			 
+
+			<rich:dataTable
+				rendered="#{not empty bugManagementProcessAction.comments}"
+				rowClasses="odd, even" id="cmaList" styleClass="dataTable"
+				value="#{bugManagementProcessAction.comments}" var="_cmt">
+				<h:column>
+					<f:facet name="header">
+					Comment
+				</f:facet>
+					<h:outputText value="#{_cmt.message}">
+					</h:outputText>
+
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+					Actor
+				</f:facet>
+					<h:outputText value="#{_cmt.actorId}">
+					</h:outputText>
+
+				</h:column>
+			</rich:dataTable>
+			
+
+
+	</ui:define>
+</ui:composition>

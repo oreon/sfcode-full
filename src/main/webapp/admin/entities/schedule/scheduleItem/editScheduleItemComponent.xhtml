@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{scheduleItemAction.load(scheduleItemId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="ScheduleItem "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.scheduleItem_employee}  "/>  
+        <h:selectOneMenu id="employee" label="#{msg.scheduleItem_employee}" value="#{scheduleItemAction.scheduleItem.employee}" required="true"> 
+          <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="employee"/>  
+        <h:outputText value="#{msg.scheduleItem_startDate}  "/>  
+        <rich:calendar id="startDate#{entityId}" label="#{msg.scheduleItem_startDate}" required="false" value="#{scheduleItemAction.scheduleItem.startDate}"/>  
+        <h:message styleClass="error errors" for="startDate"/>  
+        <h:outputText value="#{msg.scheduleItem_endDate}  "/>  
+        <rich:calendar id="endDate#{entityId}" label="#{msg.scheduleItem_endDate}" required="false" value="#{scheduleItemAction.scheduleItem.endDate}"/>  
+        <h:message styleClass="error errors" for="endDate"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

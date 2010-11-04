@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{questionAction.load(questionId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Question "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{questionAction.question.id}"/>  
+        <h:outputText value="#{msg.question_exam}  "/>  
+        <s:link value="#{questionAction.question.exam.displayName}" view="/admin/entities/onepack/exam/viewExam.xhtml"> 
+          <f:param name="id" value="#{questionAction.question.exam.id}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.question_text}  "/>  
+        <h:outputText id="text#{entityId}" value="#{questionAction.question.text}"/> 
+      </h:panelGrid>  
+      <rich:dataTable id="choices_data#{entityId}" var="_choice" rendered="#{not empty questionAction.listChoices}" value="#{questionAction.listChoices}" rows="10" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.choice_text}  "/>
+          </f:facet>  
+          <h:outputText id="text#{entityId}" value="#{_choice.text}"/> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

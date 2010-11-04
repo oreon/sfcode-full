@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{endUserAction.load(endUserId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="EndUser "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.user_userName} * "/>  
+        <h:inputText id="user_userName#{entityId}" label="#{msg.user_userName}" required="true" value="#{endUserAction.endUser.user.userName}"/>  
+        <h:message styleClass="error errors" for="user_userName"/>  
+        <h:outputText value="#{msg.user_password} * "/>  
+        <h:inputSecret redisplay="true" id="user_password#{entityId}" label="#{msg.user_password}" required="true" value="#{endUserAction.endUser.user.password}"/>  
+        <h:message styleClass="error errors" for="user_password"/>  
+        <h:outputText value="#{msg.user_enabled}  "/>  
+        <h:selectBooleanCheckbox id="user_enabled#{entityId}" label="#{msg.user_enabled}" required="false" value="#{endUserAction.endUser.user.enabled}"/>  
+        <h:message styleClass="error errors" for="user_enabled"/>  
+        <h:outputText value="#{msg.user_email} * "/>  
+        <h:inputText id="user_email#{entityId}" label="#{msg.user_email}" required="true" value="#{endUserAction.endUser.user.email}"/>  
+        <h:message styleClass="error errors" for="user_email"/>  
+        <h:outputText value="#{msg.user_lastLogin}  "/>  
+        <rich:calendar id="user_lastLogin#{entityId}" label="#{msg.user_lastLogin}" required="false" value="#{endUserAction.endUser.user.lastLogin}"/>  
+        <h:message styleClass="error errors" for="user_lastLogin"/>  
+        <h:outputText value="#{msg.person_firstName} * "/>  
+        <h:inputText id="firstName#{entityId}" label="#{msg.person_firstName}" required="true" value="#{endUserAction.endUser.firstName}"/>  
+        <h:message styleClass="error errors" for="firstName"/>  
+        <h:outputText value="#{msg.person_lastName} * "/>  
+        <h:inputText id="lastName#{entityId}" label="#{msg.person_lastName}" required="true" value="#{endUserAction.endUser.lastName}"/>  
+        <h:message styleClass="error errors" for="lastName"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

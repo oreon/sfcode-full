@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.issue_title} * "/>  
+        <br/>  
+        <h:inputText id="title" value="#{issueAction.issue.title}"/>  
+        <h:message styleClass="error errors" for="title"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.issue_description}  "/>  
+        <br/>  
+        <rich:editor useSeamText="true" id="description" value="#{issueAction.issue.description}"/>  
+        <h:message styleClass="error errors" for="description"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.issue_project}  "/>  
+        <br/>  
+        <h:selectOneMenu id="project" value="#{issueAction.issue.project}"> 
+          <s:selectItems value="#{projectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="project"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.issue_status}  "/>  
+        <br/>  
+        <h:selectOneMenu id="status" value="#{issueAction.issue.status}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="Unassigned" itemLabel="Unassigned"/>  
+          <f:selectItem itemValue="Started" itemLabel="Started"/>  
+          <f:selectItem itemValue="ReadyForQA" itemLabel="Readyforqa"/>  
+          <f:selectItem itemValue="Closed" itemLabel="Closed"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="status"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.issue_priority}  "/>  
+        <br/>  
+        <h:selectOneMenu id="priority" value="#{issueAction.issue.priority}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="SHOW_STOPPER" itemLabel="Show_stopper"/>  
+          <f:selectItem itemValue="CRITICAL_URGENT" itemLabel="Critical_urgent"/>  
+          <f:selectItem itemValue="CRITICAL_NOT_URGENT" itemLabel="Critical_not_urgent"/>  
+          <f:selectItem itemValue="NON_CRITICAL" itemLabel="Non_critical"/>  
+          <f:selectItem itemValue="LANGUAGE" itemLabel="Language"/>  
+          <f:selectItem itemValue="COSMETIC" itemLabel="Cosmetic"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="priority"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.issue_developer}  "/>  
+        <br/>  
+        <h:selectOneMenu id="developer" value="#{issueAction.issue.developer}"> 
+          <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="developer"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.issue_closeTime}  "/>  
+        <br/>  
+        <rich:calendar id="closeTime" value="#{issueAction.issue.closeTime}"/>  
+        <h:message styleClass="error errors" for="closeTime"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.issue_estimate}  "/>  
+        <br/>  
+        <h:inputText id="estimate" value="#{issueAction.issue.estimate}"/>  
+        <h:message styleClass="error errors" for="estimate"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>
