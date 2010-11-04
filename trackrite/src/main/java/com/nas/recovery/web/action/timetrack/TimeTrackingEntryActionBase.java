@@ -27,6 +27,7 @@ import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.Component;
+import org.jboss.seam.security.Identity;
 
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
@@ -46,8 +47,8 @@ public abstract class TimeTrackingEntryActionBase
 	@In(create = true, value = "issueAction")
 	com.nas.recovery.web.action.issues.IssueAction issueAction;
 
-	@In(create = true, value = "workDayAction")
-	com.nas.recovery.web.action.timetrack.WorkDayAction workDayAction;
+	@In(create = true, value = "timeSheetAction")
+	com.nas.recovery.web.action.timetrack.TimeSheetAction timeSheetAction;
 
 	@DataModel
 	private List<TimeTrackingEntry> timeTrackingEntryRecordList;
@@ -68,14 +69,14 @@ public abstract class TimeTrackingEntryActionBase
 			return getInstance().getIssue().getId();
 		return 0L;
 	}
-	public void setWorkDayId(Long id) {
+	public void setTimeSheetId(Long id) {
 		if (id != null && id > 0)
-			getInstance().setWorkDay(workDayAction.loadFromId(id));
+			getInstance().setTimeSheet(timeSheetAction.loadFromId(id));
 	}
 
-	public Long getWorkDayId() {
-		if (getInstance().getWorkDay() != null)
-			return getInstance().getWorkDay().getId();
+	public Long getTimeSheetId() {
+		if (getInstance().getTimeSheet() != null)
+			return getInstance().getTimeSheet().getId();
 		return 0L;
 	}
 
@@ -120,10 +121,10 @@ public abstract class TimeTrackingEntryActionBase
 		if (issue != null) {
 			getInstance().setIssue(issue);
 		}
-		org.wc.trackrite.timetrack.WorkDay workDay = workDayAction
+		org.wc.trackrite.timetrack.TimeSheet timeSheet = timeSheetAction
 				.getDefinedInstance();
-		if (workDay != null) {
-			getInstance().setWorkDay(workDay);
+		if (timeSheet != null) {
+			getInstance().setTimeSheet(timeSheet);
 		}
 
 	}
@@ -162,9 +163,9 @@ public abstract class TimeTrackingEntryActionBase
 					timeTrackingEntry.getIssue().getId()));
 		}
 
-		if (timeTrackingEntry.getWorkDay() != null) {
-			criteria = criteria.add(Restrictions.eq("workDay.id",
-					timeTrackingEntry.getWorkDay().getId()));
+		if (timeTrackingEntry.getTimeSheet() != null) {
+			criteria = criteria.add(Restrictions.eq("timeSheet.id",
+					timeTrackingEntry.getTimeSheet().getId()));
 		}
 
 	}
@@ -179,8 +180,8 @@ public abstract class TimeTrackingEntryActionBase
 			issueAction.setInstance(getInstance().getIssue());
 		}
 
-		if (timeTrackingEntry.getWorkDay() != null) {
-			workDayAction.setInstance(getInstance().getWorkDay());
+		if (timeTrackingEntry.getTimeSheet() != null) {
+			timeSheetAction.setInstance(getInstance().getTimeSheet());
 		}
 
 	}

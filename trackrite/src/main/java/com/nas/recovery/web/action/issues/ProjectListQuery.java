@@ -17,7 +17,7 @@ import org.jboss.seam.annotations.Observer;
 	
 	
 @Name("projectList")
-@Scope(ScopeType.CONVERSATION)
+// CMTD @Scope(ScopeType.CONVERSATION)
 public class ProjectListQuery extends ProjectListQueryBase implements java.io.Serializable{
 	
 }

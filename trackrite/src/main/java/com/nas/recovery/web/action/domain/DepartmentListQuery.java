@@ -9,7 +9,6 @@ import org.jboss.seam.annotations.Scope;
 	
 	
 @Name("departmentList")
-@Scope(ScopeType.CONVERSATION)
 public class DepartmentListQuery extends DepartmentListQueryBase implements java.io.Serializable{
 	
 }

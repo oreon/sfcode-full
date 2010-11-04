@@ -12,9 +12,10 @@ import org.wc.trackrite.issues.Issue;
 import org.wc.trackrite.issues.Status;
 import org.witchcraft.exceptions.ContractViolationException;
 
+import com.nas.recovery.web.action.domain.EmployeeAction;
 import com.nas.recovery.web.action.workflowmgt.BugManagement;
 
-//@Scope(ScopeType.CONVERSATION)
+//// CMTD @Scope(ScopeType.CONVERSATION)
 @Name("issueAction")
 public class IssueAction extends IssueActionBase implements
 		java.io.Serializable {
@@ -24,6 +25,9 @@ public class IssueAction extends IssueActionBase implements
 
 	@In(create = true, value = "bugManagementProcessAction")
 	BugManagement bugManagement;
+
+	@In(create = true)
+	EmployeeAction employeeAction;
 
 	@Override
 	public String save() {
@@ -44,27 +48,41 @@ public class IssueAction extends IssueActionBase implements
 		bugManagement.startProcess();
 	}
 
+	public Issue getToken() {
+		if (token == null || token.getId() == null) {
+			token = (Issue) bugManagement.getTask().getVariable("token");
+		}
+		return token;
+	}
+
+	public void updateDeveloper() {
+
+		load(getToken().getId());
+		getInstance().setDeveloper(employeeAction.getCurrentLoggedInEmployee());
+		token.setDeveloper(employeeAction.getCurrentLoggedInEmployee());
+		 bugManagement.getTask().setVariable("token", token);
+		save();
+	}
+
 	public void updateStatus(String status) {
 		if (StringUtils.isEmpty(status))
 			throw new ContractViolationException(
 					"Recieved empty string for updating status");
-		load(token.getId());
+
+		load(getToken().getId());
+
 		try {
 			getInstance().setStatus(Status.valueOf(status));
-		}catch (NullPointerException npe){
+		} catch (NullPointerException npe) {
 			throw new ContractViolationException("Issue is null");
-		}catch (Exception e){
-			throw new ContractViolationException(status + " couldnt be cast to an enum literal of type 'Status'");
-		}
-	
-		save();
-	}
+		} catch (Exception e) {
+			throw new ContractViolationException(status
 
-	public void updateStatusEnum(Status status) {
-		// status.
-		// load(token.getId());
-		getInstance().setStatus(status);
+			+ " couldnt be cast to an enum literal of type 'Status'");
+		}
+
 		save();
+
 	}
 
 	public String createMessage() {

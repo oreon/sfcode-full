@@ -9,7 +9,7 @@ import org.jboss.seam.annotations.Scope;
 	
 	
 @Name("userList")
-@Scope(ScopeType.CONVERSATION)
+// CMTD @Scope(ScopeType.CONVERSATION)
 public class UserListQuery extends UserListQueryBase implements java.io.Serializable{
 	
 }

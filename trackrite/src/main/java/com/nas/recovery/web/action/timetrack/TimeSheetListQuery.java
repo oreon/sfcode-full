@@ -1,5 +1,5 @@
 
-package com.nas.recovery.web.action.issues;
+package com.nas.recovery.web.action.timetrack;
 
 
 
@@ -16,8 +16,8 @@ import org.witchcraft.base.entity.Range;
 import org.jboss.seam.annotations.Observer;
 	
 	
-@Name("moduleList")
-// CMTD @Scope(ScopeType.CONVERSATION)
-public class ModuleListQuery extends ModuleListQueryBase implements java.io.Serializable{
+@Name("timeSheetList")
+@Scope(ScopeType.CONVERSATION)
+public class TimeSheetListQuery extends TimeSheetListQueryBase implements java.io.Serializable{
 	
 }

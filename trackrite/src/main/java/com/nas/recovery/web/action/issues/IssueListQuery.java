@@ -17,7 +17,7 @@ import org.jboss.seam.annotations.Observer;
 	
 	
 @Name("issueList")
-@Scope(ScopeType.CONVERSATION)
+// CMTD @Scope(ScopeType.CONVERSATION)
 public class IssueListQuery extends IssueListQueryBase implements java.io.Serializable{
 	
 }

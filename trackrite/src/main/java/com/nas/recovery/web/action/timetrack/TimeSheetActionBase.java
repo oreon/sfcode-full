@@ -1,6 +1,6 @@
 package com.nas.recovery.web.action.timetrack;
 
-import org.wc.trackrite.timetrack.WorkDay;
+import org.wc.trackrite.timetrack.TimeSheet;
 
 import org.witchcraft.seam.action.BaseAction;
 
@@ -27,6 +27,7 @@ import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.Component;
+import org.jboss.seam.security.Identity;
 
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
@@ -36,51 +37,51 @@ import org.jboss.seam.annotations.Observer;
 
 import org.wc.trackrite.timetrack.TimeTrackingEntry;
 
-public abstract class WorkDayActionBase extends BaseAction<WorkDay>
+public abstract class TimeSheetActionBase extends BaseAction<TimeSheet>
 		implements
 			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
 	@DataModelSelection
-	private WorkDay workDay;
+	private TimeSheet timeSheet;
 
 	@DataModel
-	private List<WorkDay> workDayRecordList;
+	private List<TimeSheet> timeSheetRecordList;
 
-	public void setWorkDayId(Long id) {
+	public void setTimeSheetId(Long id) {
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
 	}
 
-	public Long getWorkDayId() {
+	public Long getTimeSheetId() {
 		return (Long) getId();
 	}
 
-	//@Factory("workDayRecordList")
-	//@Observer("archivedWorkDay")
+	//@Factory("timeSheetRecordList")
+	//@Observer("archivedTimeSheet")
 	public void findRecords() {
 		//search();
 	}
 
-	public WorkDay getEntity() {
-		return workDay;
+	public TimeSheet getEntity() {
+		return timeSheet;
 	}
 
 	@Override
-	public void setEntity(WorkDay t) {
-		this.workDay = t;
+	public void setEntity(TimeSheet t) {
+		this.timeSheet = t;
 		loadAssociations();
 	}
 
-	public WorkDay getWorkDay() {
+	public TimeSheet getTimeSheet() {
 		return getInstance();
 	}
 
 	@Override
-	protected WorkDay createInstance() {
-		return new WorkDay();
+	protected TimeSheet createInstance() {
+		return new TimeSheet();
 	}
 
 	public void load() {
@@ -98,23 +99,23 @@ public abstract class WorkDayActionBase extends BaseAction<WorkDay>
 		return true;
 	}
 
-	public WorkDay getDefinedInstance() {
+	public TimeSheet getDefinedInstance() {
 		return isIdDefined() ? getInstance() : null;
 	}
 
-	public void setWorkDay(WorkDay t) {
-		this.workDay = t;
+	public void setTimeSheet(TimeSheet t) {
+		this.timeSheet = t;
 		loadAssociations();
 	}
 
 	@Override
-	public Class<WorkDay> getEntityClass() {
-		return WorkDay.class;
+	public Class<TimeSheet> getEntityClass() {
+		return TimeSheet.class;
 	}
 
 	@Override
-	public void setEntityList(List<WorkDay> list) {
-		this.workDayRecordList = list;
+	public void setEntityList(List<TimeSheet> list) {
+		this.timeSheetRecordList = list;
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -163,7 +164,7 @@ public abstract class WorkDayActionBase extends BaseAction<WorkDay>
 	public void addTimeTrackingEntrys() {
 		TimeTrackingEntry timeTrackingEntrys = new TimeTrackingEntry();
 
-		timeTrackingEntrys.setWorkDay(getInstance());
+		timeTrackingEntrys.setTimeSheet(getInstance());
 
 		getListTimeTrackingEntrys().add(timeTrackingEntrys);
 	}
@@ -177,11 +178,11 @@ public abstract class WorkDayActionBase extends BaseAction<WorkDay>
 		}
 	}
 
-	public List<WorkDay> getEntityList() {
-		if (workDayRecordList == null) {
+	public List<TimeSheet> getEntityList() {
+		if (timeSheetRecordList == null) {
 			findRecords();
 		}
-		return workDayRecordList;
+		return timeSheetRecordList;
 	}
 
 }

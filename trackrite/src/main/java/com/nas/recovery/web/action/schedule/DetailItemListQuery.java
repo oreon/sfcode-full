@@ -17,7 +17,7 @@ import org.jboss.seam.annotations.Observer;
 	
 	
 @Name("detailItemList")
-@Scope(ScopeType.CONVERSATION)
+// CMTD @Scope(ScopeType.CONVERSATION)
 public class DetailItemListQuery extends DetailItemListQueryBase implements java.io.Serializable{
 	
 }

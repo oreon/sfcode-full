@@ -17,7 +17,7 @@ import org.jboss.seam.annotations.Observer;
 	
 	
 @Name("timeTrackingEntryList")
-@Scope(ScopeType.CONVERSATION)
+// CMTD @Scope(ScopeType.CONVERSATION)
 public class TimeTrackingEntryListQuery extends TimeTrackingEntryListQueryBase implements java.io.Serializable{
 	
 }

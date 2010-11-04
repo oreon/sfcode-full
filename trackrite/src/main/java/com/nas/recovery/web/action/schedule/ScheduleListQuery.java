@@ -17,7 +17,7 @@ import org.jboss.seam.annotations.Observer;
 	
 	
 @Name("scheduleList")
-@Scope(ScopeType.CONVERSATION)
+// CMTD @Scope(ScopeType.CONVERSATION)
 public class ScheduleListQuery extends ScheduleListQueryBase implements java.io.Serializable{
 	
 }

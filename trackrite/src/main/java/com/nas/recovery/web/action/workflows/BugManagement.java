@@ -20,7 +20,7 @@ import org.wc.trackrite.issues.Status;
 import com.nas.recovery.web.action.issues.IssueAction;
 
 @Name("bugManagementProcessAction22")
-// @Scope(ScopeType.CONVERSATION)
+// // CMTD @Scope(ScopeType.CONVERSATION)
 public class BugManagement extends BugManagementBase {
 	
 	@In(create = true, value = "issueAction")

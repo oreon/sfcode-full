@@ -1,5 +1,5 @@
 
-package com.nas.recovery.web.action.issues;
+package com.nas.recovery.web.action.exams;
 
 
 
@@ -16,8 +16,8 @@ import org.witchcraft.base.entity.Range;
 import org.jboss.seam.annotations.Observer;
 	
 	
-@Name("moduleList")
-// CMTD @Scope(ScopeType.CONVERSATION)
-public class ModuleListQuery extends ModuleListQueryBase implements java.io.Serializable{
+@Name("questionList")
+@Scope(ScopeType.CONVERSATION)
+public class QuestionListQuery extends QuestionListQueryBase implements java.io.Serializable{
 	
 }

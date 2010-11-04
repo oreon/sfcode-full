@@ -33,7 +33,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 	
-	//@Scope(ScopeType.CONVERSATION)
+	//// CMTD @Scope(ScopeType.CONVERSATION)
 	@Name("detailItemAction")
 	public class DetailItemAction extends DetailItemActionBase implements java.io.Serializable{
 		

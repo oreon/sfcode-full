@@ -1,6 +1,6 @@
-package com.nas.recovery.web.action.domain;
+package com.nas.recovery.web.action.exams;
 
-import org.wc.trackrite.domain.EndUser;
+import org.wc.trackrite.exams.Choice;
 
 import org.witchcraft.seam.action.BaseAction;
 
@@ -35,53 +35,65 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public abstract class EndUserActionBase
-		extends
-			com.nas.recovery.web.action.domain.PersonAction<EndUser>
+public abstract class ChoiceActionBase extends BaseAction<Choice>
 		implements
 			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
 	@DataModelSelection
-	private EndUser endUser;
+	private Choice choice;
+
+	@In(create = true, value = "questionAction")
+	com.nas.recovery.web.action.exams.QuestionAction questionAction;
 
 	@DataModel
-	private List<EndUser> endUserRecordList;
+	private List<Choice> choiceRecordList;
 
-	public void setEndUserId(Long id) {
+	public void setChoiceId(Long id) {
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
 	}
 
-	public Long getEndUserId() {
+	public void setQuestionId(Long id) {
+		if (id != null && id > 0)
+			getInstance().setQuestion(questionAction.loadFromId(id));
+	}
+
+	public Long getQuestionId() {
+		if (getInstance().getQuestion() != null)
+			return getInstance().getQuestion().getId();
+		return 0L;
+	}
+
+	public Long getChoiceId() {
 		return (Long) getId();
 	}
 
-	//@Factory("endUserRecordList")
-	//@Observer("archivedEndUser")
+	//@Factory("choiceRecordList")
+	//@Observer("archivedChoice")
 	public void findRecords() {
 		//search();
 	}
 
-	public EndUser getEntity() {
-		return endUser;
+	public Choice getEntity() {
+		return choice;
 	}
 
 	@Override
-	public void setEntity(EndUser t) {
-		this.endUser = t;
+	public void setEntity(Choice t) {
+		this.choice = t;
 		loadAssociations();
 	}
 
-	public EndUser getEndUser() {
+	public Choice getChoice() {
 		return getInstance();
 	}
 
 	@Override
-	protected EndUser createInstance() {
-		return new EndUser();
+	protected Choice createInstance() {
+		return new Choice();
 	}
 
 	public void load() {
@@ -92,6 +104,11 @@ public abstract class EndUserActionBase
 
 	public void wire() {
 		getInstance();
+		org.wc.trackrite.exams.Question question = questionAction
+				.getDefinedInstance();
+		if (question != null) {
+			getInstance().setQuestion(question);
+		}
 
 	}
 
@@ -99,23 +116,36 @@ public abstract class EndUserActionBase
 		return true;
 	}
 
-	public EndUser getDefinedInstance() {
+	public Choice getDefinedInstance() {
 		return isIdDefined() ? getInstance() : null;
 	}
 
-	public void setEndUser(EndUser t) {
-		this.endUser = t;
+	public void setChoice(Choice t) {
+		this.choice = t;
 		loadAssociations();
 	}
 
 	@Override
-	public Class<EndUser> getEntityClass() {
-		return EndUser.class;
+	public Class<Choice> getEntityClass() {
+		return Choice.class;
 	}
 
 	@Override
-	public void setEntityList(List<EndUser> list) {
-		this.endUserRecordList = list;
+	public void setEntityList(List<Choice> list) {
+		this.choiceRecordList = list;
+	}
+
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
+	 */
+	@Override
+	public void addAssociations(Criteria criteria) {
+
+		if (choice.getQuestion() != null) {
+			criteria = criteria.add(Restrictions.eq("question.id", choice
+					.getQuestion().getId()));
+		}
+
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -123,6 +153,10 @@ public abstract class EndUserActionBase
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
 	public void loadAssociations() {
+
+		if (choice.getQuestion() != null) {
+			questionAction.setInstance(getInstance().getQuestion());
+		}
 
 	}
 
@@ -133,11 +167,11 @@ public abstract class EndUserActionBase
 	public void updateComposedAssociations() {
 	}
 
-	public List<EndUser> getEntityList() {
-		if (endUserRecordList == null) {
+	public List<Choice> getEntityList() {
+		if (choiceRecordList == null) {
 			findRecords();
 		}
-		return endUserRecordList;
+		return choiceRecordList;
 	}
 
 }

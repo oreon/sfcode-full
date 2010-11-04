@@ -1,6 +1,6 @@
-package com.nas.recovery.web.action.schedule;
+package com.nas.recovery.web.action.exams;
 
-import org.wc.trackrite.schedule.ScheduleItem;
+import org.wc.trackrite.exams.Answer;
 
 import org.witchcraft.seam.action.BaseAction;
 
@@ -35,65 +35,78 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
+public abstract class AnswerActionBase extends BaseAction<Answer>
 		implements
 			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
 	@DataModelSelection
-	private ScheduleItem scheduleItem;
+	private Answer answer;
 
-	@In(create = true, value = "employeeAction")
-	com.nas.recovery.web.action.domain.EmployeeAction employeeAction;
+	@In(create = true, value = "choiceAction")
+	com.nas.recovery.web.action.exams.ChoiceAction choiceAction;
+
+	@In(create = true, value = "examInstanceAction")
+	com.nas.recovery.web.action.exams.ExamInstanceAction examInstanceAction;
 
 	@DataModel
-	private List<ScheduleItem> scheduleItemRecordList;
+	private List<Answer> answerRecordList;
 
-	public void setScheduleItemId(Long id) {
+	public void setAnswerId(Long id) {
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
 	}
 
-	public void setEmployeeId(Long id) {
+	public void setChoiceId(Long id) {
 		if (id != null && id > 0)
-			getInstance().setEmployee(employeeAction.loadFromId(id));
+			getInstance().setChoice(choiceAction.loadFromId(id));
 	}
 
-	public Long getEmployeeId() {
-		if (getInstance().getEmployee() != null)
-			return getInstance().getEmployee().getId();
+	public Long getChoiceId() {
+		if (getInstance().getChoice() != null)
+			return getInstance().getChoice().getId();
+		return 0L;
+	}
+	public void setExamInstanceId(Long id) {
+		if (id != null && id > 0)
+			getInstance().setExamInstance(examInstanceAction.loadFromId(id));
+	}
+
+	public Long getExamInstanceId() {
+		if (getInstance().getExamInstance() != null)
+			return getInstance().getExamInstance().getId();
 		return 0L;
 	}
 
-	public Long getScheduleItemId() {
+	public Long getAnswerId() {
 		return (Long) getId();
 	}
 
-	//@Factory("scheduleItemRecordList")
-	//@Observer("archivedScheduleItem")
+	//@Factory("answerRecordList")
+	//@Observer("archivedAnswer")
 	public void findRecords() {
 		//search();
 	}
 
-	public ScheduleItem getEntity() {
-		return scheduleItem;
+	public Answer getEntity() {
+		return answer;
 	}
 
 	@Override
-	public void setEntity(ScheduleItem t) {
-		this.scheduleItem = t;
+	public void setEntity(Answer t) {
+		this.answer = t;
 		loadAssociations();
 	}
 
-	public ScheduleItem getScheduleItem() {
+	public Answer getAnswer() {
 		return getInstance();
 	}
 
 	@Override
-	protected ScheduleItem createInstance() {
-		return new ScheduleItem();
+	protected Answer createInstance() {
+		return new Answer();
 	}
 
 	public void load() {
@@ -104,10 +117,15 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 
 	public void wire() {
 		getInstance();
-		org.wc.trackrite.domain.Employee employee = employeeAction
+		org.wc.trackrite.exams.Choice choice = choiceAction
 				.getDefinedInstance();
-		if (employee != null) {
-			getInstance().setEmployee(employee);
+		if (choice != null) {
+			getInstance().setChoice(choice);
+		}
+		org.wc.trackrite.exams.ExamInstance examInstance = examInstanceAction
+				.getDefinedInstance();
+		if (examInstance != null) {
+			getInstance().setExamInstance(examInstance);
 		}
 
 	}
@@ -116,23 +134,23 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 		return true;
 	}
 
-	public ScheduleItem getDefinedInstance() {
+	public Answer getDefinedInstance() {
 		return isIdDefined() ? getInstance() : null;
 	}
 
-	public void setScheduleItem(ScheduleItem t) {
-		this.scheduleItem = t;
+	public void setAnswer(Answer t) {
+		this.answer = t;
 		loadAssociations();
 	}
 
 	@Override
-	public Class<ScheduleItem> getEntityClass() {
-		return ScheduleItem.class;
+	public Class<Answer> getEntityClass() {
+		return Answer.class;
 	}
 
 	@Override
-	public void setEntityList(List<ScheduleItem> list) {
-		this.scheduleItemRecordList = list;
+	public void setEntityList(List<Answer> list) {
+		this.answerRecordList = list;
 	}
 
 	/** This function adds associated entities to an example criterion
@@ -141,9 +159,14 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (scheduleItem.getEmployee() != null) {
-			criteria = criteria.add(Restrictions.eq("employee.id", scheduleItem
-					.getEmployee().getId()));
+		if (answer.getChoice() != null) {
+			criteria = criteria.add(Restrictions.eq("choice.id", answer
+					.getChoice().getId()));
+		}
+
+		if (answer.getExamInstance() != null) {
+			criteria = criteria.add(Restrictions.eq("examInstance.id", answer
+					.getExamInstance().getId()));
 		}
 
 	}
@@ -154,8 +177,12 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 	 */
 	public void loadAssociations() {
 
-		if (scheduleItem.getEmployee() != null) {
-			employeeAction.setInstance(getInstance().getEmployee());
+		if (answer.getChoice() != null) {
+			choiceAction.setInstance(getInstance().getChoice());
+		}
+
+		if (answer.getExamInstance() != null) {
+			examInstanceAction.setInstance(getInstance().getExamInstance());
 		}
 
 	}
@@ -167,11 +194,11 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 	public void updateComposedAssociations() {
 	}
 
-	public List<ScheduleItem> getEntityList() {
-		if (scheduleItemRecordList == null) {
+	public List<Answer> getEntityList() {
+		if (answerRecordList == null) {
 			findRecords();
 		}
-		return scheduleItemRecordList;
+		return answerRecordList;
 	}
 
 }
