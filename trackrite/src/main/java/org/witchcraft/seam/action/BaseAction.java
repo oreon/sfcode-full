@@ -49,6 +49,7 @@ import org.jboss.seam.faces.Redirect;
 import org.jboss.seam.faces.Renderer;
 import org.jboss.seam.framework.EntityHome;
 import org.jboss.seam.international.StatusMessages;
+import org.jboss.seam.international.StatusMessage.Severity;
 import org.jboss.seam.log.Log;
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.base.entity.EntityComment;
@@ -79,8 +80,6 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	@In(create = true)
 	protected EntityAuditLogInterceptor entityAuditLogInterceptor;
 
-	@In(create = true)
-	protected FacesMessages facesMessages;
 
 	@In
 	protected Events events;
@@ -178,13 +177,11 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	}
 
 	protected void addInfoMessage(String message, Object... params) {
-		facesMessages.createFacesMessage(FacesMessage.SEVERITY_INFO, message,
-				message, params);
+		statusMessages.add(message, params);
 	}
 
 	protected void addErrorMessage(String message, Object... params) {
-		facesMessages.createFacesMessage(FacesMessage.SEVERITY_ERROR, message,
-				message, params);
+		statusMessages.add(Severity.ERROR, message, params );
 	}
 
 	public String saveTemplate() {
@@ -247,7 +244,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 			persist(getInstance());
 
 			// TODO: replace with statusmessages seam class
-			addInfoMessage("Successfully saved record: ?1", getInstance()
+			addInfoMessage("Successfully saved record: {0}", getInstance()
 					.getDisplayName());
 			updateAssociations();
 
@@ -265,6 +262,12 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		return doSave();
 	}
 	
+	public String saveWithoutConversation(){
+		String result = doSave();
+		Conversation.instance().end();
+		return result;
+	}
+	
 	
 
 	@SuppressWarnings("unchecked")
@@ -279,7 +282,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 				return t;
 
 			} catch (NoResultException noResultException) {
-				facesMessages.add("Invalid Id: " + entityId);
+				addErrorMessage("Invalid Id: {0} " , entityId);
 			}
 		} else {
 			// loadAssociations();
@@ -289,12 +292,16 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	}
 
 	public void load(Long entityId) {
+		//if (entityId == null || entityId == 0) 
+		//	entityId = currentEntityId;
 		if (entityId == null || entityId == 0) {
 			log.info("Empty id " + entityId);
 			return;
 		}
+		log.info("loading id: " + entityId);
 		setId(entityId);
 		loadInstance();
+		
 		// setInstance(loadFromId(entityId));
 		// return "edit";
 	}
@@ -672,7 +679,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 			// facesMessages.add("Email sent successfully");
 		} catch (Exception e) {
 			e.printStackTrace();
-			facesMessages.add("Email sending failed: " + e.getMessage());
+			addErrorMessage("Email sending failed: {0}" , e.getMessage());
 		}
 	}
 

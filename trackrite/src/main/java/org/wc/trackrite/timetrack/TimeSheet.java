@@ -1,4 +1,4 @@
-package org.wc.trackrite.users;
+package org.wc.trackrite.timetrack;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -37,103 +37,50 @@ import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
 @Entity
-@Table(name = "user")
-@Name("user")
+@Table(name = "timesheet")
+@Name("timeSheet")
 @Filter(name = "archiveFilterDef")
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
-public class User extends BusinessEntity implements java.io.Serializable {
-	private static final long serialVersionUID = -1796332121L;
+public class TimeSheet extends BusinessEntity implements java.io.Serializable {
+	private static final long serialVersionUID = -444381950L;
 
-	//@Unique(entityName = "org.wc.trackrite.users.User", fieldName = "userName")
+	//timeTrackingEntrys->timeSheet ->TimeSheet->TimeSheet->TimeSheet
 
-	@NotNull
-	@Length(min = 2, max = 50)
-	@Column(name = "userName", unique = true)
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
-	protected String userName;
-
-	@NotNull
-	@Column(name = "password", unique = false)
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
-	protected String password;
-
-	protected Boolean enabled = true;
-
-	//roles->users ->User->Role->Role
-
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_ID"), inverseJoinColumns = @JoinColumn(name = "roles_ID"))
-	private Set<Role> roles = new HashSet<Role>();
+	@OneToMany(mappedBy = "timeSheet", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "timeSheet_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<TimeTrackingEntry> timeTrackingEntrys = new HashSet<TimeTrackingEntry>();
 
 	@NotNull
 	@Length(min = 2, max = 50)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
-	protected String email;
+	protected String title;
 
-	protected Date lastLogin;
-
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setTimeTrackingEntrys(Set<TimeTrackingEntry> timeTrackingEntrys) {
+		this.timeTrackingEntrys = timeTrackingEntrys;
 	}
 
-	public String getUserName() {
-
-		return userName;
+	public Set<TimeTrackingEntry> getTimeTrackingEntrys() {
+		return timeTrackingEntrys;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getPassword() {
+	public String getTitle() {
 
-		return password;
-	}
-
-	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public Boolean getEnabled() {
-
-		return enabled;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
-
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getEmail() {
-
-		return email;
-	}
-
-	public void setLastLogin(Date lastLogin) {
-		this.lastLogin = lastLogin;
-	}
-
-	public Date getLastLogin() {
-
-		return lastLogin;
+		return title;
 	}
 
 	@Transient
 	public String getDisplayName() {
-		return userName;
+		return title;
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
@@ -144,11 +91,9 @@ public class User extends BusinessEntity implements java.io.Serializable {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
-		listSearchableFields.add("userName");
+		listSearchableFields.add("title");
 
-		listSearchableFields.add("password");
-
-		listSearchableFields.add("email");
+		listSearchableFields.add("timeTrackingEntrys.details");
 
 		return listSearchableFields;
 	}

@@ -10,6 +10,7 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.bpm.Actor;
+import org.jboss.seam.core.Conversation;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
@@ -62,7 +63,8 @@ public class Authenticator {
 				resolver.getSecurityContext().insert(user);
 			}
 
-			//userUtilAction.setCurrentUser(user);
+			userUtilAction.setCurrentUser(user);
+			Conversation.instance().end();
 			return true;
 		}
 
