@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_firstName} * "/>  
+      <br/>  
+      <h:inputText id="firstName" value="#{employeeList.employee.firstName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_lastName} * "/>  
+      <br/>  
+      <h:inputText id="lastName" value="#{employeeList.employee.lastName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.user_userName} * "/>  
+      <br/>  
+      <h:inputText id="user_userName" value="#{employeeList.employee.user.userName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.user_enabled}  "/>  
+      <br/>  
+      <h:selectOneMenu id="user_enabled" value="#{employeeList.employee.user.enabled}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.user_email} * "/>  
+      <br/>  
+      <h:inputText id="user_email" value="#{employeeList.employee.user.email}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.user_lastLogin}  "/>  
+      <br/>  
+      <s:decorate template="/layout/display.xhtml"> 
+        <ui:define name="label">From</ui:define>  
+        <br/>  
+        <rich:calendar value="#{employeeList.user_lastLoginRange.begin}"/> 
+      </s:decorate>  
+      <s:decorate template="/layout/display.xhtml"> 
+        <ui:define name="label">To</ui:define>  
+        <br/>  
+        <rich:calendar value="#{employeeList.user_lastLoginRange.end}"/> 
+      </s:decorate> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.employee_department}  "/>  
+      <br/>  
+      <h:selectOneMenu id="department" value="#{employeeList.employee.department}"> 
+        <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.employee_employeeNumber}  "/>  
+      <br/>  
+      <h:inputText id="employeeNumber" value="#{employeeList.employee.employeeNumber}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.employee_employeeType}  "/>  
+      <br/>  
+      <h:selectOneMenu id="employeeType" value="#{employeeList.employee.employeeType}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="FULL_TIME" itemLabel="Full_time"/>  
+        <f:selectItem itemValue="CONTRACT" itemLabel="Contract"/>  
+        <f:selectItem itemValue="PART_TIME" itemLabel="Part_time"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
+      <br/>  
+      <h:inputText id="home_primaryPhone" value="#{employeeList.employee.home.primaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
+      <br/>  
+      <h:inputText id="home_secondaryPhone" value="#{employeeList.employee.home.secondaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_email}  "/>  
+      <br/>  
+      <h:inputText id="home_email" value="#{employeeList.employee.home.email}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
+      <br/>  
+      <h:inputText id="mailing_primaryPhone" value="#{employeeList.employee.mailing.primaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
+      <br/>  
+      <h:inputText id="mailing_secondaryPhone" value="#{employeeList.employee.mailing.secondaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_email}  "/>  
+      <br/>  
+      <h:inputText id="mailing_email" value="#{employeeList.employee.mailing.email}"/> 
+    </h:panelGroup>  
+    <s:decorate template="/layout/display.xhtml"> 
+      <ui:define name="label">From</ui:define>  
+      <br/>  
+      <rich:calendar id="from" value="#{employeeList.dateCreatedRange.begin}"/> 
+    </s:decorate>  
+    <s:decorate template="/layout/display.xhtml"> 
+      <ui:define name="label">To</ui:define>  
+      <br/>  
+      <rich:calendar id="to" value="#{employeeList.dateCreatedRange.end}"/> 
+    </s:decorate> 
+  </h:panelGrid> 
+</ui:composition>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition name="bugManagement">  
+  <swimlane name="initiator"> 
+    <assignment class="com.nas.recovery.web.action.workflowmgt.bugManagement.assign.InitiatorAssignment"/> 
+  </swimlane>  
+  <swimlane name="developer"> 
+    <assignment class="com.nas.recovery.web.action.workflowmgt.bugManagement.assign.DeveloperAssignment"/> 
+  </swimlane>  
+  <swimlane name="qa"> 
+    <assignment class="com.nas.recovery.web.action.workflowmgt.bugManagement.assign.QaAssignment"/> 
+  </swimlane>  
+  <task-node name="assignDeveloper"> 
+    <task name="assignDeveloper" swimlane="initiator" duedate="0 business days" notify="true"></task>  
+    <transition to="nonissue" name="nonissue"> 
+      <action expression="#{issueAction.updateStatus('Closed')}"/> 
+    </transition>  
+    <transition to="reviewIssue" name="assign"></transition> 
+  </task-node>  
+  <task-node name="reviewIssue"> 
+    <task name="reviewIssue" swimlane="developer" duedate="0 business days" notify="true"></task>  
+    <transition to="workOnIssue" name="accept"> 
+      <action expression="#{issueAction.updateStatus('Started')}"/> 
+    </transition>  
+    <transition to="assignDeveloper" name="reject"></transition> 
+  </task-node>  
+  <start-state name=""> 
+    <task name="" swimlane="initiator"></task>  
+    <transition to="notifyCreate" name="proceedToNotifyCreate"></transition> 
+  </start-state>  
+  <task-node name="verifyfix"> 
+    <task name="verifyfix" swimlane="qa" duedate="0 business days" notify="true"></task>  
+    <transition to="workOnIssue" name="requestModification"></transition>  
+    <transition to="notifyClose" name="close"> 
+      <action expression="#{issueAction.updateStatus('Closed')}"/> 
+    </transition> 
+  </task-node>  
+  <end-state name="fixed"/>  
+  <task-node name="workOnIssue"> 
+    <task name="workOnIssue" swimlane="developer" duedate="2 business days"></task>  
+    <transition to="verifyfix" name="fixed"> 
+      <action expression="#{issueAction.updateStatus('ReadyForQA')}"/> 
+    </transition> 
+  </task-node>  
+  <end-state name="nonissue"/>  
+  <mail-node name="notifyClose" actors="#{token.createdByUser.userName, token.developer.user.userName}" subject="Bug #{token.displayName} has been closed." text="Bug #{token.displayName} has been closed."> 
+    <transition to="fixed" name="close"></transition> 
+  </mail-node>  
+  <mail-node name="notifyCreate" actors="#{token.project.createdByUser.userName}" subject="New Issue : #{token.displayName}" text="A new issue #{token.displayName} has been created by #{token.createdByUser}."> 
+    <transition to="reviewIssue" name="proceedToReviewIssue"></transition> 
+  </mail-node> 
+</process-definition>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.timeTrackingEntry_hours} * "/>  
+      <br/>  
+      <h:inputText id="hours_begin" value="#{timeTrackingEntryList.hoursRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="hours_end" value="#{timeTrackingEntryList.hoursRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.timeTrackingEntry_details} * "/>  
+      <br/>  
+      <h:inputText id="details" value="#{timeTrackingEntryList.timeTrackingEntry.details}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.timeTrackingEntry_issue}  "/>  
+      <br/>  
+      <h:selectOneMenu id="issue" value="#{timeTrackingEntryList.timeTrackingEntry.issue}"> 
+        <s:selectItems value="#{issueList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.timeTrackingEntry_timeSheet}  "/>  
+      <br/>  
+      <h:selectOneMenu id="timeSheet" value="#{timeTrackingEntryList.timeTrackingEntry.timeSheet}"> 
+        <s:selectItems value="#{timeSheetList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.timeTrackingEntry_date} * "/>  
+      <br/>  
+      <s:decorate template="/layout/display.xhtml"> 
+        <ui:define name="label">From</ui:define>  
+        <br/>  
+        <rich:calendar value="#{timeTrackingEntryList.dateRange.begin}"/> 
+      </s:decorate>  
+      <s:decorate template="/layout/display.xhtml"> 
+        <ui:define name="label">To</ui:define>  
+        <br/>  
+        <rich:calendar value="#{timeTrackingEntryList.dateRange.end}"/> 
+      </s:decorate> 
+    </h:panelGroup>  
+    <s:decorate template="/layout/display.xhtml"> 
+      <ui:define name="label">From</ui:define>  
+      <br/>  
+      <rich:calendar id="from" value="#{timeTrackingEntryList.dateCreatedRange.begin}"/> 
+    </s:decorate>  
+    <s:decorate template="/layout/display.xhtml"> 
+      <ui:define name="label">To</ui:define>  
+      <br/>  
+      <rich:calendar id="to" value="#{timeTrackingEntryList.dateCreatedRange.end}"/> 
+    </s:decorate> 
+  </h:panelGrid> 
+</ui:composition>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>
+  <s:validateAll>
+	<h:panelGrid columns="3" styleClass="summarywrap">
+
+ 	<ui:repeat var="" value="">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.timeTrackingEntry_hours} * "/> <br/>
+	
+		<h:inputText id="timeTrackingEntry_hours" value="#{timeTrackingEntryAction.timeTrackingEntry.hours}"/>
+		<h:message for="timeTrackingEntry_hours" styleClass="error errors"/>
+	
+	</h:panelGroup>
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.timeTrackingEntry_details} * "/> <br/>
+	
+		<h:inputText id="timeTrackingEntry_details" value="#{timeTrackingEntryAction.timeTrackingEntry.details}"/>
+		<h:message for="timeTrackingEntry_details" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.timeTrackingEntry_date} * "/> <br/>
+	
+		<rich:calendar id="timeTrackingEntry_date" value="#{timeTrackingEntryAction.timeTrackingEntry.date}"/>
+		<h:message for="timeTrackingEntry_date" styleClass="error errors"/>
+	
+	</h:panelGroup>
+
+	</ui:repeat>
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.timeTrackingEntry_project}  "/> <br/>
+	<h:selectOneMenu id="timeTrackingEntry_project" value="#{timeTrackingEntryAction.timeTrackingEntry.project}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Select.." value="#{projectList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	<h:message for="timeTrackingEntry_project" styleClass="error errors"/>
+	</h:panelGroup>
+	
+	
+	</h:panelGrid>
+  </s:validateAll>
+</ui:composition>

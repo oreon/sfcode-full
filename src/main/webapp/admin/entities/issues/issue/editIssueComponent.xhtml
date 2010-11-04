@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{issueAction.load(issueId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Issue "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.issue_project}  "/>  
+        <h:selectOneMenu id="project" label="#{msg.issue_project}" value="#{issueAction.issue.project}" required="true"> 
+          <a:support event="onchange" reRender="developer" ajaxSingle="true"/>  
+          <s:selectItems value="#{projectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="project"/>  
+        <h:outputText value="#{msg.issue_developer}  "/>  
+        <h:selectOneMenu id="developer" label="#{msg.issue_developer}" value="#{issueAction.issue.developer}" required="false"> 
+          <s:selectItems value="#{issueAction.issue.project.employees}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="developer"/>  
+        <h:outputText value="#{msg.issue_title} * "/>  
+        <h:inputText id="title#{entityId}" label="#{msg.issue_title}" required="true" value="#{issueAction.issue.title}"/>  
+        <h:message styleClass="error errors" for="title"/>  
+        <h:outputText value="#{msg.issue_description}  "/>  
+        <rich:editor useSeamText="true" id="description#{entityId}" label="#{msg.issue_description}" required="false" value="#{issueAction.issue.description}"/>  
+        <h:message styleClass="error errors" for="description"/>  
+        <h:outputText value="#{msg.issue_status}  "/>  
+        <h:selectOneMenu id="status" value="#{issueAction.issue.status}" required="false" label="#{msg.issue_status}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="Unassigned" itemLabel="Unassigned"/>  
+          <f:selectItem itemValue="Started" itemLabel="Started"/>  
+          <f:selectItem itemValue="ReadyForQA" itemLabel="Readyforqa"/>  
+          <f:selectItem itemValue="Closed" itemLabel="Closed"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="status"/>  
+        <h:outputText value="#{msg.issue_priority}  "/>  
+        <h:selectOneMenu id="priority" value="#{issueAction.issue.priority}" required="false" label="#{msg.issue_priority}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="SHOW_STOPPER" itemLabel="Show_stopper"/>  
+          <f:selectItem itemValue="CRITICAL_URGENT" itemLabel="Critical_urgent"/>  
+          <f:selectItem itemValue="CRITICAL_NOT_URGENT" itemLabel="Critical_not_urgent"/>  
+          <f:selectItem itemValue="NON_CRITICAL" itemLabel="Non_critical"/>  
+          <f:selectItem itemValue="LANGUAGE" itemLabel="Language"/>  
+          <f:selectItem itemValue="COSMETIC" itemLabel="Cosmetic"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="priority"/>  
+        <h:outputText value="#{msg.issue_closeTime}  "/>  
+        <rich:calendar id="closeTime#{entityId}" label="#{msg.issue_closeTime}" required="false" value="#{issueAction.issue.closeTime}"/>  
+        <h:message styleClass="error errors" for="closeTime"/>  
+        <h:outputText value="#{msg.issue_estimate}  "/>  
+        <h:inputText id="estimate#{entityId}" label="#{msg.issue_estimate}" required="false" value="#{issueAction.issue.estimate}"/>  
+        <h:message styleClass="error errors" for="estimate"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

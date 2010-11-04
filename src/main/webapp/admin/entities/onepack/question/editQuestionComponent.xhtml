@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{questionAction.load(questionId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Question "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.question_exam}  "/>  
+        <h:selectOneMenu id="exam" label="#{msg.question_exam}" value="#{questionAction.question.exam}" required="true"> 
+          <s:selectItems value="#{examList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="exam"/>  
+        <h:outputText value="#{msg.question_text} * "/>  
+        <h:inputText id="text#{entityId}" label="#{msg.question_text}" required="true" value="#{questionAction.question.text}"/>  
+        <h:message styleClass="error errors" for="text"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New Choice" action="#{questionAction.addChoices}" reRender="choices_data#{entityId}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="choices_data#{entityId}" var="_choice" value="#{questionAction.listChoices}" rows="10" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.choice_text} * "/>
+          </f:facet>  
+          <h:inputText id="text#{entityId}" label="#{msg.choice_text}" required="true" value="#{_choice.text}"/>  
+          <h:message styleClass="error errors" for="text"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New Choice" action="#{questionAction.addChoices}" reRender="choices_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" action="#{questionAction.deleteChoices(rowIndex)}" reRender="choices_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
