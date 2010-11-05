@@ -144,7 +144,7 @@
 		<f:facet name="header">
 			<h:outputText value=" " />
 		</f:facet>
-		<s:link view="«getViewFile(action)»"  rendered="#{s:hasPermission(_issue, '«action»')}">
+		<s:link view="«getViewFile(action)»"  rendered="#{s:hasPermission(_«asVar()», '«action»')}">
 			<h:graphicImage value="/images/icons/«icon»" style="border: 0px" alt="«action»"/>
 			<f:param name="«asVar()»Id" value="#{_«asVar()».id}" />
 		</s:link>
@@ -157,7 +157,8 @@
 			<h:outputText value=" " />
 		</f:facet>
 		<a:commandButton 
-				oncomplete="Richfaces.showModalPanel('«name»ModalPanel',{});" value="Quick Edit" >
+				oncomplete="Richfaces.showModalPanel('«name»ModalPanel',{});" value="Quick Edit"  >
+			<a:actionparam name="id" value="#{_«asVar()».id}" assignTo="#{«asVar()»Action.setId}" />
 		</a:commandButton>
 	</h:column>
 «ENDDEFINE»
