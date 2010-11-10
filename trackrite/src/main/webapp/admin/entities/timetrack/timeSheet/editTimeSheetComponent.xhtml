@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{timeSheetAction.load(timeSheetId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="TimeSheet "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.timeSheet_title} * "/>  
+        <h:inputText id="title#{entityId}" label="#{msg.timeSheet_title}" required="true" value="#{timeSheetAction.timeSheet.title}"/>  
+        <h:message styleClass="error errors" for="title"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New TimeTrackingEntry" action="#{timeSheetAction.addTimeTrackingEntrys}" reRender="timeTrackingEntrys_data#{entityId}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="timeTrackingEntrys_data#{entityId}" var="_timeTrackingEntry" value="#{timeSheetAction.listTimeTrackingEntrys}" rows="10" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.timeTrackingEntry_issue}  "/>
+          </f:facet>  
+          <h:selectOneMenu id="issue" label="#{msg.timeTrackingEntry_issue}" value="#{_timeTrackingEntry.issue}" required="true"> 
+            <s:selectItems value="#{employeeAction.currentLoggedInEmployee.issues}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu>  
+          <h:message styleClass="error errors" for="issue"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.timeTrackingEntry_hours} * "/>
+          </f:facet>  
+          <h:inputText id="hours#{entityId}" label="#{msg.timeTrackingEntry_hours}" required="true" value="#{_timeTrackingEntry.hours}"/>  
+          <h:message styleClass="error errors" for="hours"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.timeTrackingEntry_details} * "/>
+          </f:facet>  
+          <rich:editor useSeamText="true" id="details#{entityId}" label="#{msg.timeTrackingEntry_details}" required="true" value="#{_timeTrackingEntry.details}"/>  
+          <h:message styleClass="error errors" for="details"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.timeTrackingEntry_date} * "/>
+          </f:facet>  
+          <rich:calendar id="date#{entityId}" label="#{msg.timeTrackingEntry_date}" required="true" value="#{_timeTrackingEntry.date}"/>  
+          <h:message styleClass="error errors" for="date"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New TimeTrackingEntry" action="#{timeSheetAction.addTimeTrackingEntrys}" reRender="timeTrackingEntrys_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" action="#{timeSheetAction.deleteTimeTrackingEntrys(rowIndex)}" reRender="timeTrackingEntrys_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

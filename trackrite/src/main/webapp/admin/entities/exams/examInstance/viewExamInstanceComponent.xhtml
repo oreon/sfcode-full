@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{examInstanceAction.load(examInstanceId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="ExamInstance "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{examInstanceAction.examInstance.id}"/>  
+        <h:outputText value="#{msg.examInstance_exam}  "/>  
+        <s:link value="#{examInstanceAction.examInstance.exam.displayName}" view="/admin/entities/exams/exam/viewExam.xhtml"> 
+          <f:param name="id" value="#{examInstanceAction.examInstance.exam.id}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.examInstance_candidate}  "/>  
+        <s:link value="#{examInstanceAction.examInstance.candidate.displayName}" view="/admin/entities/exams/candidate/viewCandidate.xhtml"> 
+          <f:param name="id" value="#{examInstanceAction.examInstance.candidate.id}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <rich:dataTable id="answers_data#{entityId}" var="_answer" rendered="#{not empty examInstanceAction.listAnswers}" value="#{examInstanceAction.listAnswers}" rows="10" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.answer_choice}  "/>
+          </f:facet>  
+          <s:link value="#{_answer.choice.displayName}" view="/admin/entities/exams/choice/viewChoice.xhtml"> 
+            <f:param name="id" value="#{answerAction.answer.choice.id}"/> 
+          </s:link> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

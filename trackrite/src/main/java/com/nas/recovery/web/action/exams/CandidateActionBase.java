@@ -53,6 +53,14 @@ public abstract class CandidateActionBase extends BaseAction<Candidate>
 			loadAssociations();
 	}
 
+	/** for modal dlg we need to load associaitons regardless of postback
+	 * @param id
+	 */
+	public void setCandidateIdForModalDlg(Long id) {
+		setId(id);
+		loadAssociations();
+	}
+
 	public Long getCandidateId() {
 		return (Long) getId();
 	}

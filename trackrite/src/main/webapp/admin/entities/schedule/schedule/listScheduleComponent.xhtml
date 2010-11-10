@@ -54,7 +54,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <s:link view="/admin/entities/schedule/schedule/viewSchedule.xhtml" rendered="#{s:hasPermission(_issue, 'view')}"> 
+          <s:link view="/admin/entities/schedule/schedule/viewSchedule.xhtml" rendered="#{s:hasPermission(_schedule, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
             <f:param name="scheduleId" value="#{_schedule.id}"/> 
           </s:link> 
@@ -63,7 +63,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <s:link view="/admin/entities/schedule/schedule/editSchedule.xhtml" rendered="#{s:hasPermission(_issue, 'edit')}"> 
+          <s:link view="/admin/entities/schedule/schedule/editSchedule.xhtml" rendered="#{s:hasPermission(_schedule, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
             <f:param name="scheduleId" value="#{_schedule.id}"/> 
           </s:link> 
@@ -81,7 +81,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('ScheduleModalPanel',{});" value="Quick Edit"></a:commandButton> 
+          <a:commandLink action="#{scheduleAction.setScheduleIdForModalDlg(_schedule.id)}" oncomplete="Richfaces.showModalPanel('ScheduleModalPanel',{});" value="Quick Edit"/> 
         </h:column> 
       </rich:dataTable> 
     </a:form> 

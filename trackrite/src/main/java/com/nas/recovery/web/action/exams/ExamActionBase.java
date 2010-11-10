@@ -55,6 +55,14 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 			loadAssociations();
 	}
 
+	/** for modal dlg we need to load associaitons regardless of postback
+	 * @param id
+	 */
+	public void setExamIdForModalDlg(Long id) {
+		setId(id);
+		loadAssociations();
+	}
+
 	public Long getExamId() {
 		return (Long) getId();
 	}

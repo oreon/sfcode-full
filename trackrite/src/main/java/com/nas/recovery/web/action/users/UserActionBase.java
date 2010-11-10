@@ -53,6 +53,14 @@ public abstract class UserActionBase extends BaseAction<User>
 			loadAssociations();
 	}
 
+	/** for modal dlg we need to load associaitons regardless of postback
+	 * @param id
+	 */
+	public void setUserIdForModalDlg(Long id) {
+		setId(id);
+		loadAssociations();
+	}
+
 	public Long getUserId() {
 		return (Long) getId();
 	}

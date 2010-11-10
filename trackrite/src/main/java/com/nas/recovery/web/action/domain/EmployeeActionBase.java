@@ -63,6 +63,14 @@ public abstract class EmployeeActionBase
 			loadAssociations();
 	}
 
+	/** for modal dlg we need to load associaitons regardless of postback
+	 * @param id
+	 */
+	public void setEmployeeIdForModalDlg(Long id) {
+		setId(id);
+		loadAssociations();
+	}
+
 	public void setDepartmentId(Long id) {
 		if (id != null && id > 0)
 			getInstance().setDepartment(departmentAction.loadFromId(id));

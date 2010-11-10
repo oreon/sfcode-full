@@ -39,6 +39,8 @@ public class TimeSheetTestDataFactory
 
 			timeSheet.setTitle("Mark");
 
+			timeSheet.setTotal(41.34);
+
 			register(timeSheet);
 
 		} catch (Exception ex) {
@@ -53,7 +55,9 @@ public class TimeSheetTestDataFactory
 
 		try {
 
-			timeSheet.setTitle("alpha");
+			timeSheet.setTitle("epsilon");
+
+			timeSheet.setTotal(43.62);
 
 			register(timeSheet);
 
@@ -69,7 +73,9 @@ public class TimeSheetTestDataFactory
 
 		try {
 
-			timeSheet.setTitle("beta");
+			timeSheet.setTitle("Lavendar");
+
+			timeSheet.setTotal(81.17);
 
 			register(timeSheet);
 
@@ -85,7 +91,9 @@ public class TimeSheetTestDataFactory
 
 		try {
 
-			timeSheet.setTitle("zeta");
+			timeSheet.setTitle("John");
+
+			timeSheet.setTotal(96.42);
 
 			register(timeSheet);
 
@@ -101,7 +109,9 @@ public class TimeSheetTestDataFactory
 
 		try {
 
-			timeSheet.setTitle("Lavendar");
+			timeSheet.setTitle("pi");
+
+			timeSheet.setTotal(67.07);
 
 			register(timeSheet);
 

@@ -61,6 +61,10 @@ public class TimeSheet extends BusinessEntity implements java.io.Serializable {
 	@Analyzer(definition = "customanalyzer")
 	protected String title;
 
+	@Formula(value = "( SELECT SUM(t.hours) FROM TimeTrackingEntry t, TimeSheet ts WHERE t.timeSheet_id = ts.id and ts.id = id)")
+	@Column(name = "total", unique = false)
+	protected Double total;
+
 	public void setTimeTrackingEntrys(Set<TimeTrackingEntry> timeTrackingEntrys) {
 		this.timeTrackingEntrys = timeTrackingEntrys;
 	}
@@ -76,6 +80,15 @@ public class TimeSheet extends BusinessEntity implements java.io.Serializable {
 	public String getTitle() {
 
 		return title;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
+	}
+
+	public Double getTotal() {
+
+		return total;
 	}
 
 	@Transient

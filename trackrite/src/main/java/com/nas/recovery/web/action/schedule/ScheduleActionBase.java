@@ -57,6 +57,14 @@ public abstract class ScheduleActionBase extends BaseAction<Schedule>
 		if (!isPostBack())
 			loadAssociations();
 	}
+	
+	/** for modal dlg we need to load associaitons regardless of postback
+	 * @param id
+	 */
+	public void setScheduleIdForModalDlg(Long id) {
+		setId(id);
+		loadAssociations();
+	}
 
 	public void setProjectId(Long id) {
 		if (id != null && id > 0)

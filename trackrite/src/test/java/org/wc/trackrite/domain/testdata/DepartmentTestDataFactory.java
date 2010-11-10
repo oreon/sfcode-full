@@ -40,7 +40,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("Eric");
+			department.setName("delta");
 
 			register(department);
 
@@ -56,7 +56,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("zeta");
+			department.setName("Wilson");
 
 			register(department);
 
@@ -72,7 +72,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("beta");
+			department.setName("theta");
 
 			register(department);
 
@@ -88,7 +88,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("John");
+			department.setName("epsilon");
 
 			register(department);
 
@@ -104,7 +104,7 @@ public class DepartmentTestDataFactory
 
 		try {
 
-			department.setName("Eric");
+			department.setName("Malissa");
 
 			register(department);
 

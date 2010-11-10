@@ -28,10 +28,21 @@ public abstract class TimeSheetListQueryBase extends BaseQuery<TimeSheet, Long> 
 
 	protected TimeSheet timeSheet = new TimeSheet();
 
+	private Range<Double> totalRange = new Range<Double>();
+	public Range<Double> getTotalRange() {
+		return totalRange;
+	}
+	public void setTotal(Range<Double> totalRange) {
+		this.totalRange = totalRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"timeSheet.id = #{timeSheetList.timeSheet.id}",
 
 			"lower(timeSheet.title) like concat(lower(#{timeSheetList.timeSheet.title}),'%')",
+
+			"timeSheet.total >= #{timeSheetList.totalRange.begin}",
+			"timeSheet.total <= #{timeSheetList.totalRange.end}",
 
 			"timeSheet.dateCreated <= #{timeSheetList.dateCreatedRange.end}",
 			"timeSheet.dateCreated >= #{timeSheetList.dateCreatedRange.begin}",};
