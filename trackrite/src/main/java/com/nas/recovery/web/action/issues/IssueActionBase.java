@@ -59,6 +59,14 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 			loadAssociations();
 	}
 
+	/** for modal dlg we need to load associaitons regardless of postback
+	 * @param id
+	 */
+	public void setIssueIdForModalDlg(Long id) {
+		setId(id);
+		loadAssociations();
+	}
+
 	public void setProjectId(Long id) {
 		if (id != null && id > 0)
 			getInstance().setProject(projectAction.loadFromId(id));

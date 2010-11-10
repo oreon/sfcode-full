@@ -265,6 +265,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	public String saveWithoutConversation(){
 		String result = doSave();
 		Conversation.instance().end();
+		setInstance(null);
 		return result;
 	}
 	

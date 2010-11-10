@@ -58,6 +58,14 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 			loadAssociations();
 	}
 
+	/** for modal dlg we need to load associaitons regardless of postback
+	 * @param id
+	 */
+	public void setProjectIdForModalDlg(Long id) {
+		setId(id);
+		loadAssociations();
+	}
+
 	public Long getProjectId() {
 		return (Long) getId();
 	}

@@ -14,21 +14,21 @@
       </h:panelGroup> 
     </f:facet>  
     <s:div id="EndUserModalDiv"> 
-      <a:outputPanel ajaxRendered="true"> 
-        <rich:messages passedLabel="" style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list" rendered="#{facesContext.maximumSeverity != null}"></rich:messages> 
-      </a:outputPanel>  
-      <a:form> 
-        <ui:include src="/admin/entities/domain/endUser/editEndUserComponent.xhtml"/> facesContext.maximumSeverity 
-        <a:commandButton action="#{endUserAction.save}" oncomplete="if (#{facesContext.maximumSeverity == null || facesContext.maximumSeverity.ordinal le 1 }) { Richfaces.hideModalPanel('EndUserModalPanel'); }" reRender="endUserList" value="Save"> 
-          <f:param name="conversationPropagation" value="end"/> 
-        </a:commandButton>  
-        <h:outputText value=" "/>  
-        <a:commandButton oncomplete="Richfaces.hideModalPanel('EndUserModalPanel')" value="Hide"/>  
-        <h:outputText value=" "/>  
-        <a:commandButton action="#{endUserAction.cancel}" immediate="true" type="reset" oncomplete="Richfaces.hideModalPanel('EndUserModalPanel');" value="Cancel"> 
-          <f:param name="conversationPropagation" value="end"/> 
-        </a:commandButton> 
-      </a:form> 
+      <a:outputPanel ajaxRendered="true" id="endUserOutputPanel"> 
+        <rich:messages passedLabel="" style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list" rendered="#{facesContext.maximumSeverity != null}"></rich:messages>  
+        <a:form> 
+          <ui:include src="/admin/entities/domain/endUser/editEndUserComponent.xhtml"/>  
+          <a:commandButton action="#{endUserAction.saveWithoutConversation}" oncomplete="if (#{facesContext.maximumSeverity == null || facesContext.maximumSeverity.ordinal le 1 }) { Richfaces.hideModalPanel('EndUserModalPanel'); }" reRender="endUserList, endUserOutputPanel" value="Save"> 
+            <f:param name="conversationPropagation" value="end"/> 
+          </a:commandButton>  
+          <h:outputText value=" "/>  
+          <a:commandButton oncomplete="Richfaces.hideModalPanel('EndUserModalPanel')" value="Hide"/>  
+          <h:outputText value=" "/>  
+          <a:commandButton action="#{endUserAction.cancel}" immediate="true" type="reset" oncomplete="Richfaces.hideModalPanel('EndUserModalPanel');" value="Cancel"> 
+            <f:param name="conversationPropagation" value="end"/> 
+          </a:commandButton> 
+        </a:form> 
+      </a:outputPanel> 
     </s:div> 
   </rich:modalPanel> 
 </ui:composition>

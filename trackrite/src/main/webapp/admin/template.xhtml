@@ -30,10 +30,17 @@
 
 <f:loadBundle basename="messages" var="msg" />
 
-<ui:include src="header.xhtml"   ></ui:include>
+<ui:include src="/admin/header.xhtml"   ></ui:include>
 <div id="topmenu"></div>
 <div id="leftcol"><ui:include src="entities/navigation.xhtml" /></div>
-<div id="content"><h:messages globalOnly="true" /> <ui:insert
+<div id="content">
+
+<s:div style="border:1px solid #bbc; background-color:#eef" rendered="#{facesContext.maximumSeverity != null}" >
+<h:messages globalOnly="true"  errorStyle="color:red"  warnStyle="color:yellow" infoStyle="color:green"/> 
+</s:div>
+
+
+<ui:insert
 	name="content" /></div>
 <div id="footer"></div>
 

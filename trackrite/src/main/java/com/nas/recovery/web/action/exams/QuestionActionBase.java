@@ -58,6 +58,14 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 			loadAssociations();
 	}
 
+	/** for modal dlg we need to load associaitons regardless of postback
+	 * @param id
+	 */
+	public void setQuestionIdForModalDlg(Long id) {
+		setId(id);
+		loadAssociations();
+	}
+
 	public void setExamId(Long id) {
 		if (id != null && id > 0)
 			getInstance().setExam(examAction.loadFromId(id));

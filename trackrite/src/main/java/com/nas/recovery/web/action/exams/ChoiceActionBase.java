@@ -56,6 +56,14 @@ public abstract class ChoiceActionBase extends BaseAction<Choice>
 			loadAssociations();
 	}
 
+	/** for modal dlg we need to load associaitons regardless of postback
+	 * @param id
+	 */
+	public void setChoiceIdForModalDlg(Long id) {
+		setId(id);
+		loadAssociations();
+	}
+
 	public void setQuestionId(Long id) {
 		if (id != null && id > 0)
 			getInstance().setQuestion(questionAction.loadFromId(id));

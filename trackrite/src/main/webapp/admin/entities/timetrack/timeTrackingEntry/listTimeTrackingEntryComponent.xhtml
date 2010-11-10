@@ -89,7 +89,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <s:link view="/admin/entities/timetrack/timeTrackingEntry/viewTimeTrackingEntry.xhtml" rendered="#{s:hasPermission(_issue, 'view')}"> 
+          <s:link view="/admin/entities/timetrack/timeTrackingEntry/viewTimeTrackingEntry.xhtml" rendered="#{s:hasPermission(_timeTrackingEntry, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
             <f:param name="timeTrackingEntryId" value="#{_timeTrackingEntry.id}"/> 
           </s:link> 
@@ -98,7 +98,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <s:link view="/admin/entities/timetrack/timeTrackingEntry/editTimeTrackingEntry.xhtml" rendered="#{s:hasPermission(_issue, 'edit')}"> 
+          <s:link view="/admin/entities/timetrack/timeTrackingEntry/editTimeTrackingEntry.xhtml" rendered="#{s:hasPermission(_timeTrackingEntry, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
             <f:param name="timeTrackingEntryId" value="#{_timeTrackingEntry.id}"/> 
           </s:link> 
@@ -116,7 +116,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('TimeTrackingEntryModalPanel',{});" value="Quick Edit"></a:commandButton> 
+          <a:commandLink action="#{timeTrackingEntryAction.setTimeTrackingEntryIdForModalDlg(_timeTrackingEntry.id)}" oncomplete="Richfaces.showModalPanel('TimeTrackingEntryModalPanel',{});" value="Quick Edit"/> 
         </h:column> 
       </rich:dataTable> 
     </a:form> 

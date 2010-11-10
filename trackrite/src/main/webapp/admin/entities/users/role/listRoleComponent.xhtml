@@ -41,7 +41,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <s:link view="/admin/entities/users/role/viewRole.xhtml" rendered="#{s:hasPermission(_issue, 'view')}"> 
+          <s:link view="/admin/entities/users/role/viewRole.xhtml" rendered="#{s:hasPermission(_role, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
             <f:param name="roleId" value="#{_role.id}"/> 
           </s:link> 
@@ -50,7 +50,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <s:link view="/admin/entities/users/role/editRole.xhtml" rendered="#{s:hasPermission(_issue, 'edit')}"> 
+          <s:link view="/admin/entities/users/role/editRole.xhtml" rendered="#{s:hasPermission(_role, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
             <f:param name="roleId" value="#{_role.id}"/> 
           </s:link> 
@@ -68,7 +68,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('RoleModalPanel',{});" value="Quick Edit"></a:commandButton> 
+          <a:commandLink action="#{roleAction.setRoleIdForModalDlg(_role.id)}" oncomplete="Richfaces.showModalPanel('RoleModalPanel',{});" value="Quick Edit"/> 
         </h:column> 
       </rich:dataTable> 
     </a:form> 

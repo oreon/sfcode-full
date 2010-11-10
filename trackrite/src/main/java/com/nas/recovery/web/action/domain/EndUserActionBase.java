@@ -55,6 +55,14 @@ public abstract class EndUserActionBase
 			loadAssociations();
 	}
 
+	/** for modal dlg we need to load associaitons regardless of postback
+	 * @param id
+	 */
+	public void setEndUserIdForModalDlg(Long id) {
+		setId(id);
+		loadAssociations();
+	}
+
 	public Long getEndUserId() {
 		return (Long) getId();
 	}

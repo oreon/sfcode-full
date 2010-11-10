@@ -53,6 +53,14 @@ public abstract class RoleActionBase extends BaseAction<Role>
 			loadAssociations();
 	}
 
+	/** for modal dlg we need to load associaitons regardless of postback
+	 * @param id
+	 */
+	public void setRoleIdForModalDlg(Long id) {
+		setId(id);
+		loadAssociations();
+	}
+
 	public Long getRoleId() {
 		return (Long) getId();
 	}

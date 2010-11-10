@@ -56,6 +56,14 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 			loadAssociations();
 	}
 
+	/** for modal dlg we need to load associaitons regardless of postback
+	 * @param id
+	 */
+	public void setScheduleItemIdForModalDlg(Long id) {
+		setId(id);
+		loadAssociations();
+	}
+
 	public void setEmployeeId(Long id) {
 		if (id != null && id > 0)
 			getInstance().setEmployee(employeeAction.loadFromId(id));

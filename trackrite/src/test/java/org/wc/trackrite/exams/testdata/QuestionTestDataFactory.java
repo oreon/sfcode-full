@@ -39,7 +39,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("theta");
+			question.setText("Eric");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -57,7 +57,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("beta");
+			question.setText("theta");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -75,7 +75,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("Eric");
+			question.setText("alpha");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -111,7 +111,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("theta");
+			question.setText("Mark");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 

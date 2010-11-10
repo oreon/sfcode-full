@@ -39,7 +39,7 @@ public class ScheduleTestDataFactory
 
 		try {
 
-			schedule.setName("Wilson");
+			schedule.setName("Lavendar");
 
 			schedule.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -57,7 +57,7 @@ public class ScheduleTestDataFactory
 
 		try {
 
-			schedule.setName("beta");
+			schedule.setName("Mark");
 
 			schedule.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -75,7 +75,7 @@ public class ScheduleTestDataFactory
 
 		try {
 
-			schedule.setName("pi");
+			schedule.setName("Eric");
 
 			schedule.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -93,7 +93,7 @@ public class ScheduleTestDataFactory
 
 		try {
 
-			schedule.setName("Mark");
+			schedule.setName("Malissa");
 
 			schedule.setProject(projectTestDataFactory.getRandomRecord());
 
@@ -111,7 +111,7 @@ public class ScheduleTestDataFactory
 
 		try {
 
-			schedule.setName("gamma");
+			schedule.setName("Mark");
 
 			schedule.setProject(projectTestDataFactory.getRandomRecord());
 

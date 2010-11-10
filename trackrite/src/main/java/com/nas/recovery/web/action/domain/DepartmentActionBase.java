@@ -58,6 +58,14 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 			loadAssociations();
 	}
 
+	/** for modal dlg we need to load associaitons regardless of postback
+	 * @param id
+	 */
+	public void setDepartmentIdForModalDlg(Long id) {
+		setId(id);
+		loadAssociations();
+	}
+
 	public Long getDepartmentId() {
 		return (Long) getId();
 	}

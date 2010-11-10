@@ -40,10 +40,10 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.10.24 04:14:43 EDT"));
+					.parse("2010.11.13 08:54:52 EST"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.11.02 12:34:43 EDT"));
+					.setEndDate(dateFormat.parse("2010.11.28 05:44:52 EST"));
 
 			scheduleItem.setEmployee(employeeTestDataFactory.getRandomRecord());
 
@@ -62,10 +62,10 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.10.13 01:06:22 EDT"));
+					.parse("2010.10.27 17:44:52 EDT"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.11.05 12:28:36 EDT"));
+					.setEndDate(dateFormat.parse("2010.11.07 03:41:32 EST"));
 
 			scheduleItem.setEmployee(employeeTestDataFactory.getRandomRecord());
 
@@ -84,10 +84,10 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.11.23 19:21:56 EST"));
+					.parse("2010.11.07 12:44:19 EST"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.11.14 19:58:03 EST"));
+					.setEndDate(dateFormat.parse("2010.10.17 02:04:52 EDT"));
 
 			scheduleItem.setEmployee(employeeTestDataFactory.getRandomRecord());
 
@@ -106,10 +106,10 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.11.02 22:39:09 EDT"));
+					.parse("2010.11.25 18:15:25 EST"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.11.06 10:36:22 EDT"));
+					.setEndDate(dateFormat.parse("2010.11.17 15:44:19 EST"));
 
 			scheduleItem.setEmployee(employeeTestDataFactory.getRandomRecord());
 
@@ -128,10 +128,10 @@ public class ScheduleItemTestDataFactory
 		try {
 
 			scheduleItem.setStartDate(dateFormat
-					.parse("2010.10.31 06:21:56 EDT"));
+					.parse("2010.10.16 17:47:07 EDT"));
 
 			scheduleItem
-					.setEndDate(dateFormat.parse("2010.11.09 03:28:03 EST"));
+					.setEndDate(dateFormat.parse("2010.10.28 12:15:57 EDT"));
 
 			scheduleItem.setEmployee(employeeTestDataFactory.getRandomRecord());
 

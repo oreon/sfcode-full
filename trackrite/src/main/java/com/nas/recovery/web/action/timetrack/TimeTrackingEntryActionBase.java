@@ -59,6 +59,14 @@ public abstract class TimeTrackingEntryActionBase
 			loadAssociations();
 	}
 
+	/** for modal dlg we need to load associaitons regardless of postback
+	 * @param id
+	 */
+	public void setTimeTrackingEntryIdForModalDlg(Long id) {
+		setId(id);
+		loadAssociations();
+	}
+
 	public void setIssueId(Long id) {
 		if (id != null && id > 0)
 			getInstance().setIssue(issueAction.loadFromId(id));

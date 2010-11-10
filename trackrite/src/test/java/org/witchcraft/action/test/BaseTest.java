@@ -19,6 +19,10 @@ public abstract class BaseTest<T extends BusinessEntity> extends SeamTest{
 	public EntityManagerFactory getEntityManagerFactory() {
 		return emf;
 	}
+	
+	protected EntityManager getEntityManager(){
+		return em;
+	}
 
 	
 	public void init() {

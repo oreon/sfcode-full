@@ -2,7 +2,6 @@ package org.witchcraft.jasperreports;
 
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
@@ -15,10 +14,11 @@ import net.sf.jasperreports.engine.query.JRJpaQueryExecuterFactory;
 
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.international.StatusMessages;
 import org.jboss.seam.international.StatusMessage.Severity;
-import org.witchcraft.base.entity.BusinessEntity;
-import org.witchcraft.seam.action.BaseAction;
+import org.jboss.seam.log.Log;
+import org.witchcraft.exceptions.ContractViolationException;
 
 public abstract class BaseReportAction {
 
@@ -28,6 +28,9 @@ public abstract class BaseReportAction {
 	
 	@In
 	protected StatusMessages statusMessages;
+	
+	@Logger
+	Log log;
 
 	public FullTextEntityManager getEntityManager() {
 		return entityManager;
@@ -78,8 +81,8 @@ public abstract class BaseReportAction {
 			javax.faces.context.FacesContext.getCurrentInstance()
 					.responseComplete();
 		} catch (Exception e) {
-			e.printStackTrace();
-			// throw new BusinessException(e);
+			log.error("running report " , e);
+			throw new ContractViolationException(e.getMessage());
 		}
 
 	}

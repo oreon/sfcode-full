@@ -55,6 +55,14 @@ public abstract class TimeSheetActionBase extends BaseAction<TimeSheet>
 			loadAssociations();
 	}
 
+	/** for modal dlg we need to load associaitons regardless of postback
+	 * @param id
+	 */
+	public void setTimeSheetIdForModalDlg(Long id) {
+		setId(id);
+		loadAssociations();
+	}
+
 	public Long getTimeSheetId() {
 		return (Long) getId();
 	}
