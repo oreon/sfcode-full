@@ -96,6 +96,14 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 			loadAssociations();
 	}
 	
+	/** for modal dlg we need to load associaitons regardless of postback
+	 * @param id
+	 */
+	public void set«name»IdForModalDlg(Long id) {
+		setId(id);
+		loadAssociations();
+	}
+	
 	«FOREACH getOutgoingAssociations() AS e-»
 	public void set«e.name.toFirstUpper()»Id(Long id) {
 	   if(id != null && id > 0 )

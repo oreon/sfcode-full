@@ -156,10 +156,7 @@
 		<f:facet name="header">
 			<h:outputText value=" " />
 		</f:facet>
-		<a:commandButton 
-				oncomplete="Richfaces.showModalPanel('«name»ModalPanel',{});" value="Quick Edit"  >
-			<a:actionparam name="id" value="#{_«asVar()».id}" assignTo="#{«asVar()»Action.setId}" />
-		</a:commandButton>
+		<a:commandLink action="#{«asVar()»Action.set«name»IdForModalDlg(_«asVar()».id)}" oncomplete="Richfaces.showModalPanel('«name»ModalPanel',{});" value="Quick Edit" /> 
 	</h:column>
 «ENDDEFINE»
 

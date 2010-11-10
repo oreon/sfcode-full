@@ -29,21 +29,20 @@
 			
 			<s:div id="«name»ModalDiv">
 			
-				<a:outputPanel ajaxRendered="true">
+				<a:outputPanel ajaxRendered="true"  id="«name.toFirstLower()»OutputPanel">
 					<rich:messages passedLabel=""
 						style="width:100%; text-align: left; color: red; font-weight: bold;"
 						 layout="list" rendered="#{facesContext.maximumSeverity != null}"
 						>
-
 					</rich:messages>
-				</a:outputPanel>
+				
 					<a:form>
 
 						<ui:include src = "«getComponentViewFile("edit")»" />
-						facesContext.maximumSeverity
-						<a:commandButton action="#{«getAction()».saveWithoutConversation}" type="reset"
+					
+						<a:commandButton action="#{«getAction()».saveWithoutConversation}"
 							oncomplete="if (#{facesContext.maximumSeverity == null || facesContext.maximumSeverity.ordinal le 1 }) { Richfaces.hideModalPanel('«name»ModalPanel'); }"
-							reRender="«name.toFirstLower()»List"
+							reRender="«name.toFirstLower()»List, «name.toFirstLower()»OutputPanel"
 							value="Save" >
 							 <f:param name="conversationPropagation" value="end"/>
 							
@@ -58,7 +57,7 @@
 						
 
 					</a:form>
-				
+				</a:outputPanel>
 			</s:div>
 		</rich:modalPanel>
 </ui:composition>
