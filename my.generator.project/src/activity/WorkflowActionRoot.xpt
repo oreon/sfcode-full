@@ -8,10 +8,13 @@
 
 «DEFINE Root FOR uml::Model»
 	«EXPAND StateMachineRoot FOREACH allOwnedElements().typeSelect(uml::Activity)»
+	
 «ENDDEFINE»
 
 
 «DEFINE StateMachineRoot FOR uml::Activity»
+
+	«EXPAND genForm FOREACH allOwnedElements().typeSelect(uml::ActivityNode)»
 	
 	«FILE getWorkflowPathForFile() + "Base.java" -»
 		
@@ -37,6 +40,7 @@
 
 «DEFINE genToken FOR uml::Activity»
 	«FOREACH getAllAttributes() AS a»
+		
 		@Out(scope = ScopeType.BUSINESS_PROCESS, required = false)
 		protected «a.type.fqn()» «a.name» = new «a.type.fqn()»();
 		
@@ -137,9 +141,8 @@ public class «name.toFirstUpper()» extends «name.toFirstUpper()»Base {
 	public void startProcess() {
 	
 	}
-	
 }
-	«ENDFILE»
+«ENDFILE»
 «ENDDEFINE» 
 
 «DEFINE genProcessToken FOR wcprofile::WorkflowActivity»
@@ -152,3 +155,18 @@ public class «name.toFirstUpper()» extends «name.toFirstUpper()»Base {
 «ENDDEFINE»
 
  
+
+
+«DEFINE genForm FOR uml::ActivityNode»
+	«FILE getTaskFromWebPath()»
+<ui:composition «EXPAND richfaces::WebRoot::genIncludes FOR this» >	
+	«PROTECT CSTART '<!--' CEND '-->' ID  'TASKFORM_EDITABLE_RGN_' + activity.name + "_" + name»
+		
+	«ENDPROTECT»	
+</ui:composition>
+	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE genForm FOR uml::ActivityFinalNode»
+
+«ENDDEFINE»
