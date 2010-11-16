@@ -22,10 +22,10 @@
 <ui:composition «EXPAND WebRoot::genIncludes-»
 	template = "«getAdminTemplate()»" >	
 	<ui:define name="content">
-		<a:form  enctype="multipart/form-data"> «REM»TODO : usemultipart «ENDREM»
+		<h:form  enctype="multipart/form-data"> «REM»TODO : usemultipart «ENDREM»
 		<ui:include src = "edit«name»Component.«getExtension()»" />
 		«EXPAND genCancelSaveBtns(true) FOR this»
-		</a:form>
+		</h:form>
 	</ui:define> 
 	
 	«REM»comment
@@ -207,8 +207,7 @@
 «ENDDEFINE»
 
 «DEFINE genLabelAndInput FOR uml::Property-»
-	«IF !isDerived() && !type.isEmbeddable() »
-		«getAccess() != null?" <s:div rendered=\"#{s:hasRole('admin')}\">":""»
+	«IF !isDerived() && !type.isEmbeddable() && !systemModify() »
 		«getOutputMessage()»
 		«IF association != null-»
 			«EXPAND genAssociation-»
@@ -217,13 +216,11 @@
 		«ENDIF»
 		«getErrorMessageHolder()-»
 		«isCurrentMultiMode()?"</h:column>":""»
-		«getAccess() != null?"</s:div>":""»
 	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE genLabelAndOutput FOR uml::Property-»
 	«IF !isSecret()  »
-		«getAccess() != null?" <s:div rendered=\"#{s:hasRole('admin')}\">":""»
 		«getOutputMessage()-»
 		«IF association != null»
 			«EXPAND genAssociation-»
@@ -232,7 +229,6 @@
 		«ENDIF»
 		«getErrorMessageHolder()-»
 		«isCurrentMultiMode()?"</h:column>":""»
-		«getAccess() != null?"</s:div>":""»
 	«ENDIF»
 «ENDDEFINE»
 
@@ -252,9 +248,41 @@
 
 «DEFINE genAssociationEdit FOR uml::Property»
 	«IF (associationEnd.isColumn() && includeInAssociation) »
-	«type.setCurrentEmbeddable()» 
-	«EXPAND genLabelAndControl FOR this.type-»
+		«type.setCurrentEmbeddable()» 
+		«EXPAND genLabelAndControl FOR this.type-»
 	«ELSE»
+		«IF (isColumn() && autocomplete == true) » 
+			«EXPAND genAutoCompleteAssoc FOR this»
+		«ELSE»
+			«EXPAND genDropDown FOR this»
+		«ENDIF»
+	«REM»comment
+	<a:commandButton oncomplete="Richfaces.showModalPanel('«type.name»ModalPanel',{});" value="Create" /> 
+	<a:commandButton oncomplete="Richfaces.showModalPanel('«type.name»SelectModalPanel',{});" value="Choose" />
+	«ENDREM» 
+	«ENDIF»	
+«ENDDEFINE»
+
+«DEFINE genAutoCompleteAssoc FOR uml::Property»
+	<h:panelGroup>
+	<h:inputText value="#{«getActionForMode()»«genPropertyLabel()-».displayName}" label="«msgBundleKey()»"  id="«getId()»" required="«!getAssocOptional()»" />
+	<rich:suggestionbox  for="«getId()»" tokens=",[]" rules="all" suggestionAction="#{«type.asVar()»List.autocompletedb}"
+		  var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found">
+		«FOREACH type.autoCompleteColumns.getAsList() AS e-»
+			<h:column>
+				<h:outputText value="#{_result.«e»}" />
+			</h:column>
+		«ENDFOREACH»
+						
+		<a:support event="onselect">
+			<f:setPropertyActionListener value="#{_result}"
+				target="#{«getActionForMode()»«genPropertyLabel()-»}" />
+		</a:support>
+	</rich:suggestionbox>
+	</h:panelGroup>
+«ENDDEFINE»
+
+«DEFINE genDropDown FOR uml::Property»
 	<h:selectOneMenu id="«getId()»"   label="«msgBundleKey()»" value="#{«getActionForMode()»«genPropertyLabel()-»}" required="«!getAssocOptional()»">
 		«IF isColumn() && this.controls != null » <a:support event="onchange" reRender="«controls»" ajaxSingle="true" /> «ENDIF»
 		<s:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List"»}" var="itemIter"
@@ -262,11 +290,6 @@
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
-	«REM»comment
-	<a:commandButton oncomplete="Richfaces.showModalPanel('«type.name»ModalPanel',{});" value="Create" /> 
-	<a:commandButton oncomplete="Richfaces.showModalPanel('«type.name»SelectModalPanel',{});" value="Choose" />
-	«ENDREM» 
-	«ENDIF»	
 «ENDDEFINE»
 
 
@@ -339,7 +362,7 @@
 	
 	<rich:dataTable id="«name»_data#{entityId}" var="_«type.asVar()»" 
 		«IF !isCurrentEditMode()» rendered="#{not empty «class.getAction()».list«name.toFirstUpper()»}" «ENDIF»
-					value="#{«class.getAction()».list«name.toFirstUpper()»}" rows="10"
+					value="#{«class.getAction()».list«name.toFirstUpper()»}" 
 				rowKeyVar="rowIndex"
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		«setAsCurrentEntity(type)»

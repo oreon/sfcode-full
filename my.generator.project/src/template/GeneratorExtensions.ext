@@ -188,7 +188,8 @@ boolean hasStereo(Type type, String stereo):
 type.getAppliedStereotype("wcprofile::" + stereo) != null;
 
 
-
+boolean systemModify(Property prop):
+prop.isColumn()  && prop.systemModifyOnly == true;
 
 boolean isColumn(Property type):
 type.getAppliedStereotype("wcprofile::Column") != null;
@@ -223,7 +224,8 @@ prop.type.name + "." +  prop.getDefault();
 
 
 getTransient(Column col):
-col.isDerived() ? "@Formula(value =" +  "\"" + col.derivedProperty + "\")":"";  
+col.derivedFormula != null ? "@Formula(value =" +  "\"" + col.derivedFormula + "\")":"";  
+
 
 isDerived(Column col):
 col.derivedProperty != null;
@@ -389,6 +391,9 @@ JAVA org.wc.generatorutil.RandomValueGenerator.getRandomValue(org.eclipse.uml2.u
 
 boolean isPrimitive(Type type):
 JAVA org.wc.generatorutil.ClassUtil.isPrimitive(org.eclipse.uml2.uml.Type);
+
+elToJava(String str):
+JAVA org.wc.generatorutil.ClassUtil.elToJava(java.lang.String);
 
 
 

@@ -86,14 +86,12 @@
 «ENDDEFINE»
 
 «DEFINE genCancelSaveBtns FOR uml::Class»
-	<div class="actionButtons"><h:commandButton id="search"
-		value="Search" 
-		action="«getViewFile("list")»" >
-			 <s:conversationPropagation type="end"/>
+	<div class="actionButtons">
+		<h:commandButton id="search" value="Search" view="«getViewFile("list")»" >
+			 <s:conversationPropagation type="join"/>
 		</h:commandButton> 
-		<s:button   propagation="none" 
-		id="reset" value="Reset" includePageParams="false" /></div>
-
+		<s:button propagation="none" id="reset" value="Reset" includePageParams="false" />
+	</div>
 «ENDDEFINE»
 
 «DEFINE genAttribAsOutput FOR uml::Class-»

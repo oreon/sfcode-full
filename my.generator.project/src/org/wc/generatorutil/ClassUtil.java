@@ -46,9 +46,8 @@ public class ClassUtil {
 		Operation op;
 
 		CallBehaviorAction cba;
-		
+
 		Property prop;
-		
 
 		xtendFacade = XtendFacade.create("template::GeneratorExtensions");
 		UML2MetaModel mm = new UML2MetaModel();
@@ -145,7 +144,8 @@ public class ClassUtil {
 	}
 
 	public static void main(String[] args) {
-
+		String ret = elToJava("address.phone");
+		System.out.println(ret);
 	}
 
 	public static int getRandomNumber() {
@@ -197,6 +197,11 @@ public class ClassUtil {
 
 	public static List<String> getListFromCommaDeleimtedString(String arg) {
 		String[] arr = arg.split(",");
+		int i = 0;
+		for (String string : arr) {
+			string = string.trim();
+			arr[i++] = string;
+		}
 		return Arrays.asList(arr);
 	}
 
@@ -490,10 +495,11 @@ public class ClassUtil {
 				ControlFlow cf = (ControlFlow) act;
 				act.setName(cf.getGuard().stringValue());
 			}
-			
+
 			if (act instanceof ForkNode) {
 				ForkNode forkNode = (ForkNode) act;
-				forkNode.setName("from" + forkNode.getIncomings().get(0).getName() + "Fork");
+				forkNode.setName("from"
+						+ forkNode.getIncomings().get(0).getName() + "Fork");
 			}
 
 		}
@@ -591,30 +597,58 @@ public class ClassUtil {
 		String[] arr = t.split(":");
 		return (arr.length > 1) ? arr[1].trim() : "";
 	}
-	
+
 	public static Map<String, String> mapFieldsForReports = new HashMap<String, String>();
-	
-	public static String getFieldTypeForReports(String key){
+
+	public static String getFieldTypeForReports(String key) {
 		mapFieldsForReports.put("String", "java.lang.String");
 		mapFieldsForReports.put("long", "java.lang.Long");
 		mapFieldsForReports.put("Long", "java.lang.Long");
 		mapFieldsForReports.put("Double", "java.lang.Double");
 		mapFieldsForReports.put("Date", "java.util.Date");
 		mapFieldsForReports.put("Integer", "java.lang.Integer");
-		
-		if(mapFieldsForReports.containsKey(key))
+
+		if (mapFieldsForReports.containsKey(key))
 			return mapFieldsForReports.get(key);
-		
+
 		System.out.println("Couldnt find report type for " + key);
-		
+
 		return "java.lang.String";
 	}
-	
-	static String[] primitives = {"date", "long", "integer", "boolean", "double", "float", "string"};
-	
-	public static boolean isPrimitive(Type type){
-		String name =type.getName().toLowerCase();
-		return Arrays.asList(primitives).contains(name) ;
+
+	static String[] primitives = { "date", "long", "integer", "boolean",
+			"double", "float", "string" };
+
+	public static boolean isPrimitive(Type type) {
+		String name = type.getName().toLowerCase();
+		return Arrays.asList(primitives).contains(name);
+	}
+
+	/**
+	 * for an expression like customer.address.phone we need to return
+	 * getCustomer().getAddress().setPhone
+	 * 
+	 * @param arg
+	 * @return
+	 */
+	public static String elToJava(String arg) {
+		String[] arr = arg.split("\\.");
+		int i = 0;
+		for (String string : arr) {
+			arr[i++] = StringUtils.capitalize(string);
+		}
+
+		for (i = 0; i < arr.length - 1; i++) {
+			arr[i] = "get" + arr[i] + "().";
+		}
+		arr[arr.length - 1] = "set" + arr[arr.length - 1];
+
+		StringBuffer sb = new StringBuffer();
+		for (String string : arr) {
+			sb.append(string);
+		}
+
+		return sb.toString();
 	}
 
 }

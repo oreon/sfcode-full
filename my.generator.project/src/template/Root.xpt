@@ -96,6 +96,10 @@
 	    }
 	    «ENDIF»
 	    
+	    //Empty setter , needed for richfaces autocomplete to work 
+	    public void setDisplayName(String name){
+	    }
+	    
 	    «EXPAND genSearchFieldsArray FOR this»
 	    
 	    
@@ -225,20 +229,20 @@
 «ENDDEFINE»
 
 
-
-
-
 «DEFINE gen FOR uml::Generalization»
 «ENDDEFINE»
 
 «DEFINE genDecl FOR wcprofile::DerivedProperty»
+	
+«ENDDEFINE»
 
+«DEFINE genDecl FOR wcprofile::DerivedFormula»
+	
 «ENDDEFINE»
 
 
 «DEFINE genDecl FOR uml::Property»
 	«IF isMultivalued()»
-		//«name»->«opposite.name» ->«opposite.type.name»->«association.endType.get(0).name»->«opposite.association.endType.get(0).name»
 		«IF opposite!= null && opposite.isMultivalued() » «REM»Many to many relationship«ENDREM»
 			«IF  isAggregate()»
 			@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
@@ -264,7 +268,7 @@
 			«IF !(isOneOnOne() && isAggregate())»@JoinColumn(name="«name»_id", nullable=«getAssocOptional()», updatable = «getAssocUpdatable()») «ENDIF»
     		«IF type.name != class.name»@ContainedIn«ENDIF»
 		«ENDIF» 
-		«IF type.isEmbeddable() || isContainedAssoc() »
+		«IF type.isEmbeddable() || isContainedAssoc() || (isColumn() && autocomplete)»
 			«IF type.name != class.name && type.isEmbeddable() »@IndexedEmbedded «EXPAND EmbeddedAttributes FOR this»  «ENDIF»
 			protected «type.fqnForPackage(this.class)» «name» = new «type.fqnForPackage(this.class)»();
 		«ELSE»
@@ -307,6 +311,7 @@
     } )
 	protected FileAttachment «name» = new FileAttachment();	
 	«ELSE»
+		«IF isColumn() && (derivedFormula != null || derivedProperty != null)»@Transient«ENDIF»
 		«IF isString()» @Field(index = Index.TOKENIZED) @Analyzer(definition = "customanalyzer") «ENDIF»
 		protected «type.fqnForPackage(this.class)» «name» «getDefault() != null?" = " +getDefaultVal(type):""»;
 	«ENDIF»
@@ -331,10 +336,7 @@
 		}
 		
 		public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
-		«REM»comment
 			return «isColumn() && derivedProperty != null ? derivedProperty :  name»;
-		«ENDREM»
-			return «name»;
 		}
 	«ENDIF»
 «ENDDEFINE»
@@ -342,7 +344,7 @@
 «DEFINE genGetterSetter FOR wcprofile::DerivedProperty»
 //derived property - «name»
 public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
-	«REM» return «derivation != null ? derivation :  name»;«ENDREM»
+	return «derivation != null ? derivation :  name»;
 	return «name»;
 }
 «ENDDEFINE»
@@ -414,4 +416,6 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	import org.witchcraft.model.support.audit.Auditable;
 	import org.witchcraft.base.entity.FileAttachment;
 	import org.hibernate.annotations.Filter;
+	
+	import org.witchcraft.utils.*;
 «ENDDEFINE»

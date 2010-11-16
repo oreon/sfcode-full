@@ -81,9 +81,20 @@ public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
 	public void onArchive(){
 		refresh();
 	}	
+	
+	«IF autoCompleteColumns != null»
+	@Override
+	protected void setupForAutoComplete(String input){
+		«FOREACH autoCompleteColumns.getAsList() AS e»
+			«name.toFirstLower()».«e.elToJava()»(input);
+		«ENDFOREACH»
+	}
+	«ENDIF»
 }
 «ENDFILE»
 «ENDDEFINE»
+
+
 
 
 «DEFINE genAttribAsOutput(boolean createRangeDeclarations)  FOR uml::Class-»

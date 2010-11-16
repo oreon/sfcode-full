@@ -192,13 +192,12 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	«EXPAND template::Root::genUnqNamedQryOp  FOREACH getAllAttributes()»
 	
 	
-	«REM»comment
-	«IF treeHierarchy != null»
-		public List<«name»> getTopLevel«getTreeParent().toFirstUpper»(){
+	
+	«IF treeFlds != null»
+		public List<«name»> getTopLevel«getTreeParent().toFirstUpper()»(){
 			return  getEntityManager().createQuery("select e from «name» e where e.«getTreeParent()» is null").getResultList();
 		}
 	«ENDIF»
-	«ENDREM»
 	
 	«FOREACH getAllAttributes().select ( e | e.isFile() ) AS e»	
 	public String download«e.name.toFirstUpper()»(Long id) {
