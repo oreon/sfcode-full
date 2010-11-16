@@ -35,8 +35,8 @@
 		<ui:composition «EXPAND WebRoot::genIncludes-» >	
 			
 		<rich:panel>
+		   <f:facet name="header">«name» Search Results (#{empty «asVar()»List.resultList ? 0 : («asVar()»List.paginated ? «asVar()»List.resultCount : «asVar()»List.resultList.size)})</f:facet>
 		   <a:form>
-			  <f:facet name="header">«name» Search Results (#{empty «asVar()»List.resultList ? 0 : («asVar()»List.paginated ? «asVar()»List.resultCount : «asVar()»List.resultList.size)})</f:facet>
 			
 				<rich:dataTable  var="_«asVar()»" value="#{«asVar()»List.resultList}"  id="«name.toFirstLower()»List"
 				rowClasses="odd, even" styleClass="dataTable"  rendered="#{not empty «asVar()»List.resultList}">	
