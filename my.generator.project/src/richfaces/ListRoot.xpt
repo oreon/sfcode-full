@@ -7,72 +7,54 @@
 
 «DEFINE genView FOR uml::Class»
 	«FILE getWebPath() +"/list" +name+ "." + getExtension()»
-<ui:composition «EXPAND WebRoot::genIncludes» template="«getAdminTemplate()»"  >	
-	«setAsCurrentEntity(this)-»
-	«clearCurrentEmbeddable()-»
-	<ui:define name="content">
-		<ui:include src="search«name».«getExtension()»" />
-		<ui:include src="list«name»Component.«getExtension()»" />
+		<ui:composition «EXPAND WebRoot::genIncludes» template="«getAdminTemplate()»"  >	
+			«setAsCurrentEntity(this)-»
+			«clearCurrentEmbeddable()-»
+			<ui:define name="content">
+				<ui:include src="search«name».«getExtension()»" />
+				<br/> <br/>
+				<ui:include src="list«name»Component.«getExtension()»" />
+				
+				<a:form>
+				<s:button value="Create New" view="«getViewFile("edit")»" propagation="begin" />
+					<a:commandButton 
+						oncomplete="Richfaces.showModalPanel('«name»ModalPanel',{});" value="Quick Create" >
+					</a:commandButton>
+				</a:form>
+				<ui:include src="«getComponentViewFile("modalDlg")»" />
+			</ui:define>
+		</ui:composition>
+			«ENDFILE»
+			«EXPAND genViewComponent FOR this»
+			«EXPAND auditListRoot::genAuditLogComponent FOR this»
+			«EXPAND modelDlg::genModelDlgComponent FOR this»
+		«ENDDEFINE»
 		
-		<a:form>
-			<a:commandButton 
-				oncomplete="Richfaces.showModalPanel('«name»ModalPanel',{});" value="Quick Create" >
-			</a:commandButton>
-		</a:form>
-		<ui:include src="«getComponentViewFile("modalDlg")»" />
-	</ui:define>
-</ui:composition>
-	«ENDFILE»
-	«EXPAND genViewComponent FOR this»
-	«EXPAND auditListRoot::genAuditLogComponent FOR this»
-	«EXPAND modelDlg::genModelDlgComponent FOR this»
-«ENDDEFINE»
-
-«DEFINE genViewComponent FOR uml::Class»
-	«FILE getWebPath() +"/list" +name+ "Component." + getExtension()»
-<ui:composition «EXPAND WebRoot::genIncludes-» >	
-	
-	
-<rich:panel>
-   <a:form>
-	  <f:facet name="header">«name» Search Results (#{empty «asVar()»List.resultList ? 0 : («asVar()»List.paginated ? «asVar()»List.resultCount : «asVar()»List.resultList.size)})</f:facet>
-	
-		<rich:dataTable  var="_«asVar()»" value="#{«asVar()»List.resultList}"  id="«name.toFirstLower()»List"
-		rowClasses="odd, even" styleClass="dataTable"  rendered="#{not empty «asVar()»List.resultList}">	
-		«EXPAND genId FOR this-»	
-		«EXPAND genAttribAsOutput FOR this-»
-		«EXPAND genPropsFromBusinessEntity FOR this-»
-		«EXPAND genCreationDate FOR this-»	
-		«EXPAND genLink("view", "eye.png") FOR this»
-		«EXPAND genLink ("edit", "edit.png")FOR this»
-		«EXPAND genDeleteLink FOR this»
-		«EXPAND genQuickEditLink FOR this»
-		</rich:dataTable>
- 	</a:form>		
-</rich:panel>	
-
-
-«EXPAND paginationLinks FOR this»
-
-<h:form>
-<s:div styleClass="actionButtons" rendered="#{empty from}">
-	<s:button value="Create New" view="«getViewFile("edit")»"  propagation="none">
-		 <f:param name="«asVar()»Id"/>
-		 «REM»comment
-		«FOREACH getNonComposedManyAssociationsOpposite() AS e-»
-		REM in case of a self association  we need to use entity reference ENDREM
-		«IF e.type.name == getCurrentEntity().name-»
-			<f:param name="«e.name»Id" value="#{«e.type.getAction()».«e.name.toFirstLower()»Id}" />
-		«ELSE»
-			<f:param name="«e.name»Id" value="#{«e.type.getAction()».«e.type.name.toFirstLower()».id}" />
-		«ENDIF»
-		«ENDFOREACH»
-		«ENDREM»
-	</s:button>
-</s:div>
-</h:form>
-
-</ui:composition>
+		«DEFINE genViewComponent FOR uml::Class»
+			«FILE getWebPath() +"/list" +name+ "Component." + getExtension()»
+		<ui:composition «EXPAND WebRoot::genIncludes-» >	
+			
+		<rich:panel>
+		   <a:form>
+			  <f:facet name="header">«name» Search Results (#{empty «asVar()»List.resultList ? 0 : («asVar()»List.paginated ? «asVar()»List.resultCount : «asVar()»List.resultList.size)})</f:facet>
+			
+				<rich:dataTable  var="_«asVar()»" value="#{«asVar()»List.resultList}"  id="«name.toFirstLower()»List"
+				rowClasses="odd, even" styleClass="dataTable"  rendered="#{not empty «asVar()»List.resultList}">	
+				«EXPAND genId FOR this-»	
+				«EXPAND genAttribAsOutput FOR this-»
+				«EXPAND genPropsFromBusinessEntity FOR this-»
+				«EXPAND genCreationDate FOR this-»	
+				«EXPAND genLink("view", "eye.png") FOR this»
+				«EXPAND genLink ("edit", "edit.png")FOR this»
+				«EXPAND genDeleteLink FOR this»
+				«EXPAND genQuickEditLink FOR this»
+				</rich:dataTable>
+		 	</a:form>		
+		</rich:panel>	
+		
+		«EXPAND paginationLinks FOR this»
+		
+		</ui:composition>
 	«ENDFILE»
 «ENDDEFINE»
 
