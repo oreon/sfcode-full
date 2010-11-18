@@ -72,8 +72,8 @@
 «DEFINE genClassBody FOR wcprofile::Entity»
 	@Entity
 	@Table(name="«getTableName()»")
-	@Name("«asVar()»")
 	@Filter(name = "archiveFilterDef") 
+	«IF !isAbstract»@Name("«asVar()»")
 	@Indexed
 	@AnalyzerDef(name = "customanalyzer",
 		  tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
@@ -83,7 +83,8 @@
 		      @Parameter(name = "language", value = "English")
 		    })
 	})
-	public class «name» «getParent()»  «getInterfaces()» «getImplementedInterfaces().isEmpty  ?" implements " : ","»  «getAuditable()?"Auditable, ":""» java.io.Serializable {
+	«ENDIF»
+	public  «IF isAbstract» abstract «ENDIF» class «name» «getParent()»  «getInterfaces()» «getImplementedInterfaces().isEmpty  ?" implements " : ","»  «getAuditable()?"Auditable, ":""» java.io.Serializable {
 		private static final long serialVersionUID = «serialver()»;
 		
 		«EXPAND genDecl FOREACH getAllAttributes() »

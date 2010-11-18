@@ -38,24 +38,35 @@
 «ENDDEFINE»
 
 «DEFINE BaseGen FOR wcprofile::MappedSuperClass»
+	«EXPAND AbstractGen FOR this»
+«ENDDEFINE»
 
-	«FILE getWebPackagePath("Action")  man_path »
-	
-package « getWebPackageName() »;
-
-«EXPAND genImports FOR this»	
-import org.witchcraft.seam.action.BaseAction; 
-import org.witchcraft.base.entity.BusinessEntity;
-
-public  abstract class «name»Action<T extends BusinessEntity> extends BaseAction<T> implements java.io.Serializable{
-	
-}
-	«ENDFILE»
-
+«DEFINE BaseGen FOR wcprofile::Entity»
+	«IF !isAbstract»
+		«EXPAND BaseGenImpl FOR this»
+	«ELSE»
+		«EXPAND AbstractGen FOR this»
+	«ENDIF»
 «ENDDEFINE»
 
 
-«DEFINE BaseGen FOR wcprofile::Entity»
+«DEFINE AbstractGen FOR uml::Class»
+	«FILE getWebPackagePath("Action")  man_path »
+		
+		package « getWebPackageName() »;
+		
+		«EXPAND genImports FOR this»	
+		import org.witchcraft.seam.action.BaseAction; 
+		import org.witchcraft.base.entity.BusinessEntity;
+		
+		public  abstract class «name»Action<T extends BusinessEntity> extends BaseAction<T> implements java.io.Serializable{
+			
+		}
+	«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE BaseGenImpl FOR wcprofile::Entity»
 «FILE getWebPackagePath("ActionBase")   »
 package « getWebPackageName() »;
 
@@ -69,23 +80,28 @@ import «a.type.fqn()»;
 «ENDFOREACH»
 
 
-public abstract class «name»ActionBase extends «getFirstParent() == null || getFirstParent().length == 0 ? "BaseAction<" +  name + ">" : parents().get(0).getActionFqn() + " <" + name + ">" » implements java.io.Serializable{
+public abstract class «name»ActionBase extends «getFirstParent() == null || getFirstParent().length == 0 ? "BaseAction<" +  name + ">" :
+	 parents().get(0).getActionFqn() + getGenericType(parents().get(0)) » implements java.io.Serializable{
+
+
 
 	@In(create = true)
 	@Out(required = false)
 	@DataModelSelection
 	private «name» «asVar()»;
 	
-	
 	«FOREACH getOutgoingAssociations() AS e»
+	«IF !e.type.isAbstract»
 	 @In(create = true, value="«e.type.name.toFirstLower()»Action")
 	 «e.type.getActionFqn()» «e.name»Action;
+	«ENDIF»
 	«ENDFOREACH»
 	
 	«FOREACH getNonComposedManyAssociations() AS e»
 	 @In(create = true,  value="«e.type.name.toFirstLower()»List")
  	«e.type.getListFqn()» «e.name.getSingular()»List;
 	«ENDFOREACH»
+	
 
 	@DataModel
 	private List<«name»> «asVar()»RecordList;	
@@ -105,6 +121,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	}
 	
 	«FOREACH getOutgoingAssociations() AS e-»
+	«IF !e.type.isAbstract»
 	public void set«e.name.toFirstUpper()»Id(Long id) {
 	   if(id != null && id > 0 )
 			getInstance().set«e.name.toFirstUpper()»(«e.name»Action.loadFromId(id));
@@ -115,6 +132,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 			return getInstance().get«e.name.toFirstUpper()»().getId();
 		return 0L;
 	}
+	«ENDIF»
 	«ENDFOREACH»
 	
 
@@ -122,32 +140,28 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		return (Long) getId();
 	}
 	
-
-	//@Factory("«asVar()»RecordList")
-	//@Observer("archived«name»")
-	public void findRecords() {
-		//search();
-	}	
+	
 
 	public «name» getEntity(){
 		return «asVar()»;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(«name» t) {
 		this.«asVar()» = t;
 		loadAssociations();
 	}
 	
 	public «name» get«name»(){
-		return getInstance();
+		return («name»)getInstance();
 	}
 	
-	
+	«IF ! isAbstract»
 	@Override
 	protected «name» createInstance() {
 		return new «name»();
 	}
+	
 
 	public void load() {
 		if (isIdDefined()) {
@@ -158,10 +172,12 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	public void wire() {
 		getInstance();
 		«FOREACH getOutgoingAssociations() AS e-»
+		«IF !e.type.isAbstract»
 		«e.type.fqn()» «e.name» = «e.name»Action.getDefinedInstance();
 		if («e.name» != null) {
-			getInstance().set«e.name.toFirstUpper()»(«e.name»);
+			 getInstance().set«e.name.toFirstUpper()»(«e.name»);
 		}
+		«ENDIF»
 		«ENDFOREACH»
 	}
 
@@ -170,7 +186,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	}
 
 	public «name» getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return («name») (isIdDefined() ? getInstance() : null);
 	}
 	
 
@@ -184,10 +200,6 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		return «name».class;
 	}
 
-	@Override
-	public void setEntityList(List<«name»> list) {
-		this.«asVar()»RecordList = list;
-	}
 	
 	«EXPAND template::Root::genUnqNamedQryOp  FOREACH getAllAttributes()»
 	
@@ -231,9 +243,11 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	 */
 	public void loadAssociations(){
 		«FOREACH getOutgoingAssociations() AS e»
+		«IF !e.type.isAbstract»
 		if («asVar()».get«e.name.toFirstUpper()»() != null) {
 			«e.name»Action.setInstance(getInstance().get«e.name.toFirstUpper()»());
 		}
+		«ENDIF»
 		«ENDFOREACH»
 		
 		«FOREACH getMultiValued() AS e»
@@ -243,7 +257,9 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		«IF !getNonComposedManyAssociations().isEmpty»
 		try{
 		«FOREACH getNonComposedManyAssociations() AS e»
+		«IF !e.type.isAbstract»
 		«e.type.asVar()»List.get«e.name.toFirstUpper().getSingular()»().set«e.opposite.name.toFirstUpper()»(getInstance());
+		«ENDIF»
 		«ENDFOREACH»
 		}catch(Exception e){
 			addErrorMessage("Error updating associaiton " + e.getMessage());
@@ -270,14 +286,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		«EXPAND updateList FOREACH getLeadingManyToMany() -»
 	}
 	
-	
-	public List<«name»> getEntityList(){
-		if(«asVar()»RecordList == null){
-			findRecords();
-		}
-		return «asVar()»RecordList;
-	}
-	
+
 	«EXPAND template::Root::genOperation FOREACH getAllOperations()»
 	
 	
@@ -290,10 +299,12 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	«IF getAppliedStereotype("wcprofile::SystemUser") != null»
 		public «name» getCurrentLoggedIn«name»(){
 			String query = "Select e from «name» e where e.user.userName = ?1";
-			return executeSingleResultQuery(query, Identity.instance().getCredentials().getUsername());
+			return («name») executeSingleResultQuery(query, Identity.instance().getCredentials().getUsername());
 		}
 	«ENDIF»
-	
+
+
+ «ENDIF»
 	
 }
 «ENDFILE»

@@ -18,7 +18,7 @@ package « getWebPackageName() »;
 
 «EXPAND genImports FOR this»	
 @Name("«asVar()»List")
-@Scope(ScopeType.CONVERSATION)
+//@Scope(ScopeType.CONVERSATION)
 public class «name»ListQuery extends «name»ListQueryBase implements java.io.Serializable{
 	
 }
@@ -27,6 +27,7 @@ public class «name»ListQuery extends «name»ListQueryBase implements java.io.Seri
 
 
 «DEFINE BaseGen FOR uml::Class»
+
 «setAsCurrentEntity(this)-»
 «FILE getWebPackagePath("ListQueryBase")   »
 package « getWebPackageName() »;
@@ -44,11 +45,28 @@ import «packageName()».«name»;
  * @author WitchcraftMDA Seam Cartridge
  *
  */
-public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
+public abstract class «name»ListQueryBase extends «IF !isAbstract» BaseQuery<«name», Long>   «ELSE» EntityQuery<«name»>«ENDIF»{
 
     //private static final String EJBQL = "select «asVar()» from «name» «asVar()»";
     
+    «IF !isAbstract»
     protected «name» «name.toFirstLower()» = new «name»();
+    
+    public «name» get«name»() {
+		return «asVar()»;
+	}
+	
+		
+	@Override
+	public Class<«name»> getEntityClass() {
+		return «name».class;
+	}
+	
+	@Override
+	public String[] getEntityRestrictions() {
+		return RESTRICTIONS;
+	}
+	«ENDIF»
     
     «EXPAND genAttribAsOutput(true) FOR this»
    
@@ -62,20 +80,6 @@ public abstract class «name»ListQueryBase extends BaseQuery<«name», Long> {
 		"«asVar()».dateCreated >= #{«asVar()»List.dateCreatedRange.begin}",
 	};
 
-	public «name» get«name»() {
-		return «asVar()»;
-	}
-	
-	@Override
-	public Class<«name»> getEntityClass() {
-		return «name».class;
-	}
-	
-	@Override
-	public String[] getEntityRestrictions() {
-		// TODO Auto-generated method stub
-		return RESTRICTIONS;
-	}
 	
 	@Observer("archived«name»")
 	public void onArchive(){
