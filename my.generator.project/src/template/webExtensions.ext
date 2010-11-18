@@ -244,6 +244,10 @@ prop.access;
 getAccess(Property prop):
 null;
 
+//getgeneric type for an action, for abstract classes we have to return none
+getGenericType(Class child, Class parent):
+!parent.isMappedSuperClass() ? "": "<" + child.name + ">";
+
 genPropertyLabel(Property prop):
 getCurrentEntity().asVar() + "." + (prop.getEmbeddableClassName()) + prop.name.toFirstLower();
 

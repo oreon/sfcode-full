@@ -13,7 +13,9 @@
 			<ui:define name="content">
 				<ui:include src="search«name».«getExtension()»" />
 				<br/> <br/>
-				<ui:include src="list«name»Component.«getExtension()»" />
+				<ui:include src="list«name»Component.«getExtension()»" >
+					<ui:param name="records" value="#{«asVar()»List.resultList}" />
+         		</ui:include>
 				
 				<a:form>
 				<s:button value="Create New" view="«getViewFile("edit")»" propagation="begin" />
@@ -35,11 +37,11 @@
 		<ui:composition «EXPAND WebRoot::genIncludes-» >	
 			
 		<rich:panel>
-		   <f:facet name="header">«name» Search Results (#{empty «asVar()»List.resultList ? 0 : («asVar()»List.paginated ? «asVar()»List.resultCount : «asVar()»List.resultList.size)})</f:facet>
+		   <f:facet name="header">«name» Search Results (#{empty records ? 0 : («asVar()»List.paginated ? «asVar()»List.resultCount : records.size)})</f:facet>
 		   <a:form>
 			
-				<rich:dataTable  var="_«asVar()»" value="#{«asVar()»List.resultList}"  id="«name.toFirstLower()»List"
-				rowClasses="odd, even" styleClass="dataTable"  rendered="#{not empty «asVar()»List.resultList}">	
+				<rich:dataTable  var="_«asVar()»" value="#{records}"  id="«name.toFirstLower()»List"
+				rowClasses="odd, even" styleClass="dataTable"  rendered="#{not empty records}">	
 				«EXPAND genId FOR this-»	
 				«EXPAND genAttribAsOutput FOR this-»
 				«EXPAND genPropsFromBusinessEntity FOR this-»

@@ -64,7 +64,9 @@
 			<rich:tabPanel>
 			«FOREACH getNonComposedManyAssociations() AS a»
 			<rich:tab label="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
-				<ui:include src = "«a.type.getComponentViewFile("list")»" />
+				<ui:include src = "«a.type.getComponentViewFile("list")»" >
+					<ui:param name="records" value="#{«getAction()».list«a.name.toFirstUpper()»}" />
+         		</ui:include>
 			</rich:tab>
 			«ENDFOREACH»
 			</rich:tabPanel>

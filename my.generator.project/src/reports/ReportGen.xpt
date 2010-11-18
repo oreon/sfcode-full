@@ -266,23 +266,13 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 				<reportElement x="0" y="0" width="«getAllAttributes().size* getFieldWidth() < 600 ? 600 : getAllAttributes().size* getFieldWidth()»" height="1"/>
 				<graphicElement/>
 			</line>
-			<staticText>
+			<textField>
 				<reportElement x="0" y="10" width="«getAllAttributes().size* getFieldWidth() < 600 ? 600 : getAllAttributes().size* getFieldWidth()»" height="30" />
 				<textElement textAlignment="Center">
-					<font size="20"/>
+					<font size="13"/>
 				</textElement>
-				<text><![CDATA[«title == null? name : title»]]></text>
-			</staticText>
-			«REM»comment
-			<textField isBlankWhenNull="true" bookmarkLevel="1">
-				<reportElement x="0" y="10" width="515" height="30" />
-				<textElement textAlignment="Center">
-					<font size="22"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{ReportTitle}]]></textFieldExpression>
-				<anchorNameExpression><![CDATA["Title"]]></anchorNameExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[«title == null? "\"" + name + "\"" : title»]]></textFieldExpression>
 			</textField>
-			«ENDREM»
 		</band>
 	</title>
 «ENDDEFINE»		
