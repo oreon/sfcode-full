@@ -21,8 +21,11 @@ import org.eclipse.uml2.uml.CallBehaviorAction;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.ControlFlow;
+import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.Feature;
 import org.eclipse.uml2.uml.ForkNode;
 import org.eclipse.uml2.uml.Interface;
+import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
@@ -649,6 +652,18 @@ public class ClassUtil {
 		}
 
 		return sb.toString();
+	}
+	
+	public static Class getFirstChild (Class c){
+		
+		Model m = c.getModel();
+		EList<Element> children = m.allOwnedElements();
+		for (Element element : children) {
+			if(element instanceof Class && ((Class)element).allParents().contains(c))
+				return (Class)element;
+		}
+		
+		return null;
 	}
 
 }

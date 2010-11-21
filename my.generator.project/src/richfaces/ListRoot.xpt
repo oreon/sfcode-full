@@ -19,7 +19,7 @@
 				
 				<a:form>
 				<s:button value="Create New" view="«getViewFile("edit")»" propagation="begin" />
-					<a:commandButton 
+					<a:commandButton action="#{«asVar()»Action.clearInstance}"
 						oncomplete="Richfaces.showModalPanel('«name»ModalPanel',{});" value="Quick Create" >
 					</a:commandButton>
 				</a:form>
@@ -168,7 +168,7 @@
 				<ui:param name="propertyPath" value="«genPropertyLabel()»" />
 			</ui:include>
 		</f:facet>
-		<s:link «getEscape()»  value="#{_«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" >
+		<s:link «getEscape()»  value="#{_«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" propagation="begin">
 			<f:param name="«name»Id" value="#{_«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 		</s:link>

@@ -29,6 +29,12 @@
 			</rule>
 		</navigation>
 	</page>
+	
+	 <page action="#{pageViewStack.push}" login-required="true" view-id="/admin/*"/> 
+	  
+	 <page view-id="/parent.xhtml"> 
+	    <action execute="#{pageViewStack.pop}"/> 
+	 </page>
 «ENDPROTECT»
 
     
@@ -46,10 +52,12 @@
         «FOREACH allOwnedElements().typeSelect(wcprofile::Entity) AS e»
             <rule if-outcome="«e.asVar()»">
                 <redirect view-id="«e.getViewFile("list")»" />
+                <end-conversation/> 
             </rule>
             
             <rule if-outcome="view«e.name»">
                 <redirect view-id="«e.getViewFile("view")»" />
+                <end-conversation/> 
             </rule>
         «ENDFOREACH»
         </navigation>
@@ -74,14 +82,14 @@
 		«ENDFOREACH»
 	</page>
 	
-	 <page view-id="«e.getViewFile("view")»"  >
+	 <page view-id="«e.getViewFile("view")»"  action="#{redirect.captureCurrentView()}">
 	 	<!-- <description>View «e.name»: #{«e.name.toFirstLower()».displayName}</description> -->
 	 	<navigation> 
 			 <rule if-outcome="edit">
  				<redirect view-id="«e.getViewFile("edit")»" />
             </rule>	
              <rule if-outcome="cancel">
- 				<redirect view-id="«e.getViewFile("list")»" />
+ 				<redirect view-id="/parent.xhtml" />
             </rule>			
 		</navigation>
 		<param name="«e.asVar()»Id" value="#{«e.asVar()»Action.«e.asVar()»Id}" />

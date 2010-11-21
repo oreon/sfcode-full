@@ -5,14 +5,18 @@
 «EXTENSION template::webExtensions»
 «EXTENSION template::associationExtensions»
 
-
 «DEFINE genModelDlgComponent FOR uml::Class»
+	«EXPAND genEditModelDlgComponent FOR this»
+	«EXPAND genViewModelDlgComponent FOR this»
+«ENDDEFINE»
+
+
+«DEFINE genEditModelDlgComponent FOR uml::Class»
 	«FILE getWebPath() +"/modalDlg" + name + "Component." + getExtension()»
 
 <ui:composition «EXPAND WebRoot::genIncludes-»>	
 
-
-<rich:modalPanel id="«name»ModalPanel" autosized="true" zindex="2000" domElementAttachment="parent">
+	<rich:modalPanel id="«name»ModalPanel" autosized="true" zindex="2000" domElementAttachment="parent">
 			<f:facet name="header">
 				<h:panelGroup>
 					<h:outputText value="New «name»"></h:outputText>
@@ -27,8 +31,7 @@
 				</h:panelGroup>
 			</f:facet>
 			
-			<s:div id="«name»ModalDiv">
-			
+			<s:div >
 				<a:outputPanel ajaxRendered="true"  id="«name.toFirstLower()»OutputPanel">
 					<rich:messages passedLabel=""
 						style="width:100%; text-align: left; color: red; font-weight: bold;"
@@ -54,8 +57,40 @@
 						<a:commandButton action="#{«getAction()».cancel}" immediate="true" type="reset" oncomplete="Richfaces.hideModalPanel('«name»ModalPanel');"  value="Cancel"> 
 				          <f:param name="conversationPropagation" value="end"/> 
 				        </a:commandButton>
-						
 
+					</a:form>
+				</a:outputPanel>
+			</s:div>
+		</rich:modalPanel>
+</ui:composition>
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE genViewModelDlgComponent FOR uml::Class»
+	«FILE getWebPath() +"/modalDlgView" + name + "Component." + getExtension()»
+	
+<ui:composition «EXPAND WebRoot::genIncludes-»>	
+	<rich:modalPanel id="view«name»ModalPanel" autosized="true" zindex="2000" domElementAttachment="parent">
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="New «name»"></h:outputText>
+				</h:panelGroup>
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/close.png" alt="Close"
+						styleClass="hidelink"  />
+					<rich:componentControl for="view«name»ModalPanel" attachTo="hidelink"
+						operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			
+			<s:div >
+				<a:outputPanel ajaxRendered="true"  id="view«name»OutputPanel">
+					<a:form>
+						<ui:include src = "«getComponentViewFile("view")»" />
+						<h:outputText value=" " />
+						<a:commandButton oncomplete="Richfaces.hideModalPanel('«name»ModalPanel')" value="Hide" />
 					</a:form>
 				</a:outputPanel>
 			</s:div>

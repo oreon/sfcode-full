@@ -83,8 +83,6 @@ import «a.type.fqn()»;
 public abstract class «name»ActionBase extends «getFirstParent() == null || getFirstParent().length == 0 ? "BaseAction<" +  name + ">" :
 	 parents().get(0).getActionFqn() + getGenericType(parents().get(0)) » implements java.io.Serializable{
 
-
-
 	@In(create = true)
 	@Out(required = false)
 	@DataModelSelection
@@ -98,8 +96,10 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	«ENDFOREACH»
 	
 	«FOREACH getNonComposedManyAssociations() AS e»
-	 @In(create = true,  value="«e.type.name.toFirstLower()»List")
- 	«e.type.getListFqn()» «e.name.getSingular()»List;
+	«IF !e.type.isAbstract»
+	 @In(create = true, value="«e.type.name.toFirstLower()»Action")
+	 «e.type.getActionFqn()» «e.name»Action;
+	«ENDIF»
 	«ENDFOREACH»
 	
 
@@ -107,6 +107,11 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	private List<«name»> «asVar()»RecordList;	
 	
 	public void set«name»Id(Long id) {
+		if(id == 0){
+			clearInstance();
+			loadAssociations();
+			return;
+		}
 		setId(id);
 		if(!isPostBack())
 			loadAssociations();
@@ -121,10 +126,12 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	}
 	
 	«FOREACH getOutgoingAssociations() AS e-»
-	«IF !e.type.isAbstract»
+	
 	public void set«e.name.toFirstUpper()»Id(Long id) {
+	   «IF !e.type.isAbstract»
 	   if(id != null && id > 0 )
 			getInstance().set«e.name.toFirstUpper()»(«e.name»Action.loadFromId(id));
+	   «ENDIF»
 	}
 
 	public Long get«e.name.toFirstUpper()»Id() {
@@ -132,7 +139,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 			return getInstance().get«e.name.toFirstUpper()»().getId();
 		return 0L;
 	}
-	«ENDIF»
+	
 	«ENDFOREACH»
 	
 
@@ -253,19 +260,6 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		«FOREACH getMultiValued() AS e»
 			initList«e.name.toFirstUpper()»(); 
 		«ENDFOREACH»
-		
-		«IF !getNonComposedManyAssociations().isEmpty»
-		try{
-		«FOREACH getNonComposedManyAssociations() AS e»
-		«IF !e.type.isAbstract»
-		«e.type.asVar()»List.get«e.name.toFirstUpper().getSingular()»().set«e.opposite.name.toFirstUpper()»(getInstance());
-		«ENDIF»
-		«ENDFOREACH»
-		}catch(Exception e){
-			addErrorMessage("Error updating associaiton " + e.getMessage());
-		}
-		«ENDIF»
-		
 	}
 	
 	public void updateAssociations(){

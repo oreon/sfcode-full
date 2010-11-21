@@ -12,7 +12,8 @@
 	
 <ui:composition «EXPAND WebRoot::genIncludes-» >	
 	<h:form>
-	<rich:simpleTogglePanel switchType="client" label="Search">
+	<ui:include src="freeTypeSearch«name»Component.xhtml" />
+	<rich:simpleTogglePanel switchType="client" label="Advanced Search" opened="false">
 		<rich:tabPanel>
 			<rich:tab label="Search">
 				<ui:include src="fieldSearch«name»Component.xhtml" />
@@ -30,6 +31,7 @@
 «ENDFILE»
 «EXPAND genFieldSearchView FOR this»
 «EXPAND genTextSearchView FOR this»
+«EXPAND genFreeTypeSearch FOR this»
 «ENDDEFINE»
 
 «DEFINE genFieldSearchView FOR uml::Class»
@@ -44,6 +46,39 @@
 </ui:composition>
 «ENDFILE»
 «ENDDEFINE»
+
+«DEFINE genFreeTypeSearch FOR uml::Class»
+«FILE getWebPath() +"/" + "freeTypeSearch" + name + "Component." + getExtension()»
+<ui:composition «EXPAND WebRoot::genIncludes-» >
+	<h:inputText id="freeType«name»" />
+	«EXPAND genSuggestionBox »
+	<s:button view="«getViewFile("view")»" value="GO"/>
+</ui:composition>
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE genSuggestionBox FOR uml::Class»
+	<rich:suggestionbox  for="freeType«name»"  rules="all" suggestionAction="#{«asVar()»List.autocompletedb}"
+		  var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999">
+		«IF autoCompleteColumns == null»
+			<h:column>
+				<h:outputText value="#{_result.displayName}" />
+			</h:column>
+		«ELSE»
+		«FOREACH autoCompleteColumns.getAsList() AS e-»
+			<h:column>
+				<h:outputText value="#{_result.«e»}" />
+			</h:column>
+		«ENDFOREACH»
+		«ENDIF»
+						
+		<a:support event="onselect">
+			<f:setPropertyActionListener value="#{_result}"
+				target="#{«getAction()».instance}" />
+		</a:support>
+	</rich:suggestionbox>
+«ENDDEFINE»
+
 
 
 «DEFINE genTextSearchView FOR uml::Class»
