@@ -12,7 +12,64 @@
     </ui:define>
 
     <ui:define name="body">
-        
+                    <h:form>
+
+                 <p:ajaxStatus style="width:16px;height:16px;">
+                    <f:facet name="start">
+                        <h:graphicImage value="/images/ajaxloading.gif" />
+                    </f:facet>
+
+                    <f:facet name="complete">
+                        <h:outputText value="" />
+                    </f:facet>
+                </p:ajaxStatus>
+
+                        <p:dataTable var="cust" value="#{dataModelBean.customerModel}" paginator="true" rows="10" lazy="true"
+                             paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                             rowsPerPageTemplate="5,10,15"
+                             selection="#{dataModelBean.selectedCustomer}" selectionMode="single"
+                             onRowSelectComplete="customerDialog.show()" onRowSelectUpdate="display">
+
+                             <f:facet name="header">
+                                 Displaying #{dataModelBean.customerModel.rowCount} Customers
+                    </f:facet>
+
+                    <p:column headerText="NAME">
+                        <h:outputText value="#{cust.name}" />
+                    </p:column>
+
+                    <p:column headerText="CITY">
+                        <h:outputText value="#{cust.city}" />
+                    </p:column>
+
+                    <p:column headerText="STATE">
+                        <h:outputText value="#{cust.state}" />
+                    </p:column>
+
+                    <p:column headerText="PHONE">
+                        <h:outputText value="#{cust.phone}" />
+                    </p:column>
+                        </p:dataTable>
+
+                 <p:dialog header="Customer Detail" widgetVar="customerDialog" resizable="false"
+                          width="200" showEffect="explode" hideEffect="explode">
+
+                    <h:panelGrid id="display" columns="2" cellpadding="4">
+
+                        <h:outputText value="NAME:" />
+                        <h:outputText value="#{dataModelBean.selectedCustomer.name}" style="font-weight:bold"/>
+
+                        <h:outputText value="City:" />
+                        <h:outputText value="#{dataModelBean.selectedCustomer.city}" style="font-weight:bold"/>
+
+                        <h:outputText value="State:" />
+                        <h:outputText value="#{dataModelBean.selectedCustomer.state}" style="font-weight:bold"/>
+
+                        <h:outputText value="Phone:" />
+                        <h:outputText value="#{dataModelBean.selectedCustomer.phone}" style="font-weight:bold"/>
+                    </h:panelGrid>
+                </p:dialog>
+                    </h:form>
     </ui:define>
 
 </ui:composition>
