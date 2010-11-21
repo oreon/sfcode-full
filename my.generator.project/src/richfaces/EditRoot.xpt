@@ -57,9 +57,10 @@
 					</ui:include>
 				</rich:tab>
 			«ENDFOREACH»	
-				
+			
 			</rich:tabPanel>
-			<br/>
+		</h:form>
+		<br/>
 			
 			<rich:tabPanel>
 			«FOREACH getNonComposedManyAssociations() AS a»
@@ -67,10 +68,16 @@
 				<ui:include src = "«a.type.getComponentViewFile("list")»" >
 					<ui:param name="records" value="#{«getAction()».list«a.name.toFirstUpper()»}" />
          		</ui:include>
+         		<a:form> 
+		      		<s:button value="Create New" view="«a.type.getViewFile("edit")»" > 
+		      			<f:param name="«name.toFirstLower()»Id" value="#{«getAction()».instance.id}" />
+		      		    <f:param name="«a.type.name.toFirstLower()»Id" value="0"/> 
+		      		</s:button>
+		    	</a:form>
 			</rich:tab>
 			«ENDFOREACH»
 			</rich:tabPanel>
-		</h:form>
+		
 		<br/>
 		
 		<rich:tabPanel>
@@ -85,7 +92,6 @@
 			«ENDIF»
 		</rich:tabPanel>
 		
-		
 	</ui:define> 
 </ui:composition>
 	«ENDFILE»
@@ -98,7 +104,7 @@
 	<h:panelGroup   >
 		<s:validateAll>
 		«setAsCurrentEntity(this)-»
-		<h:panelGrid columns="«edit?"3":"2"»" styleClass="viewInfo" columnClasses="leftCol, rightCol"  onload="#{«getAction()».load(«asVar()»Id )  }">
+		<h:panelGrid columns="«edit?"3":"6"»" styleClass="viewInfo" columnClasses="leftCol, rightCol"  onload="#{«getAction()».load(«asVar()»Id )  }">
 		<f:facet name="header">
 			<h:outputText value="«name» " />
 		</f:facet>
@@ -119,13 +125,15 @@
 «ENDDEFINE»
 
 
+
+
 «DEFINE genCancelSaveBtns(boolean edit) FOR uml::Class»
 	<div class="buttonBox">
 		«IF !edit»
 		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" >
 		</h:commandButton> 
 		<h:outputText value=" " />
-		<h:commandButton value="Back To Listing" action="#{«getAction()».returnToListingView}" >
+		<h:commandButton value="Back To Listing" action="cancel" >
 			<s:conversationPropagation type="end" />
 		</h:commandButton>  
 		«ELSE»
@@ -268,20 +276,30 @@
 «DEFINE genAutoCompleteAssoc FOR uml::Property»
 	<h:panelGroup>
 	<h:inputText value="#{«getActionForMode()»«genPropertyLabel()-».displayName}" label="«msgBundleKey()»"  id="«getId()»" required="«!getAssocOptional()»" />
-	<rich:suggestionbox  for="«getId()»" tokens=",[]" rules="all" suggestionAction="#{«type.asVar()»List.autocompletedb}"
-		  var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found">
+	«EXPAND genSuggestionBox FOR this»
+	</h:panelGroup>
+«ENDDEFINE»
+
+«DEFINE genSuggestionBox FOR uml::Property»
+	<rich:suggestionbox  for="«getId()»"  rules="all" suggestionAction="#{«type.asVar()»List.autocompletedb}"
+		  var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999">
+		«IF type.autoCompleteColumns == null»
+			<h:column>
+				<h:outputText value="#{_result.displayName}" />
+			</h:column>
+		«ELSE»
 		«FOREACH type.autoCompleteColumns.getAsList() AS e-»
 			<h:column>
 				<h:outputText value="#{_result.«e»}" />
 			</h:column>
 		«ENDFOREACH»
+		«ENDIF»
 						
 		<a:support event="onselect">
 			<f:setPropertyActionListener value="#{_result}"
 				target="#{«getActionForMode()»«genPropertyLabel()-»}" />
 		</a:support>
 	</rich:suggestionbox>
-	</h:panelGroup>
 «ENDDEFINE»
 
 «DEFINE genDropDown FOR uml::Property»
