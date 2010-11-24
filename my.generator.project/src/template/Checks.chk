@@ -4,18 +4,23 @@ import wcprofile;
 
 extension org::openarchitectureware::uml2::profile::profiling;
 
+context uml::Class ERROR 'a class must have a name! found anonymous class in ' + this.package.name:
+this.name != null && this.name.length > 0;
 
+context uml::Property ERROR 'a field must have a name!' + this.class.name:
+this.name != null;
 
-//context wcprofile.Entity ERROR "Duplicate entity "+name :
-//	model().entities().select(e|e.name==name).size==1;
 
 /*
+context wcprofile.Entity ERROR "Duplicate entity "+name :
+	model().entities().select(e|e.name==name).size==1;
+
+
 import metamodel;
 
 extension metamodel::Extensions;
 
 context Model ERROR "No entities defined" :
 	types.exists(e|Entity.isInstance(e));
-	
 	
 */

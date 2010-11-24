@@ -20,7 +20,9 @@
 		
 		«FOREACH p.packagedElement.typeSelect(wcprofile::Entity) AS e-»
 		<rich:panelMenuItem>
-			<h:commandLink  value="«e.name»" action="«e.asVar()»" />
+			<h:commandLink  value="«e.name»" action="«e.asVar()»" >
+			<s:conversationPropagation type="none" />
+			</h:commandLink>
 		</rich:panelMenuItem>
 		«ENDFOREACH»
 		
