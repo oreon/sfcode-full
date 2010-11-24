@@ -73,11 +73,15 @@
 		      			<f:param name="«name.toFirstLower()»Id" value="#{«getAction()».instance.id}" />
 		      		    <f:param name="«a.type.name.toFirstLower()»Id" value="0"/> 
 		      		</s:button>
+		      		  <a:commandButton oncomplete="Richfaces.showModalPanel('«a.type.name»ModalPanel',{});" value="Quick Create">
+			            <a:actionparam name="«a.type.name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.«a.type.name.toFirstLower()»Id}" value="0"  />
+			         	<a:actionparam name="«name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.patientId}" value="#{«name.toFirstLower()»Action.instance.id}"  />
+			         </a:commandButton>
 		    	</a:form>
+		    	<ui:include src="«a.type.getComponentViewFile("modalDlg")»" /> 
 			</rich:tab>
 			«ENDFOREACH»
 			</rich:tabPanel>
-		
 		<br/>
 		
 		<rich:tabPanel>
@@ -329,8 +333,8 @@
 			<s:graphicImage value="#{«currentFile».data}" />
 		</c:when>
 		<c:otherwise>
-			<s:link value="#{«currentFile».name}"  action="#{«class.getAction()».downloadFile(«currentFile».«IF isCurrentMultiMode()»instance.«ENDIF»id)}" propagation="none" >
-				«IF isCurrentMultiMode()»<f:param name="currentEntityId" value="#{«currentFile».id}" />«ENDIF»
+			<s:link value="#{«currentFile».name}"  action="#{«class.getAction()».downloadFile(null)}" propagation="none" >
+				<f:param name="currentEntityId" value="#{«class.getAction()».instance.id}" />
 			</s:link>
 		</c:otherwise>
 	</c:choose>
@@ -352,7 +356,12 @@
 				fileName="#{«currentFile».name}" />
 		</s:div>
 		«ELSE»
-		«getTextForImgFile()» 
+		<s:div rendered="#{«getActionForMode()»«class.asVar()-».id != 0 }">
+			«EXPAND getFileView»			
+		</s:div>
+		<s:div rendered="#{«getActionForMode()»«class.asVar()-».id == null }">
+			«getTextForImgFile()» 
+		</s:div>
 		«ENDIF»
 	«ELSE» 
 		«EXPAND getFileView » 
