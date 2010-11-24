@@ -7,8 +7,12 @@ extension org::openarchitectureware::uml2::profile::profiling;
 context uml::Class ERROR 'a class must have a name! found anonymous class in ' + this.package.name:
 this.name != null && this.name.length > 0;
 
-context uml::Property ERROR 'a field must have a name!' + this.class.name:
+context uml::Property ERROR 'a field must have a name!, found anonymous field in ' + this.class.name:
 this.name != null;
+
+context uml::Property ERROR 'a field must have a type!, found untyped field ' + name + ' in ' + this.class.name:
+this.type != null;
+
 
 
 /*
