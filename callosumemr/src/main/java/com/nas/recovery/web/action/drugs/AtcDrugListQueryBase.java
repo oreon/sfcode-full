@@ -24,26 +24,17 @@ import com.oreon.callosum.drugs.AtcDrug;
  */
 public abstract class AtcDrugListQueryBase extends BaseQuery<AtcDrug, Long> {
 
-	//private static final String EJBQL = "select atcDrug from AtcDrug atcDrug";
+	private static final String EJBQL = "select atcDrug from AtcDrug atcDrug";
 
-	private AtcDrug atcDrug = new AtcDrug();
-
-	private static final String[] RESTRICTIONS = {
-			"atcDrug.id = #{atcDrugList.atcDrug.id}",
-
-			"lower(atcDrug.code) like concat(lower(#{atcDrugList.atcDrug.code}),'%')",
-
-			"lower(atcDrug.name) like concat(lower(#{atcDrugList.atcDrug.name}),'%')",
-
-			"atcDrug.drug = #{atcDrugList.atcDrug.drug}",
-
-			"atcDrug.parent = #{atcDrugList.atcDrug.parent}",
-
-			"atcDrug.dateCreated <= #{atcDrugList.dateCreatedRange.end}",
-			"atcDrug.dateCreated >= #{atcDrugList.dateCreatedRange.begin}",};
+	protected AtcDrug atcDrug = new AtcDrug();
 
 	public AtcDrug getAtcDrug() {
 		return atcDrug;
+	}
+
+	@Override
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
@@ -53,12 +44,26 @@ public abstract class AtcDrugListQueryBase extends BaseQuery<AtcDrug, Long> {
 
 	@Override
 	public String[] getEntityRestrictions() {
-		// TODO Auto-generated method stub
 		return RESTRICTIONS;
 	}
+
+	private static final String[] RESTRICTIONS = {
+			"atcDrug.id = #{atcDrugList.atcDrug.id}",
+
+			"lower(atcDrug.code) like concat(lower(#{atcDrugList.atcDrug.code}),'%')",
+
+			"lower(atcDrug.name) like concat(lower(#{atcDrugList.atcDrug.name}),'%')",
+
+			"atcDrug.drug.id = #{atcDrugList.atcDrug.drug.id}",
+
+			"atcDrug.parent.id = #{atcDrugList.atcDrug.parent.id}",
+
+			"atcDrug.dateCreated <= #{atcDrugList.dateCreatedRange.end}",
+			"atcDrug.dateCreated >= #{atcDrugList.dateCreatedRange.begin}",};
 
 	@Observer("archivedAtcDrug")
 	public void onArchive() {
 		refresh();
 	}
+
 }

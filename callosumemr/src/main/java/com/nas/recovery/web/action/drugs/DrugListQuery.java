@@ -17,7 +17,7 @@ import org.jboss.seam.annotations.Observer;
 	
 	
 @Name("drugList")
-@Scope(ScopeType.CONVERSATION)
+//@Scope(ScopeType.CONVERSATION)
 public class DrugListQuery extends DrugListQueryBase implements java.io.Serializable{
 	
 }

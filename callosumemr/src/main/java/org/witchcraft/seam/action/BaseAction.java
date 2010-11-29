@@ -1,14 +1,22 @@
 package org.witchcraft.seam.action;
 
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.render.ResponseStateManager;
 import javax.persistence.NoResultException;
+import javax.persistence.OptimisticLockException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
@@ -16,6 +24,7 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
 import org.hibernate.Criteria;
+import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
@@ -26,18 +35,23 @@ import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.End;
+import org.jboss.seam.annotations.FlushModeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Transactional;
 import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.annotations.web.RequestParameter;
+import org.jboss.seam.core.Conversation;
 import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
+import org.jboss.seam.faces.Redirect;
 import org.jboss.seam.faces.Renderer;
 import org.jboss.seam.framework.EntityHome;
 import org.jboss.seam.international.StatusMessages;
+import org.jboss.seam.international.StatusMessage.Severity;
 import org.jboss.seam.log.Log;
+import org.jboss.seam.security.Identity;
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.base.entity.EntityComment;
 import org.witchcraft.base.entity.EntityTemplate;
@@ -45,6 +59,10 @@ import org.witchcraft.base.entity.FileAttachment;
 import org.witchcraft.model.support.audit.AuditLog;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.model.support.audit.EntityAuditLogInterceptor;
+
+import com.oreon.callosum.patient.Patient;
+import com.oreon.callosum.patient.Prescription;
+import com.sun.org.apache.commons.beanutils.BeanUtils;
 
 /**
  * The base action class - contains common persistence related methods, also
@@ -59,15 +77,13 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 	@Logger
 	protected Log log;
+
 	@In
-	// @PersistenceContext(type=EXTENDED)
+	//@PersistenceContext(type = PersistenceContextType.EXTENDED)
 	protected FullTextEntityManager entityManager;
 
 	@In(create = true)
 	protected EntityAuditLogInterceptor entityAuditLogInterceptor;
-
-	@In(create = true)
-	protected FacesMessages facesMessages;
 
 	@In
 	protected Events events;
@@ -75,14 +91,16 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	@RequestParameter
 	private String queryString;
 
+	private String templateName = "ABC";
+
 	@RequestParameter
 	private Long idToArchive;
 
 	@In(create = true)
 	private Renderer renderer;
 
-	// @RequestParameter
-	// Long id;
+	@RequestParameter
+	protected Long currentEntityId;
 
 	private List<AuditLog> auditLog;
 
@@ -98,6 +116,16 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	protected StatusMessages statusMessages;
 
 	private EntityTemplate<T> entityTemplate = new EntityTemplate<T>();
+
+	private String selectedTab;
+
+	public String getSelectedTab() {
+		return selectedTab;
+	}
+
+	public void setSelectedTab(String selectedTab) {
+		this.selectedTab = selectedTab;
+	}
 
 	public EntityTemplate<T> getEntityTemplate() {
 		return entityTemplate;
@@ -115,7 +143,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		this.templateMode = templateMode;
 	}
 
-	@Begin
+	// @Begin
 	public String createTemplate() {
 		setTemplateMode(true);
 		return "edit";
@@ -131,7 +159,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 	@Begin(join = true)
 	public String select(T t) {
-		setEntity(entityManager.merge(t));
+		// setEntity(entityManager.merge(t));
 		log
 				.info("User selected #{t.getClass().getName()}: #{t.displayName} #{t.id} ");
 		updateAssociations();
@@ -165,30 +193,56 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	}
 
 	protected void addInfoMessage(String message, Object... params) {
-		facesMessages.createFacesMessage(FacesMessage.SEVERITY_INFO, message,
-				message, params);
+		statusMessages.add(message, params);
 	}
 
 	protected void addErrorMessage(String message, Object... params) {
-		facesMessages.createFacesMessage(FacesMessage.SEVERITY_ERROR, message,
-				message, params);
+		statusMessages.add(Severity.ERROR, message, params);
 	}
 
 	public String saveTemplate() {
-		EntityTemplate<T> template = getEntityTemplate();
+		EntityTemplate<T> template = entityTemplate;
+
+		template.setTemplateName(templateName);
 		template.setEntity(getInstance());
+		updateComposedAssociations();
 		template.setEntityName(getClassName(getInstance()));
 		// template.setTemplateName(getEn);
 		entityManager.persist(template);
 
 		// TODO: replace with statusmessages seam class
 		addInfoMessage("Successfully saved template: "
-				+ getInstance().getDisplayName());
+				+ template.getTemplateName());
 		return "save";
 	}
 
 	public void loadFromTemplate(String templateName) {
-		setEntity((T) getEntityTemplate().getEntity());
+		setInstance((T) getEntityTemplate().getEntity());
+	}
+
+	public void loadFromTemplate() {
+		loadFromTemplate(entityTemplate.getId());
+	}
+
+	//@Transactional
+	//@Begin(join = true)
+	public void loadFromTemplate(Long id) {
+		entityTemplate = entityManager.find(EntityTemplate.class, id);
+		@SuppressWarnings("unused")
+		T t = (T) entityTemplate.getEntity();
+		Session session = (Session) entityManager.getDelegate();
+		//session.lock(t, LockMode.UPGRADE);
+		instance =  t;
+		
+		
+		loadAssociations();
+		
+	}
+
+	public List<EntityTemplate<T>> getTemplateList() {
+		return executeNamedQuery("entityTemplates.templatesForEntity",
+				getClassName(getInstance()), Identity.instance()
+						.getCredentials().getUsername());
 	}
 
 	public EntityTemplate getCurrentTemplate() {
@@ -197,13 +251,12 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	}
 
 	/**
-	 * The current template
+	 * The current template name
 	 * 
 	 * @return
 	 */
 	public String getTemplateName() {
-		// TODO Auto-generated method stub
-		return StringUtils.EMPTY;
+		return templateName;
 	}
 
 	@Transactional
@@ -224,17 +277,22 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		return e;
 	}
 
-	@Transactional
+	//@Transactional
 	public String doSave() {
 		try {
-			if (templateMode)
-				return saveTemplate();
-
+			
 			updateComposedAssociations();
-			persist(getInstance());
+			
+			if (isManaged() ) 
+				update();
+			else
+				persist() ;
 
+			addInfoMessage("Successfully saved record: {0}", getInstance()
+					.getDisplayName());
+			
 			// TODO: replace with statusmessages seam class
-			addInfoMessage("Successfully saved record: ?1", getInstance()
+			addInfoMessage("Successfully saved record: {0}", getInstance()
 					.getDisplayName());
 			updateAssociations();
 
@@ -247,8 +305,24 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 	}
 
+	// @Begin(join=true)
 	public String save() {
 		return doSave();
+	}
+
+	public String saveWithoutConversation() {
+		String result = doSave();
+		Conversation.instance().end();
+		clearInstance();
+
+		return result;
+	}
+
+	public String savehome() {
+		Conversation.instance().begin();
+		persist();
+		Conversation.instance().endAndRedirect();
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -259,11 +333,10 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 			try {
 				T t = (T) getEntityManager().find(getEntityClass(), entityId);
-
 				return t;
 
 			} catch (NoResultException noResultException) {
-				facesMessages.add("Invalid Id: " + entityId);
+				addErrorMessage("Invalid Id: {0} ", entityId);
 			}
 		} else {
 			// loadAssociations();
@@ -273,12 +346,16 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	}
 
 	public void load(Long entityId) {
+		// if (entityId == null || entityId == 0)
+		// entityId = currentEntityId;
 		if (entityId == null || entityId == 0) {
 			log.info("Empty id " + entityId);
 			return;
 		}
+		log.info("loading id: " + entityId);
 		setId(entityId);
 		loadInstance();
+
 		// setInstance(loadFromId(entityId));
 		// return "edit";
 	}
@@ -322,25 +399,13 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 	@End
 	public String cancel() {
+		Conversation.instance().end();
 		return "cancel";
 	}
 
 	public void search() {
 		Criteria criteria = createExampleCriteria();
-		setEntityList(criteria.list());
-	}
-
-	@Observer("resetList")
-	public void clearSearch() {
-		try {
-			setEntity((T) getInstance().getClass().newInstance());
-			// TODO: do exception handling
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
-		findRecords();
+		// setEntityList(criteria.list());
 	}
 
 	public List<AuditLog> getAuditLog() {
@@ -381,7 +446,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		 * for (String exclude : excludedProperties) {
 		 * example.excludeProperty(exclude); }
 		 */
-		addAssoications(criteria);
+		addAssociations(criteria);
 
 		criteria.addOrder(getOrder());
 
@@ -398,22 +463,15 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	 * 
 	 * @param criteria
 	 */
-	public void addAssoications(Criteria criteria) {
+	public void addAssociations(Criteria criteria) {
 	}
 
 	public void updateAssociations() {
 	}
 
-	public abstract T getEntity();
-
-	public abstract void setEntity(T t);
-
-	public abstract void findRecords();
-
-	public abstract void setEntityList(List<T> list);
-
 	/**
-	 * This method should be overridden by classes that need to fck
+	 * This method should be overridden by classes that need to update composed
+	 * associations once this
 	 */
 	public void updateComposedAssociations() {
 	}
@@ -439,6 +497,13 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 			log.info("No " + "record " + " found !");
 			return null;
 		}
+	}
+
+	@End
+	public String returnToListingView() {
+		String retVal = Redirect.instance().getViewId() == null ? StringUtils
+				.uncapitalize(getClassName()) : Redirect.instance().getViewId();
+		return retVal;
 	}
 
 	/**
@@ -479,7 +544,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 		List<T> result = ftq.getResultList();
 
-		setEntityList(result);
+		// setEntityList(result);
 		return getClassName();
 	}
 
@@ -519,6 +584,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		Query query = entityManager.createNativeQuery(queryString);
 		setQueryParams(query, params);
 		return (S) query.getSingleResult();
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -541,6 +607,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 	@Destroy
 	public void destroy() {
+
 	}
 
 	protected String getClassName(T t) {
@@ -602,21 +669,6 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		this.deleteDialogRendered = deleteDialogRendered;
 	}
 
-	@Begin(join = true)
-	public void showDeleteDialog(T t) {
-		setEntity(entityManager.merge(t));
-		deleteDialogRendered = true;
-	}
-
-	public void archiveAndClose() {
-		archive(getInstance());
-		closeModal();
-	}
-
-	public void closeModal() {
-		setDeleteDialogRendered(false);
-	}
-
 	protected void downloadAttachment(FileAttachment fileAttachment) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletResponse response = (HttpServletResponse) context
@@ -643,14 +695,30 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 			// facesMessages.add("Email sent successfully");
 		} catch (Exception e) {
 			e.printStackTrace();
-			facesMessages.add("Email sending failed: " + e.getMessage());
+			addErrorMessage("Email sending failed: {0}", e.getMessage());
 		}
 	}
 
-	protected boolean  isDifferentFromCurrent(Long id) {
-		if (id == null || getInstance() == null || getInstance().getId() == null)
+	protected boolean isDifferentFromCurrent(Long id) {
+		if (id == null || getInstance() == null
+				|| getInstance().getId() == null)
 			return true;
 		return id != getInstance().getId().longValue();
+	}
+
+	protected boolean isNew() {
+		boolean isNew = getInstance().getId() == null;
+		return isNew;
+	}
+
+	protected boolean isPostBack() {
+		ResponseStateManager rtm = FacesContext.getCurrentInstance()
+				.getRenderKit().getResponseStateManager();
+		return rtm.isPostback(FacesContext.getCurrentInstance());
+	}
+
+	public void setTemplateName(String templateName) {
+		this.templateName = templateName;
 	}
 
 }
