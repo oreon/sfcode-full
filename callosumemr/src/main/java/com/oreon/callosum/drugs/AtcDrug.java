@@ -16,7 +16,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -34,10 +36,12 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
+import org.witchcraft.utils.*;
+
 @Entity
 @Table(name = "atcdrug")
-@Name("atcDrug")
 @Filter(name = "archiveFilterDef")
+@Name("atcDrug")
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
@@ -46,20 +50,21 @@ public class AtcDrug extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1623432457L;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String code;
 
 	@NotNull
 	@Length(min = 2, max = 50)
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String name;
-
-	//subcategories->parent ->AtcDrug->AtcDrug->AtcDrug
 
 	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "parent_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
 	private Set<AtcDrug> subcategories = new HashSet<AtcDrug>();
 
-	@OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "drug_id", nullable = true, updatable = true)
 	@ContainedIn
 	protected Drug drug;
@@ -73,7 +78,6 @@ public class AtcDrug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getCode() {
-
 		return code;
 	}
 
@@ -82,7 +86,6 @@ public class AtcDrug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getName() {
-
 		return name;
 	}
 
@@ -99,7 +102,6 @@ public class AtcDrug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Drug getDrug() {
-
 		return drug;
 	}
 
@@ -108,13 +110,16 @@ public class AtcDrug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public AtcDrug getParent() {
-
 		return parent;
 	}
 
 	@Transient
 	public String getDisplayName() {
-		return code + " " + name;
+		return name;
+	}
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

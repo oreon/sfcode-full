@@ -1,25 +1,45 @@
 package com.nas.recovery.web.action.drugs;
 
+import com.oreon.callosum.drugs.AtcDrug;
+
+import org.witchcraft.seam.action.BaseAction;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+
+import org.apache.commons.lang.StringUtils;
+
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Scope;
+
 import org.jboss.seam.annotations.Begin;
+import org.jboss.seam.annotations.End;
+import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Logger;
+import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
+import org.jboss.seam.Component;
+import org.jboss.seam.security.Identity;
+
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
-import org.richfaces.component.html.HtmlTree;
-import org.richfaces.event.NodeSelectedEvent;
-import org.witchcraft.base.entity.BusinessEntity;
-import org.witchcraft.seam.action.BaseAction;
+import org.jboss.seam.faces.FacesMessages;
+import org.jboss.seam.log.Log;
+import org.jboss.seam.annotations.Observer;
 
 import com.oreon.callosum.drugs.AtcDrug;
-import com.oreon.callosum.drugs.Drug;
 
-public abstract class AtcDrugActionBase extends BaseAction<AtcDrug> implements
-		java.io.Serializable {
+public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
+		implements
+			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
@@ -36,17 +56,29 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug> implements
 	private List<AtcDrug> atcDrugRecordList;
 
 	public void setAtcDrugId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			loadAssociations();
+			return;
+		}
+		setId(id);
+		if (!isPostBack())
+			loadAssociations();
+	}
 
-		if (listSubcategories == null || isDifferentFromCurrent(id))
-			listSubcategories = new ArrayList<AtcDrug>();
-
+	/** for modal dlg we need to load associaitons regardless of postback
+	 * @param id
+	 */
+	public void setAtcDrugIdForModalDlg(Long id) {
 		setId(id);
 		loadAssociations();
 	}
 
 	public void setDrugId(Long id) {
+
 		if (id != null && id > 0)
 			getInstance().setDrug(drugAction.loadFromId(id));
+
 	}
 
 	public Long getDrugId() {
@@ -56,8 +88,10 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug> implements
 	}
 
 	public void setParentId(Long id) {
+
 		if (id != null && id > 0)
 			getInstance().setParent(parentAction.loadFromId(id));
+
 	}
 
 	public Long getParentId() {
@@ -70,24 +104,18 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug> implements
 		return (Long) getId();
 	}
 
-	// @Factory("atcDrugRecordList")
-	// @Observer("archivedAtcDrug")
-	public void findRecords() {
-		// search();
-	}
-
 	public AtcDrug getEntity() {
 		return atcDrug;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(AtcDrug t) {
 		this.atcDrug = t;
 		loadAssociations();
 	}
 
 	public AtcDrug getAtcDrug() {
-		return getInstance();
+		return (AtcDrug) getInstance();
 	}
 
 	@Override
@@ -103,10 +131,12 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug> implements
 
 	public void wire() {
 		getInstance();
+
 		com.oreon.callosum.drugs.Drug drug = drugAction.getDefinedInstance();
 		if (drug != null) {
 			getInstance().setDrug(drug);
 		}
+
 		com.oreon.callosum.drugs.AtcDrug parent = parentAction
 				.getDefinedInstance();
 		if (parent != null) {
@@ -120,7 +150,7 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug> implements
 	}
 
 	public AtcDrug getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return (AtcDrug) (isIdDefined() ? getInstance() : null);
 	}
 
 	public void setAtcDrug(AtcDrug t) {
@@ -133,17 +163,17 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug> implements
 		return AtcDrug.class;
 	}
 
-	@Override
-	public void setEntityList(List<AtcDrug> list) {
-		this.atcDrugRecordList = list;
+	public List<AtcDrug> getTopLevelParent() {
+		return getEntityManager().createQuery(
+				"select e from AtcDrug e where e.parent is null")
+				.getResultList();
 	}
 
-	/**
-	 * This function adds associated entities to an example criterion
-	 * 
+	/** This function adds associated entities to an example criterion
 	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
 	 */
-	public void addAssoications(Criteria criteria) {
+	@Override
+	public void addAssociations(Criteria criteria) {
 
 		if (atcDrug.getDrug() != null) {
 			criteria = criteria.add(Restrictions.eq("drug.id", atcDrug
@@ -157,11 +187,8 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug> implements
 
 	}
 
-	/**
-	 * This function is responsible for loading associations for the given
-	 * entity e.g. when viewing an order, we load the customer so that customer
-	 * can be shown on the customer tab within viewOrder.xhtml
-	 * 
+	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
+	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
 	public void loadAssociations() {
@@ -174,30 +201,34 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug> implements
 			parentAction.setInstance(getInstance().getParent());
 		}
 
+		initListSubcategories();
+
 	}
 
 	public void updateAssociations() {
 
 	}
 
-	protected List<AtcDrug> listSubcategories;
+	protected List<com.oreon.callosum.drugs.AtcDrug> listSubcategories;
 
 	void initListSubcategories() {
-		listSubcategories = new ArrayList<AtcDrug>();
+		listSubcategories = new ArrayList<com.oreon.callosum.drugs.AtcDrug>();
+
 		if (getInstance().getSubcategories().isEmpty()) {
 
 		} else
 			listSubcategories.addAll(getInstance().getSubcategories());
+
 	}
 
-	public List<AtcDrug> getListSubcategories() {
-		if (listSubcategories == null || listSubcategories.isEmpty()) {
+	public List<com.oreon.callosum.drugs.AtcDrug> getListSubcategories() {
+		if (listSubcategories == null)
 			initListSubcategories();
-		}
 		return listSubcategories;
 	}
 
-	public void setListSubcategories(List<AtcDrug> listSubcategories) {
+	public void setListSubcategories(
+			List<com.oreon.callosum.drugs.AtcDrug> listSubcategories) {
 		this.listSubcategories = listSubcategories;
 	}
 
@@ -211,7 +242,7 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug> implements
 
 		subcategories.setParent(getInstance());
 
-		listSubcategories.add(subcategories);
+		getListSubcategories().add(subcategories);
 	}
 
 	public void updateComposedAssociations() {
@@ -220,39 +251,6 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug> implements
 			getInstance().getSubcategories().clear();
 			getInstance().getSubcategories().addAll(listSubcategories);
 		}
-
-	}
-
-	public List<AtcDrug> getEntityList() {
-		if (atcDrugRecordList == null) {
-			findRecords();
-		}
-		return atcDrugRecordList;
-	}
-
-	
-	private Long currentDrugId; 
-
-
-	public List<AtcDrug> getTopLevelParent() {
-		return executeQuery("select c from AtcDrug c where c.parent is null");
-	}
-
-	public void processSelection(NodeSelectedEvent event) {
-		HtmlTree tree = (HtmlTree) event.getComponent();
-
-		BusinessEntity be = (BusinessEntity) tree.getRowData();
-		if (be instanceof Drug) {
-			currentDrugId = be.getId();
-		}
-	}
-
-	public void setCurrentDrugId(Long currentDrugId) {
-		this.currentDrugId = currentDrugId;
-	}
-
-	public Long getCurrentDrugId() {
-		return currentDrugId;
 	}
 
 }

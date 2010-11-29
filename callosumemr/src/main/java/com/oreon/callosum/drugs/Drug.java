@@ -16,7 +16,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
@@ -34,10 +36,12 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
+import org.witchcraft.utils.*;
+
 @Entity
 @Table(name = "drug")
-@Name("drug")
 @Filter(name = "archiveFilterDef")
+@Name("drug")
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
@@ -46,59 +50,94 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -16274297L;
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String absorption;
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String biotransformation;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String atcCodes;
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String contraIndication;
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String description;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String dosageForm;
 
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String drugCategory;
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String foodInteractions;
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String halfLife;
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String indication;
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String interactions;
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String mechanism;
 
+	@NotNull
+	@Length(min = 2, max = 50)
 	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String name;
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String patientInfo;
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String pharmacology;
 
 	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
 	protected String toxicity;
+
+	@OneToMany(mappedBy = "drug", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "drug_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<DrugInteraction> drugInteractions = new HashSet<DrugInteraction>();
 
 	public void setAbsorption(String absorption) {
 		this.absorption = absorption;
 	}
 
 	public String getAbsorption() {
-
 		return absorption;
 	}
 
@@ -107,7 +146,6 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getBiotransformation() {
-
 		return biotransformation;
 	}
 
@@ -116,7 +154,6 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getAtcCodes() {
-
 		return atcCodes;
 	}
 
@@ -125,7 +162,6 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getContraIndication() {
-
 		return contraIndication;
 	}
 
@@ -134,7 +170,6 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getDescription() {
-
 		return description;
 	}
 
@@ -143,7 +178,6 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getDosageForm() {
-
 		return dosageForm;
 	}
 
@@ -152,7 +186,6 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getDrugCategory() {
-
 		return drugCategory;
 	}
 
@@ -161,7 +194,6 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getFoodInteractions() {
-
 		return foodInteractions;
 	}
 
@@ -170,7 +202,6 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getHalfLife() {
-
 		return halfLife;
 	}
 
@@ -179,7 +210,6 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getIndication() {
-
 		return indication;
 	}
 
@@ -188,7 +218,6 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getInteractions() {
-
 		return interactions;
 	}
 
@@ -197,7 +226,6 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getMechanism() {
-
 		return mechanism;
 	}
 
@@ -206,7 +234,6 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getName() {
-
 		return name;
 	}
 
@@ -215,7 +242,6 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getPatientInfo() {
-
 		return patientInfo;
 	}
 
@@ -224,7 +250,6 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getPharmacology() {
-
 		return pharmacology;
 	}
 
@@ -233,13 +258,24 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getToxicity() {
-
 		return toxicity;
+	}
+
+	public void setDrugInteractions(Set<DrugInteraction> drugInteractions) {
+		this.drugInteractions = drugInteractions;
+	}
+
+	public Set<DrugInteraction> getDrugInteractions() {
+		return drugInteractions;
 	}
 
 	@Transient
 	public String getDisplayName() {
 		return name;
+	}
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
@@ -250,13 +286,39 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
+		listSearchableFields.add("absorption");
+
+		listSearchableFields.add("biotransformation");
+
 		listSearchableFields.add("atcCodes");
+
+		listSearchableFields.add("contraIndication");
+
+		listSearchableFields.add("description");
 
 		listSearchableFields.add("dosageForm");
 
 		listSearchableFields.add("drugCategory");
 
+		listSearchableFields.add("foodInteractions");
+
+		listSearchableFields.add("halfLife");
+
+		listSearchableFields.add("indication");
+
+		listSearchableFields.add("interactions");
+
+		listSearchableFields.add("mechanism");
+
 		listSearchableFields.add("name");
+
+		listSearchableFields.add("patientInfo");
+
+		listSearchableFields.add("pharmacology");
+
+		listSearchableFields.add("toxicity");
+
+		listSearchableFields.add("drugInteractions.description");
 
 		return listSearchableFields;
 	}

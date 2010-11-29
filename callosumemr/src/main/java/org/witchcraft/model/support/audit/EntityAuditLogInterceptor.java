@@ -85,28 +85,6 @@ public class EntityAuditLogInterceptor extends BaseAction<AuditLog>{
 		return query.getResultList();
 	}
 
-	@Override
-	public void findRecords() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public AuditLog getEntity() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setEntity(AuditLog t) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setEntityList(List<AuditLog> list) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 }

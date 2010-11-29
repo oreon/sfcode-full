@@ -20,7 +20,8 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import org.hibernate.search.annotations.DocumentId;
-import org.witchcraft.users.User;
+
+import com.oreon.callosum.users.User;
 
 
 
@@ -39,7 +40,7 @@ public class BusinessEntity implements Serializable{
     
     @Version
     @Column(name="version")
-    private Long version;
+    transient private Long version;
     
     
     @Temporal(TemporalType.TIMESTAMP)
