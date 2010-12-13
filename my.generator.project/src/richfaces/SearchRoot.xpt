@@ -108,16 +108,10 @@
 
 
 «DEFINE genDateRange FOR uml::Class»
-			<s:decorate template="/layout/display.xhtml">
-				<ui:define name="label">From</ui:define> <br/>
-				<rich:calendar id="from"
-					value="#{«getCurrentEntity().asVar()»List.dateCreatedRange.begin}" />
-			</s:decorate>
-
-			<s:decorate template="/layout/display.xhtml">
-				<ui:define name="label">To</ui:define> <br/>
-				<rich:calendar id="to" value="#{«getCurrentEntity().asVar()»List.dateCreatedRange.end}" />
-			</s:decorate>
+			<rich:calendar id="from" value="#{«getCurrentEntity().asVar()»List.dateCreatedRange.begin}" />
+			
+			<rich:calendar id="to" value="#{«getCurrentEntity().asVar()»List.dateCreatedRange.end}" />
+			
 «ENDDEFINE»
 
 «DEFINE genCancelSaveBtns FOR uml::Class»
@@ -209,14 +203,10 @@
 
 «DEFINE genRangeSearch FOR uml::Property-»
 	«IF type.name == "Date"-»
-	<s:decorate template="/layout/display.xhtml">
-		<ui:define name="label">From</ui:define> <br/>
+		<h:outputText value="From"> <br/>
 		<rich:calendar value="#{«getCurrentEntity().asVar()»List.«getId()»Range.begin}" />
-	</s:decorate>
-	<s:decorate template="/layout/display.xhtml">
-		<ui:define name="label">To</ui:define> <br/>
+		To<br/>
 		<rich:calendar value="#{«getCurrentEntity().asVar()»List.«getId()»Range.end}" />
-	</s:decorate>	
 	«ELSE»
 	<h:inputText  id="«getId()»_begin" value="#{«getCurrentEntity().asVar()»List.«getId()»Range.begin}" >
 			<f:converter converterId="javax.faces.«type.name»" />

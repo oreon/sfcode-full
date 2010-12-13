@@ -63,11 +63,35 @@
 «ENDDEFINE»
 
 «DEFINE gen FOR uml::Action»
-	<task-node name="«name.removeSpaces()»">
+	<task-node name="«name.removeSpaces()»"  «IF outgoing().typeSelect(wcprofile::TimerTransition).size > 0 » end-tasks="true" «ENDIF»>
 		<task name="«name.removeSpaces()»" «getSwimlane() != null ?"swimlane=\"" + getSwimlane()+ "\"":""» notify="«getNotify()»">
+			«EXPAND genTimer FOR this»
 		</task>
 		«EXPAND genTransitions»
 	</task-node>	
+«ENDDEFINE»
+
+
+
+«DEFINE gen FOR wcprofile::Task »
+	<task-node name="«name.removeSpaces()»"   «IF outgoing().typeSelect(wcprofile::TimerTransition).size > 0 » end-tasks="true" «ENDIF»>
+		<task name="«name.removeSpaces()»"  «getSwimlane() != null ?"swimlane=\"" + getSwimlane()+ "\"":""»
+			 duedate="«days» business days" notify="«getNotify()»">
+			 «IF actionExpression != null»
+			 <event type="task-assign">
+				<action expression="#{«actionExpression»}" />
+			</event>
+			«ENDIF»
+			«EXPAND genTimer FOR this-»
+		</task>
+		«EXPAND genTransitions»
+	</task-node>
+«ENDDEFINE»
+
+«DEFINE genTimer FOR uml::Action»
+	«FOREACH outgoing().typeSelect(wcprofile::TimerTransition) AS o-»
+		<timer duedate="«o.duedate»" name="newtimer" transition="«o.name»"></timer>
+	«ENDFOREACH»
 «ENDDEFINE»
 
 «DEFINE gen FOR wcprofile::MailNode»
@@ -76,21 +100,6 @@
 	</mail-node>
 «ENDDEFINE»
 
-
-
-«DEFINE gen FOR wcprofile::Task»
-	<task-node name="«name.removeSpaces()»">
-		<task name="«name.removeSpaces()»"  «getSwimlane() != null ?"swimlane=\"" + getSwimlane()+ "\"":""»
-			 duedate="«days» business days" notify="«getNotify()»">
-			 «IF actionExpression != null»
-			 <event type="task-assign">
-				<action expression="#{«actionExpression»}" />
-			</event>
-			«ENDIF»
-		</task>
-		«EXPAND genTransitions»
-	</task-node>
-«ENDDEFINE»
 
 «DEFINE gen FOR wcprofile::WorkflowDecision»
 	<decision name="«name.removeSpaces()»" «IF expression != null»  expression="#{«expression»}" «ENDIF» >
@@ -126,8 +135,9 @@
 
 
 
-«DEFINE genAction FOR wcprofile::State»
+«DEFINE gen FOR wcprofile::WorkflowState»
 	<state name="«name.removeSpaces()»">
+		«EXPAND genTimer FOR this»
 		«EXPAND genTransitions»
 	</state>
 «ENDDEFINE»

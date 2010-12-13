@@ -42,6 +42,7 @@ import org.witchcraft.seam.action.BaseAction;
 import «packageName()».«name»;
 
 /**
+* D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
@@ -74,7 +75,6 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
     
     «EXPAND genAttribAsOutput(true) FOR this»
    
-    
    	private static final String[] RESTRICTIONS = {
    		"«asVar()».id = #{«asVar()»List.«asVar()».id}",
    	
@@ -83,6 +83,17 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 		"«asVar()».dateCreated <= #{«asVar()»List.dateCreatedRange.end}",
 		"«asVar()».dateCreated >= #{«asVar()»List.dateCreatedRange.begin}",
 	};
+	
+	
+	«FOREACH getOutgoingAssociations() AS e»
+	«IF !e.type.isAbstract && e.opposite.name != null»
+	public List<«name»> get«e.opposite.name.toFirstUpper()»By«e.name.toFirstUpper()»(«e.type.fqn()» «e.type.asVar()»){
+		//setMaxResults(10000);
+		«asVar()».set«e.name.toFirstUpper()»(«e.type.asVar()»);
+		return getResultList();
+	}
+	«ENDIF»
+	«ENDFOREACH»
 
 	
 	@Observer("archived«name»")
@@ -175,6 +186,7 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;

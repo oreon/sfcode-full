@@ -185,6 +185,9 @@ JAVA org.wc.generatorutil.ClassUtil.getFirstChild(org.eclipse.uml2.uml.Class);
 boolean isEmbeddable(Type type):
 type.getAppliedStereotype("wcprofile::Embeddable") != null;
 
+boolean isEntity(Type type):
+type.getAppliedStereotype("wcprofile::Entity") != null;
+
 boolean isMappedSuperClass(Type type):
 type.getAppliedStereotype("wcprofile::MappedSuperClass") != null || type.getAppliedStereotype("wcprofile::MappedSuperclass") != null ;
 
@@ -194,6 +197,11 @@ type.getAppliedStereotype("wcprofile::ProcessToken") != null;
 boolean hasStereo(Type type, String stereo):
 type.getAppliedStereotype("wcprofile::" + stereo) != null;
 
+parentIsAbstract(Entity type):
+type.parents().get(0) != null && type.parents().get(0).isAbstract;
+
+parentIsMappedSuperClass(Entity type):
+type.parents().get(0) != null && type.parents().get(0).isMappedSuperClass();
 
 boolean systemModify(Property prop):
 prop.isColumn()  && prop.systemModifyOnly == true;
