@@ -80,7 +80,7 @@ import «a.type.fqn()»;
 «ENDFOREACH»
 
 
-public abstract class «name»ActionBase extends «getFirstParent() == null || getFirstParent().length == 0 ? "BaseAction<" +  name + ">" :
+public abstract class «name»ActionBase extends «getFirstParent() == null || getFirstParent().length == 0  || !parentIsMappedSuperClass() ? "BaseAction<" +  name + ">" :
 	 parents().get(0).getActionFqn() + getGenericType(parents().get(0)) » implements java.io.Serializable{
 
 	@In(create = true)

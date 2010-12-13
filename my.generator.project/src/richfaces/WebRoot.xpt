@@ -9,6 +9,7 @@
 	«EXPAND NavigationRoot::genNav »
 	«EXPAND NavigationRoot::genSummaryPage »
 	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
+	
 «ENDDEFINE»
 
 
@@ -18,12 +19,22 @@
 	«EXPAND EditRoot::genEditView(true) FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 	«EXPAND ListRoot::genView FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 	«EXPAND SearchRoot::genSearchView FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	«EXPAND genTemplate FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 	
 	«EXPAND NRSEdit::genEditFile FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 	«EXPAND TreeView::genTreeViewComponent FOREACH allOwnedElements().typeSelect(wcprofile::Entity  )»
+«ENDDEFINE»
+
+«DEFINE genTemplate FOR uml::Class»
+	«IF templatable»
+	«setCurrentTemplateMode(true)» 
+
+	«EXPAND EditRoot::genEditView(false) »
+	«EXPAND EditRoot::genEditView(true) »
+	«EXPAND ListRoot::genView »
 	
-	
-	
+	«setCurrentTemplateMode(false)» 
+	«ENDIF»
 «ENDDEFINE»
 
 

@@ -23,6 +23,9 @@
 						oncomplete="Richfaces.showModalPanel('«name»ModalPanel',{});" value="Quick Create" >
 					</a:commandButton>
 				</a:form>
+				«IF templatable»
+				 <s:button value="Create Template" view="«getTemplateViewFileName("edit")»"/>
+				 «ENDIF»
 				<ui:include src="«getComponentViewFile("modalDlg")»" />
 			</ui:define>
 		</ui:composition>
@@ -171,6 +174,13 @@
 		<s:link «getEscape()»  value="#{_«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" propagation="begin">
 			<f:param name="«name»Id" value="#{_«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
+			«IF type.popupInfo != null»
+			 <rich:toolTip>
+	            <span>
+	               «popupInfo»  
+	            </span>
+	        </rich:toolTip>
+	        «ENDIF»
 		</s:link>
 	</h:column>
 «ENDDEFINE»

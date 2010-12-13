@@ -73,6 +73,8 @@ public class ClassUtil {
 	private static String currentCartridge = null;
 
 	private static Boolean currentMultiMode = false;
+	
+	private static Boolean currentTemplateMode = false;
 
 	public static String getCurrentCartridge() {
 		if (currentCartridge == null) {
@@ -664,6 +666,14 @@ public class ClassUtil {
 		}
 		
 		return null;
+	}
+
+	public static void setCurrentTemplateMode(Boolean currentTemplateMode) {
+		ClassUtil.currentTemplateMode = currentTemplateMode;
+	}
+
+	public static Boolean isCurrentTemplateMode() {
+		return currentTemplateMode;
 	}
 
 }

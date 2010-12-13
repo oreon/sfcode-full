@@ -97,6 +97,13 @@
 	    }
 	    «ENDIF»
 	    
+	    «IF !getAllAttributes().isEmpty && !popupInfo == null»
+		@Transient
+	    public String getPopupInfo(){
+	    	return «getDisplayName()»;
+	    }
+	    «ENDIF»
+	    
 	    //Empty setter , needed for richfaces autocomplete to work 
 	    public void setDisplayName(String name){
 	    }

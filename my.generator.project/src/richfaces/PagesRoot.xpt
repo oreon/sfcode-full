@@ -112,8 +112,10 @@
 		<param name="from" />
 		<param name="id" value="#{«e.asVar()»List.«e.asVar()».id}" />
 		«EXPAND genAttribAsOutput FOR e-»
-		
 	</page>
+	
+	«IF e.templatable» «EXPAND genTemplatePages FOR e»«ENDIF»
+	
     «ENDFOREACH»
     
     
@@ -198,4 +200,50 @@
 	«REM» Seam has issues with request params as associations 
 		<param name="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}" />
 	 «ENDREM»
+«ENDDEFINE»
+
+
+
+
+«DEFINE genTemplatePages FOR uml::Class»
+	 <page view-id="«getTemplateViewFileName("edit")»"  >
+    	<navigation> 
+			 <rule if-outcome="save">
+ 				<redirect view-id="«getTemplateViewFileName("view")»" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="«getTemplateViewFileName("list")»" />
+            </rule>			
+		</navigation>
+	</page>
+	
+	 <page view-id="«getTemplateViewFileName("view")»"  action="#{redirect.captureCurrentView()}">
+	 	<navigation> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="«getTemplateViewFileName("edit")»" />
+            </rule>	
+             <rule if-outcome="cancel">
+ 				<redirect view-id="/parent.xhtml" />
+            </rule>			
+		</navigation>
+		<param name="«asVar()»Id" value="#{«asVar()»Action.«asVar()»Id}" />
+	</page>
+	
+	<page view-id="«getTemplateViewFileName("list")»" action="#{redirect.captureCurrentView()}" >
+		<navigation>
+			<rule if-outcome="view«name»">
+				<redirect view-id="«getTemplateViewFileName("view")»" />
+			</rule> 
+			 <rule if-outcome="edit">
+ 				<redirect view-id="«getTemplateViewFileName("edit")»" />
+            </rule>			
+		</navigation>
+		
+		<param name="firstResult" value="#{«asVar()»List.firstResult}" />
+		<param name="sort" value="#{«asVar()»List.orderColumn}" />
+		<param name="dir" value="#{«asVar()»List.orderDirection}" />
+
+		<param name="from" />
+		<param name="id" value="#{«asVar()»List.«asVar()».id}" />		
+	</page>
 «ENDDEFINE»

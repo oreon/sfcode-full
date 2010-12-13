@@ -22,7 +22,9 @@
 <ui:composition «EXPAND WebRoot::genIncludes-»
 	template = "«getAdminTemplate()»" >	
 	<ui:define name="content">
+		«IF templatable && !isCurrentTemplateMode() »«EXPAND genTemplateChooser FOR this»«ENDIF»
 		<h:form  enctype="multipart/form-data"> «REM»TODO : usemultipart «ENDREM»
+		«IF isCurrentTemplateMode()»Template Name: <h:inputText value="#{«getAction()».templateName}" required="true" />«ENDIF»
 		<ui:include src = "edit«name»Component.«getExtension()»" />
 		«EXPAND genCancelSaveBtns(true) FOR this»
 		</h:form>
@@ -66,7 +68,7 @@
 			«FOREACH getNonComposedManyAssociations() AS a»
 			<rich:tab label="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
 				<ui:include src = "«a.type.getComponentViewFile("list")»" >
-					<ui:param name="records" value="#{«getAction()».list«a.name.toFirstUpper()»}" />
+					<ui:param name="records" value="#{«a.type.asVar()»List.get«a.name.toFirstUpper()»By«name.toFirstUpper()»(«getAction()».instance)}" />
          		</ui:include>
          		<a:form> 
 		      		<s:button value="Create New" view="«a.type.getViewFile("edit")»" > 
@@ -141,7 +143,7 @@
 			<s:conversationPropagation type="end" />
 		</h:commandButton>  
 		«ELSE»
-		<h:commandButton value="Save" action="#{«getAction()».save}" >
+		<h:commandButton value="Save" action="#{«getAction()».save«isCurrentTemplateMode()?"Template":"" »}" >
 		</h:commandButton>  
 		<h:outputText value=" " /> 
 		<h:commandButton value="Cancel" immediate="true" action="#{«getAction()».cancel}" >
@@ -307,7 +309,8 @@
 «ENDDEFINE»
 
 «DEFINE genDropDown FOR uml::Property»
-	<h:selectOneMenu id="«getId()»"   label="«msgBundleKey()»" value="#{«getActionForMode()»«genPropertyLabel()-»}" required="«!getAssocOptional()»">
+	<h:selectOneMenu id="«getId()»"   label="«msgBundleKey()»" value="#{«getActionForMode()»«genPropertyLabel()-»}" 
+		required="«!getAssocOptional() && !isCurrentTemplateMode()»">
 		«IF isColumn() && this.controls != null » <a:support event="onchange" reRender="«controls»" ajaxSingle="true" /> «ENDIF»
 		<s:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List"»}" var="itemIter"
 			label="#{itemIter.displayName}"
@@ -324,6 +327,7 @@
 <«getTextControl()»  id="«getId()»#{entityId}" «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"":""»  value="#{«getActionForMode()»«genPropertyLabel()»}" />
 «ENDIF»
 «ENDDEFINE»
+
 
 
 «DEFINE getFileView FOR uml::Property»
@@ -374,7 +378,8 @@
 	«IF !isCurrentEditMode() -»
 	<«getTextControl()»  value="#{«getActionForMode()»«genPropertyLabel()»}" />
 	«ELSE»
-	<h:selectOneMenu id="«getId()»" value="#{«getActionForMode()»«genPropertyLabel()»}" required="«getAssocOptional()»"  label="«msgBundleKey()»">
+	<h:selectOneMenu id="«getId()»" value="#{«getActionForMode()»«genPropertyLabel()»}" required="«getAssocOptional() && !isCurrentTemplateMode()»" 
+	  label="«msgBundleKey()»">
 		<f:selectItem itemLabel="Please Select..." itemValue="" />
 		«FOREACH  enm.ownedLiteral AS e-»
 		<f:selectItem itemValue="«e.name»"  itemLabel="«e.name.toLowerCase().getVariableNameForDisplay()-»" />
@@ -429,4 +434,19 @@
 «DEFINE genProperty FOR String-»
 	<h:outputText value="«msgBundleKey()-»" />
 	<h:outputText value="#{«getCurrentEntity().asVar()».«this»«this == "createdByUser"?".displayName":""»}" />
+«ENDDEFINE»
+
+
+«DEFINE genTemplateChooser FOR uml::Class»
+<h:form>
+	<h:outputText value="Template:"/>  
+        <h:selectOneMenu id="template" label="Template" value="#{«getAction()».entityTemplate}" required="false"> 
+          <s:selectItems value="#{prescriptionAction.templateList}" var="itemIter" label="#{itemIter.displayName}" 
+          	noSelectionLabel="Select Template"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        
+       <h:commandButton value="Create From Template" action="#{«getAction()».loadFromTemplate}" />
+       <h:message styleClass="error errors" for="template"/>
+</h:form>
 «ENDDEFINE»

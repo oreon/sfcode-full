@@ -63,14 +63,18 @@ JAVA org.wc.generatorutil.ClassUtil.setCurrentMultiMode(java.lang.Boolean);
 boolean isCurrentMultiMode():
 JAVA org.wc.generatorutil.ClassUtil.isCurrentMultiMode();
 
+
+setCurrentTemplateMode(boolean val):
+JAVA org.wc.generatorutil.ClassUtil.setCurrentTemplateMode(java.lang.Boolean);
+
+boolean isCurrentTemplateMode():
+JAVA org.wc.generatorutil.ClassUtil.isCurrentTemplateMode();
+
 setCurrentEditMode(boolean val):
 JAVA org.wc.generatorutil.ClassUtil.setCurrentEditMode(java.lang.Boolean);
 
 boolean isCurrentEditMode():
 JAVA org.wc.generatorutil.ClassUtil.isCurrentEditMode();
-
-
-
 
 
 String getOutputMessage(Property prop):
@@ -153,7 +157,7 @@ getTextForImgFile(Property prop):
 
 
 String getWebPath(Class cls):
- getEntitiesRoot() + cls.package.name + "/" + cls.asVar();
+ getEntitiesRoot() + cls.package.name +  "/" + cls.asVar()  + (isCurrentTemplateMode()?"Template":"");
 
 String getEntitiesRoot():
 getAdminRoot() +  "entities/";
@@ -230,13 +234,14 @@ getViewFileName(e, mode) + "Component" +  "." + getExtension();
 String getViewFileName(Class e,String mode):
 "/admin/entities/" + e.package.name.toFirstLower() + "/" + e.asVar() + "/" + mode + e.name;
 
-
+String getTemplateViewFileName(Class e,String mode):
+"/admin/entities/" + e.package.name.toFirstLower() + "/" + e.asVar() + "Template/" + mode + e.name;
 
 String getRequired(Property prop):
-prop.type.name == "nameType" || prop.type.name == "uniqueNameType"?"true":"false";
+!isCurrentTemplateMode() && (prop.type.name == "nameType" || prop.type.name == "uniqueNameType")?"true":"false";
 
 String getRequired(Column prop):
-prop.notNull || prop.type.name == "nameType" || prop.type.name == "uniqueNameType"?"true":"false";
+!isCurrentTemplateMode() && (prop.notNull || prop.type.name == "nameType" || prop.type.name == "uniqueNameType")?"true":"false";
 
 getAccess(Column prop):
 prop.access;
