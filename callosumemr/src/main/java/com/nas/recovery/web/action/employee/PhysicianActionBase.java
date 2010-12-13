@@ -35,8 +35,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public abstract class PhysicianActionBase
-		extends BaseAction<Physician>
+public abstract class PhysicianActionBase extends BaseAction<Physician>
 		implements
 			java.io.Serializable {
 

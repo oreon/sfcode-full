@@ -163,6 +163,11 @@ public class Patient extends com.oreon.callosum.patient.Person
 		return super.getDisplayName();
 	}
 
+	@Transient
+	public String getPopupInfo() {
+		return super.getDisplayName();
+	}
+
 	//Empty setter , needed for richfaces autocomplete to work 
 	public void setDisplayName(String name) {
 	}

@@ -107,6 +107,11 @@ public class User extends BusinessEntity implements java.io.Serializable {
 		return userName;
 	}
 
+	@Transient
+	public String getPopupInfo() {
+		return userName;
+	}
+
 	//Empty setter , needed for richfaces autocomplete to work 
 	public void setDisplayName(String name) {
 	}

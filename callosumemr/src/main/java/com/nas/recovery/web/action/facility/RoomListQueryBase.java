@@ -6,6 +6,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -19,6 +20,7 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.callosum.facility.Room;
 
 /**
+ * D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
@@ -52,12 +54,17 @@ public abstract class RoomListQueryBase extends BaseQuery<Room, Long> {
 
 			"room.facility.id = #{roomList.room.facility.id}",
 
-			"room.bed.id = #{roomList.room.bed.id}",
-
 			"lower(room.name) like concat(lower(#{roomList.room.name}),'%')",
 
 			"room.dateCreated <= #{roomList.dateCreatedRange.end}",
 			"room.dateCreated >= #{roomList.dateCreatedRange.begin}",};
+
+	public List<Room> getRoomsByFacility(
+			com.oreon.callosum.facility.Facility facility) {
+		//setMaxResults(10000);
+		room.setFacility(facility);
+		return getResultList();
+	}
 
 	@Observer("archivedRoom")
 	public void onArchive() {

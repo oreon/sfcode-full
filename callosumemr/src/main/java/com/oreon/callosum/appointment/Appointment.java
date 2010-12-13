@@ -115,6 +115,11 @@ public class Appointment extends BusinessEntity implements java.io.Serializable 
 		return start + "";
 	}
 
+	@Transient
+	public String getPopupInfo() {
+		return start + "";
+	}
+
 	//Empty setter , needed for richfaces autocomplete to work 
 	public void setDisplayName(String name) {
 	}

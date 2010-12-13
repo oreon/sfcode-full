@@ -6,6 +6,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -19,6 +20,7 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.callosum.patient.Admission;
 
 /**
+ * D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
@@ -69,6 +71,19 @@ public abstract class AdmissionListQueryBase extends BaseQuery<Admission, Long> 
 
 			"admission.dateCreated <= #{admissionList.dateCreatedRange.end}",
 			"admission.dateCreated >= #{admissionList.dateCreatedRange.begin}",};
+
+	public List<Admission> getAdmissionsByPatient(
+			com.oreon.callosum.patient.Patient patient) {
+		//setMaxResults(10000);
+		admission.setPatient(patient);
+		return getResultList();
+	}
+
+	public List<Admission> getAdmissionByBed(com.oreon.callosum.facility.Bed bed) {
+		//setMaxResults(10000);
+		admission.setBed(bed);
+		return getResultList();
+	}
 
 	@Observer("archivedAdmission")
 	public void onArchive() {

@@ -35,6 +35,8 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
+import com.oreon.callosum.facility.Room;
+
 public abstract class FacilityActionBase extends BaseAction<Facility>
 		implements
 			java.io.Serializable {
@@ -43,9 +45,6 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 	@Out(required = false)
 	@DataModelSelection
 	private Facility facility;
-
-	@In(create = true, value = "roomAction")
-	com.nas.recovery.web.action.facility.RoomAction roomAction;
 
 	@DataModel
 	private List<Facility> facilityRecordList;
@@ -67,19 +66,6 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 	public void setFacilityIdForModalDlg(Long id) {
 		setId(id);
 		loadAssociations();
-	}
-
-	public void setRoomId(Long id) {
-
-		if (id != null && id > 0)
-			getInstance().setRoom(roomAction.loadFromId(id));
-
-	}
-
-	public Long getRoomId() {
-		if (getInstance().getRoom() != null)
-			return getInstance().getRoom().getId();
-		return 0L;
 	}
 
 	public Long getFacilityId() {
@@ -114,11 +100,6 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 	public void wire() {
 		getInstance();
 
-		com.oreon.callosum.facility.Room room = roomAction.getDefinedInstance();
-		if (room != null) {
-			getInstance().setRoom(room);
-		}
-
 	}
 
 	public boolean isWired() {
@@ -139,28 +120,13 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 		return Facility.class;
 	}
 
-	/** This function adds associated entities to an example criterion
-	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
-	 */
-	@Override
-	public void addAssociations(Criteria criteria) {
-
-		if (facility.getRoom() != null) {
-			criteria = criteria.add(Restrictions.eq("room.id", facility
-					.getRoom().getId()));
-		}
-
-	}
-
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
 	public void loadAssociations() {
 
-		if (facility.getRoom() != null) {
-			roomAction.setInstance(getInstance().getRoom());
-		}
+		initListRooms();
 
 	}
 
@@ -168,7 +134,47 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 
 	}
 
+	protected List<com.oreon.callosum.facility.Room> listRooms;
+
+	void initListRooms() {
+		listRooms = new ArrayList<com.oreon.callosum.facility.Room>();
+
+		if (getInstance().getRooms().isEmpty()) {
+
+		} else
+			listRooms.addAll(getInstance().getRooms());
+
+	}
+
+	public List<com.oreon.callosum.facility.Room> getListRooms() {
+		if (listRooms == null)
+			initListRooms();
+		return listRooms;
+	}
+
+	public void setListRooms(List<com.oreon.callosum.facility.Room> listRooms) {
+		this.listRooms = listRooms;
+	}
+
+	public void deleteRooms(int index) {
+		listRooms.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addRooms() {
+		Room rooms = new Room();
+
+		rooms.setFacility(getInstance());
+
+		getListRooms().add(rooms);
+	}
+
 	public void updateComposedAssociations() {
+
+		if (listRooms != null) {
+			getInstance().getRooms().clear();
+			getInstance().getRooms().addAll(listRooms);
+		}
 	}
 
 }

@@ -6,6 +6,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -19,6 +20,7 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.callosum.patient.PrescriptionItem;
 
 /**
+ * D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
@@ -57,12 +59,12 @@ public abstract class PrescriptionItemListQueryBase
 		this.qtyRange = qtyRange;
 	}
 
-	private Range<Integer> frequencyRange = new Range<Integer>();
-	public Range<Integer> getFrequencyRange() {
-		return frequencyRange;
+	private Range<Integer> durationRange = new Range<Integer>();
+	public Range<Integer> getDurationRange() {
+		return durationRange;
 	}
-	public void setFrequency(Range<Integer> frequencyRange) {
-		this.frequencyRange = frequencyRange;
+	public void setDuration(Range<Integer> durationRange) {
+		this.durationRange = durationRange;
 	}
 
 	private static final String[] RESTRICTIONS = {
@@ -73,15 +75,26 @@ public abstract class PrescriptionItemListQueryBase
 			"prescriptionItem.qty >= #{prescriptionItemList.qtyRange.begin}",
 			"prescriptionItem.qty <= #{prescriptionItemList.qtyRange.end}",
 
-			"prescriptionItem.frequency >= #{prescriptionItemList.frequencyRange.begin}",
-			"prescriptionItem.frequency <= #{prescriptionItemList.frequencyRange.end}",
-
-			"lower(prescriptionItem.remarks) like concat(lower(#{prescriptionItemList.prescriptionItem.remarks}),'%')",
+			"prescriptionItem.route = #{prescriptionItemList.prescriptionItem.route}",
 
 			"prescriptionItem.prescription.id = #{prescriptionItemList.prescriptionItem.prescription.id}",
 
+			"prescriptionItem.duration >= #{prescriptionItemList.durationRange.begin}",
+			"prescriptionItem.duration <= #{prescriptionItemList.durationRange.end}",
+
+			"lower(prescriptionItem.remarks) like concat(lower(#{prescriptionItemList.prescriptionItem.remarks}),'%')",
+
+			"prescriptionItem.frequecy.id = #{prescriptionItemList.prescriptionItem.frequecy.id}",
+
 			"prescriptionItem.dateCreated <= #{prescriptionItemList.dateCreatedRange.end}",
 			"prescriptionItem.dateCreated >= #{prescriptionItemList.dateCreatedRange.begin}",};
+
+	public List<PrescriptionItem> getPrescriptionItemsByPrescription(
+			com.oreon.callosum.patient.Prescription prescription) {
+		//setMaxResults(10000);
+		prescriptionItem.setPrescription(prescription);
+		return getResultList();
+	}
 
 	@Observer("archivedPrescriptionItem")
 	public void onArchive() {

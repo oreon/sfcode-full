@@ -90,6 +90,11 @@ public class Allergy extends BusinessEntity implements java.io.Serializable {
 		return patient + "";
 	}
 
+	@Transient
+	public String getPopupInfo() {
+		return patient + "";
+	}
+
 	//Empty setter , needed for richfaces autocomplete to work 
 	public void setDisplayName(String name) {
 	}

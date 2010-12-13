@@ -6,6 +6,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -19,6 +20,7 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.callosum.drugs.AtcDrug;
 
 /**
+ * D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
@@ -60,6 +62,13 @@ public abstract class AtcDrugListQueryBase extends BaseQuery<AtcDrug, Long> {
 
 			"atcDrug.dateCreated <= #{atcDrugList.dateCreatedRange.end}",
 			"atcDrug.dateCreated >= #{atcDrugList.dateCreatedRange.begin}",};
+
+	public List<AtcDrug> getSubcategoriesByParent(
+			com.oreon.callosum.drugs.AtcDrug atcDrug) {
+		//setMaxResults(10000);
+		atcDrug.setParent(atcDrug);
+		return getResultList();
+	}
 
 	@Observer("archivedAtcDrug")
 	public void onArchive() {

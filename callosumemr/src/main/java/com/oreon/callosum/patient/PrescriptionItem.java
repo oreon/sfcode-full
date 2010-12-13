@@ -58,16 +58,23 @@ public class PrescriptionItem extends BusinessEntity
 
 	protected Double qty;
 
-	protected Integer frequency;
+	protected Route route;
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "prescription_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected Prescription prescription;
+
+	protected Integer duration;
 
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
 	protected String remarks;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "prescription_id", nullable = false, updatable = true)
+	@JoinColumn(name = "frequecy_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected Prescription prescription;
+	protected Frequecy frequecy;
 
 	public void setDrug(com.oreon.callosum.drugs.Drug drug) {
 		this.drug = drug;
@@ -85,20 +92,12 @@ public class PrescriptionItem extends BusinessEntity
 		return qty;
 	}
 
-	public void setFrequency(Integer frequency) {
-		this.frequency = frequency;
+	public void setRoute(Route route) {
+		this.route = route;
 	}
 
-	public Integer getFrequency() {
-		return frequency;
-	}
-
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
-
-	public String getRemarks() {
-		return remarks;
+	public Route getRoute() {
+		return route;
 	}
 
 	public void setPrescription(Prescription prescription) {
@@ -109,8 +108,37 @@ public class PrescriptionItem extends BusinessEntity
 		return prescription;
 	}
 
+	public void setDuration(Integer duration) {
+		this.duration = duration;
+	}
+
+	public Integer getDuration() {
+		return duration;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setFrequecy(Frequecy frequecy) {
+		this.frequecy = frequecy;
+	}
+
+	public Frequecy getFrequecy() {
+		return frequecy;
+	}
+
 	@Transient
 	public String getDisplayName() {
+		return remarks;
+	}
+
+	@Transient
+	public String getPopupInfo() {
 		return remarks;
 	}
 

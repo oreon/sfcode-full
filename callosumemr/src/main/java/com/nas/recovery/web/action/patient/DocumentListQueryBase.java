@@ -6,6 +6,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -19,6 +20,7 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.callosum.patient.Document;
 
 /**
+ * D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
@@ -58,6 +60,13 @@ public abstract class DocumentListQueryBase extends BaseQuery<Document, Long> {
 
 			"document.dateCreated <= #{documentList.dateCreatedRange.end}",
 			"document.dateCreated >= #{documentList.dateCreatedRange.begin}",};
+
+	public List<Document> getDocumentsByPatient(
+			com.oreon.callosum.patient.Patient patient) {
+		//setMaxResults(10000);
+		document.setPatient(patient);
+		return getResultList();
+	}
 
 	@Observer("archivedDocument")
 	public void onArchive() {

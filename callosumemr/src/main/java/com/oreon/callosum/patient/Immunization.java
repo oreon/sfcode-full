@@ -92,6 +92,11 @@ public class Immunization extends BusinessEntity
 		return date + "";
 	}
 
+	@Transient
+	public String getPopupInfo() {
+		return date + "";
+	}
+
 	//Empty setter , needed for richfaces autocomplete to work 
 	public void setDisplayName(String name) {
 	}

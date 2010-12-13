@@ -128,6 +128,11 @@ public class UnusualOccurence extends BusinessEntity
 		return occurenceType + "";
 	}
 
+	@Transient
+	public String getPopupInfo() {
+		return occurenceType + "";
+	}
+
 	//Empty setter , needed for richfaces autocomplete to work 
 	public void setDisplayName(String name) {
 	}

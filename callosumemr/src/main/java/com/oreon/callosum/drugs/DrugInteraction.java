@@ -51,6 +51,7 @@ public class DrugInteraction extends BusinessEntity
 			java.io.Serializable {
 	private static final long serialVersionUID = -1546590855L;
 
+	@Lob
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
 	protected String description;
@@ -91,6 +92,11 @@ public class DrugInteraction extends BusinessEntity
 
 	@Transient
 	public String getDisplayName() {
+		return description;
+	}
+
+	@Transient
+	public String getPopupInfo() {
 		return description;
 	}
 

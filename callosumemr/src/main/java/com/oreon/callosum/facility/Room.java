@@ -49,15 +49,16 @@ import org.witchcraft.utils.*;
 public class Room extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 2085840692L;
 
-	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "facility_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Facility facility;
 
-	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "bed_id", nullable = false, updatable = true)
-	@ContainedIn
-	protected Bed bed;
+	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "room_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<Bed> beds = new HashSet<Bed>();
 
 	@NotNull
 	@Length(min = 2, max = 50)
@@ -73,12 +74,12 @@ public class Room extends BusinessEntity implements java.io.Serializable {
 		return facility;
 	}
 
-	public void setBed(Bed bed) {
-		this.bed = bed;
+	public void setBeds(Set<Bed> beds) {
+		this.beds = beds;
 	}
 
-	public Bed getBed() {
-		return bed;
+	public Set<Bed> getBeds() {
+		return beds;
 	}
 
 	public void setName(String name) {
@@ -91,6 +92,11 @@ public class Room extends BusinessEntity implements java.io.Serializable {
 
 	@Transient
 	public String getDisplayName() {
+		return name;
+	}
+
+	@Transient
+	public String getPopupInfo() {
 		return name;
 	}
 
@@ -107,6 +113,8 @@ public class Room extends BusinessEntity implements java.io.Serializable {
 		listSearchableFields.addAll(super.listSearchableFields());
 
 		listSearchableFields.add("name");
+
+		listSearchableFields.add("beds.name");
 
 		return listSearchableFields;
 	}

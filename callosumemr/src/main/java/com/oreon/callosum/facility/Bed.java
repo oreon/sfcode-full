@@ -49,7 +49,7 @@ import org.witchcraft.utils.*;
 public class Bed extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 1419594382L;
 
-	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "room_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected Room room;
@@ -91,6 +91,11 @@ public class Bed extends BusinessEntity implements java.io.Serializable {
 
 	@Transient
 	public String getDisplayName() {
+		return name;
+	}
+
+	@Transient
+	public String getPopupInfo() {
 		return name;
 	}
 

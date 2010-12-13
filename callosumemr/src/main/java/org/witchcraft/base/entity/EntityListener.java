@@ -15,6 +15,7 @@ public class EntityListener {
 	
 	Log log = LogFactory.getLog(EntityListener.class);
 	
+	/*
 	@PrePersist
 	public void setDatesAndUser(BusinessEntity modelBase) {
 		Date now = new Date();
@@ -49,5 +50,5 @@ public class EntityListener {
 		Date now = new Date();
 		modelBase.setDateUpdated(now);
 	}
-
+*/
 }

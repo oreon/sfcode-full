@@ -50,6 +50,9 @@ public abstract class PrescriptionItemActionBase
 	@In(create = true, value = "prescriptionAction")
 	com.nas.recovery.web.action.patient.PrescriptionAction prescriptionAction;
 
+	@In(create = true, value = "frequecyAction")
+	com.nas.recovery.web.action.patient.FrequecyAction frequecyAction;
+
 	@DataModel
 	private List<PrescriptionItem> prescriptionItemRecordList;
 
@@ -98,6 +101,19 @@ public abstract class PrescriptionItemActionBase
 		return 0L;
 	}
 
+	public void setFrequecyId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setFrequecy(frequecyAction.loadFromId(id));
+
+	}
+
+	public Long getFrequecyId() {
+		if (getInstance().getFrequecy() != null)
+			return getInstance().getFrequecy().getId();
+		return 0L;
+	}
+
 	public Long getPrescriptionItemId() {
 		return (Long) getId();
 	}
@@ -141,6 +157,12 @@ public abstract class PrescriptionItemActionBase
 			getInstance().setPrescription(prescription);
 		}
 
+		com.oreon.callosum.patient.Frequecy frequecy = frequecyAction
+				.getDefinedInstance();
+		if (frequecy != null) {
+			getInstance().setFrequecy(frequecy);
+		}
+
 	}
 
 	public boolean isWired() {
@@ -177,6 +199,11 @@ public abstract class PrescriptionItemActionBase
 					prescriptionItem.getPrescription().getId()));
 		}
 
+		if (prescriptionItem.getFrequecy() != null) {
+			criteria = criteria.add(Restrictions.eq("frequecy.id",
+					prescriptionItem.getFrequecy().getId()));
+		}
+
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -191,6 +218,10 @@ public abstract class PrescriptionItemActionBase
 
 		if (prescriptionItem.getPrescription() != null) {
 			prescriptionAction.setInstance(getInstance().getPrescription());
+		}
+
+		if (prescriptionItem.getFrequecy() != null) {
+			frequecyAction.setInstance(getInstance().getFrequecy());
 		}
 
 	}
