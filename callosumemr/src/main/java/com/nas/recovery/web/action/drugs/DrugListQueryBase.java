@@ -6,6 +6,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -19,6 +20,7 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.callosum.drugs.Drug;
 
 /**
+ * D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
@@ -62,17 +64,13 @@ public abstract class DrugListQueryBase extends BaseQuery<Drug, Long> {
 
 			"lower(drug.dosageForm) like concat(lower(#{drugList.drug.dosageForm}),'%')",
 
-			"lower(drug.drugCategory) like concat(lower(#{drugList.drug.drugCategory}),'%')",
-
 			"lower(drug.foodInteractions) like concat(lower(#{drugList.drug.foodInteractions}),'%')",
 
 			"lower(drug.halfLife) like concat(lower(#{drugList.drug.halfLife}),'%')",
 
 			"lower(drug.indication) like concat(lower(#{drugList.drug.indication}),'%')",
 
-			"lower(drug.interactions) like concat(lower(#{drugList.drug.interactions}),'%')",
-
-			"lower(drug.mechanism) like concat(lower(#{drugList.drug.mechanism}),'%')",
+			"lower(drug.mechanismOfAction) like concat(lower(#{drugList.drug.mechanismOfAction}),'%')",
 
 			"lower(drug.name) like concat(lower(#{drugList.drug.name}),'%')",
 
@@ -81,6 +79,10 @@ public abstract class DrugListQueryBase extends BaseQuery<Drug, Long> {
 			"lower(drug.pharmacology) like concat(lower(#{drugList.drug.pharmacology}),'%')",
 
 			"lower(drug.toxicity) like concat(lower(#{drugList.drug.toxicity}),'%')",
+
+			"lower(drug.routeOfElimination) like concat(lower(#{drugList.drug.routeOfElimination}),'%')",
+
+			"lower(drug.volumeOfDistribution) like concat(lower(#{drugList.drug.volumeOfDistribution}),'%')",
 
 			"drug.dateCreated <= #{drugList.dateCreatedRange.end}",
 			"drug.dateCreated >= #{drugList.dateCreatedRange.begin}",};

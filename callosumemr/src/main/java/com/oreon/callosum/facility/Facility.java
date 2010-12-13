@@ -53,10 +53,11 @@ public class Facility extends BusinessEntity implements java.io.Serializable {
 	@Analyzer(definition = "customanalyzer")
 	protected String name;
 
-	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "room_id", nullable = false, updatable = true)
-	@ContainedIn
-	protected Room room;
+	@OneToMany(mappedBy = "facility", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "facility_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<Room> rooms = new HashSet<Room>();
 
 	public void setName(String name) {
 		this.name = name;
@@ -66,16 +67,21 @@ public class Facility extends BusinessEntity implements java.io.Serializable {
 		return name;
 	}
 
-	public void setRoom(Room room) {
-		this.room = room;
+	public void setRooms(Set<Room> rooms) {
+		this.rooms = rooms;
 	}
 
-	public Room getRoom() {
-		return room;
+	public Set<Room> getRooms() {
+		return rooms;
 	}
 
 	@Transient
 	public String getDisplayName() {
+		return name;
+	}
+
+	@Transient
+	public String getPopupInfo() {
 		return name;
 	}
 
@@ -92,6 +98,8 @@ public class Facility extends BusinessEntity implements java.io.Serializable {
 		listSearchableFields.addAll(super.listSearchableFields());
 
 		listSearchableFields.add("name");
+
+		listSearchableFields.add("rooms.name");
 
 		return listSearchableFields;
 	}

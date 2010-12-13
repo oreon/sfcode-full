@@ -6,6 +6,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -19,6 +20,7 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.callosum.drugs.DrugInteraction;
 
 /**
+ * D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
@@ -60,6 +62,13 @@ public abstract class DrugInteractionListQueryBase
 
 			"drugInteraction.dateCreated <= #{drugInteractionList.dateCreatedRange.end}",
 			"drugInteraction.dateCreated >= #{drugInteractionList.dateCreatedRange.begin}",};
+
+	public List<DrugInteraction> getDrugInteractionsByDrug(
+			com.oreon.callosum.drugs.Drug drug) {
+		//setMaxResults(10000);
+		drugInteraction.setDrug(drug);
+		return getResultList();
+	}
 
 	@Observer("archivedDrugInteraction")
 	public void onArchive() {

@@ -6,6 +6,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -19,6 +20,7 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.callosum.unusualoccurences.UnusualOccurence;
 
 /**
+ * D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
@@ -66,6 +68,13 @@ public abstract class UnusualOccurenceListQueryBase
 
 			"unusualOccurence.dateCreated <= #{unusualOccurenceList.dateCreatedRange.end}",
 			"unusualOccurence.dateCreated >= #{unusualOccurenceList.dateCreatedRange.begin}",};
+
+	public List<UnusualOccurence> getUnusualOccurencesByPatient(
+			com.oreon.callosum.patient.Patient patient) {
+		//setMaxResults(10000);
+		unusualOccurence.setPatient(patient);
+		return getResultList();
+	}
 
 	@Observer("archivedUnusualOccurence")
 	public void onArchive() {

@@ -70,6 +70,11 @@ public class OccurenceType extends BusinessEntity
 		return name;
 	}
 
+	@Transient
+	public String getPopupInfo() {
+		return name;
+	}
+
 	//Empty setter , needed for richfaces autocomplete to work 
 	public void setDisplayName(String name) {
 	}

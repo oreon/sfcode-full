@@ -6,6 +6,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -19,6 +20,7 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.callosum.patient.Allergy;
 
 /**
+ * D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
@@ -58,6 +60,13 @@ public abstract class AllergyListQueryBase extends BaseQuery<Allergy, Long> {
 
 			"allergy.dateCreated <= #{allergyList.dateCreatedRange.end}",
 			"allergy.dateCreated >= #{allergyList.dateCreatedRange.begin}",};
+
+	public List<Allergy> getAllergysByPatient(
+			com.oreon.callosum.patient.Patient patient) {
+		//setMaxResults(10000);
+		allergy.setPatient(patient);
+		return getResultList();
+	}
 
 	@Observer("archivedAllergy")
 	public void onArchive() {

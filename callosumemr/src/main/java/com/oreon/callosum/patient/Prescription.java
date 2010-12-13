@@ -96,6 +96,11 @@ public class Prescription extends BusinessEntity
 		return prescriptionItems + "";
 	}
 
+	@Transient
+	public String getPopupInfo() {
+		return prescriptionItems + "";
+	}
+
 	//Empty setter , needed for richfaces autocomplete to work 
 	public void setDisplayName(String name) {
 	}

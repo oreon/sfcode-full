@@ -125,6 +125,10 @@ public class BusinessEntity implements Serializable{
     	return new ArrayList<String>();
     }
 	
+	public String getPopupInfo(){
+		return getDisplayName();
+	}
+	
 	
 	@Override
     public boolean equals(Object o) {

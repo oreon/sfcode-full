@@ -6,6 +6,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -19,6 +20,7 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.callosum.facility.Facility;
 
 /**
+ * D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
@@ -51,8 +53,6 @@ public abstract class FacilityListQueryBase extends BaseQuery<Facility, Long> {
 			"facility.id = #{facilityList.facility.id}",
 
 			"lower(facility.name) like concat(lower(#{facilityList.facility.name}),'%')",
-
-			"facility.room.id = #{facilityList.facility.room.id}",
 
 			"facility.dateCreated <= #{facilityList.dateCreatedRange.end}",
 			"facility.dateCreated >= #{facilityList.dateCreatedRange.begin}",};

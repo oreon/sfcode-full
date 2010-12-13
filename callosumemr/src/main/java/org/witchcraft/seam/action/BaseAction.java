@@ -91,7 +91,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	@RequestParameter
 	private String queryString;
 
-	private String templateName = "ABC";
+	private String templateName ;
 
 	@RequestParameter
 	private Long idToArchive;
@@ -143,7 +143,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		this.templateMode = templateMode;
 	}
 
-	// @Begin
+	@Begin
 	public String createTemplate() {
 		setTemplateMode(true);
 		return "edit";
@@ -312,9 +312,9 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 	public String saveWithoutConversation() {
 		String result = doSave();
+		//entityManager.refresh(getInstance());
 		Conversation.instance().end();
 		clearInstance();
-
 		return result;
 	}
 

@@ -109,6 +109,11 @@ public class Document extends BusinessEntity implements java.io.Serializable {
 		return name;
 	}
 
+	@Transient
+	public String getPopupInfo() {
+		return name;
+	}
+
 	//Empty setter , needed for richfaces autocomplete to work 
 	public void setDisplayName(String name) {
 	}

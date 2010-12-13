@@ -35,6 +35,8 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
+import com.oreon.callosum.facility.Bed;
+
 public abstract class RoomActionBase extends BaseAction<Room>
 		implements
 			java.io.Serializable {
@@ -46,9 +48,6 @@ public abstract class RoomActionBase extends BaseAction<Room>
 
 	@In(create = true, value = "facilityAction")
 	com.nas.recovery.web.action.facility.FacilityAction facilityAction;
-
-	@In(create = true, value = "bedAction")
-	com.nas.recovery.web.action.facility.BedAction bedAction;
 
 	@DataModel
 	private List<Room> roomRecordList;
@@ -82,19 +81,6 @@ public abstract class RoomActionBase extends BaseAction<Room>
 	public Long getFacilityId() {
 		if (getInstance().getFacility() != null)
 			return getInstance().getFacility().getId();
-		return 0L;
-	}
-
-	public void setBedId(Long id) {
-
-		if (id != null && id > 0)
-			getInstance().setBed(bedAction.loadFromId(id));
-
-	}
-
-	public Long getBedId() {
-		if (getInstance().getBed() != null)
-			return getInstance().getBed().getId();
 		return 0L;
 	}
 
@@ -136,11 +122,6 @@ public abstract class RoomActionBase extends BaseAction<Room>
 			getInstance().setFacility(facility);
 		}
 
-		com.oreon.callosum.facility.Bed bed = bedAction.getDefinedInstance();
-		if (bed != null) {
-			getInstance().setBed(bed);
-		}
-
 	}
 
 	public boolean isWired() {
@@ -172,11 +153,6 @@ public abstract class RoomActionBase extends BaseAction<Room>
 					.getFacility().getId()));
 		}
 
-		if (room.getBed() != null) {
-			criteria = criteria.add(Restrictions.eq("bed.id", room.getBed()
-					.getId()));
-		}
-
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -189,9 +165,7 @@ public abstract class RoomActionBase extends BaseAction<Room>
 			facilityAction.setInstance(getInstance().getFacility());
 		}
 
-		if (room.getBed() != null) {
-			bedAction.setInstance(getInstance().getBed());
-		}
+		initListBeds();
 
 	}
 
@@ -199,7 +173,47 @@ public abstract class RoomActionBase extends BaseAction<Room>
 
 	}
 
+	protected List<com.oreon.callosum.facility.Bed> listBeds;
+
+	void initListBeds() {
+		listBeds = new ArrayList<com.oreon.callosum.facility.Bed>();
+
+		if (getInstance().getBeds().isEmpty()) {
+
+		} else
+			listBeds.addAll(getInstance().getBeds());
+
+	}
+
+	public List<com.oreon.callosum.facility.Bed> getListBeds() {
+		if (listBeds == null)
+			initListBeds();
+		return listBeds;
+	}
+
+	public void setListBeds(List<com.oreon.callosum.facility.Bed> listBeds) {
+		this.listBeds = listBeds;
+	}
+
+	public void deleteBeds(int index) {
+		listBeds.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addBeds() {
+		Bed beds = new Bed();
+
+		beds.setRoom(getInstance());
+
+		getListBeds().add(beds);
+	}
+
 	public void updateComposedAssociations() {
+
+		if (listBeds != null) {
+			getInstance().getBeds().clear();
+			getInstance().getBeds().addAll(listBeds);
+		}
 	}
 
 }

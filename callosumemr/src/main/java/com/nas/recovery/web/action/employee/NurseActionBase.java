@@ -35,9 +35,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public abstract class NurseActionBase
-		extends
-			com.nas.recovery.web.action.employee.EmployeeAction
+public abstract class NurseActionBase extends BaseAction<Nurse>
 		implements
 			java.io.Serializable {
 

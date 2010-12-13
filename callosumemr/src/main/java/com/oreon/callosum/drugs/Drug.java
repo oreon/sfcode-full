@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.Date;
 
 import javax.persistence.*;
+
 import org.hibernate.validator.*;
 
 import org.apache.solr.analysis.LowerCaseFilterFactory;
@@ -49,6 +50,14 @@ import org.witchcraft.utils.*;
 public class Drug extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -16274297L;
 
+	@NotNull
+	@Length(min = 2, max = 255)
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
+	@Column(unique=true)
+	protected String name;
+	
+	
 	@Lob
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
@@ -77,10 +86,6 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	@Analyzer(definition = "customanalyzer")
 	protected String dosageForm;
 
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
-	protected String drugCategory;
-
 	@Lob
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
@@ -99,18 +104,9 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	@Lob
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
-	protected String interactions;
+	protected String mechanismOfAction;
 
-	@Lob
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
-	protected String mechanism;
-
-	@NotNull
-	@Length(min = 2, max = 50)
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
-	protected String name;
+	
 
 	@Lob
 	@Field(index = Index.TOKENIZED)
@@ -126,12 +122,28 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
 	protected String toxicity;
+	
+	private Double halfLifeNumberOfHours;
+	
+	private String drugBankId;
 
 	@OneToMany(mappedBy = "drug", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "drug_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<DrugInteraction> drugInteractions = new HashSet<DrugInteraction>();
+
+	@ManyToMany(mappedBy = "drugs")
+	private Set<DrugCategory> drugCategorys = new HashSet<DrugCategory>();
+
+	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
+	protected String routeOfElimination;
+
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
+	protected String volumeOfDistribution;
 
 	public void setAbsorption(String absorption) {
 		this.absorption = absorption;
@@ -181,14 +193,6 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 		return dosageForm;
 	}
 
-	public void setDrugCategory(String drugCategory) {
-		this.drugCategory = drugCategory;
-	}
-
-	public String getDrugCategory() {
-		return drugCategory;
-	}
-
 	public void setFoodInteractions(String foodInteractions) {
 		this.foodInteractions = foodInteractions;
 	}
@@ -213,20 +217,12 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 		return indication;
 	}
 
-	public void setInteractions(String interactions) {
-		this.interactions = interactions;
+	public void setMechanismOfAction(String mechanismOfAction) {
+		this.mechanismOfAction = mechanismOfAction;
 	}
 
-	public String getInteractions() {
-		return interactions;
-	}
-
-	public void setMechanism(String mechanism) {
-		this.mechanism = mechanism;
-	}
-
-	public String getMechanism() {
-		return mechanism;
+	public String getMechanismOfAction() {
+		return mechanismOfAction;
 	}
 
 	public void setName(String name) {
@@ -269,8 +265,37 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 		return drugInteractions;
 	}
 
+	public void setDrugCategorys(Set<DrugCategory> drugCategorys) {
+		this.drugCategorys = drugCategorys;
+	}
+
+	public Set<DrugCategory> getDrugCategorys() {
+		return drugCategorys;
+	}
+
+	public void setRouteOfElimination(String routeOfElimination) {
+		this.routeOfElimination = routeOfElimination;
+	}
+
+	public String getRouteOfElimination() {
+		return routeOfElimination;
+	}
+
+	public void setVolumeOfDistribution(String volumeOfDistribution) {
+		this.volumeOfDistribution = volumeOfDistribution;
+	}
+
+	public String getVolumeOfDistribution() {
+		return volumeOfDistribution;
+	}
+
 	@Transient
 	public String getDisplayName() {
+		return name;
+	}
+
+	@Transient
+	public String getPopupInfo() {
 		return name;
 	}
 
@@ -298,17 +323,13 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 
 		listSearchableFields.add("dosageForm");
 
-		listSearchableFields.add("drugCategory");
-
 		listSearchableFields.add("foodInteractions");
 
 		listSearchableFields.add("halfLife");
 
 		listSearchableFields.add("indication");
 
-		listSearchableFields.add("interactions");
-
-		listSearchableFields.add("mechanism");
+		listSearchableFields.add("mechanismOfAction");
 
 		listSearchableFields.add("name");
 
@@ -318,9 +339,35 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 
 		listSearchableFields.add("toxicity");
 
+		listSearchableFields.add("routeOfElimination");
+
+		listSearchableFields.add("volumeOfDistribution");
+
 		listSearchableFields.add("drugInteractions.description");
 
 		return listSearchableFields;
+	}
+
+	public void setHalfLifeNumberOfHours(Double halfLifeNumberOfHours) {
+		this.halfLifeNumberOfHours = halfLifeNumberOfHours;
+	}
+
+	public Double getHalfLifeNumberOfHours() {
+		return halfLifeNumberOfHours;
+	}
+
+	/**
+	 * @param drugBankId the drugBankId to set
+	 */
+	public void setDrugBankId(String drugBankId) {
+		this.drugBankId = drugBankId;
+	}
+
+	/**
+	 * @return the drugBankId
+	 */
+	public String getDrugBankId() {
+		return drugBankId;
 	}
 
 }

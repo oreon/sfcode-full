@@ -202,4 +202,10 @@ public abstract class BedActionBase extends BaseAction<Bed>
 	public void updateComposedAssociations() {
 	}
 
+	public List getAvailableBeds() {
+
+		return executeSingleResultNamedQuery("getAvailableBeds");
+
+	}
+
 }
