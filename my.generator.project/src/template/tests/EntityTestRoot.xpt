@@ -11,15 +11,20 @@
 «ENDDEFINE»
 
 «DEFINE BaseGen FOR uml::Class»
+«IF !isAbstract»
 «FILE getWebPackagePath("ActionTestBase")   »
+
+
 package « getWebPackageName() »;
 
 		«EXPAND genImports FOR this»
 		«EXPAND genClassBody FOR this»
 	«ENDFILE»
+«ENDIF»
 «ENDDEFINE»
 
 «DEFINE ManualGen FOR uml::Class»
+«IF !isAbstract»
 «FILE getWebPackagePath("ActionTest")  man_path »
 
 package « getWebPackageName() »;
@@ -30,6 +35,7 @@ public class «name»ActionTest extends «name»ActionTestBase{
 	
 }
 «ENDFILE»
+«ENDIF»
 «ENDDEFINE»
 
 

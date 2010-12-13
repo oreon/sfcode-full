@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
@@ -95,9 +96,9 @@ public class ClassUtil {
 		mapTypes.put("imageFile", new String[] { "FileAttachment", "" });
 		mapTypes.put("largeText", new String[] { "String", "@Lob" });
 		mapTypes.put("nameType", new String[] { "String",
-				"@NotNull @Length(min=2, max=50)" });
+				"@NotNull @Length(min=2, max=250)" });
 		mapTypes.put("uniqueNameType", new String[] { "String",
-				"@NotNull @Length(min=2, max=50)" });
+				"@NotNull @Length(min=2, max=250)  @Column(unique=true)" });
 		loadProperties();
 	}
 
