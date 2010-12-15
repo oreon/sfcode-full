@@ -343,26 +343,20 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	
 	«LET "list" + prefix + name.toFirstUpper()  AS currentList»
 	
-	protected List<«type.fqn()»> «currentList»;
+	protected List<«type.fqn()»> «currentList» = new ArrayList<«type.fqn()»>();
 	
 	void init«currentList.toFirstUpper()»(){
-		«currentList» = new ArrayList<«type.fqn()»>();
-		
+	
 		«IF isLeadingManyToMany() && prefix == "Available"»
 			«currentList» = getEntityManager().createQuery("select r from «type.name» r").getResultList();
 			«currentList».removeAll(getInstance().get«name.toFirstUpper()»());
 		«ELSE»
-		if(getInstance().get«name.toFirstUpper()»().isEmpty()){
-			«IF !getAssocOptional()»add«name.toFirstUpper()»();«ENDIF»
-		}
-		else
+		if(getInstance().get«name.toFirstUpper()»().isEmpty())
 			«currentList».addAll(getInstance().get«name.toFirstUpper()»());
 		«ENDIF»
 	}
 	
 	public List<«type.fqn()»> get«currentList.toFirstUpper()»() {
-		if(«currentList» == null)
-			init«currentList.toFirstUpper()»();
 		return «currentList»;
 	}
 

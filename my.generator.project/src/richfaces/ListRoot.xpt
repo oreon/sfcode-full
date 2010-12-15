@@ -18,8 +18,8 @@
          		</ui:include>
 				
 				<a:form>
-				<s:button value="Create New" view="«getViewFile("edit")»"  />
-					<a:commandButton action="#{«asVar()»Action.set«name»Id(0)}"  
+				<s:button value="Create New" view="«getViewFile("edit")»" propagation="none"  />
+					<a:commandButton action="#{«asVar()»Action.set«name»Id(0)}" 
 						oncomplete="Richfaces.showModalPanel('«name»ModalPanel',{});" value="Quick Create" >
 					</a:commandButton>
 				</a:form>
@@ -171,13 +171,13 @@
 				<ui:param name="propertyPath" value="«genPropertyLabel()»" />
 			</ui:include>
 		</f:facet>
-		<s:link «getEscape()»  value="#{_«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" propagation="begin">
+		<s:link «getEscape()»  value="#{_«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" propagation="none">
 			<f:param name="«name»Id" value="#{_«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»
 			 <rich:toolTip>
 	            <span>
-	               «type.popupInfo»  
+	              #{_«genPropertyLabel()».popupInfo} 
 	            </span>
 	        </rich:toolTip>
 	        «ENDIF»
