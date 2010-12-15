@@ -281,13 +281,16 @@
 
 «DEFINE genAutoCompleteAssoc FOR uml::Property»
 	<h:panelGroup>
-	<h:inputText value="#{«getActionForMode()»«genPropertyLabel()-».displayName}" label="«msgBundleKey()»"  id="«getId()»" required="«!getAssocOptional()»" />
+	 <a:region>
+	<h:inputText value="#{«getActionForMode()»«genPropertyLabel()-».displayName}" label="«msgBundleKey()»"  
+		id="«getId()»" required="«!getAssocOptional()»" />
 	«EXPAND genSuggestionBox FOR this»
+	 </a:region>
 	</h:panelGroup>
 «ENDDEFINE»
 
 «DEFINE genSuggestionBox FOR uml::Property»
-	<rich:suggestionbox  for="«getId()»"  rules="all" suggestionAction="#{«type.asVar()»List.autocompletedb}"
+	<rich:suggestionbox  for="«getId()»"  rules="all" suggestionAction="#{«type.asVar()»List.autocompletedb}"  ajaxSingle="true"
 		  var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999">
 		«IF type.autoCompleteColumns == null»
 			<h:column>
@@ -411,7 +414,7 @@
 
 «DEFINE genDelete FOR uml::Property»
 	<h:column>
-		<a:commandButton value="Delete" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}"  
+		<a:commandButton value="Delete" immediate="true" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}"  
 			reRender="«name»_data#{entityId}"
 			>
 			<s:conversationId/>
