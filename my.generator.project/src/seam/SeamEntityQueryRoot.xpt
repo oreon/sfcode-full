@@ -57,18 +57,12 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 		return «asVar()»;
 	}
 	
-	«FOREACH getManyToMany() AS e»
-   		private «e.type.fqn()» «e.type.asVar()»ToSearch;
-   		
-   		public void set«e.type.name»ToSearch(«e.type.fqn()» «e.type.asVar()»ToSearch){
-   			this.«e.type.asVar()»ToSearch = «e.type.asVar()»ToSearch;
-   		}
-   		
-   		public «e.type.fqn()» get«e.type.name»ToSearch(){
-   			return «e.type.asVar()»ToSearch;
-   		}
-   	«ENDFOREACH»
-    
+	«FOREACH allParents() AS e-»
+	 «EXPAND genManyToManySearch FOREACH e.getAllAttributes().select(a|a.isManyToMany()  ) -»
+	«ENDFOREACH»
+	
+	«EXPAND genManyToManySearch FOREACH getAllAttributes().select(a|a.isManyToMany()  ) -»
+
 	
 	@Override
 	protected String getql() {
@@ -148,6 +142,18 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 «ENDDEFINE»
 
 
+«DEFINE genManyToManySearch FOR uml::Property»
+		private «type.fqn()» «type.asVar()»ToSearch;
+   		
+   		public void set«type.name»ToSearch(«type.fqn()» «type.asVar()»ToSearch){
+   			this.«type.asVar()»ToSearch = «type.asVar()»ToSearch;
+   		}
+   		
+   		public «type.fqn()» get«type.name»ToSearch(){
+   			return «type.asVar()»ToSearch;
+   		}
+«ENDDEFINE»
+
 
 «DEFINE genAttribute(boolean createRangeDeclarations) FOR uml::Property -»
 	«EXPAND genProperty(createRangeDeclarations) FOR this-»
@@ -171,18 +177,20 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 
 «DEFINE genPropertyRestrictions FOR uml::Property»
 
-«IF this.isString()-»
-  "lower(«genPropertyLabel()») like concat(lower(#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}),'%')",
-«ELSEIF this.type.isRangeType()»
-	"«genPropertyLabel()» >= #{«getCurrentEntity().asVar()»List.«getId()»Range.begin}",
-	"«genPropertyLabel()» <= #{«getCurrentEntity().asVar()»List.«getId()»Range.end}",			
-«ELSE»
-   «IF isManyToMany()»
- 	"#{«getCurrentEntity().asVar()»List.«type.asVar()»ToSearch} in elements(«genPropertyLabel()»)",
-   «ELSE»
-  	"«genPropertyLabel()»«association != null ? ".id" : "" » = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»«association != null ? ".id" : "" »}",
-  	«ENDIF»
-«ENDIF»
+	«IF this.isString()-»
+	  "lower(«genPropertyLabel()») like concat(lower(#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}),'%')",
+	«ELSEIF this.type.isRangeType()»
+		"«genPropertyLabel()» >= #{«getCurrentEntity().asVar()»List.«getId()»Range.begin}",
+		"«genPropertyLabel()» <= #{«getCurrentEntity().asVar()»List.«getId()»Range.end}",			
+	«ELSE»
+	   «IF isManyToMany() »
+	   	«IF getCurrentEmbeddable() == null»
+	   		"#{«getCurrentEntity().asVar()»List.«type.asVar()»ToSearch} in elements(«genPropertyLabel()»)",
+	   	«ENDIF»
+	   «ELSE»
+	  	"«genPropertyLabel()»«association != null ? ".id" : "" » = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»«association != null ? ".id" : "" »}",
+	  	«ENDIF»
+	«ENDIF»
 
 «ENDDEFINE»
 

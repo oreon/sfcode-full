@@ -159,6 +159,7 @@
 «ENDDEFINE»
 
 «DEFINE genAssociation FOR uml::Property -»
+	 «IF !isManyToMany() || getCurrentEmbeddable() == null»
 	<h:panelGroup>
 	«getOutputMessage()» <br/>
 	<h:selectOneMenu id="«getId()»" value="#{ «getCurrentEntity().asVar()»List.«isManyToMany() ? type.asVar() +"ToSearch": genPropertyLabel()»}" >
@@ -169,6 +170,7 @@
 		«getAssocOptional()?"<f:selectItem itemLabel=\"--None--\" itemValue=\"\"/>":""»
 	</h:selectOneMenu>
 	</h:panelGroup>
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
