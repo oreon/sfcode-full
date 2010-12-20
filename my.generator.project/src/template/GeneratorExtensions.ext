@@ -104,6 +104,12 @@ cls.name.toFirstLower();
 boolean isRangeType(Type type):
 type.name == "Double" || type.name == "Integer" || type.name == "Date";
 
+boolean isSearchable(Property a ):
+if ( a.association !=null) then
+ a.isMultivalued() && a.opposite.isMultivalued()   || !a.isMultivalued()
+else 
+!a.isMultivalued() && !a.isSecret() && !a.isFile();
+
 
 boolean getAuditable(Type type):
 type.auditable;

@@ -260,6 +260,10 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		«FOREACH getMultiValued() AS e»
 			initList«e.name.toFirstUpper()»(); 
 		«ENDFOREACH»
+		
+		«FOREACH getLeadingManyToMany() AS e»
+			initList«e.name.toFirstUpper()»(); 
+		«ENDFOREACH»
 	}
 	
 	public void updateAssociations(){
@@ -351,12 +355,13 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 			«currentList» = getEntityManager().createQuery("select r from «type.name» r").getResultList();
 			«currentList».removeAll(getInstance().get«name.toFirstUpper()»());
 		«ELSE»
-		if(getInstance().get«name.toFirstUpper()»().isEmpty())
+		if(«currentList».isEmpty())
 			«currentList».addAll(getInstance().get«name.toFirstUpper()»());
-		«ENDIF»
+		«ENDIF»	
 	}
 	
 	public List<«type.fqn()»> get«currentList.toFirstUpper()»() {
+		«IF isLeadingManyToMany() && prefix == "Available"» init«currentList.toFirstUpper()»(); «ENDIF»
 		return «currentList»;
 	}
 
