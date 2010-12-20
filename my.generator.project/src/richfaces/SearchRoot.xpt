@@ -108,10 +108,8 @@
 
 
 «DEFINE genDateRange FOR uml::Class»
-			<rich:calendar id="from" value="#{«getCurrentEntity().asVar()»List.dateCreatedRange.begin}" />
-			
-			<rich:calendar id="to" value="#{«getCurrentEntity().asVar()»List.dateCreatedRange.end}" />
-			
+	<rich:calendar id="from" value="#{«getCurrentEntity().asVar()»List.dateCreatedRange.begin}" />
+	<rich:calendar id="to" value="#{«getCurrentEntity().asVar()»List.dateCreatedRange.end}" />
 «ENDDEFINE»
 
 «DEFINE genCancelSaveBtns FOR uml::Class»
@@ -126,15 +124,15 @@
 «DEFINE genAttribAsOutput FOR uml::Class-»
 	«clearCurrentEmbeddable()-»
 	«FOREACH allParents() AS e-»
-	 «EXPAND genPropertyRec FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret() && !a.isFile()  ) -»
+	 «EXPAND genPropertyRec FOREACH e.getAllAttributes().select(a| a.isSearchable()  ) -»
 	«ENDFOREACH»
-	«EXPAND genPropertyRec FOREACH getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret() && !a.isFile()  ) -»
+	«EXPAND genPropertyRec FOREACH getAllAttributes().select(a| a.isSearchable()  ) -»
 «ENDDEFINE»
 
 «DEFINE genPropertyRec FOR uml::Property-»
 	«IF isExpandableAssoc() -» 
 		«setCurrentEmbeddable()-» 
-		«EXPAND genPropertyRec FOREACH type.getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret() && !a.isFile() ) -»
+		«EXPAND genPropertyRec FOREACH type.getAllAttributes().select(a| a.isSearchable() ) -»
 		«clearCurrentEmbeddable()-»
 	«ELSE-»
 		«EXPAND genAttribute -»
@@ -163,7 +161,7 @@
 «DEFINE genAssociation FOR uml::Property -»
 	<h:panelGroup>
 	«getOutputMessage()» <br/>
-	<h:selectOneMenu id="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}" >
+	<h:selectOneMenu id="«getId()»" value="#{ «getCurrentEntity().asVar()»List.«isManyToMany() ? type.asVar() +"ToSearch": genPropertyLabel()»}" >
 		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Any..." />

@@ -20,6 +20,13 @@ entity.getAllAttributes().select(a|a.isLeadingManyToMany());
 isLeadingManyToMany(Property a):
 a.association != null && a.opposite != null && a.opposite.isMultivalued() && a.isMultivalued() && a.isAggregate();
 
+
+getManyToMany(Class entity):
+entity.getAllAttributes().select(a|a.isManyToMany());
+
+isManyToMany(Property a):
+a.association != null && a.opposite != null && a.opposite.isMultivalued() && a.isMultivalued() ;
+
 //expandable associaitons need to be exapnded e.g. address field in person while generating UI
 isExpandableAssoc(Property a ):
 a.type.isEmbeddable() || a.isContainedAssoc();
@@ -47,6 +54,8 @@ cls.getAllAttributes().select(a|a.isMultivalued() && a.association != null && a.
 getMultiValued(Class cls):
 cls.getAllAttributes().select(a|a.isMultivalued() && a.association != null && (a.isComposite() || !a.opposite.isMultivalued()) );
 
+//
+
 //e.g customer would be needed of the given order
 getOutgoingAssociations(Class cls):
 cls.getAllAttributes().select(a|a.isMultivalued() == false && a.association != null && !a.type.isEmbeddable() );
@@ -55,6 +64,7 @@ cls.getAllAttributes().select(a|a.isMultivalued() == false && a.association != n
 getEmbeddable(Class cls):
 cls.getAllAttributes().select(a|a.type.isEmbeddable());
 
+//if this associatio is madatory
 String getAssocOptional(Property prop):
 prop.lowerBound() > 0?false:true;
 

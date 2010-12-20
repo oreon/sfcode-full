@@ -180,19 +180,21 @@
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
 	«FOREACH allParents() AS e-»
-	 «EXPAND genProperty FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret() && a.type.name != "imageFile" ) -»
+	 «EXPAND genProperty FOREACH e.getAllAttributes().select(a|a.isSearchable()  ) -»
 	«ENDFOREACH»
-	«EXPAND genProperty FOREACH getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret() && a.type.name != "imageFile"  ) -»
+	«EXPAND genProperty FOREACH getAllAttributes().select(a|a.isSearchable()   ) -»
 «ENDDEFINE»
 
 
 «DEFINE genProperty FOR uml::Property-»
 	«IF isExpandableAssoc() -» 
 		«setCurrentEmbeddable()-» 
-		«EXPAND genProperty FOREACH type.getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret() && a.type.name != "imageFile" ) -»
+		«EXPAND genProperty FOREACH type.getAllAttributes().select(a|a.isSearchable()  ) -»
 		«clearCurrentEmbeddable()-»
 	«ELSE-»
-		<param name="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»«isNonExpandableAssoc() ? ".id" : "" »}"  validateModel="false" />
+		«IF !isMultivalued()»
+			<param name="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»«isNonExpandableAssoc() ? ".id" : "" »}"  validateModel="false" />
+		«ENDIF»
 	«ENDIF»
 «ENDDEFINE»
 

@@ -52,9 +52,23 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
     
     protected «name» «asVar()» = new «IF isAbstract» «getFirstChild().fqn()» «ELSE» «name» «ENDIF»();
     
+    
     public «name» get«name»() {
 		return «asVar()»;
 	}
+	
+	«FOREACH getManyToMany() AS e»
+   		private «e.type.fqn()» «e.type.asVar()»ToSearch;
+   		
+   		public void set«e.type.name»ToSearch(«e.type.fqn()» «e.type.asVar()»ToSearch){
+   			this.«e.type.asVar()»ToSearch = «e.type.asVar()»ToSearch;
+   		}
+   		
+   		public «e.type.fqn()» get«e.type.name»ToSearch(){
+   			return «e.type.asVar()»ToSearch;
+   		}
+   	«ENDFOREACH»
+    
 	
 	@Override
 	protected String getql() {
@@ -118,15 +132,15 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 
 «DEFINE genAttribAsOutput(boolean createRangeDeclarations)  FOR uml::Class-»
 	«FOREACH allParents() AS e-»
-	 «EXPAND genPropertyRec(createRangeDeclarations) FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret() && !a.isFile()  ) -»
+	 «EXPAND genPropertyRec(createRangeDeclarations) FOREACH e.getAllAttributes().select(a|a.isSearchable()  ) -»
 	«ENDFOREACH»
-	«EXPAND genPropertyRec(createRangeDeclarations) FOREACH getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret() && !a.isFile()  ) -»
+	«EXPAND genPropertyRec(createRangeDeclarations) FOREACH getAllAttributes().select(a|a.isSearchable()  ) -»
 «ENDDEFINE»
 
 «DEFINE genPropertyRec(boolean createRangeDeclarations)  FOR uml::Property-»
 	«IF isExpandableAssoc() -» 
 		«setCurrentEmbeddable()-» 
-		«EXPAND genPropertyRec(createRangeDeclarations) FOREACH type.getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret() && !a.isFile() ) -»
+		«EXPAND genPropertyRec(createRangeDeclarations) FOREACH type.getAllAttributes().select(a|a.isSearchable()  ) -»
 		«clearCurrentEmbeddable()-»
 	«ELSE-»
 		«EXPAND genAttribute(createRangeDeclarations) -»
@@ -163,16 +177,28 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 	"«genPropertyLabel()» >= #{«getCurrentEntity().asVar()»List.«getId()»Range.begin}",
 	"«genPropertyLabel()» <= #{«getCurrentEntity().asVar()»List.«getId()»Range.end}",			
 «ELSE»
-  "«genPropertyLabel()»«association != null ? ".id" : "" » = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»«association != null ? ".id" : "" »}",
+   «IF isManyToMany()»
+ 	"#{«getCurrentEntity().asVar()»List.«type.asVar()»ToSearch} in elements(«genPropertyLabel()»)",
+   «ELSE»
+  	"«genPropertyLabel()»«association != null ? ".id" : "" » = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»«association != null ? ".id" : "" »}",
+  	«ENDIF»
 «ENDIF»
 
 «ENDDEFINE»
 
+«REM» comment
 «DEFINE genAssociation(boolean createRangeDeclarations) FOR uml::Property-»	
 «IF !createRangeDeclarations»
- "«genPropertyLabel()».id = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()».id}",
-«ENDIF»
+
+ «IF isManyToMany()»
+ 	"#{«getCurrentEntity().asVar()»List.«type.asVar()»ToSearch} in elements(«genPropertyLabel()».«name»)"
+ «ELSE»
+ 	"«genPropertyLabel()».id = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()».id}",
+ «ENDIF»
+ 
+«ENDIF»   
 «ENDDEFINE»
+«ENDREM»
 
 «DEFINE genProperty(boolean createRangeDeclarations) FOR uml::Enumeration-»	
 «IF !createRangeDeclarations»

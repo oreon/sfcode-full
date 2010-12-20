@@ -171,7 +171,13 @@
 				<ui:param name="propertyPath" value="«genPropertyLabel()»" />
 			</ui:include>
 		</f:facet>
-		<s:link «getEscape()»  value="#{_«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" propagation="none">
+		«EXPAND genAssoc FOR this»
+	</h:column>
+«ENDDEFINE»
+
+
+«DEFINE genAssoc FOR uml::Property»
+	<s:link «getEscape()»  value="#{_«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" propagation="none">
 			<f:param name="«name»Id" value="#{_«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»
@@ -181,8 +187,7 @@
 	            </span>
 	        </rich:toolTip>
 	        «ENDIF»
-		</s:link>
-	</h:column>
+	</s:link>
 «ENDDEFINE»
 
 

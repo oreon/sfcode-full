@@ -154,9 +154,9 @@
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
 	«FOREACH allParents() AS e-»
-	 «EXPAND genAttributeAssoc FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && a.association != null ) -»
+	 «EXPAND genAttributeAssoc FOREACH e.getAllAttributes().select(a| !a.isMultivalued() && a.association != null ) -»
 	«ENDFOREACH»
-	«EXPAND genAttributeAssoc FOREACH getAllAttributes().select(a|!a.isMultivalued() && a.association != null  ) -»
+	«EXPAND genAttributeAssoc FOREACH getAllAttributes().select(a| !a.isMultivalued() && a.association != null  ) -»
 
 	«FOREACH allParents() AS e-»
 	 «EXPAND genLabelAndControl FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && a.association == null) -»
@@ -250,16 +250,26 @@
 
 
 «DEFINE genAssociation FOR uml::Property -»
-	«REM»comment
-	«isUnique» «opposite.isUnique»
-	«ENDREM»
 	«IF !isCurrentEditMode()-»
-	<s:link value="#{«getActionForMode()»«genPropertyLabel()-».displayName}" view="«type.getViewFile("view")»" >
-		<f:param name="id" value="#{«getCurrentEntity().asVar()»Action.«genPropertyLabel()-».id}" />
-	</s:link>
+		«EXPAND genAssocLink FOR this»
 	«ELSE»
 		«EXPAND genAssociationEdit FOR this»
 	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genAssocLink FOR uml::Property»
+	<s:link «getEscape()»  value="#{«getActionForMode()»«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" propagation="none">
+			<f:param name="«name»Id" value="#{«getActionForMode()»«genPropertyLabel()».id}" />
+			<f:param name="from" value="#{request.servletPath}" />
+			«IF type.popupInfo != null»
+			 <rich:toolTip>
+	            <span>
+	              #{«getActionForMode()»«genPropertyLabel()».popupInfo} 
+	            </span>
+	        </rich:toolTip>
+	        «ENDIF»
+	</s:link>
 «ENDDEFINE»
 
 «DEFINE genAssociationEdit FOR uml::Property»
