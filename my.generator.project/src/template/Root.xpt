@@ -264,6 +264,7 @@
 			«ENDIF»
 		«ELSE»
 		@OneToMany(«IF isBidirectional()»mappedBy = "«getOppositeName() »", «ENDIF» fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+		«IF isComposite()»@Cascade(value=org.hibernate.annotations.CascadeType.DELETE_ORPHAN)«ENDIF»
 		@JoinColumn(name = "«getOppositeName()»_ID", nullable = «getAssocOptional()»)
 		@OrderBy("dateCreated DESC")
 		«IF type.name != class.name»@IndexedEmbedded«ENDIF»
@@ -404,6 +405,7 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	import org.hibernate.annotations.Formula;
 	import org.hibernate.annotations.CacheConcurrencyStrategy;
 	import org.hibernate.annotations.Filter;
+	import org.hibernate.annotations.Cascade;
 	
 	import org.hibernate.search.annotations.AnalyzerDef;
 	import org.hibernate.search.annotations.Analyzer;
