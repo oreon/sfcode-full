@@ -95,7 +95,7 @@
 «ENDDEFINE»
 
 «DEFINE gen FOR wcprofile::MailNode»
-	<mail-node name="«name.removeSpaces()»" actors="#{«actors»}" subject="«subject»" text="«text»">
+	<mail-node name="«name.removeSpaces()»" «IF actors != null»actors="#{«actors»}"«ENDIF»  «IF to != null»to="#{«to»}"«ENDIF»  subject="«subject»" text="«text»">
   		«EXPAND genTransitions»
 	</mail-node>
 «ENDDEFINE»

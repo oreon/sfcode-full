@@ -90,19 +90,7 @@
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
 		
-		«IF !getAllAttributes().isEmpty»
-		@Transient
-	    public String getDisplayName(){
-	    	return «getDisplayName()»;
-	    }
-	    «ENDIF»
-	    
-	    «IF !getAllAttributes().isEmpty && popupInfo != null»
-		@Transient
-	    public String getPopupInfo(){
-	    	return «popupInfo»;
-	    }
-	    «ENDIF»
+		«EXPAND genPopupAndDisplayname FOR this»
 	    
 	    //Empty setter , needed for richfaces autocomplete to work 
 	    public void setDisplayName(String name){
@@ -136,6 +124,23 @@
 	    «EXPAND genOperation FOREACH getAllOperations()»
 	    «ENDREM»
 	}
+«ENDDEFINE»
+
+
+«DEFINE genPopupAndDisplayname FOR uml::Class»
+	«IF !getAllAttributes().isEmpty»
+		@Transient
+	    public String getDisplayName(){
+	    	return «getDisplayName()»;
+	    }
+	    «ENDIF»
+	    
+	    «IF !getAllAttributes().isEmpty && popupInfo != null»
+		@Transient
+	    public String getPopupInfo(){
+	    	return «popupInfo»;
+	    }
+	    «ENDIF»
 «ENDDEFINE»
 
 
@@ -188,12 +193,7 @@
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
 		
-		«IF !getAllAttributes().isEmpty»
-		@Transient
-	    public String getDisplayName(){
-	    	return «getDisplayName()»;
-	    }
-	    «ENDIF»
+		«EXPAND genPopupAndDisplayname FOR this»
 	    
 	    «EXPAND genSearchFieldsArray FOR this»
 	}
@@ -277,7 +277,7 @@
 			«IF !(isOneOnOne() && isAggregate())»@JoinColumn(name="«name»_id", nullable=«getAssocOptional()», updatable = «getAssocUpdatable()») «ENDIF»
     		«IF type.name != class.name»@ContainedIn«ENDIF»
 		«ENDIF» 
-		«IF type.isEmbeddable() || isContainedAssoc() || (isColumn() && autocomplete)»
+		«IF type.isEmbeddable() || isContainedAssoc() || (isColumn()  && autocomplete)»
 			«IF type.name != class.name && type.isEmbeddable() »@IndexedEmbedded «EXPAND EmbeddedAttributes FOR this»  «ENDIF»
 			protected «type.fqnForPackage(this.class)» «name» = new «type.fqnForPackage(this.class)»();
 		«ELSE»
