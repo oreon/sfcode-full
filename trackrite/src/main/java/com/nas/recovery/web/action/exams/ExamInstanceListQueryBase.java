@@ -6,6 +6,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -19,6 +20,7 @@ import org.jboss.seam.annotations.Observer;
 import org.wc.trackrite.exams.ExamInstance;
 
 /**
+ * D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
@@ -26,9 +28,28 @@ public abstract class ExamInstanceListQueryBase
 		extends
 			BaseQuery<ExamInstance, Long> {
 
-	//private static final String EJBQL = "select examInstance from ExamInstance examInstance";
+	private static final String EJBQL = "select examInstance from ExamInstance examInstance";
 
 	protected ExamInstance examInstance = new ExamInstance();
+
+	public ExamInstance getExamInstance() {
+		return examInstance;
+	}
+
+	@Override
+	protected String getql() {
+		return EJBQL;
+	}
+
+	@Override
+	public Class<ExamInstance> getEntityClass() {
+		return ExamInstance.class;
+	}
+
+	@Override
+	public String[] getEntityRestrictions() {
+		return RESTRICTIONS;
+	}
 
 	private static final String[] RESTRICTIONS = {
 			"examInstance.id = #{examInstanceList.examInstance.id}",
@@ -40,23 +61,9 @@ public abstract class ExamInstanceListQueryBase
 			"examInstance.dateCreated <= #{examInstanceList.dateCreatedRange.end}",
 			"examInstance.dateCreated >= #{examInstanceList.dateCreatedRange.begin}",};
 
-	public ExamInstance getExamInstance() {
-		return examInstance;
-	}
-
-	@Override
-	public Class<ExamInstance> getEntityClass() {
-		return ExamInstance.class;
-	}
-
-	@Override
-	public String[] getEntityRestrictions() {
-		// TODO Auto-generated method stub
-		return RESTRICTIONS;
-	}
-
 	@Observer("archivedExamInstance")
 	public void onArchive() {
 		refresh();
 	}
+
 }

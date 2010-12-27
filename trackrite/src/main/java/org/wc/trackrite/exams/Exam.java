@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -36,10 +37,12 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
+import org.witchcraft.utils.*;
+
 @Entity
 @Table(name = "exm_tbl")
-@Name("exam")
 @Filter(name = "archiveFilterDef")
+@Name("exam")
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
@@ -48,16 +51,16 @@ public class Exam extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1932910297L;
 
 	@NotNull
-	@Length(min = 2, max = 50)
+	@Length(min = 2, max = 250)
+	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
 	protected String name;
 
 	protected Integer duration;
 
-	//questions->exam ->Exam->Exam->Exam
-
 	@OneToMany(mappedBy = "exam", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	@JoinColumn(name = "exam_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
@@ -68,7 +71,6 @@ public class Exam extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getName() {
-
 		return name;
 	}
 
@@ -77,7 +79,6 @@ public class Exam extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Integer getDuration() {
-
 		return duration;
 	}
 
@@ -92,6 +93,10 @@ public class Exam extends BusinessEntity implements java.io.Serializable {
 	@Transient
 	public String getDisplayName() {
 		return name;
+	}
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

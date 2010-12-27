@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -36,10 +37,12 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
+import org.witchcraft.utils.*;
+
 @Entity
 @Table(name = "scheduleitem")
-@Name("scheduleItem")
 @Filter(name = "archiveFilterDef")
+@Name("scheduleItem")
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
@@ -63,7 +66,6 @@ public class ScheduleItem extends BusinessEntity
 	}
 
 	public Date getStartDate() {
-
 		return startDate;
 	}
 
@@ -72,7 +74,6 @@ public class ScheduleItem extends BusinessEntity
 	}
 
 	public Date getEndDate() {
-
 		return endDate;
 	}
 
@@ -81,13 +82,16 @@ public class ScheduleItem extends BusinessEntity
 	}
 
 	public org.wc.trackrite.domain.Employee getEmployee() {
-
 		return employee;
 	}
 
 	@Transient
 	public String getDisplayName() {
 		return startDate + "";
+	}
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

@@ -46,13 +46,18 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 	@DataModelSelection
 	private Project project;
 
-	@In(create = true, value = "issueList")
-	com.nas.recovery.web.action.issues.IssueListQuery issueList;
+	@In(create = true, value = "issueAction")
+	com.nas.recovery.web.action.issues.IssueAction issuesAction;
 
 	@DataModel
 	private List<Project> projectRecordList;
 
 	public void setProjectId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			loadAssociations();
+			return;
+		}
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
@@ -70,24 +75,18 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 		return (Long) getId();
 	}
 
-	//@Factory("projectRecordList")
-	//@Observer("archivedProject")
-	public void findRecords() {
-		//search();
-	}
-
 	public Project getEntity() {
 		return project;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(Project t) {
 		this.project = t;
 		loadAssociations();
 	}
 
 	public Project getProject() {
-		return getInstance();
+		return (Project) getInstance();
 	}
 
 	@Override
@@ -111,7 +110,7 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 	}
 
 	public Project getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return (Project) (isIdDefined() ? getInstance() : null);
 	}
 
 	public void setProject(Project t) {
@@ -124,11 +123,6 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 		return Project.class;
 	}
 
-	@Override
-	public void setEntityList(List<Project> list) {
-		this.projectRecordList = list;
-	}
-
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
@@ -137,13 +131,7 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 
 		initListIssues();
 
-		try {
-
-			issueList.getIssue().setProject(getInstance());
-
-		} catch (Exception e) {
-			addErrorMessage("Error updating associaiton " + e.getMessage());
-		}
+		initListEmployees();
 
 	}
 
@@ -156,21 +144,17 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 
 	}
 
-	protected List<org.wc.trackrite.issues.Issue> listIssues;
+	protected List<org.wc.trackrite.issues.Issue> listIssues = new ArrayList<org.wc.trackrite.issues.Issue>();
 
 	void initListIssues() {
-		listIssues = new ArrayList<org.wc.trackrite.issues.Issue>();
 
-		if (getInstance().getIssues().isEmpty()) {
-
-		} else
+		if (listIssues.isEmpty())
 			listIssues.addAll(getInstance().getIssues());
 
 	}
 
 	public List<org.wc.trackrite.issues.Issue> getListIssues() {
-		if (listIssues == null)
-			initListIssues();
+
 		return listIssues;
 	}
 
@@ -191,21 +175,17 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 		getListIssues().add(issues);
 	}
 
-	protected List<org.wc.trackrite.domain.Employee> listEmployees;
+	protected List<org.wc.trackrite.domain.Employee> listEmployees = new ArrayList<org.wc.trackrite.domain.Employee>();
 
 	void initListEmployees() {
-		listEmployees = new ArrayList<org.wc.trackrite.domain.Employee>();
 
-		if (getInstance().getEmployees().isEmpty()) {
-
-		} else
+		if (listEmployees.isEmpty())
 			listEmployees.addAll(getInstance().getEmployees());
 
 	}
 
 	public List<org.wc.trackrite.domain.Employee> getListEmployees() {
-		if (listEmployees == null)
-			initListEmployees();
+
 		return listEmployees;
 	}
 
@@ -214,10 +194,9 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 		this.listEmployees = listEmployees;
 	}
 
-	protected List<org.wc.trackrite.domain.Employee> listAvailableEmployees;
+	protected List<org.wc.trackrite.domain.Employee> listAvailableEmployees = new ArrayList<org.wc.trackrite.domain.Employee>();
 
 	void initListAvailableEmployees() {
-		listAvailableEmployees = new ArrayList<org.wc.trackrite.domain.Employee>();
 
 		listAvailableEmployees = getEntityManager().createQuery(
 				"select r from Employee r").getResultList();
@@ -226,8 +205,7 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 	}
 
 	public List<org.wc.trackrite.domain.Employee> getListAvailableEmployees() {
-		if (listAvailableEmployees == null)
-			initListAvailableEmployees();
+		initListAvailableEmployees();
 		return listAvailableEmployees;
 	}
 
@@ -247,13 +225,6 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 			getInstance().getEmployees().clear();
 			getInstance().getEmployees().addAll(listEmployees);
 		}
-	}
-
-	public List<Project> getEntityList() {
-		if (projectRecordList == null) {
-			findRecords();
-		}
-		return projectRecordList;
 	}
 
 }

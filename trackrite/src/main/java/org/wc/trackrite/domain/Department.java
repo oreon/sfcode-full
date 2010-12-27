@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -36,18 +37,18 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
+import org.witchcraft.utils.*;
+
 @Entity
 @Table(name = "department")
-@Name("department")
 @Filter(name = "archiveFilterDef")
+@Name("department")
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class Department extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1899938946L;
-
-	//employees->department ->Department->Employee->Employee
 
 	@OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "department_ID", nullable = true)
@@ -56,7 +57,7 @@ public class Department extends BusinessEntity implements java.io.Serializable {
 	private Set<Employee> employees = new HashSet<Employee>();
 
 	@NotNull
-	@Length(min = 2, max = 50)
+	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
 	protected String name;
@@ -74,13 +75,16 @@ public class Department extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getName() {
-
 		return name;
 	}
 
 	@Transient
 	public String getDisplayName() {
 		return name;
+	}
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

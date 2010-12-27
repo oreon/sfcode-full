@@ -2,9 +2,9 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <rich:panel> 
+    <f:facet name="header">Employee Search Results (#{empty records ? 0 : (employeeList.paginated ? employeeList.resultCount : records.size)})</f:facet>  
     <a:form> 
-      <f:facet name="header">Employee Search Results (#{empty employeeList.resultList ? 0 : (employeeList.paginated ? employeeList.resultCount : employeeList.resultList.size)})</f:facet>  
-      <rich:dataTable var="_employee" value="#{employeeList.resultList}" id="employeeList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty employeeList.resultList}"> 
+      <rich:dataTable var="_employee" value="#{records}" id="employeeList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
         <h:column> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -85,7 +85,7 @@
               <ui:param name="propertyPath" value="employee.department"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_employee.department.displayName}" view="/admin/entities/domain/department/viewDepartment.xhtml"> 
+          <s:link value="#{_employee.department.displayName}" view="/admin/entities/domain/department/viewDepartment.xhtml" propagation="none"> 
             <f:param name="departmentId" value="#{_employee.department.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -134,41 +134,21 @@
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{employeeList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.contactDetails_email}"/>  
-              <ui:param name="propertyPath" value="employee.home.email"/> 
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_city}"/>  
+              <ui:param name="propertyPath" value="employee.home.city"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_employee.home.email}"/> 
+          <h:outputText value="#{_employee.home.city}"/> 
         </h:column>  
         <h:column> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{employeeList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.contactDetails_primaryPhone}"/>  
-              <ui:param name="propertyPath" value="employee.mailing.primaryPhone"/> 
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_streetAddress}"/>  
+              <ui:param name="propertyPath" value="employee.home.streetAddress"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_employee.mailing.primaryPhone}"/> 
-        </h:column>  
-        <h:column> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{employeeList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.contactDetails_secondaryPhone}"/>  
-              <ui:param name="propertyPath" value="employee.mailing.secondaryPhone"/> 
-            </ui:include> 
-          </f:facet>  
-          <h:outputText value="#{_employee.mailing.secondaryPhone}"/> 
-        </h:column>  
-        <h:column> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{employeeList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.contactDetails_email}"/>  
-              <ui:param name="propertyPath" value="employee.mailing.email"/> 
-            </ui:include> 
-          </f:facet>  
-          <h:outputText value="#{_employee.mailing.email}"/> 
+          <h:outputText value="#{_employee.home.streetAddress}"/> 
         </h:column>  
         <h:column> 
           <f:facet name="header"> 
@@ -186,7 +166,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <s:link view="/admin/entities/domain/employee/viewEmployee.xhtml" rendered="#{s:hasPermission(_employee, 'view')}"> 
+          <s:link view="/admin/entities/domain/employee/viewEmployee.xhtml" rendered="#{s:hasPermission(_employee, 'view')}" propagation="none"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
             <f:param name="employeeId" value="#{_employee.id}"/> 
           </s:link> 
@@ -195,12 +175,12 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <s:link view="/admin/entities/domain/employee/editEmployee.xhtml" rendered="#{s:hasPermission(_employee, 'edit')}"> 
+          <s:link view="/admin/entities/domain/employee/editEmployee.xhtml" rendered="#{s:hasPermission(_employee, 'edit')}" propagation="none"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
             <f:param name="employeeId" value="#{_employee.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('employeeAction', 'archive')}"> 
+        <h:column rendered="#{s:hasPermission('employeeAction', 'archive')}" propagation="none"> 
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
@@ -231,12 +211,5 @@
     <s:link view="#{request.servletPath}" rendered="#{employeeList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
       <f:param name="firstResult" value="#{employeeList.lastFirstResult}"/> 
     </s:link> 
-  </div>  
-  <h:form> 
-    <s:div styleClass="actionButtons" rendered="#{empty from}"> 
-      <s:button value="Create New" view="/admin/entities/domain/employee/editEmployee.xhtml" propagation="none"> 
-        <f:param name="employeeId"/> 
-      </s:button> 
-    </s:div> 
-  </h:form> 
+  </div> 
 </ui:composition>

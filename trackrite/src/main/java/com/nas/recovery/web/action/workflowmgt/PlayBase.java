@@ -47,6 +47,10 @@ public class PlayBase extends BaseJbpmProcessAction
 	public void proceedToFourthThird() {
 
 	}
+	@EndTask(transition = "timeout")
+	public void timeoutThird() {
+
+	}
 
 	@StartTask
 	public void startFourth() {

@@ -54,6 +54,11 @@ public abstract class AnswerActionBase extends BaseAction<Answer>
 	private List<Answer> answerRecordList;
 
 	public void setAnswerId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			loadAssociations();
+			return;
+		}
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
@@ -68,8 +73,10 @@ public abstract class AnswerActionBase extends BaseAction<Answer>
 	}
 
 	public void setChoiceId(Long id) {
+
 		if (id != null && id > 0)
 			getInstance().setChoice(choiceAction.loadFromId(id));
+
 	}
 
 	public Long getChoiceId() {
@@ -77,9 +84,12 @@ public abstract class AnswerActionBase extends BaseAction<Answer>
 			return getInstance().getChoice().getId();
 		return 0L;
 	}
+
 	public void setExamInstanceId(Long id) {
+
 		if (id != null && id > 0)
 			getInstance().setExamInstance(examInstanceAction.loadFromId(id));
+
 	}
 
 	public Long getExamInstanceId() {
@@ -92,24 +102,18 @@ public abstract class AnswerActionBase extends BaseAction<Answer>
 		return (Long) getId();
 	}
 
-	//@Factory("answerRecordList")
-	//@Observer("archivedAnswer")
-	public void findRecords() {
-		//search();
-	}
-
 	public Answer getEntity() {
 		return answer;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(Answer t) {
 		this.answer = t;
 		loadAssociations();
 	}
 
 	public Answer getAnswer() {
-		return getInstance();
+		return (Answer) getInstance();
 	}
 
 	@Override
@@ -125,11 +129,13 @@ public abstract class AnswerActionBase extends BaseAction<Answer>
 
 	public void wire() {
 		getInstance();
+
 		org.wc.trackrite.exams.Choice choice = choiceAction
 				.getDefinedInstance();
 		if (choice != null) {
 			getInstance().setChoice(choice);
 		}
+
 		org.wc.trackrite.exams.ExamInstance examInstance = examInstanceAction
 				.getDefinedInstance();
 		if (examInstance != null) {
@@ -143,7 +149,7 @@ public abstract class AnswerActionBase extends BaseAction<Answer>
 	}
 
 	public Answer getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return (Answer) (isIdDefined() ? getInstance() : null);
 	}
 
 	public void setAnswer(Answer t) {
@@ -154,11 +160,6 @@ public abstract class AnswerActionBase extends BaseAction<Answer>
 	@Override
 	public Class<Answer> getEntityClass() {
 		return Answer.class;
-	}
-
-	@Override
-	public void setEntityList(List<Answer> list) {
-		this.answerRecordList = list;
 	}
 
 	/** This function adds associated entities to an example criterion
@@ -200,13 +201,6 @@ public abstract class AnswerActionBase extends BaseAction<Answer>
 	}
 
 	public void updateComposedAssociations() {
-	}
-
-	public List<Answer> getEntityList() {
-		if (answerRecordList == null) {
-			findRecords();
-		}
-		return answerRecordList;
 	}
 
 }

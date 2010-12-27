@@ -22,6 +22,9 @@ import org.jbpm.JbpmContext;
 import org.jbpm.graph.exe.Comment;
 import org.jbpm.taskmgmt.exe.TaskInstance;
 import org.joda.time.DateTime;
+import org.wc.trackrite.issues.Issue;
+
+import com.nas.recovery.web.action.issues.IssueAction;
 
 /**
  * This action will fucntion as base for all workflow related actions
@@ -101,6 +104,14 @@ public class BaseJbpmProcessAction {
 	public void setTask(TaskInstance task) {
 		this.task = task;
 	}
+	
+	public String getTaskForm(){
+		if(task == null)
+			return "";
+		String taskPath = "/admin/tasks/taskForms/" + task.getProcessInstance().getProcessDefinition().getName()
+		+ "/" + task.getName() + "TaskForm.xhtml";
+		return taskPath;
+	}
 
 	@Transactional
 	public String makeDecision() {
@@ -120,7 +131,7 @@ public class BaseJbpmProcessAction {
 				statusMessages.add("No such component " + name);
 				return "failure";
 			}
-
+			
 			loadInstance();
 			if(transName == null)
 			transName = ServletContexts.getInstance().getRequest()

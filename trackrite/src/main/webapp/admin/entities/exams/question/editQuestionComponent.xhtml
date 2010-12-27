@@ -20,7 +20,7 @@
       <a:commandButton value="New Choice" action="#{questionAction.addChoices}" reRender="choices_data#{entityId}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="choices_data#{entityId}" var="_choice" value="#{questionAction.listChoices}" rows="10" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="choices_data#{entityId}" var="_choice" value="#{questionAction.listChoices}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.choice_text} * "/>
@@ -34,7 +34,7 @@
           </a:commandButton> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="Delete" action="#{questionAction.deleteChoices(rowIndex)}" reRender="choices_data#{entityId}"> 
+          <a:commandButton value="Delete" immediate="true" action="#{questionAction.deleteChoices(rowIndex)}" reRender="choices_data#{entityId}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column> 

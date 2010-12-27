@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -36,10 +37,12 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
+import org.witchcraft.utils.*;
+
 @Entity
 @Table(name = "timesheet")
-@Name("timeSheet")
 @Filter(name = "archiveFilterDef")
+@Name("timeSheet")
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
@@ -47,23 +50,18 @@ import org.hibernate.annotations.Filter;
 public class TimeSheet extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -444381950L;
 
-	//timeTrackingEntrys->timeSheet ->TimeSheet->TimeSheet->TimeSheet
-
 	@OneToMany(mappedBy = "timeSheet", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	@JoinColumn(name = "timeSheet_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<TimeTrackingEntry> timeTrackingEntrys = new HashSet<TimeTrackingEntry>();
 
 	@NotNull
-	@Length(min = 2, max = 50)
+	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
 	protected String title;
-
-	@Formula(value = "( SELECT SUM(t.hours) FROM TimeTrackingEntry t, TimeSheet ts WHERE t.timeSheet_id = ts.id and ts.id = id)")
-	@Column(name = "total", unique = false)
-	protected Double total;
 
 	public void setTimeTrackingEntrys(Set<TimeTrackingEntry> timeTrackingEntrys) {
 		this.timeTrackingEntrys = timeTrackingEntrys;
@@ -78,22 +76,16 @@ public class TimeSheet extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getTitle() {
-
 		return title;
-	}
-
-	public void setTotal(Double total) {
-		this.total = total;
-	}
-
-	public Double getTotal() {
-
-		return total;
 	}
 
 	@Transient
 	public String getDisplayName() {
 		return title;
+	}
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

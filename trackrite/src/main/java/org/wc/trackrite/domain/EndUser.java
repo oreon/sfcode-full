@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -36,10 +37,12 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
+import org.witchcraft.utils.*;
+
 @Entity
 @Table(name = "enduser")
-@Name("endUser")
 @Filter(name = "archiveFilterDef")
+@Name("endUser")
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
@@ -48,6 +51,10 @@ public class EndUser extends org.wc.trackrite.domain.Person
 		implements
 			java.io.Serializable {
 	private static final long serialVersionUID = 1243082058L;
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
+	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
 	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()

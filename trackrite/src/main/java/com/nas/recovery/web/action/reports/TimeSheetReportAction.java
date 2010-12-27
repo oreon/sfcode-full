@@ -21,7 +21,6 @@ public class TimeSheetReportAction extends BaseReportAction {
 	}
 
 	public org.wc.trackrite.domain.Employee getDeveloper() {
-
 		return developer;
 	}
 
@@ -30,7 +29,6 @@ public class TimeSheetReportAction extends BaseReportAction {
 	}
 
 	public Date getFrom() {
-
 		return from;
 	}
 
@@ -39,7 +37,6 @@ public class TimeSheetReportAction extends BaseReportAction {
 	}
 
 	public Date getTo() {
-
 		return to;
 	}
 

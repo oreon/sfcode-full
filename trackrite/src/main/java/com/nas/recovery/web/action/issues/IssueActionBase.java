@@ -54,6 +54,11 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 	private List<Issue> issueRecordList;
 
 	public void setIssueId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			loadAssociations();
+			return;
+		}
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
@@ -68,8 +73,10 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 	}
 
 	public void setProjectId(Long id) {
+
 		if (id != null && id > 0)
 			getInstance().setProject(projectAction.loadFromId(id));
+
 	}
 
 	public Long getProjectId() {
@@ -77,9 +84,12 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 			return getInstance().getProject().getId();
 		return 0L;
 	}
+
 	public void setDeveloperId(Long id) {
+
 		if (id != null && id > 0)
 			getInstance().setDeveloper(developerAction.loadFromId(id));
+
 	}
 
 	public Long getDeveloperId() {
@@ -92,24 +102,18 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 		return (Long) getId();
 	}
 
-	//@Factory("issueRecordList")
-	//@Observer("archivedIssue")
-	public void findRecords() {
-		//search();
-	}
-
 	public Issue getEntity() {
 		return issue;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(Issue t) {
 		this.issue = t;
 		loadAssociations();
 	}
 
 	public Issue getIssue() {
-		return getInstance();
+		return (Issue) getInstance();
 	}
 
 	@Override
@@ -125,11 +129,13 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 
 	public void wire() {
 		getInstance();
+
 		org.wc.trackrite.issues.Project project = projectAction
 				.getDefinedInstance();
 		if (project != null) {
 			getInstance().setProject(project);
 		}
+
 		org.wc.trackrite.domain.Employee developer = developerAction
 				.getDefinedInstance();
 		if (developer != null) {
@@ -143,7 +149,7 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 	}
 
 	public Issue getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return (Issue) (isIdDefined() ? getInstance() : null);
 	}
 
 	public void setIssue(Issue t) {
@@ -154,11 +160,6 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 	@Override
 	public Class<Issue> getEntityClass() {
 		return Issue.class;
-	}
-
-	@Override
-	public void setEntityList(List<Issue> list) {
-		this.issueRecordList = list;
 	}
 
 	/** This function adds associated entities to an example criterion
@@ -200,13 +201,6 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 	}
 
 	public void updateComposedAssociations() {
-	}
-
-	public List<Issue> getEntityList() {
-		if (issueRecordList == null) {
-			findRecords();
-		}
-		return issueRecordList;
 	}
 
 	public void updateStatus(String status) {

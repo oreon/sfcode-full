@@ -14,7 +14,7 @@
       <a:commandButton value="New TimeTrackingEntry" action="#{timeSheetAction.addTimeTrackingEntrys}" reRender="timeTrackingEntrys_data#{entityId}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="timeTrackingEntrys_data#{entityId}" var="_timeTrackingEntry" value="#{timeSheetAction.listTimeTrackingEntrys}" rows="10" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="timeTrackingEntrys_data#{entityId}" var="_timeTrackingEntry" value="#{timeSheetAction.listTimeTrackingEntrys}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.timeTrackingEntry_issue}  "/>
@@ -52,7 +52,7 @@
           </a:commandButton> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="Delete" action="#{timeSheetAction.deleteTimeTrackingEntrys(rowIndex)}" reRender="timeTrackingEntrys_data#{entityId}"> 
+          <a:commandButton value="Delete" immediate="true" action="#{timeSheetAction.deleteTimeTrackingEntrys(rowIndex)}" reRender="timeTrackingEntrys_data#{entityId}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column> 

@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -36,10 +37,12 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
+import org.witchcraft.utils.*;
+
 @Entity
 @Table(name = "user")
-@Name("user")
 @Filter(name = "archiveFilterDef")
+@Name("user")
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
@@ -50,7 +53,7 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	//@Unique(entityName = "org.wc.trackrite.users.User", fieldName = "userName")
 
 	@NotNull
-	@Length(min = 2, max = 50)
+	@Length(min = 2, max = 250)
 	@Column(name = "userName", unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
@@ -64,14 +67,12 @@ public class User extends BusinessEntity implements java.io.Serializable {
 
 	protected Boolean enabled = true;
 
-	//roles->users ->User->Role->Role
-
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_ID"), inverseJoinColumns = @JoinColumn(name = "roles_ID"))
 	private Set<Role> roles = new HashSet<Role>();
 
 	@NotNull
-	@Length(min = 2, max = 50)
+	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
 	protected String email;
@@ -83,7 +84,6 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getUserName() {
-
 		return userName;
 	}
 
@@ -92,7 +92,6 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getPassword() {
-
 		return password;
 	}
 
@@ -101,7 +100,6 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Boolean getEnabled() {
-
 		return enabled;
 	}
 
@@ -118,7 +116,6 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getEmail() {
-
 		return email;
 	}
 
@@ -127,13 +124,16 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Date getLastLogin() {
-
 		return lastLogin;
 	}
 
 	@Transient
 	public String getDisplayName() {
 		return userName;
+	}
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

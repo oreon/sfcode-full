@@ -4,9 +4,9 @@
 
   <mail-template name='task-assign'>
     <actors>#{taskInstance.actorId}</actors>
-    <subject>Task: '#{taskInstance.variables['title']}'</subject>
+    <subject>Task: '#{taskInstance.name} #{taskInstance.variables['token'].displayName}'</subject>
     <text><![CDATA[Hi,
-Task '#{taskInstance.name}'  -  '#{taskInstance.variables['title']}' has been assigned to you.
+Task '#{taskInstance.name}'  -  '#{taskInstance.variables['token'].displayName}' has been assigned to you.
 You can view it here : http://witchcraft.dyndns.ws/trackrite/admin/tasks/viewTask.seam?taskId=#{taskInstance.id}
 Thanks.
 -- Witchcraft Team--]]></text>

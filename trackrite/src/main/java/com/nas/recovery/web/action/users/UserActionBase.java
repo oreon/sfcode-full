@@ -48,6 +48,11 @@ public abstract class UserActionBase extends BaseAction<User>
 	private List<User> userRecordList;
 
 	public void setUserId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			loadAssociations();
+			return;
+		}
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
@@ -65,24 +70,18 @@ public abstract class UserActionBase extends BaseAction<User>
 		return (Long) getId();
 	}
 
-	//@Factory("userRecordList")
-	//@Observer("archivedUser")
-	public void findRecords() {
-		//search();
-	}
-
 	public User getEntity() {
 		return user;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(User t) {
 		this.user = t;
 		loadAssociations();
 	}
 
 	public User getUser() {
-		return getInstance();
+		return (User) getInstance();
 	}
 
 	@Override
@@ -106,7 +105,7 @@ public abstract class UserActionBase extends BaseAction<User>
 	}
 
 	public User getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return (User) (isIdDefined() ? getInstance() : null);
 	}
 
 	public void setUser(User t) {
@@ -119,11 +118,6 @@ public abstract class UserActionBase extends BaseAction<User>
 		return User.class;
 	}
 
-	@Override
-	public void setEntityList(List<User> list) {
-		this.userRecordList = list;
-	}
-
 	public org.wc.trackrite.users.User findByUnqUserName(String userName) {
 		return executeSingleResultNamedQuery("findByUnqUserName", userName);
 	}
@@ -134,27 +128,25 @@ public abstract class UserActionBase extends BaseAction<User>
 	 */
 	public void loadAssociations() {
 
+		initListRoles();
+
 	}
 
 	public void updateAssociations() {
 
 	}
 
-	protected List<org.wc.trackrite.users.Role> listRoles;
+	protected List<org.wc.trackrite.users.Role> listRoles = new ArrayList<org.wc.trackrite.users.Role>();
 
 	void initListRoles() {
-		listRoles = new ArrayList<org.wc.trackrite.users.Role>();
 
-		if (getInstance().getRoles().isEmpty()) {
-
-		} else
+		if (listRoles.isEmpty())
 			listRoles.addAll(getInstance().getRoles());
 
 	}
 
 	public List<org.wc.trackrite.users.Role> getListRoles() {
-		if (listRoles == null)
-			initListRoles();
+
 		return listRoles;
 	}
 
@@ -162,10 +154,9 @@ public abstract class UserActionBase extends BaseAction<User>
 		this.listRoles = listRoles;
 	}
 
-	protected List<org.wc.trackrite.users.Role> listAvailableRoles;
+	protected List<org.wc.trackrite.users.Role> listAvailableRoles = new ArrayList<org.wc.trackrite.users.Role>();
 
 	void initListAvailableRoles() {
-		listAvailableRoles = new ArrayList<org.wc.trackrite.users.Role>();
 
 		listAvailableRoles = getEntityManager().createQuery(
 				"select r from Role r").getResultList();
@@ -174,8 +165,7 @@ public abstract class UserActionBase extends BaseAction<User>
 	}
 
 	public List<org.wc.trackrite.users.Role> getListAvailableRoles() {
-		if (listAvailableRoles == null)
-			initListAvailableRoles();
+		initListAvailableRoles();
 		return listAvailableRoles;
 	}
 
@@ -190,19 +180,6 @@ public abstract class UserActionBase extends BaseAction<User>
 			getInstance().getRoles().clear();
 			getInstance().getRoles().addAll(listRoles);
 		}
-	}
-
-	public List<User> getEntityList() {
-		if (userRecordList == null) {
-			findRecords();
-		}
-		return userRecordList;
-	}
-
-	public org.wc.trackrite.users.User findByUserName(String name) {
-
-		return executeSingleResultNamedQuery("findByUserName", name);
-
 	}
 
 }

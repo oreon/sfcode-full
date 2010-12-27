@@ -3,9 +3,14 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
   <ui:define name="content"> 
     <ui:include src="searchDepartment.xhtml"/>  
-    <ui:include src="listDepartmentComponent.xhtml"/>  
+    <br/>  
+    <br/>  
+    <ui:include src="listDepartmentComponent.xhtml"> 
+      <ui:param name="records" value="#{departmentList.resultList}"/> 
+    </ui:include>  
     <a:form> 
-      <a:commandButton oncomplete="Richfaces.showModalPanel('DepartmentModalPanel',{});" value="Quick Create"></a:commandButton> 
+      <s:button value="Create New" view="/admin/entities/domain/department/editDepartment.xhtml" propagation="none"/>  
+      <a:commandButton action="#{departmentAction.setDepartmentId(0)}" oncomplete="Richfaces.showModalPanel('DepartmentModalPanel',{});" value="Quick Create"></a:commandButton> 
     </a:form>  
     <ui:include src="/admin/entities/domain/department/modalDlgDepartmentComponent.xhtml"/> 
   </ui:define> 

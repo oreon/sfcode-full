@@ -51,13 +51,18 @@ public abstract class EmployeeActionBase
 	@In(create = true, value = "departmentAction")
 	com.nas.recovery.web.action.domain.DepartmentAction departmentAction;
 
-	@In(create = true, value = "issueList")
-	com.nas.recovery.web.action.issues.IssueListQuery issueList;
+	@In(create = true, value = "issueAction")
+	com.nas.recovery.web.action.issues.IssueAction issuesAction;
 
 	@DataModel
 	private List<Employee> employeeRecordList;
 
 	public void setEmployeeId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			loadAssociations();
+			return;
+		}
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
@@ -72,8 +77,10 @@ public abstract class EmployeeActionBase
 	}
 
 	public void setDepartmentId(Long id) {
+
 		if (id != null && id > 0)
 			getInstance().setDepartment(departmentAction.loadFromId(id));
+
 	}
 
 	public Long getDepartmentId() {
@@ -86,24 +93,18 @@ public abstract class EmployeeActionBase
 		return (Long) getId();
 	}
 
-	//@Factory("employeeRecordList")
-	//@Observer("archivedEmployee")
-	public void findRecords() {
-		//search();
-	}
-
 	public Employee getEntity() {
 		return employee;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(Employee t) {
 		this.employee = t;
 		loadAssociations();
 	}
 
 	public Employee getEmployee() {
-		return getInstance();
+		return (Employee) getInstance();
 	}
 
 	@Override
@@ -119,6 +120,7 @@ public abstract class EmployeeActionBase
 
 	public void wire() {
 		getInstance();
+
 		org.wc.trackrite.domain.Department department = departmentAction
 				.getDefinedInstance();
 		if (department != null) {
@@ -132,7 +134,7 @@ public abstract class EmployeeActionBase
 	}
 
 	public Employee getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return (Employee) (isIdDefined() ? getInstance() : null);
 	}
 
 	public void setEmployee(Employee t) {
@@ -143,11 +145,6 @@ public abstract class EmployeeActionBase
 	@Override
 	public Class<Employee> getEntityClass() {
 		return Employee.class;
-	}
-
-	@Override
-	public void setEntityList(List<Employee> list) {
-		this.employeeRecordList = list;
 	}
 
 	/** This function adds associated entities to an example criterion
@@ -175,14 +172,6 @@ public abstract class EmployeeActionBase
 
 		initListIssues();
 
-		try {
-
-			issueList.getIssue().setDeveloper(getInstance());
-
-		} catch (Exception e) {
-			addErrorMessage("Error updating associaiton " + e.getMessage());
-		}
-
 	}
 
 	public void updateAssociations() {
@@ -194,21 +183,17 @@ public abstract class EmployeeActionBase
 
 	}
 
-	protected List<org.wc.trackrite.issues.Issue> listIssues;
+	protected List<org.wc.trackrite.issues.Issue> listIssues = new ArrayList<org.wc.trackrite.issues.Issue>();
 
 	void initListIssues() {
-		listIssues = new ArrayList<org.wc.trackrite.issues.Issue>();
 
-		if (getInstance().getIssues().isEmpty()) {
-
-		} else
+		if (listIssues.isEmpty())
 			listIssues.addAll(getInstance().getIssues());
 
 	}
 
 	public List<org.wc.trackrite.issues.Issue> getListIssues() {
-		if (listIssues == null)
-			initListIssues();
+
 		return listIssues;
 	}
 
@@ -237,16 +222,9 @@ public abstract class EmployeeActionBase
 		}
 	}
 
-	public List<Employee> getEntityList() {
-		if (employeeRecordList == null) {
-			findRecords();
-		}
-		return employeeRecordList;
-	}
-
 	public Employee getCurrentLoggedInEmployee() {
 		String query = "Select e from Employee e where e.user.userName = ?1";
-		return executeSingleResultQuery(query, Identity.instance()
+		return (Employee) executeSingleResultQuery(query, Identity.instance()
 				.getCredentials().getUsername());
 	}
 

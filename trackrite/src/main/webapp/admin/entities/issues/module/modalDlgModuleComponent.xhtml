@@ -13,7 +13,7 @@
         <rich:componentControl for="ModuleModalPanel" attachTo="hidelink" operation="hide" event="onclick"/> 
       </h:panelGroup> 
     </f:facet>  
-    <s:div id="ModuleModalDiv"> 
+    <s:div> 
       <a:outputPanel ajaxRendered="true" id="moduleOutputPanel"> 
         <rich:messages passedLabel="" style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list" rendered="#{facesContext.maximumSeverity != null}"></rich:messages>  
         <a:form> 
@@ -22,9 +22,9 @@
             <f:param name="conversationPropagation" value="end"/> 
           </a:commandButton>  
           <h:outputText value=" "/>  
-          <a:commandButton oncomplete="Richfaces.hideModalPanel('ModuleModalPanel')" value="Hide"/>  
+          <a:commandButton immediate="true" oncomplete="Richfaces.hideModalPanel('ModuleModalPanel')" value="Hide"/>  
           <h:outputText value=" "/>  
-          <a:commandButton action="#{moduleAction.cancel}" immediate="true" type="reset" oncomplete="Richfaces.hideModalPanel('ModuleModalPanel');" value="Cancel"> 
+          <a:commandButton immediate="true" type="reset" oncomplete="Richfaces.hideModalPanel('ModuleModalPanel');" value="Cancel"> 
             <f:param name="conversationPropagation" value="end"/> 
           </a:commandButton> 
         </a:form> 

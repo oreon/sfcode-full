@@ -3,7 +3,7 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup> 
     <s:validateAll> 
-      <h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{employeeAction.load(employeeId )  }"> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{employeeAction.load(employeeId )  }"> 
         <f:facet name="header"> 
           <h:outputText value="Employee "/> 
         </f:facet>  
@@ -18,21 +18,18 @@
         <h:outputText value="#{msg.user_lastLogin}  "/>  
         <h:outputText id="user_lastLogin#{entityId}" value="#{employeeAction.employee.user.lastLogin}"/>  
         <h:outputText value="#{msg.employee_department}  "/>  
-        <s:link value="#{employeeAction.employee.department.displayName}" view="/admin/entities/domain/department/viewDepartment.xhtml"> 
-          <f:param name="id" value="#{employeeAction.employee.department.id}"/> 
+        <s:link value="#{employeeAction.employee.department.displayName}" view="/admin/entities/domain/department/viewDepartment.xhtml" propagation="none"> 
+          <f:param name="departmentId" value="#{employeeAction.employee.department.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
         <h:outputText id="home_primaryPhone#{entityId}" value="#{employeeAction.employee.home.primaryPhone}"/>  
         <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
         <h:outputText id="home_secondaryPhone#{entityId}" value="#{employeeAction.employee.home.secondaryPhone}"/>  
-        <h:outputText value="#{msg.contactDetails_email}  "/>  
-        <h:outputText id="home_email#{entityId}" value="#{employeeAction.employee.home.email}"/>  
-        <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
-        <h:outputText id="mailing_primaryPhone#{entityId}" value="#{employeeAction.employee.mailing.primaryPhone}"/>  
-        <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
-        <h:outputText id="mailing_secondaryPhone#{entityId}" value="#{employeeAction.employee.mailing.secondaryPhone}"/>  
-        <h:outputText value="#{msg.contactDetails_email}  "/>  
-        <h:outputText id="mailing_email#{entityId}" value="#{employeeAction.employee.mailing.email}"/>  
+        <h:outputText value="#{msg.contactDetails_city}  "/>  
+        <h:outputText id="home_city#{entityId}" value="#{employeeAction.employee.home.city}"/>  
+        <h:outputText value="#{msg.contactDetails_streetAddress}  "/>  
+        <h:outputText id="home_streetAddress#{entityId}" value="#{employeeAction.employee.home.streetAddress}"/>  
         <h:outputText value="#{msg.person_firstName}  "/>  
         <h:outputText id="firstName#{entityId}" value="#{employeeAction.employee.firstName}"/>  
         <h:outputText value="#{msg.person_lastName}  "/>  

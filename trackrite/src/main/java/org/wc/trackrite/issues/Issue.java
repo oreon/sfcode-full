@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -36,10 +37,12 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
+import org.witchcraft.utils.*;
+
 @Entity
 @Table(name = "issue")
-@Name("issue")
 @Filter(name = "archiveFilterDef")
+@Name("issue")
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
@@ -48,7 +51,7 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1766878641L;
 
 	@NotNull
-	@Length(min = 2, max = 50)
+	@Length(min = 2, max = 250)
 	@Column(name = "title", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
@@ -73,6 +76,7 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	@ContainedIn
 	protected org.wc.trackrite.domain.Employee developer;
 
+	@Column(name = "closeTime", unique = false)
 	protected Date closeTime;
 
 	protected Integer estimate;
@@ -82,7 +86,6 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getTitle() {
-
 		return title;
 	}
 
@@ -91,7 +94,6 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getDescription() {
-
 		return description;
 	}
 
@@ -100,7 +102,6 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Project getProject() {
-
 		return project;
 	}
 
@@ -109,7 +110,6 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Status getStatus() {
-
 		return status;
 	}
 
@@ -118,7 +118,6 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Priority getPriority() {
-
 		return priority;
 	}
 
@@ -127,7 +126,6 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public org.wc.trackrite.domain.Employee getDeveloper() {
-
 		return developer;
 	}
 
@@ -136,7 +134,6 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Date getCloseTime() {
-
 		return closeTime;
 	}
 
@@ -145,13 +142,21 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Integer getEstimate() {
-
 		return estimate;
 	}
 
 	@Transient
 	public String getDisplayName() {
 		return title;
+	}
+
+	@Transient
+	public String getPopupInfo() {
+		return description;
+	}
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

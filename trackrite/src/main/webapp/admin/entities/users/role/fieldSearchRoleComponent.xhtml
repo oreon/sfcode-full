@@ -10,15 +10,16 @@
       <br/>  
       <h:inputText id="name" value="#{roleList.role.name}"/> 
     </h:panelGroup>  
-    <s:decorate template="/layout/display.xhtml"> 
-      <ui:define name="label">From</ui:define>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.role_users}  "/>  
       <br/>  
-      <rich:calendar id="from" value="#{roleList.dateCreatedRange.begin}"/> 
-    </s:decorate>  
-    <s:decorate template="/layout/display.xhtml"> 
-      <ui:define name="label">To</ui:define>  
-      <br/>  
-      <rich:calendar id="to" value="#{roleList.dateCreatedRange.end}"/> 
-    </s:decorate> 
+      <h:selectOneMenu id="users" value="#{ roleList.userToSearch}"> 
+        <s:selectItems value="#{userList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <rich:calendar id="from" value="#{roleList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{roleList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

@@ -80,11 +80,7 @@ public abstract class DetailItemActionBase extends BaseAction<DetailItem>
 		return detailItem;
 	}
 
-	@Override
-	public void setEntity(DetailItem t) {
-		this.detailItem = t;
-		loadAssociations();
-	}
+	
 
 	public DetailItem getDetailItem() {
 		return getInstance();
@@ -129,10 +125,7 @@ public abstract class DetailItemActionBase extends BaseAction<DetailItem>
 		return DetailItem.class;
 	}
 
-	@Override
-	public void setEntityList(List<DetailItem> list) {
-		this.detailItemRecordList = list;
-	}
+	
 
 	/** This function adds associated entities to an example criterion
 	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)

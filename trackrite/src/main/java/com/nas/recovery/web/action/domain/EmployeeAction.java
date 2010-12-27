@@ -57,8 +57,8 @@ public class EmployeeAction extends EmployeeActionBase implements
 	public String updateDueDate(TaskInstance task){
 	//	TaskInstance task = executionContext.getTaskInstance();
 		//ManagedJbpmContext.instance().getGraphSession();
-		task = ExecutionContext.currentExecutionContext().getTaskInstance();
-		task.setDueDate(new java.util.Date());
+		//task = ExecutionContext.currentExecutionContext().getTaskInstance();
+		//task.setDueDate(new java.util.Date());
 		return "";
 	}
 

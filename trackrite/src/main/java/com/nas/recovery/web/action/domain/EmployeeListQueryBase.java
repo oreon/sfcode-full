@@ -6,6 +6,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -19,14 +20,45 @@ import org.jboss.seam.annotations.Observer;
 import org.wc.trackrite.domain.Employee;
 
 /**
+ * D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
 public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 
-	//private static final String EJBQL = "select employee from Employee employee";
+	private static final String EJBQL = "select employee from Employee employee";
 
 	protected Employee employee = new Employee();
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	private org.wc.trackrite.issues.Project projectToSearch;
+
+	public void setProjectToSearch(
+			org.wc.trackrite.issues.Project projectToSearch) {
+		this.projectToSearch = projectToSearch;
+	}
+
+	public org.wc.trackrite.issues.Project getProjectToSearch() {
+		return projectToSearch;
+	}
+
+	@Override
+	protected String getql() {
+		return EJBQL;
+	}
+
+	@Override
+	public Class<Employee> getEntityClass() {
+		return Employee.class;
+	}
+
+	@Override
+	public String[] getEntityRestrictions() {
+		return RESTRICTIONS;
+	}
 
 	private Range<Date> user_lastLoginRange = new Range<Date>();
 	public Range<Date> getUser_lastLoginRange() {
@@ -62,34 +94,25 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 
 			"lower(employee.home.secondaryPhone) like concat(lower(#{employeeList.employee.home.secondaryPhone}),'%')",
 
-			"lower(employee.home.email) like concat(lower(#{employeeList.employee.home.email}),'%')",
+			"lower(employee.home.city) like concat(lower(#{employeeList.employee.home.city}),'%')",
 
-			"lower(employee.mailing.primaryPhone) like concat(lower(#{employeeList.employee.mailing.primaryPhone}),'%')",
+			"lower(employee.home.streetAddress) like concat(lower(#{employeeList.employee.home.streetAddress}),'%')",
 
-			"lower(employee.mailing.secondaryPhone) like concat(lower(#{employeeList.employee.mailing.secondaryPhone}),'%')",
-
-			"lower(employee.mailing.email) like concat(lower(#{employeeList.employee.mailing.email}),'%')",
+			"#{employeeList.projectToSearch} in elements(employee.projects)",
 
 			"employee.dateCreated <= #{employeeList.dateCreatedRange.end}",
 			"employee.dateCreated >= #{employeeList.dateCreatedRange.begin}",};
 
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	@Override
-	public Class<Employee> getEntityClass() {
-		return Employee.class;
-	}
-
-	@Override
-	public String[] getEntityRestrictions() {
-		// TODO Auto-generated method stub
-		return RESTRICTIONS;
+	public List<Employee> getEmployeesByDepartment(
+			org.wc.trackrite.domain.Department department) {
+		//setMaxResults(10000);
+		employee.setDepartment(department);
+		return getResultList();
 	}
 
 	@Observer("archivedEmployee")
 	public void onArchive() {
 		refresh();
 	}
+
 }

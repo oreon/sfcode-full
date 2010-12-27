@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -36,10 +37,12 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
+import org.witchcraft.utils.*;
+
 @Entity
 @Table(name = "question")
-@Name("question")
 @Filter(name = "archiveFilterDef")
+@Name("question")
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
@@ -48,14 +51,13 @@ public class Question extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -27565140L;
 
 	@NotNull
-	@Length(min = 2, max = 50)
+	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
 	protected String text;
 
-	//choices->question ->Question->Choice->Choice
-
 	@OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	@JoinColumn(name = "question_ID", nullable = false)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
@@ -71,7 +73,6 @@ public class Question extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getText() {
-
 		return text;
 	}
 
@@ -88,13 +89,16 @@ public class Question extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Exam getExam() {
-
 		return exam;
 	}
 
 	@Transient
 	public String getDisplayName() {
 		return text;
+	}
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

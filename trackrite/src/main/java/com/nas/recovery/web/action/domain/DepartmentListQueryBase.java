@@ -6,6 +6,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -19,6 +20,7 @@ import org.jboss.seam.annotations.Observer;
 import org.wc.trackrite.domain.Department;
 
 /**
+ * D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
@@ -26,20 +28,17 @@ public abstract class DepartmentListQueryBase
 		extends
 			BaseQuery<Department, Long> {
 
-	//private static final String EJBQL = "select department from Department department";
+	private static final String EJBQL = "select department from Department department";
 
 	protected Department department = new Department();
 
-	private static final String[] RESTRICTIONS = {
-			"department.id = #{departmentList.department.id}",
-
-			"lower(department.name) like concat(lower(#{departmentList.department.name}),'%')",
-
-			"department.dateCreated <= #{departmentList.dateCreatedRange.end}",
-			"department.dateCreated >= #{departmentList.dateCreatedRange.begin}",};
-
 	public Department getDepartment() {
 		return department;
+	}
+
+	@Override
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
@@ -49,12 +48,20 @@ public abstract class DepartmentListQueryBase
 
 	@Override
 	public String[] getEntityRestrictions() {
-		// TODO Auto-generated method stub
 		return RESTRICTIONS;
 	}
+
+	private static final String[] RESTRICTIONS = {
+			"department.id = #{departmentList.department.id}",
+
+			"lower(department.name) like concat(lower(#{departmentList.department.name}),'%')",
+
+			"department.dateCreated <= #{departmentList.dateCreatedRange.end}",
+			"department.dateCreated >= #{departmentList.dateCreatedRange.begin}",};
 
 	@Observer("archivedDepartment")
 	public void onArchive() {
 		refresh();
 	}
+
 }

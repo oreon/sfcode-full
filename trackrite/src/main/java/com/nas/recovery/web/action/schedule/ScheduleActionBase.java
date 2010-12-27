@@ -53,11 +53,16 @@ public abstract class ScheduleActionBase extends BaseAction<Schedule>
 	private List<Schedule> scheduleRecordList;
 
 	public void setScheduleId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			loadAssociations();
+			return;
+		}
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
 	}
-	
+
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
@@ -67,8 +72,10 @@ public abstract class ScheduleActionBase extends BaseAction<Schedule>
 	}
 
 	public void setProjectId(Long id) {
+
 		if (id != null && id > 0)
 			getInstance().setProject(projectAction.loadFromId(id));
+
 	}
 
 	public Long getProjectId() {
@@ -81,24 +88,18 @@ public abstract class ScheduleActionBase extends BaseAction<Schedule>
 		return (Long) getId();
 	}
 
-	//@Factory("scheduleRecordList")
-	//@Observer("archivedSchedule")
-	public void findRecords() {
-		//search();
-	}
-
 	public Schedule getEntity() {
 		return schedule;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(Schedule t) {
 		this.schedule = t;
 		loadAssociations();
 	}
 
 	public Schedule getSchedule() {
-		return getInstance();
+		return (Schedule) getInstance();
 	}
 
 	@Override
@@ -114,6 +115,7 @@ public abstract class ScheduleActionBase extends BaseAction<Schedule>
 
 	public void wire() {
 		getInstance();
+
 		org.wc.trackrite.issues.Project project = projectAction
 				.getDefinedInstance();
 		if (project != null) {
@@ -127,7 +129,7 @@ public abstract class ScheduleActionBase extends BaseAction<Schedule>
 	}
 
 	public Schedule getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return (Schedule) (isIdDefined() ? getInstance() : null);
 	}
 
 	public void setSchedule(Schedule t) {
@@ -138,11 +140,6 @@ public abstract class ScheduleActionBase extends BaseAction<Schedule>
 	@Override
 	public Class<Schedule> getEntityClass() {
 		return Schedule.class;
-	}
-
-	@Override
-	public void setEntityList(List<Schedule> list) {
-		this.scheduleRecordList = list;
 	}
 
 	/** This function adds associated entities to an example criterion
@@ -176,21 +173,17 @@ public abstract class ScheduleActionBase extends BaseAction<Schedule>
 
 	}
 
-	protected List<org.wc.trackrite.schedule.ScheduleItem> listScheduleItems;
+	protected List<org.wc.trackrite.schedule.ScheduleItem> listScheduleItems = new ArrayList<org.wc.trackrite.schedule.ScheduleItem>();
 
 	void initListScheduleItems() {
-		listScheduleItems = new ArrayList<org.wc.trackrite.schedule.ScheduleItem>();
 
-		if (getInstance().getScheduleItems().isEmpty()) {
-
-		} else
+		if (listScheduleItems.isEmpty())
 			listScheduleItems.addAll(getInstance().getScheduleItems());
 
 	}
 
 	public List<org.wc.trackrite.schedule.ScheduleItem> getListScheduleItems() {
-		if (listScheduleItems == null)
-			initListScheduleItems();
+
 		return listScheduleItems;
 	}
 
@@ -216,13 +209,6 @@ public abstract class ScheduleActionBase extends BaseAction<Schedule>
 			getInstance().getScheduleItems().clear();
 			getInstance().getScheduleItems().addAll(listScheduleItems);
 		}
-	}
-
-	public List<Schedule> getEntityList() {
-		if (scheduleRecordList == null) {
-			findRecords();
-		}
-		return scheduleRecordList;
 	}
 
 }

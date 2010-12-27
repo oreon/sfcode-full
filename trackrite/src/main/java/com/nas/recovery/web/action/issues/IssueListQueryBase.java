@@ -6,6 +6,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -19,14 +20,34 @@ import org.jboss.seam.annotations.Observer;
 import org.wc.trackrite.issues.Issue;
 
 /**
+ * D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
 public abstract class IssueListQueryBase extends BaseQuery<Issue, Long> {
 
-	//private static final String EJBQL = "select issue from Issue issue";
+	private static final String EJBQL = "select issue from Issue issue";
 
 	protected Issue issue = new Issue();
+
+	public Issue getIssue() {
+		return issue;
+	}
+
+	@Override
+	protected String getql() {
+		return EJBQL;
+	}
+
+	@Override
+	public Class<Issue> getEntityClass() {
+		return Issue.class;
+	}
+
+	@Override
+	public String[] getEntityRestrictions() {
+		return RESTRICTIONS;
+	}
 
 	private Range<Date> closeTimeRange = new Range<Date>();
 	public Range<Date> getCloseTimeRange() {
@@ -68,23 +89,30 @@ public abstract class IssueListQueryBase extends BaseQuery<Issue, Long> {
 			"issue.dateCreated <= #{issueList.dateCreatedRange.end}",
 			"issue.dateCreated >= #{issueList.dateCreatedRange.begin}",};
 
-	public Issue getIssue() {
-		return issue;
+	public List<Issue> getIssuesByProject(
+			org.wc.trackrite.issues.Project project) {
+		//setMaxResults(10000);
+		issue.setProject(project);
+		return getResultList();
 	}
 
-	@Override
-	public Class<Issue> getEntityClass() {
-		return Issue.class;
-	}
-
-	@Override
-	public String[] getEntityRestrictions() {
-		// TODO Auto-generated method stub
-		return RESTRICTIONS;
+	public List<Issue> getIssuesByDeveloper(
+			org.wc.trackrite.domain.Employee employee) {
+		//setMaxResults(10000);
+		issue.setDeveloper(employee);
+		return getResultList();
 	}
 
 	@Observer("archivedIssue")
 	public void onArchive() {
 		refresh();
 	}
+
+	@Override
+	protected void setupForAutoComplete(String input) {
+
+		issue.setTitle(input);
+
+	}
+
 }

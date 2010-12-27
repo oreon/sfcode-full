@@ -23,7 +23,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.timeTrackingEntry_issue}  "/>  
       <br/>  
-      <h:selectOneMenu id="issue" value="#{timeTrackingEntryList.timeTrackingEntry.issue}"> 
+      <h:selectOneMenu id="issue" value="#{ timeTrackingEntryList.timeTrackingEntry.issue}"> 
         <s:selectItems value="#{issueList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
@@ -31,7 +31,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.timeTrackingEntry_timeSheet}  "/>  
       <br/>  
-      <h:selectOneMenu id="timeSheet" value="#{timeTrackingEntryList.timeTrackingEntry.timeSheet}"> 
+      <h:selectOneMenu id="timeSheet" value="#{ timeTrackingEntryList.timeTrackingEntry.timeSheet}"> 
         <s:selectItems value="#{timeSheetList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
@@ -39,26 +39,13 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.timeTrackingEntry_date} * "/>  
       <br/>  
-      <s:decorate template="/layout/display.xhtml"> 
-        <ui:define name="label">From</ui:define>  
-        <br/>  
-        <rich:calendar value="#{timeTrackingEntryList.dateRange.begin}"/> 
-      </s:decorate>  
-      <s:decorate template="/layout/display.xhtml"> 
-        <ui:define name="label">To</ui:define>  
-        <br/>  
-        <rich:calendar value="#{timeTrackingEntryList.dateRange.end}"/> 
-      </s:decorate> 
+      <h:outputText value="From"/>  
+      <br/>  
+      <rich:calendar value="#{timeTrackingEntryList.dateRange.begin}"/> To
+      <br/>  
+      <rich:calendar value="#{timeTrackingEntryList.dateRange.end}"/> 
     </h:panelGroup>  
-    <s:decorate template="/layout/display.xhtml"> 
-      <ui:define name="label">From</ui:define>  
-      <br/>  
-      <rich:calendar id="from" value="#{timeTrackingEntryList.dateCreatedRange.begin}"/> 
-    </s:decorate>  
-    <s:decorate template="/layout/display.xhtml"> 
-      <ui:define name="label">To</ui:define>  
-      <br/>  
-      <rich:calendar id="to" value="#{timeTrackingEntryList.dateCreatedRange.end}"/> 
-    </s:decorate> 
+    <rich:calendar id="from" value="#{timeTrackingEntryList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{timeTrackingEntryList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

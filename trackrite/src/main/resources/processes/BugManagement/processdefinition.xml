@@ -15,14 +15,16 @@
     <transition to="nonissue" name="nonissue"> 
       <action expression="#{issueAction.updateStatus('Closed')}"/> 
     </transition>  
-    <transition to="reviewIssue" name="assign"></transition> 
+    <transition to="reviewIssue" name="assign"> 
+      <action expression="#{bugManagementProcessAction.reassign}"/> 
+    </transition> 
   </task-node>  
   <task-node name="reviewIssue"> 
     <task name="reviewIssue" swimlane="developer" duedate="0 business days" notify="true"></task>  
+    <transition to="assignDeveloper" name="reject"></transition>  
     <transition to="workOnIssue" name="accept"> 
       <action expression="#{issueAction.updateStatus('Started')}"/> 
-    </transition>  
-    <transition to="assignDeveloper" name="reject"></transition> 
+    </transition> 
   </task-node>  
   <start-state name=""> 
     <task name="" swimlane="initiator"></task>  
@@ -46,7 +48,7 @@
   <mail-node name="notifyClose" actors="#{token.createdByUser.userName, token.developer.user.userName}" subject="Bug #{token.displayName} has been closed." text="Bug #{token.displayName} has been closed."> 
     <transition to="fixed" name="close"></transition> 
   </mail-node>  
-  <mail-node name="notifyCreate" actors="#{token.project.employees}" subject="New Issue : #{token.displayName}" text="A new issue #{token.displayName} has been created by #{token.createdByUser}."> 
+  <mail-node name="notifyCreate" to="#{projectAction.employeeUsernames}" subject="New Issue : #{token.displayName}" text="A new issue #{token.displayName} has been created by #{token.createdByUser.userName}."> 
     <transition to="reviewIssue" name="proceedToReviewIssue"></transition> 
   </mail-node> 
 </process-definition>
