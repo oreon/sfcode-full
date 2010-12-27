@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -54,6 +55,7 @@ public class Facility extends BusinessEntity implements java.io.Serializable {
 	protected String name;
 
 	@OneToMany(mappedBy = "facility", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	@JoinColumn(name = "facility_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
@@ -77,11 +79,6 @@ public class Facility extends BusinessEntity implements java.io.Serializable {
 
 	@Transient
 	public String getDisplayName() {
-		return name;
-	}
-
-	@Transient
-	public String getPopupInfo() {
 		return name;
 	}
 

@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -101,11 +102,6 @@ public class Admission extends BusinessEntity implements java.io.Serializable {
 
 	@Transient
 	public String getDisplayName() {
-		return patient + "";
-	}
-
-	@Transient
-	public String getPopupInfo() {
 		return patient + "";
 	}
 

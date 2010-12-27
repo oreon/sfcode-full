@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -47,7 +48,8 @@ public abstract class Employee extends com.oreon.callosum.patient.Person
 	private static final long serialVersionUID = -426154292L;
 
 	@NotNull
-	@Length(min = 2, max = 50)
+	@Length(min = 2, max = 250)
+	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
 	protected String employeeNumber;
@@ -90,11 +92,6 @@ public abstract class Employee extends com.oreon.callosum.patient.Person
 
 	@Transient
 	public String getDisplayName() {
-		return super.getDisplayName();
-	}
-
-	@Transient
-	public String getPopupInfo() {
 		return super.getDisplayName();
 	}
 

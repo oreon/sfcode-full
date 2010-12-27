@@ -34,6 +34,16 @@ public abstract class RoleListQueryBase extends BaseQuery<Role, Long> {
 		return role;
 	}
 
+	private com.oreon.callosum.users.User userToSearch;
+
+	public void setUserToSearch(com.oreon.callosum.users.User userToSearch) {
+		this.userToSearch = userToSearch;
+	}
+
+	public com.oreon.callosum.users.User getUserToSearch() {
+		return userToSearch;
+	}
+
 	@Override
 	protected String getql() {
 		return EJBQL;
@@ -53,6 +63,8 @@ public abstract class RoleListQueryBase extends BaseQuery<Role, Long> {
 			"role.id = #{roleList.role.id}",
 
 			"lower(role.name) like concat(lower(#{roleList.role.name}),'%')",
+
+			"#{roleList.userToSearch} in elements(role.users)",
 
 			"role.dateCreated <= #{roleList.dateCreatedRange.end}",
 			"role.dateCreated >= #{roleList.dateCreatedRange.begin}",};

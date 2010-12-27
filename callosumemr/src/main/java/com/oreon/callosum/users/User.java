@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -52,7 +53,7 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	//@Unique(entityName = "com.oreon.callosum.users.User", fieldName = "userName")
 
 	@NotNull
-	@Length(min = 2, max = 50)
+	@Length(min = 2, max = 250)
 	@Column(name = "userName", unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
@@ -104,11 +105,6 @@ public class User extends BusinessEntity implements java.io.Serializable {
 
 	@Transient
 	public String getDisplayName() {
-		return userName;
-	}
-
-	@Transient
-	public String getPopupInfo() {
 		return userName;
 	}
 

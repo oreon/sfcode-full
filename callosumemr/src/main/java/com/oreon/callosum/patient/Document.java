@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -50,7 +51,7 @@ public class Document extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 2053150834L;
 
 	@NotNull
-	@Length(min = 2, max = 50)
+	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
 	protected String name;
@@ -106,11 +107,6 @@ public class Document extends BusinessEntity implements java.io.Serializable {
 
 	@Transient
 	public String getDisplayName() {
-		return name;
-	}
-
-	@Transient
-	public String getPopupInfo() {
 		return name;
 	}
 

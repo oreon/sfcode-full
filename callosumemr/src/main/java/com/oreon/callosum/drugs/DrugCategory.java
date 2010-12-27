@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -52,13 +53,13 @@ public class DrugCategory extends BusinessEntity
 	private static final long serialVersionUID = 1100168997L;
 
 	@NotNull
-	@Length(min = 2, max = 255)
+	@Length(min = 2, max = 250)
+	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
-	@Column(unique=true)
 	protected String name;
 
-	@ManyToMany(cascade = {CascadeType.ALL})
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "drugCategorys_drugs", joinColumns = @JoinColumn(name = "drugCategorys_ID"), inverseJoinColumns = @JoinColumn(name = "drugs_ID"))
 	private Set<Drug> drugs = new HashSet<Drug>();
 
@@ -80,11 +81,6 @@ public class DrugCategory extends BusinessEntity
 
 	@Transient
 	public String getDisplayName() {
-		return name;
-	}
-
-	@Transient
-	public String getPopupInfo() {
 		return name;
 	}
 

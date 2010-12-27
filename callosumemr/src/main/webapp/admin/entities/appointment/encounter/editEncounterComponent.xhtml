@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{encounterAction.load(encounterId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Encounter "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.encounter_patient}  "/>  
+        <h:selectOneMenu id="patient" label="#{msg.encounter_patient}" value="#{encounterAction.encounter.patient}" required="true"> 
+          <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="patient"/>  
+        <h:outputText value="#{msg.encounter_physician}  "/>  
+        <h:selectOneMenu id="physician" label="#{msg.encounter_physician}" value="#{encounterAction.encounter.physician}" required="true"> 
+          <s:selectItems value="#{physicianList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="physician"/>  
+        <h:outputText value="#{msg.encounter_notes}  "/>  
+        <rich:editor useSeamText="true" id="notes#{entityId}" label="#{msg.encounter_notes}" required="false" value="#{encounterAction.encounter.notes}"/>  
+        <h:message styleClass="error errors" for="notes"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New History" action="#{encounterAction.addHistorys}" reRender="historys_data#{entityId}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="historys_data#{entityId}" var="_history" value="#{encounterAction.listHistorys}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.history_history}  "/>
+          </f:facet>  
+          <h:inputText id="history#{entityId}" label="#{msg.history_history}" required="false" value="#{_history.history}"/>  
+          <h:message styleClass="error errors" for="history"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New History" action="#{encounterAction.addHistorys}" reRender="historys_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{encounterAction.deleteHistorys(rowIndex)}" reRender="historys_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
+      <a:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" reRender="prescribedTests_data#{entityId}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="prescribedTests_data#{entityId}" var="_prescribedTest" value="#{encounterAction.listPrescribedTests}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescribedTest_dxTest}  "/>
+          </f:facet>  
+          <h:selectOneMenu id="dxTest" label="#{msg.prescribedTest_dxTest}" value="#{_prescribedTest.dxTest}" required="true"> 
+            <s:selectItems value="#{dxTestList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu>  
+          <h:message styleClass="error errors" for="dxTest"/> 
+        </h:column>  
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescribedTest_remarks}  "/>
+          </f:facet>  
+          <h:inputText id="remarks#{entityId}" label="#{msg.prescribedTest_remarks}" required="false" value="#{_prescribedTest.remarks}"/>  
+          <h:message styleClass="error errors" for="remarks"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" reRender="prescribedTests_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{encounterAction.deletePrescribedTests(rowIndex)}" reRender="prescribedTests_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

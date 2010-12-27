@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -52,7 +53,8 @@ public class OccurenceType extends BusinessEntity
 	private static final long serialVersionUID = 460584456L;
 
 	@NotNull
-	@Length(min = 2, max = 50)
+	@Length(min = 2, max = 250)
+	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
 	protected String name;
@@ -67,11 +69,6 @@ public class OccurenceType extends BusinessEntity
 
 	@Transient
 	public String getDisplayName() {
-		return name;
-	}
-
-	@Transient
-	public String getPopupInfo() {
 		return name;
 	}
 

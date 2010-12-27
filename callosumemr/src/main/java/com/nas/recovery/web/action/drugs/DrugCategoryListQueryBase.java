@@ -36,6 +36,16 @@ public abstract class DrugCategoryListQueryBase
 		return drugCategory;
 	}
 
+	private com.oreon.callosum.drugs.Drug drugToSearch;
+
+	public void setDrugToSearch(com.oreon.callosum.drugs.Drug drugToSearch) {
+		this.drugToSearch = drugToSearch;
+	}
+
+	public com.oreon.callosum.drugs.Drug getDrugToSearch() {
+		return drugToSearch;
+	}
+
 	@Override
 	protected String getql() {
 		return EJBQL;
@@ -55,6 +65,8 @@ public abstract class DrugCategoryListQueryBase
 			"drugCategory.id = #{drugCategoryList.drugCategory.id}",
 
 			"lower(drugCategory.name) like concat(lower(#{drugCategoryList.drugCategory.name}),'%')",
+
+			"#{drugCategoryList.drugToSearch} in elements(drugCategory.drugs)",
 
 			"drugCategory.dateCreated <= #{drugCategoryList.dateCreatedRange.end}",
 			"drugCategory.dateCreated >= #{drugCategoryList.dateCreatedRange.begin}",};

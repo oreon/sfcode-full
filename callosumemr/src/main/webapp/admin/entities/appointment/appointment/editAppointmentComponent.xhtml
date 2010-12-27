@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{appointmentAction.load(appointmentId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Appointment "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.appointment_physician}  "/>  
+        <h:selectOneMenu id="physician" label="#{msg.appointment_physician}" value="#{appointmentAction.appointment.physician}" required="true"> 
+          <s:selectItems value="#{physicianList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="physician"/>  
+        <h:outputText value="#{msg.appointment_patient}  "/>  
+        <h:selectOneMenu id="patient" label="#{msg.appointment_patient}" value="#{appointmentAction.appointment.patient}" required="true"> 
+          <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="patient"/>  
+        <h:outputText value="#{msg.appointment_start} * "/>  
+        <rich:calendar id="start#{entityId}" label="#{msg.appointment_start}" required="true" value="#{appointmentAction.appointment.start}"/>  
+        <h:message styleClass="error errors" for="start"/>  
+        <h:outputText value="#{msg.appointment_end}  "/>  
+        <rich:calendar id="end#{entityId}" label="#{msg.appointment_end}" required="false" value="#{appointmentAction.appointment.end}"/>  
+        <h:message styleClass="error errors" for="end"/>  
+        <h:outputText value="#{msg.appointment_remarks}  "/>  
+        <rich:editor useSeamText="true" id="remarks#{entityId}" label="#{msg.appointment_remarks}" required="false" value="#{appointmentAction.appointment.remarks}"/>  
+        <h:message styleClass="error errors" for="remarks"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

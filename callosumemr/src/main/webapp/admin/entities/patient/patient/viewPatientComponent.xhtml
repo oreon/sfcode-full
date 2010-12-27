@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{patientAction.load(patientId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Patient "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{patientAction.patient.id}"/>  
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
+        <h:outputText id="contactDetails_primaryPhone#{entityId}" value="#{patientAction.patient.contactDetails.primaryPhone}"/>  
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
+        <h:outputText id="contactDetails_secondaryPhone#{entityId}" value="#{patientAction.patient.contactDetails.secondaryPhone}"/>  
+        <h:outputText value="#{msg.contactDetails_email}  "/>  
+        <h:outputText id="contactDetails_email#{entityId}" value="#{patientAction.patient.contactDetails.email}"/>  
+        <h:outputText value="#{msg.address_streetAddress}  "/>  
+        <h:outputText id="address_streetAddress#{entityId}" value="#{patientAction.patient.address.streetAddress}"/>  
+        <h:outputText value="#{msg.address_city}  "/>  
+        <h:outputText id="address_city#{entityId}" value="#{patientAction.patient.address.city}"/>  
+        <h:outputText value="#{msg.address_State}  "/>  
+        <h:outputText id="address_State#{entityId}" value="#{patientAction.patient.address.state}"/>  
+        <h:outputText value="#{msg.address_phone}  "/>  
+        <h:outputText id="address_phone#{entityId}" value="#{patientAction.patient.address.phone}"/>  
+        <h:outputText value="#{msg.person_firstName}  "/>  
+        <h:outputText id="firstName#{entityId}" value="#{patientAction.patient.firstName}"/>  
+        <h:outputText value="#{msg.person_lastName}  "/>  
+        <h:outputText id="lastName#{entityId}" value="#{patientAction.patient.lastName}"/>  
+        <h:outputText value="#{msg.person_dateOfBirth}  "/>  
+        <h:outputText id="dateOfBirth#{entityId}" value="#{patientAction.patient.dateOfBirth}"/>  
+        <h:outputText value="#{msg.person_gender}  "/>  
+        <h:outputText value="#{patientAction.patient.gender}"/>  
+        <h:outputText value="#{msg.person_age}  "/>  
+        <h:outputText id="age#{entityId}" value="#{patientAction.patient.age}"/>  
+        <h:outputText value="#{msg.patient_healthNumber}  "/>  
+        <h:outputText id="healthNumber#{entityId}" value="#{patientAction.patient.healthNumber}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

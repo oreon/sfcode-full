@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -89,11 +90,6 @@ public class Immunization extends BusinessEntity
 
 	@Transient
 	public String getDisplayName() {
-		return date + "";
-	}
-
-	@Transient
-	public String getPopupInfo() {
 		return date + "";
 	}
 

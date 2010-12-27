@@ -1,28 +1,29 @@
 package com.oreon.callosum;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.FlushModeType;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.Table;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.lang.StringUtils;
-import org.apache.solr.client.solrj.request.CoreAdminRequest.Persist;
-import org.drools.StatelessSession;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.validator.InvalidStateException;
-import org.testng.annotations.BeforeClass;
+import org.jsoup.nodes.Element;
+import org.witchcraft.base.entity.BusinessEntity;
 
 import com.oreon.callosum.drugs.Drug;
 import com.oreon.callosum.drugs.DrugCategory;
@@ -37,6 +38,7 @@ public class DrugImporter {
 	private static final String NOMBRE_PERSISTENCE_UNIT = "appEntityManager";
 	private static EntityManagerFactory emf;
 	protected static EntityManager em;
+	static HttpClient client = new HttpClient();
 
 	public EntityManagerFactory getEntityManagerFactory() {
 		return emf;
@@ -50,7 +52,9 @@ public class DrugImporter {
 	public static void main(String[] args) throws IOException, JAXBException {
 
 		// importDrugs();
-		loadInteractions();
+		// loadInteractions();
+		//getDownloads();
+		updatecats();
 	}
 
 	private static String listToStringDosage(List<Dosage> dosage) {
@@ -75,17 +79,35 @@ public class DrugImporter {
 		InputStream inputStream = new FileInputStream("/devtools/drugbank.xml");
 		List<DrugType> drugs = getDrugs(inputStream);
 		for (DrugType drugType : drugs) {
-			
+
 			if (Long.parseLong(drugType.getDrugbankId().substring(2)) <= 1340)
 				continue;
-			
+
 			if (drugType.getGroups().getGroup().contains("experimental"))
 				continue;
-			
+
 			secondpass(drugType);
-			
+
 		}
 		inputStream.close();
+		deinit();
+	}
+
+	public static void getDownloads() {
+		init();
+		List<Drug> drugs = em.createQuery("select d from Drug d where d.id >= 1550")
+				.getResultList();
+		for (Drug drug : drugs) {
+			drug = getinserts(drug);
+			if (drug != null) {
+				if (!em.getTransaction().isActive())
+					em.getTransaction().begin();
+
+				em.merge(drug);
+
+				em.getTransaction().commit();
+			}
+		}
 		deinit();
 	}
 
@@ -95,7 +117,7 @@ public class DrugImporter {
 				.getDrugInteraction();
 
 		for (DrugInteraction drugInteraction : diList) {
-			if(!em.getTransaction().isActive())
+			if (!em.getTransaction().isActive())
 				em.getTransaction().begin();
 			com.oreon.callosum.drugs.DrugInteraction di = new com.oreon.callosum.drugs.DrugInteraction();
 			try {
@@ -110,7 +132,7 @@ public class DrugImporter {
 				System.out.println("WARN:: No drug found for ->"
 						+ drugInteraction.getDrug());
 				em.getTransaction().rollback();
-			}catch(Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
 				em.getTransaction().rollback();
 			}
@@ -139,14 +161,61 @@ public class DrugImporter {
 		Drug d = (Drug) qry.getSingleResult();
 		return d;
 	}
+	
+	public static void updatecats() throws IOException, JAXBException{
+		init();
+		InputStream inputStream = new FileInputStream("/devtools/drugbank.xml");
+		List<DrugType> drugs = getDrugs(inputStream);
+
+		int i = 0;
+
+		javax.persistence.Query qry = em
+				.createQuery("select e from Drug e where e.drugBankId = :dbid");
+		
+		javax.persistence.Query catqry = em.createQuery("select e from DrugCategory e where e.name = :name");
+
+		
+		
+
+		for (DrugType drugType : drugs) {
+			
+			//if(!drugType.getDrugbankId().equals("DB00968"))
+			//	continue;
+			Drug drug = null;
+			try{
+				drug = (Drug) qry.setParameter("dbid", drugType.getDrugbankId()).getSingleResult();
+			}catch(Exception e){
+				continue;
+			}
+			List<String> cats = drugType.getCategories().getCategory();
+			
+			for (String cat : cats) {
+			
+				DrugCategory drugCategory = (DrugCategory) catqry.setParameter("name", cat).getSingleResult();
+				
+				if(!drug.getDrugCategorys().contains(drugCategory)){
+					drugCategory.getDrugs().add(drug);
+					drug.getDrugCategorys().add(drugCategory);
+				}
+			}
+			
+			if (i == 0 && !em.getTransaction().isActive())
+				em.getTransaction().begin();
+			em.merge(drug);
+			em.getTransaction().commit();
+		}
+		
+		inputStream.close();
+
+		// tx.commit();
+		// sess.close();
+		deinit();
+	}
 
 	public static void importDrugs() throws Exception {
 
 		init();
-		// em.setFlushMode(FlushModeType.COMMIT);
-		// em.getTransaction().begin();
 		InputStream inputStream = new FileInputStream("/devtools/drugbank.xml");
-
 		List<DrugType> drugs = getDrugs(inputStream);
 
 		int i = 0;
@@ -245,6 +314,58 @@ public class DrugImporter {
 		// tx.commit();
 		// sess.close();
 		deinit();
+	}
+
+	public static Drug getinserts(Drug drug) {
+		String qry = "SELECT * FROM drugorg where name=:name";
+		try {
+			Inserts ins = (Inserts) em.createNativeQuery(qry, Inserts.class)
+					.setParameter("name", drug.getName()).getResultList()
+					.get(0);
+
+			try {
+				if (!ins.getContraIndication().startsWith("Not")) {
+					Element content = getInfo(ins.getContraIndication());
+					System.out.println("ci : " + content.toString());
+					drug.setContraIndication(content.toString());
+				}
+
+				if (!ins.getPatientInfo().startsWith("Not")) {
+					Element content = getInfo(ins.getPatientInfo());
+					System.out.println("ptifo : " + content.toString());
+					drug.setPatientInfo(content.toString());
+				}
+				return drug;
+			} catch (HttpException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} catch (Exception e) {
+			System.out.println("couldnt insert " + drug.getName() + " "
+					+ e.getMessage());
+		}
+		return null;
+
+	}
+
+	private static Element getInfo(String param) throws IOException,
+			HttpException {
+		HttpMethod method = new GetMethod("http://129.128.185.122/drugbank2"
+				+ param);
+		method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,
+				new DefaultHttpMethodRetryHandler(3, false));
+
+		client.executeMethod(method);
+		byte[] responseBody = method.getResponseBody();
+		String inp = new String(responseBody);
+
+		org.jsoup.nodes.Document doc = org.jsoup.Jsoup.parse(inp);
+		Element content = doc.getElementById("insert");
+		return content;
 	}
 
 	private static void deinit() {

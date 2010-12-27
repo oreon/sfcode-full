@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -101,6 +102,10 @@ public class Patient extends com.oreon.callosum.patient.Person
 	@IndexedEmbedded
 	private Set<Immunization> immunizations = new HashSet<Immunization>();
 
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
+	protected String healthNumber;
+
 	public void setAdmissions(Set<Admission> admissions) {
 		this.admissions = admissions;
 	}
@@ -158,6 +163,14 @@ public class Patient extends com.oreon.callosum.patient.Person
 		return immunizations;
 	}
 
+	public void setHealthNumber(String healthNumber) {
+		this.healthNumber = healthNumber;
+	}
+
+	public String getHealthNumber() {
+		return healthNumber;
+	}
+
 	@Transient
 	public String getDisplayName() {
 		return super.getDisplayName();
@@ -165,7 +178,7 @@ public class Patient extends com.oreon.callosum.patient.Person
 
 	@Transient
 	public String getPopupInfo() {
-		return super.getDisplayName();
+		return age + " " + gender;
 	}
 
 	//Empty setter , needed for richfaces autocomplete to work 
@@ -179,6 +192,8 @@ public class Patient extends com.oreon.callosum.patient.Person
 	public List<String> listSearchableFields() {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
+
+		listSearchableFields.add("healthNumber");
 
 		listSearchableFields.add("address.streetAddress");
 

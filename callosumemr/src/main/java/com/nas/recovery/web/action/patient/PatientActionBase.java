@@ -199,21 +199,17 @@ public abstract class PatientActionBase
 
 	}
 
-	protected List<com.oreon.callosum.patient.Admission> listAdmissions;
+	protected List<com.oreon.callosum.patient.Admission> listAdmissions = new ArrayList<com.oreon.callosum.patient.Admission>();
 
 	void initListAdmissions() {
-		listAdmissions = new ArrayList<com.oreon.callosum.patient.Admission>();
 
-		if (getInstance().getAdmissions().isEmpty()) {
-
-		} else
+		if (listAdmissions.isEmpty())
 			listAdmissions.addAll(getInstance().getAdmissions());
 
 	}
 
 	public List<com.oreon.callosum.patient.Admission> getListAdmissions() {
-		if (listAdmissions == null)
-			initListAdmissions();
+
 		return listAdmissions;
 	}
 
@@ -235,21 +231,17 @@ public abstract class PatientActionBase
 		getListAdmissions().add(admissions);
 	}
 
-	protected List<com.oreon.callosum.patient.Prescription> listPrescriptions;
+	protected List<com.oreon.callosum.patient.Prescription> listPrescriptions = new ArrayList<com.oreon.callosum.patient.Prescription>();
 
 	void initListPrescriptions() {
-		listPrescriptions = new ArrayList<com.oreon.callosum.patient.Prescription>();
 
-		if (getInstance().getPrescriptions().isEmpty()) {
-
-		} else
+		if (listPrescriptions.isEmpty())
 			listPrescriptions.addAll(getInstance().getPrescriptions());
 
 	}
 
 	public List<com.oreon.callosum.patient.Prescription> getListPrescriptions() {
-		if (listPrescriptions == null)
-			initListPrescriptions();
+
 		return listPrescriptions;
 	}
 
@@ -271,21 +263,17 @@ public abstract class PatientActionBase
 		getListPrescriptions().add(prescriptions);
 	}
 
-	protected List<com.oreon.callosum.unusualoccurences.UnusualOccurence> listUnusualOccurences;
+	protected List<com.oreon.callosum.unusualoccurences.UnusualOccurence> listUnusualOccurences = new ArrayList<com.oreon.callosum.unusualoccurences.UnusualOccurence>();
 
 	void initListUnusualOccurences() {
-		listUnusualOccurences = new ArrayList<com.oreon.callosum.unusualoccurences.UnusualOccurence>();
 
-		if (getInstance().getUnusualOccurences().isEmpty()) {
-
-		} else
+		if (listUnusualOccurences.isEmpty())
 			listUnusualOccurences.addAll(getInstance().getUnusualOccurences());
 
 	}
 
 	public List<com.oreon.callosum.unusualoccurences.UnusualOccurence> getListUnusualOccurences() {
-		if (listUnusualOccurences == null)
-			initListUnusualOccurences();
+
 		return listUnusualOccurences;
 	}
 
@@ -307,21 +295,17 @@ public abstract class PatientActionBase
 		getListUnusualOccurences().add(unusualOccurences);
 	}
 
-	protected List<com.oreon.callosum.patient.Document> listDocuments;
+	protected List<com.oreon.callosum.patient.Document> listDocuments = new ArrayList<com.oreon.callosum.patient.Document>();
 
 	void initListDocuments() {
-		listDocuments = new ArrayList<com.oreon.callosum.patient.Document>();
 
-		if (getInstance().getDocuments().isEmpty()) {
-
-		} else
+		if (listDocuments.isEmpty())
 			listDocuments.addAll(getInstance().getDocuments());
 
 	}
 
 	public List<com.oreon.callosum.patient.Document> getListDocuments() {
-		if (listDocuments == null)
-			initListDocuments();
+
 		return listDocuments;
 	}
 
@@ -343,21 +327,17 @@ public abstract class PatientActionBase
 		getListDocuments().add(documents);
 	}
 
-	protected List<com.oreon.callosum.patient.Allergy> listAllergys;
+	protected List<com.oreon.callosum.patient.Allergy> listAllergys = new ArrayList<com.oreon.callosum.patient.Allergy>();
 
 	void initListAllergys() {
-		listAllergys = new ArrayList<com.oreon.callosum.patient.Allergy>();
 
-		if (getInstance().getAllergys().isEmpty()) {
-
-		} else
+		if (listAllergys.isEmpty())
 			listAllergys.addAll(getInstance().getAllergys());
 
 	}
 
 	public List<com.oreon.callosum.patient.Allergy> getListAllergys() {
-		if (listAllergys == null)
-			initListAllergys();
+
 		return listAllergys;
 	}
 
@@ -379,21 +359,17 @@ public abstract class PatientActionBase
 		getListAllergys().add(allergys);
 	}
 
-	protected List<com.oreon.callosum.patient.Immunization> listImmunizations;
+	protected List<com.oreon.callosum.patient.Immunization> listImmunizations = new ArrayList<com.oreon.callosum.patient.Immunization>();
 
 	void initListImmunizations() {
-		listImmunizations = new ArrayList<com.oreon.callosum.patient.Immunization>();
 
-		if (getInstance().getImmunizations().isEmpty()) {
-
-		} else
+		if (listImmunizations.isEmpty())
 			listImmunizations.addAll(getInstance().getImmunizations());
 
 	}
 
 	public List<com.oreon.callosum.patient.Immunization> getListImmunizations() {
-		if (listImmunizations == null)
-			initListImmunizations();
+
 		return listImmunizations;
 	}
 

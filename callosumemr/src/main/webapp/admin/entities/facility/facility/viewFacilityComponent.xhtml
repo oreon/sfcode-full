@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{facilityAction.load(facilityId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Facility "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{facilityAction.facility.id}"/>  
+        <h:outputText value="#{msg.facility_name}  "/>  
+        <h:outputText id="name#{entityId}" value="#{facilityAction.facility.name}"/> 
+      </h:panelGrid>  
+      <rich:dataTable id="rooms_data#{entityId}" var="_room" rendered="#{not empty facilityAction.listRooms}" value="#{facilityAction.listRooms}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.room_name}  "/>
+          </f:facet>  
+          <h:outputText id="name#{entityId}" value="#{_room.name}"/> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

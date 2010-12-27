@@ -94,6 +94,8 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 
 			"lower(patient.address.phone) like concat(lower(#{patientList.patient.address.phone}),'%')",
 
+			"lower(patient.healthNumber) like concat(lower(#{patientList.patient.healthNumber}),'%')",
+
 			"patient.dateCreated <= #{patientList.dateCreatedRange.end}",
 			"patient.dateCreated >= #{patientList.dateCreatedRange.begin}",};
 

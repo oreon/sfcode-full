@@ -128,27 +128,25 @@ public abstract class UserActionBase extends BaseAction<User>
 	 */
 	public void loadAssociations() {
 
+		initListRoles();
+
 	}
 
 	public void updateAssociations() {
 
 	}
 
-	protected List<com.oreon.callosum.users.Role> listRoles;
+	protected List<com.oreon.callosum.users.Role> listRoles = new ArrayList<com.oreon.callosum.users.Role>();
 
 	void initListRoles() {
-		listRoles = new ArrayList<com.oreon.callosum.users.Role>();
 
-		if (getInstance().getRoles().isEmpty()) {
-
-		} else
+		if (listRoles.isEmpty())
 			listRoles.addAll(getInstance().getRoles());
 
 	}
 
 	public List<com.oreon.callosum.users.Role> getListRoles() {
-		if (listRoles == null)
-			initListRoles();
+
 		return listRoles;
 	}
 
@@ -156,10 +154,9 @@ public abstract class UserActionBase extends BaseAction<User>
 		this.listRoles = listRoles;
 	}
 
-	protected List<com.oreon.callosum.users.Role> listAvailableRoles;
+	protected List<com.oreon.callosum.users.Role> listAvailableRoles = new ArrayList<com.oreon.callosum.users.Role>();
 
 	void initListAvailableRoles() {
-		listAvailableRoles = new ArrayList<com.oreon.callosum.users.Role>();
 
 		listAvailableRoles = getEntityManager().createQuery(
 				"select r from Role r").getResultList();
@@ -168,8 +165,7 @@ public abstract class UserActionBase extends BaseAction<User>
 	}
 
 	public List<com.oreon.callosum.users.Role> getListAvailableRoles() {
-		if (listAvailableRoles == null)
-			initListAvailableRoles();
+		initListAvailableRoles();
 		return listAvailableRoles;
 	}
 

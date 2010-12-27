@@ -34,6 +34,17 @@ public abstract class DrugListQueryBase extends BaseQuery<Drug, Long> {
 		return drug;
 	}
 
+	private com.oreon.callosum.drugs.DrugCategory drugCategoryToSearch;
+
+	public void setDrugCategoryToSearch(
+			com.oreon.callosum.drugs.DrugCategory drugCategoryToSearch) {
+		this.drugCategoryToSearch = drugCategoryToSearch;
+	}
+
+	public com.oreon.callosum.drugs.DrugCategory getDrugCategoryToSearch() {
+		return drugCategoryToSearch;
+	}
+
 	@Override
 	protected String getql() {
 		return EJBQL;
@@ -49,8 +60,19 @@ public abstract class DrugListQueryBase extends BaseQuery<Drug, Long> {
 		return RESTRICTIONS;
 	}
 
+	private Range<Double> halfLifeNumberOfHoursRange = new Range<Double>();
+	public Range<Double> getHalfLifeNumberOfHoursRange() {
+		return halfLifeNumberOfHoursRange;
+	}
+	public void setHalfLifeNumberOfHours(
+			Range<Double> halfLifeNumberOfHoursRange) {
+		this.halfLifeNumberOfHoursRange = halfLifeNumberOfHoursRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"drug.id = #{drugList.drug.id}",
+
+			"lower(drug.name) like concat(lower(#{drugList.drug.name}),'%')",
 
 			"lower(drug.absorption) like concat(lower(#{drugList.drug.absorption}),'%')",
 
@@ -68,21 +90,28 @@ public abstract class DrugListQueryBase extends BaseQuery<Drug, Long> {
 
 			"lower(drug.halfLife) like concat(lower(#{drugList.drug.halfLife}),'%')",
 
+			"drug.halfLifeNumberOfHours >= #{drugList.halfLifeNumberOfHoursRange.begin}",
+			"drug.halfLifeNumberOfHours <= #{drugList.halfLifeNumberOfHoursRange.end}",
+
 			"lower(drug.indication) like concat(lower(#{drugList.drug.indication}),'%')",
 
 			"lower(drug.mechanismOfAction) like concat(lower(#{drugList.drug.mechanismOfAction}),'%')",
 
-			"lower(drug.name) like concat(lower(#{drugList.drug.name}),'%')",
-
 			"lower(drug.patientInfo) like concat(lower(#{drugList.drug.patientInfo}),'%')",
 
 			"lower(drug.pharmacology) like concat(lower(#{drugList.drug.pharmacology}),'%')",
+
+			"#{drugList.drugCategoryToSearch} in elements(drug.drugCategorys)",
 
 			"lower(drug.toxicity) like concat(lower(#{drugList.drug.toxicity}),'%')",
 
 			"lower(drug.routeOfElimination) like concat(lower(#{drugList.drug.routeOfElimination}),'%')",
 
 			"lower(drug.volumeOfDistribution) like concat(lower(#{drugList.drug.volumeOfDistribution}),'%')",
+
+			"lower(drug.drugBankId) like concat(lower(#{drugList.drug.drugBankId}),'%')",
+
+			"lower(drug.categories) like concat(lower(#{drugList.drug.categories}),'%')",
 
 			"drug.dateCreated <= #{drugList.dateCreatedRange.end}",
 			"drug.dateCreated >= #{drugList.dateCreatedRange.begin}",};

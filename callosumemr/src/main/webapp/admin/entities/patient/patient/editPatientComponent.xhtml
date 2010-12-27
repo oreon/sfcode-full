@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{patientAction.load(patientId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Patient "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
+        <h:inputText id="contactDetails_primaryPhone#{entityId}" label="#{msg.contactDetails_primaryPhone}" required="false" value="#{patientAction.patient.contactDetails.primaryPhone}"/>  
+        <h:message styleClass="error errors" for="contactDetails_primaryPhone"/>  
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
+        <h:inputText id="contactDetails_secondaryPhone#{entityId}" label="#{msg.contactDetails_secondaryPhone}" required="false" value="#{patientAction.patient.contactDetails.secondaryPhone}"/>  
+        <h:message styleClass="error errors" for="contactDetails_secondaryPhone"/>  
+        <h:outputText value="#{msg.contactDetails_email}  "/>  
+        <h:inputText id="contactDetails_email#{entityId}" label="#{msg.contactDetails_email}" required="false" value="#{patientAction.patient.contactDetails.email}"/>  
+        <h:message styleClass="error errors" for="contactDetails_email"/>  
+        <h:outputText value="#{msg.address_streetAddress}  "/>  
+        <h:inputText id="address_streetAddress#{entityId}" label="#{msg.address_streetAddress}" required="false" value="#{patientAction.patient.address.streetAddress}"/>  
+        <h:message styleClass="error errors" for="address_streetAddress"/>  
+        <h:outputText value="#{msg.address_city}  "/>  
+        <h:inputText id="address_city#{entityId}" label="#{msg.address_city}" required="false" value="#{patientAction.patient.address.city}"/>  
+        <h:message styleClass="error errors" for="address_city"/>  
+        <h:outputText value="#{msg.address_State}  "/>  
+        <h:inputText id="address_State#{entityId}" label="#{msg.address_State}" required="false" value="#{patientAction.patient.address.state}"/>  
+        <h:message styleClass="error errors" for="address_State"/>  
+        <h:outputText value="#{msg.address_phone}  "/>  
+        <h:inputText id="address_phone#{entityId}" label="#{msg.address_phone}" required="false" value="#{patientAction.patient.address.phone}"/>  
+        <h:message styleClass="error errors" for="address_phone"/>  
+        <h:outputText value="#{msg.person_firstName} * "/>  
+        <h:inputText id="firstName#{entityId}" label="#{msg.person_firstName}" required="true" value="#{patientAction.patient.firstName}"/>  
+        <h:message styleClass="error errors" for="firstName"/>  
+        <h:outputText value="#{msg.person_lastName} * "/>  
+        <h:inputText id="lastName#{entityId}" label="#{msg.person_lastName}" required="true" value="#{patientAction.patient.lastName}"/>  
+        <h:message styleClass="error errors" for="lastName"/>  
+        <h:outputText value="#{msg.person_dateOfBirth}  "/>  
+        <rich:calendar id="dateOfBirth#{entityId}" label="#{msg.person_dateOfBirth}" required="false" value="#{patientAction.patient.dateOfBirth}"/>  
+        <h:message styleClass="error errors" for="dateOfBirth"/>  
+        <h:outputText value="#{msg.person_gender}  "/>  
+        <h:selectOneMenu id="gender" value="#{patientAction.patient.gender}" required="false" label="#{msg.person_gender}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="F" itemLabel="F"/>  
+          <f:selectItem itemValue="M" itemLabel="M"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="gender"/>  
+        <h:outputText value="#{msg.patient_healthNumber}  "/>  
+        <h:inputText id="healthNumber#{entityId}" label="#{msg.patient_healthNumber}" required="false" value="#{patientAction.patient.healthNumber}"/>  
+        <h:message styleClass="error errors" for="healthNumber"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

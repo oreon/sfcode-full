@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -52,6 +53,7 @@ public class Prescription extends BusinessEntity
 	private static final long serialVersionUID = 1101851763L;
 
 	@OneToMany(mappedBy = "prescription", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	@JoinColumn(name = "prescription_ID", nullable = false)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
@@ -93,11 +95,6 @@ public class Prescription extends BusinessEntity
 
 	@Transient
 	public String getDisplayName() {
-		return prescriptionItems + "";
-	}
-
-	@Transient
-	public String getPopupInfo() {
 		return prescriptionItems + "";
 	}
 

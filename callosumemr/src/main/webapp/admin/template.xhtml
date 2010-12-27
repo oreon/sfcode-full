@@ -4,6 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
 	xmlns:s="http://jboss.com/products/seam/taglib">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -21,7 +22,8 @@
 	href="#{request.contextPath}/css/showcase_style.css" />
 
 <link href="stylesheet/theme.css" rel="stylesheet" type="text/css" />
-
+<p:resources/>
+        <script type="text/javascript" src="#{request.contextPath}/js/commons.js"></script>
 
 </head>
 <body>
@@ -38,13 +40,18 @@
 		</rich:toolBarGroup>
 
 		<rich:toolBarGroup>
-			<h:graphicImage id="find" value="/images/icons/find.gif" />
+			<h:graphicImage id="find" value="/images/icons/search_icon.gif" />
 			<s:link view="/admin/tasks.xhtml" value="Tasks" />
 		</rich:toolBarGroup>
 
 		<rich:toolBarGroup>
-			<h:graphicImage id="filter" value="/images/icons/filter.gif" />
+			<h:graphicImage id="filter" value="/images/icons/group.png"/>
 			<s:link view="/admin/reports.xhtml" value="Reports" />
+		</rich:toolBarGroup>
+		
+		<rich:toolBarGroup>
+			<h:graphicImage  value="/images/icons/bricks.png" />
+			<s:link view="/admin/entities/encounter.xhtml" value="Encounter" />
 		</rich:toolBarGroup>
 
 		<rich:toolBarGroup location="right">

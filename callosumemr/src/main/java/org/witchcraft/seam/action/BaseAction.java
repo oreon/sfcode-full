@@ -79,7 +79,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	protected Log log;
 
 	@In
-	//@PersistenceContext(type = PersistenceContextType.EXTENDED)
+	// @PersistenceContext(type = PersistenceContextType.EXTENDED)
 	protected FullTextEntityManager entityManager;
 
 	@In(create = true)
@@ -91,7 +91,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	@RequestParameter
 	private String queryString;
 
-	private String templateName ;
+	private String templateName;
 
 	@RequestParameter
 	private Long idToArchive;
@@ -224,19 +224,18 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		loadFromTemplate(entityTemplate.getId());
 	}
 
-	//@Transactional
-	//@Begin(join = true)
+	// @Transactional
+	// @Begin(join = true)
 	public void loadFromTemplate(Long id) {
 		entityTemplate = entityManager.find(EntityTemplate.class, id);
 		@SuppressWarnings("unused")
 		T t = (T) entityTemplate.getEntity();
 		Session session = (Session) entityManager.getDelegate();
-		//session.lock(t, LockMode.UPGRADE);
-		instance =  t;
-		
-		
+		// session.lock(t, LockMode.UPGRADE);
+		instance = t;
+
 		loadAssociations();
-		
+
 	}
 
 	public List<EntityTemplate<T>> getTemplateList() {
@@ -277,23 +276,18 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		return e;
 	}
 
-	//@Transactional
+	@Transactional
 	public String doSave() {
 		try {
-			
+
 			updateComposedAssociations();
-			
-			if (isManaged() ) 
+
+			if (isManaged())
 				update();
 			else
-				persist() ;
+				persist();
 
-			addInfoMessage("Successfully saved record: {0}", getInstance()
-					.getDisplayName());
-			
-			// TODO: replace with statusmessages seam class
-			addInfoMessage("Successfully saved record: {0}", getInstance()
-					.getDisplayName());
+			//addInfoMessage("Successfully saved record: {0}", getInstance().getDisplayName());
 			updateAssociations();
 
 		} catch (Exception e) {
@@ -312,7 +306,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 	public String saveWithoutConversation() {
 		String result = doSave();
-		//entityManager.refresh(getInstance());
+		// entityManager.refresh(getInstance());
 		Conversation.instance().end();
 		clearInstance();
 		return result;
