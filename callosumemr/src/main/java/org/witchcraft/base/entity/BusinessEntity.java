@@ -2,6 +2,7 @@ package org.witchcraft.base.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -139,4 +140,12 @@ public class BusinessEntity implements Serializable{
 			return false;
     	return this.getId() == entity.getId();
     }
+	
+	public String getCollectionAsString(Collection<? extends BusinessEntity> list){
+		StringBuffer ret = new StringBuffer();
+		for (BusinessEntity businessEntity : list) {
+			ret.append(businessEntity.getDisplayName() + "; ");
+		}
+		return ret.toString();
+	}
 }

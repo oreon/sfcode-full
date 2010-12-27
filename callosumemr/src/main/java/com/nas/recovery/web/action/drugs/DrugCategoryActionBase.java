@@ -124,27 +124,25 @@ public abstract class DrugCategoryActionBase extends BaseAction<DrugCategory>
 	 */
 	public void loadAssociations() {
 
+		initListDrugs();
+
 	}
 
 	public void updateAssociations() {
 
 	}
 
-	protected List<com.oreon.callosum.drugs.Drug> listDrugs;
+	protected List<com.oreon.callosum.drugs.Drug> listDrugs = new ArrayList<com.oreon.callosum.drugs.Drug>();
 
 	void initListDrugs() {
-		listDrugs = new ArrayList<com.oreon.callosum.drugs.Drug>();
 
-		if (getInstance().getDrugs().isEmpty()) {
-
-		} else
+		if (listDrugs.isEmpty())
 			listDrugs.addAll(getInstance().getDrugs());
 
 	}
 
 	public List<com.oreon.callosum.drugs.Drug> getListDrugs() {
-		if (listDrugs == null)
-			initListDrugs();
+
 		return listDrugs;
 	}
 
@@ -152,10 +150,9 @@ public abstract class DrugCategoryActionBase extends BaseAction<DrugCategory>
 		this.listDrugs = listDrugs;
 	}
 
-	protected List<com.oreon.callosum.drugs.Drug> listAvailableDrugs;
+	protected List<com.oreon.callosum.drugs.Drug> listAvailableDrugs = new ArrayList<com.oreon.callosum.drugs.Drug>();
 
 	void initListAvailableDrugs() {
-		listAvailableDrugs = new ArrayList<com.oreon.callosum.drugs.Drug>();
 
 		listAvailableDrugs = getEntityManager().createQuery(
 				"select r from Drug r").getResultList();
@@ -164,8 +161,7 @@ public abstract class DrugCategoryActionBase extends BaseAction<DrugCategory>
 	}
 
 	public List<com.oreon.callosum.drugs.Drug> getListAvailableDrugs() {
-		if (listAvailableDrugs == null)
-			initListAvailableDrugs();
+		initListAvailableDrugs();
 		return listAvailableDrugs;
 	}
 

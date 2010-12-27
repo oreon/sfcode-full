@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -55,13 +56,14 @@ public class Room extends BusinessEntity implements java.io.Serializable {
 	protected Facility facility;
 
 	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	@JoinColumn(name = "room_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<Bed> beds = new HashSet<Bed>();
 
 	@NotNull
-	@Length(min = 2, max = 50)
+	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
 	protected String name;
@@ -92,11 +94,6 @@ public class Room extends BusinessEntity implements java.io.Serializable {
 
 	@Transient
 	public String getDisplayName() {
-		return name;
-	}
-
-	@Transient
-	public String getPopupInfo() {
 		return name;
 	}
 

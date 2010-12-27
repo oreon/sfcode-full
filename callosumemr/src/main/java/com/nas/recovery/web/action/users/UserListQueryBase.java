@@ -34,6 +34,16 @@ public abstract class UserListQueryBase extends BaseQuery<User, Long> {
 		return user;
 	}
 
+	private com.oreon.callosum.users.Role roleToSearch;
+
+	public void setRoleToSearch(com.oreon.callosum.users.Role roleToSearch) {
+		this.roleToSearch = roleToSearch;
+	}
+
+	public com.oreon.callosum.users.Role getRoleToSearch() {
+		return roleToSearch;
+	}
+
 	@Override
 	protected String getql() {
 		return EJBQL;
@@ -55,6 +65,8 @@ public abstract class UserListQueryBase extends BaseQuery<User, Long> {
 			"lower(user.userName) like concat(lower(#{userList.user.userName}),'%')",
 
 			"user.enabled = #{userList.user.enabled}",
+
+			"#{userList.roleToSearch} in elements(user.roles)",
 
 			"user.dateCreated <= #{userList.dateCreatedRange.end}",
 			"user.dateCreated >= #{userList.dateCreatedRange.begin}",};

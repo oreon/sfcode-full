@@ -134,21 +134,17 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 
 	}
 
-	protected List<com.oreon.callosum.drugs.DrugInteraction> listDrugInteractions;
+	protected List<com.oreon.callosum.drugs.DrugInteraction> listDrugInteractions = new ArrayList<com.oreon.callosum.drugs.DrugInteraction>();
 
 	void initListDrugInteractions() {
-		listDrugInteractions = new ArrayList<com.oreon.callosum.drugs.DrugInteraction>();
 
-		if (getInstance().getDrugInteractions().isEmpty()) {
-
-		} else
+		if (listDrugInteractions.isEmpty())
 			listDrugInteractions.addAll(getInstance().getDrugInteractions());
 
 	}
 
 	public List<com.oreon.callosum.drugs.DrugInteraction> getListDrugInteractions() {
-		if (listDrugInteractions == null)
-			initListDrugInteractions();
+
 		return listDrugInteractions;
 	}
 

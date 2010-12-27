@@ -209,21 +209,17 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 
 	}
 
-	protected List<com.oreon.callosum.drugs.AtcDrug> listSubcategories;
+	protected List<com.oreon.callosum.drugs.AtcDrug> listSubcategories = new ArrayList<com.oreon.callosum.drugs.AtcDrug>();
 
 	void initListSubcategories() {
-		listSubcategories = new ArrayList<com.oreon.callosum.drugs.AtcDrug>();
 
-		if (getInstance().getSubcategories().isEmpty()) {
-
-		} else
+		if (listSubcategories.isEmpty())
 			listSubcategories.addAll(getInstance().getSubcategories());
 
 	}
 
 	public List<com.oreon.callosum.drugs.AtcDrug> getListSubcategories() {
-		if (listSubcategories == null)
-			initListSubcategories();
+
 		return listSubcategories;
 	}
 

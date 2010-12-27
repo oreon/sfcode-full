@@ -173,21 +173,17 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 
 	}
 
-	protected List<com.oreon.callosum.patient.PrescriptionItem> listPrescriptionItems;
+	protected List<com.oreon.callosum.patient.PrescriptionItem> listPrescriptionItems = new ArrayList<com.oreon.callosum.patient.PrescriptionItem>();
 
 	void initListPrescriptionItems() {
-		listPrescriptionItems = new ArrayList<com.oreon.callosum.patient.PrescriptionItem>();
 
-		if (getInstance().getPrescriptionItems().isEmpty()) {
-			addPrescriptionItems();
-		} else
+		if (listPrescriptionItems.isEmpty())
 			listPrescriptionItems.addAll(getInstance().getPrescriptionItems());
 
 	}
 
 	public List<com.oreon.callosum.patient.PrescriptionItem> getListPrescriptionItems() {
-		if (listPrescriptionItems == null)
-			initListPrescriptionItems();
+
 		return listPrescriptionItems;
 	}
 

@@ -173,21 +173,17 @@ public abstract class RoomActionBase extends BaseAction<Room>
 
 	}
 
-	protected List<com.oreon.callosum.facility.Bed> listBeds;
+	protected List<com.oreon.callosum.facility.Bed> listBeds = new ArrayList<com.oreon.callosum.facility.Bed>();
 
 	void initListBeds() {
-		listBeds = new ArrayList<com.oreon.callosum.facility.Bed>();
 
-		if (getInstance().getBeds().isEmpty()) {
-
-		} else
+		if (listBeds.isEmpty())
 			listBeds.addAll(getInstance().getBeds());
 
 	}
 
 	public List<com.oreon.callosum.facility.Bed> getListBeds() {
-		if (listBeds == null)
-			initListBeds();
+
 		return listBeds;
 	}
 

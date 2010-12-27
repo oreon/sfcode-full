@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{documentAction.load(documentId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Document "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.document_patient}  "/>  
+        <h:selectOneMenu id="patient" label="#{msg.document_patient}" value="#{documentAction.document.patient}" required="true"> 
+          <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="patient"/>  
+        <h:outputText value="#{msg.document_name} * "/>  
+        <h:inputText id="name#{entityId}" label="#{msg.document_name}" required="true" value="#{documentAction.document.name}"/>  
+        <h:message styleClass="error errors" for="name"/>  
+        <h:outputText value="#{msg.document_file}  "/>  
+        <s:div rendered="#{documentAction.document.id != 0 }"> 
+          <c:choose> 
+            <c:when test="${documentAction.document.file.contentType.startsWith('image')}"> 
+              <s:graphicImage value="#{documentAction.document.file.data}"/> 
+            </c:when>  
+            <c:otherwise> 
+              <s:link value="#{documentAction.document.file.name}" action="#{documentAction.downloadFile(null)}" propagation="none"> 
+                <f:param name="currentEntityId" value="#{documentAction.instance.id}"/> 
+              </s:link> 
+            </c:otherwise> 
+          </c:choose> 
+        </s:div>  
+        <s:div rendered="#{documentAction.document.id == null }"> 
+          <s:fileUpload data="#{documentAction.document.file.data}" fileName="#{documentAction.document.file.name}" contentType="#{documentAction.document.file.contentType}"/> 
+        </s:div>  
+        <h:message styleClass="error errors" for="file"/>  
+        <h:outputText value="#{msg.document_notes}  "/>  
+        <rich:editor useSeamText="true" id="notes#{entityId}" label="#{msg.document_notes}" required="false" value="#{documentAction.document.notes}"/>  
+        <h:message styleClass="error errors" for="notes"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

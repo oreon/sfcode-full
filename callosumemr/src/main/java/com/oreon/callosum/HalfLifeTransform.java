@@ -36,20 +36,6 @@ public class HalfLifeTransform {
 
 		// System.out.println(Long.parseLong(str.substring(2)));
 
-		HttpClient client = new HttpClient();
-		HttpMethod method = new GetMethod(
-				"http://129.128.185.122/drugbank2/drugs/"
-						+ "DB00009/inserts/771/full");
-		method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,
-				new DefaultHttpMethodRetryHandler(3, false));
-
-		client.executeMethod(method);
-		byte[] responseBody = method.getResponseBody();
-		String inp = new String(responseBody);
-
-		org.jsoup.nodes.Document doc = org.jsoup.Jsoup.parse(inp);
-		Element content = doc.getElementById("insert");
 		
-		System.out.println(content.toString());
 	}
 }
