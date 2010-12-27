@@ -58,12 +58,14 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	public abstract String[] getEntityRestrictions();
 
 	public BaseQuery() {
-		String simpleEntityName = getSimpleEntityName().toLowerCase();
-		setEjbql("SELECT " + simpleEntityName + " FROM  " + getEntityName()
-				+ " " + simpleEntityName);
-		//setEjbql(EJBQL);
+		setEjbql(getql());
 		setRestrictionExpressionStrings(Arrays.asList(getEntityRestrictions()));
 		setMaxResults(DEFAULT_PAGES_FOR_PAGINATION);
+	}
+
+	protected  String getql(){
+		String simpleEntityName = getSimpleEntityName().toLowerCase();
+		return "SELECT " + simpleEntityName + " FROM  " + getEntityName() + " " + simpleEntityName;
 	}
 
 	/**
@@ -283,6 +285,10 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	}
 	
 	
+	/** do autocomplete based on lucene/hibernate text search
+	 * @param suggest
+	 * @return
+	 */
 	public List<E> autocomplete(Object suggest) {
 
         String input = (String)suggest;
@@ -301,8 +307,25 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
         }
 
         return result;
-
     }
+	
+	/** Do autocomplete based on database fields 
+	 * @param suggest
+	 * @return
+	 */
+	public List<E> autocompletedb(Object suggest) {
+		String input = (String) suggest;
+		setupForAutoComplete(input);
+		super.setRestrictionLogicOperator("or");
+		return getResultList();
+	}
+
+	/** This method should be overridden by derived classes to provide fileds that will be used for autocomplete
+	 * @param input
+	 */
+	protected void setupForAutoComplete(String input) {
+		
+	}
 	
 	
 }

@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -36,10 +37,12 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
+import org.witchcraft.utils.*;
+
 @Entity
 @Table(name = "role")
-@Name("role")
 @Filter(name = "archiveFilterDef")
+@Name("role")
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
@@ -50,13 +53,11 @@ public class Role extends BusinessEntity implements java.io.Serializable {
 	//@Unique(entityName = "org.wc.trackrite.users.Role", fieldName = "name")
 
 	@NotNull
-	@Length(min = 2, max = 50)
+	@Length(min = 2, max = 250)
 	@Column(name = "name", unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
 	protected String name;
-
-	//users->roles ->Role->Role->Role
 
 	@ManyToMany(mappedBy = "roles")
 	private Set<User> users = new HashSet<User>();
@@ -66,7 +67,6 @@ public class Role extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getName() {
-
 		return name;
 	}
 
@@ -81,6 +81,10 @@ public class Role extends BusinessEntity implements java.io.Serializable {
 	@Transient
 	public String getDisplayName() {
 		return name;
+	}
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

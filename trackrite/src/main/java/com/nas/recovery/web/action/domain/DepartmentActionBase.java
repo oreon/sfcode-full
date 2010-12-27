@@ -46,13 +46,18 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	@DataModelSelection
 	private Department department;
 
-	@In(create = true, value = "employeeList")
-	com.nas.recovery.web.action.domain.EmployeeListQuery employeeList;
+	@In(create = true, value = "employeeAction")
+	com.nas.recovery.web.action.domain.EmployeeAction employeesAction;
 
 	@DataModel
 	private List<Department> departmentRecordList;
 
 	public void setDepartmentId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			loadAssociations();
+			return;
+		}
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
@@ -70,24 +75,18 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 		return (Long) getId();
 	}
 
-	//@Factory("departmentRecordList")
-	//@Observer("archivedDepartment")
-	public void findRecords() {
-		//search();
-	}
-
 	public Department getEntity() {
 		return department;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(Department t) {
 		this.department = t;
 		loadAssociations();
 	}
 
 	public Department getDepartment() {
-		return getInstance();
+		return (Department) getInstance();
 	}
 
 	@Override
@@ -111,7 +110,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	}
 
 	public Department getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return (Department) (isIdDefined() ? getInstance() : null);
 	}
 
 	public void setDepartment(Department t) {
@@ -124,11 +123,6 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 		return Department.class;
 	}
 
-	@Override
-	public void setEntityList(List<Department> list) {
-		this.departmentRecordList = list;
-	}
-
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
@@ -136,14 +130,6 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	public void loadAssociations() {
 
 		initListEmployees();
-
-		try {
-
-			employeeList.getEmployee().setDepartment(getInstance());
-
-		} catch (Exception e) {
-			addErrorMessage("Error updating associaiton " + e.getMessage());
-		}
 
 	}
 
@@ -156,21 +142,17 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 	}
 
-	protected List<org.wc.trackrite.domain.Employee> listEmployees;
+	protected List<org.wc.trackrite.domain.Employee> listEmployees = new ArrayList<org.wc.trackrite.domain.Employee>();
 
 	void initListEmployees() {
-		listEmployees = new ArrayList<org.wc.trackrite.domain.Employee>();
 
-		if (getInstance().getEmployees().isEmpty()) {
-
-		} else
+		if (listEmployees.isEmpty())
 			listEmployees.addAll(getInstance().getEmployees());
 
 	}
 
 	public List<org.wc.trackrite.domain.Employee> getListEmployees() {
-		if (listEmployees == null)
-			initListEmployees();
+
 		return listEmployees;
 	}
 
@@ -198,13 +180,6 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 			getInstance().getEmployees().clear();
 			getInstance().getEmployees().addAll(listEmployees);
 		}
-	}
-
-	public List<Department> getEntityList() {
-		if (departmentRecordList == null) {
-			findRecords();
-		}
-		return departmentRecordList;
 	}
 
 }

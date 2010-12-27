@@ -9,7 +9,7 @@
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasRole('admin')}" action="edit"></h:commandButton>  
             <h:outputText value=" "/>  
-            <h:commandButton value="Back To Listing" action="#{questionAction.returnToListingView}"> 
+            <h:commandButton value="Back To Listing" action="cancel"> 
               <s:conversationPropagation type="end"/> 
             </h:commandButton> 
           </div> 
@@ -20,10 +20,10 @@
             <ui:param name="examId" value="#{questionAction.instance.exam.id}"/> 
           </ui:include> 
         </rich:tab> 
-      </rich:tabPanel>  
-      <br/>  
-      <rich:tabPanel></rich:tabPanel> 
+      </rich:tabPanel> 
     </h:form>  
+    <br/>  
+    <rich:tabPanel></rich:tabPanel>  
     <br/>  
     <rich:tabPanel> 
       <rich:tab label="Notes"> 

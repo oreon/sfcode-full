@@ -48,6 +48,11 @@ public abstract class CandidateActionBase extends BaseAction<Candidate>
 	private List<Candidate> candidateRecordList;
 
 	public void setCandidateId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			loadAssociations();
+			return;
+		}
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
@@ -65,24 +70,18 @@ public abstract class CandidateActionBase extends BaseAction<Candidate>
 		return (Long) getId();
 	}
 
-	//@Factory("candidateRecordList")
-	//@Observer("archivedCandidate")
-	public void findRecords() {
-		//search();
-	}
-
 	public Candidate getEntity() {
 		return candidate;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(Candidate t) {
 		this.candidate = t;
 		loadAssociations();
 	}
 
 	public Candidate getCandidate() {
-		return getInstance();
+		return (Candidate) getInstance();
 	}
 
 	@Override
@@ -106,7 +105,7 @@ public abstract class CandidateActionBase extends BaseAction<Candidate>
 	}
 
 	public Candidate getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return (Candidate) (isIdDefined() ? getInstance() : null);
 	}
 
 	public void setCandidate(Candidate t) {
@@ -117,11 +116,6 @@ public abstract class CandidateActionBase extends BaseAction<Candidate>
 	@Override
 	public Class<Candidate> getEntityClass() {
 		return Candidate.class;
-	}
-
-	@Override
-	public void setEntityList(List<Candidate> list) {
-		this.candidateRecordList = list;
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -137,13 +131,6 @@ public abstract class CandidateActionBase extends BaseAction<Candidate>
 	}
 
 	public void updateComposedAssociations() {
-	}
-
-	public List<Candidate> getEntityList() {
-		if (candidateRecordList == null) {
-			findRecords();
-		}
-		return candidateRecordList;
 	}
 
 }

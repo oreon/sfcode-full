@@ -50,6 +50,11 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 	private List<Exam> examRecordList;
 
 	public void setExamId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			loadAssociations();
+			return;
+		}
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
@@ -67,24 +72,18 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 		return (Long) getId();
 	}
 
-	//@Factory("examRecordList")
-	//@Observer("archivedExam")
-	public void findRecords() {
-		//search();
-	}
-
 	public Exam getEntity() {
 		return exam;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(Exam t) {
 		this.exam = t;
 		loadAssociations();
 	}
 
 	public Exam getExam() {
-		return getInstance();
+		return (Exam) getInstance();
 	}
 
 	@Override
@@ -108,7 +107,7 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 	}
 
 	public Exam getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return (Exam) (isIdDefined() ? getInstance() : null);
 	}
 
 	public void setExam(Exam t) {
@@ -119,11 +118,6 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 	@Override
 	public Class<Exam> getEntityClass() {
 		return Exam.class;
-	}
-
-	@Override
-	public void setEntityList(List<Exam> list) {
-		this.examRecordList = list;
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -140,21 +134,17 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 
 	}
 
-	protected List<org.wc.trackrite.exams.Question> listQuestions;
+	protected List<org.wc.trackrite.exams.Question> listQuestions = new ArrayList<org.wc.trackrite.exams.Question>();
 
 	void initListQuestions() {
-		listQuestions = new ArrayList<org.wc.trackrite.exams.Question>();
 
-		if (getInstance().getQuestions().isEmpty()) {
-
-		} else
+		if (listQuestions.isEmpty())
 			listQuestions.addAll(getInstance().getQuestions());
 
 	}
 
 	public List<org.wc.trackrite.exams.Question> getListQuestions() {
-		if (listQuestions == null)
-			initListQuestions();
+
 		return listQuestions;
 	}
 
@@ -182,13 +172,6 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 			getInstance().getQuestions().clear();
 			getInstance().getQuestions().addAll(listQuestions);
 		}
-	}
-
-	public List<Exam> getEntityList() {
-		if (examRecordList == null) {
-			findRecords();
-		}
-		return examRecordList;
 	}
 
 }

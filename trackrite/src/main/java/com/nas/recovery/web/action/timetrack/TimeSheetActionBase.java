@@ -50,6 +50,11 @@ public abstract class TimeSheetActionBase extends BaseAction<TimeSheet>
 	private List<TimeSheet> timeSheetRecordList;
 
 	public void setTimeSheetId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			loadAssociations();
+			return;
+		}
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
@@ -67,24 +72,18 @@ public abstract class TimeSheetActionBase extends BaseAction<TimeSheet>
 		return (Long) getId();
 	}
 
-	//@Factory("timeSheetRecordList")
-	//@Observer("archivedTimeSheet")
-	public void findRecords() {
-		//search();
-	}
-
 	public TimeSheet getEntity() {
 		return timeSheet;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(TimeSheet t) {
 		this.timeSheet = t;
 		loadAssociations();
 	}
 
 	public TimeSheet getTimeSheet() {
-		return getInstance();
+		return (TimeSheet) getInstance();
 	}
 
 	@Override
@@ -108,7 +107,7 @@ public abstract class TimeSheetActionBase extends BaseAction<TimeSheet>
 	}
 
 	public TimeSheet getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return (TimeSheet) (isIdDefined() ? getInstance() : null);
 	}
 
 	public void setTimeSheet(TimeSheet t) {
@@ -119,11 +118,6 @@ public abstract class TimeSheetActionBase extends BaseAction<TimeSheet>
 	@Override
 	public Class<TimeSheet> getEntityClass() {
 		return TimeSheet.class;
-	}
-
-	@Override
-	public void setEntityList(List<TimeSheet> list) {
-		this.timeSheetRecordList = list;
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -140,22 +134,18 @@ public abstract class TimeSheetActionBase extends BaseAction<TimeSheet>
 
 	}
 
-	protected List<org.wc.trackrite.timetrack.TimeTrackingEntry> listTimeTrackingEntrys;
+	protected List<org.wc.trackrite.timetrack.TimeTrackingEntry> listTimeTrackingEntrys = new ArrayList<org.wc.trackrite.timetrack.TimeTrackingEntry>();
 
 	void initListTimeTrackingEntrys() {
-		listTimeTrackingEntrys = new ArrayList<org.wc.trackrite.timetrack.TimeTrackingEntry>();
 
-		if (getInstance().getTimeTrackingEntrys().isEmpty()) {
-
-		} else
+		if (listTimeTrackingEntrys.isEmpty())
 			listTimeTrackingEntrys
 					.addAll(getInstance().getTimeTrackingEntrys());
 
 	}
 
 	public List<org.wc.trackrite.timetrack.TimeTrackingEntry> getListTimeTrackingEntrys() {
-		if (listTimeTrackingEntrys == null)
-			initListTimeTrackingEntrys();
+
 		return listTimeTrackingEntrys;
 	}
 
@@ -184,13 +174,6 @@ public abstract class TimeSheetActionBase extends BaseAction<TimeSheet>
 			getInstance().getTimeTrackingEntrys()
 					.addAll(listTimeTrackingEntrys);
 		}
-	}
-
-	public List<TimeSheet> getEntityList() {
-		if (timeSheetRecordList == null) {
-			findRecords();
-		}
-		return timeSheetRecordList;
 	}
 
 }

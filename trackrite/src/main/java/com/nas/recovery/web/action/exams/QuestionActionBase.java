@@ -53,6 +53,11 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 	private List<Question> questionRecordList;
 
 	public void setQuestionId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			loadAssociations();
+			return;
+		}
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
@@ -67,8 +72,10 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 	}
 
 	public void setExamId(Long id) {
+
 		if (id != null && id > 0)
 			getInstance().setExam(examAction.loadFromId(id));
+
 	}
 
 	public Long getExamId() {
@@ -81,24 +88,18 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 		return (Long) getId();
 	}
 
-	//@Factory("questionRecordList")
-	//@Observer("archivedQuestion")
-	public void findRecords() {
-		//search();
-	}
-
 	public Question getEntity() {
 		return question;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(Question t) {
 		this.question = t;
 		loadAssociations();
 	}
 
 	public Question getQuestion() {
-		return getInstance();
+		return (Question) getInstance();
 	}
 
 	@Override
@@ -114,6 +115,7 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 
 	public void wire() {
 		getInstance();
+
 		org.wc.trackrite.exams.Exam exam = examAction.getDefinedInstance();
 		if (exam != null) {
 			getInstance().setExam(exam);
@@ -126,7 +128,7 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 	}
 
 	public Question getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return (Question) (isIdDefined() ? getInstance() : null);
 	}
 
 	public void setQuestion(Question t) {
@@ -137,11 +139,6 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 	@Override
 	public Class<Question> getEntityClass() {
 		return Question.class;
-	}
-
-	@Override
-	public void setEntityList(List<Question> list) {
-		this.questionRecordList = list;
 	}
 
 	/** This function adds associated entities to an example criterion
@@ -175,21 +172,17 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 
 	}
 
-	protected List<org.wc.trackrite.exams.Choice> listChoices;
+	protected List<org.wc.trackrite.exams.Choice> listChoices = new ArrayList<org.wc.trackrite.exams.Choice>();
 
 	void initListChoices() {
-		listChoices = new ArrayList<org.wc.trackrite.exams.Choice>();
 
-		if (getInstance().getChoices().isEmpty()) {
-			addChoices();
-		} else
+		if (listChoices.isEmpty())
 			listChoices.addAll(getInstance().getChoices());
 
 	}
 
 	public List<org.wc.trackrite.exams.Choice> getListChoices() {
-		if (listChoices == null)
-			initListChoices();
+
 		return listChoices;
 	}
 
@@ -216,13 +209,6 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 			getInstance().getChoices().clear();
 			getInstance().getChoices().addAll(listChoices);
 		}
-	}
-
-	public List<Question> getEntityList() {
-		if (questionRecordList == null) {
-			findRecords();
-		}
-		return questionRecordList;
 	}
 
 }

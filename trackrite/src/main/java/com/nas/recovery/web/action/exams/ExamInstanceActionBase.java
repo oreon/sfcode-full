@@ -56,6 +56,11 @@ public abstract class ExamInstanceActionBase extends BaseAction<ExamInstance>
 	private List<ExamInstance> examInstanceRecordList;
 
 	public void setExamInstanceId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			loadAssociations();
+			return;
+		}
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
@@ -70,8 +75,10 @@ public abstract class ExamInstanceActionBase extends BaseAction<ExamInstance>
 	}
 
 	public void setExamId(Long id) {
+
 		if (id != null && id > 0)
 			getInstance().setExam(examAction.loadFromId(id));
+
 	}
 
 	public Long getExamId() {
@@ -79,9 +86,12 @@ public abstract class ExamInstanceActionBase extends BaseAction<ExamInstance>
 			return getInstance().getExam().getId();
 		return 0L;
 	}
+
 	public void setCandidateId(Long id) {
+
 		if (id != null && id > 0)
 			getInstance().setCandidate(candidateAction.loadFromId(id));
+
 	}
 
 	public Long getCandidateId() {
@@ -94,24 +104,18 @@ public abstract class ExamInstanceActionBase extends BaseAction<ExamInstance>
 		return (Long) getId();
 	}
 
-	//@Factory("examInstanceRecordList")
-	//@Observer("archivedExamInstance")
-	public void findRecords() {
-		//search();
-	}
-
 	public ExamInstance getEntity() {
 		return examInstance;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(ExamInstance t) {
 		this.examInstance = t;
 		loadAssociations();
 	}
 
 	public ExamInstance getExamInstance() {
-		return getInstance();
+		return (ExamInstance) getInstance();
 	}
 
 	@Override
@@ -127,10 +131,12 @@ public abstract class ExamInstanceActionBase extends BaseAction<ExamInstance>
 
 	public void wire() {
 		getInstance();
+
 		org.wc.trackrite.exams.Exam exam = examAction.getDefinedInstance();
 		if (exam != null) {
 			getInstance().setExam(exam);
 		}
+
 		org.wc.trackrite.exams.Candidate candidate = candidateAction
 				.getDefinedInstance();
 		if (candidate != null) {
@@ -144,7 +150,7 @@ public abstract class ExamInstanceActionBase extends BaseAction<ExamInstance>
 	}
 
 	public ExamInstance getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return (ExamInstance) (isIdDefined() ? getInstance() : null);
 	}
 
 	public void setExamInstance(ExamInstance t) {
@@ -155,11 +161,6 @@ public abstract class ExamInstanceActionBase extends BaseAction<ExamInstance>
 	@Override
 	public Class<ExamInstance> getEntityClass() {
 		return ExamInstance.class;
-	}
-
-	@Override
-	public void setEntityList(List<ExamInstance> list) {
-		this.examInstanceRecordList = list;
 	}
 
 	/** This function adds associated entities to an example criterion
@@ -202,21 +203,17 @@ public abstract class ExamInstanceActionBase extends BaseAction<ExamInstance>
 
 	}
 
-	protected List<org.wc.trackrite.exams.Answer> listAnswers;
+	protected List<org.wc.trackrite.exams.Answer> listAnswers = new ArrayList<org.wc.trackrite.exams.Answer>();
 
 	void initListAnswers() {
-		listAnswers = new ArrayList<org.wc.trackrite.exams.Answer>();
 
-		if (getInstance().getAnswers().isEmpty()) {
-
-		} else
+		if (listAnswers.isEmpty())
 			listAnswers.addAll(getInstance().getAnswers());
 
 	}
 
 	public List<org.wc.trackrite.exams.Answer> getListAnswers() {
-		if (listAnswers == null)
-			initListAnswers();
+
 		return listAnswers;
 	}
 
@@ -243,13 +240,6 @@ public abstract class ExamInstanceActionBase extends BaseAction<ExamInstance>
 			getInstance().getAnswers().clear();
 			getInstance().getAnswers().addAll(listAnswers);
 		}
-	}
-
-	public List<ExamInstance> getEntityList() {
-		if (examInstanceRecordList == null) {
-			findRecords();
-		}
-		return examInstanceRecordList;
 	}
 
 }

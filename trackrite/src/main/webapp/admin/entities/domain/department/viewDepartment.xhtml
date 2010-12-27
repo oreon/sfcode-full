@@ -9,19 +9,32 @@
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasRole('admin')}" action="edit"></h:commandButton>  
             <h:outputText value=" "/>  
-            <h:commandButton value="Back To Listing" action="#{departmentAction.returnToListingView}"> 
+            <h:commandButton value="Back To Listing" action="cancel"> 
               <s:conversationPropagation type="end"/> 
             </h:commandButton> 
           </div> 
         </rich:tab> 
-      </rich:tabPanel>  
-      <br/>  
-      <rich:tabPanel> 
-        <rich:tab label="Employees" icon="/images/icons/bricks.png"> 
-          <ui:include src="/admin/entities/domain/employee/listEmployeeComponent.xhtml"/> 
-        </rich:tab> 
       </rich:tabPanel> 
     </h:form>  
+    <br/>  
+    <rich:tabPanel> 
+      <rich:tab label="Employees" icon="/images/icons/bricks.png"> 
+        <ui:include src="/admin/entities/domain/employee/listEmployeeComponent.xhtml"> 
+          <ui:param name="records" value="#{employeeList.getEmployeesByDepartment(departmentAction.instance)}"/> 
+        </ui:include>  
+        <a:form> 
+          <s:button value="Create New" view="/admin/entities/domain/employee/editEmployee.xhtml"> 
+            <f:param name="departmentId" value="#{departmentAction.instance.id}"/>  
+            <f:param name="employeeId" value="0"/> 
+          </s:button>  
+          <a:commandButton oncomplete="Richfaces.showModalPanel('EmployeeModalPanel',{});" value="Quick Create"> 
+            <a:actionparam name="employeeId" assignTo="#{employeeAction.employeeId}" value="0"/>  
+            <a:actionparam name="departmentId" assignTo="#{employeeAction.departmentId}" value="#{departmentAction.instance.id}"/> 
+          </a:commandButton> 
+        </a:form>  
+        <ui:include src="/admin/entities/domain/employee/modalDlgEmployeeComponent.xhtml"/> 
+      </rich:tab> 
+    </rich:tabPanel>  
     <br/>  
     <rich:tabPanel> 
       <rich:tab label="Notes"> 

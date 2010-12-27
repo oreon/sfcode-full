@@ -6,6 +6,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -19,14 +20,34 @@ import org.jboss.seam.annotations.Observer;
 import org.wc.trackrite.domain.EndUser;
 
 /**
+ * D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
 public abstract class EndUserListQueryBase extends BaseQuery<EndUser, Long> {
 
-	//private static final String EJBQL = "select endUser from EndUser endUser";
+	private static final String EJBQL = "select endUser from EndUser endUser";
 
 	protected EndUser endUser = new EndUser();
+
+	public EndUser getEndUser() {
+		return endUser;
+	}
+
+	@Override
+	protected String getql() {
+		return EJBQL;
+	}
+
+	@Override
+	public Class<EndUser> getEntityClass() {
+		return EndUser.class;
+	}
+
+	@Override
+	public String[] getEntityRestrictions() {
+		return RESTRICTIONS;
+	}
 
 	private Range<Date> user_lastLoginRange = new Range<Date>();
 	public Range<Date> getUser_lastLoginRange() {
@@ -55,23 +76,9 @@ public abstract class EndUserListQueryBase extends BaseQuery<EndUser, Long> {
 			"endUser.dateCreated <= #{endUserList.dateCreatedRange.end}",
 			"endUser.dateCreated >= #{endUserList.dateCreatedRange.begin}",};
 
-	public EndUser getEndUser() {
-		return endUser;
-	}
-
-	@Override
-	public Class<EndUser> getEntityClass() {
-		return EndUser.class;
-	}
-
-	@Override
-	public String[] getEntityRestrictions() {
-		// TODO Auto-generated method stub
-		return RESTRICTIONS;
-	}
-
 	@Observer("archivedEndUser")
 	public void onArchive() {
 		refresh();
 	}
+
 }

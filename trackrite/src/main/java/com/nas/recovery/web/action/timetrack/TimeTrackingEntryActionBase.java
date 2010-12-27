@@ -54,6 +54,11 @@ public abstract class TimeTrackingEntryActionBase
 	private List<TimeTrackingEntry> timeTrackingEntryRecordList;
 
 	public void setTimeTrackingEntryId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			loadAssociations();
+			return;
+		}
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
@@ -68,8 +73,10 @@ public abstract class TimeTrackingEntryActionBase
 	}
 
 	public void setIssueId(Long id) {
+
 		if (id != null && id > 0)
 			getInstance().setIssue(issueAction.loadFromId(id));
+
 	}
 
 	public Long getIssueId() {
@@ -77,9 +84,12 @@ public abstract class TimeTrackingEntryActionBase
 			return getInstance().getIssue().getId();
 		return 0L;
 	}
+
 	public void setTimeSheetId(Long id) {
+
 		if (id != null && id > 0)
 			getInstance().setTimeSheet(timeSheetAction.loadFromId(id));
+
 	}
 
 	public Long getTimeSheetId() {
@@ -92,24 +102,18 @@ public abstract class TimeTrackingEntryActionBase
 		return (Long) getId();
 	}
 
-	//@Factory("timeTrackingEntryRecordList")
-	//@Observer("archivedTimeTrackingEntry")
-	public void findRecords() {
-		//search();
-	}
-
 	public TimeTrackingEntry getEntity() {
 		return timeTrackingEntry;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(TimeTrackingEntry t) {
 		this.timeTrackingEntry = t;
 		loadAssociations();
 	}
 
 	public TimeTrackingEntry getTimeTrackingEntry() {
-		return getInstance();
+		return (TimeTrackingEntry) getInstance();
 	}
 
 	@Override
@@ -125,10 +129,12 @@ public abstract class TimeTrackingEntryActionBase
 
 	public void wire() {
 		getInstance();
+
 		org.wc.trackrite.issues.Issue issue = issueAction.getDefinedInstance();
 		if (issue != null) {
 			getInstance().setIssue(issue);
 		}
+
 		org.wc.trackrite.timetrack.TimeSheet timeSheet = timeSheetAction
 				.getDefinedInstance();
 		if (timeSheet != null) {
@@ -142,7 +148,7 @@ public abstract class TimeTrackingEntryActionBase
 	}
 
 	public TimeTrackingEntry getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return (TimeTrackingEntry) (isIdDefined() ? getInstance() : null);
 	}
 
 	public void setTimeTrackingEntry(TimeTrackingEntry t) {
@@ -153,11 +159,6 @@ public abstract class TimeTrackingEntryActionBase
 	@Override
 	public Class<TimeTrackingEntry> getEntityClass() {
 		return TimeTrackingEntry.class;
-	}
-
-	@Override
-	public void setEntityList(List<TimeTrackingEntry> list) {
-		this.timeTrackingEntryRecordList = list;
 	}
 
 	/** This function adds associated entities to an example criterion
@@ -199,13 +200,6 @@ public abstract class TimeTrackingEntryActionBase
 	}
 
 	public void updateComposedAssociations() {
-	}
-
-	public List<TimeTrackingEntry> getEntityList() {
-		if (timeTrackingEntryRecordList == null) {
-			findRecords();
-		}
-		return timeTrackingEntryRecordList;
 	}
 
 }

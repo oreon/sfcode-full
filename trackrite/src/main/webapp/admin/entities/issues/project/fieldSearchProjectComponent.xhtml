@@ -15,15 +15,16 @@
       <br/>  
       <h:inputText id="description" value="#{projectList.project.description}"/> 
     </h:panelGroup>  
-    <s:decorate template="/layout/display.xhtml"> 
-      <ui:define name="label">From</ui:define>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.project_employees}  "/>  
       <br/>  
-      <rich:calendar id="from" value="#{projectList.dateCreatedRange.begin}"/> 
-    </s:decorate>  
-    <s:decorate template="/layout/display.xhtml"> 
-      <ui:define name="label">To</ui:define>  
-      <br/>  
-      <rich:calendar id="to" value="#{projectList.dateCreatedRange.end}"/> 
-    </s:decorate> 
+      <h:selectOneMenu id="employees" value="#{ projectList.employeeToSearch}"> 
+        <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <rich:calendar id="from" value="#{projectList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{projectList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

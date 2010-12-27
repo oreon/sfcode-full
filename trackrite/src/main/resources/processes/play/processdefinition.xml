@@ -4,11 +4,12 @@
   <swimlane name="admin"> 
     <assignment actor-id="admin"/> 
   </swimlane>  
-  <task-node name="firstTask"> 
+  <task-node name="firstTask" end-tasks="true"> 
     <task name="firstTask" swimlane="admin" duedate="3 business days" notify="false"> 
       <event type="task-assign"> 
         <action expression="#{issueAction.createMessage}"/> 
-      </event> 
+      </event>  
+      <timer duedate="30 seconds" name="newtimer" transition="timeout"/> 
     </task>  
     <transition to="second" name="done"></transition>  
     <transition to="second" name="timeout"></transition> 
@@ -25,10 +26,11 @@
     </task>  
     <transition to="third" name="proceedToThird"></transition> 
   </task-node>  
-  <task-node name="third"> 
-    <task name="third" swimlane="admin" notify="false"></task>  
-    <transition to="fourth" name="proceedToFourth"></transition> 
-  </task-node>  
+  <state name="third"> 
+    <timer duedate="5 minutes" name="newtimer" transition="timeout"/>  
+    <transition to="fourth" name="proceedToFourth"></transition>  
+    <transition to="second" name="timeout"></transition> 
+  </state>  
   <task-node name="fourth"> 
     <task name="fourth" swimlane="admin" notify="false"></task>  
     <transition to="end" name="proceedToEnd"></transition> 

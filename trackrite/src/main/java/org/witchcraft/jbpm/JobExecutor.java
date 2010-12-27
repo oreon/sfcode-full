@@ -48,8 +48,8 @@ public class JobExecutor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	String name = "JBPM Job Executor";
-	int nbrOfThreads = 1;
-	int idleInterval = 5000;
+	int nbrOfThreads = 2;
+	int idleInterval = 1000;
 	int maxIdleInterval = 10000;
 	int historyMaxSize = 10000;
 
@@ -112,7 +112,7 @@ public class JobExecutor implements Serializable {
 		}
 	}
 
-	protected synchronized void startThread() {
+	public synchronized void startThread() {
 		String threadName = getNextThreadName();
 		Thread thread = new JobExecutorThread(threadName, this, idleInterval,
 				maxIdleInterval, maxLockTime, historyMaxSize);

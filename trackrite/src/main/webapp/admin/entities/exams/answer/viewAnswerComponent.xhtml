@@ -3,19 +3,21 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup> 
     <s:validateAll> 
-      <h:panelGrid columns="2" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{answerAction.load(answerId )  }"> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{answerAction.load(answerId )  }"> 
         <f:facet name="header"> 
           <h:outputText value="Answer "/> 
         </f:facet>  
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{answerAction.answer.id}"/>  
         <h:outputText value="#{msg.answer_choice}  "/>  
-        <s:link value="#{answerAction.answer.choice.displayName}" view="/admin/entities/exams/choice/viewChoice.xhtml"> 
-          <f:param name="id" value="#{answerAction.answer.choice.id}"/> 
+        <s:link value="#{answerAction.answer.choice.displayName}" view="/admin/entities/exams/choice/viewChoice.xhtml" propagation="none"> 
+          <f:param name="choiceId" value="#{answerAction.answer.choice.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.answer_examInstance}  "/>  
-        <s:link value="#{answerAction.answer.examInstance.displayName}" view="/admin/entities/exams/examInstance/viewExamInstance.xhtml"> 
-          <f:param name="id" value="#{answerAction.answer.examInstance.id}"/> 
+        <s:link value="#{answerAction.answer.examInstance.displayName}" view="/admin/entities/exams/examInstance/viewExamInstance.xhtml" propagation="none"> 
+          <f:param name="examInstanceId" value="#{answerAction.answer.examInstance.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid> 
     </s:validateAll> 

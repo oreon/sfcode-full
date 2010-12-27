@@ -50,6 +50,11 @@ public abstract class EndUserActionBase
 	private List<EndUser> endUserRecordList;
 
 	public void setEndUserId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			loadAssociations();
+			return;
+		}
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
@@ -67,24 +72,18 @@ public abstract class EndUserActionBase
 		return (Long) getId();
 	}
 
-	//@Factory("endUserRecordList")
-	//@Observer("archivedEndUser")
-	public void findRecords() {
-		//search();
-	}
-
 	public EndUser getEntity() {
 		return endUser;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(EndUser t) {
 		this.endUser = t;
 		loadAssociations();
 	}
 
 	public EndUser getEndUser() {
-		return getInstance();
+		return (EndUser) getInstance();
 	}
 
 	@Override
@@ -108,7 +107,7 @@ public abstract class EndUserActionBase
 	}
 
 	public EndUser getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return (EndUser) (isIdDefined() ? getInstance() : null);
 	}
 
 	public void setEndUser(EndUser t) {
@@ -119,11 +118,6 @@ public abstract class EndUserActionBase
 	@Override
 	public Class<EndUser> getEntityClass() {
 		return EndUser.class;
-	}
-
-	@Override
-	public void setEntityList(List<EndUser> list) {
-		this.endUserRecordList = list;
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -139,13 +133,6 @@ public abstract class EndUserActionBase
 	}
 
 	public void updateComposedAssociations() {
-	}
-
-	public List<EndUser> getEntityList() {
-		if (endUserRecordList == null) {
-			findRecords();
-		}
-		return endUserRecordList;
 	}
 
 }

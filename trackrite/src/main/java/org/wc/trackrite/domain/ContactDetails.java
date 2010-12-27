@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -36,6 +37,8 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
+import org.witchcraft.utils.*;
+
 @Embeddable
 @Indexed
 public class ContactDetails implements java.io.Serializable {
@@ -51,14 +54,17 @@ public class ContactDetails implements java.io.Serializable {
 
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
-	protected String email;
+	protected String city;
+
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
+	protected String streetAddress;
 
 	public void setPrimaryPhone(String primaryPhone) {
 		this.primaryPhone = primaryPhone;
 	}
 
 	public String getPrimaryPhone() {
-
 		return primaryPhone;
 	}
 
@@ -67,17 +73,23 @@ public class ContactDetails implements java.io.Serializable {
 	}
 
 	public String getSecondaryPhone() {
-
 		return secondaryPhone;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
-	public String getEmail() {
+	public String getCity() {
+		return city;
+	}
 
-		return email;
+	public void setStreetAddress(String streetAddress) {
+		this.streetAddress = streetAddress;
+	}
+
+	public String getStreetAddress() {
+		return streetAddress;
 	}
 
 }

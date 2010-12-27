@@ -48,6 +48,11 @@ public abstract class RoleActionBase extends BaseAction<Role>
 	private List<Role> roleRecordList;
 
 	public void setRoleId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			loadAssociations();
+			return;
+		}
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
@@ -65,24 +70,18 @@ public abstract class RoleActionBase extends BaseAction<Role>
 		return (Long) getId();
 	}
 
-	//@Factory("roleRecordList")
-	//@Observer("archivedRole")
-	public void findRecords() {
-		//search();
-	}
-
 	public Role getEntity() {
 		return role;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(Role t) {
 		this.role = t;
 		loadAssociations();
 	}
 
 	public Role getRole() {
-		return getInstance();
+		return (Role) getInstance();
 	}
 
 	@Override
@@ -106,7 +105,7 @@ public abstract class RoleActionBase extends BaseAction<Role>
 	}
 
 	public Role getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return (Role) (isIdDefined() ? getInstance() : null);
 	}
 
 	public void setRole(Role t) {
@@ -117,11 +116,6 @@ public abstract class RoleActionBase extends BaseAction<Role>
 	@Override
 	public Class<Role> getEntityClass() {
 		return Role.class;
-	}
-
-	@Override
-	public void setEntityList(List<Role> list) {
-		this.roleRecordList = list;
 	}
 
 	public org.wc.trackrite.users.Role findByUnqName(String name) {
@@ -141,13 +135,6 @@ public abstract class RoleActionBase extends BaseAction<Role>
 	}
 
 	public void updateComposedAssociations() {
-	}
-
-	public List<Role> getEntityList() {
-		if (roleRecordList == null) {
-			findRecords();
-		}
-		return roleRecordList;
 	}
 
 }

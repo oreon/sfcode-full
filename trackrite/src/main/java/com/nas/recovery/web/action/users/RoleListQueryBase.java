@@ -6,6 +6,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -19,25 +20,33 @@ import org.jboss.seam.annotations.Observer;
 import org.wc.trackrite.users.Role;
 
 /**
+ * D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
 public abstract class RoleListQueryBase extends BaseQuery<Role, Long> {
 
-	//private static final String EJBQL = "select role from Role role";
+	private static final String EJBQL = "select role from Role role";
 
 	protected Role role = new Role();
 
-	private static final String[] RESTRICTIONS = {
-			"role.id = #{roleList.role.id}",
-
-			"lower(role.name) like concat(lower(#{roleList.role.name}),'%')",
-
-			"role.dateCreated <= #{roleList.dateCreatedRange.end}",
-			"role.dateCreated >= #{roleList.dateCreatedRange.begin}",};
-
 	public Role getRole() {
 		return role;
+	}
+
+	private org.wc.trackrite.users.User userToSearch;
+
+	public void setUserToSearch(org.wc.trackrite.users.User userToSearch) {
+		this.userToSearch = userToSearch;
+	}
+
+	public org.wc.trackrite.users.User getUserToSearch() {
+		return userToSearch;
+	}
+
+	@Override
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
@@ -47,12 +56,22 @@ public abstract class RoleListQueryBase extends BaseQuery<Role, Long> {
 
 	@Override
 	public String[] getEntityRestrictions() {
-		// TODO Auto-generated method stub
 		return RESTRICTIONS;
 	}
+
+	private static final String[] RESTRICTIONS = {
+			"role.id = #{roleList.role.id}",
+
+			"lower(role.name) like concat(lower(#{roleList.role.name}),'%')",
+
+			"#{roleList.userToSearch} in elements(role.users)",
+
+			"role.dateCreated <= #{roleList.dateCreatedRange.end}",
+			"role.dateCreated >= #{roleList.dateCreatedRange.begin}",};
 
 	@Observer("archivedRole")
 	public void onArchive() {
 		refresh();
 	}
+
 }

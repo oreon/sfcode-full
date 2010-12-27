@@ -17,7 +17,7 @@
       <a:commandButton value="New Question" action="#{examAction.addQuestions}" reRender="questions_data#{entityId}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="questions_data#{entityId}" var="_question" value="#{examAction.listQuestions}" rows="10" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="questions_data#{entityId}" var="_question" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.question_text} * "/>
@@ -31,7 +31,7 @@
           </a:commandButton> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="Delete" action="#{examAction.deleteQuestions(rowIndex)}" reRender="questions_data#{entityId}"> 
+          <a:commandButton value="Delete" immediate="true" action="#{examAction.deleteQuestions(rowIndex)}" reRender="questions_data#{entityId}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column> 

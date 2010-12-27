@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -36,10 +37,12 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
+import org.witchcraft.utils.*;
+
 @Entity
 @Table(name = "employee")
-@Name("employee")
 @Filter(name = "archiveFilterDef")
+@Name("employee")
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
@@ -60,8 +63,6 @@ public class Employee extends org.wc.trackrite.domain.Person
 
 	protected EmployeeType employeeType;
 
-	//issues->developer ->Employee->Employee->Employee
-
 	@OneToMany(mappedBy = "developer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "developer_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
@@ -75,24 +76,12 @@ public class Employee extends org.wc.trackrite.domain.Person
 
 			@AttributeOverride(name = "secondaryPhone", column = @Column(name = "home_secondaryPhone")),
 
-			@AttributeOverride(name = "email", column = @Column(name = "home_email"))
+			@AttributeOverride(name = "city", column = @Column(name = "home_city")),
+
+			@AttributeOverride(name = "streetAddress", column = @Column(name = "home_streetAddress"))
 
 	})
 	protected ContactDetails home = new ContactDetails();
-
-	@IndexedEmbedded
-	@AttributeOverrides({
-
-			@AttributeOverride(name = "primaryPhone", column = @Column(name = "mailing_primaryPhone")),
-
-			@AttributeOverride(name = "secondaryPhone", column = @Column(name = "mailing_secondaryPhone")),
-
-			@AttributeOverride(name = "email", column = @Column(name = "mailing_email"))
-
-	})
-	protected ContactDetails mailing = new ContactDetails();
-
-	//projects->employees ->Employee->Project->Project
 
 	@ManyToMany(mappedBy = "employees")
 	private Set<org.wc.trackrite.issues.Project> projects = new HashSet<org.wc.trackrite.issues.Project>();
@@ -102,7 +91,6 @@ public class Employee extends org.wc.trackrite.domain.Person
 	}
 
 	public Department getDepartment() {
-
 		return department;
 	}
 
@@ -111,7 +99,6 @@ public class Employee extends org.wc.trackrite.domain.Person
 	}
 
 	public String getEmployeeNumber() {
-
 		return employeeNumber;
 	}
 
@@ -120,7 +107,6 @@ public class Employee extends org.wc.trackrite.domain.Person
 	}
 
 	public EmployeeType getEmployeeType() {
-
 		return employeeType;
 	}
 
@@ -137,17 +123,7 @@ public class Employee extends org.wc.trackrite.domain.Person
 	}
 
 	public ContactDetails getHome() {
-
 		return home;
-	}
-
-	public void setMailing(ContactDetails mailing) {
-		this.mailing = mailing;
-	}
-
-	public ContactDetails getMailing() {
-
-		return mailing;
 	}
 
 	public void setProjects(Set<org.wc.trackrite.issues.Project> projects) {
@@ -161,6 +137,10 @@ public class Employee extends org.wc.trackrite.domain.Person
 	@Transient
 	public String getDisplayName() {
 		return super.getDisplayName();
+	}
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
@@ -177,13 +157,9 @@ public class Employee extends org.wc.trackrite.domain.Person
 
 		listSearchableFields.add("home.secondaryPhone");
 
-		listSearchableFields.add("home.email");
+		listSearchableFields.add("home.city");
 
-		listSearchableFields.add("mailing.primaryPhone");
-
-		listSearchableFields.add("mailing.secondaryPhone");
-
-		listSearchableFields.add("mailing.email");
+		listSearchableFields.add("home.streetAddress");
 
 		return listSearchableFields;
 	}

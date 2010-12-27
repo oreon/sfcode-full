@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
-<jasperReport name="TimeSheetReport" isTitleNewPage="false" isSummaryNewPage="false"> 
+<jasperReport name="TimeSheetReport" isTitleNewPage="false" isSummaryNewPage="false" formatFactoryClass="org.witchcraft.jasperreports.WCFormatFactory"> 
   <parameter name="ReportTitle" class="java.lang.String"/>  
   <parameter name="developer" class="org.wc.trackrite.domain.Employee"/>  
   <parameter name="from" class="java.util.Date"/>  
   <parameter name="to" class="java.util.Date"/>  
   <queryString language="ejbql"> <![CDATA[select t from TimeTrackingEntry t, Employee e where t.createdByUser.id = e.user.id and e = $P{developer}  and t.date >= $P{from} and t.date <= $P{to} order by t.date]]> </queryString>  
   <field name="issue.title" class="java.lang.String"/>  
-  <field name="issue.description" class="java.lang.String"/>  
   <field name="details" class="java.lang.String"/>  
-  <field name="hours" class="java.lang.Double"/>  
+  <field name="hours" class="java.lang.Integer"/>  
   <field name="date" class="java.util.Date"/>  
   <variable name="GroupdateCounter" class="java.lang.Integer" incrementType="Group" incrementGroup="Groupdate" calculation="Count"> 
     <variableExpression><![CDATA[Boolean.TRUE]]></variableExpression> 
   </variable>  
-  <variable name="Groupdate_sum" class="java.lang.Double" calculation="Sum" resetType="Group" resetGroup="Groupdate"> 
+  <variable name="Groupdate_sum" class="java.lang.Integer" calculation="Sum" resetType="Group" resetGroup="Groupdate"> 
     <variableExpression> <![CDATA[$F{hours}]]> </variableExpression> 
   </variable>  
-  <variable name="sum:hours_sum" class="java.lang.Double" calculation="Sum"> 
+  <variable name="sum:hours_sum" class="java.lang.Integer" calculation="Sum"> 
     <variableExpression> <![CDATA[$F{hours}]]> </variableExpression> 
   </variable>  
   <group name="Groupdate" minHeightToStartNewPage="60"> 
@@ -26,9 +25,9 @@
     <groupHeader> 
       <band height="20"> 
         <textField evaluationTime="Group" evaluationGroup="Groupdate" bookmarkLevel="1"> 
-          <reportElement mode="Opaque" x="0" y="5" width="515" height="15" backcolor="#c0c0c0"/>  
+          <reportElement mode="Opaque" x="0" y="5" width="270" height="15" backcolor="#c0c0c0"/>  
           <box leftPadding="10" bottomBorder="1Point"/>  
-          <textFieldExpression class="java.lang.String"> <![CDATA["  " + String.valueOf($V{GroupdateCounter}) + ". " + String.valueOf($F{date})]]> </textFieldExpression>  
+          <textFieldExpression class="java.lang.String"> <![CDATA["  " + String.valueOf($F{date})]]> </textFieldExpression>  
           <anchorNameExpression><![CDATA[String.valueOf($F{date})]]></anchorNameExpression> 
         </textField> 
       </band> 
@@ -36,14 +35,14 @@
     <groupFooter> 
       <band height="20"> 
         <staticText> 
-          <reportElement x="150" y="1" width="60" height="15"/>  
+          <reportElement x="270" y="1" width="60" height="15"/>  
           <textElement textAlignment="Right"/>  
           <text><![CDATA[Sum:hours:]]></text> 
         </staticText>  
         <textField> 
-          <reportElement x="300" y="1" width="30" height="15"/>  
+          <reportElement x="360" y="1" width="30" height="15"/>  
           <textElement textAlignment="Right"/>  
-          <textFieldExpression class="java.lang.Double"> <![CDATA[$V{Groupdate_sum}]]> </textFieldExpression> 
+          <textFieldExpression class="java.lang.Integer"> <![CDATA[$V{Groupdate_sum}]]> </textFieldExpression> 
         </textField> 
       </band> 
     </groupFooter> 
@@ -51,38 +50,37 @@
   <title> 
     <band height="70"> 
       <line> 
-        <reportElement x="0" y="0" width="515" height="1"/>  
+        <reportElement x="0" y="0" width="630" height="1"/>  
         <graphicElement/> 
       </line>  
-      <staticText> 
-        <reportElement x="0" y="10" width="515" height="30"/>  
+      <textField> 
+        <reportElement x="0" y="10" width="630" height="30"/>  
         <textElement textAlignment="Center"> 
-          <font size="20"/> 
+          <font size="13"/> 
         </textElement>  
-        <text><![CDATA["TimeSheet For " +  $P{developer}.getDisplayName()+ " " + $P{from} + "-" + $P{to}]]></text> 
-      </staticText> 
+        <textFieldExpression class="java.lang.String"><![CDATA[TimeSheet For $P{developer}.getDisplayName() $P{from} - $P{to}]]></textFieldExpression> 
+      </textField> 
     </band> 
   </title>  
   <pageHeader> 
     <band height="20"> 
       <rectangle> 
-        <reportElement x="0" y="5" width="515" height="15" forecolor="#333333" backcolor="#333333"/>  
+        <reportElement x="0" y="5" width="630" height="15" forecolor="#333333" backcolor="#333333"/>  
         <graphicElement/> 
       </rectangle>  
       <staticText> 
-        <reportElement mode="Opaque" x="0" y="5" width="150" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <reportElement mode="Opaque" x="0" y="5" width="90" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Center"/>  
         <text><![CDATA[Issue]]></text> 
       </staticText>  
       <staticText> 
-        <reportElement mode="Opaque" x="150" y="5" width="150" height="15" forecolor="#ffffff" backcolor="#333333"/>  
-        <text><![CDATA[IssueDetails]]></text> 
-      </staticText>  
-      <staticText> 
-        <reportElement mode="Opaque" x="300" y="5" width="150" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <reportElement mode="Opaque" x="90" y="5" width="90" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Center"/>  
         <text><![CDATA[Details]]></text> 
       </staticText>  
       <staticText> 
-        <reportElement mode="Opaque" x="450" y="5" width="150" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <reportElement mode="Opaque" x="180" y="5" width="90" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Center"/>  
         <text><![CDATA[Hours]]></text> 
       </staticText> 
     </band> 
@@ -90,38 +88,33 @@
   <detail> 
     <band height="30"> 
       <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
-        <reportElement x="0" y="0" width="150" height="24"/>  
+        <reportElement x="0" y="0" width="90" height="24"/>  
         <textElement textAlignment="Center"/>  
         <textFieldExpression class="java.lang.String"> <![CDATA[$F{issue.title}]]> </textFieldExpression> 
       </textField>  
       <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
-        <reportElement x="150" y="0" width="150" height="24"/>  
-        <textElement textAlignment="Center"/>  
-        <textFieldExpression class="java.lang.String"> <![CDATA[$F{issue.description}]]> </textFieldExpression> 
-      </textField>  
-      <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
-        <reportElement x="300" y="0" width="150" height="24"/>  
+        <reportElement x="90" y="0" width="90" height="24"/>  
         <textElement textAlignment="Center"/>  
         <textFieldExpression class="java.lang.String"> <![CDATA[$F{details}]]> </textFieldExpression> 
       </textField>  
       <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
-        <reportElement x="450" y="0" width="150" height="24"/>  
+        <reportElement x="180" y="0" width="90" height="24"/>  
         <textElement textAlignment="Center"/>  
-        <textFieldExpression class="java.lang.Double"> <![CDATA[$F{hours}]]> </textFieldExpression> 
+        <textFieldExpression class="java.lang.Integer"> <![CDATA[$F{hours}]]> </textFieldExpression> 
       </textField> 
     </band> 
   </detail>  
   <summary> 
     <band height="320"> 
       <staticText> 
-        <reportElement mode="Opaque" x="0" y="1" width="515" height="15" backcolor="#c0c0c0"/>  
+        <reportElement mode="Opaque" x="0" y="1" width="630" height="15" backcolor="#c0c0c0"/>  
         <box leftPadding="10" bottomBorder="1Point"/>  
         <text><![CDATA[Summary]]> </text> 
       </staticText>  
       <textField> 
         <reportElement x="420" y="1" width="30" height="15"/>  
         <textElement textAlignment="Right"/>  
-        <textFieldExpression class="java.lang.Double"> <![CDATA[$V{sum:hours_sum}]]> </textFieldExpression> 
+        <textFieldExpression class="java.lang.Integer"> <![CDATA[$V{sum:hours_sum}]]> </textFieldExpression> 
       </textField> 
     </band> 
   </summary> 

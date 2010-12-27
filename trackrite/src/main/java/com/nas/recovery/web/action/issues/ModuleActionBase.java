@@ -48,6 +48,11 @@ public abstract class ModuleActionBase extends BaseAction<Module>
 	private List<Module> moduleRecordList;
 
 	public void setModuleId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			loadAssociations();
+			return;
+		}
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
@@ -65,24 +70,18 @@ public abstract class ModuleActionBase extends BaseAction<Module>
 		return (Long) getId();
 	}
 
-	//@Factory("moduleRecordList")
-	//@Observer("archivedModule")
-	public void findRecords() {
-		//search();
-	}
-
 	public Module getEntity() {
 		return module;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(Module t) {
 		this.module = t;
 		loadAssociations();
 	}
 
 	public Module getModule() {
-		return getInstance();
+		return (Module) getInstance();
 	}
 
 	@Override
@@ -106,7 +105,7 @@ public abstract class ModuleActionBase extends BaseAction<Module>
 	}
 
 	public Module getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return (Module) (isIdDefined() ? getInstance() : null);
 	}
 
 	public void setModule(Module t) {
@@ -117,11 +116,6 @@ public abstract class ModuleActionBase extends BaseAction<Module>
 	@Override
 	public Class<Module> getEntityClass() {
 		return Module.class;
-	}
-
-	@Override
-	public void setEntityList(List<Module> list) {
-		this.moduleRecordList = list;
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -137,13 +131,6 @@ public abstract class ModuleActionBase extends BaseAction<Module>
 	}
 
 	public void updateComposedAssociations() {
-	}
-
-	public List<Module> getEntityList() {
-		if (moduleRecordList == null) {
-			findRecords();
-		}
-		return moduleRecordList;
 	}
 
 }

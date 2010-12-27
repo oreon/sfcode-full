@@ -44,12 +44,12 @@ public class BugManagementBase extends BaseJbpmProcessAction
 
 	}
 
-	@EndTask(transition = "accept")
-	public void acceptReviewIssue() {
-
-	}
 	@EndTask(transition = "reject")
 	public void rejectReviewIssue() {
+
+	}
+	@EndTask(transition = "accept")
+	public void acceptReviewIssue() {
 
 	}
 

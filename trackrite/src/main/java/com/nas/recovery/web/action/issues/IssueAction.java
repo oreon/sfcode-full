@@ -32,8 +32,8 @@ public class IssueAction extends IssueActionBase implements
 	@Override
 	public String save() {
 		boolean isNew = isNew();
-
 		String ret = super.save();
+		
 		if (isNew) {
 			launchProcess();
 			getInstance().setProcessId(ProcessInstance.instance().getId());
@@ -41,6 +41,12 @@ public class IssueAction extends IssueActionBase implements
 
 		super.save();
 		return ret;
+	}
+	
+	@Override
+	public String saveWithoutConversation() {
+		// TODO Auto-generated method stub
+		return save();
 	}
 
 	private void launchProcess() {
@@ -53,6 +59,10 @@ public class IssueAction extends IssueActionBase implements
 			token = (Issue) bugManagement.getTask().getVariable("token");
 		}
 		return token;
+	}
+	
+	public Issue refreshToken(Issue toke){
+		return loadFromId(toke.getId());
 	}
 
 	public void updateDeveloper() {
@@ -106,6 +116,8 @@ public class IssueAction extends IssueActionBase implements
 		Producer producer = new Producer(factory, "test", issue);
 		producer.run();
 		producer.close();
+		
+		
 	}
 
 	public static void main(String[] args) {

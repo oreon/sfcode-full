@@ -27,6 +27,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.StaleStateException;
 import org.jboss.seam.async.AbstractDispatcher;
 import org.jboss.seam.bpm.ManagedJbpmContext;
+import org.jboss.seam.bpm.TaskInstance;
 import org.jboss.seam.contexts.Contexts;
 import org.jboss.seam.contexts.Lifecycle;
 import org.jboss.seam.transaction.Transaction;
@@ -86,7 +87,7 @@ public class JobExecutorThread extends Thread {
                 boolean createContexts = !Contexts.isEventContextActive() && !Contexts.isApplicationContextActive();
                 if (createContexts) Lifecycle.beginCall();
                 Contexts.getEventContext().set(AbstractDispatcher.EXECUTING_ASYNCHRONOUS_CALL, true);
-
+                sleep(2000);
                 UserTransaction ut;
                 try {
                     ut = Transaction.instance();
@@ -113,8 +114,10 @@ public class JobExecutorThread extends Thread {
                             try {
 
                                 executeJob(job);
+                                isActive = false;
                                 isCallCompleted = true;
                                 ut.commit();
+                                
 
                             } finally {
                                 if (!isCallCompleted)
@@ -178,6 +181,7 @@ public class JobExecutorThread extends Thread {
             t.printStackTrace();
         } finally {
             log.info(getName() + " leaves cyberspace");
+            jobExecutor.startThread();
         }
     }
 
@@ -201,6 +205,7 @@ public class JobExecutorThread extends Thread {
                             jobsToLock.addAll(otherExclusiveJobs);
                             log.debug("trying to obtain a process-instance exclusive locks for '" + otherExclusiveJobs + "'");
                         } else {
+                        	//jobSession.find
                             log.debug("trying to obtain a lock for '" + job + "'");
                             jobsToLock.add(job);
                         }
@@ -210,7 +215,7 @@ public class JobExecutorThread extends Thread {
                             job = (Job) iter.next();
                             job.setLockOwner(getName());
                             job.setLockTime(new Date());
-                            // jbpmContext.getSession().update(job);
+                            jbpmContext.getSession().update(job);
                         }
 
                         // HACKY HACK : this is a workaround for a hibernate problem that is fixed in hibernate 3.2.1
@@ -242,11 +247,16 @@ public class JobExecutorThread extends Thread {
             job = jobSession.loadJob(job.getId());
 
             try {
-                log.debug("executing job " + job);
+                log.debug("executing job " + job );
+               
                 if (job.execute(jbpmContext)) {
+                	
                     // TODO: This is a HACK - somewhere job already gets deleted - can't find where
                     // another delete here causes it to blow up
                     // jobSession.deleteJob(job);
+                }else{
+                	//js
+                	log.warn("job failed to execute " + job);
                 }
 
             } catch (Exception e) {

@@ -10,25 +10,7 @@
       <br/>  
       <h:inputText id="title" value="#{timeSheetList.timeSheet.title}"/> 
     </h:panelGroup>  
-    <h:panelGroup> 
-      <h:outputText value="#{msg.timeSheet_total}  "/>  
-      <br/>  
-      <h:inputText id="total_begin" value="#{timeSheetList.totalRange.begin}"> 
-        <f:converter converterId="javax.faces.Double"/> 
-      </h:inputText>  
-      <h:inputText id="total_end" value="#{timeSheetList.totalRange.end}"> 
-        <f:converter converterId="javax.faces.Double"/> 
-      </h:inputText> 
-    </h:panelGroup>  
-    <s:decorate template="/layout/display.xhtml"> 
-      <ui:define name="label">From</ui:define>  
-      <br/>  
-      <rich:calendar id="from" value="#{timeSheetList.dateCreatedRange.begin}"/> 
-    </s:decorate>  
-    <s:decorate template="/layout/display.xhtml"> 
-      <ui:define name="label">To</ui:define>  
-      <br/>  
-      <rich:calendar id="to" value="#{timeSheetList.dateCreatedRange.end}"/> 
-    </s:decorate> 
+    <rich:calendar id="from" value="#{timeSheetList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{timeSheetList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

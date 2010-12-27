@@ -20,7 +20,7 @@
       <a:commandButton value="New ScheduleItem" action="#{scheduleAction.addScheduleItems}" reRender="scheduleItems_data#{entityId}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="scheduleItems_data#{entityId}" var="_scheduleItem" value="#{scheduleAction.listScheduleItems}" rows="10" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="scheduleItems_data#{entityId}" var="_scheduleItem" value="#{scheduleAction.listScheduleItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.scheduleItem_employee}  "/>
@@ -51,7 +51,7 @@
           </a:commandButton> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="Delete" action="#{scheduleAction.deleteScheduleItems(rowIndex)}" reRender="scheduleItems_data#{entityId}"> 
+          <a:commandButton value="Delete" immediate="true" action="#{scheduleAction.deleteScheduleItems(rowIndex)}" reRender="scheduleItems_data#{entityId}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column> 

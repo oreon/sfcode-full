@@ -6,6 +6,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -19,36 +20,23 @@ import org.jboss.seam.annotations.Observer;
 import org.wc.trackrite.timetrack.TimeSheet;
 
 /**
+ * D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
 public abstract class TimeSheetListQueryBase extends BaseQuery<TimeSheet, Long> {
 
-	//private static final String EJBQL = "select timeSheet from TimeSheet timeSheet";
+	private static final String EJBQL = "select timeSheet from TimeSheet timeSheet";
 
 	protected TimeSheet timeSheet = new TimeSheet();
 
-	private Range<Double> totalRange = new Range<Double>();
-	public Range<Double> getTotalRange() {
-		return totalRange;
-	}
-	public void setTotal(Range<Double> totalRange) {
-		this.totalRange = totalRange;
-	}
-
-	private static final String[] RESTRICTIONS = {
-			"timeSheet.id = #{timeSheetList.timeSheet.id}",
-
-			"lower(timeSheet.title) like concat(lower(#{timeSheetList.timeSheet.title}),'%')",
-
-			"timeSheet.total >= #{timeSheetList.totalRange.begin}",
-			"timeSheet.total <= #{timeSheetList.totalRange.end}",
-
-			"timeSheet.dateCreated <= #{timeSheetList.dateCreatedRange.end}",
-			"timeSheet.dateCreated >= #{timeSheetList.dateCreatedRange.begin}",};
-
 	public TimeSheet getTimeSheet() {
 		return timeSheet;
+	}
+
+	@Override
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
@@ -58,12 +46,20 @@ public abstract class TimeSheetListQueryBase extends BaseQuery<TimeSheet, Long> 
 
 	@Override
 	public String[] getEntityRestrictions() {
-		// TODO Auto-generated method stub
 		return RESTRICTIONS;
 	}
+
+	private static final String[] RESTRICTIONS = {
+			"timeSheet.id = #{timeSheetList.timeSheet.id}",
+
+			"lower(timeSheet.title) like concat(lower(#{timeSheetList.timeSheet.title}),'%')",
+
+			"timeSheet.dateCreated <= #{timeSheetList.dateCreatedRange.end}",
+			"timeSheet.dateCreated >= #{timeSheetList.dateCreatedRange.begin}",};
 
 	@Observer("archivedTimeSheet")
 	public void onArchive() {
 		refresh();
 	}
+
 }

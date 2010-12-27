@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -36,18 +37,20 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
+import org.witchcraft.utils.*;
+
 @MappedSuperclass
 //@Indexed
 public class Person extends BusinessEntity {
 
 	@NotNull
-	@Length(min = 2, max = 50)
+	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
 	protected String firstName;
 
 	@NotNull
-	@Length(min = 2, max = 50)
+	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
 	protected String lastName;
@@ -62,7 +65,6 @@ public class Person extends BusinessEntity {
 	}
 
 	public String getFirstName() {
-
 		return firstName;
 	}
 
@@ -71,7 +73,6 @@ public class Person extends BusinessEntity {
 	}
 
 	public String getLastName() {
-
 		return lastName;
 	}
 
@@ -80,7 +81,6 @@ public class Person extends BusinessEntity {
 	}
 
 	public org.wc.trackrite.users.User getUser() {
-
 		return user;
 	}
 

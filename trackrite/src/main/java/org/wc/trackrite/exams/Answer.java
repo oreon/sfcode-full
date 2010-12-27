@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -36,10 +37,12 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
+import org.witchcraft.utils.*;
+
 @Entity
 @Table(name = "answer")
-@Name("answer")
 @Filter(name = "archiveFilterDef")
+@Name("answer")
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
@@ -62,7 +65,6 @@ public class Answer extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Choice getChoice() {
-
 		return choice;
 	}
 
@@ -71,13 +73,16 @@ public class Answer extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public ExamInstance getExamInstance() {
-
 		return examInstance;
 	}
 
 	@Transient
 	public String getDisplayName() {
 		return choice + "";
+	}
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

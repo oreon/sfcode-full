@@ -6,6 +6,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -19,14 +20,34 @@ import org.jboss.seam.annotations.Observer;
 import org.wc.trackrite.schedule.Schedule;
 
 /**
+ * D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
 public abstract class ScheduleListQueryBase extends BaseQuery<Schedule, Long> {
 
-	//private static final String EJBQL = "select schedule from Schedule schedule";
+	private static final String EJBQL = "select schedule from Schedule schedule";
 
 	protected Schedule schedule = new Schedule();
+
+	public Schedule getSchedule() {
+		return schedule;
+	}
+
+	@Override
+	protected String getql() {
+		return EJBQL;
+	}
+
+	@Override
+	public Class<Schedule> getEntityClass() {
+		return Schedule.class;
+	}
+
+	@Override
+	public String[] getEntityRestrictions() {
+		return RESTRICTIONS;
+	}
 
 	private static final String[] RESTRICTIONS = {
 			"schedule.id = #{scheduleList.schedule.id}",
@@ -38,23 +59,9 @@ public abstract class ScheduleListQueryBase extends BaseQuery<Schedule, Long> {
 			"schedule.dateCreated <= #{scheduleList.dateCreatedRange.end}",
 			"schedule.dateCreated >= #{scheduleList.dateCreatedRange.begin}",};
 
-	public Schedule getSchedule() {
-		return schedule;
-	}
-
-	@Override
-	public Class<Schedule> getEntityClass() {
-		return Schedule.class;
-	}
-
-	@Override
-	public String[] getEntityRestrictions() {
-		// TODO Auto-generated method stub
-		return RESTRICTIONS;
-	}
-
 	@Observer("archivedSchedule")
 	public void onArchive() {
 		refresh();
 	}
+
 }

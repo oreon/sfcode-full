@@ -9,7 +9,7 @@
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasRole('admin')}" action="edit"></h:commandButton>  
             <h:outputText value=" "/>  
-            <h:commandButton value="Back To Listing" action="#{employeeAction.returnToListingView}"> 
+            <h:commandButton value="Back To Listing" action="cancel"> 
               <s:conversationPropagation type="end"/> 
             </h:commandButton> 
           </div> 
@@ -20,14 +20,27 @@
             <ui:param name="departmentId" value="#{employeeAction.instance.department.id}"/> 
           </ui:include> 
         </rich:tab> 
-      </rich:tabPanel>  
-      <br/>  
-      <rich:tabPanel> 
-        <rich:tab label="Issues" icon="/images/icons/bricks.png"> 
-          <ui:include src="/admin/entities/issues/issue/listIssueComponent.xhtml"/> 
-        </rich:tab> 
       </rich:tabPanel> 
     </h:form>  
+    <br/>  
+    <rich:tabPanel> 
+      <rich:tab label="Issues" icon="/images/icons/bricks.png"> 
+        <ui:include src="/admin/entities/issues/issue/listIssueComponent.xhtml"> 
+          <ui:param name="records" value="#{issueList.getIssuesByDeveloper(employeeAction.instance)}"/> 
+        </ui:include>  
+        <a:form> 
+          <s:button value="Create New" view="/admin/entities/issues/issue/editIssue.xhtml"> 
+            <f:param name="employeeId" value="#{employeeAction.instance.id}"/>  
+            <f:param name="issueId" value="0"/> 
+          </s:button>  
+          <a:commandButton oncomplete="Richfaces.showModalPanel('IssueModalPanel',{});" value="Quick Create"> 
+            <a:actionparam name="issueId" assignTo="#{issueAction.issueId}" value="0"/>  
+            <a:actionparam name="employeeId" assignTo="#{issueAction.developerId}" value="#{employeeAction.instance.id}"/> 
+          </a:commandButton> 
+        </a:form>  
+        <ui:include src="/admin/entities/issues/issue/modalDlgIssueComponent.xhtml"/> 
+      </rich:tab> 
+    </rich:tabPanel>  
     <br/>  
     <rich:tabPanel> 
       <rich:tab label="Notes"> 

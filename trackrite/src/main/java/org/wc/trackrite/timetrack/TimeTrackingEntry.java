@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -36,10 +37,12 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
+import org.witchcraft.utils.*;
+
 @Entity
 @Table(name = "timetrackingentry")
-@Name("timeTrackingEntry")
 @Filter(name = "archiveFilterDef")
+@Name("timeTrackingEntry")
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
@@ -79,7 +82,6 @@ public class TimeTrackingEntry extends BusinessEntity
 	}
 
 	public Integer getHours() {
-
 		return hours;
 	}
 
@@ -88,7 +90,6 @@ public class TimeTrackingEntry extends BusinessEntity
 	}
 
 	public String getDetails() {
-
 		return details;
 	}
 
@@ -97,7 +98,6 @@ public class TimeTrackingEntry extends BusinessEntity
 	}
 
 	public org.wc.trackrite.issues.Issue getIssue() {
-
 		return issue;
 	}
 
@@ -106,7 +106,6 @@ public class TimeTrackingEntry extends BusinessEntity
 	}
 
 	public TimeSheet getTimeSheet() {
-
 		return timeSheet;
 	}
 
@@ -115,13 +114,16 @@ public class TimeTrackingEntry extends BusinessEntity
 	}
 
 	public Date getDate() {
-
 		return date;
 	}
 
 	@Transient
 	public String getDisplayName() {
 		return hours + "";
+	}
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

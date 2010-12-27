@@ -18,7 +18,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.issue_project}  "/>  
       <br/>  
-      <h:selectOneMenu id="project" value="#{issueList.issue.project}"> 
+      <h:selectOneMenu id="project" value="#{ issueList.issue.project}"> 
         <s:selectItems value="#{projectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
@@ -52,7 +52,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.issue_developer}  "/>  
       <br/>  
-      <h:selectOneMenu id="developer" value="#{issueList.issue.developer}"> 
+      <h:selectOneMenu id="developer" value="#{ issueList.issue.developer}"> 
         <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 
@@ -61,16 +61,11 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.issue_closeTime}  "/>  
       <br/>  
-      <s:decorate template="/layout/display.xhtml"> 
-        <ui:define name="label">From</ui:define>  
-        <br/>  
-        <rich:calendar value="#{issueList.closeTimeRange.begin}"/> 
-      </s:decorate>  
-      <s:decorate template="/layout/display.xhtml"> 
-        <ui:define name="label">To</ui:define>  
-        <br/>  
-        <rich:calendar value="#{issueList.closeTimeRange.end}"/> 
-      </s:decorate> 
+      <h:outputText value="From"/>  
+      <br/>  
+      <rich:calendar value="#{issueList.closeTimeRange.begin}"/> To
+      <br/>  
+      <rich:calendar value="#{issueList.closeTimeRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.issue_estimate}  "/>  
@@ -82,15 +77,7 @@
         <f:converter converterId="javax.faces.Integer"/> 
       </h:inputText> 
     </h:panelGroup>  
-    <s:decorate template="/layout/display.xhtml"> 
-      <ui:define name="label">From</ui:define>  
-      <br/>  
-      <rich:calendar id="from" value="#{issueList.dateCreatedRange.begin}"/> 
-    </s:decorate>  
-    <s:decorate template="/layout/display.xhtml"> 
-      <ui:define name="label">To</ui:define>  
-      <br/>  
-      <rich:calendar id="to" value="#{issueList.dateCreatedRange.end}"/> 
-    </s:decorate> 
+    <rich:calendar id="from" value="#{issueList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{issueList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

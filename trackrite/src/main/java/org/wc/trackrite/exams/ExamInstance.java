@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
@@ -36,10 +37,12 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 import org.hibernate.annotations.Filter;
 
+import org.witchcraft.utils.*;
+
 @Entity
 @Table(name = "examinstance")
-@Name("examInstance")
 @Filter(name = "archiveFilterDef")
+@Name("examInstance")
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
@@ -59,9 +62,8 @@ public class ExamInstance extends BusinessEntity
 	@ContainedIn
 	protected Candidate candidate;
 
-	//answers->examInstance ->ExamInstance->Answer->Answer
-
 	@OneToMany(mappedBy = "examInstance", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	@JoinColumn(name = "examInstance_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
@@ -72,7 +74,6 @@ public class ExamInstance extends BusinessEntity
 	}
 
 	public Exam getExam() {
-
 		return exam;
 	}
 
@@ -81,7 +82,6 @@ public class ExamInstance extends BusinessEntity
 	}
 
 	public Candidate getCandidate() {
-
 		return candidate;
 	}
 
@@ -96,6 +96,10 @@ public class ExamInstance extends BusinessEntity
 	@Transient
 	public String getDisplayName() {
 		return exam + "";
+	}
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

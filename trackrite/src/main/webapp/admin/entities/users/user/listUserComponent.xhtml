@@ -2,9 +2,9 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <rich:panel> 
+    <f:facet name="header">User Search Results (#{empty records ? 0 : (userList.paginated ? userList.resultCount : records.size)})</f:facet>  
     <a:form> 
-      <f:facet name="header">User Search Results (#{empty userList.resultList ? 0 : (userList.paginated ? userList.resultCount : userList.resultList.size)})</f:facet>  
-      <rich:dataTable var="_user" value="#{userList.resultList}" id="userList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty userList.resultList}"> 
+      <rich:dataTable var="_user" value="#{records}" id="userList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
         <h:column> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -73,7 +73,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <s:link view="/admin/entities/users/user/viewUser.xhtml" rendered="#{s:hasPermission(_user, 'view')}"> 
+          <s:link view="/admin/entities/users/user/viewUser.xhtml" rendered="#{s:hasPermission(_user, 'view')}" propagation="none"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
             <f:param name="userId" value="#{_user.id}"/> 
           </s:link> 
@@ -82,12 +82,12 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <s:link view="/admin/entities/users/user/editUser.xhtml" rendered="#{s:hasPermission(_user, 'edit')}"> 
+          <s:link view="/admin/entities/users/user/editUser.xhtml" rendered="#{s:hasPermission(_user, 'edit')}" propagation="none"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
             <f:param name="userId" value="#{_user.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('userAction', 'archive')}"> 
+        <h:column rendered="#{s:hasPermission('userAction', 'archive')}" propagation="none"> 
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
@@ -118,12 +118,5 @@
     <s:link view="#{request.servletPath}" rendered="#{userList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
       <f:param name="firstResult" value="#{userList.lastFirstResult}"/> 
     </s:link> 
-  </div>  
-  <h:form> 
-    <s:div styleClass="actionButtons" rendered="#{empty from}"> 
-      <s:button value="Create New" view="/admin/entities/users/user/editUser.xhtml" propagation="none"> 
-        <f:param name="userId"/> 
-      </s:button> 
-    </s:div> 
-  </h:form> 
+  </div> 
 </ui:composition>

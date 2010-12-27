@@ -6,6 +6,7 @@ import org.witchcraft.seam.action.BaseAction;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -19,6 +20,7 @@ import org.jboss.seam.annotations.Observer;
 import org.wc.trackrite.timetrack.TimeTrackingEntry;
 
 /**
+ * D
  * @author WitchcraftMDA Seam Cartridge
  *
  */
@@ -26,9 +28,28 @@ public abstract class TimeTrackingEntryListQueryBase
 		extends
 			BaseQuery<TimeTrackingEntry, Long> {
 
-	//private static final String EJBQL = "select timeTrackingEntry from TimeTrackingEntry timeTrackingEntry";
+	private static final String EJBQL = "select timeTrackingEntry from TimeTrackingEntry timeTrackingEntry";
 
 	protected TimeTrackingEntry timeTrackingEntry = new TimeTrackingEntry();
+
+	public TimeTrackingEntry getTimeTrackingEntry() {
+		return timeTrackingEntry;
+	}
+
+	@Override
+	protected String getql() {
+		return EJBQL;
+	}
+
+	@Override
+	public Class<TimeTrackingEntry> getEntityClass() {
+		return TimeTrackingEntry.class;
+	}
+
+	@Override
+	public String[] getEntityRestrictions() {
+		return RESTRICTIONS;
+	}
 
 	private Range<Integer> hoursRange = new Range<Integer>();
 	public Range<Integer> getHoursRange() {
@@ -64,23 +85,16 @@ public abstract class TimeTrackingEntryListQueryBase
 			"timeTrackingEntry.dateCreated <= #{timeTrackingEntryList.dateCreatedRange.end}",
 			"timeTrackingEntry.dateCreated >= #{timeTrackingEntryList.dateCreatedRange.begin}",};
 
-	public TimeTrackingEntry getTimeTrackingEntry() {
-		return timeTrackingEntry;
-	}
-
-	@Override
-	public Class<TimeTrackingEntry> getEntityClass() {
-		return TimeTrackingEntry.class;
-	}
-
-	@Override
-	public String[] getEntityRestrictions() {
-		// TODO Auto-generated method stub
-		return RESTRICTIONS;
+	public List<TimeTrackingEntry> getTimeTrackingEntrysByTimeSheet(
+			org.wc.trackrite.timetrack.TimeSheet timeSheet) {
+		//setMaxResults(10000);
+		timeTrackingEntry.setTimeSheet(timeSheet);
+		return getResultList();
 	}
 
 	@Observer("archivedTimeTrackingEntry")
 	public void onArchive() {
 		refresh();
 	}
+
 }

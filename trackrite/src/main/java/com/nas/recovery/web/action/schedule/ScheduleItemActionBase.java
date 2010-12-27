@@ -51,6 +51,11 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 	private List<ScheduleItem> scheduleItemRecordList;
 
 	public void setScheduleItemId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			loadAssociations();
+			return;
+		}
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
@@ -65,8 +70,10 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 	}
 
 	public void setEmployeeId(Long id) {
+
 		if (id != null && id > 0)
 			getInstance().setEmployee(employeeAction.loadFromId(id));
+
 	}
 
 	public Long getEmployeeId() {
@@ -79,24 +86,18 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 		return (Long) getId();
 	}
 
-	//@Factory("scheduleItemRecordList")
-	//@Observer("archivedScheduleItem")
-	public void findRecords() {
-		//search();
-	}
-
 	public ScheduleItem getEntity() {
 		return scheduleItem;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(ScheduleItem t) {
 		this.scheduleItem = t;
 		loadAssociations();
 	}
 
 	public ScheduleItem getScheduleItem() {
-		return getInstance();
+		return (ScheduleItem) getInstance();
 	}
 
 	@Override
@@ -112,6 +113,7 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 
 	public void wire() {
 		getInstance();
+
 		org.wc.trackrite.domain.Employee employee = employeeAction
 				.getDefinedInstance();
 		if (employee != null) {
@@ -125,7 +127,7 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 	}
 
 	public ScheduleItem getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return (ScheduleItem) (isIdDefined() ? getInstance() : null);
 	}
 
 	public void setScheduleItem(ScheduleItem t) {
@@ -136,11 +138,6 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 	@Override
 	public Class<ScheduleItem> getEntityClass() {
 		return ScheduleItem.class;
-	}
-
-	@Override
-	public void setEntityList(List<ScheduleItem> list) {
-		this.scheduleItemRecordList = list;
 	}
 
 	/** This function adds associated entities to an example criterion
@@ -173,13 +170,6 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 	}
 
 	public void updateComposedAssociations() {
-	}
-
-	public List<ScheduleItem> getEntityList() {
-		if (scheduleItemRecordList == null) {
-			findRecords();
-		}
-		return scheduleItemRecordList;
 	}
 
 }

@@ -51,6 +51,11 @@ public abstract class ChoiceActionBase extends BaseAction<Choice>
 	private List<Choice> choiceRecordList;
 
 	public void setChoiceId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			loadAssociations();
+			return;
+		}
 		setId(id);
 		if (!isPostBack())
 			loadAssociations();
@@ -65,8 +70,10 @@ public abstract class ChoiceActionBase extends BaseAction<Choice>
 	}
 
 	public void setQuestionId(Long id) {
+
 		if (id != null && id > 0)
 			getInstance().setQuestion(questionAction.loadFromId(id));
+
 	}
 
 	public Long getQuestionId() {
@@ -79,24 +86,18 @@ public abstract class ChoiceActionBase extends BaseAction<Choice>
 		return (Long) getId();
 	}
 
-	//@Factory("choiceRecordList")
-	//@Observer("archivedChoice")
-	public void findRecords() {
-		//search();
-	}
-
 	public Choice getEntity() {
 		return choice;
 	}
 
-	@Override
+	//@Override
 	public void setEntity(Choice t) {
 		this.choice = t;
 		loadAssociations();
 	}
 
 	public Choice getChoice() {
-		return getInstance();
+		return (Choice) getInstance();
 	}
 
 	@Override
@@ -112,6 +113,7 @@ public abstract class ChoiceActionBase extends BaseAction<Choice>
 
 	public void wire() {
 		getInstance();
+
 		org.wc.trackrite.exams.Question question = questionAction
 				.getDefinedInstance();
 		if (question != null) {
@@ -125,7 +127,7 @@ public abstract class ChoiceActionBase extends BaseAction<Choice>
 	}
 
 	public Choice getDefinedInstance() {
-		return isIdDefined() ? getInstance() : null;
+		return (Choice) (isIdDefined() ? getInstance() : null);
 	}
 
 	public void setChoice(Choice t) {
@@ -136,11 +138,6 @@ public abstract class ChoiceActionBase extends BaseAction<Choice>
 	@Override
 	public Class<Choice> getEntityClass() {
 		return Choice.class;
-	}
-
-	@Override
-	public void setEntityList(List<Choice> list) {
-		this.choiceRecordList = list;
 	}
 
 	/** This function adds associated entities to an example criterion
@@ -173,13 +170,6 @@ public abstract class ChoiceActionBase extends BaseAction<Choice>
 	}
 
 	public void updateComposedAssociations() {
-	}
-
-	public List<Choice> getEntityList() {
-		if (choiceRecordList == null) {
-			findRecords();
-		}
-		return choiceRecordList;
 	}
 
 }
