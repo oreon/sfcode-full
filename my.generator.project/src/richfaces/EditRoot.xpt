@@ -111,7 +111,7 @@
 	<h:panelGroup   >
 		<s:validateAll>
 		«setAsCurrentEntity(this)-»
-		<h:panelGrid columns="«edit?"3":"6"»" styleClass="viewInfo" columnClasses="leftCol, rightCol"  onload="#{«getAction()».load(«asVar()»Id )  }">
+		<h:panelGrid columns="«edit?"3":"6"»" styleClass="«(edit)?"edit":"view"»Info" columnClasses="leftCol, rightCol"  onload="#{«getAction()».load(«asVar()»Id )  }">
 		<f:facet name="header">
 			<h:outputText value="«name» " />
 		</f:facet>
@@ -137,7 +137,7 @@
 «DEFINE genCancelSaveBtns(boolean edit) FOR uml::Class»
 	<div class="buttonBox">
 		«IF !edit»
-		<h:commandButton value="Edit"  rendered="#{s:hasRole('admin')}" action="edit" >
+		<h:commandButton value="Edit"  rendered="#{s:hasPermission('«asVar()»', 'edit', «getAction()».instance)}" action="edit" >
 		</h:commandButton> 
 		<h:outputText value=" " />
 		<h:commandButton value="Back To Listing" action="cancel" >
