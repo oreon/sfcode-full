@@ -24,6 +24,7 @@ public class Producer
         connection.start();
         session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
         Destination destination = session.createQueue(queueName);
+        //session.
         producer = session.createProducer(destination);
         this.payload = payload;
     }

@@ -42,12 +42,12 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(686);
+			timeTrackingEntry.setHours(4356);
 
 			timeTrackingEntry.setDetails("Mark");
 
 			timeTrackingEntry.setDate(dateFormat
-					.parse("2010.12.04 03:40:59 EST"));
+					.parse("2010.12.16 07:56:05 EST"));
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -68,12 +68,12 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(1886);
+			timeTrackingEntry.setHours(9583);
 
-			timeTrackingEntry.setDetails("Mark");
+			timeTrackingEntry.setDetails("zeta");
 
 			timeTrackingEntry.setDate(dateFormat
-					.parse("2010.10.16 16:02:37 EDT"));
+					.parse("2010.12.01 09:15:33 EST"));
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -94,12 +94,12 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(4595);
+			timeTrackingEntry.setHours(2847);
 
-			timeTrackingEntry.setDetails("epsilon");
+			timeTrackingEntry.setDetails("delta");
 
 			timeTrackingEntry.setDate(dateFormat
-					.parse("2010.10.24 17:20:26 EDT"));
+					.parse("2010.12.21 22:52:13 EST"));
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -120,12 +120,12 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(3843);
+			timeTrackingEntry.setHours(907);
 
-			timeTrackingEntry.setDetails("Lavendar");
+			timeTrackingEntry.setDetails("zeta");
 
 			timeTrackingEntry.setDate(dateFormat
-					.parse("2010.10.28 12:07:39 EDT"));
+					.parse("2010.12.24 04:31:07 EST"));
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 
@@ -146,12 +146,12 @@ public class TimeTrackingEntryTestDataFactory
 
 		try {
 
-			timeTrackingEntry.setHours(7360);
+			timeTrackingEntry.setHours(7055);
 
 			timeTrackingEntry.setDetails("Lavendar");
 
 			timeTrackingEntry.setDate(dateFormat
-					.parse("2010.11.14 21:04:52 EST"));
+					.parse("2010.12.25 05:14:27 EST"));
 
 			timeTrackingEntry.setIssue(issueTestDataFactory.getRandomRecord());
 

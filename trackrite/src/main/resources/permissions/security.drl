@@ -9,6 +9,16 @@ import org.witchcraft.base.entity.BusinessEntity;
 global User user;
 
 
+rule "AllowAllToAdmin"
+no-loop 
+when
+  $r : Role(name == "admin")
+  $c : PermissionCheck()
+then
+  $c.grant();
+end 
+
+
 rule "AllowDelete"
 no-loop 
 when
@@ -18,14 +28,16 @@ then
   $c.grant();
 end 
 
+/*
 rule "AllowEdit"
 no-loop 
 when
   $c : PermissionCheck( action == "edit"  )
-  $r : Role()
+  $r : Role(name == "admin")
 then
   $c.grant();
 end    
+*/
 
 rule "AllowView"
 no-loop 
@@ -36,7 +48,7 @@ then
   $c.grant();
 end      
 
-/*
+
 //by default users should be able to edit their own records 
 rule "CanUserEditOwn"
 no-loop
@@ -45,13 +57,13 @@ when
   principal: Principal()
   c : PermissionCheck( action == "edit")
   eval ( c.getTarget() == null || (!c.isGranted() && c.getTarget() != null && 
-  			 c.getTarget() instanceof BusinessEntity &&
+  			 c.getTarget() instanceof BusinessEntity && ((BusinessEntity)c.getTarget()).getCreatedByUser() != null && 
   	 ((BusinessEntity)c.getTarget()).getCreatedByUser().getUserName().equals (principal.getName() ) )  )
 then
   //System.out.println( c.getAction() + " created by id is : " +  " " + user.getId() );
   c.grant();
 end   
-*/
+
 
 
 

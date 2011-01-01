@@ -40,9 +40,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("Eric");
+			project.setName("beta");
 
-			project.setDescription("theta");
+			project.setDescription("alpha");
 
 			register(project);
 
@@ -58,9 +58,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("zeta");
+			project.setName("alpha");
 
-			project.setDescription("Mark");
+			project.setDescription("pi");
 
 			register(project);
 
@@ -76,9 +76,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("alpha");
+			project.setName("gamma");
 
-			project.setDescription("beta");
+			project.setDescription("zeta");
 
 			register(project);
 
@@ -94,9 +94,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("Eric");
+			project.setName("alpha");
 
-			project.setDescription("John");
+			project.setDescription("alpha");
 
 			register(project);
 
@@ -112,9 +112,9 @@ public class ProjectTestDataFactory
 
 		try {
 
-			project.setName("gamma");
+			project.setName("beta");
 
-			project.setDescription("Malissa");
+			project.setDescription("epsilon");
 
 			register(project);
 
