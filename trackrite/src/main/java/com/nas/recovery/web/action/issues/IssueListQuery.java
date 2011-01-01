@@ -1,7 +1,4 @@
-
 package com.nas.recovery.web.action.issues;
-
-
 
 import java.util.Arrays;
 import java.util.Date;
@@ -15,15 +12,17 @@ import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
-	
-	
+
 @Name("issueList")
 // CMTD @Scope(ScopeType.CONVERSATION)
-public class IssueListQuery extends IssueListQueryBase implements java.io.Serializable{
-	
+public class IssueListQuery extends IssueListQueryBase implements
+		java.io.Serializable {
+
 	public Issue getIssue() {
-		issue.setPriority(null);
-		issue.setStatus(null);
+		if (!isPostBack()) {
+			issue.setPriority(null);
+			issue.setStatus(null);
+		}
 		return issue;
 	}
 }

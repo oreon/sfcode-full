@@ -37,20 +37,20 @@ public class EndUserTestDataFactory
 
 		try {
 
-			endUser.setFirstName("pi");
+			endUser.setFirstName("delta");
 
-			endUser.setLastName("delta");
+			endUser.setLastName("theta");
 
-			endUser.getUser().setUserName("beta");
+			endUser.getUser().setUserName("Wilson");
 
-			endUser.getUser().setPassword("delta");
+			endUser.getUser().setPassword("Wilson");
 
 			endUser.getUser().setEnabled(true);
 
-			endUser.getUser().setEmail("Malissa");
+			endUser.getUser().setEmail("epsilon");
 
 			endUser.getUser().setLastLogin(
-					dateFormat.parse("2010.10.31 05:25:24 EDT"));
+					dateFormat.parse("2010.11.26 04:39:58 EST"));
 
 			register(endUser);
 
@@ -66,20 +66,20 @@ public class EndUserTestDataFactory
 
 		try {
 
-			endUser.setFirstName("John");
+			endUser.setFirstName("pi");
 
-			endUser.setLastName("zeta");
+			endUser.setLastName("gamma");
 
-			endUser.getUser().setUserName("Wilson");
+			endUser.getUser().setUserName("Eric");
 
-			endUser.getUser().setPassword("zeta");
+			endUser.getUser().setPassword("Mark");
 
 			endUser.getUser().setEnabled(true);
 
-			endUser.getUser().setEmail("John");
+			endUser.getUser().setEmail("theta");
 
 			endUser.getUser().setLastLogin(
-					dateFormat.parse("2010.11.28 08:59:53 EST"));
+					dateFormat.parse("2010.11.14 23:51:07 EST"));
 
 			register(endUser);
 
@@ -95,20 +95,20 @@ public class EndUserTestDataFactory
 
 		try {
 
-			endUser.setFirstName("beta");
+			endUser.setFirstName("John");
 
-			endUser.setLastName("gamma");
+			endUser.setLastName("beta");
 
-			endUser.getUser().setUserName("zeta");
+			endUser.getUser().setUserName("John");
 
-			endUser.getUser().setPassword("delta");
+			endUser.getUser().setPassword("epsilon");
 
 			endUser.getUser().setEnabled(true);
 
-			endUser.getUser().setEmail("Malissa");
+			endUser.getUser().setEmail("delta");
 
 			endUser.getUser().setLastLogin(
-					dateFormat.parse("2010.10.31 04:44:51 EDT"));
+					dateFormat.parse("2010.12.17 01:41:07 EST"));
 
 			register(endUser);
 
@@ -124,9 +124,9 @@ public class EndUserTestDataFactory
 
 		try {
 
-			endUser.setFirstName("gamma");
+			endUser.setFirstName("John");
 
-			endUser.setLastName("Lavendar");
+			endUser.setLastName("delta");
 
 			endUser.getUser().setUserName("delta");
 
@@ -134,10 +134,10 @@ public class EndUserTestDataFactory
 
 			endUser.getUser().setEnabled(true);
 
-			endUser.getUser().setEmail("zeta");
+			endUser.getUser().setEmail("Mark");
 
 			endUser.getUser().setLastLogin(
-					dateFormat.parse("2010.10.17 21:38:44 EDT"));
+					dateFormat.parse("2010.12.14 05:47:47 EST"));
 
 			register(endUser);
 
@@ -153,20 +153,20 @@ public class EndUserTestDataFactory
 
 		try {
 
-			endUser.setFirstName("pi");
+			endUser.setFirstName("epsilon");
 
-			endUser.setLastName("Malissa");
+			endUser.setLastName("alpha");
 
 			endUser.getUser().setUserName("John");
 
-			endUser.getUser().setPassword("pi");
+			endUser.getUser().setPassword("Wilson");
 
 			endUser.getUser().setEnabled(true);
 
-			endUser.getUser().setEmail("gamma");
+			endUser.getUser().setEmail("beta");
 
 			endUser.getUser().setLastLogin(
-					dateFormat.parse("2010.10.26 22:17:39 EDT"));
+					dateFormat.parse("2010.12.16 05:01:40 EST"));
 
 			register(endUser);
 

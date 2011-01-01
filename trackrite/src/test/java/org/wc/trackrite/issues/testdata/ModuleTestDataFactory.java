@@ -37,7 +37,7 @@ public class ModuleTestDataFactory
 
 		try {
 
-			module.setName("pi");
+			module.setName("theta");
 
 			register(module);
 
@@ -53,7 +53,7 @@ public class ModuleTestDataFactory
 
 		try {
 
-			module.setName("gamma");
+			module.setName("Wilson");
 
 			register(module);
 
@@ -69,7 +69,7 @@ public class ModuleTestDataFactory
 
 		try {
 
-			module.setName("gamma");
+			module.setName("Lavendar");
 
 			register(module);
 
@@ -85,7 +85,7 @@ public class ModuleTestDataFactory
 
 		try {
 
-			module.setName("pi");
+			module.setName("delta");
 
 			register(module);
 
@@ -101,7 +101,7 @@ public class ModuleTestDataFactory
 
 		try {
 
-			module.setName("gamma");
+			module.setName("Eric");
 
 			register(module);
 

@@ -124,11 +124,12 @@
             <f:param name="issueId" value="#{_issue.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('issueAction', 'edit')}"> 
+        <h:column > 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
-          </f:facet>  
-          <s:link view="/admin/entities/issues/issue/editIssue.xhtml" rendered="#{s:hasPermission(_issue, 'edit')}" propagation="none"> 
+          </f:facet> 
+          <s:link view="/admin/entities/issues/issue/editIssue.xhtml"
+          	 rendered="#{s:hasPermission(_issue, 'edit' )}" propagation="none"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
             <f:param name="issueId" value="#{_issue.id}"/> 
           </s:link> 

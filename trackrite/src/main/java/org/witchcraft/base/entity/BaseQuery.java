@@ -11,6 +11,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.context.FacesContext;
+import javax.faces.render.ResponseStateManager;
 import javax.persistence.Query;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -283,6 +285,13 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	public List<E> getEntityList() {
 		return entityList;
 	}
+	
+	protected boolean isPostBack() {
+		ResponseStateManager rtm = FacesContext.getCurrentInstance()
+				.getRenderKit().getResponseStateManager();
+		return rtm.isPostback(FacesContext.getCurrentInstance());
+	}
+
 	
 	
 	/** do autocomplete based on lucene/hibernate text search

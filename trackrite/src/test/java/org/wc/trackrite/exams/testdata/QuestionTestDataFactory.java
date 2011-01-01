@@ -39,7 +39,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("Eric");
+			question.setText("Mark");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -75,7 +75,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("alpha");
+			question.setText("gamma");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -93,7 +93,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("Mark");
+			question.setText("epsilon");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -111,7 +111,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("Mark");
+			question.setText("alpha");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 

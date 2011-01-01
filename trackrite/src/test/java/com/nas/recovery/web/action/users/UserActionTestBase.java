@@ -28,9 +28,4 @@ public class UserActionTestBase
 		return userAction;
 	}
 
-	@Test
-	public void testfindByUserName() {
-		//userAction.findByUserName(name);
-	}
-
 }
