@@ -28,10 +28,11 @@ public class PageViewStack implements Serializable {
 
 	public void push() {
 		String a = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-		if (a == null) {
-			
+		if (a == null || isEditPage(a)) {
 			return;
 		}
+		
+		
 		if (views.empty() || !views.peek().equals(a)) {
 			
 			views.push(a);
@@ -39,8 +40,8 @@ public class PageViewStack implements Serializable {
 		}
 	}
 	
-	private boolean isEditPage(String a){
-		String[] arr = a.split("/");
+	private boolean isEditPage(String pagename){
+		String[] arr = pagename.split("/");
 		if(arr[arr.length -1].startsWith("edit"))
 			return true;
 		return false;
