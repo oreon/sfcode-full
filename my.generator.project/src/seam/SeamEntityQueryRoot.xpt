@@ -80,6 +80,16 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 		return RESTRICTIONS;
 	}
 	
+	
+	«IF cacheType != null && cacheType.name != "NONE"»
+	@Override
+	@SuppressWarnings("unchecked")
+	public void validate() {
+		setQueryCacheable();
+		super.validate();
+	}
+	«ENDIF»
+	
     
     «EXPAND genAttribAsOutput(true) FOR this»
    
