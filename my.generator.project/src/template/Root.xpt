@@ -75,7 +75,7 @@
 	@Filter(name = "archiveFilterDef") 
 	«IF !isAbstract»@Name("«asVar()»")
 	@Indexed
-	«REM»comment«IF cacheType != null »@Cache(usage = CacheConcurrencyStrategy.«cacheType.name»)«ENDIF»«ENDREM»
+	«IF cacheType != null »@Cache(usage = CacheConcurrencyStrategy.«cacheType.name»)«ENDIF»
 	@AnalyzerDef(name = "customanalyzer",
 		  tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
 		  filters = {
