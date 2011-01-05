@@ -284,6 +284,17 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		«EXPAND updateList FOREACH getLeadingManyToMany() -»
 	}
 	
+	
+	public void clearLists(){
+		«FOREACH getMultiValued() AS a -»
+			list«a.name.toFirstUpper()».clear();
+		«ENDFOREACH»
+		
+		«FOREACH getLeadingManyToMany() AS a -»
+			list«a.name.toFirstUpper()».clear();
+		«ENDFOREACH»
+	}
+	
 
 	«EXPAND template::Root::genOperation FOREACH getAllOperations()»
 	
@@ -333,6 +344,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	
 	@Begin(join=true)
 	public void add«name.toFirstUpper()»(){
+		init«currentList.toFirstUpper()»();
 		«type.name» «name» = new «type.name»();
 		«IF opposite != null && opposite.isNavigable()»
 			«name».set«opposite.name.toFirstUpper()»(getInstance());

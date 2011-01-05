@@ -426,7 +426,7 @@
 «DEFINE genDelete FOR uml::Property»
 	<h:column>
 		<a:commandButton value="Delete" immediate="true" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}"  
-			reRender="«name»_data#{entityId}"
+			reRender="«name»"
 			>
 			<s:conversationId/>
 		</a:commandButton>
@@ -440,7 +440,8 @@
 «ENDDEFINE»
 
 «DEFINE genNewButton FOR uml::Property»
-	<a:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  reRender="«name»_data#{entityId}" >
+	<a:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  
+		reRender="«name»" >
 		<s:conversationId/>
 	</a:commandButton>
 «ENDDEFINE»
