@@ -31,11 +31,29 @@
 				<directory>src/test/resources</directory>
 			</testResource>
 		</testResources>
+
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
 				<version>6.1.11</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<configuration>
+					<server>defserver</server>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<version>1.1</version>
+				<configuration>
+					<url>http://www.mydomain.com:1234/mymanager</url>
+				</configuration>
 			</plugin>
 
 			<plugin>
@@ -168,8 +186,8 @@
 			<artifactId>lucene-snowball</artifactId>
 			<version>2.4.0</version>
 		</dependency>
-		
-		
+
+
 		<dependency>
 			<groupId>org.jbpm</groupId>
 			<artifactId>jbpm-jpdl</artifactId>
@@ -299,7 +317,7 @@
 			<artifactId>jstl</artifactId>
 			<version>1.1.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -310,16 +328,16 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.5.6</version>
 		</dependency>
-		
-		
+
+
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-core</artifactId>
 			<version>${drools.version}</version>
 		</dependency>
-		
-		
-		
+
+
+
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-compiler</artifactId>
@@ -327,16 +345,16 @@
 			<exclusions>
 				<exclusion>
 					<groupId>xerces</groupId>
-            		<artifactId>xercesImpl</artifactId>
+					<artifactId>xercesImpl</artifactId>
 				</exclusion>
 				<exclusion>
-				    <groupId>xml-apis</groupId>
-      				<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
-		
+
+
 	</dependencies>
 	<repositories>
 		<!-- repository for tomahawk -->
@@ -356,6 +374,7 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
 	<pluginRepositories>
 		<pluginRepository>
 			<id>softeu-repo</id>
@@ -393,7 +412,7 @@
 		<eclipse-downloadSources>true</eclipse-downloadSources>
 		<eclipse-downloadJavadocs>true</eclipse-downloadJavadocs>
 	</properties>
-	
-	
-		
+
+
+
 </project>
