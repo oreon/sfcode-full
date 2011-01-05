@@ -32,6 +32,8 @@ public class EmployeeAction extends EmployeeActionBase implements
 			instance.getUser().getRoles().add(role);
 		}
 		String result = super.save();
+		getInstance().setCreatedByUser(getInstance().getUser());
+		super.save();
 		if (isNew){
 			//personAction.setPerson(person);
 			//sendMail("/mails/registrationSuccess.xhtml");

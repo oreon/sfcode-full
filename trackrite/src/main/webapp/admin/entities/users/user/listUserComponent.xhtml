@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <rich:panel> 
     <f:facet name="header">User Search Results (#{empty records ? 0 : (userList.paginated ? userList.resultCount : records.size)})</f:facet>  
     <a:form> 
@@ -69,7 +69,7 @@
             <s:convertDateTime type="both" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('userAction', 'view')}"> 
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -78,7 +78,7 @@
             <f:param name="userId" value="#{_user.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('userAction', 'edit')}"> 
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -96,11 +96,11 @@
             <f:param name="idToArchive" value="#{_user.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('userAction', 'edit')}"> 
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{userAction.setUserIdForModalDlg(_user.id)}" oncomplete="Richfaces.showModalPanel('UserModalPanel',{});" value="Quick Edit"/> 
+          <a:commandLink action="#{userAction.setUserIdForModalDlg(_user.id)}" rendered="#{s:hasPermission(_user, 'edit')}" oncomplete="Richfaces.showModalPanel('UserModalPanel',{});" value="Quick Edit"/> 
         </h:column> 
       </rich:dataTable> 
     </a:form> 

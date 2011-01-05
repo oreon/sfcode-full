@@ -1,5 +1,6 @@
 package org.witchcraft.seam.security;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -18,6 +19,8 @@ import org.jboss.seam.security.permission.RuleBasedPermissionResolver;
 import org.wc.trackrite.users.Role;
 import org.wc.trackrite.users.User;
 import org.witchcraft.base.entity.UserUtilAction;
+
+import com.nas.recovery.web.action.users.UserAction;
 
 @Name("authenticator")
 public class Authenticator {
@@ -64,6 +67,10 @@ public class Authenticator {
 			}
 
 			userUtilAction.setCurrentUser(user);
+			user.setLastLogin(new Date());
+			UserAction userAction = (UserAction) Component.getInstance("userAction");
+			userAction.setInstance(user);
+			userAction.save();
 			Conversation.instance().end();
 			return true;
 		}

@@ -40,8 +40,8 @@ import org.hibernate.annotations.Filter;
 import org.witchcraft.utils.*;
 
 @MappedSuperclass
-//@Indexed
 public class Person extends BusinessEntity {
+	private static final long serialVersionUID = -2034804195L;
 
 	@NotNull
 	@Length(min = 2, max = 250)
@@ -86,7 +86,11 @@ public class Person extends BusinessEntity {
 
 	@Transient
 	public String getDisplayName() {
-		return lastName + "," + firstName;
+		try {
+			return lastName + "," + firstName;
+		} catch (Exception e) {
+			return "Exception - " + e.getMessage();
+		}
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields

@@ -44,6 +44,7 @@ import org.witchcraft.utils.*;
 @Filter(name = "archiveFilterDef")
 @Name("scheduleItem")
 @Indexed
+@Cache(usage = CacheConcurrencyStrategy.NONE)
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
@@ -87,7 +88,11 @@ public class ScheduleItem extends BusinessEntity
 
 	@Transient
 	public String getDisplayName() {
-		return startDate + "";
+		try {
+			return startDate + "";
+		} catch (Exception e) {
+			return "Exception - " + e.getMessage();
+		}
 	}
 
 	//Empty setter , needed for richfaces autocomplete to work 

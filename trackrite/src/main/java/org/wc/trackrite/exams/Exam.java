@@ -44,6 +44,7 @@ import org.witchcraft.utils.*;
 @Filter(name = "archiveFilterDef")
 @Name("exam")
 @Indexed
+@Cache(usage = CacheConcurrencyStrategy.NONE)
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
@@ -92,7 +93,11 @@ public class Exam extends BusinessEntity implements java.io.Serializable {
 
 	@Transient
 	public String getDisplayName() {
-		return name;
+		try {
+			return name;
+		} catch (Exception e) {
+			return "Exception - " + e.getMessage();
+		}
 	}
 
 	//Empty setter , needed for richfaces autocomplete to work 
