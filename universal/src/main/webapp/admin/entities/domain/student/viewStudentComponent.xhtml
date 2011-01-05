@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{studentAction.load(studentId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Student "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{studentAction.student.id}"/>  
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
+        <h:outputText id="contactDetails_primaryPhone#{entityId}" value="#{studentAction.student.contactDetails.primaryPhone}"/>  
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
+        <h:outputText id="contactDetails_secondaryPhone#{entityId}" value="#{studentAction.student.contactDetails.secondaryPhone}"/>  
+        <h:outputText value="#{msg.contactDetails_email}  "/>  
+        <h:outputText id="contactDetails_email#{entityId}" value="#{studentAction.student.contactDetails.email}"/>  
+        <h:outputText value="#{msg.student_grade}  "/>  
+        <s:link value="#{studentAction.student.grade.displayName}" view="/admin/entities/domain/grade/viewGrade.xhtml" propagation="none"> 
+          <f:param name="gradeId" value="#{studentAction.student.grade.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.person_firstName}  "/>  
+        <h:outputText id="firstName#{entityId}" value="#{studentAction.student.firstName}"/>  
+        <h:outputText value="#{msg.person_lastName}  "/>  
+        <h:outputText id="lastName#{entityId}" value="#{studentAction.student.lastName}"/>  
+        <h:outputText value="#{msg.student_picture}  "/>  
+        <c:choose> 
+          <c:when test="${studentAction.student.picture.contentType.startsWith('image')}"> 
+            <s:graphicImage value="#{studentAction.student.picture.data}"/> 
+          </c:when>  
+          <c:otherwise> 
+            <s:link value="#{studentAction.student.picture.name}" action="#{studentAction.downloadFile(null)}" propagation="none"> 
+              <f:param name="currentEntityId" value="#{studentAction.instance.id}"/> 
+            </s:link> 
+          </c:otherwise> 
+        </c:choose>  
+        <h:outputText value="#{msg.student_gender}  "/>  
+        <h:outputText value="#{studentAction.student.gender}"/>  
+        <h:outputText value="#{msg.student_dateOfBirth}  "/>  
+        <h:outputText id="dateOfBirth#{entityId}" value="#{studentAction.student.dateOfBirth}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
