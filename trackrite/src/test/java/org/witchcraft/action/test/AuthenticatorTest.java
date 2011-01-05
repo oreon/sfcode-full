@@ -9,11 +9,10 @@ import org.testng.annotations.Test;
 import org.wc.trackrite.users.Role;
 import org.wc.trackrite.users.User;
 import org.witchcraft.seam.action.BaseAction;
-import org.witchcraft.users.action.UserAction;
 
 public class AuthenticatorTest extends BaseTest<User> {
 
-	UserAction action = new UserAction();
+
 
 	@BeforeClass
 	public void init() {
@@ -22,7 +21,7 @@ public class AuthenticatorTest extends BaseTest<User> {
 
 	@Override
 	public BaseAction<User> getAction() {
-		return action;
+		return null;
 	}
 
 	@Test(dependsOnMethods = { "testRegisterAction" })

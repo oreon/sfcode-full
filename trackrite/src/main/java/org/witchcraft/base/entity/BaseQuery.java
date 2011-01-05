@@ -25,6 +25,8 @@ import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.framework.EntityQuery;
 import org.jboss.seam.persistence.PersistenceProvider;
 
+import edu.emory.mathcs.backport.java.util.TreeMap;
+
 
 
 @SuppressWarnings("serial")
@@ -334,6 +336,17 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	 */
 	protected void setupForAutoComplete(String input) {
 		
+	}
+	
+	
+	/**
+	 *  set the query to be usable by hibernate second level cache
+	 */
+	@SuppressWarnings("unchecked")
+	protected void setQueryCacheable() {
+		Map region = new TreeMap();
+		region.put("name=org.hibernate.cacheable", "value=true");
+		this.setHints(region);
 	}
 	
 	

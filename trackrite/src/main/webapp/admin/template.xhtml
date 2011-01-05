@@ -30,18 +30,25 @@
 
 <f:loadBundle basename="messages" var="msg" />
 
-<ui:include src="/admin/header.xhtml"   ></ui:include>
+<ui:include src="/admin/header.xhtml"></ui:include>
 <div id="topmenu"></div>
-<div id="leftcol"><ui:include src="entities/navigation.xhtml" /></div>
-<div id="content">
+<div id="leftcol">
 
-<s:div style="border:1px solid #bbc; background-color:#eef" rendered="#{facesContext.maximumSeverity != null}" >
-<h:messages globalOnly="true"  errorStyle="color:red"  warnStyle="color:yellow" infoStyle="color:green"/> 
+<s:div rendered="#{s:hasRole('admin')}" >
+<ui:include src="entities/navigation.xhtml" />
 </s:div>
 
+<s:div rendered="#{!s:hasRole('admin')}" >
+<ui:include src="entities/navigationBasic.xhtml" />
+</s:div>
 
-<ui:insert
-	name="content" /></div>
+</div>
+<div id="content"><s:div
+	style="border:1px solid #bbc; background-color:#eef"
+	rendered="#{facesContext.maximumSeverity != null}">
+	<h:messages globalOnly="true" errorStyle="color:red"
+		warnStyle="color:yellow" infoStyle="color:green" />
+</s:div> <ui:insert name="content" /></div>
 <div id="footer"></div>
 
 

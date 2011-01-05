@@ -60,6 +60,13 @@ public abstract class ProjectListQueryBase extends BaseQuery<Project, Long> {
 		return RESTRICTIONS;
 	}
 
+	@Override
+	@SuppressWarnings("unchecked")
+	public void validate() {
+		setQueryCacheable();
+		super.validate();
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"project.id = #{projectList.project.id}",
 

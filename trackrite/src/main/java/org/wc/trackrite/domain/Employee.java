@@ -44,6 +44,7 @@ import org.witchcraft.utils.*;
 @Filter(name = "archiveFilterDef")
 @Name("employee")
 @Indexed
+@Cache(usage = CacheConcurrencyStrategy.NONE)
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
@@ -136,7 +137,11 @@ public class Employee extends org.wc.trackrite.domain.Person
 
 	@Transient
 	public String getDisplayName() {
-		return super.getDisplayName();
+		try {
+			return super.getDisplayName();
+		} catch (Exception e) {
+			return "Exception - " + e.getMessage();
+		}
 	}
 
 	//Empty setter , needed for richfaces autocomplete to work 

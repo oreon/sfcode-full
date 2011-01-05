@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <rich:panel> 
     <f:facet name="header">Issue Search Results (#{empty records ? 0 : (issueList.paginated ? issueList.resultCount : records.size)})</f:facet>  
     <a:form> 
@@ -115,7 +115,7 @@
             <s:convertDateTime type="both" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('issueAction', 'view')}"> 
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -124,12 +124,11 @@
             <f:param name="issueId" value="#{_issue.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column > 
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
-          </f:facet> 
-          <s:link view="/admin/entities/issues/issue/editIssue.xhtml"
-          	 rendered="#{s:hasPermission(_issue, 'edit' )}" propagation="none"> 
+          </f:facet>  
+          <s:link view="/admin/entities/issues/issue/editIssue.xhtml" rendered="#{s:hasPermission(_issue, 'edit')}" propagation="none"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
             <f:param name="issueId" value="#{_issue.id}"/> 
           </s:link> 
@@ -143,11 +142,11 @@
             <f:param name="idToArchive" value="#{_issue.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('issueAction', 'edit')}"> 
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{issueAction.setIssueIdForModalDlg(_issue.id)}" oncomplete="Richfaces.showModalPanel('IssueModalPanel',{});" value="Quick Edit"/> 
+          <a:commandLink action="#{issueAction.setIssueIdForModalDlg(_issue.id)}" rendered="#{s:hasPermission(_issue, 'edit')}" oncomplete="Richfaces.showModalPanel('IssueModalPanel',{});" value="Quick Edit"/> 
         </h:column> 
       </rich:dataTable> 
     </a:form> 
