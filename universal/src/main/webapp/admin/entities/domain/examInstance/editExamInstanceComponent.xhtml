@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{examInstanceAction.load(examInstanceId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="ExamInstance "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.examInstance_exam}  "/>  
+        <h:selectOneMenu id="exam" label="#{msg.examInstance_exam}" value="#{examInstanceAction.examInstance.exam}" required="true"> 
+          <s:selectItems value="#{examList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="exam"/>  
+        <h:outputText value="#{msg.examInstance_gradeSubject}  "/>  
+        <h:selectOneMenu id="gradeSubject" label="#{msg.examInstance_gradeSubject}" value="#{examInstanceAction.examInstance.gradeSubject}" required="true"> 
+          <a:support event="onchange" reRender="examScores" ajaxSingle="true"/>  
+          <s:selectItems value="#{gradeSubjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="gradeSubject"/>  
+        <h:outputText value="#{msg.examInstance_dateHeld}  "/>  
+        <rich:calendar id="dateHeld#{entityId}" label="#{msg.examInstance_dateHeld}" required="false" value="#{examInstanceAction.examInstance.dateHeld}"/>  
+        <h:message styleClass="error errors" for="dateHeld"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New ExamScore" action="#{examInstanceAction.addExamScores}" reRender="examScores"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="examScores" var="_examScore" value="#{examInstanceAction.listExamScores}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.examScore_student}  "/>
+          </f:facet>  
+          <h:selectOneMenu id="student" label="#{msg.examScore_student}" value="#{_examScore.student}" required="true"> 
+            <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu>  
+          <h:message styleClass="error errors" for="student"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.examScore_marks} * "/>
+          </f:facet>  
+          <h:inputText id="marks#{entityId}" label="#{msg.examScore_marks}" required="true" value="#{_examScore.marks}"/>  
+          <h:message styleClass="error errors" for="marks"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New ExamScore" action="#{examInstanceAction.addExamScores}" reRender="examScores"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{examInstanceAction.deleteExamScores(rowIndex)}" reRender="examScores"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

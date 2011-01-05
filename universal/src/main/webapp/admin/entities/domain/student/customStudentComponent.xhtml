@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_firstName}  "/>  
+        <br/>  
+        <h:inputText id="firstName" value="#{studentAction.student.firstName}"/>  
+        <h:message styleClass="error errors" for="firstName"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_lastName}  "/>  
+        <br/>  
+        <h:inputText id="lastName" value="#{studentAction.student.lastName}"/>  
+        <h:message styleClass="error errors" for="lastName"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
+        <br/>  
+        <h:inputText id="contactDetails_primaryPhone" value="#{studentAction.student.contactDetails.primaryPhone}"/>  
+        <h:message styleClass="error errors" for="contactDetails_primaryPhone"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
+        <br/>  
+        <h:inputText id="contactDetails_secondaryPhone" value="#{studentAction.student.contactDetails.secondaryPhone}"/>  
+        <h:message styleClass="error errors" for="contactDetails_secondaryPhone"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_email}  "/>  
+        <br/>  
+        <h:inputText id="contactDetails_email" value="#{studentAction.student.contactDetails.email}"/>  
+        <h:message styleClass="error errors" for="contactDetails_email"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.student_picture}  "/>  
+        <br/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.student_gender}  "/>  
+        <br/>  
+        <h:selectOneMenu id="gender" value="#{studentAction.student.gender}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="F" itemLabel="F"/>  
+          <f:selectItem itemValue="M" itemLabel="M"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="gender"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.student_dateOfBirth}  "/>  
+        <br/>  
+        <rich:calendar id="dateOfBirth" value="#{studentAction.student.dateOfBirth}"/>  
+        <h:message styleClass="error errors" for="dateOfBirth"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.student_grade}  "/>  
+        <br/>  
+        <h:selectOneMenu id="grade" value="#{studentAction.student.grade}"> 
+          <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="grade"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

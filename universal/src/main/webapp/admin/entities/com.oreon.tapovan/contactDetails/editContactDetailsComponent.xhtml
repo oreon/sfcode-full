@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{contactDetailsAction.load(contactDetailsId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="ContactDetails "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
+        <h:inputText id="primaryPhone#{entityId}" label="#{msg.contactDetails_primaryPhone}" required="false" value="#{contactDetailsAction.contactDetails.primaryPhone}"/>  
+        <h:message styleClass="error errors" for="primaryPhone"/>  
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
+        <h:inputText id="secondaryPhone#{entityId}" label="#{msg.contactDetails_secondaryPhone}" required="false" value="#{contactDetailsAction.contactDetails.secondaryPhone}"/>  
+        <h:message styleClass="error errors" for="secondaryPhone"/>  
+        <h:outputText value="#{msg.contactDetails_email}  "/>  
+        <h:inputText id="email#{entityId}" label="#{msg.contactDetails_email}" required="false" value="#{contactDetailsAction.contactDetails.email}"/>  
+        <h:message styleClass="error errors" for="email"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

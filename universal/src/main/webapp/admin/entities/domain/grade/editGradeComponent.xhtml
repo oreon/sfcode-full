@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{gradeAction.load(gradeId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Grade "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.grade_name} * "/>  
+        <h:inputText id="name#{entityId}" label="#{msg.grade_name}" required="true" value="#{gradeAction.grade.name}"/>  
+        <h:message styleClass="error errors" for="name"/>  
+        <h:outputText value="#{msg.grade_ordinal}  "/>  
+        <h:inputText id="ordinal#{entityId}" label="#{msg.grade_ordinal}" required="false" value="#{gradeAction.grade.ordinal}"/>  
+        <h:message styleClass="error errors" for="ordinal"/>  
+        <h:outputText value="#{msg.grade_section}  "/>  
+        <h:inputText id="section#{entityId}" label="#{msg.grade_section}" required="false" value="#{gradeAction.grade.section}"/>  
+        <h:message styleClass="error errors" for="section"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New GradeSubject" action="#{gradeAction.addGradeSubjects}" reRender="gradeSubjects"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="gradeSubjects" var="_gradeSubject" value="#{gradeAction.listGradeSubjects}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.gradeSubject_subject}  "/>
+          </f:facet>  
+          <h:selectOneMenu id="subject" label="#{msg.gradeSubject_subject}" value="#{_gradeSubject.subject}" required="true"> 
+            <s:selectItems value="#{subjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu>  
+          <h:message styleClass="error errors" for="subject"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.gradeSubject_employee}  "/>
+          </f:facet>  
+          <h:selectOneMenu id="employee" label="#{msg.gradeSubject_employee}" value="#{_gradeSubject.employee}" required="false"> 
+            <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu>  
+          <h:message styleClass="error errors" for="employee"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New GradeSubject" action="#{gradeAction.addGradeSubjects}" reRender="gradeSubjects"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{gradeAction.deleteGradeSubjects(rowIndex)}" reRender="gradeSubjects"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
+      <rich:simpleTogglePanel label="#{msg.grade_exams}" switchType="client"> 
+        <rich:listShuttle sourceValue="#{gradeAction.listAvailableExams}" targetValue="#{gradeAction.listExams}" var="item"> 
+          <s:convertEntity/>  
+          <rich:column>#{item.displayName}</rich:column> 
+        </rich:listShuttle> 
+      </rich:simpleTogglePanel> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

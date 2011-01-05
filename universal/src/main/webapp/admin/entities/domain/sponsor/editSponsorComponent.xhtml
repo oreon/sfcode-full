@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{sponsorAction.load(sponsorId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Sponsor "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
+        <h:inputText id="contactDetails_primaryPhone#{entityId}" label="#{msg.contactDetails_primaryPhone}" required="false" value="#{sponsorAction.sponsor.contactDetails.primaryPhone}"/>  
+        <h:message styleClass="error errors" for="contactDetails_primaryPhone"/>  
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
+        <h:inputText id="contactDetails_secondaryPhone#{entityId}" label="#{msg.contactDetails_secondaryPhone}" required="false" value="#{sponsorAction.sponsor.contactDetails.secondaryPhone}"/>  
+        <h:message styleClass="error errors" for="contactDetails_secondaryPhone"/>  
+        <h:outputText value="#{msg.contactDetails_email}  "/>  
+        <h:inputText id="contactDetails_email#{entityId}" label="#{msg.contactDetails_email}" required="false" value="#{sponsorAction.sponsor.contactDetails.email}"/>  
+        <h:message styleClass="error errors" for="contactDetails_email"/>  
+        <h:outputText value="#{msg.person_firstName}  "/>  
+        <h:inputText id="firstName#{entityId}" label="#{msg.person_firstName}" required="false" value="#{sponsorAction.sponsor.firstName}"/>  
+        <h:message styleClass="error errors" for="firstName"/>  
+        <h:outputText value="#{msg.person_lastName}  "/>  
+        <h:inputText id="lastName#{entityId}" label="#{msg.person_lastName}" required="false" value="#{sponsorAction.sponsor.lastName}"/>  
+        <h:message styleClass="error errors" for="lastName"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

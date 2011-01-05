@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{sponsorshipAction.load(sponsorshipId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Sponsorship "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.sponsorship_sponsor}  "/>  
+        <h:selectOneMenu id="sponsor" label="#{msg.sponsorship_sponsor}" value="#{sponsorshipAction.sponsorship.sponsor}" required="true"> 
+          <s:selectItems value="#{sponsorList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="sponsor"/>  
+        <h:outputText value="#{msg.sponsorship_student}  "/>  
+        <h:selectOneMenu id="student" label="#{msg.sponsorship_student}" value="#{sponsorshipAction.sponsorship.student}" required="true"> 
+          <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="student"/>  
+        <h:outputText value="#{msg.sponsorship_amount}  "/>  
+        <h:inputText id="amount#{entityId}" label="#{msg.sponsorship_amount}" required="false" value="#{sponsorshipAction.sponsorship.amount}"/>  
+        <h:message styleClass="error errors" for="amount"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_firstName}  "/>  
+        <br/>  
+        <h:inputText id="firstName" value="#{employeeAction.employee.firstName}"/>  
+        <h:message styleClass="error errors" for="firstName"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_lastName}  "/>  
+        <br/>  
+        <h:inputText id="lastName" value="#{employeeAction.employee.lastName}"/>  
+        <h:message styleClass="error errors" for="lastName"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
+        <br/>  
+        <h:inputText id="contactDetails_primaryPhone" value="#{employeeAction.employee.contactDetails.primaryPhone}"/>  
+        <h:message styleClass="error errors" for="contactDetails_primaryPhone"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
+        <br/>  
+        <h:inputText id="contactDetails_secondaryPhone" value="#{employeeAction.employee.contactDetails.secondaryPhone}"/>  
+        <h:message styleClass="error errors" for="contactDetails_secondaryPhone"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_email}  "/>  
+        <br/>  
+        <h:inputText id="contactDetails_email" value="#{employeeAction.employee.contactDetails.email}"/>  
+        <h:message styleClass="error errors" for="contactDetails_email"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.employee_department}  "/>  
+        <br/>  
+        <h:selectOneMenu id="department" value="#{employeeAction.employee.department}"> 
+          <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="department"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.employee_employeeNumber}  "/>  
+        <br/>  
+        <h:inputText id="employeeNumber" value="#{employeeAction.employee.employeeNumber}"/>  
+        <h:message styleClass="error errors" for="employeeNumber"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.employee_employeeType}  "/>  
+        <br/>  
+        <h:selectOneMenu id="employeeType" value="#{employeeAction.employee.employeeType}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="FULL_TIME" itemLabel="Full_time"/>  
+          <f:selectItem itemValue="CONTRACT" itemLabel="Contract"/>  
+          <f:selectItem itemValue="PART_TIME" itemLabel="Part_time"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="employeeType"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

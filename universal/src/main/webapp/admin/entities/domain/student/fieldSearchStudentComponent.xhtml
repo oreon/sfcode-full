@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_firstName}  "/>  
+      <br/>  
+      <h:inputText id="firstName" value="#{studentList.student.firstName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_lastName}  "/>  
+      <br/>  
+      <h:inputText id="lastName" value="#{studentList.student.lastName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
+      <br/>  
+      <h:inputText id="contactDetails_primaryPhone" value="#{studentList.student.contactDetails.primaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
+      <br/>  
+      <h:inputText id="contactDetails_secondaryPhone" value="#{studentList.student.contactDetails.secondaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_email}  "/>  
+      <br/>  
+      <h:inputText id="contactDetails_email" value="#{studentList.student.contactDetails.email}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.student_gender}  "/>  
+      <br/>  
+      <h:selectOneMenu id="gender" value="#{studentList.student.gender}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="F" itemLabel="F"/>  
+        <f:selectItem itemValue="M" itemLabel="M"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.student_dateOfBirth}  "/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <rich:calendar value="#{studentList.dateOfBirthRange.begin}"/> To
+      <br/>  
+      <rich:calendar value="#{studentList.dateOfBirthRange.end}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.student_grade}  "/>  
+      <br/>  
+      <h:selectOneMenu id="grade" value="#{ studentList.student.grade}"> 
+        <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <rich:calendar id="from" value="#{studentList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{studentList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>
