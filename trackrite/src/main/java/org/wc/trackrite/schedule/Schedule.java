@@ -52,7 +52,6 @@ public class Schedule extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -949895956L;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	@JoinColumn(name = "schedule_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded

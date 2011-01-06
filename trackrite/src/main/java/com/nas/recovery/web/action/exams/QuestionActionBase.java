@@ -183,7 +183,11 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 
 	public List<org.wc.trackrite.exams.Choice> getListChoices() {
 
+		prePopulateListChoices();
 		return listChoices;
+	}
+
+	public void prePopulateListChoices() {
 	}
 
 	public void setListChoices(List<org.wc.trackrite.exams.Choice> listChoices) {
@@ -196,6 +200,7 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 
 	@Begin(join = true)
 	public void addChoices() {
+		initListChoices();
 		Choice choices = new Choice();
 
 		choices.setQuestion(getInstance());
@@ -209,6 +214,11 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 			getInstance().getChoices().clear();
 			getInstance().getChoices().addAll(listChoices);
 		}
+	}
+
+	public void clearLists() {
+		listChoices.clear();
+
 	}
 
 }

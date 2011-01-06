@@ -11,10 +11,10 @@
         <h:inputText id="title#{entityId}" label="#{msg.timeSheet_title}" required="true" value="#{timeSheetAction.timeSheet.title}"/>  
         <h:message styleClass="error errors" for="title"/> 
       </h:panelGrid>  
-      <a:commandButton value="New TimeTrackingEntry" action="#{timeSheetAction.addTimeTrackingEntrys}" reRender="timeTrackingEntrys_data#{entityId}"> 
+      <a:commandButton value="New TimeTrackingEntry" action="#{timeSheetAction.addTimeTrackingEntrys}" reRender="timeTrackingEntrys"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="timeTrackingEntrys_data#{entityId}" var="_timeTrackingEntry" value="#{timeSheetAction.listTimeTrackingEntrys}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="timeTrackingEntrys" var="_timeTrackingEntry" value="#{timeSheetAction.listTimeTrackingEntrys}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.timeTrackingEntry_issue}  "/>
@@ -47,12 +47,12 @@
           <h:message styleClass="error errors" for="date"/> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New TimeTrackingEntry" action="#{timeSheetAction.addTimeTrackingEntrys}" reRender="timeTrackingEntrys_data#{entityId}"> 
+          <a:commandButton value="New TimeTrackingEntry" action="#{timeSheetAction.addTimeTrackingEntrys}" reRender="timeTrackingEntrys"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="Delete" immediate="true" action="#{timeSheetAction.deleteTimeTrackingEntrys(rowIndex)}" reRender="timeTrackingEntrys_data#{entityId}"> 
+          <a:commandButton value="Delete" immediate="true" action="#{timeSheetAction.deleteTimeTrackingEntrys(rowIndex)}" reRender="timeTrackingEntrys"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column> 

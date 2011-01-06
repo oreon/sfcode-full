@@ -133,4 +133,8 @@ public abstract class CandidateActionBase extends BaseAction<Candidate>
 	public void updateComposedAssociations() {
 	}
 
+	public void clearLists() {
+
+	}
+
 }

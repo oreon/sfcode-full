@@ -172,4 +172,8 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 	public void updateComposedAssociations() {
 	}
 
+	public void clearLists() {
+
+	}
+
 }

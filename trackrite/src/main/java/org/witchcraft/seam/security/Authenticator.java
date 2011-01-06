@@ -67,10 +67,11 @@ public class Authenticator {
 			}
 
 			userUtilAction.setCurrentUser(user);
+			/*
 			user.setLastLogin(new Date());
 			UserAction userAction = (UserAction) Component.getInstance("userAction");
 			userAction.setInstance(user);
-			userAction.save();
+			userAction.save();*/
 			Conversation.instance().end();
 			return true;
 		}

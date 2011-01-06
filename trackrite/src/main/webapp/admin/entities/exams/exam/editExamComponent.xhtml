@@ -14,10 +14,10 @@
         <h:inputText id="duration#{entityId}" label="#{msg.exam_duration}" required="false" value="#{examAction.exam.duration}"/>  
         <h:message styleClass="error errors" for="duration"/> 
       </h:panelGrid>  
-      <a:commandButton value="New Question" action="#{examAction.addQuestions}" reRender="questions_data#{entityId}"> 
+      <a:commandButton value="New Question" action="#{examAction.addQuestions}" reRender="questions"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="questions_data#{entityId}" var="_question" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="questions" var="_question" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.question_text} * "/>
@@ -26,12 +26,12 @@
           <h:message styleClass="error errors" for="text"/> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New Question" action="#{examAction.addQuestions}" reRender="questions_data#{entityId}"> 
+          <a:commandButton value="New Question" action="#{examAction.addQuestions}" reRender="questions"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="Delete" immediate="true" action="#{examAction.deleteQuestions(rowIndex)}" reRender="questions_data#{entityId}"> 
+          <a:commandButton value="Delete" immediate="true" action="#{examAction.deleteQuestions(rowIndex)}" reRender="questions"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column> 

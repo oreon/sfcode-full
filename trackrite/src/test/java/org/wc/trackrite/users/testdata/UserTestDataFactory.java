@@ -37,15 +37,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("zeta");
+			user.setUserName("Eric");
 
-			user.setPassword("delta");
+			user.setPassword("Eric");
 
 			user.setEnabled(true);
 
 			user.setEmail("zeta");
 
-			user.setLastLogin(dateFormat.parse("2010.11.28 00:01:40 EST"));
+			user.setLastLogin(dateFormat.parse("2011.01.31 08:36:45 EST"));
 
 			register(user);
 
@@ -61,15 +61,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("delta");
+			user.setUserName("theta");
 
-			user.setPassword("theta");
+			user.setPassword("John");
 
 			user.setEnabled(true);
 
-			user.setEmail("Eric");
+			user.setEmail("zeta");
 
-			user.setLastLogin(dateFormat.parse("2010.11.13 22:07:47 EST"));
+			user.setLastLogin(dateFormat.parse("2010.12.24 16:15:40 EST"));
 
 			register(user);
 
@@ -85,15 +85,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("pi");
+			user.setUserName("theta");
 
-			user.setPassword("theta");
+			user.setPassword("delta");
 
 			user.setEnabled(true);
 
-			user.setEmail("John");
+			user.setEmail("zeta");
 
-			user.setLastLogin(dateFormat.parse("2010.11.08 22:52:13 EST"));
+			user.setLastLogin(dateFormat.parse("2011.01.01 14:50:05 EST"));
 
 			register(user);
 
@@ -109,15 +109,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("delta");
+			user.setUserName("John");
 
-			user.setPassword("beta");
+			user.setPassword("Lavendar");
 
 			user.setEnabled(true);
 
-			user.setEmail("delta");
+			user.setEmail("Mark");
 
-			user.setLastLogin(dateFormat.parse("2010.11.29 10:22:13 EST"));
+			user.setLastLogin(dateFormat.parse("2011.01.11 07:19:32 EST"));
 
 			register(user);
 
@@ -133,15 +133,15 @@ public class UserTestDataFactory
 
 		try {
 
-			user.setUserName("delta");
+			user.setUserName("theta");
 
 			user.setPassword("Malissa");
 
 			user.setEnabled(true);
 
-			user.setEmail("Lavendar");
+			user.setEmail("beta");
 
-			user.setLastLogin(dateFormat.parse("2010.12.22 03:24:27 EST"));
+			user.setLastLogin(dateFormat.parse("2010.12.26 08:21:10 EST"));
 
 			register(user);
 

@@ -32,10 +32,17 @@
 			<h:graphicImage id="issues" value="/images/icons/eye.png" />
 			<s:link view="/admin/entities/issues/issue/listIssue.xhtml" value="Issues" />
 		</rich:toolBarGroup>
+		
+		<rich:toolBarGroup>
+			<h:graphicImage value="/images/icons/accept.png" />
+			<s:link view="/admin/entities/domain/employee/viewEmployee.xhtml" value="My Account" >
+				<f:param name="employeeId" value="#{employeeAction.currentLoggedInEmployee.id}" />
+			</s:link>
+		</rich:toolBarGroup>
 
 		<rich:toolBarGroup location="right">
 			<s:link action="#{identity.logout}" view="/login.xhtml"
-				value="Logout #{identity.credentials.username}" />
+				value="Logout #{identity.credentials.username}"  propagation="none"  />
 		</rich:toolBarGroup>
 
 		<rich:toolBarGroup location="right">

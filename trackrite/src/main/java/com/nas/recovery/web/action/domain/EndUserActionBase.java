@@ -135,4 +135,8 @@ public abstract class EndUserActionBase
 	public void updateComposedAssociations() {
 	}
 
+	public void clearLists() {
+
+	}
+
 }

@@ -17,8 +17,8 @@ public class TimeSheetActionTest extends TimeSheetActionTestBase {
 	@Test
 	public void testQry(){
 		TimeSheet ts = getEntityManager().find(TimeSheet.class, 1L);
-		if(ts != null)
-			System.out.println(ts.getTotal());
+		//if(ts != null)
+		//	System.out.println(ts.getTotal());
 		
 	}
 

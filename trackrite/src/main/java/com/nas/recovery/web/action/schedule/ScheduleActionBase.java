@@ -184,7 +184,11 @@ public abstract class ScheduleActionBase extends BaseAction<Schedule>
 
 	public List<org.wc.trackrite.schedule.ScheduleItem> getListScheduleItems() {
 
+		prePopulateListScheduleItems();
 		return listScheduleItems;
+	}
+
+	public void prePopulateListScheduleItems() {
 	}
 
 	public void setListScheduleItems(
@@ -198,6 +202,7 @@ public abstract class ScheduleActionBase extends BaseAction<Schedule>
 
 	@Begin(join = true)
 	public void addScheduleItems() {
+		initListScheduleItems();
 		ScheduleItem scheduleItems = new ScheduleItem();
 
 		getListScheduleItems().add(scheduleItems);
@@ -209,6 +214,11 @@ public abstract class ScheduleActionBase extends BaseAction<Schedule>
 			getInstance().getScheduleItems().clear();
 			getInstance().getScheduleItems().addAll(listScheduleItems);
 		}
+	}
+
+	public void clearLists() {
+		listScheduleItems.clear();
+
 	}
 
 }
