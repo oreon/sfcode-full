@@ -58,7 +58,6 @@ public class Question extends BusinessEntity implements java.io.Serializable {
 	protected String text;
 
 	@OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	@JoinColumn(name = "question_ID", nullable = false)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded

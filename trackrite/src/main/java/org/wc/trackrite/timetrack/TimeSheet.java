@@ -52,7 +52,6 @@ public class TimeSheet extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -444381950L;
 
 	@OneToMany(mappedBy = "timeSheet", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	@JoinColumn(name = "timeSheet_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded

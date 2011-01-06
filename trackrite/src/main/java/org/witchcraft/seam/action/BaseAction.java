@@ -393,7 +393,13 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	@End
 	public String cancel() {
 		Conversation.instance().end();
+		clearInstance();
+		clearLists();
 		return "cancel";
+	}
+
+	protected void clearLists() {
+		
 	}
 
 	public void search() {

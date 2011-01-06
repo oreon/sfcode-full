@@ -137,4 +137,8 @@ public abstract class RoleActionBase extends BaseAction<Role>
 	public void updateComposedAssociations() {
 	}
 
+	public void clearLists() {
+
+	}
+
 }

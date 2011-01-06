@@ -9,8 +9,8 @@
   </swimlane>  
   <task-node name="provideDetails"> 
     <task name="provideDetails" swimlane="initiator" notify="false"></task>  
-    <transition to="retracted" name="retract"></transition>  
-    <transition to="reviewRequest" name="submit"></transition> 
+    <transition to="reviewRequest" name="submit"></transition>  
+    <transition to="retracted" name="retract"></transition> 
   </task-node>  
   <start-state name=""> 
     <task name="" swimlane="initiator"></task>  
@@ -20,9 +20,9 @@
   <end-state name="rejected"/>  
   <task-node name="reviewRequest"> 
     <task name="reviewRequest" swimlane="manager" notify="false"></task>  
-    <transition to="accepted" name="accept"></transition>  
+    <transition to="provideDetails" name="moreDetails"></transition>  
     <transition to="rejected" name="reject"></transition>  
-    <transition to="provideDetails" name="moreDetails"></transition> 
+    <transition to="accepted" name="accept"></transition> 
   </task-node>  
   <end-state name="accepted"/> 
 </process-definition>

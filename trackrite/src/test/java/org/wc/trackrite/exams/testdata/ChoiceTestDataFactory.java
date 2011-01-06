@@ -39,7 +39,7 @@ public class ChoiceTestDataFactory
 
 		try {
 
-			choice.setText("John");
+			choice.setText("Eric");
 
 			choice.setQuestion(questionTestDataFactory.getRandomRecord());
 
@@ -57,7 +57,7 @@ public class ChoiceTestDataFactory
 
 		try {
 
-			choice.setText("Lavendar");
+			choice.setText("delta");
 
 			choice.setQuestion(questionTestDataFactory.getRandomRecord());
 
@@ -75,7 +75,7 @@ public class ChoiceTestDataFactory
 
 		try {
 
-			choice.setText("Malissa");
+			choice.setText("alpha");
 
 			choice.setQuestion(questionTestDataFactory.getRandomRecord());
 
@@ -111,7 +111,7 @@ public class ChoiceTestDataFactory
 
 		try {
 
-			choice.setText("delta");
+			choice.setText("pi");
 
 			choice.setQuestion(questionTestDataFactory.getRandomRecord());
 

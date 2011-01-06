@@ -132,6 +132,7 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 		initListIssues();
 
 		initListEmployees();
+		initListAvailableEmployees();
 
 	}
 
@@ -155,7 +156,11 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 
 	public List<org.wc.trackrite.issues.Issue> getListIssues() {
 
+		prePopulateListIssues();
 		return listIssues;
+	}
+
+	public void prePopulateListIssues() {
 	}
 
 	public void setListIssues(List<org.wc.trackrite.issues.Issue> listIssues) {
@@ -168,6 +173,7 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 
 	@Begin(join = true)
 	public void addIssues() {
+		initListIssues();
 		Issue issues = new Issue();
 
 		issues.setProject(getInstance());
@@ -186,7 +192,11 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 
 	public List<org.wc.trackrite.domain.Employee> getListEmployees() {
 
+		prePopulateListEmployees();
 		return listEmployees;
+	}
+
+	public void prePopulateListEmployees() {
 	}
 
 	public void setListEmployees(
@@ -204,9 +214,14 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 
 	}
 
+	@Begin(join = true)
 	public List<org.wc.trackrite.domain.Employee> getListAvailableEmployees() {
-		initListAvailableEmployees();
+
+		prePopulateListAvailableEmployees();
 		return listAvailableEmployees;
+	}
+
+	public void prePopulateListAvailableEmployees() {
 	}
 
 	public void setListAvailableEmployees(
@@ -225,6 +240,13 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 			getInstance().getEmployees().clear();
 			getInstance().getEmployees().addAll(listEmployees);
 		}
+	}
+
+	public void clearLists() {
+		listIssues.clear();
+
+		listEmployees.clear();
+
 	}
 
 }

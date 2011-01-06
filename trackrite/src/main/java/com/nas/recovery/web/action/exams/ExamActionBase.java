@@ -145,7 +145,11 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 
 	public List<org.wc.trackrite.exams.Question> getListQuestions() {
 
+		prePopulateListQuestions();
 		return listQuestions;
+	}
+
+	public void prePopulateListQuestions() {
 	}
 
 	public void setListQuestions(
@@ -159,6 +163,7 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 
 	@Begin(join = true)
 	public void addQuestions() {
+		initListQuestions();
 		Question questions = new Question();
 
 		questions.setExam(getInstance());
@@ -172,6 +177,11 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 			getInstance().getQuestions().clear();
 			getInstance().getQuestions().addAll(listQuestions);
 		}
+	}
+
+	public void clearLists() {
+		listQuestions.clear();
+
 	}
 
 }

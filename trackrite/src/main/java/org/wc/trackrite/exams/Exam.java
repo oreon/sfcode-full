@@ -61,7 +61,6 @@ public class Exam extends BusinessEntity implements java.io.Serializable {
 	protected Integer duration;
 
 	@OneToMany(mappedBy = "exam", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	@JoinColumn(name = "exam_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded

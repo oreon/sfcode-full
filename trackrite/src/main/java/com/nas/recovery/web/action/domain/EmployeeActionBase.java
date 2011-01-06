@@ -194,7 +194,11 @@ public abstract class EmployeeActionBase
 
 	public List<org.wc.trackrite.issues.Issue> getListIssues() {
 
+		prePopulateListIssues();
 		return listIssues;
+	}
+
+	public void prePopulateListIssues() {
 	}
 
 	public void setListIssues(List<org.wc.trackrite.issues.Issue> listIssues) {
@@ -207,6 +211,7 @@ public abstract class EmployeeActionBase
 
 	@Begin(join = true)
 	public void addIssues() {
+		initListIssues();
 		Issue issues = new Issue();
 
 		issues.setDeveloper(getInstance());
@@ -220,6 +225,11 @@ public abstract class EmployeeActionBase
 			getInstance().getIssues().clear();
 			getInstance().getIssues().addAll(listIssues);
 		}
+	}
+
+	public void clearLists() {
+		listIssues.clear();
+
 	}
 
 	public Employee getCurrentLoggedInEmployee() {

@@ -203,4 +203,8 @@ public abstract class AnswerActionBase extends BaseAction<Answer>
 	public void updateComposedAssociations() {
 	}
 
+	public void clearLists() {
+
+	}
+
 }

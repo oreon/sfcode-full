@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.faces.context.FacesContext;
 import javax.faces.render.ResponseStateManager;
@@ -25,7 +26,6 @@ import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.framework.EntityQuery;
 import org.jboss.seam.persistence.PersistenceProvider;
 
-import edu.emory.mathcs.backport.java.util.TreeMap;
 
 
 

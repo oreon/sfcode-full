@@ -203,6 +203,10 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 	public void updateComposedAssociations() {
 	}
 
+	public void clearLists() {
+
+	}
+
 	public void updateStatus(String status) {
 
 	}

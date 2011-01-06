@@ -42,34 +42,30 @@ public class EmployeeTestDataFactory
 
 		try {
 
-			employee.setFirstName("epsilon");
+			employee.setFirstName("zeta");
 
-			employee.setLastName("Eric");
+			employee.setLastName("Wilson");
 
-			employee.getUser().setUserName("Mark");
+			employee.getUser().setUserName("alpha");
 
-			employee.getUser().setPassword("zeta");
+			employee.getUser().setPassword("gamma");
 
 			employee.getUser().setEnabled(true);
 
 			employee.getUser().setEmail("delta");
 
 			employee.getUser().setLastLogin(
-					dateFormat.parse("2010.11.25 06:35:32 EST"));
+					dateFormat.parse("2010.12.15 08:48:59 EST"));
 
 			employee.setEmployeeNumber("epsilon");
 
-			employee.getHome().setPrimaryPhone("pi");
+			employee.getHome().setPrimaryPhone("zeta");
 
-			employee.getHome().setSecondaryPhone("pi");
+			employee.getHome().setSecondaryPhone("Malissa");
 
-			employee.getHome().setEmail("pi");
+			employee.getHome().setCity("theta");
 
-			employee.getMailing().setPrimaryPhone("epsilon");
-
-			employee.getMailing().setSecondaryPhone("Mark");
-
-			employee.getMailing().setEmail("gamma");
+			employee.getHome().setStreetAddress("theta");
 
 			employee.setDepartment(departmentTestDataFactory.getRandomRecord());
 
@@ -87,34 +83,30 @@ public class EmployeeTestDataFactory
 
 		try {
 
-			employee.setFirstName("Mark");
+			employee.setFirstName("epsilon");
 
-			employee.setLastName("pi");
+			employee.setLastName("epsilon");
 
-			employee.getUser().setUserName("Mark");
+			employee.getUser().setUserName("Lavendar");
 
 			employee.getUser().setPassword("epsilon");
 
 			employee.getUser().setEnabled(true);
 
-			employee.getUser().setEmail("Malissa");
+			employee.getUser().setEmail("gamma");
 
 			employee.getUser().setLastLogin(
-					dateFormat.parse("2010.12.10 00:42:12 EST"));
+					dateFormat.parse("2011.01.28 20:02:19 EST"));
 
-			employee.setEmployeeNumber("Eric");
+			employee.setEmployeeNumber("Malissa");
 
-			employee.getHome().setPrimaryPhone("Mark");
+			employee.getHome().setPrimaryPhone("beta");
 
-			employee.getHome().setSecondaryPhone("beta");
+			employee.getHome().setSecondaryPhone("John");
 
-			employee.getHome().setEmail("beta");
+			employee.getHome().setCity("zeta");
 
-			employee.getMailing().setPrimaryPhone("beta");
-
-			employee.getMailing().setSecondaryPhone("pi");
-
-			employee.getMailing().setEmail("John");
+			employee.getHome().setStreetAddress("Wilson");
 
 			employee.setDepartment(departmentTestDataFactory.getRandomRecord());
 
@@ -132,34 +124,30 @@ public class EmployeeTestDataFactory
 
 		try {
 
-			employee.setFirstName("Mark");
+			employee.setFirstName("beta");
 
-			employee.setLastName("pi");
+			employee.setLastName("Lavendar");
 
-			employee.getUser().setUserName("alpha");
+			employee.getUser().setUserName("Wilson");
 
-			employee.getUser().setPassword("John");
+			employee.getUser().setPassword("Malissa");
 
 			employee.getUser().setEnabled(true);
 
-			employee.getUser().setEmail("John");
+			employee.getUser().setEmail("alpha");
 
 			employee.getUser().setLastLogin(
-					dateFormat.parse("2010.12.24 13:46:05 EST"));
+					dateFormat.parse("2011.01.27 17:40:05 EST"));
 
-			employee.setEmployeeNumber("pi");
+			employee.setEmployeeNumber("epsilon");
 
-			employee.getHome().setPrimaryPhone("zeta");
+			employee.getHome().setPrimaryPhone("Eric");
 
-			employee.getHome().setSecondaryPhone("beta");
+			employee.getHome().setSecondaryPhone("alpha");
 
-			employee.getHome().setEmail("John");
+			employee.getHome().setCity("Mark");
 
-			employee.getMailing().setPrimaryPhone("pi");
-
-			employee.getMailing().setSecondaryPhone("theta");
-
-			employee.getMailing().setEmail("Malissa");
+			employee.getHome().setStreetAddress("beta");
 
 			employee.setDepartment(departmentTestDataFactory.getRandomRecord());
 
@@ -177,34 +165,30 @@ public class EmployeeTestDataFactory
 
 		try {
 
-			employee.setFirstName("theta");
+			employee.setFirstName("Eric");
 
-			employee.setLastName("beta");
+			employee.setLastName("Eric");
 
-			employee.getUser().setUserName("John");
+			employee.getUser().setUserName("gamma");
 
-			employee.getUser().setPassword("Wilson");
+			employee.getUser().setPassword("delta");
 
 			employee.getUser().setEnabled(true);
 
-			employee.getUser().setEmail("epsilon");
+			employee.getUser().setEmail("theta");
 
 			employee.getUser().setLastLogin(
-					dateFormat.parse("2010.12.05 10:21:07 EST"));
+					dateFormat.parse("2011.01.19 21:49:32 EST"));
 
-			employee.setEmployeeNumber("John");
+			employee.setEmployeeNumber("Eric");
 
-			employee.getHome().setPrimaryPhone("zeta");
+			employee.getHome().setPrimaryPhone("gamma");
 
-			employee.getHome().setSecondaryPhone("alpha");
+			employee.getHome().setSecondaryPhone("Mark");
 
-			employee.getHome().setEmail("Wilson");
+			employee.getHome().setCity("Lavendar");
 
-			employee.getMailing().setPrimaryPhone("theta");
-
-			employee.getMailing().setSecondaryPhone("pi");
-
-			employee.getMailing().setEmail("John");
+			employee.getHome().setStreetAddress("zeta");
 
 			employee.setDepartment(departmentTestDataFactory.getRandomRecord());
 
@@ -222,34 +206,30 @@ public class EmployeeTestDataFactory
 
 		try {
 
-			employee.setFirstName("Mark");
+			employee.setFirstName("John");
 
-			employee.setLastName("Malissa");
+			employee.setLastName("gamma");
 
-			employee.getUser().setUserName("gamma");
+			employee.getUser().setUserName("epsilon");
 
-			employee.getUser().setPassword("Wilson");
+			employee.getUser().setPassword("alpha");
 
 			employee.getUser().setEnabled(true);
 
-			employee.getUser().setEmail("John");
+			employee.getUser().setEmail("Malissa");
 
 			employee.getUser().setLastLogin(
-					dateFormat.parse("2010.11.27 05:09:58 EST"));
+					dateFormat.parse("2011.01.29 14:07:17 EST"));
 
-			employee.setEmployeeNumber("Eric");
+			employee.setEmployeeNumber("alpha");
 
-			employee.getHome().setPrimaryPhone("Lavendar");
+			employee.getHome().setPrimaryPhone("beta");
 
-			employee.getHome().setSecondaryPhone("Eric");
+			employee.getHome().setSecondaryPhone("gamma");
 
-			employee.getHome().setEmail("pi");
+			employee.getHome().setCity("Lavendar");
 
-			employee.getMailing().setPrimaryPhone("gamma");
-
-			employee.getMailing().setSecondaryPhone("beta");
-
-			employee.getMailing().setEmail("delta");
+			employee.getHome().setStreetAddress("zeta");
 
 			employee.setDepartment(departmentTestDataFactory.getRandomRecord());
 

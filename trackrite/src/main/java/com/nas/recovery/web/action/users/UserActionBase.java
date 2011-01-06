@@ -129,6 +129,7 @@ public abstract class UserActionBase extends BaseAction<User>
 	public void loadAssociations() {
 
 		initListRoles();
+		initListAvailableRoles();
 
 	}
 
@@ -147,7 +148,11 @@ public abstract class UserActionBase extends BaseAction<User>
 
 	public List<org.wc.trackrite.users.Role> getListRoles() {
 
+		prePopulateListRoles();
 		return listRoles;
+	}
+
+	public void prePopulateListRoles() {
 	}
 
 	public void setListRoles(List<org.wc.trackrite.users.Role> listRoles) {
@@ -164,9 +169,14 @@ public abstract class UserActionBase extends BaseAction<User>
 
 	}
 
+	@Begin(join = true)
 	public List<org.wc.trackrite.users.Role> getListAvailableRoles() {
-		initListAvailableRoles();
+
+		prePopulateListAvailableRoles();
 		return listAvailableRoles;
+	}
+
+	public void prePopulateListAvailableRoles() {
 	}
 
 	public void setListAvailableRoles(
@@ -180,6 +190,12 @@ public abstract class UserActionBase extends BaseAction<User>
 			getInstance().getRoles().clear();
 			getInstance().getRoles().addAll(listRoles);
 		}
+	}
+
+	public void clearLists() {
+
+		listRoles.clear();
+
 	}
 
 }

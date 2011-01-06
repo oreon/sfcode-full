@@ -17,10 +17,10 @@
         <h:inputText id="name#{entityId}" label="#{msg.schedule_name}" required="true" value="#{scheduleAction.schedule.name}"/>  
         <h:message styleClass="error errors" for="name"/> 
       </h:panelGrid>  
-      <a:commandButton value="New ScheduleItem" action="#{scheduleAction.addScheduleItems}" reRender="scheduleItems_data#{entityId}"> 
+      <a:commandButton value="New ScheduleItem" action="#{scheduleAction.addScheduleItems}" reRender="scheduleItems"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="scheduleItems_data#{entityId}" var="_scheduleItem" value="#{scheduleAction.listScheduleItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="scheduleItems" var="_scheduleItem" value="#{scheduleAction.listScheduleItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.scheduleItem_employee}  "/>
@@ -46,12 +46,12 @@
           <h:message styleClass="error errors" for="endDate"/> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New ScheduleItem" action="#{scheduleAction.addScheduleItems}" reRender="scheduleItems_data#{entityId}"> 
+          <a:commandButton value="New ScheduleItem" action="#{scheduleAction.addScheduleItems}" reRender="scheduleItems"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="Delete" immediate="true" action="#{scheduleAction.deleteScheduleItems(rowIndex)}" reRender="scheduleItems_data#{entityId}"> 
+          <a:commandButton value="Delete" immediate="true" action="#{scheduleAction.deleteScheduleItems(rowIndex)}" reRender="scheduleItems"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column> 

@@ -64,7 +64,6 @@ public class ExamInstance extends BusinessEntity
 	protected Candidate candidate;
 
 	@OneToMany(mappedBy = "examInstance", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	@JoinColumn(name = "examInstance_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded

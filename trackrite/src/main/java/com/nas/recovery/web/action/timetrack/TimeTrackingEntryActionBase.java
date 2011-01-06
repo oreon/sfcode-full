@@ -202,4 +202,8 @@ public abstract class TimeTrackingEntryActionBase
 	public void updateComposedAssociations() {
 	}
 
+	public void clearLists() {
+
+	}
+
 }

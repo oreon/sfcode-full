@@ -53,7 +53,7 @@ public class JasperReportsIntro {
 		try {
 			InputStream reportStreamXML = new JasperReportsIntro().getClass()
 					.getResourceAsStream(
-							"/reports/" + "TimeSheetReport" + ".jrxml");
+							"/reports/" + "ActiveBugsReport" + ".jrxml");
 
 			jasperReport = JasperCompileManager.compileReport(reportStreamXML);
 			jasperPrint = JasperFillManager.fillReport(jasperReport,

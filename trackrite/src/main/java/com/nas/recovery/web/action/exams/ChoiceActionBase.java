@@ -172,4 +172,8 @@ public abstract class ChoiceActionBase extends BaseAction<Choice>
 	public void updateComposedAssociations() {
 	}
 
+	public void clearLists() {
+
+	}
+
 }

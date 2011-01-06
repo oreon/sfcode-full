@@ -153,7 +153,11 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 	public List<org.wc.trackrite.domain.Employee> getListEmployees() {
 
+		prePopulateListEmployees();
 		return listEmployees;
+	}
+
+	public void prePopulateListEmployees() {
 	}
 
 	public void setListEmployees(
@@ -167,6 +171,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 	@Begin(join = true)
 	public void addEmployees() {
+		initListEmployees();
 		Employee employees = new Employee();
 
 		employees.setDepartment(getInstance());
@@ -180,6 +185,11 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 			getInstance().getEmployees().clear();
 			getInstance().getEmployees().addAll(listEmployees);
 		}
+	}
+
+	public void clearLists() {
+		listEmployees.clear();
+
 	}
 
 }

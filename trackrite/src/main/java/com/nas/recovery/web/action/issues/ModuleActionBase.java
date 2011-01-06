@@ -133,4 +133,8 @@ public abstract class ModuleActionBase extends BaseAction<Module>
 	public void updateComposedAssociations() {
 	}
 
+	public void clearLists() {
+
+	}
+
 }

@@ -146,7 +146,11 @@ public abstract class TimeSheetActionBase extends BaseAction<TimeSheet>
 
 	public List<org.wc.trackrite.timetrack.TimeTrackingEntry> getListTimeTrackingEntrys() {
 
+		prePopulateListTimeTrackingEntrys();
 		return listTimeTrackingEntrys;
+	}
+
+	public void prePopulateListTimeTrackingEntrys() {
 	}
 
 	public void setListTimeTrackingEntrys(
@@ -160,6 +164,7 @@ public abstract class TimeSheetActionBase extends BaseAction<TimeSheet>
 
 	@Begin(join = true)
 	public void addTimeTrackingEntrys() {
+		initListTimeTrackingEntrys();
 		TimeTrackingEntry timeTrackingEntrys = new TimeTrackingEntry();
 
 		timeTrackingEntrys.setTimeSheet(getInstance());
@@ -174,6 +179,11 @@ public abstract class TimeSheetActionBase extends BaseAction<TimeSheet>
 			getInstance().getTimeTrackingEntrys()
 					.addAll(listTimeTrackingEntrys);
 		}
+	}
+
+	public void clearLists() {
+		listTimeTrackingEntrys.clear();
+
 	}
 
 }

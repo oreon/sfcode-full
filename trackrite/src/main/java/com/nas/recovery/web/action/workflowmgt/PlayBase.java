@@ -19,12 +19,12 @@ public class PlayBase extends BaseJbpmProcessAction
 
 	}
 
-	@EndTask(transition = "done")
-	public void doneFirstTask() {
-
-	}
 	@EndTask(transition = "timeout")
 	public void timeoutFirstTask() {
+
+	}
+	@EndTask(transition = "done")
+	public void doneFirstTask() {
 
 	}
 
