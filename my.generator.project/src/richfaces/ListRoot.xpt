@@ -164,7 +164,7 @@
 «ENDDEFINE»
 
 «DEFINE genAssociation FOR uml::Property»
-	<h:column «IF isCompositionContainer()» groupOn="#{«genPropertyLabel()».displayName}" «ENDIF»>
+	<h:column «IF isCompositionContainer()» groupOn="#{«genPropertyLabel()».displayName}" «ENDIF»    «EXPAND genPermission FOR this»>
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
@@ -194,7 +194,7 @@
 
 
 «DEFINE genProperty FOR uml::Property-»
-	<h:column>
+	<h:column   «EXPAND genPermission FOR this»>
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
@@ -217,13 +217,22 @@
 «ENDDEFINE»
 
 «DEFINE genProperty FOR String-»
-	<h:column>
+	<h:column  «EXPAND genPermission FOR this»>
 		<f:facet name="header">
 			<h:outputText value="«msgBundleKey()-»" />
 		</f:facet>
 	 <h:outputText value="#{«getCurrentEntity().asVar()».«this»«this == "createdByUser"?".displayName":""»}" />
 	</h:column>
 «ENDDEFINE»
+
+«DEFINE genPermission FOR uml::Property»
+	rendered="#{s:hasPermission('«name»', '«getCurrentEntity().asVar()»View'  )}"
+«ENDDEFINE»
+
+«DEFINE genPermission FOR String»
+	rendered="#{s:hasPermission('«this»', '«getCurrentEntity().asVar()»View' )}"
+«ENDDEFINE»
+
 
 
 «REM» Creation date and ID  «ENDREM»

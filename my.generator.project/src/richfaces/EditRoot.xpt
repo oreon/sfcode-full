@@ -182,7 +182,9 @@
 «ENDDEFINE»
 
 «DEFINE genEditManyToManyShuttle FOR uml::Property»
+	<br/>
 	«IF isCurrentEditMode()»
+	
 	<rich:simpleTogglePanel label="«msgBundleKey()»" switchType="client"  >
 		<rich:listShuttle sourceValue="#{«class.getAction()».listAvailable«name.toFirstUpper()»}" 
 			targetValue="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
@@ -250,6 +252,8 @@
 «ENDDEFINE»
 
 
+
+
 «DEFINE genAssociation FOR uml::Property -»
 	«IF !isCurrentEditMode()-»
 		«EXPAND genAssocLink FOR this»
@@ -294,7 +298,7 @@
 	<h:panelGroup>
 	 <a:region>
 	<h:inputText value="#{«getActionForMode()»«genPropertyLabel()-».displayName}" label="«msgBundleKey()»"  
-		id="«getId()»" required="«!getAssocOptional()»" />
+		id="«getId()»" required="«!getAssocOptional()»"   />
 	«EXPAND genSuggestionBox FOR this»
 	 </a:region>
 	</h:panelGroup>
@@ -324,7 +328,7 @@
 
 «DEFINE genDropDown FOR uml::Property»
 	<h:selectOneMenu id="«getId()»"   label="«msgBundleKey()»" value="#{«getActionForMode()»«genPropertyLabel()-»}" 
-		required="«!getAssocOptional() && !isCurrentTemplateMode()»">
+		required="«!getAssocOptional() && !isCurrentTemplateMode()»"  rendered="«genEditPermission()»"  >
 		«IF isColumn() && this.controls != null » <a:support event="onchange" reRender="«controls»" ajaxSingle="true" /> «ENDIF»
 		<s:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List"»}" var="itemIter"
 			label="#{itemIter.displayName}"
@@ -338,7 +342,9 @@
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
 «IF isFile()-» «EXPAND genFilePropertyEntry»
 «ELSE-»
-<«getTextControl()»  id="«getId()»#{entityId}" «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"":""»  value="#{«getActionForMode()»«genPropertyLabel()»}" />
+<«getTextControl()»    id="«getId()»#{entityId}"  rendered="«isCurrentEditMode()?genEditPermission():genViewPermission()»"  
+	 «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"":""» 
+	  value="#{«getActionForMode()»«genPropertyLabel()»}" />
 «ENDIF»
 «ENDDEFINE»
 
@@ -392,7 +398,7 @@
 	«IF !isCurrentEditMode() -»
 	<«getTextControl()»  value="#{«getActionForMode()»«genPropertyLabel()»}" />
 	«ELSE»
-	<h:selectOneMenu id="«getId()»" value="#{«getActionForMode()»«genPropertyLabel()»}" required="«getAssocOptional() && !isCurrentTemplateMode()»" 
+	<h:selectOneMenu id="«getId()»"  rendered="«genEditPermission()»" value="#{«getActionForMode()»«genPropertyLabel()»}" required="«getAssocOptional() && !isCurrentTemplateMode()»" 
 	  label="«msgBundleKey()»">
 		<f:selectItem itemLabel="Please Select..." itemValue="" />
 		«FOREACH  enm.ownedLiteral AS e-»

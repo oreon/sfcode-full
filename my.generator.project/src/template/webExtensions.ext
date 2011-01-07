@@ -89,7 +89,11 @@ prop.isString()?"left":"right";
 
 //Used for labeling in the UI e.g First Name for field firstName
 String getLabelText(Property prop):
-"<h:outputText value=\"" + prop.msgBundleKey()  +  " " + prop.getRequiredStar() + " \"/>";
+"<h:outputText value=\"" + prop.msgBundleKey()  +  " " + prop.getRequiredStar()  +  " \"" + " rendered=\""  
+	+ prop.getRendered() +   "\""  + "/>";
+	
+getRendered(Property prop):
+isCurrentEditMode()?prop.genEditPermission():prop.genViewPermission() ;
 
 getRequiredStar(Property prop):
 isCurrentEditMode() && prop.getRequired() == "true"?"*":"";
@@ -221,7 +225,7 @@ String getErrorMessageHolder(Property prop):
 isCurrentEditMode()?getErrorMessage(prop):"";
 
 String getErrorMessage(Property prop):
-"<h:message styleClass=\"error errors\" for=\"" + prop.getId() + "\" />";
+"<h:message styleClass=\"error errors\" for=\"" + prop.getId() + "\"" + " rendered=\"" + prop.genEditPermission()  + "\"" + "/>";
 
 
 String getViewFile(Class e,String mode):
@@ -248,6 +252,15 @@ prop.access;
 
 getAccess(Property prop):
 null;
+
+genEditPermission(Property prop):
+genPermission(prop,'Edit');
+
+genViewPermission(Property prop):
+genPermission(prop,'View');
+
+genPermission(Property prop, String mode):
+"#{s:hasPermission('" + prop.name + "', '" + getCurrentEntity().asVar() +  mode + "')}";
 
 //getgeneric type for an action, for abstract classes we have to return none
 getGenericType(Class child, Class parent):

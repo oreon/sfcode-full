@@ -618,8 +618,9 @@ public class ClassUtil {
 			return mapFieldsForReports.get(key);
 
 		System.out.println("Couldnt find report type for " + key);
+		return key;
 
-		return "java.lang.String";
+		//return "java.lang.String";
 	}
 
 	static String[] primitives = { "date", "long", "integer", "boolean",
