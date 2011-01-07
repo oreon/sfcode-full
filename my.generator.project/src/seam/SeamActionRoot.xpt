@@ -263,6 +263,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		
 		«FOREACH getLeadingManyToMany() AS e»
 			initList«e.name.toFirstUpper()»(); 
+			initListAvailable«e.name.toFirstUpper()»(); 
 		«ENDFOREACH»
 	}
 	
@@ -372,8 +373,9 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		«ENDIF»	
 	}
 	
+	«IF prefix == "Available"»@Begin(join=true)«ENDIF»
 	public List<«type.fqn()»> get«currentList.toFirstUpper()»() {
-		«IF isLeadingManyToMany() && prefix == "Available"» init«currentList.toFirstUpper()»(); «ENDIF»
+		«REM»«IF isLeadingManyToMany() && prefix == "Available"» init«currentList.toFirstUpper()»(); «ENDIF»comment«ENDREM»
 		prePopulate«currentList.toFirstUpper()»();
 		return «currentList»;
 	}
