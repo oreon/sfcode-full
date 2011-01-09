@@ -174,7 +174,7 @@
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
-	«IF type.name == "boolean" || type.name == "Boolean"»
+	«IF isBoolean()»
 	<h:selectOneMenu id="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»}" required="false">
 		<f:selectItem itemLabel="Any" itemValue=""/>
 		<f:selectItem itemLabel="True" itemValue="true"/>
