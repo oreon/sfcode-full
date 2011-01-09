@@ -208,8 +208,10 @@
           </s:link> 
 		«ELSEIF isDate()»
 			<h:outputText value="#{_«genPropertyLabel()»}">
-				<s:convertDateTime type="both" dateStyle="short" />
+				<s:convertDateTime type="date" dateStyle="medium" />
 			</h:outputText>
+		«ELSEIF isBoolean()»
+		<h:outputText value="#{_«genPropertyLabel()»? msg.YES : msg.NO }" />	
 		«ELSE»
 			<h:outputText value="#{_«genPropertyLabel()»}" />	
 		«ENDIF»
@@ -239,7 +241,7 @@
 
 
 «DEFINE genId FOR uml::Class»
-	<h:column >
+	<h:column «EXPAND genPermission FOR 'id'»>
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
@@ -254,7 +256,7 @@
 
 
 «DEFINE genCreationDate FOR uml::Class»
-	<h:column >
+	<h:column «EXPAND genPermission FOR 'creationDate'»>
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
@@ -263,7 +265,7 @@
 			</ui:include>
 		</f:facet>
 		<h:outputText    value="#{_«getCurrentEntity().asVar()».dateCreated}"  >
-			<s:convertDateTime type="both" dateStyle="short" />
+			<s:convertDateTime type="date" dateStyle="medium" />
 		</h:outputText>
 	</h:column>
 «ENDDEFINE»
