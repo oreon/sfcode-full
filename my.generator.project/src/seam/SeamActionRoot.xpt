@@ -181,7 +181,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		«FOREACH getOutgoingAssociations() AS e-»
 		«IF !e.type.isAbstract»
 		«e.type.fqn()» «e.name» = «e.name»Action.getDefinedInstance();
-		if («e.name» != null) {
+		if («e.name» != null  && isNew()) {
 			 getInstance().set«e.name.toFirstUpper()»(«e.name»);
 		}
 		«ENDIF»

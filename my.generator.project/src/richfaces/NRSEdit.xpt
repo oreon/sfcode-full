@@ -7,6 +7,9 @@
 
 
 «DEFINE genEditFile FOR uml::Class»
+
+«EXPAND genManageComponentFile FOR this»
+
 «FILE getWebPath() +"/" + "custom" + name + "Component." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes-» >
   <div class="entry errors"><h:messages globalOnly="true" /></div>
@@ -18,6 +21,29 @@
   </s:validateAll>
 </ui:composition>
 «ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE genManageComponentFile FOR uml::Class»
+«IF !getCompositionParent().isEmpty»
+«FILE getWebPath() +"/" + "manage" + name + "Component." + getExtension()»
+<ui:composition «EXPAND WebRoot::genIncludes-» >
+<s:div styleClass="mortgage_status_formwrap2">
+		<ui:include src = "«getComponentViewFile("list")»" >
+			<ui:param name="records" 
+				value="#{«asVar()»List.get«name.toFirstUpper()»sBy«getCompositionParent().get(0).name.toFirstUpper()»(loanDataAction.instance.«getCompositionParent().get(0).name»)}" />
+         </ui:include>
+		
+	<a:form>
+		<a:commandButton action="#{«asVar()»Action.set«name»Id(0)}"
+			oncomplete="Richfaces.showModalPanel('«name»ModalPanel',{});"
+			value="Add «name»" />
+	</a:form>
+	<ui:include src="/admin/entities/legal/bankruptcy/modalDlg«name»Component.xhtml" />
+</s:div>
+</ui:composition>
+«ENDFILE»
+«ENDIF»
 «ENDDEFINE»
 
 
