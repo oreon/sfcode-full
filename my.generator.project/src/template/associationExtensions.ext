@@ -83,4 +83,8 @@ isBidirectional(Property prop):
 prop.association != null && prop.opposite!= null  ;
 
 
+getCompositionParent(Class cls):
+cls.getAllAttributes().select(a|a.association != null && a.opposite.isComposite() );
+
+
 

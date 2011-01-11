@@ -144,7 +144,10 @@
 			<h:outputText value=" " />
 		</f:facet>
 		<a:commandLink action="#{«asVar()»Action.set«name»IdForModalDlg(_«asVar()».id)}"  rendered="#{s:hasPermission(_«asVar()», 'edit')}" 
-			oncomplete="Richfaces.showModalPanel('«name»ModalPanel',{});" value="Quick Edit" /> 
+			oncomplete="Richfaces.showModalPanel('«name»ModalPanel',{});"  > 
+			<h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>
+			<s:conversationPropagation type="join"/>
+		</a:commandLink>
 	</h:column>
 «ENDDEFINE»
 
@@ -211,7 +214,11 @@
 				<s:convertDateTime type="date" dateStyle="medium" />
 			</h:outputText>
 		«ELSEIF isBoolean()»
-		<h:outputText value="#{_«genPropertyLabel()»? msg.YES : msg.NO }" />	
+			<h:outputText value="#{_«genPropertyLabel()»? msg.YES : msg.NO }" />	
+		«ELSEIF isDouble()»
+			<h:outputText value="#{_«genPropertyLabel()»}">
+				<f:convertNumber pattern="$#,##0.00"/>
+			</h:outputText>
 		«ELSE»
 			<h:outputText value="#{_«genPropertyLabel()»}" />	
 		«ENDIF»
