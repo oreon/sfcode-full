@@ -328,7 +328,7 @@
 
 «DEFINE genDropDown FOR uml::Property»
 	<h:selectOneMenu id="«getId()»"   label="«msgBundleKey()»" value="#{«getActionForMode()»«genPropertyLabel()-»}" 
-		required="«!getAssocOptional() && !isCurrentTemplateMode()»"  rendered="«genEditPermission()»"  >
+		required="«!getAssocOptional() && !isCurrentTemplateMode()»"  rendered="#{«genEditPermission()»}"  >
 		«IF isColumn() && this.controls != null » <a:support event="onchange" reRender="«controls»" ajaxSingle="true" /> «ENDIF»
 		<s:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List"»}" var="itemIter"
 			label="#{itemIter.displayName}"
@@ -342,7 +342,7 @@
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
 «IF isFile()-» «EXPAND genFilePropertyEntry»
 «ELSE-»
-<«getTextControl()»    id="«getId()»#{entityId}"  rendered="«isCurrentEditMode()?genEditPermission():genViewPermission()»"  
+<«getTextControl()»    id="«getId()»#{entityId}"  rendered="#{«isCurrentEditMode()?genEditPermission():genViewPermission()»}"  
 	 «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"":""» 
 	  value="#{«getActionForMode()»«genPropertyLabel()»}" />
 «ENDIF»
@@ -398,7 +398,7 @@
 	«IF !isCurrentEditMode() -»
 	<«getTextControl()»  value="#{«getActionForMode()»«genPropertyLabel()»}" />
 	«ELSE»
-	<h:selectOneMenu id="«getId()»"  rendered="«genEditPermission()»" value="#{«getActionForMode()»«genPropertyLabel()»}" required="«getAssocOptional() && !isCurrentTemplateMode()»" 
+	<h:selectOneMenu id="«getId()»"  rendered="#{«genEditPermission()»}" value="#{«getActionForMode()»«genPropertyLabel()»}" required="«getAssocOptional() && !isCurrentTemplateMode()»" 
 	  label="«msgBundleKey()»">
 		<f:selectItem itemLabel="Please Select..." itemValue="" />
 		«FOREACH  enm.ownedLiteral AS e-»
@@ -413,11 +413,14 @@
 «DEFINE gentEditableTable FOR uml::Property-»
 	«setCurrentMultiMode(true)-»
 	«IF isCurrentEditMode()-» «EXPAND genNewButton FOR this» «ENDIF»
-	
 	<rich:dataTable id="«name»" var="_«type.asVar()»" 
-		«IF !isCurrentEditMode()» rendered="#{not empty «class.getAction()».list«name.toFirstUpper()»}" «ENDIF»
-					value="#{«class.getAction()».list«name.toFirstUpper()»}" 
-				rowKeyVar="rowIndex"
+		«IF !isCurrentEditMode()» 
+			rendered="#{not empty «class.getAction()».list«name.toFirstUpper()» and «genViewPermission()» }"
+			«ELSE»
+				rendered="#{«genEditPermission()»}"
+		 «ENDIF»
+				value="#{«class.getAction()».list«name.toFirstUpper()»}" 
+				rowKeyVar="rowIndex" 
 				rowClasses="odd, even" styleClass="dataTable" rules="all">
 		«setAsCurrentEntity(type)»
 		«EXPAND genAttribAsOutput FOR type-»
@@ -447,7 +450,7 @@
 
 «DEFINE genNewButton FOR uml::Property»
 	<a:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  
-		reRender="«name»" >
+		reRender="«name»"  rendered="#{«genEditPermission()»}" >
 		<s:conversationId/>
 	</a:commandButton>
 «ENDDEFINE»

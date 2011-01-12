@@ -31,7 +31,7 @@
 <s:div styleClass="mortgage_status_formwrap2">
 		<ui:include src = "«getComponentViewFile("list")»" >
 			<ui:param name="records" 
-				value="#{«asVar()»List.get«name.toFirstUpper()»sBy«getCompositionParent().get(0).name.toFirstUpper()»(loanDataAction.instance.«getCompositionParent().get(0).name»)}" />
+				value="#{«asVar()»List.get«name.toFirstUpper().getPlural()»By«getCompositionParent().get(0).name.toFirstUpper()»(loanDataAction.instance.«getCompositionParent().get(0).name»)}" />
          </ui:include>
 		
 	<a:form>
@@ -39,7 +39,7 @@
 			oncomplete="Richfaces.showModalPanel('«name»ModalPanel',{});"
 			value="Add «name»" />
 	</a:form>
-	<ui:include src="/admin/entities/legal/bankruptcy/modalDlg«name»Component.xhtml" />
+	<ui:include src="«getComponentViewFile("modalDlg")»" />
 </s:div>
 </ui:composition>
 «ENDFILE»
