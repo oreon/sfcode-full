@@ -108,7 +108,7 @@ public class BaseJbpmProcessAction {
 	public String getTaskForm(){
 		if(task == null)
 			return "";
-		String taskPath = "/admin/tasks/taskForms/" + StringUtils.uncapitalize(task.getProcessInstance().getProcessDefinition().getName())
+		String taskPath = "/admin/tasks/taskForms/" + StringUtils.capitalize(task.getProcessInstance().getProcessDefinition().getName())
 		+ "/" + task.getName() + "TaskForm.xhtml";
 		return taskPath;
 	}
