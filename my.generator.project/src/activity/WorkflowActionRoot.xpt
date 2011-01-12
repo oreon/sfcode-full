@@ -154,10 +154,7 @@ public class «name.toFirstUpper()» extends «name.toFirstUpper()»Base {
 	«IF getAttrib('token') != null», processKey="#{«getAttrib('token').type.getAction()».instance.id}"«ENDIF»
 «ENDDEFINE»
 
- 
-
-
-«DEFINE genForm FOR uml::ActivityNode»
+ «DEFINE genForm FOR uml::Action»
 	«FILE getTaskFromWebPath()»
 <ui:composition «EXPAND richfaces::WebRoot::genIncludes FOR this» >	
 	«PROTECT CSTART '<!--' CEND '-->' ID  'TASKFORM_EDITABLE_RGN_' + activity.name + "_" + name»
@@ -165,6 +162,11 @@ public class «name.toFirstUpper()» extends «name.toFirstUpper()»Base {
 	«ENDPROTECT»	
 </ui:composition>
 	«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE genForm FOR uml::ActivityNode»
+	
 «ENDDEFINE»
 
 «DEFINE genForm FOR uml::ActivityFinalNode»
