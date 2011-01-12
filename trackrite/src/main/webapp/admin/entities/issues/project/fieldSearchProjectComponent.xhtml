@@ -6,17 +6,17 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.project_name} * "/>  
+      <h:outputText value="#{msg.project_name} * " rendered="#{s:hasPermission('name', 'projectEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{projectList.project.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.project_description}  "/>  
+      <h:outputText value="#{msg.project_description}  " rendered="#{s:hasPermission('description', 'projectEdit')}"/>  
       <br/>  
       <h:inputText id="description" value="#{projectList.project.description}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.project_employees}  "/>  
+      <h:outputText value="#{msg.project_employees}  " rendered="#{s:hasPermission('employees', 'projectEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="employees" value="#{ projectList.employeeToSearch}"> 
         <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  

@@ -7,28 +7,28 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.user_userName} * "/>  
+        <h:outputText value="#{msg.user_userName} * " rendered="#{s:hasPermission('userName', 'userEdit')}"/>  
         <br/>  
         <h:inputText id="userName" value="#{userAction.user.userName}"/>  
-        <h:message styleClass="error errors" for="userName"/> 
+        <h:message styleClass="error errors" for="userName" rendered="#{s:hasPermission('userName', 'userEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.user_enabled}  "/>  
+        <h:outputText value="#{msg.user_enabled}  " rendered="#{s:hasPermission('enabled', 'userEdit')}"/>  
         <br/>  
         <h:selectBooleanCheckbox id="enabled" value="#{userAction.user.enabled}"/>  
-        <h:message styleClass="error errors" for="enabled"/> 
+        <h:message styleClass="error errors" for="enabled" rendered="#{s:hasPermission('enabled', 'userEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.user_email} * "/>  
+        <h:outputText value="#{msg.user_email} * " rendered="#{s:hasPermission('email', 'userEdit')}"/>  
         <br/>  
         <h:inputText id="email" value="#{userAction.user.email}"/>  
-        <h:message styleClass="error errors" for="email"/> 
+        <h:message styleClass="error errors" for="email" rendered="#{s:hasPermission('email', 'userEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.user_lastLogin}  "/>  
+        <h:outputText value="#{msg.user_lastLogin}  " rendered="#{s:hasPermission('lastLogin', 'userEdit')}"/>  
         <br/>  
         <rich:calendar id="lastLogin" value="#{userAction.user.lastLogin}"/>  
-        <h:message styleClass="error errors" for="lastLogin"/> 
+        <h:message styleClass="error errors" for="lastLogin" rendered="#{s:hasPermission('lastLogin', 'userEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

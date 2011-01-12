@@ -7,10 +7,10 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.timeSheet_title} * "/>  
+        <h:outputText value="#{msg.timeSheet_title} * " rendered="#{s:hasPermission('title', 'timeSheetEdit')}"/>  
         <br/>  
         <h:inputText id="title" value="#{timeSheetAction.timeSheet.title}"/>  
-        <h:message styleClass="error errors" for="title"/> 
+        <h:message styleClass="error errors" for="title" rendered="#{s:hasPermission('title', 'timeSheetEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

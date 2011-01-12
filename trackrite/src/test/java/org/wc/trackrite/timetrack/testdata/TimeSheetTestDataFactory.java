@@ -37,7 +37,7 @@ public class TimeSheetTestDataFactory
 
 		try {
 
-			timeSheet.setTitle("gamma");
+			timeSheet.setTitle("Lavendar");
 
 			register(timeSheet);
 
@@ -53,7 +53,7 @@ public class TimeSheetTestDataFactory
 
 		try {
 
-			timeSheet.setTitle("zeta");
+			timeSheet.setTitle("epsilon");
 
 			register(timeSheet);
 
@@ -69,7 +69,7 @@ public class TimeSheetTestDataFactory
 
 		try {
 
-			timeSheet.setTitle("pi");
+			timeSheet.setTitle("Eric");
 
 			register(timeSheet);
 
@@ -101,7 +101,7 @@ public class TimeSheetTestDataFactory
 
 		try {
 
-			timeSheet.setTitle("John");
+			timeSheet.setTitle("Lavendar");
 
 			register(timeSheet);
 

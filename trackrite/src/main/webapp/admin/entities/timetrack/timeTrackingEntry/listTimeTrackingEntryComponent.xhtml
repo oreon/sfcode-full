@@ -5,7 +5,7 @@
     <f:facet name="header">TimeTrackingEntry Search Results (#{empty records ? 0 : (timeTrackingEntryList.paginated ? timeTrackingEntryList.resultCount : records.size)})</f:facet>  
     <a:form> 
       <rich:dataTable var="_timeTrackingEntry" value="#{records}" id="timeTrackingEntryList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('id', 'timeTrackingEntryView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{timeTrackingEntryList}"/>  
@@ -15,7 +15,7 @@
           </f:facet>  
           <h:outputText value="#{_timeTrackingEntry.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('hours', 'timeTrackingEntryView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{timeTrackingEntryList}"/>  
@@ -25,7 +25,7 @@
           </f:facet>  
           <h:outputText value="#{_timeTrackingEntry.hours}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('details', 'timeTrackingEntryView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{timeTrackingEntryList}"/>  
@@ -35,7 +35,7 @@
           </f:facet>  
           <h:outputText value="#{_timeTrackingEntry.details}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('issue', 'timeTrackingEntryView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{timeTrackingEntryList}"/>  
@@ -51,7 +51,7 @@
             </rich:toolTip> 
           </s:link> 
         </h:column>  
-        <h:column groupOn="#{timeTrackingEntry.timeSheet.displayName}"> 
+        <h:column groupOn="#{timeTrackingEntry.timeSheet.displayName}" rendered="#{s:hasPermission('timeSheet', 'timeTrackingEntryView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{timeTrackingEntryList}"/>  
@@ -64,7 +64,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('date', 'timeTrackingEntryView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{timeTrackingEntryList}"/>  
@@ -73,10 +73,10 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_timeTrackingEntry.date}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'timeTrackingEntryView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{timeTrackingEntryList}"/>  
@@ -85,7 +85,7 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_timeTrackingEntry.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
         <h:column> 

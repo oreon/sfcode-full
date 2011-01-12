@@ -46,7 +46,19 @@ when
   $r : Role()
 then
   $c.grant();
-end      
+end    
+
+rule "AllowViewEmployee"
+no-loop
+dialect "java" 
+when
+  principal: Principal()
+  c : PermissionCheck( action == "employeeView" || action == "employeeEdit" )
+  eval ( c.getTarget().equals( "firstName" ) ||  c.getTarget().equals ("userName") )
+then
+ // System.out.println( c.getAction() + " " +  c.getTarget() );
+  c.grant();
+end 
 
 
 //by default users should be able to edit their own records 

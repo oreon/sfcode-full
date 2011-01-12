@@ -21,6 +21,7 @@ import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
+import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.framework.EntityQuery;
@@ -45,6 +46,17 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	@RequestParameter
 	protected String searchText;
 	
+	protected String textToSearch;
+	
+	public String getTextToSearch() {
+		return textToSearch;
+	}
+
+	public void setTextToSearch(String textToSearch) {
+		this.textToSearch = textToSearch;
+	}
+
+
 	public static final int DEFAULT_PAGES_FOR_PAGINATION = 25;
 	
 	@In
@@ -234,6 +246,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	
 	
 	@SuppressWarnings("unchecked")
+	@Begin(join=true)
 	public String textSearch() {
 
 		BusinessEntity businessEntity = null;
@@ -264,7 +277,9 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 
 		try {
 			if(searchText == null)
-				searchText = "this";
+				searchText = textToSearch;
+			if(searchText == null)
+				searchText = "";
 			query = parser.parse(searchText);
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
@@ -275,7 +290,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		List<E> result = ftq.getResultList();
 		
 		setEntityList(result);
-		return "success";
+		return "textSearch";
 	}
 	
 	
@@ -285,6 +300,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	}
 
 	public List<E> getEntityList() {
+		//if(entityList == null )
 		return entityList;
 	}
 	

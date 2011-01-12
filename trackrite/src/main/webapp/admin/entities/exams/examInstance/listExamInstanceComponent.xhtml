@@ -5,7 +5,7 @@
     <f:facet name="header">ExamInstance Search Results (#{empty records ? 0 : (examInstanceList.paginated ? examInstanceList.resultCount : records.size)})</f:facet>  
     <a:form> 
       <rich:dataTable var="_examInstance" value="#{records}" id="examInstanceList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('id', 'examInstanceView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{examInstanceList}"/>  
@@ -15,7 +15,7 @@
           </f:facet>  
           <h:outputText value="#{_examInstance.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('exam', 'examInstanceView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{examInstanceList}"/>  
@@ -28,7 +28,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('candidate', 'examInstanceView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{examInstanceList}"/>  
@@ -41,7 +41,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'examInstanceView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{examInstanceList}"/>  
@@ -50,7 +50,7 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_examInstance.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
         <h:column> 

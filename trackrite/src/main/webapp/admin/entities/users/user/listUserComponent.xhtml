@@ -5,7 +5,7 @@
     <f:facet name="header">User Search Results (#{empty records ? 0 : (userList.paginated ? userList.resultCount : records.size)})</f:facet>  
     <a:form> 
       <rich:dataTable var="_user" value="#{records}" id="userList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('id', 'userView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{userList}"/>  
@@ -15,7 +15,7 @@
           </f:facet>  
           <h:outputText value="#{_user.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('userName', 'userView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{userList}"/>  
@@ -25,7 +25,7 @@
           </f:facet>  
           <h:outputText value="#{_user.userName}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('enabled', 'userView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{userList}"/>  
@@ -35,7 +35,7 @@
           </f:facet>  
           <h:outputText value="#{_user.enabled}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('email', 'userView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{userList}"/>  
@@ -45,7 +45,7 @@
           </f:facet>  
           <h:outputText value="#{_user.email}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('lastLogin', 'userView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{userList}"/>  
@@ -54,10 +54,10 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_user.lastLogin}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'userView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{userList}"/>  
@@ -66,7 +66,7 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_user.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
         <h:column> 

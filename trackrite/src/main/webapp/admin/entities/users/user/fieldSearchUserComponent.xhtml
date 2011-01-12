@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_userName} * "/>  
+      <h:outputText value="#{msg.user_userName} * " rendered="#{s:hasPermission('userName', 'userEdit')}"/>  
       <br/>  
       <h:inputText id="userName" value="#{userList.user.userName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_enabled}  "/>  
+      <h:outputText value="#{msg.user_enabled}  " rendered="#{s:hasPermission('enabled', 'userEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="enabled" value="#{userList.user.enabled}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -20,7 +20,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_roles}  "/>  
+      <h:outputText value="#{msg.user_roles}  " rendered="#{s:hasPermission('roles', 'userEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="roles" value="#{ userList.roleToSearch}"> 
         <s:selectItems value="#{roleList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -29,12 +29,12 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_email} * "/>  
+      <h:outputText value="#{msg.user_email} * " rendered="#{s:hasPermission('email', 'userEdit')}"/>  
       <br/>  
       <h:inputText id="email" value="#{userList.user.email}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_lastLogin}  "/>  
+      <h:outputText value="#{msg.user_lastLogin}  " rendered="#{s:hasPermission('lastLogin', 'userEdit')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  

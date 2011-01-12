@@ -9,8 +9,8 @@
         </f:facet>  
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{departmentAction.department.id}"/>  
-        <h:outputText value="#{msg.department_name}  "/>  
-        <h:outputText id="name#{entityId}" value="#{departmentAction.department.name}"/> 
+        <h:outputText value="#{msg.department_name}  " rendered="#{s:hasPermission('name', 'departmentView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'departmentView')}" value="#{departmentAction.department.name}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

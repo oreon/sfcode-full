@@ -7,9 +7,9 @@
         <f:facet name="header"> 
           <h:outputText value="Role "/> 
         </f:facet>  
-        <h:outputText value="#{msg.role_name} * "/>  
-        <h:inputText id="name#{entityId}" label="#{msg.role_name}" required="true" value="#{roleAction.role.name}"/>  
-        <h:message styleClass="error errors" for="name"/> 
+        <h:outputText value="#{msg.role_name} * " rendered="#{s:hasPermission('name', 'roleEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'roleEdit')}" label="#{msg.role_name}" required="true" value="#{roleAction.role.name}"/>  
+        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'roleEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

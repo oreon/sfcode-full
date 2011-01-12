@@ -18,22 +18,22 @@
 			<h:outputText value="TimeSheetReport" />
 		</f:facet>
 	
-		<h:outputText value="#{msg.timeSheetReport_developer}  "/>
+		<h:outputText value="#{msg.timeSheetReport_developer}  " rendered="#{s:hasPermission('developer', 'nullView')}"/>
 	<h:selectOneMenu id="developer"   label="#{msg.timeSheetReport_developer}" value="#{timeSheetReportAction.developer}"  required="true">
 		<s:selectItems value="#{employeeList}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
-		<h:message styleClass="error errors" for="developer" />
+		<h:message styleClass="error errors" for="developer" rendered="#{s:hasPermission('developer', 'nullEdit')}"/>
 	
-		<h:outputText value="#{msg.timeSheetReport_from}  "/>
+		<h:outputText value="#{msg.timeSheetReport_from}  " rendered="#{s:hasPermission('from', 'nullView')}"/>
 <rich:calendar  id="from"  label="#{msg.timeSheetReport_from}"  required="true"  value="#{timeSheetReportAction.from}" />
-		<h:message styleClass="error errors" for="from" />
+		<h:message styleClass="error errors" for="from" rendered="#{s:hasPermission('from', 'nullEdit')}"/>
 	
-		<h:outputText value="#{msg.timeSheetReport_to}  "/>
+		<h:outputText value="#{msg.timeSheetReport_to}  " rendered="#{s:hasPermission('to', 'nullView')}"/>
 <rich:calendar  id="to"  label="#{msg.timeSheetReport_to}"  required="true"  value="#{timeSheetReportAction.to}" />
-		<h:message styleClass="error errors" for="to" />
+		<h:message styleClass="error errors" for="to" rendered="#{s:hasPermission('to', 'nullEdit')}"/>
 	
 	</h:panelGrid>
 	</s:validateAll>

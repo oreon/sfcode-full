@@ -5,7 +5,7 @@
     <f:facet name="header">Choice Search Results (#{empty records ? 0 : (choiceList.paginated ? choiceList.resultCount : records.size)})</f:facet>  
     <a:form> 
       <rich:dataTable var="_choice" value="#{records}" id="choiceList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('id', 'choiceView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{choiceList}"/>  
@@ -15,7 +15,7 @@
           </f:facet>  
           <h:outputText value="#{_choice.id}"></h:outputText> 
         </h:column>  
-        <h:column groupOn="#{choice.question.displayName}"> 
+        <h:column groupOn="#{choice.question.displayName}" rendered="#{s:hasPermission('question', 'choiceView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{choiceList}"/>  
@@ -28,7 +28,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('text', 'choiceView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{choiceList}"/>  
@@ -38,7 +38,7 @@
           </f:facet>  
           <h:outputText value="#{_choice.text}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'choiceView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{choiceList}"/>  
@@ -47,7 +47,7 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_choice.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
         <h:column> 

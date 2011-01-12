@@ -5,7 +5,7 @@
     <f:facet name="header">Issue Search Results (#{empty records ? 0 : (issueList.paginated ? issueList.resultCount : records.size)})</f:facet>  
     <a:form> 
       <rich:dataTable var="_issue" value="#{records}" id="issueList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('id', 'issueView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{issueList}"/>  
@@ -15,7 +15,7 @@
           </f:facet>  
           <h:outputText value="#{_issue.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('title', 'issueView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{issueList}"/>  
@@ -25,7 +25,7 @@
           </f:facet>  
           <h:outputText value="#{_issue.title}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('description', 'issueView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{issueList}"/>  
@@ -35,7 +35,7 @@
           </f:facet>  
           <h:outputText value="#{_issue.description}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('project', 'issueView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{issueList}"/>  
@@ -48,7 +48,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('status', 'issueView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{issueList}"/>  
@@ -58,7 +58,7 @@
           </f:facet>  
           <h:outputText value="#{_issue.status}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('priority', 'issueView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{issueList}"/>  
@@ -68,7 +68,7 @@
           </f:facet>  
           <h:outputText value="#{_issue.priority}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('developer', 'issueView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{issueList}"/>  
@@ -81,7 +81,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('closeTime', 'issueView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{issueList}"/>  
@@ -90,10 +90,10 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_issue.closeTime}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('estimate', 'issueView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{issueList}"/>  
@@ -103,7 +103,7 @@
           </f:facet>  
           <h:outputText value="#{_issue.estimate}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'issueView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{issueList}"/>  
@@ -112,7 +112,7 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_issue.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
         <h:column> 

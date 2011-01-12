@@ -5,7 +5,7 @@
     <f:facet name="header">Role Search Results (#{empty records ? 0 : (roleList.paginated ? roleList.resultCount : records.size)})</f:facet>  
     <a:form> 
       <rich:dataTable var="_role" value="#{records}" id="roleList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('id', 'roleView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{roleList}"/>  
@@ -15,7 +15,7 @@
           </f:facet>  
           <h:outputText value="#{_role.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('name', 'roleView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{roleList}"/>  
@@ -25,7 +25,7 @@
           </f:facet>  
           <h:outputText value="#{_role.name}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'roleView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{roleList}"/>  
@@ -34,7 +34,7 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_role.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
         <h:column> 

@@ -7,15 +7,15 @@
         <f:facet name="header"> 
           <h:outputText value="Question "/> 
         </f:facet>  
-        <h:outputText value="#{msg.question_exam}  "/>  
-        <h:selectOneMenu id="exam" label="#{msg.question_exam}" value="#{questionAction.question.exam}" required="true"> 
+        <h:outputText value="#{msg.question_exam}  " rendered="#{s:hasPermission('exam', 'questionEdit')}"/>  
+        <h:selectOneMenu id="exam" label="#{msg.question_exam}" value="#{questionAction.question.exam}" required="true" rendered="#{s:hasPermission('exam', 'questionEdit')}"> 
           <s:selectItems value="#{examList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="exam"/>  
-        <h:outputText value="#{msg.question_text} * "/>  
-        <h:inputText id="text#{entityId}" label="#{msg.question_text}" required="true" value="#{questionAction.question.text}"/>  
-        <h:message styleClass="error errors" for="text"/> 
+        <h:message styleClass="error errors" for="exam" rendered="#{s:hasPermission('exam', 'questionEdit')}"/>  
+        <h:outputText value="#{msg.question_text} * " rendered="#{s:hasPermission('text', 'questionEdit')}"/>  
+        <h:inputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'questionEdit')}" label="#{msg.question_text}" required="true" value="#{questionAction.question.text}"/>  
+        <h:message styleClass="error errors" for="text" rendered="#{s:hasPermission('text', 'questionEdit')}"/> 
       </h:panelGrid>  
       <a:commandButton value="New Choice" action="#{questionAction.addChoices}" reRender="choices"> 
         <s:conversationId/> 
@@ -23,10 +23,10 @@
       <rich:dataTable id="choices" var="_choice" value="#{questionAction.listChoices}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.choice_text} * "/>
+            <h:outputText value="#{msg.choice_text} * " rendered="#{s:hasPermission('text', 'choiceEdit')}"/>
           </f:facet>  
-          <h:inputText id="text#{entityId}" label="#{msg.choice_text}" required="true" value="#{_choice.text}"/>  
-          <h:message styleClass="error errors" for="text"/> 
+          <h:inputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'choiceEdit')}" label="#{msg.choice_text}" required="true" value="#{_choice.text}"/>  
+          <h:message styleClass="error errors" for="text" rendered="#{s:hasPermission('text', 'choiceEdit')}"/> 
         </h:column>  
         <h:column> 
           <a:commandButton value="New Choice" action="#{questionAction.addChoices}" reRender="choices"> 

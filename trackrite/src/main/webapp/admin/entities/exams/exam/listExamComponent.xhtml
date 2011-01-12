@@ -5,7 +5,7 @@
     <f:facet name="header">Exam Search Results (#{empty records ? 0 : (examList.paginated ? examList.resultCount : records.size)})</f:facet>  
     <a:form> 
       <rich:dataTable var="_exam" value="#{records}" id="examList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('id', 'examView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{examList}"/>  
@@ -15,7 +15,7 @@
           </f:facet>  
           <h:outputText value="#{_exam.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('name', 'examView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{examList}"/>  
@@ -25,7 +25,7 @@
           </f:facet>  
           <h:outputText value="#{_exam.name}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('duration', 'examView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{examList}"/>  
@@ -35,7 +35,7 @@
           </f:facet>  
           <h:outputText value="#{_exam.duration}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'examView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{examList}"/>  
@@ -44,7 +44,7 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_exam.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
         <h:column> 

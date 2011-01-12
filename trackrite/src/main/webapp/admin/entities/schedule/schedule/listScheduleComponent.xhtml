@@ -5,7 +5,7 @@
     <f:facet name="header">Schedule Search Results (#{empty records ? 0 : (scheduleList.paginated ? scheduleList.resultCount : records.size)})</f:facet>  
     <a:form> 
       <rich:dataTable var="_schedule" value="#{records}" id="scheduleList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('id', 'scheduleView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{scheduleList}"/>  
@@ -15,7 +15,7 @@
           </f:facet>  
           <h:outputText value="#{_schedule.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('project', 'scheduleView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{scheduleList}"/>  
@@ -28,7 +28,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('name', 'scheduleView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{scheduleList}"/>  
@@ -38,7 +38,7 @@
           </f:facet>  
           <h:outputText value="#{_schedule.name}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'scheduleView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{scheduleList}"/>  
@@ -47,7 +47,7 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_schedule.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
         <h:column> 

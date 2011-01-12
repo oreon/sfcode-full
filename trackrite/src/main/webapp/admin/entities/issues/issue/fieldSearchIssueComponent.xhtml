@@ -6,17 +6,17 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.issue_title} * "/>  
+      <h:outputText value="#{msg.issue_title} * " rendered="#{s:hasPermission('title', 'issueEdit')}"/>  
       <br/>  
       <h:inputText id="title" value="#{issueList.issue.title}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.issue_description}  "/>  
+      <h:outputText value="#{msg.issue_description}  " rendered="#{s:hasPermission('description', 'issueEdit')}"/>  
       <br/>  
       <h:inputText id="description" value="#{issueList.issue.description}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.issue_project}  "/>  
+      <h:outputText value="#{msg.issue_project}  " rendered="#{s:hasPermission('project', 'issueEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="project" value="#{ issueList.issue.project}"> 
         <s:selectItems value="#{projectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -24,7 +24,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.issue_status}  "/>  
+      <h:outputText value="#{msg.issue_status}  " rendered="#{s:hasPermission('status', 'issueEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="status" value="#{issueList.issue.status}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -36,7 +36,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.issue_priority}  "/>  
+      <h:outputText value="#{msg.issue_priority}  " rendered="#{s:hasPermission('priority', 'issueEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="priority" value="#{issueList.issue.priority}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -50,7 +50,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.issue_developer}  "/>  
+      <h:outputText value="#{msg.issue_developer}  " rendered="#{s:hasPermission('developer', 'issueEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="developer" value="#{ issueList.issue.developer}"> 
         <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -59,7 +59,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.issue_closeTime}  "/>  
+      <h:outputText value="#{msg.issue_closeTime}  " rendered="#{s:hasPermission('closeTime', 'issueEdit')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -68,7 +68,7 @@
       <rich:calendar value="#{issueList.closeTimeRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.issue_estimate}  "/>  
+      <h:outputText value="#{msg.issue_estimate}  " rendered="#{s:hasPermission('estimate', 'issueEdit')}"/>  
       <br/>  
       <h:inputText id="estimate_begin" value="#{issueList.estimateRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 

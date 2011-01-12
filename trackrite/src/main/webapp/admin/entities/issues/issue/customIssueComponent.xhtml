@@ -7,28 +7,28 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.issue_title} * "/>  
+        <h:outputText value="#{msg.issue_title} * " rendered="#{s:hasPermission('title', 'issueEdit')}"/>  
         <br/>  
         <h:inputText id="title" value="#{issueAction.issue.title}"/>  
-        <h:message styleClass="error errors" for="title"/> 
+        <h:message styleClass="error errors" for="title" rendered="#{s:hasPermission('title', 'issueEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.issue_description}  "/>  
+        <h:outputText value="#{msg.issue_description}  " rendered="#{s:hasPermission('description', 'issueEdit')}"/>  
         <br/>  
         <rich:editor useSeamText="true" id="description" value="#{issueAction.issue.description}"/>  
-        <h:message styleClass="error errors" for="description"/> 
+        <h:message styleClass="error errors" for="description" rendered="#{s:hasPermission('description', 'issueEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.issue_project}  "/>  
+        <h:outputText value="#{msg.issue_project}  " rendered="#{s:hasPermission('project', 'issueEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="project" value="#{issueAction.issue.project}"> 
           <s:selectItems value="#{projectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="project"/> 
+        <h:message styleClass="error errors" for="project" rendered="#{s:hasPermission('project', 'issueEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.issue_status}  "/>  
+        <h:outputText value="#{msg.issue_status}  " rendered="#{s:hasPermission('status', 'issueEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="status" value="#{issueAction.issue.status}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
@@ -37,10 +37,10 @@
           <f:selectItem itemValue="ReadyForQA" itemLabel="Readyforqa"/>  
           <f:selectItem itemValue="Closed" itemLabel="Closed"/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="status"/> 
+        <h:message styleClass="error errors" for="status" rendered="#{s:hasPermission('status', 'issueEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.issue_priority}  "/>  
+        <h:outputText value="#{msg.issue_priority}  " rendered="#{s:hasPermission('priority', 'issueEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="priority" value="#{issueAction.issue.priority}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
@@ -51,28 +51,28 @@
           <f:selectItem itemValue="LANGUAGE" itemLabel="Language"/>  
           <f:selectItem itemValue="COSMETIC" itemLabel="Cosmetic"/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="priority"/> 
+        <h:message styleClass="error errors" for="priority" rendered="#{s:hasPermission('priority', 'issueEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.issue_developer}  "/>  
+        <h:outputText value="#{msg.issue_developer}  " rendered="#{s:hasPermission('developer', 'issueEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="developer" value="#{issueAction.issue.developer}"> 
           <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="developer"/> 
+        <h:message styleClass="error errors" for="developer" rendered="#{s:hasPermission('developer', 'issueEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.issue_closeTime}  "/>  
+        <h:outputText value="#{msg.issue_closeTime}  " rendered="#{s:hasPermission('closeTime', 'issueEdit')}"/>  
         <br/>  
         <rich:calendar id="closeTime" value="#{issueAction.issue.closeTime}"/>  
-        <h:message styleClass="error errors" for="closeTime"/> 
+        <h:message styleClass="error errors" for="closeTime" rendered="#{s:hasPermission('closeTime', 'issueEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.issue_estimate}  "/>  
+        <h:outputText value="#{msg.issue_estimate}  " rendered="#{s:hasPermission('estimate', 'issueEdit')}"/>  
         <br/>  
         <h:inputText id="estimate" value="#{issueAction.issue.estimate}"/>  
-        <h:message styleClass="error errors" for="estimate"/> 
+        <h:message styleClass="error errors" for="estimate" rendered="#{s:hasPermission('estimate', 'issueEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

@@ -7,15 +7,15 @@
         <f:facet name="header"> 
           <h:outputText value="Schedule "/> 
         </f:facet>  
-        <h:outputText value="#{msg.schedule_project}  "/>  
-        <h:selectOneMenu id="project" label="#{msg.schedule_project}" value="#{scheduleAction.schedule.project}" required="true"> 
+        <h:outputText value="#{msg.schedule_project}  " rendered="#{s:hasPermission('project', 'scheduleEdit')}"/>  
+        <h:selectOneMenu id="project" label="#{msg.schedule_project}" value="#{scheduleAction.schedule.project}" required="true" rendered="#{s:hasPermission('project', 'scheduleEdit')}"> 
           <s:selectItems value="#{projectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="project"/>  
-        <h:outputText value="#{msg.schedule_name} * "/>  
-        <h:inputText id="name#{entityId}" label="#{msg.schedule_name}" required="true" value="#{scheduleAction.schedule.name}"/>  
-        <h:message styleClass="error errors" for="name"/> 
+        <h:message styleClass="error errors" for="project" rendered="#{s:hasPermission('project', 'scheduleEdit')}"/>  
+        <h:outputText value="#{msg.schedule_name} * " rendered="#{s:hasPermission('name', 'scheduleEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'scheduleEdit')}" label="#{msg.schedule_name}" required="true" value="#{scheduleAction.schedule.name}"/>  
+        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'scheduleEdit')}"/> 
       </h:panelGrid>  
       <a:commandButton value="New ScheduleItem" action="#{scheduleAction.addScheduleItems}" reRender="scheduleItems"> 
         <s:conversationId/> 
@@ -23,27 +23,27 @@
       <rich:dataTable id="scheduleItems" var="_scheduleItem" value="#{scheduleAction.listScheduleItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.scheduleItem_employee}  "/>
+            <h:outputText value="#{msg.scheduleItem_employee}  " rendered="#{s:hasPermission('employee', 'scheduleItemEdit')}"/>
           </f:facet>  
-          <h:selectOneMenu id="employee" label="#{msg.scheduleItem_employee}" value="#{_scheduleItem.employee}" required="true"> 
+          <h:selectOneMenu id="employee" label="#{msg.scheduleItem_employee}" value="#{_scheduleItem.employee}" required="true" rendered="#{s:hasPermission('employee', 'scheduleItemEdit')}"> 
             <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <s:convertEntity/> 
           </h:selectOneMenu>  
-          <h:message styleClass="error errors" for="employee"/> 
+          <h:message styleClass="error errors" for="employee" rendered="#{s:hasPermission('employee', 'scheduleItemEdit')}"/> 
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.scheduleItem_startDate}  "/>
+            <h:outputText value="#{msg.scheduleItem_startDate}  " rendered="#{s:hasPermission('startDate', 'scheduleItemEdit')}"/>
           </f:facet>  
-          <rich:calendar id="startDate#{entityId}" label="#{msg.scheduleItem_startDate}" required="false" value="#{_scheduleItem.startDate}"/>  
-          <h:message styleClass="error errors" for="startDate"/> 
+          <rich:calendar id="startDate#{entityId}" rendered="#{s:hasPermission('startDate', 'scheduleItemEdit')}" label="#{msg.scheduleItem_startDate}" required="false" value="#{_scheduleItem.startDate}"/>  
+          <h:message styleClass="error errors" for="startDate" rendered="#{s:hasPermission('startDate', 'scheduleItemEdit')}"/> 
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.scheduleItem_endDate}  "/>
+            <h:outputText value="#{msg.scheduleItem_endDate}  " rendered="#{s:hasPermission('endDate', 'scheduleItemEdit')}"/>
           </f:facet>  
-          <rich:calendar id="endDate#{entityId}" label="#{msg.scheduleItem_endDate}" required="false" value="#{_scheduleItem.endDate}"/>  
-          <h:message styleClass="error errors" for="endDate"/> 
+          <rich:calendar id="endDate#{entityId}" rendered="#{s:hasPermission('endDate', 'scheduleItemEdit')}" label="#{msg.scheduleItem_endDate}" required="false" value="#{_scheduleItem.endDate}"/>  
+          <h:message styleClass="error errors" for="endDate" rendered="#{s:hasPermission('endDate', 'scheduleItemEdit')}"/> 
         </h:column>  
         <h:column> 
           <a:commandButton value="New ScheduleItem" action="#{scheduleAction.addScheduleItems}" reRender="scheduleItems"> 
