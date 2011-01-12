@@ -5,7 +5,7 @@
     <f:facet name="header">TimeSheet Search Results (#{empty records ? 0 : (timeSheetList.paginated ? timeSheetList.resultCount : records.size)})</f:facet>  
     <a:form> 
       <rich:dataTable var="_timeSheet" value="#{records}" id="timeSheetList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('id', 'timeSheetView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{timeSheetList}"/>  
@@ -15,7 +15,7 @@
           </f:facet>  
           <h:outputText value="#{_timeSheet.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('title', 'timeSheetView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{timeSheetList}"/>  
@@ -25,7 +25,7 @@
           </f:facet>  
           <h:outputText value="#{_timeSheet.title}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'timeSheetView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{timeSheetList}"/>  
@@ -34,7 +34,7 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_timeSheet.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
         <h:column> 

@@ -7,22 +7,22 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.examInstance_exam}  "/>  
+        <h:outputText value="#{msg.examInstance_exam}  " rendered="#{s:hasPermission('exam', 'examInstanceEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="exam" value="#{examInstanceAction.examInstance.exam}"> 
           <s:selectItems value="#{examList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="exam"/> 
+        <h:message styleClass="error errors" for="exam" rendered="#{s:hasPermission('exam', 'examInstanceEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.examInstance_candidate}  "/>  
+        <h:outputText value="#{msg.examInstance_candidate}  " rendered="#{s:hasPermission('candidate', 'examInstanceEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="candidate" value="#{examInstanceAction.examInstance.candidate}"> 
           <s:selectItems value="#{candidateList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="candidate"/> 
+        <h:message styleClass="error errors" for="candidate" rendered="#{s:hasPermission('candidate', 'examInstanceEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

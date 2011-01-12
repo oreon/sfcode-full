@@ -303,6 +303,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		return doSave();
 	}
 
+	@End(beforeRedirect=true)
 	public String saveWithoutConversation() {
 		String result = doSave();
 		// entityManager.refresh(getInstance());

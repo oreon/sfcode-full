@@ -6,22 +6,22 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.person_firstName} * "/>  
+      <h:outputText value="#{msg.person_firstName} * " rendered="#{s:hasPermission('firstName', 'employeeEdit')}"/>  
       <br/>  
       <h:inputText id="firstName" value="#{employeeList.employee.firstName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.person_lastName} * "/>  
+      <h:outputText value="#{msg.person_lastName} * " rendered="#{s:hasPermission('lastName', 'employeeEdit')}"/>  
       <br/>  
       <h:inputText id="lastName" value="#{employeeList.employee.lastName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_userName} * "/>  
+      <h:outputText value="#{msg.user_userName} * " rendered="#{s:hasPermission('userName', 'employeeEdit')}"/>  
       <br/>  
       <h:inputText id="user_userName" value="#{employeeList.employee.user.userName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_enabled}  "/>  
+      <h:outputText value="#{msg.user_enabled}  " rendered="#{s:hasPermission('enabled', 'employeeEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="user_enabled" value="#{employeeList.employee.user.enabled}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -30,12 +30,12 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_email} * "/>  
+      <h:outputText value="#{msg.user_email} * " rendered="#{s:hasPermission('email', 'employeeEdit')}"/>  
       <br/>  
       <h:inputText id="user_email" value="#{employeeList.employee.user.email}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_lastLogin}  "/>  
+      <h:outputText value="#{msg.user_lastLogin}  " rendered="#{s:hasPermission('lastLogin', 'employeeEdit')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -44,7 +44,7 @@
       <rich:calendar value="#{employeeList.user_lastLoginRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.employee_department}  "/>  
+      <h:outputText value="#{msg.employee_department}  " rendered="#{s:hasPermission('department', 'employeeEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="department" value="#{ employeeList.employee.department}"> 
         <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -52,12 +52,12 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.employee_employeeNumber}  "/>  
+      <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{s:hasPermission('employeeNumber', 'employeeEdit')}"/>  
       <br/>  
       <h:inputText id="employeeNumber" value="#{employeeList.employee.employeeNumber}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.employee_employeeType}  "/>  
+      <h:outputText value="#{msg.employee_employeeType}  " rendered="#{s:hasPermission('employeeType', 'employeeEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="employeeType" value="#{employeeList.employee.employeeType}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -68,27 +68,27 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
+      <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'employeeEdit')}"/>  
       <br/>  
       <h:inputText id="home_primaryPhone" value="#{employeeList.employee.home.primaryPhone}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
+      <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'employeeEdit')}"/>  
       <br/>  
       <h:inputText id="home_secondaryPhone" value="#{employeeList.employee.home.secondaryPhone}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.contactDetails_city}  "/>  
+      <h:outputText value="#{msg.contactDetails_city}  " rendered="#{s:hasPermission('city', 'employeeEdit')}"/>  
       <br/>  
       <h:inputText id="home_city" value="#{employeeList.employee.home.city}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.contactDetails_streetAddress}  "/>  
+      <h:outputText value="#{msg.contactDetails_streetAddress}  " rendered="#{s:hasPermission('streetAddress', 'employeeEdit')}"/>  
       <br/>  
       <h:inputText id="home_streetAddress" value="#{employeeList.employee.home.streetAddress}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.employee_projects}  "/>  
+      <h:outputText value="#{msg.employee_projects}  " rendered="#{s:hasPermission('projects', 'employeeEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="projects" value="#{ employeeList.projectToSearch}"> 
         <s:selectItems value="#{projectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  

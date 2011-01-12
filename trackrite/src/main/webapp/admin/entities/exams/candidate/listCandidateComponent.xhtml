@@ -5,7 +5,7 @@
     <f:facet name="header">Candidate Search Results (#{empty records ? 0 : (candidateList.paginated ? candidateList.resultCount : records.size)})</f:facet>  
     <a:form> 
       <rich:dataTable var="_candidate" value="#{records}" id="candidateList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('id', 'candidateView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{candidateList}"/>  
@@ -15,7 +15,7 @@
           </f:facet>  
           <h:outputText value="#{_candidate.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'candidateView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{candidateList}"/>  
@@ -24,7 +24,7 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_candidate.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
         <h:column> 

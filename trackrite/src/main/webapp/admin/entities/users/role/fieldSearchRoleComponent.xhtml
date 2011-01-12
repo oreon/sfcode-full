@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.role_name} * "/>  
+      <h:outputText value="#{msg.role_name} * " rendered="#{s:hasPermission('name', 'roleEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{roleList.role.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.role_users}  "/>  
+      <h:outputText value="#{msg.role_users}  " rendered="#{s:hasPermission('users', 'roleEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="users" value="#{ roleList.userToSearch}"> 
         <s:selectItems value="#{userList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  

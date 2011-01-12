@@ -7,18 +7,18 @@
         <f:facet name="header"> 
           <h:outputText value="User "/> 
         </f:facet>  
-        <h:outputText value="#{msg.user_userName} * "/>  
-        <h:inputText id="userName#{entityId}" label="#{msg.user_userName}" required="true" value="#{userAction.user.userName}"/>  
-        <h:message styleClass="error errors" for="userName"/>  
-        <h:outputText value="#{msg.user_password} * "/>  
-        <h:inputSecret redisplay="true" id="password#{entityId}" label="#{msg.user_password}" required="true" value="#{userAction.user.password}"/>  
-        <h:message styleClass="error errors" for="password"/>  
-        <h:outputText value="#{msg.user_enabled}  "/>  
-        <h:selectBooleanCheckbox id="enabled#{entityId}" label="#{msg.user_enabled}" required="false" value="#{userAction.user.enabled}"/>  
-        <h:message styleClass="error errors" for="enabled"/>  
-        <h:outputText value="#{msg.user_email} * "/>  
-        <h:inputText id="email#{entityId}" label="#{msg.user_email}" required="true" value="#{userAction.user.email}"/>  
-        <h:message styleClass="error errors" for="email"/> 
+        <h:outputText value="#{msg.user_userName} * " rendered="#{s:hasPermission('userName', 'userEdit')}"/>  
+        <h:inputText id="userName#{entityId}" rendered="#{s:hasPermission('userName', 'userEdit')}" label="#{msg.user_userName}" required="true" value="#{userAction.user.userName}"/>  
+        <h:message styleClass="error errors" for="userName" rendered="#{s:hasPermission('userName', 'userEdit')}"/>  
+        <h:outputText value="#{msg.user_password} * " rendered="#{s:hasPermission('password', 'userEdit')}"/>  
+        <h:inputSecret redisplay="true" id="password#{entityId}" rendered="#{s:hasPermission('password', 'userEdit')}" label="#{msg.user_password}" required="true" value="#{userAction.user.password}"/>  
+        <h:message styleClass="error errors" for="password" rendered="#{s:hasPermission('password', 'userEdit')}"/>  
+        <h:outputText value="#{msg.user_enabled}  " rendered="#{s:hasPermission('enabled', 'userEdit')}"/>  
+        <h:selectBooleanCheckbox id="enabled#{entityId}" rendered="#{s:hasPermission('enabled', 'userEdit')}" label="#{msg.user_enabled}" required="false" value="#{userAction.user.enabled}"/>  
+        <h:message styleClass="error errors" for="enabled" rendered="#{s:hasPermission('enabled', 'userEdit')}"/>  
+        <h:outputText value="#{msg.user_email} * " rendered="#{s:hasPermission('email', 'userEdit')}"/>  
+        <h:inputText id="email#{entityId}" rendered="#{s:hasPermission('email', 'userEdit')}" label="#{msg.user_email}" required="true" value="#{userAction.user.email}"/>  
+        <h:message styleClass="error errors" for="email" rendered="#{s:hasPermission('email', 'userEdit')}"/> 
       </h:panelGrid>  
       <br/>  
       <rich:simpleTogglePanel label="#{msg.user_roles}" switchType="client"> 

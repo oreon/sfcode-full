@@ -5,7 +5,7 @@
     <f:facet name="header">Answer Search Results (#{empty records ? 0 : (answerList.paginated ? answerList.resultCount : records.size)})</f:facet>  
     <a:form> 
       <rich:dataTable var="_answer" value="#{records}" id="answerList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('id', 'answerView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{answerList}"/>  
@@ -15,7 +15,7 @@
           </f:facet>  
           <h:outputText value="#{_answer.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('choice', 'answerView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{answerList}"/>  
@@ -28,7 +28,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column groupOn="#{answer.examInstance.displayName}"> 
+        <h:column groupOn="#{answer.examInstance.displayName}" rendered="#{s:hasPermission('examInstance', 'answerView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{answerList}"/>  
@@ -41,7 +41,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'answerView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{answerList}"/>  
@@ -50,7 +50,7 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_answer.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
         <h:column> 

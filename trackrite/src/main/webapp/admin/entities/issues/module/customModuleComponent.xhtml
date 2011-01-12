@@ -7,10 +7,10 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.module_name} * "/>  
+        <h:outputText value="#{msg.module_name} * " rendered="#{s:hasPermission('name', 'moduleEdit')}"/>  
         <br/>  
         <h:inputText id="name" value="#{moduleAction.module.name}"/>  
-        <h:message styleClass="error errors" for="name"/> 
+        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'moduleEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

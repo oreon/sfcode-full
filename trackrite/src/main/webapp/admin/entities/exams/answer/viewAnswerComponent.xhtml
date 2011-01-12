@@ -9,12 +9,12 @@
         </f:facet>  
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{answerAction.answer.id}"/>  
-        <h:outputText value="#{msg.answer_choice}  "/>  
+        <h:outputText value="#{msg.answer_choice}  " rendered="#{s:hasPermission('choice', 'answerView')}"/>  
         <s:link value="#{answerAction.answer.choice.displayName}" view="/admin/entities/exams/choice/viewChoice.xhtml" propagation="none"> 
           <f:param name="choiceId" value="#{answerAction.answer.choice.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.answer_examInstance}  "/>  
+        <h:outputText value="#{msg.answer_examInstance}  " rendered="#{s:hasPermission('examInstance', 'answerView')}"/>  
         <s:link value="#{answerAction.answer.examInstance.displayName}" view="/admin/entities/exams/examInstance/viewExamInstance.xhtml" propagation="none"> 
           <f:param name="examInstanceId" value="#{answerAction.answer.examInstance.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 

@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.answer_choice}  "/>  
+      <h:outputText value="#{msg.answer_choice}  " rendered="#{s:hasPermission('choice', 'answerEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="choice" value="#{ answerList.answer.choice}"> 
         <s:selectItems value="#{choiceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.answer_examInstance}  "/>  
+      <h:outputText value="#{msg.answer_examInstance}  " rendered="#{s:hasPermission('examInstance', 'answerEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="examInstance" value="#{ answerList.answer.examInstance}"> 
         <s:selectItems value="#{examInstanceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  

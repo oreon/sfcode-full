@@ -5,7 +5,7 @@
     <f:facet name="header">Department Search Results (#{empty records ? 0 : (departmentList.paginated ? departmentList.resultCount : records.size)})</f:facet>  
     <a:form> 
       <rich:dataTable var="_department" value="#{records}" id="departmentList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('id', 'departmentView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{departmentList}"/>  
@@ -15,7 +15,7 @@
           </f:facet>  
           <h:outputText value="#{_department.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('name', 'departmentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{departmentList}"/>  
@@ -25,7 +25,7 @@
           </f:facet>  
           <h:outputText value="#{_department.name}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'departmentView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{departmentList}"/>  
@@ -34,7 +34,7 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_department.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
         <h:column> 

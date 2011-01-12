@@ -7,25 +7,25 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.scheduleItem_startDate}  "/>  
+        <h:outputText value="#{msg.scheduleItem_startDate}  " rendered="#{s:hasPermission('startDate', 'scheduleItemEdit')}"/>  
         <br/>  
         <rich:calendar id="startDate" value="#{scheduleItemAction.scheduleItem.startDate}"/>  
-        <h:message styleClass="error errors" for="startDate"/> 
+        <h:message styleClass="error errors" for="startDate" rendered="#{s:hasPermission('startDate', 'scheduleItemEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.scheduleItem_endDate}  "/>  
+        <h:outputText value="#{msg.scheduleItem_endDate}  " rendered="#{s:hasPermission('endDate', 'scheduleItemEdit')}"/>  
         <br/>  
         <rich:calendar id="endDate" value="#{scheduleItemAction.scheduleItem.endDate}"/>  
-        <h:message styleClass="error errors" for="endDate"/> 
+        <h:message styleClass="error errors" for="endDate" rendered="#{s:hasPermission('endDate', 'scheduleItemEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.scheduleItem_employee}  "/>  
+        <h:outputText value="#{msg.scheduleItem_employee}  " rendered="#{s:hasPermission('employee', 'scheduleItemEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="employee" value="#{scheduleItemAction.scheduleItem.employee}"> 
           <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="employee"/> 
+        <h:message styleClass="error errors" for="employee" rendered="#{s:hasPermission('employee', 'scheduleItemEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

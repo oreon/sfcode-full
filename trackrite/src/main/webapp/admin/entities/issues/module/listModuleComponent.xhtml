@@ -5,7 +5,7 @@
     <f:facet name="header">Module Search Results (#{empty records ? 0 : (moduleList.paginated ? moduleList.resultCount : records.size)})</f:facet>  
     <a:form> 
       <rich:dataTable var="_module" value="#{records}" id="moduleList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('id', 'moduleView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{moduleList}"/>  
@@ -15,7 +15,7 @@
           </f:facet>  
           <h:outputText value="#{_module.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('name', 'moduleView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{moduleList}"/>  
@@ -25,7 +25,7 @@
           </f:facet>  
           <h:outputText value="#{_module.name}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'moduleView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{moduleList}"/>  
@@ -34,7 +34,7 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_module.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
         <h:column> 

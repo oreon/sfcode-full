@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.scheduleItem_startDate}  "/>  
+      <h:outputText value="#{msg.scheduleItem_startDate}  " rendered="#{s:hasPermission('startDate', 'scheduleItemEdit')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -15,7 +15,7 @@
       <rich:calendar value="#{scheduleItemList.startDateRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.scheduleItem_endDate}  "/>  
+      <h:outputText value="#{msg.scheduleItem_endDate}  " rendered="#{s:hasPermission('endDate', 'scheduleItemEdit')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -24,7 +24,7 @@
       <rich:calendar value="#{scheduleItemList.endDateRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.scheduleItem_employee}  "/>  
+      <h:outputText value="#{msg.scheduleItem_employee}  " rendered="#{s:hasPermission('employee', 'scheduleItemEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="employee" value="#{ scheduleItemList.scheduleItem.employee}"> 
         <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  

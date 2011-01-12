@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.exam_name} * "/>  
+      <h:outputText value="#{msg.exam_name} * " rendered="#{s:hasPermission('name', 'examEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{examList.exam.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.exam_duration}  "/>  
+      <h:outputText value="#{msg.exam_duration}  " rendered="#{s:hasPermission('duration', 'examEdit')}"/>  
       <br/>  
       <h:inputText id="duration_begin" value="#{examList.durationRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 

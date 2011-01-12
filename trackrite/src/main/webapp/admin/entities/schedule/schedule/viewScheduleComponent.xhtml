@@ -9,18 +9,18 @@
         </f:facet>  
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{scheduleAction.schedule.id}"/>  
-        <h:outputText value="#{msg.schedule_project}  "/>  
+        <h:outputText value="#{msg.schedule_project}  " rendered="#{s:hasPermission('project', 'scheduleView')}"/>  
         <s:link value="#{scheduleAction.schedule.project.displayName}" view="/admin/entities/issues/project/viewProject.xhtml" propagation="none"> 
           <f:param name="projectId" value="#{scheduleAction.schedule.project.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.schedule_name}  "/>  
-        <h:outputText id="name#{entityId}" value="#{scheduleAction.schedule.name}"/> 
+        <h:outputText value="#{msg.schedule_name}  " rendered="#{s:hasPermission('name', 'scheduleView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'scheduleView')}" value="#{scheduleAction.schedule.name}"/> 
       </h:panelGrid>  
       <rich:dataTable id="scheduleItems" var="_scheduleItem" rendered="#{not empty scheduleAction.listScheduleItems}" value="#{scheduleAction.listScheduleItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.scheduleItem_employee}  "/>
+            <h:outputText value="#{msg.scheduleItem_employee}  " rendered="#{s:hasPermission('employee', 'scheduleItemView')}"/>
           </f:facet>  
           <s:link value="#{_scheduleItem.employee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
             <f:param name="employeeId" value="#{_scheduleItem.employee.id}"/>  
@@ -29,15 +29,15 @@
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.scheduleItem_startDate}  "/>
+            <h:outputText value="#{msg.scheduleItem_startDate}  " rendered="#{s:hasPermission('startDate', 'scheduleItemView')}"/>
           </f:facet>  
-          <h:outputText id="startDate#{entityId}" value="#{_scheduleItem.startDate}"/> 
+          <h:outputText id="startDate#{entityId}" rendered="#{s:hasPermission('startDate', 'scheduleItemView')}" value="#{_scheduleItem.startDate}"/> 
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.scheduleItem_endDate}  "/>
+            <h:outputText value="#{msg.scheduleItem_endDate}  " rendered="#{s:hasPermission('endDate', 'scheduleItemView')}"/>
           </f:facet>  
-          <h:outputText id="endDate#{entityId}" value="#{_scheduleItem.endDate}"/> 
+          <h:outputText id="endDate#{entityId}" rendered="#{s:hasPermission('endDate', 'scheduleItemView')}" value="#{_scheduleItem.endDate}"/> 
         </h:column> 
       </rich:dataTable> 
     </s:validateAll> 

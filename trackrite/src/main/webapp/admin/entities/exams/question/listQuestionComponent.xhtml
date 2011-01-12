@@ -5,7 +5,7 @@
     <f:facet name="header">Question Search Results (#{empty records ? 0 : (questionList.paginated ? questionList.resultCount : records.size)})</f:facet>  
     <a:form> 
       <rich:dataTable var="_question" value="#{records}" id="questionList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('id', 'questionView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{questionList}"/>  
@@ -15,7 +15,7 @@
           </f:facet>  
           <h:outputText value="#{_question.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('text', 'questionView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{questionList}"/>  
@@ -25,7 +25,7 @@
           </f:facet>  
           <h:outputText value="#{_question.text}"/> 
         </h:column>  
-        <h:column groupOn="#{question.exam.displayName}"> 
+        <h:column groupOn="#{question.exam.displayName}" rendered="#{s:hasPermission('exam', 'questionView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{questionList}"/>  
@@ -38,7 +38,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'questionView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{questionList}"/>  
@@ -47,7 +47,7 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_question.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
         <h:column> 

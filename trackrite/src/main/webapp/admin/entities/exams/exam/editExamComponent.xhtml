@@ -7,12 +7,12 @@
         <f:facet name="header"> 
           <h:outputText value="Exam "/> 
         </f:facet>  
-        <h:outputText value="#{msg.exam_name} * "/>  
-        <h:inputText id="name#{entityId}" label="#{msg.exam_name}" required="true" value="#{examAction.exam.name}"/>  
-        <h:message styleClass="error errors" for="name"/>  
-        <h:outputText value="#{msg.exam_duration}  "/>  
-        <h:inputText id="duration#{entityId}" label="#{msg.exam_duration}" required="false" value="#{examAction.exam.duration}"/>  
-        <h:message styleClass="error errors" for="duration"/> 
+        <h:outputText value="#{msg.exam_name} * " rendered="#{s:hasPermission('name', 'examEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'examEdit')}" label="#{msg.exam_name}" required="true" value="#{examAction.exam.name}"/>  
+        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'examEdit')}"/>  
+        <h:outputText value="#{msg.exam_duration}  " rendered="#{s:hasPermission('duration', 'examEdit')}"/>  
+        <h:inputText id="duration#{entityId}" rendered="#{s:hasPermission('duration', 'examEdit')}" label="#{msg.exam_duration}" required="false" value="#{examAction.exam.duration}"/>  
+        <h:message styleClass="error errors" for="duration" rendered="#{s:hasPermission('duration', 'examEdit')}"/> 
       </h:panelGrid>  
       <a:commandButton value="New Question" action="#{examAction.addQuestions}" reRender="questions"> 
         <s:conversationId/> 
@@ -20,10 +20,10 @@
       <rich:dataTable id="questions" var="_question" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.question_text} * "/>
+            <h:outputText value="#{msg.question_text} * " rendered="#{s:hasPermission('text', 'questionEdit')}"/>
           </f:facet>  
-          <h:inputText id="text#{entityId}" label="#{msg.question_text}" required="true" value="#{_question.text}"/>  
-          <h:message styleClass="error errors" for="text"/> 
+          <h:inputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'questionEdit')}" label="#{msg.question_text}" required="true" value="#{_question.text}"/>  
+          <h:message styleClass="error errors" for="text" rendered="#{s:hasPermission('text', 'questionEdit')}"/> 
         </h:column>  
         <h:column> 
           <a:commandButton value="New Question" action="#{examAction.addQuestions}" reRender="questions"> 

@@ -39,7 +39,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("Lavendar");
+			question.setText("beta");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -57,7 +57,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("delta");
+			question.setText("gamma");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -75,7 +75,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("alpha");
+			question.setText("pi");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -93,7 +93,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("zeta");
+			question.setText("epsilon");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 
@@ -111,7 +111,7 @@ public class QuestionTestDataFactory
 
 		try {
 
-			question.setText("Lavendar");
+			question.setText("Mark");
 
 			question.setExam(examTestDataFactory.getRandomRecord());
 

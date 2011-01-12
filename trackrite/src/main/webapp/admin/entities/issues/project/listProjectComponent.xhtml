@@ -5,7 +5,7 @@
     <f:facet name="header">Project Search Results (#{empty records ? 0 : (projectList.paginated ? projectList.resultCount : records.size)})</f:facet>  
     <a:form> 
       <rich:dataTable var="_project" value="#{records}" id="projectList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('id', 'projectView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{projectList}"/>  
@@ -15,7 +15,7 @@
           </f:facet>  
           <h:outputText value="#{_project.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('name', 'projectView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{projectList}"/>  
@@ -25,7 +25,7 @@
           </f:facet>  
           <h:outputText value="#{_project.name}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('description', 'projectView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{projectList}"/>  
@@ -35,7 +35,7 @@
           </f:facet>  
           <h:outputText value="#{_project.description}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'projectView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{projectList}"/>  
@@ -44,7 +44,7 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_project.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="short"/> 
           </h:outputText> 
         </h:column>  
         <h:column> 

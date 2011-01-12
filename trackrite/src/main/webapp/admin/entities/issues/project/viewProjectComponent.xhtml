@@ -9,10 +9,10 @@
         </f:facet>  
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{projectAction.project.id}"/>  
-        <h:outputText value="#{msg.project_name}  "/>  
-        <h:outputText id="name#{entityId}" value="#{projectAction.project.name}"/>  
-        <h:outputText value="#{msg.project_description}  "/>  
-        <s:formattedText escape="false" id="description#{entityId}" value="#{projectAction.project.description}"/> 
+        <h:outputText value="#{msg.project_name}  " rendered="#{s:hasPermission('name', 'projectView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'projectView')}" value="#{projectAction.project.name}"/>  
+        <h:outputText value="#{msg.project_description}  " rendered="#{s:hasPermission('description', 'projectView')}"/>  
+        <s:formattedText escape="false" id="description#{entityId}" rendered="#{s:hasPermission('description', 'projectView')}" value="#{projectAction.project.description}"/> 
       </h:panelGrid>  
       <br/>  
       <rich:simpleTogglePanel label="#{msg.project_employees}" switchType="client"> 

@@ -14,7 +14,7 @@ import org.witchcraft.base.entity.Range;
 import org.jboss.seam.annotations.Observer;
 
 @Name("issueList")
-// CMTD @Scope(ScopeType.CONVERSATION)
+@Scope(ScopeType.CONVERSATION)
 public class IssueListQuery extends IssueListQueryBase implements
 		java.io.Serializable {
 

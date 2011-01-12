@@ -7,19 +7,19 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.choice_question}  "/>  
+        <h:outputText value="#{msg.choice_question}  " rendered="#{s:hasPermission('question', 'choiceEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="question" value="#{choiceAction.choice.question}"> 
           <s:selectItems value="#{questionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="question"/> 
+        <h:message styleClass="error errors" for="question" rendered="#{s:hasPermission('question', 'choiceEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.choice_text} * "/>  
+        <h:outputText value="#{msg.choice_text} * " rendered="#{s:hasPermission('text', 'choiceEdit')}"/>  
         <br/>  
         <h:inputText id="text" value="#{choiceAction.choice.text}"/>  
-        <h:message styleClass="error errors" for="text"/> 
+        <h:message styleClass="error errors" for="text" rendered="#{s:hasPermission('text', 'choiceEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

@@ -9,20 +9,20 @@
         </f:facet>  
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{questionAction.question.id}"/>  
-        <h:outputText value="#{msg.question_exam}  "/>  
+        <h:outputText value="#{msg.question_exam}  " rendered="#{s:hasPermission('exam', 'questionView')}"/>  
         <s:link value="#{questionAction.question.exam.displayName}" view="/admin/entities/exams/exam/viewExam.xhtml" propagation="none"> 
           <f:param name="examId" value="#{questionAction.question.exam.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.question_text}  "/>  
-        <h:outputText id="text#{entityId}" value="#{questionAction.question.text}"/> 
+        <h:outputText value="#{msg.question_text}  " rendered="#{s:hasPermission('text', 'questionView')}"/>  
+        <h:outputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'questionView')}" value="#{questionAction.question.text}"/> 
       </h:panelGrid>  
       <rich:dataTable id="choices" var="_choice" rendered="#{not empty questionAction.listChoices}" value="#{questionAction.listChoices}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.choice_text}  "/>
+            <h:outputText value="#{msg.choice_text}  " rendered="#{s:hasPermission('text', 'choiceView')}"/>
           </f:facet>  
-          <h:outputText id="text#{entityId}" value="#{_choice.text}"/> 
+          <h:outputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'choiceView')}" value="#{_choice.text}"/> 
         </h:column> 
       </rich:dataTable> 
     </s:validateAll> 
