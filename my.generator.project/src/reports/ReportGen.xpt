@@ -42,8 +42,8 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 		«EXPAND GenGroupSummaryVar FOR a-»
 	«ENDFOREACH»
 	
-	«FOREACH getAllAttributes().typeSelect(wcprofile::ReportGroup) AS a»
-		«EXPAND GroupGen FOR a-»
+	«FOREACH getAllAttributes().typeSelect(wcprofile::ReportGroup) AS a  ITERATOR iter  »
+		«EXPAND GroupGen(iter.counter1) FOR a-»
 	«ENDFOREACH»
 	
 	«resetCounter()-»
@@ -76,9 +76,9 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 				<text><![CDATA[Summary]]> </text>
 			</staticText>
 			«EXPAND SummaryGen FOREACH getAllAttributes()-»
-			«REM»comment
+		
 			«EXPAND genChart FOREACH allOwnedElements().typeSelect(wcprofile::ReportChart)»
-			«ENDREM»
+			
 		</band>
 	</summary>
 	
@@ -112,7 +112,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 	«IF visible»
 		<textField isBlankWhenNull="true"  isStretchWithOverflow="true">
 			<reportElement x="«getCounter() * getFieldWidth()»" y="0" width="«getFieldWidth()»" height="24"/>
-			<textElement textAlignment="Center"/>
+			<textElement />
 			<textFieldExpression class="«getFieldType()»">
 				<![CDATA[$F{«fieldExpression != null ? fieldExpression :  name »}]]>
 			</textFieldExpression>
@@ -123,7 +123,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 «DEFINE FieldGen FOR uml::Property»
 		<textField isBlankWhenNull="true" isStretchWithOverflow="true">
 			<reportElement x="«getCounter() * getFieldWidth()»" y="0" width="«getFieldWidth()»" height="24"/>
-			<textElement textAlignment="Center"/>
+			<textElement />
 			<textFieldExpression class="«getFieldType()»"> 
 				<![CDATA[$F{«genFieldExpr(type)-»}]]>
 			</textFieldExpression>
@@ -151,16 +151,17 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 			</staticText>
 «ENDDEFINE»
 
-«DEFINE GroupGen FOR ReportGroup»
+«DEFINE GroupGen(int index) FOR ReportGroup»
 	<group name="Group«getGroupName()»" minHeightToStartNewPage="60">
 		<groupExpression><![CDATA[$F{«genFieldExpr(type)»}]]></groupExpression>
 		<groupHeader>
 			<band height="20">
-				<textField evaluationTime="Group" evaluationGroup="Group«getGroupName()»" bookmarkLevel="1">
-					<reportElement mode="Opaque" x="0" y="5" width="«class.getAllReportFields().size * getFieldWidth()»" height="15" backcolor="#c0c0c0" />
+				<textField evaluationTime="Group" evaluationGroup="Group«getGroupName()»" bookmarkLevel="«index»">
+					<reportElement mode="Opaque" x="0" y="5" width="«class.getAllReportFields().size * getFieldWidth()»" 
+						height="15" backcolor="«getGroupColor(index)»" />
 					<box leftPadding="10" bottomBorder="1Point"/>
 					<textFieldExpression class="java.lang.String">
-						<![CDATA["  " + String.valueOf($F{«genFieldExpr(type)»})]]>
+						<![CDATA[String.valueOf($F{«genFieldExpr(type)»})]]>
 					</textFieldExpression>
 					<anchorNameExpression><![CDATA[String.valueOf($F{«genFieldExpr(type)»})]]></anchorNameExpression>
 				</textField>
@@ -172,12 +173,14 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 				«LET summaryFields.getAsList() AS summaryList»
 				«FOREACH  summaryList AS s»
 				<staticText>
-					<reportElement x="«((515/getFieldWidth()) - (summaryList.size * 2) + getCounter()) * getFieldWidth()»" y="1" width="60" height="15" />
+					<reportElement x="«((515/getFieldWidth()) - (summaryList.size * 2) + getCounter()) * getFieldWidth()»"
+						 y="1" width="60" height="15"  backcolor="#c0c0dd" />
 					<textElement textAlignment="Right"/>
 					<text><![CDATA[«s.toFirstUpper()»:]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="«((515/getFieldWidth()) - (summaryList.size * 2) + getCounter()) * getFieldWidth() »" y="1" width="30" height="15" />
+					<reportElement x="«((515/getFieldWidth()) - (summaryList.size * 2) + getCounter()) * getFieldWidth() »" 
+						y="1" width="30" height="15" backcolor="#c0c0ff" />
 					<textElement textAlignment="Right"/>
 					<textFieldExpression class="«s == "count"?"java.lang.Integer": class.getAttrib(s.getField()).getFieldType()»">
 						<![CDATA[$V{Group«getGroupName()»_«s == "count"?s.getCalculation().toUpperCase():s.getCalculation()»}]]>
@@ -282,18 +285,44 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 
 «DEFINE genChart FOR ReportChart»
 	«LET chartType.name.toLowerCase() AS chartTypeStr»
+		«IF chartTypeStr == "pie"»
+		
 		<«chartTypeStr»Chart>
 			<chart evaluationTime="Report">
-				<reportElement x="135" y="0" width="270" height="270"/>
+				<reportElement x="235" y="0" width="240" height="240"/>
 			</chart>
       		<pieDataset>
-      			<keyExpression><![CDATA[$F{«key»}]]></keyExpression>
-      			<valueExpression><![CDATA[$V{«value»}]]></valueExpression>
+      			<keyExpression><![CDATA[$F{«key.trim()»}]]></keyExpression>
+      			<valueExpression><![CDATA[$V{«value.trim()»}]]></valueExpression>
+      			<labelExpression><![CDATA[$F{«key.trim()»}  + " - " + $V{«value.trim()»}  ]]></labelExpression>
       		</pieDataset>
       		<«chartTypeStr»Plot>
       			<plot/>
       		</«chartTypeStr»Plot>
 		</«chartTypeStr»Chart>
+		
+		«ELSEIF chartTypeStr == "bar"»
+			<barChart>
+  					<chart evaluationTime="Report" >
+  						<reportElement positionType="Float" x="0" y="0" width="270" height="275"/>
+  						<chartTitle/>
+  						<chartSubtitle/>
+  						<chartLegend/>
+  					</chart>
+  					<categoryDataset>			
+  						<categorySeries>
+  							<seriesExpression><![CDATA[$F{«key.trim()»}]]></seriesExpression>
+  							<categoryExpression><![CDATA[$F{«category.trim()»}]]></categoryExpression>
+  							<valueExpression><![CDATA[$V{«value.trim()»}]]></valueExpression>
+  						</categorySeries>
+  						
+  					</categoryDataset>
+  					<barPlot isShowTickLabels="true" isShowTickMarks="true"  >
+  						<plot />
+  					</barPlot>
+			</barChart>
+		
+		«ENDIF»
 	«ENDLET»
 «ENDDEFINE»
 

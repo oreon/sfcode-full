@@ -41,8 +41,9 @@
 	<h:panelGrid columns="6">
 	«setAsCurrentEntity(this)-»
 	«EXPAND genAttribAsOutput FOR this-»
-	«EXPAND genDateRange FOR this»
 	</h:panelGrid>
+	«EXPAND genDateRange FOR this»
+	
 </ui:composition>
 «ENDFILE»
 «ENDDEFINE»
@@ -108,8 +109,14 @@
 
 
 «DEFINE genDateRange FOR uml::Class»
-	<rich:calendar id="from" value="#{«getCurrentEntity().asVar()»List.dateCreatedRange.begin}" />
-	<rich:calendar id="to" value="#{«getCurrentEntity().asVar()»List.dateCreatedRange.end}" />
+	<h:panelGrid columns="2">
+		<h:outputText value="Creation Date From" />
+		<h:outputText value="Creation Date To" />
+		<rich:calendar id="from"
+			value="#{severityList.dateCreatedRange.begin}" />
+
+		<rich:calendar id="to" value="#{severityList.dateCreatedRange.end}" />
+	</h:panelGrid>
 «ENDDEFINE»
 
 «DEFINE genCancelSaveBtns FOR uml::Class»
@@ -216,6 +223,9 @@
 	</h:inputText>
 	«ENDIF»
 «ENDDEFINE»
+
+
+
 
 
 «

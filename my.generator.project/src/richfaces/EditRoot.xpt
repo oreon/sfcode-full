@@ -25,7 +25,7 @@
 		«IF templatable && !isCurrentTemplateMode() »«EXPAND genTemplateChooser FOR this»«ENDIF»
 		<h:form  enctype="multipart/form-data"> «REM»TODO : usemultipart «ENDREM»
 		«IF isCurrentTemplateMode()»Template Name: <h:inputText value="#{«getAction()».templateName}" required="true" />«ENDIF»
-		<ui:include src = "edit«name»Component.«getExtension()»" />
+		<ui:include src = "«getComponentViewFile("edit")»" />
 		«EXPAND genCancelSaveBtns(true) FOR this»
 		</h:form>
 	</ui:define> 
@@ -51,7 +51,7 @@
 					«EXPAND genCancelSaveBtns(false) FOR this»
 				</rich:tab>
 			«FOREACH getOutgoingAssociations() AS a ITERATOR iter»
-				<rich:tab label="«a.name.toFirstUpper()»">
+				<rich:tab label="«a.name.toFirstUpper()»"  rendered="#{«getAction()».instance.«a.name» != null}">
 					<ui:include src = "«a.type.getComponentViewFile("view")»" >
 						«REM»comment<ui:param name="entityId" value="«getRandomNumber()»" />«ENDREM»
 						<ui:param name="entityId" value="«iter.counter1»" />
@@ -67,21 +67,25 @@
 			<rich:tabPanel>
 			«FOREACH getNonComposedManyAssociations() AS a»
 			<rich:tab label="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
+				<c:set var="modalId" value="«name»ModalPanel-«a.name»" />
 				<ui:include src = "«a.type.getComponentViewFile("list")»" >
 					<ui:param name="records" value="#{«a.type.asVar()»List.get«a.name.toFirstUpper()»By«a.opposite.name.toFirstUpper()»(«getAction()».instance)}" />
+         			<ui:param name="modalId" value="${modalId}" />
          		</ui:include>
          		<a:form> 
 		      		<s:button value="Create New" view="«a.type.getViewFile("edit")»" > 
 		      			<f:param name="«name.toFirstLower()»Id" value="#{«getAction()».instance.id}" />
 		      		    <f:param name="«a.type.name.toFirstLower()»Id" value="0"/> 
 		      		</s:button>
-		      		  <a:commandButton oncomplete="Richfaces.showModalPanel('«a.type.name»ModalPanel',{});" value="Quick Create">
+		      		  <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create">
 			            <a:actionparam name="«a.type.name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.«a.type.name.toFirstLower()»Id}" value="0"  />
 			         	<a:actionparam name="«name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.«a.opposite.name»Id}" 
 			         		value="#{«name.toFirstLower()»Action.instance.id}"  />
 			         </a:commandButton>
 		    	</a:form>
-		    	<ui:include src="«a.type.getComponentViewFile("modalDlg")»" /> 
+		    	<ui:include src="«a.type.getComponentViewFile("modalDlg")»" > 
+		    		<ui:param name="modalId" value="${modalId}" />
+		    	</ui:include>
 			</rich:tab>
 			«ENDFOREACH»
 			</rich:tabPanel>
@@ -108,13 +112,15 @@
 «DEFINE genEditViewComponent(boolean edit) FOR uml::Class»
 	«FILE getWebPath() +"/" + (edit?"edit":"view") + name+ "Component." + getExtension()»
 	<ui:composition «EXPAND WebRoot::genIncludes-» >	
+	<rich:panel>
+	<f:facet name="header">
+			<h:outputText value="«name» " />
+	</f:facet>
 	<h:panelGroup   >
 		<s:validateAll>
 		«setAsCurrentEntity(this)-»
 		<h:panelGrid columns="«edit?"3":"6"»" styleClass="«(edit)?"edit":"view"»Info" columnClasses="leftCol, rightCol"  onload="#{«getAction()».load(«asVar()»Id )  }">
-		<f:facet name="header">
-			<h:outputText value="«name» " />
-		</f:facet>
+		
 		«IF !edit»
 			<h:outputText value="#{msg.id}" />
 			<h:outputText  value="#{«asVar()»Action.«asVar()».id}" />
@@ -127,6 +133,7 @@
 		</s:validateAll>
 	
 	</h:panelGroup>
+	</rich:panel>
 	</ui:composition>
 	«ENDFILE»
 «ENDDEFINE»
@@ -357,7 +364,7 @@
 			<s:graphicImage value="#{«currentFile».data}" />
 		</c:when>
 		<c:otherwise>
-			<s:link value="#{«currentFile».name}"  action="#{«class.getAction()».downloadFile(null)}" propagation="none" >
+			<s:link value="#{«currentFile».name}"  action="#{«class.getAction()».download«name.toFirstUpper()»(null)}" propagation="none" >
 				<f:param name="currentEntityId" value="#{«class.getAction()».instance.id}" />
 			</s:link>
 		</c:otherwise>
@@ -369,6 +376,7 @@
 «DEFINE genFilePropertyEntry FOR uml::Property-»
 	«LET "_" + getCurrentEntity().asVar() AS currentFile»
 	«IF isCurrentEditMode() »  
+		<h:panelGroup>
 		«IF isCurrentMultiMode()»
 		<s:div rendered="#{«currentFile».id > 0 }">
 			«EXPAND getFileView »			
@@ -387,6 +395,7 @@
 			«getTextForImgFile()» 
 		</s:div>
 		«ENDIF»
+		 </h:panelGroup>
 	«ELSE» 
 		«EXPAND getFileView » 
 	«ENDIF»

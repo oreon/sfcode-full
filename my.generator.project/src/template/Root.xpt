@@ -84,6 +84,8 @@
 		      @Parameter(name = "language", value = "English")
 		    })
 	})
+	«ELSE»
+	@Inheritance(strategy=InheritanceType.«inheritanceType.name»)
 	«ENDIF»
 	public  «IF isAbstract» abstract «ENDIF» class «name» «getParent()»  «getInterfaces()» «getImplementedInterfaces().isEmpty  ?" implements " : ","»  «getAuditable()?"Auditable, ":""» java.io.Serializable {
 		private static final long serialVersionUID = «serialver()»;
