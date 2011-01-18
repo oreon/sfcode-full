@@ -269,8 +269,8 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	
 	public void updateAssociations(){
 		«FOREACH getNonComposedManyAssociations() AS a»
-		«a.type.fqn()» «a.type.name.toFirstLower()» =(«a.type.fqn()») org.jboss.seam.Component.getInstance("«a.type.name.toFirstLower()»");
-		«a.type.name.toFirstLower()».set«a.opposite.name.toFirstUpper()»(«asVar()»);
+		«a.type.fqn()» «a.name» =(«a.type.fqn()») org.jboss.seam.Component.getInstance("«a.type.name.toFirstLower()»");
+		«a.name».set«a.opposite.name.toFirstUpper()»(«asVar()»);
 		events.raiseTransactionSuccessEvent("archived«a.type.name»");
 		«ENDFOREACH»
 	}

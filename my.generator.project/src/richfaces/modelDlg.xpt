@@ -16,7 +16,9 @@
 
 <ui:composition «EXPAND WebRoot::genIncludes-»>	
 
-	<rich:modalPanel id="«name»ModalPanel" autosized="true" zindex="2000" domElementAttachment="parent">
+  <c:set var="opId" value="outptuPanel-${modalId}"/>  
+
+	<rich:modalPanel id="${modalId}" autosized="true" zindex="2000" domElementAttachment="parent">
 			<f:facet name="header">
 				<h:panelGroup>
 					<h:outputText value="New «name»"></h:outputText>
@@ -25,14 +27,14 @@
 			<f:facet name="controls">
 				<h:panelGroup>
 					<h:graphicImage value="/images/icons/close.png" alt="Close"
-						styleClass="hidelink" id="hide«name»ModalPanel" />
-					<rich:componentControl for="«name»ModalPanel" attachTo="hide«name»ModalPanel"
+						styleClass="hidelink" id="hide${modalId}" />
+					<rich:componentControl for="${modalId}" attachTo="hide${modalId}"
 						operation="hide" event="onclick" />
 				</h:panelGroup>
 			</f:facet>
 			
 			<s:div >
-				<a:outputPanel ajaxRendered="true"  id="«name.toFirstLower()»OutputPanel">
+				<a:outputPanel ajaxRendered="true"  id="${opId}">
 					<rich:messages passedLabel=""
 						style="width:100%; text-align: left; color: red; font-weight: bold;"
 						 layout="list" rendered="#{facesContext.maximumSeverity != null}"
@@ -44,16 +46,16 @@
 						<ui:include src = "«getComponentViewFile("edit")»" />
 					
 						<a:commandButton action="#{«getAction()».saveWithoutConversation}"
-							oncomplete="if (#{facesContext.maximumSeverity == null || facesContext.maximumSeverity.ordinal le 1 }) { Richfaces.hideModalPanel('«name»ModalPanel'); }"
-							reRender="«name.toFirstLower()»List, «name.toFirstLower()»OutputPanel"
+							oncomplete="if (#{facesContext.maximumSeverity == null || facesContext.maximumSeverity.ordinal le 1 }) { Richfaces.hideModalPanel('#{modalId}'); }"
+							reRender="«name.toFirstLower()»List, ${opId}"
 							value="Save" >
 							 <f:param name="conversationPropagation" value="end"/>
 							
 						</a:commandButton>
 						<h:outputText value=" " />
-						<a:commandButton  immediate="true" oncomplete="Richfaces.hideModalPanel('«name»ModalPanel')" value="Hide" />
+						<a:commandButton  immediate="true" oncomplete="Richfaces.hideModalPanel('${modalId}')" value="Hide" />
 						<h:outputText value=" " />
-						<a:commandButton  immediate="true" type="reset" oncomplete="Richfaces.hideModalPanel('«name»ModalPanel');"  value="Cancel"> 
+						<a:commandButton  immediate="true" type="reset" oncomplete="Richfaces.hideModalPanel('${modalId}');"  value="Cancel"> 
 				          <f:param name="conversationPropagation" value="end"/> 
 				        </a:commandButton>
 
@@ -69,7 +71,7 @@
 	«FILE getWebPath() +"/modalDlgView" + name + "Component." + getExtension()»
 	
 <ui:composition «EXPAND WebRoot::genIncludes-»>	
-	<rich:modalPanel id="view«name»ModalPanel" autosized="true" zindex="2000" domElementAttachment="parent">
+	<rich:modalPanel id="view${modalId}" autosized="true" zindex="2000" domElementAttachment="parent">
 			<f:facet name="header">
 				<h:panelGroup>
 					<h:outputText value="New «name»"></h:outputText>
@@ -79,7 +81,7 @@
 				<h:panelGroup>
 					<h:graphicImage value="/img/close.png" alt="Close"
 						styleClass="hidelink"  />
-					<rich:componentControl for="view«name»ModalPanel" attachTo="hidelink"
+					<rich:componentControl for="view${modalId}" attachTo="hidelink"
 						operation="hide" event="onclick" />
 				</h:panelGroup>
 			</f:facet>
@@ -89,7 +91,7 @@
 					<a:form>
 						<ui:include src = "«getComponentViewFile("view")»" />
 						<h:outputText value=" " />
-						<a:commandButton oncomplete="Richfaces.hideModalPanel('«name»ModalPanel')" value="Hide" />
+						<a:commandButton oncomplete="Richfaces.hideModalPanel('${modalId}')" value="Hide" />
 					</a:form>
 				</a:outputPanel>
 			</s:div>
