@@ -157,7 +157,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 		<groupHeader>
 			<band height="20">
 				<textField evaluationTime="Group" evaluationGroup="Group«getGroupName()»" bookmarkLevel="«index»">
-					<reportElement mode="Opaque" x="0" y="5" width="«class.getAllReportFields().size * getFieldWidth()»" 
+					<reportElement mode="Opaque" x="«(index - 1) * 10»" y="5" width="«getDefaultWidth()»" 
 						height="15" backcolor="«getGroupColor(index)»" />
 					<box leftPadding="10" bottomBorder="1Point"/>
 					<textFieldExpression class="java.lang.String">
@@ -172,18 +172,12 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 			<band height="20">
 				«LET summaryFields.getAsList() AS summaryList»
 				«FOREACH  summaryList AS s»
-				<staticText>
-					<reportElement x="«((515/getFieldWidth()) - (summaryList.size * 2) + getCounter()) * getFieldWidth()»"
-						 y="1" width="60" height="15"  backcolor="#c0c0dd" />
-					<textElement textAlignment="Right"/>
-					<text><![CDATA[«s.toFirstUpper()»:]]></text>
-				</staticText>
 				<textField>
-					<reportElement x="«((515/getFieldWidth()) - (summaryList.size * 2) + getCounter()) * getFieldWidth() »" 
-						y="1" width="30" height="15" backcolor="#c0c0ff" />
+					<reportElement x="0" mode="Opaque"
+						y="1" width="«getDefaultWidth()»" height="15" backcolor="«getGroupColor(index)»" />
 					<textElement textAlignment="Right"/>
-					<textFieldExpression class="«s == "count"?"java.lang.Integer": class.getAttrib(s.getField()).getFieldType()»">
-						<![CDATA[$V{Group«getGroupName()»_«s == "count"?s.getCalculation().toUpperCase():s.getCalculation()»}]]>
+					<textFieldExpression class="java.lang.String">
+						<![CDATA["«s» For " + $F{«genFieldExpr(type)» + " : " + $V{Group«getGroupName()»_«s == "count"?s.getCalculation().toUpperCase():s.getCalculation()»}]]>
 					</textFieldExpression>
 				</textField>
 				«ENDFOREACH»
