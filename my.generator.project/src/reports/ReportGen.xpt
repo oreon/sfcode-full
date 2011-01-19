@@ -177,7 +177,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 						y="1" width="«getDefaultWidth()»" height="15" backcolor="«getGroupColor(index)»" />
 					<textElement textAlignment="Right"/>
 					<textFieldExpression class="java.lang.String">
-						<![CDATA["«s» For " + $F{«genFieldExpr(type)» + " : " + $V{Group«getGroupName()»_«s == "count"?s.getCalculation().toUpperCase():s.getCalculation()»}]]>
+						<![CDATA["«s.toFirstUpper()» For " + $F{«genFieldExpr(type)»} + " : " + $V{Group«getGroupName()»_«s == "count"?s.getCalculation().toUpperCase():s.getCalculation()»}]]>
 					</textFieldExpression>
 				</textField>
 				«ENDFOREACH»
