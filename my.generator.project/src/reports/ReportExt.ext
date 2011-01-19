@@ -9,7 +9,8 @@ extension template::GeneratorExtensions;
 getFieldType(Property prop):
  prop.type.isPrimitive() ? getFieldTypeForReports(prop.type.name) : prop.type.fqn();
 
-	
+getFieldWidth(Property prop):
+getDefaultWidth() / prop.class.getAllReportFields().size;
 
 getGroupName(ReportGroup grp):
 grp.groupId == null ? grp.name : grp.groupId;
@@ -42,8 +43,8 @@ JAVA org.wc.generatorutil.ClassUtil.getFieldTypeForReports(java.lang.String);
 genFieldExpr(uml::Property p, uml::PrimitiveType t):
 p.name;
 
-getFieldWidth():
-90;
+//getFieldWidth():
+//90;
 
 getDefaultWidth():
 540;
