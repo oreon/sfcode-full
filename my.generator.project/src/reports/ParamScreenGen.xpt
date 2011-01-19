@@ -65,8 +65,11 @@ public class «name»Action extends BaseReportAction {
 	«ENDFOREACH»
 	</h:panelGrid>
 	</s:validateAll>
-	<h:commandButton propagation="none" value="Run Report"
-				action="#{«name.toFirstLower()»Action.runReport('«name»')}" />
+	<h:commandButton propagation="none" value="Run Report as PDF"
+				action="#{«name.toFirstLower()»Action.runReport('«name»', 'PDF')}" />
+				
+	<h:commandButton propagation="none" value="Run Report as HTML"
+				action="#{«name.toFirstLower()»Action.runReport('«name»', 'HTML')}" />			
 	</h:form>
 	</ui:define>
 </ui:composition>
