@@ -21,13 +21,20 @@
 «FILE getWebPath() +"/" + "edit" + name+ "." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes-»
 	template = "«getAdminTemplate()»" >	
+	
 	<ui:define name="content">
 		«IF templatable && !isCurrentTemplateMode() »«EXPAND genTemplateChooser FOR this»«ENDIF»
+		<rich:panel>
+			<f:facet name="header">
+					<h:outputText value="«name»" />
+			</f:facet>
 		<h:form  enctype="multipart/form-data"> «REM»TODO : usemultipart «ENDREM»
+		
 		«IF isCurrentTemplateMode()»Template Name: <h:inputText value="#{«getAction()».templateName}" required="true" />«ENDIF»
 		<ui:include src = "«getComponentViewFile("edit")»" />
 		«EXPAND genCancelSaveBtns(true) FOR this»
 		</h:form>
+		</rich:panel>
 	</ui:define> 
 	
 	«REM»comment
@@ -112,10 +119,7 @@
 «DEFINE genEditViewComponent(boolean edit) FOR uml::Class»
 	«FILE getWebPath() +"/" + (edit?"edit":"view") + name+ "Component." + getExtension()»
 	<ui:composition «EXPAND WebRoot::genIncludes-» >	
-	<rich:panel>
-	<f:facet name="header">
-			<h:outputText value="«name» " />
-	</f:facet>
+	
 	<h:panelGroup   >
 		<s:validateAll>
 		«setAsCurrentEntity(this)-»
@@ -133,7 +137,7 @@
 		</s:validateAll>
 	
 	</h:panelGroup>
-	</rich:panel>
+	
 	</ui:composition>
 	«ENDFILE»
 «ENDDEFINE»

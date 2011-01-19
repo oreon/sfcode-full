@@ -12,7 +12,7 @@
 «DEFINE PackageRoot FOR uml::Package»
 	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Class)»
 	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Interface)»
-	«EXPAND EnumGen FOREACH allOwnedElements().typeSelect(uml::Enumeration)»
+	«EXPAND EnumGen FOREACH allOwnedElements().typeSelect(uml::Enumeration)»u
 «ENDDEFINE»
 
 «DEFINE ClassRoot FOR uml::Class»
@@ -334,7 +334,8 @@
 	«ELSE»
 		«IF isColumn() && (derivedFormula != null || derivedProperty != null)»@Transient«ENDIF»
 		«IF isString()» @Field(index = Index.TOKENIZED) @Analyzer(definition = "customanalyzer") «ENDIF»
-		protected «type.fqnForPackage(this.class)» «name» «getDefault() != null?" = " +getDefaultVal(type):""»;
+		protected «type.fqnForPackage(this.class)» «name» «getDefault() != null?" = " +getDefaultVal(type):""» 
+			«isColumn() && defaultExpression != null?" = " + defaultExpression:""» ;
 	«ENDIF»
 	
 «ENDDEFINE»
