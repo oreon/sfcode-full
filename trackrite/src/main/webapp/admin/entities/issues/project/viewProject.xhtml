@@ -19,20 +19,24 @@
     <br/>  
     <rich:tabPanel> 
       <rich:tab label="Issues" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="ProjectModalPanel-issues"/>  
         <ui:include src="/admin/entities/issues/issue/listIssueComponent.xhtml"> 
-          <ui:param name="records" value="#{issueList.getIssuesByProject(projectAction.instance)}"/> 
+          <ui:param name="records" value="#{issueList.getIssuesByProject(projectAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/> 
         </ui:include>  
         <a:form> 
           <s:button value="Create New" view="/admin/entities/issues/issue/editIssue.xhtml"> 
             <f:param name="projectId" value="#{projectAction.instance.id}"/>  
             <f:param name="issueId" value="0"/> 
           </s:button>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('IssueModalPanel',{});" value="Quick Create"> 
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"> 
             <a:actionparam name="issueId" assignTo="#{issueAction.issueId}" value="0"/>  
             <a:actionparam name="projectId" assignTo="#{issueAction.projectId}" value="#{projectAction.instance.id}"/> 
           </a:commandButton> 
         </a:form>  
-        <ui:include src="/admin/entities/issues/issue/modalDlgIssueComponent.xhtml"/> 
+        <ui:include src="/admin/entities/issues/issue/modalDlgIssueComponent.xhtml"> 
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include> 
       </rich:tab> 
     </rich:tabPanel>  
     <br/>  

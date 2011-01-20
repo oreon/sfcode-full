@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="ModuleModalPanel"/> 
+  </c:if>  
   <rich:panel> 
     <f:facet name="header">Module Search Results (#{empty records ? 0 : (moduleList.paginated ? moduleList.resultCount : records.size)})</f:facet>  
     <a:form> 
-      <rich:dataTable var="_module" value="#{records}" id="moduleList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
+      <rich:dataTable var="_module" value="#{records}" id="moduleList" rowClasses="odd, even" styleClass="dataTable"> 
         <h:column rendered="#{s:hasPermission('id', 'moduleView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -34,10 +37,10 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_module.dateCreated}"> 
-            <s:convertDateTime type="date" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_module', 'view')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -46,7 +49,7 @@
             <f:param name="moduleId" value="#{_module.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_module', 'edit')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -68,7 +71,10 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{moduleAction.setModuleIdForModalDlg(_module.id)}" rendered="#{s:hasPermission(_module, 'edit')}" oncomplete="Richfaces.showModalPanel('ModuleModalPanel',{});" value="Quick Edit"/> 
+          <a:commandLink action="#{moduleAction.setModuleIdForModalDlg(_module.id)}" rendered="#{s:hasPermission(_module, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
         </h:column> 
       </rich:dataTable> 
     </a:form> 

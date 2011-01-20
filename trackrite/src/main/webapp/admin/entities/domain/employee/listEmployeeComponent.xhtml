@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="EmployeeModalPanel"/> 
+  </c:if>  
   <rich:panel> 
     <f:facet name="header">Employee Search Results (#{empty records ? 0 : (employeeList.paginated ? employeeList.resultCount : records.size)})</f:facet>  
     <a:form> 
-      <rich:dataTable var="_employee" value="#{records}" id="employeeList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
+      <rich:dataTable var="_employee" value="#{records}" id="employeeList" rowClasses="odd, even" styleClass="dataTable"> 
         <h:column rendered="#{s:hasPermission('id', 'employeeView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -53,7 +56,7 @@
               <ui:param name="propertyPath" value="employee.user.enabled"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_employee.user.enabled}"/> 
+          <h:outputText value="#{_employee.user.enabled? msg.yes : msg.no }"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('email', 'employeeView'  )}"> 
           <f:facet name="header"> 
@@ -74,7 +77,7 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_employee.user.lastLogin}"> 
-            <s:convertDateTime type="date" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('department', 'employeeView'  )}"> 
@@ -159,10 +162,10 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_employee.dateCreated}"> 
-            <s:convertDateTime type="date" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_employee', 'view')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -171,7 +174,7 @@
             <f:param name="employeeId" value="#{_employee.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_employee', 'edit')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -193,7 +196,10 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{employeeAction.setEmployeeIdForModalDlg(_employee.id)}" rendered="#{s:hasPermission(_employee, 'edit')}" oncomplete="Richfaces.showModalPanel('EmployeeModalPanel',{});" value="Quick Edit"/> 
+          <a:commandLink action="#{employeeAction.setEmployeeIdForModalDlg(_employee.id)}" rendered="#{s:hasPermission(_employee, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
         </h:column> 
       </rich:dataTable> 
     </a:form> 

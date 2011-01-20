@@ -4,9 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{employeeAction.load(employeeId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Employee "/> 
-        </f:facet>  
         <h:outputText value="#{msg.user_userName} * " rendered="#{s:hasPermission('userName', 'employeeEdit')}"/>  
         <h:inputText id="user_userName#{entityId}" rendered="#{s:hasPermission('userName', 'employeeEdit')}" label="#{msg.user_userName}" required="true" value="#{employeeAction.employee.user.userName}"/>  
         <h:message styleClass="error errors" for="user_userName" rendered="#{s:hasPermission('userName', 'employeeEdit')}"/>  
@@ -20,8 +17,7 @@
         <h:inputText id="user_email#{entityId}" rendered="#{s:hasPermission('email', 'employeeEdit')}" label="#{msg.user_email}" required="true" value="#{employeeAction.employee.user.email}"/>  
         <h:message styleClass="error errors" for="user_email" rendered="#{s:hasPermission('email', 'employeeEdit')}"/>  
         <h:outputText value="#{msg.employee_department}  " rendered="#{s:hasPermission('department', 'employeeEdit')}"/>  
-        <h:selectOneMenu id="department" label="#{msg.employee_department}" value="#{employeeAction.employee.department}" 
-           required="true" rendered="#{s:hasPermission('department', 'employeeEdit')}"> 
+        <h:selectOneMenu id="department" label="#{msg.employee_department}" value="#{employeeAction.employee.department}" required="true" rendered="#{s:hasPermission('department', 'employeeEdit')}"> 
           <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  

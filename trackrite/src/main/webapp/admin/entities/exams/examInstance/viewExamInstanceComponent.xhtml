@@ -4,9 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{examInstanceAction.load(examInstanceId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="ExamInstance "/> 
-        </f:facet>  
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{examInstanceAction.examInstance.id}"/>  
         <h:outputText value="#{msg.examInstance_exam}  " rendered="#{s:hasPermission('exam', 'examInstanceView')}"/>  
@@ -20,7 +17,7 @@
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  
-      <rich:dataTable id="answers" var="_answer" rendered="#{not empty examInstanceAction.listAnswers}" value="#{examInstanceAction.listAnswers}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="answers" var="_answer" rendered="#{not empty examInstanceAction.listAnswers and s:hasPermission('answers', 'examInstanceView') }" value="#{examInstanceAction.listAnswers}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.answer_choice}  " rendered="#{s:hasPermission('choice', 'answerView')}"/>

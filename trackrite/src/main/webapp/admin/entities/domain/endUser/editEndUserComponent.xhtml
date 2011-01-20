@@ -4,9 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{endUserAction.load(endUserId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="EndUser "/> 
-        </f:facet>  
         <h:outputText value="#{msg.user_userName} * " rendered="#{s:hasPermission('userName', 'endUserEdit')}"/>  
         <h:inputText id="user_userName#{entityId}" rendered="#{s:hasPermission('userName', 'endUserEdit')}" label="#{msg.user_userName}" required="true" value="#{endUserAction.endUser.user.userName}"/>  
         <h:message styleClass="error errors" for="user_userName" rendered="#{s:hasPermission('userName', 'endUserEdit')}"/>  

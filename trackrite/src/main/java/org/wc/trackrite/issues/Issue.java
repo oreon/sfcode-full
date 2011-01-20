@@ -68,6 +68,7 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	@ContainedIn
 	protected Project project;
 
+	@Column(name = "status", unique = false)
 	protected Status status = Status.Unassigned;
 
 	protected Priority priority = Priority.CRITICAL_NOT_URGENT;
@@ -81,6 +82,24 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	protected Date closeTime;
 
 	protected Integer estimate;
+
+	@Column(name = "creator", unique = false)
+	@Transient
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
+	protected String creator;
+
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "category_id", nullable = true, updatable = true)
+	@ContainedIn
+	protected Category category;
+
+	@Embedded
+	@AttributeOverrides({
+			@AttributeOverride(name = "name", column = @Column(name = "file_name")),
+			@AttributeOverride(name = "contentType", column = @Column(name = "file_contentType")),
+			@AttributeOverride(name = "data", column = @Column(name = "file_data", length = 4194304))})
+	protected FileAttachment file = new FileAttachment();
 
 	public void setTitle(String title) {
 		this.title = title;
@@ -146,6 +165,30 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 		return estimate;
 	}
 
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+
+	public String getCreator() {
+		return getCreatedByUser().getUserName();
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setFile(FileAttachment file) {
+		this.file = file;
+	}
+
+	public FileAttachment getFile() {
+		return file;
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -179,6 +222,8 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 		listSearchableFields.add("title");
 
 		listSearchableFields.add("description");
+
+		listSearchableFields.add("creator");
 
 		return listSearchableFields;
 	}

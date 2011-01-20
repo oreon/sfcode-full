@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import org.wc.trackrite.exams.Exam;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class ExamListQueryBase extends BaseQuery<Exam, Long> {
@@ -73,4 +73,37 @@ public abstract class ExamListQueryBase extends BaseQuery<Exam, Long> {
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, Exam e) {
+
+		if (e.getName() != null)
+
+			builder.append(e.getName() + ",");
+
+		builder.append(",");
+
+		if (e.getDuration() != null)
+
+			builder.append(e.getDuration() + ",");
+
+		builder.append(",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Name" + ",");
+
+		builder.append("Duration" + ",");
+
+		builder.append("\r\n");
+	}
 }

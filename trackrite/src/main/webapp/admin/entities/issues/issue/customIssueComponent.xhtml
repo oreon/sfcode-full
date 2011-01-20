@@ -73,6 +73,25 @@
         <br/>  
         <h:inputText id="estimate" value="#{issueAction.issue.estimate}"/>  
         <h:message styleClass="error errors" for="estimate" rendered="#{s:hasPermission('estimate', 'issueEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.issue_creator}  " rendered="#{s:hasPermission('creator', 'issueEdit')}"/>  
+        <br/>  
+        <h:inputText id="creator" value="#{issueAction.issue.creator}"/>  
+        <h:message styleClass="error errors" for="creator" rendered="#{s:hasPermission('creator', 'issueEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.issue_category}  " rendered="#{s:hasPermission('category', 'issueEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="category" value="#{issueAction.issue.category}"> 
+          <s:selectItems value="#{categoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="category" rendered="#{s:hasPermission('category', 'issueEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.issue_file}  " rendered="#{s:hasPermission('file', 'issueEdit')}"/>  
+        <br/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

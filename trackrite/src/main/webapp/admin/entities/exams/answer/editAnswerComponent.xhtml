@@ -4,9 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{answerAction.load(answerId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Answer "/> 
-        </f:facet>  
         <h:outputText value="#{msg.answer_choice}  " rendered="#{s:hasPermission('choice', 'answerEdit')}"/>  
         <h:selectOneMenu id="choice" label="#{msg.answer_choice}" value="#{answerAction.answer.choice}" required="true" rendered="#{s:hasPermission('choice', 'answerEdit')}"> 
           <s:selectItems value="#{choiceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  

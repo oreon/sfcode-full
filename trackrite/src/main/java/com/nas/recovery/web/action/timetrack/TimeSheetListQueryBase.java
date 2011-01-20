@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import org.wc.trackrite.timetrack.TimeSheet;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class TimeSheetListQueryBase extends BaseQuery<TimeSheet, Long> {
@@ -62,4 +62,29 @@ public abstract class TimeSheetListQueryBase extends BaseQuery<TimeSheet, Long> 
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, TimeSheet e) {
+
+		if (e.getTitle() != null)
+
+			builder.append(e.getTitle() + ",");
+
+		builder.append(",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Title" + ",");
+
+		builder.append("\r\n");
+	}
 }

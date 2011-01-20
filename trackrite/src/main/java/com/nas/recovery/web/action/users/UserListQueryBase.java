@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import org.wc.trackrite.users.User;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class UserListQueryBase extends BaseQuery<User, Long> {
@@ -89,4 +89,61 @@ public abstract class UserListQueryBase extends BaseQuery<User, Long> {
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, User e) {
+
+		if (e.getUserName() != null)
+
+			builder.append(e.getUserName() + ",");
+
+		builder.append(",");
+
+		if (e.getEnabled() != null)
+
+			builder.append(e.getEnabled() + ",");
+
+		builder.append(",");
+
+		if (e.getRoles() != null)
+
+			builder.append(e.getRoles() + ",");
+
+		builder.append(",");
+
+		if (e.getEmail() != null)
+
+			builder.append(e.getEmail() + ",");
+
+		builder.append(",");
+
+		if (e.getLastLogin() != null)
+
+			builder.append(e.getLastLogin() + ",");
+
+		builder.append(",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("UserName" + ",");
+
+		builder.append("Enabled" + ",");
+
+		builder.append("Roles" + ",");
+
+		builder.append("Email" + ",");
+
+		builder.append("LastLogin" + ",");
+
+		builder.append("\r\n");
+	}
 }

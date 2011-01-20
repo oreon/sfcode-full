@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import org.wc.trackrite.timetrack.TimeTrackingEntry;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class TimeTrackingEntryListQueryBase
@@ -97,4 +97,61 @@ public abstract class TimeTrackingEntryListQueryBase
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, TimeTrackingEntry e) {
+
+		if (e.getHours() != null)
+
+			builder.append(e.getHours() + ",");
+
+		builder.append(",");
+
+		if (e.getDetails() != null)
+
+			builder.append(e.getDetails() + ",");
+
+		builder.append(",");
+
+		if (e.getIssue() != null)
+
+			builder.append(e.getIssue().getDisplayName());
+
+		builder.append(",");
+
+		if (e.getTimeSheet() != null)
+
+			builder.append(e.getTimeSheet().getDisplayName());
+
+		builder.append(",");
+
+		if (e.getDate() != null)
+
+			builder.append(e.getDate() + ",");
+
+		builder.append(",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Hours" + ",");
+
+		builder.append("Details" + ",");
+
+		builder.append("Issue" + ",");
+
+		builder.append("TimeSheet" + ",");
+
+		builder.append("Date" + ",");
+
+		builder.append("\r\n");
+	}
 }

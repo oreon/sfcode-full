@@ -4,9 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{scheduleAction.load(scheduleId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Schedule "/> 
-        </f:facet>  
         <h:outputText value="#{msg.schedule_project}  " rendered="#{s:hasPermission('project', 'scheduleEdit')}"/>  
         <h:selectOneMenu id="project" label="#{msg.schedule_project}" value="#{scheduleAction.schedule.project}" required="true" rendered="#{s:hasPermission('project', 'scheduleEdit')}"> 
           <s:selectItems value="#{projectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -17,10 +14,10 @@
         <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'scheduleEdit')}" label="#{msg.schedule_name}" required="true" value="#{scheduleAction.schedule.name}"/>  
         <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'scheduleEdit')}"/> 
       </h:panelGrid>  
-      <a:commandButton value="New ScheduleItem" action="#{scheduleAction.addScheduleItems}" reRender="scheduleItems"> 
+      <a:commandButton value="New ScheduleItem" action="#{scheduleAction.addScheduleItems}" reRender="scheduleItems" rendered="#{s:hasPermission('scheduleItems', 'scheduleEdit')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="scheduleItems" var="_scheduleItem" value="#{scheduleAction.listScheduleItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="scheduleItems" var="_scheduleItem" rendered="#{s:hasPermission('scheduleItems', 'scheduleEdit')}" value="#{scheduleAction.listScheduleItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.scheduleItem_employee}  " rendered="#{s:hasPermission('employee', 'scheduleItemEdit')}"/>
@@ -46,7 +43,7 @@
           <h:message styleClass="error errors" for="endDate" rendered="#{s:hasPermission('endDate', 'scheduleItemEdit')}"/> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New ScheduleItem" action="#{scheduleAction.addScheduleItems}" reRender="scheduleItems"> 
+          <a:commandButton value="New ScheduleItem" action="#{scheduleAction.addScheduleItems}" reRender="scheduleItems" rendered="#{s:hasPermission('scheduleItems', 'scheduleItemEdit')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

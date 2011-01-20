@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="RoleModalPanel"/> 
+  </c:if>  
   <rich:panel> 
     <f:facet name="header">Role Search Results (#{empty records ? 0 : (roleList.paginated ? roleList.resultCount : records.size)})</f:facet>  
     <a:form> 
-      <rich:dataTable var="_role" value="#{records}" id="roleList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
+      <rich:dataTable var="_role" value="#{records}" id="roleList" rowClasses="odd, even" styleClass="dataTable"> 
         <h:column rendered="#{s:hasPermission('id', 'roleView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -34,10 +37,10 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_role.dateCreated}"> 
-            <s:convertDateTime type="date" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_role', 'view')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -46,7 +49,7 @@
             <f:param name="roleId" value="#{_role.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_role', 'edit')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -68,7 +71,10 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{roleAction.setRoleIdForModalDlg(_role.id)}" rendered="#{s:hasPermission(_role, 'edit')}" oncomplete="Richfaces.showModalPanel('RoleModalPanel',{});" value="Quick Edit"/> 
+          <a:commandLink action="#{roleAction.setRoleIdForModalDlg(_role.id)}" rendered="#{s:hasPermission(_role, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
         </h:column> 
       </rich:dataTable> 
     </a:form> 

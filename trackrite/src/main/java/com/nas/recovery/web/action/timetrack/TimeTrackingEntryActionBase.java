@@ -131,13 +131,13 @@ public abstract class TimeTrackingEntryActionBase
 		getInstance();
 
 		org.wc.trackrite.issues.Issue issue = issueAction.getDefinedInstance();
-		if (issue != null) {
+		if (issue != null && isNew()) {
 			getInstance().setIssue(issue);
 		}
 
 		org.wc.trackrite.timetrack.TimeSheet timeSheet = timeSheetAction
 				.getDefinedInstance();
-		if (timeSheet != null) {
+		if (timeSheet != null && isNew()) {
 			getInstance().setTimeSheet(timeSheet);
 		}
 

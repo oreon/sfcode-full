@@ -4,9 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{issueAction.load(issueId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Issue "/> 
-        </f:facet>  
         <h:outputText value="#{msg.issue_project}  " rendered="#{s:hasPermission('project', 'issueEdit')}"/>  
         <h:selectOneMenu id="project" label="#{msg.issue_project}" value="#{issueAction.issue.project}" required="true" rendered="#{s:hasPermission('project', 'issueEdit')}"> 
           <a:support event="onchange" reRender="developer" ajaxSingle="true"/>  
@@ -20,21 +17,18 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="developer" rendered="#{s:hasPermission('developer', 'issueEdit')}"/>  
+        <h:outputText value="#{msg.issue_category}  " rendered="#{s:hasPermission('category', 'issueEdit')}"/>  
+        <h:selectOneMenu id="category" label="#{msg.issue_category}" value="#{issueAction.issue.category}" required="false" rendered="#{s:hasPermission('category', 'issueEdit')}"> 
+          <s:selectItems value="#{categoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="category" rendered="#{s:hasPermission('category', 'issueEdit')}"/>  
         <h:outputText value="#{msg.issue_title} * " rendered="#{s:hasPermission('title', 'issueEdit')}"/>  
         <h:inputText id="title#{entityId}" rendered="#{s:hasPermission('title', 'issueEdit')}" label="#{msg.issue_title}" required="true" value="#{issueAction.issue.title}"/>  
         <h:message styleClass="error errors" for="title" rendered="#{s:hasPermission('title', 'issueEdit')}"/>  
         <h:outputText value="#{msg.issue_description}  " rendered="#{s:hasPermission('description', 'issueEdit')}"/>  
         <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{s:hasPermission('description', 'issueEdit')}" label="#{msg.issue_description}" required="false" value="#{issueAction.issue.description}"/>  
         <h:message styleClass="error errors" for="description" rendered="#{s:hasPermission('description', 'issueEdit')}"/>  
-        <h:outputText value="#{msg.issue_status}  " rendered="#{s:hasPermission('status', 'issueEdit')}"/>  
-        <h:selectOneMenu id="status" rendered="#{s:hasPermission('status', 'issueEdit')}" value="#{issueAction.issue.status}" required="false" label="#{msg.issue_status}"> 
-          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
-          <f:selectItem itemValue="Unassigned" itemLabel="Unassigned"/>  
-          <f:selectItem itemValue="Started" itemLabel="Started"/>  
-          <f:selectItem itemValue="ReadyForQA" itemLabel="Readyforqa"/>  
-          <f:selectItem itemValue="Closed" itemLabel="Closed"/> 
-        </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="status" rendered="#{s:hasPermission('status', 'issueEdit')}"/>  
         <h:outputText value="#{msg.issue_priority}  " rendered="#{s:hasPermission('priority', 'issueEdit')}"/>  
         <h:selectOneMenu id="priority" rendered="#{s:hasPermission('priority', 'issueEdit')}" value="#{issueAction.issue.priority}" required="false" label="#{msg.issue_priority}"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
@@ -48,7 +42,26 @@
         <h:message styleClass="error errors" for="priority" rendered="#{s:hasPermission('priority', 'issueEdit')}"/>  
         <h:outputText value="#{msg.issue_estimate}  " rendered="#{s:hasPermission('estimate', 'issueEdit')}"/>  
         <h:inputText id="estimate#{entityId}" rendered="#{s:hasPermission('estimate', 'issueEdit')}" label="#{msg.issue_estimate}" required="false" value="#{issueAction.issue.estimate}"/>  
-        <h:message styleClass="error errors" for="estimate" rendered="#{s:hasPermission('estimate', 'issueEdit')}"/> 
+        <h:message styleClass="error errors" for="estimate" rendered="#{s:hasPermission('estimate', 'issueEdit')}"/>  
+        <h:outputText value="#{msg.issue_file}  " rendered="#{s:hasPermission('file', 'issueEdit')}"/>  
+        <h:panelGroup> 
+          <s:div rendered="#{issueAction.issue.id != 0 }"> 
+            <c:choose> 
+              <c:when test="${issueAction.issue.file.contentType.startsWith('image')}"> 
+                <s:graphicImage value="#{issueAction.issue.file.data}"/> 
+              </c:when>  
+              <c:otherwise> 
+                <s:link value="#{issueAction.issue.file.name}" action="#{issueAction.downloadFile(null)}" propagation="none"> 
+                  <f:param name="currentEntityId" value="#{issueAction.instance.id}"/> 
+                </s:link> 
+              </c:otherwise> 
+            </c:choose> 
+          </s:div>  
+          <s:div rendered="#{issueAction.issue.id == null }"> 
+            <s:fileUpload data="#{issueAction.issue.file.data}" fileName="#{issueAction.issue.file.name}" contentType="#{issueAction.issue.file.contentType}"/> 
+          </s:div> 
+        </h:panelGroup>  
+        <h:message styleClass="error errors" for="file" rendered="#{s:hasPermission('file', 'issueEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

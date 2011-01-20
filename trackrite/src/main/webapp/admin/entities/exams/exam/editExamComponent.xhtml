@@ -4,9 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{examAction.load(examId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Exam "/> 
-        </f:facet>  
         <h:outputText value="#{msg.exam_name} * " rendered="#{s:hasPermission('name', 'examEdit')}"/>  
         <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'examEdit')}" label="#{msg.exam_name}" required="true" value="#{examAction.exam.name}"/>  
         <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'examEdit')}"/>  
@@ -14,10 +11,10 @@
         <h:inputText id="duration#{entityId}" rendered="#{s:hasPermission('duration', 'examEdit')}" label="#{msg.exam_duration}" required="false" value="#{examAction.exam.duration}"/>  
         <h:message styleClass="error errors" for="duration" rendered="#{s:hasPermission('duration', 'examEdit')}"/> 
       </h:panelGrid>  
-      <a:commandButton value="New Question" action="#{examAction.addQuestions}" reRender="questions"> 
+      <a:commandButton value="New Question" action="#{examAction.addQuestions}" reRender="questions" rendered="#{s:hasPermission('questions', 'examEdit')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="questions" var="_question" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="questions" var="_question" rendered="#{s:hasPermission('questions', 'examEdit')}" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.question_text} * " rendered="#{s:hasPermission('text', 'questionEdit')}"/>
@@ -26,7 +23,7 @@
           <h:message styleClass="error errors" for="text" rendered="#{s:hasPermission('text', 'questionEdit')}"/> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New Question" action="#{examAction.addQuestions}" reRender="questions"> 
+          <a:commandButton value="New Question" action="#{examAction.addQuestions}" reRender="questions" rendered="#{s:hasPermission('questions', 'questionEdit')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

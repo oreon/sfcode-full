@@ -4,9 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{questionAction.load(questionId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Question "/> 
-        </f:facet>  
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{questionAction.question.id}"/>  
         <h:outputText value="#{msg.question_exam}  " rendered="#{s:hasPermission('exam', 'questionView')}"/>  
@@ -17,7 +14,7 @@
         <h:outputText value="#{msg.question_text}  " rendered="#{s:hasPermission('text', 'questionView')}"/>  
         <h:outputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'questionView')}" value="#{questionAction.question.text}"/> 
       </h:panelGrid>  
-      <rich:dataTable id="choices" var="_choice" rendered="#{not empty questionAction.listChoices}" value="#{questionAction.listChoices}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="choices" var="_choice" rendered="#{not empty questionAction.listChoices and s:hasPermission('choices', 'questionView') }" value="#{questionAction.listChoices}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.choice_text}  " rendered="#{s:hasPermission('text', 'choiceView')}"/>

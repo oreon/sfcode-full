@@ -14,7 +14,7 @@ public abstract class BaseTest<T extends BusinessEntity> extends SeamTest{
 	
 	private static final String NOMBRE_PERSISTENCE_UNIT = "appEntityManager";
 	private EntityManagerFactory emf;
-	private EntityManager em;
+	protected EntityManager em;
 
 	public EntityManagerFactory getEntityManagerFactory() {
 		return emf;
@@ -32,7 +32,9 @@ public abstract class BaseTest<T extends BusinessEntity> extends SeamTest{
 		//getAction().setEntityManager(Search.getFullTextEntityManager(em));
 	}
 	
-	abstract public BaseAction<T> getAction();
+	 public BaseAction<T> getAction(){
+		 return null;
+	 }
 
 	@AfterClass
 	public void destroy() {

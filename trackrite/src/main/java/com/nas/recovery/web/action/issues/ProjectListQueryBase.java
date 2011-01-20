@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import org.wc.trackrite.issues.Project;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class ProjectListQueryBase extends BaseQuery<Project, Long> {
@@ -84,4 +84,45 @@ public abstract class ProjectListQueryBase extends BaseQuery<Project, Long> {
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, Project e) {
+
+		if (e.getName() != null)
+
+			builder.append(e.getName() + ",");
+
+		builder.append(",");
+
+		if (e.getDescription() != null)
+
+			builder.append(e.getDescription() + ",");
+
+		builder.append(",");
+
+		if (e.getEmployees() != null)
+
+			builder.append(e.getEmployees() + ",");
+
+		builder.append(",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Name" + ",");
+
+		builder.append("Description" + ",");
+
+		builder.append("Employees" + ",");
+
+		builder.append("\r\n");
+	}
 }

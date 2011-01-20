@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="IssueModalPanel"/> 
+  </c:if>  
   <rich:panel> 
     <f:facet name="header">Issue Search Results (#{empty records ? 0 : (issueList.paginated ? issueList.resultCount : records.size)})</f:facet>  
     <a:form> 
-      <rich:dataTable var="_issue" value="#{records}" id="issueList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
+      <rich:dataTable var="_issue" value="#{records}" id="issueList" rowClasses="odd, even" styleClass="dataTable"> 
         <h:column rendered="#{s:hasPermission('id', 'issueView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -90,7 +93,7 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_issue.closeTime}"> 
-            <s:convertDateTime type="date" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('estimate', 'issueView'  )}"> 
@@ -103,6 +106,41 @@
           </f:facet>  
           <h:outputText value="#{_issue.estimate}"/> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('creator', 'issueView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{issueList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.issue_creator}"/>  
+              <ui:param name="propertyPath" value="issue.creator"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_issue.creator}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('category', 'issueView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{issueList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.issue_category}"/>  
+              <ui:param name="propertyPath" value="issue.category"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_issue.category.displayName}" view="/admin/entities/issues/category/viewCategory.xhtml" propagation="none"> 
+            <f:param name="categoryId" value="#{_issue.category.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('file', 'issueView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{issueList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.issue_file}"/>  
+              <ui:param name="propertyPath" value="issue.file"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_issue.file.name}" action="#{issueAction.downloadFile(_issue.id)}" propagation="none"> 
+            <f:param name="currentEntityId" value="#{_issue.id}"/> 
+          </s:link> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'issueView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -112,10 +150,10 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_issue.dateCreated}"> 
-            <s:convertDateTime type="date" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_issue', 'view')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -124,7 +162,7 @@
             <f:param name="issueId" value="#{_issue.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_issue', 'edit')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -146,7 +184,10 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{issueAction.setIssueIdForModalDlg(_issue.id)}" rendered="#{s:hasPermission(_issue, 'edit')}" oncomplete="Richfaces.showModalPanel('IssueModalPanel',{});" value="Quick Edit"/> 
+          <a:commandLink action="#{issueAction.setIssueIdForModalDlg(_issue.id)}" rendered="#{s:hasPermission(_issue, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
         </h:column> 
       </rich:dataTable> 
     </a:form> 

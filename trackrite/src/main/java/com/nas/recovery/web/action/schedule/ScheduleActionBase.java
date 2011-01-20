@@ -118,7 +118,7 @@ public abstract class ScheduleActionBase extends BaseAction<Schedule>
 
 		org.wc.trackrite.issues.Project project = projectAction
 				.getDefinedInstance();
-		if (project != null) {
+		if (project != null && isNew()) {
 			getInstance().setProject(project);
 		}
 

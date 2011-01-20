@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import org.wc.trackrite.issues.Issue;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class IssueListQueryBase extends BaseQuery<Issue, Long> {
@@ -86,6 +86,10 @@ public abstract class IssueListQueryBase extends BaseQuery<Issue, Long> {
 			"issue.estimate >= #{issueList.estimateRange.begin}",
 			"issue.estimate <= #{issueList.estimateRange.end}",
 
+			"lower(issue.creator) like concat(lower(#{issueList.issue.creator}),'%')",
+
+			"issue.category.id = #{issueList.issue.category.id}",
+
 			"issue.dateCreated <= #{issueList.dateCreatedRange.end}",
 			"issue.dateCreated >= #{issueList.dateCreatedRange.begin}",};
 
@@ -115,4 +119,101 @@ public abstract class IssueListQueryBase extends BaseQuery<Issue, Long> {
 
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, Issue e) {
+
+		if (e.getTitle() != null)
+
+			builder.append(e.getTitle() + ",");
+
+		builder.append(",");
+
+		if (e.getDescription() != null)
+
+			builder.append(e.getDescription() + ",");
+
+		builder.append(",");
+
+		if (e.getProject() != null)
+
+			builder.append(e.getProject().getDisplayName());
+
+		builder.append(",");
+
+		if (e.getStatus() != null)
+
+			builder.append(e.getStatus() + ",");
+
+		builder.append(",");
+
+		if (e.getPriority() != null)
+
+			builder.append(e.getPriority() + ",");
+
+		builder.append(",");
+
+		if (e.getDeveloper() != null)
+
+			builder.append(e.getDeveloper().getDisplayName());
+
+		builder.append(",");
+
+		if (e.getCloseTime() != null)
+
+			builder.append(e.getCloseTime() + ",");
+
+		builder.append(",");
+
+		if (e.getEstimate() != null)
+
+			builder.append(e.getEstimate() + ",");
+
+		builder.append(",");
+
+		if (e.getCreator() != null)
+
+			builder.append(e.getCreator() + ",");
+
+		builder.append(",");
+
+		if (e.getCategory() != null)
+
+			builder.append(e.getCategory().getDisplayName());
+
+		builder.append(",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Title" + ",");
+
+		builder.append("Description" + ",");
+
+		builder.append("Project" + ",");
+
+		builder.append("Status" + ",");
+
+		builder.append("Priority" + ",");
+
+		builder.append("Developer" + ",");
+
+		builder.append("CloseTime" + ",");
+
+		builder.append("Estimate" + ",");
+
+		builder.append("Creator" + ",");
+
+		builder.append("Category" + ",");
+
+		builder.append("\r\n");
+	}
 }

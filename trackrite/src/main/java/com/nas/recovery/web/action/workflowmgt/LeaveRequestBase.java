@@ -19,12 +19,12 @@ public class LeaveRequestBase extends BaseJbpmProcessAction
 
 	}
 
-	@EndTask(transition = "submit")
-	public void submitProvideDetails() {
-
-	}
 	@EndTask(transition = "retract")
 	public void retractProvideDetails() {
+
+	}
+	@EndTask(transition = "submit")
+	public void submitProvideDetails() {
 
 	}
 
@@ -37,12 +37,12 @@ public class LeaveRequestBase extends BaseJbpmProcessAction
 	public void moreDetailsReviewRequest() {
 
 	}
-	@EndTask(transition = "reject")
-	public void rejectReviewRequest() {
-
-	}
 	@EndTask(transition = "accept")
 	public void acceptReviewRequest() {
+
+	}
+	@EndTask(transition = "reject")
+	public void rejectReviewRequest() {
 
 	}
 

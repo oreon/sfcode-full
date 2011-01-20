@@ -133,13 +133,13 @@ public abstract class ExamInstanceActionBase extends BaseAction<ExamInstance>
 		getInstance();
 
 		org.wc.trackrite.exams.Exam exam = examAction.getDefinedInstance();
-		if (exam != null) {
+		if (exam != null && isNew()) {
 			getInstance().setExam(exam);
 		}
 
 		org.wc.trackrite.exams.Candidate candidate = candidateAction
 				.getDefinedInstance();
-		if (candidate != null) {
+		if (candidate != null && isNew()) {
 			getInstance().setCandidate(candidate);
 		}
 
