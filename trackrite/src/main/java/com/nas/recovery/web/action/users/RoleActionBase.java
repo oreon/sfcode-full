@@ -50,6 +50,7 @@ public abstract class RoleActionBase extends BaseAction<Role>
 	public void setRoleId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -63,6 +64,7 @@ public abstract class RoleActionBase extends BaseAction<Role>
 	 */
 	public void setRoleIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 

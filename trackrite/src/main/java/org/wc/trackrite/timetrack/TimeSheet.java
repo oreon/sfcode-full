@@ -76,7 +76,9 @@ public class TimeSheet extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getTitle() {
+
 		return title;
+
 	}
 
 	@Transient

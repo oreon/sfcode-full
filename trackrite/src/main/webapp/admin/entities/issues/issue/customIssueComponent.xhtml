@@ -92,6 +92,18 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.issue_file}  " rendered="#{s:hasPermission('file', 'issueEdit')}"/>  
         <br/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.issue_severity}  " rendered="#{s:hasPermission('severity', 'issueEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="severity" value="#{issueAction.issue.severity}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="ONE" itemLabel="One"/>  
+          <f:selectItem itemValue="TWO" itemLabel="Two"/>  
+          <f:selectItem itemValue="THREE" itemLabel="Three"/>  
+          <f:selectItem itemValue="FOUR" itemLabel="Four"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="severity" rendered="#{s:hasPermission('severity', 'issueEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

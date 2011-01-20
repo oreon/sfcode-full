@@ -101,12 +101,16 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 			@AttributeOverride(name = "data", column = @Column(name = "file_data", length = 4194304))})
 	protected FileAttachment file = new FileAttachment();
 
+	protected Severity severity;
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
 	public String getTitle() {
+
 		return title;
+
 	}
 
 	public void setDescription(String description) {
@@ -114,7 +118,9 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getDescription() {
+
 		return description;
+
 	}
 
 	public void setProject(Project project) {
@@ -122,7 +128,9 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Project getProject() {
+
 		return project;
+
 	}
 
 	public void setStatus(Status status) {
@@ -130,7 +138,9 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Status getStatus() {
+
 		return status;
+
 	}
 
 	public void setPriority(Priority priority) {
@@ -138,7 +148,9 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Priority getPriority() {
+
 		return priority;
+
 	}
 
 	public void setDeveloper(org.wc.trackrite.domain.Employee developer) {
@@ -146,7 +158,9 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public org.wc.trackrite.domain.Employee getDeveloper() {
+
 		return developer;
+
 	}
 
 	public void setCloseTime(Date closeTime) {
@@ -154,7 +168,9 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Date getCloseTime() {
+
 		return closeTime;
+
 	}
 
 	public void setEstimate(Integer estimate) {
@@ -162,7 +178,9 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Integer getEstimate() {
+
 		return estimate;
+
 	}
 
 	public void setCreator(String creator) {
@@ -170,7 +188,13 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getCreator() {
-		return getCreatedByUser().getUserName();
+
+		try {
+			return getCreatedByUser().getUserName();
+		} catch (Exception e) {
+			return "";
+		}
+
 	}
 
 	public void setCategory(Category category) {
@@ -178,7 +202,9 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Category getCategory() {
+
 		return category;
+
 	}
 
 	public void setFile(FileAttachment file) {
@@ -186,7 +212,19 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public FileAttachment getFile() {
+
 		return file;
+
+	}
+
+	public void setSeverity(Severity severity) {
+		this.severity = severity;
+	}
+
+	public Severity getSeverity() {
+
+		return severity;
+
 	}
 
 	@Transient

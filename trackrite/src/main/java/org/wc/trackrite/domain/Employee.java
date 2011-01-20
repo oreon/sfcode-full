@@ -92,7 +92,9 @@ public class Employee extends org.wc.trackrite.domain.Person
 	}
 
 	public Department getDepartment() {
+
 		return department;
+
 	}
 
 	public void setEmployeeNumber(String employeeNumber) {
@@ -100,7 +102,9 @@ public class Employee extends org.wc.trackrite.domain.Person
 	}
 
 	public String getEmployeeNumber() {
+
 		return employeeNumber;
+
 	}
 
 	public void setEmployeeType(EmployeeType employeeType) {
@@ -108,7 +112,9 @@ public class Employee extends org.wc.trackrite.domain.Person
 	}
 
 	public EmployeeType getEmployeeType() {
+
 		return employeeType;
+
 	}
 
 	public void setIssues(Set<org.wc.trackrite.issues.Issue> issues) {
@@ -124,7 +130,9 @@ public class Employee extends org.wc.trackrite.domain.Person
 	}
 
 	public ContactDetails getHome() {
+
 		return home;
+
 	}
 
 	public void setProjects(Set<org.wc.trackrite.issues.Project> projects) {

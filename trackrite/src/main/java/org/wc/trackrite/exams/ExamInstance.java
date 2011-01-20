@@ -74,7 +74,9 @@ public class ExamInstance extends BusinessEntity
 	}
 
 	public Exam getExam() {
+
 		return exam;
+
 	}
 
 	public void setCandidate(Candidate candidate) {
@@ -82,7 +84,9 @@ public class ExamInstance extends BusinessEntity
 	}
 
 	public Candidate getCandidate() {
+
 		return candidate;
+
 	}
 
 	public void setAnswers(Set<Answer> answers) {

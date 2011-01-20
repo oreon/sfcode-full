@@ -52,6 +52,7 @@ public abstract class TimeSheetActionBase extends BaseAction<TimeSheet>
 	public void setTimeSheetId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -65,6 +66,7 @@ public abstract class TimeSheetActionBase extends BaseAction<TimeSheet>
 	 */
 	public void setTimeSheetIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 

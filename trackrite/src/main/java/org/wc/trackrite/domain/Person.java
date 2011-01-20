@@ -65,7 +65,9 @@ public class Person extends BusinessEntity {
 	}
 
 	public String getFirstName() {
+
 		return firstName;
+
 	}
 
 	public void setLastName(String lastName) {
@@ -73,7 +75,9 @@ public class Person extends BusinessEntity {
 	}
 
 	public String getLastName() {
+
 		return lastName;
+
 	}
 
 	public void setUser(org.wc.trackrite.users.User user) {
@@ -81,7 +85,9 @@ public class Person extends BusinessEntity {
 	}
 
 	public org.wc.trackrite.users.User getUser() {
+
 		return user;
+
 	}
 
 	@Transient

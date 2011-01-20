@@ -45,7 +45,9 @@
               <f:param name="currentEntityId" value="#{issueAction.instance.id}"/> 
             </s:link> 
           </c:otherwise> 
-        </c:choose> 
+        </c:choose>  
+        <h:outputText value="#{msg.issue_severity}  " rendered="#{s:hasPermission('severity', 'issueView')}"/>  
+        <h:outputText value="#{issueAction.issue.severity}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

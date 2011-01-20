@@ -50,6 +50,7 @@ public abstract class CategoryActionBase extends BaseAction<Category>
 	public void setCategoryId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -63,6 +64,7 @@ public abstract class CategoryActionBase extends BaseAction<Category>
 	 */
 	public void setCategoryIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 

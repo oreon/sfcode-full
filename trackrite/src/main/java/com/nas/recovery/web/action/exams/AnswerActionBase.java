@@ -56,6 +56,7 @@ public abstract class AnswerActionBase extends BaseAction<Answer>
 	public void setAnswerId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -69,6 +70,7 @@ public abstract class AnswerActionBase extends BaseAction<Answer>
 	 */
 	public void setAnswerIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 

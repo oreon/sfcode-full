@@ -90,6 +90,18 @@
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 
       </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.issue_severity}  " rendered="#{s:hasPermission('severity', 'issueEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="severity" value="#{issueList.issue.severity}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="ONE" itemLabel="One"/>  
+        <f:selectItem itemValue="TWO" itemLabel="Two"/>  
+        <f:selectItem itemValue="THREE" itemLabel="Three"/>  
+        <f:selectItem itemValue="FOUR" itemLabel="Four"/> 
+      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

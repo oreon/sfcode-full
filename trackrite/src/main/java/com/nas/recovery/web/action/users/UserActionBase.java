@@ -50,6 +50,7 @@ public abstract class UserActionBase extends BaseAction<User>
 	public void setUserId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -63,6 +64,7 @@ public abstract class UserActionBase extends BaseAction<User>
 	 */
 	public void setUserIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 

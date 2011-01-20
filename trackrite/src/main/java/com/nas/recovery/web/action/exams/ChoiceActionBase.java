@@ -53,6 +53,7 @@ public abstract class ChoiceActionBase extends BaseAction<Choice>
 	public void setChoiceId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -66,6 +67,7 @@ public abstract class ChoiceActionBase extends BaseAction<Choice>
 	 */
 	public void setChoiceIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 

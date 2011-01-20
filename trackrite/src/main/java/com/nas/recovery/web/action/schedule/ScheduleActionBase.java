@@ -55,6 +55,7 @@ public abstract class ScheduleActionBase extends BaseAction<Schedule>
 	public void setScheduleId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -68,6 +69,7 @@ public abstract class ScheduleActionBase extends BaseAction<Schedule>
 	 */
 	public void setScheduleIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 

@@ -86,7 +86,9 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getUserName() {
+
 		return userName;
+
 	}
 
 	public void setPassword(String password) {
@@ -94,7 +96,9 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getPassword() {
+
 		return password;
+
 	}
 
 	public void setEnabled(Boolean enabled) {
@@ -102,7 +106,9 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Boolean getEnabled() {
+
 		return enabled;
+
 	}
 
 	public void setRoles(Set<Role> roles) {
@@ -118,7 +124,9 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getEmail() {
+
 		return email;
+
 	}
 
 	public void setLastLogin(Date lastLogin) {
@@ -126,7 +134,9 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Date getLastLogin() {
+
 		return lastLogin;
+
 	}
 
 	@Transient

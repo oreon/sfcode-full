@@ -141,6 +141,16 @@
             <f:param name="currentEntityId" value="#{_issue.id}"/> 
           </s:link> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('severity', 'issueView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{issueList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.issue_severity}"/>  
+              <ui:param name="propertyPath" value="issue.severity"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_issue.severity}"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'issueView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

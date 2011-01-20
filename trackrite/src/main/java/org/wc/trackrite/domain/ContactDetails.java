@@ -65,7 +65,9 @@ public class ContactDetails implements java.io.Serializable {
 	}
 
 	public String getPrimaryPhone() {
+
 		return primaryPhone;
+
 	}
 
 	public void setSecondaryPhone(String secondaryPhone) {
@@ -73,7 +75,9 @@ public class ContactDetails implements java.io.Serializable {
 	}
 
 	public String getSecondaryPhone() {
+
 		return secondaryPhone;
+
 	}
 
 	public void setCity(String city) {
@@ -81,7 +85,9 @@ public class ContactDetails implements java.io.Serializable {
 	}
 
 	public String getCity() {
+
 		return city;
+
 	}
 
 	public void setStreetAddress(String streetAddress) {
@@ -89,7 +95,9 @@ public class ContactDetails implements java.io.Serializable {
 	}
 
 	public String getStreetAddress() {
+
 		return streetAddress;
+
 	}
 
 }

@@ -50,6 +50,7 @@ public abstract class CandidateActionBase extends BaseAction<Candidate>
 	public void setCandidateId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -63,6 +64,7 @@ public abstract class CandidateActionBase extends BaseAction<Candidate>
 	 */
 	public void setCandidateIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 

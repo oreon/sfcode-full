@@ -56,6 +56,7 @@ public abstract class TimeTrackingEntryActionBase
 	public void setTimeTrackingEntryId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -69,6 +70,7 @@ public abstract class TimeTrackingEntryActionBase
 	 */
 	public void setTimeTrackingEntryIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 

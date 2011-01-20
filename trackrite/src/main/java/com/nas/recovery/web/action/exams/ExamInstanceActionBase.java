@@ -58,6 +58,7 @@ public abstract class ExamInstanceActionBase extends BaseAction<ExamInstance>
 	public void setExamInstanceId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -71,6 +72,7 @@ public abstract class ExamInstanceActionBase extends BaseAction<ExamInstance>
 	 */
 	public void setExamInstanceIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 

@@ -88,7 +88,9 @@ public class Project extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getName() {
+
 		return name;
+
 	}
 
 	public void setDescription(String description) {
@@ -96,7 +98,9 @@ public class Project extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getDescription() {
+
 		return description;
+
 	}
 
 	public void setEmployees(Set<org.wc.trackrite.domain.Employee> employees) {

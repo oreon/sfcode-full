@@ -66,7 +66,9 @@ public class Answer extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Choice getChoice() {
+
 		return choice;
+
 	}
 
 	public void setExamInstance(ExamInstance examInstance) {
@@ -74,7 +76,9 @@ public class Answer extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public ExamInstance getExamInstance() {
+
 		return examInstance;
+
 	}
 
 	@Transient

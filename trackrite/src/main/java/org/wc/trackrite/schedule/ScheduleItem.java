@@ -67,7 +67,9 @@ public class ScheduleItem extends BusinessEntity
 	}
 
 	public Date getStartDate() {
+
 		return startDate;
+
 	}
 
 	public void setEndDate(Date endDate) {
@@ -75,7 +77,9 @@ public class ScheduleItem extends BusinessEntity
 	}
 
 	public Date getEndDate() {
+
 		return endDate;
+
 	}
 
 	public void setEmployee(org.wc.trackrite.domain.Employee employee) {
@@ -83,7 +87,9 @@ public class ScheduleItem extends BusinessEntity
 	}
 
 	public org.wc.trackrite.domain.Employee getEmployee() {
+
 		return employee;
+
 	}
 
 	@Transient
