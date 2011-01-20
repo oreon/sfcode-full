@@ -81,7 +81,9 @@ public class Schedule extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public org.wc.trackrite.issues.Project getProject() {
+
 		return project;
+
 	}
 
 	public void setName(String name) {
@@ -89,7 +91,9 @@ public class Schedule extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getName() {
+
 		return name;
+
 	}
 
 	@Transient

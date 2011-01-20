@@ -83,7 +83,9 @@ public class TimeTrackingEntry extends BusinessEntity
 	}
 
 	public Integer getHours() {
+
 		return hours;
+
 	}
 
 	public void setDetails(String details) {
@@ -91,7 +93,9 @@ public class TimeTrackingEntry extends BusinessEntity
 	}
 
 	public String getDetails() {
+
 		return details;
+
 	}
 
 	public void setIssue(org.wc.trackrite.issues.Issue issue) {
@@ -99,7 +103,9 @@ public class TimeTrackingEntry extends BusinessEntity
 	}
 
 	public org.wc.trackrite.issues.Issue getIssue() {
+
 		return issue;
+
 	}
 
 	public void setTimeSheet(TimeSheet timeSheet) {
@@ -107,7 +113,9 @@ public class TimeTrackingEntry extends BusinessEntity
 	}
 
 	public TimeSheet getTimeSheet() {
+
 		return timeSheet;
+
 	}
 
 	public void setDate(Date date) {
@@ -115,7 +123,9 @@ public class TimeTrackingEntry extends BusinessEntity
 	}
 
 	public Date getDate() {
+
 		return date;
+
 	}
 
 	@Transient

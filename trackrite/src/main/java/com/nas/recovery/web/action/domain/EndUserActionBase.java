@@ -52,6 +52,7 @@ public abstract class EndUserActionBase
 	public void setEndUserId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -65,6 +66,7 @@ public abstract class EndUserActionBase
 	 */
 	public void setEndUserIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 

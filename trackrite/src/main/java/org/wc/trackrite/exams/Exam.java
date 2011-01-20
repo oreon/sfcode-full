@@ -71,7 +71,9 @@ public class Exam extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getName() {
+
 		return name;
+
 	}
 
 	public void setDuration(Integer duration) {
@@ -79,7 +81,9 @@ public class Exam extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Integer getDuration() {
+
 		return duration;
+
 	}
 
 	public void setQuestions(Set<Question> questions) {

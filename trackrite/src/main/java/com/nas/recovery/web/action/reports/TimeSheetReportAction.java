@@ -21,7 +21,9 @@ public class TimeSheetReportAction extends BaseReportAction {
 	}
 
 	public org.wc.trackrite.domain.Employee getDeveloper() {
+
 		return developer;
+
 	}
 
 	public void setFrom(Date from) {
@@ -29,7 +31,9 @@ public class TimeSheetReportAction extends BaseReportAction {
 	}
 
 	public Date getFrom() {
+
 		return from;
+
 	}
 
 	public void setTo(Date to) {
@@ -37,7 +41,9 @@ public class TimeSheetReportAction extends BaseReportAction {
 	}
 
 	public Date getTo() {
+
 		return to;
+
 	}
 
 	@SuppressWarnings("unchecked")

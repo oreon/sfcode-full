@@ -68,7 +68,9 @@ public class Role extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getName() {
+
 		return name;
+
 	}
 
 	public void setUsers(Set<User> users) {

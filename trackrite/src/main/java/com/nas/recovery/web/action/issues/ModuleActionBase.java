@@ -50,6 +50,7 @@ public abstract class ModuleActionBase extends BaseAction<Module>
 	public void setModuleId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -63,6 +64,7 @@ public abstract class ModuleActionBase extends BaseAction<Module>
 	 */
 	public void setModuleIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 

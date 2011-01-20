@@ -59,6 +59,7 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 	public void setIssueId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -72,6 +73,7 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 	 */
 	public void setIssueIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 

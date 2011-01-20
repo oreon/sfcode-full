@@ -55,6 +55,7 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 	public void setProjectId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -68,6 +69,7 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 	 */
 	public void setProjectIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 

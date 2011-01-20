@@ -90,6 +90,8 @@ public abstract class IssueListQueryBase extends BaseQuery<Issue, Long> {
 
 			"issue.category.id = #{issueList.issue.category.id}",
 
+			"issue.severity = #{issueList.issue.severity}",
+
 			"issue.dateCreated <= #{issueList.dateCreatedRange.end}",
 			"issue.dateCreated >= #{issueList.dateCreatedRange.begin}",};
 
@@ -185,6 +187,12 @@ public abstract class IssueListQueryBase extends BaseQuery<Issue, Long> {
 
 		builder.append(",");
 
+		if (e.getSeverity() != null)
+
+			builder.append(e.getSeverity() + ",");
+
+		builder.append(",");
+
 		builder.append("\r\n");
 	}
 
@@ -213,6 +221,8 @@ public abstract class IssueListQueryBase extends BaseQuery<Issue, Long> {
 		builder.append("Creator" + ",");
 
 		builder.append("Category" + ",");
+
+		builder.append("Severity" + ",");
 
 		builder.append("\r\n");
 	}

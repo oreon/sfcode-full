@@ -63,7 +63,9 @@ public class Category extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getName() {
+
 		return name;
+
 	}
 
 	@Transient

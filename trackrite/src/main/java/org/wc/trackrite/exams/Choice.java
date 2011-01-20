@@ -67,7 +67,9 @@ public class Choice extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Question getQuestion() {
+
 		return question;
+
 	}
 
 	public void setText(String text) {
@@ -75,7 +77,9 @@ public class Choice extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getText() {
+
 		return text;
+
 	}
 
 	@Transient

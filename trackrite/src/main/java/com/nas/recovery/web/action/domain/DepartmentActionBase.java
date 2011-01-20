@@ -55,6 +55,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	public void setDepartmentId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -68,6 +69,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	 */
 	public void setDepartmentIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 
