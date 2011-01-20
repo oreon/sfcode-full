@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import org.wc.trackrite.schedule.ScheduleItem;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class ScheduleItemListQueryBase
@@ -86,4 +86,45 @@ public abstract class ScheduleItemListQueryBase
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, ScheduleItem e) {
+
+		if (e.getStartDate() != null)
+
+			builder.append(e.getStartDate() + ",");
+
+		builder.append(",");
+
+		if (e.getEndDate() != null)
+
+			builder.append(e.getEndDate() + ",");
+
+		builder.append(",");
+
+		if (e.getEmployee() != null)
+
+			builder.append(e.getEmployee().getDisplayName());
+
+		builder.append(",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("StartDate" + ",");
+
+		builder.append("EndDate" + ",");
+
+		builder.append("Employee" + ",");
+
+		builder.append("\r\n");
+	}
 }

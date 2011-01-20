@@ -116,7 +116,7 @@ public abstract class ScheduleItemActionBase extends BaseAction<ScheduleItem>
 
 		org.wc.trackrite.domain.Employee employee = employeeAction
 				.getDefinedInstance();
-		if (employee != null) {
+		if (employee != null && isNew()) {
 			getInstance().setEmployee(employee);
 		}
 

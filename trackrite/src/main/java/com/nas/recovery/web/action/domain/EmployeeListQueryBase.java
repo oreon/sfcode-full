@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import org.wc.trackrite.domain.Employee;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
@@ -115,4 +115,61 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, Employee e) {
+
+		if (e.getDepartment() != null)
+
+			builder.append(e.getDepartment().getDisplayName());
+
+		builder.append(",");
+
+		if (e.getEmployeeNumber() != null)
+
+			builder.append(e.getEmployeeNumber() + ",");
+
+		builder.append(",");
+
+		if (e.getEmployeeType() != null)
+
+			builder.append(e.getEmployeeType() + ",");
+
+		builder.append(",");
+
+		if (e.getHome() != null)
+
+			builder.append(e.getHome() + ",");
+
+		builder.append(",");
+
+		if (e.getProjects() != null)
+
+			builder.append(e.getProjects() + ",");
+
+		builder.append(",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Department" + ",");
+
+		builder.append("EmployeeNumber" + ",");
+
+		builder.append("EmployeeType" + ",");
+
+		builder.append("Home" + ",");
+
+		builder.append("Projects" + ",");
+
+		builder.append("\r\n");
+	}
 }

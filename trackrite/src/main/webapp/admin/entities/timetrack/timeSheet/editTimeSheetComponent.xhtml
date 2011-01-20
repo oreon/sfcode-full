@@ -4,17 +4,14 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{timeSheetAction.load(timeSheetId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="TimeSheet "/> 
-        </f:facet>  
         <h:outputText value="#{msg.timeSheet_title} * " rendered="#{s:hasPermission('title', 'timeSheetEdit')}"/>  
         <h:inputText id="title#{entityId}" rendered="#{s:hasPermission('title', 'timeSheetEdit')}" label="#{msg.timeSheet_title}" required="true" value="#{timeSheetAction.timeSheet.title}"/>  
         <h:message styleClass="error errors" for="title" rendered="#{s:hasPermission('title', 'timeSheetEdit')}"/> 
       </h:panelGrid>  
-      <a:commandButton value="New TimeTrackingEntry" action="#{timeSheetAction.addTimeTrackingEntrys}" reRender="timeTrackingEntrys"> 
+      <a:commandButton value="New TimeTrackingEntry" action="#{timeSheetAction.addTimeTrackingEntrys}" reRender="timeTrackingEntrys" rendered="#{s:hasPermission('timeTrackingEntrys', 'timeSheetEdit')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="timeTrackingEntrys" var="_timeTrackingEntry" value="#{timeSheetAction.listTimeTrackingEntrys}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="timeTrackingEntrys" var="_timeTrackingEntry" rendered="#{s:hasPermission('timeTrackingEntrys', 'timeSheetEdit')}" value="#{timeSheetAction.listTimeTrackingEntrys}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.timeTrackingEntry_issue}  " rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"/>
@@ -47,7 +44,7 @@
           <h:message styleClass="error errors" for="date" rendered="#{s:hasPermission('date', 'timeTrackingEntryEdit')}"/> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New TimeTrackingEntry" action="#{timeSheetAction.addTimeTrackingEntrys}" reRender="timeTrackingEntrys"> 
+          <a:commandButton value="New TimeTrackingEntry" action="#{timeSheetAction.addTimeTrackingEntrys}" reRender="timeTrackingEntrys" rendered="#{s:hasPermission('timeTrackingEntrys', 'timeTrackingEntryEdit')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

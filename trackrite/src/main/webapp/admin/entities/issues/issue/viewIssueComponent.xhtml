@@ -4,9 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{issueAction.load(issueId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Issue "/> 
-        </f:facet>  
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{issueAction.issue.id}"/>  
         <h:outputText value="#{msg.issue_project}  " rendered="#{s:hasPermission('project', 'issueView')}"/>  
@@ -17,6 +14,11 @@
         <h:outputText value="#{msg.issue_developer}  " rendered="#{s:hasPermission('developer', 'issueView')}"/>  
         <s:link value="#{issueAction.issue.developer.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
           <f:param name="developerId" value="#{issueAction.issue.developer.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.issue_category}  " rendered="#{s:hasPermission('category', 'issueView')}"/>  
+        <s:link value="#{issueAction.issue.category.displayName}" view="/admin/entities/issues/category/viewCategory.xhtml" propagation="none"> 
+          <f:param name="categoryId" value="#{issueAction.issue.category.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.issue_title}  " rendered="#{s:hasPermission('title', 'issueView')}"/>  
@@ -30,7 +32,20 @@
         <h:outputText value="#{msg.issue_closeTime}  " rendered="#{s:hasPermission('closeTime', 'issueView')}"/>  
         <h:outputText id="closeTime#{entityId}" rendered="#{s:hasPermission('closeTime', 'issueView')}" value="#{issueAction.issue.closeTime}"/>  
         <h:outputText value="#{msg.issue_estimate}  " rendered="#{s:hasPermission('estimate', 'issueView')}"/>  
-        <h:outputText id="estimate#{entityId}" rendered="#{s:hasPermission('estimate', 'issueView')}" value="#{issueAction.issue.estimate}"/> 
+        <h:outputText id="estimate#{entityId}" rendered="#{s:hasPermission('estimate', 'issueView')}" value="#{issueAction.issue.estimate}"/>  
+        <h:outputText value="#{msg.issue_creator}  " rendered="#{s:hasPermission('creator', 'issueView')}"/>  
+        <h:outputText id="creator#{entityId}" rendered="#{s:hasPermission('creator', 'issueView')}" value="#{issueAction.issue.creator}"/>  
+        <h:outputText value="#{msg.issue_file}  " rendered="#{s:hasPermission('file', 'issueView')}"/>  
+        <c:choose> 
+          <c:when test="${issueAction.issue.file.contentType.startsWith('image')}"> 
+            <s:graphicImage value="#{issueAction.issue.file.data}"/> 
+          </c:when>  
+          <c:otherwise> 
+            <s:link value="#{issueAction.issue.file.name}" action="#{issueAction.downloadFile(null)}" propagation="none"> 
+              <f:param name="currentEntityId" value="#{issueAction.instance.id}"/> 
+            </s:link> 
+          </c:otherwise> 
+        </c:choose> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

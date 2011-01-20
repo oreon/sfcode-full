@@ -14,13 +14,13 @@
             </h:commandButton> 
           </div> 
         </rich:tab>  
-        <rich:tab label="Issue"> 
+        <rich:tab label="Issue" rendered="#{timeTrackingEntryAction.instance.issue != null}"> 
           <ui:include src="/admin/entities/issues/issue/viewIssueComponent.xhtml"> 
             <ui:param name="entityId" value="1"/>  
             <ui:param name="issueId" value="#{timeTrackingEntryAction.instance.issue.id}"/> 
           </ui:include> 
         </rich:tab>  
-        <rich:tab label="TimeSheet"> 
+        <rich:tab label="TimeSheet" rendered="#{timeTrackingEntryAction.instance.timeSheet != null}"> 
           <ui:include src="/admin/entities/timetrack/timeSheet/viewTimeSheetComponent.xhtml"> 
             <ui:param name="entityId" value="2"/>  
             <ui:param name="timeSheetId" value="#{timeTrackingEntryAction.instance.timeSheet.id}"/> 

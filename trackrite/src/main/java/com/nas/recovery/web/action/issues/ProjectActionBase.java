@@ -138,9 +138,9 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 
 	public void updateAssociations() {
 
-		org.wc.trackrite.issues.Issue issue = (org.wc.trackrite.issues.Issue) org.jboss.seam.Component
+		org.wc.trackrite.issues.Issue issues = (org.wc.trackrite.issues.Issue) org.jboss.seam.Component
 				.getInstance("issue");
-		issue.setProject(project);
+		issues.setProject(project);
 		events.raiseTransactionSuccessEvent("archivedIssue");
 
 	}

@@ -4,9 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{questionAction.load(questionId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Question "/> 
-        </f:facet>  
         <h:outputText value="#{msg.question_exam}  " rendered="#{s:hasPermission('exam', 'questionEdit')}"/>  
         <h:selectOneMenu id="exam" label="#{msg.question_exam}" value="#{questionAction.question.exam}" required="true" rendered="#{s:hasPermission('exam', 'questionEdit')}"> 
           <s:selectItems value="#{examList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -17,10 +14,10 @@
         <h:inputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'questionEdit')}" label="#{msg.question_text}" required="true" value="#{questionAction.question.text}"/>  
         <h:message styleClass="error errors" for="text" rendered="#{s:hasPermission('text', 'questionEdit')}"/> 
       </h:panelGrid>  
-      <a:commandButton value="New Choice" action="#{questionAction.addChoices}" reRender="choices"> 
+      <a:commandButton value="New Choice" action="#{questionAction.addChoices}" reRender="choices" rendered="#{s:hasPermission('choices', 'questionEdit')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="choices" var="_choice" value="#{questionAction.listChoices}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="choices" var="_choice" rendered="#{s:hasPermission('choices', 'questionEdit')}" value="#{questionAction.listChoices}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.choice_text} * " rendered="#{s:hasPermission('text', 'choiceEdit')}"/>
@@ -29,7 +26,7 @@
           <h:message styleClass="error errors" for="text" rendered="#{s:hasPermission('text', 'choiceEdit')}"/> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New Choice" action="#{questionAction.addChoices}" reRender="choices"> 
+          <a:commandButton value="New Choice" action="#{questionAction.addChoices}" reRender="choices" rendered="#{s:hasPermission('choices', 'choiceEdit')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

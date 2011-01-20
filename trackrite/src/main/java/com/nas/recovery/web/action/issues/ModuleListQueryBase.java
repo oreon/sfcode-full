@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import org.wc.trackrite.issues.Module;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class ModuleListQueryBase extends BaseQuery<Module, Long> {
@@ -62,4 +62,29 @@ public abstract class ModuleListQueryBase extends BaseQuery<Module, Long> {
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, Module e) {
+
+		if (e.getName() != null)
+
+			builder.append(e.getName() + ",");
+
+		builder.append(",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Name" + ",");
+
+		builder.append("\r\n");
+	}
 }

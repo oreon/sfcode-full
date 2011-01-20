@@ -4,9 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{scheduleItemAction.load(scheduleItemId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="ScheduleItem "/> 
-        </f:facet>  
         <h:outputText value="#{msg.scheduleItem_employee}  " rendered="#{s:hasPermission('employee', 'scheduleItemEdit')}"/>  
         <h:selectOneMenu id="employee" label="#{msg.scheduleItem_employee}" value="#{scheduleItemAction.scheduleItem.employee}" required="true" rendered="#{s:hasPermission('employee', 'scheduleItemEdit')}"> 
           <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  

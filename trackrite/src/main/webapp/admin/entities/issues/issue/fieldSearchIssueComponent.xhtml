@@ -77,7 +77,25 @@
         <f:converter converterId="javax.faces.Integer"/> 
       </h:inputText> 
     </h:panelGroup>  
-    <rich:calendar id="from" value="#{issueList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{issueList.dateCreatedRange.end}"/> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.issue_creator}  " rendered="#{s:hasPermission('creator', 'issueEdit')}"/>  
+      <br/>  
+      <h:inputText id="creator" value="#{issueList.issue.creator}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.issue_category}  " rendered="#{s:hasPermission('category', 'issueEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="category" value="#{ issueList.issue.category}"> 
+        <s:selectItems value="#{categoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

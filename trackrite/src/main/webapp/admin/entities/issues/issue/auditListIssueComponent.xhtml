@@ -82,6 +82,27 @@
           <h:outputText value="#{msg.issue_estimate}"/> 
         </f:facet>  
         <h:outputText value="#{_log.entity.estimate}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.issue_creator}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.creator}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.issue_category}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.category.displayName}" view="/admin/entities/issues/category/viewCategory.xhtml"> 
+          <f:param name="id" value="#{_entity.category.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.issue_file}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.file}"/> 
       </rich:column> 
     </rich:dataTable> 
   </h:form> 

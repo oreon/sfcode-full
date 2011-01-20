@@ -4,9 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{examAction.load(examId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Exam "/> 
-        </f:facet>  
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{examAction.exam.id}"/>  
         <h:outputText value="#{msg.exam_name}  " rendered="#{s:hasPermission('name', 'examView')}"/>  
@@ -14,7 +11,7 @@
         <h:outputText value="#{msg.exam_duration}  " rendered="#{s:hasPermission('duration', 'examView')}"/>  
         <h:outputText id="duration#{entityId}" rendered="#{s:hasPermission('duration', 'examView')}" value="#{examAction.exam.duration}"/> 
       </h:panelGrid>  
-      <rich:dataTable id="questions" var="_question" rendered="#{not empty examAction.listQuestions}" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="questions" var="_question" rendered="#{not empty examAction.listQuestions and s:hasPermission('questions', 'examView') }" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.question_text}  " rendered="#{s:hasPermission('text', 'questionView')}"/>

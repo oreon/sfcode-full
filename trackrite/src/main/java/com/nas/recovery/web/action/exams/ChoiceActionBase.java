@@ -116,7 +116,7 @@ public abstract class ChoiceActionBase extends BaseAction<Choice>
 
 		org.wc.trackrite.exams.Question question = questionAction
 				.getDefinedInstance();
-		if (question != null) {
+		if (question != null && isNew()) {
 			getInstance().setQuestion(question);
 		}
 

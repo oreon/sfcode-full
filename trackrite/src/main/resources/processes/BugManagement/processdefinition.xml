@@ -21,10 +21,10 @@
   </task-node>  
   <task-node name="reviewIssue"> 
     <task name="reviewIssue" swimlane="developer" duedate="0 business days" notify="true"></task>  
+    <transition to="assignDeveloper" name="reject"></transition>  
     <transition to="workOnIssue" name="accept"> 
       <action expression="#{issueAction.updateStatus('Started')}"/> 
-    </transition>  
-    <transition to="assignDeveloper" name="reject"></transition> 
+    </transition> 
   </task-node>  
   <start-state name=""> 
     <task name="" swimlane="initiator"></task>  
@@ -32,10 +32,10 @@
   </start-state>  
   <task-node name="verifyfix"> 
     <task name="verifyfix" swimlane="qa" duedate="0 business days" notify="true"></task>  
+    <transition to="workOnIssue" name="requestModification"></transition>  
     <transition to="notifyClose" name="close"> 
       <action expression="#{issueAction.updateStatus('Closed')}"/> 
-    </transition>  
-    <transition to="workOnIssue" name="requestModification"></transition> 
+    </transition> 
   </task-node>  
   <end-state name="fixed"/>  
   <task-node name="workOnIssue"> 

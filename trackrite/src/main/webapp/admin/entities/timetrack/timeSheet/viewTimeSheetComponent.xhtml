@@ -4,15 +4,12 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{timeSheetAction.load(timeSheetId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="TimeSheet "/> 
-        </f:facet>  
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{timeSheetAction.timeSheet.id}"/>  
         <h:outputText value="#{msg.timeSheet_title}  " rendered="#{s:hasPermission('title', 'timeSheetView')}"/>  
         <h:outputText id="title#{entityId}" rendered="#{s:hasPermission('title', 'timeSheetView')}" value="#{timeSheetAction.timeSheet.title}"/> 
       </h:panelGrid>  
-      <rich:dataTable id="timeTrackingEntrys" var="_timeTrackingEntry" rendered="#{not empty timeSheetAction.listTimeTrackingEntrys}" value="#{timeSheetAction.listTimeTrackingEntrys}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="timeTrackingEntrys" var="_timeTrackingEntry" rendered="#{not empty timeSheetAction.listTimeTrackingEntrys and s:hasPermission('timeTrackingEntrys', 'timeSheetView') }" value="#{timeSheetAction.listTimeTrackingEntrys}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.timeTrackingEntry_issue}  " rendered="#{s:hasPermission('issue', 'timeTrackingEntryView')}"/>

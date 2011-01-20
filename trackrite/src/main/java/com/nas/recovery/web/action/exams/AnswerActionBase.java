@@ -132,13 +132,13 @@ public abstract class AnswerActionBase extends BaseAction<Answer>
 
 		org.wc.trackrite.exams.Choice choice = choiceAction
 				.getDefinedInstance();
-		if (choice != null) {
+		if (choice != null && isNew()) {
 			getInstance().setChoice(choice);
 		}
 
 		org.wc.trackrite.exams.ExamInstance examInstance = examInstanceAction
 				.getDefinedInstance();
-		if (examInstance != null) {
+		if (examInstance != null && isNew()) {
 			getInstance().setExamInstance(examInstance);
 		}
 

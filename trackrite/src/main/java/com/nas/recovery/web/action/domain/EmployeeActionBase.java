@@ -123,7 +123,7 @@ public abstract class EmployeeActionBase
 
 		org.wc.trackrite.domain.Department department = departmentAction
 				.getDefinedInstance();
-		if (department != null) {
+		if (department != null && isNew()) {
 			getInstance().setDepartment(department);
 		}
 
@@ -176,9 +176,9 @@ public abstract class EmployeeActionBase
 
 	public void updateAssociations() {
 
-		org.wc.trackrite.issues.Issue issue = (org.wc.trackrite.issues.Issue) org.jboss.seam.Component
+		org.wc.trackrite.issues.Issue issues = (org.wc.trackrite.issues.Issue) org.jboss.seam.Component
 				.getInstance("issue");
-		issue.setDeveloper(employee);
+		issues.setDeveloper(employee);
 		events.raiseTransactionSuccessEvent("archivedIssue");
 
 	}

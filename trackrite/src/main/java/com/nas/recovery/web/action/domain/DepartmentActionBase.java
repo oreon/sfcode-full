@@ -135,9 +135,9 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 	public void updateAssociations() {
 
-		org.wc.trackrite.domain.Employee employee = (org.wc.trackrite.domain.Employee) org.jboss.seam.Component
+		org.wc.trackrite.domain.Employee employees = (org.wc.trackrite.domain.Employee) org.jboss.seam.Component
 				.getInstance("employee");
-		employee.setDepartment(department);
+		employees.setDepartment(department);
 		events.raiseTransactionSuccessEvent("archivedEmployee");
 
 	}

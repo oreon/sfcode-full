@@ -4,9 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{timeTrackingEntryAction.load(timeTrackingEntryId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="TimeTrackingEntry "/> 
-        </f:facet>  
         <h:outputText value="#{msg.timeTrackingEntry_issue}  " rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"/>  
         <h:selectOneMenu id="issue" label="#{msg.timeTrackingEntry_issue}" value="#{timeTrackingEntryAction.timeTrackingEntry.issue}" required="true" rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"> 
           <s:selectItems value="#{employeeAction.currentLoggedInEmployee.issues}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  

@@ -14,7 +14,7 @@
             </h:commandButton> 
           </div> 
         </rich:tab>  
-        <rich:tab label="Department"> 
+        <rich:tab label="Department" rendered="#{employeeAction.instance.department != null}"> 
           <ui:include src="/admin/entities/domain/department/viewDepartmentComponent.xhtml"> 
             <ui:param name="entityId" value="1"/>  
             <ui:param name="departmentId" value="#{employeeAction.instance.department.id}"/> 
@@ -25,20 +25,24 @@
     <br/>  
     <rich:tabPanel> 
       <rich:tab label="Issues" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="EmployeeModalPanel-issues"/>  
         <ui:include src="/admin/entities/issues/issue/listIssueComponent.xhtml"> 
-          <ui:param name="records" value="#{issueList.getIssuesByDeveloper(employeeAction.instance)}"/> 
+          <ui:param name="records" value="#{issueList.getIssuesByDeveloper(employeeAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/> 
         </ui:include>  
         <a:form> 
           <s:button value="Create New" view="/admin/entities/issues/issue/editIssue.xhtml"> 
             <f:param name="employeeId" value="#{employeeAction.instance.id}"/>  
             <f:param name="issueId" value="0"/> 
           </s:button>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('IssueModalPanel',{});" value="Quick Create"> 
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"> 
             <a:actionparam name="issueId" assignTo="#{issueAction.issueId}" value="0"/>  
             <a:actionparam name="employeeId" assignTo="#{issueAction.developerId}" value="#{employeeAction.instance.id}"/> 
           </a:commandButton> 
         </a:form>  
-        <ui:include src="/admin/entities/issues/issue/modalDlgIssueComponent.xhtml"/> 
+        <ui:include src="/admin/entities/issues/issue/modalDlgIssueComponent.xhtml"> 
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include> 
       </rich:tab> 
     </rich:tabPanel>  
     <br/>  

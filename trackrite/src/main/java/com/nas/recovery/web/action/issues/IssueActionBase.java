@@ -50,6 +50,9 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 	@In(create = true, value = "employeeAction")
 	com.nas.recovery.web.action.domain.EmployeeAction developerAction;
 
+	@In(create = true, value = "categoryAction")
+	com.nas.recovery.web.action.issues.CategoryAction categoryAction;
+
 	@DataModel
 	private List<Issue> issueRecordList;
 
@@ -98,6 +101,19 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 		return 0L;
 	}
 
+	public void setCategoryId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setCategory(categoryAction.loadFromId(id));
+
+	}
+
+	public Long getCategoryId() {
+		if (getInstance().getCategory() != null)
+			return getInstance().getCategory().getId();
+		return 0L;
+	}
+
 	public Long getIssueId() {
 		return (Long) getId();
 	}
@@ -132,14 +148,20 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 
 		org.wc.trackrite.issues.Project project = projectAction
 				.getDefinedInstance();
-		if (project != null) {
+		if (project != null && isNew()) {
 			getInstance().setProject(project);
 		}
 
 		org.wc.trackrite.domain.Employee developer = developerAction
 				.getDefinedInstance();
-		if (developer != null) {
+		if (developer != null && isNew()) {
 			getInstance().setDeveloper(developer);
+		}
+
+		org.wc.trackrite.issues.Category category = categoryAction
+				.getDefinedInstance();
+		if (category != null && isNew()) {
+			getInstance().setCategory(category);
 		}
 
 	}
@@ -162,6 +184,14 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 		return Issue.class;
 	}
 
+	public String downloadFile(Long id) {
+		if (id == null || id == 0)
+			id = currentEntityId;
+		setId(id);
+		downloadAttachment(getInstance().getFile());
+		return "success";
+	}
+
 	/** This function adds associated entities to an example criterion
 	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
 	 */
@@ -178,6 +208,11 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 					.getDeveloper().getId()));
 		}
 
+		if (issue.getCategory() != null) {
+			criteria = criteria.add(Restrictions.eq("category.id", issue
+					.getCategory().getId()));
+		}
+
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -192,6 +227,10 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 
 		if (issue.getDeveloper() != null) {
 			developerAction.setInstance(getInstance().getDeveloper());
+		}
+
+		if (issue.getCategory() != null) {
+			categoryAction.setInstance(getInstance().getCategory());
 		}
 
 	}
