@@ -8,6 +8,8 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.bpm.ProcessInstance;
+import org.jbpm.graph.exe.ExecutionContext;
+import org.wc.trackrite.domain.Employee;
 import org.wc.trackrite.issues.Issue;
 import org.wc.trackrite.issues.Status;
 import org.witchcraft.exceptions.ContractViolationException;
@@ -31,12 +33,22 @@ public class IssueAction extends IssueActionBase implements
 
 	@Override
 	public String save() {
+		
 		boolean isNew = isNew();
 		String ret = super.save();
 		
 		if (isNew) {
 			launchProcess();
 			getInstance().setProcessId(ProcessInstance.instance().getId());
+		}else{
+			Employee prevDeveloper = loadFromId(getInstance().getId()).getDeveloper();
+			if(prevDeveloper == null && getInstance().getDeveloper() != null){
+				org.jbpm.graph.exe.ProcessInstance pi = ExecutionContext.currentExecutionContext().getJbpmContext().loadProcessInstance(getInstance().getProcessId());
+				pi.end();
+				launchProcess();
+				getInstance().setProcessId(ProcessInstance.instance().getId());
+			}
+			
 		}
 
 		super.save();

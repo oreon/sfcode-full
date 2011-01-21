@@ -3,8 +3,7 @@
 
 <jasperReport name="ActiveBugsReport" isTitleNewPage="false" isSummaryNewPage="false" formatFactoryClass="org.witchcraft.jasperreports.WCFormatFactory"> 
   <parameter name="ReportTitle" class="java.lang.String"/>  
-  <queryString language="ejbql"> <![CDATA[select i from Issue i where i.status = Status.Started
-ORDER BY i.developer.lastName, i.priority
+  <queryString language="ejbql"> <![CDATA[select i from Issue i where i.status in ('Status.Started','Status.Unassigned' )ORDER BY i.developer.lastName, i.priority
 ]]> </queryString>  
   <field name="title" class="java.lang.String"/>  
   <field name="estimate" class="java.lang.Integer"/>  
@@ -12,12 +11,6 @@ ORDER BY i.developer.lastName, i.priority
   <field name="priority" class="org.wc.trackrite.issues.Priority"/>  
   <variable name="GroupdevGrpCounter" class="java.lang.Integer" incrementType="Group" incrementGroup="GroupdevGrp" calculation="Count"> 
     <variableExpression><![CDATA[Boolean.TRUE]]></variableExpression> 
-  </variable>  
-  <variable name="GroupdevGrp_sum" class="java.lang.Integer" calculation="Sum" resetType="Group" resetGroup="GroupdevGrp"> 
-    <variableExpression> <![CDATA[$F{estimate}]]> </variableExpression> 
-  </variable>  
-  <variable name="sum:estimate_sum" class="java.lang.Integer" calculation="Sum"> 
-    <variableExpression> <![CDATA[$F{estimate}]]> </variableExpression> 
   </variable>  
   <variable name="GrouppriorityCounter" class="java.lang.Integer" incrementType="Group" incrementGroup="Grouppriority" calculation="Count"> 
     <variableExpression><![CDATA[Boolean.TRUE]]></variableExpression> 
@@ -40,11 +33,6 @@ ORDER BY i.developer.lastName, i.priority
           <reportElement x="0" mode="Opaque" y="1" width="540" height="15" backcolor="#e1e1f1"/>  
           <textElement textAlignment="Right"/>  
           <textFieldExpression class="java.lang.String"> <![CDATA["Count For " + $F{developer.displayName} + " : " + $V{GroupdevGrp_COUNT}]]> </textFieldExpression> 
-        </textField>  
-        <textField> 
-          <reportElement x="0" mode="Opaque" y="1" width="540" height="15" backcolor="#e1e1f1"/>  
-          <textElement textAlignment="Right"/>  
-          <textFieldExpression class="java.lang.String"> <![CDATA["Sum:estimate For " + $F{developer.displayName} + " : " + $V{GroupdevGrp_sum}]]> </textFieldExpression> 
         </textField> 
       </band> 
     </groupFooter> 
@@ -131,11 +119,6 @@ ORDER BY i.developer.lastName, i.priority
         <textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression> 
       </textField>  
       <textField> 
-        <reportElement x="420" y="1" width="30" height="15"/>  
-        <textElement textAlignment="Right"/>  
-        <textFieldExpression class="java.lang.Integer"> <![CDATA[$V{sum:estimate_sum}]]> </textFieldExpression> 
-      </textField>  
-      <textField> 
         <reportElement x="460" y="1" width="30" height="15"/>  
         <textElement textAlignment="Right"/>  
         <textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression> 
@@ -146,8 +129,8 @@ ORDER BY i.developer.lastName, i.priority
         </chart>  
         <pieDataset> 
           <keyExpression><![CDATA[$F{developer.displayName}]]></keyExpression>  
-          <valueExpression><![CDATA[$V{devGrp:sum:estimate}]]></valueExpression>  
-          <labelExpression><![CDATA[$F{developer.displayName}  + " - " + $V{devGrp:sum:estimate}  ]]></labelExpression> 
+          <valueExpression><![CDATA[$V{GroupdevGrp_COUNT}]]></valueExpression>  
+          <labelExpression><![CDATA[$F{developer.displayName}  + " - " + $V{GroupdevGrp_COUNT}  ]]></labelExpression> 
         </pieDataset>  
         <piePlot> 
           <plot/> 

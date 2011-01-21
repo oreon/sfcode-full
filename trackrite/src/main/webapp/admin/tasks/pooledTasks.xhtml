@@ -5,6 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
 	>
+	<h:form>
 		<rich:panel>
 			<f:facet name="header">
 				<h:outputText value="Pooled Tasks" />
@@ -33,8 +34,11 @@
 					<f:facet name="header">
 						<h:outputText value="Title" />
 					</f:facet>
-					<h:outputText
-						value="#{task.variables['token'].displayName}" />
+					<h:commandLink  action="viewIssue"  id="issue"
+						value="#{task.variables['token'].displayName}" >
+					
+					</h:commandLink>
+						<rich:toolTip value="#{task.variables['token'].description}"  for="issue"/>
 				</h:column>
 
 
@@ -70,6 +74,6 @@
 		</rich:panel>
 
 
-
+	</h:form>
 
 </ui:composition>
