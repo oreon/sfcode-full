@@ -344,6 +344,7 @@
 		<s:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List"»}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
+		<rich:ajaxValidator event="onblur"/>
 		<s:convertEntity />
 	</h:selectOneMenu>
 «ENDDEFINE»
@@ -417,6 +418,7 @@
 		«FOREACH  enm.ownedLiteral AS e-»
 		<f:selectItem itemValue="«e.name»"  itemLabel="«e.name.toLowerCase().getVariableNameForDisplay()-»" />
 		«ENDFOREACH»
+		<rich:ajaxValidator event="onblur"/>
 	</h:selectOneMenu>
 	«ENDIF»
 «ENDDEFINE»

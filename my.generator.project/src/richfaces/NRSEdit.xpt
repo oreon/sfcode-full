@@ -28,8 +28,10 @@
 «IF !getCompositionParent().isEmpty»
 «FILE getWebPath() +"/" + "manage" + name + "Component." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes-» >
+	 
 <s:div styleClass="mortgage_status_formwrap2">
 		<ui:include src = "«getComponentViewFile("list")»" >
+			<ui:param name="listTitle" value="${listTitle}" />
 			<ui:param name="records" 
 				value="#{«asVar()»List.get«name.toFirstUpper().getPlural()»By«getCompositionParent().get(0).name.toFirstUpper()»(loanDataAction.instance.«getCompositionParent().get(0).name»)}" />
          </ui:include>

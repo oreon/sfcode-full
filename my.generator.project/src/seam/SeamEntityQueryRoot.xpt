@@ -42,8 +42,8 @@ import org.witchcraft.seam.action.BaseAction;
 import «packageName()».«name»;
 
 /**
-* D
- * @author WitchcraftMDA Seam Cartridge
+* 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
@@ -127,6 +127,35 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 		«ENDFOREACH»
 	}
 	«ENDIF»
+	
+	
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, «name» e){
+		«FOREACH getAllAttributes().select(a|a.isSearchable()  )  AS a»
+			if(e.get«a.name.toFirstUpper()»() != null )
+			«IF a.association != null && !a.type.isEmbeddable() && !a.isMultivalued()»
+				builder.append(e.get«a.name.toFirstUpper()»().getDisplayName() );
+			«ELSE»
+				builder.append(e.get«a.name.toFirstUpper()»() + ",");
+			«ENDIF»
+			builder.append( "," );
+		«ENDFOREACH»
+		builder.append("\r\n");
+	}
+	
+	/** create the headings 
+	 * @param builder
+	 */
+	 //@Override
+	public void createCSvTitles(StringBuilder builder ){
+		«FOREACH getAllAttributes().select(a|a.isSearchable()  )  AS a»
+			builder.append("«a.name.toFirstUpper()»" + ",");
+		«ENDFOREACH»
+		builder.append("\r\n");
+	}
 }
 «ENDFILE»
 «ENDDEFINE»

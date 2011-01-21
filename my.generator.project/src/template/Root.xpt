@@ -12,7 +12,7 @@
 «DEFINE PackageRoot FOR uml::Package»
 	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Class)»
 	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Interface)»
-	«EXPAND EnumGen FOREACH allOwnedElements().typeSelect(uml::Enumeration)»u
+	«EXPAND EnumGen FOREACH allOwnedElements().typeSelect(uml::Enumeration)»
 «ENDDEFINE»
 
 «DEFINE ClassRoot FOR uml::Class»
@@ -187,7 +187,6 @@
 	public class «name» «getParent()» «getInterfaces()» implements  java.io.Serializable{
 		private static final long serialVersionUID = «serialver()»;
 		
-	
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
 	}
@@ -358,7 +357,15 @@
 		}
 		
 		public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
-			return «isColumn() && derivedProperty != null ? derivedProperty :  name»;
+			«IF isColumn() && derivedProperty != null »
+			try {
+				return «derivedProperty»;
+			} catch (Exception e) {
+				return "";
+			}
+			«ELSE»
+				return «name»;
+			«ENDIF»
 		}
 	«ENDIF»
 «ENDDEFINE»
