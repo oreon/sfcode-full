@@ -105,6 +105,12 @@ public class BaseJbpmProcessAction {
 		this.task = task;
 	}
 	
+	@Transactional
+	public void endProcess(Long processId){
+		org.jbpm.graph.exe.ProcessInstance pi = jbpmContext.loadProcessInstance(processId);
+		pi.end();
+	}
+	
 	public String getTaskForm(){
 		if(task == null)
 			return "";
