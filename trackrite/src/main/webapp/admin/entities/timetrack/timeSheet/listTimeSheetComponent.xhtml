@@ -4,8 +4,11 @@
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="TimeSheetModalPanel"/> 
   </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="TimeSheet Search Results (#{empty records ? 0 : (timeSheetList.paginated ? timeSheetList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">TimeSheet Search Results (#{empty records ? 0 : (timeSheetList.paginated ? timeSheetList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_timeSheet" value="#{records}" id="timeSheetList" rowClasses="odd, even" styleClass="dataTable"> 
         <h:column rendered="#{s:hasPermission('id', 'timeSheetView' )}"> 

@@ -23,6 +23,7 @@ import org.jbpm.graph.exe.Comment;
 import org.jbpm.taskmgmt.exe.TaskInstance;
 import org.joda.time.DateTime;
 import org.wc.trackrite.issues.Issue;
+import org.witchcraft.base.entity.BusinessEntity;
 
 import com.nas.recovery.web.action.issues.IssueAction;
 
@@ -39,6 +40,9 @@ public class BaseJbpmProcessAction {
 
 	@In
 	protected JbpmContext jbpmContext;
+	
+	@In(create=true)
+	protected List<TaskInstance> pooledTaskInstanceList;
 
 	@In
 	protected Identity identity;
@@ -200,6 +204,19 @@ public class BaseJbpmProcessAction {
 			}
 		}
 		return cmts;
+	}
+	
+	@Transactional
+	public void updateUserForPooledTask(String userName, Long processId, BusinessEntity be) {
+		for (TaskInstance taskInstance : pooledTaskInstanceList) {
+			Long procId = taskInstance.getProcessInstance().getId();
+			if (procId.equals(processId)) {
+				taskInstance.setActorId(userName);
+				taskInstance.setVariable("token", be);
+				break;
+			}
+		}
+
 	}
 
 }

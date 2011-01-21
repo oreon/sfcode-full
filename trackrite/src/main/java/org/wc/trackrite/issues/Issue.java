@@ -103,6 +103,11 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 
 	protected Severity severity;
 
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "qa_id", nullable = true, updatable = true)
+	@ContainedIn
+	protected org.wc.trackrite.domain.Employee qa;
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -224,6 +229,16 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	public Severity getSeverity() {
 
 		return severity;
+
+	}
+
+	public void setQa(org.wc.trackrite.domain.Employee qa) {
+		this.qa = qa;
+	}
+
+	public org.wc.trackrite.domain.Employee getQa() {
+
+		return qa;
 
 	}
 

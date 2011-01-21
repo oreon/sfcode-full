@@ -4,8 +4,11 @@
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="IssueModalPanel"/> 
   </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Issue Search Results (#{empty records ? 0 : (issueList.paginated ? issueList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">Issue Search Results (#{empty records ? 0 : (issueList.paginated ? issueList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_issue" value="#{records}" id="issueList" rowClasses="odd, even" styleClass="dataTable"> 
         <h:column rendered="#{s:hasPermission('id', 'issueView' )}"> 
@@ -150,6 +153,19 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_issue.severity}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('qa', 'issueView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{issueList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.issue_qa}"/>  
+              <ui:param name="propertyPath" value="issue.qa"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_issue.qa.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
+            <f:param name="qaId" value="#{_issue.qa.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'issueView' )}"> 
           <f:facet name="header"> 

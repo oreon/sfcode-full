@@ -4,8 +4,11 @@
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="TimeTrackingEntryModalPanel"/> 
   </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="TimeTrackingEntry Search Results (#{empty records ? 0 : (timeTrackingEntryList.paginated ? timeTrackingEntryList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">TimeTrackingEntry Search Results (#{empty records ? 0 : (timeTrackingEntryList.paginated ? timeTrackingEntryList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_timeTrackingEntry" value="#{records}" id="timeTrackingEntryList" rowClasses="odd, even" styleClass="dataTable"> 
         <h:column rendered="#{s:hasPermission('id', 'timeTrackingEntryView' )}"> 

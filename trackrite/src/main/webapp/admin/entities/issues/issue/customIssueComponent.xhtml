@@ -104,6 +104,15 @@
           <f:selectItem itemValue="FOUR" itemLabel="Four"/> 
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="severity" rendered="#{s:hasPermission('severity', 'issueEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.issue_qa}  " rendered="#{s:hasPermission('qa', 'issueEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="qa" value="#{issueAction.issue.qa}"> 
+          <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="qa" rendered="#{s:hasPermission('qa', 'issueEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

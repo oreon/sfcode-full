@@ -53,6 +53,9 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 	@In(create = true, value = "categoryAction")
 	com.nas.recovery.web.action.issues.CategoryAction categoryAction;
 
+	@In(create = true, value = "employeeAction")
+	com.nas.recovery.web.action.domain.EmployeeAction qaAction;
+
 	@DataModel
 	private List<Issue> issueRecordList;
 
@@ -116,6 +119,19 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 		return 0L;
 	}
 
+	public void setQaId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setQa(qaAction.loadFromId(id));
+
+	}
+
+	public Long getQaId() {
+		if (getInstance().getQa() != null)
+			return getInstance().getQa().getId();
+		return 0L;
+	}
+
 	public Long getIssueId() {
 		return (Long) getId();
 	}
@@ -164,6 +180,11 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 				.getDefinedInstance();
 		if (category != null && isNew()) {
 			getInstance().setCategory(category);
+		}
+
+		org.wc.trackrite.domain.Employee qa = qaAction.getDefinedInstance();
+		if (qa != null && isNew()) {
+			getInstance().setQa(qa);
 		}
 
 	}
@@ -215,6 +236,11 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 					.getCategory().getId()));
 		}
 
+		if (issue.getQa() != null) {
+			criteria = criteria.add(Restrictions.eq("qa.id", issue.getQa()
+					.getId()));
+		}
+
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -233,6 +259,10 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 
 		if (issue.getCategory() != null) {
 			categoryAction.setInstance(getInstance().getCategory());
+		}
+
+		if (issue.getQa() != null) {
+			qaAction.setInstance(getInstance().getQa());
 		}
 
 	}
