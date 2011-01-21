@@ -10,7 +10,7 @@
 				<h:outputText value="Pooled Tasks" />
 			</f:facet>
 			
-			<rich:datascroller for="pooledTasksTable"  />
+			
 			<rich:dataTable value="#{pooledTaskInstanceList}" id="pooledTasksTable" var="task">
 				<h:column>
 					<f:facet name="header">
@@ -47,10 +47,18 @@
 				
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Priority" />
+						<h:outputText value="Status" />
 					</f:facet>
 					  #{task.variables['token'].status}
 				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Severity" />
+					</f:facet>
+					  #{task.variables['token'].severity}
+				</h:column>
+				
 
 				<h:column>
 					<s:link action="#{bugManagementProcessAction.assignToCurrentActor}" value="Assign"
