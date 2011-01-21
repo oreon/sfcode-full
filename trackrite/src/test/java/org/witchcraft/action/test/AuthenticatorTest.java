@@ -45,10 +45,11 @@ public class AuthenticatorTest extends BaseTest<User> {
 	
 	@Test
 	public void testQuery(){
-		String qry = "	select i from Issue i where i.status in ('Status.Started','Status.Unassigned' )ORDER BY i.developer.lastName, i.priority";
+		
+		String qry = "	select i from Issue i where i.status != 3 ORDER BY i.developer.lastName, i.priority, i.severity";
 		List<Issue> issues = em.createQuery(qry).getResultList();
 		for (Issue issue : issues) {
-			System.out.println(issue.getDisplayName());
+			System.out.println(issue.getDisplayName() + " " + issue.getStatus());
 		}
 	}
 
@@ -56,11 +57,10 @@ public class AuthenticatorTest extends BaseTest<User> {
 	public void testRegisterAction() throws Exception {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		em.getTransaction().begin();
-		
-	
 
 		Query query = em
 				.createQuery("Select u From User u where u.userName = ?1 ");
+		
 		query.setParameter(1, "admin");
 		if (!query.getResultList().isEmpty())
 			return;
