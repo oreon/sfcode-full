@@ -3,8 +3,7 @@
 
 <jasperReport name="ActiveBugsReport" isTitleNewPage="false" isSummaryNewPage="false" formatFactoryClass="org.witchcraft.jasperreports.WCFormatFactory"> 
   <parameter name="ReportTitle" class="java.lang.String"/>  
-  <queryString language="ejbql"> <![CDATA[select i from Issue i where i.status in ('Status.Started','Status.Unassigned' )ORDER BY i.developer.lastName, i.priority
-]]> </queryString>  
+  <queryString language="ejbql"> <![CDATA[select i from Issue i where i.status != 3 ORDER BY i.developer.lastName, i.priority, i.severity]]> </queryString>  
   <field name="title" class="java.lang.String"/>  
   <field name="description" class="java.lang.String"/>  
   <field name="severity.name" class="java.lang.String"/>  
