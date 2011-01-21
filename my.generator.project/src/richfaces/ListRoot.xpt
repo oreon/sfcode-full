@@ -16,21 +16,11 @@
 				<c:set var="modalId" value="«name»ModalPanel-«name»" />
 				<ui:include src="search«name».«getExtension()»" />
 				<br/> <br/>
+				«EXPAND genButtons FOR this»
 				<ui:include src="list«name»Component.«getExtension()»"  >
 					<ui:param name="records" value="#{«asVar()»List.resultList}" />
          		</ui:include>
-				
-				<a:form>
-				<s:button value="Create New" action="«getViewFile("edit")»" propagation="none" >
-					<f:param name="«asVar()»Id" value="0"/>
-      			</s:button> 
-					<a:commandButton action="#{«asVar()»Action.set«name»Id(0)}" 
-						oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" >
-					</a:commandButton>
-				</a:form>
-				«IF templatable»
-				 <s:button value="Create Template" view="«getTemplateViewFileName("edit")»"/>
-				 «ENDIF»
+				«EXPAND genButtons FOR this»
 				<ui:include src="«getComponentViewFile("modalDlg")»" >
 					<ui:param name="modalId" value="${modalId}"/> 
 				</ui:include>
@@ -52,9 +42,16 @@
 		 <c:if test="${empty modalId}">
        		 <c:set var="modalId" value="«name»ModalPanel" />
     	</c:if>
+    	
+    	<c:if test="${empty listTitle}">
+       		 <c:set var="listTitle" value="«name» Search Results (#{empty records ? 0 : («asVar()»List.paginated ? «asVar()»List.resultCount : records.size)})" />
+    	</c:if>
+    	
 			
 		<rich:panel>
-		   <f:facet name="header">«name» Search Results (#{empty records ? 0 : («asVar()»List.paginated ? «asVar()»List.resultCount : records.size)})</f:facet>
+		   <f:facet name="header">
+		   		${listTitle}
+		   </f:facet>
 		   <a:form>
 			
 				<rich:dataTable  var="_«asVar()»" value="#{records}"  id="«name.toFirstLower()»List"
@@ -75,6 +72,21 @@
 		
 		</ui:composition>
 	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE genButtons FOR wcprofile::Entity»
+	<a:form>
+		<s:button value="Create New" action="«getViewFile("edit")»" propagation="none" >
+			<f:param name="«asVar()»Id" value="0"/>
+  			</s:button> 
+				<a:commandButton action="#{«asVar()»Action.set«name»Id(0)}" 
+				oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" >
+			</a:commandButton>
+		<s:button value="Export to Excel" action="#{«asVar()»List.exportToCsv}" />
+		</a:form>
+		«IF templatable»
+		 <s:button value="Create Template" view="«getTemplateViewFileName("edit")»"/>
+		 «ENDIF»
 «ENDDEFINE»
 
 

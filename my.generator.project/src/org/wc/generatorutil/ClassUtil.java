@@ -93,6 +93,7 @@ public class ClassUtil {
 	static Map<String, String[]> mapTypes = new HashMap<String, String[]>();
 
 	static {
+		mapTypes.put("Currency", new String[]{"Double",""});
 		mapTypes.put("imageFile", new String[] { "FileAttachment", "" });
 		mapTypes.put("largeText", new String[] { "String", "@Lob" });
 		mapTypes.put("nameType", new String[] { "String",
