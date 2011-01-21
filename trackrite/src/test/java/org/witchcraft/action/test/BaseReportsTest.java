@@ -42,14 +42,7 @@ public class BaseReportsTest extends BaseTest<User> {
 
 	}
 
-	@Test
-	public void testIncidents() {
-		try {
-			runReportTest("IncidentsByDepartment");
-		} catch (Exception e) {
-			throw new RuntimeException(e.getMessage());
-		}
-	}
+	
 
 	@Override
 	public BaseAction<User> getAction() {

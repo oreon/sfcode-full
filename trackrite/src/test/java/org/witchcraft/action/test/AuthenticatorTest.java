@@ -1,11 +1,14 @@
 package org.witchcraft.action.test;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.jboss.seam.security.Identity;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.wc.trackrite.issues.Issue;
 import org.wc.trackrite.users.Role;
 import org.wc.trackrite.users.User;
 import org.witchcraft.seam.action.BaseAction;
@@ -39,11 +42,22 @@ public class AuthenticatorTest extends BaseTest<User> {
 
 		}.run();
 	}
+	
+	@Test
+	public void testQuery(){
+		String qry = "	select i from Issue i where i.status in ('Status.Started','Status.Unassigned' )ORDER BY i.developer.lastName, i.priority";
+		List<Issue> issues = em.createQuery(qry).getResultList();
+		for (Issue issue : issues) {
+			System.out.println(issue.getDisplayName());
+		}
+	}
 
 	@Test
 	public void testRegisterAction() throws Exception {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		em.getTransaction().begin();
+		
+	
 
 		Query query = em
 				.createQuery("Select u From User u where u.userName = ?1 ");
