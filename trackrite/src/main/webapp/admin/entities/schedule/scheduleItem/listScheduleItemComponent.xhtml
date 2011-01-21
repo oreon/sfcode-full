@@ -4,8 +4,11 @@
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="ScheduleItemModalPanel"/> 
   </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="ScheduleItem Search Results (#{empty records ? 0 : (scheduleItemList.paginated ? scheduleItemList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">ScheduleItem Search Results (#{empty records ? 0 : (scheduleItemList.paginated ? scheduleItemList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_scheduleItem" value="#{records}" id="scheduleItemList" rowClasses="odd, even" styleClass="dataTable"> 
         <h:column rendered="#{s:hasPermission('id', 'scheduleItemView' )}"> 

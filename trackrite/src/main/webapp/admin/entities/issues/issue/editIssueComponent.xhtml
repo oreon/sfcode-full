@@ -8,21 +8,31 @@
         <h:selectOneMenu id="project" label="#{msg.issue_project}" value="#{issueAction.issue.project}" required="true" rendered="#{s:hasPermission('project', 'issueEdit')}"> 
           <a:support event="onchange" reRender="developer" ajaxSingle="true"/>  
           <s:selectItems value="#{projectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="project" rendered="#{s:hasPermission('project', 'issueEdit')}"/>  
         <h:outputText value="#{msg.issue_developer}  " rendered="#{s:hasPermission('developer', 'issueEdit')}"/>  
         <h:selectOneMenu id="developer" label="#{msg.issue_developer}" value="#{issueAction.issue.developer}" required="false" rendered="#{s:hasPermission('developer', 'issueEdit')}"> 
           <s:selectItems value="#{issueAction.issue.project.employees}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="developer" rendered="#{s:hasPermission('developer', 'issueEdit')}"/>  
         <h:outputText value="#{msg.issue_category}  " rendered="#{s:hasPermission('category', 'issueEdit')}"/>  
         <h:selectOneMenu id="category" label="#{msg.issue_category}" value="#{issueAction.issue.category}" required="false" rendered="#{s:hasPermission('category', 'issueEdit')}"> 
           <s:selectItems value="#{categoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="category" rendered="#{s:hasPermission('category', 'issueEdit')}"/>  
+        <h:outputText value="#{msg.issue_qa}  " rendered="#{s:hasPermission('qa', 'issueEdit')}"/>  
+        <h:selectOneMenu id="qa" label="#{msg.issue_qa}" value="#{issueAction.issue.qa}" required="false" rendered="#{s:hasPermission('qa', 'issueEdit')}"> 
+          <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="qa" rendered="#{s:hasPermission('qa', 'issueEdit')}"/>  
         <h:outputText value="#{msg.issue_title} * " rendered="#{s:hasPermission('title', 'issueEdit')}"/>  
         <h:inputText id="title#{entityId}" rendered="#{s:hasPermission('title', 'issueEdit')}" label="#{msg.issue_title}" required="true" value="#{issueAction.issue.title}"/>  
         <h:message styleClass="error errors" for="title" rendered="#{s:hasPermission('title', 'issueEdit')}"/>  
@@ -37,7 +47,8 @@
           <f:selectItem itemValue="CRITICAL_NOT_URGENT" itemLabel="Critical_not_urgent"/>  
           <f:selectItem itemValue="NON_CRITICAL" itemLabel="Non_critical"/>  
           <f:selectItem itemValue="LANGUAGE" itemLabel="Language"/>  
-          <f:selectItem itemValue="COSMETIC" itemLabel="Cosmetic"/> 
+          <f:selectItem itemValue="COSMETIC" itemLabel="Cosmetic"/>  
+          <rich:ajaxValidator event="onblur"/> 
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="priority" rendered="#{s:hasPermission('priority', 'issueEdit')}"/>  
         <h:outputText value="#{msg.issue_estimate}  " rendered="#{s:hasPermission('estimate', 'issueEdit')}"/>  
@@ -68,7 +79,8 @@
           <f:selectItem itemValue="ONE" itemLabel="One"/>  
           <f:selectItem itemValue="TWO" itemLabel="Two"/>  
           <f:selectItem itemValue="THREE" itemLabel="Three"/>  
-          <f:selectItem itemValue="FOUR" itemLabel="Four"/> 
+          <f:selectItem itemValue="FOUR" itemLabel="Four"/>  
+          <rich:ajaxValidator event="onblur"/> 
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="severity" rendered="#{s:hasPermission('severity', 'issueEdit')}"/> 
       </h:panelGrid> 

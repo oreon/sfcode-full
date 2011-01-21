@@ -7,6 +7,7 @@
         <h:outputText value="#{msg.choice_question}  " rendered="#{s:hasPermission('question', 'choiceEdit')}"/>  
         <h:selectOneMenu id="question" label="#{msg.choice_question}" value="#{choiceAction.choice.question}" required="true" rendered="#{s:hasPermission('question', 'choiceEdit')}"> 
           <s:selectItems value="#{questionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="question" rendered="#{s:hasPermission('question', 'choiceEdit')}"/>  

@@ -7,12 +7,14 @@
         <h:outputText value="#{msg.answer_choice}  " rendered="#{s:hasPermission('choice', 'answerEdit')}"/>  
         <h:selectOneMenu id="choice" label="#{msg.answer_choice}" value="#{answerAction.answer.choice}" required="true" rendered="#{s:hasPermission('choice', 'answerEdit')}"> 
           <s:selectItems value="#{choiceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="choice" rendered="#{s:hasPermission('choice', 'answerEdit')}"/>  
         <h:outputText value="#{msg.answer_examInstance}  " rendered="#{s:hasPermission('examInstance', 'answerEdit')}"/>  
         <h:selectOneMenu id="examInstance" label="#{msg.answer_examInstance}" value="#{answerAction.answer.examInstance}" required="true" rendered="#{s:hasPermission('examInstance', 'answerEdit')}"> 
           <s:selectItems value="#{examInstanceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="examInstance" rendered="#{s:hasPermission('examInstance', 'answerEdit')}"/> 

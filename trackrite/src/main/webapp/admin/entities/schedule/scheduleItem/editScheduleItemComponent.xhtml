@@ -7,6 +7,7 @@
         <h:outputText value="#{msg.scheduleItem_employee}  " rendered="#{s:hasPermission('employee', 'scheduleItemEdit')}"/>  
         <h:selectOneMenu id="employee" label="#{msg.scheduleItem_employee}" value="#{scheduleItemAction.scheduleItem.employee}" required="true" rendered="#{s:hasPermission('employee', 'scheduleItemEdit')}"> 
           <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="employee" rendered="#{s:hasPermission('employee', 'scheduleItemEdit')}"/>  

@@ -31,6 +31,12 @@
             <ui:param name="entityId" value="3"/>  
             <ui:param name="categoryId" value="#{issueAction.instance.category.id}"/> 
           </ui:include> 
+        </rich:tab>  
+        <rich:tab label="Qa" rendered="#{issueAction.instance.qa != null}"> 
+          <ui:include src="/admin/entities/domain/employee/viewEmployeeComponent.xhtml"> 
+            <ui:param name="entityId" value="4"/>  
+            <ui:param name="employeeId" value="#{issueAction.instance.qa.id}"/> 
+          </ui:include> 
         </rich:tab> 
       </rich:tabPanel> 
     </h:form>  

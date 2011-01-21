@@ -7,6 +7,7 @@
         <h:outputText value="#{msg.schedule_project}  " rendered="#{s:hasPermission('project', 'scheduleEdit')}"/>  
         <h:selectOneMenu id="project" label="#{msg.schedule_project}" value="#{scheduleAction.schedule.project}" required="true" rendered="#{s:hasPermission('project', 'scheduleEdit')}"> 
           <s:selectItems value="#{projectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="project" rendered="#{s:hasPermission('project', 'scheduleEdit')}"/>  
@@ -24,6 +25,7 @@
           </f:facet>  
           <h:selectOneMenu id="employee" label="#{msg.scheduleItem_employee}" value="#{_scheduleItem.employee}" required="true" rendered="#{s:hasPermission('employee', 'scheduleItemEdit')}"> 
             <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onblur"/>  
             <s:convertEntity/> 
           </h:selectOneMenu>  
           <h:message styleClass="error errors" for="employee" rendered="#{s:hasPermission('employee', 'scheduleItemEdit')}"/> 

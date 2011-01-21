@@ -18,6 +18,7 @@
           </f:facet>  
           <h:selectOneMenu id="issue" label="#{msg.timeTrackingEntry_issue}" value="#{_timeTrackingEntry.issue}" required="true" rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"> 
             <s:selectItems value="#{employeeAction.currentLoggedInEmployee.issues}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onblur"/>  
             <s:convertEntity/> 
           </h:selectOneMenu>  
           <h:message styleClass="error errors" for="issue" rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"/> 

@@ -7,12 +7,14 @@
         <h:outputText value="#{msg.examInstance_exam}  " rendered="#{s:hasPermission('exam', 'examInstanceEdit')}"/>  
         <h:selectOneMenu id="exam" label="#{msg.examInstance_exam}" value="#{examInstanceAction.examInstance.exam}" required="true" rendered="#{s:hasPermission('exam', 'examInstanceEdit')}"> 
           <s:selectItems value="#{examList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="exam" rendered="#{s:hasPermission('exam', 'examInstanceEdit')}"/>  
         <h:outputText value="#{msg.examInstance_candidate}  " rendered="#{s:hasPermission('candidate', 'examInstanceEdit')}"/>  
         <h:selectOneMenu id="candidate" label="#{msg.examInstance_candidate}" value="#{examInstanceAction.examInstance.candidate}" required="true" rendered="#{s:hasPermission('candidate', 'examInstanceEdit')}"> 
           <s:selectItems value="#{candidateList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="candidate" rendered="#{s:hasPermission('candidate', 'examInstanceEdit')}"/> 
@@ -27,6 +29,7 @@
           </f:facet>  
           <h:selectOneMenu id="choice" label="#{msg.answer_choice}" value="#{_answer.choice}" required="true" rendered="#{s:hasPermission('choice', 'answerEdit')}"> 
             <s:selectItems value="#{choiceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onblur"/>  
             <s:convertEntity/> 
           </h:selectOneMenu>  
           <h:message styleClass="error errors" for="choice" rendered="#{s:hasPermission('choice', 'answerEdit')}"/> 

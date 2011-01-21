@@ -1,5 +1,8 @@
 package com.nas.recovery.web.action.issues;
 
+import java.awt.Component;
+import java.util.List;
+
 import javax.jms.ConnectionFactory;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
@@ -7,9 +10,9 @@ import org.apache.commons.lang.StringUtils;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.bpm.PooledTaskInstanceList;
 import org.jboss.seam.bpm.ProcessInstance;
-import org.jbpm.JbpmContext;
-import org.jbpm.graph.exe.ExecutionContext;
+
 import org.wc.trackrite.domain.Employee;
 import org.wc.trackrite.issues.Issue;
 import org.wc.trackrite.issues.Status;
@@ -17,6 +20,8 @@ import org.witchcraft.exceptions.ContractViolationException;
 
 import com.nas.recovery.web.action.domain.EmployeeAction;
 import com.nas.recovery.web.action.workflowmgt.BugManagement;
+
+import org.jbpm.taskmgmt.exe.TaskInstance;
 
 //// CMTD @Scope(ScopeType.CONVERSATION)
 @Name("issueAction")
@@ -31,6 +36,9 @@ public class IssueAction extends IssueActionBase implements
 
 	@In(create = true)
 	EmployeeAction employeeAction;
+	
+	//@In(create=true)
+	//PooledTaskInstanceList pooledTaskInstanceList;
 	
 	//@In
 	//protected JbpmContext jbpmContext;
@@ -50,12 +58,8 @@ public class IssueAction extends IssueActionBase implements
 			getInstance().setProcessId(ProcessInstance.instance().getId());
 		}else{
 			
-			//if(prevDeveloper == null && getInstance().getDeveloper() != null){
-				//bugManagement.endProcess(getInstance().getProcessId());
-				//launchProcess();
-				//getInstance().setProcessId(ProcessInstance.instance().getId());
-			//}
-			
+			bugManagement.updateUserForPooledTask(getInstance().getDeveloper().getUser().getUserName(), getInstance().getProcessId(),
+					getInstance() );
 		}
 
 		super.save();
