@@ -197,7 +197,9 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 		try {
 			return getCreatedByUser().getUserName();
 		} catch (Exception e) {
+
 			return "";
+
 		}
 
 	}

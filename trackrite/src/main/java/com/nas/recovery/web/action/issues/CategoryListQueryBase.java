@@ -68,11 +68,7 @@ public abstract class CategoryListQueryBase extends BaseQuery<Category, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, Category e) {
 
-		if (e.getName() != null)
-
-			builder.append(e.getName() + ",");
-
-		builder.append(",");
+		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
 
 		builder.append("\r\n");
 	}

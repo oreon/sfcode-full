@@ -80,17 +80,10 @@ public abstract class RoleListQueryBase extends BaseQuery<Role, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, Role e) {
 
-		if (e.getName() != null)
+		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
 
-			builder.append(e.getName() + ",");
-
-		builder.append(",");
-
-		if (e.getUsers() != null)
-
-			builder.append(e.getUsers() + ",");
-
-		builder.append(",");
+		builder.append("\"" + (e.getUsers() != null ? e.getUsers() : "")
+				+ "\",");
 
 		builder.append("\r\n");
 	}

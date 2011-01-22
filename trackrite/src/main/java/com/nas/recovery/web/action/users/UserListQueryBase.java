@@ -95,35 +95,20 @@ public abstract class UserListQueryBase extends BaseQuery<User, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, User e) {
 
-		if (e.getUserName() != null)
+		builder.append("\"" + (e.getUserName() != null ? e.getUserName() : "")
+				+ "\",");
 
-			builder.append(e.getUserName() + ",");
+		builder.append("\"" + (e.getEnabled() != null ? e.getEnabled() : "")
+				+ "\",");
 
-		builder.append(",");
+		builder.append("\"" + (e.getRoles() != null ? e.getRoles() : "")
+				+ "\",");
 
-		if (e.getEnabled() != null)
+		builder.append("\"" + (e.getEmail() != null ? e.getEmail() : "")
+				+ "\",");
 
-			builder.append(e.getEnabled() + ",");
-
-		builder.append(",");
-
-		if (e.getRoles() != null)
-
-			builder.append(e.getRoles() + ",");
-
-		builder.append(",");
-
-		if (e.getEmail() != null)
-
-			builder.append(e.getEmail() + ",");
-
-		builder.append(",");
-
-		if (e.getLastLogin() != null)
-
-			builder.append(e.getLastLogin() + ",");
-
-		builder.append(",");
+		builder.append("\""
+				+ (e.getLastLogin() != null ? e.getLastLogin() : "") + "\",");
 
 		builder.append("\r\n");
 	}

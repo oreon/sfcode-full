@@ -121,35 +121,22 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, Employee e) {
 
-		if (e.getDepartment() != null)
+		builder.append("\""
+				+ (e.getDepartment() != null ? e.getDepartment()
+						.getDisplayName() : "") + "\",");
 
-			builder.append(e.getDepartment().getDisplayName());
+		builder.append("\""
+				+ (e.getEmployeeNumber() != null ? e.getEmployeeNumber() : "")
+				+ "\",");
 
-		builder.append(",");
+		builder.append("\""
+				+ (e.getEmployeeType() != null ? e.getEmployeeType() : "")
+				+ "\",");
 
-		if (e.getEmployeeNumber() != null)
+		builder.append("\"" + (e.getHome() != null ? e.getHome() : "") + "\",");
 
-			builder.append(e.getEmployeeNumber() + ",");
-
-		builder.append(",");
-
-		if (e.getEmployeeType() != null)
-
-			builder.append(e.getEmployeeType() + ",");
-
-		builder.append(",");
-
-		if (e.getHome() != null)
-
-			builder.append(e.getHome() + ",");
-
-		builder.append(",");
-
-		if (e.getProjects() != null)
-
-			builder.append(e.getProjects() + ",");
-
-		builder.append(",");
+		builder.append("\"" + (e.getProjects() != null ? e.getProjects() : "")
+				+ "\",");
 
 		builder.append("\r\n");
 	}

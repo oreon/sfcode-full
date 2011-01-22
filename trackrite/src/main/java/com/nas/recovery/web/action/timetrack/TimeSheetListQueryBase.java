@@ -68,11 +68,8 @@ public abstract class TimeSheetListQueryBase extends BaseQuery<TimeSheet, Long> 
 	//@Override
 	public void createCsvString(StringBuilder builder, TimeSheet e) {
 
-		if (e.getTitle() != null)
-
-			builder.append(e.getTitle() + ",");
-
-		builder.append(",");
+		builder.append("\"" + (e.getTitle() != null ? e.getTitle() : "")
+				+ "\",");
 
 		builder.append("\r\n");
 	}

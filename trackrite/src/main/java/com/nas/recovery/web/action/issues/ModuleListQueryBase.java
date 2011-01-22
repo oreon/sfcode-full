@@ -68,11 +68,7 @@ public abstract class ModuleListQueryBase extends BaseQuery<Module, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, Module e) {
 
-		if (e.getName() != null)
-
-			builder.append(e.getName() + ",");
-
-		builder.append(",");
+		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
 
 		builder.append("\r\n");
 	}

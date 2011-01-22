@@ -129,77 +129,50 @@ public abstract class IssueListQueryBase extends BaseQuery<Issue, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, Issue e) {
 
-		if (e.getTitle() != null)
+		builder.append("\"" + (e.getTitle() != null ? e.getTitle() : "")
+				+ "\",");
 
-			builder.append(e.getTitle() + ",");
+		builder.append("\""
+				+ (e.getDescription() != null ? e.getDescription() : "")
+				+ "\",");
 
-		builder.append(",");
+		builder.append("\""
+				+ (e.getProject() != null
+						? e.getProject().getDisplayName()
+						: "") + "\",");
 
-		if (e.getDescription() != null)
+		builder.append("\"" + (e.getStatus() != null ? e.getStatus() : "")
+				+ "\",");
 
-			builder.append(e.getDescription() + ",");
+		builder.append("\"" + (e.getPriority() != null ? e.getPriority() : "")
+				+ "\",");
 
-		builder.append(",");
+		builder.append("\""
+				+ (e.getDeveloper() != null
+						? e.getDeveloper().getDisplayName()
+						: "") + "\",");
 
-		if (e.getProject() != null)
+		builder.append("\""
+				+ (e.getCloseTime() != null ? e.getCloseTime() : "") + "\",");
 
-			builder.append(e.getProject().getDisplayName());
+		builder.append("\"" + (e.getEstimate() != null ? e.getEstimate() : "")
+				+ "\",");
 
-		builder.append(",");
+		builder.append("\"" + (e.getCreator() != null ? e.getCreator() : "")
+				+ "\",");
 
-		if (e.getStatus() != null)
+		builder.append("\""
+				+ (e.getCategory() != null
+						? e.getCategory().getDisplayName()
+						: "") + "\",");
 
-			builder.append(e.getStatus() + ",");
+		builder.append("\"" + (e.getSeverity() != null ? e.getSeverity() : "")
+				+ "\",");
 
-		builder.append(",");
-
-		if (e.getPriority() != null)
-
-			builder.append(e.getPriority() + ",");
-
-		builder.append(",");
-
-		if (e.getDeveloper() != null)
-
-			builder.append(e.getDeveloper().getDisplayName());
-
-		builder.append(",");
-
-		if (e.getCloseTime() != null)
-
-			builder.append(e.getCloseTime() + ",");
-
-		builder.append(",");
-
-		if (e.getEstimate() != null)
-
-			builder.append(e.getEstimate() + ",");
-
-		builder.append(",");
-
-		if (e.getCreator() != null)
-
-			builder.append(e.getCreator() + ",");
-
-		builder.append(",");
-
-		if (e.getCategory() != null)
-
-			builder.append(e.getCategory().getDisplayName());
-
-		builder.append(",");
-
-		if (e.getSeverity() != null)
-
-			builder.append(e.getSeverity() + ",");
-
-		builder.append(",");
-
-		if (e.getQa() != null)
-
-			builder.append(e.getQa().getDisplayName());
-
-		builder.append(",");
+		builder
+				.append("\""
+						+ (e.getQa() != null ? e.getQa().getDisplayName() : "")
+						+ "\",");
 
 		builder.append("\r\n");
 	}

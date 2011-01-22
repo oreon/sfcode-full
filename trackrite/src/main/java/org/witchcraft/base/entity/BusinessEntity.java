@@ -33,7 +33,7 @@ public class BusinessEntity implements Serializable{
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="id")
     //@DocumentId
-    private Long id;
+    protected Long id;
     
     private boolean archived;
     

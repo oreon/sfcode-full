@@ -77,17 +77,13 @@ public abstract class AnswerListQueryBase extends BaseQuery<Answer, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, Answer e) {
 
-		if (e.getChoice() != null)
+		builder.append("\""
+				+ (e.getChoice() != null ? e.getChoice().getDisplayName() : "")
+				+ "\",");
 
-			builder.append(e.getChoice().getDisplayName());
-
-		builder.append(",");
-
-		if (e.getExamInstance() != null)
-
-			builder.append(e.getExamInstance().getDisplayName());
-
-		builder.append(",");
+		builder.append("\""
+				+ (e.getExamInstance() != null ? e.getExamInstance()
+						.getDisplayName() : "") + "\",");
 
 		builder.append("\r\n");
 	}
