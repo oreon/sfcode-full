@@ -70,17 +70,12 @@ public abstract class ScheduleListQueryBase extends BaseQuery<Schedule, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, Schedule e) {
 
-		if (e.getProject() != null)
+		builder.append("\""
+				+ (e.getProject() != null
+						? e.getProject().getDisplayName()
+						: "") + "\",");
 
-			builder.append(e.getProject().getDisplayName());
-
-		builder.append(",");
-
-		if (e.getName() != null)
-
-			builder.append(e.getName() + ",");
-
-		builder.append(",");
+		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
 
 		builder.append("\r\n");
 	}

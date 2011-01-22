@@ -90,23 +90,14 @@ public abstract class ProjectListQueryBase extends BaseQuery<Project, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, Project e) {
 
-		if (e.getName() != null)
+		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
 
-			builder.append(e.getName() + ",");
+		builder.append("\""
+				+ (e.getDescription() != null ? e.getDescription() : "")
+				+ "\",");
 
-		builder.append(",");
-
-		if (e.getDescription() != null)
-
-			builder.append(e.getDescription() + ",");
-
-		builder.append(",");
-
-		if (e.getEmployees() != null)
-
-			builder.append(e.getEmployees() + ",");
-
-		builder.append(",");
+		builder.append("\""
+				+ (e.getEmployees() != null ? e.getEmployees() : "") + "\",");
 
 		builder.append("\r\n");
 	}

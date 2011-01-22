@@ -92,23 +92,16 @@ public abstract class ScheduleItemListQueryBase
 	//@Override
 	public void createCsvString(StringBuilder builder, ScheduleItem e) {
 
-		if (e.getStartDate() != null)
+		builder.append("\""
+				+ (e.getStartDate() != null ? e.getStartDate() : "") + "\",");
 
-			builder.append(e.getStartDate() + ",");
+		builder.append("\"" + (e.getEndDate() != null ? e.getEndDate() : "")
+				+ "\",");
 
-		builder.append(",");
-
-		if (e.getEndDate() != null)
-
-			builder.append(e.getEndDate() + ",");
-
-		builder.append(",");
-
-		if (e.getEmployee() != null)
-
-			builder.append(e.getEmployee().getDisplayName());
-
-		builder.append(",");
+		builder.append("\""
+				+ (e.getEmployee() != null
+						? e.getEmployee().getDisplayName()
+						: "") + "\",");
 
 		builder.append("\r\n");
 	}

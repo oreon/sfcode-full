@@ -76,17 +76,11 @@ public abstract class QuestionListQueryBase extends BaseQuery<Question, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, Question e) {
 
-		if (e.getText() != null)
+		builder.append("\"" + (e.getText() != null ? e.getText() : "") + "\",");
 
-			builder.append(e.getText() + ",");
-
-		builder.append(",");
-
-		if (e.getExam() != null)
-
-			builder.append(e.getExam().getDisplayName());
-
-		builder.append(",");
+		builder.append("\""
+				+ (e.getExam() != null ? e.getExam().getDisplayName() : "")
+				+ "\",");
 
 		builder.append("\r\n");
 	}

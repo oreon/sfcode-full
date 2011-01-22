@@ -1,5 +1,6 @@
 package org.witchcraft.base.entity;
 
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -15,6 +16,7 @@ import java.util.TreeMap;
 import javax.faces.context.FacesContext;
 import javax.faces.render.ResponseStateManager;
 import javax.persistence.Query;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
@@ -364,6 +366,57 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		region.put("name=org.hibernate.cacheable", "value=true");
 		this.setHints(region);
 	}
+	
+	public void exportToCsv() {
+		int originalMaxResults = getMaxResults();
+		setMaxResults(50000);
+		List<E> results = getResultList();
+
+		StringBuilder builder = new StringBuilder();
+		createCSvTitles(builder);
+
+		for (E e : results) {
+			createCsvString(builder, e);
+		}
+
+		setMaxResults(originalMaxResults);
+		downloadAttachment(builder.toString().getBytes());
+
+	}
+	
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	public void createCsvString(StringBuilder builder, E e){
+	}
+	
+	/** create the headings 
+	 * @param builder
+	 */
+	public void createCSvTitles(StringBuilder builder ){
+	
+	}
+	
+	protected void downloadAttachment(byte[] bytes) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletResponse response = (HttpServletResponse) context
+				.getExternalContext().getResponse();
+		response.setContentType("text/plain");
+
+		response.addHeader("Content-disposition", "attachment; filename=\""
+				+ "export.csv" + "\"");
+
+		try {
+			OutputStream os = response.getOutputStream();
+			os.write(bytes);
+			os.flush();
+			os.close();
+			context.responseComplete();
+		} catch (Exception e) {
+			//log.error("\nFailure : " + e.toString() + "\n");
+		}
+	}
+
 	
 	
 }

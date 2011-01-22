@@ -72,17 +72,14 @@ public abstract class ExamInstanceListQueryBase
 	//@Override
 	public void createCsvString(StringBuilder builder, ExamInstance e) {
 
-		if (e.getExam() != null)
+		builder.append("\""
+				+ (e.getExam() != null ? e.getExam().getDisplayName() : "")
+				+ "\",");
 
-			builder.append(e.getExam().getDisplayName());
-
-		builder.append(",");
-
-		if (e.getCandidate() != null)
-
-			builder.append(e.getCandidate().getDisplayName());
-
-		builder.append(",");
+		builder.append("\""
+				+ (e.getCandidate() != null
+						? e.getCandidate().getDisplayName()
+						: "") + "\",");
 
 		builder.append("\r\n");
 	}

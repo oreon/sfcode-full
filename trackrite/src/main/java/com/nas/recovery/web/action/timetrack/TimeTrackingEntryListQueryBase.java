@@ -103,35 +103,22 @@ public abstract class TimeTrackingEntryListQueryBase
 	//@Override
 	public void createCsvString(StringBuilder builder, TimeTrackingEntry e) {
 
-		if (e.getHours() != null)
+		builder.append("\"" + (e.getHours() != null ? e.getHours() : "")
+				+ "\",");
 
-			builder.append(e.getHours() + ",");
+		builder.append("\"" + (e.getDetails() != null ? e.getDetails() : "")
+				+ "\",");
 
-		builder.append(",");
+		builder.append("\""
+				+ (e.getIssue() != null ? e.getIssue().getDisplayName() : "")
+				+ "\",");
 
-		if (e.getDetails() != null)
+		builder.append("\""
+				+ (e.getTimeSheet() != null
+						? e.getTimeSheet().getDisplayName()
+						: "") + "\",");
 
-			builder.append(e.getDetails() + ",");
-
-		builder.append(",");
-
-		if (e.getIssue() != null)
-
-			builder.append(e.getIssue().getDisplayName());
-
-		builder.append(",");
-
-		if (e.getTimeSheet() != null)
-
-			builder.append(e.getTimeSheet().getDisplayName());
-
-		builder.append(",");
-
-		if (e.getDate() != null)
-
-			builder.append(e.getDate() + ",");
-
-		builder.append(",");
+		builder.append("\"" + (e.getDate() != null ? e.getDate() : "") + "\",");
 
 		builder.append("\r\n");
 	}

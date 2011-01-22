@@ -79,17 +79,10 @@ public abstract class ExamListQueryBase extends BaseQuery<Exam, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, Exam e) {
 
-		if (e.getName() != null)
+		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
 
-			builder.append(e.getName() + ",");
-
-		builder.append(",");
-
-		if (e.getDuration() != null)
-
-			builder.append(e.getDuration() + ",");
-
-		builder.append(",");
+		builder.append("\"" + (e.getDuration() != null ? e.getDuration() : "")
+				+ "\",");
 
 		builder.append("\r\n");
 	}

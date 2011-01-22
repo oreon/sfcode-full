@@ -77,17 +77,12 @@ public abstract class ChoiceListQueryBase extends BaseQuery<Choice, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, Choice e) {
 
-		if (e.getQuestion() != null)
+		builder.append("\""
+				+ (e.getQuestion() != null
+						? e.getQuestion().getDisplayName()
+						: "") + "\",");
 
-			builder.append(e.getQuestion().getDisplayName());
-
-		builder.append(",");
-
-		if (e.getText() != null)
-
-			builder.append(e.getText() + ",");
-
-		builder.append(",");
+		builder.append("\"" + (e.getText() != null ? e.getText() : "") + "\",");
 
 		builder.append("\r\n");
 	}
