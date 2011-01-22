@@ -7,7 +7,9 @@
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{moduleAction.module.id}"/>  
         <h:outputText value="#{msg.module_name}  " rendered="#{s:hasPermission('name', 'moduleView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'moduleView')}" value="#{moduleAction.module.name}"/> 
+        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'moduleView')}" value="#{moduleAction.module.name}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

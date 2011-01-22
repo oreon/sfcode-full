@@ -7,7 +7,9 @@
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{roleAction.role.id}"/>  
         <h:outputText value="#{msg.role_name}  " rendered="#{s:hasPermission('name', 'roleView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'roleView')}" value="#{roleAction.role.name}"/> 
+        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'roleView')}" value="#{roleAction.role.name}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

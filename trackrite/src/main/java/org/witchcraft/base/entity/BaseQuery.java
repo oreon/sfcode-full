@@ -370,6 +370,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	public void exportToCsv() {
 		int originalMaxResults = getMaxResults();
 		setMaxResults(50000);
+		
 		List<E> results = getResultList();
 
 		StringBuilder builder = new StringBuilder();
@@ -417,6 +418,18 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		}
 	}
 
+	@Override
+	public String getOrderColumn() {
+		if(super.getOrderColumn() == null)
+			return "id";
+		return super.getOrderColumn();
+	}
 	
+	@Override
+	public String getOrderDirection() {
+		if(super.getOrderDirection() == null)
+			return "desc";
+		return super.getOrderDirection();
+	}
 	
 }

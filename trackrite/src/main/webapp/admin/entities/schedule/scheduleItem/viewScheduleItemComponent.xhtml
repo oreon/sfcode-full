@@ -12,9 +12,13 @@
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.scheduleItem_startDate}  " rendered="#{s:hasPermission('startDate', 'scheduleItemView')}"/>  
-        <h:outputText id="startDate#{entityId}" rendered="#{s:hasPermission('startDate', 'scheduleItemView')}" value="#{scheduleItemAction.scheduleItem.startDate}"/>  
+        <h:outputText id="startDate#{entityId}" rendered="#{s:hasPermission('startDate', 'scheduleItemView')}" value="#{scheduleItemAction.scheduleItem.startDate}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:outputText>  
         <h:outputText value="#{msg.scheduleItem_endDate}  " rendered="#{s:hasPermission('endDate', 'scheduleItemView')}"/>  
-        <h:outputText id="endDate#{entityId}" rendered="#{s:hasPermission('endDate', 'scheduleItemView')}" value="#{scheduleItemAction.scheduleItem.endDate}"/> 
+        <h:outputText id="endDate#{entityId}" rendered="#{s:hasPermission('endDate', 'scheduleItemView')}" value="#{scheduleItemAction.scheduleItem.endDate}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

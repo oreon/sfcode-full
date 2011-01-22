@@ -5,7 +5,9 @@
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{departmentAction.load(departmentId )  }"> 
         <h:outputText value="#{msg.department_name} * " rendered="#{s:hasPermission('name', 'departmentEdit')}"/>  
-        <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'departmentEdit')}" label="#{msg.department_name}" required="true" value="#{departmentAction.department.name}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'departmentEdit')}" label="#{msg.department_name}" required="true" value="#{departmentAction.department.name}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
         <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'departmentEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 

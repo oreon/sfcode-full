@@ -1,46 +1,135 @@
-<?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
-    <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{timeSheetAction.load(timeSheetId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{timeSheetAction.timeSheet.id}"/>  
-        <h:outputText value="#{msg.timeSheet_title}  " rendered="#{s:hasPermission('title', 'timeSheetView')}"/>  
-        <h:outputText id="title#{entityId}" rendered="#{s:hasPermission('title', 'timeSheetView')}" value="#{timeSheetAction.timeSheet.title}"/> 
-      </h:panelGrid>  
-      <rich:dataTable id="timeTrackingEntrys" var="_timeTrackingEntry" rendered="#{not empty timeSheetAction.listTimeTrackingEntrys and s:hasPermission('timeTrackingEntrys', 'timeSheetView') }" value="#{timeSheetAction.listTimeTrackingEntrys}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.timeTrackingEntry_issue}  " rendered="#{s:hasPermission('issue', 'timeTrackingEntryView')}"/>
-          </f:facet>  
-          <s:link value="#{_timeTrackingEntry.issue.displayName}" view="/admin/entities/issues/issue/viewIssue.xhtml" propagation="none"> 
-            <f:param name="issueId" value="#{_timeTrackingEntry.issue.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/>  
-            <rich:toolTip> 
-              <span>#{_timeTrackingEntry.issue.popupInfo}</span> 
-            </rich:toolTip> 
-          </s:link> 
-        </h:column>  
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.timeTrackingEntry_hours}  " rendered="#{s:hasPermission('hours', 'timeTrackingEntryView')}"/>
-          </f:facet>  
-          <h:outputText id="hours#{entityId}" rendered="#{s:hasPermission('hours', 'timeTrackingEntryView')}" value="#{_timeTrackingEntry.hours}"/> 
-        </h:column>  
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.timeTrackingEntry_details}  " rendered="#{s:hasPermission('details', 'timeTrackingEntryView')}"/>
-          </f:facet>  
-          <s:formattedText escape="false" id="details#{entityId}" rendered="#{s:hasPermission('details', 'timeTrackingEntryView')}" value="#{_timeTrackingEntry.details}"/> 
-        </h:column>  
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.timeTrackingEntry_date}  " rendered="#{s:hasPermission('date', 'timeTrackingEntryView')}"/>
-          </f:facet>  
-          <h:outputText id="date#{entityId}" rendered="#{s:hasPermission('date', 'timeTrackingEntryView')}" value="#{_timeTrackingEntry.date}"/> 
-        </h:column> 
-      </rich:dataTable> 
-    </s:validateAll> 
-  </h:panelGroup> 
-</ui:composition>
+	<ui:composition 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	
+	<h:panelGroup   >
+		<s:validateAll>
+		<h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol"  onload="#{timeSheetAction.load(timeSheetId )  }">
+		
+		
+			<h:outputText value="#{msg.id}" />
+			<h:outputText  value="#{timeSheetAction.timeSheet.id}" />
+		
+		
+	
+
+	
+	
+	
+	
+		<h:outputText value="#{msg.timeSheet_title}  " rendered="#{s:hasPermission('title', 'timeSheetView')}"/>		
+<h:outputText     id="title#{entityId}"  rendered="#{s:hasPermission('title', 'timeSheetView')}"  
+	  
+	  value="#{timeSheetAction.timeSheet.title}" >
+	  <rich:ajaxValidator event="onblur"/>
+</h:outputText >
+
+		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+	
+	<rich:dataTable id="timeTrackingEntrys" var="_timeTrackingEntry" 
+		 
+			rendered="#{not empty timeSheetAction.listTimeTrackingEntrys and s:hasPermission('timeTrackingEntrys', 'timeSheetView') }"
+			
+				value="#{timeSheetAction.listTimeTrackingEntrys}" 
+				rowKeyVar="rowIndex" 
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+		
+			
+			
+	
+	
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.timeTrackingEntry_issue}  " rendered="#{s:hasPermission('issue', 'timeTrackingEntryView')}"/></f:facet>		
+		
+	<s:link    value="#{_timeTrackingEntry.issue.displayName}"  view="/admin/entities/issues/issue/viewIssue.xhtml" propagation="none">
+			<f:param name="issueId" value="#{_timeTrackingEntry.issue.id}" />
+			<f:param name="from" value="#{request.servletPath}" />
+			
+			 <rich:toolTip>
+	            <span>
+	              #{_timeTrackingEntry.issue.popupInfo} 
+	            </span>
+	        </rich:toolTip>
+	        
+	</s:link>
+
+	
+		
+		</h:column>
+	
+	
+		
+	
+	
+
+	
+	
+	
+	
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.timeTrackingEntry_hours}  " rendered="#{s:hasPermission('hours', 'timeTrackingEntryView')}"/></f:facet>		
+<h:outputText     id="hours#{entityId}"  rendered="#{s:hasPermission('hours', 'timeTrackingEntryView')}"  
+	  
+	  value="#{_timeTrackingEntry.hours}" >
+	  <rich:ajaxValidator event="onblur"/>
+</h:outputText >
+
+		
+		</h:column>
+	
+	
+
+	
+	
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.timeTrackingEntry_details}  " rendered="#{s:hasPermission('details', 'timeTrackingEntryView')}"/></f:facet>		
+<s:formattedText escape="false"     id="details#{entityId}"  rendered="#{s:hasPermission('details', 'timeTrackingEntryView')}"  
+	  
+	  value="#{_timeTrackingEntry.details}" >
+	  <rich:ajaxValidator event="onblur"/>
+</s:formattedText escape="false" >
+
+		
+		</h:column>
+	
+	
+
+	
+	
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.timeTrackingEntry_date}  " rendered="#{s:hasPermission('date', 'timeTrackingEntryView')}"/></f:facet>		
+<h:outputText     id="date#{entityId}"  rendered="#{s:hasPermission('date', 'timeTrackingEntryView')}"  
+	  
+	  value="#{_timeTrackingEntry.date}" >
+	  <rich:ajaxValidator event="onblur"/>
+</h:outputText >
+
+		
+		</h:column>
+	
+	
+			
+	</rich:dataTable>
+		
+	
+		</s:validateAll>
+	
+	</h:panelGroup>
+	
+	</ui:composition>
+	

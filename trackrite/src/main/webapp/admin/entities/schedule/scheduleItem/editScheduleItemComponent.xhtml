@@ -12,10 +12,14 @@
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="employee" rendered="#{s:hasPermission('employee', 'scheduleItemEdit')}"/>  
         <h:outputText value="#{msg.scheduleItem_startDate}  " rendered="#{s:hasPermission('startDate', 'scheduleItemEdit')}"/>  
-        <rich:calendar id="startDate#{entityId}" rendered="#{s:hasPermission('startDate', 'scheduleItemEdit')}" label="#{msg.scheduleItem_startDate}" required="false" value="#{scheduleItemAction.scheduleItem.startDate}"/>  
+        <rich:calendar id="startDate#{entityId}" rendered="#{s:hasPermission('startDate', 'scheduleItemEdit')}" label="#{msg.scheduleItem_startDate}" required="false" value="#{scheduleItemAction.scheduleItem.startDate}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </rich:calendar>  
         <h:message styleClass="error errors" for="startDate" rendered="#{s:hasPermission('startDate', 'scheduleItemEdit')}"/>  
         <h:outputText value="#{msg.scheduleItem_endDate}  " rendered="#{s:hasPermission('endDate', 'scheduleItemEdit')}"/>  
-        <rich:calendar id="endDate#{entityId}" rendered="#{s:hasPermission('endDate', 'scheduleItemEdit')}" label="#{msg.scheduleItem_endDate}" required="false" value="#{scheduleItemAction.scheduleItem.endDate}"/>  
+        <rich:calendar id="endDate#{entityId}" rendered="#{s:hasPermission('endDate', 'scheduleItemEdit')}" label="#{msg.scheduleItem_endDate}" required="false" value="#{scheduleItemAction.scheduleItem.endDate}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </rich:calendar>  
         <h:message styleClass="error errors" for="endDate" rendered="#{s:hasPermission('endDate', 'scheduleItemEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 

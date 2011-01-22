@@ -12,7 +12,9 @@
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.choice_text}  " rendered="#{s:hasPermission('text', 'choiceView')}"/>  
-        <h:outputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'choiceView')}" value="#{choiceAction.choice.text}"/> 
+        <h:outputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'choiceView')}" value="#{choiceAction.choice.text}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 
