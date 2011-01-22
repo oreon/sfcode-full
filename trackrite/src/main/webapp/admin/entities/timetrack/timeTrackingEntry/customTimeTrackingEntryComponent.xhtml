@@ -10,13 +10,13 @@
         <h:outputText value="#{msg.timeTrackingEntry_hours} * " rendered="#{s:hasPermission('hours', 'timeTrackingEntryEdit')}"/>  
         <br/>  
         <h:inputText id="hours" value="#{timeTrackingEntryAction.timeTrackingEntry.hours}"/>  
-        <h:message styleClass="error errors" for="hours" rendered="#{s:hasPermission('hours', 'timeTrackingEntryEdit')}"/> 
+        <rich:message styleClass="error errors" for="hours" rendered="#{s:hasPermission('hours', 'timeTrackingEntryEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.timeTrackingEntry_details} * " rendered="#{s:hasPermission('details', 'timeTrackingEntryEdit')}"/>  
         <br/>  
-        <rich:editor useSeamText="true" id="details" value="#{timeTrackingEntryAction.timeTrackingEntry.details}"/>  
-        <h:message styleClass="error errors" for="details" rendered="#{s:hasPermission('details', 'timeTrackingEntryEdit')}"/> 
+        <rich:editor id="details" value="#{timeTrackingEntryAction.timeTrackingEntry.details}"/>  
+        <rich:message styleClass="error errors" for="details" rendered="#{s:hasPermission('details', 'timeTrackingEntryEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.timeTrackingEntry_issue}  " rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"/>  
@@ -25,7 +25,7 @@
           <s:selectItems value="#{issueList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="issue" rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"/> 
+        <rich:message styleClass="error errors" for="issue" rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.timeTrackingEntry_timeSheet}  " rendered="#{s:hasPermission('timeSheet', 'timeTrackingEntryEdit')}"/>  
@@ -34,13 +34,13 @@
           <s:selectItems value="#{timeSheetList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="timeSheet" rendered="#{s:hasPermission('timeSheet', 'timeTrackingEntryEdit')}"/> 
+        <rich:message styleClass="error errors" for="timeSheet" rendered="#{s:hasPermission('timeSheet', 'timeTrackingEntryEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.timeTrackingEntry_date} * " rendered="#{s:hasPermission('date', 'timeTrackingEntryEdit')}"/>  
         <br/>  
         <rich:calendar id="date" value="#{timeTrackingEntryAction.timeTrackingEntry.date}"/>  
-        <h:message styleClass="error errors" for="date" rendered="#{s:hasPermission('date', 'timeTrackingEntryEdit')}"/> 
+        <rich:message styleClass="error errors" for="date" rendered="#{s:hasPermission('date', 'timeTrackingEntryEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

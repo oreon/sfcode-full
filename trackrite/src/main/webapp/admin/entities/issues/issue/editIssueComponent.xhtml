@@ -1,305 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
 
-	<ui:composition 
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:s="http://jboss.com/products/seam/taglib"
-	xmlns:a="http://richfaces.org/a4j"
-	
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
-	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
- >	
-	
-	<h:panelGroup   >
-		<s:validateAll>
-		<h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol"  onload="#{issueAction.load(issueId )  }">
-		
-		
-		
-	
-	
-		
-			
-			
-	
-	
-		<h:outputText value="#{msg.issue_project}  " rendered="#{s:hasPermission('project', 'issueEdit')}"/>
-	
-		
-	
-		
-			
-	<h:selectOneMenu id="project"   label="#{msg.issue_project}" value="#{issueAction.issue.project}" 
-		required="true"  rendered="#{s:hasPermission('project', 'issueEdit')}"  >
-		 <a:support event="onchange" reRender="developer" ajaxSingle="true" /> 
-		<s:selectItems value="#{projectList}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Please Select..." />
-		<rich:ajaxValidator event="onblur"/>
-		<s:convertEntity />
-	</h:selectOneMenu>
-
-		
-	 
-		
-
-	
-		
-		<h:message styleClass="error errors" for="project" rendered="#{s:hasPermission('project', 'issueEdit')}"/>		
-	
-	
-		
-	
-	
-		
-			
-			
-	
-	
-		<h:outputText value="#{msg.issue_developer}  " rendered="#{s:hasPermission('developer', 'issueEdit')}"/>
-	
-		
-	
-		
-			
-	<h:selectOneMenu id="developer"   label="#{msg.issue_developer}" value="#{issueAction.issue.developer}" 
-		required="false"  rendered="#{s:hasPermission('developer', 'issueEdit')}"  >
-		
-		<s:selectItems value="#{issueAction.issue.project.employees}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Please Select..." />
-		<rich:ajaxValidator event="onblur"/>
-		<s:convertEntity />
-	</h:selectOneMenu>
-
-		
-	 
-		
-
-	
-		
-		<h:message styleClass="error errors" for="developer" rendered="#{s:hasPermission('developer', 'issueEdit')}"/>		
-	
-	
-		
-	
-	
-		
-			
-			
-	
-	
-		<h:outputText value="#{msg.issue_category}  " rendered="#{s:hasPermission('category', 'issueEdit')}"/>
-	
-		
-	
-		
-			
-	<h:selectOneMenu id="category"   label="#{msg.issue_category}" value="#{issueAction.issue.category}" 
-		required="false"  rendered="#{s:hasPermission('category', 'issueEdit')}"  >
-		
-		<s:selectItems value="#{categoryList}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Please Select..." />
-		<rich:ajaxValidator event="onblur"/>
-		<s:convertEntity />
-	</h:selectOneMenu>
-
-		
-	 
-		
-
-	
-		
-		<h:message styleClass="error errors" for="category" rendered="#{s:hasPermission('category', 'issueEdit')}"/>		
-	
-	
-		
-	
-	
-		
-			
-			
-	
-	
-		<h:outputText value="#{msg.issue_qa}  " rendered="#{s:hasPermission('qa', 'issueEdit')}"/>
-	
-		
-	
-		
-			
-	<h:selectOneMenu id="qa"   label="#{msg.issue_qa}" value="#{issueAction.issue.qa}" 
-		required="false"  rendered="#{s:hasPermission('qa', 'issueEdit')}"  >
-		
-		<s:selectItems value="#{employeeList}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Please Select..." />
-		<rich:ajaxValidator event="onblur"/>
-		<s:convertEntity />
-	</h:selectOneMenu>
-
-		
-	 
-		
-
-	
-		
-		<h:message styleClass="error errors" for="qa" rendered="#{s:hasPermission('qa', 'issueEdit')}"/>		
-	
-	
-		
-	
-
-	
-	
-	
-	
-		<h:outputText value="#{msg.issue_title} * " rendered="#{s:hasPermission('title', 'issueEdit')}"/>
-		
-<h:inputText    id="title#{entityId}"  rendered="#{s:hasPermission('title', 'issueEdit')}"  
-	  label="#{msg.issue_title}"  required="true" 
-	  value="#{issueAction.issue.title}" >
-	  <rich:ajaxValidator event="onblur"/>
-</h:inputText>
-
-		
-		<h:message styleClass="error errors" for="title" rendered="#{s:hasPermission('title', 'issueEdit')}"/>		
-	
-	
-
-	
-	
-		<h:outputText value="#{msg.issue_description}  " rendered="#{s:hasPermission('description', 'issueEdit')}"/>
-		
-<rich:editor useSeamText="true"     id="description#{entityId}"  rendered="#{s:hasPermission('description', 'issueEdit')}"  
-	  label="#{msg.issue_description}"  required="false" 
-	  value="#{issueAction.issue.description}" >
-	  <rich:ajaxValidator event="onblur"/>
-</rich:editor useSeamText="true" >
-
-		
-		<h:message styleClass="error errors" for="description" rendered="#{s:hasPermission('description', 'issueEdit')}"/>		
-	
-	
-
-	
-	
-	
-
-	
-	
-		<h:outputText value="#{msg.issue_priority}  " rendered="#{s:hasPermission('priority', 'issueEdit')}"/>
-		
-	
-	<h:selectOneMenu id="priority"  rendered="#{s:hasPermission('priority', 'issueEdit')}" value="#{issueAction.issue.priority}" required="false" 
-	  label="#{msg.issue_priority}">
-		<f:selectItem itemLabel="Please Select..." itemValue="" />
-		<f:selectItem itemValue="SHOW_STOPPER"  itemLabel="Show_stopper" />
-		<f:selectItem itemValue="CRITICAL_URGENT"  itemLabel="Critical_urgent" />
-		<f:selectItem itemValue="CRITICAL_NOT_URGENT"  itemLabel="Critical_not_urgent" />
-		<f:selectItem itemValue="NON_CRITICAL"  itemLabel="Non_critical" />
-		<f:selectItem itemValue="LANGUAGE"  itemLabel="Language" />
-		<f:selectItem itemValue="COSMETIC"  itemLabel="Cosmetic" />
-		
-		<rich:ajaxValidator event="onblur"/>
-	</h:selectOneMenu>
-	
-		
-		<h:message styleClass="error errors" for="priority" rendered="#{s:hasPermission('priority', 'issueEdit')}"/>		
-	
-	
-
-	
-	
-	
-
-	
-	
-		<h:outputText value="#{msg.issue_estimate}  " rendered="#{s:hasPermission('estimate', 'issueEdit')}"/>
-		
-<h:inputText    id="estimate#{entityId}"  rendered="#{s:hasPermission('estimate', 'issueEdit')}"  
-	  label="#{msg.issue_estimate}"  required="false" 
-	  value="#{issueAction.issue.estimate}" >
-	  <rich:ajaxValidator event="onblur"/>
-</h:inputText>
-
-		
-		<h:message styleClass="error errors" for="estimate" rendered="#{s:hasPermission('estimate', 'issueEdit')}"/>		
-	
-	
-
-	
-	
-	
-
-	
-	
-		<h:outputText value="#{msg.issue_file}  " rendered="#{s:hasPermission('file', 'issueEdit')}"/>
-		
-	
-	  
-		<h:panelGroup>
-		
-		<s:div rendered="#{issueAction.issue.id != 0 }">
-			
-
-	<c:choose>
-		<c:when test="${issueAction.issue.file.contentType.startsWith('image')}">
-			<s:graphicImage value="#{issueAction.issue.file.data}" />
-		</c:when>
-		<c:otherwise>
-			<s:link value="#{issueAction.issue.file.name}"  action="#{issueAction.downloadFile(null)}" propagation="none" >
-				<f:param name="currentEntityId" value="#{issueAction.instance.id}" />
-			</s:link>
-		</c:otherwise>
-	</c:choose>
-
-			
-		</s:div>
-		<s:div rendered="#{issueAction.issue.id == null }">
-			<s:fileUpload data="#{issueAction.issue.file.data}" fileName="#{issueAction.issue.file.name}"  contentType="#{issueAction.issue.file.contentType}" /> 
-		</s:div>
-		
-		 </h:panelGroup>
-	
-	
-
-
-		
-		<h:message styleClass="error errors" for="file" rendered="#{s:hasPermission('file', 'issueEdit')}"/>		
-	
-	
-
-	
-	
-		<h:outputText value="#{msg.issue_severity}  " rendered="#{s:hasPermission('severity', 'issueEdit')}"/>
-		
-	
-	<h:selectOneMenu id="severity"  rendered="#{s:hasPermission('severity', 'issueEdit')}" value="#{issueAction.issue.severity}" required="false" 
-	  label="#{msg.issue_severity}">
-		<f:selectItem itemLabel="Please Select..." itemValue="" />
-		<f:selectItem itemValue="ONE"  itemLabel="One" />
-		<f:selectItem itemValue="TWO"  itemLabel="Two" />
-		<f:selectItem itemValue="THREE"  itemLabel="Three" />
-		<f:selectItem itemValue="FOUR"  itemLabel="Four" />
-		
-		<rich:ajaxValidator event="onblur"/>
-	</h:selectOneMenu>
-	
-		
-		<h:message styleClass="error errors" for="severity" rendered="#{s:hasPermission('severity', 'issueEdit')}"/>		
-	
-	
-		</h:panelGrid>
-		
-	
-		
-	
-		</s:validateAll>
-	
-	</h:panelGroup>
-	
-	</ui:composition>
-	
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{issueAction.load(issueId )  }"> 
+        <h:outputText value="#{msg.issue_project}  " rendered="#{s:hasPermission('project', 'issueEdit')}"/>  
+        <h:selectOneMenu id="project" label="#{msg.issue_project}" value="#{issueAction.issue.project}" required="true" rendered="#{s:hasPermission('project', 'issueEdit')}"> 
+          <a:support event="onchange" reRender="developer" ajaxSingle="true"/>  
+          <s:selectItems value="#{projectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="project" rendered="#{s:hasPermission('project', 'issueEdit')}"/>  
+        <h:outputText value="#{msg.issue_developer}  " rendered="#{s:hasPermission('developer', 'issueEdit')}"/>  
+        <h:selectOneMenu id="developer" label="#{msg.issue_developer}" value="#{issueAction.issue.developer}" required="false" rendered="#{s:hasPermission('developer', 'issueEdit')}"> 
+          <s:selectItems value="#{issueAction.issue.project.employees}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="developer" rendered="#{s:hasPermission('developer', 'issueEdit')}"/>  
+        <h:outputText value="#{msg.issue_category}  " rendered="#{s:hasPermission('category', 'issueEdit')}"/>  
+        <h:selectOneMenu id="category" label="#{msg.issue_category}" value="#{issueAction.issue.category}" required="false" rendered="#{s:hasPermission('category', 'issueEdit')}"> 
+          <s:selectItems value="#{categoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="category" rendered="#{s:hasPermission('category', 'issueEdit')}"/>  
+        <h:outputText value="#{msg.issue_qa}  " rendered="#{s:hasPermission('qa', 'issueEdit')}"/>  
+        <h:selectOneMenu id="qa" label="#{msg.issue_qa}" value="#{issueAction.issue.qa}" required="false" rendered="#{s:hasPermission('qa', 'issueEdit')}"> 
+          <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="qa" rendered="#{s:hasPermission('qa', 'issueEdit')}"/>  
+        <h:outputText value="#{msg.issue_title} * " rendered="#{s:hasPermission('title', 'issueEdit')}"/>  
+        <h:inputText id="title#{entityId}" rendered="#{s:hasPermission('title', 'issueEdit')}" label="#{msg.issue_title}" required="true" value="#{issueAction.issue.title}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="title" rendered="#{s:hasPermission('title', 'issueEdit')}"/>  
+        <h:outputText value="#{msg.issue_description}  " rendered="#{s:hasPermission('description', 'issueEdit')}"/>  
+        <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{s:hasPermission('description', 'issueEdit')}" label="#{msg.issue_description}" required="false" value="#{issueAction.issue.description}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </rich:editor>  
+        <rich:message styleClass="error errors" for="description" rendered="#{s:hasPermission('description', 'issueEdit')}"/>  
+        <h:outputText value="#{msg.issue_priority}  " rendered="#{s:hasPermission('priority', 'issueEdit')}"/>  
+        <h:selectOneMenu id="priority" rendered="#{s:hasPermission('priority', 'issueEdit')}" value="#{issueAction.issue.priority}" required="false" label="#{msg.issue_priority}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="SHOW_STOPPER" itemLabel="Show_stopper"/>  
+          <f:selectItem itemValue="CRITICAL_URGENT" itemLabel="Critical_urgent"/>  
+          <f:selectItem itemValue="CRITICAL_NOT_URGENT" itemLabel="Critical_not_urgent"/>  
+          <f:selectItem itemValue="NON_CRITICAL" itemLabel="Non_critical"/>  
+          <f:selectItem itemValue="LANGUAGE" itemLabel="Language"/>  
+          <f:selectItem itemValue="COSMETIC" itemLabel="Cosmetic"/>  
+          <rich:ajaxValidator event="onblur"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="priority" rendered="#{s:hasPermission('priority', 'issueEdit')}"/>  
+        <h:outputText value="#{msg.issue_estimate}  " rendered="#{s:hasPermission('estimate', 'issueEdit')}"/>  
+        <h:inputText id="estimate#{entityId}" rendered="#{s:hasPermission('estimate', 'issueEdit')}" label="#{msg.issue_estimate}" required="false" value="#{issueAction.issue.estimate}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="estimate" rendered="#{s:hasPermission('estimate', 'issueEdit')}"/>  
+        <h:outputText value="#{msg.issue_file}  " rendered="#{s:hasPermission('file', 'issueEdit')}"/>  
+        <h:panelGroup> 
+          <s:div rendered="#{issueAction.issue.id != 0 }"> 
+            <c:choose> 
+              <c:when test="${issueAction.issue.file.contentType.startsWith('image')}"> 
+                <s:graphicImage value="#{issueAction.issue.file.data}"/> 
+              </c:when>  
+              <c:otherwise> 
+                <s:link value="#{issueAction.issue.file.name}" action="#{issueAction.downloadFile(null)}" propagation="none"> 
+                  <f:param name="currentEntityId" value="#{issueAction.instance.id}"/> 
+                </s:link> 
+              </c:otherwise> 
+            </c:choose> 
+          </s:div>  
+          <s:div rendered="#{issueAction.issue.id == null }"> 
+            <s:fileUpload data="#{issueAction.issue.file.data}" fileName="#{issueAction.issue.file.name}" contentType="#{issueAction.issue.file.contentType}"/> 
+          </s:div> 
+        </h:panelGroup>  
+        <rich:message styleClass="error errors" for="file" rendered="#{s:hasPermission('file', 'issueEdit')}"/>  
+        <h:outputText value="#{msg.issue_severity}  " rendered="#{s:hasPermission('severity', 'issueEdit')}"/>  
+        <h:selectOneMenu id="severity" rendered="#{s:hasPermission('severity', 'issueEdit')}" value="#{issueAction.issue.severity}" required="false" label="#{msg.issue_severity}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="ONE" itemLabel="One"/>  
+          <f:selectItem itemValue="TWO" itemLabel="Two"/>  
+          <f:selectItem itemValue="THREE" itemLabel="Three"/>  
+          <f:selectItem itemValue="FOUR" itemLabel="Four"/>  
+          <rich:ajaxValidator event="onblur"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="severity" rendered="#{s:hasPermission('severity', 'issueEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

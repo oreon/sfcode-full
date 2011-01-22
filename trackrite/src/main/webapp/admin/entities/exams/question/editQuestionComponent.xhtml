@@ -10,12 +10,12 @@
           <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="exam" rendered="#{s:hasPermission('exam', 'questionEdit')}"/>  
+        <rich:message styleClass="error errors" for="exam" rendered="#{s:hasPermission('exam', 'questionEdit')}"/>  
         <h:outputText value="#{msg.question_text} * " rendered="#{s:hasPermission('text', 'questionEdit')}"/>  
         <h:inputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'questionEdit')}" label="#{msg.question_text}" required="true" value="#{questionAction.question.text}"> 
           <rich:ajaxValidator event="onblur"/> 
         </h:inputText>  
-        <h:message styleClass="error errors" for="text" rendered="#{s:hasPermission('text', 'questionEdit')}"/> 
+        <rich:message styleClass="error errors" for="text" rendered="#{s:hasPermission('text', 'questionEdit')}"/> 
       </h:panelGrid>  
       <a:commandButton value="New Choice" action="#{questionAction.addChoices}" reRender="choices" rendered="#{s:hasPermission('choices', 'questionEdit')}"> 
         <s:conversationId/> 
@@ -28,7 +28,7 @@
           <h:inputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'choiceEdit')}" label="#{msg.choice_text}" required="true" value="#{_choice.text}"> 
             <rich:ajaxValidator event="onblur"/> 
           </h:inputText>  
-          <h:message styleClass="error errors" for="text" rendered="#{s:hasPermission('text', 'choiceEdit')}"/> 
+          <rich:message styleClass="error errors" for="text" rendered="#{s:hasPermission('text', 'choiceEdit')}"/> 
         </h:column>  
         <h:column> 
           <a:commandButton value="New Choice" action="#{questionAction.addChoices}" reRender="choices" rendered="#{s:hasPermission('choices', 'choiceEdit')}"> 

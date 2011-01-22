@@ -10,37 +10,37 @@
         <h:outputText value="#{msg.person_firstName} * " rendered="#{s:hasPermission('firstName', 'employeeEdit')}"/>  
         <br/>  
         <h:inputText id="firstName" value="#{employeeAction.employee.firstName}"/>  
-        <h:message styleClass="error errors" for="firstName" rendered="#{s:hasPermission('firstName', 'employeeEdit')}"/> 
+        <rich:message styleClass="error errors" for="firstName" rendered="#{s:hasPermission('firstName', 'employeeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.person_lastName} * " rendered="#{s:hasPermission('lastName', 'employeeEdit')}"/>  
         <br/>  
         <h:inputText id="lastName" value="#{employeeAction.employee.lastName}"/>  
-        <h:message styleClass="error errors" for="lastName" rendered="#{s:hasPermission('lastName', 'employeeEdit')}"/> 
+        <rich:message styleClass="error errors" for="lastName" rendered="#{s:hasPermission('lastName', 'employeeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.user_userName} * " rendered="#{s:hasPermission('userName', 'employeeEdit')}"/>  
         <br/>  
         <h:inputText id="user_userName" value="#{employeeAction.employee.user.userName}"/>  
-        <h:message styleClass="error errors" for="user_userName" rendered="#{s:hasPermission('userName', 'employeeEdit')}"/> 
+        <rich:message styleClass="error errors" for="user_userName" rendered="#{s:hasPermission('userName', 'employeeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.user_enabled}  " rendered="#{s:hasPermission('enabled', 'employeeEdit')}"/>  
         <br/>  
         <h:selectBooleanCheckbox id="user_enabled" value="#{employeeAction.employee.user.enabled}"/>  
-        <h:message styleClass="error errors" for="user_enabled" rendered="#{s:hasPermission('enabled', 'employeeEdit')}"/> 
+        <rich:message styleClass="error errors" for="user_enabled" rendered="#{s:hasPermission('enabled', 'employeeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.user_email} * " rendered="#{s:hasPermission('email', 'employeeEdit')}"/>  
         <br/>  
         <h:inputText id="user_email" value="#{employeeAction.employee.user.email}"/>  
-        <h:message styleClass="error errors" for="user_email" rendered="#{s:hasPermission('email', 'employeeEdit')}"/> 
+        <rich:message styleClass="error errors" for="user_email" rendered="#{s:hasPermission('email', 'employeeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.user_lastLogin}  " rendered="#{s:hasPermission('lastLogin', 'employeeEdit')}"/>  
         <br/>  
         <rich:calendar id="user_lastLogin" value="#{employeeAction.employee.user.lastLogin}"/>  
-        <h:message styleClass="error errors" for="user_lastLogin" rendered="#{s:hasPermission('lastLogin', 'employeeEdit')}"/> 
+        <rich:message styleClass="error errors" for="user_lastLogin" rendered="#{s:hasPermission('lastLogin', 'employeeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.employee_department}  " rendered="#{s:hasPermission('department', 'employeeEdit')}"/>  
@@ -49,13 +49,13 @@
           <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="department" rendered="#{s:hasPermission('department', 'employeeEdit')}"/> 
+        <rich:message styleClass="error errors" for="department" rendered="#{s:hasPermission('department', 'employeeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{s:hasPermission('employeeNumber', 'employeeEdit')}"/>  
         <br/>  
         <h:inputText id="employeeNumber" value="#{employeeAction.employee.employeeNumber}"/>  
-        <h:message styleClass="error errors" for="employeeNumber" rendered="#{s:hasPermission('employeeNumber', 'employeeEdit')}"/> 
+        <rich:message styleClass="error errors" for="employeeNumber" rendered="#{s:hasPermission('employeeNumber', 'employeeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.employee_employeeType}  " rendered="#{s:hasPermission('employeeType', 'employeeEdit')}"/>  
@@ -66,31 +66,31 @@
           <f:selectItem itemValue="CONTRACT" itemLabel="Contract"/>  
           <f:selectItem itemValue="PART_TIME" itemLabel="Part_time"/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="employeeType" rendered="#{s:hasPermission('employeeType', 'employeeEdit')}"/> 
+        <rich:message styleClass="error errors" for="employeeType" rendered="#{s:hasPermission('employeeType', 'employeeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'employeeEdit')}"/>  
         <br/>  
         <h:inputText id="home_primaryPhone" value="#{employeeAction.employee.home.primaryPhone}"/>  
-        <h:message styleClass="error errors" for="home_primaryPhone" rendered="#{s:hasPermission('primaryPhone', 'employeeEdit')}"/> 
+        <rich:message styleClass="error errors" for="home_primaryPhone" rendered="#{s:hasPermission('primaryPhone', 'employeeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'employeeEdit')}"/>  
         <br/>  
         <h:inputText id="home_secondaryPhone" value="#{employeeAction.employee.home.secondaryPhone}"/>  
-        <h:message styleClass="error errors" for="home_secondaryPhone" rendered="#{s:hasPermission('secondaryPhone', 'employeeEdit')}"/> 
+        <rich:message styleClass="error errors" for="home_secondaryPhone" rendered="#{s:hasPermission('secondaryPhone', 'employeeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.contactDetails_city}  " rendered="#{s:hasPermission('city', 'employeeEdit')}"/>  
         <br/>  
         <h:inputText id="home_city" value="#{employeeAction.employee.home.city}"/>  
-        <h:message styleClass="error errors" for="home_city" rendered="#{s:hasPermission('city', 'employeeEdit')}"/> 
+        <rich:message styleClass="error errors" for="home_city" rendered="#{s:hasPermission('city', 'employeeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.contactDetails_streetAddress}  " rendered="#{s:hasPermission('streetAddress', 'employeeEdit')}"/>  
         <br/>  
         <h:inputText id="home_streetAddress" value="#{employeeAction.employee.home.streetAddress}"/>  
-        <h:message styleClass="error errors" for="home_streetAddress" rendered="#{s:hasPermission('streetAddress', 'employeeEdit')}"/> 
+        <rich:message styleClass="error errors" for="home_streetAddress" rendered="#{s:hasPermission('streetAddress', 'employeeEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 
