@@ -1,145 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
 
-	<ui:composition 
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:s="http://jboss.com/products/seam/taglib"
-	xmlns:a="http://richfaces.org/a4j"
-	
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
-	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
- >	
-	
-	<h:panelGroup   >
-		<s:validateAll>
-		<h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol"  onload="#{timeTrackingEntryAction.load(timeTrackingEntryId )  }">
-		
-		
-		
-	
-	
-		
-			
-			
-	
-	
-		<h:outputText value="#{msg.timeTrackingEntry_issue}  " rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"/>
-	
-		
-	
-		
-			
-	<h:selectOneMenu id="issue"   label="#{msg.timeTrackingEntry_issue}" value="#{timeTrackingEntryAction.timeTrackingEntry.issue}" 
-		required="true"  rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"  >
-		
-		<s:selectItems value="#{employeeAction.currentLoggedInEmployee.issues}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Please Select..." />
-		<rich:ajaxValidator event="onblur"/>
-		<s:convertEntity />
-	</h:selectOneMenu>
-
-		
-	 
-		
-
-	
-		
-		<h:message styleClass="error errors" for="issue" rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"/>		
-	
-	
-		
-	
-	
-		
-			
-			
-	
-	
-		<h:outputText value="#{msg.timeTrackingEntry_timeSheet}  " rendered="#{s:hasPermission('timeSheet', 'timeTrackingEntryEdit')}"/>
-	
-		
-	
-		
-			
-	<h:selectOneMenu id="timeSheet"   label="#{msg.timeTrackingEntry_timeSheet}" value="#{timeTrackingEntryAction.timeTrackingEntry.timeSheet}" 
-		required="true"  rendered="#{s:hasPermission('timeSheet', 'timeTrackingEntryEdit')}"  >
-		
-		<s:selectItems value="#{timeSheetList}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Please Select..." />
-		<rich:ajaxValidator event="onblur"/>
-		<s:convertEntity />
-	</h:selectOneMenu>
-
-		
-	 
-		
-
-	
-		
-		<h:message styleClass="error errors" for="timeSheet" rendered="#{s:hasPermission('timeSheet', 'timeTrackingEntryEdit')}"/>		
-	
-	
-		
-	
-
-	
-	
-	
-	
-		<h:outputText value="#{msg.timeTrackingEntry_hours} * " rendered="#{s:hasPermission('hours', 'timeTrackingEntryEdit')}"/>
-		
-<h:inputText    id="hours#{entityId}"  rendered="#{s:hasPermission('hours', 'timeTrackingEntryEdit')}"  
-	  label="#{msg.timeTrackingEntry_hours}"  required="true" 
-	  value="#{timeTrackingEntryAction.timeTrackingEntry.hours}" >
-	  <rich:ajaxValidator event="onblur"/>
-</h:inputText>
-
-		
-		<h:message styleClass="error errors" for="hours" rendered="#{s:hasPermission('hours', 'timeTrackingEntryEdit')}"/>		
-	
-	
-
-	
-	
-		<h:outputText value="#{msg.timeTrackingEntry_details} * " rendered="#{s:hasPermission('details', 'timeTrackingEntryEdit')}"/>
-		
-<rich:editor useSeamText="true"     id="details#{entityId}"  rendered="#{s:hasPermission('details', 'timeTrackingEntryEdit')}"  
-	  label="#{msg.timeTrackingEntry_details}"  required="true" 
-	  value="#{timeTrackingEntryAction.timeTrackingEntry.details}" >
-	  <rich:ajaxValidator event="onblur"/>
-</rich:editor useSeamText="true" >
-
-		
-		<h:message styleClass="error errors" for="details" rendered="#{s:hasPermission('details', 'timeTrackingEntryEdit')}"/>		
-	
-	
-
-	
-	
-		<h:outputText value="#{msg.timeTrackingEntry_date} * " rendered="#{s:hasPermission('date', 'timeTrackingEntryEdit')}"/>
-		
-<rich:calendar    id="date#{entityId}"  rendered="#{s:hasPermission('date', 'timeTrackingEntryEdit')}"  
-	  label="#{msg.timeTrackingEntry_date}"  required="true" 
-	  value="#{timeTrackingEntryAction.timeTrackingEntry.date}" >
-	  <rich:ajaxValidator event="onblur"/>
-</rich:calendar>
-
-		
-		<h:message styleClass="error errors" for="date" rendered="#{s:hasPermission('date', 'timeTrackingEntryEdit')}"/>		
-	
-	
-		</h:panelGrid>
-		
-	
-		
-	
-		</s:validateAll>
-	
-	</h:panelGroup>
-	
-	</ui:composition>
-	
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{timeTrackingEntryAction.load(timeTrackingEntryId )  }"> 
+        <h:outputText value="#{msg.timeTrackingEntry_issue}  " rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"/>  
+        <h:selectOneMenu id="issue" label="#{msg.timeTrackingEntry_issue}" value="#{timeTrackingEntryAction.timeTrackingEntry.issue}" required="true" rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"> 
+          <s:selectItems value="#{employeeAction.currentLoggedInEmployee.issues}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="issue" rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"/>  
+        <h:outputText value="#{msg.timeTrackingEntry_timeSheet}  " rendered="#{s:hasPermission('timeSheet', 'timeTrackingEntryEdit')}"/>  
+        <h:selectOneMenu id="timeSheet" label="#{msg.timeTrackingEntry_timeSheet}" value="#{timeTrackingEntryAction.timeTrackingEntry.timeSheet}" required="true" rendered="#{s:hasPermission('timeSheet', 'timeTrackingEntryEdit')}"> 
+          <s:selectItems value="#{timeSheetList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="timeSheet" rendered="#{s:hasPermission('timeSheet', 'timeTrackingEntryEdit')}"/>  
+        <h:outputText value="#{msg.timeTrackingEntry_hours} * " rendered="#{s:hasPermission('hours', 'timeTrackingEntryEdit')}"/>  
+        <h:inputText id="hours#{entityId}" rendered="#{s:hasPermission('hours', 'timeTrackingEntryEdit')}" label="#{msg.timeTrackingEntry_hours}" required="true" value="#{timeTrackingEntryAction.timeTrackingEntry.hours}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="hours" rendered="#{s:hasPermission('hours', 'timeTrackingEntryEdit')}"/>  
+        <h:outputText value="#{msg.timeTrackingEntry_details} * " rendered="#{s:hasPermission('details', 'timeTrackingEntryEdit')}"/>  
+        <rich:editor useSeamText="true" id="details#{entityId}" rendered="#{s:hasPermission('details', 'timeTrackingEntryEdit')}" label="#{msg.timeTrackingEntry_details}" required="true" value="#{timeTrackingEntryAction.timeTrackingEntry.details}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </rich:editor>  
+        <rich:message styleClass="error errors" for="details" rendered="#{s:hasPermission('details', 'timeTrackingEntryEdit')}"/>  
+        <h:outputText value="#{msg.timeTrackingEntry_date} * " rendered="#{s:hasPermission('date', 'timeTrackingEntryEdit')}"/>  
+        <rich:calendar id="date#{entityId}" rendered="#{s:hasPermission('date', 'timeTrackingEntryEdit')}" label="#{msg.timeTrackingEntry_date}" required="true" value="#{timeTrackingEntryAction.timeTrackingEntry.date}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </rich:calendar>  
+        <rich:message styleClass="error errors" for="date" rendered="#{s:hasPermission('date', 'timeTrackingEntryEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

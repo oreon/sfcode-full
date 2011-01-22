@@ -13,13 +13,13 @@
           <s:selectItems value="#{projectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="project" rendered="#{s:hasPermission('project', 'scheduleEdit')}"/> 
+        <rich:message styleClass="error errors" for="project" rendered="#{s:hasPermission('project', 'scheduleEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.schedule_name} * " rendered="#{s:hasPermission('name', 'scheduleEdit')}"/>  
         <br/>  
         <h:inputText id="name" value="#{scheduleAction.schedule.name}"/>  
-        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'scheduleEdit')}"/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'scheduleEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

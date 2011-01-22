@@ -7,22 +7,16 @@
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{examAction.exam.id}"/>  
         <h:outputText value="#{msg.exam_name}  " rendered="#{s:hasPermission('name', 'examView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'examView')}" value="#{examAction.exam.name}"> 
-          <rich:ajaxValidator event="onblur"/> 
-        </h:outputText>  
+        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'examView')}" value="#{examAction.exam.name}"></h:outputText>  
         <h:outputText value="#{msg.exam_duration}  " rendered="#{s:hasPermission('duration', 'examView')}"/>  
-        <h:outputText id="duration#{entityId}" rendered="#{s:hasPermission('duration', 'examView')}" value="#{examAction.exam.duration}"> 
-          <rich:ajaxValidator event="onblur"/> 
-        </h:outputText> 
+        <h:outputText id="duration#{entityId}" rendered="#{s:hasPermission('duration', 'examView')}" value="#{examAction.exam.duration}"></h:outputText> 
       </h:panelGrid>  
       <rich:dataTable id="questions" var="_question" rendered="#{not empty examAction.listQuestions and s:hasPermission('questions', 'examView') }" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.question_text}  " rendered="#{s:hasPermission('text', 'questionView')}"/>
           </f:facet>  
-          <h:outputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'questionView')}" value="#{_question.text}"> 
-            <rich:ajaxValidator event="onblur"/> 
-          </h:outputText> 
+          <h:outputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'questionView')}" value="#{_question.text}"></h:outputText> 
         </h:column> 
       </rich:dataTable> 
     </s:validateAll> 

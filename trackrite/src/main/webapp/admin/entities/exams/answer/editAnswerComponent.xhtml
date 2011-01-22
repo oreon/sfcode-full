@@ -10,14 +10,14 @@
           <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="choice" rendered="#{s:hasPermission('choice', 'answerEdit')}"/>  
+        <rich:message styleClass="error errors" for="choice" rendered="#{s:hasPermission('choice', 'answerEdit')}"/>  
         <h:outputText value="#{msg.answer_examInstance}  " rendered="#{s:hasPermission('examInstance', 'answerEdit')}"/>  
         <h:selectOneMenu id="examInstance" label="#{msg.answer_examInstance}" value="#{answerAction.answer.examInstance}" required="true" rendered="#{s:hasPermission('examInstance', 'answerEdit')}"> 
           <s:selectItems value="#{examInstanceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="examInstance" rendered="#{s:hasPermission('examInstance', 'answerEdit')}"/> 
+        <rich:message styleClass="error errors" for="examInstance" rendered="#{s:hasPermission('examInstance', 'answerEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

@@ -12,9 +12,7 @@
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.schedule_name}  " rendered="#{s:hasPermission('name', 'scheduleView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'scheduleView')}" value="#{scheduleAction.schedule.name}"> 
-          <rich:ajaxValidator event="onblur"/> 
-        </h:outputText> 
+        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'scheduleView')}" value="#{scheduleAction.schedule.name}"></h:outputText> 
       </h:panelGrid>  
       <rich:dataTable id="scheduleItems" var="_scheduleItem" rendered="#{not empty scheduleAction.listScheduleItems and s:hasPermission('scheduleItems', 'scheduleView') }" value="#{scheduleAction.listScheduleItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
@@ -30,17 +28,13 @@
           <f:facet name="header">
             <h:outputText value="#{msg.scheduleItem_startDate}  " rendered="#{s:hasPermission('startDate', 'scheduleItemView')}"/>
           </f:facet>  
-          <h:outputText id="startDate#{entityId}" rendered="#{s:hasPermission('startDate', 'scheduleItemView')}" value="#{_scheduleItem.startDate}"> 
-            <rich:ajaxValidator event="onblur"/> 
-          </h:outputText> 
+          <h:outputText id="startDate#{entityId}" rendered="#{s:hasPermission('startDate', 'scheduleItemView')}" value="#{_scheduleItem.startDate}"></h:outputText> 
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.scheduleItem_endDate}  " rendered="#{s:hasPermission('endDate', 'scheduleItemView')}"/>
           </f:facet>  
-          <h:outputText id="endDate#{entityId}" rendered="#{s:hasPermission('endDate', 'scheduleItemView')}" value="#{_scheduleItem.endDate}"> 
-            <rich:ajaxValidator event="onblur"/> 
-          </h:outputText> 
+          <h:outputText id="endDate#{entityId}" rendered="#{s:hasPermission('endDate', 'scheduleItemView')}" value="#{_scheduleItem.endDate}"></h:outputText> 
         </h:column> 
       </rich:dataTable> 
     </s:validateAll> 

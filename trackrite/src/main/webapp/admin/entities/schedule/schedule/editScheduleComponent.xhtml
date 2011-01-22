@@ -10,12 +10,12 @@
           <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="project" rendered="#{s:hasPermission('project', 'scheduleEdit')}"/>  
+        <rich:message styleClass="error errors" for="project" rendered="#{s:hasPermission('project', 'scheduleEdit')}"/>  
         <h:outputText value="#{msg.schedule_name} * " rendered="#{s:hasPermission('name', 'scheduleEdit')}"/>  
         <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'scheduleEdit')}" label="#{msg.schedule_name}" required="true" value="#{scheduleAction.schedule.name}"> 
           <rich:ajaxValidator event="onblur"/> 
         </h:inputText>  
-        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'scheduleEdit')}"/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'scheduleEdit')}"/> 
       </h:panelGrid>  
       <a:commandButton value="New ScheduleItem" action="#{scheduleAction.addScheduleItems}" reRender="scheduleItems" rendered="#{s:hasPermission('scheduleItems', 'scheduleEdit')}"> 
         <s:conversationId/> 
@@ -30,7 +30,7 @@
             <rich:ajaxValidator event="onblur"/>  
             <s:convertEntity/> 
           </h:selectOneMenu>  
-          <h:message styleClass="error errors" for="employee" rendered="#{s:hasPermission('employee', 'scheduleItemEdit')}"/> 
+          <rich:message styleClass="error errors" for="employee" rendered="#{s:hasPermission('employee', 'scheduleItemEdit')}"/> 
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
@@ -39,7 +39,7 @@
           <rich:calendar id="startDate#{entityId}" rendered="#{s:hasPermission('startDate', 'scheduleItemEdit')}" label="#{msg.scheduleItem_startDate}" required="false" value="#{_scheduleItem.startDate}"> 
             <rich:ajaxValidator event="onblur"/> 
           </rich:calendar>  
-          <h:message styleClass="error errors" for="startDate" rendered="#{s:hasPermission('startDate', 'scheduleItemEdit')}"/> 
+          <rich:message styleClass="error errors" for="startDate" rendered="#{s:hasPermission('startDate', 'scheduleItemEdit')}"/> 
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
@@ -48,7 +48,7 @@
           <rich:calendar id="endDate#{entityId}" rendered="#{s:hasPermission('endDate', 'scheduleItemEdit')}" label="#{msg.scheduleItem_endDate}" required="false" value="#{_scheduleItem.endDate}"> 
             <rich:ajaxValidator event="onblur"/> 
           </rich:calendar>  
-          <h:message styleClass="error errors" for="endDate" rendered="#{s:hasPermission('endDate', 'scheduleItemEdit')}"/> 
+          <rich:message styleClass="error errors" for="endDate" rendered="#{s:hasPermission('endDate', 'scheduleItemEdit')}"/> 
         </h:column>  
         <h:column> 
           <a:commandButton value="New ScheduleItem" action="#{scheduleAction.addScheduleItems}" reRender="scheduleItems" rendered="#{s:hasPermission('scheduleItems', 'scheduleItemEdit')}"> 

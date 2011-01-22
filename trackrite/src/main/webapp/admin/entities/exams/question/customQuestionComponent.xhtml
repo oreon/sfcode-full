@@ -10,7 +10,7 @@
         <h:outputText value="#{msg.question_text} * " rendered="#{s:hasPermission('text', 'questionEdit')}"/>  
         <br/>  
         <h:inputText id="text" value="#{questionAction.question.text}"/>  
-        <h:message styleClass="error errors" for="text" rendered="#{s:hasPermission('text', 'questionEdit')}"/> 
+        <rich:message styleClass="error errors" for="text" rendered="#{s:hasPermission('text', 'questionEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.question_exam}  " rendered="#{s:hasPermission('exam', 'questionEdit')}"/>  
@@ -19,7 +19,7 @@
           <s:selectItems value="#{examList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="exam" rendered="#{s:hasPermission('exam', 'questionEdit')}"/> 
+        <rich:message styleClass="error errors" for="exam" rendered="#{s:hasPermission('exam', 'questionEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

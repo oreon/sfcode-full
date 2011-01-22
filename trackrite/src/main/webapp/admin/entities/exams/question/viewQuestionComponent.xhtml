@@ -12,18 +12,14 @@
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.question_text}  " rendered="#{s:hasPermission('text', 'questionView')}"/>  
-        <h:outputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'questionView')}" value="#{questionAction.question.text}"> 
-          <rich:ajaxValidator event="onblur"/> 
-        </h:outputText> 
+        <h:outputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'questionView')}" value="#{questionAction.question.text}"></h:outputText> 
       </h:panelGrid>  
       <rich:dataTable id="choices" var="_choice" rendered="#{not empty questionAction.listChoices and s:hasPermission('choices', 'questionView') }" value="#{questionAction.listChoices}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.choice_text}  " rendered="#{s:hasPermission('text', 'choiceView')}"/>
           </f:facet>  
-          <h:outputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'choiceView')}" value="#{_choice.text}"> 
-            <rich:ajaxValidator event="onblur"/> 
-          </h:outputText> 
+          <h:outputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'choiceView')}" value="#{_choice.text}"></h:outputText> 
         </h:column> 
       </rich:dataTable> 
     </s:validateAll> 

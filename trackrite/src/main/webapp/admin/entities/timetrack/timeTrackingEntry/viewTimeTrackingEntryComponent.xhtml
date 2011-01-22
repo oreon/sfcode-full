@@ -1,127 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
 
-	<ui:composition 
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:s="http://jboss.com/products/seam/taglib"
-	xmlns:a="http://richfaces.org/a4j"
-	
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
-	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
- >	
-	
-	<h:panelGroup   >
-		<s:validateAll>
-		<h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol"  onload="#{timeTrackingEntryAction.load(timeTrackingEntryId )  }">
-		
-		
-			<h:outputText value="#{msg.id}" />
-			<h:outputText  value="#{timeTrackingEntryAction.timeTrackingEntry.id}" />
-		
-		
-	
-	
-		
-			
-			
-	
-	
-		<h:outputText value="#{msg.timeTrackingEntry_issue}  " rendered="#{s:hasPermission('issue', 'timeTrackingEntryView')}"/>		
-		
-	<s:link    value="#{timeTrackingEntryAction.timeTrackingEntry.issue.displayName}"  view="/admin/entities/issues/issue/viewIssue.xhtml" propagation="none">
-			<f:param name="issueId" value="#{timeTrackingEntryAction.timeTrackingEntry.issue.id}" />
-			<f:param name="from" value="#{request.servletPath}" />
-			
-			 <rich:toolTip>
-	            <span>
-	              #{timeTrackingEntryAction.timeTrackingEntry.issue.popupInfo} 
-	            </span>
-	        </rich:toolTip>
-	        
-	</s:link>
-
-	
-		
-		
-	
-	
-		
-	
-	
-		
-			
-			
-	
-	
-		<h:outputText value="#{msg.timeTrackingEntry_timeSheet}  " rendered="#{s:hasPermission('timeSheet', 'timeTrackingEntryView')}"/>		
-		
-	<s:link    value="#{timeTrackingEntryAction.timeTrackingEntry.timeSheet.displayName}"  view="/admin/entities/timetrack/timeSheet/viewTimeSheet.xhtml" propagation="none">
-			<f:param name="timeSheetId" value="#{timeTrackingEntryAction.timeTrackingEntry.timeSheet.id}" />
-			<f:param name="from" value="#{request.servletPath}" />
-			
-	</s:link>
-
-	
-		
-		
-	
-	
-		
-	
-
-	
-	
-	
-	
-		<h:outputText value="#{msg.timeTrackingEntry_hours}  " rendered="#{s:hasPermission('hours', 'timeTrackingEntryView')}"/>		
-<h:outputText     id="hours#{entityId}"  rendered="#{s:hasPermission('hours', 'timeTrackingEntryView')}"  
-	  
-	  value="#{timeTrackingEntryAction.timeTrackingEntry.hours}" >
-	  <rich:ajaxValidator event="onblur"/>
-</h:outputText >
-
-		
-		
-	
-	
-
-	
-	
-		<h:outputText value="#{msg.timeTrackingEntry_details}  " rendered="#{s:hasPermission('details', 'timeTrackingEntryView')}"/>		
-<s:formattedText escape="false"     id="details#{entityId}"  rendered="#{s:hasPermission('details', 'timeTrackingEntryView')}"  
-	  
-	  value="#{timeTrackingEntryAction.timeTrackingEntry.details}" >
-	  <rich:ajaxValidator event="onblur"/>
-</s:formattedText escape="false" >
-
-		
-		
-	
-	
-
-	
-	
-		<h:outputText value="#{msg.timeTrackingEntry_date}  " rendered="#{s:hasPermission('date', 'timeTrackingEntryView')}"/>		
-<h:outputText     id="date#{entityId}"  rendered="#{s:hasPermission('date', 'timeTrackingEntryView')}"  
-	  
-	  value="#{timeTrackingEntryAction.timeTrackingEntry.date}" >
-	  <rich:ajaxValidator event="onblur"/>
-</h:outputText >
-
-		
-		
-	
-	
-		</h:panelGrid>
-		
-	
-		
-	
-		</s:validateAll>
-	
-	</h:panelGroup>
-	
-	</ui:composition>
-	
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{timeTrackingEntryAction.load(timeTrackingEntryId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{timeTrackingEntryAction.timeTrackingEntry.id}"/>  
+        <h:outputText value="#{msg.timeTrackingEntry_issue}  " rendered="#{s:hasPermission('issue', 'timeTrackingEntryView')}"/>  
+        <s:link value="#{timeTrackingEntryAction.timeTrackingEntry.issue.displayName}" view="/admin/entities/issues/issue/viewIssue.xhtml" propagation="none"> 
+          <f:param name="issueId" value="#{timeTrackingEntryAction.timeTrackingEntry.issue.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <rich:toolTip> 
+            <span>#{timeTrackingEntryAction.timeTrackingEntry.issue.popupInfo}</span> 
+          </rich:toolTip> 
+        </s:link>  
+        <h:outputText value="#{msg.timeTrackingEntry_timeSheet}  " rendered="#{s:hasPermission('timeSheet', 'timeTrackingEntryView')}"/>  
+        <s:link value="#{timeTrackingEntryAction.timeTrackingEntry.timeSheet.displayName}" view="/admin/entities/timetrack/timeSheet/viewTimeSheet.xhtml" propagation="none"> 
+          <f:param name="timeSheetId" value="#{timeTrackingEntryAction.timeTrackingEntry.timeSheet.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.timeTrackingEntry_hours}  " rendered="#{s:hasPermission('hours', 'timeTrackingEntryView')}"/>  
+        <h:outputText id="hours#{entityId}" rendered="#{s:hasPermission('hours', 'timeTrackingEntryView')}" value="#{timeTrackingEntryAction.timeTrackingEntry.hours}"></h:outputText>  
+        <h:outputText value="#{msg.timeTrackingEntry_details}  " rendered="#{s:hasPermission('details', 'timeTrackingEntryView')}"/>  
+        <s:formattedText escape="false" id="details#{entityId}" rendered="#{s:hasPermission('details', 'timeTrackingEntryView')}" value="#{timeTrackingEntryAction.timeTrackingEntry.details}"></s:formattedText>  
+        <h:outputText value="#{msg.timeTrackingEntry_date}  " rendered="#{s:hasPermission('date', 'timeTrackingEntryView')}"/>  
+        <h:outputText id="date#{entityId}" rendered="#{s:hasPermission('date', 'timeTrackingEntryView')}" value="#{timeTrackingEntryAction.timeTrackingEntry.date}"></h:outputText> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
