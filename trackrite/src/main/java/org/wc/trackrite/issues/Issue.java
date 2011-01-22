@@ -247,7 +247,7 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	@Transient
 	public String getDisplayName() {
 		try {
-			return getId() + " " + title;
+			return id + " " + title;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}

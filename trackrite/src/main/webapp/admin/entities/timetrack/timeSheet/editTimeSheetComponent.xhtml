@@ -1,60 +1,164 @@
-<?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
-    <s:validateAll> 
-      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{timeSheetAction.load(timeSheetId )  }"> 
-        <h:outputText value="#{msg.timeSheet_title} * " rendered="#{s:hasPermission('title', 'timeSheetEdit')}"/>  
-        <h:inputText id="title#{entityId}" rendered="#{s:hasPermission('title', 'timeSheetEdit')}" label="#{msg.timeSheet_title}" required="true" value="#{timeSheetAction.timeSheet.title}"/>  
-        <h:message styleClass="error errors" for="title" rendered="#{s:hasPermission('title', 'timeSheetEdit')}"/> 
-      </h:panelGrid>  
-      <a:commandButton value="New TimeTrackingEntry" action="#{timeSheetAction.addTimeTrackingEntrys}" reRender="timeTrackingEntrys" rendered="#{s:hasPermission('timeTrackingEntrys', 'timeSheetEdit')}"> 
-        <s:conversationId/> 
-      </a:commandButton>  
-      <rich:dataTable id="timeTrackingEntrys" var="_timeTrackingEntry" rendered="#{s:hasPermission('timeTrackingEntrys', 'timeSheetEdit')}" value="#{timeSheetAction.listTimeTrackingEntrys}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.timeTrackingEntry_issue}  " rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"/>
-          </f:facet>  
-          <h:selectOneMenu id="issue" label="#{msg.timeTrackingEntry_issue}" value="#{_timeTrackingEntry.issue}" required="true" rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"> 
-            <s:selectItems value="#{employeeAction.currentLoggedInEmployee.issues}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <rich:ajaxValidator event="onblur"/>  
-            <s:convertEntity/> 
-          </h:selectOneMenu>  
-          <h:message styleClass="error errors" for="issue" rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"/> 
-        </h:column>  
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.timeTrackingEntry_hours} * " rendered="#{s:hasPermission('hours', 'timeTrackingEntryEdit')}"/>
-          </f:facet>  
-          <h:inputText id="hours#{entityId}" rendered="#{s:hasPermission('hours', 'timeTrackingEntryEdit')}" label="#{msg.timeTrackingEntry_hours}" required="true" value="#{_timeTrackingEntry.hours}"/>  
-          <h:message styleClass="error errors" for="hours" rendered="#{s:hasPermission('hours', 'timeTrackingEntryEdit')}"/> 
-        </h:column>  
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.timeTrackingEntry_details} * " rendered="#{s:hasPermission('details', 'timeTrackingEntryEdit')}"/>
-          </f:facet>  
-          <rich:editor useSeamText="true" id="details#{entityId}" rendered="#{s:hasPermission('details', 'timeTrackingEntryEdit')}" label="#{msg.timeTrackingEntry_details}" required="true" value="#{_timeTrackingEntry.details}"/>  
-          <h:message styleClass="error errors" for="details" rendered="#{s:hasPermission('details', 'timeTrackingEntryEdit')}"/> 
-        </h:column>  
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.timeTrackingEntry_date} * " rendered="#{s:hasPermission('date', 'timeTrackingEntryEdit')}"/>
-          </f:facet>  
-          <rich:calendar id="date#{entityId}" rendered="#{s:hasPermission('date', 'timeTrackingEntryEdit')}" label="#{msg.timeTrackingEntry_date}" required="true" value="#{_timeTrackingEntry.date}"/>  
-          <h:message styleClass="error errors" for="date" rendered="#{s:hasPermission('date', 'timeTrackingEntryEdit')}"/> 
-        </h:column>  
-        <h:column> 
-          <a:commandButton value="New TimeTrackingEntry" action="#{timeSheetAction.addTimeTrackingEntrys}" reRender="timeTrackingEntrys" rendered="#{s:hasPermission('timeTrackingEntrys', 'timeTrackingEntryEdit')}"> 
-            <s:conversationId/> 
-          </a:commandButton> 
-        </h:column>  
-        <h:column> 
-          <a:commandButton value="Delete" immediate="true" action="#{timeSheetAction.deleteTimeTrackingEntrys(rowIndex)}" reRender="timeTrackingEntrys"> 
-            <s:conversationId/> 
-          </a:commandButton> 
-        </h:column> 
-      </rich:dataTable> 
-    </s:validateAll> 
-  </h:panelGroup> 
-</ui:composition>
+	<ui:composition 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	
+	<h:panelGroup   >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol"  onload="#{timeSheetAction.load(timeSheetId )  }">
+		
+		
+		
+	
+
+	
+	
+	
+	
+		<h:outputText value="#{msg.timeSheet_title} * " rendered="#{s:hasPermission('title', 'timeSheetEdit')}"/>
+		
+<h:inputText    id="title#{entityId}"  rendered="#{s:hasPermission('title', 'timeSheetEdit')}"  
+	  label="#{msg.timeSheet_title}"  required="true" 
+	  value="#{timeSheetAction.timeSheet.title}" >
+	  <rich:ajaxValidator event="onblur"/>
+</h:inputText>
+
+		
+		<h:message styleClass="error errors" for="title" rendered="#{s:hasPermission('title', 'timeSheetEdit')}"/>		
+	
+	
+		</h:panelGrid>
+		
+	
+ 
+	<a:commandButton  value="New TimeTrackingEntry" action="#{timeSheetAction.addTimeTrackingEntrys}"  
+		reRender="timeTrackingEntrys"  rendered="#{s:hasPermission('timeTrackingEntrys', 'timeSheetEdit')}" >
+		<s:conversationId/>
+	</a:commandButton>
+ 
+	<rich:dataTable id="timeTrackingEntrys" var="_timeTrackingEntry" 
+		
+				rendered="#{s:hasPermission('timeTrackingEntrys', 'timeSheetEdit')}"
+		 
+				value="#{timeSheetAction.listTimeTrackingEntrys}" 
+				rowKeyVar="rowIndex" 
+				rowClasses="odd, even" styleClass="dataTable" rules="all">
+		
+	
+	
+		
+			
+			
+	
+	
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.timeTrackingEntry_issue}  " rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"/></f:facet>
+	
+		
+	
+		
+			
+	<h:selectOneMenu id="issue"   label="#{msg.timeTrackingEntry_issue}" value="#{_timeTrackingEntry.issue}" 
+		required="true"  rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"  >
+		
+		<s:selectItems value="#{employeeAction.currentLoggedInEmployee.issues}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<rich:ajaxValidator event="onblur"/>
+		<s:convertEntity />
+	</h:selectOneMenu>
+
+		
+	 
+		
+
+	
+		
+		<h:message styleClass="error errors" for="issue" rendered="#{s:hasPermission('issue', 'timeTrackingEntryEdit')}"/>		</h:column>
+	
+	
+		
+	
+	
+
+	
+	
+	
+	
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.timeTrackingEntry_hours} * " rendered="#{s:hasPermission('hours', 'timeTrackingEntryEdit')}"/></f:facet>
+		
+<h:inputText    id="hours#{entityId}"  rendered="#{s:hasPermission('hours', 'timeTrackingEntryEdit')}"  
+	  label="#{msg.timeTrackingEntry_hours}"  required="true" 
+	  value="#{_timeTrackingEntry.hours}" >
+	  <rich:ajaxValidator event="onblur"/>
+</h:inputText>
+
+		
+		<h:message styleClass="error errors" for="hours" rendered="#{s:hasPermission('hours', 'timeTrackingEntryEdit')}"/>		</h:column>
+	
+	
+
+	
+	
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.timeTrackingEntry_details} * " rendered="#{s:hasPermission('details', 'timeTrackingEntryEdit')}"/></f:facet>
+		
+<rich:editor useSeamText="true"     id="details#{entityId}"  rendered="#{s:hasPermission('details', 'timeTrackingEntryEdit')}"  
+	  label="#{msg.timeTrackingEntry_details}"  required="true" 
+	  value="#{_timeTrackingEntry.details}" >
+	  <rich:ajaxValidator event="onblur"/>
+</rich:editor useSeamText="true" >
+
+		
+		<h:message styleClass="error errors" for="details" rendered="#{s:hasPermission('details', 'timeTrackingEntryEdit')}"/>		</h:column>
+	
+	
+
+	
+	
+		<h:column style="text-align:right"><f:facet name="header"><h:outputText value="#{msg.timeTrackingEntry_date} * " rendered="#{s:hasPermission('date', 'timeTrackingEntryEdit')}"/></f:facet>
+		
+<rich:calendar    id="date#{entityId}"  rendered="#{s:hasPermission('date', 'timeTrackingEntryEdit')}"  
+	  label="#{msg.timeTrackingEntry_date}"  required="true" 
+	  value="#{_timeTrackingEntry.date}" >
+	  <rich:ajaxValidator event="onblur"/>
+</rich:calendar>
+
+		
+		<h:message styleClass="error errors" for="date" rendered="#{s:hasPermission('date', 'timeTrackingEntryEdit')}"/>		</h:column>
+	
+	
+		
+	<h:column>
+		
+	<a:commandButton  value="New TimeTrackingEntry" action="#{timeSheetAction.addTimeTrackingEntrys}"  
+		reRender="timeTrackingEntrys"  rendered="#{s:hasPermission('timeTrackingEntrys', 'timeTrackingEntryEdit')}" >
+		<s:conversationId/>
+	</a:commandButton>
+
+	</h:column>
+		
+	<h:column>
+		<a:commandButton value="Delete" immediate="true" action="#{timeSheetAction.deleteTimeTrackingEntrys(rowIndex)}"  
+			reRender="timeTrackingEntrys"
+			>
+			<s:conversationId/>
+		</a:commandButton>
+	</h:column>
+			
+	</rich:dataTable>
+		
+	
+		</s:validateAll>
+	
+	</h:panelGroup>
+	
+	</ui:composition>
+	

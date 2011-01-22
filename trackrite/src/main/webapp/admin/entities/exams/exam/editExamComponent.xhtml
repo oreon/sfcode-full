@@ -5,10 +5,14 @@
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{examAction.load(examId )  }"> 
         <h:outputText value="#{msg.exam_name} * " rendered="#{s:hasPermission('name', 'examEdit')}"/>  
-        <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'examEdit')}" label="#{msg.exam_name}" required="true" value="#{examAction.exam.name}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'examEdit')}" label="#{msg.exam_name}" required="true" value="#{examAction.exam.name}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
         <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'examEdit')}"/>  
         <h:outputText value="#{msg.exam_duration}  " rendered="#{s:hasPermission('duration', 'examEdit')}"/>  
-        <h:inputText id="duration#{entityId}" rendered="#{s:hasPermission('duration', 'examEdit')}" label="#{msg.exam_duration}" required="false" value="#{examAction.exam.duration}"/>  
+        <h:inputText id="duration#{entityId}" rendered="#{s:hasPermission('duration', 'examEdit')}" label="#{msg.exam_duration}" required="false" value="#{examAction.exam.duration}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
         <h:message styleClass="error errors" for="duration" rendered="#{s:hasPermission('duration', 'examEdit')}"/> 
       </h:panelGrid>  
       <a:commandButton value="New Question" action="#{examAction.addQuestions}" reRender="questions" rendered="#{s:hasPermission('questions', 'examEdit')}"> 
@@ -19,7 +23,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.question_text} * " rendered="#{s:hasPermission('text', 'questionEdit')}"/>
           </f:facet>  
-          <h:inputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'questionEdit')}" label="#{msg.question_text}" required="true" value="#{_question.text}"/>  
+          <h:inputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'questionEdit')}" label="#{msg.question_text}" required="true" value="#{_question.text}"> 
+            <rich:ajaxValidator event="onblur"/> 
+          </h:inputText>  
           <h:message styleClass="error errors" for="text" rendered="#{s:hasPermission('text', 'questionEdit')}"/> 
         </h:column>  
         <h:column> 

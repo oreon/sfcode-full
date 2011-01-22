@@ -1,28 +1,135 @@
-<?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
-    <s:validateAll> 
-      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{endUserAction.load(endUserId )  }"> 
-        <h:outputText value="#{msg.user_userName} * " rendered="#{s:hasPermission('userName', 'endUserEdit')}"/>  
-        <h:inputText id="user_userName#{entityId}" rendered="#{s:hasPermission('userName', 'endUserEdit')}" label="#{msg.user_userName}" required="true" value="#{endUserAction.endUser.user.userName}"/>  
-        <h:message styleClass="error errors" for="user_userName" rendered="#{s:hasPermission('userName', 'endUserEdit')}"/>  
-        <h:outputText value="#{msg.user_password} * " rendered="#{s:hasPermission('password', 'endUserEdit')}"/>  
-        <h:inputSecret redisplay="true" id="user_password#{entityId}" rendered="#{s:hasPermission('password', 'endUserEdit')}" label="#{msg.user_password}" required="true" value="#{endUserAction.endUser.user.password}"/>  
-        <h:message styleClass="error errors" for="user_password" rendered="#{s:hasPermission('password', 'endUserEdit')}"/>  
-        <h:outputText value="#{msg.user_enabled}  " rendered="#{s:hasPermission('enabled', 'endUserEdit')}"/>  
-        <h:selectBooleanCheckbox id="user_enabled#{entityId}" rendered="#{s:hasPermission('enabled', 'endUserEdit')}" label="#{msg.user_enabled}" required="false" value="#{endUserAction.endUser.user.enabled}"/>  
-        <h:message styleClass="error errors" for="user_enabled" rendered="#{s:hasPermission('enabled', 'endUserEdit')}"/>  
-        <h:outputText value="#{msg.user_email} * " rendered="#{s:hasPermission('email', 'endUserEdit')}"/>  
-        <h:inputText id="user_email#{entityId}" rendered="#{s:hasPermission('email', 'endUserEdit')}" label="#{msg.user_email}" required="true" value="#{endUserAction.endUser.user.email}"/>  
-        <h:message styleClass="error errors" for="user_email" rendered="#{s:hasPermission('email', 'endUserEdit')}"/>  
-        <h:outputText value="#{msg.person_firstName} * " rendered="#{s:hasPermission('firstName', 'endUserEdit')}"/>  
-        <h:inputText id="firstName#{entityId}" rendered="#{s:hasPermission('firstName', 'endUserEdit')}" label="#{msg.person_firstName}" required="true" value="#{endUserAction.endUser.firstName}"/>  
-        <h:message styleClass="error errors" for="firstName" rendered="#{s:hasPermission('firstName', 'endUserEdit')}"/>  
-        <h:outputText value="#{msg.person_lastName} * " rendered="#{s:hasPermission('lastName', 'endUserEdit')}"/>  
-        <h:inputText id="lastName#{entityId}" rendered="#{s:hasPermission('lastName', 'endUserEdit')}" label="#{msg.person_lastName}" required="true" value="#{endUserAction.endUser.lastName}"/>  
-        <h:message styleClass="error errors" for="lastName" rendered="#{s:hasPermission('lastName', 'endUserEdit')}"/> 
-      </h:panelGrid> 
-    </s:validateAll> 
-  </h:panelGroup> 
-</ui:composition>
+	<ui:composition 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	
+	<h:panelGroup   >
+		<s:validateAll>
+		<h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol"  onload="#{endUserAction.load(endUserId )  }">
+		
+		
+		
+	
+			
+	
+
+	
+	
+	
+	
+		<h:outputText value="#{msg.user_userName} * " rendered="#{s:hasPermission('userName', 'endUserEdit')}"/>
+		
+<h:inputText    id="user_userName#{entityId}"  rendered="#{s:hasPermission('userName', 'endUserEdit')}"  
+	  label="#{msg.user_userName}"  required="true" 
+	  value="#{endUserAction.endUser.user.userName}" >
+	  <rich:ajaxValidator event="onblur"/>
+</h:inputText>
+
+		
+		<h:message styleClass="error errors" for="user_userName" rendered="#{s:hasPermission('userName', 'endUserEdit')}"/>		
+	
+	
+
+	
+	
+		<h:outputText value="#{msg.user_password} * " rendered="#{s:hasPermission('password', 'endUserEdit')}"/>
+		
+<h:inputSecret redisplay="true"     id="user_password#{entityId}"  rendered="#{s:hasPermission('password', 'endUserEdit')}"  
+	  label="#{msg.user_password}"  required="true" 
+	  value="#{endUserAction.endUser.user.password}" >
+	  <rich:ajaxValidator event="onblur"/>
+</h:inputSecret redisplay="true" >
+
+		
+		<h:message styleClass="error errors" for="user_password" rendered="#{s:hasPermission('password', 'endUserEdit')}"/>		
+	
+	
+
+	
+	
+		<h:outputText value="#{msg.user_enabled}  " rendered="#{s:hasPermission('enabled', 'endUserEdit')}"/>
+		
+<h:selectBooleanCheckbox    id="user_enabled#{entityId}"  rendered="#{s:hasPermission('enabled', 'endUserEdit')}"  
+	  label="#{msg.user_enabled}"  required="false" 
+	  value="#{endUserAction.endUser.user.enabled}" >
+	  <rich:ajaxValidator event="onblur"/>
+</h:selectBooleanCheckbox>
+
+		
+		<h:message styleClass="error errors" for="user_enabled" rendered="#{s:hasPermission('enabled', 'endUserEdit')}"/>		
+	
+	
+
+	
+	
+		<h:outputText value="#{msg.user_email} * " rendered="#{s:hasPermission('email', 'endUserEdit')}"/>
+		
+<h:inputText    id="user_email#{entityId}"  rendered="#{s:hasPermission('email', 'endUserEdit')}"  
+	  label="#{msg.user_email}"  required="true" 
+	  value="#{endUserAction.endUser.user.email}" >
+	  <rich:ajaxValidator event="onblur"/>
+</h:inputText>
+
+		
+		<h:message styleClass="error errors" for="user_email" rendered="#{s:hasPermission('email', 'endUserEdit')}"/>		
+	
+	
+
+	
+	
+	
+		
+	
+	
+
+	 
+	
+	
+		<h:outputText value="#{msg.person_firstName} * " rendered="#{s:hasPermission('firstName', 'endUserEdit')}"/>
+		
+<h:inputText    id="firstName#{entityId}"  rendered="#{s:hasPermission('firstName', 'endUserEdit')}"  
+	  label="#{msg.person_firstName}"  required="true" 
+	  value="#{endUserAction.endUser.firstName}" >
+	  <rich:ajaxValidator event="onblur"/>
+</h:inputText>
+
+		
+		<h:message styleClass="error errors" for="firstName" rendered="#{s:hasPermission('firstName', 'endUserEdit')}"/>		
+	
+	
+
+	
+	
+		<h:outputText value="#{msg.person_lastName} * " rendered="#{s:hasPermission('lastName', 'endUserEdit')}"/>
+		
+<h:inputText    id="lastName#{entityId}"  rendered="#{s:hasPermission('lastName', 'endUserEdit')}"  
+	  label="#{msg.person_lastName}"  required="true" 
+	  value="#{endUserAction.endUser.lastName}" >
+	  <rich:ajaxValidator event="onblur"/>
+</h:inputText>
+
+		
+		<h:message styleClass="error errors" for="lastName" rendered="#{s:hasPermission('lastName', 'endUserEdit')}"/>		
+	
+	
+	
+		</h:panelGrid>
+		
+	
+		
+	
+		</s:validateAll>
+	
+	</h:panelGroup>
+	
+	</ui:composition>
+	

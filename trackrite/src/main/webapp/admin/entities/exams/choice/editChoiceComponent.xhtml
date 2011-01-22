@@ -12,7 +12,9 @@
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="question" rendered="#{s:hasPermission('question', 'choiceEdit')}"/>  
         <h:outputText value="#{msg.choice_text} * " rendered="#{s:hasPermission('text', 'choiceEdit')}"/>  
-        <h:inputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'choiceEdit')}" label="#{msg.choice_text}" required="true" value="#{choiceAction.choice.text}"/>  
+        <h:inputText id="text#{entityId}" rendered="#{s:hasPermission('text', 'choiceEdit')}" label="#{msg.choice_text}" required="true" value="#{choiceAction.choice.text}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
         <h:message styleClass="error errors" for="text" rendered="#{s:hasPermission('text', 'choiceEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
