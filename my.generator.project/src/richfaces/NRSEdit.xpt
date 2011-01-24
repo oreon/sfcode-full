@@ -28,7 +28,8 @@
 «IF !getCompositionParent().isEmpty»
 «FILE getWebPath() +"/" + "manage" + name + "Component." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes-» >
-	 
+	
+	<c:set var="modalId" value="«name»ModalPanel-«name»" />
 <s:div styleClass="mortgage_status_formwrap2">
 		<ui:include src = "«getComponentViewFile("list")»" >
 			<ui:param name="listTitle" value="${listTitle}" />
@@ -38,10 +39,12 @@
 		
 	<a:form>
 		<a:commandButton action="#{«asVar()»Action.set«name»Id(0)}"
-			oncomplete="Richfaces.showModalPanel('«name»ModalPanel',{});"
+			oncomplete="Richfaces.showModalPanel('${modalId}',{});"
 			value="Add «name»" />
 	</a:form>
-	<ui:include src="«getComponentViewFile("modalDlg")»" />
+	<ui:include src="«getComponentViewFile("modalDlg")»" >
+		<ui:param name="modalId" value="${modalId}"/> 
+	</ui:include>
 </s:div>
 </ui:composition>
 «ENDFILE»
