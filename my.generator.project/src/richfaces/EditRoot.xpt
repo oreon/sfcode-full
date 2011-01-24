@@ -350,13 +350,22 @@
 «ENDDEFINE»
 
 
-
+«REM»Generate text control for the given property «ENDREM»
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
 «IF isFile()-» «EXPAND genFilePropertyEntry»
 «ELSE-»
-<«getTextControl()»    id="«getId()»#{entityId}"  rendered="#{«isCurrentEditMode()?genEditPermission():genViewPermission()»}"  
+<«getTextControl()»  
+	 «IF type.name == "largeText"»
+	 	«IF isCurrentEditMode()» useSeamText="true" «ELSE» escape="false" «ENDIF»
+	 «ENDIF»  
+	 «IF isColumn() && secret»
+	 	«IF isCurrentEditMode()»  redisplay="true" «ENDIF»
+	 «ENDIF»  
+	 id="«getId()»#{entityId}"  rendered="#{«isCurrentEditMode()?genEditPermission():genViewPermission()»}"  
 	 «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"":""» 
-	  value="#{«getActionForMode()»«genPropertyLabel()»}" />
+	  value="#{«getActionForMode()»«genPropertyLabel()»}" >
+	 «IF isCurrentEditMode()» <rich:ajaxValidator event="onblur"/> «ENDIF»
+</«getTextControl()»>
 «ENDIF»
 «ENDDEFINE»
 

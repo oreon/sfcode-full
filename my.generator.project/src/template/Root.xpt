@@ -361,7 +361,11 @@
 			try {
 				return «derivedProperty»;
 			} catch (Exception e) {
-				return "";
+				«IF isNumeric()»
+					return 0.0;
+				«ELSE»
+					return "";
+				«ENDIF»
 			}
 			«ELSE»
 				return «name»;

@@ -99,7 +99,7 @@ getRequiredStar(Property prop):
 isCurrentEditMode() && prop.getRequired() == "true"?"*":"";
 
 String getTextControl(Property prop):
-isCurrentEditMode() ? getInputControl(prop):getOutputControl(prop) + prop.getEscape();
+isCurrentEditMode() ? getInputControl(prop):getOutputControl(prop);
 
 
 //In case of lob properties e.g. description we need to escape the html 
@@ -114,7 +114,7 @@ else if ( prop.isType("boolean") || prop.isType("Boolean") )
 else if (prop.isType("Date")) then
 	"rich:calendar"
 else if (prop.isColumn() && prop.secret ) then
-	prop.getJSFPrefix() + ":inputSecret redisplay=\"true\" "
+	prop.getJSFPrefix() + ":inputSecret"
 else if (prop.isColumn() && prop.textSize > 0 ) then
 	prop.getJSFPrefix() + ":inputText size=\"" + prop.textSize +"\""
 else	
@@ -130,7 +130,7 @@ else
 
 String getRichTextEditor():
 if (getCurrentCartridge() == "RICH" )then
-	"rich:editor useSeamText=\"true\" "
+	"rich:editor"
 else  
    "inputRichText toolbar=\"Basic\" saveOnSubmit=\"true\"";
 	
@@ -225,7 +225,7 @@ String getErrorMessageHolder(Property prop):
 isCurrentEditMode()?getErrorMessage(prop):"";
 
 String getErrorMessage(Property prop):
-"<h:message styleClass=\"error errors\" for=\"" + prop.getId() + "\"" + " rendered=\"#{" + prop.genEditPermission()  + "}\"" + "/>";
+"<rich:message styleClass=\"error errors\" for=\"" + prop.getId() + "\"" + " rendered=\"#{" + prop.genEditPermission()  + "}\"" + "/>";
 
 
 String getViewFile(Class e,String mode):
