@@ -55,7 +55,11 @@
 		   <a:form>
 			
 				<rich:dataTable  var="_«asVar()»" value="#{records}"  id="«name.toFirstLower()»List"
-					rowClasses="odd, even" styleClass="dataTable"  >	
+					rowClasses="odd, even" styleClass="dataTable" 
+					     onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
+                        onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+					
+					 >	
 				«EXPAND genId FOR this-»	
 				«EXPAND genAttribAsOutput FOR this-»
 				«EXPAND genPropsFromBusinessEntity FOR this-»
