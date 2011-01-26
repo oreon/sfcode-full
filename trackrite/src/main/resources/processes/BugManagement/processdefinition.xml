@@ -45,10 +45,10 @@
     </transition> 
   </task-node>  
   <end-state name="nonissue"/>  
-  <mail-node name="notifyClose" actors="#{token.createdByUser.userName, token.developer.user.userName}" subject="Bug #{token.displayName} has been closed." text="Bug #{token.displayName} has been closed."> 
+  <mail-node name="notifyClose" to="#{projectAction.employeeUsernames}" subject="Bug #{token.displayName} has been closed." text="Bug #{token.displayName} has been closed."> 
     <transition to="fixed" name="close"></transition> 
   </mail-node>  
-  <mail-node name="notifyCreate" to="#{projectAction.employeeUsernames}" subject="New Issue : #{token.displayName}" text="A new issue #{token.displayName} has been created by #{token.createdByUser.userName}."> 
+  <mail-node name="notifyCreate" to="#{projectAction.employeeUsernames}" subject="New Issue : #{token.displayName}" text="A new issue #{token.displayName} has been created by #{token.createdByUser.userName}.  #{token.description}"> 
     <transition to="reviewIssue" name="proceedToReviewIssue"></transition> 
   </mail-node> 
 </process-definition>

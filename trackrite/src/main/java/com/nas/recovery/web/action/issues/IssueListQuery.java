@@ -17,6 +17,12 @@ import org.jboss.seam.annotations.Observer;
 @Scope(ScopeType.CONVERSATION)
 public class IssueListQuery extends IssueListQueryBase implements
 		java.io.Serializable {
+	
+	@Override
+	public String getEjbql() {
+		// TODO Auto-generated method stub
+		return super.getEjbql() +  " Where issue.status != 3 ";
+	}
 
 	public Issue getIssue() {
 		if (!isPostBack()) {
