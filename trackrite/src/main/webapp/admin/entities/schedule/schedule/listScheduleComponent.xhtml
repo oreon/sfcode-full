@@ -10,7 +10,7 @@
   <rich:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_schedule" value="#{records}" id="scheduleList" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:dataTable var="_schedule" value="#{records}" id="scheduleList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'scheduleView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -29,7 +29,7 @@
               <ui:param name="propertyPath" value="schedule.project"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_schedule.project.displayName}" view="/admin/entities/issues/project/viewProject.xhtml" propagation="none"> 
+          <s:link value="#{_schedule.project.displayName}" action="viewProject" propagation="none"> 
             <f:param name="projectId" value="#{_schedule.project.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 

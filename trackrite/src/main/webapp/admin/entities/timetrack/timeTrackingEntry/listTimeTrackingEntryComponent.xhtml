@@ -10,7 +10,7 @@
   <rich:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_timeTrackingEntry" value="#{records}" id="timeTrackingEntryList" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:dataTable var="_timeTrackingEntry" value="#{records}" id="timeTrackingEntryList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'timeTrackingEntryView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -49,7 +49,7 @@
               <ui:param name="propertyPath" value="timeTrackingEntry.issue"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_timeTrackingEntry.issue.displayName}" view="/admin/entities/issues/issue/viewIssue.xhtml" propagation="none"> 
+          <s:link value="#{_timeTrackingEntry.issue.displayName}" action="viewIssue" propagation="none"> 
             <f:param name="issueId" value="#{_timeTrackingEntry.issue.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <rich:toolTip> 
@@ -65,7 +65,7 @@
               <ui:param name="propertyPath" value="timeTrackingEntry.timeSheet"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_timeTrackingEntry.timeSheet.displayName}" view="/admin/entities/timetrack/timeSheet/viewTimeSheet.xhtml" propagation="none"> 
+          <s:link value="#{_timeTrackingEntry.timeSheet.displayName}" action="viewTimeSheet" propagation="none"> 
             <f:param name="timeSheetId" value="#{_timeTrackingEntry.timeSheet.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 

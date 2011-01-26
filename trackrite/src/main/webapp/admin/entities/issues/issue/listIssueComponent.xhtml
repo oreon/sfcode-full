@@ -10,7 +10,7 @@
   <rich:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_issue" value="#{records}" id="issueList" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:dataTable var="_issue" value="#{records}" id="issueList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'issueView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -49,7 +49,7 @@
               <ui:param name="propertyPath" value="issue.project"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_issue.project.displayName}" view="/admin/entities/issues/project/viewProject.xhtml" propagation="none"> 
+          <s:link value="#{_issue.project.displayName}" action="viewProject" propagation="none"> 
             <f:param name="projectId" value="#{_issue.project.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -82,7 +82,7 @@
               <ui:param name="propertyPath" value="issue.developer"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_issue.developer.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
+          <s:link value="#{_issue.developer.displayName}" action="viewEmployee" propagation="none"> 
             <f:param name="developerId" value="#{_issue.developer.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -127,7 +127,7 @@
               <ui:param name="propertyPath" value="issue.category"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_issue.category.displayName}" view="/admin/entities/issues/category/viewCategory.xhtml" propagation="none"> 
+          <s:link value="#{_issue.category.displayName}" action="viewCategory" propagation="none"> 
             <f:param name="categoryId" value="#{_issue.category.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -162,7 +162,7 @@
               <ui:param name="propertyPath" value="issue.qa"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_issue.qa.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
+          <s:link value="#{_issue.qa.displayName}" action="viewEmployee" propagation="none"> 
             <f:param name="qaId" value="#{_issue.qa.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 

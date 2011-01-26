@@ -10,7 +10,7 @@
   <rich:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_choice" value="#{records}" id="choiceList" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:dataTable var="_choice" value="#{records}" id="choiceList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'choiceView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -29,7 +29,7 @@
               <ui:param name="propertyPath" value="choice.question"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_choice.question.displayName}" view="/admin/entities/exams/question/viewQuestion.xhtml" propagation="none"> 
+          <s:link value="#{_choice.question.displayName}" action="viewQuestion" propagation="none"> 
             <f:param name="questionId" value="#{_choice.question.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 

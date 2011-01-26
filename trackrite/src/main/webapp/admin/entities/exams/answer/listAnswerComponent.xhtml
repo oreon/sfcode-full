@@ -10,7 +10,7 @@
   <rich:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_answer" value="#{records}" id="answerList" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:dataTable var="_answer" value="#{records}" id="answerList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'answerView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -29,7 +29,7 @@
               <ui:param name="propertyPath" value="answer.choice"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_answer.choice.displayName}" view="/admin/entities/exams/choice/viewChoice.xhtml" propagation="none"> 
+          <s:link value="#{_answer.choice.displayName}" action="viewChoice" propagation="none"> 
             <f:param name="choiceId" value="#{_answer.choice.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -42,7 +42,7 @@
               <ui:param name="propertyPath" value="answer.examInstance"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_answer.examInstance.displayName}" view="/admin/entities/exams/examInstance/viewExamInstance.xhtml" propagation="none"> 
+          <s:link value="#{_answer.examInstance.displayName}" action="viewExamInstance" propagation="none"> 
             <f:param name="examInstanceId" value="#{_answer.examInstance.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
