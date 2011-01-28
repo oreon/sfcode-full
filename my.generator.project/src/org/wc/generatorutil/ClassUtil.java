@@ -4,18 +4,19 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.ActivityEdge;
+import org.eclipse.uml2.uml.ActivityFinalNode;
 import org.eclipse.uml2.uml.ActivityNode;
 import org.eclipse.uml2.uml.AggregationKind;
 import org.eclipse.uml2.uml.CallBehaviorAction;
@@ -23,7 +24,6 @@ import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.ControlFlow;
 import org.eclipse.uml2.uml.Element;
-import org.eclipse.uml2.uml.Feature;
 import org.eclipse.uml2.uml.ForkNode;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.Model;
@@ -493,14 +493,23 @@ public class ClassUtil {
 			return act.getInPartitions().get(0).getName();
 		return null;
 	}
+	
+	private static int finalNodeCounter;
 
 	public static String getTaskMassagedName(NamedElement act) {
+		
+		//Date today = new Date();
 
 		if (act.getName() == null || act.getName() == "") {
 
 			if (act instanceof ControlFlow) {
 				ControlFlow cf = (ControlFlow) act;
 				act.setName(cf.getGuard().stringValue());
+			}
+			
+			if (act instanceof ActivityFinalNode) {
+				ActivityFinalNode cf = (ActivityFinalNode) act;
+				act.setName("endState" + ++finalNodeCounter);
 			}
 
 			if (act instanceof ForkNode) {
