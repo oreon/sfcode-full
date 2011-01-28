@@ -103,9 +103,13 @@
 
 «DEFINE gen FOR wcprofile::WorkflowDecision»
 	<decision name="«name.removeSpaces()»" «IF expression != null»  expression="#{«expression»}" «ENDIF» >
-		«IF handler != null-»
-			<handler class="«handler»"></handler>
-		«ENDIF»
+		 <handler class=«IF className != null» 
+	 	"«className»"
+	 	«ELSE»
+	 	  "«activity.getWebPackageName()+ "." + activity.name.toFirstLower() + ".decisions"».«name.toFirstUpper()»DecisionHandler" 
+	 	«ENDIF»
+	 	/>
+		«EXPAND genTransitions»
 		«EXPAND genTransitions»
 	</decision>
 «ENDDEFINE»
@@ -117,6 +121,8 @@
 		«EXPAND genTransitions»
 	</decision>
 «ENDDEFINE»
+
+
 
 «DEFINE gen FOR uml::ForkNode»
 	«LET outgoing().size > 1 ? "fork":"join" AS e-»
