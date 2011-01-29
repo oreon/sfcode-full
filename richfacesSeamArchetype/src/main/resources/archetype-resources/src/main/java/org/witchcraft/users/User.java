@@ -32,6 +32,8 @@ public class User extends BusinessEntity {
 
 	@NotNull
 	protected String password;
+	
+	private String email;
 
 	protected Boolean enabled;
 
@@ -76,6 +78,14 @@ public class User extends BusinessEntity {
 	@Transient
 	public String getDisplayName() {
 		return userName + "";
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getEmail() {
+		return email;
 	}
 
 }

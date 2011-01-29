@@ -1,5 +1,7 @@
 package org.witchcraft.base.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.EntityManager;
 
 import org.jboss.seam.ScopeType;
@@ -11,8 +13,14 @@ import org.witchcraft.users.User;
 
 @Name("userUtilAction")
 @Scope(ScopeType.SESSION)
-public class UserUtilAction {
+public class UserUtilAction implements Serializable{
 	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3320546173691963806L;
+
 	private User currentUser;
 	
 	@In
@@ -25,5 +33,4 @@ public class UserUtilAction {
 	public void setCurrentUser(User currentUser) {
 		this.currentUser = entityManager.merge(currentUser);	
 	}
-
 }

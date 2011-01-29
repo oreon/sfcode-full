@@ -8,10 +8,10 @@ import org.hibernate.mapping.Property;
 import org.hibernate.validator.PropertyConstraint;
 import org.hibernate.validator.Validator;
 import org.jboss.seam.Component;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Name;
 
-@Name("UniqueValidator")
+
+
+//@Name("UniqueValidator")
 public class UniqueValidator implements Validator<Unique>, PropertyConstraint {
 
 	private static final long serialVersionUID = -1458203631809206211L;

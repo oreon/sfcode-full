@@ -9,9 +9,12 @@ import org.jboss.seam.Component;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.bpm.Actor;
+import org.jboss.seam.core.Conversation;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
+import org.jboss.seam.security.permission.RuleBasedPermissionResolver;
 import org.witchcraft.base.entity.UserUtilAction;
 import org.witchcraft.users.Role;
 import org.witchcraft.users.User;
@@ -26,6 +29,9 @@ public class Authenticator {
 
 	@In
 	Credentials credentials;
+	
+	@In(required=false)
+	Actor actor;
 
 	@In
 	Identity identity;
@@ -49,9 +55,21 @@ public class Authenticator {
 			}else{
 				log.warn("no role found for user " + user.getUserName());
 			}
-			
+			updateActor(user);
 			UserUtilAction userUtilAction = (UserUtilAction)Component.getInstance("userUtilAction");
+			
+			RuleBasedPermissionResolver resolver = RuleBasedPermissionResolver.instance();
+			if(resolver != null) {
+				resolver.getSecurityContext().insert(user);
+			}
+
 			userUtilAction.setCurrentUser(user);
+			/*
+			user.setLastLogin(new Date());
+			UserAction userAction = (UserAction) Component.getInstance("userAction");
+			userAction.setInstance(user);
+			userAction.save();*/
+			Conversation.instance().end();
 			return true;
 		}
 
@@ -61,6 +79,16 @@ public class Authenticator {
 
 		}
 
+	}
+	
+	private void updateActor(User user) {
+		if(actor == null)
+			return;
+		actor.setId(user.getUserName());
+		Set<Role> roles = user.getRoles();
+		for (Role role : roles) {
+			actor.getGroupActorIds().add( role.getName() );
+		}
 	}
 
 }
