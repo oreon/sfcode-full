@@ -38,6 +38,7 @@ import org.openarchitectureware.uml2.UML2MetaModel;
 import org.openarchitectureware.uml2.profile.ProfileMetaModel;
 import org.openarchitectureware.xtend.XtendFacade;
 
+
 public class ClassUtil {
 	Operation operation;
 
@@ -93,6 +94,7 @@ public class ClassUtil {
 	static Map<String, String[]> mapTypes = new HashMap<String, String[]>();
 
 	static {
+		mapTypes.put("datatypes.Integer", new String[]{"Integer", ""});
 		mapTypes.put("Currency", new String[]{"Double",""});
 		mapTypes.put("imageFile", new String[] { "FileAttachment", "" });
 		mapTypes.put("largeText", new String[] { "String", "@Lob" });
