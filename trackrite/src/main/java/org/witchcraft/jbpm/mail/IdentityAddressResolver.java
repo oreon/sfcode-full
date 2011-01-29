@@ -1,9 +1,9 @@
 package org.witchcraft.jbpm.mail;
 
 import org.jboss.seam.Component;
-import org.wc.trackrite.users.User;
+import org.witchcraft.users.User;
+import org.witchcraft.users.action.UserAction;
 
-import com.nas.recovery.web.action.users.UserAction;
 
 
 
