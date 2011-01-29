@@ -14,6 +14,20 @@
 	<ui:define name="content">
 	<h:form>
 	
+	<!-- 
+	<ui:repeat var="issue" value="#{issueList.entityList}">
+		${issue.title}
+		<br/>
+		${issue.description}
+		<hr/>
+	</ui:repeat>
+	 -->
+	
+	 <ui:include src="/admin/entities/issues/issue/listIssueComponent.xhtml"> 
+      <ui:param name="records" value="#{issueList.entityList}"/> 
+    </ui:include>  
+	
+	
 	</h:form>
 	</ui:define> 
 </ui:composition>
