@@ -21,11 +21,7 @@ import org.jboss.seam.web.ServletContexts;
 import org.jbpm.JbpmContext;
 import org.jbpm.graph.exe.Comment;
 import org.jbpm.taskmgmt.exe.TaskInstance;
-import org.joda.time.DateTime;
-import org.wc.trackrite.issues.Issue;
 import org.witchcraft.base.entity.BusinessEntity;
-
-import com.nas.recovery.web.action.issues.IssueAction;
 
 /**
  * This action will fucntion as base for all workflow related actions

@@ -21,13 +21,20 @@
  */
 package org.witchcraft.jbpm;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Hibernate;
 import org.hibernate.StaleStateException;
 import org.jboss.seam.async.AbstractDispatcher;
 import org.jboss.seam.bpm.ManagedJbpmContext;
-import org.jboss.seam.bpm.TaskInstance;
 import org.jboss.seam.contexts.Contexts;
 import org.jboss.seam.contexts.Lifecycle;
 import org.jboss.seam.transaction.Transaction;
@@ -36,11 +43,6 @@ import org.jbpm.JbpmContext;
 import org.jbpm.db.JobSession;
 import org.jbpm.job.Job;
 import org.jbpm.persistence.JbpmPersistenceException;
-import org.jbpm.persistence.db.StaleObjectLogConfigurer;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.*;
 
 
 /**

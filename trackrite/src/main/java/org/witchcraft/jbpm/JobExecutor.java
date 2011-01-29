@@ -21,14 +21,21 @@
  */
 package org.witchcraft.jbpm;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.*;
-
 import java.io.Serializable;
 import java.net.InetAddress;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.jboss.seam.annotations.Create;
+import org.jboss.seam.annotations.Destroy;
 
 /**
  * This is a rework of org.jbpm.job.executor.JobExecutorServlet to integrate it
