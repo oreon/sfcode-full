@@ -19,8 +19,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
-import org.hibernate.search.annotations.DocumentId;
 import org.witchcraft.users.User;
+
 
 
 @MappedSuperclass
@@ -30,8 +30,8 @@ public class BusinessEntity implements Serializable{
 
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="id")
-    @DocumentId
-    private Long id;
+    //@DocumentId
+    protected Long id;
     
     private boolean archived;
     

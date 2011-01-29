@@ -3,7 +3,6 @@ package org.witchcraft.model.support.audit;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -13,7 +12,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Observer;
-import org.jboss.seam.core.Events;
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
 import org.witchcraft.base.entity.BusinessEntity;
@@ -87,28 +85,6 @@ public class EntityAuditLogInterceptor extends BaseAction<AuditLog>{
 		return query.getResultList();
 	}
 
-	@Override
-	public void findRecords() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public AuditLog getEntity() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setEntity(AuditLog t) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setEntityList(List<AuditLog> list) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 }

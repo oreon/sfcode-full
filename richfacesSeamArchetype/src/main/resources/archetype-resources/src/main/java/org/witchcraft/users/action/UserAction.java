@@ -43,22 +43,7 @@ public class UserAction extends BaseAction<User>
 		return user;
 	}
 
-	@Override
-	public void setEntity(User t) {
-		instance = t;
-		this.user = t;
-	}
 	
-	@Override
-	public void setInstance(User instance) {
-		// TODO Auto-generated method stub
-		super.setInstance(instance);
-	}
-
-	@Override
-	public void setEntityList(List<User> list) {
-		this.userList = list;
-	}
 
 	public void updateAssociations() {
 
@@ -69,6 +54,11 @@ public class UserAction extends BaseAction<User>
 			findRecords();
 		}
 		return userList;
+	}
+
+	public User findByUnqUserName(String actorId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

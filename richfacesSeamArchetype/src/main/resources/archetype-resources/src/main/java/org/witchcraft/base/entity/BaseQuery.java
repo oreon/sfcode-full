@@ -1,5 +1,6 @@
 package org.witchcraft.base.entity;
 
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -10,18 +11,24 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
+import javax.faces.context.FacesContext;
+import javax.faces.render.ResponseStateManager;
 import javax.persistence.Query;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
+import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.framework.EntityQuery;
 import org.jboss.seam.persistence.PersistenceProvider;
+
 
 
 
@@ -33,10 +40,26 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 
 	protected E instance;
 	
+	
+	private Range<java.util.Date> dateCreatedRange = new Range<Date>();
+
+	private List<E> entityList;
+	
 	@RequestParameter
 	protected String searchText;
 	
-	public static final int DEFAULT_PAGES_FOR_PAGINATION = 5;
+	protected String textToSearch;
+	
+	public String getTextToSearch() {
+		return textToSearch;
+	}
+
+	public void setTextToSearch(String textToSearch) {
+		this.textToSearch = textToSearch;
+	}
+
+
+	public static final int DEFAULT_PAGES_FOR_PAGINATION = 25;
 	
 	@In
 	// @PersistenceContext(type=EXTENDED)
@@ -53,12 +76,14 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	public abstract String[] getEntityRestrictions();
 
 	public BaseQuery() {
-		String simpleEntityName = getSimpleEntityName().toLowerCase();
-		setEjbql("SELECT " + simpleEntityName + " FROM  " + getEntityName()
-				+ " " + simpleEntityName);
-		//setEjbql(EJBQL);
+		setEjbql(getql());
 		setRestrictionExpressionStrings(Arrays.asList(getEntityRestrictions()));
 		setMaxResults(DEFAULT_PAGES_FOR_PAGINATION);
+	}
+
+	protected  String getql(){
+		String simpleEntityName = getSimpleEntityName().toLowerCase();
+		return "SELECT " + simpleEntityName + " FROM  " + getEntityName() + " " + simpleEntityName;
 	}
 
 	/**
@@ -211,9 +236,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		}
 	}
 
-	private Range<java.util.Date> dateCreatedRange = new Range<Date>();
-
-	private List<E> entityList;
+	
 
 	public Range<java.util.Date> getDateCreatedRange() {
 		return dateCreatedRange;
@@ -225,6 +248,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	
 	
 	@SuppressWarnings("unchecked")
+	@Begin(join=true)
 	public String textSearch() {
 
 		BusinessEntity businessEntity = null;
@@ -255,7 +279,9 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 
 		try {
 			if(searchText == null)
-				searchText = "this";
+				searchText = textToSearch;
+			if(searchText == null)
+				searchText = "";
 			query = parser.parse(searchText);
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
@@ -266,7 +292,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		List<E> result = ftq.getResultList();
 		
 		setEntityList(result);
-		return "success";
+		return "textSearch";
 	}
 	
 	
@@ -276,10 +302,22 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	}
 
 	public List<E> getEntityList() {
+		//if(entityList == null )
 		return entityList;
 	}
 	
+	protected boolean isPostBack() {
+		ResponseStateManager rtm = FacesContext.getCurrentInstance()
+				.getRenderKit().getResponseStateManager();
+		return rtm.isPostback(FacesContext.getCurrentInstance());
+	}
+
 	
+	
+	/** do autocomplete based on lucene/hibernate text search
+	 * @param suggest
+	 * @return
+	 */
 	public List<E> autocomplete(Object suggest) {
 
         String input = (String)suggest;
@@ -298,8 +336,100 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
         }
 
         return result;
-
     }
 	
+	/** Do autocomplete based on database fields 
+	 * @param suggest
+	 * @return
+	 */
+	public List<E> autocompletedb(Object suggest) {
+		String input = (String) suggest;
+		setupForAutoComplete(input);
+		super.setRestrictionLogicOperator("or");
+		return getResultList();
+	}
+
+	/** This method should be overridden by derived classes to provide fileds that will be used for autocomplete
+	 * @param input
+	 */
+	protected void setupForAutoComplete(String input) {
+		
+	}
+	
+	
+	/**
+	 *  set the query to be usable by hibernate second level cache
+	 */
+	@SuppressWarnings("unchecked")
+	protected void setQueryCacheable() {
+		Map region = new TreeMap();
+		region.put("name=org.hibernate.cacheable", "value=true");
+		this.setHints(region);
+	}
+	
+	public void exportToCsv() {
+		int originalMaxResults = getMaxResults();
+		setMaxResults(50000);
+		
+		List<E> results = getResultList();
+
+		StringBuilder builder = new StringBuilder();
+		createCSvTitles(builder);
+
+		for (E e : results) {
+			createCsvString(builder, e);
+		}
+
+		setMaxResults(originalMaxResults);
+		downloadAttachment(builder.toString().getBytes());
+
+	}
+	
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	public void createCsvString(StringBuilder builder, E e){
+	}
+	
+	/** create the headings 
+	 * @param builder
+	 */
+	public void createCSvTitles(StringBuilder builder ){
+	
+	}
+	
+	protected void downloadAttachment(byte[] bytes) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletResponse response = (HttpServletResponse) context
+				.getExternalContext().getResponse();
+		response.setContentType("text/plain");
+
+		response.addHeader("Content-disposition", "attachment; filename=\""
+				+ "export.csv" + "\"");
+
+		try {
+			OutputStream os = response.getOutputStream();
+			os.write(bytes);
+			os.flush();
+			os.close();
+			context.responseComplete();
+		} catch (Exception e) {
+			//log.error("\nFailure : " + e.toString() + "\n");
+		}
+	}
+
+	@Override
+	public String getOrderColumn() {
+		if(super.getOrderColumn() == null)
+			return "id";
+		return super.getOrderColumn();
+	}
+	
+	@Override
+	public String getOrderDirection() {
+		if(super.getOrderDirection() == null)
+			return "desc";
+		return super.getOrderDirection();
+	}
 	
 }
