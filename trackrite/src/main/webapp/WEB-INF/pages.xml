@@ -21,6 +21,8 @@
       </rule> 
     </navigation> 
   </page>  
+  
+  
   <page view-id="/register.xhtml"> 
     <navigation> 
       <rule if-outcome="save"> 
@@ -50,7 +52,11 @@
     </navigation>  
     <!--PROTECTED REGION END-->  
     <navigation> 
-      <!--PROTECTED REGION ID(USER_EDITABLE_PAGESROOT_BLKT) ENABLED START-->  
+      <!--PROTECTED REGION ID(USER_EDITABLE_PAGESROOT_BLKT) ENABLED START--> 
+       <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/textSearchResults.xhtml"/> 
+      </rule>
+       
       <rule if-outcome="home"> 
         <redirect view-id="/home.xhtml"/> 
       </rule>  
