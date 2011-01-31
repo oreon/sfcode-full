@@ -16,18 +16,22 @@
 
 	«EXPAND genForm FOREACH allOwnedElements().typeSelect(uml::ActivityNode)»
 	
-	«FILE getWorkflowPathForFile() + "Base.java" -»
+	«FILE getWorkflowPathForFile() + "ProcessActionBase.java" -»
 		
 	package «getWebPackageName()»;
 		
 	«EXPAND genImports FOR this»
 
-	public class «name.toFirstUpper()»Base extends BaseJbpmProcessAction implements java.io.Serializable{
+	public class «name.toFirstUpper()»ProcessActionBase extends BaseJbpmProcessAction implements java.io.Serializable{
 	
 		«EXPAND genToken FOR this»
 		
-		«EXPAND genAction FOREACH allOwnedElements().typeSelect(uml::Action)»
+		@CreateProcess(definition = "«name»"«IF getAttrib('processToken') != null», processKey="#{«getAttrib('processToken').type.getAction()».instance.id}"«ENDIF»)
+		public void startProcess() {
 	
+		}
+		
+		«EXPAND genAction FOREACH allOwnedElements().typeSelect(uml::Action)»
 	}
 	«ENDFILE»
 	«EXPAND ManualGen » 
@@ -36,6 +40,23 @@
 	«EXPAND genDecisionHandler(this) FOREACH allOwnedElements().typeSelect(uml::DecisionNode)»
 	
 «ENDDEFINE»
+
+«REM» Generates the manually editable process action file«ENDREM»
+«DEFINE ManualGen FOR uml::Activity »
+	«FILE  getWorkflowPathForFile() + "ProcessAction.java" man_path »
+	
+package « getWebPackageName() »;
+
+«EXPAND genImports»
+
+@Name("«name.toFirstLower()»ProcessAction")	
+//@Scope(ScopeType.CONVERSATION)
+public class «name.toFirstUpper()»ProcessAction extends «name.toFirstUpper()»ProcessActionBase {
+
+	
+}
+«ENDFILE»
+«ENDDEFINE» 
 
 
 «DEFINE genToken FOR uml::Activity»
@@ -147,39 +168,23 @@
 «ENDDEFINE»
 
 
-«DEFINE ManualGen FOR uml::Activity »
-	«FILE  getWorkflowPathForFile() + ".java" man_path »
-	
-package « getWebPackageName() »;
-
-«EXPAND genImports»
-
-@Name("«name.toFirstLower()»ProcessAction")	
-//@Scope(ScopeType.CONVERSATION)
-public class «name.toFirstUpper()» extends «name.toFirstUpper()»Base {
-
-	@CreateProcess(definition = "«name»" «EXPAND genProcessToken FOR this» )
-	public void startProcess() {
-	
-	}
-}
-«ENDFILE»
-«ENDDEFINE» 
-
-«DEFINE genProcessToken FOR wcprofile::WorkflowActivity»
-	«IF getAttrib('token') != null», processKey="#{«getAttrib('token').type.getAction()».instance.id}"«ENDIF»
-«ENDDEFINE»
 
 
-«DEFINE genProcessToken FOR uml::Activity»
-	«IF getAttrib('token') != null», processKey="#{«getAttrib('token').type.getAction()».instance.id}"«ENDIF»
-«ENDDEFINE»
+
 
  «DEFINE genForm FOR uml::Action»
 	«FILE getTaskFromWebPath()»
 <ui:composition «EXPAND richfaces::WebRoot::genIncludes FOR this» >	
 	«PROTECT CSTART '<!--' CEND '-->' ID  'TASKFORM_EDITABLE_RGN_' + activity.name + "_" + name»
+		«LET activity.getAttrib('processToken') AS token»
 		
+		«IF token != null»
+		<ui:include src="«token.type.getComponentViewFile("view")»" >
+			<ui:param  name="«token.type.name.toFirstLower()»Id" 
+				value="#{jbpmProcessAction.task.variables['processToken'].id}" />
+		</ui:include>
+		«ENDIF»
+		«ENDLET»
 	«ENDPROTECT»	
 </ui:composition>
 	«ENDFILE»
