@@ -127,10 +127,15 @@
               <ui:param name="propertyPath" value="issue.category"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_issue.category.displayName}" action="viewCategory" propagation="none"> 
+          <s:link value="#{_issue.category.displayName}" action="viewCategory"  propagation="join"> 
             <f:param name="categoryId" value="#{_issue.category.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
+          <rich:spacer></rich:spacer>
+           <a:commandLink value="#{_issue.category.displayName}" action="viewCategory"  > 
+            <f:param name="categoryId" value="2"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </a:commandLink>
         </h:column>  
         <h:column rendered="#{s:hasPermission('file', 'issueView'  )}"> 
           <f:facet name="header"> 
