@@ -2,12 +2,14 @@ package mavenutils;
 
 import java.io.File;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ArchCreator {
 
 	List<String> lstUnfilterables;
+	List<String> lstUnfilterableFiles = new ArrayList<String>();
 	StringWriter writer = new StringWriter();
 	/*
 	 * private String[][] arrDirFiles = { { "src/main/webapp/images", "*" }, {
@@ -15,7 +17,7 @@ public class ArchCreator {
 	 * "src/main/webapp/WEB-INF", "*" } };
 	 */
 
-	private static final String BASE_DIR = "C:/dev/richfacesSeamArchetype/src/main/resources/archetype-resources/";
+	private static final String BASE_DIR = "C:/dev/workspace/richfacesSeamArchetype/src/main/resources/archetype-resources/";
 	private String[][] arrDirFiles = { { "src/main/webapp", "*" },
 			{ "src/main/resources", "*" }, { "src/etc", "*" }, {"src/model", "*"},
 			{ "src/main/java", "*" }, { "src/test/java", "*" }
@@ -29,7 +31,9 @@ public class ArchCreator {
 	public ArchCreator() {
 		String[] unfilterables = { "gif", "png", "css", "zip", "jpg", "bmp",
 				"jsp", "tld","xhtml", "mdzip" };
+		
 		lstUnfilterables = Arrays.asList(unfilterables);
+		lstUnfilterableFiles.add("src/main/resources/META-INF/components.xml");
 	}
 
 	public void run() {
@@ -62,7 +66,7 @@ public class ArchCreator {
 					createResNode(filePath, child);
 			} else {
 				if (fileName.startsWith(".")){
-					log("skipping file " + fileName);
+					//log("skipping file " + fileName);
 				}
 				createNode("resource", dirpath + "/" + fileName, writer);
 			}
@@ -82,11 +86,13 @@ public class ArchCreator {
 		String filterString = " filtered=\"false\"";
 		boolean appendFilterString = false;
 		String[] fileNameAndExt = arg.split("\\.");
+		
+		
 		if (fileNameAndExt.length > 1) {
-			if (lstUnfilterables.contains(fileNameAndExt[1]))
+			if (lstUnfilterables.contains(fileNameAndExt[1])  || lstUnfilterableFiles.contains(arg))
 				appendFilterString = true;
 		}
-		out.append("<" + nodeName + (appendFilterString ? filterString : "")
+		out.append(fileNameAndExt[0] + "<" + nodeName + (appendFilterString ? filterString : "")
 				+ ">\n");
 		out.append(arg);
 		out.append("\n</" + nodeName + ">\n");
