@@ -87,12 +87,11 @@ public class ArchCreator {
 		boolean appendFilterString = false;
 		String[] fileNameAndExt = arg.split("\\.");
 		
-		
 		if (fileNameAndExt.length > 1) {
 			if (lstUnfilterables.contains(fileNameAndExt[1])  || lstUnfilterableFiles.contains(arg))
 				appendFilterString = true;
 		}
-		out.append(fileNameAndExt[0] + "<" + nodeName + (appendFilterString ? filterString : "")
+		out.append("<" + nodeName + (appendFilterString ? filterString : "")
 				+ ">\n");
 		out.append(arg);
 		out.append("\n</" + nodeName + ">\n");
