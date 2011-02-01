@@ -73,7 +73,7 @@
 	@Entity
 	@Table(name="«getTableName()»")
 	@Filter(name = "archiveFilterDef") 
-	«IF !isAbstract»@Name("«asVar()»")
+	«IF !isAbstract »    «IF getCurrentCartridge() == "RICH"» @Name("«asVar()»")   «ENDIF»
 	@Indexed
 	«IF cacheType != null »@Cache(usage = CacheConcurrencyStrategy.«cacheType.name»)«ENDIF»
 	@AnalyzerDef(name = "customanalyzer",
@@ -442,14 +442,24 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	import org.hibernate.search.annotations.ContainedIn;
 	import org.hibernate.search.annotations.IndexedEmbedded;
 	
+	import org.hibernate.annotations.Filter;
+	
 	
 	import org.hibernate.validator.Length;
 	import org.hibernate.validator.NotNull;
+	
+	«IF getCurrentCartridge() == "RICH" »
+	
 	import org.jboss.seam.annotations.Name;
+	
 	import org.witchcraft.base.entity.BusinessEntity;
 	import org.witchcraft.model.support.audit.Auditable;
 	import org.witchcraft.base.entity.FileAttachment;
-	import org.hibernate.annotations.Filter;
 	
 	import org.witchcraft.utils.*;
+	«ENDIF»
+	
+	«IF getCurrentCartridge() == "JPA_SPRING" »
+	import org.witchcraft.model.support.BusinessEntity;
+	«ENDIF»
 «ENDDEFINE»
