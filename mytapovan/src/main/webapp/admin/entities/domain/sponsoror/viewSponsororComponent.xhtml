@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{sponsororAction.load(sponsororId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{sponsororAction.sponsoror.id}"/>  
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'sponsororView')}"/>  
+        <h:outputText id="contactDetails_primaryPhone#{entityId}" rendered="#{s:hasPermission('primaryPhone', 'sponsororView')}" value="#{sponsororAction.sponsoror.contactDetails.primaryPhone}"></h:outputText>  
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'sponsororView')}"/>  
+        <h:outputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{s:hasPermission('secondaryPhone', 'sponsororView')}" value="#{sponsororAction.sponsoror.contactDetails.secondaryPhone}"></h:outputText>  
+        <h:outputText value="#{msg.contactDetails_email}  " rendered="#{s:hasPermission('email', 'sponsororView')}"/>  
+        <h:outputText id="contactDetails_email#{entityId}" rendered="#{s:hasPermission('email', 'sponsororView')}" value="#{sponsororAction.sponsoror.contactDetails.email}"></h:outputText>  
+        <h:outputText value="#{msg.person_firstName}  " rendered="#{s:hasPermission('firstName', 'sponsororView')}"/>  
+        <h:outputText id="firstName#{entityId}" rendered="#{s:hasPermission('firstName', 'sponsororView')}" value="#{sponsororAction.sponsoror.firstName}"></h:outputText>  
+        <h:outputText value="#{msg.person_lastName}  " rendered="#{s:hasPermission('lastName', 'sponsororView')}"/>  
+        <h:outputText id="lastName#{entityId}" rendered="#{s:hasPermission('lastName', 'sponsororView')}" value="#{sponsororAction.sponsoror.lastName}"></h:outputText> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

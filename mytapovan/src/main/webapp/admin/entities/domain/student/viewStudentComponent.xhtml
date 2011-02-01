@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{studentAction.load(studentId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{studentAction.student.id}"/>  
+        <h:outputText value="#{msg.student_sponsorship}  " rendered="#{s:hasPermission('sponsorship', 'studentView')}"/>  
+        <s:link value="#{studentAction.student.sponsorship.displayName}" view="/admin/entities/domain/sponsorship/viewSponsorship.xhtml" propagation="none"> 
+          <f:param name="sponsorshipId" value="#{studentAction.student.sponsorship.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.student_grade}  " rendered="#{s:hasPermission('grade', 'studentView')}"/>  
+        <s:link value="#{studentAction.student.grade.displayName}" view="/admin/entities/domain/grade/viewGrade.xhtml" propagation="none"> 
+          <f:param name="gradeId" value="#{studentAction.student.grade.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.person_firstName}  " rendered="#{s:hasPermission('firstName', 'studentView')}"/>  
+        <h:outputText id="firstName#{entityId}" rendered="#{s:hasPermission('firstName', 'studentView')}" value="#{studentAction.student.firstName}"></h:outputText>  
+        <h:outputText value="#{msg.person_lastName}  " rendered="#{s:hasPermission('lastName', 'studentView')}"/>  
+        <h:outputText id="lastName#{entityId}" rendered="#{s:hasPermission('lastName', 'studentView')}" value="#{studentAction.student.lastName}"></h:outputText>  
+        <h:outputText value="#{msg.student_gender}  " rendered="#{s:hasPermission('gender', 'studentView')}"/>  
+        <h:outputText value="#{studentAction.student.gender}"/>  
+        <h:outputText value="#{msg.student_dateOfBirth}  " rendered="#{s:hasPermission('dateOfBirth', 'studentView')}"/>  
+        <h:outputText id="dateOfBirth#{entityId}" rendered="#{s:hasPermission('dateOfBirth', 'studentView')}" value="#{studentAction.student.dateOfBirth}"></h:outputText>  
+        <h:outputText value="#{msg.student_image}  " rendered="#{s:hasPermission('image', 'studentView')}"/>  
+        <c:choose> 
+          <c:when test="${studentAction.student.image.contentType.startsWith('image')}"> 
+            <s:graphicImage value="#{studentAction.student.image.data}"/> 
+          </c:when>  
+          <c:otherwise> 
+            <s:link value="#{studentAction.student.image.name}" action="#{studentAction.downloadImage(null)}" propagation="none"> 
+              <f:param name="currentEntityId" value="#{studentAction.instance.id}"/> 
+            </s:link> 
+          </c:otherwise> 
+        </c:choose>  
+        <h:outputText value="#{msg.student_description}  " rendered="#{s:hasPermission('description', 'studentView')}"/>  
+        <s:formattedText escape="false" id="description#{entityId}" rendered="#{s:hasPermission('description', 'studentView')}" value="#{studentAction.student.description}"></s:formattedText> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

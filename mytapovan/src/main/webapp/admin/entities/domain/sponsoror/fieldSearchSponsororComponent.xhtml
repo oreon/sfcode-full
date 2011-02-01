@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_firstName} * " rendered="#{s:hasPermission('firstName', 'sponsororEdit')}"/>  
+      <br/>  
+      <h:inputText id="firstName" value="#{sponsororList.sponsoror.firstName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_lastName} * " rendered="#{s:hasPermission('lastName', 'sponsororEdit')}"/>  
+      <br/>  
+      <h:inputText id="lastName" value="#{sponsororList.sponsoror.lastName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'sponsororEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_primaryPhone" value="#{sponsororList.sponsoror.contactDetails.primaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'sponsororEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_secondaryPhone" value="#{sponsororList.sponsoror.contactDetails.secondaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_email}  " rendered="#{s:hasPermission('email', 'sponsororEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_email" value="#{sponsororList.sponsoror.contactDetails.email}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{sponsororList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{sponsororList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

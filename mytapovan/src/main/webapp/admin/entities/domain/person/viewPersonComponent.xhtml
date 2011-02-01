@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{personAction.load(personId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{personAction.person.id}"/>  
+        <h:outputText value="#{msg.person_firstName}  " rendered="#{s:hasPermission('firstName', 'personView')}"/>  
+        <h:outputText id="firstName#{entityId}" rendered="#{s:hasPermission('firstName', 'personView')}" value="#{personAction.person.firstName}"></h:outputText>  
+        <h:outputText value="#{msg.person_lastName}  " rendered="#{s:hasPermission('lastName', 'personView')}"/>  
+        <h:outputText id="lastName#{entityId}" rendered="#{s:hasPermission('lastName', 'personView')}" value="#{personAction.person.lastName}"></h:outputText> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
