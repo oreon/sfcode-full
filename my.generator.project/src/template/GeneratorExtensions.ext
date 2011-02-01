@@ -11,8 +11,12 @@ extension org::openarchitectureware::uml2::profile::profiling;
 String packagePath (Element cls) :
 packageNameWithoutRoot(cls.package).replaceAll("::|\\.", "/");
 
-String packagePath(String str):
-str.replaceAll("::|\\.", "/");
+//path of the package - 
+//String packagePath (Interface cls) :
+//packageNameWithoutRoot(cls.package).replaceAll("::|\\.", "/");
+
+//String packagePath(String str):
+//str.replaceAll("::|\\.", "/");
 
 //fully qualified name of a class
 String fqn (Type cls) :
@@ -232,6 +236,9 @@ prop.type.name == "Double" ;
 
 isNumeric(Property prop):
 prop.type.name == "Integer"  || prop.isDouble();
+
+getEntities(Model model):
+ model.allOwnedElements().typeSelect(wcprofile::Entity) ;
 
 
 String getValidatorAnnotations(Column col):

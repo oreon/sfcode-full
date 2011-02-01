@@ -213,7 +213,6 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	«EXPAND template::Root::genUnqNamedQryOp  FOREACH getAllAttributes()»
 	
 	
-	
 	«IF treeFlds != null»
 		public List<«name»> getTopLevel«getTreeParent().toFirstUpper()»(){
 			return  getEntityManager().createQuery("select e from «name» e where e.«getTreeParent()» is null").getResultList();
