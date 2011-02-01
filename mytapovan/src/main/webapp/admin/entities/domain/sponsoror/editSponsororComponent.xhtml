@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{sponsororAction.load(sponsororId )  }"> 
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'sponsororEdit')}"/>  
+        <h:inputText id="contactDetails_primaryPhone#{entityId}" rendered="#{s:hasPermission('primaryPhone', 'sponsororEdit')}" label="#{msg.contactDetails_primaryPhone}" required="false" value="#{sponsororAction.sponsoror.contactDetails.primaryPhone}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="contactDetails_primaryPhone" rendered="#{s:hasPermission('primaryPhone', 'sponsororEdit')}"/>  
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'sponsororEdit')}"/>  
+        <h:inputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{s:hasPermission('secondaryPhone', 'sponsororEdit')}" label="#{msg.contactDetails_secondaryPhone}" required="false" value="#{sponsororAction.sponsoror.contactDetails.secondaryPhone}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="contactDetails_secondaryPhone" rendered="#{s:hasPermission('secondaryPhone', 'sponsororEdit')}"/>  
+        <h:outputText value="#{msg.contactDetails_email}  " rendered="#{s:hasPermission('email', 'sponsororEdit')}"/>  
+        <h:inputText id="contactDetails_email#{entityId}" rendered="#{s:hasPermission('email', 'sponsororEdit')}" label="#{msg.contactDetails_email}" required="false" value="#{sponsororAction.sponsoror.contactDetails.email}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="contactDetails_email" rendered="#{s:hasPermission('email', 'sponsororEdit')}"/>  
+        <h:outputText value="#{msg.person_firstName} * " rendered="#{s:hasPermission('firstName', 'sponsororEdit')}"/>  
+        <h:inputText id="firstName#{entityId}" rendered="#{s:hasPermission('firstName', 'sponsororEdit')}" label="#{msg.person_firstName}" required="true" value="#{sponsororAction.sponsoror.firstName}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="firstName" rendered="#{s:hasPermission('firstName', 'sponsororEdit')}"/>  
+        <h:outputText value="#{msg.person_lastName} * " rendered="#{s:hasPermission('lastName', 'sponsororEdit')}"/>  
+        <h:inputText id="lastName#{entityId}" rendered="#{s:hasPermission('lastName', 'sponsororEdit')}" label="#{msg.person_lastName}" required="true" value="#{sponsororAction.sponsoror.lastName}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="lastName" rendered="#{s:hasPermission('lastName', 'sponsororEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

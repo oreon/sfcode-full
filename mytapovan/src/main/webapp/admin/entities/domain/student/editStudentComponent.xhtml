@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{studentAction.load(studentId )  }"> 
+        <h:outputText value="#{msg.student_sponsorship}  " rendered="#{s:hasPermission('sponsorship', 'studentEdit')}"/>  
+        <h:selectOneMenu id="sponsorship" label="#{msg.student_sponsorship}" value="#{studentAction.student.sponsorship}" required="false" rendered="#{s:hasPermission('sponsorship', 'studentEdit')}"> 
+          <s:selectItems value="#{sponsorshipList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="sponsorship" rendered="#{s:hasPermission('sponsorship', 'studentEdit')}"/>  
+        <h:outputText value="#{msg.student_grade}  " rendered="#{s:hasPermission('grade', 'studentEdit')}"/>  
+        <h:selectOneMenu id="grade" label="#{msg.student_grade}" value="#{studentAction.student.grade}" required="true" rendered="#{s:hasPermission('grade', 'studentEdit')}"> 
+          <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="grade" rendered="#{s:hasPermission('grade', 'studentEdit')}"/>  
+        <h:outputText value="#{msg.person_firstName} * " rendered="#{s:hasPermission('firstName', 'studentEdit')}"/>  
+        <h:inputText id="firstName#{entityId}" rendered="#{s:hasPermission('firstName', 'studentEdit')}" label="#{msg.person_firstName}" required="true" value="#{studentAction.student.firstName}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="firstName" rendered="#{s:hasPermission('firstName', 'studentEdit')}"/>  
+        <h:outputText value="#{msg.person_lastName} * " rendered="#{s:hasPermission('lastName', 'studentEdit')}"/>  
+        <h:inputText id="lastName#{entityId}" rendered="#{s:hasPermission('lastName', 'studentEdit')}" label="#{msg.person_lastName}" required="true" value="#{studentAction.student.lastName}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="lastName" rendered="#{s:hasPermission('lastName', 'studentEdit')}"/>  
+        <h:outputText value="#{msg.student_gender}  " rendered="#{s:hasPermission('gender', 'studentEdit')}"/>  
+        <h:selectOneMenu id="gender" rendered="#{s:hasPermission('gender', 'studentEdit')}" value="#{studentAction.student.gender}" required="false" label="#{msg.student_gender}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="F" itemLabel="F"/>  
+          <f:selectItem itemValue="M" itemLabel="M"/>  
+          <rich:ajaxValidator event="onblur"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="gender" rendered="#{s:hasPermission('gender', 'studentEdit')}"/>  
+        <h:outputText value="#{msg.student_dateOfBirth}  " rendered="#{s:hasPermission('dateOfBirth', 'studentEdit')}"/>  
+        <rich:calendar id="dateOfBirth#{entityId}" rendered="#{s:hasPermission('dateOfBirth', 'studentEdit')}" label="#{msg.student_dateOfBirth}" required="false" value="#{studentAction.student.dateOfBirth}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </rich:calendar>  
+        <rich:message styleClass="error errors" for="dateOfBirth" rendered="#{s:hasPermission('dateOfBirth', 'studentEdit')}"/>  
+        <h:outputText value="#{msg.student_image}  " rendered="#{s:hasPermission('image', 'studentEdit')}"/>  
+        <h:panelGroup> 
+          <s:div rendered="#{studentAction.student.id != 0 }"> 
+            <c:choose> 
+              <c:when test="${studentAction.student.image.contentType.startsWith('image')}"> 
+                <s:graphicImage value="#{studentAction.student.image.data}"/> 
+              </c:when>  
+              <c:otherwise> 
+                <s:link value="#{studentAction.student.image.name}" action="#{studentAction.downloadImage(null)}" propagation="none"> 
+                  <f:param name="currentEntityId" value="#{studentAction.instance.id}"/> 
+                </s:link> 
+              </c:otherwise> 
+            </c:choose> 
+          </s:div>  
+          <s:div rendered="#{studentAction.student.id == null }">  
+          	<rich:fileUpload uploadData="#{studentAction.instance.image.data}"  />
+          </s:div> 
+        </h:panelGroup>  
+        <rich:message styleClass="error errors" for="image" rendered="#{s:hasPermission('image', 'studentEdit')}"/>  
+        <h:outputText value="#{msg.student_description}  " rendered="#{s:hasPermission('description', 'studentEdit')}"/>  
+        <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{s:hasPermission('description', 'studentEdit')}" label="#{msg.student_description}" required="false" value="#{studentAction.student.description}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </rich:editor>  
+        <rich:message styleClass="error errors" for="description" rendered="#{s:hasPermission('description', 'studentEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

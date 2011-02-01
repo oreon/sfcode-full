@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{sponsorshipAction.load(sponsorshipId )  }"> 
+        <h:outputText value="#{msg.sponsorship_student}  " rendered="#{s:hasPermission('student', 'sponsorshipEdit')}"/>  
+        <h:selectOneMenu id="student" label="#{msg.sponsorship_student}" value="#{sponsorshipAction.sponsorship.student}" required="true" rendered="#{s:hasPermission('student', 'sponsorshipEdit')}"> 
+          <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="student" rendered="#{s:hasPermission('student', 'sponsorshipEdit')}"/>  
+        <h:outputText value="#{msg.sponsorship_sponsoror}  " rendered="#{s:hasPermission('sponsoror', 'sponsorshipEdit')}"/>  
+        <h:selectOneMenu id="sponsoror" label="#{msg.sponsorship_sponsoror}" value="#{sponsorshipAction.sponsorship.sponsoror}" required="true" rendered="#{s:hasPermission('sponsoror', 'sponsorshipEdit')}"> 
+          <s:selectItems value="#{sponsororList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="sponsoror" rendered="#{s:hasPermission('sponsoror', 'sponsorshipEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

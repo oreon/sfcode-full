@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <rich:tabPanel switchType="ajax"> 
+        <rich:tab label="Sponsoror"> 
+          <ui:include src="/admin/entities/domain/sponsoror/viewSponsororComponent.xhtml"/>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('sponsoror', 'edit', sponsororAction.instance)}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" action="#{sponsororAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </rich:tab> 
+      </rich:tabPanel> 
+    </h:form>  
+    <br/>  
+    <rich:tabPanel> 
+      <rich:tab label="Sponsorships" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="SponsororModalPanel-sponsorships"/>  
+        <ui:include src="/admin/entities/domain/sponsorship/listSponsorshipComponent.xhtml"> 
+          <ui:param name="records" value="#{sponsorshipList.getSponsorshipsBySponsoror(sponsororAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include>  
+        <a:form> 
+          <s:button value="Create New" view="/admin/entities/domain/sponsorship/editSponsorship.xhtml"> 
+            <f:param name="sponsororId" value="#{sponsororAction.instance.id}"/>  
+            <f:param name="sponsorshipId" value="0"/> 
+          </s:button>  
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"> 
+            <a:actionparam name="sponsorshipId" assignTo="#{sponsorshipAction.sponsorshipId}" value="0"/>  
+            <a:actionparam name="sponsororId" assignTo="#{sponsorshipAction.sponsororId}" value="#{sponsororAction.instance.id}"/> 
+          </a:commandButton> 
+        </a:form>  
+        <ui:include src="/admin/entities/domain/sponsorship/modalDlgSponsorshipComponent.xhtml"> 
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include> 
+      </rich:tab> 
+    </rich:tabPanel>  
+    <br/>  
+    <rich:tabPanel> 
+      <rich:tab label="Notes"> 
+        <wc:comments backingAction="#{sponsororAction}"/> 
+      </rich:tab> 
+    </rich:tabPanel> 
+  </ui:define> 
+</ui:composition>
