@@ -3,20 +3,37 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-	
-	
-     <filter>
-          <display-name>RichFaces Filter</display-name>
-          <filter-name>richfaces</filter-name>
-          <filter-class>org.ajax4jsf.Filter</filter-class>
-     </filter>
+
+
+	<filter>
+		<display-name>RichFaces Filter</display-name>
+		<filter-name>richfaces</filter-name>
+		<filter-class>org.ajax4jsf.Filter</filter-class>
+	</filter>
 
 
 
-     <filter-mapping>
-          <filter-name>richfaces</filter-name>
-          <url-pattern>*.seam</url-pattern>
-     </filter-mapping>
+	<filter-mapping>
+		<filter-name>richfaces</filter-name>
+		<url-pattern>*.seam</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+		<display-name>CXF Servlet</display-name>
+		<servlet-name>CXFServlet</servlet-name>
+		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+		<init-param>
+			<param-name>config-location</param-name>
+			<param-value>/cxf-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+
+	<servlet-mapping>
+		<servlet-name>CXFServlet</servlet-name>
+		<url-pattern>/webService/*</url-pattern>
+	</servlet-mapping>
 
 
 	<!-- Seam -->

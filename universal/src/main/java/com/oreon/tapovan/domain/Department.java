@@ -44,6 +44,7 @@ import org.witchcraft.utils.*;
 @Filter(name = "archiveFilterDef")
 @Name("department")
 @Indexed
+@Cache(usage = CacheConcurrencyStrategy.NONE)
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
@@ -76,7 +77,9 @@ public class Department extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getName() {
+
 		return name;
+
 	}
 
 	@Transient

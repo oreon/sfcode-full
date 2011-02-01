@@ -35,6 +35,8 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
+import com.oreon.tapovan.domain.CourseDocuments;
+
 public abstract class GradeSubjectActionBase extends BaseAction<GradeSubject>
 		implements
 			java.io.Serializable {
@@ -59,6 +61,7 @@ public abstract class GradeSubjectActionBase extends BaseAction<GradeSubject>
 	public void setGradeSubjectId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -72,6 +75,7 @@ public abstract class GradeSubjectActionBase extends BaseAction<GradeSubject>
 	 */
 	public void setGradeSubjectIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 
@@ -148,18 +152,18 @@ public abstract class GradeSubjectActionBase extends BaseAction<GradeSubject>
 
 		com.oreon.tapovan.domain.Subject subject = subjectAction
 				.getDefinedInstance();
-		if (subject != null) {
+		if (subject != null && isNew()) {
 			getInstance().setSubject(subject);
 		}
 
 		com.oreon.tapovan.domain.Employee employee = employeeAction
 				.getDefinedInstance();
-		if (employee != null) {
+		if (employee != null && isNew()) {
 			getInstance().setEmployee(employee);
 		}
 
 		com.oreon.tapovan.domain.Grade grade = gradeAction.getDefinedInstance();
-		if (grade != null) {
+		if (grade != null && isNew()) {
 			getInstance().setGrade(grade);
 		}
 
@@ -224,16 +228,61 @@ public abstract class GradeSubjectActionBase extends BaseAction<GradeSubject>
 			gradeAction.setInstance(getInstance().getGrade());
 		}
 
+		initListCourseDocumentses();
+
 	}
 
 	public void updateAssociations() {
 
 	}
 
+	protected List<com.oreon.tapovan.domain.CourseDocuments> listCourseDocumentses = new ArrayList<com.oreon.tapovan.domain.CourseDocuments>();
+
+	void initListCourseDocumentses() {
+
+		if (listCourseDocumentses.isEmpty())
+			listCourseDocumentses.addAll(getInstance().getCourseDocumentses());
+
+	}
+
+	public List<com.oreon.tapovan.domain.CourseDocuments> getListCourseDocumentses() {
+
+		prePopulateListCourseDocumentses();
+		return listCourseDocumentses;
+	}
+
+	public void prePopulateListCourseDocumentses() {
+	}
+
+	public void setListCourseDocumentses(
+			List<com.oreon.tapovan.domain.CourseDocuments> listCourseDocumentses) {
+		this.listCourseDocumentses = listCourseDocumentses;
+	}
+
+	public void deleteCourseDocumentses(int index) {
+		listCourseDocumentses.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addCourseDocumentses() {
+		initListCourseDocumentses();
+		CourseDocuments courseDocumentses = new CourseDocuments();
+
+		courseDocumentses.setGradeSubject(getInstance());
+
+		getListCourseDocumentses().add(courseDocumentses);
+	}
+
 	public void updateComposedAssociations() {
+
+		if (listCourseDocumentses != null) {
+			getInstance().getCourseDocumentses().clear();
+			getInstance().getCourseDocumentses().addAll(listCourseDocumentses);
+		}
 	}
 
 	public void clearLists() {
+		listCourseDocumentses.clear();
 
 	}
 

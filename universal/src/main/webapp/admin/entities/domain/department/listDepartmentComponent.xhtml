@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="DepartmentModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Department Search Results (#{empty records ? 0 : (departmentList.paginated ? departmentList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">Department Search Results (#{empty records ? 0 : (departmentList.paginated ? departmentList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_department" value="#{records}" id="departmentList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+      <rich:dataTable var="_department" value="#{records}" id="departmentList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'departmentView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{departmentList}"/>  
@@ -15,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_department.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('name', 'departmentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{departmentList}"/>  
@@ -25,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_department.name}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'departmentView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{departmentList}"/>  
@@ -34,10 +40,10 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_department.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_department', 'view')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -46,7 +52,7 @@
             <f:param name="departmentId" value="#{_department.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_department', 'edit')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -68,7 +74,10 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{departmentAction.setDepartmentIdForModalDlg(_department.id)}" rendered="#{s:hasPermission(_department, 'edit')}" oncomplete="Richfaces.showModalPanel('DepartmentModalPanel',{});" value="Quick Edit"/> 
+          <a:commandLink action="#{departmentAction.setDepartmentIdForModalDlg(_department.id)}" rendered="#{s:hasPermission(_department, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
         </h:column> 
       </rich:dataTable> 
     </a:form> 

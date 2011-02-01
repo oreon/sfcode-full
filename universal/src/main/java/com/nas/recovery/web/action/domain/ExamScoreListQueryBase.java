@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.tapovan.domain.ExamScore;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class ExamScoreListQueryBase extends BaseQuery<ExamScore, Long> {
@@ -82,4 +82,39 @@ public abstract class ExamScoreListQueryBase extends BaseQuery<ExamScore, Long> 
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, ExamScore e) {
+
+		builder.append("\""
+				+ (e.getStudent() != null
+						? e.getStudent().getDisplayName()
+						: "") + "\",");
+
+		builder.append("\"" + (e.getMarks() != null ? e.getMarks() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getExamInstance() != null ? e.getExamInstance()
+						.getDisplayName() : "") + "\",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Student" + ",");
+
+		builder.append("Marks" + ",");
+
+		builder.append("ExamInstance" + ",");
+
+		builder.append("\r\n");
+	}
 }

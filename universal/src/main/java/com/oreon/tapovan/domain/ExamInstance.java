@@ -44,6 +44,7 @@ import org.witchcraft.utils.*;
 @Filter(name = "archiveFilterDef")
 @Name("examInstance")
 @Indexed
+@Cache(usage = CacheConcurrencyStrategy.NONE)
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
@@ -83,7 +84,9 @@ public class ExamInstance extends BusinessEntity
 	}
 
 	public Exam getExam() {
+
 		return exam;
+
 	}
 
 	public void setGradeSubject(GradeSubject gradeSubject) {
@@ -91,7 +94,9 @@ public class ExamInstance extends BusinessEntity
 	}
 
 	public GradeSubject getGradeSubject() {
+
 		return gradeSubject;
+
 	}
 
 	public void setDateHeld(Date dateHeld) {
@@ -99,7 +104,9 @@ public class ExamInstance extends BusinessEntity
 	}
 
 	public Date getDateHeld() {
+
 		return dateHeld;
+
 	}
 
 	@Transient

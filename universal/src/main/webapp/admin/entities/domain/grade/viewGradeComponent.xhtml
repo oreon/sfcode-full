@@ -4,22 +4,19 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{gradeAction.load(gradeId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Grade "/> 
-        </f:facet>  
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{gradeAction.grade.id}"/>  
-        <h:outputText value="#{msg.grade_name}  "/>  
-        <h:outputText id="name#{entityId}" value="#{gradeAction.grade.name}"/>  
-        <h:outputText value="#{msg.grade_ordinal}  "/>  
-        <h:outputText id="ordinal#{entityId}" value="#{gradeAction.grade.ordinal}"/>  
-        <h:outputText value="#{msg.grade_section}  "/>  
-        <h:outputText id="section#{entityId}" value="#{gradeAction.grade.section}"/> 
+        <h:outputText value="#{msg.grade_name}  " rendered="#{s:hasPermission('name', 'gradeView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'gradeView')}" value="#{gradeAction.grade.name}"></h:outputText>  
+        <h:outputText value="#{msg.grade_ordinal}  " rendered="#{s:hasPermission('ordinal', 'gradeView')}"/>  
+        <h:outputText id="ordinal#{entityId}" rendered="#{s:hasPermission('ordinal', 'gradeView')}" value="#{gradeAction.grade.ordinal}"></h:outputText>  
+        <h:outputText value="#{msg.grade_section}  " rendered="#{s:hasPermission('section', 'gradeView')}"/>  
+        <h:outputText id="section#{entityId}" rendered="#{s:hasPermission('section', 'gradeView')}" value="#{gradeAction.grade.section}"></h:outputText> 
       </h:panelGrid>  
-      <rich:dataTable id="gradeSubjects" var="_gradeSubject" rendered="#{not empty gradeAction.listGradeSubjects}" value="#{gradeAction.listGradeSubjects}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="gradeSubjects" var="_gradeSubject" rendered="#{not empty gradeAction.listGradeSubjects and s:hasPermission('gradeSubjects', 'gradeView') }" value="#{gradeAction.listGradeSubjects}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.gradeSubject_subject}  "/>
+            <h:outputText value="#{msg.gradeSubject_subject}  " rendered="#{s:hasPermission('subject', 'gradeSubjectView')}"/>
           </f:facet>  
           <s:link value="#{_gradeSubject.subject.displayName}" view="/admin/entities/domain/subject/viewSubject.xhtml" propagation="none"> 
             <f:param name="subjectId" value="#{_gradeSubject.subject.id}"/>  
@@ -28,7 +25,7 @@
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.gradeSubject_employee}  "/>
+            <h:outputText value="#{msg.gradeSubject_employee}  " rendered="#{s:hasPermission('employee', 'gradeSubjectView')}"/>
           </f:facet>  
           <s:link value="#{_gradeSubject.employee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
             <f:param name="employeeId" value="#{_gradeSubject.employee.id}"/>  
@@ -36,6 +33,24 @@
           </s:link> 
         </h:column> 
       </rich:dataTable>  
+      <rich:dataTable id="gradeFees" var="_gradeFee" rendered="#{not empty gradeAction.listGradeFees and s:hasPermission('gradeFees', 'gradeSubjectView') }" value="#{gradeAction.listGradeFees}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.gradeFee_fee}  " rendered="#{s:hasPermission('fee', 'gradeFeeView')}"/>
+          </f:facet>  
+          <s:link value="#{_gradeFee.fee.displayName}" view="/admin/entities/domain/fee/viewFee.xhtml" propagation="none"> 
+            <f:param name="feeId" value="#{_gradeFee.fee.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.gradeFee_amount}  " rendered="#{s:hasPermission('amount', 'gradeFeeView')}"/>
+          </f:facet>  
+          <h:outputText id="amount#{entityId}" rendered="#{s:hasPermission('amount', 'gradeFeeView')}" value="#{_gradeFee.amount}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/>  
       <rich:simpleTogglePanel label="#{msg.grade_exams}" switchType="client"> 
         <rich:dataTable value="#{gradeAction.listExams}" var="item"> 
           <rich:column>#{item.displayName}</rich:column> 

@@ -4,21 +4,18 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{sponsorAction.load(sponsorId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Sponsor "/> 
-        </f:facet>  
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{sponsorAction.sponsor.id}"/>  
-        <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
-        <h:outputText id="contactDetails_primaryPhone#{entityId}" value="#{sponsorAction.sponsor.contactDetails.primaryPhone}"/>  
-        <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
-        <h:outputText id="contactDetails_secondaryPhone#{entityId}" value="#{sponsorAction.sponsor.contactDetails.secondaryPhone}"/>  
-        <h:outputText value="#{msg.contactDetails_email}  "/>  
-        <h:outputText id="contactDetails_email#{entityId}" value="#{sponsorAction.sponsor.contactDetails.email}"/>  
-        <h:outputText value="#{msg.person_firstName}  "/>  
-        <h:outputText id="firstName#{entityId}" value="#{sponsorAction.sponsor.firstName}"/>  
-        <h:outputText value="#{msg.person_lastName}  "/>  
-        <h:outputText id="lastName#{entityId}" value="#{sponsorAction.sponsor.lastName}"/> 
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'sponsorView')}"/>  
+        <h:outputText id="contactDetails_primaryPhone#{entityId}" rendered="#{s:hasPermission('primaryPhone', 'sponsorView')}" value="#{sponsorAction.sponsor.contactDetails.primaryPhone}"></h:outputText>  
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'sponsorView')}"/>  
+        <h:outputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{s:hasPermission('secondaryPhone', 'sponsorView')}" value="#{sponsorAction.sponsor.contactDetails.secondaryPhone}"></h:outputText>  
+        <h:outputText value="#{msg.contactDetails_email}  " rendered="#{s:hasPermission('email', 'sponsorView')}"/>  
+        <h:outputText id="contactDetails_email#{entityId}" rendered="#{s:hasPermission('email', 'sponsorView')}" value="#{sponsorAction.sponsor.contactDetails.email}"></h:outputText>  
+        <h:outputText value="#{msg.person_firstName}  " rendered="#{s:hasPermission('firstName', 'sponsorView')}"/>  
+        <h:outputText id="firstName#{entityId}" rendered="#{s:hasPermission('firstName', 'sponsorView')}" value="#{sponsorAction.sponsor.firstName}"></h:outputText>  
+        <h:outputText value="#{msg.person_lastName}  " rendered="#{s:hasPermission('lastName', 'sponsorView')}"/>  
+        <h:outputText id="lastName#{entityId}" rendered="#{s:hasPermission('lastName', 'sponsorView')}" value="#{sponsorAction.sponsor.lastName}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

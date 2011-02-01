@@ -4,23 +4,20 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{examScoreAction.load(examScoreId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="ExamScore "/> 
-        </f:facet>  
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{examScoreAction.examScore.id}"/>  
-        <h:outputText value="#{msg.examScore_student}  "/>  
+        <h:outputText value="#{msg.examScore_student}  " rendered="#{s:hasPermission('student', 'examScoreView')}"/>  
         <s:link value="#{examScoreAction.examScore.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml" propagation="none"> 
           <f:param name="studentId" value="#{examScoreAction.examScore.student.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.examScore_examInstance}  "/>  
+        <h:outputText value="#{msg.examScore_examInstance}  " rendered="#{s:hasPermission('examInstance', 'examScoreView')}"/>  
         <s:link value="#{examScoreAction.examScore.examInstance.displayName}" view="/admin/entities/domain/examInstance/viewExamInstance.xhtml" propagation="none"> 
           <f:param name="examInstanceId" value="#{examScoreAction.examScore.examInstance.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.examScore_marks}  "/>  
-        <h:outputText id="marks#{entityId}" value="#{examScoreAction.examScore.marks}"/> 
+        <h:outputText value="#{msg.examScore_marks}  " rendered="#{s:hasPermission('marks', 'examScoreView')}"/>  
+        <h:outputText id="marks#{entityId}" rendered="#{s:hasPermission('marks', 'examScoreView')}" value="#{examScoreAction.examScore.marks}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

@@ -4,24 +4,25 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{examScoreAction.load(examScoreId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="ExamScore "/> 
-        </f:facet>  
-        <h:outputText value="#{msg.examScore_student}  "/>  
-        <h:selectOneMenu id="student" label="#{msg.examScore_student}" value="#{examScoreAction.examScore.student}" required="true"> 
+        <h:outputText value="#{msg.examScore_student}  " rendered="#{s:hasPermission('student', 'examScoreEdit')}"/>  
+        <h:selectOneMenu id="student" label="#{msg.examScore_student}" value="#{examScoreAction.examScore.student}" required="true" rendered="#{s:hasPermission('student', 'examScoreEdit')}"> 
           <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="student"/>  
-        <h:outputText value="#{msg.examScore_examInstance}  "/>  
-        <h:selectOneMenu id="examInstance" label="#{msg.examScore_examInstance}" value="#{examScoreAction.examScore.examInstance}" required="true"> 
+        <rich:message styleClass="error errors" for="student" rendered="#{s:hasPermission('student', 'examScoreEdit')}"/>  
+        <h:outputText value="#{msg.examScore_examInstance}  " rendered="#{s:hasPermission('examInstance', 'examScoreEdit')}"/>  
+        <h:selectOneMenu id="examInstance" label="#{msg.examScore_examInstance}" value="#{examScoreAction.examScore.examInstance}" required="true" rendered="#{s:hasPermission('examInstance', 'examScoreEdit')}"> 
           <s:selectItems value="#{examInstanceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="examInstance"/>  
-        <h:outputText value="#{msg.examScore_marks} * "/>  
-        <h:inputText id="marks#{entityId}" label="#{msg.examScore_marks}" required="true" value="#{examScoreAction.examScore.marks}"/>  
-        <h:message styleClass="error errors" for="marks"/> 
+        <rich:message styleClass="error errors" for="examInstance" rendered="#{s:hasPermission('examInstance', 'examScoreEdit')}"/>  
+        <h:outputText value="#{msg.examScore_marks} * " rendered="#{s:hasPermission('marks', 'examScoreEdit')}"/>  
+        <h:inputText id="marks#{entityId}" rendered="#{s:hasPermission('marks', 'examScoreEdit')}" label="#{msg.examScore_marks}" required="true" value="#{examScoreAction.examScore.marks}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="marks" rendered="#{s:hasPermission('marks', 'examScoreEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

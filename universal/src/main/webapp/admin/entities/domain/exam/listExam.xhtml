@@ -2,16 +2,29 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
   <ui:define name="content"> 
+    <c:set var="modalId" value="ExamModalPanel-Exam"/>  
     <ui:include src="searchExam.xhtml"/>  
     <br/>  
     <br/>  
+    <a:form> 
+      <s:button value="Create New" action="/admin/entities/domain/exam/editExam.xhtml" propagation="none"> 
+        <f:param name="examId" value="0"/> 
+      </s:button>  
+      <a:commandButton action="#{examAction.setExamId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{examList.exportToCsv}"/> 
+    </a:form>  
     <ui:include src="listExamComponent.xhtml"> 
       <ui:param name="records" value="#{examList.resultList}"/> 
     </ui:include>  
     <a:form> 
-      <s:button value="Create New" view="/admin/entities/domain/exam/editExam.xhtml" propagation="none"/>  
-      <a:commandButton action="#{examAction.setExamId(0)}" oncomplete="Richfaces.showModalPanel('ExamModalPanel',{});" value="Quick Create"></a:commandButton> 
+      <s:button value="Create New" action="/admin/entities/domain/exam/editExam.xhtml" propagation="none"> 
+        <f:param name="examId" value="0"/> 
+      </s:button>  
+      <a:commandButton action="#{examAction.setExamId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{examList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="/admin/entities/domain/exam/modalDlgExamComponent.xhtml"/> 
+    <ui:include src="/admin/entities/domain/exam/modalDlgExamComponent.xhtml"> 
+      <ui:param name="modalId" value="${modalId}"/> 
+    </ui:include> 
   </ui:define> 
 </ui:composition>

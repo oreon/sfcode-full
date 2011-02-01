@@ -44,6 +44,7 @@ import org.witchcraft.utils.*;
 @Filter(name = "archiveFilterDef")
 @Name("student")
 @Indexed
+@Cache(usage = CacheConcurrencyStrategy.NONE)
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
@@ -73,7 +74,9 @@ public class Student extends com.oreon.tapovan.domain.Person
 	}
 
 	public FileAttachment getPicture() {
+
 		return picture;
+
 	}
 
 	public void setGender(com.oreon.tapovan.Gender gender) {
@@ -81,7 +84,9 @@ public class Student extends com.oreon.tapovan.domain.Person
 	}
 
 	public com.oreon.tapovan.Gender getGender() {
+
 		return gender;
+
 	}
 
 	public void setDateOfBirth(Date dateOfBirth) {
@@ -89,7 +94,9 @@ public class Student extends com.oreon.tapovan.domain.Person
 	}
 
 	public Date getDateOfBirth() {
+
 		return dateOfBirth;
+
 	}
 
 	public void setGrade(Grade grade) {
@@ -97,7 +104,9 @@ public class Student extends com.oreon.tapovan.domain.Person
 	}
 
 	public Grade getGrade() {
+
 		return grade;
+
 	}
 
 	@Transient

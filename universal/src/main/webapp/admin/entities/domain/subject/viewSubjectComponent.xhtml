@@ -4,13 +4,10 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{subjectAction.load(subjectId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Subject "/> 
-        </f:facet>  
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{subjectAction.subject.id}"/>  
-        <h:outputText value="#{msg.subject_name}  "/>  
-        <h:outputText id="name#{entityId}" value="#{subjectAction.subject.name}"/> 
+        <h:outputText value="#{msg.subject_name}  " rendered="#{s:hasPermission('name', 'subjectView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'subjectView')}" value="#{subjectAction.subject.name}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

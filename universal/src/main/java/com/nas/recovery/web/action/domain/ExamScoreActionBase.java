@@ -56,6 +56,7 @@ public abstract class ExamScoreActionBase extends BaseAction<ExamScore>
 	public void setExamScoreId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -69,6 +70,7 @@ public abstract class ExamScoreActionBase extends BaseAction<ExamScore>
 	 */
 	public void setExamScoreIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 
@@ -132,13 +134,13 @@ public abstract class ExamScoreActionBase extends BaseAction<ExamScore>
 
 		com.oreon.tapovan.domain.Student student = studentAction
 				.getDefinedInstance();
-		if (student != null) {
+		if (student != null && isNew()) {
 			getInstance().setStudent(student);
 		}
 
 		com.oreon.tapovan.domain.ExamInstance examInstance = examInstanceAction
 				.getDefinedInstance();
-		if (examInstance != null) {
+		if (examInstance != null && isNew()) {
 			getInstance().setExamInstance(examInstance);
 		}
 

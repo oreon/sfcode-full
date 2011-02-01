@@ -50,6 +50,7 @@ public abstract class SubjectActionBase extends BaseAction<Subject>
 	public void setSubjectId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -63,6 +64,7 @@ public abstract class SubjectActionBase extends BaseAction<Subject>
 	 */
 	public void setSubjectIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 

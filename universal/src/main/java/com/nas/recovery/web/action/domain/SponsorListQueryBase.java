@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.tapovan.domain.Sponsor;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class SponsorListQueryBase extends BaseQuery<Sponsor, Long> {
@@ -70,4 +70,21 @@ public abstract class SponsorListQueryBase extends BaseQuery<Sponsor, Long> {
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, Sponsor e) {
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("\r\n");
+	}
 }

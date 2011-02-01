@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.fee_name} * " rendered="#{s:hasPermission('name', 'feeEdit')}"/>  
+      <br/>  
+      <h:inputText id="name" value="#{feeList.fee.name}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.fee_defaultAmount}  " rendered="#{s:hasPermission('defaultAmount', 'feeEdit')}"/>  
+      <br/>  
+      <h:inputText id="defaultAmount_begin" value="#{feeList.defaultAmountRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="defaultAmount_end" value="#{feeList.defaultAmountRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.fee_frequency}  " rendered="#{s:hasPermission('frequency', 'feeEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="frequency" value="#{feeList.fee.frequency}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="MONTHLY" itemLabel="Monthly"/>  
+        <f:selectItem itemValue="QUARTERLY" itemLabel="Quarterly"/>  
+        <f:selectItem itemValue="SEMI_ANNUALLY" itemLabel="Semi_annually"/>  
+        <f:selectItem itemValue="ANNUALLY" itemLabel="Annually"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{feeList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{feeList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

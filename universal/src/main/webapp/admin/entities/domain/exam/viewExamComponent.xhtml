@@ -4,17 +4,14 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{examAction.load(examId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Exam "/> 
-        </f:facet>  
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{examAction.exam.id}"/>  
-        <h:outputText value="#{msg.exam_name}  "/>  
-        <h:outputText id="name#{entityId}" value="#{examAction.exam.name}"/>  
-        <h:outputText value="#{msg.exam_maxMarks}  "/>  
-        <h:outputText id="maxMarks#{entityId}" value="#{examAction.exam.maxMarks}"/>  
-        <h:outputText value="#{msg.exam_passMarks}  "/>  
-        <h:outputText id="passMarks#{entityId}" value="#{examAction.exam.passMarks}"/> 
+        <h:outputText value="#{msg.exam_name}  " rendered="#{s:hasPermission('name', 'examView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'examView')}" value="#{examAction.exam.name}"></h:outputText>  
+        <h:outputText value="#{msg.exam_maxMarks}  " rendered="#{s:hasPermission('maxMarks', 'examView')}"/>  
+        <h:outputText id="maxMarks#{entityId}" rendered="#{s:hasPermission('maxMarks', 'examView')}" value="#{examAction.exam.maxMarks}"></h:outputText>  
+        <h:outputText value="#{msg.exam_passMarks}  " rendered="#{s:hasPermission('passMarks', 'examView')}"/>  
+        <h:outputText id="passMarks#{entityId}" rendered="#{s:hasPermission('passMarks', 'examView')}" value="#{examAction.exam.passMarks}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

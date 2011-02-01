@@ -4,18 +4,21 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{examAction.load(examId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Exam "/> 
-        </f:facet>  
-        <h:outputText value="#{msg.exam_name} * "/>  
-        <h:inputText id="name#{entityId}" label="#{msg.exam_name}" required="true" value="#{examAction.exam.name}"/>  
-        <h:message styleClass="error errors" for="name"/>  
-        <h:outputText value="#{msg.exam_maxMarks}  "/>  
-        <h:inputText id="maxMarks#{entityId}" label="#{msg.exam_maxMarks}" required="false" value="#{examAction.exam.maxMarks}"/>  
-        <h:message styleClass="error errors" for="maxMarks"/>  
-        <h:outputText value="#{msg.exam_passMarks}  "/>  
-        <h:inputText id="passMarks#{entityId}" label="#{msg.exam_passMarks}" required="false" value="#{examAction.exam.passMarks}"/>  
-        <h:message styleClass="error errors" for="passMarks"/> 
+        <h:outputText value="#{msg.exam_name} * " rendered="#{s:hasPermission('name', 'examEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'examEdit')}" label="#{msg.exam_name}" required="true" value="#{examAction.exam.name}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'examEdit')}"/>  
+        <h:outputText value="#{msg.exam_maxMarks}  " rendered="#{s:hasPermission('maxMarks', 'examEdit')}"/>  
+        <h:inputText id="maxMarks#{entityId}" rendered="#{s:hasPermission('maxMarks', 'examEdit')}" label="#{msg.exam_maxMarks}" required="false" value="#{examAction.exam.maxMarks}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="maxMarks" rendered="#{s:hasPermission('maxMarks', 'examEdit')}"/>  
+        <h:outputText value="#{msg.exam_passMarks}  " rendered="#{s:hasPermission('passMarks', 'examEdit')}"/>  
+        <h:inputText id="passMarks#{entityId}" rendered="#{s:hasPermission('passMarks', 'examEdit')}" label="#{msg.exam_passMarks}" required="false" value="#{examAction.exam.passMarks}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="passMarks" rendered="#{s:hasPermission('passMarks', 'examEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

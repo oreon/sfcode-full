@@ -4,12 +4,11 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{subjectAction.load(subjectId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Subject "/> 
-        </f:facet>  
-        <h:outputText value="#{msg.subject_name} * "/>  
-        <h:inputText id="name#{entityId}" label="#{msg.subject_name}" required="true" value="#{subjectAction.subject.name}"/>  
-        <h:message styleClass="error errors" for="name"/> 
+        <h:outputText value="#{msg.subject_name} * " rendered="#{s:hasPermission('name', 'subjectEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'subjectEdit')}" label="#{msg.subject_name}" required="true" value="#{subjectAction.subject.name}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'subjectEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

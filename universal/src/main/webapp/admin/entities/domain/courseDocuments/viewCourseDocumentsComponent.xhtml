@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{courseDocumentsAction.load(courseDocumentsId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{courseDocumentsAction.courseDocuments.id}"/>  
+        <h:outputText value="#{msg.courseDocuments_gradeSubject}  " rendered="#{s:hasPermission('gradeSubject', 'courseDocumentsView')}"/>  
+        <s:link value="#{courseDocumentsAction.courseDocuments.gradeSubject.displayName}" view="/admin/entities/domain/gradeSubject/viewGradeSubject.xhtml" propagation="none"> 
+          <f:param name="gradeSubjectId" value="#{courseDocumentsAction.courseDocuments.gradeSubject.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.courseDocuments_name}  " rendered="#{s:hasPermission('name', 'courseDocumentsView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'courseDocumentsView')}" value="#{courseDocumentsAction.courseDocuments.name}"></h:outputText>  
+        <h:outputText value="#{msg.courseDocuments_document}  " rendered="#{s:hasPermission('document', 'courseDocumentsView')}"/>  
+        <c:choose> 
+          <c:when test="${courseDocumentsAction.courseDocuments.document.contentType.startsWith('image')}"> 
+            <s:graphicImage value="#{courseDocumentsAction.courseDocuments.document.data}"/> 
+          </c:when>  
+          <c:otherwise> 
+            <s:link value="#{courseDocumentsAction.courseDocuments.document.name}" action="#{courseDocumentsAction.downloadDocument(null)}" propagation="none"> 
+              <f:param name="currentEntityId" value="#{courseDocumentsAction.instance.id}"/> 
+            </s:link> 
+          </c:otherwise> 
+        </c:choose> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

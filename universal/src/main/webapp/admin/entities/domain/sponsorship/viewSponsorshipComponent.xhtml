@@ -4,23 +4,20 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{sponsorshipAction.load(sponsorshipId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Sponsorship "/> 
-        </f:facet>  
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{sponsorshipAction.sponsorship.id}"/>  
-        <h:outputText value="#{msg.sponsorship_sponsor}  "/>  
+        <h:outputText value="#{msg.sponsorship_sponsor}  " rendered="#{s:hasPermission('sponsor', 'sponsorshipView')}"/>  
         <s:link value="#{sponsorshipAction.sponsorship.sponsor.displayName}" view="/admin/entities/domain/sponsor/viewSponsor.xhtml" propagation="none"> 
           <f:param name="sponsorId" value="#{sponsorshipAction.sponsorship.sponsor.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.sponsorship_student}  "/>  
+        <h:outputText value="#{msg.sponsorship_student}  " rendered="#{s:hasPermission('student', 'sponsorshipView')}"/>  
         <s:link value="#{sponsorshipAction.sponsorship.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml" propagation="none"> 
           <f:param name="studentId" value="#{sponsorshipAction.sponsorship.student.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.sponsorship_amount}  "/>  
-        <h:outputText id="amount#{entityId}" value="#{sponsorshipAction.sponsorship.amount}"/> 
+        <h:outputText value="#{msg.sponsorship_amount}  " rendered="#{s:hasPermission('amount', 'sponsorshipView')}"/>  
+        <h:outputText id="amount#{entityId}" rendered="#{s:hasPermission('amount', 'sponsorshipView')}" value="#{sponsorshipAction.sponsorship.amount}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

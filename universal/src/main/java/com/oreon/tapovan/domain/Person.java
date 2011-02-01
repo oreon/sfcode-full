@@ -68,7 +68,9 @@ public class Person extends BusinessEntity {
 	}
 
 	public String getFirstName() {
+
 		return firstName;
+
 	}
 
 	public void setLastName(String lastName) {
@@ -76,7 +78,9 @@ public class Person extends BusinessEntity {
 	}
 
 	public String getLastName() {
+
 		return lastName;
+
 	}
 
 	public void setContactDetails(ContactDetails contactDetails) {
@@ -84,7 +88,9 @@ public class Person extends BusinessEntity {
 	}
 
 	public ContactDetails getContactDetails() {
+
 		return contactDetails;
+
 	}
 
 	@Transient

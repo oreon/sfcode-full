@@ -302,6 +302,13 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	public String save() {
 		return doSave();
 	}
+	
+	public String save(T t){
+		setInstance(t);
+		String ret  = save();
+		clearInstance();
+		return ret;
+	}
 
 	public String saveWithoutConversation() {
 		String result = doSave();

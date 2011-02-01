@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.tapovan.domain.Sponsorship;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class SponsorshipListQueryBase
@@ -77,4 +77,40 @@ public abstract class SponsorshipListQueryBase
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, Sponsorship e) {
+
+		builder.append("\""
+				+ (e.getSponsor() != null
+						? e.getSponsor().getDisplayName()
+						: "") + "\",");
+
+		builder.append("\""
+				+ (e.getStudent() != null
+						? e.getStudent().getDisplayName()
+						: "") + "\",");
+
+		builder.append("\"" + (e.getAmount() != null ? e.getAmount() : "")
+				+ "\",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Sponsor" + ",");
+
+		builder.append("Student" + ",");
+
+		builder.append("Amount" + ",");
+
+		builder.append("\r\n");
+	}
 }

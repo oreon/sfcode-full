@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.tapovan.domain.Subject;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class SubjectListQueryBase extends BaseQuery<Subject, Long> {
@@ -62,4 +62,25 @@ public abstract class SubjectListQueryBase extends BaseQuery<Subject, Long> {
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, Subject e) {
+
+		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Name" + ",");
+
+		builder.append("\r\n");
+	}
 }

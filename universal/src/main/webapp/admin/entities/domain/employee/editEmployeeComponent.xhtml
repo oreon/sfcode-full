@@ -4,41 +4,52 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{employeeAction.load(employeeId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Employee "/> 
-        </f:facet>  
-        <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
-        <h:inputText id="contactDetails_primaryPhone#{entityId}" label="#{msg.contactDetails_primaryPhone}" required="false" value="#{employeeAction.employee.contactDetails.primaryPhone}"/>  
-        <h:message styleClass="error errors" for="contactDetails_primaryPhone"/>  
-        <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
-        <h:inputText id="contactDetails_secondaryPhone#{entityId}" label="#{msg.contactDetails_secondaryPhone}" required="false" value="#{employeeAction.employee.contactDetails.secondaryPhone}"/>  
-        <h:message styleClass="error errors" for="contactDetails_secondaryPhone"/>  
-        <h:outputText value="#{msg.contactDetails_email}  "/>  
-        <h:inputText id="contactDetails_email#{entityId}" label="#{msg.contactDetails_email}" required="false" value="#{employeeAction.employee.contactDetails.email}"/>  
-        <h:message styleClass="error errors" for="contactDetails_email"/>  
-        <h:outputText value="#{msg.employee_department}  "/>  
-        <h:selectOneMenu id="department" label="#{msg.employee_department}" value="#{employeeAction.employee.department}" required="false"> 
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'employeeEdit')}"/>  
+        <h:inputText id="contactDetails_primaryPhone#{entityId}" rendered="#{s:hasPermission('primaryPhone', 'employeeEdit')}" label="#{msg.contactDetails_primaryPhone}" required="false" value="#{employeeAction.employee.contactDetails.primaryPhone}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="contactDetails_primaryPhone" rendered="#{s:hasPermission('primaryPhone', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'employeeEdit')}"/>  
+        <h:inputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{s:hasPermission('secondaryPhone', 'employeeEdit')}" label="#{msg.contactDetails_secondaryPhone}" required="false" value="#{employeeAction.employee.contactDetails.secondaryPhone}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="contactDetails_secondaryPhone" rendered="#{s:hasPermission('secondaryPhone', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.contactDetails_email}  " rendered="#{s:hasPermission('email', 'employeeEdit')}"/>  
+        <h:inputText id="contactDetails_email#{entityId}" rendered="#{s:hasPermission('email', 'employeeEdit')}" label="#{msg.contactDetails_email}" required="false" value="#{employeeAction.employee.contactDetails.email}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="contactDetails_email" rendered="#{s:hasPermission('email', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.employee_department}  " rendered="#{s:hasPermission('department', 'employeeEdit')}"/>  
+        <h:selectOneMenu id="department" label="#{msg.employee_department}" value="#{employeeAction.employee.department}" required="false" rendered="#{s:hasPermission('department', 'employeeEdit')}"> 
           <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="department"/>  
-        <h:outputText value="#{msg.person_firstName}  "/>  
-        <h:inputText id="firstName#{entityId}" label="#{msg.person_firstName}" required="false" value="#{employeeAction.employee.firstName}"/>  
-        <h:message styleClass="error errors" for="firstName"/>  
-        <h:outputText value="#{msg.person_lastName}  "/>  
-        <h:inputText id="lastName#{entityId}" label="#{msg.person_lastName}" required="false" value="#{employeeAction.employee.lastName}"/>  
-        <h:message styleClass="error errors" for="lastName"/>  
-        <h:outputText value="#{msg.employee_employeeNumber}  "/>  
-        <h:inputText id="employeeNumber#{entityId}" label="#{msg.employee_employeeNumber}" required="false" value="#{employeeAction.employee.employeeNumber}"/>  
-        <h:message styleClass="error errors" for="employeeNumber"/>  
-        <h:outputText value="#{msg.employee_employeeType}  "/>  
-        <h:selectOneMenu id="employeeType" value="#{employeeAction.employee.employeeType}" required="false" label="#{msg.employee_employeeType}"> 
+        <rich:message styleClass="error errors" for="department" rendered="#{s:hasPermission('department', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.person_firstName}  " rendered="#{s:hasPermission('firstName', 'employeeEdit')}"/>  
+        <h:inputText id="firstName#{entityId}" rendered="#{s:hasPermission('firstName', 'employeeEdit')}" label="#{msg.person_firstName}" required="false" value="#{employeeAction.employee.firstName}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="firstName" rendered="#{s:hasPermission('firstName', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.person_lastName}  " rendered="#{s:hasPermission('lastName', 'employeeEdit')}"/>  
+        <h:inputText id="lastName#{entityId}" rendered="#{s:hasPermission('lastName', 'employeeEdit')}" label="#{msg.person_lastName}" required="false" value="#{employeeAction.employee.lastName}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="lastName" rendered="#{s:hasPermission('lastName', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{s:hasPermission('employeeNumber', 'employeeEdit')}"/>  
+        <h:inputText id="employeeNumber#{entityId}" rendered="#{s:hasPermission('employeeNumber', 'employeeEdit')}" label="#{msg.employee_employeeNumber}" required="false" value="#{employeeAction.employee.employeeNumber}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="employeeNumber" rendered="#{s:hasPermission('employeeNumber', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.employee_employeeType}  " rendered="#{s:hasPermission('employeeType', 'employeeEdit')}"/>  
+        <h:selectOneMenu id="employeeType" rendered="#{s:hasPermission('employeeType', 'employeeEdit')}" value="#{employeeAction.employee.employeeType}" required="false" label="#{msg.employee_employeeType}"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="FULL_TIME" itemLabel="Full_time"/>  
           <f:selectItem itemValue="CONTRACT" itemLabel="Contract"/>  
-          <f:selectItem itemValue="PART_TIME" itemLabel="Part_time"/> 
+          <f:selectItem itemValue="PART_TIME" itemLabel="Part_time"/>  
+          <rich:ajaxValidator event="onblur"/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="employeeType"/> 
+        <rich:message styleClass="error errors" for="employeeType" rendered="#{s:hasPermission('employeeType', 'employeeEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

@@ -6,10 +6,14 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.subject_name} * "/>  
+      <h:outputText value="#{msg.subject_name} * " rendered="#{s:hasPermission('name', 'subjectEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{subjectList.subject.name}"/> 
-    </h:panelGroup>  
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
     <rich:calendar id="from" value="#{subjectList.dateCreatedRange.begin}"/>  
     <rich:calendar id="to" value="#{subjectList.dateCreatedRange.end}"/> 
   </h:panelGrid> 

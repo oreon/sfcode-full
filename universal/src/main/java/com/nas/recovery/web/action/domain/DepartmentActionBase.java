@@ -55,6 +55,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	public void setDepartmentId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -68,6 +69,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	 */
 	public void setDepartmentIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 
@@ -135,9 +137,9 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 	public void updateAssociations() {
 
-		com.oreon.tapovan.domain.Employee employee = (com.oreon.tapovan.domain.Employee) org.jboss.seam.Component
+		com.oreon.tapovan.domain.Employee employees = (com.oreon.tapovan.domain.Employee) org.jboss.seam.Component
 				.getInstance("employee");
-		employee.setDepartment(department);
+		employees.setDepartment(department);
 		events.raiseTransactionSuccessEvent("archivedEmployee");
 
 	}

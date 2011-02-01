@@ -44,6 +44,7 @@ import org.witchcraft.utils.*;
 @Filter(name = "archiveFilterDef")
 @Name("grade")
 @Indexed
+@Cache(usage = CacheConcurrencyStrategy.NONE)
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
@@ -79,12 +80,20 @@ public class Grade extends BusinessEntity implements java.io.Serializable {
 	@IndexedEmbedded
 	private Set<GradeSubject> gradeSubjects = new HashSet<GradeSubject>();
 
+	@OneToMany(mappedBy = "grade", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "grade_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<GradeFee> gradeFees = new HashSet<GradeFee>();
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	public String getName() {
+
 		return name;
+
 	}
 
 	public void setStudents(Set<Student> students) {
@@ -108,7 +117,9 @@ public class Grade extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Integer getOrdinal() {
+
 		return ordinal;
+
 	}
 
 	public void setSection(String section) {
@@ -116,7 +127,9 @@ public class Grade extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getSection() {
+
 		return section;
+
 	}
 
 	public void setGradeSubjects(Set<GradeSubject> gradeSubjects) {
@@ -125,6 +138,14 @@ public class Grade extends BusinessEntity implements java.io.Serializable {
 
 	public Set<GradeSubject> getGradeSubjects() {
 		return gradeSubjects;
+	}
+
+	public void setGradeFees(Set<GradeFee> gradeFees) {
+		this.gradeFees = gradeFees;
+	}
+
+	public Set<GradeFee> getGradeFees() {
+		return gradeFees;
 	}
 
 	@Transient

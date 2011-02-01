@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="StudentModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Student Search Results (#{empty records ? 0 : (studentList.paginated ? studentList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">Student Search Results (#{empty records ? 0 : (studentList.paginated ? studentList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_student" value="#{records}" id="studentList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+      <rich:dataTable var="_student" value="#{records}" id="studentList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'studentView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{studentList}"/>  
@@ -15,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_student.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('firstName', 'studentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{studentList}"/>  
@@ -25,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_student.firstName}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('lastName', 'studentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{studentList}"/>  
@@ -35,7 +41,7 @@
           </f:facet>  
           <h:outputText value="#{_student.lastName}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('primaryPhone', 'studentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{studentList}"/>  
@@ -45,7 +51,7 @@
           </f:facet>  
           <h:outputText value="#{_student.contactDetails.primaryPhone}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('secondaryPhone', 'studentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{studentList}"/>  
@@ -55,7 +61,7 @@
           </f:facet>  
           <h:outputText value="#{_student.contactDetails.secondaryPhone}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('email', 'studentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{studentList}"/>  
@@ -65,7 +71,7 @@
           </f:facet>  
           <h:outputText value="#{_student.contactDetails.email}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('picture', 'studentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{studentList}"/>  
@@ -77,7 +83,7 @@
             <f:param name="currentEntityId" value="#{_student.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('gender', 'studentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{studentList}"/>  
@@ -87,7 +93,7 @@
           </f:facet>  
           <h:outputText value="#{_student.gender}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('dateOfBirth', 'studentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{studentList}"/>  
@@ -96,10 +102,10 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_student.dateOfBirth}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('grade', 'studentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{studentList}"/>  
@@ -107,12 +113,12 @@
               <ui:param name="propertyPath" value="student.grade"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_student.grade.displayName}" view="/admin/entities/domain/grade/viewGrade.xhtml" propagation="none"> 
+          <s:link value="#{_student.grade.displayName}" action="viewGrade" propagation="none"> 
             <f:param name="gradeId" value="#{_student.grade.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'studentView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{studentList}"/>  
@@ -121,10 +127,10 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_student.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_student', 'view')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -133,7 +139,7 @@
             <f:param name="studentId" value="#{_student.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_student', 'edit')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -155,7 +161,10 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{studentAction.setStudentIdForModalDlg(_student.id)}" rendered="#{s:hasPermission(_student, 'edit')}" oncomplete="Richfaces.showModalPanel('StudentModalPanel',{});" value="Quick Edit"/> 
+          <a:commandLink action="#{studentAction.setStudentIdForModalDlg(_student.id)}" rendered="#{s:hasPermission(_student, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
         </h:column> 
       </rich:dataTable> 
     </a:form> 

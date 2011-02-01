@@ -4,49 +4,53 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{examInstanceAction.load(examInstanceId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="ExamInstance "/> 
-        </f:facet>  
-        <h:outputText value="#{msg.examInstance_exam}  "/>  
-        <h:selectOneMenu id="exam" label="#{msg.examInstance_exam}" value="#{examInstanceAction.examInstance.exam}" required="true"> 
+        <h:outputText value="#{msg.examInstance_exam}  " rendered="#{s:hasPermission('exam', 'examInstanceEdit')}"/>  
+        <h:selectOneMenu id="exam" label="#{msg.examInstance_exam}" value="#{examInstanceAction.examInstance.exam}" required="true" rendered="#{s:hasPermission('exam', 'examInstanceEdit')}"> 
           <s:selectItems value="#{examList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="exam"/>  
-        <h:outputText value="#{msg.examInstance_gradeSubject}  "/>  
-        <h:selectOneMenu id="gradeSubject" label="#{msg.examInstance_gradeSubject}" value="#{examInstanceAction.examInstance.gradeSubject}" required="true"> 
+        <rich:message styleClass="error errors" for="exam" rendered="#{s:hasPermission('exam', 'examInstanceEdit')}"/>  
+        <h:outputText value="#{msg.examInstance_gradeSubject}  " rendered="#{s:hasPermission('gradeSubject', 'examInstanceEdit')}"/>  
+        <h:selectOneMenu id="gradeSubject" label="#{msg.examInstance_gradeSubject}" value="#{examInstanceAction.examInstance.gradeSubject}" required="true" rendered="#{s:hasPermission('gradeSubject', 'examInstanceEdit')}"> 
           <a:support event="onchange" reRender="examScores" ajaxSingle="true"/>  
           <s:selectItems value="#{gradeSubjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="gradeSubject"/>  
-        <h:outputText value="#{msg.examInstance_dateHeld}  "/>  
-        <rich:calendar id="dateHeld#{entityId}" label="#{msg.examInstance_dateHeld}" required="false" value="#{examInstanceAction.examInstance.dateHeld}"/>  
-        <h:message styleClass="error errors" for="dateHeld"/> 
+        <rich:message styleClass="error errors" for="gradeSubject" rendered="#{s:hasPermission('gradeSubject', 'examInstanceEdit')}"/>  
+        <h:outputText value="#{msg.examInstance_dateHeld}  " rendered="#{s:hasPermission('dateHeld', 'examInstanceEdit')}"/>  
+        <rich:calendar id="dateHeld#{entityId}" rendered="#{s:hasPermission('dateHeld', 'examInstanceEdit')}" label="#{msg.examInstance_dateHeld}" required="false" value="#{examInstanceAction.examInstance.dateHeld}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </rich:calendar>  
+        <rich:message styleClass="error errors" for="dateHeld" rendered="#{s:hasPermission('dateHeld', 'examInstanceEdit')}"/> 
       </h:panelGrid>  
-      <a:commandButton value="New ExamScore" action="#{examInstanceAction.addExamScores}" reRender="examScores"> 
+      <a:commandButton value="New ExamScore" action="#{examInstanceAction.addExamScores}" reRender="examScores" rendered="#{s:hasPermission('examScores', 'examInstanceEdit')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="examScores" var="_examScore" value="#{examInstanceAction.listExamScores}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="examScores" var="_examScore" rendered="#{s:hasPermission('examScores', 'examInstanceEdit')}" value="#{examInstanceAction.listExamScores}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.examScore_student}  "/>
+            <h:outputText value="#{msg.examScore_student}  " rendered="#{s:hasPermission('student', 'examScoreEdit')}"/>
           </f:facet>  
-          <h:selectOneMenu id="student" label="#{msg.examScore_student}" value="#{_examScore.student}" required="true"> 
+          <h:selectOneMenu id="student" label="#{msg.examScore_student}" value="#{_examScore.student}" required="true" rendered="#{s:hasPermission('student', 'examScoreEdit')}"> 
             <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onblur"/>  
             <s:convertEntity/> 
           </h:selectOneMenu>  
-          <h:message styleClass="error errors" for="student"/> 
+          <rich:message styleClass="error errors" for="student" rendered="#{s:hasPermission('student', 'examScoreEdit')}"/> 
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.examScore_marks} * "/>
+            <h:outputText value="#{msg.examScore_marks} * " rendered="#{s:hasPermission('marks', 'examScoreEdit')}"/>
           </f:facet>  
-          <h:inputText id="marks#{entityId}" label="#{msg.examScore_marks}" required="true" value="#{_examScore.marks}"/>  
-          <h:message styleClass="error errors" for="marks"/> 
+          <h:inputText id="marks#{entityId}" rendered="#{s:hasPermission('marks', 'examScoreEdit')}" label="#{msg.examScore_marks}" required="true" value="#{_examScore.marks}"> 
+            <rich:ajaxValidator event="onblur"/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="marks" rendered="#{s:hasPermission('marks', 'examScoreEdit')}"/> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New ExamScore" action="#{examInstanceAction.addExamScores}" reRender="examScores"> 
+          <a:commandButton value="New ExamScore" action="#{examInstanceAction.addExamScores}" reRender="examScores" rendered="#{s:hasPermission('examScores', 'examScoreEdit')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

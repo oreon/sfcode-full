@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.examInstance_exam}  "/>  
+      <h:outputText value="#{msg.examInstance_exam}  " rendered="#{s:hasPermission('exam', 'examInstanceEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="exam" value="#{ examInstanceList.examInstance.exam}"> 
         <s:selectItems value="#{examList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.examInstance_gradeSubject}  "/>  
+      <h:outputText value="#{msg.examInstance_gradeSubject}  " rendered="#{s:hasPermission('gradeSubject', 'examInstanceEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="gradeSubject" value="#{ examInstanceList.examInstance.gradeSubject}"> 
         <s:selectItems value="#{gradeSubjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -22,14 +22,18 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.examInstance_dateHeld}  "/>  
+      <h:outputText value="#{msg.examInstance_dateHeld}  " rendered="#{s:hasPermission('dateHeld', 'examInstanceEdit')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
       <rich:calendar value="#{examInstanceList.dateHeldRange.begin}"/> To
       <br/>  
       <rich:calendar value="#{examInstanceList.dateHeldRange.end}"/> 
-    </h:panelGroup>  
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
     <rich:calendar id="from" value="#{examInstanceList.dateCreatedRange.begin}"/>  
     <rich:calendar id="to" value="#{examInstanceList.dateCreatedRange.end}"/> 
   </h:panelGrid> 

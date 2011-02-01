@@ -44,6 +44,7 @@ import org.witchcraft.utils.*;
 @Filter(name = "archiveFilterDef")
 @Name("gradeSubject")
 @Indexed
+@Cache(usage = CacheConcurrencyStrategy.NONE)
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
@@ -67,12 +68,20 @@ public class GradeSubject extends BusinessEntity
 	@ContainedIn
 	protected Grade grade;
 
+	@OneToMany(mappedBy = "gradeSubject", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "gradeSubject_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<CourseDocuments> courseDocumentses = new HashSet<CourseDocuments>();
+
 	public void setSubject(Subject subject) {
 		this.subject = subject;
 	}
 
 	public Subject getSubject() {
+
 		return subject;
+
 	}
 
 	public void setEmployee(Employee employee) {
@@ -80,7 +89,9 @@ public class GradeSubject extends BusinessEntity
 	}
 
 	public Employee getEmployee() {
+
 		return employee;
+
 	}
 
 	public void setGrade(Grade grade) {
@@ -88,7 +99,17 @@ public class GradeSubject extends BusinessEntity
 	}
 
 	public Grade getGrade() {
+
 		return grade;
+
+	}
+
+	public void setCourseDocumentses(Set<CourseDocuments> courseDocumentses) {
+		this.courseDocumentses = courseDocumentses;
+	}
+
+	public Set<CourseDocuments> getCourseDocumentses() {
+		return courseDocumentses;
 	}
 
 	@Transient
@@ -111,6 +132,8 @@ public class GradeSubject extends BusinessEntity
 	public List<String> listSearchableFields() {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
+
+		listSearchableFields.add("courseDocumentses.name");
 
 		return listSearchableFields;
 	}
