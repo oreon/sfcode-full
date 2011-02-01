@@ -55,6 +55,7 @@ public abstract class StudentActionBase
 	public void setStudentId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -68,6 +69,7 @@ public abstract class StudentActionBase
 	 */
 	public void setStudentIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 
@@ -117,7 +119,7 @@ public abstract class StudentActionBase
 		getInstance();
 
 		com.oreon.tapovan.domain.Grade grade = gradeAction.getDefinedInstance();
-		if (grade != null) {
+		if (grade != null && isNew()) {
 			getInstance().setGrade(grade);
 		}
 

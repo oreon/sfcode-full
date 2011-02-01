@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.tapovan.domain.Student;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
@@ -91,4 +91,38 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, Student e) {
+
+		builder.append("\"" + (e.getGender() != null ? e.getGender() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getDateOfBirth() != null ? e.getDateOfBirth() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getGrade() != null ? e.getGrade().getDisplayName() : "")
+				+ "\",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Gender" + ",");
+
+		builder.append("DateOfBirth" + ",");
+
+		builder.append("Grade" + ",");
+
+		builder.append("\r\n");
+	}
 }

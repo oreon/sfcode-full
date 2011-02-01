@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{gradeFeeAction.load(gradeFeeId )  }"> 
+        <h:outputText value="#{msg.gradeFee_grade}  " rendered="#{s:hasPermission('grade', 'gradeFeeEdit')}"/>  
+        <h:selectOneMenu id="grade" label="#{msg.gradeFee_grade}" value="#{gradeFeeAction.gradeFee.grade}" required="true" rendered="#{s:hasPermission('grade', 'gradeFeeEdit')}"> 
+          <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="grade" rendered="#{s:hasPermission('grade', 'gradeFeeEdit')}"/>  
+        <h:outputText value="#{msg.gradeFee_fee}  " rendered="#{s:hasPermission('fee', 'gradeFeeEdit')}"/>  
+        <h:selectOneMenu id="fee" label="#{msg.gradeFee_fee}" value="#{gradeFeeAction.gradeFee.fee}" required="true" rendered="#{s:hasPermission('fee', 'gradeFeeEdit')}"> 
+          <s:selectItems value="#{feeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="fee" rendered="#{s:hasPermission('fee', 'gradeFeeEdit')}"/>  
+        <h:outputText value="#{msg.gradeFee_amount}  " rendered="#{s:hasPermission('amount', 'gradeFeeEdit')}"/>  
+        <h:inputText id="amount#{entityId}" rendered="#{s:hasPermission('amount', 'gradeFeeEdit')}" label="#{msg.gradeFee_amount}" required="false" value="#{gradeFeeAction.gradeFee.amount}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="amount" rendered="#{s:hasPermission('amount', 'gradeFeeEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

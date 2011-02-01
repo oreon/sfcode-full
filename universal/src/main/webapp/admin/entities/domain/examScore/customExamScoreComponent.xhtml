@@ -7,28 +7,28 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.examScore_student}  "/>  
+        <h:outputText value="#{msg.examScore_student}  " rendered="#{s:hasPermission('student', 'examScoreEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="student" value="#{examScoreAction.examScore.student}"> 
           <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="student"/> 
+        <rich:message styleClass="error errors" for="student" rendered="#{s:hasPermission('student', 'examScoreEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.examScore_marks} * "/>  
+        <h:outputText value="#{msg.examScore_marks} * " rendered="#{s:hasPermission('marks', 'examScoreEdit')}"/>  
         <br/>  
         <h:inputText id="marks" value="#{examScoreAction.examScore.marks}"/>  
-        <h:message styleClass="error errors" for="marks"/> 
+        <rich:message styleClass="error errors" for="marks" rendered="#{s:hasPermission('marks', 'examScoreEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.examScore_examInstance}  "/>  
+        <h:outputText value="#{msg.examScore_examInstance}  " rendered="#{s:hasPermission('examInstance', 'examScoreEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="examInstance" value="#{examScoreAction.examScore.examInstance}"> 
           <s:selectItems value="#{examInstanceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="examInstance"/> 
+        <rich:message styleClass="error errors" for="examInstance" rendered="#{s:hasPermission('examInstance', 'examScoreEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

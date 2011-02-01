@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="GradeSubjectModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="GradeSubject Search Results (#{empty records ? 0 : (gradeSubjectList.paginated ? gradeSubjectList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">GradeSubject Search Results (#{empty records ? 0 : (gradeSubjectList.paginated ? gradeSubjectList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_gradeSubject" value="#{records}" id="gradeSubjectList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+      <rich:dataTable var="_gradeSubject" value="#{records}" id="gradeSubjectList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'gradeSubjectView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{gradeSubjectList}"/>  
@@ -15,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_gradeSubject.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('subject', 'gradeSubjectView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{gradeSubjectList}"/>  
@@ -23,12 +29,12 @@
               <ui:param name="propertyPath" value="gradeSubject.subject"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_gradeSubject.subject.displayName}" view="/admin/entities/domain/subject/viewSubject.xhtml" propagation="none"> 
+          <s:link value="#{_gradeSubject.subject.displayName}" action="viewSubject" propagation="none"> 
             <f:param name="subjectId" value="#{_gradeSubject.subject.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('employee', 'gradeSubjectView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{gradeSubjectList}"/>  
@@ -36,12 +42,12 @@
               <ui:param name="propertyPath" value="gradeSubject.employee"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_gradeSubject.employee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
+          <s:link value="#{_gradeSubject.employee.displayName}" action="viewEmployee" propagation="none"> 
             <f:param name="employeeId" value="#{_gradeSubject.employee.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column groupOn="#{gradeSubject.grade.displayName}"> 
+        <h:column groupOn="#{gradeSubject.grade.displayName}" rendered="#{s:hasPermission('grade', 'gradeSubjectView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{gradeSubjectList}"/>  
@@ -49,12 +55,12 @@
               <ui:param name="propertyPath" value="gradeSubject.grade"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_gradeSubject.grade.displayName}" view="/admin/entities/domain/grade/viewGrade.xhtml" propagation="none"> 
+          <s:link value="#{_gradeSubject.grade.displayName}" action="viewGrade" propagation="none"> 
             <f:param name="gradeId" value="#{_gradeSubject.grade.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'gradeSubjectView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{gradeSubjectList}"/>  
@@ -63,10 +69,10 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_gradeSubject.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_gradeSubject', 'view')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -75,7 +81,7 @@
             <f:param name="gradeSubjectId" value="#{_gradeSubject.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_gradeSubject', 'edit')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -97,7 +103,10 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{gradeSubjectAction.setGradeSubjectIdForModalDlg(_gradeSubject.id)}" rendered="#{s:hasPermission(_gradeSubject, 'edit')}" oncomplete="Richfaces.showModalPanel('GradeSubjectModalPanel',{});" value="Quick Edit"/> 
+          <a:commandLink action="#{gradeSubjectAction.setGradeSubjectIdForModalDlg(_gradeSubject.id)}" rendered="#{s:hasPermission(_gradeSubject, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
         </h:column> 
       </rich:dataTable> 
     </a:form> 

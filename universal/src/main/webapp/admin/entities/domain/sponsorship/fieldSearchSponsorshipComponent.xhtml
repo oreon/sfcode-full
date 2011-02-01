@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.sponsorship_sponsor}  "/>  
+      <h:outputText value="#{msg.sponsorship_sponsor}  " rendered="#{s:hasPermission('sponsor', 'sponsorshipEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="sponsor" value="#{ sponsorshipList.sponsorship.sponsor}"> 
         <s:selectItems value="#{sponsorList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.sponsorship_student}  "/>  
+      <h:outputText value="#{msg.sponsorship_student}  " rendered="#{s:hasPermission('student', 'sponsorshipEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="student" value="#{ sponsorshipList.sponsorship.student}"> 
         <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -22,7 +22,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.sponsorship_amount}  "/>  
+      <h:outputText value="#{msg.sponsorship_amount}  " rendered="#{s:hasPermission('amount', 'sponsorshipEdit')}"/>  
       <br/>  
       <h:inputText id="amount_begin" value="#{sponsorshipList.amountRange.begin}"> 
         <f:converter converterId="javax.faces.Double"/> 
@@ -30,7 +30,11 @@
       <h:inputText id="amount_end" value="#{sponsorshipList.amountRange.end}"> 
         <f:converter converterId="javax.faces.Double"/> 
       </h:inputText> 
-    </h:panelGroup>  
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
     <rich:calendar id="from" value="#{sponsorshipList.dateCreatedRange.begin}"/>  
     <rich:calendar id="to" value="#{sponsorshipList.dateCreatedRange.end}"/> 
   </h:panelGrid> 

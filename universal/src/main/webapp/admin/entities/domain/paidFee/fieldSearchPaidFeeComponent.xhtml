@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.paidFee_amount}  " rendered="#{s:hasPermission('amount', 'paidFeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="amount_begin" value="#{paidFeeList.amountRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="amount_end" value="#{paidFeeList.amountRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.paidFee_notes}  " rendered="#{s:hasPermission('notes', 'paidFeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="notes" value="#{paidFeeList.paidFee.notes}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.paidFee_student}  " rendered="#{s:hasPermission('student', 'paidFeeEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="student" value="#{ paidFeeList.paidFee.student}"> 
+        <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.paidFee_gradeFee}  " rendered="#{s:hasPermission('gradeFee', 'paidFeeEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="gradeFee" value="#{ paidFeeList.paidFee.gradeFee}"> 
+        <s:selectItems value="#{gradeFeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{paidFeeList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{paidFeeList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

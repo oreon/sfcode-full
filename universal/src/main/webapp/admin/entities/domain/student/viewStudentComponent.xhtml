@@ -4,41 +4,38 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{studentAction.load(studentId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Student "/> 
-        </f:facet>  
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{studentAction.student.id}"/>  
-        <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
-        <h:outputText id="contactDetails_primaryPhone#{entityId}" value="#{studentAction.student.contactDetails.primaryPhone}"/>  
-        <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
-        <h:outputText id="contactDetails_secondaryPhone#{entityId}" value="#{studentAction.student.contactDetails.secondaryPhone}"/>  
-        <h:outputText value="#{msg.contactDetails_email}  "/>  
-        <h:outputText id="contactDetails_email#{entityId}" value="#{studentAction.student.contactDetails.email}"/>  
-        <h:outputText value="#{msg.student_grade}  "/>  
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'studentView')}"/>  
+        <h:outputText id="contactDetails_primaryPhone#{entityId}" rendered="#{s:hasPermission('primaryPhone', 'studentView')}" value="#{studentAction.student.contactDetails.primaryPhone}"></h:outputText>  
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'studentView')}"/>  
+        <h:outputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{s:hasPermission('secondaryPhone', 'studentView')}" value="#{studentAction.student.contactDetails.secondaryPhone}"></h:outputText>  
+        <h:outputText value="#{msg.contactDetails_email}  " rendered="#{s:hasPermission('email', 'studentView')}"/>  
+        <h:outputText id="contactDetails_email#{entityId}" rendered="#{s:hasPermission('email', 'studentView')}" value="#{studentAction.student.contactDetails.email}"></h:outputText>  
+        <h:outputText value="#{msg.student_grade}  " rendered="#{s:hasPermission('grade', 'studentView')}"/>  
         <s:link value="#{studentAction.student.grade.displayName}" view="/admin/entities/domain/grade/viewGrade.xhtml" propagation="none"> 
           <f:param name="gradeId" value="#{studentAction.student.grade.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.person_firstName}  "/>  
-        <h:outputText id="firstName#{entityId}" value="#{studentAction.student.firstName}"/>  
-        <h:outputText value="#{msg.person_lastName}  "/>  
-        <h:outputText id="lastName#{entityId}" value="#{studentAction.student.lastName}"/>  
-        <h:outputText value="#{msg.student_picture}  "/>  
+        <h:outputText value="#{msg.person_firstName}  " rendered="#{s:hasPermission('firstName', 'studentView')}"/>  
+        <h:outputText id="firstName#{entityId}" rendered="#{s:hasPermission('firstName', 'studentView')}" value="#{studentAction.student.firstName}"></h:outputText>  
+        <h:outputText value="#{msg.person_lastName}  " rendered="#{s:hasPermission('lastName', 'studentView')}"/>  
+        <h:outputText id="lastName#{entityId}" rendered="#{s:hasPermission('lastName', 'studentView')}" value="#{studentAction.student.lastName}"></h:outputText>  
+        <h:outputText value="#{msg.student_picture}  " rendered="#{s:hasPermission('picture', 'studentView')}"/>  
         <c:choose> 
           <c:when test="${studentAction.student.picture.contentType.startsWith('image')}"> 
             <s:graphicImage value="#{studentAction.student.picture.data}"/> 
           </c:when>  
           <c:otherwise> 
-            <s:link value="#{studentAction.student.picture.name}" action="#{studentAction.downloadFile(null)}" propagation="none"> 
+            <s:link value="#{studentAction.student.picture.name}" action="#{studentAction.downloadPicture(null)}" propagation="none"> 
               <f:param name="currentEntityId" value="#{studentAction.instance.id}"/> 
             </s:link> 
           </c:otherwise> 
         </c:choose>  
-        <h:outputText value="#{msg.student_gender}  "/>  
+        <h:outputText value="#{msg.student_gender}  " rendered="#{s:hasPermission('gender', 'studentView')}"/>  
         <h:outputText value="#{studentAction.student.gender}"/>  
-        <h:outputText value="#{msg.student_dateOfBirth}  "/>  
-        <h:outputText id="dateOfBirth#{entityId}" value="#{studentAction.student.dateOfBirth}"/> 
+        <h:outputText value="#{msg.student_dateOfBirth}  " rendered="#{s:hasPermission('dateOfBirth', 'studentView')}"/>  
+        <h:outputText id="dateOfBirth#{entityId}" rendered="#{s:hasPermission('dateOfBirth', 'studentView')}" value="#{studentAction.student.dateOfBirth}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

@@ -44,6 +44,7 @@ import org.witchcraft.utils.*;
 @Filter(name = "archiveFilterDef")
 @Name("sponsorship")
 @Indexed
+@Cache(usage = CacheConcurrencyStrategy.NONE)
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
@@ -67,7 +68,9 @@ public class Sponsorship extends BusinessEntity implements java.io.Serializable 
 	}
 
 	public Sponsor getSponsor() {
+
 		return sponsor;
+
 	}
 
 	public void setStudent(Student student) {
@@ -75,7 +78,9 @@ public class Sponsorship extends BusinessEntity implements java.io.Serializable 
 	}
 
 	public Student getStudent() {
+
 		return student;
+
 	}
 
 	public void setAmount(Double amount) {
@@ -83,7 +88,9 @@ public class Sponsorship extends BusinessEntity implements java.io.Serializable 
 	}
 
 	public Double getAmount() {
+
 		return amount;
+
 	}
 
 	@Transient

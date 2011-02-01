@@ -52,6 +52,7 @@ public abstract class SponsorActionBase
 	public void setSponsorId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -65,6 +66,7 @@ public abstract class SponsorActionBase
 	 */
 	public void setSponsorIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 

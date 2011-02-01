@@ -56,6 +56,7 @@ public abstract class SponsorshipActionBase extends BaseAction<Sponsorship>
 	public void setSponsorshipId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -69,6 +70,7 @@ public abstract class SponsorshipActionBase extends BaseAction<Sponsorship>
 	 */
 	public void setSponsorshipIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 
@@ -132,13 +134,13 @@ public abstract class SponsorshipActionBase extends BaseAction<Sponsorship>
 
 		com.oreon.tapovan.domain.Sponsor sponsor = sponsorAction
 				.getDefinedInstance();
-		if (sponsor != null) {
+		if (sponsor != null && isNew()) {
 			getInstance().setSponsor(sponsor);
 		}
 
 		com.oreon.tapovan.domain.Student student = studentAction
 				.getDefinedInstance();
-		if (student != null) {
+		if (student != null && isNew()) {
 			getInstance().setStudent(student);
 		}
 

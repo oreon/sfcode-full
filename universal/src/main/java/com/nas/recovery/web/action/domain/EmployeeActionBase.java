@@ -55,6 +55,7 @@ public abstract class EmployeeActionBase
 	public void setEmployeeId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -68,6 +69,7 @@ public abstract class EmployeeActionBase
 	 */
 	public void setEmployeeIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 
@@ -118,7 +120,7 @@ public abstract class EmployeeActionBase
 
 		com.oreon.tapovan.domain.Department department = departmentAction
 				.getDefinedInstance();
-		if (department != null) {
+		if (department != null && isNew()) {
 			getInstance().setDepartment(department);
 		}
 

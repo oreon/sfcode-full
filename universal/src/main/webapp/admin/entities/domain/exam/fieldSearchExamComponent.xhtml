@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.exam_name} * "/>  
+      <h:outputText value="#{msg.exam_name} * " rendered="#{s:hasPermission('name', 'examEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{examList.exam.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.exam_grades}  "/>  
+      <h:outputText value="#{msg.exam_grades}  " rendered="#{s:hasPermission('grades', 'examEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="grades" value="#{ examList.gradeToSearch}"> 
         <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -20,7 +20,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.exam_maxMarks}  "/>  
+      <h:outputText value="#{msg.exam_maxMarks}  " rendered="#{s:hasPermission('maxMarks', 'examEdit')}"/>  
       <br/>  
       <h:inputText id="maxMarks_begin" value="#{examList.maxMarksRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
@@ -30,7 +30,7 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.exam_passMarks}  "/>  
+      <h:outputText value="#{msg.exam_passMarks}  " rendered="#{s:hasPermission('passMarks', 'examEdit')}"/>  
       <br/>  
       <h:inputText id="passMarks_begin" value="#{examList.passMarksRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
@@ -38,7 +38,11 @@
       <h:inputText id="passMarks_end" value="#{examList.passMarksRange.end}"> 
         <f:converter converterId="javax.faces.Integer"/> 
       </h:inputText> 
-    </h:panelGroup>  
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
     <rich:calendar id="from" value="#{examList.dateCreatedRange.begin}"/>  
     <rich:calendar id="to" value="#{examList.dateCreatedRange.end}"/> 
   </h:panelGrid> 

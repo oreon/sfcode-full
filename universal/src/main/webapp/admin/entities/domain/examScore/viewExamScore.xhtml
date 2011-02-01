@@ -14,13 +14,13 @@
             </h:commandButton> 
           </div> 
         </rich:tab>  
-        <rich:tab label="Student"> 
+        <rich:tab label="Student" rendered="#{examScoreAction.instance.student != null}"> 
           <ui:include src="/admin/entities/domain/student/viewStudentComponent.xhtml"> 
             <ui:param name="entityId" value="1"/>  
             <ui:param name="studentId" value="#{examScoreAction.instance.student.id}"/> 
           </ui:include> 
         </rich:tab>  
-        <rich:tab label="ExamInstance"> 
+        <rich:tab label="ExamInstance" rendered="#{examScoreAction.instance.examInstance != null}"> 
           <ui:include src="/admin/entities/domain/examInstance/viewExamInstanceComponent.xhtml"> 
             <ui:param name="entityId" value="2"/>  
             <ui:param name="examInstanceId" value="#{examScoreAction.instance.examInstance.id}"/> 

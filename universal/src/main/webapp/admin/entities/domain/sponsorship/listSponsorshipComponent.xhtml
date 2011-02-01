@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="SponsorshipModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Sponsorship Search Results (#{empty records ? 0 : (sponsorshipList.paginated ? sponsorshipList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">Sponsorship Search Results (#{empty records ? 0 : (sponsorshipList.paginated ? sponsorshipList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_sponsorship" value="#{records}" id="sponsorshipList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+      <rich:dataTable var="_sponsorship" value="#{records}" id="sponsorshipList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'sponsorshipView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{sponsorshipList}"/>  
@@ -15,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_sponsorship.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('sponsor', 'sponsorshipView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{sponsorshipList}"/>  
@@ -23,12 +29,12 @@
               <ui:param name="propertyPath" value="sponsorship.sponsor"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_sponsorship.sponsor.displayName}" view="/admin/entities/domain/sponsor/viewSponsor.xhtml" propagation="none"> 
+          <s:link value="#{_sponsorship.sponsor.displayName}" action="viewSponsor" propagation="none"> 
             <f:param name="sponsorId" value="#{_sponsorship.sponsor.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('student', 'sponsorshipView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{sponsorshipList}"/>  
@@ -36,12 +42,12 @@
               <ui:param name="propertyPath" value="sponsorship.student"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_sponsorship.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml" propagation="none"> 
+          <s:link value="#{_sponsorship.student.displayName}" action="viewStudent" propagation="none"> 
             <f:param name="studentId" value="#{_sponsorship.student.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('amount', 'sponsorshipView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{sponsorshipList}"/>  
@@ -49,9 +55,11 @@
               <ui:param name="propertyPath" value="sponsorship.amount"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_sponsorship.amount}"/> 
+          <h:outputText value="#{_sponsorship.amount}"> 
+            <f:convertNumber pattern="$#,##0.00"/> 
+          </h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'sponsorshipView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{sponsorshipList}"/>  
@@ -60,10 +68,10 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_sponsorship.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_sponsorship', 'view')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -72,7 +80,7 @@
             <f:param name="sponsorshipId" value="#{_sponsorship.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_sponsorship', 'edit')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -94,7 +102,10 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{sponsorshipAction.setSponsorshipIdForModalDlg(_sponsorship.id)}" rendered="#{s:hasPermission(_sponsorship, 'edit')}" oncomplete="Richfaces.showModalPanel('SponsorshipModalPanel',{});" value="Quick Edit"/> 
+          <a:commandLink action="#{sponsorshipAction.setSponsorshipIdForModalDlg(_sponsorship.id)}" rendered="#{s:hasPermission(_sponsorship, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
         </h:column> 
       </rich:dataTable> 
     </a:form> 

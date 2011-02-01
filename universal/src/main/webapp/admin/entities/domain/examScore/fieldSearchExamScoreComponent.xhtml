@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.examScore_student}  "/>  
+      <h:outputText value="#{msg.examScore_student}  " rendered="#{s:hasPermission('student', 'examScoreEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="student" value="#{ examScoreList.examScore.student}"> 
         <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.examScore_marks} * "/>  
+      <h:outputText value="#{msg.examScore_marks} * " rendered="#{s:hasPermission('marks', 'examScoreEdit')}"/>  
       <br/>  
       <h:inputText id="marks_begin" value="#{examScoreList.marksRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
@@ -24,13 +24,17 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.examScore_examInstance}  "/>  
+      <h:outputText value="#{msg.examScore_examInstance}  " rendered="#{s:hasPermission('examInstance', 'examScoreEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="examInstance" value="#{ examScoreList.examScore.examInstance}"> 
         <s:selectItems value="#{examInstanceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
-    </h:panelGroup>  
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
     <rich:calendar id="from" value="#{examScoreList.dateCreatedRange.begin}"/>  
     <rich:calendar id="to" value="#{examScoreList.dateCreatedRange.end}"/> 
   </h:panelGrid> 

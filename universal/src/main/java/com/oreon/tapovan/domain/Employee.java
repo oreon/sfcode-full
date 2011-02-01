@@ -44,6 +44,7 @@ import org.witchcraft.utils.*;
 @Filter(name = "archiveFilterDef")
 @Name("employee")
 @Indexed
+@Cache(usage = CacheConcurrencyStrategy.NONE)
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
@@ -68,7 +69,9 @@ public class Employee extends com.oreon.tapovan.domain.Person
 	}
 
 	public Department getDepartment() {
+
 		return department;
+
 	}
 
 	public void setEmployeeNumber(String employeeNumber) {
@@ -76,7 +79,9 @@ public class Employee extends com.oreon.tapovan.domain.Person
 	}
 
 	public String getEmployeeNumber() {
+
 		return employeeNumber;
+
 	}
 
 	public void setEmployeeType(EmployeeType employeeType) {
@@ -84,7 +89,9 @@ public class Employee extends com.oreon.tapovan.domain.Person
 	}
 
 	public EmployeeType getEmployeeType() {
+
 		return employeeType;
+
 	}
 
 	@Transient

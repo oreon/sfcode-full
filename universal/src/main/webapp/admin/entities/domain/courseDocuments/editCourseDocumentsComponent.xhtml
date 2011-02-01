@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{courseDocumentsAction.load(courseDocumentsId )  }"> 
+        <h:outputText value="#{msg.courseDocuments_gradeSubject}  " rendered="#{s:hasPermission('gradeSubject', 'courseDocumentsEdit')}"/>  
+        <h:selectOneMenu id="gradeSubject" label="#{msg.courseDocuments_gradeSubject}" value="#{courseDocumentsAction.courseDocuments.gradeSubject}" required="true" rendered="#{s:hasPermission('gradeSubject', 'courseDocumentsEdit')}"> 
+          <s:selectItems value="#{gradeSubjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="gradeSubject" rendered="#{s:hasPermission('gradeSubject', 'courseDocumentsEdit')}"/>  
+        <h:outputText value="#{msg.courseDocuments_name}  " rendered="#{s:hasPermission('name', 'courseDocumentsEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'courseDocumentsEdit')}" label="#{msg.courseDocuments_name}" required="false" value="#{courseDocumentsAction.courseDocuments.name}"> 
+          <rich:ajaxValidator event="onblur"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'courseDocumentsEdit')}"/>  
+        <h:outputText value="#{msg.courseDocuments_document}  " rendered="#{s:hasPermission('document', 'courseDocumentsEdit')}"/>  
+        <h:panelGroup> 
+          <s:div rendered="#{courseDocumentsAction.courseDocuments.id != 0 }"> 
+            <c:choose> 
+              <c:when test="${courseDocumentsAction.courseDocuments.document.contentType.startsWith('image')}"> 
+                <s:graphicImage value="#{courseDocumentsAction.courseDocuments.document.data}"/> 
+              </c:when>  
+              <c:otherwise> 
+                <s:link value="#{courseDocumentsAction.courseDocuments.document.name}" action="#{courseDocumentsAction.downloadDocument(null)}" propagation="none"> 
+                  <f:param name="currentEntityId" value="#{courseDocumentsAction.instance.id}"/> 
+                </s:link> 
+              </c:otherwise> 
+            </c:choose> 
+          </s:div>  
+          <s:div rendered="#{courseDocumentsAction.courseDocuments.id == null }"> 
+            <s:fileUpload data="#{courseDocumentsAction.courseDocuments.document.data}" fileName="#{courseDocumentsAction.courseDocuments.document.name}" contentType="#{courseDocumentsAction.courseDocuments.document.contentType}"/> 
+          </s:div> 
+        </h:panelGroup>  
+        <rich:message styleClass="error errors" for="document" rendered="#{s:hasPermission('document', 'courseDocumentsEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

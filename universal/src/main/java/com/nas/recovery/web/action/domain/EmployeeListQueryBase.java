@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.tapovan.domain.Employee;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
@@ -83,4 +83,39 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, Employee e) {
+
+		builder.append("\""
+				+ (e.getDepartment() != null ? e.getDepartment()
+						.getDisplayName() : "") + "\",");
+
+		builder.append("\""
+				+ (e.getEmployeeNumber() != null ? e.getEmployeeNumber() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getEmployeeType() != null ? e.getEmployeeType() : "")
+				+ "\",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Department" + ",");
+
+		builder.append("EmployeeNumber" + ",");
+
+		builder.append("EmployeeType" + ",");
+
+		builder.append("\r\n");
+	}
 }

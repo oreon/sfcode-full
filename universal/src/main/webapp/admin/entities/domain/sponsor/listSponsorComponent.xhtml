@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="SponsorModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Sponsor Search Results (#{empty records ? 0 : (sponsorList.paginated ? sponsorList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">Sponsor Search Results (#{empty records ? 0 : (sponsorList.paginated ? sponsorList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_sponsor" value="#{records}" id="sponsorList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+      <rich:dataTable var="_sponsor" value="#{records}" id="sponsorList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'sponsorView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{sponsorList}"/>  
@@ -15,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_sponsor.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('firstName', 'sponsorView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{sponsorList}"/>  
@@ -25,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_sponsor.firstName}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('lastName', 'sponsorView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{sponsorList}"/>  
@@ -35,7 +41,7 @@
           </f:facet>  
           <h:outputText value="#{_sponsor.lastName}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('primaryPhone', 'sponsorView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{sponsorList}"/>  
@@ -45,7 +51,7 @@
           </f:facet>  
           <h:outputText value="#{_sponsor.contactDetails.primaryPhone}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('secondaryPhone', 'sponsorView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{sponsorList}"/>  
@@ -55,7 +61,7 @@
           </f:facet>  
           <h:outputText value="#{_sponsor.contactDetails.secondaryPhone}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('email', 'sponsorView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{sponsorList}"/>  
@@ -65,7 +71,7 @@
           </f:facet>  
           <h:outputText value="#{_sponsor.contactDetails.email}"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'sponsorView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{sponsorList}"/>  
@@ -74,10 +80,10 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_sponsor.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_sponsor', 'view')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -86,7 +92,7 @@
             <f:param name="sponsorId" value="#{_sponsor.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_sponsor', 'edit')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -108,7 +114,10 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{sponsorAction.setSponsorIdForModalDlg(_sponsor.id)}" rendered="#{s:hasPermission(_sponsor, 'edit')}" oncomplete="Richfaces.showModalPanel('SponsorModalPanel',{});" value="Quick Edit"/> 
+          <a:commandLink action="#{sponsorAction.setSponsorIdForModalDlg(_sponsor.id)}" rendered="#{s:hasPermission(_sponsor, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
         </h:column> 
       </rich:dataTable> 
     </a:form> 

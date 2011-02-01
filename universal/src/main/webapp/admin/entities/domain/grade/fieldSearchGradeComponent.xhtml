@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.grade_name} * "/>  
+      <h:outputText value="#{msg.grade_name} * " rendered="#{s:hasPermission('name', 'gradeEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{gradeList.grade.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.grade_exams}  "/>  
+      <h:outputText value="#{msg.grade_exams}  " rendered="#{s:hasPermission('exams', 'gradeEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="exams" value="#{ gradeList.examToSearch}"> 
         <s:selectItems value="#{examList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -20,7 +20,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.grade_ordinal}  "/>  
+      <h:outputText value="#{msg.grade_ordinal}  " rendered="#{s:hasPermission('ordinal', 'gradeEdit')}"/>  
       <br/>  
       <h:inputText id="ordinal_begin" value="#{gradeList.ordinalRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
@@ -30,10 +30,14 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.grade_section}  "/>  
+      <h:outputText value="#{msg.grade_section}  " rendered="#{s:hasPermission('section', 'gradeEdit')}"/>  
       <br/>  
       <h:inputText id="section" value="#{gradeList.grade.section}"/> 
-    </h:panelGroup>  
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
     <rich:calendar id="from" value="#{gradeList.dateCreatedRange.begin}"/>  
     <rich:calendar id="to" value="#{gradeList.dateCreatedRange.end}"/> 
   </h:panelGrid> 

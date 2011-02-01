@@ -37,6 +37,7 @@ import org.jboss.seam.annotations.Observer;
 
 import com.oreon.tapovan.domain.Student;
 import com.oreon.tapovan.domain.GradeSubject;
+import com.oreon.tapovan.domain.GradeFee;
 
 public abstract class GradeActionBase extends BaseAction<Grade>
 		implements
@@ -56,6 +57,7 @@ public abstract class GradeActionBase extends BaseAction<Grade>
 	public void setGradeId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -69,6 +71,7 @@ public abstract class GradeActionBase extends BaseAction<Grade>
 	 */
 	public void setGradeIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 
@@ -134,15 +137,18 @@ public abstract class GradeActionBase extends BaseAction<Grade>
 
 		initListGradeSubjects();
 
+		initListGradeFees();
+
 		initListExams();
+		initListAvailableExams();
 
 	}
 
 	public void updateAssociations() {
 
-		com.oreon.tapovan.domain.Student student = (com.oreon.tapovan.domain.Student) org.jboss.seam.Component
+		com.oreon.tapovan.domain.Student students = (com.oreon.tapovan.domain.Student) org.jboss.seam.Component
 				.getInstance("student");
-		student.setGrade(grade);
+		students.setGrade(grade);
 		events.raiseTransactionSuccessEvent("archivedStudent");
 
 	}
@@ -221,6 +227,43 @@ public abstract class GradeActionBase extends BaseAction<Grade>
 		getListGradeSubjects().add(gradeSubjects);
 	}
 
+	protected List<com.oreon.tapovan.domain.GradeFee> listGradeFees = new ArrayList<com.oreon.tapovan.domain.GradeFee>();
+
+	void initListGradeFees() {
+
+		if (listGradeFees.isEmpty())
+			listGradeFees.addAll(getInstance().getGradeFees());
+
+	}
+
+	public List<com.oreon.tapovan.domain.GradeFee> getListGradeFees() {
+
+		prePopulateListGradeFees();
+		return listGradeFees;
+	}
+
+	public void prePopulateListGradeFees() {
+	}
+
+	public void setListGradeFees(
+			List<com.oreon.tapovan.domain.GradeFee> listGradeFees) {
+		this.listGradeFees = listGradeFees;
+	}
+
+	public void deleteGradeFees(int index) {
+		listGradeFees.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addGradeFees() {
+		initListGradeFees();
+		GradeFee gradeFees = new GradeFee();
+
+		gradeFees.setGrade(getInstance());
+
+		getListGradeFees().add(gradeFees);
+	}
+
 	protected List<com.oreon.tapovan.domain.Exam> listExams = new ArrayList<com.oreon.tapovan.domain.Exam>();
 
 	void initListExams() {
@@ -253,8 +296,9 @@ public abstract class GradeActionBase extends BaseAction<Grade>
 
 	}
 
+	@Begin(join = true)
 	public List<com.oreon.tapovan.domain.Exam> getListAvailableExams() {
-		initListAvailableExams();
+
 		prePopulateListAvailableExams();
 		return listAvailableExams;
 	}
@@ -279,6 +323,11 @@ public abstract class GradeActionBase extends BaseAction<Grade>
 			getInstance().getGradeSubjects().addAll(listGradeSubjects);
 		}
 
+		if (listGradeFees != null) {
+			getInstance().getGradeFees().clear();
+			getInstance().getGradeFees().addAll(listGradeFees);
+		}
+
 		if (listExams != null) {
 			getInstance().getExams().clear();
 			getInstance().getExams().addAll(listExams);
@@ -288,6 +337,7 @@ public abstract class GradeActionBase extends BaseAction<Grade>
 	public void clearLists() {
 		listStudents.clear();
 		listGradeSubjects.clear();
+		listGradeFees.clear();
 
 		listExams.clear();
 

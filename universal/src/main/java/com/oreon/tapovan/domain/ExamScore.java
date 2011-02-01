@@ -44,6 +44,7 @@ import org.witchcraft.utils.*;
 @Filter(name = "archiveFilterDef")
 @Name("examScore")
 @Indexed
+@Cache(usage = CacheConcurrencyStrategy.NONE)
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
@@ -69,7 +70,9 @@ public class ExamScore extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Student getStudent() {
+
 		return student;
+
 	}
 
 	public void setMarks(Integer marks) {
@@ -77,7 +80,9 @@ public class ExamScore extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Integer getMarks() {
+
 		return marks;
+
 	}
 
 	public void setExamInstance(ExamInstance examInstance) {
@@ -85,7 +90,9 @@ public class ExamScore extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public ExamInstance getExamInstance() {
+
 		return examInstance;
+
 	}
 
 	@Transient

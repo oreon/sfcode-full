@@ -7,34 +7,34 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.person_firstName}  "/>  
+        <h:outputText value="#{msg.person_firstName}  " rendered="#{s:hasPermission('firstName', 'sponsorEdit')}"/>  
         <br/>  
         <h:inputText id="firstName" value="#{sponsorAction.sponsor.firstName}"/>  
-        <h:message styleClass="error errors" for="firstName"/> 
+        <rich:message styleClass="error errors" for="firstName" rendered="#{s:hasPermission('firstName', 'sponsorEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.person_lastName}  "/>  
+        <h:outputText value="#{msg.person_lastName}  " rendered="#{s:hasPermission('lastName', 'sponsorEdit')}"/>  
         <br/>  
         <h:inputText id="lastName" value="#{sponsorAction.sponsor.lastName}"/>  
-        <h:message styleClass="error errors" for="lastName"/> 
+        <rich:message styleClass="error errors" for="lastName" rendered="#{s:hasPermission('lastName', 'sponsorEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'sponsorEdit')}"/>  
         <br/>  
         <h:inputText id="contactDetails_primaryPhone" value="#{sponsorAction.sponsor.contactDetails.primaryPhone}"/>  
-        <h:message styleClass="error errors" for="contactDetails_primaryPhone"/> 
+        <rich:message styleClass="error errors" for="contactDetails_primaryPhone" rendered="#{s:hasPermission('primaryPhone', 'sponsorEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'sponsorEdit')}"/>  
         <br/>  
         <h:inputText id="contactDetails_secondaryPhone" value="#{sponsorAction.sponsor.contactDetails.secondaryPhone}"/>  
-        <h:message styleClass="error errors" for="contactDetails_secondaryPhone"/> 
+        <rich:message styleClass="error errors" for="contactDetails_secondaryPhone" rendered="#{s:hasPermission('secondaryPhone', 'sponsorEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.contactDetails_email}  "/>  
+        <h:outputText value="#{msg.contactDetails_email}  " rendered="#{s:hasPermission('email', 'sponsorEdit')}"/>  
         <br/>  
         <h:inputText id="contactDetails_email" value="#{sponsorAction.sponsor.contactDetails.email}"/>  
-        <h:message styleClass="error errors" for="contactDetails_email"/> 
+        <rich:message styleClass="error errors" for="contactDetails_email" rendered="#{s:hasPermission('email', 'sponsorEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

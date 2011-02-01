@@ -58,6 +58,7 @@ public abstract class ExamInstanceActionBase extends BaseAction<ExamInstance>
 	public void setExamInstanceId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -71,6 +72,7 @@ public abstract class ExamInstanceActionBase extends BaseAction<ExamInstance>
 	 */
 	public void setExamInstanceIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 
@@ -133,13 +135,13 @@ public abstract class ExamInstanceActionBase extends BaseAction<ExamInstance>
 		getInstance();
 
 		com.oreon.tapovan.domain.Exam exam = examAction.getDefinedInstance();
-		if (exam != null) {
+		if (exam != null && isNew()) {
 			getInstance().setExam(exam);
 		}
 
 		com.oreon.tapovan.domain.GradeSubject gradeSubject = gradeSubjectAction
 				.getDefinedInstance();
-		if (gradeSubject != null) {
+		if (gradeSubject != null && isNew()) {
 			getInstance().setGradeSubject(gradeSubject);
 		}
 

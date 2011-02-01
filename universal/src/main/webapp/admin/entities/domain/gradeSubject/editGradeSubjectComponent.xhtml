@@ -4,28 +4,75 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{gradeSubjectAction.load(gradeSubjectId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="GradeSubject "/> 
-        </f:facet>  
-        <h:outputText value="#{msg.gradeSubject_subject}  "/>  
-        <h:selectOneMenu id="subject" label="#{msg.gradeSubject_subject}" value="#{gradeSubjectAction.gradeSubject.subject}" required="true"> 
+        <h:outputText value="#{msg.gradeSubject_subject}  " rendered="#{s:hasPermission('subject', 'gradeSubjectEdit')}"/>  
+        <h:selectOneMenu id="subject" label="#{msg.gradeSubject_subject}" value="#{gradeSubjectAction.gradeSubject.subject}" required="true" rendered="#{s:hasPermission('subject', 'gradeSubjectEdit')}"> 
           <s:selectItems value="#{subjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="subject"/>  
-        <h:outputText value="#{msg.gradeSubject_employee}  "/>  
-        <h:selectOneMenu id="employee" label="#{msg.gradeSubject_employee}" value="#{gradeSubjectAction.gradeSubject.employee}" required="false"> 
+        <rich:message styleClass="error errors" for="subject" rendered="#{s:hasPermission('subject', 'gradeSubjectEdit')}"/>  
+        <h:outputText value="#{msg.gradeSubject_employee}  " rendered="#{s:hasPermission('employee', 'gradeSubjectEdit')}"/>  
+        <h:selectOneMenu id="employee" label="#{msg.gradeSubject_employee}" value="#{gradeSubjectAction.gradeSubject.employee}" required="false" rendered="#{s:hasPermission('employee', 'gradeSubjectEdit')}"> 
           <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="employee"/>  
-        <h:outputText value="#{msg.gradeSubject_grade}  "/>  
-        <h:selectOneMenu id="grade" label="#{msg.gradeSubject_grade}" value="#{gradeSubjectAction.gradeSubject.grade}" required="true"> 
+        <rich:message styleClass="error errors" for="employee" rendered="#{s:hasPermission('employee', 'gradeSubjectEdit')}"/>  
+        <h:outputText value="#{msg.gradeSubject_grade}  " rendered="#{s:hasPermission('grade', 'gradeSubjectEdit')}"/>  
+        <h:selectOneMenu id="grade" label="#{msg.gradeSubject_grade}" value="#{gradeSubjectAction.gradeSubject.grade}" required="true" rendered="#{s:hasPermission('grade', 'gradeSubjectEdit')}"> 
           <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onblur"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="grade"/> 
-      </h:panelGrid> 
+        <rich:message styleClass="error errors" for="grade" rendered="#{s:hasPermission('grade', 'gradeSubjectEdit')}"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New CourseDocumentse" action="#{gradeSubjectAction.addCourseDocumentses}" reRender="courseDocumentses" rendered="#{s:hasPermission('courseDocumentses', 'gradeSubjectEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="courseDocumentses" var="_courseDocuments" rendered="#{s:hasPermission('courseDocumentses', 'gradeSubjectEdit')}" value="#{gradeSubjectAction.listCourseDocumentses}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.courseDocuments_name}  " rendered="#{s:hasPermission('name', 'courseDocumentsEdit')}"/>
+          </f:facet>  
+          <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'courseDocumentsEdit')}" label="#{msg.courseDocuments_name}" required="false" value="#{_courseDocuments.name}"> 
+            <rich:ajaxValidator event="onblur"/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'courseDocumentsEdit')}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.courseDocuments_document}  " rendered="#{s:hasPermission('document', 'courseDocumentsEdit')}"/>
+          </f:facet>  
+          <h:panelGroup> 
+            <s:div rendered="#{_courseDocuments.id &gt; 0 }"> 
+              <c:choose> 
+                <c:when test="${_courseDocuments.contentType.startsWith('image')}"> 
+                  <s:graphicImage value="#{_courseDocuments.data}"/> 
+                </c:when>  
+                <c:otherwise> 
+                  <s:link value="#{_courseDocuments.name}" action="#{courseDocumentsAction.downloadDocument(null)}" propagation="none"> 
+                    <f:param name="currentEntityId" value="#{courseDocumentsAction.instance.id}"/> 
+                  </s:link> 
+                </c:otherwise> 
+              </c:choose> 
+            </s:div>  
+            <s:div rendered="#{_courseDocuments.id == null }"> 
+              <s:fileUpload contentType="#{_courseDocuments.contentType}" data="#{_courseDocuments.data}" fileName="#{_courseDocuments.name}"/> 
+            </s:div> 
+          </h:panelGroup>  
+          <rich:message styleClass="error errors" for="document" rendered="#{s:hasPermission('document', 'courseDocumentsEdit')}"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New CourseDocumentse" action="#{gradeSubjectAction.addCourseDocumentses}" reRender="courseDocumentses" rendered="#{s:hasPermission('courseDocumentses', 'courseDocumentsEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{gradeSubjectAction.deleteCourseDocumentses(rowIndex)}" reRender="courseDocumentses"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

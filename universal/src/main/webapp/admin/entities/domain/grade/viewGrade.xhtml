@@ -19,20 +19,24 @@
     <br/>  
     <rich:tabPanel> 
       <rich:tab label="Students" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="GradeModalPanel-students"/>  
         <ui:include src="/admin/entities/domain/student/listStudentComponent.xhtml"> 
-          <ui:param name="records" value="#{studentList.getStudentsByGrade(gradeAction.instance)}"/> 
+          <ui:param name="records" value="#{studentList.getStudentsByGrade(gradeAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/> 
         </ui:include>  
         <a:form> 
           <s:button value="Create New" view="/admin/entities/domain/student/editStudent.xhtml"> 
             <f:param name="gradeId" value="#{gradeAction.instance.id}"/>  
             <f:param name="studentId" value="0"/> 
           </s:button>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('StudentModalPanel',{});" value="Quick Create"> 
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"> 
             <a:actionparam name="studentId" assignTo="#{studentAction.studentId}" value="0"/>  
             <a:actionparam name="gradeId" assignTo="#{studentAction.gradeId}" value="#{gradeAction.instance.id}"/> 
           </a:commandButton> 
         </a:form>  
-        <ui:include src="/admin/entities/domain/student/modalDlgStudentComponent.xhtml"/> 
+        <ui:include src="/admin/entities/domain/student/modalDlgStudentComponent.xhtml"> 
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include> 
       </rich:tab> 
     </rich:tabPanel>  
     <br/>  
