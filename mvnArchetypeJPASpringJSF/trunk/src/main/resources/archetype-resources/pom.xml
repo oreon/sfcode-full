@@ -6,7 +6,7 @@
 	<version>${version}</version>
 	<packaging>war</packaging>
 		<build>
-		<finalName>${artifactId}</finalName>
+		<finalName>firstwcproj</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
@@ -26,7 +26,7 @@
 							implementation="org.mortbay.jetty.security.SslSocketConnector">
 							<port>8443</port>
 							<maxIdleTime>60000</maxIdleTime>
-							<keystore>${basedir}/src/etc/keystore</keystore>
+							<keystore>C:\dev\tmp/src/etc/keystore</keystore>
 							<password>password</password>
 							<keyPassword>password</keyPassword>
 						</connector>
@@ -44,123 +44,30 @@
 					<encoding>utf-8</encoding>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<configuration>
-					<additionalProjectFacets>
-						<jst.jsf>1.2</jst.jsf>
-						<jst.web>2.5</jst.web>
-						<jst.java>5.0</jst.java>
-					</additionalProjectFacets>
-					<additionalProjectnatures>
-						<projectnature>
-							org.eclipse.wst.common.project.facet.core.nature
-						</projectnature>
-						<projectnature>
-							org.eclipse.jdt.core.javanature
-						</projectnature>
-						<projectnature>
-							org.eclipse.wst.common.modulecore.ModuleCoreNature
-						</projectnature>
-						<projectnature>
-							org.eclipse.jem.workbench.JavaEMFNature
-						</projectnature>
-					</additionalProjectnatures>
-					<additionalBuildcommands>
-						<buildcommand>
-							org.eclipse.wst.common.project.facet.core.builder
-						</buildcommand>
-						<buildcommand>
-							org.eclipse.wst.validation.validationbuilder
-						</buildcommand>
-					</additionalBuildcommands>
-					<additionalConfig>
-						<file>
-							<name>
-								.settings\org.eclipse.wst.common.project.facet.core.xml
-							</name>
-							<content>
-								&lt;faceted-project> &lt;fixed
-								facet="jst.web"/> &lt;fixed
-								facet="jst.java"/> &lt;installed
-								facet="jst.java" version="5.0"/>
-								&lt;installed facet="jst.web"
-								version="2.5"/> &lt;installed
-								facet="jst.jsf" version="1.2"/>
-								&lt;/faceted-project>
-							</content>
-						</file>
-						<file>
-							<name>
-								.settings\org.eclipse.jdt.core.prefs
-							</name>
-							<content>
-								#Wed Sep 19 12:07:27 EDT 2007
-								eclipse.preferences.version=1
-								org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.5
-								org.eclipse.jdt.core.compiler.compliance=1.5
-								org.eclipse.jdt.core.compiler.problem.assertIdentifier=error
-								org.eclipse.jdt.core.compiler.problem.enumIdentifier=error
-								org.eclipse.jdt.core.compiler.source=1.5
-							</content>
-						</file>
-						<file>
-							<name>
-								.settings\org.eclipse.jst.common.project.facet.core.prefs
-							</name>
-							<content>
-								#Wed Sep 19 12:07:29 EDT 2007
-								classpath.helper/org.eclipse.jdt.launching.JRE_CONTAINER\:\:org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType\:\:jre1.6.0_02/owners=jst.java\:5.0
-								classpath.helper/org.eclipse.jst.server.core.container\:\:org.eclipse.jst.server.tomcat.runtimeTarget\:\:Apache\
-								Tomcat\ v6.0/owners=jst.web\:2.5
-								eclipse.preferences.version=1
-							</content>
-						</file>
-					</additionalConfig>
-					<wtpversion>1.5</wtpversion>
-				</configuration>
-			</plugin>
+			
 		</plugins>
 	</build>
 	<repositories>
+	
+	
 		<repository>
-			<releases />
+			<id>jboss-repo</id>
+			<name>JBoss Maven 2 repo</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
-			<id>jboss</id>
-			<url>http://repository.jboss.com/maven2</url>
-		</repository>
-		<repository>
-			<id>oweb</id>
-			<url>http://maven.objectweb.org/maven2/</url>
-		</repository>
-		<repository>
-			<releases />
-			<snapshots />
-			<id>jboss-snapshot</id>
-			<url>http://snapshots.jboss.org/maven2</url>
 		</repository>
 		<repository>
 			<releases />
 			<snapshots />
 			<id>oreon-repo</id>
-			<url>http://oreonconsulting.com/m2</url>
+			<url>http://witchcraftmda.com/m2</url>
 		</repository>
-		<repository>
-			<id>apache-repo</id>
-			<name>apache-repo</name>
-			<url>
-				http://myfaces.zones.apache.org/dist/maven-repository
-			</url>
-		</repository>
-		<repository>
-			<id>java.net</id>
-			<url>
-				https://maven-repository.dev.java.net/nonav/repository
-			</url>
-			<layout>legacy</layout>
-		</repository>
+
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
@@ -171,19 +78,7 @@
 			<id>jboss-plugins</id>
 			<url>http://repository.jboss.com/maven2</url>
 		</pluginRepository>
-		<pluginRepository>
-			<releases />
-			<snapshots />
-			<id>jboss-snapshot-plugins</id>
-			<url>http://snapshots.jboss.org/maven2</url>
-		</pluginRepository>
-		<pluginRepository>
-			<id>java.net</id>
-			<url>
-				https://maven-repository.dev.java.net/nonav/repository
-			</url>
-			<layout>legacy</layout>
-		</pluginRepository>
+		
 		<pluginRepository>
 			<releases>
 				<updatePolicy>daily</updatePolicy>
@@ -288,11 +183,29 @@
 			<artifactId>mdasupport</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
+		<!--  
 		<dependency>
 			<groupId>org.witchcraft.generator</groupId>
 			<artifactId>wcgenerator</artifactId> 
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		-->
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-common</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-core</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-snowball</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		
 	</dependencies>
 	
 	<reporting>
@@ -339,14 +252,7 @@
 					</rulesets>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<configuration>
-					<configLocation>
-						http://10.20.101.90/checkstyle/sitacs.xml
-					</configLocation>
-				</configuration>
-			</plugin>
+			
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>taglist-maven-plugin</artifactId>
