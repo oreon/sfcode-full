@@ -227,6 +227,13 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		downloadAttachment(getInstance().get«e.name.toFirstUpper()»());
 		return "success";
 	}
+	
+	public void «e.name»UploadListener(UploadEvent event) throws Exception {
+		  UploadItem uploadItem = event.getUploadItem();
+		  getInstance().get«e.name.toFirstUpper()»().setName(uploadItem.getFileName());
+		  getInstance().get«e.name.toFirstUpper()»().setContentType(uploadItem.getContentType());
+		  getInstance().get«e.name.toFirstUpper()»().setData(FileUtils.readFileToByteArray( uploadItem.getFile() )); 
+	}
 	«ENDFOREACH»
 	
 	
@@ -421,5 +428,11 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
+
+
+import org.apache.commons.io.FileUtils;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
+
 «ENDDEFINE»
 
