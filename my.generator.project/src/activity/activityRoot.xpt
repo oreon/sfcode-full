@@ -4,7 +4,7 @@
 «EXTENSION template::GeneratorExtensions»
 «EXTENSION template::webExtensions»
 «EXTENSION template::associationExtensions»
-
+«EXTENSION activity::activity»
 
 «DEFINE Root FOR uml::Model»
 	«EXPAND genNavigation FOR this»
@@ -57,7 +57,7 @@
 
 «DEFINE gen(uml::Activity activity) FOR wcprofile::WorkflowSwimlane»
 	<swimlane name="«name.removeSpaces()»" >
-		<assignment «IF actorId != null»actor-id="«actorId»" «ENDIF»  «IF pooledActors != null»pooled-actors="«pooledActors»" «ENDIF»
+		<assignment «IF actorId != null»actor-id="«getActorId()»" «ENDIF»  «IF pooledActors != null»pooled-actors="«getPooledActors()»" «ENDIF»
 		  «IF assignmentClass != null»class="«assignmentClass»"«ENDIF»  />
 	</swimlane>
 «ENDDEFINE»
