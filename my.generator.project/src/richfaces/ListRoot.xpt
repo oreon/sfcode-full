@@ -238,7 +238,8 @@
 			</ui:include>
 		</f:facet>
 		«IF isFile()»
-			<s:link value="#{_«genPropertyLabel()».name}"  action="#{«class.asVar()»Action.download«name.toFirstUpper()»(_«class.asVar()».id)}" propagation="none" >
+			<s:link value="#{_«genPropertyLabel()».name}"  action="#{«class.asVar()»Action.download«name.toFirstUpper()»(_«class.asVar()».id)}" 
+			propagation="none" >
 				<f:param name="currentEntityId" value="#{_«class.asVar()».id}" />
           </s:link> 
 		«ELSEIF isDate()»
@@ -252,7 +253,7 @@
 				<f:convertNumber pattern="$#,##0.00"/>
 			</h:outputText>
 		«ELSE»
-			<h:outputText value="#{_«genPropertyLabel()»}" />	
+			<h:outputText value="#{_«genPropertyLabel()»}"  escape="false" />	
 		«ENDIF»
 	</h:column>
 «ENDDEFINE»
@@ -262,7 +263,7 @@
 		<f:facet name="header">
 			<h:outputText value="«msgBundleKey()-»" />
 		</f:facet>
-	 <h:outputText value="#{«getCurrentEntity().asVar()».«this»«this == "createdByUser"?".displayName":""»}" />
+	 <h:outputText  escape="false" value="#{«getCurrentEntity().asVar()».«this»«this == "createdByUser"?".displayName":""»}" />
 	</h:column>
 «ENDDEFINE»
 
