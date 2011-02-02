@@ -388,8 +388,25 @@
 «ENDLET»
 «ENDDEFINE»
 
-
 «DEFINE genFilePropertyEntry FOR uml::Property-»
+	«IF isCurrentEditMode() » 
+      <h:panelGroup> 
+          <h:outputText value="Current File:" /> <s:link value="#{«getActionForMode()»«class.asVar()-».«name».name}" id="«name»_file" 
+          	action="#{«getActionForMode()»downloadFile(null)}" propagation="none"> 
+              <f:param name="currentEntityId" value="#{«getActionForMode()»instance.id}" /> 
+            </s:link> 
+        <rich:fileUpload fileUploadListener="#{«getActionForMode()»«name»UploadListener}"  immediateUpload="true" ajaxSingle="true" 
+        	autoclear="false"  listHeight="50">
+        	<s:conversationPropagation type="join" />
+        	 <a:support event="onuploadcomplete" reRender="«name»_file" />
+        </rich:fileUpload>
+        </h:panelGroup>
+    «ELSE» 
+		«EXPAND getFileView » 
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genFilePropertyEntryOrg FOR uml::Property-»
 	«LET "_" + getCurrentEntity().asVar() AS currentFile»
 	«IF isCurrentEditMode() »  
 		<h:panelGroup>
