@@ -36,12 +36,10 @@ public interface «name»WebService {
     public List<«name»> findByExample(«name» example«name»);
     
     public void save(«name» «name.toFirstLower()»);
+    
+    «EXPAND template::Root::genOperationDecl FOREACH getAllOperations()»
 
-    /* Advanced usecase of passing an Interface in.  JAX-WS/JAXB does not
-     * support interfaces directly.  Special XmlAdapter classes need to
-     * be written to handle them
-     */
-    //String sayHiToUser(Employee user);
+    
 }
 «ENDFILE»
 «ENDDEFINE»
@@ -54,26 +52,44 @@ public interface «name»WebService {
 package « getWebSvcPackageName() »;
 import javax.jws.WebService;
 import java.util.List;
+import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Name;
 
 import «fqn()»;
 
 
 @WebService(endpointInterface = "«getWebSvcPackageName()  + "." + name»WebService", serviceName = "«name»WebService")
+@Name("«name.toFirstLower()»WebService")
 public class «name»WebServiceImpl implements «name»WebService {
- 
+ 	
+ 	 @In(create = true)
+	 «getActionFqn()» «getAction()»;
+ 	
      public «name» loadById(Long id){
-     	
-     	return null;
+     	return «getAction()».loadFromId(id);
      }
     
     public List<«name»> findByExample(«name» example«name»){
-    	return null;
+    	return «getAction()».search(example«name»);
     }
     
     public void save(«name» «name.toFirstLower()»){
+    	«getAction()».persist(«name.toFirstLower()»);
     }
+    
+    «EXPAND genOperation FOREACH getAllOperations()»
+    
+
 }
 «ENDFILE»
+«ENDDEFINE»
+
+
+ «REM»Create a delegate for a business operation «ENDREM»
+«DEFINE genOperation FOR uml::Operation»
+«visibility» «getOpReturnType()» «getOpReturnTypeTemplateParam()»  «name» («getParametersSignature()»){ 
+	«IF type != null» return «ENDIF» «class.getAction()».«name»(«getParameters()»);
+}
 «ENDDEFINE»
 
 
