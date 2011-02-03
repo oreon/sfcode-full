@@ -37,36 +37,37 @@ public class IssueAction extends IssueActionBase implements
 
 	@In(create = true)
 	EmployeeAction employeeAction;
-	
-	//@In(create=true)
-	//PooledTaskInstanceList pooledTaskInstanceList;
-	
-	//@In
-	//protected JbpmContext jbpmContext;
+
+	// @In(create=true)
+	// PooledTaskInstanceList pooledTaskInstanceList;
+
+	// @In
+	// protected JbpmContext jbpmContext;
 
 	@Override
-	
 	public String save() {
 		Employee prevDeveloper = null;
-		if(!isNew())
-			prevDeveloper = getEntityManager().find(Issue.class, getId()).getDeveloper();	
-		
+		if (!isNew())
+			prevDeveloper = getEntityManager().find(Issue.class, getId())
+					.getDeveloper();
+
 		boolean isNew = isNew();
 		String ret = super.save();
-		
+
 		if (isNew) {
 			launchProcess();
 			getInstance().setProcessId(ProcessInstance.instance().getId());
-		}else{
-			
-			bugManagement.updateUserForPooledTask(getInstance().getDeveloper().getUser().getUserName(), getInstance().getProcessId(),
-					getInstance() );
+		} else {
+			if (getInstance().getDeveloper() != null)
+				bugManagement.updateUserForPooledTask(getInstance()
+						.getDeveloper().getUser().getUserName(), getInstance()
+						.getProcessId(), getInstance());
 		}
 
 		super.save();
 		return ret;
 	}
-	
+
 	@Override
 	public String saveWithoutConversation() {
 		// TODO Auto-generated method stub
@@ -84,8 +85,8 @@ public class IssueAction extends IssueActionBase implements
 		}
 		return token;
 	}
-	
-	public Issue refreshToken(Issue toke){
+
+	public Issue refreshToken(Issue toke) {
 		return loadFromId(toke.getId());
 	}
 
@@ -94,7 +95,7 @@ public class IssueAction extends IssueActionBase implements
 		load(getToken().getId());
 		getInstance().setDeveloper(employeeAction.getCurrentLoggedInEmployee());
 		token.setDeveloper(employeeAction.getCurrentLoggedInEmployee());
-		 bugManagement.getTask().setVariable("token", token);
+		bugManagement.getTask().setVariable("token", token);
 		save();
 	}
 
@@ -140,8 +141,7 @@ public class IssueAction extends IssueActionBase implements
 		Producer producer = new Producer(factory, "test", issue);
 		producer.run();
 		producer.close();
-		
-		
+
 	}
 
 	public static void main(String[] args) {
