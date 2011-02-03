@@ -35,6 +35,10 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
+import org.apache.commons.io.FileUtils;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
+
 import org.wc.trackrite.schedule.ScheduleItem;
 
 public abstract class ScheduleActionBase extends BaseAction<Schedule>

@@ -35,6 +35,10 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
+import org.apache.commons.io.FileUtils;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
+
 import org.wc.trackrite.domain.Employee;
 
 public abstract class DepartmentActionBase extends BaseAction<Department>

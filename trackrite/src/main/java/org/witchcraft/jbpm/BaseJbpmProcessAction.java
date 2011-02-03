@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.jboss.seam.Component;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
+import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Transactional;
 import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.bpm.ManagedJbpmContext;
@@ -30,6 +31,7 @@ import org.witchcraft.base.entity.BusinessEntity;
  * 
  */
 @Transactional
+@Name("jbpmProcessAction")
 public class BaseJbpmProcessAction {
 
 	public static final String PROCESS_ACTION_SUFFIX = "ProcessAction";

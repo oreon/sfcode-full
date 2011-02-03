@@ -29,7 +29,7 @@
               <ui:param name="propertyPath" value="issue.title"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_issue.title}"/> 
+          <h:outputText value="#{_issue.title}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('description', 'issueView'  )}"> 
           <f:facet name="header"> 
@@ -39,7 +39,7 @@
               <ui:param name="propertyPath" value="issue.description"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_issue.description}"/> 
+          <h:outputText value="#{_issue.description}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('project', 'issueView'  )}"> 
           <f:facet name="header"> 
@@ -62,7 +62,7 @@
               <ui:param name="propertyPath" value="issue.status"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_issue.status}"/> 
+          <h:outputText value="#{_issue.status}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('priority', 'issueView'  )}"> 
           <f:facet name="header"> 
@@ -72,7 +72,7 @@
               <ui:param name="propertyPath" value="issue.priority"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_issue.priority}"/> 
+          <h:outputText value="#{_issue.priority}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('developer', 'issueView'  )}"> 
           <f:facet name="header"> 
@@ -107,7 +107,7 @@
               <ui:param name="propertyPath" value="issue.estimate"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_issue.estimate}"/> 
+          <h:outputText value="#{_issue.estimate}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creator', 'issueView'  )}"> 
           <f:facet name="header"> 
@@ -117,7 +117,7 @@
               <ui:param name="propertyPath" value="issue.creator"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_issue.creator}"/> 
+          <h:outputText value="#{_issue.creator}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('category', 'issueView'  )}"> 
           <f:facet name="header"> 
@@ -127,15 +127,10 @@
               <ui:param name="propertyPath" value="issue.category"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_issue.category.displayName}" action="viewCategory"  propagation="join"> 
+          <s:link value="#{_issue.category.displayName}" action="viewCategory" propagation="none"> 
             <f:param name="categoryId" value="#{_issue.category.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
-          <rich:spacer></rich:spacer>
-           <a:commandLink value="#{_issue.category.displayName}" action="viewCategory"  > 
-            <f:param name="categoryId" value="2"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </a:commandLink>
         </h:column>  
         <h:column rendered="#{s:hasPermission('file', 'issueView'  )}"> 
           <f:facet name="header"> 
@@ -157,7 +152,7 @@
               <ui:param name="propertyPath" value="issue.severity"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_issue.severity}"/> 
+          <h:outputText value="#{_issue.severity}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('qa', 'issueView'  )}"> 
           <f:facet name="header"> 

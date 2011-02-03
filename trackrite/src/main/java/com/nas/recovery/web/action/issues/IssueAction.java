@@ -20,6 +20,7 @@ import org.witchcraft.exceptions.ContractViolationException;
 
 import com.nas.recovery.web.action.domain.EmployeeAction;
 import com.nas.recovery.web.action.workflowmgt.BugManagement;
+import com.nas.recovery.web.action.workflowmgt.BugManagementProcessAction;
 
 import org.jbpm.taskmgmt.exe.TaskInstance;
 
@@ -32,7 +33,7 @@ public class IssueAction extends IssueActionBase implements
 	Issue token;
 
 	@In(create = true, value = "bugManagementProcessAction")
-	BugManagement bugManagement;
+	BugManagementProcessAction bugManagement;
 
 	@In(create = true)
 	EmployeeAction employeeAction;

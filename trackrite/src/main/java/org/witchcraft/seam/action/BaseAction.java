@@ -318,6 +318,8 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		Conversation.instance().endAndRedirect();
 		return null;
 	}
+	
+	
 
 	@SuppressWarnings("unchecked")
 	public T loadFromId(Long entityId) {
@@ -403,8 +405,9 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		
 	}
 
-	public void search() {
+	public List<T> search(T t) {
 		Criteria criteria = createExampleCriteria();
+		return criteria.list();
 		// setEntityList(criteria.list());
 	}
 

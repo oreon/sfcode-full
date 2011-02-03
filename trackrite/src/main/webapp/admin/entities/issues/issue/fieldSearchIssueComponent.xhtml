@@ -111,6 +111,15 @@
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 
       </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.issue_milestoneReleases}  " rendered="#{s:hasPermission('milestoneReleases', 'issueEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="milestoneReleases" value="#{ issueList.milestoneReleaseToSearch}"> 
+        <s:selectItems value="#{milestoneReleaseList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

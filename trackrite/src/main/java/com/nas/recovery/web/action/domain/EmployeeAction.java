@@ -2,15 +2,13 @@ package com.nas.recovery.web.action.domain;
 
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
-import org.jboss.seam.bpm.ManagedJbpmContext;
-import org.jbpm.graph.exe.ExecutionContext;
 import org.jbpm.taskmgmt.exe.TaskInstance;
 import org.wc.trackrite.users.Role;
 
 import com.nas.recovery.web.action.users.RoleAction;
-import com.nas.recovery.web.action.workflowmgt.Play;
+import com.nas.recovery.web.action.workflowmgt.PlayProcessAction;
 
-//// CMTD @Scope(ScopeType.CONVERSATION)
+//// CMTD @Scope(ScopeTsype.CONVERSATION)
 @Name("employeeAction")
 public class EmployeeAction extends EmployeeActionBase implements
 		java.io.Serializable {
@@ -22,7 +20,7 @@ public class EmployeeAction extends EmployeeActionBase implements
 	//ExecutionContext executionContext;
 	
 	@In(create=true, value="playProcessAction") 
-	Play play;
+	PlayProcessAction play;
 	
 	@Override
 	public String save() {

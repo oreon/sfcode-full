@@ -10,9 +10,14 @@ import org.jboss.seam.annotations.bpm.StartTask;
 import org.jbpm.JbpmContext;
 import org.witchcraft.jbpm.BaseJbpmProcessAction;
 
-public class PlayBase extends BaseJbpmProcessAction
+public class PlayProcessActionBase extends BaseJbpmProcessAction
 		implements
 			java.io.Serializable {
+
+	@CreateProcess(definition = "play")
+	public void startProcess() {
+
+	}
 
 	@StartTask
 	public void startFirstTask() {
@@ -43,12 +48,12 @@ public class PlayBase extends BaseJbpmProcessAction
 
 	}
 
-	@EndTask(transition = "proceedToFourth")
-	public void proceedToFourthThird() {
-
-	}
 	@EndTask(transition = "timeout")
 	public void timeoutThird() {
+
+	}
+	@EndTask(transition = "proceedToFourth")
+	public void proceedToFourthThird() {
 
 	}
 
