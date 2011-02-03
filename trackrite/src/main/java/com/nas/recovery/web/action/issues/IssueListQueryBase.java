@@ -34,6 +34,17 @@ public abstract class IssueListQueryBase extends BaseQuery<Issue, Long> {
 		return issue;
 	}
 
+	private org.wc.trackrite.issues.MilestoneRelease milestoneReleaseToSearch;
+
+	public void setMilestoneReleaseToSearch(
+			org.wc.trackrite.issues.MilestoneRelease milestoneReleaseToSearch) {
+		this.milestoneReleaseToSearch = milestoneReleaseToSearch;
+	}
+
+	public org.wc.trackrite.issues.MilestoneRelease getMilestoneReleaseToSearch() {
+		return milestoneReleaseToSearch;
+	}
+
 	@Override
 	protected String getql() {
 		return EJBQL;
@@ -93,6 +104,8 @@ public abstract class IssueListQueryBase extends BaseQuery<Issue, Long> {
 			"issue.severity = #{issueList.issue.severity}",
 
 			"issue.qa.id = #{issueList.issue.qa.id}",
+
+			"#{issueList.milestoneReleaseToSearch} in elements(issue.milestoneReleases)",
 
 			"issue.dateCreated <= #{issueList.dateCreatedRange.end}",
 			"issue.dateCreated >= #{issueList.dateCreatedRange.begin}",};
@@ -174,6 +187,11 @@ public abstract class IssueListQueryBase extends BaseQuery<Issue, Long> {
 						+ (e.getQa() != null ? e.getQa().getDisplayName() : "")
 						+ "\",");
 
+		builder.append("\""
+				+ (e.getMilestoneReleases() != null
+						? e.getMilestoneReleases()
+						: "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -206,6 +224,8 @@ public abstract class IssueListQueryBase extends BaseQuery<Issue, Long> {
 		builder.append("Severity" + ",");
 
 		builder.append("Qa" + ",");
+
+		builder.append("MilestoneReleases" + ",");
 
 		builder.append("\r\n");
 	}

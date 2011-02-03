@@ -2,29 +2,29 @@
 
 <process-definition name="bugManagement">  
   <swimlane name="initiator"> 
-    <assignment class="com.nas.recovery.web.action.workflowmgt.bugManagement.assign.InitiatorAssignment"/> 
+    <assignment actor-id="#{bugManagementProcessAction.task.variables['token'].createdByUser.userName}"/> 
   </swimlane>  
   <swimlane name="developer"> 
     <assignment class="com.nas.recovery.web.action.workflowmgt.bugManagement.assign.DeveloperAssignment"/> 
   </swimlane>  
   <swimlane name="qa"> 
-    <assignment class="com.nas.recovery.web.action.workflowmgt.bugManagement.assign.QaAssignment"/> 
+    <assignment actor-id="#{bugManagementProcessAction.task.variables['token'].createdByUser.userName}"/> 
   </swimlane>  
   <task-node name="assignDeveloper"> 
     <task name="assignDeveloper" swimlane="initiator" duedate="0 business days" notify="true"></task>  
-    <transition to="nonissue" name="nonissue"> 
-      <action expression="#{issueAction.updateStatus('Closed')}"/> 
-    </transition>  
     <transition to="reviewIssue" name="assign"> 
       <action expression="#{bugManagementProcessAction.reassign}"/> 
+    </transition>  
+    <transition to="nonissue" name="nonissue"> 
+      <action expression="#{issueAction.updateStatus('Closed')}"/> 
     </transition> 
   </task-node>  
   <task-node name="reviewIssue"> 
     <task name="reviewIssue" swimlane="developer" duedate="0 business days" notify="true"></task>  
-    <transition to="assignDeveloper" name="reject"></transition>  
     <transition to="workOnIssue" name="accept"> 
       <action expression="#{issueAction.updateStatus('Started')}"/> 
-    </transition> 
+    </transition>  
+    <transition to="assignDeveloper" name="reject"></transition> 
   </task-node>  
   <start-state name=""> 
     <task name="" swimlane="initiator"></task>  
@@ -39,7 +39,7 @@
   </task-node>  
   <end-state name="fixed"/>  
   <task-node name="workOnIssue"> 
-    <task name="workOnIssue" swimlane="developer" duedate="2 business days"></task>  
+    <task name="workOnIssue" swimlane="developer" duedate="2 business days" notify="false"></task>  
     <transition to="verifyfix" name="fixed"> 
       <action expression="#{issueAction.updateStatus('ReadyForQA')}"/> 
     </transition> 

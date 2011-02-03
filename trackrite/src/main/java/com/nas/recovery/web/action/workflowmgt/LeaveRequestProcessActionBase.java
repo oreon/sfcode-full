@@ -10,9 +10,14 @@ import org.jboss.seam.annotations.bpm.StartTask;
 import org.jbpm.JbpmContext;
 import org.witchcraft.jbpm.BaseJbpmProcessAction;
 
-public class LeaveRequestBase extends BaseJbpmProcessAction
+public class LeaveRequestProcessActionBase extends BaseJbpmProcessAction
 		implements
 			java.io.Serializable {
+
+	@CreateProcess(definition = "leaveRequest")
+	public void startProcess() {
+
+	}
 
 	@StartTask
 	public void startProvideDetails() {
@@ -37,12 +42,12 @@ public class LeaveRequestBase extends BaseJbpmProcessAction
 	public void moreDetailsReviewRequest() {
 
 	}
-	@EndTask(transition = "accept")
-	public void acceptReviewRequest() {
-
-	}
 	@EndTask(transition = "reject")
 	public void rejectReviewRequest() {
+
+	}
+	@EndTask(transition = "accept")
+	public void acceptReviewRequest() {
 
 	}
 

@@ -29,13 +29,16 @@ import org.hibernate.search.annotations.TokenizerDef;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
+import org.hibernate.annotations.Filter;
+
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
+
 import org.jboss.seam.annotations.Name;
+
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
-import org.hibernate.annotations.Filter;
 
 import org.witchcraft.utils.*;
 
@@ -107,6 +110,9 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 	@JoinColumn(name = "qa_id", nullable = true, updatable = true)
 	@ContainedIn
 	protected org.wc.trackrite.domain.Employee qa;
+
+	@ManyToMany(mappedBy = "issues")
+	private Set<MilestoneRelease> milestoneReleases = new HashSet<MilestoneRelease>();
 
 	public void setTitle(String title) {
 		this.title = title;
@@ -242,6 +248,14 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 
 		return qa;
 
+	}
+
+	public void setMilestoneReleases(Set<MilestoneRelease> milestoneReleases) {
+		this.milestoneReleases = milestoneReleases;
+	}
+
+	public Set<MilestoneRelease> getMilestoneReleases() {
+		return milestoneReleases;
 	}
 
 	@Transient

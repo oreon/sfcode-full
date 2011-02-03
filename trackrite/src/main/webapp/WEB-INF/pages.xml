@@ -21,8 +21,6 @@
       </rule> 
     </navigation> 
   </page>  
-  
-  
   <page view-id="/register.xhtml"> 
     <navigation> 
       <rule if-outcome="save"> 
@@ -52,11 +50,10 @@
     </navigation>  
     <!--PROTECTED REGION END-->  
     <navigation> 
-      <!--PROTECTED REGION ID(USER_EDITABLE_PAGESROOT_BLKT) ENABLED START--> 
-       <rule if-outcome="textSearch"> 
+      <!--PROTECTED REGION ID(USER_EDITABLE_PAGESROOT_BLKT) ENABLED START-->  
+      <rule if-outcome="textSearch"> 
         <redirect view-id="/admin/textSearchResults.xhtml"/> 
-      </rule>
-       
+      </rule>  
       <rule if-outcome="home"> 
         <redirect view-id="/home.xhtml"/> 
       </rule>  
@@ -143,6 +140,18 @@
       </rule>  
       <rule if-outcome="editCategory"> 
         <redirect view-id="/admin/entities/issues/category/editCategory.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="milestoneRelease"> 
+        <redirect view-id="/admin/entities/issues/milestoneRelease/listMilestoneRelease.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewMilestoneRelease"> 
+        <redirect view-id="/admin/entities/issues/milestoneRelease/viewMilestoneRelease.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editMilestoneRelease"> 
+        <redirect view-id="/admin/entities/issues/milestoneRelease/editMilestoneRelease.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="user"> 
@@ -604,6 +613,47 @@
     <param name="from"/>  
     <param name="id" value="#{categoryList.category.id}"/>  
     <param name="name" value="#{categoryList.category.name}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/issues/milestoneRelease/editMilestoneRelease.xhtml"> 
+    <!-- <description>Edit MilestoneRelease: #{milestoneRelease.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/issues/milestoneRelease/viewMilestoneRelease.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/issues/milestoneRelease/listMilestoneRelease.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="milestoneReleaseId" value="#{milestoneReleaseAction.milestoneReleaseId}"/> 
+  </page>  
+  <page view-id="/admin/entities/issues/milestoneRelease/viewMilestoneRelease.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View MilestoneRelease: #{milestoneRelease.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/issues/milestoneRelease/editMilestoneRelease.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/issues/milestoneRelease/listMilestoneRelease.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="milestoneReleaseId" value="#{milestoneReleaseAction.milestoneReleaseId}"/> 
+  </page>  
+  <page view-id="/admin/entities/issues/milestoneRelease/listMilestoneRelease.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewMilestoneRelease"> 
+        <redirect view-id="/admin/entities/issues/milestoneRelease/viewMilestoneRelease.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/issues/milestoneRelease/editMilestoneRelease.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{milestoneReleaseList.firstResult}"/>  
+    <param name="sort" value="#{milestoneReleaseList.orderColumn}"/>  
+    <param name="dir" value="#{milestoneReleaseList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{milestoneReleaseList.milestoneRelease.id}"/>  
+    <param name="dueDate" value="#{milestoneReleaseList.milestoneRelease.dueDate}" validateModel="false"/>  
+    <param name="comments" value="#{milestoneReleaseList.milestoneRelease.comments}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/users/user/editUser.xhtml"> 
     <!-- <description>Edit User: #{user.displayName}</description> -->  

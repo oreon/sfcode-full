@@ -10,7 +10,7 @@ import org.witchcraft.base.entity.BusinessEntity;
 
 import com.nas.recovery.web.action.issues.IssueAction;
 
-@Name("bugManagementProcessAction")
+@Name("bugManagementProcessAction21")
 // @Scope(ScopeType.CONVERSATION)
 public class BugManagement extends BugManagementBase {
 

@@ -9,7 +9,7 @@ public class QaAssignment implements AssignmentHandler {
 
 	public void assign(Assignable assignable, ExecutionContext executionContext)
 			throws Exception {
-		assignable.setPooledActors(new String[]{"qa"});
+		//assignable.setPooledActors(new String[]{"qa"});
 	}
 
 }

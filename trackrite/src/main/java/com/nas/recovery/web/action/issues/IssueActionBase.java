@@ -35,6 +35,10 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
+import org.apache.commons.io.FileUtils;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
+
 public abstract class IssueActionBase extends BaseAction<Issue>
 		implements
 			java.io.Serializable {
@@ -213,6 +217,14 @@ public abstract class IssueActionBase extends BaseAction<Issue>
 		setId(id);
 		downloadAttachment(getInstance().getFile());
 		return "success";
+	}
+
+	public void fileUploadListener(UploadEvent event) throws Exception {
+		UploadItem uploadItem = event.getUploadItem();
+		getInstance().getFile().setName(uploadItem.getFileName());
+		getInstance().getFile().setContentType(uploadItem.getContentType());
+		getInstance().getFile().setData(
+				FileUtils.readFileToByteArray(uploadItem.getFile()));
 	}
 
 	/** This function adds associated entities to an example criterion
