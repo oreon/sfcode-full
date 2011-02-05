@@ -39,7 +39,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 	
 	«FOREACH getAllAttributes().typeSelect(wcprofile::ReportGroup) AS a»
 		«EXPAND GenGroupCounter FOR a -»
-		«EXPAND GenGroupSummaryVar FOR a-»
+		 «EXPAND GenGroupSummaryVar FOR a-» 
 	«ENDFOREACH»
 	
 	«FOREACH getAllAttributes().typeSelect(wcprofile::ReportGroup) AS a  ITERATOR iter  »
@@ -170,6 +170,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 		
 		<groupFooter>
 			<band height="20">
+				«IF summaryFields != null»
 				«LET summaryFields.getAsList() AS summaryList»
 				«FOREACH  summaryList AS s»
 				<textField>
@@ -182,6 +183,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 				</textField>
 				«ENDFOREACH»
 				«ENDLET»
+				«ENDIF»
 			</band>	
 		</groupFooter> 
 	</group>
@@ -204,6 +206,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 «REM» for group summary variables«ENDREM»
 
 «DEFINE GenGroupSummaryVar FOR wcprofile::ReportGroup-»
+	«IF summaryFields != null»
 	«FOREACH summaryFields.getAsList() AS s»
 	«LET s.getCalculation() AS calc»
 	«LET s.getField() AS field»
@@ -229,6 +232,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 	«ENDLET»
 	«ENDLET»
 	«ENDFOREACH»
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE GenGroupSummaryVar FOR uml::Property-»
@@ -238,6 +242,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 «ENDDEFINE»
 
 «DEFINE SummaryGen FOR wcprofile::ReportGroup-»
+	«IF summaryFields != null»
 	«FOREACH summaryFields.getAsList() AS s»
 	«IF s.toUpperCase() != "COUNT"»
 			<textField>
@@ -255,6 +260,7 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 			</textField>
 	 «ENDIF»	
 	 «ENDFOREACH»
+	 «ENDIF»
 «ENDDEFINE»
 		
 		

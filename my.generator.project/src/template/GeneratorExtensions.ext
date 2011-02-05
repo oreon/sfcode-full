@@ -5,6 +5,10 @@ import wcprofile;
 
 extension org::openarchitectureware::uml2::profile::profiling;
 
+
+getEntityByName(String entityName):
+getCurrentModel().getEntities().select(a|a.name == entityName);
+
 //extension metamodel::Extensions reexport;
 
 //path of the package - 
@@ -160,11 +164,11 @@ else
 String getCartridge():
 readProperty("cartridge");
 
-String getTopLevelPackage():
-readProperty("topLevelPackage");
+String getTopLevelPackage(Element elem):
+readPropertyDef("topLevelPackage", elem.package.name);
 	
-String getTopLevelPackagePath():
-getTopLevelPackage().packagePath();
+String getTopLevelPackagePath(Element elem):
+elem.getTopLevelPackage().packagePath();
 	
 
 ModelObject getContainer(Operation op):
@@ -314,6 +318,13 @@ setCurrentCartridge(String currentCartridge):
 JAVA org.wc.generatorutil.ClassUtil.setCurrentCartridge(java.lang.String);
 
 
+getCurrentModel():
+JAVA org.wc.generatorutil.ClassUtil.getModel();
+
+
+setCurrentModel(Model model):
+JAVA org.wc.generatorutil.ClassUtil.setModel(org.eclipse.uml2.uml.Model);
+
 serialver (Class cls) : 
 JAVA org.wc.generatorutil.ClassUtil.serialver(org.eclipse.uml2.uml.Class);
 
@@ -355,13 +366,13 @@ getQyeryTypeByReturnType(Operation op):
 op.type == "List" ? "" : "SingleResult";
 
 getWorkflowActionPath(Activity act):
-getTopLevelPackage().packagePath() + "/web/action/workflowmgt/"  + act.name.toFirstLower() ;
+getTopLevelPackage(act).packagePath() + "/web/action/workflowmgt/"  + act.name.toFirstLower() ;
 
 getWorkflowPathForFile(Activity act):
-getTopLevelPackage().packagePath() + "/web/action/workflowmgt/"  + act.name.toFirstUpper() ;
+getTopLevelPackage(act).packagePath() + "/web/action/workflowmgt/"  + act.name.toFirstUpper() ;
 
 getWebPackageName(Activity act):
-getTopLevelPackage() + ".web.action.workflowmgt" ;
+getTopLevelPackage(act) + ".web.action.workflowmgt" ;
 
 
 getTransName(ActivityEdge o):
@@ -433,4 +444,12 @@ elToJava(String str):
 JAVA org.wc.generatorutil.ClassUtil.elToJava(java.lang.String);
 
 
+getFirstTerm(String t ):
+JAVA org.wc.generatorutil.ClassUtil.getCalc(java.lang.String);
+
+getSecondTerm(String t ):
+JAVA org.wc.generatorutil.ClassUtil.getField(java.lang.String);
+
+isUnq(Property column):
+ column.type.name == "uniqueNameType" || (column.isColumn() && column.uniqueProperty )  ;
 

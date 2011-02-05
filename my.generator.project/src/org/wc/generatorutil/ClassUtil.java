@@ -46,6 +46,8 @@ public class ClassUtil {
 	static Properties properties = new Properties();
 
 	static int count = 0;
+	
+	private static Model model;
 
 	static {
 		Operation op;
@@ -609,6 +611,11 @@ public class ClassUtil {
 	public static String getCalc(String t) {
 		return t.split(":")[0].trim();
 	}
+	
+	public static String getComponentName(String arg){
+		String[] arr = arg.split("/.");
+		return "";
+	}
 
 	// for report group generation we need to seperate calc from field
 	public static String getField(String t) {
@@ -688,6 +695,14 @@ public class ClassUtil {
 
 	public static Boolean isCurrentTemplateMode() {
 		return currentTemplateMode;
+	}
+
+	public static void setModel(Model model) {
+		ClassUtil.model = model;
+	}
+
+	public static Model getModel() {
+		return model;
 	}
 
 }
