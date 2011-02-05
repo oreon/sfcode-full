@@ -96,7 +96,7 @@ getRendered(Property prop):
 isCurrentEditMode()?prop.genEditPermission():prop.genViewPermission() ;
 
 getRequiredStar(Property prop):
-isCurrentEditMode() && prop.getRequired() == "true"?"*":"";
+isCurrentEditMode() && (prop.getRequired() == "true" || ( prop.association != null && !prop.getAssocOptional() ) )?"*":"";
 
 String getTextControl(Property prop):
 isCurrentEditMode() ? getInputControl(prop):getOutputControl(prop);
@@ -260,7 +260,7 @@ genViewPermission(Property prop):
 genPermission(prop,'View');
 
 genPermission(Property prop, String mode):
-"s:hasPermission('" + prop.name + "', '" + getCurrentEntity().asVar() +  mode + "')";
+"skipPermissionCheck == 'true' || s:hasPermission('" + prop.name + "', '" + getCurrentEntity().asVar() +  mode + "')";
 
 //getgeneric type for an action, for abstract classes we have to return none
 getGenericType(Class child, Class parent):
@@ -284,15 +284,18 @@ getCurrentEmbeddable() != null? getCurrentEmbeddable().name + suffix:"" ;
 
 
 getWebPackagePath(Class cls, String ext):
-getTopLevelPackage().packagePath() + "/web/action/"  + cls.package.name + "/" + cls.name + ext + ".java";
+getTopLevelPackage(cls).packagePath() + "/web/action/"  + cls.package.name + "/" + cls.name + ext + ".java";
 
 getWebPackageName(Class cls):
-getTopLevelPackage() + ".web.action." + cls.package.name;
+getTopLevelPackage(cls) + ".web.action." + cls.package.name;
 
 getWebSvcPackagePath(Class cls, String ext):
-getTopLevelPackage().packagePath() + "/websvc/"  + cls.package.name + "/" + cls.name + ext + ".java";
+getTopLevelPackage(cls).packagePath() + "/websvc/"  + cls.package.name + "/" + cls.name + ext + ".java";
 
 getWebSvcPackageName(Class cls):
-getTopLevelPackage() + ".websvc." + cls.package.name;
+getTopLevelPackage(cls) + ".websvc." + cls.package.name;
+
+
+
  
 

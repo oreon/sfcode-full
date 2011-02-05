@@ -5,6 +5,7 @@
 
 «DEFINE Root FOR uml::Model»
 	«REM» Massage the model «ENDREM»
+	«setCurrentModel()»
 	«EXPAND setDefaultNamesForAssocs FOREACH allOwnedElements().typeSelect(uml::Property) »
 	«EXPAND setDefaultMultiplicityForAssocs FOREACH allOwnedElements().typeSelect(uml::Property) »
 	«EXPAND applyEntityStereotype FOREACH allOwnedElements().typeSelect(wcprofile::EntitiesPackage) »

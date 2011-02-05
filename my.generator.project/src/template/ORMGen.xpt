@@ -60,9 +60,11 @@
 	«ENDIF»
 «ENDDEFINE»
 
-«DEFINE genFindQry FOR wcprofile::Column»
-	«IF uniqueProperty »
-	<named-query name="findByUnq«name.toFirstUpper()-»">
+
+
+«DEFINE genFindQry FOR uml::Property»
+	«IF isUnq() »
+	<named-query name="«class.name.toFirstLower()».findByUnq«name.toFirstUpper()-»">
 		<query>
 			<![CDATA[
 			select u from «class.name» u where u.«name» = ?1
@@ -70,8 +72,5 @@
 		</query>
 	</named-query>
 	«ENDIF»
-«ENDDEFINE»
-
-«DEFINE genFindQry FOR uml::Property»
 «ENDDEFINE»
 

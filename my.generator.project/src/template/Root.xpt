@@ -235,17 +235,14 @@
 «ENDDEFINE»
 
 
-«DEFINE genUnqNamedQryOp FOR wcprofile::Column»
-	«IF uniqueProperty »
+«DEFINE genUnqNamedQryOp FOR uml::Property»
+	«IF isUnq() »
 	public «class.fqn()» findByUnq«name.toFirstUpper()» («getParametersSignature()»){ 
-		return executeSingleResultNamedQuery("findByUnq«name.toFirstUpper()»", «name»);
+		return executeSingleResultNamedQuery("«class.name.toFirstLower()».findByUnq«name.toFirstUpper()»", «name»);
 	}
 	«ENDIF»
 «ENDDEFINE»
 
-
-«DEFINE genUnqNamedQryOp FOR uml::Property»
-«ENDDEFINE»
 
 
 «DEFINE gen FOR uml::Generalization»
@@ -290,7 +287,7 @@
 		«ENDIF» 
 		«IF type.isEmbeddable() || isContainedAssoc() || (isColumn()  && autocomplete)»
 			«IF type.name != class.name && type.isEmbeddable() »@IndexedEmbedded «EXPAND EmbeddedAttributes FOR this»  «ENDIF»
-			protected «type.fqnForPackage(this.class)» «name» = new «type.fqnForPackage(this.class)»();
+			protected «type.fqnForPackage(this.class)»   «name» = new «type.fqnForPackage(this.class)»();
 		«ELSE»
 			«EXPAND genPropertyDecl FOR this»
 		«ENDIF»
@@ -333,7 +330,7 @@
 	«ELSE»
 		«IF isColumn() && (derivedFormula != null || derivedProperty != null)»@Transient«ENDIF»
 		«IF isString()» @Field(index = Index.TOKENIZED) @Analyzer(definition = "customanalyzer") «ENDIF»
-		protected «type.fqnForPackage(this.class)» «name» «getDefault() != null?" = " +getDefaultVal(type):""» 
+		protected «type.fqnForPackage(this.class)»  «name» «getDefault() != null?" = " +getDefaultVal(type):""» 
 			«isColumn() && defaultExpression != null?" = " + defaultExpression:""» ;
 	«ENDIF»
 	
