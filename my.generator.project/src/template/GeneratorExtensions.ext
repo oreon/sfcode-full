@@ -15,6 +15,26 @@ getCurrentModel().getEntities().select(a|a.name == entityName);
 String packagePath (Element cls) :
 packageNameWithoutRoot(cls.package).replaceAll("::|\\.", "/");
 
+
+packagePathPck (Package pck) :
+packageNameWithoutRoot(pck).replaceAll("::|\\.", "/");
+
+
+String packageNamePck(Package pck) : 
+packageNameWithoutRoot(pck).replaceAll("::", ".");
+
+String packageName (Element cls) :
+packageNameWithoutRoot(cls.package).replaceAll("::", ".");
+
+//in case of magicdraw we need to remove the root "Data" package
+String packageNameWithoutRoot(Package package):
+if ( package !=null && package.getQualifiedName() != null && package.getQualifiedName().startsWith("Data") ) then 
+	package.getQualifiedName().replaceAll("Data::", "")
+else if ( package.getQualifiedName().startsWith("wcprofile") ) then 
+	package.getQualifiedName().replaceAll("wcprofile::", "")
+else
+package.getQualifiedName();
+
 //path of the package - 
 //String packagePath (Interface cls) :
 //packageNameWithoutRoot(cls.package).replaceAll("::|\\.", "/");
@@ -93,17 +113,6 @@ applyEntityStereoType(Class cls):
 cls.applyStereotype("wcprofile::Entity");
 
 
-String packageName (Element cls) :
-packageNameWithoutRoot(cls.package).replaceAll("::", ".");
-
-//in case of magicdraw we need to remove the root "Data" package
-String packageNameWithoutRoot(Package package):
-if ( package !=null && package.getQualifiedName() != null && package.getQualifiedName().startsWith("Data") ) then 
-	package.getQualifiedName().replaceAll("Data::", "")
-else if ( package.getQualifiedName().startsWith("wcprofile") ) then 
-	package.getQualifiedName().replaceAll("wcprofile::", "")
-else
-package.getQualifiedName();
 
 //Returns lower case name e.g. Student will be returned as student
 String asVar(Class cls):
@@ -265,11 +274,11 @@ prop.type.name + "." +  prop.getDefault();
 
 
 getTransient(Column col):
-col.derivedFormula != null ? "@Formula(value =" +  "\"" + col.derivedFormula + "\")":"";  
+col.derivedFormula != null ? "@Formula(value =" +  "\"" + col.derivedFormula + "\")":""; 
 
-
+//whether this column is derived 
 isDerived(Column col):
-col.derivedProperty != null;
+col.derivedProperty != null || col.derivedFormula != null;
 
 isDerived(Property col):
 false;
