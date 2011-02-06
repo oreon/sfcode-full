@@ -4,11 +4,18 @@ import wcprofile;
 
 extension org::openarchitectureware::uml2::profile::profiling;
 
+extension template::GeneratorExtensions;
+
 context uml::Class ERROR 'a class must have a name! found anonymous class in ' + this.package.name:
 this.name != null && this.name.length > 0;
 
 context uml::Property ERROR 'a field must have a name!, found anonymous field in ' + this.class.name:
 this.association != null || this.name != null && this.name.length > 0;
+
+//make sure the current property if member of an entity class is a primitive type
+//context uml::Property ERROR 'an attribute of an entity thats not an association cant be an entity ' + name + ' - ' + this.class.name:
+//this.class.isEntity() && this.association == null &&  !this.type.isEntity() ;
+
 
 context uml::Property ERROR 'a field must have a type!, found untyped field ' + name + ' in ' + this.class.name:
 this.type != null;

@@ -13,6 +13,7 @@
 	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Class)»
 	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Interface)»
 	«EXPAND EnumGen FOREACH allOwnedElements().typeSelect(uml::Enumeration)»
+	«EXPAND GenPackageInfo FOR this»
 «ENDDEFINE»
 
 «DEFINE ClassRoot FOR uml::Class»
@@ -24,6 +25,31 @@
 	«ENDFILE»
 	«ENDIF»
 «ENDDEFINE»
+
+
+
+«DEFINE GenPackageInfo FOR uml::Package»
+«IF !name.startsWith("UML")»
+
+«FILE packagePathPck() +"/package-info.java"  »
+package «packageNamePck()»; 
+«ENDFILE»
+
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE GenPackageInfo FOR wcprofile::EntitiesPackage»
+«FILE packagePathPck() +"/package-info.java"  »
+@FilterDef(name = "archiveFilterDef", defaultCondition = "archived = :aArchived", 
+		parameters = @ParamDef(name = "aArchived", type = "string")) 
+		
+package «packageNamePck()»; 
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+«ENDFILE»
+«ENDDEFINE»
+
+
 
 
 
@@ -313,7 +339,7 @@
 	«getUniqueAnnotations()»
 	«getTransient()»
 	«type.name.getTypeAnnotation()»
-	«getColJpaAnnotations()»
+	«IF !isDerived()»«getColJpaAnnotations()» «ENDIF»
 	«EXPAND genBaseDecl FOR this»
 «ENDDEFINE»
 
@@ -328,7 +354,7 @@
     } )
 	protected FileAttachment «name» = new FileAttachment();	
 	«ELSE»
-		«IF isColumn() && (derivedFormula != null || derivedProperty != null)»@Transient«ENDIF»
+		«IF isColumn() && (  derivedProperty != null)»@Transient«ENDIF»
 		«IF isString()» @Field(index = Index.TOKENIZED) @Analyzer(definition = "customanalyzer") «ENDIF»
 		protected «type.fqnForPackage(this.class)»  «name» «getDefault() != null?" = " +getDefaultVal(type):""» 
 			«isColumn() && defaultExpression != null?" = " + defaultExpression:""» ;
