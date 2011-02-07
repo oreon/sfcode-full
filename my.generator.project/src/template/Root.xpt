@@ -22,6 +22,7 @@
 		package « packageName() »;
 		«EXPAND genImports FOR this»
 		«EXPAND genClassBody FOR this»
+
 	«ENDFILE»
 	«ENDIF»
 «ENDDEFINE»
@@ -89,6 +90,8 @@ import org.hibernate.annotations.ParamDef;
 
 «DEFINE genClassBody FOR uml::Class »
 	public class «name» «getParent()» «getInterfaces()»{
+
+	
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
 		«EXPAND genOperation FOREACH getAllOperations()»
@@ -126,7 +129,7 @@ import org.hibernate.annotations.ParamDef;
 	    }
 	    
 	    «EXPAND genSearchFieldsArray FOR this»
-	    
+	   
 	    
 	    «IF isProcessToken()»
 	    	private Long processId;

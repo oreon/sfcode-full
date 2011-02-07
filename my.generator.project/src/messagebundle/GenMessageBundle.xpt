@@ -7,13 +7,18 @@
 «DEFINE Root FOR uml::Model»	
 	
 	«FILE "../resources/messages.properties"»
+		
 		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(wcprofile::Entity)-»
 		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(wcprofile::MappedSuperClass)-»
 		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(wcprofile::Embeddable)-»
 		
 		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(uml::ActivityNode)»
 		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(wcprofile::ReportParameter)»
+		«EXPAND genBundle("") FOREACH allOwnedElements().typeSelect(uml::Enumeration)»
+		
 		«EXPAND genUserManagedMessages("")»
+		
+		
 	«ENDFILE»
 	
 	«FILE "../resources/messages_fr.properties"»
@@ -32,13 +37,18 @@
 «DEFINE genBundle(String localeName) FOR uml::Class»
 «name»=«localeName»«name»
 «name.toFirstLower()»=«name.toFirstLower()»
-«FOREACH getAllAttributes() AS a»
+	«FOREACH getAllAttributes() AS a»
 «name.toFirstLower()»_«a.name»=«localeName»«a.name.getVariableNameForDisplay()-»
-«ENDFOREACH-»
+	«ENDFOREACH-»
+	
 «ENDDEFINE»
 
 
-
+«DEFINE genBundle(String localeName) FOR uml::Enumeration»
+	«FOREACH  ownedLiteral AS e-» 
+«name.toFirstLower()»_«e.name»=«localeName»«e.name»
+	«ENDFOREACH»
+«ENDDEFINE»
 
 «DEFINE genBundle(String localeName) FOR uml::ActivityNode»
 «name»=«localeName»«name.getVariableNameForDisplay()»
