@@ -57,8 +57,12 @@
 
 «DEFINE gen(uml::Activity activity) FOR wcprofile::WorkflowSwimlane»
 	<swimlane name="«name.removeSpaces()»" >
-		<assignment «IF actorId != null»actor-id="«getActorId()»" «ENDIF»  «IF pooledActors != null»pooled-actors="«getPooledActors()»" «ENDIF»
-		  «IF assignmentClass != null»class="«assignmentClass»"«ENDIF»  />
+		  «IF actorId == null && pooledActors ==  null && assignmentClass == null»
+		  	<assignment  class="«activity.getWebPackageName()+ "." + activity.name.toFirstLower() + ".assign"».«name.removeSpaces().toFirstUpper()»Assignment"  ></assignment>
+		  «ELSE»
+		  		<assignment «IF actorId != null»actor-id="«getActorId()»" «ENDIF»  «IF pooledActors != null»pooled-actors="«getPooledActors()»" «ENDIF»
+		  		«IF assignmentClass != null»class="«assignmentClass»"«ENDIF»  />
+		  «ENDIF»
 	</swimlane>
 «ENDDEFINE»
 
@@ -185,5 +189,5 @@
  «ENDDEFINE»
  
 «DEFINE genActionExpr (wcprofile::WorkflowTransition a) FOR uml::ActivityNode »
-	«IF a.expression != null»<action expression="#{«a.expression»}" />«ENDIF»
+	«IF a.expression != null»<action expression="#{«a.expression.replaceAll("\"","'")»}" />«ENDIF»
 «ENDDEFINE»
