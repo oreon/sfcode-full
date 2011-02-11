@@ -176,7 +176,7 @@
 			<h:outputText value=" " />
 		</f:facet>
 		<a:commandLink action="#{«asVar()»Action.set«name»IdForModalDlg(_«asVar()».id)}"  rendered="#{s:hasPermission(_«asVar()», 'quickEdit')}" 
-			oncomplete="Richfaces.showModalPanel('${modalId}',{});"  > 
+			oncomplete="Richfaces.showModalPanel('${modalId}',{});"  reRender="${modalId}" > 
 			<h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>
 			<s:conversationPropagation type="join"/>
 		</a:commandLink>
