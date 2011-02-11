@@ -230,6 +230,8 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	
 	public void «e.name»UploadListener(UploadEvent event) throws Exception {
 		  UploadItem uploadItem = event.getUploadItem();
+		  if(getInstance().get«e.name.toFirstUpper()»() == null )
+			getInstance().set«e.name.toFirstUpper()»(new FileAttachment());
 		  getInstance().get«e.name.toFirstUpper()»().setName(uploadItem.getFileName());
 		  getInstance().get«e.name.toFirstUpper()»().setContentType(uploadItem.getContentType());
 		  getInstance().get«e.name.toFirstUpper()»().setData(FileUtils.readFileToByteArray( uploadItem.getFile() )); 
