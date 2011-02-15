@@ -18,12 +18,14 @@ import java.util.Map;
 
 import org.jboss.seam.annotations.Name;
 
+import org.witchcraft.utils.DateUtils;
+
 
 @Name("«name.toFirstLower()»Action")
 public class «name»Action extends BaseReportAction {
 
  «FOREACH allOwnedElements().typeSelect(wcprofile::ReportParameter) AS param»
- 	«param.type.fqn()» «param.name»;
+ 	«param.type.fqn()» «param.name»  «IF defaultValue != null» =  «defaultValue» «ENDIF»;
  «ENDFOREACH»
  
  «FOREACH allOwnedElements().typeSelect(wcprofile::ReportParameter) AS param»
@@ -36,7 +38,8 @@ public class «name»Action extends BaseReportAction {
 	public void updateParameters(Map map) {
 		«FOREACH allOwnedElements().typeSelect(wcprofile::ReportParameter) AS param»
  			«IF param.expression != null && param.expression != "\"\"" »
- 				map.put("«param.name»", «param.name».«param.expression»);
+ 				if(«param.name» != null)
+ 					map.put("«param.name»", «param.name».«param.expression» + "");
  			«ELSE»
  				map.put("«param.name»", «param.name»);
  			«ENDIF»
@@ -81,7 +84,7 @@ public class «name»Action extends BaseReportAction {
 
 
 «DEFINE genLabelAndInput FOR wcprofile::ReportParameter-»
-		«getOutputMessage()»
+		«getOutputMessage()» «optionalExpression == null ? "*" : "" »
 		«EXPAND genPropertyEntry(type) FOR this-»
 		«getErrorMessage()-»
 «ENDDEFINE»
