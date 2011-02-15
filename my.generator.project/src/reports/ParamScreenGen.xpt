@@ -25,7 +25,7 @@ import org.witchcraft.utils.DateUtils;
 public class «name»Action extends BaseReportAction {
 
  «FOREACH allOwnedElements().typeSelect(wcprofile::ReportParameter) AS param»
- 	«param.type.fqn()» «param.name»  «IF defaultValue != null» =  «defaultValue» «ENDIF»;
+ 	«param.type.fqn()» «param.name»  «IF param.defaultValue != null» =  «param.defaultValue» «ENDIF»;
  «ENDFOREACH»
  
  «FOREACH allOwnedElements().typeSelect(wcprofile::ReportParameter) AS param»
@@ -73,7 +73,6 @@ public class «name»Action extends BaseReportAction {
 	</s:validateAll>
 	<h:commandButton propagation="none" value="Run Report as PDF"
 				action="#{«name.toFirstLower()»Action.runReport('«name»', 'PDF')}" />
-				
 	<h:commandButton propagation="none" value="Run Report as HTML"
 				action="#{«name.toFirstLower()»Action.runReport('«name»', 'HTML')}" />			
 	</h:form>
@@ -84,7 +83,7 @@ public class «name»Action extends BaseReportAction {
 
 
 «DEFINE genLabelAndInput FOR wcprofile::ReportParameter-»
-		«getOutputMessage()» «optionalExpression == null ? "*" : "" »
+		<h:panelGroup> «getOutputMessage()» «optionalExpression == null ? "*" : "" » </h:panelGroup>
 		«EXPAND genPropertyEntry(type) FOR this-»
 		«getErrorMessage()-»
 «ENDDEFINE»
