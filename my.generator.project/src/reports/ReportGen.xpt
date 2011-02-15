@@ -89,7 +89,14 @@ PUBLIC "-//JasperReports//DTD Report Design//EN"
 
 
 «DEFINE paramGen FOR wcprofile::ReportParameter»
-	<parameter name="«name»" class="«getFieldType()-»"/>
+	«IF optionalExpression != null»
+	 	<parameter name="«name»" class="java.lang.String"> 
+    		<defaultValueExpression><![CDATA[($P{«name»} != null ?  $P{«name»} : " e.incidentType.id " )]]></defaultValueExpression>
+  		</parameter>	
+	«ELSE»
+		<parameter name="«name»" class="«getFieldType()-»"/>
+	«ENDIF»
+	
 «ENDDEFINE»
 
 «REM» Generate the  field declarations «ENDREM»

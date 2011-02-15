@@ -35,12 +35,15 @@ public class «name»Action extends BaseReportAction {
 	@Override
 	public void updateParameters(Map map) {
 		«FOREACH allOwnedElements().typeSelect(wcprofile::ReportParameter) AS param»
- 			map.put("«param.name»", «param.name»);
+ 			«IF param.expression != null && param.expression != "\"\"" »
+ 				map.put("«param.name»", «param.name».«param.expression»);
+ 			«ELSE»
+ 				map.put("«param.name»", «param.name»);
+ 			«ENDIF»
  		«ENDFOREACH»
 	}
  
 }
-
 «ENDFILE»
 
 «ENDDEFINE»
@@ -89,7 +92,8 @@ public class «name»Action extends BaseReportAction {
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::Class cls) FOR uml::Property-»
-	<h:selectOneMenu id="«getId()»"   label="«msgBundleKey()»" value="#{«class.name.toFirstLower()»Action.«name»}"  required="true">
+	<h:selectOneMenu id="«getId()»"   label="«msgBundleKey()»" value="#{«class.name.toFirstLower()»Action.«name»}"  
+		required="«optionalExpression != null ? "false":"true" »">
 		<s:selectItems value="#{«type.name.toFirstLower()»List}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
