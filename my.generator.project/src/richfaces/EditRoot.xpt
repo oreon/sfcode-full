@@ -379,7 +379,7 @@
 
 
 «DEFINE getFileView FOR uml::Property»
-«LET isCurrentMultiMode()?"_" + getCurrentEntity().asVar(): getFieldNameWithAction() AS currentFile»
+«LET isCurrentMultiMode()?"_" + getCurrentEntity().asVar() + "." + name: getFieldNameWithAction() AS currentFile»
 	<c:choose>
 		<c:when test="${«currentFile».contentType.startsWith('image')}">
 			<s:graphicImage value="#{«currentFile».data}" />
@@ -395,17 +395,17 @@
 
 «DEFINE genFilePropertyEntry FOR uml::Property-»
 	«IF isCurrentEditMode() » 
-      <h:panelGroup> 
-          <h:outputText value="Current File:" /> <s:link value="#{«getActionForMode()»«class.asVar()-».«name».name}" id="«name»_file" 
-          	action="#{«getActionForMode()»downloadFile(null)}" propagation="none"> 
-              <f:param name="currentEntityId" value="#{«getActionForMode()»instance.id}" /> 
+     <h:panelGroup> 
+          <h:outputText value="Current File:" /> <s:link value="#{«getActionForFileMode()»«class.asVar()-».«name».name}" id="«name»_file" 
+          	action="#{«getActionForFileMode()»downloadFile(null)}" propagation="none"> 
+              <f:param name="currentEntityId" value="#{«getActionForFileMode()»instance.id}" /> 
             </s:link> 
-        <rich:fileUpload fileUploadListener="#{«getActionForMode()»«name»UploadListener}"  immediateUpload="true" ajaxSingle="true" 
+        <rich:fileUpload fileUploadListener="#{«getActionForFileMode()»«name»UploadListener}"  immediateUpload="true" ajaxSingle="true" 
         	autoclear="false"  listHeight="50">
         	<s:conversationPropagation type="join" />
         	 <a:support event="onuploadcomplete" reRender="«name»_file" />
         </rich:fileUpload>
-        </h:panelGroup>
+     </h:panelGroup>
     «ELSE» 
 		«EXPAND getFileView » 
 	«ENDIF»
