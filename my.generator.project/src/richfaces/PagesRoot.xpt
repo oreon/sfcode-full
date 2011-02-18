@@ -140,8 +140,9 @@
 	
     «ENDFOREACH»
     
-    
-
+   
+  «PROTECT CSTART '<!--' CEND '-->' ID 'USER_EDITABLE_XCPT'»
+  
     <exception class="org.jboss.seam.framework.EntityNotFoundException">
         <redirect view-id="/error.«getExtension()»">
             <message severity="warn">Record not found</message>
@@ -194,6 +195,7 @@
             <message severity="error">Unexpected error, please try again</message>
         </redirect>
     </exception>
+    «ENDPROTECT»
     
 </pages>
 «ENDFILE»
