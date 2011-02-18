@@ -388,9 +388,17 @@ import org.hibernate.annotations.ParamDef;
 				return «derivedProperty»;
 			} catch (Exception e) {
 				«IF isNumeric()»
-					return 0.0;
+				    «IF prop.type.name == "Integer"»
+				    	return 0;
+				    «ELSE»
+				    	return 0.0;
+				    «ENDIF»
 				«ELSE»
-					return "";
+					«IF isString()»
+						return "";
+					«ELSE»
+						return null;
+					«ENDIF»
 				«ENDIF»
 			}
 			«ELSE»
