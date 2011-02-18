@@ -1,0 +1,420 @@
+«IMPORT wcprofile»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+«EXTENSION template::webExtensions»
+«EXTENSION template::associationExtensions»
+«EXTENSION reports::ReportExt»
+
+
+«DEFINE Root FOR uml::Model»
+	«EXPAND gen FOREACH allOwnedElements().typeSelect(wcprofile::CrossTabReport)»
+«ENDDEFINE»
+
+
+«DEFINE gen FOR wcprofile::Report»
+«FILE "../resources/reports/" + name + ".jrxml" -»
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report7" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<queryString language="SQL">
+		<![CDATA[select e from incident e]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="archived" class="java.lang.Boolean"/>
+	<field name="date_created" class="java.sql.Timestamp"/>
+	<field name="date_updated" class="java.sql.Timestamp"/>
+	<field name="dateOfIncident" class="java.sql.Timestamp"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="document_contentType" class="java.lang.String"/>
+	<field name="document_data" class="java.lang.Object"/>
+	<field name="document_name" class="java.lang.String"/>
+	<field name="processId" class="java.lang.Long"/>
+	<field name="processName" class="java.lang.String"/>
+	<field name="title" class="java.lang.String"/>
+	<field name="created_by_user_id" class="java.lang.Long"/>
+	<field name="createdBy_id" class="java.lang.Long"/>
+	<field name="department_id" class="java.lang.Long"/>
+	<field name="drug_id" class="java.lang.Long"/>
+	<field name="incidentType_id" class="java.lang.Long"/>
+	<field name="patient_id" class="java.lang.Long"/>
+	<field name="proccedure_id" class="java.lang.Long"/>
+	<field name="reportedTo_id" class="java.lang.Long"/>
+	<field name="responsibleEmployee_id" class="java.lang.Long"/>
+	<field name="severity_id" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="59" splitType="Stretch"/>
+	</title>
+	<summary>
+		<band height="500" splitType="Stretch">
+			<crosstab>
+				<reportElement x="0" y="0" width="555" height="500"/>
+				<rowGroup name="incidentType_id" width="70" totalPosition="End">
+					<bucket>
+						<bucketExpression class="java.lang.Long"><![CDATA[$F{incidentType_id}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="25"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.Long"><![CDATA[$V{incidentType_id}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="70" height="25"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total incidentType_id]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="department_id" height="30" totalPosition="End">
+					<bucket>
+						<bucketExpression class="java.lang.Long"><![CDATA[$F{department_id}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="30"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.Long"><![CDATA[$V{department_id}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total department_id]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="idMeasure" class="java.lang.Integer" calculation="Count">
+					<measureExpression><![CDATA[$F{id}]]></measureExpression>
+				</measure>
+				<crosstabCell width="50" height="25">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.Integer"><![CDATA[$V{idMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell height="25" rowTotalGroup="incidentType_id">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.Integer"><![CDATA[$V{idMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" columnTotalGroup="department_id">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.Integer"><![CDATA[$V{idMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell height="25" rowTotalGroup="incidentType_id" columnTotalGroup="department_id">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.Integer"><![CDATA[$V{idMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>
+«ENDFILE»
+
+«ENDDEFINE»  
+
+
+«DEFINE paramGen FOR wcprofile::ReportParameter»
+	«IF optionalExpression != null»
+	 	<parameter name="«name»" class="java.lang.String"> 
+    		<defaultValueExpression><![CDATA[($P{«name»} != null ?  $P{«name»} : " e.incidentType.id " )]]></defaultValueExpression>
+  		</parameter>	
+	«ELSE»
+		<parameter name="«name»" class="«getFieldType()-»"/>
+	«ENDIF»
+	
+«ENDDEFINE»
+
+«REM» Generate the  field declarations «ENDREM»
+«DEFINE FieldDec FOR wcprofile::ReportField-»
+	<field name="«fieldExpression != null ? fieldExpression : genFieldExpr(type)-»" class="«getFieldType()-»"/>
+«ENDDEFINE»
+
+«DEFINE FieldDec FOR uml::Property-»
+	<field name="«genFieldExpr(type)-»" class="«getFieldType()-»"/>
+«ENDDEFINE»
+
+«REM» Generate the displayed fields «ENDREM»
+«DEFINE FieldDec FOR wcprofile::ReportGroup-»
+	<field name="«genFieldExpr(type)-»" class="«getFieldType()-»"/>
+«ENDDEFINE»
+
+
+
+«DEFINE FieldGen FOR wcprofile::ReportField-»
+	«IF visible»
+		<textField isBlankWhenNull="true"  isStretchWithOverflow="true">
+			<reportElement x="«getCounter() * getFieldWidth()»" y="0" width="«getFieldWidth()»" height="24"/>
+			<textElement textAlignment="Left"/>
+			<textFieldExpression class="«getFieldType()»">
+				<![CDATA[$F{«fieldExpression != null ? fieldExpression :  name »}]]>
+			</textFieldExpression>
+		</textField>
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE FieldGen FOR uml::Property»
+		<textField isBlankWhenNull="true" isStretchWithOverflow="true">
+			<reportElement x="«getCounter() * getFieldWidth()»" y="0" width="«getFieldWidth()»" height="24"/>
+			<textElement textAlignment="Left"/>
+			<textFieldExpression class="«getFieldType()»"> 
+				<![CDATA[$F{«genFieldExpr(type)-»}]]>
+			</textFieldExpression>
+		</textField>
+«ENDDEFINE»
+
+
+«REM» Generate the  field headers «ENDREM»
+
+«DEFINE FieldHdr FOR wcprofile::ReportField-»
+	«IF visible»
+			<staticText>
+				<reportElement mode="Opaque" x="«getCounter() * getFieldWidth()»" y="5" width="«getFieldWidth()»" height="15" forecolor="#ffffff" backcolor="#333333" />
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[«name.toFirstUpper()»]]></text>
+			</staticText>
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE FieldHdr FOR uml::Property-»
+			<staticText>
+				<reportElement mode="Opaque" x="«getCounter() * getFieldWidth()»" y="5" width="«getFieldWidth()»" height="15" forecolor="#ffffff" backcolor="#333333" />
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[«name.toFirstUpper()»]]></text>
+			</staticText>
+«ENDDEFINE»
+
+«DEFINE GroupGen(int index) FOR ReportGroup»
+	<group name="Group«getGroupName()»" minHeightToStartNewPage="60">
+		<groupExpression><![CDATA[$F{«genFieldExpr(type)»}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField evaluationTime="Group" evaluationGroup="Group«getGroupName()»" bookmarkLevel="«index»">
+					<reportElement mode="Opaque" x="«(index - 1) * 10»" y="5" width="«getDefaultWidth() - ((index - 1) * 10)»" 
+						height="15" backcolor="«getGroupColor(index)»" />
+					<box leftPadding="10" bottomBorder="1Point"/>
+					<textFieldExpression class="java.lang.String">
+						<![CDATA[String.valueOf($F{«genFieldExpr(type)»})]]>
+					</textFieldExpression>
+					<anchorNameExpression><![CDATA[String.valueOf($F{«genFieldExpr(type)»})]]></anchorNameExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		
+		<groupFooter>
+			<band height="20">
+				«IF summaryFields != null»
+				«LET summaryFields.getAsList() AS summaryList»
+				«FOREACH  summaryList AS s»
+				<textField>
+					<reportElement x="0" mode="Opaque"
+						y="1" width="«getDefaultWidth()»" height="15" backcolor="«getGroupColor(index)»" />
+					<textElement textAlignment="Right"/>
+					<textFieldExpression class="java.lang.String">
+						<![CDATA["«s.toFirstUpper()» For " + $F{«genFieldExpr(type)»} + " : " + $V{Group«getGroupName()»_«s == "count"?s.getCalculation().toUpperCase():s.getCalculation()»}]]>
+					</textFieldExpression>
+				</textField>
+				«ENDFOREACH»
+				«ENDLET»
+				«ENDIF»
+			</band>	
+		</groupFooter> 
+	</group>
+«ENDDEFINE»
+
+«DEFINE GroupGen FOR uml::Property-»
+«ENDDEFINE»
+
+«DEFINE GenGroupCounter FOR wcprofile::ReportGroup-»
+	<variable name="Group«getGroupName()»Counter" class="java.lang.Integer" incrementType="Group" 
+		incrementGroup="Group«getGroupName()»" calculation="Count">
+		<variableExpression><![CDATA[Boolean.TRUE]]></variableExpression>
+	</variable>
+«ENDDEFINE»
+
+«DEFINE GenGroupCounter FOR uml::Property-»
+«ENDDEFINE»
+
+
+«REM» for group summary variables«ENDREM»
+
+«DEFINE GenGroupSummaryVar FOR wcprofile::ReportGroup-»
+	«IF summaryFields != null»
+	«FOREACH summaryFields.getAsList() AS s»
+	«LET s.getCalculation() AS calc»
+	«LET s.getField() AS field»
+	
+	
+	«IF s.toUpperCase() != "COUNT"»
+	<variable name="Group«getGroupName()»_«calc»" class="«class.getAttrib(s.getField()).getFieldType()-»"
+		calculation="«calc.toFirstUpper()»" resetType="Group" resetGroup="Group«getGroupName()»">
+		<variableExpression>
+			<![CDATA[$F{«field»}]]>
+		</variableExpression>
+	</variable>
+	
+	«REM»For summary calculation «ENDREM»
+	<variable name="«s»_«calc»" class="«class.getAttrib(s.getField()).getFieldType()-»"
+		calculation="«calc.toFirstUpper()»" >
+		<variableExpression>
+			<![CDATA[$F{«s.getField()»}]]>
+		</variableExpression>
+	</variable>
+	
+	«ENDIF»
+	«ENDLET»
+	«ENDLET»
+	«ENDFOREACH»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE GenGroupSummaryVar FOR uml::Property-»
+«ENDDEFINE»
+
+«DEFINE SummaryGen FOR uml::Property-»
+«ENDDEFINE»
+
+«DEFINE SummaryGen FOR wcprofile::ReportGroup-»
+	«IF summaryFields != null»
+	«FOREACH summaryFields.getAsList() AS s»
+	«IF s.toUpperCase() != "COUNT"»
+			<textField>
+				<reportElement x="420" y="1" width="30" height="15" />
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="«class.getAttrib(s.getField()).getFieldType()-»">
+					<![CDATA[$V{«s + "_" +  s.getCalculation()»}]]>
+				</textFieldExpression>
+			</textField>
+	«ELSE»	
+			<textField>
+				<reportElement x="460" y="1" width="30" height="15" />
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+	 «ENDIF»	
+	 «ENDFOREACH»
+	 «ENDIF»
+«ENDDEFINE»
+		
+		
+«DEFINE GenTitle FOR wcprofile::Report»
+	<title>
+		<band height="70">
+			<line>
+				<reportElement x="0" y="0" width="«getDefaultWidth()»" height="1"/>
+				<graphicElement/>
+			</line>
+			<textField>
+				<reportElement x="0" y="10" width="«getDefaultWidth()»" height="30" />
+				<textElement textAlignment="Center">
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[«title == null? "\"" + name + "\"" : title»]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+«ENDDEFINE»		
+
+
+«DEFINE genChart FOR ReportChart»
+	«LET chartType.name.toLowerCase() AS chartTypeStr»
+		«IF chartTypeStr == "pie"»
+		
+		<«chartTypeStr»Chart>
+			<chart evaluationTime="Report">
+				<reportElement x="250" y="20" width="280" height="272"/>
+			</chart>
+      		<pieDataset>
+      			<keyExpression><![CDATA[$F{«key.trim()»}]]></keyExpression>
+      			<valueExpression><![CDATA[$V{«value.trim()»}]]></valueExpression>
+      			<labelExpression><![CDATA[$F{«key.trim()»}  + " - " + $V{«value.trim()»}  ]]></labelExpression>
+      		</pieDataset>
+      		<«chartTypeStr»Plot>
+      			<plot/>
+      		</«chartTypeStr»Plot>
+		</«chartTypeStr»Chart>
+		
+		«ELSEIF chartTypeStr == "bar"»
+			<barChart>
+  					<chart evaluationTime="Report" >
+  						<reportElement positionType="Float" x="0" y="20" width="250" height="275"/>
+  						<chartTitle/>
+  						<chartSubtitle/>
+  						<chartLegend/>
+  					</chart>
+  					<categoryDataset>			
+  						<categorySeries>
+  							<seriesExpression><![CDATA[$F{«key.trim()»}]]></seriesExpression>
+  							<categoryExpression><![CDATA[$F{«category.trim()»}]]></categoryExpression>
+  							<valueExpression><![CDATA[$V{«value.trim()»}]]></valueExpression>
+  						</categorySeries>
+  						
+  					</categoryDataset>
+  					<barPlot isShowTickLabels="true" isShowTickMarks="true"  >
+  						<plot />
+  					</barPlot>
+			</barChart>
+		
+		«ENDIF»
+	«ENDLET»
+«ENDDEFINE»
+
