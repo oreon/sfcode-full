@@ -38,7 +38,6 @@ import org.openarchitectureware.uml2.UML2MetaModel;
 import org.openarchitectureware.uml2.profile.ProfileMetaModel;
 import org.openarchitectureware.xtend.XtendFacade;
 
-
 public class ClassUtil {
 	Operation operation;
 
@@ -46,7 +45,7 @@ public class ClassUtil {
 	static Properties properties = new Properties();
 
 	static int count = 0;
-	
+
 	private static Model model;
 
 	static {
@@ -77,7 +76,7 @@ public class ClassUtil {
 	private static String currentCartridge = null;
 
 	private static Boolean currentMultiMode = false;
-	
+
 	private static Boolean currentTemplateMode = false;
 
 	public static String getCurrentCartridge() {
@@ -96,8 +95,8 @@ public class ClassUtil {
 	static Map<String, String[]> mapTypes = new HashMap<String, String[]>();
 
 	static {
-		mapTypes.put("datatypes.Integer", new String[]{"Integer", ""});
-		mapTypes.put("Currency", new String[]{"Double",""});
+		mapTypes.put("datatypes.Integer", new String[] { "Integer", "" });
+		mapTypes.put("Currency", new String[] { "Double", "" });
 		mapTypes.put("imageFile", new String[] { "FileAttachment", "" });
 		mapTypes.put("largeText", new String[] { "String", "@Lob" });
 		mapTypes.put("nameType", new String[] { "String",
@@ -173,12 +172,20 @@ public class ClassUtil {
 				+ "L";
 	}
 
-	public static EList<Property> getInts(Class cls) {
-		EList<Property> lstAttributes = cls.getAllAttributes();
-		EList<Classifier> lstParents = cls.allParents();
-		for (Classifier classifier : lstParents) {
-			lstAttributes.addAll(classifier.getAllAttributes());
+	public static List<Property> getAllAttribs(Class cls) {
+		List<Property> lstAttributes = new ArrayList<Property>();
+		
+		EList<Class> classes = cls.getSuperClasses();
+		try {
+			for (Class classifier : classes) {
+				//System.out.println("found " + classifier.getAllAttributes().size());
+				lstAttributes.addAll(classifier.getAllAttributes());
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		lstAttributes.addAll(cls.getAllAttributes());
 		return lstAttributes;
 	}
 
@@ -497,12 +504,12 @@ public class ClassUtil {
 			return act.getInPartitions().get(0).getName();
 		return null;
 	}
-	
+
 	private static int finalNodeCounter;
 
 	public static String getTaskMassagedName(NamedElement act) {
-		
-		//Date today = new Date();
+
+		// Date today = new Date();
 
 		if (act.getName() == null || act.getName() == "") {
 
@@ -510,7 +517,7 @@ public class ClassUtil {
 				ControlFlow cf = (ControlFlow) act;
 				act.setName(cf.getGuard().stringValue());
 			}
-			
+
 			if (act instanceof ActivityFinalNode) {
 				ActivityFinalNode cf = (ActivityFinalNode) act;
 				act.setName("endState" + ++finalNodeCounter);
@@ -611,8 +618,8 @@ public class ClassUtil {
 	public static String getCalc(String t) {
 		return t.split(":")[0].trim();
 	}
-	
-	public static String getComponentName(String arg){
+
+	public static String getComponentName(String arg) {
 		String[] arr = arg.split("/.");
 		return "";
 	}
@@ -639,7 +646,7 @@ public class ClassUtil {
 		System.out.println("Couldnt find report type for " + key);
 		return key;
 
-		//return "java.lang.String";
+		// return "java.lang.String";
 	}
 
 	static String[] primitives = { "date", "long", "integer", "boolean",
@@ -676,16 +683,17 @@ public class ClassUtil {
 
 		return sb.toString();
 	}
-	
-	public static Class getFirstChild (Class c){
-		
+
+	public static Class getFirstChild(Class c) {
+
 		Model m = c.getModel();
 		EList<Element> children = m.allOwnedElements();
 		for (Element element : children) {
-			if(element instanceof Class && ((Class)element).allParents().contains(c))
-				return (Class)element;
+			if (element instanceof Class
+					&& ((Class) element).allParents().contains(c))
+				return (Class) element;
 		}
-		
+
 		return null;
 	}
 
