@@ -168,7 +168,7 @@
 	 «IF !isManyToMany() || getCurrentEmbeddable() == null»
 	<h:panelGroup>
 	«getOutputMessage()» <br/>
-	<h:selectOneMenu id="«getId()»" value="#{ «getCurrentEntity().asVar()»List.«isManyToMany() ? type.asVar() +"ToSearch": genPropertyLabel()»}" >
+	<h:selectOneMenu id="«getId()»" value="#{ «getCurrentEntity().asVar()»List.«isManyToMany() ? name +"ToSearch": genPropertyLabel()»}" >
 		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Any..." />

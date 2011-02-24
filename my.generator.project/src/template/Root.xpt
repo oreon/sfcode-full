@@ -102,19 +102,13 @@ import org.hibernate.annotations.ParamDef;
 	@Entity
 	@Table(name="«getTableName()»")
 	@Filter(name = "archiveFilterDef") 
-	«IF !isAbstract »    «IF getCurrentCartridge() == "RICH"» @Name("«asVar()»")   «ENDIF»
-	@Indexed
-	«IF cacheType != null »@Cache(usage = CacheConcurrencyStrategy.«cacheType.name»)«ENDIF»
-	@AnalyzerDef(name = "customanalyzer",
-		  tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
-		  filters = {
-		    @TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		    @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
-		      @Parameter(name = "language", value = "English")
-		    })
-	})
+	«IF !isAbstract »   
+		«IF getCurrentCartridge() == "RICH"» @Name("«asVar()»")   «ENDIF»
+		@Indexed
+		«IF cacheType != null »@Cache(usage = CacheConcurrencyStrategy.«cacheType.name»)«ENDIF»
+		@Analyzer(definition="entityAnalyzer")
 	«ELSE»
-	@Inheritance(strategy=InheritanceType.«inheritanceType.name»)
+		@Inheritance(strategy=InheritanceType.«inheritanceType.name»)
 	«ENDIF»
 	public  «IF isAbstract» abstract «ENDIF» class «name» «getParent()»  «getInterfaces()» «getImplementedInterfaces().isEmpty  ?" implements " : ","»  «getAuditable()?"Auditable, ":""» java.io.Serializable {
 		private static final long serialVersionUID = «serialver()»;
@@ -202,6 +196,30 @@ import org.hibernate.annotations.ParamDef;
 		«EXPAND genEmbeddedAndAssociatedSearch FOREACH getEmbeddable()»
 		return listSearchableFields;
 	}
+	
+	
+	@Field( index=Index.TOKENIZED, name="searchData")
+    @Analyzer(definition="entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+		
+		«FOREACH getAllAttributes().select(e|e.isString()) AS e»
+			builder.append(get«e.name.toFirstUpper()»() + " ");
+		«ENDFOREACH»
+		
+		«FOREACH getOutgoingAssociations() AS a»
+			if(get«a.name.toFirstUpper()»() != null)
+				builder.append( "«a.name»:" + get«a.name.toFirstUpper()»().getDisplayName() +  " ");
+		«ENDFOREACH»
+		
+		«FOREACH getMultiValued() AS e»
+		for (BusinessEntity e : «e.name») {
+			builder.append(e.getDisplayName() + " ");
+		}
+		«ENDFOREACH»
+			
+		return builder.toString();
+	}
 «ENDDEFINE»
 
 «DEFINE genEmbeddedAndAssociatedSearch FOR uml::Property»
@@ -218,6 +236,8 @@ import org.hibernate.annotations.ParamDef;
 		
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
+		
+		«EXPAND genPopupAndDisplayname FOR this»
 	}
 «ENDDEFINE»
 
@@ -302,11 +322,17 @@ import org.hibernate.annotations.ParamDef;
 		«ELSE»
 		@OneToMany(«IF isBidirectional()»mappedBy = "«getOppositeName() »", «ENDIF» fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 		«REM»comment«IF isComposite()»@Cascade(value=org.hibernate.annotations.CascadeType.DELETE_ORPHAN)«ENDIF»«ENDREM»
-		@JoinColumn(name = "«getOppositeName()»_ID", nullable = «getAssocOptional()»)
+		//@JoinColumn(name = "«getOppositeName()»_ID", nullable = «getAssocOptional()»)
 		@OrderBy("dateCreated DESC")
 		«IF type.name != class.name»@IndexedEmbedded«ENDIF»
 		«ENDIF»
 		private Set<«type.fqnForPackage(this.class)»> «name» = new HashSet<«type.fqnForPackage(this.class)»>();
+		«IF !opposite.isMultivalued()»
+		public void add«name.toFirstUpper()» («type.fqnForPackage(this.class)» «name»){
+			«name».set«opposite.name.toFirstUpper()»(this);
+			this.«name».add(«name»);
+		}
+		«ENDIF»
 	«ELSE»
 		«IF association != null &&  !type.isEmbeddable()»
 			«REM»comment//«isOneOnOne()» unq «isUnique» opp is unq«opposite.isUnique» mult «isMultivalued()» opp mult «opposite.isMultivalued()» «opposite.isMultivalued() == null ? "unspec" : "spec-blank" » «ENDREM»
@@ -358,7 +384,8 @@ import org.hibernate.annotations.ParamDef;
 	protected FileAttachment «name» = new FileAttachment();	
 	«ELSE»
 		«IF isColumn() && (  derivedProperty != null)»@Transient«ENDIF»
-		«IF isString()» @Field(index = Index.TOKENIZED) @Analyzer(definition = "customanalyzer") «ENDIF»
+		«IF isString()» @Field(index = Index.TOKENIZED)
+		@Analyzer(definition = "entityAnalyzer") «ENDIF»
 		protected «type.fqnForPackage(this.class)»  «name» «getDefault() != null?" = " +getDefaultVal(type):""» 
 			«isColumn() && defaultExpression != null?" = " + defaultExpression:""» ;
 	«ENDIF»
