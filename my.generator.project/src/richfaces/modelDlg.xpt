@@ -43,7 +43,7 @@
 				
 					<h:form>
 
-						<ui:include src = "«getComponentViewFile("edit")»" />
+						<ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
 	
 						<a:commandButton action="#{«getAction()».saveWithoutConversation}"
 						oncomplete="if (#{facesContext.maximumSeverity == null || facesContext.maximumSeverity.ordinal le 1 }) { Richfaces.hideModalPanel('#{modalId}'); }"
@@ -88,7 +88,7 @@
 			<s:div >
 				<a:outputPanel ajaxRendered="true"  id="view«name»OutputPanel">
 					<a:form>
-						<ui:include src = "«getComponentViewFile("view")»" />
+						<ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
 						<h:outputText value=" " />
 						<a:commandButton oncomplete="Richfaces.hideModalPanel('${modalId}')" value="Hide" />
 					</a:form>

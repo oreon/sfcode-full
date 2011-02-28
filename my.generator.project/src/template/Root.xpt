@@ -10,10 +10,23 @@
 «ENDDEFINE»
 
 «DEFINE PackageRoot FOR uml::Package»
+
 	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Class)»
 	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Interface)»
 	«EXPAND EnumGen FOREACH allOwnedElements().typeSelect(uml::Enumeration)»
 	«EXPAND GenPackageInfo FOR this»
+	
+«ENDDEFINE»
+
+«DEFINE PackageRoot FOR wcprofile::EntitiesPackage»
+	«IF !excludeFromGeneration»
+	
+	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Class)»
+	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Interface)»
+	«EXPAND EnumGen FOREACH allOwnedElements().typeSelect(uml::Enumeration)»
+	«EXPAND GenPackageInfo FOR this»
+	
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE ClassRoot FOR uml::Class»
@@ -331,6 +344,11 @@ import org.hibernate.annotations.ParamDef;
 		public void add«name.toFirstUpper()» («type.fqnForPackage(this.class)» «name»){
 			«name».set«opposite.name.toFirstUpper()»(this);
 			this.«name».add(«name»);
+		}
+		
+		//JSF Friendly function to get count of collections
+		public int get«name.toFirstUpper()»Count(){
+			return «name».size();
 		}
 		«ENDIF»
 	«ELSE»
