@@ -43,6 +43,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <process-definition xmlns="" name="«name.removeSpaces().toFirstLower()»">
+ «PROTECT CSTART '<!--' CEND '-->' ID  'USER_EDITABLE_RGN_' + name.removeSpaces().toFirstLower()»
+ «ENDPROTECT»
 	«EXPAND gen(this) FOREACH allOwnedElements().typeSelect(uml::ActivityPartition)»
 	«EXPAND gen FOREACH allOwnedElements().typeSelect(uml::ActivityNode)»
 </process-definition>
