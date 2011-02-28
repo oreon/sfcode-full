@@ -31,7 +31,8 @@
 		<h:form> 
 		
 		«IF isCurrentTemplateMode()»Template Name: <h:inputText value="#{«getAction()».templateName}" required="true" />«ENDIF»
-		<ui:include src = "«getComponentViewFile("edit")»" />
+
+		<ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
 		«EXPAND genCancelSaveBtns(true) FOR this»
 		</h:form>
 		</rich:panel>
@@ -54,7 +55,7 @@
 		<h:form>
 			<rich:tabPanel switchType="ajax">
 				<rich:tab label="«name»">
-					<ui:include src = "«getComponentViewFile("view")»" />
+					<ui:include src = "«getComponentViewFile(customViewComponents ?"customView":"view")»" />
 					«EXPAND genCancelSaveBtns(false) FOR this»
 				</rich:tab>
 			«FOREACH getOutgoingAssociations() AS a ITERATOR iter»
@@ -66,7 +67,6 @@
 					</ui:include>
 				</rich:tab>
 			«ENDFOREACH»	
-			
 			</rich:tabPanel>
 		</h:form>
 		<br/>
@@ -84,7 +84,7 @@
 		      			<f:param name="«name.toFirstLower()»Id" value="#{«getAction()».instance.id}" />
 		      		    <f:param name="«a.type.name.toFirstLower()»Id" value="0"/> 
 		      		</s:button>
-		      		  <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create">
+		      		  <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"  reRender="${modalId}" >
 			            <a:actionparam name="«a.type.name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.«a.type.name.toFirstLower()»Id}" value="0"  />
 			         	<a:actionparam name="«name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.«a.opposite.name»Id}" 
 			         		value="#{«name.toFirstLower()»Action.instance.id}"  />
@@ -197,8 +197,7 @@
 «DEFINE genEditManyToManyShuttle FOR uml::Property»
 	<br/>
 	«IF isCurrentEditMode()»
-	
-	<rich:simpleTogglePanel label="«msgBundleKey()»" switchType="client"  >
+	<rich:simpleTogglePanel label="«msgBundleKey()»" switchType="client"  id="«name»">
 		<rich:listShuttle sourceValue="#{«class.getAction()».listAvailable«name.toFirstUpper()»}" 
 			targetValue="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
 	        <s:convertEntity />
