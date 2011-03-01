@@ -124,6 +124,10 @@ public abstract class CategoryActionBase extends BaseAction<Category>
 		return Category.class;
 	}
 
+	public org.wc.trackrite.issues.Category findByUnqName(String name) {
+		return executeSingleResultNamedQuery("category.findByUnqName", name);
+	}
+
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()

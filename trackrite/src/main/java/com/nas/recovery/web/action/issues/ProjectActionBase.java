@@ -129,6 +129,10 @@ public abstract class ProjectActionBase extends BaseAction<Project>
 		return Project.class;
 	}
 
+	public org.wc.trackrite.issues.Project findByUnqName(String name) {
+		return executeSingleResultNamedQuery("project.findByUnqName", name);
+	}
+
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()

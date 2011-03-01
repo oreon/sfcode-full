@@ -126,6 +126,10 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 		return Exam.class;
 	}
 
+	public org.wc.trackrite.exams.Exam findByUnqName(String name) {
+		return executeSingleResultNamedQuery("exam.findByUnqName", name);
+	}
+
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()

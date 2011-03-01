@@ -125,7 +125,7 @@ public abstract class UserActionBase extends BaseAction<User>
 	}
 
 	public org.wc.trackrite.users.User findByUnqUserName(String userName) {
-		return executeSingleResultNamedQuery("findByUnqUserName", userName);
+		return executeSingleResultNamedQuery("user.findByUnqUserName", userName);
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so

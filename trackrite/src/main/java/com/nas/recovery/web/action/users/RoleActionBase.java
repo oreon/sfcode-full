@@ -125,7 +125,7 @@ public abstract class RoleActionBase extends BaseAction<Role>
 	}
 
 	public org.wc.trackrite.users.Role findByUnqName(String name) {
-		return executeSingleResultNamedQuery("findByUnqName", name);
+		return executeSingleResultNamedQuery("role.findByUnqName", name);
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
