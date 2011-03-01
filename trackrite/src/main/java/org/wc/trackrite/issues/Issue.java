@@ -86,7 +86,6 @@ public class Issue extends BusinessEntity implements java.io.Serializable {
 
 	protected Integer estimate;
 
-	@Column(name = "creator", unique = false)
 	@Transient
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
