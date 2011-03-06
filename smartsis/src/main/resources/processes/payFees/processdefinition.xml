@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition name="payFees">  
+  <!--PROTECTED REGION ID(USER_EDITABLE_RGN_payFees) ENABLED START-->  
+  <!--PROTECTED REGION END-->  
+  <swimlane name="student"> 
+    <assignment class="com.oreon.smartsis.web.action.workflowmgt.payFees.assign.StudentAssignment"/> 
+  </swimlane>  
+  <swimlane name="staff"> 
+    <assignment class="com.oreon.smartsis.web.action.workflowmgt.payFees.assign.StaffAssignment"/> 
+  </swimlane>  
+  <task-node name="payFees"> 
+    <task name="payFees" swimlane="student" duedate="7 business days" notify="true"></task>  
+    <transition to="receiveFees" name="proceedToReceiveFees"></transition> 
+  </task-node>  
+  <start-state name=""> 
+    <task name="" swimlane="student"></task>  
+    <transition to="payFees" name="proceedToPayFees"></transition> 
+  </start-state>  
+  <end-state name="endState1"/>  
+  <task-node name="receiveFees"> 
+    <task name="receiveFees" swimlane="staff" notify="true"></task>  
+    <transition to="endState1" name="done"></transition> 
+  </task-node> 
+</process-definition>

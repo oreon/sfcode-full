@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.gradeFee_grade} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'gradeFeeEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="grade" value="#{ gradeFeeList.gradeFee.grade}"> 
+        <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.gradeFee_fee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fee', 'gradeFeeEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="fee" value="#{ gradeFeeList.gradeFee.fee}"> 
+        <s:selectItems value="#{feeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.gradeFee_amount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="amount_begin" value="#{gradeFeeList.amountRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="amount_end" value="#{gradeFeeList.amountRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{gradeFeeList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{gradeFeeList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

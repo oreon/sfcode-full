@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <rich:tabPanel switchType="ajax"> 
+        <rich:tab label="ExamScore"> 
+          <ui:include src="/admin/entities/domain/examScore/viewExamScoreComponent.xhtml"/>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('examScore', 'edit', examScoreAction.instance)}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" action="#{examScoreAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </rich:tab>  
+        <rich:tab label="Student" rendered="#{examScoreAction.instance.student != null}"> 
+          <ui:include src="/admin/entities/domain/student/viewStudentComponent.xhtml"> 
+            <ui:param name="entityId" value="1"/>  
+            <ui:param name="studentId" value="#{examScoreAction.instance.student.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="ExamInstance" rendered="#{examScoreAction.instance.examInstance != null}"> 
+          <ui:include src="/admin/entities/domain/examInstance/viewExamInstanceComponent.xhtml"> 
+            <ui:param name="entityId" value="2"/>  
+            <ui:param name="examInstanceId" value="#{examScoreAction.instance.examInstance.id}"/> 
+          </ui:include> 
+        </rich:tab> 
+      </rich:tabPanel> 
+    </h:form>  
+    <br/>  
+    <rich:tabPanel></rich:tabPanel>  
+    <br/>  
+    <rich:tabPanel> 
+      <rich:tab label="Notes"> 
+        <wc:comments backingAction="#{examScoreAction}"/> 
+      </rich:tab> 
+    </rich:tabPanel> 
+  </ui:define> 
+</ui:composition>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.electronicExamInstance_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'electronicExamInstanceEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="student" value="#{electronicExamInstanceAction.electronicExamInstance.student}"> 
+          <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'electronicExamInstanceEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.electronicExamInstance_score}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('score', 'electronicExamInstanceEdit')}"/>  
+        <br/>  
+        <h:inputText id="score" value="#{electronicExamInstanceAction.electronicExamInstance.score}"/>  
+        <rich:message styleClass="error errors" for="score" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('score', 'electronicExamInstanceEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.electronicExamInstance_electronicExamEvent} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamEvent', 'electronicExamInstanceEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="electronicExamEvent" value="#{electronicExamInstanceAction.electronicExamInstance.electronicExamEvent}"> 
+          <s:selectItems value="#{electronicExamEventList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="electronicExamEvent" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamEvent', 'electronicExamInstanceEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.electronicExamInstance_timeTaken}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('timeTaken', 'electronicExamInstanceEdit')}"/>  
+        <br/>  
+        <h:inputText id="timeTaken" value="#{electronicExamInstanceAction.electronicExamInstance.timeTaken}"/>  
+        <rich:message styleClass="error errors" for="timeTaken" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('timeTaken', 'electronicExamInstanceEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

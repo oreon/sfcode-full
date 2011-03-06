@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{feeAction.load(feeId )  }"> 
+        <h:outputText value="#{msg.fee_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'feeEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'feeEdit')}" label="#{msg.fee_name}" required="true" value="#{feeAction.fee.name}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'feeEdit')}"/>  
+        <h:outputText value="#{msg.fee_defaultAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultAmount', 'feeEdit')}"/>  
+        <h:inputText id="defaultAmount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultAmount', 'feeEdit')}" label="#{msg.fee_defaultAmount}" required="false" value="#{feeAction.fee.defaultAmount}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="defaultAmount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultAmount', 'feeEdit')}"/>  
+        <h:outputText value="#{msg.fee_frequency}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'feeEdit')}"/>  
+        <h:selectOneMenu id="frequency" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'feeEdit')}" value="#{feeAction.fee.frequency}" required="false" label="#{msg.fee_frequency}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="MONTHLY" itemLabel="#{msg.MONTHLY}"/>  
+          <f:selectItem itemValue="QUARTERLY" itemLabel="#{msg.QUARTERLY}"/>  
+          <f:selectItem itemValue="SEMI_ANNUALLY" itemLabel="#{msg.SEMI_ANNUALLY}"/>  
+          <f:selectItem itemValue="ANNUALLY" itemLabel="#{msg.ANNUALLY}"/>  
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="frequency" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'feeEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

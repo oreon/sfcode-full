@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{examAction.load(examId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{examAction.exam.id}"/>  
+        <h:outputText value="#{msg.exam_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'examView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'examView')}" value="#{examAction.exam.name}"></h:outputText>  
+        <h:outputText value="#{msg.exam_maxMarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('maxMarks', 'examView')}"/>  
+        <h:outputText id="maxMarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('maxMarks', 'examView')}" value="#{examAction.exam.maxMarks}"></h:outputText>  
+        <h:outputText value="#{msg.exam_passMarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('passMarks', 'examView')}"/>  
+        <h:outputText id="passMarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('passMarks', 'examView')}" value="#{examAction.exam.passMarks}"></h:outputText> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

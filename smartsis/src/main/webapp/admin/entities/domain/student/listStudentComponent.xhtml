@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="StudentModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Student Search Results (#{empty records ? 0 : (studentList.paginated ? studentList.resultCount : records.size)})"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_student" value="#{records}" id="studentList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'studentView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{studentList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="student.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_student.id}"></h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('firstName', 'studentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{studentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.person_firstName}"/>  
+              <ui:param name="propertyPath" value="student.firstName"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_student.firstName}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('lastName', 'studentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{studentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.person_lastName}"/>  
+              <ui:param name="propertyPath" value="student.lastName"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_student.lastName}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('primaryPhone', 'studentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{studentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_primaryPhone}"/>  
+              <ui:param name="propertyPath" value="student.contactDetails.primaryPhone"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_student.contactDetails.primaryPhone}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('secondaryPhone', 'studentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{studentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_secondaryPhone}"/>  
+              <ui:param name="propertyPath" value="student.contactDetails.secondaryPhone"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_student.contactDetails.secondaryPhone}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('email', 'studentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{studentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_email}"/>  
+              <ui:param name="propertyPath" value="student.contactDetails.email"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_student.contactDetails.email}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('picture', 'studentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{studentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.student_picture}"/>  
+              <ui:param name="propertyPath" value="student.picture"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_student.picture.name}" action="#{studentAction.downloadPicture(_student.id)}" propagation="none"> 
+            <f:param name="currentEntityId" value="#{_student.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('gender', 'studentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{studentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.student_gender}"/>  
+              <ui:param name="propertyPath" value="student.gender"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_student.gender}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('dateOfBirth', 'studentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{studentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.student_dateOfBirth}"/>  
+              <ui:param name="propertyPath" value="student.dateOfBirth"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_student.dateOfBirth}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('grade', 'studentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{studentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.student_grade}"/>  
+              <ui:param name="propertyPath" value="student.grade"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_student.grade.displayName}" action="viewGrade" propagation="none"> 
+            <f:param name="gradeId" value="#{_student.grade.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'studentView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{studentList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="student.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_student.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_student', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/domain/student/viewStudent.xhtml" rendered="#{s:hasPermission(_student, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="studentId" value="#{_student.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_student', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/domain/student/editStudent.xhtml" rendered="#{s:hasPermission(_student, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="studentId" value="#{_student.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('studentAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{studentAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_student.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_student.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{studentAction.setStudentIdForModalDlg(_student.id)}" rendered="#{s:hasPermission(_student, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{studentList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{studentList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{studentList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{studentList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{studentList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{studentList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{studentList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>
