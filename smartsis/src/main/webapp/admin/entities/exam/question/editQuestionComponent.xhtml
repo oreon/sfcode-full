@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{questionAction.load(questionId )  }"> 
+        <h:outputText value="#{msg.question_electronicExam} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'questionEdit')}"/>  
+        <h:selectOneMenu id="electronicExam" label="#{msg.question_electronicExam}" value="#{questionAction.question.electronicExam}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'questionEdit')}"> 
+          <s:selectItems value="#{electronicExamList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="electronicExam" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'questionEdit')}"/>  
+        <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'questionEdit')}"/>  
+        <rich:editor useSeamText="true" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'questionEdit')}" label="#{msg.question_text}" required="false" value="#{questionAction.question.text}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:editor>  
+        <rich:message styleClass="error errors" for="text" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'questionEdit')}"/>  
+        <h:outputText value="#{msg.question_correctChoice} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('correctChoice', 'questionEdit')}"/>  
+        <h:selectOneMenu id="correctChoice" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('correctChoice', 'questionEdit')}" value="#{questionAction.question.correctChoice}" required="false" label="#{msg.question_correctChoice}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="A" itemLabel="#{msg.A}"/>  
+          <f:selectItem itemValue="B" itemLabel="#{msg.B}"/>  
+          <f:selectItem itemValue="C" itemLabel="#{msg.C}"/>  
+          <f:selectItem itemValue="D" itemLabel="#{msg.D}"/>  
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="correctChoice" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('correctChoice', 'questionEdit')}"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New Choice" action="#{questionAction.addChoices}" reRender="choices" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choices', 'questionEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="choices" var="_choice" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choices', 'questionEdit')}" value="#{questionAction.listChoices}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.choice_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'choiceEdit')}"/>
+          </f:facet>  
+          <rich:editor useSeamText="true" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'choiceEdit')}" label="#{msg.choice_text}" required="false" value="#{_choice.text}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor>  
+          <rich:message styleClass="error errors" for="text" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'choiceEdit')}"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New Choice" action="#{questionAction.addChoices}" reRender="choices" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choices', 'choiceEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{questionAction.deleteChoices(rowIndex)}" reRender="choices"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

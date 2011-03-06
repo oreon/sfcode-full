@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.exam_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'examEdit')}"/>  
+      <br/>  
+      <h:inputText id="name" value="#{examList.exam.name}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.exam_grades}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grades', 'examEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="grades" value="#{ examList.gradesToSearch}"> 
+        <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.exam_maxMarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('maxMarks', 'examEdit')}"/>  
+      <br/>  
+      <h:inputText id="maxMarks_begin" value="#{examList.maxMarksRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="maxMarks_end" value="#{examList.maxMarksRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.exam_passMarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('passMarks', 'examEdit')}"/>  
+      <br/>  
+      <h:inputText id="passMarks_begin" value="#{examList.passMarksRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="passMarks_end" value="#{examList.passMarksRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{examList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{examList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

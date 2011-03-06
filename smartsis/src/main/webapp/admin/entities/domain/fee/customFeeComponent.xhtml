@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.fee_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'feeEdit')}"/>  
+        <br/>  
+        <h:inputText id="name" value="#{feeAction.fee.name}"/>  
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'feeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.fee_defaultAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultAmount', 'feeEdit')}"/>  
+        <br/>  
+        <h:inputText id="defaultAmount" value="#{feeAction.fee.defaultAmount}"/>  
+        <rich:message styleClass="error errors" for="defaultAmount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultAmount', 'feeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.fee_frequency}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'feeEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="frequency" value="#{feeAction.fee.frequency}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="MONTHLY" itemLabel="Monthly"/>  
+          <f:selectItem itemValue="QUARTERLY" itemLabel="Quarterly"/>  
+          <f:selectItem itemValue="SEMI_ANNUALLY" itemLabel="Semi_annually"/>  
+          <f:selectItem itemValue="ANNUALLY" itemLabel="Annually"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="frequency" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'feeEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

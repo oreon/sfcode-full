@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{examInstanceAction.load(examInstanceId )  }"> 
+        <h:outputText value="#{msg.examInstance_exam} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'examInstanceEdit')}"/>  
+        <h:selectOneMenu id="exam" label="#{msg.examInstance_exam}" value="#{examInstanceAction.examInstance.exam}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'examInstanceEdit')}"> 
+          <s:selectItems value="#{examList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="exam" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'examInstanceEdit')}"/>  
+        <h:outputText value="#{msg.examInstance_gradeSubject} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'examInstanceEdit')}"/>  
+        <h:selectOneMenu id="gradeSubject" label="#{msg.examInstance_gradeSubject}" value="#{examInstanceAction.examInstance.gradeSubject}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'examInstanceEdit')}"> 
+          <a:support event="onchange" reRender="examScores" ajaxSingle="true"/>  
+          <s:selectItems value="#{gradeSubjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="gradeSubject" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'examInstanceEdit')}"/>  
+        <h:outputText value="#{msg.examInstance_dateHeld}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateHeld', 'examInstanceEdit')}"/>  
+        <rich:calendar id="dateHeld#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateHeld', 'examInstanceEdit')}" label="#{msg.examInstance_dateHeld}" required="false" value="#{examInstanceAction.examInstance.dateHeld}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:calendar>  
+        <rich:message styleClass="error errors" for="dateHeld" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateHeld', 'examInstanceEdit')}"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New ExamScore" action="#{examInstanceAction.addExamScores}" reRender="examScores" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScores', 'examInstanceEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="examScores" var="_examScore" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScores', 'examInstanceEdit')}" value="#{examInstanceAction.listExamScores}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.examScore_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'examScoreEdit')}"/>
+          </f:facet>  
+          <h:selectOneMenu id="student" label="#{msg.examScore_student}" value="#{_examScore.student}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'examScoreEdit')}"> 
+            <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu>  
+          <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'examScoreEdit')}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.examScore_marks} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreEdit')}"/>
+          </f:facet>  
+          <h:inputText id="marks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreEdit')}" label="#{msg.examScore_marks}" required="true" value="#{_examScore.marks}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="marks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreEdit')}"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New ExamScore" action="#{examInstanceAction.addExamScores}" reRender="examScores" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScores', 'examScoreEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{examInstanceAction.deleteExamScores(rowIndex)}" reRender="examScores"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{examAction.load(examId )  }"> 
+        <h:outputText value="#{msg.exam_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'examEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'examEdit')}" label="#{msg.exam_name}" required="true" value="#{examAction.exam.name}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'examEdit')}"/>  
+        <h:outputText value="#{msg.exam_maxMarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('maxMarks', 'examEdit')}"/>  
+        <h:inputText id="maxMarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('maxMarks', 'examEdit')}" label="#{msg.exam_maxMarks}" required="false" value="#{examAction.exam.maxMarks}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="maxMarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('maxMarks', 'examEdit')}"/>  
+        <h:outputText value="#{msg.exam_passMarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('passMarks', 'examEdit')}"/>  
+        <h:inputText id="passMarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('passMarks', 'examEdit')}" label="#{msg.exam_passMarks}" required="false" value="#{examAction.exam.passMarks}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="passMarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('passMarks', 'examEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

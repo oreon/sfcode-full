@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.exam_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'examEdit')}"/>  
+        <br/>  
+        <h:inputText id="name" value="#{examAction.exam.name}"/>  
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'examEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.exam_maxMarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('maxMarks', 'examEdit')}"/>  
+        <br/>  
+        <h:inputText id="maxMarks" value="#{examAction.exam.maxMarks}"/>  
+        <rich:message styleClass="error errors" for="maxMarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('maxMarks', 'examEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.exam_passMarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('passMarks', 'examEdit')}"/>  
+        <br/>  
+        <h:inputText id="passMarks" value="#{examAction.exam.passMarks}"/>  
+        <rich:message styleClass="error errors" for="passMarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('passMarks', 'examEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{gradeAction.load(gradeId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{gradeAction.grade.id}"/>  
+        <h:outputText value="#{msg.grade_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'gradeView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'gradeView')}" value="#{gradeAction.grade.name}"></h:outputText>  
+        <h:outputText value="#{msg.grade_ordinal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ordinal', 'gradeView')}"/>  
+        <h:outputText id="ordinal#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ordinal', 'gradeView')}" value="#{gradeAction.grade.ordinal}"></h:outputText>  
+        <h:outputText value="#{msg.grade_section}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'gradeView')}"/>  
+        <h:outputText id="section#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'gradeView')}" value="#{gradeAction.grade.section}"></h:outputText> 
+      </h:panelGrid>  
+      <rich:dataTable id="gradeSubjects" var="_gradeSubject" rendered="#{not empty gradeAction.listGradeSubjects and skipPermissionCheck == 'true' || s:hasPermission('gradeSubjects', 'gradeView') }" value="#{gradeAction.listGradeSubjects}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.gradeSubject_subject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('subject', 'gradeSubjectView')}"/>
+          </f:facet>  
+          <s:link value="#{_gradeSubject.subject.displayName}" view="/admin/entities/domain/subject/viewSubject.xhtml" propagation="none"> 
+            <f:param name="subjectId" value="#{_gradeSubject.subject.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.gradeSubject_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'gradeSubjectView')}"/>
+          </f:facet>  
+          <s:link value="#{_gradeSubject.employee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
+            <f:param name="employeeId" value="#{_gradeSubject.employee.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column> 
+      </rich:dataTable>  
+      <rich:dataTable id="gradeFees" var="_gradeFee" rendered="#{not empty gradeAction.listGradeFees and skipPermissionCheck == 'true' || s:hasPermission('gradeFees', 'gradeSubjectView') }" value="#{gradeAction.listGradeFees}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.gradeFee_fee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fee', 'gradeFeeView')}"/>
+          </f:facet>  
+          <s:link value="#{_gradeFee.fee.displayName}" view="/admin/entities/domain/fee/viewFee.xhtml" propagation="none"> 
+            <f:param name="feeId" value="#{_gradeFee.fee.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.gradeFee_amount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeView')}"/>
+          </f:facet>  
+          <h:outputText id="amount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeView')}" value="#{_gradeFee.amount}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/>  
+      <rich:simpleTogglePanel label="#{msg.grade_exams}" switchType="client"> 
+        <rich:dataTable value="#{gradeAction.listExams}" var="item"> 
+          <rich:column>#{item.displayName}</rich:column> 
+        </rich:dataTable> 
+      </rich:simpleTogglePanel> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="QuestionInstanceModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="QuestionInstance Search Results (#{empty records ? 0 : (questionInstanceList.paginated ? questionInstanceList.resultCount : records.size)})"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_questionInstance" value="#{records}" id="questionInstanceList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'questionInstanceView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{questionInstanceList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="questionInstance.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_questionInstance.id}"></h:outputText> 
+        </h:column>  
+        <h:column groupOn="#{questionInstance.electronicExamInstance.displayName}" rendered="#{s:hasPermission('electronicExamInstance', 'questionInstanceView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{questionInstanceList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.questionInstance_electronicExamInstance}"/>  
+              <ui:param name="propertyPath" value="questionInstance.electronicExamInstance"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_questionInstance.electronicExamInstance.displayName}" action="viewElectronicExamInstance" propagation="none"> 
+            <f:param name="electronicExamInstanceId" value="#{_questionInstance.electronicExamInstance.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('question', 'questionInstanceView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{questionInstanceList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.questionInstance_question}"/>  
+              <ui:param name="propertyPath" value="questionInstance.question"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_questionInstance.question.displayName}" action="viewQuestion" propagation="none"> 
+            <f:param name="questionId" value="#{_questionInstance.question.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('selectedChoice', 'questionInstanceView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{questionInstanceList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.questionInstance_selectedChoice}"/>  
+              <ui:param name="propertyPath" value="questionInstance.selectedChoice"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_questionInstance.selectedChoice.displayName}" action="viewChoice" propagation="none"> 
+            <f:param name="selectedChoiceId" value="#{_questionInstance.selectedChoice.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'questionInstanceView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{questionInstanceList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="questionInstance.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_questionInstance.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_questionInstance', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/exam/questionInstance/viewQuestionInstance.xhtml" rendered="#{s:hasPermission(_questionInstance, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="questionInstanceId" value="#{_questionInstance.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_questionInstance', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/exam/questionInstance/editQuestionInstance.xhtml" rendered="#{s:hasPermission(_questionInstance, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="questionInstanceId" value="#{_questionInstance.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('questionInstanceAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{questionInstanceAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_questionInstance.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_questionInstance.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{questionInstanceAction.setQuestionInstanceIdForModalDlg(_questionInstance.id)}" rendered="#{s:hasPermission(_questionInstance, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{questionInstanceList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{questionInstanceList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{questionInstanceList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{questionInstanceList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{questionInstanceList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{questionInstanceList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{questionInstanceList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

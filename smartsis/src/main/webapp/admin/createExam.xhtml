@@ -1,0 +1,42 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template="/admin/template.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<h:selectOneMenu id="student"
+				label="#{msg.electronicExamInstance_student}"
+				value="#{electronicExamInstanceAction.electronicExamInstance.student}"
+				required="true"
+				rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'electronicExamInstanceEdit')}">
+				<s:selectItems value="#{studentList}" var="itemIter"
+					label="#{itemIter.displayName}" noSelectionLabel="Please Select..." />
+				<rich:ajaxValidator event="onsubmit" />
+				<s:convertEntity />
+			</h:selectOneMenu>
+			<br/>
+			<ui:repeat var="_question"
+				value="#{electronicExamInstanceAction.listQuestionInstances}">
+				
+				<h:outputText value ="#{_question.question.text}" />
+				<h:selectOneRadio id="myRadio" value="#{_question.selectedChoice}">
+					<s:selectItems value="#{_question.question.listChoices}"
+						var="itemIter" label="#{itemIter.displayName}" />
+					<rich:ajaxValidator event="onsubmit" />
+					<s:convertEntity />
+				</h:selectOneRadio>
+
+			</ui:repeat>
+			<h:commandButton value="Done"
+				action="#{electronicExamInstanceAction.save}" />
+		</h:form>
+	</ui:define>
+</ui:composition>

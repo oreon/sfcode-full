@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.examInstance_exam} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'examInstanceEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="exam" value="#{ examInstanceList.examInstance.exam}"> 
+        <s:selectItems value="#{examList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.examInstance_gradeSubject} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'examInstanceEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="gradeSubject" value="#{ examInstanceList.examInstance.gradeSubject}"> 
+        <s:selectItems value="#{gradeSubjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.examInstance_dateHeld}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateHeld', 'examInstanceEdit')}"/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <rich:calendar value="#{examInstanceList.dateHeldRange.begin}"/> To
+      <br/>  
+      <rich:calendar value="#{examInstanceList.dateHeldRange.end}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{examInstanceList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{examInstanceList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

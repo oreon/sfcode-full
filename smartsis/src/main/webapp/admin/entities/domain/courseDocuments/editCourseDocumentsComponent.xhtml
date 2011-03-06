@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{courseDocumentsAction.load(courseDocumentsId )  }"> 
+        <h:outputText value="#{msg.courseDocuments_gradeSubject} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'courseDocumentsEdit')}"/>  
+        <h:selectOneMenu id="gradeSubject" label="#{msg.courseDocuments_gradeSubject}" value="#{courseDocumentsAction.courseDocuments.gradeSubject}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'courseDocumentsEdit')}"> 
+          <s:selectItems value="#{gradeSubjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="gradeSubject" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'courseDocumentsEdit')}"/>  
+        <h:outputText value="#{msg.courseDocuments_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'courseDocumentsEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'courseDocumentsEdit')}" label="#{msg.courseDocuments_name}" required="false" value="#{courseDocumentsAction.courseDocuments.name}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'courseDocumentsEdit')}"/>  
+        <h:outputText value="#{msg.courseDocuments_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'courseDocumentsEdit')}"/>  
+        <h:panelGroup> 
+          <h:outputText value="Current File:"/>  
+          <s:link value="#{courseDocumentsAction.courseDocuments.document.name}" id="document_file" action="#{courseDocumentsAction.downloadFile(null)}" propagation="none"> 
+            <f:param name="currentEntityId" value="#{courseDocumentsAction.instance.id}"/> 
+          </s:link>  
+          <rich:fileUpload fileUploadListener="#{courseDocumentsAction.documentUploadListener}" immediateUpload="true" ajaxSingle="true" autoclear="false" listHeight="50"> 
+            <s:conversationPropagation type="join"/>  
+            <a:support event="onuploadcomplete" reRender="document_file"/> 
+          </rich:fileUpload> 
+        </h:panelGroup>  
+        <rich:message styleClass="error errors" for="document" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'courseDocumentsEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

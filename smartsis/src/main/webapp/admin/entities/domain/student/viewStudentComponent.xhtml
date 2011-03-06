@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{studentAction.load(studentId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{studentAction.student.id}"/>  
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'studentView')}"/>  
+        <h:outputText id="contactDetails_primaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'studentView')}" value="#{studentAction.student.contactDetails.primaryPhone}"></h:outputText>  
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('secondaryPhone', 'studentView')}"/>  
+        <h:outputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('secondaryPhone', 'studentView')}" value="#{studentAction.student.contactDetails.secondaryPhone}"></h:outputText>  
+        <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'studentView')}"/>  
+        <h:outputText id="contactDetails_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'studentView')}" value="#{studentAction.student.contactDetails.email}"></h:outputText>  
+        <h:outputText value="#{msg.student_grade}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'studentView')}"/>  
+        <s:link value="#{studentAction.student.grade.displayName}" view="/admin/entities/domain/grade/viewGrade.xhtml" propagation="none"> 
+          <f:param name="gradeId" value="#{studentAction.student.grade.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'studentView')}"/>  
+        <h:outputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'studentView')}" value="#{studentAction.student.firstName}"></h:outputText>  
+        <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'studentView')}"/>  
+        <h:outputText id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'studentView')}" value="#{studentAction.student.lastName}"></h:outputText>  
+        <h:outputText value="#{msg.student_picture}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('picture', 'studentView')}"/>  
+        <c:choose> 
+          <c:when test="${studentAction.student.picture.contentType.startsWith('image')}"> 
+            <s:graphicImage value="#{studentAction.student.picture.data}"/> 
+          </c:when>  
+          <c:otherwise> 
+            <s:link value="#{studentAction.student.picture.name}" action="#{studentAction.downloadPicture(null)}" propagation="none"> 
+              <f:param name="currentEntityId" value="#{studentAction.instance.id}"/> 
+            </s:link> 
+          </c:otherwise> 
+        </c:choose>  
+        <h:outputText value="#{msg.student_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gender', 'studentView')}"/>  
+        <h:outputText value="#{studentAction.student.gender}"/>  
+        <h:outputText value="#{msg.student_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'studentView')}"/>  
+        <h:outputText id="dateOfBirth#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'studentView')}" value="#{studentAction.student.dateOfBirth}"></h:outputText> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

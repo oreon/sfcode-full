@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{examInstanceAction.load(examInstanceId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{examInstanceAction.examInstance.id}"/>  
+        <h:outputText value="#{msg.examInstance_exam}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'examInstanceView')}"/>  
+        <s:link value="#{examInstanceAction.examInstance.exam.displayName}" view="/admin/entities/domain/exam/viewExam.xhtml" propagation="none"> 
+          <f:param name="examId" value="#{examInstanceAction.examInstance.exam.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.examInstance_gradeSubject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'examInstanceView')}"/>  
+        <s:link value="#{examInstanceAction.examInstance.gradeSubject.displayName}" view="/admin/entities/domain/gradeSubject/viewGradeSubject.xhtml" propagation="none"> 
+          <f:param name="gradeSubjectId" value="#{examInstanceAction.examInstance.gradeSubject.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.examInstance_dateHeld}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateHeld', 'examInstanceView')}"/>  
+        <h:outputText id="dateHeld#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateHeld', 'examInstanceView')}" value="#{examInstanceAction.examInstance.dateHeld}"></h:outputText> 
+      </h:panelGrid>  
+      <rich:dataTable id="examScores" var="_examScore" rendered="#{not empty examInstanceAction.listExamScores and skipPermissionCheck == 'true' || s:hasPermission('examScores', 'examInstanceView') }" value="#{examInstanceAction.listExamScores}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.examScore_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'examScoreView')}"/>
+          </f:facet>  
+          <s:link value="#{_examScore.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml" propagation="none"> 
+            <f:param name="studentId" value="#{_examScore.student.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.examScore_marks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreView')}"/>
+          </f:facet>  
+          <h:outputText id="marks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreView')}" value="#{_examScore.marks}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
