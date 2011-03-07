@@ -51,6 +51,16 @@
           </f:facet>  
           <h:outputText value="#{_exam.passMarks}" escape="false"/> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('ordinal', 'examView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{examList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.exam_ordinal}"/>  
+              <ui:param name="propertyPath" value="exam.ordinal"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_exam.ordinal}" escape="false"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'examView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

@@ -1,69 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:s="http://jboss.com/products/seam/taglib"
-	xmlns:a="http://richfaces.org/a4j"
-	xmlns:p="http://primefaces.prime.com.tr/ui"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
-	template="/admin/template.xhtml">
-	<ui:define name="content">
-		<h:form>
-			<rich:tabPanel switchType="ajax">
-				<rich:tab label="ElectronicExamEvent">
-					<ui:include
-						src="/admin/entities/exam/electronicExamEvent/viewElectronicExamEventComponent.xhtml" />
-					<div class="buttonBox"><h:commandButton value="Edit"
-						rendered="#{s:hasPermission('electronicExamEvent', 'edit', electronicExamEventAction.instance)}"
-						action="edit"></h:commandButton> <h:outputText value=" " /> <h:commandButton
-						value="Back To Listing"
-						action="#{electronicExamEventAction.cancel}">
-						<s:conversationPropagation type="end" />
-					</h:commandButton></div>
-				</rich:tab>
-				<rich:tab label="ElectronicExam"
-					rendered="#{electronicExamEventAction.instance.electronicExam != null}">
-					<ui:include
-						src="/admin/entities/exam/electronicExam/viewElectronicExamComponent.xhtml">
-						<ui:param name="entityId" value="1" />
-						<ui:param name="electronicExamId"
-							value="#{electronicExamEventAction.instance.electronicExam.id}" />
-					</ui:include>
-				</rich:tab>
-			</rich:tabPanel>
-		</h:form>
-		
-		<table class="viewInfo">
-		<ui:repeat var="mapEntry"
-			value="#{electronicExamEventAction.summaryStats.entrySet().toArray()}" varStatus="current">
-			<tr>
-			<td><h:outputText value=" #{mapEntry.key}" /></td><td><h:outputText value="#{mapEntry.value}" /> </td>  
-			</tr>
-		</ui:repeat>
-		</table>
-		
-		
-		<table class="viewInfo">
-		<ui:repeat var="mapEntry"
-			value="#{electronicExamEventAction.mapIntervals.entrySet().toArray()}" varStatus="current">
-			<tr>
-			<td>#{10 *  mapEntry.key} - #{10 * (mapEntry.key + 1)} </td><td><h:outputText value="#{mapEntry.value}" /> </td>  
-			</tr>
-		</ui:repeat>
-		</table>
-		
-		
-		<br />
-		<rich:tabPanel></rich:tabPanel>
-		<br />
-		<rich:tabPanel>
-			<rich:tab label="Notes">
-				<wc:comments backingAction="#{electronicExamEventAction}" />
-			</rich:tab>
-		</rich:tabPanel>
-	</ui:define>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <rich:tabPanel switchType="ajax"> 
+        <rich:tab label="ElectronicExamEvent"> 
+          <ui:include src="/admin/entities/exam/electronicExamEvent/viewElectronicExamEventComponent.xhtml"/>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('electronicExamEvent', 'edit', electronicExamEventAction.instance)}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" action="#{electronicExamEventAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </rich:tab>  
+        <rich:tab label="ElectronicExam" rendered="#{electronicExamEventAction.instance.electronicExam != null}"> 
+          <ui:include src="/admin/entities/exam/electronicExam/viewElectronicExamComponent.xhtml"> 
+            <ui:param name="entityId" value="1"/>  
+            <ui:param name="electronicExamId" value="#{electronicExamEventAction.instance.electronicExam.id}"/> 
+          </ui:include> 
+        </rich:tab> 
+      </rich:tabPanel> 
+    </h:form>  
+    <br/>  
+    <rich:tabPanel></rich:tabPanel>  
+    <br/>  
+    <rich:tabPanel> 
+      <rich:tab label="Notes"> 
+        <wc:comments backingAction="#{electronicExamEventAction}"/> 
+      </rich:tab> 
+    </rich:tabPanel> 
+  </ui:define> 
 </ui:composition>

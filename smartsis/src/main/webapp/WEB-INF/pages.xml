@@ -681,7 +681,8 @@
     <param name="id" value="#{examList.exam.id}"/>  
     <param name="name" value="#{examList.exam.name}" validateModel="false"/>  
     <param name="maxMarks" value="#{examList.exam.maxMarks}" validateModel="false"/>  
-    <param name="passMarks" value="#{examList.exam.passMarks}" validateModel="false"/> 
+    <param name="passMarks" value="#{examList.exam.passMarks}" validateModel="false"/>  
+    <param name="ordinal" value="#{examList.exam.ordinal}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/examScore/editExamScore.xhtml"> 
     <!-- <description>Edit ExamScore: #{examScore.displayName}</description> -->  
@@ -694,8 +695,8 @@
       </rule> 
     </navigation>  
     <param name="examScoreId" value="#{examScoreAction.examScoreId}"/>  
-    <param name="studentId" value="#{examScoreAction.studentId}"/>  
-    <param name="examInstanceId" value="#{examScoreAction.examInstanceId}"/> 
+    <param name="examInstanceId" value="#{examScoreAction.examInstanceId}"/>  
+    <param name="studentId" value="#{examScoreAction.studentId}"/> 
   </page>  
   <page view-id="/admin/entities/domain/examScore/viewExamScore.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View ExamScore: #{examScore.displayName}</description> -->  
@@ -723,9 +724,10 @@
     <param name="dir" value="#{examScoreList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{examScoreList.examScore.id}"/>  
-    <param name="student" value="#{examScoreList.examScore.student.id}" validateModel="false"/>  
+    <param name="examInstance" value="#{examScoreList.examScore.examInstance.id}" validateModel="false"/>  
     <param name="marks" value="#{examScoreList.examScore.marks}" validateModel="false"/>  
-    <param name="examInstance" value="#{examScoreList.examScore.examInstance.id}" validateModel="false"/> 
+    <param name="rank" value="#{examScoreList.examScore.rank}" validateModel="false"/>  
+    <param name="student" value="#{examScoreList.examScore.student.id}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/examInstance/editExamInstance.xhtml"> 
     <!-- <description>Edit ExamInstance: #{examInstance.displayName}</description> -->  
@@ -769,7 +771,8 @@
     <param name="id" value="#{examInstanceList.examInstance.id}"/>  
     <param name="exam" value="#{examInstanceList.examInstance.exam.id}" validateModel="false"/>  
     <param name="gradeSubject" value="#{examInstanceList.examInstance.gradeSubject.id}" validateModel="false"/>  
-    <param name="dateHeld" value="#{examInstanceList.examInstance.dateHeld}" validateModel="false"/> 
+    <param name="dateHeld" value="#{examInstanceList.examInstance.dateHeld}" validateModel="false"/>  
+    <param name="average" value="#{examInstanceList.examInstance.average}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/gradeFee/editGradeFee.xhtml"> 
     <!-- <description>Edit GradeFee: #{gradeFee.displayName}</description> -->  

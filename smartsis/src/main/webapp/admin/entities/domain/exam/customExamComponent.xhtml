@@ -23,6 +23,12 @@
         <br/>  
         <h:inputText id="passMarks" value="#{examAction.exam.passMarks}"/>  
         <rich:message styleClass="error errors" for="passMarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('passMarks', 'examEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.exam_ordinal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ordinal', 'examEdit')}"/>  
+        <br/>  
+        <h:inputText id="ordinal" value="#{examAction.exam.ordinal}"/>  
+        <rich:message styleClass="error errors" for="ordinal" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ordinal', 'examEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

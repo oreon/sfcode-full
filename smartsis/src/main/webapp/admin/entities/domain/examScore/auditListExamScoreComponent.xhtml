@@ -31,12 +31,30 @@
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
-          <h:outputText value="#{msg.examScore_student}"/> 
+          <h:outputText value="#{msg.examScore_examName}"/> 
         </f:facet>  
-        <s:link value="#{_log.entity.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml"> 
-          <f:param name="id" value="#{_entity.student.id}"/>  
+        <h:outputText value="#{_log.entity.examName}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.examScore_examInstance}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.examInstance.displayName}" view="/admin/entities/domain/examInstance/viewExamInstance.xhtml"> 
+          <f:param name="id" value="#{_entity.examInstance.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.examScore_subject}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.subject}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.examScore_studentInfo}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.studentInfo}"/> 
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
@@ -46,10 +64,22 @@
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
-          <h:outputText value="#{msg.examScore_examInstance}"/> 
+          <h:outputText value="#{msg.examScore_percentage}"/> 
         </f:facet>  
-        <s:link value="#{_log.entity.examInstance.displayName}" view="/admin/entities/domain/examInstance/viewExamInstance.xhtml"> 
-          <f:param name="id" value="#{_entity.examInstance.id}"/>  
+        <h:outputText value="#{_log.entity.percentage}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.examScore_rank}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.rank}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.examScore_student}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml"> 
+          <f:param name="id" value="#{_entity.student.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </rich:column> 

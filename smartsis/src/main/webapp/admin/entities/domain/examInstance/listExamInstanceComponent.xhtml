@@ -59,6 +59,16 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('average', 'examInstanceView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{examInstanceList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.examInstance_average}"/>  
+              <ui:param name="propertyPath" value="examInstance.average"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_examInstance.average}" escape="false"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'examInstanceView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

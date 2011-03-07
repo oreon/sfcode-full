@@ -75,6 +75,14 @@ public abstract class ExamListQueryBase extends BaseQuery<Exam, Long> {
 		this.passMarksRange = passMarksRange;
 	}
 
+	private Range<Integer> ordinalRange = new Range<Integer>();
+	public Range<Integer> getOrdinalRange() {
+		return ordinalRange;
+	}
+	public void setOrdinal(Range<Integer> ordinalRange) {
+		this.ordinalRange = ordinalRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"exam.id = #{examList.exam.id}",
 
@@ -87,6 +95,9 @@ public abstract class ExamListQueryBase extends BaseQuery<Exam, Long> {
 
 			"exam.passMarks >= #{examList.passMarksRange.begin}",
 			"exam.passMarks <= #{examList.passMarksRange.end}",
+
+			"exam.ordinal >= #{examList.ordinalRange.begin}",
+			"exam.ordinal <= #{examList.ordinalRange.end}",
 
 			"exam.dateCreated <= #{examList.dateCreatedRange.end}",
 			"exam.dateCreated >= #{examList.dateCreatedRange.begin}",};
@@ -115,6 +126,9 @@ public abstract class ExamListQueryBase extends BaseQuery<Exam, Long> {
 		builder.append("\""
 				+ (e.getPassMarks() != null ? e.getPassMarks() : "") + "\",");
 
+		builder.append("\"" + (e.getOrdinal() != null ? e.getOrdinal() : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -131,6 +145,8 @@ public abstract class ExamListQueryBase extends BaseQuery<Exam, Long> {
 		builder.append("MaxMarks" + ",");
 
 		builder.append("PassMarks" + ",");
+
+		builder.append("Ordinal" + ",");
 
 		builder.append("\r\n");
 	}

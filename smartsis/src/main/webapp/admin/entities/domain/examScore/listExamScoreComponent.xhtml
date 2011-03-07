@@ -21,28 +21,15 @@
           </f:facet>  
           <h:outputText value="#{_examScore.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('student', 'examScoreView'  )}"> 
+        <h:column rendered="#{s:hasPermission('examName', 'examScoreView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{examScoreList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.examScore_student}"/>  
-              <ui:param name="propertyPath" value="examScore.student"/> 
+              <ui:param name="propertyLabel" value="#{msg.examScore_examName}"/>  
+              <ui:param name="propertyPath" value="examScore.examName"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_examScore.student.displayName}" action="viewStudent" propagation="none"> 
-            <f:param name="studentId" value="#{_examScore.student.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link> 
-        </h:column>  
-        <h:column rendered="#{s:hasPermission('marks', 'examScoreView'  )}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{examScoreList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.examScore_marks}"/>  
-              <ui:param name="propertyPath" value="examScore.marks"/> 
-            </ui:include> 
-          </f:facet>  
-          <h:outputText value="#{_examScore.marks}" escape="false"/> 
+          <h:outputText value="#{_examScore.examName}" escape="false"/> 
         </h:column>  
         <h:column groupOn="#{examScore.examInstance.displayName}" rendered="#{s:hasPermission('examInstance', 'examScoreView'  )}"> 
           <f:facet name="header"> 
@@ -54,6 +41,71 @@
           </f:facet>  
           <s:link value="#{_examScore.examInstance.displayName}" action="viewExamInstance" propagation="none"> 
             <f:param name="examInstanceId" value="#{_examScore.examInstance.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('subject', 'examScoreView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{examScoreList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.examScore_subject}"/>  
+              <ui:param name="propertyPath" value="examScore.subject"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_examScore.subject}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('studentInfo', 'examScoreView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{examScoreList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.examScore_studentInfo}"/>  
+              <ui:param name="propertyPath" value="examScore.studentInfo"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_examScore.studentInfo}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('marks', 'examScoreView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{examScoreList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.examScore_marks}"/>  
+              <ui:param name="propertyPath" value="examScore.marks"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_examScore.marks}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('percentage', 'examScoreView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{examScoreList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.examScore_percentage}"/>  
+              <ui:param name="propertyPath" value="examScore.percentage"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_examScore.percentage}"> 
+            <f:convertNumber pattern="$#,##0.00"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('rank', 'examScoreView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{examScoreList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.examScore_rank}"/>  
+              <ui:param name="propertyPath" value="examScore.rank"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_examScore.rank}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('student', 'examScoreView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{examScoreList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.examScore_student}"/>  
+              <ui:param name="propertyPath" value="examScore.student"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_examScore.student.displayName}" action="viewStudent" propagation="none"> 
+            <f:param name="studentId" value="#{_examScore.student.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  

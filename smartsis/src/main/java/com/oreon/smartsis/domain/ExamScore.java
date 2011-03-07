@@ -52,37 +52,54 @@ import org.witchcraft.utils.*;
 public class ExamScore extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 211546687L;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "student_id", nullable = false, updatable = true)
-	@ContainedIn
-	protected Student student;
-
-	@NotNull
-	@Column(name = "marks", unique = false)
-	protected Integer marks;
+	@Transient
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String examName;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "examInstance_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected ExamInstance examInstance;
 
-	public void setStudent(Student student) {
-		this.student = student;
+	@Transient
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String subject;
+
+	@Transient
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String studentInfo;
+
+	@NotNull
+	@Column(name = "marks", unique = false)
+	protected Integer marks;
+
+	@Transient
+	protected Double percentage;
+
+	@Column(name = "rank", unique = false)
+	protected Integer rank;
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "student_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected Student student;
+
+	public void setExamName(String examName) {
+		this.examName = examName;
 	}
 
-	public Student getStudent() {
+	public String getExamName() {
 
-		return student;
+		try {
+			return examInstance.getExam().getName();
+		} catch (Exception e) {
 
-	}
+			return "";
 
-	public void setMarks(Integer marks) {
-		this.marks = marks;
-	}
-
-	public Integer getMarks() {
-
-		return marks;
+		}
 
 	}
 
@@ -96,10 +113,88 @@ public class ExamScore extends BusinessEntity implements java.io.Serializable {
 
 	}
 
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getSubject() {
+
+		try {
+			return examInstance.getGradeSubject().getSubject().getName();
+		} catch (Exception e) {
+
+			return "";
+
+		}
+
+	}
+
+	public void setStudentInfo(String studentInfo) {
+		this.studentInfo = studentInfo;
+	}
+
+	public String getStudentInfo() {
+
+		try {
+			return student.getDisplayName();
+		} catch (Exception e) {
+
+			return "";
+
+		}
+
+	}
+
+	public void setMarks(Integer marks) {
+		this.marks = marks;
+	}
+
+	public Integer getMarks() {
+
+		return marks;
+
+	}
+
+	public void setPercentage(Double percentage) {
+		this.percentage = percentage;
+	}
+
+	public Double getPercentage() {
+
+		try {
+			return 100.0 * marks / examInstance.getExam().getMaxMarks();
+		} catch (Exception e) {
+
+			return 0.0;
+
+		}
+
+	}
+
+	public void setRank(Integer rank) {
+		this.rank = rank;
+	}
+
+	public Integer getRank() {
+
+		return rank;
+
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
+	public Student getStudent() {
+
+		return student;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
-			return student + "";
+			return examName;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
@@ -117,6 +212,12 @@ public class ExamScore extends BusinessEntity implements java.io.Serializable {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
+		listSearchableFields.add("examName");
+
+		listSearchableFields.add("subject");
+
+		listSearchableFields.add("studentInfo");
+
 		return listSearchableFields;
 	}
 
@@ -125,12 +226,18 @@ public class ExamScore extends BusinessEntity implements java.io.Serializable {
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
 
-		if (getStudent() != null)
-			builder.append("student:" + getStudent().getDisplayName() + " ");
+		builder.append(getExamName() + " ");
+
+		builder.append(getSubject() + " ");
+
+		builder.append(getStudentInfo() + " ");
 
 		if (getExamInstance() != null)
 			builder.append("examInstance:" + getExamInstance().getDisplayName()
 					+ " ");
+
+		if (getStudent() != null)
+			builder.append("student:" + getStudent().getDisplayName() + " ");
 
 		return builder.toString();
 	}

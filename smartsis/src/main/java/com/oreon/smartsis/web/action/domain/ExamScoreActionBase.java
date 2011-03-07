@@ -50,11 +50,11 @@ public abstract class ExamScoreActionBase extends BaseAction<ExamScore>
 	@DataModelSelection
 	private ExamScore examScore;
 
-	@In(create = true, value = "studentAction")
-	com.oreon.smartsis.web.action.domain.StudentAction studentAction;
-
 	@In(create = true, value = "examInstanceAction")
 	com.oreon.smartsis.web.action.domain.ExamInstanceAction examInstanceAction;
+
+	@In(create = true, value = "studentAction")
+	com.oreon.smartsis.web.action.domain.StudentAction studentAction;
 
 	@DataModel
 	private List<ExamScore> examScoreRecordList;
@@ -80,19 +80,6 @@ public abstract class ExamScoreActionBase extends BaseAction<ExamScore>
 		loadAssociations();
 	}
 
-	public void setStudentId(Long id) {
-
-		if (id != null && id > 0)
-			getInstance().setStudent(studentAction.loadFromId(id));
-
-	}
-
-	public Long getStudentId() {
-		if (getInstance().getStudent() != null)
-			return getInstance().getStudent().getId();
-		return 0L;
-	}
-
 	public void setExamInstanceId(Long id) {
 
 		if (id != null && id > 0)
@@ -103,6 +90,19 @@ public abstract class ExamScoreActionBase extends BaseAction<ExamScore>
 	public Long getExamInstanceId() {
 		if (getInstance().getExamInstance() != null)
 			return getInstance().getExamInstance().getId();
+		return 0L;
+	}
+
+	public void setStudentId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setStudent(studentAction.loadFromId(id));
+
+	}
+
+	public Long getStudentId() {
+		if (getInstance().getStudent() != null)
+			return getInstance().getStudent().getId();
 		return 0L;
 	}
 
@@ -138,16 +138,16 @@ public abstract class ExamScoreActionBase extends BaseAction<ExamScore>
 	public void wire() {
 		getInstance();
 
-		com.oreon.smartsis.domain.Student student = studentAction
-				.getDefinedInstance();
-		if (student != null && isNew()) {
-			getInstance().setStudent(student);
-		}
-
 		com.oreon.smartsis.domain.ExamInstance examInstance = examInstanceAction
 				.getDefinedInstance();
 		if (examInstance != null && isNew()) {
 			getInstance().setExamInstance(examInstance);
+		}
+
+		com.oreon.smartsis.domain.Student student = studentAction
+				.getDefinedInstance();
+		if (student != null && isNew()) {
+			getInstance().setStudent(student);
 		}
 
 	}
@@ -176,14 +176,14 @@ public abstract class ExamScoreActionBase extends BaseAction<ExamScore>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (examScore.getStudent() != null) {
-			criteria = criteria.add(Restrictions.eq("student.id", examScore
-					.getStudent().getId()));
-		}
-
 		if (examScore.getExamInstance() != null) {
 			criteria = criteria.add(Restrictions.eq("examInstance.id",
 					examScore.getExamInstance().getId()));
+		}
+
+		if (examScore.getStudent() != null) {
+			criteria = criteria.add(Restrictions.eq("student.id", examScore
+					.getStudent().getId()));
 		}
 
 	}
@@ -194,12 +194,12 @@ public abstract class ExamScoreActionBase extends BaseAction<ExamScore>
 	 */
 	public void loadAssociations() {
 
-		if (examScore.getStudent() != null) {
-			studentAction.setInstance(getInstance().getStudent());
-		}
-
 		if (examScore.getExamInstance() != null) {
 			examInstanceAction.setInstance(getInstance().getExamInstance());
+		}
+
+		if (examScore.getStudent() != null) {
+			studentAction.setInstance(getInstance().getStudent());
 		}
 
 	}

@@ -6,18 +6,28 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{examScoreAction.load(examScoreId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{examScoreAction.examScore.id}"/>  
-        <h:outputText value="#{msg.examScore_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'examScoreView')}"/>  
-        <s:link value="#{examScoreAction.examScore.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml" propagation="none"> 
-          <f:param name="studentId" value="#{examScoreAction.examScore.student.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
         <h:outputText value="#{msg.examScore_examInstance}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'examScoreView')}"/>  
         <s:link value="#{examScoreAction.examScore.examInstance.displayName}" view="/admin/entities/domain/examInstance/viewExamInstance.xhtml" propagation="none"> 
           <f:param name="examInstanceId" value="#{examScoreAction.examScore.examInstance.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
+        <h:outputText value="#{msg.examScore_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'examScoreView')}"/>  
+        <s:link value="#{examScoreAction.examScore.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml" propagation="none"> 
+          <f:param name="studentId" value="#{examScoreAction.examScore.student.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.examScore_examName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examName', 'examScoreView')}"/>  
+        <h:outputText id="examName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examName', 'examScoreView')}" value="#{examScoreAction.examScore.examName}"></h:outputText>  
+        <h:outputText value="#{msg.examScore_subject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('subject', 'examScoreView')}"/>  
+        <h:outputText id="subject#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('subject', 'examScoreView')}" value="#{examScoreAction.examScore.subject}"></h:outputText>  
+        <h:outputText value="#{msg.examScore_studentInfo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentInfo', 'examScoreView')}"/>  
+        <h:outputText id="studentInfo#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentInfo', 'examScoreView')}" value="#{examScoreAction.examScore.studentInfo}"></h:outputText>  
         <h:outputText value="#{msg.examScore_marks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreView')}"/>  
-        <h:outputText id="marks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreView')}" value="#{examScoreAction.examScore.marks}"></h:outputText> 
+        <h:outputText id="marks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreView')}" value="#{examScoreAction.examScore.marks}"></h:outputText>  
+        <h:outputText value="#{msg.examScore_percentage}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('percentage', 'examScoreView')}"/>  
+        <h:outputText id="percentage#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('percentage', 'examScoreView')}" value="#{examScoreAction.examScore.percentage}"></h:outputText>  
+        <h:outputText value="#{msg.examScore_rank}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rank', 'examScoreView')}"/>  
+        <h:outputText id="rank#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rank', 'examScoreView')}" value="#{examScoreAction.examScore.rank}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

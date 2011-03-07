@@ -59,6 +59,14 @@ public abstract class ExamInstanceListQueryBase
 		this.dateHeldRange = dateHeldRange;
 	}
 
+	private Range<Integer> averageRange = new Range<Integer>();
+	public Range<Integer> getAverageRange() {
+		return averageRange;
+	}
+	public void setAverage(Range<Integer> averageRange) {
+		this.averageRange = averageRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"examInstance.id = #{examInstanceList.examInstance.id}",
 
@@ -68,6 +76,9 @@ public abstract class ExamInstanceListQueryBase
 
 			"examInstance.dateHeld >= #{examInstanceList.dateHeldRange.begin}",
 			"examInstance.dateHeld <= #{examInstanceList.dateHeldRange.end}",
+
+			"examInstance.average >= #{examInstanceList.averageRange.begin}",
+			"examInstance.average <= #{examInstanceList.averageRange.end}",
 
 			"examInstance.dateCreated <= #{examInstanceList.dateCreatedRange.end}",
 			"examInstance.dateCreated >= #{examInstanceList.dateCreatedRange.begin}",};
@@ -94,6 +105,9 @@ public abstract class ExamInstanceListQueryBase
 		builder.append("\"" + (e.getDateHeld() != null ? e.getDateHeld() : "")
 				+ "\",");
 
+		builder.append("\"" + (e.getAverage() != null ? e.getAverage() : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -108,6 +122,8 @@ public abstract class ExamInstanceListQueryBase
 		builder.append("GradeSubject" + ",");
 
 		builder.append("DateHeld" + ",");
+
+		builder.append("Average" + ",");
 
 		builder.append("\r\n");
 	}
