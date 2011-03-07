@@ -18,7 +18,12 @@
         <h:inputText id="passMarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('passMarks', 'examEdit')}" label="#{msg.exam_passMarks}" required="false" value="#{examAction.exam.passMarks}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="passMarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('passMarks', 'examEdit')}"/> 
+        <rich:message styleClass="error errors" for="passMarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('passMarks', 'examEdit')}"/>  
+        <h:outputText value="#{msg.exam_ordinal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ordinal', 'examEdit')}"/>  
+        <h:inputText id="ordinal#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ordinal', 'examEdit')}" label="#{msg.exam_ordinal}" required="false" value="#{examAction.exam.ordinal}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="ordinal" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ordinal', 'examEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

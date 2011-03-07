@@ -66,6 +66,8 @@ public class Exam extends BusinessEntity implements java.io.Serializable {
 
 	protected Integer passMarks;
 
+	protected Integer ordinal;
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -101,6 +103,16 @@ public class Exam extends BusinessEntity implements java.io.Serializable {
 	public Integer getPassMarks() {
 
 		return passMarks;
+
+	}
+
+	public void setOrdinal(Integer ordinal) {
+		this.ordinal = ordinal;
+	}
+
+	public Integer getOrdinal() {
+
+		return ordinal;
 
 	}
 

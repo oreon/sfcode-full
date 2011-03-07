@@ -112,15 +112,27 @@ public class MetaData {
 
 	"passMarks",
 
+	"ordinal",
+
 	},
 
 	{"com.oreon.smartsis.domain.ExamScore",
 
-	"student",
+	"examName",
+
+	"examInstance",
+
+	"subject",
+
+	"studentInfo",
 
 	"marks",
 
-	"examInstance",
+	"percentage",
+
+	"rank",
+
+	"student",
 
 	},
 
@@ -133,6 +145,8 @@ public class MetaData {
 	"gradeSubject",
 
 	"dateHeld",
+
+	"average",
 
 	},
 

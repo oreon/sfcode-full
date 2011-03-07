@@ -7,19 +7,10 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.examScore_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'examScoreEdit')}"/>  
+        <h:outputText value="#{msg.examScore_examName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examName', 'examScoreEdit')}"/>  
         <br/>  
-        <h:selectOneMenu id="student" value="#{examScoreAction.examScore.student}"> 
-          <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'examScoreEdit')}"/> 
-      </h:panelGroup>  
-      <h:panelGroup> 
-        <h:outputText value="#{msg.examScore_marks} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreEdit')}"/>  
-        <br/>  
-        <h:inputText id="marks" value="#{examScoreAction.examScore.marks}"/>  
-        <rich:message styleClass="error errors" for="marks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreEdit')}"/> 
+        <h:inputText id="examName" value="#{examScoreAction.examScore.examName}"/>  
+        <rich:message styleClass="error errors" for="examName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examName', 'examScoreEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.examScore_examInstance} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'examScoreEdit')}"/>  
@@ -29,6 +20,45 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="examInstance" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'examScoreEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.examScore_subject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('subject', 'examScoreEdit')}"/>  
+        <br/>  
+        <h:inputText id="subject" value="#{examScoreAction.examScore.subject}"/>  
+        <rich:message styleClass="error errors" for="subject" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('subject', 'examScoreEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.examScore_studentInfo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentInfo', 'examScoreEdit')}"/>  
+        <br/>  
+        <h:inputText id="studentInfo" value="#{examScoreAction.examScore.studentInfo}"/>  
+        <rich:message styleClass="error errors" for="studentInfo" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentInfo', 'examScoreEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.examScore_marks} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreEdit')}"/>  
+        <br/>  
+        <h:inputText id="marks" value="#{examScoreAction.examScore.marks}"/>  
+        <rich:message styleClass="error errors" for="marks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.examScore_percentage}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('percentage', 'examScoreEdit')}"/>  
+        <br/>  
+        <h:inputText id="percentage" value="#{examScoreAction.examScore.percentage}"/>  
+        <rich:message styleClass="error errors" for="percentage" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('percentage', 'examScoreEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.examScore_rank}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rank', 'examScoreEdit')}"/>  
+        <br/>  
+        <h:inputText id="rank" value="#{examScoreAction.examScore.rank}"/>  
+        <rich:message styleClass="error errors" for="rank" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rank', 'examScoreEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.examScore_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'examScoreEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="student" value="#{examScoreAction.examScore.student}"> 
+          <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'examScoreEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

@@ -57,15 +57,26 @@ public abstract class ExamScoreListQueryBase extends BaseQuery<ExamScore, Long> 
 		this.marksRange = marksRange;
 	}
 
+	private Range<Integer> rankRange = new Range<Integer>();
+	public Range<Integer> getRankRange() {
+		return rankRange;
+	}
+	public void setRank(Range<Integer> rankRange) {
+		this.rankRange = rankRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"examScore.id = #{examScoreList.examScore.id}",
 
-			"examScore.student.id = #{examScoreList.examScore.student.id}",
+			"examScore.examInstance.id = #{examScoreList.examScore.examInstance.id}",
 
 			"examScore.marks >= #{examScoreList.marksRange.begin}",
 			"examScore.marks <= #{examScoreList.marksRange.end}",
 
-			"examScore.examInstance.id = #{examScoreList.examScore.examInstance.id}",
+			"examScore.rank >= #{examScoreList.rankRange.begin}",
+			"examScore.rank <= #{examScoreList.rankRange.end}",
+
+			"examScore.student.id = #{examScoreList.examScore.student.id}",
 
 			"examScore.dateCreated <= #{examScoreList.dateCreatedRange.end}",
 			"examScore.dateCreated >= #{examScoreList.dateCreatedRange.begin}",};
@@ -89,15 +100,17 @@ public abstract class ExamScoreListQueryBase extends BaseQuery<ExamScore, Long> 
 	public void createCsvString(StringBuilder builder, ExamScore e) {
 
 		builder.append("\""
-				+ (e.getStudent() != null ? e.getStudent().getDisplayName()
-						.replace(",", "") : "") + "\",");
+				+ (e.getExamInstance() != null ? e.getExamInstance()
+						.getDisplayName().replace(",", "") : "") + "\",");
 
 		builder.append("\"" + (e.getMarks() != null ? e.getMarks() : "")
 				+ "\",");
 
+		builder.append("\"" + (e.getRank() != null ? e.getRank() : "") + "\",");
+
 		builder.append("\""
-				+ (e.getExamInstance() != null ? e.getExamInstance()
-						.getDisplayName().replace(",", "") : "") + "\",");
+				+ (e.getStudent() != null ? e.getStudent().getDisplayName()
+						.replace(",", "") : "") + "\",");
 
 		builder.append("\r\n");
 	}
@@ -108,11 +121,13 @@ public abstract class ExamScoreListQueryBase extends BaseQuery<ExamScore, Long> 
 	//@Override
 	public void createCSvTitles(StringBuilder builder) {
 
-		builder.append("Student" + ",");
+		builder.append("ExamInstance" + ",");
 
 		builder.append("Marks" + ",");
 
-		builder.append("ExamInstance" + ",");
+		builder.append("Rank" + ",");
+
+		builder.append("Student" + ",");
 
 		builder.append("\r\n");
 	}

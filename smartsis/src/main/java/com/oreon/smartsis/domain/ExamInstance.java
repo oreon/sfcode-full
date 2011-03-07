@@ -87,6 +87,9 @@ public class ExamInstance extends BusinessEntity
 
 	protected Date dateHeld;
 
+	@Column(name = "average", unique = false)
+	protected Integer average;
+
 	public void setExamScores(Set<ExamScore> examScores) {
 		this.examScores = examScores;
 	}
@@ -125,10 +128,20 @@ public class ExamInstance extends BusinessEntity
 
 	}
 
+	public void setAverage(Integer average) {
+		this.average = average;
+	}
+
+	public Integer getAverage() {
+
+		return average;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
-			return examScores + "";
+			return exam.name + " " + gradeSubject.getSubject().getName();
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
@@ -145,6 +158,12 @@ public class ExamInstance extends BusinessEntity
 	public List<String> listSearchableFields() {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
+
+		listSearchableFields.add("examScores.examName");
+
+		listSearchableFields.add("examScores.subject");
+
+		listSearchableFields.add("examScores.studentInfo");
 
 		return listSearchableFields;
 	}
