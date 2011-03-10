@@ -64,6 +64,12 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="grade" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'studentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.student_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('age', 'studentEdit')}"/>  
+        <br/>  
+        <h:inputText id="age" value="#{studentAction.student.age}"/>  
+        <rich:message styleClass="error errors" for="age" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('age', 'studentEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

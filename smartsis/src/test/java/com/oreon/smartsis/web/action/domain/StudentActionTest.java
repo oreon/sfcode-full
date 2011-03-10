@@ -21,6 +21,7 @@ public class StudentActionTest extends StudentActionTestBase {
 						.getInstance("studentAction");
 				studentAction.setId(1L);
 
+				/*
 				Map<Exam, List<ExamScore>> mapScores = studentAction
 						.getCurrentReportCard();
 				
@@ -35,7 +36,7 @@ public class StudentActionTest extends StudentActionTestBase {
 						System.out.print(examScore.getExamInstance().getGradeSubject().getSubject().getName() + ": " +examScore.getMarks() + " ");
 					}
 					System.out.println();
-				}
+				}*/
 			}
 
 		}.run();

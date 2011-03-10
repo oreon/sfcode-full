@@ -3,24 +3,50 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup> 
     <s:validateAll> 
-    	<table rules="all" width="70%">
+    	<table class="dispTable" width="90%">
     	<tr> <th> </th> 
-    		<ui:repeat var="gs"
-				value="#{studentAction.instance.grade.listGradeSubjects}" varStatus="current">
-				<th>${gs.subject.name}</th>
+    		<ui:repeat var="score"
+				value="#{studentAction.subjectsList}" varStatus="x" >
+				<th>${score.examInstance.gradeSubject.subject.name}</th>
 			</ui:repeat>	
     	 </tr>
     	<ui:repeat var="mapEntry"
-			value="#{studentAction.currentReportCard.entrySet().toArray()}" varStatus="current">
+			value="#{studentAction.currentReportCard}" varStatus="current">
 			<tr>
-			<td>#{mapEntry.key.name} </td>
-				<ui:repeat var="score" value="#{mapEntry.value}">
-					<td><h:outputText value="#{score.marks}" />  ${score.examInstance.gradeSubject.subject.name}</td> 
+				<td>#{mapEntry.get(0).examInstance.exam.name} (#{mapEntry.get(0).examInstance.exam.maxMarks})</td>
+				<ui:repeat var="score" value="#{mapEntry}">
+					
+					<td> <h3> <h:outputText value="#{score.marks}" />  </h3>
+					<br/>
+					 ${score.rank} 
+					 <h:outputText value="${score.percentage}" > 
+					 	 <f:convertNumber pattern="###0.00"/> 
+					 </h:outputText>%
+					 ${score.examInstance.average}
+					</td> 
 				</ui:repeat> 
+				<td>
+				
+				<h:outputText value="#{studentAction.listExamTotals.get( studentAction.currentReportCard.indexOf(mapEntry )  )}" 
+					rendered= "${studentAction.currentReportCard.indexOf(mapEntry ) &lt; studentAction.listExamTotals.size }"
+				/>
+				
+				</td>
 			</tr>
 		</ui:repeat>
+		<tr>
+			<th> Subject Total</th>
+			<ui:repeat var="score"
+				value="#{studentAction.listSubjectTotals}" >
+				<th>${score}</th>
+			</ui:repeat>	
+			<th>
+				${studentAction.total} / ${studentAction.totalMM}
+			</th>
+		</tr>
 		</table>
-     
+     	Rank: ${studentAction.rank} 
+   
      	
     </s:validateAll> 
   </h:panelGroup> 
