@@ -70,6 +70,9 @@ public class Student extends com.oreon.smartsis.domain.Person
 	@ContainedIn
 	protected Grade grade;
 
+	@Transient
+	protected Integer age;
+
 	public void setPicture(FileAttachment picture) {
 		this.picture = picture;
 	}
@@ -107,6 +110,22 @@ public class Student extends com.oreon.smartsis.domain.Person
 	public Grade getGrade() {
 
 		return grade;
+
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public Integer getAge() {
+
+		try {
+			return DateUtils.calcAge(dateOfBirth);
+		} catch (Exception e) {
+
+			return 0;
+
+		}
 
 	}
 
