@@ -123,9 +123,9 @@ type.name == "Double" || type.name == "Integer" || type.name == "Date";
 
 boolean isSearchable(Property a ):
 if ( a.association !=null) then
- a.isMultivalued() && a.opposite.isMultivalued()   || !a.isMultivalued()
+ a.isMultivalued() && a.opposite.isMultivalued()   || !a.isMultivalued() 
 else 
-!a.isMultivalued() && !a.isSecret() && !a.isFile();
+!a.isMultivalued() && !a.isSecret() && !a.isFile() && !a.isDerivedProperty();
 
 
 boolean getAuditable(Type type):
@@ -283,6 +283,12 @@ col.derivedFormula != null ? "@Formula(value =" +  "\"" + col.derivedFormula + "
 //whether this column is derived 
 isDerived(Column col):
 col.derivedProperty != null || col.derivedFormula != null;
+
+isDerivedProperty(Column col):
+col.derivedProperty != null;
+
+isDerivedProperty(Property col):
+false;
 
 isDerived(Property col):
 false;
