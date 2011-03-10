@@ -128,9 +128,26 @@ public class StudentAction extends StudentActionBase implements
 		
 		List<Long> list = executeQuery(qry, getInstance().getGrade().getId());
 		
-		System.out.println("printing score " + list.size());
-		
 		return calcRank(list, getTotal());
+	}
+	
+	public Integer getSubjectRank(Long subjectId){
+		return 0;
+	}
+	
+	public Integer getExamRank(Long examId){
+		String qry = "Select sum(e.marks) from ExamScore e WHERE  e.student.grade.id  = e.examInstance.gradeSubject.grade.id " +
+		" and e.student.id in (select id from Student s where s.grade.id = ?1 ) and e.examInstance.exam.id = ?2 group by e.student ";
+		
+		List<Long> list = executeQuery(qry, getInstance().getGrade().getId(), examId);
+		
+		String totalQry = "Select sum(e.marks) from ExamScore e WHERE  e.student.id = ?1 and e.examInstance.gradeSubject.grade.id = ?2 "
+			+ " and e.examInstance.exam.id = ?3 ";
+		
+		Long total = executeSingleResultQuery(totalQry, getInstance().getId(),
+				getInstance().getGrade().getId(), examId);
+		
+		return calcRank(list,total );
 	}
 
 	public List<ExamScore> getSubjectsList() {

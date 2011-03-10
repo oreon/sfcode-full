@@ -9,6 +9,10 @@
 				value="#{studentAction.subjectsList}" varStatus="x" >
 				<th>${score.examInstance.gradeSubject.subject.name}</th>
 			</ui:repeat>	
+			<th> Total </th>
+			<th> % </th>
+			<th> Rank </th>
+			<th> Average </th>
     	 </tr>
     	<ui:repeat var="mapEntry"
 			value="#{studentAction.currentReportCard}" varStatus="current">
@@ -32,8 +36,10 @@
 				/>
 				
 				</td>
+				<td> ${studentAction.getExamRank(mapEntry.get(0).examInstance.exam.id)} </td>
 			</tr>
 		</ui:repeat>
+		
 		<tr>
 			<th> Subject Total</th>
 			<ui:repeat var="score"
