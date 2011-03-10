@@ -60,7 +60,7 @@ public class Authenticator {
 			
 			RuleBasedPermissionResolver resolver = RuleBasedPermissionResolver.instance();
 			if(resolver != null) {
-				resolver.getSecurityContext().insert(user);
+				//resolver.getSecurityContext().insert(user);
 			}
 
 			userUtilAction.setCurrentUser(user);
