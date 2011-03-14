@@ -3,47 +3,53 @@
 package com.oreon.smartsis.web.action.domain;
 	
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
-import javax.persistence.EntityManager;
-
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
-
-import org.apache.commons.lang.StringUtils;
-
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Scope;
-
-import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.End;
-import org.jboss.seam.annotations.Factory;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Out;
 import org.jboss.seam.Component;
-import org.jboss.seam.security.Identity;
+import org.jboss.seam.annotations.Name;
 
-import org.jboss.seam.annotations.datamodel.DataModel;
-import org.jboss.seam.annotations.datamodel.DataModelSelection;
-import org.jboss.seam.faces.FacesMessages;
-import org.jboss.seam.log.Log;
-import org.jboss.seam.annotations.Observer;
-
-import org.witchcraft.base.entity.FileAttachment;
-
-import org.apache.commons.io.FileUtils;
-import org.richfaces.event.UploadEvent;
-import org.richfaces.model.UploadItem;
+import com.oreon.smartsis.domain.ExamScore;
+import com.oreon.smartsis.domain.Fee;
+import com.oreon.smartsis.domain.GradeFee;
+import com.oreon.smartsis.domain.Student;
 
 	
 //@Scope(ScopeType.CONVERSATION)
 @Name("gradeAction")
 public class GradeAction extends GradeActionBase implements java.io.Serializable{
 	
+	@Override
+	public void addGradeFees() {
+	
+		super.addGradeFees();
+		GradeFee gradeFee = getListGradeFees().get(listGradeFees.size() - 1);
+		//gradeFee.setAmount(gradeFee.getFee().getDefaultAmount());
+	}
+	
+	@Override
+	void initListGradeFees() {
+		if (getInstance().getId() == null && listGradeFees.isEmpty()) {
+			
+			/*
+			GradeSubject gradeSubject = getInstance().getGradeSubject();
+			
+			if (gradeSubject == null)
+				return;*/
+			
+			FeeListQuery feeListQuery = (FeeListQuery) Component.getInstance("feeList");
+			
+			List<Fee> fees = feeListQuery.getResultList();
+			
+			for (Fee fee : fees) {
+				GradeFee gradeFee = new GradeFee();
+				gradeFee.setFee(fee);
+				gradeFee.setAmount(gradeFee.getFee().getDefaultAmount());
+				gradeFee.setGrade(instance);
+				listGradeFees.add(gradeFee);
+			}
+			
+			
+		}
+	}
 }
 	

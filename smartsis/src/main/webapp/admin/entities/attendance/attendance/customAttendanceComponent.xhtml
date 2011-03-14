@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.attendance_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'attendanceEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="student" value="#{attendanceAction.attendance.student}"> 
+          <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'attendanceEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.attendance_date} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'attendanceEdit')}"/>  
+        <br/>  
+        <rich:calendar id="date" value="#{attendanceAction.attendance.date}"/>  
+        <rich:message styleClass="error errors" for="date" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'attendanceEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.attendance_gradeSubject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'attendanceEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="gradeSubject" value="#{attendanceAction.attendance.gradeSubject}"> 
+          <s:selectItems value="#{gradeSubjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="gradeSubject" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'attendanceEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.attendance_absenceCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('absenceCode', 'attendanceEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="absenceCode" value="#{attendanceAction.attendance.absenceCode}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="ABSENT" itemLabel="Absent"/>  
+          <f:selectItem itemValue="LEAVE" itemLabel="Leave"/>  
+          <f:selectItem itemValue="SICK_LEAVE" itemLabel="Sick_leave"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="absenceCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('absenceCode', 'attendanceEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.attendance_gradeAttendance} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'attendanceEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="gradeAttendance" value="#{attendanceAction.attendance.gradeAttendance}"> 
+          <s:selectItems value="#{gradeAttendanceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="gradeAttendance" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'attendanceEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

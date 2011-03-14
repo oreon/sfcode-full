@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{attendanceAction.load(attendanceId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{attendanceAction.attendance.id}"/>  
+        <h:outputText value="#{msg.attendance_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'attendanceView')}"/>  
+        <s:link value="#{attendanceAction.attendance.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml" propagation="none"> 
+          <f:param name="studentId" value="#{attendanceAction.attendance.student.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.attendance_gradeSubject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'attendanceView')}"/>  
+        <s:link value="#{attendanceAction.attendance.gradeSubject.displayName}" view="/admin/entities/domain/gradeSubject/viewGradeSubject.xhtml" propagation="none"> 
+          <f:param name="gradeSubjectId" value="#{attendanceAction.attendance.gradeSubject.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.attendance_gradeAttendance}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'attendanceView')}"/>  
+        <s:link value="#{attendanceAction.attendance.gradeAttendance.displayName}" view="/admin/entities/attendance/gradeAttendance/viewGradeAttendance.xhtml" propagation="none"> 
+          <f:param name="gradeAttendanceId" value="#{attendanceAction.attendance.gradeAttendance.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.attendance_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'attendanceView')}"/>  
+        <h:outputText id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'attendanceView')}" value="#{attendanceAction.attendance.date}"></h:outputText>  
+        <h:outputText value="#{msg.attendance_absenceCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('absenceCode', 'attendanceView')}"/>  
+        <h:outputText value="#{attendanceAction.attendance.absenceCode}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{gradeAttendanceAction.load(gradeAttendanceId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{gradeAttendanceAction.gradeAttendance.id}"/>  
+        <h:outputText value="#{msg.gradeAttendance_grade}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'gradeAttendanceView')}"/>  
+        <s:link value="#{gradeAttendanceAction.gradeAttendance.grade.displayName}" view="/admin/entities/domain/grade/viewGrade.xhtml" propagation="none"> 
+          <f:param name="gradeId" value="#{gradeAttendanceAction.gradeAttendance.grade.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.gradeAttendance_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'gradeAttendanceView')}"/>  
+        <h:outputText id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'gradeAttendanceView')}" value="#{gradeAttendanceAction.gradeAttendance.date}"></h:outputText> 
+      </h:panelGrid>  
+      <rich:dataTable id="attendances" var="_attendance" rendered="#{not empty gradeAttendanceAction.listAttendances and skipPermissionCheck == 'true' || s:hasPermission('attendances', 'gradeAttendanceView') }" value="#{gradeAttendanceAction.listAttendances}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.attendance_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'attendanceView')}"/>
+          </f:facet>  
+          <s:link value="#{_attendance.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml" propagation="none"> 
+            <f:param name="studentId" value="#{_attendance.student.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.attendance_gradeSubject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'attendanceView')}"/>
+          </f:facet>  
+          <s:link value="#{_attendance.gradeSubject.displayName}" view="/admin/entities/domain/gradeSubject/viewGradeSubject.xhtml" propagation="none"> 
+            <f:param name="gradeSubjectId" value="#{_attendance.gradeSubject.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.attendance_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'attendanceView')}"/>
+          </f:facet>  
+          <h:outputText id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'attendanceView')}" value="#{_attendance.date}"></h:outputText> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.attendance_absenceCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('absenceCode', 'attendanceView')}"/>
+          </f:facet>  
+          <h:outputText value="#{_attendance.absenceCode}"/> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

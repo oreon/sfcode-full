@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.bedAllocation_startDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('startDate', 'bedAllocationEdit')}"/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <rich:calendar value="#{bedAllocationList.startDateRange.begin}"/> To
+      <br/>  
+      <rich:calendar value="#{bedAllocationList.startDateRange.end}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.bedAllocation_endDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('endDate', 'bedAllocationEdit')}"/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <rich:calendar value="#{bedAllocationList.endDateRange.begin}"/> To
+      <br/>  
+      <rich:calendar value="#{bedAllocationList.endDateRange.end}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.bedAllocation_bed} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'bedAllocationEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="bed" value="#{ bedAllocationList.bedAllocation.bed}"> 
+        <s:selectItems value="#{bedList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.bedAllocation_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'bedAllocationEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="student" value="#{ bedAllocationList.bedAllocation.student}"> 
+        <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.bedAllocation_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'bedAllocationEdit')}"/>  
+      <br/>  
+      <h:inputText id="remarks" value="#{bedAllocationList.bedAllocation.remarks}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{bedAllocationList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{bedAllocationList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

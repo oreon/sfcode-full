@@ -14,6 +14,7 @@ import org.apache.commons.math.stat.ranking.TiesStrategy;
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.exceptions.ContractViolationException;
 
+import com.oreon.smartsis.MonthAttendance;
 import com.oreon.smartsis.domain.Exam;
 import com.oreon.smartsis.domain.ExamInstance;
 import com.oreon.smartsis.domain.ExamScore;
@@ -32,7 +33,7 @@ public class StudentAction extends StudentActionBase implements
 	private List<ExamInstance> exams;
 
 	private List<Integer> listSubjectTotals;
-	private List<Integer> listExamTotals;
+	private List<ScoreMetrics> listExamTotals;
 
 	private Long total;
 	private Long totalMM;
@@ -83,20 +84,25 @@ public class StudentAction extends StudentActionBase implements
 
 	}
 
-	public List<Integer> getListExamTotals() {
+	public List<ScoreMetrics> getListExamTotals() {
 		if (listExamTotals == null) {
-			listExamTotals = new ArrayList<Integer>();
-			String qry = "Select sum(e.marks) from ExamScore e WHERE  e.student.id = ?1 and e.examInstance.gradeSubject.grade.id = ?2 "
+			listExamTotals = new ArrayList<ScoreMetrics>();
+			String qry = "Select sum(e.marks), sum(e.examInstance.exam.maxMarks) from ExamScore e WHERE  e.student.id = ?1 and e.examInstance.gradeSubject.grade.id = ?2 "
 					+ " group by e.examInstance.exam  order by  e.examInstance.exam  ";
-			listExamTotals = executeQuery(qry, getInstance().getId(),
+			List<Object[]> result = executeQuery(qry, getInstance().getId(),
 					getInstance().getGrade().getId());
+			for (Object[] tuple : result) {
+				ScoreMetrics metrics = new ScoreMetrics();
+				metrics.setTotal((Long) tuple[0]);
+				metrics.setMax((Long) tuple[1]);
+				metrics.setPercentage(100.0 * metrics.getTotal().doubleValue()/metrics.getMax());
+				listExamTotals.add(metrics);
+			}
 		}
 		return listExamTotals;
 	}
 
-	public void setListExamTotals(List<Integer> listExamTotals) {
-		this.listExamTotals = listExamTotals;
-	}
+	
 
 	public List<List<ExamScore>> getCurrentReportCard() {
 		if (reportCard == null) {
@@ -116,7 +122,7 @@ public class StudentAction extends StudentActionBase implements
 					reportCard.add(scores);
 			}
 
-			Collections.sort(reportCard, MARKS_DESC);
+			Collections.sort(reportCard, EXAMNAME_DESC);
 		}
 		return reportCard;
 	}
@@ -149,6 +155,8 @@ public class StudentAction extends StudentActionBase implements
 		
 		return calcRank(list,total );
 	}
+	
+	
 
 	public List<ExamScore> getSubjectsList() {
 		List<List<ExamScore>> reportCard = getCurrentReportCard();
@@ -166,8 +174,12 @@ public class StudentAction extends StudentActionBase implements
 	public List<ExamInstance> getExams() {
 		return exams;
 	}
+	
+	public Double getPercentage(Long num, Long den){
+		return 100.0 * num.doubleValue()/den;
+	}
 
-	static final Comparator<List<ExamScore>> MARKS_DESC = new Comparator<List<ExamScore>>() {
+	static final Comparator<List<ExamScore>> EXAMNAME_DESC = new Comparator<List<ExamScore>>() {
 		public int compare(List<ExamScore> es1, List<ExamScore> es2) {
 			return es1.get(0).getExamInstance().getExam().getName().compareTo(
 					es2.get(0).getExamInstance().getExam().getName());
@@ -196,5 +208,28 @@ public class StudentAction extends StudentActionBase implements
 		
 		List<Integer> myList = Arrays.asList(23, 22, 22, 25, 27, 19);
 		//System.out.println(calcRank(myList, 29));
+	}
+	
+	
+	public List<MonthAttendance> getAttendanceCount(){
+		
+		String totalAttendance =  "select count(*)   from Attendance attendance where " +
+		" attendance.student.id = ?1 and attendance.gradeAttendance.grade.id = student.grade.id group by Month(attendance.date) order by Month(attendance.date)";
+		
+		List<Long> totals = executeQuery(totalAttendance, getInstance().getId());
+		
+		String qry = "select Month(attendance.date) , count(*)  from Attendance attendance where attendance.absenceCode is null" +
+				" and attendance.student.id = ?1 and attendance.gradeAttendance.grade.id = student.grade.id group by Month(attendance.date) order by Month(attendance.date) ";
+		List<Object[]> result = executeQuery(qry, getInstance().getId());
+		
+
+		List<MonthAttendance> lstAttendance = new ArrayList<MonthAttendance>();
+		int i = 0;
+		for (Object[] objects : result) {
+			MonthAttendance monthAttendance = new MonthAttendance((Integer)objects[0],(Long) objects[1], (Long) totals.get(i++));
+			lstAttendance.add(monthAttendance);
+		}
+		
+		return lstAttendance;
 	}
 }

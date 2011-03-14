@@ -287,6 +287,78 @@
       <rule if-outcome="editElectronicExamEvent"> 
         <redirect view-id="/admin/entities/exam/electronicExamEvent/editElectronicExamEvent.xhtml"/>  
         <end-conversation/> 
+      </rule>  
+      <rule if-outcome="attendance"> 
+        <redirect view-id="/admin/entities/attendance/attendance/listAttendance.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewAttendance"> 
+        <redirect view-id="/admin/entities/attendance/attendance/viewAttendance.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editAttendance"> 
+        <redirect view-id="/admin/entities/attendance/attendance/editAttendance.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="gradeAttendance"> 
+        <redirect view-id="/admin/entities/attendance/gradeAttendance/listGradeAttendance.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewGradeAttendance"> 
+        <redirect view-id="/admin/entities/attendance/gradeAttendance/viewGradeAttendance.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editGradeAttendance"> 
+        <redirect view-id="/admin/entities/attendance/gradeAttendance/editGradeAttendance.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="room"> 
+        <redirect view-id="/admin/entities/hostel/room/listRoom.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewRoom"> 
+        <redirect view-id="/admin/entities/hostel/room/viewRoom.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editRoom"> 
+        <redirect view-id="/admin/entities/hostel/room/editRoom.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="bed"> 
+        <redirect view-id="/admin/entities/hostel/bed/listBed.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewBed"> 
+        <redirect view-id="/admin/entities/hostel/bed/viewBed.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editBed"> 
+        <redirect view-id="/admin/entities/hostel/bed/editBed.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="hostel"> 
+        <redirect view-id="/admin/entities/hostel/hostel/listHostel.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewHostel"> 
+        <redirect view-id="/admin/entities/hostel/hostel/viewHostel.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editHostel"> 
+        <redirect view-id="/admin/entities/hostel/hostel/editHostel.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="bedAllocation"> 
+        <redirect view-id="/admin/entities/hostel/bedAllocation/listBedAllocation.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewBedAllocation"> 
+        <redirect view-id="/admin/entities/hostel/bedAllocation/viewBedAllocation.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editBedAllocation"> 
+        <redirect view-id="/admin/entities/hostel/bedAllocation/editBedAllocation.xhtml"/>  
+        <end-conversation/> 
       </rule> 
     </navigation> 
   </page>  
@@ -1209,6 +1281,267 @@
     <param name="dateOfExam" value="#{electronicExamEventList.electronicExamEvent.dateOfExam}" validateModel="false"/>  
     <param name="remarks" value="#{electronicExamEventList.electronicExamEvent.remarks}" validateModel="false"/> 
   </page>  
+  <page view-id="/admin/entities/attendance/attendance/editAttendance.xhtml"> 
+    <!-- <description>Edit Attendance: #{attendance.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/attendance/attendance/viewAttendance.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/attendance/attendance/listAttendance.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="attendanceId" value="#{attendanceAction.attendanceId}"/>  
+    <param name="studentId" value="#{attendanceAction.studentId}"/>  
+    <param name="gradeSubjectId" value="#{attendanceAction.gradeSubjectId}"/>  
+    <param name="gradeAttendanceId" value="#{attendanceAction.gradeAttendanceId}"/> 
+  </page>  
+  <page view-id="/admin/entities/attendance/attendance/viewAttendance.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View Attendance: #{attendance.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/attendance/attendance/editAttendance.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/attendance/attendance/listAttendance.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="attendanceId" value="#{attendanceAction.attendanceId}"/> 
+  </page>  
+  <page view-id="/admin/entities/attendance/attendance/listAttendance.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewAttendance"> 
+        <redirect view-id="/admin/entities/attendance/attendance/viewAttendance.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/attendance/attendance/editAttendance.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{attendanceList.firstResult}"/>  
+    <param name="sort" value="#{attendanceList.orderColumn}"/>  
+    <param name="dir" value="#{attendanceList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{attendanceList.attendance.id}"/>  
+    <param name="student" value="#{attendanceList.attendance.student.id}" validateModel="false"/>  
+    <param name="date" value="#{attendanceList.attendance.date}" validateModel="false"/>  
+    <param name="gradeSubject" value="#{attendanceList.attendance.gradeSubject.id}" validateModel="false"/>  
+    <param name="absenceCode" value="#{attendanceList.attendance.absenceCode}" validateModel="false"/>  
+    <param name="gradeAttendance" value="#{attendanceList.attendance.gradeAttendance.id}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/attendance/gradeAttendance/editGradeAttendance.xhtml"> 
+    <!-- <description>Edit GradeAttendance: #{gradeAttendance.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/attendance/gradeAttendance/viewGradeAttendance.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/attendance/gradeAttendance/listGradeAttendance.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="gradeAttendanceId" value="#{gradeAttendanceAction.gradeAttendanceId}"/>  
+    <param name="gradeId" value="#{gradeAttendanceAction.gradeId}"/> 
+  </page>  
+  <page view-id="/admin/entities/attendance/gradeAttendance/viewGradeAttendance.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View GradeAttendance: #{gradeAttendance.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/attendance/gradeAttendance/editGradeAttendance.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/attendance/gradeAttendance/listGradeAttendance.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="gradeAttendanceId" value="#{gradeAttendanceAction.gradeAttendanceId}"/> 
+  </page>  
+  <page view-id="/admin/entities/attendance/gradeAttendance/listGradeAttendance.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewGradeAttendance"> 
+        <redirect view-id="/admin/entities/attendance/gradeAttendance/viewGradeAttendance.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/attendance/gradeAttendance/editGradeAttendance.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{gradeAttendanceList.firstResult}"/>  
+    <param name="sort" value="#{gradeAttendanceList.orderColumn}"/>  
+    <param name="dir" value="#{gradeAttendanceList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{gradeAttendanceList.gradeAttendance.id}"/>  
+    <param name="date" value="#{gradeAttendanceList.gradeAttendance.date}" validateModel="false"/>  
+    <param name="grade" value="#{gradeAttendanceList.gradeAttendance.grade.id}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/hostel/room/editRoom.xhtml"> 
+    <!-- <description>Edit Room: #{room.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/hostel/room/viewRoom.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/hostel/room/listRoom.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="roomId" value="#{roomAction.roomId}"/>  
+    <param name="hostelId" value="#{roomAction.hostelId}"/> 
+  </page>  
+  <page view-id="/admin/entities/hostel/room/viewRoom.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View Room: #{room.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/hostel/room/editRoom.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/hostel/room/listRoom.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="roomId" value="#{roomAction.roomId}"/> 
+  </page>  
+  <page view-id="/admin/entities/hostel/room/listRoom.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewRoom"> 
+        <redirect view-id="/admin/entities/hostel/room/viewRoom.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/hostel/room/editRoom.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{roomList.firstResult}"/>  
+    <param name="sort" value="#{roomList.orderColumn}"/>  
+    <param name="dir" value="#{roomList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{roomList.room.id}"/>  
+    <param name="name" value="#{roomList.room.name}" validateModel="false"/>  
+    <param name="hostel" value="#{roomList.room.hostel.id}" validateModel="false"/>  
+    <param name="charges" value="#{roomList.room.charges}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/hostel/bed/editBed.xhtml"> 
+    <!-- <description>Edit Bed: #{bed.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/hostel/bed/viewBed.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/hostel/bed/listBed.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="bedId" value="#{bedAction.bedId}"/>  
+    <param name="roomId" value="#{bedAction.roomId}"/> 
+  </page>  
+  <page view-id="/admin/entities/hostel/bed/viewBed.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View Bed: #{bed.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/hostel/bed/editBed.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/hostel/bed/listBed.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="bedId" value="#{bedAction.bedId}"/> 
+  </page>  
+  <page view-id="/admin/entities/hostel/bed/listBed.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewBed"> 
+        <redirect view-id="/admin/entities/hostel/bed/viewBed.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/hostel/bed/editBed.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{bedList.firstResult}"/>  
+    <param name="sort" value="#{bedList.orderColumn}"/>  
+    <param name="dir" value="#{bedList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{bedList.bed.id}"/>  
+    <param name="room" value="#{bedList.bed.room.id}" validateModel="false"/>  
+    <param name="name" value="#{bedList.bed.name}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/hostel/hostel/editHostel.xhtml"> 
+    <!-- <description>Edit Hostel: #{hostel.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/hostel/hostel/viewHostel.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/hostel/hostel/listHostel.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="hostelId" value="#{hostelAction.hostelId}"/> 
+  </page>  
+  <page view-id="/admin/entities/hostel/hostel/viewHostel.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View Hostel: #{hostel.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/hostel/hostel/editHostel.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/hostel/hostel/listHostel.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="hostelId" value="#{hostelAction.hostelId}"/> 
+  </page>  
+  <page view-id="/admin/entities/hostel/hostel/listHostel.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewHostel"> 
+        <redirect view-id="/admin/entities/hostel/hostel/viewHostel.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/hostel/hostel/editHostel.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{hostelList.firstResult}"/>  
+    <param name="sort" value="#{hostelList.orderColumn}"/>  
+    <param name="dir" value="#{hostelList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{hostelList.hostel.id}"/>  
+    <param name="name" value="#{hostelList.hostel.name}" validateModel="false"/>  
+    <param name="gender" value="#{hostelList.hostel.gender}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/hostel/bedAllocation/editBedAllocation.xhtml"> 
+    <!-- <description>Edit BedAllocation: #{bedAllocation.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/hostel/bedAllocation/viewBedAllocation.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/hostel/bedAllocation/listBedAllocation.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="bedAllocationId" value="#{bedAllocationAction.bedAllocationId}"/>  
+    <param name="bedId" value="#{bedAllocationAction.bedId}"/>  
+    <param name="studentId" value="#{bedAllocationAction.studentId}"/> 
+  </page>  
+  <page view-id="/admin/entities/hostel/bedAllocation/viewBedAllocation.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View BedAllocation: #{bedAllocation.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/hostel/bedAllocation/editBedAllocation.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/hostel/bedAllocation/listBedAllocation.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="bedAllocationId" value="#{bedAllocationAction.bedAllocationId}"/> 
+  </page>  
+  <page view-id="/admin/entities/hostel/bedAllocation/listBedAllocation.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewBedAllocation"> 
+        <redirect view-id="/admin/entities/hostel/bedAllocation/viewBedAllocation.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/hostel/bedAllocation/editBedAllocation.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{bedAllocationList.firstResult}"/>  
+    <param name="sort" value="#{bedAllocationList.orderColumn}"/>  
+    <param name="dir" value="#{bedAllocationList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{bedAllocationList.bedAllocation.id}"/>  
+    <param name="startDate" value="#{bedAllocationList.bedAllocation.startDate}" validateModel="false"/>  
+    <param name="endDate" value="#{bedAllocationList.bedAllocation.endDate}" validateModel="false"/>  
+    <param name="bed" value="#{bedAllocationList.bedAllocation.bed.id}" validateModel="false"/>  
+    <param name="student" value="#{bedAllocationList.bedAllocation.student.id}" validateModel="false"/>  
+    <param name="remarks" value="#{bedAllocationList.bedAllocation.remarks}" validateModel="false"/> 
+  </page>  
   <!--PROTECTED REGION ID(USER_EDITABLE_XCPT) ENABLED START-->  
   <exception class="org.jboss.seam.framework.EntityNotFoundException"> 
     <redirect view-id="/error.xhtml"> 
@@ -1249,9 +1582,15 @@
   <exception class="org.jboss.seam.ConcurrentRequestTimeoutException" log-level="trace"> 
     <http-error error-code="503"/> 
   </exception>  
+  <exception class="org.witchcraft.exceptions.ContractViolationException"> 
+    <end-conversation/>  
+    <redirect view-id="/error.xhtml"> 
+      <message severity="WARN">#{org.jboss.seam.handledException.message}</message> 
+    </redirect> 
+  </exception>  
   <exception> 
     <redirect view-id="/error.xhtml"> 
-      <message severity="error">Unexpected error, please try again</message> 
+      <message severity="error">Unexpected error, please try again: #{org.jboss.seam.handledException.message}</message> 
     </redirect> 
   </exception>  
   <!--PROTECTED REGION END--> 

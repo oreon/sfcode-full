@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.attendance_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'attendanceEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="student" value="#{ attendanceList.attendance.student}"> 
+        <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.attendance_date} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'attendanceEdit')}"/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <rich:calendar value="#{attendanceList.dateRange.begin}"/> To
+      <br/>  
+      <rich:calendar value="#{attendanceList.dateRange.end}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.attendance_gradeSubject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'attendanceEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="gradeSubject" value="#{ attendanceList.attendance.gradeSubject}"> 
+        <s:selectItems value="#{gradeSubjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.attendance_absenceCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('absenceCode', 'attendanceEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="absenceCode" value="#{attendanceList.attendance.absenceCode}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="ABSENT" itemLabel="Absent"/>  
+        <f:selectItem itemValue="LEAVE" itemLabel="Leave"/>  
+        <f:selectItem itemValue="SICK_LEAVE" itemLabel="Sick_leave"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.attendance_gradeAttendance} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'attendanceEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="gradeAttendance" value="#{ attendanceList.attendance.gradeAttendance}"> 
+        <s:selectItems value="#{gradeAttendanceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{attendanceList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{attendanceList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

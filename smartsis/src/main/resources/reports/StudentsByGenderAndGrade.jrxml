@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+
+<jasperReport name="StudentsByGenderAndGrade" isTitleNewPage="false" isSummaryNewPage="false" formatFactoryClass="org.witchcraft.jasperreports.WCFormatFactory"> 
+  <parameter name="ReportTitle" class="java.lang.String"/>  
+  <queryString language="ejbql"> <![CDATA[select e from Student e order by e.grade, e.gender]]> </queryString>  
+  <field name="id" class="java.lang.Long"/>  
+  <field name="gender.name" class="java.lang.String"/>  
+  <field name="grade.name" class="java.lang.String"/>  
+  <title> 
+    <band height="70"> 
+      <line> 
+        <reportElement x="0" y="0" width="540" height="1"/>  
+        <graphicElement/> 
+      </line>  
+      <textField> 
+        <reportElement x="0" y="10" width="540" height="30"/>  
+        <textElement textAlignment="Center"> 
+          <font size="13"/> 
+        </textElement>  
+        <textFieldExpression class="java.lang.String"><![CDATA["StudentsByGenderAndGrade"]]></textFieldExpression> 
+      </textField> 
+    </band> 
+  </title>  
+  <pageHeader> 
+    <band height="20"> 
+      <rectangle> 
+        <reportElement x="0" y="5" width="540" height="15" forecolor="#333333" backcolor="#333333"/>  
+        <graphicElement/> 
+      </rectangle>  
+      <staticText> 
+        <reportElement mode="Opaque" x="0" y="5" width="180" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Left"/>  
+        <text><![CDATA[Id]]></text> 
+      </staticText>  
+      <staticText> 
+        <reportElement mode="Opaque" x="180" y="5" width="180" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Left"/>  
+        <text><![CDATA[Gender.name]]></text> 
+      </staticText>  
+      <staticText> 
+        <reportElement mode="Opaque" x="360" y="5" width="180" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Left"/>  
+        <text><![CDATA[Grade.name]]></text> 
+      </staticText> 
+    </band> 
+  </pageHeader>  
+  <detail> 
+    <band height="30"> 
+      <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
+        <reportElement x="0" y="0" width="180" height="24"/>  
+        <textElement textAlignment="Left"/>  
+        <textFieldExpression class="java.lang.Long"> <![CDATA[$F{id}]]> </textFieldExpression> 
+      </textField>  
+      <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
+        <reportElement x="180" y="0" width="180" height="24"/>  
+        <textElement textAlignment="Left"/>  
+        <textFieldExpression class="java.lang.String"> <![CDATA[$F{gender.name}]]> </textFieldExpression> 
+      </textField>  
+      <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
+        <reportElement x="360" y="0" width="180" height="24"/>  
+        <textElement textAlignment="Left"/>  
+        <textFieldExpression class="java.lang.String"> <![CDATA[$F{grade.name}]]> </textFieldExpression> 
+      </textField> 
+    </band> 
+  </detail>  
+  <summary> 
+    <band height="620"> 
+      <staticText> 
+        <reportElement mode="Opaque" x="0" y="1" width="540" height="15" backcolor="#c0c0c0"/>  
+        <box leftPadding="10" bottomBorder="1Point"/>  
+        <text><![CDATA[Summary]]> </text> 
+      </staticText>  
+      <crosstab> 
+        <reportElement x="0" y="0" width="555" height="500"/>  
+        <rowGroup name="grade.name" width="70" totalPosition="End"> 
+          <bucket> 
+            <bucketExpression class="java.lang.String"><![CDATA[$F{grade.name}]]></bucketExpression> 
+          </bucket>  
+          <crosstabRowHeader> 
+            <cellContents backcolor="#F0F8FF" mode="Opaque"> 
+              <box> 
+                <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/> 
+              </box>  
+              <textField> 
+                <reportElement x="0" y="0" width="70" height="25"/>  
+                <textElement/>  
+                <textFieldExpression class="java.lang.String"><![CDATA[$V{grade.name}]]></textFieldExpression> 
+              </textField> 
+            </cellContents> 
+          </crosstabRowHeader>  
+          <crosstabTotalRowHeader> 
+            <cellContents backcolor="#BFE1FF" mode="Opaque"> 
+              <box> 
+                <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/> 
+              </box>  
+              <staticText> 
+                <reportElement x="0" y="0" width="70" height="25"/>  
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>  
+                <text><![CDATA[Total]]></text> 
+              </staticText> 
+            </cellContents> 
+          </crosstabTotalRowHeader> 
+        </rowGroup>  
+        <columnGroup name="gender.name" height="30" totalPosition="End"> 
+          <bucket> 
+            <bucketExpression class="java.lang.String"><![CDATA[$F{gender.name}]]></bucketExpression> 
+          </bucket>  
+          <crosstabColumnHeader> 
+            <cellContents backcolor="#F0F8FF" mode="Opaque"> 
+              <box> 
+                <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/> 
+              </box>  
+              <textField> 
+                <reportElement x="0" y="0" width="50" height="30"/>  
+                <textElement/>  
+                <textFieldExpression class="java.lang.String"><![CDATA[$V{gender.name}]]></textFieldExpression> 
+              </textField> 
+            </cellContents> 
+          </crosstabColumnHeader>  
+          <crosstabTotalColumnHeader> 
+            <cellContents backcolor="#BFE1FF" mode="Opaque"> 
+              <box> 
+                <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/> 
+              </box>  
+              <staticText> 
+                <reportElement x="0" y="0" width="50" height="30"/>  
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>  
+                <text><![CDATA[Total gender.name]]></text> 
+              </staticText> 
+            </cellContents> 
+          </crosstabTotalColumnHeader> 
+        </columnGroup>  
+        <measure name="idMeasure" class="java.lang.Integer" calculation="Count"> 
+          <measureExpression><![CDATA[$F{id}]]></measureExpression> 
+        </measure>  
+        <crosstabCell width="50" height="25"> 
+          <cellContents> 
+            <box> 
+              <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/> 
+            </box>  
+            <textField> 
+              <reportElement x="0" y="0" width="50" height="25"/>  
+              <textElement/>  
+              <textFieldExpression class="java.lang.Integer"><![CDATA[$V{idMeasure}]]></textFieldExpression> 
+            </textField> 
+          </cellContents> 
+        </crosstabCell>  
+        <crosstabCell height="25" rowTotalGroup="grade.name"> 
+          <cellContents backcolor="#BFE1FF" mode="Opaque"> 
+            <box> 
+              <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/> 
+            </box>  
+            <textField> 
+              <reportElement x="0" y="0" width="50" height="25"/>  
+              <textElement/>  
+              <textFieldExpression class="java.lang.Integer"><![CDATA[$V{idMeasure}]]></textFieldExpression> 
+            </textField> 
+          </cellContents> 
+        </crosstabCell>  
+        <crosstabCell width="50" columnTotalGroup="gender.name"> 
+          <cellContents backcolor="#BFE1FF" mode="Opaque"> 
+            <box> 
+              <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/> 
+            </box>  
+            <textField> 
+              <reportElement x="0" y="0" width="50" height="25"/>  
+              <textElement/>  
+              <textFieldExpression class="java.lang.Integer"><![CDATA[$V{idMeasure}]]></textFieldExpression> 
+            </textField> 
+          </cellContents> 
+        </crosstabCell>  
+        <crosstabCell height="25" rowTotalGroup="grade.name" columnTotalGroup="gender.name"> 
+          <cellContents backcolor="#BFE1FF" mode="Opaque"> 
+            <box> 
+              <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/> 
+            </box>  
+            <textField> 
+              <reportElement x="0" y="0" width="50" height="25"/>  
+              <textElement/>  
+              <textFieldExpression class="java.lang.Integer"><![CDATA[$V{idMeasure}]]></textFieldExpression> 
+            </textField> 
+          </cellContents> 
+        </crosstabCell> 
+      </crosstab> 
+    </band> 
+  </summary> 
+</jasperReport>
