@@ -115,5 +115,34 @@
   <!--  ElectronicExamEvent  JPA Configurations -->  
   <entity class="com.oreon.smartsis.exam.ElectronicExamEvent" name="ElectronicExamEvent"> 
     <table name="electronicexamevent"></table> 
+  </entity>  
+  <!--  Attendance  JPA Configurations -->  
+  <entity class="com.oreon.smartsis.attendance.Attendance" name="Attendance"> 
+    <table name="attendance"></table> 
+  </entity>  
+  <!--  GradeAttendance  JPA Configurations -->  
+  <entity class="com.oreon.smartsis.attendance.GradeAttendance" name="GradeAttendance"> 
+    <table name="gradeattendance"></table> 
+  </entity>  
+  <!--  Room  JPA Configurations -->  
+  <entity class="com.oreon.smartsis.hostel.Room" name="Room"> 
+    <table name="room"></table> 
+  </entity>  
+  <!--  Bed  JPA Configurations -->  
+  <entity class="com.oreon.smartsis.hostel.Bed" name="Bed"> 
+    <table name="bed"></table>  
+    <named-query name="availableBeds"> 
+      <query> <![CDATA[
+			select bed from Bed bed where bed.id not in (select ba.bed.id from BedAllocation ba where ba.endDate is null)
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Hostel  JPA Configurations -->  
+  <entity class="com.oreon.smartsis.hostel.Hostel" name="Hostel"> 
+    <table name="hostel"></table> 
+  </entity>  
+  <!--  BedAllocation  JPA Configurations -->  
+  <entity class="com.oreon.smartsis.hostel.BedAllocation" name="BedAllocation"> 
+    <table name="bedallocation"></table> 
   </entity> 
 </entity-mappings>

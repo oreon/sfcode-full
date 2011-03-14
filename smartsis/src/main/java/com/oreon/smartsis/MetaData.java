@@ -264,6 +264,74 @@ public class MetaData {
 
 	},
 
+	{"com.oreon.smartsis.attendance.Attendance",
+
+	"student",
+
+	"date",
+
+	"gradeSubject",
+
+	"absenceCode",
+
+	"gradeAttendance",
+
+	},
+
+	{"com.oreon.smartsis.attendance.GradeAttendance",
+
+	"attendances",
+
+	"date",
+
+	"grade",
+
+	},
+
+	{"com.oreon.smartsis.hostel.Room",
+
+	"beds",
+
+	"name",
+
+	"hostel",
+
+	"charges",
+
+	},
+
+	{"com.oreon.smartsis.hostel.Bed",
+
+	"room",
+
+	"name",
+
+	},
+
+	{"com.oreon.smartsis.hostel.Hostel",
+
+	"name",
+
+	"rooms",
+
+	"gender",
+
+	},
+
+	{"com.oreon.smartsis.hostel.BedAllocation",
+
+	"startDate",
+
+	"endDate",
+
+	"bed",
+
+	"student",
+
+	"remarks",
+
+	},
+
 	};
 
 }

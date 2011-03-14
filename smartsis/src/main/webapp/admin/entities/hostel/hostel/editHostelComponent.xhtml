@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{hostelAction.load(hostelId )  }"> 
+        <h:outputText value="#{msg.hostel_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'hostelEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'hostelEdit')}" label="#{msg.hostel_name}" required="false" value="#{hostelAction.hostel.name}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'hostelEdit')}"/>  
+        <h:outputText value="#{msg.hostel_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gender', 'hostelEdit')}"/>  
+        <h:selectOneMenu id="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gender', 'hostelEdit')}" value="#{hostelAction.hostel.gender}" required="false" label="#{msg.hostel_gender}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="F" itemLabel="#{msg.F}"/>  
+          <f:selectItem itemValue="M" itemLabel="#{msg.M}"/>  
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gender', 'hostelEdit')}"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New Room" action="#{hostelAction.addRooms}" reRender="rooms" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rooms', 'hostelEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="rooms" var="_room" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rooms', 'hostelEdit')}" value="#{hostelAction.listRooms}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.room_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'roomEdit')}"/>
+          </f:facet>  
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'roomEdit')}" label="#{msg.room_name}" required="true" value="#{_room.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'roomEdit')}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.room_charges}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('charges', 'roomEdit')}"/>
+          </f:facet>  
+          <h:inputText id="charges#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('charges', 'roomEdit')}" label="#{msg.room_charges}" required="false" value="#{_room.charges}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="charges" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('charges', 'roomEdit')}"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New Room" action="#{hostelAction.addRooms}" reRender="rooms" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rooms', 'roomEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{hostelAction.deleteRooms(rowIndex)}" reRender="rooms"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

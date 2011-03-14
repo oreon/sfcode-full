@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{bedAllocationAction.load(bedAllocationId )  }"> 
+        <h:outputText value="#{msg.bedAllocation_bed} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'bedAllocationEdit')}"/>  
+        <h:selectOneMenu id="bed" label="#{msg.bedAllocation_bed}" value="#{bedAllocationAction.bedAllocation.bed}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'bedAllocationEdit')}"> 
+          <s:selectItems value="#{bedAction.availableBeds()}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="bed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'bedAllocationEdit')}"/>  
+        <h:outputText value="#{msg.bedAllocation_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'bedAllocationEdit')}"/>  
+        <h:selectOneMenu id="student" label="#{msg.bedAllocation_student}" value="#{bedAllocationAction.bedAllocation.student}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'bedAllocationEdit')}"> 
+          <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'bedAllocationEdit')}"/>  
+        <h:outputText value="#{msg.bedAllocation_startDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('startDate', 'bedAllocationEdit')}"/>  
+        <rich:calendar id="startDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('startDate', 'bedAllocationEdit')}" label="#{msg.bedAllocation_startDate}" required="false" value="#{bedAllocationAction.bedAllocation.startDate}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:calendar>  
+        <rich:message styleClass="error errors" for="startDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('startDate', 'bedAllocationEdit')}"/>  
+        <h:outputText value="#{msg.bedAllocation_endDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('endDate', 'bedAllocationEdit')}"/>  
+        <rich:calendar id="endDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('endDate', 'bedAllocationEdit')}" label="#{msg.bedAllocation_endDate}" required="false" value="#{bedAllocationAction.bedAllocation.endDate}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:calendar>  
+        <rich:message styleClass="error errors" for="endDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('endDate', 'bedAllocationEdit')}"/>  
+        <h:outputText value="#{msg.bedAllocation_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'bedAllocationEdit')}"/>  
+        <rich:editor useSeamText="true" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'bedAllocationEdit')}" label="#{msg.bedAllocation_remarks}" required="false" value="#{bedAllocationAction.bedAllocation.remarks}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:editor>  
+        <rich:message styleClass="error errors" for="remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'bedAllocationEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

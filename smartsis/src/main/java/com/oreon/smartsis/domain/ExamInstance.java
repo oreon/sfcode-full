@@ -56,7 +56,7 @@ public class ExamInstance extends BusinessEntity
 
 	@OneToMany(mappedBy = "examInstance", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "examInstance_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
+	@OrderBy("rank")
 	@IndexedEmbedded
 	private Set<ExamScore> examScores = new HashSet<ExamScore>();
 
