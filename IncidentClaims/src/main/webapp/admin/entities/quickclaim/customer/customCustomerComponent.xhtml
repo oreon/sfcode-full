@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.customer_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'customerEdit')}"/>  
+        <br/>  
+        <h:inputText id="firstName" value="#{customerAction.customer.firstName}"/>  
+        <rich:message styleClass="error errors" for="firstName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'customerEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.customer_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'customerEdit')}"/>  
+        <br/>  
+        <h:inputText id="lastName" value="#{customerAction.customer.lastName}"/>  
+        <rich:message styleClass="error errors" for="lastName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'customerEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.customer_address1}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address1', 'customerEdit')}"/>  
+        <br/>  
+        <h:inputText id="address1" value="#{customerAction.customer.address1}"/>  
+        <rich:message styleClass="error errors" for="address1" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address1', 'customerEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.customer_address2}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address2', 'customerEdit')}"/>  
+        <br/>  
+        <h:inputText id="address2" value="#{customerAction.customer.address2}"/>  
+        <rich:message styleClass="error errors" for="address2" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address2', 'customerEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.customer_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'customerEdit')}"/>  
+        <br/>  
+        <h:inputText id="city" value="#{customerAction.customer.city}"/>  
+        <rich:message styleClass="error errors" for="city" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'customerEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.customer_state}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'customerEdit')}"/>  
+        <br/>  
+        <h:inputText id="state" value="#{customerAction.customer.state}"/>  
+        <rich:message styleClass="error errors" for="state" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'customerEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.customer_zipCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('zipCode', 'customerEdit')}"/>  
+        <br/>  
+        <h:inputText id="zipCode" value="#{customerAction.customer.zipCode}"/>  
+        <rich:message styleClass="error errors" for="zipCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('zipCode', 'customerEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

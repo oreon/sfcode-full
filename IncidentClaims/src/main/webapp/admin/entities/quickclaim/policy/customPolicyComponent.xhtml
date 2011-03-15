@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.policy_policyNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('policyNumber', 'policyEdit')}"/>  
+        <br/>  
+        <h:inputText id="policyNumber" value="#{policyAction.policy.policyNumber}"/>  
+        <rich:message styleClass="error errors" for="policyNumber" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('policyNumber', 'policyEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.policy_policyType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('policyType', 'policyEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="policyType" value="#{policyAction.policy.policyType}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="HEALTH" itemLabel="Health"/>  
+          <f:selectItem itemValue="DENTAL" itemLabel="Dental"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="policyType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('policyType', 'policyEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.policy_customer} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'policyEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="customer" value="#{policyAction.policy.customer}"> 
+          <s:selectItems value="#{customerList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="customer" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'policyEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{customerAction.load(customerId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{customerAction.customer.id}"/>  
+        <h:outputText value="#{msg.customer_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'customerView')}"/>  
+        <h:outputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'customerView')}" value="#{customerAction.customer.firstName}"></h:outputText>  
+        <h:outputText value="#{msg.customer_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'customerView')}"/>  
+        <h:outputText id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'customerView')}" value="#{customerAction.customer.lastName}"></h:outputText>  
+        <h:outputText value="#{msg.customer_address1}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address1', 'customerView')}"/>  
+        <h:outputText id="address1#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address1', 'customerView')}" value="#{customerAction.customer.address1}"></h:outputText>  
+        <h:outputText value="#{msg.customer_address2}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address2', 'customerView')}"/>  
+        <h:outputText id="address2#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address2', 'customerView')}" value="#{customerAction.customer.address2}"></h:outputText>  
+        <h:outputText value="#{msg.customer_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'customerView')}"/>  
+        <h:outputText id="city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'customerView')}" value="#{customerAction.customer.city}"></h:outputText>  
+        <h:outputText value="#{msg.customer_state}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'customerView')}"/>  
+        <h:outputText id="state#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'customerView')}" value="#{customerAction.customer.state}"></h:outputText>  
+        <h:outputText value="#{msg.customer_zipCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('zipCode', 'customerView')}"/>  
+        <h:outputText id="zipCode#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('zipCode', 'customerView')}" value="#{customerAction.customer.zipCode}"></h:outputText> 
+      </h:panelGrid>  
+      <rich:dataTable id="dependents" var="_dependent" rendered="#{not empty customerAction.listDependents and skipPermissionCheck == 'true' || s:hasPermission('dependents', 'customerView') }" value="#{customerAction.listDependents}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.dependent_dependentName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentName', 'dependentView')}"/>
+          </f:facet>  
+          <h:outputText id="dependentName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentName', 'dependentView')}" value="#{_dependent.dependentName}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{dependentAction.load(dependentId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{dependentAction.dependent.id}"/>  
+        <h:outputText value="#{msg.dependent_customer}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'dependentView')}"/>  
+        <s:link value="#{dependentAction.dependent.customer.displayName}" view="/admin/entities/quickclaim/customer/viewCustomer.xhtml" propagation="none"> 
+          <f:param name="customerId" value="#{dependentAction.dependent.customer.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.dependent_dependentName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentName', 'dependentView')}"/>  
+        <h:outputText id="dependentName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentName', 'dependentView')}" value="#{dependentAction.dependent.dependentName}"></h:outputText> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

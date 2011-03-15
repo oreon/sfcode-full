@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.claim_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'claimEdit')}"/>  
+      <br/>  
+      <h:inputText id="description" value="#{claimList.claim.description}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.claim_claimAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimAmount', 'claimEdit')}"/>  
+      <br/>  
+      <h:inputText id="claimAmount_begin" value="#{claimList.claimAmountRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="claimAmount_end" value="#{claimList.claimAmountRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.claim_policy} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('policy', 'claimEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="policy" value="#{ claimList.claim.policy}"> 
+        <s:selectItems value="#{policyList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{claimList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{claimList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>
