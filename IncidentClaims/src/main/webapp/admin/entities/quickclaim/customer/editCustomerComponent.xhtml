@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{customerAction.load(customerId )  }"> 
+        <h:outputText value="#{msg.customer_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'customerEdit')}"/>  
+        <h:inputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'customerEdit')}" label="#{msg.customer_firstName}" required="false" value="#{customerAction.customer.firstName}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="firstName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'customerEdit')}"/>  
+        <h:outputText value="#{msg.customer_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'customerEdit')}"/>  
+        <h:inputText id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'customerEdit')}" label="#{msg.customer_lastName}" required="false" value="#{customerAction.customer.lastName}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="lastName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'customerEdit')}"/>  
+        <h:outputText value="#{msg.customer_address1}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address1', 'customerEdit')}"/>  
+        <h:inputText id="address1#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address1', 'customerEdit')}" label="#{msg.customer_address1}" required="false" value="#{customerAction.customer.address1}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="address1" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address1', 'customerEdit')}"/>  
+        <h:outputText value="#{msg.customer_address2}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address2', 'customerEdit')}"/>  
+        <h:inputText id="address2#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address2', 'customerEdit')}" label="#{msg.customer_address2}" required="false" value="#{customerAction.customer.address2}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="address2" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address2', 'customerEdit')}"/>  
+        <h:outputText value="#{msg.customer_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'customerEdit')}"/>  
+        <h:inputText id="city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'customerEdit')}" label="#{msg.customer_city}" required="false" value="#{customerAction.customer.city}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="city" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'customerEdit')}"/>  
+        <h:outputText value="#{msg.customer_state}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'customerEdit')}"/>  
+        <h:inputText id="state#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'customerEdit')}" label="#{msg.customer_state}" required="false" value="#{customerAction.customer.state}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="state" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'customerEdit')}"/>  
+        <h:outputText value="#{msg.customer_zipCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('zipCode', 'customerEdit')}"/>  
+        <h:inputText id="zipCode#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('zipCode', 'customerEdit')}" label="#{msg.customer_zipCode}" required="false" value="#{customerAction.customer.zipCode}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="zipCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('zipCode', 'customerEdit')}"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New Dependent" action="#{customerAction.addDependents}" reRender="dependents" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependents', 'customerEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="dependents" var="_dependent" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependents', 'customerEdit')}" value="#{customerAction.listDependents}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.dependent_dependentName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentName', 'dependentEdit')}"/>
+          </f:facet>  
+          <h:inputText id="dependentName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentName', 'dependentEdit')}" label="#{msg.dependent_dependentName}" required="false" value="#{_dependent.dependentName}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="dependentName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentName', 'dependentEdit')}"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New Dependent" action="#{customerAction.addDependents}" reRender="dependents" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependents', 'dependentEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{customerAction.deleteDependents(rowIndex)}" reRender="dependents"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

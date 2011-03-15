@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <rich:tabPanel switchType="ajax"> 
+        <rich:tab label="Customer"> 
+          <ui:include src="/admin/entities/businessobjects/customer/viewCustomerComponent.xhtml"/>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('customer', 'edit', customerAction.instance)}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" action="#{customerAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </rich:tab> 
+      </rich:tabPanel> 
+    </h:form>  
+    <br/>  
+    <rich:tabPanel> 
+      <rich:tab label="Policys" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="CustomerModalPanel-policys"/>  
+        <ui:include src="/admin/entities/businessobjects/policy/listPolicyComponent.xhtml"> 
+          <ui:param name="records" value="#{policyList.getPolicysByCustomer(customerAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include>  
+        <a:form> 
+          <s:button value="Create New" view="/admin/entities/businessobjects/policy/editPolicy.xhtml"> 
+            <f:param name="customerId" value="#{customerAction.instance.id}"/>  
+            <f:param name="policyId" value="0"/> 
+          </s:button>  
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"> 
+            <a:actionparam name="policyId" assignTo="#{policyAction.policyId}" value="0"/>  
+            <a:actionparam name="customerId" assignTo="#{policyAction.customerId}" value="#{customerAction.instance.id}"/> 
+          </a:commandButton> 
+        </a:form>  
+        <ui:include src="/admin/entities/businessobjects/policy/modalDlgPolicyComponent.xhtml"> 
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include> 
+      </rich:tab> 
+    </rich:tabPanel>  
+    <br/>  
+    <rich:tabPanel> 
+      <rich:tab label="Notes"> 
+        <wc:comments backingAction="#{customerAction}"/> 
+      </rich:tab> 
+    </rich:tabPanel> 
+  </ui:define> 
+</ui:composition>
