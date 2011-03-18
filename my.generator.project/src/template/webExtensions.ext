@@ -49,6 +49,12 @@ JAVA org.wc.generatorutil.ClassUtil.setCurrentEmbeddable(org.eclipse.uml2.uml.Pr
 Class getCurrentEmbeddable():
 JAVA org.wc.generatorutil.ClassUtil.getCurrentEmbeddable();
 
+setCurrentEmbeddableName(String name):
+JAVA org.wc.generatorutil.ClassUtil.setCurrentEmbeddableName(java.lang.String);
+
+getCurrentEmbeddableName():
+JAVA org.wc.generatorutil.ClassUtil.getCurrentEmbeddableName();
+
 
 clearCurrentEmbeddable():
 JAVA org.wc.generatorutil.ClassUtil.clearCurrentEmbeddable();
@@ -109,7 +115,7 @@ if(prop.type.name == "largeText")
 else if ( prop.isType("boolean") || prop.isType("Boolean") )
 	then prop.getJSFPrefix() + ":selectBooleanCheckbox"
 else if (prop.isType("Date")) then
-	"rich:calendar"
+	"rich:calendar" 
 else if (prop.isColumn() && prop.secret ) then
 	prop.getJSFPrefix() + ":inputSecret"
 else if (prop.isColumn() && prop.textSize > 0 ) then

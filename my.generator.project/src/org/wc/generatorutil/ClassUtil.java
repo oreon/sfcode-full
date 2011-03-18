@@ -134,6 +134,10 @@ public class ClassUtil {
 	public static String getCurrentEmbeddableName() {
 		return currentEmbeddableName;
 	}
+	
+	public static void  setCurrentEmbeddableName(String ce) {
+		 currentEmbeddableName = ce;
+	}
 
 	public static void setCurrentEmbeddable(Property currentEmbeddable) {
 		// System.out.println("setting embeddable to " +

@@ -3,6 +3,7 @@
 «EXTENSION org::openarchitectureware::uml2::profile::profiling»
 «EXTENSION template::GeneratorExtensions»
 «EXTENSION template::associationExtensions»
+«EXTENSION template::webExtensions»
 
 «REM»comment
 «DEFINE Root FOR uml::Model»
@@ -35,16 +36,37 @@ public class MetaData{
 
 public static final String[][] ARR_FIELDS = {
 «FOREACH allOwnedElements().typeSelect(wcprofile::Entity) AS e»
+	«setCurrentEmbeddableName("")»
+	«setAsCurrentEntity(e)»
 	{ "«e.fqn()»",  
-		«FOREACH e.getAttribs() AS a»
-			"«a.name»",
-		«ENDFOREACH»
+		«EXPAND genAttributeNames FOR e»
 	},
 «ENDFOREACH»
 };
 
 }
 «ENDFILE»
+«ENDDEFINE» 	
+
+
+«DEFINE genAttributeNames FOR uml::Class»
+	«FOREACH getAttribs() AS a»
+		«IF a.isMultivalued() == false && a.association != null »
+			"«a.name».displayName",
+			«setCurrentEmbeddableName(a.name + ".")»
+			«EXPAND genAttributeNames FOR a.type»
+		«ELSE»
+			«IF a.class == getCurrentEntity()» 
+				«setCurrentEmbeddableName("")»
+			«ENDIF»
+			«EXPAND genProperty FOR a»
+		«ENDIF»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+
+«DEFINE genProperty FOR uml::Property»
+	"«getCurrentEmbeddableName()»«name»",
 «ENDDEFINE»
 
 
