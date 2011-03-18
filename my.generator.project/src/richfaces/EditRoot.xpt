@@ -367,6 +367,8 @@
 	 «IF isColumn() && secret»
 	 	«IF isCurrentEditMode()»  redisplay="true" «ENDIF»
 	 «ENDIF»  
+	 «IF isType("Date")»  direction="auto" «ENDIF»
+	 
 	 id="«getId()»#{entityId}"  rendered="#{«isCurrentEditMode()?genEditPermission():genViewPermission()»}"  
 	 «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"":""» 
 	  value="#{«getActionForMode()»«genPropertyLabel()»}" >
