@@ -65,6 +65,11 @@ public class Employee extends com.pwc.insuranceclaims.domain.Person
 
 	protected EmployeeType employeeType;
 
+	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected com.pwc.insuranceclaims.users.User user = new com.pwc.insuranceclaims.users.User();
+
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
@@ -92,6 +97,16 @@ public class Employee extends com.pwc.insuranceclaims.domain.Person
 	public EmployeeType getEmployeeType() {
 
 		return employeeType;
+
+	}
+
+	public void setUser(com.pwc.insuranceclaims.users.User user) {
+		this.user = user;
+	}
+
+	public com.pwc.insuranceclaims.users.User getUser() {
+
+		return user;
 
 	}
 
@@ -131,6 +146,9 @@ public class Employee extends com.pwc.insuranceclaims.domain.Person
 		if (getDepartment() != null)
 			builder.append("department:" + getDepartment().getDisplayName()
 					+ " ");
+
+		if (getUser() != null)
+			builder.append("user:" + getUser().getDisplayName() + " ");
 
 		return builder.toString();
 	}

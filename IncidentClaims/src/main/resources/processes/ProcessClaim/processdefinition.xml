@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition name="processClaim">  
+  <!--PROTECTED REGION ID(USER_EDITABLE_RGN_processClaim) ENABLED START-->  
+  <!--PROTECTED REGION END-->  
+  <swimlane name="claimant"> 
+    <assignment actor-id="#{claim.createdByUser.userName}"/> 
+  </swimlane>  
+  <swimlane name="claimAnalyst1"> 
+    <assignment pooled-actors="analyst"/> 
+  </swimlane>  
+  <swimlane name="claimSupervisor"> 
+    <assignment pooled-actors="manager"/> 
+  </swimlane>  
+  <swimlane name=""> 
+    <assignment class="com.pwc.insuranceclaims.web.action.workflowmgt.processClaim.assign.Assignment"/> 
+  </swimlane>  
+  <task-node name="reviewClaim"> 
+    <task name="reviewClaim" swimlane="claimAnalyst1" notify="false"></task>  
+    <transition to="reviewQuestion" name="askQuestion"></transition>  
+    <transition to="reject" name="proceedToReject"></transition>  
+    <transition to="provideInformation" name="askForMoreInfo"></transition>  
+    <transition to="claimAboveLimit" name="approve"></transition> 
+  </task-node>  
+  <decision name="claimAboveLimit"> 
+    <handler class="com.pwc.insuranceclaims.web.action.workflowmgt.processClaim.decisions.ClaimAboveLimitDecisionHandler"/>  
+    <transition to="reviewDecision" name="aboveLimitYes"></transition>  
+    <transition to="processPayment" name="aboveLimitNo"></transition> 
+  </decision>  
+  <task-node name="autoAdjudicate"> 
+    <task name="autoAdjudicate" swimlane="" notify="false"></task>  
+    <transition to="autoApprove" name="proceedToAutoApprove"></transition> 
+  </task-node>  
+  <end-state name="reject"/>  
+  <task-node name="provideInformation"> 
+    <task name="provideInformation" swimlane="claimant" notify="false"></task>  
+    <transition to="reviewClaim" name="provideMoreInfo"></transition> 
+  </task-node>  
+  <start-state name=""> 
+    <task name="" swimlane="claimant"></task>  
+    <transition to="autoAdjudicate" name="fileClaim"></transition> 
+  </start-state>  
+  <task-node name="reviewQuestion"> 
+    <task name="reviewQuestion" swimlane="claimSupervisor" notify="false"></task>  
+    <transition to="reviewClaim" name="returnAnswer"></transition> 
+  </task-node>  
+  <task-node name="reviewDecision"> 
+    <task name="reviewDecision" swimlane="claimSupervisor" notify="false"></task>  
+    <transition to="reviewClaim" name="disagreeWithApproval"></transition>  
+    <transition to="processPayment" name="approve"></transition> 
+  </task-node>  
+  <end-state name="processPayment"/>  
+  <decision name="autoApprove"> 
+    <handler class="com.pwc.insuranceclaims.web.action.workflowmgt.processClaim.decisions.AutoApproveDecisionHandler"/>  
+    <transition to="processPayment" name="autoApproveYes"></transition>  
+    <transition to="reviewClaim" name="autoApproveNo"></transition> 
+  </decision> 
+</process-definition>

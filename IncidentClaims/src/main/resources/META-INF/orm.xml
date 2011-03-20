@@ -35,5 +35,27 @@
   <!--  Dependent  JPA Configurations -->  
   <entity class="com.pwc.insuranceclaims.quickclaim.Dependent" name="Dependent"> 
     <table name="dependent"></table> 
+  </entity>  
+  <!--  ClaimDocument  JPA Configurations -->  
+  <entity class="com.pwc.insuranceclaims.quickclaim.ClaimDocument" name="ClaimDocument"> 
+    <table name="claimdocument"></table> 
+  </entity>  
+  <!--  User  JPA Configurations -->  
+  <entity class="com.pwc.insuranceclaims.users.User" name="User"> 
+    <table name="user"></table>  
+    <named-query name="user.findByUnqUserName"> 
+      <query> <![CDATA[
+			select u from User u where u.userName = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Role  JPA Configurations -->  
+  <entity class="com.pwc.insuranceclaims.users.Role" name="Role"> 
+    <table name="role"></table>  
+    <named-query name="role.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Role u where u.name = ?1
+			]]> </query> 
+    </named-query> 
   </entity> 
 </entity-mappings>

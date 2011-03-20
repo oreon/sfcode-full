@@ -10,7 +10,17 @@
         <s:link value="#{claimAction.claim.policy.displayName}" view="/admin/entities/quickclaim/policy/viewPolicy.xhtml" propagation="none"> 
           <f:param name="policyId" value="#{claimAction.claim.policy.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link> 
+        </s:link>  
+        <h:outputText value="#{msg.claim_claimNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimView')}"/>  
+        <h:outputText id="claimNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimView')}" value="#{claimAction.claim.claimNumber}"></h:outputText>  
+        <h:outputText value="#{msg.claim_claimDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDate', 'claimView')}"/>  
+        <h:outputText id="claimDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDate', 'claimView')}" value="#{claimAction.claim.claimDate}"></h:outputText>  
+        <h:outputText value="#{msg.claim_claimAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimAmount', 'claimView')}"/>  
+        <h:outputText id="claimAmount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimAmount', 'claimView')}" value="#{claimAction.claim.claimAmount}"></h:outputText>  
+        <h:outputText value="#{msg.claim_claimDescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDescription', 'claimView')}"/>  
+        <h:outputText id="claimDescription#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDescription', 'claimView')}" value="#{claimAction.claim.claimDescription}"></h:outputText>  
+        <h:outputText value="#{msg.claim_claimPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimPatient', 'claimView')}"/>  
+        <h:outputText id="claimPatient#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimPatient', 'claimView')}" value="#{claimAction.claim.claimPatient}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

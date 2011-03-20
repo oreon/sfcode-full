@@ -1,8 +1,9 @@
 package org.witchcraft.jbpm.mail;
 
 import org.jboss.seam.Component;
-import org.witchcraft.users.User;
-import org.witchcraft.users.action.UserAction;
+
+import com.pwc.insuranceclaims.users.User;
+import com.pwc.insuranceclaims.web.action.users.UserAction;
 
 
 

@@ -13,7 +13,8 @@ import net.sf.jasperreports.engine.query.JRJpaQueryExecuterFactory;
 
 import org.testng.annotations.BeforeClass;
 import org.witchcraft.seam.action.BaseAction;
-import org.witchcraft.users.User;
+
+import com.pwc.insuranceclaims.users.User;
 
 
 

@@ -49,10 +49,38 @@ public abstract class ClaimListQueryBase extends BaseQuery<Claim, Long> {
 		return RESTRICTIONS;
 	}
 
+	private Range<Date> claimDateRange = new Range<Date>();
+	public Range<Date> getClaimDateRange() {
+		return claimDateRange;
+	}
+	public void setClaimDate(Range<Date> claimDateRange) {
+		this.claimDateRange = claimDateRange;
+	}
+
+	private Range<Double> claimAmountRange = new Range<Double>();
+	public Range<Double> getClaimAmountRange() {
+		return claimAmountRange;
+	}
+	public void setClaimAmount(Range<Double> claimAmountRange) {
+		this.claimAmountRange = claimAmountRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"claim.id = #{claimList.claim.id}",
 
 			"claim.policy.id = #{claimList.claim.policy.id}",
+
+			"lower(claim.claimNumber) like concat(lower(#{claimList.claim.claimNumber}),'%')",
+
+			"claim.claimDate >= #{claimList.claimDateRange.begin}",
+			"claim.claimDate <= #{claimList.claimDateRange.end}",
+
+			"claim.claimAmount >= #{claimList.claimAmountRange.begin}",
+			"claim.claimAmount <= #{claimList.claimAmountRange.end}",
+
+			"lower(claim.claimDescription) like concat(lower(#{claimList.claim.claimDescription}),'%')",
+
+			"lower(claim.claimPatient) like concat(lower(#{claimList.claim.claimPatient}),'%')",
 
 			"claim.dateCreated <= #{claimList.dateCreatedRange.end}",
 			"claim.dateCreated >= #{claimList.dateCreatedRange.begin}",};
@@ -72,6 +100,25 @@ public abstract class ClaimListQueryBase extends BaseQuery<Claim, Long> {
 				+ (e.getPolicy() != null ? e.getPolicy().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
+		builder.append("\""
+				+ (e.getClaimNumber() != null ? e.getClaimNumber().replace(",",
+						"") : "") + "\",");
+
+		builder.append("\""
+				+ (e.getClaimDate() != null ? e.getClaimDate() : "") + "\",");
+
+		builder.append("\""
+				+ (e.getClaimAmount() != null ? e.getClaimAmount() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getClaimDescription() != null ? e.getClaimDescription()
+						.replace(",", "") : "") + "\",");
+
+		builder.append("\""
+				+ (e.getClaimPatient() != null ? e.getClaimPatient().replace(
+						",", "") : "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -82,6 +129,16 @@ public abstract class ClaimListQueryBase extends BaseQuery<Claim, Long> {
 	public void createCSvTitles(StringBuilder builder) {
 
 		builder.append("Policy" + ",");
+
+		builder.append("ClaimNumber" + ",");
+
+		builder.append("ClaimDate" + ",");
+
+		builder.append("ClaimAmount" + ",");
+
+		builder.append("ClaimDescription" + ",");
+
+		builder.append("ClaimPatient" + ",");
 
 		builder.append("\r\n");
 	}

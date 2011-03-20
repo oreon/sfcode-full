@@ -57,6 +57,44 @@ public class Claim extends BusinessEntity implements java.io.Serializable {
 	@ContainedIn
 	protected Policy policy;
 
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String claimNumber;
+
+	protected Date claimDate;
+
+	protected Double claimAmount;
+
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String claimDescription;
+
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String claimPatient;
+
+	@OneToMany(mappedBy = "claim", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "claim_ID", nullable = false)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<ClaimDocument> claimDocuments = new HashSet<ClaimDocument>();
+
+	public void addClaimDocuments(ClaimDocument claimDocuments) {
+		claimDocuments.setClaim(this);
+		this.claimDocuments.add(claimDocuments);
+	}
+
+	@Transient
+	public List<com.pwc.insuranceclaims.quickclaim.ClaimDocument> getListClaimDocuments() {
+		return new ArrayList<com.pwc.insuranceclaims.quickclaim.ClaimDocument>(
+				claimDocuments);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getClaimDocumentsCount() {
+		return claimDocuments.size();
+	}
+
 	public void setPolicy(Policy policy) {
 		this.policy = policy;
 	}
@@ -67,10 +105,68 @@ public class Claim extends BusinessEntity implements java.io.Serializable {
 
 	}
 
+	public void setClaimNumber(String claimNumber) {
+		this.claimNumber = claimNumber;
+	}
+
+	public String getClaimNumber() {
+
+		return claimNumber;
+
+	}
+
+	public void setClaimDate(Date claimDate) {
+		this.claimDate = claimDate;
+	}
+
+	public Date getClaimDate() {
+
+		return claimDate;
+
+	}
+
+	public void setClaimAmount(Double claimAmount) {
+		this.claimAmount = claimAmount;
+	}
+
+	public Double getClaimAmount() {
+
+		return claimAmount;
+
+	}
+
+	public void setClaimDescription(String claimDescription) {
+		this.claimDescription = claimDescription;
+	}
+
+	public String getClaimDescription() {
+
+		return claimDescription;
+
+	}
+
+	public void setClaimPatient(String claimPatient) {
+		this.claimPatient = claimPatient;
+	}
+
+	public String getClaimPatient() {
+
+		return claimPatient;
+
+	}
+
+	public void setClaimDocuments(Set<ClaimDocument> claimDocuments) {
+		this.claimDocuments = claimDocuments;
+	}
+
+	public Set<ClaimDocument> getClaimDocuments() {
+		return claimDocuments;
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
-			return policy + "";
+			return claimNumber;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
@@ -88,6 +184,12 @@ public class Claim extends BusinessEntity implements java.io.Serializable {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
+		listSearchableFields.add("claimNumber");
+
+		listSearchableFields.add("claimDescription");
+
+		listSearchableFields.add("claimPatient");
+
 		return listSearchableFields;
 	}
 
@@ -96,8 +198,18 @@ public class Claim extends BusinessEntity implements java.io.Serializable {
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
 
+		builder.append(getClaimNumber() + " ");
+
+		builder.append(getClaimDescription() + " ");
+
+		builder.append(getClaimPatient() + " ");
+
 		if (getPolicy() != null)
 			builder.append("policy:" + getPolicy().getDisplayName() + " ");
+
+		for (BusinessEntity e : claimDocuments) {
+			builder.append(e.getDisplayName() + " ");
+		}
 
 		return builder.toString();
 	}

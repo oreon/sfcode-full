@@ -14,6 +14,36 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="policy" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('policy', 'claimEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.claim_claimNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimEdit')}"/>  
+        <br/>  
+        <h:inputText id="claimNumber" value="#{claimAction.claim.claimNumber}"/>  
+        <rich:message styleClass="error errors" for="claimNumber" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.claim_claimDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDate', 'claimEdit')}"/>  
+        <br/>  
+        <rich:calendar id="claimDate" value="#{claimAction.claim.claimDate}"/>  
+        <rich:message styleClass="error errors" for="claimDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDate', 'claimEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.claim_claimAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimAmount', 'claimEdit')}"/>  
+        <br/>  
+        <h:inputText id="claimAmount" value="#{claimAction.claim.claimAmount}"/>  
+        <rich:message styleClass="error errors" for="claimAmount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimAmount', 'claimEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.claim_claimDescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDescription', 'claimEdit')}"/>  
+        <br/>  
+        <h:inputText id="claimDescription" value="#{claimAction.claim.claimDescription}"/>  
+        <rich:message styleClass="error errors" for="claimDescription" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDescription', 'claimEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.claim_claimPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimPatient', 'claimEdit')}"/>  
+        <br/>  
+        <h:inputText id="claimPatient" value="#{claimAction.claim.claimPatient}"/>  
+        <rich:message styleClass="error errors" for="claimPatient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimPatient', 'claimEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

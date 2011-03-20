@@ -12,7 +12,11 @@
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.dependent_dependentName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentName', 'dependentView')}"/>  
-        <h:outputText id="dependentName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentName', 'dependentView')}" value="#{dependentAction.dependent.dependentName}"></h:outputText> 
+        <h:outputText id="dependentName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentName', 'dependentView')}" value="#{dependentAction.dependent.dependentName}"></h:outputText>  
+        <h:outputText value="#{msg.dependent_dependentDateofBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentDateofBirth', 'dependentView')}"/>  
+        <h:outputText id="dependentDateofBirth#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentDateofBirth', 'dependentView')}" value="#{dependentAction.dependent.dependentDateofBirth}"></h:outputText>  
+        <h:outputText value="#{msg.dependent_dependentGender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentGender', 'dependentView')}"/>  
+        <h:outputText value="#{dependentAction.dependent.dependentGender}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

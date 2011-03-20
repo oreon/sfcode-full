@@ -49,12 +49,25 @@ public abstract class DependentListQueryBase extends BaseQuery<Dependent, Long> 
 		return RESTRICTIONS;
 	}
 
+	private Range<Date> dependentDateofBirthRange = new Range<Date>();
+	public Range<Date> getDependentDateofBirthRange() {
+		return dependentDateofBirthRange;
+	}
+	public void setDependentDateofBirth(Range<Date> dependentDateofBirthRange) {
+		this.dependentDateofBirthRange = dependentDateofBirthRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"dependent.id = #{dependentList.dependent.id}",
 
 			"lower(dependent.dependentName) like concat(lower(#{dependentList.dependent.dependentName}),'%')",
 
 			"dependent.customer.id = #{dependentList.dependent.customer.id}",
+
+			"dependent.dependentDateofBirth >= #{dependentList.dependentDateofBirthRange.begin}",
+			"dependent.dependentDateofBirth <= #{dependentList.dependentDateofBirthRange.end}",
+
+			"dependent.dependentGender = #{dependentList.dependent.dependentGender}",
 
 			"dependent.dateCreated <= #{dependentList.dateCreatedRange.end}",
 			"dependent.dateCreated >= #{dependentList.dateCreatedRange.begin}",};
@@ -85,6 +98,15 @@ public abstract class DependentListQueryBase extends BaseQuery<Dependent, Long> 
 				+ (e.getCustomer() != null ? e.getCustomer().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
+		builder.append("\""
+				+ (e.getDependentDateofBirth() != null ? e
+						.getDependentDateofBirth() : "") + "\",");
+
+		builder
+				.append("\""
+						+ (e.getDependentGender() != null ? e
+								.getDependentGender() : "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -97,6 +119,10 @@ public abstract class DependentListQueryBase extends BaseQuery<Dependent, Long> 
 		builder.append("DependentName" + ",");
 
 		builder.append("Customer" + ",");
+
+		builder.append("DependentDateofBirth" + ",");
+
+		builder.append("DependentGender" + ",");
 
 		builder.append("\r\n");
 	}

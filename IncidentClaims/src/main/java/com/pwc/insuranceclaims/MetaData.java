@@ -18,6 +18,8 @@ public class MetaData {
 
 	"employeeType",
 
+	"user",
+
 	},
 
 	{"com.pwc.insuranceclaims.domain.Department",
@@ -40,9 +42,9 @@ public class MetaData {
 
 	"city",
 
-	"state",
+	"province",
 
-	"zipCode",
+	"postalCode",
 
 	"policys",
 
@@ -64,6 +66,18 @@ public class MetaData {
 
 	"policy",
 
+	"claimNumber",
+
+	"claimDate",
+
+	"claimAmount",
+
+	"claimDescription",
+
+	"claimPatient",
+
+	"claimDocuments",
+
 	},
 
 	{"com.pwc.insuranceclaims.quickclaim.Dependent",
@@ -71,6 +85,48 @@ public class MetaData {
 	"dependentName",
 
 	"customer",
+
+	"dependentDateofBirth",
+
+	"dependentGender",
+
+	},
+
+	{"com.pwc.insuranceclaims.quickclaim.ClaimDocument",
+
+	"claimNumber",
+
+	"documentDate",
+
+	"documentType",
+
+	"documentDescription",
+
+	"claim",
+
+	},
+
+	{"com.pwc.insuranceclaims.users.User",
+
+	"userName",
+
+	"password",
+
+	"enabled",
+
+	"roles",
+
+	"email",
+
+	"lastLogin",
+
+	},
+
+	{"com.pwc.insuranceclaims.users.Role",
+
+	"name",
+
+	"users",
 
 	},
 

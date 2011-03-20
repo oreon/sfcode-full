@@ -55,6 +55,9 @@ public abstract class EmployeeActionBase
 	@In(create = true, value = "departmentAction")
 	com.pwc.insuranceclaims.web.action.domain.DepartmentAction departmentAction;
 
+	@In(create = true, value = "userAction")
+	com.pwc.insuranceclaims.web.action.users.UserAction userAction;
+
 	@DataModel
 	private List<Employee> employeeRecordList;
 
@@ -89,6 +92,19 @@ public abstract class EmployeeActionBase
 	public Long getDepartmentId() {
 		if (getInstance().getDepartment() != null)
 			return getInstance().getDepartment().getId();
+		return 0L;
+	}
+
+	public void setUserId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setUser(userAction.loadFromId(id));
+
+	}
+
+	public Long getUserId() {
+		if (getInstance().getUser() != null)
+			return getInstance().getUser().getId();
 		return 0L;
 	}
 
@@ -130,6 +146,12 @@ public abstract class EmployeeActionBase
 			getInstance().setDepartment(department);
 		}
 
+		com.pwc.insuranceclaims.users.User user = userAction
+				.getDefinedInstance();
+		if (user != null && isNew()) {
+			getInstance().setUser(user);
+		}
+
 	}
 
 	public boolean isWired() {
@@ -161,6 +183,11 @@ public abstract class EmployeeActionBase
 					.getDepartment().getId()));
 		}
 
+		if (employee.getUser() != null) {
+			criteria = criteria.add(Restrictions.eq("user.id", employee
+					.getUser().getId()));
+		}
+
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -171,6 +198,10 @@ public abstract class EmployeeActionBase
 
 		if (employee.getDepartment() != null) {
 			departmentAction.setInstance(getInstance().getDepartment());
+		}
+
+		if (employee.getUser() != null) {
+			userAction.setInstance(getInstance().getUser());
 		}
 
 	}
