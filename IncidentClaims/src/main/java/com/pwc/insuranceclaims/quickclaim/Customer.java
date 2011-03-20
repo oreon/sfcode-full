@@ -74,11 +74,11 @@ public class Customer extends BusinessEntity implements java.io.Serializable {
 
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String state;
+	protected String province;
 
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String zipCode;
+	protected String postalCode;
 
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "customer_ID", nullable = true)
@@ -173,23 +173,23 @@ public class Customer extends BusinessEntity implements java.io.Serializable {
 
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setProvince(String province) {
+		this.province = province;
 	}
 
-	public String getState() {
+	public String getProvince() {
 
-		return state;
+		return province;
 
 	}
 
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 
-	public String getZipCode() {
+	public String getPostalCode() {
 
-		return zipCode;
+		return postalCode;
 
 	}
 
@@ -240,9 +240,9 @@ public class Customer extends BusinessEntity implements java.io.Serializable {
 
 		listSearchableFields.add("city");
 
-		listSearchableFields.add("state");
+		listSearchableFields.add("province");
 
-		listSearchableFields.add("zipCode");
+		listSearchableFields.add("postalCode");
 
 		listSearchableFields.add("dependents.dependentName");
 
@@ -264,9 +264,9 @@ public class Customer extends BusinessEntity implements java.io.Serializable {
 
 		builder.append(getCity() + " ");
 
-		builder.append(getState() + " ");
+		builder.append(getProvince() + " ");
 
-		builder.append(getZipCode() + " ");
+		builder.append(getPostalCode() + " ");
 
 		for (BusinessEntity e : policys) {
 			builder.append(e.getDisplayName() + " ");

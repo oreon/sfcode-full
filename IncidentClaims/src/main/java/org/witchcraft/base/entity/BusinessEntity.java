@@ -19,7 +19,9 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
-import org.witchcraft.users.User;
+import com.pwc.insuranceclaims.users.User;
+
+
 
 
 

@@ -7,9 +7,10 @@ import org.jboss.seam.security.Identity;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.witchcraft.seam.action.BaseAction;
-import org.witchcraft.users.Role;
-import org.witchcraft.users.User;
-import org.witchcraft.users.action.UserAction;
+
+import com.pwc.insuranceclaims.users.Role;
+import com.pwc.insuranceclaims.users.User;
+import com.pwc.insuranceclaims.web.action.users.UserAction;
 
 public class AuthenticatorTest extends BaseTest<User> {
 

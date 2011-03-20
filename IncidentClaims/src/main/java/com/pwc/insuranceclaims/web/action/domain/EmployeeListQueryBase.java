@@ -49,6 +49,14 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 		return RESTRICTIONS;
 	}
 
+	private Range<Date> user_lastLoginRange = new Range<Date>();
+	public Range<Date> getUser_lastLoginRange() {
+		return user_lastLoginRange;
+	}
+	public void setUser_lastLogin(Range<Date> user_lastLoginRange) {
+		this.user_lastLoginRange = user_lastLoginRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"employee.id = #{employeeList.employee.id}",
 
@@ -67,6 +75,15 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 			"lower(employee.employeeNumber) like concat(lower(#{employeeList.employee.employeeNumber}),'%')",
 
 			"employee.employeeType = #{employeeList.employee.employeeType}",
+
+			"lower(employee.user.userName) like concat(lower(#{employeeList.employee.user.userName}),'%')",
+
+			"employee.user.enabled = #{employeeList.employee.user.enabled}",
+
+			"lower(employee.user.email) like concat(lower(#{employeeList.employee.user.email}),'%')",
+
+			"employee.user.lastLogin >= #{employeeList.user_lastLoginRange.begin}",
+			"employee.user.lastLogin <= #{employeeList.user_lastLoginRange.end}",
 
 			"employee.dateCreated <= #{employeeList.dateCreatedRange.end}",
 			"employee.dateCreated >= #{employeeList.dateCreatedRange.begin}",};
@@ -101,6 +118,10 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 				+ (e.getEmployeeType() != null ? e.getEmployeeType() : "")
 				+ "\",");
 
+		builder.append("\""
+				+ (e.getUser() != null ? e.getUser().getDisplayName().replace(
+						",", "") : "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -115,6 +136,8 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 		builder.append("EmployeeNumber" + ",");
 
 		builder.append("EmployeeType" + ",");
+
+		builder.append("User" + ",");
 
 		builder.append("\r\n");
 	}

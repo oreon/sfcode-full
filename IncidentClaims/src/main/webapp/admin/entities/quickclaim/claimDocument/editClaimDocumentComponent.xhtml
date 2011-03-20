@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{claimDocumentAction.load(claimDocumentId )  }"> 
+        <h:outputText value="#{msg.claimDocument_claim} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claim', 'claimDocumentEdit')}"/>  
+        <h:selectOneMenu id="claim" label="#{msg.claimDocument_claim}" value="#{claimDocumentAction.claimDocument.claim}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claim', 'claimDocumentEdit')}"> 
+          <s:selectItems value="#{claimList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="claim" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claim', 'claimDocumentEdit')}"/>  
+        <h:outputText value="#{msg.claimDocument_claimNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimDocumentEdit')}"/>  
+        <h:inputText id="claimNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimDocumentEdit')}" label="#{msg.claimDocument_claimNumber}" required="false" value="#{claimDocumentAction.claimDocument.claimNumber}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="claimNumber" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimDocumentEdit')}"/>  
+        <h:outputText value="#{msg.claimDocument_documentDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDate', 'claimDocumentEdit')}"/>  
+        <rich:calendar id="documentDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDate', 'claimDocumentEdit')}" label="#{msg.claimDocument_documentDate}" required="false" value="#{claimDocumentAction.claimDocument.documentDate}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:calendar>  
+        <rich:message styleClass="error errors" for="documentDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDate', 'claimDocumentEdit')}"/>  
+        <h:outputText value="#{msg.claimDocument_documentType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentType', 'claimDocumentEdit')}"/>  
+        <h:inputText id="documentType#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentType', 'claimDocumentEdit')}" label="#{msg.claimDocument_documentType}" required="false" value="#{claimDocumentAction.claimDocument.documentType}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="documentType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentType', 'claimDocumentEdit')}"/>  
+        <h:outputText value="#{msg.claimDocument_documentDescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDescription', 'claimDocumentEdit')}"/>  
+        <h:inputText id="documentDescription#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDescription', 'claimDocumentEdit')}" label="#{msg.claimDocument_documentDescription}" required="false" value="#{claimDocumentAction.claimDocument.documentDescription}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="documentDescription" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDescription', 'claimDocumentEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -44,6 +44,28 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('dependentDateofBirth', 'dependentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{dependentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.dependent_dependentDateofBirth}"/>  
+              <ui:param name="propertyPath" value="dependent.dependentDateofBirth"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_dependent.dependentDateofBirth}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('dependentGender', 'dependentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{dependentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.dependent_dependentGender}"/>  
+              <ui:param name="propertyPath" value="dependent.dependentGender"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_dependent.dependentGender}" escape="false"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'dependentView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

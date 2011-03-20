@@ -10,14 +10,14 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.bpm.Actor;
-import org.jboss.seam.core.Conversation;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
 import org.jboss.seam.security.permission.RuleBasedPermissionResolver;
 import org.witchcraft.base.entity.UserUtilAction;
-import org.witchcraft.users.Role;
-import org.witchcraft.users.User;
+
+import com.pwc.insuranceclaims.users.Role;
+import com.pwc.insuranceclaims.users.User;
 
 @Name("authenticator")
 public class Authenticator {

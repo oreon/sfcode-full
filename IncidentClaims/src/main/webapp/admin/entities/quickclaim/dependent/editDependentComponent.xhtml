@@ -15,7 +15,20 @@
         <h:inputText id="dependentName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentName', 'dependentEdit')}" label="#{msg.dependent_dependentName}" required="false" value="#{dependentAction.dependent.dependentName}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="dependentName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentName', 'dependentEdit')}"/> 
+        <rich:message styleClass="error errors" for="dependentName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentName', 'dependentEdit')}"/>  
+        <h:outputText value="#{msg.dependent_dependentDateofBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentDateofBirth', 'dependentEdit')}"/>  
+        <rich:calendar id="dependentDateofBirth#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentDateofBirth', 'dependentEdit')}" label="#{msg.dependent_dependentDateofBirth}" required="false" value="#{dependentAction.dependent.dependentDateofBirth}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:calendar>  
+        <rich:message styleClass="error errors" for="dependentDateofBirth" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentDateofBirth', 'dependentEdit')}"/>  
+        <h:outputText value="#{msg.dependent_dependentGender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentGender', 'dependentEdit')}"/>  
+        <h:selectOneMenu id="dependentGender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentGender', 'dependentEdit')}" value="#{dependentAction.dependent.dependentGender}" required="false" label="#{msg.dependent_dependentGender}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="F" itemLabel="#{msg.F}"/>  
+          <f:selectItem itemValue="M" itemLabel="#{msg.M}"/>  
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="dependentGender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependentGender', 'dependentEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

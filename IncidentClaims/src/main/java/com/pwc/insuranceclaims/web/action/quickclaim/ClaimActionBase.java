@@ -41,6 +41,8 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
+import com.pwc.insuranceclaims.quickclaim.ClaimDocument;
+
 public abstract class ClaimActionBase extends BaseAction<Claim>
 		implements
 			java.io.Serializable {
@@ -52,6 +54,9 @@ public abstract class ClaimActionBase extends BaseAction<Claim>
 
 	@In(create = true, value = "policyAction")
 	com.pwc.insuranceclaims.web.action.quickclaim.PolicyAction policyAction;
+
+	@In(create = true, value = "claimDocumentAction")
+	com.pwc.insuranceclaims.web.action.quickclaim.ClaimDocumentAction claimDocumentsAction;
 
 	@DataModel
 	private List<Claim> claimRecordList;
@@ -171,16 +176,66 @@ public abstract class ClaimActionBase extends BaseAction<Claim>
 			policyAction.setInstance(getInstance().getPolicy());
 		}
 
+		initListClaimDocuments();
+
 	}
 
 	public void updateAssociations() {
 
+		com.pwc.insuranceclaims.quickclaim.ClaimDocument claimDocuments = (com.pwc.insuranceclaims.quickclaim.ClaimDocument) org.jboss.seam.Component
+				.getInstance("claimDocument");
+		claimDocuments.setClaim(claim);
+		events.raiseTransactionSuccessEvent("archivedClaimDocument");
+
+	}
+
+	protected List<com.pwc.insuranceclaims.quickclaim.ClaimDocument> listClaimDocuments = new ArrayList<com.pwc.insuranceclaims.quickclaim.ClaimDocument>();
+
+	void initListClaimDocuments() {
+
+		if (listClaimDocuments.isEmpty())
+			listClaimDocuments.addAll(getInstance().getClaimDocuments());
+
+	}
+
+	public List<com.pwc.insuranceclaims.quickclaim.ClaimDocument> getListClaimDocuments() {
+
+		prePopulateListClaimDocuments();
+		return listClaimDocuments;
+	}
+
+	public void prePopulateListClaimDocuments() {
+	}
+
+	public void setListClaimDocuments(
+			List<com.pwc.insuranceclaims.quickclaim.ClaimDocument> listClaimDocuments) {
+		this.listClaimDocuments = listClaimDocuments;
+	}
+
+	public void deleteClaimDocuments(int index) {
+		listClaimDocuments.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addClaimDocuments() {
+		initListClaimDocuments();
+		ClaimDocument claimDocuments = new ClaimDocument();
+
+		claimDocuments.setClaim(getInstance());
+
+		getListClaimDocuments().add(claimDocuments);
 	}
 
 	public void updateComposedAssociations() {
+
+		if (listClaimDocuments != null) {
+			getInstance().getClaimDocuments().clear();
+			getInstance().getClaimDocuments().addAll(listClaimDocuments);
+		}
 	}
 
 	public void clearLists() {
+		listClaimDocuments.clear();
 
 	}
 

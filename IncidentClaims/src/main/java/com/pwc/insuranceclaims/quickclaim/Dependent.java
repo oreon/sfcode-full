@@ -61,6 +61,10 @@ public class Dependent extends BusinessEntity implements java.io.Serializable {
 	@ContainedIn
 	protected Customer customer;
 
+	protected Date dependentDateofBirth;
+
+	protected com.pwc.insuranceclaims.domain.Gender dependentGender;
+
 	public void setDependentName(String dependentName) {
 		this.dependentName = dependentName;
 	}
@@ -78,6 +82,27 @@ public class Dependent extends BusinessEntity implements java.io.Serializable {
 	public Customer getCustomer() {
 
 		return customer;
+
+	}
+
+	public void setDependentDateofBirth(Date dependentDateofBirth) {
+		this.dependentDateofBirth = dependentDateofBirth;
+	}
+
+	public Date getDependentDateofBirth() {
+
+		return dependentDateofBirth;
+
+	}
+
+	public void setDependentGender(
+			com.pwc.insuranceclaims.domain.Gender dependentGender) {
+		this.dependentGender = dependentGender;
+	}
+
+	public com.pwc.insuranceclaims.domain.Gender getDependentGender() {
+
+		return dependentGender;
 
 	}
 

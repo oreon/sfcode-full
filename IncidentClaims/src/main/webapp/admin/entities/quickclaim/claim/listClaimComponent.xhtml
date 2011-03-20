@@ -34,6 +34,60 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('claimNumber', 'claimView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{claimList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.claim_claimNumber}"/>  
+              <ui:param name="propertyPath" value="claim.claimNumber"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_claim.claimNumber}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('claimDate', 'claimView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{claimList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.claim_claimDate}"/>  
+              <ui:param name="propertyPath" value="claim.claimDate"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_claim.claimDate}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('claimAmount', 'claimView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{claimList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.claim_claimAmount}"/>  
+              <ui:param name="propertyPath" value="claim.claimAmount"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_claim.claimAmount}"> 
+            <f:convertNumber pattern="$#,##0.00"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('claimDescription', 'claimView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{claimList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.claim_claimDescription}"/>  
+              <ui:param name="propertyPath" value="claim.claimDescription"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_claim.claimDescription}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('claimPatient', 'claimView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{claimList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.claim_claimPatient}"/>  
+              <ui:param name="propertyPath" value="claim.claimPatient"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_claim.claimPatient}" escape="false"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'claimView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

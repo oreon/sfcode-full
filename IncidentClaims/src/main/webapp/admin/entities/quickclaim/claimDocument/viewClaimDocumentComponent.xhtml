@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{claimDocumentAction.load(claimDocumentId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{claimDocumentAction.claimDocument.id}"/>  
+        <h:outputText value="#{msg.claimDocument_claim}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claim', 'claimDocumentView')}"/>  
+        <s:link value="#{claimDocumentAction.claimDocument.claim.displayName}" view="/admin/entities/quickclaim/claim/viewClaim.xhtml" propagation="none"> 
+          <f:param name="claimId" value="#{claimDocumentAction.claimDocument.claim.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.claimDocument_claimNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimDocumentView')}"/>  
+        <h:outputText id="claimNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimDocumentView')}" value="#{claimDocumentAction.claimDocument.claimNumber}"></h:outputText>  
+        <h:outputText value="#{msg.claimDocument_documentDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDate', 'claimDocumentView')}"/>  
+        <h:outputText id="documentDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDate', 'claimDocumentView')}" value="#{claimDocumentAction.claimDocument.documentDate}"></h:outputText>  
+        <h:outputText value="#{msg.claimDocument_documentType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentType', 'claimDocumentView')}"/>  
+        <h:outputText id="documentType#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentType', 'claimDocumentView')}" value="#{claimDocumentAction.claimDocument.documentType}"></h:outputText>  
+        <h:outputText value="#{msg.claimDocument_documentDescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDescription', 'claimDocumentView')}"/>  
+        <h:outputText id="documentDescription#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDescription', 'claimDocumentView')}" value="#{claimDocumentAction.claimDocument.documentDescription}"></h:outputText> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -107,6 +107,42 @@
       <rule if-outcome="editDependent"> 
         <redirect view-id="/admin/entities/quickclaim/dependent/editDependent.xhtml"/>  
         <end-conversation/> 
+      </rule>  
+      <rule if-outcome="claimDocument"> 
+        <redirect view-id="/admin/entities/quickclaim/claimDocument/listClaimDocument.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewClaimDocument"> 
+        <redirect view-id="/admin/entities/quickclaim/claimDocument/viewClaimDocument.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editClaimDocument"> 
+        <redirect view-id="/admin/entities/quickclaim/claimDocument/editClaimDocument.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="user"> 
+        <redirect view-id="/admin/entities/users/user/listUser.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewUser"> 
+        <redirect view-id="/admin/entities/users/user/viewUser.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editUser"> 
+        <redirect view-id="/admin/entities/users/user/editUser.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="role"> 
+        <redirect view-id="/admin/entities/users/role/listRole.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewRole"> 
+        <redirect view-id="/admin/entities/users/role/viewRole.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editRole"> 
+        <redirect view-id="/admin/entities/users/role/editRole.xhtml"/>  
+        <end-conversation/> 
       </rule> 
     </navigation> 
   </page>  
@@ -121,7 +157,8 @@
       </rule> 
     </navigation>  
     <param name="employeeId" value="#{employeeAction.employeeId}"/>  
-    <param name="departmentId" value="#{employeeAction.departmentId}"/> 
+    <param name="departmentId" value="#{employeeAction.departmentId}"/>  
+    <param name="userId" value="#{employeeAction.userId}"/> 
   </page>  
   <page view-id="/admin/entities/domain/employee/viewEmployee.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Employee: #{employee.displayName}</description> -->  
@@ -156,7 +193,11 @@
     <param name="contactDetails_city" value="#{employeeList.employee.contactDetails.city}" validateModel="false"/>  
     <param name="department" value="#{employeeList.employee.department.id}" validateModel="false"/>  
     <param name="employeeNumber" value="#{employeeList.employee.employeeNumber}" validateModel="false"/>  
-    <param name="employeeType" value="#{employeeList.employee.employeeType}" validateModel="false"/> 
+    <param name="employeeType" value="#{employeeList.employee.employeeType}" validateModel="false"/>  
+    <param name="user_userName" value="#{employeeList.employee.user.userName}" validateModel="false"/>  
+    <param name="user_enabled" value="#{employeeList.employee.user.enabled}" validateModel="false"/>  
+    <param name="user_email" value="#{employeeList.employee.user.email}" validateModel="false"/>  
+    <param name="user_lastLogin" value="#{employeeList.employee.user.lastLogin}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/department/editDepartment.xhtml"> 
     <!-- <description>Edit Department: #{department.displayName}</description> -->  
@@ -241,8 +282,8 @@
     <param name="address1" value="#{customerList.customer.address1}" validateModel="false"/>  
     <param name="address2" value="#{customerList.customer.address2}" validateModel="false"/>  
     <param name="city" value="#{customerList.customer.city}" validateModel="false"/>  
-    <param name="state" value="#{customerList.customer.state}" validateModel="false"/>  
-    <param name="zipCode" value="#{customerList.customer.zipCode}" validateModel="false"/> 
+    <param name="province" value="#{customerList.customer.province}" validateModel="false"/>  
+    <param name="postalCode" value="#{customerList.customer.postalCode}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/quickclaim/policy/editPolicy.xhtml"> 
     <!-- <description>Edit Policy: #{policy.displayName}</description> -->  
@@ -326,7 +367,12 @@
     <param name="dir" value="#{claimList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{claimList.claim.id}"/>  
-    <param name="policy" value="#{claimList.claim.policy.id}" validateModel="false"/> 
+    <param name="policy" value="#{claimList.claim.policy.id}" validateModel="false"/>  
+    <param name="claimNumber" value="#{claimList.claim.claimNumber}" validateModel="false"/>  
+    <param name="claimDate" value="#{claimList.claim.claimDate}" validateModel="false"/>  
+    <param name="claimAmount" value="#{claimList.claim.claimAmount}" validateModel="false"/>  
+    <param name="claimDescription" value="#{claimList.claim.claimDescription}" validateModel="false"/>  
+    <param name="claimPatient" value="#{claimList.claim.claimPatient}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/quickclaim/dependent/editDependent.xhtml"> 
     <!-- <description>Edit Dependent: #{dependent.displayName}</description> -->  
@@ -368,7 +414,137 @@
     <param name="from"/>  
     <param name="id" value="#{dependentList.dependent.id}"/>  
     <param name="dependentName" value="#{dependentList.dependent.dependentName}" validateModel="false"/>  
-    <param name="customer" value="#{dependentList.dependent.customer.id}" validateModel="false"/> 
+    <param name="customer" value="#{dependentList.dependent.customer.id}" validateModel="false"/>  
+    <param name="dependentDateofBirth" value="#{dependentList.dependent.dependentDateofBirth}" validateModel="false"/>  
+    <param name="dependentGender" value="#{dependentList.dependent.dependentGender}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/quickclaim/claimDocument/editClaimDocument.xhtml"> 
+    <!-- <description>Edit ClaimDocument: #{claimDocument.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/quickclaim/claimDocument/viewClaimDocument.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/quickclaim/claimDocument/listClaimDocument.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="claimDocumentId" value="#{claimDocumentAction.claimDocumentId}"/>  
+    <param name="claimId" value="#{claimDocumentAction.claimId}"/> 
+  </page>  
+  <page view-id="/admin/entities/quickclaim/claimDocument/viewClaimDocument.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View ClaimDocument: #{claimDocument.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/quickclaim/claimDocument/editClaimDocument.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/quickclaim/claimDocument/listClaimDocument.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="claimDocumentId" value="#{claimDocumentAction.claimDocumentId}"/> 
+  </page>  
+  <page view-id="/admin/entities/quickclaim/claimDocument/listClaimDocument.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewClaimDocument"> 
+        <redirect view-id="/admin/entities/quickclaim/claimDocument/viewClaimDocument.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/quickclaim/claimDocument/editClaimDocument.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{claimDocumentList.firstResult}"/>  
+    <param name="sort" value="#{claimDocumentList.orderColumn}"/>  
+    <param name="dir" value="#{claimDocumentList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{claimDocumentList.claimDocument.id}"/>  
+    <param name="claimNumber" value="#{claimDocumentList.claimDocument.claimNumber}" validateModel="false"/>  
+    <param name="documentDate" value="#{claimDocumentList.claimDocument.documentDate}" validateModel="false"/>  
+    <param name="documentType" value="#{claimDocumentList.claimDocument.documentType}" validateModel="false"/>  
+    <param name="documentDescription" value="#{claimDocumentList.claimDocument.documentDescription}" validateModel="false"/>  
+    <param name="claim" value="#{claimDocumentList.claimDocument.claim.id}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/users/user/editUser.xhtml"> 
+    <!-- <description>Edit User: #{user.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/users/user/viewUser.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/users/user/listUser.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="userId" value="#{userAction.userId}"/> 
+  </page>  
+  <page view-id="/admin/entities/users/user/viewUser.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View User: #{user.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/users/user/editUser.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/users/user/listUser.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="userId" value="#{userAction.userId}"/> 
+  </page>  
+  <page view-id="/admin/entities/users/user/listUser.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewUser"> 
+        <redirect view-id="/admin/entities/users/user/viewUser.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/users/user/editUser.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{userList.firstResult}"/>  
+    <param name="sort" value="#{userList.orderColumn}"/>  
+    <param name="dir" value="#{userList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{userList.user.id}"/>  
+    <param name="userName" value="#{userList.user.userName}" validateModel="false"/>  
+    <param name="enabled" value="#{userList.user.enabled}" validateModel="false"/>  
+    <param name="email" value="#{userList.user.email}" validateModel="false"/>  
+    <param name="lastLogin" value="#{userList.user.lastLogin}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/users/role/editRole.xhtml"> 
+    <!-- <description>Edit Role: #{role.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/users/role/viewRole.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/users/role/listRole.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="roleId" value="#{roleAction.roleId}"/> 
+  </page>  
+  <page view-id="/admin/entities/users/role/viewRole.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View Role: #{role.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/users/role/editRole.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/users/role/listRole.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="roleId" value="#{roleAction.roleId}"/> 
+  </page>  
+  <page view-id="/admin/entities/users/role/listRole.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewRole"> 
+        <redirect view-id="/admin/entities/users/role/viewRole.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/users/role/editRole.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{roleList.firstResult}"/>  
+    <param name="sort" value="#{roleList.orderColumn}"/>  
+    <param name="dir" value="#{roleList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{roleList.role.id}"/>  
+    <param name="name" value="#{roleList.role.name}" validateModel="false"/> 
   </page>  
   <!--PROTECTED REGION ID(USER_EDITABLE_XCPT) ENABLED START-->  
   <exception class="org.jboss.seam.framework.EntityNotFoundException"> 
