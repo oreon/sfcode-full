@@ -7,7 +7,7 @@ extension template::GeneratorExtensions;
 
 
 getFieldType(Property prop):
- prop.type.isPrimitive() ? getFieldTypeForReports(prop.type.name) : prop.type.fqn();
+ prop.type.isPrimitive() || prop.isString() ? getFieldTypeForReports(prop.type.name) : prop.type.fqn();
 
 getFieldWidth(Property prop):
 getDefaultWidth() / prop.class.getAllReportFields().size;
