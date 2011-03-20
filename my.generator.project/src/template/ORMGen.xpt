@@ -21,53 +21,13 @@
 	<description></description>
 	
 	«EXPAND GenerateEntityMapping FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
-	«EXPAND genMetaData FOR this»
+	
 	
 </entity-mappings>
 	«ENDFILE»
 «ENDDEFINE»
 
 
-«DEFINE genMetaData FOR uml::Model»
-«FILE getTopLevelPackagePath(allOwnedElements().typeSelect(wcprofile::Entity).get(0)) +"/MetaData.java"»
-package «getTopLevelPackage(allOwnedElements().typeSelect(wcprofile::Entity).get(0))»;
-
-public class MetaData{
-
-public static final String[][] ARR_FIELDS = {
-«FOREACH allOwnedElements().typeSelect(wcprofile::Entity) AS e»
-	«setCurrentEmbeddableName("")»
-	«setAsCurrentEntity(e)»
-	{ "«e.fqn()»",  
-		«EXPAND genAttributeNames FOR e»
-	},
-«ENDFOREACH»
-};
-
-}
-«ENDFILE»
-«ENDDEFINE» 	
-
-
-«DEFINE genAttributeNames FOR uml::Class»
-	«FOREACH getAttribs() AS a»
-		«IF a.isMultivalued() == false && a.association != null »
-			"«a.name».displayName",
-			«setCurrentEmbeddableName(a.name + ".")»
-			«EXPAND genAttributeNames FOR a.type»
-		«ELSE»
-			«IF a.class == getCurrentEntity()» 
-				«setCurrentEmbeddableName("")»
-			«ENDIF»
-			«EXPAND genProperty FOR a»
-		«ENDIF»
-	«ENDFOREACH»
-«ENDDEFINE»
-
-
-«DEFINE genProperty FOR uml::Property»
-	"«getCurrentEmbeddableName()»«name»",
-«ENDDEFINE»
 
 
 

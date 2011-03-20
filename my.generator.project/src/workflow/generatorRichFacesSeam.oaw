@@ -237,4 +237,23 @@ skipOnErrors="true">
 </component>
 
 
+<component id="MetaDataGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">
+	<metaModel class="oaw.type.emf.EmfMetaModel">
+	<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
+	</metaModel>
+	<metaModel class="oaw.uml2.UML2MetaModel"/>
+	<prSrcPaths value="${mainGenPath}" />
+	<prExcludes value="*.svn-base, *.svn"/>
+	<prDefaultExcludes value="false"/>
+	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
+		<profile value="${model.dir}/wcprofile.profile.uml"/>
+	</metaModel>
+	<expand value="metadata::metaDataGen::gen FOR model"/>
+	
+	<outlet path="${srcGenPath}">
+		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+	</outlet>
+</component>
+
+
 </workflow>

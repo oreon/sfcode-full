@@ -45,7 +45,13 @@ public class ClassUtil {
 	static Properties properties = new Properties();
 
 	static int count = 0;
+	
+	private static final Logger logger = Logger.getLogger(ClassUtil.class);
 
+	static Map<String, String[]> mapTypes = new HashMap<String, String[]>();
+
+//	Logger logger = Logger.getLogger(ClassUtil.class);
+	
 	private static Model model;
 
 	static {
@@ -90,9 +96,7 @@ public class ClassUtil {
 		ClassUtil.currentCartridge = currentCartridge;
 	}
 
-	private static final Logger logger = Logger.getLogger(ClassUtil.class);
-
-	static Map<String, String[]> mapTypes = new HashMap<String, String[]>();
+	
 
 	static {
 		mapTypes.put("datatypes.Integer", new String[] { "Integer", "" });
@@ -313,8 +317,7 @@ public class ClassUtil {
 
 	public static String getTypeName(String typeName) {
 		if (mapTypes.containsKey(typeName)) {
-			System.out.println(typeName + " mapped to "
-					+ mapTypes.get(typeName)[0]);
+		
 			return mapTypes.get(typeName)[0];
 		}
 		return typeName;
@@ -581,6 +584,11 @@ public class ClassUtil {
 		count = 0;
 		return "";
 	}
+	
+	public static void print(String message){
+		System.out.println(message);
+		logger.info(message);
+	}
 
 	public static String getTreeParent(String arg) {
 		System.out.println("arg is " + arg);
@@ -638,10 +646,14 @@ public class ClassUtil {
 
 	public static String getFieldTypeForReports(String key) {
 		mapFieldsForReports.put("String", "java.lang.String");
+		mapFieldsForReports.put("nameType", "java.lang.String");
+		mapFieldsForReports.put("uniqueNameType", "java.lang.String");
+		mapFieldsForReports.put("largeText", "java.lang.String");
 		mapFieldsForReports.put("long", "java.lang.Long");
 		mapFieldsForReports.put("Long", "java.lang.Long");
 		mapFieldsForReports.put("Double", "java.lang.Double");
 		mapFieldsForReports.put("Date", "java.util.Date");
+		mapFieldsForReports.put("Boolean", "java.lang.Boolean");
 		mapFieldsForReports.put("Integer", "java.lang.Integer");
 
 		if (mapFieldsForReports.containsKey(key))
