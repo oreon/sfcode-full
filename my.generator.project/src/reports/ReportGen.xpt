@@ -12,6 +12,13 @@
 	«EXPAND ReportsNavigationRoot::genNav FOR this»
 	«EXPAND ParamScreenGen::genParamScreen FOREACH allOwnedElements().typeSelect(wcprofile::Report)»
 	«EXPAND ParamScreenGen::genReportsAction FOREACH allOwnedElements().typeSelect(wcprofile::Report)»
+	«EXPAND javaBeanGen FOREACH allOwnedElements().typeSelect(wcprofile::Report)»
+«ENDDEFINE»
+
+«DEFINE javaBeanGen FOR wcprofile::Report»
+	«IF hasCollections»
+		«EXPAND template::JavaBeansRoot::ClassRoot FOR this»
+	«ENDIF»
 «ENDDEFINE»
 
 
