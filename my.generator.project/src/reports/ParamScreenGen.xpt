@@ -13,13 +13,21 @@ package « getWebPackageName() »;
 
 import org.witchcraft.jasperreports.BaseReportAction;
 
-import java.util.Date;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
-import org.jboss.seam.annotations.Name;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import org.apache.commons.beanutils.PropertyUtils;
+import org.jboss.seam.annotations.Name;
+import org.witchcraft.jasperreports.BaseReportAction;
+
+import java.util.Date;
 import org.witchcraft.utils.DateUtils;
 
+«IF hasCollections» import «fqn()»;«ENDIF»
 
 @Name("«name.toFirstLower()»Action")
 public class «name»Action extends BaseReportAction {
@@ -45,6 +53,33 @@ public class «name»Action extends BaseReportAction {
  			«ENDIF»
  		«ENDFOREACH»
 	}
+	
+	«IF hasCollections»
+	@Override
+	public JRBeanCollectionDataSource createBeansList() {
+		
+		String qry = "«query»";
+		List<Object[]> results = getEntityManager().createQuery(qry).getResultList();
+		List<«name»> lst«name»s = new ArrayList<«name»>();
+		
+		for (Object[] objects : results) {
+			«name» «name» = new «name»();
+			Field[] flds = «name».getClass().getDeclaredFields();
+			
+			for (int i = 0; i < objects.length; i++) {
+				try {
+					PropertyUtils.setProperty(«name», flds[i].getName(), objects[i]);
+				} catch (Exception e) {
+					log.warn("Error setting property " + flds[i].getName()  + " " + e.getMessage());
+				} 
+			}
+			lst«name»s.add(«name»);
+		}
+		
+		JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(lst«name»s);
+		return jrBeanCollectionDataSource;
+	}
+	«ENDIF»
  
 }
 «ENDFILE»
