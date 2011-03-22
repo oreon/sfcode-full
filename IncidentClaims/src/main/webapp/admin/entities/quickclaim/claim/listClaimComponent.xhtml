@@ -44,6 +44,16 @@
           </f:facet>  
           <h:outputText value="#{_claim.claimNumber}" escape="false"/> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('summary', 'claimView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{claimList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.claim_summary}"/>  
+              <ui:param name="propertyPath" value="claim.summary"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_claim.summary}" escape="false"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('claimDate', 'claimView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -87,6 +97,16 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_claim.claimPatient}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('status', 'claimView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{claimList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.claim_status}"/>  
+              <ui:param name="propertyPath" value="claim.status"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_claim.status}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'claimView' )}"> 
           <f:facet name="header"> 

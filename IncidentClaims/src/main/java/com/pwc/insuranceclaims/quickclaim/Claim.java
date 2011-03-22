@@ -61,10 +61,15 @@ public class Claim extends BusinessEntity implements java.io.Serializable {
 	@Analyzer(definition = "entityAnalyzer")
 	protected String claimNumber;
 
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String summary;
+
 	protected Date claimDate;
 
 	protected Double claimAmount;
 
+	@Lob
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String claimDescription;
@@ -73,8 +78,10 @@ public class Claim extends BusinessEntity implements java.io.Serializable {
 	@Analyzer(definition = "entityAnalyzer")
 	protected String claimPatient;
 
+	protected ClaimStatus status;
+
 	@OneToMany(mappedBy = "claim", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//@JoinColumn(name = "claim_ID", nullable = false)
+	//@JoinColumn(name = "claim_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<ClaimDocument> claimDocuments = new HashSet<ClaimDocument>();
@@ -112,6 +119,16 @@ public class Claim extends BusinessEntity implements java.io.Serializable {
 	public String getClaimNumber() {
 
 		return claimNumber;
+
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
+	public String getSummary() {
+
+		return summary;
 
 	}
 
@@ -155,6 +172,16 @@ public class Claim extends BusinessEntity implements java.io.Serializable {
 
 	}
 
+	public void setStatus(ClaimStatus status) {
+		this.status = status;
+	}
+
+	public ClaimStatus getStatus() {
+
+		return status;
+
+	}
+
 	public void setClaimDocuments(Set<ClaimDocument> claimDocuments) {
 		this.claimDocuments = claimDocuments;
 	}
@@ -166,7 +193,7 @@ public class Claim extends BusinessEntity implements java.io.Serializable {
 	@Transient
 	public String getDisplayName() {
 		try {
-			return claimNumber;
+			return claimNumber + " " + summary;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
@@ -186,9 +213,15 @@ public class Claim extends BusinessEntity implements java.io.Serializable {
 
 		listSearchableFields.add("claimNumber");
 
+		listSearchableFields.add("summary");
+
 		listSearchableFields.add("claimDescription");
 
 		listSearchableFields.add("claimPatient");
+
+		listSearchableFields.add("claimDocuments.documentType");
+
+		listSearchableFields.add("claimDocuments.documentDescription");
 
 		return listSearchableFields;
 	}
@@ -199,6 +232,8 @@ public class Claim extends BusinessEntity implements java.io.Serializable {
 		StringBuilder builder = new StringBuilder();
 
 		builder.append(getClaimNumber() + " ");
+
+		builder.append(getSummary() + " ");
 
 		builder.append(getClaimDescription() + " ");
 

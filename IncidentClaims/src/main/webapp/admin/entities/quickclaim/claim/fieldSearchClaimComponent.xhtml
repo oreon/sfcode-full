@@ -19,6 +19,11 @@
       <h:inputText id="claimNumber" value="#{claimList.claim.claimNumber}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
+      <h:outputText value="#{msg.claim_summary}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('summary', 'claimEdit')}"/>  
+      <br/>  
+      <h:inputText id="summary" value="#{claimList.claim.summary}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.claim_claimDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDate', 'claimEdit')}"/>  
       <br/>  
       <h:outputText value="From"/>  
@@ -46,6 +51,18 @@
       <h:outputText value="#{msg.claim_claimPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimPatient', 'claimEdit')}"/>  
       <br/>  
       <h:inputText id="claimPatient" value="#{claimList.claim.claimPatient}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.claim_status}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('status', 'claimEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="status" value="#{claimList.claim.status}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="AUTO_APPROVED" itemLabel="Auto_approved"/>  
+        <f:selectItem itemValue="IN_PROCESS" itemLabel="In_process"/>  
+        <f:selectItem itemValue="MANUAL_APPROVED" itemLabel="Manual_approved"/>  
+        <f:selectItem itemValue="REJECTEd" itemLabel="Rejected"/> 
+      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

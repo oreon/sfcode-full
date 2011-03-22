@@ -32,44 +32,16 @@ public class ProcessClaimProcessActionBase extends BaseJbpmProcessAction
 	}
 
 	@StartTask
-	public void startReviewClaim() {
+	public void startReviewDecision() {
 
 	}
 
-	@EndTask(transition = "askQuestion")
-	public void askQuestionReviewClaim() {
-
-	}
-	@EndTask(transition = "proceedToReject")
-	public void proceedToRejectReviewClaim() {
-
-	}
-	@EndTask(transition = "askForMoreInfo")
-	public void askForMoreInfoReviewClaim() {
+	@EndTask(transition = "disagreeWithApproval")
+	public void disagreeWithApprovalReviewDecision() {
 
 	}
 	@EndTask(transition = "approve")
-	public void approveReviewClaim() {
-
-	}
-
-	@StartTask
-	public void startAutoAdjudicate() {
-
-	}
-
-	@EndTask(transition = "proceedToAutoApprove")
-	public void proceedToAutoApproveAutoAdjudicate() {
-
-	}
-
-	@StartTask
-	public void startProvideInformation() {
-
-	}
-
-	@EndTask(transition = "provideMoreInfo")
-	public void provideMoreInfoProvideInformation() {
+	public void approveReviewDecision() {
 
 	}
 
@@ -84,16 +56,34 @@ public class ProcessClaimProcessActionBase extends BaseJbpmProcessAction
 	}
 
 	@StartTask
-	public void startReviewDecision() {
+	public void startReviewClaim() {
 
 	}
 
-	@EndTask(transition = "disagreeWithApproval")
-	public void disagreeWithApprovalReviewDecision() {
+	@EndTask(transition = "askForMoreInfo")
+	public void askForMoreInfoReviewClaim() {
+
+	}
+	@EndTask(transition = "proceedToReject")
+	public void proceedToRejectReviewClaim() {
+
+	}
+	@EndTask(transition = "askQuestion")
+	public void askQuestionReviewClaim() {
 
 	}
 	@EndTask(transition = "approve")
-	public void approveReviewDecision() {
+	public void approveReviewClaim() {
+
+	}
+
+	@StartTask
+	public void startProvideInformation() {
+
+	}
+
+	@EndTask(transition = "provideMoreInfo")
+	public void provideMoreInfoProvideInformation() {
 
 	}
 

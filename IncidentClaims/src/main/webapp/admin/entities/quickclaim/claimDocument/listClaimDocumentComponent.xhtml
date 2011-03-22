@@ -21,15 +21,17 @@
           </f:facet>  
           <h:outputText value="#{_claimDocument.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('claimNumber', 'claimDocumentView'  )}"> 
+        <h:column rendered="#{s:hasPermission('document', 'claimDocumentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{claimDocumentList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.claimDocument_claimNumber}"/>  
-              <ui:param name="propertyPath" value="claimDocument.claimNumber"/> 
+              <ui:param name="propertyLabel" value="#{msg.claimDocument_document}"/>  
+              <ui:param name="propertyPath" value="claimDocument.document"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_claimDocument.claimNumber}" escape="false"/> 
+          <s:link value="#{_claimDocument.document.name}" action="#{claimDocumentAction.downloadDocument(_claimDocument.id)}" propagation="none"> 
+            <f:param name="currentEntityId" value="#{_claimDocument.id}"/> 
+          </s:link> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('documentDate', 'claimDocumentView'  )}"> 
           <f:facet name="header"> 
@@ -63,7 +65,7 @@
           </f:facet>  
           <h:outputText value="#{_claimDocument.documentDescription}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('claim', 'claimDocumentView'  )}"> 
+        <h:column groupOn="#{claimDocument.claim.displayName}" rendered="#{s:hasPermission('claim', 'claimDocumentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{claimDocumentList}"/>  

@@ -62,8 +62,6 @@ public abstract class ClaimDocumentListQueryBase
 	private static final String[] RESTRICTIONS = {
 			"claimDocument.id = #{claimDocumentList.claimDocument.id}",
 
-			"lower(claimDocument.claimNumber) like concat(lower(#{claimDocumentList.claimDocument.claimNumber}),'%')",
-
 			"claimDocument.documentDate >= #{claimDocumentList.documentDateRange.begin}",
 			"claimDocument.documentDate <= #{claimDocumentList.documentDateRange.end}",
 
@@ -95,10 +93,6 @@ public abstract class ClaimDocumentListQueryBase
 	public void createCsvString(StringBuilder builder, ClaimDocument e) {
 
 		builder.append("\""
-				+ (e.getClaimNumber() != null ? e.getClaimNumber().replace(",",
-						"") : "") + "\",");
-
-		builder.append("\""
 				+ (e.getDocumentDate() != null ? e.getDocumentDate() : "")
 				+ "\",");
 
@@ -123,8 +117,6 @@ public abstract class ClaimDocumentListQueryBase
 	 */
 	//@Override
 	public void createCSvTitles(StringBuilder builder) {
-
-		builder.append("ClaimNumber" + ",");
 
 		builder.append("DocumentDate" + ",");
 

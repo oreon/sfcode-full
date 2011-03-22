@@ -55,9 +55,6 @@ public abstract class ClaimActionBase extends BaseAction<Claim>
 	@In(create = true, value = "policyAction")
 	com.pwc.insuranceclaims.web.action.quickclaim.PolicyAction policyAction;
 
-	@In(create = true, value = "claimDocumentAction")
-	com.pwc.insuranceclaims.web.action.quickclaim.ClaimDocumentAction claimDocumentsAction;
-
 	@DataModel
 	private List<Claim> claimRecordList;
 
@@ -181,11 +178,6 @@ public abstract class ClaimActionBase extends BaseAction<Claim>
 	}
 
 	public void updateAssociations() {
-
-		com.pwc.insuranceclaims.quickclaim.ClaimDocument claimDocuments = (com.pwc.insuranceclaims.quickclaim.ClaimDocument) org.jboss.seam.Component
-				.getInstance("claimDocument");
-		claimDocuments.setClaim(claim);
-		events.raiseTransactionSuccessEvent("archivedClaimDocument");
 
 	}
 

@@ -13,15 +13,54 @@
         </s:link>  
         <h:outputText value="#{msg.claim_claimNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimView')}"/>  
         <h:outputText id="claimNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimView')}" value="#{claimAction.claim.claimNumber}"></h:outputText>  
+        <h:outputText value="#{msg.claim_summary}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('summary', 'claimView')}"/>  
+        <h:outputText id="summary#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('summary', 'claimView')}" value="#{claimAction.claim.summary}"></h:outputText>  
         <h:outputText value="#{msg.claim_claimDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDate', 'claimView')}"/>  
-        <h:outputText id="claimDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDate', 'claimView')}" value="#{claimAction.claim.claimDate}"></h:outputText>  
+        <h:outputText direction="auto" id="claimDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDate', 'claimView')}" value="#{claimAction.claim.claimDate}"></h:outputText>  
         <h:outputText value="#{msg.claim_claimAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimAmount', 'claimView')}"/>  
         <h:outputText id="claimAmount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimAmount', 'claimView')}" value="#{claimAction.claim.claimAmount}"></h:outputText>  
         <h:outputText value="#{msg.claim_claimDescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDescription', 'claimView')}"/>  
-        <h:outputText id="claimDescription#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDescription', 'claimView')}" value="#{claimAction.claim.claimDescription}"></h:outputText>  
+        <h:outputText escape="false" id="claimDescription#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDescription', 'claimView')}" value="#{claimAction.claim.claimDescription}"></h:outputText>  
         <h:outputText value="#{msg.claim_claimPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimPatient', 'claimView')}"/>  
-        <h:outputText id="claimPatient#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimPatient', 'claimView')}" value="#{claimAction.claim.claimPatient}"></h:outputText> 
-      </h:panelGrid> 
+        <h:outputText id="claimPatient#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimPatient', 'claimView')}" value="#{claimAction.claim.claimPatient}"></h:outputText>  
+        <h:outputText value="#{msg.claim_status}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('status', 'claimView')}"/>  
+        <h:outputText value="#{claimAction.claim.status}"/> 
+      </h:panelGrid>  
+      <rich:dataTable id="claimDocuments" var="_claimDocument" rendered="#{not empty claimAction.listClaimDocuments and skipPermissionCheck == 'true' || s:hasPermission('claimDocuments', 'claimView') }" value="#{claimAction.listClaimDocuments}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.claimDocument_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'claimDocumentView')}"/>
+          </f:facet>  
+          <c:choose> 
+            <c:when test="${_claimDocument.document.contentType.startsWith('image')}"> 
+              <s:graphicImage value="#{_claimDocument.document.data}"/> 
+            </c:when>  
+            <c:otherwise> 
+              <s:link value="#{_claimDocument.document.name}" action="#{claimDocumentAction.downloadDocument(null)}" propagation="none"> 
+                <f:param name="currentEntityId" value="#{claimDocumentAction.instance.id}"/> 
+              </s:link> 
+            </c:otherwise> 
+          </c:choose> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.claimDocument_documentDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDate', 'claimDocumentView')}"/>
+          </f:facet>  
+          <h:outputText direction="auto" id="documentDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDate', 'claimDocumentView')}" value="#{_claimDocument.documentDate}"></h:outputText> 
+        </h:column>  
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.claimDocument_documentType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentType', 'claimDocumentView')}"/>
+          </f:facet>  
+          <h:outputText id="documentType#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentType', 'claimDocumentView')}" value="#{_claimDocument.documentType}"></h:outputText> 
+        </h:column>  
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.claimDocument_documentDescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDescription', 'claimDocumentView')}"/>
+          </f:facet>  
+          <h:outputText id="documentDescription#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDescription', 'claimDocumentView')}" value="#{_claimDocument.documentDescription}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

@@ -11,10 +11,19 @@
           <f:param name="claimId" value="#{claimDocumentAction.claimDocument.claim.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.claimDocument_claimNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimDocumentView')}"/>  
-        <h:outputText id="claimNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimDocumentView')}" value="#{claimDocumentAction.claimDocument.claimNumber}"></h:outputText>  
+        <h:outputText value="#{msg.claimDocument_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'claimDocumentView')}"/>  
+        <c:choose> 
+          <c:when test="${claimDocumentAction.claimDocument.document.contentType.startsWith('image')}"> 
+            <s:graphicImage value="#{claimDocumentAction.claimDocument.document.data}"/> 
+          </c:when>  
+          <c:otherwise> 
+            <s:link value="#{claimDocumentAction.claimDocument.document.name}" action="#{claimDocumentAction.downloadDocument(null)}" propagation="none"> 
+              <f:param name="currentEntityId" value="#{claimDocumentAction.instance.id}"/> 
+            </s:link> 
+          </c:otherwise> 
+        </c:choose>  
         <h:outputText value="#{msg.claimDocument_documentDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDate', 'claimDocumentView')}"/>  
-        <h:outputText id="documentDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDate', 'claimDocumentView')}" value="#{claimDocumentAction.claimDocument.documentDate}"></h:outputText>  
+        <h:outputText direction="auto" id="documentDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDate', 'claimDocumentView')}" value="#{claimDocumentAction.claimDocument.documentDate}"></h:outputText>  
         <h:outputText value="#{msg.claimDocument_documentType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentType', 'claimDocumentView')}"/>  
         <h:outputText id="documentType#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentType', 'claimDocumentView')}" value="#{claimDocumentAction.claimDocument.documentType}"></h:outputText>  
         <h:outputText value="#{msg.claimDocument_documentDescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDescription', 'claimDocumentView')}"/>  

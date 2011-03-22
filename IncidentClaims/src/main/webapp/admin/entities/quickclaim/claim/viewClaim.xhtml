@@ -23,28 +23,7 @@
       </rich:tabPanel> 
     </h:form>  
     <br/>  
-    <rich:tabPanel> 
-      <rich:tab label="ClaimDocuments" icon="/images/icons/bricks.png"> 
-        <c:set var="modalId" value="ClaimModalPanel-claimDocuments"/>  
-        <ui:include src="/admin/entities/quickclaim/claimDocument/listClaimDocumentComponent.xhtml"> 
-          <ui:param name="records" value="#{claimDocumentList.getClaimDocumentsByClaim(claimAction.instance)}"/>  
-          <ui:param name="modalId" value="${modalId}"/> 
-        </ui:include>  
-        <a:form> 
-          <s:button value="Create New" view="/admin/entities/quickclaim/claimDocument/editClaimDocument.xhtml"> 
-            <f:param name="claimId" value="#{claimAction.instance.id}"/>  
-            <f:param name="claimDocumentId" value="0"/> 
-          </s:button>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"> 
-            <a:actionparam name="claimDocumentId" assignTo="#{claimDocumentAction.claimDocumentId}" value="0"/>  
-            <a:actionparam name="claimId" assignTo="#{claimDocumentAction.claimId}" value="#{claimAction.instance.id}"/> 
-          </a:commandButton> 
-        </a:form>  
-        <ui:include src="/admin/entities/quickclaim/claimDocument/modalDlgClaimDocumentComponent.xhtml"> 
-          <ui:param name="modalId" value="${modalId}"/> 
-        </ui:include> 
-      </rich:tab> 
-    </rich:tabPanel>  
+    <rich:tabPanel></rich:tabPanel>  
     <br/>  
     <rich:tabPanel> 
       <rich:tab label="Notes"> 

@@ -11,13 +11,20 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="claim" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claim', 'claimDocumentEdit')}"/>  
-        <h:outputText value="#{msg.claimDocument_claimNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimDocumentEdit')}"/>  
-        <h:inputText id="claimNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimDocumentEdit')}" label="#{msg.claimDocument_claimNumber}" required="false" value="#{claimDocumentAction.claimDocument.claimNumber}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="claimNumber" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimDocumentEdit')}"/>  
+        <h:outputText value="#{msg.claimDocument_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'claimDocumentEdit')}"/>  
+        <h:panelGroup> 
+          <h:outputText value="Current File:"/>  
+          <s:link value="#{claimDocumentAction.claimDocument.document.name}" id="document_file" action="#{claimDocumentAction.downloadFile(null)}" propagation="none"> 
+            <f:param name="currentEntityId" value="#{claimDocumentAction.instance.id}"/> 
+          </s:link>  
+          <rich:fileUpload fileUploadListener="#{claimDocumentAction.documentUploadListener}" immediateUpload="true" ajaxSingle="true" autoclear="false" listHeight="50"> 
+            <s:conversationPropagation type="join"/>  
+            <a:support event="onuploadcomplete" reRender="document_file"/> 
+          </rich:fileUpload> 
+        </h:panelGroup>  
+        <rich:message styleClass="error errors" for="document" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'claimDocumentEdit')}"/>  
         <h:outputText value="#{msg.claimDocument_documentDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDate', 'claimDocumentEdit')}"/>  
-        <rich:calendar id="documentDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDate', 'claimDocumentEdit')}" label="#{msg.claimDocument_documentDate}" required="false" value="#{claimDocumentAction.claimDocument.documentDate}"> 
+        <rich:calendar direction="auto" id="documentDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDate', 'claimDocumentEdit')}" label="#{msg.claimDocument_documentDate}" required="false" value="#{claimDocumentAction.claimDocument.documentDate}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </rich:calendar>  
         <rich:message styleClass="error errors" for="documentDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('documentDate', 'claimDocumentEdit')}"/>  

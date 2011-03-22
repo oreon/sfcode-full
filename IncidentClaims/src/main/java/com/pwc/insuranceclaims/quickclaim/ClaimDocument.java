@@ -54,9 +54,12 @@ public class ClaimDocument extends BusinessEntity
 			java.io.Serializable {
 	private static final long serialVersionUID = 314711204L;
 
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String claimNumber;
+	@Embedded
+	@AttributeOverrides({
+			@AttributeOverride(name = "name", column = @Column(name = "document_name")),
+			@AttributeOverride(name = "contentType", column = @Column(name = "document_contentType")),
+			@AttributeOverride(name = "data", column = @Column(name = "document_data", length = 4194304))})
+	protected FileAttachment document = new FileAttachment();
 
 	protected Date documentDate;
 
@@ -73,13 +76,13 @@ public class ClaimDocument extends BusinessEntity
 	@ContainedIn
 	protected Claim claim;
 
-	public void setClaimNumber(String claimNumber) {
-		this.claimNumber = claimNumber;
+	public void setDocument(FileAttachment document) {
+		this.document = document;
 	}
 
-	public String getClaimNumber() {
+	public FileAttachment getDocument() {
 
-		return claimNumber;
+		return document;
 
 	}
 
@@ -126,7 +129,7 @@ public class ClaimDocument extends BusinessEntity
 	@Transient
 	public String getDisplayName() {
 		try {
-			return claimNumber;
+			return documentType;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
@@ -144,8 +147,6 @@ public class ClaimDocument extends BusinessEntity
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
-		listSearchableFields.add("claimNumber");
-
 		listSearchableFields.add("documentType");
 
 		listSearchableFields.add("documentDescription");
@@ -157,8 +158,6 @@ public class ClaimDocument extends BusinessEntity
 	@Analyzer(definition = "entityAnalyzer")
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
-
-		builder.append(getClaimNumber() + " ");
 
 		builder.append(getDocumentType() + " ");
 
