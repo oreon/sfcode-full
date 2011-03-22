@@ -6,127 +6,135 @@ public class MetaData {
 
 	{"com.pwc.insuranceclaims.domain.Employee",
 
-	"firstName",
+	"firstName", "java.lang.String",
 
-	"lastName",
+	"lastName", "java.lang.String",
 
-	"contactDetails",
+	"contactDetails.phone", "java.lang.String",
 
-	"department",
+	"contactDetails.secondaryPhone", "java.lang.String",
 
-	"employeeNumber",
+	"contactDetails.city", "java.lang.String",
 
-	"employeeType",
+	"department.displayName", "java.lang.String",
 
-	"user",
+	"employeeNumber", "java.lang.String",
+
+	"employeeType.name", "java.lang.String",
+
+	"user.displayName", "java.lang.String",
 
 	},
 
 	{"com.pwc.insuranceclaims.domain.Department",
 
-	"employees",
+	"employeesCount", "java.lang.Integer",
 
-	"name",
+	"name", "java.lang.String",
 
 	},
 
 	{"com.pwc.insuranceclaims.quickclaim.Customer",
 
-	"firstName",
+	"firstName", "java.lang.String",
 
-	"lastName",
+	"lastName", "java.lang.String",
 
-	"address1",
+	"address1", "java.lang.String",
 
-	"address2",
+	"address2", "java.lang.String",
 
-	"city",
+	"city", "java.lang.String",
 
-	"province",
+	"province", "java.lang.String",
 
-	"postalCode",
+	"postalCode", "java.lang.String",
 
-	"policys",
+	"policysCount", "java.lang.Integer",
 
-	"dependents",
+	"dependentsCount", "java.lang.Integer",
 
 	},
 
 	{"com.pwc.insuranceclaims.quickclaim.Policy",
 
-	"policyNumber",
+	"policyNumber", "java.lang.String",
 
-	"policyType",
+	"policyType.name", "java.lang.String",
 
-	"customer",
+	"customer.displayName", "java.lang.String",
 
 	},
 
 	{"com.pwc.insuranceclaims.quickclaim.Claim",
 
-	"policy",
+	"policy.displayName", "java.lang.String",
 
-	"claimNumber",
+	"claimNumber", "java.lang.String",
 
-	"claimDate",
+	"summary", "java.lang.String",
 
-	"claimAmount",
+	"claimDate", "java.util.Date",
 
-	"claimDescription",
+	"claimAmount", "java.lang.Double",
 
-	"claimPatient",
+	"claimDescription", "java.lang.String",
 
-	"claimDocuments",
+	"claimPatient", "java.lang.String",
+
+	"status.name", "java.lang.String",
+
+	"claimDocumentsCount", "java.lang.Integer",
 
 	},
 
 	{"com.pwc.insuranceclaims.quickclaim.Dependent",
 
-	"dependentName",
+	"dependentName", "java.lang.String",
 
-	"customer",
+	"customer.displayName", "java.lang.String",
 
-	"dependentDateofBirth",
+	"dependentDateofBirth", "java.util.Date",
 
-	"dependentGender",
+	"dependentGender.name", "java.lang.String",
 
 	},
 
 	{"com.pwc.insuranceclaims.quickclaim.ClaimDocument",
 
-	"claimNumber",
+	"document", "FileAttachment",
 
-	"documentDate",
+	"documentDate", "java.util.Date",
 
-	"documentType",
+	"documentType", "java.lang.String",
 
-	"documentDescription",
+	"documentDescription", "java.lang.String",
 
-	"claim",
+	"claim.displayName", "java.lang.String",
 
 	},
 
 	{"com.pwc.insuranceclaims.users.User",
 
-	"userName",
+	"userName", "java.lang.String",
 
-	"password",
+	"password", "java.lang.String",
 
-	"enabled",
+	"enabled", "java.lang.Boolean",
 
-	"roles",
+	"rolesCount", "java.lang.Integer",
 
-	"email",
+	"email", "java.lang.String",
 
-	"lastLogin",
+	"lastLogin", "java.util.Date",
 
 	},
 
 	{"com.pwc.insuranceclaims.users.Role",
 
-	"name",
+	"name", "java.lang.String",
 
-	"users",
+	"usersCount", "java.lang.Integer",
 
 	},
 

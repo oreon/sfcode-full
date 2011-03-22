@@ -12,47 +12,51 @@
   <swimlane name="claimSupervisor"> 
     <assignment pooled-actors="manager"/> 
   </swimlane>  
-  <swimlane name=""> 
-    <assignment class="com.pwc.insuranceclaims.web.action.workflowmgt.processClaim.assign.Assignment"/> 
+  <swimlane name="autoAdjuciator"> 
+    <assignment class="com.pwc.insuranceclaims.web.action.workflowmgt.processClaim.assign.AutoAdjuciatorAssignment"/> 
   </swimlane>  
-  <task-node name="reviewClaim"> 
-    <task name="reviewClaim" swimlane="claimAnalyst1" notify="false"></task>  
-    <transition to="reviewQuestion" name="askQuestion"></transition>  
-    <transition to="reject" name="proceedToReject"></transition>  
-    <transition to="provideInformation" name="askForMoreInfo"></transition>  
-    <transition to="claimAboveLimit" name="approve"></transition> 
+  <decision name="autoApprove"> 
+    <handler class="com.pwc.insuranceclaims.web.action.workflowmgt.processClaim.decisions.AutoApproveDecisionHandler"/>  
+    <transition to="reviewClaim" name="no"> 
+      <action expression="#{claimAction.updateStatus('IN_PROCESS')}"/> 
+    </transition>  
+    <transition to="processPayment" name="yes"> 
+      <action expression="#{claimAction.updateStatus('AUTO_APPROVED')}"/> 
+    </transition> 
+  </decision>  
+  <task-node name="reviewDecision"> 
+    <task name="reviewDecision" swimlane="claimSupervisor" notify="true"></task>  
+    <transition to="reviewClaim" name="disagreeWithApproval"></transition>  
+    <transition to="processPayment" name="approve"> 
+      <action expression="#{claimAction.updateStatus('MANUAL_APPROVED')}"/> 
+    </transition> 
   </task-node>  
+  <task-node name="reviewQuestion"> 
+    <task name="reviewQuestion" swimlane="claimSupervisor" notify="true"></task>  
+    <transition to="reviewClaim" name="returnAnswer"></transition> 
+  </task-node>  
+  <end-state name="processPayment"/>  
   <decision name="claimAboveLimit"> 
     <handler class="com.pwc.insuranceclaims.web.action.workflowmgt.processClaim.decisions.ClaimAboveLimitDecisionHandler"/>  
     <transition to="reviewDecision" name="aboveLimitYes"></transition>  
     <transition to="processPayment" name="aboveLimitNo"></transition> 
   </decision>  
-  <task-node name="autoAdjudicate"> 
-    <task name="autoAdjudicate" swimlane="" notify="false"></task>  
-    <transition to="autoApprove" name="proceedToAutoApprove"></transition> 
-  </task-node>  
-  <end-state name="reject"/>  
-  <task-node name="provideInformation"> 
-    <task name="provideInformation" swimlane="claimant" notify="false"></task>  
-    <transition to="reviewClaim" name="provideMoreInfo"></transition> 
-  </task-node>  
   <start-state name=""> 
     <task name="" swimlane="claimant"></task>  
-    <transition to="autoAdjudicate" name="fileClaim"></transition> 
+    <transition to="autoApprove" name="fileClaim"></transition> 
   </start-state>  
-  <task-node name="reviewQuestion"> 
-    <task name="reviewQuestion" swimlane="claimSupervisor" notify="false"></task>  
-    <transition to="reviewClaim" name="returnAnswer"></transition> 
+  <end-state name="reject"/>  
+  <task-node name="reviewClaim"> 
+    <task name="reviewClaim" swimlane="claimAnalyst1" notify="true"></task>  
+    <transition to="provideInformation" name="askForMoreInfo"></transition>  
+    <transition to="reject" name="proceedToReject"> 
+      <action expression="#{claimAction.updateStatus('REJECTED')}"/> 
+    </transition>  
+    <transition to="reviewQuestion" name="askQuestion"></transition>  
+    <transition to="claimAboveLimit" name="approve"></transition> 
   </task-node>  
-  <task-node name="reviewDecision"> 
-    <task name="reviewDecision" swimlane="claimSupervisor" notify="false"></task>  
-    <transition to="reviewClaim" name="disagreeWithApproval"></transition>  
-    <transition to="processPayment" name="approve"></transition> 
-  </task-node>  
-  <end-state name="processPayment"/>  
-  <decision name="autoApprove"> 
-    <handler class="com.pwc.insuranceclaims.web.action.workflowmgt.processClaim.decisions.AutoApproveDecisionHandler"/>  
-    <transition to="processPayment" name="autoApproveYes"></transition>  
-    <transition to="reviewClaim" name="autoApproveNo"></transition> 
-  </decision> 
+  <task-node name="provideInformation"> 
+    <task name="provideInformation" swimlane="claimant" notify="true"></task>  
+    <transition to="reviewClaim" name="provideMoreInfo"></transition> 
+  </task-node> 
 </process-definition>

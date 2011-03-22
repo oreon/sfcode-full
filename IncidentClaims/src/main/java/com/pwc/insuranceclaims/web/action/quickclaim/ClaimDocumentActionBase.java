@@ -148,6 +148,24 @@ public abstract class ClaimDocumentActionBase extends BaseAction<ClaimDocument>
 		return ClaimDocument.class;
 	}
 
+	public String downloadDocument(Long id) {
+		if (id == null || id == 0)
+			id = currentEntityId;
+		setId(id);
+		downloadAttachment(getInstance().getDocument());
+		return "success";
+	}
+
+	public void documentUploadListener(UploadEvent event) throws Exception {
+		UploadItem uploadItem = event.getUploadItem();
+		if (getInstance().getDocument() == null)
+			getInstance().setDocument(new FileAttachment());
+		getInstance().getDocument().setName(uploadItem.getFileName());
+		getInstance().getDocument().setContentType(uploadItem.getContentType());
+		getInstance().getDocument().setData(
+				FileUtils.readFileToByteArray(uploadItem.getFile()));
+	}
+
 	/** This function adds associated entities to an example criterion
 	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
 	 */

@@ -8,6 +8,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.witchcraft.seam.action.BaseAction;
 
+import com.pwc.insuranceclaims.domain.Department;
+import com.pwc.insuranceclaims.domain.Employee;
 import com.pwc.insuranceclaims.users.Role;
 import com.pwc.insuranceclaims.users.User;
 import com.pwc.insuranceclaims.web.action.users.UserAction;
@@ -64,8 +66,8 @@ public class AuthenticatorTest extends BaseTest<User> {
 
 				createUserAndRole( "admin", "admin", "admin");
 				createUserAndRole( "jim", "jim", "support");
-				createUserAndRole( "roger", "roger", "lawyer");
-				createUserAndRole( "erica", "erica", "lenderContact");
+				createUserAndRole( "roger", "roger", "manager");
+				createUserAndRole( "erica", "erica", "analyst");
 			}
 			
 		}.run();
@@ -83,15 +85,24 @@ public class AuthenticatorTest extends BaseTest<User> {
 		admin.setUserName(username);
 		admin.setPassword(password);
 		
+		Employee employee = new Employee();
+		employee.setUser(admin);
+		employee.setFirstName(username);
+		employee.setLastName(role);
+		
 		Role adminRole = new Role();
 		adminRole.setName(role);
 		admin.getRoles().add(adminRole);
 		admin.setEmail(username + "@gmail.com");
 		admin.setEnabled(true);
 		
+		//Department claims = new Department();
+		//claims.setName("Claims");
+		//employee.setDepartment(claims);
+		
 		//setValue("#{userAction.instance}", admin);
 		//invokeMethod("#{userAction.save}");
-		em.persist(admin);
+		em.persist(employee);
 		em.getTransaction().commit();
 		return admin;
 	}

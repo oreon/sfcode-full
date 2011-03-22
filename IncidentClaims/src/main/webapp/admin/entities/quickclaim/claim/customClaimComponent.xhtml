@@ -22,6 +22,12 @@
         <rich:message styleClass="error errors" for="claimNumber" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
+        <h:outputText value="#{msg.claim_summary}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('summary', 'claimEdit')}"/>  
+        <br/>  
+        <h:inputText id="summary" value="#{claimAction.claim.summary}"/>  
+        <rich:message styleClass="error errors" for="summary" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('summary', 'claimEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
         <h:outputText value="#{msg.claim_claimDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDate', 'claimEdit')}"/>  
         <br/>  
         <rich:calendar id="claimDate" value="#{claimAction.claim.claimDate}"/>  
@@ -36,7 +42,7 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.claim_claimDescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDescription', 'claimEdit')}"/>  
         <br/>  
-        <h:inputText id="claimDescription" value="#{claimAction.claim.claimDescription}"/>  
+        <rich:editor id="claimDescription" value="#{claimAction.claim.claimDescription}"/>  
         <rich:message styleClass="error errors" for="claimDescription" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDescription', 'claimEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
@@ -44,6 +50,18 @@
         <br/>  
         <h:inputText id="claimPatient" value="#{claimAction.claim.claimPatient}"/>  
         <rich:message styleClass="error errors" for="claimPatient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimPatient', 'claimEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.claim_status}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('status', 'claimEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="status" value="#{claimAction.claim.status}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="AUTO_APPROVED" itemLabel="Auto_approved"/>  
+          <f:selectItem itemValue="IN_PROCESS" itemLabel="In_process"/>  
+          <f:selectItem itemValue="MANUAL_APPROVED" itemLabel="Manual_approved"/>  
+          <f:selectItem itemValue="REJECTEd" itemLabel="Rejected"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="status" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('status', 'claimEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

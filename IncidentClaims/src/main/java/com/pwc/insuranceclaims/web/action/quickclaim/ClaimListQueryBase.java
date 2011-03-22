@@ -72,6 +72,8 @@ public abstract class ClaimListQueryBase extends BaseQuery<Claim, Long> {
 
 			"lower(claim.claimNumber) like concat(lower(#{claimList.claim.claimNumber}),'%')",
 
+			"lower(claim.summary) like concat(lower(#{claimList.claim.summary}),'%')",
+
 			"claim.claimDate >= #{claimList.claimDateRange.begin}",
 			"claim.claimDate <= #{claimList.claimDateRange.end}",
 
@@ -81,6 +83,8 @@ public abstract class ClaimListQueryBase extends BaseQuery<Claim, Long> {
 			"lower(claim.claimDescription) like concat(lower(#{claimList.claim.claimDescription}),'%')",
 
 			"lower(claim.claimPatient) like concat(lower(#{claimList.claim.claimPatient}),'%')",
+
+			"claim.status = #{claimList.claim.status}",
 
 			"claim.dateCreated <= #{claimList.dateCreatedRange.end}",
 			"claim.dateCreated >= #{claimList.dateCreatedRange.begin}",};
@@ -105,6 +109,11 @@ public abstract class ClaimListQueryBase extends BaseQuery<Claim, Long> {
 						"") : "") + "\",");
 
 		builder.append("\""
+				+ (e.getSummary() != null
+						? e.getSummary().replace(",", "")
+						: "") + "\",");
+
+		builder.append("\""
 				+ (e.getClaimDate() != null ? e.getClaimDate() : "") + "\",");
 
 		builder.append("\""
@@ -119,6 +128,9 @@ public abstract class ClaimListQueryBase extends BaseQuery<Claim, Long> {
 				+ (e.getClaimPatient() != null ? e.getClaimPatient().replace(
 						",", "") : "") + "\",");
 
+		builder.append("\"" + (e.getStatus() != null ? e.getStatus() : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -132,6 +144,8 @@ public abstract class ClaimListQueryBase extends BaseQuery<Claim, Long> {
 
 		builder.append("ClaimNumber" + ",");
 
+		builder.append("Summary" + ",");
+
 		builder.append("ClaimDate" + ",");
 
 		builder.append("ClaimAmount" + ",");
@@ -139,6 +153,8 @@ public abstract class ClaimListQueryBase extends BaseQuery<Claim, Long> {
 		builder.append("ClaimDescription" + ",");
 
 		builder.append("ClaimPatient" + ",");
+
+		builder.append("Status" + ",");
 
 		builder.append("\r\n");
 	}

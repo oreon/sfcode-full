@@ -1,16 +1,14 @@
+package com.pwc.insuranceclaims.web.action.workflowmgt.processClaim.decisions;
 
-	package com.pwc.insuranceclaims.web.action.workflowmgt.processClaim.decisions;
-	
-	import org.jboss.seam.Component;
-	import org.jbpm.graph.exe.ExecutionContext;
-	
-	import org.jbpm.graph.exe.ExecutionContext;
-	import org.jbpm.graph.node.DecisionHandler;
+import org.jbpm.graph.exe.ExecutionContext;
+import org.jbpm.graph.node.DecisionHandler;
 
-	public class AutoApproveDecisionHandler implements DecisionHandler{
-		public String decide(ExecutionContext executionContext) throws Exception { 
-			return "";
-			
-		}
+import com.pwc.insuranceclaims.quickclaim.Claim;
+
+public class AutoApproveDecisionHandler implements DecisionHandler {
+	
+	public String decide(ExecutionContext executionContext) throws Exception {
+		Claim claim = (Claim) executionContext.getVariable("processToken");
+		return claim.getClaimAmount() < 2000 ? "yes" : "no";
 	}
- 
+}
