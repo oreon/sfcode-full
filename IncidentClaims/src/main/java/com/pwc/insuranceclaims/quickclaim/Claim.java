@@ -61,12 +61,16 @@ public class Claim extends BusinessEntity implements java.io.Serializable {
 	@Analyzer(definition = "entityAnalyzer")
 	protected String claimNumber;
 
+	@NotNull
+	@Column(name = "summary", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String summary;
 
 	protected Date claimDate;
 
+	@NotNull
+	@Column(name = "claimAmount", unique = false)
 	protected Double claimAmount;
 
 	@Lob
@@ -74,11 +78,13 @@ public class Claim extends BusinessEntity implements java.io.Serializable {
 	@Analyzer(definition = "entityAnalyzer")
 	protected String claimDescription;
 
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String claimPatient;
-
+	@Column(name = "status", unique = false)
 	protected ClaimStatus status;
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "claimPatient_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected Dependent claimPatient;
 
 	@OneToMany(mappedBy = "claim", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "claim_ID", nullable = true)
@@ -101,6 +107,13 @@ public class Claim extends BusinessEntity implements java.io.Serializable {
 	public int getClaimDocumentsCount() {
 		return claimDocuments.size();
 	}
+
+	@Embedded
+	@AttributeOverrides({
+			@AttributeOverride(name = "name", column = @Column(name = "primaryDocument_name")),
+			@AttributeOverride(name = "contentType", column = @Column(name = "primaryDocument_contentType")),
+			@AttributeOverride(name = "data", column = @Column(name = "primaryDocument_data", length = 4194304))})
+	protected FileAttachment primaryDocument = new FileAttachment();
 
 	public void setPolicy(Policy policy) {
 		this.policy = policy;
@@ -162,16 +175,6 @@ public class Claim extends BusinessEntity implements java.io.Serializable {
 
 	}
 
-	public void setClaimPatient(String claimPatient) {
-		this.claimPatient = claimPatient;
-	}
-
-	public String getClaimPatient() {
-
-		return claimPatient;
-
-	}
-
 	public void setStatus(ClaimStatus status) {
 		this.status = status;
 	}
@@ -182,12 +185,32 @@ public class Claim extends BusinessEntity implements java.io.Serializable {
 
 	}
 
+	public void setClaimPatient(Dependent claimPatient) {
+		this.claimPatient = claimPatient;
+	}
+
+	public Dependent getClaimPatient() {
+
+		return claimPatient;
+
+	}
+
 	public void setClaimDocuments(Set<ClaimDocument> claimDocuments) {
 		this.claimDocuments = claimDocuments;
 	}
 
 	public Set<ClaimDocument> getClaimDocuments() {
 		return claimDocuments;
+	}
+
+	public void setPrimaryDocument(FileAttachment primaryDocument) {
+		this.primaryDocument = primaryDocument;
+	}
+
+	public FileAttachment getPrimaryDocument() {
+
+		return primaryDocument;
+
 	}
 
 	@Transient
@@ -217,8 +240,6 @@ public class Claim extends BusinessEntity implements java.io.Serializable {
 
 		listSearchableFields.add("claimDescription");
 
-		listSearchableFields.add("claimPatient");
-
 		listSearchableFields.add("claimDocuments.documentType");
 
 		listSearchableFields.add("claimDocuments.documentDescription");
@@ -237,10 +258,12 @@ public class Claim extends BusinessEntity implements java.io.Serializable {
 
 		builder.append(getClaimDescription() + " ");
 
-		builder.append(getClaimPatient() + " ");
-
 		if (getPolicy() != null)
 			builder.append("policy:" + getPolicy().getDisplayName() + " ");
+
+		if (getClaimPatient() != null)
+			builder.append("claimPatient:" + getClaimPatient().getDisplayName()
+					+ " ");
 
 		for (BusinessEntity e : claimDocuments) {
 			builder.append(e.getDisplayName() + " ");

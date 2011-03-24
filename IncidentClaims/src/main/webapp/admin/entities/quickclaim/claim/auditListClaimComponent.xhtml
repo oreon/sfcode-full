@@ -70,15 +70,24 @@
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
-          <h:outputText value="#{msg.claim_claimPatient}"/> 
-        </f:facet>  
-        <h:outputText value="#{_log.entity.claimPatient}"/> 
-      </rich:column>  
-      <rich:column> 
-        <f:facet name="header"> 
           <h:outputText value="#{msg.claim_status}"/> 
         </f:facet>  
         <h:outputText value="#{_log.entity.status}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.claim_claimPatient}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.claimPatient.displayName}" view="/admin/entities/quickclaim/dependent/viewDependent.xhtml"> 
+          <f:param name="id" value="#{_entity.claimPatient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.claim_primaryDocument}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.primaryDocument}"/> 
       </rich:column> 
     </rich:dataTable> 
   </h:form> 

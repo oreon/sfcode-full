@@ -38,7 +38,12 @@
         <h:inputText id="postalCode#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('postalCode', 'customerEdit')}" label="#{msg.customer_postalCode}" required="false" value="#{customerAction.customer.postalCode}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="postalCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('postalCode', 'customerEdit')}"/> 
+        <rich:message styleClass="error errors" for="postalCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('postalCode', 'customerEdit')}"/>  
+        <h:outputText value="#{msg.customer_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('phone', 'customerEdit')}"/>  
+        <h:inputText id="phone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('phone', 'customerEdit')}" label="#{msg.customer_phone}" required="false" value="#{customerAction.customer.phone}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="phone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('phone', 'customerEdit')}"/> 
       </h:panelGrid>  
       <a:commandButton value="New Dependent" action="#{customerAction.addDependents}" reRender="dependents" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dependents', 'customerEdit')}"> 
         <s:conversationId/> 

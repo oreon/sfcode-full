@@ -19,9 +19,9 @@ import org.jboss.seam.annotations.Observer;
 import com.pwc.insuranceclaims.quickclaim.Claim;
 	
 	
-@Name("claimList")
-//@Scope(ScopeType.CONVERSATION)
-public class ClaimListQuery extends ClaimListQueryBase implements java.io.Serializable{
+@Name("claimListConversational")
+@Scope(ScopeType.CONVERSATION)
+public class ClaimListQueryConversational extends ClaimListQueryBase implements java.io.Serializable{
 	
 	@Override
 	public Claim getClaim() {

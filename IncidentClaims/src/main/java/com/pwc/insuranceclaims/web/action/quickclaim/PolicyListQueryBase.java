@@ -49,6 +49,14 @@ public abstract class PolicyListQueryBase extends BaseQuery<Policy, Long> {
 		return RESTRICTIONS;
 	}
 
+	private Range<Double> premiumRange = new Range<Double>();
+	public Range<Double> getPremiumRange() {
+		return premiumRange;
+	}
+	public void setPremium(Range<Double> premiumRange) {
+		this.premiumRange = premiumRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"policy.id = #{policyList.policy.id}",
 
@@ -57,6 +65,9 @@ public abstract class PolicyListQueryBase extends BaseQuery<Policy, Long> {
 			"policy.policyType = #{policyList.policy.policyType}",
 
 			"policy.customer.id = #{policyList.policy.customer.id}",
+
+			"policy.premium >= #{policyList.premiumRange.begin}",
+			"policy.premium <= #{policyList.premiumRange.end}",
 
 			"policy.dateCreated <= #{policyList.dateCreatedRange.end}",
 			"policy.dateCreated >= #{policyList.dateCreatedRange.begin}",};
@@ -90,6 +101,9 @@ public abstract class PolicyListQueryBase extends BaseQuery<Policy, Long> {
 				+ (e.getCustomer() != null ? e.getCustomer().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
+		builder.append("\"" + (e.getPremium() != null ? e.getPremium() : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -104,6 +118,8 @@ public abstract class PolicyListQueryBase extends BaseQuery<Policy, Long> {
 		builder.append("PolicyType" + ",");
 
 		builder.append("Customer" + ",");
+
+		builder.append("Premium" + ",");
 
 		builder.append("\r\n");
 	}

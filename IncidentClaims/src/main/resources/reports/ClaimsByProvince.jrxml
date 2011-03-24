@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+
+<jasperReport name="ClaimsByProvince" isTitleNewPage="false" isSummaryNewPage="false" formatFactoryClass="org.witchcraft.jasperreports.WCFormatFactory"> 
+  <parameter name="ReportTitle" class="java.lang.String"/>  
+  <queryString language="ejbql"> <![CDATA[select e from Claim e order by e.policy.customer.province]]> </queryString>  
+  <field name="claimPatient.displayName" class="java.lang.String"/>  
+  <field name="claimAmount" class="java.lang.Double"/>  
+  <field name="claimDate" class="java.util.Date"/>  
+  <field name="policy.customer.province" class="java.lang.String"/>  
+  <variable name="GroupprovinceCounter" class="java.lang.Integer" incrementType="Group" incrementGroup="Groupprovince" calculation="Count"> 
+    <variableExpression><![CDATA[Boolean.TRUE]]></variableExpression> 
+  </variable>  
+  <variable name="Groupprovince_Sum" class="java.lang.Double" calculation="Sum" resetType="Group" resetGroup="Groupprovince"> 
+    <variableExpression> <![CDATA[$F{claimAmount}]]> </variableExpression> 
+  </variable>  
+  <variable name="Sum:claimAmount_Sum" class="java.lang.Double" calculation="Sum"> 
+    <variableExpression> <![CDATA[$F{claimAmount}]]> </variableExpression> 
+  </variable>  
+  <group name="Groupprovince" minHeightToStartNewPage="60"> 
+    <groupExpression><![CDATA[$F{policy.customer.province}]]></groupExpression>  
+    <groupHeader> 
+      <band height="20"> 
+        <textField evaluationTime="Group" evaluationGroup="Groupprovince" bookmarkLevel="1"> 
+          <reportElement mode="Opaque" x="0" y="5" width="540" height="15" backcolor="#e1e1f1"/>  
+          <box leftPadding="10" bottomBorder="1Point"/>  
+          <textFieldExpression class="java.lang.String"> <![CDATA[String.valueOf($F{policy.customer.province})]]> </textFieldExpression>  
+          <anchorNameExpression><![CDATA[String.valueOf($F{policy.customer.province})]]></anchorNameExpression> 
+        </textField> 
+      </band> 
+    </groupHeader>  
+    <groupFooter> 
+      <band height="20"> 
+        <textField> 
+          <reportElement x="0" mode="Opaque" y="1" width="540" height="15" backcolor="#e1e1f1"/>  
+          <textElement textAlignment="Right"/>  
+          <textFieldExpression class="java.lang.String"> <![CDATA["Sum:claimAmount For " + $F{policy.customer.province} + " : " + $V{Groupprovince_Sum}]]> </textFieldExpression> 
+        </textField> 
+      </band> 
+    </groupFooter> 
+  </group>  
+  <title> 
+    <band height="70"> 
+      <line> 
+        <reportElement x="0" y="0" width="540" height="1"/>  
+        <graphicElement/> 
+      </line>  
+      <textField> 
+        <reportElement x="0" y="10" width="540" height="30"/>  
+        <textElement textAlignment="Center"> 
+          <font size="13"/> 
+        </textElement>  
+        <textFieldExpression class="java.lang.String"><![CDATA["ClaimsByProvince"]]></textFieldExpression> 
+      </textField> 
+    </band> 
+  </title>  
+  <pageHeader> 
+    <band height="20"> 
+      <rectangle> 
+        <reportElement x="0" y="5" width="540" height="15" forecolor="#333333" backcolor="#333333"/>  
+        <graphicElement/> 
+      </rectangle>  
+      <staticText> 
+        <reportElement mode="Opaque" x="0" y="5" width="180" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Left"/>  
+        <text><![CDATA[Patient]]></text> 
+      </staticText>  
+      <staticText> 
+        <reportElement mode="Opaque" x="180" y="5" width="180" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Left"/>  
+        <text><![CDATA[ClaimAmount]]></text> 
+      </staticText>  
+      <staticText> 
+        <reportElement mode="Opaque" x="360" y="5" width="180" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Left"/>  
+        <text><![CDATA[ClaimDate]]></text> 
+      </staticText> 
+    </band> 
+  </pageHeader>  
+  <detail> 
+    <band height="30"> 
+      <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
+        <reportElement x="0" y="0" width="180" height="24"/>  
+        <textElement textAlignment="Left"/>  
+        <textFieldExpression class="java.lang.String"> <![CDATA[$F{claimPatient.displayName}]]> </textFieldExpression> 
+      </textField>  
+      <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
+        <reportElement x="180" y="0" width="180" height="24"/>  
+        <textElement textAlignment="Left"/>  
+        <textFieldExpression class="java.lang.Double"> <![CDATA[$F{claimAmount}]]> </textFieldExpression> 
+      </textField>  
+      <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
+        <reportElement x="360" y="0" width="180" height="24"/>  
+        <textElement textAlignment="Left"/>  
+        <textFieldExpression class="java.util.Date"> <![CDATA[$F{claimDate}]]> </textFieldExpression> 
+      </textField> 
+    </band> 
+  </detail>  
+  <summary> 
+    <band height="620"> 
+      <staticText> 
+        <reportElement mode="Opaque" x="0" y="1" width="540" height="15" backcolor="#c0c0c0"/>  
+        <box leftPadding="10" bottomBorder="1Point"/>  
+        <text><![CDATA[Summary]]> </text> 
+      </staticText>  
+      <textField> 
+        <reportElement x="420" y="1" width="30" height="15"/>  
+        <textElement textAlignment="Right"/>  
+        <textFieldExpression class="java.lang.Double"> <![CDATA[$V{Sum:claimAmount_Sum}]]> </textFieldExpression> 
+      </textField> 
+    </band> 
+  </summary> 
+</jasperReport>

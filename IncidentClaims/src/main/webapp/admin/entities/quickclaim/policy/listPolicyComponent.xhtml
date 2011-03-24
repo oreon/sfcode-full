@@ -51,8 +51,23 @@
           </f:facet>  
           <s:link value="#{_policy.customer.displayName}" action="viewCustomer" propagation="none"> 
             <f:param name="customerId" value="#{_policy.customer.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <rich:toolTip> 
+              <span>#{_policy.customer.popupInfo}</span> 
+            </rich:toolTip> 
           </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('premium', 'policyView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{policyList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.policy_premium}"/>  
+              <ui:param name="propertyPath" value="policy.premium"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_policy.premium}"> 
+            <f:convertNumber pattern="$#,##0.00"/> 
+          </h:outputText> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'policyView' )}"> 
           <f:facet name="header"> 

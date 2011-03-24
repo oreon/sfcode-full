@@ -9,12 +9,17 @@
         <h:outputText value="#{msg.policy_customer}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'policyView')}"/>  
         <s:link value="#{policyAction.policy.customer.displayName}" view="/admin/entities/quickclaim/customer/viewCustomer.xhtml" propagation="none"> 
           <f:param name="customerId" value="#{policyAction.policy.customer.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <rich:toolTip> 
+            <span>#{policyAction.policy.customer.popupInfo}</span> 
+          </rich:toolTip> 
         </s:link>  
         <h:outputText value="#{msg.policy_policyNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('policyNumber', 'policyView')}"/>  
         <h:outputText id="policyNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('policyNumber', 'policyView')}" value="#{policyAction.policy.policyNumber}"></h:outputText>  
         <h:outputText value="#{msg.policy_policyType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('policyType', 'policyView')}"/>  
-        <h:outputText value="#{policyAction.policy.policyType}"/> 
+        <h:outputText value="#{policyAction.policy.policyType}"/>  
+        <h:outputText value="#{msg.policy_premium}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('premium', 'policyView')}"/>  
+        <h:outputText id="premium#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('premium', 'policyView')}" value="#{policyAction.policy.premium}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

@@ -19,7 +19,9 @@
         <h:outputText value="#{msg.customer_province}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('province', 'customerView')}"/>  
         <h:outputText id="province#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('province', 'customerView')}" value="#{customerAction.customer.province}"></h:outputText>  
         <h:outputText value="#{msg.customer_postalCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('postalCode', 'customerView')}"/>  
-        <h:outputText id="postalCode#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('postalCode', 'customerView')}" value="#{customerAction.customer.postalCode}"></h:outputText> 
+        <h:outputText id="postalCode#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('postalCode', 'customerView')}" value="#{customerAction.customer.postalCode}"></h:outputText>  
+        <h:outputText value="#{msg.customer_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('phone', 'customerView')}"/>  
+        <h:outputText id="phone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('phone', 'customerView')}" value="#{customerAction.customer.phone}"></h:outputText> 
       </h:panelGrid>  
       <rich:dataTable id="dependents" var="_dependent" rendered="#{not empty customerAction.listDependents and skipPermissionCheck == 'true' || s:hasPermission('dependents', 'customerView') }" value="#{customerAction.listDependents}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:left">

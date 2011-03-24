@@ -6,6 +6,8 @@ public enum PolicyType {
 
 	DENTAL,
 
+	UNIVERSAL,
+
 	;
 
 	PolicyType() {

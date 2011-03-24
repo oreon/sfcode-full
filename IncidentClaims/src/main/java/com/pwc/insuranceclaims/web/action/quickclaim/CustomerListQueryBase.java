@@ -66,6 +66,8 @@ public abstract class CustomerListQueryBase extends BaseQuery<Customer, Long> {
 
 			"lower(customer.postalCode) like concat(lower(#{customerList.customer.postalCode}),'%')",
 
+			"lower(customer.phone) like concat(lower(#{customerList.customer.phone}),'%')",
+
 			"customer.dateCreated <= #{customerList.dateCreatedRange.end}",
 			"customer.dateCreated >= #{customerList.dateCreatedRange.begin}",};
 
@@ -113,6 +115,10 @@ public abstract class CustomerListQueryBase extends BaseQuery<Customer, Long> {
 				+ (e.getPostalCode() != null ? e.getPostalCode().replace(",",
 						"") : "") + "\",");
 
+		builder.append("\""
+				+ (e.getPhone() != null ? e.getPhone().replace(",", "") : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -135,6 +141,8 @@ public abstract class CustomerListQueryBase extends BaseQuery<Customer, Long> {
 		builder.append("Province" + ",");
 
 		builder.append("PostalCode" + ",");
+
+		builder.append("Phone" + ",");
 
 		builder.append("\r\n");
 	}

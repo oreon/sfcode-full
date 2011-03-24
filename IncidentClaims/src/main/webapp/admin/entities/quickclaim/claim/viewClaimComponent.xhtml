@@ -9,6 +9,14 @@
         <h:outputText value="#{msg.claim_policy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('policy', 'claimView')}"/>  
         <s:link value="#{claimAction.claim.policy.displayName}" view="/admin/entities/quickclaim/policy/viewPolicy.xhtml" propagation="none"> 
           <f:param name="policyId" value="#{claimAction.claim.policy.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <rich:toolTip> 
+            <span>#{claimAction.claim.policy.popupInfo}</span> 
+          </rich:toolTip> 
+        </s:link>  
+        <h:outputText value="#{msg.claim_claimPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimPatient', 'claimView')}"/>  
+        <s:link value="#{claimAction.claim.claimPatient.displayName}" view="/admin/entities/quickclaim/dependent/viewDependent.xhtml" propagation="none"> 
+          <f:param name="claimPatientId" value="#{claimAction.claim.claimPatient.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.claim_claimNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimView')}"/>  
@@ -21,10 +29,19 @@
         <h:outputText id="claimAmount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimAmount', 'claimView')}" value="#{claimAction.claim.claimAmount}"></h:outputText>  
         <h:outputText value="#{msg.claim_claimDescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDescription', 'claimView')}"/>  
         <h:outputText escape="false" id="claimDescription#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDescription', 'claimView')}" value="#{claimAction.claim.claimDescription}"></h:outputText>  
-        <h:outputText value="#{msg.claim_claimPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimPatient', 'claimView')}"/>  
-        <h:outputText id="claimPatient#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimPatient', 'claimView')}" value="#{claimAction.claim.claimPatient}"></h:outputText>  
         <h:outputText value="#{msg.claim_status}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('status', 'claimView')}"/>  
-        <h:outputText value="#{claimAction.claim.status}"/> 
+        <h:outputText value="#{claimAction.claim.status}"/>  
+        <h:outputText value="#{msg.claim_primaryDocument}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryDocument', 'claimView')}"/>  
+        <c:choose> 
+          <c:when test="${claimAction.claim.primaryDocument.contentType.startsWith('image')}"> 
+            <s:graphicImage value="#{claimAction.claim.primaryDocument.data}"/> 
+          </c:when>  
+          <c:otherwise> 
+            <s:link value="#{claimAction.claim.primaryDocument.name}" action="#{claimAction.downloadPrimaryDocument(null)}" propagation="none"> 
+              <f:param name="currentEntityId" value="#{claimAction.instance.id}"/> 
+            </s:link> 
+          </c:otherwise> 
+        </c:choose> 
       </h:panelGrid>  
       <rich:dataTable id="claimDocuments" var="_claimDocument" rendered="#{not empty claimAction.listClaimDocuments and skipPermissionCheck == 'true' || s:hasPermission('claimDocuments', 'claimView') }" value="#{claimAction.listClaimDocuments}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
