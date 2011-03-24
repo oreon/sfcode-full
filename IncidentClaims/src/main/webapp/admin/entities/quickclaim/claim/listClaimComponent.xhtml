@@ -31,7 +31,10 @@
           </f:facet>  
           <s:link value="#{_claim.policy.displayName}" action="viewPolicy" propagation="none"> 
             <f:param name="policyId" value="#{_claim.policy.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <rich:toolTip> 
+              <span>#{_claim.policy.popupInfo}</span> 
+            </rich:toolTip> 
           </s:link> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('claimNumber', 'claimView'  )}"> 
@@ -88,16 +91,6 @@
           </f:facet>  
           <h:outputText value="#{_claim.claimDescription}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('claimPatient', 'claimView'  )}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{claimList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.claim_claimPatient}"/>  
-              <ui:param name="propertyPath" value="claim.claimPatient"/> 
-            </ui:include> 
-          </f:facet>  
-          <h:outputText value="#{_claim.claimPatient}" escape="false"/> 
-        </h:column>  
         <h:column rendered="#{s:hasPermission('status', 'claimView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -107,6 +100,31 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_claim.status}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('claimPatient', 'claimView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{claimList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.claim_claimPatient}"/>  
+              <ui:param name="propertyPath" value="claim.claimPatient"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_claim.claimPatient.displayName}" action="viewDependent" propagation="none"> 
+            <f:param name="claimPatientId" value="#{_claim.claimPatient.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('primaryDocument', 'claimView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{claimList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.claim_primaryDocument}"/>  
+              <ui:param name="propertyPath" value="claim.primaryDocument"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_claim.primaryDocument.name}" action="#{claimAction.downloadPrimaryDocument(_claim.id)}" propagation="none"> 
+            <f:param name="currentEntityId" value="#{_claim.id}"/> 
+          </s:link> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'claimView' )}"> 
           <f:facet name="header"> 

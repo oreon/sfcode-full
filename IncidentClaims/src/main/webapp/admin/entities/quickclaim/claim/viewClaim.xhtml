@@ -19,6 +19,12 @@
             <ui:param name="entityId" value="1"/>  
             <ui:param name="policyId" value="#{claimAction.instance.policy.id}"/> 
           </ui:include> 
+        </rich:tab>  
+        <rich:tab label="ClaimPatient" rendered="#{claimAction.instance.claimPatient != null}"> 
+          <ui:include src="/admin/entities/quickclaim/dependent/viewDependentComponent.xhtml"> 
+            <ui:param name="entityId" value="2"/>  
+            <ui:param name="dependentId" value="#{claimAction.instance.claimPatient.id}"/> 
+          </ui:include> 
         </rich:tab> 
       </rich:tabPanel> 
     </h:form>  

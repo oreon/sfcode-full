@@ -21,9 +21,15 @@
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="HEALTH" itemLabel="#{msg.HEALTH}"/>  
           <f:selectItem itemValue="DENTAL" itemLabel="#{msg.DENTAL}"/>  
+          <f:selectItem itemValue="UNIVERSAL" itemLabel="#{msg.UNIVERSAL}"/>  
           <rich:ajaxValidator event="onsubmit"/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="policyType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('policyType', 'policyEdit')}"/> 
+        <rich:message styleClass="error errors" for="policyType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('policyType', 'policyEdit')}"/>  
+        <h:outputText value="#{msg.policy_premium}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('premium', 'policyEdit')}"/>  
+        <h:inputText id="premium#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('premium', 'policyEdit')}" label="#{msg.policy_premium}" required="false" value="#{policyAction.policy.premium}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="premium" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('premium', 'policyEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

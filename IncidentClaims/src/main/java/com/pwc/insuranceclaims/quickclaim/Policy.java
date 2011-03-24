@@ -63,6 +63,8 @@ public class Policy extends BusinessEntity implements java.io.Serializable {
 	@ContainedIn
 	protected Customer customer;
 
+	protected Double premium;
+
 	public void setPolicyNumber(String policyNumber) {
 		this.policyNumber = policyNumber;
 	}
@@ -93,10 +95,29 @@ public class Policy extends BusinessEntity implements java.io.Serializable {
 
 	}
 
+	public void setPremium(Double premium) {
+		this.premium = premium;
+	}
+
+	public Double getPremium() {
+
+		return premium;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
 			return policyNumber;
+		} catch (Exception e) {
+			return "Exception - " + e.getMessage();
+		}
+	}
+
+	@Transient
+	public String getPopupInfo() {
+		try {
+			return customer.getDisplayName();
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}

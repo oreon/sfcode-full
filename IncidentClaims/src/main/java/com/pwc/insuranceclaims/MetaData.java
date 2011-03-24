@@ -54,6 +54,8 @@ public class MetaData {
 
 	"dependentsCount", "java.lang.Integer",
 
+	"phone", "java.lang.String",
+
 	},
 
 	{"com.pwc.insuranceclaims.quickclaim.Policy",
@@ -63,6 +65,8 @@ public class MetaData {
 	"policyType.name", "java.lang.String",
 
 	"customer.displayName", "java.lang.String",
+
+	"premium", "java.lang.Double",
 
 	},
 
@@ -80,11 +84,13 @@ public class MetaData {
 
 	"claimDescription", "java.lang.String",
 
-	"claimPatient", "java.lang.String",
-
 	"status.name", "java.lang.String",
 
+	"claimPatient.displayName", "java.lang.String",
+
 	"claimDocumentsCount", "java.lang.Integer",
+
+	"primaryDocument", "FileAttachment",
 
 	},
 

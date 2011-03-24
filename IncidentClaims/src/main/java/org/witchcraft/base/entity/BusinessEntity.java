@@ -50,6 +50,8 @@ public class BusinessEntity implements Serializable{
     @ManyToOne(optional=true, fetch=FetchType.LAZY)
     @JoinColumn(name="created_by_user_id", nullable=true)
     private User createdByUser;
+    
+    
    
     
     public Boolean isArchived() {
@@ -134,4 +136,15 @@ public class BusinessEntity implements Serializable{
 			return false;
     	return this.getId() == entity.getId();
     }
+
+    public void setHighlightedFragment(String highlightedFragment) {
+		this.highlightedFragment = highlightedFragment;
+	}
+
+	public String getHighlightedFragment() {
+		return highlightedFragment;
+	}
+
+	@Transient
+    private String highlightedFragment;
 }

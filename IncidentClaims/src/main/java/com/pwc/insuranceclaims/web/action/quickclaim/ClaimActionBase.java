@@ -55,6 +55,9 @@ public abstract class ClaimActionBase extends BaseAction<Claim>
 	@In(create = true, value = "policyAction")
 	com.pwc.insuranceclaims.web.action.quickclaim.PolicyAction policyAction;
 
+	@In(create = true, value = "dependentAction")
+	com.pwc.insuranceclaims.web.action.quickclaim.DependentAction claimPatientAction;
+
 	@DataModel
 	private List<Claim> claimRecordList;
 
@@ -89,6 +92,19 @@ public abstract class ClaimActionBase extends BaseAction<Claim>
 	public Long getPolicyId() {
 		if (getInstance().getPolicy() != null)
 			return getInstance().getPolicy().getId();
+		return 0L;
+	}
+
+	public void setClaimPatientId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setClaimPatient(claimPatientAction.loadFromId(id));
+
+	}
+
+	public Long getClaimPatientId() {
+		if (getInstance().getClaimPatient() != null)
+			return getInstance().getClaimPatient().getId();
 		return 0L;
 	}
 
@@ -130,6 +146,12 @@ public abstract class ClaimActionBase extends BaseAction<Claim>
 			getInstance().setPolicy(policy);
 		}
 
+		com.pwc.insuranceclaims.quickclaim.Dependent claimPatient = claimPatientAction
+				.getDefinedInstance();
+		if (claimPatient != null && isNew()) {
+			getInstance().setClaimPatient(claimPatient);
+		}
+
 	}
 
 	public boolean isWired() {
@@ -150,6 +172,26 @@ public abstract class ClaimActionBase extends BaseAction<Claim>
 		return Claim.class;
 	}
 
+	public String downloadPrimaryDocument(Long id) {
+		if (id == null || id == 0)
+			id = currentEntityId;
+		setId(id);
+		downloadAttachment(getInstance().getPrimaryDocument());
+		return "success";
+	}
+
+	public void primaryDocumentUploadListener(UploadEvent event)
+			throws Exception {
+		UploadItem uploadItem = event.getUploadItem();
+		if (getInstance().getPrimaryDocument() == null)
+			getInstance().setPrimaryDocument(new FileAttachment());
+		getInstance().getPrimaryDocument().setName(uploadItem.getFileName());
+		getInstance().getPrimaryDocument().setContentType(
+				uploadItem.getContentType());
+		getInstance().getPrimaryDocument().setData(
+				FileUtils.readFileToByteArray(uploadItem.getFile()));
+	}
+
 	/** This function adds associated entities to an example criterion
 	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
 	 */
@@ -159,6 +201,11 @@ public abstract class ClaimActionBase extends BaseAction<Claim>
 		if (claim.getPolicy() != null) {
 			criteria = criteria.add(Restrictions.eq("policy.id", claim
 					.getPolicy().getId()));
+		}
+
+		if (claim.getClaimPatient() != null) {
+			criteria = criteria.add(Restrictions.eq("claimPatient.id", claim
+					.getClaimPatient().getId()));
 		}
 
 	}
@@ -171,6 +218,10 @@ public abstract class ClaimActionBase extends BaseAction<Claim>
 
 		if (claim.getPolicy() != null) {
 			policyAction.setInstance(getInstance().getPolicy());
+		}
+
+		if (claim.getClaimPatient() != null) {
+			claimPatientAction.setInstance(getInstance().getClaimPatient());
 		}
 
 		initListClaimDocuments();

@@ -91,6 +91,16 @@
           </f:facet>  
           <h:outputText value="#{_customer.postalCode}" escape="false"/> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('phone', 'customerView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{customerList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.customer_phone}"/>  
+              <ui:param name="propertyPath" value="customer.phone"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_customer.phone}" escape="false"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'customerView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

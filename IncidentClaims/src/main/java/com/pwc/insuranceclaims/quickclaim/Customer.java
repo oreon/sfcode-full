@@ -123,6 +123,10 @@ public class Customer extends BusinessEntity implements java.io.Serializable {
 		return dependents.size();
 	}
 
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String phone;
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -209,10 +213,29 @@ public class Customer extends BusinessEntity implements java.io.Serializable {
 		return dependents;
 	}
 
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getPhone() {
+
+		return phone;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
 			return firstName;
+		} catch (Exception e) {
+			return "Exception - " + e.getMessage();
+		}
+	}
+
+	@Transient
+	public String getPopupInfo() {
+		try {
+			return phone + " " + city;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
@@ -244,6 +267,8 @@ public class Customer extends BusinessEntity implements java.io.Serializable {
 
 		listSearchableFields.add("postalCode");
 
+		listSearchableFields.add("phone");
+
 		listSearchableFields.add("dependents.dependentName");
 
 		return listSearchableFields;
@@ -267,6 +292,8 @@ public class Customer extends BusinessEntity implements java.io.Serializable {
 		builder.append(getProvince() + " ");
 
 		builder.append(getPostalCode() + " ");
+
+		builder.append(getPhone() + " ");
 
 		for (BusinessEntity e : policys) {
 			builder.append(e.getDisplayName() + " ");

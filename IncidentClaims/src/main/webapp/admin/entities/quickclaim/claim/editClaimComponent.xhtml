@@ -6,18 +6,26 @@
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{claimAction.load(claimId )  }"> 
         <h:outputText value="#{msg.claim_policy} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('policy', 'claimEdit')}"/>  
         <h:selectOneMenu id="policy" label="#{msg.claim_policy}" value="#{claimAction.claim.policy}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('policy', 'claimEdit')}"> 
+          <a:support event="onchange" reRender="claimPatient" ajaxSingle="true"/>  
           <s:selectItems value="#{policyList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="policy" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('policy', 'claimEdit')}"/>  
+        <h:outputText value="#{msg.claim_claimPatient} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimPatient', 'claimEdit')}"/>  
+        <h:selectOneMenu id="claimPatient" label="#{msg.claim_claimPatient}" value="#{claimAction.claim.claimPatient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimPatient', 'claimEdit')}"> 
+          <s:selectItems value="#{claimAction.claim.policy.customer.listDependents}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="claimPatient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimPatient', 'claimEdit')}"/>  
         <h:outputText value="#{msg.claim_claimNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimEdit')}"/>  
         <h:inputText id="claimNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimEdit')}" label="#{msg.claim_claimNumber}" required="false" value="#{claimAction.claim.claimNumber}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="claimNumber" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimNumber', 'claimEdit')}"/>  
-        <h:outputText value="#{msg.claim_summary}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('summary', 'claimEdit')}"/>  
-        <h:inputText id="summary#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('summary', 'claimEdit')}" label="#{msg.claim_summary}" required="false" value="#{claimAction.claim.summary}"> 
+        <h:outputText value="#{msg.claim_summary} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('summary', 'claimEdit')}"/>  
+        <h:inputText id="summary#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('summary', 'claimEdit')}" label="#{msg.claim_summary}" required="true" value="#{claimAction.claim.summary}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="summary" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('summary', 'claimEdit')}"/>  
@@ -26,8 +34,8 @@
           <rich:ajaxValidator event="onsubmit"/> 
         </rich:calendar>  
         <rich:message styleClass="error errors" for="claimDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDate', 'claimEdit')}"/>  
-        <h:outputText value="#{msg.claim_claimAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimAmount', 'claimEdit')}"/>  
-        <h:inputText id="claimAmount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimAmount', 'claimEdit')}" label="#{msg.claim_claimAmount}" required="false" value="#{claimAction.claim.claimAmount}"> 
+        <h:outputText value="#{msg.claim_claimAmount} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimAmount', 'claimEdit')}"/>  
+        <h:inputText id="claimAmount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimAmount', 'claimEdit')}" label="#{msg.claim_claimAmount}" required="true" value="#{claimAction.claim.claimAmount}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="claimAmount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimAmount', 'claimEdit')}"/>  
@@ -36,21 +44,18 @@
           <rich:ajaxValidator event="onsubmit"/> 
         </rich:editor>  
         <rich:message styleClass="error errors" for="claimDescription" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDescription', 'claimEdit')}"/>  
-        <h:outputText value="#{msg.claim_claimPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimPatient', 'claimEdit')}"/>  
-        <h:inputText id="claimPatient#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimPatient', 'claimEdit')}" label="#{msg.claim_claimPatient}" required="false" value="#{claimAction.claim.claimPatient}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="claimPatient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimPatient', 'claimEdit')}"/>  
-        <h:outputText value="#{msg.claim_status}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('status', 'claimEdit')}"/>  
-        <h:selectOneMenu id="status" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('status', 'claimEdit')}" value="#{claimAction.claim.status}" required="false" label="#{msg.claim_status}"> 
-          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
-          <f:selectItem itemValue="AUTO_APPROVED" itemLabel="#{msg.AUTO_APPROVED}"/>  
-          <f:selectItem itemValue="IN_PROCESS" itemLabel="#{msg.IN_PROCESS}"/>  
-          <f:selectItem itemValue="MANUAL_APPROVED" itemLabel="#{msg.MANUAL_APPROVED}"/>  
-          <f:selectItem itemValue="REJECTEd" itemLabel="#{msg.REJECTEd}"/>  
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="status" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('status', 'claimEdit')}"/> 
+        <h:outputText value="#{msg.claim_primaryDocument}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryDocument', 'claimEdit')}"/>  
+        <h:panelGroup> 
+          <h:outputText value="Current File:"/>  
+          <s:link value="#{claimAction.claim.primaryDocument.name}" id="primaryDocument_file" action="#{claimAction.downloadFile(null)}" propagation="none"> 
+            <f:param name="currentEntityId" value="#{claimAction.instance.id}"/> 
+          </s:link>  
+          <rich:fileUpload fileUploadListener="#{claimAction.primaryDocumentUploadListener}" immediateUpload="true" ajaxSingle="true" autoclear="false" listHeight="50"> 
+            <s:conversationPropagation type="join"/>  
+            <a:support event="onuploadcomplete" reRender="primaryDocument_file"/> 
+          </rich:fileUpload> 
+        </h:panelGroup>  
+        <rich:message styleClass="error errors" for="primaryDocument" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryDocument', 'claimEdit')}"/> 
       </h:panelGrid>  
       <a:commandButton value="New ClaimDocument" action="#{claimAction.addClaimDocuments}" reRender="claimDocuments" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('claimDocuments', 'claimEdit')}"> 
         <s:conversationId/> 

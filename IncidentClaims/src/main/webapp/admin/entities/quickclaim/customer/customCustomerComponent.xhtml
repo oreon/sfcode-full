@@ -47,6 +47,12 @@
         <br/>  
         <h:inputText id="postalCode" value="#{customerAction.customer.postalCode}"/>  
         <rich:message styleClass="error errors" for="postalCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('postalCode', 'customerEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.customer_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('phone', 'customerEdit')}"/>  
+        <br/>  
+        <h:inputText id="phone" value="#{customerAction.customer.phone}"/>  
+        <rich:message styleClass="error errors" for="phone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('phone', 'customerEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

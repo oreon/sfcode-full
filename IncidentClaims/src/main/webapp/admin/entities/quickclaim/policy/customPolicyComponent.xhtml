@@ -18,7 +18,8 @@
         <h:selectOneMenu id="policyType" value="#{policyAction.policy.policyType}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="HEALTH" itemLabel="Health"/>  
-          <f:selectItem itemValue="DENTAL" itemLabel="Dental"/> 
+          <f:selectItem itemValue="DENTAL" itemLabel="Dental"/>  
+          <f:selectItem itemValue="UNIVERSAL" itemLabel="Universal"/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="policyType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('policyType', 'policyEdit')}"/> 
       </h:panelGroup>  
@@ -30,6 +31,12 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="customer" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'policyEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.policy_premium}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('premium', 'policyEdit')}"/>  
+        <br/>  
+        <h:inputText id="premium" value="#{policyAction.policy.premium}"/>  
+        <rich:message styleClass="error errors" for="premium" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('premium', 'policyEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

@@ -28,21 +28,19 @@
 			</rich:toolBarGroup>
 
 			<rich:toolBarGroup>
-				<h:graphicImage  value="/images/icons/eye.png" />
-				<s:link action="issue"
-					value="Issues" />
+				<h:graphicImage value="/images/icons/eye.png" />
+				<s:link action="claim" value="Claims" />
 			</rich:toolBarGroup>
-			
-			
+
+
 			<rich:toolBarGroup>
 				<h:graphicImage id="issues" value="/images/icons/add.png" />
-				<s:link action="editIssue"
-					value="Create Issue" >
-					 <f:param name="issueId" value="0"/> 
+				<s:link action="editClaim" value="Create Claim">
+					<f:param name="issueId" value="0" />
 				</s:link>
 			</rich:toolBarGroup>
-			
-	
+
+
 
 			<rich:toolBarGroup location="right">
 				<s:link action="#{identity.logout}" view="/login.xhtml"
@@ -59,13 +57,14 @@
 
 
 			<rich:toolBarGroup location="right">
-				
-					<h:inputText styleClass="barsearch" value="#{issueList.textToSearch}" required="true" />
-					<h:commandButton styleClass="barsearchbutton"
-						action="#{issueList.textSearch}" value="Search" >
-						<s:conversationPropagation type="join"></s:conversationPropagation> 
-					</h:commandButton>
-				
+
+				<h:inputText styleClass="barsearch"
+					value="#{claimListConversational.textToSearch}" required="true" />
+				<h:commandButton styleClass="barsearchbutton"
+					action="#{claimListConversational.textSearch}" value="Search">
+					<s:conversationPropagation type="join"></s:conversationPropagation>
+				</h:commandButton>
+
 			</rich:toolBarGroup>
 
 		</rich:toolBar>

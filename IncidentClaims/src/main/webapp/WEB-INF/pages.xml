@@ -32,6 +32,9 @@
     <!--PROTECTED REGION END-->  
     <navigation> 
       <!--PROTECTED REGION ID(USER_EDITABLE_PAGESROOT_BLKT) ENABLED START-->  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/textSearchResults.xhtml"/> 
+      </rule>  
       <rule if-outcome="home"> 
         <redirect view-id="/home.xhtml"/> 
       </rule>  
@@ -283,7 +286,8 @@
     <param name="address2" value="#{customerList.customer.address2}" validateModel="false"/>  
     <param name="city" value="#{customerList.customer.city}" validateModel="false"/>  
     <param name="province" value="#{customerList.customer.province}" validateModel="false"/>  
-    <param name="postalCode" value="#{customerList.customer.postalCode}" validateModel="false"/> 
+    <param name="postalCode" value="#{customerList.customer.postalCode}" validateModel="false"/>  
+    <param name="phone" value="#{customerList.customer.phone}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/quickclaim/policy/editPolicy.xhtml"> 
     <!-- <description>Edit Policy: #{policy.displayName}</description> -->  
@@ -326,7 +330,8 @@
     <param name="id" value="#{policyList.policy.id}"/>  
     <param name="policyNumber" value="#{policyList.policy.policyNumber}" validateModel="false"/>  
     <param name="policyType" value="#{policyList.policy.policyType}" validateModel="false"/>  
-    <param name="customer" value="#{policyList.policy.customer.id}" validateModel="false"/> 
+    <param name="customer" value="#{policyList.policy.customer.id}" validateModel="false"/>  
+    <param name="premium" value="#{policyList.policy.premium}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/quickclaim/claim/editClaim.xhtml"> 
     <!-- <description>Edit Claim: #{claim.displayName}</description> -->  
@@ -339,7 +344,8 @@
       </rule> 
     </navigation>  
     <param name="claimId" value="#{claimAction.claimId}"/>  
-    <param name="policyId" value="#{claimAction.policyId}"/> 
+    <param name="policyId" value="#{claimAction.policyId}"/>  
+    <param name="claimPatientId" value="#{claimAction.claimPatientId}"/> 
   </page>  
   <page view-id="/admin/entities/quickclaim/claim/viewClaim.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Claim: #{claim.displayName}</description> -->  
@@ -373,8 +379,8 @@
     <param name="claimDate" value="#{claimList.claim.claimDate}" validateModel="false"/>  
     <param name="claimAmount" value="#{claimList.claim.claimAmount}" validateModel="false"/>  
     <param name="claimDescription" value="#{claimList.claim.claimDescription}" validateModel="false"/>  
-    <param name="claimPatient" value="#{claimList.claim.claimPatient}" validateModel="false"/>  
-    <param name="status" value="#{claimList.claim.status}" validateModel="false"/> 
+    <param name="status" value="#{claimList.claim.status}" validateModel="false"/>  
+    <param name="claimPatient" value="#{claimList.claim.claimPatient.id}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/quickclaim/dependent/editDependent.xhtml"> 
     <!-- <description>Edit Dependent: #{dependent.displayName}</description> -->  
