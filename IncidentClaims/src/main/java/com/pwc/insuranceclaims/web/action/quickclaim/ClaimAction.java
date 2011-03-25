@@ -41,7 +41,7 @@ public class ClaimAction extends ClaimActionBase implements
 
 		Claim claim = (Claim) ExecutionContext.currentExecutionContext()
 				.getVariable("processToken");
-		setInstance(claim);
+		load(claim.getId());
 
 		try {
 			getInstance().setStatus(ClaimStatus.valueOf(status));

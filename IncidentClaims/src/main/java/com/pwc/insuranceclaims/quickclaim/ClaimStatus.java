@@ -8,7 +8,7 @@ public enum ClaimStatus {
 
 	MANUAL_APPROVED,
 
-	REJECTEd,
+	REJECTED,
 
 	;
 

@@ -1,5 +1,7 @@
 package org.witchcraft.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -23,7 +25,15 @@ public class DateUtils {
 		then.setTime(fromDate);
 		
 		return now.get(GregorianCalendar.YEAR) - then.get(GregorianCalendar.YEAR);
-		
+	}
+	
+	public static Date createDefaultDate(){
+
+		try {
+			return new SimpleDateFormat("yyyy-MM-dd").parse("2000-01-01");
+		} catch (ParseException e) {
+			return null;
+		}
 	}
 
 }

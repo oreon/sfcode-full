@@ -1,0 +1,37 @@
+<ui:composition 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template = "/admin/reports/template.xhtml" >	
+	<ui:define name="content">
+	<h:form>
+	<s:validateAll>
+	<h:panelGrid  columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol"  >
+		<f:facet name="header">
+			<h:outputText value="ClaimsByStatus" />
+		</f:facet>
+	
+		<h:panelGroup> <h:outputText value="#{msg.claimsByStatus_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fromDate', 'nullView')}"/> * </h:panelGroup>
+<rich:calendar  id="fromDate"  label="#{msg.claimsByStatus_fromDate}"  required="true"  value="#{claimsByStatusAction.fromDate}" />
+		<rich:message styleClass="error errors" for="fromDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fromDate', 'nullEdit')}"/>
+	
+		<h:panelGroup> <h:outputText value="#{msg.claimsByStatus_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('toDate', 'nullView')}"/> * </h:panelGroup>
+<rich:calendar  id="toDate"  label="#{msg.claimsByStatus_toDate}"  required="true"  value="#{claimsByStatusAction.toDate}" />
+		<rich:message styleClass="error errors" for="toDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('toDate', 'nullEdit')}"/>
+	
+	</h:panelGrid>
+	</s:validateAll>
+	<h:commandButton propagation="none" value="Run Report as PDF"
+				action="#{claimsByStatusAction.runReport('ClaimsByStatus', 'PDF')}" />
+	<h:commandButton propagation="none" value="Run Report as HTML"
+				action="#{claimsByStatusAction.runReport('ClaimsByStatus', 'HTML')}" />			
+	</h:form>
+	</ui:define>
+</ui:composition>
