@@ -76,6 +76,8 @@ public class AuthenticatorTest extends BaseTest<User> {
 		em.close();
 	}
 	
+	int i = 0;
+	
 	private User createUserAndRole(String username, String password, String role) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		em.getTransaction().begin();
@@ -89,9 +91,11 @@ public class AuthenticatorTest extends BaseTest<User> {
 		employee.setUser(admin);
 		employee.setFirstName(username);
 		employee.setLastName(role);
+		employee.getContactDetails().setPhone("416300230" + (i++));
 		
 		Role adminRole = new Role();
 		adminRole.setName(role);
+		
 		admin.getRoles().add(adminRole);
 		admin.setEmail(username + "@gmail.com");
 		admin.setEnabled(true);

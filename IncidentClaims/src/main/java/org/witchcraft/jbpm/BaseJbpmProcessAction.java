@@ -1,5 +1,6 @@
 package org.witchcraft.jbpm;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,7 +23,9 @@ import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Identity;
 import org.jboss.seam.web.ServletContexts;
 import org.jbpm.JbpmContext;
+import org.jbpm.graph.def.Node;
 import org.jbpm.graph.exe.Comment;
+import org.jbpm.graph.exe.Token;
 import org.jbpm.taskmgmt.exe.TaskInstance;
 import org.witchcraft.base.entity.BusinessEntity;
 
@@ -40,15 +43,13 @@ public class BaseJbpmProcessAction {
 
 	@In
 	protected JbpmContext jbpmContext;
-	
-	@In(create=true)
+
+	@In(create = true)
 	protected List<TaskInstance> pooledTaskInstanceList;
 
 	@In
 	protected Identity identity;
-	
-	
-	
+
 	@In
 	PooledTask pooledTask;
 
@@ -86,7 +87,7 @@ public class BaseJbpmProcessAction {
 	}
 
 	public long getTaskId() {
-		if(taskId == null)
+		if (taskId == null)
 			return 0;
 		return taskId;
 	}
@@ -110,23 +111,27 @@ public class BaseJbpmProcessAction {
 	public void setTask(TaskInstance task) {
 		this.task = task;
 	}
-	
+
 	@Transactional
-	public void endProcess(Long processId){
-		org.jbpm.graph.exe.ProcessInstance pi = jbpmContext.loadProcessInstance(processId);
+	public void endProcess(Long processId) {
+		org.jbpm.graph.exe.ProcessInstance pi = jbpmContext
+				.loadProcessInstance(processId);
 		pi.end();
 	}
-	
-	public String getTaskForm(){
-		if(task == null)
+
+	public String getTaskForm() {
+		if (task == null)
 			return "";
-		String taskPath = "/admin/tasks/taskForms/" + StringUtils.capitalize(task.getProcessInstance().getProcessDefinition().getName())
-		+ "/" + task.getName() + "TaskForm.xhtml";
+		String taskPath = "/admin/tasks/taskForms/"
+				+ StringUtils.capitalize(task.getProcessInstance()
+						.getProcessDefinition().getName()) + "/"
+				+ task.getName() + "TaskForm.xhtml";
 		return taskPath;
 	}
-	
-	public ProcessInstance getProcessInstanceByKey(Long key){
-		Query qry = jbpmContext.getSession().createQuery("from ProcessInstance pi where pi.key =  " + key.toString());
+
+	public ProcessInstance getProcessInstanceByKey(Long key) {
+		Query qry = jbpmContext.getSession().createQuery(
+				"from ProcessInstance pi where pi.key =  " + key.toString());
 		List<ProcessInstance> piList = qry.list();
 		return piList.get(piList.size() - 1);
 	}
@@ -136,10 +141,15 @@ public class BaseJbpmProcessAction {
 		// FacesContext.getCurrentInstance()
 		// System.out.println("going to execute " + transName);
 		String taskName = StringUtils.capitalize(task.getName());
-
+		// LoanData token = (LoanData) task.getVariable("token");
+		Token token = task.getToken();
+		Node node = token.getNode();
 		try {
 			String name = task.getProcessInstance().getProcessDefinition()
 					.getName(); // this.getClass().getAnnotation(Name.class).value();
+
+			// task.start();
+
 			name = StringUtils.uncapitalize(name);
 			name = name + PROCESS_ACTION_SUFFIX;
 			// log.warn(" annotation name " + name);
@@ -149,19 +159,28 @@ public class BaseJbpmProcessAction {
 				statusMessages.add("No such component " + name);
 				return "failure";
 			}
-			
+
 			loadInstance();
-			if(transName == null)
-			transName = ServletContexts.getInstance().getRequest()
-					.getParameter("transName");
-			Method method = component.getClass()
-					.getMethod(transName + taskName);
-			method.setAccessible(true);
-			method.invoke(component, new Object[] {});
+			if (transName == null) {
+				transName = ServletContexts.getInstance().getRequest()
+						.getParameter("transName");
+			}
+			
+			String methodName = "start" + taskName;
+			try {
+				invokeMethod(methodName, component);
+			} catch (Throwable e) {
+
+			}
+			methodName = transName + taskName;
+			invokeMethod(methodName, component);
 
 			if (task != null) {
 				createComment();
-				task.end(transName);
+
+				//task.end(transName);
+				// saveEventLog();
+				// UserUtilAction
 				task.setEnd(new Date());
 			}
 
@@ -169,33 +188,45 @@ public class BaseJbpmProcessAction {
 			// jbpmContext.
 		} catch (Exception e) {
 			statusMessages.add(e.getMessage());
-			log.error("Error invoking workflow transition -> " + transName, e);
-			e.printStackTrace();
+			token.setNode(node);
+			log.error("Error invoking workflow transition -> " + transName, e
+					.getMessage(), e);
+			log.error("Setting Token " + token.getName() + " back to Node "
+					+ node.getName());
+
 		}
 
 		return "failed";
 	}
-	
-	public String assignToCurrentActor(){
+
+	private void invokeMethod(String taskName, Object component)
+			throws NoSuchMethodException, IllegalAccessException,
+			InvocationTargetException {
+		Method method = component.getClass().getMethod(taskName);
+		method.setAccessible(true);
+		method.invoke(component, new Object[] {});
+	}
+
+	public String assignToCurrentActor() {
 		task = pooledTask.getTaskInstance();
 		return pooledTask.assignToCurrentActor();
 	}
 
 	protected void loadInstance() {
-		//jbpmContext.getp
+		// jbpmContext.getp
 		// TODO Auto-generated method stub
 
 	}
 
 	private void createComment() {
 		if (comment != null && comment.length() > 0) {
-			
+
 			Comment comm = new Comment();
 			comm.setMessage(comment);
 			comm.setTime(new Date());
 			comm.setActorId(identity.getCredentials().getUsername());
 			task.addComment(comm);
-			//task.getTask
+			// task.getTask
 		}
 
 	}
@@ -213,9 +244,10 @@ public class BaseJbpmProcessAction {
 		}
 		return cmts;
 	}
-	
+
 	@Transactional
-	public void updateUserForPooledTask(String userName, Long processId, BusinessEntity be) {
+	public void updateUserForPooledTask(String userName, Long processId,
+			BusinessEntity be) {
 		for (TaskInstance taskInstance : pooledTaskInstanceList) {
 			Long procId = taskInstance.getProcessInstance().getId();
 			if (procId.equals(processId)) {

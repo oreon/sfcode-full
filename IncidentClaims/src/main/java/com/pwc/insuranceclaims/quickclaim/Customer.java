@@ -226,7 +226,7 @@ public class Customer extends BusinessEntity implements java.io.Serializable {
 	@Transient
 	public String getDisplayName() {
 		try {
-			return firstName;
+			return firstName + " " + lastName;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}

@@ -9,6 +9,6 @@ public class AutoApproveDecisionHandler implements DecisionHandler {
 	
 	public String decide(ExecutionContext executionContext) throws Exception {
 		Claim claim = (Claim) executionContext.getVariable("processToken");
-		return claim.getClaimAmount() < 2000 ? "yes" : "no";
+		return claim.getClaimAmount() < 2000.0 ? "yes" : "no";
 	}
 }
