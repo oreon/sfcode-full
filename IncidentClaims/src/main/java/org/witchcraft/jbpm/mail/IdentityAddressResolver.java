@@ -9,7 +9,7 @@ import com.pwc.insuranceclaims.web.action.users.UserAction;
 
 
 public class IdentityAddressResolver extends org.jbpm.identity.mail.IdentityAddressResolver{
-
+ 
 	/**
 	 * 
 	 */
