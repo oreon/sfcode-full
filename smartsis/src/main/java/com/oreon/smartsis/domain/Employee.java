@@ -65,6 +65,10 @@ public class Employee extends com.oreon.smartsis.domain.Person
 
 	protected EmployeeType employeeType;
 
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "manager_id", nullable = true, updatable = true)
+	protected Employee manager;
+
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
@@ -92,6 +96,16 @@ public class Employee extends com.oreon.smartsis.domain.Person
 	public EmployeeType getEmployeeType() {
 
 		return employeeType;
+
+	}
+
+	public void setManager(Employee manager) {
+		this.manager = manager;
+	}
+
+	public Employee getManager() {
+
+		return manager;
 
 	}
 
@@ -131,6 +145,9 @@ public class Employee extends com.oreon.smartsis.domain.Person
 		if (getDepartment() != null)
 			builder.append("department:" + getDepartment().getDisplayName()
 					+ " ");
+
+		if (getManager() != null)
+			builder.append("manager:" + getManager().getDisplayName() + " ");
 
 		return builder.toString();
 	}

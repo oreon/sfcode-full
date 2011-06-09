@@ -17,6 +17,11 @@
           <f:param name="departmentId" value="#{employeeAction.employee.department.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
+        <h:outputText value="#{msg.employee_manager}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('manager', 'employeeView')}"/>  
+        <s:link value="#{employeeAction.employee.manager.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
+          <f:param name="managerId" value="#{employeeAction.employee.manager.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
         <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'employeeView')}"/>  
         <h:outputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'employeeView')}" value="#{employeeAction.employee.firstName}"></h:outputText>  
         <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'employeeView')}"/>  

@@ -104,6 +104,19 @@
           </f:facet>  
           <h:outputText value="#{_employee.employeeType}" escape="false"/> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('manager', 'employeeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{employeeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.employee_manager}"/>  
+              <ui:param name="propertyPath" value="employee.manager"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_employee.manager.displayName}" action="viewEmployee" propagation="none"> 
+            <f:param name="managerId" value="#{_employee.manager.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'employeeView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

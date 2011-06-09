@@ -12,7 +12,7 @@
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.gradeAttendance_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'gradeAttendanceView')}"/>  
-        <h:outputText id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'gradeAttendanceView')}" value="#{gradeAttendanceAction.gradeAttendance.date}"></h:outputText> 
+        <h:outputText direction="auto" id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'gradeAttendanceView')}" value="#{gradeAttendanceAction.gradeAttendance.date}"></h:outputText> 
       </h:panelGrid>  
       <rich:dataTable id="attendances" var="_attendance" rendered="#{not empty gradeAttendanceAction.listAttendances and skipPermissionCheck == 'true' || s:hasPermission('attendances', 'gradeAttendanceView') }" value="#{gradeAttendanceAction.listAttendances}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
@@ -37,7 +37,7 @@
           <f:facet name="header">
             <h:outputText value="#{msg.attendance_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'attendanceView')}"/>
           </f:facet>  
-          <h:outputText id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'attendanceView')}" value="#{_attendance.date}"></h:outputText> 
+          <h:outputText direction="auto" id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'attendanceView')}" value="#{_attendance.date}"></h:outputText> 
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">

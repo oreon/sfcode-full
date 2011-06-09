@@ -20,7 +20,7 @@
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="gradeSubject" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'examInstanceEdit')}"/>  
         <h:outputText value="#{msg.examInstance_dateHeld}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateHeld', 'examInstanceEdit')}"/>  
-        <rich:calendar id="dateHeld#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateHeld', 'examInstanceEdit')}" label="#{msg.examInstance_dateHeld}" required="false" value="#{examInstanceAction.examInstance.dateHeld}"> 
+        <rich:calendar direction="auto" id="dateHeld#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateHeld', 'examInstanceEdit')}" label="#{msg.examInstance_dateHeld}" required="false" value="#{examInstanceAction.examInstance.dateHeld}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </rich:calendar>  
         <rich:message styleClass="error errors" for="dateHeld" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateHeld', 'examInstanceEdit')}"/> 

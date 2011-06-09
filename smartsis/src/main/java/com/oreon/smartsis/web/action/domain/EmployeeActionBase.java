@@ -55,6 +55,9 @@ public abstract class EmployeeActionBase
 	@In(create = true, value = "departmentAction")
 	com.oreon.smartsis.web.action.domain.DepartmentAction departmentAction;
 
+	@In(create = true, value = "employeeAction")
+	com.oreon.smartsis.web.action.domain.EmployeeAction managerAction;
+
 	@DataModel
 	private List<Employee> employeeRecordList;
 
@@ -89,6 +92,19 @@ public abstract class EmployeeActionBase
 	public Long getDepartmentId() {
 		if (getInstance().getDepartment() != null)
 			return getInstance().getDepartment().getId();
+		return 0L;
+	}
+
+	public void setManagerId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setManager(managerAction.loadFromId(id));
+
+	}
+
+	public Long getManagerId() {
+		if (getInstance().getManager() != null)
+			return getInstance().getManager().getId();
 		return 0L;
 	}
 
@@ -130,6 +146,12 @@ public abstract class EmployeeActionBase
 			getInstance().setDepartment(department);
 		}
 
+		com.oreon.smartsis.domain.Employee manager = managerAction
+				.getDefinedInstance();
+		if (manager != null && isNew()) {
+			getInstance().setManager(manager);
+		}
+
 	}
 
 	public boolean isWired() {
@@ -161,6 +183,11 @@ public abstract class EmployeeActionBase
 					.getDepartment().getId()));
 		}
 
+		if (employee.getManager() != null) {
+			criteria = criteria.add(Restrictions.eq("manager.id", employee
+					.getManager().getId()));
+		}
+
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -171,6 +198,10 @@ public abstract class EmployeeActionBase
 
 		if (employee.getDepartment() != null) {
 			departmentAction.setInstance(getInstance().getDepartment());
+		}
+
+		if (employee.getManager() != null) {
+			managerAction.setInstance(getInstance().getManager());
 		}
 
 	}

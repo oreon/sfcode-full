@@ -67,11 +67,6 @@ public class ExamScore extends BusinessEntity implements java.io.Serializable {
 	@Analyzer(definition = "entityAnalyzer")
 	protected String subject;
 
-	@Transient
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String studentInfo;
-
 	@NotNull
 	@Column(name = "marks", unique = false)
 	protected Integer marks;
@@ -121,22 +116,6 @@ public class ExamScore extends BusinessEntity implements java.io.Serializable {
 
 		try {
 			return examInstance.getGradeSubject().getSubject().getName();
-		} catch (Exception e) {
-
-			return "";
-
-		}
-
-	}
-
-	public void setStudentInfo(String studentInfo) {
-		this.studentInfo = studentInfo;
-	}
-
-	public String getStudentInfo() {
-
-		try {
-			return student.getDisplayName();
 		} catch (Exception e) {
 
 			return "";
@@ -216,8 +195,6 @@ public class ExamScore extends BusinessEntity implements java.io.Serializable {
 
 		listSearchableFields.add("subject");
 
-		listSearchableFields.add("studentInfo");
-
 		return listSearchableFields;
 	}
 
@@ -229,8 +206,6 @@ public class ExamScore extends BusinessEntity implements java.io.Serializable {
 		builder.append(getExamName() + " ");
 
 		builder.append(getSubject() + " ");
-
-		builder.append(getStudentInfo() + " ");
 
 		if (getExamInstance() != null)
 			builder.append("examInstance:" + getExamInstance().getDisplayName()

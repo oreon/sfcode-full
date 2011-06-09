@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MagicDrawProfile="http:///schemas/MagicDrawProfile/_25LksE5nEeC40rOE3FBluw/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.0.0/UML" xmlns:wcprofile="http:///schemas/wcprofile/_25P2IE5nEeC40rOE3FBluw/0" xsi:schemaLocation="http:///schemas/MagicDrawProfile/_25LksE5nEeC40rOE3FBluw/0 UML_Standard_Profile.MagicDraw_Profile.profile.uml#_25d5BE5nEeC40rOE3FBluw http:///schemas/wcprofile/_25P2IE5nEeC40rOE3FBluw/0 wcprofile.profile.uml#_25bcUk5nEeC40rOE3FBluw">
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MagicDrawProfile="http:///schemas/MagicDrawProfile/_UR6LcFGYEeC40rOE3FBluw/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.0.0/UML" xmlns:wcprofile="http:///schemas/wcprofile/_USQwwFGYEeC40rOE3FBluw/0" xsi:schemaLocation="http:///schemas/MagicDrawProfile/_UR6LcFGYEeC40rOE3FBluw/0 UML_Standard_Profile.MagicDraw_Profile.profile.uml#_USe081GYEeC40rOE3FBluw http:///schemas/wcprofile/_USQwwFGYEeC40rOE3FBluw/0 wcprofile.profile.uml#_USfbqVGYEeC40rOE3FBluw">
   <uml:Model xmi:id="eee_1045467100313_135436_1" name="Data">
     <ownedComment xmi:id="_14_0_8e50284_1230678218627_368095_98" body="Author:jsingh.&#xA;Created:12/30/08 6:03 PM.&#xA;Title:.&#xA;Comment:.&#xA;" annotatedElement="eee_1045467100313_135436_1"/>
     <packageImport xmi:id="_0primitiveTypesData">
@@ -29,6 +29,10 @@
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           </ownedAttribute>
           <ownedAttribute xmi:id="_14_0_238c0518_1272550599517_673884_1021" name="employeeType" visibility="private" type="_14_0_8e50284_1242787392961_336187_808"/>
+          <ownedAttribute xmi:id="_14_0_8e50284_1300477507296_161139_3093" name="manager" visibility="private" type="_14_0_8e50284_1242786997496_528918_451" association="_14_0_8e50284_1300477507296_62895_3092">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_14_0_8e50284_1300477532095_225835_3143" name="" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_14_0_8e50284_1300477532020_237173_3142" name=""/>
+          </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Enumeration" xmi:id="_14_0_8e50284_1242787392961_336187_808" name="EmployeeType">
           <ownedLiteral xmi:id="_14_0_8e50284_1242787408147_238753_827" name="FULL_TIME"/>
@@ -162,9 +166,6 @@
           <ownedAttribute xmi:id="_14_0_8e50284_1299435904551_232876_2205" name="subject" visibility="private">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           </ownedAttribute>
-          <ownedAttribute xmi:id="_14_0_8e50284_1299435859659_304853_2201" name="studentInfo" visibility="private">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          </ownedAttribute>
           <ownedAttribute xmi:id="_14_0_8e50284_1294079094838_518379_1615" name="marks" visibility="private">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
           </ownedAttribute>
@@ -287,6 +288,9 @@
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1299468108645_874037_2274" name="" memberEnd="_14_0_8e50284_1299468108646_715090_2276 _14_0_8e50284_1299468108645_156136_2275">
           <ownedEnd xmi:id="_14_0_8e50284_1299468108646_715090_2276" name="" visibility="private" type="_14_0_8e50284_1294079002947_654131_1541" association="_14_0_8e50284_1299468108645_874037_2274"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1300477507296_62895_3092" name="" memberEnd="_14_0_8e50284_1300477507296_161139_3093 _14_0_8e50284_1300477507376_280959_3094">
+          <ownedEnd xmi:id="_14_0_8e50284_1300477507376_280959_3094" name="" visibility="private" type="_14_0_8e50284_1242786997496_528918_451" association="_14_0_8e50284_1300477507296_62895_3092"/>
         </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Enumeration" xmi:id="_14_0_8e50284_1294092077332_730395_7998" name="Gender">
@@ -587,69 +591,68 @@
       <ownedComment xmi:id="_be00301_1078843546940_242228_131" body="UML Standard Profile contains several popular stereotypes, tag definitions and constraints described in UML 1.4 and UML 2.0 Specifications." annotatedElement="magicdraw_uml_standard_profile_v_0001"/>
     </packagedElement>
     <profileApplication xmi:id="_be00301_1073394351331_445580_2profileApplicationData">
-      <eAnnotations xmi:id="_25csW05nEeC40rOE3FBluw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_25d5BE5nEeC40rOE3FBluw"/>
+      <eAnnotations xmi:id="_USeOFVGYEeC40rOE3FBluw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_USe081GYEeC40rOE3FBluw"/>
       </eAnnotations>
       <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_be00301_1073394351331_445580_2"/>
     </profileApplication>
     <profileApplication xmi:id="_14_0_8e50284_1294092077182_713178_5251profileApplicationData">
-      <eAnnotations xmi:id="_25csXU5nEeC40rOE3FBluw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="wcprofile.profile.uml#_25bcUk5nEeC40rOE3FBluw"/>
+      <eAnnotations xmi:id="_USeOF1GYEeC40rOE3FBluw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="wcprofile.profile.uml#_USfbqVGYEeC40rOE3FBluw"/>
       </eAnnotations>
       <appliedProfile href="wcprofile.profile.uml#_14_0_8e50284_1294092077182_713178_5251"/>
     </profileApplication>
     <profileApplication xmi:id="_11_5_f720368_1159529670215_231387_1profileApplicationData">
-      <eAnnotations xmi:id="_25csX05nEeC40rOE3FBluw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Validation_Profile.profile.uml#_25dSVk5nEeC40rOE3FBluw"/>
+      <eAnnotations xmi:id="_USeOGVGYEeC40rOE3FBluw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Validation_Profile.profile.uml#_USeOIFGYEeC40rOE3FBluw"/>
       </eAnnotations>
       <appliedProfile href="UML_Standard_Profile.Validation_Profile.profile.uml#_11_5_f720368_1159529670215_231387_1"/>
     </profileApplication>
     <profileApplication xmi:id="_11_5_be00301_1153310565718_226811_161profileApplicationData">
-      <eAnnotations xmi:id="_25csYU5nEeC40rOE3FBluw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_25csZk5nEeC40rOE3FBluw"/>
+      <eAnnotations xmi:id="_USeOG1GYEeC40rOE3FBluw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_USdnB1GYEeC40rOE3FBluw"/>
       </eAnnotations>
       <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_11_5_be00301_1153310565718_226811_161"/>
     </profileApplication>
     <profileApplication xmi:id="_9_0_be00301_1108050582343_527400_10847profileApplicationData">
-      <eAnnotations xmi:id="_25csY05nEeC40rOE3FBluw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.UML_Standard_Profile.profile.uml#_25cEC05nEeC40rOE3FBluw"/>
+      <eAnnotations xmi:id="_USeOHVGYEeC40rOE3FBluw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.UML_Standard_Profile.profile.uml#_USc-AlGYEeC40rOE3FBluw"/>
       </eAnnotations>
       <appliedProfile href="UML_Standard_Profile.UML_Standard_Profile.profile.uml#_9_0_be00301_1108050582343_527400_10847"/>
     </profileApplication>
   </uml:Model>
-  <MagicDrawProfile:auxiliaryResource xmi:id="_25gU0U5nEeC40rOE3FBluw" base_Package="magicdraw_uml_standard_profile_v_0001"/>
-  <wcprofile:Entity xmi:id="_25gU0k5nEeC40rOE3FBluw" base_Class="_14_0_8e50284_1294077785296_852407_1325" displayName="grade.getName() + &quot; -&quot; + subject.getName()"/>
-  <wcprofile:Entity xmi:id="_25gU005nEeC40rOE3FBluw" base_Class="_14_0_8e50284_1300068955462_728807_2494" displayName="room.name + &quot;-&quot; + name"/>
-  <wcprofile:Entity xmi:id="_25g74E5nEeC40rOE3FBluw" base_Class="_14_0_8e50284_1294079310959_837611_1618" displayName="exam.name + &quot; &quot; + gradeSubject.getSubject().getName() "/>
-  <wcprofile:NamedQueryOp xmi:id="_25g74U5nEeC40rOE3FBluw" base_Operation="_14_0_8e50284_1300122987908_653210_2972" query="select bed from Bed bed where bed.id not in (select ba.bed.id from BedAllocation ba where ba.endDate is null)"/>
-  <wcprofile:MappedSuperClass xmi:id="_25g74k5nEeC40rOE3FBluw" base_Class="_14_0_8e50284_1242786932476_666519_405" displayName="lastName + &quot;,&quot; + firstName" popupInfo="lastName + &quot;.&quot; + firstName"/>
-  <wcprofile:Column xmi:id="_25hi8E5nEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299453533073_148143_2223" systemModifyOnly="true"/>
-  <wcprofile:Column xmi:id="_25hi8U5nEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299891196624_870951_2394" controls="attendances"/>
-  <wcprofile:Column xmi:id="_25iKAE5nEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299711153634_827592_1787" derivedProperty="DateUtils.calcAge(dateOfBirth)"/>
-  <wcprofile:Column xmi:id="_25iKAU5nEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299435891181_533536_2203" derivedProperty="examInstance.getExam().getName()"/>
-  <wcprofile:Column xmi:id="_25ixEE5nEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299888763916_675565_2049" notNull="true"/>
-  <wcprofile:Column xmi:id="_25ixEU5nEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299435904551_232876_2205" derivedProperty="examInstance.getGradeSubject().getSubject().getName()"/>
-  <wcprofile:Column xmi:id="_25jYIE5nEeC40rOE3FBluw" base_Property="_14_0_8e50284_1294079567933_960438_1749" controls="examScores"/>
-  <wcprofile:Column xmi:id="_25j_ME5nEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299453932926_827300_2225" systemModifyOnly="true"/>
-  <wcprofile:Column xmi:id="_25j_MU5nEeC40rOE3FBluw" base_Property="_14_0_8e50284_1294495836298_544873_938"/>
-  <wcprofile:Column xmi:id="_25kmQE5nEeC40rOE3FBluw" base_Property="_14_0_8e50284_1294079094838_518379_1615" notNull="true"/>
-  <wcprofile:Column xmi:id="_25kmQU5nEeC40rOE3FBluw" base_Property="_14_0_8e50284_1294079340496_640471_1641" orderBy="rank"/>
-  <wcprofile:Column xmi:id="_25lNUE5nEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299435859659_304853_2201" derivedProperty="student.getDisplayName()"/>
-  <wcprofile:Column xmi:id="_25lNUU5nEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299890874471_506711_2365" defaultExpression="new Date()"/>
-  <wcprofile:Column xmi:id="_25l0YE5nEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299446069524_630391_2216" derivedProperty="100.0 * marks /examInstance.getExam().getMaxMarks() "/>
-  <wcprofile:Column xmi:id="_25mbcE5nEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299292839580_64959_1901" notNull="true"/>
-  <wcprofile:Column xmi:id="_25mbcU5nEeC40rOE3FBluw" base_Property="_14_0_8e50284_1300079041282_266920_2864" assocList="bedAction.availableBeds()"/>
-  <wcprofile:EntitiesPackage xmi:id="_25nCgE5nEeC40rOE3FBluw" base_Package="_14_0_8e50284_1244334181684_890826_566"/>
-  <wcprofile:EntitiesPackage xmi:id="_25nCgU5nEeC40rOE3FBluw" base_Package="_14_0_8e50284_1299098623820_52780_1328"/>
-  <wcprofile:EntitiesPackage xmi:id="_25nCgk5nEeC40rOE3FBluw" base_Package="_14_0_8e50284_1299888624860_966630_1931"/>
-  <wcprofile:Embeddable xmi:id="_25nCg05nEeC40rOE3FBluw" base_Class="_14_0_8e50284_1237220470811_909282_725"/>
-  <wcprofile:Task xmi:id="_25nChE5nEeC40rOE3FBluw" base_CallBehaviorAction="_14_0_8e50284_1296053498829_515178_1388" days="7" notify="true"/>
-  <wcprofile:WorkflowActivity xmi:id="_25npkE5nEeC40rOE3FBluw" base_Activity="_14_0_8e50284_1296053403157_244465_1338"/>
-  <wcprofile:Report xmi:id="_25npkU5nEeC40rOE3FBluw" base_Class="_14_0_8e50284_1299709488709_871744_1626" query="select e from Student e "/>
-  <wcprofile:Report xmi:id="_25npkk5nEeC40rOE3FBluw" base_Class="_14_0_8e50284_1299714444110_800156_1845" query="select e from Employee e order by e.department, e.employeeType"/>
-  <wcprofile:Report xmi:id="_25npk05nEeC40rOE3FBluw" base_Class="_14_0_8e50284_1300126646077_730775_2995" query="select e from Student e order by e.grade, e.gender"/>
-  <wcprofile:ProcessToken xmi:id="_25oQoE5nEeC40rOE3FBluw" base_Class="_14_0_8e50284_1296048772619_799332_1202"/>
-  <wcprofile:ReportField xmi:id="_25oQoU5nEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299762113219_264436_1911" fieldExpression="department.name"/>
-  <wcprofile:CrossTab xmi:id="_25oQok5nEeC40rOE3FBluw" rowFld="employeeType.name" colFld="department.name" base_Property="_14_0_8e50284_1299714611318_898162_1869" calculation="Count" measureField="id"/>
-  <wcprofile:CrossTab xmi:id="_25o3sE5nEeC40rOE3FBluw" rowFld="grade.name" colFld="gender.name" base_Property="_14_0_8e50284_1300126829076_549504_3024" calculation="Count" measureField="id"/>
+  <MagicDrawProfile:auxiliaryResource xmi:id="_US_JgVGYEeC40rOE3FBluw" base_Package="magicdraw_uml_standard_profile_v_0001"/>
+  <wcprofile:Entity xmi:id="_US_wkFGYEeC40rOE3FBluw" base_Class="_14_0_8e50284_1294077785296_852407_1325" displayName="grade.getName() + &quot; -&quot; + subject.getName()"/>
+  <wcprofile:Entity xmi:id="_UTAXoFGYEeC40rOE3FBluw" base_Class="_14_0_8e50284_1300068955462_728807_2494" displayName="room.name + &quot;-&quot; + name"/>
+  <wcprofile:Entity xmi:id="_UTBlwFGYEeC40rOE3FBluw" base_Class="_14_0_8e50284_1294079310959_837611_1618" displayName="exam.name + &quot; &quot; + gradeSubject.getSubject().getName() "/>
+  <wcprofile:NamedQueryOp xmi:id="_UTCM0FGYEeC40rOE3FBluw" base_Operation="_14_0_8e50284_1300122987908_653210_2972" query="select bed from Bed bed where bed.id not in (select ba.bed.id from BedAllocation ba where ba.endDate is null)"/>
+  <wcprofile:MappedSuperClass xmi:id="_UTCz4FGYEeC40rOE3FBluw" base_Class="_14_0_8e50284_1242786932476_666519_405" displayName="lastName + &quot;,&quot; + firstName" popupInfo="lastName + &quot;.&quot; + firstName"/>
+  <wcprofile:Column xmi:id="_UTCz4VGYEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299453533073_148143_2223" systemModifyOnly="true"/>
+  <wcprofile:Column xmi:id="_UTECAFGYEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299891196624_870951_2394" controls="attendances"/>
+  <wcprofile:Column xmi:id="_UTFQIFGYEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299711153634_827592_1787" derivedProperty="DateUtils.calcAge(dateOfBirth)"/>
+  <wcprofile:Column xmi:id="_UXTBwFGYEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299435891181_533536_2203" derivedProperty="examInstance.getExam().getName()"/>
+  <wcprofile:Column xmi:id="_UXTBwVGYEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299888763916_675565_2049" notNull="true"/>
+  <wcprofile:Column xmi:id="_UXTBwlGYEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299435904551_232876_2205" derivedProperty="examInstance.getGradeSubject().getSubject().getName()"/>
+  <wcprofile:Column xmi:id="_UXTBw1GYEeC40rOE3FBluw" base_Property="_14_0_8e50284_1294079567933_960438_1749" controls="examScores"/>
+  <wcprofile:Column xmi:id="_UXTBxFGYEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299453932926_827300_2225" systemModifyOnly="true"/>
+  <wcprofile:Column xmi:id="_UXTBxVGYEeC40rOE3FBluw" base_Property="_14_0_8e50284_1294495836298_544873_938"/>
+  <wcprofile:Column xmi:id="_UXZIYFGYEeC40rOE3FBluw" base_Property="_14_0_8e50284_1294079094838_518379_1615" notNull="true"/>
+  <wcprofile:Column xmi:id="_UXZIYVGYEeC40rOE3FBluw" base_Property="_14_0_8e50284_1294079340496_640471_1641" orderBy="rank"/>
+  <wcprofile:Column xmi:id="_UXZIYlGYEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299890874471_506711_2365" defaultExpression="new Date()"/>
+  <wcprofile:Column xmi:id="_UXZIY1GYEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299446069524_630391_2216" derivedProperty="100.0 * marks /examInstance.getExam().getMaxMarks() "/>
+  <wcprofile:Column xmi:id="_UXZIZFGYEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299292839580_64959_1901" notNull="true"/>
+  <wcprofile:Column xmi:id="_UXZIZVGYEeC40rOE3FBluw" base_Property="_14_0_8e50284_1300079041282_266920_2864" assocList="bedAction.availableBeds()"/>
+  <wcprofile:EntitiesPackage xmi:id="_UXfPAFGYEeC40rOE3FBluw" base_Package="_14_0_8e50284_1244334181684_890826_566"/>
+  <wcprofile:EntitiesPackage xmi:id="_UXfPAVGYEeC40rOE3FBluw" base_Package="_14_0_8e50284_1299098623820_52780_1328"/>
+  <wcprofile:EntitiesPackage xmi:id="_UXfPAlGYEeC40rOE3FBluw" base_Package="_14_0_8e50284_1299888624860_966630_1931"/>
+  <wcprofile:Embeddable xmi:id="_UXfPA1GYEeC40rOE3FBluw" base_Class="_14_0_8e50284_1237220470811_909282_725"/>
+  <wcprofile:Task xmi:id="_UXfPBFGYEeC40rOE3FBluw" base_CallBehaviorAction="_14_0_8e50284_1296053498829_515178_1388" days="7" notify="true"/>
+  <wcprofile:WorkflowActivity xmi:id="_UXfPBVGYEeC40rOE3FBluw" base_Activity="_14_0_8e50284_1296053403157_244465_1338"/>
+  <wcprofile:Report xmi:id="_UXfPBlGYEeC40rOE3FBluw" base_Class="_14_0_8e50284_1299709488709_871744_1626" query="select e from Student e "/>
+  <wcprofile:Report xmi:id="_UXfPB1GYEeC40rOE3FBluw" base_Class="_14_0_8e50284_1299714444110_800156_1845" query="select e from Employee e order by e.department, e.employeeType"/>
+  <wcprofile:Report xmi:id="_UXfPCFGYEeC40rOE3FBluw" base_Class="_14_0_8e50284_1300126646077_730775_2995" query="select e from Student e order by e.grade, e.gender"/>
+  <wcprofile:ProcessToken xmi:id="_UXfPCVGYEeC40rOE3FBluw" base_Class="_14_0_8e50284_1296048772619_799332_1202"/>
+  <wcprofile:ReportField xmi:id="_UXsDUFGYEeC40rOE3FBluw" base_Property="_14_0_8e50284_1299762113219_264436_1911" fieldExpression="department.name"/>
+  <wcprofile:CrossTab xmi:id="_UX2bYFGYEeC40rOE3FBluw" rowFld="employeeType.name" colFld="department.name" base_Property="_14_0_8e50284_1299714611318_898162_1869" calculation="Count" measureField="id"/>
+  <wcprofile:CrossTab xmi:id="_UX3CcFGYEeC40rOE3FBluw" rowFld="grade.name" colFld="gender.name" base_Property="_14_0_8e50284_1300126829076_549504_3024" calculation="Count" measureField="id"/>
 </xmi:XMI>
