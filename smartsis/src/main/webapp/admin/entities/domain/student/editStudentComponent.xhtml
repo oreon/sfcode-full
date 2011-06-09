@@ -57,7 +57,7 @@
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gender', 'studentEdit')}"/>  
         <h:outputText value="#{msg.student_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'studentEdit')}"/>  
-        <rich:calendar id="dateOfBirth#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'studentEdit')}" label="#{msg.student_dateOfBirth}" required="false" value="#{studentAction.student.dateOfBirth}"> 
+        <rich:calendar direction="auto" id="dateOfBirth#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'studentEdit')}" label="#{msg.student_dateOfBirth}" required="false" value="#{studentAction.student.dateOfBirth}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </rich:calendar>  
         <rich:message styleClass="error errors" for="dateOfBirth" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'studentEdit')}"/> 

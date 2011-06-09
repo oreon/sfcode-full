@@ -68,6 +68,8 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 
 			"employee.employeeType = #{employeeList.employee.employeeType}",
 
+			"employee.manager.id = #{employeeList.employee.manager.id}",
+
 			"employee.dateCreated <= #{employeeList.dateCreatedRange.end}",
 			"employee.dateCreated >= #{employeeList.dateCreatedRange.begin}",};
 
@@ -101,6 +103,10 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 				+ (e.getEmployeeType() != null ? e.getEmployeeType() : "")
 				+ "\",");
 
+		builder.append("\""
+				+ (e.getManager() != null ? e.getManager().getDisplayName()
+						.replace(",", "") : "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -115,6 +121,8 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 		builder.append("EmployeeNumber" + ",");
 
 		builder.append("EmployeeType" + ",");
+
+		builder.append("Manager" + ",");
 
 		builder.append("\r\n");
 	}

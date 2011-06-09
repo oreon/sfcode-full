@@ -6,329 +6,1517 @@ public class MetaData {
 
 	{"com.oreon.smartsis.domain.Employee",
 
-	"firstName",
+	"firstName", "java.lang.String",
 
-	"lastName",
+	"lastName", "java.lang.String",
 
-	"contactDetails",
+	"contactDetails.displayName", "java.lang.String",
 
-	"department",
+	"primaryPhone", "java.lang.String",
 
-	"employeeNumber",
+	"secondaryPhone", "java.lang.String",
 
-	"employeeType",
+	"email", "java.lang.String",
+
+	"department.displayName", "java.lang.String",
+
+	"employees", "java.lang.Employee",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employeeNumber", "java.lang.String",
+
+	"employeeType", "java.lang.EmployeeType",
+
+	"manager.displayName", "java.lang.String",
 
 	},
 
 	{"com.oreon.smartsis.domain.Department",
 
-	"employees",
+	"employees", "java.lang.Employee",
 
-	"name",
+	"name", "java.lang.uniqueNameType",
 
 	},
 
 	{"com.oreon.smartsis.domain.Student",
 
-	"firstName",
+	"firstName", "java.lang.String",
 
-	"lastName",
+	"lastName", "java.lang.String",
 
-	"contactDetails",
+	"contactDetails.displayName", "java.lang.String",
 
-	"picture",
+	"primaryPhone", "java.lang.String",
 
-	"gender",
+	"secondaryPhone", "java.lang.String",
 
-	"dateOfBirth",
+	"email", "java.lang.String",
 
-	"grade",
+	"picture", "java.lang.imageFile",
 
-	"age",
+	"gender", "java.lang.Gender",
+
+	"dateOfBirth", "java.lang.Date",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"age", "java.lang.Integer",
 
 	},
 
 	{"com.oreon.smartsis.domain.Sponsor",
 
-	"firstName",
+	"firstName", "java.lang.String",
 
-	"lastName",
+	"lastName", "java.lang.String",
 
-	"contactDetails",
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
 
 	},
 
 	{"com.oreon.smartsis.domain.Sponsorship",
 
-	"sponsor",
+	"sponsor.displayName", "java.lang.String",
 
-	"student",
+	"sponsor.firstName", "java.lang.String",
 
-	"amount",
+	"sponsor.lastName", "java.lang.String",
+
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"student.displayName", "java.lang.String",
+
+	"student.firstName", "java.lang.String",
+
+	"student.lastName", "java.lang.String",
+
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"picture", "java.lang.imageFile",
+
+	"gender", "java.lang.Gender",
+
+	"dateOfBirth", "java.lang.Date",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"age", "java.lang.Integer",
+
+	"amount", "java.lang.Double",
 
 	},
 
 	{"com.oreon.smartsis.domain.Grade",
 
-	"name",
+	"name", "java.lang.uniqueNameType",
 
-	"students",
+	"students", "java.lang.Student",
 
-	"exams",
+	"exams", "java.lang.Exam",
 
-	"ordinal",
+	"ordinal", "java.lang.Integer",
 
-	"section",
+	"section", "java.lang.String",
 
-	"gradeSubjects",
+	"gradeSubjects", "java.lang.GradeSubject",
 
-	"gradeFees",
+	"gradeFees", "java.lang.GradeFee",
 
 	},
 
 	{"com.oreon.smartsis.domain.Subject",
 
-	"name",
+	"name", "java.lang.uniqueNameType",
 
 	},
 
 	{"com.oreon.smartsis.domain.GradeSubject",
 
-	"subject",
+	"subject.displayName", "java.lang.String",
 
-	"employee",
+	"name", "java.lang.uniqueNameType",
 
-	"grade",
+	"employee.displayName", "java.lang.String",
 
-	"courseDocumentses",
+	"employee.firstName", "java.lang.String",
+
+	"employee.lastName", "java.lang.String",
+
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"department.displayName", "java.lang.String",
+
+	"employees", "java.lang.Employee",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employeeNumber", "java.lang.String",
+
+	"employeeType", "java.lang.EmployeeType",
+
+	"manager.displayName", "java.lang.String",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"courseDocumentses", "java.lang.CourseDocuments",
 
 	},
 
 	{"com.oreon.smartsis.domain.Exam",
 
-	"name",
+	"name", "java.lang.uniqueNameType",
 
-	"grades",
+	"grades", "java.lang.Grade",
 
-	"maxMarks",
+	"maxMarks", "java.lang.Integer",
 
-	"passMarks",
+	"passMarks", "java.lang.Integer",
 
-	"ordinal",
+	"ordinal", "java.lang.Integer",
 
 	},
 
 	{"com.oreon.smartsis.domain.ExamScore",
 
-	"examName",
+	"examName", "java.lang.String",
 
-	"examInstance",
+	"examInstance.displayName", "java.lang.String",
 
-	"subject",
+	"examScores", "java.lang.ExamScore",
 
-	"studentInfo",
+	"exam.displayName", "java.lang.String",
 
-	"marks",
+	"name", "java.lang.uniqueNameType",
 
-	"percentage",
+	"grades", "java.lang.Grade",
 
-	"rank",
+	"maxMarks", "java.lang.Integer",
 
-	"student",
+	"passMarks", "java.lang.Integer",
+
+	"ordinal", "java.lang.Integer",
+
+	"gradeSubject.displayName", "java.lang.String",
+
+	"subject.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employee.displayName", "java.lang.String",
+
+	"employee.firstName", "java.lang.String",
+
+	"employee.lastName", "java.lang.String",
+
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"department.displayName", "java.lang.String",
+
+	"employees", "java.lang.Employee",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employeeNumber", "java.lang.String",
+
+	"employeeType", "java.lang.EmployeeType",
+
+	"manager.displayName", "java.lang.String",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"courseDocumentses", "java.lang.CourseDocuments",
+
+	"dateHeld", "java.lang.Date",
+
+	"average", "java.lang.Integer",
+
+	"subject", "java.lang.String",
+
+	"marks", "java.lang.Integer",
+
+	"percentage", "java.lang.Double",
+
+	"rank", "java.lang.Integer",
+
+	"student.displayName", "java.lang.String",
+
+	"student.firstName", "java.lang.String",
+
+	"student.lastName", "java.lang.String",
+
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"picture", "java.lang.imageFile",
+
+	"gender", "java.lang.Gender",
+
+	"dateOfBirth", "java.lang.Date",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"age", "java.lang.Integer",
 
 	},
 
 	{"com.oreon.smartsis.domain.ExamInstance",
 
-	"examScores",
+	"examScores", "java.lang.ExamScore",
 
-	"exam",
+	"exam.displayName", "java.lang.String",
 
-	"gradeSubject",
+	"name", "java.lang.uniqueNameType",
 
-	"dateHeld",
+	"grades", "java.lang.Grade",
 
-	"average",
+	"maxMarks", "java.lang.Integer",
+
+	"passMarks", "java.lang.Integer",
+
+	"ordinal", "java.lang.Integer",
+
+	"gradeSubject.displayName", "java.lang.String",
+
+	"subject.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employee.displayName", "java.lang.String",
+
+	"employee.firstName", "java.lang.String",
+
+	"employee.lastName", "java.lang.String",
+
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"department.displayName", "java.lang.String",
+
+	"employees", "java.lang.Employee",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employeeNumber", "java.lang.String",
+
+	"employeeType", "java.lang.EmployeeType",
+
+	"manager.displayName", "java.lang.String",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"courseDocumentses", "java.lang.CourseDocuments",
+
+	"dateHeld", "java.lang.Date",
+
+	"average", "java.lang.Integer",
 
 	},
 
 	{"com.oreon.smartsis.domain.GradeFee",
 
-	"grade",
+	"grade.displayName", "java.lang.String",
 
-	"fee",
+	"name", "java.lang.uniqueNameType",
 
-	"amount",
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"fee.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"defaultAmount", "java.lang.Double",
+
+	"frequency", "java.lang.Frequency",
+
+	"amount", "java.lang.Double",
 
 	},
 
 	{"com.oreon.smartsis.domain.Fee",
 
-	"name",
+	"name", "java.lang.uniqueNameType",
 
-	"defaultAmount",
+	"defaultAmount", "java.lang.Double",
 
-	"frequency",
+	"frequency", "java.lang.Frequency",
 
 	},
 
 	{"com.oreon.smartsis.domain.CourseDocuments",
 
-	"name",
+	"name", "java.lang.String",
 
-	"document",
+	"document", "java.lang.imageFile",
 
-	"gradeSubject",
+	"gradeSubject.displayName", "java.lang.String",
+
+	"subject.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employee.displayName", "java.lang.String",
+
+	"employee.firstName", "java.lang.String",
+
+	"employee.lastName", "java.lang.String",
+
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"department.displayName", "java.lang.String",
+
+	"employees", "java.lang.Employee",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employeeNumber", "java.lang.String",
+
+	"employeeType", "java.lang.EmployeeType",
+
+	"manager.displayName", "java.lang.String",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"courseDocumentses", "java.lang.CourseDocuments",
 
 	},
 
 	{"com.oreon.smartsis.domain.PaidFee",
 
-	"amount",
+	"amount", "java.lang.Double",
 
-	"notes",
+	"notes", "java.lang.largeText",
 
-	"student",
+	"student.displayName", "java.lang.String",
 
-	"gradeFee",
+	"student.firstName", "java.lang.String",
+
+	"student.lastName", "java.lang.String",
+
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"picture", "java.lang.imageFile",
+
+	"gender", "java.lang.Gender",
+
+	"dateOfBirth", "java.lang.Date",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"age", "java.lang.Integer",
+
+	"gradeFee.displayName", "java.lang.String",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"fee.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"defaultAmount", "java.lang.Double",
+
+	"frequency", "java.lang.Frequency",
+
+	"amount", "java.lang.Double",
 
 	},
 
 	{"com.oreon.smartsis.exam.ElectronicExam",
 
-	"name",
+	"name", "java.lang.uniqueNameType",
 
-	"numberOfQuestions",
+	"numberOfQuestions", "java.lang.Integer",
 
-	"questions",
+	"questions", "java.lang.Question",
 
-	"gradeSubject",
+	"gradeSubject.displayName", "java.lang.String",
 
-	"maxDuration",
+	"subject.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employee.displayName", "java.lang.String",
+
+	"employee.firstName", "java.lang.String",
+
+	"employee.lastName", "java.lang.String",
+
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"department.displayName", "java.lang.String",
+
+	"employees", "java.lang.Employee",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employeeNumber", "java.lang.String",
+
+	"employeeType", "java.lang.EmployeeType",
+
+	"manager.displayName", "java.lang.String",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"courseDocumentses", "java.lang.CourseDocuments",
+
+	"maxDuration", "java.lang.Integer",
 
 	},
 
 	{"com.oreon.smartsis.exam.Question",
 
-	"text",
+	"text", "java.lang.largeText",
 
-	"choices",
+	"choices", "java.lang.Choice",
 
-	"electronicExam",
+	"electronicExam.displayName", "java.lang.String",
 
-	"correctChoice",
+	"name", "java.lang.uniqueNameType",
+
+	"numberOfQuestions", "java.lang.Integer",
+
+	"questions", "java.lang.Question",
+
+	"gradeSubject.displayName", "java.lang.String",
+
+	"subject.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employee.displayName", "java.lang.String",
+
+	"employee.firstName", "java.lang.String",
+
+	"employee.lastName", "java.lang.String",
+
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"department.displayName", "java.lang.String",
+
+	"employees", "java.lang.Employee",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employeeNumber", "java.lang.String",
+
+	"employeeType", "java.lang.EmployeeType",
+
+	"manager.displayName", "java.lang.String",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"courseDocumentses", "java.lang.CourseDocuments",
+
+	"maxDuration", "java.lang.Integer",
+
+	"correctChoice", "java.lang.ChoiceIndex",
 
 	},
 
 	{"com.oreon.smartsis.exam.Choice",
 
-	"text",
+	"text", "java.lang.largeText",
 
-	"question",
+	"question.displayName", "java.lang.String",
+
+	"text", "java.lang.largeText",
+
+	"choices", "java.lang.Choice",
+
+	"electronicExam.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"numberOfQuestions", "java.lang.Integer",
+
+	"questions", "java.lang.Question",
+
+	"gradeSubject.displayName", "java.lang.String",
+
+	"subject.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employee.displayName", "java.lang.String",
+
+	"employee.firstName", "java.lang.String",
+
+	"employee.lastName", "java.lang.String",
+
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"department.displayName", "java.lang.String",
+
+	"employees", "java.lang.Employee",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employeeNumber", "java.lang.String",
+
+	"employeeType", "java.lang.EmployeeType",
+
+	"manager.displayName", "java.lang.String",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"courseDocumentses", "java.lang.CourseDocuments",
+
+	"maxDuration", "java.lang.Integer",
+
+	"correctChoice", "java.lang.ChoiceIndex",
 
 	},
 
 	{"com.oreon.smartsis.exam.ElectronicExamInstance",
 
-	"student",
+	"student.displayName", "java.lang.String",
 
-	"questionInstances",
+	"student.firstName", "java.lang.String",
 
-	"score",
+	"student.lastName", "java.lang.String",
 
-	"electronicExamEvent",
+	"contactDetails.displayName", "java.lang.String",
 
-	"timeTaken",
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"picture", "java.lang.imageFile",
+
+	"gender", "java.lang.Gender",
+
+	"dateOfBirth", "java.lang.Date",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"age", "java.lang.Integer",
+
+	"questionInstances", "java.lang.QuestionInstance",
+
+	"score", "java.lang.Integer",
+
+	"electronicExamEvent.displayName", "java.lang.String",
+
+	"electronicExam.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"numberOfQuestions", "java.lang.Integer",
+
+	"questions", "java.lang.Question",
+
+	"gradeSubject.displayName", "java.lang.String",
+
+	"subject.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employee.displayName", "java.lang.String",
+
+	"employee.firstName", "java.lang.String",
+
+	"employee.lastName", "java.lang.String",
+
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"department.displayName", "java.lang.String",
+
+	"employees", "java.lang.Employee",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employeeNumber", "java.lang.String",
+
+	"employeeType", "java.lang.EmployeeType",
+
+	"manager.displayName", "java.lang.String",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"courseDocumentses", "java.lang.CourseDocuments",
+
+	"maxDuration", "java.lang.Integer",
+
+	"electronicExamInstances", "java.lang.ElectronicExamInstance",
+
+	"dateOfExam", "java.lang.Date",
+
+	"remarks", "java.lang.largeText",
+
+	"timeTaken", "java.lang.Integer",
 
 	},
 
 	{"com.oreon.smartsis.exam.QuestionInstance",
 
-	"electronicExamInstance",
+	"electronicExamInstance.displayName", "java.lang.String",
 
-	"question",
+	"student.displayName", "java.lang.String",
 
-	"selectedChoice",
+	"student.firstName", "java.lang.String",
+
+	"student.lastName", "java.lang.String",
+
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"picture", "java.lang.imageFile",
+
+	"gender", "java.lang.Gender",
+
+	"dateOfBirth", "java.lang.Date",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"age", "java.lang.Integer",
+
+	"questionInstances", "java.lang.QuestionInstance",
+
+	"score", "java.lang.Integer",
+
+	"electronicExamEvent.displayName", "java.lang.String",
+
+	"electronicExam.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"numberOfQuestions", "java.lang.Integer",
+
+	"questions", "java.lang.Question",
+
+	"gradeSubject.displayName", "java.lang.String",
+
+	"subject.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employee.displayName", "java.lang.String",
+
+	"employee.firstName", "java.lang.String",
+
+	"employee.lastName", "java.lang.String",
+
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"department.displayName", "java.lang.String",
+
+	"employees", "java.lang.Employee",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employeeNumber", "java.lang.String",
+
+	"employeeType", "java.lang.EmployeeType",
+
+	"manager.displayName", "java.lang.String",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"courseDocumentses", "java.lang.CourseDocuments",
+
+	"maxDuration", "java.lang.Integer",
+
+	"electronicExamInstances", "java.lang.ElectronicExamInstance",
+
+	"dateOfExam", "java.lang.Date",
+
+	"remarks", "java.lang.largeText",
+
+	"timeTaken", "java.lang.Integer",
+
+	"question.displayName", "java.lang.String",
+
+	"text", "java.lang.largeText",
+
+	"choices", "java.lang.Choice",
+
+	"electronicExam.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"numberOfQuestions", "java.lang.Integer",
+
+	"questions", "java.lang.Question",
+
+	"gradeSubject.displayName", "java.lang.String",
+
+	"subject.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employee.displayName", "java.lang.String",
+
+	"employee.firstName", "java.lang.String",
+
+	"employee.lastName", "java.lang.String",
+
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"department.displayName", "java.lang.String",
+
+	"employees", "java.lang.Employee",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employeeNumber", "java.lang.String",
+
+	"employeeType", "java.lang.EmployeeType",
+
+	"manager.displayName", "java.lang.String",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"courseDocumentses", "java.lang.CourseDocuments",
+
+	"maxDuration", "java.lang.Integer",
+
+	"correctChoice", "java.lang.ChoiceIndex",
+
+	"selectedChoice.displayName", "java.lang.String",
+
+	"text", "java.lang.largeText",
+
+	"question.displayName", "java.lang.String",
+
+	"text", "java.lang.largeText",
+
+	"choices", "java.lang.Choice",
+
+	"electronicExam.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"numberOfQuestions", "java.lang.Integer",
+
+	"questions", "java.lang.Question",
+
+	"gradeSubject.displayName", "java.lang.String",
+
+	"subject.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employee.displayName", "java.lang.String",
+
+	"employee.firstName", "java.lang.String",
+
+	"employee.lastName", "java.lang.String",
+
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"department.displayName", "java.lang.String",
+
+	"employees", "java.lang.Employee",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employeeNumber", "java.lang.String",
+
+	"employeeType", "java.lang.EmployeeType",
+
+	"manager.displayName", "java.lang.String",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"courseDocumentses", "java.lang.CourseDocuments",
+
+	"maxDuration", "java.lang.Integer",
+
+	"correctChoice", "java.lang.ChoiceIndex",
 
 	},
 
 	{"com.oreon.smartsis.exam.ElectronicExamEvent",
 
-	"electronicExam",
+	"electronicExam.displayName", "java.lang.String",
 
-	"electronicExamInstances",
+	"name", "java.lang.uniqueNameType",
 
-	"dateOfExam",
+	"numberOfQuestions", "java.lang.Integer",
 
-	"remarks",
+	"questions", "java.lang.Question",
+
+	"gradeSubject.displayName", "java.lang.String",
+
+	"subject.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employee.displayName", "java.lang.String",
+
+	"employee.firstName", "java.lang.String",
+
+	"employee.lastName", "java.lang.String",
+
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"department.displayName", "java.lang.String",
+
+	"employees", "java.lang.Employee",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employeeNumber", "java.lang.String",
+
+	"employeeType", "java.lang.EmployeeType",
+
+	"manager.displayName", "java.lang.String",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"courseDocumentses", "java.lang.CourseDocuments",
+
+	"maxDuration", "java.lang.Integer",
+
+	"electronicExamInstances", "java.lang.ElectronicExamInstance",
+
+	"dateOfExam", "java.lang.Date",
+
+	"remarks", "java.lang.largeText",
 
 	},
 
 	{"com.oreon.smartsis.attendance.Attendance",
 
-	"student",
+	"student.displayName", "java.lang.String",
 
-	"date",
+	"student.firstName", "java.lang.String",
 
-	"gradeSubject",
+	"student.lastName", "java.lang.String",
 
-	"absenceCode",
+	"contactDetails.displayName", "java.lang.String",
 
-	"gradeAttendance",
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"picture", "java.lang.imageFile",
+
+	"gender", "java.lang.Gender",
+
+	"dateOfBirth", "java.lang.Date",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"age", "java.lang.Integer",
+
+	"date", "java.lang.Date",
+
+	"gradeSubject.displayName", "java.lang.String",
+
+	"subject.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employee.displayName", "java.lang.String",
+
+	"employee.firstName", "java.lang.String",
+
+	"employee.lastName", "java.lang.String",
+
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"department.displayName", "java.lang.String",
+
+	"employees", "java.lang.Employee",
+
+	"name", "java.lang.uniqueNameType",
+
+	"employeeNumber", "java.lang.String",
+
+	"employeeType", "java.lang.EmployeeType",
+
+	"manager.displayName", "java.lang.String",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"courseDocumentses", "java.lang.CourseDocuments",
+
+	"absenceCode", "java.lang.AbsenceCode",
+
+	"gradeAttendance.displayName", "java.lang.String",
+
+	"attendances", "java.lang.Attendance",
+
+	"date", "java.lang.Date",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
 
 	},
 
 	{"com.oreon.smartsis.attendance.GradeAttendance",
 
-	"attendances",
+	"attendances", "java.lang.Attendance",
 
-	"date",
+	"date", "java.lang.Date",
 
-	"grade",
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
 
 	},
 
 	{"com.oreon.smartsis.hostel.Room",
 
-	"beds",
+	"beds", "java.lang.Bed",
 
-	"name",
+	"name", "java.lang.nameType",
 
-	"hostel",
+	"hostel.displayName", "java.lang.String",
 
-	"charges",
+	"name", "java.lang.String",
+
+	"rooms", "java.lang.Room",
+
+	"gender", "java.lang.Gender",
+
+	"charges", "java.lang.Double",
 
 	},
 
 	{"com.oreon.smartsis.hostel.Bed",
 
-	"room",
+	"room.displayName", "java.lang.String",
 
-	"name",
+	"beds", "java.lang.Bed",
+
+	"name", "java.lang.nameType",
+
+	"hostel.displayName", "java.lang.String",
+
+	"name", "java.lang.String",
+
+	"rooms", "java.lang.Room",
+
+	"gender", "java.lang.Gender",
+
+	"charges", "java.lang.Double",
+
+	"name", "java.lang.nameType",
 
 	},
 
 	{"com.oreon.smartsis.hostel.Hostel",
 
-	"name",
+	"name", "java.lang.String",
 
-	"rooms",
+	"rooms", "java.lang.Room",
 
-	"gender",
+	"gender", "java.lang.Gender",
 
 	},
 
 	{"com.oreon.smartsis.hostel.BedAllocation",
 
-	"startDate",
+	"startDate", "java.lang.Date",
 
-	"endDate",
+	"endDate", "java.lang.Date",
 
-	"bed",
+	"bed.displayName", "java.lang.String",
 
-	"student",
+	"room.displayName", "java.lang.String",
 
-	"remarks",
+	"beds", "java.lang.Bed",
+
+	"name", "java.lang.nameType",
+
+	"hostel.displayName", "java.lang.String",
+
+	"name", "java.lang.String",
+
+	"rooms", "java.lang.Room",
+
+	"gender", "java.lang.Gender",
+
+	"charges", "java.lang.Double",
+
+	"name", "java.lang.nameType",
+
+	"student.displayName", "java.lang.String",
+
+	"student.firstName", "java.lang.String",
+
+	"student.lastName", "java.lang.String",
+
+	"contactDetails.displayName", "java.lang.String",
+
+	"primaryPhone", "java.lang.String",
+
+	"secondaryPhone", "java.lang.String",
+
+	"email", "java.lang.String",
+
+	"picture", "java.lang.imageFile",
+
+	"gender", "java.lang.Gender",
+
+	"dateOfBirth", "java.lang.Date",
+
+	"grade.displayName", "java.lang.String",
+
+	"name", "java.lang.uniqueNameType",
+
+	"students", "java.lang.Student",
+
+	"exams", "java.lang.Exam",
+
+	"ordinal", "java.lang.Integer",
+
+	"section", "java.lang.String",
+
+	"gradeSubjects", "java.lang.GradeSubject",
+
+	"gradeFees", "java.lang.GradeFee",
+
+	"age", "java.lang.Integer",
+
+	"remarks", "java.lang.largeText",
 
 	},
 

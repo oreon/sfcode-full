@@ -163,8 +163,6 @@ public class ExamInstance extends BusinessEntity
 
 		listSearchableFields.add("examScores.subject");
 
-		listSearchableFields.add("examScores.studentInfo");
-
 		return listSearchableFields;
 	}
 

@@ -19,12 +19,12 @@
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'bedAllocationEdit')}"/>  
         <h:outputText value="#{msg.bedAllocation_startDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('startDate', 'bedAllocationEdit')}"/>  
-        <rich:calendar id="startDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('startDate', 'bedAllocationEdit')}" label="#{msg.bedAllocation_startDate}" required="false" value="#{bedAllocationAction.bedAllocation.startDate}"> 
+        <rich:calendar direction="auto" id="startDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('startDate', 'bedAllocationEdit')}" label="#{msg.bedAllocation_startDate}" required="false" value="#{bedAllocationAction.bedAllocation.startDate}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </rich:calendar>  
         <rich:message styleClass="error errors" for="startDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('startDate', 'bedAllocationEdit')}"/>  
         <h:outputText value="#{msg.bedAllocation_endDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('endDate', 'bedAllocationEdit')}"/>  
-        <rich:calendar id="endDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('endDate', 'bedAllocationEdit')}" label="#{msg.bedAllocation_endDate}" required="false" value="#{bedAllocationAction.bedAllocation.endDate}"> 
+        <rich:calendar direction="auto" id="endDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('endDate', 'bedAllocationEdit')}" label="#{msg.bedAllocation_endDate}" required="false" value="#{bedAllocationAction.bedAllocation.endDate}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </rich:calendar>  
         <rich:message styleClass="error errors" for="endDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('endDate', 'bedAllocationEdit')}"/>  
