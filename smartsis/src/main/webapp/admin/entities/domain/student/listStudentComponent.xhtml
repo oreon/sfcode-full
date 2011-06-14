@@ -128,6 +128,19 @@
           </f:facet>  
           <h:outputText value="#{_student.age}" escape="false"/> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('parent', 'studentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{studentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.student_parent}"/>  
+              <ui:param name="propertyPath" value="student.parent"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_student.parent.displayName}" action="viewParent" propagation="none"> 
+            <f:param name="parentId" value="#{_student.parent.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'studentView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

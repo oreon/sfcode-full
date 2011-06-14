@@ -77,6 +77,8 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 
 			"student.grade.id = #{studentList.student.grade.id}",
 
+			"student.parent.id = #{studentList.student.parent.id}",
+
 			"student.dateCreated <= #{studentList.dateCreatedRange.end}",
 			"student.dateCreated >= #{studentList.dateCreatedRange.begin}",};
 
@@ -84,6 +86,13 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 			com.oreon.smartsis.domain.Grade grade) {
 		//setMaxResults(10000);
 		student.setGrade(grade);
+		return getResultList();
+	}
+
+	public List<Student> getStudentsByParent(
+			com.oreon.smartsis.domain.Parent parent) {
+		//setMaxResults(10000);
+		student.setParent(parent);
 		return getResultList();
 	}
 
@@ -109,6 +118,10 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 				+ (e.getGrade() != null ? e.getGrade().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
+		builder.append("\""
+				+ (e.getParent() != null ? e.getParent().getDisplayName()
+						.replace(",", "") : "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -123,6 +136,8 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 		builder.append("DateOfBirth" + ",");
 
 		builder.append("Grade" + ",");
+
+		builder.append("Parent" + ",");
 
 		builder.append("\r\n");
 	}

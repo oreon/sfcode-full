@@ -19,6 +19,12 @@
             <ui:param name="entityId" value="1"/>  
             <ui:param name="gradeId" value="#{studentAction.instance.grade.id}"/> 
           </ui:include> 
+        </rich:tab>  
+        <rich:tab label="Parent" rendered="#{studentAction.instance.parent != null}"> 
+          <ui:include src="/admin/entities/domain/parent/viewParentComponent.xhtml"> 
+            <ui:param name="entityId" value="2"/>  
+            <ui:param name="parentId" value="#{studentAction.instance.parent.id}"/> 
+          </ui:include> 
         </rich:tab> 
       </rich:tabPanel> 
     </h:form>  

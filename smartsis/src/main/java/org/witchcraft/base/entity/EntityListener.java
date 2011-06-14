@@ -8,7 +8,8 @@ import javax.persistence.PreUpdate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.Component;
-import org.witchcraft.users.User;
+
+import com.oreon.smartsis.users.User;
 
 public class EntityListener {
 	

@@ -73,6 +73,11 @@ public class Student extends com.oreon.smartsis.domain.Person
 	@Transient
 	protected Integer age;
 
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "parent_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected Parent parent;
+
 	public void setPicture(FileAttachment picture) {
 		this.picture = picture;
 	}
@@ -129,6 +134,16 @@ public class Student extends com.oreon.smartsis.domain.Person
 
 	}
 
+	public void setParent(Parent parent) {
+		this.parent = parent;
+	}
+
+	public Parent getParent() {
+
+		return parent;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -160,6 +175,9 @@ public class Student extends com.oreon.smartsis.domain.Person
 
 		if (getGrade() != null)
 			builder.append("grade:" + getGrade().getDisplayName() + " ");
+
+		if (getParent() != null)
+			builder.append("parent:" + getParent().getDisplayName() + " ");
 
 		return builder.toString();
 	}

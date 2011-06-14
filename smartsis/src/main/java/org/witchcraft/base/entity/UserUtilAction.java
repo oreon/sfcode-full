@@ -8,7 +8,8 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import org.witchcraft.users.User;
+
+import com.oreon.smartsis.users.User;
 
 
 @Name("userUtilAction")

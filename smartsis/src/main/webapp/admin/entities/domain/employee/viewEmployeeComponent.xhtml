@@ -22,6 +22,12 @@
           <f:param name="managerId" value="#{employeeAction.employee.manager.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
+        <h:outputText value="#{msg.user_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'employeeView')}"/>  
+        <h:outputText id="user_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'employeeView')}" value="#{employeeAction.employee.user.userName}"></h:outputText>  
+        <h:outputText value="#{msg.user_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'employeeView')}"/>  
+        <h:outputText id="user_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'employeeView')}" value="#{employeeAction.employee.user.email}"></h:outputText>  
+        <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'employeeView')}"/>  
+        <h:outputText id="user_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'employeeView')}" value="#{employeeAction.employee.user.enabled}"></h:outputText>  
         <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'employeeView')}"/>  
         <h:outputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'employeeView')}" value="#{employeeAction.employee.firstName}"></h:outputText>  
         <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'employeeView')}"/>  

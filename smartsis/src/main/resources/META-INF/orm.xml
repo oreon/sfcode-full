@@ -19,13 +19,9 @@
   <entity class="com.oreon.smartsis.domain.Student" name="Student"> 
     <table name="student"></table> 
   </entity>  
-  <!--  Sponsor  JPA Configurations -->  
-  <entity class="com.oreon.smartsis.domain.Sponsor" name="Sponsor"> 
-    <table name="sponsor"></table> 
-  </entity>  
-  <!--  Sponsorship  JPA Configurations -->  
-  <entity class="com.oreon.smartsis.domain.Sponsorship" name="Sponsorship"> 
-    <table name="sponsorship"></table> 
+  <!--  Parent  JPA Configurations -->  
+  <entity class="com.oreon.smartsis.domain.Parent" name="Parent"> 
+    <table name="parent"></table> 
   </entity>  
   <!--  Grade  JPA Configurations -->  
   <entity class="com.oreon.smartsis.domain.Grade" name="Grade"> 
@@ -144,5 +140,28 @@
   <!--  BedAllocation  JPA Configurations -->  
   <entity class="com.oreon.smartsis.hostel.BedAllocation" name="BedAllocation"> 
     <table name="bedallocation"></table> 
+  </entity>  
+  <!--  User  JPA Configurations -->  
+  <entity class="com.oreon.smartsis.users.User" name="User"> 
+    <table name="user"></table>  
+    <named-query name="user.findByUnqUserName"> 
+      <query> <![CDATA[
+			select u from User u where u.userName = ?1
+			]]> </query> 
+    </named-query>  
+    <named-query name="user.findByUnqEmail"> 
+      <query> <![CDATA[
+			select u from User u where u.email = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Role  JPA Configurations -->  
+  <entity class="com.oreon.smartsis.users.Role" name="Role"> 
+    <table name="role"></table>  
+    <named-query name="role.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Role u where u.name = ?1
+			]]> </query> 
+    </named-query> 
   </entity> 
 </entity-mappings>
