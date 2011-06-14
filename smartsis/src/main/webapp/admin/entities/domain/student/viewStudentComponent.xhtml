@@ -17,6 +17,11 @@
           <f:param name="gradeId" value="#{studentAction.student.grade.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
+        <h:outputText value="#{msg.student_parent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parent', 'studentView')}"/>  
+        <s:link value="#{studentAction.student.parent.displayName}" view="/admin/entities/domain/parent/viewParent.xhtml" propagation="none"> 
+          <f:param name="parentId" value="#{studentAction.student.parent.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
         <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'studentView')}"/>  
         <h:outputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'studentView')}" value="#{studentAction.student.firstName}"></h:outputText>  
         <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'studentView')}"/>  

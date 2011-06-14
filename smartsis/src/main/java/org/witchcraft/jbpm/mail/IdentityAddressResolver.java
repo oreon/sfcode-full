@@ -1,8 +1,9 @@
 package org.witchcraft.jbpm.mail;
 
 import org.jboss.seam.Component;
-import org.witchcraft.users.User;
-import org.witchcraft.users.action.UserAction;
+
+import com.oreon.smartsis.users.User;
+import com.oreon.smartsis.web.action.users.UserAction;
 
 
 

@@ -26,6 +26,13 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="grade" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'studentEdit')}"/>  
+        <h:outputText value="#{msg.student_parent} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parent', 'studentEdit')}"/>  
+        <h:selectOneMenu id="parent" label="#{msg.student_parent}" value="#{studentAction.student.parent}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parent', 'studentEdit')}"> 
+          <s:selectItems value="#{parentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="parent" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parent', 'studentEdit')}"/>  
         <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'studentEdit')}"/>  
         <h:inputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'studentEdit')}" label="#{msg.person_firstName}" required="false" value="#{studentAction.student.firstName}"> 
           <rich:ajaxValidator event="onsubmit"/> 

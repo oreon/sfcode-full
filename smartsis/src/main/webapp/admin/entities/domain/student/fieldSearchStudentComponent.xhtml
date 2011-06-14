@@ -57,6 +57,14 @@
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 
       </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.student_parent} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parent', 'studentEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="parent" value="#{ studentList.student.parent}"> 
+        <s:selectItems value="#{parentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

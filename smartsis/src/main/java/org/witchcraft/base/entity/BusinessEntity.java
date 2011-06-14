@@ -24,7 +24,8 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
-import org.witchcraft.users.User;
+
+import com.oreon.smartsis.users.User;
 
 //import com.oreon.trkincidents.users.User;
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'parentEdit')}"/>  
+        <br/>  
+        <h:inputText id="firstName" value="#{parentAction.parent.firstName}"/>  
+        <rich:message styleClass="error errors" for="firstName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'parentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'parentEdit')}"/>  
+        <br/>  
+        <h:inputText id="lastName" value="#{parentAction.parent.lastName}"/>  
+        <rich:message styleClass="error errors" for="lastName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'parentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'parentEdit')}"/>  
+        <br/>  
+        <h:inputText id="contactDetails_primaryPhone" value="#{parentAction.parent.contactDetails.primaryPhone}"/>  
+        <rich:message styleClass="error errors" for="contactDetails_primaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'parentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('secondaryPhone', 'parentEdit')}"/>  
+        <br/>  
+        <h:inputText id="contactDetails_secondaryPhone" value="#{parentAction.parent.contactDetails.secondaryPhone}"/>  
+        <rich:message styleClass="error errors" for="contactDetails_secondaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('secondaryPhone', 'parentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentEdit')}"/>  
+        <br/>  
+        <h:inputText id="contactDetails_email" value="#{parentAction.parent.contactDetails.email}"/>  
+        <rich:message styleClass="error errors" for="contactDetails_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

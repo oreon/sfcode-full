@@ -1,7 +1,9 @@
 package com.oreon.smartsis.web.action.reports;
 
+import org.jboss.seam.Component;
 import org.testng.annotations.Test;
 import org.witchcraft.action.test.BaseReportsTest;
+import org.witchcraft.jasperreports.BaseReportAction;
 
 public class StudentsByGenderAndGradeTest extends BaseReportsTest {
 
@@ -12,6 +14,19 @@ public class StudentsByGenderAndGradeTest extends BaseReportsTest {
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
 		}
+	}
+
+	//@Test
+	public void testStudentsByGenderAndGradeReportAction() throws Exception {
+		new ComponentTest() {
+			protected void testComponents() throws Exception {
+				StudentsByGenderAndGradeAction studentsByGenderAndGradeAction = (StudentsByGenderAndGradeAction) Component
+						.getInstance("studentsByGenderAndGradeAction");
+				studentsByGenderAndGradeAction.runReport(
+						"StudentsByGenderAndGrade",
+						BaseReportAction.REPORT_TYPE.LOCAL.name());
+			}
+		}.run();
 	}
 
 }
