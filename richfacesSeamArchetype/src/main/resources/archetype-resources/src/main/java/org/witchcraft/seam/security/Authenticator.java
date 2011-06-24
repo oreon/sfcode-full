@@ -69,7 +69,7 @@ public class Authenticator {
 			UserAction userAction = (UserAction) Component.getInstance("userAction");
 			userAction.setInstance(user);
 			userAction.save();*/
-			Conversation.instance().end();
+			
 			return true;
 		}
 

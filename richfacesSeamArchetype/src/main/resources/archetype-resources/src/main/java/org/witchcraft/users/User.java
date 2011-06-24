@@ -40,7 +40,7 @@ public class User extends BusinessEntity {
 	//roles->user ->User->Role->Role
 
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_ID", unique = true), inverseJoinColumns = @JoinColumn(name = "roles_ID", unique = true))
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_ID", unique = true), inverseJoinColumns = @JoinColumn(name = "roles_ID", unique = true))
 	private Set<Role> roles = new HashSet<Role>();
 
 	public void setUserName(String userName) {

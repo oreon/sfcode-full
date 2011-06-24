@@ -63,7 +63,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	@Logger
 	protected Log log;
 
-	@In
+	@In(create=true)
 	// @PersistenceContext(type = PersistenceContextType.EXTENDED)
 	protected FullTextEntityManager entityManager;
 
@@ -72,6 +72,9 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 	@In
 	protected Events events;
+	
+	public static final String SUCCESS = "success";
+	public static final String FAILURE = "failure";
 
 	@RequestParameter
 	private String queryString;
@@ -284,15 +287,13 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 	}
 
-	// @Begin(join=true)
 	public String save() {
 		return doSave();
 	}
 
 	@End(beforeRedirect=true)
 	public String saveWithoutConversation() {
-		String result = doSave();
-		// entityManager.refresh(getInstance());
+		String result = save();
 		Conversation.instance().end();
 		clearInstance();
 		return result;
@@ -389,9 +390,11 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		
 	}
 
-	public void search() {
+	@SuppressWarnings("unchecked")
+	public List<T> search(T  t) {
+		setInstance(t);
 		Criteria criteria = createExampleCriteria();
-		// setEntityList(criteria.list());
+		return criteria.list();
 	}
 
 	public List<AuditLog> getAuditLog() {
@@ -492,48 +495,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		return retVal;
 	}
 
-	/**
-	 * (non-Javadoc)
-	 * 
-	 * @see org.witchcraft.model.support.dao.GenericDAO#performTextSearch(java.lang
-	 *      .String)
-	 */
-	public String textSearch() {
-
-		BusinessEntity businessEntity = getInstance();
-
-		List<String> listSearchableFields = businessEntity
-				.listSearchableFields();
-
-		if (listSearchableFields == null) {
-			throw new RuntimeException(
-					businessEntity.getClass().getSimpleName()
-							+ " needs to override retrieveSearchableFieldsArray method ");
-		}
-
-		String[] arrFields = new String[listSearchableFields.size()];
-		listSearchableFields.toArray(arrFields);
-
-		MultiFieldQueryParser parser = new MultiFieldQueryParser(arrFields,
-				new StandardAnalyzer());
-
-		org.apache.lucene.search.Query query = null;
-
-		try {
-			query = parser.parse(queryString);
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
-		}
-
-		FullTextQuery ftq = entityManager.createFullTextQuery(query,
-				getInstance().getClass());
-
-		List<T> result = ftq.getResultList();
-
-		// setEntityList(result);
-		return getClassName();
-	}
-
+	
 	/**
 	 * To create a full text index for the given entity
 	 * 

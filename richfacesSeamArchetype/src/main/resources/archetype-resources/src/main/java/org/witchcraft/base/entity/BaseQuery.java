@@ -18,49 +18,54 @@ import javax.faces.render.ResponseStateManager;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
+import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.search.highlight.Highlighter;
+import org.apache.lucene.search.highlight.QueryScorer;
+import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
+import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
+import org.apache.lucene.util.Version;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.framework.EntityQuery;
+import org.jboss.seam.log.Log;
 import org.jboss.seam.persistence.PersistenceProvider;
+import org.witchcraft.exceptions.ContractViolationException;
 
 
 
-
+/**
+ * @author User
+ *
+ * @param <E>
+ * @param <PK>
+ */
 @SuppressWarnings("serial")
-public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializable> extends
-		EntityQuery<E> {
+public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializable>
+		extends EntityQuery<E> {
+
+	private static final String SEARCH_DATA = "searchData";
 
 	private Class<E> entityClass = null;
 
 	protected E instance;
-	
-	
+
+	@Logger
+	protected Log log;
+
 	private Range<java.util.Date> dateCreatedRange = new Range<Date>();
 
 	private List<E> entityList;
-	
+
 	@RequestParameter
 	protected String searchText;
-	
-	protected String textToSearch;
-	
-	public String getTextToSearch() {
-		return textToSearch;
-	}
-
-	public void setTextToSearch(String textToSearch) {
-		this.textToSearch = textToSearch;
-	}
-
 
 	public static final int DEFAULT_PAGES_FOR_PAGINATION = 25;
-	
+
 	@In
 	// @PersistenceContext(type=EXTENDED)
 	protected FullTextEntityManager entityManager;
@@ -72,7 +77,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	public void setSearchText(String searchText) {
 		this.searchText = searchText;
 	}
-	
+
 	public abstract String[] getEntityRestrictions();
 
 	public BaseQuery() {
@@ -81,9 +86,20 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		setMaxResults(DEFAULT_PAGES_FOR_PAGINATION);
 	}
 
-	protected  String getql(){
+	protected String getql() {
 		String simpleEntityName = getSimpleEntityName().toLowerCase();
-		return "SELECT " + simpleEntityName + " FROM  " + getEntityName() + " " + simpleEntityName;
+		return "SELECT " + simpleEntityName + " FROM  " + getEntityName() + " "
+				+ simpleEntityName;
+	}
+
+	protected String textToSearch;
+
+	public String getTextToSearch() {
+		return textToSearch;
+	}
+
+	public void setTextToSearch(String textToSearch) {
+		this.textToSearch = textToSearch;
 	}
 
 	/**
@@ -236,8 +252,6 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		}
 	}
 
-	
-
 	public Range<java.util.Date> getDateCreatedRange() {
 		return dateCreatedRange;
 	}
@@ -245,100 +259,96 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	public void setDateCreatedRange(Range<java.util.Date> dateCreatedRange) {
 		this.dateCreatedRange = dateCreatedRange;
 	}
-	
-	
+
 	@SuppressWarnings("unchecked")
-	@Begin(join=true)
+	@Begin(join = true)
 	public String textSearch() {
 
-		BusinessEntity businessEntity = null;
-		try {
-			businessEntity = getEntityClass().newInstance();
-		} catch (InstantiationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IllegalAccessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		List<String> listSearchableFields = businessEntity.listSearchableFields();
- 
-		if ( listSearchableFields == null) {
-			throw new RuntimeException(
-					businessEntity.getClass().getSimpleName()
-							+ " needs to override retrieveSearchableFieldsArray method ");
-		}
 
-		String[] arrFields = new String[listSearchableFields.size()];
-		listSearchableFields.toArray(arrFields);
-		
-		MultiFieldQueryParser parser = new MultiFieldQueryParser(arrFields, new StandardAnalyzer());
+		QueryParser parser = new QueryParser(Version.LUCENE_30, SEARCH_DATA ,
+			 entityManager.getSearchFactory()
+						.getAnalyzer("entityAnalyzer"));
 
 		org.apache.lucene.search.Query query = null;
 
 		try {
-			if(searchText == null)
+			if (searchText == null)
 				searchText = textToSearch;
-			if(searchText == null)
+			if (searchText == null)
 				searchText = "";
 			query = parser.parse(searchText);
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
 		}
 
-		FullTextQuery ftq = entityManager.createFullTextQuery(query, getEntityClass());
+		QueryScorer scorer = new QueryScorer(query, SEARCH_DATA);
+		// Highlight using a CSS style
+		SimpleHTMLFormatter formatter = new SimpleHTMLFormatter(
+				"<span style='background-color:yellow;'>", "</span>");
+		Highlighter highlighter = new Highlighter(formatter, scorer); 
+		highlighter.setTextFragmenter(new SimpleSpanFragmenter(scorer, 100));
+
+		FullTextQuery ftq = entityManager.createFullTextQuery(query,
+				getEntityClass());
 
 		List<E> result = ftq.getResultList();
 		
+		for (E e : result) {
+			try {
+				String fragment = highlighter.getBestFragment(entityManager
+						.getSearchFactory().getAnalyzer("entityAnalyzer"),
+						SEARCH_DATA, e.getSearchData() );
+				
+				e.setHiglightedFragment(fragment);
+			} catch (Exception ex) {
+				throw new ContractViolationException(ex.getMessage());
+			}
+		}
+
 		setEntityList(result);
 		return "textSearch";
 	}
-	
-	
-	//@Override
+
+	// @Override
 	public void setEntityList(List<E> list) {
 		this.entityList = list;
 	}
 
 	public List<E> getEntityList() {
-		//if(entityList == null )
 		return entityList;
 	}
-	
-	protected boolean isPostBack() {
-		ResponseStateManager rtm = FacesContext.getCurrentInstance()
-				.getRenderKit().getResponseStateManager();
-		return rtm.isPostback(FacesContext.getCurrentInstance());
-	}
 
-	
-	
-	/** do autocomplete based on lucene/hibernate text search
+	/**
+	 * do autocomplete based on lucene/hibernate text search
+	 * 
 	 * @param suggest
 	 * @return
 	 */
 	public List<E> autocomplete(Object suggest) {
 
-        String input = (String)suggest;
+		String input = (String) suggest;
 
-        ArrayList<E> result = new ArrayList<E>();
-        //departmentListQuery.getDepartment().setName(input);
-       
-        Iterator<E> iterator = getResultList().iterator();
+		ArrayList<E> result = new ArrayList<E>();
+		// departmentListQuery.getDepartment().setName(input);
 
-        while (iterator.hasNext()) {
-            E elem =  iterator.next();
-            String elemProperty = elem.getDisplayName();
-            if ((elemProperty != null && elemProperty.toLowerCase().indexOf(input.toLowerCase()) == 0) || "".equals(input)){
-                result.add(elem);
-            }
-        }
+		Iterator<E> iterator = getResultList().iterator();
 
-        return result;
-    }
-	
-	/** Do autocomplete based on database fields 
+		while (iterator.hasNext()) {
+			E elem = iterator.next();
+			String elemProperty = elem.getDisplayName();
+			if ((elemProperty != null && elemProperty.toLowerCase().indexOf(
+					input.toLowerCase()) == 0)
+					|| "".equals(input)) {
+				result.add(elem);
+			}
+		}
+
+		return result;
+	}
+
+	/**
+	 * Do autocomplete based on database fields
+	 * 
 	 * @param suggest
 	 * @return
 	 */
@@ -349,16 +359,18 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		return getResultList();
 	}
 
-	/** This method should be overridden by derived classes to provide fileds that will be used for autocomplete
+	/**
+	 * This method should be overridden by derived classes to provide fileds
+	 * that will be used for autocomplete
+	 * 
 	 * @param input
 	 */
 	protected void setupForAutoComplete(String input) {
-		
+
 	}
-	
-	
+
 	/**
-	 *  set the query to be usable by hibernate second level cache
+	 * set the query to be usable by hibernate second level cache
 	 */
 	@SuppressWarnings("unchecked")
 	protected void setQueryCacheable() {
@@ -366,38 +378,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		region.put("name=org.hibernate.cacheable", "value=true");
 		this.setHints(region);
 	}
-	
-	public void exportToCsv() {
-		int originalMaxResults = getMaxResults();
-		setMaxResults(50000);
-		
-		List<E> results = getResultList();
 
-		StringBuilder builder = new StringBuilder();
-		createCSvTitles(builder);
-
-		for (E e : results) {
-			createCsvString(builder, e);
-		}
-
-		setMaxResults(originalMaxResults);
-		downloadAttachment(builder.toString().getBytes());
-
-	}
-	
-	/** create comma delimited row 
-	 * @param builder
-	 */
-	public void createCsvString(StringBuilder builder, E e){
-	}
-	
-	/** create the headings 
-	 * @param builder
-	 */
-	public void createCSvTitles(StringBuilder builder ){
-	
-	}
-	
 	protected void downloadAttachment(byte[] bytes) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletResponse response = (HttpServletResponse) context
@@ -414,22 +395,60 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 			os.close();
 			context.responseComplete();
 		} catch (Exception e) {
-			//log.error("\nFailure : " + e.toString() + "\n");
+			log.error("\nFailure : " + e.toString() + "\n");
 		}
 	}
 
-	@Override
-	public String getOrderColumn() {
-		if(super.getOrderColumn() == null)
-			return "id";
-		return super.getOrderColumn();
+	public void exportToCsv() {
+		int originalMaxResults = getMaxResults();
+		setMaxResults(50000);
+		
+		List<E> results = getResultList();
+
+		StringBuilder builder = new StringBuilder();
+		createCSvTitles(builder);
+
+		for (E e : results) {
+			createCsvString(builder, e);
+		}
+
+		setMaxResults(originalMaxResults);
+		downloadAttachment(builder.toString().getBytes());
 	}
 	
-	@Override
-	public String getOrderDirection() {
-		if(super.getOrderDirection() == null)
-			return "desc";
-		return super.getOrderDirection();
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	public void createCsvString(StringBuilder builder, E e){
+	}
+	
+
+	
+	/** create the headings 
+	 * @param builder
+	 */
+	public void createCSvTitles(StringBuilder builder ){
+	
+	}
+	
+	
+	protected boolean isPostBack() {
+		ResponseStateManager rtm = FacesContext.getCurrentInstance()
+				.getRenderKit().getResponseStateManager();
+		return rtm.isPostback(FacesContext.getCurrentInstance());
+	}
+	
+	/** Creates a string for export to csv, if null, blank string is returned
+	 * @param e
+	 * @return
+	 */
+	protected String getFieldForCSV(String e) {
+		return (e != null ? e.replace("," , "") : "");
+	}
+	
+	
+	public static void main(String[] args) {
+		
 	}
 	
 }

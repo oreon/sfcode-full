@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <components xmlns="http://jboss.com/products/seam/components"
-	xmlns:core="http://jboss.com/products/seam/core" xmlns:drools="http://jboss.com/products/seam/drools"
+	xmlns:core="http://jboss.com/products/seam/core" 
+	xmlns:drools="http://jboss.com/products/seam/drools"
+	xmlns:bpm="http://jboss.com/products/seam/bpm"
+	xmlns:international="http://jboss.com/products/seam/international"
 	xmlns:security="http://jboss.com/products/seam/security" xmlns:web="http://jboss.com/products/seam/web"
 	xmlns:mail="http://jboss.com/products/seam/mail" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	
 	xmlns:persistence="http://jboss.com/products/seam/persistence"
 	xmlns:transaction="http://jboss.com/products/seam/transaction"
 	xmlns:navigation="http://jboss.com/products/seam/navigation"
@@ -18,6 +22,10 @@
  					http://jboss.com/products/seam/web-2.0.xsd      
  					http://jboss.com/products/seam/navigation
  					http://jboss.com/products/seam/navigation-2.0.xsd 
+ 					http://jboss.com/products/seam/bpm 
+ 			      	http://jboss.com/products/seam/bpm-2.0.xsd
+ 			      	http://jboss.com/products/seam/international 
+ 			      	http://jboss.com/products/seam/international-2.0.xsd
  					http://jboss.com/products/seam/persistence 
  					http://jboss.com/products/seam/persistence-2.0.xsd">
 
@@ -52,6 +60,9 @@
 		</persistence:filters>
 
 	</persistence:managed-persistence-context>
+	
+		<mail:mail-session host="smtp.gmail.com" username="neonwc@gmail.com"
+		password="witchcraft" ssl="true" port="465" />
 
 	<transaction:entity-transaction
 		entity-manager="#{entityManager}" />
@@ -77,10 +88,13 @@
 		<action execute="#{redirect.returnToCapturedView}" />
 	</event>
 	
+
+	
+	<web:cache-control-filter name="commonTypesCacheControlFilter" regex-url-pattern=".*(\.gif|\.png|\.jpg|\.jpeg|\.css|\.js)" value="max-age=86400"/> <!-- 1 day -->
 	
 	<!--
 		<bpm:jbpm> <bpm:process-definitions>
-		<value>processes/processDefinition.jpdl.xml</value>
+		<value>processes/processdefinition.xml</value>
 		</bpm:process-definitions> </bpm:jbpm>
 	-->
 

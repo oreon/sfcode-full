@@ -2,6 +2,7 @@ package org.witchcraft.base.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +20,14 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
 import org.witchcraft.users.User;
+
+//import com.oreon.trkincidents.users.User;
+
 
 
 
@@ -30,25 +38,48 @@ public class BusinessEntity implements Serializable{
 
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="id")
-    //@DocumentId
-    protected Long id;
+    @DocumentId
+    private Long id;
+    
+	@Transient
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	private String searchData;
     
     private boolean archived;
     
     @Version
     @Column(name="version")
-    private Long version;
+    transient private Long version;
     
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="date_created")
     private Date dateCreated;
     
+    @Transient
+    private String higlightedFragment;
+    
      
     @ManyToOne(optional=true, fetch=FetchType.LAZY)
     @JoinColumn(name="created_by_user_id", nullable=true)
     private User createdByUser;
-   
+    
+    
+    @Transient
+    private String highlightedFragment;
+    
+    public void setHighlightedFragment(String highlightedFragment) {
+		this.highlightedFragment = highlightedFragment;
+	}
+
+	public String getHighlightedFragment() {
+		return highlightedFragment;
+	}
+
+	
+    
+    
     
     public Boolean isArchived() {
 		return archived;
@@ -116,11 +147,17 @@ public class BusinessEntity implements Serializable{
     public String getDisplayName(){
     	return toString();
     }
+   
+    
     
     
 	public List<String> listSearchableFields() {
     	return new ArrayList<String>();
     }
+	
+	public String getPopupInfo(){
+		return getDisplayName();
+	}
 	
 	
 	@Override
@@ -132,4 +169,28 @@ public class BusinessEntity implements Serializable{
 			return false;
     	return this.getId() == entity.getId();
     }
+	
+	public String getCollectionAsString(Collection<? extends BusinessEntity> list){
+		StringBuffer ret = new StringBuffer();
+		for (BusinessEntity businessEntity : list) {
+			ret.append(businessEntity.getDisplayName() + "; ");
+		}
+		return ret.toString();
+	}
+
+	public void setHiglightedFragment(String higlightedFragment) {
+		this.higlightedFragment = higlightedFragment;
+	}
+
+	public String getHiglightedFragment() {
+		return higlightedFragment;
+	}
+
+	public void setSearchData(String searchData) {
+		this.searchData = searchData;
+	}
+
+	public String getSearchData() {
+		return searchData;
+	}
 }
