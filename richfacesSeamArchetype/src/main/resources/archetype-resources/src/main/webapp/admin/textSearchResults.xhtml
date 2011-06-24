@@ -1,6 +1,5 @@
 
-<ui:composition 
- xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -8,27 +7,38 @@
 	xmlns:a="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
-	template = "/admin/template.xhtml" >	
+	template="/admin/template.xhtml">
 	<ui:define name="content">
-	<h:form>
-	
-	<!-- 
-	<ui:repeat var="issue" value="#{issueList.entityList}">
-		${issue.title}
-		<br/>
-		${issue.description}
-		<hr/>
-	</ui:repeat>
-	 -->
-	
-	 <ui:include src="/admin/entities/issues/issue/listIssueComponent.xhtml"> 
-      <ui:param name="records" value="#{issueList.entityList}"/> 
-    </ui:include>  
-	
-	
-	</h:form>
-	</ui:define> 
+		Found #{claimListConversational.entityList.size} results for search term: <b>
+		${claimListConversational.searchText} </b>
+		<br />
+		<h:form>
+
+			<rich:tabPanel>
+				<rich:tab label="Search Results">
+					<ui:repeat var="claim"
+						value="#{claimListConversational.entityList}">
+						<s:link value="${claim.summary}"
+							view="/admin/entities/quickclaim/claim/viewClaim.seam">
+							<f:param name="claimId" value="${claim.id}" />
+						</s:link>
+						<br />
+		<h:outputText value="${claim.higlightedFragment}" escape="false" />
+						<hr />
+					</ui:repeat>
+
+				</rich:tab>
+				<rich:tab label="Tabular">
+					<ui:include
+						src="/admin/entities/quickclaim/claim/listClaimComponent.xhtml">
+						<ui:param name="records"
+							value="#{claimListConversational.entityList}" />
+					</ui:include>
+
+				</rich:tab>
+			</rich:tabPanel>
+		</h:form>
+	</ui:define>
 </ui:composition>
-	

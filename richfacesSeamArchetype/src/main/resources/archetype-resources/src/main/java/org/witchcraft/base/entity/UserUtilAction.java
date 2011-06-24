@@ -14,7 +14,7 @@ import org.witchcraft.users.User;
 @Name("userUtilAction")
 @Scope(ScopeType.SESSION)
 public class UserUtilAction implements Serializable{
-	
+	 
 	
 	/**
 	 * 

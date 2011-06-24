@@ -36,7 +36,7 @@ public class UserAction extends BaseAction<User>
 	@Factory("userList")
 	@Observer("archivedUser")
 	public void findRecords() {
-		search();
+		
 	}
 
 	public User getEntity() {
