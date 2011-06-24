@@ -13,12 +13,11 @@
 	
 	
 
-	<!-- ############### Embedded JBoss AS #################  -->
 	<category name="org.jboss">
 		<priority value="INFO" />
 	</category>
 
-	<category name="com.jug">
+	<category name="${groupId}">
 		<priority value="WARN" />
 	</category>
 
@@ -26,21 +25,18 @@
 		<priority value="WARN" />
 	</category>
 
-	<!-- ############### Hibernate logging ################# -->
-
+	
 	<category name="org.hibernate">
 		<priority value="WARN" />
 	</category>
 
 
-
-	<!-- ############### Seam logging ################### -->
 	<category name="org.jboss.seam">
 		<priority value="WARN" />
 	</category>
 
 	<appender name="FILE" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="logs/${artifactId}.log" />
+		<param name="File" value="logs/pl4.log" />
 		<param name="MaxFileSize" value="10MB" />
 		<param name="MaxBackupIndex" value="100" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -49,7 +45,7 @@
 	</appender>
 
 	
-	<!-- 	<appender-ref ref="MAIL" />  -->
+	<appender-ref ref="MAIL" />  
 
 	<root>
 		<priority value="WARN" />
