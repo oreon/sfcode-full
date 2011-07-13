@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.disciplinaryAction_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'disciplinaryActionEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="student" value="#{ disciplinaryActionList.disciplinaryAction.student}"> 
+        <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.disciplinaryAction_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'disciplinaryActionEdit')}"/>  
+      <br/>  
+      <h:inputText id="title" value="#{disciplinaryActionList.disciplinaryAction.title}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.disciplinaryAction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'disciplinaryActionEdit')}"/>  
+      <br/>  
+      <h:inputText id="description" value="#{disciplinaryActionList.disciplinaryAction.description}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.disciplinaryAction_employee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'disciplinaryActionEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="employee" value="#{ disciplinaryActionList.disciplinaryAction.employee}"> 
+        <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{disciplinaryActionList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{disciplinaryActionList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

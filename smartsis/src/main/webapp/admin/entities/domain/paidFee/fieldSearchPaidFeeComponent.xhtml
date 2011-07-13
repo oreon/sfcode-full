@@ -35,6 +35,39 @@
         <s:selectItems value="#{gradeFeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.paidFee_gradeFeesInstance} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeesInstance', 'paidFeeEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="gradeFeesInstance" value="#{ paidFeeList.paidFee.gradeFeesInstance}"> 
+        <s:selectItems value="#{gradeFeesInstanceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.paidFee_month}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'paidFeeEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="month" value="#{paidFeeList.paidFee.month}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="JAN" itemLabel="Jan"/>  
+        <f:selectItem itemValue="FEB" itemLabel="Feb"/>  
+        <f:selectItem itemValue="MAR" itemLabel="Mar"/>  
+        <f:selectItem itemValue="APR" itemLabel="Apr"/>  
+        <f:selectItem itemValue="MAY" itemLabel="May"/>  
+        <f:selectItem itemValue="JUN" itemLabel="Jun"/>  
+        <f:selectItem itemValue="JUL" itemLabel="Jul"/>  
+        <f:selectItem itemValue="AUG" itemLabel="Aug"/>  
+        <f:selectItem itemValue="SEP" itemLabel="Sep"/>  
+        <f:selectItem itemValue="OCT" itemLabel="Oct"/>  
+        <f:selectItem itemValue="NOV" itemLabel="Nov"/>  
+        <f:selectItem itemValue="DEC" itemLabel="Dec"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.paidFee_year}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('year', 'paidFeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="year" value="#{paidFeeList.paidFee.year}"/> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

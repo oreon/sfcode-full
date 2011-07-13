@@ -29,6 +29,25 @@
       <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentEdit')}"/>  
       <br/>  
       <h:inputText id="contactDetails_email" value="#{parentList.parent.contactDetails.email}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.user_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'parentEdit')}"/>  
+      <br/>  
+      <h:inputText id="user_userName" value="#{parentList.parent.user.userName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.user_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentEdit')}"/>  
+      <br/>  
+      <h:inputText id="user_email" value="#{parentList.parent.user.email}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'parentEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="user_enabled" value="#{parentList.parent.user.enabled}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

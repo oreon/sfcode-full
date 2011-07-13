@@ -141,6 +141,30 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('scholarship', 'studentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{studentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.student_scholarship}"/>  
+              <ui:param name="propertyPath" value="student.scholarship"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_student.scholarship}"> 
+            <f:convertNumber pattern="$#,##0.00"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('discontinueDate', 'studentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{studentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.student_discontinueDate}"/>  
+              <ui:param name="propertyPath" value="student.discontinueDate"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_student.discontinueDate}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'studentView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

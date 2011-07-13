@@ -98,7 +98,7 @@ public class GradeFee extends BusinessEntity implements java.io.Serializable {
 	@Transient
 	public String getDisplayName() {
 		try {
-			return grade + "";
+			return fee.name;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}

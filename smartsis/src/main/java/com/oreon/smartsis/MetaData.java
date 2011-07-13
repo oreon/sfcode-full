@@ -60,6 +60,12 @@ public class MetaData {
 
 	"parent.displayName", "java.lang.String",
 
+	"scholarship", "java.lang.Double",
+
+	"studentVitalInfosCount", "java.lang.Integer",
+
+	"discontinueDate", "java.util.Date",
+
 	},
 
 	{"com.oreon.smartsis.domain.Parent",
@@ -75,6 +81,8 @@ public class MetaData {
 	"contactDetails.email", "java.lang.String",
 
 	"studentsCount", "java.lang.Integer",
+
+	"user.displayName", "java.lang.String",
 
 	},
 
@@ -199,6 +207,44 @@ public class MetaData {
 	"student.displayName", "java.lang.String",
 
 	"gradeFee.displayName", "java.lang.String",
+
+	"gradeFeesInstance.displayName", "java.lang.String",
+
+	"month.name", "java.lang.String",
+
+	"year", "java.lang.Long",
+
+	},
+
+	{"com.oreon.smartsis.domain.DisciplinaryAction",
+
+	"student.displayName", "java.lang.String",
+
+	"title", "java.lang.String",
+
+	"description", "java.lang.String",
+
+	"employee.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.smartsis.domain.StudentVitalInfo",
+
+	"height", "java.lang.Long",
+
+	"weight", "java.lang.Long",
+
+	"student.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.smartsis.domain.GradeFeesInstance",
+
+	"paidFeesCount", "java.lang.Integer",
+
+	"grade.displayName", "java.lang.String",
+
+	"period", "java.lang.String",
 
 	},
 

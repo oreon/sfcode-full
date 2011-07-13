@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{gradeFeesInstanceAction.load(gradeFeesInstanceId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{gradeFeesInstanceAction.gradeFeesInstance.id}"/>  
+        <h:outputText value="#{msg.gradeFeesInstance_grade}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'gradeFeesInstanceView')}"/>  
+        <s:link value="#{gradeFeesInstanceAction.gradeFeesInstance.grade.displayName}" view="/admin/entities/domain/grade/viewGrade.xhtml" propagation="none"> 
+          <f:param name="gradeId" value="#{gradeFeesInstanceAction.gradeFeesInstance.grade.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.gradeFeesInstance_period}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('period', 'gradeFeesInstanceView')}"/>  
+        <h:outputText id="period#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('period', 'gradeFeesInstanceView')}" value="#{gradeFeesInstanceAction.gradeFeesInstance.period}"></h:outputText> 
+      </h:panelGrid>  
+      <rich:dataTable id="paidFees" var="_paidFee" rendered="#{not empty gradeFeesInstanceAction.listPaidFees and skipPermissionCheck == 'true' || s:hasPermission('paidFees', 'gradeFeesInstanceView') }" value="#{gradeFeesInstanceAction.listPaidFees}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.paidFee_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'paidFeeView')}"/>
+          </f:facet>  
+          <s:link value="#{_paidFee.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml" propagation="none"> 
+            <f:param name="studentId" value="#{_paidFee.student.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.paidFee_gradeFee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFee', 'paidFeeView')}"/>
+          </f:facet>  
+          <s:link value="#{_paidFee.gradeFee.displayName}" view="/admin/entities/domain/gradeFee/viewGradeFee.xhtml" propagation="none"> 
+            <f:param name="gradeFeeId" value="#{_paidFee.gradeFee.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.paidFee_amount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'paidFeeView')}"/>
+          </f:facet>  
+          <h:outputText id="amount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'paidFeeView')}" value="#{_paidFee.amount}"></h:outputText> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.paidFee_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('notes', 'paidFeeView')}"/>
+          </f:facet>  
+          <h:outputText escape="false" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('notes', 'paidFeeView')}" value="#{_paidFee.notes}"></h:outputText> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.paidFee_month}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'paidFeeView')}"/>
+          </f:facet>  
+          <h:outputText value="#{_paidFee.month}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.paidFee_year}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('year', 'paidFeeView')}"/>
+          </f:facet>  
+          <h:outputText id="year#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('year', 'paidFeeView')}" value="#{_paidFee.year}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

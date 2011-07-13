@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+
+<jasperReport name="UnpaidFeesReport" isTitleNewPage="false" isSummaryNewPage="false" formatFactoryClass="org.witchcraft.jasperreports.WCFormatFactory"> 
+  <parameter name="ReportTitle" class="java.lang.String"/>  
+  <queryString language="ejbql"> <![CDATA[select s from Student s where s.id not in (select student.id from PaidFee p )]]> </queryString>  
+  <field name="id" class="java.lang.Long"/>  
+  <field name="firstName" class="java.lang.String"/>  
+  <field name="lastName" class="java.lang.String"/>  
+  <field name="grade.name" class="java.lang.String"/>  
+  <variable name="Groupgrade_nameCounter" class="java.lang.Integer" incrementType="Group" incrementGroup="Groupgrade_name" calculation="Count"> 
+    <variableExpression><![CDATA[Boolean.TRUE]]></variableExpression> 
+  </variable>  
+  <group name="Groupgrade_name" minHeightToStartNewPage="60"> 
+    <groupExpression><![CDATA[$F{grade.name}]]></groupExpression>  
+    <groupHeader> 
+      <band height="20"> 
+        <textField evaluationTime="Group" evaluationGroup="Groupgrade_name" bookmarkLevel="1"> 
+          <reportElement mode="Opaque" x="0" y="5" width="540" height="15" backcolor="#e1e1f1"/>  
+          <box leftPadding="10" bottomBorder="1Point"/>  
+          <textFieldExpression class="java.lang.String"> <![CDATA[String.valueOf($F{grade.name})]]> </textFieldExpression>  
+          <anchorNameExpression><![CDATA[String.valueOf($F{grade.name})]]></anchorNameExpression> 
+        </textField> 
+      </band> 
+    </groupHeader>  
+    <groupFooter> 
+      <band height="20"></band> 
+    </groupFooter> 
+  </group>  
+  <title> 
+    <band height="70"> 
+      <line> 
+        <reportElement x="0" y="0" width="540" height="1"/>  
+        <graphicElement/> 
+      </line>  
+      <textField> 
+        <reportElement x="0" y="10" width="540" height="30"/>  
+        <textElement textAlignment="Center"> 
+          <font size="13"/> 
+        </textElement>  
+        <textFieldExpression class="java.lang.String"><![CDATA["UnpaidFeesReport"]]></textFieldExpression> 
+      </textField> 
+    </band> 
+  </title>  
+  <pageHeader> 
+    <band height="20"> 
+      <rectangle> 
+        <reportElement x="0" y="5" width="540" height="15" forecolor="#333333" backcolor="#333333"/>  
+        <graphicElement/> 
+      </rectangle>  
+      <staticText> 
+        <reportElement mode="Opaque" x="0" y="5" width="180" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Left"/>  
+        <text><![CDATA[Id]]></text> 
+      </staticText>  
+      <staticText> 
+        <reportElement mode="Opaque" x="180" y="5" width="180" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Left"/>  
+        <text><![CDATA[FirstName]]></text> 
+      </staticText>  
+      <staticText> 
+        <reportElement mode="Opaque" x="360" y="5" width="180" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Left"/>  
+        <text><![CDATA[LastName]]></text> 
+      </staticText> 
+    </band> 
+  </pageHeader>  
+  <detail> 
+    <band height="30"> 
+      <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
+        <reportElement x="0" y="0" width="180" height="24"/>  
+        <textElement textAlignment="Left"/>  
+        <textFieldExpression class="java.lang.Long"> <![CDATA[$F{id}]]> </textFieldExpression> 
+      </textField>  
+      <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
+        <reportElement x="180" y="0" width="180" height="24"/>  
+        <textElement textAlignment="Left"/>  
+        <textFieldExpression class="java.lang.String"> <![CDATA[$F{firstName}]]> </textFieldExpression> 
+      </textField>  
+      <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
+        <reportElement x="360" y="0" width="180" height="24"/>  
+        <textElement textAlignment="Left"/>  
+        <textFieldExpression class="java.lang.String"> <![CDATA[$F{lastName}]]> </textFieldExpression> 
+      </textField> 
+    </band> 
+  </detail>  
+  <summary> 
+    <band height="620"> 
+      <staticText> 
+        <reportElement mode="Opaque" x="0" y="1" width="540" height="15" backcolor="#c0c0c0"/>  
+        <box leftPadding="10" bottomBorder="1Point"/>  
+        <text><![CDATA[Summary]]> </text> 
+      </staticText> 
+    </band> 
+  </summary> 
+</jasperReport>

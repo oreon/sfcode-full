@@ -65,6 +65,25 @@
         <s:selectItems value="#{parentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.student_scholarship}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('scholarship', 'studentEdit')}"/>  
+      <br/>  
+      <h:inputText id="scholarship_begin" value="#{studentList.scholarshipRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="scholarship_end" value="#{studentList.scholarshipRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.student_discontinueDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueDate', 'studentEdit')}"/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <rich:calendar value="#{studentList.discontinueDateRange.begin}"/> To
+      <br/>  
+      <rich:calendar value="#{studentList.discontinueDateRange.end}"/> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

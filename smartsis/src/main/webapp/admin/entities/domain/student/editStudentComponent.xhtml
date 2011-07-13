@@ -67,8 +67,51 @@
         <rich:calendar direction="auto" id="dateOfBirth#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'studentEdit')}" label="#{msg.student_dateOfBirth}" required="false" value="#{studentAction.student.dateOfBirth}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </rich:calendar>  
-        <rich:message styleClass="error errors" for="dateOfBirth" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'studentEdit')}"/> 
-      </h:panelGrid> 
+        <rich:message styleClass="error errors" for="dateOfBirth" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'studentEdit')}"/>  
+        <h:outputText value="#{msg.student_scholarship}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('scholarship', 'studentEdit')}"/>  
+        <h:inputText id="scholarship#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('scholarship', 'studentEdit')}" label="#{msg.student_scholarship}" required="false" value="#{studentAction.student.scholarship}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="scholarship" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('scholarship', 'studentEdit')}"/>  
+        <h:outputText value="#{msg.student_discontinueDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueDate', 'studentEdit')}"/>  
+        <rich:calendar direction="auto" id="discontinueDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueDate', 'studentEdit')}" label="#{msg.student_discontinueDate}" required="false" value="#{studentAction.student.discontinueDate}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:calendar>  
+        <rich:message styleClass="error errors" for="discontinueDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueDate', 'studentEdit')}"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New StudentVitalInfo" action="#{studentAction.addStudentVitalInfos}" reRender="studentVitalInfos" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfos', 'studentEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="studentVitalInfos" var="_studentVitalInfo" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfos', 'studentEdit')}" value="#{studentAction.listStudentVitalInfos}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.studentVitalInfo_height}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('height', 'studentVitalInfoEdit')}"/>
+          </f:facet>  
+          <h:inputText id="height#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('height', 'studentVitalInfoEdit')}" label="#{msg.studentVitalInfo_height}" required="false" value="#{_studentVitalInfo.height}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="height" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('height', 'studentVitalInfoEdit')}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.studentVitalInfo_weight}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('weight', 'studentVitalInfoEdit')}"/>
+          </f:facet>  
+          <h:inputText id="weight#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('weight', 'studentVitalInfoEdit')}" label="#{msg.studentVitalInfo_weight}" required="false" value="#{_studentVitalInfo.weight}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="weight" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('weight', 'studentVitalInfoEdit')}"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New StudentVitalInfo" action="#{studentAction.addStudentVitalInfos}" reRender="studentVitalInfos" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfos', 'studentVitalInfoEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{studentAction.deleteStudentVitalInfos(rowIndex)}" reRender="studentVitalInfos"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

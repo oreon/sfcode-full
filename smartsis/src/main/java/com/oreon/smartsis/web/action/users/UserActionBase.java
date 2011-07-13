@@ -218,4 +218,16 @@ public abstract class UserActionBase extends BaseAction<User>
 
 	}
 
+	public String login() {
+
+		return null;
+
+	}
+
+	public String retrieveCredentials() {
+
+		return null;
+
+	}
+
 }

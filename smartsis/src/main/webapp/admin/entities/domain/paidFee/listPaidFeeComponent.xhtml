@@ -69,6 +69,39 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
+        <h:column groupOn="#{paidFee.gradeFeesInstance.displayName}" rendered="#{s:hasPermission('gradeFeesInstance', 'paidFeeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{paidFeeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.paidFee_gradeFeesInstance}"/>  
+              <ui:param name="propertyPath" value="paidFee.gradeFeesInstance"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_paidFee.gradeFeesInstance.displayName}" action="viewGradeFeesInstance" propagation="none"> 
+            <f:param name="gradeFeesInstanceId" value="#{_paidFee.gradeFeesInstance.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('month', 'paidFeeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{paidFeeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.paidFee_month}"/>  
+              <ui:param name="propertyPath" value="paidFee.month"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_paidFee.month}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('year', 'paidFeeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{paidFeeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.paidFee_year}"/>  
+              <ui:param name="propertyPath" value="paidFee.year"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_paidFee.year}" escape="false"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'paidFeeView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

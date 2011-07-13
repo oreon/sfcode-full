@@ -13,4 +13,6 @@ public interface StudentWebService {
 
 	public void save(Student student);
 
+	public List eExamsForStudent();
+
 }

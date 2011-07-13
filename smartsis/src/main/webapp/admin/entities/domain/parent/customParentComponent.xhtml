@@ -35,6 +35,24 @@
         <br/>  
         <h:inputText id="contactDetails_email" value="#{parentAction.parent.contactDetails.email}"/>  
         <rich:message styleClass="error errors" for="contactDetails_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.user_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'parentEdit')}"/>  
+        <br/>  
+        <h:inputText id="user_userName" value="#{parentAction.parent.user.userName}"/>  
+        <rich:message styleClass="error errors" for="user_userName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'parentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.user_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentEdit')}"/>  
+        <br/>  
+        <h:inputText id="user_email" value="#{parentAction.parent.user.email}"/>  
+        <rich:message styleClass="error errors" for="user_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'parentEdit')}"/>  
+        <br/>  
+        <h:selectBooleanCheckbox id="user_enabled" value="#{parentAction.parent.user.enabled}"/>  
+        <rich:message styleClass="error errors" for="user_enabled" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'parentEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

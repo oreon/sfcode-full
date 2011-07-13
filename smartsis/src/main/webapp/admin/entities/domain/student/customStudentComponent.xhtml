@@ -79,6 +79,18 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="parent" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parent', 'studentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.student_scholarship}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('scholarship', 'studentEdit')}"/>  
+        <br/>  
+        <h:inputText id="scholarship" value="#{studentAction.student.scholarship}"/>  
+        <rich:message styleClass="error errors" for="scholarship" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('scholarship', 'studentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.student_discontinueDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueDate', 'studentEdit')}"/>  
+        <br/>  
+        <rich:calendar id="discontinueDate" value="#{studentAction.student.discontinueDate}"/>  
+        <rich:message styleClass="error errors" for="discontinueDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueDate', 'studentEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

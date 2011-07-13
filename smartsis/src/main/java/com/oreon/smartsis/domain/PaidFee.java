@@ -69,6 +69,15 @@ public class PaidFee extends BusinessEntity implements java.io.Serializable {
 	@ContainedIn
 	protected GradeFee gradeFee;
 
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "gradeFeesInstance_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected GradeFeesInstance gradeFeesInstance;
+
+	protected FeeMonth month;
+
+	protected Long year;
+
 	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
@@ -106,6 +115,36 @@ public class PaidFee extends BusinessEntity implements java.io.Serializable {
 	public GradeFee getGradeFee() {
 
 		return gradeFee;
+
+	}
+
+	public void setGradeFeesInstance(GradeFeesInstance gradeFeesInstance) {
+		this.gradeFeesInstance = gradeFeesInstance;
+	}
+
+	public GradeFeesInstance getGradeFeesInstance() {
+
+		return gradeFeesInstance;
+
+	}
+
+	public void setMonth(FeeMonth month) {
+		this.month = month;
+	}
+
+	public FeeMonth getMonth() {
+
+		return month;
+
+	}
+
+	public void setYear(Long year) {
+		this.year = year;
+	}
+
+	public Long getYear() {
+
+		return year;
 
 	}
 
@@ -147,6 +186,10 @@ public class PaidFee extends BusinessEntity implements java.io.Serializable {
 
 		if (getGradeFee() != null)
 			builder.append("gradeFee:" + getGradeFee().getDisplayName() + " ");
+
+		if (getGradeFeesInstance() != null)
+			builder.append("gradeFeesInstance:"
+					+ getGradeFeesInstance().getDisplayName() + " ");
 
 		return builder.toString();
 	}

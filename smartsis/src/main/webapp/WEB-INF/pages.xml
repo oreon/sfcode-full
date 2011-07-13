@@ -204,6 +204,42 @@
         <redirect view-id="/admin/entities/domain/paidFee/editPaidFee.xhtml"/>  
         <end-conversation/> 
       </rule>  
+      <rule if-outcome="disciplinaryAction"> 
+        <redirect view-id="/admin/entities/domain/disciplinaryAction/listDisciplinaryAction.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewDisciplinaryAction"> 
+        <redirect view-id="/admin/entities/domain/disciplinaryAction/viewDisciplinaryAction.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editDisciplinaryAction"> 
+        <redirect view-id="/admin/entities/domain/disciplinaryAction/editDisciplinaryAction.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="studentVitalInfo"> 
+        <redirect view-id="/admin/entities/domain/studentVitalInfo/listStudentVitalInfo.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewStudentVitalInfo"> 
+        <redirect view-id="/admin/entities/domain/studentVitalInfo/viewStudentVitalInfo.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editStudentVitalInfo"> 
+        <redirect view-id="/admin/entities/domain/studentVitalInfo/editStudentVitalInfo.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="gradeFeesInstance"> 
+        <redirect view-id="/admin/entities/domain/gradeFeesInstance/listGradeFeesInstance.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewGradeFeesInstance"> 
+        <redirect view-id="/admin/entities/domain/gradeFeesInstance/viewGradeFeesInstance.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editGradeFeesInstance"> 
+        <redirect view-id="/admin/entities/domain/gradeFeesInstance/editGradeFeesInstance.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
       <rule if-outcome="electronicExam"> 
         <redirect view-id="/admin/entities/exam/electronicExam/listElectronicExam.xhtml"/>  
         <end-conversation/> 
@@ -516,7 +552,9 @@
     <param name="gender" value="#{studentList.student.gender}" validateModel="false"/>  
     <param name="dateOfBirth" value="#{studentList.student.dateOfBirth}" validateModel="false"/>  
     <param name="grade" value="#{studentList.student.grade.id}" validateModel="false"/>  
-    <param name="parent" value="#{studentList.student.parent.id}" validateModel="false"/> 
+    <param name="parent" value="#{studentList.student.parent.id}" validateModel="false"/>  
+    <param name="scholarship" value="#{studentList.student.scholarship}" validateModel="false"/>  
+    <param name="discontinueDate" value="#{studentList.student.discontinueDate}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/parent/editParent.xhtml"> 
     <!-- <description>Edit Parent: #{parent.displayName}</description> -->  
@@ -528,7 +566,8 @@
         <redirect view-id="/admin/entities/domain/parent/listParent.xhtml"/> 
       </rule> 
     </navigation>  
-    <param name="parentId" value="#{parentAction.parentId}"/> 
+    <param name="parentId" value="#{parentAction.parentId}"/>  
+    <param name="userId" value="#{parentAction.userId}"/> 
   </page>  
   <page view-id="/admin/entities/domain/parent/viewParent.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Parent: #{parent.displayName}</description> -->  
@@ -560,7 +599,10 @@
     <param name="lastName" value="#{parentList.parent.lastName}" validateModel="false"/>  
     <param name="contactDetails_primaryPhone" value="#{parentList.parent.contactDetails.primaryPhone}" validateModel="false"/>  
     <param name="contactDetails_secondaryPhone" value="#{parentList.parent.contactDetails.secondaryPhone}" validateModel="false"/>  
-    <param name="contactDetails_email" value="#{parentList.parent.contactDetails.email}" validateModel="false"/> 
+    <param name="contactDetails_email" value="#{parentList.parent.contactDetails.email}" validateModel="false"/>  
+    <param name="user_userName" value="#{parentList.parent.user.userName}" validateModel="false"/>  
+    <param name="user_email" value="#{parentList.parent.user.email}" validateModel="false"/>  
+    <param name="user_enabled" value="#{parentList.parent.user.enabled}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/grade/editGrade.xhtml"> 
     <!-- <description>Edit Grade: #{grade.displayName}</description> -->  
@@ -962,7 +1004,8 @@
     </navigation>  
     <param name="paidFeeId" value="#{paidFeeAction.paidFeeId}"/>  
     <param name="studentId" value="#{paidFeeAction.studentId}"/>  
-    <param name="gradeFeeId" value="#{paidFeeAction.gradeFeeId}"/> 
+    <param name="gradeFeeId" value="#{paidFeeAction.gradeFeeId}"/>  
+    <param name="gradeFeesInstanceId" value="#{paidFeeAction.gradeFeesInstanceId}"/> 
   </page>  
   <page view-id="/admin/entities/domain/paidFee/viewPaidFee.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View PaidFee: #{paidFee.displayName}</description> -->  
@@ -993,7 +1036,140 @@
     <param name="amount" value="#{paidFeeList.paidFee.amount}" validateModel="false"/>  
     <param name="notes" value="#{paidFeeList.paidFee.notes}" validateModel="false"/>  
     <param name="student" value="#{paidFeeList.paidFee.student.id}" validateModel="false"/>  
-    <param name="gradeFee" value="#{paidFeeList.paidFee.gradeFee.id}" validateModel="false"/> 
+    <param name="gradeFee" value="#{paidFeeList.paidFee.gradeFee.id}" validateModel="false"/>  
+    <param name="gradeFeesInstance" value="#{paidFeeList.paidFee.gradeFeesInstance.id}" validateModel="false"/>  
+    <param name="month" value="#{paidFeeList.paidFee.month}" validateModel="false"/>  
+    <param name="year" value="#{paidFeeList.paidFee.year}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/domain/disciplinaryAction/editDisciplinaryAction.xhtml"> 
+    <!-- <description>Edit DisciplinaryAction: #{disciplinaryAction.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/domain/disciplinaryAction/viewDisciplinaryAction.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/domain/disciplinaryAction/listDisciplinaryAction.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="disciplinaryActionId" value="#{disciplinaryActionAction.disciplinaryActionId}"/>  
+    <param name="studentId" value="#{disciplinaryActionAction.studentId}"/>  
+    <param name="employeeId" value="#{disciplinaryActionAction.employeeId}"/> 
+  </page>  
+  <page view-id="/admin/entities/domain/disciplinaryAction/viewDisciplinaryAction.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View DisciplinaryAction: #{disciplinaryAction.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/domain/disciplinaryAction/editDisciplinaryAction.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/domain/disciplinaryAction/listDisciplinaryAction.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="disciplinaryActionId" value="#{disciplinaryActionAction.disciplinaryActionId}"/> 
+  </page>  
+  <page view-id="/admin/entities/domain/disciplinaryAction/listDisciplinaryAction.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewDisciplinaryAction"> 
+        <redirect view-id="/admin/entities/domain/disciplinaryAction/viewDisciplinaryAction.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/domain/disciplinaryAction/editDisciplinaryAction.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{disciplinaryActionList.firstResult}"/>  
+    <param name="sort" value="#{disciplinaryActionList.orderColumn}"/>  
+    <param name="dir" value="#{disciplinaryActionList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{disciplinaryActionList.disciplinaryAction.id}"/>  
+    <param name="student" value="#{disciplinaryActionList.disciplinaryAction.student.id}" validateModel="false"/>  
+    <param name="title" value="#{disciplinaryActionList.disciplinaryAction.title}" validateModel="false"/>  
+    <param name="description" value="#{disciplinaryActionList.disciplinaryAction.description}" validateModel="false"/>  
+    <param name="employee" value="#{disciplinaryActionList.disciplinaryAction.employee.id}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/domain/studentVitalInfo/editStudentVitalInfo.xhtml"> 
+    <!-- <description>Edit StudentVitalInfo: #{studentVitalInfo.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/domain/studentVitalInfo/viewStudentVitalInfo.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/domain/studentVitalInfo/listStudentVitalInfo.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="studentVitalInfoId" value="#{studentVitalInfoAction.studentVitalInfoId}"/>  
+    <param name="studentId" value="#{studentVitalInfoAction.studentId}"/> 
+  </page>  
+  <page view-id="/admin/entities/domain/studentVitalInfo/viewStudentVitalInfo.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View StudentVitalInfo: #{studentVitalInfo.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/domain/studentVitalInfo/editStudentVitalInfo.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/domain/studentVitalInfo/listStudentVitalInfo.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="studentVitalInfoId" value="#{studentVitalInfoAction.studentVitalInfoId}"/> 
+  </page>  
+  <page view-id="/admin/entities/domain/studentVitalInfo/listStudentVitalInfo.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewStudentVitalInfo"> 
+        <redirect view-id="/admin/entities/domain/studentVitalInfo/viewStudentVitalInfo.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/domain/studentVitalInfo/editStudentVitalInfo.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{studentVitalInfoList.firstResult}"/>  
+    <param name="sort" value="#{studentVitalInfoList.orderColumn}"/>  
+    <param name="dir" value="#{studentVitalInfoList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{studentVitalInfoList.studentVitalInfo.id}"/>  
+    <param name="height" value="#{studentVitalInfoList.studentVitalInfo.height}" validateModel="false"/>  
+    <param name="weight" value="#{studentVitalInfoList.studentVitalInfo.weight}" validateModel="false"/>  
+    <param name="student" value="#{studentVitalInfoList.studentVitalInfo.student.id}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/domain/gradeFeesInstance/editGradeFeesInstance.xhtml"> 
+    <!-- <description>Edit GradeFeesInstance: #{gradeFeesInstance.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/domain/gradeFeesInstance/viewGradeFeesInstance.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/domain/gradeFeesInstance/listGradeFeesInstance.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="gradeFeesInstanceId" value="#{gradeFeesInstanceAction.gradeFeesInstanceId}"/>  
+    <param name="gradeId" value="#{gradeFeesInstanceAction.gradeId}"/> 
+  </page>  
+  <page view-id="/admin/entities/domain/gradeFeesInstance/viewGradeFeesInstance.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View GradeFeesInstance: #{gradeFeesInstance.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/domain/gradeFeesInstance/editGradeFeesInstance.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/domain/gradeFeesInstance/listGradeFeesInstance.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="gradeFeesInstanceId" value="#{gradeFeesInstanceAction.gradeFeesInstanceId}"/> 
+  </page>  
+  <page view-id="/admin/entities/domain/gradeFeesInstance/listGradeFeesInstance.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewGradeFeesInstance"> 
+        <redirect view-id="/admin/entities/domain/gradeFeesInstance/viewGradeFeesInstance.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/domain/gradeFeesInstance/editGradeFeesInstance.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{gradeFeesInstanceList.firstResult}"/>  
+    <param name="sort" value="#{gradeFeesInstanceList.orderColumn}"/>  
+    <param name="dir" value="#{gradeFeesInstanceList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{gradeFeesInstanceList.gradeFeesInstance.id}"/>  
+    <param name="grade" value="#{gradeFeesInstanceList.gradeFeesInstance.grade.id}" validateModel="false"/>  
+    <param name="period" value="#{gradeFeesInstanceList.gradeFeesInstance.period}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/exam/electronicExam/editElectronicExam.xhtml"> 
     <!-- <description>Edit ElectronicExam: #{electronicExam.displayName}</description> -->  

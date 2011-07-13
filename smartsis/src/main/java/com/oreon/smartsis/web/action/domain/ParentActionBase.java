@@ -54,6 +54,9 @@ public abstract class ParentActionBase
 	@DataModelSelection
 	private Parent parent;
 
+	@In(create = true, value = "userAction")
+	com.oreon.smartsis.web.action.users.UserAction userAction;
+
 	@In(create = true, value = "studentAction")
 	com.oreon.smartsis.web.action.domain.StudentAction studentsAction;
 
@@ -79,6 +82,19 @@ public abstract class ParentActionBase
 		setId(id);
 		clearLists();
 		loadAssociations();
+	}
+
+	public void setUserId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setUser(userAction.loadFromId(id));
+
+	}
+
+	public Long getUserId() {
+		if (getInstance().getUser() != null)
+			return getInstance().getUser().getId();
+		return 0L;
 	}
 
 	public Long getParentId() {
@@ -113,6 +129,11 @@ public abstract class ParentActionBase
 	public void wire() {
 		getInstance();
 
+		com.oreon.smartsis.users.User user = userAction.getDefinedInstance();
+		if (user != null && isNew()) {
+			getInstance().setUser(user);
+		}
+
 	}
 
 	public boolean isWired() {
@@ -133,11 +154,28 @@ public abstract class ParentActionBase
 		return Parent.class;
 	}
 
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
+	 */
+	@Override
+	public void addAssociations(Criteria criteria) {
+
+		if (parent.getUser() != null) {
+			criteria = criteria.add(Restrictions.eq("user.id", parent.getUser()
+					.getId()));
+		}
+
+	}
+
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
 	public void loadAssociations() {
+
+		if (parent.getUser() != null) {
+			userAction.setInstance(getInstance().getUser());
+		}
 
 		initListStudents();
 

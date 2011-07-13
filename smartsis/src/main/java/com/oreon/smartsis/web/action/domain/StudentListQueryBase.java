@@ -57,6 +57,22 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 		this.dateOfBirthRange = dateOfBirthRange;
 	}
 
+	private Range<Double> scholarshipRange = new Range<Double>();
+	public Range<Double> getScholarshipRange() {
+		return scholarshipRange;
+	}
+	public void setScholarship(Range<Double> scholarshipRange) {
+		this.scholarshipRange = scholarshipRange;
+	}
+
+	private Range<Date> discontinueDateRange = new Range<Date>();
+	public Range<Date> getDiscontinueDateRange() {
+		return discontinueDateRange;
+	}
+	public void setDiscontinueDate(Range<Date> discontinueDateRange) {
+		this.discontinueDateRange = discontinueDateRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"student.id = #{studentList.student.id}",
 
@@ -78,6 +94,12 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 			"student.grade.id = #{studentList.student.grade.id}",
 
 			"student.parent.id = #{studentList.student.parent.id}",
+
+			"student.scholarship >= #{studentList.scholarshipRange.begin}",
+			"student.scholarship <= #{studentList.scholarshipRange.end}",
+
+			"student.discontinueDate >= #{studentList.discontinueDateRange.begin}",
+			"student.discontinueDate <= #{studentList.discontinueDateRange.end}",
 
 			"student.dateCreated <= #{studentList.dateCreatedRange.end}",
 			"student.dateCreated >= #{studentList.dateCreatedRange.begin}",};
@@ -122,6 +144,15 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 				+ (e.getParent() != null ? e.getParent().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
+		builder.append("\""
+				+ (e.getScholarship() != null ? e.getScholarship() : "")
+				+ "\",");
+
+		builder
+				.append("\""
+						+ (e.getDiscontinueDate() != null ? e
+								.getDiscontinueDate() : "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -138,6 +169,10 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 		builder.append("Grade" + ",");
 
 		builder.append("Parent" + ",");
+
+		builder.append("Scholarship" + ",");
+
+		builder.append("DiscontinueDate" + ",");
 
 		builder.append("\r\n");
 	}

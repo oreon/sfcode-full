@@ -78,6 +78,32 @@ public class Student extends com.oreon.smartsis.domain.Person
 	@ContainedIn
 	protected Parent parent;
 
+	protected Double scholarship;
+
+	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "student_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<StudentVitalInfo> studentVitalInfos = new HashSet<StudentVitalInfo>();
+
+	public void addStudentVitalInfos(StudentVitalInfo studentVitalInfos) {
+		studentVitalInfos.setStudent(this);
+		this.studentVitalInfos.add(studentVitalInfos);
+	}
+
+	@Transient
+	public List<com.oreon.smartsis.domain.StudentVitalInfo> getListStudentVitalInfos() {
+		return new ArrayList<com.oreon.smartsis.domain.StudentVitalInfo>(
+				studentVitalInfos);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getStudentVitalInfosCount() {
+		return studentVitalInfos.size();
+	}
+
+	protected Date discontinueDate;
+
 	public void setPicture(FileAttachment picture) {
 		this.picture = picture;
 	}
@@ -144,6 +170,34 @@ public class Student extends com.oreon.smartsis.domain.Person
 
 	}
 
+	public void setScholarship(Double scholarship) {
+		this.scholarship = scholarship;
+	}
+
+	public Double getScholarship() {
+
+		return scholarship;
+
+	}
+
+	public void setStudentVitalInfos(Set<StudentVitalInfo> studentVitalInfos) {
+		this.studentVitalInfos = studentVitalInfos;
+	}
+
+	public Set<StudentVitalInfo> getStudentVitalInfos() {
+		return studentVitalInfos;
+	}
+
+	public void setDiscontinueDate(Date discontinueDate) {
+		this.discontinueDate = discontinueDate;
+	}
+
+	public Date getDiscontinueDate() {
+
+		return discontinueDate;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -178,6 +232,10 @@ public class Student extends com.oreon.smartsis.domain.Person
 
 		if (getParent() != null)
 			builder.append("parent:" + getParent().getDisplayName() + " ");
+
+		for (BusinessEntity e : studentVitalInfos) {
+			builder.append(e.getDisplayName() + " ");
+		}
 
 		return builder.toString();
 	}

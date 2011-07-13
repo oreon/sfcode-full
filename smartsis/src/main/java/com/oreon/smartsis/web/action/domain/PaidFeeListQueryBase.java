@@ -69,8 +69,21 @@ public abstract class PaidFeeListQueryBase extends BaseQuery<PaidFee, Long> {
 
 			"paidFee.gradeFee.id = #{paidFeeList.paidFee.gradeFee.id}",
 
+			"paidFee.gradeFeesInstance.id = #{paidFeeList.paidFee.gradeFeesInstance.id}",
+
+			"paidFee.month = #{paidFeeList.paidFee.month}",
+
+			"paidFee.year = #{paidFeeList.paidFee.year}",
+
 			"paidFee.dateCreated <= #{paidFeeList.dateCreatedRange.end}",
 			"paidFee.dateCreated >= #{paidFeeList.dateCreatedRange.begin}",};
+
+	public List<PaidFee> getPaidFeesByGradeFeesInstance(
+			com.oreon.smartsis.domain.GradeFeesInstance gradeFeesInstance) {
+		//setMaxResults(10000);
+		paidFee.setGradeFeesInstance(gradeFeesInstance);
+		return getResultList();
+	}
 
 	@Observer("archivedPaidFee")
 	public void onArchive() {
@@ -98,6 +111,15 @@ public abstract class PaidFeeListQueryBase extends BaseQuery<PaidFee, Long> {
 				+ (e.getGradeFee() != null ? e.getGradeFee().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
+		builder.append("\""
+				+ (e.getGradeFeesInstance() != null ? e.getGradeFeesInstance()
+						.getDisplayName().replace(",", "") : "") + "\",");
+
+		builder.append("\"" + (e.getMonth() != null ? e.getMonth() : "")
+				+ "\",");
+
+		builder.append("\"" + (e.getYear() != null ? e.getYear() : "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -114,6 +136,12 @@ public abstract class PaidFeeListQueryBase extends BaseQuery<PaidFee, Long> {
 		builder.append("Student" + ",");
 
 		builder.append("GradeFee" + ",");
+
+		builder.append("GradeFeesInstance" + ",");
+
+		builder.append("Month" + ",");
+
+		builder.append("Year" + ",");
 
 		builder.append("\r\n");
 	}

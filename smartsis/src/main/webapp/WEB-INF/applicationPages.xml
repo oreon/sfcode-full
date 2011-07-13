@@ -17,19 +17,21 @@
 		</navigation>
 		
 		
-    	<navigation from-action="#{}">
+    	<navigation from-action="#{userAction.login}">
 			 <rule if-outcome="success">
  				<redirect view-id="/reg/welcome.xhtml" />
             </rule>	
             
-          	
+             
         </navigation>
         
 	</page>
 	
 
  	<page view-id="/reg/welcome.xhtml" conversation-required="false">
- 		<param name="studentId" value="#{studentAction.studentId}"/> 
+ 		
+		
+    	
 	</page>
 	
 
@@ -50,7 +52,7 @@
  	<page view-id="/reg/enterEmail.xhtml" conversation-required="false">
  		
 		
-    	<navigation from-action="#{}">
+    	<navigation from-action="#{userAction.retrieveCredentials}">
 			 <rule if-outcome="success">
  				<redirect view-id="/reg/credentialsEmailed.xhtml" />
             </rule>	
@@ -70,7 +72,16 @@
 		</navigation>
 		
 		
-    	
+    	        
 	</page>
 	
+	
+	
+ <!--PROTECTED REGION ID(USER_EDITABLE_PAGEFLOW) ENABLED START-->
+	
+ 	<page view-id="/reg/welcome.xhtml" conversation-required="false">
+ 		<param name="studentId" value="#{studentAction.studentId}" />
+	</page>
+	
+<!--PROTECTED REGION END-->	
 </pages>

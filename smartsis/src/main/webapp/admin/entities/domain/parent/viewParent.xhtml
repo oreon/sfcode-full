@@ -13,6 +13,12 @@
               <s:conversationPropagation type="end"/> 
             </h:commandButton> 
           </div> 
+        </rich:tab>  
+        <rich:tab label="User" rendered="#{parentAction.instance.user != null}"> 
+          <ui:include src="/admin/entities/users/user/viewUserComponent.xhtml"> 
+            <ui:param name="entityId" value="1"/>  
+            <ui:param name="userId" value="#{parentAction.instance.user.id}"/> 
+          </ui:include> 
         </rich:tab> 
       </rich:tabPanel> 
     </h:form>  

@@ -62,6 +62,12 @@ public abstract class ParentListQueryBase extends BaseQuery<Parent, Long> {
 
 			"lower(parent.contactDetails.email) like concat(lower(#{parentList.parent.contactDetails.email}),'%')",
 
+			"lower(parent.user.userName) like concat(lower(#{parentList.parent.user.userName}),'%')",
+
+			"lower(parent.user.email) like concat(lower(#{parentList.parent.user.email}),'%')",
+
+			"parent.user.enabled = #{parentList.parent.user.enabled}",
+
 			"parent.dateCreated <= #{parentList.dateCreatedRange.end}",
 			"parent.dateCreated >= #{parentList.dateCreatedRange.begin}",};
 
@@ -76,6 +82,10 @@ public abstract class ParentListQueryBase extends BaseQuery<Parent, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, Parent e) {
 
+		builder.append("\""
+				+ (e.getUser() != null ? e.getUser().getDisplayName().replace(
+						",", "") : "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -84,6 +94,8 @@ public abstract class ParentListQueryBase extends BaseQuery<Parent, Long> {
 	 */
 	//@Override
 	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("User" + ",");
 
 		builder.append("\r\n");
 	}
