@@ -42,8 +42,26 @@
         <h:outputText value="#{msg.student_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'studentView')}"/>  
         <h:outputText direction="auto" id="dateOfBirth#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'studentView')}" value="#{studentAction.student.dateOfBirth}"></h:outputText>  
         <h:outputText value="#{msg.student_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('age', 'studentView')}"/>  
-        <h:outputText id="age#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('age', 'studentView')}" value="#{studentAction.student.age}"></h:outputText> 
-      </h:panelGrid> 
+        <h:outputText id="age#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('age', 'studentView')}" value="#{studentAction.student.age}"></h:outputText>  
+        <h:outputText value="#{msg.student_scholarship}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('scholarship', 'studentView')}"/>  
+        <h:outputText id="scholarship#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('scholarship', 'studentView')}" value="#{studentAction.student.scholarship}"></h:outputText>  
+        <h:outputText value="#{msg.student_discontinueDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueDate', 'studentView')}"/>  
+        <h:outputText direction="auto" id="discontinueDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueDate', 'studentView')}" value="#{studentAction.student.discontinueDate}"></h:outputText> 
+      </h:panelGrid>  
+      <rich:dataTable id="studentVitalInfos" var="_studentVitalInfo" rendered="#{not empty studentAction.listStudentVitalInfos and skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfos', 'studentView') }" value="#{studentAction.listStudentVitalInfos}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.studentVitalInfo_height}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('height', 'studentVitalInfoView')}"/>
+          </f:facet>  
+          <h:outputText id="height#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('height', 'studentVitalInfoView')}" value="#{_studentVitalInfo.height}"></h:outputText> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.studentVitalInfo_weight}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('weight', 'studentVitalInfoView')}"/>
+          </f:facet>  
+          <h:outputText id="weight#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('weight', 'studentVitalInfoView')}" value="#{_studentVitalInfo.weight}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

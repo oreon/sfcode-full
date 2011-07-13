@@ -9,8 +9,9 @@
 	xmlns:s="http://jboss.com/products/seam/taglib">
 
 <head>
+<ui:include src="/admin/metaIncludes.xhtml" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>National Recovery System</title>
+<title>SmartSis - The Smart Student Information System</title>
 <link rel="stylesheet" href="#{request.contextPath}/css/style.css"
 	type="text/css" />
 </head>
@@ -21,7 +22,14 @@
 		<h:graphicImage id="edit" value="/images/icons/house.png" />
 		<s:link view="/admin/entities/summary.xhtml" value="Home" />
 	</rich:toolBarGroup>
+
+	<rich:toolBarGroup location="right">
+		<s:link action="#{identity.logout}" view="/reg/index.xhtml"
+			value="Logout #{identity.credentials.username}" propagation="none" />
+	</rich:toolBarGroup>
 </rich:toolBar>
+
+
 <rich:messages layout="list">
 	<f:facet name="passedMarker">
 		<h:graphicImage value="/images/true.png" />
@@ -30,6 +38,7 @@
 		<h:graphicImage value="/images/error.gif" />
 	</f:facet>
 </rich:messages>
+
 
 
 <ui:insert name="content" />

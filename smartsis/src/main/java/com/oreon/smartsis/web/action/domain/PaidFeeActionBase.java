@@ -56,6 +56,9 @@ public abstract class PaidFeeActionBase extends BaseAction<PaidFee>
 	@In(create = true, value = "gradeFeeAction")
 	com.oreon.smartsis.web.action.domain.GradeFeeAction gradeFeeAction;
 
+	@In(create = true, value = "gradeFeesInstanceAction")
+	com.oreon.smartsis.web.action.domain.GradeFeesInstanceAction gradeFeesInstanceAction;
+
 	@DataModel
 	private List<PaidFee> paidFeeRecordList;
 
@@ -106,6 +109,20 @@ public abstract class PaidFeeActionBase extends BaseAction<PaidFee>
 		return 0L;
 	}
 
+	public void setGradeFeesInstanceId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setGradeFeesInstance(
+					gradeFeesInstanceAction.loadFromId(id));
+
+	}
+
+	public Long getGradeFeesInstanceId() {
+		if (getInstance().getGradeFeesInstance() != null)
+			return getInstance().getGradeFeesInstance().getId();
+		return 0L;
+	}
+
 	public Long getPaidFeeId() {
 		return (Long) getId();
 	}
@@ -150,6 +167,12 @@ public abstract class PaidFeeActionBase extends BaseAction<PaidFee>
 			getInstance().setGradeFee(gradeFee);
 		}
 
+		com.oreon.smartsis.domain.GradeFeesInstance gradeFeesInstance = gradeFeesInstanceAction
+				.getDefinedInstance();
+		if (gradeFeesInstance != null && isNew()) {
+			getInstance().setGradeFeesInstance(gradeFeesInstance);
+		}
+
 	}
 
 	public boolean isWired() {
@@ -186,6 +209,11 @@ public abstract class PaidFeeActionBase extends BaseAction<PaidFee>
 					.getGradeFee().getId()));
 		}
 
+		if (paidFee.getGradeFeesInstance() != null) {
+			criteria = criteria.add(Restrictions.eq("gradeFeesInstance.id",
+					paidFee.getGradeFeesInstance().getId()));
+		}
+
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -200,6 +228,11 @@ public abstract class PaidFeeActionBase extends BaseAction<PaidFee>
 
 		if (paidFee.getGradeFee() != null) {
 			gradeFeeAction.setInstance(getInstance().getGradeFee());
+		}
+
+		if (paidFee.getGradeFeesInstance() != null) {
+			gradeFeesInstanceAction.setInstance(getInstance()
+					.getGradeFeesInstance());
 		}
 
 	}

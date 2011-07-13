@@ -75,12 +75,27 @@ public class Parent extends com.oreon.smartsis.domain.Person
 		return students.size();
 	}
 
+	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected com.oreon.smartsis.users.User user = new com.oreon.smartsis.users.User();
+
 	public void setStudents(Set<Student> students) {
 		this.students = students;
 	}
 
 	public Set<Student> getStudents() {
 		return students;
+	}
+
+	public void setUser(com.oreon.smartsis.users.User user) {
+		this.user = user;
+	}
+
+	public com.oreon.smartsis.users.User getUser() {
+
+		return user;
+
 	}
 
 	@Transient
@@ -111,6 +126,9 @@ public class Parent extends com.oreon.smartsis.domain.Person
 	@Analyzer(definition = "entityAnalyzer")
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
+
+		if (getUser() != null)
+			builder.append("user:" + getUser().getDisplayName() + " ");
 
 		for (BusinessEntity e : students) {
 			builder.append(e.getDisplayName() + " ");

@@ -33,4 +33,12 @@ public class UserWebServiceImpl implements UserWebService {
 		userAction.disableAccount();
 	}
 
+	public String login() {
+		return userAction.login();
+	}
+
+	public String retrieveCredentials() {
+		return userAction.retrieveCredentials();
+	}
+
 }

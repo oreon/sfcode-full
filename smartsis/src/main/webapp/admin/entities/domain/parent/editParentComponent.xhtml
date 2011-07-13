@@ -19,6 +19,26 @@
           <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="contactDetails_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentEdit')}"/>  
+        <h:outputText value="#{msg.user_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'parentEdit')}"/>  
+        <h:inputText id="user_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'parentEdit')}" label="#{msg.user_userName}" required="true" value="#{parentAction.parent.user.userName}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="user_userName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'parentEdit')}"/>  
+        <h:outputText value="#{msg.user_password} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('password', 'parentEdit')}"/>  
+        <h:inputSecret redisplay="true" id="user_password#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('password', 'parentEdit')}" label="#{msg.user_password}" required="true" value="#{parentAction.parent.user.password}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputSecret>  
+        <rich:message styleClass="error errors" for="user_password" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('password', 'parentEdit')}"/>  
+        <h:outputText value="#{msg.user_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentEdit')}"/>  
+        <h:inputText id="user_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentEdit')}" label="#{msg.user_email}" required="true" value="#{parentAction.parent.user.email}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="user_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentEdit')}"/>  
+        <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'parentEdit')}"/>  
+        <h:selectBooleanCheckbox id="user_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'parentEdit')}" label="#{msg.user_enabled}" required="false" value="#{parentAction.parent.user.enabled}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:selectBooleanCheckbox>  
+        <rich:message styleClass="error errors" for="user_enabled" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'parentEdit')}"/>  
         <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'parentEdit')}"/>  
         <h:inputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'parentEdit')}" label="#{msg.person_firstName}" required="false" value="#{parentAction.parent.firstName}"> 
           <rich:ajaxValidator event="onsubmit"/> 

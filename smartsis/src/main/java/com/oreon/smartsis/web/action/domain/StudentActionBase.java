@@ -41,6 +41,8 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
+import com.oreon.smartsis.domain.StudentVitalInfo;
+
 public abstract class StudentActionBase
 		extends
 			com.oreon.smartsis.web.action.domain.PersonAction<Student>
@@ -222,16 +224,67 @@ public abstract class StudentActionBase
 			parentAction.setInstance(getInstance().getParent());
 		}
 
+		initListStudentVitalInfos();
+
 	}
 
 	public void updateAssociations() {
 
 	}
 
+	protected List<com.oreon.smartsis.domain.StudentVitalInfo> listStudentVitalInfos = new ArrayList<com.oreon.smartsis.domain.StudentVitalInfo>();
+
+	void initListStudentVitalInfos() {
+
+		if (listStudentVitalInfos.isEmpty())
+			listStudentVitalInfos.addAll(getInstance().getStudentVitalInfos());
+
+	}
+
+	public List<com.oreon.smartsis.domain.StudentVitalInfo> getListStudentVitalInfos() {
+
+		prePopulateListStudentVitalInfos();
+		return listStudentVitalInfos;
+	}
+
+	public void prePopulateListStudentVitalInfos() {
+	}
+
+	public void setListStudentVitalInfos(
+			List<com.oreon.smartsis.domain.StudentVitalInfo> listStudentVitalInfos) {
+		this.listStudentVitalInfos = listStudentVitalInfos;
+	}
+
+	public void deleteStudentVitalInfos(int index) {
+		listStudentVitalInfos.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addStudentVitalInfos() {
+		initListStudentVitalInfos();
+		StudentVitalInfo studentVitalInfos = new StudentVitalInfo();
+
+		studentVitalInfos.setStudent(getInstance());
+
+		getListStudentVitalInfos().add(studentVitalInfos);
+	}
+
 	public void updateComposedAssociations() {
+
+		if (listStudentVitalInfos != null) {
+			getInstance().getStudentVitalInfos().clear();
+			getInstance().getStudentVitalInfos().addAll(listStudentVitalInfos);
+		}
 	}
 
 	public void clearLists() {
+		listStudentVitalInfos.clear();
+
+	}
+
+	public List eExamsForStudent() {
+
+		return executeNamedQuery("eExamsForStudent");
 
 	}
 

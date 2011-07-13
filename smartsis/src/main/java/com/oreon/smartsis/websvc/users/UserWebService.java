@@ -17,4 +17,8 @@ public interface UserWebService {
 
 	public void disableAccount();
 
+	public String login();
+
+	public String retrieveCredentials();
+
 }

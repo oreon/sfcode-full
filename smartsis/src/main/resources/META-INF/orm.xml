@@ -17,7 +17,12 @@
   </entity>  
   <!--  Student  JPA Configurations -->  
   <entity class="com.oreon.smartsis.domain.Student" name="Student"> 
-    <table name="student"></table> 
+    <table name="student"></table>  
+    <named-query name="eExamsForStudent"> 
+      <query> <![CDATA[
+			select e from ElectronicExamInstance e where e.student.id = ?1
+			]]> </query> 
+    </named-query> 
   </entity>  
   <!--  Parent  JPA Configurations -->  
   <entity class="com.oreon.smartsis.domain.Parent" name="Parent"> 
@@ -82,6 +87,18 @@
   <!--  PaidFee  JPA Configurations -->  
   <entity class="com.oreon.smartsis.domain.PaidFee" name="PaidFee"> 
     <table name="paidfee"></table> 
+  </entity>  
+  <!--  DisciplinaryAction  JPA Configurations -->  
+  <entity class="com.oreon.smartsis.domain.DisciplinaryAction" name="DisciplinaryAction"> 
+    <table name="disciplinaryaction"></table> 
+  </entity>  
+  <!--  StudentVitalInfo  JPA Configurations -->  
+  <entity class="com.oreon.smartsis.domain.StudentVitalInfo" name="StudentVitalInfo"> 
+    <table name="studentvitalinfo"></table> 
+  </entity>  
+  <!--  GradeFeesInstance  JPA Configurations -->  
+  <entity class="com.oreon.smartsis.domain.GradeFeesInstance" name="GradeFeesInstance"> 
+    <table name="gradefeesinstance"></table> 
   </entity>  
   <!--  ElectronicExam  JPA Configurations -->  
   <entity class="com.oreon.smartsis.exam.ElectronicExam" name="ElectronicExam"> 
