@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{supplierAction.load(supplierId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{supplierAction.supplier.id}"/>  
+        <h:outputText value="#{msg.address_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'supplierView')}"/>  
+        <h:outputText id="address_primaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'supplierView')}" value="#{supplierAction.supplier.address.primaryPhone}"></h:outputText>  
+        <h:outputText value="#{msg.address_address}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address', 'supplierView')}"/>  
+        <h:outputText id="address_address#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address', 'supplierView')}" value="#{supplierAction.supplier.address.address}"></h:outputText>  
+        <h:outputText value="#{msg.address_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'supplierView')}"/>  
+        <h:outputText id="address_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'supplierView')}" value="#{supplierAction.supplier.address.city}"></h:outputText>  
+        <h:outputText value="#{msg.address_state}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'supplierView')}"/>  
+        <h:outputText id="address_state#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'supplierView')}" value="#{supplierAction.supplier.address.state}"></h:outputText>  
+        <h:outputText value="#{msg.supplier_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'supplierView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'supplierView')}" value="#{supplierAction.supplier.name}"></h:outputText> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

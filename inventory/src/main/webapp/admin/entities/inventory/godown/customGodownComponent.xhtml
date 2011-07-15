@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.godown_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'godownEdit')}"/>  
+        <br/>  
+        <h:inputText id="name" value="#{godownAction.godown.name}"/>  
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'godownEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.address_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'godownEdit')}"/>  
+        <br/>  
+        <h:inputText id="address_primaryPhone" value="#{godownAction.godown.address.primaryPhone}"/>  
+        <rich:message styleClass="error errors" for="address_primaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'godownEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.address_address}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address', 'godownEdit')}"/>  
+        <br/>  
+        <h:inputText id="address_address" value="#{godownAction.godown.address.address}"/>  
+        <rich:message styleClass="error errors" for="address_address" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address', 'godownEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.address_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'godownEdit')}"/>  
+        <br/>  
+        <h:inputText id="address_city" value="#{godownAction.godown.address.city}"/>  
+        <rich:message styleClass="error errors" for="address_city" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'godownEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.address_state}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'godownEdit')}"/>  
+        <br/>  
+        <h:inputText id="address_state" value="#{godownAction.godown.address.state}"/>  
+        <rich:message styleClass="error errors" for="address_state" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'godownEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

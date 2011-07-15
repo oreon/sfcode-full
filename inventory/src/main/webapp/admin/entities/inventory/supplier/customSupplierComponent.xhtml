@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.supplier_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'supplierEdit')}"/>  
+        <br/>  
+        <h:inputText id="name" value="#{supplierAction.supplier.name}"/>  
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'supplierEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.address_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'supplierEdit')}"/>  
+        <br/>  
+        <h:inputText id="address_primaryPhone" value="#{supplierAction.supplier.address.primaryPhone}"/>  
+        <rich:message styleClass="error errors" for="address_primaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'supplierEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.address_address}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address', 'supplierEdit')}"/>  
+        <br/>  
+        <h:inputText id="address_address" value="#{supplierAction.supplier.address.address}"/>  
+        <rich:message styleClass="error errors" for="address_address" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address', 'supplierEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.address_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'supplierEdit')}"/>  
+        <br/>  
+        <h:inputText id="address_city" value="#{supplierAction.supplier.address.city}"/>  
+        <rich:message styleClass="error errors" for="address_city" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'supplierEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.address_state}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'supplierEdit')}"/>  
+        <br/>  
+        <h:inputText id="address_state" value="#{supplierAction.supplier.address.state}"/>  
+        <rich:message styleClass="error errors" for="address_state" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'supplierEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

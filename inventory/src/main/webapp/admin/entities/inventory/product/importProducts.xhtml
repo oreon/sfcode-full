@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template="/admin/template.xhtml">
+	<ui:define name="content">
+
+		<a:form>
+			<rich:dataTable var="_product"
+				value="#{productAction.importedProducts}" id="productList"
+				rowClasses="odd, even" styleClass="dataTable"
+				onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+
+
+				<h:column >
+					<f:facet name="header">
+						<ui:include src="/layout/sort.xhtml">
+							<ui:param name="entityList" value="#{productList}" />
+							<ui:param name="propertyLabel" value="#{msg.product_name}" />
+							<ui:param name="propertyPath" value="product.name" />
+						</ui:include>
+					</f:facet>
+					<h:inputText value="#{_product.name}" escape="false" />
+				</h:column>
+				<h:column rendered="#{s:hasPermission('barcode', 'productView'  )}">
+					<f:facet name="header">
+						<ui:include src="/layout/sort.xhtml">
+							<ui:param name="entityList" value="#{productList}" />
+							<ui:param name="propertyLabel" value="#{msg.product_barcode}" />
+							<ui:param name="propertyPath" value="product.barcode" />
+						</ui:include>
+					</f:facet>
+					<h:inputText value="#{_product.barcode}" escape="false" />
+				</h:column>
+				<h:column
+					rendered="#{s:hasPermission('lowStockLevel', 'productView'  )}">
+					<f:facet name="header">
+						<ui:include src="/layout/sort.xhtml">
+							<ui:param name="entityList" value="#{productList}" />
+							<ui:param name="propertyLabel"
+								value="#{msg.product_lowStockLevel}" />
+							<ui:param name="propertyPath" value="product.lowStockLevel" />
+						</ui:include>
+					</f:facet>
+					<h:inputText value="#{_product.lowStockLevel}" escape="false" />
+				</h:column>
+
+			</rich:dataTable>
+			
+			<h:commandButton action="#{productAction.commitImports}" value="Import" />
+		</a:form>
+
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{godownAction.load(godownId )  }"> 
+        <h:outputText value="#{msg.address_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'godownEdit')}"/>  
+        <h:inputText id="address_primaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'godownEdit')}" label="#{msg.address_primaryPhone}" required="false" value="#{godownAction.godown.address.primaryPhone}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="address_primaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'godownEdit')}"/>  
+        <h:outputText value="#{msg.address_address}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address', 'godownEdit')}"/>  
+        <h:inputText id="address_address#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address', 'godownEdit')}" label="#{msg.address_address}" required="false" value="#{godownAction.godown.address.address}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="address_address" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address', 'godownEdit')}"/>  
+        <h:outputText value="#{msg.address_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'godownEdit')}"/>  
+        <h:inputText id="address_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'godownEdit')}" label="#{msg.address_city}" required="false" value="#{godownAction.godown.address.city}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="address_city" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'godownEdit')}"/>  
+        <h:outputText value="#{msg.address_state}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'godownEdit')}"/>  
+        <h:inputText id="address_state#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'godownEdit')}" label="#{msg.address_state}" required="false" value="#{godownAction.godown.address.state}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="address_state" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'godownEdit')}"/>  
+        <h:outputText value="#{msg.godown_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'godownEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'godownEdit')}" label="#{msg.godown_name}" required="true" value="#{godownAction.godown.name}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'godownEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

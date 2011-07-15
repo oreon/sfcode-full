@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd" version="1.0">  
+  <description/>  
+  <!--  Employee  JPA Configurations -->  
+  <entity class="com.oreon.inventory.domain.Employee" name="Employee"> 
+    <table name="employee"></table>  
+    <named-query name="findByPhone"> 
+      <query> <![CDATA[
+			select employee from Employee employee where employee.contactDetails.phone = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Department  JPA Configurations -->  
+  <entity class="com.oreon.inventory.domain.Department" name="Department"> 
+    <table name="department"></table>  
+    <named-query name="department.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Department u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Exam  JPA Configurations -->  
+  <entity class="com.oreon.inventory.domain.Exam" name="Exam"> 
+    <table name="exam"></table>  
+    <named-query name="exam.findByUnqTitle"> 
+      <query> <![CDATA[
+			select u from Exam u where u.title = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Question  JPA Configurations -->  
+  <entity class="com.oreon.inventory.domain.Question" name="Question"> 
+    <table name="question"></table> 
+  </entity>  
+  <!--  Product  JPA Configurations -->  
+  <entity class="com.oreon.inventory.inventory.Product" name="Product"> 
+    <table name="product"></table>  
+    <named-query name="product.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Product u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Godown  JPA Configurations -->  
+  <entity class="com.oreon.inventory.inventory.Godown" name="Godown"> 
+    <table name="godown"></table>  
+    <named-query name="godown.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Godown u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  ProductQuantity  JPA Configurations -->  
+  <entity class="com.oreon.inventory.inventory.ProductQuantity" name="ProductQuantity"> 
+    <table name="productquantity"></table> 
+  </entity>  
+  <!--  Supplier  JPA Configurations -->  
+  <entity class="com.oreon.inventory.inventory.Supplier" name="Supplier"> 
+    <table name="supplier"></table>  
+    <named-query name="supplier.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Supplier u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Purchase  JPA Configurations -->  
+  <entity class="com.oreon.inventory.inventory.Purchase" name="Purchase"> 
+    <table name="purchase"></table> 
+  </entity> 
+</entity-mappings>

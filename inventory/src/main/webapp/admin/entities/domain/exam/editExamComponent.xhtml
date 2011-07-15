@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{examAction.load(examId )  }"> 
+        <h:outputText value="#{msg.exam_title} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'examEdit')}"/>  
+        <h:inputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'examEdit')}" label="#{msg.exam_title}" required="true" value="#{examAction.exam.title}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="title" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'examEdit')}"/>  
+        <h:outputText value="#{msg.exam_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'examEdit')}"/>  
+        <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'examEdit')}" label="#{msg.exam_description}" required="false" value="#{examAction.exam.description}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:editor>  
+        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'examEdit')}"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New Question" action="#{examAction.addQuestions}" reRender="questions" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questions', 'examEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="questions" var="_question" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questions', 'examEdit')}" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'questionEdit')}"/>
+          </f:facet>  
+          <rich:editor useSeamText="true" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'questionEdit')}" label="#{msg.question_text}" required="false" value="#{_question.text}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor>  
+          <rich:message styleClass="error errors" for="text" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'questionEdit')}"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New Question" action="#{examAction.addQuestions}" reRender="questions" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questions', 'questionEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{examAction.deleteQuestions(rowIndex)}" reRender="questions"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

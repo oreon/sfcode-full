@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{productAction.load(productId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{productAction.product.id}"/>  
+        <h:outputText value="#{msg.product_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'productView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'productView')}" value="#{productAction.product.name}"></h:outputText>  
+        <h:outputText value="#{msg.product_barcode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('barcode', 'productView')}"/>  
+        <h:outputText id="barcode#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('barcode', 'productView')}" value="#{productAction.product.barcode}"></h:outputText>  
+        <h:outputText value="#{msg.product_lowStockLevel}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lowStockLevel', 'productView')}"/>  
+        <h:outputText id="lowStockLevel#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lowStockLevel', 'productView')}" value="#{productAction.product.lowStockLevel}"></h:outputText>  
+        <h:outputText value="#{msg.product_currentLevel}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('currentLevel', 'productView')}"/>  
+        <h:outputText id="currentLevel#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('currentLevel', 'productView')}" value="#{productAction.product.currentLevel}"></h:outputText> 
+      </h:panelGrid>  
+      <rich:dataTable id="productQuantitys" var="_productQuantity" rendered="#{not empty productAction.listProductQuantitys and skipPermissionCheck == 'true' || s:hasPermission('productQuantitys', 'productView') }" value="#{productAction.listProductQuantitys}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.productQuantity_godown}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('godown', 'productQuantityView')}"/>
+          </f:facet>  
+          <s:link value="#{_productQuantity.godown.displayName}" view="/admin/entities/inventory/godown/viewGodown.xhtml" propagation="none"> 
+            <f:param name="godownId" value="#{_productQuantity.godown.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.productQuantity_quantity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('quantity', 'productQuantityView')}"/>
+          </f:facet>  
+          <h:outputText id="quantity#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('quantity', 'productQuantityView')}" value="#{_productQuantity.quantity}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/>  
+      <rich:simpleTogglePanel label="#{msg.product_suppliers}" switchType="client"> 
+        <rich:dataTable value="#{productAction.listSuppliers}" var="item"> 
+          <rich:column>#{item.displayName}</rich:column> 
+        </rich:dataTable> 
+      </rich:simpleTogglePanel> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

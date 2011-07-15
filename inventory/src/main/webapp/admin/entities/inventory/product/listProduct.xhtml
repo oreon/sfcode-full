@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template="/admin/template.xhtml">
+	<ui:define name="content">
+		<c:set var="modalId" value="ProductModalPanel-Product" />
+		<ui:include src="searchProduct.xhtml" />
+		<br />
+		<br />
+		<a:form>
+			<s:button value="Create New"
+				action="/admin/entities/inventory/product/editProduct.xhtml"
+				propagation="none">
+				<f:param name="productId" value="0" />
+			</s:button>
+			<a:commandButton action="#{productAction.setProductId(0)}"
+				oncomplete="Richfaces.showModalPanel('${modalId}',{});"
+				value="Quick Create" reRender="${modalId}"></a:commandButton>
+			<s:button value="Export to Excel" action="#{productList.exportToCsv}" />
+		</a:form>
+		<ui:include src="listProductComponent.xhtml">
+			<ui:param name="records" value="#{productList.resultList}" />
+		</ui:include>
+		<a:form>
+			<s:button value="Create New"
+				action="/admin/entities/inventory/product/editProduct.xhtml"
+				propagation="none">
+				<f:param name="productId" value="0" />
+			</s:button>
+			<a:commandButton action="#{productAction.setProductId(0)}"
+				oncomplete="Richfaces.showModalPanel('${modalId}',{});"
+				value="Quick Create" reRender="${modalId}"></a:commandButton>
+			<s:button value="Export to Excel" action="#{productList.exportToCsv}" />
+		</a:form>
+		<ui:include
+			src="/admin/entities/inventory/product/modalDlgProductComponent.xhtml">
+			<ui:param name="modalId" value="${modalId}" />
+		</ui:include>
+
+		<h:form>
+			<h:panelGroup>
+				<rich:fileUpload
+					fileUploadListener="#{productAction.importUploadListener}"
+					immediateUpload="true" ajaxSingle="true" autoclear="false"
+					listHeight="50">
+					<s:conversationPropagation type="join" />
+				</rich:fileUpload>
+			</h:panelGroup>
+			<h:commandButton value="Import" action="#{productAction.importData}">
+				<s:conversationPropagation type="join" />
+			</h:commandButton>
+		</h:form>
+	</ui:define>
+</ui:composition>
