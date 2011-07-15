@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{productAction.load(productId )  }"> 
+        <h:outputText value="#{msg.product_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'productEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'productEdit')}" label="#{msg.product_name}" required="true" value="#{productAction.product.name}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'productEdit')}"/>  
+        <h:outputText value="#{msg.product_barcode} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('barcode', 'productEdit')}"/>  
+        <h:inputText id="barcode#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('barcode', 'productEdit')}" label="#{msg.product_barcode}" required="true" value="#{productAction.product.barcode}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="barcode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('barcode', 'productEdit')}"/>  
+        <h:outputText value="#{msg.product_lowStockLevel}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lowStockLevel', 'productEdit')}"/>  
+        <h:inputText id="lowStockLevel#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lowStockLevel', 'productEdit')}" label="#{msg.product_lowStockLevel}" required="false" value="#{productAction.product.lowStockLevel}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="lowStockLevel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lowStockLevel', 'productEdit')}"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New ProductQuantity" action="#{productAction.addProductQuantitys}" reRender="productQuantitys" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('productQuantitys', 'productEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="productQuantitys" var="_productQuantity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('productQuantitys', 'productEdit')}" value="#{productAction.listProductQuantitys}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.productQuantity_godown} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('godown', 'productQuantityEdit')}"/>
+          </f:facet>  
+          <h:selectOneMenu id="godown" label="#{msg.productQuantity_godown}" value="#{_productQuantity.godown}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('godown', 'productQuantityEdit')}"> 
+            <s:selectItems value="#{godownList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu>  
+          <rich:message styleClass="error errors" for="godown" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('godown', 'productQuantityEdit')}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.productQuantity_quantity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('quantity', 'productQuantityEdit')}"/>
+          </f:facet>  
+          <h:inputText id="quantity#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('quantity', 'productQuantityEdit')}" label="#{msg.productQuantity_quantity}" required="false" value="#{_productQuantity.quantity}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="quantity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('quantity', 'productQuantityEdit')}"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New ProductQuantity" action="#{productAction.addProductQuantitys}" reRender="productQuantitys" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('productQuantitys', 'productQuantityEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{productAction.deleteProductQuantitys(rowIndex)}" reRender="productQuantitys"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/>  
+      <rich:simpleTogglePanel label="#{msg.product_suppliers}" switchType="client" id="suppliers"> 
+        <rich:listShuttle sourceValue="#{productAction.listAvailableSuppliers}" targetValue="#{productAction.listSuppliers}" var="item"> 
+          <s:convertEntity/>  
+          <rich:column>#{item.displayName}</rich:column> 
+        </rich:listShuttle> 
+      </rich:simpleTogglePanel> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{purchaseAction.load(purchaseId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{purchaseAction.purchase.id}"/>  
+        <h:outputText value="#{msg.purchase_product}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'purchaseView')}"/>  
+        <s:link value="#{purchaseAction.purchase.product.displayName}" view="/admin/entities/inventory/product/viewProduct.xhtml" propagation="none"> 
+          <f:param name="productId" value="#{purchaseAction.purchase.product.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.purchase_supplier}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('supplier', 'purchaseView')}"/>  
+        <s:link value="#{purchaseAction.purchase.supplier.displayName}" view="/admin/entities/inventory/supplier/viewSupplier.xhtml" propagation="none"> 
+          <f:param name="supplierId" value="#{purchaseAction.purchase.supplier.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.purchase_quantity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('quantity', 'purchaseView')}"/>  
+        <h:outputText id="quantity#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('quantity', 'purchaseView')}" value="#{purchaseAction.purchase.quantity}"></h:outputText>  
+        <h:outputText value="#{msg.purchase_price}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('price', 'purchaseView')}"/>  
+        <h:outputText id="price#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('price', 'purchaseView')}" value="#{purchaseAction.purchase.price}"></h:outputText> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.supplier_products}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('products', 'supplierEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="products" value="#{ supplierList.productsToSearch}"> 
+        <s:selectItems value="#{productList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.supplier_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'supplierEdit')}"/>  
+      <br/>  
+      <h:inputText id="name" value="#{supplierList.supplier.name}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.address_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'supplierEdit')}"/>  
+      <br/>  
+      <h:inputText id="address_primaryPhone" value="#{supplierList.supplier.address.primaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.address_address}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('address', 'supplierEdit')}"/>  
+      <br/>  
+      <h:inputText id="address_address" value="#{supplierList.supplier.address.address}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.address_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'supplierEdit')}"/>  
+      <br/>  
+      <h:inputText id="address_city" value="#{supplierList.supplier.address.city}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.address_state}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'supplierEdit')}"/>  
+      <br/>  
+      <h:inputText id="address_state" value="#{supplierList.supplier.address.state}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{supplierList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{supplierList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

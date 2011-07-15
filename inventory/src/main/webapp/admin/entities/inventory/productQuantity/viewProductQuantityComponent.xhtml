@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{productQuantityAction.load(productQuantityId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{productQuantityAction.productQuantity.id}"/>  
+        <h:outputText value="#{msg.productQuantity_product}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'productQuantityView')}"/>  
+        <s:link value="#{productQuantityAction.productQuantity.product.displayName}" view="/admin/entities/inventory/product/viewProduct.xhtml" propagation="none"> 
+          <f:param name="productId" value="#{productQuantityAction.productQuantity.product.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.productQuantity_godown}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('godown', 'productQuantityView')}"/>  
+        <s:link value="#{productQuantityAction.productQuantity.godown.displayName}" view="/admin/entities/inventory/godown/viewGodown.xhtml" propagation="none"> 
+          <f:param name="godownId" value="#{productQuantityAction.productQuantity.godown.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.productQuantity_quantity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('quantity', 'productQuantityView')}"/>  
+        <h:outputText id="quantity#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('quantity', 'productQuantityView')}" value="#{productQuantityAction.productQuantity.quantity}"></h:outputText> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
