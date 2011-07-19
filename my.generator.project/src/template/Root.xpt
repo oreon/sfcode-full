@@ -7,6 +7,7 @@
 «DEFINE Root FOR uml::Model»
 	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
 	«EXPAND ORMGen::Root FOR this»
+	«EXPAND genProjectUtils FOR this»
 «ENDDEFINE»
 
 «DEFINE PackageRoot FOR uml::Package»
@@ -27,6 +28,18 @@
 	«EXPAND GenPackageInfo FOR this»
 	
 	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genProjectUtils FOR uml::Model»
+«FILE getTopLevelPackageProperty().packagePath()  + "/ProjectUtils.java" man_path»
+
+	package «getTopLevelPackageProperty()»;
+
+	public class ProjectUtils {
+	
+	}
+«ENDFILE»
 «ENDDEFINE»
 
 «DEFINE ClassRoot FOR uml::Class»
@@ -123,7 +136,8 @@ import org.hibernate.annotations.ParamDef;
 	«ELSE»
 		@Inheritance(strategy=InheritanceType.«inheritanceType.name»)
 	«ENDIF»
-	public  «IF isAbstract» abstract «ENDIF» class «name» «getParent()»  «getInterfaces()» «getImplementedInterfaces().isEmpty  ?" implements " : ","»  «getAuditable()?"Auditable, ":""» java.io.Serializable {
+	@XmlRootElement
+	public  «IF isAbstract» abstract «ENDIF» class «name» «getParent()»  «getInterfaces()» «getImplementedInterfaces().isEmpty  ?" implements " : ","»  «getAuditable()?"Auditable, ":""» java.io.Serializable ,  com.sun.xml.internal.bind.CycleRecoverable{
 		private static final long serialVersionUID = «serialver()»;
 		
 		«EXPAND genDecl FOREACH getAllAttributes() »
@@ -532,6 +546,9 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	import org.hibernate.validator.Length;
 	import org.hibernate.validator.NotNull;
 	
+	import javax.xml.bind.annotation.XmlRootElement;
+	import javax.xml.bind.annotation.XmlTransient;
+	
 	«IF getCurrentCartridge() == "RICH" »
 	
 	import org.jboss.seam.annotations.Name;
@@ -546,4 +563,6 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	«IF getCurrentCartridge() == "JPA_SPRING" »
 	import org.witchcraft.model.support.BusinessEntity;
 	«ENDIF»
+	
+	import «getTopLevelPackage()».ProjectUtils;
 «ENDDEFINE»

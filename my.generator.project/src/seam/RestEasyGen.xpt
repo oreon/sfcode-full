@@ -1,0 +1,83 @@
+«IMPORT wcprofile»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+«EXTENSION template::associationExtensions»
+
+«EXTENSION template::WebExtensions»
+
+«DEFINE Root FOR uml::Model»
+	«EXPAND BaseQueryGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	«EXPAND BaseHomeGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)» 
+«ENDDEFINE»
+
+
+«DEFINE ManualGen FOR wcprofile::Entity»
+«FILE getWebPackagePath("ListQuery")  man_path »
+package « getWebPackageName() »;
+
+«EXPAND genImports FOR this»	
+@Name("«asVar()»List")
+//@Scope(ScopeType.CONVERSATION)
+public class «name»ListQuery extends «name»ListQueryBase implements java.io.Serializable{
+	
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE BaseQueryGen FOR uml::Class»
+
+«FILE getWebPackagePath("ResourceQuery","restful")  »
+package « getWebPackageName("restful") »;
+
+import javax.ws.rs.Path;
+
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.resteasy.ResourceQuery;
+
+import «fqn()»;
+
+@Name("«name.toFirstLower()»ResourceQuery")
+@Path("«name.toFirstLower()»")
+public class «name»ResourceQuery extends ResourceQuery<«name»>
+{
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE BaseHomeGen FOR uml::Class»
+
+«FILE getWebPackagePath("ResourceHome","restful")  »
+package « getWebPackageName("restful") »;
+
+
+import javax.ws.rs.Path;
+
+import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.framework.EntityHome;
+import org.jboss.seam.framework.Home;
+import org.jboss.seam.resteasy.ResourceHome;
+
+import «fqn()»;
+
+
+@Name("«name.toFirstLower()»ResourceHome")
+@Path("«name.toFirstLower()»")
+public class «name»ResourceHome extends ResourceHome<«name», Long>
+{
+	@In(create=true)
+	private EntityHome<«name»> «name.toFirstLower()»Action;
+
+	@Override
+	public Home<?, «name»> getEntityHome()
+	{
+		return «name.toFirstLower()»Action;
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»

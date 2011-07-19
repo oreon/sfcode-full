@@ -122,23 +122,6 @@ organizeImports="true" format="true"/>
 </component>
 
 
-<component id="ReportGenerator" class="oaw.xpand2.Generator"
-skipOnErrors="true">
-	<metaModel class="oaw.type.emf.EmfMetaModel">
-	<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
-	</metaModel>
-	<metaModel class="oaw.uml2.UML2MetaModel"/>
-	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
-		<profile value="${model.dir}/wcprofile.profile.uml"/>
-	</metaModel>
-	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
-	<expand value="reports::ReportGen::Root FOR model"/>
-	<outlet path="${srcGenPath}/">
-		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
-		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter" fileExtensions=".jrxml" />
-	</outlet>
-</component>
-
 
 
 <component id="SeamGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">
@@ -159,6 +142,29 @@ skipOnErrors="true">
 		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter"  />
 	</outlet>
 </component>
+
+
+
+<component id="SeamRestEasyGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">
+	<metaModel class="oaw.type.emf.EmfMetaModel">
+	<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
+	</metaModel>
+	<metaModel class="oaw.uml2.UML2MetaModel"/>
+	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
+		<profile value="${model.dir}/wcprofile.profile.uml"/>
+	</metaModel>
+	<prSrcPaths value="${mainGenPath}" />
+	<prExcludes value="*.svn-base, *.svn"/>
+	<prDefaultExcludes value="false"/>
+	<expand value="seam::RestEasyGen::Root FOR model"/>
+	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
+	<outlet path="${srcGenPath}">
+		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter"  />
+	</outlet>
+</component>
+
+
 
 
 <component id="WebGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">
@@ -252,6 +258,43 @@ skipOnErrors="true">
 	
 	<outlet path="${srcGenPath}">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+	</outlet>
+</component>
+
+
+
+<component id="ReportGenerator" class="oaw.xpand2.Generator"
+skipOnErrors="true">
+	<metaModel class="oaw.type.emf.EmfMetaModel">
+	<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
+	</metaModel>
+	<metaModel class="oaw.uml2.UML2MetaModel"/>
+	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
+		<profile value="${model.dir}/wcprofile.profile.uml"/>
+	</metaModel>
+	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
+	<expand value="reports::ReportGen::Root FOR model"/>
+	<outlet path="${srcGenPath}/">
+		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter" fileExtensions=".jrxml" />
+	</outlet>
+</component>
+
+
+<component id="ReportTestGenerator" class="oaw.xpand2.Generator"
+skipOnErrors="true">
+	<metaModel class="oaw.type.emf.EmfMetaModel">
+	<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
+	</metaModel>
+	<metaModel class="oaw.uml2.UML2MetaModel"/>
+	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
+		<profile value="${model.dir}/wcprofile.profile.uml"/>
+	</metaModel>
+	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
+	<expand value="reports::ReportTestGen::Root FOR model"/>
+	<outlet path="${testGenPath}/">
+		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter" fileExtensions=".jrxml" />
 	</outlet>
 </component>
 
