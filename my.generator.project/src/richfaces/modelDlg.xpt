@@ -21,7 +21,7 @@
 	<rich:modalPanel id="${modalId}" autosized="true" zindex="2000" domElementAttachment="parent">
 			<f:facet name="header">
 				<h:panelGroup>
-					<h:outputText value="#{msg.new} «name»"></h:outputText>
+					<h:outputText value="#{«name.toFirstLower()»Action.id == null ? msg.new : msg.edit} «name»"></h:outputText>
 				</h:panelGroup>
 			</f:facet>
 			<f:facet name="controls">
@@ -37,12 +37,10 @@
 				
 					<rich:messages passedLabel=""
 						style="width:100%; text-align: left; color: red; font-weight: bold;"
-						 layout="list" rendered="#{facesContext.maximumSeverity != null}"
-						>
+						 layout="list" >
 					</rich:messages>
 				
 					<h:form>
-
 						<ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
 	
 						<a:commandButton action="#{«getAction()».saveWithoutConversation}" styleClass="button"

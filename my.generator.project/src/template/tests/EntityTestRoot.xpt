@@ -8,7 +8,6 @@
 «DEFINE Root FOR uml::Model»
 	«EXPAND BaseGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 	«EXPAND ManualGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
-	«EXPAND ReportTestGen FOREACH allOwnedElements().typeSelect(wcprofile::Report)»
 «ENDDEFINE»
 
 «DEFINE BaseGen FOR uml::Class»
@@ -78,7 +77,6 @@ public class «name»ActionTestBase extends org.witchcraft.action.test.BaseTest<«n
 
 
 
-
 «DEFINE genImports FOR uml::Class»
 	import javax.persistence.EntityManager;
 	import javax.persistence.Query;
@@ -93,28 +91,4 @@ public class «name»ActionTestBase extends org.witchcraft.action.test.BaseTest<«n
 	import «fqn()»;
 «ENDDEFINE»
 
-
-
-
-«DEFINE ReportTestGen FOR wcprofile::Report»
-«FILE getWebPackagePath("Test") »
-package « getWebPackageName() »;
-
-import org.testng.annotations.Test;
-import org.witchcraft.action.test.BaseReportsTest;
-
-public class «name»Test extends BaseReportsTest{
-
-	@Test
-	public void test«name»Report() {
-		try {
-			runReportTest("«name»");
-		} catch (Exception e) {
-			throw new RuntimeException(e.getMessage());
-		}
-	}
-	
-}
-«ENDFILE»
-«ENDDEFINE»
 

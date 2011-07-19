@@ -289,6 +289,14 @@ getEmbeddableClassNameSuffix(Property prop, String suffix):
 getCurrentEmbeddable() != null? getCurrentEmbeddable().name + suffix:"" ;
 
 
+
+getWebPackagePath(Class cls, String ext, String subpackage):
+getTopLevelPackage(cls).packagePath() + "/web/action/"  +  cls.package.name + "/" + subpackage + "/" + cls.name + ext + ".java";
+
+getWebPackageName(Class cls, String subpackage):
+getTopLevelPackage(cls) + ".web.action." + cls.package.name +  "." + subpackage;
+
+
 getWebPackagePath(Class cls, String ext):
 getTopLevelPackage(cls).packagePath() + "/web/action/"  + cls.package.name + "/" + cls.name + ext + ".java";
 
