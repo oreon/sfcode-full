@@ -77,9 +77,6 @@ import org.hibernate.annotations.ParamDef;
 «ENDDEFINE»
 
 
-
-
-
 «DEFINE ClassRoot FOR wcprofile::AbstractEntity»
 	«IF name != null && package != null»
 	
@@ -94,6 +91,30 @@ import org.hibernate.annotations.ParamDef;
 «ENDDEFINE»
 
 «DEFINE ClassRoot FOR wcprofile::WebAction»
+	«IF name != null && package != null »
+		«FILE packagePath() +"/" +name + ".java" man_path »
+			package « packageName() »;
+			«EXPAND genImports FOR this»
+			import org.jboss.seam.annotations.Name;
+			
+			@Name("«name.toFirstLower()»")
+			public class «name» extends «name»Base {
+				
+			}
+		«ENDFILE»
+		
+		«FILE packagePath() +"/" +name + "Base.java"  »
+			package « packageName() »;
+			«EXPAND genImports FOR this»
+			
+			
+			//@Name("«name.toFirstLower()»")
+			public abstract class «name»Base «getParent()» «getInterfaces()»{
+				«EXPAND genClassBodyContents FOR this»
+			}
+			
+		«ENDFILE»
+	«ENDIF»
 
 «ENDDEFINE»
 
@@ -104,7 +125,6 @@ import org.hibernate.annotations.ParamDef;
 	package « packageName() »;
 	«EXPAND genImports »
 	
-	
 	public interface «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»{
 		 «EXPAND genOperationDecl FOREACH getAllOperations()»
 	}
@@ -113,15 +133,21 @@ import org.hibernate.annotations.ParamDef;
 
 
 
-
 «DEFINE genClassBody FOR uml::Class »
 	public class «name» «getParent()» «getInterfaces()»{
+		«EXPAND genClassBodyContents FOR this»
+	}
+«ENDDEFINE»
 
-	
+«DEFINE genClassBodyContents FOR uml::Class»
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
 		«EXPAND genOperation FOREACH getAllOperations()»
-	}
+«ENDDEFINE»
+
+
+«DEFINE genClassName(boolean isAbstract) FOR uml::Class»
+	public class «name» «getParent()» «getInterfaces()»
 «ENDDEFINE»
 
 «DEFINE genClassBody FOR wcprofile::Entity»
