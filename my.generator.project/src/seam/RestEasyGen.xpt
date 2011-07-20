@@ -9,6 +9,8 @@
 «DEFINE Root FOR uml::Model»
 	«EXPAND BaseQueryGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 	«EXPAND BaseHomeGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)» 
+	
+	«EXPAND FacadeGen FOREACH allOwnedElements().typeSelect(wcprofile::WebAction)»
 «ENDDEFINE»
 
 
@@ -26,15 +28,45 @@ public class «name»ListQuery extends «name»ListQueryBase implements java.io.Seri
 «ENDDEFINE»
 
 
+«DEFINE FacadeGen FOR wcprofile::WebAction»
+«FILE getWebPackagePath("RestService") »
+package « getWebPackageName() »;
+
+«EXPAND genImports FOR this»	
+
+@Name("«asVar()»RestService")
+@Path("«asVar()»RestService")
+public class «name»RestService  implements java.io.Serializable{
+	
+	@In(create=true)
+	«fqn()» «asVar()»;
+	
+	«EXPAND genOperationTest FOREACH getAllOperations()»
+	
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE genOperationTest FOR uml::Operation»
+	
+	@GET
+	@Path("«name»")
+	@Produces("application/xml")
+	«visibility» «getOpReturnType()»  «getOpReturnTypeTemplateParam()» «name»( «getParametersSignatureRest()»  ){
+		«type != null ? "return" :""»	 «class.name.toFirstLower()».«name»(«getParameters()»);
+	}
+«ENDDEFINE»
+
+
+
+
 «DEFINE BaseQueryGen FOR uml::Class»
 
 «FILE getWebPackagePath("ResourceQuery","restful")  »
 package « getWebPackageName("restful") »;
 
-import javax.ws.rs.Path;
-
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.resteasy.ResourceQuery;
+«EXPAND genImports FOR this»
 
 import «fqn()»;
 
@@ -54,13 +86,7 @@ public class «name»ResourceQuery extends ResourceQuery<«name»>
 package « getWebPackageName("restful") »;
 
 
-import javax.ws.rs.Path;
-
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.framework.EntityHome;
-import org.jboss.seam.framework.Home;
-import org.jboss.seam.resteasy.ResourceHome;
+«EXPAND genImports FOR this»
 
 import «fqn()»;
 
@@ -80,4 +106,25 @@ public class «name»ResourceHome extends ResourceHome<«name», Long>
 
 }
 «ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE genImports FOR uml::Element»
+
+import javax.ws.rs.Path;
+import javax.ws.rs.GET;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.Produces;
+
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.resteasy.ResourceQuery;
+
+
+import org.jboss.seam.framework.EntityHome;
+import org.jboss.seam.framework.Home;
+import org.jboss.seam.resteasy.ResourceHome;
+
+import org.jboss.seam.annotations.In;
+
+import java.util.List;
 «ENDDEFINE»

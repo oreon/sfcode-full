@@ -84,8 +84,21 @@ arg.replaceAll("collections.", "");
 getParametersSignature(Operation op):
 JAVA org.wc.generatorutil.ClassUtil.getParametersSignature(org.eclipse.uml2.uml.Operation);
 
+getParametersSignatureRest(Operation op):
+JAVA org.wc.generatorutil.ClassUtil.getParametersSignatureRest(org.eclipse.uml2.uml.Operation);
+
+
+getParametersSignature(Operation op, String ext):
+JAVA org.wc.generatorutil.ClassUtil.getParametersSignature(org.eclipse.uml2.uml.Operation, java.lang.String);
+
+
+
 getParametersSignature(Property p):
 p.type.fqnForPackage(p.class) + " " + p.name;
+
+getRestParametersSignature(Element p):
+"@QueryParam(\"" + p.name + "\")" +  p.type.fqnForPackage(p.class) + " " + p.name;
+
 
 
 getParameters(Operation op):

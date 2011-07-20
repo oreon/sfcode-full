@@ -230,15 +230,10 @@ public class ClassUtil {
 		}
 		return Arrays.asList(arr);
 	}
-
-	/**
-	 * For an operation will return comma delimited parameters with their type
-	 * names - e.g. String firstName, String lastname
-	 * 
-	 * @param op
-	 * @return
-	 */
-	public static String getParametersSignature(Operation op) {
+	
+	
+	public static String getParametersSignatureRest(Operation op){
+		op.getOwnedParameters();
 
 		List<Parameter> params = op.getOwnedParameters();
 		StringBuffer buffer = new StringBuffer();
@@ -251,7 +246,39 @@ public class ClassUtil {
 			String result = (String) xtendFacade.call("fqn",
 					new Object[] { param.getType() });
 			if (!StringUtils.isEmpty(param.getName()))
-				lstStrings.add(result + " " + param.getName());
+				lstStrings.add("@QueryParam(" + "\"" + param.getName() + "\")" + " " + result + " " + param.getName());
+		}
+
+		return getCommaDelimitedString(lstStrings, 1);
+	}
+	
+	public static String getParametersSignature(Operation op){
+		return getParametersSignature(op, "");
+	}
+
+	/**
+	 * For an operation will return comma delimited parameters with their type
+	 * names - e.g. String firstName, String lastname
+	 * 
+	 * @param op
+	 * @return
+	 */
+	public static String getParametersSignature(Operation op, String ext) {
+		
+		op.getOwnedParameters();
+
+		List<Parameter> params = op.getOwnedParameters();
+		StringBuffer buffer = new StringBuffer();
+		List<String> lstStrings = new ArrayList<String>();
+
+		Transition tr;
+
+		for (int i = 0; i < params.size(); i++) {
+			Parameter param = params.get(i);
+			String result = (String) xtendFacade.call("fqn",
+					new Object[] { param.getType() });
+			if (!StringUtils.isEmpty(param.getName()))
+				lstStrings.add(ext + " " + result + " " + param.getName());
 		}
 
 		return getCommaDelimitedString(lstStrings, 1);
