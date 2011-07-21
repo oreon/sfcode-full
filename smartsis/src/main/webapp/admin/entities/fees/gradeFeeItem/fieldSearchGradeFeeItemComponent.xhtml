@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.gradeFeeItem_monthlyFee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('monthlyFee', 'gradeFeeItemEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="monthlyFee" value="#{ gradeFeeItemList.gradeFeeItem.monthlyFee}"> 
+        <s:selectItems value="#{monthlyFeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.gradeFeeItem_feeItem} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'gradeFeeItemEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="feeItem" value="#{ gradeFeeItemList.gradeFeeItem.feeItem}"> 
+        <s:selectItems value="#{feeItemList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.gradeFeeItem_amount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeItemEdit')}"/>  
+      <br/>  
+      <h:inputText id="amount_begin" value="#{gradeFeeItemList.amountRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="amount_end" value="#{gradeFeeItemList.amountRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{gradeFeeItemList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{gradeFeeItemList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

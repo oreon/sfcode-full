@@ -142,6 +142,8 @@ public abstract class RoomActionBase extends BaseAction<Room>
 
 	public void setRoom(Room t) {
 		this.room = t;
+		if (room != null)
+			setRoomId(t.getId());
 		loadAssociations();
 	}
 

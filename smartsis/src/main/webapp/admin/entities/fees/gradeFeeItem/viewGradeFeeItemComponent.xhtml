@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{gradeFeeItemAction.load(gradeFeeItemId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{gradeFeeItemAction.gradeFeeItem.id}"/>  
+        <h:outputText value="#{msg.gradeFeeItem_monthlyFee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('monthlyFee', 'gradeFeeItemView')}"/>  
+        <s:link value="#{gradeFeeItemAction.gradeFeeItem.monthlyFee.displayName}" view="/admin/entities/fees/monthlyFee/viewMonthlyFee.xhtml" propagation="none"> 
+          <f:param name="monthlyFeeId" value="#{gradeFeeItemAction.gradeFeeItem.monthlyFee.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.gradeFeeItem_feeItem}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'gradeFeeItemView')}"/>  
+        <s:link value="#{gradeFeeItemAction.gradeFeeItem.feeItem.displayName}" view="/admin/entities/fees/feeItem/viewFeeItem.xhtml" propagation="none"> 
+          <f:param name="feeItemId" value="#{gradeFeeItemAction.gradeFeeItem.feeItem.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.gradeFeeItem_amount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeItemView')}"/>  
+        <h:outputText id="amount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeItemView')}" value="#{gradeFeeItemAction.gradeFeeItem.amount}"></h:outputText> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

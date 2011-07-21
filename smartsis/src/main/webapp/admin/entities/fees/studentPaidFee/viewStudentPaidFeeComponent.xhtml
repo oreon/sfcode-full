@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{studentPaidFeeAction.load(studentPaidFeeId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{studentPaidFeeAction.studentPaidFee.id}"/>  
+        <h:outputText value="#{msg.studentPaidFee_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'studentPaidFeeView')}"/>  
+        <s:link value="#{studentPaidFeeAction.studentPaidFee.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml" propagation="none"> 
+          <f:param name="studentId" value="#{studentPaidFeeAction.studentPaidFee.student.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.studentPaidFee_grade}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'studentPaidFeeView')}"/>  
+        <s:link value="#{studentPaidFeeAction.studentPaidFee.grade.displayName}" view="/admin/entities/domain/grade/viewGrade.xhtml" propagation="none"> 
+          <f:param name="gradeId" value="#{studentPaidFeeAction.studentPaidFee.grade.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.studentPaidFee_amountOwed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountOwed', 'studentPaidFeeView')}"/>  
+        <h:outputText id="amountOwed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountOwed', 'studentPaidFeeView')}" value="#{studentPaidFeeAction.studentPaidFee.amountOwed}"></h:outputText>  
+        <h:outputText value="#{msg.studentPaidFee_amountPaid}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountPaid', 'studentPaidFeeView')}"/>  
+        <h:outputText id="amountPaid#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountPaid', 'studentPaidFeeView')}" value="#{studentPaidFeeAction.studentPaidFee.amountPaid}"></h:outputText>  
+        <h:outputText value="#{msg.studentPaidFee_dueAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dueAmount', 'studentPaidFeeView')}"/>  
+        <h:outputText id="dueAmount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dueAmount', 'studentPaidFeeView')}" value="#{studentPaidFeeAction.studentPaidFee.dueAmount}"></h:outputText>  
+        <h:outputText value="#{msg.studentPaidFee_dateOfPayment}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfPayment', 'studentPaidFeeView')}"/>  
+        <h:outputText direction="auto" id="dateOfPayment#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfPayment', 'studentPaidFeeView')}" value="#{studentPaidFeeAction.studentPaidFee.dateOfPayment}"></h:outputText> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

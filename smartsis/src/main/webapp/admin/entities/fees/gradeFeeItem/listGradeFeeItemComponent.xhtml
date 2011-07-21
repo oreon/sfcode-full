@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="GradeFeeItemModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="GradeFeeItem Search Results (#{empty records ? 0 : (gradeFeeItemList.paginated ? gradeFeeItemList.resultCount : records.size)})"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_gradeFeeItem" value="#{records}" id="gradeFeeItemList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'gradeFeeItemView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{gradeFeeItemList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="gradeFeeItem.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_gradeFeeItem.id}"></h:outputText> 
+        </h:column>  
+        <h:column groupOn="#{gradeFeeItem.monthlyFee.displayName}" rendered="#{s:hasPermission('monthlyFee', 'gradeFeeItemView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{gradeFeeItemList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.gradeFeeItem_monthlyFee}"/>  
+              <ui:param name="propertyPath" value="gradeFeeItem.monthlyFee"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_gradeFeeItem.monthlyFee.displayName}" action="viewMonthlyFee" propagation="none"> 
+            <f:param name="monthlyFeeId" value="#{_gradeFeeItem.monthlyFee.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('feeItem', 'gradeFeeItemView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{gradeFeeItemList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.gradeFeeItem_feeItem}"/>  
+              <ui:param name="propertyPath" value="gradeFeeItem.feeItem"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_gradeFeeItem.feeItem.displayName}" action="viewFeeItem" propagation="none"> 
+            <f:param name="feeItemId" value="#{_gradeFeeItem.feeItem.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('amount', 'gradeFeeItemView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{gradeFeeItemList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.gradeFeeItem_amount}"/>  
+              <ui:param name="propertyPath" value="gradeFeeItem.amount"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_gradeFeeItem.amount}"> 
+            <f:convertNumber pattern="$#,##0.00"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'gradeFeeItemView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{gradeFeeItemList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="gradeFeeItem.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_gradeFeeItem.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_gradeFeeItem', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/fees/gradeFeeItem/viewGradeFeeItem.xhtml" rendered="#{s:hasPermission(_gradeFeeItem, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="gradeFeeItemId" value="#{_gradeFeeItem.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_gradeFeeItem', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/fees/gradeFeeItem/editGradeFeeItem.xhtml" rendered="#{s:hasPermission(_gradeFeeItem, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="gradeFeeItemId" value="#{_gradeFeeItem.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('gradeFeeItemAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{gradeFeeItemAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_gradeFeeItem.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_gradeFeeItem.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{gradeFeeItemAction.setGradeFeeItemIdForModalDlg(_gradeFeeItem.id)}" rendered="#{s:hasPermission(_gradeFeeItem, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{gradeFeeItemList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{gradeFeeItemList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{gradeFeeItemList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{gradeFeeItemList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{gradeFeeItemList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{gradeFeeItemList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{gradeFeeItemList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

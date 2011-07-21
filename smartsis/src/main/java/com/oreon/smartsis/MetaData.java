@@ -208,8 +208,6 @@ public class MetaData {
 
 	"gradeFee.displayName", "java.lang.String",
 
-	"gradeFeesInstance.displayName", "java.lang.String",
-
 	"month.name", "java.lang.String",
 
 	"year", "java.lang.Long",
@@ -235,16 +233,6 @@ public class MetaData {
 	"weight", "java.lang.Long",
 
 	"student.displayName", "java.lang.String",
-
-	},
-
-	{"com.oreon.smartsis.domain.GradeFeesInstance",
-
-	"paidFeesCount", "java.lang.Integer",
-
-	"grade.displayName", "java.lang.String",
-
-	"period", "java.lang.String",
 
 	},
 
@@ -405,6 +393,50 @@ public class MetaData {
 	"name", "java.lang.String",
 
 	"usersCount", "java.lang.Integer",
+
+	},
+
+	{"com.oreon.smartsis.fees.MonthlyFee",
+
+	"grade.displayName", "java.lang.String",
+
+	"gradeFeeItemsCount", "java.lang.Integer",
+
+	"month.name", "java.lang.String",
+
+	"total", "java.lang.Double",
+
+	},
+
+	{"com.oreon.smartsis.fees.FeeItem",
+
+	"name", "java.lang.String",
+
+	},
+
+	{"com.oreon.smartsis.fees.GradeFeeItem",
+
+	"monthlyFee.displayName", "java.lang.String",
+
+	"feeItem.displayName", "java.lang.String",
+
+	"amount", "java.lang.Double",
+
+	},
+
+	{"com.oreon.smartsis.fees.StudentPaidFee",
+
+	"amountOwed", "java.lang.Double",
+
+	"amountPaid", "java.lang.Double",
+
+	"dueAmount", "java.lang.Double",
+
+	"dateOfPayment", "java.util.Date",
+
+	"student.displayName", "java.lang.String",
+
+	"grade.displayName", "java.lang.String",
 
 	},
 

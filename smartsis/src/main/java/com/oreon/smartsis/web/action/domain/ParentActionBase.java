@@ -146,6 +146,8 @@ public abstract class ParentActionBase
 
 	public void setParent(Parent t) {
 		this.parent = t;
+		if (parent != null)
+			setParentId(t.getId());
 		loadAssociations();
 	}
 
@@ -238,6 +240,12 @@ public abstract class ParentActionBase
 	public void clearLists() {
 		listStudents.clear();
 
+	}
+
+	public Parent getCurrentLoggedInParent() {
+		String query = "Select e from Parent e where e.user.userName = ?1";
+		return (Parent) executeSingleResultQuery(query, Identity.instance()
+				.getCredentials().getUsername());
 	}
 
 }

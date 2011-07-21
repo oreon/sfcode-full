@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{monthlyFeeAction.load(monthlyFeeId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{monthlyFeeAction.monthlyFee.id}"/>  
+        <h:outputText value="#{msg.monthlyFee_grade}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'monthlyFeeView')}"/>  
+        <s:link value="#{monthlyFeeAction.monthlyFee.grade.displayName}" view="/admin/entities/domain/grade/viewGrade.xhtml" propagation="none"> 
+          <f:param name="gradeId" value="#{monthlyFeeAction.monthlyFee.grade.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.monthlyFee_month}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'monthlyFeeView')}"/>  
+        <h:outputText value="#{monthlyFeeAction.monthlyFee.month}"/>  
+        <h:outputText value="#{msg.monthlyFee_total}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('total', 'monthlyFeeView')}"/>  
+        <h:outputText id="total#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('total', 'monthlyFeeView')}" value="#{monthlyFeeAction.monthlyFee.total}"></h:outputText> 
+      </h:panelGrid>  
+      <rich:dataTable id="gradeFeeItems" var="_gradeFeeItem" rendered="#{not empty monthlyFeeAction.listGradeFeeItems and skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItems', 'monthlyFeeView') }" value="#{monthlyFeeAction.listGradeFeeItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.gradeFeeItem_feeItem}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'gradeFeeItemView')}"/>
+          </f:facet>  
+          <s:link value="#{_gradeFeeItem.feeItem.displayName}" view="/admin/entities/fees/feeItem/viewFeeItem.xhtml" propagation="none"> 
+            <f:param name="feeItemId" value="#{_gradeFeeItem.feeItem.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.gradeFeeItem_amount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeItemView')}"/>
+          </f:facet>  
+          <h:outputText id="amount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeItemView')}" value="#{_gradeFeeItem.amount}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

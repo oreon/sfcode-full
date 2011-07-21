@@ -118,6 +118,8 @@ public abstract class UserActionBase extends BaseAction<User>
 
 	public void setUser(User t) {
 		this.user = t;
+		if (user != null)
+			setUserId(t.getId());
 		loadAssociations();
 	}
 

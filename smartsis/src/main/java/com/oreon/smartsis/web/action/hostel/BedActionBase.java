@@ -139,6 +139,8 @@ public abstract class BedActionBase extends BaseAction<Bed>
 
 	public void setBed(Bed t) {
 		this.bed = t;
+		if (bed != null)
+			setBedId(t.getId());
 		loadAssociations();
 	}
 

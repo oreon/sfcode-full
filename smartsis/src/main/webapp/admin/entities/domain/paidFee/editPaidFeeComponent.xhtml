@@ -18,13 +18,6 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="gradeFee" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFee', 'paidFeeEdit')}"/>  
-        <h:outputText value="#{msg.paidFee_gradeFeesInstance} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeesInstance', 'paidFeeEdit')}"/>  
-        <h:selectOneMenu id="gradeFeesInstance" label="#{msg.paidFee_gradeFeesInstance}" value="#{paidFeeAction.paidFee.gradeFeesInstance}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeesInstance', 'paidFeeEdit')}"> 
-          <s:selectItems value="#{gradeFeesInstanceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="gradeFeesInstance" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeesInstance', 'paidFeeEdit')}"/>  
         <h:outputText value="#{msg.paidFee_amount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'paidFeeEdit')}"/>  
         <h:inputText id="amount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'paidFeeEdit')}" label="#{msg.paidFee_amount}" required="false" value="#{paidFeeAction.paidFee.amount}"> 
           <rich:ajaxValidator event="onsubmit"/> 

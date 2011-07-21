@@ -1,0 +1,32 @@
+package com.oreon.smartsis.web.action.domain.restful;
+
+import javax.ws.rs.Path;
+import javax.ws.rs.GET;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.Produces;
+
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.resteasy.ResourceQuery;
+
+import org.jboss.seam.framework.EntityHome;
+import org.jboss.seam.framework.Home;
+import org.jboss.seam.resteasy.ResourceHome;
+
+import org.jboss.seam.annotations.In;
+
+import java.util.List;
+
+import com.oreon.smartsis.domain.Department;
+
+@Name("departmentResourceHome")
+@Path("department")
+public class DepartmentResourceHome extends ResourceHome<Department, Long> {
+	@In(create = true)
+	private EntityHome<Department> departmentAction;
+
+	@Override
+	public Home<?, Department> getEntityHome() {
+		return departmentAction;
+	}
+
+}

@@ -185,6 +185,8 @@ public abstract class AttendanceActionBase extends BaseAction<Attendance>
 
 	public void setAttendance(Attendance t) {
 		this.attendance = t;
+		if (attendance != null)
+			setAttendanceId(t.getId());
 		loadAssociations();
 	}
 

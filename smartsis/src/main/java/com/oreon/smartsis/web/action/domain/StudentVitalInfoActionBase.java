@@ -140,6 +140,8 @@ public abstract class StudentVitalInfoActionBase
 
 	public void setStudentVitalInfo(StudentVitalInfo t) {
 		this.studentVitalInfo = t;
+		if (studentVitalInfo != null)
+			setStudentVitalInfoId(t.getId());
 		loadAssociations();
 	}
 

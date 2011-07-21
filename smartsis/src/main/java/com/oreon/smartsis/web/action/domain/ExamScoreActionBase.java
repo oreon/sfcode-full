@@ -162,6 +162,8 @@ public abstract class ExamScoreActionBase extends BaseAction<ExamScore>
 
 	public void setExamScore(ExamScore t) {
 		this.examScore = t;
+		if (examScore != null)
+			setExamScoreId(t.getId());
 		loadAssociations();
 	}
 

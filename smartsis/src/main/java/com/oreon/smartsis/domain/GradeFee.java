@@ -34,6 +34,9 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import org.jboss.seam.annotations.Name;
 
 import org.witchcraft.base.entity.BusinessEntity;
@@ -42,6 +45,8 @@ import org.witchcraft.base.entity.FileAttachment;
 
 import org.witchcraft.utils.*;
 
+import com.oreon.smartsis.ProjectUtils;
+
 @Entity
 @Table(name = "gradefee")
 @Filter(name = "archiveFilterDef")
@@ -49,7 +54,11 @@ import org.witchcraft.utils.*;
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
-public class GradeFee extends BusinessEntity implements java.io.Serializable {
+@XmlRootElement
+public class GradeFee extends BusinessEntity
+		implements
+			java.io.Serializable,
+			com.sun.xml.internal.bind.CycleRecoverable {
 	private static final long serialVersionUID = -465927165L;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)

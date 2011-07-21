@@ -120,6 +120,8 @@ public abstract class HostelActionBase extends BaseAction<Hostel>
 
 	public void setHostel(Hostel t) {
 		this.hostel = t;
+		if (hostel != null)
+			setHostelId(t.getId());
 		loadAssociations();
 	}
 

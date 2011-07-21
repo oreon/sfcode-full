@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.monthlyFee_grade} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'monthlyFeeEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="grade" value="#{monthlyFeeAction.monthlyFee.grade}"> 
+          <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="grade" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'monthlyFeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.monthlyFee_month}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'monthlyFeeEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="month" value="#{monthlyFeeAction.monthlyFee.month}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="JAN" itemLabel="Jan"/>  
+          <f:selectItem itemValue="FEB" itemLabel="Feb"/>  
+          <f:selectItem itemValue="MAR" itemLabel="Mar"/>  
+          <f:selectItem itemValue="APR" itemLabel="Apr"/>  
+          <f:selectItem itemValue="MAY" itemLabel="May"/>  
+          <f:selectItem itemValue="JUN" itemLabel="Jun"/>  
+          <f:selectItem itemValue="JUL" itemLabel="Jul"/>  
+          <f:selectItem itemValue="AUG" itemLabel="Aug"/>  
+          <f:selectItem itemValue="SEP" itemLabel="Sep"/>  
+          <f:selectItem itemValue="OCT" itemLabel="Oct"/>  
+          <f:selectItem itemValue="NOV" itemLabel="Nov"/>  
+          <f:selectItem itemValue="DEC" itemLabel="Dec"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="month" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'monthlyFeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.monthlyFee_total}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('total', 'monthlyFeeEdit')}"/>  
+        <br/>  
+        <h:inputText id="total" value="#{monthlyFeeAction.monthlyFee.total}"/>  
+        <rich:message styleClass="error errors" for="total" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('total', 'monthlyFeeEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

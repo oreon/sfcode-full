@@ -163,6 +163,8 @@ public abstract class ExamInstanceActionBase extends BaseAction<ExamInstance>
 
 	public void setExamInstance(ExamInstance t) {
 		this.examInstance = t;
+		if (examInstance != null)
+			setExamInstanceId(t.getId());
 		loadAssociations();
 	}
 

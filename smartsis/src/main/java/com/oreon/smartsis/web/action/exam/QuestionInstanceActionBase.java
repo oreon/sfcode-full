@@ -186,6 +186,8 @@ public abstract class QuestionInstanceActionBase
 
 	public void setQuestionInstance(QuestionInstance t) {
 		this.questionInstance = t;
+		if (questionInstance != null)
+			setQuestionInstanceId(t.getId());
 		loadAssociations();
 	}
 

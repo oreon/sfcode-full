@@ -96,10 +96,6 @@
   <entity class="com.oreon.smartsis.domain.StudentVitalInfo" name="StudentVitalInfo"> 
     <table name="studentvitalinfo"></table> 
   </entity>  
-  <!--  GradeFeesInstance  JPA Configurations -->  
-  <entity class="com.oreon.smartsis.domain.GradeFeesInstance" name="GradeFeesInstance"> 
-    <table name="gradefeesinstance"></table> 
-  </entity>  
   <!--  ElectronicExam  JPA Configurations -->  
   <entity class="com.oreon.smartsis.exam.ElectronicExam" name="ElectronicExam"> 
     <table name="electronicexam"></table>  
@@ -180,5 +176,26 @@
 			select u from Role u where u.name = ?1
 			]]> </query> 
     </named-query> 
+  </entity>  
+  <!--  MonthlyFee  JPA Configurations -->  
+  <entity class="com.oreon.smartsis.fees.MonthlyFee" name="MonthlyFee"> 
+    <table name="monthlyfee"></table> 
+  </entity>  
+  <!--  FeeItem  JPA Configurations -->  
+  <entity class="com.oreon.smartsis.fees.FeeItem" name="FeeItem"> 
+    <table name="feeitem"></table>  
+    <named-query name="feeItem.findByUnqName"> 
+      <query> <![CDATA[
+			select u from FeeItem u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  GradeFeeItem  JPA Configurations -->  
+  <entity class="com.oreon.smartsis.fees.GradeFeeItem" name="GradeFeeItem"> 
+    <table name="gradefeeitem"></table> 
+  </entity>  
+  <!--  StudentPaidFee  JPA Configurations -->  
+  <entity class="com.oreon.smartsis.fees.StudentPaidFee" name="StudentPaidFee"> 
+    <table name="studentpaidfee"></table> 
   </entity> 
 </entity-mappings>

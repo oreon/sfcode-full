@@ -186,6 +186,8 @@ public abstract class GradeSubjectActionBase extends BaseAction<GradeSubject>
 
 	public void setGradeSubject(GradeSubject t) {
 		this.gradeSubject = t;
+		if (gradeSubject != null)
+			setGradeSubjectId(t.getId());
 		loadAssociations();
 	}
 

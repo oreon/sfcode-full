@@ -118,6 +118,8 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 
 	public void setExam(Exam t) {
 		this.exam = t;
+		if (exam != null)
+			setExamId(t.getId());
 		loadAssociations();
 	}
 

@@ -166,6 +166,8 @@ public abstract class StudentActionBase
 
 	public void setStudent(Student t) {
 		this.student = t;
+		if (student != null)
+			setStudentId(t.getId());
 		loadAssociations();
 	}
 

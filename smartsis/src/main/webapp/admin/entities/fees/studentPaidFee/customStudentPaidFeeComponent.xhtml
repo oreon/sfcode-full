@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.studentPaidFee_amountOwed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountOwed', 'studentPaidFeeEdit')}"/>  
+        <br/>  
+        <h:inputText id="amountOwed" value="#{studentPaidFeeAction.studentPaidFee.amountOwed}"/>  
+        <rich:message styleClass="error errors" for="amountOwed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountOwed', 'studentPaidFeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.studentPaidFee_amountPaid}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountPaid', 'studentPaidFeeEdit')}"/>  
+        <br/>  
+        <h:inputText id="amountPaid" value="#{studentPaidFeeAction.studentPaidFee.amountPaid}"/>  
+        <rich:message styleClass="error errors" for="amountPaid" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountPaid', 'studentPaidFeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.studentPaidFee_dueAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dueAmount', 'studentPaidFeeEdit')}"/>  
+        <br/>  
+        <h:inputText id="dueAmount" value="#{studentPaidFeeAction.studentPaidFee.dueAmount}"/>  
+        <rich:message styleClass="error errors" for="dueAmount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dueAmount', 'studentPaidFeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.studentPaidFee_dateOfPayment}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfPayment', 'studentPaidFeeEdit')}"/>  
+        <br/>  
+        <rich:calendar id="dateOfPayment" value="#{studentPaidFeeAction.studentPaidFee.dateOfPayment}"/>  
+        <rich:message styleClass="error errors" for="dateOfPayment" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfPayment', 'studentPaidFeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.studentPaidFee_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'studentPaidFeeEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="student" value="#{studentPaidFeeAction.studentPaidFee.student}"> 
+          <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'studentPaidFeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.studentPaidFee_grade} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'studentPaidFeeEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="grade" value="#{studentPaidFeeAction.studentPaidFee.grade}"> 
+          <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="grade" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'studentPaidFeeEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

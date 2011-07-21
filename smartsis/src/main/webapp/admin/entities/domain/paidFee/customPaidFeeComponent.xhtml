@@ -37,15 +37,6 @@
         <rich:message styleClass="error errors" for="gradeFee" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFee', 'paidFeeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.paidFee_gradeFeesInstance} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeesInstance', 'paidFeeEdit')}"/>  
-        <br/>  
-        <h:selectOneMenu id="gradeFeesInstance" value="#{paidFeeAction.paidFee.gradeFeesInstance}"> 
-          <s:selectItems value="#{gradeFeesInstanceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="gradeFeesInstance" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeesInstance', 'paidFeeEdit')}"/> 
-      </h:panelGroup>  
-      <h:panelGroup> 
         <h:outputText value="#{msg.paidFee_month}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'paidFeeEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="month" value="#{paidFeeAction.paidFee.month}" required="false"> 

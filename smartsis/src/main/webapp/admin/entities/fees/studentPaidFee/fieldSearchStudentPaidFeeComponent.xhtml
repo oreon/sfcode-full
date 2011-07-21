@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.studentPaidFee_amountOwed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountOwed', 'studentPaidFeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="amountOwed_begin" value="#{studentPaidFeeList.amountOwedRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="amountOwed_end" value="#{studentPaidFeeList.amountOwedRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.studentPaidFee_amountPaid}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountPaid', 'studentPaidFeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="amountPaid_begin" value="#{studentPaidFeeList.amountPaidRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="amountPaid_end" value="#{studentPaidFeeList.amountPaidRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.studentPaidFee_dueAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dueAmount', 'studentPaidFeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="dueAmount_begin" value="#{studentPaidFeeList.dueAmountRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="dueAmount_end" value="#{studentPaidFeeList.dueAmountRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.studentPaidFee_dateOfPayment}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfPayment', 'studentPaidFeeEdit')}"/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <rich:calendar value="#{studentPaidFeeList.dateOfPaymentRange.begin}"/> To
+      <br/>  
+      <rich:calendar value="#{studentPaidFeeList.dateOfPaymentRange.end}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.studentPaidFee_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'studentPaidFeeEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="student" value="#{ studentPaidFeeList.studentPaidFee.student}"> 
+        <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.studentPaidFee_grade} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'studentPaidFeeEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="grade" value="#{ studentPaidFeeList.studentPaidFee.grade}"> 
+        <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{studentPaidFeeList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{studentPaidFeeList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>
