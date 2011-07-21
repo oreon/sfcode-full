@@ -142,6 +142,8 @@ public abstract class GradeAttendanceActionBase
 
 	public void setGradeAttendance(GradeAttendance t) {
 		this.gradeAttendance = t;
+		if (gradeAttendance != null)
+			setGradeAttendanceId(t.getId());
 		loadAssociations();
 	}
 

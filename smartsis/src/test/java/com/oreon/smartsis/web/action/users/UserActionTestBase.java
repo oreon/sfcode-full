@@ -56,4 +56,32 @@ public class UserActionTestBase
 		}.run();
 	}
 
+	@Test
+	public void testLogin() throws Exception {
+		new ComponentTest() {
+
+			protected void testComponents() throws Exception {
+				UserAction userAction = (UserAction) org.jboss.seam.Component
+						.getInstance("userAction");
+
+				// assert(userAction.login()).equals("");
+			}
+
+		}.run();
+	}
+
+	@Test
+	public void testRetrieveCredentials() throws Exception {
+		new ComponentTest() {
+
+			protected void testComponents() throws Exception {
+				UserAction userAction = (UserAction) org.jboss.seam.Component
+						.getInstance("userAction");
+
+				// assert(userAction.retrieveCredentials()).equals("");
+			}
+
+		}.run();
+	}
+
 }

@@ -140,6 +140,8 @@ public abstract class CourseDocumentsActionBase
 
 	public void setCourseDocuments(CourseDocuments t) {
 		this.courseDocuments = t;
+		if (courseDocuments != null)
+			setCourseDocumentsId(t.getId());
 		loadAssociations();
 	}
 

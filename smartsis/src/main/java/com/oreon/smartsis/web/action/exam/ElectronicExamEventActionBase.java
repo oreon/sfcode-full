@@ -143,6 +143,8 @@ public abstract class ElectronicExamEventActionBase
 
 	public void setElectronicExamEvent(ElectronicExamEvent t) {
 		this.electronicExamEvent = t;
+		if (electronicExamEvent != null)
+			setElectronicExamEventId(t.getId());
 		loadAssociations();
 	}
 

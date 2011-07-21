@@ -125,6 +125,8 @@ public abstract class GradeActionBase extends BaseAction<Grade>
 
 	public void setGrade(Grade t) {
 		this.grade = t;
+		if (grade != null)
+			setGradeId(t.getId());
 		loadAssociations();
 	}
 

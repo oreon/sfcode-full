@@ -161,6 +161,8 @@ public abstract class GradeFeeActionBase extends BaseAction<GradeFee>
 
 	public void setGradeFee(GradeFee t) {
 		this.gradeFee = t;
+		if (gradeFee != null)
+			setGradeFeeId(t.getId());
 		loadAssociations();
 	}
 

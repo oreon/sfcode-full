@@ -185,6 +185,8 @@ public abstract class EmployeeActionBase
 
 	public void setEmployee(Employee t) {
 		this.employee = t;
+		if (employee != null)
+			setEmployeeId(t.getId());
 		loadAssociations();
 	}
 

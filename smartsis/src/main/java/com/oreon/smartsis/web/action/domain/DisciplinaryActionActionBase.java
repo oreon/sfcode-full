@@ -162,6 +162,8 @@ public abstract class DisciplinaryActionActionBase
 
 	public void setDisciplinaryAction(DisciplinaryAction t) {
 		this.disciplinaryAction = t;
+		if (disciplinaryAction != null)
+			setDisciplinaryActionId(t.getId());
 		loadAssociations();
 	}
 

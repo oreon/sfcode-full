@@ -161,6 +161,8 @@ public abstract class BedAllocationActionBase extends BaseAction<BedAllocation>
 
 	public void setBedAllocation(BedAllocation t) {
 		this.bedAllocation = t;
+		if (bedAllocation != null)
+			setBedAllocationId(t.getId());
 		loadAssociations();
 	}
 

@@ -16,11 +16,6 @@
           <f:param name="gradeFeeId" value="#{paidFeeAction.paidFee.gradeFee.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.paidFee_gradeFeesInstance}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeesInstance', 'paidFeeView')}"/>  
-        <s:link value="#{paidFeeAction.paidFee.gradeFeesInstance.displayName}" view="/admin/entities/domain/gradeFeesInstance/viewGradeFeesInstance.xhtml" propagation="none"> 
-          <f:param name="gradeFeesInstanceId" value="#{paidFeeAction.paidFee.gradeFeesInstance.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
         <h:outputText value="#{msg.paidFee_amount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'paidFeeView')}"/>  
         <h:outputText id="amount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'paidFeeView')}" value="#{paidFeeAction.paidFee.amount}"></h:outputText>  
         <h:outputText value="#{msg.paidFee_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('notes', 'paidFeeView')}"/>  

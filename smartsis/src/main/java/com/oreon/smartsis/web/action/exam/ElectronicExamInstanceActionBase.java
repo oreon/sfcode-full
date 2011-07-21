@@ -165,6 +165,8 @@ public abstract class ElectronicExamInstanceActionBase
 
 	public void setElectronicExamInstance(ElectronicExamInstance t) {
 		this.electronicExamInstance = t;
+		if (electronicExamInstance != null)
+			setElectronicExamInstanceId(t.getId());
 		loadAssociations();
 	}
 

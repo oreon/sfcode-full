@@ -1,9 +1,12 @@
 package com.oreon.smartsis.web.action.reports;
 
-import org.jboss.seam.Component;
 import org.testng.annotations.Test;
 import org.witchcraft.action.test.BaseReportsTest;
 import org.witchcraft.jasperreports.BaseReportAction;
+
+import org.jboss.seam.Component;
+
+import com.oreon.smartsis.web.action.reports.EmployeeDepartmentCountAction;
 
 public class EmployeeDepartmentCountTest extends BaseReportsTest {
 

@@ -1,6 +1,7 @@
 package org.witchcraft.seam.action;
 
 import java.io.OutputStream;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -8,8 +9,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.ResponseStateManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.cglib.transform.impl.AddStaticInitTransformer;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -20,6 +24,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
 import org.jboss.seam.Component;
@@ -278,7 +283,26 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		//	addInfoMessage("Successfully saved record: {0}", getInstance().getDisplayName());
 			updateAssociations();
 
-		} catch (Exception e) {
+		} catch (PersistenceException pe){
+			if(pe.getCause() instanceof ConstraintViolationException){
+				
+				if(pe.getCause().getCause() instanceof SQLException){
+					SQLException se = (SQLException)pe.getCause().getCause();
+					if( se.getErrorCode() == 1062 ){
+					
+						String[] tokens = se.getMessage().split(" ");
+						addErrorMessage( "A Record with this " + tokens[tokens.length - 1] + " already exists ");
+					}
+				}else{
+					addErrorMessage("A Constraint violation Error Occured: " + pe.getMessage());
+				}
+				return "error";
+			}
+			addErrorMessage("A peristence error has occured:" + pe.getMessage() );
+			return "error";
+		}
+		catch (Exception e) {
+			
 			addErrorMessage("Error Saving record: " + e.getMessage());
 			log.error("error saving ", e);
 			return "error";

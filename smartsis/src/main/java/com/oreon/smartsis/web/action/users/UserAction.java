@@ -34,6 +34,7 @@ public class UserAction extends UserActionBase implements java.io.Serializable {
 	public String login() {
 		if (authenticator.authenticate())
 			return "success";
+		addErrorMessage("Invalid username/password ");
 		return "failure";
 	}
 

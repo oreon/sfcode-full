@@ -123,6 +123,8 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 	public void setDepartment(Department t) {
 		this.department = t;
+		if (department != null)
+			setDepartmentId(t.getId());
 		loadAssociations();
 	}
 

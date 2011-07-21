@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{gradeFeeItemAction.load(gradeFeeItemId )  }"> 
+        <h:outputText value="#{msg.gradeFeeItem_monthlyFee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('monthlyFee', 'gradeFeeItemEdit')}"/>  
+        <h:selectOneMenu id="monthlyFee" label="#{msg.gradeFeeItem_monthlyFee}" value="#{gradeFeeItemAction.gradeFeeItem.monthlyFee}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('monthlyFee', 'gradeFeeItemEdit')}"> 
+          <s:selectItems value="#{monthlyFeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="monthlyFee" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('monthlyFee', 'gradeFeeItemEdit')}"/>  
+        <h:outputText value="#{msg.gradeFeeItem_feeItem} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'gradeFeeItemEdit')}"/>  
+        <h:selectOneMenu id="feeItem" label="#{msg.gradeFeeItem_feeItem}" value="#{gradeFeeItemAction.gradeFeeItem.feeItem}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'gradeFeeItemEdit')}"> 
+          <s:selectItems value="#{feeItemList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="feeItem" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'gradeFeeItemEdit')}"/>  
+        <h:outputText value="#{msg.gradeFeeItem_amount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeItemEdit')}"/>  
+        <h:inputText id="amount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeItemEdit')}" label="#{msg.gradeFeeItem_amount}" required="false" value="#{gradeFeeItemAction.gradeFeeItem.amount}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="amount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeItemEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

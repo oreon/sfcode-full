@@ -118,6 +118,8 @@ public abstract class SubjectActionBase extends BaseAction<Subject>
 
 	public void setSubject(Subject t) {
 		this.subject = t;
+		if (subject != null)
+			setSubjectId(t.getId());
 		loadAssociations();
 	}
 

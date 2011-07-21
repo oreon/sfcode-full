@@ -140,6 +140,8 @@ public abstract class ChoiceActionBase extends BaseAction<Choice>
 
 	public void setChoice(Choice t) {
 		this.choice = t;
+		if (choice != null)
+			setChoiceId(t.getId());
 		loadAssociations();
 	}
 

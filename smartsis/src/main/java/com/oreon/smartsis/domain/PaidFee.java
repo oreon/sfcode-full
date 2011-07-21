@@ -34,6 +34,9 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import org.jboss.seam.annotations.Name;
 
 import org.witchcraft.base.entity.BusinessEntity;
@@ -42,6 +45,8 @@ import org.witchcraft.base.entity.FileAttachment;
 
 import org.witchcraft.utils.*;
 
+import com.oreon.smartsis.ProjectUtils;
+
 @Entity
 @Table(name = "paidfee")
 @Filter(name = "archiveFilterDef")
@@ -49,7 +54,11 @@ import org.witchcraft.utils.*;
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
-public class PaidFee extends BusinessEntity implements java.io.Serializable {
+@XmlRootElement
+public class PaidFee extends BusinessEntity
+		implements
+			java.io.Serializable,
+			com.sun.xml.internal.bind.CycleRecoverable {
 	private static final long serialVersionUID = -1971401482L;
 
 	protected Double amount;
@@ -68,11 +77,6 @@ public class PaidFee extends BusinessEntity implements java.io.Serializable {
 	@JoinColumn(name = "gradeFee_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected GradeFee gradeFee;
-
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "gradeFeesInstance_id", nullable = false, updatable = true)
-	@ContainedIn
-	protected GradeFeesInstance gradeFeesInstance;
 
 	protected FeeMonth month;
 
@@ -115,16 +119,6 @@ public class PaidFee extends BusinessEntity implements java.io.Serializable {
 	public GradeFee getGradeFee() {
 
 		return gradeFee;
-
-	}
-
-	public void setGradeFeesInstance(GradeFeesInstance gradeFeesInstance) {
-		this.gradeFeesInstance = gradeFeesInstance;
-	}
-
-	public GradeFeesInstance getGradeFeesInstance() {
-
-		return gradeFeesInstance;
 
 	}
 
@@ -186,10 +180,6 @@ public class PaidFee extends BusinessEntity implements java.io.Serializable {
 
 		if (getGradeFee() != null)
 			builder.append("gradeFee:" + getGradeFee().getDisplayName() + " ");
-
-		if (getGradeFeesInstance() != null)
-			builder.append("gradeFeesInstance:"
-					+ getGradeFeesInstance().getDisplayName() + " ");
 
 		return builder.toString();
 	}

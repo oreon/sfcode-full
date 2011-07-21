@@ -34,6 +34,9 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import org.jboss.seam.annotations.Name;
 
 import org.witchcraft.base.entity.BusinessEntity;
@@ -42,6 +45,8 @@ import org.witchcraft.base.entity.FileAttachment;
 
 import org.witchcraft.utils.*;
 
+import com.oreon.smartsis.ProjectUtils;
+
 @Entity
 @Table(name = "electronicexaminstance")
 @Filter(name = "archiveFilterDef")
@@ -49,9 +54,11 @@ import org.witchcraft.utils.*;
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
+@XmlRootElement
 public class ElectronicExamInstance extends BusinessEntity
 		implements
-			java.io.Serializable {
+			java.io.Serializable,
+			com.sun.xml.internal.bind.CycleRecoverable {
 	private static final long serialVersionUID = 1166858557L;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)

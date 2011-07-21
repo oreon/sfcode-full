@@ -118,6 +118,8 @@ public abstract class FeeActionBase extends BaseAction<Fee>
 
 	public void setFee(Fee t) {
 		this.fee = t;
+		if (fee != null)
+			setFeeId(t.getId());
 		loadAssociations();
 	}
 

@@ -118,6 +118,8 @@ public abstract class RoleActionBase extends BaseAction<Role>
 
 	public void setRole(Role t) {
 		this.role = t;
+		if (role != null)
+			setRoleId(t.getId());
 		loadAssociations();
 	}
 

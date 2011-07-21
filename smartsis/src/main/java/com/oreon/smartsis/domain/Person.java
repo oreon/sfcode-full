@@ -34,6 +34,9 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import org.jboss.seam.annotations.Name;
 
 import org.witchcraft.base.entity.BusinessEntity;
@@ -41,6 +44,8 @@ import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.witchcraft.utils.*;
+
+import com.oreon.smartsis.ProjectUtils;
 
 @MappedSuperclass
 public class Person extends BusinessEntity {
