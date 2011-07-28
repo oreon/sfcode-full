@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import org.hibernate.search.jpa.Search;
 import org.jboss.seam.mock.SeamTest;
 import org.testng.annotations.AfterClass;
 import org.witchcraft.base.entity.BusinessEntity;

@@ -7,13 +7,12 @@ import org.jboss.seam.security.Identity;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.witchcraft.seam.action.BaseAction;
-import org.witchcraft.users.Role;
-import org.witchcraft.users.User;
-import org.witchcraft.users.action.UserAction;
+
+import com.oreon.callosum.users.Role;
+import com.oreon.callosum.users.User;
 
 public class AuthenticatorTest extends BaseTest<User> {
 
-	UserAction action = new UserAction();
 
 	@BeforeClass
 	public void init() {
@@ -22,7 +21,7 @@ public class AuthenticatorTest extends BaseTest<User> {
 
 	@Override
 	public BaseAction<User> getAction() {
-		return action;
+		return null;
 	}
 
 	@Test(dependsOnMethods = { "testRegisterAction" })
