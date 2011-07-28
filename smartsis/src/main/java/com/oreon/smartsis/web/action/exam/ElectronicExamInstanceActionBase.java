@@ -266,6 +266,9 @@ public abstract class ElectronicExamInstanceActionBase
 
 	}
 
+	/** 
+	 * []
+	 */
 	public Integer calculateScore(
 			com.oreon.smartsis.exam.ElectronicExamInstance examInstance) {
 

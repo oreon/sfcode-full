@@ -11,20 +11,15 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'studentPaidFeeEdit')}"/>  
-        <h:outputText value="#{msg.studentPaidFee_grade} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'studentPaidFeeEdit')}"/>  
-        <h:selectOneMenu id="grade" label="#{msg.studentPaidFee_grade}" value="#{studentPaidFeeAction.studentPaidFee.grade}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'studentPaidFeeEdit')}"> 
-          <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+        <h:outputText value="#{msg.studentPaidFee_monthlyFee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('monthlyFee', 'studentPaidFeeEdit')}"/>  
+        <h:selectOneMenu id="monthlyFee" label="#{msg.studentPaidFee_monthlyFee}" value="#{studentPaidFeeAction.studentPaidFee.monthlyFee}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('monthlyFee', 'studentPaidFeeEdit')}"> 
+          <s:selectItems value="#{monthlyFeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="grade" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'studentPaidFeeEdit')}"/>  
-        <h:outputText value="#{msg.studentPaidFee_amountOwed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountOwed', 'studentPaidFeeEdit')}"/>  
-        <h:inputText id="amountOwed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountOwed', 'studentPaidFeeEdit')}" label="#{msg.studentPaidFee_amountOwed}" required="false" value="#{studentPaidFeeAction.studentPaidFee.amountOwed}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="amountOwed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountOwed', 'studentPaidFeeEdit')}"/>  
-        <h:outputText value="#{msg.studentPaidFee_amountPaid}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountPaid', 'studentPaidFeeEdit')}"/>  
-        <h:inputText id="amountPaid#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountPaid', 'studentPaidFeeEdit')}" label="#{msg.studentPaidFee_amountPaid}" required="false" value="#{studentPaidFeeAction.studentPaidFee.amountPaid}"> 
+        <rich:message styleClass="error errors" for="monthlyFee" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('monthlyFee', 'studentPaidFeeEdit')}"/>  
+        <h:outputText value="#{msg.studentPaidFee_amountPaid} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountPaid', 'studentPaidFeeEdit')}"/>  
+        <h:inputText id="amountPaid#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountPaid', 'studentPaidFeeEdit')}" label="#{msg.studentPaidFee_amountPaid}" required="true" value="#{studentPaidFeeAction.studentPaidFee.amountPaid}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="amountPaid" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountPaid', 'studentPaidFeeEdit')}"/>  

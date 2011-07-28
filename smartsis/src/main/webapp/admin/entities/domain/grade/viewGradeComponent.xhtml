@@ -33,23 +33,6 @@
           </s:link> 
         </h:column> 
       </rich:dataTable>  
-      <rich:dataTable id="gradeFees" var="_gradeFee" rendered="#{not empty gradeAction.listGradeFees and skipPermissionCheck == 'true' || s:hasPermission('gradeFees', 'gradeSubjectView') }" value="#{gradeAction.listGradeFees}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.gradeFee_fee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fee', 'gradeFeeView')}"/>
-          </f:facet>  
-          <s:link value="#{_gradeFee.fee.displayName}" view="/admin/entities/domain/fee/viewFee.xhtml" propagation="none"> 
-            <f:param name="feeId" value="#{_gradeFee.fee.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link> 
-        </h:column>  
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.gradeFee_amount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeView')}"/>
-          </f:facet>  
-          <h:outputText id="amount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeView')}" value="#{_gradeFee.amount}"></h:outputText> 
-        </h:column> 
-      </rich:dataTable>  
       <br/>  
       <rich:simpleTogglePanel label="#{msg.grade_exams}" switchType="client"> 
         <rich:dataTable value="#{gradeAction.listExams}" var="item"> 

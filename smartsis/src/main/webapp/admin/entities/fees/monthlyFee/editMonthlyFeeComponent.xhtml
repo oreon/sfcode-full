@@ -11,7 +11,7 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="grade" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'monthlyFeeEdit')}"/>  
-        <h:outputText value="#{msg.monthlyFee_month}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'monthlyFeeEdit')}"/>  
+        <h:outputText value="#{msg.monthlyFee_month} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'monthlyFeeEdit')}"/>  
         <h:selectOneMenu id="month" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'monthlyFeeEdit')}" value="#{monthlyFeeAction.monthlyFee.month}" required="false" label="#{msg.monthlyFee_month}"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="JAN" itemLabel="#{msg.JAN}"/>  
@@ -53,6 +53,15 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText>  
           <rich:message styleClass="error errors" for="amount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeItemEdit')}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.gradeFeeItem_applyToAllMonths}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('applyToAllMonths', 'gradeFeeItemEdit')}"/>
+          </f:facet>  
+          <h:selectBooleanCheckbox id="applyToAllMonths#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('applyToAllMonths', 'gradeFeeItemEdit')}" label="#{msg.gradeFeeItem_applyToAllMonths}" required="false" value="#{_gradeFeeItem.applyToAllMonths}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectBooleanCheckbox>  
+          <rich:message styleClass="error errors" for="applyToAllMonths" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('applyToAllMonths', 'gradeFeeItemEdit')}"/> 
         </h:column>  
         <h:column> 
           <a:commandButton value="New GradeFeeItem" action="#{monthlyFeeAction.addGradeFeeItems}" reRender="gradeFeeItems" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItems', 'gradeFeeItemEdit')}"> 

@@ -18,4 +18,13 @@ package com.oreon.smartsis.web.action.fees;
 
 public class MonthlyFeeActionTest extends MonthlyFeeActionTestBase{
 	
+	@Test
+	public void testLoad(){
+		//getAction();
+		MonthlyFee monthlyFee = em.find(MonthlyFee.class, 1L);
+		if(monthlyFee != null){
+			System.out.println(monthlyFee.getMonth());
+		}
+	}
+	
 }

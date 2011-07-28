@@ -1,7 +1,4 @@
-
-	
 package com.oreon.smartsis.web.action.fees;
-	
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,10 +37,12 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
-	
 //@Scope(ScopeType.CONVERSATION)
 @Name("monthlyFeeAction")
-public class MonthlyFeeAction extends MonthlyFeeActionBase implements java.io.Serializable{
+public class MonthlyFeeAction extends MonthlyFeeActionBase implements
+		java.io.Serializable {
 	
+	
+	
+
 }
-	

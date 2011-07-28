@@ -40,8 +40,7 @@ public class Authenticator {
 
 		try {
 
-			User user = (User) entityManager
-					.createQuery(
+			User user = (User) entityManager.createQuery(
 					"from User where username = :username and password = :password")
 					.setParameter("username", credentials.getUsername())
 					.setParameter("password", credentials.getPassword())

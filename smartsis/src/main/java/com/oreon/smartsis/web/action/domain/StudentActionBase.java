@@ -60,6 +60,9 @@ public abstract class StudentActionBase
 	@In(create = true, value = "parentAction")
 	com.oreon.smartsis.web.action.domain.ParentAction parentAction;
 
+	@In(create = true, value = "parentAction")
+	com.oreon.smartsis.web.action.domain.ParentAction secondaryAction;
+
 	@DataModel
 	private List<Student> studentRecordList;
 
@@ -110,6 +113,19 @@ public abstract class StudentActionBase
 		return 0L;
 	}
 
+	public void setSecondaryId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setSecondary(secondaryAction.loadFromId(id));
+
+	}
+
+	public Long getSecondaryId() {
+		if (getInstance().getSecondary() != null)
+			return getInstance().getSecondary().getId();
+		return 0L;
+	}
+
 	public Long getStudentId() {
 		return (Long) getId();
 	}
@@ -152,6 +168,12 @@ public abstract class StudentActionBase
 				.getDefinedInstance();
 		if (parent != null && isNew()) {
 			getInstance().setParent(parent);
+		}
+
+		com.oreon.smartsis.domain.Parent secondary = secondaryAction
+				.getDefinedInstance();
+		if (secondary != null && isNew()) {
+			getInstance().setSecondary(secondary);
 		}
 
 	}
@@ -210,6 +232,11 @@ public abstract class StudentActionBase
 					.getParent().getId()));
 		}
 
+		if (student.getSecondary() != null) {
+			criteria = criteria.add(Restrictions.eq("secondary.id", student
+					.getSecondary().getId()));
+		}
+
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -224,6 +251,10 @@ public abstract class StudentActionBase
 
 		if (student.getParent() != null) {
 			parentAction.setInstance(getInstance().getParent());
+		}
+
+		if (student.getSecondary() != null) {
+			secondaryAction.setInstance(getInstance().getSecondary());
 		}
 
 		initListStudentVitalInfos();

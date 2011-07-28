@@ -57,41 +57,6 @@
           </a:commandButton> 
         </h:column> 
       </rich:dataTable>  
-      <a:commandButton value="New GradeFee" action="#{gradeAction.addGradeFees}" reRender="gradeFees" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFees', 'gradeSubjectEdit')}"> 
-        <s:conversationId/> 
-      </a:commandButton>  
-      <rich:dataTable id="gradeFees" var="_gradeFee" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFees', 'gradeSubjectEdit')}" value="#{gradeAction.listGradeFees}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.gradeFee_fee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fee', 'gradeFeeEdit')}"/>
-          </f:facet>  
-          <h:selectOneMenu id="fee" label="#{msg.gradeFee_fee}" value="#{_gradeFee.fee}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fee', 'gradeFeeEdit')}"> 
-            <s:selectItems value="#{feeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <rich:ajaxValidator event="onsubmit"/>  
-            <s:convertEntity/> 
-          </h:selectOneMenu>  
-          <rich:message styleClass="error errors" for="fee" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fee', 'gradeFeeEdit')}"/> 
-        </h:column>  
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.gradeFee_amount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeEdit')}"/>
-          </f:facet>  
-          <h:inputText id="amount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeEdit')}" label="#{msg.gradeFee_amount}" required="false" value="#{_gradeFee.amount}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
-          </h:inputText>  
-          <rich:message styleClass="error errors" for="amount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeEdit')}"/> 
-        </h:column>  
-        <h:column> 
-          <a:commandButton value="New GradeFee" action="#{gradeAction.addGradeFees}" reRender="gradeFees" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFees', 'gradeFeeEdit')}"> 
-            <s:conversationId/> 
-          </a:commandButton> 
-        </h:column>  
-        <h:column> 
-          <a:commandButton value="Delete" immediate="true" action="#{gradeAction.deleteGradeFees(rowIndex)}" reRender="gradeFees"> 
-            <s:conversationId/> 
-          </a:commandButton> 
-        </h:column> 
-      </rich:dataTable>  
       <br/>  
       <rich:simpleTogglePanel label="#{msg.grade_exams}" switchType="client" id="exams"> 
         <rich:listShuttle sourceValue="#{gradeAction.listAvailableExams}" targetValue="#{gradeAction.listExams}" var="item"> 

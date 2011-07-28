@@ -59,6 +59,16 @@
             <f:convertNumber pattern="$#,##0.00"/> 
           </h:outputText> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('applyToAllMonths', 'gradeFeeItemView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{gradeFeeItemList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.gradeFeeItem_applyToAllMonths}"/>  
+              <ui:param name="propertyPath" value="gradeFeeItem.applyToAllMonths"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_gradeFeeItem.applyToAllMonths? msg.yes : msg.no }"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'gradeFeeItemView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

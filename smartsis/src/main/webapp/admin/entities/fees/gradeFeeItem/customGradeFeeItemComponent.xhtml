@@ -29,6 +29,12 @@
         <br/>  
         <h:inputText id="amount" value="#{gradeFeeItemAction.gradeFeeItem.amount}"/>  
         <rich:message styleClass="error errors" for="amount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeItemEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.gradeFeeItem_applyToAllMonths}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('applyToAllMonths', 'gradeFeeItemEdit')}"/>  
+        <br/>  
+        <h:selectBooleanCheckbox id="applyToAllMonths" value="#{gradeFeeItemAction.gradeFeeItem.applyToAllMonths}"/>  
+        <rich:message styleClass="error errors" for="applyToAllMonths" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('applyToAllMonths', 'gradeFeeItemEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

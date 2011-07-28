@@ -88,9 +88,11 @@ public class MonthlyFee extends BusinessEntity
 		return gradeFeeItems.size();
 	}
 
+	@NotNull
+	@Column(name = "month", unique = false)
 	protected com.oreon.smartsis.domain.FeeMonth month;
 
-	@Formula(value = "select sum(gradeFeeItem.amount)")
+	@Formula(value = "(select sum(gfi.amount) from gradefeeitem gfi where gfi.monthlyFee_id = id)")
 	protected Double total;
 
 	public void setGrade(com.oreon.smartsis.domain.Grade grade) {

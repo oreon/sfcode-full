@@ -53,8 +53,8 @@ public abstract class StudentPaidFeeActionBase
 	@In(create = true, value = "studentAction")
 	com.oreon.smartsis.web.action.domain.StudentAction studentAction;
 
-	@In(create = true, value = "gradeAction")
-	com.oreon.smartsis.web.action.domain.GradeAction gradeAction;
+	@In(create = true, value = "monthlyFeeAction")
+	com.oreon.smartsis.web.action.fees.MonthlyFeeAction monthlyFeeAction;
 
 	@DataModel
 	private List<StudentPaidFee> studentPaidFeeRecordList;
@@ -93,16 +93,16 @@ public abstract class StudentPaidFeeActionBase
 		return 0L;
 	}
 
-	public void setGradeId(Long id) {
+	public void setMonthlyFeeId(Long id) {
 
 		if (id != null && id > 0)
-			getInstance().setGrade(gradeAction.loadFromId(id));
+			getInstance().setMonthlyFee(monthlyFeeAction.loadFromId(id));
 
 	}
 
-	public Long getGradeId() {
-		if (getInstance().getGrade() != null)
-			return getInstance().getGrade().getId();
+	public Long getMonthlyFeeId() {
+		if (getInstance().getMonthlyFee() != null)
+			return getInstance().getMonthlyFee().getId();
 		return 0L;
 	}
 
@@ -144,10 +144,10 @@ public abstract class StudentPaidFeeActionBase
 			getInstance().setStudent(student);
 		}
 
-		com.oreon.smartsis.domain.Grade grade = gradeAction
+		com.oreon.smartsis.fees.MonthlyFee monthlyFee = monthlyFeeAction
 				.getDefinedInstance();
-		if (grade != null && isNew()) {
-			getInstance().setGrade(grade);
+		if (monthlyFee != null && isNew()) {
+			getInstance().setMonthlyFee(monthlyFee);
 		}
 
 	}
@@ -183,9 +183,9 @@ public abstract class StudentPaidFeeActionBase
 					studentPaidFee.getStudent().getId()));
 		}
 
-		if (studentPaidFee.getGrade() != null) {
-			criteria = criteria.add(Restrictions.eq("grade.id", studentPaidFee
-					.getGrade().getId()));
+		if (studentPaidFee.getMonthlyFee() != null) {
+			criteria = criteria.add(Restrictions.eq("monthlyFee.id",
+					studentPaidFee.getMonthlyFee().getId()));
 		}
 
 	}
@@ -200,8 +200,8 @@ public abstract class StudentPaidFeeActionBase
 			studentAction.setInstance(getInstance().getStudent());
 		}
 
-		if (studentPaidFee.getGrade() != null) {
-			gradeAction.setInstance(getInstance().getGrade());
+		if (studentPaidFee.getMonthlyFee() != null) {
+			monthlyFeeAction.setInstance(getInstance().getMonthlyFee());
 		}
 
 	}

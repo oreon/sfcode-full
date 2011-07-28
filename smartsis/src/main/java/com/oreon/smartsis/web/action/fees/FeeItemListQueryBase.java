@@ -49,10 +49,21 @@ public abstract class FeeItemListQueryBase extends BaseQuery<FeeItem, Long> {
 		return RESTRICTIONS;
 	}
 
+	private Range<Double> defaultAmountRange = new Range<Double>();
+	public Range<Double> getDefaultAmountRange() {
+		return defaultAmountRange;
+	}
+	public void setDefaultAmount(Range<Double> defaultAmountRange) {
+		this.defaultAmountRange = defaultAmountRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"feeItem.id = #{feeItemList.feeItem.id}",
 
 			"lower(feeItem.name) like concat(lower(#{feeItemList.feeItem.name}),'%')",
+
+			"feeItem.defaultAmount >= #{feeItemList.defaultAmountRange.begin}",
+			"feeItem.defaultAmount <= #{feeItemList.defaultAmountRange.end}",
 
 			"feeItem.dateCreated <= #{feeItemList.dateCreatedRange.end}",
 			"feeItem.dateCreated >= #{feeItemList.dateCreatedRange.begin}",};
@@ -72,6 +83,10 @@ public abstract class FeeItemListQueryBase extends BaseQuery<FeeItem, Long> {
 				+ (e.getName() != null ? e.getName().replace(",", "") : "")
 				+ "\",");
 
+		builder.append("\""
+				+ (e.getDefaultAmount() != null ? e.getDefaultAmount() : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -82,6 +97,8 @@ public abstract class FeeItemListQueryBase extends BaseQuery<FeeItem, Long> {
 	public void createCSvTitles(StringBuilder builder) {
 
 		builder.append("Name" + ",");
+
+		builder.append("DefaultAmount" + ",");
 
 		builder.append("\r\n");
 	}

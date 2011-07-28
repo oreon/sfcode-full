@@ -212,20 +212,32 @@ public abstract class UserActionBase extends BaseAction<User>
 
 	}
 
+	/** 
+	 * []
+	 */
 	public void enableAccount() {
 
 	}
 
+	/** 
+	 * []
+	 */
 	public void disableAccount() {
 
 	}
 
+	/** 
+	 * []
+	 */
 	public String login() {
 
 		return null;
 
 	}
 
+	/** 
+	 * []
+	 */
 	public String retrieveCredentials() {
 
 		return null;

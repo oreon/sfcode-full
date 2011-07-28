@@ -66,6 +66,10 @@ public class MetaData {
 
 	"discontinueDate", "java.util.Date",
 
+	"rollNumber", "java.lang.Integer",
+
+	"secondary.displayName", "java.lang.String",
+
 	},
 
 	{"com.oreon.smartsis.domain.Parent",
@@ -99,8 +103,6 @@ public class MetaData {
 	"section", "java.lang.String",
 
 	"gradeSubjectsCount", "java.lang.Integer",
-
-	"gradeFeesCount", "java.lang.Integer",
 
 	},
 
@@ -168,26 +170,6 @@ public class MetaData {
 
 	},
 
-	{"com.oreon.smartsis.domain.GradeFee",
-
-	"grade.displayName", "java.lang.String",
-
-	"fee.displayName", "java.lang.String",
-
-	"amount", "java.lang.Double",
-
-	},
-
-	{"com.oreon.smartsis.domain.Fee",
-
-	"name", "java.lang.String",
-
-	"defaultAmount", "java.lang.Double",
-
-	"frequency.name", "java.lang.String",
-
-	},
-
 	{"com.oreon.smartsis.domain.CourseDocuments",
 
 	"name", "java.lang.String",
@@ -195,22 +177,6 @@ public class MetaData {
 	"document", "FileAttachment",
 
 	"gradeSubject.displayName", "java.lang.String",
-
-	},
-
-	{"com.oreon.smartsis.domain.PaidFee",
-
-	"amount", "java.lang.Double",
-
-	"notes", "java.lang.String",
-
-	"student.displayName", "java.lang.String",
-
-	"gradeFee.displayName", "java.lang.String",
-
-	"month.name", "java.lang.String",
-
-	"year", "java.lang.Long",
 
 	},
 
@@ -412,6 +378,8 @@ public class MetaData {
 
 	"name", "java.lang.String",
 
+	"defaultAmount", "java.lang.Double",
+
 	},
 
 	{"com.oreon.smartsis.fees.GradeFeeItem",
@@ -421,6 +389,8 @@ public class MetaData {
 	"feeItem.displayName", "java.lang.String",
 
 	"amount", "java.lang.Double",
+
+	"applyToAllMonths", "java.lang.Boolean",
 
 	},
 
@@ -436,7 +406,7 @@ public class MetaData {
 
 	"student.displayName", "java.lang.String",
 
-	"grade.displayName", "java.lang.String",
+	"monthlyFee.displayName", "java.lang.String",
 
 	},
 

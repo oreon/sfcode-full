@@ -73,6 +73,14 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 		this.discontinueDateRange = discontinueDateRange;
 	}
 
+	private Range<Integer> rollNumberRange = new Range<Integer>();
+	public Range<Integer> getRollNumberRange() {
+		return rollNumberRange;
+	}
+	public void setRollNumber(Range<Integer> rollNumberRange) {
+		this.rollNumberRange = rollNumberRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"student.id = #{studentList.student.id}",
 
@@ -100,6 +108,11 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 
 			"student.discontinueDate >= #{studentList.discontinueDateRange.begin}",
 			"student.discontinueDate <= #{studentList.discontinueDateRange.end}",
+
+			"student.rollNumber >= #{studentList.rollNumberRange.begin}",
+			"student.rollNumber <= #{studentList.rollNumberRange.end}",
+
+			"student.secondary.id = #{studentList.student.secondary.id}",
 
 			"student.dateCreated <= #{studentList.dateCreatedRange.end}",
 			"student.dateCreated >= #{studentList.dateCreatedRange.begin}",};
@@ -153,6 +166,13 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 						+ (e.getDiscontinueDate() != null ? e
 								.getDiscontinueDate() : "") + "\",");
 
+		builder.append("\""
+				+ (e.getRollNumber() != null ? e.getRollNumber() : "") + "\",");
+
+		builder.append("\""
+				+ (e.getSecondary() != null ? e.getSecondary().getDisplayName()
+						.replace(",", "") : "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -173,6 +193,10 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 		builder.append("Scholarship" + ",");
 
 		builder.append("DiscontinueDate" + ",");
+
+		builder.append("RollNumber" + ",");
+
+		builder.append("Secondary" + ",");
 
 		builder.append("\r\n");
 	}

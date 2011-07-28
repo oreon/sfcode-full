@@ -43,7 +43,6 @@ import org.richfaces.model.UploadItem;
 
 import com.oreon.smartsis.domain.Student;
 import com.oreon.smartsis.domain.GradeSubject;
-import com.oreon.smartsis.domain.GradeFee;
 
 public abstract class GradeActionBase extends BaseAction<Grade>
 		implements
@@ -149,8 +148,6 @@ public abstract class GradeActionBase extends BaseAction<Grade>
 
 		initListGradeSubjects();
 
-		initListGradeFees();
-
 		initListExams();
 		initListAvailableExams();
 
@@ -239,43 +236,6 @@ public abstract class GradeActionBase extends BaseAction<Grade>
 		getListGradeSubjects().add(gradeSubjects);
 	}
 
-	protected List<com.oreon.smartsis.domain.GradeFee> listGradeFees = new ArrayList<com.oreon.smartsis.domain.GradeFee>();
-
-	void initListGradeFees() {
-
-		if (listGradeFees.isEmpty())
-			listGradeFees.addAll(getInstance().getGradeFees());
-
-	}
-
-	public List<com.oreon.smartsis.domain.GradeFee> getListGradeFees() {
-
-		prePopulateListGradeFees();
-		return listGradeFees;
-	}
-
-	public void prePopulateListGradeFees() {
-	}
-
-	public void setListGradeFees(
-			List<com.oreon.smartsis.domain.GradeFee> listGradeFees) {
-		this.listGradeFees = listGradeFees;
-	}
-
-	public void deleteGradeFees(int index) {
-		listGradeFees.remove(index);
-	}
-
-	@Begin(join = true)
-	public void addGradeFees() {
-		initListGradeFees();
-		GradeFee gradeFees = new GradeFee();
-
-		gradeFees.setGrade(getInstance());
-
-		getListGradeFees().add(gradeFees);
-	}
-
 	protected List<com.oreon.smartsis.domain.Exam> listExams = new ArrayList<com.oreon.smartsis.domain.Exam>();
 
 	void initListExams() {
@@ -335,11 +295,6 @@ public abstract class GradeActionBase extends BaseAction<Grade>
 			getInstance().getGradeSubjects().addAll(listGradeSubjects);
 		}
 
-		if (listGradeFees != null) {
-			getInstance().getGradeFees().clear();
-			getInstance().getGradeFees().addAll(listGradeFees);
-		}
-
 		if (listExams != null) {
 			getInstance().getExams().clear();
 			getInstance().getExams().addAll(listExams);
@@ -349,7 +304,6 @@ public abstract class GradeActionBase extends BaseAction<Grade>
 	public void clearLists() {
 		listStudents.clear();
 		listGradeSubjects.clear();
-		listGradeFees.clear();
 
 		listExams.clear();
 

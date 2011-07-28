@@ -68,6 +68,8 @@ public class FeeItem extends BusinessEntity
 	@Analyzer(definition = "entityAnalyzer")
 	protected String name;
 
+	protected Double defaultAmount;
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -75,6 +77,16 @@ public class FeeItem extends BusinessEntity
 	public String getName() {
 
 		return name;
+
+	}
+
+	public void setDefaultAmount(Double defaultAmount) {
+		this.defaultAmount = defaultAmount;
+	}
+
+	public Double getDefaultAmount() {
+
+		return defaultAmount;
 
 	}
 

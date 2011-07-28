@@ -63,7 +63,7 @@ public class Grade extends BusinessEntity
 
 	@NotNull
 	@Length(min = 2, max = 250)
-	@Column(unique = true)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String name;
@@ -121,27 +121,6 @@ public class Grade extends BusinessEntity
 		return gradeSubjects.size();
 	}
 
-	@OneToMany(mappedBy = "grade", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//@JoinColumn(name = "grade_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
-	@IndexedEmbedded
-	private Set<GradeFee> gradeFees = new HashSet<GradeFee>();
-
-	public void addGradeFees(GradeFee gradeFees) {
-		gradeFees.setGrade(this);
-		this.gradeFees.add(gradeFees);
-	}
-
-	@Transient
-	public List<com.oreon.smartsis.domain.GradeFee> getListGradeFees() {
-		return new ArrayList<com.oreon.smartsis.domain.GradeFee>(gradeFees);
-	}
-
-	//JSF Friendly function to get count of collections
-	public int getGradeFeesCount() {
-		return gradeFees.size();
-	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -196,14 +175,6 @@ public class Grade extends BusinessEntity
 		return gradeSubjects;
 	}
 
-	public void setGradeFees(Set<GradeFee> gradeFees) {
-		this.gradeFees = gradeFees;
-	}
-
-	public Set<GradeFee> getGradeFees() {
-		return gradeFees;
-	}
-
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -246,10 +217,6 @@ public class Grade extends BusinessEntity
 		}
 
 		for (BusinessEntity e : gradeSubjects) {
-			builder.append(e.getDisplayName() + " ");
-		}
-
-		for (BusinessEntity e : gradeFees) {
 			builder.append(e.getDisplayName() + " ");
 		}
 

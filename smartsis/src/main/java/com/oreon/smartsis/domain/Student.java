@@ -80,8 +80,8 @@ public class Student extends com.oreon.smartsis.domain.Person
 	@Transient
 	protected Integer age;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "parent_id", nullable = false, updatable = true)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "parent_id", nullable = true, updatable = true)
 	@ContainedIn
 	protected Parent parent;
 
@@ -110,6 +110,13 @@ public class Student extends com.oreon.smartsis.domain.Person
 	}
 
 	protected Date discontinueDate;
+
+	protected Integer rollNumber;
+
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "secondary_id", nullable = true, updatable = true)
+	@ContainedIn
+	protected Parent secondary;
 
 	public void setPicture(FileAttachment picture) {
 		this.picture = picture;
@@ -205,6 +212,26 @@ public class Student extends com.oreon.smartsis.domain.Person
 
 	}
 
+	public void setRollNumber(Integer rollNumber) {
+		this.rollNumber = rollNumber;
+	}
+
+	public Integer getRollNumber() {
+
+		return rollNumber;
+
+	}
+
+	public void setSecondary(Parent secondary) {
+		this.secondary = secondary;
+	}
+
+	public Parent getSecondary() {
+
+		return secondary;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -239,6 +266,11 @@ public class Student extends com.oreon.smartsis.domain.Person
 
 		if (getParent() != null)
 			builder.append("parent:" + getParent().getDisplayName() + " ");
+
+		if (getSecondary() != null)
+			builder
+					.append("secondary:" + getSecondary().getDisplayName()
+							+ " ");
 
 		for (BusinessEntity e : studentVitalInfos) {
 			builder.append(e.getDisplayName() + " ");
