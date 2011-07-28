@@ -298,7 +298,10 @@ prop.type.name + "." +  prop.getDefault();
 
 
 getTransient(Column col):
-col.derivedFormula != null ? "@Formula(value =" +  "\"" + col.derivedFormula + "\")":""; 
+col.derivedFormula != null ? "@Formula(value =" +  "\"" + col.derivedFormula.appendBraces() + "\")":""; 
+
+appendBraces(String str):
+JAVA org.wc.generatorutil.ClassUtil.appendBraces(java.lang.String);
 
 //whether this column is derived 
 isDerived(Column col):

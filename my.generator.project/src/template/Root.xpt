@@ -107,8 +107,9 @@ import org.hibernate.annotations.ParamDef;
 			package « packageName() »;
 			«EXPAND genImports FOR this»
 			
-			
-			//@Name("«name.toFirstLower()»")
+			/** 
+			 * «ownedComment.body»
+			 */
 			public abstract class «name»Base «getParent()» «getInterfaces()»{
 				«EXPAND genClassBodyContents FOR this»
 			}
@@ -313,6 +314,9 @@ import org.hibernate.annotations.ParamDef;
 «ENDDEFINE»
 
 «DEFINE genOperation FOR uml::Operation»
+	/** 
+	 * «ownedComment.body»
+	 */
 	«visibility» «getOpReturnType()» «getOpReturnTypeTemplateParam()»  «name» («getParametersSignature()»){ 
 		«IF type != null»
 			return null;

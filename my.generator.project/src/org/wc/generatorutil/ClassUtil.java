@@ -174,6 +174,7 @@ public class ClassUtil {
 	private static final int VERSION = 1;
 
 	public static String serialver(Class cls) {
+		//cls.
 		return new Integer((cls.getName() + "-" + cls.getPackage().getName())
 				.hashCode()
 				^ VERSION).toString()
@@ -240,6 +241,9 @@ public class ClassUtil {
 		List<String> lstStrings = new ArrayList<String>();
 
 		Transition tr;
+		
+		Element el;
+		//op.getEAnnotation(source);
 
 		for (int i = 0; i < params.size(); i++) {
 			Parameter param = params.get(i);
@@ -643,6 +647,15 @@ public class ClassUtil {
 		return tokens[2].trim();
 	}
 
+	public static String appendBraces(String str){
+		str = str.trim();
+		if (!str.startsWith("(") ) 
+			str = "(" + str;
+		if (!str.endsWith(")") )
+			str = str + ")";
+		return str;
+	}
+	
 	public static Property getAttrib(Class cls, String name) {
 		return cls.getAttribute(name, null);
 	}
