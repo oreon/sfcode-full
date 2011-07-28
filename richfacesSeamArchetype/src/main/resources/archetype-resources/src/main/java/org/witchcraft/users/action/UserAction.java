@@ -12,6 +12,7 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.witchcraft.seam.action.BaseAction;
+import org.witchcraft.seam.security.Authenticator;
 import org.witchcraft.users.User;
 
 @Scope(ScopeType.CONVERSATION)
@@ -60,5 +61,36 @@ public class UserAction extends BaseAction<User>
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	/*
+	 * 
+	 * 	@In(create = true)
+	Authenticator authenticator;
+
+	public String retrieveCredentials() {
+
+		String email = getInstance().getEmail();
+
+		User user = findByUnqEmail(email);
+		if (user == null) {
+			statusMessages.addFromResourceBundle("noSuchCustomer", email);
+			return "failure";
+		}
+		setInstance(user);
+
+		sendMail("/mails/retrievalEmail.xhtml");
+		statusMessages.addFromResourceBundle("credentialsEmailed", email);
+
+		return "success";
+
+	}
+
+	public String login() {
+		if (authenticator.authenticate())
+			return "success";
+		addErrorMessage("Invalid username/password ");
+		return "failure";
+	}
+	 */
 
 }
