@@ -30,6 +30,15 @@
       <h:inputText id="amount_end" value="#{gradeFeeItemList.amountRange.end}"> 
         <f:converter converterId="javax.faces.Double"/> 
       </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.gradeFeeItem_applyToAllMonths}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('applyToAllMonths', 'gradeFeeItemEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="applyToAllMonths" value="#{gradeFeeItemList.gradeFeeItem.applyToAllMonths}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

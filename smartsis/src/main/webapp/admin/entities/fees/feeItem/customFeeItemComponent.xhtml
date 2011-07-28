@@ -11,6 +11,12 @@
         <br/>  
         <h:inputText id="name" value="#{feeItemAction.feeItem.name}"/>  
         <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'feeItemEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.feeItem_defaultAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultAmount', 'feeItemEdit')}"/>  
+        <br/>  
+        <h:inputText id="defaultAmount" value="#{feeItemAction.feeItem.defaultAmount}"/>  
+        <rich:message styleClass="error errors" for="defaultAmount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultAmount', 'feeItemEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

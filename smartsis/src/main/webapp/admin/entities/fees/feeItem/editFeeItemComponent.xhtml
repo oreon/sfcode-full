@@ -8,7 +8,12 @@
         <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'feeItemEdit')}" label="#{msg.feeItem_name}" required="true" value="#{feeItemAction.feeItem.name}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'feeItemEdit')}"/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'feeItemEdit')}"/>  
+        <h:outputText value="#{msg.feeItem_defaultAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultAmount', 'feeItemEdit')}"/>  
+        <h:inputText id="defaultAmount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultAmount', 'feeItemEdit')}" label="#{msg.feeItem_defaultAmount}" required="false" value="#{feeItemAction.feeItem.defaultAmount}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="defaultAmount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultAmount', 'feeItemEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

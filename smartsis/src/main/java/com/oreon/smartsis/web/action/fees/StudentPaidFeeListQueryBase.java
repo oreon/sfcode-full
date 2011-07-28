@@ -51,14 +51,6 @@ public abstract class StudentPaidFeeListQueryBase
 		return RESTRICTIONS;
 	}
 
-	private Range<Double> amountOwedRange = new Range<Double>();
-	public Range<Double> getAmountOwedRange() {
-		return amountOwedRange;
-	}
-	public void setAmountOwed(Range<Double> amountOwedRange) {
-		this.amountOwedRange = amountOwedRange;
-	}
-
 	private Range<Double> amountPaidRange = new Range<Double>();
 	public Range<Double> getAmountPaidRange() {
 		return amountPaidRange;
@@ -86,9 +78,6 @@ public abstract class StudentPaidFeeListQueryBase
 	private static final String[] RESTRICTIONS = {
 			"studentPaidFee.id = #{studentPaidFeeList.studentPaidFee.id}",
 
-			"studentPaidFee.amountOwed >= #{studentPaidFeeList.amountOwedRange.begin}",
-			"studentPaidFee.amountOwed <= #{studentPaidFeeList.amountOwedRange.end}",
-
 			"studentPaidFee.amountPaid >= #{studentPaidFeeList.amountPaidRange.begin}",
 			"studentPaidFee.amountPaid <= #{studentPaidFeeList.amountPaidRange.end}",
 
@@ -100,7 +89,7 @@ public abstract class StudentPaidFeeListQueryBase
 
 			"studentPaidFee.student.id = #{studentPaidFeeList.studentPaidFee.student.id}",
 
-			"studentPaidFee.grade.id = #{studentPaidFeeList.studentPaidFee.grade.id}",
+			"studentPaidFee.monthlyFee.id = #{studentPaidFeeList.studentPaidFee.monthlyFee.id}",
 
 			"studentPaidFee.dateCreated <= #{studentPaidFeeList.dateCreatedRange.end}",
 			"studentPaidFee.dateCreated >= #{studentPaidFeeList.dateCreatedRange.begin}",};
@@ -117,9 +106,6 @@ public abstract class StudentPaidFeeListQueryBase
 	public void createCsvString(StringBuilder builder, StudentPaidFee e) {
 
 		builder.append("\""
-				+ (e.getAmountOwed() != null ? e.getAmountOwed() : "") + "\",");
-
-		builder.append("\""
 				+ (e.getAmountPaid() != null ? e.getAmountPaid() : "") + "\",");
 
 		builder.append("\""
@@ -134,8 +120,8 @@ public abstract class StudentPaidFeeListQueryBase
 						.replace(",", "") : "") + "\",");
 
 		builder.append("\""
-				+ (e.getGrade() != null ? e.getGrade().getDisplayName()
-						.replace(",", "") : "") + "\",");
+				+ (e.getMonthlyFee() != null ? e.getMonthlyFee()
+						.getDisplayName().replace(",", "") : "") + "\",");
 
 		builder.append("\r\n");
 	}
@@ -146,8 +132,6 @@ public abstract class StudentPaidFeeListQueryBase
 	//@Override
 	public void createCSvTitles(StringBuilder builder) {
 
-		builder.append("AmountOwed" + ",");
-
 		builder.append("AmountPaid" + ",");
 
 		builder.append("DueAmount" + ",");
@@ -156,7 +140,7 @@ public abstract class StudentPaidFeeListQueryBase
 
 		builder.append("Student" + ",");
 
-		builder.append("Grade" + ",");
+		builder.append("MonthlyFee" + ",");
 
 		builder.append("\r\n");
 	}

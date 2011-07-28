@@ -22,7 +22,12 @@
         <h:inputText id="amount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeItemEdit')}" label="#{msg.gradeFeeItem_amount}" required="false" value="#{gradeFeeItemAction.gradeFeeItem.amount}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="amount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeItemEdit')}"/> 
+        <rich:message styleClass="error errors" for="amount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeItemEdit')}"/>  
+        <h:outputText value="#{msg.gradeFeeItem_applyToAllMonths}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('applyToAllMonths', 'gradeFeeItemEdit')}"/>  
+        <h:selectBooleanCheckbox id="applyToAllMonths#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('applyToAllMonths', 'gradeFeeItemEdit')}" label="#{msg.gradeFeeItem_applyToAllMonths}" required="false" value="#{gradeFeeItemAction.gradeFeeItem.applyToAllMonths}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:selectBooleanCheckbox>  
+        <rich:message styleClass="error errors" for="applyToAllMonths" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('applyToAllMonths', 'gradeFeeItemEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

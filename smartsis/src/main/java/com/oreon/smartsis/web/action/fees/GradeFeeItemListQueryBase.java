@@ -69,6 +69,8 @@ public abstract class GradeFeeItemListQueryBase
 			"gradeFeeItem.amount >= #{gradeFeeItemList.amountRange.begin}",
 			"gradeFeeItem.amount <= #{gradeFeeItemList.amountRange.end}",
 
+			"gradeFeeItem.applyToAllMonths = #{gradeFeeItemList.gradeFeeItem.applyToAllMonths}",
+
 			"gradeFeeItem.dateCreated <= #{gradeFeeItemList.dateCreatedRange.end}",
 			"gradeFeeItem.dateCreated >= #{gradeFeeItemList.dateCreatedRange.begin}",};
 
@@ -101,6 +103,11 @@ public abstract class GradeFeeItemListQueryBase
 		builder.append("\"" + (e.getAmount() != null ? e.getAmount() : "")
 				+ "\",");
 
+		builder.append("\""
+				+ (e.getApplyToAllMonths() != null
+						? e.getApplyToAllMonths()
+						: "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -115,6 +122,8 @@ public abstract class GradeFeeItemListQueryBase
 		builder.append("FeeItem" + ",");
 
 		builder.append("Amount" + ",");
+
+		builder.append("ApplyToAllMonths" + ",");
 
 		builder.append("\r\n");
 	}

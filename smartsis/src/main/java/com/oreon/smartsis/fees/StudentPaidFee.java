@@ -61,13 +61,17 @@ public class StudentPaidFee extends BusinessEntity
 			com.sun.xml.internal.bind.CycleRecoverable {
 	private static final long serialVersionUID = 866326586L;
 
+	@Transient
 	protected Double amountOwed;
 
+	@NotNull
+	@Column(name = "amountPaid", unique = false)
 	protected Double amountPaid;
 
 	protected Double dueAmount;
 
-	protected Date dateOfPayment;
+	@Column(name = "dateOfPayment", unique = false)
+	protected Date dateOfPayment = new Date();
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "student_id", nullable = false, updatable = true)
@@ -75,9 +79,9 @@ public class StudentPaidFee extends BusinessEntity
 	protected com.oreon.smartsis.domain.Student student;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "grade_id", nullable = false, updatable = true)
+	@JoinColumn(name = "monthlyFee_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected com.oreon.smartsis.domain.Grade grade;
+	protected MonthlyFee monthlyFee;
 
 	public void setAmountOwed(Double amountOwed) {
 		this.amountOwed = amountOwed;
@@ -85,7 +89,13 @@ public class StudentPaidFee extends BusinessEntity
 
 	public Double getAmountOwed() {
 
-		return amountOwed;
+		try {
+			return monthlyFee.getTotal() * (100 - student.getScholarship());
+		} catch (Exception e) {
+
+			return 0.0;
+
+		}
 
 	}
 
@@ -129,13 +139,13 @@ public class StudentPaidFee extends BusinessEntity
 
 	}
 
-	public void setGrade(com.oreon.smartsis.domain.Grade grade) {
-		this.grade = grade;
+	public void setMonthlyFee(MonthlyFee monthlyFee) {
+		this.monthlyFee = monthlyFee;
 	}
 
-	public com.oreon.smartsis.domain.Grade getGrade() {
+	public MonthlyFee getMonthlyFee() {
 
-		return grade;
+		return monthlyFee;
 
 	}
 
@@ -171,8 +181,9 @@ public class StudentPaidFee extends BusinessEntity
 		if (getStudent() != null)
 			builder.append("student:" + getStudent().getDisplayName() + " ");
 
-		if (getGrade() != null)
-			builder.append("grade:" + getGrade().getDisplayName() + " ");
+		if (getMonthlyFee() != null)
+			builder.append("monthlyFee:" + getMonthlyFee().getDisplayName()
+					+ " ");
 
 		return builder.toString();
 	}

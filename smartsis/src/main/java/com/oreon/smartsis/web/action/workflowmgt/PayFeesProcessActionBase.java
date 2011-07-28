@@ -15,13 +15,14 @@ public class PayFeesProcessActionBase extends BaseJbpmProcessAction
 			java.io.Serializable {
 
 	@Out(scope = ScopeType.BUSINESS_PROCESS, required = false)
-	protected com.oreon.smartsis.domain.PaidFee paidFeeToken = new com.oreon.smartsis.domain.PaidFee();
+	protected com.oreon.smartsis.fees.StudentPaidFee paidFeeToken = new com.oreon.smartsis.fees.StudentPaidFee();
 
-	public void setPaidFeeToken(com.oreon.smartsis.domain.PaidFee paidFeeToken) {
+	public void setPaidFeeToken(
+			com.oreon.smartsis.fees.StudentPaidFee paidFeeToken) {
 		this.paidFeeToken = paidFeeToken;
 	}
 
-	public com.oreon.smartsis.domain.PaidFee getPaidFeeToken() {
+	public com.oreon.smartsis.fees.StudentPaidFee getPaidFeeToken() {
 		return this.paidFeeToken;
 	}
 

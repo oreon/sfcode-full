@@ -71,7 +71,12 @@ public class GradeFeeItem extends BusinessEntity
 	@ContainedIn
 	protected FeeItem feeItem;
 
-	protected Double amount;
+	@Column(name = "amount", unique = false)
+	protected Double amount = feeItem != null
+			? feeItem.getDefaultAmount()
+			: 0.0;
+
+	protected Boolean applyToAllMonths;
 
 	public void setMonthlyFee(MonthlyFee monthlyFee) {
 		this.monthlyFee = monthlyFee;
@@ -100,6 +105,16 @@ public class GradeFeeItem extends BusinessEntity
 	public Double getAmount() {
 
 		return amount;
+
+	}
+
+	public void setApplyToAllMonths(Boolean applyToAllMonths) {
+		this.applyToAllMonths = applyToAllMonths;
+	}
+
+	public Boolean getApplyToAllMonths() {
+
+		return applyToAllMonths;
 
 	}
 

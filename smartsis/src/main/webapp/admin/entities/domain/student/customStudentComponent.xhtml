@@ -72,7 +72,7 @@
         <rich:message styleClass="error errors" for="age" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('age', 'studentEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.student_parent} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parent', 'studentEdit')}"/>  
+        <h:outputText value="#{msg.student_parent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parent', 'studentEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="parent" value="#{studentAction.student.parent}"> 
           <s:selectItems value="#{parentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
@@ -91,6 +91,21 @@
         <br/>  
         <rich:calendar id="discontinueDate" value="#{studentAction.student.discontinueDate}"/>  
         <rich:message styleClass="error errors" for="discontinueDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueDate', 'studentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.student_rollNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rollNumber', 'studentEdit')}"/>  
+        <br/>  
+        <h:inputText id="rollNumber" value="#{studentAction.student.rollNumber}"/>  
+        <rich:message styleClass="error errors" for="rollNumber" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rollNumber', 'studentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.student_secondary}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('secondary', 'studentEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="secondary" value="#{studentAction.student.secondary}"> 
+          <s:selectItems value="#{parentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="secondary" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('secondary', 'studentEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

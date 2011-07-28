@@ -31,6 +31,18 @@
           </f:facet>  
           <h:outputText value="#{_feeItem.name}" escape="false"/> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('defaultAmount', 'feeItemView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{feeItemList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.feeItem_defaultAmount}"/>  
+              <ui:param name="propertyPath" value="feeItem.defaultAmount"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_feeItem.defaultAmount}"> 
+            <f:convertNumber pattern="$#,##0.00"/> 
+          </h:outputText> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'feeItemView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

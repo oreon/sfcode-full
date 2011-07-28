@@ -6,17 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.studentPaidFee_amountOwed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountOwed', 'studentPaidFeeEdit')}"/>  
-      <br/>  
-      <h:inputText id="amountOwed_begin" value="#{studentPaidFeeList.amountOwedRange.begin}"> 
-        <f:converter converterId="javax.faces.Double"/> 
-      </h:inputText>  
-      <h:inputText id="amountOwed_end" value="#{studentPaidFeeList.amountOwedRange.end}"> 
-        <f:converter converterId="javax.faces.Double"/> 
-      </h:inputText> 
-    </h:panelGroup>  
-    <h:panelGroup> 
-      <h:outputText value="#{msg.studentPaidFee_amountPaid}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountPaid', 'studentPaidFeeEdit')}"/>  
+      <h:outputText value="#{msg.studentPaidFee_amountPaid} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountPaid', 'studentPaidFeeEdit')}"/>  
       <br/>  
       <h:inputText id="amountPaid_begin" value="#{studentPaidFeeList.amountPaidRange.begin}"> 
         <f:converter converterId="javax.faces.Double"/> 
@@ -53,10 +43,10 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.studentPaidFee_grade} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'studentPaidFeeEdit')}"/>  
+      <h:outputText value="#{msg.studentPaidFee_monthlyFee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('monthlyFee', 'studentPaidFeeEdit')}"/>  
       <br/>  
-      <h:selectOneMenu id="grade" value="#{ studentPaidFeeList.studentPaidFee.grade}"> 
-        <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="monthlyFee" value="#{ studentPaidFeeList.studentPaidFee.monthlyFee}"> 
+        <s:selectItems value="#{monthlyFeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
     </h:panelGroup> 

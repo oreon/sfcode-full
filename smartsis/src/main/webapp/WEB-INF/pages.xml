@@ -156,30 +156,6 @@
         <redirect view-id="/admin/entities/domain/examInstance/editExamInstance.xhtml"/>  
         <end-conversation/> 
       </rule>  
-      <rule if-outcome="gradeFee"> 
-        <redirect view-id="/admin/entities/domain/gradeFee/listGradeFee.xhtml"/>  
-        <end-conversation/> 
-      </rule>  
-      <rule if-outcome="viewGradeFee"> 
-        <redirect view-id="/admin/entities/domain/gradeFee/viewGradeFee.xhtml"/>  
-        <end-conversation/> 
-      </rule>  
-      <rule if-outcome="editGradeFee"> 
-        <redirect view-id="/admin/entities/domain/gradeFee/editGradeFee.xhtml"/>  
-        <end-conversation/> 
-      </rule>  
-      <rule if-outcome="fee"> 
-        <redirect view-id="/admin/entities/domain/fee/listFee.xhtml"/>  
-        <end-conversation/> 
-      </rule>  
-      <rule if-outcome="viewFee"> 
-        <redirect view-id="/admin/entities/domain/fee/viewFee.xhtml"/>  
-        <end-conversation/> 
-      </rule>  
-      <rule if-outcome="editFee"> 
-        <redirect view-id="/admin/entities/domain/fee/editFee.xhtml"/>  
-        <end-conversation/> 
-      </rule>  
       <rule if-outcome="courseDocuments"> 
         <redirect view-id="/admin/entities/domain/courseDocuments/listCourseDocuments.xhtml"/>  
         <end-conversation/> 
@@ -190,18 +166,6 @@
       </rule>  
       <rule if-outcome="editCourseDocuments"> 
         <redirect view-id="/admin/entities/domain/courseDocuments/editCourseDocuments.xhtml"/>  
-        <end-conversation/> 
-      </rule>  
-      <rule if-outcome="paidFee"> 
-        <redirect view-id="/admin/entities/domain/paidFee/listPaidFee.xhtml"/>  
-        <end-conversation/> 
-      </rule>  
-      <rule if-outcome="viewPaidFee"> 
-        <redirect view-id="/admin/entities/domain/paidFee/viewPaidFee.xhtml"/>  
-        <end-conversation/> 
-      </rule>  
-      <rule if-outcome="editPaidFee"> 
-        <redirect view-id="/admin/entities/domain/paidFee/editPaidFee.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="disciplinaryAction"> 
@@ -552,7 +516,8 @@
     </navigation>  
     <param name="studentId" value="#{studentAction.studentId}"/>  
     <param name="gradeId" value="#{studentAction.gradeId}"/>  
-    <param name="parentId" value="#{studentAction.parentId}"/> 
+    <param name="parentId" value="#{studentAction.parentId}"/>  
+    <param name="secondaryId" value="#{studentAction.secondaryId}"/> 
   </page>  
   <page view-id="/admin/entities/domain/student/viewStudent.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Student: #{student.displayName}</description> -->  
@@ -590,7 +555,9 @@
     <param name="grade" value="#{studentList.student.grade.id}" validateModel="false"/>  
     <param name="parent" value="#{studentList.student.parent.id}" validateModel="false"/>  
     <param name="scholarship" value="#{studentList.student.scholarship}" validateModel="false"/>  
-    <param name="discontinueDate" value="#{studentList.student.discontinueDate}" validateModel="false"/> 
+    <param name="discontinueDate" value="#{studentList.student.discontinueDate}" validateModel="false"/>  
+    <param name="rollNumber" value="#{studentList.student.rollNumber}" validateModel="false"/>  
+    <param name="secondary" value="#{studentList.student.secondary.id}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/parent/editParent.xhtml"> 
     <!-- <description>Edit Parent: #{parent.displayName}</description> -->  
@@ -900,92 +867,6 @@
     <param name="dateHeld" value="#{examInstanceList.examInstance.dateHeld}" validateModel="false"/>  
     <param name="average" value="#{examInstanceList.examInstance.average}" validateModel="false"/> 
   </page>  
-  <page view-id="/admin/entities/domain/gradeFee/editGradeFee.xhtml"> 
-    <!-- <description>Edit GradeFee: #{gradeFee.displayName}</description> -->  
-    <navigation> 
-      <rule if-outcome="save"> 
-        <redirect view-id="/admin/entities/domain/gradeFee/viewGradeFee.xhtml"/> 
-      </rule>  
-      <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/domain/gradeFee/listGradeFee.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="gradeFeeId" value="#{gradeFeeAction.gradeFeeId}"/>  
-    <param name="gradeId" value="#{gradeFeeAction.gradeId}"/>  
-    <param name="feeId" value="#{gradeFeeAction.feeId}"/> 
-  </page>  
-  <page view-id="/admin/entities/domain/gradeFee/viewGradeFee.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <!-- <description>View GradeFee: #{gradeFee.displayName}</description> -->  
-    <navigation> 
-      <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/domain/gradeFee/editGradeFee.xhtml"/> 
-      </rule>  
-      <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/domain/gradeFee/listGradeFee.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="gradeFeeId" value="#{gradeFeeAction.gradeFeeId}"/> 
-  </page>  
-  <page view-id="/admin/entities/domain/gradeFee/listGradeFee.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <navigation> 
-      <rule if-outcome="viewGradeFee"> 
-        <redirect view-id="/admin/entities/domain/gradeFee/viewGradeFee.xhtml"/> 
-      </rule>  
-      <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/domain/gradeFee/editGradeFee.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="firstResult" value="#{gradeFeeList.firstResult}"/>  
-    <param name="sort" value="#{gradeFeeList.orderColumn}"/>  
-    <param name="dir" value="#{gradeFeeList.orderDirection}"/>  
-    <param name="from"/>  
-    <param name="id" value="#{gradeFeeList.gradeFee.id}"/>  
-    <param name="grade" value="#{gradeFeeList.gradeFee.grade.id}" validateModel="false"/>  
-    <param name="fee" value="#{gradeFeeList.gradeFee.fee.id}" validateModel="false"/>  
-    <param name="amount" value="#{gradeFeeList.gradeFee.amount}" validateModel="false"/> 
-  </page>  
-  <page view-id="/admin/entities/domain/fee/editFee.xhtml"> 
-    <!-- <description>Edit Fee: #{fee.displayName}</description> -->  
-    <navigation> 
-      <rule if-outcome="save"> 
-        <redirect view-id="/admin/entities/domain/fee/viewFee.xhtml"/> 
-      </rule>  
-      <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/domain/fee/listFee.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="feeId" value="#{feeAction.feeId}"/> 
-  </page>  
-  <page view-id="/admin/entities/domain/fee/viewFee.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <!-- <description>View Fee: #{fee.displayName}</description> -->  
-    <navigation> 
-      <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/domain/fee/editFee.xhtml"/> 
-      </rule>  
-      <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/domain/fee/listFee.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="feeId" value="#{feeAction.feeId}"/> 
-  </page>  
-  <page view-id="/admin/entities/domain/fee/listFee.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <navigation> 
-      <rule if-outcome="viewFee"> 
-        <redirect view-id="/admin/entities/domain/fee/viewFee.xhtml"/> 
-      </rule>  
-      <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/domain/fee/editFee.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="firstResult" value="#{feeList.firstResult}"/>  
-    <param name="sort" value="#{feeList.orderColumn}"/>  
-    <param name="dir" value="#{feeList.orderDirection}"/>  
-    <param name="from"/>  
-    <param name="id" value="#{feeList.fee.id}"/>  
-    <param name="name" value="#{feeList.fee.name}" validateModel="false"/>  
-    <param name="defaultAmount" value="#{feeList.fee.defaultAmount}" validateModel="false"/>  
-    <param name="frequency" value="#{feeList.fee.frequency}" validateModel="false"/> 
-  </page>  
   <page view-id="/admin/entities/domain/courseDocuments/editCourseDocuments.xhtml"> 
     <!-- <description>Edit CourseDocuments: #{courseDocuments.displayName}</description> -->  
     <navigation> 
@@ -1027,53 +908,6 @@
     <param name="id" value="#{courseDocumentsList.courseDocuments.id}"/>  
     <param name="name" value="#{courseDocumentsList.courseDocuments.name}" validateModel="false"/>  
     <param name="gradeSubject" value="#{courseDocumentsList.courseDocuments.gradeSubject.id}" validateModel="false"/> 
-  </page>  
-  <page view-id="/admin/entities/domain/paidFee/editPaidFee.xhtml"> 
-    <!-- <description>Edit PaidFee: #{paidFee.displayName}</description> -->  
-    <navigation> 
-      <rule if-outcome="save"> 
-        <redirect view-id="/admin/entities/domain/paidFee/viewPaidFee.xhtml"/> 
-      </rule>  
-      <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/domain/paidFee/listPaidFee.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="paidFeeId" value="#{paidFeeAction.paidFeeId}"/>  
-    <param name="studentId" value="#{paidFeeAction.studentId}"/>  
-    <param name="gradeFeeId" value="#{paidFeeAction.gradeFeeId}"/> 
-  </page>  
-  <page view-id="/admin/entities/domain/paidFee/viewPaidFee.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <!-- <description>View PaidFee: #{paidFee.displayName}</description> -->  
-    <navigation> 
-      <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/domain/paidFee/editPaidFee.xhtml"/> 
-      </rule>  
-      <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/domain/paidFee/listPaidFee.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="paidFeeId" value="#{paidFeeAction.paidFeeId}"/> 
-  </page>  
-  <page view-id="/admin/entities/domain/paidFee/listPaidFee.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <navigation> 
-      <rule if-outcome="viewPaidFee"> 
-        <redirect view-id="/admin/entities/domain/paidFee/viewPaidFee.xhtml"/> 
-      </rule>  
-      <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/domain/paidFee/editPaidFee.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="firstResult" value="#{paidFeeList.firstResult}"/>  
-    <param name="sort" value="#{paidFeeList.orderColumn}"/>  
-    <param name="dir" value="#{paidFeeList.orderDirection}"/>  
-    <param name="from"/>  
-    <param name="id" value="#{paidFeeList.paidFee.id}"/>  
-    <param name="amount" value="#{paidFeeList.paidFee.amount}" validateModel="false"/>  
-    <param name="notes" value="#{paidFeeList.paidFee.notes}" validateModel="false"/>  
-    <param name="student" value="#{paidFeeList.paidFee.student.id}" validateModel="false"/>  
-    <param name="gradeFee" value="#{paidFeeList.paidFee.gradeFee.id}" validateModel="false"/>  
-    <param name="month" value="#{paidFeeList.paidFee.month}" validateModel="false"/>  
-    <param name="year" value="#{paidFeeList.paidFee.year}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/disciplinaryAction/editDisciplinaryAction.xhtml"> 
     <!-- <description>Edit DisciplinaryAction: #{disciplinaryAction.displayName}</description> -->  
@@ -1849,7 +1683,8 @@
     <param name="dir" value="#{feeItemList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{feeItemList.feeItem.id}"/>  
-    <param name="name" value="#{feeItemList.feeItem.name}" validateModel="false"/> 
+    <param name="name" value="#{feeItemList.feeItem.name}" validateModel="false"/>  
+    <param name="defaultAmount" value="#{feeItemList.feeItem.defaultAmount}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/fees/gradeFeeItem/editGradeFeeItem.xhtml"> 
     <!-- <description>Edit GradeFeeItem: #{gradeFeeItem.displayName}</description> -->  
@@ -1893,7 +1728,8 @@
     <param name="id" value="#{gradeFeeItemList.gradeFeeItem.id}"/>  
     <param name="monthlyFee" value="#{gradeFeeItemList.gradeFeeItem.monthlyFee.id}" validateModel="false"/>  
     <param name="feeItem" value="#{gradeFeeItemList.gradeFeeItem.feeItem.id}" validateModel="false"/>  
-    <param name="amount" value="#{gradeFeeItemList.gradeFeeItem.amount}" validateModel="false"/> 
+    <param name="amount" value="#{gradeFeeItemList.gradeFeeItem.amount}" validateModel="false"/>  
+    <param name="applyToAllMonths" value="#{gradeFeeItemList.gradeFeeItem.applyToAllMonths}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/fees/studentPaidFee/editStudentPaidFee.xhtml"> 
     <!-- <description>Edit StudentPaidFee: #{studentPaidFee.displayName}</description> -->  
@@ -1907,7 +1743,7 @@
     </navigation>  
     <param name="studentPaidFeeId" value="#{studentPaidFeeAction.studentPaidFeeId}"/>  
     <param name="studentId" value="#{studentPaidFeeAction.studentId}"/>  
-    <param name="gradeId" value="#{studentPaidFeeAction.gradeId}"/> 
+    <param name="monthlyFeeId" value="#{studentPaidFeeAction.monthlyFeeId}"/> 
   </page>  
   <page view-id="/admin/entities/fees/studentPaidFee/viewStudentPaidFee.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View StudentPaidFee: #{studentPaidFee.displayName}</description> -->  
@@ -1935,12 +1771,11 @@
     <param name="dir" value="#{studentPaidFeeList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{studentPaidFeeList.studentPaidFee.id}"/>  
-    <param name="amountOwed" value="#{studentPaidFeeList.studentPaidFee.amountOwed}" validateModel="false"/>  
     <param name="amountPaid" value="#{studentPaidFeeList.studentPaidFee.amountPaid}" validateModel="false"/>  
     <param name="dueAmount" value="#{studentPaidFeeList.studentPaidFee.dueAmount}" validateModel="false"/>  
     <param name="dateOfPayment" value="#{studentPaidFeeList.studentPaidFee.dateOfPayment}" validateModel="false"/>  
     <param name="student" value="#{studentPaidFeeList.studentPaidFee.student.id}" validateModel="false"/>  
-    <param name="grade" value="#{studentPaidFeeList.studentPaidFee.grade.id}" validateModel="false"/> 
+    <param name="monthlyFee" value="#{studentPaidFeeList.studentPaidFee.monthlyFee.id}" validateModel="false"/> 
   </page>  
   <!--PROTECTED REGION ID(USER_EDITABLE_XCPT) ENABLED START-->  
   <exception class="org.jboss.seam.framework.EntityNotFoundException"> 
