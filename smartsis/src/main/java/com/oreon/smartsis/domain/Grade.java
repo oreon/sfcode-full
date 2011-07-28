@@ -62,8 +62,8 @@ public class Grade extends BusinessEntity
 	private static final long serialVersionUID = -470899813L;
 
 	@NotNull
-	@Length(min = 2, max = 250)
-	@Column(unique = false)
+	@Length(min = 1, max = 250)
+	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String name;
