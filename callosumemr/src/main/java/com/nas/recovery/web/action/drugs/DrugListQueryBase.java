@@ -1,28 +1,20 @@
 package com.nas.recovery.web.action.drugs;
 
-import com.oreon.callosum.drugs.Drug;
+import java.util.Map;
 
-import org.witchcraft.seam.action.BaseAction;
-
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.framework.EntityQuery;
+import org.jboss.seam.annotations.Observer;
 import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
 
-import org.jboss.seam.annotations.Observer;
-
 import com.oreon.callosum.drugs.Drug;
+
+import edu.emory.mathcs.backport.java.util.TreeMap;
 
 /**
  * D
+ *  
  * @author WitchcraftMDA Seam Cartridge
- *
+ * 
  */
 public abstract class DrugListQueryBase extends BaseQuery<Drug, Long> {
 
@@ -61,9 +53,11 @@ public abstract class DrugListQueryBase extends BaseQuery<Drug, Long> {
 	}
 
 	private Range<Double> halfLifeNumberOfHoursRange = new Range<Double>();
+
 	public Range<Double> getHalfLifeNumberOfHoursRange() {
 		return halfLifeNumberOfHoursRange;
 	}
+
 	public void setHalfLifeNumberOfHours(
 			Range<Double> halfLifeNumberOfHoursRange) {
 		this.halfLifeNumberOfHoursRange = halfLifeNumberOfHoursRange;
@@ -114,7 +108,7 @@ public abstract class DrugListQueryBase extends BaseQuery<Drug, Long> {
 			"lower(drug.categories) like concat(lower(#{drugList.drug.categories}),'%')",
 
 			"drug.dateCreated <= #{drugList.dateCreatedRange.end}",
-			"drug.dateCreated >= #{drugList.dateCreatedRange.begin}",};
+			"drug.dateCreated >= #{drugList.dateCreatedRange.begin}", };
 
 	@Observer("archivedDrug")
 	public void onArchive() {
@@ -127,5 +121,8 @@ public abstract class DrugListQueryBase extends BaseQuery<Drug, Long> {
 		drug.setName(input);
 
 	}
+
+
+	
 
 }

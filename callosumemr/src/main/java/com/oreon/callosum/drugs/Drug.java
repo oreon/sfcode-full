@@ -43,10 +43,12 @@ import org.witchcraft.utils.*;
 @Table(name = "drug")
 @Filter(name = "archiveFilterDef")
 @Name("drug")
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Indexed
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+		
 public class Drug extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -16274297L;
 

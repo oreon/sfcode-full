@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.persistence.Query;
 
@@ -23,7 +24,9 @@ import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.framework.EntityQuery;
 import org.jboss.seam.persistence.PersistenceProvider;
 
-import com.oreon.callosum.drugs.Drug;
+
+
+
 
 
 
@@ -327,6 +330,17 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	 */
 	protected void setupForAutoComplete(String input) {
 		
+	}
+	
+	
+	/**
+	 *  set the query to be usable by hibernate second level cache
+	 */
+	@SuppressWarnings("unchecked")
+	protected void setQueryCacheable() {
+		Map region = new TreeMap();
+		region.put("name=org.hibernate.cacheable", "value=true");
+		this.setHints(region);
 	}
 	
 	

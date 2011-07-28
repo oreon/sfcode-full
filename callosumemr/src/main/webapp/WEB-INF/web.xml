@@ -14,22 +14,27 @@
 		<filter-name>Seam Filter</filter-name>
 		<filter-class>org.jboss.seam.servlet.SeamFilter</filter-class>
 	</filter>
-
-	<filter>
-		<filter-name>ResourceFilter</filter-name>
-		<filter-class>org.openfaces.util.ResourceFilter</filter-class>
-	</filter>
-
-
+	
 	<filter-mapping>
 		<filter-name>Seam Filter</filter-name>
 		<url-pattern>*.seam</url-pattern>
 	</filter-mapping>
+	
 
-	<filter-mapping>
+<!--  
+	<filter>
+		<filter-name>ResourceFilter</filter-name>
+		<filter-class>org.openfaces.util.ResourceFilter</filter-class>
+	</filter>
+	
+		<filter-mapping>
 		<filter-name>ResourceFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+-->
+
+	
+
 
 
 	<context-param>
@@ -88,6 +93,8 @@
 		<url-pattern>*.seam</url-pattern>
 	</servlet-mapping>
 
+
+<!--  
 	<servlet>
 		<servlet-name>Resource Servlet</servlet-name>
 		<servlet-class>org.primefaces.resource.ResourceServlet</servlet-class>
@@ -95,12 +102,11 @@
 	</servlet>
 
 
-
 	<servlet-mapping>
 		<servlet-name>Resource Servlet</servlet-name>
 		<url-pattern>/primefaces_resource/*</url-pattern>
 	</servlet-mapping>
-
+-->
 	<session-config>
 		<session-timeout>610</session-timeout>
 	</session-config>
