@@ -23,11 +23,13 @@ public class MonthlyFeeAction extends MonthlyFeeActionBase implements
 				
 				for (FeeMonth feeMonth : feeMonths) {
 					
-					if(feeMonth != getInstance().getMonth()){
+					if(!feeMonth.equals( getInstance().getMonth() ) ){
 						
 						GradeFeeItem aGradeFeeItem = new GradeFeeItem();
 						MonthlyFee monthlyfee = new MonthlyFee();
+						monthlyfee.setGrade(getInstance().getGrade());
 						monthlyfee.setMonth(feeMonth);
+						aGradeFeeItem.setFeeItem(gradeFeeItem.getFeeItem());
 						aGradeFeeItem.setAmount(gradeFeeItem.getAmount());
 						monthlyfee.addGradeFeeItems(aGradeFeeItem);
 						persist(monthlyfee);
