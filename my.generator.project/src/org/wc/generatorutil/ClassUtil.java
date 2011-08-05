@@ -104,9 +104,9 @@ public class ClassUtil {
 		mapTypes.put("imageFile", new String[] { "FileAttachment", "" });
 		mapTypes.put("largeText", new String[] { "String", "@Lob" });
 		mapTypes.put("nameType", new String[] { "String",
-				"@NotNull @Length(min=2, max=250)" });
+				"@NotNull @Length(min=1, max=250)" });
 		mapTypes.put("uniqueNameType", new String[] { "String",
-				"@NotNull @Length(min=2, max=250)  @Column(unique=true)" });
+				"@NotNull @Length(min=1, max=250)  @Column(unique=true)" });
 		loadProperties();
 	}
 
@@ -421,7 +421,7 @@ public class ClassUtil {
 		}
 
 		String value = properties.getProperty(key);
-		// logger.info("Returning value " + value + " for key " + key);
+		//logger.info("Returning value " + value + " for key " + key);
 		return value;
 	}
 

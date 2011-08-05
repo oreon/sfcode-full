@@ -453,8 +453,12 @@ import org.hibernate.annotations.ParamDef;
 		«IF isColumn() && (  derivedProperty != null)»@Transient«ENDIF»
 		«IF isString()» @Field(index = Index.TOKENIZED)
 		@Analyzer(definition = "entityAnalyzer") «ENDIF»
-		protected «type.fqnForPackage(this.class)»  «name» «getDefault() != null?" = " +getDefaultVal(type):""» 
-			«isColumn() && defaultExpression != null?" = " + defaultExpression:""» ;
+		protected «type.fqnForPackage(this.class)»  «name» «getDefault() != null?" = " + getDefaultVal(type):""» 
+			«IF isColumn() && defaultExpression != null»  
+				=  «defaultExpression»  «defaultExpression.endsWith(";")?"":";"»
+			«ELSE»
+				;
+			«ENDIF» 
 	«ENDIF»
 	
 «ENDDEFINE»

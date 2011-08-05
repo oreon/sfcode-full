@@ -341,19 +341,19 @@
 «DEFINE genDropDown FOR uml::Property»
 	<h:selectOneMenu id="«getId()»"   label="«msgBundleKey()»" value="#{«getActionForMode()»«genPropertyLabel()-»}" 
 		required="«!getAssocOptional() && !isCurrentTemplateMode()»"  rendered="#{«genEditPermission()»}"  >
-		«IF isColumn() && this.controls != null » <a:support event="onchange" reRender="«controls»" ajaxSingle="true" /> «ENDIF»
+		«IF isColumn() && this.controls != null » <a:support event="onchange" 
+			action="#{«class.getAction()».onChange«name.toFirstUpper()»}"  reRender="«controls»" ajaxSingle="true" />
+		«ENDIF»
 		<s:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List"»}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
-		«EXPAND genAjaxValidator FOR this»
+		«genAjaxValidator()»
 		<s:convertEntity />
 	</h:selectOneMenu>
 «ENDDEFINE»
 
 
-«DEFINE genAjaxValidator FOR uml::Property»
-	<rich:ajaxValidator event="onsubmit" />
-«ENDDEFINE»
+
 
 
 «REM»Generate text control for the given property «ENDREM»
@@ -372,10 +372,11 @@
 	 id="«getId()»#{entityId}"  rendered="#{«isCurrentEditMode()?genEditPermission():genViewPermission()»}"  
 	 «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"":""» 
 	  value="#{«getActionForMode()»«genPropertyLabel()»}" >
-	 «IF isCurrentEditMode()» «EXPAND genAjaxValidator FOR this» «ENDIF»
+	 «IF isCurrentEditMode()» «genAjaxValidator()» «ENDIF»
 </«getTextControl()»>
 «ENDIF»
 «ENDDEFINE»
+
 
 
 
@@ -452,7 +453,7 @@
 		«FOREACH  enm.ownedLiteral AS e-»
 		<f:selectItem itemValue="«e.name»"  itemLabel="#{msg.«e.name-»}" />
 		«ENDFOREACH»
-		«EXPAND genAjaxValidator FOR this»
+		«genAjaxValidator()»
 	</h:selectOneMenu>
 	«ENDIF»
 «ENDDEFINE»

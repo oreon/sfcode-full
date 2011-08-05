@@ -27,6 +27,8 @@ import org.witchcraft.jasperreports.BaseReportAction;
 import java.util.Date;
 import org.witchcraft.utils.DateUtils;
 
+import «getTopLevelPackage()».ProjectUtils;
+
 «IF hasCollections» import «fqn()»;«ENDIF»
 
 @Name("«name.toFirstLower()»Action")
@@ -138,3 +140,13 @@ public class «name»Action extends BaseReportAction {
 	</h:selectOneMenu>
 «ENDDEFINE»
 
+«DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
+	<h:selectOneMenu id="«getId()»"  value="#{«getActionForMode()»«genPropertyLabel()»}" required="«getAssocOptional() && !isCurrentTemplateMode()»" 
+	  label="«msgBundleKey()»">
+		<f:selectItem itemLabel="Please Select..." itemValue="" />
+		«FOREACH  enm.ownedLiteral AS e-»
+		<f:selectItem itemValue="«e.name»"  itemLabel="#{msg.«e.name-»}" />
+		«ENDFOREACH»
+		«genAjaxValidator()»
+	</h:selectOneMenu>
+«ENDDEFINE»
