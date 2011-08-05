@@ -7,23 +7,23 @@
         <h:outputText value="#{msg.electronicExam_gradeSubject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'electronicExamEdit')}"/>  
         <h:selectOneMenu id="gradeSubject" label="#{msg.electronicExam_gradeSubject}" value="#{electronicExamAction.electronicExam.gradeSubject}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'electronicExamEdit')}"> 
           <s:selectItems value="#{gradeSubjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
+          <rich:ajaxValidator event="onblur "/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="gradeSubject" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'electronicExamEdit')}"/>  
         <h:outputText value="#{msg.electronicExam_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'electronicExamEdit')}"/>  
         <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'electronicExamEdit')}" label="#{msg.electronicExam_name}" required="true" value="#{electronicExamAction.electronicExam.name}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'electronicExamEdit')}"/>  
         <h:outputText value="#{msg.electronicExam_numberOfQuestions}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('numberOfQuestions', 'electronicExamEdit')}"/>  
         <h:inputText id="numberOfQuestions#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('numberOfQuestions', 'electronicExamEdit')}" label="#{msg.electronicExam_numberOfQuestions}" required="false" value="#{electronicExamAction.electronicExam.numberOfQuestions}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="numberOfQuestions" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('numberOfQuestions', 'electronicExamEdit')}"/>  
         <h:outputText value="#{msg.electronicExam_maxDuration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('maxDuration', 'electronicExamEdit')}"/>  
         <h:inputText id="maxDuration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('maxDuration', 'electronicExamEdit')}" label="#{msg.electronicExam_maxDuration}" required="false" value="#{electronicExamAction.electronicExam.maxDuration}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="maxDuration" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('maxDuration', 'electronicExamEdit')}"/> 
       </h:panelGrid>  
@@ -36,7 +36,7 @@
             <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'questionEdit')}"/>
           </f:facet>  
           <rich:editor useSeamText="true" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'questionEdit')}" label="#{msg.question_text}" required="false" value="#{_question.text}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
+            <rich:ajaxValidator event="onblur "/> 
           </rich:editor>  
           <rich:message styleClass="error errors" for="text" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'questionEdit')}"/> 
         </h:column>  
@@ -50,7 +50,7 @@
             <f:selectItem itemValue="B" itemLabel="#{msg.B}"/>  
             <f:selectItem itemValue="C" itemLabel="#{msg.C}"/>  
             <f:selectItem itemValue="D" itemLabel="#{msg.D}"/>  
-            <rich:ajaxValidator event="onsubmit"/> 
+            <rich:ajaxValidator event="onblur "/> 
           </h:selectOneMenu>  
           <rich:message styleClass="error errors" for="correctChoice" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('correctChoice', 'questionEdit')}"/> 
         </h:column>  

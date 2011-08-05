@@ -61,14 +61,20 @@ public class StudentVitalInfo extends BusinessEntity
 			com.sun.xml.internal.bind.CycleRecoverable {
 	private static final long serialVersionUID = -1998865581L;
 
-	protected Long height;
+	protected Long height
 
-	protected Long weight;
+	;
+
+	protected Long weight
+
+	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "student_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected Student student;
+	protected Student student
+
+	;
 
 	public void setHeight(Long height) {
 		this.height = height;

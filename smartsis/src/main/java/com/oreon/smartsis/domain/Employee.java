@@ -64,17 +64,25 @@ public class Employee extends com.oreon.smartsis.domain.Person
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "department_id", nullable = true, updatable = true)
 	@ContainedIn
-	protected Department department;
+	protected Department department
+
+	;
 
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String employeeNumber;
+	protected String employeeNumber
 
-	protected EmployeeType employeeType;
+	;
+
+	protected EmployeeType employeeType
+
+	;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "manager_id", nullable = true, updatable = true)
-	protected Employee manager;
+	protected Employee manager
+
+	;
 
 	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", nullable = false, updatable = true)

@@ -75,6 +75,14 @@ public abstract class StudentPaidFeeListQueryBase
 		this.dateOfPaymentRange = dateOfPaymentRange;
 	}
 
+	private Range<Integer> yearRange = new Range<Integer>();
+	public Range<Integer> getYearRange() {
+		return yearRange;
+	}
+	public void setYear(Range<Integer> yearRange) {
+		this.yearRange = yearRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"studentPaidFee.id = #{studentPaidFeeList.studentPaidFee.id}",
 
@@ -90,6 +98,11 @@ public abstract class StudentPaidFeeListQueryBase
 			"studentPaidFee.student.id = #{studentPaidFeeList.studentPaidFee.student.id}",
 
 			"studentPaidFee.monthlyFee.id = #{studentPaidFeeList.studentPaidFee.monthlyFee.id}",
+
+			"studentPaidFee.year >= #{studentPaidFeeList.yearRange.begin}",
+			"studentPaidFee.year <= #{studentPaidFeeList.yearRange.end}",
+
+			"studentPaidFee.month = #{studentPaidFeeList.studentPaidFee.month}",
 
 			"studentPaidFee.dateCreated <= #{studentPaidFeeList.dateCreatedRange.end}",
 			"studentPaidFee.dateCreated >= #{studentPaidFeeList.dateCreatedRange.begin}",};
@@ -123,6 +136,11 @@ public abstract class StudentPaidFeeListQueryBase
 				+ (e.getMonthlyFee() != null ? e.getMonthlyFee()
 						.getDisplayName().replace(",", "") : "") + "\",");
 
+		builder.append("\"" + (e.getYear() != null ? e.getYear() : "") + "\",");
+
+		builder.append("\"" + (e.getMonth() != null ? e.getMonth() : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -141,6 +159,10 @@ public abstract class StudentPaidFeeListQueryBase
 		builder.append("Student" + ",");
 
 		builder.append("MonthlyFee" + ",");
+
+		builder.append("Year" + ",");
+
+		builder.append("Month" + ",");
 
 		builder.append("\r\n");
 	}

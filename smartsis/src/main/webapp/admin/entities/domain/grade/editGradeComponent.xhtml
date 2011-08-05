@@ -6,17 +6,17 @@
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{gradeAction.load(gradeId )  }"> 
         <h:outputText value="#{msg.grade_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'gradeEdit')}"/>  
         <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'gradeEdit')}" label="#{msg.grade_name}" required="true" value="#{gradeAction.grade.name}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'gradeEdit')}"/>  
         <h:outputText value="#{msg.grade_ordinal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ordinal', 'gradeEdit')}"/>  
         <h:inputText id="ordinal#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ordinal', 'gradeEdit')}" label="#{msg.grade_ordinal}" required="false" value="#{gradeAction.grade.ordinal}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="ordinal" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ordinal', 'gradeEdit')}"/>  
         <h:outputText value="#{msg.grade_section}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'gradeEdit')}"/>  
         <h:inputText id="section#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'gradeEdit')}" label="#{msg.grade_section}" required="false" value="#{gradeAction.grade.section}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="section" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'gradeEdit')}"/> 
       </h:panelGrid>  
@@ -30,7 +30,7 @@
           </f:facet>  
           <h:selectOneMenu id="subject" label="#{msg.gradeSubject_subject}" value="#{_gradeSubject.subject}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('subject', 'gradeSubjectEdit')}"> 
             <s:selectItems value="#{subjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <rich:ajaxValidator event="onsubmit"/>  
+            <rich:ajaxValidator event="onblur "/>  
             <s:convertEntity/> 
           </h:selectOneMenu>  
           <rich:message styleClass="error errors" for="subject" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('subject', 'gradeSubjectEdit')}"/> 
@@ -41,7 +41,7 @@
           </f:facet>  
           <h:selectOneMenu id="employee" label="#{msg.gradeSubject_employee}" value="#{_gradeSubject.employee}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'gradeSubjectEdit')}"> 
             <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <rich:ajaxValidator event="onsubmit"/>  
+            <rich:ajaxValidator event="onblur "/>  
             <s:convertEntity/> 
           </h:selectOneMenu>  
           <rich:message styleClass="error errors" for="employee" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'gradeSubjectEdit')}"/> 

@@ -63,7 +63,9 @@ public class Hostel extends BusinessEntity
 
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String name;
+	protected String name
+
+	;
 
 	@OneToMany(mappedBy = "hostel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "hostel_ID", nullable = true)
@@ -86,7 +88,9 @@ public class Hostel extends BusinessEntity
 		return rooms.size();
 	}
 
-	protected com.oreon.smartsis.Gender gender;
+	protected com.oreon.smartsis.Gender gender
+
+	;
 
 	public void setName(String name) {
 		this.name = name;

@@ -62,26 +62,46 @@ public class StudentPaidFee extends BusinessEntity
 	private static final long serialVersionUID = 866326586L;
 
 	@Transient
-	protected Double amountOwed;
+	protected Double amountOwed
+
+	;
 
 	@NotNull
 	@Column(name = "amountPaid", unique = false)
-	protected Double amountPaid;
+	protected Double amountPaid
 
-	protected Double dueAmount;
+	;
+
+	protected Double dueAmount
+
+	;
 
 	@Column(name = "dateOfPayment", unique = false)
-	protected Date dateOfPayment = new Date();
+	protected Date dateOfPayment
+
+	= new Date();
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "student_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected com.oreon.smartsis.domain.Student student;
+	protected com.oreon.smartsis.domain.Student student
+
+	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "monthlyFee_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected MonthlyFee monthlyFee;
+	protected MonthlyFee monthlyFee
+
+	;
+
+	protected Integer year
+
+	;
+
+	protected com.oreon.smartsis.domain.FeeMonth month
+
+	;
 
 	public void setAmountOwed(Double amountOwed) {
 		this.amountOwed = amountOwed;
@@ -90,7 +110,8 @@ public class StudentPaidFee extends BusinessEntity
 	public Double getAmountOwed() {
 
 		try {
-			return monthlyFee.getTotal() * (100 - student.getScholarship());
+			return monthlyFee.getTotal() * (100.0 - student.getScholarship())
+					/ 100.0;
 		} catch (Exception e) {
 
 			return 0.0;
@@ -146,6 +167,26 @@ public class StudentPaidFee extends BusinessEntity
 	public MonthlyFee getMonthlyFee() {
 
 		return monthlyFee;
+
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
+	public Integer getYear() {
+
+		return year;
+
+	}
+
+	public void setMonth(com.oreon.smartsis.domain.FeeMonth month) {
+		this.month = month;
+	}
+
+	public com.oreon.smartsis.domain.FeeMonth getMonth() {
+
+		return month;
 
 	}
 

@@ -79,6 +79,15 @@
   <entity class="com.oreon.smartsis.domain.StudentVitalInfo" name="StudentVitalInfo"> 
     <table name="studentvitalinfo"></table> 
   </entity>  
+  <!--  Settings  JPA Configurations -->  
+  <entity class="com.oreon.smartsis.domain.Settings" name="Settings"> 
+    <table name="settings"></table>  
+    <named-query name="settings.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Settings u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
   <!--  ElectronicExam  JPA Configurations -->  
   <entity class="com.oreon.smartsis.exam.ElectronicExam" name="ElectronicExam"> 
     <table name="electronicexam"></table>  
@@ -175,10 +184,21 @@
   </entity>  
   <!--  GradeFeeItem  JPA Configurations -->  
   <entity class="com.oreon.smartsis.fees.GradeFeeItem" name="GradeFeeItem"> 
-    <table name="gradefeeitem"></table> 
+    <table name="gradefeeitem"> 
+      <unique-constraint> 
+        <column-name>feeItem_Id</column-name>  
+        <column-name>monthlyFee_id</column-name> 
+      </unique-constraint> 
+    </table> 
   </entity>  
   <!--  StudentPaidFee  JPA Configurations -->  
   <entity class="com.oreon.smartsis.fees.StudentPaidFee" name="StudentPaidFee"> 
-    <table name="studentpaidfee"></table> 
+    <table name="studentpaidfee"> 
+      <unique-constraint> 
+        <column-name>student_id</column-name>  
+        <column-name>year</column-name>  
+        <column-name>month</column-name> 
+      </unique-constraint> 
+    </table> 
   </entity> 
 </entity-mappings>

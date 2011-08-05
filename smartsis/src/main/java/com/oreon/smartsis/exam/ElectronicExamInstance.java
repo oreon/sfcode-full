@@ -64,7 +64,9 @@ public class ElectronicExamInstance extends BusinessEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "student_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected com.oreon.smartsis.domain.Student student;
+	protected com.oreon.smartsis.domain.Student student
+
+	;
 
 	@OneToMany(mappedBy = "electronicExamInstance", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "electronicExamInstance_ID", nullable = true)
@@ -88,14 +90,20 @@ public class ElectronicExamInstance extends BusinessEntity
 		return questionInstances.size();
 	}
 
-	protected Integer score;
+	protected Integer score
+
+	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "electronicExamEvent_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected ElectronicExamEvent electronicExamEvent;
+	protected ElectronicExamEvent electronicExamEvent
 
-	protected Integer timeTaken;
+	;
+
+	protected Integer timeTaken
+
+	;
 
 	public void setStudent(com.oreon.smartsis.domain.Student student) {
 		this.student = student;

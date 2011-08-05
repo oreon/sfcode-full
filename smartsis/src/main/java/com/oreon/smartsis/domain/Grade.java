@@ -66,7 +66,9 @@ public class Grade extends BusinessEntity
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String name;
+	protected String name
+
+	;
 
 	@OneToMany(mappedBy = "grade", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "grade_ID", nullable = true)
@@ -93,11 +95,15 @@ public class Grade extends BusinessEntity
 	@JoinTable(name = "grades_exams", joinColumns = @JoinColumn(name = "grades_ID"), inverseJoinColumns = @JoinColumn(name = "exams_ID"))
 	private Set<Exam> exams = new HashSet<Exam>();
 
-	protected Integer ordinal;
+	protected Integer ordinal
+
+	;
 
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String section;
+	protected String section
+
+	;
 
 	@OneToMany(mappedBy = "grade", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "grade_ID", nullable = true)

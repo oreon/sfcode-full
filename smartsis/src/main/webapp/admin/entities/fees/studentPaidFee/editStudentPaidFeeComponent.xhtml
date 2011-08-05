@@ -7,32 +7,55 @@
         <h:outputText value="#{msg.studentPaidFee_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'studentPaidFeeEdit')}"/>  
         <h:selectOneMenu id="student" label="#{msg.studentPaidFee_student}" value="#{studentPaidFeeAction.studentPaidFee.student}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'studentPaidFeeEdit')}"> 
           <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
+          <rich:ajaxValidator event="onblur "/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'studentPaidFeeEdit')}"/>  
         <h:outputText value="#{msg.studentPaidFee_monthlyFee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('monthlyFee', 'studentPaidFeeEdit')}"/>  
         <h:selectOneMenu id="monthlyFee" label="#{msg.studentPaidFee_monthlyFee}" value="#{studentPaidFeeAction.studentPaidFee.monthlyFee}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('monthlyFee', 'studentPaidFeeEdit')}"> 
           <s:selectItems value="#{monthlyFeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
+          <rich:ajaxValidator event="onblur "/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="monthlyFee" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('monthlyFee', 'studentPaidFeeEdit')}"/>  
         <h:outputText value="#{msg.studentPaidFee_amountPaid} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountPaid', 'studentPaidFeeEdit')}"/>  
         <h:inputText id="amountPaid#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountPaid', 'studentPaidFeeEdit')}" label="#{msg.studentPaidFee_amountPaid}" required="true" value="#{studentPaidFeeAction.studentPaidFee.amountPaid}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="amountPaid" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountPaid', 'studentPaidFeeEdit')}"/>  
         <h:outputText value="#{msg.studentPaidFee_dueAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dueAmount', 'studentPaidFeeEdit')}"/>  
         <h:inputText id="dueAmount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dueAmount', 'studentPaidFeeEdit')}" label="#{msg.studentPaidFee_dueAmount}" required="false" value="#{studentPaidFeeAction.studentPaidFee.dueAmount}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="dueAmount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dueAmount', 'studentPaidFeeEdit')}"/>  
         <h:outputText value="#{msg.studentPaidFee_dateOfPayment}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfPayment', 'studentPaidFeeEdit')}"/>  
         <rich:calendar direction="auto" id="dateOfPayment#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfPayment', 'studentPaidFeeEdit')}" label="#{msg.studentPaidFee_dateOfPayment}" required="false" value="#{studentPaidFeeAction.studentPaidFee.dateOfPayment}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </rich:calendar>  
-        <rich:message styleClass="error errors" for="dateOfPayment" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfPayment', 'studentPaidFeeEdit')}"/> 
+        <rich:message styleClass="error errors" for="dateOfPayment" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfPayment', 'studentPaidFeeEdit')}"/>  
+        <h:outputText value="#{msg.studentPaidFee_year}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('year', 'studentPaidFeeEdit')}"/>  
+        <h:inputText id="year#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('year', 'studentPaidFeeEdit')}" label="#{msg.studentPaidFee_year}" required="false" value="#{studentPaidFeeAction.studentPaidFee.year}"> 
+          <rich:ajaxValidator event="onblur "/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="year" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('year', 'studentPaidFeeEdit')}"/>  
+        <h:outputText value="#{msg.studentPaidFee_month}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'studentPaidFeeEdit')}"/>  
+        <h:selectOneMenu id="month" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'studentPaidFeeEdit')}" value="#{studentPaidFeeAction.studentPaidFee.month}" required="false" label="#{msg.studentPaidFee_month}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="JAN" itemLabel="#{msg.JAN}"/>  
+          <f:selectItem itemValue="FEB" itemLabel="#{msg.FEB}"/>  
+          <f:selectItem itemValue="MAR" itemLabel="#{msg.MAR}"/>  
+          <f:selectItem itemValue="APR" itemLabel="#{msg.APR}"/>  
+          <f:selectItem itemValue="MAY" itemLabel="#{msg.MAY}"/>  
+          <f:selectItem itemValue="JUN" itemLabel="#{msg.JUN}"/>  
+          <f:selectItem itemValue="JUL" itemLabel="#{msg.JUL}"/>  
+          <f:selectItem itemValue="AUG" itemLabel="#{msg.AUG}"/>  
+          <f:selectItem itemValue="SEP" itemLabel="#{msg.SEP}"/>  
+          <f:selectItem itemValue="OCT" itemLabel="#{msg.OCT}"/>  
+          <f:selectItem itemValue="NOV" itemLabel="#{msg.NOV}"/>  
+          <f:selectItem itemValue="DEC" itemLabel="#{msg.DEC}"/>  
+          <rich:ajaxValidator event="onblur "/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="month" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'studentPaidFeeEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

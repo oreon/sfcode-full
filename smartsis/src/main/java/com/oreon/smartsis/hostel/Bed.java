@@ -64,13 +64,17 @@ public class Bed extends BusinessEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "room_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected Room room;
+	protected Room room
+
+	;
 
 	@NotNull
-	@Length(min = 2, max = 250)
+	@Length(min = 1, max = 250)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String name;
+	protected String name
+
+	;
 
 	public void setRoom(Room room) {
 		this.room = room;

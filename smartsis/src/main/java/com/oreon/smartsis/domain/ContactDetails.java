@@ -54,15 +54,21 @@ public class ContactDetails implements java.io.Serializable {
 
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String primaryPhone;
+	protected String primaryPhone
+
+	;
 
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String secondaryPhone;
+	protected String secondaryPhone
+
+	;
 
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String email;
+	protected String email
+
+	;
 
 	public void setPrimaryPhone(String primaryPhone) {
 		this.primaryPhone = primaryPhone;

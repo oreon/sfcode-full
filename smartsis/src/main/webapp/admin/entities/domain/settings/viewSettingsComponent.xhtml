@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{settingsAction.load(settingsId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{settingsAction.settings.id}"/>  
+        <h:outputText value="#{msg.settings_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'settingsView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'settingsView')}" value="#{settingsAction.settings.name}"></h:outputText>  
+        <h:outputText value="#{msg.settings_gradeCapacity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeCapacity', 'settingsView')}"/>  
+        <h:outputText id="gradeCapacity#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeCapacity', 'settingsView')}" value="#{settingsAction.settings.gradeCapacity}"></h:outputText> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

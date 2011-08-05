@@ -64,7 +64,9 @@ public class ElectronicExamEvent extends BusinessEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "electronicExam_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected ElectronicExam electronicExam;
+	protected ElectronicExam electronicExam
+
+	;
 
 	@OneToMany(mappedBy = "electronicExamEvent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "electronicExamEvent_ID", nullable = true)
@@ -89,12 +91,16 @@ public class ElectronicExamEvent extends BusinessEntity
 		return electronicExamInstances.size();
 	}
 
-	protected Date dateOfExam;
+	protected Date dateOfExam
+
+	;
 
 	@Lob
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String remarks;
+	protected String remarks
+
+	;
 
 	public void setElectronicExam(ElectronicExam electronicExam) {
 		this.electronicExam = electronicExam;

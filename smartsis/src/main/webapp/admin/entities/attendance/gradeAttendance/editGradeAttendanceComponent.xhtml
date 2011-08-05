@@ -6,15 +6,15 @@
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{gradeAttendanceAction.load(gradeAttendanceId )  }"> 
         <h:outputText value="#{msg.gradeAttendance_grade} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'gradeAttendanceEdit')}"/>  
         <h:selectOneMenu id="grade" label="#{msg.gradeAttendance_grade}" value="#{gradeAttendanceAction.gradeAttendance.grade}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'gradeAttendanceEdit')}"> 
-          <a:support event="onchange" reRender="attendances" ajaxSingle="true"/>  
+          <a:support event="onchange" action="#{gradeAttendanceAction.onChangeGrade}" reRender="attendances" ajaxSingle="true"/>  
           <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
+          <rich:ajaxValidator event="onblur "/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="grade" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'gradeAttendanceEdit')}"/>  
         <h:outputText value="#{msg.gradeAttendance_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'gradeAttendanceEdit')}"/>  
         <rich:calendar direction="auto" id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'gradeAttendanceEdit')}" label="#{msg.gradeAttendance_date}" required="false" value="#{gradeAttendanceAction.gradeAttendance.date}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </rich:calendar>  
         <rich:message styleClass="error errors" for="date" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'gradeAttendanceEdit')}"/> 
       </h:panelGrid>  
@@ -28,7 +28,7 @@
           </f:facet>  
           <h:selectOneMenu id="student" label="#{msg.attendance_student}" value="#{_attendance.student}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'attendanceEdit')}"> 
             <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <rich:ajaxValidator event="onsubmit"/>  
+            <rich:ajaxValidator event="onblur "/>  
             <s:convertEntity/> 
           </h:selectOneMenu>  
           <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'attendanceEdit')}"/> 
@@ -39,7 +39,7 @@
           </f:facet>  
           <h:selectOneMenu id="gradeSubject" label="#{msg.attendance_gradeSubject}" value="#{_attendance.gradeSubject}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'attendanceEdit')}"> 
             <s:selectItems value="#{gradeSubjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <rich:ajaxValidator event="onsubmit"/>  
+            <rich:ajaxValidator event="onblur "/>  
             <s:convertEntity/> 
           </h:selectOneMenu>  
           <rich:message styleClass="error errors" for="gradeSubject" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'attendanceEdit')}"/> 
@@ -49,7 +49,7 @@
             <h:outputText value="#{msg.attendance_date} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'attendanceEdit')}"/>
           </f:facet>  
           <rich:calendar direction="auto" id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'attendanceEdit')}" label="#{msg.attendance_date}" required="true" value="#{_attendance.date}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
+            <rich:ajaxValidator event="onblur "/> 
           </rich:calendar>  
           <rich:message styleClass="error errors" for="date" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'attendanceEdit')}"/> 
         </h:column>  
@@ -62,7 +62,7 @@
             <f:selectItem itemValue="ABSENT" itemLabel="#{msg.ABSENT}"/>  
             <f:selectItem itemValue="LEAVE" itemLabel="#{msg.LEAVE}"/>  
             <f:selectItem itemValue="SICK_LEAVE" itemLabel="#{msg.SICK_LEAVE}"/>  
-            <rich:ajaxValidator event="onsubmit"/> 
+            <rich:ajaxValidator event="onblur "/> 
           </h:selectOneMenu>  
           <rich:message styleClass="error errors" for="absenceCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('absenceCode', 'attendanceEdit')}"/> 
         </h:column>  

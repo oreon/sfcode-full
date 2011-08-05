@@ -7,21 +7,21 @@
         <h:outputText value="#{msg.examInstance_exam} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'examInstanceEdit')}"/>  
         <h:selectOneMenu id="exam" label="#{msg.examInstance_exam}" value="#{examInstanceAction.examInstance.exam}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'examInstanceEdit')}"> 
           <s:selectItems value="#{examList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
+          <rich:ajaxValidator event="onblur "/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="exam" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'examInstanceEdit')}"/>  
         <h:outputText value="#{msg.examInstance_gradeSubject} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'examInstanceEdit')}"/>  
         <h:selectOneMenu id="gradeSubject" label="#{msg.examInstance_gradeSubject}" value="#{examInstanceAction.examInstance.gradeSubject}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'examInstanceEdit')}"> 
-          <a:support event="onchange" reRender="examScores" ajaxSingle="true"/>  
+          <a:support event="onchange" action="#{examInstanceAction.onChangeGradeSubject}" reRender="examScores" ajaxSingle="true"/>  
           <s:selectItems value="#{gradeSubjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
+          <rich:ajaxValidator event="onblur "/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="gradeSubject" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'examInstanceEdit')}"/>  
         <h:outputText value="#{msg.examInstance_dateHeld}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateHeld', 'examInstanceEdit')}"/>  
         <rich:calendar direction="auto" id="dateHeld#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateHeld', 'examInstanceEdit')}" label="#{msg.examInstance_dateHeld}" required="false" value="#{examInstanceAction.examInstance.dateHeld}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </rich:calendar>  
         <rich:message styleClass="error errors" for="dateHeld" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateHeld', 'examInstanceEdit')}"/> 
       </h:panelGrid>  
@@ -35,7 +35,7 @@
           </f:facet>  
           <h:selectOneMenu id="student" label="#{msg.examScore_student}" value="#{_examScore.student}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'examScoreEdit')}"> 
             <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <rich:ajaxValidator event="onsubmit"/>  
+            <rich:ajaxValidator event="onblur "/>  
             <s:convertEntity/> 
           </h:selectOneMenu>  
           <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'examScoreEdit')}"/> 
@@ -45,7 +45,7 @@
             <h:outputText value="#{msg.examScore_marks} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreEdit')}"/>
           </f:facet>  
           <h:inputText id="marks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreEdit')}" label="#{msg.examScore_marks}" required="true" value="#{_examScore.marks}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
+            <rich:ajaxValidator event="onblur "/> 
           </h:inputText>  
           <rich:message styleClass="error errors" for="marks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreEdit')}"/> 
         </h:column>  

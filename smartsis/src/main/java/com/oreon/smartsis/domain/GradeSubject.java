@@ -64,17 +64,23 @@ public class GradeSubject extends BusinessEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "subject_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected Subject subject;
+	protected Subject subject
+
+	;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "employee_id", nullable = true, updatable = true)
 	@ContainedIn
-	protected Employee employee;
+	protected Employee employee
+
+	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "grade_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected Grade grade;
+	protected Grade grade
+
+	;
 
 	@OneToMany(mappedBy = "gradeSubject", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "gradeSubject_ID", nullable = true)

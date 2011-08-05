@@ -62,20 +62,32 @@ public class Exam extends BusinessEntity
 	private static final long serialVersionUID = 172727827L;
 
 	@NotNull
-	@Length(min = 2, max = 250)
+	@Length(min = 1, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String name;
+	protected String name
+
+	;
 
 	@ManyToMany(mappedBy = "exams")
 	private Set<Grade> grades = new HashSet<Grade>();
 
-	protected Integer maxMarks;
+	protected Integer maxMarks
 
-	protected Integer passMarks;
+	;
 
-	protected Integer ordinal;
+	protected Integer passMarks
+
+	;
+
+	protected Integer ordinal
+
+	;
+
+	protected Double weight
+
+	;
 
 	public void setName(String name) {
 		this.name = name;
@@ -122,6 +134,16 @@ public class Exam extends BusinessEntity
 	public Integer getOrdinal() {
 
 		return ordinal;
+
+	}
+
+	public void setWeight(Double weight) {
+		this.weight = weight;
+	}
+
+	public Double getWeight() {
+
+		return weight;
 
 	}
 

@@ -15,7 +15,20 @@
 		<s:validateAll>
 
 			<a:region>
-				<h:panelGrid columns="6">
+				<h:panelGrid columns="9">
+					
+					<h:outputText value="Year* " />
+					
+					<h:selectOneMenu id="year" label="#{msg.studentPaidFee_student}"
+						value="#{studentPaidFeeAction.instance.year}"
+						required="true">
+						<s:selectItems value="#{studentPaidFeeAction.years}" var="itemIter"
+							label="#{itemIter}"/>
+						<rich:ajaxValidator event="onblur" />
+					</h:selectOneMenu>
+					
+					<rich:message styleClass="error errors" for="year" />
+					
 					<h:outputText value="#{msg.studentPaidFee_student} * " />
 
 					<h:selectOneMenu id="student" label="#{msg.studentPaidFee_student}"
@@ -28,8 +41,8 @@
 						<rich:ajaxValidator event="onsubmit" />
 						<s:convertEntity />
 					</h:selectOneMenu>
-					<rich:message styleClass="error errors" for="student"
-						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'studentPaidFeeEdit')}" />
+					
+					<rich:message styleClass="error errors" for="student" />
 
 					<h:outputText value="#{msg.monthlyFee_month}  "
 						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'monthlyFeeEdit')}" />
@@ -54,12 +67,12 @@
 
 						<a:support event="onchange"
 							action="#{studentPaidFeeAction.updateFee}"
-							reRender="amountOwed#{entityId}" ajaxSingle="false" />
-
+							reRender="amountOwed" ajaxSingle="false" />
 						<rich:ajaxValidator event="onsubmit" />
+						
+						
 					</h:selectOneMenu>
-					<rich:message styleClass="error errors" for="month"
-						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'monthlyFeeEdit')}" />
+					<rich:message styleClass="error errors" for="month"  />
 				</h:panelGrid>
 			</a:region>
 			<br />
@@ -68,7 +81,7 @@
 				<h:outputText value="#{msg.studentPaidFee_amountOwed}  "
 					rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountOwed', 'studentPaidFeeEdit')}" />
 
-				<h:inputText id="amountOwed#{entityId}" disabled="true"
+				<h:inputText id="amountOwed" disabled="true"
 					rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountOwed', 'studentPaidFeeEdit')}"
 					label="#{msg.studentPaidFee_amountOwed}" required="false"
 					value="#{studentPaidFeeAction.studentPaidFee.amountOwed}">

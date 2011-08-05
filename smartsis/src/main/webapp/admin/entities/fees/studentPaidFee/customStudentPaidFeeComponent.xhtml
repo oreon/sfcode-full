@@ -47,6 +47,32 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="monthlyFee" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('monthlyFee', 'studentPaidFeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.studentPaidFee_year}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('year', 'studentPaidFeeEdit')}"/>  
+        <br/>  
+        <h:inputText id="year" value="#{studentPaidFeeAction.studentPaidFee.year}"/>  
+        <rich:message styleClass="error errors" for="year" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('year', 'studentPaidFeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.studentPaidFee_month}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'studentPaidFeeEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="month" value="#{studentPaidFeeAction.studentPaidFee.month}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="JAN" itemLabel="Jan"/>  
+          <f:selectItem itemValue="FEB" itemLabel="Feb"/>  
+          <f:selectItem itemValue="MAR" itemLabel="Mar"/>  
+          <f:selectItem itemValue="APR" itemLabel="Apr"/>  
+          <f:selectItem itemValue="MAY" itemLabel="May"/>  
+          <f:selectItem itemValue="JUN" itemLabel="Jun"/>  
+          <f:selectItem itemValue="JUL" itemLabel="Jul"/>  
+          <f:selectItem itemValue="AUG" itemLabel="Aug"/>  
+          <f:selectItem itemValue="SEP" itemLabel="Sep"/>  
+          <f:selectItem itemValue="OCT" itemLabel="Oct"/>  
+          <f:selectItem itemValue="NOV" itemLabel="Nov"/>  
+          <f:selectItem itemValue="DEC" itemLabel="Dec"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="month" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'studentPaidFeeEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

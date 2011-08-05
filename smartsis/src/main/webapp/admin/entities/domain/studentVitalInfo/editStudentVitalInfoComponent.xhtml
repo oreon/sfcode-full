@@ -7,18 +7,18 @@
         <h:outputText value="#{msg.studentVitalInfo_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'studentVitalInfoEdit')}"/>  
         <h:selectOneMenu id="student" label="#{msg.studentVitalInfo_student}" value="#{studentVitalInfoAction.studentVitalInfo.student}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'studentVitalInfoEdit')}"> 
           <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
+          <rich:ajaxValidator event="onblur "/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'studentVitalInfoEdit')}"/>  
         <h:outputText value="#{msg.studentVitalInfo_height}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('height', 'studentVitalInfoEdit')}"/>  
         <h:inputText id="height#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('height', 'studentVitalInfoEdit')}" label="#{msg.studentVitalInfo_height}" required="false" value="#{studentVitalInfoAction.studentVitalInfo.height}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="height" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('height', 'studentVitalInfoEdit')}"/>  
         <h:outputText value="#{msg.studentVitalInfo_weight}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('weight', 'studentVitalInfoEdit')}"/>  
         <h:inputText id="weight#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('weight', 'studentVitalInfoEdit')}" label="#{msg.studentVitalInfo_weight}" required="false" value="#{studentVitalInfoAction.studentVitalInfo.weight}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="weight" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('weight', 'studentVitalInfoEdit')}"/> 
       </h:panelGrid> 

@@ -64,7 +64,9 @@ public class Question extends BusinessEntity
 	@Lob
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String text;
+	protected String text
+
+	;
 
 	@OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "question_ID", nullable = true)
@@ -90,11 +92,15 @@ public class Question extends BusinessEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "electronicExam_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected ElectronicExam electronicExam;
+	protected ElectronicExam electronicExam
+
+	;
 
 	@NotNull
 	@Column(name = "correctChoice", unique = false)
-	protected ChoiceIndex correctChoice;
+	protected ChoiceIndex correctChoice
+
+	;
 
 	public void setText(String text) {
 		this.text = text;

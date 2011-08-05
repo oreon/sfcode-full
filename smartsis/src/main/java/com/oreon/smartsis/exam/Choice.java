@@ -64,12 +64,16 @@ public class Choice extends BusinessEntity
 	@Lob
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String text;
+	protected String text
+
+	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "question_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected Question question;
+	protected Question question
+
+	;
 
 	public void setText(String text) {
 		this.text = text;

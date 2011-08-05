@@ -53,11 +53,15 @@ public class Person extends BusinessEntity {
 
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String firstName;
+	protected String firstName
+
+	;
 
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String lastName;
+	protected String lastName
+
+	;
 
 	@IndexedEmbedded
 	@AttributeOverrides({

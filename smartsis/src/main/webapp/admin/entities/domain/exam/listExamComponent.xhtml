@@ -61,6 +61,18 @@
           </f:facet>  
           <h:outputText value="#{_exam.ordinal}" escape="false"/> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('weight', 'examView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{examList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.exam_weight}"/>  
+              <ui:param name="propertyPath" value="exam.weight"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_exam.weight}"> 
+            <f:convertNumber pattern="$#,##0.00"/> 
+          </h:outputText> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'examView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

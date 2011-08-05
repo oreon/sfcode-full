@@ -13,6 +13,14 @@
       </rule> 
     </navigation> 
   </page>  
+  <page view-id="/admin/recieveStudentFees.xhtml"> 
+    <param name="studentId" value="#{studentPaidFeeAction.studentId}"/>  
+    <navigation> 
+      <rule if-outcome="success"> 
+        <redirect view-id="/admin/viewFeeReceipt.xhtml"/> 
+      </rule> 
+    </navigation> 
+  </page>  
   <!--PROTECTED REGION END-->  
   <page view-id="/adminLogin.xhtml"> 
     <navigation from-action="#{identity.login}"> 
@@ -190,6 +198,18 @@
       </rule>  
       <rule if-outcome="editStudentVitalInfo"> 
         <redirect view-id="/admin/entities/domain/studentVitalInfo/editStudentVitalInfo.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="settings"> 
+        <redirect view-id="/admin/entities/domain/settings/listSettings.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewSettings"> 
+        <redirect view-id="/admin/entities/domain/settings/viewSettings.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editSettings"> 
+        <redirect view-id="/admin/entities/domain/settings/editSettings.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="electronicExam"> 
@@ -775,7 +795,8 @@
     <param name="name" value="#{examList.exam.name}" validateModel="false"/>  
     <param name="maxMarks" value="#{examList.exam.maxMarks}" validateModel="false"/>  
     <param name="passMarks" value="#{examList.exam.passMarks}" validateModel="false"/>  
-    <param name="ordinal" value="#{examList.exam.ordinal}" validateModel="false"/> 
+    <param name="ordinal" value="#{examList.exam.ordinal}" validateModel="false"/>  
+    <param name="weight" value="#{examList.exam.weight}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/examScore/editExamScore.xhtml"> 
     <!-- <description>Edit ExamScore: #{examScore.displayName}</description> -->  
@@ -996,6 +1017,47 @@
     <param name="height" value="#{studentVitalInfoList.studentVitalInfo.height}" validateModel="false"/>  
     <param name="weight" value="#{studentVitalInfoList.studentVitalInfo.weight}" validateModel="false"/>  
     <param name="student" value="#{studentVitalInfoList.studentVitalInfo.student.id}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/domain/settings/editSettings.xhtml"> 
+    <!-- <description>Edit Settings: #{settings.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/domain/settings/viewSettings.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/domain/settings/listSettings.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="settingsId" value="#{settingsAction.settingsId}"/> 
+  </page>  
+  <page view-id="/admin/entities/domain/settings/viewSettings.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View Settings: #{settings.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/domain/settings/editSettings.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/domain/settings/listSettings.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="settingsId" value="#{settingsAction.settingsId}"/> 
+  </page>  
+  <page view-id="/admin/entities/domain/settings/listSettings.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewSettings"> 
+        <redirect view-id="/admin/entities/domain/settings/viewSettings.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/domain/settings/editSettings.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{settingsList.firstResult}"/>  
+    <param name="sort" value="#{settingsList.orderColumn}"/>  
+    <param name="dir" value="#{settingsList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{settingsList.settings.id}"/>  
+    <param name="name" value="#{settingsList.settings.name}" validateModel="false"/>  
+    <param name="gradeCapacity" value="#{settingsList.settings.gradeCapacity}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/exam/electronicExam/editElectronicExam.xhtml"> 
     <!-- <description>Edit ElectronicExam: #{electronicExam.displayName}</description> -->  
@@ -1775,7 +1837,9 @@
     <param name="dueAmount" value="#{studentPaidFeeList.studentPaidFee.dueAmount}" validateModel="false"/>  
     <param name="dateOfPayment" value="#{studentPaidFeeList.studentPaidFee.dateOfPayment}" validateModel="false"/>  
     <param name="student" value="#{studentPaidFeeList.studentPaidFee.student.id}" validateModel="false"/>  
-    <param name="monthlyFee" value="#{studentPaidFeeList.studentPaidFee.monthlyFee.id}" validateModel="false"/> 
+    <param name="monthlyFee" value="#{studentPaidFeeList.studentPaidFee.monthlyFee.id}" validateModel="false"/>  
+    <param name="year" value="#{studentPaidFeeList.studentPaidFee.year}" validateModel="false"/>  
+    <param name="month" value="#{studentPaidFeeList.studentPaidFee.month}" validateModel="false"/> 
   </page>  
   <!--PROTECTED REGION ID(USER_EDITABLE_XCPT) ENABLED START-->  
   <exception class="org.jboss.seam.framework.EntityNotFoundException"> 

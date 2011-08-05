@@ -83,11 +83,13 @@ public class Department extends BusinessEntity
 	}
 
 	@NotNull
-	@Length(min = 2, max = 250)
+	@Length(min = 1, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String name;
+	protected String name
+
+	;
 
 	public void setEmployees(Set<Employee> employees) {
 		this.employees = employees;

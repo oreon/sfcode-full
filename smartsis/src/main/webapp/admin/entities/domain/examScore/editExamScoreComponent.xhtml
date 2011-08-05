@@ -7,20 +7,20 @@
         <h:outputText value="#{msg.examScore_examInstance} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'examScoreEdit')}"/>  
         <h:selectOneMenu id="examInstance" label="#{msg.examScore_examInstance}" value="#{examScoreAction.examScore.examInstance}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'examScoreEdit')}"> 
           <s:selectItems value="#{examInstanceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
+          <rich:ajaxValidator event="onblur "/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="examInstance" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'examScoreEdit')}"/>  
         <h:outputText value="#{msg.examScore_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'examScoreEdit')}"/>  
         <h:selectOneMenu id="student" label="#{msg.examScore_student}" value="#{examScoreAction.examScore.student}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'examScoreEdit')}"> 
           <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
+          <rich:ajaxValidator event="onblur "/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'examScoreEdit')}"/>  
         <h:outputText value="#{msg.examScore_marks} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreEdit')}"/>  
         <h:inputText id="marks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreEdit')}" label="#{msg.examScore_marks}" required="true" value="#{examScoreAction.examScore.marks}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="marks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreEdit')}"/> 
       </h:panelGrid> 

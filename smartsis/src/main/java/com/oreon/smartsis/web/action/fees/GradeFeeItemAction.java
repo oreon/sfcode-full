@@ -44,6 +44,10 @@ import org.richfaces.model.UploadItem;
 //@Scope(ScopeType.CONVERSATION)
 @Name("gradeFeeItemAction")
 public class GradeFeeItemAction extends GradeFeeItemActionBase implements java.io.Serializable{
+
 	
+	public void onChangeFeeItem(){
+		monthlyFeeAction.onChangeFeeItem();
+	}
 }
 	

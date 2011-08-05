@@ -7,21 +7,21 @@
         <h:outputText value="#{msg.gradeSubject_subject} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('subject', 'gradeSubjectEdit')}"/>  
         <h:selectOneMenu id="subject" label="#{msg.gradeSubject_subject}" value="#{gradeSubjectAction.gradeSubject.subject}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('subject', 'gradeSubjectEdit')}"> 
           <s:selectItems value="#{subjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
+          <rich:ajaxValidator event="onblur "/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="subject" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('subject', 'gradeSubjectEdit')}"/>  
         <h:outputText value="#{msg.gradeSubject_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'gradeSubjectEdit')}"/>  
         <h:selectOneMenu id="employee" label="#{msg.gradeSubject_employee}" value="#{gradeSubjectAction.gradeSubject.employee}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'gradeSubjectEdit')}"> 
           <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
+          <rich:ajaxValidator event="onblur "/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="employee" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'gradeSubjectEdit')}"/>  
         <h:outputText value="#{msg.gradeSubject_grade} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'gradeSubjectEdit')}"/>  
         <h:selectOneMenu id="grade" label="#{msg.gradeSubject_grade}" value="#{gradeSubjectAction.gradeSubject.grade}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'gradeSubjectEdit')}"> 
           <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
+          <rich:ajaxValidator event="onblur "/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="grade" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'gradeSubjectEdit')}"/> 
@@ -35,7 +35,7 @@
             <h:outputText value="#{msg.courseDocuments_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'courseDocumentsEdit')}"/>
           </f:facet>  
           <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'courseDocumentsEdit')}" label="#{msg.courseDocuments_name}" required="false" value="#{_courseDocuments.name}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
+            <rich:ajaxValidator event="onblur "/> 
           </h:inputText>  
           <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'courseDocumentsEdit')}"/> 
         </h:column>  

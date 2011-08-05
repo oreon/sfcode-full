@@ -6,24 +6,29 @@
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{examAction.load(examId )  }"> 
         <h:outputText value="#{msg.exam_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'examEdit')}"/>  
         <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'examEdit')}" label="#{msg.exam_name}" required="true" value="#{examAction.exam.name}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'examEdit')}"/>  
         <h:outputText value="#{msg.exam_maxMarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('maxMarks', 'examEdit')}"/>  
         <h:inputText id="maxMarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('maxMarks', 'examEdit')}" label="#{msg.exam_maxMarks}" required="false" value="#{examAction.exam.maxMarks}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="maxMarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('maxMarks', 'examEdit')}"/>  
         <h:outputText value="#{msg.exam_passMarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('passMarks', 'examEdit')}"/>  
         <h:inputText id="passMarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('passMarks', 'examEdit')}" label="#{msg.exam_passMarks}" required="false" value="#{examAction.exam.passMarks}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="passMarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('passMarks', 'examEdit')}"/>  
         <h:outputText value="#{msg.exam_ordinal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ordinal', 'examEdit')}"/>  
         <h:inputText id="ordinal#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ordinal', 'examEdit')}" label="#{msg.exam_ordinal}" required="false" value="#{examAction.exam.ordinal}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="ordinal" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ordinal', 'examEdit')}"/> 
+        <rich:message styleClass="error errors" for="ordinal" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ordinal', 'examEdit')}"/>  
+        <h:outputText value="#{msg.exam_weight}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('weight', 'examEdit')}"/>  
+        <h:inputText id="weight#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('weight', 'examEdit')}" label="#{msg.exam_weight}" required="false" value="#{examAction.exam.weight}"> 
+          <rich:ajaxValidator event="onblur "/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="weight" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('weight', 'examEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

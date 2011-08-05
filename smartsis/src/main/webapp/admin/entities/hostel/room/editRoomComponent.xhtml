@@ -7,18 +7,18 @@
         <h:outputText value="#{msg.room_hostel} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('hostel', 'roomEdit')}"/>  
         <h:selectOneMenu id="hostel" label="#{msg.room_hostel}" value="#{roomAction.room.hostel}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('hostel', 'roomEdit')}"> 
           <s:selectItems value="#{hostelList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
+          <rich:ajaxValidator event="onblur "/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="hostel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('hostel', 'roomEdit')}"/>  
         <h:outputText value="#{msg.room_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'roomEdit')}"/>  
         <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'roomEdit')}" label="#{msg.room_name}" required="true" value="#{roomAction.room.name}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'roomEdit')}"/>  
         <h:outputText value="#{msg.room_charges}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('charges', 'roomEdit')}"/>  
         <h:inputText id="charges#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('charges', 'roomEdit')}" label="#{msg.room_charges}" required="false" value="#{roomAction.room.charges}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="charges" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('charges', 'roomEdit')}"/> 
       </h:panelGrid>  
@@ -31,7 +31,7 @@
             <h:outputText value="#{msg.bed_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'bedEdit')}"/>
           </f:facet>  
           <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'bedEdit')}" label="#{msg.bed_name}" required="true" value="#{_bed.name}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
+            <rich:ajaxValidator event="onblur "/> 
           </h:inputText>  
           <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'bedEdit')}"/> 
         </h:column>  

@@ -16,6 +16,8 @@ import org.witchcraft.jasperreports.BaseReportAction;
 import java.util.Date;
 import org.witchcraft.utils.DateUtils;
 
+import com.oreon.smartsis.ProjectUtils;
+
 @Name("employeeDepartmentCountAction")
 public class EmployeeDepartmentCountAction extends BaseReportAction {
 

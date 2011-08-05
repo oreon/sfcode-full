@@ -136,6 +136,8 @@ public class MetaData {
 
 	"ordinal", "java.lang.Integer",
 
+	"weight", "java.lang.Double",
+
 	},
 
 	{"com.oreon.smartsis.domain.ExamScore",
@@ -199,6 +201,14 @@ public class MetaData {
 	"weight", "java.lang.Long",
 
 	"student.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.smartsis.domain.Settings",
+
+	"name", "java.lang.String",
+
+	"gradeCapacity", "java.lang.Integer",
 
 	},
 
@@ -407,6 +417,10 @@ public class MetaData {
 	"student.displayName", "java.lang.String",
 
 	"monthlyFee.displayName", "java.lang.String",
+
+	"year", "java.lang.Integer",
+
+	"month.name", "java.lang.String",
 
 	},
 

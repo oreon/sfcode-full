@@ -49,6 +49,36 @@
         <s:selectItems value="#{monthlyFeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.studentPaidFee_year}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('year', 'studentPaidFeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="year_begin" value="#{studentPaidFeeList.yearRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="year_end" value="#{studentPaidFeeList.yearRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.studentPaidFee_month}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'studentPaidFeeEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="month" value="#{studentPaidFeeList.studentPaidFee.month}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="JAN" itemLabel="Jan"/>  
+        <f:selectItem itemValue="FEB" itemLabel="Feb"/>  
+        <f:selectItem itemValue="MAR" itemLabel="Mar"/>  
+        <f:selectItem itemValue="APR" itemLabel="Apr"/>  
+        <f:selectItem itemValue="MAY" itemLabel="May"/>  
+        <f:selectItem itemValue="JUN" itemLabel="Jun"/>  
+        <f:selectItem itemValue="JUL" itemLabel="Jul"/>  
+        <f:selectItem itemValue="AUG" itemLabel="Aug"/>  
+        <f:selectItem itemValue="SEP" itemLabel="Sep"/>  
+        <f:selectItem itemValue="OCT" itemLabel="Oct"/>  
+        <f:selectItem itemValue="NOV" itemLabel="Nov"/>  
+        <f:selectItem itemValue="DEC" itemLabel="Dec"/> 
+      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 
