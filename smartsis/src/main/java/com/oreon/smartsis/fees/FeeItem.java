@@ -62,13 +62,17 @@ public class FeeItem extends BusinessEntity
 	private static final long serialVersionUID = 785579872L;
 
 	@NotNull
-	@Length(min = 2, max = 250)
+	@Length(min = 1, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String name;
+	protected String name
 
-	protected Double defaultAmount;
+	;
+
+	protected Double defaultAmount
+
+	;
 
 	public void setName(String name) {
 		this.name = name;

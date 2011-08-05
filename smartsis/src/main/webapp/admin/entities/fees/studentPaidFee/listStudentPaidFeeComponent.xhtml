@@ -95,6 +95,26 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('year', 'studentPaidFeeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{studentPaidFeeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.studentPaidFee_year}"/>  
+              <ui:param name="propertyPath" value="studentPaidFee.year"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_studentPaidFee.year}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('month', 'studentPaidFeeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{studentPaidFeeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.studentPaidFee_month}"/>  
+              <ui:param name="propertyPath" value="studentPaidFee.month"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_studentPaidFee.month}" escape="false"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'studentPaidFeeView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

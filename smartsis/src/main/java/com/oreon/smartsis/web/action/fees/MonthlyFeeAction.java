@@ -43,4 +43,10 @@ public class MonthlyFeeAction extends MonthlyFeeActionBase implements
 	
 	
 
+	public void onChangeFeeItem(){
+		for(GradeFeeItem gradeFeeItem: listGradeFeeItems){
+		//	if(   gradeFeeItem.getId() == null) 
+				gradeFeeItem.setAmount(gradeFeeItem.getFeeItem().getDefaultAmount());
+		}
+	}
 }

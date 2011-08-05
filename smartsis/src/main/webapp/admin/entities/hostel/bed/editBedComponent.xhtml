@@ -7,13 +7,13 @@
         <h:outputText value="#{msg.bed_room} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'bedEdit')}"/>  
         <h:selectOneMenu id="room" label="#{msg.bed_room}" value="#{bedAction.bed.room}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'bedEdit')}"> 
           <s:selectItems value="#{roomList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
+          <rich:ajaxValidator event="onblur "/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="room" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'bedEdit')}"/>  
         <h:outputText value="#{msg.bed_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'bedEdit')}"/>  
         <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'bedEdit')}" label="#{msg.bed_name}" required="true" value="#{bedAction.bed.name}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'bedEdit')}"/> 
       </h:panelGrid> 

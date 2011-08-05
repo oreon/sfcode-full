@@ -64,21 +64,29 @@ public class DisciplinaryAction extends BusinessEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "student_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected Student student;
+	protected Student student
+
+	;
 
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String title;
+	protected String title
+
+	;
 
 	@Lob
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String description;
+	protected String description
+
+	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "employee_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected Employee employee;
+	protected Employee employee
+
+	;
 
 	public void setStudent(Student student) {
 		this.student = student;

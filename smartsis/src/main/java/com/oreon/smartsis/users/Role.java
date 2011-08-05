@@ -64,11 +64,13 @@ public class Role extends BusinessEntity
 	//@Unique(entityName = "com.oreon.smartsis.users.Role", fieldName = "name")
 
 	@NotNull
-	@Length(min = 2, max = 250)
+	@Length(min = 1, max = 250)
 	@Column(name = "name", unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String name;
+	protected String name
+
+	;
 
 	@ManyToMany(mappedBy = "roles")
 	private Set<User> users = new HashSet<User>();

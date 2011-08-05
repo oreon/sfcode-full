@@ -7,13 +7,13 @@
         <h:outputText value="#{msg.choice_question} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'choiceEdit')}"/>  
         <h:selectOneMenu id="question" label="#{msg.choice_question}" value="#{choiceAction.choice.question}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'choiceEdit')}"> 
           <s:selectItems value="#{questionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
+          <rich:ajaxValidator event="onblur "/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="question" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'choiceEdit')}"/>  
         <h:outputText value="#{msg.choice_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'choiceEdit')}"/>  
         <rich:editor useSeamText="true" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'choiceEdit')}" label="#{msg.choice_text}" required="false" value="#{choiceAction.choice.text}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </rich:editor>  
         <rich:message styleClass="error errors" for="text" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'choiceEdit')}"/> 
       </h:panelGrid> 

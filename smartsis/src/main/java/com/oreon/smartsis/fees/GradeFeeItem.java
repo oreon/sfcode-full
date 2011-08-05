@@ -64,19 +64,25 @@ public class GradeFeeItem extends BusinessEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "monthlyFee_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected MonthlyFee monthlyFee;
+	protected MonthlyFee monthlyFee
+
+	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "feeItem_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected FeeItem feeItem;
+	protected FeeItem feeItem
+
+	;
 
 	@Column(name = "amount", unique = false)
-	protected Double amount = feeItem != null
-			? feeItem.getDefaultAmount()
-			: 0.0;
+	protected Double amount
 
-	protected Boolean applyToAllMonths;
+	= feeItem != null ? feeItem.getDefaultAmount() : 0.0;
+
+	protected Boolean applyToAllMonths
+
+	;
 
 	public void setMonthlyFee(MonthlyFee monthlyFee) {
 		this.monthlyFee = monthlyFee;

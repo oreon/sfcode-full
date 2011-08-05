@@ -64,17 +64,23 @@ public class QuestionInstance extends BusinessEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "electronicExamInstance_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected ElectronicExamInstance electronicExamInstance;
+	protected ElectronicExamInstance electronicExamInstance
+
+	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "question_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected Question question;
+	protected Question question
+
+	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "selectedChoice_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected Choice selectedChoice;
+	protected Choice selectedChoice
+
+	;
 
 	public void setElectronicExamInstance(
 			ElectronicExamInstance electronicExamInstance) {

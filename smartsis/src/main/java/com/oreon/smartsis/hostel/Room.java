@@ -83,17 +83,23 @@ public class Room extends BusinessEntity
 	}
 
 	@NotNull
-	@Length(min = 2, max = 250)
+	@Length(min = 1, max = 250)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String name;
+	protected String name
+
+	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "hostel_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected Hostel hostel;
+	protected Hostel hostel
 
-	protected Double charges;
+	;
+
+	protected Double charges
+
+	;
 
 	public void setBeds(Set<Bed> beds) {
 		this.beds = beds;

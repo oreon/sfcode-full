@@ -84,12 +84,16 @@ public class GradeAttendance extends BusinessEntity
 	}
 
 	@Column(name = "date", unique = false)
-	protected Date date = new Date();
+	protected Date date
+
+	= new Date();
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "grade_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected com.oreon.smartsis.domain.Grade grade;
+	protected com.oreon.smartsis.domain.Grade grade
+
+	;
 
 	public void setAttendances(Set<Attendance> attendances) {
 		this.attendances = attendances;

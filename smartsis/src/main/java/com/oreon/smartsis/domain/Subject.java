@@ -62,11 +62,13 @@ public class Subject extends BusinessEntity
 	private static final long serialVersionUID = -1671246684L;
 
 	@NotNull
-	@Length(min = 2, max = 250)
+	@Length(min = 1, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String name;
+	protected String name
+
+	;
 
 	public void setName(String name) {
 		this.name = name;

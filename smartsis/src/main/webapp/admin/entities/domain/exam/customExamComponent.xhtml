@@ -29,6 +29,12 @@
         <br/>  
         <h:inputText id="ordinal" value="#{examAction.exam.ordinal}"/>  
         <rich:message styleClass="error errors" for="ordinal" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ordinal', 'examEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.exam_weight}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('weight', 'examEdit')}"/>  
+        <br/>  
+        <h:inputText id="weight" value="#{examAction.exam.weight}"/>  
+        <rich:message styleClass="error errors" for="weight" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('weight', 'examEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

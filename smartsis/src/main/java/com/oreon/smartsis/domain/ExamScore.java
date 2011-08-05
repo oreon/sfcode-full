@@ -64,32 +64,46 @@ public class ExamScore extends BusinessEntity
 	@Transient
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String examName;
+	protected String examName
+
+	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "examInstance_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected ExamInstance examInstance;
+	protected ExamInstance examInstance
+
+	;
 
 	@Transient
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String subject;
+	protected String subject
+
+	;
 
 	@NotNull
 	@Column(name = "marks", unique = false)
-	protected Integer marks;
+	protected Integer marks
+
+	;
 
 	@Transient
-	protected Double percentage;
+	protected Double percentage
+
+	;
 
 	@Column(name = "rank", unique = false)
-	protected Integer rank;
+	protected Integer rank
+
+	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "student_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected Student student;
+	protected Student student
+
+	;
 
 	public void setExamName(String examName) {
 		this.examName = examName;

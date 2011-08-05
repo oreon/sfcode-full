@@ -18,6 +18,31 @@
 			<h:outputText value="UnpaidFeesReport" />
 		</f:facet>
 	
+		<h:panelGroup> <h:outputText value="#{msg.unpaidFeesReport_year}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('year', 'studentPaidFeeEdit')}"/> * </h:panelGroup>
+<h:inputText  id="year"  label="#{msg.unpaidFeesReport_year}"  required="true"  value="#{unpaidFeesReportAction.year}" />
+		<rich:message styleClass="error errors" for="year" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('year', 'studentPaidFeeEdit')}"/>
+	
+		<h:panelGroup> <h:outputText value="#{msg.unpaidFeesReport_month}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'studentPaidFeeEdit')}"/> * </h:panelGroup>
+	<h:selectOneMenu id="month"  value="#{studentPaidFeeAction.studentPaidFee.month}" required="false" 
+	  label="#{msg.unpaidFeesReport_month}">
+		<f:selectItem itemLabel="Please Select..." itemValue="" />
+		<f:selectItem itemValue="JAN"  itemLabel="#{msg.JAN}" />
+		<f:selectItem itemValue="FEB"  itemLabel="#{msg.FEB}" />
+		<f:selectItem itemValue="MAR"  itemLabel="#{msg.MAR}" />
+		<f:selectItem itemValue="APR"  itemLabel="#{msg.APR}" />
+		<f:selectItem itemValue="MAY"  itemLabel="#{msg.MAY}" />
+		<f:selectItem itemValue="JUN"  itemLabel="#{msg.JUN}" />
+		<f:selectItem itemValue="JUL"  itemLabel="#{msg.JUL}" />
+		<f:selectItem itemValue="AUG"  itemLabel="#{msg.AUG}" />
+		<f:selectItem itemValue="SEP"  itemLabel="#{msg.SEP}" />
+		<f:selectItem itemValue="OCT"  itemLabel="#{msg.OCT}" />
+		<f:selectItem itemValue="NOV"  itemLabel="#{msg.NOV}" />
+		<f:selectItem itemValue="DEC"  itemLabel="#{msg.DEC}" />
+		
+		<rich:ajaxValidator event="onblur " />
+	</h:selectOneMenu>
+		<rich:message styleClass="error errors" for="month" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'studentPaidFeeEdit')}"/>
+	
 	</h:panelGrid>
 	</s:validateAll>
 	<h:commandButton propagation="none" value="Run Report as PDF"

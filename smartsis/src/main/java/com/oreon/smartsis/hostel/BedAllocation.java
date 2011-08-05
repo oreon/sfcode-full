@@ -61,24 +61,34 @@ public class BedAllocation extends BusinessEntity
 			com.sun.xml.internal.bind.CycleRecoverable {
 	private static final long serialVersionUID = -490733702L;
 
-	protected Date startDate;
+	protected Date startDate
 
-	protected Date endDate;
+	;
+
+	protected Date endDate
+
+	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "bed_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected Bed bed;
+	protected Bed bed
+
+	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "student_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected com.oreon.smartsis.domain.Student student;
+	protected com.oreon.smartsis.domain.Student student
+
+	;
 
 	@Lob
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String remarks;
+	protected String remarks
+
+	;
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;

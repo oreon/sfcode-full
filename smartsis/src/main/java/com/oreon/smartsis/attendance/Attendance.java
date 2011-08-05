@@ -64,23 +64,33 @@ public class Attendance extends BusinessEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "student_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected com.oreon.smartsis.domain.Student student;
+	protected com.oreon.smartsis.domain.Student student
+
+	;
 
 	@NotNull
 	@Column(name = "date", unique = false)
-	protected Date date;
+	protected Date date
+
+	;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "gradeSubject_id", nullable = true, updatable = true)
 	@ContainedIn
-	protected com.oreon.smartsis.domain.GradeSubject gradeSubject;
+	protected com.oreon.smartsis.domain.GradeSubject gradeSubject
 
-	protected AbsenceCode absenceCode;
+	;
+
+	protected AbsenceCode absenceCode
+
+	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "gradeAttendance_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected GradeAttendance gradeAttendance;
+	protected GradeAttendance gradeAttendance
+
+	;
 
 	public void setStudent(com.oreon.smartsis.domain.Student student) {
 		this.student = student;

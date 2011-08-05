@@ -63,7 +63,9 @@ public class CourseDocuments extends BusinessEntity
 
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String name;
+	protected String name
+
+	;
 
 	@Embedded
 	@AttributeOverrides({
@@ -75,7 +77,9 @@ public class CourseDocuments extends BusinessEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "gradeSubject_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected GradeSubject gradeSubject;
+	protected GradeSubject gradeSubject
+
+	;
 
 	public void setName(String name) {
 		this.name = name;

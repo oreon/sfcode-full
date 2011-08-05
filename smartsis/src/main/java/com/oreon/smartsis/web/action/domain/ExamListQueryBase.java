@@ -83,6 +83,14 @@ public abstract class ExamListQueryBase extends BaseQuery<Exam, Long> {
 		this.ordinalRange = ordinalRange;
 	}
 
+	private Range<Double> weightRange = new Range<Double>();
+	public Range<Double> getWeightRange() {
+		return weightRange;
+	}
+	public void setWeight(Range<Double> weightRange) {
+		this.weightRange = weightRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"exam.id = #{examList.exam.id}",
 
@@ -98,6 +106,9 @@ public abstract class ExamListQueryBase extends BaseQuery<Exam, Long> {
 
 			"exam.ordinal >= #{examList.ordinalRange.begin}",
 			"exam.ordinal <= #{examList.ordinalRange.end}",
+
+			"exam.weight >= #{examList.weightRange.begin}",
+			"exam.weight <= #{examList.weightRange.end}",
 
 			"exam.dateCreated <= #{examList.dateCreatedRange.end}",
 			"exam.dateCreated >= #{examList.dateCreatedRange.begin}",};
@@ -129,6 +140,9 @@ public abstract class ExamListQueryBase extends BaseQuery<Exam, Long> {
 		builder.append("\"" + (e.getOrdinal() != null ? e.getOrdinal() : "")
 				+ "\",");
 
+		builder.append("\"" + (e.getWeight() != null ? e.getWeight() : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -147,6 +161,8 @@ public abstract class ExamListQueryBase extends BaseQuery<Exam, Long> {
 		builder.append("PassMarks" + ",");
 
 		builder.append("Ordinal" + ",");
+
+		builder.append("Weight" + ",");
 
 		builder.append("\r\n");
 	}

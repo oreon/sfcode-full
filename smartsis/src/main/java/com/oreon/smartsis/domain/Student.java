@@ -68,24 +68,36 @@ public class Student extends com.oreon.smartsis.domain.Person
 			@AttributeOverride(name = "data", column = @Column(name = "picture_data", length = 4194304))})
 	protected FileAttachment picture = new FileAttachment();
 
-	protected com.oreon.smartsis.Gender gender;
+	protected com.oreon.smartsis.Gender gender
 
-	protected Date dateOfBirth;
+	;
+
+	protected Date dateOfBirth
+
+	;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "grade_id", nullable = true, updatable = true)
 	@ContainedIn
-	protected Grade grade;
+	protected Grade grade
+
+	;
 
 	@Transient
-	protected Integer age;
+	protected Integer age
+
+	;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "parent_id", nullable = true, updatable = true)
 	@ContainedIn
-	protected Parent parent;
+	protected Parent parent
 
-	protected Double scholarship;
+	;
+
+	protected Double scholarship
+
+	;
 
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "student_ID", nullable = true)
@@ -109,14 +121,20 @@ public class Student extends com.oreon.smartsis.domain.Person
 		return studentVitalInfos.size();
 	}
 
-	protected Date discontinueDate;
+	protected Date discontinueDate
 
-	protected Integer rollNumber;
+	;
+
+	protected Integer rollNumber
+
+	;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "secondary_id", nullable = true, updatable = true)
 	@ContainedIn
-	protected Parent secondary;
+	protected Parent secondary
+
+	;
 
 	public void setPicture(FileAttachment picture) {
 		this.picture = picture;

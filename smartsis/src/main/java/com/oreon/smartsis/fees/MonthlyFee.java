@@ -64,7 +64,9 @@ public class MonthlyFee extends BusinessEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "grade_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected com.oreon.smartsis.domain.Grade grade;
+	protected com.oreon.smartsis.domain.Grade grade
+
+	;
 
 	@OneToMany(mappedBy = "monthlyFee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "monthlyFee_ID", nullable = false)
@@ -90,10 +92,14 @@ public class MonthlyFee extends BusinessEntity
 
 	@NotNull
 	@Column(name = "month", unique = false)
-	protected com.oreon.smartsis.domain.FeeMonth month;
+	protected com.oreon.smartsis.domain.FeeMonth month
+
+	;
 
 	@Formula(value = "(select sum(gfi.amount) from gradefeeitem gfi where gfi.monthlyFee_id = id)")
-	protected Double total;
+	protected Double total
+
+	;
 
 	public void setGrade(com.oreon.smartsis.domain.Grade grade) {
 		this.grade = grade;

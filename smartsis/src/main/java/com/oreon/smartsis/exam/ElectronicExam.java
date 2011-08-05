@@ -62,13 +62,17 @@ public class ElectronicExam extends BusinessEntity
 	private static final long serialVersionUID = 1783856592L;
 
 	@NotNull
-	@Length(min = 2, max = 250)
+	@Length(min = 1, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String name;
+	protected String name
 
-	protected Integer numberOfQuestions;
+	;
+
+	protected Integer numberOfQuestions
+
+	;
 
 	@OneToMany(mappedBy = "electronicExam", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "electronicExam_ID", nullable = true)
@@ -94,9 +98,13 @@ public class ElectronicExam extends BusinessEntity
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "gradeSubject_id", nullable = true, updatable = true)
 	@ContainedIn
-	protected com.oreon.smartsis.domain.GradeSubject gradeSubject;
+	protected com.oreon.smartsis.domain.GradeSubject gradeSubject
 
-	protected Integer maxDuration;
+	;
+
+	protected Integer maxDuration
+
+	;
 
 	public void setName(String name) {
 		this.name = name;

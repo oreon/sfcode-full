@@ -13,6 +13,8 @@ import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.seam.action.BaseAction;
 
 import com.oreon.smartsis.Gender;
+import com.oreon.smartsis.domain.Employee;
+import com.oreon.smartsis.domain.Exam;
 import com.oreon.smartsis.domain.Grade;
 import com.oreon.smartsis.domain.GradeSubject;
 import com.oreon.smartsis.domain.Student;
@@ -78,6 +80,7 @@ public class AuthenticatorTest extends BaseTest<User> {
 				
 				createSubjects();
 				createGrades();
+				createExams();
 			}
 
 		}.run();
@@ -86,25 +89,32 @@ public class AuthenticatorTest extends BaseTest<User> {
 		em.close();
 	}
 
+	int userCounter = 0;
+	
 	private User createUserAndRole(String username, String password, String role) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		em.getTransaction().begin();
 
-		User admin = new User();
-		admin.setUserName(username);
-		admin.setPassword(password);
+		User user = new User();
+		user.setUserName(username);
+		user.setPassword(password);
 
 		Role adminRole = new Role();
 		adminRole.setName(role);
-		admin.getRoles().add(adminRole);
-		admin.setEmail(username + "@gmail.com");
-		admin.setEnabled(true);
+		user.getRoles().add(adminRole);
+		user.setEmail(username + "@gmail.com");
+		user.setEnabled(true);
+		
+		Employee employee = new Employee();
+		employee.setFirstName(username);
+		employee.setLastName(userCounter++ % 2 == 0 ? "Somerson":"Kirvokian");
+		employee.setUser(user);
 
 		// setValue("#{userAction.instance}", admin);
 		// invokeMethod("#{userAction.save}");
-		em.persist(admin);
-		em.getTransaction().commit();
-		return admin;
+		txPersist(employee);
+		
+		return user;
 	}
 
 	private void createGrades() {
@@ -152,6 +162,38 @@ public class AuthenticatorTest extends BaseTest<User> {
 			Subject subject = new Subject();
 			subject.setName(sub);
 			txPersist(subject);
+		}
+	}
+	
+	private void createExams(){
+		String[] subjects = {"I Term", "II Term","III Term","Final"};
+		int i = 0;
+		
+		for (String examStr : subjects) {
+			
+			Exam exam = new Exam();
+			exam.setName(examStr);
+			if(++i < 4 )
+				exam.setWeight(0.2);
+			else
+				exam.setWeight(0.4);
+			txPersist(exam);
+		}
+	}
+	
+	private void createFees(){
+		String[] subjects = {"I Term", "II Term","III Term","Final"};
+		int i = 0;
+		
+		for (String examStr : subjects) {
+			
+			Exam exam = new Exam();
+			exam.setName(examStr);
+			if(++i < 4 )
+				exam.setWeight(0.2);
+			else
+				exam.setWeight(0.4);
+			txPersist(exam);
 		}
 	}
 

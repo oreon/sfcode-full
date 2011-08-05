@@ -85,17 +85,25 @@ public class ExamInstance extends BusinessEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "exam_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected Exam exam;
+	protected Exam exam
+
+	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "gradeSubject_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected GradeSubject gradeSubject;
+	protected GradeSubject gradeSubject
 
-	protected Date dateHeld;
+	;
+
+	protected Date dateHeld
+
+	;
 
 	@Column(name = "average", unique = false)
-	protected Integer average;
+	protected Integer average
+
+	;
 
 	public void setExamScores(Set<ExamScore> examScores) {
 		this.examScores = examScores;

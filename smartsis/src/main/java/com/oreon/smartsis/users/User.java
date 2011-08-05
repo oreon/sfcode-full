@@ -64,30 +64,38 @@ public class User extends BusinessEntity
 	//@Unique(entityName = "com.oreon.smartsis.users.User", fieldName = "userName")
 
 	@NotNull
-	@Length(min = 2, max = 250)
+	@Length(min = 1, max = 250)
 	@Column(name = "userName", unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String userName;
+	protected String userName
+
+	;
 
 	@NotNull
 	@Column(name = "password", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String password;
+	protected String password
+
+	;
 
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_ID"), inverseJoinColumns = @JoinColumn(name = "roles_ID"))
 	private Set<Role> roles = new HashSet<Role>();
 
 	@NotNull
-	@Length(min = 2, max = 250)
+	@Length(min = 1, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String email;
+	protected String email
 
-	protected Boolean enabled;
+	;
+
+	protected Boolean enabled
+
+	;
 
 	public void setUserName(String userName) {
 		this.userName = userName;

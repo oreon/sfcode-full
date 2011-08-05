@@ -7,18 +7,18 @@
         <h:outputText value="#{msg.electronicExamEvent_electronicExam} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'electronicExamEventEdit')}"/>  
         <h:selectOneMenu id="electronicExam" label="#{msg.electronicExamEvent_electronicExam}" value="#{electronicExamEventAction.electronicExamEvent.electronicExam}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'electronicExamEventEdit')}"> 
           <s:selectItems value="#{electronicExamList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
+          <rich:ajaxValidator event="onblur "/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="electronicExam" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'electronicExamEventEdit')}"/>  
         <h:outputText value="#{msg.electronicExamEvent_dateOfExam}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfExam', 'electronicExamEventEdit')}"/>  
         <rich:calendar direction="auto" id="dateOfExam#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfExam', 'electronicExamEventEdit')}" label="#{msg.electronicExamEvent_dateOfExam}" required="false" value="#{electronicExamEventAction.electronicExamEvent.dateOfExam}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </rich:calendar>  
         <rich:message styleClass="error errors" for="dateOfExam" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfExam', 'electronicExamEventEdit')}"/>  
         <h:outputText value="#{msg.electronicExamEvent_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'electronicExamEventEdit')}"/>  
         <rich:editor useSeamText="true" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'electronicExamEventEdit')}" label="#{msg.electronicExamEvent_remarks}" required="false" value="#{electronicExamEventAction.electronicExamEvent.remarks}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
+          <rich:ajaxValidator event="onblur "/> 
         </rich:editor>  
         <rich:message styleClass="error errors" for="remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'electronicExamEventEdit')}"/> 
       </h:panelGrid>  
@@ -32,7 +32,7 @@
           </f:facet>  
           <h:selectOneMenu id="student" label="#{msg.electronicExamInstance_student}" value="#{_electronicExamInstance.student}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'electronicExamInstanceEdit')}"> 
             <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <rich:ajaxValidator event="onsubmit"/>  
+            <rich:ajaxValidator event="onblur "/>  
             <s:convertEntity/> 
           </h:selectOneMenu>  
           <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'electronicExamInstanceEdit')}"/> 
@@ -42,7 +42,7 @@
             <h:outputText value="#{msg.electronicExamInstance_score}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('score', 'electronicExamInstanceEdit')}"/>
           </f:facet>  
           <h:inputText id="score#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('score', 'electronicExamInstanceEdit')}" label="#{msg.electronicExamInstance_score}" required="false" value="#{_electronicExamInstance.score}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
+            <rich:ajaxValidator event="onblur "/> 
           </h:inputText>  
           <rich:message styleClass="error errors" for="score" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('score', 'electronicExamInstanceEdit')}"/> 
         </h:column>  
@@ -51,7 +51,7 @@
             <h:outputText value="#{msg.electronicExamInstance_timeTaken}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('timeTaken', 'electronicExamInstanceEdit')}"/>
           </f:facet>  
           <h:inputText id="timeTaken#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('timeTaken', 'electronicExamInstanceEdit')}" label="#{msg.electronicExamInstance_timeTaken}" required="false" value="#{_electronicExamInstance.timeTaken}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
+            <rich:ajaxValidator event="onblur "/> 
           </h:inputText>  
           <rich:message styleClass="error errors" for="timeTaken" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('timeTaken', 'electronicExamInstanceEdit')}"/> 
         </h:column>  
