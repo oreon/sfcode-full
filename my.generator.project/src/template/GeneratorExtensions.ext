@@ -17,7 +17,7 @@ getCurrentModel().getEntities().select(a|a.name == entityName);
 
 //path of the package - 
 String packagePath (Element cls) :
-packageNameWithoutRoot(cls.package).replaceAll("::|\\.", "/");
+cls.package == null ? "" : packageNameWithoutRoot(cls.package).replaceAll("::|\\.", "/");
 
 
 packagePathPck (Package pck) :
@@ -84,8 +84,8 @@ arg.replaceAll("collections.", "");
 getParametersSignature(Operation op):
 JAVA org.wc.generatorutil.ClassUtil.getParametersSignature(org.eclipse.uml2.uml.Operation);
 
-getParametersSignatureRest(Operation op):
-JAVA org.wc.generatorutil.ClassUtil.getParametersSignatureRest(org.eclipse.uml2.uml.Operation);
+getParametersSignatureRest(Operation op, String param):
+JAVA org.wc.generatorutil.ClassUtil.getParametersSignatureRest(org.eclipse.uml2.uml.Operation, java.lang.String);
 
 
 getParametersSignature(Operation op, String ext):

@@ -48,6 +48,8 @@ public class ClassUtil {
 	
 	private static final Logger logger = Logger.getLogger(ClassUtil.class);
 
+	private static final String DOT_NET = "DOT_NET";
+
 	static Map<String, String[]> mapTypes = new HashMap<String, String[]>();
 
 //	Logger logger = Logger.getLogger(ClassUtil.class);
@@ -93,21 +95,37 @@ public class ClassUtil {
 	}
 
 	public static void setCurrentCartridge(String currentCartridge) {
+		
 		ClassUtil.currentCartridge = currentCartridge;
 	}
 
-	
 
 	static {
-		mapTypes.put("datatypes.Integer", new String[] { "Integer", "" });
-		mapTypes.put("Currency", new String[] { "Double", "" });
-		mapTypes.put("imageFile", new String[] { "FileAttachment", "" });
+		
+		loadProperties();
+		getCurrentCartridge();
+		
+		if(DOT_NET.equals(currentCartridge)){
+			System.out.println("Setting Current Cartridge to " + currentCartridge);
+			mapTypes.put("Integer", new String[] { "int", "" });
+			mapTypes.put("Date", new String[] { "DateTime", "" });
+			mapTypes.put("datatypes.Integer", new String[] { "int", "" });
+			mapTypes.put("imageFile", new String[] { "FileStream", "" });
+			mapTypes.put("Long", new String[] { "long", "" });
+		}else{
+			mapTypes.put("datatypes.Integer", new String[] { "Integer", "" });
+			mapTypes.put("Currency", new String[] { "Double", "" });
+			mapTypes.put("imageFile", new String[] { "FileAttachment", "" });
+		}
+		
 		mapTypes.put("largeText", new String[] { "String", "@Lob" });
 		mapTypes.put("nameType", new String[] { "String",
 				"@NotNull @Length(min=1, max=250)" });
 		mapTypes.put("uniqueNameType", new String[] { "String",
 				"@NotNull @Length(min=1, max=250)  @Column(unique=true)" });
-		loadProperties();
+		
+		
+		
 	}
 
 	private static Boolean currentEditMode = false;
@@ -233,7 +251,7 @@ public class ClassUtil {
 	}
 	
 	
-	public static String getParametersSignatureRest(Operation op){
+	public static String getParametersSignatureRest(Operation op, String type){
 		op.getOwnedParameters();
 
 		List<Parameter> params = op.getOwnedParameters();
@@ -250,7 +268,7 @@ public class ClassUtil {
 			String result = (String) xtendFacade.call("fqn",
 					new Object[] { param.getType() });
 			if (!StringUtils.isEmpty(param.getName()))
-				lstStrings.add("@QueryParam(" + "\"" + param.getName() + "\")" + " " + result + " " + param.getName());
+				lstStrings.add("@" + type + "(" + "\"" + param.getName() + "\")" + " " + result + " " + param.getName());
 		}
 
 		return getCommaDelimitedString(lstStrings, 1);

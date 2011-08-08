@@ -141,7 +141,8 @@ public class «name»Action extends BaseReportAction {
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
-	<h:selectOneMenu id="«getId()»"  value="#{«getActionForMode()»«genPropertyLabel()»}" required="«getAssocOptional() && !isCurrentTemplateMode()»" 
+	<h:selectOneMenu id="«getId()»"  value="#{«class.name.toFirstLower()»Action.«name»}" 
+		required="«getAssocOptional() && !isCurrentTemplateMode()»" 
 	  label="«msgBundleKey()»">
 		<f:selectItem itemLabel="Please Select..." itemValue="" />
 		«FOREACH  enm.ownedLiteral AS e-»
