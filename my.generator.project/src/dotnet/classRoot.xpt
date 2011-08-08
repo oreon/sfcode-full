@@ -32,9 +32,9 @@ namespace « packageName() -» {
 
 namespace « packageName() »{
 
-	private class «name» «getParent()» «getInterfaces()»{
-	«EXPAND genDecl FOREACH getAllAttributes() »
-	«EXPAND genGetterSetter FOREACH getAllAttributes() »
+	public class «name» «getParent()» «getInterfaces()»{
+		«EXPAND genDecl FOREACH getAllAttributes() »
+		«EXPAND genGetterSetter FOREACH getAllAttributes() »
 	}
 }
 	«ENDFILE»
@@ -43,12 +43,12 @@ namespace « packageName() »{
 
 
 «DEFINE genDecl FOR uml::Property»
-	private virtual «type.fqnForPackage(this.class)» «name.toFirstLower()» «getDefault() != null?" = " +getDefaultVal(type):""»;
+	private  «isMultivalued()?" ISet<" + type.fqnForPackage(this.class) + "> ":type.fqnForPackage(this.class)»   «name.toFirstLower()» «getDefault() != null?" = " +getDefaultVal(type):""»;
 «ENDDEFINE»
 
 «DEFINE genGetterSetter FOR uml::Property»
 	
-	public virtual  «isMultivalued()?" ISet ":type.fqnForPackage(this.class)» «name.toFirstUpper()» {
+	public virtual  «isMultivalued()?" ISet<" + type.fqnForPackage(this.class) + "> ":type.fqnForPackage(this.class)» «name.toFirstUpper()» {
         get {
             return «name.toFirstLower()»;
         }
@@ -102,6 +102,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+using Org.Witchcraft.Base;
 «ENDDEFINE»
 
 «DEFINE EnumGen FOR uml::Enumeration»
