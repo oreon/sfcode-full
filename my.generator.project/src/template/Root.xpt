@@ -44,7 +44,7 @@
 
 «DEFINE ClassRoot FOR uml::Class»
 	«IF name != null && package != null && getAppliedStereotypes().size == 0»
-	«FILE packagePath() +"/" +name + ".java" man_path »
+	«FILE packagePath() +"/" +name + ".java" »
 		package « packageName() »;
 		«EXPAND genImports FOR this»
 		«EXPAND genClassBody FOR this»
@@ -110,7 +110,7 @@ import org.hibernate.annotations.ParamDef;
 			/** 
 			 * «ownedComment.body»
 			 */
-			public abstract class «name»Base «getParent()» «getInterfaces()»{
+			public abstract class «name»Base «getParent() != "" ? getParent() : " extends org.witchcraft.seam.action.BaseWebAction " » «getInterfaces()»{
 				«EXPAND genClassBodyContents FOR this»
 			}
 			
@@ -134,16 +134,34 @@ import org.hibernate.annotations.ParamDef;
 
 
 
-«DEFINE genClassBody FOR uml::Class »
+«DEFINE genClassBody FOR wcprofile::AbstractEntity»
 	public class «name» «getParent()» «getInterfaces()»{
-		«EXPAND genClassBodyContents FOR this»
+		«EXPAND genDecl FOREACH getAllAttributes() »
+		«EXPAND genGetterSetter FOREACH getAllAttributes() »
+		«EXPAND genOperation FOREACH getAllOperations()»
+	}
+«ENDDEFINE»
+
+«DEFINE genClassBody FOR uml::Class»
+	@javax.xml.bind.annotation.XmlRootElement
+	public class «name» «getParent()» «getInterfaces()»{
+		«EXPAND genClassBodyContents»
 	}
 «ENDDEFINE»
 
 «DEFINE genClassBodyContents FOR uml::Class»
-		«EXPAND genDecl FOREACH getAllAttributes() »
+		«EXPAND genProperty FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
 		«EXPAND genOperation FOREACH getAllOperations()»
+«ENDDEFINE»
+
+«DEFINE genProperty FOR uml::Property»
+	«IF isMultivalued()»
+		private «type.fqnForPackage(this.class)»  java.util.List<«name»> = new ArrayList<«name»>();
+	«ELSE»
+		private «type.fqnForPackage(this.class)»  «name» «getDefault() != null?" = " + getDefaultVal(type):""»;
+	«ENDIF»
+	
 «ENDDEFINE»
 
 
@@ -429,6 +447,10 @@ import org.hibernate.annotations.ParamDef;
 	«EXPAND genBaseDecl FOR this»
 «ENDDEFINE»
 
+«DEFINE genBasePropertyDecl FOR uml::Property»
+	protected «type.fqnForPackage(this.class)»  «name» «getDefault() != null?" = " + getDefaultVal(type):""»
+«ENDDEFINE»
+
 «DEFINE genPropertyDecl FOR wcprofile::Column»
 	«getValidatorAnnotations()»
 	«getLengthAnnotations()»
@@ -439,8 +461,10 @@ import org.hibernate.annotations.ParamDef;
 	«EXPAND genBaseDecl FOR this»
 «ENDDEFINE»
 
+
+
 «DEFINE genBaseDecl FOR uml::Property»
-	
+
 	«IF type.name == "imageFile"»  
 	@Embedded
     @AttributeOverrides( {
@@ -453,7 +477,7 @@ import org.hibernate.annotations.ParamDef;
 		«IF isColumn() && (  derivedProperty != null)»@Transient«ENDIF»
 		«IF isString()» @Field(index = Index.TOKENIZED)
 		@Analyzer(definition = "entityAnalyzer") «ENDIF»
-		protected «type.fqnForPackage(this.class)»  «name» «getDefault() != null?" = " + getDefaultVal(type):""» 
+		«EXPAND genBasePropertyDecl FOR this» 
 			«IF isColumn() && defaultExpression != null»  
 				=  «defaultExpression»  «defaultExpression.endsWith(";")?"":";"»
 			«ELSE»
