@@ -43,12 +43,12 @@ namespace « packageName() »{
 
 
 «DEFINE genDecl FOR uml::Property»
-	private  «isMultivalued()?" ISet<" + type.fqnForPackage(this.class) + "> ":type.fqnForPackage(this.class)»   «name.toFirstLower()» «getDefault() != null?" = " +getDefaultVal(type):""»;
+	private  «isMultivalued()?" IList<" + type.fqnForPackage(this.class) + "> ":type.fqnForPackage(this.class)»   «name.toFirstLower()» «getDefault() != null?" = " +getDefaultVal(type):""»;
 «ENDDEFINE»
 
 «DEFINE genGetterSetter FOR uml::Property»
 	
-	public virtual  «isMultivalued()?" ISet<" + type.fqnForPackage(this.class) + "> ":type.fqnForPackage(this.class)» «name.toFirstUpper()» {
+	public virtual  «isMultivalued()?" IList<" + type.fqnForPackage(this.class) + "> ":type.fqnForPackage(this.class)» «name.toFirstUpper()» {
         get {
             return «name.toFirstLower()»;
         }

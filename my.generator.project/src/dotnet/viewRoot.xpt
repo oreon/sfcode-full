@@ -9,17 +9,17 @@
 «ENDDEFINE»
 
 «DEFINE PackageRoot FOR uml::Package»
-	«EXPAND genEditAspx FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
-	«EXPAND genEditCS FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	«EXPAND genViewAspx FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	«EXPAND genViewCS FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 «ENDDEFINE»
 
 
-«DEFINE genListAspx FOR wcprofile::Entity»
+«DEFINE genViewAspx FOR wcprofile::Entity»
 
-	«FILE packagePath()  + "/../asp" + name + "Editor.aspx"»
+	«FILE packagePath()  + "/" + name + "View.aspx"»
 	
-	<%@ Page Language="C#" MasterPageFile="~/Shared/MasterPage.master" CodeFile="Editor.aspx.cs"
-    Inherits="Editor" %>
+	<%@ Page Language="C#" MasterPageFile="~/Shared/MasterPage.master" CodeFile="«name»View.aspx.cs"
+    Inherits="View" %>
 
 <asp:Content ID="content" ContentPlaceHolderID="content" runat="server">
     <h1>
@@ -33,7 +33,7 @@
                         <td class="formLabelCell">
                             ID:</td>
                         <td class="formValueCell">
-                            <asp:TextBox runat="server" BindingTarget="Current.Id" BindingDirection="TargetToSource"
+                            <asp:TextBox runat="server" BindingTarget="Current«name».Id" BindingDirection="TargetToSource"
                                 ReadOnly="true" /></td>
                     </tr>
                     «EXPAND genAttribAsOutput FOR this»
@@ -72,10 +72,10 @@
 «DEFINE genLabelAndControlAssoc FOR uml::Property»
 	 <tr>
         <td class="formLabelCell">
-            «name.toFirstUpper()»:
+            «name.toFirstUpper»:
         </td>
         <td class="formValueCell">
-        	Dropdown for «name»
+        	<%= Current«name».«displayName» %>
             «REM» TODO comment<asp:TextBox runat="server" BindingTarget="Current.«name»" />«ENDREM»
         </td>
     </tr>
@@ -84,49 +84,54 @@
 «DEFINE genLabelAndControl FOR uml::Property»
 	 <tr>
         <td class="formLabelCell">
-            «name.toFirstUpper()»:
+            «name.toFirstUpper»:
         </td>
         <td class="formValueCell">
-            <asp:TextBox runat="server" BindingTarget="Current«class.name».«name.toFirstUpper()»" />
+        	<%= Current«name».«name» %>
+            
         </td>
     </tr>
 «ENDDEFINE»
 
-«DEFINE genEditCS FOR wcprofile::Entity»
-«FILE packagePath()  + "/../asp" + name + "Editor.cs"»
+«DEFINE genViewCS FOR wcprofile::Entity»
+«FILE packagePath()  + "/" + name + "View.cs"»
+
 using System;
+using System.Web;
 using Spring.Northwind.Dao;
 using Spring.Northwind.Domain;
 using Spring.Web.UI;
 
-public partial class «name»Editor : Page
+public partial class «name»View : Page
 {
     private I«name»EditController «name.toFirstLower()»EditController;
     private I«name»Dao «name.toFirstLower()»Dao;
 
     public I«name»Dao «name»Dao
     {
-        set { «name.toFirstLower()»Dao = value; }
+        set { this.«name.toFirstLower()»Dao = value; }
     }
 
     public I«name»EditController «name»EditController
     {
-        set { «name.toFirstLower()»EditController = value; }
+        set { this.«name.toFirstLower()»EditController = value; }
     }
 
     public «name» Current«name»
     {
-        get
-        {
-            return «name.toFirstLower()»EditController.Current«name»;
-        }
+        get { return «name.toFirstLower()»EditController.Current«name»; }
     }
 
-    public «name»Editor()
+    //  public static void Edit( «name» «name.toFirstLower()» )
+    //  {
+    //    HttpContext.Current.Session[typeof(«name»Editor).FullName + ".«name»"] = «name.toFirstLower()»;
+    //  }
+
+    public «name»View()
     {
-        InitializeControls += Page_InitializeControls;
-        DataBound += Page_DataBound;
-        DataUnbound += Page_DataUnbound;
+        this.InitializeControls += new EventHandler(Page_InitializeControls);
+        this.DataBound += new EventHandler(Page_DataBound);
+        this.DataUnbound += new EventHandler(Page_DataUnbound);
     }
 
     override protected void InitializeDataBindings()
@@ -148,22 +153,18 @@ public partial class «name»Editor : Page
 
     private void Page_InitializeControls(object sender, EventArgs e)
     {
-        btnSave.Click += BtnSave_Click;
+        
     }
 
-    private void BtnSave_Click(object sender, EventArgs e)
-    {
-        «name.toFirstLower()»Dao.Update(Current«name»);
-        SetResult("View«name»");
-    }
     protected void «name.toFirstLower()»List_Click(object sender, EventArgs e)
     {
         SetResult("«name»List");
     }
-    protected void cancel_Click(object sender, EventArgs e)
+    protected void edit«name»_Click(object sender, EventArgs e)
     {
-        SetResult("CancelEdit");
+        SetResult("Edit«name»");
     }
 }
+
 «ENDFILE»
 «ENDDEFINE»
