@@ -238,10 +238,14 @@
 			</ui:include>
 		</f:facet>
 		«IF isFile()»
-			<s:link value="#{_«genPropertyLabel()».name}"  action="#{«class.asVar()»Action.download«name.toFirstUpper()»(_«class.asVar()».id)}" 
-			propagation="none" >
-				<f:param name="currentEntityId" value="#{_«class.asVar()».id}" />
-          </s:link> 
+				<s:graphicImage rendered="#{_«genPropertyLabel()» ne null and  _«genPropertyLabel()».contentType.startsWith('image')}" value="#{_«genPropertyLabel()».data}">
+					<s:transformImageSize height="100" maintainRatio="true"/>
+				</s:graphicImage>
+		
+				<s:link value="#{_«genPropertyLabel()».name}"  action="#{«class.asVar()»Action.download«name.toFirstUpper()»(_«class.asVar()».id)}" 
+					propagation="none"  rendered="#{not _«genPropertyLabel()».contentType.startsWith('image')}" >
+					<f:param name="currentEnt	ityId" value="#{_«class.asVar()».id}" />
+          		</s:link> 
 		«ELSEIF isDate()»
 			<h:outputText value="#{_«genPropertyLabel()»}">
 				<s:convertDateTime type="date" dateStyle="medium" />
