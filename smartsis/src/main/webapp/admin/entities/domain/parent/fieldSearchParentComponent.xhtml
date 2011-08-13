@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'parentEdit')}"/>  
+      <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'parentEdit')}"/>  
       <br/>  
       <h:inputText id="firstName" value="#{parentList.parent.firstName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'parentEdit')}"/>  
+      <h:outputText value="#{msg.person_lastName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'parentEdit')}"/>  
       <br/>  
       <h:inputText id="lastName" value="#{parentList.parent.lastName}"/> 
     </h:panelGroup>  
@@ -47,6 +47,14 @@
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="True" itemValue="true"/>  
         <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.parent_parentGroup} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parentGroup', 'parentEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="parentGroup" value="#{ parentList.parent.parentGroup}"> 
+        <s:selectItems value="#{parentGroupList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
       </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  

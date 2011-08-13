@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'studentEdit')}"/>  
+      <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'studentEdit')}"/>  
       <br/>  
       <h:inputText id="firstName" value="#{studentList.student.firstName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'studentEdit')}"/>  
+      <h:outputText value="#{msg.person_lastName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'studentEdit')}"/>  
       <br/>  
       <h:inputText id="lastName" value="#{studentList.student.lastName}"/> 
     </h:panelGroup>  
@@ -31,7 +31,7 @@
       <h:inputText id="contactDetails_email" value="#{studentList.student.contactDetails.email}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.student_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gender', 'studentEdit')}"/>  
+      <h:outputText value="#{msg.student_gender} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gender', 'studentEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="gender" value="#{studentList.student.gender}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -41,7 +41,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.student_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'studentEdit')}"/>  
+      <h:outputText value="#{msg.student_dateOfBirth} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'studentEdit')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -59,15 +59,6 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.student_parent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parent', 'studentEdit')}"/>  
-      <br/>  
-      <h:selectOneMenu id="parent" value="#{ studentList.student.parent}"> 
-        <s:selectItems value="#{parentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/>  
-        <f:selectItem itemLabel="--None--" itemValue=""/> 
-      </h:selectOneMenu> 
-    </h:panelGroup>  
-    <h:panelGroup> 
       <h:outputText value="#{msg.student_scholarship}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('scholarship', 'studentEdit')}"/>  
       <br/>  
       <h:inputText id="scholarship_begin" value="#{studentList.scholarshipRange.begin}"> 
@@ -76,15 +67,6 @@
       <h:inputText id="scholarship_end" value="#{studentList.scholarshipRange.end}"> 
         <f:converter converterId="javax.faces.Double"/> 
       </h:inputText> 
-    </h:panelGroup>  
-    <h:panelGroup> 
-      <h:outputText value="#{msg.student_discontinueDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueDate', 'studentEdit')}"/>  
-      <br/>  
-      <h:outputText value="From"/>  
-      <br/>  
-      <rich:calendar value="#{studentList.discontinueDateRange.begin}"/> To
-      <br/>  
-      <rich:calendar value="#{studentList.discontinueDateRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.student_rollNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rollNumber', 'studentEdit')}"/>  
@@ -97,10 +79,32 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.student_secondary}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('secondary', 'studentEdit')}"/>  
+      <h:outputText value="#{msg.student_discontinueDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueDate', 'studentEdit')}"/>  
       <br/>  
-      <h:selectOneMenu id="secondary" value="#{ studentList.student.secondary}"> 
-        <s:selectItems value="#{parentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <rich:calendar value="#{studentList.discontinueDateRange.begin}"/> To
+      <br/>  
+      <rich:calendar value="#{studentList.discontinueDateRange.end}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.student_discontinueReason}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueReason', 'studentEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="discontinueReason" value="#{studentList.student.discontinueReason}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="DISCIPLINARY" itemLabel="Disciplinary"/>  
+        <f:selectItem itemValue="ACADEMIC" itemLabel="Academic"/>  
+        <f:selectItem itemValue="FINANCIAL_OVERDUE_FEES" itemLabel="Financial_overdue_fees"/>  
+        <f:selectItem itemValue="DROPPED_OUT" itemLabel="Dropped_out"/>  
+        <f:selectItem itemValue="PASSED_OUT" itemLabel="Passed_out"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.student_parentGroup}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parentGroup', 'studentEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="parentGroup" value="#{ studentList.student.parentGroup}"> 
+        <s:selectItems value="#{parentGroupList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 
       </h:selectOneMenu> 

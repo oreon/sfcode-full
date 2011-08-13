@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.security.permission.PermissionCheck;
 
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.model.support.audit.Auditable;
@@ -68,10 +69,14 @@ public class Student extends com.oreon.smartsis.domain.Person
 			@AttributeOverride(name = "data", column = @Column(name = "picture_data", length = 4194304))})
 	protected FileAttachment picture = new FileAttachment();
 
+	@NotNull
+	@Column(name = "gender", unique = false)
 	protected com.oreon.smartsis.Gender gender
 
 	;
 
+	@NotNull
+	@Column(name = "dateOfBirth", unique = false)
 	protected Date dateOfBirth
 
 	;
@@ -85,13 +90,6 @@ public class Student extends com.oreon.smartsis.domain.Person
 
 	@Transient
 	protected Integer age
-
-	;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "parent_id", nullable = true, updatable = true)
-	@ContainedIn
-	protected Parent parent
 
 	;
 
@@ -121,18 +119,23 @@ public class Student extends com.oreon.smartsis.domain.Person
 		return studentVitalInfos.size();
 	}
 
-	protected Date discontinueDate
-
-	;
-
 	protected Integer rollNumber
 
 	;
 
+	@Column(name = "discontinueDate", unique = false)
+	protected Date discontinueDate
+
+	= new Date();
+
+	protected DiscontinueReason discontinueReason
+
+	;
+
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "secondary_id", nullable = true, updatable = true)
+	@JoinColumn(name = "parentGroup_id", nullable = true, updatable = true)
 	@ContainedIn
-	protected Parent secondary
+	protected ParentGroup parentGroup
 
 	;
 
@@ -192,16 +195,6 @@ public class Student extends com.oreon.smartsis.domain.Person
 
 	}
 
-	public void setParent(Parent parent) {
-		this.parent = parent;
-	}
-
-	public Parent getParent() {
-
-		return parent;
-
-	}
-
 	public void setScholarship(Double scholarship) {
 		this.scholarship = scholarship;
 	}
@@ -220,16 +213,6 @@ public class Student extends com.oreon.smartsis.domain.Person
 		return studentVitalInfos;
 	}
 
-	public void setDiscontinueDate(Date discontinueDate) {
-		this.discontinueDate = discontinueDate;
-	}
-
-	public Date getDiscontinueDate() {
-
-		return discontinueDate;
-
-	}
-
 	public void setRollNumber(Integer rollNumber) {
 		this.rollNumber = rollNumber;
 	}
@@ -240,24 +223,44 @@ public class Student extends com.oreon.smartsis.domain.Person
 
 	}
 
-	public void setSecondary(Parent secondary) {
-		this.secondary = secondary;
+	public void setDiscontinueDate(Date discontinueDate) {
+		this.discontinueDate = discontinueDate;
 	}
 
-	public Parent getSecondary() {
+	public Date getDiscontinueDate() {
 
-		return secondary;
+		return discontinueDate;
+
+	}
+
+	public void setDiscontinueReason(DiscontinueReason discontinueReason) {
+		this.discontinueReason = discontinueReason;
+	}
+
+	public DiscontinueReason getDiscontinueReason() {
+
+		return discontinueReason;
+
+	}
+
+	public void setParentGroup(ParentGroup parentGroup) {
+		this.parentGroup = parentGroup;
+	}
+
+	public ParentGroup getParentGroup() {
+
+		return parentGroup;
 
 	}
 
 	@Transient
-	public String getDisplayName() {
-		try {
-			return super.getDisplayName();
-		} catch (Exception e) {
-			return "Exception - " + e.getMessage();
-		}
-	}
+	    public String getDisplayName(){
+	    	try {
+				return super.getDisplayName() + " " + grade.name + " " + getId();
+			} catch (Exception e) {
+				return "Exception - " + e.getMessage();
+			}
+	    }
 
 	//Empty setter , needed for richfaces autocomplete to work 
 	public void setDisplayName(String name) {
@@ -282,19 +285,18 @@ public class Student extends com.oreon.smartsis.domain.Person
 		if (getGrade() != null)
 			builder.append("grade:" + getGrade().getDisplayName() + " ");
 
-		if (getParent() != null)
-			builder.append("parent:" + getParent().getDisplayName() + " ");
-
-		if (getSecondary() != null)
-			builder
-					.append("secondary:" + getSecondary().getDisplayName()
-							+ " ");
+		if (getParentGroup() != null)
+			builder.append("parentGroup:" + getParentGroup().getDisplayName()
+					+ " ");
 
 		for (BusinessEntity e : studentVitalInfos) {
 			builder.append(e.getDisplayName() + " ");
 		}
 
 		return builder.toString();
+		
+		//PermissionCheck pc;
+		//pc.re
 	}
 
 }

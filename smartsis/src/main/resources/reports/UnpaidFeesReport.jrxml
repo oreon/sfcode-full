@@ -5,7 +5,8 @@
   <parameter name="ReportTitle" class="java.lang.String"/>  
   <parameter name="year" class="java.lang.Integer"/>  
   <parameter name="month" class="com.oreon.smartsis.domain.FeeMonth"/>  
-  <queryString language="ejbql"> <![CDATA[select s from Student s where s.id not in (select student.id from StudentPaidFee p where p.month = $P{month} and p.year = ${p.year} )]]> </queryString>  
+  <queryString language="ejbql"> <![CDATA[select s from Student s where s.id not in (select student.id from StudentPaidFee p where p.month = $P{month} and p.year = $P{year} )
+order by s.grade.id]]> </queryString>  
   <field name="id" class="java.lang.Long"/>  
   <field name="firstName" class="java.lang.String"/>  
   <field name="lastName" class="java.lang.String"/>  
@@ -26,7 +27,13 @@
       </band> 
     </groupHeader>  
     <groupFooter> 
-      <band height="20"></band> 
+      <band height="20"> 
+        <textField> 
+          <reportElement x="0" mode="Opaque" y="1" width="540" height="15" backcolor="#e1e1f1"/>  
+          <textElement textAlignment="Right"/>  
+          <textFieldExpression class="java.lang.String"> <![CDATA["COUNT For " + $F{grade.name} + " : " + $V{Groupgrade_name_COUNT}]]> </textFieldExpression> 
+        </textField> 
+      </band> 
     </groupFooter> 
   </group>  
   <title> 
@@ -40,7 +47,7 @@
         <textElement textAlignment="Center"> 
           <font size="13"/> 
         </textElement>  
-        <textFieldExpression class="java.lang.String"><![CDATA["UnpaidFeesReport"]]></textFieldExpression> 
+        <textFieldExpression class="java.lang.String"><![CDATA["Unpaid Fees for " + $P{month} + "/" + $P{year} ]]></textFieldExpression> 
       </textField> 
     </band> 
   </title>  
@@ -92,7 +99,12 @@
         <reportElement mode="Opaque" x="0" y="1" width="540" height="15" backcolor="#c0c0c0"/>  
         <box leftPadding="10" bottomBorder="1Point"/>  
         <text><![CDATA[Summary]]> </text> 
-      </staticText> 
+      </staticText>  
+      <textField> 
+        <reportElement x="460" y="1" width="30" height="15"/>  
+        <textElement textAlignment="Right"/>  
+        <textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression> 
+      </textField> 
     </band> 
   </summary> 
 </jasperReport>

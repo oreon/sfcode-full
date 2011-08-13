@@ -100,13 +100,6 @@ public class StudentPaidFeeAction extends StudentPaidFeeActionBase implements
 		return years;
 	}
 
-	@Override
-	protected StudentPaidFee createInstance() {
-		// TODO Auto-generated method stub
-		StudentPaidFee studentPaidFee = super.createInstance();
-		Date today = new Date();
-		studentPaidFee.setYear(today.getYear() + 1900);
-		return studentPaidFee;
-	}
+	
 
 }

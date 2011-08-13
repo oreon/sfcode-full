@@ -23,7 +23,8 @@
 		<rich:message styleClass="error errors" for="year" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('year', 'studentPaidFeeEdit')}"/>
 	
 		<h:panelGroup> <h:outputText value="#{msg.unpaidFeesReport_month}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'studentPaidFeeEdit')}"/> * </h:panelGroup>
-	<h:selectOneMenu id="month"  value="#{studentPaidFeeAction.studentPaidFee.month}" required="false" 
+	<h:selectOneMenu id="month"  value="#{unpaidFeesReportAction.month}" 
+		required="false" 
 	  label="#{msg.unpaidFeesReport_month}">
 		<f:selectItem itemLabel="Please Select..." itemValue="" />
 		<f:selectItem itemValue="JAN"  itemLabel="#{msg.JAN}" />

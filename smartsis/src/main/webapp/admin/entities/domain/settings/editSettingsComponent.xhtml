@@ -13,7 +13,15 @@
         <h:inputText id="gradeCapacity#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeCapacity', 'settingsEdit')}" label="#{msg.settings_gradeCapacity}" required="false" value="#{settingsAction.settings.gradeCapacity}"> 
           <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="gradeCapacity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeCapacity', 'settingsEdit')}"/> 
+        <rich:message styleClass="error errors" for="gradeCapacity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeCapacity', 'settingsEdit')}"/>  
+        <h:outputText value="#{msg.settings_defaultGender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultGender', 'settingsEdit')}"/>  
+        <h:selectOneMenu id="defaultGender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultGender', 'settingsEdit')}" value="#{settingsAction.settings.defaultGender}" required="false" label="#{msg.settings_defaultGender}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="F" itemLabel="#{msg.F}"/>  
+          <f:selectItem itemValue="M" itemLabel="#{msg.M}"/>  
+          <rich:ajaxValidator event="onblur "/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="defaultGender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultGender', 'settingsEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

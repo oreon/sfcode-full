@@ -9,7 +9,9 @@ import java.util.Date;
 /** 
  * [This class is resposnible for prmoting the students to next grade provided they have cleared the exam.]
  */
-public abstract class PromotionServiceBase {
+public abstract class PromotionServiceBase
+		extends
+			org.witchcraft.seam.action.BaseWebAction {
 
 	/** 
 	 * []

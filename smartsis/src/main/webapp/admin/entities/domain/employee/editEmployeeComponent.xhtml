@@ -53,13 +53,13 @@
           <rich:ajaxValidator event="onblur "/> 
         </h:selectBooleanCheckbox>  
         <rich:message styleClass="error errors" for="user_enabled" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'employeeEdit')}"/>  
-        <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'employeeEdit')}"/>  
-        <h:inputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'employeeEdit')}" label="#{msg.person_firstName}" required="false" value="#{employeeAction.employee.firstName}"> 
+        <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'employeeEdit')}"/>  
+        <h:inputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'employeeEdit')}" label="#{msg.person_firstName}" required="true" value="#{employeeAction.employee.firstName}"> 
           <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="firstName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'employeeEdit')}"/>  
-        <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'employeeEdit')}"/>  
-        <h:inputText id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'employeeEdit')}" label="#{msg.person_lastName}" required="false" value="#{employeeAction.employee.lastName}"> 
+        <h:outputText value="#{msg.person_lastName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'employeeEdit')}"/>  
+        <h:inputText id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'employeeEdit')}" label="#{msg.person_lastName}" required="true" value="#{employeeAction.employee.lastName}"> 
           <rich:ajaxValidator event="onblur "/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="lastName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'employeeEdit')}"/>  

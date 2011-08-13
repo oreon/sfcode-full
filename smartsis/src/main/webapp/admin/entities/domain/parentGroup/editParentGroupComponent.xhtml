@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{parentGroupAction.load(parentGroupId )  }"></h:panelGrid>  
+      <a:commandButton value="New Parent" action="#{parentGroupAction.addParents}" reRender="parents" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parents', 'parentGroupEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="parents" var="_parent" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parents', 'parentGroupEdit')}" value="#{parentGroupAction.listParents}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'parentEdit')}"/>
+          </f:facet>  
+          <h:inputText id="contactDetails_primaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'parentEdit')}" label="#{msg.contactDetails_primaryPhone}" required="false" value="#{_parent.contactDetails.primaryPhone}"> 
+            <rich:ajaxValidator event="onblur "/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="contactDetails_primaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'parentEdit')}"/> 
+        </h:column>  
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('secondaryPhone', 'parentEdit')}"/>
+          </f:facet>  
+          <h:inputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('secondaryPhone', 'parentEdit')}" label="#{msg.contactDetails_secondaryPhone}" required="false" value="#{_parent.contactDetails.secondaryPhone}"> 
+            <rich:ajaxValidator event="onblur "/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="contactDetails_secondaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('secondaryPhone', 'parentEdit')}"/> 
+        </h:column>  
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentEdit')}"/>
+          </f:facet>  
+          <h:inputText id="contactDetails_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentEdit')}" label="#{msg.contactDetails_email}" required="false" value="#{_parent.contactDetails.email}"> 
+            <rich:ajaxValidator event="onblur "/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="contactDetails_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentEdit')}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.user_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'parentEdit')}"/>
+          </f:facet>  
+          <h:inputText id="user_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'parentEdit')}" label="#{msg.user_userName}" required="true" value="#{_parent.user.userName}"> 
+            <rich:ajaxValidator event="onblur "/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="user_userName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'parentEdit')}"/> 
+        </h:column>  
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.user_password} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('password', 'parentEdit')}"/>
+          </f:facet>  
+          <h:inputSecret redisplay="true" id="user_password#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('password', 'parentEdit')}" label="#{msg.user_password}" required="true" value="#{_parent.user.password}"> 
+            <rich:ajaxValidator event="onblur "/> 
+          </h:inputSecret>  
+          <rich:message styleClass="error errors" for="user_password" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('password', 'parentEdit')}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.user_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentEdit')}"/>
+          </f:facet>  
+          <h:inputText id="user_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentEdit')}" label="#{msg.user_email}" required="true" value="#{_parent.user.email}"> 
+            <rich:ajaxValidator event="onblur "/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="user_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentEdit')}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'parentEdit')}"/>
+          </f:facet>  
+          <h:selectBooleanCheckbox id="user_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'parentEdit')}" label="#{msg.user_enabled}" required="false" value="#{_parent.user.enabled}"> 
+            <rich:ajaxValidator event="onblur "/> 
+          </h:selectBooleanCheckbox>  
+          <rich:message styleClass="error errors" for="user_enabled" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'parentEdit')}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'parentEdit')}"/>
+          </f:facet>  
+          <h:inputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'parentEdit')}" label="#{msg.person_firstName}" required="true" value="#{_parent.firstName}"> 
+            <rich:ajaxValidator event="onblur "/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="firstName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'parentEdit')}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.person_lastName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'parentEdit')}"/>
+          </f:facet>  
+          <h:inputText id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'parentEdit')}" label="#{msg.person_lastName}" required="true" value="#{_parent.lastName}"> 
+            <rich:ajaxValidator event="onblur "/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="lastName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'parentEdit')}"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New Parent" action="#{parentGroupAction.addParents}" reRender="parents" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parents', 'parentEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{parentGroupAction.deleteParents(rowIndex)}" reRender="parents"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

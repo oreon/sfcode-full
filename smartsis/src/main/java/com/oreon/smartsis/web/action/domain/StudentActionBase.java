@@ -57,11 +57,8 @@ public abstract class StudentActionBase
 	@In(create = true, value = "gradeAction")
 	com.oreon.smartsis.web.action.domain.GradeAction gradeAction;
 
-	@In(create = true, value = "parentAction")
-	com.oreon.smartsis.web.action.domain.ParentAction parentAction;
-
-	@In(create = true, value = "parentAction")
-	com.oreon.smartsis.web.action.domain.ParentAction secondaryAction;
+	@In(create = true, value = "parentGroupAction")
+	com.oreon.smartsis.web.action.domain.ParentGroupAction parentGroupAction;
 
 	@DataModel
 	private List<Student> studentRecordList;
@@ -100,29 +97,16 @@ public abstract class StudentActionBase
 		return 0L;
 	}
 
-	public void setParentId(Long id) {
+	public void setParentGroupId(Long id) {
 
 		if (id != null && id > 0)
-			getInstance().setParent(parentAction.loadFromId(id));
+			getInstance().setParentGroup(parentGroupAction.loadFromId(id));
 
 	}
 
-	public Long getParentId() {
-		if (getInstance().getParent() != null)
-			return getInstance().getParent().getId();
-		return 0L;
-	}
-
-	public void setSecondaryId(Long id) {
-
-		if (id != null && id > 0)
-			getInstance().setSecondary(secondaryAction.loadFromId(id));
-
-	}
-
-	public Long getSecondaryId() {
-		if (getInstance().getSecondary() != null)
-			return getInstance().getSecondary().getId();
+	public Long getParentGroupId() {
+		if (getInstance().getParentGroup() != null)
+			return getInstance().getParentGroup().getId();
 		return 0L;
 	}
 
@@ -164,16 +148,10 @@ public abstract class StudentActionBase
 			getInstance().setGrade(grade);
 		}
 
-		com.oreon.smartsis.domain.Parent parent = parentAction
+		com.oreon.smartsis.domain.ParentGroup parentGroup = parentGroupAction
 				.getDefinedInstance();
-		if (parent != null && isNew()) {
-			getInstance().setParent(parent);
-		}
-
-		com.oreon.smartsis.domain.Parent secondary = secondaryAction
-				.getDefinedInstance();
-		if (secondary != null && isNew()) {
-			getInstance().setSecondary(secondary);
+		if (parentGroup != null && isNew()) {
+			getInstance().setParentGroup(parentGroup);
 		}
 
 	}
@@ -227,14 +205,9 @@ public abstract class StudentActionBase
 					.getGrade().getId()));
 		}
 
-		if (student.getParent() != null) {
-			criteria = criteria.add(Restrictions.eq("parent.id", student
-					.getParent().getId()));
-		}
-
-		if (student.getSecondary() != null) {
-			criteria = criteria.add(Restrictions.eq("secondary.id", student
-					.getSecondary().getId()));
+		if (student.getParentGroup() != null) {
+			criteria = criteria.add(Restrictions.eq("parentGroup.id", student
+					.getParentGroup().getId()));
 		}
 
 	}
@@ -249,12 +222,8 @@ public abstract class StudentActionBase
 			gradeAction.setInstance(getInstance().getGrade());
 		}
 
-		if (student.getParent() != null) {
-			parentAction.setInstance(getInstance().getParent());
-		}
-
-		if (student.getSecondary() != null) {
-			secondaryAction.setInstance(getInstance().getSecondary());
+		if (student.getParentGroup() != null) {
+			parentGroupAction.setInstance(getInstance().getParentGroup());
 		}
 
 		initListStudentVitalInfos();

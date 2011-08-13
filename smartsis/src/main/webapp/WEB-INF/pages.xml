@@ -21,6 +21,14 @@
       </rule> 
     </navigation> 
   </page>  
+  <page view-id="/admin/newAdmission.xhtml"> 
+    <param name="studentId" value="#{studentAction.studentId}"/>  
+    <navigation> 
+      <rule if-outcome="admitted"> 
+        <redirect view-id="/admin/admissionSuccess.xhtml"/> 
+      </rule> 
+    </navigation> 
+  </page>  
   <!--PROTECTED REGION END-->  
   <page view-id="/adminLogin.xhtml"> 
     <navigation from-action="#{identity.login}"> 
@@ -31,7 +39,7 @@
     <!--PROTECTED REGION ID(USER_EDITABLE_PAGESROOT_BLKT_ACTION) ENABLED START-->  
     <navigation from-action="#{identity.logout}"> 
       <end-conversation before-redirect="true"/>  
-      <redirect view-id="/login.xhtml"/> 
+      <redirect view-id="/reg/index.xhtml"/> 
     </navigation>  
     <navigation from-action="#{identity.login}"> 
       <end-conversation before-redirect="true"/>  
@@ -210,6 +218,18 @@
       </rule>  
       <rule if-outcome="editSettings"> 
         <redirect view-id="/admin/entities/domain/settings/editSettings.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="parentGroup"> 
+        <redirect view-id="/admin/entities/domain/parentGroup/listParentGroup.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewParentGroup"> 
+        <redirect view-id="/admin/entities/domain/parentGroup/viewParentGroup.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editParentGroup"> 
+        <redirect view-id="/admin/entities/domain/parentGroup/editParentGroup.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="electronicExam"> 
@@ -536,8 +556,7 @@
     </navigation>  
     <param name="studentId" value="#{studentAction.studentId}"/>  
     <param name="gradeId" value="#{studentAction.gradeId}"/>  
-    <param name="parentId" value="#{studentAction.parentId}"/>  
-    <param name="secondaryId" value="#{studentAction.secondaryId}"/> 
+    <param name="parentGroupId" value="#{studentAction.parentGroupId}"/> 
   </page>  
   <page view-id="/admin/entities/domain/student/viewStudent.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Student: #{student.displayName}</description> -->  
@@ -573,11 +592,11 @@
     <param name="gender" value="#{studentList.student.gender}" validateModel="false"/>  
     <param name="dateOfBirth" value="#{studentList.student.dateOfBirth}" validateModel="false"/>  
     <param name="grade" value="#{studentList.student.grade.id}" validateModel="false"/>  
-    <param name="parent" value="#{studentList.student.parent.id}" validateModel="false"/>  
     <param name="scholarship" value="#{studentList.student.scholarship}" validateModel="false"/>  
-    <param name="discontinueDate" value="#{studentList.student.discontinueDate}" validateModel="false"/>  
     <param name="rollNumber" value="#{studentList.student.rollNumber}" validateModel="false"/>  
-    <param name="secondary" value="#{studentList.student.secondary.id}" validateModel="false"/> 
+    <param name="discontinueDate" value="#{studentList.student.discontinueDate}" validateModel="false"/>  
+    <param name="discontinueReason" value="#{studentList.student.discontinueReason}" validateModel="false"/>  
+    <param name="parentGroup" value="#{studentList.student.parentGroup.id}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/parent/editParent.xhtml"> 
     <!-- <description>Edit Parent: #{parent.displayName}</description> -->  
@@ -590,7 +609,8 @@
       </rule> 
     </navigation>  
     <param name="parentId" value="#{parentAction.parentId}"/>  
-    <param name="userId" value="#{parentAction.userId}"/> 
+    <param name="userId" value="#{parentAction.userId}"/>  
+    <param name="parentGroupId" value="#{parentAction.parentGroupId}"/> 
   </page>  
   <page view-id="/admin/entities/domain/parent/viewParent.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Parent: #{parent.displayName}</description> -->  
@@ -625,7 +645,8 @@
     <param name="contactDetails_email" value="#{parentList.parent.contactDetails.email}" validateModel="false"/>  
     <param name="user_userName" value="#{parentList.parent.user.userName}" validateModel="false"/>  
     <param name="user_email" value="#{parentList.parent.user.email}" validateModel="false"/>  
-    <param name="user_enabled" value="#{parentList.parent.user.enabled}" validateModel="false"/> 
+    <param name="user_enabled" value="#{parentList.parent.user.enabled}" validateModel="false"/>  
+    <param name="parentGroup" value="#{parentList.parent.parentGroup.id}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/grade/editGrade.xhtml"> 
     <!-- <description>Edit Grade: #{grade.displayName}</description> -->  
@@ -1057,7 +1078,47 @@
     <param name="from"/>  
     <param name="id" value="#{settingsList.settings.id}"/>  
     <param name="name" value="#{settingsList.settings.name}" validateModel="false"/>  
-    <param name="gradeCapacity" value="#{settingsList.settings.gradeCapacity}" validateModel="false"/> 
+    <param name="gradeCapacity" value="#{settingsList.settings.gradeCapacity}" validateModel="false"/>  
+    <param name="defaultGender" value="#{settingsList.settings.defaultGender}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/domain/parentGroup/editParentGroup.xhtml"> 
+    <!-- <description>Edit ParentGroup: #{parentGroup.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/domain/parentGroup/viewParentGroup.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/domain/parentGroup/listParentGroup.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="parentGroupId" value="#{parentGroupAction.parentGroupId}"/> 
+  </page>  
+  <page view-id="/admin/entities/domain/parentGroup/viewParentGroup.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View ParentGroup: #{parentGroup.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/domain/parentGroup/editParentGroup.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/domain/parentGroup/listParentGroup.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="parentGroupId" value="#{parentGroupAction.parentGroupId}"/> 
+  </page>  
+  <page view-id="/admin/entities/domain/parentGroup/listParentGroup.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewParentGroup"> 
+        <redirect view-id="/admin/entities/domain/parentGroup/viewParentGroup.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/domain/parentGroup/editParentGroup.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{parentGroupList.firstResult}"/>  
+    <param name="sort" value="#{parentGroupList.orderColumn}"/>  
+    <param name="dir" value="#{parentGroupList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{parentGroupList.parentGroup.id}"/> 
   </page>  
   <page view-id="/admin/entities/exam/electronicExam/editElectronicExam.xhtml"> 
     <!-- <description>Edit ElectronicExam: #{electronicExam.displayName}</description> -->  

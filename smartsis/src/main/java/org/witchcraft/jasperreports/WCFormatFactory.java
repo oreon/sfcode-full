@@ -21,7 +21,7 @@ public class WCFormatFactory implements FormatFactory{
 	}
 
 	public NumberFormat createNumberFormat(String pattern, Locale locale) {
-		return new DecimalFormat("#0.00");
+		return new DecimalFormat("#0");
 	}
 
 }

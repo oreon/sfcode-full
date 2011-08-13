@@ -19,6 +19,16 @@
       <h:inputText id="gradeCapacity_end" value="#{settingsList.gradeCapacityRange.end}"> 
         <f:converter converterId="javax.faces.Integer"/> 
       </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.settings_defaultGender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultGender', 'settingsEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="defaultGender" value="#{settingsList.settings.defaultGender}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="F" itemLabel="F"/>  
+        <f:selectItem itemValue="M" itemLabel="M"/> 
+      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

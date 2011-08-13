@@ -101,6 +101,19 @@
           </f:facet>  
           <h:outputText value="#{_parent.user.enabled? msg.yes : msg.no }"/> 
         </h:column>  
+        <h:column groupOn="#{parent.parentGroup.displayName}" rendered="#{s:hasPermission('parentGroup', 'parentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{parentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.parent_parentGroup}"/>  
+              <ui:param name="propertyPath" value="parent.parentGroup"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_parent.parentGroup.displayName}" action="viewParentGroup" propagation="none"> 
+            <f:param name="parentGroupId" value="#{_parent.parentGroup.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'parentView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

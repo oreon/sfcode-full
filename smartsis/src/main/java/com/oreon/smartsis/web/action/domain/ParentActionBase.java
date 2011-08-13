@@ -41,8 +41,6 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
-import com.oreon.smartsis.domain.Student;
-
 public abstract class ParentActionBase
 		extends
 			com.oreon.smartsis.web.action.domain.PersonAction<Parent>
@@ -57,8 +55,8 @@ public abstract class ParentActionBase
 	@In(create = true, value = "userAction")
 	com.oreon.smartsis.web.action.users.UserAction userAction;
 
-	@In(create = true, value = "studentAction")
-	com.oreon.smartsis.web.action.domain.StudentAction studentsAction;
+	@In(create = true, value = "parentGroupAction")
+	com.oreon.smartsis.web.action.domain.ParentGroupAction parentGroupAction;
 
 	@DataModel
 	private List<Parent> parentRecordList;
@@ -94,6 +92,19 @@ public abstract class ParentActionBase
 	public Long getUserId() {
 		if (getInstance().getUser() != null)
 			return getInstance().getUser().getId();
+		return 0L;
+	}
+
+	public void setParentGroupId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setParentGroup(parentGroupAction.loadFromId(id));
+
+	}
+
+	public Long getParentGroupId() {
+		if (getInstance().getParentGroup() != null)
+			return getInstance().getParentGroup().getId();
 		return 0L;
 	}
 
@@ -134,6 +145,12 @@ public abstract class ParentActionBase
 			getInstance().setUser(user);
 		}
 
+		com.oreon.smartsis.domain.ParentGroup parentGroup = parentGroupAction
+				.getDefinedInstance();
+		if (parentGroup != null && isNew()) {
+			getInstance().setParentGroup(parentGroup);
+		}
+
 	}
 
 	public boolean isWired() {
@@ -167,6 +184,11 @@ public abstract class ParentActionBase
 					.getId()));
 		}
 
+		if (parent.getParentGroup() != null) {
+			criteria = criteria.add(Restrictions.eq("parentGroup.id", parent
+					.getParentGroup().getId()));
+		}
+
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -179,66 +201,20 @@ public abstract class ParentActionBase
 			userAction.setInstance(getInstance().getUser());
 		}
 
-		initListStudents();
+		if (parent.getParentGroup() != null) {
+			parentGroupAction.setInstance(getInstance().getParentGroup());
+		}
 
 	}
 
 	public void updateAssociations() {
 
-		com.oreon.smartsis.domain.Student students = (com.oreon.smartsis.domain.Student) org.jboss.seam.Component
-				.getInstance("student");
-		students.setParent(parent);
-		events.raiseTransactionSuccessEvent("archivedStudent");
-
-	}
-
-	protected List<com.oreon.smartsis.domain.Student> listStudents = new ArrayList<com.oreon.smartsis.domain.Student>();
-
-	void initListStudents() {
-
-		if (listStudents.isEmpty())
-			listStudents.addAll(getInstance().getStudents());
-
-	}
-
-	public List<com.oreon.smartsis.domain.Student> getListStudents() {
-
-		prePopulateListStudents();
-		return listStudents;
-	}
-
-	public void prePopulateListStudents() {
-	}
-
-	public void setListStudents(
-			List<com.oreon.smartsis.domain.Student> listStudents) {
-		this.listStudents = listStudents;
-	}
-
-	public void deleteStudents(int index) {
-		listStudents.remove(index);
-	}
-
-	@Begin(join = true)
-	public void addStudents() {
-		initListStudents();
-		Student students = new Student();
-
-		students.setParent(getInstance());
-
-		getListStudents().add(students);
 	}
 
 	public void updateComposedAssociations() {
-
-		if (listStudents != null) {
-			getInstance().getStudents().clear();
-			getInstance().getStudents().addAll(listStudents);
-		}
 	}
 
 	public void clearLists() {
-		listStudents.clear();
 
 	}
 

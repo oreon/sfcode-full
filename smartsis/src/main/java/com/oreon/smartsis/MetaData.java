@@ -58,17 +58,17 @@ public class MetaData {
 
 	"age", "java.lang.Integer",
 
-	"parent.displayName", "java.lang.String",
-
 	"scholarship", "java.lang.Double",
 
 	"studentVitalInfosCount", "java.lang.Integer",
 
-	"discontinueDate", "java.util.Date",
-
 	"rollNumber", "java.lang.Integer",
 
-	"secondary.displayName", "java.lang.String",
+	"discontinueDate", "java.util.Date",
+
+	"discontinueReason.name", "java.lang.String",
+
+	"parentGroup.displayName", "java.lang.String",
 
 	},
 
@@ -84,9 +84,9 @@ public class MetaData {
 
 	"contactDetails.email", "java.lang.String",
 
-	"studentsCount", "java.lang.Integer",
-
 	"user.displayName", "java.lang.String",
+
+	"parentGroup.displayName", "java.lang.String",
 
 	},
 
@@ -209,6 +209,16 @@ public class MetaData {
 	"name", "java.lang.String",
 
 	"gradeCapacity", "java.lang.Integer",
+
+	"defaultGender.name", "java.lang.String",
+
+	},
+
+	{"com.oreon.smartsis.domain.ParentGroup",
+
+	"studentsCount", "java.lang.Integer",
+
+	"parentsCount", "java.lang.Integer",
 
 	},
 

@@ -61,39 +61,17 @@ public class Parent extends com.oreon.smartsis.domain.Person
 			com.sun.xml.internal.bind.CycleRecoverable {
 	private static final long serialVersionUID = -420531418L;
 
-	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//@JoinColumn(name = "parent_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
-	@IndexedEmbedded
-	private Set<Student> students = new HashSet<Student>();
-
-	public void addStudents(Student students) {
-		students.setParent(this);
-		this.students.add(students);
-	}
-
-	@Transient
-	public List<com.oreon.smartsis.domain.Student> getListStudents() {
-		return new ArrayList<com.oreon.smartsis.domain.Student>(students);
-	}
-
-	//JSF Friendly function to get count of collections
-	public int getStudentsCount() {
-		return students.size();
-	}
-
 	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected com.oreon.smartsis.users.User user = new com.oreon.smartsis.users.User();
 
-	public void setStudents(Set<Student> students) {
-		this.students = students;
-	}
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "parentGroup_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected ParentGroup parentGroup
 
-	public Set<Student> getStudents() {
-		return students;
-	}
+	;
 
 	public void setUser(com.oreon.smartsis.users.User user) {
 		this.user = user;
@@ -102,6 +80,16 @@ public class Parent extends com.oreon.smartsis.domain.Person
 	public com.oreon.smartsis.users.User getUser() {
 
 		return user;
+
+	}
+
+	public void setParentGroup(ParentGroup parentGroup) {
+		this.parentGroup = parentGroup;
+	}
+
+	public ParentGroup getParentGroup() {
+
+		return parentGroup;
 
 	}
 
@@ -137,9 +125,9 @@ public class Parent extends com.oreon.smartsis.domain.Person
 		if (getUser() != null)
 			builder.append("user:" + getUser().getDisplayName() + " ");
 
-		for (BusinessEntity e : students) {
-			builder.append(e.getDisplayName() + " ");
-		}
+		if (getParentGroup() != null)
+			builder.append("parentGroup:" + getParentGroup().getDisplayName()
+					+ " ");
 
 		return builder.toString();
 	}

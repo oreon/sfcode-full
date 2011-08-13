@@ -95,9 +95,10 @@ public class StudentPaidFee extends BusinessEntity
 
 	;
 
+	@Column(name = "year", unique = false)
 	protected Integer year
 
-	;
+	= ProjectUtils.getCurrentYear();
 
 	protected com.oreon.smartsis.domain.FeeMonth month
 

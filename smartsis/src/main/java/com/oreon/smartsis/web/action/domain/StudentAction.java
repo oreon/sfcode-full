@@ -6,13 +6,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Tuple;
-
 import org.apache.commons.math.stat.ranking.NaNStrategy;
 import org.apache.commons.math.stat.ranking.NaturalRanking;
 import org.apache.commons.math.stat.ranking.TiesStrategy;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.international.StatusMessage.Severity;
+import org.jboss.seam.security.Identity;
 import org.witchcraft.exceptions.ContractViolationException;
 
 import com.oreon.smartsis.MonthAttendance;
@@ -42,6 +41,10 @@ public class StudentAction extends StudentActionBase implements
 	private Long totalMM;
 
 	public Long getTotal() {
+		
+		Identity identity;
+	
+		
 		if (total == null) {
 			
 			String qry = "Select sum(e.marks) from ExamScore e WHERE  e.student.id = ?1 and e.examInstance.gradeSubject.grade.id = ?2 ";
@@ -255,6 +258,14 @@ public class StudentAction extends StudentActionBase implements
 	public List<PaidFee> getPaidFees() {
 		String qry = "Select f from PaidFee f where f.student.id = ?1";
 		return executeQuery(qry, getInstance().getId());
-
+	}
+	
+	public String admitStudent(){
+		save();
+		return "admitted";
+	}
+	
+	public String dischargeStudent(){
+		return "discharged";
 	}
 }

@@ -128,19 +128,6 @@
           </f:facet>  
           <h:outputText value="#{_student.age}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('parent', 'studentView'  )}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{studentList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.student_parent}"/>  
-              <ui:param name="propertyPath" value="student.parent"/> 
-            </ui:include> 
-          </f:facet>  
-          <s:link value="#{_student.parent.displayName}" action="viewParent" propagation="none"> 
-            <f:param name="parentId" value="#{_student.parent.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link> 
-        </h:column>  
         <h:column rendered="#{s:hasPermission('scholarship', 'studentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -152,6 +139,16 @@
           <h:outputText value="#{_student.scholarship}"> 
             <f:convertNumber pattern="$#,##0.00"/> 
           </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('rollNumber', 'studentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{studentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.student_rollNumber}"/>  
+              <ui:param name="propertyPath" value="student.rollNumber"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_student.rollNumber}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('discontinueDate', 'studentView'  )}"> 
           <f:facet name="header"> 
@@ -165,26 +162,26 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('rollNumber', 'studentView'  )}"> 
+        <h:column rendered="#{s:hasPermission('discontinueReason', 'studentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{studentList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.student_rollNumber}"/>  
-              <ui:param name="propertyPath" value="student.rollNumber"/> 
+              <ui:param name="propertyLabel" value="#{msg.student_discontinueReason}"/>  
+              <ui:param name="propertyPath" value="student.discontinueReason"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_student.rollNumber}" escape="false"/> 
+          <h:outputText value="#{_student.discontinueReason}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('secondary', 'studentView'  )}"> 
+        <h:column rendered="#{s:hasPermission('parentGroup', 'studentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{studentList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.student_secondary}"/>  
-              <ui:param name="propertyPath" value="student.secondary"/> 
+              <ui:param name="propertyLabel" value="#{msg.student_parentGroup}"/>  
+              <ui:param name="propertyPath" value="student.parentGroup"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_student.secondary.displayName}" action="viewParent" propagation="none"> 
-            <f:param name="secondaryId" value="#{_student.secondary.id}"/>  
+          <s:link value="#{_student.parentGroup.displayName}" action="viewParentGroup" propagation="none"> 
+            <f:param name="parentGroupId" value="#{_student.parentGroup.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
