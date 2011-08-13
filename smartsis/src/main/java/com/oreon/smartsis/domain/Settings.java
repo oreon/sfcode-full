@@ -74,6 +74,10 @@ public class Settings extends BusinessEntity
 
 	;
 
+	protected com.oreon.smartsis.Gender defaultGender
+
+	;
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -91,6 +95,16 @@ public class Settings extends BusinessEntity
 	public Integer getGradeCapacity() {
 
 		return gradeCapacity;
+
+	}
+
+	public void setDefaultGender(com.oreon.smartsis.Gender defaultGender) {
+		this.defaultGender = defaultGender;
+	}
+
+	public com.oreon.smartsis.Gender getDefaultGender() {
+
+		return defaultGender;
 
 	}
 

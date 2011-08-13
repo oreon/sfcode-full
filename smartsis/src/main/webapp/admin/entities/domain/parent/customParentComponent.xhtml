@@ -7,13 +7,13 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'parentEdit')}"/>  
+        <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'parentEdit')}"/>  
         <br/>  
         <h:inputText id="firstName" value="#{parentAction.parent.firstName}"/>  
         <rich:message styleClass="error errors" for="firstName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'parentEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'parentEdit')}"/>  
+        <h:outputText value="#{msg.person_lastName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'parentEdit')}"/>  
         <br/>  
         <h:inputText id="lastName" value="#{parentAction.parent.lastName}"/>  
         <rich:message styleClass="error errors" for="lastName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'parentEdit')}"/> 
@@ -53,6 +53,15 @@
         <br/>  
         <h:selectBooleanCheckbox id="user_enabled" value="#{parentAction.parent.user.enabled}"/>  
         <rich:message styleClass="error errors" for="user_enabled" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'parentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.parent_parentGroup} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parentGroup', 'parentEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="parentGroup" value="#{parentAction.parent.parentGroup}"> 
+          <s:selectItems value="#{parentGroupList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="parentGroup" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parentGroup', 'parentEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

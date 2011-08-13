@@ -65,20 +65,20 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 		this.scholarshipRange = scholarshipRange;
 	}
 
-	private Range<Date> discontinueDateRange = new Range<Date>();
-	public Range<Date> getDiscontinueDateRange() {
-		return discontinueDateRange;
-	}
-	public void setDiscontinueDate(Range<Date> discontinueDateRange) {
-		this.discontinueDateRange = discontinueDateRange;
-	}
-
 	private Range<Integer> rollNumberRange = new Range<Integer>();
 	public Range<Integer> getRollNumberRange() {
 		return rollNumberRange;
 	}
 	public void setRollNumber(Range<Integer> rollNumberRange) {
 		this.rollNumberRange = rollNumberRange;
+	}
+
+	private Range<Date> discontinueDateRange = new Range<Date>();
+	public Range<Date> getDiscontinueDateRange() {
+		return discontinueDateRange;
+	}
+	public void setDiscontinueDate(Range<Date> discontinueDateRange) {
+		this.discontinueDateRange = discontinueDateRange;
 	}
 
 	private static final String[] RESTRICTIONS = {
@@ -101,18 +101,18 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 
 			"student.grade.id = #{studentList.student.grade.id}",
 
-			"student.parent.id = #{studentList.student.parent.id}",
-
 			"student.scholarship >= #{studentList.scholarshipRange.begin}",
 			"student.scholarship <= #{studentList.scholarshipRange.end}",
-
-			"student.discontinueDate >= #{studentList.discontinueDateRange.begin}",
-			"student.discontinueDate <= #{studentList.discontinueDateRange.end}",
 
 			"student.rollNumber >= #{studentList.rollNumberRange.begin}",
 			"student.rollNumber <= #{studentList.rollNumberRange.end}",
 
-			"student.secondary.id = #{studentList.student.secondary.id}",
+			"student.discontinueDate >= #{studentList.discontinueDateRange.begin}",
+			"student.discontinueDate <= #{studentList.discontinueDateRange.end}",
+
+			"student.discontinueReason = #{studentList.student.discontinueReason}",
+
+			"student.parentGroup.id = #{studentList.student.parentGroup.id}",
 
 			"student.dateCreated <= #{studentList.dateCreatedRange.end}",
 			"student.dateCreated >= #{studentList.dateCreatedRange.begin}",};
@@ -124,10 +124,10 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 		return getResultList();
 	}
 
-	public List<Student> getStudentsByParent(
-			com.oreon.smartsis.domain.Parent parent) {
+	public List<Student> getStudentsByParentGroup(
+			com.oreon.smartsis.domain.ParentGroup parentGroup) {
 		//setMaxResults(10000);
-		student.setParent(parent);
+		student.setParentGroup(parentGroup);
 		return getResultList();
 	}
 
@@ -154,12 +154,11 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 						.replace(",", "") : "") + "\",");
 
 		builder.append("\""
-				+ (e.getParent() != null ? e.getParent().getDisplayName()
-						.replace(",", "") : "") + "\",");
-
-		builder.append("\""
 				+ (e.getScholarship() != null ? e.getScholarship() : "")
 				+ "\",");
+
+		builder.append("\""
+				+ (e.getRollNumber() != null ? e.getRollNumber() : "") + "\",");
 
 		builder
 				.append("\""
@@ -167,11 +166,13 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 								.getDiscontinueDate() : "") + "\",");
 
 		builder.append("\""
-				+ (e.getRollNumber() != null ? e.getRollNumber() : "") + "\",");
+				+ (e.getDiscontinueReason() != null
+						? e.getDiscontinueReason()
+						: "") + "\",");
 
 		builder.append("\""
-				+ (e.getSecondary() != null ? e.getSecondary().getDisplayName()
-						.replace(",", "") : "") + "\",");
+				+ (e.getParentGroup() != null ? e.getParentGroup()
+						.getDisplayName().replace(",", "") : "") + "\",");
 
 		builder.append("\r\n");
 	}
@@ -188,15 +189,15 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 
 		builder.append("Grade" + ",");
 
-		builder.append("Parent" + ",");
-
 		builder.append("Scholarship" + ",");
-
-		builder.append("DiscontinueDate" + ",");
 
 		builder.append("RollNumber" + ",");
 
-		builder.append("Secondary" + ",");
+		builder.append("DiscontinueDate" + ",");
+
+		builder.append("DiscontinueReason" + ",");
+
+		builder.append("ParentGroup" + ",");
 
 		builder.append("\r\n");
 	}

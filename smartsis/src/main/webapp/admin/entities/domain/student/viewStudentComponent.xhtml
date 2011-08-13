@@ -17,14 +17,9 @@
           <f:param name="gradeId" value="#{studentAction.student.grade.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.student_parent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parent', 'studentView')}"/>  
-        <s:link value="#{studentAction.student.parent.displayName}" view="/admin/entities/domain/parent/viewParent.xhtml" propagation="none"> 
-          <f:param name="parentId" value="#{studentAction.student.parent.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
-        <h:outputText value="#{msg.student_secondary}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('secondary', 'studentView')}"/>  
-        <s:link value="#{studentAction.student.secondary.displayName}" view="/admin/entities/domain/parent/viewParent.xhtml" propagation="none"> 
-          <f:param name="secondaryId" value="#{studentAction.student.secondary.id}"/>  
+        <h:outputText value="#{msg.student_parentGroup}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parentGroup', 'studentView')}"/>  
+        <s:link value="#{studentAction.student.parentGroup.displayName}" view="/admin/entities/domain/parentGroup/viewParentGroup.xhtml" propagation="none"> 
+          <f:param name="parentGroupId" value="#{studentAction.student.parentGroup.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'studentView')}"/>  
@@ -50,10 +45,12 @@
         <h:outputText id="age#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('age', 'studentView')}" value="#{studentAction.student.age}"></h:outputText>  
         <h:outputText value="#{msg.student_scholarship}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('scholarship', 'studentView')}"/>  
         <h:outputText id="scholarship#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('scholarship', 'studentView')}" value="#{studentAction.student.scholarship}"></h:outputText>  
+        <h:outputText value="#{msg.student_rollNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rollNumber', 'studentView')}"/>  
+        <h:outputText id="rollNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rollNumber', 'studentView')}" value="#{studentAction.student.rollNumber}"></h:outputText>  
         <h:outputText value="#{msg.student_discontinueDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueDate', 'studentView')}"/>  
         <h:outputText direction="auto" id="discontinueDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueDate', 'studentView')}" value="#{studentAction.student.discontinueDate}"></h:outputText>  
-        <h:outputText value="#{msg.student_rollNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rollNumber', 'studentView')}"/>  
-        <h:outputText id="rollNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rollNumber', 'studentView')}" value="#{studentAction.student.rollNumber}"></h:outputText> 
+        <h:outputText value="#{msg.student_discontinueReason}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueReason', 'studentView')}"/>  
+        <h:outputText value="#{studentAction.student.discontinueReason}"/> 
       </h:panelGrid>  
       <rich:dataTable id="studentVitalInfos" var="_studentVitalInfo" rendered="#{not empty studentAction.listStudentVitalInfos and skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfos', 'studentView') }" value="#{studentAction.listStudentVitalInfos}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">

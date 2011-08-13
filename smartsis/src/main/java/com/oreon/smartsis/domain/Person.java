@@ -51,12 +51,16 @@ import com.oreon.smartsis.ProjectUtils;
 public class Person extends BusinessEntity {
 	private static final long serialVersionUID = -2034804195L;
 
+	@NotNull
+	@Length(min = 1, max = 250)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String firstName
 
 	;
 
+	@NotNull
+	@Length(min = 1, max = 250)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String lastName

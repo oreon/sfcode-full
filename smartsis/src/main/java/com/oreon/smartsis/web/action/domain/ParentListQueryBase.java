@@ -68,8 +68,17 @@ public abstract class ParentListQueryBase extends BaseQuery<Parent, Long> {
 
 			"parent.user.enabled = #{parentList.parent.user.enabled}",
 
+			"parent.parentGroup.id = #{parentList.parent.parentGroup.id}",
+
 			"parent.dateCreated <= #{parentList.dateCreatedRange.end}",
 			"parent.dateCreated >= #{parentList.dateCreatedRange.begin}",};
+
+	public List<Parent> getParentsByParentGroup(
+			com.oreon.smartsis.domain.ParentGroup parentGroup) {
+		//setMaxResults(10000);
+		parent.setParentGroup(parentGroup);
+		return getResultList();
+	}
 
 	@Observer("archivedParent")
 	public void onArchive() {
@@ -86,6 +95,10 @@ public abstract class ParentListQueryBase extends BaseQuery<Parent, Long> {
 				+ (e.getUser() != null ? e.getUser().getDisplayName().replace(
 						",", "") : "") + "\",");
 
+		builder.append("\""
+				+ (e.getParentGroup() != null ? e.getParentGroup()
+						.getDisplayName().replace(",", "") : "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -96,6 +109,8 @@ public abstract class ParentListQueryBase extends BaseQuery<Parent, Long> {
 	public void createCSvTitles(StringBuilder builder) {
 
 		builder.append("User" + ",");
+
+		builder.append("ParentGroup" + ",");
 
 		builder.append("\r\n");
 	}

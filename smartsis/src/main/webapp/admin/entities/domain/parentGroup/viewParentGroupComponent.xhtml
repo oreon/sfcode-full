@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{parentGroupAction.load(parentGroupId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{parentGroupAction.parentGroup.id}"/> 
+      </h:panelGrid>  
+      <rich:dataTable id="parents" var="_parent" rendered="#{not empty parentGroupAction.listParents and skipPermissionCheck == 'true' || s:hasPermission('parents', 'parentGroupView') }" value="#{parentGroupAction.listParents}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'parentView')}"/>
+          </f:facet>  
+          <h:outputText id="contactDetails_primaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'parentView')}" value="#{_parent.contactDetails.primaryPhone}"></h:outputText> 
+        </h:column>  
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('secondaryPhone', 'parentView')}"/>
+          </f:facet>  
+          <h:outputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('secondaryPhone', 'parentView')}" value="#{_parent.contactDetails.secondaryPhone}"></h:outputText> 
+        </h:column>  
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentView')}"/>
+          </f:facet>  
+          <h:outputText id="contactDetails_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentView')}" value="#{_parent.contactDetails.email}"></h:outputText> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.user_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'parentView')}"/>
+          </f:facet>  
+          <h:outputText id="user_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'parentView')}" value="#{_parent.user.userName}"></h:outputText> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.user_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentView')}"/>
+          </f:facet>  
+          <h:outputText id="user_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentView')}" value="#{_parent.user.email}"></h:outputText> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'parentView')}"/>
+          </f:facet>  
+          <h:outputText id="user_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'parentView')}" value="#{_parent.user.enabled}"></h:outputText> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'parentView')}"/>
+          </f:facet>  
+          <h:outputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'parentView')}" value="#{_parent.firstName}"></h:outputText> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'parentView')}"/>
+          </f:facet>  
+          <h:outputText id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'parentView')}" value="#{_parent.lastName}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -17,6 +17,16 @@
         <br/>  
         <h:inputText id="gradeCapacity" value="#{settingsAction.settings.gradeCapacity}"/>  
         <rich:message styleClass="error errors" for="gradeCapacity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeCapacity', 'settingsEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.settings_defaultGender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultGender', 'settingsEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="defaultGender" value="#{settingsAction.settings.defaultGender}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="F" itemLabel="F"/>  
+          <f:selectItem itemValue="M" itemLabel="M"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="defaultGender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultGender', 'settingsEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

@@ -18,6 +18,11 @@
         <h:outputText id="user_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'parentView')}" value="#{parentAction.parent.user.email}"></h:outputText>  
         <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'parentView')}"/>  
         <h:outputText id="user_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'parentView')}" value="#{parentAction.parent.user.enabled}"></h:outputText>  
+        <h:outputText value="#{msg.parent_parentGroup}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parentGroup', 'parentView')}"/>  
+        <s:link value="#{parentAction.parent.parentGroup.displayName}" view="/admin/entities/domain/parentGroup/viewParentGroup.xhtml" propagation="none"> 
+          <f:param name="parentGroupId" value="#{parentAction.parent.parentGroup.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
         <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'parentView')}"/>  
         <h:outputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'parentView')}" value="#{parentAction.parent.firstName}"></h:outputText>  
         <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'parentView')}"/>  

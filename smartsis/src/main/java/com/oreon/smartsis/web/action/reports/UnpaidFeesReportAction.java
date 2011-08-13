@@ -21,7 +21,7 @@ import com.oreon.smartsis.ProjectUtils;
 @Name("unpaidFeesReportAction")
 public class UnpaidFeesReportAction extends BaseReportAction {
 
-	Integer year;
+	Integer year = ProjectUtils.getCurrentYear();
 
 	com.oreon.smartsis.domain.FeeMonth month;
 

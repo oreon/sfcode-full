@@ -41,6 +41,16 @@
           </f:facet>  
           <h:outputText value="#{_settings.gradeCapacity}" escape="false"/> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('defaultGender', 'settingsView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{settingsList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.settings_defaultGender}"/>  
+              <ui:param name="propertyPath" value="settings.defaultGender"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_settings.defaultGender}" escape="false"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'settingsView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

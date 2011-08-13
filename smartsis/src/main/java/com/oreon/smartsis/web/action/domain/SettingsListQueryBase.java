@@ -65,6 +65,8 @@ public abstract class SettingsListQueryBase extends BaseQuery<Settings, Long> {
 			"settings.gradeCapacity >= #{settingsList.gradeCapacityRange.begin}",
 			"settings.gradeCapacity <= #{settingsList.gradeCapacityRange.end}",
 
+			"settings.defaultGender = #{settingsList.settings.defaultGender}",
+
 			"settings.dateCreated <= #{settingsList.dateCreatedRange.end}",
 			"settings.dateCreated >= #{settingsList.dateCreatedRange.begin}",};
 
@@ -87,6 +89,10 @@ public abstract class SettingsListQueryBase extends BaseQuery<Settings, Long> {
 				+ (e.getGradeCapacity() != null ? e.getGradeCapacity() : "")
 				+ "\",");
 
+		builder.append("\""
+				+ (e.getDefaultGender() != null ? e.getDefaultGender() : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -99,6 +105,8 @@ public abstract class SettingsListQueryBase extends BaseQuery<Settings, Long> {
 		builder.append("Name" + ",");
 
 		builder.append("GradeCapacity" + ",");
+
+		builder.append("DefaultGender" + ",");
 
 		builder.append("\r\n");
 	}

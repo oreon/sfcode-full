@@ -2,6 +2,9 @@ package org.witchcraft.seam.action;
 
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
@@ -11,14 +14,10 @@ import javax.faces.render.ResponseStateManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.cglib.transform.impl.AddStaticInitTransformer;
-
 import org.apache.commons.lang.StringUtils;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.queryParser.MultiFieldQueryParser;
-import org.apache.lucene.queryParser.ParseException;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
@@ -26,7 +25,6 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.search.jpa.FullTextEntityManager;
-import org.hibernate.search.jpa.FullTextQuery;
 import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.Destroy;
@@ -308,7 +306,6 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 			return "error";
 		}
 		return "save";
-
 	}
 
 	public String save() {
@@ -569,7 +566,15 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	private void setQueryParams(Query query, Object... params) {
 		int counter = 1;
 		for (Object param : params) {
-			query.setParameter(counter++, param);
+			if( param instanceof Date){
+				Date d = (java.util.Date) param;
+			
+				Calendar c= new GregorianCalendar(1900 + d.getYear(), d.getMonth(), d.getDate() );
+				Date newDate = c.getTime();
+				System.out.println("compare DATE " + newDate );
+				query.setParameter(counter++, newDate);
+			}else
+				query.setParameter(counter++, param);
 		}
 	}
 
