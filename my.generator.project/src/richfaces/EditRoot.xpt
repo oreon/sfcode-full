@@ -397,12 +397,13 @@
 
 «DEFINE genFilePropertyEntry FOR uml::Property-»
 	«IF isCurrentEditMode() » 
-     <h:panelGroup> 
+     <h:panelGroup  rendered="#{«genEditPermission()»}"> 
           <h:outputText value="Current File:" /> <s:link value="#{«getActionForFileMode()»«class.asVar()-».«name».name}" id="«name»_file" 
           	action="#{«getActionForFileMode()»downloadFile(null)}" propagation="none"> 
               <f:param name="currentEntityId" value="#{«getActionForFileMode()»instance.id}" /> 
             </s:link> 
         <rich:fileUpload fileUploadListener="#{«getActionForFileMode()»«name»UploadListener}"  immediateUpload="true" ajaxSingle="true" 
+         
         	autoclear="false"  listHeight="50">
         	<s:conversationPropagation type="join" />
         	 <a:support event="onuploadcomplete" reRender="«name»_file" />
