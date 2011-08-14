@@ -10,14 +10,13 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.bpm.Actor;
-import org.jboss.seam.core.Conversation;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
 import org.jboss.seam.security.permission.RuleBasedPermissionResolver;
 import org.witchcraft.base.entity.UserUtilAction;
-import org.witchcraft.users.Role;
-import org.witchcraft.users.User;
+import org.witchcraft.users.AppRole;
+import org.witchcraft.users.AppUser;
 
 @Name("authenticator")
 public class Authenticator {
@@ -40,16 +39,16 @@ public class Authenticator {
 
 		try {
 
-			User user = (User) entityManager
+			AppUser user = (AppUser) entityManager
 					.createQuery(
-					"from User where username = :username and password = :password")
+					"from AppUser where username = :username and password = :password")
 					.setParameter("username", credentials.getUsername())
 					.setParameter("password", credentials.getPassword())
 					.getSingleResult();
 
-			if (user.getRoles() != null) {
-				Set<Role> roles = user.getRoles();
-				for (Role role : roles) {
+			if (user.getAppRoles() != null) {
+				Set<AppRole> roles = user.getAppRoles();
+				for (AppRole role : roles) {
 					identity.addRole(role.getName());
 				}
 			}else{
@@ -81,12 +80,12 @@ public class Authenticator {
 
 	}
 	
-	private void updateActor(User user) {
+	private void updateActor(AppUser user) {
 		if(actor == null)
 			return;
 		actor.setId(user.getUserName());
-		Set<Role> roles = user.getRoles();
-		for (Role role : roles) {
+		Set<AppRole> roles = user.getAppRoles();
+		for (AppRole role : roles) {
 			actor.getGroupActorIds().add( role.getName() );
 		}
 	}
