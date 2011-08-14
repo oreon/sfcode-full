@@ -8,7 +8,7 @@ import javax.persistence.PreUpdate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.Component;
-import org.witchcraft.users.User;
+import org.witchcraft.users.AppUser;
 
 public class EntityListener {
 	
@@ -26,7 +26,7 @@ public class EntityListener {
 		try {
 
 			UserUtilAction userUtilAction = (UserUtilAction)Component.getInstance("userUtilAction");
-			User currentUser = userUtilAction.getCurrentUser();
+			AppUser currentUser = userUtilAction.getCurrentUser();
 
 			if (currentUser != null) {
 				if (modelBase.getCreatedByUser() == null) {
