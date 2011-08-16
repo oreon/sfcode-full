@@ -15,6 +15,10 @@ import com.oreon.smartsis.exam.QuestionInstance;
 @Name("electronicExamInstanceAction")
 public class ElectronicExamInstanceAction extends
 		ElectronicExamInstanceActionBase implements java.io.Serializable {
+	
+	String ss = 
+		"SELECT q.text,  COUNT(*) FROM questionInstance qi, question q  RIGHT JOIN qi.question_id ON q.id " +
+		" WHERE qi.selectedChoice = q.correctChoice GROUP BY q.id" ;
 
 	@Override
 	public void prePopulateListQuestionInstances() {
@@ -23,6 +27,8 @@ public class ElectronicExamInstanceAction extends
 
 		ElectronicExam exam = getEntityManager().find(ElectronicExam.class, 1L);
 		ElectronicExamEvent event = getEntityManager().find(ElectronicExamEvent.class, 1L);
+		if(event == null)
+			return;
 		event.setElectronicExam(exam);
 
 		getInstance().setElectronicExamEvent(event);
@@ -44,6 +50,10 @@ public class ElectronicExamInstanceAction extends
 	public Integer calculateScore() {
 		return calculateScore(getInstance());
 	}
+	
+	public Integer getCalculatedScore(){
+		return calculateScore(getInstance());
+	}
 
 	public Integer calculateScore(ElectronicExamInstance electronicExamInstance) {
 		Set<QuestionInstance> quesitons = electronicExamInstance
@@ -53,9 +63,7 @@ public class ElectronicExamInstanceAction extends
 		for (QuestionInstance questionInstance : listQuestionInstances) {
 
 			if (questionInstance.getSelectedChoice() != null) {
-				if (questionInstance.getQuestion().getListChoices().indexOf(
-						questionInstance.getSelectedChoice()) == questionInstance
-						.getQuestion().getCorrectChoice().ordinal())
+				if (questionInstance.getQuestion().getCorrectChoice() == questionInstance.getSelectedChoice() )
 					score++;
 			}
 		}

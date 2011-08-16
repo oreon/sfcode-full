@@ -495,7 +495,7 @@
     <param name="lastName" value="#{employeeList.employee.lastName}" validateModel="false"/>  
     <param name="contactDetails_primaryPhone" value="#{employeeList.employee.contactDetails.primaryPhone}" validateModel="false"/>  
     <param name="contactDetails_secondaryPhone" value="#{employeeList.employee.contactDetails.secondaryPhone}" validateModel="false"/>  
-    <param name="contactDetails_email" value="#{employeeList.employee.contactDetails.email}" validateModel="false"/>  
+    <param name="contactDetails_city" value="#{employeeList.employee.contactDetails.city}" validateModel="false"/>  
     <param name="department" value="#{employeeList.employee.department.id}" validateModel="false"/>  
     <param name="employeeNumber" value="#{employeeList.employee.employeeNumber}" validateModel="false"/>  
     <param name="employeeType" value="#{employeeList.employee.employeeType}" validateModel="false"/>  
@@ -588,7 +588,7 @@
     <param name="lastName" value="#{studentList.student.lastName}" validateModel="false"/>  
     <param name="contactDetails_primaryPhone" value="#{studentList.student.contactDetails.primaryPhone}" validateModel="false"/>  
     <param name="contactDetails_secondaryPhone" value="#{studentList.student.contactDetails.secondaryPhone}" validateModel="false"/>  
-    <param name="contactDetails_email" value="#{studentList.student.contactDetails.email}" validateModel="false"/>  
+    <param name="contactDetails_city" value="#{studentList.student.contactDetails.city}" validateModel="false"/>  
     <param name="gender" value="#{studentList.student.gender}" validateModel="false"/>  
     <param name="dateOfBirth" value="#{studentList.student.dateOfBirth}" validateModel="false"/>  
     <param name="grade" value="#{studentList.student.grade.id}" validateModel="false"/>  
@@ -642,7 +642,7 @@
     <param name="lastName" value="#{parentList.parent.lastName}" validateModel="false"/>  
     <param name="contactDetails_primaryPhone" value="#{parentList.parent.contactDetails.primaryPhone}" validateModel="false"/>  
     <param name="contactDetails_secondaryPhone" value="#{parentList.parent.contactDetails.secondaryPhone}" validateModel="false"/>  
-    <param name="contactDetails_email" value="#{parentList.parent.contactDetails.email}" validateModel="false"/>  
+    <param name="contactDetails_city" value="#{parentList.parent.contactDetails.city}" validateModel="false"/>  
     <param name="user_userName" value="#{parentList.parent.user.userName}" validateModel="false"/>  
     <param name="user_email" value="#{parentList.parent.user.email}" validateModel="false"/>  
     <param name="user_enabled" value="#{parentList.parent.user.enabled}" validateModel="false"/>  
@@ -1306,8 +1306,7 @@
     </navigation>  
     <param name="questionInstanceId" value="#{questionInstanceAction.questionInstanceId}"/>  
     <param name="electronicExamInstanceId" value="#{questionInstanceAction.electronicExamInstanceId}"/>  
-    <param name="questionId" value="#{questionInstanceAction.questionId}"/>  
-    <param name="selectedChoiceId" value="#{questionInstanceAction.selectedChoiceId}"/> 
+    <param name="questionId" value="#{questionInstanceAction.questionId}"/> 
   </page>  
   <page view-id="/admin/entities/exam/questionInstance/viewQuestionInstance.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View QuestionInstance: #{questionInstance.displayName}</description> -->  
@@ -1337,7 +1336,7 @@
     <param name="id" value="#{questionInstanceList.questionInstance.id}"/>  
     <param name="electronicExamInstance" value="#{questionInstanceList.questionInstance.electronicExamInstance.id}" validateModel="false"/>  
     <param name="question" value="#{questionInstanceList.questionInstance.question.id}" validateModel="false"/>  
-    <param name="selectedChoice" value="#{questionInstanceList.questionInstance.selectedChoice.id}" validateModel="false"/> 
+    <param name="selectedChoice" value="#{questionInstanceList.questionInstance.selectedChoice}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/exam/electronicExamEvent/editElectronicExamEvent.xhtml"> 
     <!-- <description>Edit ElectronicExamEvent: #{electronicExamEvent.displayName}</description> -->  
@@ -1424,7 +1423,6 @@
     <param name="from"/>  
     <param name="id" value="#{attendanceList.attendance.id}"/>  
     <param name="student" value="#{attendanceList.attendance.student.id}" validateModel="false"/>  
-    <param name="date" value="#{attendanceList.attendance.date}" validateModel="false"/>  
     <param name="gradeSubject" value="#{attendanceList.attendance.gradeSubject.id}" validateModel="false"/>  
     <param name="absenceCode" value="#{attendanceList.attendance.absenceCode}" validateModel="false"/>  
     <param name="gradeAttendance" value="#{attendanceList.attendance.gradeAttendance.id}" validateModel="false"/> 

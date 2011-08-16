@@ -4,59 +4,62 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{electronicExamInstanceAction.load(electronicExamInstanceId )  }"> 
-        <h:outputText value="#{msg.electronicExamInstance_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'electronicExamInstanceEdit')}"/>  
-        <h:selectOneMenu id="student" label="#{msg.electronicExamInstance_student}" value="#{electronicExamInstanceAction.electronicExamInstance.student}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'electronicExamInstanceEdit')}"> 
+        <h:outputText value="#{msg.electronicExamInstance_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'studentEdit')}"/>  
+        <h:selectOneMenu id="student" label="#{msg.electronicExamInstance_student}" value="#{electronicExamInstanceAction.electronicExamInstance.student}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'studentEdit')}"> 
           <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onblur "/>  
+          <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'electronicExamInstanceEdit')}"/>  
-        <h:outputText value="#{msg.electronicExamInstance_electronicExamEvent} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamEvent', 'electronicExamInstanceEdit')}"/>  
-        <h:selectOneMenu id="electronicExamEvent" label="#{msg.electronicExamInstance_electronicExamEvent}" value="#{electronicExamInstanceAction.electronicExamInstance.electronicExamEvent}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamEvent', 'electronicExamInstanceEdit')}"> 
+        <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'studentEdit')}"/>  
+        <h:outputText value="#{msg.electronicExamInstance_electronicExamEvent} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'electronicExamEventEdit')}"/>  
+        <h:selectOneMenu id="electronicExamEvent" label="#{msg.electronicExamInstance_electronicExamEvent}" value="#{electronicExamInstanceAction.electronicExamInstance.electronicExamEvent}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'electronicExamEventEdit')}"> 
           <s:selectItems value="#{electronicExamEventList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onblur "/>  
+          <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="electronicExamEvent" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamEvent', 'electronicExamInstanceEdit')}"/>  
-        <h:outputText value="#{msg.electronicExamInstance_score}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('score', 'electronicExamInstanceEdit')}"/>  
-        <h:inputText id="score#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('score', 'electronicExamInstanceEdit')}" label="#{msg.electronicExamInstance_score}" required="false" value="#{electronicExamInstanceAction.electronicExamInstance.score}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <rich:message styleClass="error errors" for="electronicExamEvent" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'electronicExamEventEdit')}"/>  
+        <h:outputText value="#{msg.electronicExamInstance_score}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'scoreEdit')}"/>  
+        <h:inputText id="score#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'scoreEdit')}" label="#{msg.electronicExamInstance_score}" required="false" disabled="false" value="#{electronicExamInstanceAction.electronicExamInstance.score}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="score" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('score', 'electronicExamInstanceEdit')}"/>  
-        <h:outputText value="#{msg.electronicExamInstance_timeTaken}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('timeTaken', 'electronicExamInstanceEdit')}"/>  
-        <h:inputText id="timeTaken#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('timeTaken', 'electronicExamInstanceEdit')}" label="#{msg.electronicExamInstance_timeTaken}" required="false" value="#{electronicExamInstanceAction.electronicExamInstance.timeTaken}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <rich:message styleClass="error errors" for="score" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'scoreEdit')}"/>  
+        <h:outputText value="#{msg.electronicExamInstance_timeTaken}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'timeTakenEdit')}"/>  
+        <h:inputText id="timeTaken#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'timeTakenEdit')}" label="#{msg.electronicExamInstance_timeTaken}" required="false" disabled="false" value="#{electronicExamInstanceAction.electronicExamInstance.timeTaken}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="timeTaken" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('timeTaken', 'electronicExamInstanceEdit')}"/> 
+        <rich:message styleClass="error errors" for="timeTaken" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'timeTakenEdit')}"/> 
       </h:panelGrid>  
-      <a:commandButton value="New QuestionInstance" action="#{electronicExamInstanceAction.addQuestionInstances}" reRender="questionInstances" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstances', 'electronicExamInstanceEdit')}"> 
+      <a:commandButton value="New QuestionInstance" action="#{electronicExamInstanceAction.addQuestionInstances}" reRender="questionInstances" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'questionInstancesEdit')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="questionInstances" var="_questionInstance" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstances', 'electronicExamInstanceEdit')}" value="#{electronicExamInstanceAction.listQuestionInstances}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="questionInstances" var="_questionInstance" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'questionInstancesEdit')}" value="#{electronicExamInstanceAction.listQuestionInstances}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.questionInstance_question} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'questionInstanceEdit')}"/>
+            <h:outputText value="#{msg.questionInstance_question} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstance', 'questionEdit')}"/>
           </f:facet>  
-          <h:selectOneMenu id="question" label="#{msg.questionInstance_question}" value="#{_questionInstance.question}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'questionInstanceEdit')}"> 
+          <h:selectOneMenu id="question" label="#{msg.questionInstance_question}" value="#{_questionInstance.question}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstance', 'questionEdit')}"> 
             <s:selectItems value="#{questionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <rich:ajaxValidator event="onblur "/>  
+            <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu>  
-          <rich:message styleClass="error errors" for="question" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'questionInstanceEdit')}"/> 
+          <rich:message styleClass="error errors" for="question" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstance', 'questionEdit')}"/> 
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.questionInstance_selectedChoice} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('selectedChoice', 'questionInstanceEdit')}"/>
+            <h:outputText value="#{msg.questionInstance_selectedChoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstance', 'selectedChoiceEdit')}"/>
           </f:facet>  
-          <h:selectOneMenu id="selectedChoice" label="#{msg.questionInstance_selectedChoice}" value="#{_questionInstance.selectedChoice}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('selectedChoice', 'questionInstanceEdit')}"> 
-            <s:selectItems value="#{choiceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <rich:ajaxValidator event="onblur "/>  
-            <s:convertEntity/> 
+          <h:selectOneMenu id="selectedChoice" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstance', 'selectedChoiceEdit')}" value="#{_questionInstance.selectedChoice}" required="false" label="#{msg.questionInstance_selectedChoice}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="A" itemLabel="#{msg.A}"/>  
+            <f:selectItem itemValue="B" itemLabel="#{msg.B}"/>  
+            <f:selectItem itemValue="C" itemLabel="#{msg.C}"/>  
+            <f:selectItem itemValue="D" itemLabel="#{msg.D}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
           </h:selectOneMenu>  
-          <rich:message styleClass="error errors" for="selectedChoice" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('selectedChoice', 'questionInstanceEdit')}"/> 
+          <rich:message styleClass="error errors" for="selectedChoice" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstance', 'selectedChoiceEdit')}"/> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New QuestionInstance" action="#{electronicExamInstanceAction.addQuestionInstances}" reRender="questionInstances" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstances', 'questionInstanceEdit')}"> 
+          <a:commandButton value="New QuestionInstance" action="#{electronicExamInstanceAction.addQuestionInstances}" reRender="questionInstances" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstance', 'questionInstancesEdit')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

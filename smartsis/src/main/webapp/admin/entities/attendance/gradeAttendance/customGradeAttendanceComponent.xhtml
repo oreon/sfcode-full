@@ -7,19 +7,19 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.gradeAttendance_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'gradeAttendanceEdit')}"/>  
+        <h:outputText value="#{msg.gradeAttendance_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'dateEdit')}"/>  
         <br/>  
         <rich:calendar id="date" value="#{gradeAttendanceAction.gradeAttendance.date}"/>  
-        <rich:message styleClass="error errors" for="date" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'gradeAttendanceEdit')}"/> 
+        <rich:message styleClass="error errors" for="date" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'dateEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.gradeAttendance_grade} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'gradeAttendanceEdit')}"/>  
+        <h:outputText value="#{msg.gradeAttendance_grade} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'gradeEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="grade" value="#{gradeAttendanceAction.gradeAttendance.grade}"> 
           <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="grade" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'gradeAttendanceEdit')}"/> 
+        <rich:message styleClass="error errors" for="grade" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'gradeEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

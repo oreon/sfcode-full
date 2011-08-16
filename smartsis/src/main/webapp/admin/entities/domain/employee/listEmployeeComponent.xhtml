@@ -61,15 +61,15 @@
           </f:facet>  
           <h:outputText value="#{_employee.contactDetails.secondaryPhone}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('email', 'employeeView'  )}"> 
+        <h:column rendered="#{s:hasPermission('city', 'employeeView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{employeeList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.contactDetails_email}"/>  
-              <ui:param name="propertyPath" value="employee.contactDetails.email"/> 
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_city}"/>  
+              <ui:param name="propertyPath" value="employee.contactDetails.city"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_employee.contactDetails.email}" escape="false"/> 
+          <h:outputText value="#{_employee.contactDetails.city}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('department', 'employeeView'  )}"> 
           <f:facet name="header"> 
@@ -79,7 +79,7 @@
               <ui:param name="propertyPath" value="employee.department"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_employee.department.displayName}" action="viewDepartment" propagation="none"> 
+          <s:link value="#{_employee.department.displayName}" view="/admin/entities/domain/department/viewDepartment.xhtml" propagation="none"> 
             <f:param name="departmentId" value="#{_employee.department.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -112,7 +112,7 @@
               <ui:param name="propertyPath" value="employee.manager"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_employee.manager.displayName}" action="viewEmployee" propagation="none"> 
+          <s:link value="#{_employee.manager.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
             <f:param name="managerId" value="#{_employee.manager.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 

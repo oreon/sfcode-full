@@ -55,10 +55,7 @@ import com.oreon.smartsis.ProjectUtils;
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
-public class MonthlyFee extends BusinessEntity
-		implements
-			java.io.Serializable,
-			com.sun.xml.internal.bind.CycleRecoverable {
+public class MonthlyFee extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -2070081888L;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)

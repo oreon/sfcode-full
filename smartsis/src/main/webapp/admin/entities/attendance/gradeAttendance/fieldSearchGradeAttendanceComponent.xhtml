@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.gradeAttendance_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'gradeAttendanceEdit')}"/>  
+      <h:outputText value="#{msg.gradeAttendance_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'dateEdit')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -15,7 +15,7 @@
       <rich:calendar value="#{gradeAttendanceList.dateRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.gradeAttendance_grade} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'gradeAttendanceEdit')}"/>  
+      <h:outputText value="#{msg.gradeAttendance_grade} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'gradeEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="grade" value="#{ gradeAttendanceList.gradeAttendance.grade}"> 
         <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  

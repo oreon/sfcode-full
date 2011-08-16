@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.hostel_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'hostelEdit')}"/>  
+      <h:outputText value="#{msg.hostel_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('hostel', 'nameEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{hostelList.hostel.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.hostel_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gender', 'hostelEdit')}"/>  
+      <h:outputText value="#{msg.hostel_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('hostel', 'genderEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="gender" value="#{hostelList.hostel.gender}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  

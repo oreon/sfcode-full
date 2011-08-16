@@ -6,25 +6,25 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{examInstanceAction.load(examInstanceId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{examInstanceAction.examInstance.id}"/>  
-        <h:outputText value="#{msg.examInstance_exam}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'examInstanceView')}"/>  
+        <h:outputText value="#{msg.examInstance_exam}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'examView')}"/>  
         <s:link value="#{examInstanceAction.examInstance.exam.displayName}" view="/admin/entities/domain/exam/viewExam.xhtml" propagation="none"> 
           <f:param name="examId" value="#{examInstanceAction.examInstance.exam.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.examInstance_gradeSubject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'examInstanceView')}"/>  
+        <h:outputText value="#{msg.examInstance_gradeSubject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'gradeSubjectView')}"/>  
         <s:link value="#{examInstanceAction.examInstance.gradeSubject.displayName}" view="/admin/entities/domain/gradeSubject/viewGradeSubject.xhtml" propagation="none"> 
           <f:param name="gradeSubjectId" value="#{examInstanceAction.examInstance.gradeSubject.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.examInstance_dateHeld}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateHeld', 'examInstanceView')}"/>  
-        <h:outputText direction="auto" id="dateHeld#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateHeld', 'examInstanceView')}" value="#{examInstanceAction.examInstance.dateHeld}"></h:outputText>  
-        <h:outputText value="#{msg.examInstance_average}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('average', 'examInstanceView')}"/>  
-        <h:outputText id="average#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('average', 'examInstanceView')}" value="#{examInstanceAction.examInstance.average}"></h:outputText> 
+        <h:outputText value="#{msg.examInstance_dateHeld}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'dateHeldView')}"/>  
+        <h:outputText direction="auto" id="dateHeld#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'dateHeldView')}" value="#{examInstanceAction.examInstance.dateHeld}"></h:outputText>  
+        <h:outputText value="#{msg.examInstance_average}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'averageView')}"/>  
+        <h:outputText id="average#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'averageView')}" value="#{examInstanceAction.examInstance.average}"></h:outputText> 
       </h:panelGrid>  
-      <rich:dataTable id="examScores" var="_examScore" rendered="#{not empty examInstanceAction.listExamScores and skipPermissionCheck == 'true' || s:hasPermission('examScores', 'examInstanceView') }" value="#{examInstanceAction.listExamScores}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="examScores" var="_examScore" rendered="#{not empty examInstanceAction.listExamScores and skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'examScoresView') }" value="#{examInstanceAction.listExamScores}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.examScore_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'examScoreView')}"/>
+            <h:outputText value="#{msg.examScore_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'studentView')}"/>
           </f:facet>  
           <s:link value="#{_examScore.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml" propagation="none"> 
             <f:param name="studentId" value="#{_examScore.student.id}"/>  
@@ -33,33 +33,33 @@
         </h:column>  
         <h:column style="text-align:left">
           <f:facet name="header">
-            <h:outputText value="#{msg.examScore_examName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examName', 'examScoreView')}"/>
+            <h:outputText value="#{msg.examScore_examName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'examNameView')}"/>
           </f:facet>  
-          <h:outputText id="examName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examName', 'examScoreView')}" value="#{_examScore.examName}"></h:outputText> 
+          <h:outputText id="examName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'examNameView')}" value="#{_examScore.examName}"></h:outputText> 
         </h:column>  
         <h:column style="text-align:left">
           <f:facet name="header">
-            <h:outputText value="#{msg.examScore_subject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('subject', 'examScoreView')}"/>
+            <h:outputText value="#{msg.examScore_subject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'subjectView')}"/>
           </f:facet>  
-          <h:outputText id="subject#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('subject', 'examScoreView')}" value="#{_examScore.subject}"></h:outputText> 
+          <h:outputText id="subject#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'subjectView')}" value="#{_examScore.subject}"></h:outputText> 
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.examScore_marks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreView')}"/>
+            <h:outputText value="#{msg.examScore_marks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'marksView')}"/>
           </f:facet>  
-          <h:outputText id="marks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreView')}" value="#{_examScore.marks}"></h:outputText> 
+          <h:outputText id="marks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'marksView')}" value="#{_examScore.marks}"></h:outputText> 
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.examScore_percentage}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('percentage', 'examScoreView')}"/>
+            <h:outputText value="#{msg.examScore_percentage}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'percentageView')}"/>
           </f:facet>  
-          <h:outputText id="percentage#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('percentage', 'examScoreView')}" value="#{_examScore.percentage}"></h:outputText> 
+          <h:outputText id="percentage#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'percentageView')}" value="#{_examScore.percentage}"></h:outputText> 
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.examScore_rank}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rank', 'examScoreView')}"/>
+            <h:outputText value="#{msg.examScore_rank}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'rankView')}"/>
           </f:facet>  
-          <h:outputText id="rank#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rank', 'examScoreView')}" value="#{_examScore.rank}"></h:outputText> 
+          <h:outputText id="rank#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'rankView')}" value="#{_examScore.rank}"></h:outputText> 
         </h:column> 
       </rich:dataTable> 
     </s:validateAll> 

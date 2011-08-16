@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.disciplinaryAction_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'disciplinaryActionEdit')}"/>  
+      <h:outputText value="#{msg.disciplinaryAction_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'studentEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="student" value="#{ disciplinaryActionList.disciplinaryAction.student}"> 
         <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,17 +14,17 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.disciplinaryAction_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'disciplinaryActionEdit')}"/>  
+      <h:outputText value="#{msg.disciplinaryAction_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'titleEdit')}"/>  
       <br/>  
       <h:inputText id="title" value="#{disciplinaryActionList.disciplinaryAction.title}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.disciplinaryAction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'disciplinaryActionEdit')}"/>  
+      <h:outputText value="#{msg.disciplinaryAction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'descriptionEdit')}"/>  
       <br/>  
       <h:inputText id="description" value="#{disciplinaryActionList.disciplinaryAction.description}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.disciplinaryAction_employee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'disciplinaryActionEdit')}"/>  
+      <h:outputText value="#{msg.disciplinaryAction_employee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'employeeEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="employee" value="#{ disciplinaryActionList.disciplinaryAction.employee}"> 
         <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  

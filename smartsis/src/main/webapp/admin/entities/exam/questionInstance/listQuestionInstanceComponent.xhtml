@@ -29,7 +29,7 @@
               <ui:param name="propertyPath" value="questionInstance.electronicExamInstance"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_questionInstance.electronicExamInstance.displayName}" action="viewElectronicExamInstance" propagation="none"> 
+          <s:link value="#{_questionInstance.electronicExamInstance.displayName}" view="/admin/entities/exam/electronicExamInstance/viewElectronicExamInstance.xhtml" propagation="none"> 
             <f:param name="electronicExamInstanceId" value="#{_questionInstance.electronicExamInstance.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -42,7 +42,7 @@
               <ui:param name="propertyPath" value="questionInstance.question"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_questionInstance.question.displayName}" action="viewQuestion" propagation="none"> 
+          <s:link value="#{_questionInstance.question.displayName}" view="/admin/entities/exam/question/viewQuestion.xhtml" propagation="none"> 
             <f:param name="questionId" value="#{_questionInstance.question.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -55,10 +55,7 @@
               <ui:param name="propertyPath" value="questionInstance.selectedChoice"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_questionInstance.selectedChoice.displayName}" action="viewChoice" propagation="none"> 
-            <f:param name="selectedChoiceId" value="#{_questionInstance.selectedChoice.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link> 
+          <h:outputText value="#{_questionInstance.selectedChoice}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'questionInstanceView' )}"> 
           <f:facet name="header"> 

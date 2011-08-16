@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.exam_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'examEdit')}"/>  
+      <h:outputText value="#{msg.exam_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'nameEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{examList.exam.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.exam_grades}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grades', 'examEdit')}"/>  
+      <h:outputText value="#{msg.exam_grades}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'gradesEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="grades" value="#{ examList.gradesToSearch}"> 
         <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -20,7 +20,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.exam_maxMarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('maxMarks', 'examEdit')}"/>  
+      <h:outputText value="#{msg.exam_maxMarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'maxMarksEdit')}"/>  
       <br/>  
       <h:inputText id="maxMarks_begin" value="#{examList.maxMarksRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
@@ -30,7 +30,7 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.exam_passMarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('passMarks', 'examEdit')}"/>  
+      <h:outputText value="#{msg.exam_passMarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'passMarksEdit')}"/>  
       <br/>  
       <h:inputText id="passMarks_begin" value="#{examList.passMarksRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
@@ -40,7 +40,7 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.exam_ordinal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ordinal', 'examEdit')}"/>  
+      <h:outputText value="#{msg.exam_ordinal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'ordinalEdit')}"/>  
       <br/>  
       <h:inputText id="ordinal_begin" value="#{examList.ordinalRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
@@ -50,7 +50,7 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.exam_weight}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('weight', 'examEdit')}"/>  
+      <h:outputText value="#{msg.exam_weight}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'weightEdit')}"/>  
       <br/>  
       <h:inputText id="weight_begin" value="#{examList.weightRange.begin}"> 
         <f:converter converterId="javax.faces.Double"/> 

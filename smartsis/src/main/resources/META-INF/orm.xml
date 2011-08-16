@@ -127,7 +127,12 @@
   </entity>  
   <!--  GradeAttendance  JPA Configurations -->  
   <entity class="com.oreon.smartsis.attendance.GradeAttendance" name="GradeAttendance"> 
-    <table name="gradeattendance"></table> 
+    <table name="gradeattendance"> 
+      <unique-constraint> 
+        <column-name>grade_id</column-name>  
+        <column-name>date</column-name> 
+      </unique-constraint> 
+    </table> 
   </entity>  
   <!--  Room  JPA Configurations -->  
   <entity class="com.oreon.smartsis.hostel.Room" name="Room"> 

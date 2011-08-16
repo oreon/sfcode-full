@@ -6,25 +6,25 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{electronicExamInstanceAction.load(electronicExamInstanceId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{electronicExamInstanceAction.electronicExamInstance.id}"/>  
-        <h:outputText value="#{msg.electronicExamInstance_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'electronicExamInstanceView')}"/>  
+        <h:outputText value="#{msg.electronicExamInstance_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'studentView')}"/>  
         <s:link value="#{electronicExamInstanceAction.electronicExamInstance.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml" propagation="none"> 
           <f:param name="studentId" value="#{electronicExamInstanceAction.electronicExamInstance.student.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.electronicExamInstance_electronicExamEvent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamEvent', 'electronicExamInstanceView')}"/>  
+        <h:outputText value="#{msg.electronicExamInstance_electronicExamEvent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'electronicExamEventView')}"/>  
         <s:link value="#{electronicExamInstanceAction.electronicExamInstance.electronicExamEvent.displayName}" view="/admin/entities/exam/electronicExamEvent/viewElectronicExamEvent.xhtml" propagation="none"> 
           <f:param name="electronicExamEventId" value="#{electronicExamInstanceAction.electronicExamInstance.electronicExamEvent.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.electronicExamInstance_score}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('score', 'electronicExamInstanceView')}"/>  
-        <h:outputText id="score#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('score', 'electronicExamInstanceView')}" value="#{electronicExamInstanceAction.electronicExamInstance.score}"></h:outputText>  
-        <h:outputText value="#{msg.electronicExamInstance_timeTaken}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('timeTaken', 'electronicExamInstanceView')}"/>  
-        <h:outputText id="timeTaken#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('timeTaken', 'electronicExamInstanceView')}" value="#{electronicExamInstanceAction.electronicExamInstance.timeTaken}"></h:outputText> 
+        <h:outputText value="#{msg.electronicExamInstance_score}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'scoreView')}"/>  
+        <h:outputText id="score#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'scoreView')}" value="#{electronicExamInstanceAction.electronicExamInstance.score}"></h:outputText>  
+        <h:outputText value="#{msg.electronicExamInstance_timeTaken}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'timeTakenView')}"/>  
+        <h:outputText id="timeTaken#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'timeTakenView')}" value="#{electronicExamInstanceAction.electronicExamInstance.timeTaken}"></h:outputText> 
       </h:panelGrid>  
-      <rich:dataTable id="questionInstances" var="_questionInstance" rendered="#{not empty electronicExamInstanceAction.listQuestionInstances and skipPermissionCheck == 'true' || s:hasPermission('questionInstances', 'electronicExamInstanceView') }" value="#{electronicExamInstanceAction.listQuestionInstances}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="questionInstances" var="_questionInstance" rendered="#{not empty electronicExamInstanceAction.listQuestionInstances and skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'questionInstancesView') }" value="#{electronicExamInstanceAction.listQuestionInstances}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.questionInstance_question}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'questionInstanceView')}"/>
+            <h:outputText value="#{msg.questionInstance_question}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstance', 'questionView')}"/>
           </f:facet>  
           <s:link value="#{_questionInstance.question.displayName}" view="/admin/entities/exam/question/viewQuestion.xhtml" propagation="none"> 
             <f:param name="questionId" value="#{_questionInstance.question.id}"/>  
@@ -33,12 +33,9 @@
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.questionInstance_selectedChoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('selectedChoice', 'questionInstanceView')}"/>
+            <h:outputText value="#{msg.questionInstance_selectedChoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstance', 'selectedChoiceView')}"/>
           </f:facet>  
-          <s:link value="#{_questionInstance.selectedChoice.displayName}" view="/admin/entities/exam/choice/viewChoice.xhtml" propagation="none"> 
-            <f:param name="selectedChoiceId" value="#{_questionInstance.selectedChoice.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link> 
+          <h:outputText value="#{_questionInstance.selectedChoice}"/> 
         </h:column> 
       </rich:dataTable> 
     </s:validateAll> 

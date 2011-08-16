@@ -4,24 +4,24 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{settingsAction.load(settingsId )  }"> 
-        <h:outputText value="#{msg.settings_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'settingsEdit')}"/>  
-        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'settingsEdit')}" label="#{msg.settings_name}" required="true" value="#{settingsAction.settings.name}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <h:outputText value="#{msg.settings_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'nameEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'nameEdit')}" label="#{msg.settings_name}" required="true" disabled="false" value="#{settingsAction.settings.name}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'settingsEdit')}"/>  
-        <h:outputText value="#{msg.settings_gradeCapacity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeCapacity', 'settingsEdit')}"/>  
-        <h:inputText id="gradeCapacity#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeCapacity', 'settingsEdit')}" label="#{msg.settings_gradeCapacity}" required="false" value="#{settingsAction.settings.gradeCapacity}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'nameEdit')}"/>  
+        <h:outputText value="#{msg.settings_gradeCapacity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'gradeCapacityEdit')}"/>  
+        <h:inputText id="gradeCapacity#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'gradeCapacityEdit')}" label="#{msg.settings_gradeCapacity}" required="false" disabled="false" value="#{settingsAction.settings.gradeCapacity}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="gradeCapacity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeCapacity', 'settingsEdit')}"/>  
-        <h:outputText value="#{msg.settings_defaultGender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultGender', 'settingsEdit')}"/>  
-        <h:selectOneMenu id="defaultGender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultGender', 'settingsEdit')}" value="#{settingsAction.settings.defaultGender}" required="false" label="#{msg.settings_defaultGender}"> 
+        <rich:message styleClass="error errors" for="gradeCapacity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'gradeCapacityEdit')}"/>  
+        <h:outputText value="#{msg.settings_defaultGender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'defaultGenderEdit')}"/>  
+        <h:selectOneMenu id="defaultGender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'defaultGenderEdit')}" value="#{settingsAction.settings.defaultGender}" required="false" label="#{msg.settings_defaultGender}"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="F" itemLabel="#{msg.F}"/>  
           <f:selectItem itemValue="M" itemLabel="#{msg.M}"/>  
-          <rich:ajaxValidator event="onblur "/> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="defaultGender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultGender', 'settingsEdit')}"/> 
+        <rich:message styleClass="error errors" for="defaultGender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'defaultGenderEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

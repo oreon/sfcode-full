@@ -6,28 +6,28 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{electronicExamAction.load(electronicExamId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{electronicExamAction.electronicExam.id}"/>  
-        <h:outputText value="#{msg.electronicExam_gradeSubject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'electronicExamView')}"/>  
+        <h:outputText value="#{msg.electronicExam_gradeSubject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'gradeSubjectView')}"/>  
         <s:link value="#{electronicExamAction.electronicExam.gradeSubject.displayName}" view="/admin/entities/domain/gradeSubject/viewGradeSubject.xhtml" propagation="none"> 
           <f:param name="gradeSubjectId" value="#{electronicExamAction.electronicExam.gradeSubject.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.electronicExam_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'electronicExamView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'electronicExamView')}" value="#{electronicExamAction.electronicExam.name}"></h:outputText>  
-        <h:outputText value="#{msg.electronicExam_numberOfQuestions}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('numberOfQuestions', 'electronicExamView')}"/>  
-        <h:outputText id="numberOfQuestions#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('numberOfQuestions', 'electronicExamView')}" value="#{electronicExamAction.electronicExam.numberOfQuestions}"></h:outputText>  
-        <h:outputText value="#{msg.electronicExam_maxDuration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('maxDuration', 'electronicExamView')}"/>  
-        <h:outputText id="maxDuration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('maxDuration', 'electronicExamView')}" value="#{electronicExamAction.electronicExam.maxDuration}"></h:outputText> 
+        <h:outputText value="#{msg.electronicExam_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'nameView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'nameView')}" value="#{electronicExamAction.electronicExam.name}"></h:outputText>  
+        <h:outputText value="#{msg.electronicExam_numberOfQuestions}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'numberOfQuestionsView')}"/>  
+        <h:outputText id="numberOfQuestions#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'numberOfQuestionsView')}" value="#{electronicExamAction.electronicExam.numberOfQuestions}"></h:outputText>  
+        <h:outputText value="#{msg.electronicExam_maxDuration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'maxDurationView')}"/>  
+        <h:outputText id="maxDuration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'maxDurationView')}" value="#{electronicExamAction.electronicExam.maxDuration}"></h:outputText> 
       </h:panelGrid>  
-      <rich:dataTable id="questions" var="_question" rendered="#{not empty electronicExamAction.listQuestions and skipPermissionCheck == 'true' || s:hasPermission('questions', 'electronicExamView') }" value="#{electronicExamAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="questions" var="_question" rendered="#{not empty electronicExamAction.listQuestions and skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'questionsView') }" value="#{electronicExamAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'questionView')}"/>
+            <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'textView')}"/>
           </f:facet>  
-          <h:outputText escape="false" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'questionView')}" value="#{_question.text}"></h:outputText> 
+          <h:outputText escape="false" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'textView')}" value="#{_question.text}"></h:outputText> 
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.question_correctChoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('correctChoice', 'questionView')}"/>
+            <h:outputText value="#{msg.question_correctChoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'correctChoiceView')}"/>
           </f:facet>  
           <h:outputText value="#{_question.correctChoice}"/> 
         </h:column> 

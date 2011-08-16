@@ -56,9 +56,6 @@ public abstract class QuestionInstanceActionBase
 	@In(create = true, value = "questionAction")
 	com.oreon.smartsis.web.action.exam.QuestionAction questionAction;
 
-	@In(create = true, value = "choiceAction")
-	com.oreon.smartsis.web.action.exam.ChoiceAction selectedChoiceAction;
-
 	@DataModel
 	private List<QuestionInstance> questionInstanceRecordList;
 
@@ -110,20 +107,6 @@ public abstract class QuestionInstanceActionBase
 		return 0L;
 	}
 
-	public void setSelectedChoiceId(Long id) {
-
-		if (id != null && id > 0)
-			getInstance()
-					.setSelectedChoice(selectedChoiceAction.loadFromId(id));
-
-	}
-
-	public Long getSelectedChoiceId() {
-		if (getInstance().getSelectedChoice() != null)
-			return getInstance().getSelectedChoice().getId();
-		return 0L;
-	}
-
 	public Long getQuestionInstanceId() {
 		return (Long) getId();
 	}
@@ -168,12 +151,6 @@ public abstract class QuestionInstanceActionBase
 			getInstance().setQuestion(question);
 		}
 
-		com.oreon.smartsis.exam.Choice selectedChoice = selectedChoiceAction
-				.getDefinedInstance();
-		if (selectedChoice != null && isNew()) {
-			getInstance().setSelectedChoice(selectedChoice);
-		}
-
 	}
 
 	public boolean isWired() {
@@ -213,11 +190,6 @@ public abstract class QuestionInstanceActionBase
 					questionInstance.getQuestion().getId()));
 		}
 
-		if (questionInstance.getSelectedChoice() != null) {
-			criteria = criteria.add(Restrictions.eq("selectedChoice.id",
-					questionInstance.getSelectedChoice().getId()));
-		}
-
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -233,10 +205,6 @@ public abstract class QuestionInstanceActionBase
 
 		if (questionInstance.getQuestion() != null) {
 			questionAction.setInstance(getInstance().getQuestion());
-		}
-
-		if (questionInstance.getSelectedChoice() != null) {
-			selectedChoiceAction.setInstance(getInstance().getSelectedChoice());
 		}
 
 	}

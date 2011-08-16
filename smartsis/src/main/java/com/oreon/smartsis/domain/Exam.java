@@ -55,10 +55,7 @@ import com.oreon.smartsis.ProjectUtils;
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
-public class Exam extends BusinessEntity
-		implements
-			java.io.Serializable,
-			com.sun.xml.internal.bind.CycleRecoverable {
+public class Exam extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 172727827L;
 
 	@NotNull

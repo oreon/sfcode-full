@@ -6,27 +6,27 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{studentPaidFeeAction.load(studentPaidFeeId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{studentPaidFeeAction.studentPaidFee.id}"/>  
-        <h:outputText value="#{msg.studentPaidFee_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'studentPaidFeeView')}"/>  
+        <h:outputText value="#{msg.studentPaidFee_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'studentView')}"/>  
         <s:link value="#{studentPaidFeeAction.studentPaidFee.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml" propagation="none"> 
           <f:param name="studentId" value="#{studentPaidFeeAction.studentPaidFee.student.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.studentPaidFee_monthlyFee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('monthlyFee', 'studentPaidFeeView')}"/>  
+        <h:outputText value="#{msg.studentPaidFee_monthlyFee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'monthlyFeeView')}"/>  
         <s:link value="#{studentPaidFeeAction.studentPaidFee.monthlyFee.displayName}" view="/admin/entities/fees/monthlyFee/viewMonthlyFee.xhtml" propagation="none"> 
           <f:param name="monthlyFeeId" value="#{studentPaidFeeAction.studentPaidFee.monthlyFee.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.studentPaidFee_amountOwed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountOwed', 'studentPaidFeeView')}"/>  
-        <h:outputText id="amountOwed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountOwed', 'studentPaidFeeView')}" value="#{studentPaidFeeAction.studentPaidFee.amountOwed}"></h:outputText>  
-        <h:outputText value="#{msg.studentPaidFee_amountPaid}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountPaid', 'studentPaidFeeView')}"/>  
-        <h:outputText id="amountPaid#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amountPaid', 'studentPaidFeeView')}" value="#{studentPaidFeeAction.studentPaidFee.amountPaid}"></h:outputText>  
-        <h:outputText value="#{msg.studentPaidFee_dueAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dueAmount', 'studentPaidFeeView')}"/>  
-        <h:outputText id="dueAmount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dueAmount', 'studentPaidFeeView')}" value="#{studentPaidFeeAction.studentPaidFee.dueAmount}"></h:outputText>  
-        <h:outputText value="#{msg.studentPaidFee_dateOfPayment}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfPayment', 'studentPaidFeeView')}"/>  
-        <h:outputText direction="auto" id="dateOfPayment#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfPayment', 'studentPaidFeeView')}" value="#{studentPaidFeeAction.studentPaidFee.dateOfPayment}"></h:outputText>  
-        <h:outputText value="#{msg.studentPaidFee_year}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('year', 'studentPaidFeeView')}"/>  
-        <h:outputText id="year#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('year', 'studentPaidFeeView')}" value="#{studentPaidFeeAction.studentPaidFee.year}"></h:outputText>  
-        <h:outputText value="#{msg.studentPaidFee_month}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'studentPaidFeeView')}"/>  
+        <h:outputText value="#{msg.studentPaidFee_amountOwed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'amountOwedView')}"/>  
+        <h:outputText id="amountOwed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'amountOwedView')}" value="#{studentPaidFeeAction.studentPaidFee.amountOwed}"></h:outputText>  
+        <h:outputText value="#{msg.studentPaidFee_amountPaid}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'amountPaidView')}"/>  
+        <h:outputText id="amountPaid#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'amountPaidView')}" value="#{studentPaidFeeAction.studentPaidFee.amountPaid}"></h:outputText>  
+        <h:outputText value="#{msg.studentPaidFee_dueAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'dueAmountView')}"/>  
+        <h:outputText id="dueAmount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'dueAmountView')}" value="#{studentPaidFeeAction.studentPaidFee.dueAmount}"></h:outputText>  
+        <h:outputText value="#{msg.studentPaidFee_dateOfPayment}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'dateOfPaymentView')}"/>  
+        <h:outputText direction="auto" id="dateOfPayment#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'dateOfPaymentView')}" value="#{studentPaidFeeAction.studentPaidFee.dateOfPayment}"></h:outputText>  
+        <h:outputText value="#{msg.studentPaidFee_year}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'yearView')}"/>  
+        <h:outputText id="year#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'yearView')}" value="#{studentPaidFeeAction.studentPaidFee.year}"></h:outputText>  
+        <h:outputText value="#{msg.studentPaidFee_month}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'monthView')}"/>  
         <h:outputText value="#{studentPaidFeeAction.studentPaidFee.month}"/> 
       </h:panelGrid> 
     </s:validateAll> 

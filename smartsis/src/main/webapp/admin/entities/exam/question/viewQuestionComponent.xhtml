@@ -6,22 +6,22 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{questionAction.load(questionId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{questionAction.question.id}"/>  
-        <h:outputText value="#{msg.question_electronicExam}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'questionView')}"/>  
+        <h:outputText value="#{msg.question_electronicExam}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'electronicExamView')}"/>  
         <s:link value="#{questionAction.question.electronicExam.displayName}" view="/admin/entities/exam/electronicExam/viewElectronicExam.xhtml" propagation="none"> 
           <f:param name="electronicExamId" value="#{questionAction.question.electronicExam.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'questionView')}"/>  
-        <h:outputText escape="false" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'questionView')}" value="#{questionAction.question.text}"></h:outputText>  
-        <h:outputText value="#{msg.question_correctChoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('correctChoice', 'questionView')}"/>  
+        <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'textView')}"/>  
+        <h:outputText escape="false" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'textView')}" value="#{questionAction.question.text}"></h:outputText>  
+        <h:outputText value="#{msg.question_correctChoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'correctChoiceView')}"/>  
         <h:outputText value="#{questionAction.question.correctChoice}"/> 
       </h:panelGrid>  
-      <rich:dataTable id="choices" var="_choice" rendered="#{not empty questionAction.listChoices and skipPermissionCheck == 'true' || s:hasPermission('choices', 'questionView') }" value="#{questionAction.listChoices}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="choices" var="_choice" rendered="#{not empty questionAction.listChoices and skipPermissionCheck == 'true' || s:hasPermission('question', 'choicesView') }" value="#{questionAction.listChoices}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.choice_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'choiceView')}"/>
+            <h:outputText value="#{msg.choice_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'textView')}"/>
           </f:facet>  
-          <h:outputText escape="false" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'choiceView')}" value="#{_choice.text}"></h:outputText> 
+          <h:outputText escape="false" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'textView')}" value="#{_choice.text}"></h:outputText> 
         </h:column> 
       </rich:dataTable> 
     </s:validateAll> 

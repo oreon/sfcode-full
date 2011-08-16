@@ -18,11 +18,11 @@
 			<h:outputText value="UnpaidFeesReport" />
 		</f:facet>
 	
-		<h:panelGroup> <h:outputText value="#{msg.unpaidFeesReport_year}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('year', 'studentPaidFeeEdit')}"/> * </h:panelGroup>
+		<h:panelGroup> <h:outputText value="#{msg.unpaidFeesReport_year}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'yearEdit')}"/> * </h:panelGroup>
 <h:inputText  id="year"  label="#{msg.unpaidFeesReport_year}"  required="true"  value="#{unpaidFeesReportAction.year}" />
-		<rich:message styleClass="error errors" for="year" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('year', 'studentPaidFeeEdit')}"/>
+		<rich:message styleClass="error errors" for="year" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'yearEdit')}"/>
 	
-		<h:panelGroup> <h:outputText value="#{msg.unpaidFeesReport_month}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'studentPaidFeeEdit')}"/> * </h:panelGroup>
+		<h:panelGroup> <h:outputText value="#{msg.unpaidFeesReport_month}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'monthEdit')}"/> * </h:panelGroup>
 	<h:selectOneMenu id="month"  value="#{unpaidFeesReportAction.month}" 
 		required="false" 
 	  label="#{msg.unpaidFeesReport_month}">
@@ -40,9 +40,9 @@
 		<f:selectItem itemValue="NOV"  itemLabel="#{msg.NOV}" />
 		<f:selectItem itemValue="DEC"  itemLabel="#{msg.DEC}" />
 		
-		<rich:ajaxValidator event="onblur " />
+		<rich:ajaxValidator event="onsubmit" />
 	</h:selectOneMenu>
-		<rich:message styleClass="error errors" for="month" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('month', 'studentPaidFeeEdit')}"/>
+		<rich:message styleClass="error errors" for="month" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'monthEdit')}"/>
 	
 	</h:panelGrid>
 	</s:validateAll>

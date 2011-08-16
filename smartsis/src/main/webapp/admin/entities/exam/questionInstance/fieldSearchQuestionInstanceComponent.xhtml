@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.questionInstance_electronicExamInstance} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'questionInstanceEdit')}"/>  
+      <h:outputText value="#{msg.questionInstance_electronicExamInstance} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstance', 'electronicExamInstanceEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="electronicExamInstance" value="#{ questionInstanceList.questionInstance.electronicExamInstance}"> 
         <s:selectItems value="#{electronicExamInstanceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.questionInstance_question} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'questionInstanceEdit')}"/>  
+      <h:outputText value="#{msg.questionInstance_question} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstance', 'questionEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="question" value="#{ questionInstanceList.questionInstance.question}"> 
         <s:selectItems value="#{questionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -22,11 +22,15 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.questionInstance_selectedChoice} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('selectedChoice', 'questionInstanceEdit')}"/>  
+      <h:outputText value="#{msg.questionInstance_selectedChoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstance', 'selectedChoiceEdit')}"/>  
       <br/>  
-      <h:selectOneMenu id="selectedChoice" value="#{ questionInstanceList.questionInstance.selectedChoice}"> 
-        <s:selectItems value="#{choiceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/> 
+      <h:selectOneMenu id="selectedChoice" value="#{questionInstanceList.questionInstance.selectedChoice}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="A" itemLabel="A"/>  
+        <f:selectItem itemValue="B" itemLabel="B"/>  
+        <f:selectItem itemValue="C" itemLabel="C"/>  
+        <f:selectItem itemValue="D" itemLabel="D"/> 
       </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  

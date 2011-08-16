@@ -6,10 +6,10 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{feeItemAction.load(feeItemId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{feeItemAction.feeItem.id}"/>  
-        <h:outputText value="#{msg.feeItem_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'feeItemView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'feeItemView')}" value="#{feeItemAction.feeItem.name}"></h:outputText>  
-        <h:outputText value="#{msg.feeItem_defaultAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultAmount', 'feeItemView')}"/>  
-        <h:outputText id="defaultAmount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultAmount', 'feeItemView')}" value="#{feeItemAction.feeItem.defaultAmount}"></h:outputText> 
+        <h:outputText value="#{msg.feeItem_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'nameView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'nameView')}" value="#{feeItemAction.feeItem.name}"></h:outputText>  
+        <h:outputText value="#{msg.feeItem_defaultAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'defaultAmountView')}"/>  
+        <h:outputText id="defaultAmount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'defaultAmountView')}" value="#{feeItemAction.feeItem.defaultAmount}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

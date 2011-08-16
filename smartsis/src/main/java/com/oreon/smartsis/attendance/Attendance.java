@@ -55,22 +55,13 @@ import com.oreon.smartsis.ProjectUtils;
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
-public class Attendance extends BusinessEntity
-		implements
-			java.io.Serializable,
-			com.sun.xml.internal.bind.CycleRecoverable {
+public class Attendance extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1453129684L;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "student_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected com.oreon.smartsis.domain.Student student
-
-	;
-
-	@NotNull
-	@Column(name = "date", unique = false)
-	protected Date date
 
 	;
 
@@ -99,16 +90,6 @@ public class Attendance extends BusinessEntity
 	public com.oreon.smartsis.domain.Student getStudent() {
 
 		return student;
-
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public Date getDate() {
-
-		return date;
 
 	}
 

@@ -58,7 +58,7 @@ public abstract class QuestionInstanceListQueryBase
 
 			"questionInstance.question.id = #{questionInstanceList.questionInstance.question.id}",
 
-			"questionInstance.selectedChoice.id = #{questionInstanceList.questionInstance.selectedChoice.id}",
+			"questionInstance.selectedChoice = #{questionInstanceList.questionInstance.selectedChoice}",
 
 			"questionInstance.dateCreated <= #{questionInstanceList.dateCreatedRange.end}",
 			"questionInstance.dateCreated >= #{questionInstanceList.dateCreatedRange.begin}",};
@@ -91,8 +91,8 @@ public abstract class QuestionInstanceListQueryBase
 						.replace(",", "") : "") + "\",");
 
 		builder.append("\""
-				+ (e.getSelectedChoice() != null ? e.getSelectedChoice()
-						.getDisplayName().replace(",", "") : "") + "\",");
+				+ (e.getSelectedChoice() != null ? e.getSelectedChoice() : "")
+				+ "\",");
 
 		builder.append("\r\n");
 	}

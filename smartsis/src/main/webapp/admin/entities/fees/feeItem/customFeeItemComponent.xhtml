@@ -7,16 +7,16 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.feeItem_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'feeItemEdit')}"/>  
+        <h:outputText value="#{msg.feeItem_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'nameEdit')}"/>  
         <br/>  
         <h:inputText id="name" value="#{feeItemAction.feeItem.name}"/>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'feeItemEdit')}"/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'nameEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.feeItem_defaultAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultAmount', 'feeItemEdit')}"/>  
+        <h:outputText value="#{msg.feeItem_defaultAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'defaultAmountEdit')}"/>  
         <br/>  
         <h:inputText id="defaultAmount" value="#{feeItemAction.feeItem.defaultAmount}"/>  
-        <rich:message styleClass="error errors" for="defaultAmount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultAmount', 'feeItemEdit')}"/> 
+        <rich:message styleClass="error errors" for="defaultAmount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'defaultAmountEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

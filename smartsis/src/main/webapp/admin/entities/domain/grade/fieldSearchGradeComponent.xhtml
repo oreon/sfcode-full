@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.grade_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'gradeEdit')}"/>  
+      <h:outputText value="#{msg.grade_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'nameEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{gradeList.grade.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.grade_exams}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exams', 'gradeEdit')}"/>  
+      <h:outputText value="#{msg.grade_exams}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'examsEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="exams" value="#{ gradeList.examsToSearch}"> 
         <s:selectItems value="#{examList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -20,7 +20,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.grade_ordinal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ordinal', 'gradeEdit')}"/>  
+      <h:outputText value="#{msg.grade_ordinal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'ordinalEdit')}"/>  
       <br/>  
       <h:inputText id="ordinal_begin" value="#{gradeList.ordinalRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
@@ -30,7 +30,7 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.grade_section}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'gradeEdit')}"/>  
+      <h:outputText value="#{msg.grade_section}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'sectionEdit')}"/>  
       <br/>  
       <h:inputText id="section" value="#{gradeList.grade.section}"/> 
     </h:panelGroup> 

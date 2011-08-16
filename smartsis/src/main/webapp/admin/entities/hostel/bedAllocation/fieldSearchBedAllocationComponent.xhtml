@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.bedAllocation_startDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('startDate', 'bedAllocationEdit')}"/>  
+      <h:outputText value="#{msg.bedAllocation_startDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'startDateEdit')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -15,7 +15,7 @@
       <rich:calendar value="#{bedAllocationList.startDateRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.bedAllocation_endDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('endDate', 'bedAllocationEdit')}"/>  
+      <h:outputText value="#{msg.bedAllocation_endDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'endDateEdit')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -24,7 +24,7 @@
       <rich:calendar value="#{bedAllocationList.endDateRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.bedAllocation_bed} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'bedAllocationEdit')}"/>  
+      <h:outputText value="#{msg.bedAllocation_bed} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'bedEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="bed" value="#{ bedAllocationList.bedAllocation.bed}"> 
         <s:selectItems value="#{bedList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -32,7 +32,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.bedAllocation_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'bedAllocationEdit')}"/>  
+      <h:outputText value="#{msg.bedAllocation_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'studentEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="student" value="#{ bedAllocationList.bedAllocation.student}"> 
         <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -40,7 +40,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.bedAllocation_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'bedAllocationEdit')}"/>  
+      <h:outputText value="#{msg.bedAllocation_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'remarksEdit')}"/>  
       <br/>  
       <h:inputText id="remarks" value="#{bedAllocationList.bedAllocation.remarks}"/> 
     </h:panelGroup> 

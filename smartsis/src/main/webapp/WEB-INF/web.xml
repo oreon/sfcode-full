@@ -17,24 +17,16 @@
 		<filter-name>richfaces</filter-name>
 		<url-pattern>*.seam</url-pattern>
 	</filter-mapping>
-<!--  
-	<servlet>
-		<display-name>CXF Servlet</display-name>
+	<!--
+		<servlet> <display-name>CXF Servlet</display-name>
 		<servlet-name>CXFServlet</servlet-name>
 		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
-		<init-param>
-			<param-name>config-location</param-name>
-			<param-value>/cxf-servlet.xml</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-
-
-	<servlet-mapping>
+		<init-param> <param-name>config-location</param-name>
+		<param-value>/cxf-servlet.xml</param-value> </init-param>
+		<load-on-startup>1</load-on-startup> </servlet> <servlet-mapping>
 		<servlet-name>CXFServlet</servlet-name>
-		<url-pattern>/webService/*</url-pattern>
-	</servlet-mapping>
--->
+		<url-pattern>/webService/*</url-pattern> </servlet-mapping>
+	-->
 
 	<!-- Seam -->
 
@@ -88,17 +80,28 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.seam</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
-        <servlet-name>ImageServlet</servlet-name>
-        <servlet-class>net.sf.jasperreports.j2ee.servlets.ImageServlet</servlet-class>
-    </servlet>
+		<servlet-name>Resource Servlet</servlet-name>
+		<servlet-class>org.primefaces.resource.ResourceServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 
 	<servlet-mapping>
-        <servlet-name>ImageServlet</servlet-name>
-        <url-pattern>/servlets/image</url-pattern>
-    </servlet-mapping>
-	
+		<servlet-name>Resource Servlet</servlet-name>
+		<url-pattern>/primefaces_resource/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ImageServlet</servlet-name>
+		<servlet-class>net.sf.jasperreports.j2ee.servlets.ImageServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ImageServlet</servlet-name>
+		<url-pattern>/servlets/image</url-pattern>
+	</servlet-mapping>
+
 	<context-param>
 		<param-name>org.richfaces.CONTROL_SKINNING</param-name>
 		<param-value>enable</param-value>

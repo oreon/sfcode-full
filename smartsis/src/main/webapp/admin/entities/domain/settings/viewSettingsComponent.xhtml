@@ -6,11 +6,11 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{settingsAction.load(settingsId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{settingsAction.settings.id}"/>  
-        <h:outputText value="#{msg.settings_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'settingsView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'settingsView')}" value="#{settingsAction.settings.name}"></h:outputText>  
-        <h:outputText value="#{msg.settings_gradeCapacity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeCapacity', 'settingsView')}"/>  
-        <h:outputText id="gradeCapacity#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeCapacity', 'settingsView')}" value="#{settingsAction.settings.gradeCapacity}"></h:outputText>  
-        <h:outputText value="#{msg.settings_defaultGender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultGender', 'settingsView')}"/>  
+        <h:outputText value="#{msg.settings_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'nameView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'nameView')}" value="#{settingsAction.settings.name}"></h:outputText>  
+        <h:outputText value="#{msg.settings_gradeCapacity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'gradeCapacityView')}"/>  
+        <h:outputText id="gradeCapacity#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'gradeCapacityView')}" value="#{settingsAction.settings.gradeCapacity}"></h:outputText>  
+        <h:outputText value="#{msg.settings_defaultGender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'defaultGenderView')}"/>  
         <h:outputText value="#{settingsAction.settings.defaultGender}"/> 
       </h:panelGrid> 
     </s:validateAll> 

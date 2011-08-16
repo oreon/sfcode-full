@@ -14,7 +14,7 @@ public class MetaData {
 
 	"contactDetails.secondaryPhone", "java.lang.String",
 
-	"contactDetails.email", "java.lang.String",
+	"contactDetails.city", "java.lang.String",
 
 	"department.displayName", "java.lang.String",
 
@@ -46,7 +46,7 @@ public class MetaData {
 
 	"contactDetails.secondaryPhone", "java.lang.String",
 
-	"contactDetails.email", "java.lang.String",
+	"contactDetails.city", "java.lang.String",
 
 	"picture", "FileAttachment",
 
@@ -82,7 +82,7 @@ public class MetaData {
 
 	"contactDetails.secondaryPhone", "java.lang.String",
 
-	"contactDetails.email", "java.lang.String",
+	"contactDetails.city", "java.lang.String",
 
 	"user.displayName", "java.lang.String",
 
@@ -276,7 +276,7 @@ public class MetaData {
 
 	"question.displayName", "java.lang.String",
 
-	"selectedChoice.displayName", "java.lang.String",
+	"selectedChoice.name", "java.lang.String",
 
 	},
 
@@ -295,8 +295,6 @@ public class MetaData {
 	{"com.oreon.smartsis.attendance.Attendance",
 
 	"student.displayName", "java.lang.String",
-
-	"date", "java.util.Date",
 
 	"gradeSubject.displayName", "java.lang.String",
 

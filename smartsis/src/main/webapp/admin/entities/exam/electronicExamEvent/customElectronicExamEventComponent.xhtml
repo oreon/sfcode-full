@@ -7,25 +7,25 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.electronicExamEvent_electronicExam} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'electronicExamEventEdit')}"/>  
+        <h:outputText value="#{msg.electronicExamEvent_electronicExam} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamEvent', 'electronicExamEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="electronicExam" value="#{electronicExamEventAction.electronicExamEvent.electronicExam}"> 
           <s:selectItems value="#{electronicExamList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="electronicExam" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'electronicExamEventEdit')}"/> 
+        <rich:message styleClass="error errors" for="electronicExam" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamEvent', 'electronicExamEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.electronicExamEvent_dateOfExam}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfExam', 'electronicExamEventEdit')}"/>  
+        <h:outputText value="#{msg.electronicExamEvent_dateOfExam}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamEvent', 'dateOfExamEdit')}"/>  
         <br/>  
         <rich:calendar id="dateOfExam" value="#{electronicExamEventAction.electronicExamEvent.dateOfExam}"/>  
-        <rich:message styleClass="error errors" for="dateOfExam" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfExam', 'electronicExamEventEdit')}"/> 
+        <rich:message styleClass="error errors" for="dateOfExam" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamEvent', 'dateOfExamEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.electronicExamEvent_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'electronicExamEventEdit')}"/>  
+        <h:outputText value="#{msg.electronicExamEvent_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamEvent', 'remarksEdit')}"/>  
         <br/>  
         <rich:editor id="remarks" value="#{electronicExamEventAction.electronicExamEvent.remarks}"/>  
-        <rich:message styleClass="error errors" for="remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'electronicExamEventEdit')}"/> 
+        <rich:message styleClass="error errors" for="remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamEvent', 'remarksEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

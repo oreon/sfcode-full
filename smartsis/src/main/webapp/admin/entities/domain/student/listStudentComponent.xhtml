@@ -61,15 +61,15 @@
           </f:facet>  
           <h:outputText value="#{_student.contactDetails.secondaryPhone}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('email', 'studentView'  )}"> 
+        <h:column rendered="#{s:hasPermission('city', 'studentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{studentList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.contactDetails_email}"/>  
-              <ui:param name="propertyPath" value="student.contactDetails.email"/> 
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_city}"/>  
+              <ui:param name="propertyPath" value="student.contactDetails.city"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_student.contactDetails.email}" escape="false"/> 
+          <h:outputText value="#{_student.contactDetails.city}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('picture', 'studentView'  )}"> 
           <f:facet name="header"> 
@@ -79,8 +79,11 @@
               <ui:param name="propertyPath" value="student.picture"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_student.picture.name}" action="#{studentAction.downloadPicture(_student.id)}" propagation="none"> 
-            <f:param name="currentEntityId" value="#{_student.id}"/> 
+          <s:graphicImage rendered="#{_student.picture ne null and  _student.picture.contentType.startsWith('image')}" value="#{_student.picture.data}"> 
+            <s:transformImageSize height="100" maintainRatio="true"/> 
+          </s:graphicImage>  
+          <s:link value="#{_student.picture.name}" action="#{studentAction.downloadPicture(_student.id)}" propagation="none" rendered="#{not _student.picture.contentType.startsWith('image')}"> 
+            <f:param name="currentEnt ityId" value="#{_student.id}"/> 
           </s:link> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('gender', 'studentView'  )}"> 
@@ -113,7 +116,7 @@
               <ui:param name="propertyPath" value="student.grade"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_student.grade.displayName}" action="viewGrade" propagation="none"> 
+          <s:link value="#{_student.grade.displayName}" view="/admin/entities/domain/grade/viewGrade.xhtml" propagation="none"> 
             <f:param name="gradeId" value="#{_student.grade.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -180,7 +183,7 @@
               <ui:param name="propertyPath" value="student.parentGroup"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_student.parentGroup.displayName}" action="viewParentGroup" propagation="none"> 
+          <s:link value="#{_student.parentGroup.displayName}" view="/admin/entities/domain/parentGroup/viewParentGroup.xhtml" propagation="none"> 
             <f:param name="parentGroupId" value="#{_student.parentGroup.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 

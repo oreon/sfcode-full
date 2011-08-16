@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.room_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'roomEdit')}"/>  
+      <h:outputText value="#{msg.room_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{roomList.room.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.room_hostel} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('hostel', 'roomEdit')}"/>  
+      <h:outputText value="#{msg.room_hostel} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'hostelEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="hostel" value="#{ roomList.room.hostel}"> 
         <s:selectItems value="#{hostelList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -19,7 +19,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.room_charges}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('charges', 'roomEdit')}"/>  
+      <h:outputText value="#{msg.room_charges}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'chargesEdit')}"/>  
       <br/>  
       <h:inputText id="charges_begin" value="#{roomList.chargesRange.begin}"> 
         <f:converter converterId="javax.faces.Double"/> 

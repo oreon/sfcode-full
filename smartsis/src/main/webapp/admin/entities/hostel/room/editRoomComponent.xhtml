@@ -4,39 +4,39 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{roomAction.load(roomId )  }"> 
-        <h:outputText value="#{msg.room_hostel} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('hostel', 'roomEdit')}"/>  
-        <h:selectOneMenu id="hostel" label="#{msg.room_hostel}" value="#{roomAction.room.hostel}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('hostel', 'roomEdit')}"> 
+        <h:outputText value="#{msg.room_hostel} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'hostelEdit')}"/>  
+        <h:selectOneMenu id="hostel" label="#{msg.room_hostel}" value="#{roomAction.room.hostel}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'hostelEdit')}"> 
           <s:selectItems value="#{hostelList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onblur "/>  
+          <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="hostel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('hostel', 'roomEdit')}"/>  
-        <h:outputText value="#{msg.room_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'roomEdit')}"/>  
-        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'roomEdit')}" label="#{msg.room_name}" required="true" value="#{roomAction.room.name}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <rich:message styleClass="error errors" for="hostel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'hostelEdit')}"/>  
+        <h:outputText value="#{msg.room_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameEdit')}" label="#{msg.room_name}" required="true" disabled="false" value="#{roomAction.room.name}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'roomEdit')}"/>  
-        <h:outputText value="#{msg.room_charges}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('charges', 'roomEdit')}"/>  
-        <h:inputText id="charges#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('charges', 'roomEdit')}" label="#{msg.room_charges}" required="false" value="#{roomAction.room.charges}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameEdit')}"/>  
+        <h:outputText value="#{msg.room_charges}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'chargesEdit')}"/>  
+        <h:inputText id="charges#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'chargesEdit')}" label="#{msg.room_charges}" required="false" disabled="false" value="#{roomAction.room.charges}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="charges" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('charges', 'roomEdit')}"/> 
+        <rich:message styleClass="error errors" for="charges" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'chargesEdit')}"/> 
       </h:panelGrid>  
-      <a:commandButton value="New Bed" action="#{roomAction.addBeds}" reRender="beds" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('beds', 'roomEdit')}"> 
+      <a:commandButton value="New Bed" action="#{roomAction.addBeds}" reRender="beds" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'bedsEdit')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="beds" var="_bed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('beds', 'roomEdit')}" value="#{roomAction.listBeds}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="beds" var="_bed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'bedsEdit')}" value="#{roomAction.listBeds}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.bed_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'bedEdit')}"/>
+            <h:outputText value="#{msg.bed_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'nameEdit')}"/>
           </f:facet>  
-          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'bedEdit')}" label="#{msg.bed_name}" required="true" value="#{_bed.name}"> 
-            <rich:ajaxValidator event="onblur "/> 
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'nameEdit')}" label="#{msg.bed_name}" required="true" disabled="false" value="#{_bed.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText>  
-          <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'bedEdit')}"/> 
+          <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'nameEdit')}"/> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New Bed" action="#{roomAction.addBeds}" reRender="beds" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('beds', 'bedEdit')}"> 
+          <a:commandButton value="New Bed" action="#{roomAction.addBeds}" reRender="beds" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'bedsEdit')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

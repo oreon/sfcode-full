@@ -7,40 +7,40 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.bedAllocation_startDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('startDate', 'bedAllocationEdit')}"/>  
+        <h:outputText value="#{msg.bedAllocation_startDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'startDateEdit')}"/>  
         <br/>  
         <rich:calendar id="startDate" value="#{bedAllocationAction.bedAllocation.startDate}"/>  
-        <rich:message styleClass="error errors" for="startDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('startDate', 'bedAllocationEdit')}"/> 
+        <rich:message styleClass="error errors" for="startDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'startDateEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.bedAllocation_endDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('endDate', 'bedAllocationEdit')}"/>  
+        <h:outputText value="#{msg.bedAllocation_endDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'endDateEdit')}"/>  
         <br/>  
         <rich:calendar id="endDate" value="#{bedAllocationAction.bedAllocation.endDate}"/>  
-        <rich:message styleClass="error errors" for="endDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('endDate', 'bedAllocationEdit')}"/> 
+        <rich:message styleClass="error errors" for="endDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'endDateEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.bedAllocation_bed} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'bedAllocationEdit')}"/>  
+        <h:outputText value="#{msg.bedAllocation_bed} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'bedEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="bed" value="#{bedAllocationAction.bedAllocation.bed}"> 
           <s:selectItems value="#{bedList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="bed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'bedAllocationEdit')}"/> 
+        <rich:message styleClass="error errors" for="bed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'bedEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.bedAllocation_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'bedAllocationEdit')}"/>  
+        <h:outputText value="#{msg.bedAllocation_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'studentEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="student" value="#{bedAllocationAction.bedAllocation.student}"> 
           <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'bedAllocationEdit')}"/> 
+        <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'studentEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.bedAllocation_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'bedAllocationEdit')}"/>  
+        <h:outputText value="#{msg.bedAllocation_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'remarksEdit')}"/>  
         <br/>  
         <rich:editor id="remarks" value="#{bedAllocationAction.bedAllocation.remarks}"/>  
-        <rich:message styleClass="error errors" for="remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'bedAllocationEdit')}"/> 
+        <rich:message styleClass="error errors" for="remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'remarksEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

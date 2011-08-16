@@ -4,16 +4,16 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{feeItemAction.load(feeItemId )  }"> 
-        <h:outputText value="#{msg.feeItem_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'feeItemEdit')}"/>  
-        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'feeItemEdit')}" label="#{msg.feeItem_name}" required="true" value="#{feeItemAction.feeItem.name}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <h:outputText value="#{msg.feeItem_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'nameEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'nameEdit')}" label="#{msg.feeItem_name}" required="true" disabled="false" value="#{feeItemAction.feeItem.name}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'feeItemEdit')}"/>  
-        <h:outputText value="#{msg.feeItem_defaultAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultAmount', 'feeItemEdit')}"/>  
-        <h:inputText id="defaultAmount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultAmount', 'feeItemEdit')}" label="#{msg.feeItem_defaultAmount}" required="false" value="#{feeItemAction.feeItem.defaultAmount}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'nameEdit')}"/>  
+        <h:outputText value="#{msg.feeItem_defaultAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'defaultAmountEdit')}"/>  
+        <h:inputText id="defaultAmount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'defaultAmountEdit')}" label="#{msg.feeItem_defaultAmount}" required="false" disabled="false" value="#{feeItemAction.feeItem.defaultAmount}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="defaultAmount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultAmount', 'feeItemEdit')}"/> 
+        <rich:message styleClass="error errors" for="defaultAmount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'defaultAmountEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

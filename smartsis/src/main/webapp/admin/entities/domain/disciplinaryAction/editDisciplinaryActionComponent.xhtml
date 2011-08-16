@@ -4,30 +4,30 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{disciplinaryActionAction.load(disciplinaryActionId )  }"> 
-        <h:outputText value="#{msg.disciplinaryAction_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'disciplinaryActionEdit')}"/>  
-        <h:selectOneMenu id="student" label="#{msg.disciplinaryAction_student}" value="#{disciplinaryActionAction.disciplinaryAction.student}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'disciplinaryActionEdit')}"> 
+        <h:outputText value="#{msg.disciplinaryAction_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'studentEdit')}"/>  
+        <h:selectOneMenu id="student" label="#{msg.disciplinaryAction_student}" value="#{disciplinaryActionAction.disciplinaryAction.student}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'studentEdit')}"> 
           <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onblur "/>  
+          <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'disciplinaryActionEdit')}"/>  
-        <h:outputText value="#{msg.disciplinaryAction_employee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'disciplinaryActionEdit')}"/>  
-        <h:selectOneMenu id="employee" label="#{msg.disciplinaryAction_employee}" value="#{disciplinaryActionAction.disciplinaryAction.employee}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'disciplinaryActionEdit')}"> 
+        <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'studentEdit')}"/>  
+        <h:outputText value="#{msg.disciplinaryAction_employee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'employeeEdit')}"/>  
+        <h:selectOneMenu id="employee" label="#{msg.disciplinaryAction_employee}" value="#{disciplinaryActionAction.disciplinaryAction.employee}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'employeeEdit')}"> 
           <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onblur "/>  
+          <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="employee" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'disciplinaryActionEdit')}"/>  
-        <h:outputText value="#{msg.disciplinaryAction_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'disciplinaryActionEdit')}"/>  
-        <h:inputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'disciplinaryActionEdit')}" label="#{msg.disciplinaryAction_title}" required="false" value="#{disciplinaryActionAction.disciplinaryAction.title}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <rich:message styleClass="error errors" for="employee" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.disciplinaryAction_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'titleEdit')}"/>  
+        <h:inputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'titleEdit')}" label="#{msg.disciplinaryAction_title}" required="false" disabled="false" value="#{disciplinaryActionAction.disciplinaryAction.title}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="title" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'disciplinaryActionEdit')}"/>  
-        <h:outputText value="#{msg.disciplinaryAction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'disciplinaryActionEdit')}"/>  
-        <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'disciplinaryActionEdit')}" label="#{msg.disciplinaryAction_description}" required="false" value="#{disciplinaryActionAction.disciplinaryAction.description}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <rich:message styleClass="error errors" for="title" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'titleEdit')}"/>  
+        <h:outputText value="#{msg.disciplinaryAction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'descriptionEdit')}"/>  
+        <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'descriptionEdit')}" label="#{msg.disciplinaryAction_description}" required="false" disabled="false" value="#{disciplinaryActionAction.disciplinaryAction.description}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </rich:editor>  
-        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'disciplinaryActionEdit')}"/> 
+        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'descriptionEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

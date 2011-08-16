@@ -72,7 +72,9 @@
 						<h:outputText value="#{msg.question_text}  "
 							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'questionEdit')}" />
 					</f:facet>
-					<rich:editor useSeamText="true" id="text#{entityId}"
+					Q ${rowIndex + 1}
+					
+					<rich:editor useSeamText="false" id="text#{entityId}"
 						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'questionEdit')}"
 						label="#{msg.question_text}" required="false"
 						value="#{_question.text}">
@@ -90,12 +92,10 @@
 								<h:outputText value="Choices"
 									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'choiceEdit')}" />
 							</f:facet>
-							<rich:editor useSeamText="true" id="text#{entityId}"
-								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'choiceEdit')}"
-								label="#{msg.choice_text}" required="false"
-								value="#{_choice.text}">
-								<rich:ajaxValidator event="onsubmit" />
-							</rich:editor>
+							
+							<h:inputText  label="#{msg.choice_text}" required="false"
+								value="#{_choice.text}" />
+						
 							<rich:message styleClass="error errors" for="text"
 								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'choiceEdit')}" />
 						</h:column>

@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.examScore_examInstance} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'examScoreEdit')}"/>  
+      <h:outputText value="#{msg.examScore_examInstance} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'examInstanceEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="examInstance" value="#{ examScoreList.examScore.examInstance}"> 
         <s:selectItems value="#{examInstanceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.examScore_marks} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marks', 'examScoreEdit')}"/>  
+      <h:outputText value="#{msg.examScore_marks} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'marksEdit')}"/>  
       <br/>  
       <h:inputText id="marks_begin" value="#{examScoreList.marksRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
@@ -24,7 +24,7 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.examScore_rank}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rank', 'examScoreEdit')}"/>  
+      <h:outputText value="#{msg.examScore_rank}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'rankEdit')}"/>  
       <br/>  
       <h:inputText id="rank_begin" value="#{examScoreList.rankRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
@@ -34,7 +34,7 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.examScore_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'examScoreEdit')}"/>  
+      <h:outputText value="#{msg.examScore_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'studentEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="student" value="#{ examScoreList.examScore.student}"> 
         <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  

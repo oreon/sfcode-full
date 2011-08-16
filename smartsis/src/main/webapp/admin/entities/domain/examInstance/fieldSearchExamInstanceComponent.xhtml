@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.examInstance_exam} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'examInstanceEdit')}"/>  
+      <h:outputText value="#{msg.examInstance_exam} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'examEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="exam" value="#{ examInstanceList.examInstance.exam}"> 
         <s:selectItems value="#{examList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.examInstance_gradeSubject} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'examInstanceEdit')}"/>  
+      <h:outputText value="#{msg.examInstance_gradeSubject} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'gradeSubjectEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="gradeSubject" value="#{ examInstanceList.examInstance.gradeSubject}"> 
         <s:selectItems value="#{gradeSubjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -22,7 +22,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.examInstance_dateHeld}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateHeld', 'examInstanceEdit')}"/>  
+      <h:outputText value="#{msg.examInstance_dateHeld}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'dateHeldEdit')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -31,7 +31,7 @@
       <rich:calendar value="#{examInstanceList.dateHeldRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.examInstance_average}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('average', 'examInstanceEdit')}"/>  
+      <h:outputText value="#{msg.examInstance_average}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'averageEdit')}"/>  
       <br/>  
       <h:inputText id="average_begin" value="#{examInstanceList.averageRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 

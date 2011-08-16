@@ -51,21 +51,10 @@ public abstract class AttendanceListQueryBase
 		return RESTRICTIONS;
 	}
 
-	private Range<Date> dateRange = new Range<Date>();
-	public Range<Date> getDateRange() {
-		return dateRange;
-	}
-	public void setDate(Range<Date> dateRange) {
-		this.dateRange = dateRange;
-	}
-
 	private static final String[] RESTRICTIONS = {
 			"attendance.id = #{attendanceList.attendance.id}",
 
 			"attendance.student.id = #{attendanceList.attendance.student.id}",
-
-			"attendance.date >= #{attendanceList.dateRange.begin}",
-			"attendance.date <= #{attendanceList.dateRange.end}",
 
 			"attendance.gradeSubject.id = #{attendanceList.attendance.gradeSubject.id}",
 
@@ -98,8 +87,6 @@ public abstract class AttendanceListQueryBase
 				+ (e.getStudent() != null ? e.getStudent().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
-		builder.append("\"" + (e.getDate() != null ? e.getDate() : "") + "\",");
-
 		builder.append("\""
 				+ (e.getGradeSubject() != null ? e.getGradeSubject()
 						.getDisplayName().replace(",", "") : "") + "\",");
@@ -122,8 +109,6 @@ public abstract class AttendanceListQueryBase
 	public void createCSvTitles(StringBuilder builder) {
 
 		builder.append("Student" + ",");
-
-		builder.append("Date" + ",");
 
 		builder.append("GradeSubject" + ",");
 
