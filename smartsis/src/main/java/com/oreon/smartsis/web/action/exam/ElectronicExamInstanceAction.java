@@ -17,9 +17,8 @@ public class ElectronicExamInstanceAction extends
 		ElectronicExamInstanceActionBase implements java.io.Serializable {
 	
 	String ss = 
-		"SELECT q.text,  COUNT(*) FROM questionInstance qi, question q  RIGHT JOIN qi.question_id ON q.id " +
-		" WHERE qi.selectedChoice = q.correctChoice GROUP BY q.id" ;
-
+		"SELECT q.text, IF( qi.selectedChoice = q.correctChoice, COUNT(*), 0 ) FROM question q  LEFT sJOIN ( questionInstance qi  )" +
+		" ON ( qi.selectedChoice = q.correctChoice AND qi.question_id = q.id  ) GROUP BY q.id  ";
 	@Override
 	public void prePopulateListQuestionInstances() {
 		if (getInstance().getId() != null || !listQuestionInstances.isEmpty())
