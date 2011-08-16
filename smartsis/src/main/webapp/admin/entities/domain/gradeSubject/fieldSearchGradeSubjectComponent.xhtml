@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.gradeSubject_subject} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('subject', 'gradeSubjectEdit')}"/>  
+      <h:outputText value="#{msg.gradeSubject_subject} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'subjectEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="subject" value="#{ gradeSubjectList.gradeSubject.subject}"> 
         <s:selectItems value="#{subjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.gradeSubject_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'gradeSubjectEdit')}"/>  
+      <h:outputText value="#{msg.gradeSubject_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'employeeEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="employee" value="#{ gradeSubjectList.gradeSubject.employee}"> 
         <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -23,7 +23,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.gradeSubject_grade} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'gradeSubjectEdit')}"/>  
+      <h:outputText value="#{msg.gradeSubject_grade} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'gradeEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="grade" value="#{ gradeSubjectList.gradeSubject.grade}"> 
         <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  

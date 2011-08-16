@@ -6,20 +6,20 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{gradeFeeItemAction.load(gradeFeeItemId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{gradeFeeItemAction.gradeFeeItem.id}"/>  
-        <h:outputText value="#{msg.gradeFeeItem_monthlyFee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('monthlyFee', 'gradeFeeItemView')}"/>  
+        <h:outputText value="#{msg.gradeFeeItem_monthlyFee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItem', 'monthlyFeeView')}"/>  
         <s:link value="#{gradeFeeItemAction.gradeFeeItem.monthlyFee.displayName}" view="/admin/entities/fees/monthlyFee/viewMonthlyFee.xhtml" propagation="none"> 
           <f:param name="monthlyFeeId" value="#{gradeFeeItemAction.gradeFeeItem.monthlyFee.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.gradeFeeItem_feeItem}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'gradeFeeItemView')}"/>  
+        <h:outputText value="#{msg.gradeFeeItem_feeItem}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItem', 'feeItemView')}"/>  
         <s:link value="#{gradeFeeItemAction.gradeFeeItem.feeItem.displayName}" view="/admin/entities/fees/feeItem/viewFeeItem.xhtml" propagation="none"> 
           <f:param name="feeItemId" value="#{gradeFeeItemAction.gradeFeeItem.feeItem.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.gradeFeeItem_amount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeItemView')}"/>  
-        <h:outputText id="amount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeItemView')}" value="#{gradeFeeItemAction.gradeFeeItem.amount}"></h:outputText>  
-        <h:outputText value="#{msg.gradeFeeItem_applyToAllMonths}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('applyToAllMonths', 'gradeFeeItemView')}"/>  
-        <h:outputText id="applyToAllMonths#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('applyToAllMonths', 'gradeFeeItemView')}" value="#{gradeFeeItemAction.gradeFeeItem.applyToAllMonths}"></h:outputText> 
+        <h:outputText value="#{msg.gradeFeeItem_amount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItem', 'amountView')}"/>  
+        <h:outputText id="amount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItem', 'amountView')}" value="#{gradeFeeItemAction.gradeFeeItem.amount}"></h:outputText>  
+        <h:outputText value="#{msg.gradeFeeItem_applyToAllMonths}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItem', 'applyToAllMonthsView')}"/>  
+        <h:outputText id="applyToAllMonths#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItem', 'applyToAllMonthsView')}" value="#{gradeFeeItemAction.gradeFeeItem.applyToAllMonths}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

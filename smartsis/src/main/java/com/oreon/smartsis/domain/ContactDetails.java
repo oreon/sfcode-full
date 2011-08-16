@@ -66,7 +66,7 @@ public class ContactDetails implements java.io.Serializable {
 
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String email
+	protected String city
 
 	;
 
@@ -90,13 +90,13 @@ public class ContactDetails implements java.io.Serializable {
 
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
-	public String getEmail() {
+	public String getCity() {
 
-		return email;
+		return city;
 
 	}
 

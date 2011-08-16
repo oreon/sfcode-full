@@ -1,14 +1,10 @@
 package com.oreon.smartsis.web.action.exam;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.math.stat.Frequency;
 import org.apache.commons.math.stat.descriptive.DescriptiveStatistics;
 import org.jboss.seam.annotations.Name;
 
 import com.oreon.smartsis.exam.Choice;
+import com.oreon.smartsis.exam.ChoiceIndex;
 import com.oreon.smartsis.exam.Question;
 
 //@Scope(ScopeType.CONVERSATION)
@@ -59,6 +55,12 @@ public class ElectronicExamAction extends ElectronicExamActionBase implements
 		System.out.println(stats.getPercentile(50)); // median
 		System.out.println(stats.getVariance());
 		System.out.println(stats.getStandardDeviation());
+	}
+	
+	
+	public String getEnumLiteral(int ordinal){
+		//ChoiceIndex.
+		return ChoiceIndex.values()[ordinal].toString();
 	}
 
 }

@@ -6,13 +6,13 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{choiceAction.load(choiceId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{choiceAction.choice.id}"/>  
-        <h:outputText value="#{msg.choice_question}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'choiceView')}"/>  
+        <h:outputText value="#{msg.choice_question}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'questionView')}"/>  
         <s:link value="#{choiceAction.choice.question.displayName}" view="/admin/entities/exam/question/viewQuestion.xhtml" propagation="none"> 
           <f:param name="questionId" value="#{choiceAction.choice.question.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.choice_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'choiceView')}"/>  
-        <h:outputText escape="false" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'choiceView')}" value="#{choiceAction.choice.text}"></h:outputText> 
+        <h:outputText value="#{msg.choice_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'textView')}"/>  
+        <h:outputText escape="false" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'textView')}" value="#{choiceAction.choice.text}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

@@ -57,8 +57,7 @@ import com.oreon.smartsis.ProjectUtils;
 @XmlRootElement
 public class ExamInstance extends BusinessEntity
 		implements
-			java.io.Serializable,
-			com.sun.xml.internal.bind.CycleRecoverable {
+			java.io.Serializable {
 	private static final long serialVersionUID = 787476156L;
 
 	@OneToMany(mappedBy = "examInstance", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

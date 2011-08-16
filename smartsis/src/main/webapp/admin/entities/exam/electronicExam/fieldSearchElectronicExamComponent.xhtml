@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.electronicExam_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'electronicExamEdit')}"/>  
+      <h:outputText value="#{msg.electronicExam_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'nameEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{electronicExamList.electronicExam.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.electronicExam_numberOfQuestions}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('numberOfQuestions', 'electronicExamEdit')}"/>  
+      <h:outputText value="#{msg.electronicExam_numberOfQuestions}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'numberOfQuestionsEdit')}"/>  
       <br/>  
       <h:inputText id="numberOfQuestions_begin" value="#{electronicExamList.numberOfQuestionsRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
@@ -21,7 +21,7 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.electronicExam_gradeSubject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'electronicExamEdit')}"/>  
+      <h:outputText value="#{msg.electronicExam_gradeSubject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'gradeSubjectEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="gradeSubject" value="#{ electronicExamList.electronicExam.gradeSubject}"> 
         <s:selectItems value="#{gradeSubjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -30,7 +30,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.electronicExam_maxDuration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('maxDuration', 'electronicExamEdit')}"/>  
+      <h:outputText value="#{msg.electronicExam_maxDuration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'maxDurationEdit')}"/>  
       <br/>  
       <h:inputText id="maxDuration_begin" value="#{electronicExamList.maxDurationRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 

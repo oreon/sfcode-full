@@ -6,17 +6,17 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{gradeAction.load(gradeId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{gradeAction.grade.id}"/>  
-        <h:outputText value="#{msg.grade_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'gradeView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'gradeView')}" value="#{gradeAction.grade.name}"></h:outputText>  
-        <h:outputText value="#{msg.grade_ordinal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ordinal', 'gradeView')}"/>  
-        <h:outputText id="ordinal#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ordinal', 'gradeView')}" value="#{gradeAction.grade.ordinal}"></h:outputText>  
-        <h:outputText value="#{msg.grade_section}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'gradeView')}"/>  
-        <h:outputText id="section#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'gradeView')}" value="#{gradeAction.grade.section}"></h:outputText> 
+        <h:outputText value="#{msg.grade_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'nameView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'nameView')}" value="#{gradeAction.grade.name}"></h:outputText>  
+        <h:outputText value="#{msg.grade_ordinal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'ordinalView')}"/>  
+        <h:outputText id="ordinal#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'ordinalView')}" value="#{gradeAction.grade.ordinal}"></h:outputText>  
+        <h:outputText value="#{msg.grade_section}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'sectionView')}"/>  
+        <h:outputText id="section#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'sectionView')}" value="#{gradeAction.grade.section}"></h:outputText> 
       </h:panelGrid>  
-      <rich:dataTable id="gradeSubjects" var="_gradeSubject" rendered="#{not empty gradeAction.listGradeSubjects and skipPermissionCheck == 'true' || s:hasPermission('gradeSubjects', 'gradeView') }" value="#{gradeAction.listGradeSubjects}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="gradeSubjects" var="_gradeSubject" rendered="#{not empty gradeAction.listGradeSubjects and skipPermissionCheck == 'true' || s:hasPermission('grade', 'gradeSubjectsView') }" value="#{gradeAction.listGradeSubjects}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.gradeSubject_subject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('subject', 'gradeSubjectView')}"/>
+            <h:outputText value="#{msg.gradeSubject_subject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'subjectView')}"/>
           </f:facet>  
           <s:link value="#{_gradeSubject.subject.displayName}" view="/admin/entities/domain/subject/viewSubject.xhtml" propagation="none"> 
             <f:param name="subjectId" value="#{_gradeSubject.subject.id}"/>  
@@ -25,7 +25,7 @@
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.gradeSubject_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'gradeSubjectView')}"/>
+            <h:outputText value="#{msg.gradeSubject_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'employeeView')}"/>
           </f:facet>  
           <s:link value="#{_gradeSubject.employee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
             <f:param name="employeeId" value="#{_gradeSubject.employee.id}"/>  

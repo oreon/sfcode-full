@@ -4,47 +4,47 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{studentAction.load(studentId )  }"> 
-        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'studentEdit')}"/>  
-        <h:inputText id="contactDetails_primaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'studentEdit')}" label="#{msg.contactDetails_primaryPhone}" required="false" value="#{studentAction.student.contactDetails.primaryPhone}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'primaryPhoneEdit')}"/>  
+        <h:inputText id="contactDetails_primaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'primaryPhoneEdit')}" label="#{msg.contactDetails_primaryPhone}" required="false" disabled="false" value="#{studentAction.student.contactDetails.primaryPhone}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="contactDetails_primaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'studentEdit')}"/>  
-        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('secondaryPhone', 'studentEdit')}"/>  
-        <h:inputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('secondaryPhone', 'studentEdit')}" label="#{msg.contactDetails_secondaryPhone}" required="false" value="#{studentAction.student.contactDetails.secondaryPhone}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <rich:message styleClass="error errors" for="contactDetails_primaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'primaryPhoneEdit')}"/>  
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'secondaryPhoneEdit')}"/>  
+        <h:inputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'secondaryPhoneEdit')}" label="#{msg.contactDetails_secondaryPhone}" required="false" disabled="false" value="#{studentAction.student.contactDetails.secondaryPhone}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="contactDetails_secondaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('secondaryPhone', 'studentEdit')}"/>  
-        <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'studentEdit')}"/>  
-        <h:inputText id="contactDetails_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'studentEdit')}" label="#{msg.contactDetails_email}" required="false" value="#{studentAction.student.contactDetails.email}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <rich:message styleClass="error errors" for="contactDetails_secondaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'secondaryPhoneEdit')}"/>  
+        <h:outputText value="#{msg.contactDetails_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'cityEdit')}"/>  
+        <h:inputText id="contactDetails_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'cityEdit')}" label="#{msg.contactDetails_city}" required="false" disabled="false" value="#{studentAction.student.contactDetails.city}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="contactDetails_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'studentEdit')}"/>  
-        <h:outputText value="#{msg.student_grade}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'studentEdit')}"/>  
-        <h:selectOneMenu id="grade" label="#{msg.student_grade}" value="#{studentAction.student.grade}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'studentEdit')}"> 
+        <rich:message styleClass="error errors" for="contactDetails_city" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'cityEdit')}"/>  
+        <h:outputText value="#{msg.student_grade}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'gradeEdit')}"/>  
+        <h:selectOneMenu id="grade" label="#{msg.student_grade}" value="#{studentAction.student.grade}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'gradeEdit')}"> 
           <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onblur "/>  
+          <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="grade" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'studentEdit')}"/>  
-        <h:outputText value="#{msg.student_parentGroup}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parentGroup', 'studentEdit')}"/>  
-        <h:selectOneMenu id="parentGroup" label="#{msg.student_parentGroup}" value="#{studentAction.student.parentGroup}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parentGroup', 'studentEdit')}"> 
+        <rich:message styleClass="error errors" for="grade" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'gradeEdit')}"/>  
+        <h:outputText value="#{msg.student_parentGroup}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'parentGroupEdit')}"/>  
+        <h:selectOneMenu id="parentGroup" label="#{msg.student_parentGroup}" value="#{studentAction.student.parentGroup}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'parentGroupEdit')}"> 
           <s:selectItems value="#{parentGroupList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onblur "/>  
+          <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="parentGroup" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parentGroup', 'studentEdit')}"/>  
-        <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'studentEdit')}"/>  
-        <h:inputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'studentEdit')}" label="#{msg.person_firstName}" required="true" value="#{studentAction.student.firstName}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <rich:message styleClass="error errors" for="parentGroup" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'parentGroupEdit')}"/>  
+        <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'firstNameEdit')}"/>  
+        <h:inputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'firstNameEdit')}" label="#{msg.person_firstName}" required="true" disabled="false" value="#{studentAction.student.firstName}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="firstName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'studentEdit')}"/>  
-        <h:outputText value="#{msg.person_lastName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'studentEdit')}"/>  
-        <h:inputText id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'studentEdit')}" label="#{msg.person_lastName}" required="true" value="#{studentAction.student.lastName}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <rich:message styleClass="error errors" for="firstName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'firstNameEdit')}"/>  
+        <h:outputText value="#{msg.person_lastName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'lastNameEdit')}"/>  
+        <h:inputText id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'lastNameEdit')}" label="#{msg.person_lastName}" required="true" disabled="false" value="#{studentAction.student.lastName}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="lastName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'studentEdit')}"/>  
-        <h:outputText value="#{msg.student_picture}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('picture', 'studentEdit')}"/>  
-        <h:panelGroup> 
+        <rich:message styleClass="error errors" for="lastName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'lastNameEdit')}"/>  
+        <h:outputText value="#{msg.student_picture}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'pictureEdit')}"/>  
+        <h:panelGroup rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'pictureEdit')}"> 
           <h:outputText value="Current File:"/>  
           <s:link value="#{studentAction.student.picture.name}" id="picture_file" action="#{studentAction.downloadFile(null)}" propagation="none"> 
             <f:param name="currentEntityId" value="#{studentAction.instance.id}"/> 
@@ -54,71 +54,71 @@
             <a:support event="onuploadcomplete" reRender="picture_file"/> 
           </rich:fileUpload> 
         </h:panelGroup>  
-        <rich:message styleClass="error errors" for="picture" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('picture', 'studentEdit')}"/>  
-        <h:outputText value="#{msg.student_gender} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gender', 'studentEdit')}"/>  
-        <h:selectOneMenu id="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gender', 'studentEdit')}" value="#{studentAction.student.gender}" required="false" label="#{msg.student_gender}"> 
+        <rich:message styleClass="error errors" for="picture" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'pictureEdit')}"/>  
+        <h:outputText value="#{msg.student_gender} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'genderEdit')}"/>  
+        <h:selectOneMenu id="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'genderEdit')}" value="#{studentAction.student.gender}" required="false" label="#{msg.student_gender}"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="F" itemLabel="#{msg.F}"/>  
           <f:selectItem itemValue="M" itemLabel="#{msg.M}"/>  
-          <rich:ajaxValidator event="onblur "/> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gender', 'studentEdit')}"/>  
-        <h:outputText value="#{msg.student_dateOfBirth} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'studentEdit')}"/>  
-        <rich:calendar direction="auto" id="dateOfBirth#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'studentEdit')}" label="#{msg.student_dateOfBirth}" required="true" value="#{studentAction.student.dateOfBirth}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <rich:message styleClass="error errors" for="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'genderEdit')}"/>  
+        <h:outputText value="#{msg.student_dateOfBirth} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'dateOfBirthEdit')}"/>  
+        <rich:calendar direction="auto" id="dateOfBirth#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'dateOfBirthEdit')}" label="#{msg.student_dateOfBirth}" required="true" disabled="false" value="#{studentAction.student.dateOfBirth}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </rich:calendar>  
-        <rich:message styleClass="error errors" for="dateOfBirth" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'studentEdit')}"/>  
-        <h:outputText value="#{msg.student_scholarship}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('scholarship', 'studentEdit')}"/>  
-        <h:inputText id="scholarship#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('scholarship', 'studentEdit')}" label="#{msg.student_scholarship}" required="false" value="#{studentAction.student.scholarship}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <rich:message styleClass="error errors" for="dateOfBirth" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'dateOfBirthEdit')}"/>  
+        <h:outputText value="#{msg.student_scholarship}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'scholarshipEdit')}"/>  
+        <h:inputText id="scholarship#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'scholarshipEdit')}" label="#{msg.student_scholarship}" required="false" disabled="false" value="#{studentAction.student.scholarship}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="scholarship" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('scholarship', 'studentEdit')}"/>  
-        <h:outputText value="#{msg.student_rollNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rollNumber', 'studentEdit')}"/>  
-        <h:inputText id="rollNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rollNumber', 'studentEdit')}" label="#{msg.student_rollNumber}" required="false" value="#{studentAction.student.rollNumber}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <rich:message styleClass="error errors" for="scholarship" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'scholarshipEdit')}"/>  
+        <h:outputText value="#{msg.student_rollNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'rollNumberEdit')}"/>  
+        <h:inputText id="rollNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'rollNumberEdit')}" label="#{msg.student_rollNumber}" required="false" disabled="false" value="#{studentAction.student.rollNumber}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="rollNumber" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rollNumber', 'studentEdit')}"/>  
-        <h:outputText value="#{msg.student_discontinueDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueDate', 'studentEdit')}"/>  
-        <rich:calendar direction="auto" id="discontinueDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueDate', 'studentEdit')}" label="#{msg.student_discontinueDate}" required="false" value="#{studentAction.student.discontinueDate}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <rich:message styleClass="error errors" for="rollNumber" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'rollNumberEdit')}"/>  
+        <h:outputText value="#{msg.student_discontinueDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'discontinueDateEdit')}"/>  
+        <rich:calendar direction="auto" id="discontinueDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'discontinueDateEdit')}" label="#{msg.student_discontinueDate}" required="false" disabled="false" value="#{studentAction.student.discontinueDate}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </rich:calendar>  
-        <rich:message styleClass="error errors" for="discontinueDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueDate', 'studentEdit')}"/>  
-        <h:outputText value="#{msg.student_discontinueReason}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueReason', 'studentEdit')}"/>  
-        <h:selectOneMenu id="discontinueReason" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueReason', 'studentEdit')}" value="#{studentAction.student.discontinueReason}" required="false" label="#{msg.student_discontinueReason}"> 
+        <rich:message styleClass="error errors" for="discontinueDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'discontinueDateEdit')}"/>  
+        <h:outputText value="#{msg.student_discontinueReason}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'discontinueReasonEdit')}"/>  
+        <h:selectOneMenu id="discontinueReason" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'discontinueReasonEdit')}" value="#{studentAction.student.discontinueReason}" required="false" label="#{msg.student_discontinueReason}"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="DISCIPLINARY" itemLabel="#{msg.DISCIPLINARY}"/>  
           <f:selectItem itemValue="ACADEMIC" itemLabel="#{msg.ACADEMIC}"/>  
           <f:selectItem itemValue="FINANCIAL_OVERDUE_FEES" itemLabel="#{msg.FINANCIAL_OVERDUE_FEES}"/>  
           <f:selectItem itemValue="DROPPED_OUT" itemLabel="#{msg.DROPPED_OUT}"/>  
           <f:selectItem itemValue="PASSED_OUT" itemLabel="#{msg.PASSED_OUT}"/>  
-          <rich:ajaxValidator event="onblur "/> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="discontinueReason" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('discontinueReason', 'studentEdit')}"/> 
+        <rich:message styleClass="error errors" for="discontinueReason" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'discontinueReasonEdit')}"/> 
       </h:panelGrid>  
-      <a:commandButton value="New StudentVitalInfo" action="#{studentAction.addStudentVitalInfos}" reRender="studentVitalInfos" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfos', 'studentEdit')}"> 
+      <a:commandButton value="New StudentVitalInfo" action="#{studentAction.addStudentVitalInfos}" reRender="studentVitalInfos" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'studentVitalInfosEdit')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="studentVitalInfos" var="_studentVitalInfo" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfos', 'studentEdit')}" value="#{studentAction.listStudentVitalInfos}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="studentVitalInfos" var="_studentVitalInfo" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'studentVitalInfosEdit')}" value="#{studentAction.listStudentVitalInfos}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.studentVitalInfo_height}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('height', 'studentVitalInfoEdit')}"/>
+            <h:outputText value="#{msg.studentVitalInfo_height}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfo', 'heightEdit')}"/>
           </f:facet>  
-          <h:inputText id="height#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('height', 'studentVitalInfoEdit')}" label="#{msg.studentVitalInfo_height}" required="false" value="#{_studentVitalInfo.height}"> 
-            <rich:ajaxValidator event="onblur "/> 
+          <h:inputText id="height#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfo', 'heightEdit')}" label="#{msg.studentVitalInfo_height}" required="false" disabled="false" value="#{_studentVitalInfo.height}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText>  
-          <rich:message styleClass="error errors" for="height" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('height', 'studentVitalInfoEdit')}"/> 
+          <rich:message styleClass="error errors" for="height" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfo', 'heightEdit')}"/> 
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.studentVitalInfo_weight}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('weight', 'studentVitalInfoEdit')}"/>
+            <h:outputText value="#{msg.studentVitalInfo_weight}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfo', 'weightEdit')}"/>
           </f:facet>  
-          <h:inputText id="weight#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('weight', 'studentVitalInfoEdit')}" label="#{msg.studentVitalInfo_weight}" required="false" value="#{_studentVitalInfo.weight}"> 
-            <rich:ajaxValidator event="onblur "/> 
+          <h:inputText id="weight#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfo', 'weightEdit')}" label="#{msg.studentVitalInfo_weight}" required="false" disabled="false" value="#{_studentVitalInfo.weight}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText>  
-          <rich:message styleClass="error errors" for="weight" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('weight', 'studentVitalInfoEdit')}"/> 
+          <rich:message styleClass="error errors" for="weight" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfo', 'weightEdit')}"/> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New StudentVitalInfo" action="#{studentAction.addStudentVitalInfos}" reRender="studentVitalInfos" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfos', 'studentVitalInfoEdit')}"> 
+          <a:commandButton value="New StudentVitalInfo" action="#{studentAction.addStudentVitalInfos}" reRender="studentVitalInfos" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfo', 'studentVitalInfosEdit')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

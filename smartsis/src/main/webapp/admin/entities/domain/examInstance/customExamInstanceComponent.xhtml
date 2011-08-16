@@ -7,34 +7,34 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.examInstance_exam} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'examInstanceEdit')}"/>  
+        <h:outputText value="#{msg.examInstance_exam} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'examEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="exam" value="#{examInstanceAction.examInstance.exam}"> 
           <s:selectItems value="#{examList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="exam" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'examInstanceEdit')}"/> 
+        <rich:message styleClass="error errors" for="exam" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'examEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.examInstance_gradeSubject} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'examInstanceEdit')}"/>  
+        <h:outputText value="#{msg.examInstance_gradeSubject} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'gradeSubjectEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="gradeSubject" value="#{examInstanceAction.examInstance.gradeSubject}"> 
           <s:selectItems value="#{gradeSubjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="gradeSubject" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'examInstanceEdit')}"/> 
+        <rich:message styleClass="error errors" for="gradeSubject" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'gradeSubjectEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.examInstance_dateHeld}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateHeld', 'examInstanceEdit')}"/>  
+        <h:outputText value="#{msg.examInstance_dateHeld}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'dateHeldEdit')}"/>  
         <br/>  
         <rich:calendar id="dateHeld" value="#{examInstanceAction.examInstance.dateHeld}"/>  
-        <rich:message styleClass="error errors" for="dateHeld" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateHeld', 'examInstanceEdit')}"/> 
+        <rich:message styleClass="error errors" for="dateHeld" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'dateHeldEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.examInstance_average}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('average', 'examInstanceEdit')}"/>  
+        <h:outputText value="#{msg.examInstance_average}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'averageEdit')}"/>  
         <br/>  
         <h:inputText id="average" value="#{examInstanceAction.examInstance.average}"/>  
-        <rich:message styleClass="error errors" for="average" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('average', 'examInstanceEdit')}"/> 
+        <rich:message styleClass="error errors" for="average" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examInstance', 'averageEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

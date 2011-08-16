@@ -60,7 +60,7 @@ public abstract class ParentListQueryBase extends BaseQuery<Parent, Long> {
 
 			"lower(parent.contactDetails.secondaryPhone) like concat(lower(#{parentList.parent.contactDetails.secondaryPhone}),'%')",
 
-			"lower(parent.contactDetails.email) like concat(lower(#{parentList.parent.contactDetails.email}),'%')",
+			"lower(parent.contactDetails.city) like concat(lower(#{parentList.parent.contactDetails.city}),'%')",
 
 			"lower(parent.user.userName) like concat(lower(#{parentList.parent.user.userName}),'%')",
 

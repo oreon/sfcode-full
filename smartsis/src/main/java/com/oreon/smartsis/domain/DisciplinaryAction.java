@@ -57,8 +57,7 @@ import com.oreon.smartsis.ProjectUtils;
 @XmlRootElement
 public class DisciplinaryAction extends BusinessEntity
 		implements
-			java.io.Serializable,
-			com.sun.xml.internal.bind.CycleRecoverable {
+			java.io.Serializable {
 	private static final long serialVersionUID = -1139391447L;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -57,8 +57,7 @@ import com.oreon.smartsis.ProjectUtils;
 @XmlRootElement
 public class ElectronicExamEvent extends BusinessEntity
 		implements
-			java.io.Serializable,
-			com.sun.xml.internal.bind.CycleRecoverable {
+			java.io.Serializable {
 	private static final long serialVersionUID = -1946424660L;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -144,7 +143,7 @@ public class ElectronicExamEvent extends BusinessEntity
 	@Transient
 	public String getDisplayName() {
 		try {
-			return electronicExam + "";
+			return getElectronicExam().getName() + " " + dateOfExam;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}

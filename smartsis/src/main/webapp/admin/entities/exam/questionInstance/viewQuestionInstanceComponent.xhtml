@@ -6,21 +6,18 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{questionInstanceAction.load(questionInstanceId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{questionInstanceAction.questionInstance.id}"/>  
-        <h:outputText value="#{msg.questionInstance_electronicExamInstance}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamInstance', 'questionInstanceView')}"/>  
+        <h:outputText value="#{msg.questionInstance_electronicExamInstance}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstance', 'electronicExamInstanceView')}"/>  
         <s:link value="#{questionInstanceAction.questionInstance.electronicExamInstance.displayName}" view="/admin/entities/exam/electronicExamInstance/viewElectronicExamInstance.xhtml" propagation="none"> 
           <f:param name="electronicExamInstanceId" value="#{questionInstanceAction.questionInstance.electronicExamInstance.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.questionInstance_question}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'questionInstanceView')}"/>  
+        <h:outputText value="#{msg.questionInstance_question}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstance', 'questionView')}"/>  
         <s:link value="#{questionInstanceAction.questionInstance.question.displayName}" view="/admin/entities/exam/question/viewQuestion.xhtml" propagation="none"> 
           <f:param name="questionId" value="#{questionInstanceAction.questionInstance.question.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.questionInstance_selectedChoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('selectedChoice', 'questionInstanceView')}"/>  
-        <s:link value="#{questionInstanceAction.questionInstance.selectedChoice.displayName}" view="/admin/entities/exam/choice/viewChoice.xhtml" propagation="none"> 
-          <f:param name="selectedChoiceId" value="#{questionInstanceAction.questionInstance.selectedChoice.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link> 
+        <h:outputText value="#{msg.questionInstance_selectedChoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstance', 'selectedChoiceView')}"/>  
+        <h:outputText value="#{questionInstanceAction.questionInstance.selectedChoice}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

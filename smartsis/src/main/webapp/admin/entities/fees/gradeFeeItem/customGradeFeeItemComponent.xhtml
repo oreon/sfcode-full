@@ -7,34 +7,34 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.gradeFeeItem_monthlyFee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('monthlyFee', 'gradeFeeItemEdit')}"/>  
+        <h:outputText value="#{msg.gradeFeeItem_monthlyFee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItem', 'monthlyFeeEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="monthlyFee" value="#{gradeFeeItemAction.gradeFeeItem.monthlyFee}"> 
           <s:selectItems value="#{monthlyFeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="monthlyFee" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('monthlyFee', 'gradeFeeItemEdit')}"/> 
+        <rich:message styleClass="error errors" for="monthlyFee" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItem', 'monthlyFeeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.gradeFeeItem_feeItem} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'gradeFeeItemEdit')}"/>  
+        <h:outputText value="#{msg.gradeFeeItem_feeItem} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItem', 'feeItemEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="feeItem" value="#{gradeFeeItemAction.gradeFeeItem.feeItem}"> 
           <s:selectItems value="#{feeItemList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="feeItem" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'gradeFeeItemEdit')}"/> 
+        <rich:message styleClass="error errors" for="feeItem" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItem', 'feeItemEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.gradeFeeItem_amount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeItemEdit')}"/>  
+        <h:outputText value="#{msg.gradeFeeItem_amount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItem', 'amountEdit')}"/>  
         <br/>  
         <h:inputText id="amount" value="#{gradeFeeItemAction.gradeFeeItem.amount}"/>  
-        <rich:message styleClass="error errors" for="amount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeItemEdit')}"/> 
+        <rich:message styleClass="error errors" for="amount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItem', 'amountEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.gradeFeeItem_applyToAllMonths}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('applyToAllMonths', 'gradeFeeItemEdit')}"/>  
+        <h:outputText value="#{msg.gradeFeeItem_applyToAllMonths}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItem', 'applyToAllMonthsEdit')}"/>  
         <br/>  
         <h:selectBooleanCheckbox id="applyToAllMonths" value="#{gradeFeeItemAction.gradeFeeItem.applyToAllMonths}"/>  
-        <rich:message styleClass="error errors" for="applyToAllMonths" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('applyToAllMonths', 'gradeFeeItemEdit')}"/> 
+        <rich:message styleClass="error errors" for="applyToAllMonths" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItem', 'applyToAllMonthsEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

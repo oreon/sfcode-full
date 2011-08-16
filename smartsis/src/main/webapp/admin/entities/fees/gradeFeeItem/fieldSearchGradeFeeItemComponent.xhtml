@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.gradeFeeItem_monthlyFee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('monthlyFee', 'gradeFeeItemEdit')}"/>  
+      <h:outputText value="#{msg.gradeFeeItem_monthlyFee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItem', 'monthlyFeeEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="monthlyFee" value="#{ gradeFeeItemList.gradeFeeItem.monthlyFee}"> 
         <s:selectItems value="#{monthlyFeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.gradeFeeItem_feeItem} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'gradeFeeItemEdit')}"/>  
+      <h:outputText value="#{msg.gradeFeeItem_feeItem} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItem', 'feeItemEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="feeItem" value="#{ gradeFeeItemList.gradeFeeItem.feeItem}"> 
         <s:selectItems value="#{feeItemList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -22,7 +22,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.gradeFeeItem_amount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('amount', 'gradeFeeItemEdit')}"/>  
+      <h:outputText value="#{msg.gradeFeeItem_amount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItem', 'amountEdit')}"/>  
       <br/>  
       <h:inputText id="amount_begin" value="#{gradeFeeItemList.amountRange.begin}"> 
         <f:converter converterId="javax.faces.Double"/> 
@@ -32,7 +32,7 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.gradeFeeItem_applyToAllMonths}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('applyToAllMonths', 'gradeFeeItemEdit')}"/>  
+      <h:outputText value="#{msg.gradeFeeItem_applyToAllMonths}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeFeeItem', 'applyToAllMonthsEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="applyToAllMonths" value="#{gradeFeeItemList.gradeFeeItem.applyToAllMonths}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  

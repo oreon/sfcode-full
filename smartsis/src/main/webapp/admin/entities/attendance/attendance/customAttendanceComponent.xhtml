@@ -7,31 +7,25 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.attendance_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'attendanceEdit')}"/>  
+        <h:outputText value="#{msg.attendance_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'studentEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="student" value="#{attendanceAction.attendance.student}"> 
           <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'attendanceEdit')}"/> 
+        <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'studentEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.attendance_date} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'attendanceEdit')}"/>  
-        <br/>  
-        <rich:calendar id="date" value="#{attendanceAction.attendance.date}"/>  
-        <rich:message styleClass="error errors" for="date" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'attendanceEdit')}"/> 
-      </h:panelGroup>  
-      <h:panelGroup> 
-        <h:outputText value="#{msg.attendance_gradeSubject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'attendanceEdit')}"/>  
+        <h:outputText value="#{msg.attendance_gradeSubject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'gradeSubjectEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="gradeSubject" value="#{attendanceAction.attendance.gradeSubject}"> 
           <s:selectItems value="#{gradeSubjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="gradeSubject" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'attendanceEdit')}"/> 
+        <rich:message styleClass="error errors" for="gradeSubject" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'gradeSubjectEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.attendance_absenceCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('absenceCode', 'attendanceEdit')}"/>  
+        <h:outputText value="#{msg.attendance_absenceCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'absenceCodeEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="absenceCode" value="#{attendanceAction.attendance.absenceCode}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
@@ -39,16 +33,16 @@
           <f:selectItem itemValue="LEAVE" itemLabel="Leave"/>  
           <f:selectItem itemValue="SICK_LEAVE" itemLabel="Sick_leave"/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="absenceCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('absenceCode', 'attendanceEdit')}"/> 
+        <rich:message styleClass="error errors" for="absenceCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'absenceCodeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.attendance_gradeAttendance} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'attendanceEdit')}"/>  
+        <h:outputText value="#{msg.attendance_gradeAttendance} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'gradeAttendanceEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="gradeAttendance" value="#{attendanceAction.attendance.gradeAttendance}"> 
           <s:selectItems value="#{gradeAttendanceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="gradeAttendance" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'attendanceEdit')}"/> 
+        <rich:message styleClass="error errors" for="gradeAttendance" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'gradeAttendanceEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

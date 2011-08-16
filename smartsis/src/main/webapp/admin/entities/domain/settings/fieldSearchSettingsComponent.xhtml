@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.settings_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'settingsEdit')}"/>  
+      <h:outputText value="#{msg.settings_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'nameEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{settingsList.settings.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.settings_gradeCapacity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeCapacity', 'settingsEdit')}"/>  
+      <h:outputText value="#{msg.settings_gradeCapacity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'gradeCapacityEdit')}"/>  
       <br/>  
       <h:inputText id="gradeCapacity_begin" value="#{settingsList.gradeCapacityRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
@@ -21,7 +21,7 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.settings_defaultGender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultGender', 'settingsEdit')}"/>  
+      <h:outputText value="#{msg.settings_defaultGender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'defaultGenderEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="defaultGender" value="#{settingsList.settings.defaultGender}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  

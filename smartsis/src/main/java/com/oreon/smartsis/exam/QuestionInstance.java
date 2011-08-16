@@ -57,8 +57,7 @@ import com.oreon.smartsis.ProjectUtils;
 @XmlRootElement
 public class QuestionInstance extends BusinessEntity
 		implements
-			java.io.Serializable,
-			com.sun.xml.internal.bind.CycleRecoverable {
+			java.io.Serializable {
 	private static final long serialVersionUID = 986391536L;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -75,10 +74,7 @@ public class QuestionInstance extends BusinessEntity
 
 	;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "selectedChoice_id", nullable = false, updatable = true)
-	@ContainedIn
-	protected Choice selectedChoice
+	protected ChoiceIndex selectedChoice
 
 	;
 
@@ -103,11 +99,11 @@ public class QuestionInstance extends BusinessEntity
 
 	}
 
-	public void setSelectedChoice(Choice selectedChoice) {
+	public void setSelectedChoice(ChoiceIndex selectedChoice) {
 		this.selectedChoice = selectedChoice;
 	}
 
-	public Choice getSelectedChoice() {
+	public ChoiceIndex getSelectedChoice() {
 
 		return selectedChoice;
 
@@ -148,10 +144,6 @@ public class QuestionInstance extends BusinessEntity
 
 		if (getQuestion() != null)
 			builder.append("question:" + getQuestion().getDisplayName() + " ");
-
-		if (getSelectedChoice() != null)
-			builder.append("selectedChoice:"
-					+ getSelectedChoice().getDisplayName() + " ");
 
 		return builder.toString();
 	}

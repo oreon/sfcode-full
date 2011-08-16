@@ -92,7 +92,7 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 
 			"lower(student.contactDetails.secondaryPhone) like concat(lower(#{studentList.student.contactDetails.secondaryPhone}),'%')",
 
-			"lower(student.contactDetails.email) like concat(lower(#{studentList.student.contactDetails.email}),'%')",
+			"lower(student.contactDetails.city) like concat(lower(#{studentList.student.contactDetails.city}),'%')",
 
 			"student.gender = #{studentList.student.gender}",
 

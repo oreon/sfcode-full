@@ -6,14 +6,14 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{courseDocumentsAction.load(courseDocumentsId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{courseDocumentsAction.courseDocuments.id}"/>  
-        <h:outputText value="#{msg.courseDocuments_gradeSubject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'courseDocumentsView')}"/>  
+        <h:outputText value="#{msg.courseDocuments_gradeSubject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'gradeSubjectView')}"/>  
         <s:link value="#{courseDocumentsAction.courseDocuments.gradeSubject.displayName}" view="/admin/entities/domain/gradeSubject/viewGradeSubject.xhtml" propagation="none"> 
           <f:param name="gradeSubjectId" value="#{courseDocumentsAction.courseDocuments.gradeSubject.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.courseDocuments_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'courseDocumentsView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'courseDocumentsView')}" value="#{courseDocumentsAction.courseDocuments.name}"></h:outputText>  
-        <h:outputText value="#{msg.courseDocuments_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'courseDocumentsView')}"/>  
+        <h:outputText value="#{msg.courseDocuments_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'nameView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'nameView')}" value="#{courseDocumentsAction.courseDocuments.name}"></h:outputText>  
+        <h:outputText value="#{msg.courseDocuments_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'documentView')}"/>  
         <c:choose> 
           <c:when test="${courseDocumentsAction.courseDocuments.document.contentType.startsWith('image')}"> 
             <s:graphicImage value="#{courseDocumentsAction.courseDocuments.document.data}"/> 

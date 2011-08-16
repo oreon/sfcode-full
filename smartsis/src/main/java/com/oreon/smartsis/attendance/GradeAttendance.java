@@ -57,8 +57,7 @@ import com.oreon.smartsis.ProjectUtils;
 @XmlRootElement
 public class GradeAttendance extends BusinessEntity
 		implements
-			java.io.Serializable,
-			com.sun.xml.internal.bind.CycleRecoverable {
+			java.io.Serializable {
 	private static final long serialVersionUID = -1796933417L;
 
 	@OneToMany(mappedBy = "gradeAttendance", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -89,7 +88,7 @@ public class GradeAttendance extends BusinessEntity
 	= new Date();
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "grade_id", nullable = false, updatable = true)
+	@JoinColumn(name = "grade_id", nullable = false, updatable = false)
 	@ContainedIn
 	protected com.oreon.smartsis.domain.Grade grade
 
@@ -126,7 +125,7 @@ public class GradeAttendance extends BusinessEntity
 	@Transient
 	public String getDisplayName() {
 		try {
-			return attendances + "";
+			return grade.getName() + date.toString();
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}

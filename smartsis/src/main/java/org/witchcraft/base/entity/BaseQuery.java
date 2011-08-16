@@ -64,7 +64,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	@RequestParameter
 	protected String searchText;
 
-	public static final int DEFAULT_PAGES_FOR_PAGINATION = 25;
+	public static final int DEFAULT_PAGES_FOR_PAGINATION = 925;
 
 	@In
 	// @PersistenceContext(type=EXTENDED)

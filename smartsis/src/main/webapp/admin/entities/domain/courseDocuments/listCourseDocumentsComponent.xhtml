@@ -39,8 +39,11 @@
               <ui:param name="propertyPath" value="courseDocuments.document"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_courseDocuments.document.name}" action="#{courseDocumentsAction.downloadDocument(_courseDocuments.id)}" propagation="none"> 
-            <f:param name="currentEntityId" value="#{_courseDocuments.id}"/> 
+          <s:graphicImage rendered="#{_courseDocuments.document ne null and  _courseDocuments.document.contentType.startsWith('image')}" value="#{_courseDocuments.document.data}"> 
+            <s:transformImageSize height="100" maintainRatio="true"/> 
+          </s:graphicImage>  
+          <s:link value="#{_courseDocuments.document.name}" action="#{courseDocumentsAction.downloadDocument(_courseDocuments.id)}" propagation="none" rendered="#{not _courseDocuments.document.contentType.startsWith('image')}"> 
+            <f:param name="currentEnt ityId" value="#{_courseDocuments.id}"/> 
           </s:link> 
         </h:column>  
         <h:column groupOn="#{courseDocuments.gradeSubject.displayName}" rendered="#{s:hasPermission('gradeSubject', 'courseDocumentsView'  )}"> 
@@ -51,7 +54,7 @@
               <ui:param name="propertyPath" value="courseDocuments.gradeSubject"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_courseDocuments.gradeSubject.displayName}" action="viewGradeSubject" propagation="none"> 
+          <s:link value="#{_courseDocuments.gradeSubject.displayName}" view="/admin/entities/domain/gradeSubject/viewGradeSubject.xhtml" propagation="none"> 
             <f:param name="gradeSubjectId" value="#{_courseDocuments.gradeSubject.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 

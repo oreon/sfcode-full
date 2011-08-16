@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.feeItem_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'feeItemEdit')}"/>  
+      <h:outputText value="#{msg.feeItem_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'nameEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{feeItemList.feeItem.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.feeItem_defaultAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('defaultAmount', 'feeItemEdit')}"/>  
+      <h:outputText value="#{msg.feeItem_defaultAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('feeItem', 'defaultAmountEdit')}"/>  
       <br/>  
       <h:inputText id="defaultAmount_begin" value="#{feeItemList.defaultAmountRange.begin}"> 
         <f:converter converterId="javax.faces.Double"/> 

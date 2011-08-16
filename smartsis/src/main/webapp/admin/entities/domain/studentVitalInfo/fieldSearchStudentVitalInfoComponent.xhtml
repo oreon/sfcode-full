@@ -6,17 +6,17 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.studentVitalInfo_height}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('height', 'studentVitalInfoEdit')}"/>  
+      <h:outputText value="#{msg.studentVitalInfo_height}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfo', 'heightEdit')}"/>  
       <br/>  
       <h:inputText id="height" value="#{studentVitalInfoList.studentVitalInfo.height}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.studentVitalInfo_weight}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('weight', 'studentVitalInfoEdit')}"/>  
+      <h:outputText value="#{msg.studentVitalInfo_weight}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfo', 'weightEdit')}"/>  
       <br/>  
       <h:inputText id="weight" value="#{studentVitalInfoList.studentVitalInfo.weight}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.studentVitalInfo_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'studentVitalInfoEdit')}"/>  
+      <h:outputText value="#{msg.studentVitalInfo_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfo', 'studentEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="student" value="#{ studentVitalInfoList.studentVitalInfo.student}"> 
         <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  

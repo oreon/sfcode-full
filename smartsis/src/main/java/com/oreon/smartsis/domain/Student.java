@@ -38,7 +38,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
-import org.jboss.seam.security.permission.PermissionCheck;
 
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.model.support.audit.Auditable;
@@ -58,8 +57,7 @@ import com.oreon.smartsis.ProjectUtils;
 @XmlRootElement
 public class Student extends com.oreon.smartsis.domain.Person
 		implements
-			java.io.Serializable,
-			com.sun.xml.internal.bind.CycleRecoverable {
+			java.io.Serializable {
 	private static final long serialVersionUID = 564371639L;
 
 	@Embedded
@@ -126,7 +124,7 @@ public class Student extends com.oreon.smartsis.domain.Person
 	@Column(name = "discontinueDate", unique = false)
 	protected Date discontinueDate
 
-	= new Date();
+	;
 
 	protected DiscontinueReason discontinueReason
 
@@ -254,13 +252,13 @@ public class Student extends com.oreon.smartsis.domain.Person
 	}
 
 	@Transient
-	    public String getDisplayName(){
-	    	try {
-				return super.getDisplayName() + " " + grade.name + " " + getId();
-			} catch (Exception e) {
-				return "Exception - " + e.getMessage();
-			}
-	    }
+	public String getDisplayName() {
+		try {
+			return super.getDisplayName() + " " + grade.getName() + " " + id;
+		} catch (Exception e) {
+			return "Exception - " + e.getMessage();
+		}
+	}
 
 	//Empty setter , needed for richfaces autocomplete to work 
 	public void setDisplayName(String name) {
@@ -294,9 +292,6 @@ public class Student extends com.oreon.smartsis.domain.Person
 		}
 
 		return builder.toString();
-		
-		//PermissionCheck pc;
-		//pc.re
 	}
 
 }

@@ -4,11 +4,11 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{departmentAction.load(departmentId )  }"> 
-        <h:outputText value="#{msg.department_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'departmentEdit')}"/>  
-        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'departmentEdit')}" label="#{msg.department_name}" required="true" value="#{departmentAction.department.name}"> 
-          <rich:ajaxValidator event="onblur "/> 
+        <h:outputText value="#{msg.department_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'nameEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'nameEdit')}" label="#{msg.department_name}" required="true" disabled="false" value="#{departmentAction.department.name}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'departmentEdit')}"/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'nameEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

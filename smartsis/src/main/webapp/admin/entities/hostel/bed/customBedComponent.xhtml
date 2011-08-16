@@ -7,19 +7,19 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.bed_room} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'bedEdit')}"/>  
+        <h:outputText value="#{msg.bed_room} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'roomEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="room" value="#{bedAction.bed.room}"> 
           <s:selectItems value="#{roomList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="room" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'bedEdit')}"/> 
+        <rich:message styleClass="error errors" for="room" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'roomEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.bed_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'bedEdit')}"/>  
+        <h:outputText value="#{msg.bed_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'nameEdit')}"/>  
         <br/>  
         <h:inputText id="name" value="#{bedAction.bed.name}"/>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'bedEdit')}"/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'nameEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

@@ -6,13 +6,13 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{bedAction.load(bedId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{bedAction.bed.id}"/>  
-        <h:outputText value="#{msg.bed_room}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'bedView')}"/>  
+        <h:outputText value="#{msg.bed_room}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'roomView')}"/>  
         <s:link value="#{bedAction.bed.room.displayName}" view="/admin/entities/hostel/room/viewRoom.xhtml" propagation="none"> 
           <f:param name="roomId" value="#{bedAction.bed.room.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.bed_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'bedView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'bedView')}" value="#{bedAction.bed.name}"></h:outputText> 
+        <h:outputText value="#{msg.bed_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'nameView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'nameView')}" value="#{bedAction.bed.name}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

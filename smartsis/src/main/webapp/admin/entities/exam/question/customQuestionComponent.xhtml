@@ -7,22 +7,22 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'questionEdit')}"/>  
+        <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'textEdit')}"/>  
         <br/>  
         <rich:editor id="text" value="#{questionAction.question.text}"/>  
-        <rich:message styleClass="error errors" for="text" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'questionEdit')}"/> 
+        <rich:message styleClass="error errors" for="text" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'textEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.question_electronicExam} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'questionEdit')}"/>  
+        <h:outputText value="#{msg.question_electronicExam} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'electronicExamEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="electronicExam" value="#{questionAction.question.electronicExam}"> 
           <s:selectItems value="#{electronicExamList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="electronicExam" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'questionEdit')}"/> 
+        <rich:message styleClass="error errors" for="electronicExam" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'electronicExamEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.question_correctChoice} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('correctChoice', 'questionEdit')}"/>  
+        <h:outputText value="#{msg.question_correctChoice} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'correctChoiceEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="correctChoice" value="#{questionAction.question.correctChoice}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
@@ -31,7 +31,7 @@
           <f:selectItem itemValue="C" itemLabel="C"/>  
           <f:selectItem itemValue="D" itemLabel="D"/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="correctChoice" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('correctChoice', 'questionEdit')}"/> 
+        <rich:message styleClass="error errors" for="correctChoice" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'correctChoiceEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

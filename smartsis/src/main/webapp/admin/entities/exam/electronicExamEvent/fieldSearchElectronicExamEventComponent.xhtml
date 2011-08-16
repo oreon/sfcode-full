@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.electronicExamEvent_electronicExam} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExam', 'electronicExamEventEdit')}"/>  
+      <h:outputText value="#{msg.electronicExamEvent_electronicExam} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamEvent', 'electronicExamEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="electronicExam" value="#{ electronicExamEventList.electronicExamEvent.electronicExam}"> 
         <s:selectItems value="#{electronicExamList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.electronicExamEvent_dateOfExam}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfExam', 'electronicExamEventEdit')}"/>  
+      <h:outputText value="#{msg.electronicExamEvent_dateOfExam}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamEvent', 'dateOfExamEdit')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -23,7 +23,7 @@
       <rich:calendar value="#{electronicExamEventList.dateOfExamRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.electronicExamEvent_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'electronicExamEventEdit')}"/>  
+      <h:outputText value="#{msg.electronicExamEvent_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('electronicExamEvent', 'remarksEdit')}"/>  
       <br/>  
       <h:inputText id="remarks" value="#{electronicExamEventList.electronicExamEvent.remarks}"/> 
     </h:panelGroup> 

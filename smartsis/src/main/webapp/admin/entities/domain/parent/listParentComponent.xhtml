@@ -61,15 +61,15 @@
           </f:facet>  
           <h:outputText value="#{_parent.contactDetails.secondaryPhone}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('email', 'parentView'  )}"> 
+        <h:column rendered="#{s:hasPermission('city', 'parentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{parentList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.contactDetails_email}"/>  
-              <ui:param name="propertyPath" value="parent.contactDetails.email"/> 
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_city}"/>  
+              <ui:param name="propertyPath" value="parent.contactDetails.city"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_parent.contactDetails.email}" escape="false"/> 
+          <h:outputText value="#{_parent.contactDetails.city}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('userName', 'parentView'  )}"> 
           <f:facet name="header"> 
@@ -109,7 +109,7 @@
               <ui:param name="propertyPath" value="parent.parentGroup"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_parent.parentGroup.displayName}" action="viewParentGroup" propagation="none"> 
+          <s:link value="#{_parent.parentGroup.displayName}" view="/admin/entities/domain/parentGroup/viewParentGroup.xhtml" propagation="none"> 
             <f:param name="parentGroupId" value="#{_parent.parentGroup.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 

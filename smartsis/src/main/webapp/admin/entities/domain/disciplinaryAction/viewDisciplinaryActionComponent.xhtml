@@ -6,20 +6,20 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{disciplinaryActionAction.load(disciplinaryActionId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{disciplinaryActionAction.disciplinaryAction.id}"/>  
-        <h:outputText value="#{msg.disciplinaryAction_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'disciplinaryActionView')}"/>  
+        <h:outputText value="#{msg.disciplinaryAction_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'studentView')}"/>  
         <s:link value="#{disciplinaryActionAction.disciplinaryAction.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml" propagation="none"> 
           <f:param name="studentId" value="#{disciplinaryActionAction.disciplinaryAction.student.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.disciplinaryAction_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'disciplinaryActionView')}"/>  
+        <h:outputText value="#{msg.disciplinaryAction_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'employeeView')}"/>  
         <s:link value="#{disciplinaryActionAction.disciplinaryAction.employee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
           <f:param name="employeeId" value="#{disciplinaryActionAction.disciplinaryAction.employee.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.disciplinaryAction_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'disciplinaryActionView')}"/>  
-        <h:outputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'disciplinaryActionView')}" value="#{disciplinaryActionAction.disciplinaryAction.title}"></h:outputText>  
-        <h:outputText value="#{msg.disciplinaryAction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'disciplinaryActionView')}"/>  
-        <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'disciplinaryActionView')}" value="#{disciplinaryActionAction.disciplinaryAction.description}"></h:outputText> 
+        <h:outputText value="#{msg.disciplinaryAction_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'titleView')}"/>  
+        <h:outputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'titleView')}" value="#{disciplinaryActionAction.disciplinaryAction.title}"></h:outputText>  
+        <h:outputText value="#{msg.disciplinaryAction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'descriptionView')}"/>  
+        <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'descriptionView')}" value="#{disciplinaryActionAction.disciplinaryAction.description}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

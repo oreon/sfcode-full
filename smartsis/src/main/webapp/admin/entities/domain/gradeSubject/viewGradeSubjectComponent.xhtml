@@ -6,32 +6,32 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{gradeSubjectAction.load(gradeSubjectId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{gradeSubjectAction.gradeSubject.id}"/>  
-        <h:outputText value="#{msg.gradeSubject_subject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('subject', 'gradeSubjectView')}"/>  
+        <h:outputText value="#{msg.gradeSubject_subject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'subjectView')}"/>  
         <s:link value="#{gradeSubjectAction.gradeSubject.subject.displayName}" view="/admin/entities/domain/subject/viewSubject.xhtml" propagation="none"> 
           <f:param name="subjectId" value="#{gradeSubjectAction.gradeSubject.subject.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.gradeSubject_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'gradeSubjectView')}"/>  
+        <h:outputText value="#{msg.gradeSubject_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'employeeView')}"/>  
         <s:link value="#{gradeSubjectAction.gradeSubject.employee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
           <f:param name="employeeId" value="#{gradeSubjectAction.gradeSubject.employee.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.gradeSubject_grade}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('grade', 'gradeSubjectView')}"/>  
+        <h:outputText value="#{msg.gradeSubject_grade}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'gradeView')}"/>  
         <s:link value="#{gradeSubjectAction.gradeSubject.grade.displayName}" view="/admin/entities/domain/grade/viewGrade.xhtml" propagation="none"> 
           <f:param name="gradeId" value="#{gradeSubjectAction.gradeSubject.grade.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  
-      <rich:dataTable id="courseDocumentses" var="_courseDocuments" rendered="#{not empty gradeSubjectAction.listCourseDocumentses and skipPermissionCheck == 'true' || s:hasPermission('courseDocumentses', 'gradeSubjectView') }" value="#{gradeSubjectAction.listCourseDocumentses}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="courseDocumentses" var="_courseDocuments" rendered="#{not empty gradeSubjectAction.listCourseDocumentses and skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'courseDocumentsesView') }" value="#{gradeSubjectAction.listCourseDocumentses}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:left">
           <f:facet name="header">
-            <h:outputText value="#{msg.courseDocuments_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'courseDocumentsView')}"/>
+            <h:outputText value="#{msg.courseDocuments_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'nameView')}"/>
           </f:facet>  
-          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'courseDocumentsView')}" value="#{_courseDocuments.name}"></h:outputText> 
+          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'nameView')}" value="#{_courseDocuments.name}"></h:outputText> 
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.courseDocuments_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'courseDocumentsView')}"/>
+            <h:outputText value="#{msg.courseDocuments_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'documentView')}"/>
           </f:facet>  
           <c:choose> 
             <c:when test="${_courseDocuments.document.contentType.startsWith('image')}"> 

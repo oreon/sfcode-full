@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.attendance_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'attendanceEdit')}"/>  
+      <h:outputText value="#{msg.attendance_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'studentEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="student" value="#{ attendanceList.attendance.student}"> 
         <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,16 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.attendance_date} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'attendanceEdit')}"/>  
-      <br/>  
-      <h:outputText value="From"/>  
-      <br/>  
-      <rich:calendar value="#{attendanceList.dateRange.begin}"/> To
-      <br/>  
-      <rich:calendar value="#{attendanceList.dateRange.end}"/> 
-    </h:panelGroup>  
-    <h:panelGroup> 
-      <h:outputText value="#{msg.attendance_gradeSubject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'attendanceEdit')}"/>  
+      <h:outputText value="#{msg.attendance_gradeSubject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'gradeSubjectEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="gradeSubject" value="#{ attendanceList.attendance.gradeSubject}"> 
         <s:selectItems value="#{gradeSubjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -32,7 +23,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.attendance_absenceCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('absenceCode', 'attendanceEdit')}"/>  
+      <h:outputText value="#{msg.attendance_absenceCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'absenceCodeEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="absenceCode" value="#{attendanceList.attendance.absenceCode}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -43,7 +34,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.attendance_gradeAttendance} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'attendanceEdit')}"/>  
+      <h:outputText value="#{msg.attendance_gradeAttendance} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'gradeAttendanceEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="gradeAttendance" value="#{ attendanceList.attendance.gradeAttendance}"> 
         <s:selectItems value="#{gradeAttendanceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
