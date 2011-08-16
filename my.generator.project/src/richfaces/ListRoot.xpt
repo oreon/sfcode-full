@@ -213,7 +213,8 @@
 
 
 «DEFINE genAssoc FOR uml::Property»
-	<s:link «getEscape()»  value="#{_«genPropertyLabel()».displayName}"  action="view«type.name»" propagation="none">
+	«REM»TODO  link should not be hard coded to path and should be of type action=view«type.name» «ENDREM»
+	<s:link «getEscape()»  value="#{_«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" propagation="none">
 			<f:param name="«name»Id" value="#{_«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»

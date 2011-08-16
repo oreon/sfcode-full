@@ -182,7 +182,7 @@ import org.hibernate.annotations.ParamDef;
 		@Inheritance(strategy=InheritanceType.«inheritanceType.name»)
 	«ENDIF»
 	@XmlRootElement
-	public  «IF isAbstract» abstract «ENDIF» class «name» «getParent()»  «getInterfaces()» «getImplementedInterfaces().isEmpty  ?" implements " : ","»  «getAuditable()?"Auditable, ":""» java.io.Serializable ,  com.sun.xml.internal.bind.CycleRecoverable{
+	public  «IF isAbstract» abstract «ENDIF» class «name» «getParent()»  «getInterfaces()» «getImplementedInterfaces().isEmpty  ?" implements " : ","»  «getAuditable()?"Auditable, ":""» java.io.Serializable {
 		private static final long serialVersionUID = «serialver()»;
 		
 		«EXPAND genDecl FOREACH getAllAttributes() »
