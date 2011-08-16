@@ -370,7 +370,8 @@
 	 «IF isType("Date")»  direction="auto" «ENDIF»
 	 
 	 id="«getId()»#{entityId}"  rendered="#{«isCurrentEditMode()?genEditPermission():genViewPermission()»}"  
-	 «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"":""» 
+	 «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"" + " disabled=\"" + getDisabled() + "\"" :""
+	 » 
 	  value="#{«getActionForMode()»«genPropertyLabel()»}" >
 	 «IF isCurrentEditMode()» «genAjaxValidator()» «ENDIF»
 </«getTextControl()»>
