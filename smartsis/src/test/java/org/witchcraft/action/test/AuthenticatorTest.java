@@ -1,5 +1,7 @@
 package org.witchcraft.action.test;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -7,6 +9,7 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.Tuple;
 
 import org.jboss.seam.security.Identity;
 import org.testng.annotations.BeforeClass;
@@ -15,6 +18,7 @@ import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.seam.action.BaseAction;
 
 import com.oreon.smartsis.Gender;
+import com.oreon.smartsis.QuestionCorrectScoreBean;
 import com.oreon.smartsis.domain.Employee;
 import com.oreon.smartsis.domain.Exam;
 import com.oreon.smartsis.domain.Grade;
@@ -73,6 +77,9 @@ public class AuthenticatorTest extends BaseTest<User> {
 		Query query = em
 				.createQuery("Select u From User u where u.userName = ?1 ");
 		query.setParameter(1, "admin");
+		
+		
+		
 		if (!query.getResultList().isEmpty())
 			return;
 
