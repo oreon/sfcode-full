@@ -59,6 +59,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 
 	private Range<java.util.Date> dateCreatedRange = new Range<Date>();
 
+	
 	private List<E> entityList;
 
 	@RequestParameter
@@ -264,7 +265,13 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	@Begin(join = true)
 	public String textSearch() {
 
-
+		if (searchText == null)
+			searchText = textToSearch;
+		if (searchText == null){
+			log.error("no object to search");
+			return "";
+		}
+		
 		QueryParser parser = new QueryParser(Version.LUCENE_30, SEARCH_DATA ,
 			 entityManager.getSearchFactory()
 						.getAnalyzer("entityAnalyzer"));
@@ -272,14 +279,10 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		org.apache.lucene.search.Query query = null;
 
 		try {
-			if (searchText == null)
-				searchText = textToSearch;
-			if (searchText == null)
-				searchText = "";
 			query = parser.parse(searchText);
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
-		}
+		} 
 
 		QueryScorer scorer = new QueryScorer(query, SEARCH_DATA);
 		// Highlight using a CSS style
@@ -314,7 +317,10 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		this.entityList = list;
 	}
 
+	//@Begin(join=true)
 	public List<E> getEntityList() {
+		//if(entityList == null )
+		//	textSearch();
 		return entityList;
 	}
 

@@ -26,8 +26,6 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.witchcraft.users.AppUser;
 
-import com.sun.xml.internal.bind.CycleRecoverable.Context;
-
 //import com.oreon.trkincidents.users.User;
 
 
@@ -196,7 +194,10 @@ public class BusinessEntity implements Serializable{
 		return searchData;
 	}
 	
+/*
 	public Object onCycleDetected(Context context) {
 		return null;
 	}
+*/
+	
 }
