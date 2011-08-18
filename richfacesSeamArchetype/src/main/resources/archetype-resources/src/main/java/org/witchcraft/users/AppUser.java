@@ -40,8 +40,7 @@ import org.witchcraft.base.entity.BusinessEntity;
 @XmlRootElement
 public class AppUser extends BusinessEntity
 		implements
-			java.io.Serializable,
-			com.sun.xml.internal.bind.CycleRecoverable {
+			java.io.Serializable{
 	private static final long serialVersionUID = -1510385050L;
 
 	//@Unique(entityName = "com.hrb.tservices.domain.users.AppUser", fieldName = "userName")
