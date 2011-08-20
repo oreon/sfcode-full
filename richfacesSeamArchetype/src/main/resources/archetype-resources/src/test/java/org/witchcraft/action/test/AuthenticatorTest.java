@@ -7,13 +7,13 @@ import org.jboss.seam.security.Identity;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.witchcraft.seam.action.BaseAction;
-import org.witchcraft.users.Role;
-import org.witchcraft.users.User;
-import org.witchcraft.users.action.UserAction;
+import org.witchcraft.users.AppRole;
+import org.witchcraft.users.AppUser;
+import org.witchcraft.users.action.AppUserAction;
 
-public class AuthenticatorTest extends BaseTest<User> {
+public class AuthenticatorTest extends BaseTest<AppUser> {
 
-	UserAction action = new UserAction();
+	AppUserAction action = new AppUserAction();
 
 	@BeforeClass
 	public void init() {
@@ -21,7 +21,7 @@ public class AuthenticatorTest extends BaseTest<User> {
 	}
 
 	@Override
-	public BaseAction<User> getAction() {
+	public BaseAction<AppUser> getAction() {
 		return action;
 	}
 
@@ -50,7 +50,7 @@ public class AuthenticatorTest extends BaseTest<User> {
 		em.getTransaction().begin();
 
 		Query query = em
-				.createQuery("Select u From User u where u.userName = ?1 ");
+				.createQuery("Select u From AppUser u where u.userName = ?1 ");
 		query.setParameter(1, "admin");
 		if (!query.getResultList().isEmpty())
 			return;
@@ -73,18 +73,18 @@ public class AuthenticatorTest extends BaseTest<User> {
 		em.close();
 	}
 	
-	private User createUserAndRole(String username, String password, String role) {
+	private AppUser createUserAndRole(String username, String password, String role) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		em.getTransaction().begin();
 		
 		
-		User admin = new User();
+		AppUser admin = new AppUser();
 		admin.setUserName(username);
 		admin.setPassword(password);
 		
-		Role adminRole = new Role();
+		AppRole adminRole = new AppRole();
 		adminRole.setName(role);
-		admin.getRoles().add(adminRole);
+		admin.getAppRoles().add(adminRole);
 		admin.setEmail(username + "@gmail.com");
 		admin.setEnabled(true);
 		
