@@ -4,6 +4,10 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -11,20 +15,36 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.query.JRJpaQueryExecuterFactory;
 
+import org.jboss.seam.annotations.In;
+import org.jboss.seam.mock.SeamTest;
+import org.jbpm.identity.User;
 import org.testng.annotations.BeforeClass;
 import org.witchcraft.seam.action.BaseAction;
-import org.witchcraft.users.User;
 
 
 
-public class BaseReportsTest extends BaseTest<User> {
+public class BaseReportsTest extends SeamTest{
 
 	protected JasperReport jasperReport;
 	protected JasperPrint jasperPrint;
+	
+	private static final String NOMBRE_PERSISTENCE_UNIT = "appEntityManager";
+
+	
+	@In(create=true)
+	protected EntityManager em;
+	
+	private EntityManagerFactory emf;
+
+	public EntityManagerFactory getEntityManagerFactory() {
+		return emf;
+	}
 
 	@BeforeClass
 	public void init() {
-		super.init();
+		emf = Persistence.createEntityManagerFactory(NOMBRE_PERSISTENCE_UNIT);
+		em = getEntityManagerFactory().createEntityManager();
+	
 	}
 
 	// @Test
@@ -41,14 +61,6 @@ public class BaseReportsTest extends BaseTest<User> {
 		JasperExportManager.exportReportToPdfFile(jasperPrint,
 				"src/main/resources/reports/" + reportName + ".pdf");
 
-	}
-
-	
-
-	@Override
-	public BaseAction<User> getAction() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
