@@ -123,7 +123,7 @@
 	<h:panelGroup   >
 		<s:validateAll>
 		«setAsCurrentEntity(this)-»
-		<h:panelGrid columns="«edit?"3":"6"»" styleClass="«(edit)?"edit":"view"»Info" columnClasses="leftCol, rightCol"  onload="#{«getAction()».load(«asVar()»Id )  }">
+		<h:panelGrid columns="«edit?"1":"1"»" styleClass="«(edit)?"edit":"view"»Info" columnClasses="leftCol, rightCol"  onload="#{«getAction()».load(«asVar()»Id )  }">
 		
 		«IF !edit»
 			<h:outputText value="#{msg.id}" />
@@ -167,15 +167,23 @@
 «ENDDEFINE»
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
+	«IF getCurrentEmbeddable() == null»«EXPAND panelBegin FOR this»«ENDIF»
 	«FOREACH allParents() AS e-»
-	 «EXPAND genAttributeAssoc FOREACH e.getAllAttributes().select(a| !a.isMultivalued() && a.association != null ) -»
-	«ENDFOREACH»
-	«EXPAND genAttributeAssoc FOREACH getAllAttributes().select(a| !a.isMultivalued() && a.association != null  ) -»
-
-	«FOREACH allParents() AS e-»
-	 «EXPAND genLabelAndControl FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && a.association == null) -»
+	«EXPAND genLabelAndControl FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && a.association == null) -»
 	«ENDFOREACH»
 	«EXPAND genLabelAndControl FOREACH getAllAttributes().select(a|!a.isMultivalued() && a.association == null) -»
+	
+	«FOREACH allParents() AS e-»
+	 «EXPAND genAttributeAssoc FOREACH e.getAllAttributes().select(a| !a.isMultivalued() && a.association != null && !a.isExpandableAssoc()) -»
+	«ENDFOREACH»
+	«EXPAND genAttributeAssoc FOREACH getAllAttributes().select(a| !a.isMultivalued() && a.association != null && !a.isExpandableAssoc() ) -»
+	«IF getCurrentEmbeddable() == null»«EXPAND panelEnd FOR this»«ENDIF»
+ «REM»expand the contained associations e.g contactDetails«ENDREM»
+	«FOREACH allParents() AS e-»
+		 «EXPAND genAttributeAssoc FOREACH e.getAllAttributes().select(a| !a.isMultivalued() && a.association != null && a.isExpandableAssoc()) -»
+	«ENDFOREACH»
+	«EXPAND genAttributeAssoc FOREACH getAllAttributes().select(a| !a.isMultivalued() && a.association != null && a.isExpandableAssoc() ) -»
+	
 «ENDDEFINE»
 
 «REM»For multivalued attributes e.g. an order's order items«ENDREM»
@@ -218,10 +226,12 @@
 
 «DEFINE genAttributeAssoc FOR uml::Property -»
 	«IF opposite.type.name != getCurrentEntity().name || !isCurrentMultiMode() »
-		«IF type.isEmbeddable() || isContainedAssoc()  -»
+		«IF isExpandableAssoc()  -»
+			«IF getCurrentEmbeddable() == null» «EXPAND panelBegin FOR this.type» «ENDIF»
 			«setCurrentEmbeddable()»
 			«EXPAND genAttribAsOutput FOR this.type-»
 			«clearCurrentEmbeddable()-»
+			«EXPAND panelEnd FOR this.type»
 		«ELSE»
 			«clearCurrentEmbeddable()»
 			«EXPAND genLabelAndControl FOR this-»
@@ -230,6 +240,7 @@
 «ENDDEFINE»
 
 «DEFINE genLabelAndControl FOR uml::Property»
+	
 	«IF isCurrentEditMode()»
 		«EXPAND genLabelAndInput FOR this-»
 	«ELSE»
@@ -239,19 +250,22 @@
 
 «DEFINE genLabelAndInput FOR uml::Property-»
 	«IF !isDerived() && !type.isEmbeddable() && !systemModify() »
-		«getOutputMessage()»
+		«isCurrentMultiMode()?"<h:column>":""»
+		<s:decorate id="«getId()»Decorate" template="/layout/edit.xhtml">
+		<ui:define name="label"> «getOutputMessage()»</ui:define> 
 		«IF association != null-»
 			«EXPAND genAssociation-»
 		«ELSE»
 			«EXPAND genPropertyEntry(type) FOR this-»
 		«ENDIF»
-		«getErrorMessageHolder()-»
+		</s:decorate>
 		«isCurrentMultiMode()?"</h:column>":""»
 	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE genLabelAndOutput FOR uml::Property-»
 	«IF !isSecret()  »
+		«isCurrentMultiMode()?"<h:column>":""»
 		«getOutputMessage()-»
 		«IF association != null»
 			«EXPAND genAssociation-»
@@ -274,6 +288,23 @@
 	«ENDIF»
 «ENDDEFINE»
 
+
+«DEFINE panelBegin FOR uml::Class»
+	«IF !isCurrentMultiMode()»
+	<rich:panel>
+		<f:facet name="header"> 
+			<h:outputText value="#{msg.«name»}"/> 
+  		</f:facet>
+  		<h:panelGrid columns="2" columnClasses="leftCol, rightCol" >
+  	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE panelEnd FOR uml::Class»
+	«IF !isCurrentMultiMode()»
+		</h:panelGrid>
+	</rich:panel>
+	«ENDIF»
+«ENDDEFINE»
 
 «DEFINE genAssocLink FOR uml::Property»
 	<s:link «getEscape()»  value="#{«getActionForMode()»«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" propagation="none">
@@ -404,8 +435,7 @@
               <f:param name="currentEntityId" value="#{«getActionForFileMode()»instance.id}" /> 
             </s:link> 
         <rich:fileUpload fileUploadListener="#{«getActionForFileMode()»«name»UploadListener}"  immediateUpload="true" ajaxSingle="true" 
-         
-        	autoclear="false"  listHeight="50">
+        	autoclear="false"  listHeight="30" listWidth="250"> 	
         	<s:conversationPropagation type="join" />
         	 <a:support event="onuploadcomplete" reRender="«name»_file" />
         </rich:fileUpload>

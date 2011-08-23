@@ -51,7 +51,7 @@ public class «name»RestService  implements java.io.Serializable{
 	@POST
 	@Path("«name»")
 	@Produces("application/xml")
-	@Restrict("#{s:hasPermission(«class.name»,'«name»')}")
+	//@Restrict("#{s:hasPermission('«class.name»','«name»')}")
 	«visibility» «getOpReturnType()»  «getOpReturnTypeTemplateParam()» «name»( «getParametersSignatureRest("FormParam")»  ){
 		«type != null ? "return" :""»	 «class.name.toFirstLower()».«name»(«getParameters()»);
 	}
@@ -63,7 +63,7 @@ public class «name»RestService  implements java.io.Serializable{
 	@GET
 	@Path("«name»")
 	@Produces("application/xml")
-	@Restrict("#{s:hasPermission(«class.name»,'«name»')}")
+	//@Restrict("#{s:hasPermission('«class.name»','«name»')}")
 	«visibility» «getOpReturnType()»  «getOpReturnTypeTemplateParam()» «name»( «getParametersSignatureRest("QueryParam")»  ){
 		«type != null ? "return" :""»	 «class.name.toFirstLower()».«name»(«getParameters()»);
 	}

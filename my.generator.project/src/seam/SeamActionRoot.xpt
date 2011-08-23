@@ -320,7 +320,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	«REM»system user«ENDREM»
 	«IF getAppliedStereotype("wcprofile::SystemUser") != null»
 		public «name» getCurrentLoggedIn«name»(){
-			String query = "Select e from «name» e where e.user.userName = ?1";
+			String query = "Select e from «name» e where e.appUser.userName = ?1";
 			return («name») executeSingleResultQuery(query, Identity.instance().getCredentials().getUsername());
 		}
 	«ENDIF»
