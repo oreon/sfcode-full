@@ -16,7 +16,7 @@
 		«FOREACH allOwnedElements().typeSelect(uml::Package) AS p»
 		«IF !p.packagedElement.typeSelect(wcprofile::Entity).isEmpty-»
 	
-	    <rich:panelMenuGroup label="«p.name.toFirstUpper()»"  expanded="true" >
+	    <rich:panelMenuGroup label="«p.name.toFirstUpper()»"   expanded="#{panelMenuStateBean.state['«p.name.toFirstUpper()»']}" >
 		
 		«FOREACH p.packagedElement.typeSelect(wcprofile::Entity) AS e-»
 		<rich:panelMenuItem>

@@ -32,6 +32,8 @@
 «EXPAND genFieldSearchView FOR this»
 «EXPAND genTextSearchView FOR this»
 «EXPAND genFreeTypeSearch FOR this»
+«EXPAND genFullTextSearchResults FOR this»
+
 «ENDDEFINE»
 
 «DEFINE genFieldSearchView FOR uml::Class»
@@ -106,7 +108,58 @@
 «ENDFILE»
 «ENDDEFINE»
 
+«DEFINE genFullTextSearchResults FOR wcprofile::Entity»
+«FILE getWebPath() +"/" + "textSearchResults" + name+ "." + getExtension()»
+<ui:composition «EXPAND WebRoot::genIncludes-» template = "«getAdminTemplate()»" >	
+<ui:define name="content">   
+  <h:form>
+ 	Search Text : 
+  	<h:inputText name="searchText" 
+		value="#{«getList()».textToSearch}" required="true" />
+	<h:commandButton  value="Search" 
+		action="#{«getList()».textSearch}" >
+		<s:conversationPropagation type="join" />
+	</h:commandButton>
+  </h:form>
 
+	<h:form>
+	<ui:include src="textSearchResults«name»Component.xhtml" />
+	</h:form>
+ </ui:define>
+</ui:composition>
+«ENDFILE»
+
+«FILE getWebPath() +"/" + "textSearchResults" + name+ "Component." + getExtension()»
+<ui:composition «EXPAND WebRoot::genIncludes-» >
+		Found #{«getList()».entityList.size} results for search term: <b>  ${«getList()».textToSearch} </b>
+		<br/>
+		<br/>
+		<hr/>
+		<h:form>
+	
+			<rich:tabPanel switchType="client">
+				<rich:tab label="Search Results">
+					<ui:repeat var="_var" value="#{«getList()».entityList}">
+						<s:link value="${_var.displayName}"
+							view="«getViewFile("view")»">
+							<f:param name="«asVar()»Id" value="${_var.id}" />
+						</s:link>
+						<br />.
+		<h:outputText value="${_var.higlightedFragment}" escape="false" />
+						<hr />
+					</ui:repeat>
+
+				</rich:tab>
+				<rich:tab label = "Tabular">
+					<ui:include src="list«name»Component.«getExtension()»"  >
+						<ui:param name="records" value="#{«getList()».entityList}" />
+					</ui:include>
+				</rich:tab>
+			</rich:tabPanel>
+		</h:form>
+</ui:composition>
+«ENDFILE»
+«ENDDEFINE»
 
 «DEFINE genDateRange FOR uml::Class»
 	<h:panelGrid columns="2">

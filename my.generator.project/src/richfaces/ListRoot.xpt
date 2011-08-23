@@ -13,6 +13,8 @@
 			«setAsCurrentEntity(this)-»
 			«clearCurrentEmbeddable()-»
 			<ui:define name="content">
+				«EXPAND genFullTextBtn FOR this»
+	
 				<c:set var="modalId" value="«name»ModalPanel-«name»" />
 				<ui:include src="search«name».«getExtension()»" />
 				<br/> <br/>
@@ -32,7 +34,14 @@
 			«EXPAND modelDlg::genModelDlgComponent FOR this»
 «ENDDEFINE»
 		
-
+«DEFINE genFullTextBtn FOR uml::Class»
+ <h:form> 
+	<h:commandButton  value="Full Text Search"
+		action="textSearch">
+		<s:conversationPropagation type="join" />
+	</h:commandButton>
+</h:form>
+«ENDDEFINE»
 
 «REM» Create the actual table component«ENDREM»
 «DEFINE genViewComponent FOR uml::Class»
@@ -215,7 +224,7 @@
 «DEFINE genAssoc FOR uml::Property»
 	«REM»TODO  link should not be hard coded to path and should be of type action=view«type.name» «ENDREM»
 	<s:link «getEscape()»  value="#{_«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" propagation="none">
-			<f:param name="«name»Id" value="#{_«genPropertyLabel()».id}" />
+			<f:param name="«type.name.toFirstLower()»Id" value="#{_«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»
 			 <rich:toolTip>

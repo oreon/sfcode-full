@@ -86,6 +86,8 @@ public class ClassUtil {
 	private static Boolean currentMultiMode = false;
 
 	private static Boolean currentTemplateMode = false;
+	
+	private static Boolean currentContainer = false;
 
 	public static String getCurrentCartridge() {
 		if (currentCartridge == null) {
@@ -785,6 +787,14 @@ public class ClassUtil {
 
 	public static Model getModel() {
 		return model;
+	}
+
+	public static void setCurrentContainer(Boolean currentContainer) {
+		ClassUtil.currentContainer = currentContainer;
+	}
+
+	public static Boolean getCurrentContainer() {
+		return currentContainer;
 	}
 
 }
