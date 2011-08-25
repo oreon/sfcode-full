@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition name="approveMentorship">  
+  <!--PROTECTED REGION ID(USER_EDITABLE_RGN_approveMentorship) ENABLED START-->  
+  <!--PROTECTED REGION END-->  
+  <swimlane name="initiator"> 
+    <assignment class="com.jonah.mentormatcher.web.action.workflowmgt.approveMentorship.assign.InitiatorAssignment"/> 
+  </swimlane>  
+  <swimlane name="decisionMaker"> 
+    <assignment class="com.jonah.mentormatcher.web.action.workflowmgt.approveMentorship.assign.DecisionMakerAssignment"/> 
+  </swimlane>  
+  <start-state name=""> 
+    <task name="" swimlane="initiator"></task>  
+    <transition to="reviewRequest" name="createMentorshipRequest"></transition> 
+  </start-state>  
+  <task-node name="reviewRequest"> 
+    <task name="reviewRequest" swimlane="decisionMaker" notify="false"></task>  
+    <transition to="approve" name="proceedToApprove"></transition>  
+    <transition to="reject" name="proceedToReject"></transition>  
+    <transition to="revise" name="askForMoreInfo"></transition> 
+  </task-node>  
+  <task-node name="revise"> 
+    <task name="revise" swimlane="initiator" notify="false"></task>  
+    <transition to="reviewRequest" name="provideInfo"></transition> 
+  </task-node>  
+  <end-state name="approve"/>  
+  <end-state name="reject"/> 
+</process-definition>

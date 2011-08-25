@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{mentorSearchAction.load(mentorSearchId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{mentorSearchAction.mentorSearch.id}"/>  
+        <rich:panel> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.MentorSearch}"/> 
+          </f:facet>  
+          <h:panelGrid columns="2" columnClasses="leftCol, rightCol"> 
+            <h:outputText value="#{msg.mentorSearch_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorSearch', 'titleView')}"/>  
+            <h:outputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorSearch', 'titleView')}" value="#{mentorSearchAction.mentorSearch.title}"></h:outputText>  
+            <h:outputText value="#{msg.mentorSearch_scope}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorSearch', 'scopeView')}"/>  
+            <h:outputText value="#{mentorSearchAction.mentorSearch.scope}"/>  
+            <h:outputText value="#{msg.mentorSearch_category}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorSearch', 'categoryView')}"/>  
+            <s:link value="#{mentorSearchAction.mentorSearch.category.displayName}" view="/admin/entities/mentorship/category/viewCategory.xhtml" propagation="none"> 
+              <f:param name="categoryId" value="#{mentorSearchAction.mentorSearch.category.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </s:link>  
+            <h:outputText value="#{msg.mentorSearch_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorSearch', 'employeeView')}"/>  
+            <s:link value="#{mentorSearchAction.mentorSearch.employee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
+              <f:param name="employeeId" value="#{mentorSearchAction.mentorSearch.employee.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </s:link> 
+          </h:panelGrid> 
+        </rich:panel> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

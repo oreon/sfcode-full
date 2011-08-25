@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{mentorshipAction.load(mentorshipId )  }"> 
+        <rich:panel> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.Mentorship}"/> 
+          </f:facet>  
+          <h:panelGrid columns="2" columnClasses="leftCol, rightCol"> 
+            <s:decorate id="startDateDecorate" template="/layout/edit.xhtml"> 
+              <ui:define name="label"> 
+                <h:outputText value="#{msg.mentorship_startDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorship', 'startDateEdit')}"/>
+              </ui:define>  
+              <rich:calendar direction="auto" id="startDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorship', 'startDateEdit')}" label="#{msg.mentorship_startDate}" required="false" disabled="false" value="#{mentorshipAction.mentorship.startDate}"> 
+                <rich:ajaxValidator event="onsubmit"/> 
+              </rich:calendar> 
+            </s:decorate>  
+            <s:decorate id="endDateDecorate" template="/layout/edit.xhtml"> 
+              <ui:define name="label"> 
+                <h:outputText value="#{msg.mentorship_endDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorship', 'endDateEdit')}"/>
+              </ui:define>  
+              <rich:calendar direction="auto" id="endDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorship', 'endDateEdit')}" label="#{msg.mentorship_endDate}" required="false" disabled="false" value="#{mentorshipAction.mentorship.endDate}"> 
+                <rich:ajaxValidator event="onsubmit"/> 
+              </rich:calendar> 
+            </s:decorate>  
+            <s:decorate id="mentorDecorate" template="/layout/edit.xhtml"> 
+              <ui:define name="label"> 
+                <h:outputText value="#{msg.mentorship_mentor} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorship', 'mentorEdit')}"/>
+              </ui:define>  
+              <h:selectOneMenu id="mentor" label="#{msg.mentorship_mentor}" value="#{mentorshipAction.mentorship.mentor}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorship', 'mentorEdit')}"> 
+                <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+                <rich:ajaxValidator event="onsubmit"/>  
+                <s:convertEntity/> 
+              </h:selectOneMenu> 
+            </s:decorate> 
+          </h:panelGrid> 
+        </rich:panel> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

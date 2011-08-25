@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{mentorSearchAction.load(mentorSearchId )  }"> 
+        <rich:panel> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.MentorSearch}"/> 
+          </f:facet>  
+          <h:panelGrid columns="2" columnClasses="leftCol, rightCol"> 
+            <s:decorate id="titleDecorate" template="/layout/edit.xhtml"> 
+              <ui:define name="label"> 
+                <h:outputText value="#{msg.mentorSearch_title} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorSearch', 'titleEdit')}"/>
+              </ui:define>  
+              <h:inputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorSearch', 'titleEdit')}" label="#{msg.mentorSearch_title}" required="true" disabled="false" value="#{mentorSearchAction.mentorSearch.title}"> 
+                <rich:ajaxValidator event="onsubmit"/> 
+              </h:inputText> 
+            </s:decorate>  
+            <s:decorate id="scopeDecorate" template="/layout/edit.xhtml"> 
+              <ui:define name="label"> 
+                <h:outputText value="#{msg.mentorSearch_scope}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorSearch', 'scopeEdit')}"/>
+              </ui:define>  
+              <h:selectOneMenu id="scope" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorSearch', 'scopeEdit')}" value="#{mentorSearchAction.mentorSearch.scope}" required="false" label="#{msg.mentorSearch_scope}"> 
+                <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+                <f:selectItem itemValue="ORGANIZATION" itemLabel="#{msg.ORGANIZATION}"/>  
+                <f:selectItem itemValue="DEPARTMENT" itemLabel="#{msg.DEPARTMENT}"/>  
+                <f:selectItem itemValue="CITY" itemLabel="#{msg.CITY}"/>  
+                <rich:ajaxValidator event="onsubmit"/> 
+              </h:selectOneMenu> 
+            </s:decorate>  
+            <s:decorate id="categoryDecorate" template="/layout/edit.xhtml"> 
+              <ui:define name="label"> 
+                <h:outputText value="#{msg.mentorSearch_category} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorSearch', 'categoryEdit')}"/>
+              </ui:define>  
+              <h:selectOneMenu id="category" label="#{msg.mentorSearch_category}" value="#{mentorSearchAction.mentorSearch.category}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorSearch', 'categoryEdit')}"> 
+                <s:selectItems value="#{categoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+                <rich:ajaxValidator event="onsubmit"/>  
+                <s:convertEntity/> 
+              </h:selectOneMenu> 
+            </s:decorate>  
+            <s:decorate id="employeeDecorate" template="/layout/edit.xhtml"> 
+              <ui:define name="label"> 
+                <h:outputText value="#{msg.mentorSearch_employee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorSearch', 'employeeEdit')}"/>
+              </ui:define>  
+              <h:selectOneMenu id="employee" label="#{msg.mentorSearch_employee}" value="#{mentorSearchAction.mentorSearch.employee}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorSearch', 'employeeEdit')}"> 
+                <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+                <rich:ajaxValidator event="onsubmit"/>  
+                <s:convertEntity/> 
+              </h:selectOneMenu> 
+            </s:decorate> 
+          </h:panelGrid> 
+        </rich:panel> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
