@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd" version="1.0">  
+  <description/>  
+  <!--  Employee  JPA Configurations -->  
+  <entity class="com.jonah.mentormatcher.domain.Employee" name="Employee"> 
+    <table name="employee"></table> 
+  </entity>  
+  <!--  Department  JPA Configurations -->  
+  <entity class="com.jonah.mentormatcher.domain.Department" name="Department"> 
+    <table name="department"></table>  
+    <named-query name="department.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Department u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Exam  JPA Configurations -->  
+  <entity class="com.jonah.mentormatcher.domain.Exam" name="Exam"> 
+    <table name="exam"></table>  
+    <named-query name="exam.findByUnqTitle"> 
+      <query> <![CDATA[
+			select u from Exam u where u.title = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Question  JPA Configurations -->  
+  <entity class="com.jonah.mentormatcher.domain.Question" name="Question"> 
+    <table name="question"></table> 
+  </entity>  
+  <!--  MentorshipOffering  JPA Configurations -->  
+  <entity class="com.jonah.mentormatcher.domain.mentorship.MentorshipOffering" name="MentorshipOffering"> 
+    <table name="mentorshipoffering"></table>  
+    <named-query name="mentorshipOffering.findByUnqTitle"> 
+      <query> <![CDATA[
+			select u from MentorshipOffering u where u.title = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Mentorship  JPA Configurations -->  
+  <entity class="com.jonah.mentormatcher.domain.mentorship.Mentorship" name="Mentorship"> 
+    <table name="mentorship"></table> 
+  </entity>  
+  <!--  Testimonial  JPA Configurations -->  
+  <entity class="com.jonah.mentormatcher.domain.mentorship.Testimonial" name="Testimonial"> 
+    <table name="testimonial"></table> 
+  </entity>  
+  <!--  MentorSearch  JPA Configurations -->  
+  <entity class="com.jonah.mentormatcher.domain.mentorship.MentorSearch" name="MentorSearch"> 
+    <table name="mentorsearch"></table> 
+  </entity>  
+  <!--  Category  JPA Configurations -->  
+  <entity class="com.jonah.mentormatcher.domain.mentorship.Category" name="Category"> 
+    <table name="category"></table>  
+    <named-query name="category.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Category u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  MentorshipMember  JPA Configurations -->  
+  <entity class="com.jonah.mentormatcher.domain.mentorship.MentorshipMember" name="MentorshipMember"> 
+    <table name="mentorshipmember"></table> 
+  </entity>  
+  <!--  JoinRequest  JPA Configurations -->  
+  <entity class="com.jonah.mentormatcher.domain.mentorship.JoinRequest" name="JoinRequest"> 
+    <table name="joinrequest"></table> 
+  </entity>  
+  <!--  AppUser  JPA Configurations -->  
+  <entity class="com.jonah.mentormatcher.domain.users.AppUser" name="AppUser"> 
+    <table name="appuser"></table>  
+    <named-query name="appUser.findByUnqUserName"> 
+      <query> <![CDATA[
+			select u from AppUser u where u.userName = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  AppRole  JPA Configurations -->  
+  <entity class="com.jonah.mentormatcher.domain.users.AppRole" name="AppRole"> 
+    <table name="approle"></table>  
+    <named-query name="appRole.findByUnqName"> 
+      <query> <![CDATA[
+			select u from AppRole u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Designation  JPA Configurations -->  
+  <entity class="com.jonah.mentormatcher.domain.Designation" name="Designation"> 
+    <table name="designation"></table> 
+  </entity> 
+</entity-mappings>

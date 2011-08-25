@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <rich:tabPanel switchType="ajax"> 
+        <rich:tab label="JoinRequest"> 
+          <ui:include src="/admin/entities/mentorship/joinRequest/viewJoinRequestComponent.xhtml"/>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('joinRequest', 'edit', joinRequestAction.instance)}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" action="#{joinRequestAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </rich:tab>  
+        <rich:tab label="MentorshipOffering" rendered="#{joinRequestAction.instance.mentorshipOffering != null}"> 
+          <ui:include src="/admin/entities/mentorship/mentorshipOffering/viewMentorshipOfferingComponent.xhtml"> 
+            <ui:param name="entityId" value="1"/>  
+            <ui:param name="mentorshipOfferingId" value="#{joinRequestAction.instance.mentorshipOffering.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="ProspectiveMentee" rendered="#{joinRequestAction.instance.prospectiveMentee != null}"> 
+          <ui:include src="/admin/entities/domain/employee/viewEmployeeComponent.xhtml"> 
+            <ui:param name="entityId" value="2"/>  
+            <ui:param name="employeeId" value="#{joinRequestAction.instance.prospectiveMentee.id}"/> 
+          </ui:include> 
+        </rich:tab> 
+      </rich:tabPanel> 
+    </h:form>  
+    <br/>  
+    <rich:tabPanel></rich:tabPanel>  
+    <br/>  
+    <rich:tabPanel> 
+      <rich:tab label="Notes"> 
+        <wc:comments backingAction="#{joinRequestAction}"/> 
+      </rich:tab> 
+    </rich:tabPanel> 
+  </ui:define> 
+</ui:composition>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <rich:tabPanel switchType="ajax"> 
+        <rich:tab label="Employee"> 
+          <ui:include src="/admin/entities/domain/employee/viewEmployeeComponent.xhtml"/>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('employee', 'edit', employeeAction.instance)}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" action="#{employeeAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </rich:tab>  
+        <rich:tab label="Department" rendered="#{employeeAction.instance.department != null}"> 
+          <ui:include src="/admin/entities/domain/department/viewDepartmentComponent.xhtml"> 
+            <ui:param name="entityId" value="1"/>  
+            <ui:param name="departmentId" value="#{employeeAction.instance.department.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="AppUser" rendered="#{employeeAction.instance.appUser != null}"> 
+          <ui:include src="/admin/entities/users/appUser/viewAppUserComponent.xhtml"> 
+            <ui:param name="entityId" value="2"/>  
+            <ui:param name="appUserId" value="#{employeeAction.instance.appUser.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="Designation" rendered="#{employeeAction.instance.designation != null}"> 
+          <ui:include src="/admin/entities/domain/designation/viewDesignationComponent.xhtml"> 
+            <ui:param name="entityId" value="3"/>  
+            <ui:param name="designationId" value="#{employeeAction.instance.designation.id}"/> 
+          </ui:include> 
+        </rich:tab> 
+      </rich:tabPanel> 
+    </h:form>  
+    <br/>  
+    <rich:tabPanel> 
+      <rich:tab label="Testimonials" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="EmployeeModalPanel-testimonials"/>  
+        <ui:include src="/admin/entities/mentorship/testimonial/listTestimonialComponent.xhtml"> 
+          <ui:param name="records" value="#{testimonialList.getTestimonialsByEmployee(employeeAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include>  
+        <a:form> 
+          <s:button value="Create New" view="/admin/entities/mentorship/testimonial/editTestimonial.xhtml"> 
+            <f:param name="employeeId" value="#{employeeAction.instance.id}"/>  
+            <f:param name="testimonialId" value="0"/> 
+          </s:button>  
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"> 
+            <a:actionparam name="testimonialId" assignTo="#{testimonialAction.testimonialId}" value="0"/>  
+            <a:actionparam name="employeeId" assignTo="#{testimonialAction.employeeId}" value="#{employeeAction.instance.id}"/> 
+          </a:commandButton> 
+        </a:form>  
+        <ui:include src="/admin/entities/mentorship/testimonial/modalDlgTestimonialComponent.xhtml"> 
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include> 
+      </rich:tab> 
+    </rich:tabPanel>  
+    <br/>  
+    <rich:tabPanel> 
+      <rich:tab label="Notes"> 
+        <wc:comments backingAction="#{employeeAction}"/> 
+      </rich:tab> 
+    </rich:tabPanel> 
+  </ui:define> 
+</ui:composition>

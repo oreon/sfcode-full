@@ -1,0 +1,49 @@
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template="/defaultTemplate/template.xhtml">
+	<ui:define name="content">
+		<!--
+	
+	  <h:commandButton action="" value="" />
+	
+	-->
+
+
+
+
+
+		<!--PROTECTED REGION ID(USER_EDITABLE_RGN_reg/registerFormsm.xhtml) ENABLED START-->
+		<h:form>
+			<rich:panel>
+
+				<h:form>
+					<h:inputText name="searchText"
+						value="#{mentorshipOfferingList.textToSearch}" required="true" />
+					<h:commandButton value="Search"
+						action="#{mentorshipOfferingList.textSearch}">
+						<s:conversationPropagation type="join" />
+					</h:commandButton>
+				</h:form>
+
+				<h:panelGrid columns="1" styleClass="editInfo">
+					<c:set var="skipPermissionCheck" value="true" />
+					<ui:include
+						src="/admin/entities/mentorship/mentorshipOffering/textSearchResultsMentorshipOfferingComponent.xhtml" />
+					<h:commandButton action="#{mentorshipOfferingAction.textSearch}"
+						value="Search" />
+
+				</h:panelGrid>
+			</rich:panel>
+		</h:form>
+		<!--PROTECTED REGION END-->
+	</ui:define>
+</ui:composition>
