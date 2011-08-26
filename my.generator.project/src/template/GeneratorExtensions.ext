@@ -73,7 +73,7 @@ op.type == null ? "void":op.type.fqn().removeExtraPackage();
 //JAVA org.wc.generatorutil.ClassUtil.getOpReturnType(org.eclipse.uml2.uml.Operation);
 
 getOpReturnTypeTemplateParam(Operation op):
-op.ownedTemplateSignature == null ? "": "<" +  op.ownedTemplateSignature.ownedParameter.get(0).ownedElement.superClass.get(0).fqn() + ">";
+op.ownedTemplateSignature == null || op.ownedTemplateSignature.ownedParameter.size == 0 ? "": "<" +  op.ownedTemplateSignature.ownedParameter.get(0).ownedElement.superClass.get(0).fqn() + ">";
 //JAVA org.wc.generatorutil.ClassUtil.getOpReturnType(org.eclipse.uml2.uml.Operation);
 
 
@@ -495,3 +495,5 @@ JAVA org.wc.generatorutil.ClassUtil.getField(java.lang.String);
 isUnq(Property column):
  column.type.name == "uniqueNameType" || (column.isColumn() && column.uniqueProperty )  ;
 
+currentUser(Property prop):
+prop.isColumn() && prop.isCurrentUser;
