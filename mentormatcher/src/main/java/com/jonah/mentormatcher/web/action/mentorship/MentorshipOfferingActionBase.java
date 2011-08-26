@@ -232,4 +232,9 @@ public abstract class MentorshipOfferingActionBase
 
 	}
 
+	public String viewMentorshipOffering() {
+		load(currentEntityId);
+		return "viewMentorshipOffering";
+	}
+
 }

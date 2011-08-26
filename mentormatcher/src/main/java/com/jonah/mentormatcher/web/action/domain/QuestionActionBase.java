@@ -186,4 +186,9 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 
 	}
 
+	public String viewQuestion() {
+		load(currentEntityId);
+		return "viewQuestion";
+	}
+
 }

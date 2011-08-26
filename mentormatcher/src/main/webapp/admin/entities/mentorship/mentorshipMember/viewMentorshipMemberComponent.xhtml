@@ -4,20 +4,18 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="1" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{mentorshipMemberAction.load(mentorshipMemberId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{mentorshipMemberAction.mentorshipMember.id}"/>  
         <rich:panel> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.MentorshipMember}"/> 
           </f:facet>  
           <h:panelGrid columns="2" columnClasses="leftCol, rightCol"> 
             <h:outputText value="#{msg.mentorshipMember_mentorship}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipMember', 'mentorshipView')}"/>  
-            <s:link value="#{mentorshipMemberAction.mentorshipMember.mentorship.displayName}" view="/admin/entities/mentorship/mentorship/viewMentorship.xhtml" propagation="none"> 
+            <s:link value="#{mentorshipMemberAction.mentorshipMember.mentorship.displayName}" action="viewmentorship" propagation="none"> 
               <f:param name="mentorshipId" value="#{mentorshipMemberAction.mentorshipMember.mentorship.id}"/>  
               <f:param name="from" value="#{request.servletPath}"/> 
             </s:link>  
             <h:outputText value="#{msg.mentorshipMember_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipMember', 'employeeView')}"/>  
-            <s:link value="#{mentorshipMemberAction.mentorshipMember.employee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
+            <s:link value="#{mentorshipMemberAction.mentorshipMember.employee.displayName}" action="viewemployee" propagation="none"> 
               <f:param name="employeeId" value="#{mentorshipMemberAction.mentorshipMember.employee.id}"/>  
               <f:param name="from" value="#{request.servletPath}"/> 
             </s:link> 

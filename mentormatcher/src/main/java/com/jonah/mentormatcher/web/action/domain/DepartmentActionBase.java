@@ -206,4 +206,9 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 	}
 
+	public String viewDepartment() {
+		load(currentEntityId);
+		return "viewDepartment";
+	}
+
 }

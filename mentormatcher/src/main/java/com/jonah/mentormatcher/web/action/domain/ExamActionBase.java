@@ -198,4 +198,9 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 
 	}
 
+	public String viewExam() {
+		load(currentEntityId);
+		return "viewExam";
+	}
+
 }

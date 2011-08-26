@@ -4,8 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="1" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{testimonialAction.load(testimonialId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{testimonialAction.testimonial.id}"/>  
         <rich:panel> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.Testimonial}"/> 
@@ -14,7 +12,7 @@
             <h:outputText value="#{msg.testimonial_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('testimonial', 'descriptionView')}"/>  
             <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('testimonial', 'descriptionView')}" value="#{testimonialAction.testimonial.description}"></h:outputText>  
             <h:outputText value="#{msg.testimonial_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('testimonial', 'employeeView')}"/>  
-            <s:link value="#{testimonialAction.testimonial.employee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
+            <s:link value="#{testimonialAction.testimonial.employee.displayName}" action="viewemployee" propagation="none"> 
               <f:param name="employeeId" value="#{testimonialAction.testimonial.employee.id}"/>  
               <f:param name="from" value="#{request.servletPath}"/> 
             </s:link> 

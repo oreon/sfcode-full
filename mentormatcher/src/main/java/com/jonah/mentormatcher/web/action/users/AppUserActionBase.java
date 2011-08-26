@@ -211,4 +211,9 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 
 	}
 
+	public String viewAppUser() {
+		load(currentEntityId);
+		return "viewAppUser";
+	}
+
 }

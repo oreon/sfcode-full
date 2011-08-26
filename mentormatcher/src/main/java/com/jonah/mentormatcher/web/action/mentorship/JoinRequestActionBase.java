@@ -221,4 +221,9 @@ public abstract class JoinRequestActionBase extends BaseAction<JoinRequest>
 
 	}
 
+	public String viewJoinRequest() {
+		load(currentEntityId);
+		return "viewJoinRequest";
+	}
+
 }

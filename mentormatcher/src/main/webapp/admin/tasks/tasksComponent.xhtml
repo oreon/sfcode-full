@@ -34,6 +34,7 @@
 					</h:outputText>
 				</h:column>
 
+<!--  
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Due" />
@@ -43,7 +44,7 @@
 					</h:outputText>
 				</h:column>
 
-
+-->
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Task" />
@@ -56,17 +57,27 @@
 					<f:facet name="header">
 						<h:outputText value="Title" />
 					</f:facet>
-					<h:outputText value="#{task.variables['token'].displayName}" />
+					<h:outputText value="#{task.variables['processToken'].mentorshipOffering.displayName}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Creator" />
+					</f:facet>
+					<h:outputText value="#{task.variables['processToken'].prospectiveMentee.displayName}" />
 				</h:column>
 				
 				
 				<h:column>
-					<s:link action="/admin/tasks/viewTask.xhtml" taskInstance="#{task}"  
+					<s:link action="viewTask" taskInstance="#{task}"  
 						value="View" >
+						<f:param name="currentEntityId" value="#{task.id}" />
 					</s:link>
 				</h:column>
 
-			</rich:dataTable></div>
+			</rich:dataTable>
+			
+			</div>
 			
 
 		</h:form>

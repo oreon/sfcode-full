@@ -186,4 +186,9 @@ public abstract class TestimonialActionBase extends BaseAction<Testimonial>
 
 	}
 
+	public String viewTestimonial() {
+		load(currentEntityId);
+		return "viewTestimonial";
+	}
+
 }

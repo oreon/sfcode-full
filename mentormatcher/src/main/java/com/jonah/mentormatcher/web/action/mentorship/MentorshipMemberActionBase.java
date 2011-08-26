@@ -217,4 +217,9 @@ public abstract class MentorshipMemberActionBase
 
 	}
 
+	public String viewMentorshipMember() {
+		load(currentEntityId);
+		return "viewMentorshipMember";
+	}
+
 }

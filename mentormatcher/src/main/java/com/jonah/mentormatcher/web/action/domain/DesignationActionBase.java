@@ -147,4 +147,9 @@ public abstract class DesignationActionBase extends BaseAction<Designation>
 
 	}
 
+	public String viewDesignation() {
+		load(currentEntityId);
+		return "viewDesignation";
+	}
+
 }

@@ -4,8 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="1" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{employeeAction.load(employeeId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{employeeAction.employee.id}"/>  
         <rich:panel> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.Employee}"/> 
@@ -31,12 +29,12 @@
               </c:otherwise> 
             </c:choose>  
             <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'departmentView')}"/>  
-            <s:link value="#{employeeAction.employee.department.displayName}" view="/admin/entities/domain/department/viewDepartment.xhtml" propagation="none"> 
+            <s:link value="#{employeeAction.employee.department.displayName}" action="viewdepartment" propagation="none"> 
               <f:param name="departmentId" value="#{employeeAction.employee.department.id}"/>  
               <f:param name="from" value="#{request.servletPath}"/> 
             </s:link>  
             <h:outputText value="#{msg.employee_designation}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'designationView')}"/>  
-            <s:link value="#{employeeAction.employee.designation.displayName}" view="/admin/entities/domain/designation/viewDesignation.xhtml" propagation="none"> 
+            <s:link value="#{employeeAction.employee.designation.displayName}" action="viewdesignation" propagation="none"> 
               <f:param name="designationId" value="#{employeeAction.employee.designation.id}"/>  
               <f:param name="from" value="#{request.servletPath}"/> 
             </s:link> 

@@ -4,8 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="1" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{mentorshipAction.load(mentorshipId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{mentorshipAction.mentorship.id}"/>  
         <rich:panel> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.Mentorship}"/> 
@@ -16,7 +14,7 @@
             <h:outputText value="#{msg.mentorship_endDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorship', 'endDateView')}"/>  
             <h:outputText direction="auto" id="endDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorship', 'endDateView')}" value="#{mentorshipAction.mentorship.endDate}"></h:outputText>  
             <h:outputText value="#{msg.mentorship_mentor}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorship', 'mentorView')}"/>  
-            <s:link value="#{mentorshipAction.mentorship.mentor.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
+            <s:link value="#{mentorshipAction.mentorship.mentor.displayName}" action="viewmentor" propagation="none"> 
               <f:param name="mentorId" value="#{mentorshipAction.mentorship.mentor.id}"/>  
               <f:param name="from" value="#{request.servletPath}"/> 
             </s:link> 

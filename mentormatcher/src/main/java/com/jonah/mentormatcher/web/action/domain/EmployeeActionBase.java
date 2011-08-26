@@ -356,4 +356,9 @@ public abstract class EmployeeActionBase
 				.getCredentials().getUsername());
 	}
 
+	public String viewEmployee() {
+		load(currentEntityId);
+		return "viewEmployee";
+	}
+
 }

@@ -152,4 +152,9 @@ public abstract class CategoryActionBase extends BaseAction<Category>
 
 	}
 
+	public String viewCategory() {
+		load(currentEntityId);
+		return "viewCategory";
+	}
+
 }

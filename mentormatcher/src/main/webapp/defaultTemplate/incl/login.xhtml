@@ -34,13 +34,24 @@
     
     <h:form id="LogoutForm" rendered="#{identity.loggedIn}">
         <dl>
-            <dt class="menuHeader">Welcome, #{currentUser.firstName}</dt>
+            <dt class="menuHeader">Welcome, #{identity.credentials.username}</dt>
             <dd class="menuForm">
                 <dl>
-                    <dd>Thank you for choosing the DVD Store</dd>
+                	 <dd>
+                        <h:commandLink  action="#{identity.logout}" value="My Profile"
+                                          style="width: 166px;"/>
+                    </dd>
+                   	 <dd>
+                        <h:commandLink  action="#{identity.logout}" value="My Mentorship Offerings"
+                                          style="width: 166px;"/>
+                    </dd>
                     <dd>
-                        <h:commandButton id="Logout" action="#{identity.logout}" value="Logout"
-                                         styleClass="formButton" style="width: 166px;"/>
+                        <h:commandLink  action="#{identity.logout}" value="Join Requests"
+                                          style="width: 166px;"/>
+                    </dd>
+                    <dd>
+                        <h:commandLink id="Logout" action="#{identity.logout}" value="Logout"
+                                          style="width: 166px;"/>
                     </dd>
                 </dl>
             </dd>

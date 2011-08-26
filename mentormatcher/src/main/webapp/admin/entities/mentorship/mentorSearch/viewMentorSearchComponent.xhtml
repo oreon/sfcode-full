@@ -4,8 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="1" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{mentorSearchAction.load(mentorSearchId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{mentorSearchAction.mentorSearch.id}"/>  
         <rich:panel> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.MentorSearch}"/> 
@@ -16,12 +14,12 @@
             <h:outputText value="#{msg.mentorSearch_scope}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorSearch', 'scopeView')}"/>  
             <h:outputText value="#{mentorSearchAction.mentorSearch.scope}"/>  
             <h:outputText value="#{msg.mentorSearch_category}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorSearch', 'categoryView')}"/>  
-            <s:link value="#{mentorSearchAction.mentorSearch.category.displayName}" view="/admin/entities/mentorship/category/viewCategory.xhtml" propagation="none"> 
+            <s:link value="#{mentorSearchAction.mentorSearch.category.displayName}" action="viewcategory" propagation="none"> 
               <f:param name="categoryId" value="#{mentorSearchAction.mentorSearch.category.id}"/>  
               <f:param name="from" value="#{request.servletPath}"/> 
             </s:link>  
             <h:outputText value="#{msg.mentorSearch_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorSearch', 'employeeView')}"/>  
-            <s:link value="#{mentorSearchAction.mentorSearch.employee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
+            <s:link value="#{mentorSearchAction.mentorSearch.employee.displayName}" action="viewemployee" propagation="none"> 
               <f:param name="employeeId" value="#{mentorSearchAction.mentorSearch.employee.id}"/>  
               <f:param name="from" value="#{request.servletPath}"/> 
             </s:link> 
