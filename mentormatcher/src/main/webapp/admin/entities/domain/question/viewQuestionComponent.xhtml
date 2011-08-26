@@ -4,8 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="1" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{questionAction.load(questionId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{questionAction.question.id}"/>  
         <rich:panel> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.Question}"/> 
@@ -14,7 +12,7 @@
             <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'textView')}"/>  
             <h:outputText escape="false" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'textView')}" value="#{questionAction.question.text}"></h:outputText>  
             <h:outputText value="#{msg.question_exam}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'examView')}"/>  
-            <s:link value="#{questionAction.question.exam.displayName}" view="/admin/entities/domain/exam/viewExam.xhtml" propagation="none"> 
+            <s:link value="#{questionAction.question.exam.displayName}" action="viewexam" propagation="none"> 
               <f:param name="examId" value="#{questionAction.question.exam.id}"/>  
               <f:param name="from" value="#{request.servletPath}"/> 
             </s:link> 

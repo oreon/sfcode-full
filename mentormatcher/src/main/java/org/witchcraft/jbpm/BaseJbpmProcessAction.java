@@ -36,6 +36,8 @@ import org.witchcraft.base.entity.BusinessEntity;
 @Name("jbpmProcessAction")
 public class BaseJbpmProcessAction {
 
+	private static final String DONE_VIEW_TASK = "doneViewTask";
+
 	public static final String PROCESS_ACTION_SUFFIX = "ProcessAction";
 
 	@In
@@ -54,6 +56,8 @@ public class BaseJbpmProcessAction {
 
 	@Logger
 	protected Log log;
+	
+	
 
 	@In
 	protected StatusMessages statusMessages;
@@ -64,6 +68,10 @@ public class BaseJbpmProcessAction {
 
 	@RequestParameter
 	private Long taskId = 0L;
+	
+	@RequestParameter
+	private Long currentEntityId = 0L;
+	
 
 	@RequestParameter
 	protected String transName;
@@ -94,11 +102,16 @@ public class BaseJbpmProcessAction {
 	@Transactional
 	public void setTaskId(long taskId) {
 		this.taskId = taskId;
+		if(taskId == 0 ) 
+			taskId = currentEntityId;
 		loadTask();
 	}
+	
+	
 
 	@Transactional
 	public void loadTask() {
+		
 		if (taskId > 0)
 			task = ManagedJbpmContext.instance().getTaskInstance(taskId);
 	}
@@ -165,7 +178,7 @@ public class BaseJbpmProcessAction {
 				task.setEnd(new Date());
 			}
 
-			return "next";
+			return DONE_VIEW_TASK;
 			// jbpmContext.
 		} catch (Exception e) {
 			statusMessages.add(e.getMessage());

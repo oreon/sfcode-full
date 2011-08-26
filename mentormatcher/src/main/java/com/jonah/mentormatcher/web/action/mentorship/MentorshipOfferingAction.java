@@ -27,7 +27,8 @@ public class MentorshipOfferingAction extends MentorshipOfferingActionBase imple
 		EmployeeAction employeeAction = (EmployeeAction) Component.getInstance("employeeAction");
 		
 		JoinRequest joinRequest = new JoinRequest();
-		joinRequest.setMentorshipOffering(entityManager.find(MentorshipOffering.class, getInstance().getId()) );
+		long id = getInstance().getId() != null ? getInstance().getId() : currentEntityId;
+		joinRequest.setMentorshipOffering(entityManager.find(MentorshipOffering.class, id) );
 		joinRequest.setProspectiveMentee(employeeAction.getCurrentLoggedInEmployee());
 		
 		JoinRequestAction joinRequestAction = (JoinRequestAction) Component.getInstance("joinRequestAction");
@@ -44,9 +45,14 @@ public class MentorshipOfferingAction extends MentorshipOfferingActionBase imple
 		return "success";
 	}
 	
-	/*
-	public void setCurrentEntityId(){
-		
-	}*/
+	public String viewMentorshipOffering(){
+		return super.viewMentorshipOffering();
+	}
+	
+	
+	public String applyForMentorship(){
+		apply();
+		return "applicationSuccess";
+	}
 }
 	

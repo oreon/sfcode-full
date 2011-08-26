@@ -217,4 +217,9 @@ public abstract class MentorSearchActionBase extends BaseAction<MentorSearch>
 
 	}
 
+	public String viewMentorSearch() {
+		load(currentEntityId);
+		return "viewMentorSearch";
+	}
+
 }

@@ -241,4 +241,9 @@ public abstract class MentorshipActionBase extends BaseAction<Mentorship>
 
 	}
 
+	public String viewMentorship() {
+		load(currentEntityId);
+		return "viewMentorship";
+	}
+
 }

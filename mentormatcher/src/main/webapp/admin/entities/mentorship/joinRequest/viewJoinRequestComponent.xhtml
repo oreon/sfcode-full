@@ -4,8 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="1" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{joinRequestAction.load(joinRequestId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{joinRequestAction.joinRequest.id}"/>  
         <rich:panel> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.JoinRequest}"/> 
@@ -14,12 +12,12 @@
             <h:outputText value="#{msg.joinRequest_requestText}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'requestTextView')}"/>  
             <h:outputText escape="false" id="requestText#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'requestTextView')}" value="#{joinRequestAction.joinRequest.requestText}"></h:outputText>  
             <h:outputText value="#{msg.joinRequest_mentorshipOffering}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'mentorshipOfferingView')}"/>  
-            <s:link value="#{joinRequestAction.joinRequest.mentorshipOffering.displayName}" view="/admin/entities/mentorship/mentorshipOffering/viewMentorshipOffering.xhtml" propagation="none"> 
+            <s:link value="#{joinRequestAction.joinRequest.mentorshipOffering.displayName}" action="viewmentorshipOffering" propagation="none"> 
               <f:param name="mentorshipOfferingId" value="#{joinRequestAction.joinRequest.mentorshipOffering.id}"/>  
               <f:param name="from" value="#{request.servletPath}"/> 
             </s:link>  
             <h:outputText value="#{msg.joinRequest_prospectiveMentee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'prospectiveMenteeView')}"/>  
-            <s:link value="#{joinRequestAction.joinRequest.prospectiveMentee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
+            <s:link value="#{joinRequestAction.joinRequest.prospectiveMentee.displayName}" action="viewprospectiveMentee" propagation="none"> 
               <f:param name="prospectiveMenteeId" value="#{joinRequestAction.joinRequest.prospectiveMentee.id}"/>  
               <f:param name="from" value="#{request.servletPath}"/> 
             </s:link> 

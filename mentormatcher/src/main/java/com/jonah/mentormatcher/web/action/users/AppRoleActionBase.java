@@ -152,4 +152,9 @@ public abstract class AppRoleActionBase extends BaseAction<AppRole>
 
 	}
 
+	public String viewAppRole() {
+		load(currentEntityId);
+		return "viewAppRole";
+	}
+
 }

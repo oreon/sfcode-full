@@ -36,16 +36,16 @@ public class ApproveMentorshipProcessActionBase extends BaseJbpmProcessAction
 
 	}
 
-	@EndTask(transition = "proceedToApprove")
-	public void proceedToApproveReviewRequest() {
-
-	}
 	@EndTask(transition = "proceedToReject")
 	public void proceedToRejectReviewRequest() {
 
 	}
 	@EndTask(transition = "askForMoreInfo")
 	public void askForMoreInfoReviewRequest() {
+
+	}
+	@EndTask(transition = "proceedToApprove")
+	public void proceedToApproveReviewRequest() {
 
 	}
 

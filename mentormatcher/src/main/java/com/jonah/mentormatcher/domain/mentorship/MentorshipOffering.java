@@ -178,7 +178,7 @@ public class MentorshipOffering extends BusinessEntity
 	@Transient
 	public String getDisplayName() {
 		try {
-			return title;
+			return title + "  - " + mentor.getDisplayName();
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
