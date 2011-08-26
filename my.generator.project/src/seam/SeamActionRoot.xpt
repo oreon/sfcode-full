@@ -168,9 +168,18 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	«IF ! isAbstract»
 	@Override
 	protected «name» createInstance() {
-		return new «name»();
+		«name» instance =  super.createInstance();
+		
+		«FOREACH allParents() AS e-»
+				«EXPAND genCurrentUser FOREACH e.getAllAttributes().select(a|a.currentUser()) -»
+		«ENDFOREACH»
+		«EXPAND genCurrentUser FOREACH getAllAttributes().select(a|a.currentUser()) -»
+		
+		
+		 return instance;
 	}
 	
+
 
 	public void load() {
 		if (isIdDefined()) {
@@ -324,12 +333,21 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 			return («name») executeSingleResultQuery(query, Identity.instance().getCredentials().getUsername());
 		}
 	«ENDIF»
+	
+	public String view«name»(){
+		load(currentEntityId);
+		return "view«name»";
+	}
 
 
  «ENDIF»
 	
 }
 «ENDFILE»
+«ENDDEFINE»
+
+«DEFINE genCurrentUser FOR wcprofile::Column»
+	instance.set«name.toFirstUpper()»(«name»Action.getCurrentLoggedIn«type.name»());
 «ENDDEFINE»
 
 «DEFINE updateList FOR uml::Property»

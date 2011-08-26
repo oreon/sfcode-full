@@ -125,13 +125,10 @@
 		«setAsCurrentEntity(this)-»
 		<h:panelGrid columns="«edit?"1":"1"»" styleClass="«(edit)?"edit":"view"»Info" columnClasses="leftCol, rightCol"  onload="#{«getAction()».load(«asVar()»Id )  }">
 		
-		«IF !edit»
-			<h:outputText value="#{msg.id}" />
-			<h:outputText  value="#{«asVar()»Action.«asVar()».id}" />
-		«ENDIF»
 		«REM»comment
 		«IF !isCurrentEditMode() && fieldsFromSuperClass != null» «EXPAND genProperty FOREACH getStringsAsList(fieldsFromSuperClass)» «ENDIF»
 		«ENDREM»
+		
 		«EXPAND genAttribAsOutput FOR this-»
 		</h:panelGrid>
 		«EXPAND genTable FOR this-»
@@ -249,7 +246,7 @@
 «ENDDEFINE»
 
 «DEFINE genLabelAndInput FOR uml::Property-»
-	«IF !isDerived() && !type.isEmbeddable() && !systemModify() »
+	«IF !isDerived() && !type.isEmbeddable() && !systemModify() && !currentUser()»
 		«isCurrentMultiMode()?"<h:column>":""»
 		<s:decorate id="«getId()»Decorate" template="/layout/edit.xhtml">
 		<ui:define name="label"> «getOutputMessage()»</ui:define> 
@@ -295,7 +292,8 @@
 		<f:facet name="header"> 
 			<h:outputText value="#{msg.«name»}"/> 
   		</f:facet>
-  		<h:panelGrid columns="2" columnClasses="leftCol, rightCol" >
+  		<c:if test="${numColumns == null }" > <c:set var="numColumns" value="2" /> </c:if>
+  		<h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol" >
   	«ENDIF»
 «ENDDEFINE»
 
@@ -307,7 +305,8 @@
 «ENDDEFINE»
 
 «DEFINE genAssocLink FOR uml::Property»
-	<s:link «getEscape()»  value="#{«getActionForMode()»«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" propagation="none">
+	<s:link «getEscape()»  value="#{«getActionForMode()»«genPropertyLabel()».displayName}"  
+			action="view«name»" propagation="none">
 			<f:param name="«name»Id" value="#{«getActionForMode()»«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»
@@ -321,7 +320,7 @@
 «ENDDEFINE»
 
 «DEFINE genAssociationEdit FOR uml::Property»
-	«IF (associationEnd.isColumn() && includeInAssociation) »
+	«IF (associationEnd.isColumn() && includeInAssociation   ) »
 		«type.setCurrentEmbeddable()» 
 		«EXPAND genLabelAndControl FOR this.type-»
 	«ELSE»

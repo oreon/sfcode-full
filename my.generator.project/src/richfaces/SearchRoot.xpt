@@ -112,15 +112,7 @@
 «FILE getWebPath() +"/" + "textSearchResults" + name+ "." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes-» template = "«getAdminTemplate()»" >	
 <ui:define name="content">   
-  <h:form>
- 	Search Text : 
-  	<h:inputText name="searchText" 
-		value="#{«getList()».textToSearch}" required="true" />
-	<h:commandButton  value="Search" 
-		action="#{«getList()».textSearch}" >
-		<s:conversationPropagation type="join" />
-	</h:commandButton>
-  </h:form>
+ 
 
 	<h:form>
 	<ui:include src="textSearchResults«name»Component.xhtml" />
@@ -131,19 +123,32 @@
 
 «FILE getWebPath() +"/" + "textSearchResults" + name+ "Component." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes-» >
+
+	<s:div rendered="#{«getList()».textToSearch != null}">	
 		Found #{«getList()».entityList.size} results for search term: <b>  ${«getList()».textToSearch} </b>
+	</s:div>	
 		<br/>
 		<br/>
-		<hr/>
+		
 		<h:form>
+				
+  	<h:inputText name="searchText" size="70"
+		value="#{«getList()».textToSearch}" required="true" />
+	<h:commandButton  value="Search" 
+		action="#{«getList()».textSearch}" >
+		<s:conversationPropagation type="join" />
+	</h:commandButton>
 	
 			<rich:tabPanel switchType="client">
 				<rich:tab label="Search Results">
 					<ui:repeat var="_var" value="#{«getList()».entityList}">
 						<s:link value="${_var.displayName}"
-							view="«getViewFile("view")»">
-							<f:param name="«asVar()»Id" value="${_var.id}" />
+							action="#{«getAction()».view«name»}">
+							<f:param name="currentEntityId" value="${_var.id}" />
+							<s:conversationPropagation type="join"/>
 						</s:link>
+						
+		
 						<br />.
 		<h:outputText value="${_var.higlightedFragment}" escape="false" />
 						<hr />

@@ -54,7 +54,7 @@
 		</navigation>
 		«ENDPROTECT»
 	
-	
+		
 	
         <navigation>
         	«PROTECT CSTART '<!--' CEND '-->' ID 'USER_EDITABLE_PAGESROOT_BLKT'»
@@ -65,7 +65,14 @@
                 <redirect view-id="/home.«getExtension()»"/>
             </rule>
             «ENDPROTECT»
-            
+         
+         «FOREACH allOwnedElements().typeSelect(wcprofile::GlobalState) AS g-»
+    			«FOREACH g.getOutgoings() AS o»
+					 <rule if-outcome="«o.guard.specification.stringValue()-»">
+		 				<redirect view-id="/«o.target.getStateWebName()-»" />
+		            </rule>	
+            	«ENDFOREACH»
+        «ENDFOREACH»
             
         «FOREACH allOwnedElements().typeSelect(wcprofile::Entity) AS e»
             <rule if-outcome="«e.asVar()»">
