@@ -19,8 +19,9 @@
 	
 	-->
 	
- 	
- 	
+ 
+	 component is 
+
  
 	
 	 <!--PROTECTED REGION ID(USER_EDITABLE_RGN_manageaccount/createMentorship.xhtml) ENABLED START-->
@@ -30,10 +31,14 @@
 				<h:panelGrid columns="1" styleClass="editInfo">
 					<c:set var="skipPermissionCheck" value="true" />
 					<ui:include
-						src="/admin/entities/mentorship/mentorshipOffering/editMentorshipOfferingComponent.xhtml" />
+						src="/admin/entities/mentorship/mentorshipOffering/editMentorshipOfferingComponent.xhtml" >
+						<ui:param name="numColumns" value="1" />
+					</ui:include>
+					<h:panelGrid columns="2">
 					<h:commandButton action="#{mentorshipOfferingAction.createOffering}"
 						value="Save" />
 					<h:commandButton action="accountHome" value="Cancel" />
+					</h:panelGrid>
 				</h:panelGrid>
 			</rich:panel>
 		</h:form>

@@ -110,7 +110,9 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 
 	@Override
 	protected Question createInstance() {
-		return new Question();
+		Question instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {

@@ -21,6 +21,13 @@ public class MentorshipOfferingAction extends MentorshipOfferingActionBase imple
 	ApproveMentorshipProcessAction approveMentorshipProcessAction;
 	
 	
+	@Override
+	protected MentorshipOffering createInstance() {
+		// TODO Auto-generated method stub
+		return super.createInstance();
+	}
+	
+	
 	public void apply(){
 		//MentorshipOfferingAction mentorshipOfferingAction = (MentorshipOfferingAction) Component.getInstance("mentorshipOfferingAction");
 		//persist();
@@ -32,6 +39,7 @@ public class MentorshipOfferingAction extends MentorshipOfferingActionBase imple
 		joinRequest.setProspectiveMentee(employeeAction.getCurrentLoggedInEmployee());
 		
 		JoinRequestAction joinRequestAction = (JoinRequestAction) Component.getInstance("joinRequestAction");
+		joinRequest.setRequestText(joinRequestAction.getInstance().getRequestText());
 		joinRequestAction.persist(joinRequest);
 		joinRequestAction.setInstance(joinRequest);
 		

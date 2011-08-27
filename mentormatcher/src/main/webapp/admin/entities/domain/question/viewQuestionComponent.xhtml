@@ -8,7 +8,10 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.Question}"/> 
           </f:facet>  
-          <h:panelGrid columns="2" columnClasses="leftCol, rightCol"> 
+          <c:if test="${numColumns == null }"> 
+            <c:set var="numColumns" value="2"/> 
+          </c:if>  
+          <h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol"> 
             <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'textView')}"/>  
             <h:outputText escape="false" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'textView')}" value="#{questionAction.question.text}"></h:outputText>  
             <h:outputText value="#{msg.question_exam}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'examView')}"/>  

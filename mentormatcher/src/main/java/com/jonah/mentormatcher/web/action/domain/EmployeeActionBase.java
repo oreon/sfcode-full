@@ -149,7 +149,9 @@ public abstract class EmployeeActionBase
 
 	@Override
 	protected Employee createInstance() {
-		return new Employee();
+		Employee instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {

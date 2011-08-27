@@ -126,7 +126,11 @@ public abstract class MentorshipOfferingActionBase
 
 	@Override
 	protected MentorshipOffering createInstance() {
-		return new MentorshipOffering();
+		MentorshipOffering instance = super.createInstance();
+
+		instance.setMentor(mentorAction.getCurrentLoggedInEmployee());
+
+		return instance;
 	}
 
 	public void load() {
@@ -227,6 +231,15 @@ public abstract class MentorshipOfferingActionBase
 	 * []
 	 */
 	public String createOffering() {
+
+		return null;
+
+	}
+
+	/** 
+	 * []
+	 */
+	public String applyForMentorship() {
 
 		return null;
 

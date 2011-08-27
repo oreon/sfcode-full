@@ -1,190 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pages xmlns="http://jboss.com/products/seam/pages"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd"
-       no-conversation-view-id="/index.jspx"
-       login-view-id="/login.jspx">
-	
- 	<page view-id="/reg/index.xhtml" conversation-required="false">
-    	<navigation> 
-			 <rule if-outcome="register">
- 				<redirect view-id="/reg/registerForm.xhtml" />
-            </rule>	
-			 <rule if-outcome="forgotCredentials">
- 				<redirect view-id="/reg/enterEmail.xhtml" />
-            </rule>	
-            
-		</navigation>
-		
-		
-    	<navigation from-action="#{employeeAction.login}">
-			 <rule if-outcome="success">
- 				<redirect view-id="/reg/welcome.xhtml" />
-            </rule>	
-            
-             
-        </navigation>
-        
-        <param name="currentEntityId" />
-	</page>
-	
 
- 	<page view-id="/reg/welcome.xhtml" conversation-required="false">
- 		
-        <param name="currentEntityId" />
-	</page>
-	
-
- 	<page view-id="/reg/registerForm.xhtml" conversation-required="false">
- 		
-		
-    	<navigation from-action="#{employeeAction.register}">
-			 <rule if-outcome="success">
- 				<redirect view-id="/reg/welcome.xhtml" />
-            </rule>	
-            
-             
-        </navigation>
-        
-        <param name="currentEntityId" />
-	</page>
-	
-
- 	<page view-id="/reg/enterEmail.xhtml" conversation-required="false">
- 		
-		
-    	<navigation from-action="#{employeeAction.retrieveCredentials}">
-			 <rule if-outcome="success">
- 				<redirect view-id="/reg/credentialsEmailed.xhtml" />
-            </rule>	
-            
-             
-        </navigation>
-        
-        <param name="currentEntityId" />
-	</page>
-	
-
- 	<page view-id="/reg/credentialsEmailed.xhtml" conversation-required="false">
-    	<navigation> 
-			 <rule if-outcome="">
- 				<redirect view-id="/reg/.xhtml" />
-            </rule>	
-            
-		</navigation>
-		
-		
-    	
-        <param name="currentEntityId" />
-	</page>
-	
-
- 	<page view-id="/manageaccount/accountHome.xhtml" conversation-required="false">
-    	<navigation> 
-			 <rule if-outcome="seachMentorship">
- 				<redirect view-id="/manageaccount/searchMentorships.xhtml" />
-            </rule>	
-			 <rule if-outcome="viewTask">
- 				<redirect view-id="/manageaccount/viewJoinRequest.xhtml" />
-            </rule>	
-			 <rule if-outcome="">
- 				<redirect view-id="/manageaccount/createMentorship.xhtml" />
-            </rule>	
-            
-		</navigation>
-		
-		
-    	
-        <param name="currentEntityId" />
-	</page>
-	
-
- 	<page view-id="/manageaccount/searchMentorships.xhtml" conversation-required="false">
-    	<navigation> 
-			 <rule if-outcome="viewMentorshipOffering">
- 				<redirect view-id="/manageaccount/viewMentorship.xhtml" />
-            </rule>	
-            
-		</navigation>
-		
-		
-    	
-        <param name="currentEntityId" />
-	</page>
-	
-
- 	<page view-id="/manageaccount/viewMentorship.xhtml" conversation-required="false">
-    	<navigation> 
-			 <rule if-outcome="backToSearch">
- 				<redirect view-id="/manageaccount/searchMentorships.xhtml" />
-            </rule>	
-			 <rule if-outcome="apply">
- 				<redirect view-id="/manageaccount/applyForMentorship.xhtml" />
-            </rule>	
-            
-		</navigation>
-		
-		
-    	
-        <param name="currentEntityId" />
-	</page>
-	
-
- 	<page view-id="/manageaccount/applyForMentorship.xhtml" conversation-required="false">
-    	<navigation> 
-			 <rule if-outcome="applicationSuccess">
- 				<redirect view-id="/manageaccount/applicationSuccess.xhtml" />
-            </rule>	
-            
-		</navigation>
-		
-		
-    	
-        <param name="currentEntityId" />
-	</page>
-	
-
- 	<page view-id="/manageaccount/applicationSuccess.xhtml" conversation-required="false">
- 		
-		
-    	
-        <param name="currentEntityId" />
-	</page>
-	
-
- 	<page view-id="/manageaccount/viewJoinRequest.xhtml" conversation-required="false">
- 		
-		
-    	<param name="taskId" value="#{jbpmProcessAction.taskId}"/>  
-        <param name="currentEntityId" />
-	</page>
-	
-
- 	<page view-id="/manageaccount/createMentorship.xhtml" conversation-required="false">
- 		
-		
-    	<navigation from-action="#{mentorshipOfferingAction.createOffering}">
-			 <rule if-outcome="success">
- 				<redirect view-id="/manageaccount/mentorshipCreated.xhtml" />
-            </rule>	
-            
-             
-        </navigation>
-        
-        <param name="currentEntityId" />
-	</page>
-	
-
- 	<page view-id="/manageaccount/mentorshipCreated.xhtml" conversation-required="false">
- 		
-		
-    	
-        <param name="currentEntityId" />
-	</page>
-	
-	
-	
- <!--PROTECTED REGION ID(USER_EDITABLE_PAGEFLOW) ENABLED START-->
-
-	<!--PROTECTED REGION END-->	
+<pages xmlns="http://jboss.com/products/seam/pages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd" no-conversation-view-id="/index.jspx" login-view-id="/login.jspx">  
+  <page view-id="/reg/index.xhtml" conversation-required="false"> 
+    <navigation> 
+      <rule if-outcome="register"> 
+        <redirect view-id="/reg/registerForm.xhtml"/> 
+      </rule>  
+      <rule if-outcome="forgotCredentials"> 
+        <redirect view-id="/reg/enterEmail.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <navigation from-action="#{employeeAction.login}"> 
+      <rule if-outcome="success"> 
+        <redirect view-id="/reg/welcome.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="currentEntityId"/> 
+  </page>  
+  <page view-id="/reg/welcome.xhtml" conversation-required="false"> 
+    <param name="currentEntityId"/> 
+  </page>  
+  <page view-id="/reg/registerForm.xhtml" conversation-required="false"> 
+    <navigation from-action="#{employeeAction.register}"> 
+      <rule if-outcome="success"> 
+        <redirect view-id="/reg/welcome.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="currentEntityId"/> 
+  </page>  
+  <page view-id="/reg/enterEmail.xhtml" conversation-required="false"> 
+    <navigation from-action="#{employeeAction.retrieveCredentials}"> 
+      <rule if-outcome="success"> 
+        <redirect view-id="/reg/credentialsEmailed.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="currentEntityId"/> 
+  </page>  
+  <page view-id="/reg/credentialsEmailed.xhtml" conversation-required="false"> 
+    <navigation> 
+      <rule if-outcome=""> 
+        <redirect view-id="/reg/.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="currentEntityId"/> 
+  </page>  
+  <page view-id="/manageaccount/accountHome.xhtml" conversation-required="false"> 
+    <navigation> 
+      <rule if-outcome="seachMentorship"> 
+        <redirect view-id="/manageaccount/searchMentorships.xhtml"/> 
+      </rule>  
+      <rule if-outcome="viewTask"> 
+        <redirect view-id="/manageaccount/viewJoinRequest.xhtml"/> 
+      </rule>  
+      <rule if-outcome=""> 
+        <redirect view-id="/manageaccount/createMentorship.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="currentEntityId"/> 
+  </page>  
+  <page view-id="/manageaccount/searchMentorships.xhtml" conversation-required="false"> 
+    <navigation> 
+      <rule if-outcome="viewMentorshipOffering"> 
+        <redirect view-id="/manageaccount/viewMentorship.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="currentEntityId"/> 
+  </page>  
+  <page view-id="/manageaccount/viewMentorship.xhtml" conversation-required="false"> 
+    <navigation> 
+      <rule if-outcome="backToSearch"> 
+        <redirect view-id="/manageaccount/searchMentorships.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <navigation from-action="#{mentorshipOfferingAction.applyForMentorship}"> 
+      <rule if-outcome="applicationSuccess"> 
+        <redirect view-id="/manageaccount/applicationSuccess.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="currentEntityId"/> 
+  </page>  
+  <page view-id="/manageaccount/applicationSuccess.xhtml" conversation-required="false"> 
+    <param name="currentEntityId"/> 
+  </page>  
+  <page view-id="/manageaccount/viewJoinRequest.xhtml" conversation-required="false"> 
+    <navigation> 
+      <rule if-outcome="doneViewTask"> 
+        <redirect view-id="/manageaccount/accountHome.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="currentEntityId"/> 
+  </page>  
+  <page view-id="/manageaccount/createMentorship.xhtml" conversation-required="false"> 
+    <navigation from-action="#{mentorshipOfferingAction.createOffering}"> 
+      <rule if-outcome="success"> 
+        <redirect view-id="/manageaccount/mentorshipCreated.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="currentEntityId"/> 
+  </page>  
+  <page view-id="/manageaccount/mentorshipCreated.xhtml" conversation-required="false"> 
+    <param name="currentEntityId"/> 
+  </page>  
+  <page view-id="/manageaccount/viewEmployee.xhtml" conversation-required="false"> 
+    <param name="currentEntityId"/> 
+  </page>  
+  <!--PROTECTED REGION ID(USER_EDITABLE_PAGEFLOW) ENABLED START-->  
+  <!--PROTECTED REGION END--> 
 </pages>

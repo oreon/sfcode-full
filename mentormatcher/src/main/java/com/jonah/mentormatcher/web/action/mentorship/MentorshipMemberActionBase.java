@@ -126,7 +126,9 @@ public abstract class MentorshipMemberActionBase
 
 	@Override
 	protected MentorshipMember createInstance() {
-		return new MentorshipMember();
+		MentorshipMember instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {

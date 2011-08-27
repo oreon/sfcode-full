@@ -8,7 +8,10 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.Employee}"/> 
           </f:facet>  
-          <h:panelGrid columns="2" columnClasses="leftCol, rightCol"> 
+          <c:if test="${numColumns == null }"> 
+            <c:set var="numColumns" value="2"/> 
+          </c:if>  
+          <h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol"> 
             <s:decorate id="firstNameDecorate" template="/layout/edit.xhtml"> 
               <ui:define name="label"> 
                 <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'firstNameEdit')}"/>
@@ -86,7 +89,10 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.ContactDetails}"/> 
           </f:facet>  
-          <h:panelGrid columns="2" columnClasses="leftCol, rightCol"> 
+          <c:if test="${numColumns == null }"> 
+            <c:set var="numColumns" value="2"/> 
+          </c:if>  
+          <h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol"> 
             <s:decorate id="contactDetails_phoneDecorate" template="/layout/edit.xhtml"> 
               <ui:define name="label"> 
                 <h:outputText value="#{msg.contactDetails_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'phoneEdit')}"/>
@@ -117,7 +123,10 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.AppUser}"/> 
           </f:facet>  
-          <h:panelGrid columns="2" columnClasses="leftCol, rightCol"> 
+          <c:if test="${numColumns == null }"> 
+            <c:set var="numColumns" value="2"/> 
+          </c:if>  
+          <h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol"> 
             <s:decorate id="appUser_userNameDecorate" template="/layout/edit.xhtml"> 
               <ui:define name="label"> 
                 <h:outputText value="#{msg.appUser_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'userNameEdit')}"/>

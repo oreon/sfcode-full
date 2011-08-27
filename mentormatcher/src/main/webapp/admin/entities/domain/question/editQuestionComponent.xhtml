@@ -8,7 +8,10 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.Question}"/> 
           </f:facet>  
-          <h:panelGrid columns="2" columnClasses="leftCol, rightCol"> 
+          <c:if test="${numColumns == null }"> 
+            <c:set var="numColumns" value="2"/> 
+          </c:if>  
+          <h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol"> 
             <s:decorate id="textDecorate" template="/layout/edit.xhtml"> 
               <ui:define name="label"> 
                 <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'textEdit')}"/>

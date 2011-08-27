@@ -8,7 +8,10 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.MentorshipOffering}"/> 
           </f:facet>  
-          <h:panelGrid columns="2" columnClasses="leftCol, rightCol"> 
+          <c:if test="${numColumns == null }"> 
+            <c:set var="numColumns" value="2"/> 
+          </c:if>  
+          <h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol"> 
             <s:decorate id="titleDecorate" template="/layout/edit.xhtml"> 
               <ui:define name="label"> 
                 <h:outputText value="#{msg.mentorshipOffering_title} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'titleEdit')}"/>
@@ -59,16 +62,6 @@
               </ui:define>  
               <h:selectOneMenu id="category" label="#{msg.mentorshipOffering_category}" value="#{mentorshipOfferingAction.mentorshipOffering.category}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'categoryEdit')}"> 
                 <s:selectItems value="#{categoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-                <rich:ajaxValidator event="onsubmit"/>  
-                <s:convertEntity/> 
-              </h:selectOneMenu> 
-            </s:decorate>  
-            <s:decorate id="mentorDecorate" template="/layout/edit.xhtml"> 
-              <ui:define name="label"> 
-                <h:outputText value="#{msg.mentorshipOffering_mentor} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'mentorEdit')}"/>
-              </ui:define>  
-              <h:selectOneMenu id="mentor" label="#{msg.mentorshipOffering_mentor}" value="#{mentorshipOfferingAction.mentorshipOffering.mentor}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'mentorEdit')}"> 
-                <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
                 <rich:ajaxValidator event="onsubmit"/>  
                 <s:convertEntity/> 
               </h:selectOneMenu> 

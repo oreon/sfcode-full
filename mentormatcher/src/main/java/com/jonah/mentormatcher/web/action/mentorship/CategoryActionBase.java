@@ -94,7 +94,9 @@ public abstract class CategoryActionBase extends BaseAction<Category>
 
 	@Override
 	protected Category createInstance() {
-		return new Category();
+		Category instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {

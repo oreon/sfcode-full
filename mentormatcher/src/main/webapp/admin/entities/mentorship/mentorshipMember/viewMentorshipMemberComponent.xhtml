@@ -8,7 +8,10 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.MentorshipMember}"/> 
           </f:facet>  
-          <h:panelGrid columns="2" columnClasses="leftCol, rightCol"> 
+          <c:if test="${numColumns == null }"> 
+            <c:set var="numColumns" value="2"/> 
+          </c:if>  
+          <h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol"> 
             <h:outputText value="#{msg.mentorshipMember_mentorship}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipMember', 'mentorshipView')}"/>  
             <s:link value="#{mentorshipMemberAction.mentorshipMember.mentorship.displayName}" action="viewmentorship" propagation="none"> 
               <f:param name="mentorshipId" value="#{mentorshipMemberAction.mentorshipMember.mentorship.id}"/>  

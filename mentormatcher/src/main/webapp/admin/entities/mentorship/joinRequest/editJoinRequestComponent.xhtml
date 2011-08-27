@@ -8,7 +8,10 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.JoinRequest}"/> 
           </f:facet>  
-          <h:panelGrid columns="2" columnClasses="leftCol, rightCol"> 
+          <c:if test="${numColumns == null }"> 
+            <c:set var="numColumns" value="2"/> 
+          </c:if>  
+          <h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol"> 
             <s:decorate id="requestTextDecorate" template="/layout/edit.xhtml"> 
               <ui:define name="label"> 
                 <h:outputText value="#{msg.joinRequest_requestText}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'requestTextEdit')}"/>

@@ -8,7 +8,10 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.JoinRequest}"/> 
           </f:facet>  
-          <h:panelGrid columns="2" columnClasses="leftCol, rightCol"> 
+          <c:if test="${numColumns == null }"> 
+            <c:set var="numColumns" value="2"/> 
+          </c:if>  
+          <h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol"> 
             <h:outputText value="#{msg.joinRequest_requestText}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'requestTextView')}"/>  
             <h:outputText escape="false" id="requestText#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'requestTextView')}" value="#{joinRequestAction.joinRequest.requestText}"></h:outputText>  
             <h:outputText value="#{msg.joinRequest_mentorshipOffering}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'mentorshipOfferingView')}"/>  

@@ -8,7 +8,10 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.AppUser}"/> 
           </f:facet>  
-          <h:panelGrid columns="2" columnClasses="leftCol, rightCol"> 
+          <c:if test="${numColumns == null }"> 
+            <c:set var="numColumns" value="2"/> 
+          </c:if>  
+          <h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol"> 
             <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'userNameView')}"/>  
             <h:outputText id="userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'userNameView')}" value="#{appUserAction.appUser.userName}"></h:outputText>  
             <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'enabledView')}"/>  
