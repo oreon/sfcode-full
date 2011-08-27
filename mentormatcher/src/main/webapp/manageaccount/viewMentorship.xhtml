@@ -1,6 +1,5 @@
 
-<ui:composition 
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:s="http://jboss.com/products/seam/taglib"
@@ -8,35 +7,40 @@
 	xmlns:p="http://primefaces.prime.com.tr/ui"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
-
- template = "/defaultTemplate/template.xhtml" >	
+	template="/defaultTemplate/template.xhtml">
 	<ui:define name="content">
-	<!--
+		<!--
 	
 	  <h:commandButton action="backToSearch" value="backToSearch" />
 	
 	  <h:commandButton action="apply" value="apply" />
 	
 	-->
-	
- 
-	 component is 
 
- 
-	
-	 <!--PROTECTED REGION ID(USER_EDITABLE_RGN_manageaccount/viewMentorship.xhtml) ENABLED START-->
+
+
+
+		<!--PROTECTED REGION ID(USER_EDITABLE_RGN_manageaccount/viewMentorship.xhtml) ENABLED START-->
 		<h:form>
 
 			<rich:panel>
 
 				<h:form>
-					<ui:include
-						src="/admin/entities/mentorship/mentorshipOffering/viewMentorshipOfferingComponent.xhtml">
-
-					</ui:include>
-
+					<rich:tabPanel switchType="client">
+						<rich:tab label="Offering"> 
+							<ui:include
+								src="/admin/entities/mentorship/mentorshipOffering/viewMentorshipOfferingComponent.xhtml">
+							</ui:include>
+						</rich:tab>
+						<rich:tab label="Mentor">
+							<ui:include
+								src="/admin/entities/domain/employee/viewEmployeeComponent.xhtml" >
+								<ui:param name="employeeId" value="#{mentorshipOfferingAction.instance.mentor.id}" />
+							</ui:include>
+						</rich:tab>
+					</rich:tabPanel>
 					<h:outputText value="Message To Mentor" styleClass="required"
 						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'requestTextEdit')}" />
 					<br />
@@ -54,7 +58,6 @@
 
 			</rich:panel>
 		</h:form>
-		<!--PROTECTED REGION END-->	
-	</ui:define> 
+		<!--PROTECTED REGION END-->
+	</ui:define>
 </ui:composition>
-	
