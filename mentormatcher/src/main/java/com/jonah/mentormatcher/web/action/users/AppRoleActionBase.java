@@ -94,7 +94,9 @@ public abstract class AppRoleActionBase extends BaseAction<AppRole>
 
 	@Override
 	protected AppRole createInstance() {
-		return new AppRole();
+		AppRole instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {

@@ -128,7 +128,9 @@ public abstract class JoinRequestActionBase extends BaseAction<JoinRequest>
 
 	@Override
 	protected JoinRequest createInstance() {
-		return new JoinRequest();
+		JoinRequest instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {

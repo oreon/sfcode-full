@@ -42,4 +42,18 @@ public class MentorshipOfferingActionTestBase
 		}.run();
 	}
 
+	@Test
+	public void testApplyForMentorship() throws Exception {
+		new ComponentTest() {
+
+			protected void testComponents() throws Exception {
+				MentorshipOfferingAction mentorshipOfferingAction = (MentorshipOfferingAction) org.jboss.seam.Component
+						.getInstance("mentorshipOfferingAction");
+
+				// assert(mentorshipOfferingAction.applyForMentorship()).equals("");
+			}
+
+		}.run();
+	}
+
 }

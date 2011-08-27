@@ -96,7 +96,9 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 
 	@Override
 	protected Exam createInstance() {
-		return new Exam();
+		Exam instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {

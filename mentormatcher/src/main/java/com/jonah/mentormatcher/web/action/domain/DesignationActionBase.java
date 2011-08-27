@@ -94,7 +94,9 @@ public abstract class DesignationActionBase extends BaseAction<Designation>
 
 	@Override
 	protected Designation createInstance() {
-		return new Designation();
+		Designation instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {

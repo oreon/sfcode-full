@@ -110,7 +110,9 @@ public abstract class TestimonialActionBase extends BaseAction<Testimonial>
 
 	@Override
 	protected Testimonial createInstance() {
-		return new Testimonial();
+		Testimonial instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {

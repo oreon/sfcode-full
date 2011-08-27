@@ -115,7 +115,9 @@ public abstract class MentorshipActionBase extends BaseAction<Mentorship>
 
 	@Override
 	protected Mentorship createInstance() {
-		return new Mentorship();
+		Mentorship instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {

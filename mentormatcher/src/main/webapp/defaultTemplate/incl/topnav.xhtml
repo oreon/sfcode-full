@@ -6,7 +6,12 @@
 
     <ul id="Navigation">
         <li id="page_home"><s:link id="Home" view="/manageaccount/accountHome.xhtml" value="Home" propagation="none"/></li>
-        <li id="page_shop"><s:link id="NewMentorship" view="/manageaccount/createMentorship.xhtml" value="New Mentorship" propagation="none"/></li>
+        <li id="page_shop">
+        	<s:link id="NewMentorship" view="/manageaccount/createMentorship.xhtml" value="New Mentorship" propagation="none">
+        		<f:param name="currentEntityId" value="0" />
+        	</s:link>
+        	
+        </li>
         <li id="page_shop"><s:link id="SearchMentorships" view="/manageaccount/searchMentorships.xhtml" value="Search Mentorship" propagation="none"/></li>
      
         <f:subview rendered="#{identity.loggedIn}">

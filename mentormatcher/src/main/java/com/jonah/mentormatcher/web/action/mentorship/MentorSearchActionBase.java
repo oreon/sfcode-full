@@ -126,7 +126,9 @@ public abstract class MentorSearchActionBase extends BaseAction<MentorSearch>
 
 	@Override
 	protected MentorSearch createInstance() {
-		return new MentorSearch();
+		MentorSearch instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {

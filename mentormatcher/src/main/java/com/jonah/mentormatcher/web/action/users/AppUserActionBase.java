@@ -94,7 +94,9 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 
 	@Override
 	protected AppUser createInstance() {
-		return new AppUser();
+		AppUser instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
