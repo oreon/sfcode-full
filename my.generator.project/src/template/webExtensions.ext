@@ -103,8 +103,12 @@ String getLabelText(Property prop):
 getRendered(Property prop):
 isCurrentEditMode()?prop.genEditPermission():prop.genViewPermission() ;
 
+//getRequiredStar(Property prop):
+//isCurrentEditMode() && (prop.getRequired() == "true" || ( prop.association != null && !prop.getAssocOptional() ) )?"*":"";
+
 getRequiredStar(Property prop):
-isCurrentEditMode() && (prop.getRequired() == "true" || ( prop.association != null && !prop.getAssocOptional() ) )?"*":"";
+"";
+
 
 String getTextControl(Property prop):
 isCurrentEditMode() ? getInputControl(prop):getOutputControl(prop);

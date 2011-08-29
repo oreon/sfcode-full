@@ -124,7 +124,7 @@ public class ClassUtil {
 		mapTypes.put("nameType", new String[] { "String",
 				"@NotNull @Length(min=1, max=250)" });
 		mapTypes.put("uniqueNameType", new String[] { "String",
-				"@NotNull @Length(min=1, max=250)  @Column(unique=true)" });
+				"@NotNull @Length(min=1, max=250)  " });
 		
 		
 		

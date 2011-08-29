@@ -23,19 +23,15 @@
 	template = "«getAdminTemplate()»" >	
 	
 	<ui:define name="content">
+		<h:form>
 		«IF templatable && !isCurrentTemplateMode() »«EXPAND genTemplateChooser FOR this»«ENDIF»
-		<rich:panel>
-			<f:facet name="header">
-					<h:outputText value="«name»" />
-			</f:facet>
-		<h:form> 
 		
 		«IF isCurrentTemplateMode()»Template Name: <h:inputText value="#{«getAction()».templateName}" required="true" />«ENDIF»
-
+	
 		<ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
 		«EXPAND genCancelSaveBtns(true) FOR this»
 		</h:form>
-		</rich:panel>
+		
 	</ui:define> 
 	
 	«REM»comment
@@ -123,14 +119,13 @@
 	<h:panelGroup   >
 		<s:validateAll>
 		«setAsCurrentEntity(this)-»
-		<h:panelGrid columns="«edit?"1":"1"»" styleClass="«(edit)?"edit":"view"»Info" columnClasses="leftCol, rightCol"  onload="#{«getAction()».load(«asVar()»Id )  }">
-		
+		<h:panelGrid columns="«edit?"1":"1"»"  onload="#{«getAction()».load(«asVar()»Id )  }"></h:panelGrid>
 		«REM»comment
 		«IF !isCurrentEditMode() && fieldsFromSuperClass != null» «EXPAND genProperty FOREACH getStringsAsList(fieldsFromSuperClass)» «ENDIF»
 		«ENDREM»
 		
 		«EXPAND genAttribAsOutput FOR this-»
-		</h:panelGrid>
+		
 		«EXPAND genTable FOR this-»
 		«EXPAND genManyToManyShuttle FOR this-»
 		</s:validateAll>
@@ -288,19 +283,17 @@
 
 «DEFINE panelBegin FOR uml::Class»
 	«IF !isCurrentMultiMode()»
-	<rich:panel>
-		<f:facet name="header"> 
+		<c:if test="${numColumns == null }" > <c:set var="numColumns" value="2" /> </c:if>
+  		<h:panelGrid columns="${numColumns}" styleClass="«isCurrentEditMode()?"edit":"view"»Info" columnClasses="leftCol, rightCol" >
+  		<f:facet name="header"> 
 			<h:outputText value="#{msg.«name»}"/> 
   		</f:facet>
-  		<c:if test="${numColumns == null }" > <c:set var="numColumns" value="2" /> </c:if>
-  		<h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol" >
   	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE panelEnd FOR uml::Class»
 	«IF !isCurrentMultiMode()»
 		</h:panelGrid>
-	</rich:panel>
 	«ENDIF»
 «ENDDEFINE»
 
