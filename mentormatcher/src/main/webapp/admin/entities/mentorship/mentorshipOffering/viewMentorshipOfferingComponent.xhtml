@@ -3,37 +3,34 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup> 
     <s:validateAll> 
-      <h:panelGrid columns="1" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{mentorshipOfferingAction.load(mentorshipOfferingId )  }"> 
-        <rich:panel> 
-          <f:facet name="header"> 
-            <h:outputText value="#{msg.MentorshipOffering}"/> 
-          </f:facet>  
-          <c:if test="${numColumns == null }"> 
-            <c:set var="numColumns" value="2"/> 
-          </c:if>  
-          <h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol"> 
-            <h:outputText value="#{msg.mentorshipOffering_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'titleView')}"/>  
-            <h:outputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'titleView')}" value="#{mentorshipOfferingAction.mentorshipOffering.title}"></h:outputText>  
-            <h:outputText value="#{msg.mentorshipOffering_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'descriptionView')}"/>  
-            <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'descriptionView')}" value="#{mentorshipOfferingAction.mentorshipOffering.description}"></h:outputText>  
-            <h:outputText value="#{msg.mentorshipOffering_keywords}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'keywordsView')}"/>  
-            <h:outputText escape="false" id="keywords#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'keywordsView')}" value="#{mentorshipOfferingAction.mentorshipOffering.keywords}"></h:outputText>  
-            <h:outputText value="#{msg.mentorshipOffering_inactive}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'inactiveView')}"/>  
-            <h:outputText id="inactive#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'inactiveView')}" value="#{mentorshipOfferingAction.mentorshipOffering.inactive}"></h:outputText>  
-            <h:outputText value="#{msg.mentorshipOffering_scope}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'scopeView')}"/>  
-            <h:outputText value="#{mentorshipOfferingAction.mentorshipOffering.scope}"/>  
-            <h:outputText value="#{msg.mentorshipOffering_category}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'categoryView')}"/>  
-            <s:link value="#{mentorshipOfferingAction.mentorshipOffering.category.displayName}" action="viewcategory" propagation="none"> 
-              <f:param name="categoryId" value="#{mentorshipOfferingAction.mentorshipOffering.category.id}"/>  
-              <f:param name="from" value="#{request.servletPath}"/> 
-            </s:link>  
-            <h:outputText value="#{msg.mentorshipOffering_mentor}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'mentorView')}"/>  
-            <s:link value="#{mentorshipOfferingAction.mentorshipOffering.mentor.displayName}" action="viewmentor" propagation="none"> 
-              <f:param name="mentorId" value="#{mentorshipOfferingAction.mentorshipOffering.mentor.id}"/>  
-              <f:param name="from" value="#{request.servletPath}"/> 
-            </s:link> 
-          </h:panelGrid> 
-        </rich:panel> 
+      <h:panelGrid columns="1" onload="#{mentorshipOfferingAction.load(mentorshipOfferingId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.MentorshipOffering}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.mentorshipOffering_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'titleView')}"/>  
+        <h:outputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'titleView')}" value="#{mentorshipOfferingAction.mentorshipOffering.title}"></h:outputText>  
+        <h:outputText value="#{msg.mentorshipOffering_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'descriptionView')}"/>  
+        <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'descriptionView')}" value="#{mentorshipOfferingAction.mentorshipOffering.description}"></h:outputText>  
+        <h:outputText value="#{msg.mentorshipOffering_keywords}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'keywordsView')}"/>  
+        <h:outputText escape="false" id="keywords#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'keywordsView')}" value="#{mentorshipOfferingAction.mentorshipOffering.keywords}"></h:outputText>  
+        <h:outputText value="#{msg.mentorshipOffering_inactive}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'inactiveView')}"/>  
+        <h:outputText id="inactive#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'inactiveView')}" value="#{mentorshipOfferingAction.mentorshipOffering.inactive}"></h:outputText>  
+        <h:outputText value="#{msg.mentorshipOffering_scope}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'scopeView')}"/>  
+        <h:outputText value="#{mentorshipOfferingAction.mentorshipOffering.scope}"/>  
+        <h:outputText value="#{msg.mentorshipOffering_category}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'categoryView')}"/>  
+        <s:link value="#{mentorshipOfferingAction.mentorshipOffering.category.displayName}" action="viewcategory" propagation="none"> 
+          <f:param name="categoryId" value="#{mentorshipOfferingAction.mentorshipOffering.category.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.mentorshipOffering_mentor}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'mentorView')}"/>  
+        <s:link value="#{mentorshipOfferingAction.mentorshipOffering.mentor.displayName}" action="viewmentor" propagation="none"> 
+          <f:param name="mentorId" value="#{mentorshipOfferingAction.mentorshipOffering.mentor.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

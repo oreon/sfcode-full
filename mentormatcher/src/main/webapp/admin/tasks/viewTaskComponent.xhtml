@@ -7,7 +7,7 @@
 	xmlns:a="http://richfaces.org/a4j">
 
 	<h:panelGrid
-		onload="#{jbpmProcessAction.setTaskId(param.currentEntityId)}">
+		onload="#{jbpmProcessAction.setTaskId(param.currentEntityId != null ? param.currentEntityId : 0 )}">
 		<h2>#{jbpmProcessAction.task.task.taskNode.name} -
 		#{jbpmProcessAction.task.variables['processToken'].mentorshipOffering.displayName}</h2>
 		
@@ -20,12 +20,14 @@
 			<f:param name="currentEntityId"
 				value="#{jbpmProcessAction.task.variables['processToken'].prospectiveMentee.id}" />
 		</s:link>
+		
 		<h:form>
 			<h:outputText value="Comments" />
 			<rich:editor id="Comment_text" required="false"
 				value="#{jbpmProcessAction.comment}" />
 
 			<br />
+			
 			<ui:repeat var="trans"
 				value="#{jbpmProcessAction.task.availableTransitions}">
 				<h:commandLink value="#{msg[trans.name]}"

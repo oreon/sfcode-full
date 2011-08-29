@@ -102,7 +102,7 @@ public class BaseJbpmProcessAction {
 	@Transactional
 	public void setTaskId(long taskId) {
 		this.taskId = taskId;
-		if(taskId == 0 ) 
+		if(taskId == 0  && currentEntityId != null) 
 			taskId = currentEntityId;
 		loadTask();
 	}
@@ -146,8 +146,7 @@ public class BaseJbpmProcessAction {
 
 	@Transactional
 	public String makeDecision() {
-		// FacesContext.getCurrentInstance()
-		// System.out.println("going to execute " + transName);
+		
 		String taskName = StringUtils.capitalize(task.getName());
 
 		try {

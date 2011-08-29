@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Date;
+import javax.ws.rs.core.Response;
 
 import javax.persistence.*;
 import org.hibernate.validator.*;
@@ -21,6 +22,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Boost;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Parameter;
@@ -60,9 +62,11 @@ public class MentorshipOffering extends BusinessEntity
 			java.io.Serializable {
 	private static final long serialVersionUID = 577568966L;
 
+	//@Unique(entityName = "com.jonah.mentormatcher.domain.mentorship.MentorshipOffering", fieldName = "title")
+	@Boost(3F)
 	@NotNull
 	@Length(min = 1, max = 250)
-	@Column(unique = true)
+	@Column(name = "title", unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String title
@@ -70,6 +74,7 @@ public class MentorshipOffering extends BusinessEntity
 	;
 
 	@Lob
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String description
@@ -77,16 +82,19 @@ public class MentorshipOffering extends BusinessEntity
 	;
 
 	@Lob
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String keywords
 
 	;
 
+	@Column(unique = false)
 	protected Boolean inactive
 
 	;
 
+	@Column(unique = false)
 	protected OfferingType scope
 
 	;

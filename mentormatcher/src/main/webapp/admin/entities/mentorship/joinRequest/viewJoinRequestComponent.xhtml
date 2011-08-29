@@ -3,29 +3,26 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup> 
     <s:validateAll> 
-      <h:panelGrid columns="1" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{joinRequestAction.load(joinRequestId )  }"> 
-        <rich:panel> 
-          <f:facet name="header"> 
-            <h:outputText value="#{msg.JoinRequest}"/> 
-          </f:facet>  
-          <c:if test="${numColumns == null }"> 
-            <c:set var="numColumns" value="2"/> 
-          </c:if>  
-          <h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol"> 
-            <h:outputText value="#{msg.joinRequest_requestText}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'requestTextView')}"/>  
-            <h:outputText escape="false" id="requestText#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'requestTextView')}" value="#{joinRequestAction.joinRequest.requestText}"></h:outputText>  
-            <h:outputText value="#{msg.joinRequest_mentorshipOffering}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'mentorshipOfferingView')}"/>  
-            <s:link value="#{joinRequestAction.joinRequest.mentorshipOffering.displayName}" action="viewmentorshipOffering" propagation="none"> 
-              <f:param name="mentorshipOfferingId" value="#{joinRequestAction.joinRequest.mentorshipOffering.id}"/>  
-              <f:param name="from" value="#{request.servletPath}"/> 
-            </s:link>  
-            <h:outputText value="#{msg.joinRequest_prospectiveMentee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'prospectiveMenteeView')}"/>  
-            <s:link value="#{joinRequestAction.joinRequest.prospectiveMentee.displayName}" action="viewprospectiveMentee" propagation="none"> 
-              <f:param name="prospectiveMenteeId" value="#{joinRequestAction.joinRequest.prospectiveMentee.id}"/>  
-              <f:param name="from" value="#{request.servletPath}"/> 
-            </s:link> 
-          </h:panelGrid> 
-        </rich:panel> 
+      <h:panelGrid columns="1" onload="#{joinRequestAction.load(joinRequestId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.JoinRequest}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.joinRequest_requestText}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'requestTextView')}"/>  
+        <h:outputText escape="false" id="requestText#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'requestTextView')}" value="#{joinRequestAction.joinRequest.requestText}"></h:outputText>  
+        <h:outputText value="#{msg.joinRequest_mentorshipOffering}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'mentorshipOfferingView')}"/>  
+        <s:link value="#{joinRequestAction.joinRequest.mentorshipOffering.displayName}" action="viewmentorshipOffering" propagation="none"> 
+          <f:param name="mentorshipOfferingId" value="#{joinRequestAction.joinRequest.mentorshipOffering.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.joinRequest_prospectiveMentee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'prospectiveMenteeView')}"/>  
+        <s:link value="#{joinRequestAction.joinRequest.prospectiveMentee.displayName}" action="viewprospectiveMentee" propagation="none"> 
+          <f:param name="prospectiveMenteeId" value="#{joinRequestAction.joinRequest.prospectiveMentee.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 
