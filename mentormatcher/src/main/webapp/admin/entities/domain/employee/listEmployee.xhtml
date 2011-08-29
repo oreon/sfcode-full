@@ -15,7 +15,9 @@
       <s:button value="Create New" action="/admin/entities/domain/employee/editEmployee.xhtml" propagation="none"> 
         <f:param name="employeeId" value="0"/> 
       </s:button>  
-      <a:commandButton action="#{employeeAction.setEmployeeId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
+      <a:commandButton action="#{employeeAction.setEmployeeId(0)}" 
+      	oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" 
+      	reRender="${modalId}"/>  
       <s:button value="Export to Excel" action="#{employeeList.exportToCsv}"/> 
     </a:form>  
     <ui:include src="listEmployeeComponent.xhtml"> 

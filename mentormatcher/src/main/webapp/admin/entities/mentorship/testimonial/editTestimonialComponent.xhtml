@@ -3,35 +3,32 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup> 
     <s:validateAll> 
-      <h:panelGrid columns="1" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{testimonialAction.load(testimonialId )  }"> 
-        <rich:panel> 
-          <f:facet name="header"> 
-            <h:outputText value="#{msg.Testimonial}"/> 
-          </f:facet>  
-          <c:if test="${numColumns == null }"> 
-            <c:set var="numColumns" value="2"/> 
-          </c:if>  
-          <h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol"> 
-            <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
-              <ui:define name="label"> 
-                <h:outputText value="#{msg.testimonial_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('testimonial', 'descriptionEdit')}"/>
-              </ui:define>  
-              <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('testimonial', 'descriptionEdit')}" label="#{msg.testimonial_description}" required="false" disabled="false" value="#{testimonialAction.testimonial.description}"> 
-                <rich:ajaxValidator event="onsubmit"/> 
-              </rich:editor> 
-            </s:decorate>  
-            <s:decorate id="employeeDecorate" template="/layout/edit.xhtml"> 
-              <ui:define name="label"> 
-                <h:outputText value="#{msg.testimonial_employee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('testimonial', 'employeeEdit')}"/>
-              </ui:define>  
-              <h:selectOneMenu id="employee" label="#{msg.testimonial_employee}" value="#{testimonialAction.testimonial.employee}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('testimonial', 'employeeEdit')}"> 
-                <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-                <rich:ajaxValidator event="onsubmit"/>  
-                <s:convertEntity/> 
-              </h:selectOneMenu> 
-            </s:decorate> 
-          </h:panelGrid> 
-        </rich:panel> 
+      <h:panelGrid columns="1" onload="#{testimonialAction.load(testimonialId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Testimonial}"/> 
+        </f:facet>  
+        <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.testimonial_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('testimonial', 'descriptionEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('testimonial', 'descriptionEdit')}" label="#{msg.testimonial_description}" required="false" disabled="false" value="#{testimonialAction.testimonial.description}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="employeeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.testimonial_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('testimonial', 'employeeEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="employee" label="#{msg.testimonial_employee}" value="#{testimonialAction.testimonial.employee}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('testimonial', 'employeeEdit')}"> 
+            <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

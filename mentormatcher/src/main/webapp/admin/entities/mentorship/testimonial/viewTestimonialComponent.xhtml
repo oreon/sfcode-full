@@ -3,24 +3,21 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup> 
     <s:validateAll> 
-      <h:panelGrid columns="1" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{testimonialAction.load(testimonialId )  }"> 
-        <rich:panel> 
-          <f:facet name="header"> 
-            <h:outputText value="#{msg.Testimonial}"/> 
-          </f:facet>  
-          <c:if test="${numColumns == null }"> 
-            <c:set var="numColumns" value="2"/> 
-          </c:if>  
-          <h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol"> 
-            <h:outputText value="#{msg.testimonial_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('testimonial', 'descriptionView')}"/>  
-            <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('testimonial', 'descriptionView')}" value="#{testimonialAction.testimonial.description}"></h:outputText>  
-            <h:outputText value="#{msg.testimonial_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('testimonial', 'employeeView')}"/>  
-            <s:link value="#{testimonialAction.testimonial.employee.displayName}" action="viewemployee" propagation="none"> 
-              <f:param name="employeeId" value="#{testimonialAction.testimonial.employee.id}"/>  
-              <f:param name="from" value="#{request.servletPath}"/> 
-            </s:link> 
-          </h:panelGrid> 
-        </rich:panel> 
+      <h:panelGrid columns="1" onload="#{testimonialAction.load(testimonialId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Testimonial}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.testimonial_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('testimonial', 'descriptionView')}"/>  
+        <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('testimonial', 'descriptionView')}" value="#{testimonialAction.testimonial.description}"></h:outputText>  
+        <h:outputText value="#{msg.testimonial_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('testimonial', 'employeeView')}"/>  
+        <s:link value="#{testimonialAction.testimonial.employee.displayName}" action="viewemployee" propagation="none"> 
+          <f:param name="employeeId" value="#{testimonialAction.testimonial.employee.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

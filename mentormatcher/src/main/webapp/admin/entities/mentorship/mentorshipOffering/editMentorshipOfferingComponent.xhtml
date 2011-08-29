@@ -3,71 +3,68 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup> 
     <s:validateAll> 
-      <h:panelGrid columns="1" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{mentorshipOfferingAction.load(mentorshipOfferingId )  }"> 
-        <rich:panel> 
-          <f:facet name="header"> 
-            <h:outputText value="#{msg.MentorshipOffering}"/> 
-          </f:facet>  
-          <c:if test="${numColumns == null }"> 
-            <c:set var="numColumns" value="2"/> 
-          </c:if>  
-          <h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol"> 
-            <s:decorate id="titleDecorate" template="/layout/edit.xhtml"> 
-              <ui:define name="label"> 
-                <h:outputText value="#{msg.mentorshipOffering_title} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'titleEdit')}"/>
-              </ui:define>  
-              <h:inputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'titleEdit')}" label="#{msg.mentorshipOffering_title}" required="true" disabled="false" value="#{mentorshipOfferingAction.mentorshipOffering.title}"> 
-                <rich:ajaxValidator event="onsubmit"/> 
-              </h:inputText> 
-            </s:decorate>  
-            <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
-              <ui:define name="label"> 
-                <h:outputText value="#{msg.mentorshipOffering_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'descriptionEdit')}"/>
-              </ui:define>  
-              <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'descriptionEdit')}" label="#{msg.mentorshipOffering_description}" required="false" disabled="false" value="#{mentorshipOfferingAction.mentorshipOffering.description}"> 
-                <rich:ajaxValidator event="onsubmit"/> 
-              </rich:editor> 
-            </s:decorate>  
-            <s:decorate id="keywordsDecorate" template="/layout/edit.xhtml"> 
-              <ui:define name="label"> 
-                <h:outputText value="#{msg.mentorshipOffering_keywords}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'keywordsEdit')}"/>
-              </ui:define>  
-              <rich:editor useSeamText="true" id="keywords#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'keywordsEdit')}" label="#{msg.mentorshipOffering_keywords}" required="false" disabled="false" value="#{mentorshipOfferingAction.mentorshipOffering.keywords}"> 
-                <rich:ajaxValidator event="onsubmit"/> 
-              </rich:editor> 
-            </s:decorate>  
-            <s:decorate id="inactiveDecorate" template="/layout/edit.xhtml"> 
-              <ui:define name="label"> 
-                <h:outputText value="#{msg.mentorshipOffering_inactive}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'inactiveEdit')}"/>
-              </ui:define>  
-              <h:selectBooleanCheckbox id="inactive#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'inactiveEdit')}" label="#{msg.mentorshipOffering_inactive}" required="false" disabled="false" value="#{mentorshipOfferingAction.mentorshipOffering.inactive}"> 
-                <rich:ajaxValidator event="onsubmit"/> 
-              </h:selectBooleanCheckbox> 
-            </s:decorate>  
-            <s:decorate id="scopeDecorate" template="/layout/edit.xhtml"> 
-              <ui:define name="label"> 
-                <h:outputText value="#{msg.mentorshipOffering_scope}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'scopeEdit')}"/>
-              </ui:define>  
-              <h:selectOneMenu id="scope" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'scopeEdit')}" value="#{mentorshipOfferingAction.mentorshipOffering.scope}" required="false" label="#{msg.mentorshipOffering_scope}"> 
-                <f:selectItem itemLabel="Please Select..." itemValue=""/>  
-                <f:selectItem itemValue="ORGANIZATION" itemLabel="#{msg.ORGANIZATION}"/>  
-                <f:selectItem itemValue="DEPARTMENT" itemLabel="#{msg.DEPARTMENT}"/>  
-                <f:selectItem itemValue="CITY" itemLabel="#{msg.CITY}"/>  
-                <rich:ajaxValidator event="onsubmit"/> 
-              </h:selectOneMenu> 
-            </s:decorate>  
-            <s:decorate id="categoryDecorate" template="/layout/edit.xhtml"> 
-              <ui:define name="label"> 
-                <h:outputText value="#{msg.mentorshipOffering_category} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'categoryEdit')}"/>
-              </ui:define>  
-              <h:selectOneMenu id="category" label="#{msg.mentorshipOffering_category}" value="#{mentorshipOfferingAction.mentorshipOffering.category}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'categoryEdit')}"> 
-                <s:selectItems value="#{categoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-                <rich:ajaxValidator event="onsubmit"/>  
-                <s:convertEntity/> 
-              </h:selectOneMenu> 
-            </s:decorate> 
-          </h:panelGrid> 
-        </rich:panel> 
+      <h:panelGrid columns="1" onload="#{mentorshipOfferingAction.load(mentorshipOfferingId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.MentorshipOffering}"/> 
+        </f:facet>  
+        <s:decorate id="titleDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.mentorshipOffering_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'titleEdit')}"/>
+          </ui:define>  
+          <h:inputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'titleEdit')}" label="#{msg.mentorshipOffering_title}" required="true" disabled="false" value="#{mentorshipOfferingAction.mentorshipOffering.title}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.mentorshipOffering_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'descriptionEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'descriptionEdit')}" label="#{msg.mentorshipOffering_description}" required="false" disabled="false" value="#{mentorshipOfferingAction.mentorshipOffering.description}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="keywordsDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.mentorshipOffering_keywords}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'keywordsEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="keywords#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'keywordsEdit')}" label="#{msg.mentorshipOffering_keywords}" required="false" disabled="false" value="#{mentorshipOfferingAction.mentorshipOffering.keywords}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="inactiveDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.mentorshipOffering_inactive}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'inactiveEdit')}"/>
+          </ui:define>  
+          <h:selectBooleanCheckbox id="inactive#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'inactiveEdit')}" label="#{msg.mentorshipOffering_inactive}" required="false" disabled="false" value="#{mentorshipOfferingAction.mentorshipOffering.inactive}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectBooleanCheckbox> 
+        </s:decorate>  
+        <s:decorate id="scopeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.mentorshipOffering_scope}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'scopeEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="scope" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'scopeEdit')}" value="#{mentorshipOfferingAction.mentorshipOffering.scope}" required="false" label="#{msg.mentorshipOffering_scope}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="ORGANIZATION" itemLabel="#{msg.ORGANIZATION}"/>  
+            <f:selectItem itemValue="DEPARTMENT" itemLabel="#{msg.DEPARTMENT}"/>  
+            <f:selectItem itemValue="CITY" itemLabel="#{msg.CITY}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="categoryDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.mentorshipOffering_category}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'categoryEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="category" label="#{msg.mentorshipOffering_category}" value="#{mentorshipOfferingAction.mentorshipOffering.category}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipOffering', 'categoryEdit')}"> 
+            <s:selectItems value="#{categoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

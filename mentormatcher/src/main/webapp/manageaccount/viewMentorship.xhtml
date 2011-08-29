@@ -31,31 +31,35 @@
 
 				<h:form>
 					<rich:tabPanel switchType="client">
-						<rich:tab label="Offering"> 
+						<rich:tab label="Offering">
 							<ui:include
 								src="/admin/entities/mentorship/mentorshipOffering/viewMentorshipOfferingComponent.xhtml">
 							</ui:include>
 						</rich:tab>
 						<rich:tab label="Mentor">
 							<ui:include
-								src="/admin/entities/domain/employee/viewEmployeeComponent.xhtml" >
-								<ui:param name="employeeId" value="#{mentorshipOfferingAction.instance.mentor.id}" />
+								src="/admin/entities/domain/employee/viewEmployeeComponentCustom.xhtml">
+								<ui:param name="employeeId"
+									value="#{mentorshipOfferingAction.instance.mentor.id}" />
 							</ui:include>
 						</rich:tab>
 					</rich:tabPanel>
-					<h:outputText value="Message To Mentor" styleClass="required"
-						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'requestTextEdit')}" />
-					<br />
-					<rich:editor useSeamText="true" id="requestText#{entityId}"
-						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'requestTextEdit')}"
-						label="#{msg.joinRequest_requestText}" required="false"
-						disabled="false"
-						value="#{joinRequestAction.joinRequest.requestText}">
-						<rich:ajaxValidator event="onsubmit" />
-					</rich:editor>
-
+			<br/>
+					<h:panelGrid styleClass="infoTable">
+						<f:facet name="header">
+							<h:outputText value="Message To Mentor" />
+						</f:facet>
+						<rich:editor useSeamText="true" id="requestText#{entityId}"
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'requestTextEdit')}"
+							label="#{msg.joinRequest_requestText}" required="false"
+							disabled="false"
+							value="#{joinRequestAction.joinRequest.requestText}">
+							<rich:ajaxValidator event="onsubmit" />
+						</rich:editor>
+					
 					<h:commandButton value="Apply for this mentorship"
 						action="#{mentorshipOfferingAction.applyForMentorship}" />
+					</h:panelGrid>
 				</h:form>
 
 			</rich:panel>

@@ -3,9 +3,12 @@
 package com.jonah.mentormatcher.web.action.mentorship;
 	
 
+import java.util.List;
+
 import org.jboss.seam.Component;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.security.Identity;
 
 import com.jonah.mentormatcher.domain.mentorship.JoinRequest;
 import com.jonah.mentormatcher.domain.mentorship.MentorshipOffering;
@@ -20,6 +23,8 @@ public class MentorshipOfferingAction extends MentorshipOfferingActionBase imple
 	@In(create=true)
 	ApproveMentorshipProcessAction approveMentorshipProcessAction;
 	
+	@In(create=true)
+	Identity identity;
 	
 	@Override
 	protected MentorshipOffering createInstance() {
@@ -62,5 +67,11 @@ public class MentorshipOfferingAction extends MentorshipOfferingActionBase imple
 		apply();
 		return "applicationSuccess";
 	}
+	
+	public List<MentorshipOffering> getMyOfferings(){
+		String qry = "Select e from MentorshipOffering e where e.mentor.appUser.userName = ?1";
+		return executeQuery(qry, identity.getCredentials().getUsername());
+	}
+	
 }
 	

@@ -87,6 +87,8 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 
 			"employee.designation.id = #{employeeList.employee.designation.id}",
 
+			"lower(employee.bio) like concat(lower(#{employeeList.employee.bio}),'%')",
+
 			"employee.dateCreated <= #{employeeList.dateCreatedRange.end}",
 			"employee.dateCreated >= #{employeeList.dateCreatedRange.begin}",};
 
@@ -128,6 +130,10 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 				+ (e.getDesignation() != null ? e.getDesignation()
 						.getDisplayName().replace(",", "") : "") + "\",");
 
+		builder.append("\""
+				+ (e.getBio() != null ? e.getBio().replace(",", "") : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -146,6 +152,8 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 		builder.append("AppUser" + ",");
 
 		builder.append("Designation" + ",");
+
+		builder.append("Bio" + ",");
 
 		builder.append("\r\n");
 	}

@@ -32,15 +32,15 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.framework.EntityQuery;
+import org.jboss.seam.international.StatusMessages;
+import org.jboss.seam.international.StatusMessage.Severity;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.persistence.PersistenceProvider;
 import org.witchcraft.exceptions.ContractViolationException;
 
-
-
 /**
  * @author User
- *
+ * 
  * @param <E>
  * @param <PK>
  */
@@ -59,16 +59,17 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 
 	private Range<java.util.Date> dateCreatedRange = new Range<Date>();
 
-	
 	private List<E> entityList;
 
 	@RequestParameter
 	protected String searchText;
+	
+	@In
+	protected StatusMessages statusMessages;
 
 	public static final int DEFAULT_PAGES_FOR_PAGINATION = 25;
 
 	@In
-	// @PersistenceContext(type=EXTENDED)
 	protected FullTextEntityManager entityManager;
 
 	public String getSearchText() {
@@ -267,41 +268,62 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 
 		if (searchText == null)
 			searchText = textToSearch;
-		if (searchText == null){
+		if (searchText == null) {
 			log.error("no object to search");
 			return "";
 		}
+
+		try {
+			String result = performTextSearch();
+			return result;
+		} catch (Exception ex) {
+			addErrorMessage(ex.getMessage());
+		}
 		
-		QueryParser parser = new QueryParser(Version.LUCENE_30, SEARCH_DATA ,
-			 entityManager.getSearchFactory()
-						.getAnalyzer("entityAnalyzer"));
+		return null;
+	}
+	
+	protected void addInfoMessage(String message, Object... params) {
+		statusMessages.add(message, params);
+	}
+
+	protected void addErrorMessage(String message, Object... params) {
+		statusMessages.add(Severity.ERROR, message, params);
+	}
+
+
+	private String performTextSearch() {
+		QueryParser parser = new QueryParser(Version.LUCENE_30, SEARCH_DATA,
+				entityManager.getSearchFactory().getAnalyzer("entityAnalyzer"));
 
 		org.apache.lucene.search.Query query = null;
+		
+		searchText = getMassagedSearchText(searchText);
 
 		try {
 			query = parser.parse(searchText);
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
-		} 
+		}
 
 		QueryScorer scorer = new QueryScorer(query, SEARCH_DATA);
 		// Highlight using a CSS style
 		SimpleHTMLFormatter formatter = new SimpleHTMLFormatter(
 				"<span style='background-color:yellow;'>", "</span>");
-		Highlighter highlighter = new Highlighter(formatter, scorer); 
+		Highlighter highlighter = new Highlighter(formatter, scorer);
 		highlighter.setTextFragmenter(new SimpleSpanFragmenter(scorer, 100));
 
 		FullTextQuery ftq = entityManager.createFullTextQuery(query,
 				getEntityClass());
 
 		List<E> result = ftq.getResultList();
-		
+
 		for (E e : result) {
 			try {
 				String fragment = highlighter.getBestFragment(entityManager
 						.getSearchFactory().getAnalyzer("entityAnalyzer"),
-						SEARCH_DATA, e.getSearchData() );
-				
+						SEARCH_DATA, e.getSearchData());
+
 				e.setHiglightedFragment(fragment);
 			} catch (Exception ex) {
 				throw new ContractViolationException(ex.getMessage());
@@ -312,15 +334,19 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		return "textSearch";
 	}
 
+	public String getMassagedSearchText(String text) {
+		return text;
+	}
+
 	// @Override
 	public void setEntityList(List<E> list) {
 		this.entityList = list;
 	}
 
-	//@Begin(join=true)
+	// @Begin(join=true)
 	public List<E> getEntityList() {
-		//if(entityList == null )
-		//	textSearch();
+		// if(entityList == null )
+		// textSearch();
 		return entityList;
 	}
 
@@ -408,7 +434,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	public void exportToCsv() {
 		int originalMaxResults = getMaxResults();
 		setMaxResults(50000);
-		
+
 		List<E> results = getResultList();
 
 		StringBuilder builder = new StringBuilder();
@@ -421,40 +447,42 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		setMaxResults(originalMaxResults);
 		downloadAttachment(builder.toString().getBytes());
 	}
-	
-	/** create comma delimited row 
-	 * @param builder
-	 */
-	public void createCsvString(StringBuilder builder, E e){
-	}
-	
 
-	
-	/** create the headings 
+	/**
+	 * create comma delimited row
+	 * 
 	 * @param builder
 	 */
-	public void createCSvTitles(StringBuilder builder ){
-	
+	public void createCsvString(StringBuilder builder, E e) {
 	}
-	
-	
+
+	/**
+	 * create the headings
+	 * 
+	 * @param builder
+	 */
+	public void createCSvTitles(StringBuilder builder) {
+
+	}
+
 	protected boolean isPostBack() {
 		ResponseStateManager rtm = FacesContext.getCurrentInstance()
 				.getRenderKit().getResponseStateManager();
 		return rtm.isPostback(FacesContext.getCurrentInstance());
 	}
-	
-	/** Creates a string for export to csv, if null, blank string is returned
+
+	/**
+	 * Creates a string for export to csv, if null, blank string is returned
+	 * 
 	 * @param e
 	 * @return
 	 */
 	protected String getFieldForCSV(String e) {
-		return (e != null ? e.replace("," , "") : "");
+		return (e != null ? e.replace(",", "") : "");
 	}
-	
-	
+
 	public static void main(String[] args) {
-		
+
 	}
-	
+
 }

@@ -38,11 +38,13 @@
             <dd class="menuForm">
                 <dl>
                 	 <dd>
-                        <h:commandLink  action="#{identity.logout}" value="My Profile"
-                                          style="width: 166px;"/>
+                        <s:link  action="manageProfile" value="My Profile"
+                                          style="width: 166px;">
+                                <f:param name="currentEntityId" value="#{employeeAction.currentLoggedInEmployee.id}" />
+                         </s:link>
                     </dd>
                    	 <dd>
-                        <h:commandLink  action="#{identity.logout}" value="My Mentorship Offerings"
+                        <s:link  action="myofferings" value="My Mentorship Offerings"
                                           style="width: 166px;"/>
                     </dd>
                     <dd>

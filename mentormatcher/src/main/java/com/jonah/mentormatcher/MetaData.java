@@ -30,6 +30,8 @@ public class MetaData {
 
 	"designation.displayName", "java.lang.String",
 
+	"bio", "java.lang.String",
+
 	},
 
 	{"com.jonah.mentormatcher.domain.Department",
@@ -37,24 +39,6 @@ public class MetaData {
 	"employeesCount", "java.lang.Integer",
 
 	"name", "java.lang.String",
-
-	},
-
-	{"com.jonah.mentormatcher.domain.Exam",
-
-	"title", "java.lang.String",
-
-	"description", "java.lang.String",
-
-	"questionsCount", "java.lang.Integer",
-
-	},
-
-	{"com.jonah.mentormatcher.domain.Question",
-
-	"text", "java.lang.String",
-
-	"exam.displayName", "java.lang.String",
 
 	},
 

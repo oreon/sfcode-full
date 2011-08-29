@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'firstNameEdit')}"/>  
+      <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'firstNameEdit')}"/>  
       <br/>  
       <h:inputText id="firstName" value="#{employeeList.employee.firstName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.person_lastName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'lastNameEdit')}"/>  
+      <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'lastNameEdit')}"/>  
       <br/>  
       <h:inputText id="lastName" value="#{employeeList.employee.lastName}"/> 
     </h:panelGroup>  
@@ -56,7 +56,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.appUser_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'userNameEdit')}"/>  
+      <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'userNameEdit')}"/>  
       <br/>  
       <h:inputText id="appUser_userName" value="#{employeeList.employee.appUser.userName}"/> 
     </h:panelGroup>  
@@ -70,7 +70,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.appUser_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'emailEdit')}"/>  
+      <h:outputText value="#{msg.appUser_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'emailEdit')}"/>  
       <br/>  
       <h:inputText id="appUser_email" value="#{employeeList.employee.appUser.email}"/> 
     </h:panelGroup>  
@@ -91,6 +91,11 @@
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 
       </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.employee_bio}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'bioEdit')}"/>  
+      <br/>  
+      <h:inputText id="bio" value="#{employeeList.employee.bio}"/> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

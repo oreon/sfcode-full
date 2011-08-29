@@ -16,6 +16,15 @@
       </rule> 
     </navigation> 
   </page>  
+  <page view-id="/admin/tasks/tasks.xhtml"> 
+    <param name="taskId" value="#{jbpmProcessAction.taskId}"/>  
+    <param name="currentEntityId"/>  
+    <navigation> 
+      <rule if-outcome="viewTask"> 
+        <redirect view-id="/admin/tasks/viewTask.xhtml"/> 
+      </rule> 
+    </navigation> 
+  </page>  
   <!--PROTECTED REGION END-->  
   <page view-id="/adminLogin.xhtml"> 
     <navigation from-action="#{identity.login}"> 
@@ -42,6 +51,12 @@
       <rule if-outcome="viewEmployeeCustom"> 
         <redirect view-id="/manageaccount/viewEmployee.xhtml"/> 
       </rule>  
+      <rule if-outcome="myofferings"> 
+        <redirect view-id="/manageaccount/myOfferings.xhtml"/> 
+      </rule>  
+      <rule if-outcome="manageProfile"> 
+        <redirect view-id="/manageaccount/manageProfile.xhtml"/> 
+      </rule>  
       <rule if-outcome="employee"> 
         <redirect view-id="/admin/entities/domain/employee/listEmployee.xhtml"/>  
         <end-conversation/> 
@@ -64,30 +79,6 @@
       </rule>  
       <rule if-outcome="editDepartment"> 
         <redirect view-id="/admin/entities/domain/department/editDepartment.xhtml"/>  
-        <end-conversation/> 
-      </rule>  
-      <rule if-outcome="exam"> 
-        <redirect view-id="/admin/entities/domain/exam/listExam.xhtml"/>  
-        <end-conversation/> 
-      </rule>  
-      <rule if-outcome="viewExam"> 
-        <redirect view-id="/admin/entities/domain/exam/viewExam.xhtml"/>  
-        <end-conversation/> 
-      </rule>  
-      <rule if-outcome="editExam"> 
-        <redirect view-id="/admin/entities/domain/exam/editExam.xhtml"/>  
-        <end-conversation/> 
-      </rule>  
-      <rule if-outcome="question"> 
-        <redirect view-id="/admin/entities/domain/question/listQuestion.xhtml"/>  
-        <end-conversation/> 
-      </rule>  
-      <rule if-outcome="viewQuestion"> 
-        <redirect view-id="/admin/entities/domain/question/viewQuestion.xhtml"/>  
-        <end-conversation/> 
-      </rule>  
-      <rule if-outcome="editQuestion"> 
-        <redirect view-id="/admin/entities/domain/question/editQuestion.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="mentorshipOffering"> 
@@ -268,7 +259,8 @@
     <param name="appUser_enabled" value="#{employeeList.employee.appUser.enabled}" validateModel="false"/>  
     <param name="appUser_email" value="#{employeeList.employee.appUser.email}" validateModel="false"/>  
     <param name="appUser_lastLogin" value="#{employeeList.employee.appUser.lastLogin}" validateModel="false"/>  
-    <param name="designation" value="#{employeeList.employee.designation.id}" validateModel="false"/> 
+    <param name="designation" value="#{employeeList.employee.designation.id}" validateModel="false"/>  
+    <param name="bio" value="#{employeeList.employee.bio}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/department/editDepartment.xhtml"> 
     <!-- <description>Edit Department: #{department.displayName}</description> -->  
@@ -312,95 +304,6 @@
     <param name="from"/>  
     <param name="id" value="#{departmentList.department.id}"/>  
     <param name="name" value="#{departmentList.department.name}" validateModel="false"/> 
-  </page>  
-  <page view-id="/admin/entities/domain/exam/editExam.xhtml"> 
-    <!-- <description>Edit Exam: #{exam.displayName}</description> -->  
-    <navigation> 
-      <rule if-outcome="save"> 
-        <redirect view-id="/admin/entities/domain/exam/viewExam.xhtml"/> 
-      </rule>  
-      <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/domain/exam/listExam.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="examId" value="#{examAction.examId}"/> 
-  </page>  
-  <page view-id="/admin/entities/domain/exam/viewExam.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <!-- <description>View Exam: #{exam.displayName}</description> -->  
-    <navigation> 
-      <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/domain/exam/editExam.xhtml"/> 
-      </rule>  
-      <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/domain/exam/listExam.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="examId" value="#{examAction.examId}"/> 
-  </page>  
-  <page view-id="/admin/entities/domain/exam/listExam.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <navigation> 
-      <rule if-outcome="viewExam"> 
-        <redirect view-id="/admin/entities/domain/exam/viewExam.xhtml"/> 
-      </rule>  
-      <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/domain/exam/editExam.xhtml"/> 
-      </rule>  
-      <rule if-outcome="textSearch"> 
-        <redirect view-id="/admin/entities/domain/exam/textSearchResultsExam.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="firstResult" value="#{examList.firstResult}"/>  
-    <param name="sort" value="#{examList.orderColumn}"/>  
-    <param name="dir" value="#{examList.orderDirection}"/>  
-    <param name="from"/>  
-    <param name="id" value="#{examList.exam.id}"/>  
-    <param name="title" value="#{examList.exam.title}" validateModel="false"/>  
-    <param name="description" value="#{examList.exam.description}" validateModel="false"/> 
-  </page>  
-  <page view-id="/admin/entities/domain/question/editQuestion.xhtml"> 
-    <!-- <description>Edit Question: #{question.displayName}</description> -->  
-    <navigation> 
-      <rule if-outcome="save"> 
-        <redirect view-id="/admin/entities/domain/question/viewQuestion.xhtml"/> 
-      </rule>  
-      <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/domain/question/listQuestion.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="questionId" value="#{questionAction.questionId}"/>  
-    <param name="examId" value="#{questionAction.examId}"/> 
-  </page>  
-  <page view-id="/admin/entities/domain/question/viewQuestion.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <!-- <description>View Question: #{question.displayName}</description> -->  
-    <navigation> 
-      <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/domain/question/editQuestion.xhtml"/> 
-      </rule>  
-      <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/domain/question/listQuestion.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="questionId" value="#{questionAction.questionId}"/> 
-  </page>  
-  <page view-id="/admin/entities/domain/question/listQuestion.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <navigation> 
-      <rule if-outcome="viewQuestion"> 
-        <redirect view-id="/admin/entities/domain/question/viewQuestion.xhtml"/> 
-      </rule>  
-      <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/domain/question/editQuestion.xhtml"/> 
-      </rule>  
-      <rule if-outcome="textSearch"> 
-        <redirect view-id="/admin/entities/domain/question/textSearchResultsQuestion.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="firstResult" value="#{questionList.firstResult}"/>  
-    <param name="sort" value="#{questionList.orderColumn}"/>  
-    <param name="dir" value="#{questionList.orderDirection}"/>  
-    <param name="from"/>  
-    <param name="id" value="#{questionList.question.id}"/>  
-    <param name="text" value="#{questionList.question.text}" validateModel="false"/>  
-    <param name="exam" value="#{questionList.question.exam.id}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/mentorship/mentorshipOffering/editMentorshipOffering.xhtml"> 
     <!-- <description>Edit MentorshipOffering: #{mentorshipOffering.displayName}</description> -->  

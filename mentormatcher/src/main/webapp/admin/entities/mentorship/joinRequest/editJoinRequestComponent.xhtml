@@ -3,45 +3,42 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup> 
     <s:validateAll> 
-      <h:panelGrid columns="1" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{joinRequestAction.load(joinRequestId )  }"> 
-        <rich:panel> 
-          <f:facet name="header"> 
-            <h:outputText value="#{msg.JoinRequest}"/> 
-          </f:facet>  
-          <c:if test="${numColumns == null }"> 
-            <c:set var="numColumns" value="2"/> 
-          </c:if>  
-          <h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol"> 
-            <s:decorate id="requestTextDecorate" template="/layout/edit.xhtml"> 
-              <ui:define name="label"> 
-                <h:outputText value="#{msg.joinRequest_requestText}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'requestTextEdit')}"/>
-              </ui:define>  
-              <rich:editor useSeamText="true" id="requestText#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'requestTextEdit')}" label="#{msg.joinRequest_requestText}" required="false" disabled="false" value="#{joinRequestAction.joinRequest.requestText}"> 
-                <rich:ajaxValidator event="onsubmit"/> 
-              </rich:editor> 
-            </s:decorate>  
-            <s:decorate id="mentorshipOfferingDecorate" template="/layout/edit.xhtml"> 
-              <ui:define name="label"> 
-                <h:outputText value="#{msg.joinRequest_mentorshipOffering} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'mentorshipOfferingEdit')}"/>
-              </ui:define>  
-              <h:selectOneMenu id="mentorshipOffering" label="#{msg.joinRequest_mentorshipOffering}" value="#{joinRequestAction.joinRequest.mentorshipOffering}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'mentorshipOfferingEdit')}"> 
-                <s:selectItems value="#{mentorshipOfferingList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-                <rich:ajaxValidator event="onsubmit"/>  
-                <s:convertEntity/> 
-              </h:selectOneMenu> 
-            </s:decorate>  
-            <s:decorate id="prospectiveMenteeDecorate" template="/layout/edit.xhtml"> 
-              <ui:define name="label"> 
-                <h:outputText value="#{msg.joinRequest_prospectiveMentee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'prospectiveMenteeEdit')}"/>
-              </ui:define>  
-              <h:selectOneMenu id="prospectiveMentee" label="#{msg.joinRequest_prospectiveMentee}" value="#{joinRequestAction.joinRequest.prospectiveMentee}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'prospectiveMenteeEdit')}"> 
-                <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-                <rich:ajaxValidator event="onsubmit"/>  
-                <s:convertEntity/> 
-              </h:selectOneMenu> 
-            </s:decorate> 
-          </h:panelGrid> 
-        </rich:panel> 
+      <h:panelGrid columns="1" onload="#{joinRequestAction.load(joinRequestId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.JoinRequest}"/> 
+        </f:facet>  
+        <s:decorate id="requestTextDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.joinRequest_requestText}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'requestTextEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="requestText#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'requestTextEdit')}" label="#{msg.joinRequest_requestText}" required="false" disabled="false" value="#{joinRequestAction.joinRequest.requestText}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="mentorshipOfferingDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.joinRequest_mentorshipOffering}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'mentorshipOfferingEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="mentorshipOffering" label="#{msg.joinRequest_mentorshipOffering}" value="#{joinRequestAction.joinRequest.mentorshipOffering}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'mentorshipOfferingEdit')}"> 
+            <s:selectItems value="#{mentorshipOfferingList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="prospectiveMenteeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.joinRequest_prospectiveMentee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'prospectiveMenteeEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="prospectiveMentee" label="#{msg.joinRequest_prospectiveMentee}" value="#{joinRequestAction.joinRequest.prospectiveMentee}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('joinRequest', 'prospectiveMenteeEdit')}"> 
+            <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

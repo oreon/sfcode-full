@@ -3,26 +3,23 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup> 
     <s:validateAll> 
-      <h:panelGrid columns="1" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{mentorshipAction.load(mentorshipId )  }"> 
-        <rich:panel> 
-          <f:facet name="header"> 
-            <h:outputText value="#{msg.Mentorship}"/> 
-          </f:facet>  
-          <c:if test="${numColumns == null }"> 
-            <c:set var="numColumns" value="2"/> 
-          </c:if>  
-          <h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol"> 
-            <h:outputText value="#{msg.mentorship_startDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorship', 'startDateView')}"/>  
-            <h:outputText direction="auto" id="startDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorship', 'startDateView')}" value="#{mentorshipAction.mentorship.startDate}"></h:outputText>  
-            <h:outputText value="#{msg.mentorship_endDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorship', 'endDateView')}"/>  
-            <h:outputText direction="auto" id="endDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorship', 'endDateView')}" value="#{mentorshipAction.mentorship.endDate}"></h:outputText>  
-            <h:outputText value="#{msg.mentorship_mentor}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorship', 'mentorView')}"/>  
-            <s:link value="#{mentorshipAction.mentorship.mentor.displayName}" action="viewmentor" propagation="none"> 
-              <f:param name="mentorId" value="#{mentorshipAction.mentorship.mentor.id}"/>  
-              <f:param name="from" value="#{request.servletPath}"/> 
-            </s:link> 
-          </h:panelGrid> 
-        </rich:panel> 
+      <h:panelGrid columns="1" onload="#{mentorshipAction.load(mentorshipId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Mentorship}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.mentorship_startDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorship', 'startDateView')}"/>  
+        <h:outputText direction="auto" id="startDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorship', 'startDateView')}" value="#{mentorshipAction.mentorship.startDate}"></h:outputText>  
+        <h:outputText value="#{msg.mentorship_endDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorship', 'endDateView')}"/>  
+        <h:outputText direction="auto" id="endDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorship', 'endDateView')}" value="#{mentorshipAction.mentorship.endDate}"></h:outputText>  
+        <h:outputText value="#{msg.mentorship_mentor}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorship', 'mentorView')}"/>  
+        <s:link value="#{mentorshipAction.mentorship.mentor.displayName}" action="viewmentor" propagation="none"> 
+          <f:param name="mentorId" value="#{mentorshipAction.mentorship.mentor.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

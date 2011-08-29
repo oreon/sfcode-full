@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+
+	<table class="infoTable" onload="#{employeeAction.load(employeeId )  }">
+		<tr>
+			<th colspan="2">Olena Lapirova, Marketing Director, Sales and
+			marketing</th>
+		</tr>
+		<tr>
+			<td style="width: 30%">	<s:graphicImage value="#{employeeAction.employee.picture.data}" /></td>
+			<td valign="top">
+				<h:panelGrid columns="2"
+						columnClasses="leftCol, rightCol" >
+						<h:outputText value="#{msg.person_firstName}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'firstNameView')}" />
+						<h:outputText id="firstName#{entityId}"
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'firstNameView')}"
+							value="#{employeeAction.employee.firstName}"></h:outputText>
+						<h:outputText value="#{msg.person_lastName}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'lastNameView')}" />
+						<h:outputText id="lastName#{entityId}"
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'lastNameView')}"
+							value="#{employeeAction.employee.lastName}"></h:outputText>
+
+						<h:outputText value="#{msg.employee_department}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'departmentView')}" />
+						<s:link value="#{employeeAction.employee.department.displayName}"
+							action="viewdepartment" propagation="none">
+							<f:param name="departmentId"
+								value="#{employeeAction.employee.department.id}" />
+							<f:param name="from" value="#{request.servletPath}" />
+						</s:link>
+						<h:outputText value="#{msg.employee_designation}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'designationView')}" />
+						<s:link value="#{employeeAction.employee.designation.displayName}"
+							action="viewdesignation" propagation="none">
+							<f:param name="designationId"
+								value="#{employeeAction.employee.designation.id}" />
+							<f:param name="from" value="#{request.servletPath}" />
+						</s:link>
+						
+						
+						<h:outputText value="#{msg.contactDetails_phone}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'phoneView')}" />
+						<h:outputText id="contactDetails_phone#{entityId}"
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'phoneView')}"
+							value="#{employeeAction.employee.contactDetails.phone}"></h:outputText>
+						<h:outputText value="#{msg.contactDetails_secondaryPhone}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'secondaryPhoneView')}" />
+						<h:outputText id="contactDetails_secondaryPhone#{entityId}"
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'secondaryPhoneView')}"
+							value="#{employeeAction.employee.contactDetails.secondaryPhone}"></h:outputText>
+						<h:outputText value="#{msg.contactDetails_city}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'cityView')}" />
+						<h:outputText id="contactDetails_city#{entityId}"
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'cityView')}"
+							value="#{employeeAction.employee.contactDetails.city}"></h:outputText>
+						<h:outputText value="#{msg.appUser_email}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'emailView')}" />
+						<h:outputText id="appUser_email#{entityId}"
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'emailView')}"
+							value="#{employeeAction.employee.appUser.email}"></h:outputText>
+
+
+					</h:panelGrid>
+			</td>
+		</tr>
+	</table>
+
+
+
+
+</ui:composition>

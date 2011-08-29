@@ -3,37 +3,34 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup> 
     <s:validateAll> 
-      <h:panelGrid columns="1" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{mentorshipMemberAction.load(mentorshipMemberId )  }"> 
-        <rich:panel> 
-          <f:facet name="header"> 
-            <h:outputText value="#{msg.MentorshipMember}"/> 
-          </f:facet>  
-          <c:if test="${numColumns == null }"> 
-            <c:set var="numColumns" value="2"/> 
-          </c:if>  
-          <h:panelGrid columns="${numColumns}" columnClasses="leftCol, rightCol"> 
-            <s:decorate id="mentorshipDecorate" template="/layout/edit.xhtml"> 
-              <ui:define name="label"> 
-                <h:outputText value="#{msg.mentorshipMember_mentorship} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipMember', 'mentorshipEdit')}"/>
-              </ui:define>  
-              <h:selectOneMenu id="mentorship" label="#{msg.mentorshipMember_mentorship}" value="#{mentorshipMemberAction.mentorshipMember.mentorship}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipMember', 'mentorshipEdit')}"> 
-                <s:selectItems value="#{mentorshipList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-                <rich:ajaxValidator event="onsubmit"/>  
-                <s:convertEntity/> 
-              </h:selectOneMenu> 
-            </s:decorate>  
-            <s:decorate id="employeeDecorate" template="/layout/edit.xhtml"> 
-              <ui:define name="label"> 
-                <h:outputText value="#{msg.mentorshipMember_employee} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipMember', 'employeeEdit')}"/>
-              </ui:define>  
-              <h:selectOneMenu id="employee" label="#{msg.mentorshipMember_employee}" value="#{mentorshipMemberAction.mentorshipMember.employee}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipMember', 'employeeEdit')}"> 
-                <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-                <rich:ajaxValidator event="onsubmit"/>  
-                <s:convertEntity/> 
-              </h:selectOneMenu> 
-            </s:decorate> 
-          </h:panelGrid> 
-        </rich:panel> 
+      <h:panelGrid columns="1" onload="#{mentorshipMemberAction.load(mentorshipMemberId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.MentorshipMember}"/> 
+        </f:facet>  
+        <s:decorate id="mentorshipDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.mentorshipMember_mentorship}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipMember', 'mentorshipEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="mentorship" label="#{msg.mentorshipMember_mentorship}" value="#{mentorshipMemberAction.mentorshipMember.mentorship}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipMember', 'mentorshipEdit')}"> 
+            <s:selectItems value="#{mentorshipList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="employeeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.mentorshipMember_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipMember', 'employeeEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="employee" label="#{msg.mentorshipMember_employee}" value="#{mentorshipMemberAction.mentorshipMember.employee}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mentorshipMember', 'employeeEdit')}"> 
+            <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 
