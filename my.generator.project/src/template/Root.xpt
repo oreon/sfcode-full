@@ -444,6 +444,7 @@ import org.hibernate.annotations.ParamDef;
 
 «DEFINE genPropertyDecl FOR uml::Property»
 	«type.name.getTypeAnnotation()»
+	«IF association == null»«getUniqueAnnotationsProp()»«ENDIF»
 	«EXPAND genBaseDecl FOR this»
 «ENDDEFINE»
 
@@ -455,6 +456,7 @@ import org.hibernate.annotations.ParamDef;
 	«getValidatorAnnotations()»
 	«getLengthAnnotations()»
 	«getUniqueAnnotations()»
+	«getBoostAnnotations()»
 	«getTransient()»
 	«type.name.getTypeAnnotation()»
 	«IF !isDerived()»«getColJpaAnnotations()» «ENDIF»
@@ -590,6 +592,7 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	import org.hibernate.search.annotations.AnalyzerDef;
 	import org.hibernate.search.annotations.Analyzer;
 	import org.hibernate.search.annotations.Field;
+	import org.hibernate.search.annotations.Boost;
 	import org.hibernate.search.annotations.Index;
 	import org.hibernate.search.annotations.Indexed;
 	import org.hibernate.search.annotations.Parameter;

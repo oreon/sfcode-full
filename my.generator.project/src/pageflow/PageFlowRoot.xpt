@@ -57,9 +57,8 @@
 	«ENDFILE»
  «ENDDEFINE»
  
- «REM»generates a component include directive e.g Employee:Edit will create <ui include src = "/admin/entities/domain/editEmployee.xhtml" «ENDREM»
- 
- «DEFINE genComp FOR wcprofile::ViewState»
+ «REM»generates a component include directive e.g Employee:Edit will create <ui include src = "/admin/entities/domain/editEmployee.xhtml" «ENDREM» 
+«DEFINE genComp FOR wcprofile::ViewState»
  «IF component != null»
 	 <h:form>
 	 	«IF component.toFirstUpper().getEntityByName().size > 0 »
@@ -70,10 +69,8 @@
 			<!-- Invalid Entity  «component.getFirstTerm()» --> 
 	  	«ENDIF»
 	 </h:form>
-	 «ELSE»
-	 component is «component»
 «ENDIF»
- «ENDDEFINE»
+«ENDDEFINE»
  
  
  «DEFINE genComponent FOR wcprofile::ViewState»
