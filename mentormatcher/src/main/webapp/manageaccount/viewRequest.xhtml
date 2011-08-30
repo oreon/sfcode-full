@@ -28,31 +28,31 @@
 				value="#{jbpmProcessAction.task.variables['processToken'].prospectiveMentee.id}" />
 		</s:link>
 		
-		<a:form>
+		<h:form>
 			<h:outputText value="Comments" />
 			<rich:editor id="Comment_text" required="false"
 				value="#{jbpmProcessAction.comment}" />
 			<br />
 			
 			
-			<a:repeat var="trans" 
+			<ui:repeat var="trans" 
 				value="#{jbpmProcessAction.task.availableTransitions}">
 				
 				<h:commandLink value="sss"
 					action="#{jbpmProcessAction.makeDecision}" />
 				<h:outputText value=" " />
 				
-				<h:commandLink value="#{msg[trans.name]}"
+				<a:commandLink value="#{msg[trans.name]}"
 					action="#{jbpmProcessAction.makeDecision}"
 					taskInstance="#{jbpmProcessAction.task}">
-					<f:param name="transName" value="#{trans.name}" />
-					<f:param name="taskId" value="#{jbpmProcessAction.task.id}" />
-				</h:commandLink>
+					<a:actionparam name="transName" value="#{trans.name}" />
+					<a:actionparam name="taskId" value="#{jbpmProcessAction.task.id}" />
+				</a:commandLink>
 				<h:outputText value=" " />
-			</a:repeat>
+			</ui:repeat>
 			<br />
 
-		</a:form>
+		</h:form>
 		<s:div rendered="#{not empty jbpmProcessAction.comments}">
 			<b>Comments</b>
 
