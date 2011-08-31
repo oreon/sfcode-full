@@ -20,10 +20,16 @@
             <ui:param name="gradeId" value="#{studentAction.instance.grade.id}"/> 
           </ui:include> 
         </rich:tab>  
-        <rich:tab label="ParentGroup" rendered="#{studentAction.instance.parentGroup != null}"> 
-          <ui:include src="/admin/entities/domain/parentGroup/viewParentGroupComponent.xhtml"> 
+        <rich:tab label="Primary" rendered="#{studentAction.instance.primary != null}"> 
+          <ui:include src="/admin/entities/domain/parent/viewParentComponent.xhtml"> 
             <ui:param name="entityId" value="2"/>  
-            <ui:param name="parentGroupId" value="#{studentAction.instance.parentGroup.id}"/> 
+            <ui:param name="parentId" value="#{studentAction.instance.primary.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="Secondary" rendered="#{studentAction.instance.secondary != null}"> 
+          <ui:include src="/admin/entities/domain/parent/viewParentComponent.xhtml"> 
+            <ui:param name="entityId" value="3"/>  
+            <ui:param name="parentId" value="#{studentAction.instance.secondary.id}"/> 
           </ui:include> 
         </rich:tab> 
       </rich:tabPanel> 
