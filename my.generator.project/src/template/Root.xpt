@@ -19,6 +19,19 @@
 	
 «ENDDEFINE»
 
+
+«DEFINE ConstaintGen FOR uml::Constraint»
+	«FILE  "constraints/" +name + ".java" »
+		package constraints ; 
+		
+		//«specification.name»
+		//	
+		
+
+	«ENDFILE»
+«ENDDEFINE»
+
+
 «DEFINE PackageRoot FOR wcprofile::EntitiesPackage»
 	«IF !excludeFromGeneration»
 	
@@ -97,6 +110,7 @@ import org.hibernate.annotations.ParamDef;
 			«EXPAND genImports FOR this»
 			import org.jboss.seam.annotations.Name;
 			
+			
 			@Name("«name.toFirstLower()»")
 			public class «name» extends «name»Base {
 				
@@ -106,12 +120,16 @@ import org.hibernate.annotations.ParamDef;
 		«FILE packagePath() +"/" +name + "Base.java"  »
 			package « packageName() »;
 			«EXPAND genImports FOR this»
+			import org.jboss.seam.annotations.security.Restrict;
+			import org.witchcraft.exceptions.ContractViolationException;
 			
 			/** 
-			 * «ownedComment.body»
+			 * «getDocumentation()»
 			 */
 			public abstract class «name»Base «getParent() != "" ? getParent() : " extends org.witchcraft.seam.action.BaseWebAction " » «getInterfaces()»{
-				«EXPAND genClassBodyContents FOR this»
+				«EXPAND genProperty FOREACH getAllAttributes() »
+				«EXPAND genGetterSetter FOREACH getAllAttributes() »
+				«EXPAND genWrappedOperation FOREACH getAllOperations()»
 			}
 			
 		«ENDFILE»
@@ -331,6 +349,46 @@ import org.hibernate.annotations.ParamDef;
 	}
 «ENDDEFINE»
 
+«DEFINE genWrappedOperation FOR uml::Operation»
+
+	/** 
+	 * «getDocumentation()»
+	 «FOREACH ownedParameter AS e-» 
+	 	«IF e.name != null && e.name != ""» @param «e.name»  «e.type.name» «e.getDocumentation()» «ENDIF» 
+	 *«ENDFOREACH»
+	 * @return «type.name» 
+	 */
+	 @Restrict("#{s:hasPermission('«class.name»','«name»')}")
+	«visibility» «getOpReturnType()» «getOpReturnTypeTemplateParam()»  «name» («getParametersSignature()»){
+	
+		try{
+			«EXPAND applyConstaints FOREACH ownedParameter»
+		}catch(AssertionError ae){
+			throw new ContractViolationException(ae.getMessage());
+		}
+		
+		«IF type != null» return «ENDIF» do«name.toFirstUpper()»(«getParameters()»); 
+	}
+	
+	/** 
+	 * «ownedComment.body»
+	 */
+	 protected «getOpReturnType()» «getOpReturnTypeTemplateParam()»  do«name.toFirstUpper()» («getParametersSignature()»){ 
+		«IF type != null» return null; «ENDIF»
+	}
+«ENDDEFINE»
+
+«DEFINE applyConstaints FOR uml::Parameter»
+	«FOREACH eRootContainer.allOwnedElements().typeSelect(uml::Constraint) AS c»
+			«IF c.constrainedElement.contains(this)»
+				assert(«c.specification.body.get(0).replaceAll(":self",name) »);
+			«ENDIF»
+		«ENDFOREACH»
+«ENDDEFINE»
+
+		
+
+
 «DEFINE genOperation FOR uml::Operation»
 	/** 
 	 * «ownedComment.body»
@@ -403,9 +461,9 @@ import org.hibernate.annotations.ParamDef;
 		«ENDIF»
 		private Set<«type.fqnForPackage(this.class)»> «name» = new HashSet<«type.fqnForPackage(this.class)»>();
 		«IF !opposite.isMultivalued()»
-		public void add«name.toFirstUpper()» («type.fqnForPackage(this.class)» «name»){
-			«name».set«opposite.name.toFirstUpper()»(this);
-			this.«name».add(«name»);
+		public void add«name.toFirstUpper().getSingular()» («type.fqnForPackage(this.class)» «name.getSingular()»){
+			«name.getSingular()».set«opposite.name.toFirstUpper()»(this);
+			this.«name».add(«name.getSingular()»);
 		}
 		
 		@Transient
@@ -456,7 +514,7 @@ import org.hibernate.annotations.ParamDef;
 	«getValidatorAnnotations()»
 	«getLengthAnnotations()»
 	«getUniqueAnnotations()»
-	«getBoostAnnotations()»
+	«REM»«getBoostAnnotations()»«ENDREM»
 	«getTransient()»
 	«type.name.getTypeAnnotation()»
 	«IF !isDerived()»«getColJpaAnnotations()» «ENDIF»

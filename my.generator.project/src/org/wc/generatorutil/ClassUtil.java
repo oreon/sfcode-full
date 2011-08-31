@@ -257,6 +257,7 @@ public class ClassUtil {
 		op.getOwnedParameters();
 
 		List<Parameter> params = op.getOwnedParameters();
+		//op.get
 		StringBuffer buffer = new StringBuffer();
 		List<String> lstStrings = new ArrayList<String>();
 
@@ -267,6 +268,7 @@ public class ClassUtil {
 
 		for (int i = 0; i < params.size(); i++) {
 			Parameter param = params.get(i);
+			//param.
 			String result = (String) xtendFacade.call("fqn",
 					new Object[] { param.getType() });
 			if (!StringUtils.isEmpty(param.getName()))

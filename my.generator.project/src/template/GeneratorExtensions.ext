@@ -88,6 +88,8 @@ getParametersSignatureRest(Operation op, String param):
 JAVA org.wc.generatorutil.ClassUtil.getParametersSignatureRest(org.eclipse.uml2.uml.Operation, java.lang.String);
 
 
+
+
 getParametersSignature(Operation op, String ext):
 JAVA org.wc.generatorutil.ClassUtil.getParametersSignature(org.eclipse.uml2.uml.Operation, java.lang.String);
 
@@ -504,3 +506,6 @@ column.type.name == "uniqueNameType" || (column.isColumn() && column.uniquePrope
 
 currentUser(Property prop):
 prop.isColumn() && prop.isCurrentUser;
+
+getDocumentation(Element e):
+e.ownedComment.body.isEmpty ? "": e.ownedComment.body.get(0);
