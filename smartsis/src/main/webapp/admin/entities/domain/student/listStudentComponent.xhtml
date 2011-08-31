@@ -175,16 +175,29 @@
           </f:facet>  
           <h:outputText value="#{_student.discontinueReason}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('parentGroup', 'studentView'  )}"> 
+        <h:column rendered="#{s:hasPermission('primary', 'studentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{studentList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.student_parentGroup}"/>  
-              <ui:param name="propertyPath" value="student.parentGroup"/> 
+              <ui:param name="propertyLabel" value="#{msg.student_primary}"/>  
+              <ui:param name="propertyPath" value="student.primary"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_student.parentGroup.displayName}" view="/admin/entities/domain/parentGroup/viewParentGroup.xhtml" propagation="none"> 
-            <f:param name="parentGroupId" value="#{_student.parentGroup.id}"/>  
+          <s:link value="#{_student.primary.displayName}" view="/admin/entities/domain/parent/viewParent.xhtml" propagation="none"> 
+            <f:param name="parentId" value="#{_student.primary.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('secondary', 'studentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{studentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.student_secondary}"/>  
+              <ui:param name="propertyPath" value="student.secondary"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_student.secondary.displayName}" view="/admin/entities/domain/parent/viewParent.xhtml" propagation="none"> 
+            <f:param name="parentId" value="#{_student.secondary.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  

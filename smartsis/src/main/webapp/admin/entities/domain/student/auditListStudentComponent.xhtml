@@ -118,10 +118,19 @@
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
-          <h:outputText value="#{msg.student_parentGroup}"/> 
+          <h:outputText value="#{msg.student_primary}"/> 
         </f:facet>  
-        <s:link value="#{_log.entity.contactDetails.parentGroup.displayName}" view="/admin/entities/domain/parentGroup/viewParentGroup.xhtml"> 
-          <f:param name="id" value="#{_entity.contactDetails.parentGroup.id}"/>  
+        <s:link value="#{_log.entity.contactDetails.primary.displayName}" view="/admin/entities/domain/parent/viewParent.xhtml"> 
+          <f:param name="id" value="#{_entity.contactDetails.primary.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.student_secondary}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.contactDetails.secondary.displayName}" view="/admin/entities/domain/parent/viewParent.xhtml"> 
+          <f:param name="id" value="#{_entity.contactDetails.secondary.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </rich:column> 
