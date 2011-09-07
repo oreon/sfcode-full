@@ -31,7 +31,7 @@
 «DEFINE genClassBody FOR uml::Class»
 	public class «name» «getParent()» «getInterfaces()»{
 		«EXPAND genDecl FOREACH getAllAttributes() »
-		«EXPAND genGetterSetter FOREACH getAllAttributes() »
+		«EXPAND genGetterSetterBean FOREACH getAllAttributes() »
 		«EXPAND genOperation FOREACH getAllOperations()»
 	}
 «ENDDEFINE»
@@ -58,14 +58,13 @@
 «ENDDEFINE»
 
 
-
 «DEFINE genGetterSetter FOR uml::Property»
 	«IF isMultivalued()»
-		public void set«name.toFirstUpper()»(Set<«type.fqnForPackage(this.class)»> «name»){
+		public void set«name.toFirstUpper()»(List<«type.fqnForPackage(this.class)»> «name»){
 			this.«name» = «name»;
 		}
 		
-		public Set<«type.fqnForPackage(this.class)»> get«name.toFirstUpper()»( ){
+		public List<«type.fqnForPackage(this.class)»> get«name.toFirstUpper()»( ){
 			return «name»;
 		}
 	«ELSE»
@@ -78,6 +77,9 @@
 		}
 	«ENDIF»
 «ENDDEFINE»
+
+
+
 
 «DEFINE genGetterSetter FOR wcprofile::DerivedProperty»
 //derived property - «name»

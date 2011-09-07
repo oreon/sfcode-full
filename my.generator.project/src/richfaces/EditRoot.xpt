@@ -49,6 +49,9 @@
 <ui:composition «EXPAND WebRoot::genIncludes-» template = "«getAdminTemplate()»" >	
 	<ui:define name="content">
 		<h:form>
+			 «PROTECT CSTART '<!--' CEND '-->' ID  'EDITABLE_RGN_VIEW_' + (isCurrentTemplateMode()?"Template_":"") + name»
+
+			«ENDPROTECT»	
 			<rich:tabPanel switchType="ajax">
 				<rich:tab label="«name»">
 					<ui:include src = "«getComponentViewFile(customViewComponents ?"customView":"view")»" />
@@ -116,7 +119,7 @@
 	«FILE getWebPath() +"/" + (edit?"edit":"view") + name+ "Component." + getExtension()»
 	<ui:composition «EXPAND WebRoot::genIncludes-» >	
 	
-	<h:panelGroup   >
+	<h:panelGroup  id="«(edit?"edit":"view")»«name»ComponentPanel" >
 		<s:validateAll>
 		«setAsCurrentEntity(this)-»
 		<h:panelGrid columns="«edit?"1":"1"»"  onload="#{«getAction()».load(«asVar()»Id )  }"></h:panelGrid>
@@ -125,8 +128,9 @@
 		«ENDREM»
 		
 		«EXPAND genAttribAsOutput FOR this-»
-		
+		<br/>
 		«EXPAND genTable FOR this-»
+		<br/>
 		«EXPAND genManyToManyShuttle FOR this-»
 		</s:validateAll>
 	
@@ -159,11 +163,13 @@
 «ENDDEFINE»
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
+	«IF !isCurrentMultiMode()»
 	«IF getCurrentEmbeddable() == null»«EXPAND panelBegin FOR this»«ENDIF»
 	«FOREACH allParents() AS e-»
 	«EXPAND genLabelAndControl FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && a.association == null) -»
 	«ENDFOREACH»
 	«EXPAND genLabelAndControl FOREACH getAllAttributes().select(a|!a.isMultivalued() && a.association == null) -»
+	«ENDIF»
 	
 	«FOREACH allParents() AS e-»
 	 «EXPAND genAttributeAssoc FOREACH e.getAllAttributes().select(a| !a.isMultivalued() && a.association != null && !a.isExpandableAssoc()) -»
@@ -175,6 +181,15 @@
 		 «EXPAND genAttributeAssoc FOREACH e.getAllAttributes().select(a| !a.isMultivalued() && a.association != null && a.isExpandableAssoc()) -»
 	«ENDFOREACH»
 	«EXPAND genAttributeAssoc FOREACH getAllAttributes().select(a| !a.isMultivalued() && a.association != null && a.isExpandableAssoc() ) -»
+	
+	
+	«IF isCurrentMultiMode()»
+	«IF getCurrentEmbeddable() == null»«EXPAND panelBegin FOR this»«ENDIF»
+	«FOREACH allParents() AS e-»
+	«EXPAND genLabelAndControl FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && a.association == null) -»
+	«ENDFOREACH»
+	«EXPAND genLabelAndControl FOREACH getAllAttributes().select(a|!a.isMultivalued() && a.association == null) -»
+	«ENDIF»
 	
 «ENDDEFINE»
 
@@ -232,7 +247,6 @@
 «ENDDEFINE»
 
 «DEFINE genLabelAndControl FOR uml::Property»
-	
 	«IF isCurrentEditMode()»
 		«EXPAND genLabelAndInput FOR this-»
 	«ELSE»
@@ -242,9 +256,9 @@
 
 «DEFINE genLabelAndInput FOR uml::Property-»
 	«IF !isDerived() && !type.isEmbeddable() && !systemModify() && !currentUser()»
-		«isCurrentMultiMode()?"<h:column>":""»
+		«isCurrentMultiMode()?"<h:column><f:facet name=\"header\">" + getOutputMessage() + "</f:facet>":""»
 		<s:decorate id="«getId()»Decorate" template="/layout/edit.xhtml">
-		<ui:define name="label"> «getOutputMessage()»</ui:define> 
+		<ui:define name="label"> «!isCurrentMultiMode()?getOutputMessage():" "»</ui:define> 
 		«IF association != null-»
 			«EXPAND genAssociation-»
 		«ELSE»
@@ -257,8 +271,9 @@
 
 «DEFINE genLabelAndOutput FOR uml::Property-»
 	«IF !isSecret()  »
-		«isCurrentMultiMode()?"<h:column>":""»
+		«isCurrentMultiMode()?"<h:column><f:facet name=\"header\">":""»
 		«getOutputMessage()-»
+		«isCurrentMultiMode()?"</f:facet>":""»
 		«IF association != null»
 			«EXPAND genAssociation-»
 		«ELSE»
@@ -320,7 +335,11 @@
 		«IF (isColumn() && autocomplete == true) » 
 			«EXPAND genAutoCompleteAssoc FOR this»
 		«ELSE»
-			«EXPAND genDropDown FOR this»
+			«IF isPreloadedComposition()»
+				«EXPAND genAssocLink FOR this»
+			«ELSE»
+				«EXPAND genDropDown FOR this»
+			«ENDIF»
 		«ENDIF»
 	«REM»comment
 	<a:commandButton oncomplete="Richfaces.showModalPanel('«type.name»ModalPanel',{});" value="Create" /> 
@@ -363,7 +382,8 @@
 
 «DEFINE genDropDown FOR uml::Property»
 	<h:selectOneMenu id="«getId()»"   label="«msgBundleKey()»" value="#{«getActionForMode()»«genPropertyLabel()-»}" 
-		required="«!getAssocOptional() && !isCurrentTemplateMode()»"  rendered="#{«genEditPermission()»}"  >
+		required="«!getAssocOptional() && !isCurrentTemplateMode()»"  rendered="#{«genEditPermission()»}" 
+		disabled="false" >
 		«IF isColumn() && this.controls != null » <a:support event="onchange" 
 			action="#{«class.getAction()».onChange«name.toFirstUpper()»}"  reRender="«controls»" ajaxSingle="true" />
 		«ENDIF»
@@ -374,8 +394,6 @@
 		<s:convertEntity />
 	</h:selectOneMenu>
 «ENDDEFINE»
-
-
 
 
 
@@ -486,7 +504,7 @@
 
 «DEFINE gentEditableTable FOR uml::Property-»
 	«setCurrentMultiMode(true)-»
-	«IF isCurrentEditMode()-» «EXPAND genNewButton FOR this» «ENDIF»
+	«IF isCurrentEditMode() && !isPreloadedComposition() -» «EXPAND genNewButton FOR this» «ENDIF»
 	<rich:dataTable id="«name»" var="_«type.asVar()»" 
 		«IF !isCurrentEditMode()» 
 			rendered="#{not empty «class.getAction()».list«name.toFirstUpper()» and «genViewPermission()» }"
@@ -495,12 +513,14 @@
 		 «ENDIF»
 				value="#{«class.getAction()».list«name.toFirstUpper()»}" 
 				rowKeyVar="rowIndex" 
-				rowClasses="odd, even" styleClass="dataTable" rules="all">
+				rowClasses="odd, even" styleClass="viewInfo" rules="all">
 		«setAsCurrentEntity(type)»
 		«EXPAND genAttribAsOutput FOR type-»
-		«IF isCurrentEditMode() -»
-		«EXPAND genNew -»
-		«EXPAND genDelete FOR this -»
+		«IF isCurrentEditMode()  -»
+		 «IF !isPreloadedComposition()»
+		  «EXPAND genNew -»
+		  «EXPAND genDelete FOR this -»
+		 «ENDIF»
 		«ENDIF»	
 	</rich:dataTable>
 	«setCurrentMultiMode(false)-»
@@ -536,15 +556,12 @@
 
 
 «DEFINE genTemplateChooser FOR uml::Class»
-<h:form>
-	<h:outputText value="Template:"/>  
+	 <h:outputText value="Template"/>  
         <h:selectOneMenu id="template" label="Template" value="#{«getAction()».entityTemplate}" required="false"> 
-          <s:selectItems value="#{prescriptionAction.templateList}" var="itemIter" label="#{itemIter.displayName}" 
-          	noSelectionLabel="Select Template"/>  
+          <s:selectItems value="#{prescriptionAction.templateList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select Template"/>  
           <s:convertEntity/> 
+          <a:support event="onchange"
+							action="#{«getAction()».loadFromTemplate}"
+							reRender="edit«name»ComponentPanel" ajaxSingle="true" />
         </h:selectOneMenu>  
-        
-       <h:commandButton value="Create From Template" action="#{«getAction()».loadFromTemplate}" />
-       <h:message styleClass="error errors" for="template"/>
-</h:form>
 «ENDDEFINE»

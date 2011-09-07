@@ -8,6 +8,7 @@
 	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
 	«EXPAND ORMGen::Root FOR this»
 	«EXPAND genProjectUtils FOR this»
+	«EXPAND DocumentationRoot::Root FOR this»
 «ENDDEFINE»
 
 «DEFINE PackageRoot FOR uml::Package»
@@ -17,18 +18,6 @@
 	«EXPAND EnumGen FOREACH allOwnedElements().typeSelect(uml::Enumeration)»
 	«EXPAND GenPackageInfo FOR this»
 	
-«ENDDEFINE»
-
-
-«DEFINE ConstaintGen FOR uml::Constraint»
-	«FILE  "constraints/" +name + ".java" »
-		package constraints ; 
-		
-		//«specification.name»
-		//	
-		
-
-	«ENDFILE»
 «ENDDEFINE»
 
 
@@ -122,6 +111,8 @@ import org.hibernate.annotations.ParamDef;
 			«EXPAND genImports FOR this»
 			import org.jboss.seam.annotations.security.Restrict;
 			import org.witchcraft.exceptions.ContractViolationException;
+			import org.witchcraft.dbc.AssertContractCondition;
+			import org.apache.commons.lang.StringUtils;
 			
 			/** 
 			 * «getDocumentation()»
@@ -169,17 +160,16 @@ import org.hibernate.annotations.ParamDef;
 
 «DEFINE genClassBodyContents FOR uml::Class»
 		«EXPAND genProperty FOREACH getAllAttributes() »
-		«EXPAND genGetterSetter FOREACH getAllAttributes() »
+		«EXPAND JavaBeansRoot::genGetterSetter FOREACH getAllAttributes() »
 		«EXPAND genOperation FOREACH getAllOperations()»
 «ENDDEFINE»
 
 «DEFINE genProperty FOR uml::Property»
 	«IF isMultivalued()»
-		private «type.fqnForPackage(this.class)»  java.util.List<«name»> = new ArrayList<«name»>();
+		private java.util.List<«type.fqn()»> «name»   = new ArrayList<«type.fqn()»>();
 	«ELSE»
 		private «type.fqnForPackage(this.class)»  «name» «getDefault() != null?" = " + getDefaultVal(type):""»;
 	«ENDIF»
-	
 «ENDDEFINE»
 
 
@@ -350,21 +340,23 @@ import org.hibernate.annotations.ParamDef;
 «ENDDEFINE»
 
 «DEFINE genWrappedOperation FOR uml::Operation»
-
 	/** 
 	 * «getDocumentation()»
 	 «FOREACH ownedParameter AS e-» 
-	 	«IF e.name != null && e.name != ""» @param «e.name»  «e.type.name» «e.getDocumentation()» «ENDIF» 
+	 «IF e.name != null && e.name != ""» @param «e.name»  «e.type.name» «e.getDocumentation()» «ENDIF» 
 	 *«ENDFOREACH»
 	 * @return «type.name» 
 	 */
 	 @Restrict("#{s:hasPermission('«class.name»','«name»')}")
 	«visibility» «getOpReturnType()» «getOpReturnTypeTemplateParam()»  «name» («getParametersSignature()»){
 	
-		try{
-			«EXPAND applyConstaints FOREACH ownedParameter»
-		}catch(AssertionError ae){
-			throw new ContractViolationException(ae.getMessage());
+		StringBuilder exceptionMessages = new StringBuilder();
+		
+		«EXPAND applyConstaints FOREACH ownedParameter»
+	
+		
+		if(!StringUtils.isEmpty(exceptionMessages.toString())){
+			throw new ContractViolationException(exceptionMessages.toString());
 		}
 		
 		«IF type != null» return «ENDIF» do«name.toFirstUpper()»(«getParameters()»); 
@@ -373,17 +365,26 @@ import org.hibernate.annotations.ParamDef;
 	/** 
 	 * «ownedComment.body»
 	 */
-	 protected «getOpReturnType()» «getOpReturnTypeTemplateParam()»  do«name.toFirstUpper()» («getParametersSignature()»){ 
+	 «IF readPropertyDef("generateAbstractMethods","true") == "true"»
+	  protected  abstract «getOpReturnType()» «getOpReturnTypeTemplateParam()»  do«name.toFirstUpper()» («getParametersSignature()»);
+	«ELSE» 
+	protected «getOpReturnType()» «getOpReturnTypeTemplateParam()»  do«name.toFirstUpper()» («getParametersSignature()»){ 
 		«IF type != null» return null; «ENDIF»
 	}
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE applyConstaints FOR uml::Parameter»
-	«FOREACH eRootContainer.allOwnedElements().typeSelect(uml::Constraint) AS c»
-			«IF c.constrainedElement.contains(this)»
-				assert(«c.specification.body.get(0).replaceAll(":self",name) »);
-			«ENDIF»
-		«ENDFOREACH»
+	«IF getAllConstraints().size > 0»
+	try{
+	«FOREACH getAllConstraints() AS c»
+		AssertContractCondition.enforce(«c.specification.body.get(0).replaceAll(":self",name) »,
+			"«c.errorMessage != null ? c.errorMessage.replaceAll(":self",name) : "Invalid " + name»");
+	«ENDFOREACH»
+	}catch(ContractViolationException cve){
+			exceptionMessages.append(cve.getMessage() + ";");
+	}
+	«ENDIF»
 «ENDDEFINE»
 
 		
