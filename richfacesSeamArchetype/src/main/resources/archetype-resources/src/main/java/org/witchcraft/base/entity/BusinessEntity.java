@@ -120,7 +120,7 @@ public class BusinessEntity implements Serializable{
 
     
     public AppUser getCreatedByUser() {
-        return null; //createdByUser;
+        return createdByUser;
     }
 
     public void setCreatedByUser(AppUser createdByUser) {
