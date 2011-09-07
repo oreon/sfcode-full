@@ -509,3 +509,10 @@ prop.isColumn() && prop.isCurrentUser;
 
 getDocumentation(Element e):
 e.ownedComment.body.isEmpty ? "": e.ownedComment.body.get(0);
+
+
+getAllConstraints(Parameter p):
+p.eRootContainer.allOwnedElements().select(c|c.isValidationConstraint() && c.constrainedElement.contains(p) );
+
+isValidationConstraint(Element e):
+e.getAppliedStereotype("wcprofile::ValidationConstraint") != null;

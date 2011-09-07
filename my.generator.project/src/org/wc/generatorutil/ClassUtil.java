@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +20,7 @@ import org.eclipse.uml2.uml.ActivityNode;
 import org.eclipse.uml2.uml.AggregationKind;
 import org.eclipse.uml2.uml.CallBehaviorAction;
 import org.eclipse.uml2.uml.Class;
-import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.ControlFlow;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ForkNode;
@@ -207,6 +206,8 @@ public class ClassUtil {
 		EList<Class> classes = cls.getSuperClasses();
 		try {
 			for (Class classifier : classes) {
+				//Constraint cs;
+				//cs.
 				//System.out.println("found " + classifier.getAllAttributes().size());
 				lstAttributes.addAll(classifier.getAllAttributes());
 				
@@ -264,6 +265,8 @@ public class ClassUtil {
 		Transition tr;
 		
 		Element el;
+		
+	
 		//op.getEAnnotation(source);
 
 		for (int i = 0; i < params.size(); i++) {
@@ -798,5 +801,10 @@ public class ClassUtil {
 	public static Boolean getCurrentContainer() {
 		return currentContainer;
 	}
+	
+	/*
+	public static List<Constraint> getAppliedConstraints(Parameter e){
+		e.  .allOwnedElements().typeSelect(wcprofile::ValidationConstraint)
+	}*/
 
 }
