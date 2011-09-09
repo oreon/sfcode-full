@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'employeeNumberEdit')}"/>  
+      <br/>  
+      <h:inputText id="employeeNumber" value="#{physicianList.physician.employeeNumber}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'userNameEdit')}"/>  
+      <br/>  
+      <h:inputText id="appUser_userName" value="#{physicianList.physician.appUser.userName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'enabledEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="appUser_enabled" value="#{physicianList.physician.appUser.enabled}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.appUser_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'emailEdit')}"/>  
+      <br/>  
+      <h:inputText id="appUser_email" value="#{physicianList.physician.appUser.email}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'firstNameEdit')}"/>  
+      <br/>  
+      <h:inputText id="firstName" value="#{physicianList.physician.firstName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'lastNameEdit')}"/>  
+      <br/>  
+      <h:inputText id="lastName" value="#{physicianList.physician.lastName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'dateOfBirthEdit')}"/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <rich:calendar value="#{physicianList.dateOfBirthRange.begin}"/> To
+      <br/>  
+      <rich:calendar value="#{physicianList.dateOfBirthRange.end}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'genderEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="gender" value="#{physicianList.physician.gender}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="F" itemLabel="F"/>  
+        <f:selectItem itemValue="M" itemLabel="M"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'primaryPhoneEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_primaryPhone" value="#{physicianList.physician.contactDetails.primaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'secondaryPhoneEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_secondaryPhone" value="#{physicianList.physician.contactDetails.secondaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'emailEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_email" value="#{physicianList.physician.contactDetails.email}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{physicianList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{physicianList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

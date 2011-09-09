@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewUnusualOccurenceComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{unusualOccurenceAction.load(unusualOccurenceId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.UnusualOccurence}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.unusualOccurence_category}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'categoryView')}"/>  
+        <h:outputText value="#{unusualOccurenceAction.unusualOccurence.category}"/>  
+        <h:outputText value="#{msg.unusualOccurence_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'severityView')}"/>  
+        <h:outputText value="#{unusualOccurenceAction.unusualOccurence.severity}"/>  
+        <h:outputText value="#{msg.unusualOccurence_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'descriptionView')}"/>  
+        <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'descriptionView')}" value="#{unusualOccurenceAction.unusualOccurence.description}"></h:outputText>  
+        <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'occurenceTypeView')}"/>  
+        <s:link value="#{unusualOccurenceAction.unusualOccurence.occurenceType.displayName}" action="viewoccurenceType" propagation="none"> 
+          <f:param name="occurenceTypeId" value="#{unusualOccurenceAction.unusualOccurence.occurenceType.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.unusualOccurence_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'patientView')}"/>  
+        <s:link value="#{unusualOccurenceAction.unusualOccurence.patient.displayName}" action="viewpatient" propagation="none"> 
+          <f:param name="patientId" value="#{unusualOccurenceAction.unusualOccurence.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <rich:toolTip> 
+            <span>#{unusualOccurenceAction.unusualOccurence.patient.popupInfo}</span> 
+          </rich:toolTip> 
+        </s:link>  
+        <h:outputText value="#{msg.unusualOccurence_createdBy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'createdByView')}"/>  
+        <s:link value="#{unusualOccurenceAction.unusualOccurence.createdBy.displayName}" action="viewcreatedBy" propagation="none"> 
+          <f:param name="createdById" value="#{unusualOccurenceAction.unusualOccurence.createdBy.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

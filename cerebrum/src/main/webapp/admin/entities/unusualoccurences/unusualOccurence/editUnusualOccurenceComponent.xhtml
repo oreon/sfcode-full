@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editUnusualOccurenceComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{unusualOccurenceAction.load(unusualOccurenceId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.UnusualOccurence}"/> 
+        </f:facet>  
+        <s:decorate id="categoryDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.unusualOccurence_category}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'categoryEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="category" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'categoryEdit')}" value="#{unusualOccurenceAction.unusualOccurence.category}" required="false" label="#{msg.unusualOccurence_category}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="Radiation" itemLabel="#{msg.Radiation}"/>  
+            <f:selectItem itemValue="Chemotherapy" itemLabel="#{msg.Chemotherapy}"/>  
+            <f:selectItem itemValue="Anesthesia" itemLabel="#{msg.Anesthesia}"/>  
+            <f:selectItem itemValue="Surgery" itemLabel="#{msg.Surgery}"/>  
+            <f:selectItem itemValue="Other" itemLabel="#{msg.Other}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="severityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.unusualOccurence_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'severityEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'severityEdit')}" value="#{unusualOccurenceAction.unusualOccurence.severity}" required="false" label="#{msg.unusualOccurence_severity}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="Mild" itemLabel="#{msg.Mild}"/>  
+            <f:selectItem itemValue="Moderate" itemLabel="#{msg.Moderate}"/>  
+            <f:selectItem itemValue="Critical" itemLabel="#{msg.Critical}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.unusualOccurence_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'descriptionEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'descriptionEdit')}" label="#{msg.unusualOccurence_description}" required="false" disabled="false" value="#{unusualOccurenceAction.unusualOccurence.description}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="occurenceTypeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'occurenceTypeEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="occurenceType" label="#{msg.unusualOccurence_occurenceType}" value="#{unusualOccurenceAction.unusualOccurence.occurenceType}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'occurenceTypeEdit')}"> 
+            <s:selectItems value="#{occurenceTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="patientDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.unusualOccurence_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'patientEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="patient" label="#{msg.unusualOccurence_patient}" value="#{unusualOccurenceAction.unusualOccurence.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'patientEdit')}"> 
+            <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="createdByDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.unusualOccurence_createdBy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'createdByEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="createdBy" label="#{msg.unusualOccurence_createdBy}" value="#{unusualOccurenceAction.unusualOccurence.createdBy}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'createdByEdit')}"> 
+            <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
