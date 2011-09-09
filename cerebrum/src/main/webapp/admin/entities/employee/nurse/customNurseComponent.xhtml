@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'employeeNumberEdit')}"/>  
+        <br/>  
+        <h:inputText id="employeeNumber" value="#{nurseAction.nurse.employeeNumber}"/>  
+        <rich:message styleClass="error errors" for="employeeNumber" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'employeeNumberEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'userNameEdit')}"/>  
+        <br/>  
+        <h:inputText id="appUser_userName" value="#{nurseAction.nurse.appUser.userName}"/>  
+        <rich:message styleClass="error errors" for="appUser_userName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'userNameEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'enabledEdit')}"/>  
+        <br/>  
+        <h:selectBooleanCheckbox id="appUser_enabled" value="#{nurseAction.nurse.appUser.enabled}"/>  
+        <rich:message styleClass="error errors" for="appUser_enabled" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'enabledEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.appUser_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'emailEdit')}"/>  
+        <br/>  
+        <h:inputText id="appUser_email" value="#{nurseAction.nurse.appUser.email}"/>  
+        <rich:message styleClass="error errors" for="appUser_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'emailEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'firstNameEdit')}"/>  
+        <br/>  
+        <h:inputText id="firstName" value="#{nurseAction.nurse.firstName}"/>  
+        <rich:message styleClass="error errors" for="firstName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'firstNameEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'lastNameEdit')}"/>  
+        <br/>  
+        <h:inputText id="lastName" value="#{nurseAction.nurse.lastName}"/>  
+        <rich:message styleClass="error errors" for="lastName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'lastNameEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'dateOfBirthEdit')}"/>  
+        <br/>  
+        <rich:calendar id="dateOfBirth" value="#{nurseAction.nurse.dateOfBirth}"/>  
+        <rich:message styleClass="error errors" for="dateOfBirth" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'dateOfBirthEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'genderEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="gender" value="#{nurseAction.nurse.gender}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="F" itemLabel="F"/>  
+          <f:selectItem itemValue="M" itemLabel="M"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'genderEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'primaryPhoneEdit')}"/>  
+        <br/>  
+        <h:inputText id="contactDetails_primaryPhone" value="#{nurseAction.nurse.contactDetails.primaryPhone}"/>  
+        <rich:message styleClass="error errors" for="contactDetails_primaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'primaryPhoneEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'secondaryPhoneEdit')}"/>  
+        <br/>  
+        <h:inputText id="contactDetails_secondaryPhone" value="#{nurseAction.nurse.contactDetails.secondaryPhone}"/>  
+        <rich:message styleClass="error errors" for="contactDetails_secondaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'secondaryPhoneEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'emailEdit')}"/>  
+        <br/>  
+        <h:inputText id="contactDetails_email" value="#{nurseAction.nurse.contactDetails.email}"/>  
+        <rich:message styleClass="error errors" for="contactDetails_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'emailEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'ageEdit')}"/>  
+        <br/>  
+        <h:inputText id="age" value="#{nurseAction.nurse.age}"/>  
+        <rich:message styleClass="error errors" for="age" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'ageEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewRoomComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{roomAction.load(roomId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Room}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.room_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameView')}" value="#{roomAction.room.name}"></h:outputText>  
+        <h:outputText value="#{msg.room_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'facilityView')}"/>  
+        <s:link value="#{roomAction.room.facility.displayName}" action="viewfacility" propagation="none"> 
+          <f:param name="facilityId" value="#{roomAction.room.facility.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <rich:dataTable id="beds" var="_bed" rendered="#{not empty roomAction.listBeds and skipPermissionCheck == 'true' || s:hasPermission('room', 'bedsView') }" value="#{roomAction.listBeds}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.bed_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'nameView')}"/> 
+          </f:facet>  
+          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'nameView')}" value="#{_bed.name}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

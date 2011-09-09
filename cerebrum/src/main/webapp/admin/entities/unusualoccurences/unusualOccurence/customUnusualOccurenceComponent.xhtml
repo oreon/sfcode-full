@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'occurenceTypeEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="occurenceType" value="#{unusualOccurenceAction.unusualOccurence.occurenceType}"> 
+          <s:selectItems value="#{occurenceTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="occurenceType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'occurenceTypeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.unusualOccurence_category}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'categoryEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="category" value="#{unusualOccurenceAction.unusualOccurence.category}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="Radiation" itemLabel="Radiation"/>  
+          <f:selectItem itemValue="Chemotherapy" itemLabel="Chemotherapy"/>  
+          <f:selectItem itemValue="Anesthesia" itemLabel="Anesthesia"/>  
+          <f:selectItem itemValue="Surgery" itemLabel="Surgery"/>  
+          <f:selectItem itemValue="Other" itemLabel="Other"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="category" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'categoryEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.unusualOccurence_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'severityEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="severity" value="#{unusualOccurenceAction.unusualOccurence.severity}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="Mild" itemLabel="Mild"/>  
+          <f:selectItem itemValue="Moderate" itemLabel="Moderate"/>  
+          <f:selectItem itemValue="Critical" itemLabel="Critical"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'severityEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.unusualOccurence_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'descriptionEdit')}"/>  
+        <br/>  
+        <rich:editor id="description" value="#{unusualOccurenceAction.unusualOccurence.description}"/>  
+        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'descriptionEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.unusualOccurence_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'patientEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="patient" value="#{unusualOccurenceAction.unusualOccurence.patient}"> 
+          <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'patientEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.unusualOccurence_createdBy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'createdByEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="createdBy" value="#{unusualOccurenceAction.unusualOccurence.createdBy}"> 
+          <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="createdBy" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'createdByEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

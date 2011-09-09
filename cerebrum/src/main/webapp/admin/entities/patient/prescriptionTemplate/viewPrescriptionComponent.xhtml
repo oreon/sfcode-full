@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewPrescriptionComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{prescriptionAction.load(prescriptionId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Prescription}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.prescription_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'notesView')}"/>  
+        <h:outputText escape="false" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'notesView')}" value="#{prescriptionAction.prescription.notes}"></h:outputText>  
+        <h:outputText value="#{msg.prescription_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'patientView')}"/>  
+        <s:link value="#{prescriptionAction.prescription.patient.displayName}" action="viewpatient" propagation="none"> 
+          <f:param name="patientId" value="#{prescriptionAction.prescription.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <rich:toolTip> 
+            <span>#{prescriptionAction.prescription.patient.popupInfo}</span> 
+          </rich:toolTip> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <rich:dataTable id="prescriptionItems" var="_prescriptionItem" rendered="#{not empty prescriptionAction.listPrescriptionItems and skipPermissionCheck == 'true' || s:hasPermission('prescription', 'prescriptionItemsView') }" value="#{prescriptionAction.listPrescriptionItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'drugView')}"/> 
+          </f:facet>  
+          <s:link value="#{_prescriptionItem.drug.displayName}" action="viewdrug" propagation="none"> 
+            <f:param name="drugId" value="#{_prescriptionItem.drug.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <rich:toolTip> 
+              <span>#{_prescriptionItem.drug.popupInfo}</span> 
+            </rich:toolTip> 
+          </s:link> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItem_frequecy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'frequecyView')}"/> 
+          </f:facet>  
+          <s:link value="#{_prescriptionItem.frequecy.displayName}" action="viewfrequecy" propagation="none"> 
+            <f:param name="frequecyId" value="#{_prescriptionItem.frequecy.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItem_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'qtyView')}"/> 
+          </f:facet>  
+          <h:outputText id="qty#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'qtyView')}" value="#{_prescriptionItem.qty}"></h:outputText> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItem_route}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'routeView')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItem.route}"/> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItem_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'durationView')}"/> 
+          </f:facet>  
+          <h:outputText id="duration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'durationView')}" value="#{_prescriptionItem.duration}"></h:outputText> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItem_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'remarksView')}"/> 
+          </f:facet>  
+          <h:outputText id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'remarksView')}" value="#{_prescriptionItem.remarks}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

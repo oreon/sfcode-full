@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editAllergyComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{allergyAction.load(allergyId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Allergy}"/> 
+        </f:facet>  
+        <s:decorate id="severityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.allergy_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'severityEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'severityEdit')}" value="#{allergyAction.allergy.severity}" required="false" label="#{msg.allergy_severity}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="SEVERE" itemLabel="#{msg.SEVERE}"/>  
+            <f:selectItem itemValue="MODERATE" itemLabel="#{msg.MODERATE}"/>  
+            <f:selectItem itemValue="MILD" itemLabel="#{msg.MILD}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="patientDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.allergy_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'patientEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="patient" label="#{msg.allergy_patient}" value="#{allergyAction.allergy.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'patientEdit')}"> 
+            <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="allergenDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.allergy_allergen}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'allergenEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="allergen" label="#{msg.allergy_allergen}" value="#{allergyAction.allergy.allergen}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'allergenEdit')}"> 
+            <s:selectItems value="#{allergenList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

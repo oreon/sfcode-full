@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editBedComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{bedAction.load(bedId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Bed}"/> 
+        </f:facet>  
+        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.bed_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'nameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'nameEdit')}" label="#{msg.bed_name}" required="true" disabled="false" value="#{bedAction.bed.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="roomDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.bed_room}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'roomEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="room" label="#{msg.bed_room}" value="#{bedAction.bed.room}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'roomEdit')}"> 
+            <s:selectItems value="#{roomList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="admissionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.bed_admission}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'admissionEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="admission" label="#{msg.bed_admission}" value="#{bedAction.bed.admission}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'admissionEdit')}"> 
+            <s:selectItems value="#{admissionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

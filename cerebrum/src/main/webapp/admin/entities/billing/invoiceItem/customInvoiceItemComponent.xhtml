@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'unitsEdit')}"/>  
+        <br/>  
+        <h:inputText id="units" value="#{invoiceItemAction.invoiceItem.units}"/>  
+        <rich:message styleClass="error errors" for="units" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'unitsEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'serviceEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="service" value="#{invoiceItemAction.invoiceItem.service}"> 
+          <s:selectItems value="#{serviceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="service" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'serviceEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.invoiceItem_invoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'invoiceEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="invoice" value="#{invoiceItemAction.invoiceItem.invoice}"> 
+          <s:selectItems value="#{invoiceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="invoice" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'invoiceEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.invoiceItem_total}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'totalEdit')}"/>  
+        <br/>  
+        <h:inputText id="total" value="#{invoiceItemAction.invoiceItem.total}"/>  
+        <rich:message styleClass="error errors" for="total" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'totalEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>
