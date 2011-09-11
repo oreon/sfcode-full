@@ -2,6 +2,7 @@
 
 «EXTENSION org::openarchitectureware::uml2::profile::profiling»
 «EXTENSION template::GeneratorExtensions»
+«EXTENSION template::WebExtensions»
 «EXTENSION template::associationExtensions»
 
 «EXTENSION template::WebExtensions»
@@ -29,20 +30,19 @@ public class «name»ListQuery extends «name»ListQueryBase implements java.io.Seri
 
 
 «DEFINE FacadeGen FOR wcprofile::WebAction»
-«FILE getWebPackagePath("RestService") »
+«FILE getWebPackagePath(getRestExtension()) »
 package « getWebPackageName() »;
 
 «EXPAND genImports FOR this»	
 
-@Name("«asVar()»RestService")
-@Path("«asVar()»RestService")
-public class «name»RestService  implements java.io.Serializable{
+@Name("«asVar()»«getRestExtension()»")
+@Path("«asVar()»«getRestExtension()»")
+public class «name»«getRestExtension()»  implements java.io.Serializable{
 	
 	@In(create=true)
 	«fqn()» «asVar()»;
 	
 	«EXPAND genOperation FOREACH getAllOperations()»
-	
 }
 «ENDFILE»
 «ENDDEFINE»

@@ -3,6 +3,7 @@
 «EXTENSION org::openarchitectureware::uml2::profile::profiling»
 «EXTENSION template::GeneratorExtensions»
 «EXTENSION template::associationExtensions»
+«EXTENSION template::WebExtensions»
 
 «DEFINE Root FOR uml::Model»
 	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
@@ -29,9 +30,8 @@
 	<h2>«name» </h2>
 	«getDocumentation()»
 	«FOREACH getAllOperations() AS o»
-		
 		<h3> «o.name» </h3>  
-		<br/> URL  «EXPAND getMehtodType FOR o-» /«name.toFirstLower()»«readPropertyDef("restfulExtension", "Service")»/«o.name»
+		<br/> URL  «EXPAND getMehtodType FOR o-» /«name.toFirstLower()»«getRestExtension()»/«o.name»
 		<p>«o.getDocumentation()» </p>
 		<br/>
 		«IF o.ownedParameter.size > 1 »
@@ -40,8 +40,9 @@
 	 		«IF e.name != null && e.name != ""»
 	 		<tr>
 	 			<td>  «e.name» </td><td> «e.type.name» </td>
-	 			<td>«e.getDocumentation() != null && e.getDocumentation() != "" ? e.getDocumentation() : e.name.getVariableNameForDisplay()» </td>
-	 			<td>«FOREACH e.getAllConstraints() AS c» «c.name.getVariableNameForDisplay()» «ENDFOREACH»  </td>
+	 			<td>«!e.getDocumentation().isEmptyStr() ? e.getDocumentation() : e.name.getVariableNameForDisplay()» </td>
+	 			<td>«FOREACH e.getAllConstraints() AS c» 
+	 				«!c.getDocumentation().isEmptyStr() ? c.getDocumentation() : c.name.getVariableNameForDisplay()» «ENDFOREACH»  </td>
 	 		</tr>
 	 		«ENDIF» 
 	 	«ENDFOREACH»

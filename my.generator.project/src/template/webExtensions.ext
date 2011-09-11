@@ -103,11 +103,11 @@ String getLabelText(Property prop):
 getRendered(Property prop):
 isCurrentEditMode()?prop.genEditPermission():prop.genViewPermission() ;
 
-//getRequiredStar(Property prop):
-//isCurrentEditMode() && (prop.getRequired() == "true" || ( prop.association != null && !prop.getAssocOptional() ) )?"*":"";
-
 getRequiredStar(Property prop):
-"";
+isCurrentEditMode() && (prop.getRequired() == "true" || ( prop.association != null && !prop.getAssocOptional() ) )?"*":"";
+
+//getRequiredStar(Property prop):
+//"";
 
 
 String getTextControl(Property prop):
@@ -324,4 +324,7 @@ getTopLevelPackage(cls) + ".websvc." + cls.package.name;
 
 genAjaxValidator():
  "<rich:ajaxValidator event=\"" + readPropertyDef("ajaxValidationOn", "onsubmit") + "\" />";
+ 
+getRestExtension():
+readPropertyDef("restfulExtension", "Service");
 
