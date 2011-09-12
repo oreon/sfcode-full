@@ -51,10 +51,53 @@
 	 	<br/>
 	 	Return Type -  «o.type.name»
 	 	<br/>
+	 	<div class="return" >
+	 	<code>
+			«EXPAND genElement(null) FOR o.type»
+	 	</code>
+	 	</div>
+	 	<br/>
 	«ENDFOREACH»
 	<hr/>
 «ENDDEFINE»
 
+«DEFINE genElement(String number) FOR uml::Class»
+&lt;xs:element «IF number != null» maxOccurs="«number»"«ENDIF» type="xs:«name.toFirstLower()»"  name="«name»"  &gt;<br/>
+	&lt;xs:complexType&gt;<br/>
+		&nbsp;&lt;xsd:all&gt; <br/>
+	 	«EXPAND genSchema »
+	 	&nbsp;&lt;/xsd:all&gt; <br/>
+	 &lt;/xs:complexType&gt;<br/>
+	 &lt;/xs:element&gt;<br/>
+«ENDDEFINE»
+
+«DEFINE genElement(String number) FOR uml::PrimitiveType»
+&lt;xs:element type="xs:«name.toFirstLower()»"  name="«name»"  &gt;<br/>
+«ENDDEFINE»
+
+«DEFINE genSchema FOR uml::Class»
+	«FOREACH allParents() AS e-»
+	 	«EXPAND genAttribute FOR e»
+	«ENDFOREACH»
+	«EXPAND genAttribute FOR this»
+«ENDDEFINE»
+
+«DEFINE genAttribute FOR uml::Class»
+	«FOREACH getAllAttributes() AS a»
+	 «IF a.isMultivalued()»
+		«EXPAND genElement("100") FOR a.type»
+	 «ELSE»
+	 	«IF a.association == null»
+		 &nbsp; &nbsp;  &lt;xs:element type="xs:«a.isString()?"string":a.type.name.toFirstLower()»" name="«a.name»" /&gt; <br/>
+	 	«ENDIF»
+	 «ENDIF»
+	 «ENDFOREACH»
+«ENDDEFINE»
+
+
+«DEFINE genSchema FOR uml::PrimitiveType»
+	<type="«name»" name="«name»" /> 
+«ENDDEFINE»
 
  «DEFINE getMehtodType FOR uml::Operation»
   GET
