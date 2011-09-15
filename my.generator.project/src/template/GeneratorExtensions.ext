@@ -523,3 +523,10 @@ e.getAppliedStereotype("wcprofile::ValidationConstraint") != null;
 
 isEmptyStr(String str):
 str == null || str == "";
+
+
+excludeFromGeneration(Package pack):
+pack.isEntitiesPackage() && pack.excludeFromGeneration == true;
+
+isEntitiesPackage(Package pack):
+pack.getAppliedStereotype("wcprofile::EntitiesPackage") != null;

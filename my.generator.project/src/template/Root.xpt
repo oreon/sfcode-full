@@ -12,20 +12,21 @@
 «ENDDEFINE»
 
 «DEFINE PackageRoot FOR uml::Package»
-
-	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Class)»
-	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Interface)»
-	«EXPAND EnumGen FOREACH allOwnedElements().typeSelect(uml::Enumeration)»
+	«IF !excludeFromGeneration()»
+	«EXPAND PackageRoot FOREACH  eContents().typeSelect(uml::Package)»
+	«EXPAND ClassRoot FOREACH eContents().typeSelect(uml::Class)»
+	«EXPAND ClassRoot FOREACH eContents().typeSelect(uml::Interface)»
+	«EXPAND EnumGen FOREACH eContents().typeSelect(uml::Enumeration)»
 	«EXPAND GenPackageInfo FOR this»
-	
+	«ENDIF»
 «ENDDEFINE»
 
 
 «DEFINE PackageRoot FOR wcprofile::EntitiesPackage»
 	«IF !excludeFromGeneration»
-	
-	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Class)»
-	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(uml::Interface)»
+	«EXPAND PackageRoot FOREACH  eContents().typeSelect(uml::Package)»
+	«EXPAND ClassRoot FOREACH eContents().typeSelect(uml::Class)»
+	«EXPAND ClassRoot FOREACH eContents().typeSelect(uml::Interface)»
 	«EXPAND EnumGen FOREACH allOwnedElements().typeSelect(uml::Enumeration)»
 	«EXPAND GenPackageInfo FOR this»
 	
@@ -71,7 +72,7 @@ package «packageNamePck()»;
 «FILE packagePathPck() +"/package-info.java"  »
 @FilterDef(name = "archiveFilterDef", defaultCondition = "archived = :aArchived", 
 		parameters = @ParamDef(name = "aArchived", type = "string")) 
-		
+
 package «packageNamePck()»; 
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
