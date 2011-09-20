@@ -5,15 +5,15 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.envers.synchronization.work.AddWorkUnit;
+import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
-import org.mvel2.optimizers.impl.refl.nodes.ArrayLength;
+import org.jboss.seam.annotations.Scope;
 
 import com.oreon.cerebrum.drugs.Drug;
 import com.oreon.cerebrum.drugs.DrugInteraction;
 import com.oreon.cerebrum.patient.PrescriptionItem;
 
-//@Scope(ScopeType.CONVERSATION)
+@Scope(ScopeType.CONVERSATION)
 @Name("prescriptionAction")
 public class PrescriptionAction extends PrescriptionActionBase implements
 		java.io.Serializable {

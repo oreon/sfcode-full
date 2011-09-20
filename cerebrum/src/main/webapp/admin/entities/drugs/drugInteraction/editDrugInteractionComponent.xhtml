@@ -19,11 +19,23 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
+        <s:decorate id="severityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'severityEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'severityEdit')}" value="#{drugInteractionAction.drugInteraction.severity}" required="false" label="#{msg.drugInteraction_severity}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="MILD" itemLabel="#{msg.MILD}"/>  
+            <f:selectItem itemValue="MODERATE" itemLabel="#{msg.MODERATE}"/>  
+            <f:selectItem itemValue="SEVERE" itemLabel="#{msg.SEVERE}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
         <s:decorate id="drugDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.drugInteraction_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'drugEdit')}"/>
+            <h:outputText value="#{msg.drugInteraction_drug} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'drugEdit')}"/>
           </ui:define>  
-          <h:selectOneMenu id="drug" label="#{msg.drugInteraction_drug}" value="#{drugInteractionAction.drugInteraction.drug}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'drugEdit')}"> 
+          <h:selectOneMenu id="drug" label="#{msg.drugInteraction_drug}" value="#{drugInteractionAction.drugInteraction.drug}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'drugEdit')}" disabled="false"> 
             <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
@@ -31,9 +43,9 @@
         </s:decorate>  
         <s:decorate id="interactingDrugDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'interactingDrugEdit')}"/>
+            <h:outputText value="#{msg.drugInteraction_interactingDrug} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'interactingDrugEdit')}"/>
           </ui:define>  
-          <h:selectOneMenu id="interactingDrug" label="#{msg.drugInteraction_interactingDrug}" value="#{drugInteractionAction.drugInteraction.interactingDrug}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'interactingDrugEdit')}"> 
+          <h:selectOneMenu id="interactingDrug" label="#{msg.drugInteraction_interactingDrug}" value="#{drugInteractionAction.drugInteraction.interactingDrug}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'interactingDrugEdit')}" disabled="false"> 
             <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

@@ -104,12 +104,8 @@ public class PrescriptionItem extends BusinessEntity
 	;
 
 	public void setDrug(com.oreon.cerebrum.drugs.Drug drug) {
-		
-		
 		this.drug = drug;
 	}
-	
-	
 
 	public com.oreon.cerebrum.drugs.Drug getDrug() {
 

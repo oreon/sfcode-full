@@ -1,6 +1,7 @@
 package org.witchcraft.seam.action;
 
 import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +48,8 @@ import org.witchcraft.exceptions.ContractViolationException;
 import org.witchcraft.model.support.audit.AuditLog;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.model.support.audit.EntityAuditLogInterceptor;
+
+import com.sun.org.apache.commons.beanutils.BeanUtils;
 
 /**
  * The base action class - contains common persistence related methods, also
@@ -211,15 +214,25 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		loadFromTemplate(entityTemplate.getId());
 	}
 
-	// @Transactional
-	// @Begin(join = true)
+	@Transactional
+	@Begin(join = true)
 	public void loadFromTemplate(Long id) {
 		entityTemplate = entityManager.find(EntityTemplate.class, id);
 		@SuppressWarnings("unused")
 		T t = (T) entityTemplate.getEntity();
 		Session session = (Session) entityManager.getDelegate();
 		// session.lock(t, LockMode.UPGRADE);
-		instance = t;
+		try {
+			BeanUtils.copyProperties(instance, t);
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		instance.setId(0L);
+		//setInstance(t);
 
 		loadAssociations();
 

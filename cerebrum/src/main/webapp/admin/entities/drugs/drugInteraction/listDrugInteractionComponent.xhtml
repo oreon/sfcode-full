@@ -63,6 +63,16 @@
             </rich:toolTip> 
           </s:link> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('severity', 'drugInteractionView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{drugInteractionList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.drugInteraction_severity}"/>  
+              <ui:param name="propertyPath" value="drugInteraction.severity"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_drugInteraction.severity}" escape="false"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'drugInteractionView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

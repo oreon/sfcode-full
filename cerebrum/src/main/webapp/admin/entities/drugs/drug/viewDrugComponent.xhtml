@@ -69,6 +69,12 @@
             <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'descriptionView')}"/> 
           </f:facet>  
           <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'descriptionView')}" value="#{_drugInteraction.description}"></h:outputText> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'severityView')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_drugInteraction.severity}"/> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

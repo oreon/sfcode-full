@@ -21,7 +21,7 @@
         </s:decorate>  
         <s:decorate id="patientDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'patientEdit')}"/>
+            <h:outputText value="#{msg.admission_patient} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'patientEdit')}"/>
           </ui:define>  
           <h:panelGroup> 
             <a:region> 
@@ -47,7 +47,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'bedEdit')}"/>
           </ui:define>  
-          <h:selectOneMenu id="bed" label="#{msg.admission_bed}" value="#{admissionAction.admission.bed}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'bedEdit')}"> 
+          <h:selectOneMenu id="bed" label="#{msg.admission_bed}" value="#{admissionAction.admission.bed}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'bedEdit')}" disabled="false"> 
             <s:selectItems value="#{bedAction.availableBeds}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

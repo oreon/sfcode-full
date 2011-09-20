@@ -7,9 +7,12 @@
       <h:selectOneMenu id="template" label="Template" value="#{prescriptionAction.entityTemplate}" required="false"> 
         <s:selectItems value="#{prescriptionAction.templateList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select Template"/>  
         <s:convertEntity/>  
-        <a:support event="onchange" action="#{prescriptionAction.loadFromTemplate}" reRender="editPrescriptionComponentPanel" ajaxSingle="true"/> 
+       
+        <a:support event="onchange" action="#{prescriptionAction.loadFromTemplate}" 
+        	reRender="editPrescriptionComponentPanel" ajaxSingle="true"/> 
+       
       </h:selectOneMenu>  
-      <ui:include src="/admin/entities/patient/prescription/editPrescriptionComponent.xhtml"/>  
+      <ui:include src="/admin/entities/patient/prescription/editPrescriptionComponentCustom.xhtml"/>  
       <div class="buttonBox"> 
         <h:commandButton value="Save" action="#{prescriptionAction.save}"></h:commandButton>  
         <h:outputText value=" "/>  

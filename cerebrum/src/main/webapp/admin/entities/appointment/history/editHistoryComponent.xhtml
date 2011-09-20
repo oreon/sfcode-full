@@ -21,9 +21,9 @@
         </s:decorate>  
         <s:decorate id="encounterDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.history_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'encounterEdit')}"/>
+            <h:outputText value="#{msg.history_encounter} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'encounterEdit')}"/>
           </ui:define>  
-          <h:selectOneMenu id="encounter" label="#{msg.history_encounter}" value="#{historyAction.history.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'encounterEdit')}"> 
+          <h:selectOneMenu id="encounter" label="#{msg.history_encounter}" value="#{historyAction.history.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'encounterEdit')}" disabled="false"> 
             <s:selectItems value="#{encounterList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
