@@ -13,7 +13,7 @@
         <rich:message styleClass="error errors" for="units" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'unitsEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'serviceEdit')}"/>  
+        <h:outputText value="#{msg.invoiceItem_service} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'serviceEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="service" value="#{invoiceItemAction.invoiceItem.service}"> 
           <s:selectItems value="#{serviceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
@@ -22,7 +22,7 @@
         <rich:message styleClass="error errors" for="service" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'serviceEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.invoiceItem_invoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'invoiceEdit')}"/>  
+        <h:outputText value="#{msg.invoiceItem_invoice} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'invoiceEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="invoice" value="#{invoiceItemAction.invoiceItem.invoice}"> 
           <s:selectItems value="#{invoiceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  

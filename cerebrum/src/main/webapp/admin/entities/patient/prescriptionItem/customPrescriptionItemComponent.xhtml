@@ -7,7 +7,7 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'drugEdit')}"/>  
+        <h:outputText value="#{msg.prescriptionItem_drug} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'drugEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="drug" value="#{prescriptionItemAction.prescriptionItem.drug}"> 
           <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
@@ -34,7 +34,7 @@
         <rich:message styleClass="error errors" for="route" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'routeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.prescriptionItem_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'prescriptionEdit')}"/>  
+        <h:outputText value="#{msg.prescriptionItem_prescription} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'prescriptionEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="prescription" value="#{prescriptionItemAction.prescriptionItem.prescription}"> 
           <s:selectItems value="#{prescriptionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
@@ -55,7 +55,7 @@
         <rich:message styleClass="error errors" for="remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'remarksEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.prescriptionItem_frequecy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'frequecyEdit')}"/>  
+        <h:outputText value="#{msg.prescriptionItem_frequecy} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'frequecyEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="frequecy" value="#{prescriptionItemAction.prescriptionItem.frequecy}"> 
           <s:selectItems value="#{frequecyList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  

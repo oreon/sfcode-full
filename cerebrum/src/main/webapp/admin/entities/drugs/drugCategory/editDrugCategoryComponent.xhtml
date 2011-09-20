@@ -13,7 +13,7 @@
         </f:facet>  
         <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.drugCategory_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugCategory', 'nameEdit')}"/>
+            <h:outputText value="#{msg.drugCategory_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugCategory', 'nameEdit')}"/>
           </ui:define>  
           <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugCategory', 'nameEdit')}" label="#{msg.drugCategory_name}" required="true" disabled="false" value="#{drugCategoryAction.drugCategory.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 

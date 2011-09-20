@@ -189,7 +189,7 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 
 	void initListPrescriptionItems() {
 
-		if (listPrescriptionItems.isEmpty())
+		//if (listPrescriptionItems.isEmpty())
 			listPrescriptionItems.addAll(getInstance().getPrescriptionItems());
 
 	}

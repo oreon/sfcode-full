@@ -84,6 +84,11 @@ public class DrugInteraction extends BusinessEntity
 
 	;
 
+	@Column(unique = false)
+	protected InteractionSeverity severity
+
+	;
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
@@ -111,6 +116,16 @@ public class DrugInteraction extends BusinessEntity
 	public Drug getInteractingDrug() {
 
 		return interactingDrug;
+
+	}
+
+	public void setSeverity(InteractionSeverity severity) {
+		this.severity = severity;
+	}
+
+	public InteractionSeverity getSeverity() {
+
+		return severity;
 
 	}
 

@@ -64,7 +64,7 @@ public abstract class DrugInteractionListQueryBase
 			"drugInteraction.dateCreated >= #{drugInteractionList.dateCreatedRange.begin}",};
 
 	public List<DrugInteraction> getDrugInteractionsByDrug(
-			com.oreon.cerebrum.drugs.Drug drug) {
+			com.oreon.cerebrum.drugs.Drug drug) {	
 		//setMaxResults(10000);
 		drugInteraction.setDrug(drug);
 		return getResultList();

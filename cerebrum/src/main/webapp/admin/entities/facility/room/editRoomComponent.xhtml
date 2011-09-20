@@ -13,7 +13,7 @@
         </f:facet>  
         <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.room_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameEdit')}"/>
+            <h:outputText value="#{msg.room_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameEdit')}"/>
           </ui:define>  
           <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameEdit')}" label="#{msg.room_name}" required="true" disabled="false" value="#{roomAction.room.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
@@ -21,9 +21,9 @@
         </s:decorate>  
         <s:decorate id="facilityDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.room_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'facilityEdit')}"/>
+            <h:outputText value="#{msg.room_facility} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'facilityEdit')}"/>
           </ui:define>  
-          <h:selectOneMenu id="facility" label="#{msg.room_facility}" value="#{roomAction.room.facility}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'facilityEdit')}"> 
+          <h:selectOneMenu id="facility" label="#{msg.room_facility}" value="#{roomAction.room.facility}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'facilityEdit')}" disabled="false"> 
             <s:selectItems value="#{facilityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
@@ -37,7 +37,7 @@
       <rich:dataTable id="beds" var="_bed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'bedsEdit')}" value="#{roomAction.listBeds}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.bed_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'nameEdit')}"/>
+            <h:outputText value="#{msg.bed_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'nameEdit')}"/>
           </f:facet>  
           <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  

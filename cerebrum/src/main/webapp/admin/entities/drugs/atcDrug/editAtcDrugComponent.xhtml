@@ -21,7 +21,7 @@
         </s:decorate>  
         <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.atcDrug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'nameEdit')}"/>
+            <h:outputText value="#{msg.atcDrug_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'nameEdit')}"/>
           </ui:define>  
           <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'nameEdit')}" label="#{msg.atcDrug_name}" required="true" disabled="false" value="#{atcDrugAction.atcDrug.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
@@ -31,7 +31,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'drugEdit')}"/>
           </ui:define>  
-          <h:selectOneMenu id="drug" label="#{msg.atcDrug_drug}" value="#{atcDrugAction.atcDrug.drug}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'drugEdit')}"> 
+          <h:selectOneMenu id="drug" label="#{msg.atcDrug_drug}" value="#{atcDrugAction.atcDrug.drug}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'drugEdit')}" disabled="false"> 
             <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
@@ -41,7 +41,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.atcDrug_parent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'parentEdit')}"/>
           </ui:define>  
-          <h:selectOneMenu id="parent" label="#{msg.atcDrug_parent}" value="#{atcDrugAction.atcDrug.parent}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'parentEdit')}"> 
+          <h:selectOneMenu id="parent" label="#{msg.atcDrug_parent}" value="#{atcDrugAction.atcDrug.parent}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'parentEdit')}" disabled="false"> 
             <s:selectItems value="#{atcDrugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
@@ -59,7 +59,7 @@
           </f:facet>  
           <s:decorate id="drugDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectOneMenu id="drug" label="#{msg.atcDrug_drug}" value="#{_atcDrug.drug}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'drugEdit')}"> 
+            <h:selectOneMenu id="drug" label="#{msg.atcDrug_drug}" value="#{_atcDrug.drug}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'drugEdit')}" disabled="false"> 
               <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
               <rich:ajaxValidator event="onsubmit"/>  
               <s:convertEntity/> 
@@ -79,7 +79,7 @@
         </h:column>  
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.atcDrug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'nameEdit')}"/>
+            <h:outputText value="#{msg.atcDrug_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'nameEdit')}"/>
           </f:facet>  
           <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  

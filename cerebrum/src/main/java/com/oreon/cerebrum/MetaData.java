@@ -72,6 +72,8 @@ public class MetaData {
 
 	"interactingDrug.displayName", "java.lang.String",
 
+	"severity.name", "java.lang.String",
+
 	},
 
 	{"com.oreon.cerebrum.drugs.DrugCategory",
