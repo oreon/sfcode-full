@@ -1,0 +1,461 @@
+«IMPORT wcprofile»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+«EXTENSION template::associationExtensions»
+
+«EXTENSION template::WebExtensions»
+
+
+«DEFINE Root FOR uml::Model»
+	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
+	«EXPAND SeamEntityQueryRoot::Root FOR this»
+	«EXPAND richfaces::PagesRoot::genPages»
+«ENDDEFINE»
+
+«DEFINE PackageRoot FOR uml::Package»
+	«EXPAND BaseGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	«EXPAND BaseGen FOREACH allOwnedElements().typeSelect(wcprofile::MappedSuperClass)»
+	«EXPAND ManualGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+«ENDDEFINE»
+	
+
+
+«DEFINE ManualGen FOR wcprofile::Entity»
+
+	«FILE getWebPackagePath("Action")  man_path »
+	
+package « getWebPackageName() »;
+	
+«EXPAND genImports FOR this»	
+//@Scope(ScopeType.CONVERSATION)
+@Name("«asVar()»Action")
+public class «name»Action extends «name»ActionBase implements java.io.Serializable{
+	
+}
+	«ENDFILE»
+
+«ENDDEFINE»
+
+«DEFINE BaseGen FOR wcprofile::MappedSuperClass»
+	«EXPAND AbstractGen FOR this»
+«ENDDEFINE»
+
+«DEFINE BaseGen FOR wcprofile::Entity»
+	«IF !isAbstract»
+		«EXPAND BaseGenImpl FOR this»
+	«ELSE»
+		«EXPAND AbstractGen FOR this»
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE AbstractGen FOR uml::Class»
+	«FILE getWebPackagePath("Action")  man_path »
+		
+		package « getWebPackageName() »;
+		
+		«EXPAND genImports FOR this»	
+		import org.witchcraft.seam.action.BaseAction; 
+		import org.witchcraft.base.entity.BusinessEntity;
+		
+		public  abstract class «name»Action<T extends BusinessEntity> extends BaseAction<T> implements java.io.Serializable{
+			
+		}
+	«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE BaseGenImpl FOR wcprofile::Entity»
+«FILE getWebPackagePath("ActionBase")   »
+package « getWebPackageName() »;
+
+import « packageName() ».«name»;
+
+import org.witchcraft.seam.action.BaseAction; 
+
+«EXPAND genImports FOR this»
+«FOREACH getMultiValued() AS a-»
+import «a.type.fqn()»;
+«ENDFOREACH»
+
+
+public abstract class «name»ActionBase extends «getFirstParent() == null || getFirstParent().length == 0  || !parentIsMappedSuperClass() ? "BaseAction<" +  name + ">" :
+	 parents().get(0).getActionFqn() + getGenericType(parents().get(0)) » implements java.io.Serializable{
+
+	@In(create = true)
+	@Out(required = false)
+	@DataModelSelection
+	private «name» «asVar()»;
+	
+	«FOREACH getOutgoingAssociations() AS e»
+	«IF !e.type.isAbstract»
+	 @In(create = true, value="«e.type.name.toFirstLower()»Action")
+	 «e.type.getActionFqn()» «e.name»Action;
+	«ENDIF»
+	«ENDFOREACH»
+	
+	«FOREACH getNonComposedManyAssociations() AS e»
+	«IF !e.type.isAbstract»
+	 @In(create = true, value="«e.type.name.toFirstLower()»Action")
+	 «e.type.getActionFqn()» «e.name»Action;
+	«ENDIF»
+	«ENDFOREACH»
+	
+
+	@DataModel
+	private List<«name»> «asVar()»RecordList;	
+	
+	public void set«name»Id(Long id) {
+		if(id == 0){
+			clearInstance();
+			clearLists();
+			loadAssociations();
+			return;
+		}
+		setId(id);
+		if(!isPostBack())
+			loadAssociations();
+	}
+	
+	/** for modal dlg we need to load associaitons regardless of postback
+	 * @param id
+	 */
+	public void set«name»IdForModalDlg(Long id) {
+		setId(id);
+		clearLists();
+		loadAssociations();
+	}
+	
+	«FOREACH getOutgoingAssociations() AS e-»
+	
+	public void set«e.name.toFirstUpper()»Id(Long id) {
+	   «IF !e.type.isAbstract»
+	   if(id != null && id > 0 )
+			getInstance().set«e.name.toFirstUpper()»(«e.name»Action.loadFromId(id));
+	   «ENDIF»
+	}
+
+	public Long get«e.name.toFirstUpper()»Id() {
+		if (getInstance().get«e.name.toFirstUpper()»() != null)
+			return getInstance().get«e.name.toFirstUpper()»().getId();
+		return 0L;
+	}
+	
+	«ENDFOREACH»
+	
+
+	public Long get«name»Id() {
+		return (Long) getId();
+	}
+	
+	
+
+	public «name» getEntity(){
+		return «asVar()»;
+	}
+
+	//@Override
+	public void setEntity(«name» t) {
+		this.«asVar()» = t;
+		loadAssociations();
+	}
+	
+	public «name» get«name»(){
+		return («name»)getInstance();
+	}
+	
+	«IF ! isAbstract»
+	@Override
+	protected «name» createInstance() {
+		«name» instance =  super.createInstance();
+		
+		«FOREACH allParents() AS e-»
+				«EXPAND genCurrentUser FOREACH e.getAllAttributes().select(a|a.currentUser()) -»
+		«ENDFOREACH»
+		«EXPAND genCurrentUser FOREACH getAllAttributes().select(a|a.currentUser()) -»
+		
+		
+		 return instance;
+	}
+	
+
+
+	public void load() {
+		if (isIdDefined()) {
+			wire();
+		}
+	}
+
+	public void wire() {
+		getInstance();
+		«FOREACH getOutgoingAssociations() AS e-»
+		«IF !e.type.isAbstract»
+		«e.type.fqn()» «e.name» = «e.name»Action.getDefinedInstance();
+		if («e.name» != null  && isNew()) {
+			 getInstance().set«e.name.toFirstUpper()»(«e.name»);
+		}
+		«ENDIF»
+		«ENDFOREACH»
+	}
+
+	public boolean isWired() {
+		return true;
+	}
+
+	public «name» getDefinedInstance() {
+		return («name») (isIdDefined() ? getInstance() : null);
+	}
+	
+
+	public void set«name»(«name» t) {
+		this.«asVar()» = t;
+		if («asVar()» != null)
+			set«name»Id(t.getId());
+		loadAssociations();
+	}
+	
+	@Override
+	public Class<«name»> getEntityClass() {
+		return «name».class;
+	}
+
+	
+	«EXPAND template::Root::genUnqNamedQryOp  FOREACH getAllAttributes()»
+	
+	
+	«IF treeFlds != null»
+		public List<«name»> getTopLevel«getTreeParent().toFirstUpper()»(){
+			return  getEntityManager().createQuery("select e from «name» e where e.«getTreeParent()» is null").getResultList();
+		}
+	«ENDIF»
+	
+	«FOREACH getAllAttributes().select ( e | e.isFile() ) AS e»	
+	public String download«e.name.toFirstUpper()»(Long id) {
+		if(id == null || id == 0)
+            id = currentEntityId;
+		setId(id);
+		downloadAttachment(getInstance().get«e.name.toFirstUpper()»());
+		return "success";
+	}
+	
+	public void «e.name»UploadListener(UploadEvent event) throws Exception {
+		  UploadItem uploadItem = event.getUploadItem();
+		  if(getInstance().get«e.name.toFirstUpper()»() == null )
+			getInstance().set«e.name.toFirstUpper()»(new FileAttachment());
+		  getInstance().get«e.name.toFirstUpper()»().setName(uploadItem.getFileName());
+		  getInstance().get«e.name.toFirstUpper()»().setContentType(uploadItem.getContentType());
+		  getInstance().get«e.name.toFirstUpper()»().setData(FileUtils.readFileToByteArray( uploadItem.getFile() )); 
+	}
+	«ENDFOREACH»
+	
+	
+	
+	«IF !getOutgoingAssociations().isEmpty»
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
+	 */
+	 @Override
+	public void addAssociations(Criteria criteria) {
+		«FOREACH getOutgoingAssociations() AS e»
+		if («asVar()».get«e.name.toFirstUpper()»() != null) {
+			criteria = criteria.add(Restrictions.eq("«e.name».id", «asVar()».get«e.name.toFirstUpper()»().getId()));
+		}
+		«ENDFOREACH»
+	}
+	«ENDIF»
+	
+	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
+	 * that customer can be shown on the customer tab within viewOrder.xhtml
+	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
+	 */
+	public void loadAssociations(){
+		«FOREACH getOutgoingAssociations() AS e»
+		«IF !e.type.isAbstract»
+		if («asVar()».get«e.name.toFirstUpper()»() != null) {
+			«e.name»Action.setInstance(getInstance().get«e.name.toFirstUpper()»());
+		}
+		«ENDIF»
+		«ENDFOREACH»
+		
+		«FOREACH getMultiValued() AS e»
+			initList«e.name.toFirstUpper()»(); 
+		«ENDFOREACH»
+		
+		«FOREACH getLeadingManyToMany() AS e»
+			initList«e.name.toFirstUpper()»(); 
+			initListAvailable«e.name.toFirstUpper()»(); 
+		«ENDFOREACH»
+	}
+	
+	public void updateAssociations(){
+		«FOREACH getNonComposedManyAssociations() AS a»
+		«a.type.fqn()» «a.name» =(«a.type.fqn()») org.jboss.seam.Component.getInstance("«a.type.name.toFirstLower()»");
+		«a.name».set«a.opposite.name.toFirstUpper()»(«asVar()»);
+		events.raiseTransactionSuccessEvent("archived«a.type.name»");
+		«ENDFOREACH»
+	}
+	
+	
+	«EXPAND genCompositeCode FOREACH getMultiValued() -»
+	«EXPAND genManyToMany FOREACH getLeadingManyToMany() -»
+	
+	
+	public void updateComposedAssociations(){
+		«EXPAND updateList FOREACH getMultiValued() -»
+		«EXPAND updateList FOREACH getLeadingManyToMany() -»
+	}
+	
+	
+	public void clearLists(){
+		«FOREACH getMultiValued() AS a -»
+			list«a.name.toFirstUpper()».clear();
+		«ENDFOREACH»
+		
+		«FOREACH getLeadingManyToMany() AS a -»
+			list«a.name.toFirstUpper()».clear();
+		«ENDFOREACH»
+	}
+	
+
+	«EXPAND template::Root::genOperation FOREACH getAllOperations()»
+	
+	
+	«REM» Generate methods  for  «ENDREM»
+	«FOREACH getModel().allOwnedElements().typeSelect(uml::Class).select(a | a.name == ( this.name + "Action") ) AS a»
+		«EXPAND template::Root::genOperation FOREACH a.getAllOperations()»
+	«ENDFOREACH»
+	
+	«REM»system user«ENDREM»
+	«IF getAppliedStereotype("wcprofile::SystemUser") != null»
+		public «name» getCurrentLoggedIn«name»(){
+			String query = "Select e from «name» e where e.appUser.userName = ?1";
+			return («name») executeSingleResultQuery(query, Identity.instance().getCredentials().getUsername());
+		}
+	«ENDIF»
+	
+	public String view«name»(){
+		load(currentEntityId);
+		return "view«name»";
+	}
+
+
+ «ENDIF»
+	
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE genCurrentUser FOR wcprofile::Column»
+	instance.set«name.toFirstUpper()»(«name»Action.getCurrentLoggedIn«type.name»());
+«ENDDEFINE»
+
+«DEFINE updateList FOR uml::Property»
+	  if (list«name.toFirstUpper()» != null) {
+		getInstance().get«name.toFirstUpper()»().clear();
+		getInstance().get«name.toFirstUpper()»().addAll(list«name.toFirstUpper()»);
+	  }
+«ENDDEFINE»
+
+
+«DEFINE genManyToMany FOR uml::Property»
+	«EXPAND genList( "") FOR this»
+	«EXPAND genList( "Available") FOR this»
+«ENDDEFINE»
+
+
+
+«DEFINE genCompositeCode FOR uml::Property»
+	
+	«EXPAND genList("") FOR this»
+	«LET "list" + name.toFirstUpper()  AS currentList»
+	public void delete«name.toFirstUpper()»(int index){
+		«currentList».remove(index);
+	}
+	
+	@Begin(join=true)
+	public void add«name.toFirstUpper()»(){
+		init«currentList.toFirstUpper()»();
+		«type.name» «name» = new «type.name»();
+		«IF opposite != null && opposite.isNavigable()»
+			«name».set«opposite.name.toFirstUpper()»(getInstance());
+		«ENDIF»
+		get«currentList.toFirstUpper()»().add(«name»);
+	}
+	
+	«ENDLET»	
+«ENDDEFINE»
+
+«DEFINE genList(String prefix) FOR uml::Property»
+	
+	«LET "list" + prefix + name.toFirstUpper()  AS currentList»
+	
+	protected List<«type.fqn()»> «currentList» = new ArrayList<«type.fqn()»>();
+	
+	void init«currentList.toFirstUpper()»(){
+	
+		«IF isLeadingManyToMany() && prefix == "Available"»
+			«currentList» = getEntityManager().createQuery("select r from «type.name» r").getResultList();
+			«currentList».removeAll(getInstance().get«name.toFirstUpper()»());
+		«ELSE»
+		if(«currentList».isEmpty())
+			«currentList».addAll(getInstance().get«name.toFirstUpper()»());
+		«ENDIF»	
+	}
+	
+	«IF prefix == "Available"»@Begin(join=true)«ENDIF»
+	public List<«type.fqn()»> get«currentList.toFirstUpper()»() {
+		«REM»«IF isLeadingManyToMany() && prefix == "Available"» init«currentList.toFirstUpper()»(); «ENDIF»comment«ENDREM»
+		prePopulate«currentList.toFirstUpper()»();
+		return «currentList»;
+	}
+	
+	public void prePopulate«currentList.toFirstUpper()»() {}
+
+	public void set«currentList.toFirstUpper()»(List<«type.fqn()»> «currentList») {
+		this.«currentList» = «currentList»;
+	}
+	«ENDLET»
+«ENDDEFINE»
+
+
+«DEFINE genImports FOR uml::Class»
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
+import org.apache.commons.lang.StringUtils;
+
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Scope;
+
+import org.jboss.seam.annotations.Begin;
+import org.jboss.seam.annotations.End;
+import org.jboss.seam.annotations.Factory;
+import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Logger;
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Out;
+import org.jboss.seam.Component;
+import org.jboss.seam.security.Identity;
+
+import org.jboss.seam.annotations.datamodel.DataModel;
+import org.jboss.seam.annotations.datamodel.DataModelSelection;
+import org.jboss.seam.faces.FacesMessages;
+import org.jboss.seam.log.Log;
+import org.jboss.seam.annotations.Observer;
+
+import org.witchcraft.base.entity.FileAttachment;
+
+import org.apache.commons.io.FileUtils;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
+
+«ENDDEFINE»
+

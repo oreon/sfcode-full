@@ -1,0 +1,690 @@
+«IMPORT wcprofile»
+
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+«EXTENSION template::associationExtensions»
+
+«DEFINE Root FOR uml::Model»
+	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
+	«EXPAND ORMGen::Root FOR this»
+	«EXPAND genProjectUtils FOR this»
+	«EXPAND DocumentationRoot::Root FOR this»
+«ENDDEFINE»
+
+«DEFINE PackageRoot FOR uml::Package»
+	«IF !excludeFromGeneration()»
+	«EXPAND PackageRoot FOREACH  eContents().typeSelect(uml::Package)»
+	«EXPAND ClassRoot FOREACH eContents().typeSelect(uml::Class)»
+	«EXPAND ClassRoot FOREACH eContents().typeSelect(uml::Interface)»
+	«EXPAND EnumGen FOREACH eContents().typeSelect(uml::Enumeration)»
+	«EXPAND GenPackageInfo FOR this»
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE PackageRoot FOR wcprofile::EntitiesPackage»
+	«IF !excludeFromGeneration»
+	«EXPAND PackageRoot FOREACH  eContents().typeSelect(uml::Package)»
+	«EXPAND ClassRoot FOREACH eContents().typeSelect(uml::Class)»
+	«EXPAND ClassRoot FOREACH eContents().typeSelect(uml::Interface)»
+	«EXPAND EnumGen FOREACH allOwnedElements().typeSelect(uml::Enumeration)»
+	«EXPAND GenPackageInfo FOR this»
+	
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genProjectUtils FOR uml::Model»
+«FILE getTopLevelPackageProperty().packagePathStr()  + "/ProjectUtils.java" man_path»
+
+	package «getTopLevelPackageProperty()»;
+
+	public class ProjectUtils {
+	
+	}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE ClassRoot FOR uml::Class»
+	«IF name != null && package != null && getAppliedStereotypes().size == 0»
+	«FILE packagePath() +"/" +name + ".java" »
+		package « packageName() »;
+		«EXPAND genImports FOR this»
+		«EXPAND genClassBody FOR this»
+
+	«ENDFILE»
+	«ENDIF»
+«ENDDEFINE»
+
+
+
+«DEFINE GenPackageInfo FOR uml::Package»
+«IF !name.startsWith("UML")»
+
+«FILE packagePathPck() +"/package-info.java"  »
+package «packageNamePck()»; 
+«ENDFILE»
+
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE GenPackageInfo FOR wcprofile::EntitiesPackage»
+«FILE packagePathPck() +"/package-info.java"  »
+@FilterDef(name = "archiveFilterDef", defaultCondition = "archived = :aArchived", 
+		parameters = @ParamDef(name = "aArchived", type = "string")) 
+
+package «packageNamePck()»; 
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE ClassRoot FOR wcprofile::AbstractEntity»
+	«IF name != null && package != null»
+	
+	«FILE packagePath() +"/" +name+".java"»
+		package « packageName() »;
+		«EXPAND genImports FOR this»
+		«EXPAND genPersistenceImports FOR this»
+		«EXPAND genClassBody FOR this»
+	«ENDFILE»
+	
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE ClassRoot FOR wcprofile::WebAction»
+	«IF name != null && package != null »
+		«FILE packagePath() +"/" +name + ".java" man_path »
+			package « packageName() »;
+			«EXPAND genImports FOR this»
+			import org.jboss.seam.annotations.Name;
+			
+			
+			@Name("«name.toFirstLower()»")
+			public class «name» extends «name»Base {
+				
+			}
+		«ENDFILE»
+		
+		«FILE packagePath() +"/" +name + "Base.java"  »
+			package « packageName() »;
+			«EXPAND genImports FOR this»
+			import org.jboss.seam.annotations.security.Restrict;
+			import org.witchcraft.exceptions.ContractViolationException;
+			import org.witchcraft.dbc.AssertContractCondition;
+			import org.apache.commons.lang.StringUtils;
+			
+			/** 
+			 * «getDocumentation()»
+			 */
+			public abstract class «name»Base «getParent() != "" ? getParent() : " extends org.witchcraft.seam.action.BaseWebAction " » «getInterfaces()»{
+				«EXPAND genProperty FOREACH getAllAttributes() »
+				«EXPAND genGetterSetter FOREACH getAllAttributes() »
+				«EXPAND genWrappedOperation FOREACH getAllOperations()»
+			}
+			
+		«ENDFILE»
+	«ENDIF»
+
+«ENDDEFINE»
+
+
+
+«DEFINE ClassRoot FOR uml::Interface»
+	«FILE packagePath() +"/" +name+".java"»
+	package « packageName() »;
+	«EXPAND genImports »
+	
+	public interface «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»{
+		 «EXPAND genOperationDecl FOREACH getAllOperations()»
+	}
+	«ENDFILE»
+«ENDDEFINE»
+
+
+
+«DEFINE genClassBody FOR wcprofile::AbstractEntity»
+	public class «name» «getParent()» «getInterfaces()»{
+		«EXPAND genDecl FOREACH getAllAttributes() »
+		«EXPAND genGetterSetter FOREACH getAllAttributes() »
+		«EXPAND genOperation FOREACH getAllOperations()»
+	}
+«ENDDEFINE»
+
+«DEFINE genClassBody FOR uml::Class»
+	@javax.xml.bind.annotation.XmlRootElement
+	public class «name» «getParent()» «getInterfaces()»{
+		«EXPAND genClassBodyContents»
+	}
+«ENDDEFINE»
+
+«DEFINE genClassBodyContents FOR uml::Class»
+		«EXPAND genProperty FOREACH getAllAttributes() »
+		«EXPAND JavaBeansRoot::genGetterSetter FOREACH getAllAttributes() »
+		«EXPAND genOperation FOREACH getAllOperations()»
+«ENDDEFINE»
+
+«DEFINE genProperty FOR uml::Property»
+	«IF isMultivalued()»
+		private java.util.List<«type.fqn()»> «name»   = new ArrayList<«type.fqn()»>();
+	«ELSE»
+		private «type.fqnForPackage(this.class)»  «name» «getDefault() != null?" = " + getDefaultVal(type):""»;
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genClassName(boolean isAbstract) FOR uml::Class»
+	public class «name» «getParent()» «getInterfaces()»
+«ENDDEFINE»
+
+«DEFINE genClassBody FOR wcprofile::Entity»
+	@Entity
+	@Table(name="«getTableName()»")
+	@Filter(name = "archiveFilterDef") 
+	«IF !isAbstract »   
+		«IF getCurrentCartridge() == "RICH"» @Name("«asVar()»")   «ENDIF»
+		@Indexed
+		«IF cacheType != null »@Cache(usage = CacheConcurrencyStrategy.«cacheType.name»)«ENDIF»
+		@Analyzer(definition="entityAnalyzer")
+	«ELSE»
+		@Inheritance(strategy=InheritanceType.«inheritanceType.name»)
+	«ENDIF»
+	@XmlRootElement
+	public  «IF isAbstract» abstract «ENDIF» class «name» «getParent()»  «getInterfaces()» «getImplementedInterfaces().isEmpty  ?" implements " : ","»  «getAuditable()?"Auditable, ":""» java.io.Serializable {
+		private static final long serialVersionUID = «serialver()»;
+		
+		«EXPAND genDecl FOREACH getAllAttributes() »
+		«EXPAND genGetterSetter FOREACH getAllAttributes() »
+		
+		«EXPAND genPopupAndDisplayname FOR this»
+	    
+	    //Empty setter , needed for richfaces autocomplete to work 
+	    public void setDisplayName(String name){
+	    }
+	    
+	    «EXPAND genSearchFieldsArray FOR this»
+	   
+	    
+	    «IF isProcessToken()»
+	    	private Long processId;
+
+			private String processName;
+		
+			public Long getProcessId() {
+				return processId;
+			}
+		
+			public void setProcessId(Long processId) {
+				this.processId = processId;
+			}
+
+			public String getProcessName() {
+				return processName;
+			}
+		
+			public void setProcessName(String processName) {
+				this.processName = processName;
+			}
+	    «ENDIF»
+	    «REM»comment
+	    «EXPAND genOperation FOREACH getAllOperations()»
+	    «ENDREM»
+	}
+«ENDDEFINE»
+
+
+«DEFINE genPopupAndDisplayname FOR uml::Class»
+	«IF !getAllAttributes().isEmpty»
+		@Transient
+	    public String getDisplayName(){
+	    	try {
+				return «getDisplayName()»;
+			} catch (Exception e) {
+				return "Exception - " + e.getMessage();
+			}
+	    }
+	    «ENDIF»
+	    
+	    «IF !getAllAttributes().isEmpty && popupInfo != null»
+		@Transient
+	    public String getPopupInfo(){
+	    	try {
+				return «popupInfo»;
+			} catch (Exception e) {
+				return "Exception - " + e.getMessage();
+			}
+	    }
+	    «ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genSearchFieldsArray FOR uml::Class»
+
+	/** This method is used by hibernate full text search - override to add additional fields
+	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 */
+	@Override
+	public List<String> listSearchableFields() {
+		List<String> listSearchableFields = new ArrayList<String>();
+		listSearchableFields.addAll(super.listSearchableFields());
+		«FOREACH getAllAttributes() AS e»
+			«IF e.isString()» listSearchableFields.add("«e.name»"); «ENDIF»
+		«ENDFOREACH»
+		
+		«REM»For full text we need to add composed assoications as well - e.g. searching an order by product «ENDREM»
+		«EXPAND genEmbeddedAndAssociatedSearch FOREACH getComposed()»
+		«EXPAND genEmbeddedAndAssociatedSearch FOREACH getEmbeddable()»
+		return listSearchableFields;
+	}
+	
+	
+	@Field( index=Index.TOKENIZED, name="searchData")
+    @Analyzer(definition="entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+		
+		«FOREACH getAllAttributes().select(e|e.isString()) AS e»
+			builder.append(get«e.name.toFirstUpper()»() + " ");
+		«ENDFOREACH»
+		
+		«FOREACH getOutgoingAssociations() AS a»
+			if(get«a.name.toFirstUpper()»() != null)
+				builder.append( "«a.name»:" + get«a.name.toFirstUpper()»().getDisplayName() +  " ");
+		«ENDFOREACH»
+		
+		«FOREACH getMultiValued() AS e»
+		for (BusinessEntity e : «e.name») {
+			builder.append(e.getDisplayName() + " ");
+		}
+		«ENDFOREACH»
+			
+		return builder.toString();
+	}
+«ENDDEFINE»
+
+«DEFINE genEmbeddedAndAssociatedSearch FOR uml::Property»
+«FOREACH type.getAllAttributes() AS attr»
+	«IF attr.isString()» listSearchableFields.add("«name».«attr.name»");«ENDIF»
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE genClassBody FOR wcprofile::Embeddable»
+	@Embeddable
+	@Indexed
+	public class «name» «getParent()» «getInterfaces()» implements  java.io.Serializable{
+		private static final long serialVersionUID = «serialver()»;
+		
+		«EXPAND genDecl FOREACH getAllAttributes() »
+		«EXPAND genGetterSetter FOREACH getAllAttributes() »
+		
+		«EXPAND genPopupAndDisplayname FOR this»
+	}
+«ENDDEFINE»
+
+
+
+
+
+«DEFINE genClassBody FOR wcprofile::MappedSuperClass»
+	@MappedSuperclass
+	public class «name» «getParent()» «getInterfaces()»{
+		private static final long serialVersionUID = «serialver()»;
+		
+		«EXPAND genDecl FOREACH getAllAttributes() »
+		«EXPAND genGetterSetter FOREACH getAllAttributes() »
+		
+		«EXPAND genPopupAndDisplayname FOR this»
+	    
+	    «EXPAND genSearchFieldsArray FOR this»
+	}
+«ENDDEFINE»
+
+«DEFINE genWrappedOperation FOR uml::Operation»
+	/** 
+	 * «getDocumentation()»
+	 «FOREACH ownedParameter AS e-» 
+	 «IF e.name != null && e.name != ""» @param «e.name»  «e.type.name» «e.getDocumentation()» «ENDIF» 
+	 *«ENDFOREACH»
+	 * @return «type.name» 
+	 */
+	 @Restrict("#{s:hasPermission('«class.name»','«name»')}")
+	«visibility» «getOpReturnType()» «getOpReturnTypeTemplateParam()»  «name» («getParametersSignature()»){
+	
+		StringBuilder exceptionMessages = new StringBuilder();
+		
+		«EXPAND applyConstaints FOREACH ownedParameter»
+	
+		
+		if(!StringUtils.isEmpty(exceptionMessages.toString())){
+			throw new ContractViolationException(exceptionMessages.toString());
+		}
+		
+		«IF type != null» return «ENDIF» do«name.toFirstUpper()»(«getParameters()»); 
+	}
+	
+	/** 
+	 * «ownedComment.body»
+	 */
+	 «IF readPropertyDef("generateAbstractMethods","true") == "true"»
+	  protected  abstract «getOpReturnType()» «getOpReturnTypeTemplateParam()»  do«name.toFirstUpper()» («getParametersSignature()»);
+	«ELSE» 
+	protected «getOpReturnType()» «getOpReturnTypeTemplateParam()»  do«name.toFirstUpper()» («getParametersSignature()»){ 
+		«IF type != null» return null; «ENDIF»
+	}
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE applyConstaints FOR uml::Parameter»
+	«IF getAllConstraints().size > 0»
+	try{
+	«FOREACH getAllConstraints() AS c»
+		AssertContractCondition.enforce(«c.specification.body.get(0).replaceAll(":self",name) »,
+			"«c.errorMessage != null ? c.errorMessage.replaceAll(":self",name) : "Invalid " + name»");
+	«ENDFOREACH»
+	}catch(ContractViolationException cve){
+			exceptionMessages.append(cve.getMessage() + ";");
+	}
+	«ENDIF»
+«ENDDEFINE»
+
+		
+
+
+«DEFINE genOperation FOR uml::Operation»
+	/** 
+	 * «ownedComment.body»
+	 */
+	«visibility» «getOpReturnType()» «getOpReturnTypeTemplateParam()»  «name» («getParametersSignature()»){ 
+		«IF type != null»
+			return null;
+		«ENDIF»
+	}
+«ENDDEFINE»
+
+«DEFINE genOperationDecl FOR uml::Operation»
+	«visibility» «getOpReturnType()» «name» («getParametersSignature()»);
+«ENDDEFINE»
+
+
+«DEFINE genOperation FOR wcprofile::NamedQueryOp»
+	«visibility» «getOpReturnType()» «name» («getParametersSignature()»){ 
+		«IF getParameters().length > 0 »
+			return execute«getQyeryTypeByReturnType()»NamedQuery("«name»", «getParameters()»);
+		«ELSE»
+			return execute«getQyeryTypeByReturnType()»NamedQuery("«name»");
+		«ENDIF»
+		
+	}
+«ENDDEFINE»
+
+
+«DEFINE genUnqNamedQryOp FOR uml::Property»
+	«IF isUnq() »
+	public «class.fqn()» findByUnq«name.toFirstUpper()» («getParametersSignature()»){ 
+		return executeSingleResultNamedQuery("«class.name.toFirstLower()».findByUnq«name.toFirstUpper()»", «name»);
+	}
+	«ENDIF»
+«ENDDEFINE»
+
+
+
+«DEFINE gen FOR uml::Generalization»
+«ENDDEFINE»
+
+«DEFINE genDecl FOR wcprofile::DerivedProperty»
+	
+«ENDDEFINE»
+
+«DEFINE genDecl FOR wcprofile::DerivedFormula»
+	
+«ENDDEFINE»
+
+
+«DEFINE genDecl FOR uml::Property»
+	«IF isMultivalued()»
+		«IF opposite!= null && opposite.isMultivalued() » «REM»Many to many relationship«ENDREM»
+			«IF  isAggregate()»
+			@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+		    @JoinTable(
+		        name="«opposite.name»_«name»",
+		        joinColumns=@JoinColumn(name="«opposite.name»_ID"),
+		        inverseJoinColumns=@JoinColumn(name="«name»_ID")
+		    )
+		    «ELSE»
+		    	 @ManyToMany(mappedBy="«opposite.name»")
+			«ENDIF»
+		«ELSE»
+		@OneToMany(«IF isBidirectional()»mappedBy = "«getOppositeName() »", «ENDIF» fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+		«REM»comment«IF isComposite()»@Cascade(value=org.hibernate.annotations.CascadeType.DELETE_ORPHAN)«ENDIF»«ENDREM»
+		//@JoinColumn(name = "«getOppositeName()»_ID", nullable = «getAssocOptional()»)
+		 @OrderBy(«IF isColumn() && orderBy != null» "«orderBy»" «ELSE»"dateCreated DESC"«ENDIF»)
+		«IF type.name != class.name»@IndexedEmbedded«ENDIF»
+		«ENDIF»
+		private Set<«type.fqnForPackage(this.class)»> «name» = new HashSet<«type.fqnForPackage(this.class)»>();
+		«IF !opposite.isMultivalued()»
+		public void add«name.toFirstUpper().getSingular()» («type.fqnForPackage(this.class)» «name.getSingular()»){
+			«name.getSingular()».set«opposite.name.toFirstUpper()»(this);
+			this.«name».add(«name.getSingular()»);
+		}
+		
+		@Transient
+		public List<«type.fqn()»> getList«name.toFirstUpper()»() {
+			return new ArrayList<«type.fqn()»>(  «name» );
+		}
+		
+		//JSF Friendly function to get count of collections
+		public int get«name.toFirstUpper()»Count(){
+			return «name».size();
+		}
+		«ENDIF»
+	«ELSE»
+		«IF association != null &&  !type.isEmbeddable()»
+			«REM»comment//«isOneOnOne()» unq «isUnique» opp is unq«opposite.isUnique» mult «isMultivalued()» opp mult «opposite.isMultivalued()» «opposite.isMultivalued() == null ? "unspec" : "spec-blank" » «ENDREM»
+			@« isOneOnOne()?"One":"Many"»ToOne(«IF isOneOnOne() && isAggregate()»mappedBy = "« class.asVar()»", «ENDIF»optional=«getAssocOptional()», fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+			«IF !(isOneOnOne() && isAggregate())»@JoinColumn(name="«name»_id", nullable=«getAssocOptional()», updatable = «getAssocUpdatable()») «ENDIF»
+    		«IF type.name != class.name»@ContainedIn«ENDIF»
+		«ENDIF» 
+		«IF type.isEmbeddable() || isContainedAssoc() || (isColumn()  && autocomplete)»
+			«IF type.name != class.name && type.isEmbeddable() »@IndexedEmbedded «EXPAND EmbeddedAttributes FOR this»  «ENDIF»
+			protected «type.fqnForPackage(this.class)»   «name» = new «type.fqnForPackage(this.class)»();
+		«ELSE»
+			«EXPAND genPropertyDecl FOR this»
+		«ENDIF»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE EmbeddedAttributes FOR uml::Property»
+	@AttributeOverrides( {
+	«FOREACH type.getAllAttributes() AS e ITERATOR iter»
+		@AttributeOverride(name="«e.name»", column = @Column(name="«name»_«e.name»") ) «IF iter.counter1 < type.getAllAttributes().size » , «ENDIF»
+	«ENDFOREACH»
+    } )
+«ENDDEFINE»
+
+«DEFINE genPropertyDecl FOR uml::Property»
+	«type.name.getTypeAnnotation()»
+	«IF association == null»«getUniqueAnnotationsProp()»«ENDIF»
+	«EXPAND genBaseDecl FOR this»
+«ENDDEFINE»
+
+«DEFINE genBasePropertyDecl FOR uml::Property»
+	protected «type.fqnForPackage(this.class)»  «name» «getDefault() != null?" = " + getDefaultVal(type):""»
+«ENDDEFINE»
+
+«DEFINE genPropertyDecl FOR wcprofile::Column»
+	«getValidatorAnnotations()»
+	«getLengthAnnotations()»
+	«getUniqueAnnotations()»
+	«REM»«getBoostAnnotations()»«ENDREM»
+	«getTransient()»
+	«type.name.getTypeAnnotation()»
+	«IF !isDerived()»«getColJpaAnnotations()» «ENDIF»
+	«EXPAND genBaseDecl FOR this»
+«ENDDEFINE»
+
+
+
+«DEFINE genBaseDecl FOR uml::Property»
+
+	«IF type.name == "imageFile"»  
+	@Embedded
+    @AttributeOverrides( {
+        @AttributeOverride(name="name", column = @Column(name="«name»_name") ),
+        @AttributeOverride(name="contentType", column = @Column(name="«name»_contentType") ),
+        @AttributeOverride(name="data", column = @Column(name="«name»_data", length = 4194304) )
+    } )
+	protected FileAttachment «name» = new FileAttachment();	
+	«ELSE»
+		«IF isColumn() && (  derivedProperty != null)»@Transient«ENDIF»
+		«IF isString()» @Field(index = Index.TOKENIZED)
+		@Analyzer(definition = "entityAnalyzer") «ENDIF»
+		«EXPAND genBasePropertyDecl FOR this» 
+			«IF isColumn() && defaultExpression != null»  
+				=  «defaultExpression»  «defaultExpression.endsWith(";")?"":";"»
+			«ELSE»
+				;
+			«ENDIF» 
+	«ENDIF»
+	
+«ENDDEFINE»
+
+
+
+
+«DEFINE genGetterSetter FOR uml::Property»
+	«IF isMultivalued()»
+		public void set«name.toFirstUpper()»(Set<«type.fqnForPackage(this.class)»> «name»){
+			this.«name» = «name»;
+		}
+		
+		public Set<«type.fqnForPackage(this.class)»> get«name.toFirstUpper()»( ){
+			return «name»;
+		}
+	«ELSE»
+		public void set«name.toFirstUpper()»(«type.fqnForPackage(this.class)» «name»){
+			this.«name» = «name»;
+		}
+		
+		public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
+			«IF isColumn() && derivedProperty != null »
+			try {
+				return «derivedProperty»;
+			} catch (Exception e) {
+				«IF isNumeric()»
+				    «IF  type.name == "Integer"»
+				    	return 0;
+				    «ELSE»
+				    	return 0.0;
+				    «ENDIF»
+				«ELSE»
+					«IF isString()»
+						return "";
+					«ELSE»
+						return null;
+					«ENDIF»
+				«ENDIF»
+			}
+			«ELSE»
+				return «name»;
+			«ENDIF»
+		}
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genGetterSetter FOR wcprofile::DerivedProperty»
+//derived property - «name»
+public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
+	return «derivation != null ? derivation :  name»;
+	return «name»;
+}
+«ENDDEFINE»
+
+
+«DEFINE EnumGen FOR uml::Enumeration»
+	«FILE packagePath() + "/"+ name +".java"»  
+	package «packageName()»;
+	
+	public enum «name» {	
+		
+		«FOREACH  ownedLiteral AS e»
+			«e.name»,
+		«ENDFOREACH»
+		;
+		
+		«name»() { }
+		
+		public String getName(){
+        	return this.toString();
+    	}
+    	
+    	public String getDisplayName(){
+        	return this.toString();
+    	}
+	} 
+	«ENDFILE»
+«ENDDEFINE»
+
+
+
+«DEFINE genImports FOR uml::Type»
+	import java.util.ArrayList;
+	import java.util.HashSet;
+	import java.util.List;
+	import java.util.Set;
+	import java.util.Date;
+	import javax.ws.rs.core.Response;
+«ENDDEFINE»
+
+
+«DEFINE genPersistenceImports FOR uml::Class»
+	import javax.persistence.*;
+	import org.hibernate.validator.*;
+	
+	import org.apache.solr.analysis.LowerCaseFilterFactory;
+	import org.apache.solr.analysis.SnowballPorterFilterFactory;
+	import org.apache.solr.analysis.StandardTokenizerFactory;
+	import org.hibernate.annotations.Cache;
+	import org.hibernate.annotations.Formula;
+	import org.hibernate.annotations.CacheConcurrencyStrategy;
+	import org.hibernate.annotations.Filter;
+	import org.hibernate.annotations.Cascade;
+	
+	import org.hibernate.search.annotations.AnalyzerDef;
+	import org.hibernate.search.annotations.Analyzer;
+	import org.hibernate.search.annotations.Field;
+	import org.hibernate.search.annotations.Boost;
+	import org.hibernate.search.annotations.Index;
+	import org.hibernate.search.annotations.Indexed;
+	import org.hibernate.search.annotations.Parameter;
+	import org.hibernate.search.annotations.TokenFilterDef;
+	import org.hibernate.search.annotations.TokenizerDef;
+	import org.hibernate.search.annotations.ContainedIn;
+	import org.hibernate.search.annotations.IndexedEmbedded;
+	
+	import org.hibernate.annotations.Filter;
+	
+	
+	import org.hibernate.validator.Length;
+	import org.hibernate.validator.NotNull;
+	
+	import javax.xml.bind.annotation.XmlRootElement;
+	import javax.xml.bind.annotation.XmlTransient;
+	
+	«IF getCurrentCartridge() == "RICH" »
+	
+	import org.jboss.seam.annotations.Name;
+	
+	import org.witchcraft.base.entity.BusinessEntity;
+	import org.witchcraft.model.support.audit.Auditable;
+	import org.witchcraft.base.entity.FileAttachment;
+	
+	import org.witchcraft.utils.*;
+	«ENDIF»
+	
+	«IF getCurrentCartridge() == "JPA_SPRING" »
+	import org.witchcraft.model.support.BusinessEntity;
+	«ENDIF»
+	
+	import «getTopLevelPackage()».ProjectUtils;
+«ENDDEFINE»
