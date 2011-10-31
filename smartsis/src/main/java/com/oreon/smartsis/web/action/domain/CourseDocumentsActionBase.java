@@ -110,7 +110,9 @@ public abstract class CourseDocumentsActionBase
 
 	@Override
 	protected CourseDocuments createInstance() {
-		return new CourseDocuments();
+		CourseDocuments instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -202,6 +204,11 @@ public abstract class CourseDocumentsActionBase
 
 	public void clearLists() {
 
+	}
+
+	public String viewCourseDocuments() {
+		load(currentEntityId);
+		return "viewCourseDocuments";
 	}
 
 }

@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+  <h:panelGroup id="viewChoiceComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{choiceAction.load(choiceId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{choiceAction.choice.id}"/>  
+      <h:panelGrid columns="1" onload="#{choiceAction.load(choiceId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Choice}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.choice_choice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'choiceView')}"/>  
+        <h:outputText escape="false" id="choice#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'choiceView')}" value="#{choiceAction.choice.choice}"></h:outputText>  
         <h:outputText value="#{msg.choice_question}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'questionView')}"/>  
-        <s:link value="#{choiceAction.choice.question.displayName}" view="/admin/entities/exam/question/viewQuestion.xhtml" propagation="none"> 
+        <s:link value="#{choiceAction.choice.question.displayName}" action="viewquestion" propagation="none"> 
           <f:param name="questionId" value="#{choiceAction.choice.question.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
-        <h:outputText value="#{msg.choice_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'textView')}"/>  
-        <h:outputText escape="false" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'textView')}" value="#{choiceAction.choice.text}"></h:outputText> 
-      </h:panelGrid> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

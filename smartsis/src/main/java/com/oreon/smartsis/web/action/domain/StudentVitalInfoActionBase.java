@@ -110,7 +110,9 @@ public abstract class StudentVitalInfoActionBase
 
 	@Override
 	protected StudentVitalInfo createInstance() {
-		return new StudentVitalInfo();
+		StudentVitalInfo instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -184,6 +186,11 @@ public abstract class StudentVitalInfoActionBase
 
 	public void clearLists() {
 
+	}
+
+	public String viewStudentVitalInfo() {
+		load(currentEntityId);
+		return "viewStudentVitalInfo";
 	}
 
 }

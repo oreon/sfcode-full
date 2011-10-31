@@ -1,22 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+  <h:panelGroup id="editChoiceComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{choiceAction.load(choiceId )  }"> 
-        <h:outputText value="#{msg.choice_question} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'questionEdit')}"/>  
-        <h:selectOneMenu id="question" label="#{msg.choice_question}" value="#{choiceAction.choice.question}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'questionEdit')}"> 
-          <s:selectItems value="#{questionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="question" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'questionEdit')}"/>  
-        <h:outputText value="#{msg.choice_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'textEdit')}"/>  
-        <rich:editor useSeamText="true" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'textEdit')}" label="#{msg.choice_text}" required="false" disabled="false" value="#{choiceAction.choice.text}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:editor>  
-        <rich:message styleClass="error errors" for="text" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'textEdit')}"/> 
-      </h:panelGrid> 
+      <h:panelGrid columns="1" onload="#{choiceAction.load(choiceId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Choice}"/> 
+        </f:facet>  
+        <s:decorate id="choiceDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.choice_choice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'choiceEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="choice#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'choiceEdit')}" label="#{msg.choice_choice}" required="false" disabled="false" value="#{choiceAction.choice.choice}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="questionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.choice_question} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'questionEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="question" label="#{msg.choice_question}" value="#{choiceAction.choice.question}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choice', 'questionEdit')}" disabled="false"> 
+            <s:selectItems value="#{questionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

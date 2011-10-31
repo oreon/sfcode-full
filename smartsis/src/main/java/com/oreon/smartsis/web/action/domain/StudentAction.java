@@ -30,6 +30,8 @@ public class StudentAction extends StudentActionBase implements
 		java.io.Serializable {
 
 	List<List<ExamScore>> reportCard;
+	
+	//Cartesi
 
 	List<ExamScore> subjects = new ArrayList<ExamScore>();
 	private List<ExamInstance> exams;
@@ -205,6 +207,7 @@ public class StudentAction extends StudentActionBase implements
 
 	static Integer calcRank(List<Long> list, Long score) {
 		Long MAX = 10000L;
+		if(score == null ) return 0;
 		Integer myIndex = list.indexOf(score.longValue());
 		if (myIndex < 0) {
 			throw new ContractViolationException(
@@ -231,12 +234,12 @@ public class StudentAction extends StudentActionBase implements
 	public List<MonthAttendance> getAttendanceCount() {
 
 		String totalAttendance = "select count(*)   from Attendance attendance where "
-				+ " attendance.student.id = ?1 and attendance.gradeAttendance.grade.id = student.grade.id group by Month(attendance.date) order by Month(attendance.date)";
+				+ " attendance.student.id = ?1 and attendance.gradeAttendance.grade.id = student.grade.id group by Month(attendance.gradeAttendance.date) order by Month(attendance.gradeAttendance.date)";
 
 		List<Long> totals = executeQuery(totalAttendance, getInstance().getId());
 
-		String qry = "select Month(attendance.date) , count(*)  from Attendance attendance where attendance.absenceCode is null"
-				+ " and attendance.student.id = ?1 and attendance.gradeAttendance.grade.id = student.grade.id group by Month(attendance.date) order by Month(attendance.date) ";
+		String qry = "select Month(attendance.gradeAttendance.date) , count(*)  from Attendance attendance where attendance.absenceCode is null"
+				+ " and attendance.student.id = ?1 and attendance.gradeAttendance.grade.id = student.grade.id group by Month(attendance.gradeAttendance.date) order by Month(attendance.gradeAttendance.date) ";
 		List<Object[]> result = executeQuery(qry, getInstance().getId());
 
 		List<MonthAttendance> lstAttendance = new ArrayList<MonthAttendance>();
@@ -252,7 +255,9 @@ public class StudentAction extends StudentActionBase implements
 	}
 
 	public List<ElectronicExamInstance> getElecExams() {
-		return executeNamedQuery("eExamsForStudent", getInstance().getId());
+		if(isNew())
+			return null;
+		return executeQuery("Select e from ElectronicExamInstance e where e.student = ?1 ", getInstance());
 	}
 
 	public List<PaidFee> getPaidFees() {

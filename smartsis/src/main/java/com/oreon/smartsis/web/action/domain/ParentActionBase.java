@@ -52,11 +52,8 @@ public abstract class ParentActionBase
 	@DataModelSelection
 	private Parent parent;
 
-	@In(create = true, value = "userAction")
-	com.oreon.smartsis.web.action.users.UserAction userAction;
-
-	@In(create = true, value = "parentGroupAction")
-	com.oreon.smartsis.web.action.domain.ParentGroupAction parentGroupAction;
+	@In(create = true, value = "appUserAction")
+	com.oreon.smartsis.web.action.users.AppUserAction appUserAction;
 
 	@DataModel
 	private List<Parent> parentRecordList;
@@ -82,29 +79,16 @@ public abstract class ParentActionBase
 		loadAssociations();
 	}
 
-	public void setUserId(Long id) {
+	public void setAppUserId(Long id) {
 
 		if (id != null && id > 0)
-			getInstance().setUser(userAction.loadFromId(id));
+			getInstance().setAppUser(appUserAction.loadFromId(id));
 
 	}
 
-	public Long getUserId() {
-		if (getInstance().getUser() != null)
-			return getInstance().getUser().getId();
-		return 0L;
-	}
-
-	public void setParentGroupId(Long id) {
-
-		if (id != null && id > 0)
-			getInstance().setParentGroup(parentGroupAction.loadFromId(id));
-
-	}
-
-	public Long getParentGroupId() {
-		if (getInstance().getParentGroup() != null)
-			return getInstance().getParentGroup().getId();
+	public Long getAppUserId() {
+		if (getInstance().getAppUser() != null)
+			return getInstance().getAppUser().getId();
 		return 0L;
 	}
 
@@ -128,7 +112,9 @@ public abstract class ParentActionBase
 
 	@Override
 	protected Parent createInstance() {
-		return new Parent();
+		Parent instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -140,15 +126,10 @@ public abstract class ParentActionBase
 	public void wire() {
 		getInstance();
 
-		com.oreon.smartsis.users.User user = userAction.getDefinedInstance();
-		if (user != null && isNew()) {
-			getInstance().setUser(user);
-		}
-
-		com.oreon.smartsis.domain.ParentGroup parentGroup = parentGroupAction
+		com.oreon.smartsis.users.AppUser appUser = appUserAction
 				.getDefinedInstance();
-		if (parentGroup != null && isNew()) {
-			getInstance().setParentGroup(parentGroup);
+		if (appUser != null && isNew()) {
+			getInstance().setAppUser(appUser);
 		}
 
 	}
@@ -179,14 +160,9 @@ public abstract class ParentActionBase
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (parent.getUser() != null) {
-			criteria = criteria.add(Restrictions.eq("user.id", parent.getUser()
-					.getId()));
-		}
-
-		if (parent.getParentGroup() != null) {
-			criteria = criteria.add(Restrictions.eq("parentGroup.id", parent
-					.getParentGroup().getId()));
+		if (parent.getAppUser() != null) {
+			criteria = criteria.add(Restrictions.eq("appUser.id", parent
+					.getAppUser().getId()));
 		}
 
 	}
@@ -197,12 +173,8 @@ public abstract class ParentActionBase
 	 */
 	public void loadAssociations() {
 
-		if (parent.getUser() != null) {
-			userAction.setInstance(getInstance().getUser());
-		}
-
-		if (parent.getParentGroup() != null) {
-			parentGroupAction.setInstance(getInstance().getParentGroup());
+		if (parent.getAppUser() != null) {
+			appUserAction.setInstance(getInstance().getAppUser());
 		}
 
 	}
@@ -219,9 +191,14 @@ public abstract class ParentActionBase
 	}
 
 	public Parent getCurrentLoggedInParent() {
-		String query = "Select e from Parent e where e.user.userName = ?1";
+		String query = "Select e from Parent e where e.appUser.userName = ?1";
 		return (Parent) executeSingleResultQuery(query, Identity.instance()
 				.getCredentials().getUsername());
+	}
+
+	public String viewParent() {
+		load(currentEntityId);
+		return "viewParent";
 	}
 
 }

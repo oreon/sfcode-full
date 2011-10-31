@@ -32,11 +32,11 @@
 						<ui:repeat var="score" value="#{mapEntry}">
 
 							<td>
-							<h3><h:outputText value="#{score.marks}" /></h3>
-							<br />
-
-		
-					</td>
+					
+									<h3 ><h:outputText style="color:#{score.marks lt score.examInstance.exam.passMarks ? 'red':'navy'}" 
+										 value="#{score.marks}" /></h3>
+								
+							</td>
 						</ui:repeat>
 						<td><h:outputText
 							value="#{studentAction.listExamTotals.get( studentAction.currentReportCard.indexOf(mapEntry ) ).total}"

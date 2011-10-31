@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Date;
+import javax.ws.rs.core.Response;
 
 import javax.persistence.*;
 import org.hibernate.validator.*;
@@ -21,6 +22,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Boost;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Parameter;
@@ -65,21 +67,15 @@ public class Attendance extends BusinessEntity implements java.io.Serializable {
 
 	;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "gradeSubject_id", nullable = true, updatable = true)
-	@ContainedIn
-	protected com.oreon.smartsis.domain.GradeSubject gradeSubject
-
-	;
-
-	protected AbsenceCode absenceCode
-
-	;
-
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "gradeAttendance_id", nullable = false, updatable = true)
 	@ContainedIn
 	protected GradeAttendance gradeAttendance
+
+	;
+
+	@Column(unique = false)
+	protected AbsenceCode absenceCode
 
 	;
 
@@ -93,14 +89,13 @@ public class Attendance extends BusinessEntity implements java.io.Serializable {
 
 	}
 
-	public void setGradeSubject(
-			com.oreon.smartsis.domain.GradeSubject gradeSubject) {
-		this.gradeSubject = gradeSubject;
+	public void setGradeAttendance(GradeAttendance gradeAttendance) {
+		this.gradeAttendance = gradeAttendance;
 	}
 
-	public com.oreon.smartsis.domain.GradeSubject getGradeSubject() {
+	public GradeAttendance getGradeAttendance() {
 
-		return gradeSubject;
+		return gradeAttendance;
 
 	}
 
@@ -111,16 +106,6 @@ public class Attendance extends BusinessEntity implements java.io.Serializable {
 	public AbsenceCode getAbsenceCode() {
 
 		return absenceCode;
-
-	}
-
-	public void setGradeAttendance(GradeAttendance gradeAttendance) {
-		this.gradeAttendance = gradeAttendance;
-	}
-
-	public GradeAttendance getGradeAttendance() {
-
-		return gradeAttendance;
 
 	}
 
@@ -155,10 +140,6 @@ public class Attendance extends BusinessEntity implements java.io.Serializable {
 
 		if (getStudent() != null)
 			builder.append("student:" + getStudent().getDisplayName() + " ");
-
-		if (getGradeSubject() != null)
-			builder.append("gradeSubject:" + getGradeSubject().getDisplayName()
-					+ " ");
 
 		if (getGradeAttendance() != null)
 			builder.append("gradeAttendance:"

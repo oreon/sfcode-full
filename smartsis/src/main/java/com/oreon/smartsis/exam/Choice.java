@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Date;
+import javax.ws.rs.core.Response;
 
 import javax.persistence.*;
 import org.hibernate.validator.*;
@@ -21,6 +22,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Boost;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Parameter;
@@ -59,9 +61,10 @@ public class Choice extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 1053065386L;
 
 	@Lob
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String text
+	protected String choice
 
 	;
 
@@ -72,13 +75,13 @@ public class Choice extends BusinessEntity implements java.io.Serializable {
 
 	;
 
-	public void setText(String text) {
-		this.text = text;
+	public void setChoice(String choice) {
+		this.choice = choice;
 	}
 
-	public String getText() {
+	public String getChoice() {
 
-		return text;
+		return choice;
 
 	}
 
@@ -95,7 +98,7 @@ public class Choice extends BusinessEntity implements java.io.Serializable {
 	@Transient
 	public String getDisplayName() {
 		try {
-			return text + "";
+			return choice + "";
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
@@ -113,7 +116,7 @@ public class Choice extends BusinessEntity implements java.io.Serializable {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
-		listSearchableFields.add("text");
+		listSearchableFields.add("choice");
 
 		return listSearchableFields;
 	}
@@ -123,7 +126,7 @@ public class Choice extends BusinessEntity implements java.io.Serializable {
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(getText() + " ");
+		builder.append(getChoice() + " ");
 
 		if (getQuestion() != null)
 			builder.append("question:" + getQuestion().getDisplayName() + " ");

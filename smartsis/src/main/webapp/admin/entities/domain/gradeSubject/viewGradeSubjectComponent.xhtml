@@ -1,37 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+  <h:panelGroup id="viewGradeSubjectComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{gradeSubjectAction.load(gradeSubjectId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{gradeSubjectAction.gradeSubject.id}"/>  
+      <h:panelGrid columns="1" onload="#{gradeSubjectAction.load(gradeSubjectId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.GradeSubject}"/> 
+        </f:facet>  
         <h:outputText value="#{msg.gradeSubject_subject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'subjectView')}"/>  
-        <s:link value="#{gradeSubjectAction.gradeSubject.subject.displayName}" view="/admin/entities/domain/subject/viewSubject.xhtml" propagation="none"> 
+        <s:link value="#{gradeSubjectAction.gradeSubject.subject.displayName}" action="viewsubject" propagation="none"> 
           <f:param name="subjectId" value="#{gradeSubjectAction.gradeSubject.subject.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.gradeSubject_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'employeeView')}"/>  
-        <s:link value="#{gradeSubjectAction.gradeSubject.employee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
+        <s:link value="#{gradeSubjectAction.gradeSubject.employee.displayName}" action="viewemployee" propagation="none"> 
           <f:param name="employeeId" value="#{gradeSubjectAction.gradeSubject.employee.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.gradeSubject_grade}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'gradeView')}"/>  
-        <s:link value="#{gradeSubjectAction.gradeSubject.grade.displayName}" view="/admin/entities/domain/grade/viewGrade.xhtml" propagation="none"> 
+        <s:link value="#{gradeSubjectAction.gradeSubject.grade.displayName}" action="viewgrade" propagation="none"> 
           <f:param name="gradeId" value="#{gradeSubjectAction.gradeSubject.grade.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  
-      <rich:dataTable id="courseDocumentses" var="_courseDocuments" rendered="#{not empty gradeSubjectAction.listCourseDocumentses and skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'courseDocumentsesView') }" value="#{gradeSubjectAction.listCourseDocumentses}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
-        <h:column style="text-align:left">
-          <f:facet name="header">
-            <h:outputText value="#{msg.courseDocuments_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'nameView')}"/>
+      <br/>  
+      <rich:dataTable id="courseDocumentses" var="_courseDocuments" rendered="#{not empty gradeSubjectAction.listCourseDocumentses and skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'courseDocumentsesView') }" value="#{gradeSubjectAction.listCourseDocumentses}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.courseDocuments_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'nameView')}"/> 
           </f:facet>  
           <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'nameView')}" value="#{_courseDocuments.name}"></h:outputText> 
         </h:column>  
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.courseDocuments_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'documentView')}"/>
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.courseDocuments_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'documentView')}"/> 
           </f:facet>  
           <c:choose> 
             <c:when test="${_courseDocuments.document.contentType.startsWith('image')}"> 
@@ -44,7 +50,8 @@
             </c:otherwise> 
           </c:choose> 
         </h:column> 
-      </rich:dataTable> 
+      </rich:dataTable>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Date;
+import javax.ws.rs.core.Response;
 
 import javax.persistence.*;
 import org.hibernate.validator.*;
@@ -21,6 +22,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Boost;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Parameter;
@@ -61,34 +63,17 @@ public class Parent extends com.oreon.smartsis.domain.Person
 	private static final long serialVersionUID = -420531418L;
 
 	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id", nullable = false, updatable = true)
+	@JoinColumn(name = "appUser_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected com.oreon.smartsis.users.User user = new com.oreon.smartsis.users.User();
+	protected com.oreon.smartsis.users.AppUser appUser = new com.oreon.smartsis.users.AppUser();
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "parentGroup_id", nullable = false, updatable = true)
-	@ContainedIn
-	protected ParentGroup parentGroup
-
-	;
-
-	public void setUser(com.oreon.smartsis.users.User user) {
-		this.user = user;
+	public void setAppUser(com.oreon.smartsis.users.AppUser appUser) {
+		this.appUser = appUser;
 	}
 
-	public com.oreon.smartsis.users.User getUser() {
+	public com.oreon.smartsis.users.AppUser getAppUser() {
 
-		return user;
-
-	}
-
-	public void setParentGroup(ParentGroup parentGroup) {
-		this.parentGroup = parentGroup;
-	}
-
-	public ParentGroup getParentGroup() {
-
-		return parentGroup;
+		return appUser;
 
 	}
 
@@ -121,12 +106,8 @@ public class Parent extends com.oreon.smartsis.domain.Person
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
 
-		if (getUser() != null)
-			builder.append("user:" + getUser().getDisplayName() + " ");
-
-		if (getParentGroup() != null)
-			builder.append("parentGroup:" + getParentGroup().getDisplayName()
-					+ " ");
+		if (getAppUser() != null)
+			builder.append("appUser:" + getAppUser().getDisplayName() + " ");
 
 		return builder.toString();
 	}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf"> Found #{parentGroupList.entityList.size} results for search term: 
+  <b>${parentGroupList.textToSearch}</b>  
+  <br/>  
+  <br/>  
+  <hr/>  
+  <h:form> 
+    <rich:tabPanel switchType="client"> 
+      <rich:tab label="Search Results"> 
+        <ui:repeat var="_var" value="#{parentGroupList.entityList}"> 
+          <s:link value="${_var.displayName}" view="/admin/entities/domain/parentGroup/viewParentGroup.xhtml"> 
+            <f:param name="parentGroupId" value="${_var.id}"/> 
+          </s:link>  
+          <br/>. 
+          <h:outputText value="${_var.higlightedFragment}" escape="false"/>  
+          <hr/> 
+        </ui:repeat> 
+      </rich:tab>  
+      <rich:tab label="Tabular"> 
+        <ui:include src="listParentGroupComponent.xhtml"> 
+          <ui:param name="records" value="#{parentGroupList.entityList}"/> 
+        </ui:include> 
+      </rich:tab> 
+    </rich:tabPanel> 
+  </h:form> 
+</ui:composition>

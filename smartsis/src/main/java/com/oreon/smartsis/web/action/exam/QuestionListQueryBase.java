@@ -52,7 +52,7 @@ public abstract class QuestionListQueryBase extends BaseQuery<Question, Long> {
 	private static final String[] RESTRICTIONS = {
 			"question.id = #{questionList.question.id}",
 
-			"lower(question.text) like concat(lower(#{questionList.question.text}),'%')",
+			"lower(question.question) like concat(lower(#{questionList.question.question}),'%')",
 
 			"question.electronicExam.id = #{questionList.question.electronicExam.id}",
 
@@ -80,8 +80,9 @@ public abstract class QuestionListQueryBase extends BaseQuery<Question, Long> {
 	public void createCsvString(StringBuilder builder, Question e) {
 
 		builder.append("\""
-				+ (e.getText() != null ? e.getText().replace(",", "") : "")
-				+ "\",");
+				+ (e.getQuestion() != null
+						? e.getQuestion().replace(",", "")
+						: "") + "\",");
 
 		builder.append("\""
 				+ (e.getElectronicExam() != null ? e.getElectronicExam()
@@ -100,7 +101,7 @@ public abstract class QuestionListQueryBase extends BaseQuery<Question, Long> {
 	//@Override
 	public void createCSvTitles(StringBuilder builder) {
 
-		builder.append("Text" + ",");
+		builder.append("Question" + ",");
 
 		builder.append("ElectronicExam" + ",");
 

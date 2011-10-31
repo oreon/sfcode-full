@@ -62,23 +62,14 @@ public abstract class ParentListQueryBase extends BaseQuery<Parent, Long> {
 
 			"lower(parent.contactDetails.city) like concat(lower(#{parentList.parent.contactDetails.city}),'%')",
 
-			"lower(parent.user.userName) like concat(lower(#{parentList.parent.user.userName}),'%')",
+			"lower(parent.appUser.userName) like concat(lower(#{parentList.parent.appUser.userName}),'%')",
 
-			"lower(parent.user.email) like concat(lower(#{parentList.parent.user.email}),'%')",
+			"lower(parent.appUser.email) like concat(lower(#{parentList.parent.appUser.email}),'%')",
 
-			"parent.user.enabled = #{parentList.parent.user.enabled}",
-
-			"parent.parentGroup.id = #{parentList.parent.parentGroup.id}",
+			"parent.appUser.enabled = #{parentList.parent.appUser.enabled}",
 
 			"parent.dateCreated <= #{parentList.dateCreatedRange.end}",
 			"parent.dateCreated >= #{parentList.dateCreatedRange.begin}",};
-
-	public List<Parent> getParentsByParentGroup(
-			com.oreon.smartsis.domain.ParentGroup parentGroup) {
-		//setMaxResults(10000);
-		parent.setParentGroup(parentGroup);
-		return getResultList();
-	}
 
 	@Observer("archivedParent")
 	public void onArchive() {
@@ -92,12 +83,8 @@ public abstract class ParentListQueryBase extends BaseQuery<Parent, Long> {
 	public void createCsvString(StringBuilder builder, Parent e) {
 
 		builder.append("\""
-				+ (e.getUser() != null ? e.getUser().getDisplayName().replace(
-						",", "") : "") + "\",");
-
-		builder.append("\""
-				+ (e.getParentGroup() != null ? e.getParentGroup()
-						.getDisplayName().replace(",", "") : "") + "\",");
+				+ (e.getAppUser() != null ? e.getAppUser().getDisplayName()
+						.replace(",", "") : "") + "\",");
 
 		builder.append("\r\n");
 	}
@@ -108,9 +95,7 @@ public abstract class ParentListQueryBase extends BaseQuery<Parent, Long> {
 	//@Override
 	public void createCSvTitles(StringBuilder builder) {
 
-		builder.append("User" + ",");
-
-		builder.append("ParentGroup" + ",");
+		builder.append("AppUser" + ",");
 
 		builder.append("\r\n");
 	}

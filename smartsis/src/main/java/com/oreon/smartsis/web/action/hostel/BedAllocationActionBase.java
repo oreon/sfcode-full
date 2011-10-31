@@ -126,7 +126,9 @@ public abstract class BedAllocationActionBase extends BaseAction<BedAllocation>
 
 	@Override
 	protected BedAllocation createInstance() {
-		return new BedAllocation();
+		BedAllocation instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -214,6 +216,11 @@ public abstract class BedAllocationActionBase extends BaseAction<BedAllocation>
 
 	public void clearLists() {
 
+	}
+
+	public String viewBedAllocation() {
+		load(currentEntityId);
+		return "viewBedAllocation";
 	}
 
 }

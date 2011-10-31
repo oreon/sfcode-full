@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Date;
+import javax.ws.rs.core.Response;
 
 import javax.persistence.*;
 import org.hibernate.validator.*;
@@ -21,6 +22,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Boost;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Parameter;
@@ -69,6 +71,7 @@ public class ElectronicExam extends BusinessEntity
 
 	;
 
+	@Column(unique = false)
 	protected Integer numberOfQuestions
 
 	;
@@ -79,9 +82,9 @@ public class ElectronicExam extends BusinessEntity
 	@IndexedEmbedded
 	private Set<Question> questions = new HashSet<Question>();
 
-	public void addQuestions(Question questions) {
-		questions.setElectronicExam(this);
-		this.questions.add(questions);
+	public void addQuestion(Question question) {
+		question.setElectronicExam(this);
+		this.questions.add(question);
 	}
 
 	@Transient
@@ -101,6 +104,7 @@ public class ElectronicExam extends BusinessEntity
 
 	;
 
+	@Column(unique = false)
 	protected Integer maxDuration
 
 	;
@@ -177,7 +181,7 @@ public class ElectronicExam extends BusinessEntity
 
 		listSearchableFields.add("name");
 
-		listSearchableFields.add("questions.text");
+		listSearchableFields.add("questions.question");
 
 		return listSearchableFields;
 	}

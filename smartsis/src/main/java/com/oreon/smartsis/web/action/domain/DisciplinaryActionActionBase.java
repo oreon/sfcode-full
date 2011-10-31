@@ -126,7 +126,11 @@ public abstract class DisciplinaryActionActionBase
 
 	@Override
 	protected DisciplinaryAction createInstance() {
-		return new DisciplinaryAction();
+		DisciplinaryAction instance = super.createInstance();
+
+		instance.setEmployee(employeeAction.getCurrentLoggedInEmployee());
+
+		return instance;
 	}
 
 	public void load() {
@@ -215,6 +219,11 @@ public abstract class DisciplinaryActionActionBase
 
 	public void clearLists() {
 
+	}
+
+	public String viewDisciplinaryAction() {
+		load(currentEntityId);
+		return "viewDisciplinaryAction";
 	}
 
 }

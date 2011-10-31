@@ -1,28 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+  <h:panelGroup id="viewBedAllocationComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{bedAllocationAction.load(bedAllocationId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{bedAllocationAction.bedAllocation.id}"/>  
-        <h:outputText value="#{msg.bedAllocation_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'bedView')}"/>  
-        <s:link value="#{bedAllocationAction.bedAllocation.bed.displayName}" view="/admin/entities/hostel/bed/viewBed.xhtml" propagation="none"> 
-          <f:param name="bedId" value="#{bedAllocationAction.bedAllocation.bed.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
-        <h:outputText value="#{msg.bedAllocation_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'studentView')}"/>  
-        <s:link value="#{bedAllocationAction.bedAllocation.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml" propagation="none"> 
-          <f:param name="studentId" value="#{bedAllocationAction.bedAllocation.student.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
+      <h:panelGrid columns="1" onload="#{bedAllocationAction.load(bedAllocationId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.BedAllocation}"/> 
+        </f:facet>  
         <h:outputText value="#{msg.bedAllocation_startDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'startDateView')}"/>  
         <h:outputText direction="auto" id="startDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'startDateView')}" value="#{bedAllocationAction.bedAllocation.startDate}"></h:outputText>  
         <h:outputText value="#{msg.bedAllocation_endDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'endDateView')}"/>  
         <h:outputText direction="auto" id="endDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'endDateView')}" value="#{bedAllocationAction.bedAllocation.endDate}"></h:outputText>  
         <h:outputText value="#{msg.bedAllocation_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'remarksView')}"/>  
-        <h:outputText escape="false" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'remarksView')}" value="#{bedAllocationAction.bedAllocation.remarks}"></h:outputText> 
-      </h:panelGrid> 
+        <h:outputText escape="false" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'remarksView')}" value="#{bedAllocationAction.bedAllocation.remarks}"></h:outputText>  
+        <h:outputText value="#{msg.bedAllocation_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'bedView')}"/>  
+        <s:link value="#{bedAllocationAction.bedAllocation.bed.displayName}" action="viewbed" propagation="none"> 
+          <f:param name="bedId" value="#{bedAllocationAction.bedAllocation.bed.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.bedAllocation_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'studentView')}"/>  
+        <s:link value="#{bedAllocationAction.bedAllocation.student.displayName}" action="viewstudent" propagation="none"> 
+          <f:param name="studentId" value="#{bedAllocationAction.bedAllocation.student.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

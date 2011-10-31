@@ -11,14 +11,15 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.query.JRJpaQueryExecuterFactory;
 
+import org.jbpm.identity.User;
 import org.testng.annotations.BeforeClass;
 import org.witchcraft.seam.action.BaseAction;
 
-import com.oreon.smartsis.users.User;
+import com.oreon.smartsis.users.AppUser;
 
 
 
-public class BaseReportsTest extends BaseTest<User> {
+public class BaseReportsTest extends BaseTest<AppUser> {
 
 	protected JasperReport jasperReport;
 	protected JasperPrint jasperPrint;
@@ -47,7 +48,7 @@ public class BaseReportsTest extends BaseTest<User> {
 	
 
 	@Override
-	public BaseAction<User> getAction() {
+	public BaseAction<AppUser> getAction() {
 		// TODO Auto-generated method stub
 		return null;
 	}

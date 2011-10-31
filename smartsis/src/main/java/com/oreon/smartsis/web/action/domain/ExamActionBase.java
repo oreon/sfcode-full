@@ -94,7 +94,9 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 
 	@Override
 	protected Exam createInstance() {
-		return new Exam();
+		Exam instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -149,6 +151,11 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 
 	public void clearLists() {
 
+	}
+
+	public String viewExam() {
+		load(currentEntityId);
+		return "viewExam";
 	}
 
 }

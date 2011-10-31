@@ -76,8 +76,8 @@
 					
 					<rich:editor useSeamText="false" id="text#{entityId}"
 						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'questionEdit')}"
-						label="#{msg.question_text}" required="false"
-						value="#{_question.text}">
+						label="#{msg.question_question}" required="false"
+						value="#{_question.question}">
 						<rich:ajaxValidator event="onsubmit" />
 					</rich:editor>
 					<rich:message styleClass="error errors" for="text"
@@ -94,7 +94,7 @@
 							</f:facet>
 							
 							<h:inputText  label="#{msg.choice_text}" required="false"
-								value="#{_choice.text}" />
+								value="#{_choice.choice}" />
 						
 							<rich:message styleClass="error errors" for="text"
 								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('text', 'choiceEdit')}" />

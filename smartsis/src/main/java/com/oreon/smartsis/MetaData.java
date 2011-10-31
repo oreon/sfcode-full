@@ -24,7 +24,7 @@ public class MetaData {
 
 	"manager.displayName", "java.lang.String",
 
-	"user.displayName", "java.lang.String",
+	"appUser.displayName", "java.lang.String",
 
 	},
 
@@ -68,7 +68,9 @@ public class MetaData {
 
 	"discontinueReason.name", "java.lang.String",
 
-	"parentGroup.displayName", "java.lang.String",
+	"primary.displayName", "java.lang.String",
+
+	"secondary.displayName", "java.lang.String",
 
 	},
 
@@ -84,9 +86,7 @@ public class MetaData {
 
 	"contactDetails.city", "java.lang.String",
 
-	"user.displayName", "java.lang.String",
-
-	"parentGroup.displayName", "java.lang.String",
+	"appUser.displayName", "java.lang.String",
 
 	},
 
@@ -214,14 +214,6 @@ public class MetaData {
 
 	},
 
-	{"com.oreon.smartsis.domain.ParentGroup",
-
-	"studentsCount", "java.lang.Integer",
-
-	"parentsCount", "java.lang.Integer",
-
-	},
-
 	{"com.oreon.smartsis.exam.ElectronicExam",
 
 	"name", "java.lang.String",
@@ -238,7 +230,7 @@ public class MetaData {
 
 	{"com.oreon.smartsis.exam.Question",
 
-	"text", "java.lang.String",
+	"question", "java.lang.String",
 
 	"choicesCount", "java.lang.Integer",
 
@@ -250,7 +242,7 @@ public class MetaData {
 
 	{"com.oreon.smartsis.exam.Choice",
 
-	"text", "java.lang.String",
+	"choice", "java.lang.String",
 
 	"question.displayName", "java.lang.String",
 
@@ -296,11 +288,9 @@ public class MetaData {
 
 	"student.displayName", "java.lang.String",
 
-	"gradeSubject.displayName", "java.lang.String",
+	"gradeAttendance.displayName", "java.lang.String",
 
 	"absenceCode.name", "java.lang.String",
-
-	"gradeAttendance.displayName", "java.lang.String",
 
 	},
 
@@ -358,13 +348,13 @@ public class MetaData {
 
 	},
 
-	{"com.oreon.smartsis.users.User",
+	{"com.oreon.smartsis.users.AppUser",
 
 	"userName", "java.lang.String",
 
 	"password", "java.lang.String",
 
-	"rolesCount", "java.lang.Integer",
+	"appRolesCount", "java.lang.Integer",
 
 	"email", "java.lang.String",
 
@@ -372,11 +362,11 @@ public class MetaData {
 
 	},
 
-	{"com.oreon.smartsis.users.Role",
+	{"com.oreon.smartsis.users.AppRole",
 
 	"name", "java.lang.String",
 
-	"usersCount", "java.lang.Integer",
+	"appUsersCount", "java.lang.Integer",
 
 	},
 

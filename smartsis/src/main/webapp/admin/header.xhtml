@@ -23,6 +23,16 @@
 			</rich:toolBarGroup>
 
 			<rich:toolBarGroup>
+				<h:graphicImage value="/images/icons/eye.png" />
+				<s:link action="student" value="Students" />
+			</rich:toolBarGroup>
+			
+			<rich:toolBarGroup>
+				<h:graphicImage value="/images/icons/eye.png" />
+				<s:link action="grade" value="Grades" />
+			</rich:toolBarGroup>
+
+			<rich:toolBarGroup>
 				<h:graphicImage id="filter" value="/images/icons/chart_bar.png" />
 				<s:link view="/admin/reports/reports.xhtml" value="Reports" />
 			</rich:toolBarGroup>
@@ -38,16 +48,25 @@
 				<s:link action="/admin/recieveStudentFees.xhtml"
 					value="Recieve Fees" />
 			</rich:toolBarGroup>
-			
-			<rich:toolBarGroup>
-				<h:graphicImage value="/images/icons/eye.png" />
-				<s:link action="/admin/recieveStudentFees.xhtml"
-					value="Attendance" />
-			</rich:toolBarGroup>
-	
 
 			<rich:toolBarGroup>
-				<h:graphicImage id="issues" value="/images/icons/add.png" />
+				<h:graphicImage value="/images/icons/eye.png" />
+				<s:link action="editGradeAttendance" value="Attendance" propagation="none" >
+					<f:param name="gradeAttendanceId" value="0" />
+				</s:link>
+				
+			</rich:toolBarGroup>
+
+			<rich:toolBarGroup>
+				<h:graphicImage value="/images/icons/eye.png" />
+				<s:link action="editExamInstance" value="Upload Score" propagation="none"  >
+					<f:param name="examInstanceId" value="0" />
+				</s:link>
+			</rich:toolBarGroup>
+
+
+			<rich:toolBarGroup>
+				<h:graphicImage id="editElectronicExam" value="/images/icons/add.png" />
 				<s:link action="editElectronicExam" value="Create Electronic Exam">
 					<f:param name="issueId" value="0" />
 				</s:link>
@@ -57,28 +76,6 @@
 				<s:link action="#{identity.logout}" view="/login.xhtml"
 					value="Logout #{identity.credentials.username}" propagation="none" />
 			</rich:toolBarGroup>
-
-			<rich:toolBarGroup location="right">
-				<h:selectOneMenu value="#{localeSelector.localeString}">
-					<a:support event="onchange" action="#{customLocaleSelector.select}"
-						ajaxSingle="true" />
-					<f:selectItems value="#{localeSelector.supportedLocales}" />
-				</h:selectOneMenu>
-			</rich:toolBarGroup>
-
-
-			<rich:toolBarGroup location="right">
-
-				<h:inputText styleClass="barsearch"
-					value="#{issueList.textToSearch}" required="true" />
-				<h:commandButton styleClass="barsearchbutton"
-					action="#{issueList.textSearch}" value="Search">
-					<s:conversationPropagation type="join"></s:conversationPropagation>
-				</h:commandButton>
-
-			</rich:toolBarGroup>
-
-
 
 
 		</rich:toolBar>

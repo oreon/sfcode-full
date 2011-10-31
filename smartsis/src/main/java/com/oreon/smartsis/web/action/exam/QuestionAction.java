@@ -15,7 +15,7 @@ import com.oreon.smartsis.exam.Question;
 public class QuestionAction extends QuestionActionBase implements java.io.Serializable{
 	
 	public String getChoiceText(Question question, ChoiceIndex ci){
-		return ((Choice) question.getChoices().toArray()[ci.ordinal()]).getText();
+		return ((Choice) question.getChoices().toArray()[ci.ordinal()]).getChoice();
 	}
 	
 }

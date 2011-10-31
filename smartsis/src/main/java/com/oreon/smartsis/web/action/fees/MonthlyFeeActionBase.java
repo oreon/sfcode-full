@@ -112,7 +112,9 @@ public abstract class MonthlyFeeActionBase extends BaseAction<MonthlyFee>
 
 	@Override
 	protected MonthlyFee createInstance() {
-		return new MonthlyFee();
+		MonthlyFee instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -231,6 +233,11 @@ public abstract class MonthlyFeeActionBase extends BaseAction<MonthlyFee>
 	public void clearLists() {
 		listGradeFeeItems.clear();
 
+	}
+
+	public String viewMonthlyFee() {
+		load(currentEntityId);
+		return "viewMonthlyFee";
 	}
 
 }

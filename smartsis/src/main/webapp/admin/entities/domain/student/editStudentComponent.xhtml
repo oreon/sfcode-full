@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+  <h:panelGroup id="editStudentComponentPanel"> 
     <s:validateAll> 
       <h:panelGrid columns="1" onload="#{studentAction.load(studentId )  }"/>  
       <c:if test="${numColumns == null }"> 
@@ -13,7 +13,7 @@
         </f:facet>  
         <s:decorate id="firstNameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'firstNameEdit')}"/>
+            <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'firstNameEdit')}"/>
           </ui:define>  
           <h:inputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'firstNameEdit')}" label="#{msg.person_firstName}" required="true" disabled="false" value="#{studentAction.student.firstName}"> 
             <rich:ajaxValidator event="onsubmit"/> 
@@ -21,7 +21,7 @@
         </s:decorate>  
         <s:decorate id="lastNameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'lastNameEdit')}"/>
+            <h:outputText value="#{msg.person_lastName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'lastNameEdit')}"/>
           </ui:define>  
           <h:inputText id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'lastNameEdit')}" label="#{msg.person_lastName}" required="true" disabled="false" value="#{studentAction.student.lastName}"> 
             <rich:ajaxValidator event="onsubmit"/> 
@@ -44,7 +44,7 @@
         </s:decorate>  
         <s:decorate id="genderDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.student_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'genderEdit')}"/>
+            <h:outputText value="#{msg.student_gender} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'genderEdit')}"/>
           </ui:define>  
           <h:selectOneMenu id="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'genderEdit')}" value="#{studentAction.student.gender}" required="false" label="#{msg.student_gender}"> 
             <f:selectItem itemLabel="Please Select..." itemValue=""/>  
@@ -55,7 +55,7 @@
         </s:decorate>  
         <s:decorate id="dateOfBirthDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.student_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'dateOfBirthEdit')}"/>
+            <h:outputText value="#{msg.student_dateOfBirth} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'dateOfBirthEdit')}"/>
           </ui:define>  
           <rich:calendar direction="auto" id="dateOfBirth#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'dateOfBirthEdit')}" label="#{msg.student_dateOfBirth}" required="true" disabled="false" value="#{studentAction.student.dateOfBirth}"> 
             <rich:ajaxValidator event="onsubmit"/> 
@@ -103,7 +103,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.student_grade}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'gradeEdit')}"/>
           </ui:define>  
-          <h:selectOneMenu id="grade" label="#{msg.student_grade}" value="#{studentAction.student.grade}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'gradeEdit')}"> 
+          <h:selectOneMenu id="grade" label="#{msg.student_grade}" value="#{studentAction.student.grade}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'gradeEdit')}" disabled="false"> 
             <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
@@ -113,7 +113,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.student_primary}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'primaryEdit')}"/>
           </ui:define>  
-          <h:selectOneMenu id="primary" label="#{msg.student_primary}" value="#{studentAction.student.primary}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'primaryEdit')}"> 
+          <h:selectOneMenu id="primary" label="#{msg.student_primary}" value="#{studentAction.student.primary}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'primaryEdit')}" disabled="false"> 
             <s:selectItems value="#{parentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
@@ -123,7 +123,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.student_secondary}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'secondaryEdit')}"/>
           </ui:define>  
-          <h:selectOneMenu id="secondary" label="#{msg.student_secondary}" value="#{studentAction.student.secondary}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'secondaryEdit')}"> 
+          <h:selectOneMenu id="secondary" label="#{msg.student_secondary}" value="#{studentAction.student.secondary}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'secondaryEdit')}" disabled="false"> 
             <s:selectItems value="#{parentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
@@ -162,25 +162,28 @@
           </h:inputText> 
         </s:decorate> 
       </h:panelGrid>  
+      <br/>  
       <a:commandButton value="New StudentVitalInfo" action="#{studentAction.addStudentVitalInfos}" reRender="studentVitalInfos" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'studentVitalInfosEdit')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="studentVitalInfos" var="_studentVitalInfo" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'studentVitalInfosEdit')}" value="#{studentAction.listStudentVitalInfos}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
-        <h:column> 
+      <rich:dataTable id="studentVitalInfos" var="_studentVitalInfo" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('student', 'studentVitalInfosEdit')}" value="#{studentAction.listStudentVitalInfos}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.studentVitalInfo_height}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfo', 'heightEdit')}"/>
+          </f:facet>  
           <s:decorate id="heightDecorate" template="/layout/edit.xhtml"> 
-            <ui:define name="label"> 
-              <h:outputText value="#{msg.studentVitalInfo_height}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfo', 'heightEdit')}"/>
-            </ui:define>  
+            <ui:define name="label"></ui:define>  
             <h:inputText id="height#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfo', 'heightEdit')}" label="#{msg.studentVitalInfo_height}" required="false" disabled="false" value="#{_studentVitalInfo.height}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:inputText> 
           </s:decorate> 
         </h:column>  
-        <h:column> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.studentVitalInfo_weight}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfo', 'weightEdit')}"/>
+          </f:facet>  
           <s:decorate id="weightDecorate" template="/layout/edit.xhtml"> 
-            <ui:define name="label"> 
-              <h:outputText value="#{msg.studentVitalInfo_weight}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfo', 'weightEdit')}"/>
-            </ui:define>  
+            <ui:define name="label"></ui:define>  
             <h:inputText id="weight#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentVitalInfo', 'weightEdit')}" label="#{msg.studentVitalInfo_weight}" required="false" disabled="false" value="#{_studentVitalInfo.weight}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:inputText> 
@@ -196,7 +199,8 @@
             <s:conversationId/> 
           </a:commandButton> 
         </h:column> 
-      </rich:dataTable> 
+      </rich:dataTable>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

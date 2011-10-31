@@ -113,7 +113,7 @@
             </ui:include> 
           </f:facet>  
           <s:link value="#{_employee.manager.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
-            <f:param name="managerId" value="#{_employee.manager.id}"/>  
+            <f:param name="employeeId" value="#{_employee.manager.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
@@ -121,31 +121,31 @@
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{employeeList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.user_userName}"/>  
-              <ui:param name="propertyPath" value="employee.user.userName"/> 
+              <ui:param name="propertyLabel" value="#{msg.appUser_userName}"/>  
+              <ui:param name="propertyPath" value="employee.appUser.userName"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_employee.user.userName}" escape="false"/> 
+          <h:outputText value="#{_employee.appUser.userName}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('email', 'employeeView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{employeeList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.user_email}"/>  
-              <ui:param name="propertyPath" value="employee.user.email"/> 
+              <ui:param name="propertyLabel" value="#{msg.appUser_email}"/>  
+              <ui:param name="propertyPath" value="employee.appUser.email"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_employee.user.email}" escape="false"/> 
+          <h:outputText value="#{_employee.appUser.email}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('enabled', 'employeeView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{employeeList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.user_enabled}"/>  
-              <ui:param name="propertyPath" value="employee.user.enabled"/> 
+              <ui:param name="propertyLabel" value="#{msg.appUser_enabled}"/>  
+              <ui:param name="propertyPath" value="employee.appUser.enabled"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_employee.user.enabled? msg.yes : msg.no }"/> 
+          <h:outputText value="#{_employee.appUser.enabled? msg.yes : msg.no }"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'employeeView' )}"> 
           <f:facet name="header"> 

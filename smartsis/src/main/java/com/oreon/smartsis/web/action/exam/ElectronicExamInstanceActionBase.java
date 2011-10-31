@@ -129,7 +129,9 @@ public abstract class ElectronicExamInstanceActionBase
 
 	@Override
 	protected ElectronicExamInstance createInstance() {
-		return new ElectronicExamInstance();
+		ElectronicExamInstance instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -274,6 +276,11 @@ public abstract class ElectronicExamInstanceActionBase
 
 		return null;
 
+	}
+
+	public String viewElectronicExamInstance() {
+		load(currentEntityId);
+		return "viewElectronicExamInstance";
 	}
 
 }

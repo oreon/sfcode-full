@@ -112,7 +112,9 @@ public abstract class RoomActionBase extends BaseAction<Room>
 
 	@Override
 	protected Room createInstance() {
-		return new Room();
+		Room instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -230,6 +232,11 @@ public abstract class RoomActionBase extends BaseAction<Room>
 	public void clearLists() {
 		listBeds.clear();
 
+	}
+
+	public String viewRoom() {
+		load(currentEntityId);
+		return "viewRoom";
 	}
 
 }

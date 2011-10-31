@@ -94,7 +94,9 @@ public abstract class SettingsActionBase extends BaseAction<Settings>
 
 	@Override
 	protected Settings createInstance() {
-		return new Settings();
+		Settings instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -149,6 +151,11 @@ public abstract class SettingsActionBase extends BaseAction<Settings>
 
 	public void clearLists() {
 
+	}
+
+	public String viewSettings() {
+		load(currentEntityId);
+		return "viewSettings";
 	}
 
 }

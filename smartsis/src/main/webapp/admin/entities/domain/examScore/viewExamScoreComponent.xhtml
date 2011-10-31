@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+  <h:panelGroup id="viewExamScoreComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{examScoreAction.load(examScoreId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{examScoreAction.examScore.id}"/>  
-        <h:outputText value="#{msg.examScore_examInstance}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'examInstanceView')}"/>  
-        <s:link value="#{examScoreAction.examScore.examInstance.displayName}" view="/admin/entities/domain/examInstance/viewExamInstance.xhtml" propagation="none"> 
-          <f:param name="examInstanceId" value="#{examScoreAction.examScore.examInstance.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
-        <h:outputText value="#{msg.examScore_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'studentView')}"/>  
-        <s:link value="#{examScoreAction.examScore.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml" propagation="none"> 
-          <f:param name="studentId" value="#{examScoreAction.examScore.student.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
+      <h:panelGrid columns="1" onload="#{examScoreAction.load(examScoreId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.ExamScore}"/> 
+        </f:facet>  
         <h:outputText value="#{msg.examScore_examName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'examNameView')}"/>  
         <h:outputText id="examName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'examNameView')}" value="#{examScoreAction.examScore.examName}"></h:outputText>  
         <h:outputText value="#{msg.examScore_subject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'subjectView')}"/>  
@@ -25,8 +20,20 @@
         <h:outputText value="#{msg.examScore_percentage}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'percentageView')}"/>  
         <h:outputText id="percentage#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'percentageView')}" value="#{examScoreAction.examScore.percentage}"></h:outputText>  
         <h:outputText value="#{msg.examScore_rank}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'rankView')}"/>  
-        <h:outputText id="rank#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'rankView')}" value="#{examScoreAction.examScore.rank}"></h:outputText> 
-      </h:panelGrid> 
+        <h:outputText id="rank#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'rankView')}" value="#{examScoreAction.examScore.rank}"></h:outputText>  
+        <h:outputText value="#{msg.examScore_examInstance}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'examInstanceView')}"/>  
+        <s:link value="#{examScoreAction.examScore.examInstance.displayName}" action="viewexamInstance" propagation="none"> 
+          <f:param name="examInstanceId" value="#{examScoreAction.examScore.examInstance.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.examScore_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('examScore', 'studentView')}"/>  
+        <s:link value="#{examScoreAction.examScore.student.displayName}" action="viewstudent" propagation="none"> 
+          <f:param name="studentId" value="#{examScoreAction.examScore.student.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

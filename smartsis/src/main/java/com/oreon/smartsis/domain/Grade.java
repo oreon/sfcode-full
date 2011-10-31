@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Date;
+import javax.ws.rs.core.Response;
 
 import javax.persistence.*;
 import org.hibernate.validator.*;
@@ -21,6 +22,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Boost;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Parameter;
@@ -73,9 +75,9 @@ public class Grade extends BusinessEntity implements java.io.Serializable {
 	@IndexedEmbedded
 	private Set<Student> students = new HashSet<Student>();
 
-	public void addStudents(Student students) {
-		students.setGrade(this);
-		this.students.add(students);
+	public void addStudent(Student student) {
+		student.setGrade(this);
+		this.students.add(student);
 	}
 
 	@Transient
@@ -92,10 +94,12 @@ public class Grade extends BusinessEntity implements java.io.Serializable {
 	@JoinTable(name = "grades_exams", joinColumns = @JoinColumn(name = "grades_ID"), inverseJoinColumns = @JoinColumn(name = "exams_ID"))
 	private Set<Exam> exams = new HashSet<Exam>();
 
+	@Column(unique = false)
 	protected Integer ordinal
 
 	;
 
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String section
@@ -108,9 +112,9 @@ public class Grade extends BusinessEntity implements java.io.Serializable {
 	@IndexedEmbedded
 	private Set<GradeSubject> gradeSubjects = new HashSet<GradeSubject>();
 
-	public void addGradeSubjects(GradeSubject gradeSubjects) {
-		gradeSubjects.setGrade(this);
-		this.gradeSubjects.add(gradeSubjects);
+	public void addGradeSubject(GradeSubject gradeSubject) {
+		gradeSubject.setGrade(this);
+		this.gradeSubjects.add(gradeSubject);
 	}
 
 	@Transient

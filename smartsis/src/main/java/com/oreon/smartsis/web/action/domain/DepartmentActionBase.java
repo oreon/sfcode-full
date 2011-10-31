@@ -99,7 +99,9 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 	@Override
 	protected Department createInstance() {
-		return new Department();
+		Department instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -204,6 +206,11 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	public void clearLists() {
 		listEmployees.clear();
 
+	}
+
+	public String viewDepartment() {
+		load(currentEntityId);
+		return "viewDepartment";
 	}
 
 }

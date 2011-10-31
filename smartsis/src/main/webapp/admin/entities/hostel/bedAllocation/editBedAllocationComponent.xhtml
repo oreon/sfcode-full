@@ -1,39 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+  <h:panelGroup id="editBedAllocationComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{bedAllocationAction.load(bedAllocationId )  }"> 
-        <h:outputText value="#{msg.bedAllocation_bed} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'bedEdit')}"/>  
-        <h:selectOneMenu id="bed" label="#{msg.bedAllocation_bed}" value="#{bedAllocationAction.bedAllocation.bed}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'bedEdit')}"> 
-          <s:selectItems value="#{bedAction.availableBeds()}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="bed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'bedEdit')}"/>  
-        <h:outputText value="#{msg.bedAllocation_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'studentEdit')}"/>  
-        <h:selectOneMenu id="student" label="#{msg.bedAllocation_student}" value="#{bedAllocationAction.bedAllocation.student}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'studentEdit')}"> 
-          <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'studentEdit')}"/>  
-        <h:outputText value="#{msg.bedAllocation_startDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'startDateEdit')}"/>  
-        <rich:calendar direction="auto" id="startDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'startDateEdit')}" label="#{msg.bedAllocation_startDate}" required="false" disabled="false" value="#{bedAllocationAction.bedAllocation.startDate}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:calendar>  
-        <rich:message styleClass="error errors" for="startDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'startDateEdit')}"/>  
-        <h:outputText value="#{msg.bedAllocation_endDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'endDateEdit')}"/>  
-        <rich:calendar direction="auto" id="endDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'endDateEdit')}" label="#{msg.bedAllocation_endDate}" required="false" disabled="false" value="#{bedAllocationAction.bedAllocation.endDate}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:calendar>  
-        <rich:message styleClass="error errors" for="endDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'endDateEdit')}"/>  
-        <h:outputText value="#{msg.bedAllocation_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'remarksEdit')}"/>  
-        <rich:editor useSeamText="true" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'remarksEdit')}" label="#{msg.bedAllocation_remarks}" required="false" disabled="false" value="#{bedAllocationAction.bedAllocation.remarks}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:editor>  
-        <rich:message styleClass="error errors" for="remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'remarksEdit')}"/> 
-      </h:panelGrid> 
+      <h:panelGrid columns="1" onload="#{bedAllocationAction.load(bedAllocationId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.BedAllocation}"/> 
+        </f:facet>  
+        <s:decorate id="startDateDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.bedAllocation_startDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'startDateEdit')}"/>
+          </ui:define>  
+          <rich:calendar direction="auto" id="startDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'startDateEdit')}" label="#{msg.bedAllocation_startDate}" required="false" disabled="false" value="#{bedAllocationAction.bedAllocation.startDate}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:calendar> 
+        </s:decorate>  
+        <s:decorate id="endDateDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.bedAllocation_endDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'endDateEdit')}"/>
+          </ui:define>  
+          <rich:calendar direction="auto" id="endDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'endDateEdit')}" label="#{msg.bedAllocation_endDate}" required="false" disabled="false" value="#{bedAllocationAction.bedAllocation.endDate}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:calendar> 
+        </s:decorate>  
+        <s:decorate id="remarksDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.bedAllocation_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'remarksEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'remarksEdit')}" label="#{msg.bedAllocation_remarks}" required="false" disabled="false" value="#{bedAllocationAction.bedAllocation.remarks}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="bedDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.bedAllocation_bed} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'bedEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="bed" label="#{msg.bedAllocation_bed}" value="#{bedAllocationAction.bedAllocation.bed}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'bedEdit')}" disabled="false"> 
+            <s:selectItems value="#{bedAction.availableBeds()}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="studentDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.bedAllocation_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'studentEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="student" label="#{msg.bedAllocation_student}" value="#{bedAllocationAction.bedAllocation.student}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedAllocation', 'studentEdit')}" disabled="false"> 
+            <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

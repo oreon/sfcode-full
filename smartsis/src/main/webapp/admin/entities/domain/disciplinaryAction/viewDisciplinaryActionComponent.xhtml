@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+  <h:panelGroup id="viewDisciplinaryActionComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{disciplinaryActionAction.load(disciplinaryActionId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{disciplinaryActionAction.disciplinaryAction.id}"/>  
+      <h:panelGrid columns="1" onload="#{disciplinaryActionAction.load(disciplinaryActionId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.DisciplinaryAction}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.disciplinaryAction_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'titleView')}"/>  
+        <h:outputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'titleView')}" value="#{disciplinaryActionAction.disciplinaryAction.title}"></h:outputText>  
+        <h:outputText value="#{msg.disciplinaryAction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'descriptionView')}"/>  
+        <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'descriptionView')}" value="#{disciplinaryActionAction.disciplinaryAction.description}"></h:outputText>  
         <h:outputText value="#{msg.disciplinaryAction_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'studentView')}"/>  
-        <s:link value="#{disciplinaryActionAction.disciplinaryAction.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml" propagation="none"> 
+        <s:link value="#{disciplinaryActionAction.disciplinaryAction.student.displayName}" action="viewstudent" propagation="none"> 
           <f:param name="studentId" value="#{disciplinaryActionAction.disciplinaryAction.student.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.disciplinaryAction_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'employeeView')}"/>  
-        <s:link value="#{disciplinaryActionAction.disciplinaryAction.employee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
+        <s:link value="#{disciplinaryActionAction.disciplinaryAction.employee.displayName}" action="viewemployee" propagation="none"> 
           <f:param name="employeeId" value="#{disciplinaryActionAction.disciplinaryAction.employee.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
-        <h:outputText value="#{msg.disciplinaryAction_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'titleView')}"/>  
-        <h:outputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'titleView')}" value="#{disciplinaryActionAction.disciplinaryAction.title}"></h:outputText>  
-        <h:outputText value="#{msg.disciplinaryAction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'descriptionView')}"/>  
-        <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disciplinaryAction', 'descriptionView')}" value="#{disciplinaryActionAction.disciplinaryAction.description}"></h:outputText> 
-      </h:panelGrid> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

@@ -21,6 +21,7 @@ import com.oreon.smartsis.Gender;
 import com.oreon.smartsis.QuestionCorrectScoreBean;
 import com.oreon.smartsis.domain.Employee;
 import com.oreon.smartsis.domain.Exam;
+import com.oreon.smartsis.domain.FeeMonth;
 import com.oreon.smartsis.domain.Grade;
 import com.oreon.smartsis.domain.GradeSubject;
 import com.oreon.smartsis.domain.Student;
@@ -32,15 +33,18 @@ import com.oreon.smartsis.exam.ElectronicExamEvent;
 import com.oreon.smartsis.exam.ElectronicExamInstance;
 import com.oreon.smartsis.exam.Question;
 import com.oreon.smartsis.exam.QuestionInstance;
-import com.oreon.smartsis.users.Role;
-import com.oreon.smartsis.users.User;
+import com.oreon.smartsis.fees.FeeItem;
+import com.oreon.smartsis.fees.GradeFeeItem;
+import com.oreon.smartsis.fees.MonthlyFee;
+import com.oreon.smartsis.users.AppRole;
+import com.oreon.smartsis.users.AppUser;
 import com.oreon.smartsis.web.action.domain.ExamInstanceAction;
 import com.oreon.smartsis.web.action.exam.ElectronicExamInstanceAction;
-import com.oreon.smartsis.web.action.users.UserAction;
+import com.oreon.smartsis.web.action.users.AppUserAction;
 
-public class AuthenticatorTest extends BaseTest<User> {
+public class AuthenticatorTest extends BaseTest<AppUser> {
 
-	UserAction action = new UserAction();
+	AppUserAction action = new AppUserAction();
 
 	@BeforeClass
 	public void init() {
@@ -48,7 +52,7 @@ public class AuthenticatorTest extends BaseTest<User> {
 	}
 
 	@Override
-	public BaseAction<User> getAction() {
+	public BaseAction<AppUser> getAction() {
 		return action;
 	}
 
@@ -73,9 +77,9 @@ public class AuthenticatorTest extends BaseTest<User> {
 	public void testRegisterAction() throws Exception {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		em.getTransaction().begin();
-
+			
 		Query query = em
-				.createQuery("Select u From User u where u.userName = ?1 ");
+				.createQuery("Select u From AppUser u where u.userName = ?1 ");
 		query.setParameter(1, "admin");
 		
 		
@@ -94,9 +98,12 @@ public class AuthenticatorTest extends BaseTest<User> {
 				createUserAndRole("roger", "roger", "teacher");
 				createUserAndRole("erica", "erica", "clerk");
 				
-				createSubjects();
-				createGrades();
+				createFees();
 				createExams();
+				createSubjects();
+				
+				createGrades();
+				
 				createElectronicExams();
 				createElectronicExamInstance();
 			}
@@ -109,24 +116,24 @@ public class AuthenticatorTest extends BaseTest<User> {
 
 	int userCounter = 0;
 	
-	private User createUserAndRole(String username, String password, String role) {
+	private AppUser createUserAndRole(String username, String password, String role) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		em.getTransaction().begin();
 
-		User user = new User();
+		AppUser user = new AppUser();
 		user.setUserName(username);
 		user.setPassword(password);
 
-		Role adminRole = new Role();
+		AppRole adminRole = new AppRole();
 		adminRole.setName(role);
-		user.getRoles().add(adminRole);
+		user.getAppRoles().add(adminRole);
 		user.setEmail(username + "@gmail.com");
 		user.setEnabled(true);
 		
 		Employee employee = new Employee();
 		employee.setFirstName(username);
 		employee.setLastName(userCounter++ % 2 == 0 ? "Somerson":"Kirvokian");
-		employee.setUser(user);
+		employee.setAppUser(user);
 
 		// setValue("#{userAction.instance}", admin);
 		// invokeMethod("#{userAction.save}");
@@ -146,16 +153,17 @@ public class AuthenticatorTest extends BaseTest<User> {
 			grade.setName(gradeStr);
 			grade.setOrdinal(++i);
 			for (int j = 0; j < 5; j++) {
-				grade.addStudents(createStudent(i));
+				grade.addStudent(createStudent(i));
 			}
 			List<Subject> subjects = em.createQuery("Select s from Subject s ").getResultList();
 			for (Subject subject : subjects) {
 				GradeSubject gradeSubject = new GradeSubject();
 				gradeSubject.setGrade(grade);
 				gradeSubject.setSubject(subject);
-				grade.addGradeSubjects(gradeSubject);
+				grade.addGradeSubject(gradeSubject);
 			}
 			
+			createGradeFees(grade, i);
 			txPersist(grade);
 			
 		}
@@ -194,10 +202,19 @@ public class AuthenticatorTest extends BaseTest<User> {
 			
 			Exam exam = new Exam();
 			exam.setName(examStr);
-			if(++i < 4 )
+			
+			if(++i < 4 ){
+				exam.setMaxMarks(40);
+				exam.setPassMarks(16);
 				exam.setWeight(0.2);
-			else
+				exam.setOrdinal(i);
+			}
+			else {
+				exam.setMaxMarks(100);
+				exam.setPassMarks(40);
 				exam.setWeight(0.4);
+				exam.setOrdinal(i);
+			}
 			txPersist(exam);
 		}
 	}
@@ -210,15 +227,15 @@ public class AuthenticatorTest extends BaseTest<User> {
 		exam.setGradeSubject( em.find(GradeSubject.class, 1L));
 		exam.setName("Arithmetic-Basic");
 		
-		exam.addQuestions(createQuestion("What is 5+3?", new String[]{"8","9","7","6"}, ChoiceIndex.A));
+		exam.addQuestion(createQuestion("What is 5+3?", new String[]{"8","9","7","6"}, ChoiceIndex.A));
 		
-		exam.addQuestions(createQuestion("What is 9 * 3?", new String[]{"8","27","70","17"}, ChoiceIndex.B));
+		exam.addQuestion(createQuestion("What is 9 * 3?", new String[]{"8","27","70","17"}, ChoiceIndex.B));
 	
-		exam.addQuestions(createQuestion("What is 15+3?", new String[]{"8","9","7","18"}, ChoiceIndex.D));
+		exam.addQuestion(createQuestion("What is 15+3?", new String[]{"8","9","7","18"}, ChoiceIndex.D));
 		
-		exam.addQuestions(createQuestion("What is 5 * 3?", new String[]{"8","9","15","6"}, ChoiceIndex.C));
+		exam.addQuestion(createQuestion("What is 5 * 3?", new String[]{"8","9","15","6"}, ChoiceIndex.C));
 		
-		exam.addQuestions(createQuestion("What is 3+3?", new String[]{"6","9","7","16"}, ChoiceIndex.A));
+		exam.addQuestion(createQuestion("What is 3+3?", new String[]{"6","9","7","16"}, ChoiceIndex.A));
 		
 		txPersist(exam);
 	}
@@ -240,7 +257,7 @@ public class AuthenticatorTest extends BaseTest<User> {
 			QuestionInstance questionInstance = new QuestionInstance();
 			questionInstance.setQuestion(question);
 			questionInstance.setSelectedChoice(ChoiceIndex.values()[i++%4]);
-			examInstance.addQuestionInstances(questionInstance);
+			examInstance.addQuestionInstance(questionInstance);
 		}
 		
 		examInstance.setElectronicExamEvent(event);
@@ -255,18 +272,56 @@ public class AuthenticatorTest extends BaseTest<User> {
 	
 	private Question createQuestion(String text, String[] choices, ChoiceIndex correctChoice){
 		Question question = new Question();
-		question.setText(text);
+		question.setQuestion(text);
 		for (String chstr : choices) {
 			Choice choice = new Choice();
-			choice.setText(chstr);
-			question.addChoices(choice);
+			choice.setChoice(chstr);
+			question.addChoice(choice);
 		}
 		question.setCorrectChoice(correctChoice);
 		return question;
 	}
 	
 	private void createFees(){
+		String[] names = { "Tution", "Admission", "Lab", "Cocurricular"};
+		int i = 0 ;
+		for (String name : names) {
+			i++;
+			FeeItem fee = new FeeItem();
+			fee.setName(name);
+			fee.setDefaultAmount(300.0 + i * 100.0);
+			txPersist(fee);
+		}
 		
+	}
+	
+	private void createGradeFees(Grade grade, int gradeOrdinal){
+		FeeMonth[] feeMonths = FeeMonth.values();
+		for (FeeMonth feeMonth : feeMonths) {
+			MonthlyFee fee = new MonthlyFee();
+			fee.setMonth(feeMonth);
+			fee.setGrade(grade);
+			
+			if(feeMonth.ordinal() == 6){
+				GradeFeeItem admission = new GradeFeeItem();
+				admission.setFeeItem(em.find(FeeItem.class, 2L));
+				admission.setAmount(admission.getFeeItem().getDefaultAmount() );
+				fee.addGradeFeeItem(admission);
+			}
+			GradeFeeItem item = new GradeFeeItem();
+			item.setFeeItem(em.find(FeeItem.class, 1L));
+			item.setAmount(item.getFeeItem().getDefaultAmount() );
+			fee.addGradeFeeItem(item);
+			
+			if(gradeOrdinal > 10 ){
+				GradeFeeItem lab = new GradeFeeItem();
+				lab.setFeeItem(em.find(FeeItem.class, 3L));
+				lab.setAmount(lab.getFeeItem().getDefaultAmount() );
+				fee.addGradeFeeItem(lab);
+			}
+			
+			txPersist(fee);
+		}
 	}
 
 	private void txPersist(BusinessEntity be) {

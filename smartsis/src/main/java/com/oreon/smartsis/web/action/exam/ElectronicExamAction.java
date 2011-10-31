@@ -27,7 +27,7 @@ public class ElectronicExamAction extends ElectronicExamActionBase implements
 			
 			Question question = new Question();
 			for (int j = 0; j < 4; j++) {
-				question.addChoices(new Choice());
+				question.addChoice(new Choice());
 			}
 			question.setElectronicExam(getInstance());
 			listQuestions.add(question);

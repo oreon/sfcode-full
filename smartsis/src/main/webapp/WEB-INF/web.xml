@@ -17,7 +17,18 @@
 		<filter-name>richfaces</filter-name>
 		<url-pattern>*.seam</url-pattern>
 	</filter-mapping>
+	
+	 <servlet>
+        <servlet-name>default</servlet-name>
+        <init-param>
+            <param-name>useFileMappedBuffer</param-name>
+            <param-value>false</param-value>
+        </init-param>
+    </servlet>
+    
 	<!--
+	
+	
 		<servlet> <display-name>CXF Servlet</display-name>
 		<servlet-name>CXFServlet</servlet-name>
 		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
@@ -54,6 +65,11 @@
 		<param-value>true</param-value>
 	</context-param>
 
+	<context-param>
+		<param-name>org.richfaces.SKIN</param-name>
+		<param-value>glassX</param-value>
+	</context-param>
+	
 	<context-param>
 		<param-name>facelets.LIBRARIES</param-name>
 		<param-value>

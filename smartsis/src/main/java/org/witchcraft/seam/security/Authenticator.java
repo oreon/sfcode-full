@@ -16,8 +16,8 @@ import org.jboss.seam.security.Identity;
 import org.jboss.seam.security.permission.RuleBasedPermissionResolver;
 import org.witchcraft.base.entity.UserUtilAction;
 
-import com.oreon.smartsis.users.Role;
-import com.oreon.smartsis.users.User;
+import com.oreon.smartsis.users.AppRole;
+import com.oreon.smartsis.users.AppUser;
 
 @Name("authenticator")
 public class Authenticator {
@@ -40,15 +40,16 @@ public class Authenticator {
 
 		try {
 
-			User user = (User) entityManager.createQuery(
-					"from User where username = :username and password = :password")
+			AppUser user = (AppUser) entityManager
+					.createQuery(
+					"from AppUser where username = :username and password = :password")
 					.setParameter("username", credentials.getUsername())
 					.setParameter("password", credentials.getPassword())
 					.getSingleResult();
 
-			if (user.getRoles() != null) {
-				Set<Role> roles = user.getRoles();
-				for (Role role : roles) {
+			if (user.getAppRoles() != null) {
+				Set<AppRole> roles = user.getAppRoles();
+				for (AppRole role : roles) {
 					identity.addRole(role.getName());
 				}
 			}else{
@@ -59,7 +60,7 @@ public class Authenticator {
 			
 			RuleBasedPermissionResolver resolver = RuleBasedPermissionResolver.instance();
 			if(resolver != null) {
-				//resolver.getSecurityContext().insert(user);
+				resolver.getSecurityContext().insert(user);
 			}
 
 			userUtilAction.setCurrentUser(user);
@@ -80,12 +81,12 @@ public class Authenticator {
 
 	}
 	
-	private void updateActor(User user) {
+	private void updateActor(AppUser user) {
 		if(actor == null)
 			return;
 		actor.setId(user.getUserName());
-		Set<Role> roles = user.getRoles();
-		for (Role role : roles) {
+		Set<AppRole> roles = user.getAppRoles();
+		for (AppRole role : roles) {
 			actor.getGroupActorIds().add( role.getName() );
 		}
 	}

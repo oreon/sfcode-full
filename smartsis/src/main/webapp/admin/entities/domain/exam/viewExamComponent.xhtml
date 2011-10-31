@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+  <h:panelGroup id="viewExamComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{examAction.load(examId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{examAction.exam.id}"/>  
+      <h:panelGrid columns="1" onload="#{examAction.load(examId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Exam}"/> 
+        </f:facet>  
         <h:outputText value="#{msg.exam_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'nameView')}"/>  
         <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'nameView')}" value="#{examAction.exam.name}"></h:outputText>  
         <h:outputText value="#{msg.exam_maxMarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'maxMarksView')}"/>  
@@ -16,7 +21,9 @@
         <h:outputText id="ordinal#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'ordinalView')}" value="#{examAction.exam.ordinal}"></h:outputText>  
         <h:outputText value="#{msg.exam_weight}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'weightView')}"/>  
         <h:outputText id="weight#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'weightView')}" value="#{examAction.exam.weight}"></h:outputText> 
-      </h:panelGrid> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

@@ -94,7 +94,9 @@ public abstract class FeeItemActionBase extends BaseAction<FeeItem>
 
 	@Override
 	protected FeeItem createInstance() {
-		return new FeeItem();
+		FeeItem instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -149,6 +151,11 @@ public abstract class FeeItemActionBase extends BaseAction<FeeItem>
 
 	public void clearLists() {
 
+	}
+
+	public String viewFeeItem() {
+		load(currentEntityId);
+		return "viewFeeItem";
 	}
 
 }

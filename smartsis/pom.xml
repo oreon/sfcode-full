@@ -385,23 +385,23 @@
 		</dependency>
 
 
-	<dependency>
-          <groupId>org.jboss.resteasy</groupId>
-          <artifactId>resteasy-jaxrs</artifactId>
-          <version>2.0.0.GA</version>
-       </dependency>
-	
 		<dependency>
-          <groupId>org.jboss.resteasy</groupId>
-          <artifactId>resteasy-jaxb-provider</artifactId>
-          <version>2.0.0.GA</version>
-           <exclusions>
-              <exclusion>
-                  <groupId>com.sun.xml.bind</groupId>
-                  <artifactId>jaxb-impl</artifactId>
-              </exclusion>
-          </exclusions> 
-      </dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+			<version>2.0.0.GA</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxb-provider</artifactId>
+			<version>2.0.0.GA</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.sun.xml.bind</groupId>
+					<artifactId>jaxb-impl</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
@@ -493,11 +493,16 @@
 		</dependency>
 
 
-
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-math</artifactId>
 			<version>2.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+			<version>10.8.1.2</version>
 		</dependency>
 
 	</dependencies>
@@ -505,23 +510,27 @@
 		<!-- repository for tomahawk -->
 
 		<repository>
-			<id>jboss-repo</id>
-			<name>JBoss Maven 2 repo</name>
-			<url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Maven Repository Group</name>
+			<url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+			<layout>default</layout>
 			<releases>
 				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
 			</releases>
 			<snapshots>
-				<enabled>false</enabled>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
 			</snapshots>
 		</repository>
 
+<!-- 
 		<repository>
 			<id>dj-repo</id>
 			<name>Dyanmic jasper repo</name>
 			<url>http://fdvs.com.ar/djmaven2/</url>
 		</repository>
-
+-->
 		<repository>
 			<id>prime-repo</id>
 			<name>Prime Technology Maven Repository</name>

@@ -96,7 +96,9 @@ public abstract class HostelActionBase extends BaseAction<Hostel>
 
 	@Override
 	protected Hostel createInstance() {
-		return new Hostel();
+		Hostel instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -191,6 +193,11 @@ public abstract class HostelActionBase extends BaseAction<Hostel>
 	public void clearLists() {
 		listRooms.clear();
 
+	}
+
+	public String viewHostel() {
+		load(currentEntityId);
+		return "viewHostel";
 	}
 
 }

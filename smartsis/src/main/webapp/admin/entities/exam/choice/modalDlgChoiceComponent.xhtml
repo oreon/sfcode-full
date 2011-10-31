@@ -2,7 +2,7 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <c:set var="opId" value="outputPanel-${modalId}"/>  
-  <rich:modalPanel id="${modalId}" autosized="true" zindex="2000" domElementAttachment="parent"> 
+  <rich:modalPanel id="${modalId}" autosized="true" zindex="2000" domElementAttachment="parent" onshow="adoptCTDialogHeight()"> 
     <f:facet name="header"> 
       <h:panelGroup> 
         <h:outputText value="#{choiceAction.id == null ? msg.new : msg.edit} Choice"/> 
@@ -14,7 +14,7 @@
         <rich:componentControl for="${modalId}" attachTo="hide${modalId}" operation="hide" event="onclick"/> 
       </h:panelGroup> 
     </f:facet>  
-    <s:div> 
+    <s:div id="ctContent" styleClass="dte-content" layout="block"> 
       <rich:messages passedLabel="" style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list"></rich:messages>  
       <h:form> 
         <ui:include src="/admin/entities/exam/choice/editChoiceComponent.xhtml"/>  

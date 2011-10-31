@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Date;
+import javax.ws.rs.core.Response;
 
 import javax.persistence.*;
 import org.hibernate.validator.*;
@@ -21,6 +22,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Boost;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Parameter;
@@ -64,9 +66,9 @@ public class Department extends BusinessEntity implements java.io.Serializable {
 	@IndexedEmbedded
 	private Set<Employee> employees = new HashSet<Employee>();
 
-	public void addEmployees(Employee employees) {
-		employees.setDepartment(this);
-		this.employees.add(employees);
+	public void addEmployee(Employee employee) {
+		employee.setDepartment(this);
+		this.employees.add(employee);
 	}
 
 	@Transient

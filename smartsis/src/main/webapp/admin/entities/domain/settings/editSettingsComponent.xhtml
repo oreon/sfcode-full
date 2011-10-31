@@ -1,28 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+  <h:panelGroup id="editSettingsComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{settingsAction.load(settingsId )  }"> 
-        <h:outputText value="#{msg.settings_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'nameEdit')}"/>  
-        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'nameEdit')}" label="#{msg.settings_name}" required="true" disabled="false" value="#{settingsAction.settings.name}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'nameEdit')}"/>  
-        <h:outputText value="#{msg.settings_gradeCapacity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'gradeCapacityEdit')}"/>  
-        <h:inputText id="gradeCapacity#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'gradeCapacityEdit')}" label="#{msg.settings_gradeCapacity}" required="false" disabled="false" value="#{settingsAction.settings.gradeCapacity}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="gradeCapacity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'gradeCapacityEdit')}"/>  
-        <h:outputText value="#{msg.settings_defaultGender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'defaultGenderEdit')}"/>  
-        <h:selectOneMenu id="defaultGender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'defaultGenderEdit')}" value="#{settingsAction.settings.defaultGender}" required="false" label="#{msg.settings_defaultGender}"> 
-          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
-          <f:selectItem itemValue="F" itemLabel="#{msg.F}"/>  
-          <f:selectItem itemValue="M" itemLabel="#{msg.M}"/>  
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="defaultGender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'defaultGenderEdit')}"/> 
-      </h:panelGrid> 
+      <h:panelGrid columns="1" onload="#{settingsAction.load(settingsId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Settings}"/> 
+        </f:facet>  
+        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.settings_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'nameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'nameEdit')}" label="#{msg.settings_name}" required="true" disabled="false" value="#{settingsAction.settings.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="gradeCapacityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.settings_gradeCapacity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'gradeCapacityEdit')}"/>
+          </ui:define>  
+          <h:inputText id="gradeCapacity#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'gradeCapacityEdit')}" label="#{msg.settings_gradeCapacity}" required="false" disabled="false" value="#{settingsAction.settings.gradeCapacity}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="defaultGenderDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.settings_defaultGender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'defaultGenderEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="defaultGender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settings', 'defaultGenderEdit')}" value="#{settingsAction.settings.defaultGender}" required="false" label="#{msg.settings_defaultGender}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="F" itemLabel="#{msg.F}"/>  
+            <f:selectItem itemValue="M" itemLabel="#{msg.M}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

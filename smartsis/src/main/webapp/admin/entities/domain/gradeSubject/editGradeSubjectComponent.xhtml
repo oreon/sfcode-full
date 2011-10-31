@@ -1,59 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+  <h:panelGroup id="editGradeSubjectComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{gradeSubjectAction.load(gradeSubjectId )  }"> 
-        <h:outputText value="#{msg.gradeSubject_subject} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'subjectEdit')}"/>  
-        <h:selectOneMenu id="subject" label="#{msg.gradeSubject_subject}" value="#{gradeSubjectAction.gradeSubject.subject}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'subjectEdit')}"> 
-          <s:selectItems value="#{subjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="subject" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'subjectEdit')}"/>  
-        <h:outputText value="#{msg.gradeSubject_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'employeeEdit')}"/>  
-        <h:selectOneMenu id="employee" label="#{msg.gradeSubject_employee}" value="#{gradeSubjectAction.gradeSubject.employee}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'employeeEdit')}"> 
-          <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="employee" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'employeeEdit')}"/>  
-        <h:outputText value="#{msg.gradeSubject_grade} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'gradeEdit')}"/>  
-        <h:selectOneMenu id="grade" label="#{msg.gradeSubject_grade}" value="#{gradeSubjectAction.gradeSubject.grade}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'gradeEdit')}"> 
-          <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="grade" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'gradeEdit')}"/> 
+      <h:panelGrid columns="1" onload="#{gradeSubjectAction.load(gradeSubjectId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.GradeSubject}"/> 
+        </f:facet>  
+        <s:decorate id="subjectDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.gradeSubject_subject} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'subjectEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="subject" label="#{msg.gradeSubject_subject}" value="#{gradeSubjectAction.gradeSubject.subject}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'subjectEdit')}" disabled="false"> 
+            <s:selectItems value="#{subjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="employeeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.gradeSubject_employee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'employeeEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="employee" label="#{msg.gradeSubject_employee}" value="#{gradeSubjectAction.gradeSubject.employee}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'employeeEdit')}" disabled="false"> 
+            <s:selectItems value="#{teacherEmployees}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="gradeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.gradeSubject_grade} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'gradeEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="grade" label="#{msg.gradeSubject_grade}" value="#{gradeSubjectAction.gradeSubject.grade}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'gradeEdit')}" disabled="false"> 
+            <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
       </h:panelGrid>  
+      <br/>  
       <a:commandButton value="New CourseDocumentse" action="#{gradeSubjectAction.addCourseDocumentses}" reRender="courseDocumentses" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'courseDocumentsesEdit')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="courseDocumentses" var="_courseDocuments" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'courseDocumentsesEdit')}" value="#{gradeSubjectAction.listCourseDocumentses}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
-        <h:column style="text-align:left">
+      <rich:dataTable id="courseDocumentses" var="_courseDocuments" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeSubject', 'courseDocumentsesEdit')}" value="#{gradeSubjectAction.listCourseDocumentses}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
           <f:facet name="header">
             <h:outputText value="#{msg.courseDocuments_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'nameEdit')}"/>
           </f:facet>  
-          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'nameEdit')}" label="#{msg.courseDocuments_name}" required="false" disabled="false" value="#{_courseDocuments.name}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
-          </h:inputText>  
-          <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'nameEdit')}"/> 
+          <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'nameEdit')}" label="#{msg.courseDocuments_name}" required="false" disabled="false" value="#{_courseDocuments.name}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
         </h:column>  
-        <h:column style="text-align:right">
+        <h:column>
           <f:facet name="header">
             <h:outputText value="#{msg.courseDocuments_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'documentEdit')}"/>
           </f:facet>  
-          <h:panelGroup rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'documentEdit')}"> 
-            <h:outputText value="Current File:"/>  
-            <s:link value="#{courseDocumentsAction.courseDocuments.document.name}" id="document_file" action="#{courseDocumentsAction.downloadFile(null)}" propagation="none"> 
-              <f:param name="currentEntityId" value="#{courseDocumentsAction.instance.id}"/> 
-            </s:link>  
-            <rich:fileUpload fileUploadListener="#{courseDocumentsAction.documentUploadListener}" immediateUpload="true" ajaxSingle="true" autoclear="false" listHeight="50"> 
-              <s:conversationPropagation type="join"/>  
-              <a:support event="onuploadcomplete" reRender="document_file"/> 
-            </rich:fileUpload> 
-          </h:panelGroup>  
-          <rich:message styleClass="error errors" for="document" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'documentEdit')}"/> 
+          <s:decorate id="documentDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:panelGroup rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'documentEdit')}"> 
+              <h:outputText value="Current File:"/>  
+              <s:link value="#{courseDocumentsAction.courseDocuments.document.name}" id="document_file" action="#{courseDocumentsAction.downloadFile(null)}" propagation="none"> 
+                <f:param name="currentEntityId" value="#{courseDocumentsAction.instance.id}"/> 
+              </s:link>  
+              <rich:fileUpload fileUploadListener="#{courseDocumentsAction.documentUploadListener}" immediateUpload="true" ajaxSingle="true" autoclear="false" listHeight="30" listWidth="250"> 
+                <s:conversationPropagation type="join"/>  
+                <a:support event="onuploadcomplete" reRender="document_file"/> 
+              </rich:fileUpload> 
+            </h:panelGroup> 
+          </s:decorate> 
         </h:column>  
         <h:column> 
           <a:commandButton value="New CourseDocumentse" action="#{gradeSubjectAction.addCourseDocumentses}" reRender="courseDocumentses" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('courseDocuments', 'courseDocumentsesEdit')}"> 
@@ -65,7 +86,8 @@
             <s:conversationId/> 
           </a:commandButton> 
         </h:column> 
-      </rich:dataTable> 
+      </rich:dataTable>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

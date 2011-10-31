@@ -26,7 +26,7 @@ public class StudentWebServiceImpl implements StudentWebService {
 	}
 
 	public List<com.oreon.smartsis.exam.ElectronicExamInstance> eExamsForStudent() {
-		return studentAction.eExamsForStudent();
+		return null;
 	}
 
 }

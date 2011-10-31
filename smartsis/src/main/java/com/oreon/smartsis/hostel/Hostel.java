@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Date;
+import javax.ws.rs.core.Response;
 
 import javax.persistence.*;
 import org.hibernate.validator.*;
@@ -21,6 +22,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Boost;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Parameter;
@@ -58,6 +60,7 @@ import com.oreon.smartsis.ProjectUtils;
 public class Hostel extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 1428517740L;
 
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String name
@@ -70,9 +73,9 @@ public class Hostel extends BusinessEntity implements java.io.Serializable {
 	@IndexedEmbedded
 	private Set<Room> rooms = new HashSet<Room>();
 
-	public void addRooms(Room rooms) {
-		rooms.setHostel(this);
-		this.rooms.add(rooms);
+	public void addRoom(Room room) {
+		room.setHostel(this);
+		this.rooms.add(room);
 	}
 
 	@Transient
@@ -85,6 +88,7 @@ public class Hostel extends BusinessEntity implements java.io.Serializable {
 		return rooms.size();
 	}
 
+	@Column(unique = false)
 	protected com.oreon.smartsis.Gender gender
 
 	;

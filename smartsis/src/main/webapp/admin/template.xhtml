@@ -8,10 +8,10 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:p="http://primefaces.prime.com.tr/ui"
 	xmlns:s="http://jboss.com/products/seam/taglib">
-	
+
 <head>
-	<p:resources />
-	<ui:include src ="/admin/metaIncludes.xhtml" />
+<p:resources />
+<ui:include src="/admin/metaIncludes.xhtml" />
 </head>
 
 <body>
@@ -20,21 +20,12 @@
 
 <ui:include src="/admin/header.xhtml"></ui:include>
 <div id="topmenu"></div>
-<div id="leftcol">
-
-<s:div rendered="#{s:hasRole('admin')}" >
-<ui:include src="entities/navigation.xhtml" />
+<div id="leftcol"><s:div>
+	
+		
+	<ui:include src="entities/navigation.xhtml" />
+		
 </s:div>
-
-<s:div rendered="#{s:hasRole('clerk')}" >
-<ui:include src="entities/navigation.xhtml" />
-</s:div>
-
-<s:div rendered="#{s:hasRole('teacher')}" >
-<ui:include src="entities/navigation.xhtml" />
-</s:div>
-
-
 </div>
 <div id="content"><s:div
 	style="border:1px solid #bbc; background-color:#eef"
@@ -43,8 +34,6 @@
 		warnStyle="color:gray" infoStyle="color:green" />
 </s:div> <ui:insert name="content" /></div>
 <div id="footer"></div>
-
-
 
 
 </body>

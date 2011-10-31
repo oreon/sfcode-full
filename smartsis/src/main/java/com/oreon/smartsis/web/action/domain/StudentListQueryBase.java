@@ -112,7 +112,9 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 
 			"student.discontinueReason = #{studentList.student.discontinueReason}",
 
-			"student.parentGroup.id = #{studentList.student.parentGroup.id}",
+			"student.primary.id = #{studentList.student.primary.id}",
+
+			"student.secondary.id = #{studentList.student.secondary.id}",
 
 			"student.dateCreated <= #{studentList.dateCreatedRange.end}",
 			"student.dateCreated >= #{studentList.dateCreatedRange.begin}",};
@@ -121,13 +123,6 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 			com.oreon.smartsis.domain.Grade grade) {
 		//setMaxResults(10000);
 		student.setGrade(grade);
-		return getResultList();
-	}
-
-	public List<Student> getStudentsByParentGroup(
-			com.oreon.smartsis.domain.ParentGroup parentGroup) {
-		//setMaxResults(10000);
-		student.setParentGroup(parentGroup);
 		return getResultList();
 	}
 
@@ -171,8 +166,12 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 						: "") + "\",");
 
 		builder.append("\""
-				+ (e.getParentGroup() != null ? e.getParentGroup()
-						.getDisplayName().replace(",", "") : "") + "\",");
+				+ (e.getPrimary() != null ? e.getPrimary().getDisplayName()
+						.replace(",", "") : "") + "\",");
+
+		builder.append("\""
+				+ (e.getSecondary() != null ? e.getSecondary().getDisplayName()
+						.replace(",", "") : "") + "\",");
 
 		builder.append("\r\n");
 	}
@@ -197,7 +196,9 @@ public abstract class StudentListQueryBase extends BaseQuery<Student, Long> {
 
 		builder.append("DiscontinueReason" + ",");
 
-		builder.append("ParentGroup" + ",");
+		builder.append("Primary" + ",");
+
+		builder.append("Secondary" + ",");
 
 		builder.append("\r\n");
 	}
