@@ -10,7 +10,7 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
-	<h:panelGroup  rendered="#{studentAction.studentId != null  }">
+	<h:panelGroup rendered="#{studentAction.studentId != null  }">
 		<s:validateAll>
 			<table class="dispTable" width="90%">
 				<tr>
@@ -35,21 +35,22 @@
 							<h3><h:outputText value="#{score.marks}" /></h3>
 							<br />
 
-				<table >
-					<tr>
-					 <td>R: ${score.rank} </td>
-					 <td>P:
-					 <h:outputText value="${score.percentage}" > 
-					 	 <f:convertNumber pattern="###0.00"/> 
-					 </h:outputText>%
-					 </td>
-					 <td>
-					 A:${score.examInstance.average}
-					 </td>
-					 </tr>
-					 </table>
-					 
-					</td>
+							<table style="background-color: #eef; width: 100%; font-size: 0.8em">
+								<tr>
+									<th>Rk</th>
+									<th>%</th>
+									<th>Avg</th>
+								</tr>
+								<tr>
+									<td>${score.rank}</td>
+									<td><h:outputText value="${score.percentage}">
+										<f:convertNumber pattern="###0.00" />
+									</h:outputText>%</td>
+									<td>${score.examInstance.average}</td>
+								</tr>
+							</table>
+
+							</td>
 						</ui:repeat>
 						<td><h:outputText
 							value="#{studentAction.listExamTotals.get( studentAction.currentReportCard.indexOf(mapEntry ) ).total}"

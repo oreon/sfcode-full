@@ -31,7 +31,7 @@ public class MonthlyFeeAction extends MonthlyFeeActionBase implements
 						monthlyfee.setMonth(feeMonth);
 						aGradeFeeItem.setFeeItem(gradeFeeItem.getFeeItem());
 						aGradeFeeItem.setAmount(gradeFeeItem.getAmount());
-						monthlyfee.addGradeFeeItems(aGradeFeeItem);
+						monthlyfee.addGradeFeeItem(aGradeFeeItem);
 						persist(monthlyfee);
 					}
 				}

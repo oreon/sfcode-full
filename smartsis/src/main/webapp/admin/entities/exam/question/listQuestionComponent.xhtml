@@ -21,15 +21,15 @@
           </f:facet>  
           <h:outputText value="#{_question.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('text', 'questionView'  )}"> 
+        <h:column rendered="#{s:hasPermission('question', 'questionView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{questionList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.question_text}"/>  
-              <ui:param name="propertyPath" value="question.text"/> 
+              <ui:param name="propertyLabel" value="#{msg.question_question}"/>  
+              <ui:param name="propertyPath" value="question.question"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_question.text}" escape="false"/> 
+          <h:outputText value="#{_question.question}" escape="false"/> 
         </h:column>  
         <h:column groupOn="#{question.electronicExam.displayName}" rendered="#{s:hasPermission('electronicExam', 'questionView'  )}"> 
           <f:facet name="header"> 

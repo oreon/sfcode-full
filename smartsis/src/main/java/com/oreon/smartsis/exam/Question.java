@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Date;
+import javax.ws.rs.core.Response;
 
 import javax.persistence.*;
 import org.hibernate.validator.*;
@@ -21,6 +22,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Boost;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Parameter;
@@ -59,9 +61,10 @@ public class Question extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -277983865L;
 
 	@Lob
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String text
+	protected String question
 
 	;
 
@@ -71,9 +74,9 @@ public class Question extends BusinessEntity implements java.io.Serializable {
 	@IndexedEmbedded
 	private Set<Choice> choices = new HashSet<Choice>();
 
-	public void addChoices(Choice choices) {
-		choices.setQuestion(this);
-		this.choices.add(choices);
+	public void addChoice(Choice choice) {
+		choice.setQuestion(this);
+		this.choices.add(choice);
 	}
 
 	@Transient
@@ -99,13 +102,13 @@ public class Question extends BusinessEntity implements java.io.Serializable {
 
 	;
 
-	public void setText(String text) {
-		this.text = text;
+	public void setQuestion(String question) {
+		this.question = question;
 	}
 
-	public String getText() {
+	public String getQuestion() {
 
-		return text;
+		return question;
 
 	}
 
@@ -140,7 +143,7 @@ public class Question extends BusinessEntity implements java.io.Serializable {
 	@Transient
 	public String getDisplayName() {
 		try {
-			return text + "";
+			return question + "";
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
@@ -158,9 +161,9 @@ public class Question extends BusinessEntity implements java.io.Serializable {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
-		listSearchableFields.add("text");
+		listSearchableFields.add("question");
 
-		listSearchableFields.add("choices.text");
+		listSearchableFields.add("choices.choice");
 
 		return listSearchableFields;
 	}
@@ -170,7 +173,7 @@ public class Question extends BusinessEntity implements java.io.Serializable {
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(getText() + " ");
+		builder.append(getQuestion() + " ");
 
 		if (getElectronicExam() != null)
 			builder.append("electronicExam:"

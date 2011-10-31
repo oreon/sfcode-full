@@ -22,6 +22,4 @@ public enum ChoiceIndex {
 	public String getDisplayName() {
 		return this.toString();
 	}
-	
-	
 }

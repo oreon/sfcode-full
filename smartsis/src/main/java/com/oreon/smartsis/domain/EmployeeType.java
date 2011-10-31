@@ -2,11 +2,11 @@ package com.oreon.smartsis.domain;
 
 public enum EmployeeType {
 
-	FULL_TIME,
+	Teacher,
 
-	CONTRACT,
+	Manager,
 
-	PART_TIME,
+	Clerk,
 
 	;
 

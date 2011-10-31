@@ -17,56 +17,38 @@
 	
 	-->
 	
- 	
- 	
  
+
 	
 	 <!--PROTECTED REGION ID(USER_EDITABLE_RGN_reg/welcome.xhtml) ENABLED START-->
-	<h3> Dashboard </h3>
 	<h:form>
-	<h:selectOneMenu id="student" label="#{msg.examScore_student}"
-			value="#{studentAction.student}" required="false">
-			<s:selectItems value="#{parentAction.currentLoggedInParent.students}" var="itemIter"
-				label="#{itemIter.displayName}" noSelectionLabel="Please Select..." />
-			<a:support event="onchange"  reRender="studentInfoPanel"
-				ajaxSingle="true" />
-			<s:convertEntity />
-		</h:selectOneMenu>
-	
-	<br />
-		<br />
-		<s:div id="studentInfoPanel" >
-		Student ID - ${studentAction.instance.id}  Name - ${studentAction.instance.firstName} ${studentAction.instance.lastName} 
-		<rich:tabPanel switchType="ajax"  >
-			<rich:tab label="ScoreCard" switchType="ajax">
-				<rich:tabPanel switchType="client">
-					<rich:tab label="Basic">
-						
-						<ui:include
-							src="/admin/entities/domain/student/reportCardComponent.xhtml">
-						</ui:include>
-					</rich:tab>
-					<rich:tab label="Advanced">
-						<ui:include
-							src="/admin/entities/domain/student/reportCardComponentAdvanced.xhtml">
-						</ui:include>
-					</rich:tab>
-				</rich:tabPanel>
-			</rich:tab>
-			<rich:tab label="Attendance">
-				<ui:include
-					src="/admin/entities/domain/student/attendanceComponent.xhtml">
-				</ui:include>
-			</rich:tab>
-			<rich:tab label="Fees">
+			<h:selectOneMenu id="student" label="#{msg.examScore_student}"
+				value="#{studentAction.student}" required="false">
+				<s:selectItems value="#{parentAction.currentStudents}"
+					var="itemIter" label="#{itemIter.displayName}"
+					noSelectionLabel="Please Select..." />
+				<a:support event="onchange" reRender="studentInfoPanel"
+					ajaxSingle="true" />
+				<s:convertEntity />
+			</h:selectOneMenu>
 
-			</rich:tab>
-			<rich:tab label="Electronic Exams">
-				<ui:include src="/admin/entities/domain/student/eExamComponent.xhtml" />
-			</rich:tab>
-		</rich:tabPanel>
-		</s:div>
-	</h:form>
+			<br />
+
+			
+			<s:div id="studentInfoPanel" >
+				<s:div rendered="#{studentAction.instance.id != null}" >
+				<ui:include
+					src="/admin/entities/domain/student/viewStudentComponentShort.xhtml">
+					<ui:param name="studentId" value="#{studentAction.instance.id}" />
+					<ui:param name="numColumns" value="6" />
+				</ui:include>
+				</s:div>
+				
+				<br/>
+				
+				<ui:include src="/admin/entities/domain/student/studentDashboardComponent.xhtml" />
+			</s:div>
+		</h:form>
 		<!--PROTECTED REGION END-->	
 	</ui:define> 
 </ui:composition>

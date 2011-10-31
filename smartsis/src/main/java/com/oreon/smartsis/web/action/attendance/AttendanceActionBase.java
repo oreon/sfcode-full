@@ -53,9 +53,6 @@ public abstract class AttendanceActionBase extends BaseAction<Attendance>
 	@In(create = true, value = "studentAction")
 	com.oreon.smartsis.web.action.domain.StudentAction studentAction;
 
-	@In(create = true, value = "gradeSubjectAction")
-	com.oreon.smartsis.web.action.domain.GradeSubjectAction gradeSubjectAction;
-
 	@In(create = true, value = "gradeAttendanceAction")
 	com.oreon.smartsis.web.action.attendance.GradeAttendanceAction gradeAttendanceAction;
 
@@ -96,19 +93,6 @@ public abstract class AttendanceActionBase extends BaseAction<Attendance>
 		return 0L;
 	}
 
-	public void setGradeSubjectId(Long id) {
-
-		if (id != null && id > 0)
-			getInstance().setGradeSubject(gradeSubjectAction.loadFromId(id));
-
-	}
-
-	public Long getGradeSubjectId() {
-		if (getInstance().getGradeSubject() != null)
-			return getInstance().getGradeSubject().getId();
-		return 0L;
-	}
-
 	public void setGradeAttendanceId(Long id) {
 
 		if (id != null && id > 0)
@@ -143,7 +127,9 @@ public abstract class AttendanceActionBase extends BaseAction<Attendance>
 
 	@Override
 	protected Attendance createInstance() {
-		return new Attendance();
+		Attendance instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -159,12 +145,6 @@ public abstract class AttendanceActionBase extends BaseAction<Attendance>
 				.getDefinedInstance();
 		if (student != null && isNew()) {
 			getInstance().setStudent(student);
-		}
-
-		com.oreon.smartsis.domain.GradeSubject gradeSubject = gradeSubjectAction
-				.getDefinedInstance();
-		if (gradeSubject != null && isNew()) {
-			getInstance().setGradeSubject(gradeSubject);
 		}
 
 		com.oreon.smartsis.attendance.GradeAttendance gradeAttendance = gradeAttendanceAction
@@ -206,11 +186,6 @@ public abstract class AttendanceActionBase extends BaseAction<Attendance>
 					.getStudent().getId()));
 		}
 
-		if (attendance.getGradeSubject() != null) {
-			criteria = criteria.add(Restrictions.eq("gradeSubject.id",
-					attendance.getGradeSubject().getId()));
-		}
-
 		if (attendance.getGradeAttendance() != null) {
 			criteria = criteria.add(Restrictions.eq("gradeAttendance.id",
 					attendance.getGradeAttendance().getId()));
@@ -226,10 +201,6 @@ public abstract class AttendanceActionBase extends BaseAction<Attendance>
 
 		if (attendance.getStudent() != null) {
 			studentAction.setInstance(getInstance().getStudent());
-		}
-
-		if (attendance.getGradeSubject() != null) {
-			gradeSubjectAction.setInstance(getInstance().getGradeSubject());
 		}
 
 		if (attendance.getGradeAttendance() != null) {
@@ -248,6 +219,11 @@ public abstract class AttendanceActionBase extends BaseAction<Attendance>
 
 	public void clearLists() {
 
+	}
+
+	public String viewAttendance() {
+		load(currentEntityId);
+		return "viewAttendance";
 	}
 
 }

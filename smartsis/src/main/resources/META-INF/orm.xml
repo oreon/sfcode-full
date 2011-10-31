@@ -17,12 +17,7 @@
   </entity>  
   <!--  Student  JPA Configurations -->  
   <entity class="com.oreon.smartsis.domain.Student" name="Student"> 
-    <table name="student"></table>  
-    <named-query name="eExamsForStudent"> 
-      <query> <![CDATA[
-			select e from ElectronicExamInstance e where e.student.id = ?1
-			]]> </query> 
-    </named-query> 
+    <table name="student"></table> 
   </entity>  
   <!--  Parent  JPA Configurations -->  
   <entity class="com.oreon.smartsis.domain.Parent" name="Parent"> 
@@ -88,10 +83,6 @@
 			]]> </query> 
     </named-query> 
   </entity>  
-  <!--  ParentGroup  JPA Configurations -->  
-  <entity class="com.oreon.smartsis.domain.ParentGroup" name="ParentGroup"> 
-    <table name="parentgroup"></table> 
-  </entity>  
   <!--  ElectronicExam  JPA Configurations -->  
   <entity class="com.oreon.smartsis.exam.ElectronicExam" name="ElectronicExam"> 
     <table name="electronicexam"></table>  
@@ -155,26 +146,26 @@
   <entity class="com.oreon.smartsis.hostel.BedAllocation" name="BedAllocation"> 
     <table name="bedallocation"></table> 
   </entity>  
-  <!--  User  JPA Configurations -->  
-  <entity class="com.oreon.smartsis.users.User" name="User"> 
-    <table name="user"></table>  
-    <named-query name="user.findByUnqUserName"> 
+  <!--  AppUser  JPA Configurations -->  
+  <entity class="com.oreon.smartsis.users.AppUser" name="AppUser"> 
+    <table name="appuser"></table>  
+    <named-query name="appUser.findByUnqUserName"> 
       <query> <![CDATA[
-			select u from User u where u.userName = ?1
+			select u from AppUser u where u.userName = ?1
 			]]> </query> 
     </named-query>  
-    <named-query name="user.findByUnqEmail"> 
+    <named-query name="appUser.findByUnqEmail"> 
       <query> <![CDATA[
-			select u from User u where u.email = ?1
+			select u from AppUser u where u.email = ?1
 			]]> </query> 
     </named-query> 
   </entity>  
-  <!--  Role  JPA Configurations -->  
-  <entity class="com.oreon.smartsis.users.Role" name="Role"> 
-    <table name="role"></table>  
-    <named-query name="role.findByUnqName"> 
+  <!--  AppRole  JPA Configurations -->  
+  <entity class="com.oreon.smartsis.users.AppRole" name="AppRole"> 
+    <table name="approle"></table>  
+    <named-query name="appRole.findByUnqName"> 
       <query> <![CDATA[
-			select u from Role u where u.name = ?1
+			select u from AppRole u where u.name = ?1
 			]]> </query> 
     </named-query> 
   </entity>  

@@ -28,18 +28,4 @@ public class StudentActionTestBase
 		return studentAction;
 	}
 
-	@Test
-	public void testEExamsForStudent() throws Exception {
-		new ComponentTest() {
-
-			protected void testComponents() throws Exception {
-				StudentAction studentAction = (StudentAction) org.jboss.seam.Component
-						.getInstance("studentAction");
-
-				// assert(studentAction.eExamsForStudent()).equals("");
-			}
-
-		}.run();
-	}
-
 }

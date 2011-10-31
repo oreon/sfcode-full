@@ -126,7 +126,9 @@ public abstract class GradeFeeItemActionBase extends BaseAction<GradeFeeItem>
 
 	@Override
 	protected GradeFeeItem createInstance() {
-		return new GradeFeeItem();
+		GradeFeeItem instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -215,6 +217,11 @@ public abstract class GradeFeeItemActionBase extends BaseAction<GradeFeeItem>
 
 	public void clearLists() {
 
+	}
+
+	public String viewGradeFeeItem() {
+		load(currentEntityId);
+		return "viewGradeFeeItem";
 	}
 
 }

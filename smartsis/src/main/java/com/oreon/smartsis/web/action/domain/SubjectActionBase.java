@@ -94,7 +94,9 @@ public abstract class SubjectActionBase extends BaseAction<Subject>
 
 	@Override
 	protected Subject createInstance() {
-		return new Subject();
+		Subject instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -149,6 +151,11 @@ public abstract class SubjectActionBase extends BaseAction<Subject>
 
 	public void clearLists() {
 
+	}
+
+	public String viewSubject() {
+		load(currentEntityId);
+		return "viewSubject";
 	}
 
 }

@@ -25,7 +25,7 @@ import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 
-import com.oreon.smartsis.users.User;
+import com.oreon.smartsis.users.AppUser;
 import com.sun.xml.internal.bind.CycleRecoverable.Context;
 
 //import com.oreon.trkincidents.users.User;
@@ -65,7 +65,7 @@ public class BusinessEntity implements Serializable{
      
     @ManyToOne(optional=true, fetch=FetchType.LAZY)
     @JoinColumn(name="created_by_user_id", nullable=true)
-    private User createdByUser;
+    private AppUser createdByUser;
    
     
     public Boolean isArchived() {
@@ -106,11 +106,11 @@ public class BusinessEntity implements Serializable{
     }
 
     
-    public User getCreatedByUser() {
+    public AppUser getCreatedByUser() {
         return createdByUser;
     }
 
-    public void setCreatedByUser(User createdByUser) {
+    public void setCreatedByUser(AppUser createdByUser) {
         this.createdByUser = createdByUser;
     }
 

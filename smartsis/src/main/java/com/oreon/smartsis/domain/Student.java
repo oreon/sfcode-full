@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Date;
+import javax.ws.rs.core.Response;
 
 import javax.persistence.*;
 import org.hibernate.validator.*;
@@ -21,6 +22,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Boost;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Parameter;
@@ -60,6 +62,7 @@ public class Student extends com.oreon.smartsis.domain.Person
 			java.io.Serializable {
 	private static final long serialVersionUID = 564371639L;
 
+	@Column(unique = false)
 	@Embedded
 	@AttributeOverrides({
 			@AttributeOverride(name = "name", column = @Column(name = "picture_name")),
@@ -91,6 +94,7 @@ public class Student extends com.oreon.smartsis.domain.Person
 
 	;
 
+	@Column(unique = false)
 	protected Double scholarship
 
 	;
@@ -101,9 +105,9 @@ public class Student extends com.oreon.smartsis.domain.Person
 	@IndexedEmbedded
 	private Set<StudentVitalInfo> studentVitalInfos = new HashSet<StudentVitalInfo>();
 
-	public void addStudentVitalInfos(StudentVitalInfo studentVitalInfos) {
-		studentVitalInfos.setStudent(this);
-		this.studentVitalInfos.add(studentVitalInfos);
+	public void addStudentVitalInfo(StudentVitalInfo studentVitalInfo) {
+		studentVitalInfo.setStudent(this);
+		this.studentVitalInfos.add(studentVitalInfo);
 	}
 
 	@Transient
@@ -117,6 +121,7 @@ public class Student extends com.oreon.smartsis.domain.Person
 		return studentVitalInfos.size();
 	}
 
+	@Column(unique = false)
 	protected Integer rollNumber
 
 	;
@@ -126,14 +131,22 @@ public class Student extends com.oreon.smartsis.domain.Person
 
 	;
 
+	@Column(unique = false)
 	protected DiscontinueReason discontinueReason
 
 	;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "parentGroup_id", nullable = true, updatable = true)
+	@JoinColumn(name = "primary_id", nullable = true, updatable = true)
 	@ContainedIn
-	protected ParentGroup parentGroup
+	protected Parent primary
+
+	;
+
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "secondary_id", nullable = true, updatable = true)
+	@ContainedIn
+	protected Parent secondary
 
 	;
 
@@ -241,13 +254,23 @@ public class Student extends com.oreon.smartsis.domain.Person
 
 	}
 
-	public void setParentGroup(ParentGroup parentGroup) {
-		this.parentGroup = parentGroup;
+	public void setPrimary(Parent primary) {
+		this.primary = primary;
 	}
 
-	public ParentGroup getParentGroup() {
+	public Parent getPrimary() {
 
-		return parentGroup;
+		return primary;
+
+	}
+
+	public void setSecondary(Parent secondary) {
+		this.secondary = secondary;
+	}
+
+	public Parent getSecondary() {
+
+		return secondary;
 
 	}
 
@@ -283,9 +306,13 @@ public class Student extends com.oreon.smartsis.domain.Person
 		if (getGrade() != null)
 			builder.append("grade:" + getGrade().getDisplayName() + " ");
 
-		if (getParentGroup() != null)
-			builder.append("parentGroup:" + getParentGroup().getDisplayName()
-					+ " ");
+		if (getPrimary() != null)
+			builder.append("primary:" + getPrimary().getDisplayName() + " ");
+
+		if (getSecondary() != null)
+			builder
+					.append("secondary:" + getSecondary().getDisplayName()
+							+ " ");
 
 		for (BusinessEntity e : studentVitalInfos) {
 			builder.append(e.getDisplayName() + " ");

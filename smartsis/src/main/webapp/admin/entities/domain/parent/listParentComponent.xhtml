@@ -75,44 +75,31 @@
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{parentList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.user_userName}"/>  
-              <ui:param name="propertyPath" value="parent.user.userName"/> 
+              <ui:param name="propertyLabel" value="#{msg.appUser_userName}"/>  
+              <ui:param name="propertyPath" value="parent.appUser.userName"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_parent.user.userName}" escape="false"/> 
+          <h:outputText value="#{_parent.appUser.userName}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('email', 'parentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{parentList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.user_email}"/>  
-              <ui:param name="propertyPath" value="parent.user.email"/> 
+              <ui:param name="propertyLabel" value="#{msg.appUser_email}"/>  
+              <ui:param name="propertyPath" value="parent.appUser.email"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_parent.user.email}" escape="false"/> 
+          <h:outputText value="#{_parent.appUser.email}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('enabled', 'parentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{parentList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.user_enabled}"/>  
-              <ui:param name="propertyPath" value="parent.user.enabled"/> 
+              <ui:param name="propertyLabel" value="#{msg.appUser_enabled}"/>  
+              <ui:param name="propertyPath" value="parent.appUser.enabled"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_parent.user.enabled? msg.yes : msg.no }"/> 
-        </h:column>  
-        <h:column groupOn="#{parent.parentGroup.displayName}" rendered="#{s:hasPermission('parentGroup', 'parentView'  )}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{parentList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.parent_parentGroup}"/>  
-              <ui:param name="propertyPath" value="parent.parentGroup"/> 
-            </ui:include> 
-          </f:facet>  
-          <s:link value="#{_parent.parentGroup.displayName}" view="/admin/entities/domain/parentGroup/viewParentGroup.xhtml" propagation="none"> 
-            <f:param name="parentGroupId" value="#{_parent.parentGroup.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link> 
+          <h:outputText value="#{_parent.appUser.enabled? msg.yes : msg.no }"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'parentView' )}"> 
           <f:facet name="header"> 

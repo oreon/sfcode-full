@@ -34,29 +34,6 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('gradeSubject', 'attendanceView'  )}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{attendanceList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.attendance_gradeSubject}"/>  
-              <ui:param name="propertyPath" value="attendance.gradeSubject"/> 
-            </ui:include> 
-          </f:facet>  
-          <s:link value="#{_attendance.gradeSubject.displayName}" view="/admin/entities/domain/gradeSubject/viewGradeSubject.xhtml" propagation="none"> 
-            <f:param name="gradeSubjectId" value="#{_attendance.gradeSubject.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link> 
-        </h:column>  
-        <h:column rendered="#{s:hasPermission('absenceCode', 'attendanceView'  )}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{attendanceList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.attendance_absenceCode}"/>  
-              <ui:param name="propertyPath" value="attendance.absenceCode"/> 
-            </ui:include> 
-          </f:facet>  
-          <h:outputText value="#{_attendance.absenceCode}" escape="false"/> 
-        </h:column>  
         <h:column groupOn="#{attendance.gradeAttendance.displayName}" rendered="#{s:hasPermission('gradeAttendance', 'attendanceView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -69,6 +46,16 @@
             <f:param name="gradeAttendanceId" value="#{_attendance.gradeAttendance.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('absenceCode', 'attendanceView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{attendanceList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.attendance_absenceCode}"/>  
+              <ui:param name="propertyPath" value="attendance.absenceCode"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_attendance.absenceCode}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'attendanceView' )}"> 
           <f:facet name="header"> 

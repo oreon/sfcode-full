@@ -126,7 +126,9 @@ public abstract class StudentPaidFeeActionBase
 
 	@Override
 	protected StudentPaidFee createInstance() {
-		return new StudentPaidFee();
+		StudentPaidFee instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -215,6 +217,11 @@ public abstract class StudentPaidFeeActionBase
 
 	public void clearLists() {
 
+	}
+
+	public String viewStudentPaidFee() {
+		load(currentEntityId);
+		return "viewStudentPaidFee";
 	}
 
 }

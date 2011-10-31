@@ -220,18 +220,6 @@
         <redirect view-id="/admin/entities/domain/settings/editSettings.xhtml"/>  
         <end-conversation/> 
       </rule>  
-      <rule if-outcome="parentGroup"> 
-        <redirect view-id="/admin/entities/domain/parentGroup/listParentGroup.xhtml"/>  
-        <end-conversation/> 
-      </rule>  
-      <rule if-outcome="viewParentGroup"> 
-        <redirect view-id="/admin/entities/domain/parentGroup/viewParentGroup.xhtml"/>  
-        <end-conversation/> 
-      </rule>  
-      <rule if-outcome="editParentGroup"> 
-        <redirect view-id="/admin/entities/domain/parentGroup/editParentGroup.xhtml"/>  
-        <end-conversation/> 
-      </rule>  
       <rule if-outcome="electronicExam"> 
         <redirect view-id="/admin/entities/exam/electronicExam/listElectronicExam.xhtml"/>  
         <end-conversation/> 
@@ -376,28 +364,28 @@
         <redirect view-id="/admin/entities/hostel/bedAllocation/editBedAllocation.xhtml"/>  
         <end-conversation/> 
       </rule>  
-      <rule if-outcome="user"> 
-        <redirect view-id="/admin/entities/users/user/listUser.xhtml"/>  
+      <rule if-outcome="appUser"> 
+        <redirect view-id="/admin/entities/users/appUser/listAppUser.xhtml"/>  
         <end-conversation/> 
       </rule>  
-      <rule if-outcome="viewUser"> 
-        <redirect view-id="/admin/entities/users/user/viewUser.xhtml"/>  
+      <rule if-outcome="viewAppUser"> 
+        <redirect view-id="/admin/entities/users/appUser/viewAppUser.xhtml"/>  
         <end-conversation/> 
       </rule>  
-      <rule if-outcome="editUser"> 
-        <redirect view-id="/admin/entities/users/user/editUser.xhtml"/>  
+      <rule if-outcome="editAppUser"> 
+        <redirect view-id="/admin/entities/users/appUser/editAppUser.xhtml"/>  
         <end-conversation/> 
       </rule>  
-      <rule if-outcome="role"> 
-        <redirect view-id="/admin/entities/users/role/listRole.xhtml"/>  
+      <rule if-outcome="appRole"> 
+        <redirect view-id="/admin/entities/users/appRole/listAppRole.xhtml"/>  
         <end-conversation/> 
       </rule>  
-      <rule if-outcome="viewRole"> 
-        <redirect view-id="/admin/entities/users/role/viewRole.xhtml"/>  
+      <rule if-outcome="viewAppRole"> 
+        <redirect view-id="/admin/entities/users/appRole/viewAppRole.xhtml"/>  
         <end-conversation/> 
       </rule>  
-      <rule if-outcome="editRole"> 
-        <redirect view-id="/admin/entities/users/role/editRole.xhtml"/>  
+      <rule if-outcome="editAppRole"> 
+        <redirect view-id="/admin/entities/users/appRole/editAppRole.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="monthlyFee"> 
@@ -463,7 +451,7 @@
     <param name="employeeId" value="#{employeeAction.employeeId}"/>  
     <param name="departmentId" value="#{employeeAction.departmentId}"/>  
     <param name="managerId" value="#{employeeAction.managerId}"/>  
-    <param name="userId" value="#{employeeAction.userId}"/> 
+    <param name="appUserId" value="#{employeeAction.appUserId}"/> 
   </page>  
   <page view-id="/admin/entities/domain/employee/viewEmployee.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Employee: #{employee.displayName}</description> -->  
@@ -484,6 +472,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/domain/employee/editEmployee.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/domain/employee/textSearchResultsEmployee.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{employeeList.firstResult}"/>  
@@ -500,9 +491,9 @@
     <param name="employeeNumber" value="#{employeeList.employee.employeeNumber}" validateModel="false"/>  
     <param name="employeeType" value="#{employeeList.employee.employeeType}" validateModel="false"/>  
     <param name="manager" value="#{employeeList.employee.manager.id}" validateModel="false"/>  
-    <param name="user_userName" value="#{employeeList.employee.user.userName}" validateModel="false"/>  
-    <param name="user_email" value="#{employeeList.employee.user.email}" validateModel="false"/>  
-    <param name="user_enabled" value="#{employeeList.employee.user.enabled}" validateModel="false"/> 
+    <param name="appUser_userName" value="#{employeeList.employee.appUser.userName}" validateModel="false"/>  
+    <param name="appUser_email" value="#{employeeList.employee.appUser.email}" validateModel="false"/>  
+    <param name="appUser_enabled" value="#{employeeList.employee.appUser.enabled}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/department/editDepartment.xhtml"> 
     <!-- <description>Edit Department: #{department.displayName}</description> -->  
@@ -535,6 +526,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/domain/department/editDepartment.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/domain/department/textSearchResultsDepartment.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{departmentList.firstResult}"/>  
@@ -556,7 +550,8 @@
     </navigation>  
     <param name="studentId" value="#{studentAction.studentId}"/>  
     <param name="gradeId" value="#{studentAction.gradeId}"/>  
-    <param name="parentGroupId" value="#{studentAction.parentGroupId}"/> 
+    <param name="primaryId" value="#{studentAction.primaryId}"/>  
+    <param name="secondaryId" value="#{studentAction.secondaryId}"/> 
   </page>  
   <page view-id="/admin/entities/domain/student/viewStudent.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Student: #{student.displayName}</description> -->  
@@ -577,6 +572,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/domain/student/editStudent.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/domain/student/textSearchResultsStudent.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{studentList.firstResult}"/>  
@@ -596,7 +594,8 @@
     <param name="rollNumber" value="#{studentList.student.rollNumber}" validateModel="false"/>  
     <param name="discontinueDate" value="#{studentList.student.discontinueDate}" validateModel="false"/>  
     <param name="discontinueReason" value="#{studentList.student.discontinueReason}" validateModel="false"/>  
-    <param name="parentGroup" value="#{studentList.student.parentGroup.id}" validateModel="false"/> 
+    <param name="primary" value="#{studentList.student.primary.id}" validateModel="false"/>  
+    <param name="secondary" value="#{studentList.student.secondary.id}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/parent/editParent.xhtml"> 
     <!-- <description>Edit Parent: #{parent.displayName}</description> -->  
@@ -609,8 +608,7 @@
       </rule> 
     </navigation>  
     <param name="parentId" value="#{parentAction.parentId}"/>  
-    <param name="userId" value="#{parentAction.userId}"/>  
-    <param name="parentGroupId" value="#{parentAction.parentGroupId}"/> 
+    <param name="appUserId" value="#{parentAction.appUserId}"/> 
   </page>  
   <page view-id="/admin/entities/domain/parent/viewParent.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Parent: #{parent.displayName}</description> -->  
@@ -631,6 +629,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/domain/parent/editParent.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/domain/parent/textSearchResultsParent.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{parentList.firstResult}"/>  
@@ -643,10 +644,9 @@
     <param name="contactDetails_primaryPhone" value="#{parentList.parent.contactDetails.primaryPhone}" validateModel="false"/>  
     <param name="contactDetails_secondaryPhone" value="#{parentList.parent.contactDetails.secondaryPhone}" validateModel="false"/>  
     <param name="contactDetails_city" value="#{parentList.parent.contactDetails.city}" validateModel="false"/>  
-    <param name="user_userName" value="#{parentList.parent.user.userName}" validateModel="false"/>  
-    <param name="user_email" value="#{parentList.parent.user.email}" validateModel="false"/>  
-    <param name="user_enabled" value="#{parentList.parent.user.enabled}" validateModel="false"/>  
-    <param name="parentGroup" value="#{parentList.parent.parentGroup.id}" validateModel="false"/> 
+    <param name="appUser_userName" value="#{parentList.parent.appUser.userName}" validateModel="false"/>  
+    <param name="appUser_email" value="#{parentList.parent.appUser.email}" validateModel="false"/>  
+    <param name="appUser_enabled" value="#{parentList.parent.appUser.enabled}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/grade/editGrade.xhtml"> 
     <!-- <description>Edit Grade: #{grade.displayName}</description> -->  
@@ -679,6 +679,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/domain/grade/editGrade.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/domain/grade/textSearchResultsGrade.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{gradeList.firstResult}"/>  
@@ -721,6 +724,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/domain/subject/editSubject.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/domain/subject/textSearchResultsSubject.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{subjectList.firstResult}"/>  
@@ -764,6 +770,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/domain/gradeSubject/editGradeSubject.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/domain/gradeSubject/textSearchResultsGradeSubject.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{gradeSubjectList.firstResult}"/>  
@@ -806,6 +815,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/domain/exam/editExam.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/domain/exam/textSearchResultsExam.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{examList.firstResult}"/>  
@@ -852,6 +864,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/domain/examScore/editExamScore.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/domain/examScore/textSearchResultsExamScore.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{examScoreList.firstResult}"/>  
@@ -897,6 +912,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/domain/examInstance/editExamInstance.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/domain/examInstance/textSearchResultsExamInstance.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{examInstanceList.firstResult}"/>  
@@ -941,6 +959,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/domain/courseDocuments/editCourseDocuments.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/domain/courseDocuments/textSearchResultsCourseDocuments.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{courseDocumentsList.firstResult}"/>  
@@ -984,6 +1005,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/domain/disciplinaryAction/editDisciplinaryAction.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/domain/disciplinaryAction/textSearchResultsDisciplinaryAction.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{disciplinaryActionList.firstResult}"/>  
@@ -1028,6 +1052,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/domain/studentVitalInfo/editStudentVitalInfo.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/domain/studentVitalInfo/textSearchResultsStudentVitalInfo.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{studentVitalInfoList.firstResult}"/>  
@@ -1070,6 +1097,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/domain/settings/editSettings.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/domain/settings/textSearchResultsSettings.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{settingsList.firstResult}"/>  
@@ -1080,45 +1110,6 @@
     <param name="name" value="#{settingsList.settings.name}" validateModel="false"/>  
     <param name="gradeCapacity" value="#{settingsList.settings.gradeCapacity}" validateModel="false"/>  
     <param name="defaultGender" value="#{settingsList.settings.defaultGender}" validateModel="false"/> 
-  </page>  
-  <page view-id="/admin/entities/domain/parentGroup/editParentGroup.xhtml"> 
-    <!-- <description>Edit ParentGroup: #{parentGroup.displayName}</description> -->  
-    <navigation> 
-      <rule if-outcome="save"> 
-        <redirect view-id="/admin/entities/domain/parentGroup/viewParentGroup.xhtml"/> 
-      </rule>  
-      <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/domain/parentGroup/listParentGroup.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="parentGroupId" value="#{parentGroupAction.parentGroupId}"/> 
-  </page>  
-  <page view-id="/admin/entities/domain/parentGroup/viewParentGroup.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <!-- <description>View ParentGroup: #{parentGroup.displayName}</description> -->  
-    <navigation> 
-      <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/domain/parentGroup/editParentGroup.xhtml"/> 
-      </rule>  
-      <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/domain/parentGroup/listParentGroup.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="parentGroupId" value="#{parentGroupAction.parentGroupId}"/> 
-  </page>  
-  <page view-id="/admin/entities/domain/parentGroup/listParentGroup.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <navigation> 
-      <rule if-outcome="viewParentGroup"> 
-        <redirect view-id="/admin/entities/domain/parentGroup/viewParentGroup.xhtml"/> 
-      </rule>  
-      <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/domain/parentGroup/editParentGroup.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="firstResult" value="#{parentGroupList.firstResult}"/>  
-    <param name="sort" value="#{parentGroupList.orderColumn}"/>  
-    <param name="dir" value="#{parentGroupList.orderDirection}"/>  
-    <param name="from"/>  
-    <param name="id" value="#{parentGroupList.parentGroup.id}"/> 
   </page>  
   <page view-id="/admin/entities/exam/electronicExam/editElectronicExam.xhtml"> 
     <!-- <description>Edit ElectronicExam: #{electronicExam.displayName}</description> -->  
@@ -1152,6 +1143,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/exam/electronicExam/editElectronicExam.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/exam/electronicExam/textSearchResultsElectronicExam.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{electronicExamList.firstResult}"/>  
@@ -1196,6 +1190,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/exam/question/editQuestion.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/exam/question/textSearchResultsQuestion.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{questionList.firstResult}"/>  
@@ -1203,7 +1200,7 @@
     <param name="dir" value="#{questionList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{questionList.question.id}"/>  
-    <param name="text" value="#{questionList.question.text}" validateModel="false"/>  
+    <param name="question" value="#{questionList.question.question}" validateModel="false"/>  
     <param name="electronicExam" value="#{questionList.question.electronicExam.id}" validateModel="false"/>  
     <param name="correctChoice" value="#{questionList.question.correctChoice}" validateModel="false"/> 
   </page>  
@@ -1239,6 +1236,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/exam/choice/editChoice.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/exam/choice/textSearchResultsChoice.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{choiceList.firstResult}"/>  
@@ -1246,7 +1246,7 @@
     <param name="dir" value="#{choiceList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{choiceList.choice.id}"/>  
-    <param name="text" value="#{choiceList.choice.text}" validateModel="false"/>  
+    <param name="choice" value="#{choiceList.choice.choice}" validateModel="false"/>  
     <param name="question" value="#{choiceList.choice.question.id}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/exam/electronicExamInstance/editElectronicExamInstance.xhtml"> 
@@ -1282,6 +1282,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/exam/electronicExamInstance/editElectronicExamInstance.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/exam/electronicExamInstance/textSearchResultsElectronicExamInstance.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{electronicExamInstanceList.firstResult}"/>  
@@ -1327,6 +1330,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/exam/questionInstance/editQuestionInstance.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/exam/questionInstance/textSearchResultsQuestionInstance.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{questionInstanceList.firstResult}"/>  
@@ -1370,6 +1376,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/exam/electronicExamEvent/editElectronicExamEvent.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/exam/electronicExamEvent/textSearchResultsElectronicExamEvent.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{electronicExamEventList.firstResult}"/>  
@@ -1393,7 +1402,6 @@
     </navigation>  
     <param name="attendanceId" value="#{attendanceAction.attendanceId}"/>  
     <param name="studentId" value="#{attendanceAction.studentId}"/>  
-    <param name="gradeSubjectId" value="#{attendanceAction.gradeSubjectId}"/>  
     <param name="gradeAttendanceId" value="#{attendanceAction.gradeAttendanceId}"/> 
   </page>  
   <page view-id="/admin/entities/attendance/attendance/viewAttendance.xhtml" action="#{redirect.captureCurrentView()}"> 
@@ -1415,6 +1423,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/attendance/attendance/editAttendance.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/attendance/attendance/textSearchResultsAttendance.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{attendanceList.firstResult}"/>  
@@ -1423,9 +1434,8 @@
     <param name="from"/>  
     <param name="id" value="#{attendanceList.attendance.id}"/>  
     <param name="student" value="#{attendanceList.attendance.student.id}" validateModel="false"/>  
-    <param name="gradeSubject" value="#{attendanceList.attendance.gradeSubject.id}" validateModel="false"/>  
-    <param name="absenceCode" value="#{attendanceList.attendance.absenceCode}" validateModel="false"/>  
-    <param name="gradeAttendance" value="#{attendanceList.attendance.gradeAttendance.id}" validateModel="false"/> 
+    <param name="gradeAttendance" value="#{attendanceList.attendance.gradeAttendance.id}" validateModel="false"/>  
+    <param name="absenceCode" value="#{attendanceList.attendance.absenceCode}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/attendance/gradeAttendance/editGradeAttendance.xhtml"> 
     <!-- <description>Edit GradeAttendance: #{gradeAttendance.displayName}</description> -->  
@@ -1459,6 +1469,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/attendance/gradeAttendance/editGradeAttendance.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/attendance/gradeAttendance/textSearchResultsGradeAttendance.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{gradeAttendanceList.firstResult}"/>  
@@ -1501,6 +1514,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/hostel/room/editRoom.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/hostel/room/textSearchResultsRoom.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{roomList.firstResult}"/>  
@@ -1544,6 +1560,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/hostel/bed/editBed.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/hostel/bed/textSearchResultsBed.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{bedList.firstResult}"/>  
@@ -1585,6 +1604,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/hostel/hostel/editHostel.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/hostel/hostel/textSearchResultsHostel.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{hostelList.firstResult}"/>  
@@ -1628,6 +1650,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/hostel/bedAllocation/editBedAllocation.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/hostel/bedAllocation/textSearchResultsBedAllocation.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{bedAllocationList.firstResult}"/>  
@@ -1641,87 +1666,93 @@
     <param name="student" value="#{bedAllocationList.bedAllocation.student.id}" validateModel="false"/>  
     <param name="remarks" value="#{bedAllocationList.bedAllocation.remarks}" validateModel="false"/> 
   </page>  
-  <page view-id="/admin/entities/users/user/editUser.xhtml"> 
-    <!-- <description>Edit User: #{user.displayName}</description> -->  
+  <page view-id="/admin/entities/users/appUser/editAppUser.xhtml"> 
+    <!-- <description>Edit AppUser: #{appUser.displayName}</description> -->  
     <navigation> 
       <rule if-outcome="save"> 
-        <redirect view-id="/admin/entities/users/user/viewUser.xhtml"/> 
+        <redirect view-id="/admin/entities/users/appUser/viewAppUser.xhtml"/> 
       </rule>  
       <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/users/user/listUser.xhtml"/> 
+        <redirect view-id="/admin/entities/users/appUser/listAppUser.xhtml"/> 
       </rule> 
     </navigation>  
-    <param name="userId" value="#{userAction.userId}"/> 
+    <param name="appUserId" value="#{appUserAction.appUserId}"/> 
   </page>  
-  <page view-id="/admin/entities/users/user/viewUser.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <!-- <description>View User: #{user.displayName}</description> -->  
+  <page view-id="/admin/entities/users/appUser/viewAppUser.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View AppUser: #{appUser.displayName}</description> -->  
     <navigation> 
       <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/users/user/editUser.xhtml"/> 
+        <redirect view-id="/admin/entities/users/appUser/editAppUser.xhtml"/> 
       </rule>  
       <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/users/user/listUser.xhtml"/> 
+        <redirect view-id="/admin/entities/users/appUser/listAppUser.xhtml"/> 
       </rule> 
     </navigation>  
-    <param name="userId" value="#{userAction.userId}"/> 
+    <param name="appUserId" value="#{appUserAction.appUserId}"/> 
   </page>  
-  <page view-id="/admin/entities/users/user/listUser.xhtml" action="#{redirect.captureCurrentView()}"> 
+  <page view-id="/admin/entities/users/appUser/listAppUser.xhtml" action="#{redirect.captureCurrentView()}"> 
     <navigation> 
-      <rule if-outcome="viewUser"> 
-        <redirect view-id="/admin/entities/users/user/viewUser.xhtml"/> 
+      <rule if-outcome="viewAppUser"> 
+        <redirect view-id="/admin/entities/users/appUser/viewAppUser.xhtml"/> 
       </rule>  
       <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/users/user/editUser.xhtml"/> 
+        <redirect view-id="/admin/entities/users/appUser/editAppUser.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/users/appUser/textSearchResultsAppUser.xhtml"/> 
       </rule> 
     </navigation>  
-    <param name="firstResult" value="#{userList.firstResult}"/>  
-    <param name="sort" value="#{userList.orderColumn}"/>  
-    <param name="dir" value="#{userList.orderDirection}"/>  
+    <param name="firstResult" value="#{appUserList.firstResult}"/>  
+    <param name="sort" value="#{appUserList.orderColumn}"/>  
+    <param name="dir" value="#{appUserList.orderDirection}"/>  
     <param name="from"/>  
-    <param name="id" value="#{userList.user.id}"/>  
-    <param name="userName" value="#{userList.user.userName}" validateModel="false"/>  
-    <param name="email" value="#{userList.user.email}" validateModel="false"/>  
-    <param name="enabled" value="#{userList.user.enabled}" validateModel="false"/> 
+    <param name="id" value="#{appUserList.appUser.id}"/>  
+    <param name="userName" value="#{appUserList.appUser.userName}" validateModel="false"/>  
+    <param name="email" value="#{appUserList.appUser.email}" validateModel="false"/>  
+    <param name="enabled" value="#{appUserList.appUser.enabled}" validateModel="false"/> 
   </page>  
-  <page view-id="/admin/entities/users/role/editRole.xhtml"> 
-    <!-- <description>Edit Role: #{role.displayName}</description> -->  
+  <page view-id="/admin/entities/users/appRole/editAppRole.xhtml"> 
+    <!-- <description>Edit AppRole: #{appRole.displayName}</description> -->  
     <navigation> 
       <rule if-outcome="save"> 
-        <redirect view-id="/admin/entities/users/role/viewRole.xhtml"/> 
+        <redirect view-id="/admin/entities/users/appRole/viewAppRole.xhtml"/> 
       </rule>  
       <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/users/role/listRole.xhtml"/> 
+        <redirect view-id="/admin/entities/users/appRole/listAppRole.xhtml"/> 
       </rule> 
     </navigation>  
-    <param name="roleId" value="#{roleAction.roleId}"/> 
+    <param name="appRoleId" value="#{appRoleAction.appRoleId}"/> 
   </page>  
-  <page view-id="/admin/entities/users/role/viewRole.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <!-- <description>View Role: #{role.displayName}</description> -->  
+  <page view-id="/admin/entities/users/appRole/viewAppRole.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View AppRole: #{appRole.displayName}</description> -->  
     <navigation> 
       <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/users/role/editRole.xhtml"/> 
+        <redirect view-id="/admin/entities/users/appRole/editAppRole.xhtml"/> 
       </rule>  
       <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/users/role/listRole.xhtml"/> 
+        <redirect view-id="/admin/entities/users/appRole/listAppRole.xhtml"/> 
       </rule> 
     </navigation>  
-    <param name="roleId" value="#{roleAction.roleId}"/> 
+    <param name="appRoleId" value="#{appRoleAction.appRoleId}"/> 
   </page>  
-  <page view-id="/admin/entities/users/role/listRole.xhtml" action="#{redirect.captureCurrentView()}"> 
+  <page view-id="/admin/entities/users/appRole/listAppRole.xhtml" action="#{redirect.captureCurrentView()}"> 
     <navigation> 
-      <rule if-outcome="viewRole"> 
-        <redirect view-id="/admin/entities/users/role/viewRole.xhtml"/> 
+      <rule if-outcome="viewAppRole"> 
+        <redirect view-id="/admin/entities/users/appRole/viewAppRole.xhtml"/> 
       </rule>  
       <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/users/role/editRole.xhtml"/> 
+        <redirect view-id="/admin/entities/users/appRole/editAppRole.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/users/appRole/textSearchResultsAppRole.xhtml"/> 
       </rule> 
     </navigation>  
-    <param name="firstResult" value="#{roleList.firstResult}"/>  
-    <param name="sort" value="#{roleList.orderColumn}"/>  
-    <param name="dir" value="#{roleList.orderDirection}"/>  
+    <param name="firstResult" value="#{appRoleList.firstResult}"/>  
+    <param name="sort" value="#{appRoleList.orderColumn}"/>  
+    <param name="dir" value="#{appRoleList.orderDirection}"/>  
     <param name="from"/>  
-    <param name="id" value="#{roleList.role.id}"/>  
-    <param name="name" value="#{roleList.role.name}" validateModel="false"/> 
+    <param name="id" value="#{appRoleList.appRole.id}"/>  
+    <param name="name" value="#{appRoleList.appRole.name}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/fees/monthlyFee/editMonthlyFee.xhtml"> 
     <!-- <description>Edit MonthlyFee: #{monthlyFee.displayName}</description> -->  
@@ -1755,6 +1786,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/fees/monthlyFee/editMonthlyFee.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/fees/monthlyFee/textSearchResultsMonthlyFee.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{monthlyFeeList.firstResult}"/>  
@@ -1797,6 +1831,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/fees/feeItem/editFeeItem.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/fees/feeItem/textSearchResultsFeeItem.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{feeItemList.firstResult}"/>  
@@ -1840,6 +1877,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/fees/gradeFeeItem/editGradeFeeItem.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/fees/gradeFeeItem/textSearchResultsGradeFeeItem.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{gradeFeeItemList.firstResult}"/>  
@@ -1885,6 +1925,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/fees/studentPaidFee/editStudentPaidFee.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/fees/studentPaidFee/textSearchResultsStudentPaidFee.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{studentPaidFeeList.firstResult}"/>  

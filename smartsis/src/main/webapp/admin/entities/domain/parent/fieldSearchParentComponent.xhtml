@@ -31,30 +31,22 @@
       <h:inputText id="contactDetails_city" value="#{parentList.parent.contactDetails.city}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parent', 'userNameEdit')}"/>  
+      <h:outputText value="#{msg.appUser_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parent', 'userNameEdit')}"/>  
       <br/>  
-      <h:inputText id="user_userName" value="#{parentList.parent.user.userName}"/> 
+      <h:inputText id="appUser_userName" value="#{parentList.parent.appUser.userName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parent', 'emailEdit')}"/>  
+      <h:outputText value="#{msg.appUser_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parent', 'emailEdit')}"/>  
       <br/>  
-      <h:inputText id="user_email" value="#{parentList.parent.user.email}"/> 
+      <h:inputText id="appUser_email" value="#{parentList.parent.appUser.email}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parent', 'enabledEdit')}"/>  
+      <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parent', 'enabledEdit')}"/>  
       <br/>  
-      <h:selectOneMenu id="user_enabled" value="#{parentList.parent.user.enabled}" required="false"> 
+      <h:selectOneMenu id="appUser_enabled" value="#{parentList.parent.appUser.enabled}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="True" itemValue="true"/>  
         <f:selectItem itemLabel="False" itemValue="false"/> 
-      </h:selectOneMenu> 
-    </h:panelGroup>  
-    <h:panelGroup> 
-      <h:outputText value="#{msg.parent_parentGroup} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('parent', 'parentGroupEdit')}"/>  
-      <br/>  
-      <h:selectOneMenu id="parentGroup" value="#{ parentList.parent.parentGroup}"> 
-        <s:selectItems value="#{parentGroupList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/> 
       </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  

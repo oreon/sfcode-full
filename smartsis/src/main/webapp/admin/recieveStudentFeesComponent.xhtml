@@ -10,8 +10,12 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+	<rich:panel>
+		  <f:facet name="header">
+            		<h:outputText value="Fee"/>
+      			</f:facet>
 	<h:panelGroup>
-
+		
 		<s:validateAll>
 
 			<a:region>
@@ -40,6 +44,10 @@
 							noSelectionLabel="Please Select..." />
 						<rich:ajaxValidator event="onsubmit" />
 						<s:convertEntity />
+						
+						<a:support event="onchange"
+							action="#{studentPaidFeeAction.updateFee}"
+							reRender="amountOwed" ajaxSingle="false" />
 					</h:selectOneMenu>
 					
 					<rich:message styleClass="error errors" for="student" />
@@ -132,4 +140,5 @@
 
 		</s:validateAll>
 	</h:panelGroup>
+	</rich:panel>
 </ui:composition>

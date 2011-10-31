@@ -100,7 +100,9 @@ public abstract class GradeActionBase extends BaseAction<Grade>
 
 	@Override
 	protected Grade createInstance() {
-		return new Grade();
+		Grade instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -307,6 +309,11 @@ public abstract class GradeActionBase extends BaseAction<Grade>
 
 		listExams.clear();
 
+	}
+
+	public String viewGrade() {
+		load(currentEntityId);
+		return "viewGrade";
 	}
 
 }

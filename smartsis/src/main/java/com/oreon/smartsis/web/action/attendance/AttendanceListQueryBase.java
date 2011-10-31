@@ -56,11 +56,9 @@ public abstract class AttendanceListQueryBase
 
 			"attendance.student.id = #{attendanceList.attendance.student.id}",
 
-			"attendance.gradeSubject.id = #{attendanceList.attendance.gradeSubject.id}",
+			"attendance.gradeAttendance.id = #{attendanceList.attendance.gradeAttendance.id}",
 
 			"attendance.absenceCode = #{attendanceList.attendance.absenceCode}",
-
-			"attendance.gradeAttendance.id = #{attendanceList.attendance.gradeAttendance.id}",
 
 			"attendance.dateCreated <= #{attendanceList.dateCreatedRange.end}",
 			"attendance.dateCreated >= #{attendanceList.dateCreatedRange.begin}",};
@@ -88,16 +86,12 @@ public abstract class AttendanceListQueryBase
 						.replace(",", "") : "") + "\",");
 
 		builder.append("\""
-				+ (e.getGradeSubject() != null ? e.getGradeSubject()
+				+ (e.getGradeAttendance() != null ? e.getGradeAttendance()
 						.getDisplayName().replace(",", "") : "") + "\",");
 
 		builder.append("\""
 				+ (e.getAbsenceCode() != null ? e.getAbsenceCode() : "")
 				+ "\",");
-
-		builder.append("\""
-				+ (e.getGradeAttendance() != null ? e.getGradeAttendance()
-						.getDisplayName().replace(",", "") : "") + "\",");
 
 		builder.append("\r\n");
 	}
@@ -110,11 +104,9 @@ public abstract class AttendanceListQueryBase
 
 		builder.append("Student" + ",");
 
-		builder.append("GradeSubject" + ",");
+		builder.append("GradeAttendance" + ",");
 
 		builder.append("AbsenceCode" + ",");
-
-		builder.append("GradeAttendance" + ",");
 
 		builder.append("\r\n");
 	}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+	<rich:tabPanel switchType="ajax">
+		<rich:tab label="ScoreCard" switchType="ajax">
+			<rich:tabPanel switchType="client">
+				<rich:tab label="Basic">
+					<ui:include
+						src="/admin/entities/domain/student/reportCardComponent.xhtml">
+					</ui:include>
+				</rich:tab>
+				<rich:tab label="Advanced">
+					<ui:include
+						src="/admin/entities/domain/student/reportCardComponentAdvanced.xhtml">
+					</ui:include>
+				</rich:tab>
+			</rich:tabPanel>
+		</rich:tab>
+		<rich:tab label="Attendance">
+			<ui:include
+				src="/admin/entities/domain/student/attendanceComponent.xhtml">
+			</ui:include>
+		</rich:tab>
+		<rich:tab label="Fees">
+
+		</rich:tab>
+		<rich:tab label="Electronic Exams">
+			<ui:include src="/admin/entities/domain/student/eExamComponent.xhtml" />
+		</rich:tab>
+	</rich:tabPanel>
+</ui:composition>

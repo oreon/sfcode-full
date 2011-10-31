@@ -110,7 +110,9 @@ public abstract class BedActionBase extends BaseAction<Bed>
 
 	@Override
 	protected Bed createInstance() {
-		return new Bed();
+		Bed instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -189,6 +191,11 @@ public abstract class BedActionBase extends BaseAction<Bed>
 
 		return executeNamedQuery("availableBeds");
 
+	}
+
+	public String viewBed() {
+		load(currentEntityId);
+		return "viewBed";
 	}
 
 }

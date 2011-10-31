@@ -1,73 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+  <h:panelGroup id="editGradeAttendanceComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{gradeAttendanceAction.load(gradeAttendanceId )  }"> 
-        <h:outputText value="#{msg.gradeAttendance_grade} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'gradeEdit')}"/>  
-        <h:selectOneMenu id="grade" label="#{msg.gradeAttendance_grade}" value="#{gradeAttendanceAction.gradeAttendance.grade}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'gradeEdit')}"> 
-          <a:support event="onchange" action="#{gradeAttendanceAction.onChangeGrade}" reRender="attendances" ajaxSingle="true"/>  
-          <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="grade" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'gradeEdit')}"/>  
-        <h:outputText value="#{msg.gradeAttendance_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'dateEdit')}"/>  
-        <rich:calendar direction="auto" id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'dateEdit')}" label="#{msg.gradeAttendance_date}" required="false" disabled="false" value="#{gradeAttendanceAction.gradeAttendance.date}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:calendar>  
-        <rich:message styleClass="error errors" for="date" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'dateEdit')}"/> 
+      <h:panelGrid columns="1" onload="#{gradeAttendanceAction.load(gradeAttendanceId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.GradeAttendance}"/> 
+        </f:facet>  
+        <s:decorate id="dateDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.gradeAttendance_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'dateEdit')}"/>
+          </ui:define>  
+          <rich:calendar direction="auto" id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'dateEdit')}" label="#{msg.gradeAttendance_date}" required="false" disabled="false" value="#{gradeAttendanceAction.gradeAttendance.date}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:calendar> 
+        </s:decorate>  
+        <s:decorate id="gradeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.gradeAttendance_grade} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'gradeEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="grade" label="#{msg.gradeAttendance_grade}" value="#{gradeAttendanceAction.gradeAttendance.grade}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'gradeEdit')}" disabled="false"> 
+            <a:support event="onchange" action="#{gradeAttendanceAction.onChangeGrade}" reRender="attendances" ajaxSingle="true"/>  
+            <s:selectItems value="#{gradeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
       </h:panelGrid>  
-      <a:commandButton value="New Attendance" action="#{gradeAttendanceAction.addAttendances}" reRender="attendances" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'attendancesEdit')}"> 
-        <s:conversationId/> 
-      </a:commandButton>  
-      <rich:dataTable id="attendances" var="_attendance" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'attendancesEdit')}" value="#{gradeAttendanceAction.listAttendances}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
-        <h:column style="text-align:right">
+      <br/>  
+      <rich:dataTable id="attendances" var="_attendance" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gradeAttendance', 'attendancesEdit')}" value="#{gradeAttendanceAction.listAttendances}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
           <f:facet name="header">
             <h:outputText value="#{msg.attendance_student} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'studentEdit')}"/>
           </f:facet>  
-          <h:selectOneMenu id="student" label="#{msg.attendance_student}" value="#{_attendance.student}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'studentEdit')}"> 
-            <s:selectItems value="#{studentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <rich:ajaxValidator event="onsubmit"/>  
-            <s:convertEntity/> 
-          </h:selectOneMenu>  
-          <rich:message styleClass="error errors" for="student" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'studentEdit')}"/> 
+          <s:decorate id="studentDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <s:link value="#{_attendance.student.displayName}" action="viewstudent" propagation="none"> 
+              <f:param name="studentId" value="#{_attendance.student.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </s:link> 
+          </s:decorate> 
         </h:column>  
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.attendance_gradeSubject}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'gradeSubjectEdit')}"/>
-          </f:facet>  
-          <h:selectOneMenu id="gradeSubject" label="#{msg.attendance_gradeSubject}" value="#{_attendance.gradeSubject}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'gradeSubjectEdit')}"> 
-            <s:selectItems value="#{gradeSubjectList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <rich:ajaxValidator event="onsubmit"/>  
-            <s:convertEntity/> 
-          </h:selectOneMenu>  
-          <rich:message styleClass="error errors" for="gradeSubject" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'gradeSubjectEdit')}"/> 
-        </h:column>  
-        <h:column style="text-align:right">
+        <h:column>
           <f:facet name="header">
             <h:outputText value="#{msg.attendance_absenceCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'absenceCodeEdit')}"/>
           </f:facet>  
-          <h:selectOneMenu id="absenceCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'absenceCodeEdit')}" value="#{_attendance.absenceCode}" required="false" label="#{msg.attendance_absenceCode}"> 
-            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
-            <f:selectItem itemValue="ABSENT" itemLabel="#{msg.ABSENT}"/>  
-            <f:selectItem itemValue="LEAVE" itemLabel="#{msg.LEAVE}"/>  
-            <f:selectItem itemValue="SICK_LEAVE" itemLabel="#{msg.SICK_LEAVE}"/>  
-            <rich:ajaxValidator event="onsubmit"/> 
-          </h:selectOneMenu>  
-          <rich:message styleClass="error errors" for="absenceCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'absenceCodeEdit')}"/> 
-        </h:column>  
-        <h:column> 
-          <a:commandButton value="New Attendance" action="#{gradeAttendanceAction.addAttendances}" reRender="attendances" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'attendancesEdit')}"> 
-            <s:conversationId/> 
-          </a:commandButton> 
-        </h:column>  
-        <h:column> 
-          <a:commandButton value="Delete" immediate="true" action="#{gradeAttendanceAction.deleteAttendances(rowIndex)}" reRender="attendances"> 
-            <s:conversationId/> 
-          </a:commandButton> 
+          <s:decorate id="absenceCodeDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="absenceCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('attendance', 'absenceCodeEdit')}" value="#{_attendance.absenceCode}" required="false" label="#{msg.attendance_absenceCode}"> 
+              <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+              <f:selectItem itemValue="ABSENT" itemLabel="#{msg.ABSENT}"/>  
+              <f:selectItem itemValue="LEAVE" itemLabel="#{msg.LEAVE}"/>  
+              <f:selectItem itemValue="SICK_LEAVE" itemLabel="#{msg.SICK_LEAVE}"/>  
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
         </h:column> 
-      </rich:dataTable> 
+      </rich:dataTable>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

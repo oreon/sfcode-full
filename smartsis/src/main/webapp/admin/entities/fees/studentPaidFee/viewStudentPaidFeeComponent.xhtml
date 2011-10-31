@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+  <h:panelGroup id="viewStudentPaidFeeComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{studentPaidFeeAction.load(studentPaidFeeId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{studentPaidFeeAction.studentPaidFee.id}"/>  
-        <h:outputText value="#{msg.studentPaidFee_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'studentView')}"/>  
-        <s:link value="#{studentPaidFeeAction.studentPaidFee.student.displayName}" view="/admin/entities/domain/student/viewStudent.xhtml" propagation="none"> 
-          <f:param name="studentId" value="#{studentPaidFeeAction.studentPaidFee.student.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
-        <h:outputText value="#{msg.studentPaidFee_monthlyFee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'monthlyFeeView')}"/>  
-        <s:link value="#{studentPaidFeeAction.studentPaidFee.monthlyFee.displayName}" view="/admin/entities/fees/monthlyFee/viewMonthlyFee.xhtml" propagation="none"> 
-          <f:param name="monthlyFeeId" value="#{studentPaidFeeAction.studentPaidFee.monthlyFee.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
+      <h:panelGrid columns="1" onload="#{studentPaidFeeAction.load(studentPaidFeeId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.StudentPaidFee}"/> 
+        </f:facet>  
         <h:outputText value="#{msg.studentPaidFee_amountOwed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'amountOwedView')}"/>  
         <h:outputText id="amountOwed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'amountOwedView')}" value="#{studentPaidFeeAction.studentPaidFee.amountOwed}"></h:outputText>  
         <h:outputText value="#{msg.studentPaidFee_amountPaid}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'amountPaidView')}"/>  
@@ -27,8 +22,20 @@
         <h:outputText value="#{msg.studentPaidFee_year}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'yearView')}"/>  
         <h:outputText id="year#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'yearView')}" value="#{studentPaidFeeAction.studentPaidFee.year}"></h:outputText>  
         <h:outputText value="#{msg.studentPaidFee_month}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'monthView')}"/>  
-        <h:outputText value="#{studentPaidFeeAction.studentPaidFee.month}"/> 
-      </h:panelGrid> 
+        <h:outputText value="#{studentPaidFeeAction.studentPaidFee.month}"/>  
+        <h:outputText value="#{msg.studentPaidFee_student}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'studentView')}"/>  
+        <s:link value="#{studentPaidFeeAction.studentPaidFee.student.displayName}" action="viewstudent" propagation="none"> 
+          <f:param name="studentId" value="#{studentPaidFeeAction.studentPaidFee.student.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.studentPaidFee_monthlyFee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('studentPaidFee', 'monthlyFeeView')}"/>  
+        <s:link value="#{studentPaidFeeAction.studentPaidFee.monthlyFee.displayName}" action="viewmonthlyFee" propagation="none"> 
+          <f:param name="monthlyFeeId" value="#{studentPaidFeeAction.studentPaidFee.monthlyFee.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

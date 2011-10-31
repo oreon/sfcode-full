@@ -50,25 +50,25 @@
       <h:selectOneMenu id="employeeType" value="#{employeeList.employee.employeeType}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="None" itemValue=""/>  
-        <f:selectItem itemValue="FULL_TIME" itemLabel="Full_time"/>  
-        <f:selectItem itemValue="CONTRACT" itemLabel="Contract"/>  
-        <f:selectItem itemValue="PART_TIME" itemLabel="Part_time"/> 
+        <f:selectItem itemValue="Teacher" itemLabel="Teacher"/>  
+        <f:selectItem itemValue="Manager" itemLabel="Manager"/>  
+        <f:selectItem itemValue="Clerk" itemLabel="Clerk"/> 
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'userNameEdit')}"/>  
+      <h:outputText value="#{msg.appUser_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'userNameEdit')}"/>  
       <br/>  
-      <h:inputText id="user_userName" value="#{employeeList.employee.user.userName}"/> 
+      <h:inputText id="appUser_userName" value="#{employeeList.employee.appUser.userName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'emailEdit')}"/>  
+      <h:outputText value="#{msg.appUser_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'emailEdit')}"/>  
       <br/>  
-      <h:inputText id="user_email" value="#{employeeList.employee.user.email}"/> 
+      <h:inputText id="appUser_email" value="#{employeeList.employee.appUser.email}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'enabledEdit')}"/>  
+      <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'enabledEdit')}"/>  
       <br/>  
-      <h:selectOneMenu id="user_enabled" value="#{employeeList.employee.user.enabled}" required="false"> 
+      <h:selectOneMenu id="appUser_enabled" value="#{employeeList.employee.appUser.enabled}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="True" itemValue="true"/>  
         <f:selectItem itemLabel="False" itemValue="false"/> 

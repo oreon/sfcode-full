@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Date;
+import javax.ws.rs.core.Response;
 
 import javax.persistence.*;
 import org.hibernate.validator.*;
@@ -21,6 +22,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Boost;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Parameter;
@@ -71,6 +73,7 @@ public class StudentPaidFee extends BusinessEntity
 
 	;
 
+	@Column(unique = false)
 	protected Double dueAmount
 
 	;
@@ -99,6 +102,7 @@ public class StudentPaidFee extends BusinessEntity
 
 	= ProjectUtils.getCurrentYear();
 
+	@Column(unique = false)
 	protected com.oreon.smartsis.domain.FeeMonth month
 
 	;
@@ -110,8 +114,10 @@ public class StudentPaidFee extends BusinessEntity
 	public Double getAmountOwed() {
 
 		try {
-			return monthlyFee.getTotal() * (100.0 - student.getScholarship())
-					/ 100.0;
+			return monthlyFee.getTotal()
+					* (100.0 - ((student.getScholarship() == null)
+							? 0.0
+							: student.getScholarship())) / 100.0;
 		} catch (Exception e) {
 
 			return 0.0;

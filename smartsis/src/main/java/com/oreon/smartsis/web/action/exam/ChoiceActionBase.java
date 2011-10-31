@@ -110,7 +110,9 @@ public abstract class ChoiceActionBase extends BaseAction<Choice>
 
 	@Override
 	protected Choice createInstance() {
-		return new Choice();
+		Choice instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -184,6 +186,11 @@ public abstract class ChoiceActionBase extends BaseAction<Choice>
 
 	public void clearLists() {
 
+	}
+
+	public String viewChoice() {
+		load(currentEntityId);
+		return "viewChoice";
 	}
 
 }

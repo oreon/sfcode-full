@@ -8,8 +8,9 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.jbpm.identity.User;
 
-import com.oreon.smartsis.users.User;
+import com.oreon.smartsis.users.AppUser;
 
 
 @Name("userUtilAction")
@@ -22,16 +23,16 @@ public class UserUtilAction implements Serializable{
 	 */
 	private static final long serialVersionUID = 3320546173691963806L;
 
-	private User currentUser;
+	private AppUser currentUser;
 	
 	@In
 	EntityManager entityManager;
 
-	public User getCurrentUser() {
+	public AppUser getCurrentUser() {
 		return currentUser;
 	}
 
-	public void setCurrentUser(User currentUser) {
+	public void setCurrentUser(AppUser currentUser) {
 		this.currentUser = entityManager.merge(currentUser);	
 	}
 }

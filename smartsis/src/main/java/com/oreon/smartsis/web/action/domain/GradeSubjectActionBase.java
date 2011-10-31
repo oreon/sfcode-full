@@ -144,7 +144,9 @@ public abstract class GradeSubjectActionBase extends BaseAction<GradeSubject>
 
 	@Override
 	protected GradeSubject createInstance() {
-		return new GradeSubject();
+		GradeSubject instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -293,6 +295,11 @@ public abstract class GradeSubjectActionBase extends BaseAction<GradeSubject>
 	public void clearLists() {
 		listCourseDocumentses.clear();
 
+	}
+
+	public String viewGradeSubject() {
+		load(currentEntityId);
+		return "viewGradeSubject";
 	}
 
 }

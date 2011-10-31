@@ -58,8 +58,8 @@ public abstract class EmployeeActionBase
 	@In(create = true, value = "employeeAction")
 	com.oreon.smartsis.web.action.domain.EmployeeAction managerAction;
 
-	@In(create = true, value = "userAction")
-	com.oreon.smartsis.web.action.users.UserAction userAction;
+	@In(create = true, value = "appUserAction")
+	com.oreon.smartsis.web.action.users.AppUserAction appUserAction;
 
 	@DataModel
 	private List<Employee> employeeRecordList;
@@ -111,16 +111,16 @@ public abstract class EmployeeActionBase
 		return 0L;
 	}
 
-	public void setUserId(Long id) {
+	public void setAppUserId(Long id) {
 
 		if (id != null && id > 0)
-			getInstance().setUser(userAction.loadFromId(id));
+			getInstance().setAppUser(appUserAction.loadFromId(id));
 
 	}
 
-	public Long getUserId() {
-		if (getInstance().getUser() != null)
-			return getInstance().getUser().getId();
+	public Long getAppUserId() {
+		if (getInstance().getAppUser() != null)
+			return getInstance().getAppUser().getId();
 		return 0L;
 	}
 
@@ -144,7 +144,9 @@ public abstract class EmployeeActionBase
 
 	@Override
 	protected Employee createInstance() {
-		return new Employee();
+		Employee instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -168,9 +170,10 @@ public abstract class EmployeeActionBase
 			getInstance().setManager(manager);
 		}
 
-		com.oreon.smartsis.users.User user = userAction.getDefinedInstance();
-		if (user != null && isNew()) {
-			getInstance().setUser(user);
+		com.oreon.smartsis.users.AppUser appUser = appUserAction
+				.getDefinedInstance();
+		if (appUser != null && isNew()) {
+			getInstance().setAppUser(appUser);
 		}
 
 	}
@@ -211,9 +214,9 @@ public abstract class EmployeeActionBase
 					.getManager().getId()));
 		}
 
-		if (employee.getUser() != null) {
-			criteria = criteria.add(Restrictions.eq("user.id", employee
-					.getUser().getId()));
+		if (employee.getAppUser() != null) {
+			criteria = criteria.add(Restrictions.eq("appUser.id", employee
+					.getAppUser().getId()));
 		}
 
 	}
@@ -232,8 +235,8 @@ public abstract class EmployeeActionBase
 			managerAction.setInstance(getInstance().getManager());
 		}
 
-		if (employee.getUser() != null) {
-			userAction.setInstance(getInstance().getUser());
+		if (employee.getAppUser() != null) {
+			appUserAction.setInstance(getInstance().getAppUser());
 		}
 
 	}
@@ -247,6 +250,17 @@ public abstract class EmployeeActionBase
 
 	public void clearLists() {
 
+	}
+
+	public Employee getCurrentLoggedInEmployee() {
+		String query = "Select e from Employee e where e.appUser.userName = ?1";
+		return (Employee) executeSingleResultQuery(query, Identity.instance()
+				.getCredentials().getUsername());
+	}
+
+	public String viewEmployee() {
+		load(currentEntityId);
+		return "viewEmployee";
 	}
 
 }

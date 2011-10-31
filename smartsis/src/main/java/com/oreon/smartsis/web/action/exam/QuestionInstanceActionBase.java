@@ -127,7 +127,9 @@ public abstract class QuestionInstanceActionBase
 
 	@Override
 	protected QuestionInstance createInstance() {
-		return new QuestionInstance();
+		QuestionInstance instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -218,6 +220,11 @@ public abstract class QuestionInstanceActionBase
 
 	public void clearLists() {
 
+	}
+
+	public String viewQuestionInstance() {
+		load(currentEntityId);
+		return "viewQuestionInstance";
 	}
 
 }

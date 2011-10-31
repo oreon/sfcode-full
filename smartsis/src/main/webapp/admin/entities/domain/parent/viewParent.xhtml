@@ -3,6 +3,8 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
   <ui:define name="content"> 
     <h:form> 
+      <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_Parent) ENABLED START-->  
+      <!--PROTECTED REGION END-->  
       <rich:tabPanel switchType="ajax"> 
         <rich:tab label="Parent"> 
           <ui:include src="/admin/entities/domain/parent/viewParentComponent.xhtml"/>  
@@ -14,16 +16,10 @@
             </h:commandButton> 
           </div> 
         </rich:tab>  
-        <rich:tab label="User" rendered="#{parentAction.instance.user != null}"> 
-          <ui:include src="/admin/entities/users/user/viewUserComponent.xhtml"> 
+        <rich:tab label="AppUser" rendered="#{parentAction.instance.appUser != null}"> 
+          <ui:include src="/admin/entities/users/appUser/viewAppUserComponent.xhtml"> 
             <ui:param name="entityId" value="1"/>  
-            <ui:param name="userId" value="#{parentAction.instance.user.id}"/> 
-          </ui:include> 
-        </rich:tab>  
-        <rich:tab label="ParentGroup" rendered="#{parentAction.instance.parentGroup != null}"> 
-          <ui:include src="/admin/entities/domain/parentGroup/viewParentGroupComponent.xhtml"> 
-            <ui:param name="entityId" value="2"/>  
-            <ui:param name="parentGroupId" value="#{parentAction.instance.parentGroup.id}"/> 
+            <ui:param name="appUserId" value="#{parentAction.instance.appUser.id}"/> 
           </ui:include> 
         </rich:tab> 
       </rich:tabPanel> 

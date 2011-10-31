@@ -21,15 +21,15 @@
           </f:facet>  
           <h:outputText value="#{_choice.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('text', 'choiceView'  )}"> 
+        <h:column rendered="#{s:hasPermission('choice', 'choiceView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{choiceList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.choice_text}"/>  
-              <ui:param name="propertyPath" value="choice.text"/> 
+              <ui:param name="propertyLabel" value="#{msg.choice_choice}"/>  
+              <ui:param name="propertyPath" value="choice.choice"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_choice.text}" escape="false"/> 
+          <h:outputText value="#{_choice.choice}" escape="false"/> 
         </h:column>  
         <h:column groupOn="#{choice.question.displayName}" rendered="#{s:hasPermission('question', 'choiceView'  )}"> 
           <f:facet name="header"> 

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Date;
+import javax.ws.rs.core.Response;
 
 import javax.persistence.*;
 import org.hibernate.validator.*;
@@ -21,6 +22,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Boost;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Parameter;
@@ -66,9 +68,9 @@ public class ExamInstance extends BusinessEntity
 	@IndexedEmbedded
 	private Set<ExamScore> examScores = new HashSet<ExamScore>();
 
-	public void addExamScores(ExamScore examScores) {
-		examScores.setExamInstance(this);
-		this.examScores.add(examScores);
+	public void addExamScore(ExamScore examScore) {
+		examScore.setExamInstance(this);
+		this.examScores.add(examScore);
 	}
 
 	@Transient
@@ -95,6 +97,7 @@ public class ExamInstance extends BusinessEntity
 
 	;
 
+	@Column(unique = false)
 	protected Date dateHeld
 
 	;

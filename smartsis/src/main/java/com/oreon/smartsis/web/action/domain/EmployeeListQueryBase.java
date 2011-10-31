@@ -70,11 +70,11 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 
 			"employee.manager.id = #{employeeList.employee.manager.id}",
 
-			"lower(employee.user.userName) like concat(lower(#{employeeList.employee.user.userName}),'%')",
+			"lower(employee.appUser.userName) like concat(lower(#{employeeList.employee.appUser.userName}),'%')",
 
-			"lower(employee.user.email) like concat(lower(#{employeeList.employee.user.email}),'%')",
+			"lower(employee.appUser.email) like concat(lower(#{employeeList.employee.appUser.email}),'%')",
 
-			"employee.user.enabled = #{employeeList.employee.user.enabled}",
+			"employee.appUser.enabled = #{employeeList.employee.appUser.enabled}",
 
 			"employee.dateCreated <= #{employeeList.dateCreatedRange.end}",
 			"employee.dateCreated >= #{employeeList.dateCreatedRange.begin}",};
@@ -114,8 +114,8 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 						.replace(",", "") : "") + "\",");
 
 		builder.append("\""
-				+ (e.getUser() != null ? e.getUser().getDisplayName().replace(
-						",", "") : "") + "\",");
+				+ (e.getAppUser() != null ? e.getAppUser().getDisplayName()
+						.replace(",", "") : "") + "\",");
 
 		builder.append("\r\n");
 	}
@@ -134,7 +134,7 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 
 		builder.append("Manager" + ",");
 
-		builder.append("User" + ",");
+		builder.append("AppUser" + ",");
 
 		builder.append("\r\n");
 	}

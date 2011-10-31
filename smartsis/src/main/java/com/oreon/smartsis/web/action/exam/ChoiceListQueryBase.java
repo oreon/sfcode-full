@@ -52,7 +52,7 @@ public abstract class ChoiceListQueryBase extends BaseQuery<Choice, Long> {
 	private static final String[] RESTRICTIONS = {
 			"choice.id = #{choiceList.choice.id}",
 
-			"lower(choice.text) like concat(lower(#{choiceList.choice.text}),'%')",
+			"lower(choice.choice) like concat(lower(#{choiceList.choice.choice}),'%')",
 
 			"choice.question.id = #{choiceList.choice.question.id}",
 
@@ -78,7 +78,7 @@ public abstract class ChoiceListQueryBase extends BaseQuery<Choice, Long> {
 	public void createCsvString(StringBuilder builder, Choice e) {
 
 		builder.append("\""
-				+ (e.getText() != null ? e.getText().replace(",", "") : "")
+				+ (e.getChoice() != null ? e.getChoice().replace(",", "") : "")
 				+ "\",");
 
 		builder.append("\""
@@ -94,7 +94,7 @@ public abstract class ChoiceListQueryBase extends BaseQuery<Choice, Long> {
 	//@Override
 	public void createCSvTitles(StringBuilder builder) {
 
-		builder.append("Text" + ",");
+		builder.append("Choice" + ",");
 
 		builder.append("Question" + ",");
 

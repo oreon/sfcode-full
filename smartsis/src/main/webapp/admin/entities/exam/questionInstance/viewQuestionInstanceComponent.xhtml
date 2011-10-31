@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+  <h:panelGroup id="viewQuestionInstanceComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{questionInstanceAction.load(questionInstanceId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{questionInstanceAction.questionInstance.id}"/>  
+      <h:panelGrid columns="1" onload="#{questionInstanceAction.load(questionInstanceId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.QuestionInstance}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.questionInstance_selectedChoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstance', 'selectedChoiceView')}"/>  
+        <h:outputText value="#{questionInstanceAction.questionInstance.selectedChoice}"/>  
         <h:outputText value="#{msg.questionInstance_electronicExamInstance}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstance', 'electronicExamInstanceView')}"/>  
-        <s:link value="#{questionInstanceAction.questionInstance.electronicExamInstance.displayName}" view="/admin/entities/exam/electronicExamInstance/viewElectronicExamInstance.xhtml" propagation="none"> 
+        <s:link value="#{questionInstanceAction.questionInstance.electronicExamInstance.displayName}" action="viewelectronicExamInstance" propagation="none"> 
           <f:param name="electronicExamInstanceId" value="#{questionInstanceAction.questionInstance.electronicExamInstance.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.questionInstance_question}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstance', 'questionView')}"/>  
-        <s:link value="#{questionInstanceAction.questionInstance.question.displayName}" view="/admin/entities/exam/question/viewQuestion.xhtml" propagation="none"> 
+        <s:link value="#{questionInstanceAction.questionInstance.question.displayName}" action="viewquestion" propagation="none"> 
           <f:param name="questionId" value="#{questionInstanceAction.questionInstance.question.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
-        <h:outputText value="#{msg.questionInstance_selectedChoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionInstance', 'selectedChoiceView')}"/>  
-        <h:outputText value="#{questionInstanceAction.questionInstance.selectedChoice}"/> 
-      </h:panelGrid> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

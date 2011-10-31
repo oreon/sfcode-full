@@ -11,4 +11,10 @@ import org.jboss.seam.annotations.Name;
 @Name("promotionService")
 public class PromotionService extends PromotionServiceBase {
 
+	@Override
+	public Boolean doPromote() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

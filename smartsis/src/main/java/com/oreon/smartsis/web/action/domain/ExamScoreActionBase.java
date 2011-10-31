@@ -126,7 +126,9 @@ public abstract class ExamScoreActionBase extends BaseAction<ExamScore>
 
 	@Override
 	protected ExamScore createInstance() {
-		return new ExamScore();
+		ExamScore instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -215,6 +217,11 @@ public abstract class ExamScoreActionBase extends BaseAction<ExamScore>
 
 	public void clearLists() {
 
+	}
+
+	public String viewExamScore() {
+		load(currentEntityId);
+		return "viewExamScore";
 	}
 
 }

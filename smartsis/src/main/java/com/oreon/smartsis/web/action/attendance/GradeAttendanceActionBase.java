@@ -112,7 +112,9 @@ public abstract class GradeAttendanceActionBase
 
 	@Override
 	protected GradeAttendance createInstance() {
-		return new GradeAttendance();
+		GradeAttendance instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -231,6 +233,11 @@ public abstract class GradeAttendanceActionBase
 	public void clearLists() {
 		listAttendances.clear();
 
+	}
+
+	public String viewGradeAttendance() {
+		load(currentEntityId);
+		return "viewGradeAttendance";
 	}
 
 }

@@ -57,8 +57,11 @@ public abstract class StudentActionBase
 	@In(create = true, value = "gradeAction")
 	com.oreon.smartsis.web.action.domain.GradeAction gradeAction;
 
-	@In(create = true, value = "parentGroupAction")
-	com.oreon.smartsis.web.action.domain.ParentGroupAction parentGroupAction;
+	@In(create = true, value = "parentAction")
+	com.oreon.smartsis.web.action.domain.ParentAction primaryAction;
+
+	@In(create = true, value = "parentAction")
+	com.oreon.smartsis.web.action.domain.ParentAction secondaryAction;
 
 	@DataModel
 	private List<Student> studentRecordList;
@@ -97,16 +100,29 @@ public abstract class StudentActionBase
 		return 0L;
 	}
 
-	public void setParentGroupId(Long id) {
+	public void setPrimaryId(Long id) {
 
 		if (id != null && id > 0)
-			getInstance().setParentGroup(parentGroupAction.loadFromId(id));
+			getInstance().setPrimary(primaryAction.loadFromId(id));
 
 	}
 
-	public Long getParentGroupId() {
-		if (getInstance().getParentGroup() != null)
-			return getInstance().getParentGroup().getId();
+	public Long getPrimaryId() {
+		if (getInstance().getPrimary() != null)
+			return getInstance().getPrimary().getId();
+		return 0L;
+	}
+
+	public void setSecondaryId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setSecondary(secondaryAction.loadFromId(id));
+
+	}
+
+	public Long getSecondaryId() {
+		if (getInstance().getSecondary() != null)
+			return getInstance().getSecondary().getId();
 		return 0L;
 	}
 
@@ -130,7 +146,9 @@ public abstract class StudentActionBase
 
 	@Override
 	protected Student createInstance() {
-		return new Student();
+		Student instance = super.createInstance();
+
+		return instance;
 	}
 
 	public void load() {
@@ -148,10 +166,16 @@ public abstract class StudentActionBase
 			getInstance().setGrade(grade);
 		}
 
-		com.oreon.smartsis.domain.ParentGroup parentGroup = parentGroupAction
+		com.oreon.smartsis.domain.Parent primary = primaryAction
 				.getDefinedInstance();
-		if (parentGroup != null && isNew()) {
-			getInstance().setParentGroup(parentGroup);
+		if (primary != null && isNew()) {
+			getInstance().setPrimary(primary);
+		}
+
+		com.oreon.smartsis.domain.Parent secondary = secondaryAction
+				.getDefinedInstance();
+		if (secondary != null && isNew()) {
+			getInstance().setSecondary(secondary);
 		}
 
 	}
@@ -205,9 +229,14 @@ public abstract class StudentActionBase
 					.getGrade().getId()));
 		}
 
-		if (student.getParentGroup() != null) {
-			criteria = criteria.add(Restrictions.eq("parentGroup.id", student
-					.getParentGroup().getId()));
+		if (student.getPrimary() != null) {
+			criteria = criteria.add(Restrictions.eq("primary.id", student
+					.getPrimary().getId()));
+		}
+
+		if (student.getSecondary() != null) {
+			criteria = criteria.add(Restrictions.eq("secondary.id", student
+					.getSecondary().getId()));
 		}
 
 	}
@@ -222,8 +251,12 @@ public abstract class StudentActionBase
 			gradeAction.setInstance(getInstance().getGrade());
 		}
 
-		if (student.getParentGroup() != null) {
-			parentGroupAction.setInstance(getInstance().getParentGroup());
+		if (student.getPrimary() != null) {
+			primaryAction.setInstance(getInstance().getPrimary());
+		}
+
+		if (student.getSecondary() != null) {
+			secondaryAction.setInstance(getInstance().getSecondary());
 		}
 
 		initListStudentVitalInfos();
@@ -284,10 +317,9 @@ public abstract class StudentActionBase
 
 	}
 
-	public List eExamsForStudent() {
-
-		return executeNamedQuery("eExamsForStudent");
-
+	public String viewStudent() {
+		load(currentEntityId);
+		return "viewStudent";
 	}
 
 }
