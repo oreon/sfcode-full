@@ -27,7 +27,6 @@ public interface IGenericDAO<T, ID extends Serializable> {
 	 * @param entity the entity to update
 	 * @return the updated entity
 	 */
-	// TODO: T should be returned, please confirm.
 	T update(T entity);
 	
 	/**

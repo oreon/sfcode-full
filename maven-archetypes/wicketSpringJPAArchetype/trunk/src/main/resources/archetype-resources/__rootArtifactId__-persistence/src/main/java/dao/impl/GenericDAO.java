@@ -5,6 +5,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import ${package}.dao.IGenericDAO;
@@ -17,12 +18,13 @@ import ${package}.dao.IGenericDAO;
  * @param <T> the entity type
  * @param <ID> the primary key type
  */
-public abstract class GenericDAO<T, ID extends Serializable> implements IGenericDAO<T, ID> {
+public abstract class GenericDAO<T, ID extends Serializable>implements IGenericDAO<T, ID> {
 
 	/** Generic instance field that holds the entity class-type of any concrete implementation. */
 	private final Class<T> persistentClass;
 	
 	/** The JPA EntityManager that holds the persistence context. */
+	@PersistenceContext
 	private EntityManager entityManager;
 
 	/**
@@ -59,24 +61,23 @@ public abstract class GenericDAO<T, ID extends Serializable> implements IGeneric
 	
 	@Override
 	public T create(T entity) {
-		entityManager.persist(entity);
+		this.entityManager.persist(entity);
 		return entity;
 	}
 
 	@Override
 	public T update(T entity) {
-		entityManager.persist(entity);
-		return entity;
+		return this.entityManager.merge(entity);
 	}
 	
 	@Override
 	public void delete(T entity) {
-		entityManager.remove(entity);
+		this.entityManager.remove(entity);
 	}
 
 	@Override
 	public T findById(ID id) {
-		return (T) entityManager.find(getPersistentClass(), id);
+		return this.entityManager.find(getPersistentClass(), id);
 	}
 	
 	@Override
