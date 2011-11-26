@@ -19,7 +19,7 @@ import ${package}.domain.geog.Country;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"/com/oreon/bugtracker/junit-context.xml"})
+@ContextConfiguration({"/junit-context.xml"})
 @Transactional(readOnly = true)
 public class GeogManagerTest {
 
