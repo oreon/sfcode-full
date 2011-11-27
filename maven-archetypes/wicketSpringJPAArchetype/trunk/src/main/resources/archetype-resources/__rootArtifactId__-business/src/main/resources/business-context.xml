@@ -16,4 +16,15 @@
 	
 	<!-- This element is used to automatically register all of Spring's standard post-processors for annotation-based configuration. -->
 	<context:annotation-config />
+
+	<!-- The Spring provided JPA transaction manager. The JpaTransactionManager is responsible for creating EntityManagers opening transactions 
+		and binding them to the current thread context. -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    	<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<!-- This element enables the configuration of transactional behavior based on annotations. The <tx:annotation-driven /> simply tells Spring 
+		to put transactional advice on any class or method that has an @Transactional annotation on it. This allows us to write DAO logic without 
+		having to worry about transactional semantics. -->
+	<tx:annotation-driven proxy-target-class="true" />
 </beans>

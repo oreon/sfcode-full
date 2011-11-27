@@ -11,11 +11,11 @@
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-	<!--<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     	<property name="location">
         	<value>classpath:db.properties</value>
     	</property>
-    </bean>-->
+    </bean>
     
 	<!-- This element is used to enable autodetection of the stereotyped classes in the base package defined. -->
 	<context:component-scan base-package="${package}.dao" />
@@ -24,32 +24,25 @@
 	<context:annotation-config />
 	
 	<!-- The data source. -->
-	<!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-    	<property name="url" value="" />
-    	<property name="driverClassName" value="" />
-    	<property name="username" value="" />
-    	<property name="password" value="" />
-    	<property name="maxActive" value="" />
-	</bean>-->
-	
-	<!-- The entity manager factory. -->
-	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <!-- <property name="dataSource" ref="dataSource" /> -->
-        <property name="persistenceUnitName" value="bugtracker" />
-        <!-- <property name="jpaVendorAdapter">
-	    	<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-	        	<property name="generateDdl" value="true" />
-	        	<property name="showSql" value="true" />
-	        	<property name="databasePlatform" value="org.hibernate.dialect.Oracle10gDialect" />
-	    	</bean>
-        </property> -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    	<property name="url" value="${db.url}" />
+    	<property name="driverClassName" value="${db.driverClassName}" />
+    	<property name="username" value="${db.username}" />
+    	<property name="password" value="${db.password}" />
 	</bean>
 	
-	<!-- This element enables the configuration of transactional behavior based on annotations.
-	<tx:annotation-driven proxy-target-class="true" /> -->
-	
-	<!-- The Spring provided JPA transaction manager. -->
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-    	<property name="entityManagerFactory" ref="entityManagerFactory" />
+	<!-- The LocalContainerEntityManagerFactoryBean creates an EntityManagerFactory. The LocalContainerEntityManagerFactoryBean gives full control over 
+		EntityManagerFactory configuration and is appropriate for environments where fine-grained customization is required. 
+		The LocalContainerEntityManagerFactoryBean creates a PersistenceUnitInfo instance based on the persistence.xml file, 
+		the supplied dataSourceLookup strategy, and the specified loadTimeWeaver. It is thus possible to work with custom data sources outside of JNDI 
+		and to control the weaving process. -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="persistenceUnitName" value="bugtracker" />
+        <property name="jpaVendorAdapter">
+	    	<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
+	    	</bean>
+        </property>
 	</bean>
 </beans>

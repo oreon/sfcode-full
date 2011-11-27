@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 import ${package}.domain.BaseEntity;
 
@@ -21,8 +22,10 @@ public class Country extends BaseEntity {
 	
 	/** The primary key of the Country. */
 	@Id
-	@GeneratedValue
-	@Column(name = "COUNTRY_ID", updatable = false, nullable = false)
+	@TableGenerator(name = "COUNTRY_ID_GENERATOR", table = "PRIMARY_KEY_GENERATOR", pkColumnName = "GENERATOR_KEY", 
+			valueColumnName = "GENERATOR_VALUE", pkColumnValue = "COUNTRY_ID")
+	@GeneratedValue(strategy = javax.persistence.GenerationType.TABLE, generator = "COUNTRY_ID_GENERATOR")
+	@Column(name = "COUNTRY_ID", nullable = false, updatable = false)
 	private Long id;
 	
 	/**
