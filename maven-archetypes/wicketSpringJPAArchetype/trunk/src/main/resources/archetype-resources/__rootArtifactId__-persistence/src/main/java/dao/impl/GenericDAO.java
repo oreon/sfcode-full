@@ -8,6 +8,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import ${package}.dao.IGenericDAO;
 
 /**
@@ -19,6 +22,9 @@ import ${package}.dao.IGenericDAO;
  * @param <ID> the primary key type
  */
 public abstract class GenericDAO<T, ID extends Serializable>implements IGenericDAO<T, ID> {
+
+	/** Logger for this class. */
+	private static Log log = LogFactory.getLog(GenericDAO.class);
 
 	/** Generic instance field that holds the entity class-type of any concrete implementation. */
 	private final Class<T> persistentClass;
