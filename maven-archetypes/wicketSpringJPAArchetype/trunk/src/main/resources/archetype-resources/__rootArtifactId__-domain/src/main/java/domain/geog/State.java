@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 import ${package}.domain.BaseEntity;
 
@@ -21,8 +22,10 @@ public class State extends BaseEntity {
 	
 	/** The primary key of the State. */
 	@Id
-	@GeneratedValue
-	@Column(name = "STATE_ID", updatable = false, nullable = false)
+	@TableGenerator(name = "STATE_ID_GENERATOR", table = "PRIMARY_KEY_GENERATOR", pkColumnName = "GENERATOR_KEY", 
+			valueColumnName = "GENERATOR_VALUE", pkColumnValue = "STATE_ID")
+	@GeneratedValue(strategy = javax.persistence.GenerationType.TABLE, generator = "STATE_ID_GENERATOR")
+	@Column(name = "STATE_ID", nullable = false, updatable = false)
 	private Long id;
 	
 	/**
