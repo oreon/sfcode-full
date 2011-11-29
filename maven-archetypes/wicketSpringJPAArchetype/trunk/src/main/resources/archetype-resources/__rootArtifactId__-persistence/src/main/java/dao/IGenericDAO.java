@@ -30,6 +30,14 @@ public interface IGenericDAO<T, ID extends Serializable> {
 	T update(T entity);
 	
 	/**
+	 * Flag/Soft deletes an entity in the persistent store. That is the entity will still
+	 * be there in the persistence store but marked as deleted.
+	 * 
+	 * @param entity entity the entity to flag/soft delete
+	 */
+	void flagDelete(T entity);
+
+	/**
 	 * Deletes an entity from the persistent store.
 	 * 
 	 * @param entity the entity to delete

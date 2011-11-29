@@ -1,5 +1,7 @@
 package ${package}.biz.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -31,7 +33,57 @@ public class GeogManager implements IGeogManager {
 	}
 	
 	@Override
+	public Country updateCountry(Country country) {
+		return countryDAO.update(country);
+	}
+	
+	@Override
+	public void flagDeleteCountry(Country country) {
+		countryDAO.flagDelete(country);
+	}
+	
+	@Override
+	public Country findCountryById(Long countryId) {
+		return countryDAO.findById(countryId);
+	}
+	
+	@Override
+	public List<Country> findAllCountries() {
+		return countryDAO.findAll();
+	}
+	
+	@Override
+	public List<Country> findAllActiveCountries() {
+		return countryDAO.findAll();
+	}
+	
+	@Override
 	public State createState(State state) {
 		return stateDAO.create(state);
+	}
+	
+	@Override
+	public State updateState(State state) {
+		return stateDAO.create(state);
+	}
+	
+	@Override
+	public void flagDeleteState(State state) {
+		stateDAO.flagDelete(state);
+	}
+	
+	@Override
+	public State findStateById(Long stateId) {
+		return stateDAO.findById(stateId);
+	}
+	
+	@Override
+	public List<State> findAllStates() {
+		return stateDAO.findAll();
+	}
+	
+	@Override
+	public List<State> findAllActiveStates() {
+		return stateDAO.findAll();
 	}
 }
