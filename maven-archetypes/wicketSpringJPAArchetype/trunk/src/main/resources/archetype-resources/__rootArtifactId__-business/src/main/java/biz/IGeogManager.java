@@ -1,5 +1,7 @@
 package ${package}.biz;
 
+import java.util.List;
+
 import ${package}.domain.geog.Country;
 import ${package}.domain.geog.State;
 
@@ -9,7 +11,27 @@ import ${package}.domain.geog.State;
  */
 public interface IGeogManager {
 
-	public abstract Country createCountry(Country country);
+	Country createCountry(Country country);
+	
+	Country updateCountry(Country country);
+	
+	void flagDeleteCountry(Country country);
 
-	public abstract State createState(State state);
+	Country findCountryById(Long countryId);
+			
+	List<Country> findAllCountries();
+	
+	List<Country> findAllActiveCountries();
+	
+	State createState(State state);
+	
+	State updateState(State state);
+	
+	void flagDeleteState(State state);
+	
+	State findStateById(Long stateId);
+	
+	List<State> findAllStates();
+	
+	List<State> findAllActiveStates();
 }

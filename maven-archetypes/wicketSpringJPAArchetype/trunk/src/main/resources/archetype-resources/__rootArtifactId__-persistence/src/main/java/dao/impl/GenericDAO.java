@@ -75,6 +75,11 @@ public abstract class GenericDAO<T, ID extends Serializable>implements IGenericD
 	public T update(T entity) {
 		return this.entityManager.merge(entity);
 	}
+
+	@Override
+	public void flagDelete(T entity) {
+		this.entityManager.merge(entity);
+	}
 	
 	@Override
 	public void delete(T entity) {

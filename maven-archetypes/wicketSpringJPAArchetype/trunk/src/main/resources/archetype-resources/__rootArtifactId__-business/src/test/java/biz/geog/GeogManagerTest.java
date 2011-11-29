@@ -32,14 +32,32 @@ public class GeogManagerTest {
 	@Test
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void testCreateCountry() {
-		Country country = new Country();
-		geogManager.createCountry(country);
+		Country country1 = new Country();
+		country1.setActive(true);
+		country1.setCode("US");
+		country1.setName("United States");
+		geogManager.createCountry(country1);
+		
+		Country country2 = new Country();
+		country2.setActive(true);
+		country2.setCode("CA");
+		country2.setName("Canada");
+		geogManager.createCountry(country2);
 	}
 
 	@Test
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void testCreateState() {
-		State state = new State();
-		geogManager.createState(state);
+		State state1 = new State();
+		state1.setActive(true);
+		state1.setCode("AL");
+		state1.setName("Alberta");
+		geogManager.createState(state1);
+		
+		State state2 = new State();
+		state2.setActive(true);
+		state2.setCode("CA");
+		state2.setName("California");
+		geogManager.createState(state2);
 	}
 }
