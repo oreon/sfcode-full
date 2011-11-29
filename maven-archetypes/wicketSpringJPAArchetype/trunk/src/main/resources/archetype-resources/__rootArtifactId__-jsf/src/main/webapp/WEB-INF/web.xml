@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Web deployment descriptor. -->
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<display-name>---------------</display-name>
+
+	<!-- Context Parameter: javax.faces.STATE_SAVING_METHOD context paramter, is used to specify where the state should be saved (the client in this case). 
+		If you want to save the state on the server (this is the default in the Java Server Faces reference implementation), 
+		then specify server instead of client in the param-value. Note that if the state is saved on the client, 
+		the state of the entire view is rendered to a hidden field on the page.  
+		In short, server-side-state stores information held by the UI components (ie the "widgets") in the HTTP Session, 
+		while client-side state stores it in hidden fields in the page sent back to the user. 
+		Client-side-state scales much better for very large numbers of users, as no memory is required on the server for user state. 
+		However the disadvantage is that more data gets transferred across the network for each request. 
+		Any session-scoped managed beans still remain in the http session, even with client-side-state selected; 
+		this flag only affects where the JSF implementation stores data that the UI components hold internally.
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>client</param-value>
+	</context-param> -->
+
+	<!-- Context Parameter: Plugging the "Blue Sky" skin into the project. -->
+	<context-param>
+		<param-name>org.richfaces.skin</param-name>
+		<param-value>#{adminSkinAction.skin}</param-value>
+	</context-param>
+
+	<!-- Context Parameter: Making the RichFaces skin spread to standard HTML controls.
+	<context-param>
+		<param-name>org.richfaces.CONTROL_SKINNING</param-name>
+		<param-value>enable</param-value>
+	</context-param> -->
+
+	<!-- Context Parameter: JSF Default Suffix.
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param> -->
+	
+	<!-- Context Parameter: Facelets development mode (disable in production).
+	<context-param>
+		<param-name>facelets.DEVELOPMENT</param-name>
+		<param-value>true</param-value>
+	</context-param> -->
+	
+	<!-- Seam Listener.
+	<listener>
+		<listener-class>org.jboss.seam.servlet.SeamListener</listener-class>
+	</listener> -->
+	
+	<!-- Seam Filter Definition.
+	<filter>
+    	<filter-name>Seam Filter</filter-name>
+    	<filter-class>org.jboss.seam.servlet.SeamFilter</filter-class>
+    </filter> -->
+
+	<!-- Seam Filter Mapping.
+    <filter-mapping>
+    	<filter-name>Seam Filter</filter-name>
+    	<url-pattern>/*</url-pattern>
+    </filter-mapping> -->
+    
+	<!-- RichFaces Filter Definition.
+	<filter>
+		<display-name>RichFaces Filter</display-name>
+		<filter-name>richfaces</filter-name>
+		<filter-class>org.ajax4jsf.Filter</filter-class>
+	</filter> -->
+
+	<!-- RichFaces Filter Mapping.
+	<filter-mapping>
+		<filter-name>richfaces</filter-name>
+		<url-pattern>*.seam</url-pattern>
+	</filter-mapping> -->
+
+	<!-- JSF Faces Servlet Definition. -->
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- JSF Faces Servlet Mapping. -->
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.seam</url-pattern>
+	</servlet-mapping>
+
+	<!-- Welcome File List. -->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>
