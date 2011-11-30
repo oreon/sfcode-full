@@ -1,10 +1,11 @@
 package ${package};
 
-import org.apache.wicket.request.Request;
-import org.apache.wicket.request.Response;
 import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.request.Request;
+import org.apache.wicket.request.Response;
+import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
 import ${package}.home.HomePage;
 import ${package}.session.BaseSession;
@@ -28,16 +29,16 @@ public class BaseWebApplication extends WebApplication {
 	protected void init() {
 		super.init();
 		
-		//if (getConfigurationType().equals(WebApplication.DEPLOYMENT)) {
-			// Strip Wicket tags (<wicket:..>) and wicket:id attributes from output.
-			getMarkupSettings().setStripWicketTags(true);
-			
-			// Strip HTML comments during rendering.
-			getMarkupSettings().setStripComments(true);
-			
-			// Compress multiple tabs/spaces to a single space.
-			getMarkupSettings().setCompressWhitespace(true);
-		//}
+		// Strip Wicket tags (<wicket:..>) and wicket:id attributes from output.
+		getMarkupSettings().setStripWicketTags(true);
+		
+		// Strip HTML comments during rendering.
+		getMarkupSettings().setStripComments(true);
+		
+		// Compress multiple tabs/spaces to a single space.
+		getMarkupSettings().setCompressWhitespace(true);
+		
+		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
 	}
 	
 	@Override
