@@ -15,6 +15,9 @@ import ${package}.session.BaseSession;
  */
 public abstract class BaseWebPage extends WebPage {
 
+	/** Serialization version UID. */
+	private static final long serialVersionUID = -4415392743568491666L;
+
 	/**
      * Creates a new instance of <code>BaseWebPage</code>.
 	 *
