@@ -12,6 +12,9 @@ import ${package}.BaseWebPage;
  */
 public abstract class BaseErrorPage extends BaseWebPage {
 
+	/** Serialization version UID. */
+	private static final long serialVersionUID = -5760928742633296397L;
+
 	/**
      * Creates a new instance of <code>BaseErrorPage</code>.
 	 *
