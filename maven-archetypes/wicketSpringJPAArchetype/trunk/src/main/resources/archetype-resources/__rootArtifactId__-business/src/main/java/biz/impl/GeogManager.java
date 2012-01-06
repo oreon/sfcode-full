@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import ${package}.biz.IGeogManager;
@@ -28,16 +29,19 @@ public class GeogManager implements IGeogManager {
 	private IStateDAO stateDAO;
 	
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public Country createCountry(Country country) {
 		return countryDAO.create(country);
 	}
 	
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public Country updateCountry(Country country) {
 		return countryDAO.update(country);
 	}
 	
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void flagDeleteCountry(Country country) {
 		countryDAO.flagDelete(country);
 	}
@@ -58,16 +62,19 @@ public class GeogManager implements IGeogManager {
 	}
 	
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public State createState(State state) {
 		return stateDAO.create(state);
 	}
 	
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public State updateState(State state) {
 		return stateDAO.create(state);
 	}
 	
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void flagDeleteState(State state) {
 		stateDAO.flagDelete(state);
 	}

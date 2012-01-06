@@ -21,7 +21,7 @@ import ${package}.domain.geog.State;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"/junit-context.xml"})
+@ContextConfiguration({"/junitContext.xml"})
 @TransactionConfiguration(defaultRollback = false)
 @Transactional(readOnly = true)
 public class GeogManagerTest {

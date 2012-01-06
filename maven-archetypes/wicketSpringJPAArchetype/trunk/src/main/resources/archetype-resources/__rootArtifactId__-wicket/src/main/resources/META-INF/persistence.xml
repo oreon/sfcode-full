@@ -8,8 +8,10 @@
 	
 	<persistence-unit name="${rootArtifactId}PersistenceUnit" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>${package}.domain.geog.Country</class>
-		<class>${package}.domain.geog.State</class>
+
+		<!-- Tell JPA provider the path to the jar file in order to auto scan entities. -->
+		<jar-file>../lib/${rootArtifactId}-domain-1.0.0.jar</jar-file>
+
 		<properties>
 			<!-- <property name="hibernate.hbm2ddl.auto" value="create" /> -->
          	<property name="hibernate.hbm2ddl.auto" value="update" />
