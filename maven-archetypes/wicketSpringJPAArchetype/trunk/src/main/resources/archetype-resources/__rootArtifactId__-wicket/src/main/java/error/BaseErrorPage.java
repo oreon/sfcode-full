@@ -23,4 +23,16 @@ public abstract class BaseErrorPage extends BaseWebPage {
 	public BaseErrorPage(final PageParameters pageParameters) {
 		super(pageParameters);
 	}
+	
+	@Override
+	public boolean isErrorPage() {
+		return true;
+	}
+	
+	/**
+	 * All subclasses of this class must implement this method to provide the HTTP status error code.
+	 * 
+	 * @return returns error code
+	 */
+	public abstract int getHttpStatusErrorCode();
 }
