@@ -5,7 +5,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import ${package}.common.FooterPanel;
 import ${package}.common.HeaderPanel;
-import ${package}.session.BaseSession;
+import ${package}.session.${webSessionClassName};
 
 /**
  * Abstract base web page class for all web pages common elements.
@@ -30,7 +30,7 @@ public abstract class BaseWebPage extends WebPage {
 		add(new FooterPanel("footerPanel"));
 	}
 
-	public BaseSession getBaseSession() {
-		return (BaseSession) getSession();
+	public ${webSessionClassName} getWebSession() {
+		return (${webSessionClassName}) getSession();
 	}
 }

@@ -2,7 +2,7 @@ package ${package};
 
 import org.apache.wicket.markup.html.panel.Panel;
 
-import ${package}.session.BaseSession;
+import ${package}.session.${webSessionClassName};
 
 /**
  * Abstract base panel class for all panels.
@@ -24,7 +24,7 @@ public abstract class BasePanel extends Panel {
 		super(panelId);
 	}
 
-	public BaseSession getBaseSession() {
-		return (BaseSession) getSession();
+	public ${webSessionClassName} getWebSession() {
+		return (${webSessionClassName}) getSession();
 	}
 }
