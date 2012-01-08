@@ -10,16 +10,16 @@ import org.apache.wicket.protocol.http.WebSession;
  * @author Kamalpreet Singh
  *
  */
-public class BaseSession extends WebSession {
+public class ${webSessionClassName} extends WebSession {
 
 	/** Serialization version UID. */
 	private static final long serialVersionUID = 2849000994827417011L;
 
-	public BaseSession(Request request) {
+	public ${webSessionClassName}(Request request) {
 		super(request);
 	}
 
-	public static BaseSession get() {
-		return (BaseSession) Session.get();
+	public static ${webSessionClassName} get() {
+		return (${webSessionClassName}) Session.get();
 	}
 }

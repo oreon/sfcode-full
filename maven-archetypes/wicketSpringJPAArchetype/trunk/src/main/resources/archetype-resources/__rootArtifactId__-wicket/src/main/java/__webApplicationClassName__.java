@@ -11,20 +11,20 @@ import ${package}.error.ForbiddenErrorPage;
 import ${package}.error.InternalServerErrorPage;
 import ${package}.error.NotFoundErrorPage;
 import ${package}.home.HomePage;
-import ${package}.session.BaseSession;
+import ${package}.session.${webSessionClassName};
 
 /**
- * Base web application class.
+ * Web application class.
  * 
  * @author Kamalpreet Singh
  *
  */
-public class BaseWebApplication extends WebApplication {
+public class ${webApplicationClassName} extends WebApplication {
 
 	/**
      * Default constructor.
      */
-	public BaseWebApplication() {
+	public ${webApplicationClassName}() {
 
 	}
 	
@@ -62,7 +62,7 @@ public class BaseWebApplication extends WebApplication {
 	
 	@Override
 	public Session newSession(Request request, Response response) {
-		return new BaseSession(request);
+		return new ${webSessionClassName}(request);
 	}
 
 	@Override

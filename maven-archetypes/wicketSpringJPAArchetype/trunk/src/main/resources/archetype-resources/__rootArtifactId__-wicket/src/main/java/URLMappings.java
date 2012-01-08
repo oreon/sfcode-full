@@ -8,7 +8,7 @@ package ${package};
  */
 public class URLMappings { //extends CompoundRequestMapper {
 	
-	public URLMappings(BaseWebApplication baseWebApplication) {
+	public URLMappings(${webApplicationClassName} webApplication) {
 		//addPage("error/403", ForbiddenErrorPage.class);
 	    //addPage("error/404", NotFoundErrorPage.class);
         //addPage("error/500", InternalServerErrorPage.class);
