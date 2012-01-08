@@ -26,7 +26,7 @@
     	<param-value>parentContext</param-value>
 	</context-param>
 
-	<!-- Wicket Filter Definition. -->
+	<!-- Wicket filter definition. -->
 	<filter>
 		<filter-name>WicketFilter</filter-name>
 		<filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
@@ -36,7 +36,7 @@
 		</init-param>
 	</filter>
 
-	<!-- Wicket Filter Mapping. -->
+	<!-- Wicket filter mapping. -->
 	<filter-mapping>
 		<filter-name>WicketFilter</filter-name>
 		<url-pattern>/*</url-pattern>
@@ -46,5 +46,23 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+
+	<!-- Forbidden error page. -->
+	<error-page>
+		<error-code>403</error-code>
+		<location>/error/403</location>
+	</error-page>
+
+	<!-- Not found error page. -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/404</location>
+	</error-page>
+
+	<!-- Internal server error page. -->
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error/500</location>
+	</error-page>
 
 </web-app>
