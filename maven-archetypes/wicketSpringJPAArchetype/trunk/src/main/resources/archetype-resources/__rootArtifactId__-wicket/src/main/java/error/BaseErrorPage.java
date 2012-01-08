@@ -1,5 +1,6 @@
 package ${package}.error;
 
+import org.apache.wicket.request.http.WebResponse;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import ${package}.BaseWebPage;
@@ -24,6 +25,13 @@ public abstract class BaseErrorPage extends BaseWebPage {
 		super(pageParameters);
 	}
 	
+	@Override
+	public void configureResponse(final WebResponse webResponse) {
+		super.configureResponse(webResponse);
+		
+		webResponse.setStatus(getHttpStatusErrorCode());
+	}
+
 	@Override
 	public boolean isErrorPage() {
 		return true;
