@@ -90,7 +90,7 @@ p, h1, form, button {
 
         $('#butCallAjax').click(function () {
             jQuery.support.cors = true;
-           // alert('ivoked');
+            	alert('ivoked');
 
             $.ajax(
                 {
@@ -100,8 +100,8 @@ p, h1, form, button {
                     contentType: "application/xml; charset=utf-8",
                     dataType: "xml",
                     success: function (data) {
-
-                     //   alert('success');
+						alert('succ');
+                        alert(data);
                         $.each(data, function (i, theItem) {
                         	alert(theItem);	
                             var combo = document.getElementById("cboFastBikes");
