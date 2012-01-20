@@ -1,10 +1,14 @@
 package org.wc.vaadplay.vaadplay.domain;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Person {
@@ -13,12 +17,18 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+  //  @NotNull
     private String firstName;
+    
     private String lastName;
     private String street;
     private String city;
     private String zipCode;
     private String phoneNumber;
+    
+    @Temporal(TemporalType.DATE)
+    private Date dob;
+    
     @ManyToOne
     private Person boss;
 
@@ -111,5 +121,13 @@ public class Person {
     public int hashCode() {
         return id == null ? 0 : id.hashCode();
     }
+
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+
+	public Date getDob() {
+		return dob;
+	}
 
 }
