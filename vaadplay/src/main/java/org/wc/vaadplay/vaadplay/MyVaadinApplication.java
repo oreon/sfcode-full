@@ -34,6 +34,8 @@ public class MyVaadinApplication extends Application {
 	class AutoCrudViews extends Window {
 		
 		public AutoCrudViews() {
+			setTheme("runo");
+
 			final HorizontalSplitPanel horizontalSplitPanel = new HorizontalSplitPanel();
 			Tree navTree = new Tree();
 			navTree.addListener(new Property.ValueChangeListener() {
@@ -68,9 +70,10 @@ public class MyVaadinApplication extends Application {
 				navTree.addItem(view);
 				navTree.setItemCaption(view, view.getCaption());
 				navTree.setChildrenAllowed(view, false);
+				
 				if(javaType == Person.class) {
 					view.setVisibleTableProperties("firstName","lastName", "boss");
-					view.setVisibleFormProperties("firstName","lastName", "phoneNumber", "street", "city", "zipCode", "boss");
+					view.setVisibleFormProperties("firstName","lastName", "phoneNumber", "street", "city", "zipCode", "boss", "dob");
 				}
 
 			}
