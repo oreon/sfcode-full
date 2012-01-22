@@ -24,7 +24,7 @@ public abstract class BasePanel extends Panel {
 		super(panelId);
 	}
 
-	public ${webSessionClassName} getWebSession() {
+	public ${webSessionClassName} get${webSessionClassName}() {
 		return (${webSessionClassName}) getSession();
 	}
 }

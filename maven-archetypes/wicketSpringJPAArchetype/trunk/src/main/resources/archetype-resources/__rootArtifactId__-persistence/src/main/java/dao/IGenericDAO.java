@@ -73,7 +73,7 @@ public interface IGenericDAO<T, ID extends Serializable> {
 	 * @param parameters
 	 * @return
 	 */
-	//<S> S executeSingleResultQuery(String queryString, Object... parameters);
+	<S> S executeSingleResultQuery(String queryString, Object... parameters);
 	
 	/**
 	 * Find entities based on an example.
