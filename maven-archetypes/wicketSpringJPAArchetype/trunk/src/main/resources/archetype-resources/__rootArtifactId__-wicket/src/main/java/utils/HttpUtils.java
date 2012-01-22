@@ -14,9 +14,11 @@ import org.apache.wicket.request.cycle.RequestCycle;
  */
 public class HttpUtils {
 
-	/**
+    /**
      * Returns the {@link HttpServletRequest} associated with the current request, 
      * or {@code null} if not found.
+     * 
+     * @return returns the {@link HttpServletRequest} associated with the current request, or {@code null} if not found.
      */
     public static HttpServletRequest getHttpServletRequest() {
         Object request = RequestCycle.get().getRequest().getContainerRequest();
@@ -31,6 +33,8 @@ public class HttpUtils {
     /**
      * Returns the {@link HttpServletResponse} associated with the current request, 
      * or {@code null} if not found.
+     * 
+     * @return returns the {@link HttpServletResponse} associated with the current request, or {@code null} if not found.
      */
     public static HttpServletResponse getHttpServletResponse() {
         Object response = RequestCycle.get().getResponse().getContainerResponse();

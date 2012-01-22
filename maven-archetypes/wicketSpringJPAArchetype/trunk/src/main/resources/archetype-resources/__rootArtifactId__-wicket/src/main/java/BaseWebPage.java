@@ -30,7 +30,7 @@ public abstract class BaseWebPage extends WebPage {
 		add(new FooterPanel("footerPanel"));
 	}
 
-	public ${webSessionClassName} getWebSession() {
+	public ${webSessionClassName} get${webSessionClassName}() {
 		return (${webSessionClassName}) getSession();
 	}
 }

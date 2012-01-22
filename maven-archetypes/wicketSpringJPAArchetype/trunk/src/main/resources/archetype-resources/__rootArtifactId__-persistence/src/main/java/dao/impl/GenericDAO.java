@@ -5,6 +5,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -106,15 +107,15 @@ public abstract class GenericDAO<T, ID extends Serializable>implements IGenericD
 		return query.getResultList();
 	}*/
 	
-	/*@Override
+	@Override
 	@SuppressWarnings("unchecked")
 	public <S> S executeSingleResultQuery(String queryString, Object... parameters) {
 		Query query = entityManager.createQuery(queryString);
 		setQueryParameters(query, parameters);
 		return (S) executeSingleResultQuery(query);
-	}*/
+	}
 	
-	/*@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	private <S> S executeSingleResultQuery(Query query) {
 		try {
 			return (S) query.getSingleResult();
@@ -122,19 +123,19 @@ public abstract class GenericDAO<T, ID extends Serializable>implements IGenericD
 			//log.info("No " + "record " + " found !");
 			return null;
 		}
-	}*/
+	}
 	
 	/**
 	 * @param query
 	 * @param parameters
 	 */
-	/*private void setQueryParameters(Query query, Object... parameters) {
+	private void setQueryParameters(Query query, Object... parameters) {
 		int counter = 1;
 		
 		for (Object parameter : parameters) {
 			query.setParameter(counter++, parameter);
 		}
-	}*/
+	}
 	
 	/*@Override
 	public List<T> findByExample(T exampleInstance) {
