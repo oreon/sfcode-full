@@ -1,5 +1,7 @@
 package ${package}.dao.geog;
 
+import java.util.List;
+
 import ${package}.dao.IGenericDAO;
 import ${package}.domain.geog.State;
 
@@ -9,4 +11,5 @@ import ${package}.domain.geog.State;
  */
 public interface IStateDAO extends IGenericDAO<State, Long> {
 
+	List<State> findAllActiveStates();
 }

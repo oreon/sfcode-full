@@ -41,12 +41,6 @@ public class GeogManager implements IGeogManager {
 	}
 	
 	@Override
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void flagDeleteCountry(Country country) {
-		countryDAO.flagDelete(country);
-	}
-	
-	@Override
 	public Country findCountryById(Long countryId) {
 		return countryDAO.findById(countryId);
 	}
@@ -58,7 +52,7 @@ public class GeogManager implements IGeogManager {
 	
 	@Override
 	public List<Country> findAllActiveCountries() {
-		return countryDAO.findAll();
+		return countryDAO.findAllActiveCountries();
 	}
 	
 	@Override
@@ -74,12 +68,6 @@ public class GeogManager implements IGeogManager {
 	}
 	
 	@Override
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void flagDeleteState(State state) {
-		stateDAO.flagDelete(state);
-	}
-	
-	@Override
 	public State findStateById(Long stateId) {
 		return stateDAO.findById(stateId);
 	}
@@ -91,6 +79,6 @@ public class GeogManager implements IGeogManager {
 	
 	@Override
 	public List<State> findAllActiveStates() {
-		return stateDAO.findAll();
+		return stateDAO.findAllActiveStates();
 	}
 }

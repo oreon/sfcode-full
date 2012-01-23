@@ -15,8 +15,6 @@ public interface IGeogManager {
 	
 	Country updateCountry(Country country);
 	
-	void flagDeleteCountry(Country country);
-
 	Country findCountryById(Long countryId);
 			
 	List<Country> findAllCountries();
@@ -26,8 +24,6 @@ public interface IGeogManager {
 	State createState(State state);
 	
 	State updateState(State state);
-	
-	void flagDeleteState(State state);
 	
 	State findStateById(Long stateId);
 	

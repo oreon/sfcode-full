@@ -30,14 +30,6 @@ public interface IGenericDAO<T, ID extends Serializable> {
 	T update(T entity);
 	
 	/**
-	 * Flag/Soft deletes an entity in the persistent store. That is the entity will still
-	 * be there in the persistence store but marked as deleted.
-	 * 
-	 * @param entity entity the entity to flag/soft delete
-	 */
-	void flagDelete(T entity);
-
-	/**
 	 * Deletes an entity from the persistent store.
 	 * 
 	 * @param entity the entity to delete
@@ -60,20 +52,18 @@ public interface IGenericDAO<T, ID extends Serializable> {
 	List<T> findAll();
 	
 	/**
-	 * @param <S>
 	 * @param queryString
 	 * @param parameters
 	 * @return
 	 */
-	//<S> List<S> executeQuery(String queryString, Object... parameters);
+	List<T> executeQuery(String queryString, Object... parameters);
 	
 	/**
-	 * @param <S>
 	 * @param queryString
 	 * @param parameters
 	 * @return
 	 */
-	<S> S executeSingleResultQuery(String queryString, Object... parameters);
+	T executeSingleResultQuery(String queryString, Object... parameters);
 	
 	/**
 	 * Find entities based on an example.
