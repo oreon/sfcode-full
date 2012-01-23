@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'firstNameEdit')}"/>  
+        <br/>  
+        <h:inputText id="firstName" value="#{candidateAction.candidate.firstName}"/>  
+        <rich:message styleClass="error errors" for="firstName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'firstNameEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_lastName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'lastNameEdit')}"/>  
+        <br/>  
+        <h:inputText id="lastName" value="#{candidateAction.candidate.lastName}"/>  
+        <rich:message styleClass="error errors" for="lastName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'lastNameEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'phoneEdit')}"/>  
+        <br/>  
+        <h:inputText id="contactDetails_phone" value="#{candidateAction.candidate.contactDetails.phone}"/>  
+        <rich:message styleClass="error errors" for="contactDetails_phone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'phoneEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'secondaryPhoneEdit')}"/>  
+        <br/>  
+        <h:inputText id="contactDetails_secondaryPhone" value="#{candidateAction.candidate.contactDetails.secondaryPhone}"/>  
+        <rich:message styleClass="error errors" for="contactDetails_secondaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'secondaryPhoneEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'cityEdit')}"/>  
+        <br/>  
+        <h:inputText id="contactDetails_city" value="#{candidateAction.candidate.contactDetails.city}"/>  
+        <rich:message styleClass="error errors" for="contactDetails_city" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'cityEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.candidate_availibility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'availibilityEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="availibility" value="#{candidateAction.candidate.availibility}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="IMMEDIATE" itemLabel="Immediate"/>  
+          <f:selectItem itemValue="TWO_WEEKS" itemLabel="Two_weeks"/>  
+          <f:selectItem itemValue="FOUR_WEEKS" itemLabel="Four_weeks"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="availibility" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'availibilityEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.candidate_preferredJobType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'preferredJobTypeEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="preferredJobType" value="#{candidateAction.candidate.preferredJobType}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="CONTRACT" itemLabel="Contract"/>  
+          <f:selectItem itemValue="PERMANENT" itemLabel="Permanent"/>  
+          <f:selectItem itemValue="EITHER" itemLabel="Either"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="preferredJobType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'preferredJobTypeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.candidate_chiefExpertiese}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'chiefExpertieseEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="chiefExpertiese" value="#{candidateAction.candidate.chiefExpertiese}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="JAVA" itemLabel="Java"/>  
+          <f:selectItem itemValue="DOT_NET" itemLabel="Dot_net"/>  
+          <f:selectItem itemValue="PHP" itemLabel="Php"/>  
+          <f:selectItem itemValue="PROJECT_MANAGEMENT" itemLabel="Project_management"/>  
+          <f:selectItem itemValue="BUSINESS_ANALYST" itemLabel="Business_analyst"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="chiefExpertiese" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'chiefExpertieseEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.candidate_educationLevel}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'educationLevelEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="educationLevel" value="#{candidateAction.candidate.educationLevel}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="HIGH_SCHOOL" itemLabel="High_school"/>  
+          <f:selectItem itemValue="DIPLOMA" itemLabel="Diploma"/>  
+          <f:selectItem itemValue="UNDER_GRAD" itemLabel="Under_grad"/>  
+          <f:selectItem itemValue="GRAD" itemLabel="Grad"/>  
+          <f:selectItem itemValue="PHD" itemLabel="Phd"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="educationLevel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'educationLevelEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.candidate_resumeFile}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'resumeFileEdit')}"/>  
+        <br/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.candidate_textResume}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'textResumeEdit')}"/>  
+        <br/>  
+        <rich:editor id="textResume" value="#{candidateAction.candidate.textResume}"/>  
+        <rich:message styleClass="error errors" for="textResume" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'textResumeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.appUser_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'userNameEdit')}"/>  
+        <br/>  
+        <h:inputText id="appUser_userName" value="#{candidateAction.candidate.appUser.userName}"/>  
+        <rich:message styleClass="error errors" for="appUser_userName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'userNameEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'enabledEdit')}"/>  
+        <br/>  
+        <h:selectBooleanCheckbox id="appUser_enabled" value="#{candidateAction.candidate.appUser.enabled}"/>  
+        <rich:message styleClass="error errors" for="appUser_enabled" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'enabledEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.appUser_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'emailEdit')}"/>  
+        <br/>  
+        <h:inputText id="appUser_email" value="#{candidateAction.candidate.appUser.email}"/>  
+        <rich:message styleClass="error errors" for="appUser_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'emailEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.appUser_lastLogin}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'lastLoginEdit')}"/>  
+        <br/>  
+        <rich:calendar id="appUser_lastLogin" value="#{candidateAction.candidate.appUser.lastLogin}"/>  
+        <rich:message styleClass="error errors" for="appUser_lastLogin" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'lastLoginEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

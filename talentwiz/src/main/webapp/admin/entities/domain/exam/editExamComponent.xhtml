@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editExamComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{examAction.load(examId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Exam}"/> 
+        </f:facet>  
+        <s:decorate id="titleDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.exam_title} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'titleEdit')}"/>
+          </ui:define>  
+          <h:inputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'titleEdit')}" label="#{msg.exam_title}" required="true" disabled="false" value="#{examAction.exam.title}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.exam_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'descriptionEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'descriptionEdit')}" label="#{msg.exam_description}" required="false" disabled="false" value="#{examAction.exam.description}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <a:commandButton value="New Question" action="#{examAction.addQuestions}" reRender="questions" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'questionsEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="questions" var="_question" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'questionsEdit')}" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'textEdit')}"/>
+          </f:facet>  
+          <s:decorate id="textDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <rich:editor useSeamText="true" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'textEdit')}" label="#{msg.question_text}" required="false" disabled="false" value="#{_question.text}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </rich:editor> 
+          </s:decorate> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New Question" action="#{examAction.addQuestions}" reRender="questions" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'questionsEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{examAction.deleteQuestions(rowIndex)}" reRender="questions"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

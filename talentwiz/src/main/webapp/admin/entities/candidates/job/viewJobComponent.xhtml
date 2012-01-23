@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewJobComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{jobAction.load(jobId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Job}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.job_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'titleView')}"/>  
+        <h:outputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'titleView')}" value="#{jobAction.job.title}"></h:outputText>  
+        <h:outputText value="#{msg.job_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'descriptionView')}"/>  
+        <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'descriptionView')}" value="#{jobAction.job.description}"></h:outputText>  
+        <h:outputText value="#{msg.job_client}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'clientView')}"/>  
+        <s:link value="#{jobAction.job.client.displayName}" action="viewclient" propagation="none"> 
+          <f:param name="clientId" value="#{jobAction.job.client.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

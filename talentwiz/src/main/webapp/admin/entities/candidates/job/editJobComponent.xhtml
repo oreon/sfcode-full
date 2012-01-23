@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editJobComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{jobAction.load(jobId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Job}"/> 
+        </f:facet>  
+        <s:decorate id="titleDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.job_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'titleEdit')}"/>
+          </ui:define>  
+          <h:inputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'titleEdit')}" label="#{msg.job_title}" required="false" disabled="false" value="#{jobAction.job.title}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.job_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'descriptionEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'descriptionEdit')}" label="#{msg.job_description}" required="false" disabled="false" value="#{jobAction.job.description}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="clientDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.job_client} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'clientEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="client" label="#{msg.job_client}" value="#{jobAction.job.client}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'clientEdit')}" disabled="false"> 
+            <s:selectItems value="#{clientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

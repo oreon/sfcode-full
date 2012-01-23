@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewJobApplicationComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{jobApplicationAction.load(jobApplicationId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.JobApplication}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.jobApplication_candidate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('jobApplication', 'candidateView')}"/>  
+        <s:link value="#{jobApplicationAction.jobApplication.candidate.displayName}" action="viewcandidate" propagation="none"> 
+          <f:param name="candidateId" value="#{jobApplicationAction.jobApplication.candidate.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.jobApplication_job}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('jobApplication', 'jobView')}"/>  
+        <s:link value="#{jobApplicationAction.jobApplication.job.displayName}" action="viewjob" propagation="none"> 
+          <f:param name="jobId" value="#{jobApplicationAction.jobApplication.job.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
